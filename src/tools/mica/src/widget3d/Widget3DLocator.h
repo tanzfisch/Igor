@@ -50,7 +50,7 @@ public:
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3DLocator(iWindow *window, iView *view, iScenePtr scene);
+	Widget3DLocator(iWindowPtr window, iView *view, iScenePtr scene);
 
 	/*! cleanup
 	*/

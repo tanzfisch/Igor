@@ -4,7 +4,6 @@
 
 #include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/system/iWindow.h>
 #include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/renderer/iRenderer2.h>
@@ -81,7 +80,7 @@ namespace igor
         return _renderStatisticsMode;
     }
 
-    void iProfilerVisualizer::draw(iWindow *window, const iTextureFontPtr &font)
+    void iProfilerVisualizer::draw(iWindowPtr window, const iTextureFontPtr &font)
     {
         if (_renderStatisticsMode == iProfilerVerbosity::None)
         {

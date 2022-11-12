@@ -71,7 +71,7 @@ namespace igor
         public:
             /*! window connected to render context
             */
-            iWindow *_window = nullptr;
+            iWindowPtr _window = nullptr;
 
             /*! flag to control the render context thread
             */
@@ -231,20 +231,20 @@ namespace igor
 
         \param window the window the render contexts are connected with
         */
-        void createRenderContextThreads(iWindow *window);
+        void createRenderContextThreads(iWindowPtr window);
 
         /*! creates a render context thread
 
         \param window the window this render context is connected to
         \returns true if success
         */
-        bool createRenderContextThread(iWindow *window);
+        bool createRenderContextThread(iWindowPtr window);
 
         /*! kills all render context tasks and threads that are associated with a specified window
 
         \param window the window these tasks and threads are associated with 
         */
-        void killRenderContextThreads(iWindow *window);
+        void killRenderContextThreads(iWindowPtr window);
 
         /*! creates a regular thread
         */

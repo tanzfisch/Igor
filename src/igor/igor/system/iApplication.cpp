@@ -208,14 +208,14 @@ namespace igor
         _layerStack.removeLayer(layer);
     }
 
-    iWindowPtr iApplication::createWindow()
+    iWindowPtr iApplication::createWindow(const iaString& title)
     {
-        iWindowPtr window = new iWindow();
+        iWindowPtr window = new iWindow(title);
         _windows.push_back(window);
         return window;
     }
 
-    void iApplication::destroyWindow(iWindow *window)
+    void iApplication::destroyWindow(iWindowPtr window)
     {
         con_assert(window != nullptr, "zero pointer");
         if (window == nullptr)
@@ -235,7 +235,7 @@ namespace igor
         }
     }
 
-    iWindow *iApplication::getWindow(iWindowID windowID) const
+    iWindowPtr iApplication::getWindow(iWindowID windowID) const
     {
         auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window)
                                  { return window->getID() == windowID; });

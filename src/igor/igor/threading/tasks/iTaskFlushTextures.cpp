@@ -12,7 +12,7 @@
 namespace igor
 {
 
-    iTaskFlushTextures::iTaskFlushTextures(iWindow *window)
+    iTaskFlushTextures::iTaskFlushTextures(iWindowPtr window)
         : iTask(window, iTask::DEFAULT_PRIORITY, true, iTaskContext::RenderContext)
     {
     }

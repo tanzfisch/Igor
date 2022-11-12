@@ -45,7 +45,7 @@ namespace igor
 
         \param model the model to load
         */
-        iTaskLoadModel(iWindow *window, iModelPtr model, iTaskContext taskContext, uint32 priority);
+        iTaskLoadModel(iWindowPtr window, iModelPtr model, iTaskContext taskContext, uint32 priority);
 
         /*! does nothing
         */

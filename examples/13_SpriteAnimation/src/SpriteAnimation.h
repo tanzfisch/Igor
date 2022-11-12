@@ -66,7 +66,7 @@ public:
 
 	\param window the given window
     */
-	SpriteAnimation(iWindow *window);
+	SpriteAnimation(iWindowPtr window);
 
 	/*! does nothing
     */

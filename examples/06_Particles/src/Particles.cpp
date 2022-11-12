@@ -4,7 +4,7 @@
 
 #include "Particles.h"
 
-Particles::Particles(iWindow *window)
+Particles::Particles(iWindowPtr window)
     : ExampleBase(window, "Particles")
 {
 }

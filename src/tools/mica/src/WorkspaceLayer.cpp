@@ -1,6 +1,6 @@
 #include "WorkspaceLayer.h"
 
-WorkspaceLayer::WorkspaceLayer(iWindow *window, int32 zIndex, WorkspacePtr workspace)
+WorkspaceLayer::WorkspaceLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
     : iLayer(window, "Workspace", zIndex), _workspace(workspace)
 {
 }

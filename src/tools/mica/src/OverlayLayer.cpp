@@ -1,6 +1,6 @@
 #include "OverlayLayer.h"
 
-OverlayLayer::OverlayLayer(iWindow *window, int32 zIndex, WorkspacePtr workspace)
+OverlayLayer::OverlayLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
     : iLayer(window, "Overlay", zIndex), _workspace(workspace)
 {
 }

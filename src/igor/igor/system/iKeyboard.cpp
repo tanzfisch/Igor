@@ -169,7 +169,7 @@ namespace igor
 
     protected:
         bool _keys[static_cast<uint32>(iKeyCode::KeyCodeCount)];
-        iWindow *_window = nullptr;
+        iWindowPtr _window = nullptr;
     };
 
 #ifdef __IGOR_WINDOWS__
@@ -961,7 +961,7 @@ namespace igor
         return iKeyCode::Undefined;
     }
 
-    iWindow *iKeyboard::getWindow() const
+    iWindowPtr iKeyboard::getWindow() const
     {
         return _impl->_window;
     }

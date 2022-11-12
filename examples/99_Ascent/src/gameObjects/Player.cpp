@@ -274,7 +274,7 @@ iaVector3d Player::getCurrentPos()
     return result;
 }
 
-void Player::drawReticle(iWindow *window)
+void Player::drawReticle(iWindowPtr window)
 {
     iaVector3f weaponPos(window->getClientWidth() * 0.5, window->getClientHeight() * 0.5, 0);
 

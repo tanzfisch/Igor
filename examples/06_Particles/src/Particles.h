@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    Particles(iWindow *window);
+    Particles(iWindowPtr window);
 
     /*! does nothing
     */

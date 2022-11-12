@@ -11,7 +11,7 @@ int main()
 	startup();
 
 	// create window and open it
-	iWindow *window = iApplication::getInstance().createWindow();
+	iWindowPtr window = iApplication::getInstance().createWindow("Igor - Widgets Example");
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->open();

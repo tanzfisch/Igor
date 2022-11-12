@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    VoxelExample(iWindow *window);
+    VoxelExample(iWindowPtr window);
 
     /*! does nothing
     */

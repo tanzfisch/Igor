@@ -43,7 +43,7 @@ public:
 
     \param window the given window
     */
-    Example2D(iWindow *window);
+    Example2D(iWindowPtr window);
 
     /*! does nothing
     */

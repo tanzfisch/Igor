@@ -327,7 +327,7 @@ namespace igor
         return result;
     }
 
-    bool iModelResourceFactory::flush(iWindow *window, iResourceCacheMode cacheModeLevel)
+    bool iModelResourceFactory::flush(iWindowPtr window, iResourceCacheMode cacheModeLevel)
     {
         bool result = true;
 

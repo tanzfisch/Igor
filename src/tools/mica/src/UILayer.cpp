@@ -24,7 +24,7 @@
 */
 static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
 
-UILayer::UILayer(iWindow *window, int32 zIndex, WorkspacePtr workspace)
+UILayer::UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
     : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", zIndex), _workspace(workspace)
 {
 }

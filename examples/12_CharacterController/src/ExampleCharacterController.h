@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    ExampleCharacterController(iWindow *window);
+    ExampleCharacterController(iWindowPtr window);
 
     /*! does nothing
     */

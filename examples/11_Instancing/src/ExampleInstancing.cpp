@@ -18,7 +18,7 @@
 #include <igor/system/iMouse.h>
 using namespace igor;
 
-ExampleInstancing::ExampleInstancing(iWindow *window)
+ExampleInstancing::ExampleInstancing(iWindowPtr window)
     : ExampleBase(window, "Instacing")
 {
 }

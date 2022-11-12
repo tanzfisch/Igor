@@ -42,7 +42,7 @@ using namespace iaux;
 #include <igor/scene/nodes/iNodePhysics.h>
 using namespace igor;
 
-ExampleCharacterController::ExampleCharacterController(iWindow *window)
+ExampleCharacterController::ExampleCharacterController(iWindowPtr window)
     : ExampleBase(window, "Character Controller", true, false)
 {
 }

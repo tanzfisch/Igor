@@ -6,7 +6,7 @@
 
 #include <sstream>
 
-Example2D::Example2D(iWindow *window)
+Example2D::Example2D(iWindowPtr window)
     : ExampleBase(window, "2D Interfaces")
 {
 }
@@ -190,10 +190,8 @@ void Example2D::onRenderOrtho()
             iRenderer2::getInstance().drawPoint(static_cast<float32>(230 + x * 10), static_cast<float32>(20 + y * 10), iaColor4f(1, 1, 0, 1));
         }
     }
-
-    // doughnuts <3
+   
     iRenderer2::getInstance().setBlendingActive(true);
-    iRenderer2::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex);
 
     // draw the texture that we could not have loaded at startup
     iRenderer2::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture);
@@ -237,4 +235,8 @@ void Example2D::onRenderOrtho()
     }
 
     ExampleBase::onRenderOrtho();
+
+    // doughnuts <3
+    iRenderer2::getInstance().setBlendingActive(true);
+    iRenderer2::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex);    
 }

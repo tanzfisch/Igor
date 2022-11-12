@@ -4,7 +4,7 @@
 
 #include "Example3D.h"
 
-Example3D::Example3D(iWindow *window)
+Example3D::Example3D(iWindowPtr window)
     : ExampleBase(window, "3D Scene")
 {
 }

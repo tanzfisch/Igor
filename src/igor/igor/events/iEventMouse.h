@@ -46,7 +46,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyDown(iWindow *window, const iKeyCode key);
+        iEventMouseKeyDown(iWindowPtr window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -78,7 +78,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyUp(iWindow *window, const iKeyCode key);
+        iEventMouseKeyUp(iWindowPtr window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -110,7 +110,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyDoubleClick(iWindow *window, const iKeyCode key);
+        iEventMouseKeyDoubleClick(iWindowPtr window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -142,7 +142,7 @@ namespace igor
         \param window the window this event came from
         \param wheelDelta the wheel delta
         */
-        iEventMouseWheel(iWindow *window, const int32 wheelDelta);
+        iEventMouseWheel(iWindowPtr window, const int32 wheelDelta);
 
         /*! \returns event kind mask
         */
@@ -175,7 +175,7 @@ namespace igor
         \param from the old mouse position
         \param to the new mouse position
         */
-        iEventMouseMove(iWindow *window, const iaVector2i &from, const iaVector2i &to);
+        iEventMouseMove(iWindowPtr window, const iaVector2i &from, const iaVector2i &to);
 
         /*! \returns event kind mask
         */

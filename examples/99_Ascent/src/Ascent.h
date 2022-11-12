@@ -18,7 +18,7 @@ public:
 
     \param window the given window
     */
-    Ascent(iWindow *window);
+    Ascent(iWindowPtr window);
     ~Ascent() = default;
 
 private:

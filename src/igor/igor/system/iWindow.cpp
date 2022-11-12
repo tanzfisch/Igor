@@ -39,7 +39,7 @@ namespace igor
         friend class iWindow;
 
     public:
-        iWindowImpl(iWindow *window) { _window = window; }
+        iWindowImpl(iWindowPtr window) { _window = window; }
         virtual ~iWindowImpl() = default;
 
         virtual void calcClientSize() = 0;
@@ -76,7 +76,7 @@ namespace igor
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowResize(_window, width, height)));
         }
 
-        __IGOR_INLINE__ static iWindowImpl *getImpl(iWindow *window)
+        __IGOR_INLINE__ static iWindowImpl *getImpl(iWindowPtr window)
         {
             return window->_impl;
         }
@@ -142,7 +142,7 @@ namespace igor
 
         /*! window handle
          */
-        iWindow *_window = nullptr;
+        iWindowPtr _window = nullptr;
     };
 
 #ifdef __IGOR_WINDOWS__
@@ -155,7 +155,7 @@ namespace igor
         friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     public:
-        iWindowImplWindows(iWindow *window)
+        iWindowImplWindows(iWindowPtr window)
             : iWindowImpl(window)
         {
             memset(&_dmScreenSettings, 0, sizeof(_dmScreenSettings));
@@ -654,20 +654,20 @@ namespace igor
     // TODO this is a mess
     LRESULT CALLBACK WndProc(HWND _hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
-        iWindow *window = nullptr;
+        iWindowPtr window = nullptr;
         iWindowImplWindows *impl = nullptr;
 
         if (WM_CREATE == uMsg)
         {
             LPCREATESTRUCT lpcs = (LPCREATESTRUCT)lParam;
-            window = (iWindow *)(lpcs->lpCreateParams);
+            window = (iWindowPtr )(lpcs->lpCreateParams);
             SetWindowLongPtr(_hWnd, GWLP_USERDATA, (LONG_PTR)window);
             impl = static_cast<iWindowImplWindows *>(iWindowImpl::getImpl(window));
             impl->sizeChanged(impl->_width, impl->_height);
             return true;
         }
 
-        window = (iWindow *)GetWindowLongPtr(_hWnd, GWLP_USERDATA);
+        window = (iWindowPtr )GetWindowLongPtr(_hWnd, GWLP_USERDATA);
 
         if (window)
         {
@@ -718,7 +718,7 @@ namespace igor
         friend class iWindow;
 
     public:
-        iWindowImplLinux(iWindow *window)
+        iWindowImplLinux(iWindowPtr window)
             : iWindowImpl(window)
         {
         }
@@ -1207,7 +1207,7 @@ namespace igor
 
 #endif // __IGOR_LINUX__
 
-    iWindow::iWindow()
+    iWindow::iWindow(const iaString &title)
     {
         _windowID = iWindow::_idGenerator.createID();
 
@@ -1217,6 +1217,11 @@ namespace igor
 #ifdef __IGOR_LINUX__
         _impl = new iWindowImplLinux(this);
 #endif
+
+        if(!title.isEmpty())
+        {
+            setTitle(title);
+        }
 
         _impl->calcClientSize();
     }

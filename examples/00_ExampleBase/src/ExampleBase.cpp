@@ -4,7 +4,7 @@
 
 #include "ExampleBase.h"
 
-ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup, bool createSkyBox, int32 zIndex)
+ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBaseSetup, bool createSkyBox, int32 zIndex)
     : iLayer(window, name, zIndex), m_displayHelpScreen(false)
 {
     con_info("starting example \"" << getName() << "\"");

@@ -15,7 +15,7 @@ namespace igor
     iTaskID iTask::_nextTaskID = 1;
     iaMutex iTask::_mutexID;
 
-    iTask::iTask(iWindow *window, uint32 priority, bool isRepeating, iTaskContext taskContext)
+    iTask::iTask(iWindowPtr window, uint32 priority, bool isRepeating, iTaskContext taskContext)
     {
         if (taskContext == iTaskContext::RenderContext)
         {
@@ -47,7 +47,7 @@ namespace igor
         return _worldID;
     }
 
-    iWindow *iTask::getWindow()
+    iWindowPtr iTask::getWindow()
     {
         return _window;
     }

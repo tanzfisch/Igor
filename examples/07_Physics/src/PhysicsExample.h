@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    PhysicsExample(iWindow *window);
+    PhysicsExample(iWindowPtr window);
 
     /*! does nothing
     */

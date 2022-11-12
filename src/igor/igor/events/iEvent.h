@@ -40,6 +40,7 @@ using namespace iaux;
 namespace igor
 {
     class iWindow;
+    typedef iWindow* iWindowPtr;
 
     /*! event type definitions
     */
@@ -95,7 +96,7 @@ namespace igor
 
         \param window the window that event came from (only in case it was an event created by a window)
         */
-        iEvent(iWindow *window = nullptr);
+        iEvent(iWindowPtr window = nullptr);
 
         /*! does nothing
         */
@@ -125,7 +126,7 @@ namespace igor
 
         /*! \returns the window
         */
-        iWindow *getWindow() const;
+        iWindowPtr getWindow() const;
 
         /*! \returns true if already consumed
         */
@@ -164,7 +165,7 @@ namespace igor
 
         /*! the window
         */
-        iWindow *_window = nullptr;
+        iWindowPtr _window = nullptr;
     };
 
     /*! event pointer definition

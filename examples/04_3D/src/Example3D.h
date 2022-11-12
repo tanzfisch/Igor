@@ -39,7 +39,7 @@ public:
 
     \param window the given window
     */
-    Example3D(iWindow *window);
+    Example3D(iWindowPtr window);
 
     /*! nothing to do
     */

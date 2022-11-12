@@ -4,7 +4,7 @@
 
 #include "Background3D.h"
 
-Background3D::Background3D(iWindow *window)
+Background3D::Background3D(iWindowPtr window)
     : ExampleBase(window, "3D Scene")
 {
 }

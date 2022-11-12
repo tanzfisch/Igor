@@ -31,6 +31,7 @@
 
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/texture/iTextureFont.h>
+#include <igor/system/iWindow.h>
 
 #include <iaux/system/iaTime.h>
 using namespace iaux;
@@ -39,9 +40,6 @@ using namespace iaux;
 
 namespace igor
 {
-
-    class iWindow;
-
     /*! verbosity of statistics output on scree
      */
     enum class iProfilerVerbosity
@@ -78,7 +76,7 @@ namespace igor
 
         only works correctly called within a orthogonal view's render call
         */
-        void draw(iWindow *window, const iTextureFontPtr &font);
+        void draw(iWindowPtr window, const iTextureFontPtr &font);
 
         /*! init
          */

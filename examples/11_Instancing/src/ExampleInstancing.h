@@ -39,7 +39,7 @@ public:
 
     \param window the given window
     */
-    ExampleInstancing(iWindow *window);
+    ExampleInstancing(iWindowPtr window);
 
     /*! does nothing
     */

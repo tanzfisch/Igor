@@ -87,7 +87,7 @@ namespace igor
         \param cacheModeLevel level of cache mode to be released
         \returns true if there was still work to do
         */
-        bool flush(iWindow *window, iResourceCacheMode cacheModeLevel = iResourceCacheMode::Free);
+        bool flush(iWindowPtr window, iResourceCacheMode cacheModeLevel = iResourceCacheMode::Free);
 
         /*! exports model in specified format
 

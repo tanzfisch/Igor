@@ -37,8 +37,8 @@ using namespace iaux;
 
 namespace igor
 {
-
     class iWindow;
+    typedef iWindow* iWindowPtr;
 
     /*! task context
     */
@@ -75,7 +75,7 @@ namespace igor
         \param isRepeating if true the task will be triggered repeadetly
         \param needsRenderContext if true the task needs the render context e.g. to create a texture using the renderer
         */
-        iTask(iWindow *window = nullptr, uint32 priority = iTask::DEFAULT_PRIORITY, bool isRepeating = false, iTaskContext taskContext = iTaskContext::Default);
+        iTask(iWindowPtr window = nullptr, uint32 priority = iTask::DEFAULT_PRIORITY, bool isRepeating = false, iTaskContext taskContext = iTaskContext::Default);
 
         /*! does nothing
         */
@@ -127,7 +127,7 @@ namespace igor
 
         \todo broken design?
         */
-        iWindow *getWindow();
+        iWindowPtr getWindow();
 
     protected:
         /*! sets if the task is repeating
@@ -157,7 +157,7 @@ namespace igor
 
         /*! optional pointer to window. only used by tasks that need the render context
         */
-        iWindow *_window = nullptr;
+        iWindowPtr _window = nullptr;
 
         /*! optional physics world id used by tasks within physics context
         */

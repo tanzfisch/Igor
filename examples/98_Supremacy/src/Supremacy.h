@@ -40,7 +40,7 @@ public:
 
     /*! ctor
     */
-    Supremacy(iWindow *window);
+    Supremacy(iWindowPtr window);
 
     /*! does nothing
     */

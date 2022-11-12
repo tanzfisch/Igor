@@ -10,7 +10,7 @@
 namespace igor
 {
 
-    iRenderContextThread::iRenderContextThread(iWindow *window)
+    iRenderContextThread::iRenderContextThread(iWindowPtr window)
     {
         con_assert(nullptr != window, "zero pointer");
 

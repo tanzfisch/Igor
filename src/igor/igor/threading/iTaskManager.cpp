@@ -167,7 +167,7 @@ namespace igor
         return _running;
     }
 
-    void iTaskManager::createRenderContextThreads(iWindow *window)
+    void iTaskManager::createRenderContextThreads(iWindowPtr window)
     {
         // SYSTEM_INFO sysinfo;
         // GetSystemInfo(&sysinfo);
@@ -183,7 +183,7 @@ namespace igor
         con_info("created " << numThreads << " render context thread" << (numThreads > 1 ? "s" : ""));
     }
 
-    bool iTaskManager::createRenderContextThread(iWindow *window)
+    bool iTaskManager::createRenderContextThread(iWindowPtr window)
     {
         iRenderContextThread *workerThread = new iRenderContextThread(window);
         if (workerThread->isValid())
@@ -215,7 +215,7 @@ namespace igor
         _mutexRegularThreads.unlock();
     }
 
-    void iTaskManager::killRenderContextThreads(iWindow *window)
+    void iTaskManager::killRenderContextThreads(iWindowPtr window)
     {
         _mutexRenderContextTasks.lock();
         for (auto task : _renderContextTasksQueued)

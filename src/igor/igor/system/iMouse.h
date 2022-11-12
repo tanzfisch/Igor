@@ -111,7 +111,7 @@ namespace igor
         /*! \retruns pointer to corresponding window
 		if it returns nullptr the listener was not registred to a window yet
 		*/
-        iWindow *getWindow() const override;
+        iWindowPtr getWindow() const override;
 
     private:
         /*! pimpl

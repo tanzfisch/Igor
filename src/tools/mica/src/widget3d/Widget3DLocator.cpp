@@ -4,7 +4,7 @@
 
 #include "Widget3DLocator.h"
 
-Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScenePtr scene)
+Widget3DLocator::Widget3DLocator(iWindowPtr window, iView *view, iScenePtr scene)
 	: Widget3D(window, view, scene)
 {
 	_view->registerRenderDelegate(iDrawDelegate(this, &Widget3DLocator::update));

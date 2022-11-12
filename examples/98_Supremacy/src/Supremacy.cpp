@@ -4,7 +4,7 @@
 
 #include "Supremacy.h"
 
-Supremacy::Supremacy(iWindow *window)
+Supremacy::Supremacy(iWindowPtr window)
     : iLayer(window, L"Supremacy"), _quadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
 {
 }

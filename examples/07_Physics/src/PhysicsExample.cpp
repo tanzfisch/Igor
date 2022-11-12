@@ -4,7 +4,7 @@
 
 #include "PhysicsExample.h"
 
-PhysicsExample::PhysicsExample(iWindow *window)
+PhysicsExample::PhysicsExample(iWindowPtr window)
     : ExampleBase(window, "Physics")
 {
 }

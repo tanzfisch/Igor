@@ -45,7 +45,7 @@ namespace igor
     public:
         /*! creates render context and starts sharing lists with parent thread
         */
-        iRenderContextThread(iWindow *window);
+        iRenderContextThread(iWindowPtr window);
 
         /*! does nothing
         */
@@ -67,7 +67,7 @@ namespace igor
     private:
         /*! pointer to window to get the device context from
         */
-        iWindow *_window = nullptr;
+        iWindowPtr _window = nullptr;
 
         /*! handle to render context
         */

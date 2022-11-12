@@ -12,7 +12,7 @@
 namespace igor
 {
 
-    iTaskFlushModels::iTaskFlushModels(iWindow *window)
+    iTaskFlushModels::iTaskFlushModels(iWindowPtr window)
         : iTask(window, iTask::DEFAULT_PRIORITY, true, iTaskContext::Default)
     {
     }

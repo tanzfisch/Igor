@@ -6,7 +6,7 @@
 
 #include "VoxelTerrainMeshGenerator.h"
 
-VoxelExample::VoxelExample(iWindow *window)
+VoxelExample::VoxelExample(iWindowPtr window)
     : ExampleBase(window, "Voxel", true, true)
 {
 }

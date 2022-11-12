@@ -50,7 +50,7 @@ uint64 Ascent::_terrainMaterialID = 0;
 uint64 Ascent::_entityMaterialID = 0;
 uint64 Ascent::_bulletMaterialID = 0;
 
-Ascent::Ascent(iWindow *window)
+Ascent::Ascent(iWindowPtr window)
     : iLayer(window), _viewOrtho(iView(false))
 {
 }

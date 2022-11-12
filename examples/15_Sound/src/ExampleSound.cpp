@@ -4,7 +4,7 @@
 
 #include "ExampleSound.h"
 
-ExampleSound::ExampleSound(iWindow *window)
+ExampleSound::ExampleSound(iWindowPtr window)
     : ExampleBase(window, L"Sound")
 {
 }

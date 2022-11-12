@@ -71,7 +71,7 @@ namespace igor
     {
         /*! the window the events will come from
         */
-        iWindow *_window;
+        iWindowPtr _window;
     };
 
 } // namespace igor

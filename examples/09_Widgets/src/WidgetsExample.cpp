@@ -126,7 +126,7 @@ public:
 };
 
 // set an increase z index of 1 to make sure the ui is rendered above the background
-WidgetsExample::WidgetsExample(iWindow *window)
+WidgetsExample::WidgetsExample(iWindowPtr window)
     : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", 10)
 {
     // register the actions to make them globaly available
