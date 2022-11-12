@@ -3,13 +3,13 @@
 	<!-- all paths have to be relative to current directory when igor is executed -->
 	<ResourceManager>
 		<SearchPaths>
-			<SearchPath>..\data\textures</SearchPath>
-			<SearchPath>..\data\fonts</SearchPath>
-			<SearchPath>..\data\shaders</SearchPath>
-			<SearchPath>..\data\models</SearchPath>
-			<SearchPath>..\data\sounds</SearchPath>
-			<SearchPath>..\data\effects</SearchPath>
-			<SearchPath>..\data</SearchPath>
+			<SearchPath>data\textures</SearchPath>
+			<SearchPath>data\fonts</SearchPath>
+			<SearchPath>data\shaders</SearchPath>
+			<SearchPath>data\models</SearchPath>
+			<SearchPath>data\sounds</SearchPath>
+			<SearchPath>data\effects</SearchPath>
+			<SearchPath>data</SearchPath>
 		</SearchPaths>
 	</ResourceManager>
     <Logging>

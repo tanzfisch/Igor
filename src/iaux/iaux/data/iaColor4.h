@@ -120,14 +120,14 @@ namespace iaux
         */
         void lerp(const iaColor4<T> &color1, const iaColor4<T> &color2, float32 w);
 
-        static const iaColor4<T> white;
-        static const iaColor4<T> black;
-        static const iaColor4<T> red;
-        static const iaColor4<T> green;
-        static const iaColor4<T> blue;
-        static const iaColor4<T> yellow;
-        static const iaColor4<T> cyan;
-        static const iaColor4<T> magenta;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> white;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> black;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> red;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> green;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> blue;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> yellow;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> cyan;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> magenta;
     };
 
 #include <iaux/data/iaColor4.inl>

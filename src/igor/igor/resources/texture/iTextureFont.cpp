@@ -241,11 +241,15 @@ namespace igor
             float32 lenght = 0;
             for (uint32 i = 0; i < text.getLength(); i++)
             {
-                if (text[i] > 0 &&
-                    text[i] < _characters.size())
+                uint32 index = (uint32)text[i] - 32;
+
+                if(index < 0 || 
+                index > _characters.size())
                 {
-                    lenght += _characters[((unsigned char)text[i]) - 32]._characterOffset * size;
+                    continue;
                 }
+
+                lenght += _characters[index]._characterOffset * size;
             }
             return lenght;
         }
