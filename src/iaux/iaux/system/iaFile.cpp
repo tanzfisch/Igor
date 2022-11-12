@@ -130,6 +130,11 @@ namespace iaux
 
     bool iaFile::exist(const iaString &filename)
     {
+        if(filename.isEmpty())
+        {
+            return false;
+        }
+
         std::filesystem::path path(filename.getData());
         return !std::filesystem::is_directory(path) && std::filesystem::exists(path);
     }

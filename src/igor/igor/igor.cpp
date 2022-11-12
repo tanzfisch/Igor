@@ -280,23 +280,20 @@ namespace igor
         if (configurationFilepath.isEmpty())
         {
 #ifdef __IGOR_WINDOWS__
-            iaFile file(L"..\\config\\igor.xml");
-
-            if (file.exist())
-            {
-                configurationFilepath = file.getFullFileName();
-            }
+            const static std::vector<iaString> configLocations = {
+                L"config\\igor.xml"};
 #endif
 
 #ifdef __IGOR_LINUX__
-            const static iaString configLocations[] = {
+            const static std::vector<iaString> configLocations = {
                 L"~/.Igor/igor.xml",
                 L"/etc/igor/igor.xml",
                 L"../config/igor.xml"};
+#endif
 
-            for (int i = 0; i < 3; ++i)
+            for (const auto &config : configLocations)
             {
-                iaFile file(configLocations[i]);
+                iaFile file(config);
 
                 if (file.exist())
                 {
@@ -305,7 +302,6 @@ namespace igor
                 }
             }
 
-#endif
         }
 
         if (!configurationFilepath.isEmpty())
@@ -315,7 +311,7 @@ namespace igor
         }
         else
         {
-            con_err("found no configuration file");
+            con_crit("found no configuration file");
         }
     }
 
