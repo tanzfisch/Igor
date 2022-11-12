@@ -54,17 +54,17 @@ struct WeaponConfiguration
 
 // weapon definitions
 const WeaponConfiguration WEAPON_KNIFE{
-    "knife.png", // texture
-    15.0,        // size
+    "through_knife.png", // texture
+    25.0,        // size
     1,           // projectile count
     0.0,         // accuracy 0.0 == perfect
-    0.2,         // angular velocity
+    0.15,         // angular velocity
     {
         WeaponType::Knife,               // weapon type
         10.0,                            // damage
-        1.0,                             // speed
-        100.0,                           // range
-        iaTime::fromMilliseconds(600.0), // attack interval
+        5.0,                             // speed
+        500.0,                           // range
+        iaTime::fromMilliseconds(500.0), // attack interval
         false,                           // need to stand still
     }};
 

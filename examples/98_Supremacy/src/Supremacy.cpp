@@ -5,7 +5,7 @@
 #include "Supremacy.h"
 
 Supremacy::Supremacy(iWindow *window)
-    : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
+    : iLayer(window, L"Supremacy"), _quadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
 {
 }
 
@@ -29,7 +29,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), iaTime::fromSeconds(_rand.getNextFloat()));
-    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
+    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_KNIFE._component);
     weapon._time = iTimer::getInstance().getTime();
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
 
@@ -612,7 +612,15 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     {
         auto bullet = _entityScene.createEntity(config._texture);
         bullet.addComponent<PositionComponent>(from);
-        bullet.addComponent<AngularVelocityComponent>(config._angularVelocity);
+
+        float32 angularVelocity = config._angularVelocity;
+
+        if (angularVelocity != 0.0)
+        {
+            angularVelocity += (_rand.getNextFloat() - 0.5f) * 0.2;
+        }
+
+        bullet.addComponent<AngularVelocityComponent>(angularVelocity);
         bullet.addComponent<RangeComponent>(range);
 
         iaVector2d d = dir;
@@ -650,8 +658,9 @@ void Supremacy::aquireTargetFor(iEntity &entity)
     auto &position = entity.getComponent<PositionComponent>();
     auto &party = entity.getComponent<PartyComponent>();
     auto &target = entity.getComponent<TargetComponent>();
+    auto &weapon = entity.getComponent<WeaponComponent>();
 
-    iaCircled circle(position._position, 100.0);
+    iaCircled circle(position._position, weapon._range * 1.1f);
     std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
 
@@ -852,6 +861,8 @@ void Supremacy::onRenderOrtho()
     iRenderer2::getInstance().setModelMatrix(matrix);
 
     const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.6);
+
+    iRenderer2::getInstance().setBlendingActive(true);
 
     // draw entities TODO
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>();

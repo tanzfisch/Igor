@@ -30,6 +30,7 @@
 #define __SUPREMACY_COMPONENTS__
 
 #include <igor/igor.h>
+using namespace igor;
 
 struct PositionComponent
 {

@@ -17,7 +17,7 @@ add_library(TinyXML
     tinyxmlparser.cpp)
 
 if(IS_GNU)
-    target_compile_options(TinyXML PRIVATE -std=c++17)
+    target_compile_options(TinyXML PRIVATE -std=c++17 -fPIC)
 elseif(IS_MSVC)
     target_compile_options(TinyXML PRIVATE "/std:c++17" "/MP" "/W2")
 endif()
