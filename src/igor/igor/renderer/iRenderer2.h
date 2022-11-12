@@ -50,7 +50,7 @@ namespace igor
     
     \todo I don't like the stencil interfaces
      */
-    class iRenderer2 : public iModule<iRenderer2>
+    class IGOR_API iRenderer2 : public iModule<iRenderer2>
     {
 
         friend class iModule<iRenderer2>;

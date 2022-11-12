@@ -399,6 +399,13 @@ namespace igor
                 return false;
             }
 
+            if (!gladLoadGL())
+            {
+                con_err("Can't initialize Glad");
+                close();
+                return false;
+            }                      
+
             ShowWindow(_hWnd, SW_SHOW);
             SetForegroundWindow(_hWnd);
             SetFocus(_hWnd);

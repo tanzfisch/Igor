@@ -17,11 +17,11 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
-#include <glad/glad.h>
 #ifdef __IGOR_WINDOWS__
 // glu needs this under windows
 #include <windows.h>
 #endif
+#include <glad/glad.h>
 #include <GL/glu.h>
 
 #include <sstream>
