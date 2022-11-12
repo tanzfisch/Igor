@@ -6,6 +6,8 @@ Changelog                           {#changelog}
 
 - improved testing framework and added some more tests
 - added some missing implementations in iQuadtree and iIntersection
+- wrote entirely new Renderer using batch rendering where ever possible (called iRenderer2 which will be existing in parallel to iRenderer until it has feature parity)
+- improved 2d shooter example
 
 0.33.0
 ------
