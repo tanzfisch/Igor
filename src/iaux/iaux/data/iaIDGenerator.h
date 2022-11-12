@@ -37,7 +37,7 @@ namespace iaux
 {
 
     template <class T>
-    class IAUX_API_TEMPLATE iaIDGenerator
+    class IAUX_API_EXPORT_ONLY iaIDGenerator
     {
     public:
         /*! creates a new or recycles an old id

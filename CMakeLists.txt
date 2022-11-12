@@ -93,20 +93,7 @@ add_subdirectory(vendor/Glad)
 set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER})
 
 add_subdirectory(vendor/TinyXML)
-set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER})
-
-# tinyXML
-#message(STATUS "tinyXML")
-#set(TINYXML_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/TinyXML/")
-#set(TINYXML_HEADERS_DIR ${TINYXML_SRC_DIR})
-#set(TINYXML_SOURCES
-#    "${TINYXML_SRC_DIR}/tinystr.cpp" "${TINYXML_SRC_DIR}/tinyxml.cpp"
-#    "${TINYXML_SRC_DIR}/tinyxmlerror.cpp"
-#    "${TINYXML_SRC_DIR}/tinyxmlparser.cpp")
-#set(TINYXML_HEADERS "${TINYXML_HEADERS_DIR}/tinystr.h"
-#                    "${TINYXML_HEADERS_DIR}/tinyxml.h")
-#list(APPEND TINYXML_SOURCES ${TINYXML_HEADERS})
-#source_group_special("${TINYXML_SOURCES}" ${TINYXML_SRC_DIR} "\\vendor\\TinyXML\\")               
+set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER})           
 
 # stb_image
 message(STATUS "stb_image")
@@ -234,30 +221,8 @@ target_include_directories(newton PRIVATE ${NEWTON_HEADERS_DIR} ${NEWTON_MESH_UT
 target_link_libraries(newton PUBLIC core physics meshUtil)
 set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER})
 
-#####################
-# iaux
-#####################
-message(STATUS "iaux")
-set(IAUX_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/iaux/")
-set(IAUX_HEADERS_DIR ${IAUX_SRC_DIR})
-file(GLOB_RECURSE IAUX_SOURCES LIST_DIRECTORIES false "${IAUX_SRC_DIR}*.c*") #TODO
-file(GLOB_RECURSE IAUX_HEADERS LIST_DIRECTORIES false "${IAUX_HEADERS_DIR}*.h*" "${IAUX_HEADERS_DIR}*.inl") #TODO
-list(APPEND IAUX_SOURCES ${IAUX_HEADERS})
-add_library(iaux SHARED ${IAUX_SOURCES})
-
-if(IS_GNU)
-    target_compile_definitions(iaux PRIVATE -D__IAUX_BUILDING_DLL__ PUBLIC -D_cplusplus=201703L ${IGOR_GNU_BUILD_TYPE})
-    target_compile_options(iaux PRIVATE -std=c++17)
-    target_link_libraries(iaux PRIVATE stdc++fs Threads::Threads)
-elseif(IS_MSVC)
-    target_compile_definitions(iaux PRIVATE -D__IAUX_BUILDING_DLL__ PUBLIC -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(iaux PRIVATE "/std:c++17" "/MP" "/W1")
-    target_link_libraries(iaux PRIVATE DbgHelp Threads::Threads)
-endif()
-
-target_include_directories(iaux PUBLIC ${IAUX_HEADERS_DIR})
-set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})
-source_group_special("${IAUX_SOURCES}" ${IAUX_SRC_DIR})
+add_subdirectory(src/iaux)
+set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})           
 
 #####################
 # OMPF
@@ -345,8 +310,8 @@ elseif(IS_MSVC)
     target_compile_options(mica PRIVATE "/std:c++17" "/MP" "/W1")
 endif()
 
-target_link_libraries(mica PRIVATE igor)
-target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${ENTT_HEADERS_DIR})
+target_link_libraries(mica PRIVATE igor iaux ompf)
+target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR} ${ENTT_HEADERS_DIR})
 set_property(TARGET mica PROPERTY FOLDER ${TOOLS_FOLDER})
 source_group_special("${MICA_SOURCES}" ${MICA_SRC_DIR})
 

@@ -41,7 +41,7 @@ namespace iaux
     \deprecated use std::bitset instead
     */
     template <class T>
-    class IAUX_API_TEMPLATE iaBits
+    class IAUX_API_EXPORT_ONLY iaBits
     {
 
     public:

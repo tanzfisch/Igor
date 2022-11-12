@@ -45,7 +45,7 @@ namespace iaux
     \todo move code in to inline file
     */
     template <class T>
-    class IAUX_API_TEMPLATE iaColor3
+    class IAUX_API_EXPORT_ONLY iaColor3
     {
     public:
         /*! red component

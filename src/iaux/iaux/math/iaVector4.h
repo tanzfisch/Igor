@@ -39,7 +39,7 @@ namespace iaux
     \todo implement more operators
     */
     template <typename T>
-    struct IAUX_API_TEMPLATE iaVector4
+    struct IAUX_API_EXPORT_ONLY iaVector4
     {
         /*! does nothing
         */

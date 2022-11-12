@@ -108,7 +108,7 @@ namespace iaux
 
 	*/
     template <class T>
-    class IAUX_API_TEMPLATE iaMatrix
+    class IAUX_API_EXPORT_ONLY iaMatrix
     {
     public:
         /*! internal data

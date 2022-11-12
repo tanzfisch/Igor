@@ -42,7 +42,7 @@ namespace iaux
 	\todo make it a template
 	*/
     template <class T>
-    class IAUX_API_TEMPLATE iaBSpline // non uniform B-Spline
+    class IAUX_API_EXPORT_ONLY iaBSpline // non uniform B-Spline
     {
 
     public:

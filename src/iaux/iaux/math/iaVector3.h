@@ -41,7 +41,7 @@ namespace iaux
     /*! 3d vector class
     */
     template <typename T>
-    struct IAUX_API_TEMPLATE iaVector3
+    struct IAUX_API_EXPORT_ONLY iaVector3
     {
         /*! does nothing
         */

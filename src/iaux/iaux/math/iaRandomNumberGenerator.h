@@ -39,7 +39,7 @@ namespace iaux
     the only reason to use this one is to keep seperate instances of seeds so multithreaded tasks don't interfear with each other using rand()
     */
     template <class T>
-    class IAUX_API_TEMPLATE iaRandomNumberGenerator
+    class IAUX_API_EXPORT_ONLY iaRandomNumberGenerator
     {
 
     public:

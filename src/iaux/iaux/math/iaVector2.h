@@ -40,7 +40,7 @@ namespace iaux
     /*! 2 dimensional vector
 	*/
     template <typename T>
-    struct IAUX_API_TEMPLATE iaVector2
+    struct IAUX_API_EXPORT_ONLY iaVector2
     {
         /*! does nothing
 		*/

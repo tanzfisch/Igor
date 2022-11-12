@@ -43,7 +43,7 @@ namespace iaux
     /*! 3x3 Matrix
 	*/
     template <class T>
-    class IAUX_API_TEMPLATE iaMatrix2D
+    class IAUX_API_EXPORT_ONLY iaMatrix2D
     {
     public:
         /*! internal data

@@ -37,7 +37,7 @@ namespace iaux
     /*! 2d rectangle
      */
     template <typename T>
-    struct IAUX_API_TEMPLATE iaRectangle
+    struct IAUX_API_EXPORT_ONLY iaRectangle
     {
         /*! horrizontal position
          */

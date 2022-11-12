@@ -44,7 +44,7 @@ namespace iaux
     for integer variant we expect values in range from 0.0 - 255.0
     */
     template <typename T>
-    struct IAUX_API_TEMPLATE iaColor4
+    struct IAUX_API_EXPORT_ONLY iaColor4
     {
         /*! red color channel
          */
