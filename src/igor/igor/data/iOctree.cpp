@@ -5,9 +5,8 @@
 #include <igor/data/iOctree.h>
 
 #include <igor/data/iAACube.h>
-#include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iRenderer2.h>
 #include <igor/data/iIntersection.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/system/iaConsole.h>
@@ -457,18 +456,7 @@ namespace igor
     void iOctree::draw()
     {
         iaMatrixd matrix;
-        iRenderer::getInstance().setModelMatrix(matrix);
-
-        if (_materialID == iMaterial::INVALID_MATERIAL_ID)
-        {
-            _materialID = iMaterialResourceFactory::getInstance().createMaterial("igor.octree");
-            iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
-            material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-            material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-        }
-
-        iRenderer::getInstance().setMaterial(_materialID);
-
+        iRenderer2::getInstance().setModelMatrix(matrix);
         draw(_rootNode);
     }
 
@@ -484,8 +472,7 @@ namespace igor
                 alpha = std::min(alpha, draw(node->_children[i]));
             }
 
-            iRenderer::getInstance().setColor(0, 0, 1, alpha);
-            iRenderer::getInstance().drawBBox(node->_box);
+            iRenderer2::getInstance().drawBox(node->_box, iaColor4f(0, 0, 1, alpha));
         }
 
         alpha *= 0.7;

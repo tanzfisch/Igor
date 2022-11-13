@@ -339,6 +339,8 @@ namespace igor
         */
         void getModelMatrix(iaMatrixd &matrix) const;
 
+        void getViewMatrix(iaMatrixd &viewMatrix) const;
+
         const iaMatrixd &getModelViewProjectionMatrix() const
         {
             return _modelViewProjectionMatrix;

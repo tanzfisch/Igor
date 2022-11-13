@@ -104,10 +104,6 @@ private:
     */
     void createFireParticleSystem();
 
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
-
     /*! called by timer
 
     \param time the time

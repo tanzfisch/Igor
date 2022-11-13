@@ -83,10 +83,6 @@ private:
     */
     void onDeinit() override;
 
-    /*! renders orthogonal stuff
-    */
-    void onRenderOrtho() override;
-
     /*! called on any other event
 
     \param event the event to handle

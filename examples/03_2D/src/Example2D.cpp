@@ -157,6 +157,10 @@ void Example2D::updateParticles()
 
 void Example2D::onRenderOrtho()
 {
+    // initialize view matrix with identity matrix
+    iaMatrixd identity;
+    iRenderer2::getInstance().setViewMatrix(identity);
+
     // since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero
     iaMatrixd matrix;

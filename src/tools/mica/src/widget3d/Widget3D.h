@@ -30,13 +30,7 @@
 #define __WIDGET3D_H__
 
 #include <igor/igor.h>
-
-namespace igor
-{
-	class iScene;
-	class iWindow;
-	class iView;
-} // namespace igor
+using namespace igor;
 
 /*! 3d space widget base class for representing nodes
 */

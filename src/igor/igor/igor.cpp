@@ -6,6 +6,8 @@
 
 #include <igor/resources/config/iConfigReader.h>
 
+#include <igor/renderer/iRenderer.h> // TODO remove
+
 #include <iaux/iaux.h>
 #include <iaux/system/iaDate.h>
 using namespace iaux;

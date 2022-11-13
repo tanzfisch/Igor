@@ -33,6 +33,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             _viewOrtho.setName("Logo View");
             _viewOrtho.setClearColor(false);
             _viewOrtho.setClearDepth(false);
+            _viewOrtho.setClipPlanes(0.1f, 10000.0f);
             _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
             _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
             getWindow()->addView(&_viewOrtho, getZIndex() + 1);
@@ -196,6 +197,10 @@ void ExampleBase::onPreDraw()
 
 void ExampleBase::onRenderOrtho()
 {
+    // initialize view matrix with identity matrix
+    iaMatrixd identity;
+    iRenderer2::getInstance().setViewMatrix(identity);
+
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
     iRenderer2::getInstance().setModelMatrix(matrix);

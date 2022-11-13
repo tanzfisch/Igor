@@ -61,6 +61,7 @@
 #include <igor/layers/iLayerProfiler.h>
 
 #include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsMaterialCombo.h>
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>

@@ -165,18 +165,6 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
     body->setForce(force);
 }
 
-void PhysicsExample::onRenderOrtho()
-{
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
-
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    ExampleBase::onRenderOrtho();
-}
-
 void PhysicsExample::onEvent(iEvent &event)
 {
     // first call example base

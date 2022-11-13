@@ -4,44 +4,6 @@
 
 #include "ExampleCharacterController.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/renderer/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/physics/iPhysics.h>
-#include <igor/physics/iPhysicsCollision.h>
-#include <igor/physics/iPhysicsBody.h>
-#include <igor/physics/iPhysicsJoint.h>
-#include <igor/physics/iPhysicsMaterial.h>
-#include <igor/physics/iPhysicsMaterialCombo.h>
-#include <igor/scene/nodes/iNodePhysics.h>
-using namespace igor;
-
 ExampleCharacterController::ExampleCharacterController(iWindowPtr window)
     : ExampleBase(window, "Character Controller", true, false)
 {
@@ -318,6 +280,9 @@ void ExampleCharacterController::onDeinit()
 
 void ExampleCharacterController::onRenderOrtho()
 {
+    iaMatrixd identity;
+    iRenderer2::getInstance().setViewMatrix(identity);
+
     iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -1);
     iRenderer2::getInstance().setModelMatrix(modelMatrix);

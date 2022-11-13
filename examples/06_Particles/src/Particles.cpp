@@ -568,15 +568,3 @@ void Particles::onUpdate(const iaTime &time)
         transform->rotate(0.06, iaAxis::Y);
     }
 }
-
-void Particles::onRenderOrtho()
-{
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
-
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    ExampleBase::onRenderOrtho();
-}

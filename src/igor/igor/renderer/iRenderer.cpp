@@ -876,6 +876,11 @@ namespace igor
         _dirtyModelViewProjectionMatrix = true;
     }
 
+    void iRenderer::getViewMatrix(iaMatrixd &viewMatrix) const
+    {
+        viewMatrix = _viewMatrix;
+    }
+
     void iRenderer::setViewMatrix(const iaMatrixd &viewMatrix)
     {
         _viewMatrix = viewMatrix;

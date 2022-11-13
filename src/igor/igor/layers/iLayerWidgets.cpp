@@ -65,6 +65,9 @@ namespace igor
 
     void iLayerWidgets::onRender()
     {
+        iaMatrixd identity;
+        iRenderer2::getInstance().setViewMatrix(identity);
+
         iaMatrixd modelMatrix;
         modelMatrix.translate(0, 0, -1);
         iRenderer2::getInstance().setModelMatrix(modelMatrix);
