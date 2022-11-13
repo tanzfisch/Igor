@@ -30,14 +30,9 @@
 #define __IGOR_NODEVISITORRENDERBOUNDINGS__
 
 #include <igor/scene/traversal/iNodeVisitor.h>
-#include <igor/iDefines.h>
-#include <igor/resources/material/iMaterial.h>
 
-#include <iaux/data/iaString.h>
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
-
-#include <sstream>
 
 namespace igor
 {
@@ -48,9 +43,9 @@ namespace igor
     {
 
     public:
-        /*! configures material
+        /*! nothing todo
         */
-        iNodeVisitorRenderBoundings();
+        iNodeVisitorRenderBoundings() = default;
 
         /*! does nothing
         */
@@ -85,10 +80,6 @@ namespace igor
         /*! current matrix that eventually gets pushed on stack or came poped from stack
         */
         iaMatrixd _currentMatrix;
-
-        /*! bounding box render material
-        */
-        uint64 _material = iMaterial::INVALID_MATERIAL_ID;
     };
 
 }; // namespace igor

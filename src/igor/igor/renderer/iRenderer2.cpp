@@ -205,6 +205,8 @@ namespace igor
         iaMatrixd _modelViewMatrix;
         iaMatrixd _modelViewProjectionMatrix;
 
+        iaMatrixd _camMatrix;
+
         /////////// SETTINGS //////
         /*! if true render order will be kept by the cost of more draw calls beeing used
          */
@@ -809,7 +811,7 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data-> _depthMaskActive, _data->_cullFaceActive);
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data->_depthMaskActive, _data->_cullFaceActive);
 
         uint32 dataSize = (uint32)((uint8 *)texQuads._vertexDataPtr - (uint8 *)texQuads._vertexData);
         texQuads._vertexBuffer->setData(dataSize, texQuads._vertexData);
@@ -850,7 +852,7 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data-> _depthMaskActive, _data->_cullFaceActive);
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data->_depthMaskActive, _data->_cullFaceActive);
 
         _data->_flatShader->bind();
         _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
@@ -884,7 +886,7 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data-> _depthMaskActive, _data->_cullFaceActive);
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data->_depthMaskActive, _data->_cullFaceActive);
 
         _data->_flatShader->bind();
         _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
@@ -915,7 +917,7 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data-> _depthMaskActive, _data->_cullFaceActive);
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data->_depthMaskActive, _data->_cullFaceActive);
 
         _data->_flatShader->bind();
         _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
@@ -1080,6 +1082,29 @@ namespace igor
 
         _data->_modelMatrix = matrix;
         updateMatrices();
+    }
+
+    void iRenderer2::setViewMatrix(const iaMatrixd &matrix)
+    {
+        if (_data->_viewMatrix == matrix)
+        {
+            return;
+        }
+
+        flush();
+
+        _data->_viewMatrix = matrix;
+        updateMatrices();
+    }
+
+    void iRenderer2::setViewMatrixFromCam(const iaMatrixd &camMatrix)
+    {
+        _data->_camMatrix = camMatrix;
+
+        iaMatrixd camViewMatrix;
+        camViewMatrix.lookAt(camMatrix._pos, camMatrix._pos - camMatrix._depth, camMatrix._top);
+
+        setViewMatrix(camViewMatrix);
     }
 
     const iaMatrixd &iRenderer2::getModelMatrix() const
@@ -1566,7 +1591,7 @@ namespace igor
 
     void iRenderer2::setBlendingActive(bool enable)
     {
-        if(_data->_blendingActive == enable)
+        if (_data->_blendingActive == enable)
         {
             return;
         }
@@ -1582,18 +1607,83 @@ namespace igor
 
     void iRenderer2::setDepthTestActive(bool enable)
     {
-        if(_data->_depthTestActive == enable)
+        if (_data->_depthTestActive == enable)
         {
             return;
         }
 
-        flush();        
+        flush();
         _data->_depthTestActive = enable;
     }
 
     bool iRenderer2::isDepthTestActive() const
     {
         return _data->_depthTestActive;
+    }
+
+    void iRenderer2::drawBox(const iAACubed &box, const iaColor4f &color)
+    {
+        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
+                        iaVector3f(box._halfEdgeLength, box._halfEdgeLength, box._halfEdgeLength)),
+                color);
+    }
+
+    void iRenderer2::drawBox(const iAACubef &box, const iaColor4f &color)
+    {
+        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
+                        iaVector3f(box._halfEdgeLength, box._halfEdgeLength, box._halfEdgeLength)),
+                color);
+    }
+
+    void iRenderer2::drawBox(const iAABoxd &box, const iaColor4f &color)
+    {
+        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
+                        iaVector3f(box._halfWidths._x, box._halfWidths._y, box._halfWidths._z)),
+                color);
+    }
+
+    void iRenderer2::drawBox(const iAABoxf &box, const iaColor4f &color)
+    {
+        iaVector3f a = box._center;
+        a -= box._halfWidths;
+        iaVector3f b = box._center;
+        b += box._halfWidths;
+
+        drawLine(iaVector3f(a._x, a._y, a._z),
+                 iaVector3f(b._x, a._y, a._z), color);
+
+        drawLine(iaVector3f(a._x, a._y, a._z),
+                 iaVector3f(a._x, b._y, a._z), color);
+
+        drawLine(iaVector3f(a._x, a._y, a._z),
+                 iaVector3f(a._x, a._y, b._z), color);
+
+        drawLine(iaVector3f(b._x, a._y, a._z),
+                 iaVector3f(b._x, a._y, b._z), color);
+
+        drawLine(iaVector3f(b._x, a._y, a._z),
+                 iaVector3f(b._x, b._y, a._z), color);
+
+        drawLine(iaVector3f(b._x, a._y, b._z),
+                 iaVector3f(b._x, b._y, b._z), color);
+
+        drawLine(iaVector3f(a._x, a._y, b._z),
+                 iaVector3f(b._x, a._y, b._z), color);
+
+        drawLine(iaVector3f(a._x, a._y, b._z),
+                 iaVector3f(a._x, b._y, b._z), color);
+
+        drawLine(iaVector3f(a._x, b._y, a._z),
+                 iaVector3f(a._x, b._y, b._z), color);
+
+        drawLine(iaVector3f(a._x, b._y, b._z),
+                 iaVector3f(b._x, b._y, b._z), color);
+
+        drawLine(iaVector3f(a._x, b._y, a._z),
+                 iaVector3f(b._x, b._y, a._z), color);
+
+        drawLine(iaVector3f(b._x, b._y, a._z),
+                 iaVector3f(b._x, b._y, b._z), color);
     }
 
 }

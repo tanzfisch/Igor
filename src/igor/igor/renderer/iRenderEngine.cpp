@@ -11,6 +11,7 @@
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iRenderer2.h>
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
@@ -182,9 +183,9 @@ namespace igor
         iaMatrixd camMatrix;
         camera->getWorldMatrix(camMatrix);
         iRenderer::getInstance().setViewMatrix(view, camMatrix);
+        iRenderer2::getInstance().setViewMatrixFromCam(camMatrix);
 
-        iaMatrixd projectionMatrix;
-        iRenderer::getInstance().getProjectionMatrix(projectionMatrix);
+        iaMatrixd projectionMatrix = iRenderer2::getInstance().getProjectionMatrix();
         projectionMatrix *= view;
         const iFrustumd frustum(projectionMatrix);
         _scene->getOctree()->filter(frustum);

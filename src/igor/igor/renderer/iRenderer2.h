@@ -29,6 +29,8 @@
 #ifndef __IGOR_RENDERER_2D__
 #define __IGOR_RENDERER_2D__
 
+#include <igor/data/iAABox.h>
+#include <igor/data/iAACube.h>
 #include <igor/renderer/buffers/iVertexArray.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
@@ -39,7 +41,6 @@
 #include <iaux/data/iaRectangle.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaVector2.h>
-#include <iaux/math/iaVector3.h>
 
 namespace igor
 {
@@ -47,7 +48,7 @@ namespace igor
     class iRendererData;
 
     /*! this will eventually replace iRenderer
-    
+
     \todo I don't like the stencil interfaces
      */
     class IGOR_API iRenderer2 : public iModule<iRenderer2>
@@ -95,6 +96,18 @@ namespace igor
         */
         void setModelMatrix(const iaMatrixd &matrix);
 
+        /*! sets the model matrix
+
+        \param matrix matrix to set the model matrix
+        */
+        void setViewMatrix(const iaMatrixd &matrix);       
+
+        /*! sets view matrix from camera matrix
+
+        \param camMatrix the camera position and orientation in world space
+        */
+        void setViewMatrixFromCam(const iaMatrixd &camMatrix);
+
         /*! sets projection matrix
 
         \param matrix the new projection matrix
@@ -120,6 +133,8 @@ namespace igor
         /*! \returns current model view projection matrix
          */
         const iaMatrixd &getModelViewProjectionMatrix() const;
+
+        /////// 2D //////
 
         void drawPoint(float32 x, float32 y, const iaColor4f &color = iaColor4f::white);
         void drawPoint(const iaVector2f &v, const iaColor4f &color = iaColor4f::white);
@@ -153,6 +168,13 @@ namespace igor
 
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
+
+        ///// 3D ///////
+        void drawBox(const iAACubed &box, const iaColor4f &color = iaColor4f::white);
+        void drawBox(const iAACubef &box, const iaColor4f &color = iaColor4f::white);
+
+        void drawBox(const iAABoxd &box, const iaColor4f &color = iaColor4f::white);
+        void drawBox(const iAABoxf &box, const iaColor4f &color = iaColor4f::white);
 
         /*! sets line render width
 
@@ -238,7 +260,7 @@ namespace igor
         const iaColor4f &getClearColor() const;
         void setClearColor(const iaColor4f &color);
         float32 getClearDepth() const;
-        void setClearDepth(float32 depth);       
+        void setClearDepth(float32 depth);
 
         /*! clears swtencil buffer with clear depth
          */
@@ -292,7 +314,7 @@ namespace igor
             NotEqual,
             GreaterOrEqual,
             Always
-        };  
+        };
 
         /*! sets the stencil function
 
@@ -305,14 +327,14 @@ namespace igor
         /*! stencil operation types
          */
         enum class iStencilOperation
-        {        
+        {
             Keep,
-            Zero,    
+            Zero,
             Replace,
             Increment,
             Decrement,
             Invert
-        };            
+        };
 
         /*! sets the stencil test actions
 
@@ -402,7 +424,6 @@ namespace igor
         /*! clears stats
          */
         void clearStats();
-
     };
 
 }
