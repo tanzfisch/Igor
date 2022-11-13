@@ -820,6 +820,7 @@ namespace igor
         for (int32 i = 0; i < texQuads._nextTextureIndex; ++i)
         {
             iRenderer::getInstance().bindTexture(texQuads._textures[i], i);
+            // TODO texQuads._textures[i]->bind(i); we need the dummy texture in the new renderer
         }
 
         _data->_textureShader->bind();

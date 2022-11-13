@@ -4,7 +4,6 @@
 
 #include <igor/layers/iLayerProfiler.h>
 #include <igor/renderer/iRenderer2.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
 namespace igor
@@ -77,7 +76,6 @@ namespace igor
         iaMatrixd modelMatrix;
         modelMatrix.translate(0, 0, -1);
         iRenderer2::getInstance().setModelMatrix(modelMatrix);
-        iRenderer::getInstance().setModelMatrix(modelMatrix); // TODO remove
 
         _profilerVisualizer.draw(getWindow(), _font);
     }
