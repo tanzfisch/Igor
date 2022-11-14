@@ -292,13 +292,9 @@ namespace igor
 
             setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
             setClearDepth(1.0f);
-            setStencilMask(0xff);
 
             clearColorBuffer();
             clearDepthBuffer();
-            clearStencilBuffer();
-
-            enableStencilTest(false);
 
             _initialized = true;
 
@@ -662,33 +658,6 @@ namespace igor
         return GL_ZERO;
     }
 
-    void iRenderer::setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask)
-    {
-        glStencilFunc(getOGLEnum(function), ref, mask);
-    }
-
-    void iRenderer::setStencilOperation(iRenderStateValue fail, iRenderStateValue zfail, iRenderStateValue zpass)
-    {
-        glStencilOp(getOGLEnum(fail), getOGLEnum(zfail), getOGLEnum(zpass));
-    }
-
-    void iRenderer::enableStencilTest(bool enable)
-    {
-        if (enable)
-        {
-            glEnable(GL_STENCIL_TEST);
-        }
-        else
-        {
-            glDisable(GL_STENCIL_TEST);
-        }
-    }
-
-    void iRenderer::setStencilMask(uint8 mask)
-    {
-        glStencilMask(mask);
-    }
-
     void iRenderer::clearColorBuffer()
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -697,11 +666,6 @@ namespace igor
     void iRenderer::clearDepthBuffer()
     {
         glClear(GL_DEPTH_BUFFER_BIT);
-    }
-
-    void iRenderer::clearStencilBuffer()
-    {
-        glClear(GL_STENCIL_BUFFER_BIT);
     }
 
     void iRenderer::getProjectionMatrix(iaMatrixd &matrix)
@@ -1684,13 +1648,6 @@ namespace igor
         _stats._triangles += meshBuffers->getTrianglesCount();
     }
 
-    void iRenderer::drawPoint(float32 x, float32 y)
-    {
-        glBegin(GL_POINTS);
-        glVertex2f(x, y);
-        glEnd();
-    }
-
     void iRenderer::drawLine(float32 x1, float32 y1, float32 x2, float32 y2)
     {
         glBegin(GL_LINES);
@@ -2148,54 +2105,6 @@ namespace igor
         _stats._vertices += static_cast<uint32>(particles.size()) * 4;
         _stats._indices += static_cast<uint32>(particles.size()) * 4;
         _stats._triangles += static_cast<uint32>(particles.size()) * 2;
-    }
-
-    iaVector3d iRenderer::project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport)
-    {
-        iaVector4d in(objectSpacePos._x, objectSpacePos._y, objectSpacePos._z, 1);
-        iaVector4d out;
-        iaVector3d result;
-
-        iaMatrixd modelViewProjection = projection;
-        modelViewProjection *= modelview;
-        out = modelViewProjection * in;
-        out[0] /= out._w;
-        out[1] /= out._w;
-        out[2] /= out._w;
-
-        result._x = static_cast<float64>(viewport.getWidth()) * (out._x + 1.0) / 2.0;
-        result._y = static_cast<float64>(viewport.getHeight()) * (1.0 - ((out._y + 1.0) / 2.0));
-        result._z = out._z;
-
-        return result;
-    }
-
-    iaVector3d iRenderer::unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport)
-    {
-        iaVector4d in;
-        iaVector4d out;
-        iaVector3d result;
-
-        in[0] = (screenpos[0] - (float32)viewport.getX()) / (float32)viewport.getWidth() * 2.0f - 1.0f;
-        in[1] = (((float32)viewport.getHeight() - screenpos[1]) - (float32)viewport.getY()) / (float32)viewport.getHeight() * 2.0f - 1.0f;
-        in[2] = screenpos[2] * 2.0f - 1.0f;
-        in[3] = 1.0f;
-
-        iaMatrixd modelViewProjection = projection;
-        modelViewProjection *= modelview;
-        modelViewProjection.invert();
-        out = modelViewProjection * in;
-
-        con_assert(out[3] != 0.0f, "out of range");
-
-        if (out[3] != 0.0f)
-        {
-            result[0] = out[0] / out[3];
-            result[1] = out[1] / out[3];
-            result[2] = out[2] / out[3];
-        }
-
-        return result;
     }
 
 }; // namespace igor

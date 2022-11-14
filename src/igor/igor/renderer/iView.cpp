@@ -328,7 +328,7 @@ namespace igor
         iaMatrixd projectionMatrix;
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
-        return iRenderer::getInstance().project(worldSpacePos, viewMatrix, projectionMatrix, _viewport);
+        return iRenderer2::getInstance().project(worldSpacePos, viewMatrix, projectionMatrix, _viewport);
     }
 
     iaVector3d iView::unProject(const iaVector3d &screenpos, const iaMatrixd &cameraMatrix)
@@ -342,7 +342,7 @@ namespace igor
         iaMatrixd projectionMatrix;
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
-        return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
+        return iRenderer2::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
     }
 
     /*	iPixmap* iView::makeScreenshot(bool alphachannel)

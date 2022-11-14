@@ -200,26 +200,6 @@ namespace igor
         */
         void unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate);
 
-        /*! projects a screen position in to object space position
-
-        \param screenpos the screen position (vertical origin is at top of screen)
-        \param modelview the model view matrix
-        \param projection the projection matrix
-        \param viewport the viewport
-        \returns world position of projection screen position
-        */
-        iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport);
-
-        /*! projects a object space position in to screen space
-
-        \param objectSpacePos the object space position to project
-        \param modelview the model view matrix
-        \param projection the projection matrix
-        \param viewport the viewport
-        \returns the screen position
-        */
-        iaVector3d project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport);
-
         /*! creates vertex buffer objects for specified mesh
 
         \param mesh the mesh specified
@@ -402,38 +382,6 @@ namespace igor
         */
         void clearDepthBuffer();
 
-        /*! enables/disables stencil test
-
-        \param enable if true stencil test will be enabled
-        */
-        void enableStencilTest(bool enable);
-
-        /*! sets the stencil function
-
-        \param function the stencil function (legal values are Never, Less, LessOrEqual, Greater, GreaterOrEqual, Equal, NotEqual, and Always)
-        \param ref the reference value
-        \param mask the mask value to gate the result of the test
-        */
-        void setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask);
-
-        /*! sets the stencil test actions
-
-        legal values are Keep, Zero, Replace, Increment, IncrementWrap, Decrement, DecrementWrap, and Invert
-
-        \param fail action when stencil test fails
-        \param zfail action when stencil test passes but depth test fails
-        \param zpass action when stencil and depth test passed
-        */
-        void setStencilOperation(iRenderStateValue fail, iRenderStateValue zfail, iRenderStateValue zpass);
-
-        /*! sets the stencil mask value
-        */
-        void setStencilMask(uint8 mask);
-
-        /*! clears swtencil buffer with clear depth
-        */
-        void clearStencilBuffer();
-
         /*! reads rectangular area from screen buffer
 
         \param x horizontal position in pixel
@@ -487,13 +435,6 @@ namespace igor
         \param targetMaterial the target material
         */
         void setTargetMaterial(iTargetMaterial *targetMaterial);
-
-        /*! draws a point
-
-        \param x horizontal position
-        \param y vertical position
-        */
-        void drawPoint(float32 x, float32 y);
 
         /*! draw a line between two points
 

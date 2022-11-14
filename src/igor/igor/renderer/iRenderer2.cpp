@@ -19,6 +19,10 @@ namespace igor
     static const uint32 MAX_QUAD_VERTICES = MAX_QUADS * 4;
     static const uint32 MAX_QUAD_INDICES = MAX_QUADS * 6;
 
+    static const uint32 MAX_TRIANGLES = 10000;
+    static const uint32 MAX_TRIANGLE_VERTICES = MAX_TRIANGLES * 3;
+    static const uint32 MAX_TRIANGLE_INDICES = MAX_TRIANGLES * 3;
+
     static const iaVector2f QUAD_TEXTURE_COORDS[] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}};
     static const iaVector3f QUAD_VERTEX_POSITIONS[] = {{-0.5f, -0.5, 0.0f}, {-0.5f, 0.5, 0.0f}, {0.5f, 0.5, 0.0f}, {0.5f, -0.5, 0.0f}};
 
@@ -111,6 +115,45 @@ namespace igor
         iFlatVertex *_vertexDataPtr = nullptr;
     };
 
+    struct iRendererDataTriangles
+    {
+        /*! vertex buffer
+         */
+        iVertexBufferPtr _vertexBuffer;
+
+        /*! vertex array
+         */
+        iVertexArrayPtr _vertexArray;
+
+        /*! vertex count
+         */
+        uint32 _vertexCount;
+
+        /*! vertex count
+         */
+        uint32 _indexCount;
+
+        /*! vertex data
+         */
+        iFlatVertex *_vertexData = nullptr;
+
+        /*! pointer to current position in quad vertex data
+         */
+        iFlatVertex *_vertexDataPtr = nullptr;
+
+        /*! index buffer
+         */
+        iIndexBufferPtr _indexBuffer;
+
+        /*! index data
+         */
+        uint32 *_indexData = nullptr;
+
+        /*! pointer to current position in index data
+         */
+        uint32 *_indexDataPtr = nullptr;
+    };
+
     struct iRendererDataTexturedQuads
     {
         /*! textured quad vertex buffer
@@ -153,6 +196,7 @@ namespace igor
         NoDataSet,
         Points,
         Lines,
+        Triangles,
         Quads,
         TexturedQuads
     };
@@ -168,6 +212,10 @@ namespace igor
         /*! lines render data
          */
         iRenderDataLines _lines;
+
+        /*! triangles render data
+         */
+        iRendererDataTriangles _triangles;
 
         /*! quads render data
          */
@@ -296,6 +344,26 @@ namespace igor
         points._vertexDataPtr = points._vertexData;
         points._vertexCount = 0;
 
+        //////////// FLAT TRIANGLES /////////////
+        auto &triangles = _data->_triangles;
+
+        triangles._vertexArray = iVertexArray::create();
+
+        triangles._indexData = new uint32[MAX_TRIANGLE_INDICES];
+        triangles._indexBuffer = iIndexBuffer::create(MAX_TRIANGLE_INDICES, triangles._indexData);
+
+        triangles._vertexBuffer = iVertexBuffer::create(MAX_TRIANGLE_VERTICES * sizeof(iFlatVertex));
+        triangles._vertexBuffer->setLayout(std::vector<iBufferLayoutEntry>{{iShaderDataType::Float3}, {iShaderDataType::Float4}});
+        triangles._vertexArray->addVertexBuffer(triangles._vertexBuffer);
+        triangles._vertexArray->setIndexBuffer(triangles._indexBuffer);
+
+        triangles._vertexData = new iFlatVertex[MAX_TRIANGLE_VERTICES];
+
+        triangles._vertexDataPtr = triangles._vertexData;
+        triangles._indexDataPtr = triangles._indexData;
+        triangles._vertexCount = 0;
+        triangles._indexCount = 0;
+
         //////// QUADS comon data ///////////
         _data->_sharedQuadIndexData = new uint32[MAX_QUAD_INDICES];
 
@@ -358,30 +426,47 @@ namespace igor
         /////////// OGL //////////
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_LINE_SMOOTH);
+
+        setStencilMask(0xff);
+        clearStencilBuffer();
     }
 
     void iRenderer2::deinit()
     {
         con_info("deinit renderer");
 
+        /////////// LINES //////////
         auto &lines = _data->_lines;
         lines._vertexBuffer = nullptr;
         lines._vertexArray = nullptr;
         delete[] lines._vertexData;
         lines._vertexDataPtr = lines._vertexData = nullptr;
 
+        /////////// POINTS //////////
         auto &points = _data->_points;
         points._vertexBuffer = nullptr;
         points._vertexArray = nullptr;
         delete[] points._vertexData;
         points._vertexDataPtr = points._vertexData = nullptr;
 
+        /////////// FLAT SHADED TRIANGLES //////////
+        auto &triangles = _data->_triangles;
+        triangles._vertexBuffer = nullptr;
+        triangles._vertexArray = nullptr;
+        delete[] triangles._vertexData;
+        triangles._vertexDataPtr = triangles._vertexData = nullptr;
+        triangles._indexBuffer = nullptr;
+        delete[] triangles._indexData;
+        triangles._indexData = nullptr;
+
+        /////////// FLAT SHADED QUADS //////////
         auto &quads = _data->_quads;
         quads._vertexBuffer = nullptr;
         quads._vertexArray = nullptr;
         delete[] quads._vertexData;
         quads._vertexDataPtr = quads._vertexData = nullptr;
 
+        /////////// TEXTURED QUADS //////////
         auto &texQuads = _data->_texQuads;
         texQuads._vertexBuffer = nullptr;
         texQuads._vertexArray = nullptr;
@@ -392,6 +477,7 @@ namespace igor
             texQuads._textures[i] = nullptr;
         }
 
+        /////////// SHARED QUAD INDICES //////////
         _data->_sharedQuadIndexBuffer = nullptr;
         delete[] _data->_sharedQuadIndexData;
         _data->_sharedQuadIndexData = nullptr;
@@ -599,32 +685,6 @@ namespace igor
 
         endTexturedQuad();
     }
-
-    /*void iRenderer2::drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling, const iaColor4f &color)
-    {
-        iTexturePtr texture = sprite->getTexture();
-        const iAtlas::iFrame &frame = sprite->getFrame(frameIndex);
-
-        iaVector2f position = pos;
-        position -= frame._origin;
-        iaVector2f size(frame._size._x * texture->getWidth(), frame._size._y * texture->getHeight());
-
-        bindTexture(texture, 0);
-
-        glBegin(GL_QUADS);
-        glTexCoord2f(frame._pos._x, frame._pos._y + frame._size._y);
-        glVertex2f(position._x, position._y + size._y);
-
-        glTexCoord2f(frame._pos._x + frame._size._x, frame._pos._y + frame._size._y);
-        glVertex2f(position._x + size._x, position._y + size._y);
-
-        glTexCoord2f(frame._pos._x + frame._size._x, frame._pos._y);
-        glVertex2f(position._x + size._x, position._y);
-
-        glTexCoord2f(frame._pos._x, frame._pos._y);
-        glVertex2f(position._x, position._y);
-        glEnd();
-    }*/
 
     void iRenderer2::drawPoint(float32 x, float32 y, const iaColor4f &color)
     {
@@ -844,6 +904,42 @@ namespace igor
         texQuads._nextTextureIndex = 0;
     }
 
+    void iRenderer2::flushTriangles()
+    {
+        auto &triangles = _data->_triangles;
+
+        if (triangles._vertexCount == 0)
+        {
+            return;
+        }
+
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data->_depthMaskActive, _data->_cullFaceActive);
+
+        _data->_flatShader->bind();
+        _data->_flatShader->setMatrix("igor_modelViewProjection", getMVP());
+
+        uint32 dataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
+        triangles._vertexBuffer->setData(dataSize, triangles._vertexData);
+
+        triangles._vertexArray->bind();
+        glDrawElements(GL_TRIANGLES, triangles._indexCount, GL_UNSIGNED_INT, nullptr);
+        //glDrawArrays(GL_TRIANGLES, 0, triangles._vertexCount);
+        GL_CHECK_ERROR();
+        triangles._vertexArray->unbind();
+
+        _data->_flatShader->unbind();
+
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += triangles._vertexCount;
+        _data->_stats._indices += triangles._indexCount;
+        _data->_stats._triangles += triangles._vertexCount / 3;
+
+        triangles._vertexCount = 0;
+        triangles._indexCount = 0;
+        triangles._vertexDataPtr = triangles._vertexData;
+        triangles._indexDataPtr = triangles._indexData;
+    }
+
     void iRenderer2::flushQuads()
     {
         auto &quads = _data->_quads;
@@ -856,13 +952,13 @@ namespace igor
         applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data->_depthMaskActive, _data->_cullFaceActive);
 
         _data->_flatShader->bind();
-        _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
+        _data->_flatShader->setMatrix("igor_modelViewProjection", getMVP());
 
         uint32 dataSize = (uint32)((uint8 *)quads._vertexDataPtr - (uint8 *)quads._vertexData);
         quads._vertexBuffer->setData(dataSize, quads._vertexData);
 
         quads._vertexArray->bind();
-        glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);        
         GL_CHECK_ERROR();
         quads._vertexArray->unbind();
 
@@ -944,6 +1040,7 @@ namespace igor
     {
         flushTexQuads();
         flushQuads();
+        flushTriangles();
         flushLines();
         flushPoints();
 
@@ -964,6 +1061,10 @@ namespace igor
 
         case iRenderDataSet::Quads:
             flushQuads();
+            break;
+
+        case iRenderDataSet::Triangles:
+            flushTriangles();
             break;
 
         case iRenderDataSet::TexturedQuads:
@@ -1685,6 +1786,89 @@ namespace igor
 
         drawLine(iaVector3f(b._x, b._y, a._z),
                  iaVector3f(b._x, b._y, b._z), color);
+    }
+
+    void iRenderer2::drawCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
+    {
+        const float32 step = 2 * M_PI / static_cast<float32>(segments);
+        float32 angleA = 0;
+        float32 angleB = step;
+
+        for (int i = 0; i < segments; ++i)
+        {
+            drawLine(iaVector3f(x + radius * cosf(angleA), y + radius * sinf(angleA), 0.0f),
+                     iaVector3f(x + radius * cosf(angleB), y + radius * sinf(angleB), 0.0f), color);
+            angleA += step;
+            angleB += step;
+        }
+    }
+
+    void iRenderer2::drawFilledCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
+    {
+        beginTriangles();
+
+        auto &triangles = _data->_triangles;
+
+        const float32 step = 2 * M_PI / static_cast<float32>(segments);
+        float32 angleA = 0;
+        float32 angleB = step;
+
+        const iaVector3f a(x, y, 0.0f);
+
+        uint32 nextIndex = triangles._vertexCount;
+
+        triangles._vertexDataPtr->_pos = a;
+        triangles._vertexDataPtr->_color = color;
+        *triangles._indexDataPtr = nextIndex++;
+        triangles._vertexDataPtr++;
+        triangles._indexDataPtr++;
+
+        for (int i = 0; i < segments; ++i)
+        {
+            const iaVector3f b(x + radius * cosf(angleA), y + radius * sinf(angleA), 0.0f);
+            const iaVector3f c(x + radius * cosf(angleB), y + radius * sinf(angleB), 0.0f);
+            angleA += step;
+            angleB += step;
+
+            triangles._vertexDataPtr->_pos = c;
+            triangles._vertexDataPtr->_color = color;
+            *triangles._indexDataPtr = nextIndex++;
+            triangles._vertexDataPtr++;
+            triangles._indexDataPtr++;
+
+            triangles._vertexDataPtr->_pos = b;
+            triangles._vertexDataPtr->_color = color;
+            *triangles._indexDataPtr = nextIndex++;
+            triangles._vertexDataPtr++;
+            triangles._indexDataPtr++;
+
+            break;
+        }
+
+        triangles._vertexCount += 3;
+        triangles._indexCount += 3;
+
+        endTriangles();
+    }
+
+    __IGOR_INLINE__ void iRenderer2::beginTriangles()
+    {
+        auto &triangles = _data->_triangles;
+
+        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Triangles)
+        {
+            flushLastUsed();
+        }
+
+        if (triangles._vertexCount >= MAX_TRIANGLE_VERTICES)
+        {
+            flushTriangles();
+        }
+    }
+
+    __IGOR_INLINE__ void iRenderer2::endTriangles()
+    {
+        _data->_lastRenderDataSetUsed = iRenderDataSet::Triangles;
     }
 
 }

@@ -185,16 +185,18 @@ void Example2D::onRenderOrtho()
     iRenderer2::getInstance().drawLine(110, 20, 110, 150, iaColor4f(1, 1, 0, 1));
     iRenderer2::getInstance().drawLine(20, 85, 200, 85, iaColor4f(1, 1, 0, 1));
 
-    iRenderer2::getInstance().setPointSize(static_cast<float32>(_rand.getNext() % 5 + 1));
+    iRenderer2::getInstance().setLineWidth(1);
 
-    for (int x = 0; x < 19; ++x)
+    for (int x = 0; x < 10; ++x)
     {
-        for (int y = 0; y < 14; ++y)
+        for (int y = 0; y < 7; ++y)
         {
-            iRenderer2::getInstance().drawPoint(static_cast<float32>(230 + x * 10), static_cast<float32>(20 + y * 10), iaColor4f(1, 1, 0, 1));
+            const float32 radius = _rand.getNextFloat() * 9.0f + 1.0f;
+            iRenderer2::getInstance().drawCircle(static_cast<float32>(230 + x * 20), static_cast<float32>(25 + y * 20), radius, 8, iaColor4f(1, 1, 0, 1));
+            
         }
     }
-   
+
     iRenderer2::getInstance().setBlendingActive(true);
 
     // draw the texture that we could not have loaded at startup

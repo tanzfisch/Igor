@@ -100,7 +100,7 @@ namespace igor
 
         \param matrix matrix to set the model matrix
         */
-        void setViewMatrix(const iaMatrixd &matrix);       
+        void setViewMatrix(const iaMatrixd &matrix);
 
         /*! sets view matrix from camera matrix
 
@@ -168,6 +168,26 @@ namespace igor
 
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
+
+        /*! draw a circle.
+
+        \param x horizontal center position
+        \param y vertical center position
+        \param radius radius of the circle
+        \param segments segments count
+        \param color the color to draw with
+        */
+        void drawCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw a filled circle.
+
+        \param x horizontal center position
+        \param y vertical center position
+        \param radius radius of the circle
+        \param segments segments count
+        \param color the color to draw with
+        */
+        void drawFilledCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
         ///// 3D ///////
         void drawBox(const iAACubed &box, const iaColor4f &color = iaColor4f::white);
@@ -387,6 +407,10 @@ namespace igor
          */
         void flushTexQuads();
 
+        /*! flushes triangles queue
+         */
+        void flushTriangles();
+
         /*! flushes quads queue
          */
         void flushQuads();
@@ -420,6 +444,9 @@ namespace igor
         /*! end textured quad
          */
         void endTexturedQuad();
+
+        void beginTriangles();
+        void endTriangles();
 
         /*! clears stats
          */
