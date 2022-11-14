@@ -20,7 +20,7 @@ namespace igor
         GL_CHECK_ERROR();
         glBindBuffer(GL_ARRAY_BUFFER, _indexBufferObject);
         GL_CHECK_ERROR();
-        glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32), indices, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32), indices, GL_DYNAMIC_DRAW);
         GL_CHECK_ERROR();
     }
 
@@ -39,6 +39,14 @@ namespace igor
     void iIndexBuffer::unbind()
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, INVALID_BUFFER_ID);
+        GL_CHECK_ERROR();
+    }
+
+    void iIndexBuffer::setData(uint32 size, const void *indexData)
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, _indexBufferObject);
+        GL_CHECK_ERROR();
+        glBufferSubData(GL_ARRAY_BUFFER, 0, size, indexData);
         GL_CHECK_ERROR();
     }
 

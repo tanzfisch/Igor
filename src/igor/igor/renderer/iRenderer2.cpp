@@ -892,15 +892,15 @@ namespace igor
 
         _data->_textureShader->unbind();
 
-        _data->_stats._drawCalls++;
+        // save stats
         _data->_stats._vertices += texQuads._vertexCount;
         _data->_stats._indices += texQuads._indexCount;
         _data->_stats._triangles += texQuads._vertexCount / 2;
 
+        // reset queue
         texQuads._vertexCount = 0;
         texQuads._indexCount = 0;
         texQuads._vertexDataPtr = texQuads._vertexData;
-
         texQuads._nextTextureIndex = 0;
     }
 
@@ -918,22 +918,26 @@ namespace igor
         _data->_flatShader->bind();
         _data->_flatShader->setMatrix("igor_modelViewProjection", getMVP());
 
-        uint32 dataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
-        triangles._vertexBuffer->setData(dataSize, triangles._vertexData);
+        uint32 vertexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
+        triangles._vertexBuffer->setData(vertexDataSize, triangles._vertexData);
+        uint32 indexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
+        triangles._indexBuffer->setData(indexDataSize, triangles._indexData);
 
         triangles._vertexArray->bind();
         glDrawElements(GL_TRIANGLES, triangles._indexCount, GL_UNSIGNED_INT, nullptr);
-        //glDrawArrays(GL_TRIANGLES, 0, triangles._vertexCount);
+        // glDrawArrays(GL_TRIANGLES, 0, triangles._vertexCount);
         GL_CHECK_ERROR();
         triangles._vertexArray->unbind();
 
         _data->_flatShader->unbind();
 
+        // save stats
         _data->_stats._drawCalls++;
         _data->_stats._vertices += triangles._vertexCount;
         _data->_stats._indices += triangles._indexCount;
         _data->_stats._triangles += triangles._vertexCount / 3;
 
+        // reset queue
         triangles._vertexCount = 0;
         triangles._indexCount = 0;
         triangles._vertexDataPtr = triangles._vertexData;
@@ -958,17 +962,19 @@ namespace igor
         quads._vertexBuffer->setData(dataSize, quads._vertexData);
 
         quads._vertexArray->bind();
-        glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);        
+        glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
         quads._vertexArray->unbind();
 
         _data->_flatShader->unbind();
 
+        // save stats
         _data->_stats._drawCalls++;
         _data->_stats._vertices += quads._vertexCount;
         _data->_stats._indices += quads._indexCount;
         _data->_stats._triangles += quads._vertexCount / 2;
 
+        // reset queue
         quads._vertexCount = 0;
         quads._indexCount = 0;
         quads._vertexDataPtr = quads._vertexData;
@@ -998,9 +1004,11 @@ namespace igor
 
         _data->_flatShader->unbind();
 
+        // save stats
         _data->_stats._drawCalls++;
         _data->_stats._vertices += lines._vertexCount;
 
+        // reset queue
         lines._vertexCount = 0;
         lines._vertexDataPtr = lines._vertexData;
     }
@@ -1029,9 +1037,11 @@ namespace igor
 
         _data->_flatShader->unbind();
 
+        // save stats
         _data->_stats._drawCalls++;
         _data->_stats._vertices += points._vertexCount;
 
+        // reset queue
         points._vertexCount = 0;
         points._vertexDataPtr = points._vertexData;
     }
@@ -1813,15 +1823,12 @@ namespace igor
         float32 angleA = 0;
         float32 angleB = step;
 
-        const iaVector3f a(x, y, 0.0f);
+        uint32 centerIndex = triangles._vertexCount;
+        uint32 nextIndex = centerIndex + 1;
 
-        uint32 nextIndex = triangles._vertexCount;
-
-        triangles._vertexDataPtr->_pos = a;
+        triangles._vertexDataPtr->_pos.set(x, y, 0.0f);
         triangles._vertexDataPtr->_color = color;
-        *triangles._indexDataPtr = nextIndex++;
         triangles._vertexDataPtr++;
-        triangles._indexDataPtr++;
 
         for (int i = 0; i < segments; ++i)
         {
@@ -1830,23 +1837,28 @@ namespace igor
             angleA += step;
             angleB += step;
 
+            *triangles._indexDataPtr = centerIndex;
+            triangles._indexDataPtr++;
+            triangles._indexCount++;
+
             triangles._vertexDataPtr->_pos = c;
             triangles._vertexDataPtr->_color = color;
-            *triangles._indexDataPtr = nextIndex++;
             triangles._vertexDataPtr++;
+
+            *triangles._indexDataPtr = nextIndex++;
             triangles._indexDataPtr++;
+            triangles._indexCount++;
 
             triangles._vertexDataPtr->_pos = b;
             triangles._vertexDataPtr->_color = color;
-            *triangles._indexDataPtr = nextIndex++;
             triangles._vertexDataPtr++;
-            triangles._indexDataPtr++;
 
-            break;
+            *triangles._indexDataPtr = nextIndex++;
+            triangles._indexDataPtr++;
+            triangles._indexCount++;
         }
 
-        triangles._vertexCount += 3;
-        triangles._indexCount += 3;
+        triangles._vertexCount += segments * 2 + 1;
 
         endTriangles();
     }

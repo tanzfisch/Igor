@@ -121,14 +121,12 @@ bool Example2D::onMouseMoveEvent(iEventMouseMove &event)
 
 void Example2D::onUpdate(const iaTime &time)
 {
+    // rotate the doughnut
     _doughnutMatrix.rotate(0.05, iaAxis::Z);
 
-    // moves the logo towards the mouse position
+    // moves the doughnut towards the mouse position
     _doughnutMatrix._pos += (iaVector3f(_lastMousePos._x, _lastMousePos._y, 0.0) - _doughnutMatrix._pos) * 0.05f;
-
-    // moves one of the splines support point to the logo's position
-    _spline.setSupportPoint(_doughnutMatrix._pos, 3);
-
+  
     // doughnut time <3
     if (time > _doughnutsTime + iaTime::fromSeconds(0.5))
     {
@@ -139,6 +137,9 @@ void Example2D::onUpdate(const iaTime &time)
 
     // update particles
     updateParticles();
+
+    // moves one of the splines support point to the logo's position
+    _spline.setSupportPoint(iaVector3f(_lastMousePos._x, _lastMousePos._y, 0.0), 3);    
 }
 
 void Example2D::updateParticles()
@@ -193,9 +194,14 @@ void Example2D::onRenderOrtho()
         {
             const float32 radius = _rand.getNextFloat() * 9.0f + 1.0f;
             iRenderer2::getInstance().drawCircle(static_cast<float32>(230 + x * 20), static_cast<float32>(25 + y * 20), radius, 8, iaColor4f(1, 1, 0, 1));
-            
         }
     }
+
+    iRenderer2::getInstance().drawFilledCircle(500, 400, 250, 5, iaColor4f::red);
+    iRenderer2::getInstance().setBlendingActive(true);
+    iRenderer2::getInstance().drawFilledCircle(700, 500, 100, 8, iaColor4f(1.0,1.0,0.0,0.5));
+    iRenderer2::getInstance().setBlendingActive(false);
+    iRenderer2::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
     iRenderer2::getInstance().setBlendingActive(true);
 
@@ -218,7 +224,8 @@ void Example2D::onRenderOrtho()
     // draw spline
     iRenderer2::getInstance().setBlendingActive(false);
     std::vector<iaVector3f> points;
-    _spline.getPoints(points, 100);
+    _spline.getPoints(points, 200);
+    iRenderer2::getInstance().setLineWidth(5);
     iRenderer2::getInstance().drawLineStrip(points, iaColor4f(1, 0, 0.5, 1));
 
     // draw perlin noise based graph in the upper right corner

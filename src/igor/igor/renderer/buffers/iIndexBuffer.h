@@ -65,6 +65,8 @@ namespace igor
 
         uint32 getIndexCount() const;
 
+        void setData(uint32 size, const void *indexData);
+
     private:
         /*! handle to internal buffer object
          */
