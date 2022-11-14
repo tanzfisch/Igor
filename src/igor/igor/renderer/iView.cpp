@@ -89,14 +89,24 @@ namespace igor
         return _name;
     }
 
-    void iView::setClearDepth(bool active)
+    void iView::setClearDepthActive(bool active)
     {
         _clearDepthActive = active;
+    }
+
+    bool iView::isClearDepthActive() const
+    {
+        return _clearDepthActive;
     }
 
     void iView::setClearDepth(float32 depth)
     {
         _clearDepth = depth;
+    }
+
+    float32 iView::getClearDepth() const
+    {
+        return _clearDepth;
     }
 
     void iView::setViewport(iaRectanglef rect)
@@ -152,6 +162,11 @@ namespace igor
         _clearColor.set(r, g, b, a);
     }
 
+    const iaColor4f &iView::getClearColor() const
+    {
+        return _clearColor;
+    }
+
     void iView::setCurrentCamera(uint64 cameraID)
     {
         _renderEngine.setCurrentCamera(cameraID);
@@ -165,7 +180,7 @@ namespace igor
     void iView::draw()
     {
         if (_scene != nullptr)
-        {            
+        {
             _scene->handle();
         }
 
@@ -179,8 +194,7 @@ namespace igor
                 iRenderer::getInstance().setClearColor(_clearColor);
                 iRenderer::getInstance().clearColorBuffer();
 
-                iRenderer2::getInstance().setClearColor(_clearColor);
-                iRenderer2::getInstance().clearColorBuffer();
+                iRenderer2::getInstance().clearColorBuffer(_clearColor);
             }
 
             if (_clearDepthActive)
@@ -188,8 +202,7 @@ namespace igor
                 iRenderer::getInstance().setClearDepth(_clearDepth);
                 iRenderer::getInstance().clearDepthBuffer();
 
-                iRenderer2::getInstance().setClearDepth(_clearDepth);
-                iRenderer2::getInstance().clearDepthBuffer();
+                iRenderer2::getInstance().clearDepthBuffer(_clearDepth);
             }
 
             if (_perspective)

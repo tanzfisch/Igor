@@ -68,22 +68,25 @@ namespace igor
 
         // infos
         /*! \returns render hardware vendor
-        */
+         */
         iaString getVendor();
 
         /*! \returns renderer type
-        */
+         */
         iaString getRenderer();
 
         /*! \returns version of renderer
-        */
+         */
         iaString getVersion();
 
         /*! \returns renderer extensions
-        */
-        iaString getExtensions();        
+         */
+        iaString getExtensions();
 
         /*! draws everything that is still in the queue
+
+        This is already called automatically at the end of every frame.
+        No need to manually call it unless you know what you are doing.
          */
         void flush();
 
@@ -294,22 +297,21 @@ namespace igor
         */
         void setViewport(int32 x, int32 y, int32 width, int32 height);
 
-        const iaColor4f &getClearColor() const;
-        void setClearColor(const iaColor4f &color);
-        float32 getClearDepth() const;
-        void setClearDepth(float32 depth);
-
         /*! clears swtencil buffer with clear depth
          */
-        void clearStencilBuffer();
+        void clearStencilBuffer(int32 index = 0);
 
-        /*! clears color buffer with clear color
-         */
-        void clearColorBuffer();
+        /*! clears color buffer with given color
 
-        /*! clears depth buffer with clear depth
+        \param color the given clear color
          */
-        void clearDepthBuffer();
+        void clearColorBuffer(const iaColor4f &color);
+
+        /*! clears depth buffer with given depth
+
+        \param depth the given depth
+         */
+        void clearDepthBuffer(float32 depth);
 
         /*! projects a screen position in to object space position
 

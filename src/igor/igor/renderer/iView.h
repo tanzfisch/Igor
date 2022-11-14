@@ -162,17 +162,29 @@ namespace igor
         */
         void setClearColor(float32 r, float32 g, float32 b, float32 a);
 
+        /*! \returns current clear color
+        */
+        const iaColor4f & getClearColor()const;
+
         /*! sets the clear buffer bit.
 
         \param active true: depth buffer will be cleared every frame; false: it will not
         */
-        void setClearDepth(bool active);
+        void setClearDepthActive(bool active);
+
+        /*! \returns true if clear depth is active
+        */
+        bool isClearDepthActive() const;
 
         /*! sets the clear depth value
 
         \param depth the clear depth value
         */
         void setClearDepth(float32 depth);
+
+        /*! \returns clear depth Value
+        */
+        float32 getClearDepth() const;
 
         /*! sets view visible
 

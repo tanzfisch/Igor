@@ -282,10 +282,6 @@ namespace igor
 
         iaRectanglei _viewport;
 
-        iaColor4f _clearColor;
-
-        float32 _clearDepth;
-
         bool _blendingActive = false;
 
         bool _depthTestActive = false;
@@ -1559,40 +1555,21 @@ namespace igor
         setViewport(iaRectanglei(x, y, width, height));
     }
 
-    const iaColor4f &iRenderer2::getClearColor() const
+    void iRenderer2::clearColorBuffer(const iaColor4f &color)
     {
-        return _data->_clearColor;
-    }
-
-    void iRenderer2::setClearColor(const iaColor4f &color)
-    {
-        _data->_clearColor = color;
         glClearColor(color._r, color._g, color._b, color._a);
-    }
-
-    float32 iRenderer2::getClearDepth() const
-    {
-        return _data->_clearDepth;
-    }
-
-    void iRenderer2::setClearDepth(float32 depth)
-    {
-        _data->_clearDepth = depth;
-        glClearDepth(depth);
-    }
-
-    void iRenderer2::clearColorBuffer()
-    {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-    void iRenderer2::clearDepthBuffer()
+    void iRenderer2::clearDepthBuffer(float32 depth)
     {
+        glClearDepth(depth);
         glClear(GL_DEPTH_BUFFER_BIT);
     }
 
-    void iRenderer2::clearStencilBuffer()
+    void iRenderer2::clearStencilBuffer(int32 index)
     {
+        glClearStencil(index);
         glClear(GL_STENCIL_BUFFER_BIT);
     }
 
