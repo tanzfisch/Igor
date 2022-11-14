@@ -296,6 +296,12 @@ namespace igor
 
         ////// stats ////
         iRenderer2::iRendererStats _stats;
+
+        //////// INFO ///////
+        iaString _vendor;
+        iaString _renderer;
+        iaString _version;
+        iaString _extensions;
     };
 
     static void applyOGLStates(bool blending, bool depthTest, bool depthMask, bool cullFace)
@@ -318,8 +324,6 @@ namespace igor
 
     void iRenderer2::init()
     {
-        con_info("init renderer");
-
         /////////// LINES //////////////
         auto &lines = _data->_lines;
         lines._vertexArray = iVertexArray::create();
@@ -430,6 +434,19 @@ namespace igor
 
         setStencilMask(0xff);
         clearStencilBuffer();
+
+        _data->_vendor = (const char *)glGetString(GL_VENDOR);
+        _data->_renderer = (const char *)glGetString(GL_RENDERER);
+        GLint major = 0;
+        GLint minor = 0;
+        glGetIntegerv(GL_MAJOR_VERSION, &major);
+        glGetIntegerv(GL_MINOR_VERSION, &minor);
+        _data->_version = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
+        _data->_extensions = (const char *)glGetString(GL_EXTENSIONS);
+
+        con_info("OpenGL Version : " << _data->_version << endlTab
+                                     << "OpenGL Vendor  : " << _data->_vendor << endlTab
+                                     << "OpenGL Renderer: " << _data->_renderer);
     }
 
     void iRenderer2::deinit()

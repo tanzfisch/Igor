@@ -66,6 +66,23 @@ namespace igor
          */
         void deinit();
 
+        // infos
+        /*! \returns render hardware vendor
+        */
+        iaString getVendor();
+
+        /*! \returns renderer type
+        */
+        iaString getRenderer();
+
+        /*! \returns version of renderer
+        */
+        iaString getVersion();
+
+        /*! \returns renderer extensions
+        */
+        iaString getExtensions();        
+
         /*! draws everything that is still in the queue
          */
         void flush();

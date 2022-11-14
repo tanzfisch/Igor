@@ -90,8 +90,6 @@ namespace igor
                 glEnableVertexAttribArray(_totalComponentCount);
                 GL_CHECK_ERROR();
 
-                con_trace("glVertexAttribPointer(" << _totalComponentCount << ", " << component.getComponentCount() << ", " << (int)shaderDataTypeToOpenGLBaseType(component._type) << ", " << (component._normalized ? "GL_TRUE" : "GL_FALSE") << ", " << info.getStride() << ", " << component._offset << ")");
-
                 glVertexAttribPointer(_totalComponentCount,
                                       component.getComponentCount(),
                                       shaderDataTypeToOpenGLBaseType(component._type),
@@ -110,8 +108,6 @@ namespace igor
             {
                 glEnableVertexAttribArray(_totalComponentCount);
                 GL_CHECK_ERROR();
-
-                con_trace("glVertexAttribIPointer(" << _totalComponentCount << ", " << component.getComponentCount() << ", " << (int)shaderDataTypeToOpenGLBaseType(component._type) << ", " << info.getStride() << ", " << component._offset << ")");
 
                 glVertexAttribIPointer(_totalComponentCount,
                                        component.getComponentCount(),
@@ -132,8 +128,6 @@ namespace igor
                     GL_CHECK_ERROR();
 
                     const uint32 offset = component._offset + sizeof(float) * count * i;
-
-                    con_trace("glVertexAttribPointer(" << _totalComponentCount << ", " << count << ", " << (int)shaderDataTypeToOpenGLBaseType(component._type) << "," << (component._normalized ? "GL_TRUE" : "GL_FALSE") << ", " << info.getStride() << ", " << offset << ")");
 
                     glVertexAttribPointer(_totalComponentCount,
                                           count,

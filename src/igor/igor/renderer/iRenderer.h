@@ -445,15 +445,6 @@ namespace igor
         */
         void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
 
-        /*! draw a rectangle.
-
-        \param x horizontal position
-        \param y vertical position
-        \param width width of the rectangle
-        \param height height of the rectangle
-        */
-        void drawRectangle(float32 x, float32 y, float32 width, float32 height);
-
         /*! draw a filled rectangle.
 
         \param x horizontal position
@@ -463,105 +454,12 @@ namespace igor
         */
         void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height);
 
-        /*! draw a circle.
-
-        \param x horizontal center position
-        \param y vertical center position
-        \param radius radius of the circle
-        \param segments segments count
-        */
-        void drawCircle(float32 x, float32 y, float32 radius, int segments = 16);
-
-        /*! draw a filled circle.
-
-        \param x horizontal center position
-        \param y vertical center position
-        \param radius radius of the circle
-        \param segments segments count
-        */
-        void drawFilledCircle(float32 x, float32 y, float32 radius, int segments = 16);
-
-
-        /*! draw a filled rectangle with texture.
-
-        Texture coordinates fill the rectangle once from 0-1 and 0-1.
-
-        \param x horizontal position
-        \param y vertical position
-        \param width width of the rectangle
-        \param height height of the rectangle
-        \param texture the texture to render the rectangle with
-        */
-        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture);
-
-        /*! draw a tiled texture
-
-        as drawTexturedRectangle but with repeating UV coordinates based on texture resolution
-
-        \param x horizontal position
-        \param y vertical position
-        \param width width of the rectangle
-        \param height height of the rectangle
-        \param texture the texture to render the rectangle with
-        */
-        void drawTextureTiled(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture);
-
-        /*! draw a filled rectangle with texture.
-
-        Texture coordinates fill the rectangle once from 0-1 and 0-1.
-        Values for Width and Height are taken from the textures size.
-
-        \param x horizontal position
-        \param y vertical position
-        \param texture the texture to render the rectangle with
-        */
-        void drawTexturedRectangle(float32 x, float32 y, iTexturePtr texture);
-
-        /*! draws a sprite at given position, orientation and scale
-
-        \param sprite the sprite to render
-        \param frameIndex the index of the frame to render
-        \param pos position on screen
-        */
-        void drawSprite(const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &pos);
-
-        /*! draws a point
-
-        \param pos 3d position to draw the point at
-        */
-        void drawPoint(iaVector3f &pos);
-
         /*! draws a line between two 3d points
 
         \param posA first 3d point
         \param posB second 3d point
         */
         void drawLine(const iaVector3f &posA, const iaVector3f &posB);
-
-        /*! draws a line strip
-
-        \param line list of line segments
-        */
-        void drawLineStrip(const std::vector<iaVector3f> &line);
-
-        /*! draws an axis aligned box between two points
-
-        \param posA first 3d point
-        \param posB second 3d point
-        */
-        void drawFilledBox(const iaVector3f &posA, const iaVector3f &posB);
-
-        /*! draws axis aligned bounding box with lines
-
-        \param bbox the bounding box to draw
-        */
-        void drawBBox(const iAABoxd &bbox);
-
-        /*! draws axis aligned bounding cube with lines
-
-        \param bbox the bounding box to draw
-        */
-        void drawBBox(const iAACubed &bbox);
 
         /*! draws a billboard
 
@@ -618,65 +516,10 @@ namespace igor
         void setLightDiffuse(int32 lightnum, iaColor4f &diffuse);
         void setLightSpecular(int32 lightnum, iaColor4f &specular);
 
-        // 2D Bitmap Text
-        /*! sets texture font to use next
-
-        \param font the font to use
-        */
-        void setFont(iTextureFont *font);
-
-        /*! sets the size of fonts to render with
-
-        \param fontSize the font size
-        */
-        void setFontSize(float32 fontSize);
-
-        /*! sets the font line height
-
-        \param lineheight the text line height to render with
-        */
-        void setFontLineHeight(float32 lineheight);
-
-        /*! draws a string on screen using current font settings
-
-        \param x horizontal position
-        \param y vertical position
-        \param text the text to draw
-        \param angle orientation in degrees
-        \param maxWidth the max width of the text. If text ist wider it will be rendered in multiple lines
-        */
-        void drawString(float32 x, float32 y, iaString text, float32 angle = 0.0f, float32 maxWidth = 0.0f);
-
-        /*! draws a string on screen using current font settings
-
-        \param x horizontal position
-        \param y vertical position
-        \param text the text to draw
-        \param horizontalAlignment horizontal alignment relative to horizontal position
-        \param verticalAlignment vertical alignment relative to vertical position
-        \param angle orientation in degrees
-        \param maxWidth the max width of the text. If text ist wider it will be rendered in multiple lines
-        */
-        void drawString(float32 x, float32 y, iaString text, iHorizontalAlignment horizontalAlignment, iVerticalAlignment verticalAlignment = iVerticalAlignment::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
-
         // Particles
         void drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);
         void drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);
-        void drawParticles(float32 x, float32 y, float32 angle, iParticle2D *particles, int32 particleCount, iaGradientColor4f *rainbow = 0);
-
-        // attributes
-        /*! sets line render width
-
-        \param lineWidth line render width
-        */
-        void setLineWidth(float32 lineWidth);
-
-        /*! sets point size
-
-        \param pointSize point size
-        */
-        void setPointSize(float32 pointSize);
-
+        
         // shader
         uint32 createShaderProgram();
         void destroyShaderProgram(uint32 id);
