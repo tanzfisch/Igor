@@ -52,11 +52,11 @@ namespace igor
         \param cound index count
         \param indices the index data
         */
-        static iIndexBufferPtr create(uint32 count, const uint32 *indices);
+        static iIndexBufferPtr create(uint32 count, const uint32 *indices = nullptr);
 
         /*!
          */
-        iIndexBuffer(uint32 count, const uint32 *indices);
+        iIndexBuffer(uint32 count, const uint32 *indices = nullptr);
         virtual ~iIndexBuffer();
 
         void bind() const;

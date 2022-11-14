@@ -18,9 +18,10 @@ namespace igor
     {
         glCreateBuffers(1, &_indexBufferObject);
         GL_CHECK_ERROR();
+
         glBindBuffer(GL_ARRAY_BUFFER, _indexBufferObject);
         GL_CHECK_ERROR();
-        glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32), indices, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32), indices, (indices != nullptr) ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
         GL_CHECK_ERROR();
     }
 

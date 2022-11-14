@@ -349,18 +349,19 @@ namespace igor
 
         triangles._vertexArray = iVertexArray::create();
 
-        triangles._indexData = new uint32[MAX_TRIANGLE_INDICES];
-        triangles._indexBuffer = iIndexBuffer::create(MAX_TRIANGLE_INDICES, triangles._indexData);
-
         triangles._vertexBuffer = iVertexBuffer::create(MAX_TRIANGLE_VERTICES * sizeof(iFlatVertex));
         triangles._vertexBuffer->setLayout(std::vector<iBufferLayoutEntry>{{iShaderDataType::Float3}, {iShaderDataType::Float4}});
         triangles._vertexArray->addVertexBuffer(triangles._vertexBuffer);
+
+        triangles._indexBuffer = iIndexBuffer::create(MAX_TRIANGLE_INDICES);
         triangles._vertexArray->setIndexBuffer(triangles._indexBuffer);
 
         triangles._vertexData = new iFlatVertex[MAX_TRIANGLE_VERTICES];
-
         triangles._vertexDataPtr = triangles._vertexData;
+
+        triangles._indexData = new uint32[MAX_TRIANGLE_INDICES];
         triangles._indexDataPtr = triangles._indexData;
+
         triangles._vertexCount = 0;
         triangles._indexCount = 0;
 

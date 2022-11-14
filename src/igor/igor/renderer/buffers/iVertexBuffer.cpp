@@ -18,17 +18,8 @@ namespace igor
         glCreateBuffers(1, &_vertexBufferObject);
         GL_CHECK_ERROR();
         bind();
-
-        if (vertexData != nullptr)
-        {
-            glBufferData(GL_ARRAY_BUFFER, size, vertexData, GL_STATIC_DRAW);
-            GL_CHECK_ERROR();
-        }
-        else
-        {
-            glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
-            GL_CHECK_ERROR();
-        }
+        glBufferData(GL_ARRAY_BUFFER, size, vertexData, (vertexData != nullptr) ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
+        GL_CHECK_ERROR();
     }
 
     iVertexBuffer::~iVertexBuffer()
