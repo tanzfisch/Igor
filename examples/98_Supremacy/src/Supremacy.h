@@ -92,6 +92,10 @@ private:
      */
     iTexturePtr _shadow;
 
+    /*! floor
+    */
+    iTexturePtr _backgroundTexture;
+
     /*! texture font we use to display texts
      */
     iTextureFontPtr _font;

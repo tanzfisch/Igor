@@ -111,6 +111,7 @@ struct PartyComponent
 struct VisualComponent
 {
     iTexturePtr _texture;
+    bool _castShadow;
     iaTime _timerOffset;
 };
 

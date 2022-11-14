@@ -23,13 +23,13 @@ iEntity Supremacy::createPlayer()
 
     auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
-    entity.addComponent<OrientationComponent>(iaVector2d(1.0, 0.0), false);
+    entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), iaTime::fromSeconds(_rand.getNextFloat()));
-    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_KNIFE._component);
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
+    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
     weapon._time = iTimer::getInstance().getTime();
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
 
@@ -39,6 +39,11 @@ iEntity Supremacy::createPlayer()
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<QuadtreeObject>(iaCircled(position._position._x, position._position._y, size._size), entity.getID());
     _quadtree.insert(object._object);
+
+    iaVector2f a(-1.0,0.0);
+    iaVector2f b(1.0,0.0);
+    iaVector2f c(0.0,1.0);
+    iaVector2f d(0.0,-1.0);
 
     return entity;
 }
@@ -63,14 +68,14 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
 {
     iEntity entity = _entityScene.createEntity("enemy");
     entity.addComponent<PositionComponent>(pos);
-    entity.addComponent<OrientationComponent>(iaVector2d(1.0, 0.0), false);
+    entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
 
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
     entity.addComponent<PartyComponent>(party);
     entity.addComponent<DamageComponent>(10.0);
     entity.addComponent<HealthComponent>(30.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"), iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
@@ -150,6 +155,7 @@ void Supremacy::onInit()
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
 
+    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("background.png");
     _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
 
     // init font for render profiler
@@ -611,7 +617,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     for (int i = 0; i < config._projectileCount; ++i)
     {
         auto bullet = _entityScene.createEntity(config._texture);
-        bullet.addComponent<PositionComponent>(from);
+        bullet.addComponent<PositionComponent>(from + dir * config._size * 0.5);
 
         float32 angularVelocity = config._angularVelocity;
 
@@ -634,7 +640,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<DamageComponent>(damage);
         bullet.addComponent<HealthComponent>(100.0, true);
         bullet.addComponent<SizeComponent>(config._size);
-        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(config._texture), iaTime::fromSeconds(_rand.getNextFloat()));
+        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(config._texture), false, iaTime::fromSeconds(_rand.getNextFloat()));
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
 
@@ -860,11 +866,18 @@ void Supremacy::onRenderOrtho()
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer2::getInstance().setModelMatrix(matrix);
 
-    const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.6);
+    iRenderer2::getInstance().setBlendingActive(false);
+    iaVector2f tiling(10.0, 10.0);
+    iaVector2f bPos(std::truncf(viewRectangle._x / 100.0) * 100.0 - 200.0, std::truncf(viewRectangle._y / 100.0) * 100.0 - 200.0);
+    iRenderer2::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, tiling);  
 
+    con_endl("viewRectangle._x " << viewRectangle._x);
+    con_endl("std::truncf(viewRectangle._x / 100.0) * 100.0 " << std::truncf(viewRectangle._x / 100.0) * 100.0);
+
+    const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.9);
     iRenderer2::getInstance().setBlendingActive(true);
 
-    // draw entities TODO
+    // draw entities
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>();
 
     for (auto entity : view)
@@ -881,27 +894,25 @@ void Supremacy::onRenderOrtho()
         position = pos._position + position;
 
         float64 width = size._size;
-        float64 height = size._size;
+        float64 height = size._size;           
 
-        /*iaTime time = iaTime::getNow() + visual._timerOffset;
-        float64 timing = std::fmod(time.getMilliseconds(), 1000.0) / 1000.0 * M_PI * 2;
-
-        float64 value = sin(timing) * 0.5;
-        if (value > 0.0)
+        if(visual._castShadow)
         {
-            value *= 0.5;
+            iRenderer2::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor);
         }
 
-        width += value * 5.0;
-        height += (1.0 - value) * 10.0;*/
+        iaTime time = iaTime::getNow() + visual._timerOffset;
+        float64 timing = std::fmod((time.getMilliseconds() * 2.0), 1000.0) / 1000.0 * M_PI * 2;
 
-        // TODO shadow iRenderer2::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y + value * 2.0, size._size, size._size * 0.5, _shadow, shadowColor);
+        float64 value = 1.0f + (sin(timing) * 0.1);
 
         iaMatrixf matrix;
         matrix.translate(position._x, position._y, 0.0);
-        const float32 angle = ori._direction.angle();
+        iaVector2d o = ori._direction;
+        o._y *= -1.0;
+        const float32 angle = o.angle();
         matrix.rotate(angle, iaAxis::Z);
-        matrix.scale(width, height, 1.0);
+        matrix.scale(width * value, height * (1.0 / value), 1.0);
 
         iRenderer2::getInstance().drawTexturedQuad(matrix, visual._texture);
     }
