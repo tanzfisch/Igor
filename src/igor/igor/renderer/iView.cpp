@@ -229,7 +229,7 @@ namespace igor
             }
         }
 
-        iRenderer2::getInstance().flush();
+        iRenderer2::getInstance().endFrame();
     }
 
     uint64 iView::pickcolorID(uint32 posx, uint32 posy)

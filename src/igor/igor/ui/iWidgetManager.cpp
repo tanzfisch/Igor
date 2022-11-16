@@ -19,11 +19,8 @@
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iApplication.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
 #include <igor/ui/theme/iWidgetTheme.h>
-#include <igor/resources/texture/iTextureFont.h>
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
@@ -35,7 +32,11 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iApplication.h>
+#include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/renderer/iRenderer2.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -337,6 +338,8 @@ namespace igor
     {
         con_assert(_currentTheme != nullptr, "no theme defined");
 
+        iRenderer2::getInstance().save();
+
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs);
 
@@ -357,6 +360,8 @@ namespace igor
         {
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
+
+        iRenderer2::getInstance().restore();
     }
 
     iDialogPtr iWidgetManager::getDialog(uint64 id)

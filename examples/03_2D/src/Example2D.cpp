@@ -158,6 +158,8 @@ void Example2D::updateParticles()
 
 void Example2D::onRenderOrtho()
 {
+    iRenderer2::getInstance().save();
+
     // initialize view matrix with identity matrix
     iaMatrixd identity;
     iRenderer2::getInstance().setViewMatrix(identity);
@@ -166,7 +168,7 @@ void Example2D::onRenderOrtho()
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
-    iRenderer2::getInstance().setModelMatrix(matrix);
+    iRenderer2::getInstance().setModelMatrix(matrix);    
 
     // draw some background
     iRenderer2::getInstance().setBlendingActive(false);
@@ -252,4 +254,6 @@ void Example2D::onRenderOrtho()
     // doughnuts <3
     iRenderer2::getInstance().setBlendingActive(true);
     iRenderer2::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex);    
+
+    iRenderer2::getInstance().restore();
 }

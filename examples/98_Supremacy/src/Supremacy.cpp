@@ -853,6 +853,8 @@ void Supremacy::onRenderHUD()
 
 void Supremacy::onRenderOrtho()
 {
+    iRenderer2::getInstance().save();
+
     auto &viewportComp = _viewport.getComponent<ViewportComponent>();
     const iaRectangled &viewRectangle = viewportComp._viewport;
     iaRectangled intersetRectangle = viewRectangle;
@@ -918,6 +920,8 @@ void Supremacy::onRenderOrtho()
     }
 
     onRenderHUD();
+
+    iRenderer2::getInstance().restore();
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

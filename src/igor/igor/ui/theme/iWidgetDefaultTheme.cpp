@@ -111,7 +111,7 @@ namespace igor
     }
 
     void iWidgetDefaultTheme::drawGradient(const iaRectanglef &rect, const iaGradientColor4f &gradient)
-    {
+    {       
         iRenderer2::getInstance().setLineWidth(1);
 
         iaColor4f color;

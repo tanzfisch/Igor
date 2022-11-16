@@ -56,6 +56,7 @@ namespace igor
 
         friend class iModule<iRenderer2>;
         friend class iWindow;
+        friend class iView;
 
     public:
         /*! initializes renderer
@@ -66,7 +67,30 @@ namespace igor
          */
         void deinit();
 
-        // infos
+        /*! safe most common of current render states
+
+        This does not save the entire state of the renderer but only a few states like blending and
+        depth test that more often than not cause issues when not handled right.
+
+        The idea is to wrap all your onRender callbacks in save and restore to safeguard the rest
+        of your code from some but not all common mistakes.
+
+        for example like so:
+
+        void onRender()
+        {
+            iRenderer::getInstance().save();
+            iRenderer::getInstance().setBlendingActive(false);
+            .... draw something
+            iRenderer::getInstance().restore();
+        }
+        */
+        void save();
+
+        /*! restore common render states
+         */
+        void restore();
+
         /*! \returns render hardware vendor
          */
         iaString getVendor();
@@ -82,13 +106,6 @@ namespace igor
         /*! \returns renderer extensions
          */
         iaString getExtensions();
-
-        /*! draws everything that is still in the queue
-
-        This is already called automatically at the end of every frame.
-        No need to manually call it unless you know what you are doing.
-         */
-        void flush();
 
         /*! set projection matrix with perspective projection
 
@@ -407,7 +424,7 @@ namespace igor
 
         /*! \returns copy of render stats
          */
-        iRendererStats getStats() const;
+        const iRendererStats &getStats() const;
 
     private:
         /*! internal render data
@@ -446,6 +463,10 @@ namespace igor
          */
         void flushLastUsed();
 
+        /*! draws everything that is still in the queue
+         */
+        void flush();
+
         /*! updats internal matrices
          */
         void updateMatrices();
@@ -464,12 +485,26 @@ namespace igor
          */
         void endTexturedQuad();
 
+        /*! begin adding triangles to the triangle queue
+        */
         void beginTriangles();
+
+        /*! end adding triangles to the triangle queue
+        */
         void endTriangles();
+
+        /*! called to start new frame
+         */
+        void beginFrame();
+
+        /*! ends current frame and flushes all queues
+         */
+        void endFrame();
 
         /*! clears stats
          */
         void clearStats();
+
     };
 
 }

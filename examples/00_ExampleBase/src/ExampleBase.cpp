@@ -197,6 +197,8 @@ void ExampleBase::onPreDraw()
 
 void ExampleBase::onRenderOrtho()
 {
+    iRenderer2::getInstance().save();
+
     // initialize view matrix with identity matrix
     iaMatrixd identity;
     iRenderer2::getInstance().setViewMatrix(identity);
@@ -204,8 +206,8 @@ void ExampleBase::onRenderOrtho()
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
     iRenderer2::getInstance().setModelMatrix(matrix);
-
-    iRenderer2::getInstance().setBlendingActive(true); // TODO I don't like this... we need some sort of Material again like in the old renderer
+    
+    iRenderer2::getInstance().setBlendingActive(true);
 
     drawLogo();
 
@@ -213,6 +215,8 @@ void ExampleBase::onRenderOrtho()
     {
         drawHelpScreen();
     }
+
+    iRenderer2::getInstance().restore();
 }
 
 void ExampleBase::drawLogo()
