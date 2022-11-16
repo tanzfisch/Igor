@@ -553,8 +553,8 @@ namespace igor
             return;
         }
 
-        _data->_renderState = renderState;
         flush();
+        _data->_renderState = renderState;
     }
 
     void iRenderer2::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)

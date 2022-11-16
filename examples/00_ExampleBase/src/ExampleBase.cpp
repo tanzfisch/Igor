@@ -206,8 +206,6 @@ void ExampleBase::onRenderOrtho()
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
     iRenderer2::getInstance().setModelMatrix(matrix);
-    
-    iRenderer2::getInstance().setBlendingActive(true);
 
     drawLogo();
 
@@ -221,6 +219,8 @@ void ExampleBase::onRenderOrtho()
 
 void ExampleBase::drawLogo()
 {
+    iRenderer2::getInstance().setBlendingActive(true);
+
     const float32 width = static_cast<float32>(_igorLogo->getWidth());
     const float32 height = static_cast<float32>(_igorLogo->getHeight());
     const float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
