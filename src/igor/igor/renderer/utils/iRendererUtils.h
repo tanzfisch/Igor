@@ -33,8 +33,6 @@
 
 #include <glad/glad.h>
 
-#include <ostream>
-
 namespace igor
 {
 
@@ -99,8 +97,9 @@ namespace igor
      */
     static constexpr const int32 MAX_TEXTURE_UNITS = 8;
 
+    /*! igor specific shader properties
+    */
     static constexpr const char *UNIFORM_SOLIDCOLOR = "igor_solidColor";
-
     static constexpr const char *UNIFORM_LIGHT_ORIENTATION = "igor_lightOrientation";
     static constexpr const char *UNIFORM_LIGHT_AMBIENT = "igor_lightAmbient";
     static constexpr const char *UNIFORM_LIGHT_DIFFUSE = "igor_lightDiffuse";
@@ -108,35 +107,17 @@ namespace igor
     static constexpr const char *UNIFORM_EYE_POSITION = "igor_eyePosition";
     static constexpr const char *UNIFORM_MODEL_VIEW_PROJECTION = "igor_modelViewProjection";
     static constexpr const char *UNIFORM_MODEL = "igor_model";
-
     static constexpr const char *UNIFORM_MATERIAL_AMBIENT = "igor_matAmbient";
     static constexpr const char *UNIFORM_MATERIAL_DIFFUSE = "igor_matDiffuse";
     static constexpr const char *UNIFORM_MATERIAL_SPECULAR = "igor_matSpecular";
     static constexpr const char *UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
     static constexpr const char *UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
     static constexpr const char *UNIFORM_MATERIAL_ALPHA = "igor_matAlpha";
-
     static constexpr const char *SAMPLER_TEXTURE = "igor_matTexture";
 
-    /*! shader object types
-     */
-    enum class iShaderObjectType_New
-    {
-        Undefined,
-        Vertex,
-        Fragment,
-        Geometry
-    };
-
-    /*! prints the shader object type in the console
-
-    \param stream the stream to log to
-    \param type the shader object type
-    \returns the stream
+    /*! renderer utils shared across renderer, shader etc implementations
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type);
-
-    class IGOR_API iRendererUtils
+    class iRendererUtils
     {
     public:
         /*! \returns size of given shader data type in bytes
@@ -151,11 +132,17 @@ namespace igor
         */
         static uint32 getComponentCount(iShaderDataType type);
 
+        /*! \returns opengl type for given shader data type
+
+        \param type the shader data type
+        */
+        static GLenum convertType(iShaderDataType type);
+
         /*! \returns openGL shader object type for given igor type
 
         \param type the igor shader object type
         */
-        static uint32 getOGLShaderType(iShaderObjectType_New type);
+        static uint32 convertType(iShaderObjectType_New type);
     };
 
 }

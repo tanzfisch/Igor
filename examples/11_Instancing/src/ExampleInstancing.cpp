@@ -182,9 +182,9 @@ void ExampleInstancing::onDeinit()
     }
 
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancingA);
-    _materialWithInstancingA = iMaterial::INVALID_MATERIAL_ID;
+    _materialWithInstancingA = iMaterial_old::INVALID_MATERIAL_ID;
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancingB);
-    _materialWithInstancingB = iMaterial::INVALID_MATERIAL_ID;
+    _materialWithInstancingB = iMaterial_old::INVALID_MATERIAL_ID;
 }
 
 void ExampleInstancing::onEvent(iEvent &event)

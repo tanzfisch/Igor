@@ -64,7 +64,7 @@ public:
 
     /*! \returns font material
     */
-    iMaterialID getFontMaterial() const;
+    iMaterialID_old getFontMaterial() const;
 
 protected:
     /*! initialize example
@@ -136,7 +136,7 @@ private:
 
     /*! material definition for the sky box
     */
-    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialID_old _materialSkyBox = iMaterial_old::INVALID_MATERIAL_ID;
 
     /*! draw igor logo
     */

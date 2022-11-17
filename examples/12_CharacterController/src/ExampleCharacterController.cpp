@@ -117,7 +117,7 @@ void ExampleCharacterController::onInit()
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial_old::RENDER_ORDER_MIN);
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
     // and add it to the scene

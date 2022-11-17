@@ -60,13 +60,13 @@ namespace igor
 
     /*! material id definition
     */
-    typedef uint64 iMaterialID;
+    typedef uint64 iMaterialID_old;
 
     /*! defines visual material
 
     \todo need a unique material ID. maybe a hash code
     */
-    class IGOR_API iMaterial
+    class IGOR_API iMaterial_old
     {
 
         friend class iRenderer;
@@ -118,7 +118,7 @@ namespace igor
 
         /*! \returns material ID
         */
-        iMaterialID getID() const;
+        iMaterialID_old getID() const;
 
         /*! sets name of material
 
@@ -169,9 +169,9 @@ namespace igor
 
         /*! set render order
 
-        \param order the higher the value the later it get's rendered (default is iMaterial::RENDER_ORDER_DEFAULT)
+        \param order the higher the value the later it get's rendered (default is iMaterial_old::RENDER_ORDER_DEFAULT)
         */
-        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
+        void setOrder(int32 order = iMaterial_old::RENDER_ORDER_DEFAULT);
 
         /*! \returns true if material is valid to use
         */
@@ -179,7 +179,7 @@ namespace igor
 
         /*! deletes shader if one was used
         */
-        ~iMaterial();
+        ~iMaterial_old();
 
     private:
         /*! material id generator
@@ -188,7 +188,7 @@ namespace igor
 
         /*! material id
         */
-        iMaterialID _id = iMaterial::INVALID_MATERIAL_ID;
+        iMaterialID_old _id = iMaterial_old::INVALID_MATERIAL_ID;
 
         /*! if false the material was already destroyed by the iMaterialResourceFactory
         */
@@ -284,9 +284,9 @@ namespace igor
 
         /*! oder that material groups get sorted by
 
-        default value is iMaterial::RENDER_ORDER_DEFAULT
+        default value is iMaterial_old::RENDER_ORDER_DEFAULT
         */
-        int32 _order = iMaterial::RENDER_ORDER_DEFAULT;
+        int32 _order = iMaterial_old::RENDER_ORDER_DEFAULT;
 
         /*! name of the material.
 
@@ -308,7 +308,7 @@ namespace igor
 
         /*! does nothing
         */
-        iMaterial();
+        iMaterial_old();
 
         /*! activate material
         */
@@ -327,7 +327,7 @@ namespace igor
 
     /*! definition of material pointer
     */
-    typedef std::shared_ptr<iMaterial> iMaterialPtr;
+    typedef std::shared_ptr<iMaterial_old> iMaterial_oldPtr;
 
 } // namespace igor
 

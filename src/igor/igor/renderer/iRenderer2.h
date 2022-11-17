@@ -32,6 +32,7 @@
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
 #include <igor/renderer/buffers/iVertexArray.h>
+#include <igor/renderer/material/iMaterial.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iAtlas.h>
@@ -67,29 +68,11 @@ namespace igor
          */
         void deinit();
 
-        /*! safe most common of current render states
+        /*! sets current material to render with
 
-        This does not save the entire state of the renderer but only a few states like blending and
-        depth test that more often than not cause issues when not handled right.
-
-        The idea is to wrap all your onRender callbacks in save and restore to safeguard the rest
-        of your code from some but not all common mistakes.
-
-        for example like so:
-
-        void onRender()
-        {
-            iRenderer::getInstance().save();
-            iRenderer::getInstance().setBlendingActive(false);
-            .... draw something
-            iRenderer::getInstance().restore();
-        }
+        \param material the material to render with
         */
-        void save();
-
-        /*! restore common render states
-         */
-        void restore();
+        void setMaterial(const iMaterialPtr &material);
 
         /*! \returns render hardware vendor
          */
@@ -189,17 +172,17 @@ namespace igor
         void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
         void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color = iaColor4f::white);
 
-        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
-        void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
         void drawQuad(const iaMatrixf &matrix, const iaColor4f &color = iaColor4f::white);
 
-        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
-        void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
         /*! draw specified frame from given atlas
          */
-        void drawFrame(const iaMatrixf &matrix, const iAtlasPtr &sprite, uint32 frameIndex, const iaColor4f &color = iaColor4f::white);
+        void drawFrame(const iaMatrixf &matrix, const iAtlasPtr &sprite, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
 
         void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient);
 
@@ -406,9 +389,6 @@ namespace igor
          */
         void setStencilMask(uint8 mask);
 
-        void setBlendingActive(bool enable);
-        bool isBlendingActive() const;
-
         void setDepthTestActive(bool enable);
         bool isDepthTestActive() const;
 
@@ -486,11 +466,11 @@ namespace igor
         void endTexturedQuad();
 
         /*! begin adding triangles to the triangle queue
-        */
+         */
         void beginTriangles();
 
         /*! end adding triangles to the triangle queue
-        */
+         */
         void endTriangles();
 
         /*! called to start new frame
@@ -504,7 +484,6 @@ namespace igor
         /*! clears stats
          */
         void clearStats();
-
     };
 
 }

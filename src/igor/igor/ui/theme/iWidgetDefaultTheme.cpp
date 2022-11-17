@@ -122,9 +122,9 @@ namespace igor
             float32 halfHeight = static_cast<float32>(rect._height) * 0.5f;
 
             gradient.getValue(static_cast<float32>(i) / static_cast<float32>(rect._width), color);
-            iRenderer2::getInstance().setBlendingActive(true);
+            // TODO iRenderer2::getInstance().setMaterial TODO(true);
             iRenderer2::getInstance().drawLine(indexPosX, static_cast<float32>(rect._y) + halfHeight + 0.5f, indexPosX, static_cast<float32>(rect._y + rect._height) + 0.5f, color);
-            iRenderer2::getInstance().setBlendingActive(false);
+            // TODO iRenderer2::getInstance().setMaterial TODO(false);
             color._a = 1.0;
             iRenderer2::getInstance().drawLine(indexPosX, static_cast<float32>(rect._y) + 0.5f, indexPosX, static_cast<float32>(rect._y) + halfHeight + 0.5f, color);
         }
@@ -144,11 +144,11 @@ namespace igor
     {
         if(color._a != 1.0f)
         {
-            iRenderer2::getInstance().setBlendingActive(true);
+            // TODO iRenderer2::getInstance().setMaterial TODO(true);
         }
 
         iRenderer2::getInstance().drawFilledRectangle(rect, color);
-        iRenderer2::getInstance().setBlendingActive(false);
+        // TODO iRenderer2::getInstance().setMaterial TODO(false);
     }
 
     void iWidgetDefaultTheme::drawGridHighlight(const iaRectanglef &rect)
@@ -636,15 +636,15 @@ namespace igor
     {
         const iaVector2f tiling(rect._width / texture->getWidth(),
                                 rect._height / texture->getHeight());
-        iRenderer2::getInstance().drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, iaColor4f::white, tiling);
+        iRenderer2::getInstance().drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, iaColor4f::white, false, tiling);
     }
 
     void iWidgetDefaultTheme::drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active)
     {
         const iaColor4f &color = active ? COLOR_WHITE : COLOR_AMBIENT;
-        iRenderer2::getInstance().setBlendingActive(true);
+        // TODO iRenderer2::getInstance().setMaterial TODO(true);
         iRenderer2::getInstance().drawTexturedRectangle(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture, color);
-        iRenderer2::getInstance().setBlendingActive(false);
+        // TODO iRenderer2::getInstance().setMaterial TODO(false);
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }

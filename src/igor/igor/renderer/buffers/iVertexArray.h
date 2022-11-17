@@ -37,28 +37,21 @@
 namespace igor
 {
 
-    class iVertexArray;
-
     /*! vertex array pointer definition
      */
+    class iVertexArray;
     typedef std::shared_ptr<iVertexArray> iVertexArrayPtr;
 
     /*! vertex array aka vertex array object
      */
     class iVertexArray
     {
+        friend void deleter(const iVertexArray *vertexArray);
+
     public:
         /*! \returns a newly created vertex array
          */
         static iVertexArrayPtr create();
-
-        /*! initializes vertex array
-         */
-        iVertexArray();
-
-        /*! releases vertex array
-         */
-        virtual ~iVertexArray();
 
         /*! bind this buffer
          */
@@ -104,6 +97,14 @@ namespace igor
         /*! the index buffer
          */
         iIndexBufferPtr _indexBuffer;
+
+        /*! initializes vertex array
+         */
+        iVertexArray();
+
+        /*! releases vertex array
+         */
+        virtual ~iVertexArray();
     };
 
 }

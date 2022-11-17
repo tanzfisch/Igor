@@ -830,7 +830,7 @@ namespace igor
     }
 
     //! \todo this is just a first rudimentary version. we need a structure that only switches the deltas between materials
-    void iRenderer::setMaterial(iMaterialPtr material, bool forceWireframe)
+    void iRenderer::setMaterial(iMaterial_oldPtr material, bool forceWireframe)
     {
         if (material == _currentMaterial)
         {

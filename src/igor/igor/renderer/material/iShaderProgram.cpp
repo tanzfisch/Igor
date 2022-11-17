@@ -2,8 +2,9 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/renderer/shader/iShaderProgram.h>
+#include <igor/renderer/material/iShaderProgram.h>
 
+#include <igor/renderer/utils/iRendererUtils.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaFile.h>
@@ -60,7 +61,7 @@ namespace igor
 
     bool iShaderProgram::addSource(const char *source, iShaderObjectType_New type)
     {
-        int32 shaderObject = glCreateShader(iRendererUtils::getOGLShaderType(type));
+        int32 shaderObject = glCreateShader(iRendererUtils::convertType(type));
         GL_CHECK_ERROR();
 
         glShaderSource(shaderObject, 1, &source, nullptr);
@@ -174,12 +175,12 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    void iShaderProgram::setMatrix(const iaString &uniform, const iaMatrixf &matrix)
+    void iShaderProgram::setMatrix(const iaString &uniform, const iaMatrixf &value)
     {
         char temp[128];
         uniform.getData(temp, 128);
         GLint location = glGetUniformLocation(_shaderProgram, temp);
-        glUniformMatrix4fv(location, 1, GL_FALSE, matrix.getData());
+        glUniformMatrix4fv(location, 1, GL_FALSE, value.getData());
         GL_CHECK_ERROR();
     }
 

@@ -24,7 +24,7 @@ namespace igor
         }
     }
 
-    void iMaterialGroup::setMaterial(iMaterialPtr material)
+    void iMaterialGroup::setMaterial(iMaterial_oldPtr material)
     {
         _material = material;
     }

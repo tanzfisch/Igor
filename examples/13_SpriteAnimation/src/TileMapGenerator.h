@@ -47,7 +47,7 @@ public:
 private:
 	/*! the material to use
 	*/
-	uint64 _material = iMaterial::INVALID_MATERIAL_ID;
+	uint64 _material = iMaterial_old::INVALID_MATERIAL_ID;
 
 	/*! the atlas to use
 	*/

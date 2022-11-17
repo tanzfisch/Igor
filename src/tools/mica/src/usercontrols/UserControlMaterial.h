@@ -99,7 +99,7 @@ private:
 
 	void onFileLoadDialogClosed(iDialogPtr dialog);
 
-	void reloadShader(iMaterialPtr material);
+	void reloadShader(iMaterial_oldPtr material);
 
 	void updateGUI();
 	void updateMaterial();

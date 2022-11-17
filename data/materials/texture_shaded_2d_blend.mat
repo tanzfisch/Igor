@@ -1,4 +1,40 @@
-#version 430
+<?xml version="1.0"?>
+<Igor>
+	<!-- material definition for 2d flat shading -->
+	<Material>
+		<States>
+			<DepthTest>Off</DepthTest>
+            <DepthMask>Off</DepthMask>
+            <Blend>On</Blend>
+            <CullFace>On</CullFace>
+            <CullFaceFunc>Back</CullFaceFunc>
+		</States>
+        <Program>
+            <Vertex>
+<![CDATA[#version 430
+
+layout(location = 0) in vec3 in_position;
+layout(location = 1) in vec4 in_color;
+layout(location = 2) in vec2 in_texCoord;
+layout(location = 3) in float in_texUnit;
+
+uniform mat4 igor_modelViewProjection;
+
+out vec4 VertexColor;
+out vec2 TexCoord;
+out float TexUnit;
+
+void main()
+{
+	VertexColor = in_color;
+	TexCoord = in_texCoord;
+	TexUnit = in_texUnit;
+
+	gl_Position = igor_modelViewProjection * vec4(in_position,1);
+}]]>
+            </Vertex>
+            <Fragment>
+<![CDATA[#version 430
 
 in vec4 VertexColor;
 in vec2 TexCoord;
@@ -49,4 +85,8 @@ void main()
 	}
 
 	out_color = texColor;
-}
+}]]>
+            </Fragment>
+        </Program>            
+	</Material>
+</Igor>

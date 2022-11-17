@@ -94,7 +94,7 @@ namespace igor
     /*! quadtree implementation
      */
     template <typename F, typename T>
-    class IGOR_API_TEMPLATE iQuadtree
+    class IGOR_API_EXPORT_ONLY iQuadtree
     {
 
     public:

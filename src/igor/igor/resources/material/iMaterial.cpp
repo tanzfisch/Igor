@@ -14,19 +14,19 @@
 namespace igor
 {
 
-    iaIDGenerator64 iMaterial::_idGenerator;
+    iaIDGenerator64 iMaterial_old::_idGenerator;
 
-    iMaterial::iMaterial()
+    iMaterial_old::iMaterial_old()
     {
         _id = _idGenerator.createID();
     }
 
-    iMaterial::~iMaterial()
+    iMaterial_old::~iMaterial_old()
     {
         clearShader();
     }
 
-    void iMaterial::clearShader()
+    void iMaterial_old::clearShader()
     {
         if (_shader != nullptr)
         {
@@ -35,12 +35,12 @@ namespace igor
         }
     }
 
-    iMaterialID iMaterial::getID() const
+    iMaterialID_old iMaterial_old::getID() const
     {
         return _id;
     }
 
-    void iMaterial::compileShader()
+    void iMaterial_old::compileShader()
     {
         if (iRenderer::getInstance().isReady())
         {
@@ -122,17 +122,17 @@ namespace igor
         }
     }
 
-    bool iMaterial::isValid() const
+    bool iMaterial_old::isValid() const
     {
         return _isValid;
     }
 
-    void iMaterial::setRenderState(const iRenderState state, const iRenderStateValue value)
+    void iMaterial_old::setRenderState(const iRenderState state, const iRenderStateValue value)
     {
         _renderStateSet.setRenderState(state, value);
     }
 
-    void iMaterial::addShaderSource(iaString filename, iShaderObjectType type)
+    void iMaterial_old::addShaderSource(iaString filename, iShaderObjectType type)
     {
         for (auto source : _shaderSources)
         {
@@ -149,34 +149,34 @@ namespace igor
         _shaderSources.push_back(shaderSource);
     }
 
-    std::vector<iShaderSource> iMaterial::getShaderSources() const
+    std::vector<iShaderSource> iMaterial_old::getShaderSources() const
     {
         return _shaderSources;
     }
 
-    iShader_Old *iMaterial::getShader()
+    iShader_Old *iMaterial_old::getShader()
     {
         return _shader;
     }
 
-    int32 iMaterial::getOrder() const
+    int32 iMaterial_old::getOrder() const
     {
         return _order;
     }
 
-    void iMaterial::setOrder(int32 order)
+    void iMaterial_old::setOrder(int32 order)
     {
         con_assert(order >= RENDER_ORDER_MIN && order <= RENDER_ORDER_MAX, "out of bounds");
 
         _order = order;
     }
 
-    iRenderStateSet &iMaterial::getRenderStateSet()
+    iRenderStateSet &iMaterial_old::getRenderStateSet()
     {
         return _renderStateSet;
     }
 
-    void iMaterial::activateShader()
+    void iMaterial_old::activateShader()
     {
         if (nullptr != _shader)
         {
@@ -184,7 +184,7 @@ namespace igor
         }
     }
 
-    void iMaterial::deactivateShader()
+    void iMaterial_old::deactivateShader()
     {
         if (nullptr != _shader)
         {
@@ -192,12 +192,12 @@ namespace igor
         }
     }
 
-    iaString iMaterial::getName()
+    iaString iMaterial_old::getName()
     {
         return _name;
     }
 
-    void iMaterial::setName(iaString name)
+    void iMaterial_old::setName(iaString name)
     {
         _name = name;
     }

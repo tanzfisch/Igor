@@ -96,7 +96,7 @@ struct PlantInformation
 
     /*! material ID
     */
-    uint64 _materialID = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialID = iMaterial_old::INVALID_MATERIAL_ID;
 };
 
 /*! plant mesh generator

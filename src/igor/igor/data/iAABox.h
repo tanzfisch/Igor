@@ -40,7 +40,7 @@ namespace igor
     /*! Axis aligned box
 	*/
     template <class T>
-    class IGOR_API_TEMPLATE iAABox
+    class IGOR_API_EXPORT_ONLY iAABox
     {
 
     public:

@@ -868,7 +868,7 @@ void Supremacy::onRenderOrtho()
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer2::getInstance().setModelMatrix(matrix);
 
-    iRenderer2::getInstance().setBlendingActive(false);
+    // TODO iRenderer2::getInstance().setMaterial TODO(false);
     iaVector2f tiling(10.0, 10.0);
     iaVector2f bPos(std::truncf(viewRectangle._x / 100.0) * 100.0 - 200.0, std::truncf(viewRectangle._y / 100.0) * 100.0 - 200.0);
     iRenderer2::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, tiling);  
@@ -877,7 +877,7 @@ void Supremacy::onRenderOrtho()
     con_endl("std::truncf(viewRectangle._x / 100.0) * 100.0 " << std::truncf(viewRectangle._x / 100.0) * 100.0);
 
     const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.9);
-    iRenderer2::getInstance().setBlendingActive(true);
+    // TODO iRenderer2::getInstance().setMaterial TODO(true);
 
     // draw entities
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>();

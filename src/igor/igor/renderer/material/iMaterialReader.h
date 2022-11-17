@@ -26,53 +26,27 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_AACUBE_H__
-#define __IGOR_AACUBE_H__
+#ifndef __IGOR_MATERIALREADER__
+#define __IGOR_MATERIALREADER__
 
-#include <igor/iDefines.h>
-
-#include <iaux/math/iaVector3.h>
-using namespace iaux;
+#include <igor/renderer/material/iMaterial.h>
 
 namespace igor
 {
-
-    /*! Axis aligned cube
+	/*! reader for Igor material files
 	*/
-    template <class T>
-    class IGOR_API_EXPORT_ONLY iAACube
-    {
-    public:
-        /*! does nothing
-        */
-        iAACube() = default;
+	class iMaterialReader
+	{
+	public:
+		/*! reads material file and configures given material with it
 
-        /*! init members constructor
+		\param filename path to material file
+        \param material the material to configure with
+		*/
+		static void read(const iaString &filename, const iMaterialPtr &material);
 
-        \param center center position of cube
-        \param halfEdgeLenght half of the edge lenght of the cube
-        */
-        iAACube(const iaVector3<T> &center, T halfEdgeLenght);
-
-        /*! center position of cube
-        */
-        iaVector3<T> _center;
-
-        /*! half of the edge lenght
-        */
-        T _halfEdgeLength = static_cast<T>(0);
-    };
-
-#include <igor/data/iAACube.inl>
-
-    /*! float32 specialization of iAACube
-    */
-    typedef iAACube<float32> iAACubef;
-
-    /*! float32 specialization of iAACube
-    */
-    typedef iAACube<float64> iAACubed;
+	};
 
 } // namespace igor
 
-#endif // __IGOR_AACUBE_H__
+#endif // __IGOR_MATERIALREADER__

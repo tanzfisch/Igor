@@ -94,7 +94,7 @@ namespace igor
 
         \param materialID the material id to set
         */
-        void setMaterial(iMaterialID materialID);
+        void setMaterial(iMaterialID_old materialID);
 
         /*! returns multiple lines of information about this node
 
@@ -168,7 +168,7 @@ namespace igor
         \param node the current node
         \param materialID the material to set
         */
-        void setMaterial(iNodePtr node, iMaterialID materialID);
+        void setMaterial(iNodePtr node, iMaterialID_old materialID);
 
         /*! initializes memeber variables
          */

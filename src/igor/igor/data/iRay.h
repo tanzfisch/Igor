@@ -40,7 +40,7 @@ namespace igor
     /*! a ray
     */
     template <class T>
-    class IGOR_API_TEMPLATE iRay
+    class IGOR_API_EXPORT_ONLY iRay
     {
 
     public:

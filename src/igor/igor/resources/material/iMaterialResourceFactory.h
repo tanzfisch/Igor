@@ -93,11 +93,11 @@ namespace igor
         /*! \returns materials with given material id
         \param materialID the materials id
         */
-        iMaterialPtr getMaterial(uint64 materialID);
+        iMaterial_oldPtr getMaterial(uint64 materialID);
 
         /*! \returns default material
         */
-        iMaterialPtr getDefaultMaterial();
+        iMaterial_oldPtr getDefaultMaterial();
 
         /*! \returns default material ID
         */
@@ -110,7 +110,7 @@ namespace igor
         /*! \returns materials with given material name
         \param materialName the materials name
         */
-        iMaterialPtr getMaterial(iaString materialName);
+        iMaterial_oldPtr getMaterial(iaString materialName);
 
         /*! \retruns material id with given material name
         \param materialName the materials name
@@ -119,11 +119,11 @@ namespace igor
 
         /*! \returns the currently activated material
         */
-        iMaterialPtr getCurrentMaterial();
+        iMaterial_oldPtr getCurrentMaterial();
 
         /*! \returns materials list sorted by render order
         */
-        std::vector<iMaterialPtr> getSortedMaterials();
+        std::vector<iMaterial_oldPtr> getSortedMaterials();
 
         /*! register delegate to material created event
 
@@ -164,11 +164,11 @@ namespace igor
 
         /*! materials sorted by render order
         */
-        std::vector<iMaterialPtr> _sortedMaterials;
+        std::vector<iMaterial_oldPtr> _sortedMaterials;
 
         /*! lookup table for materials
         */
-        std::unordered_map<uint64, iMaterialPtr> _materials;
+        std::unordered_map<uint64, iMaterial_oldPtr> _materials;
 
         /*! mutex to protect the target material list
         */
@@ -180,7 +180,7 @@ namespace igor
 
         /*! current material in use
         */
-        iMaterialPtr _currentMaterial = nullptr;
+        iMaterial_oldPtr _currentMaterial = nullptr;
 
         /*! mutex for material lists
         */
@@ -188,11 +188,11 @@ namespace igor
 
         /*! default material ID
         */
-        uint64 _defaultMaterial = iMaterial::INVALID_MATERIAL_ID;
+        uint64 _defaultMaterial = iMaterial_old::INVALID_MATERIAL_ID;
 
         /*! color id material id
         */
-        uint64 _colorIDMaterial = iMaterial::INVALID_MATERIAL_ID;
+        uint64 _colorIDMaterial = iMaterial_old::INVALID_MATERIAL_ID;
 
         /*! set a material as the active material.
 

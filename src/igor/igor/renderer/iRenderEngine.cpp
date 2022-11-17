@@ -48,15 +48,15 @@ namespace igor
         iMaterialResourceFactory::getInstance().unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
     }
 
-    void iRenderEngine::onMaterialCreated(iMaterialID materialID)
+    void iRenderEngine::onMaterialCreated(iMaterialID_old materialID)
     {
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+        iMaterial_oldPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
         iMaterialGroup materialGroup;
         materialGroup.setMaterial(material);
         _materialGroups[materialID] = materialGroup;
     }
 
-    void iRenderEngine::onMaterialDestroyed(iMaterialID materialID)
+    void iRenderEngine::onMaterialDestroyed(iMaterialID_old materialID)
     {
         auto iter = _materialGroups.find(materialID);
 
@@ -224,7 +224,7 @@ namespace igor
     {
         IGOR_PROFILER_SCOPED(col_id);
 
-        iMaterialPtr colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
+        iMaterial_oldPtr colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
         iRenderer::getInstance().setMaterial(colorIDMaterial);
 
         auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();

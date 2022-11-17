@@ -8,20 +8,27 @@
 
 namespace igor
 {
+    void deleter(const iIndexBuffer *indexBuffer)
+    {
+        delete indexBuffer;
+    }
+
     iIndexBufferPtr iIndexBuffer::create(uint32 count, const uint32 *indices)
     {
-        return std::make_shared<iIndexBuffer>(count, indices);
+        return std::shared_ptr<iIndexBuffer>(new iIndexBuffer(count, indices), deleter);
     }
 
     iIndexBuffer::iIndexBuffer(uint32 count, const uint32 *indices)
         : _indexCount(count)
     {
+        _dynamic = indices != nullptr;
+
         glCreateBuffers(1, &_indexBufferObject);
         GL_CHECK_ERROR();
 
         glBindBuffer(GL_ARRAY_BUFFER, _indexBufferObject);
         GL_CHECK_ERROR();
-        glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32), indices, (indices != nullptr) ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32), indices, _dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
         GL_CHECK_ERROR();
     }
 
@@ -56,4 +63,8 @@ namespace igor
         return _indexCount;
     }
 
+    bool iIndexBuffer::isDynamic() const
+    {
+        return _dynamic;
+    }
 }

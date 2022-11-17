@@ -61,7 +61,7 @@ namespace igor
         */
         iMaterialGroup() = default;
 
-        void setMaterial(iMaterialPtr material);
+        void setMaterial(iMaterial_oldPtr material);
 
         /*! clean up
         */
@@ -88,7 +88,7 @@ namespace igor
     private:
         /*! corresponding material
         */
-        iMaterialPtr _material;
+        iMaterial_oldPtr _material;
 
         /*! render node IDs registred to this material
         */

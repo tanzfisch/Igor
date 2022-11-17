@@ -32,16 +32,24 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/data/iaString.h>
-
 #include <vector>
 
 namespace igor
 {
 
+    /*! buffer layout entry defnition
+     */
     struct iBufferLayoutEntry
     {
+        /*! does nothing
+         */
         iBufferLayoutEntry() = default;
+
+        /*! init with parameters
+
+        \param type the shader data type to use
+        \param normalized if true data will be normalized
+        */
         iBufferLayoutEntry(iShaderDataType type, bool normalized = false);
 
         /*! \returns the amout of components within this layout entry
@@ -52,8 +60,18 @@ namespace igor
          */
         iShaderDataType _type;
 
+        /*! size in bytes
+         */
         uint32 _size;
+
+        /*! offset in bytes
+         */
         uint32 _offset;
+
+        /*! if true data will be normalized when passed to the shader
+
+        \todo is that true?
+        */
         bool _normalized;
     };
 
@@ -64,19 +82,36 @@ namespace igor
     class iBufferLayout
     {
     public:
+        /*! does nothing
+         */
         iBufferLayout() = default;
 
-        iBufferLayout(std::vector<iBufferLayoutEntry> elements);
+        /*! init layout with given layout elements
 
+        \param elements given elements
+        */
+        iBufferLayout(const std::vector<iBufferLayoutEntry> &elements);
+
+        /*! \returns stride of layout configuration in byte
+         */
         uint32 getStride() const;
+
+        /*! \returns elements of layout
+         */
         const std::vector<iBufferLayoutEntry> &getElements() const;
 
     private:
+        /*! calculate offsets and stride
+         */
         void calcOffsetsAndStride();
 
-    private:
+        /*! elements of the layout
+         */
         std::vector<iBufferLayoutEntry> _elements;
-        uint32 _stride = 0;
+
+        /*! the stride
+         */
+        uint32 _stride;
     };
 
 }

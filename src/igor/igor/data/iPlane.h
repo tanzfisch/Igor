@@ -40,7 +40,7 @@ namespace igor
     /*! a plane
     */
     template <class T>
-    class IGOR_API_TEMPLATE iPlane
+    class IGOR_API_EXPORT_ONLY iPlane
     {
 
     public:

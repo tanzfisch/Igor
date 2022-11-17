@@ -8,41 +8,14 @@
 
 namespace igor
 {
-    static GLenum shaderDataTypeToOpenGLBaseType(iShaderDataType type)
+    void deleter(const iVertexArray *vertexArray)
     {
-        switch (type)
-        {
-        case iShaderDataType::Float:
-            return GL_FLOAT;
-        case iShaderDataType::Float2:
-            return GL_FLOAT;
-        case iShaderDataType::Float3:
-            return GL_FLOAT;
-        case iShaderDataType::Float4:
-            return GL_FLOAT;
-        case iShaderDataType::Matrix3x3:
-            return GL_FLOAT;
-        case iShaderDataType::Matrix4x4:
-            return GL_FLOAT;
-        case iShaderDataType::Int:
-            return GL_INT;
-        case iShaderDataType::Int2:
-            return GL_INT;
-        case iShaderDataType::Int3:
-            return GL_INT;
-        case iShaderDataType::Int4:
-            return GL_INT;
-        case iShaderDataType::Boolean:
-            return GL_BOOL;
-        }
-
-        con_crit("Unknown shader data type");
-        return 0;
+        delete vertexArray;
     }
 
     iVertexArrayPtr iVertexArray::create()
     {
-        return std::make_shared<iVertexArray>();
+        return std::shared_ptr<iVertexArray>(new iVertexArray(), deleter);
     }
 
     iVertexArray::iVertexArray()
@@ -92,7 +65,7 @@ namespace igor
 
                 glVertexAttribPointer(_totalComponentCount,
                                       component.getComponentCount(),
-                                      shaderDataTypeToOpenGLBaseType(component._type),
+                                      iRendererUtils::convertType(component._type),
                                       component._normalized ? GL_TRUE : GL_FALSE,
                                       info.getStride(),
                                       BUFFER_OFFSET(component._offset));
@@ -111,7 +84,7 @@ namespace igor
 
                 glVertexAttribIPointer(_totalComponentCount,
                                        component.getComponentCount(),
-                                       shaderDataTypeToOpenGLBaseType(component._type),
+                                       iRendererUtils::convertType(component._type),
                                        info.getStride(),
                                        BUFFER_OFFSET(component._offset));
                 GL_CHECK_ERROR();
@@ -131,7 +104,7 @@ namespace igor
 
                     glVertexAttribPointer(_totalComponentCount,
                                           count,
-                                          shaderDataTypeToOpenGLBaseType(component._type),
+                                          iRendererUtils::convertType(component._type),
                                           component._normalized ? GL_TRUE : GL_FALSE,
                                           info.getStride(),
                                           BUFFER_OFFSET(offset));

@@ -30,7 +30,7 @@ namespace igor
     {
         iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
 
-        if (_defaultMaterial != iMaterial::INVALID_MATERIAL_ID)
+        if (_defaultMaterial != iMaterial_old::INVALID_MATERIAL_ID)
         {
             destroyMaterial(_defaultMaterial);
         }
@@ -99,7 +99,7 @@ namespace igor
         if (_dirtyMaterials)
         {
             sort(_sortedMaterials.begin(), _sortedMaterials.end(),
-                 [](const iMaterialPtr a, const iMaterialPtr b) -> bool {
+                 [](const iMaterial_oldPtr a, const iMaterial_oldPtr b) -> bool {
                      return a->getOrder() < b->getOrder();
                  });
 
@@ -108,12 +108,12 @@ namespace igor
         _mutexMaterial.unlock();
     }
 
-    std::vector<iMaterialPtr> iMaterialResourceFactory::getSortedMaterials()
+    std::vector<iMaterial_oldPtr> iMaterialResourceFactory::getSortedMaterials()
     {
         updateGroups();
 
         _mutexMaterial.lock();
-        std::vector<iMaterialPtr> copyList(_sortedMaterials);
+        std::vector<iMaterial_oldPtr> copyList(_sortedMaterials);
         _mutexMaterial.unlock();
 
         return copyList;
@@ -127,7 +127,7 @@ namespace igor
         material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
         material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
         material->compileShader();
-        material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        material->setOrder(iMaterial_old::RENDER_ORDER_DEFAULT);
 
         // set material to start with
         setMaterial(_defaultMaterial);
@@ -138,7 +138,7 @@ namespace igor
         material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
         material->addShaderSource("igor/solidColor.frag", iShaderObjectType::Fragment);
         material->compileShader();
-        material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        material->setOrder(iMaterial_old::RENDER_ORDER_DEFAULT);
 
         // creating this one as option because it is used far more often then the actual default one
         uint64 defaultTextureMaterial = createMaterial("igor.texture");
@@ -146,12 +146,12 @@ namespace igor
         material->addShaderSource("igor/textured.vert", iShaderObjectType::Vertex);
         material->addShaderSource("igor/textured_directional_light.frag", iShaderObjectType::Fragment);
         material->compileShader();
-        material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        material->setOrder(iMaterial_old::RENDER_ORDER_DEFAULT);
     }
 
     uint64 iMaterialResourceFactory::createMaterial(iaString name)
     {
-        iMaterial *material = new iMaterial();
+        iMaterial_old *material = new iMaterial_old();
         if (name != L"")
         {
             material->setName(name);
@@ -159,7 +159,7 @@ namespace igor
 
         material->_isValid = true;
 
-        iMaterialPtr shared = iMaterialPtr(material);
+        iMaterial_oldPtr shared = iMaterial_oldPtr(material);
 
         _mutexMaterial.lock();
         _materials[material->getID()] = shared;
@@ -224,7 +224,7 @@ namespace igor
 
     void iMaterialResourceFactory::setMaterial(uint64 materialID)
     {
-        iMaterialPtr material = 0;
+        iMaterial_oldPtr material = 0;
 
         _mutexMaterial.lock();
         auto iter = _materials.find(materialID);
@@ -241,14 +241,14 @@ namespace igor
         }
     }
 
-    iMaterialPtr iMaterialResourceFactory::getDefaultMaterial()
+    iMaterial_oldPtr iMaterialResourceFactory::getDefaultMaterial()
     {
         return getMaterial(_defaultMaterial);
     }
 
-    iMaterialPtr iMaterialResourceFactory::getMaterial(uint64 materialID)
+    iMaterial_oldPtr iMaterialResourceFactory::getMaterial(uint64 materialID)
     {
-        iMaterialPtr material = nullptr;
+        iMaterial_oldPtr material = nullptr;
 
         _mutexMaterial.lock();
         auto iter = _materials.find(materialID);
@@ -268,7 +268,7 @@ namespace igor
 
     uint64 iMaterialResourceFactory::getMaterialID(iaString materialName)
     {
-        uint64 result = iMaterial::INVALID_MATERIAL_ID;
+        uint64 result = iMaterial_old::INVALID_MATERIAL_ID;
 
         _mutexMaterial.lock();
         auto materialIter = _materials.begin();
@@ -284,7 +284,7 @@ namespace igor
 
         _mutexMaterial.unlock();
 
-        if (result == iMaterial::INVALID_MATERIAL_ID)
+        if (result == iMaterial_old::INVALID_MATERIAL_ID)
         {
             con_err("material with name:" << materialName << " does not exist");
         }
@@ -292,9 +292,9 @@ namespace igor
         return result;
     }
 
-    iMaterialPtr iMaterialResourceFactory::getMaterial(iaString materialName)
+    iMaterial_oldPtr iMaterialResourceFactory::getMaterial(iaString materialName)
     {
-        iMaterialPtr material = 0;
+        iMaterial_oldPtr material = 0;
 
         _mutexMaterial.lock();
         auto materialIter = _materials.begin();
@@ -319,7 +319,7 @@ namespace igor
         return material;
     }
 
-    iMaterialPtr iMaterialResourceFactory::getCurrentMaterial()
+    iMaterial_oldPtr iMaterialResourceFactory::getCurrentMaterial()
     {
         return _currentMaterial;
     }

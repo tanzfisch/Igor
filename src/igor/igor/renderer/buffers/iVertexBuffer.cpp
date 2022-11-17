@@ -8,17 +8,25 @@
 
 namespace igor
 {
+
+    void deleter(const iVertexBuffer *vertexBuffer)
+    {
+        delete vertexBuffer;
+    }
+
     iVertexBufferPtr iVertexBuffer::create(uint32 size, const void *vertexData)
     {
-        return std::make_shared<iVertexBuffer>(size, vertexData);
+        return std::shared_ptr<iVertexBuffer>(new iVertexBuffer(size, vertexData), deleter);
     }
 
     iVertexBuffer::iVertexBuffer(uint32 size, const void *vertexData)
     {
+        _dynamic = vertexData != nullptr;
+
         glCreateBuffers(1, &_vertexBufferObject);
         GL_CHECK_ERROR();
         bind();
-        glBufferData(GL_ARRAY_BUFFER, size, vertexData, (vertexData != nullptr) ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, size, vertexData, _dynamic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
         GL_CHECK_ERROR();
     }
 
@@ -56,6 +64,11 @@ namespace igor
     const iBufferLayout &iVertexBuffer::getLayout() const
     {
         return _layout;
+    }
+
+    bool iVertexBuffer::isDynamic() const
+    {
+        return _dynamic;
     }
 
 }

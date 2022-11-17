@@ -46,6 +46,8 @@ namespace igor
      */
     class iVertexBuffer
     {
+        friend void deleter(const iVertexBuffer *vertexBuffer);
+
     public:
 
         /*! \returns a newly created vertex buffer
@@ -54,17 +56,6 @@ namespace igor
         \param vertexData the vertex data
         */
         static iVertexBufferPtr create(uint32 size, const void *vertexData = nullptr);
-
-        /*! init vertex buffer
-
-        \param size buffer size in bytes
-        \param vertexData the vertex data
-        */
-        iVertexBuffer(uint32 size, const void *vertexData = nullptr);
-
-        /*! release buffer
-         */
-        virtual ~iVertexBuffer();
 
         /*! bind this buffer
          */
@@ -75,6 +66,8 @@ namespace igor
         static void unbind();
 
         /*! sets data on buffer
+
+        Ideally only use this if the buffer is dynamic but generally it should always be safe to use
 
         \param size data size in bytes
         \param vertexData the vertex data
@@ -91,6 +84,10 @@ namespace igor
          */
         const iBufferLayout &getLayout() const;
 
+        /*! \returns true if this is a dynamic buffer
+         */
+        bool isDynamic() const;        
+
     private:
         /*! internal buffer id
          */
@@ -99,6 +96,21 @@ namespace igor
         /*! the buffer layout
          */
         iBufferLayout _layout;
+
+        /*! if true this is a dynamic buffer
+         */
+        bool _dynamic;        
+
+        /*! init vertex buffer
+
+        \param size buffer size in bytes
+        \param vertexData the vertex data
+        */
+        iVertexBuffer(uint32 size, const void *vertexData);
+
+        /*! release buffer
+         */
+        virtual ~iVertexBuffer();        
     };
 
 }

@@ -24,7 +24,7 @@ namespace igor
         _nodeType = iNodeType::iNodePhysics;
         _nodeKind = iNodeKind::Physics;
 
-        setMaterial(iMaterial::INVALID_MATERIAL_ID); // physics should only render for debugging purposes
+        setMaterial(iMaterial_old::INVALID_MATERIAL_ID); // physics should only render for debugging purposes
 
         _physicsCollisionConfigID = iPhysics::getInstance().createCollisionConfig()->getID();
     }

@@ -94,7 +94,7 @@ namespace igor
         }
     }
 
-    void iNodeModel::setMaterial(iMaterialID materialID)
+    void iNodeModel::setMaterial(iMaterialID_old materialID)
     {
         if (!isLoaded())
         {
@@ -105,7 +105,7 @@ namespace igor
         setMaterial(this, materialID);
     }
 
-    void iNodeModel::setMaterial(iNodePtr node, iMaterialID materialID)
+    void iNodeModel::setMaterial(iNodePtr node, iMaterialID_old materialID)
     {
         if (node->getType() == iNodeType::iNodeMesh)
         {

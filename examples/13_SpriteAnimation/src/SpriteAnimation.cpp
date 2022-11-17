@@ -83,7 +83,7 @@ void SpriteAnimation::onDeinit()
 {
     // release materials (optional)
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialTerrain);
-    _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
+    _materialTerrain = iMaterial_old::INVALID_MATERIAL_ID;
 
     // release some resources
     _walk = nullptr;

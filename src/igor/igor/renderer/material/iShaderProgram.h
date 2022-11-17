@@ -29,7 +29,7 @@
 #ifndef __IGOR_SHADER_PROGRAM__
 #define __IGOR_SHADER_PROGRAM__
 
-#include <igor/renderer/utils/iRendererUtils.h>
+#include <igor/iDefines.h>
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/data/iaString.h>
@@ -137,7 +137,7 @@ namespace igor
         \param uniform the uniform name
         \param value the value to set
         */
-        void setMatrix(const iaString &uniform, const iaMatrixf &matrix);
+        void setMatrix(const iaString &uniform, const iaMatrixf &value);
 
     private:
         /*! list of shader objects

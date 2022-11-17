@@ -58,7 +58,7 @@ private:
 
     /*! material id of a non textured material
      */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialWithTextureAndBlending = iMaterial_old::INVALID_MATERIAL_ID;
 
     /*! entity scene
      */

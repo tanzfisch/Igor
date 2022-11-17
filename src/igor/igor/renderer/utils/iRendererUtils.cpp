@@ -7,6 +7,38 @@
 namespace igor
 {
 
+    GLenum iRendererUtils::convertType(iShaderDataType type)
+    {
+        switch (type)
+        {
+        case iShaderDataType::Float:
+            return GL_FLOAT;
+        case iShaderDataType::Float2:
+            return GL_FLOAT;
+        case iShaderDataType::Float3:
+            return GL_FLOAT;
+        case iShaderDataType::Float4:
+            return GL_FLOAT;
+        case iShaderDataType::Matrix3x3:
+            return GL_FLOAT;
+        case iShaderDataType::Matrix4x4:
+            return GL_FLOAT;
+        case iShaderDataType::Int:
+            return GL_INT;
+        case iShaderDataType::Int2:
+            return GL_INT;
+        case iShaderDataType::Int3:
+            return GL_INT;
+        case iShaderDataType::Int4:
+            return GL_INT;
+        case iShaderDataType::Boolean:
+            return GL_BOOL;
+        }
+
+        con_crit("Unknown shader data type");
+        return 0;
+    }
+
     uint32 iRendererUtils::getSize(iShaderDataType type)
     {
         switch (type)
@@ -71,7 +103,7 @@ namespace igor
         return 0;
     }
 
-    uint32 iRendererUtils::getOGLShaderType(iShaderObjectType_New type)
+    uint32 iRendererUtils::convertType(iShaderObjectType_New type)
     {
         switch (type)
         {
@@ -98,6 +130,27 @@ namespace igor
             L"vertex",
             L"fragment",
             L"geometry"};
+
+        stream << text[static_cast<int>(type)];
+
+        return stream;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iShaderDataType &type)
+    {
+        const static std::wstring text[] = {
+            L"None",
+            L"Float",
+            L"Float2",
+            L"Float3",
+            L"Float4",
+            L"Matrix3x3",
+            L"Matrix4x4",
+            L"Int",
+            L"Int2",
+            L"Int3",
+            L"Int4",
+            L"Boolean"};
 
         stream << text[static_cast<int>(type)];
 

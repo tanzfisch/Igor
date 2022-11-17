@@ -57,11 +57,11 @@ namespace igor
 
         \param materialID material id
         */
-        void setMaterial(iMaterialID materialID);
+        void setMaterial(iMaterialID_old materialID);
 
         /*! \retruns material id
         */
-        iMaterialID getMaterial() const;
+        iMaterialID_old getMaterial() const;
 
         /*! sets visibility of this node
 
@@ -115,7 +115,7 @@ namespace igor
     private:
         /*! material id to render with
         */
-        iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
+        iMaterialID_old _materialID = iMaterial_old::INVALID_MATERIAL_ID;
     };
 
 #include <igor/scene/nodes/iNodeRender.inl>

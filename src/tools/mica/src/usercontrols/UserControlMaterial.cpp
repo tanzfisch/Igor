@@ -16,7 +16,7 @@ UserControlMaterial::~UserControlMaterial()
 
 void UserControlMaterial::updateMaterial()
 {
-    iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    iMaterial_oldPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
     if (!_ignoreMaterialUpdate &&
         material != nullptr &&

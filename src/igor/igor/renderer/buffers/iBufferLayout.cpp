@@ -1,4 +1,3 @@
-
 // Igor game engine
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
@@ -10,7 +9,7 @@
 namespace igor
 {
 
-    iBufferLayout::iBufferLayout(std::vector<iBufferLayoutEntry> elements)
+    iBufferLayout::iBufferLayout(const std::vector<iBufferLayoutEntry> &elements)
         : _elements(elements)
     {
         calcOffsetsAndStride();

@@ -143,7 +143,7 @@ namespace igor
 
         /*! material groups
          */
-        std::unordered_map<iMaterialID, iMaterialGroup> _materialGroups;
+        std::unordered_map<iMaterialID_old, iMaterialGroup> _materialGroups;
 
         /*! handle to scene
          */
@@ -157,13 +157,13 @@ namespace igor
 
         \param materialID the material's id that got created
         */
-        void onMaterialCreated(iMaterialID materialID);
+        void onMaterialCreated(iMaterialID_old materialID);
 
         /*! called on material destroyed event
 
         \param materialID the material's id that got destroyed
         */
-        void onMaterialDestroyed(iMaterialID materialID);
+        void onMaterialDestroyed(iMaterialID_old materialID);
 
         /*! cull scene relative to specified camera
 

@@ -66,7 +66,7 @@ private:
 
     /*! particles material
     */
-    uint64 _particlesMaterial = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _particlesMaterial = iMaterial_old::INVALID_MATERIAL_ID;
 
     /*! ids of particle systems
     */

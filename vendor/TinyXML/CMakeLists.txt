@@ -19,7 +19,9 @@ add_library(TinyXML
 if(IS_GNU)
     target_compile_options(TinyXML PRIVATE -std=c++17 -fPIC)
 elseif(IS_MSVC)
-    target_compile_options(TinyXML PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(TinyXML PRIVATE "/std:c++17" "/MP" "/W1")
 endif()
+
+target_compile_definitions(TinyXML PUBLIC -DTIXML_USE_STL)
 
 target_include_directories(TinyXML PUBLIC .)

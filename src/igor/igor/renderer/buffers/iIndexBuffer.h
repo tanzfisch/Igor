@@ -36,16 +36,17 @@
 namespace igor
 {
 
-    class iIndexBuffer;
-
     /*! vertex buffer pointer definition
      */
+    class iIndexBuffer;
     typedef std::shared_ptr<iIndexBuffer> iIndexBufferPtr;
 
     /*! index buffer aka index buffer object
      */
     class iIndexBuffer
     {
+        friend void deleter(const iIndexBuffer *indexBuffer);
+
     public:
         /*! \returns a newly created index buffer
 
@@ -54,18 +55,30 @@ namespace igor
         */
         static iIndexBufferPtr create(uint32 count, const uint32 *indices = nullptr);
 
-        /*!
+        /*! bin this buffer
          */
-        iIndexBuffer(uint32 count, const uint32 *indices = nullptr);
-        virtual ~iIndexBuffer();
-
         void bind() const;
 
+        /*! unbinds buffer
+         */
         static void unbind();
 
+        /*! \returns index count of this buffer
+         */
         uint32 getIndexCount() const;
 
+        /*! sets data on buffer
+
+        Ideally only use this if the buffer is dynamic but generally it should always be safe to use
+
+        \param size the size in bytes
+        \param indexData the index data to set
+        */
         void setData(uint32 size, const void *indexData);
+
+        /*! \returns true if this is a dynamic buffer
+         */
+        bool isDynamic() const;
 
     private:
         /*! handle to internal buffer object
@@ -75,6 +88,21 @@ namespace igor
         /*! index count
          */
         uint32 _indexCount;
+
+        /*! if true this is a dynamic buffer
+         */
+        bool _dynamic;
+
+        /*! ctor with parameters
+
+        \param count the count if indices in the buffer
+        \param indices the index data
+         */
+        iIndexBuffer(uint32 count, const uint32 *indices);
+
+        /*! releases resources
+         */
+        virtual ~iIndexBuffer();
     };
 
 }

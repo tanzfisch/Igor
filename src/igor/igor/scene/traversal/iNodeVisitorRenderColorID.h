@@ -88,7 +88,7 @@ namespace igor
 
         /*! color ID render material
         */
-        uint64 _material = iMaterial::INVALID_MATERIAL_ID;
+        uint64 _material = iMaterial_old::INVALID_MATERIAL_ID;
     };
 
 }; // namespace igor

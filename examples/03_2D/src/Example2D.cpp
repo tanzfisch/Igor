@@ -158,8 +158,6 @@ void Example2D::updateParticles()
 
 void Example2D::onRenderOrtho()
 {
-    iRenderer2::getInstance().save();
-
     // initialize view matrix with identity matrix
     iaMatrixd identity;
     iRenderer2::getInstance().setViewMatrix(identity);
@@ -171,12 +169,11 @@ void Example2D::onRenderOrtho()
     iRenderer2::getInstance().setModelMatrix(matrix);    
 
     // draw some background
-    iRenderer2::getInstance().setBlendingActive(false);
     const float32 width = getWindow()->getClientWidth();
     const float32 height = getWindow()->getClientHeight();
     iaVector2f tiling(width / _backgroundTexture->getWidth(),
                       height / _backgroundTexture->getHeight());
-    iRenderer2::getInstance().drawTexturedRectangle(0.0f, 0.0f, width, height, _backgroundTexture, iaColor4f::white, tiling);
+    iRenderer2::getInstance().drawTexturedRectangle(0.0f, 0.0f, width, height, _backgroundTexture, iaColor4f::white, false, tiling);
 
     iRenderer2::getInstance().drawFilledRectangle(10, 10, 200, 150, iaColor4f(0, 0, 0, 1));
     iRenderer2::getInstance().drawFilledRectangle(220, 10, 200, 150, iaColor4f(0, 0, 0, 1));
@@ -200,15 +197,11 @@ void Example2D::onRenderOrtho()
     }
 
     iRenderer2::getInstance().drawFilledCircle(500, 400, 250, 5, iaColor4f::red);
-    iRenderer2::getInstance().setBlendingActive(true);
     iRenderer2::getInstance().drawFilledCircle(700, 500, 100, 8, iaColor4f(1.0,1.0,0.0,0.5));
-    iRenderer2::getInstance().setBlendingActive(false);
     iRenderer2::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
-    iRenderer2::getInstance().setBlendingActive(true);
-
     // draw the texture that we could not have loaded at startup
-    iRenderer2::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture);
+    iRenderer2::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture, iaColor4f::white, true);
 
     // draw the particles
     iRenderer2::getInstance().drawParticles(_particleSystem.getParticles(), _particleSystem.getParticleCount(), _particleTexture, _rainbow);
@@ -224,7 +217,6 @@ void Example2D::onRenderOrtho()
     iRenderer2::getInstance().drawString(350, 350, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
 
     // draw spline
-    iRenderer2::getInstance().setBlendingActive(false);
     std::vector<iaVector3f> points;
     _spline.getPoints(points, 200);
     iRenderer2::getInstance().setLineWidth(5);
@@ -252,8 +244,5 @@ void Example2D::onRenderOrtho()
     ExampleBase::onRenderOrtho();
 
     // doughnuts <3
-    iRenderer2::getInstance().setBlendingActive(true);
-    iRenderer2::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex);    
-
-    iRenderer2::getInstance().restore();
+    iRenderer2::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);    
 }

@@ -242,7 +242,7 @@ namespace igor
         \param forceWireframe if true all materials will be considered using wireframe
         \todo make separate interface for showing wireframe
         */
-        void setMaterial(iMaterialPtr material, bool forceWireframe = false);
+        void setMaterial(iMaterial_oldPtr material, bool forceWireframe = false);
 
         /*! set current material by id
 
@@ -708,7 +708,7 @@ namespace igor
 
         /*! current material in use
         */
-        iMaterialPtr _currentMaterial = nullptr;
+        iMaterial_oldPtr _currentMaterial = nullptr;
 
         /*! map of render targets
         */

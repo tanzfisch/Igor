@@ -58,7 +58,7 @@ private:
 
     /*! id of current selected material
     */
-    uint64 _selectedMaterial = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _selectedMaterial = iMaterial_old::INVALID_MATERIAL_ID;
 
     void initGUI();
 

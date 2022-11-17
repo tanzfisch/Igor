@@ -29,22 +29,26 @@
 #ifndef __IGOR_DEFINES_H__
 #define __IGOR_DEFINES_H__
 
+#include <ostream>
+
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
 #ifdef __IGOR_MSCOMPILER__
-    #ifdef __IGOR_BUILDING_DLL__
-        #define IGOR_API __declspec(dllexport)
-        #define IGOR_API_TEMPLATE __declspec(dllexport)
-    #else
-        #define IGOR_API __declspec(dllimport)
-        #define IGOR_API_TEMPLATE
-    #endif
+#ifdef __IGOR_BUILDING_DLL__
+#define IGOR_API __declspec(dllexport)
+#define IGOR_API_EXPORT_ONLY __declspec(dllexport)
+#define IGOR_API_IMPORT_ONLY
+#else
+#define IGOR_API __declspec(dllimport)
+#define IGOR_API_EXPORT_ONLY
+#define IGOR_API_IMPORT_ONLY __declspec(dllimport)
+#endif
 #endif
 
 #ifdef __IGOR_GCC__
-    #define IGOR_API
-    #define IGOR_API_TEMPLATE
+#define IGOR_API
+#define IGOR_API_EXPORT_ONLY
 #endif
 
 //! Igor configuration short
@@ -53,7 +57,7 @@ extern const iaString __IGOR_CONFIGURATION__;
 namespace igor
 {
     /*! horizontal alignment relative to parent widget
-    */
+     */
     enum class iHorizontalAlignment
     {
         Left,
@@ -65,7 +69,7 @@ namespace igor
     };
 
     /*! vertical alignment relative to parent widget
-    */
+     */
     enum class iVerticalAlignment
     {
         Top,
@@ -77,7 +81,7 @@ namespace igor
     };
 
     /*! color format of textures pixmaps etc.
-    */
+     */
     enum class iColorFormat
     {
         Undefined,
@@ -93,7 +97,7 @@ namespace igor
     };
 
     /*! how to generate a texture
-    */
+     */
     enum class iTextureBuildMode
     {
         Normal,
@@ -101,7 +105,7 @@ namespace igor
     };
 
     /*! texture wrap mode
-    */
+     */
     enum class iTextureWrapMode
     {
         Repeat,
@@ -110,7 +114,7 @@ namespace igor
     };
 
     /*! cache mode for resources
-    */
+     */
     enum class iResourceCacheMode
     {
         Free = 0,  //! free immidiatly after not in use
@@ -119,7 +123,7 @@ namespace igor
     };
 
     /*! Igor key codes
-    */
+     */
     enum class iKeyCode
     {
         Undefined,
@@ -250,25 +254,117 @@ namespace igor
         KeyCodeCount
     };
 
-	enum class iShaderDataType
-	{
-		None = 0, 
-        Float, 
-        Float2, 
-        Float3, 
-        Float4, 
-        Matrix3x3, 
-        Matrix4x4, 
-        Int, 
-        Int2, 
-        Int3, 
-        Int4, 
+    /*! shader object types
+     */
+    enum class iShaderObjectType_New
+    {
+        Undefined,
+        Vertex,
+        Fragment,
+        Geometry
+    };
+
+    /*! prints the shader object type in the console
+
+    \param stream the stream to log to
+    \param type the shader object type
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type);
+
+    /*! shader data type
+     */
+    enum class iShaderDataType
+    {
+        None = 0,
+        Float,
+        Float2,
+        Float3,
+        Float4,
+        Matrix3x3,
+        Matrix4x4,
+        Int,
+        Int2,
+        Int3,
+        Int4,
         Boolean
-	};
+    };
+
+    /*! prints the shader data type in the console
+
+    \param stream the stream to log to
+    \param type the shader data type
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderDataType &type);
+
+    /*! render states
+     */
+    enum class iRenderState
+    {
+        DepthTest,
+        DepthMask,
+        Blend,
+        CullFace,
+        Texture2D0,
+        Texture2D1,
+        Texture2D2,
+        Texture2D3,
+        Texture2D4,
+        Texture2D5,
+        Texture2D6,
+        Texture2D7,
+        Wireframe,
+        DepthFunc,
+        CullFaceFunc,
+        Instanced,
+        InstancedFunc,
+        RenderStateCount
+    };
+
+    /*! render state values
+
+    \todo remove what we don't need
+     */
+    enum class iRenderStateValue
+    {
+        Off = 0,
+        On = 1,
+        One,
+        Zero,
+        DestinationColor,
+        OneMinusDestinationColor,
+        SourceAlpha,
+        OneMinusSourceAlpha,
+        DestinationAlpha,
+        OneMinusDestinationAlpha,
+        SourceColor,
+        OneMinusSourceColor,
+        Never,
+        Less,
+        Equal,
+        LessOrEqual,
+        Greater,
+        NotEqual,
+        GreaterOrEqual,
+        Always,
+        Front,
+        Back,
+        Keep,
+        Replace,
+        Increment,
+        IncrementWrap,
+        Decrement,
+        DecrementWrap,
+        Invert,
+        Invalid,
+        PositionOrientation, // this one does not map to ogl
+        Position             //! \todo not implemented
+    };
 
     /*! user data type
-    */
-    typedef void* iUserData;
+     */
+    typedef void *iUserData;
 
 }; // namespace igor
 

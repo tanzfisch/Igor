@@ -338,8 +338,6 @@ namespace igor
     {
         con_assert(_currentTheme != nullptr, "no theme defined");
 
-        iRenderer2::getInstance().save();
-
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs);
 
@@ -360,8 +358,6 @@ namespace igor
         {
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
-
-        iRenderer2::getInstance().restore();
     }
 
     iDialogPtr iWidgetManager::getDialog(uint64 id)

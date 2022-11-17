@@ -42,7 +42,7 @@ namespace igor
     \todo ther is something wrong with the planes
     */
     template <class T>
-    class IGOR_API_TEMPLATE iFrustum
+    class IGOR_API_EXPORT_ONLY iFrustum
     {
 
     public:

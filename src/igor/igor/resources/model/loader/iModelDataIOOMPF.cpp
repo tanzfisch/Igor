@@ -408,7 +408,7 @@ namespace igor
         if (materialChunk != nullptr)
         {
             int32 materialID = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
-            iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+            iMaterial_oldPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
 
             con_assert(material != nullptr, "zero pointer");
 
@@ -747,7 +747,7 @@ namespace igor
     {
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+        iMaterial_oldPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
         if (material != nullptr)
         {
             auto shaderSources = material->getShaderSources();

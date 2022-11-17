@@ -59,7 +59,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
                 auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
                 material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
                 material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-                material->setOrder(iMaterial::RENDER_ORDER_MIN);
+                material->setOrder(iMaterial_old::RENDER_ORDER_MIN);
                 // set that material
                 skyBoxNode->setMaterial(_materialSkyBox);
                 // and add it to the scene
@@ -81,7 +81,7 @@ ExampleBase::~ExampleBase()
         getWindow()->isOpen())
     {
         // destroy materials
-        if (_materialSkyBox != iMaterial::INVALID_MATERIAL_ID)
+        if (_materialSkyBox != iMaterial_old::INVALID_MATERIAL_ID)
         {
             iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
         }
@@ -197,8 +197,6 @@ void ExampleBase::onPreDraw()
 
 void ExampleBase::onRenderOrtho()
 {
-    iRenderer2::getInstance().save();
-
     // initialize view matrix with identity matrix
     iaMatrixd identity;
     iRenderer2::getInstance().setViewMatrix(identity);
@@ -213,20 +211,16 @@ void ExampleBase::onRenderOrtho()
     {
         drawHelpScreen();
     }
-
-    iRenderer2::getInstance().restore();
 }
 
 void ExampleBase::drawLogo()
 {
-    iRenderer2::getInstance().setBlendingActive(true);
-
     const float32 width = static_cast<float32>(_igorLogo->getWidth());
     const float32 height = static_cast<float32>(_igorLogo->getHeight());
     const float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
     const float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
     
-    iRenderer2::getInstance().drawTexturedRectangle(x, y, width, height, _igorLogo);
+    iRenderer2::getInstance().drawTexturedRectangle(x, y, width, height, _igorLogo, iaColor4f::white, true);
 }
 
 void ExampleBase::drawHelpScreen()

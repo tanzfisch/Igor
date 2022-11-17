@@ -4,9 +4,10 @@
 
 #include <igor/renderer/iRenderer2.h>
 
-#include <igor/renderer/iRenderer.h>
+#include <igor/renderer/utils/iRendererUtils.h>
+#include <igor/renderer/material/iMaterial.h>
 
-#include <igor/renderer/shader/iShaderProgram.h>
+#include <deque>
 
 namespace igor
 {
@@ -201,35 +202,6 @@ namespace igor
         TexturedQuads
     };
 
-    struct iRendererState
-    {
-        bool _blendingActive = false;
-        bool _depthTestActive = false;
-        bool _depthMaskActive = true;
-        bool _cullFaceActive = true;
-
-        bool operator==(const iRendererState &other)
-        {
-            if (_blendingActive != other._blendingActive)
-            {
-                return false;
-            }
-            if (_depthTestActive != other._depthTestActive)
-            {
-                return false;
-            }
-            if (_depthMaskActive != other._depthMaskActive)
-            {
-                return false;
-            }
-            if (_cullFaceActive != other._cullFaceActive)
-            {
-                return false;
-            }
-            return true;
-        }
-    };
-
     /*! all the data needed
      */
     struct iRendererData
@@ -254,15 +226,28 @@ namespace igor
          */
         iRendererDataTexturedQuads _texQuads;
 
-        ////////// SHADERS ////////////
-        /*! shader for single color flat shading
+        ////////// MATERIALS ////////////
+        /*! material for flat shaded rendering
          */
-        iShaderProgramPtr _flatShader;
+        iMaterialPtr _flatShader;
 
-        /*! shader for textured shading
+        /*! material for textured rendering
          */
-        iShaderProgramPtr _textureShader;
+        iMaterialPtr _textureShader;
 
+        /*! material for flat shaded rendering
+         */
+        iMaterialPtr _flatShaderBlend;
+
+        /*! material for textured rendering
+         */
+        iMaterialPtr _textureShaderBlend;
+
+        /*! the current material in use
+         */
+        iMaterialPtr _currentMaterial;
+
+        //////////// SHARED DATA ///////////
         /*! quad index data
          */
         uint32 *_sharedQuadIndexData = nullptr;
@@ -311,10 +296,6 @@ namespace igor
 
         iaRectanglei _viewport;
 
-        iRendererState _renderState;
-
-        std::deque<iRendererState> _renderStateStack;
-
         ////// stats ////
         iRenderer2::iRendererStats _stats;
 
@@ -324,14 +305,6 @@ namespace igor
         iaString _version;
         iaString _extensions;
     };
-
-    static void applyOGLStates(const iRendererState &renderState)
-    {
-        renderState._blendingActive ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
-        renderState._depthTestActive ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-        renderState._depthMaskActive ? glDepthMask(GL_TRUE) : glDepthMask(GL_FALSE);
-        renderState._cullFaceActive ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
-    }
 
     iRenderer2::iRenderer2()
     {
@@ -435,19 +408,14 @@ namespace igor
         texQuads._indexCount = 0;
         texQuads._nextTextureIndex = 0;
 
-        ///////////// SHADER ////////////
-        _data->_flatShader = iShaderProgram::create();
-        _data->_flatShader->addShader("igor/renderer/flat_shader.vert", iShaderObjectType_New::Vertex);
-        _data->_flatShader->addShader("igor/renderer/flat_shader.frag", iShaderObjectType_New::Fragment);
-        _data->_flatShader->compile();
+        ///////////// MATERIALS ////////////
+        _data->_flatShader = iMaterial::create("flat_shaded_2d.mat");
+        _data->_flatShaderBlend = iMaterial::create("flat_shaded_2d_blend.mat");
+        _data->_textureShader = iMaterial::create("texture_shaded_2d.mat");
+        _data->_textureShaderBlend = iMaterial::create("texture_shaded_2d_blend.mat");
 
-        _data->_textureShader = iShaderProgram::create();
-        _data->_textureShader->addShader("igor/renderer/textured_shader.vert", iShaderObjectType_New::Vertex);
-        _data->_textureShader->addShader("igor/renderer/textured_shader.frag", iShaderObjectType_New::Fragment);
-        _data->_textureShader->compile();
-
-        /////////// STATES ////////////
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
+        _data->_currentMaterial.reset();
 
         /////////// OGL //////////
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -524,40 +492,14 @@ namespace igor
 
     void iRenderer2::beginFrame()
     {
-
     }
 
     void iRenderer2::endFrame()
     {
         flush();
-
-        con_assert(_data->_renderStateStack.empty(), "corrupted render state stack");
-        _data->_renderStateStack.clear();
     }
 
-    void iRenderer2::save()
-    {
-        _data->_renderStateStack.push_back(_data->_renderState);
-    }
-
-    void iRenderer2::restore()
-    {
-        con_assert_sticky(!_data->_renderStateStack.empty(), "render state stack underflow");
-
-        const iRendererState renderState = _data->_renderStateStack.back();
-        _data->_renderStateStack.pop_back();
-
-        // skip flush if nothing changed
-        if (_data->_renderState == renderState)
-        {
-            return;
-        }
-
-        flush();
-        _data->_renderState = renderState;
-    }
-
-    void iRenderer2::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)
+    void iRenderer2::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         auto &texQuads = _data->_texQuads;
 
@@ -570,6 +512,8 @@ namespace igor
         {
             flushTexQuads();
         }
+
+        (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
         int32 textureIndex = -1;
         for (uint32_t i = 0; i < texQuads._nextTextureIndex; i++)
@@ -626,18 +570,18 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
     }
 
-    void iRenderer2::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)
+    void iRenderer2::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, color, tiling);
+        drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, color, blend, tiling);
     }
 
-    void iRenderer2::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)
+    void iRenderer2::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         drawTexturedQuad(matrix * QUAD_VERTEX_POSITIONS[0],
                          matrix * QUAD_VERTEX_POSITIONS[1],
                          matrix * QUAD_VERTEX_POSITIONS[2],
                          matrix * QUAD_VERTEX_POSITIONS[3],
-                         texture, color, tiling);
+                         texture, color, blend, tiling);
     }
 
     __IGOR_INLINE__ int32 iRenderer2::beginTexturedQuad(const iTexturePtr &texture)
@@ -688,9 +632,11 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
     }
 
-    void iRenderer2::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)
+    void iRenderer2::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         const int32 textureIndex = beginTexturedQuad(texture);
+
+        (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
         auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = v1;
@@ -723,9 +669,11 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer2::drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color)
+    void iRenderer2::drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
     {
         const int32 textureIndex = beginTexturedQuad(atlas->getTexture());
+
+        (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
         const iAtlas::iFrame &frame = atlas->getFrame(frameIndex);
 
@@ -782,6 +730,8 @@ namespace igor
             flushPoints();
         }
 
+        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+
         points._vertexDataPtr->_pos = v;
         points._vertexDataPtr->_color = color;
         points._vertexDataPtr++;
@@ -823,6 +773,10 @@ namespace igor
             flushQuads();
         }
 
+        con_endl("(color._a == 1.0) " << color._a << " " << (color._a == 1.0));
+
+        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+
         quads._vertexDataPtr->_pos.set(x, y, 0.0);
         quads._vertexDataPtr->_color = color;
         quads._vertexDataPtr++;
@@ -863,6 +817,8 @@ namespace igor
         {
             flushQuads();
         }
+
+        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
 
         quads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
         quads._vertexDataPtr->_color = color;
@@ -923,6 +879,8 @@ namespace igor
             flushLines();
         }
 
+        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+
         lines._vertexDataPtr->_pos = v1;
         lines._vertexDataPtr->_color = color;
         lines._vertexDataPtr++;
@@ -937,7 +895,7 @@ namespace igor
     }
 
     void iRenderer2::flushTexQuads()
-    {
+    {      
         auto &texQuads = _data->_texQuads;
 
         if (texQuads._vertexCount == 0)
@@ -945,37 +903,40 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_renderState);
-
         uint32 dataSize = (uint32)((uint8 *)texQuads._vertexDataPtr - (uint8 *)texQuads._vertexData);
         texQuads._vertexBuffer->setData(dataSize, texQuads._vertexData);
         texQuads._vertexArray->bind();
 
         for (int32 i = 0; i < texQuads._nextTextureIndex; ++i)
         {
-            iRenderer::getInstance().bindTexture(texQuads._textures[i], i);
-            // TODO texQuads._textures[i]->bind(i); we need the dummy texture in the new renderer
+            texQuads._textures[i]->bind(i);
         }
 
-        _data->_textureShader->bind();
-        _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
+        if (_data->_currentMaterial != nullptr)
+        {
+            _data->_currentMaterial->bind();
+            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
 
-        glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
-        GL_CHECK_ERROR();
-        texQuads._vertexArray->unbind();
+            glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
+            GL_CHECK_ERROR();
+            texQuads._vertexArray->unbind();
 
-        _data->_textureShader->unbind();
+            _data->_currentMaterial->unbind();
 
-        // save stats
-        _data->_stats._vertices += texQuads._vertexCount;
-        _data->_stats._indices += texQuads._indexCount;
-        _data->_stats._triangles += texQuads._vertexCount / 2;
+            // save stats
+            _data->_stats._drawCalls++;
+            _data->_stats._vertices += texQuads._vertexCount;
+            _data->_stats._indices += texQuads._indexCount;
+            _data->_stats._triangles += texQuads._vertexCount / 2;
+        }
 
         // reset queue
         texQuads._vertexCount = 0;
         texQuads._indexCount = 0;
         texQuads._vertexDataPtr = texQuads._vertexData;
         texQuads._nextTextureIndex = 0;
+
+        con_trace_call();
     }
 
     void iRenderer2::flushTriangles()
@@ -987,35 +948,37 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_renderState);
+        if (_data->_currentMaterial != nullptr)
+        {
+            _data->_currentMaterial->bind();
+            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
 
-        _data->_flatShader->bind();
-        _data->_flatShader->setMatrix("igor_modelViewProjection", getMVP());
+            uint32 vertexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
+            triangles._vertexBuffer->setData(vertexDataSize, triangles._vertexData);
+            uint32 indexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
+            triangles._indexBuffer->setData(indexDataSize, triangles._indexData);
 
-        uint32 vertexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
-        triangles._vertexBuffer->setData(vertexDataSize, triangles._vertexData);
-        uint32 indexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
-        triangles._indexBuffer->setData(indexDataSize, triangles._indexData);
+            triangles._vertexArray->bind();
+            glDrawElements(GL_TRIANGLES, triangles._indexCount, GL_UNSIGNED_INT, nullptr);
+            GL_CHECK_ERROR();
+            triangles._vertexArray->unbind();
 
-        triangles._vertexArray->bind();
-        glDrawElements(GL_TRIANGLES, triangles._indexCount, GL_UNSIGNED_INT, nullptr);
-        // glDrawArrays(GL_TRIANGLES, 0, triangles._vertexCount);
-        GL_CHECK_ERROR();
-        triangles._vertexArray->unbind();
+            _data->_currentMaterial->unbind();
 
-        _data->_flatShader->unbind();
-
-        // save stats
-        _data->_stats._drawCalls++;
-        _data->_stats._vertices += triangles._vertexCount;
-        _data->_stats._indices += triangles._indexCount;
-        _data->_stats._triangles += triangles._vertexCount / 3;
+            // save stats
+            _data->_stats._drawCalls++;
+            _data->_stats._vertices += triangles._vertexCount;
+            _data->_stats._indices += triangles._indexCount;
+            _data->_stats._triangles += triangles._vertexCount / 3;
+        }
 
         // reset queue
         triangles._vertexCount = 0;
         triangles._indexCount = 0;
         triangles._vertexDataPtr = triangles._vertexData;
         triangles._indexDataPtr = triangles._indexData;
+
+        con_trace_call();
     }
 
     void iRenderer2::flushQuads()
@@ -1027,31 +990,34 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_renderState);
+        if (_data->_currentMaterial != nullptr)
+        {
+            _data->_currentMaterial->bind();
+            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
 
-        _data->_flatShader->bind();
-        _data->_flatShader->setMatrix("igor_modelViewProjection", getMVP());
+            uint32 dataSize = (uint32)((uint8 *)quads._vertexDataPtr - (uint8 *)quads._vertexData);
+            quads._vertexBuffer->setData(dataSize, quads._vertexData);
 
-        uint32 dataSize = (uint32)((uint8 *)quads._vertexDataPtr - (uint8 *)quads._vertexData);
-        quads._vertexBuffer->setData(dataSize, quads._vertexData);
+            quads._vertexArray->bind();
+            glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
+            GL_CHECK_ERROR();
+            quads._vertexArray->unbind();
 
-        quads._vertexArray->bind();
-        glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
-        GL_CHECK_ERROR();
-        quads._vertexArray->unbind();
+            _data->_currentMaterial->unbind();
 
-        _data->_flatShader->unbind();
-
-        // save stats
-        _data->_stats._drawCalls++;
-        _data->_stats._vertices += quads._vertexCount;
-        _data->_stats._indices += quads._indexCount;
-        _data->_stats._triangles += quads._vertexCount / 2;
+            // save stats
+            _data->_stats._drawCalls++;
+            _data->_stats._vertices += quads._vertexCount;
+            _data->_stats._indices += quads._indexCount;
+            _data->_stats._triangles += quads._vertexCount / 2;
+        }
 
         // reset queue
         quads._vertexCount = 0;
         quads._indexCount = 0;
         quads._vertexDataPtr = quads._vertexData;
+
+        con_trace_call();
     }
 
     void iRenderer2::flushLines()
@@ -1063,28 +1029,31 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_renderState);
+        if (_data->_currentMaterial != nullptr)
+        {
+            _data->_currentMaterial->bind();
+            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
 
-        _data->_flatShader->bind();
-        _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
+            uint32 dataSize = (uint32)((uint8 *)lines._vertexDataPtr - (uint8 *)lines._vertexData);
+            lines._vertexBuffer->setData(dataSize, lines._vertexData);
 
-        uint32 dataSize = (uint32)((uint8 *)lines._vertexDataPtr - (uint8 *)lines._vertexData);
-        lines._vertexBuffer->setData(dataSize, lines._vertexData);
+            lines._vertexArray->bind();
+            glDrawArrays(GL_LINES, 0, lines._vertexCount);
+            GL_CHECK_ERROR();
+            lines._vertexArray->unbind();
 
-        lines._vertexArray->bind();
-        glDrawArrays(GL_LINES, 0, lines._vertexCount);
-        GL_CHECK_ERROR();
-        lines._vertexArray->unbind();
+            _data->_currentMaterial->unbind();
 
-        _data->_flatShader->unbind();
-
-        // save stats
-        _data->_stats._drawCalls++;
-        _data->_stats._vertices += lines._vertexCount;
+            // save stats
+            _data->_stats._drawCalls++;
+            _data->_stats._vertices += lines._vertexCount;
+        }
 
         // reset queue
         lines._vertexCount = 0;
         lines._vertexDataPtr = lines._vertexData;
+
+        con_trace_call();
     }
 
     void iRenderer2::flushPoints()
@@ -1096,28 +1065,31 @@ namespace igor
             return;
         }
 
-        applyOGLStates(_data->_renderState);
+        if (_data->_currentMaterial != nullptr)
+        {
+            _data->_currentMaterial->bind();
+            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
 
-        _data->_flatShader->bind();
-        _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
+            uint32 dataSize = (uint32)((uint8 *)points._vertexDataPtr - (uint8 *)points._vertexData);
+            points._vertexBuffer->setData(dataSize, points._vertexData);
 
-        uint32 dataSize = (uint32)((uint8 *)points._vertexDataPtr - (uint8 *)points._vertexData);
-        points._vertexBuffer->setData(dataSize, points._vertexData);
+            points._vertexArray->bind();
+            glDrawArrays(GL_POINTS, 0, points._vertexCount);
+            GL_CHECK_ERROR();
+            points._vertexArray->unbind();
 
-        points._vertexArray->bind();
-        glDrawArrays(GL_POINTS, 0, points._vertexCount);
-        GL_CHECK_ERROR();
-        points._vertexArray->unbind();
+            _data->_currentMaterial->unbind();
 
-        _data->_flatShader->unbind();
-
-        // save stats
-        _data->_stats._drawCalls++;
-        _data->_stats._vertices += points._vertexCount;
+            // save stats
+            _data->_stats._drawCalls++;
+            _data->_stats._vertices += points._vertexCount;
+        }
 
         // reset queue
         points._vertexCount = 0;
         points._vertexDataPtr = points._vertexData;
+
+        con_trace_call();
     }
 
     void iRenderer2::flush()
@@ -1177,8 +1149,7 @@ namespace igor
             return;
         }
 
-        // draw previous lines and then set new width
-        flushLines();
+        flush();
 
         _data->_lineWidth = lineWidth;
         glLineWidth(_data->_lineWidth);
@@ -1196,8 +1167,7 @@ namespace igor
             return;
         }
 
-        // draw previous points and then set new size
-        flushPoints();
+        flush();
 
         _data->_pointSize = pointSize;
         glPointSize(_data->_pointSize);
@@ -1447,8 +1417,7 @@ namespace igor
             return;
         }
 
-        bool blending = isBlendingActive();
-        setBlendingActive(true);
+        setMaterial(_data->_textureShaderBlend);
 
         static wchar_t temptext[1024]; // TODO
 
@@ -1543,8 +1512,6 @@ namespace igor
 
             renderPos._x += renderSize._x;
         }
-
-        setBlendingActive(blending);
     }
 
     void iRenderer2::setFont(const iTextureFontPtr &font)
@@ -1579,13 +1546,15 @@ namespace igor
         return _data->_fontLineHeight;
     }
 
-    const iRenderer2::iRendererStats& iRenderer2::getStats() const
+    const iRenderer2::iRendererStats &iRenderer2::getStats() const
     {
         return _data->_stats;
     }
 
     void iRenderer2::clearStats()
     {
+        con_endl("_data->_stats._drawCalls " << _data->_stats._drawCalls);
+
         _data->_stats._drawCalls = 0;
         _data->_stats._vertices = 0;
         _data->_stats._indices = 0;
@@ -1756,36 +1725,20 @@ namespace igor
         glStencilMask(mask);
     }
 
-    void iRenderer2::setBlendingActive(bool enable)
+    void iRenderer2::setMaterial(const iMaterialPtr &material)
     {
-        if (_data->_renderState._blendingActive == enable)
+        if (_data->_currentMaterial == material)
         {
             return;
         }
 
         flush();
-        _data->_renderState._blendingActive = enable;
-    }
+        _data->_currentMaterial = material;
 
-    bool iRenderer2::isBlendingActive() const
-    {
-        return _data->_renderState._blendingActive;
-    }
-
-    void iRenderer2::setDepthTestActive(bool enable)
-    {
-        if (_data->_renderState._depthTestActive == enable)
+        if (_data->_currentMaterial)
         {
-            return;
+            con_trace("set material " << _data->_currentMaterial->getName());
         }
-
-        flush();
-        _data->_renderState._depthTestActive = enable;
-    }
-
-    bool iRenderer2::isDepthTestActive() const
-    {
-        return _data->_renderState._depthTestActive;
     }
 
     void iRenderer2::drawBox(const iAACubed &box, const iaColor4f &color)
@@ -1871,6 +1824,8 @@ namespace igor
     void iRenderer2::drawFilledCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
     {
         beginTriangles();
+
+        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
 
         auto &triangles = _data->_triangles;
 
