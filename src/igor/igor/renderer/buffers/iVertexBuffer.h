@@ -46,7 +46,7 @@ namespace igor
      */
     class iVertexBuffer
     {
-        friend void deleter(const iVertexBuffer *vertexBuffer);
+        friend class iVertexBufferDeleter;
 
     public:
 

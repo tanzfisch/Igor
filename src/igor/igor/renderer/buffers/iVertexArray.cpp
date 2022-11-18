@@ -8,14 +8,16 @@
 
 namespace igor
 {
-    void deleter(const iVertexArray *vertexArray)
+    
+    class iVertexArrayDeleter
     {
-        delete vertexArray;
-    }
+    public:
+        void operator()(iVertexArray * p) { delete p; }
+    };
 
     iVertexArrayPtr iVertexArray::create()
     {
-        return std::shared_ptr<iVertexArray>(new iVertexArray(), deleter);
+        return std::shared_ptr<iVertexArray>(new iVertexArray(), iVertexArrayDeleter());
     }
 
     iVertexArray::iVertexArray()

@@ -8,14 +8,15 @@
 
 namespace igor
 {
-    void deleter(const iIndexBuffer *indexBuffer)
+    class iIndexBufferDeleter
     {
-        delete indexBuffer;
-    }
+    public:
+        void operator()(iIndexBuffer * p) { delete p; }
+    };
 
     iIndexBufferPtr iIndexBuffer::create(uint32 count, const uint32 *indices)
     {
-        return std::shared_ptr<iIndexBuffer>(new iIndexBuffer(count, indices), deleter);
+        return std::shared_ptr<iIndexBuffer>(new iIndexBuffer(count, indices), iIndexBufferDeleter());
     }
 
     iIndexBuffer::iIndexBuffer(uint32 count, const uint32 *indices)

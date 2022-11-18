@@ -45,7 +45,7 @@ namespace igor
      */
     class iIndexBuffer
     {
-        friend void deleter(const iIndexBuffer *indexBuffer);
+        friend class iIndexBufferDeleter;
 
     public:
         /*! \returns a newly created index buffer

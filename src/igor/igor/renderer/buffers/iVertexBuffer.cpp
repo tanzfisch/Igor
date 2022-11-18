@@ -9,14 +9,15 @@
 namespace igor
 {
 
-    void deleter(const iVertexBuffer *vertexBuffer)
+    class iVertexBufferDeleter
     {
-        delete vertexBuffer;
-    }
+    public:
+        void operator()(iVertexBuffer * p) { delete p; }
+    };
 
     iVertexBufferPtr iVertexBuffer::create(uint32 size, const void *vertexData)
     {
-        return std::shared_ptr<iVertexBuffer>(new iVertexBuffer(size, vertexData), deleter);
+        return std::shared_ptr<iVertexBuffer>(new iVertexBuffer(size, vertexData), iVertexBufferDeleter());
     }
 
     iVertexBuffer::iVertexBuffer(uint32 size, const void *vertexData)

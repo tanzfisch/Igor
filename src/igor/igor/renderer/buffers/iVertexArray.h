@@ -46,7 +46,7 @@ namespace igor
      */
     class iVertexArray
     {
-        friend void deleter(const iVertexArray *vertexArray);
+        friend class iVertexArrayDeleter;
 
     public:
         /*! \returns a newly created vertex array
