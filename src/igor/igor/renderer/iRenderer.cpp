@@ -54,16 +54,21 @@ namespace igor
         switch (severity)
         {
         case GL_DEBUG_SEVERITY_HIGH:
-            con_crit(message);
+            con_crit(id << " - " << message);
             return;
         case GL_DEBUG_SEVERITY_MEDIUM:
-            con_err(message);
+            // ignore line width deprecation error
+            if(id == 7)
+            {
+                return;
+            }
+            con_err(id << " - " << message);
             return;
         case GL_DEBUG_SEVERITY_LOW:
-            con_warn(message);
+            con_warn(id << " - " << message);
             return;
         case GL_DEBUG_SEVERITY_NOTIFICATION:
-            con_debug(message);
+            con_debug(id << " - " << message);
             return;
         }
 
