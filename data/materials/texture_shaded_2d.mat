@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material>
+	<Material name="texture shaded 2d opaque">
 		<States>
 			<DepthTest>Off</DepthTest>
             <DepthMask>Off</DepthMask>

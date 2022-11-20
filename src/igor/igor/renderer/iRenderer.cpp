@@ -234,7 +234,7 @@ namespace igor
 
             glDepthFunc(GL_LESS);
 
-            // glEnable(GL_DEPTH_TEST);
+            glEnable(GL_DEPTH_TEST);
 
             glDepthMask(true);
 

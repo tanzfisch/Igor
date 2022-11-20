@@ -126,7 +126,7 @@ void Example3D::onInit()
     lod1Transform->insertNode(lod1Model);
     // the create as LOD2
     iNodeTransform *lod2Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    lod2Transform->setName("lod0 transform");
+    lod2Transform->setName("lod2 transform");
     lod2Transform->translate(-1, -0.5, 0);
     iNodeModel *lod2Model = iNodeManager::getInstance().createNode<iNodeModel>();
     lod2Model->setModel("crate.ompf");

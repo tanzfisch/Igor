@@ -162,6 +162,17 @@ namespace igor
 
     static void readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
     {
+        TiXmlAttribute *attrib = materialXML->FirstAttribute();
+        while (attrib)
+        {
+            if(attrib->NameTStr() == "name")
+            {
+                material->setName(attrib->Value());
+            }
+      
+            attrib = attrib->Next();
+        }
+
         TiXmlElement *states = materialXML->FirstChildElement("States");
         if (states)
         {
@@ -196,7 +207,5 @@ namespace igor
                 readMaterial(materialXML, material);
             }
         }
-
-        material->setName(filename);
     }
 } // namespace igor

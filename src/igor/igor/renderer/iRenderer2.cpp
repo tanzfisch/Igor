@@ -781,8 +781,6 @@ namespace igor
             flushQuads();
         }
 
-        con_endl("(color._a == 1.0) " << color._a << " " << (color._a == 1.0));
-
         (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
 
         quads._vertexDataPtr->_pos.set(x, y, 0.0);
@@ -1561,7 +1559,7 @@ namespace igor
 
     void iRenderer2::clearStats()
     {
-        con_endl("_data->_stats._drawCalls " << _data->_stats._drawCalls);
+        // con_endl("_data->_stats._drawCalls " << _data->_stats._drawCalls);
 
         _data->_stats._drawCalls = 0;
         _data->_stats._vertices = 0;
