@@ -184,7 +184,7 @@ namespace igor
          */
         void drawFrame(const iaMatrixf &matrix, const iAtlasPtr &sprite, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
 
-        void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient);
+        void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend = true);
 
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);

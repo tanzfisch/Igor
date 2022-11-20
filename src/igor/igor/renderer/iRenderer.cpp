@@ -40,42 +40,6 @@ using namespace iaux;
 
 namespace igor
 {
-#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH)
-    // print out openGL debug messages
-    static void onOGLDebugOutput(
-        GLenum source,
-        GLenum type,
-        GLuint id,
-        GLenum severity,
-        GLsizei length,
-        const GLchar *message,
-        const void *userParam)
-    {
-        switch (severity)
-        {
-        case GL_DEBUG_SEVERITY_HIGH:
-            con_crit(id << " - " << message);
-            return;
-        case GL_DEBUG_SEVERITY_MEDIUM:
-            // ignore line width deprecation error
-            if(id == 7)
-            {
-                return;
-            }
-            con_err(id << " - " << message);
-            return;
-        case GL_DEBUG_SEVERITY_LOW:
-            con_warn(id << " - " << message);
-            return;
-        case GL_DEBUG_SEVERITY_NOTIFICATION:
-            con_debug(id << " - " << message);
-            return;
-        }
-
-        con_crit("Unknown Error");
-    }
-#endif
-
     static GLenum convertGLColorFormat(iColorFormat format)
     {
         GLenum glformat = iRenderer::INVALID_ID;
@@ -256,14 +220,6 @@ namespace igor
     {
         if (!_initialized)
         {
-#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH)
-            glEnable(GL_DEBUG_OUTPUT);
-            glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-            glDebugMessageCallback(onOGLDebugOutput, nullptr);
-
-            glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
-#endif
-
             glEnable(GL_LINE_SMOOTH);
 
             glEnable(GL_POINT_SMOOTH);

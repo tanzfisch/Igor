@@ -85,6 +85,42 @@ namespace igor
 #define GL_CHECK_ERROR()
 #endif
 
+#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH)
+    // print out openGL debug messages
+    static void onOGLDebugOutput(
+        GLenum source,
+        GLenum type,
+        GLuint id,
+        GLenum severity,
+        GLsizei length,
+        const GLchar *message,
+        const void *userParam)
+    {
+        switch (severity)
+        {
+        case GL_DEBUG_SEVERITY_HIGH:
+            con_crit(id << " - " << message);
+            return;
+        case GL_DEBUG_SEVERITY_MEDIUM:
+            // ignore line width deprecation error
+            if(id == 7)
+            {
+                return;
+            }
+            con_err(id << " - " << message);
+            return;
+        case GL_DEBUG_SEVERITY_LOW:
+            con_warn(id << " - " << message);
+            return;
+        case GL_DEBUG_SEVERITY_NOTIFICATION:
+            con_debug(id << " - " << message);
+            return;
+        }
+
+        con_crit("Unknown Error");
+    }
+#endif
+
 /*! turns an index in to a pointer
  */
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))

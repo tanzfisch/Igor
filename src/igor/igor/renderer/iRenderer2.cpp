@@ -418,6 +418,14 @@ namespace igor
         _data->_currentMaterial.reset();
 
         /////////// OGL //////////
+#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH) // TODO can we drop this now? GL_DEBUG_SEVERITY_HIGH
+            glEnable(GL_DEBUG_OUTPUT);
+            glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+            glDebugMessageCallback(onOGLDebugOutput, nullptr);
+
+            glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+#endif
+
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_LINE_SMOOTH);
 
@@ -1299,8 +1307,8 @@ namespace igor
         return matrix;
     }
 
-    void iRenderer2::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient)
-    {
+    void iRenderer2::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
+    {        
         con_assert(particles != nullptr, "zero pointer");
 
         iaVector3f a, b, c, d;
@@ -1352,7 +1360,7 @@ namespace igor
             d._x -= v._x;
             d._y -= v._y;
 
-            drawTexturedQuad(a, b, c, d, texture, color);
+            drawTexturedQuad(a, b, c, d, texture, color, blend);
         }
     }
 
