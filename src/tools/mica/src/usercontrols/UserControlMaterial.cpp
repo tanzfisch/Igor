@@ -16,7 +16,7 @@ UserControlMaterial::~UserControlMaterial()
 
 void UserControlMaterial::updateMaterial()
 {
-    iMaterial_oldPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    iMaterial_oldPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialID);
 
     if (!_ignoreMaterialUpdate &&
         material != nullptr &&
@@ -144,7 +144,7 @@ void UserControlMaterial::reloadShader(iMaterialPtr material)
 
 void UserControlMaterial::updateGUI()
 {
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialID);
 
     if (material != nullptr &&
         material->isValid())
@@ -691,7 +691,7 @@ void UserControlMaterial::onShader2Button(const iWidgetPtr source)
 
 void UserControlMaterial::onReloadShader(const iWidgetPtr source)
 {
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialID);
 
     if (!_ignoreMaterialUpdate &&
         material != nullptr &&

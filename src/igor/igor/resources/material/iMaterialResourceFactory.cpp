@@ -15,9 +15,9 @@ using namespace iaux;
 namespace igor
 {
 
-    iMaterialResourceFactory::iMaterialResourceFactory()
+    iMaterialResourceFactory_old::iMaterialResourceFactory_old()
     {
-        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
+        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory_old::initDefaultMaterials));
 
         // if already ready just use it now
         if (iRenderer::getInstance().isReady())
@@ -26,9 +26,9 @@ namespace igor
         }
     }
 
-    iMaterialResourceFactory::~iMaterialResourceFactory()
+    iMaterialResourceFactory_old::~iMaterialResourceFactory_old()
     {
-        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
+        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory_old::initDefaultMaterials));
 
         if (_defaultMaterial != iMaterial_old::INVALID_MATERIAL_ID)
         {
@@ -59,7 +59,7 @@ namespace igor
         _targetMaterials.clear();
     }
 
-    iTargetMaterial *iMaterialResourceFactory::createTargetMaterial()
+    iTargetMaterial *iMaterialResourceFactory_old::createTargetMaterial()
     {
         iTargetMaterial *result = new iTargetMaterial();
 
@@ -70,7 +70,7 @@ namespace igor
         return result;
     }
 
-    void iMaterialResourceFactory::destroyTargetMaterial(iTargetMaterial *targetMaterial)
+    void iMaterialResourceFactory_old::destroyTargetMaterial(iTargetMaterial *targetMaterial)
     {
         _targetMaterialMutex.lock();
         auto iter = find(_targetMaterials.begin(), _targetMaterials.end(), targetMaterial);
@@ -83,17 +83,17 @@ namespace igor
         _targetMaterialMutex.unlock();
     }
 
-    uint64 iMaterialResourceFactory::getDefaultMaterialID() const
+    uint64 iMaterialResourceFactory_old::getDefaultMaterialID() const
     {
         return _defaultMaterial;
     }
 
-    uint64 iMaterialResourceFactory::getColorIDMaterialID() const
+    uint64 iMaterialResourceFactory_old::getColorIDMaterialID() const
     {
         return _colorIDMaterial;
     }
 
-    void iMaterialResourceFactory::updateGroups()
+    void iMaterialResourceFactory_old::updateGroups()
     {
         _mutexMaterial.lock();
         if (_dirtyMaterials)
@@ -108,7 +108,7 @@ namespace igor
         _mutexMaterial.unlock();
     }
 
-    std::vector<iMaterial_oldPtr> iMaterialResourceFactory::getSortedMaterials()
+    std::vector<iMaterial_oldPtr> iMaterialResourceFactory_old::getSortedMaterials()
     {
         updateGroups();
 
@@ -119,7 +119,7 @@ namespace igor
         return copyList;
     }
 
-    void iMaterialResourceFactory::initDefaultMaterials()
+    void iMaterialResourceFactory_old::initDefaultMaterials()
     {
         // create the default material
         _defaultMaterial = createMaterial("igor.default");
@@ -149,7 +149,7 @@ namespace igor
         material->setOrder(iMaterial_old::RENDER_ORDER_DEFAULT);
     }
 
-    uint64 iMaterialResourceFactory::createMaterial(iaString name)
+    uint64 iMaterialResourceFactory_old::createMaterial(iaString name)
     {
         iMaterial_old *material = new iMaterial_old();
         if (name != L"")
@@ -172,27 +172,27 @@ namespace igor
         return material->getID();
     }
 
-    void iMaterialResourceFactory::registerMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate)
+    void iMaterialResourceFactory_old::registerMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate)
     {
         _materialCreatedEvent.append(materialCreatedDelegate);
     }
 
-    void iMaterialResourceFactory::unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate)
+    void iMaterialResourceFactory_old::unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate)
     {
         _materialCreatedEvent.remove(materialCreatedDelegate);
     }
 
-    void iMaterialResourceFactory::registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate)
+    void iMaterialResourceFactory_old::registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate)
     {
         _materialDestroyedEvent.append(materialDestroyedDelegate);
     }
 
-    void iMaterialResourceFactory::unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate)
+    void iMaterialResourceFactory_old::unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate)
     {
         _materialDestroyedEvent.remove(materialDestroyedDelegate);
     }
 
-    void iMaterialResourceFactory::destroyMaterial(uint64 materialID)
+    void iMaterialResourceFactory_old::destroyMaterial(uint64 materialID)
     {
         _mutexMaterial.lock();
 
@@ -222,7 +222,7 @@ namespace igor
         _materialDestroyedEvent(materialID);
     }
 
-    void iMaterialResourceFactory::setMaterial(uint64 materialID)
+    void iMaterialResourceFactory_old::setMaterial(uint64 materialID)
     {
         iMaterial_oldPtr material = 0;
 
@@ -241,12 +241,12 @@ namespace igor
         }
     }
 
-    iMaterial_oldPtr iMaterialResourceFactory::getDefaultMaterial()
+    iMaterial_oldPtr iMaterialResourceFactory_old::getDefaultMaterial()
     {
         return getMaterial(_defaultMaterial);
     }
 
-    iMaterial_oldPtr iMaterialResourceFactory::getMaterial(uint64 materialID)
+    iMaterial_oldPtr iMaterialResourceFactory_old::getMaterial(uint64 materialID)
     {
         iMaterial_oldPtr material = nullptr;
 
@@ -266,7 +266,7 @@ namespace igor
         return material;
     }
 
-    uint64 iMaterialResourceFactory::getMaterialID(iaString materialName)
+    uint64 iMaterialResourceFactory_old::getMaterialID(iaString materialName)
     {
         uint64 result = iMaterial_old::INVALID_MATERIAL_ID;
 
@@ -292,7 +292,7 @@ namespace igor
         return result;
     }
 
-    iMaterial_oldPtr iMaterialResourceFactory::getMaterial(iaString materialName)
+    iMaterial_oldPtr iMaterialResourceFactory_old::getMaterial(iaString materialName)
     {
         iMaterial_oldPtr material = 0;
 
@@ -319,7 +319,7 @@ namespace igor
         return material;
     }
 
-    iMaterial_oldPtr iMaterialResourceFactory::getCurrentMaterial()
+    iMaterial_oldPtr iMaterialResourceFactory_old::getCurrentMaterial()
     {
         return _currentMaterial;
     }

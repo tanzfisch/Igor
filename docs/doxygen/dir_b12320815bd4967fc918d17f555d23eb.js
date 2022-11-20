@@ -106,8 +106,8 @@ var dir_b12320815bd4967fc918d17f555d23eb =
       [ "iInstancedNodes", "struct_igor_1_1i_instanced_nodes.html", "struct_igor_1_1i_instanced_nodes" ],
       [ "iMaterialGroup", "class_igor_1_1i_material_group.html", "class_igor_1_1i_material_group" ]
     ] ],
-    [ "iMaterialResourceFactory.cpp", "i_material_resource_factory_8cpp.html", null ],
-    [ "iMaterialResourceFactory.h", "i_material_resource_factory_8h.html", "i_material_resource_factory_8h" ],
+    [ "iMaterialResourceFactory_old.cpp", "i_material_resource_factory_8cpp.html", null ],
+    [ "iMaterialResourceFactory_old.h", "i_material_resource_factory_8h.html", "i_material_resource_factory_8h" ],
     [ "iMesh.cpp", "i_mesh_8cpp.html", null ],
     [ "iMesh.h", "i_mesh_8h.html", "i_mesh_8h" ],
     [ "iMesh.inl", "i_mesh_8inl.html", null ],

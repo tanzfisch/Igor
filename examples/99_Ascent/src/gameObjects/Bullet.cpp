@@ -65,7 +65,7 @@ Bullet::Bullet(iScenePtr scene, const iaVector3d &addForce, const iaMatrixd &mat
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemNodeID = particleSystem->getID();
     particleSystem->setLoop(true);
-    particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("Particles"));
+    particleSystem->setMaterial(iMaterialResourceFactory_old::getInstance().getMaterialID("Particles"));
     particleSystem->setTextureA("particleDot.png");
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);

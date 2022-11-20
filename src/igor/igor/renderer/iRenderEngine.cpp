@@ -30,10 +30,10 @@ namespace igor
 {
     iRenderEngine::iRenderEngine()
     {
-        iMaterialResourceFactory::getInstance().registerMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
-        iMaterialResourceFactory::getInstance().registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
+        iMaterialResourceFactory_old::getInstance().registerMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
+        iMaterialResourceFactory_old::getInstance().registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
 
-        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
         for (auto material : materials)
         {
             iMaterialGroup materialGroup;
@@ -44,13 +44,13 @@ namespace igor
 
     iRenderEngine::~iRenderEngine()
     {
-        iMaterialResourceFactory::getInstance().unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
-        iMaterialResourceFactory::getInstance().unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
+        iMaterialResourceFactory_old::getInstance().unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
+        iMaterialResourceFactory_old::getInstance().unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
     }
 
     void iRenderEngine::onMaterialCreated(iMaterialID_old materialID)
     {
-        iMaterial_oldPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+        iMaterial_oldPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
         iMaterialGroup materialGroup;
         materialGroup.setMaterial(material);
         _materialGroups[materialID] = materialGroup;
@@ -224,10 +224,10 @@ namespace igor
     {
         IGOR_PROFILER_SCOPED(col_id);
 
-        iMaterial_oldPtr colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
+        iMaterial_oldPtr colorIDMaterial = iMaterialResourceFactory_old::getInstance().getMaterial(iMaterialResourceFactory_old::getInstance().getColorIDMaterialID());
         iRenderer::getInstance().setMaterial(colorIDMaterial);
 
-        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
         for (auto material : materials)
         {
             iMaterialGroup &materialGroup = _materialGroups[material->getID()];
@@ -274,7 +274,7 @@ namespace igor
             ++lightNum;
         }
 
-        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
         for (auto material : materials)
         {
             bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);

@@ -28,8 +28,8 @@ void OverlayLayer::onInit()
     // set default camera as current
     _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
 
-    _materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial("OrientationPlane");
-    auto oriPlaneMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane);
+    _materialOrientationPlane = iMaterialResourceFactory_old::getInstance().createMaterial("OrientationPlane");
+    auto oriPlaneMaterial = iMaterialResourceFactory_old::getInstance().getMaterial(_materialOrientationPlane);
     oriPlaneMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     oriPlaneMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 

@@ -181,10 +181,10 @@ namespace igor
         }
 
         // set up terrain material
-        _terrainMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+        _terrainMaterialID = iMaterialResourceFactory_old::getInstance().getDefaultMaterialID();
 
         // set up terrain target material
-        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+        _targetMaterial = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
         _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
         _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
         _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);
@@ -201,7 +201,7 @@ namespace igor
 
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
 
-        iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
+        iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_targetMaterial);
 
         // TODO cleanup
     }

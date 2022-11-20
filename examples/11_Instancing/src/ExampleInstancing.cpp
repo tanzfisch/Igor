@@ -69,8 +69,8 @@ void ExampleInstancing::onInit()
 
     // first we have to override the material which is stored within the model
     // to do that we create a new material using instancing
-    _materialWithInstancingA = iMaterialResourceFactory::getInstance().createMaterial("Instancing Textured");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancingA);
+    _materialWithInstancingA = iMaterialResourceFactory_old::getInstance().createMaterial("Instancing Textured");
+    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithInstancingA);
     material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
     material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
     material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
@@ -78,8 +78,8 @@ void ExampleInstancing::onInit()
     material->addShaderSource("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
     material->compileShader();
 
-    _materialWithInstancingB = iMaterialResourceFactory::getInstance().createMaterial("Instancing No Texture");
-    material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancingB);
+    _materialWithInstancingB = iMaterialResourceFactory_old::getInstance().createMaterial("Instancing No Texture");
+    material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithInstancingB);
     material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
     material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
     material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
@@ -181,9 +181,9 @@ void ExampleInstancing::onDeinit()
         _animationTimingHandle = nullptr;
     }
 
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancingA);
+    iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialWithInstancingA);
     _materialWithInstancingA = iMaterial_old::INVALID_MATERIAL_ID;
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancingB);
+    iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialWithInstancingB);
     _materialWithInstancingB = iMaterial_old::INVALID_MATERIAL_ID;
 }
 

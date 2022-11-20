@@ -65,11 +65,11 @@ void OBJ2OMPF::convert(int argc, char *argv[])
 {
     if (analyzeParam(argc, argv))
     {
-        uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("Textured");
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured.vert", iShaderObjectType::Vertex);
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured_directional_light.frag", iShaderObjectType::Fragment);
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        uint64 materialID = iMaterialResourceFactory_old::getInstance().createMaterial("Textured");
+        iMaterialResourceFactory_old::getInstance().getMaterial(materialID)->addShaderSource("textured.vert", iShaderObjectType::Vertex);
+        iMaterialResourceFactory_old::getInstance().getMaterial(materialID)->addShaderSource("textured_directional_light.frag", iShaderObjectType::Fragment);
+        iMaterialResourceFactory_old::getInstance().getMaterial(materialID)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+        iMaterialResourceFactory_old::getInstance().getMaterial(materialID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
         iModelDataInputParameter *parameters = new iModelDataInputParameter();
         parameters->_joinVertexes = _joinVertexes;
@@ -93,7 +93,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         // force him to use the textured material
         setMaterialRecursive(modelNode, materialID);
 
-        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
         for (auto material : materials)
         {
             con_endl("material " << material->getName() << " with id " << material->getID());

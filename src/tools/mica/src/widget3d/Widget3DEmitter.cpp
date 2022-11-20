@@ -9,15 +9,15 @@ Widget3DEmitter::Widget3DEmitter(iWindowPtr window, iView *view, iScenePtr scene
 {
 	_view->registerRenderDelegate(iDrawDelegate(this, &Widget3DEmitter::update));
 
-	_targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+	_targetMaterial = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
 	_targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
 	_targetMaterial->setSpecular(iaColor3f(0.0f, 0.5f, 0.0f));
 	_targetMaterial->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
 	_targetMaterial->setAmbient(iaColor3f(0.0f, 0.5f, 0.0f));
 	_targetMaterial->setAlpha(0.5);
 
-	_material = iMaterialResourceFactory::getInstance().createMaterial("EmitterFlat");
-	auto material = iMaterialResourceFactory::getInstance().getMaterial(_material);
+	_material = iMaterialResourceFactory_old::getInstance().createMaterial("EmitterFlat");
+	auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_material);
 	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 	material->setRenderState(iRenderState::CullFace, iRenderStateValue::Off);
@@ -26,8 +26,8 @@ Widget3DEmitter::Widget3DEmitter(iWindowPtr window, iView *view, iScenePtr scene
 	material->compileShader();
 	material->setOrder(iMaterial::RENDER_ORDER_MAX);
 
-	_materialVolume = iMaterialResourceFactory::getInstance().createMaterial("EmitterVolume");
-	auto materialVolume = iMaterialResourceFactory::getInstance().getMaterial(_materialVolume);
+	_materialVolume = iMaterialResourceFactory_old::getInstance().createMaterial("EmitterVolume");
+	auto materialVolume = iMaterialResourceFactory_old::getInstance().getMaterial(_materialVolume);
 	materialVolume->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	materialVolume->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 	materialVolume->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
@@ -45,9 +45,9 @@ Widget3DEmitter::~Widget3DEmitter()
 		iNodeManager::getInstance().destroyNodeAsync(_rootTransform);
 	}
 
-	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
-	iMaterialResourceFactory::getInstance().destroyMaterial(_material);
-	iMaterialResourceFactory::getInstance().destroyMaterial(_materialVolume);
+	iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_targetMaterial);
+	iMaterialResourceFactory_old::getInstance().destroyMaterial(_material);
+	iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialVolume);
 }
 
 void Widget3DEmitter::clearMeshNode()

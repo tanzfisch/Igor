@@ -178,7 +178,7 @@ uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, u
 	}
 
 	plantInformation._iterations = iterations;
-	plantInformation._materialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+	plantInformation._materialID = iMaterialResourceFactory_old::getInstance().getDefaultMaterialID();
 	plantInformation._seed = seed;
 	plantInformation._segmentAngle = _angle;
 	plantInformation._segmentLenght = _segmentLength;

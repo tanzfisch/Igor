@@ -786,7 +786,7 @@ namespace igor
 
     void iRenderer::setMaterial(uint64 materialID, bool forceWireframe)
     {
-        auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+        auto material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
         setMaterial(material, forceWireframe);
     }
 

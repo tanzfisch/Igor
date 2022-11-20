@@ -71,14 +71,14 @@ namespace igor
 
         _backgroundTexture = iTextureResourceFactory::getInstance().loadFile(backgroundTexture);
 
-        _defaultMaterial = iMaterialResourceFactory::getInstance().createMaterial("igor.widget.default");
-        iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-        iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+        _defaultMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("igor.widget.default");
+        iMaterialResourceFactory_old::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+        iMaterialResourceFactory_old::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
-        _texturedMaterial = iMaterialResourceFactory::getInstance().createMaterial("igor.widget.textured");
-        iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-        iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-        iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+        _texturedMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("igor.widget.textured");
+        iMaterialResourceFactory_old::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+        iMaterialResourceFactory_old::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+        iMaterialResourceFactory_old::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     }
 
     iWidgetDefaultTheme::~iWidgetDefaultTheme()

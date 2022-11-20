@@ -87,7 +87,7 @@ var namespaceigor =
     [ "iMaterial", "classigor_1_1i_material.html", "classigor_1_1i_material" ],
     [ "iInstancingData", "structigor_1_1i_instancing_data.html", "structigor_1_1i_instancing_data" ],
     [ "iMaterialGroup", "classigor_1_1i_material_group.html", "classigor_1_1i_material_group" ],
-    [ "iMaterialResourceFactory", "classigor_1_1i_material_resource_factory.html", "classigor_1_1i_material_resource_factory" ],
+    [ "iMaterialResourceFactory_old", "classigor_1_1i_material_resource_factory.html", "classigor_1_1i_material_resource_factory" ],
     [ "iShader", "classigor_1_1i_shader.html", "classigor_1_1i_shader" ],
     [ "iTargetMaterial", "classigor_1_1i_target_material.html", "classigor_1_1i_target_material" ],
     [ "iMesh", "classigor_1_1i_mesh.html", "classigor_1_1i_mesh" ],

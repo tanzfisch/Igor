@@ -91,7 +91,7 @@ void UILayer::onDeinit()
 
 void UILayer::onAddMaterial()
 {
-    iMaterialResourceFactory::getInstance().createMaterial("new Material");
+    iMaterialResourceFactory_old::getInstance().createMaterial("new Material");
     _outliner->refresh();
 }
 

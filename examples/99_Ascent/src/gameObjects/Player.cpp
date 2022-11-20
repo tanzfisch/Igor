@@ -124,9 +124,9 @@ Player::Player(iScenePtr scene, iView *view, const iaMatrixd &matrix)
 
     view->setCurrentCamera(_cameraNodeID);
 
-    _materialSolid = iMaterialResourceFactory::getInstance().createMaterial("Solid");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    _materialSolid = iMaterialResourceFactory_old::getInstance().createMaterial("Solid");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     _primaryWeaponTime = iTimer::getInstance().getTime();
 }

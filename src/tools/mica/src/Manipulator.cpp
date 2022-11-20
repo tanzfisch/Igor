@@ -19,37 +19,37 @@ void Manipulator::init()
 {
 	_view->registerRenderDelegate(iDrawDelegate(this, &Manipulator::render));
 
-	_material = iMaterialResourceFactory::getInstance().createMaterial("Manipulator");
-	auto material = iMaterialResourceFactory::getInstance().getMaterial(_material);
+	_material = iMaterialResourceFactory_old::getInstance().createMaterial("Manipulator");
+	auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_material);
 	material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
 	material->compileShader();
 	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-	iMaterialResourceFactory::getInstance().getMaterial(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
+	iMaterialResourceFactory_old::getInstance().getMaterial(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
 
-	_red = iMaterialResourceFactory::getInstance().createTargetMaterial();
+	_red = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
 	_red->setEmissive(iaColor3f(0.8f, 0.0f, 0.0f));
 	_red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
 	_red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
 	_red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
 	_red->setAlpha(0.8);
 
-	_green = iMaterialResourceFactory::getInstance().createTargetMaterial();
+	_green = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
 	_green->setEmissive(iaColor3f(0.0f, 0.8f, 0.0f));
 	_green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
 	_green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
 	_green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
 	_green->setAlpha(0.8);
 
-	_blue = iMaterialResourceFactory::getInstance().createTargetMaterial();
+	_blue = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
 	_blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.8f));
 	_blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
 	_blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
 	_blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
 	_blue->setAlpha(0.8);
 
-	_cyan = iMaterialResourceFactory::getInstance().createTargetMaterial();
+	_cyan = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
 	_cyan->setEmissive(iaColor3f(0.0f, 0.8f, 0.8f));
 	_cyan->setSpecular(iaColor3f(0.0f, 0.2f, 0.2f));
 	_cyan->setDiffuse(iaColor3f(0.0f, 0.5f, 0.5f));
@@ -75,13 +75,13 @@ void Manipulator::init()
 
 	_scene->getRoot()->insertNode(_rootTransform);
 
-	_materialCelShading = iMaterialResourceFactory::getInstance().createMaterial("ManipulatorCelShading");
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->compileShader();
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
+	_materialCelShading = iMaterialResourceFactory_old::getInstance().createMaterial("ManipulatorCelShading");
+	iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+	iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading)->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
+	iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading)->compileShader();
+	iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+	iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+	iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
 	setManipulatorMode(_manipulatorMode);
 }
@@ -101,7 +101,7 @@ void Manipulator::highlightSelected()
 
 			if (node->getType() == iNodeType::iNodeMesh)
 			{
-				iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
+				iRenderer::getInstance().setMaterial(iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading));
 
 				iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
 				std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
@@ -366,12 +366,12 @@ void Manipulator::update()
 
 void Manipulator::deinit()
 {
-	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_red);
-	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_green);
-	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_blue);
-	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_cyan);
-	iMaterialResourceFactory::getInstance().destroyMaterial(_materialCelShading);
-	iMaterialResourceFactory::getInstance().destroyMaterial(_material);
+	iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_red);
+	iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_green);
+	iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_blue);
+	iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_cyan);
+	iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialCelShading);
+	iMaterialResourceFactory_old::getInstance().destroyMaterial(_material);
 
 	_view->unregisterRenderDelegate(iDrawDelegate(this, &Manipulator::render));
 }

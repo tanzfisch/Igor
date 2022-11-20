@@ -8,8 +8,8 @@ var dir_ead176f53a3f46237531f0e31714fabc =
       [ "iInstancingData", "structigor_1_1i_instancing_data.html", "structigor_1_1i_instancing_data" ],
       [ "iMaterialGroup", "classigor_1_1i_material_group.html", "classigor_1_1i_material_group" ]
     ] ],
-    [ "iMaterialResourceFactory.cpp", "i_material_resource_factory_8cpp.html", null ],
-    [ "iMaterialResourceFactory.h", "i_material_resource_factory_8h.html", "i_material_resource_factory_8h" ],
+    [ "iMaterialResourceFactory_old.cpp", "i_material_resource_factory_8cpp.html", null ],
+    [ "iMaterialResourceFactory_old.h", "i_material_resource_factory_8h.html", "i_material_resource_factory_8h" ],
     [ "iShader.cpp", "i_shader_8cpp.html", null ],
     [ "iShader.h", "i_shader_8h.html", "i_shader_8h" ],
     [ "iTargetMaterial.cpp", "i_target_material_8cpp.html", null ],

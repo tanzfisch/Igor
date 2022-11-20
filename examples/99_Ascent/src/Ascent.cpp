@@ -115,10 +115,10 @@ void Ascent::initScene()
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     skyBoxNode->setTextureScale(1);
     // create a sky box material
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
+    _materialSkyBox = iMaterialResourceFactory_old::getInstance().createMaterial("Sky Box");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
     // and set the sky box material
     skyBoxNode->setMaterial(_materialSkyBox);
     // insert sky box to scene
@@ -197,8 +197,8 @@ void Ascent::initVoxelData()
     targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
     targetMaterial->setShininess(1000.0f);
 
-    uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+    uint64 materialID = iMaterialResourceFactory_old::getInstance().createMaterial("TerrainMaterial");
+    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
     material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
     material->addShaderSource("ascent/terrain_directional_light.frag", iShaderObjectType::Fragment);
     material->compileShader();
@@ -548,27 +548,27 @@ void Ascent::onInit()
     initVoxelData();
 
     // set up octree debug rendering
-    _octreeMaterial = iMaterialResourceFactory::getInstance().createMaterial("Octree");
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+    _octreeMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("Octree");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
 
     // set up statistics
     _font = new iTextureFont("StandardFont.png");
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    _materialWithTextureAndBlending = iMaterialResourceFactory_old::getInstance().createMaterial("TextureAndBlending");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-    uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial("Particles");
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
+    uint64 particlesMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("Particles");
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
     // launch resource handlers
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(getWindow()));

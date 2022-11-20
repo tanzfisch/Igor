@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/renderer/material/iShaderProgram.h>
+#include <igor/renderer/shaders/iShaderProgram.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
 #include <igor/resources/iResourceManager.h>

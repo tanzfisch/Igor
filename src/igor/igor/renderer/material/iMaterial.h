@@ -30,7 +30,7 @@
 #define __IGOR_MATERIAL__
 
 #include <igor/renderer/iRenderStateSet.h>
-#include <igor/renderer/material/iShaderProgram.h>
+#include <igor/renderer/shaders/iShaderProgram.h>
 
 #include <memory>
 

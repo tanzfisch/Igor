@@ -119,7 +119,7 @@ namespace igor
 
         if (_alpha < 1.0f)
         {
-            iMaterial_oldPtr material = iMaterialResourceFactory::getInstance().getCurrentMaterial();
+            iMaterial_oldPtr material = iMaterialResourceFactory_old::getInstance().getCurrentMaterial();
             if (material != nullptr &&
                 material->isValid())
             {

@@ -144,8 +144,8 @@ var hierarchy =
     [ "igor::iModule< iKeyboard >", "classigor_1_1i_module.html", [
       [ "igor::iKeyboard", "classigor_1_1i_keyboard.html", null ]
     ] ],
-    [ "igor::iModule< iMaterialResourceFactory >", "classigor_1_1i_module.html", [
-      [ "igor::iMaterialResourceFactory", "classigor_1_1i_material_resource_factory.html", null ]
+    [ "igor::iModule< iMaterialResourceFactory_old >", "classigor_1_1i_module.html", [
+      [ "igor::iMaterialResourceFactory_old", "classigor_1_1i_material_resource_factory.html", null ]
     ] ],
     [ "igor::iModule< iModelResourceFactory >", "classigor_1_1i_module.html", [
       [ "igor::iModelResourceFactory", "classigor_1_1i_model_resource_factory.html", null ]

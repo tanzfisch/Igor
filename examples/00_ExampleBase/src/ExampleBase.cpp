@@ -55,8 +55,8 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
                     iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
                     iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
                 // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-                _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
-                auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
+                _materialSkyBox = iMaterialResourceFactory_old::getInstance().createMaterial("Sky Box");
+                auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox);
                 material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
                 material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
                 material->setOrder(iMaterial_old::RENDER_ORDER_MIN);
@@ -83,7 +83,7 @@ ExampleBase::~ExampleBase()
         // destroy materials
         if (_materialSkyBox != iMaterial_old::INVALID_MATERIAL_ID)
         {
-            iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
+            iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialSkyBox);
         }
 
         // clear scene by destoying it

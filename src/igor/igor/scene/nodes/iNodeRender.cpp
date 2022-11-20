@@ -16,7 +16,7 @@ namespace igor
     iNodeRender::iNodeRender()
         : iNode()
     {
-        _materialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+        _materialID = iMaterialResourceFactory_old::getInstance().getDefaultMaterialID();
 
         setName(L"iNodeRender");
         _nodeType = iNodeType::iNodeRender;

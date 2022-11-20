@@ -65,10 +65,10 @@ void VoxelExample::initScene()
     lightTranslate->insertNode(lightNode);
 
     // set up voxel mesh material
-    _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
+    _voxelMeshMaterialID = iMaterialResourceFactory_old::getInstance().createMaterial("voxel mesh material");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)

@@ -136,7 +136,7 @@ namespace igor
         iRenderer::create();
         iRenderer2::create();
         iTextureResourceFactory::create();
-        iMaterialResourceFactory::create();
+        iMaterialResourceFactory_old::create();
         iResourceManager::create();
         iWidgetManager::create();
         iSceneFactory::create();
@@ -178,9 +178,9 @@ namespace igor
             iResourceManager::destroy();
         }
 
-        if (iMaterialResourceFactory::isInstantiated())
+        if (iMaterialResourceFactory_old::isInstantiated())
         {
-            iMaterialResourceFactory::destroy();
+            iMaterialResourceFactory_old::destroy();
         }
 
         if (iTextureResourceFactory::isInstantiated())

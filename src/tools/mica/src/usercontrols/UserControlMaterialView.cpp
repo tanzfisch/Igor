@@ -89,7 +89,7 @@ void UserControlMaterialView::refresh()
     clear();
 
     uint32 currentRowIndex = 0;
-    auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+    auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
     for (auto material : materials)
     {
         iWidgetGrid *entry = new iWidgetGrid();

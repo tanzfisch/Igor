@@ -46,7 +46,7 @@ namespace igor
     class IGOR_API iTargetMaterial
     {
 
-        friend class iMaterialResourceFactory;
+        friend class iMaterialResourceFactory_old;
 
     public:
         /*! set a texture for a specific texture unit

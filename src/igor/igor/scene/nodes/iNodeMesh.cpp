@@ -24,7 +24,7 @@ namespace igor
         setName(L"iNodeMesh");
         _nodeType = iNodeType::iNodeMesh;
 
-        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+        _targetMaterial = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
     }
 
     iNodeMesh::iNodeMesh(iNodeMesh *node)
@@ -42,7 +42,7 @@ namespace igor
 
         setBoundingBox(node->getBoundingBox());
 
-        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+        _targetMaterial = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
         setTargetMaterial(node->getTargetMaterial());
     }
 
@@ -50,7 +50,7 @@ namespace igor
     {
         if (_targetMaterial != nullptr)
         {
-            iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
+            iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_targetMaterial);
             _targetMaterial = nullptr;
         }
     }

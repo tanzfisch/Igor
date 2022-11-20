@@ -70,7 +70,7 @@ namespace igor
     {
 
         friend class iRenderer;
-        friend class iMaterialResourceFactory;
+        friend class iMaterialResourceFactory_old;
 
     public:
         static constexpr const char *UNIFORM_SOLIDCOLOR = "igor_solidColor";
@@ -190,7 +190,7 @@ namespace igor
         */
         iMaterialID_old _id = iMaterial_old::INVALID_MATERIAL_ID;
 
-        /*! if false the material was already destroyed by the iMaterialResourceFactory
+        /*! if false the material was already destroyed by the iMaterialResourceFactory_old
         */
         bool _isValid = false;
 

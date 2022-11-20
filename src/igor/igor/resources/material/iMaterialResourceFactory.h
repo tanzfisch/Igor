@@ -61,9 +61,9 @@ namespace igor
 
     /*! material resource factory
     */
-    class IGOR_API iMaterialResourceFactory : public iModule<iMaterialResourceFactory>
+    class IGOR_API iMaterialResourceFactory_old : public iModule<iMaterialResourceFactory_old>
     {
-        friend class iModule<iMaterialResourceFactory>;
+        friend class iModule<iMaterialResourceFactory_old>;
 
     public:
         /*! creates material
@@ -214,11 +214,11 @@ namespace igor
 
         /*! initialisation of members
         */
-        iMaterialResourceFactory();
+        iMaterialResourceFactory_old();
 
         /*! clean up and error handling
         */
-        virtual ~iMaterialResourceFactory();
+        virtual ~iMaterialResourceFactory_old();
     };
 
 }; // namespace igor

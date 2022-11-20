@@ -23,8 +23,8 @@ void SpriteAnimation::onInit()
     getView().setClearColor(1.0, 1.0, 1.0, 1.0);
     getViewOrtho().setScene(getScene());
 
-    _materialTerrain = iMaterialResourceFactory::getInstance().createMaterial("Terrain");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialTerrain);
+    _materialTerrain = iMaterialResourceFactory_old::getInstance().createMaterial("Terrain");
+    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialTerrain);
     material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
     material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
@@ -82,7 +82,7 @@ void SpriteAnimation::onInit()
 void SpriteAnimation::onDeinit()
 {
     // release materials (optional)
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialTerrain);
+    iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialTerrain);
     _materialTerrain = iMaterial_old::INVALID_MATERIAL_ID;
 
     // release some resources

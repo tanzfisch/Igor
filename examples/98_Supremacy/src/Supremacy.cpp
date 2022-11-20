@@ -131,8 +131,8 @@ void Supremacy::onInit()
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+    _materialWithTextureAndBlending = iMaterialResourceFactory_old::getInstance().createMaterial("TextureAndBlending");
+    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending);
     material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);

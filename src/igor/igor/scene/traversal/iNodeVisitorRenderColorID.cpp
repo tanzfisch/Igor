@@ -17,11 +17,11 @@ namespace igor
 
     iNodeVisitorRenderColorID::iNodeVisitorRenderColorID()
     {
-        _material = iMaterialResourceFactory::getInstance().createMaterial();
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("default.vert", iShaderObjectType::Vertex);
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("default_directional_light.frag", iShaderObjectType::Fragment);
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->compileShader();
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+        _material = iMaterialResourceFactory_old::getInstance().createMaterial();
+        iMaterialResourceFactory_old::getInstance().getMaterial(_material)->addShaderSource("default.vert", iShaderObjectType::Vertex);
+        iMaterialResourceFactory_old::getInstance().getMaterial(_material)->addShaderSource("default_directional_light.frag", iShaderObjectType::Fragment);
+        iMaterialResourceFactory_old::getInstance().getMaterial(_material)->compileShader();
+        iMaterialResourceFactory_old::getInstance().getMaterial(_material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
     }
 
     bool iNodeVisitorRenderColorID::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
@@ -62,7 +62,7 @@ namespace igor
     {
         _currentMatrix.identity();
         iRenderer::getInstance().setColor(1, 1, 1, 1);
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_material));
+        iRenderer::getInstance().setMaterial(iMaterialResourceFactory_old::getInstance().getMaterial(_material));
     }
 
     void iNodeVisitorRenderColorID::postTraverse()

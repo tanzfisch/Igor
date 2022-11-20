@@ -114,10 +114,10 @@ void ExampleCharacterController::onInit()
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial_old::RENDER_ORDER_MIN);
+    _materialSkyBox = iMaterialResourceFactory_old::getInstance().createMaterial("Sky Box");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial_old::RENDER_ORDER_MIN);
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
     // and add it to the scene
@@ -275,7 +275,7 @@ void ExampleCharacterController::onDeinit()
         _characterController = nullptr;
     }
 
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
+    iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialSkyBox);
 }
 
 void ExampleCharacterController::onRenderOrtho()
