@@ -57,8 +57,6 @@ void Particles::onInit()
     iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
     iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
     iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
     // create the various particle systems
     createWaveParticleSystem();
