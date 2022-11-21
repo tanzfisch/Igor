@@ -6,5 +6,29 @@
 
 namespace igor
 {
+    iMaterialResourceFactory::iMaterialResourceFactory()
+    {
+    }
+    iMaterialResourceFactory::~iMaterialResourceFactory()
+    {
+    }
 
+    iMaterialPtr iMaterialResourceFactory::loadMaterial(const iaString &filename, iResourceCacheMode cacheMode)
+    {
+        return iMaterialPtr();
+    }
+
+    iMaterialPtr iMaterialResourceFactory::createMaterial(const iaString &name)
+    {
+        return iMaterialPtr();
+    }
+
+    const iMaterialPtr &iMaterialResourceFactory::getDefaultMaterial() const
+    {
+        return _defaultMaterial;
+    }
+
+    void iMaterialResourceFactory::flush()
+    {
+    }
 } // namespace igor

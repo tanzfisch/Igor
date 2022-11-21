@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TEXTURERESOURCEFACTORY_H__
-#define __IGOR_TEXTURERESOURCEFACTORY_H__
+#ifndef __IGOR_TEXTURERESOURCEFACTORY__
+#define __IGOR_TEXTURERESOURCEFACTORY__
 
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/texture/iPixmap.h>
@@ -160,4 +160,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_TEXTURERESOURCEFACTORY_H__
+#endif // __IGOR_TEXTURERESOURCEFACTORY__

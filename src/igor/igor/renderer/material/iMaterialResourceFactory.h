@@ -30,17 +30,57 @@
 #define __IGOR_MATERIALRESOURCEFACTORY__
 
 #include <igor/resources/module/iModule.h>
+#include <igor/renderer/material/iMaterial.h>
 
 namespace igor
 {
     /*! material resource factory
-    */
+     */
     class IGOR_API iMaterialResourceFactory : public iModule<iMaterialResourceFactory>
     {
         friend class iModule<iMaterialResourceFactory>;
 
     public:
-        
+        /*! loads material from file. If the same material was already loaded it will return from cache
+
+        \param filename name of file to load
+        \param cacheMode default ist mipmapped
+        \returns shared pointer to material
+        */
+        iMaterialPtr loadMaterial(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
+
+        /*! creates new material with default settings and no shader on it
+         */
+        iMaterialPtr createMaterial(const iaString &name = "");
+
+        /*! \returns default material
+         */
+        const iMaterialPtr &getDefaultMaterial() const;
+
+        /*! \returns material by id
+         */
+        // TODO const iMaterialPtr &getMaterial(UUID) const;
+
+        /*! works like a garbage collector.
+
+        Interrates through all materials and checks how many references every material has. If reference count
+        goes down to 1 then the material will be released.
+        */
+        void flush();
+
+    private:
+
+        /*! the default material
+        */
+        iMaterialPtr _defaultMaterial;
+
+        /*! initialisation of members 3rd party lib
+         */
+        iMaterialResourceFactory();
+
+        /*! clean up and error handling
+         */
+        virtual ~iMaterialResourceFactory();
     };
 
 }; // namespace igor
