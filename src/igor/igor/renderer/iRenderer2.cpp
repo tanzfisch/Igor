@@ -410,7 +410,6 @@ namespace igor
         texQuads._nextTextureIndex = 0;
 
         ///////////// MATERIALS ////////////
-        
         _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d.mat");
         _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d_blend.mat");
         _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d.mat");
@@ -421,11 +420,11 @@ namespace igor
 
         /////////// OGL //////////
 #if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH) // TODO can we drop this now? GL_DEBUG_SEVERITY_HIGH
-            glEnable(GL_DEBUG_OUTPUT);
-            glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-            glDebugMessageCallback(onOGLDebugOutput, nullptr);
+        glEnable(GL_DEBUG_OUTPUT);
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        glDebugMessageCallback(onOGLDebugOutput, nullptr);
 
-            glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
 #endif
 
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -903,7 +902,7 @@ namespace igor
     }
 
     void iRenderer2::flushTexQuads()
-    {      
+    {
         auto &texQuads = _data->_texQuads;
 
         if (texQuads._vertexCount == 0)
@@ -1298,7 +1297,7 @@ namespace igor
     }
 
     void iRenderer2::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
-    {        
+    {
         con_assert(particles != nullptr, "zero pointer");
 
         iaVector3f a, b, c, d;
