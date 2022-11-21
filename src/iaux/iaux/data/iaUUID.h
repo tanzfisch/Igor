@@ -69,6 +69,12 @@ namespace iaux
         */
         bool operator==(const iaUUID &other);
 
+        /*! \returns true if uuids are not equal
+
+        \param other the other uuid
+        */
+        bool operator!=(const iaUUID &other);        
+
         /*! \returns true if uuid is valid/initialized
          */
         bool isValid() const;
