@@ -169,6 +169,11 @@ namespace igor
             {
                 material->setName(attrib->Value());
             }
+
+            if(attrib->NameTStr() == "uuid")
+            {
+                material->setID(iaUUID(attrib->Value()));
+            } 
       
             attrib = attrib->Next();
         }

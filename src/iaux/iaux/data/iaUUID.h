@@ -35,10 +35,26 @@ namespace iaux
 {
 
     /*! uuid (probably not following any standard but good enough for me)
-    */
-    class iaUUID
+     */
+    class IAUX_API iaUUID
     {
     public:
+        /*! does nothing
+         */
+        iaUUID() = default;
+
+        /*! copy ctor
+
+        \param other the other value
+        */
+        iaUUID(const iaUUID &other);
+
+        /*! ctor with value
+
+        \param value the value to use as uuid
+        */
+        iaUUID(const iaString &value);
+
         /*! \returns new created uuid
          */
         static iaUUID create();
@@ -47,11 +63,29 @@ namespace iaux
          */
         const iaString &getValue() const;
 
+        /*! \returns true if both uuids are equal
+
+        \param other the other uuid
+        */
+        bool operator==(const iaUUID &other);
+
+        /*! \returns true if uuid is valid/initialized
+         */
+        bool isValid() const;
+
     private:
         /*! uuid value
          */
         iaString _value;
     };
+
+    /*! print uuid in console
+
+    \param stream the stream to write to
+    \param uuid the uuid to write
+    \returns stream it self
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaUUID &uuid);
 
 }
 

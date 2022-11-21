@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iaux/math/iaUUID.h>
+#include <iaux/data/iaUUID.h>
 
 #include <random>
 #include <sstream>
@@ -14,6 +14,26 @@ namespace iaux
     static std::mt19937_64 gen(rd());
     static std::uniform_int_distribution<> dis(0, 15);
     static std::uniform_int_distribution<> dis2(8, 11);
+
+    iaUUID::iaUUID(const iaUUID &other)
+        : _value(other._value)
+    {
+    }
+
+    iaUUID::iaUUID(const iaString &value)
+        : _value(value)
+    {
+    }
+
+    bool iaUUID::operator==(const iaUUID &other)
+    {
+        return _value == other._value;
+    }
+
+    bool iaUUID::isValid() const
+    {
+        return !_value.isEmpty();
+    }
 
     iaUUID iaUUID::create()
     {
@@ -51,8 +71,14 @@ namespace iaux
         return uuid;
     }
 
-    const iaString& iaUUID::getValue() const
+    const iaString &iaUUID::getValue() const
     {
         return _value;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iaUUID &uuid)
+    {
+        stream << uuid.getValue();
+        return stream;
     }
 }

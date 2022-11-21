@@ -32,6 +32,8 @@
 #include <igor/renderer/iRenderStateSet.h>
 #include <igor/renderer/shaders/iShaderProgram.h>
 
+#include <iaux/data/iaUUID.h>
+
 #include <memory>
 
 namespace igor
@@ -43,7 +45,7 @@ namespace igor
     typedef std::shared_ptr<iMaterial> iMaterialPtr;
 
     /*! material definition
-    */
+     */
     class IGOR_API iMaterial
     {
         friend class iRenderer2;
@@ -55,7 +57,7 @@ namespace igor
 
         /*! \returns a newly created material from file
          */
-        static iMaterialPtr create(const iaString &filename);   
+        static iMaterialPtr create(const iaString &filename);
 
         /*! sets shader program to be used
 
@@ -64,7 +66,7 @@ namespace igor
         void setShaderProgram(const iShaderProgramPtr &shaderProgram);
 
         /*! \returns the shader program
-        */
+         */
         iShaderProgramPtr getShaderProgram() const;
 
         /*! sets name of material
@@ -77,19 +79,29 @@ namespace igor
          */
         const iaString &getName() const;
 
+        /*! sets material id
+
+        \param uuid the new id
+        */
+        void setID(const iaUUID &uuid);
+
+        /*! \returns material id
+         */
+        const iaUUID &getID() const;
+
         /*! defines the value of a specific render state
 
-		\param state render state
-		\param value render state value
-		*/
+        \param state render state
+        \param value render state value
+        */
         void setRenderState(const iRenderState state, const iRenderStateValue value);
 
         /*! returns the value of a specific render state
 
-		\param state render state
-		\return render state value
-		*/
-        iRenderStateValue getRenderState(const iRenderState state) const;       
+        \param state render state
+        \return render state value
+        */
+        iRenderStateValue getRenderState(const iRenderState state) const;
 
     private:
         /*! name of the material.
@@ -97,24 +109,28 @@ namespace igor
         iaString _name = L"iMaterial";
 
         /*! the shader program
-        */
+         */
         iShaderProgramPtr _shaderProgram;
 
         /*! render states set
-        */
-        iRenderStateSet _renderStateSet;        
+         */
+        iRenderStateSet _renderStateSet;
+
+        /*! material id
+         */
+        iaUUID _uuid;
 
         /*! does nothing
-        */
+         */
         iMaterial() = default;
 
         /*! bind this material
-        */
+         */
         void bind();
 
         /*! unbind material
-        */
-        void unbind();           
+         */
+        void unbind();
 
         /*! sets integer on given uniform
 
@@ -156,7 +172,7 @@ namespace igor
         \param uniform the uniform name
         \param value the value to set
         */
-        void setMatrix(const iaString &uniform, const iaMatrixf &value);             
+        void setMatrix(const iaString &uniform, const iaMatrixf &value);
     };
 }
 

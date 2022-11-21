@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="texture shaded 2d blended">
+	<Material name="texture shaded 2d blended" uuid="557e3749-dbb8-484d-b442-d8ac8ee1b0b4">
 		<States>
 			<DepthTest>Off</DepthTest>
             <DepthMask>Off</DepthMask>
