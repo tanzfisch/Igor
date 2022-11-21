@@ -38,7 +38,7 @@
 using namespace iaux;
 
 #include <list>
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 namespace igor
@@ -122,7 +122,7 @@ namespace igor
 
         /*! map of textures
         */
-        std::map<int64, iTexturePtr> _textures;
+        std::unordered_map<int64, iTexturePtr> _textures;
 
         /*! generated dummy texture
         */

@@ -6,8 +6,6 @@
 
 #include <igor/resources/config/iConfigReader.h>
 
-#include <igor/renderer/iRenderer.h> // TODO remove
-
 #include <iaux/iaux.h>
 #include <iaux/system/iaDate.h>
 using namespace iaux;
@@ -135,6 +133,7 @@ namespace igor
         iPhysics::create();
         iRenderer::create();
         iRenderer2::create();
+        iMaterialResourceFactory::create();
         iTextureResourceFactory::create();
         iMaterialResourceFactory_old::create();
         iResourceManager::create();
@@ -183,6 +182,11 @@ namespace igor
             iMaterialResourceFactory_old::destroy();
         }
 
+        if (iMaterialResourceFactory::isInstantiated())
+        {
+            iMaterialResourceFactory::destroy();
+        }
+
         if (iTextureResourceFactory::isInstantiated())
         {
             iTextureResourceFactory::destroy();
@@ -192,6 +196,11 @@ namespace igor
         {
             iRenderer::destroy();
         }
+
+        if (iRenderer2::isInstantiated())
+        {
+            iRenderer2::destroy();
+        }        
 
         if (iPhysics::isInstantiated())
         {

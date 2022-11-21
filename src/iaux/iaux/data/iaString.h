@@ -636,12 +636,14 @@ namespace iaux
 
 } // namespace iaux
 
+/*! so can be used as key in a map
+ */
 template <>
 struct std::hash<iaux::iaString>
 {
-    std::size_t operator()(const iaux::iaString &f) const
+    std::size_t operator()(const iaux::iaString &value) const
     {
-        return static_cast<std::size_t>(f.getHashValue());
+        return static_cast<std::size_t>(value.getHashValue());
     }
 };
 

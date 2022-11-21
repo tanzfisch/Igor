@@ -32,6 +32,10 @@
 #include <igor/resources/module/iModule.h>
 #include <igor/renderer/material/iMaterial.h>
 
+#include <iaux/data/iaUUID.h>
+
+#include <unordered_map>
+
 namespace igor
 {
     /*! material resource factory
@@ -47,19 +51,14 @@ namespace igor
         \param cacheMode default ist mipmapped
         \returns shared pointer to material
         */
-        iMaterialPtr loadMaterial(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
-
-        /*! creates new material with default settings and no shader on it
-         */
-        iMaterialPtr createMaterial(const iaString &name = "");
+        iMaterialPtr loadMaterial(const iaString &filename);
 
         /*! \returns default material
          */
         const iMaterialPtr &getDefaultMaterial() const;
 
-        /*! \returns material by id
-         */
-        // TODO const iMaterialPtr &getMaterial(UUID) const;
+        void init();
+        void deinit();
 
         /*! works like a garbage collector.
 
@@ -70,8 +69,16 @@ namespace igor
 
     private:
 
-        /*! the default material
+        /*! mutex to protect the materials map
         */
+        iaMutex _mutex;
+
+        /*! map of materials
+        */
+        std::unordered_map<int64, iMaterialPtr> _materials;
+
+        /*! the default material
+         */
         iMaterialPtr _defaultMaterial;
 
         /*! initialisation of members 3rd party lib

@@ -9,12 +9,6 @@
 
 namespace iaux
 {
-    // source https://stackoverflow.com/questions/24365331/how-can-i-generate-uuid-in-c-without-using-boost-library
-    static std::random_device rd;
-    static std::mt19937_64 gen(rd());
-    static std::uniform_int_distribution<> dis(0, 15);
-    static std::uniform_int_distribution<> dis2(8, 11);
-
     iaUUID::iaUUID(const iaUUID &other)
         : _value(other._value)
     {
@@ -37,6 +31,14 @@ namespace iaux
 
     iaUUID iaUUID::create()
     {
+        // source https://stackoverflow.com/questions/24365331/how-can-i-generate-uuid-in-c-without-using-boost-library
+        static std::random_device rd;
+        static std::mt19937_64 gen(rd());
+        static std::uniform_int_distribution<> dis(0, 15);
+        static std::uniform_int_distribution<> dis2(8, 11);
+        static iaMutex mutex;
+
+        mutex.lock();
         std::stringstream ss;
         int i;
         ss << std::hex;
@@ -68,6 +70,8 @@ namespace iaux
 
         iaUUID uuid;
         uuid._value = iaString(ss.str().c_str());
+        mutex.unlock();
+
         return uuid;
     }
 

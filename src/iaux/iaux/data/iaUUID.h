@@ -89,4 +89,15 @@ namespace iaux
 
 }
 
+/*! so can be used as key in a map
+ */
+template <>
+struct std::hash<iaux::iaUUID>
+{
+    std::size_t operator()(const iaux::iaUUID &uuid) const
+    {
+        return static_cast<std::size_t>(uuid.getValue().getHashValue());
+    }
+};
+
 #endif // __IAUX_UUID__

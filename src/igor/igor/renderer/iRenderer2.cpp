@@ -5,6 +5,7 @@
 #include <igor/renderer/iRenderer2.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
+#include <igor/renderer/material/iMaterialResourceFactory.h>
 #include <igor/renderer/material/iMaterial.h>
 
 #include <deque>
@@ -409,10 +410,11 @@ namespace igor
         texQuads._nextTextureIndex = 0;
 
         ///////////// MATERIALS ////////////
-        _data->_flatShader = iMaterial::create("flat_shaded_2d.mat");
-        _data->_flatShaderBlend = iMaterial::create("flat_shaded_2d_blend.mat");
-        _data->_textureShader = iMaterial::create("texture_shaded_2d.mat");
-        _data->_textureShaderBlend = iMaterial::create("texture_shaded_2d_blend.mat");
+        
+        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d.mat");
+        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d_blend.mat");
+        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d.mat");
+        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d_blend.mat");
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
@@ -941,8 +943,6 @@ namespace igor
         texQuads._indexCount = 0;
         texQuads._vertexDataPtr = texQuads._vertexData;
         texQuads._nextTextureIndex = 0;
-
-        con_trace_call();
     }
 
     void iRenderer2::flushTriangles()
@@ -983,8 +983,6 @@ namespace igor
         triangles._indexCount = 0;
         triangles._vertexDataPtr = triangles._vertexData;
         triangles._indexDataPtr = triangles._indexData;
-
-        con_trace_call();
     }
 
     void iRenderer2::flushQuads()
@@ -1022,8 +1020,6 @@ namespace igor
         quads._vertexCount = 0;
         quads._indexCount = 0;
         quads._vertexDataPtr = quads._vertexData;
-
-        con_trace_call();
     }
 
     void iRenderer2::flushLines()
@@ -1058,8 +1054,6 @@ namespace igor
         // reset queue
         lines._vertexCount = 0;
         lines._vertexDataPtr = lines._vertexData;
-
-        con_trace_call();
     }
 
     void iRenderer2::flushPoints()
@@ -1094,8 +1088,6 @@ namespace igor
         // reset queue
         points._vertexCount = 0;
         points._vertexDataPtr = points._vertexData;
-
-        con_trace_call();
     }
 
     void iRenderer2::flush()
@@ -1740,11 +1732,6 @@ namespace igor
 
         flush();
         _data->_currentMaterial = material;
-
-        if (_data->_currentMaterial)
-        {
-            con_trace("set material " << _data->_currentMaterial->getName());
-        }
     }
 
     void iRenderer2::drawBox(const iAACubed &box, const iaColor4f &color)

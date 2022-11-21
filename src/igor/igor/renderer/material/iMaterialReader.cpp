@@ -212,5 +212,9 @@ namespace igor
                 readMaterial(materialXML, material);
             }
         }
+        else
+        {
+            con_err("can't read file \"" << filename << "\". " << document.ErrorDesc() << " In line " << document.ErrorRow());
+        }
     }
 } // namespace igor

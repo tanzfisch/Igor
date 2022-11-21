@@ -25,6 +25,7 @@ namespace igor
 
     iTextureResourceFactory::iTextureResourceFactory()
     {
+        // TODO need dependencies for modules!
         iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
         iRenderer::getInstance().registerPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
 

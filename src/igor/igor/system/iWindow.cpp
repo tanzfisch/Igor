@@ -14,6 +14,7 @@
 #include <igor/renderer/iRenderer2.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
+#include <igor/renderer/material/iMaterialResourceFactory.h>
 
 #include <algorithm>
 #include <sstream>
@@ -1295,6 +1296,7 @@ namespace igor
         {
             iTaskManager::getInstance().createRenderContextThreads(this);
             iRenderer::getInstance().init();
+            iMaterialResourceFactory::getInstance().init();
             iRenderer2::getInstance().init();
             _impl->swapBuffers();
 
