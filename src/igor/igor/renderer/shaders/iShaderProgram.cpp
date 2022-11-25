@@ -30,7 +30,7 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    void iShaderProgram::addShader(iaString filename, iShaderObjectType_New type)
+    void iShaderProgram::addShader(iaString filename, iShaderObjectType type)
     {
         iaFile file(iResourceManager::getInstance().getPath(filename));
 
@@ -59,7 +59,7 @@ namespace igor
         }
     }
 
-    bool iShaderProgram::addSource(const char *source, iShaderObjectType_New type)
+    bool iShaderProgram::addSource(const char *source, iShaderObjectType type)
     {
         int32 shaderObject = glCreateShader(iRendererUtils::convertType(type));
         GL_CHECK_ERROR();

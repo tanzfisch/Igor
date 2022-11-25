@@ -2,11 +2,12 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/renderer/material/iMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
-#include <igor/renderer/material/iMaterialReader.h>
-#include <igor/renderer/utils/iRendererUtils.h>
+#include <igor/resources/material/iMaterialReader.h>
 #include <igor/resources/iResourceManager.h>
+
+#include <igor/renderer/utils/iRendererUtils.h>
 
 namespace igor
 {
@@ -200,5 +201,17 @@ namespace igor
     {
         return _uuid;
     }
+
+    int32 iMaterial::getOrder() const
+    {
+        return _order;
+    }
+
+    void iMaterial::setOrder(int32 order)
+    {
+        con_assert(order >= RENDER_ORDER_MIN && order <= RENDER_ORDER_MAX, "out of bounds");
+
+        _order = order;
+    }    
 
 }

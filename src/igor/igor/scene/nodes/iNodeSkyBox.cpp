@@ -10,7 +10,6 @@
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 
 namespace igor
 {
@@ -117,9 +116,9 @@ namespace igor
         }
         iRenderer::getInstance().setModelMatrix(model);
 
-        if (_alpha < 1.0f)
+        /*if (_alpha < 1.0f) // TODO
         {
-            iMaterial_oldPtr material = iMaterialResourceFactory_old::getInstance().getCurrentMaterial();
+            iMaterialPtr material = iMaterialResourceFactory_old::getInstance().getCurrentMaterial();
             if (material != nullptr &&
                 material->isValid())
             {
@@ -130,7 +129,7 @@ namespace igor
                 }
             }
         }
-        else
+        else*/
         {
             iRenderer::getInstance().setColor(1, 1, 1, 1);
         }

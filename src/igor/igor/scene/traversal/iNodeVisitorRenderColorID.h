@@ -48,9 +48,9 @@ namespace igor
     {
 
     public:
-        /*! configures material
+        /*! does nothing
         */
-        iNodeVisitorRenderColorID();
+        iNodeVisitorRenderColorID() = default;
 
         /*! does nothing
         */
@@ -85,10 +85,6 @@ namespace igor
         /*! current matrix that eventually gets pushed on stack or came poped from stack
         */
         iaMatrixd _currentMatrix;
-
-        /*! color ID render material
-        */
-        uint64 _material = iMaterial_old::INVALID_MATERIAL_ID;
     };
 
 }; // namespace igor

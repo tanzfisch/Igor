@@ -63,13 +63,67 @@ namespace igor
         _diffuse = d;
     }
 
-    void iTargetMaterial::setShininess(float32 s)
+    void iTargetMaterial::setShininess(float32 shininess)
     {
-        _shininess = s;
+        _shininess = shininess;
     }
 
     void iTargetMaterial::setAlpha(float32 alpha)
     {
         _alpha = alpha;
+    }
+
+    iaColor3f iTargetMaterial::getAmbient() const
+    {
+        return _ambient;
+    }
+
+    iaColor3f iTargetMaterial::getEmissive() const
+    {
+        return _emissive;
+    }
+
+    iaColor3f iTargetMaterial::getSpecular() const
+    {
+        return _specular;
+    }
+
+    iaColor3f iTargetMaterial::getDiffuse() const
+    {
+        return _diffuse;
+    }
+
+    float32 iTargetMaterial::getShininess() const
+    {
+        return _shininess;
+    }
+
+    float32 iTargetMaterial::getAlpha() const
+    {
+        return _alpha;
+    }
+
+    bool iTargetMaterial::hasTextures() const
+    {
+        return _textures.size() > 0 ? true : false;
+    }
+
+    bool iTargetMaterial::hasTextureUnit(uint32 unit) const
+    {
+        auto iter = _textures.find(unit);
+        if (iter != _textures.end())
+        {
+            if ((*iter).second != nullptr)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    uint32 iTargetMaterial::getTextureUnitCount() const
+    {
+        return static_cast<uint32>(_textures.size());
     }
 } // namespace igor

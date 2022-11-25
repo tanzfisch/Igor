@@ -29,7 +29,7 @@
 #ifndef __IGOR_MATERIALREADER__
 #define __IGOR_MATERIALREADER__
 
-#include <igor/renderer/material/iMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
 namespace igor
 {

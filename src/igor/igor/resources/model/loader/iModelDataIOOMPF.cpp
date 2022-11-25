@@ -13,7 +13,6 @@
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/renderer/iRenderStateSet.h>
-#include <igor/resources/material/iShader_Old.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeEmitter.h>
@@ -408,7 +407,7 @@ namespace igor
         if (materialChunk != nullptr)
         {
             int32 materialID = iMaterialResourceFactory_old::getInstance().createMaterial(materialChunk->getMaterialName());
-            iMaterial_oldPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
+            iMaterialPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
 
             con_assert(material != nullptr, "zero pointer");
 
@@ -747,7 +746,7 @@ namespace igor
     {
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
-        iMaterial_oldPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
+        iMaterialPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
         if (material != nullptr)
         {
             auto shaderSources = material->getShaderSources();

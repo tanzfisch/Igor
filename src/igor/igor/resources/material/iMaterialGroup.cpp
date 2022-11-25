@@ -6,9 +6,7 @@
 
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
+// #include <igor/resources/mesh/iMesh.h>
 
 namespace igor
 {
@@ -24,9 +22,14 @@ namespace igor
         }
     }
 
-    void iMaterialGroup::setMaterial(iMaterial_oldPtr material)
+    void iMaterialGroup::setMaterial(const iMaterialPtr &material)
     {
         _material = material;
+    }
+
+    const iMaterialPtr &iMaterialGroup::getMaterial() const
+    {
+        return _material;
     }
 
     const std::vector<iNodeRenderPtr> &iMaterialGroup::getRenderNodes() const

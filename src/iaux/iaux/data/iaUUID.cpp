@@ -19,7 +19,7 @@ namespace iaux
     {
     }
 
-    bool iaUUID::operator==(const iaUUID &other)
+    bool iaUUID::operator==(const iaUUID &other) const
     {
         return _value == other._value;
     }

@@ -5,8 +5,9 @@
 #include <igor/renderer/iRenderer2.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
-#include <igor/renderer/material/iMaterialResourceFactory.h>
-#include <igor/renderer/material/iMaterial.h>
+
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <deque>
 

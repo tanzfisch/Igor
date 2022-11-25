@@ -6,7 +6,7 @@
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeVolume.h>
-#include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iRenderer2.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
@@ -14,15 +14,6 @@ using namespace iaux;
 
 namespace igor
 {
-
-    iNodeVisitorRenderColorID::iNodeVisitorRenderColorID()
-    {
-        _material = iMaterialResourceFactory_old::getInstance().createMaterial();
-        iMaterialResourceFactory_old::getInstance().getMaterial(_material)->addShaderSource("default.vert", iShaderObjectType::Vertex);
-        iMaterialResourceFactory_old::getInstance().getMaterial(_material)->addShaderSource("default_directional_light.frag", iShaderObjectType::Fragment);
-        iMaterialResourceFactory_old::getInstance().getMaterial(_material)->compileShader();
-        iMaterialResourceFactory_old::getInstance().getMaterial(_material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    }
 
     bool iNodeVisitorRenderColorID::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
@@ -34,7 +25,7 @@ namespace igor
             iaMatrixd matrix;
             transform->getMatrix(matrix);
             _currentMatrix *= matrix;
-            iRenderer::getInstance().setModelMatrix(_currentMatrix);
+            iRenderer2::getInstance().setModelMatrix(_currentMatrix);
         }
 
         if (iNodeKind::Renderable == node->getKind())
@@ -54,15 +45,14 @@ namespace igor
             _currentMatrix = _matrixStack.back();
             _matrixStack.pop_back();
 
-            iRenderer::getInstance().setModelMatrix(_currentMatrix);
+            iRenderer2::getInstance().setModelMatrix(_currentMatrix);
         }
     }
 
     void iNodeVisitorRenderColorID::preTraverse()
     {
         _currentMatrix.identity();
-        iRenderer::getInstance().setColor(1, 1, 1, 1);
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory_old::getInstance().getMaterial(_material));
+        iRenderer2::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
     }
 
     void iNodeVisitorRenderColorID::postTraverse()

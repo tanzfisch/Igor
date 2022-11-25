@@ -75,7 +75,7 @@ private:
 
     /*! material definition for the sky box
     */
-    iMaterialID_old _materialSkyBox = iMaterial_old::INVALID_MATERIAL_ID;
+    iMaterialID _materialSkyBox = iMaterial_old::INVALID_MATERIAL_ID;
 
     /*! the character controller
     */

@@ -71,7 +71,7 @@ namespace igor
 
         If type is undefined we use the file ending to determine the type
         */
-        void addShader(iaString filename, iShaderObjectType_New type = iShaderObjectType_New::Undefined);
+        void addShader(iaString filename, iShaderObjectType type = iShaderObjectType::Undefined);
 
         /*! add shader from buffer
 
@@ -79,7 +79,7 @@ namespace igor
         \param type the type of shader object
         \returns true if sucessful
         */
-        bool addSource(const char *source, iShaderObjectType_New type);
+        bool addSource(const char *source, iShaderObjectType type);
 
         /*! compiles shader programm with shader objects
          */

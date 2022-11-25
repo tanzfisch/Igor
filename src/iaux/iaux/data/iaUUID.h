@@ -67,7 +67,7 @@ namespace iaux
 
         \param other the other uuid
         */
-        bool operator==(const iaUUID &other);
+        bool operator==(const iaUUID &other) const;
 
         /*! \returns true if uuids are not equal
 

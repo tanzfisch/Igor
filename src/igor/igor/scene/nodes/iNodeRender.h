@@ -53,15 +53,15 @@ namespace igor
         */
         const iaMatrixd &getWorldMatrix() const;
 
-        /*! sets material of node by id
+        /*! sets material of node
 
-        \param materialID material id
+        \param material the material
         */
-        void setMaterial(iMaterialID_old materialID);
+        void setMaterial(const iMaterialPtr &material);
 
-        /*! \retruns material id
+        /*! \retruns the material in use
         */
-        iMaterialID_old getMaterial() const;
+        iMaterialPtr getMaterial() const;
 
         /*! sets visibility of this node
 
@@ -113,12 +113,10 @@ namespace igor
         virtual ~iNodeRender();
 
     private:
-        /*! material id to render with
+        /*! material to render with
         */
-        iMaterialID_old _materialID = iMaterial_old::INVALID_MATERIAL_ID;
+        iMaterialPtr _material;
     };
-
-#include <igor/scene/nodes/iNodeRender.inl>
 
     /*! render node pointer definition
     */

@@ -32,7 +32,7 @@
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
 #include <igor/renderer/buffers/iVertexArray.h>
-#include <igor/renderer/material/iMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iAtlas.h>

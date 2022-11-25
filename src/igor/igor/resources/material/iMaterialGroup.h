@@ -61,11 +61,18 @@ namespace igor
         */
         iMaterialGroup() = default;
 
-        void setMaterial(iMaterial_oldPtr material);
-
         /*! clean up
         */
         virtual ~iMaterialGroup();
+
+        /*! sets material of group
+        \param material the material to use
+        */
+        void setMaterial(const iMaterialPtr &material);
+
+        /*! \returns material of group
+        */
+        const iMaterialPtr &getMaterial() const;
 
         /*! clear node list
         */
@@ -88,7 +95,7 @@ namespace igor
     private:
         /*! corresponding material
         */
-        iMaterial_oldPtr _material;
+        iMaterialPtr _material;
 
         /*! render node IDs registred to this material
         */

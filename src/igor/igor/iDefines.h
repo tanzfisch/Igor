@@ -256,7 +256,7 @@ namespace igor
 
     /*! shader object types
      */
-    enum class iShaderObjectType_New
+    enum class iShaderObjectType
     {
         Undefined,
         Vertex,
@@ -270,7 +270,7 @@ namespace igor
     \param type the shader object type
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type);
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderObjectType &type);
 
     /*! shader data type
      */

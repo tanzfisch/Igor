@@ -54,7 +54,6 @@
 
 #include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iRenderer2.h>
-#include <igor/renderer/material/iMaterialResourceFactory.h>
 #include <igor/renderer/iView.h>
 
 #include <igor/layers/iLayer.h>

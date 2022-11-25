@@ -103,17 +103,17 @@ namespace igor
         return 0;
     }
 
-    uint32 iRendererUtils::convertType(iShaderObjectType_New type)
+    uint32 iRendererUtils::convertType(iShaderObjectType type)
     {
         switch (type)
         {
-        case iShaderObjectType_New::Vertex:
+        case iShaderObjectType::Vertex:
             return GL_VERTEX_SHADER;
 
-        case iShaderObjectType_New::Fragment:
+        case iShaderObjectType::Fragment:
             return GL_FRAGMENT_SHADER;
 
-        case iShaderObjectType_New::Geometry:
+        case iShaderObjectType::Geometry:
             return GL_GEOMETRY_SHADER;
 
         default:
@@ -123,7 +123,7 @@ namespace igor
         return 0;
     }
 
-    std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type)
+    std::wostream &operator<<(std::wostream &stream, const iShaderObjectType &type)
     {
         const static std::wstring text[] = {
             L"undefined",

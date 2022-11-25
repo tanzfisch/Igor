@@ -46,7 +46,7 @@ namespace igor
     class IGOR_API iTargetMaterial
     {
 
-        friend class iMaterialResourceFactory_old;
+        friend class iMaterialResourceFactory;
 
     public:
         /*! set a texture for a specific texture unit
@@ -64,15 +64,15 @@ namespace igor
 
         /*! \returns true if mesh has textures and texture coordinates
         */
-        __IGOR_INLINE__ bool hasTextures() const;
+        bool hasTextures() const;
 
         /*! \returns texture unit count
         */
-        __IGOR_INLINE__ uint32 getTextureUnitCount() const;
+        uint32 getTextureUnitCount() const;
 
         /*! \returns true if mesh has specified texture unit
         */
-        __IGOR_INLINE__ bool hasTextureUnit(uint32 unit) const;
+        bool hasTextureUnit(uint32 unit) const;
 
         /*! set emmisive color
 
@@ -82,7 +82,7 @@ namespace igor
 
         /*! \returns emissive color
         */
-        __IGOR_INLINE__ iaColor3f getEmissive() const;
+        iaColor3f getEmissive() const;
 
         /*! set ambient color
 
@@ -92,7 +92,7 @@ namespace igor
 
         /*! \returns ambient color
         */
-        __IGOR_INLINE__ iaColor3f getAmbient() const;
+        iaColor3f getAmbient() const;
 
         /*! set specular color
 
@@ -102,7 +102,7 @@ namespace igor
 
         /*! \returns specular color
         */
-        __IGOR_INLINE__ iaColor3f getSpecular() const;
+        iaColor3f getSpecular() const;
 
         /*! set diffuse color
 
@@ -112,17 +112,17 @@ namespace igor
 
         /*! \returns diffuse color
         */
-        __IGOR_INLINE__ iaColor3f getDiffuse() const;
+        iaColor3f getDiffuse() const;
 
         /*! set shininess
 
-        \param s shininess value
+        \param shininess the shininess value
         */
-        void setShininess(float32 s);
+        void setShininess(float32 shininess);
 
         /*! \returns shininess
         */
-        __IGOR_INLINE__ float32 getShininess() const;
+        float32 getShininess() const;
 
         /*! sets alpha value of material
 		*/
@@ -130,7 +130,7 @@ namespace igor
 
         /*! \returns alpha value of material
 		*/
-        __IGOR_INLINE__ float32 getAlpha() const;
+        float32 getAlpha() const;
 
     private:
         /*! map of textures associated to the mesh
@@ -170,7 +170,9 @@ namespace igor
         ~iTargetMaterial();
     };
 
-#include <igor/resources/material/iTargetMaterial.inl>
+    /*! target material pointer definition
+    */
+    typedef iTargetMaterial* iTargetMaterialPtr;
 
 } // namespace igor
 

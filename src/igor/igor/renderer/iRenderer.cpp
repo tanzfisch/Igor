@@ -11,7 +11,6 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iShader_Old.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/material/iMaterial.h>
@@ -791,7 +790,7 @@ namespace igor
     }
 
     //! \todo this is just a first rudimentary version. we need a structure that only switches the deltas between materials
-    void iRenderer::setMaterial(iMaterial_oldPtr material, bool forceWireframe)
+    void iRenderer::setMaterial(iMaterialPtr material, bool forceWireframe)
     {
         if (material == _currentMaterial)
         {

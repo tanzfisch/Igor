@@ -178,7 +178,7 @@ namespace igor
 
         \param type the igor shader object type
         */
-        static uint32 convertType(iShaderObjectType_New type);
+        static uint32 convertType(iShaderObjectType type);
     };
 
 }

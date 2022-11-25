@@ -28,44 +28,6 @@ using namespace iaux;
 
 namespace igor
 {
-    iRenderEngine::iRenderEngine()
-    {
-        iMaterialResourceFactory_old::getInstance().registerMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
-        iMaterialResourceFactory_old::getInstance().registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
-
-        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
-        for (auto material : materials)
-        {
-            iMaterialGroup materialGroup;
-            materialGroup.setMaterial(material);
-            _materialGroups[material->getID()] = materialGroup;
-        }
-    }
-
-    iRenderEngine::~iRenderEngine()
-    {
-        iMaterialResourceFactory_old::getInstance().unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
-        iMaterialResourceFactory_old::getInstance().unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
-    }
-
-    void iRenderEngine::onMaterialCreated(iMaterialID_old materialID)
-    {
-        iMaterial_oldPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
-        iMaterialGroup materialGroup;
-        materialGroup.setMaterial(material);
-        _materialGroups[materialID] = materialGroup;
-    }
-
-    void iRenderEngine::onMaterialDestroyed(iMaterialID_old materialID)
-    {
-        auto iter = _materialGroups.find(materialID);
-
-        if (iter != _materialGroups.end())
-        {
-            _materialGroups.erase(iter);
-        }
-    }
-
     void iRenderEngine::setCurrentCamera(iNodeID cameraID)
     {
         if (cameraID == iNode::INVALID_NODE_ID)
@@ -224,10 +186,11 @@ namespace igor
     {
         IGOR_PROFILER_SCOPED(col_id);
 
-        iMaterial_oldPtr colorIDMaterial = iMaterialResourceFactory_old::getInstance().getMaterial(iMaterialResourceFactory_old::getInstance().getColorIDMaterialID());
-        iRenderer::getInstance().setMaterial(colorIDMaterial);
+        iRenderer2::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
 
-        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
+        std::vector<iMaterialPtr> materials;
+        iMaterialResourceFactory::getInstance().getMaterials(materials);
+
         for (auto material : materials)
         {
             iMaterialGroup &materialGroup = _materialGroups[material->getID()];
@@ -274,7 +237,9 @@ namespace igor
             ++lightNum;
         }
 
-        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
+        std::vector<iMaterialPtr> materials;
+        iMaterialResourceFactory::getInstance().getMaterials(materials);
+
         for (auto material : materials)
         {
             bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);

@@ -4,9 +4,9 @@
 
 #include <igor/scene/nodes/iNodeMesh.h>
 
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
@@ -24,7 +24,7 @@ namespace igor
         setName(L"iNodeMesh");
         _nodeType = iNodeType::iNodeMesh;
 
-        _targetMaterial = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
+        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
     }
 
     iNodeMesh::iNodeMesh(iNodeMesh *node)
@@ -42,7 +42,7 @@ namespace igor
 
         setBoundingBox(node->getBoundingBox());
 
-        _targetMaterial = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
+        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
         setTargetMaterial(node->getTargetMaterial());
     }
 
@@ -50,7 +50,7 @@ namespace igor
     {
         if (_targetMaterial != nullptr)
         {
-            iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_targetMaterial);
+            iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
             _targetMaterial = nullptr;
         }
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="default" uuid="7b6a4eec-4e7c-4497-9f3f-9b32572bff2b">
+	<Material name="igor.default" uuid="7b6a4eec-4e7c-4497-9f3f-9b32572bff2b">
 		<States>
 			<DepthTest>On</DepthTest>
             <DepthFunc>Less</DepthFunc>
@@ -9,19 +9,6 @@
             <Blend>Off</Blend>
             <CullFace>On</CullFace>
             <CullFaceFunc>Back</CullFaceFunc>
-
-            <!-- don't know about this. maybe this can go away or we allow for any number of textures -->
-            <Texture2D0>Off</Texture2D0> 
-            <Texture2D1>Off</Texture2D1> 
-            <Texture2D2>Off</Texture2D2>
-            <Texture2D3>Off</Texture2D3>
-            <Texture2D4>Off</Texture2D4>
-            <Texture2D5>Off</Texture2D5>
-            <Texture2D6>Off</Texture2D6>
-            <Texture2D7>Off</Texture2D7>
-            <Wireframe>Off</Wireframe>
-            <Instanced>Off</Instanced>
-            <InstancedFunc>PositionOrientation</InstancedFunc>
 		</States>
         <Program>
             <Vertex>

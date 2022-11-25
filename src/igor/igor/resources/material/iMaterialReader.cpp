@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/renderer/material/iMaterialReader.h>
+#include <igor/resources/material/iMaterialReader.h>
 
 #include <tinyxml.h>
 
@@ -133,7 +133,7 @@ namespace igor
             if (text != nullptr &&
                 text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
             {
-                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType_New::Vertex);
+                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Vertex);
             }
             else
             {
@@ -147,7 +147,7 @@ namespace igor
             if (text != nullptr &&
                 text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
             {
-                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType_New::Fragment);
+                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Fragment);
             }
             else
             {

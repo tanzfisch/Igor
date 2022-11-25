@@ -13,7 +13,6 @@
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/material/iShader_Old.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/system/iMouse.h>
 using namespace igor;

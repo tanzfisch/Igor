@@ -7,14 +7,14 @@
 #include <igor/system/iApplication.h>
 #include <iaux/system/iaConsole.h>
 #include <igor/system/iOSEventListener.h>
-#include <igor/renderer/iView.h>
 #include <igor/system/iMouse.h>
 #include <igor/system/iKeyboard.h>
+#include <igor/renderer/iView.h>
 #include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iRenderer2.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
-#include <igor/renderer/material/iMaterialResourceFactory.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <algorithm>
 #include <sstream>

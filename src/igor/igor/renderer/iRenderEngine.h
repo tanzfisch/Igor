@@ -46,15 +46,13 @@ namespace igor
     class IGOR_API iRenderEngine
     {
     public:
-        /*! init
-
-        \param useProfiling if true this render engine will be profiled
+        /*! does nothing
         */
-        iRenderEngine();
+        iRenderEngine() = default;
 
-        /*! deinit
+        /*! does nothing
          */
-        virtual ~iRenderEngine();
+        virtual ~iRenderEngine() = default;
 
         /*! shows all rendering in wireframe mode or normal mode
 
@@ -143,7 +141,7 @@ namespace igor
 
         /*! material groups
          */
-        std::unordered_map<iMaterialID_old, iMaterialGroup> _materialGroups;
+        std::unordered_map<iMaterialID, iMaterialGroup> _materialGroups;
 
         /*! handle to scene
          */
@@ -152,18 +150,6 @@ namespace igor
         /*! temporary list of nodes that where filtered by the culling process
          */
         std::vector<iNodeID> _cullResult;
-
-        /*! called on material created event
-
-        \param materialID the material's id that got created
-        */
-        void onMaterialCreated(iMaterialID_old materialID);
-
-        /*! called on material destroyed event
-
-        \param materialID the material's id that got destroyed
-        */
-        void onMaterialDestroyed(iMaterialID_old materialID);
 
         /*! cull scene relative to specified camera
 

@@ -44,6 +44,10 @@ namespace igor
     class iMaterial;
     typedef std::shared_ptr<iMaterial> iMaterialPtr;
 
+    /*! material ID definition
+    */
+    typedef iaUUID iMaterialID;
+
     /*! material definition
      */
     class IGOR_API iMaterial
@@ -51,6 +55,18 @@ namespace igor
         friend class iRenderer2;
 
     public:
+        /*! default render order value
+        */
+        static const int32 RENDER_ORDER_DEFAULT = 200;
+
+        /*! min render order value
+        */
+        static const int32 RENDER_ORDER_MIN = 0;
+
+        /*! max render order value
+        */
+        static const int32 RENDER_ORDER_MAX = 400;
+
         /*! \returns a newly created material
          */
         static iMaterialPtr create();
@@ -103,6 +119,16 @@ namespace igor
         */
         iRenderStateValue getRenderState(const iRenderState state) const;
 
+        /*! \returns render order
+        */
+        int32 getOrder() const;
+
+        /*! set render order
+
+        \param order the higher the value the later it get's rendered (default is iMaterial_old::RENDER_ORDER_DEFAULT)
+        */
+        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);        
+
     private:
         /*! name of the material.
          */
@@ -119,6 +145,12 @@ namespace igor
         /*! material id
          */
         iaUUID _uuid;
+
+        /*! oder that material groups get sorted by
+
+        default value is iMaterial_old::RENDER_ORDER_DEFAULT
+        */
+        int32 _order = iMaterial::RENDER_ORDER_DEFAULT;        
 
         /*! does nothing
          */
