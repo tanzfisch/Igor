@@ -457,7 +457,7 @@ namespace igor
         /*! flushes last used queue
          */
         void flushLastUsed();
-public:
+
         /*! draws everything that is still in the queue
          */
         void flush();

@@ -119,15 +119,12 @@ namespace igor
         const bool blend = _alpha < 1.0f;
         const iaVector2f tiling(_textureScale, _textureScale);
 
-        con_trace_call();
         iRenderer2::getInstance().drawTexturedBillboard(iaVector3f(0, 0, -_boxSize), iaVector3f(-_boxSize, 0, 0), iaVector3f(0, _boxSize, 0), _front, color, tiling);
         iRenderer2::getInstance().drawTexturedBillboard(iaVector3f(0, 0, _boxSize), iaVector3f(_boxSize, 0, 0), iaVector3f(0, _boxSize, 0), _back, color, tiling);
         iRenderer2::getInstance().drawTexturedBillboard(iaVector3f(-_boxSize, 0, 0), iaVector3f(0, 0, _boxSize), iaVector3f(0, _boxSize, 0), _left, color, tiling);
         iRenderer2::getInstance().drawTexturedBillboard(iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, -_boxSize), iaVector3f(0, _boxSize, 0), _right, color, tiling);
         iRenderer2::getInstance().drawTexturedBillboard(iaVector3f(0, _boxSize, 0), iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, -_boxSize), _top, color, tiling);
         iRenderer2::getInstance().drawTexturedBillboard(iaVector3f(0, -_boxSize, 0), iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, _boxSize), _bottom, color, tiling);
-
-        iRenderer2::getInstance().flush();
     }
 
 } // namespace igor

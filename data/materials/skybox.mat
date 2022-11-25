@@ -23,11 +23,13 @@ uniform mat4 igor_modelViewProjection;
 
 out vec4 VertexColor;
 out vec2 TexCoord;
+out float TexUnit;
 
 void main()
 {
 	VertexColor = in_color;
 	TexCoord = in_texCoord;
+    TexUnit = in_texUnit;
 
 	gl_Position = igor_modelViewProjection * vec4(in_position,1);
 }]]>
@@ -41,13 +43,21 @@ in float TexUnit;
 
 layout(location = 0) out vec4 out_color;
 
-layout(binding = 0) uniform sampler2D u_textures[6];
+layout (binding = 0) uniform sampler2D u_textures[6];
 
 void main()
 {
 	vec4 texColor = VertexColor;
 
-    texColor *= texture2D(u_textures[int(TexUnit)], TexCoord);
+	switch(int(TexUnit))
+	{
+		case  0: texColor *= texture2D(u_textures[0], TexCoord); break;
+		case  1: texColor *= texture2D(u_textures[1], TexCoord); break;
+		case  2: texColor *= texture2D(u_textures[2], TexCoord); break;
+		case  3: texColor *= texture2D(u_textures[3], TexCoord); break;
+		case  4: texColor *= texture2D(u_textures[4], TexCoord); break;
+		case  5: texColor *= texture2D(u_textures[5], TexCoord); break;
+	}
 
 	out_color = texColor;
 }]]>
