@@ -52,7 +52,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataI
     {
         iNodeMesh *meshNodeTrunk = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeTrunk->setMesh(meshTrunk);
-        meshNodeTrunk->setMaterial(plantInformation->_materialID);
+        meshNodeTrunk->setMaterial(plantInformation->_material);
 
         iTargetMaterialPtr targetMaterial = meshNodeTrunk->getTargetMaterial();
         targetMaterial->setAmbient(plantInformation->_trunkColor);
@@ -70,7 +70,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataI
     {
         iNodeMesh *meshNodeFlowers = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeFlowers->setMesh(meshFlowers);
-        meshNodeFlowers->setMaterial(plantInformation->_materialID);
+        meshNodeFlowers->setMaterial(plantInformation->_material);
 
         iTargetMaterialPtr targetMaterial = meshNodeFlowers->getTargetMaterial();
         targetMaterial->setAmbient(plantInformation->_flowerColor);
@@ -88,7 +88,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataI
     {
         iNodeMesh *meshNodeBuds = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeBuds->setMesh(meshBuds);
-        meshNodeBuds->setMaterial(plantInformation->_materialID);
+        meshNodeBuds->setMaterial(plantInformation->_material);
 
         iTargetMaterialPtr targetMaterial = meshNodeBuds->getTargetMaterial();
         targetMaterial->setAmbient(plantInformation->_budColor);
@@ -107,7 +107,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataI
     {
         iNodeMesh *meshNodeLeafs = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeLeafs->setMesh(meshLeafs);
-        meshNodeLeafs->setMaterial(plantInformation->_materialID);
+        meshNodeLeafs->setMaterial(plantInformation->_material);
 
         iTargetMaterialPtr targetMaterial = meshNodeLeafs->getTargetMaterial();
         targetMaterial->setAmbient(plantInformation->_leafColor);

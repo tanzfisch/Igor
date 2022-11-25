@@ -72,8 +72,8 @@ private:
 
     /*! instancing material
     */
-    uint64 _materialWithInstancingA = iMaterial_old::INVALID_MATERIAL_ID;
-    uint64 _materialWithInstancingB = iMaterial_old::INVALID_MATERIAL_ID;
+    iMaterialPtr _materialWithInstancingA;
+    iMaterialPtr _materialWithInstancingB;
 
     /*! perlin noise generator
     */

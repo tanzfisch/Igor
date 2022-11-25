@@ -114,10 +114,10 @@ void ExampleCharacterController::onInit()
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory_old::getInstance().createMaterial("Sky Box");
-    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial_old::RENDER_ORDER_MIN);
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
+    _materialSkyBox->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    _materialSkyBox->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
     // and add it to the scene
@@ -128,9 +128,9 @@ void ExampleCharacterController::onInit()
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
-    lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    lightNode->setAmbient(iaColor3f(0.5f, 0.5f, 0.5f));
+    lightNode->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
+    lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
     // insert light to scene
     getScene()->getRoot()->insertNode(directionalLightTranslate);
     directionalLightTranslate->insertNode(lightNode);
@@ -275,7 +275,7 @@ void ExampleCharacterController::onDeinit()
         _characterController = nullptr;
     }
 
-    iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialSkyBox);
+    _materialSkyBox = nullptr;
 }
 
 void ExampleCharacterController::onRenderOrtho()

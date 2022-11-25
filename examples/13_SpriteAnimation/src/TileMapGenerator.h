@@ -42,12 +42,12 @@ public:
 
 	\param material the material id
 	*/
-	void setMaterial(uint64 material);
+	void setMaterial(const iMaterialPtr &material);
 
 private:
 	/*! the material to use
 	*/
-	uint64 _material = iMaterial_old::INVALID_MATERIAL_ID;
+	iMaterialPtr _material;
 
 	/*! the atlas to use
 	*/

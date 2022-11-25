@@ -57,9 +57,9 @@ void LSystems::onInit()
 	lightTranslate->translate(100, 100, 100);
 	// and light node
 	iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-	lightNode->setAmbient(iaColor4f(0.6f, 0.6f, 0.6f, 1.0f));
-	lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
-	lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
+	lightNode->setAmbient(iaColor3f(0.6f, 0.6f, 0.6f));
+	lightNode->setDiffuse(iaColor3f(0.9f, 0.7f, 0.6f));
+	lightNode->setSpecular(iaColor3f(1.0f, 0.9f, 0.87f));
 	// and add it to the scene
 	getScene()->getRoot()->insertNode(lightTranslate);
 	lightTranslate->insertNode(lightNode);
@@ -178,7 +178,7 @@ uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, u
 	}
 
 	plantInformation._iterations = iterations;
-	plantInformation._materialID = iMaterialResourceFactory_old::getInstance().getDefaultMaterialID();
+	plantInformation._material = iMaterialResourceFactory::getInstance().getDefaultMaterial();
 	plantInformation._seed = seed;
 	plantInformation._segmentAngle = _angle;
 	plantInformation._segmentLenght = _segmentLength;

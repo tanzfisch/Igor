@@ -57,18 +57,20 @@ void VoxelExample::initScene()
     lightTranslate->translate(100, 100, 100);
     // and light node
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor4f(0.6f, 0.6f, 0.6f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
-    lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
+    lightNode->setAmbient(iaColor3f(0.6f, 0.6f, 0.6f));
+    lightNode->setDiffuse(iaColor3f(0.9f, 0.7f, 0.6f));
+    lightNode->setSpecular(iaColor3f(1.0f, 0.9f, 0.87f));
     // and add it to the scene
     getScene()->getRoot()->insertNode(lightTranslate);
     lightTranslate->insertNode(lightNode);
 
     // set up voxel mesh material
-    _voxelMeshMaterialID = iMaterialResourceFactory_old::getInstance().createMaterial("voxel mesh material");
-    iMaterialResourceFactory_old::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
+    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
+    iShaderProgramPtr program = iShaderProgram::create();
+    program->addShader("igor/terrain.vert", iShaderObjectType::Vertex);
+    program->addShader("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
+    program->compile();
+    _voxelMeshMaterial->setShaderProgram(program);
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -213,7 +215,7 @@ void VoxelExample::prepareMeshGeneration()
 {
     // prepar special tile information for the VoxelTerrainMeshGenerator
     TileInformation tileInformation;
-    tileInformation._materialID = _voxelMeshMaterialID;
+    tileInformation._material = _voxelMeshMaterial;
     tileInformation._voxelData = _voxelData;
     // define the input parameter so Igor knows which iModelDataIO implementation to use and how
     iModelDataInputParameter *inputParam = new iModelDataInputParameter();

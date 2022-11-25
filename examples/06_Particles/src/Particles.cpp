@@ -50,13 +50,13 @@ void Particles::onInit()
     getView().setCurrentCamera(camera->getID());
 
     // set up a meterial for the particles
-    _particlesMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("Particles Material");
-    iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
-    iMaterialResourceFactory_old::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    _particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial("Particles Material");
+    _particlesMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    _particlesMaterial->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+    _particlesMaterial->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    _particlesMaterial->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
+    _particlesMaterial->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
+    _particlesMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 
     // create the various particle systems
     createWaveParticleSystem();

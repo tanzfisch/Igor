@@ -66,7 +66,7 @@ private:
 
     /*! voxel mesh material
     */
-    uint64 _voxelMeshMaterialID = iMaterial_old::INVALID_MATERIAL_ID;
+    iMaterialPtr _voxelMeshMaterial;
 
     /*! the actual voxel data
     */

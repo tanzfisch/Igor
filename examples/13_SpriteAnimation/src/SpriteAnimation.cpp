@@ -23,14 +23,15 @@ void SpriteAnimation::onInit()
     getView().setClearColor(1.0, 1.0, 1.0, 1.0);
     getViewOrtho().setScene(getScene());
 
-    _materialTerrain = iMaterialResourceFactory_old::getInstance().createMaterial("Terrain");
-    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialTerrain);
-    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    material->addShaderSource("igor/textured.vert", iShaderObjectType::Vertex);
-    material->addShaderSource("igor/textured.frag", iShaderObjectType::Fragment);
-    material->compileShader();
+    _materialTerrain = iMaterialResourceFactory::getInstance().createMaterial("Terrain");
+    _materialTerrain->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    _materialTerrain->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    _materialTerrain->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iShaderProgramPtr program = iShaderProgram::create();
+    program->addShader("igor/textured.vert", iShaderObjectType::Vertex);
+    program->addShader("igor/textured.frag", iShaderObjectType::Fragment);
+    program->compile();
+    _materialTerrain->setShaderProgram(program);
 
     // load atlantes
     _walk = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "atlantes/SpriteAnimationWalk.xml");
@@ -82,8 +83,7 @@ void SpriteAnimation::onInit()
 void SpriteAnimation::onDeinit()
 {
     // release materials (optional)
-    iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialTerrain);
-    _materialTerrain = iMaterial_old::INVALID_MATERIAL_ID;
+    _materialTerrain = nullptr;
 
     // release some resources
     _walk = nullptr;

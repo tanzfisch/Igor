@@ -35,7 +35,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iMod
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNode->setKeepMesh(parameter->_keepMesh);
         meshNode->setMesh(mesh);
-        meshNode->setMaterial(tileInformation->_materialID);
+        meshNode->setMaterial(tileInformation->_material);
 
         iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("grass.png"), 0);

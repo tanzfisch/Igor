@@ -131,12 +131,6 @@ void Supremacy::onInit()
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-    _materialWithTextureAndBlending = iMaterialResourceFactory_old::getInstance().createMaterial("TextureAndBlending");
-    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
     _rand.setSeed(1337);
@@ -853,8 +847,6 @@ void Supremacy::onRenderHUD()
 
 void Supremacy::onRenderOrtho()
 {
-    iRenderer2::getInstance().save();
-
     auto &viewportComp = _viewport.getComponent<ViewportComponent>();
     const iaRectangled &viewRectangle = viewportComp._viewport;
     iaRectangled intersetRectangle = viewRectangle;
@@ -871,7 +863,7 @@ void Supremacy::onRenderOrtho()
     // TODO iRenderer2::getInstance().setMaterial TODO(false);
     iaVector2f tiling(10.0, 10.0);
     iaVector2f bPos(std::truncf(viewRectangle._x / 100.0) * 100.0 - 200.0, std::truncf(viewRectangle._y / 100.0) * 100.0 - 200.0);
-    iRenderer2::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, tiling);  
+    iRenderer2::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, false, tiling);  
 
     con_endl("viewRectangle._x " << viewRectangle._x);
     con_endl("std::truncf(viewRectangle._x / 100.0) * 100.0 " << std::truncf(viewRectangle._x / 100.0) * 100.0);
@@ -900,7 +892,7 @@ void Supremacy::onRenderOrtho()
 
         if(visual._castShadow)
         {
-            iRenderer2::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor);
+            iRenderer2::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor, true);
         }
 
         iaTime time = iaTime::getNow() + visual._timerOffset;
@@ -916,12 +908,10 @@ void Supremacy::onRenderOrtho()
         matrix.rotate(angle, iaAxis::Z);
         matrix.scale(width * value, height * (1.0 / value), 1.0);
 
-        iRenderer2::getInstance().drawTexturedQuad(matrix, visual._texture);
+        iRenderer2::getInstance().drawTexturedQuad(matrix, visual._texture, iaColor4f::white, true);
     }
 
     onRenderHUD();
-
-    iRenderer2::getInstance().restore();
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

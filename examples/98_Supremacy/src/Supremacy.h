@@ -56,10 +56,6 @@ private:
      */
     iView _viewOrtho;
 
-    /*! material id of a non textured material
-     */
-    uint64 _materialWithTextureAndBlending = iMaterial_old::INVALID_MATERIAL_ID;
-
     /*! entity scene
      */
     iEntityScene _entityScene;

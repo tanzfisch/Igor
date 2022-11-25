@@ -76,10 +76,8 @@ iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i &size, uint32 fro
 {
 	con_assert(_atlas != nullptr, "zero pointer");
 	con_assert(from < to, "invalid parameters");
-	con_assert(_material != iMaterial_old::INVALID_MATERIAL_ID, "no material defined");
 
-	if (_atlas == nullptr ||
-		_material == iMaterial_old::INVALID_MATERIAL_ID)
+	if (_atlas == nullptr)
 	{
 		return nullptr;
 	}
@@ -193,10 +191,8 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 {
 	con_assert(_atlas != nullptr, "zero pointer");
-	con_assert(_material != iMaterial_old::INVALID_MATERIAL_ID, "no material defined");
 
-	if (_atlas == nullptr ||
-		_material == iMaterial_old::INVALID_MATERIAL_ID)
+	if (_atlas == nullptr)
 	{
 		return nullptr;
 	}
@@ -235,7 +231,7 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 	return result;
 }
 
-void TileMapGenerator::setMaterial(uint64 material)
+void TileMapGenerator::setMaterial(const iMaterialPtr& material)
 {
 	_material = material;
 }

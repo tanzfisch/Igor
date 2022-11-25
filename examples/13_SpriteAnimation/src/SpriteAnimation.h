@@ -111,7 +111,7 @@ private:
 
 	/*! terrain material
 	*/
-	iMaterialID _materialTerrain = iMaterial_old::INVALID_MATERIAL_ID;
+	iMaterialPtr _materialTerrain;
 
 	/*! transform of camera
 	*/

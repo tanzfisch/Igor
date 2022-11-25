@@ -161,9 +161,9 @@ void Background3D::onInit()
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
-    lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    lightNode->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
+    lightNode->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
+    lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
     // insert light to scene
     getScene()->getRoot()->insertNode(directionalLightRotate);
     directionalLightRotate->insertNode(directionalLightTranslate);
