@@ -133,35 +133,41 @@ namespace igor
     {
         _shaderProgram->bind();
 
-        (_renderStateSet.getRenderState(iRenderState::DepthTest) == iRenderStateValue::On) ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-        (_renderStateSet.getRenderState(iRenderState::DepthMask) == iRenderStateValue::On) ? glDepthMask(GL_TRUE) : glDepthMask(GL_FALSE);
-        (_renderStateSet.getRenderState(iRenderState::Blend) == iRenderStateValue::On) ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
-        (_renderStateSet.getRenderState(iRenderState::CullFace) == iRenderStateValue::On) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+        if (_renderStateSet.getRenderState(iRenderState::DepthTest) == iRenderStateValue::On)
+        {
+            glEnable(GL_DEPTH_TEST);
+        }
+        else
+        {
+            glDisable(GL_DEPTH_TEST);
+        }
 
-        // TODO is this necessary???
-        glActiveTexture(GL_TEXTURE0);
-        (_renderStateSet.getRenderState(iRenderState::Texture2D0) == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
+        if (_renderStateSet.getRenderState(iRenderState::DepthMask) == iRenderStateValue::On)
+        {
+            glDepthMask(GL_TRUE);
+        }
+        else
+        {
+            glDepthMask(GL_FALSE);
+        }
 
-        glActiveTexture(GL_TEXTURE1);
-        (_renderStateSet.getRenderState(iRenderState::Texture2D1) == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
+        if (_renderStateSet.getRenderState(iRenderState::Blend) == iRenderStateValue::On)
+        {
+            glEnable(GL_BLEND);
+        }
+        else
+        {
+            glDisable(GL_BLEND);
+        }
 
-        glActiveTexture(GL_TEXTURE2);
-        (_renderStateSet.getRenderState(iRenderState::Texture2D2) == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-        glActiveTexture(GL_TEXTURE3);
-        (_renderStateSet.getRenderState(iRenderState::Texture2D3) == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-        glActiveTexture(GL_TEXTURE4);
-        (_renderStateSet.getRenderState(iRenderState::Texture2D4) == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-        glActiveTexture(GL_TEXTURE5);
-        (_renderStateSet.getRenderState(iRenderState::Texture2D5) == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-        glActiveTexture(GL_TEXTURE6);
-        (_renderStateSet.getRenderState(iRenderState::Texture2D6) == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-        glActiveTexture(GL_TEXTURE7);
-        (_renderStateSet.getRenderState(iRenderState::Texture2D7) == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
+        if (_renderStateSet.getRenderState(iRenderState::CullFace) == iRenderStateValue::On)
+        {
+            glEnable(GL_CULL_FACE);
+        }
+        else
+        {
+            glDisable(GL_CULL_FACE);
+        }
 
         switch (_renderStateSet.getRenderState(iRenderState::DepthFunc))
         {
@@ -277,7 +283,7 @@ namespace igor
     void iMaterial::setFloat4(const iaString &uniform, const iaColor4f &value)
     {
         _shaderProgram->setFloat4(uniform, iaVector4f(value._r, value._g, value._b, value._a));
-    }    
+    }
 
     void iMaterial::setMatrix(const iaString &uniform, const iaMatrixf &value)
     {

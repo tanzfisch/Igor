@@ -191,17 +191,11 @@ namespace igor
 
             if (_clearColorActive)
             {
-                iRenderer::getInstance().setClearColor(_clearColor);
-                iRenderer::getInstance().clearColorBuffer();
-
                 iRenderer2::getInstance().clearColorBuffer(_clearColor);
             }
 
             if (_clearDepthActive)
             {
-                iRenderer::getInstance().setClearDepth(_clearDepth);
-                iRenderer::getInstance().clearDepthBuffer();
-
                 iRenderer2::getInstance().clearDepthBuffer(_clearDepth);
             }
 
@@ -256,11 +250,8 @@ namespace igor
 
             iRenderer::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
 
-            iRenderer::getInstance().setClearColor(iaColor4f(0, 0, 0, 0));
-            iRenderer::getInstance().setClearDepth(1.0);
-
-            iRenderer::getInstance().clearColorBuffer();
-            iRenderer::getInstance().clearDepthBuffer();
+            iRenderer2::getInstance().clearColorBuffer(iaColor4f(0, 0, 0, 0));
+            iRenderer2::getInstance().clearDepthBuffer();
 
             if (_perspective)
             {

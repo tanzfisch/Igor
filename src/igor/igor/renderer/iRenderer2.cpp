@@ -428,6 +428,26 @@ namespace igor
         glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
 #endif
 
+        /*
+          glEnable(GL_LINE_SMOOTH);
+
+                glEnable(GL_POINT_SMOOTH);
+
+                glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+                glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+
+                glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+
+                glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
+
+                glDepthFunc(GL_LESS);
+
+                glEnable(GL_DEPTH_TEST);
+
+                glDepthMask(true);
+        */
+
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_LINE_SMOOTH);
 
@@ -814,6 +834,15 @@ namespace igor
 
     void iRenderer2::drawQuad(const iaMatrixf &matrix, const iaColor4f &color)
     {
+        drawQuad(matrix * QUAD_VERTEX_POSITIONS[0],
+                 matrix * QUAD_VERTEX_POSITIONS[1],
+                 matrix * QUAD_VERTEX_POSITIONS[2],
+                 matrix * QUAD_VERTEX_POSITIONS[3],
+                 color);
+    }
+
+    void iRenderer2::drawQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color)
+    {
         auto &quads = _data->_quads;
 
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Quads)
@@ -828,19 +857,19 @@ namespace igor
 
         (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
 
-        quads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
+        quads._vertexDataPtr->_pos = v1;
         quads._vertexDataPtr->_color = color;
         quads._vertexDataPtr++;
 
-        quads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[1];
+        quads._vertexDataPtr->_pos = v2;
         quads._vertexDataPtr->_color = color;
         quads._vertexDataPtr++;
 
-        quads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[2];
+        quads._vertexDataPtr->_pos = v3;
         quads._vertexDataPtr->_color = color;
         quads._vertexDataPtr++;
 
-        quads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[3];
+        quads._vertexDataPtr->_pos = v4;
         quads._vertexDataPtr->_color = color;
         quads._vertexDataPtr++;
 
@@ -1264,6 +1293,11 @@ namespace igor
     const iaMatrixd &iRenderer2::getModelMatrix() const
     {
         return _data->_modelMatrix;
+    }
+
+    const iaMatrixd &iRenderer2::getCamMatrix() const
+    {
+        return _data->_camMatrix;
     }
 
     const iaMatrixd &iRenderer2::getViewMatrix() const
@@ -1734,6 +1768,11 @@ namespace igor
         _data->_currentMaterial = material;
     }
 
+    const iMaterialPtr &iRenderer2::getMaterial() const
+    {
+        return _data->_currentMaterial;
+    }   
+
     void iRenderer2::drawBox(const iAACubed &box, const iaColor4f &color)
     {
         drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
@@ -1886,4 +1925,47 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Triangles;
     }
 
+    void iRenderer2::drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color)
+    {
+        drawQuad(o + v + u,
+                 o - v + u,
+                 o - v - u,
+                 o + v - u,
+                 color);
+    }
+
+    void iRenderer2::drawTexturedBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color, const iaVector2f &tiling)
+    {
+        const int32 textureIndex = beginTexturedQuad(texture);
+
+        auto &texQuads = _data->_texQuads;
+        texQuads._vertexDataPtr->_pos = o + v + u;
+        texQuads._vertexDataPtr->_color = color;
+        texQuads._vertexDataPtr->_texCoord = QUAD_TEXTURE_COORDS[0];
+        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr++;
+
+        texQuads._vertexDataPtr->_pos = o - v + u;
+        texQuads._vertexDataPtr->_color = color;
+        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[1]._x;
+        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[1]._y * tiling._y;
+        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr++;
+
+        texQuads._vertexDataPtr->_pos = o - v - u;
+        texQuads._vertexDataPtr->_color = color;
+        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[2]._x * tiling._x;
+        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[2]._y * tiling._y;
+        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr++;
+
+        texQuads._vertexDataPtr->_pos = o + v - u;
+        texQuads._vertexDataPtr->_color = color;
+        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
+        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[3]._y;
+        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr++;
+
+        endTexturedQuad();                         
+    }
 }

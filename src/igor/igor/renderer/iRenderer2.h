@@ -51,6 +51,8 @@ namespace igor
     /*! this will eventually replace iRenderer
 
     \todo I don't like the stencil interfaces
+
+    Main difference between 2D and 3D functions is that in 2D all materials are set implicitly but for 3D you need to call setMaterial to make sure its rendered with the correct material
      */
     class IGOR_API iRenderer2 : public iModule<iRenderer2>
     {
@@ -73,6 +75,10 @@ namespace igor
         \param material the material to render with
         */
         void setMaterial(const iMaterialPtr &material);
+
+        /*! \returns currently active material
+        */
+        const iMaterialPtr &getMaterial() const;
 
         /*! \returns render hardware vendor
          */
@@ -134,6 +140,10 @@ namespace igor
         */
         void setProjectionMatrix(const iaMatrixd &matrix);
 
+        /*! \returns camera matrix in world coordinates
+        */
+        const iaMatrixd &getCamMatrix() const;
+
         /*! \returns current model matrix
          */
         const iaMatrixd &getModelMatrix() const;
@@ -176,6 +186,7 @@ namespace igor
         void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
         void drawQuad(const iaMatrixf &matrix, const iaColor4f &color = iaColor4f::white);
+        void drawQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color = iaColor4f::white);
 
         void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
         void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
@@ -188,6 +199,10 @@ namespace igor
 
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
+
+        ///////////////////// 3D ////////////////////////////
+        void drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
+        void drawTexturedBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
         /*! draw a circle.
 
@@ -305,13 +320,13 @@ namespace igor
 
         \param color the given clear color
          */
-        void clearColorBuffer(const iaColor4f &color);
+        void clearColorBuffer(const iaColor4f &color = iaColor4f::black);
 
         /*! clears depth buffer with given depth
 
         \param depth the given depth
          */
-        void clearDepthBuffer(float32 depth);
+        void clearDepthBuffer(float32 depth = 1.0);
 
         /*! projects a screen position in to object space position
 
@@ -442,7 +457,7 @@ namespace igor
         /*! flushes last used queue
          */
         void flushLastUsed();
-
+public:
         /*! draws everything that is still in the queue
          */
         void flush();

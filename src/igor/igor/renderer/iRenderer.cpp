@@ -221,29 +221,8 @@ namespace igor
     {
         if (!_initialized)
         {
-            glEnable(GL_LINE_SMOOTH);
+          
 
-            glEnable(GL_POINT_SMOOTH);
-
-            glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-
-            glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-
-            glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-
-            glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
-
-            glDepthFunc(GL_LESS);
-
-            glEnable(GL_DEPTH_TEST);
-
-            glDepthMask(true);
-
-            setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
-            setClearDepth(1.0f);
-
-            clearColorBuffer();
-            clearDepthBuffer();
 
             _initialized = true;
 
@@ -318,44 +297,6 @@ namespace igor
         glEnd();
     }
 
-    void iRenderer::drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, float32 texScaleU, float32 texScaleV)
-    {
-        bindTexture(texture, 0);
-
-        glBegin(GL_QUADS);
-        glTexCoord2f(texScaleU, 0);
-        glVertex3fv((o + v + u).getData());
-
-        glTexCoord2f(texScaleU, texScaleV);
-        glVertex3fv((o - v + u).getData());
-
-        glTexCoord2f(0, texScaleV);
-        glVertex3fv((o - v - u).getData());
-
-        glTexCoord2f(0, 0);
-        glVertex3fv((o + v - u).getData());
-        glEnd();
-    }
-
-    void iRenderer::drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture)
-    {
-        bindTexture(texture, 0);
-
-        glBegin(GL_QUADS);
-        glTexCoord2f(1, 0);
-        glVertex3fv((o + v + u).getData());
-
-        glTexCoord2f(1, 1);
-        glVertex3fv((o - v + u).getData());
-
-        glTexCoord2f(0, 1);
-        glVertex3fv((o - v - u).getData());
-
-        glTexCoord2f(0, 0);
-        glVertex3fv((o + v - u).getData());
-        glEnd();
-    }
-
     void iRenderer::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
     {
         _projectionMatrix.ortho(left, right, bottom, top, nearplain, farplain);
@@ -369,16 +310,6 @@ namespace igor
         glMatrixMode(GL_MODELVIEW);
 
         _dirtyModelViewProjectionMatrix = true;
-    }
-
-    void iRenderer::setClearColor(const iaColor4f &color)
-    {
-        glClearColor(color._r, color._g, color._b, color._a);
-    }
-
-    void iRenderer::setClearDepth(float32 depth)
-    {
-        glClearDepth(depth);
     }
 
     GLenum getOGLEnum(iRenderStateValue value)
@@ -443,16 +374,6 @@ namespace igor
 
         con_err("invalid value");
         return GL_ZERO;
-    }
-
-    void iRenderer::clearColorBuffer()
-    {
-        glClear(GL_COLOR_BUFFER_BIT);
-    }
-
-    void iRenderer::clearDepthBuffer()
-    {
-        glClear(GL_DEPTH_BUFFER_BIT);
     }
 
     void iRenderer::getProjectionMatrix(iaMatrixd &matrix)

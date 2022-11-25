@@ -345,26 +345,6 @@ namespace igor
         */
         void getCamWorldMatrix(iaMatrixd &matrix) const;
 
-        /*! sets clear color
-
-        \param color the clear color
-        */
-        void setClearColor(const iaColor4f &color);
-
-        /*! sets clear depth
-
-        \param depth the clear depth
-        */
-        void setClearDepth(float32 depth);
-
-        /*! clears color buffer with clear color
-         */
-        void clearColorBuffer();
-
-        /*! clears depth buffer with clear depth
-         */
-        void clearDepthBuffer();
-
         /*! reads rectangular area from screen buffer
 
         \param x horizontal position in pixel
@@ -413,26 +393,6 @@ namespace igor
         \param posB second 3d point
         */
         void drawLine(const iaVector3f &posA, const iaVector3f &posB);
-
-        /*! draws a billboard
-
-        \param pos center position of billboard
-        \param u first of two axis defining a plane
-        \param v second of two axis defining a plane
-        \param texture texture to draw with
-        */
-        void drawBillboard(const iaVector3f &pos, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture);
-
-        /*! draws a billboard
-
-        \param pos center position of billboard
-        \param u first of two axis defining a plane
-        \param v second of two axis defining a plane
-        \param texture texture to draw with
-        \param texScaleU scale of texture coordinates along the u axis
-        \param texScaleV scale of texture coordinates along the v axis
-        */
-        void drawBillboard(const iaVector3f &pos, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, float32 texScaleU, float32 texScaleV);
 
         /*! draws a mesh
 
