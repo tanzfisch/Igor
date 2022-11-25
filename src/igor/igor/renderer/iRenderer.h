@@ -29,15 +29,16 @@
 #ifndef __IGOR_RENDERER_H__
 #define __IGOR_RENDERER_H__
 
-#include <igor/resources/texture/iTexture.h>
-#include <igor/data/iAABox.h>
-#include <igor/data/iAACube.h>
 #include <igor/renderer/iRenderStateSet.h>
+#include <igor/resources/texture/iTexture.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/material/iTargetMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/texture/iAtlas.h>
+#include <igor/data/iAABox.h>
+#include <igor/data/iAACube.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaGradient.h>
@@ -62,14 +63,13 @@ namespace igor
     class iParticle;
     class iParticle2D;
     class iInstancer;
-    class iTargetMaterial;
 
     /*! render target id definition
-    */
+     */
     typedef uint32 iRenderTargetID;
 
     /*! definition of render target types
-    */
+     */
     enum class iRenderTargetType
     {
         ToTexture,
@@ -87,7 +87,7 @@ namespace igor
     iaEVENT(iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate, (), ());
 
     /*! renderer statistics
-    */
+     */
     struct iRendererStats
     {
         uint32 _vertices;
@@ -112,68 +112,67 @@ namespace igor
         friend class iWindow;
 
         /*! internal structure for handling lights
-        */
+         */
         struct iRendererLight
         {
         public:
             /*! the light world position
-            */
-            iaVector4f _position;
+             */
+            iaVector3f _position;
 
             /*! ambient color
-            */
-            iaColor4f _ambient = {0.5f, 0.5f, 0.5f, 1.0f};
+             */
+            iaColor3f _ambient = {0.5f, 0.5f, 0.5f};
 
             /*! diffuse color
-            */
-            iaColor4f _diffuse = {0.7f, 0.7f, 0.7f, 1.0f};
+             */
+            iaColor3f _diffuse = {0.7f, 0.7f, 0.7f};
 
             /*! specular color
-            */
-            iaColor4f _specular = {0.8f, 0.8f, 0.8f, 1.0f};
+             */
+            iaColor3f _specular = {0.8f, 0.8f, 0.8f};
         };
 
         /*! internal structure for handling a render target
-        */
+         */
         struct iRendererTarget
         {
             /*! the render target type
-            */
+             */
             iRenderTargetType _renderTargetType;
 
             /*! frame buffer object id
-            */
+             */
             uint32 _frameBufferObject = 0;
 
             /*! color render buffer id
-            */
+             */
             uint32 _colorBuffer = 0;
 
             /*! if true render target has depth buffer
-            */
+             */
             bool _hasDepth = false;
 
             /*! depth render buffer id
-            */
+             */
             uint32 _depthBuffer = 0;
         };
 
     public:
-
         /*! init
-        */
+         */
         iRenderer();
 
-        /*! deinit 
-        */
+        /*! deinit
+         */
         ~iRenderer();
 
         /*! renderer definition of an invalid id
-        */
+         */
         static const uint32 INVALID_ID = 0xffffffff;
 
         /*! the default render target ID
-        */
+         */
         static const iRenderTargetID DEFAULT_RENDER_TARGET = 0;
 
         /*! register delegate to renderer initialized event
@@ -223,7 +222,7 @@ namespace igor
         void createBuffers(float64 timeLimit = 10.0);
 
         /*! \returns true if the renderer is ready to use
-        */
+         */
         bool isReady();
 
         /*!
@@ -235,22 +234,6 @@ namespace igor
         \todo make more private again maybe we need a class to handle vertex arrays
         */
         void destroyVertexArray(uint32 bufferID);
-
-        /*! set current material
-
-        \param material the material to be set as current material
-        \param forceWireframe if true all materials will be considered using wireframe
-        \todo make separate interface for showing wireframe
-        */
-        void setMaterial(iMaterialPtr material, bool forceWireframe = false);
-
-        /*! set current material by id
-
-        \param materialID the material id to be set as current material
-        \param forceWireframe if true all materials will be considered using wireframe
-        \todo make separate interface for showing wireframe
-        */
-        void setMaterial(uint64 materialID, bool forceWireframe = false);
 
         /*! sets color Id to render with
 
@@ -272,7 +255,7 @@ namespace igor
         void setViewport(int32 x, int32 y, int32 width, int32 height);
 
         /*! \returns viewport rectangle (sizes in pixel)
-        */
+         */
         void getViewport(iaRectanglei &rect);
 
         /*! returns projection matrix
@@ -353,7 +336,7 @@ namespace igor
         void setWorldGridResolution(float32 gridSize);
 
         /*! \returns world grid size
-        */
+         */
         float32 getWorldGridResolution() const;
 
         /*! returns carma world matrix
@@ -375,11 +358,11 @@ namespace igor
         void setClearDepth(float32 depth);
 
         /*! clears color buffer with clear color
-        */
+         */
         void clearColorBuffer();
 
         /*! clears depth buffer with clear depth
-        */
+         */
         void clearDepthBuffer();
 
         /*! reads rectangular area from screen buffer
@@ -400,41 +383,11 @@ namespace igor
         */
         void bindTexture(iTexturePtr texture, uint32 textureunit);
 
-        /*! sets current target emissive color
-
-        \param emissive the emissive color
-        */
-        void setTargetEmissive(iaColor3f &emissive);
-
-        /*! sets current target ambient color
-
-        \param ambient the ambient color
-        */
-        void setTargetAmbient(iaColor3f &ambient);
-
-        /*! sets current target diffuse color
-
-        \param diffuse the diffuse color
-        */
-        void setTargetDiffuse(iaColor3f &diffuse);
-
-        /*! sets current target specular color
-
-        \param specular the specular color
-        */
-        void setTargetSpecular(iaColor3f &specular);
-
-        /*! sets current target shininess factor
-
-        \param shininess the shininess factor
-        */
-        void setTargetShininess(float32 shininess);
-
         /*! sets target material
 
         \param targetMaterial the target material
         */
-        void setTargetMaterial(iTargetMaterial *targetMaterial);
+        void setTargetMaterial(iTargetMaterialPtr targetMaterial);
 
         /*! draw a line between two points
 
@@ -498,8 +451,8 @@ namespace igor
 
         \param color the color to be set
         */
-        void setColor(iaColor4f color);
-        void setColorExt(iaColor4f color); // replace the other set color once the fixed function pipeline is gone
+        void setColor(const iaColor4f &color);
+        void setColorExt(const iaColor4f &color); // replace the other set color once the fixed function pipeline is gone
 
         /*! set current color
 
@@ -511,15 +464,15 @@ namespace igor
         void setColor(float32 r, float32 g, float32 b, float32 a);
 
         // Lights
-        void setLightPosition(int32 lightnum, const iaVector4d &pos);
-        void setLightAmbient(int32 lightnum, iaColor4f &ambient);
-        void setLightDiffuse(int32 lightnum, iaColor4f &diffuse);
-        void setLightSpecular(int32 lightnum, iaColor4f &specular);
+        void setLightPosition(int32 lightnum, const iaVector3d &pos);
+        void setLightAmbient(int32 lightnum, iaColor3f &ambient);
+        void setLightDiffuse(int32 lightnum, iaColor3f &diffuse);
+        void setLightSpecular(int32 lightnum, iaColor3f &specular);
 
         // Particles
         void drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);
         void drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);
-        
+
         // shader
         uint32 createShaderProgram();
         void destroyShaderProgram(uint32 id);
@@ -539,11 +492,11 @@ namespace igor
 
         /*! creates a render target
 
-        \param width the width of the render target in pixel/texel 
-        \param height the height of the render target in pixel/texel 
+        \param width the width of the render target in pixel/texel
+        \param height the height of the render target in pixel/texel
         \param format the color format of the render target
         \param renderTargetType the render target type
-        \param useDepthBuffer if true render target is having a depth buffer 
+        \param useDepthBuffer if true render target is having a depth buffer
         \returns id of render target
         */
         iRenderTargetID createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
@@ -561,57 +514,56 @@ namespace igor
         void setRenderTarget(iRenderTargetID id = DEFAULT_RENDER_TARGET);
 
         /*! \returns id of current active render target
-        */
+         */
         iRenderTargetID getRenderTarget() const;
 
         // infos
         /*! \returns render hardware vendor
-        */
+         */
         iaString getVendor();
 
         /*! \returns renderer type
-        */
+         */
         iaString getRenderer();
 
         /*! \returns version of renderer
-        */
+         */
         iaString getVersion();
 
         /*! \returns renderer extensions
-        */
+         */
         iaString getExtensions();
 
-        /*! triggerd at beginning of frame 
-        */
+        /*! triggerd at beginning of frame
+         */
         void onStartFrame();
 
         /*! triggered at end of frame
-        */
+         */
         void onStopFrame();
 
         /*! \returns stats of renderer
-        */
+         */
         const iRendererStats &getStats() const;
 
     private:
-
         /*! current render target
-        */
+         */
         uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
 
         iaMutex _requestedBuffersMutex;
         std::deque<std::pair<iMeshPtr, iMeshBuffersPtr>> _requestedBuffers;
 
         /*! world grid resolution
-        */
+         */
         float32 _gridSize = 10000.0;
 
         /*! the pre renderer deinitialize event
-        */
+         */
         iRendererPreDeinitializeEvent _rendererPreDeinitializeEvent;
 
         /*! the renderer initialized event
-        */
+         */
         iRendererInitializedEvent _rendererInitializedEvent;
 
         /*!
@@ -620,43 +572,43 @@ namespace igor
         bool _initialized = false;
 
         /*! current font in use to render strings
-        */
+         */
         iTextureFont *_font = nullptr;
 
         /*! current font size
-        */
+         */
         float32 _fontSize = 10.0f;
 
         /*! current cont line height for rendering iaString with multiple lines
-        */
+         */
         float32 _fontLineHeight = 1.15f;
 
         /*! OpenGL ID for dummy texture
-        */
+         */
         uint32 _dummyTextureID = 0;
 
         /*! projection matrix
-        */
+         */
         iaMatrixd _projectionMatrix;
 
         /*! model matrix
-        */
+         */
         iaMatrixd _modelMatrix;
 
         /*! world offset matrix
-        */
+         */
         iaVector3d _worldOffset;
 
         /*! view matrix
-        */
+         */
         iaMatrixd _viewMatrix;
 
         /*! model and view matrix combined
-        */
+         */
         iaMatrixd _modelViewMatrix;
 
         /*! model view and projection matrix combined
-        */
+         */
         iaMatrixd _modelViewProjectionMatrix;
 
         /*! dirty flag for model view projection matrix.
@@ -665,15 +617,15 @@ namespace igor
         bool _dirtyModelViewProjectionMatrix = true;
 
         /*! camera world matrix
-        */
+         */
         iaMatrixd _camWorldMatrix;
 
         /*! list of lights
-        */
+         */
         std::map<int32, iRendererLight> _lights;
 
         /*! just to save the last set viewport values
-        */
+         */
         iaRectanglei _viewport;
 
         /*! current render color.
@@ -683,35 +635,35 @@ namespace igor
         iaColor4f _color = {1.0f, 1.0f, 1.0f, 1.0f};
 
         /*! current rainbow palette in use
-        */
+         */
         iaGradientColor4f *_rainbow = nullptr;
 
         /*! vendor iaString
-        */
+         */
         iaString _vendorOGL;
 
         /*! name of rendering device
-        */
+         */
         iaString _rendererOGL;
 
         /*! version of OpenGL implemented
-        */
+         */
         iaString _versionOGL;
 
         /*! OpenGL extensions implemented
-        */
+         */
         iaString _extensionsOGL;
 
         /*! statistic counters
-        */
+         */
         iRendererStats _stats;
 
         /*! current material in use
-        */
-        iMaterialPtr _currentMaterial = nullptr;
+         */
+        iMaterialPtr _currentMaterial;
 
         /*! map of render targets
-        */
+         */
         std::map<uint32, iRendererTarget> _renderTargets;
 
         /*! creates a Texture
@@ -746,21 +698,20 @@ namespace igor
         void setDummyTextureID(uint32 id);
 
         /*! \returns current dummy texture ID
-        */
+         */
         uint32 getDummyTextureID();
 
         /*!
-        */
+         */
         void deinit();
 
         /*!
-        */
+         */
         void init();
 
         /*! updates the model view projection matrix if the corresponding dirty flag is true
-        */
+         */
         void updateModelViewProjectionMatrix();
-
     };
 
     /*! \example OpenGL3D/src/OpenGL3DExample.cpp

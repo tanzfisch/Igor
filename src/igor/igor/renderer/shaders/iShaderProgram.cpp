@@ -110,7 +110,9 @@ namespace igor
         GL_CHECK_ERROR();
 
         _shaderObjects.clear();
-        _isValid = true;
+        _isValid = true;        
+
+        GL_CHECK_ERROR();
     }
 
     void iShaderProgram::bind()
@@ -128,6 +130,13 @@ namespace igor
     bool iShaderProgram::isValid()
     {
         return _isValid;
+    }
+
+    bool iShaderProgram::hasUniformLocation(const iaString &uniform)
+    {
+        char temp[128];
+        uniform.getData(temp, 128);
+        return glGetUniformLocation(_shaderProgram, temp) != -1;
     }
 
     void iShaderProgram::setInt(const iaString &uniform, int value)

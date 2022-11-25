@@ -245,7 +245,7 @@ namespace igor
         meshNode->setMesh(iMeshPtr(mesh));
 
         uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());
-        meshNode->setMaterial(materialID);
+        // TODO meshNode->setMaterial(materialID);
 
         return meshNode;
     }
@@ -359,7 +359,7 @@ namespace igor
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
         uint32 materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
-        particleSystemNode->setMaterial(materialID);
+        // TODO particleSystemNode->setMaterial(materialID);
 
         return particleSystemNode;
     }
@@ -404,7 +404,7 @@ namespace igor
     {
         con_assert(materialChunk != nullptr, "zero pointer");
 
-        if (materialChunk != nullptr)
+        /*if (materialChunk != nullptr)
         {
             int32 materialID = iMaterialResourceFactory_old::getInstance().createMaterial(materialChunk->getMaterialName());
             iMaterialPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
@@ -438,7 +438,7 @@ namespace igor
         else
         {
             con_err("zero pointer");
-        }
+        }*/
     }
 
     void iModelDataIOOMPF::exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode)
@@ -661,8 +661,8 @@ namespace igor
         result->setTextureB(node->getTextureB());
         result->setTextureC(node->getTextureC());
 
-        uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
-        result->setMaterialChunkID(materialChunkID);
+        /*uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
+        result->setMaterialChunkID(materialChunkID);*/ // TODO
 
         return result;
     }
@@ -720,8 +720,8 @@ namespace igor
                 con_err("mesh was not loaded with keep mesh param true");
             }
 
-            uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
-            result->setMaterialChunkID(materialChunkID);
+            /*uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
+            result->setMaterialChunkID(materialChunkID);*/ // TODO
         }
 
         return result;
@@ -746,7 +746,7 @@ namespace igor
     {
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
-        iMaterialPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
+        /*iMaterialPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
         if (material != nullptr)
         {
             auto shaderSources = material->getShaderSources();
@@ -768,7 +768,7 @@ namespace igor
         else
         {
             con_err("material id " << materialID << " not found");
-        }
+        }*/ // TODO
 
         return result;
     }

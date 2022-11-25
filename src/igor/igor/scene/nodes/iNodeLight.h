@@ -31,7 +31,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <iaux/math/iaMatrix.h>
-#include <iaux/data/iaColor4.h>
+#include <iaux/data/iaColor3.h>
 
 namespace igor
 {
@@ -66,33 +66,33 @@ namespace igor
 
         /*! returns ambient material color
         */
-        iaColor4f &getAmbient();
+        iaColor3f &getAmbient();
 
         /*! set ambient material color
 
         \param color ambient color
         */
-        void setAmbient(const iaColor4f &color);
+        void setAmbient(const iaColor3f &color);
 
         /*! returns diffuse material color
         */
-        iaColor4f &getDiffuse();
+        iaColor3f &getDiffuse();
 
         /*! set diffuse material color
 
         \param color diffuse color
         */
-        void setDiffuse(const iaColor4f &color);
+        void setDiffuse(const iaColor3f &color);
 
         /*! returns specular material color
         */
-        iaColor4f &getSpecular();
+        iaColor3f &getSpecular();
 
         /*! set speculer material color
 
         \param color speculer color
         */
-        void setSpecular(const iaColor4f &color);
+        void setSpecular(const iaColor3f &color);
 
         /*! set type of light
 
@@ -102,15 +102,15 @@ namespace igor
 
         /*! \returns type of light
         */
-        iLightType getType();
+        iLightType getType() const;
 
         /*! \returns position of light
         */
-        iaVector4d getPosition();
+        const iaVector3d& getPosition() const;
 
         /*! \returns direction of light
         */
-        iaVector4d getDirection() const;
+        const iaVector3d& getDirection() const;
 
     protected:
         /*! resulting world matrix of light
@@ -119,15 +119,15 @@ namespace igor
 
         /*! ambient material color
         */
-        iaColor4f _ambient = {0.7f, 0.7f, 0.7f, 1.0f};
+        iaColor3f _ambient = {0.7f, 0.7f, 0.7f};
 
         /*! diffuse material color
         */
-        iaColor4f _diffuse = {0.9f, 0.9f, 0.9f, 1.0f};
+        iaColor3f _diffuse = {0.9f, 0.9f, 0.9f};
 
         /*! specular material color
         */
-        iaColor4f _specular = {1.0f, 1.0f, 1.0f, 1.0f};
+        iaColor3f _specular = {1.0f, 1.0f, 1.0f};
 
         /*! type of light
         */

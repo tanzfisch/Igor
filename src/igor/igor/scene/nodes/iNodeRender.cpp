@@ -68,17 +68,17 @@ namespace igor
         _material = material;
     }
 
-    __IGOR_INLINE__ bool iNodeRender::isVisible() const
+    bool iNodeRender::isVisible() const
     {
         return _visible;
     }
 
-    __IGOR_INLINE__ iMaterialPtr iNodeRender::getMaterial() const
+    iMaterialPtr iNodeRender::getMaterial() const
     {
         return _material;
     }
 
-    __IGOR_INLINE__ const iaMatrixd &iNodeRender::getWorldMatrix() const
+    const iaMatrixd &iNodeRender::getWorldMatrix() const
     {
         return _worldMatrix;
     }

@@ -54,7 +54,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataI
         meshNodeTrunk->setMesh(meshTrunk);
         meshNodeTrunk->setMaterial(plantInformation->_materialID);
 
-        iTargetMaterial *targetMaterial = meshNodeTrunk->getTargetMaterial();
+        iTargetMaterialPtr targetMaterial = meshNodeTrunk->getTargetMaterial();
         targetMaterial->setAmbient(plantInformation->_trunkColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -72,7 +72,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataI
         meshNodeFlowers->setMesh(meshFlowers);
         meshNodeFlowers->setMaterial(plantInformation->_materialID);
 
-        iTargetMaterial *targetMaterial = meshNodeFlowers->getTargetMaterial();
+        iTargetMaterialPtr targetMaterial = meshNodeFlowers->getTargetMaterial();
         targetMaterial->setAmbient(plantInformation->_flowerColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -90,7 +90,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataI
         meshNodeBuds->setMesh(meshBuds);
         meshNodeBuds->setMaterial(plantInformation->_materialID);
 
-        iTargetMaterial *targetMaterial = meshNodeBuds->getTargetMaterial();
+        iTargetMaterialPtr targetMaterial = meshNodeBuds->getTargetMaterial();
         targetMaterial->setAmbient(plantInformation->_budColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -109,7 +109,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataI
         meshNodeLeafs->setMesh(meshLeafs);
         meshNodeLeafs->setMaterial(plantInformation->_materialID);
 
-        iTargetMaterial *targetMaterial = meshNodeLeafs->getTargetMaterial();
+        iTargetMaterialPtr targetMaterial = meshNodeLeafs->getTargetMaterial();
         targetMaterial->setAmbient(plantInformation->_leafColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));

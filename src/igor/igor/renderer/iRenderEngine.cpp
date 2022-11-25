@@ -157,6 +157,19 @@ namespace igor
     {
         IGOR_PROFILER_SCOPED(mat);
 
+        std::vector<iMaterialPtr> materials;
+        iMaterialResourceFactory::getInstance().getMaterials(materials);
+        for (auto material : materials)
+        {
+            auto iter = _materialGroups.find(material);
+            if(_materialGroups.end() != iter)
+            {
+                continue;
+            }
+
+            _materialGroups[material].setMaterial(material);
+        }        
+
         for (auto &group : _materialGroups)
         {
             group.second.clear();
@@ -193,7 +206,7 @@ namespace igor
 
         for (auto material : materials)
         {
-            iMaterialGroup &materialGroup = _materialGroups[material->getID()];
+            iMaterialGroup &materialGroup = _materialGroups[material];
 
             if (iRenderStateValue::On == material->getRenderState(iRenderState::Instanced))
             {
@@ -243,13 +256,13 @@ namespace igor
         for (auto material : materials)
         {
             bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);
-            iMaterialGroup &materialGroup = _materialGroups[material->getID()];
+            iMaterialGroup &materialGroup = _materialGroups[material];
 
             if (instancing)
             {
                 // todo we should not do that every frame
                 const auto &instancedRenderNodes = materialGroup.getInstancedRenderNodes();
-                iRenderer::getInstance().setMaterial(material, _showWireframe);
+                iRenderer2::getInstance().setMaterial(material);
 
                 for (const auto &pair : instancedRenderNodes)
                 {
@@ -269,7 +282,7 @@ namespace igor
 
                 if (!renderNodes.empty())
                 {
-                    iRenderer::getInstance().setMaterial(material, _showWireframe);
+                    iRenderer2::getInstance().setMaterial(material);
                 }
 
                 for (auto renderNode : renderNodes)

@@ -38,6 +38,85 @@ namespace igor
     void iMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
     {
         _shaderProgram = shaderProgram;
+
+        if (_shaderProgram == nullptr)
+        {
+            _hasDirectionalLight = false;
+            _hasEyePosition = false;
+            _hasModelViewProjectionMatrix = false;
+            _hasModelMatrix = false;
+            _hasTargetMaterial = false;
+            _hasSolidColor = false;
+            return;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_LIGHT_ORIENTATION) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_AMBIENT) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_DIFFUSE) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_SPECULAR))
+        {
+            _hasDirectionalLight = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_EYE_POSITION))
+        {
+            _hasEyePosition = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL_VIEW_PROJECTION))
+        {
+            _hasModelViewProjectionMatrix = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL))
+        {
+            _hasModelMatrix = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_AMBIENT) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_DIFFUSE) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_SPECULAR) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_SHININESS) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_ALPHA) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_EMISSIVE))
+        {
+            _hasTargetMaterial = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_SOLIDCOLOR))
+        {
+            _hasSolidColor = true;
+        }
+    }
+
+    bool iMaterial::hasDirectionalLight() const
+    {
+        return _hasDirectionalLight;
+    }
+
+    bool iMaterial::hasEyePosition() const
+    {
+        return _hasEyePosition;
+    }
+
+    bool iMaterial::hasModelViewProjectionMatrix() const
+    {
+        return _hasModelViewProjectionMatrix;
+    }
+
+    bool iMaterial::hasModelMatrix() const
+    {
+        return _hasModelMatrix;
+    }
+
+    bool iMaterial::hasTargetMaterial() const
+    {
+        return _hasTargetMaterial;
+    }
+
+    bool iMaterial::hasSolidColor() const
+    {
+        return _hasSolidColor;
     }
 
     iShaderProgramPtr iMaterial::getShaderProgram() const
@@ -130,8 +209,6 @@ namespace igor
             break;
         }
 
-        // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); we assume this is a given at all times
-
         if (_renderStateSet.getRenderState(iRenderState::Wireframe) == iRenderStateValue::On) // TODO || forceWireframe
         {
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -192,6 +269,16 @@ namespace igor
         _shaderProgram->setFloat4(uniform, value);
     }
 
+    void iMaterial::setFloat3(const iaString &uniform, const iaColor3f &value)
+    {
+        _shaderProgram->setFloat3(uniform, iaVector3f(value._r, value._g, value._b));
+    }
+
+    void iMaterial::setFloat4(const iaString &uniform, const iaColor4f &value)
+    {
+        _shaderProgram->setFloat4(uniform, iaVector4f(value._r, value._g, value._b, value._a));
+    }    
+
     void iMaterial::setMatrix(const iaString &uniform, const iaMatrixf &value)
     {
         _shaderProgram->setMatrix(uniform, value);
@@ -212,6 +299,6 @@ namespace igor
         con_assert(order >= RENDER_ORDER_MIN && order <= RENDER_ORDER_MAX, "out of bounds");
 
         _order = order;
-    }    
+    }
 
 }

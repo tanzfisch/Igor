@@ -141,7 +141,7 @@ namespace igor
 
         /*! material groups
          */
-        std::unordered_map<iMaterialID, iMaterialGroup> _materialGroups;
+        std::unordered_map<iMaterialPtr, iMaterialGroup> _materialGroups;
 
         /*! handle to scene
          */

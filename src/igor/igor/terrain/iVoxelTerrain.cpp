@@ -181,10 +181,10 @@ namespace igor
         }
 
         // set up terrain material
-        _terrainMaterialID = iMaterialResourceFactory_old::getInstance().getDefaultMaterialID();
+        _terrainMaterial = iMaterialResourceFactory::getInstance().getDefaultMaterial();
 
         // set up terrain target material
-        _targetMaterial = iMaterialResourceFactory_old::getInstance().createTargetMaterial();
+        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
         _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
         _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
         _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);
@@ -200,9 +200,7 @@ namespace igor
         con_endl("shutdown iVoxelTerrain ...");
 
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
-
-        iMaterialResourceFactory_old::getInstance().destroyTargetMaterial(_targetMaterial);
-
+        iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
         // TODO cleanup
     }
 
@@ -211,14 +209,14 @@ namespace igor
         _lodTrigger = lodTriggerID;
     }
 
-    void iVoxelTerrain::setMaterialID(uint64 materialID)
+    void iVoxelTerrain::setMaterial(const iMaterialPtr& material)
     {
-        _terrainMaterialID = materialID;
+        _terrainMaterial = material;
     }
 
-    uint64 iVoxelTerrain::getMaterialID() const
+    iMaterialPtr iVoxelTerrain::getMaterial() const
     {
-        return _terrainMaterialID;
+        return _terrainMaterial;
     }
 
     void iVoxelTerrain::update()
@@ -1230,7 +1228,7 @@ namespace igor
                 {
                     iVoxelTerrainTileInformation tileInformation;
 
-                    tileInformation._materialID = _terrainMaterialID;
+                    tileInformation._materialID = _terrainMaterial;
                     tileInformation._voxelOffsetToNextLOD = childOffsetPosition[voxelBlock->_childAdress];
                     tileInformation._voxelOffsetToNextLOD *= 16;
                     tileInformation._voxelData = new iVoxelData();

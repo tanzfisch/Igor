@@ -29,7 +29,7 @@
 #ifndef __IGOR_RENDERER_UTILS__
 #define __IGOR_RENDERER_UTILS__
 
-#include <igor/iDefines.h>
+#include <igor/renderer/utils/iRendererDefines.h>
 
 #include <glad/glad.h>
 
@@ -125,14 +125,6 @@ namespace igor
  */
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-    /*! definition of invalid buffer id
-     */
-    static constexpr const uint32 INVALID_BUFFER_ID = 0;
-
-    /*! maximum texture units supported
-     */
-    static constexpr const int32 MAX_TEXTURE_UNITS = 8;
-
     /*! igor specific shader properties
     */
     static constexpr const char *UNIFORM_SOLIDCOLOR = "igor_solidColor";
@@ -149,7 +141,6 @@ namespace igor
     static constexpr const char *UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
     static constexpr const char *UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
     static constexpr const char *UNIFORM_MATERIAL_ALPHA = "igor_matAlpha";
-    static constexpr const char *SAMPLER_TEXTURE = "igor_matTexture";
 
     /*! renderer utils shared across renderer, shader etc implementations
     */

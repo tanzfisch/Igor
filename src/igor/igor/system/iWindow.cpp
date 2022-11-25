@@ -1295,8 +1295,8 @@ namespace igor
         if (result)
         {
             iTaskManager::getInstance().createRenderContextThreads(this);
-            iRenderer::getInstance().init();
             iMaterialResourceFactory::getInstance().init();
+            iRenderer::getInstance().init();
             iRenderer2::getInstance().init();
             _impl->swapBuffers();
 

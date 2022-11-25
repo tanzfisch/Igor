@@ -30,6 +30,7 @@
 #define __IGOR_GENERATORTERRAIN__
 
 #include <igor/resources/model/loader/iModelDataIO.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
@@ -62,9 +63,9 @@ namespace igor
         */
         iaVector3I _voxelOffsetToNextLOD;
 
-        /*! material ID of tile
+        /*! material of tile
         */
-        uint64 _materialID = 0;
+        iMaterialPtr _materialID;
 
         /*! physics material of terrain tile
         */

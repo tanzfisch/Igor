@@ -24,8 +24,7 @@ namespace igor
         _nodeType = iNodeType::iNodePhysics;
         _nodeKind = iNodeKind::Physics;
 
-        setMaterial(nullptr); // physics should only render for debugging purposes
-        // TODO and this is why inheritence does not always work
+        setMaterial(0); // physics should only render for debugging purposes
 
         _physicsCollisionConfigID = iPhysics::getInstance().createCollisionConfig()->getID();
     }

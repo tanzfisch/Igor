@@ -103,7 +103,7 @@ iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i &size, uint32 fro
 			iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
-			iTargetMaterial *targetMaterial = meshNode->getTargetMaterial();
+			iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
 			targetMaterial->setTexture(_atlas->getTexture(), 0);
 
 			transformNode->insertNode(meshNode);
@@ -222,7 +222,7 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 			iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
-			iTargetMaterial *targetMaterial = meshNode->getTargetMaterial();
+			iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
 			targetMaterial->setTexture(_atlas->getTexture(), 0);
 
 			transformNode->insertNode(meshNode);

@@ -186,7 +186,7 @@ void Ascent::initVoxelData()
 {
     oulineLevelStructure();
 
-    iTargetMaterial *targetMaterial = _voxelTerrain->getTargetMaterial();
+    iTargetMaterialPtr targetMaterial = _voxelTerrain->getTargetMaterial();
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 2);
@@ -745,7 +745,7 @@ void Ascent::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(matrix);
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer2::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setFont(_font);
 
     if (_loading)

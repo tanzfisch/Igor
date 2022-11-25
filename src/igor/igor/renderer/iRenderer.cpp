@@ -4,6 +4,8 @@
 
 #include <igor/renderer/iRenderer.h>
 
+#include <igor/renderer/utils/iRendererUtils.h>
+
 #include <igor/system/iTimer.h>
 #include <igor/simulation/iParticleSystem2D.h>
 #include <igor/renderer/iInstancer.h>
@@ -81,7 +83,7 @@ namespace igor
     }
 
     iRenderer::iRenderer()
-    {
+    {        
     }
 
     iRenderer::~iRenderer()
@@ -251,6 +253,8 @@ namespace igor
         {
             con_warn("renderer already initialized");
         }
+
+        _currentMaterial = iMaterialResourceFactory::getInstance().getDefaultMaterial();
     }
 
     void iRenderer::registerInitializedDelegate(iRendererInitializedDelegate initializedDelegate)
@@ -695,220 +699,62 @@ namespace igor
 
     void iRenderer::setColorID(uint64 colorID)
     {
-        if (_currentMaterial->_hasSolidColor &&
-            _currentMaterial->getShader() != nullptr)
-        {
-            uint32 program = _currentMaterial->getShader()->getProgram();
-            float32 color[4];
-            color[0] = static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0;
-            color[1] = static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0;
-            color[2] = static_cast<float32>(static_cast<uint8>(colorID)) / 255.0;
-            color[3] = 1.0f;
-
-            glUniform4fv(_currentMaterial->_matSolidColor, 1, static_cast<GLfloat *>(color));
-        }
-    }
-
-    void iRenderer::setTargetMaterial(iTargetMaterial *targetMaterial)
-    {
-        if (_currentMaterial->getShader() != nullptr)
-        {
-            if (_currentMaterial->_hasTargetMaterial)
-            {
-                glUniform3fv(_currentMaterial->_matAmbient, 1, static_cast<GLfloat *>(targetMaterial->getAmbient().getData()));
-
-                glUniform3fv(_currentMaterial->_matDiffuse, 1, static_cast<GLfloat *>(targetMaterial->getDiffuse().getData()));
-
-                glUniform3fv(_currentMaterial->_matSpecular, 1, static_cast<GLfloat *>(targetMaterial->getSpecular().getData()));
-
-                glUniform3fv(_currentMaterial->_matSpecular, 1, static_cast<GLfloat *>(targetMaterial->getEmissive().getData()));
-
-                glUniform1f(_currentMaterial->_matShininess, targetMaterial->getShininess());
-
-                glUniform1f(_currentMaterial->_matAlpha, targetMaterial->getAlpha());
-            }
-
-            if (targetMaterial->hasTextureUnit(0) &&
-                _currentMaterial->_hasTexture[0])
-            {
-                glUniform1i(_currentMaterial->_matTexture[0], 0);
-                bindTexture(targetMaterial->getTexture(0), 0);
-            }
-
-            if (targetMaterial->hasTextureUnit(1) &&
-                _currentMaterial->_hasTexture[1])
-            {
-                glUniform1i(_currentMaterial->_matTexture[1], 1);
-                bindTexture(targetMaterial->getTexture(1), 1);
-            }
-
-            if (targetMaterial->hasTextureUnit(2) &&
-                _currentMaterial->_hasTexture[2])
-            {
-                glUniform1i(_currentMaterial->_matTexture[2], 2);
-                bindTexture(targetMaterial->getTexture(2), 2);
-            }
-
-            if (targetMaterial->hasTextureUnit(3) &&
-                _currentMaterial->_hasTexture[3])
-            {
-                glUniform1i(_currentMaterial->_matTexture[3], 3);
-                bindTexture(targetMaterial->getTexture(3), 3);
-            }
-        }
-    }
-
-    void iRenderer::setTargetEmissive(iaColor3f &emissive)
-    {
-        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emissive.getData());
-    }
-
-    void iRenderer::setTargetAmbient(iaColor3f &ambient)
-    {
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient.getData());
-    }
-
-    void iRenderer::setTargetDiffuse(iaColor3f &diffuse)
-    {
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse.getData());
-    }
-
-    void iRenderer::setTargetSpecular(iaColor3f &specular)
-    {
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular.getData());
-    }
-
-    void iRenderer::setTargetShininess(float32 shininess)
-    {
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
-    }
-
-    void iRenderer::setMaterial(uint64 materialID, bool forceWireframe)
-    {
-        auto material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
-        setMaterial(material, forceWireframe);
-    }
-
-    //! \todo this is just a first rudimentary version. we need a structure that only switches the deltas between materials
-    void iRenderer::setMaterial(iMaterialPtr material, bool forceWireframe)
-    {
-        if (material == _currentMaterial)
+        if (!_currentMaterial->hasSolidColor())
         {
             return;
         }
 
-        if (_currentMaterial)
+        iaVector4f color(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
+                         static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
+                         static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
+                         1.0f);
+
+        _currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);
+    }
+
+    void iRenderer::setTargetMaterial(iTargetMaterialPtr targetMaterial)
+    {
+        if (!_currentMaterial->hasTargetMaterial())
         {
-            _currentMaterial->deactivateShader();
+            return;
         }
 
-        _currentMaterial = material;
+        _currentMaterial->bind();
 
-        if (_currentMaterial != nullptr)
+        _currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
+        _currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
+        _currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
+        _currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
+        _currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
+
+        /*if (targetMaterial->hasTextureUnit(i) &&
+            _currentMaterial->hasTexture(i))
         {
-            _currentMaterial->activateShader();
-
-            iRenderStateSet &stateset = _currentMaterial->getRenderStateSet();
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthTest)] == iRenderStateValue::On) ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthMask)] == iRenderStateValue::On) ? glDepthMask(GL_TRUE) : glDepthMask(GL_FALSE);
-
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Blend)] == iRenderStateValue::On) ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
-
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::CullFace)] == iRenderStateValue::On) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
-
-            glActiveTexture(GL_TEXTURE0);
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D0)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-            glActiveTexture(GL_TEXTURE1);
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D1)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-            glActiveTexture(GL_TEXTURE2);
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D2)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-            glActiveTexture(GL_TEXTURE3);
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D3)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-            glActiveTexture(GL_TEXTURE4);
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D4)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-            glActiveTexture(GL_TEXTURE5);
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D5)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-            glActiveTexture(GL_TEXTURE6);
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D6)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-            glActiveTexture(GL_TEXTURE7);
-            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D7)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-
-            switch (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthFunc)])
-            {
-            case iRenderStateValue::Less:
-                glDepthFunc(GL_LESS);
-
-                break;
-
-            case iRenderStateValue::LessOrEqual:
-                glDepthFunc(GL_LEQUAL);
-
-                break;
-
-            case iRenderStateValue::Never:
-                glDepthFunc(GL_NEVER);
-
-                break;
-
-            case iRenderStateValue::Equal:
-                glDepthFunc(GL_EQUAL);
-
-                break;
-
-            case iRenderStateValue::Greater:
-                glDepthFunc(GL_GREATER);
-
-                break;
-
-            case iRenderStateValue::NotEqual:
-                glDepthFunc(GL_NOTEQUAL);
-
-                break;
-
-            case iRenderStateValue::GreaterOrEqual:
-                glDepthFunc(GL_GEQUAL);
-
-                break;
-
-            case iRenderStateValue::Always:
-                glDepthFunc(GL_ALWAYS);
-
-                break;
-            }
-
-            switch (stateset._renderStates[static_cast<unsigned int>(iRenderState::CullFaceFunc)])
-            {
-            case iRenderStateValue::Front:
-                glCullFace(GL_FRONT);
-
-                break;
-
-            case iRenderStateValue::Back:
-                glCullFace(GL_BACK);
-
-                break;
-            }
-
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-            if (stateset._renderStates[static_cast<unsigned int>(iRenderState::Wireframe)] == iRenderStateValue::On ||
-                forceWireframe)
-            {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            }
-            else
-            {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            }
+            _currentMaterial->set
+            glUniform1i(_currentMaterial->_matTexture[0], 0);
+            bindTexture(targetMaterial->getTexture(0), 0);
         }
+
+        if (targetMaterial->hasTextureUnit(1) &&
+            _currentMaterial->_hasTexture[1])
+        {
+            glUniform1i(_currentMaterial->_matTexture[1], 1);
+            bindTexture(targetMaterial->getTexture(1), 1);
+        }
+
+        if (targetMaterial->hasTextureUnit(2) &&
+            _currentMaterial->_hasTexture[2])
+        {
+            glUniform1i(_currentMaterial->_matTexture[2], 2);
+            bindTexture(targetMaterial->getTexture(2), 2);
+        }
+
+        if (targetMaterial->hasTextureUnit(3) &&
+            _currentMaterial->_hasTexture[3])
+        {
+            glUniform1i(_currentMaterial->_matTexture[3], 3);
+            bindTexture(targetMaterial->getTexture(3), 3);
+        }*/
     }
 
     void iRenderer::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height)
@@ -1250,42 +1096,39 @@ namespace igor
 
     void iRenderer::writeShaderParameters()
     {
-        if (_currentMaterial->getShader() != nullptr)
+        if (_currentMaterial->hasDirectionalLight())
         {
-            if (_currentMaterial->_hasDirectionalLight)
-            {
-                glUniform3fv(_currentMaterial->_lightOrientation, 1, static_cast<GLfloat *>(_lights[0]._position.getData()));
-                glUniform3fv(_currentMaterial->_lightAmbient, 1, static_cast<GLfloat *>(_lights[0]._ambient.getData()));
-                glUniform3fv(_currentMaterial->_lightDiffuse, 1, static_cast<GLfloat *>(_lights[0]._diffuse.getData()));
-                glUniform3fv(_currentMaterial->_lightSpecular, 1, static_cast<GLfloat *>(_lights[0]._specular.getData()));
-            }
+            _currentMaterial->setFloat3(UNIFORM_LIGHT_ORIENTATION, _lights[0]._position);
+            _currentMaterial->setFloat3(UNIFORM_LIGHT_AMBIENT, _lights[0]._ambient);
+            _currentMaterial->setFloat3(UNIFORM_LIGHT_DIFFUSE, _lights[0]._diffuse);
+            _currentMaterial->setFloat3(UNIFORM_LIGHT_SPECULAR, _lights[0]._specular);
+        }
 
-            if (_currentMaterial->_hasEyePosition)
-            {
-                iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
-                glUniform3fv(_currentMaterial->_eyePosition, 1, static_cast<GLfloat *>(eyePosition.getData()));
-            }
+        if (_currentMaterial->hasEyePosition())
+        {
+            iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
+            _currentMaterial->setFloat3(UNIFORM_EYE_POSITION, eyePosition);
+        }
 
-            if (_currentMaterial->_hasModelViewProjectionMatrix)
+        if (_currentMaterial->hasModelViewProjectionMatrix())
+        {
+            updateModelViewProjectionMatrix();
+            iaMatrixf modelViewProjection;
+            for (int i = 0; i < 16; ++i)
             {
-                updateModelViewProjectionMatrix();
-                iaMatrixf modelViewProjection;
-                for (int i = 0; i < 16; ++i)
-                {
-                    modelViewProjection[i] = _modelViewProjectionMatrix[i];
-                }
-                glUniformMatrix4fv(_currentMaterial->_mvp_matrix, 1, false, modelViewProjection.getData());
+                modelViewProjection[i] = _modelViewProjectionMatrix[i];
             }
+            _currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, modelViewProjection);
+        }
 
-            if (_currentMaterial->_hasModelMatrix)
+        if (_currentMaterial->hasModelMatrix())
+        {
+            iaMatrixf model;
+            for (int i = 0; i < 16; ++i)
             {
-                iaMatrixf model;
-                for (int i = 0; i < 16; ++i)
-                {
-                    model[i] = _modelMatrix[i];
-                }
-                glUniformMatrix4fv(_currentMaterial->_model_matrix, 1, false, model.getData());
+                model[i] = _modelMatrix[i];
             }
+            _currentMaterial->setMatrix(UNIFORM_MODEL, model);
         }
     }
 
@@ -1310,19 +1153,15 @@ namespace igor
         glEnd();
     }
 
-    void iRenderer::setColorExt(iaColor4f color)
+    void iRenderer::setColorExt(const iaColor4f &color)
     {
-        if (_currentMaterial->_hasSolidColor)
+        if (_currentMaterial->hasSolidColor())
         {
-            if (_currentMaterial->getShader() != nullptr)
-            {
-                uint32 program = _currentMaterial->getShader()->getProgram();
-                glUniform4fv(_currentMaterial->_matSolidColor, 1, static_cast<GLfloat *>(color.getData()));
-            }
+            _currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);
         }
     }
 
-    void iRenderer::setColor(iaColor4f color)
+    void iRenderer::setColor(const iaColor4f &color)
     {
         _color = color;
         glColor4f(_color._r, _color._g, _color._b, _color._a);
@@ -1337,29 +1176,25 @@ namespace igor
         glColor4f(_color._r, _color._g, _color._b, _color._a);
     }
 
-    void iRenderer::setLightPosition(int32 lightnum, const iaVector4d &pos)
+    void iRenderer::setLightPosition(int32 lightnum, const iaVector3d &pos)
     {
         // TODO fix with world offset
-        _lights[lightnum]._position.set(pos._x, pos._y, pos._z, pos._w);
-        glLightfv(GL_LIGHT0 + lightnum, GL_POSITION, _lights[lightnum]._position.getData());
+        _lights[lightnum]._position.set(pos._x, pos._y, pos._z);
     }
 
-    void iRenderer::setLightAmbient(int32 lightnum, iaColor4f &ambient)
+    void iRenderer::setLightAmbient(int32 lightnum, iaColor3f &ambient)
     {
         _lights[lightnum]._ambient = ambient;
-        glLightfv(GL_LIGHT0 + lightnum, GL_AMBIENT, (GLfloat *)ambient.getData());
     }
 
-    void iRenderer::setLightDiffuse(int32 lightnum, iaColor4f &diffuse)
+    void iRenderer::setLightDiffuse(int32 lightnum, iaColor3f &diffuse)
     {
         _lights[lightnum]._diffuse = diffuse;
-        glLightfv(GL_LIGHT0 + lightnum, GL_DIFFUSE, (GLfloat *)diffuse.getData());
     }
 
-    void iRenderer::setLightSpecular(int32 lightnum, iaColor4f &specular)
+    void iRenderer::setLightSpecular(int32 lightnum, iaColor3f &specular)
     {
         _lights[lightnum]._specular = specular;
-        glLightfv(GL_LIGHT0 + lightnum, GL_SPECULAR, (GLfloat *)specular.getData());
     }
 
     void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)

@@ -29,7 +29,7 @@
 #ifndef __IGOR_SHADER_PROGRAM__
 #define __IGOR_SHADER_PROGRAM__
 
-#include <igor/iDefines.h>
+#include <igor/renderer/utils/iRendererDefines.h>
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/data/iaString.h>
@@ -43,7 +43,7 @@ namespace igor
     class iShaderProgram;
 
     /*! pointer definition of shader program
-    */
+     */
     typedef std::shared_ptr<iShaderProgram> iShaderProgramPtr;
 
     /*! glsl shader program wrapper
@@ -51,7 +51,6 @@ namespace igor
     class IGOR_API iShaderProgram
     {
     public:
-        
         /*! \returns a newly created shader program
          */
         static iShaderProgramPtr create();
@@ -62,7 +61,7 @@ namespace igor
 
         /*! destroyes shader program
          */
-        virtual ~iShaderProgram();        
+        virtual ~iShaderProgram();
 
         /*! add shader object from file
 
@@ -139,6 +138,12 @@ namespace igor
         */
         void setMatrix(const iaString &uniform, const iaMatrixf &value);
 
+        /*! \returns true if shader has given uniform location
+
+        \param uniform the given uniform location
+        */
+        bool hasUniformLocation(const iaString &uniform);
+
     private:
         /*! list of shader objects
          */
@@ -150,7 +155,7 @@ namespace igor
 
         /*! true: if ready to use
          */
-        bool _isValid = false;     
+        bool _isValid = false;
     };
 
 }; // namespace igor

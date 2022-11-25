@@ -136,7 +136,7 @@ private:
 
     /*! material definition for the sky box
     */
-    iMaterialID _materialSkyBox = iMaterial_old::INVALID_MATERIAL_ID;
+    iMaterialPtr _materialSkyBox;
 
     /*! draw igor logo
     */

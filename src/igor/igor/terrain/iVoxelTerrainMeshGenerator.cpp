@@ -60,7 +60,7 @@ namespace igor
         {
             iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
             meshNode->setMesh(mesh);
-            meshNode->setMaterial(tileInformation->_materialID);
+            // TODO meshNode->setMaterial(tileInformation->_materialID);
             meshNode->setName("mesh");
             meshNode->setVisible(false);
 

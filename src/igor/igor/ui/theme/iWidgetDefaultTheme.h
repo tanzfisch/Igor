@@ -106,14 +106,6 @@ namespace igor
         */
         iTextureFontPtr _font;
 
-        /*! default material id
-		*/
-        uint64 _defaultMaterial = 0;
-
-        /*! texture material id
-		*/
-        uint64 _texturedMaterial = 0;
-
         /*! draws a rectangle
 
 		integer version to wrap the float version of the renderer

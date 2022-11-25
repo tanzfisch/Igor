@@ -33,6 +33,8 @@
 #include <igor/renderer/shaders/iShaderProgram.h>
 
 #include <iaux/data/iaUUID.h>
+#include <iaux/data/iaColor3.h>
+#include <iaux/data/iaColor4.h>
 
 #include <memory>
 
@@ -52,6 +54,7 @@ namespace igor
      */
     class IGOR_API iMaterial
     {
+        friend class iRenderer;
         friend class iRenderer2;
 
     public:
@@ -129,6 +132,30 @@ namespace igor
         */
         void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);        
 
+        /*! \returns true if shader has directional light
+        */
+        bool hasDirectionalLight() const;
+
+        /*! \returns true if shader has eye position
+        */
+        bool hasEyePosition() const;
+
+        /*! \returns true if shader contains model view projection matrix
+        */
+        bool hasModelViewProjectionMatrix() const;
+
+        /*! \returns true if shader contains model matrix
+        */
+        bool hasModelMatrix() const;
+
+        /*! \returns true if shader contains target material
+        */
+        bool hasTargetMaterial() const;
+
+        /*! \returns true if shader contains solid color property
+        */
+        bool hasSolidColor() const;
+
     private:
         /*! name of the material.
          */
@@ -150,7 +177,31 @@ namespace igor
 
         default value is iMaterial_old::RENDER_ORDER_DEFAULT
         */
-        int32 _order = iMaterial::RENDER_ORDER_DEFAULT;        
+        int32 _order = iMaterial::RENDER_ORDER_DEFAULT;     
+
+        /*! if true shader has directional light
+        */
+        bool _hasDirectionalLight = false;
+
+        /*! if true shader has eye position
+        */
+        bool _hasEyePosition = false;
+
+        /*! if true shader contains model view projection matrix
+        */
+        bool _hasModelViewProjectionMatrix = false;
+
+        /*! if true shader contains model matrix
+        */
+        bool _hasModelMatrix = false;
+
+        /*! if true shader contains target material
+        */
+        bool _hasTargetMaterial = false;
+
+        /*! if true shader contains solid color property
+        */
+        bool _hasSolidColor = false;            
 
         /*! does nothing
          */
@@ -198,6 +249,20 @@ namespace igor
         \param value the value to set
         */
         void setFloat4(const iaString &uniform, const iaVector4f &value);
+
+        /*! sets 3 dimensional color vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat3(const iaString &uniform, const iaColor3f &value);
+
+        /*! sets 4 dimensional color vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat4(const iaString &uniform, const iaColor4f &value);        
 
         /*! sets 4x4 matrix on given uniform
 

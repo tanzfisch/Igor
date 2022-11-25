@@ -68,17 +68,7 @@ namespace igor
     iWidgetDefaultTheme::iWidgetDefaultTheme(const iaString &fontTexture, const iaString &backgroundTexture)
     {
         _font = iTextureFont::create(fontTexture);
-
         _backgroundTexture = iTextureResourceFactory::getInstance().loadFile(backgroundTexture);
-
-        _defaultMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("igor.widget.default");
-        iMaterialResourceFactory_old::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-        iMaterialResourceFactory_old::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-
-        _texturedMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("igor.widget.textured");
-        iMaterialResourceFactory_old::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-        iMaterialResourceFactory_old::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-        iMaterialResourceFactory_old::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     }
 
     iWidgetDefaultTheme::~iWidgetDefaultTheme()
