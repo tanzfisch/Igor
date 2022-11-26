@@ -70,7 +70,13 @@ namespace igor
 
         If type is undefined we use the file ending to determine the type
         */
-        void addShader(iaString filename, iShaderObjectType type = iShaderObjectType::Undefined);
+        void addShader(const iaString& filename, iShaderObjectType type = iShaderObjectType::Undefined);
+
+        /*! \returns shader source files
+
+        it does not return sources added via addSource
+        */
+        const std::vector<iaString>& getShaderSources() const;
 
         /*! add shader from buffer
 
@@ -148,6 +154,10 @@ namespace igor
         /*! list of shader objects
          */
         std::vector<uint32> _shaderObjects;
+
+        /*! shader source files
+        */
+        std::vector<iaString> _sources;
 
         /*! id of glsl shader program
          */

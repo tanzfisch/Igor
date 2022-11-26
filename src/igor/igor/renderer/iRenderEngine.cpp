@@ -168,7 +168,7 @@ namespace igor
                 continue;
             }
 
-            _materialGroups[material].setMaterial(material);
+            _materialGroups[material] = iMaterialGroup(material);
         }        
 
         for (auto &group : _materialGroups)

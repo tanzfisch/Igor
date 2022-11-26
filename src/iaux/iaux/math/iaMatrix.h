@@ -112,8 +112,6 @@ namespace iaux
     {
     public:
         /*! internal data
-
-		\todo replace with T _m[16];
 		*/
         iaVector3<T> _right;
         T _w0 = static_cast<T>(0);

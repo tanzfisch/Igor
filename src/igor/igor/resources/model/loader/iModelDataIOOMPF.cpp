@@ -244,8 +244,8 @@ namespace igor
         // push mesh to mesh node
         meshNode->setMesh(iMeshPtr(mesh));
 
-        uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());
-        // TODO meshNode->setMaterial(materialID);
+        iaUUID uuid = getMaterialID(meshChunk->getMaterialChunkID());
+        meshNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(uuid));
 
         return meshNode;
     }
@@ -358,8 +358,8 @@ namespace igor
         particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
-        uint32 materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
-        // TODO particleSystemNode->setMaterial(materialID);
+        iaUUID uuid = getMaterialID(particleSystemChunk->getMaterialChunkID());
+        particleSystemNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(uuid));
 
         return particleSystemNode;
     }
@@ -402,43 +402,31 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialChunk *materialChunk)
     {
-        con_assert(materialChunk != nullptr, "zero pointer");
+        con_assert_sticky(materialChunk != nullptr, "zero pointer");
 
-        /*if (materialChunk != nullptr)
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
+
+        _materialMapping[materialChunk->getID()] = material->getID();
+        material->setOrder(materialChunk->getOrder());
+
+        uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
+        if (shaderObjectCount != 0)
         {
-            int32 materialID = iMaterialResourceFactory_old::getInstance().createMaterial(materialChunk->getMaterialName());
-            iMaterialPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
-
-            con_assert(material != nullptr, "zero pointer");
-
-            if (material != nullptr)
+            iShaderProgramPtr program = iShaderProgram::create();
+            for (uint32 i = 0; i < shaderObjectCount; ++i)
             {
-                _materialMapping[materialChunk->getID()] = materialID;
-                material->setOrder(materialChunk->getOrder());
-
-                uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
-                for (uint32 i = 0; i < shaderObjectCount; ++i)
-                {
-                    material->addShaderSource(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
-                }
-
-                material->compileShader();
-
-                for (int i = 0; i < 19; ++i) // TODO magic number
-                {
-                    OMPF::OMPFRenderStateValue value = materialChunk->getRenderState(static_cast<OMPF::OMPFRenderState>(i));
-                    material->setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
-                }
+                program->addShader(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
             }
-            else
-            {
-                con_err("material not found");
-            }
+
+            program->compile();
+            material->setShaderProgram(program);
         }
-        else
+
+        for (int i = 0; i < 19; ++i) // TODO magic number
         {
-            con_err("zero pointer");
-        }*/
+            OMPF::OMPFRenderStateValue value = materialChunk->getRenderState(static_cast<OMPF::OMPFRenderState>(i));
+            material->setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
+        }
     }
 
     void iModelDataIOOMPF::exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode)
@@ -661,8 +649,8 @@ namespace igor
         result->setTextureB(node->getTextureB());
         result->setTextureC(node->getTextureC());
 
-        /*uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
-        result->setMaterialChunkID(materialChunkID);*/ // TODO
+        uint32 materialChunkID = getMaterialChunkID(node->getMaterial()->getID());
+        result->setMaterialChunkID(materialChunkID);
 
         return result;
     }
@@ -720,8 +708,8 @@ namespace igor
                 con_err("mesh was not loaded with keep mesh param true");
             }
 
-            /*uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
-            result->setMaterialChunkID(materialChunkID);*/ // TODO
+            uint32 materialChunkID = getMaterialChunkID(node->getMaterial()->getID());
+            result->setMaterialChunkID(materialChunkID);
         }
 
         return result;
@@ -742,51 +730,50 @@ namespace igor
         return result;
     }
 
-    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(uint32 materialID)
+    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(const iaUUID &uuid)
     {
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(uuid);
+
+        if (material == nullptr)
+        {
+            con_err("material id \"" << uuid << "\" not found");
+            return nullptr;
+        }
+
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
-        /*iMaterialPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
-        if (material != nullptr)
+        const auto &shaderSources = material->getShaderProgram()->getShaderSources();
+        for (const auto &filename : shaderSources)
         {
-            auto shaderSources = material->getShaderSources();
-            for (auto shaderSource : shaderSources)
-            {
-                result->addShader(shaderSource._filename, static_cast<OMPF::OMPFShaderType>(shaderSource._type));
-            }
-
-            result->setMaterialName(material->getName());
-            iRenderStateSet &renderStateSet = material->getRenderStateSet();
-
-            for (int i = 0; i < static_cast<int>(iRenderState::RenderStateCount); ++i)
-            {
-                result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(renderStateSet.getRenderState(static_cast<iRenderState>(i))));
-            }
-
-            result->setOrder(material->getOrder());
+            result->addShader(filename, static_cast<OMPF::OMPFShaderType>(1)); // TODO type
         }
-        else
+
+        result->setMaterialName(material->getName());
+
+        for (int i = 0; i < static_cast<int>(iRenderState::RenderStateCount); ++i)
         {
-            con_err("material id " << materialID << " not found");
-        }*/ // TODO
+            result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(material->getRenderState(static_cast<iRenderState>(i))));
+        }
+
+        result->setOrder(material->getOrder());
 
         return result;
     }
 
-    uint32 iModelDataIOOMPF::getMaterialChunkID(uint32 materialID)
+    uint32 iModelDataIOOMPF::getMaterialChunkID(const iaUUID &uuid)
     {
-        if (materialID != 0)
+        if (!uuid.isValid())
         {
-            auto iter = _materialsInUse.find(materialID);
-            if (iter == _materialsInUse.end())
-            {
-                _materialsInUse[materialID] = createMaterialChunk(materialID);
-            }
-
-            return _materialsInUse[materialID]->getID();
+            return 0;
         }
 
-        return 0;
+        auto iter = _materialsInUse.find(uuid);
+        if (iter == _materialsInUse.end())
+        {
+            _materialsInUse[uuid] = createMaterialChunk(uuid);
+        }
+
+        return _materialsInUse[uuid]->getID();
     }
 
     uint32 iModelDataIOOMPF::getNodeID(uint32 chunkID)
@@ -827,15 +814,16 @@ namespace igor
         return result;
     }
 
-    uint32 iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
+    iaUUID iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
     {
-        uint32 result = 0;
+        iaUUID result;
+
         if (materialChunkID != 0)
         {
             auto materiIter = _materialMapping.find(materialChunkID);
             if (materiIter != _materialMapping.end())
             {
-                result = (*materiIter).second;
+                result = materiIter->second;
             }
             else
             {

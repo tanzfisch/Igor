@@ -257,11 +257,11 @@ namespace igor
     /*! shader object types
      */
     enum class iShaderObjectType
-    {
-        Undefined,
+    {        
         Vertex,
         Fragment,
-        Geometry
+        Geometry,
+        Undefined
     };
 
     /*! prints the shader object type in the console

@@ -10,6 +10,10 @@
 
 namespace igor
 {
+    iMaterialGroup::iMaterialGroup(const iMaterialPtr &material)
+        : _material(material)
+    {
+    }
 
     iMaterialGroup::~iMaterialGroup()
     {
@@ -20,11 +24,6 @@ namespace igor
                 delete iter.second._instancer;
             }
         }
-    }
-
-    void iMaterialGroup::setMaterial(const iMaterialPtr &material)
-    {
-        _material = material;
     }
 
     const iMaterialPtr &iMaterialGroup::getMaterial() const

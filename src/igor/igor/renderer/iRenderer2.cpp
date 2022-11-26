@@ -2009,7 +2009,6 @@ namespace igor
 
     void iRenderer2::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial)
     {
-        // TODO flush minimum
         flush();
 
         _data->_currentMaterial->bind();
@@ -2029,7 +2028,11 @@ namespace igor
         glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
-        // TODO stats
+        // save stats
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += meshBuffers->getVertexCount();
+        _data->_stats._indices += meshBuffers->getIndexesCount();
+        _data->_stats._triangles += meshBuffers->getTrianglesCount();
     }
 
     void iRenderer2::writeShaderParameters()

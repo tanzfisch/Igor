@@ -73,7 +73,14 @@ namespace iaux
 
         \param other the other uuid
         */
-        bool operator!=(const iaUUID &other);        
+        bool operator!=(const iaUUID &other);
+
+        /*! = operator overwrites current string with new string
+
+        \param text the new string
+        \returns the new string
+        */
+        iaUUID operator=(const iaUUID &other);
 
         /*! \returns true if uuid is valid/initialized
          */

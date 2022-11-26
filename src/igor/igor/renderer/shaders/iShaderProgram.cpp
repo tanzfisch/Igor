@@ -30,7 +30,12 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    void iShaderProgram::addShader(iaString filename, iShaderObjectType type)
+    const std::vector<iaString>& iShaderProgram::getShaderSources() const
+    {
+        return _sources;
+    }
+
+    void iShaderProgram::addShader(const iaString& filename, iShaderObjectType type)
     {
         iaFile file(iResourceManager::getInstance().getPath(filename));
 
@@ -44,6 +49,7 @@ namespace igor
 
             if (addSource(buffer, type))
             {
+                _sources.push_back(file.getFullFileName());
                 con_info("loaded " << type << " shader \"" << file.getFullFileName() << "\"");
             }
             else

@@ -29,6 +29,12 @@ namespace iaux
         return _value != other._value;
     }    
 
+    iaUUID iaUUID::operator=(const iaUUID &other)
+    {
+        _value = other._value;
+        return *this;
+    }
+
     bool iaUUID::isValid() const
     {
         return !_value.isEmpty();

@@ -47,8 +47,6 @@ namespace igor
     /*! model data loader for the OBJ aka Wavefront format
 
 	source: http://de.wikipedia.org/wiki/Wavefront_OBJ
-
-    \todo hopeless implementation. remove or rewrite asap
 	*/
     class iModelDataIOOBJ : public iModelDataIO
     {

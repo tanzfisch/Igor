@@ -57,18 +57,14 @@ namespace igor
     {
 
     public:
-        /*! does nothing
+        /*! sets material of group
+        \param material the material to use
         */
-        iMaterialGroup() = default;
+        iMaterialGroup(const iMaterialPtr &material);
 
         /*! clean up
         */
         virtual ~iMaterialGroup();
-
-        /*! sets material of group
-        \param material the material to use
-        */
-        void setMaterial(const iMaterialPtr &material);
 
         /*! \returns material of group
         */

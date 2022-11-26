@@ -44,8 +44,6 @@ namespace igor
     source: http://flafla2.github.io/2014/08/09/perlinnoise.html
     source: https://gist.github.com/Flafla2/f0260a861be0ebdeef76
     Thanks Adrian Biagioli
-
-    \todo this should go in to IgorAux
     */
     class IGOR_API iPerlinNoise
     {
