@@ -4,8 +4,6 @@
 
 #include <igor/resources/mesh/iMesh.h>
 
-#include <igor/renderer/iRenderer.h>
-
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 

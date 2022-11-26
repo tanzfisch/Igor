@@ -4,7 +4,6 @@
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 
-#include <igor/renderer/iRenderer.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
