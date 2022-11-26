@@ -298,6 +298,8 @@ namespace igor
 
         iaRectanglei _viewport;
 
+        iTexturePtr _fallbackTexture;
+
         ////// stats ////
         iRenderer2::iRendererStats _stats;
 
@@ -1967,5 +1969,10 @@ namespace igor
         texQuads._vertexDataPtr++;
 
         endTexturedQuad();                         
+    }
+
+    void iRenderer2::setFallbackTexture(const iTexturePtr& texture)
+    {
+        _data->_fallbackTexture = texture;
     }
 }

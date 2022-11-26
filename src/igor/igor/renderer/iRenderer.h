@@ -626,19 +626,6 @@ namespace igor
          */
         std::map<uint32, iRendererTarget> _renderTargets;
 
-        /*! creates a Texture
-
-        \param width width of the texture
-        \param height height of the texture
-        \param bytepp bytes per pixel
-        \param format color format of texture
-        \param data pointer to the actual data used for the texture
-        \param buildMode generation mode of texture like mimapping or not
-        \param wrapMode wrap mode of texture
-        \returns render texture id
-        */
-        uint32 createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, uint8 *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
-
         /*! releases texture
 
         \param textureID texture ID to destroy
@@ -650,16 +637,6 @@ namespace igor
         \param instancer instancer to create a instance buffer for
         */
         void createBuffers(iInstancer *instancer);
-
-        /*! set's the dummy texture id
-
-        \param id texture id
-        */
-        void setDummyTextureID(uint32 id);
-
-        /*! \returns current dummy texture ID
-         */
-        uint32 getDummyTextureID();
 
         /*!
          */

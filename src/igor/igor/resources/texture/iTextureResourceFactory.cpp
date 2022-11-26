@@ -4,6 +4,7 @@
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iRenderer2.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
@@ -25,21 +26,10 @@ namespace igor
 
     iTextureResourceFactory::iTextureResourceFactory()
     {
-        // TODO need dependencies for modules!
-        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
-        iRenderer::getInstance().registerPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
-
-        if (iRenderer::getInstance().isReady())
-        {
-            init();
-        }
     }
 
     iTextureResourceFactory::~iTextureResourceFactory()
     {
-        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
-        iRenderer::getInstance().unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
-
         // run a flush once more but only if renderer still exists
         flush(iResourceCacheMode::Keep);
 
@@ -135,14 +125,13 @@ namespace igor
             }
         }
 
-        _dummyTexture = iTexturePtr(new iTexture("dummyTexture", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat));
-        _dummyTexture->_width = width;
-        _dummyTexture->_height = height;
+        _dummyTexture = iTexture::create("dummyTexture", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat);
+        _dummyTexture->setData(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
+
         _dummyTexture->_valid = true;
         _dummyTexture->_processed = true;
 
-        _dummyTexture->_textureID = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
-        iRenderer::getInstance().setDummyTextureID(_dummyTexture->_textureID);
+        iRenderer2::getInstance().setFallbackTexture(_dummyTexture);
 
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         _textures[hashValue] = _dummyTexture;
@@ -359,13 +348,9 @@ namespace igor
                 con_assert(false, "unsupported color format");
             };
 
-            texture->_textureID = iRenderer::getInstance().createTexture(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-            texture->_width = width;
-            texture->_height = height;
+            texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
             texture->_dummy = false;
-            texture->_valid = true;
-            texture->_colorFormat = colorFormat;
-            texture->_bpp = bpp;
+            texture->_valid = true;                        
 
             iaString build = ".not mipmapped";
             if (texture->_buildMode == iTextureBuildMode::Mipmapped)
@@ -436,8 +421,8 @@ namespace igor
                 con_err("unknown color format");
             };
 
-            result = iTexturePtr(new iTexture(pixmapname, cacheMode, buildMode, wrapMode));
-            result->_textureID = iRenderer::getInstance().createTexture(width, height, bpp, colorformat, data, buildMode, wrapMode);
+            result = iTexture::create(pixmapname, cacheMode, buildMode, wrapMode);
+            result->setData(width, height, bpp, colorformat, data, buildMode, wrapMode);
 
             _mutex.lock();
             _textures[hashValue] = result;

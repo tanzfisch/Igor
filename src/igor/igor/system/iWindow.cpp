@@ -15,6 +15,7 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
 
 #include <algorithm>
 #include <sstream>
@@ -1298,6 +1299,7 @@ namespace igor
             iMaterialResourceFactory::getInstance().init();
             iRenderer::getInstance().init();
             iRenderer2::getInstance().init();
+            iTextureResourceFactory::getInstance().init();
             _impl->swapBuffers();
 
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));

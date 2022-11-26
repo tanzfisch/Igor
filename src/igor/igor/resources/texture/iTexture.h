@@ -39,7 +39,10 @@ using namespace iaux;
 namespace igor
 {
 
-    struct iRendererTexture;
+    /*! definition of texture shared pointer
+	*/
+    class iTexture;
+    typedef std::shared_ptr<iTexture> iTexturePtr;    
 
     /*! represents a texture resource
     */
@@ -47,20 +50,10 @@ namespace igor
     {
 
         friend class iTextureResourceFactory;
-        friend class iRenderer;
+        friend class iRenderer; // TODO remove
 
     public:
-
-        /*! ctor
-
-		initializes member variables
-		*/
-        iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);    
-
-        /*! does nothing
-        */
-        virtual ~iTexture();
-
+    
         /*! true if there is actually a texture present
         */
         bool isValid();
@@ -162,13 +155,36 @@ namespace igor
 
         /*! renderer specific texture handle
 		*/
-        uint32 _textureID;
+        uint32 _textureID;        
+
+        /*! ctor
+
+		initializes member variables
+		*/
+        iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
+
+        /*! \returns a newly created texture
+
+        \param name name of the texture (usually the filename)
+        \param cacheMode caching mode
+        \param buildMode build mode 
+        \param wrapMode texture coordinates wrapping mode
+         */
+        static iTexturePtr create(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
+
+        /*! sets data on texture
+
+        \param width width of the texture
+        \param height height of the texture
+        \param bytepp bytes per pixel
+        \param format color format of texture
+        \param data pointer to the actual data used for the texture
+        \param buildMode generation mode of texture like mimapping or not
+        \param wrapMode wrap mode of texture
+        */
+        void setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);        
 
     };
-
-    /*! definition of texture shared pointer
-	*/
-    typedef std::shared_ptr<iTexture> iTexturePtr;
 
 }; // namespace igor
 

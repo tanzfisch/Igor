@@ -163,13 +163,19 @@ namespace igor
 
         \param type the shader data type
         */
-        static GLenum convertType(iShaderDataType type);
+        static uint32 convertType(iShaderDataType type);
 
         /*! \returns openGL shader object type for given igor type
 
         \param type the igor shader object type
         */
         static uint32 convertType(iShaderObjectType type);
+
+        /*! \returns ogl color format type for given format type
+
+        \param format the igor color format type
+        */
+        static uint32 convertType(iColorFormat format);
     };
 
 }

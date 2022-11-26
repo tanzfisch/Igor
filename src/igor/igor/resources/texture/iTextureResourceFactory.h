@@ -107,6 +107,14 @@ namespace igor
         */
         iPixmapPtr loadPixmap(const iaString &filename);
 
+        /*! releases all textures
+        */
+        void deinit();
+
+        /*! generates a dummy texture
+        */
+        void init();        
+
     private:
         /*! mutex to protect the texture manager access
         */
@@ -127,14 +135,6 @@ namespace igor
         /*! generated dummy texture
         */
         iTexturePtr _dummyTexture = nullptr;
-
-        /*! releases all textures
-        */
-        void deinit();
-
-        /*! generates a dummy texture
-        */
-        void init();
 
         /*! actually loads a texture
 

@@ -164,6 +164,14 @@ namespace igor
          */
         const iaMatrixd &getModelViewProjectionMatrix() const;
 
+        /*! sets a fallback texture if no other texture is available
+
+        by default this is already set with a generated texture by the iTextureResourceFactory
+
+        \param texture the texture to use
+        */
+        void setFallbackTexture(const iTexturePtr& texture);
+
         /////// 2D //////
 
         void drawPoint(float32 x, float32 y, const iaColor4f &color = iaColor4f::white);

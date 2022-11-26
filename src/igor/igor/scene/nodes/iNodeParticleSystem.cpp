@@ -105,9 +105,20 @@ namespace igor
     {
         handle();
 
-        iRenderer::getInstance().bindTexture(_textureA, 0);
-        iRenderer::getInstance().bindTexture(_textureB, 1);
-        iRenderer::getInstance().bindTexture(_textureC, 2);
+        if (_textureA != nullptr)
+        {
+            _textureA->bind(0);
+        }
+
+        if (_textureB != nullptr)
+        {
+            _textureB->bind(1);
+        }
+
+        if (_textureC != nullptr)
+        {
+            _textureC->bind(2);
+        }
 
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
         if (_particleSystem.getVelocityOriented())

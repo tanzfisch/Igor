@@ -94,110 +94,6 @@ namespace igor
         }
     }
 
-    void iRenderer::onStopFrame()
-    {
-    }
-
-    void iRenderer::onStartFrame()
-    {
-        _stats._vertices = 0;
-        _stats._triangles = 0;
-        _stats._indices = 0;
-        _stats._verticesInstanced = 0;
-        _stats._trianglesInstanced = 0;
-        _stats._indicesInstanced = 0;
-    }
-
-    const iRendererStats &iRenderer::getStats() const
-    {
-        return _stats;
-    }
-
-    bool iRenderer::compileShaderObject(uint32 id, const char *source)
-    {
-        GLsizei result = 0;
-        glShaderSource(id, 1, &source, nullptr);
-        glCompileShader(id);
-
-        int len;
-        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
-
-        if (len != 0)
-        {
-            char *buffer = new char[len];
-            glGetShaderInfoLog(id, len, &result, buffer);
-
-            if (0 != result)
-            {
-                con_err("shader compiler error\n"
-                        << buffer);
-                con_endl("source:\n"
-                         << iaString(source));
-            }
-            delete[] buffer;
-        }
-
-        return (0 != result) ? false : true;
-    }
-
-    uint32 iRenderer::createShaderObject(iShaderObjectType type)
-    {
-        uint32 shaderObject = INVALID_ID;
-
-        switch (type)
-        {
-        case iShaderObjectType::Fragment:
-            shaderObject = glCreateShader(GL_FRAGMENT_SHADER);
-            break;
-
-        case iShaderObjectType::Vertex:
-            shaderObject = glCreateShader(GL_VERTEX_SHADER);
-            break;
-
-        default:
-            con_err("unsupported shader type");
-        };
-
-        return shaderObject;
-    }
-
-    void iRenderer::destroyShaderObject(uint32 id)
-    {
-        con_assert(-1 != id, "invalid id");
-        glDeleteShader(id);
-    }
-
-    void iRenderer::linkShaderProgram(uint32 id, std::vector<uint32> objects)
-    {
-        auto object = objects.begin();
-        while (objects.end() != object)
-        {
-            glAttachShader(id, (*object));
-            object++;
-        }
-
-        glLinkProgram(id);
-    }
-
-    uint32 iRenderer::createShaderProgram()
-    {
-        uint32 result = glCreateProgram();
-
-        return result;
-    }
-
-    void iRenderer::destroyShaderProgram(uint32 id)
-    {
-        con_assert(INVALID_ID != id, "invalid id");
-        glDeleteProgram(id);
-    }
-
-    void iRenderer::useShaderProgram(uint32 id)
-    {
-        con_assert(INVALID_ID != id, "invalid id");
-        glUseProgram(id);
-    }
-
     bool iRenderer::isReady()
     {
         return _initialized;
@@ -236,46 +132,6 @@ namespace igor
         _currentMaterial = iMaterialResourceFactory::getInstance().getDefaultMaterial();
     }
 
-    void iRenderer::registerInitializedDelegate(iRendererInitializedDelegate initializedDelegate)
-    {
-        _rendererInitializedEvent.append(initializedDelegate);
-    }
-
-    void iRenderer::unregisterInitializedDelegate(iRendererInitializedDelegate initializedDelegate)
-    {
-        _rendererInitializedEvent.remove(initializedDelegate);
-    }
-
-    void iRenderer::registerPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate)
-    {
-        _rendererPreDeinitializeEvent.append(preDeinitializeDelegate);
-    }
-
-    void iRenderer::unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate)
-    {
-        _rendererPreDeinitializeEvent.remove(preDeinitializeDelegate);
-    }
-
-    iaString iRenderer::getVendor()
-    {
-        return _vendorOGL;
-    }
-
-    iaString iRenderer::getRenderer()
-    {
-        return _rendererOGL;
-    }
-
-    iaString iRenderer::getVersion()
-    {
-        return _versionOGL;
-    }
-
-    iaString iRenderer::getExtensions()
-    {
-        return _extensionsOGL;
-    }
-
     void iRenderer::setPerspective(float32 fov, float32 aspect, float32 nearplain, float32 farplain)
     {
         _projectionMatrix.perspective(fov, aspect, nearplain, farplain);
@@ -287,14 +143,6 @@ namespace igor
         glMatrixMode(GL_MODELVIEW);
 
         _dirtyModelViewProjectionMatrix = true;
-    }
-
-    void iRenderer::drawLine(const iaVector3f &a, const iaVector3f &b)
-    {
-        glBegin(GL_LINES);
-        glVertex3f(a._x, a._y, a._z);
-        glVertex3f(b._x, b._y, b._z);
-        glEnd();
     }
 
     void iRenderer::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
@@ -427,99 +275,11 @@ namespace igor
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data);
     }
 
-    uint32 iRenderer::createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
-    {
-        int32 glformat = convertGLColorFormat(format);
-        if (glformat == iRenderer::INVALID_ID)
-        {
-            return 0;
-        }
-
-        uint32 result = 0;
-
-        glGenTextures(1, &result);
-
-        glBindTexture(GL_TEXTURE_2D, result);
-
-        switch (wrapMode)
-        {
-        case iTextureWrapMode::Repeat:
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-            break;
-
-        case iTextureWrapMode::Clamp:
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-            break;
-
-        case iTextureWrapMode::MirrorRepeat:
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-
-            break;
-        }
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        if (buildMode == iTextureBuildMode::Normal)
-        {
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-            glTexImage2D(GL_TEXTURE_2D, 0, bytepp, width, height, 0, glformat, GL_UNSIGNED_BYTE, data);
-        }
-        else
-        {
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-            gluBuild2DMipmaps(GL_TEXTURE_2D, bytepp, width, height, glformat, GL_UNSIGNED_BYTE, data);
-        }
-        glFinish();
-
-        return result;
-    }
-
-    void iRenderer::setDummyTextureID(uint32 id)
-    {
-        _dummyTextureID = id;
-    }
-
-    uint32 iRenderer::getDummyTextureID()
-    {
-        return _dummyTextureID;
-    }
-
     void iRenderer::destroyTexture(uint32 textureID)
     {
         if (glIsTexture(textureID))
         {
             glDeleteTextures(1, &textureID);
-        }
-    }
-
-    void iRenderer::bindTexture(iTexturePtr texture, uint32 textureunit)
-    {
-        glActiveTexture(GL_TEXTURE0 + textureunit);
-
-        if (texture != nullptr)
-        {
-            if (!texture->isDummy())
-            {
-                glBindTexture(GL_TEXTURE_2D, texture->_textureID);
-            }
-            else
-            {
-                glBindTexture(GL_TEXTURE_2D, _dummyTextureID);
-            }
-        }
-        else
-        {
-            glBindTexture(GL_TEXTURE_2D, 0);
         }
     }
 
@@ -676,16 +436,6 @@ namespace igor
             glUniform1i(_currentMaterial->_matTexture[3], 3);
             bindTexture(targetMaterial->getTexture(3), 3);
         }*/
-    }
-
-    void iRenderer::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height)
-    {
-        glBegin(GL_QUADS);
-        glVertex2f(x, y);
-        glVertex2f(x, y + height);
-        glVertex2f(x + width, y + height);
-        glVertex2f(x + width, y);
-        glEnd();
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
@@ -1008,13 +758,6 @@ namespace igor
         _stats._verticesInstanced += meshBuffers->getVertexCount() * instancer->getInstanceCount();
     }
 
-    int32 iRenderer::getShaderPropertyID(uint32 programID, const char *name)
-    {
-        int32 result = glGetUniformLocation(programID, name);
-
-        return result;
-    }
-
     void iRenderer::writeShaderParameters()
     {
         if (_currentMaterial->hasDirectionalLight())
@@ -1064,14 +807,6 @@ namespace igor
         _stats._vertices += meshBuffers->getVertexCount();
         _stats._indices += meshBuffers->getIndexesCount();
         _stats._triangles += meshBuffers->getTrianglesCount();
-    }
-
-    void iRenderer::drawLine(float32 x1, float32 y1, float32 x2, float32 y2)
-    {
-        glBegin(GL_LINES);
-        glVertex2f(x1, y1);
-        glVertex2f(x2, y2);
-        glEnd();
     }
 
     void iRenderer::setColorExt(const iaColor4f &color)

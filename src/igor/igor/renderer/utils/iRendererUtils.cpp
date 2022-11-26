@@ -157,4 +157,45 @@ namespace igor
         return stream;
     }
 
+    uint32 iRendererUtils::convertType(iColorFormat format)
+    {
+        GLenum glformat = -1;
+
+        switch (format)
+        {
+        case iColorFormat::RGB:
+            glformat = GL_RGB;
+            break;
+
+        case iColorFormat::RGBA:
+            glformat = GL_RGBA;
+            break;
+
+        case iColorFormat::RED:
+            glformat = GL_RED;
+            break;
+
+        case iColorFormat::GREEN:
+            glformat = GL_GREEN;
+            break;
+
+        case iColorFormat::BLUE:
+            glformat = GL_BLUE;
+            break;
+
+        case iColorFormat::ALPHA:
+            glformat = GL_ALPHA;
+            break;
+
+        case iColorFormat::DEPTH:
+            glformat = GL_DEPTH_COMPONENT;
+            break;
+
+        default:
+            con_err("unknown color format");
+        };
+
+        return glformat;
+    }
+
 }

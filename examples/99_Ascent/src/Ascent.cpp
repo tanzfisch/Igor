@@ -750,8 +750,8 @@ void Ascent::onRenderOrtho()
 
     if (_loading)
     {
-        iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-        iRenderer::getInstance().drawFilledRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
+        //iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+        // iRenderer::getInstance().drawFilledRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
 
         iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
         iRenderer::getInstance().setFontSize(40.0f);
