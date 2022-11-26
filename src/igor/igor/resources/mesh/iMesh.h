@@ -67,11 +67,11 @@ namespace igor
 
         /*! \returns the bounding box
         */
-        __IGOR_INLINE__ const iAABoxd &getBoundingBox() const;
+        const iAABoxd &getBoundingBox() const;
 
         /*! \returns indexes count
         */
-        __IGOR_INLINE__ uint32 getIndexesCount() const;
+        uint32 getIndexesCount() const;
 
         /*! sets index count
 
@@ -81,7 +81,7 @@ namespace igor
 
         /*! \returns vertex count
         */
-        __IGOR_INLINE__ uint32 getVertexCount() const;
+        uint32 getVertexCount() const;
 
         /*! sets vertex count
 
@@ -91,7 +91,7 @@ namespace igor
 
         /*! \returns triangles count
         */
-        __IGOR_INLINE__ uint32 getTrianglesCount() const;
+        uint32 getTrianglesCount() const;
 
         /*! set triangles count
 
@@ -101,11 +101,11 @@ namespace igor
 
         /*! \returns true if mesh has color deifnitions
         */
-        __IGOR_INLINE__ bool hasColors() const;
+        bool hasColors() const;
 
         /*! \returns true if mesh has normals
         */
-        __IGOR_INLINE__ bool hasNormals() const;
+        bool hasNormals() const;
 
         /*! sets texture unit active or inactive
 
@@ -116,15 +116,15 @@ namespace igor
 
         /*! \returns true if mesh has textures and texture coordinates
         */
-        __IGOR_INLINE__ bool hasTextures() const;
+        bool hasTextures() const;
 
         /*! \returns texture unit count
         */
-        __IGOR_INLINE__ uint32 getTextureUnitCount() const;
+        uint32 getTextureUnitCount() const;
 
         /*! \returns true if mesh has specified texture unit
         */
-        __IGOR_INLINE__ bool hasTextureUnit(uint32 unit) const;
+        bool hasTextureUnit(uint32 unit) const;
 
         /*! set texture coordinates per vertex count
 
@@ -134,7 +134,7 @@ namespace igor
 
         /*! \returns texture coordinates count
 		*/
-        __IGOR_INLINE__ uint32 getTextureCoordinatesCount() const;
+        uint32 getTextureCoordinatesCount() const;
 
         /*! sets index data
 
@@ -149,7 +149,7 @@ namespace igor
 
         /*! \returns true if index data buffer is present
         */
-        __IGOR_INLINE__ bool hasIndexData();
+        bool hasIndexData();
 
         /*! sets vertex data
 
@@ -164,7 +164,7 @@ namespace igor
 
         /*! \returns true if vertex data buffer is present
         */
-        __IGOR_INLINE__ bool hasVertexData();
+        bool hasVertexData();
 
         /*! sets size in byte of a vertex data set
 
@@ -174,23 +174,23 @@ namespace igor
 
         /*! \returns pointer to index data
         */
-        __IGOR_INLINE__ uint32 *getIndexData() const;
+        uint32 *getIndexData() const;
 
         /*! \returns index data size in bytes
         */
-        __IGOR_INLINE__ uint32 getIndexDataSize() const;
+        uint32 getIndexDataSize() const;
 
         /*! \returns pointer to vertex data
         */
-        __IGOR_INLINE__ float32 *getVertexData() const;
+        float32 *getVertexData() const;
 
         /*! \returns vertex data size in bytes
         */
-        __IGOR_INLINE__ uint32 getVertexDataSize() const;
+        uint32 getVertexDataSize() const;
 
         /*! \returns a single vertex data set size in bytes
         */
-        __IGOR_INLINE__ uint32 getVertexSize() const;
+        uint32 getVertexSize() const;
 
         /*! sets if mesh has normals
 
@@ -259,8 +259,6 @@ namespace igor
         */
         iAABoxd _bbox;
     };
-
-#include <igor/resources/mesh/iMesh.inl>
 
     /*! definition of shared pointer mesh
 	*/

@@ -608,19 +608,6 @@ namespace igor
         }
     }
 
-    iMeshBuffersPtr iRenderer::createBuffersAsync(iMeshPtr mesh)
-    {
-        iMeshBuffers *meshBuffer = new iMeshBuffers();
-
-        iMeshBuffersPtr result = iMeshBuffersPtr(meshBuffer);
-
-        _requestedBuffersMutex.lock();
-        _requestedBuffers.push_back(std::pair<iMeshPtr, iMeshBuffersPtr>(mesh, result));
-        _requestedBuffersMutex.unlock();
-
-        return result;
-    }
-
     void iRenderer::initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers)
     {
         uint32 vao = 0;
@@ -796,19 +783,6 @@ namespace igor
         }
     }
 
-    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers)
-    {
-        writeShaderParameters();
-
-        glBindVertexArray(meshBuffers->getVertexArrayObject());
-        glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
-
-        _stats._vertices += meshBuffers->getVertexCount();
-        _stats._indices += meshBuffers->getIndexesCount();
-        _stats._triangles += meshBuffers->getTrianglesCount();
-    }
-
     void iRenderer::setColorExt(const iaColor4f &color)
     {
         if (_currentMaterial->hasSolidColor())
@@ -832,26 +806,6 @@ namespace igor
         glColor4f(_color._r, _color._g, _color._b, _color._a);
     }
 
-    void iRenderer::setLightPosition(int32 lightnum, const iaVector3d &pos)
-    {
-        // TODO fix with world offset
-        _lights[lightnum]._position.set(pos._x, pos._y, pos._z);
-    }
-
-    void iRenderer::setLightAmbient(int32 lightnum, iaColor3f &ambient)
-    {
-        _lights[lightnum]._ambient = ambient;
-    }
-
-    void iRenderer::setLightDiffuse(int32 lightnum, iaColor3f &diffuse)
-    {
-        _lights[lightnum]._diffuse = diffuse;
-    }
-
-    void iRenderer::setLightSpecular(int32 lightnum, iaColor3f &specular)
-    {
-        _lights[lightnum]._specular = specular;
-    }
 
     void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
     {

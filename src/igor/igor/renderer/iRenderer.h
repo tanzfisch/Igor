@@ -214,11 +214,6 @@ namespace igor
         /*!
         \todo this is weired stuff we should do that differently
         */
-        iMeshBuffersPtr createBuffersAsync(iMeshPtr mesh);
-
-        /*!
-        \todo this is weired stuff we should do that differently
-        */
         void createBuffers(float64 timeLimit = 10.0);
 
         /*! \returns true if the renderer is ready to use
@@ -422,12 +417,6 @@ namespace igor
         \param a alpha channel
         */
         void setColor(float32 r, float32 g, float32 b, float32 a);
-
-        // Lights
-        void setLightPosition(int32 lightnum, const iaVector3d &pos);
-        void setLightAmbient(int32 lightnum, iaColor3f &ambient);
-        void setLightDiffuse(int32 lightnum, iaColor3f &diffuse);
-        void setLightSpecular(int32 lightnum, iaColor3f &specular);
 
         // Particles
         void drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);

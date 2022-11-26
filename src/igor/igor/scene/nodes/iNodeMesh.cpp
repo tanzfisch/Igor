@@ -4,7 +4,7 @@
 
 #include <igor/scene/nodes/iNodeMesh.h>
 
-#include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iRenderer2.h>
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
@@ -126,9 +126,8 @@ namespace igor
         if (_meshBuffers != nullptr &&
             _meshBuffers->isReady())
         {
-            iRenderer::getInstance().setModelMatrix(_worldMatrix);
-            iRenderer::getInstance().setTargetMaterial(_targetMaterial);
-            iRenderer::getInstance().drawMesh(_meshBuffers);
+            iRenderer2::getInstance().setModelMatrix(_worldMatrix);
+            iRenderer2::getInstance().drawMesh(_meshBuffers, _targetMaterial);
         }
     }
 
@@ -151,7 +150,7 @@ namespace igor
 
         if (_mesh != nullptr)
         {
-            _meshBuffers = iRenderer::getInstance().createBuffersAsync(_mesh);
+            _meshBuffers = iRenderer2::getInstance().createBuffersAsync(_mesh);
             setBoundingBox(_mesh->getBoundingBox());
 
             if (!_keepMesh)

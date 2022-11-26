@@ -237,7 +237,7 @@ namespace igor
         */
         void calcNormals(bool sharpEdges = false);
 
-        /*! creates ans returns a mesh based on current data
+        /*! creates and returns a mesh based on current data
 
         \returns shared pointer to iMesh
         */

@@ -8,6 +8,7 @@
 
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/mesh/iMesh.h>
 
 #include <deque>
 
@@ -204,6 +205,28 @@ namespace igor
         TexturedQuads
     };
 
+    /*! internal structure for handling lights
+     */
+    struct iRendererLight
+    {
+    public:
+        /*! the light world position
+         */
+        iaVector3f _position;
+
+        /*! ambient color
+         */
+        iaColor3f _ambient = {0.5f, 0.5f, 0.5f};
+
+        /*! diffuse color
+         */
+        iaColor3f _diffuse = {0.7f, 0.7f, 0.7f};
+
+        /*! specular color
+         */
+        iaColor3f _specular = {0.8f, 0.8f, 0.8f};
+    };
+
     /*! all the data needed
      */
     struct iRendererData
@@ -261,6 +284,9 @@ namespace igor
         /*! stores which render dataset was used last
          */
         iRenderDataSet _lastRenderDataSetUsed;
+        ///////// BUFFERS ///////
+        iaMutex _requestedBuffersMutex;
+        std::deque<std::pair<iMeshPtr, iMeshBuffersPtr>> _requestedBuffers;
 
         /////////// MATRICES /////////////
         iaMatrixd _modelMatrix;
@@ -270,6 +296,11 @@ namespace igor
         iaMatrixd _modelViewProjectionMatrix;
 
         iaMatrixd _camMatrix;
+
+        ///////////// LIGHTS //////////////7
+        /*! list of lights
+         */
+        std::map<int32, iRendererLight> _lights;
 
         /////////// SETTINGS //////
         /*! if true render order will be kept by the cost of more draw calls beeing used
@@ -1773,7 +1804,7 @@ namespace igor
     const iMaterialPtr &iRenderer2::getMaterial() const
     {
         return _data->_currentMaterial;
-    }   
+    }
 
     void iRenderer2::drawBox(const iAACubed &box, const iaColor4f &color)
     {
@@ -1968,11 +1999,214 @@ namespace igor
         texQuads._vertexDataPtr->_texIndex = textureIndex;
         texQuads._vertexDataPtr++;
 
-        endTexturedQuad();                         
+        endTexturedQuad();
     }
 
-    void iRenderer2::setFallbackTexture(const iTexturePtr& texture)
+    void iRenderer2::setFallbackTexture(const iTexturePtr &texture)
     {
         _data->_fallbackTexture = texture;
     }
+
+    void iRenderer2::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial)
+    {
+        // TODO flush minimum
+        flush();
+
+        _data->_currentMaterial->bind();
+
+        if (_data->_currentMaterial->hasTargetMaterial())
+        {
+            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
+            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
+            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
+            _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
+            _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
+        }
+
+        writeShaderParameters();
+
+        glBindVertexArray(meshBuffers->getVertexArrayObject());
+        glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+        // TODO stats
+    }
+
+    void iRenderer2::writeShaderParameters()
+    {
+        if (_data->_currentMaterial->hasDirectionalLight())
+        {
+            _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_ORIENTATION, _data->_lights[0]._position);
+            _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_AMBIENT, _data->_lights[0]._ambient);
+            _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_DIFFUSE, _data->_lights[0]._diffuse);
+            _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_SPECULAR, _data->_lights[0]._specular);
+        }
+
+        if (_data->_currentMaterial->hasEyePosition())
+        {
+            iaVector3f eyePosition(_data->_camMatrix._pos._x, _data->_camMatrix._pos._y, _data->_camMatrix._pos._z);
+            _data->_currentMaterial->setFloat3(UNIFORM_EYE_POSITION, eyePosition);
+        }
+
+        if (_data->_currentMaterial->hasModelViewProjectionMatrix())
+        {
+            iaMatrixf modelViewProjection;
+            for (int i = 0; i < 16; ++i)
+            {
+                modelViewProjection[i] = _data->_modelViewProjectionMatrix[i];
+            }
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, modelViewProjection);
+        }
+
+        if (_data->_currentMaterial->hasModelMatrix())
+        {
+            iaMatrixf model;
+            for (int i = 0; i < 16; ++i)
+            {
+                model[i] = _data->_modelMatrix[i];
+            }
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL, model);
+        }
+    }
+
+    void iRenderer2::setLightPosition(int32 lightnum, const iaVector3d &pos)
+    {
+        _data->_lights[lightnum]._position.set(pos._x, pos._y, pos._z);
+    }
+
+    void iRenderer2::setLightAmbient(int32 lightnum, iaColor3f &ambient)
+    {
+        _data->_lights[lightnum]._ambient = ambient;
+    }
+
+    void iRenderer2::setLightDiffuse(int32 lightnum, iaColor3f &diffuse)
+    {
+        _data->_lights[lightnum]._diffuse = diffuse;
+    }
+
+    void iRenderer2::setLightSpecular(int32 lightnum, iaColor3f &specular)
+    {
+        _data->_lights[lightnum]._specular = specular;
+    }
+
+    // TODO I don't like this
+    iMeshBuffersPtr iRenderer2::createBuffersAsync(iMeshPtr mesh)
+    {
+        iMeshBuffers *meshBuffer = new iMeshBuffers();
+
+        iMeshBuffersPtr result = iMeshBuffersPtr(meshBuffer);
+
+        _data->_requestedBuffersMutex.lock();
+        _data->_requestedBuffers.push_back(std::pair<iMeshPtr, iMeshBuffersPtr>(mesh, result));
+        _data->_requestedBuffersMutex.unlock();
+
+        return result;
+    }
+
+    void iRenderer2::createBuffers(float64 timeLimit)
+    {
+        iaTime endTime = iaTime::getNow();
+        endTime += iaTime::fromMilliseconds(timeLimit);
+        std::deque<std::pair<iMeshPtr, iMeshBuffersPtr>>::iterator entryIter;
+
+        iMeshPtr mesh;
+        iMeshBuffersPtr meshBuffers;
+        bool proceed = false;
+
+        while (true)
+        {
+            _data->_requestedBuffersMutex.lock();
+            if (!_data->_requestedBuffers.empty())
+            {
+                entryIter = _data->_requestedBuffers.begin();
+                mesh = (*entryIter).first;
+                meshBuffers = (*entryIter).second;
+                _data->_requestedBuffers.pop_front();
+                proceed = true;
+            }
+            _data->_requestedBuffersMutex.unlock();
+
+            if (proceed)
+            {
+                initBuffers(mesh, meshBuffers);
+                proceed = false;
+            }
+            else
+            {
+                break;
+            }
+
+            if (iaTime::getNow() > endTime)
+            {
+                break;
+            }
+        }
+    }
+
+    void iRenderer2::initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers)
+    {
+        uint32 vao = 0;
+        uint32 ibo = 0;
+        uint32 vbo = 0;
+
+        glGenVertexArrays(1, (GLuint *)&vao);
+
+        meshBuffers->setVertexArrayObject(vao);
+        glBindVertexArray(meshBuffers->getVertexArrayObject());
+
+        if (mesh->getIndexData() != nullptr)
+        {
+            glGenBuffers(1, (GLuint *)&ibo);
+
+            meshBuffers->setIndexBufferObject(ibo);
+
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshBuffers->getIndexBufferObject());
+
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->getIndexDataSize(), mesh->getIndexData(), GL_STATIC_DRAW);
+        }
+
+        glGenBuffers(1, (GLuint *)&vbo);
+
+        meshBuffers->setVertexBufferObject(vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, meshBuffers->getVertexBufferObject());
+
+        glBufferData(GL_ARRAY_BUFFER, mesh->getVertexDataSize(), mesh->getVertexData(), GL_STATIC_DRAW);
+
+        uint32 location = 0;
+        uint32 offset = 0;
+
+        glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
+
+        offset += 3 * sizeof(float32);
+
+        if (mesh->hasNormals())
+        {
+            glEnableVertexAttribArray(1);
+
+            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
+
+            offset += 3 * sizeof(float32);
+        }
+
+        for (int i = 0; i < 4; ++i)
+        {
+            if (mesh->hasTextureUnit(i))
+            {
+                glEnableVertexAttribArray(2 + i);
+
+                glVertexAttribPointer(2 + i, 2, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
+
+                offset += 2 * sizeof(float32);
+            }
+        }
+
+        meshBuffers->setIndexesCount(mesh->getIndexesCount());
+        meshBuffers->setTrianglesCount(mesh->getTrianglesCount());
+        meshBuffers->setVertexCount(mesh->getVertexCount());
+
+        meshBuffers->setReady();
+    }
+
 }

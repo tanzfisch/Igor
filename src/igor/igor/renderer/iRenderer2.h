@@ -36,6 +36,9 @@
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iAtlas.h>
+#include <igor/resources/mesh/iMeshBuffers.h>
+#include <igor/resources/mesh/iMesh.h>
+#include <igor/resources/material/iTargetMaterial.h>
 #include <igor/simulation/iParticleSystem2D.h>
 
 #include <iaux/data/iaColor4.h>
@@ -208,10 +211,6 @@ namespace igor
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
 
-        ///////////////////// 3D ////////////////////////////
-        void drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
-        void drawTexturedBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
-
         /*! draw a circle.
 
         \param x horizontal center position
@@ -232,12 +231,32 @@ namespace igor
         */
         void drawFilledCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
-        ///// 3D ///////
+        ///////////////////// 3D ////////////////////////////
         void drawBox(const iAACubed &box, const iaColor4f &color = iaColor4f::white);
         void drawBox(const iAACubef &box, const iaColor4f &color = iaColor4f::white);
 
         void drawBox(const iAABoxd &box, const iaColor4f &color = iaColor4f::white);
         void drawBox(const iAABoxf &box, const iaColor4f &color = iaColor4f::white);
+
+        void drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
+        void drawTexturedBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+
+        void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial);
+
+        void setLightPosition(int32 lightnum, const iaVector3d &pos);
+        void setLightAmbient(int32 lightnum, iaColor3f &ambient);
+        void setLightDiffuse(int32 lightnum, iaColor3f &diffuse);
+        void setLightSpecular(int32 lightnum, iaColor3f &specular);        
+
+
+        /*! \todo this is weired stuff we should do that differently
+        */
+        iMeshBuffersPtr createBuffersAsync(iMeshPtr mesh);
+
+        /*!
+        \todo this is weired stuff we should do that differently
+        */
+        void createBuffers(float64 timeLimit = 10.0);        
 
         /*! sets line render width
 
@@ -507,6 +526,15 @@ namespace igor
         /*! clears stats
          */
         void clearStats();
+
+        /*! write igor specific shader parameters to current material
+        */
+        void writeShaderParameters();
+
+        /*!
+        \todo this is weired stuff we should do that differently
+        */
+        void initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers);        
     };
 
 }

@@ -113,6 +113,7 @@ namespace igor
     {
         IGOR_PROFILER_SCOPED(b_cre);
         iRenderer::getInstance().createBuffers(10);
+        iRenderer2::getInstance().createBuffers(10);
     }
 
     void iRenderEngine::render()
@@ -234,17 +235,17 @@ namespace igor
         int lightNum = 0;
         for (auto light : lights)
         {
-            iRenderer::getInstance().setLightAmbient(lightNum, light->getAmbient());
-            iRenderer::getInstance().setLightDiffuse(lightNum, light->getDiffuse());
-            iRenderer::getInstance().setLightSpecular(lightNum, light->getSpecular());
+            iRenderer2::getInstance().setLightAmbient(lightNum, light->getAmbient());
+            iRenderer2::getInstance().setLightDiffuse(lightNum, light->getDiffuse());
+            iRenderer2::getInstance().setLightSpecular(lightNum, light->getSpecular());
 
             if (iLightType::Directional == light->getType())
             {
-                iRenderer::getInstance().setLightPosition(lightNum, light->getDirection());
+                iRenderer2::getInstance().setLightPosition(lightNum, light->getDirection());
             }
             else
             {
-                iRenderer::getInstance().setLightPosition(lightNum, light->getPosition());
+                iRenderer2::getInstance().setLightPosition(lightNum, light->getPosition());
             }
 
             ++lightNum;
