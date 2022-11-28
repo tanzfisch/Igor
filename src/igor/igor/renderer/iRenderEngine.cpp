@@ -10,7 +10,6 @@
 #include <igor/resources/material/iMaterialGroup.h>
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/scene/nodes/iNodeVolume.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iRenderer2.h>
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/scene/nodes/iNodeMesh.h>
@@ -112,7 +111,6 @@ namespace igor
     void iRenderEngine::createBuffers()
     {
         IGOR_PROFILER_SCOPED(b_cre);
-        iRenderer::getInstance().createBuffers(10);
         iRenderer2::getInstance().createBuffers(10);
     }
 
@@ -145,7 +143,6 @@ namespace igor
         camera->getViewMatrix(view);
         iaMatrixd camMatrix;
         camera->getWorldMatrix(camMatrix);
-        iRenderer::getInstance().setViewMatrix(view, camMatrix);
         iRenderer2::getInstance().setViewMatrixFromCam(camMatrix);
 
         iaMatrixd projectionMatrix = iRenderer2::getInstance().getProjectionMatrix();
@@ -176,20 +173,29 @@ namespace igor
             group.second.clear();
         }
 
+        con_endl("render objects " << _scene->getOctree()->getResult().size());
         for (void *ptr : _scene->getOctree()->getResult())
         {
             iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(ptr);
 
             if (renderNode != nullptr &&
-                renderNode->isVisible())
+                renderNode->isVisible()                 )
             {
+
+                // temp hack
+                if(renderNode->getMaterial() == nullptr)
+                {
+                    renderNode->setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial());
+                }
+
                 _materialGroups[renderNode->getMaterial()].addRenderNode(renderNode);
             }
         }
 
         for (const auto renderNode : _scene->getRenderables())
         {
-            if (renderNode->isVisible())
+            if (renderNode->isVisible() &&
+                renderNode->getMaterial())
             {
                 _materialGroups[renderNode->getMaterial()].addRenderNode(renderNode);
             }
@@ -218,7 +224,7 @@ namespace igor
                 auto renderNodes = materialGroup.getRenderNodes();
                 for (auto renderNode : renderNodes)
                 {
-                    iRenderer::getInstance().setColorID(renderNode->getID());
+                    // iRenderer::getInstance().setColorID(renderNode->getID());
                     renderNode->draw();
                 }
             }
@@ -251,19 +257,22 @@ namespace igor
             ++lightNum;
         }
 
-        std::vector<iMaterialPtr> materials;
-        iMaterialResourceFactory::getInstance().getMaterials(materials);
-
-        for (auto material : materials)
+        for (const auto &pair : _materialGroups)
         {
-            bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);
-            iMaterialGroup &materialGroup = _materialGroups[material];
+            const iMaterialGroup &materialGroup = pair.second;
 
-            if (instancing)
+            con_endl("group nodes " << materialGroup.getRenderNodes().size());
+
+            if(!materialGroup.hasNodes())
+            {
+                continue;
+            }
+
+            if (materialGroup.isInstanced())
             {
                 // todo we should not do that every frame
                 const auto &instancedRenderNodes = materialGroup.getInstancedRenderNodes();
-                iRenderer2::getInstance().setMaterial(material);
+                iRenderer2::getInstance().setMaterial(materialGroup.getMaterial());
 
                 for (const auto &pair : instancedRenderNodes)
                 {
@@ -273,8 +282,8 @@ namespace igor
                         continue;
                     }
 
-                    iRenderer::getInstance().setTargetMaterial(pair.second._targetMaterial);
-                    iRenderer::getInstance().drawMesh(pair.first, instancer);
+                    //iRenderer::getInstance().setTargetMaterial(pair.second._targetMaterial);
+                    //iRenderer::getInstance().drawMesh(pair.first, instancer);
                 }
             }
             else
@@ -283,7 +292,7 @@ namespace igor
 
                 if (!renderNodes.empty())
                 {
-                    iRenderer2::getInstance().setMaterial(material);
+                    iRenderer2::getInstance().setMaterial(materialGroup.getMaterial());
                 }
 
                 for (auto renderNode : renderNodes)

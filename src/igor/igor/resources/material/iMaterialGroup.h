@@ -57,6 +57,9 @@ namespace igor
     {
 
     public:
+
+        iMaterialGroup() = default;
+
         /*! sets material of group
         \param material the material to use
         */
@@ -69,6 +72,14 @@ namespace igor
         /*! \returns material of group
         */
         const iMaterialPtr &getMaterial() const;
+
+        /*! \returns true if material is instanced
+        */
+        bool isInstanced() const;
+
+        /*! \returns true if group has nodes
+        */
+        bool hasNodes() const;
 
         /*! clear node list
         */

@@ -26,6 +26,16 @@ namespace igor
         }
     }
 
+    bool iMaterialGroup::isInstanced() const
+    {
+        return _material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On;
+    }
+
+    bool iMaterialGroup::hasNodes() const
+    {
+        return !_renderNodes.empty() || !_instancedRenderNodes.empty();
+    }
+
     const iMaterialPtr &iMaterialGroup::getMaterial() const
     {
         return _material;
@@ -55,9 +65,7 @@ namespace igor
     {
         con_assert(_material != nullptr, "invalid material");
 
-        const bool instancing = _material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On;
-
-        if (instancing &&
+        if (isInstanced() &&
             iNodeType::iNodeMesh == renderNode->getType())
         {
             const auto meshBuffers = static_cast<iNodeMeshPtr>(renderNode)->getMeshBuffers();
