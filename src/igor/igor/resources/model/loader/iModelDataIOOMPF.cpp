@@ -404,7 +404,15 @@ namespace igor
     {
         con_assert_sticky(materialChunk != nullptr, "zero pointer");
 
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialChunk->getMaterialName());
+
+        // material already exists
+        if (material != nullptr)
+        {
+            return;
+        }
+
+        material = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
 
         _materialMapping[materialChunk->getID()] = material->getID();
         material->setOrder(materialChunk->getOrder());

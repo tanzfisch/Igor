@@ -78,6 +78,18 @@ namespace igor
         */
         void getMaterials(std::vector<iMaterialPtr> &materials);
 
+        /*! \return material for given name
+
+        \param name the given material name
+        */
+        iMaterialPtr getMaterial(const iaString &name);
+
+        /*! \returns material for given id
+        
+        \param uuid the given id
+        */
+        iMaterialPtr getMaterial(const iaUUID &uuid);
+
         /*! creates and returns a target material
 
         \returns pointer to new target material
@@ -104,11 +116,6 @@ namespace igor
         goes down to 1 then the material will be released.
         */
         void flush();        
-
-        /*! \returns material for given id
-        \param uuid the given id
-        */
-        iMaterialPtr getMaterial(const iaUUID &uuid);
 
     private:
 

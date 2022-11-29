@@ -269,7 +269,6 @@ namespace igor
                     texture->second.use_count() == 1 &&
                     texture->second->_cacheMode <= cacheModeLevel)
                 {
-                    // TODO iRenderer::getInstance().destroyTexture(texture->second->_textureID);
                     con_info("released texture \"" << (*texture).second->getFilename() << "\"");
                     texture = _textures.erase(texture);
                     continue;

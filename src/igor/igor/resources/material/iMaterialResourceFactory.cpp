@@ -35,9 +35,9 @@ namespace igor
         iMaterialPtr result;
 
         _mutexMaterial.lock();
-        for(auto pair : _materials)
+        for (auto pair : _materials)
         {
-            if(pair.second->getID() == uuid)
+            if (pair.second->getID() == uuid)
             {
                 result = pair.second;
                 break;
@@ -51,7 +51,26 @@ namespace igor
         }
 
         return result;
-    }    
+    }
+
+    iMaterialPtr iMaterialResourceFactory::getMaterial(const iaString &name)
+    {
+        iMaterialPtr result;
+
+        con_assert_sticky(!name.isEmpty(), "empty filename");
+
+        int64 hashValue = name.getHashValue();
+
+        _mutexMaterial.lock();
+        auto iter = _materials.find(hashValue);
+        if (iter != _materials.end())
+        {
+            result = iter->second;
+        }
+        _mutexMaterial.unlock();
+
+        return result;
+    }
 
     iMaterialPtr iMaterialResourceFactory::createMaterial(const iaString &name)
     {
