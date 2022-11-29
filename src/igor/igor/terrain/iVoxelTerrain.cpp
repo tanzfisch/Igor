@@ -27,7 +27,6 @@
 #include <igor/terrain/tasks/iTaskVoxelTerrain.h>
 #include <igor/terrain/operations/iVoxelOperationBox.h>
 #include <igor/terrain/operations/iVoxelOperationSphere.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iTargetMaterial.h>
 

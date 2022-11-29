@@ -6,9 +6,11 @@
 
 #include <igor/renderer/utils/iRendererUtils.h>
 
+#include <igor/simulation/iParticleSystem3D.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/renderer/iInstancer.h>
 
 #include <deque>
 
@@ -193,6 +195,31 @@ namespace igor
         uint32 _nextTextureIndex;
     };
 
+    /*! internal structure for handling a render target
+     */
+    struct iRendererTarget
+    {
+        /*! the render target type
+         */
+        iRenderTargetType _renderTargetType;
+
+        /*! frame buffer object id
+         */
+        uint32 _frameBufferObject = 0;
+
+        /*! color render buffer id
+         */
+        uint32 _colorBuffer = 0;
+
+        /*! if true render target has depth buffer
+         */
+        bool _hasDepth = false;
+
+        /*! depth render buffer id
+         */
+        uint32 _depthBuffer = 0;
+    };
+
     /*! render data set names
      */
     enum class iRenderDataSet
@@ -330,6 +357,14 @@ namespace igor
         iaRectanglei _viewport;
 
         iTexturePtr _fallbackTexture;
+
+        /*! current render target
+         */
+        uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
+
+        /*! map of render targets
+         */
+        std::map<uint32, iRendererTarget> _renderTargets;
 
         ////// stats ////
         iRenderer2::iRendererStats _stats;
@@ -2035,6 +2070,53 @@ namespace igor
         _data->_stats._triangles += meshBuffers->getTrianglesCount();
     }
 
+    void iRenderer2::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
+    {
+        iaMatrixd idMatrix;
+        setModelMatrix(idMatrix);
+
+        // TODO createBuffers(instancer); // TODO that's not a good place to initialize the buffer
+
+        writeShaderParameters();
+
+        glBindVertexArray(meshBuffers->getVertexArrayObject());
+
+        glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject());
+
+        glBufferSubData(GL_ARRAY_BUFFER, 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
+
+        glEnableVertexAttribArray(3);
+
+        glEnableVertexAttribArray(4);
+
+        glEnableVertexAttribArray(5);
+
+        glEnableVertexAttribArray(6);
+
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(0 * sizeof(float32)));
+
+        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(4 * sizeof(float32)));
+
+        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(8 * sizeof(float32)));
+
+        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(12 * sizeof(float32)));
+
+        glVertexAttribDivisor(3, 1);
+        glVertexAttribDivisor(4, 1);
+        glVertexAttribDivisor(5, 1);
+        glVertexAttribDivisor(6, 1);
+
+        glDrawElementsInstanced(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
+
+        glBindVertexArray(0);
+
+        // save stats
+        _data->_stats._drawCalls++;
+        // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
+        // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
+        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
+    }
+
     void iRenderer2::writeShaderParameters()
     {
         if (_data->_currentMaterial->hasDirectionalLight())
@@ -2211,5 +2293,360 @@ namespace igor
 
         meshBuffers->setReady();
     }
+
+    // TODO remove
+    void iRenderer2::destroyBuffer(uint32 bufferID)
+    {
+        if (glIsBuffer(bufferID))
+        {
+            glDeleteBuffers(1, (GLuint *)&bufferID);
+        }
+    }
+
+    void iRenderer2::setColorID(uint64 colorID)
+    {
+        /*if (!_currentMaterial->hasSolidColor())
+        {
+            return;
+        }
+
+        iaVector4f color(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
+                         static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
+                         static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
+                         1.0f);
+
+        _currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);*/
+    }
+
+    iRenderTargetID iRenderer2::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
+    {
+        iRenderTargetID result = DEFAULT_RENDER_TARGET;
+        GLenum glformat = iRendererUtils::convertType(format);
+        // con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
+
+        GLuint fbo;
+        GLuint colorRenderBuffer;
+        GLuint depthRenderBuffer;
+        glGenFramebuffers(1, &fbo);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+        glGenRenderbuffers(1, &colorRenderBuffer);
+
+        glBindRenderbuffer(GL_RENDERBUFFER, colorRenderBuffer);
+
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, width, height);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderBuffer);
+
+        if (useDepthBuffer)
+        {
+            glGenRenderbuffers(1, &depthRenderBuffer);
+            glBindRenderbuffer(GL_RENDERBUFFER, depthRenderBuffer);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthRenderBuffer);
+        }
+
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        {
+            con_err("unsupported frame buffer object configureation");
+
+            // clean up again
+            glDeleteRenderbuffers(1, &colorRenderBuffer);
+
+            if (useDepthBuffer)
+            {
+                glDeleteRenderbuffers(1, &depthRenderBuffer);
+            }
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+            glDeleteFramebuffers(1, &fbo);
+
+            // restore current render target
+            glBindFramebuffer(GL_FRAMEBUFFER, _data->_currentRenderTarget);
+
+            return DEFAULT_RENDER_TARGET;
+        }
+
+        // restore current render target
+        glBindFramebuffer(GL_FRAMEBUFFER, _data->_currentRenderTarget);
+
+        iRendererTarget renderTarget;
+        renderTarget._renderTargetType = renderTargetType;
+        renderTarget._frameBufferObject = fbo;
+        renderTarget._colorBuffer = colorRenderBuffer;
+        renderTarget._hasDepth = useDepthBuffer;
+        renderTarget._depthBuffer = depthRenderBuffer;
+
+        // id is handled by ogl so we don't have to check it
+        _data->_renderTargets[fbo] = renderTarget;
+
+        result = fbo;
+
+        return result;
+    }
+
+    void iRenderer2::destroyRenderTarget(iRenderTargetID id)
+    {
+        auto iter = _data->_renderTargets.find(id);
+        if (iter != _data->_renderTargets.end())
+        {
+            iRendererTarget renderTarget = (*iter).second;
+
+            glDeleteRenderbuffers(1, (GLuint *)&renderTarget._colorBuffer);
+
+            if (renderTarget._hasDepth)
+            {
+                glDeleteRenderbuffers(1, (GLuint *)&renderTarget._depthBuffer);
+            }
+
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+            glDeleteFramebuffers(1, (GLuint *)&renderTarget._frameBufferObject);
+
+            // restore current render target
+            glBindFramebuffer(GL_FRAMEBUFFER, _data->_currentRenderTarget);
+
+            _data->_renderTargets.erase(iter);
+        }
+        else
+        {
+            con_err("invalid render target id " << id);
+        }
+    }
+
+    void iRenderer2::setRenderTarget(iRenderTargetID id)
+    {
+        // the ID is also the frame buffer object ID
+        glBindFramebuffer(GL_FRAMEBUFFER, id);
+
+        _data->_currentRenderTarget = id;
+    }
+
+    iRenderTargetID iRenderer2::getRenderTarget() const
+    {
+        return _data->_currentRenderTarget;
+    }
+
+    void iRenderer2::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data)
+    {
+        GLenum glformat = iRendererUtils::convertType(format);
+        // con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
+
+        if (_data->_currentRenderTarget == DEFAULT_RENDER_TARGET)
+        {
+            glReadBuffer(GL_FRONT);
+        }
+        else
+        {
+            glReadBuffer(GL_COLOR_ATTACHMENT0);
+        }
+        glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data);
+    }
+
+    void iRenderer2::drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
+    {
+        iaVector3f right;
+        iaVector3f top(_data->_camMatrix._top._x, _data->_camMatrix._top._y, _data->_camMatrix._top._z);
+        iaVector3f depth(_data->_camMatrix._depth._x, _data->_camMatrix._depth._y, _data->_camMatrix._depth._z);
+        iaColor4f color;
+        float32 size;
+
+        iaVector3f rightScale;
+        iaVector3f topScale;
+        iaVector3f direction;
+
+        iaVector2f x(1, 0);
+        iaVector2f y;
+
+        glBegin(GL_QUADS);
+
+        for (auto particle : particles)
+        {
+            if (particle._visible)
+            {
+                size = particle._size * particle._sizeScale;
+
+                rainbow.getValue(particle._visibleTime, color);
+                glColor4fv(color.getData());
+
+                direction = particle._velocity;
+                direction.normalize();
+
+                right = direction % depth;
+                top = depth % right;
+
+                right *= size;
+                top *= size;
+
+                x.set(1, 0);
+                x.rotateXY(particle._orientation);
+                y._x = -x._y;
+                y._y = x._x;
+
+                rightScale = right * x._x + top * x._y;
+                topScale = right * y._x + top * y._y;
+
+                glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
+
+                glVertex3fv((particle._position - rightScale + topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._textureto._y);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 0 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 0 + particle._phase1[1]);
+
+                glVertex3fv((particle._position - rightScale - topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, particle._textureto._x, particle._textureto._y);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 0 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 0 + particle._phase1[1]);
+
+                glVertex3fv((particle._position + rightScale - topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, particle._textureto._x, particle._texturefrom._y);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 1 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
+
+                glVertex3fv((particle._position + rightScale + topScale).getData());
+            }
+        }
+
+        glEnd();
+
+        // save stats
+        _data->_stats._drawCalls++;
+        // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
+        // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
+        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
+    }
+
+    void iRenderer2::drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
+    {
+        iaVector4f camright;
+        camright.set(_data->_camMatrix._right._x, _data->_camMatrix._right._y, _data->_camMatrix._right._z, 0);
+
+        iaVector4f camtop;
+        camtop.set(_data->_camMatrix._top._x, _data->_camMatrix._top._y, _data->_camMatrix._top._z, 0);
+
+        iaMatrixf inv = _data->_modelMatrix.convert<float32>();
+        inv.invert();
+
+        iaVector4f rightPreComp = inv * camright;
+        iaVector4f topPreComp = inv * camtop;
+        iaVector3f right;
+        iaVector3f top;
+        iaColor4f color;
+        float32 size;
+
+        iaVector3f rightScale;
+        iaVector3f topScale;
+
+        iaVector2f x(1, 0);
+        iaVector2f y;
+
+        glBegin(GL_QUADS);
+
+        for (auto particle : particles)
+        {
+            if (particle._visible)
+            {
+                size = particle._size * particle._sizeScale;
+
+                right._x = rightPreComp._x;
+                right._y = rightPreComp._y;
+                right._z = rightPreComp._z;
+                right *= size;
+                top._x = topPreComp._x;
+                top._y = topPreComp._y;
+                top._z = topPreComp._z;
+                top *= size;
+
+                rainbow.getValue(particle._visibleTime, color);
+                glColor4fv(color.getData());
+
+                x.set(1, 0);
+                x.rotateXY(particle._orientation);
+                y._x = -x._y;
+                y._y = x._x;
+
+                rightScale = right * x._x + top * x._y;
+                topScale = right * y._x + top * y._y;
+
+                glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
+
+                glVertex3fv((particle._position - rightScale + topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._textureto._y);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 0 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 0 + particle._phase1[1]);
+
+                glVertex3fv((particle._position - rightScale - topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, particle._textureto._x, particle._textureto._y);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 0 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 0 + particle._phase1[1]);
+
+                glVertex3fv((particle._position + rightScale - topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, particle._textureto._x, particle._texturefrom._y);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 1 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
+
+                glVertex3fv((particle._position + rightScale + topScale).getData());
+            }
+        }
+
+        glEnd();
+
+        // save stats
+        _data->_stats._drawCalls++;
+        // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
+        // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
+        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
+    }
+
+    /* TODO
+    
+    float32 iRenderer::getWorldGridResolution() const
+    {
+        return _gridSize;
+    }
+
+    void iRenderer::setWorldGridResolution(float32 gridSize)
+    {
+        _gridSize = gridSize;
+    }
+        
+    void iRenderer::setViewMatrix(const iaMatrixd &viewMatrix, const iaMatrixd &camMatrix)
+    {
+        _worldOffset = camMatrix._pos;
+
+        if (_gridSize > 0.0)
+        {
+            _worldOffset /= static_cast<float64>(_gridSize);
+            _worldOffset._x = trunc(_worldOffset._x);
+            _worldOffset._y = trunc(_worldOffset._y);
+            _worldOffset._z = trunc(_worldOffset._z);
+            _worldOffset *= static_cast<float64>(_gridSize);
+        }
+
+        _camWorldMatrix = camMatrix;
+        _camWorldMatrix._pos -= _worldOffset;
+
+        iaMatrixd worldOffset;
+        worldOffset._pos = _worldOffset;
+
+        _viewMatrix = viewMatrix;
+        _viewMatrix *= worldOffset;
+
+        _modelViewMatrix = _viewMatrix;
+        _modelViewMatrix *= _modelMatrix;
+
+        glLoadMatrixd(_modelViewMatrix.getData());
+
+        _dirtyModelViewProjectionMatrix = true;
+    }
+    */
 
 }

@@ -19,7 +19,6 @@
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/system/iApplication.h>
 #include <igor/scene/iSceneFactory.h>
 #include <igor/scene/iScene.h>
@@ -742,29 +741,29 @@ void Ascent::handleHitList()
 void Ascent::onRenderOrtho()
 {
     iaMatrixd matrix;
-    iRenderer::getInstance().setViewMatrix(matrix);
+    // TODO iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(matrix);
+    // TODO iRenderer::getInstance().setModelMatrix(matrix);
     iRenderer2::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setFont(_font);
+    // TODO iRenderer::getInstance().setFont(_font);
 
     if (_loading)
     {
-        //iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-        // iRenderer::getInstance().drawFilledRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
+        //// TODO iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+        // // TODO iRenderer::getInstance().drawFilledRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
 
-        iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-        iRenderer::getInstance().setFontSize(40.0f);
-        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        // TODO iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+        // TODO iRenderer::getInstance().setFontSize(40.0f);
+        // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
         BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
-            iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
-            iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+            // TODO iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
+            // TODO iRenderer::getInstance().setFontSize(40.0f);
+            // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
         }
 
         Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
@@ -773,25 +772,25 @@ void Ascent::onRenderOrtho()
             iaString healthText = iaString::toString(player->getHealth(), 0);
             iaString shieldText = iaString::toString(player->getShield(), 0);
 
-            iRenderer::getInstance().setFontSize(15.0f);
-            iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.05, getWindow()->getClientHeight() * 0.05, healthText);
+            // TODO iRenderer::getInstance().setFontSize(15.0f);
+            // TODO iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+            // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.05, getWindow()->getClientHeight() * 0.05, healthText);
 
-            iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.10, getWindow()->getClientHeight() * 0.05, shieldText);
+            // TODO iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+            // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.10, getWindow()->getClientHeight() * 0.05, shieldText);
 
             player->drawReticle(getWindow());
         }
         else
         {
-            iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-            iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+            // TODO iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+            // TODO iRenderer::getInstance().setFontSize(40.0f);
+            // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
             _activeControls = false;
         }
     }
 
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    // TODO iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 }
 
 void Ascent::onEvent(iEvent &event)

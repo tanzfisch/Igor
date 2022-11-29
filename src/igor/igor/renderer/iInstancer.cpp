@@ -4,8 +4,6 @@
 
 #include <igor/renderer/iInstancer.h>
 
-#include <igor/renderer/iRenderer.h>
-
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
@@ -28,7 +26,7 @@ namespace igor
 
         if (_instanceArrayObject != 0)
         {
-            iRenderer::getInstance().destroyBuffer(_instanceArrayObject);
+            // TODO this needs to use iVertexArray iRenderer2::getInstance().destroyBuffer(_instanceArrayObject);
         }
     }
 

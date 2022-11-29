@@ -131,7 +131,6 @@ namespace igor
         iMouse::create();
         iKeyboard::create();
         iPhysics::create();
-        iRenderer::create();
         iRenderer2::create();
         iMaterialResourceFactory::create();
         iTextureResourceFactory::create();
@@ -184,11 +183,6 @@ namespace igor
         if (iTextureResourceFactory::isInstantiated())
         {
             iTextureResourceFactory::destroy();
-        }
-
-        if (iRenderer::isInstantiated())
-        {
-            iRenderer::destroy();
         }
 
         if (iRenderer2::isInstantiated())

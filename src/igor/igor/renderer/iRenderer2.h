@@ -46,10 +46,14 @@
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaVector2.h>
 
+#include <deque>
+
 namespace igor
 {
 
+    class iInstancer;
     class iRendererData;
+    class iParticle;
 
     /*! this will eventually replace iRenderer
 
@@ -242,6 +246,11 @@ namespace igor
         void drawTexturedBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
         void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial);
+        void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer);
+
+        void drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);
+        void drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);
+        /////////////// LIGHT ///////////
 
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
         void setLightAmbient(int32 lightnum, iaColor3f &ambient);
@@ -448,6 +457,56 @@ namespace igor
          */
         const iRendererStats &getStats() const;
 
+        /*! // TODO remove
+        \todo make more private again maybe we need a class to handle buffers
+        */
+        void destroyBuffer(uint32 bufferID);
+
+        // TODO
+        /*! sets color Id to render with
+
+        \param colorID next color ID to render with
+        */
+        void setColorID(uint64 colorID);
+
+        /*! creates a render target
+
+        \param width the width of the render target in pixel/texel
+        \param height the height of the render target in pixel/texel
+        \param format the color format of the render target
+        \param renderTargetType the render target type
+        \param useDepthBuffer if true render target is having a depth buffer
+        \returns id of render target
+        */
+        iRenderTargetID createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
+
+        /*! destroyes render target by id
+
+        \param id the given render target id
+        */
+        void destroyRenderTarget(iRenderTargetID id);
+
+        /*! sets the current render target by id
+
+        \param id the render target id to be set current
+        */
+        void setRenderTarget(iRenderTargetID id = DEFAULT_RENDER_TARGET);
+
+        /*! \returns id of current active render target
+         */
+        iRenderTargetID getRenderTarget() const;        
+
+        /*! reads rectangular area from screen buffer
+
+        \param x horizontal position in pixel
+        \parma y vertical position in pixel
+        \param width width in pixel
+        \param height height in pixel
+        \param format color format
+        \param data destination buffer to store the data in
+        */
+        void readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data);        
+
     private:
         /*! internal render data
          */
@@ -535,6 +594,7 @@ namespace igor
         \todo this is weired stuff we should do that differently
         */
         void initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers);        
+
     };
 
 }

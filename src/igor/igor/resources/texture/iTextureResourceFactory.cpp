@@ -3,7 +3,6 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iRenderer2.h>
 #include <igor/resources/iResourceManager.h>
 
@@ -190,12 +189,6 @@ namespace igor
 
         con_assert_sticky(!filename.isEmpty(), "empty filename");
 
-        if (!iRenderer::getInstance().isReady())
-        {
-            con_warn("renderer not ready to load textures yet. queued your request.");
-            requestFile(filename, cacheMode, buildMode, wrapMode);
-        }
-
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
         if (keyPath.isEmpty())
         {
@@ -276,7 +269,7 @@ namespace igor
                     texture->second.use_count() == 1 &&
                     texture->second->_cacheMode <= cacheModeLevel)
                 {
-                    iRenderer::getInstance().destroyTexture(texture->second->_textureID);
+                    // TODO iRenderer::getInstance().destroyTexture(texture->second->_textureID);
                     con_info("released texture \"" << (*texture).second->getFilename() << "\"");
                     texture = _textures.erase(texture);
                     continue;
@@ -292,16 +285,13 @@ namespace igor
 
         _mutex.unlock();
 
-        if (iRenderer::getInstance().isReady())
+        for (auto texture : texturesToProcess)
         {
-            for (auto texture : texturesToProcess)
-            {
-                loadTexture(texture);
+            loadTexture(texture);
 
-                if (_interrupLoading)
-                {
-                    break;
-                }
+            if (_interrupLoading)
+            {
+                break;
             }
         }
 

@@ -224,7 +224,7 @@ namespace igor
                 auto renderNodes = materialGroup.getRenderNodes();
                 for (auto renderNode : renderNodes)
                 {
-                    // iRenderer::getInstance().setColorID(renderNode->getID());
+                    iRenderer2::getInstance().setColorID(renderNode->getID());
                     renderNode->draw();
                 }
             }
@@ -282,8 +282,7 @@ namespace igor
                         continue;
                     }
 
-                    //iRenderer::getInstance().setTargetMaterial(pair.second._targetMaterial);
-                    //iRenderer::getInstance().drawMesh(pair.first, instancer);
+                    iRenderer2::getInstance().drawMesh(pair.first, pair.second._targetMaterial, instancer);
                 }
             }
             else

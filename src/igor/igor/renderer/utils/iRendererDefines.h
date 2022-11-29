@@ -34,13 +34,29 @@
 namespace igor
 {
 
-/*! definition of invalid buffer id
- */
-static constexpr const uint32 INVALID_BUFFER_ID = 0;
+    /*! definition of invalid buffer id
+     */
+    static constexpr const uint32 INVALID_BUFFER_ID = 0;
 
-/*! maximum texture units supported
- */
-static constexpr const int32 MAX_TEXTURE_UNITS = 8;
+    /*! maximum texture units supported
+     */
+    static constexpr const int32 MAX_TEXTURE_UNITS = 8;
+
+    /*! render target id definition
+     */
+    typedef uint32 iRenderTargetID;
+
+    /*! definition of render target types
+     */
+    enum class iRenderTargetType
+    {
+        ToTexture,
+        ToRenderBuffer
+    };
+
+    /*! the default render target ID
+     */
+    static const iRenderTargetID DEFAULT_RENDER_TARGET = 0;
 
 }
 

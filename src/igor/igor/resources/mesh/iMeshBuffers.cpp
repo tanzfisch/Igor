@@ -3,14 +3,13 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/mesh/iMeshBuffers.h>
-#include <igor/renderer/iRenderer.h>
 
 namespace igor
 {
 
     iMeshBuffers::~iMeshBuffers()
     {
-        if (_vertexBufferObject != INVALID_BUFFER_ID)
+        /*if (_vertexBufferObject != INVALID_BUFFER_ID)
         {
             iRenderer::getInstance().destroyBuffer(_vertexBufferObject);
         }
@@ -23,7 +22,7 @@ namespace igor
         if (_vertexArrayObject != INVALID_BUFFER_ID)
         {
             iRenderer::getInstance().destroyVertexArray(_vertexArrayObject);
-        }
+        }*/
     }
 
     void iMeshBuffers::setVertexArrayObject(uint32 vao)

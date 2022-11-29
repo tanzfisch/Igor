@@ -16,7 +16,6 @@
 #include <igor/physics/iPhysicsCollision.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iView.h>
 #include <igor/system/iWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
@@ -281,11 +280,11 @@ void Player::drawReticle(iWindowPtr window)
     float32 scale = 0.001 * window->getClientWidth();
 
     iRenderer2::getInstance().setMaterial(_materialSolid);
-    iRenderer::getInstance().setLineWidth(1 * scale);
+    // TODO iRenderer::getInstance().setLineWidth(1 * scale);
 
-    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-    iRenderer::getInstance().drawLine(weaponPos + iaVector3f(-10 * scale, 0, 0), weaponPos + iaVector3f(10 * scale, 0, 0));
-    iRenderer::getInstance().drawLine(weaponPos + iaVector3f(0, -10 * scale, 0), weaponPos + iaVector3f(0, 10 * scale, 0));
+    // TODO iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+    // TODO iRenderer::getInstance().drawLine(weaponPos + iaVector3f(-10 * scale, 0, 0), weaponPos + iaVector3f(10 * scale, 0, 0));
+    // TODO iRenderer::getInstance().drawLine(weaponPos + iaVector3f(0, -10 * scale, 0), weaponPos + iaVector3f(0, 10 * scale, 0));
 }
 
 void Player::handle()

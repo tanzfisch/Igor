@@ -5,7 +5,6 @@
 #include <igor/renderer/iView.h>
 
 #include <igor/system/iWindow.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iRenderer2.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/scene/iScene.h>
@@ -186,7 +185,6 @@ namespace igor
 
         if (_visible)
         {
-            iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
             iRenderer2::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 
             if (_clearColorActive)
@@ -201,14 +199,10 @@ namespace igor
 
             if (_perspective)
             {
-                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
-
                 iRenderer2::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
             }
             else
             {
-                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
-
                 iRenderer2::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
             }
 
@@ -235,31 +229,28 @@ namespace igor
         return colorIDs.front();
     }
 
-    // TODO use alpha channel for color ID as well
     void iView::pickcolorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs)
     {
-        // TODO check ranges
-
         if (_scene != nullptr &&
             getCurrentCamera() != iNode::INVALID_NODE_ID)
         {
             iRenderEngine renderEngine;
 
-            uint32 renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
-            iRenderer::getInstance().setRenderTarget(renderTarget);
+            uint32 renderTarget = iRenderer2::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
+            iRenderer2::getInstance().setRenderTarget(renderTarget);
 
-            iRenderer::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
+            iRenderer2::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
 
             iRenderer2::getInstance().clearColorBuffer(iaColor4f(0, 0, 0, 0));
             iRenderer2::getInstance().clearDepthBuffer();
 
             if (_perspective)
             {
-                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+                iRenderer2::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
             }
             else
             {
-                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+                iRenderer2::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
             }
 
             renderEngine.setScene(_scene);
@@ -271,10 +262,10 @@ namespace igor
 
             int32 pixelCount = rectangle._width * rectangle._height;
             uint8 *data = new uint8[pixelCount * 4];
-            iRenderer::getInstance().readPixels(rectangle._x, _viewport.getHeight() - rectangle._y, rectangle._width, rectangle._height, iColorFormat::RGBA, data);
+            iRenderer2::getInstance().readPixels(rectangle._x, _viewport.getHeight() - rectangle._y, rectangle._width, rectangle._height, iColorFormat::RGBA, data);
 
-            iRenderer::getInstance().setRenderTarget();
-            iRenderer::getInstance().destroyRenderTarget(renderTarget);
+            iRenderer2::getInstance().setRenderTarget();
+            iRenderer2::getInstance().destroyRenderTarget(renderTarget);
 
             uint8 *dataIter = data;
             for (int i = 0; i < pixelCount; ++i)

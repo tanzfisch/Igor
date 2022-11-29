@@ -10,7 +10,6 @@
 #include <igor/system/iMouse.h>
 #include <igor/system/iKeyboard.h>
 #include <igor/renderer/iView.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iRenderer2.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
@@ -1297,7 +1296,6 @@ namespace igor
         {
             iTaskManager::getInstance().createRenderContextThreads(this);
             iMaterialResourceFactory::getInstance().init();
-            iRenderer::getInstance().init();
             iRenderer2::getInstance().init();
             iTextureResourceFactory::getInstance().init();
             _impl->swapBuffers();
@@ -1315,10 +1313,6 @@ namespace igor
             con_warn("window was not opened");
         }
 
-        if (iRenderer::isInstantiated())
-        {
-            iRenderer::getInstance().deinit();
-        }
         if (iRenderer2::isInstantiated())
         {
             iRenderer2::getInstance().deinit();
