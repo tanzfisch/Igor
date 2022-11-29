@@ -160,51 +160,51 @@ void Example2D::onRenderOrtho()
 {
     // initialize view matrix with identity matrix
     iaMatrixd identity;
-    iRenderer2::getInstance().setViewMatrix(identity);
+    iRenderer::getInstance().setViewMatrix(identity);
 
     // since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
-    iRenderer2::getInstance().setModelMatrix(matrix);    
+    iRenderer::getInstance().setModelMatrix(matrix);    
 
     // draw some background
     const float32 width = getWindow()->getClientWidth();
     const float32 height = getWindow()->getClientHeight();
     iaVector2f tiling(width / _backgroundTexture->getWidth(),
                       height / _backgroundTexture->getHeight());
-    iRenderer2::getInstance().drawTexturedRectangle(0.0f, 0.0f, width, height, _backgroundTexture, iaColor4f::white, false, tiling);
+    iRenderer::getInstance().drawTexturedRectangle(0.0f, 0.0f, width, height, _backgroundTexture, iaColor4f::white, false, tiling);
 
-    iRenderer2::getInstance().drawFilledRectangle(10, 10, 200, 150, iaColor4f(0, 0, 0, 1));
-    iRenderer2::getInstance().drawFilledRectangle(220, 10, 200, 150, iaColor4f(0, 0, 0, 1));
+    iRenderer::getInstance().drawFilledRectangle(10, 10, 200, 150, iaColor4f(0, 0, 0, 1));
+    iRenderer::getInstance().drawFilledRectangle(220, 10, 200, 150, iaColor4f(0, 0, 0, 1));
 
-    iRenderer2::getInstance().setLineWidth(3);
+    iRenderer::getInstance().setLineWidth(3);
 
-    iRenderer2::getInstance().drawLine(20, 20, 200, 150, iaColor4f(1, 1, 0, 1));
-    iRenderer2::getInstance().drawLine(20, 150, 200, 20, iaColor4f(1, 1, 0, 1));
-    iRenderer2::getInstance().drawLine(110, 20, 110, 150, iaColor4f(1, 1, 0, 1));
-    iRenderer2::getInstance().drawLine(20, 85, 200, 85, iaColor4f(1, 1, 0, 1));
+    iRenderer::getInstance().drawLine(20, 20, 200, 150, iaColor4f(1, 1, 0, 1));
+    iRenderer::getInstance().drawLine(20, 150, 200, 20, iaColor4f(1, 1, 0, 1));
+    iRenderer::getInstance().drawLine(110, 20, 110, 150, iaColor4f(1, 1, 0, 1));
+    iRenderer::getInstance().drawLine(20, 85, 200, 85, iaColor4f(1, 1, 0, 1));
 
-    iRenderer2::getInstance().setLineWidth(1);
+    iRenderer::getInstance().setLineWidth(1);
 
     for (int x = 0; x < 10; ++x)
     {
         for (int y = 0; y < 7; ++y)
         {
             const float32 radius = _rand.getNextFloat() * 9.0f + 1.0f;
-            iRenderer2::getInstance().drawCircle(static_cast<float32>(230 + x * 20), static_cast<float32>(25 + y * 20), radius, 8, iaColor4f(1, 1, 0, 1));
+            iRenderer::getInstance().drawCircle(static_cast<float32>(230 + x * 20), static_cast<float32>(25 + y * 20), radius, 8, iaColor4f(1, 1, 0, 1));
         }
     }
 
-    iRenderer2::getInstance().drawFilledCircle(500, 400, 250, 5, iaColor4f::red);
-    iRenderer2::getInstance().drawFilledCircle(700, 500, 100, 8, iaColor4f(1.0,1.0,0.0,0.5));
-    iRenderer2::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
+    iRenderer::getInstance().drawFilledCircle(500, 400, 250, 5, iaColor4f::red);
+    iRenderer::getInstance().drawFilledCircle(700, 500, 100, 8, iaColor4f(1.0,1.0,0.0,0.5));
+    iRenderer::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
     // draw the texture that we could not have loaded at startup
-    iRenderer2::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture, iaColor4f::white, true);
+    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture, iaColor4f::white, true);
 
     // draw the particles
-    iRenderer2::getInstance().drawParticles(_particleSystem.getParticles(), _particleSystem.getParticleCount(), _particleTexture, _rainbow);
+    iRenderer::getInstance().drawParticles(_particleSystem.getParticles(), _particleSystem.getParticleCount(), _particleTexture, _rainbow);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "
@@ -212,19 +212,19 @@ void Example2D::onRenderOrtho()
                                "Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen "
                                "(zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren.\n\nWikipedia";
 
-    iRenderer2::getInstance().setFont(getFont());
-    iRenderer2::getInstance().setFontSize(15.0f);
-    iRenderer2::getInstance().drawString(350, 350, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
+    iRenderer::getInstance().setFont(getFont());
+    iRenderer::getInstance().setFontSize(15.0f);
+    iRenderer::getInstance().drawString(350, 350, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
 
     // draw spline
     std::vector<iaVector3f> points;
     _spline.getPoints(points, 200);
-    iRenderer2::getInstance().setLineWidth(5);
-    iRenderer2::getInstance().drawLineStrip(points, iaColor4f(1, 0, 0.5, 1));
+    iRenderer::getInstance().setLineWidth(5);
+    iRenderer::getInstance().drawLineStrip(points, iaColor4f(1, 0, 0.5, 1));
 
     // draw perlin noise based graph in the upper right corner
-    iRenderer2::getInstance().drawFilledRectangle(static_cast<float32>(getWindow()->getClientWidth() - 260), 10.0f, 250.0f, 150.0f, iaColor4f(0, 0, 0, 1));
-    iRenderer2::getInstance().setLineWidth(3);
+    iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getWindow()->getClientWidth() - 260), 10.0f, 250.0f, 150.0f, iaColor4f(0, 0, 0, 1));
+    iRenderer::getInstance().setLineWidth(3);
 
     // just to make that graph move a bit
     static float32 offset = 0.0f;
@@ -234,7 +234,7 @@ void Example2D::onRenderOrtho()
     for (int x = 1; x < 250; ++x)
     {
         float64 value = _perlinNoise.getValue((offset + x) * 0.01, 6) * 150;
-        iRenderer2::getInstance().drawLine(static_cast<float32>(getWindow()->getClientWidth() - 260 + x - 1),
+        iRenderer::getInstance().drawLine(static_cast<float32>(getWindow()->getClientWidth() - 260 + x - 1),
                                            static_cast<float32>(10 + lastValue),
                                            static_cast<float32>(getWindow()->getClientWidth() - 260 + x),
                                            static_cast<float32>(10 + value), iaColor4f(0, 1, 0, 1));
@@ -244,5 +244,5 @@ void Example2D::onRenderOrtho()
     ExampleBase::onRenderOrtho();
 
     // doughnuts <3
-    iRenderer2::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);    
+    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);    
 }

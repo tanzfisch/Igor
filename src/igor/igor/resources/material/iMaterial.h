@@ -55,7 +55,7 @@ namespace igor
     class IGOR_API iMaterial
     {
         friend class iRenderer;
-        friend class iRenderer2;
+        friend class iRenderer;
 
     public:
         /*! default render order value

@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
@@ -130,7 +130,7 @@ namespace igor
         _dummyTexture->_valid = true;
         _dummyTexture->_processed = true;
 
-        iRenderer2::getInstance().setFallbackTexture(_dummyTexture);
+        iRenderer::getInstance().setFallbackTexture(_dummyTexture);
 
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         _textures[hashValue] = _dummyTexture;

@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
 
@@ -367,7 +367,7 @@ namespace igor
         std::map<uint32, iRendererTarget> _renderTargets;
 
         ////// stats ////
-        iRenderer2::iRendererStats _stats;
+        iRenderer::iRendererStats _stats;
 
         //////// INFO ///////
         iaString _vendor;
@@ -376,17 +376,17 @@ namespace igor
         iaString _extensions;
     };
 
-    iRenderer2::iRenderer2()
+    iRenderer::iRenderer()
     {
         _data = std::make_unique<iRendererData>();
     }
 
-    iRenderer2::~iRenderer2()
+    iRenderer::~iRenderer()
     {
         deinit();
     }
 
-    void iRenderer2::init()
+    void iRenderer::init()
     {
         /////////// LINES //////////////
         auto &lines = _data->_lines;
@@ -536,7 +536,7 @@ namespace igor
                                      << "OpenGL Renderer: " << _data->_renderer);
     }
 
-    void iRenderer2::deinit()
+    void iRenderer::deinit()
     {
         con_info("deinit renderer");
 
@@ -588,16 +588,16 @@ namespace igor
         _data->_sharedQuadIndexData = nullptr;
     }
 
-    void iRenderer2::beginFrame()
+    void iRenderer::beginFrame()
     {
     }
 
-    void iRenderer2::endFrame()
+    void iRenderer::endFrame()
     {
         flush();
     }
 
-    void iRenderer2::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
+    void iRenderer::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         auto &texQuads = _data->_texQuads;
 
@@ -668,12 +668,12 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
     }
 
-    void iRenderer2::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
+    void iRenderer::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, color, blend, tiling);
     }
 
-    void iRenderer2::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
+    void iRenderer::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         drawTexturedQuad(matrix * QUAD_VERTEX_POSITIONS[0],
                          matrix * QUAD_VERTEX_POSITIONS[1],
@@ -682,7 +682,7 @@ namespace igor
                          texture, color, blend, tiling);
     }
 
-    __IGOR_INLINE__ int32 iRenderer2::beginTexturedQuad(const iTexturePtr &texture)
+    __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
     {
         auto &texQuads = _data->_texQuads;
 
@@ -721,7 +721,7 @@ namespace igor
         return textureIndex;
     }
 
-    __IGOR_INLINE__ void iRenderer2::endTexturedQuad()
+    __IGOR_INLINE__ void iRenderer::endTexturedQuad()
     {
         auto &texQuads = _data->_texQuads;
         texQuads._vertexCount += 4;
@@ -730,7 +730,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
     }
 
-    void iRenderer2::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
+    void iRenderer::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         const int32 textureIndex = beginTexturedQuad(texture);
 
@@ -767,7 +767,7 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer2::drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+    void iRenderer::drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
     {
         const int32 textureIndex = beginTexturedQuad(atlas->getTexture());
 
@@ -806,15 +806,15 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer2::drawPoint(float32 x, float32 y, const iaColor4f &color)
+    void iRenderer::drawPoint(float32 x, float32 y, const iaColor4f &color)
     {
         drawPoint(iaVector3f(x, y, 0.0), color);
     }
-    void iRenderer2::drawPoint(const iaVector2f &v, const iaColor4f &color)
+    void iRenderer::drawPoint(const iaVector2f &v, const iaColor4f &color)
     {
         drawPoint(iaVector3f(v._x, v._y, 0.0), color);
     }
-    void iRenderer2::drawPoint(const iaVector3f &v, const iaColor4f &color)
+    void iRenderer::drawPoint(const iaVector3f &v, const iaColor4f &color)
     {
         auto &points = _data->_points;
 
@@ -839,7 +839,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Points;
     }
 
-    void iRenderer2::drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color)
+    void iRenderer::drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color)
     {
         iaVector3f v0(x, y, 0.0);
         iaVector3f v1(x, y + height, 0.0);
@@ -852,12 +852,12 @@ namespace igor
         drawLine(v3, v0, color);
     }
 
-    void iRenderer2::drawRectangle(const iaRectanglef &rect, const iaColor4f &color)
+    void iRenderer::drawRectangle(const iaRectanglef &rect, const iaColor4f &color)
     {
         drawRectangle(rect._x, rect._y, rect._width, rect._height, color);
     }
 
-    void iRenderer2::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color)
+    void iRenderer::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color)
     {
         auto &quads = _data->_quads;
 
@@ -895,12 +895,12 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Quads;
     }
 
-    void iRenderer2::drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color)
+    void iRenderer::drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color)
     {
         drawFilledRectangle(rect._x, rect._y, rect._width, rect._height, color);
     }
 
-    void iRenderer2::drawQuad(const iaMatrixf &matrix, const iaColor4f &color)
+    void iRenderer::drawQuad(const iaMatrixf &matrix, const iaColor4f &color)
     {
         drawQuad(matrix * QUAD_VERTEX_POSITIONS[0],
                  matrix * QUAD_VERTEX_POSITIONS[1],
@@ -909,7 +909,7 @@ namespace igor
                  color);
     }
 
-    void iRenderer2::drawQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color)
+    void iRenderer::drawQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color)
     {
         auto &quads = _data->_quads;
 
@@ -947,17 +947,17 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Quads;
     }
 
-    void iRenderer2::drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color)
+    void iRenderer::drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color)
     {
         drawLine(iaVector3f(x1, y1, 0.0), iaVector3f(x2, y2, 0.0), color);
     }
 
-    void iRenderer2::drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color)
+    void iRenderer::drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color)
     {
         drawLine(iaVector3f(v1._x, v1._y, 0.0), iaVector3f(v2._x, v2._y, 0.0), color);
     }
 
-    void iRenderer2::drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color)
+    void iRenderer::drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color)
     {
         if (points.size() <= 1)
         {
@@ -970,7 +970,7 @@ namespace igor
         }
     }
 
-    void iRenderer2::drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color)
+    void iRenderer::drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color)
     {
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Lines)
         {
@@ -999,7 +999,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Lines;
     }
 
-    void iRenderer2::flushTexQuads()
+    void iRenderer::flushTexQuads()
     {
         auto &texQuads = _data->_texQuads;
 
@@ -1042,7 +1042,7 @@ namespace igor
         texQuads._nextTextureIndex = 0;
     }
 
-    void iRenderer2::flushTriangles()
+    void iRenderer::flushTriangles()
     {
         auto &triangles = _data->_triangles;
 
@@ -1082,7 +1082,7 @@ namespace igor
         triangles._indexDataPtr = triangles._indexData;
     }
 
-    void iRenderer2::flushQuads()
+    void iRenderer::flushQuads()
     {
         auto &quads = _data->_quads;
 
@@ -1119,7 +1119,7 @@ namespace igor
         quads._vertexDataPtr = quads._vertexData;
     }
 
-    void iRenderer2::flushLines()
+    void iRenderer::flushLines()
     {
         auto &lines = _data->_lines;
 
@@ -1153,7 +1153,7 @@ namespace igor
         lines._vertexDataPtr = lines._vertexData;
     }
 
-    void iRenderer2::flushPoints()
+    void iRenderer::flushPoints()
     {
         auto &points = _data->_points;
 
@@ -1187,7 +1187,7 @@ namespace igor
         points._vertexDataPtr = points._vertexData;
     }
 
-    void iRenderer2::flush()
+    void iRenderer::flush()
     {
         flushTexQuads();
         flushQuads();
@@ -1198,7 +1198,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
     }
 
-    void iRenderer2::flushLastUsed()
+    void iRenderer::flushLastUsed()
     {
         switch (_data->_lastRenderDataSetUsed)
         {
@@ -1226,18 +1226,18 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
     }
 
-    void iRenderer2::setIgnoreRenderOrder(bool ignoreRenderOrder)
+    void iRenderer::setIgnoreRenderOrder(bool ignoreRenderOrder)
     {
         _data->_keepRenderOrder = !ignoreRenderOrder;
         flush();
     }
 
-    bool iRenderer2::isIgnoringRenderOrder()
+    bool iRenderer::isIgnoringRenderOrder()
     {
         return !_data->_keepRenderOrder;
     }
 
-    void iRenderer2::setLineWidth(float32 lineWidth)
+    void iRenderer::setLineWidth(float32 lineWidth)
     {
         if (_data->_lineWidth == lineWidth)
         {
@@ -1250,12 +1250,12 @@ namespace igor
         glLineWidth(_data->_lineWidth);
     }
 
-    float32 iRenderer2::getLineWidth() const
+    float32 iRenderer::getLineWidth() const
     {
         return _data->_lineWidth;
     }
 
-    void iRenderer2::setPointSize(float32 pointSize)
+    void iRenderer::setPointSize(float32 pointSize)
     {
         if (_data->_pointSize == pointSize)
         {
@@ -1268,18 +1268,18 @@ namespace igor
         glPointSize(_data->_pointSize);
     }
 
-    float32 iRenderer2::getPointSize() const
+    float32 iRenderer::getPointSize() const
     {
         return _data->_pointSize;
     }
 
-    void iRenderer2::updateMatrices()
+    void iRenderer::updateMatrices()
     {
         _data->_modelViewMatrix = _data->_viewMatrix * _data->_modelMatrix;
         _data->_modelViewProjectionMatrix = _data->_projectionMatrix * _data->_modelViewMatrix;
     }
 
-    void iRenderer2::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
+    void iRenderer::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
     {
         iaMatrixd matrix;
         matrix.ortho(left, right, bottom, top, nearplain, farplain);
@@ -1294,7 +1294,7 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer2::setPerspective(float32 fov, float32 aspect, float32 nearplain, float32 farplain)
+    void iRenderer::setPerspective(float32 fov, float32 aspect, float32 nearplain, float32 farplain)
     {
         iaMatrixd matrix;
         matrix.perspective(fov, aspect, nearplain, farplain);
@@ -1309,7 +1309,7 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer2::setProjectionMatrix(const iaMatrixd &matrix)
+    void iRenderer::setProjectionMatrix(const iaMatrixd &matrix)
     {
         if (_data->_projectionMatrix == matrix)
         {
@@ -1322,7 +1322,7 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer2::setModelMatrix(const iaMatrixd &matrix)
+    void iRenderer::setModelMatrix(const iaMatrixd &matrix)
     {
         if (_data->_modelMatrix == matrix)
         {
@@ -1335,7 +1335,7 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer2::setViewMatrix(const iaMatrixd &matrix)
+    void iRenderer::setViewMatrix(const iaMatrixd &matrix)
     {
         if (_data->_viewMatrix == matrix)
         {
@@ -1348,7 +1348,7 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer2::setViewMatrixFromCam(const iaMatrixd &camMatrix)
+    void iRenderer::setViewMatrixFromCam(const iaMatrixd &camMatrix)
     {
         _data->_camMatrix = camMatrix;
 
@@ -1358,37 +1358,37 @@ namespace igor
         setViewMatrix(camViewMatrix);
     }
 
-    const iaMatrixd &iRenderer2::getModelMatrix() const
+    const iaMatrixd &iRenderer::getModelMatrix() const
     {
         return _data->_modelMatrix;
     }
 
-    const iaMatrixd &iRenderer2::getCamMatrix() const
+    const iaMatrixd &iRenderer::getCamMatrix() const
     {
         return _data->_camMatrix;
     }
 
-    const iaMatrixd &iRenderer2::getViewMatrix() const
+    const iaMatrixd &iRenderer::getViewMatrix() const
     {
         return _data->_viewMatrix;
     }
 
-    const iaMatrixd &iRenderer2::getProjectionMatrix() const
+    const iaMatrixd &iRenderer::getProjectionMatrix() const
     {
         return _data->_projectionMatrix;
     }
 
-    const iaMatrixd &iRenderer2::getModelViewMatrix() const
+    const iaMatrixd &iRenderer::getModelViewMatrix() const
     {
         return _data->_modelViewMatrix;
     }
 
-    const iaMatrixd &iRenderer2::getModelViewProjectionMatrix() const
+    const iaMatrixd &iRenderer::getModelViewProjectionMatrix() const
     {
         return _data->_modelViewProjectionMatrix;
     }
 
-    const iaMatrixf iRenderer2::getMVP() const
+    const iaMatrixf iRenderer::getMVP() const
     {
         iaMatrixf matrix;
         for (int i = 0; i < 16; ++i)
@@ -1399,7 +1399,7 @@ namespace igor
         return matrix;
     }
 
-    void iRenderer2::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
+    void iRenderer::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
     {
         con_assert(particles != nullptr, "zero pointer");
 
@@ -1456,7 +1456,7 @@ namespace igor
         }
     }
 
-    void iRenderer2::drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color, float32 maxWidth)
+    void iRenderer::drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color, float32 maxWidth)
     {
         con_assert(horz == iHorizontalAlignment::Left || horz == iHorizontalAlignment::Right || horz == iHorizontalAlignment::Center, "invalid parameters");
         con_assert(vert == iVerticalAlignment::Top || vert == iVerticalAlignment::Bottom || vert == iVerticalAlignment::Center, "invalid parameters");
@@ -1510,7 +1510,7 @@ namespace igor
         drawString(posx, posy, text, color, maxWidth);
     }
 
-    void iRenderer2::drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color, float32 maxWidth)
+    void iRenderer::drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color, float32 maxWidth)
     {
         if (text.isEmpty())
         {
@@ -1614,44 +1614,44 @@ namespace igor
         }
     }
 
-    void iRenderer2::setFont(const iTextureFontPtr &font)
+    void iRenderer::setFont(const iTextureFontPtr &font)
     {
         con_assert(font->isValid(), "invalid font used");
 
         _data->_font = font;
     }
 
-    const iTextureFontPtr &iRenderer2::getFont() const
+    const iTextureFontPtr &iRenderer::getFont() const
     {
         return _data->_font;
     }
 
-    void iRenderer2::setFontSize(float32 fontSize)
+    void iRenderer::setFontSize(float32 fontSize)
     {
         _data->_fontSize = fontSize;
     }
 
-    float32 iRenderer2::getFontSize() const
+    float32 iRenderer::getFontSize() const
     {
         return _data->_fontSize;
     }
 
-    void iRenderer2::setFontLineHeight(float32 lineheight)
+    void iRenderer::setFontLineHeight(float32 lineheight)
     {
         _data->_fontLineHeight = lineheight;
     }
 
-    float32 iRenderer2::getFontLineHeight() const
+    float32 iRenderer::getFontLineHeight() const
     {
         return _data->_fontLineHeight;
     }
 
-    const iRenderer2::iRendererStats &iRenderer2::getStats() const
+    const iRenderer::iRendererStats &iRenderer::getStats() const
     {
         return _data->_stats;
     }
 
-    void iRenderer2::clearStats()
+    void iRenderer::clearStats()
     {
         // con_endl("_data->_stats._drawCalls " << _data->_stats._drawCalls);
 
@@ -1661,12 +1661,12 @@ namespace igor
         _data->_stats._triangles = 0;
     }
 
-    const iaRectanglei &iRenderer2::getViewport() const
+    const iaRectanglei &iRenderer::getViewport() const
     {
         return _data->_viewport;
     }
 
-    void iRenderer2::setViewport(const iaRectanglei &viewport)
+    void iRenderer::setViewport(const iaRectanglei &viewport)
     {
         if (_data->_viewport == viewport)
         {
@@ -1679,30 +1679,30 @@ namespace igor
         glViewport(viewport._x, viewport._y, viewport._width, viewport._height);
     }
 
-    void iRenderer2::setViewport(int32 x, int32 y, int32 width, int32 height)
+    void iRenderer::setViewport(int32 x, int32 y, int32 width, int32 height)
     {
         setViewport(iaRectanglei(x, y, width, height));
     }
 
-    void iRenderer2::clearColorBuffer(const iaColor4f &color)
+    void iRenderer::clearColorBuffer(const iaColor4f &color)
     {
         glClearColor(color._r, color._g, color._b, color._a);
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-    void iRenderer2::clearDepthBuffer(float32 depth)
+    void iRenderer::clearDepthBuffer(float32 depth)
     {
         glClearDepth(depth);
         glClear(GL_DEPTH_BUFFER_BIT);
     }
 
-    void iRenderer2::clearStencilBuffer(int32 index)
+    void iRenderer::clearStencilBuffer(int32 index)
     {
         glClearStencil(index);
         glClear(GL_STENCIL_BUFFER_BIT);
     }
 
-    const iaVector3d iRenderer2::project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport) const
+    const iaVector3d iRenderer::project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport) const
     {
         iaVector4d in(objectSpacePos._x, objectSpacePos._y, objectSpacePos._z, 1);
         iaVector4d out;
@@ -1722,7 +1722,7 @@ namespace igor
         return result;
     }
 
-    const iaVector3d iRenderer2::unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport) const
+    const iaVector3d iRenderer::unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport) const
     {
         iaVector4d in;
         iaVector4d out;
@@ -1750,25 +1750,25 @@ namespace igor
         return result;
     }
 
-    static GLenum getOGLEnum(iRenderer2::iStencilFunction value)
+    static GLenum getOGLEnum(iRenderer::iStencilFunction value)
     {
         switch (value)
         {
-        case iRenderer2::iStencilFunction::Never:
+        case iRenderer::iStencilFunction::Never:
             return GL_NEVER;
-        case iRenderer2::iStencilFunction::Less:
+        case iRenderer::iStencilFunction::Less:
             return GL_LESS;
-        case iRenderer2::iStencilFunction::LessOrEqual:
+        case iRenderer::iStencilFunction::LessOrEqual:
             return GL_LEQUAL;
-        case iRenderer2::iStencilFunction::Greater:
+        case iRenderer::iStencilFunction::Greater:
             return GL_GREATER;
-        case iRenderer2::iStencilFunction::GreaterOrEqual:
+        case iRenderer::iStencilFunction::GreaterOrEqual:
             return GL_GEQUAL;
-        case iRenderer2::iStencilFunction::Equal:
+        case iRenderer::iStencilFunction::Equal:
             return GL_EQUAL;
-        case iRenderer2::iStencilFunction::NotEqual:
+        case iRenderer::iStencilFunction::NotEqual:
             return GL_NOTEQUAL;
-        case iRenderer2::iStencilFunction::Always:
+        case iRenderer::iStencilFunction::Always:
             return GL_ALWAYS;
         };
 
@@ -1776,26 +1776,26 @@ namespace igor
         return GL_NONE;
     }
 
-    void iRenderer2::setStencilFunction(iStencilFunction function, int32 ref, uint32 mask)
+    void iRenderer::setStencilFunction(iStencilFunction function, int32 ref, uint32 mask)
     {
         glStencilFunc(getOGLEnum(function), ref, mask);
     }
 
-    static GLenum getOGLEnum(iRenderer2::iStencilOperation value)
+    static GLenum getOGLEnum(iRenderer::iStencilOperation value)
     {
         switch (value)
         {
-        case iRenderer2::iStencilOperation::Zero:
+        case iRenderer::iStencilOperation::Zero:
             return GL_ZERO;
-        case iRenderer2::iStencilOperation::Keep:
+        case iRenderer::iStencilOperation::Keep:
             return GL_KEEP;
-        case iRenderer2::iStencilOperation::Replace:
+        case iRenderer::iStencilOperation::Replace:
             return GL_REPLACE;
-        case iRenderer2::iStencilOperation::Increment:
+        case iRenderer::iStencilOperation::Increment:
             return GL_INCR;
-        case iRenderer2::iStencilOperation::Decrement:
+        case iRenderer::iStencilOperation::Decrement:
             return GL_DECR;
-        case iRenderer2::iStencilOperation::Invert:
+        case iRenderer::iStencilOperation::Invert:
             return GL_INVERT;
         }
 
@@ -1803,12 +1803,12 @@ namespace igor
         return GL_ZERO;
     }
 
-    void iRenderer2::setStencilOperation(iStencilOperation fail, iStencilOperation zfail, iStencilOperation zpass)
+    void iRenderer::setStencilOperation(iStencilOperation fail, iStencilOperation zfail, iStencilOperation zpass)
     {
         glStencilOp(getOGLEnum(fail), getOGLEnum(zfail), getOGLEnum(zpass));
     }
 
-    void iRenderer2::setStencilTestActive(bool enable)
+    void iRenderer::setStencilTestActive(bool enable)
     {
         if (enable)
         {
@@ -1820,12 +1820,12 @@ namespace igor
         }
     }
 
-    void iRenderer2::setStencilMask(uint8 mask)
+    void iRenderer::setStencilMask(uint8 mask)
     {
         glStencilMask(mask);
     }
 
-    void iRenderer2::setMaterial(const iMaterialPtr &material)
+    void iRenderer::setMaterial(const iMaterialPtr &material)
     {
         if (_data->_currentMaterial == material)
         {
@@ -1836,33 +1836,33 @@ namespace igor
         _data->_currentMaterial = material;
     }
 
-    const iMaterialPtr &iRenderer2::getMaterial() const
+    const iMaterialPtr &iRenderer::getMaterial() const
     {
         return _data->_currentMaterial;
     }
 
-    void iRenderer2::drawBox(const iAACubed &box, const iaColor4f &color)
+    void iRenderer::drawBox(const iAACubed &box, const iaColor4f &color)
     {
         drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
                         iaVector3f(box._halfEdgeLength, box._halfEdgeLength, box._halfEdgeLength)),
                 color);
     }
 
-    void iRenderer2::drawBox(const iAACubef &box, const iaColor4f &color)
+    void iRenderer::drawBox(const iAACubef &box, const iaColor4f &color)
     {
         drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
                         iaVector3f(box._halfEdgeLength, box._halfEdgeLength, box._halfEdgeLength)),
                 color);
     }
 
-    void iRenderer2::drawBox(const iAABoxd &box, const iaColor4f &color)
+    void iRenderer::drawBox(const iAABoxd &box, const iaColor4f &color)
     {
         drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
                         iaVector3f(box._halfWidths._x, box._halfWidths._y, box._halfWidths._z)),
                 color);
     }
 
-    void iRenderer2::drawBox(const iAABoxf &box, const iaColor4f &color)
+    void iRenderer::drawBox(const iAABoxf &box, const iaColor4f &color)
     {
         iaVector3f a = box._center;
         a -= box._halfWidths;
@@ -1906,7 +1906,7 @@ namespace igor
                  iaVector3f(b._x, b._y, b._z), color);
     }
 
-    void iRenderer2::drawCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
+    void iRenderer::drawCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
     {
         const float32 step = 2 * M_PI / static_cast<float32>(segments);
         float32 angleA = 0;
@@ -1921,7 +1921,7 @@ namespace igor
         }
     }
 
-    void iRenderer2::drawFilledCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
+    void iRenderer::drawFilledCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
     {
         beginTriangles();
 
@@ -1973,7 +1973,7 @@ namespace igor
         endTriangles();
     }
 
-    __IGOR_INLINE__ void iRenderer2::beginTriangles()
+    __IGOR_INLINE__ void iRenderer::beginTriangles()
     {
         auto &triangles = _data->_triangles;
 
@@ -1988,12 +1988,12 @@ namespace igor
         }
     }
 
-    __IGOR_INLINE__ void iRenderer2::endTriangles()
+    __IGOR_INLINE__ void iRenderer::endTriangles()
     {
         _data->_lastRenderDataSetUsed = iRenderDataSet::Triangles;
     }
 
-    void iRenderer2::drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color)
+    void iRenderer::drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color)
     {
         drawQuad(o + v + u,
                  o - v + u,
@@ -2002,7 +2002,7 @@ namespace igor
                  color);
     }
 
-    void iRenderer2::drawTexturedBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color, const iaVector2f &tiling)
+    void iRenderer::drawTexturedBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color, const iaVector2f &tiling)
     {
         const int32 textureIndex = beginTexturedQuad(texture);
 
@@ -2037,12 +2037,12 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer2::setFallbackTexture(const iTexturePtr &texture)
+    void iRenderer::setFallbackTexture(const iTexturePtr &texture)
     {
         _data->_fallbackTexture = texture;
     }
 
-    void iRenderer2::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial)
+    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial)
     {
         flush();
 
@@ -2070,7 +2070,7 @@ namespace igor
         _data->_stats._triangles += meshBuffers->getTrianglesCount();
     }
 
-    void iRenderer2::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
+    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
     {
         iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
@@ -2117,7 +2117,7 @@ namespace igor
         // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
     }
 
-    void iRenderer2::writeShaderParameters()
+    void iRenderer::writeShaderParameters()
     {
         if (_data->_currentMaterial->hasDirectionalLight())
         {
@@ -2154,28 +2154,28 @@ namespace igor
         }
     }
 
-    void iRenderer2::setLightPosition(int32 lightnum, const iaVector3d &pos)
+    void iRenderer::setLightPosition(int32 lightnum, const iaVector3d &pos)
     {
         _data->_lights[lightnum]._position.set(pos._x, pos._y, pos._z);
     }
 
-    void iRenderer2::setLightAmbient(int32 lightnum, iaColor3f &ambient)
+    void iRenderer::setLightAmbient(int32 lightnum, iaColor3f &ambient)
     {
         _data->_lights[lightnum]._ambient = ambient;
     }
 
-    void iRenderer2::setLightDiffuse(int32 lightnum, iaColor3f &diffuse)
+    void iRenderer::setLightDiffuse(int32 lightnum, iaColor3f &diffuse)
     {
         _data->_lights[lightnum]._diffuse = diffuse;
     }
 
-    void iRenderer2::setLightSpecular(int32 lightnum, iaColor3f &specular)
+    void iRenderer::setLightSpecular(int32 lightnum, iaColor3f &specular)
     {
         _data->_lights[lightnum]._specular = specular;
     }
 
     // TODO I don't like this
-    iMeshBuffersPtr iRenderer2::createBuffersAsync(iMeshPtr mesh)
+    iMeshBuffersPtr iRenderer::createBuffersAsync(iMeshPtr mesh)
     {
         iMeshBuffers *meshBuffer = new iMeshBuffers();
 
@@ -2188,7 +2188,7 @@ namespace igor
         return result;
     }
 
-    void iRenderer2::createBuffers(float64 timeLimit)
+    void iRenderer::createBuffers(float64 timeLimit)
     {
         iaTime endTime = iaTime::getNow();
         endTime += iaTime::fromMilliseconds(timeLimit);
@@ -2228,7 +2228,7 @@ namespace igor
         }
     }
 
-    void iRenderer2::initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers)
+    void iRenderer::initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers)
     {
         uint32 vao = 0;
         uint32 ibo = 0;
@@ -2295,7 +2295,7 @@ namespace igor
     }
 
     // TODO remove
-    void iRenderer2::destroyBuffer(uint32 bufferID)
+    void iRenderer::destroyBuffer(uint32 bufferID)
     {
         if (glIsBuffer(bufferID))
         {
@@ -2303,7 +2303,7 @@ namespace igor
         }
     }
 
-    void iRenderer2::setColorID(uint64 colorID)
+    void iRenderer::setColorID(uint64 colorID)
     {
         /*if (!_currentMaterial->hasSolidColor())
         {
@@ -2318,11 +2318,10 @@ namespace igor
         _currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);*/
     }
 
-    iRenderTargetID iRenderer2::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
+    iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
     {
         iRenderTargetID result = DEFAULT_RENDER_TARGET;
         GLenum glformat = iRendererUtils::convertType(format);
-        // con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
 
         GLuint fbo;
         GLuint colorRenderBuffer;
@@ -2384,7 +2383,7 @@ namespace igor
         return result;
     }
 
-    void iRenderer2::destroyRenderTarget(iRenderTargetID id)
+    void iRenderer::destroyRenderTarget(iRenderTargetID id)
     {
         auto iter = _data->_renderTargets.find(id);
         if (iter != _data->_renderTargets.end())
@@ -2412,7 +2411,7 @@ namespace igor
         }
     }
 
-    void iRenderer2::setRenderTarget(iRenderTargetID id)
+    void iRenderer::setRenderTarget(iRenderTargetID id)
     {
         // the ID is also the frame buffer object ID
         glBindFramebuffer(GL_FRAMEBUFFER, id);
@@ -2420,15 +2419,14 @@ namespace igor
         _data->_currentRenderTarget = id;
     }
 
-    iRenderTargetID iRenderer2::getRenderTarget() const
+    iRenderTargetID iRenderer::getRenderTarget() const
     {
         return _data->_currentRenderTarget;
     }
 
-    void iRenderer2::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data)
+    void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data)
     {
         GLenum glformat = iRendererUtils::convertType(format);
-        // con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
 
         if (_data->_currentRenderTarget == DEFAULT_RENDER_TARGET)
         {
@@ -2441,7 +2439,7 @@ namespace igor
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data);
     }
 
-    void iRenderer2::drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
+    void iRenderer::drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
     {
         iaVector3f right;
         iaVector3f top(_data->_camMatrix._top._x, _data->_camMatrix._top._y, _data->_camMatrix._top._z);
@@ -2519,7 +2517,7 @@ namespace igor
         // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
     }
 
-    void iRenderer2::drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
+    void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
     {
         iaVector4f camright;
         camright.set(_data->_camMatrix._right._x, _data->_camMatrix._right._y, _data->_camMatrix._right._z, 0);

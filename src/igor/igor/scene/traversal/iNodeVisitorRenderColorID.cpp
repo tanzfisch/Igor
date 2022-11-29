@@ -6,7 +6,7 @@
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeVolume.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
@@ -25,7 +25,7 @@ namespace igor
             iaMatrixd matrix;
             transform->getMatrix(matrix);
             _currentMatrix *= matrix;
-            iRenderer2::getInstance().setModelMatrix(_currentMatrix);
+            iRenderer::getInstance().setModelMatrix(_currentMatrix);
         }
 
         if (iNodeKind::Renderable == node->getKind())
@@ -45,14 +45,14 @@ namespace igor
             _currentMatrix = _matrixStack.back();
             _matrixStack.pop_back();
 
-            iRenderer2::getInstance().setModelMatrix(_currentMatrix);
+            iRenderer::getInstance().setModelMatrix(_currentMatrix);
         }
     }
 
     void iNodeVisitorRenderColorID::preTraverse()
     {
         _currentMatrix.identity();
-        iRenderer2::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
+        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
     }
 
     void iNodeVisitorRenderColorID::postTraverse()

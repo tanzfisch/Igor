@@ -9,7 +9,7 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/data/iIntersection.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
@@ -647,8 +647,8 @@ namespace igor
         // render scrollbars
         if (_vscrollActive && _hscrollActive) // hv scrollbars
         {
-            iRenderer2::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4), dark);
-            iRenderer2::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth), dark);
+            iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4), dark);
+            iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth), dark);
 
             // left button
             iWidgetManager::getInstance().getTheme()->drawButton(_leftButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _leftTexture, _leftButton._appearanceState, isActive());
@@ -670,7 +670,7 @@ namespace igor
         }
         else if (_hscrollActive) // h scrollbar
         {
-            iRenderer2::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth), dark);
+            iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth), dark);
 
             // left button
             iWidgetManager::getInstance().getTheme()->drawButton(_leftButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _leftTexture, _leftButton._appearanceState, isActive());
@@ -683,7 +683,7 @@ namespace igor
         }
         else if (_vscrollActive) // v scrollbar
         {
-            iRenderer2::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4), dark);
+            iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4), dark);
 
             // up button
             iWidgetManager::getInstance().getTheme()->drawButton(_upButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _upTexture, _upButton._appearanceState, isActive());
@@ -701,27 +701,27 @@ namespace igor
         // do some clipping using the viewport
 
         // store current situation
-        const iaRectanglei viewport = iRenderer2::getInstance().getViewport();
-        const iaMatrixd projectionMatrix = iRenderer2::getInstance().getProjectionMatrix();
-        const iaMatrixd modelMatrix = iRenderer2::getInstance().getModelMatrix();
+        const iaRectanglei viewport = iRenderer::getInstance().getViewport();
+        const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
+        const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
 
-        iRenderer2::getInstance().setViewport(absoluteFramePos.getX(), iWidgetManager::getInstance().getDesktopHeight() - absoluteFramePos.getY() - absoluteFramePos.getHeight(), absoluteFramePos.getWidth(), absoluteFramePos.getHeight());
-        iRenderer2::getInstance().setOrtho(static_cast<float32>(getActualPosX()),
+        iRenderer::getInstance().setViewport(absoluteFramePos.getX(), iWidgetManager::getInstance().getDesktopHeight() - absoluteFramePos.getY() - absoluteFramePos.getHeight(), absoluteFramePos.getWidth(), absoluteFramePos.getHeight());
+        iRenderer::getInstance().setOrtho(static_cast<float32>(getActualPosX()),
                                            static_cast<float32>(getActualPosX() + absoluteFramePos.getWidth()),
                                            static_cast<float32>(getActualPosY() + absoluteFramePos.getHeight()),
                                            static_cast<float32>(getActualPosY()), 0.1f, 10.0f);
 
         iaMatrixd matrix;
         matrix.translate(0.0, 0.0, -1.0);
-        iRenderer2::getInstance().setModelMatrix(matrix);
+        iRenderer::getInstance().setModelMatrix(matrix);
 
-        iRenderer2::getInstance().drawRectangle(10, 10, 1000, 1000, iaColor4f::red);
+        iRenderer::getInstance().drawRectangle(10, 10, 1000, 1000, iaColor4f::red);
 
         child->draw();
 
         // restore everything
-        iRenderer2::getInstance().setModelMatrix(modelMatrix);
-        iRenderer2::getInstance().setProjectionMatrix(projectionMatrix);
-        iRenderer2::getInstance().setViewport(viewport);
+        iRenderer::getInstance().setModelMatrix(modelMatrix);
+        iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
+        iRenderer::getInstance().setViewport(viewport);
     }
 } // namespace igor

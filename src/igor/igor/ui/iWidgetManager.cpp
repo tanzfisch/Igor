@@ -36,7 +36,7 @@
 #include <igor/system/iApplication.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;

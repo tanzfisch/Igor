@@ -10,7 +10,7 @@
 #include <igor/system/iMouse.h>
 #include <igor/system/iKeyboard.h>
 #include <igor/renderer/iView.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
@@ -1296,7 +1296,7 @@ namespace igor
         {
             iTaskManager::getInstance().createRenderContextThreads(this);
             iMaterialResourceFactory::getInstance().init();
-            iRenderer2::getInstance().init();
+            iRenderer::getInstance().init();
             iTextureResourceFactory::getInstance().init();
             _impl->swapBuffers();
 
@@ -1313,9 +1313,9 @@ namespace igor
             con_warn("window was not opened");
         }
 
-        if (iRenderer2::isInstantiated())
+        if (iRenderer::isInstantiated())
         {
-            iRenderer2::getInstance().deinit();
+            iRenderer::getInstance().deinit();
         }
 
         iTaskManager::getInstance().killRenderContextThreads(this);
@@ -1507,7 +1507,7 @@ namespace igor
 
         swapBuffers();
 
-        iRenderer2::getInstance().clearStats();
+        iRenderer::getInstance().clearStats();
     }
 
     void iWindow::setDoubleClick(bool doubleClick)

@@ -337,12 +337,12 @@ void SpriteAnimation::onRenderOrtho()
 {
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
-    iRenderer2::getInstance().setModelMatrix(matrix);
+    iRenderer::getInstance().setModelMatrix(matrix);
 
     iaMatrixf walkMatrix;
     walkMatrix.translate(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, 0.0);
 
-    iRenderer2::getInstance().drawFrame(walkMatrix, _walk, _animationOffset + _animationIndex);
+    iRenderer::getInstance().drawFrame(walkMatrix, _walk, _animationOffset + _animationIndex);
 
     ExampleBase::onRenderOrtho();
 }

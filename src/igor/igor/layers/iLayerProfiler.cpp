@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <igor/layers/iLayerProfiler.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
 namespace igor
@@ -69,13 +69,13 @@ namespace igor
     {
         // initialize view matrix with identity matrix
         iaMatrixd identity;
-        iRenderer2::getInstance().setViewMatrix(identity);
+        iRenderer::getInstance().setViewMatrix(identity);
 
         // move scene between near and far plane so be ca actually see what we render
         // any value between near and far plane would do the trick
         iaMatrixd modelMatrix;
         modelMatrix.translate(0, 0, -1);
-        iRenderer2::getInstance().setModelMatrix(modelMatrix);
+        iRenderer::getInstance().setModelMatrix(modelMatrix);
 
         _profilerVisualizer.draw(getWindow(), _font);
     }

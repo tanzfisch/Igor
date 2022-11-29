@@ -61,10 +61,10 @@ namespace igor
 
     Main difference between 2D and 3D functions is that in 2D all materials are set implicitly but for 3D you need to call setMaterial to make sure its rendered with the correct material
      */
-    class IGOR_API iRenderer2 : public iModule<iRenderer2>
+    class IGOR_API iRenderer : public iModule<iRenderer>
     {
 
-        friend class iModule<iRenderer2>;
+        friend class iModule<iRenderer>;
         friend class iWindow;
         friend class iView;
 
@@ -514,11 +514,11 @@ namespace igor
 
         /*! init
          */
-        iRenderer2();
+        iRenderer();
 
         /*! deinit
          */
-        ~iRenderer2();
+        ~iRenderer();
 
         /*! flushes textured quads queue
          */

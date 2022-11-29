@@ -6,7 +6,7 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaString.h>
@@ -88,7 +88,7 @@ namespace igor
         }
 
         // get the stats before we add to them
-        const iRenderer2::iRendererStats stats = iRenderer2::getInstance().getStats();
+        const iRenderer::iRendererStats stats = iRenderer::getInstance().getStats();
 
         if (iTimer::getInstance().getTime() > _time + iaTime::fromSeconds(0.25))
         {
@@ -116,11 +116,11 @@ namespace igor
             voffset = 60;
         }
 
-        iRenderer2::getInstance().setFont(font);
-        iRenderer2::getInstance().setFontSize(15.0f);
+        iRenderer::getInstance().setFont(font);
+        iRenderer::getInstance().setFontSize(15.0f);
 
         const iaString fpsText = iaString::toString(_lastFPS, 2) + L" fps";
-        iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
+        iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
         {
@@ -130,11 +130,11 @@ namespace igor
             unique += iaString::toStringUnits(stats._triangles);
             unique += " i:";
             unique += iaString::toStringUnits(stats._indices);
-            iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), unique, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
+            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), unique, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
 
             iaString total = "draw calls:";
             total += iaString::toStringUnits(stats._drawCalls);
-            iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 30), total, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
+            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 30), total, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
@@ -153,13 +153,13 @@ namespace igor
             rcthreads += ":";
             rcthreads += iaString::toString(_lastQueuedRenderContextTaskCount);
 
-            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 30), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
-            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 10), rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
+            iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 30), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
+            iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 10), rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
 
             iaString done = "done ";
             done += iaString::toString(_lastDoneTaskCount);
 
-            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
+            iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
@@ -173,20 +173,20 @@ namespace igor
 
             float32 textOffsetX = 0.0f;
 
-            iRenderer2::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight() + 60.0f, iaColor4f(0, 0, 0, 0.6));
+            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight() + 60.0f, iaColor4f(0, 0, 0, 0.6));
 
-            iRenderer2::getInstance().drawFilledRectangle(rect.getLeft(), rect.getBottom() + 30, rect.getWidth(), 30.0f);
+            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getBottom() + 30, rect.getWidth(), 30.0f);
 
-            iRenderer2::getInstance().setLineWidth(1);
-            iRenderer2::getInstance().drawLine(rect.getLeft(), rect.getBottom(), rect.getRight(), rect.getBottom());
+            iRenderer::getInstance().setLineWidth(1);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom(), rect.getRight(), rect.getBottom());
 
-            iRenderer2::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz24, rect.getRight(), rect.getBottom() - Hz24);
-            iRenderer2::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz60, rect.getRight(), rect.getBottom() - Hz60);
-            iRenderer2::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz100, rect.getRight(), rect.getBottom() - Hz100);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz24, rect.getRight(), rect.getBottom() - Hz24);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz60, rect.getRight(), rect.getBottom() - Hz60);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz100, rect.getRight(), rect.getBottom() - Hz100);
 
-            iRenderer2::getInstance().drawString(rect._x, rect.getBottom() - Hz24, "24Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-            iRenderer2::getInstance().drawString(rect._x, rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-            iRenderer2::getInstance().drawString(rect._x, rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz24, "24Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
             uint32 sectionIndex = 0;
             const uint32 currentFrame = (iProfiler::getCurrentFrameIndex() - 1) % iProfiler::MAX_FRAMES_COUNT;
@@ -218,14 +218,14 @@ namespace igor
 
                     value = _accumulationBuffer[currentIndex];
 
-                    iRenderer2::getInstance().drawLine(i * horizontalScale + rect._x, rect.getBottom() - lastValue, (i + 1) * horizontalScale + rect._x, rect.getBottom() - value, sectionColor);
+                    iRenderer::getInstance().drawLine(i * horizontalScale + rect._x, rect.getBottom() - lastValue, (i + 1) * horizontalScale + rect._x, rect.getBottom() - value, sectionColor);
                     lastValue = value;
                 }
 
-                iRenderer2::getInstance().drawString(rect._x + textOffsetX, rect.getBottom() + 20.0f, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
+                iRenderer::getInstance().drawString(rect._x + textOffsetX, rect.getBottom() + 20.0f, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
                 textOffsetX += 80;
 
-                iRenderer2::getInstance().drawFilledRectangle(rect.getLeft() + leftValue, rect.getBottom() + 30, rightValue - leftValue, 30.0f, sectionColor);
+                iRenderer::getInstance().drawFilledRectangle(rect.getLeft() + leftValue, rect.getBottom() + 30, rightValue - leftValue, 30.0f, sectionColor);
 
                 leftValue = rightValue;
 

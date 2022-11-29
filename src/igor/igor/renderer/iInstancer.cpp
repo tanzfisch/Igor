@@ -26,7 +26,7 @@ namespace igor
 
         if (_instanceArrayObject != 0)
         {
-            // TODO this needs to use iVertexArray iRenderer2::getInstance().destroyBuffer(_instanceArrayObject);
+            // TODO this needs to use iVertexArray iRenderer::getInstance().destroyBuffer(_instanceArrayObject);
         }
     }
 

@@ -4,7 +4,7 @@
 
 #include <igor/scene/nodes/iNodeParticleSystem.h>
 
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeEmitter.h>
@@ -120,14 +120,14 @@ namespace igor
             _textureC->bind(2);
         }
 
-        iRenderer2::getInstance().setModelMatrix(_worldMatrix);
+        iRenderer::getInstance().setModelMatrix(_worldMatrix);
         if (_particleSystem.getVelocityOriented())
         {
-            iRenderer2::getInstance().drawVelocityOrientedParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
+            iRenderer::getInstance().drawVelocityOrientedParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
         }
         else
         {
-            iRenderer2::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
+            iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
         }
     }
 

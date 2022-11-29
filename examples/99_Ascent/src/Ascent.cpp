@@ -744,7 +744,7 @@ void Ascent::onRenderOrtho()
     // TODO iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -30);
     // TODO iRenderer::getInstance().setModelMatrix(matrix);
-    iRenderer2::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     // TODO iRenderer::getInstance().setFont(_font);
 
     if (_loading)

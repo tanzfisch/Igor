@@ -5,7 +5,7 @@
 #include <igor/data/iOctree.h>
 
 #include <igor/data/iAACube.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/data/iIntersection.h>
 #include <igor/resources/profiler/iProfiler.h>
 
@@ -456,7 +456,7 @@ namespace igor
     void iOctree::draw()
     {
         iaMatrixd matrix;
-        iRenderer2::getInstance().setModelMatrix(matrix);
+        iRenderer::getInstance().setModelMatrix(matrix);
         draw(_rootNode);
     }
 
@@ -472,7 +472,7 @@ namespace igor
                 alpha = std::min(alpha, draw(node->_children[i]));
             }
 
-            iRenderer2::getInstance().drawBox(node->_box, iaColor4f(0, 0, 1, alpha));
+            iRenderer::getInstance().drawBox(node->_box, iaColor4f(0, 0, 1, alpha));
         }
 
         alpha *= 0.7;

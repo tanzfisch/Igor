@@ -838,11 +838,11 @@ void Supremacy::onRenderHUD()
 
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
-    iRenderer2::getInstance().setModelMatrix(matrix);
+    iRenderer::getInstance().setModelMatrix(matrix);
 
-    iRenderer2::getInstance().setFont(_font);
-    iRenderer2::getInstance().setFontSize(15.0f);
-    iRenderer2::getInstance().drawString(10, 10, iaString::toString(health, 0));
+    iRenderer::getInstance().setFont(_font);
+    iRenderer::getInstance().setFontSize(15.0f);
+    iRenderer::getInstance().drawString(10, 10, iaString::toString(health, 0));
 }
 
 void Supremacy::onRenderOrtho()
@@ -858,18 +858,18 @@ void Supremacy::onRenderOrtho()
     matrix.scale(static_cast<float64>(getWindow()->getClientWidth() / PLAYFIELD_VIEWPORT_WIDTH),
                  (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_VIEWPORT_HEIGHT), 1.0);
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
-    iRenderer2::getInstance().setModelMatrix(matrix);
+    iRenderer::getInstance().setModelMatrix(matrix);
 
-    // TODO iRenderer2::getInstance().setMaterial TODO(false);
+    // TODO iRenderer::getInstance().setMaterial TODO(false);
     iaVector2f tiling(10.0, 10.0);
     iaVector2f bPos(std::truncf(viewRectangle._x / 100.0) * 100.0 - 200.0, std::truncf(viewRectangle._y / 100.0) * 100.0 - 200.0);
-    iRenderer2::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, false, tiling);  
+    iRenderer::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, false, tiling);  
 
     con_endl("viewRectangle._x " << viewRectangle._x);
     con_endl("std::truncf(viewRectangle._x / 100.0) * 100.0 " << std::truncf(viewRectangle._x / 100.0) * 100.0);
 
     const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.9);
-    // TODO iRenderer2::getInstance().setMaterial TODO(true);
+    // TODO iRenderer::getInstance().setMaterial TODO(true);
 
     // draw entities
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>();
@@ -892,7 +892,7 @@ void Supremacy::onRenderOrtho()
 
         if(visual._castShadow)
         {
-            iRenderer2::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor, true);
+            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor, true);
         }
 
         iaTime time = iaTime::getNow() + visual._timerOffset;
@@ -908,7 +908,7 @@ void Supremacy::onRenderOrtho()
         matrix.rotate(angle, iaAxis::Z);
         matrix.scale(width * value, height * (1.0 / value), 1.0);
 
-        iRenderer2::getInstance().drawTexturedQuad(matrix, visual._texture, iaColor4f::white, true);
+        iRenderer::getInstance().drawTexturedQuad(matrix, visual._texture, iaColor4f::white, true);
     }
 
     onRenderHUD();

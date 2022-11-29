@@ -5,7 +5,7 @@
 #include <igor/renderer/iView.h>
 
 #include <igor/system/iWindow.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -185,25 +185,25 @@ namespace igor
 
         if (_visible)
         {
-            iRenderer2::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
+            iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 
             if (_clearColorActive)
             {
-                iRenderer2::getInstance().clearColorBuffer(_clearColor);
+                iRenderer::getInstance().clearColorBuffer(_clearColor);
             }
 
             if (_clearDepthActive)
             {
-                iRenderer2::getInstance().clearDepthBuffer(_clearDepth);
+                iRenderer::getInstance().clearDepthBuffer(_clearDepth);
             }
 
             if (_perspective)
             {
-                iRenderer2::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
             }
             else
             {
-                iRenderer2::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
             }
 
             if (_scene != nullptr)
@@ -217,7 +217,7 @@ namespace igor
             }
         }
 
-        iRenderer2::getInstance().endFrame();
+        iRenderer::getInstance().endFrame();
     }
 
     uint64 iView::pickcolorID(uint32 posx, uint32 posy)
@@ -236,21 +236,21 @@ namespace igor
         {
             iRenderEngine renderEngine;
 
-            uint32 renderTarget = iRenderer2::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
-            iRenderer2::getInstance().setRenderTarget(renderTarget);
+            uint32 renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
+            iRenderer::getInstance().setRenderTarget(renderTarget);
 
-            iRenderer2::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
+            iRenderer::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
 
-            iRenderer2::getInstance().clearColorBuffer(iaColor4f(0, 0, 0, 0));
-            iRenderer2::getInstance().clearDepthBuffer();
+            iRenderer::getInstance().clearColorBuffer(iaColor4f(0, 0, 0, 0));
+            iRenderer::getInstance().clearDepthBuffer();
 
             if (_perspective)
             {
-                iRenderer2::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
             }
             else
             {
-                iRenderer2::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
             }
 
             renderEngine.setScene(_scene);
@@ -262,10 +262,10 @@ namespace igor
 
             int32 pixelCount = rectangle._width * rectangle._height;
             uint8 *data = new uint8[pixelCount * 4];
-            iRenderer2::getInstance().readPixels(rectangle._x, _viewport.getHeight() - rectangle._y, rectangle._width, rectangle._height, iColorFormat::RGBA, data);
+            iRenderer::getInstance().readPixels(rectangle._x, _viewport.getHeight() - rectangle._y, rectangle._width, rectangle._height, iColorFormat::RGBA, data);
 
-            iRenderer2::getInstance().setRenderTarget();
-            iRenderer2::getInstance().destroyRenderTarget(renderTarget);
+            iRenderer::getInstance().setRenderTarget();
+            iRenderer::getInstance().destroyRenderTarget(renderTarget);
 
             uint8 *dataIter = data;
             for (int i = 0; i < pixelCount; ++i)
@@ -323,7 +323,7 @@ namespace igor
         iaMatrixd projectionMatrix;
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
-        return iRenderer2::getInstance().project(worldSpacePos, viewMatrix, projectionMatrix, _viewport);
+        return iRenderer::getInstance().project(worldSpacePos, viewMatrix, projectionMatrix, _viewport);
     }
 
     iaVector3d iView::unProject(const iaVector3d &screenpos, const iaMatrixd &cameraMatrix)
@@ -337,7 +337,7 @@ namespace igor
         iaMatrixd projectionMatrix;
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
-        return iRenderer2::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
+        return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
     }
 
     /*	iPixmap* iView::makeScreenshot(bool alphachannel)

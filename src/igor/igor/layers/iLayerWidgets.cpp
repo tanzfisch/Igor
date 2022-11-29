@@ -5,7 +5,7 @@
 #include "iLayerWidgets.h"
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/renderer/iRenderer2.h>
+#include <igor/renderer/iRenderer.h>
 
 namespace igor
 {
@@ -66,11 +66,11 @@ namespace igor
     void iLayerWidgets::onRender()
     {
         iaMatrixd identity;
-        iRenderer2::getInstance().setViewMatrix(identity);
+        iRenderer::getInstance().setViewMatrix(identity);
 
         iaMatrixd modelMatrix;
         modelMatrix.translate(0, 0, -1);
-        iRenderer2::getInstance().setModelMatrix(modelMatrix);
+        iRenderer::getInstance().setModelMatrix(modelMatrix);
 
         // tell the widget manager to draw the widgets
         iWidgetManager::getInstance().draw();

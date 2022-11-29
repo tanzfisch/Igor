@@ -247,18 +247,18 @@ void VoxelExample::onRenderOrtho()
 {
     iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -1);
-    iRenderer2::getInstance().setModelMatrix(modelMatrix);
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
 
-    iRenderer2::getInstance().setFont(getFont());
-    iRenderer2::getInstance().setFontSize(25.0f);
+    iRenderer::getInstance().setFont(getFont());
+    iRenderer::getInstance().setFontSize(25.0f);
 
     if (_loading)
     {
-        iRenderer2::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::green);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::green);
     }
     else
     {
-        iRenderer2::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::green);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::green);
     }
 
     ExampleBase::onRenderOrtho();
