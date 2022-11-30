@@ -83,11 +83,6 @@ namespace igor
         return _useMatrix;
     }
 
-    void iNodeSkyBox::setAlpha(float32 alpha)
-    {
-        _alpha = alpha;
-    }
-
     void iNodeSkyBox::setTextureScale(float32 scale)
     {
         _textureScale = scale;
@@ -114,17 +109,14 @@ namespace igor
             model *= _offsetMatrix;
         }
         iRenderer::getInstance().setModelMatrix(model);
-
-        const iaColor4f color(1.0, 1.0, 1.0, _alpha);
-        const bool blend = _alpha < 1.0f;
         const iaVector2f tiling(_textureScale, _textureScale);
 
-        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(0, 0, -_boxSize), iaVector3f(-_boxSize, 0, 0), iaVector3f(0, _boxSize, 0), _front, color, tiling);
-        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(0, 0, _boxSize), iaVector3f(_boxSize, 0, 0), iaVector3f(0, _boxSize, 0), _back, color, tiling);
-        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(-_boxSize, 0, 0), iaVector3f(0, 0, _boxSize), iaVector3f(0, _boxSize, 0), _left, color, tiling);
-        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, -_boxSize), iaVector3f(0, _boxSize, 0), _right, color, tiling);
-        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(0, _boxSize, 0), iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, -_boxSize), _top, color, tiling);
-        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(0, -_boxSize, 0), iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, _boxSize), _bottom, color, tiling);
+        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(0, 0, -_boxSize), iaVector3f(-_boxSize, 0, 0), iaVector3f(0, _boxSize, 0), _front, iaColor4f::white, tiling);
+        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(0, 0, _boxSize), iaVector3f(_boxSize, 0, 0), iaVector3f(0, _boxSize, 0), _back, iaColor4f::white, tiling);
+        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(-_boxSize, 0, 0), iaVector3f(0, 0, _boxSize), iaVector3f(0, _boxSize, 0), _left, iaColor4f::white, tiling);
+        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, -_boxSize), iaVector3f(0, _boxSize, 0), _right, iaColor4f::white, tiling);
+        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(0, _boxSize, 0), iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, -_boxSize), _top, iaColor4f::white, tiling);
+        iRenderer::getInstance().drawTexturedBillboard(iaVector3f(0, -_boxSize, 0), iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, _boxSize), _bottom, iaColor4f::white, tiling);
     }
 
 } // namespace igor

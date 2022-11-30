@@ -478,15 +478,6 @@ namespace igor
         texQuads._indexCount = 0;
         texQuads._nextTextureIndex = 0;
 
-        ///////////// MATERIALS ////////////
-        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d.mat");
-        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d_blend.mat");
-        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d.mat");
-        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d_blend.mat");
-
-        _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
-        _data->_currentMaterial.reset();
-
         /////////// OGL //////////
 #if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH) // TODO can we drop this now? GL_DEBUG_SEVERITY_HIGH
         glEnable(GL_DEBUG_OUTPUT);
@@ -534,6 +525,15 @@ namespace igor
         con_info("OpenGL Version : " << _data->_version << endlTab
                                      << "OpenGL Vendor  : " << _data->_vendor << endlTab
                                      << "OpenGL Renderer: " << _data->_renderer);
+
+        ///////////// MATERIALS ////////////
+        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d.mat");
+        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d_blend.mat");
+        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d.mat");
+        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d_blend.mat");
+
+        _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
+        _data->_currentMaterial.reset();                                     
     }
 
     void iRenderer::deinit()

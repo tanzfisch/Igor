@@ -79,14 +79,6 @@ namespace igor
         */
         bool isOffsetMatrixUsed() const;
 
-        /*! sets the alpha value for rendering the sky box
-
-        this can be used to render multiple sky boxes that layer up
-
-        \param alpha
-        */
-        void setAlpha(float32 alpha);
-
         /*! set the textures used for the sky box
 
         \param front front texture
@@ -114,10 +106,6 @@ namespace igor
         /*! texture scaling
         */
         float32 _textureScale = 1.0f;
-
-        /*! alpha value
-        */
-        float32 _alpha = 1.0f;
 
         /*! true if the matrix has to be set as offset on top of the camera matrix
         */

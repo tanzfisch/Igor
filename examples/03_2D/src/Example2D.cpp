@@ -15,10 +15,6 @@ void Example2D::onInit()
 {
     // load the background tile texture
     _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("ice.png");
-
-    // by default Igor generates a dummy texture that can be used as fallback if no other texture is available
-    // it is a checker texture with some gradients in color and alpha channels
-    _dummyTexture = iTextureResourceFactory::getInstance().getDummyTexture();
     
     // set up particle system
     // load a texture for our particle system
@@ -99,7 +95,6 @@ void Example2D::onDeinit()
     _doughnuts = nullptr;
     _particleTexture = nullptr;
     _backgroundTexture = nullptr;
-    _dummyTexture = nullptr;
 }
 
 void Example2D::onEvent(iEvent &event)
@@ -198,8 +193,8 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().drawFilledCircle(700, 500, 100, 8, iaColor4f(1.0,1.0,0.0,0.5));
     iRenderer::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
-    // draw the texture that we could not have loaded at startup
-    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture, iaColor4f::white, true);
+    // draw with dummy texture
+    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 410, iTextureResourceFactory::getInstance().getDummyTexture(), iaColor4f::white, true);
 
     // draw the particles
     iRenderer::getInstance().drawParticles(_particleSystem.getParticles(), _particleSystem.getParticleCount(), _particleTexture, _rainbow);
@@ -211,8 +206,8 @@ void Example2D::onRenderOrtho()
                                "(zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren.\n\nWikipedia";
 
     iRenderer::getInstance().setFont(getFont());
-    iRenderer::getInstance().setFontSize(15.0f);
-    iRenderer::getInstance().drawString(350, 350, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
+    iRenderer::getInstance().setFontSize(19.0f);
+    iRenderer::getInstance().drawString(490, 240, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
 
     // draw spline
     std::vector<iaVector3f> points;
