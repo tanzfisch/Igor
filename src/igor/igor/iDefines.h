@@ -260,8 +260,7 @@ namespace igor
     {        
         Vertex,
         Fragment,
-        Geometry,
-        Undefined
+        Geometry
     };
 
     /*! prints the shader object type in the console

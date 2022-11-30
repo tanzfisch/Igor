@@ -30,10 +30,10 @@
 #define __IGOR_LOADERIGOR__
 
 #include <igor/resources/model/loader/iModelDataIO.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/scene/traversal/iNodeVisitor.h>
 
 #include <iaux/data/iaString.h>
-#include <iaux/data/iaUUID.h>
 using namespace iaux;
 
 #include <map>
@@ -117,7 +117,7 @@ namespace igor
 
         /*! maps chunk material id to materil id
         */
-        std::unordered_map<uint32, iaUUID> _materialMapping;
+        std::unordered_map<uint32, iMaterialID> _materialMapping;
 
         /*! maps chunk id to node id
         */
@@ -129,7 +129,7 @@ namespace igor
 
         /*! map of materials currently in use
         */
-        std::unordered_map<iaUUID, OMPF::ompfMaterialChunk *> _materialsInUse;
+        std::unordered_map<iMaterialID, OMPF::ompfMaterialChunk *> _materialsInUse;
 
         /*! additional input parameter
 
@@ -222,21 +222,21 @@ namespace igor
 
         /*! creates material chunk from given igor material
 
-        \param uuid the igor material id
+        \param materialID the igor material id
         */
-        OMPF::ompfMaterialChunk *createMaterialChunk(const iaUUID& uuid);
+        OMPF::ompfMaterialChunk *createMaterialChunk(const iMaterialID& materialID);
 
         /*! \returns material chunk id for given material id
 
-        \param uuid the igor material id
+        \param materialID the igor material id
         */
-        uint32 getMaterialChunkID(const iaUUID &uuid);
+        uint32 getMaterialChunkID(const iMaterialID &materialID);
 
         /*! \returns igor material ID
 
         \param materialChunkID material chunk id
         */
-        iaUUID getMaterialID(uint32 materialChunkID);
+        iMaterialID getMaterialID(uint32 materialChunkID);
 
         /*! \returns node id based on chunk id
 

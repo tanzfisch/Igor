@@ -173,7 +173,6 @@ namespace igor
             group.second.clear();
         }
 
-        con_endl("render objects " << _scene->getOctree()->getResult().size());
         for (void *ptr : _scene->getOctree()->getResult())
         {
             iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(ptr);
@@ -260,8 +259,6 @@ namespace igor
         for (const auto &pair : _materialGroups)
         {
             const iMaterialGroup &materialGroup = pair.second;
-
-            con_endl("group nodes " << materialGroup.getRenderNodes().size());
 
             if(!materialGroup.hasNodes())
             {

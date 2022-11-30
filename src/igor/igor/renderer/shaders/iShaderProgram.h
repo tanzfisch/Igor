@@ -70,7 +70,7 @@ namespace igor
 
         If type is undefined we use the file ending to determine the type
         */
-        void addShader(const iaString& filename, iShaderObjectType type = iShaderObjectType::Undefined);
+        void addShader(const iaString& filename, iShaderObjectType type);
 
         /*! \returns shader source files
 

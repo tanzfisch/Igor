@@ -33,9 +33,6 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/material/iTargetMaterial.h>
 
-#include <iaux/system/iaEvent.h>
-#include <iaux/data/iaUUID.h>
-
 #include <unordered_map>
 
 namespace igor
@@ -84,11 +81,11 @@ namespace igor
         */
         iMaterialPtr getMaterial(const iaString &name);
 
-        /*! \returns material for given id
+        /*! \returns material for given material id
         
-        \param uuid the given id
+        \param materialID the given id
         */
-        iMaterialPtr getMaterial(const iaUUID &uuid);
+        iMaterialPtr getMaterial(const iMaterialID &materialID);
 
         /*! creates and returns a target material
 

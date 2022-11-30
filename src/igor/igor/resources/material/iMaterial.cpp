@@ -20,7 +20,7 @@ namespace igor
     iMaterialPtr iMaterial::create()
     {
         iMaterialPtr result = std::shared_ptr<iMaterial>(new iMaterial(), deleter);
-        result->_uuid = iaUUID::create();
+        result->_materialID = iMaterialID::create();
         return result;
     }
 
@@ -28,9 +28,9 @@ namespace igor
     {
         std::shared_ptr<iMaterial> result(new iMaterial(), deleter);
         iMaterialReader::read(iResourceManager::getInstance().getPath(filename), result);
-        if (!result->_uuid.isValid())
+        if (!result->_materialID.isValid())
         {
-            result->_uuid = iaUUID::create();
+            result->_materialID = iMaterialID::create();
         }
         return result;
     }
@@ -230,9 +230,9 @@ namespace igor
         _name = name;
     }
 
-    void iMaterial::setID(const iaUUID &uuid)
+    void iMaterial::setID(const iMaterialID &materialID)
     {
-        _uuid = uuid;
+        _materialID = materialID;
     }
 
     const iaString &iMaterial::getName() const
@@ -290,9 +290,9 @@ namespace igor
         _shaderProgram->setMatrix(uniform, value);
     }
 
-    const iaUUID &iMaterial::getID() const
+    const iMaterialID &iMaterial::getID() const
     {
-        return _uuid;
+        return _materialID;
     }
 
     int32 iMaterial::getOrder() const

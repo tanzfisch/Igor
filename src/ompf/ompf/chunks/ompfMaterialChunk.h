@@ -94,8 +94,7 @@ namespace OMPF
     {
         Vertex = 0x00,
         Fragment = 0x01,
-        Geometry = 0x02,
-        Effect = 0x03
+        Geometry = 0x02
     };
 
     /*! the material chunk contains all details to set up the renderer to render a certain object

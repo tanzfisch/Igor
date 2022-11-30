@@ -1295,6 +1295,7 @@ namespace igor
         if (result)
         {
             iTaskManager::getInstance().createRenderContextThreads(this);
+
             iMaterialResourceFactory::getInstance().init();
             iRenderer::getInstance().init();
             iTextureResourceFactory::getInstance().init();
@@ -1313,10 +1314,9 @@ namespace igor
             con_warn("window was not opened");
         }
 
-        if (iRenderer::isInstantiated())
-        {
-            iRenderer::getInstance().deinit();
-        }
+        iTextureResourceFactory::getInstance().deinit();
+        iRenderer::getInstance().deinit();
+        iMaterialResourceFactory::getInstance().deinit();
 
         iTaskManager::getInstance().killRenderContextThreads(this);
 

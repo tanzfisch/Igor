@@ -55,6 +55,12 @@ namespace iaux
         */
         iaUUID(const iaString &value);
 
+        /*! ctor with value
+
+        \param value the value to use as uuid
+        */
+        iaUUID(const char * value);        
+
         /*! \returns new created uuid
          */
         static iaUUID create();

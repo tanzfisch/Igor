@@ -266,8 +266,8 @@ namespace iaux
         }
 
         *this << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
-              << applicationTime << printThreadID << iaForegroundColor::White
-              << "[" << color << tag << iaForegroundColor::White << "] ";
+              << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White
+              << " [" << color << tag << iaForegroundColor::White << "] ";
     }
 
     void iaConsole::lock()

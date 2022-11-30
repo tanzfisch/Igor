@@ -35,7 +35,7 @@ namespace igor
         // now check if it was actually released
         if (!_textures.empty())
         {
-            con_err("possible mem leak. not all textures were released.");
+            con_warn("possible mem leak. not all textures were released.");
 
             con_endl("non released textures: ");
             for (auto texture : _textures)

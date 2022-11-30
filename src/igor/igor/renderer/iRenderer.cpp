@@ -538,7 +538,16 @@ namespace igor
 
     void iRenderer::deinit()
     {
-        con_info("deinit renderer");
+        /////////// MATERIALS ////////
+        _data->_flatShader = nullptr;
+        _data->_flatShaderBlend = nullptr;
+        _data->_textureShader = nullptr;
+        _data->_textureShaderBlend = nullptr;
+        _data->_currentMaterial = nullptr;
+
+        /////////// TEXTURES ////////
+        _data->_fallbackTexture = nullptr;
+        _data->_font = nullptr;
 
         /////////// LINES //////////
         auto &lines = _data->_lines;

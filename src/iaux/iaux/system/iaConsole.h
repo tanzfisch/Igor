@@ -133,7 +133,7 @@ namespace iaux
         friend iaConsole &incwarn(iaConsole &console);
         friend iaConsole &LOCK(iaConsole &console);
         friend iaConsole &UNLOCK(iaConsole &console);
-        friend iaConsole &printThreadID(iaConsole &console);
+        friend iaConsole &printIgorThreadID(iaConsole &console);
         friend iaConsole &applicationTime(iaConsole &console);
 
     public:
@@ -596,12 +596,12 @@ namespace iaux
         return console;
     }
 
-    /*! prints this thread id in the console
+    /*! prints the igor thread id in the console
 
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &printThreadID(iaConsole &console)
+    __IGOR_INLINE__ iaConsole &printIgorThreadID(iaConsole &console)
     {
         uint32 id = 0;
         std::hash<std::thread::id> hashFunc;
@@ -613,9 +613,9 @@ namespace iaux
             id = iter->second;
         }
 
-        console << std::setfill(L'0') << std::setw(2) << std::hex << id << std::dec << " ";
+        console << std::setfill(L'0') << std::setw(2) << std::hex << id << std::dec;
         return console;
-    }
+    } 
 
     /*! prints application time in the console
 
@@ -631,7 +631,7 @@ namespace iaux
         console << std::setfill(L'0') << std::setw(2) << hours << ":";
         console << std::setfill(L'0') << std::setw(2) << minutes << ":";
         console << std::setfill(L'0') << std::setw(2) << seconds << ":";
-        console << std::setfill(L'0') << std::setw(3) << time % 1000 << " "; // ms
+        console << std::setfill(L'0') << std::setw(3) << time % 1000; // ms
         return console;
     }
 

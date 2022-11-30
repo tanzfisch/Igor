@@ -19,25 +19,49 @@ namespace igor
     void iMaterialResourceFactory::deinit()
     {
         _defaultMaterial = nullptr;
+        _colorIDMaterial = nullptr;
 
         flush();
 
         if (!_materials.empty())
         {
-            con_err("possible mem leak. not all materials were released.");
+            con_warn("possible mem leak. not all materials were released.");
+
+            if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Warning)
+            {
+                con_endl("non released materials: ");
+                for (const auto &material : _materials)
+                {
+                    con_endl(material.second->getID() << " - " << material.second->getName());
+                }
+            }
         }
 
         _materials.clear();
     }
 
-    iMaterialPtr iMaterialResourceFactory::getMaterial(const iaUUID &uuid)
+    iMaterialPtr iMaterialResourceFactory::getMaterial(const iMaterialID &materialID)
     {
         iMaterialPtr result;
 
+        con_endl("getMaterial materialID " << materialID);
+
+        std::unordered_map<int64, iMaterialPtr> mycopy;
         _mutexMaterial.lock();
-        for (auto pair : _materials)
+        mycopy.insert(_materials.begin(), _materials.end());
+        _mutexMaterial.unlock();
+
+        con_endl(mycopy.size());
+
+        for (const auto &pair : mycopy)
         {
-            if (pair.second->getID() == uuid)
+            con_endl(pair.first << " " << pair.second->getName() << " " << pair.second->getID());
+        }        
+
+        _mutexMaterial.lock();
+        for (const auto &pair : _materials)
+        {
+            if (pair.second->getID() == materialID)
             {
                 result = pair.second;
                 break;
@@ -47,7 +71,7 @@ namespace igor
 
         if (result == nullptr)
         {
-            con_err("material with id " << uuid << " does not exist");
+            con_err("material with id " << materialID << " does not exist");
         }
 
         return result;
@@ -58,7 +82,6 @@ namespace igor
         iMaterialPtr result;
 
         con_assert_sticky(!name.isEmpty(), "empty filename");
-
         int64 hashValue = name.getHashValue();
 
         _mutexMaterial.lock();
@@ -74,59 +97,48 @@ namespace igor
 
     iMaterialPtr iMaterialResourceFactory::createMaterial(const iaString &name)
     {
-        iMaterialPtr result;
+        iMaterialPtr result = getMaterial(name);
+        if (result != nullptr)
+        {
+            return result;
+        }
 
-        con_assert_sticky(!name.isEmpty(), "empty filename");
-
-        int64 hashValue = name.getHashValue();
+        result = iMaterial::create();
+        result->setName(name); 
+        const int64 hashValue = name.getHashValue();
 
         _mutexMaterial.lock();
-        auto iter = _materials.find(hashValue);
-        if (iter != _materials.end())
-        {
-            result = iter->second;
-        }
-
-        if (nullptr == result.get())
-        {
-            result = iMaterial::create();
-            result->setName(name);
-            con_info("loaded material \"" << result->getName() << "\" [" << result->getID() << "]");
-            _materials[hashValue] = result;
-        }
+        _materials[hashValue] = result;
         _mutexMaterial.unlock();
+
+        con_info("created material [" << result->getID() << "] \"" << result->getName() << "\"");
 
         return result;
     }
 
     iMaterialPtr iMaterialResourceFactory::loadMaterial(const iaString &filename)
     {
-        iMaterialPtr result;
-
-        con_assert_sticky(!filename.isEmpty(), "empty filename");
-
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
+
         if (keyPath.isEmpty())
         {
             keyPath = filename;
         }
 
-        int64 hashValue = filename.getHashValue();
+        iMaterialPtr result = getMaterial(keyPath);
+        if (result != nullptr)
+        {
+            return result;
+        }
+
+        result = iMaterial::create(keyPath);
+        const int64 hashValue = keyPath.getHashValue();
 
         _mutexMaterial.lock();
-        auto iter = _materials.find(hashValue);
-        if (iter != _materials.end())
-        {
-            result = iter->second;
-        }
-
-        if (nullptr == result.get())
-        {
-            result = iMaterial::create(keyPath);
-            con_info("loaded material \"" << result->getName() << "\" [" << result->getID() << "]");
-            _materials[hashValue] = result;
-        }
+        _materials[hashValue] = result;
         _mutexMaterial.unlock();
+
+        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath);
 
         return result;
     }
@@ -146,9 +158,9 @@ namespace igor
         materials.clear();
 
         _mutexMaterial.lock();
-        for (auto pair : _materials)
+        for (const auto &pair : _materials)
         {
-            materials.emplace_back(pair.second);
+            materials.push_back(pair.second);
         }
         _mutexMaterial.unlock();
 
@@ -162,18 +174,18 @@ namespace igor
     void iMaterialResourceFactory::flush()
     {
         _mutexMaterial.lock();
-        auto material = _materials.begin();
+        auto materialIter = _materials.begin();
 
-        while (material != _materials.end())
+        while (materialIter != _materials.end())
         {
-            if (material->second.use_count() == 1)
+            if (materialIter->second.use_count() == 1)
             {
-                con_info("released material \"" << material->second->getName() << "\"");
-                material = _materials.erase(material);
+                con_info("released material \"" << materialIter->second->getName() << "\"");
+                materialIter = _materials.erase(materialIter);
                 continue;
             }
 
-            material++;
+            materialIter++;
         }
         _mutexMaterial.unlock();
     }

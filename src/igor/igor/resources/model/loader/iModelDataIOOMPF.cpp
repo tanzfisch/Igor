@@ -244,8 +244,8 @@ namespace igor
         // push mesh to mesh node
         meshNode->setMesh(iMeshPtr(mesh));
 
-        iaUUID uuid = getMaterialID(meshChunk->getMaterialChunkID());
-        meshNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(uuid));
+        iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
+        meshNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
 
         return meshNode;
     }
@@ -358,8 +358,8 @@ namespace igor
         particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
-        iaUUID uuid = getMaterialID(particleSystemChunk->getMaterialChunkID());
-        particleSystemNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(uuid));
+        iMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
+        particleSystemNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
 
         return particleSystemNode;
     }
@@ -391,12 +391,10 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterials()
     {
-        auto materials = _ompf->getMaterialChunks();
-        auto matIter = materials.begin();
-        while (matIter != materials.end())
+        const auto &materialChunks = _ompf->getMaterialChunks();
+        for(const auto materialChunk : materialChunks)
         {
-            createMaterial(*matIter);
-            matIter++;
+            createMaterial(materialChunk);
         }
     }
 
@@ -404,15 +402,19 @@ namespace igor
     {
         con_assert_sticky(materialChunk != nullptr, "zero pointer");
 
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialChunk->getMaterialName());
+        iaString materialName = materialChunk->getMaterialName();
 
-        // material already exists
-        if (material != nullptr)
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialName);
+        if(material != nullptr)
         {
-            return;
+            con_warn("material name dublicate \"" << materialName << "\". Generating new name.");
+
+            // this is a workaround until ompf understands UUIDs to identify materials
+            materialName += "_";
+            materialName += iaUUID::create().getValue();
         }
 
-        material = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
+        material = iMaterialResourceFactory::getInstance().createMaterial(materialName);
 
         _materialMapping[materialChunk->getID()] = material->getID();
         material->setOrder(materialChunk->getOrder());
@@ -738,13 +740,13 @@ namespace igor
         return result;
     }
 
-    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(const iaUUID &uuid)
+    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(const iMaterialID &materialID)
     {
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(uuid);
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
 
         if (material == nullptr)
         {
-            con_err("material id \"" << uuid << "\" not found");
+            con_err("material id \"" << materialID << "\" not found");
             return nullptr;
         }
 
@@ -768,20 +770,20 @@ namespace igor
         return result;
     }
 
-    uint32 iModelDataIOOMPF::getMaterialChunkID(const iaUUID &uuid)
+    uint32 iModelDataIOOMPF::getMaterialChunkID(const iMaterialID &materialID)
     {
-        if (!uuid.isValid())
+        if (!materialID.isValid())
         {
             return 0;
         }
 
-        auto iter = _materialsInUse.find(uuid);
+        auto iter = _materialsInUse.find(materialID);
         if (iter == _materialsInUse.end())
         {
-            _materialsInUse[uuid] = createMaterialChunk(uuid);
+            _materialsInUse[materialID] = createMaterialChunk(materialID);
         }
 
-        return _materialsInUse[uuid]->getID();
+        return _materialsInUse[materialID]->getID();
     }
 
     uint32 iModelDataIOOMPF::getNodeID(uint32 chunkID)
@@ -822,9 +824,9 @@ namespace igor
         return result;
     }
 
-    iaUUID iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
+    iMaterialID iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
     {
-        iaUUID result;
+        iMaterialID result;
 
         if (materialChunkID != 0)
         {

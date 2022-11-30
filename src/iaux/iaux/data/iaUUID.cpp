@@ -19,6 +19,11 @@ namespace iaux
     {
     }
 
+    iaUUID::iaUUID(const char *value)
+        : _value(value)
+    {
+    }
+
     bool iaUUID::operator==(const iaUUID &other) const
     {
         return _value == other._value;
@@ -37,7 +42,7 @@ namespace iaux
 
     bool iaUUID::isValid() const
     {
-        return !_value.isEmpty();
+        return !_value.isEmpty() || _value.getLength() != 36;
     }
 
     iaUUID iaUUID::create()
@@ -82,6 +87,8 @@ namespace iaux
         iaUUID uuid;
         uuid._value = iaString(ss.str().c_str());
         mutex.unlock();
+
+        con_info("created uuid " << uuid);
 
         return uuid;
     }

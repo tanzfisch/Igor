@@ -16,12 +16,10 @@ void Example2D::onInit()
     // load the background tile texture
     _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("ice.png");
 
-    // let's see what happens if we want Igor to load a texture that does not exist
-    con_endl("!!! next statement will fail with an error message about a missing texture !!!");
-    _dummyTexture = iTextureResourceFactory::getInstance().loadFile("doesnotexist.foobar");
-    // by default Igor generates a dummy texture that will be returned instead
+    // by default Igor generates a dummy texture that can be used as fallback if no other texture is available
     // it is a checker texture with some gradients in color and alpha channels
-
+    _dummyTexture = iTextureResourceFactory::getInstance().getDummyTexture();
+    
     // set up particle system
     // load a texture for our particle system
     _particleTexture = iTextureResourceFactory::getInstance().requestFile("particleDot.png");

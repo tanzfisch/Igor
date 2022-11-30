@@ -55,7 +55,6 @@ namespace igor
     class IGOR_API iMaterial
     {
         friend class iRenderer;
-        friend class iRenderer;
 
     public:
         /*! default render order value
@@ -98,15 +97,15 @@ namespace igor
          */
         const iaString &getName() const;
 
-        /*! sets material id
-
-        \param uuid the new id
-        */
-        void setID(const iaUUID &uuid);
-
         /*! \returns material id
          */
-        const iaUUID &getID() const;
+        const iMaterialID &getID() const;
+
+        /*! sets material id
+
+        \param materialID the material id
+        */
+        void setID(const iMaterialID &materialID);        
 
         /*! defines the value of a specific render state
 
@@ -171,7 +170,7 @@ namespace igor
 
         /*! material id
          */
-        iaUUID _uuid;
+        iMaterialID _materialID;
 
         /*! oder that material groups get sorted by
 

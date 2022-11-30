@@ -43,7 +43,6 @@
 #include <iaux/system/iaEvent.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/system/iaMutex.h>
-#include <iaux/data/iaUUID.h>
 using namespace iaux;
 
 #include <unordered_map>
