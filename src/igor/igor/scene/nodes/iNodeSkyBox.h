@@ -150,6 +150,10 @@ namespace igor
         /*! releases textures
         */
         virtual ~iNodeSkyBox();
+
+        /*! builds up a mesh for later rendering
+        */
+        void buildMesh();
     };
 
 } // namespace igor

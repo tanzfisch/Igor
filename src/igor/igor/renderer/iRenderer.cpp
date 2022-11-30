@@ -2009,7 +2009,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Triangles;
     }
 
-    void iRenderer::drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color)
+    void iRenderer::drawQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color)
     {
         drawQuad(o + v + u,
                  o - v + u,
@@ -2018,40 +2018,14 @@ namespace igor
                  color);
     }
 
-    void iRenderer::drawTexturedBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color, const iaVector2f &tiling)
+    void iRenderer::drawTexturedQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        const int32 textureIndex = beginTexturedQuad(texture);
-
-        auto &texQuads = _data->_texQuads;
-        texQuads._vertexDataPtr->_pos = o + v + u;
-        texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord = QUAD_TEXTURE_COORDS[0];
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
-        texQuads._vertexDataPtr++;
-
-        texQuads._vertexDataPtr->_pos = o - v + u;
-        texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[1]._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[1]._y * tiling._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
-        texQuads._vertexDataPtr++;
-
-        texQuads._vertexDataPtr->_pos = o - v - u;
-        texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[2]._x * tiling._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[2]._y * tiling._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
-        texQuads._vertexDataPtr++;
-
-        texQuads._vertexDataPtr->_pos = o + v - u;
-        texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[3]._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
-        texQuads._vertexDataPtr++;
-
-        endTexturedQuad();
-    }    
+        drawTexturedQuad(o + v + u,
+                         o - v + u,
+                         o - v - u,
+                         o + v - u,
+                         texture, color, blend, tiling);
+    }
 
     void iRenderer::setFallbackTexture(const iTexturePtr &texture)
     {

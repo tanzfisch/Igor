@@ -41,8 +41,6 @@ namespace igor
 {
 
     /*! internal mesh structure
-    
-    sorry it got verry opengl specific
     */
     class iMesh
     {
