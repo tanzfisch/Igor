@@ -88,8 +88,6 @@ namespace iaux
         uuid._value = iaString(ss.str().c_str());
         mutex.unlock();
 
-        con_info("created uuid " << uuid);
-
         return uuid;
     }
 

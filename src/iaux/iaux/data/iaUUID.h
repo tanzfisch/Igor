@@ -39,6 +39,11 @@ namespace iaux
     class IAUX_API iaUUID
     {
     public:
+
+        /*! \returns new created uuid
+         */
+        static iaUUID create();
+
         /*! does nothing
          */
         iaUUID() = default;
@@ -60,10 +65,6 @@ namespace iaux
         \param value the value to use as uuid
         */
         iaUUID(const char * value);        
-
-        /*! \returns new created uuid
-         */
-        static iaUUID create();
 
         /*! \returns uuid value
          */
