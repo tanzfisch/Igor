@@ -533,7 +533,7 @@ namespace igor
         _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d_blend.mat");
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
-        _data->_currentMaterial.reset();                                     
+        _data->_currentMaterial.reset();
     }
 
     void iRenderer::deinit()
@@ -1023,7 +1023,14 @@ namespace igor
 
         for (int32 i = 0; i < texQuads._nextTextureIndex; ++i)
         {
-            texQuads._textures[i]->bind(i);
+            if (texQuads._textures[i]->isValid())
+            {
+                texQuads._textures[i]->bind(i);
+            }
+            else
+            {
+                _data->_fallbackTexture->bind(i);
+            }
         }
 
         if (_data->_currentMaterial != nullptr)
@@ -2044,7 +2051,7 @@ namespace igor
         texQuads._vertexDataPtr++;
 
         endTexturedQuad();
-    }
+    }    
 
     void iRenderer::setFallbackTexture(const iTexturePtr &texture)
     {
@@ -2614,7 +2621,7 @@ namespace igor
     }
 
     /* TODO
-    
+
     float32 iRenderer::getWorldGridResolution() const
     {
         return _gridSize;
@@ -2624,7 +2631,7 @@ namespace igor
     {
         _gridSize = gridSize;
     }
-        
+
     void iRenderer::setViewMatrix(const iaMatrixd &viewMatrix, const iaMatrixd &camMatrix)
     {
         _worldOffset = camMatrix._pos;

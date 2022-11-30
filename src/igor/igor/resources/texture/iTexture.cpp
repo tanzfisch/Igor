@@ -32,9 +32,7 @@ namespace igor
 
 	void iTexture::bind(uint32 textureUnit)
 	{
-		glActiveTexture(GL_TEXTURE0 + textureUnit);
-		GL_CHECK_ERROR();
-		glBindTexture(GL_TEXTURE_2D, _textureID);
+		glBindTextureUnit(textureUnit, _textureID);
 		GL_CHECK_ERROR();
 	}
 

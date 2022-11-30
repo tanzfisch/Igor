@@ -339,7 +339,7 @@ namespace igor
 
             texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
             texture->_dummy = false;
-            texture->_valid = true;                        
+            texture->_valid = true;
 
             iaString build = ".not mipmapped";
             if (texture->_buildMode == iTextureBuildMode::Mipmapped)

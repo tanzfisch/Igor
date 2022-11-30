@@ -11,7 +11,7 @@
 		</States>
         <Program>
             <Vertex>
-<![CDATA[#version 430
+<![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec4 in_color;
@@ -34,11 +34,11 @@ void main()
 }]]>
             </Vertex>
             <Fragment>
-<![CDATA[#version 430
+<![CDATA[#version 450
 
 in vec4 VertexColor;
 in vec2 TexCoord;
-in float TexUnit;
+in flat float TexUnit;
 
 layout(location = 0) out vec4 out_color;
 
@@ -47,43 +47,7 @@ layout (binding = 0) uniform sampler2D u_textures[32];
 void main()
 {
 	vec4 texColor = VertexColor;
-
-	switch(int(TexUnit))
-	{
-		case  0: texColor *= texture2D(u_textures[0], TexCoord); break;
-		case  1: texColor *= texture2D(u_textures[1], TexCoord); break;
-		case  2: texColor *= texture2D(u_textures[2], TexCoord); break;
-		case  3: texColor *= texture2D(u_textures[3], TexCoord); break;
-		case  4: texColor *= texture2D(u_textures[4], TexCoord); break;
-		case  5: texColor *= texture2D(u_textures[5], TexCoord); break;
-		case  6: texColor *= texture2D(u_textures[6], TexCoord); break;
-		case  7: texColor *= texture2D(u_textures[7], TexCoord); break;
-		case  8: texColor *= texture2D(u_textures[8], TexCoord); break;
-		case  9: texColor *= texture2D(u_textures[9], TexCoord); break;
-		case 10: texColor *= texture2D(u_textures[10], TexCoord); break;
-		case 11: texColor *= texture2D(u_textures[11], TexCoord); break;
-		case 12: texColor *= texture2D(u_textures[12], TexCoord); break;
-		case 13: texColor *= texture2D(u_textures[13], TexCoord); break;
-		case 14: texColor *= texture2D(u_textures[14], TexCoord); break;
-		case 15: texColor *= texture2D(u_textures[15], TexCoord); break;
-		case 16: texColor *= texture2D(u_textures[16], TexCoord); break;
-		case 17: texColor *= texture2D(u_textures[17], TexCoord); break;
-		case 18: texColor *= texture2D(u_textures[18], TexCoord); break;
-		case 19: texColor *= texture2D(u_textures[19], TexCoord); break;
-		case 20: texColor *= texture2D(u_textures[20], TexCoord); break;
-		case 21: texColor *= texture2D(u_textures[21], TexCoord); break;
-		case 22: texColor *= texture2D(u_textures[22], TexCoord); break;
-		case 23: texColor *= texture2D(u_textures[23], TexCoord); break;
-		case 24: texColor *= texture2D(u_textures[24], TexCoord); break;
-		case 25: texColor *= texture2D(u_textures[25], TexCoord); break;
-		case 26: texColor *= texture2D(u_textures[26], TexCoord); break;
-		case 27: texColor *= texture2D(u_textures[27], TexCoord); break;
-		case 28: texColor *= texture2D(u_textures[28], TexCoord); break;
-		case 29: texColor *= texture2D(u_textures[29], TexCoord); break;
-		case 30: texColor *= texture2D(u_textures[30], TexCoord); break;
-		case 31: texColor *= texture2D(u_textures[31], TexCoord); break;
-	}
-
+    texColor *= texture2D(u_textures[int(TexUnit)], TexCoord);
 	out_color = texColor;
 }]]>
             </Fragment>
