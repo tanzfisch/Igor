@@ -383,7 +383,7 @@ namespace igor
 
         if (result != nullptr)
         {
-            con_info("loaded ompf \"" << filename << "\"");
+            con_info("loaded model \"" << filename << "\"");
         }
 
         return result;
@@ -392,10 +392,69 @@ namespace igor
     void iModelDataIOOMPF::createMaterials()
     {
         const auto &materialChunks = _ompf->getMaterialChunks();
-        for(const auto materialChunk : materialChunks)
+        for (const auto materialChunk : materialChunks)
         {
             createMaterial(materialChunk);
         }
+    }
+
+    iRenderStateValue convert(OMPF::OMPFRenderStateValue value)
+    {
+        switch (value)
+        {
+        case OMPF::OMPFRenderStateValue::Off:
+            return iRenderStateValue::Off;
+        case OMPF::OMPFRenderStateValue::On:
+            return iRenderStateValue::On;
+        case OMPF::OMPFRenderStateValue::One:
+            return iRenderStateValue::One;
+        case OMPF::OMPFRenderStateValue::Zero:
+            return iRenderStateValue::Zero;
+        case OMPF::OMPFRenderStateValue::DestinationColor:
+            return iRenderStateValue::DestinationColor;
+        case OMPF::OMPFRenderStateValue::OneMinusDestinationColor:
+            return iRenderStateValue::OneMinusDestinationColor;
+        case OMPF::OMPFRenderStateValue::SourceAlpha:
+            return iRenderStateValue::SourceAlpha;
+        case OMPF::OMPFRenderStateValue::OneMinusSourceAlpha:
+            return iRenderStateValue::OneMinusSourceAlpha;
+        case OMPF::OMPFRenderStateValue::DestinationAlpha:
+            return iRenderStateValue::DestinationAlpha;
+        case OMPF::OMPFRenderStateValue::OneMinusDestinationAlpha:
+            return iRenderStateValue::OneMinusDestinationAlpha;
+        case OMPF::OMPFRenderStateValue::SourceColor:
+            return iRenderStateValue::SourceColor;
+        case OMPF::OMPFRenderStateValue::OneMinusSourceColor:
+            return iRenderStateValue::OneMinusSourceColor;
+        case OMPF::OMPFRenderStateValue::Never:
+            return iRenderStateValue::Never;
+        case OMPF::OMPFRenderStateValue::Less:
+            return iRenderStateValue::Less;
+        case OMPF::OMPFRenderStateValue::Equal:
+            return iRenderStateValue::Equal;
+        case OMPF::OMPFRenderStateValue::LessOrEqual:
+            return iRenderStateValue::LessOrEqual;
+        case OMPF::OMPFRenderStateValue::Greater:
+            return iRenderStateValue::Greater;
+        case OMPF::OMPFRenderStateValue::NotEqual:
+            return iRenderStateValue::NotEqual;
+        case OMPF::OMPFRenderStateValue::GreaterOrEqual:
+            return iRenderStateValue::GreaterOrEqual;
+        case OMPF::OMPFRenderStateValue::Always:
+            return iRenderStateValue::Always;
+        case OMPF::OMPFRenderStateValue::Front:
+            return iRenderStateValue::Front;
+        case OMPF::OMPFRenderStateValue::Back:
+            return iRenderStateValue::Back;
+        case OMPF::OMPFRenderStateValue::Invalid:
+            return iRenderStateValue::Invalid;
+        case OMPF::OMPFRenderStateValue::PositionOrientation:
+            return iRenderStateValue::PositionOrientation;
+        case OMPF::OMPFRenderStateValue::Position:
+            return iRenderStateValue::Position;
+        };
+
+        return iRenderStateValue::Off;
     }
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialChunk *materialChunk)
@@ -405,7 +464,7 @@ namespace igor
         iaString materialName = materialChunk->getMaterialName();
 
         iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialName);
-        if(material != nullptr)
+        if (material != nullptr)
         {
             con_warn("material name dublicate \"" << materialName << "\". Generating new name.");
 
@@ -415,7 +474,6 @@ namespace igor
         }
 
         material = iMaterialResourceFactory::getInstance().createMaterial(materialName);
-
         _materialMapping[materialChunk->getID()] = material->getID();
         material->setOrder(materialChunk->getOrder());
 
@@ -432,11 +490,23 @@ namespace igor
             material->setShaderProgram(program);
         }
 
-        for (int i = 0; i < 19; ++i) // TODO magic number
-        {
-            OMPF::OMPFRenderStateValue value = materialChunk->getRenderState(static_cast<OMPF::OMPFRenderState>(i));
-            material->setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
-        }
+        material->setRenderState(iRenderState::DepthTest, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthTest)));
+        material->setRenderState(iRenderState::DepthMask, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthMask)));
+        material->setRenderState(iRenderState::Blend, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Blend)));
+        material->setRenderState(iRenderState::CullFace, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::CullFace)));
+        material->setRenderState(iRenderState::Texture2D0, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D0)));
+        material->setRenderState(iRenderState::Texture2D1, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D1)));
+        material->setRenderState(iRenderState::Texture2D2, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D2)));
+        material->setRenderState(iRenderState::Texture2D3, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D3)));
+        material->setRenderState(iRenderState::Texture2D4, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D4)));
+        material->setRenderState(iRenderState::Texture2D5, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D5)));
+        material->setRenderState(iRenderState::Texture2D6, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D6)));
+        material->setRenderState(iRenderState::Texture2D7, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D7)));
+        material->setRenderState(iRenderState::Wireframe, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Wireframe)));
+        material->setRenderState(iRenderState::DepthFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthFunc)));
+        material->setRenderState(iRenderState::CullFaceFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::CullFaceFunc)));
+        material->setRenderState(iRenderState::Instanced, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Instanced)));
+        material->setRenderState(iRenderState::InstancedFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::InstancedFunc)));
     }
 
     void iModelDataIOOMPF::exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode)

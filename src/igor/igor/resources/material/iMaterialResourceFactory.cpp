@@ -31,8 +31,8 @@ namespace igor
             {
                 con_endl("non released materials: ");
                 for (const auto &material : _materials)
-                {
-                    con_endl(material.second->getID() << " - " << material.second->getName());
+                {                    
+                    con_endl(material.second->getID() << " ref:" << material.second.use_count() << " - " << material.second->getName() );
                 }
             }
         }
@@ -43,20 +43,6 @@ namespace igor
     iMaterialPtr iMaterialResourceFactory::getMaterial(const iMaterialID &materialID)
     {
         iMaterialPtr result;
-
-        con_endl("getMaterial materialID " << materialID);
-
-        std::unordered_map<int64, iMaterialPtr> mycopy;
-        _mutexMaterial.lock();
-        mycopy.insert(_materials.begin(), _materials.end());
-        _mutexMaterial.unlock();
-
-        con_endl(mycopy.size());
-
-        for (const auto &pair : mycopy)
-        {
-            con_endl(pair.first << " " << pair.second->getName() << " " << pair.second->getID());
-        }        
 
         _mutexMaterial.lock();
         for (const auto &pair : _materials)

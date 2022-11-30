@@ -358,9 +358,11 @@ namespace igor
         Invert,
         Invalid,
         PositionOrientation, // this one does not map to ogl
-        Position             //! \todo not implemented
+        Position,             //! \todo not implemented
+    
+        LastEntry
     };
-
+    
     /*! user data type
      */
     typedef void *iUserData;
