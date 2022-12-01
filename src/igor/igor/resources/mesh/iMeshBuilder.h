@@ -32,6 +32,7 @@
 #include <igor/data/iAABox.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/renderer/buffers/iVertexArray.h>
 
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector2.h>
@@ -328,18 +329,16 @@ namespace igor
         */
         uint32 addVertexIntern(const iaVector3f &vertex);
 
-        /*! fills iMesh with data
-
-        \param mesh the mesh to fill the data in
-        */
-        void compile(iMesh *mesh);
-
         /*! fills iMesh with data filtered by triangles list
 
         \param[in,out] mesh the mesh to fill the data in
         \param triangles list of triangles that are supposed to end up in the mesh
         */
         void compile(iMesh *mesh, std::vector<uint32> triangles);
+
+        /*! \returns a vertex array based on current data
+        */
+        iVertexArrayPtr compileVertexArray();        
 
         /*! checks boundaries of generated data
         */

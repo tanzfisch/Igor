@@ -99,6 +99,7 @@ namespace igor
             return false;
         }
 
+        _sources.push_back("not_from_file");
         _shaderObjects.push_back(shaderObject);
 
         return true;

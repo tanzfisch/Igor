@@ -24,23 +24,14 @@ namespace igor
     {
     }
 
-    void iTargetMaterial::setTexture(iTexturePtr texture, int texunit)
+    const std::vector<iTexturePtr>& iTargetMaterial::getTextures() const
     {
-        con_assert(texunit < 4 && texunit >= 0, "tex unit out of range");
-        _textures[texunit] = texture;
+        return _textures;
     }
 
-    iTexturePtr iTargetMaterial::getTexture(int texunit) const
+    void iTargetMaterial::addTexture(iTexturePtr texture)
     {
-        con_assert(_textures.size() != 0, "no textures available");
-
-        auto tex = _textures.find(texunit);
-        if (_textures.end() != tex)
-        {
-            return tex->second;
-        }
-
-        return nullptr;
+        _textures.push_back(texture);
     }
 
     void iTargetMaterial::setEmissive(const iaColor3f &e)
@@ -105,25 +96,7 @@ namespace igor
 
     bool iTargetMaterial::hasTextures() const
     {
-        return _textures.size() > 0 ? true : false;
+        return !_textures.empty();
     }
 
-    bool iTargetMaterial::hasTextureUnit(uint32 unit) const
-    {
-        auto iter = _textures.find(unit);
-        if (iter != _textures.end())
-        {
-            if ((*iter).second != nullptr)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    uint32 iTargetMaterial::getTextureUnitCount() const
-    {
-        return static_cast<uint32>(_textures.size());
-    }
 } // namespace igor

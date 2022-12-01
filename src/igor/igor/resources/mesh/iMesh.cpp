@@ -9,34 +9,15 @@ using namespace iaux;
 
 namespace igor
 {
-    iMesh::iMesh()
+    class iMeshDeleter
     {
-    }
+    public:
+        void operator()(iMesh *p) { delete p; }
+    };
 
-    iMesh::~iMesh()
+    iMeshPtr iMesh::create()
     {
-        resetIndexData();
-        resetVertexData();
-    }
-
-    void iMesh::resetIndexData()
-    {
-        if (_indexData != nullptr)
-        {
-            delete _indexData;
-            _indexData = nullptr;
-            _indexDataSize = 0;
-        }
-    }
-
-    void iMesh::resetVertexData()
-    {
-        if (_vertexData != nullptr)
-        {
-            delete _vertexData;
-            _vertexData = nullptr;
-            _vertexDataSize = 0;
-        }
+        return std::shared_ptr<iMesh>(new iMesh(), iMeshDeleter());
     }
 
     void iMesh::setHasNormals(bool hasNormals)
@@ -54,9 +35,9 @@ namespace igor
         _vertexCount = count;
     }
 
-    void iMesh::setIndexesCount(uint32 count)
+    void iMesh::setIndexCount(uint32 count)
     {
-        _indexesCount = count;
+        _indexCount = count;
     }
 
     void iMesh::setTrianglesCount(uint32 count)
@@ -64,21 +45,20 @@ namespace igor
         _trianglesCount = count;
     }
 
-    void iMesh::setIndexData(uint32 *data, uint32 size)
+    uint32 iMesh::getTrianglesCount() const
     {
-        _indexData = data;
-        _indexDataSize = size;
+        
+        return _trianglesCount;
     }
 
-    void iMesh::setVertexData(float32 *data, uint32 size)
+    uint32 iMesh::getVertexCount() const
     {
-        _vertexData = data;
-        _vertexDataSize = size;
+        return _vertexCount;
     }
 
-    void iMesh::setVertexSize(uint32 size)
+    uint32 iMesh::getIndexCount() const
     {
-        _vertexSize = size;
+        return _indexCount;
     }
 
     void iMesh::setTexture(int texunit, bool active)
@@ -137,59 +117,24 @@ namespace igor
         return static_cast<uint32>(_textures.size());
     }
 
-    bool iMesh::hasIndexData()
-    {
-        return _indexData != nullptr ? true : false;
-    }
-
-    bool iMesh::hasVertexData()
-    {
-        return _vertexData != nullptr ? true : false;
-    }
-
-    uint32 iMesh::getVertexCount() const
-    {
-        return _vertexCount;
-    }
-
-    uint32 iMesh::getIndexesCount() const
-    {
-        return _indexesCount;
-    }
-
-    uint32 iMesh::getTrianglesCount() const
-    {
-        return _trianglesCount;
-    }
-
     const iAABoxd &iMesh::getBoundingBox() const
     {
         return _bbox;
     }
 
-    uint32 *iMesh::getIndexData() const
+    const iVertexArrayPtr &iMesh::getVertexArray() const
     {
-        return _indexData;
+        return _vertexArray;
     }
 
-    uint32 iMesh::getIndexDataSize() const
+    void iMesh::setVertexArray(const iVertexArrayPtr &vertexArray)
     {
-        return _indexDataSize;
+        _vertexArray = vertexArray;
     }
 
-    float32 *iMesh::getVertexData() const
+    void iMesh::bind()
     {
-        return _vertexData;
-    }
-
-    uint32 iMesh::getVertexDataSize() const
-    {
-        return _vertexDataSize;
-    }
-
-    uint32 iMesh::getVertexSize() const
-    {
-        return _vertexSize;
+        _vertexArray->bind();
     }
 
 } // namespace igor

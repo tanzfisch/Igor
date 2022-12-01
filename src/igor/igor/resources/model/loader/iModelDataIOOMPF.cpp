@@ -174,9 +174,7 @@ namespace igor
         con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
 
         // create mesh and mesh node
-        iMesh *mesh = new iMesh();
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-
         if (_parameter != nullptr)
         {
             meshNode->setKeepMesh(_parameter->_keepMesh);
@@ -199,6 +197,8 @@ namespace igor
         meshNode->getTargetMaterial()->setEmissive(emissive);
         meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
 
+        iMeshPtr mesh = iMesh::create();
+
         // set texture properties
         uint32 textureCount = meshChunk->getTextureCount();
         for (uint32 i = 0; i < textureCount; ++i)
@@ -207,24 +207,34 @@ namespace igor
             texturePath += __IGOR_PATHSEPARATOR__;
             texturePath += meshChunk->getTexture(i);
 
-            meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(texturePath), i);
+            meshNode->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().requestFile(texturePath));
             mesh->setTexture(i, true);
         }
 
-        // prepare mesh data
-        float32 *vertexData = reinterpret_cast<float32 *>(new char[meshChunk->getVertexDataSize()]);
-        uint32 *indexData = reinterpret_cast<uint32 *>(new char[meshChunk->getIndexDataSize()]);
+        iIndexBufferPtr indexBuffer = iIndexBuffer::create(meshChunk->getIndexCount(), reinterpret_cast<const uint32*>(meshChunk->getIndexData()));            
+        iVertexBufferPtr vertexBuffer = iVertexBuffer::create(meshChunk->getVertexDataSize(), meshChunk->getVertexData());
+        iBufferLayout layout;
+        layout.addElement({iShaderDataType::Float3});
+        if (meshChunk->getNormalsPerVertex() ? true : false)
+        {
+            layout.addElement({iShaderDataType::Float2});
+        }
+        if (meshChunk->getColorsPerVertex() ? true : false)
+        {
+            layout.addElement({iShaderDataType::Float4});
+        }
+        for (int i = 0; i < meshChunk->getTexCoordPerVertex(); ++i)
+        {
+            layout.addElement({iShaderDataType::Float2});
+        }
+        vertexBuffer->setLayout(layout);
 
-        memcpy(vertexData, meshChunk->getVertexData(), meshChunk->getVertexDataSize());
-        memcpy(indexData, meshChunk->getIndexData(), meshChunk->getIndexDataSize());
-
-        mesh->setVertexData(vertexData, meshChunk->getVertexDataSize());
-        mesh->setIndexData(indexData, meshChunk->getIndexDataSize());
-        uint32 vertexSize = meshChunk->getVertexSize();
-        mesh->setVertexSize(vertexSize);
+        iVertexArrayPtr vertexArray = iVertexArray::create();
+        vertexArray->addVertexBuffer(vertexBuffer);
+        vertexArray->setIndexBuffer(indexBuffer);        
 
         mesh->setVertexCount(meshChunk->getVertexCount());
-        mesh->setIndexesCount(meshChunk->getIndexCount());
+        mesh->setIndexCount(meshChunk->getIndexCount());
         mesh->setTrianglesCount(meshChunk->getIndexCount() / 3);
 
         mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
@@ -235,14 +245,14 @@ namespace igor
         iaVector3d minPos;
         iaVector3d maxPos;
 
-        calculateBoundingBox(vertexData, vertexSize / 4, meshChunk->getVertexCount(), minPos, maxPos);
+        // calculateBoundingBox(meshChunk->getVertexData(), vertexSize / 4, meshChunk->getVertexCount(), minPos, maxPos);
 
         iAABoxd bbox;
         bbox.set(minPos, maxPos);
         mesh->setBoundingBox(bbox);
 
         // push mesh to mesh node
-        meshNode->setMesh(iMeshPtr(mesh));
+        meshNode->setMesh(mesh);
 
         iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
         meshNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
@@ -767,20 +777,22 @@ namespace igor
                 result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
                 result->setTexCoordPerVertex(node->getMesh()->getTextureCoordinatesCount());
 
-                result->setVertexCount(node->getMesh()->getVertexCount());
+                /*result->setVertexCount(node->getMesh()->getVertexCount());
+                for(auto vertexBuffer : node->getMesh()->getVertexArray()->getVertexBuffers())
+                {
+                    vertexBuffer->getData????
+                    break;
+                }
                 result->setVertexData(reinterpret_cast<char *>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
 
                 result->setIndexCount(node->getMesh()->getIndexesCount());
-                result->setIndexData(reinterpret_cast<char *>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());
+                result->setIndexData(reinterpret_cast<char *>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());#*/
 
-                for (uint32 i = 0; i < node->getTargetMaterial()->getTextureUnitCount(); ++i)
+                uint32 texUnit = 0;
+                for (auto texture : node->getTargetMaterial()->getTextures())
                 {
-                    iTexturePtr texture = node->getTargetMaterial()->getTexture(i);
-                    if (texture != nullptr)
-                    {
                         iaString relative = iaDirectory::getRelativePath(_filename, texture->getFilename());
-                        result->setTexture(relative, i);
-                    }
+                        result->setTexture(relative, texUnit++);
                 }
             }
             else

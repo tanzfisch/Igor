@@ -22,7 +22,7 @@ namespace igor
     iIndexBuffer::iIndexBuffer(uint32 count, const uint32 *indices)
         : _indexCount(count)
     {
-        _dynamic = indices != nullptr;
+        _dynamic = indices == nullptr;
 
         glCreateBuffers(1, &_indexBufferObject);
         GL_CHECK_ERROR();

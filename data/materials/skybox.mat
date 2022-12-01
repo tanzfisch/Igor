@@ -15,52 +15,35 @@
 <![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
-layout(location = 1) in vec4 in_color;
-layout(location = 2) in vec2 in_texCoord;
-layout(location = 3) in float in_texUnit;
+layout(location = 1) in vec2 in_texCoord;
 
 uniform mat4 igor_modelViewProjection;
 
-out vec4 VertexColor;
-out vec2 TexCoord;
-out float TexUnit;
+out vec2 VertexTexCoord;
 
 void main()
 {
-	VertexColor = in_color;
-	TexCoord = in_texCoord;
-    TexUnit = in_texUnit;
-
+	VertexTexCoord = in_texCoord;
+	
 	gl_Position = igor_modelViewProjection * vec4(in_position,1);
 }]]>
             </Vertex>
             <Fragment>
 <![CDATA[#version 450
 
-in vec4 VertexColor;
-in vec2 TexCoord;
-in flat float TexUnit;
+in vec2 VertexTexCoord;
 
 layout(location = 0) out vec4 out_color;
 
-layout (binding = 0) uniform sampler2D u_textures[6];
+uniform sampler2D igor_matTexture0;
 
 void main()
 {
-	vec4 texColor = VertexColor;
+    // out_color.rgba = texture2D(igor_matTexture0, VertexTexCoord).rgba;
 
-	switch(int(TexUnit))
-	{
-		case  0: texColor *= texture2D(u_textures[0], TexCoord); break;
-		case  1: texColor *= texture2D(u_textures[1], TexCoord); break;
-		case  2: texColor *= texture2D(u_textures[2], TexCoord); break;
-		case  3: texColor *= texture2D(u_textures[3], TexCoord); break;
-		case  4: texColor *= texture2D(u_textures[4], TexCoord); break;
-		case  5: texColor *= texture2D(u_textures[5], TexCoord); break;
-	}
-
-	out_color = texColor;
-}]]>
+    out_color.rgba = vec4(1,1,0,1);
+}
+]]>
             </Fragment>
         </Program>            
 	</Material>

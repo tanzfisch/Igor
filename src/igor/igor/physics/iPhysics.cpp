@@ -1190,7 +1190,7 @@ namespace igor
         {
             const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
 
-            if (world != nullptr)
+            /*if (world != nullptr)
             {
                 NewtonCollision *collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld *>(world), 0);
 
@@ -1234,7 +1234,7 @@ namespace igor
                 _collisionsListMutex.lock();
                 _collisions[result->getID()] = result;
                 _collisionsListMutex.unlock();
-            }
+            }*/
         }
         else
         {

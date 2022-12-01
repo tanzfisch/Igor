@@ -20,6 +20,12 @@ namespace igor
         return _stride;
     }
 
+    void iBufferLayout::addElement(const iBufferLayoutEntry &element)
+    {
+        _elements.push_back(element);
+        calcOffsetsAndStride();
+    }
+
     const std::vector<iBufferLayoutEntry> &iBufferLayout::getElements() const
     {
         return _elements;

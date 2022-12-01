@@ -244,6 +244,8 @@ namespace igor
         void drawBox(const iAABoxd &box, const iaColor4f &color = iaColor4f::white);
         void drawBox(const iAABoxf &box, const iaColor4f &color = iaColor4f::white);
 
+        void drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial);
+
         void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial);
         void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer);
 
@@ -586,8 +588,10 @@ namespace igor
         void clearStats();
 
         /*! write igor specific shader parameters to current material
+
+        \param targetMaterial the target specifig material values. Ignored if nullptr
         */
-        void writeShaderParameters();
+        void writeShaderParameters(iTargetMaterialPtr targetMaterial);
 
         /*!
         \todo this is weired stuff we should do that differently

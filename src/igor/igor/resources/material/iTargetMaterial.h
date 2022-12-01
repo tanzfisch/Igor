@@ -49,30 +49,21 @@ namespace igor
         friend class iMaterialResourceFactory;
 
     public:
-        /*! set a texture for a specific texture unit
+        /*! add a texture
 
-        \param texture the texture to bind
-        \param texunit the texture unit the texture will bond to
+        texture unit will be interpreted by added order first is 0 and so on
+
+        \param texture the texture to add
         */
-        void setTexture(iTexturePtr texture, int texunit);
+        void addTexture(iTexturePtr texture);
 
-        /*! \returns texture of specified texture unit
-
-        \param texunit texture unit
+        /*! \returns all the textures in the target material
         */
-        iTexturePtr getTexture(int texunit) const;
+        const std::vector<iTexturePtr>& getTextures() const;
 
         /*! \returns true if mesh has textures and texture coordinates
         */
         bool hasTextures() const;
-
-        /*! \returns texture unit count
-        */
-        uint32 getTextureUnitCount() const;
-
-        /*! \returns true if mesh has specified texture unit
-        */
-        bool hasTextureUnit(uint32 unit) const;
 
         /*! set emmisive color
 
@@ -133,9 +124,9 @@ namespace igor
         float32 getAlpha() const;
 
     private:
-        /*! map of textures associated to the mesh
+        /*! list of textures associated to the target
         */
-        std::map<uint32, iTexturePtr> _textures;
+        std::vector<iTexturePtr> _textures;
 
         /*! material emissive value
         */

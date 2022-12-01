@@ -22,7 +22,7 @@ namespace igor
 
     iVertexBuffer::iVertexBuffer(uint32 size, const void *vertexData)
     {
-        _dynamic = vertexData != nullptr;
+        _dynamic = vertexData == nullptr;
 
         glCreateBuffers(1, &_vertexBufferObject);
         GL_CHECK_ERROR();

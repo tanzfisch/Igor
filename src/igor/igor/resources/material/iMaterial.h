@@ -155,6 +155,12 @@ namespace igor
         */
         bool hasSolidColor() const;
 
+        /*! \returns true if gien texture unit is used
+
+        \param texUnit the given texture unit
+        */
+        bool hasTextureUnit(uint32 texUnit) const;
+
     private:
         /*! name of the material.
          */
@@ -200,7 +206,11 @@ namespace igor
 
         /*! if true shader contains solid color property
         */
-        bool _hasSolidColor = false;            
+        bool _hasSolidColor = false;         
+
+        /*! list of avail able texture units in shader
+        */
+        bool _hasTexture[MAX_TEXTURE_UNITS];   
 
         /*! does nothing
          */

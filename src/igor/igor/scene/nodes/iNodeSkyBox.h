@@ -31,6 +31,7 @@
 
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/mesh/iMesh.h>
 
 namespace igor
 {
@@ -138,6 +139,10 @@ namespace igor
         /*! shared pointer to bottom texture
         */
         iTexturePtr _bottom;
+
+        /*! mesh for sky box
+        */
+        iMeshPtr _mesh;
 
         /*! initializes member variables
         */

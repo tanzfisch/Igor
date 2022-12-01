@@ -184,9 +184,9 @@ namespace igor
 
         // set up terrain target material
         _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture()); // TODO
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture());
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture());
         _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));

@@ -87,6 +87,13 @@ namespace igor
         {
             _hasSolidColor = true;
         }
+
+        for (int i = 0; i < MAX_TEXTURE_UNITS; ++i)
+        {
+            std::stringstream shaderProperty;
+            shaderProperty << SAMPLER_TEXTURE << i;
+            _hasTexture[i] = _shaderProgram->hasUniformLocation(shaderProperty.str().c_str());
+        }        
     }
 
     bool iMaterial::hasDirectionalLight() const
@@ -118,6 +125,12 @@ namespace igor
     {
         return _hasSolidColor;
     }
+
+    bool iMaterial::hasTextureUnit(uint32 texUnit) const
+    {
+        con_assert(texUnit < MAX_TEXTURE_UNITS, "out of bounds");
+        return _hasTexture[texUnit];
+    }    
 
     iShaderProgramPtr iMaterial::getShaderProgram() const
     {
@@ -167,7 +180,7 @@ namespace igor
         else
         {
             glDisable(GL_CULL_FACE);
-        }
+        }        
 
         switch (_renderStateSet.getRenderState(iRenderState::DepthFunc))
         {

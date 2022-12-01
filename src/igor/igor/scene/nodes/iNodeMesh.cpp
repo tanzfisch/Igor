@@ -80,20 +80,7 @@ namespace igor
 
     void iNodeMesh::setTargetMaterial(const iTargetMaterial *const targetMaterial)
     {
-        _targetMaterial->setAmbient(targetMaterial->getAmbient());
-        _targetMaterial->setDiffuse(targetMaterial->getDiffuse());
-        _targetMaterial->setSpecular(targetMaterial->getSpecular());
-        _targetMaterial->setShininess(targetMaterial->getShininess());
-        _targetMaterial->setEmissive(targetMaterial->getEmissive());
-        _targetMaterial->setAlpha(targetMaterial->getAlpha());
-
-        for (int i = 0; i < 4; ++i)
-        {
-            if (targetMaterial->hasTextureUnit(i))
-            {
-                _targetMaterial->setTexture(targetMaterial->getTexture(i), i);
-            }
-        }
+        *_targetMaterial = *targetMaterial;
     }
 
     iTargetMaterial *iNodeMesh::getTargetMaterial()

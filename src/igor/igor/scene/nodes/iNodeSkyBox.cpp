@@ -20,6 +20,7 @@ namespace igor
     {
         setName(L"iNodeSkyBox");
         _nodeType = iNodeType::iNodeSkyBox;
+        buildMesh();
     }
 
     iNodeSkyBox::iNodeSkyBox(iNodeSkyBox *node)
@@ -37,6 +38,8 @@ namespace igor
         node->getOffsetMatrix(matrix);
         setOffsetMatrix(matrix);
         setUseOffsetMatrix(node->isOffsetMatrixUsed());
+
+        _mesh = node->_mesh;
     }
 
     iNodeSkyBox::~iNodeSkyBox()
@@ -52,7 +55,7 @@ namespace igor
     void iNodeSkyBox::buildMesh()
     {
         iMeshBuilder meshBuilder;
-
+        // manually set triangle indices
         meshBuilder.setJoinVertexes(false);
 
         // top
@@ -69,65 +72,65 @@ namespace igor
 
         // bottom
         meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 1);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 1);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 1);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
         meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 1);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
         meshBuilder.addTriangle(4, 7, 5);
         meshBuilder.addTriangle(7, 6, 5);
 
         // back
         meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 2);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 2);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 2);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
         meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 2);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
         meshBuilder.addTriangle(8, 11, 9);
         meshBuilder.addTriangle(11, 10, 9);
 
         // front
         meshBuilder.addVertex(iaVector3f(-0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 3);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 3);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 3);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 3);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
         meshBuilder.addTriangle(12, 13, 15);
         meshBuilder.addTriangle(13, 14, 15);        
 
         // left
         meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 4);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
         meshBuilder.addVertex(iaVector3f(-0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 4);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 4);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 4);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
         meshBuilder.addTriangle(16, 17, 19);
         meshBuilder.addTriangle(17, 18, 19);          
 
         // right
         meshBuilder.addVertex(iaVector3f(0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 5);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 5);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 5);
+        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
         meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 5);
+        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
         meshBuilder.addTriangle(20, 23, 21);
         meshBuilder.addTriangle(21, 23, 22);         
 
-        // TODO iMeshPtr mesh = meshBuilder.createMesh();
+        _mesh = meshBuilder.createMesh();
     }
 
     float32 iNodeSkyBox::getTextureScale() const
@@ -183,22 +186,22 @@ namespace igor
     void iNodeSkyBox::draw()
     {
         iaMatrixd model;
-        const iaMatrixd &camMatrix = iRenderer::getInstance().getCamMatrix();
+        /*const iaMatrixd &camMatrix = iRenderer::getInstance().getCamMatrix();
 
         model._pos = camMatrix._pos;
         if (_useMatrix)
         {
             model *= _offsetMatrix;
         }
+        model.scale(_boxSize,_boxSize,_boxSize);*/
         iRenderer::getInstance().setModelMatrix(model);
-        const iaVector2f tiling(_textureScale, _textureScale);
 
-        iRenderer::getInstance().drawTexturedQuad(iaVector3f(0, 0, -_boxSize), iaVector3f(-_boxSize, 0, 0), iaVector3f(0, _boxSize, 0), _front, iaColor4f::white, false, tiling);
-        iRenderer::getInstance().drawTexturedQuad(iaVector3f(0, 0, _boxSize), iaVector3f(_boxSize, 0, 0), iaVector3f(0, _boxSize, 0), _back, iaColor4f::white, false, tiling);
-        iRenderer::getInstance().drawTexturedQuad(iaVector3f(-_boxSize, 0, 0), iaVector3f(0, 0, _boxSize), iaVector3f(0, _boxSize, 0), _left, iaColor4f::white, false, tiling);
-        iRenderer::getInstance().drawTexturedQuad(iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, -_boxSize), iaVector3f(0, _boxSize, 0), _right, iaColor4f::white, false, tiling);
-        iRenderer::getInstance().drawTexturedQuad(iaVector3f(0, _boxSize, 0), iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, -_boxSize), _top, iaColor4f::white, false, tiling);
-        iRenderer::getInstance().drawTexturedQuad(iaVector3f(0, -_boxSize, 0), iaVector3f(_boxSize, 0, 0), iaVector3f(0, 0, _boxSize), _bottom, iaColor4f::white, false, tiling);
+        // TODO create target material 
+
+        iRenderer::getInstance().drawMesh(_mesh, nullptr);
+
+        // iRenderer::getInstance().drawTexturedQuad(iaVector3f(0, 0, 0), iaVector3f(-1, 0, 0), iaVector3f(0, 1, 0), _front);
+          
     }
 
 } // namespace igor

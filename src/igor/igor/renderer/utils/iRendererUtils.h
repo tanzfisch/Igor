@@ -102,8 +102,7 @@ namespace igor
             con_crit(id << " - " << message);
             return;
         case GL_DEBUG_SEVERITY_MEDIUM:
-            // ignore line width deprecation error
-            if(id == 7)
+            if(id == 7) // ignore line width deprecation error
             {
                 return;
             }
@@ -141,6 +140,16 @@ namespace igor
     static constexpr const char *UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
     static constexpr const char *UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
     static constexpr const char *UNIFORM_MATERIAL_ALPHA = "igor_matAlpha";
+
+    static constexpr const char *SAMPLER_TEXTURE = "igor_matTexture";
+    static constexpr const char *SAMPLER_TEXTURE0 = "igor_matTexture0";
+    static constexpr const char *SAMPLER_TEXTURE1 = "igor_matTexture1";
+    static constexpr const char *SAMPLER_TEXTURE2 = "igor_matTexture2";
+    static constexpr const char *SAMPLER_TEXTURE3 = "igor_matTexture3";
+    static constexpr const char *SAMPLER_TEXTURE4 = "igor_matTexture4";
+    static constexpr const char *SAMPLER_TEXTURE5 = "igor_matTexture5";
+    static constexpr const char *SAMPLER_TEXTURE6 = "igor_matTexture6";
+    static constexpr const char *SAMPLER_TEXTURE7 = "igor_matTexture7";
 
     /*! renderer utils shared across renderer, shader etc implementations
     */

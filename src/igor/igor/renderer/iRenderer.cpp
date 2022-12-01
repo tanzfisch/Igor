@@ -300,10 +300,6 @@ namespace igor
         iMaterialPtr _currentMaterial;
 
         //////////// SHARED DATA ///////////
-        /*! quad index data
-         */
-        uint32 *_sharedQuadIndexData = nullptr;
-
         /*! quad index buffer
          */
         iIndexBufferPtr _sharedQuadIndexBuffer;
@@ -434,20 +430,20 @@ namespace igor
         triangles._indexCount = 0;
 
         //////// QUADS comon data ///////////
-        _data->_sharedQuadIndexData = new uint32[MAX_QUAD_INDICES];
+        uint32 sharedQuadIndexData[MAX_QUAD_INDICES];
 
         for (uint32 i = 0; i < MAX_QUADS; ++i)
         {
-            _data->_sharedQuadIndexData[i * 6 + 0] = i * 4 + 0;
-            _data->_sharedQuadIndexData[i * 6 + 1] = i * 4 + 1;
-            _data->_sharedQuadIndexData[i * 6 + 2] = i * 4 + 3;
+            sharedQuadIndexData[i * 6 + 0] = i * 4 + 0;
+            sharedQuadIndexData[i * 6 + 1] = i * 4 + 1;
+            sharedQuadIndexData[i * 6 + 2] = i * 4 + 3;
 
-            _data->_sharedQuadIndexData[i * 6 + 3] = i * 4 + 1;
-            _data->_sharedQuadIndexData[i * 6 + 4] = i * 4 + 2;
-            _data->_sharedQuadIndexData[i * 6 + 5] = i * 4 + 3;
+            sharedQuadIndexData[i * 6 + 3] = i * 4 + 1;
+            sharedQuadIndexData[i * 6 + 4] = i * 4 + 2;
+            sharedQuadIndexData[i * 6 + 5] = i * 4 + 3;
         }
 
-        _data->_sharedQuadIndexBuffer = iIndexBuffer::create(MAX_QUAD_INDICES, _data->_sharedQuadIndexData);
+        _data->_sharedQuadIndexBuffer = iIndexBuffer::create(MAX_QUAD_INDICES, sharedQuadIndexData);
 
         //////////// FLAT QUADS /////////////
         auto &quads = _data->_quads;
@@ -593,8 +589,6 @@ namespace igor
 
         /////////// SHARED QUAD INDICES //////////
         _data->_sharedQuadIndexBuffer = nullptr;
-        delete[] _data->_sharedQuadIndexData;
-        _data->_sharedQuadIndexData = nullptr;
     }
 
     void iRenderer::beginFrame()
@@ -1036,7 +1030,7 @@ namespace igor
         if (_data->_currentMaterial != nullptr)
         {
             _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
             glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
             GL_CHECK_ERROR();
@@ -1070,7 +1064,7 @@ namespace igor
         if (_data->_currentMaterial != nullptr)
         {
             _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
             uint32 vertexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
             triangles._vertexBuffer->setData(vertexDataSize, triangles._vertexData);
@@ -1110,7 +1104,7 @@ namespace igor
         if (_data->_currentMaterial != nullptr)
         {
             _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
             uint32 dataSize = (uint32)((uint8 *)quads._vertexDataPtr - (uint8 *)quads._vertexData);
             quads._vertexBuffer->setData(dataSize, quads._vertexData);
@@ -1147,7 +1141,7 @@ namespace igor
         if (_data->_currentMaterial != nullptr)
         {
             _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
             uint32 dataSize = (uint32)((uint8 *)lines._vertexDataPtr - (uint8 *)lines._vertexData);
             lines._vertexBuffer->setData(dataSize, lines._vertexData);
@@ -1181,7 +1175,7 @@ namespace igor
         if (_data->_currentMaterial != nullptr)
         {
             _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix("igor_modelViewProjection", getMVP());
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
             uint32 dataSize = (uint32)((uint8 *)points._vertexDataPtr - (uint8 *)points._vertexData);
             points._vertexBuffer->setData(dataSize, points._vertexData);
@@ -1205,6 +1199,12 @@ namespace igor
 
     void iRenderer::flush()
     {
+        // nothing to flush
+        if (_data->_lastRenderDataSetUsed == iRenderDataSet::NoDataSet)
+        {
+            return;
+        }
+
         flushTexQuads();
         flushQuads();
         flushTriangles();
@@ -2038,19 +2038,10 @@ namespace igor
 
         _data->_currentMaterial->bind();
 
-        if (_data->_currentMaterial->hasTargetMaterial())
-        {
-            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
-            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
-            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
-            _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
-            _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
-        }
-
-        writeShaderParameters();
+        writeShaderParameters(targetMaterial);
 
         glBindVertexArray(meshBuffers->getVertexArrayObject());
-        glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
 
         // save stats
@@ -2060,6 +2051,30 @@ namespace igor
         _data->_stats._triangles += meshBuffers->getTrianglesCount();
     }
 
+    void iRenderer::drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial)
+    {
+        flush();
+
+        _data->_currentMaterial->bind();
+
+        writeShaderParameters(targetMaterial);
+
+        glDisable(GL_CULL_FACE); // TODO remove
+
+        mesh->bind();
+
+        glDrawElements(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr);
+        GL_CHECK_ERROR();
+        glBindVertexArray(0);
+        GL_CHECK_ERROR();
+
+        // save stats
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += mesh->getVertexCount();
+        _data->_stats._indices += mesh->getIndexCount();
+        _data->_stats._triangles += mesh->getTrianglesCount();
+    }
+
     void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
     {
         iaMatrixd idMatrix;
@@ -2067,7 +2082,7 @@ namespace igor
 
         // TODO createBuffers(instancer); // TODO that's not a good place to initialize the buffer
 
-        writeShaderParameters();
+        writeShaderParameters(targetMaterial);
 
         glBindVertexArray(meshBuffers->getVertexArrayObject());
 
@@ -2107,8 +2122,27 @@ namespace igor
         // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
     }
 
-    void iRenderer::writeShaderParameters()
+    void iRenderer::writeShaderParameters(iTargetMaterialPtr targetMaterial)
     {
+        if (_data->_currentMaterial->hasTargetMaterial() &&
+            targetMaterial != nullptr)
+        {
+            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
+            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
+            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
+            _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
+            _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
+
+            uint32 texUnit = 0;
+            for(const auto &texture : targetMaterial->getTextures())
+            {
+                std::stringstream shaderProperty;
+                shaderProperty << SAMPLER_TEXTURE << texUnit;
+                _data->_currentMaterial->setInt(shaderProperty.str().c_str() ,texUnit);
+                texture->bind(texUnit++);                
+            }
+        }
+
         if (_data->_currentMaterial->hasDirectionalLight())
         {
             _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_ORIENTATION, _data->_lights[0]._position);
@@ -2125,12 +2159,7 @@ namespace igor
 
         if (_data->_currentMaterial->hasModelViewProjectionMatrix())
         {
-            iaMatrixf modelViewProjection;
-            for (int i = 0; i < 16; ++i)
-            {
-                modelViewProjection[i] = _data->_modelViewProjectionMatrix[i];
-            }
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, modelViewProjection);
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
         }
 
         if (_data->_currentMaterial->hasModelMatrix())
@@ -2180,7 +2209,7 @@ namespace igor
 
     void iRenderer::createBuffers(float64 timeLimit)
     {
-        iaTime endTime = iaTime::getNow();
+        /*iaTime endTime = iaTime::getNow();
         endTime += iaTime::fromMilliseconds(timeLimit);
         std::deque<std::pair<iMeshPtr, iMeshBuffersPtr>>::iterator entryIter;
 
@@ -2215,12 +2244,12 @@ namespace igor
             {
                 break;
             }
-        }
+        }*/
     }
 
     void iRenderer::initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers)
     {
-        uint32 vao = 0;
+        /*uint32 vao = 0;
         uint32 ibo = 0;
         uint32 vbo = 0;
 
@@ -2281,7 +2310,7 @@ namespace igor
         meshBuffers->setTrianglesCount(mesh->getTrianglesCount());
         meshBuffers->setVertexCount(mesh->getVertexCount());
 
-        meshBuffers->setReady();
+        meshBuffers->setReady();*/
     }
 
     // TODO remove

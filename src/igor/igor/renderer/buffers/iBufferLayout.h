@@ -92,6 +92,12 @@ namespace igor
         */
         iBufferLayout(const std::vector<iBufferLayoutEntry> &elements);
 
+        /*! adds an element to the layout
+
+        \param element the element to be added 
+        */
+        void addElement(const iBufferLayoutEntry &element);
+
         /*! \returns stride of layout configuration in byte
          */
         uint32 getStride() const;
