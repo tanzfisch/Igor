@@ -39,9 +39,7 @@ uniform sampler2D igor_matTexture0;
 
 void main()
 {
-    // out_color.rgba = texture2D(igor_matTexture0, VertexTexCoord).rgba;
-
-    out_color.rgba = vec4(1,1,0,1);
+    out_color.rgba = texture2D(igor_matTexture0, VertexTexCoord).rgba;
 }
 ]]>
             </Fragment>

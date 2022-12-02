@@ -47,13 +47,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
                 // create a skybox
                 iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
                 // set it up with the default skybox texture
-                skyBoxNode->setTextures(
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
+                skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skybox_debug.png"));
                 // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
                 _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
                 _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);

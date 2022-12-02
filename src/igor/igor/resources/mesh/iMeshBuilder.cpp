@@ -579,33 +579,35 @@ namespace igor
         const uint32 vertexBufferSize = vertexCount * vertexSize;
         uint8 vertexBufferData[vertexBufferSize];
 
+        float32 *vertexBufferDataPtr = reinterpret_cast<float32 *>(vertexBufferData);
+
         bufferIndex = 0;
 
         for (int vertexIndex = 0; vertexIndex < _vertexes.size(); ++vertexIndex)
         {
-            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._x;
-            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._y;
-            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._z;
+            vertexBufferDataPtr[bufferIndex++] = _vertexes[vertexIndex]._x;
+            vertexBufferDataPtr[bufferIndex++] = _vertexes[vertexIndex]._y;
+            vertexBufferDataPtr[bufferIndex++] = _vertexes[vertexIndex]._z;
 
             if (hasNormals())
             {
-                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._x;
-                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._y;
-                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._z;
+                vertexBufferDataPtr[bufferIndex++] = _normals[vertexIndex]._x;
+                vertexBufferDataPtr[bufferIndex++] = _normals[vertexIndex]._y;
+                vertexBufferDataPtr[bufferIndex++] = _normals[vertexIndex]._z;
             }
 
             if (hasColors())
             {
-                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._r;
-                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._g;
-                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._b;
-                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._a;
+                vertexBufferDataPtr[bufferIndex++] = _colors[vertexIndex]._r;
+                vertexBufferDataPtr[bufferIndex++] = _colors[vertexIndex]._g;
+                vertexBufferDataPtr[bufferIndex++] = _colors[vertexIndex]._b;
+                vertexBufferDataPtr[bufferIndex++] = _colors[vertexIndex]._a;
             }
 
             for (uint32 texIndex = 0; texIndex < getTextureUnitCount(); ++texIndex)
             {
-                vertexBufferData[bufferIndex++] = _texCoords[texIndex][vertexIndex]._x;
-                vertexBufferData[bufferIndex++] = _texCoords[texIndex][vertexIndex]._y;
+                vertexBufferDataPtr[bufferIndex++] = _texCoords[texIndex][vertexIndex]._x;
+                vertexBufferDataPtr[bufferIndex++] = _texCoords[texIndex][vertexIndex]._y;
             }
         }
 

@@ -50,14 +50,6 @@ namespace igor
 
         /*! sets texture coordinates scaling
 
-        \param scale scale of texture coordinates
-        */
-        void setTextureScale(float32 scale);
-
-        /*! \returns texture scale
-        */
-        float32 getTextureScale() const;
-
         /*! sets the offset matrix
 
         \param offsetMatrix the offset matrix to set
@@ -82,16 +74,11 @@ namespace igor
 
         /*! set the textures used for the sky box
 
-        \param front front texture
-        \param back back texture
-        \param left left texture
-        \param right right texture
-        \param top top texture
-        \param bottom bottom texture
+        \param texture the texture to use
         */
-        void setTextures(iTexturePtr front, iTexturePtr back, iTexturePtr left, iTexturePtr right, iTexturePtr top, iTexturePtr bottom);
+        void setTexture(iTexturePtr texture);
 
-        /*! sets the sky box size
+        /*! sets the sky box size (radius)
 
         \param boxSize the sky box size
         */
@@ -102,11 +89,9 @@ namespace igor
         float32 getBoxSize() const;
 
     private:
-        float32 _boxSize = 10.0f;
-
-        /*! texture scaling
+        /*! scale of the box
         */
-        float32 _textureScale = 1.0f;
+        float32 _boxSize = 10.0f;
 
         /*! true if the matrix has to be set as offset on top of the camera matrix
         */
@@ -116,29 +101,9 @@ namespace igor
         */
         iaMatrixd _offsetMatrix;
 
-        /*! shared pointer to front texture
+        /*! shared pointer to texture
         */
-        iTexturePtr _front;
-
-        /*! shared pointer to back texture
-        */
-        iTexturePtr _back;
-
-        /*! shared pointer to left texture
-        */
-        iTexturePtr _left;
-
-        /*! shared pointer to right texture
-        */
-        iTexturePtr _right;
-
-        /*! shared pointer to top texture
-        */
-        iTexturePtr _top;
-
-        /*! shared pointer to bottom texture
-        */
-        iTexturePtr _bottom;
+        iTexturePtr _texture;
 
         /*! mesh for sky box
         */
@@ -154,7 +119,7 @@ namespace igor
 
         /*! releases textures
         */
-        virtual ~iNodeSkyBox();
+        virtual ~iNodeSkyBox() = default;
 
         /*! builds up a mesh for later rendering
         */

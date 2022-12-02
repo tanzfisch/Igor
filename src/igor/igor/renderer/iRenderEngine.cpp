@@ -124,6 +124,10 @@ namespace igor
             cullScene(_currentCamera);
             updateMaterialGroups();
 
+            iaMatrixd camMatrix;
+            _currentCamera->getWorldMatrix(camMatrix);
+            iRenderer::getInstance().setViewMatrixFromCam(camMatrix);
+
             if (_renderColorID)
             {
                 drawColorIDs();
@@ -141,9 +145,6 @@ namespace igor
 
         iaMatrixd view;
         camera->getViewMatrix(view);
-        iaMatrixd camMatrix;
-        camera->getWorldMatrix(camMatrix);
-        iRenderer::getInstance().setViewMatrixFromCam(camMatrix);
 
         iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
         projectionMatrix *= view;

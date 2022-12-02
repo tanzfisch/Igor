@@ -32,7 +32,6 @@ namespace igor
         _nodeKind = node->_nodeKind;
 
         setName(node->getName());
-        setTextureScale(node->getTextureScale());
 
         iaMatrixd matrix;
         node->getOffsetMatrix(matrix);
@@ -42,16 +41,6 @@ namespace igor
         _mesh = node->_mesh;
     }
 
-    iNodeSkyBox::~iNodeSkyBox()
-    {
-        _front = 0;
-        _back = 0;
-        _left = 0;
-        _right = 0;
-        _top = 0;
-        _bottom = 0;
-    }
-
     void iNodeSkyBox::buildMesh()
     {
         iMeshBuilder meshBuilder;
@@ -59,93 +48,84 @@ namespace igor
         meshBuilder.setJoinVertexes(false);
 
         // top
-        meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
-        meshBuilder.addVertex(iaVector3f(-0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
-        meshBuilder.addTriangle(0, 1, 2);
-        meshBuilder.addTriangle(0, 2, 3);
-
-        // bottom
-        meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
-        meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
-        meshBuilder.addTriangle(4, 7, 5);
-        meshBuilder.addTriangle(7, 6, 5);
-
-        // back
-        meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
-        meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
-        meshBuilder.addTriangle(8, 11, 9);
-        meshBuilder.addTriangle(11, 10, 9);
-
-        // front
-        meshBuilder.addVertex(iaVector3f(-0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
-        meshBuilder.addTriangle(12, 13, 15);
-        meshBuilder.addTriangle(13, 14, 15);        
+        uint32 a = meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.25, 0.3333), 0);
+        uint32 b = meshBuilder.addVertex(iaVector3f(0.5, 0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.5, 0.3333), 0);
+        uint32 c = meshBuilder.addVertex(iaVector3f(0.5, 0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.5, 0.0), 0);
+        uint32 d = meshBuilder.addVertex(iaVector3f(-0.5, 0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.25, 0.0), 0);
+        meshBuilder.addTriangle(a, b, c);
+        meshBuilder.addTriangle(a, c, d);
 
         // left
-        meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
-        meshBuilder.addVertex(iaVector3f(-0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
-        meshBuilder.addTriangle(16, 17, 19);
-        meshBuilder.addTriangle(17, 18, 19);          
+        a = meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.25, 0.3333), 0);
+        b = meshBuilder.addVertex(iaVector3f(-0.5, 0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.0, 0.3333), 0);
+        c = meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.0, 0.6666), 0);
+        d = meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.25, 0.6666), 0);
+        
+        meshBuilder.addTriangle(a, b, d);
+        meshBuilder.addTriangle(b, c, d);  
+
+        // front
+        a = meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.25, 0.3333), 0);
+        b = meshBuilder.addVertex(iaVector3f(0.5, 0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.5, 0.3333), 0);
+        c = meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.5, 0.6666), 0);
+        d = meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.25, 0.6666), 0);
+        meshBuilder.addTriangle(a, d, b);
+        meshBuilder.addTriangle(d, c, b);        
 
         // right
-        meshBuilder.addVertex(iaVector3f(0.5, 0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, 0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 0.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
-        meshBuilder.setTexCoord(iaVector2f(1.0, 1.0), 0);
-        meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
-        meshBuilder.setTexCoord(iaVector2f(0.0, 1.0), 0);
-        meshBuilder.addTriangle(20, 23, 21);
-        meshBuilder.addTriangle(21, 23, 22);         
+        a = meshBuilder.addVertex(iaVector3f(0.5, 0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.5, 0.3333), 0);
+        b = meshBuilder.addVertex(iaVector3f(0.5, 0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.75, 0.3333), 0);
+        c = meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.75, 0.6666), 0);
+        d = meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.5, 0.6666), 0);
+        meshBuilder.addTriangle(a, d, b);
+        meshBuilder.addTriangle(b, d, c);          
+
+        // back
+        a = meshBuilder.addVertex(iaVector3f(-0.5, 0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(1.0, 0.3333), 0);
+        b = meshBuilder.addVertex(iaVector3f(0.5, 0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.75, 0.3333), 0);
+        c = meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.75, 0.6666), 0);
+        d = meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(1.0, 0.6666), 0);
+        meshBuilder.addTriangle(a, b, d);
+        meshBuilder.addTriangle(b, c, d);             
+
+        // bottom
+        a = meshBuilder.addVertex(iaVector3f(-0.5, -0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.25, 0.6666), 0);
+        b = meshBuilder.addVertex(iaVector3f(0.5, -0.5, -0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.5, 0.6666), 0);
+        c = meshBuilder.addVertex(iaVector3f(0.5, -0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.5, 1.0), 0);
+        d = meshBuilder.addVertex(iaVector3f(-0.5, -0.5, 0.5));
+        meshBuilder.setTexCoord(iaVector2f(0.25, 1.0), 0);
+        meshBuilder.addTriangle(a, d, b);
+        meshBuilder.addTriangle(d, c, b);
 
         _mesh = meshBuilder.createMesh();
     }
 
-    float32 iNodeSkyBox::getTextureScale() const
+    void iNodeSkyBox::setTexture(iTexturePtr texture)
     {
-        return _textureScale;
-    }
-
-    void iNodeSkyBox::setTextures(iTexturePtr front, iTexturePtr back, iTexturePtr left, iTexturePtr right, iTexturePtr top, iTexturePtr bottom)
-    {
-        _front = front;
-        _back = back;
-        _left = left;
-        _right = right;
-        _top = top;
-        _bottom = bottom;
+        _texture = texture;
     }
 
     void iNodeSkyBox::setOffsetMatrix(iaMatrixd &offsetMatrix)
@@ -168,11 +148,6 @@ namespace igor
         return _useMatrix;
     }
 
-    void iNodeSkyBox::setTextureScale(float32 scale)
-    {
-        _textureScale = scale;
-    }
-
     void iNodeSkyBox::setBoxSize(float32 boxSize)
     {
         _boxSize = boxSize;
@@ -186,22 +161,17 @@ namespace igor
     void iNodeSkyBox::draw()
     {
         iaMatrixd model;
-        /*const iaMatrixd &camMatrix = iRenderer::getInstance().getCamMatrix();
+        const iaMatrixd &camMatrix = iRenderer::getInstance().getCamMatrix();
 
         model._pos = camMatrix._pos;
         if (_useMatrix)
         {
             model *= _offsetMatrix;
         }
-        model.scale(_boxSize,_boxSize,_boxSize);*/
+        model.scale(_boxSize,_boxSize,_boxSize);
         iRenderer::getInstance().setModelMatrix(model);
-
-        // TODO create target material 
-
+        _texture->bind(0);
         iRenderer::getInstance().drawMesh(_mesh, nullptr);
-
-        // iRenderer::getInstance().drawTexturedQuad(iaVector3f(0, 0, 0), iaVector3f(-1, 0, 0), iaVector3f(0, 1, 0), _front);
-          
     }
 
 } // namespace igor
