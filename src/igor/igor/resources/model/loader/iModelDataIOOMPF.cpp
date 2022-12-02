@@ -177,7 +177,7 @@ namespace igor
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
         if (_parameter != nullptr)
         {
-            meshNode->setKeepMesh(_parameter->_keepMesh);
+            meshNode->setKeepMeshData(_parameter->_keepMesh);
         }
 
         // set material properties
@@ -232,6 +232,8 @@ namespace igor
         iVertexArrayPtr vertexArray = iVertexArray::create();
         vertexArray->addVertexBuffer(vertexBuffer);
         vertexArray->setIndexBuffer(indexBuffer);        
+
+        mesh->setVertexArray(vertexArray);
 
         mesh->setVertexCount(meshChunk->getVertexCount());
         mesh->setIndexCount(meshChunk->getIndexCount());

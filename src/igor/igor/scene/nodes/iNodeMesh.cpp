@@ -36,8 +36,7 @@ namespace igor
         _nodeKind = node->_nodeKind;
 
         _name = node->_name;
-        _keepMesh = node->_keepMesh;
-        _meshBuffers = node->_meshBuffers;
+        _keepMeshData = node->_keepMeshData;
         _mesh = node->_mesh;
 
         setBoundingBox(node->getBoundingBox());
@@ -61,11 +60,22 @@ namespace igor
 
         iaString customInfo(L"vtx:");
 
-        customInfo += iaString::toString(getVertexCount());
+        uint32 vertexCount = 0;
+        uint32 trianglesCount = 0;
+        uint32 indexesCount = 0;
+
+        if (_mesh != nullptr)
+        {
+            vertexCount = _mesh->getVertexCount();
+            trianglesCount = _mesh->getTrianglesCount();
+            indexesCount = _mesh->getIndexCount();
+        }
+
+        customInfo += iaString::toString(vertexCount);
         customInfo += L" tri:";
-        customInfo += iaString::toString(getTrianglesCount());
+        customInfo += iaString::toString(trianglesCount);
         customInfo += L" idx:";
-        customInfo += iaString::toString(getIndexesCount());
+        customInfo += iaString::toString(indexesCount);
 
         if (_mesh != nullptr)
         {
@@ -88,65 +98,32 @@ namespace igor
         return _targetMaterial;
     }
 
-    iMeshBuffersPtr iNodeMesh::getMeshBuffers()
-    {
-        return _meshBuffers;
-    }
-
     iMeshPtr iNodeMesh::getMesh()
     {
         return _mesh;
     }
 
-    void iNodeMesh::setKeepMesh(bool keepMesh)
+    void iNodeMesh::setKeepMeshData(bool keepMesh)
     {
-        _keepMesh = keepMesh;
+        _keepMeshData = keepMesh;
     }
 
-    bool iNodeMesh::getKeepMesh() const
+    bool iNodeMesh::getKeepMeshData() const
     {
-        return _keepMesh;
+        return _keepMeshData;
     }
 
     void iNodeMesh::draw()
     {
-        if (_meshBuffers != nullptr &&
-            _meshBuffers->isReady())
-        {
-            iRenderer::getInstance().setModelMatrix(_worldMatrix);
-            iRenderer::getInstance().drawMesh(_meshBuffers, _targetMaterial);
-        }
-    }
-
-    void iNodeMesh::setMeshBuffers(iMeshBuffersPtr meshBuffers)
-    {
-        _meshBuffers = meshBuffers;
-
-        if (_meshBuffers != nullptr)
-        {
-            setTransformationDirty();
-
-            con_assert(_keepMesh == false, "inconsitant data");
-            _mesh = nullptr;
-        }
+        iRenderer::getInstance().setModelMatrix(_worldMatrix);
+        iRenderer::getInstance().drawMesh(_mesh, _targetMaterial);
     }
 
     void iNodeMesh::setMesh(iMeshPtr mesh)
     {
         _mesh = mesh;
 
-        if (_mesh != nullptr)
-        {
-            _meshBuffers = iRenderer::getInstance().createBuffersAsync(_mesh);
-            setBoundingBox(_mesh->getBoundingBox());
-
-            if (!_keepMesh)
-            {
-                _mesh = nullptr;
-            }
-        }
-
-        setTransformationDirty();
+        setTransformationDirty(); // TODO why do we need this?
     }
 
     iaColor3f iNodeMesh::getAmbient() const
@@ -172,36 +149,6 @@ namespace igor
     float32 iNodeMesh::getShininess() const
     {
         return _targetMaterial->getShininess();
-    }
-
-    uint32 iNodeMesh::getVertexCount() const
-    {
-        if (nullptr != _meshBuffers)
-        {
-            return _meshBuffers->getVertexCount();
-        }
-
-        return 0;
-    }
-
-    uint32 iNodeMesh::getTrianglesCount() const
-    {
-        if (nullptr != _meshBuffers)
-        {
-            return _meshBuffers->getTrianglesCount();
-        }
-
-        return 0;
-    }
-
-    uint32 iNodeMesh::getIndexesCount() const
-    {
-        if (nullptr != _meshBuffers)
-        {
-            return _meshBuffers->getIndexesCount();
-        }
-
-        return 0;
     }
 
 } // namespace igor

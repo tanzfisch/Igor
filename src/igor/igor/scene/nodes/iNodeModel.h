@@ -147,14 +147,6 @@ namespace igor
         */
         bool onUpdateData() override;
 
-        /*! checks if mesh buffers are generated and read for rendering
-
-        \returns true if meshs are all ready for rendering
-        */
-        bool checkForBuffers();
-
-        bool checkForBuffers(iNodePtr node);
-
         /*! called by update transform run
 
         ignores the matrix

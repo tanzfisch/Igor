@@ -91,7 +91,7 @@ namespace igor
 
 			if (parameter != nullptr)
 			{
-				meshNode->setKeepMesh(parameter->_keepMesh);
+				meshNode->setKeepMeshData(parameter->_keepMesh);
 			}
 
 			meshNode->setMesh(mesh);

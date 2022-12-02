@@ -2139,7 +2139,15 @@ namespace igor
                 std::stringstream shaderProperty;
                 shaderProperty << SAMPLER_TEXTURE << texUnit;
                 _data->_currentMaterial->setInt(shaderProperty.str().c_str() ,texUnit);
-                texture->bind(texUnit++);                
+
+                if(texture->isDummy())
+                {
+                    _data->_fallbackTexture->bind(texUnit++);
+                }
+                else
+                {
+                    texture->bind(texUnit++);                
+                }
             }
         }
 

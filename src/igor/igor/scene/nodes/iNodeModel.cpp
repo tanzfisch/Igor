@@ -149,42 +149,6 @@ namespace igor
         }
     }
 
-    bool iNodeModel::checkForBuffers(iNodePtr node)
-    {
-        if (node->getType() == iNodeType::iNodeMesh)
-        {
-            iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-            if (meshNode->getMeshBuffers() == nullptr ||
-                !meshNode->getMeshBuffers()->isReady())
-            {
-                return false;
-            }
-        }
-
-        for (auto child : node->getChildren())
-        {
-            if (!checkForBuffers(child))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    bool iNodeModel::checkForBuffers()
-    {
-        for (auto child : _children)
-        {
-            if (!checkForBuffers(child))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     bool iNodeModel::onUpdateData()
     {
         if (!_loaded &&

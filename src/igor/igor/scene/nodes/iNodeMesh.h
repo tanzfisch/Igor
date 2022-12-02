@@ -41,8 +41,6 @@ namespace igor
 
     class iTargetMaterial;
 
-    __IGOR_DISABLE_WARNING__(4275) // the interface of iNodeVolume is not fully public on purpose
-
     /*! represents a mesh within the scene
 
     \todo remove as many friends as possible
@@ -55,9 +53,6 @@ namespace igor
         friend class iModelDataIOOMPF;
 
     public:
-        /*! \returns shared pointer to mesh buffers
-        */
-        iMeshBuffersPtr getMeshBuffers();
 
         /*! \returns shared pointer to mesh
         */
@@ -89,18 +84,6 @@ namespace igor
         */
         float32 getShininess() const;
 
-        /*! \returns vertexes count
-        */
-        uint32 getVertexCount() const;
-
-        /*! \returns triangles count
-        */
-        uint32 getTrianglesCount() const;
-
-        /*! \returns indexes count
-        */
-        uint32 getIndexesCount() const;
-
         /*! \returns target material
         */
         iTargetMaterial *getTargetMaterial();
@@ -118,11 +101,11 @@ namespace igor
 
         \param keepMesh keep mesh flag. if true mesh will not be released after buffer creation
         */
-        void setKeepMesh(bool keepMesh = true);
+        void setKeepMeshData(bool keepMesh = true);
 
         /*! \retruns keep mesh flag. if true mesh will not be released after buffer creation
         */
-        bool getKeepMesh() const;
+        bool getKeepMeshData() const;
 
         /*! returns multiple lines of information about this node
 
@@ -133,25 +116,15 @@ namespace igor
     private:
         /*! flag where to keep mesh after creating buffers or not
         */
-        bool _keepMesh = false;
+        bool _keepMeshData = false;
 
         /*! target material
         */
         iTargetMaterial *_targetMaterial = nullptr;
 
-        /*! shared pointer to mesh buffers
-        */
-        iMeshBuffersPtr _meshBuffers = nullptr;
-
         /*! shared pointer to mesh
         */
-        iMeshPtr _mesh = nullptr;
-
-        /*! sets mesh buffers for mesh node
-
-        \param meshBuffers shared pointer to mesh buffers
-        */
-        void setMeshBuffers(iMeshBuffersPtr meshBuffers);
+        iMeshPtr _mesh;
 
         /*! draw mesh
         */
@@ -173,8 +146,6 @@ namespace igor
     /*! mesh node pointer definition
     */
     typedef iNodeMesh *iNodeMeshPtr;
-
-    __IGOR_ENABLE_WARNING__(4275)
 
 } // namespace igor
 
