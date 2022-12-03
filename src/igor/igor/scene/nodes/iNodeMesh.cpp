@@ -11,7 +11,6 @@
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iTargetMaterial.h>
 
 #include <vector>
 
@@ -24,7 +23,7 @@ namespace igor
         setName(L"iNodeMesh");
         _nodeType = iNodeType::iNodeMesh;
 
-        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+        _targetMaterial = iTargetMaterial::create();
     }
 
     iNodeMesh::iNodeMesh(iNodeMesh *node)
@@ -44,17 +43,11 @@ namespace igor
             setBoundingBox(_mesh->getBoundingBox());
         }
 
-        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
-        setTargetMaterial(node->getTargetMaterial());
+        _targetMaterial = node->getTargetMaterial();
     }
 
     iNodeMesh::~iNodeMesh()
     {
-        if (_targetMaterial != nullptr)
-        {
-            iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
-            _targetMaterial = nullptr;
-        }
     }
 
     void iNodeMesh::getInfo(std::vector<iaString> &info) const
@@ -91,12 +84,12 @@ namespace igor
         info.push_back(customInfo);
     }
 
-    void iNodeMesh::setTargetMaterial(const iTargetMaterial *const targetMaterial)
+    void iNodeMesh::setTargetMaterial(const iTargetMaterialPtr &targetMaterial)
     {
-        *_targetMaterial = *targetMaterial;
+        _targetMaterial = targetMaterial;
     }
 
-    iTargetMaterial *iNodeMesh::getTargetMaterial()
+    iTargetMaterialPtr iNodeMesh::getTargetMaterial() const
     {
         return _targetMaterial;
     }

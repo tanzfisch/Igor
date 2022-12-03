@@ -12,21 +12,22 @@
 namespace igor
 {
 
-    void deleter(const iMaterial *material)
+    class iMaterialDeleter
     {
-        delete material;
-    }
+    public:
+        void operator()(iMaterial * p) { delete p; }
+    };
 
     iMaterialPtr iMaterial::create()
     {
-        iMaterialPtr result = std::shared_ptr<iMaterial>(new iMaterial(), deleter);
+        iMaterialPtr result = std::shared_ptr<iMaterial>(new iMaterial(), iMaterialDeleter());
         result->_materialID = iMaterialID::create();
         return result;
     }
 
     iMaterialPtr iMaterial::create(const iaString &filename)
     {
-        std::shared_ptr<iMaterial> result(new iMaterial(), deleter);
+        std::shared_ptr<iMaterial> result(new iMaterial(), iMaterialDeleter());
         iMaterialReader::read(iResourceManager::getInstance().getPath(filename), result);
         if (!result->_materialID.isValid())
         {
@@ -34,6 +35,8 @@ namespace igor
         }
         return result;
     }
+
+    iMaterial::~iMaterial() = default;
 
     void iMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
     {

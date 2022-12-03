@@ -28,7 +28,6 @@
 #include <igor/terrain/operations/iVoxelOperationBox.h>
 #include <igor/terrain/operations/iVoxelOperationSphere.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iTargetMaterial.h>
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
@@ -134,7 +133,7 @@ namespace igor
         _actionQueue.push_back(action);
     }
 
-    iTargetMaterial *iVoxelTerrain::getTargetMaterial()
+    iTargetMaterialPtr iVoxelTerrain::getTargetMaterial() const
     {
         return _targetMaterial;
     }
@@ -183,7 +182,7 @@ namespace igor
         _terrainMaterial = iMaterialResourceFactory::getInstance().getDefaultMaterial();
 
         // set up terrain target material
-        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+        _targetMaterial = iTargetMaterial::create();
         _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture()); // TODO
         _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture());
         _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture());
@@ -199,7 +198,7 @@ namespace igor
         con_endl("shutdown iVoxelTerrain ...");
 
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
-        iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
+        _targetMaterial = nullptr;
         // TODO cleanup
     }
 

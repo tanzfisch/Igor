@@ -10,6 +10,17 @@ using namespace iaux;
 namespace igor
 {
 
+    class iTargetMaterialDeleter
+    {
+    public:
+        void operator()(iTargetMaterial * p) { delete p; }
+    };
+
+    iTargetMaterialPtr iTargetMaterial::create()
+    {
+        return std::shared_ptr<iTargetMaterial>(new iTargetMaterial(), iTargetMaterialDeleter());
+    }    
+
     iTargetMaterial::iTargetMaterial()
     {
         _emissive.set(0, 0, 0);

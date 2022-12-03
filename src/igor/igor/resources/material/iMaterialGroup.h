@@ -48,7 +48,7 @@ namespace igor
     struct iInstancingData
     {
         iInstancer *_instancer = nullptr;
-        iTargetMaterial *_targetMaterial = nullptr;
+        iTargetMaterialPtr _targetMaterial = nullptr;
     };
 
     /*! material group describes a group of render nodes that use the same material

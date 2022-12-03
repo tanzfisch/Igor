@@ -176,28 +176,4 @@ namespace igor
         _mutexMaterial.unlock();
     }
 
-    iTargetMaterialPtr iMaterialResourceFactory::createTargetMaterial()
-    {
-        iTargetMaterialPtr result = new iTargetMaterial();
-
-        _targetMaterialMutex.lock();
-        _targetMaterials.push_back(result);
-        _targetMaterialMutex.unlock();
-
-        return result;
-    }
-
-    void iMaterialResourceFactory::destroyTargetMaterial(iTargetMaterialPtr targetMaterial)
-    {
-        _targetMaterialMutex.lock();
-        auto iter = std::find(_targetMaterials.begin(), _targetMaterials.end(), targetMaterial);
-
-        if (iter != _targetMaterials.end())
-        {
-            delete (*iter);
-            _targetMaterials.erase(iter);
-        }
-        _targetMaterialMutex.unlock();
-    }
-
 } // namespace igor

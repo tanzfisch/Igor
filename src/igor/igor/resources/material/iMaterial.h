@@ -55,6 +55,7 @@ namespace igor
     class IGOR_API iMaterial
     {
         friend class iRenderer;
+        friend class iMaterialDeleter;
 
     public:
         /*! default render order value
@@ -215,6 +216,10 @@ namespace igor
         /*! does nothing
          */
         iMaterial() = default;
+
+        /*! does nothing
+         */
+        ~iMaterial();
 
         /*! bind this material
          */

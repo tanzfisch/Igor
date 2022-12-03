@@ -31,7 +31,6 @@
 
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/material/iTargetMaterial.h>
 
 #include <unordered_map>
 
@@ -87,18 +86,6 @@ namespace igor
         */
         iMaterialPtr getMaterial(const iMaterialID &materialID);
 
-        /*! creates and returns a target material
-
-        \returns pointer to new target material
-        */
-        iTargetMaterialPtr createTargetMaterial(); // TODO should this even be part of iMaterialResourceFactory?
-
-        /*! destroyes given target material
-
-        \param targetMaterial target material to destroy
-        */
-        void destroyTargetMaterial(iTargetMaterialPtr targetMaterial); // TODO should this even be part of iMaterialResourceFactory?
-
         /*! creates default materials
          */
         void init();
@@ -131,14 +118,6 @@ namespace igor
         /*! the colorID material
          */
         iMaterialPtr _colorIDMaterial;
-
-        /*! mutex to protect the target material list
-         */
-        iaMutex _targetMaterialMutex;
-
-        /*! list of target materials
-         */
-        std::vector<iTargetMaterialPtr> _targetMaterials;
 
         /*! does nothing
          */

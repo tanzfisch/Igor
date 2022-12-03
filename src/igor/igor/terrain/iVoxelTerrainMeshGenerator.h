@@ -31,6 +31,7 @@
 
 #include <igor/resources/model/loader/iModelDataIO.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/material/iTargetMaterial.h>
 
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
@@ -41,7 +42,6 @@ namespace igor
     class iContouringCubes;
     class iVoxelData;
     class iMeshBuilder;
-    class iTargetMaterial;
 
     /*! tile information package to be able to generate a cetain tile
     */
@@ -73,7 +73,7 @@ namespace igor
 
         /*! target material for given tile
         */
-        iTargetMaterial *_targetMaterial = nullptr;
+        iTargetMaterialPtr _targetMaterial;
 
         /*! neighbors LOD flags
         */

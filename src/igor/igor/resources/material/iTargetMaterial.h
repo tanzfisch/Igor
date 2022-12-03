@@ -40,15 +40,26 @@ using namespace iaux;
 
 namespace igor
 {
+    /*! target material pointer definition
+    */
+    class iTargetMaterial;
+    typedef std::shared_ptr<iTargetMaterial> iTargetMaterialPtr;
 
     /*! contains all material information that belong to the surface of an object
+
+    Whereas iMaterial contains all the information realted to shader and environment ie lights etc.
     */
     class IGOR_API iTargetMaterial
     {
 
-        friend class iMaterialResourceFactory;
+        friend class iTargetMaterialDeleter;
 
     public:
+
+        /*! \returns a newly created target material
+         */
+        static iTargetMaterialPtr create();
+
         /*! add a texture
 
         texture unit will be interpreted by added order first is 0 and so on
@@ -159,11 +170,7 @@ namespace igor
         /*! releases resources
         */
         ~iTargetMaterial();
-    };
-
-    /*! target material pointer definition
-    */
-    typedef iTargetMaterial* iTargetMaterialPtr;
+    };    
 
 } // namespace igor
 
