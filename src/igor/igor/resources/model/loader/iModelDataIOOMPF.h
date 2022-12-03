@@ -174,8 +174,6 @@ namespace igor
         */
         iNodePtr createNodeTree(iNodePtr parent, OMPF::ompfBaseChunk *currentChunk);
 
-        void calculateBoundingBox(float32 *vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d &minPos, iaVector3d &maxPos);
-
         /*! creates mesh node from chunk
 
         \param chunk the chunk to create a mesh node from

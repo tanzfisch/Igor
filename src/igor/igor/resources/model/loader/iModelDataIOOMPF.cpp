@@ -166,106 +166,9 @@ namespace igor
         return result;
     }
 
-    iNodePtr iModelDataIOOMPF::createMeshNode(OMPF::ompfBaseChunk *chunk)
-    {
-        OMPF::ompfMeshChunk *meshChunk = static_cast<OMPF::ompfMeshChunk *>(chunk);
-
-        con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
-        con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
-
-        // create mesh and mesh node
-        iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-        if (_parameter != nullptr)
-        {
-            meshNode->setKeepMeshData(_parameter->_keepMesh);
-        }
-
-        // set material properties
-        iaColor3f ambient;
-        iaColor3f diffuse;
-        iaColor3f specular;
-        iaColor3f emissive;
-
-        iaConvert::convert(meshChunk->getAmbient(), ambient);
-        iaConvert::convert(meshChunk->getDiffuse(), diffuse);
-        iaConvert::convert(meshChunk->getSpecular(), specular);
-        iaConvert::convert(meshChunk->getEmissive(), emissive);
-
-        meshNode->getTargetMaterial()->setAmbient(ambient);
-        meshNode->getTargetMaterial()->setDiffuse(diffuse);
-        meshNode->getTargetMaterial()->setSpecular(specular);
-        meshNode->getTargetMaterial()->setEmissive(emissive);
-        meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
-
-        iMeshPtr mesh = iMesh::create();
-
-        // set texture properties
-        uint32 textureCount = meshChunk->getTextureCount();
-        for (uint32 i = 0; i < textureCount; ++i)
-        {
-            iaString texturePath = _ompf->getFileDirectory();
-            texturePath += __IGOR_PATHSEPARATOR__;
-            texturePath += meshChunk->getTexture(i);
-
-            meshNode->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().requestFile(texturePath));
-            mesh->setTexture(i, true);
-        }
-
-        iIndexBufferPtr indexBuffer = iIndexBuffer::create(meshChunk->getIndexCount(), reinterpret_cast<const uint32*>(meshChunk->getIndexData()));            
-        iVertexBufferPtr vertexBuffer = iVertexBuffer::create(meshChunk->getVertexDataSize(), meshChunk->getVertexData());
-        iBufferLayout layout;
-        layout.addElement({iShaderDataType::Float3});
-        if (meshChunk->getNormalsPerVertex() ? true : false)
-        {
-            layout.addElement({iShaderDataType::Float2});
-        }
-        if (meshChunk->getColorsPerVertex() ? true : false)
-        {
-            layout.addElement({iShaderDataType::Float4});
-        }
-        for (int i = 0; i < meshChunk->getTexCoordPerVertex(); ++i)
-        {
-            layout.addElement({iShaderDataType::Float2});
-        }
-        vertexBuffer->setLayout(layout);
-
-        iVertexArrayPtr vertexArray = iVertexArray::create();
-        vertexArray->addVertexBuffer(vertexBuffer);
-        vertexArray->setIndexBuffer(indexBuffer);        
-
-        mesh->setVertexArray(vertexArray);
-
-        mesh->setVertexCount(meshChunk->getVertexCount());
-        mesh->setIndexCount(meshChunk->getIndexCount());
-        mesh->setTrianglesCount(meshChunk->getIndexCount() / 3);
-
-        mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
-        mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
-        mesh->setTextureCoordinatesCount(meshChunk->getTexCoordPerVertex());
-
-        // calculate boundings
-        iaVector3d minPos;
-        iaVector3d maxPos;
-
-        // calculateBoundingBox(meshChunk->getVertexData(), vertexSize / 4, meshChunk->getVertexCount(), minPos, maxPos);
-
-        iAABoxd bbox;
-        bbox.set(minPos, maxPos);
-        mesh->setBoundingBox(bbox);
-
-        // push mesh to mesh node
-        meshNode->setMesh(mesh);
-
-        iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
-        meshNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
-
-        return meshNode;
-    }
-
-    void iModelDataIOOMPF::calculateBoundingBox(float32 *vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d &minPos, iaVector3d &maxPos)
+    static void calculateBoundingBox(const float32 *vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d &minPos, iaVector3d &maxPos)
     {
         uint32 stride = vertexSize - 3;
-        float32 *vertexDataIter = vertexData;
 
         for (uint32 vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex)
         {
@@ -309,6 +212,102 @@ namespace igor
                 }
             }
         }
+    }    
+
+    iNodePtr iModelDataIOOMPF::createMeshNode(OMPF::ompfBaseChunk *chunk)
+    {
+        OMPF::ompfMeshChunk *meshChunk = static_cast<OMPF::ompfMeshChunk *>(chunk);
+
+        con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
+        con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
+
+        // create mesh node
+        iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+        if (_parameter != nullptr)
+        {
+            meshNode->setKeepMeshData(_parameter->_keepMesh);
+        }
+
+        // set material properties
+        iaColor3f ambient;
+        iaColor3f diffuse;
+        iaColor3f specular;
+        iaColor3f emissive;
+
+        iaConvert::convert(meshChunk->getAmbient(), ambient);
+        iaConvert::convert(meshChunk->getDiffuse(), diffuse);
+        iaConvert::convert(meshChunk->getSpecular(), specular);
+        iaConvert::convert(meshChunk->getEmissive(), emissive);
+
+        meshNode->getTargetMaterial()->setAmbient(ambient);
+        meshNode->getTargetMaterial()->setDiffuse(diffuse);
+        meshNode->getTargetMaterial()->setSpecular(specular);
+        meshNode->getTargetMaterial()->setEmissive(emissive);
+        meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
+
+        iMeshPtr mesh = iMesh::create();
+
+        // set texture properties
+        uint32 textureCount = meshChunk->getTextureCount();
+        for (uint32 i = 0; i < textureCount; ++i)
+        {
+            iaString texturePath = _ompf->getFileDirectory();
+            texturePath += __IGOR_PATHSEPARATOR__;
+            texturePath += meshChunk->getTexture(i);
+
+            meshNode->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().requestFile(texturePath));
+            mesh->setTexture(i, true);
+        }
+
+        iIndexBufferPtr indexBuffer = iIndexBuffer::create(meshChunk->getIndexCount(), reinterpret_cast<const uint32*>(meshChunk->getIndexData()));            
+        iVertexBufferPtr vertexBuffer = iVertexBuffer::create(meshChunk->getVertexDataSize(), meshChunk->getVertexData());
+        iBufferLayout layout;
+        layout.addElement({iShaderDataType::Float3});
+        if (meshChunk->getNormalsPerVertex() ? true : false)
+        {
+            layout.addElement({iShaderDataType::Float3});
+        }
+        if (meshChunk->getColorsPerVertex() ? true : false)
+        {
+            layout.addElement({iShaderDataType::Float4});
+        }
+        for (int i = 0; i < meshChunk->getTexCoordPerVertex(); ++i)
+        {
+            layout.addElement({iShaderDataType::Float2});
+        }
+        vertexBuffer->setLayout(layout);
+
+        iVertexArrayPtr vertexArray = iVertexArray::create();
+        vertexArray->addVertexBuffer(vertexBuffer);
+        vertexArray->setIndexBuffer(indexBuffer);  
+
+        mesh->setVertexArray(vertexArray);
+
+        mesh->setVertexCount(meshChunk->getVertexCount());
+        mesh->setIndexCount(meshChunk->getIndexCount());
+        mesh->setTrianglesCount(meshChunk->getIndexCount() / 3);
+
+        mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
+        mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
+        mesh->setTextureCoordinatesCount(meshChunk->getTexCoordPerVertex());
+
+        // calculate boundings
+        iaVector3d minPos;
+        iaVector3d maxPos;
+
+        calculateBoundingBox(reinterpret_cast<const float32*>(meshChunk->getVertexData()), layout.getStride() / 4, meshChunk->getVertexCount(), minPos, maxPos);
+
+        iAABoxd bbox;
+        bbox.set(minPos, maxPos);
+        mesh->setBoundingBox(bbox);
+
+        // push mesh to mesh node
+        meshNode->setMesh(mesh);
+
+        iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
+        meshNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
+
+        return meshNode;
     }
 
     iNodePtr iModelDataIOOMPF::createParticleSystem(OMPF::ompfBaseChunk *chunk)
