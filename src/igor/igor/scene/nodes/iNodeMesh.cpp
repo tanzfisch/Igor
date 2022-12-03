@@ -39,7 +39,10 @@ namespace igor
         _keepMeshData = node->_keepMeshData;
         _mesh = node->_mesh;
 
-        setBoundingBox(node->getBoundingBox());
+        if (_mesh != nullptr)
+        {
+            setBoundingBox(_mesh->getBoundingBox());
+        }
 
         _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
         setTargetMaterial(node->getTargetMaterial());
@@ -122,6 +125,11 @@ namespace igor
     void iNodeMesh::setMesh(iMeshPtr mesh)
     {
         _mesh = mesh;
+
+        if (_mesh != nullptr)
+        {
+            setBoundingBox(_mesh->getBoundingBox());
+        }
 
         setTransformationDirty(); // TODO why do we need this?
     }

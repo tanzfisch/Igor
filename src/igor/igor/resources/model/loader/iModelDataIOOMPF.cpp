@@ -259,7 +259,8 @@ namespace igor
             mesh->setTexture(i, true);
         }
 
-        iIndexBufferPtr indexBuffer = iIndexBuffer::create(meshChunk->getIndexCount(), reinterpret_cast<const uint32*>(meshChunk->getIndexData()));            
+        iVertexArrayPtr vertexArray = iVertexArray::create();
+        
         iVertexBufferPtr vertexBuffer = iVertexBuffer::create(meshChunk->getVertexDataSize(), meshChunk->getVertexData());
         iBufferLayout layout;
         layout.addElement({iShaderDataType::Float3});
@@ -276,10 +277,10 @@ namespace igor
             layout.addElement({iShaderDataType::Float2});
         }
         vertexBuffer->setLayout(layout);
-
-        iVertexArrayPtr vertexArray = iVertexArray::create();
         vertexArray->addVertexBuffer(vertexBuffer);
-        vertexArray->setIndexBuffer(indexBuffer);  
+
+        iIndexBufferPtr indexBuffer = iIndexBuffer::create(meshChunk->getIndexCount(), reinterpret_cast<const uint32*>(meshChunk->getIndexData()));            
+        vertexArray->setIndexBuffer(indexBuffer);
 
         mesh->setVertexArray(vertexArray);
 
