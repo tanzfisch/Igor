@@ -214,7 +214,7 @@ namespace igor
         /*! adds view to the window
 
         \param view the view to be added
-        \todo would be nice to manipulate the order of views beeing added
+        \param zIndex determines the render order of the views
         */
         void addView(iView *view, int32 zIndex = 0);
 
