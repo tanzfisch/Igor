@@ -562,7 +562,7 @@ namespace igor
         }
 
         const uint32 indexCount = _triangles.size() * 3;
-        uint32 indexBufferData[indexCount];
+        uint32 *indexBufferData = new uint32[indexCount];
 
         uint32 bufferIndex = 0;
         for (const auto &triangle : _triangles)
@@ -574,44 +574,47 @@ namespace igor
 
         iIndexBufferPtr indexBuffer = iIndexBuffer::create(indexCount, indexBufferData);
 
+        delete [] indexBufferData;
+
         const uint32 vertexSize = (3 + (hasNormals() ? 3 : 0) + (hasColors() ? 4 : 0) + (getTextureUnitCount() * 2)) * sizeof(float32);
         const uint32 vertexCount = _vertexes.size();
         const uint32 vertexBufferSize = vertexCount * vertexSize;
-        uint8 vertexBufferData[vertexBufferSize];
-
-        float32 *vertexBufferDataPtr = reinterpret_cast<float32 *>(vertexBufferData);
+        float32 *vertexBufferData = new float32[vertexBufferSize / sizeof(float32)];
 
         bufferIndex = 0;
 
         for (int vertexIndex = 0; vertexIndex < _vertexes.size(); ++vertexIndex)
         {
-            vertexBufferDataPtr[bufferIndex++] = _vertexes[vertexIndex]._x;
-            vertexBufferDataPtr[bufferIndex++] = _vertexes[vertexIndex]._y;
-            vertexBufferDataPtr[bufferIndex++] = _vertexes[vertexIndex]._z;
+            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._x;
+            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._y;
+            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._z;
 
             if (hasNormals())
             {
-                vertexBufferDataPtr[bufferIndex++] = _normals[vertexIndex]._x;
-                vertexBufferDataPtr[bufferIndex++] = _normals[vertexIndex]._y;
-                vertexBufferDataPtr[bufferIndex++] = _normals[vertexIndex]._z;
+                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._x;
+                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._y;
+                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._z;
             }
 
             if (hasColors())
             {
-                vertexBufferDataPtr[bufferIndex++] = _colors[vertexIndex]._r;
-                vertexBufferDataPtr[bufferIndex++] = _colors[vertexIndex]._g;
-                vertexBufferDataPtr[bufferIndex++] = _colors[vertexIndex]._b;
-                vertexBufferDataPtr[bufferIndex++] = _colors[vertexIndex]._a;
+                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._r;
+                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._g;
+                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._b;
+                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._a;
             }
 
             for (uint32 texIndex = 0; texIndex < getTextureUnitCount(); ++texIndex)
             {
-                vertexBufferDataPtr[bufferIndex++] = _texCoords[texIndex][vertexIndex]._x;
-                vertexBufferDataPtr[bufferIndex++] = _texCoords[texIndex][vertexIndex]._y;
+                vertexBufferData[bufferIndex++] = _texCoords[texIndex][vertexIndex]._x;
+                vertexBufferData[bufferIndex++] = _texCoords[texIndex][vertexIndex]._y;
             }
         }
 
         iVertexBufferPtr vertexBuffer = iVertexBuffer::create(vertexBufferSize, vertexBufferData);
+
+        delete [] vertexBufferData;
+
         iBufferLayout layout;
         layout.addElement({iShaderDataType::Float3});
         if (hasNormals())

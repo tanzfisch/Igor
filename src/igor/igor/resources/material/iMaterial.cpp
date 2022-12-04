@@ -9,6 +9,8 @@
 
 #include <igor/renderer/utils/iRendererUtils.h>
 
+#include <sstream>
+
 namespace igor
 {
 

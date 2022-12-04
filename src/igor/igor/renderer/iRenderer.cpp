@@ -13,6 +13,7 @@
 #include <igor/renderer/iInstancer.h>
 
 #include <deque>
+#include <sstream>
 
 namespace igor
 {
