@@ -25,7 +25,6 @@ using namespace iaux;
 #include <ompf/ompf.h>
 
 #include <algorithm>
-#include <cstring>
 
 namespace igor
 {
@@ -223,10 +222,7 @@ namespace igor
 
         // create mesh node
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-        if (_parameter != nullptr)
-        {
-            meshNode->setKeepMeshData(_parameter->_keepMesh);
-        }
+        bool keepData = (_parameter != nullptr && _parameter->_keepMesh);
 
         // set material properties
         iaColor3f ambient;
@@ -259,9 +255,6 @@ namespace igor
             mesh->setTexture(i, true);
         }
 
-        iVertexArrayPtr vertexArray = iVertexArray::create();
-        
-        iVertexBufferPtr vertexBuffer = iVertexBuffer::create(meshChunk->getVertexDataSize(), meshChunk->getVertexData());
         iBufferLayout layout;
         layout.addElement({iShaderDataType::Float3});
         if (meshChunk->getNormalsPerVertex() ? true : false)
@@ -275,14 +268,9 @@ namespace igor
         for (int i = 0; i < meshChunk->getTexCoordPerVertex(); ++i)
         {
             layout.addElement({iShaderDataType::Float2});
-        }
-        vertexBuffer->setLayout(layout);
-        vertexArray->addVertexBuffer(vertexBuffer);
+        }        
 
-        iIndexBufferPtr indexBuffer = iIndexBuffer::create(meshChunk->getIndexCount(), reinterpret_cast<const uint32*>(meshChunk->getIndexData()));            
-        vertexArray->setIndexBuffer(indexBuffer);
-
-        mesh->setVertexArray(vertexArray);
+        mesh->setData(meshChunk->getIndexData(), meshChunk->getIndexDataSize(), meshChunk->getVertexData(), meshChunk->getVertexDataSize(), layout, keepData);
 
         mesh->setVertexCount(meshChunk->getVertexCount());
         mesh->setIndexCount(meshChunk->getIndexCount());

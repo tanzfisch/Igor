@@ -170,7 +170,15 @@ namespace igor
         }
         model.scale(_boxSize,_boxSize,_boxSize);
         iRenderer::getInstance().setModelMatrix(model);
-        _texture->bind(0);
+
+        if(_texture->isDummy())
+        {
+            iTextureResourceFactory::getInstance().getDummyTexture()->bind(0);
+        }
+        else
+        {
+            _texture->bind(0);
+        }
         iRenderer::getInstance().drawMesh(_mesh, nullptr);
     }
 

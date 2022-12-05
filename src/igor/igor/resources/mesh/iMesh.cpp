@@ -7,6 +7,8 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
+#include <cstring>
+
 namespace igor
 {
     class iMeshDeleter
@@ -18,6 +20,18 @@ namespace igor
     iMeshPtr iMesh::create()
     {
         return std::shared_ptr<iMesh>(new iMesh(), iMeshDeleter());
+    }
+
+    iMesh::~iMesh()
+    {
+        if (_indexData != nullptr)
+        {
+            delete[] _indexData;
+        }
+        if (_vertexData != nullptr)
+        {
+            delete[] _vertexData;
+        }
     }
 
     void iMesh::setHasNormals(bool hasNormals)
@@ -122,6 +136,48 @@ namespace igor
         return _bbox;
     }
 
+    void iMesh::bind()
+    {
+        if (_vertexArray == nullptr)
+        {
+            con_assert(_vertexData != nullptr, "no data");
+            con_assert(_indexData != nullptr, "no data");
+            
+            _vertexArray = iVertexArray::create();
+
+            iVertexBufferPtr vertexBuffer = iVertexBuffer::create(_vertexDataSize, _vertexData);
+            vertexBuffer->setLayout(_layout);
+            _vertexArray->addVertexBuffer(vertexBuffer);
+
+            iIndexBufferPtr indexBuffer = iIndexBuffer::create(getIndexCount(), reinterpret_cast<const uint32 *>(_indexData));
+            _vertexArray->setIndexBuffer(indexBuffer);
+
+            if (!_keepData)
+            {
+                delete[] _indexData;
+                _indexData = nullptr;
+                delete[] _vertexData;
+                _vertexData = nullptr;
+            }
+        }
+
+        _vertexArray->bind();
+    }
+
+    void iMesh::setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepData)
+    {
+        _indexDataSize = indexDataSize;
+        _indexData = new uint8[_indexDataSize];
+        memcpy(_indexData, indexData, _indexDataSize);
+
+        _vertexDataSize = vertexDataSize;
+        _vertexData = new uint8[_vertexDataSize];
+        memcpy(_vertexData, vertexData, _vertexDataSize);
+
+        _keepData = keepData;
+        _layout = layout;
+    }
+
     const iVertexArrayPtr &iMesh::getVertexArray() const
     {
         return _vertexArray;
@@ -130,11 +186,6 @@ namespace igor
     void iMesh::setVertexArray(const iVertexArrayPtr &vertexArray)
     {
         _vertexArray = vertexArray;
-    }
-
-    void iMesh::bind()
-    {
-        _vertexArray->bind();
-    }
+    }    
 
 } // namespace igor

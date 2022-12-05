@@ -96,6 +96,14 @@ namespace igor
         BGRA
     };
 
+    /*! prints the folor format in the console
+
+    \param stream the stream to log to
+    \param colorFormat the color format
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iColorFormat &colorFormat);    
+
     /*! how to generate a texture
      */
     enum class iTextureBuildMode

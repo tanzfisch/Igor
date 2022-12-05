@@ -146,9 +146,14 @@ namespace igor
         _farPlaneDistance = farPlane;
     }
 
-    void iView::setClearColor(bool active)
+    void iView::setClearColorActive(bool active)
     {
         _clearColorActive = active;
+    }
+
+    bool iView::isClearColorActive() const
+    {
+        return _clearColorActive;
     }
 
     void iView::setClearColor(const iaColor4f &color)

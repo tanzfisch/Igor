@@ -2041,7 +2041,7 @@ namespace igor
 
         writeShaderParameters(targetMaterial);
 
-        glBindVertexArray(meshBuffers->getVertexArrayObject());
+        glBindVertexArray(meshBuffers->getVertexArrayObject());        
         glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
 
@@ -2059,8 +2059,6 @@ namespace igor
         _data->_currentMaterial->bind();
 
         writeShaderParameters(targetMaterial);
-
-        glDisable(GL_CULL_FACE); // TODO remove
 
         mesh->bind();
 

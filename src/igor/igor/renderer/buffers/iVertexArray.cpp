@@ -36,11 +36,6 @@ namespace igor
     {
         glBindVertexArray(_vertexArrayObject);
         GL_CHECK_ERROR();
-
-        if(_indexBuffer != nullptr)
-        {
-            _indexBuffer->bind();
-        }
     }
 
     void iVertexArray::unbind()

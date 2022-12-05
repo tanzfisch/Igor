@@ -54,7 +54,7 @@ namespace igor
     {
         if (!_widgets.empty())
         {
-            con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
+            con_warn("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
 
 #ifdef __IGOR_DEBUG__
             for (auto pair : _widgets)

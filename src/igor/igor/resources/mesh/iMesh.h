@@ -151,7 +151,21 @@ namespace igor
         */
         void setHasColors(bool hasColors);
 
+        /*! sets index data
+
+        !!Either use setData or setVertexArray!!
+
+        \param indexData the index data
+        \param indexDataSize the index data size
+        \param vertexData the vertex data
+        \param vertexDataSize the vertex data size
+        \param keepData if true the data will not be deleted after passing it to the GPU
+        */
+        void setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepData = false);
+
         /*! sets vertex array data
+
+        !!Either use setData or setVertexArray!!
 
         \param vertexArray the vertex array to set
         */
@@ -199,15 +213,37 @@ namespace igor
         */
         iVertexArrayPtr _vertexArray;
 
+        /*! index data buffer
+        */
+        uint8* _indexData = nullptr;
+
+        /*! index data buffer size
+        */
+        uint32 _indexDataSize = 0;
+
+        /*! vertex data buffer
+        */
+        uint8* _vertexData = nullptr;
+
+        /*! vertex data buffer size
+        */
+        uint32 _vertexDataSize = 0;      
+
+        /*! the buffer layout
+        */
+        iBufferLayout _layout;
+
+        /*! if true the mesh will hold on to a copy of vertex and index data
+        */
+        bool _keepData = false;  
+
         /*! does nothing
         */
         iMesh() = default;
 
         /*! does nothing
         */
-        ~iMesh() = default;
-
-
+        ~iMesh();
     };
 
 } // namespace igor

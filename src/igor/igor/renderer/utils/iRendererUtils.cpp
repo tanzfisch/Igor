@@ -158,43 +158,44 @@ namespace igor
 
     uint32 iRendererUtils::convertType(iColorFormat format)
     {
-        GLenum glformat = -1;
-
         switch (format)
         {
         case iColorFormat::RGB:
-            glformat = GL_RGB;
-            break;
-
+            return GL_RGB;
         case iColorFormat::RGBA:
-            glformat = GL_RGBA;
-            break;
-
+            return GL_RGBA;
         case iColorFormat::RED:
-            glformat = GL_RED;
-            break;
-
+            return GL_RED;
         case iColorFormat::GREEN:
-            glformat = GL_GREEN;
-            break;
-
+            return GL_GREEN;
         case iColorFormat::BLUE:
-            glformat = GL_BLUE;
-            break;
-
+            return GL_BLUE;
         case iColorFormat::ALPHA:
-            glformat = GL_ALPHA;
-            break;
-
+            return GL_ALPHA;
         case iColorFormat::DEPTH:
-            glformat = GL_DEPTH_COMPONENT;
-            break;
-
-        default:
-            con_err("unknown color format");
+            return GL_DEPTH_COMPONENT;
         };
 
-        return glformat;
+        con_err("unsupported color format " << format);
+        return -1;
     }
 
+    std::wostream &operator<<(std::wostream &stream, const iColorFormat &colorFormat)
+    {
+        const static std::wstring text[] = {
+            L"Undefined",
+            L"RGB",
+            L"RGBA",
+            L"RED",
+            L"GREEN",
+            L"BLUE",
+            L"ALPHA",
+            L"DEPTH",
+            L"BGR",
+            L"BGRA"};
+
+        stream << text[static_cast<int>(colorFormat)];
+
+        return stream;
+    }
 }

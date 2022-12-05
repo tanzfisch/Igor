@@ -31,8 +31,8 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
 
             // setup orthogonal view
             _viewOrtho.setName("Logo View");
-            _viewOrtho.setClearColor(false);
-            _viewOrtho.setClearDepth(false);
+            _viewOrtho.setClearColorActive(false);
+            _viewOrtho.setClearDepthActive(false);
             _viewOrtho.setClipPlanes(0.1f, 10000.0f);
             _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
             _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));

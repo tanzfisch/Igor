@@ -145,7 +145,11 @@ namespace igor
 
         \param active true: color buffer will be cleared every frame; false: it will not
         */
-        void setClearColor(bool active);
+        void setClearColorActive(bool active);
+
+        /*! \returns true if color buffer will be cleared before render
+        */
+        bool isClearColorActive() const;
 
         /*! specifies the the color the color buffer will be cleared with
 

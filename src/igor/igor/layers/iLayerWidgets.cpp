@@ -20,8 +20,8 @@ namespace igor
     void iLayerWidgets::onInit()
     {
         // set up the view
-        _view.setClearColor(false);
-        _view.setClearDepth(false);
+        _view.setClearColorActive(false);
+        _view.setClearDepthActive(false);
         _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
         _view.registerRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRender));
         getWindow()->addView(&_view, 10);

@@ -42,12 +42,12 @@ namespace igor
 
         if (!_models.empty())
         {
-            con_err("possible mem leak! Still " << _models.size() << " model references left");
+            con_warn("possible mem leak! Still " << _models.size() << " model references left");
         }
 
         if (!_modelDataIOCreators.empty())
         {
-            con_err("possible mem leak! Still " << _modelDataIOCreators.size() << " generators registered");
+            con_warn("possible mem leak! Still " << _modelDataIOCreators.size() << " generators registered");
         }
     }
 
