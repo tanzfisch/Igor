@@ -207,21 +207,28 @@ void ExampleBase::drawLogo()
     const float32 height = static_cast<float32>(_igorLogo->getHeight());
     const float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
     const float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
-    
+
     iRenderer::getInstance().drawTexturedRectangle(x, y, width, height, _igorLogo, iaColor4f::white, true);
+}
+
+iaString ExampleBase::getHelpString()
+{
+    static const iaString help = "Help Screen\n"
+                                 "----------\n\n"
+                                 "[ESC] Exit\n"
+                                 "[F1]  Display this screen\n"
+                                 "[F3]  Cycle profiler verbosity\n"
+                                 "[F6]  Print scene graph to console\n"
+                                 "[F10] Toggle wireframe\n"
+                                 "[F11] Toggle octree debug display\n"
+                                 "[F12] Toggle bounding box display\n";
+
+    return help;
 }
 
 void ExampleBase::drawHelpScreen()
 {
-    const iaString help = "Help Screen\n"
-                          "----------\n\n"
-                          "[ESC] Exit\n"
-                          "[F1]  Display this screen\n"
-                          "[F3]  Cycle profiler verbosity\n"
-                          "[F6]  Print scene graph to console\n"
-                          "[F10] Toggle wireframe\n"
-                          "[F11] Toggle octree debug display\n"
-                          "[F12] Toggle bounding box display\n";
+    const iaString& help = getHelpString();
 
     iRenderer::getInstance().setFont(getFont());
     iRenderer::getInstance().setFontSize(30.0f);

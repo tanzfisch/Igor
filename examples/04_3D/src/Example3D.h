@@ -148,6 +148,11 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iEventKeyDown &event);
+    
+    /*! \returns help screen string
+    */
+    iaString getHelpString() override;
+
 };
 
 #endif // __EXAMPLE3D_H__

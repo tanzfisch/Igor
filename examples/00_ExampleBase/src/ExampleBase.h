@@ -101,6 +101,10 @@ protected:
     */
     bool onKeyUp(iEventKeyUp &event);
 
+    /*! \returns help screen string
+    */
+    virtual iaString getHelpString();
+
 private:
     /*! the view we render 2D to
     */
@@ -144,7 +148,7 @@ private:
 
     /*! draw help screen
     */
-    void drawHelpScreen();    
+    void drawHelpScreen();
 
     /*! handle window resize event
 

@@ -327,3 +327,17 @@ void Example3D::onUpdate(const iaTime &time)
     iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
 }
+
+iaString Example3D::getHelpString()
+{
+    static const iaString help = "\n"
+                                 "[MouseWheel] Zoom\n"
+                                 "[Space] Toggle switch node\n"
+                                 "[RightMouseDrag] Rotate node group\n"
+                                 "[LeftMouseDrag] Rotate cam\n";
+
+    iaString result = ExampleBase::getHelpString();
+    result += help;
+
+    return result;
+}
