@@ -158,16 +158,17 @@ namespace igor
 
         std::vector<iMaterialPtr> materials;
         iMaterialResourceFactory::getInstance().getMaterials(materials);
+
         for (auto material : materials)
         {
             auto iter = _materialGroups.find(material);
-            if(_materialGroups.end() != iter)
+            if (_materialGroups.end() != iter)
             {
                 continue;
             }
 
-            _materialGroups[material] = iMaterialGroup(material);
-        }        
+            _materialGroups[material] = iMaterialGroup();
+        }
 
         for (auto &group : _materialGroups)
         {
@@ -179,11 +180,11 @@ namespace igor
             iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(ptr);
 
             if (renderNode != nullptr &&
-                renderNode->isVisible()                 )
+                renderNode->isVisible())
             {
 
-                // temp hack
-                if(renderNode->getMaterial() == nullptr)
+                // TODO temp hack
+                if (renderNode->getMaterial() == nullptr)
                 {
                     renderNode->setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial());
                 }
@@ -257,11 +258,14 @@ namespace igor
             ++lightNum;
         }
 
-        for (const auto &pair : _materialGroups)
-        {
-            const iMaterialGroup &materialGroup = pair.second;
+        std::vector<iMaterialPtr> materials;
+        iMaterialResourceFactory::getInstance().getMaterials(materials);        
 
-            if(!materialGroup.hasNodes())
+        for (const auto &material : materials)
+        {
+            const iMaterialGroup &materialGroup = _materialGroups[material];
+
+            if (!materialGroup.hasNodes())
             {
                 continue;
             }
@@ -270,7 +274,7 @@ namespace igor
             {
                 // todo we should not do that every frame
                 const auto &instancedRenderNodes = materialGroup.getInstancedRenderNodes();
-                iRenderer::getInstance().setMaterial(materialGroup.getMaterial());
+                iRenderer::getInstance().setMaterial(material);
 
                 for (const auto &pair : instancedRenderNodes)
                 {
@@ -289,7 +293,7 @@ namespace igor
 
                 if (!renderNodes.empty())
                 {
-                    iRenderer::getInstance().setMaterial(materialGroup.getMaterial());
+                    iRenderer::getInstance().setMaterial(material);
                 }
 
                 for (auto renderNode : renderNodes)

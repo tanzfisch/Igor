@@ -4,10 +4,7 @@
 	<Material name="igor.flat_shaded_2d_blended" uuid="888740e6-7943-45d3-8711-2a476d3e2cdb">
 		<States>
 			<DepthTest>Off</DepthTest>
-            <DepthMask>Off</DepthMask>
             <Blend>On</Blend>
-            <CullFace>On</CullFace>
-            <CullFaceFunc>Back</CullFaceFunc>
 		</States>
         <Program>
             <Vertex>

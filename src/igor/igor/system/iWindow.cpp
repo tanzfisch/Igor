@@ -1499,15 +1499,14 @@ namespace igor
     }
 
     void iWindow::draw()
-    {
+    {        
+        iRenderer::getInstance().clearStats();
+
         for (auto view : _views)
         {
             view->draw();
-        }
-
+        }        
         swapBuffers();
-
-        iRenderer::getInstance().clearStats();
     }
 
     void iWindow::setDoubleClick(bool doubleClick)

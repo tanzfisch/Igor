@@ -10,11 +10,6 @@
 
 namespace igor
 {
-    iMaterialGroup::iMaterialGroup(const iMaterialPtr &material)
-        : _material(material)
-    {
-    }
-
     iMaterialGroup::~iMaterialGroup()
     {
         for (auto &iter : _instancedRenderNodes)
@@ -28,17 +23,12 @@ namespace igor
 
     bool iMaterialGroup::isInstanced() const
     {
-        return _material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On;
+        return false; // TODO
     }
 
     bool iMaterialGroup::hasNodes() const
     {
         return !_renderNodes.empty() || !_instancedRenderNodes.empty();
-    }
-
-    const iMaterialPtr &iMaterialGroup::getMaterial() const
-    {
-        return _material;
     }
 
     const std::vector<iNodeRenderPtr> &iMaterialGroup::getRenderNodes() const
@@ -63,8 +53,6 @@ namespace igor
 
     void iMaterialGroup::addRenderNode(iNodeRenderPtr renderNode)
     {
-        con_assert(_material != nullptr, "invalid material");
-
         if (isInstanced() &&
             iNodeType::iNodeMesh == renderNode->getType())
         {

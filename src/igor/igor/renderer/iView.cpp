@@ -189,7 +189,9 @@ namespace igor
         }
 
         if (_visible)
-        {
+        {            
+            iRenderer::getInstance().beginFrame();
+
             iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 
             if (_clearColorActive)
@@ -220,9 +222,9 @@ namespace igor
                 IGOR_PROFILER_SCOPED(udraw);
                 _renderEvent();
             }
-        }
 
-        iRenderer::getInstance().endFrame();
+            iRenderer::getInstance().endFrame();
+        }
     }
 
     uint64 iView::pickcolorID(uint32 posx, uint32 posy)

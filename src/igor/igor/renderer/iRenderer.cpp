@@ -230,7 +230,8 @@ namespace igor
         Lines,
         Triangles,
         Quads,
-        TexturedQuads
+        TexturedQuads,
+        Mesh
     };
 
     /*! internal structure for handling lights
@@ -484,28 +485,13 @@ namespace igor
         glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
 #endif
 
-        /*
-          glEnable(GL_LINE_SMOOTH);
-
-                glEnable(GL_POINT_SMOOTH);
-
-                glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-
-                glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-
-                glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-
-                glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
-
-                glDepthFunc(GL_LESS);
-
-                glEnable(GL_DEPTH_TEST);
-
-                glDepthMask(true);
-        */
-
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_LINE_SMOOTH);
+        glEnable(GL_POINT_SMOOTH);
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+        glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+        glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+        glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         setStencilMask(0xff);
         clearStencilBuffer();
@@ -524,10 +510,10 @@ namespace igor
                                      << "OpenGL Renderer: " << _data->_renderer);
 
         ///////////// MATERIALS ////////////
-        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d.mat");
-        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d_blend.mat");
-        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d.mat");
-        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d_blend.mat");
+        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d.mat", false);
+        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d_blend.mat", false);
+        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d.mat", false);
+        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d_blend.mat", false);
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
@@ -1028,23 +1014,20 @@ namespace igor
             }
         }
 
-        if (_data->_currentMaterial != nullptr)
-        {
-            _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        _data->_currentMaterial->bind();
+        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
-            glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
-            GL_CHECK_ERROR();
-            texQuads._vertexArray->unbind();
+        glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
+        GL_CHECK_ERROR();
+        texQuads._vertexArray->unbind();
 
-            _data->_currentMaterial->unbind();
+        _data->_currentMaterial->unbind();
 
-            // save stats
-            _data->_stats._drawCalls++;
-            _data->_stats._vertices += texQuads._vertexCount;
-            _data->_stats._indices += texQuads._indexCount;
-            _data->_stats._triangles += texQuads._vertexCount / 2;
-        }
+        // save stats
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += texQuads._vertexCount;
+        _data->_stats._indices += texQuads._indexCount;
+        _data->_stats._triangles += texQuads._vertexCount / 2;
 
         // reset queue
         texQuads._vertexCount = 0;
@@ -2033,28 +2016,12 @@ namespace igor
         _data->_fallbackTexture = texture;
     }
 
-    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial)
-    {
-        flush();
-
-        _data->_currentMaterial->bind();
-
-        writeShaderParameters(targetMaterial);
-
-        glBindVertexArray(meshBuffers->getVertexArrayObject());        
-        glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, nullptr);
-        glBindVertexArray(0);
-
-        // save stats
-        _data->_stats._drawCalls++;
-        _data->_stats._vertices += meshBuffers->getVertexCount();
-        _data->_stats._indices += meshBuffers->getIndexesCount();
-        _data->_stats._triangles += meshBuffers->getTrianglesCount();
-    }
-
     void iRenderer::drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial)
     {
-        flush();
+        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Mesh)
+        {
+            flushLastUsed();
+        }
 
         _data->_currentMaterial->bind();
 
@@ -2072,6 +2039,8 @@ namespace igor
         _data->_stats._vertices += mesh->getVertexCount();
         _data->_stats._indices += mesh->getIndexCount();
         _data->_stats._triangles += mesh->getTrianglesCount();
+
+        _data->_lastRenderDataSetUsed = iRenderDataSet::Mesh;
     }
 
     void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
@@ -2133,19 +2102,19 @@ namespace igor
             _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
 
             uint32 texUnit = 0;
-            for(const auto &texture : targetMaterial->getTextures())
+            for (const auto &texture : targetMaterial->getTextures())
             {
                 std::stringstream shaderProperty;
                 shaderProperty << SAMPLER_TEXTURE << texUnit;
-                _data->_currentMaterial->setInt(shaderProperty.str().c_str() ,texUnit);
+                _data->_currentMaterial->setInt(shaderProperty.str().c_str(), texUnit);
 
-                if(texture->isDummy())
+                if (texture->isDummy())
                 {
                     _data->_fallbackTexture->bind(texUnit++);
                 }
                 else
                 {
-                    texture->bind(texUnit++);                
+                    texture->bind(texUnit++);
                 }
             }
         }

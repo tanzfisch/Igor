@@ -31,8 +31,8 @@ namespace igor
             {
                 con_endl("non released materials: ");
                 for (const auto &material : _materials)
-                {                    
-                    con_endl(material.second->getID() << " ref:" << material.second.use_count() << " - " << material.second->getName() );
+                {
+                    con_endl(material.second->getID() << " ref:" << material.second.use_count() << " - " << material.second->getName());
                 }
             }
         }
@@ -81,7 +81,7 @@ namespace igor
         return result;
     }
 
-    iMaterialPtr iMaterialResourceFactory::createMaterial(const iaString &name)
+    iMaterialPtr iMaterialResourceFactory::createMaterial(const iaString &name, bool cache)
     {
         iMaterialPtr result = getMaterial(name);
         if (result != nullptr)
@@ -90,19 +90,22 @@ namespace igor
         }
 
         result = iMaterial::create();
-        result->setName(name); 
+        result->setName(name);
         const int64 hashValue = name.getHashValue();
 
-        _mutexMaterial.lock();
-        _materials[hashValue] = result;
-        _mutexMaterial.unlock();
+        if (cache)
+        {
+            _mutexMaterial.lock();
+            _materials[hashValue] = result;
+            _mutexMaterial.unlock();
+        }
 
         con_info("created material [" << result->getID() << "] \"" << result->getName() << "\"");
 
         return result;
     }
 
-    iMaterialPtr iMaterialResourceFactory::loadMaterial(const iaString &filename)
+    iMaterialPtr iMaterialResourceFactory::loadMaterial(const iaString &filename, bool cache)
     {
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
 
@@ -120,11 +123,14 @@ namespace igor
         result = iMaterial::create(keyPath);
         const int64 hashValue = keyPath.getHashValue();
 
-        _mutexMaterial.lock();
-        _materials[hashValue] = result;
-        _mutexMaterial.unlock();
+        if (cache)
+        {
+            _mutexMaterial.lock();
+            _materials[hashValue] = result;
+            _mutexMaterial.unlock();
+        }
 
-        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath);
+        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " (" << (cache ? "cached" : "not cached") << ")");
 
         return result;
     }

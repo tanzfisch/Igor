@@ -246,7 +246,7 @@ namespace igor
 
         void drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial);
 
-        void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial);
+        // TODO
         void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer);
 
         void drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);

@@ -46,19 +46,19 @@ namespace igor
     public:
         /*! creates material
         \param name the materials name which must be unique
+        \param cache if true this material will be added to the cache
         \returns new material
-
-        if the name is not unique it will return a previously created material
+        If the name already exists it will return a previously created material
         */
-        iMaterialPtr createMaterial(const iaString &name);
+        iMaterialPtr createMaterial(const iaString &name, bool cache = true);
 
         /*! loads material from file. If the same material was already loaded it will return from cache
 
         \param filename name of file to load
-        \param cacheMode default ist mipmapped
+        \param cache if true this material will be added to the cache
         \returns shared pointer to material
         */
-        iMaterialPtr loadMaterial(const iaString &filename);
+        iMaterialPtr loadMaterial(const iaString &filename, bool cache = true);
 
         /*! \returns default material
          */

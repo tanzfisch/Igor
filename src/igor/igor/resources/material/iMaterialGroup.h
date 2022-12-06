@@ -58,20 +58,13 @@ namespace igor
 
     public:
 
-        iMaterialGroup() = default;
-
-        /*! sets material of group
-        \param material the material to use
+        /*! does nothing
         */
-        iMaterialGroup(const iMaterialPtr &material);
+        iMaterialGroup() = default;
 
         /*! clean up
         */
         virtual ~iMaterialGroup();
-
-        /*! \returns material of group
-        */
-        const iMaterialPtr &getMaterial() const;
 
         /*! \returns true if material is instanced
         */
@@ -100,9 +93,6 @@ namespace igor
         const std::unordered_map<iMeshBuffersPtr, iInstancingData> &getInstancedRenderNodes() const;
 
     private:
-        /*! corresponding material
-        */
-        iMaterialPtr _material;
 
         /*! render node IDs registred to this material
         */
