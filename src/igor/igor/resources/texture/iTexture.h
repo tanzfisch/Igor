@@ -155,7 +155,7 @@ namespace igor
 
         /*! renderer specific texture handle
 		*/
-        uint32 _textureID;        
+        uint32 _textureID = 0;
 
         /*! ctor
 

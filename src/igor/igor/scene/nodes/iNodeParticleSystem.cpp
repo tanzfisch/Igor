@@ -105,17 +105,17 @@ namespace igor
     {
         handle();
 
-        if (_textureA != nullptr)
+        if (_textureA != nullptr && _textureA->isValid())
         {
             _textureA->bind(0);
         }
 
-        if (_textureB != nullptr)
+        if (_textureB != nullptr && _textureB->isValid())
         {
             _textureB->bind(1);
         }
 
-        if (_textureC != nullptr)
+        if (_textureC != nullptr && _textureC->isValid())
         {
             _textureC->bind(2);
         }
