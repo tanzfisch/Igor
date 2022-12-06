@@ -49,6 +49,7 @@ namespace igor
         float32 _texIndex;
     };
 
+    /// data to render points
     struct iRenderDataPoints
     {
         /*! point vertex buffer
@@ -72,6 +73,7 @@ namespace igor
         iFlatVertex *_vertexDataPtr = nullptr;
     };
 
+    /// data to render lines
     struct iRenderDataLines
     {
         /*! line vertex buffer
@@ -95,6 +97,7 @@ namespace igor
         iFlatVertex *_vertexDataPtr = nullptr;
     };
 
+    /// data to render quads
     struct iRendererDataQuads
     {
         /*! quad vertex buffer
@@ -122,6 +125,7 @@ namespace igor
         iFlatVertex *_vertexDataPtr = nullptr;
     };
 
+    /// data to render triangles
     struct iRendererDataTriangles
     {
         /*! vertex buffer
@@ -161,6 +165,7 @@ namespace igor
         uint32 *_indexDataPtr = nullptr;
     };
 
+    /// data to render textured quads
     struct iRendererDataTexturedQuads
     {
         /*! textured quad vertex buffer

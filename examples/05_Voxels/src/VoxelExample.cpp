@@ -39,7 +39,7 @@ void VoxelExample::initScene()
     _cameraPitch = cameraPitch->getID();
     // and distance to origin transformation node
     iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
-    cameraTranslation->translate(0, 0, 120);
+    cameraTranslation->translate(0, 0, 200);
     // anf of corse the camera
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     // add it to the scene

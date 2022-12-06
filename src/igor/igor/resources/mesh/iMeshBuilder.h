@@ -238,18 +238,19 @@ namespace igor
         */
         void calcNormals(bool sharpEdges = false);
 
+
         /*! creates and returns a mesh based on current data
 
         \returns shared pointer to iMesh
         */
-        iMeshPtr createMesh();
+        iMeshPtr createMesh();        
 
-        /*! creates ans returns a mesh based on current data but filtered by triangle list
+        /*! creates ans returns a mesh based on current data filtered by given triangles list
 
         \param triangles list of triangle IDs that end up in the mesh
-        \returns shared pointer to iMesh
+        \returns shared pointer to mesh
         */
-        iMeshPtr createMesh(std::vector<uint32> triangles);
+        iMeshPtr createMesh(const std::vector<uint32>& triangles);
 
         /*! clears data and set transformation matrix to identity
         */
@@ -329,16 +330,18 @@ namespace igor
         */
         uint32 addVertexIntern(const iaVector3f &vertex);
 
-        /*! fills iMesh with data filtered by triangles list
+        /*! compiles data in to mesh
 
-        \param[in,out] mesh the mesh to fill the data in
-        \param triangles list of triangles that are supposed to end up in the mesh
+        \param[out] mesh the resulting mesh
         */
-        void compile(iMesh *mesh, std::vector<uint32> triangles);
+        void compile(iMeshPtr mesh);
 
-        /*! \returns a vertex array based on current data
+        /*! compiles data in to mesh filtered by triangle list
+
+        \param[out] mesh the resulting mesh
+        \param triangles the list of triangles we want in the mesh
         */
-        iVertexArrayPtr compileVertexArray();        
+        void compile(iMeshPtr mesh, const std::vector<uint32>& triangles);
 
         /*! checks boundaries of generated data
         */

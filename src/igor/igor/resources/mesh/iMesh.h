@@ -153,7 +153,7 @@ namespace igor
 
         /*! sets index data
 
-        !!Either use setData or setVertexArray!!
+        can be called from non main thread
 
         \param indexData the index data
         \param indexDataSize the index data size
@@ -162,14 +162,6 @@ namespace igor
         \param keepData if true the data will not be deleted after passing it to the GPU
         */
         void setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepData = false);
-
-        /*! sets vertex array data
-
-        !!Either use setData or setVertexArray!!
-
-        \param vertexArray the vertex array to set
-        */
-        void setVertexArray(const iVertexArrayPtr &vertexArray);
 
         /*! \returns vertex array
         */

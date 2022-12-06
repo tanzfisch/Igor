@@ -12,7 +12,7 @@ namespace igor
     class iVertexBufferDeleter
     {
     public:
-        void operator()(iVertexBuffer * p) { delete p; }
+        void operator()(iVertexBuffer *p) { delete p; }
     };
 
     iVertexBufferPtr iVertexBuffer::create(uint32 size, const void *vertexData)
@@ -51,6 +51,8 @@ namespace igor
 
     void iVertexBuffer::setData(uint32 size, const void *vertexData)
     {
+        _bufferSize = size;
+
         glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferObject);
         GL_CHECK_ERROR();
         glBufferSubData(GL_ARRAY_BUFFER, 0, size, vertexData);
@@ -70,6 +72,24 @@ namespace igor
     bool iVertexBuffer::isDynamic() const
     {
         return _dynamic;
+    }
+
+    uint32 iVertexBuffer::getVertexCount() const
+    {
+        if(_layout.getStride() == 0)
+        {
+            con_err("layout not set");
+            return 0;
+        }
+        return _bufferSize / _layout.getStride();
+    }
+    uint32 iVertexBuffer::getVertexSize() const
+    {
+        return _layout.getStride();
+    }
+    uint32 iVertexBuffer::getBufferSize() const
+    {
+        return _bufferSize;
     }
 
 }

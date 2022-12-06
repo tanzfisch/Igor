@@ -86,7 +86,19 @@ namespace igor
 
         /*! \returns true if this is a dynamic buffer
          */
-        bool isDynamic() const;        
+        bool isDynamic() const;
+
+        /*! \returns vertex count
+        */
+        uint32 getVertexCount() const;
+
+        /*! \returns vertex size
+        */
+        uint32 getVertexSize() const;
+
+        /*! \returns buffer size in byte
+        */
+        uint32 getBufferSize() const;
 
     private:
         /*! internal buffer id
@@ -100,6 +112,10 @@ namespace igor
         /*! if true this is a dynamic buffer
          */
         bool _dynamic;        
+
+        /*! the buffe size in byte
+        */
+        uint32 _bufferSize;
 
         /*! init vertex buffer
 

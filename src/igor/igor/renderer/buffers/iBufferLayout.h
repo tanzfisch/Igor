@@ -117,7 +117,7 @@ namespace igor
 
         /*! the stride
          */
-        uint32 _stride;
+        uint32 _stride = 0;
     };
 
 }

@@ -181,11 +181,6 @@ namespace igor
     const iVertexArrayPtr &iMesh::getVertexArray() const
     {
         return _vertexArray;
-    }
-
-    void iMesh::setVertexArray(const iVertexArrayPtr &vertexArray)
-    {
-        _vertexArray = vertexArray;
-    }    
+    } 
 
 } // namespace igor
