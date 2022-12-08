@@ -159,9 +159,19 @@ namespace igor
         \param indexDataSize the index data size
         \param vertexData the vertex data
         \param vertexDataSize the vertex data size
-        \param keepData if true the data will not be deleted after passing it to the GPU
+        \param keepRawData if true the raw data will not be deleted after passing it to the GPU
         */
-        void setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepData = false);
+        void setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepRawData = false);
+
+        /*! sets keep data flag
+
+        \param keepRawData if true the raw data will not be deleted after passing it to the GPU
+        */
+        void setKeepRawData(bool keepRawData);
+
+        /*! \returns true if the raw data will not be deleted after passing it to the GPU
+        */
+        bool isKeepingRawData() const;
 
         /*! \returns vertex array
         */
@@ -227,7 +237,7 @@ namespace igor
 
         /*! if true the mesh will hold on to a copy of vertex and index data
         */
-        bool _keepData = false;  
+        bool _keepRawData = false;  
 
         /*! does nothing
         */

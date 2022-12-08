@@ -7,7 +7,7 @@
 #include "VoxelTerrainMeshGenerator.h"
 
 VoxelExample::VoxelExample(iWindowPtr window)
-    : ExampleBase(window, "Voxel", true, true)
+    : ExampleBase(window, "Voxel", true, false)
 {
 }
 
@@ -39,7 +39,7 @@ void VoxelExample::initScene()
     _cameraPitch = cameraPitch->getID();
     // and distance to origin transformation node
     iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
-    cameraTranslation->translate(0, 0, 200);
+    cameraTranslation->translate(0, 0, 120);
     // anf of corse the camera
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     // add it to the scene
@@ -71,6 +71,18 @@ void VoxelExample::initScene()
     program->addShader("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
     program->compile();
     _voxelMeshMaterial->setShaderProgram(program);
+
+    // create a skybox
+    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    // set it up with the default skybox texture
+    skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skyboxes/stars.png"));
+    // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
+    iMaterialPtr materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
+    materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
+    // set that material
+    skyBoxNode->setMaterial(materialSkyBox);
+    // and add it to the scene
+    getScene()->getRoot()->insertNode(skyBoxNode);
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -245,20 +257,21 @@ void VoxelExample::prepareMeshGeneration()
 
 void VoxelExample::onRenderOrtho()
 {
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -1);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
+    iaMatrixd matrix;
+    iRenderer::getInstance().setViewMatrix(matrix);
+    matrix.translate(0, 0, -1);
+    iRenderer::getInstance().setModelMatrix(matrix);
 
     iRenderer::getInstance().setFont(getFont());
     iRenderer::getInstance().setFontSize(25.0f);
 
     if (_loading)
     {
-        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::green);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::white);
     }
     else
     {
-        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::green);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::white);
     }
 
     ExampleBase::onRenderOrtho();
@@ -277,7 +290,7 @@ void VoxelExample::onPreDraw()
             if (_loading)
             {
                 _loading = false;
-                con_endl("generation time: " << (iaTime::getNow() - _time));
+                con_info("generation time: " << (iaTime::getNow() - _time));
             }
         }
     }

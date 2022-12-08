@@ -243,7 +243,7 @@ namespace igor
 
         \returns shared pointer to iMesh
         */
-        iMeshPtr createMesh();        
+        iMeshPtr createMesh();
 
         /*! creates ans returns a mesh based on current data filtered by given triangles list
 
@@ -357,6 +357,11 @@ namespace igor
         \param[out] indexC index of vertex C
         */
         void getIndexOfVertexes(const iaVector3f &vertexA, int64 &indexA, const iaVector3f &vertexB, int64 &indexB, const iaVector3f &vertexC, int64 &indexC);
+
+        /*! \returns layout based on current data
+        */
+        iBufferLayout generateLayout() const;
+
     };
 
 }; // namespace igor

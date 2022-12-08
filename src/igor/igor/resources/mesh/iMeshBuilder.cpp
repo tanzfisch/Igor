@@ -494,22 +494,7 @@ namespace igor
         const uint32 vertexCount = vertexDataIndex;
         const uint32 vertexBufferSize = vertexCount * vertexSize;
 
-        iBufferLayout layout;
-        layout.addElement({iShaderDataType::Float3});
-        if (hasNormals())
-        {
-            layout.addElement({iShaderDataType::Float2});
-        }
-        if (hasColors())
-        {
-            layout.addElement({iShaderDataType::Float4});
-        }
-        for (int i = 0; i < getTextureUnitCount(); ++i)
-        {
-            layout.addElement({iShaderDataType::Float2});
-        }
-
-        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, layout, false);
+        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout());
 
         delete[] indexBufferData;
         delete[] vertexBufferData;
@@ -566,6 +551,26 @@ namespace igor
         return mesh;
     }
 
+    iBufferLayout iMeshBuilder::generateLayout() const
+    {
+        iBufferLayout layout;
+        layout.addElement({iShaderDataType::Float3});
+        if (hasNormals())
+        {
+            layout.addElement({iShaderDataType::Float3});
+        }
+        if (hasColors())
+        {
+            layout.addElement({iShaderDataType::Float4});
+        }
+        for (int i = 0; i < getTextureUnitCount(); ++i)
+        {
+            layout.addElement({iShaderDataType::Float2});
+        }
+
+        return layout;
+    }
+
     void iMeshBuilder::compile(iMeshPtr mesh)
     {
         if (!checkConsistency())
@@ -619,22 +624,7 @@ namespace igor
             }
         }
 
-        iBufferLayout layout;
-        layout.addElement({iShaderDataType::Float3});
-        if (hasNormals())
-        {
-            layout.addElement({iShaderDataType::Float2});
-        }
-        if (hasColors())
-        {
-            layout.addElement({iShaderDataType::Float4});
-        }
-        for (int i = 0; i < getTextureUnitCount(); ++i)
-        {
-            layout.addElement({iShaderDataType::Float2});
-        }
-
-        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, layout, false);
+        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout());
 
         delete[] indexBufferData;
         delete[] vertexBufferData;

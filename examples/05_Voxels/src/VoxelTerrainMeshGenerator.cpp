@@ -33,7 +33,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iMod
     if (mesh.get() != nullptr)
     {
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-        // meshNode->setKeepMesh(parameter->_keepMesh);
+        mesh->setKeepRawData(parameter->_keepMesh);
         meshNode->setMesh(mesh);
         meshNode->setMaterial(tileInformation->_material);
 

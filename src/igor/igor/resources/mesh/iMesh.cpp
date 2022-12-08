@@ -61,7 +61,7 @@ namespace igor
 
     uint32 iMesh::getTrianglesCount() const
     {
-        
+
         return _trianglesCount;
     }
 
@@ -142,7 +142,7 @@ namespace igor
         {
             con_assert(_vertexData != nullptr, "no data");
             con_assert(_indexData != nullptr, "no data");
-            
+
             _vertexArray = iVertexArray::create();
 
             iVertexBufferPtr vertexBuffer = iVertexBuffer::create(_vertexDataSize, _vertexData);
@@ -152,7 +152,7 @@ namespace igor
             iIndexBufferPtr indexBuffer = iIndexBuffer::create(getIndexCount(), reinterpret_cast<const uint32 *>(_indexData));
             _vertexArray->setIndexBuffer(indexBuffer);
 
-            if (!_keepData)
+            if (!_keepRawData)
             {
                 delete[] _indexData;
                 _indexData = nullptr;
@@ -164,7 +164,7 @@ namespace igor
         _vertexArray->bind();
     }
 
-    void iMesh::setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepData)
+    void iMesh::setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepRawData)
     {
         _indexDataSize = indexDataSize;
         _indexData = new uint8[_indexDataSize];
@@ -174,13 +174,23 @@ namespace igor
         _vertexData = new uint8[_vertexDataSize];
         memcpy(_vertexData, vertexData, _vertexDataSize);
 
-        _keepData = keepData;
+        _keepRawData = keepRawData;
         _layout = layout;
+    }
+
+    void iMesh::setKeepRawData(bool keepRawData)
+    {
+        _keepRawData = keepRawData;
+    }
+
+    bool iMesh::isKeepingRawData() const
+    {
+        return _keepRawData;
     }
 
     const iVertexArrayPtr &iMesh::getVertexArray() const
     {
         return _vertexArray;
-    } 
+    }
 
 } // namespace igor
