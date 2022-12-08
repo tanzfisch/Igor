@@ -65,12 +65,7 @@ void VoxelExample::initScene()
     lightTranslate->insertNode(lightNode);
 
     // set up voxel mesh material
-    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
-    iShaderProgramPtr program = iShaderProgram::create();
-    program->addShader("igor/terrain.vert", iShaderObjectType::Vertex);
-    program->addShader("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
-    program->compile();
-    _voxelMeshMaterial->setShaderProgram(program);
+    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().loadMaterial("terrain_directional_light.mat");
 
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
