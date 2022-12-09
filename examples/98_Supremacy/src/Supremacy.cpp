@@ -40,10 +40,10 @@ iEntity Supremacy::createPlayer()
     object._object = std::make_shared<QuadtreeObject>(iaCircled(position._position._x, position._position._y, size._size), entity.getID());
     _quadtree.insert(object._object);
 
-    iaVector2f a(-1.0,0.0);
-    iaVector2f b(1.0,0.0);
-    iaVector2f c(0.0,1.0);
-    iaVector2f d(0.0,-1.0);
+    iaVector2f a(-1.0, 0.0);
+    iaVector2f b(1.0, 0.0);
+    iaVector2f c(0.0, 1.0);
+    iaVector2f d(0.0, -1.0);
 
     return entity;
 }
@@ -125,8 +125,8 @@ void Supremacy::onInit()
 {
     _viewOrtho.setClearColor(0.3, 0.9, 0.5, 1.0);
     _viewOrtho.setName("view ortho");
-    _viewOrtho.setClearColor(true);
-    _viewOrtho.setClearDepth(true);
+    _viewOrtho.setClearColorActive(true);
+    _viewOrtho.setClearDepthActive(false);
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
@@ -860,16 +860,11 @@ void Supremacy::onRenderOrtho()
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer::getInstance().setModelMatrix(matrix);
 
-    // TODO iRenderer::getInstance().setMaterial TODO(false);
     iaVector2f tiling(10.0, 10.0);
     iaVector2f bPos(std::truncf(viewRectangle._x / 100.0) * 100.0 - 200.0, std::truncf(viewRectangle._y / 100.0) * 100.0 - 200.0);
-    iRenderer::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, false, tiling);  
-
-    con_endl("viewRectangle._x " << viewRectangle._x);
-    con_endl("std::truncf(viewRectangle._x / 100.0) * 100.0 " << std::truncf(viewRectangle._x / 100.0) * 100.0);
+    iRenderer::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, false, tiling);
 
     const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.9);
-    // TODO iRenderer::getInstance().setMaterial TODO(true);
 
     // draw entities
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>();
