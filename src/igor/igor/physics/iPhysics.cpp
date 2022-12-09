@@ -1190,7 +1190,7 @@ namespace igor
         {
             const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
 
-            /*if (world != nullptr)
+            if (world != nullptr)
             {
                 NewtonCollision *collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld *>(world), 0);
 
@@ -1198,29 +1198,32 @@ namespace igor
 
                 float64 temp[9];
 
-                uint32 *indexes = mesh->getIndexData();
-                float32 *vertexes = mesh->getVertexData();
+                void *indexData;
+                uint32 indexDataSize;
+                void *vertexData;
+                uint32 vertexDataSize;
+                mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
 
-                uint32 vertexFloatCount = mesh->getVertexSize() / 4;
+                uint32 vertexFloatCount = mesh->getLayout().getStride() / 4;
                 uint32 vertexPos = 0;
-                uint32 indexCount = mesh->getIndexesCount();
+                uint32 indexCount = indexDataSize / 4;
 
                 for (int i = 0; i < indexCount; i += 3)
                 {
-                    vertexPos = (indexes[i + 0] * vertexFloatCount);
-                    temp[0] = vertexes[vertexPos++];
-                    temp[1] = vertexes[vertexPos++];
-                    temp[2] = vertexes[vertexPos++];
+                    vertexPos = (static_cast<uint32*>(indexData)[i + 0] * vertexFloatCount);
+                    temp[0] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[1] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[2] = static_cast<float32*>(vertexData)[vertexPos++];
 
-                    vertexPos = (indexes[i + 1] * vertexFloatCount);
-                    temp[3] = vertexes[vertexPos++];
-                    temp[4] = vertexes[vertexPos++];
-                    temp[5] = vertexes[vertexPos++];
+                    vertexPos = (static_cast<uint32*>(indexData)[i + 1] * vertexFloatCount);
+                    temp[3] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[4] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[5] = static_cast<float32*>(vertexData)[vertexPos++];
 
-                    vertexPos = (indexes[i + 2] * vertexFloatCount);
-                    temp[6] = vertexes[vertexPos++];
-                    temp[7] = vertexes[vertexPos++];
-                    temp[8] = vertexes[vertexPos++];
+                    vertexPos = (static_cast<uint32*>(indexData)[i + 2] * vertexFloatCount);
+                    temp[6] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[7] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[8] = static_cast<float32*>(vertexData)[vertexPos++];
 
                     NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float64) * 3, faceAttribute);
                 }
@@ -1234,7 +1237,7 @@ namespace igor
                 _collisionsListMutex.lock();
                 _collisions[result->getID()] = result;
                 _collisionsListMutex.unlock();
-            }*/
+            }
         }
         else
         {

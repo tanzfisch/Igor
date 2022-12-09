@@ -40,6 +40,16 @@ namespace igor
 
     iMaterial::~iMaterial() = default;
 
+    bool iMaterial::isValid() const
+    {
+        if(_shaderProgram == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     void iMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
     {
         _shaderProgram = shaderProgram;
@@ -149,6 +159,8 @@ namespace igor
 
     void iMaterial::bind()
     {
+        con_assert(isValid(), "invalid material \"" << getName() << "\" [" << getID() << "]");
+
         _shaderProgram->bind();
 
         if (_renderStateSet.getRenderState(iRenderState::DepthTest) == iRenderStateValue::On)

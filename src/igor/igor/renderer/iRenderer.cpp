@@ -45,8 +45,32 @@ namespace igor
     {
         iaVector3f _pos;
         iaColor4f _color;
-        iaVector2f _texCoord;
-        float32 _texIndex;
+        iaVector2f _texCoord0;
+        float32 _texIndex0;
+    };
+
+    // textured vertex definition with two textures
+    struct iTexturedVertex2
+    {
+        iaVector3f _pos;
+        iaColor4f _color;
+        iaVector2f _texCoord0;
+        float32 _texIndex0;
+        iaVector2f _texCoord1;
+        float32 _texIndex1;
+    };
+
+    // textured vertex definition with three textures
+    struct iTexturedVertex3
+    {
+        iaVector3f _pos;
+        iaColor4f _color;
+        iaVector2f _texCoord0;
+        float32 _texIndex0;
+        iaVector2f _texCoord1;
+        float32 _texIndex1;
+        iaVector2f _texCoord2;
+        float32 _texIndex2;
     };
 
     /// data to render points
@@ -632,29 +656,29 @@ namespace igor
 
         texQuads._vertexDataPtr->_pos.set(x, y, 0.0);
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord = QUAD_TEXTURE_COORDS[0];
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0 = QUAD_TEXTURE_COORDS[0];
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos.set(x, y + height, 0.0);
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[1]._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[1]._y * tiling._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[1]._x;
+        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[1]._y * tiling._y;
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos.set(x + width, y + height, 0.0);
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[2]._x * tiling._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[2]._y * tiling._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[2]._x * tiling._x;
+        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[2]._y * tiling._y;
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos.set(x + width, y, 0.0);
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[3]._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
+        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[3]._y;
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexCount += 4;
@@ -734,29 +758,29 @@ namespace igor
         auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = v1;
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord = QUAD_TEXTURE_COORDS[0];
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0 = QUAD_TEXTURE_COORDS[0];
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos = v2;
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[1]._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[1]._y * tiling._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[1]._x;
+        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[1]._y * tiling._y;
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos = v3;
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[2]._x * tiling._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[2]._y * tiling._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[2]._x * tiling._x;
+        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[2]._y * tiling._y;
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos = v4;
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
-        texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[3]._y;
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
+        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[3]._y;
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         endTexturedQuad();
@@ -776,26 +800,26 @@ namespace igor
         auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord = frame._rect.getTopLeft();
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0 = frame._rect.getTopLeft();
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[1];
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord = frame._rect.getBottomLeft();
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0 = frame._rect.getBottomLeft();
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[2];
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord = frame._rect.getBottomRight();
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0 = frame._rect.getBottomRight();
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[3];
         texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord = frame._rect.getTopRight();
-        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr->_texCoord0 = frame._rect.getTopRight();
+        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
         endTexturedQuad();
@@ -1404,63 +1428,6 @@ namespace igor
         return matrix;
     }
 
-    void iRenderer::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
-    {
-        con_assert(particles != nullptr, "zero pointer");
-
-        iaVector3f a, b, c, d;
-        iaVector2f u, v;
-        iaColor4f color;
-
-        for (uint32 i = 0; i < particleCount; ++i)
-        {
-            const iParticle2D &particle = particles[i];
-
-            if (particle._life <= 0)
-            {
-                continue;
-            }
-
-            const iaVector3f pos(particle._position._x, particle._position._y, 0.0f);
-
-            gradient.getValue(particle._life, color);
-
-            u.set(1.0f, 0.0f);
-            u.rotateXY(particle._angle);
-            v._x = -u._y;
-            v._y = u._x;
-
-            u *= 0.5f * particle._size;
-            v *= 0.5f * particle._size;
-
-            a = pos;
-            a._x -= u._x;
-            a._y -= u._y;
-            a._x += v._x;
-            a._y += v._y;
-
-            b = pos;
-            b._x += u._x;
-            b._y += u._y;
-            b._x += v._x;
-            b._y += v._y;
-
-            c = pos;
-            c._x += u._x;
-            c._y += u._y;
-            c._x -= v._x;
-            c._y -= v._y;
-
-            d = pos;
-            d._x -= u._x;
-            d._y -= u._y;
-            d._x -= v._x;
-            d._y -= v._y;
-
-            drawTexturedQuad(a, b, c, d, texture, color, blend);
-        }
-    }
-
     void iRenderer::drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color, float32 maxWidth)
     {
         con_assert(horz == iHorizontalAlignment::Left || horz == iHorizontalAlignment::Right || horz == iHorizontalAlignment::Center, "invalid parameters");
@@ -1591,26 +1558,26 @@ namespace igor
             auto &texQuads = _data->_texQuads;
             texQuads._vertexDataPtr->_pos.set(renderPos._x, renderPos._y + renderSize._y, 0.0f);
             texQuads._vertexDataPtr->_color = color;
-            texQuads._vertexDataPtr->_texCoord.set(texX, texY + height);
-            texQuads._vertexDataPtr->_texIndex = textureIndex;
+            texQuads._vertexDataPtr->_texCoord0.set(texX, texY + height);
+            texQuads._vertexDataPtr->_texIndex0 = textureIndex;
             texQuads._vertexDataPtr++;
 
             texQuads._vertexDataPtr->_pos.set(renderPos._x + renderSize._x, renderPos._y + renderSize._y, 0.0f);
             texQuads._vertexDataPtr->_color = color;
-            texQuads._vertexDataPtr->_texCoord.set(texX + width, texY + height);
-            texQuads._vertexDataPtr->_texIndex = textureIndex;
+            texQuads._vertexDataPtr->_texCoord0.set(texX + width, texY + height);
+            texQuads._vertexDataPtr->_texIndex0 = textureIndex;
             texQuads._vertexDataPtr++;
 
             texQuads._vertexDataPtr->_pos.set(renderPos._x + renderSize._x, renderPos._y, 0.0f);
             texQuads._vertexDataPtr->_color = color;
-            texQuads._vertexDataPtr->_texCoord.set(texX + width, texY);
-            texQuads._vertexDataPtr->_texIndex = textureIndex;
+            texQuads._vertexDataPtr->_texCoord0.set(texX + width, texY);
+            texQuads._vertexDataPtr->_texIndex0 = textureIndex;
             texQuads._vertexDataPtr++;
 
             texQuads._vertexDataPtr->_pos.set(renderPos._x, renderPos._y, 0.0f);
             texQuads._vertexDataPtr->_color = color;
-            texQuads._vertexDataPtr->_texCoord.set(texX, texY);
-            texQuads._vertexDataPtr->_texIndex = textureIndex;
+            texQuads._vertexDataPtr->_texCoord0.set(texX, texY);
+            texQuads._vertexDataPtr->_texIndex0 = textureIndex;
             texQuads._vertexDataPtr++;
 
             endTexturedQuad();
@@ -2439,7 +2406,7 @@ namespace igor
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data);
     }
 
-    void iRenderer::drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
+    void iRenderer::drawParticlesVelocityOriented(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient)
     {
         iaVector3f right;
         iaVector3f top(_data->_camMatrix._top._x, _data->_camMatrix._top._y, _data->_camMatrix._top._z);
@@ -2454,7 +2421,7 @@ namespace igor
         iaVector2f x(1, 0);
         iaVector2f y;
 
-        glBegin(GL_QUADS);
+        setMaterial(_data->_textureShaderBlend);
 
         for (auto particle : particles)
         {
@@ -2462,8 +2429,7 @@ namespace igor
             {
                 size = particle._size * particle._sizeScale;
 
-                rainbow.getValue(particle._visibleTime, color);
-                glColor4fv(color.getData());
+                gradient.getValue(particle._visibleTime, color);
 
                 direction = particle._velocity;
                 direction.normalize();
@@ -2482,7 +2448,38 @@ namespace igor
                 rightScale = right * x._x + top * x._y;
                 topScale = right * y._x + top * y._y;
 
-                glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
+                const int32 textureIndex = beginTexturedQuad(texture);
+
+                auto &texQuads = _data->_texQuads;
+                texQuads._vertexDataPtr->_pos = particle._position - rightScale + topScale;
+                texQuads._vertexDataPtr->_color = color;
+                texQuads._vertexDataPtr->_texCoord0 = particle._texturefrom;
+                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
+                texQuads._vertexDataPtr++;
+
+                texQuads._vertexDataPtr->_pos = particle._position - rightScale - topScale;
+                texQuads._vertexDataPtr->_color = color;
+                texQuads._vertexDataPtr->_texCoord0._x = particle._texturefrom._x;
+                texQuads._vertexDataPtr->_texCoord0._y = particle._textureto._y;
+                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
+                texQuads._vertexDataPtr++;
+
+                texQuads._vertexDataPtr->_pos = particle._position + rightScale - topScale;
+                texQuads._vertexDataPtr->_color = color;
+                texQuads._vertexDataPtr->_texCoord0 = particle._textureto;
+                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
+                texQuads._vertexDataPtr++;
+
+                texQuads._vertexDataPtr->_pos = particle._position + rightScale + topScale;
+                texQuads._vertexDataPtr->_color = color;
+                texQuads._vertexDataPtr->_texCoord0._x = particle._textureto._x;
+                texQuads._vertexDataPtr->_texCoord0._y = particle._texturefrom._y;
+                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
+                texQuads._vertexDataPtr++;
+
+                endTexturedQuad();                
+
+                /*glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
 
@@ -2504,11 +2501,9 @@ namespace igor
                 glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
 
-                glVertex3fv((particle._position + rightScale + topScale).getData());
+                glVertex3fv((particle._position + rightScale + topScale).getData());*/
             }
         }
-
-        glEnd();
 
         // save stats
         _data->_stats._drawCalls++;
@@ -2517,19 +2512,75 @@ namespace igor
         // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
     }
 
-    void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
+    void iRenderer::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
     {
+        con_assert(particles != nullptr, "zero pointer");
+
+        iaVector3f a, b, c, d;
+        iaVector2f u, v;
+        iaColor4f color;
+
+        for (uint32 i = 0; i < particleCount; ++i)
+        {
+            const iParticle2D &particle = particles[i];
+
+            if (particle._life <= 0)
+            {
+                continue;
+            }
+
+            const iaVector3f pos(particle._position._x, particle._position._y, 0.0f);
+
+            gradient.getValue(particle._life, color);
+
+            u.set(1.0f, 0.0f);
+            u.rotateXY(particle._angle);
+            v._x = -u._y;
+            v._y = u._x;
+
+            u *= 0.5f * particle._size;
+            v *= 0.5f * particle._size;
+
+            a = pos;
+            a._x -= u._x;
+            a._y -= u._y;
+            a._x += v._x;
+            a._y += v._y;
+
+            b = pos;
+            b._x += u._x;
+            b._y += u._y;
+            b._x += v._x;
+            b._y += v._y;
+
+            c = pos;
+            c._x += u._x;
+            c._y += u._y;
+            c._x -= v._x;
+            c._y -= v._y;
+
+            d = pos;
+            d._x -= u._x;
+            d._y -= u._y;
+            d._x -= v._x;
+            d._y -= v._y;
+
+            drawTexturedQuad(a, b, c, d, texture, color, blend);
+        }
+    }    
+
+    void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient)
+    {
+        // orient particles to camera
         iaVector4f camright;
         camright.set(_data->_camMatrix._right._x, _data->_camMatrix._right._y, _data->_camMatrix._right._z, 0);
-
         iaVector4f camtop;
         camtop.set(_data->_camMatrix._top._x, _data->_camMatrix._top._y, _data->_camMatrix._top._z, 0);
+        iaMatrixf invModelMatrix = _data->_modelMatrix.convert<float32>();
+        invModelMatrix.invert();
 
-        iaMatrixf inv = _data->_modelMatrix.convert<float32>();
-        inv.invert();
-
-        iaVector4f rightPreComp = inv * camright;
-        iaVector4f topPreComp = inv * camtop;
+        iaVector4f rightPreComp = invModelMatrix * camright;
+        iaVector4f topPreComp = invModelMatrix * camtop;
         iaVector3f right;
         iaVector3f top;
         iaColor4f color;
@@ -2541,7 +2592,7 @@ namespace igor
         iaVector2f x(1, 0);
         iaVector2f y;
 
-        glBegin(GL_QUADS);
+        setMaterial(_data->_textureShaderBlend);
 
         for (auto particle : particles)
         {
@@ -2558,8 +2609,7 @@ namespace igor
                 top._z = topPreComp._z;
                 top *= size;
 
-                rainbow.getValue(particle._visibleTime, color);
-                glColor4fv(color.getData());
+                gradient.getValue(particle._visibleTime, color);
 
                 x.set(1, 0);
                 x.rotateXY(particle._orientation);
@@ -2569,7 +2619,39 @@ namespace igor
                 rightScale = right * x._x + top * x._y;
                 topScale = right * y._x + top * y._y;
 
-                glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
+                const int32 textureIndex = beginTexturedQuad(texture);
+
+                auto &texQuads = _data->_texQuads;
+                texQuads._vertexDataPtr->_pos = particle._position - rightScale + topScale;
+                texQuads._vertexDataPtr->_color = color;
+                texQuads._vertexDataPtr->_texCoord0 = particle._texturefrom;
+                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
+                texQuads._vertexDataPtr++;
+
+                texQuads._vertexDataPtr->_pos = particle._position - rightScale - topScale;
+                texQuads._vertexDataPtr->_color = color;
+                texQuads._vertexDataPtr->_texCoord0._x = particle._texturefrom._x;
+                texQuads._vertexDataPtr->_texCoord0._y = particle._textureto._y;
+                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
+                texQuads._vertexDataPtr++;
+
+                texQuads._vertexDataPtr->_pos = particle._position + rightScale - topScale;
+                texQuads._vertexDataPtr->_color = color;
+                texQuads._vertexDataPtr->_texCoord0 = particle._textureto;
+                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
+                texQuads._vertexDataPtr++;
+
+                texQuads._vertexDataPtr->_pos = particle._position + rightScale + topScale;
+                texQuads._vertexDataPtr->_color = color;
+                texQuads._vertexDataPtr->_texCoord0._x = particle._textureto._x;
+                texQuads._vertexDataPtr->_texCoord0._y = particle._texturefrom._y;
+                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
+                texQuads._vertexDataPtr++;
+
+                endTexturedQuad();
+
+
+                /*glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
 
@@ -2591,11 +2673,10 @@ namespace igor
                 glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
 
-                glVertex3fv((particle._position + rightScale + topScale).getData());
+                glVertex3fv((particle._position + rightScale + topScale).getData());*/
+
             }
         }
-
-        glEnd();
 
         // save stats
         _data->_stats._drawCalls++;

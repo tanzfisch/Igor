@@ -62,6 +62,10 @@ namespace igor
         */
         void bind();
 
+        /*! \returns true if mesh is in a valid state
+        */
+        bool isValid() const;
+
         /*! set bounding box
 
         \param bbox the bounding box
@@ -151,6 +155,10 @@ namespace igor
         */
         void setHasColors(bool hasColors);
 
+        /*! \returns vertex array
+        */
+        const iVertexArrayPtr& getVertexArray() const;        
+
         /*! sets index data
 
         can be called from non main thread
@@ -173,9 +181,24 @@ namespace igor
         */
         bool isKeepingRawData() const;
 
-        /*! \returns vertex array
+        /*! \returns true if mesh has raw data available
         */
-        const iVertexArrayPtr& getVertexArray() const;
+        bool hasRawData() const;
+
+        /*! \returns buffer layout
+        */
+        const iBufferLayout& getLayout() const;
+
+        /*! \returns raw data if available
+        Availability can be tested with hasRawData
+
+        \param[out] indexData the index data pointer
+        \param[out] indexDataSize the index data size
+        \param[out] vertexData the vertex data pointer
+        \param[out] vertexDataSize the vertex data size
+        */
+        void getRawData(void* &indexData, uint32 &indexDataSize, void* &vertexData, uint32 &vertexDataSize);
+
 
     private:
 

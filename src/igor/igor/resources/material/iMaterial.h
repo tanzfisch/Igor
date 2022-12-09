@@ -162,6 +162,10 @@ namespace igor
         */
         bool hasTextureUnit(uint32 texUnit) const;
 
+        /*! \returns true if this material is ready for use
+        */
+        bool isValid() const;
+
     private:
         /*! name of the material.
          */

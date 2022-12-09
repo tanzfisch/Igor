@@ -111,6 +111,11 @@ namespace igor
 
     void iNodeMesh::draw()
     {
+        if(!_mesh->isValid())
+        {
+            return;
+        }
+
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
         iRenderer::getInstance().drawMesh(_mesh, _targetMaterial);
     }

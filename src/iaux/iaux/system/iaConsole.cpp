@@ -146,10 +146,10 @@ namespace iaux
 #endif
 
 #ifdef __IGOR_LINUX__
-        //__builtin_trap();
+        __builtin_trap();
 #endif
 
-        //std::exit(EXIT_FAILURE);
+        std::exit(EXIT_FAILURE);
     }
 
     void iaConsole::setLogLevel(iaLogLevel logLevel)

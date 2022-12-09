@@ -105,29 +105,14 @@ namespace igor
     {
         handle();
 
-        if (_textureA != nullptr && _textureA->isValid())
-        {
-            _textureA->bind(0);
-        }
-
-        if (_textureB != nullptr && _textureB->isValid())
-        {
-            _textureB->bind(1);
-        }
-
-        if (_textureC != nullptr && _textureC->isValid())
-        {
-            _textureC->bind(2);
-        }
-
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
         if (_particleSystem.getVelocityOriented())
         {
-            iRenderer::getInstance().drawVelocityOrientedParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
+             iRenderer::getInstance().drawParticlesVelocityOriented(_particleSystem.getCurrentFrame(), _textureA, _particleSystem.getColorGradient());
         }
         else
         {
-            iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
+            iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _textureA, _particleSystem.getColorGradient());
         }
     }
 

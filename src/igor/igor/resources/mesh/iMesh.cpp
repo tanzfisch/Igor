@@ -135,6 +135,22 @@ namespace igor
     {
         return _bbox;
     }
+    
+    bool iMesh::isValid() const
+    {
+        if (_vertexArray != nullptr)
+        {
+            return true;
+        }
+
+        if(_vertexData != nullptr && 
+        _indexData != nullptr)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     void iMesh::bind()
     {
@@ -166,6 +182,12 @@ namespace igor
 
     void iMesh::setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepRawData)
     {
+        con_assert(indexData != nullptr, "zero pointer");
+        con_assert(indexDataSize != 0, "empty index data");
+        con_assert(vertexData != nullptr, "zero pointer");
+        con_assert(vertexDataSize != 0, "empty vertex data");
+        con_assert(layout.getStride() != 0, "invalid layout");
+
         _indexDataSize = indexDataSize;
         _indexData = new uint8[_indexDataSize];
         memcpy(_indexData, indexData, _indexDataSize);
@@ -185,12 +207,30 @@ namespace igor
 
     bool iMesh::isKeepingRawData() const
     {
-        return _keepRawData;
+        return _keepRawData;        
     }
+
+    void iMesh::getRawData(void* &indexData, uint32 &indexDataSize, void* &vertexData, uint32 &vertexDataSize)
+    {
+        indexData = _indexData;
+        indexDataSize = _indexDataSize;
+        vertexData = _vertexData;
+        vertexDataSize = _vertexDataSize;
+    }
+
+    bool iMesh::hasRawData() const
+    {
+        return _indexData != nullptr && _vertexData != nullptr;
+    }    
 
     const iVertexArrayPtr &iMesh::getVertexArray() const
     {
         return _vertexArray;
+    }
+
+    const iBufferLayout& iMesh::getLayout() const
+    {
+        return _layout;
     }
 
 } // namespace igor

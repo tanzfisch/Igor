@@ -249,8 +249,8 @@ namespace igor
         // TODO
         void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer);
 
-        void drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);
-        void drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow);
+        void drawParticles(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient);
+        void drawParticlesVelocityOriented(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient);
         /////////////// LIGHT ///////////
 
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
