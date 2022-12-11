@@ -534,17 +534,17 @@ namespace igor
         _data->_version = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
         _data->_extensions = (const char *)glGetString(GL_EXTENSIONS);
 
-        con_assert_sticky(major >= 4 && minor >=5, "minimum OpenGL version is 4.5");
+        con_assert_sticky(major >= 4 && minor >= 5, "minimum OpenGL version is 4.5");
 
         con_info("OpenGL Version : " << _data->_version << endlTab
                                      << "OpenGL Vendor  : " << _data->_vendor << endlTab
                                      << "OpenGL Renderer: " << _data->_renderer);
 
         ///////////// MATERIALS ////////////
-        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d.mat", false);
-        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("flat_shaded_2d_blend.mat", false);
-        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d.mat", false);
-        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("texture_shaded_2d_blend.mat", false);
+        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded_2d.mat", false);
+        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded_2d_blend.mat", false);
+        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_2d.mat", false);
+        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_2d_blend.mat", false);
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
@@ -796,7 +796,7 @@ namespace igor
 
         const iAtlas::iFrame &frame = atlas->getFrame(frameIndex);
 
-        // TODO origin
+        // TODO offset origin
         const iaVector3f offset; // (frame._origin._x, frame._origin._y, 0.0);
 
         auto &texQuads = _data->_texQuads;
@@ -2066,30 +2066,36 @@ namespace igor
 
     void iRenderer::writeShaderParameters(iTargetMaterialPtr targetMaterial)
     {
-        if (_data->_currentMaterial->hasTargetMaterial() &&
-            targetMaterial != nullptr)
+        if (targetMaterial != nullptr)
         {
-            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
-            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
-            _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
-            _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
-            _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
+            if (_data->_currentMaterial->hasTargetMaterial())
+            {
+                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
+                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
+                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
+                _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
+                _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
+            }
 
             uint32 texUnit = 0;
             for (const auto &texture : targetMaterial->getTextures())
             {
-                std::stringstream shaderProperty;
-                shaderProperty << SAMPLER_TEXTURE << texUnit;
-                _data->_currentMaterial->setInt(shaderProperty.str().c_str(), texUnit);
+                if (_data->_currentMaterial->hasTextureUnit(texUnit))
+                {
+                    std::stringstream shaderProperty;
+                    shaderProperty << SAMPLER_TEXTURE << texUnit;
+                    _data->_currentMaterial->setInt(shaderProperty.str().c_str(), texUnit);
 
-                if (texture->useFallback())
-                {
-                    _data->_fallbackTexture->bind(texUnit++);
+                    if (texture->useFallback())
+                    {
+                        _data->_fallbackTexture->bind(texUnit);
+                    }
+                    else
+                    {
+                        texture->bind(texUnit);
+                    }
                 }
-                else
-                {
-                    texture->bind(texUnit++);
-                }
+                texUnit++;
             }
         }
 
@@ -2479,7 +2485,7 @@ namespace igor
                 texQuads._vertexDataPtr->_texIndex0 = textureIndex;
                 texQuads._vertexDataPtr++;
 
-                endTexturedQuad();                
+                endTexturedQuad();
 
                 /*glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
@@ -2569,7 +2575,7 @@ namespace igor
 
             drawTexturedQuad(a, b, c, d, texture, color, blend);
         }
-    }    
+    }
 
     void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient)
     {
@@ -2652,7 +2658,6 @@ namespace igor
 
                 endTexturedQuad();
 
-
                 /*glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
@@ -2676,7 +2681,6 @@ namespace igor
                 glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
 
                 glVertex3fv((particle._position + rightScale + topScale).getData());*/
-
             }
         }
 

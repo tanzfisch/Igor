@@ -20,18 +20,10 @@ SpriteAnimation::SpriteAnimation(iWindowPtr window)
 
 void SpriteAnimation::onInit()
 {
-    getView().setClearColor(1.0, 1.0, 1.0, 1.0);
+    getView().setClearColor(0.0, 1.0, 1.0, 1.0);
     getViewOrtho().setScene(getScene());
 
-    _materialTerrain = iMaterialResourceFactory::getInstance().createMaterial("Terrain");
-    _materialTerrain->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    _materialTerrain->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    _materialTerrain->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iShaderProgramPtr program = iShaderProgram::create();
-    program->addShader("igor/textured.vert", iShaderObjectType::Vertex);
-    program->addShader("igor/textured.frag", iShaderObjectType::Fragment);
-    program->compile();
-    _materialTerrain->setShaderProgram(program);
+    _materialTerrain = iMaterialResourceFactory::getInstance().loadMaterial("examples/sprite_animation_textured.mat");
 
     // load atlantes
     _walk = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "atlantes/SpriteAnimationWalk.xml");
@@ -336,13 +328,15 @@ void SpriteAnimation::onUpdate(const iaTime &time)
 void SpriteAnimation::onRenderOrtho()
 {
     iaMatrixd matrix;
+    iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
 
     iaMatrixf walkMatrix;
     walkMatrix.translate(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, 0.0);
+    walkMatrix.scale(70.0,70.0,1.0);
 
-    iRenderer::getInstance().drawFrame(walkMatrix, _walk, _animationOffset + _animationIndex);
+    iRenderer::getInstance().drawFrame(walkMatrix, _walk, _animationOffset + _animationIndex, iaColor4f::white, true);
 
     ExampleBase::onRenderOrtho();
 }

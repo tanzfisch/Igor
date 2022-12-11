@@ -32,6 +32,7 @@ namespace igor
 
     void iTexture::bind(uint32 textureUnit)
     {
+        con_assert(glIsTexture(_textureID), "invalid texture id " << _textureID);
         glBindTextureUnit(textureUnit, _textureID);
         GL_CHECK_ERROR();
     }

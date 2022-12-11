@@ -12,8 +12,8 @@ namespace igor
 {
     void iMaterialResourceFactory::init()
     {
-        _defaultMaterial = loadMaterial("default.mat");
-        _colorIDMaterial = loadMaterial("colorID.mat");
+        _defaultMaterial = loadMaterial("igor/default.mat");
+        _colorIDMaterial = loadMaterial("igor/colorID.mat");
     }
 
     void iMaterialResourceFactory::deinit()
