@@ -1141,7 +1141,7 @@ namespace igor
         void setVSync(bool vsync) override
         {
             _vsync = vsync;
-            glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
+            // glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
         }
 
         bool getVSync() const override

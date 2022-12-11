@@ -87,11 +87,6 @@ namespace igor
         Undefined,
         RGB,
         RGBA,
-        RED,
-        GREEN,
-        BLUE,
-        ALPHA,
-        DEPTH,
         BGR,
         BGRA
     };

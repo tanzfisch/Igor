@@ -534,6 +534,8 @@ namespace igor
         _data->_version = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
         _data->_extensions = (const char *)glGetString(GL_EXTENSIONS);
 
+        con_assert_sticky(major >= 4 && minor >=5, "minimum OpenGL version is 4.5");
+
         con_info("OpenGL Version : " << _data->_version << endlTab
                                      << "OpenGL Vendor  : " << _data->_vendor << endlTab
                                      << "OpenGL Renderer: " << _data->_renderer);

@@ -12,7 +12,7 @@
 		</States>
         <Program>
             <Vertex>
-<![CDATA[#version 430
+<![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec3 in_normal;	
@@ -34,7 +34,7 @@ void main()
 }]]>
             </Vertex>
             <Fragment>
-<![CDATA[#version 430
+<![CDATA[#version 450
 
 in vec3 VertexWorld;
 in vec3 VertexNormal;

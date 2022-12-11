@@ -98,58 +98,53 @@ namespace igor
 
     void iTexture::setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        int32 glformat = iRendererUtils::convertType(format);
-        con_assert(glformat != -1, "invalid color format type");
+        const int32 glformat = iRendererUtils::convertType(format, false);
+        const int32 glformatSized = iRendererUtils::convertType(format, true);
 
         _width = width;
         _height = height;
         _colorFormat = format;
         _bpp = bytepp;
 
-        glGenTextures(1, &_textureID);
-        GL_CHECK_ERROR();
-        glBindTexture(GL_TEXTURE_2D, _textureID);
+        glCreateTextures(GL_TEXTURE_2D, 1, &_textureID);
         GL_CHECK_ERROR();
 
         switch (wrapMode)
         {
-        case iTextureWrapMode::Repeat:
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        case iTextureWrapMode::Repeat:            
+            glTextureParameteri(_textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
             GL_CHECK_ERROR();
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            glTextureParameteri(_textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
             GL_CHECK_ERROR();
             break;
 
         case iTextureWrapMode::Clamp:
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTextureParameteri(_textureID, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             GL_CHECK_ERROR();
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glTextureParameteri(_textureID, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             GL_CHECK_ERROR();
             break;
 
         case iTextureWrapMode::MirrorRepeat:
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+            glTextureParameteri(_textureID, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
             GL_CHECK_ERROR();
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+            glTextureParameteri(_textureID, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
             GL_CHECK_ERROR();
             break;
         }
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         GL_CHECK_ERROR();
 
-        if (buildMode == iTextureBuildMode::Normal)
+        glTextureStorage2D(_textureID, 1, glformatSized, _width, _height);
+        GL_CHECK_ERROR();
+        
+        glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
+        GL_CHECK_ERROR();
+
+        if (buildMode == iTextureBuildMode::Mipmapped)
         {
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            GL_CHECK_ERROR();
-            glTexImage2D(GL_TEXTURE_2D, 0, bytepp, width, height, 0, glformat, GL_UNSIGNED_BYTE, data);
-            GL_CHECK_ERROR();
-        }
-        else
-        {
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-            GL_CHECK_ERROR();
-            gluBuild2DMipmaps(GL_TEXTURE_2D, bytepp, width, height, glformat, GL_UNSIGNED_BYTE, data);
+            glGenerateTextureMipmap(_textureID);
             GL_CHECK_ERROR();
         }
     }

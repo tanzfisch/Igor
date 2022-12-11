@@ -156,24 +156,18 @@ namespace igor
         return stream;
     }
 
-    uint32 iRendererUtils::convertType(iColorFormat format)
+    uint32 iRendererUtils::convertType(iColorFormat format, bool sized)
     {
         switch (format)
         {
-        case iColorFormat::RGB:
-            return GL_RGB;
+        case iColorFormat::RGB:            
+            return sized ? GL_RGB8 : GL_RGB;
         case iColorFormat::RGBA:
-            return GL_RGBA;
-        case iColorFormat::RED:
-            return GL_RED;
-        case iColorFormat::GREEN:
-            return GL_GREEN;
-        case iColorFormat::BLUE:
-            return GL_BLUE;
-        case iColorFormat::ALPHA:
-            return GL_ALPHA;
-        case iColorFormat::DEPTH:
-            return GL_DEPTH_COMPONENT;
+            return sized ? GL_RGBA8 : GL_RGBA;
+        case iColorFormat::BGR:
+            return sized ? GL_RGB8 : GL_BGR;
+        case iColorFormat::BGRA:
+            return sized ? GL_RGBA8 : GL_BGRA;
         };
 
         con_err("unsupported color format " << format);
@@ -185,12 +179,7 @@ namespace igor
         const static std::wstring text[] = {
             L"Undefined",
             L"RGB",
-            L"RGBA",
-            L"RED",
-            L"GREEN",
-            L"BLUE",
-            L"ALPHA",
-            L"DEPTH",
+            L"RGBA"
             L"BGR",
             L"BGRA"};
 

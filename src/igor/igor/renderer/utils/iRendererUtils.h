@@ -183,8 +183,9 @@ namespace igor
         /*! \returns ogl color format type for given format type
 
         \param format the igor color format type
+        \param sized if true it returns the sized internal format
         */
-        static uint32 convertType(iColorFormat format);
+        static uint32 convertType(iColorFormat format, bool sized = false);
     };
 
 }
