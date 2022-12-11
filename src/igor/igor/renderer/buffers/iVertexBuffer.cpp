@@ -26,8 +26,8 @@ namespace igor
 
         glCreateBuffers(1, &_vertexBufferObject);
         GL_CHECK_ERROR();
-        bind();
-        glBufferData(GL_ARRAY_BUFFER, size, vertexData, _dynamic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
+        
+        glNamedBufferData(_vertexBufferObject, size, vertexData, _dynamic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
         GL_CHECK_ERROR();
     }
 
@@ -43,19 +43,11 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    void iVertexBuffer::unbind()
-    {
-        glBindBuffer(GL_ARRAY_BUFFER, INVALID_BUFFER_ID);
-        GL_CHECK_ERROR();
-    }
-
     void iVertexBuffer::setData(uint32 size, const void *vertexData)
     {
         _bufferSize = size;
 
-        glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferObject);
-        GL_CHECK_ERROR();
-        glBufferSubData(GL_ARRAY_BUFFER, 0, size, vertexData);
+        glNamedBufferSubData(_vertexBufferObject, 0, size, vertexData);
         GL_CHECK_ERROR();
     }
 

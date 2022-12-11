@@ -47,6 +47,7 @@ namespace igor
     class iVertexBuffer
     {
         friend class iVertexBufferDeleter;
+        friend class iVertexArray;
 
     public:
 
@@ -60,10 +61,6 @@ namespace igor
         /*! bind this buffer
          */
         void bind() const;
-
-        /*! unbind any buffer
-         */
-        static void unbind();
 
         /*! sets data on buffer
 

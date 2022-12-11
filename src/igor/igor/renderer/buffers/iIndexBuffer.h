@@ -46,6 +46,7 @@ namespace igor
     class iIndexBuffer
     {
         friend class iIndexBufferDeleter;
+        friend class iVertexArray;
 
     public:
         /*! \returns a newly created index buffer
@@ -57,11 +58,7 @@ namespace igor
 
         /*! bin this buffer
          */
-        void bind() const;
-
-        /*! unbinds buffer
-         */
-        static void unbind();
+        void bind();
 
         /*! \returns index count of this buffer
          */

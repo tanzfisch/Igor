@@ -8,11 +8,11 @@
 
 namespace igor
 {
-    
+
     class iVertexArrayDeleter
     {
     public:
-        void operator()(iVertexArray * p) { delete p; }
+        void operator()(iVertexArray *p) { delete p; }
     };
 
     iVertexArrayPtr iVertexArray::create()
@@ -48,9 +48,9 @@ namespace igor
     {
         con_assert(vertexBuffer->getLayout().getElements().size(), "Vertex buffer has no layout");
 
-        glBindVertexArray(_vertexArrayObject);
+        /*glBindVertexArray(_vertexArrayObject);
         GL_CHECK_ERROR();
-        vertexBuffer->bind();
+        vertexBuffer->bind();*/
 
         const auto &info = vertexBuffer->getLayout();
         for (const auto &component : info.getElements())
@@ -62,23 +62,26 @@ namespace igor
             case iShaderDataType::Float3:
             case iShaderDataType::Float4:
             {
-                glEnableVertexAttribArray(_totalComponentCount);
+                glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
                 GL_CHECK_ERROR();
-                
-                con_trace("glVertexAttribPointer(" << _totalComponentCount << ", " <<
-                                      component.getComponentCount() << ", " <<
-                                      (int)iRendererUtils::convertType(component._type) << ", " <<
-                                      (component._normalized ? "GL_TRUE" : "GL_FALSE") << ", " <<
-                                      info.getStride() << ", " <<
-                                      component._offset << ")");
 
-                glVertexAttribPointer(_totalComponentCount,
+                /*glVertexAttribPointer(_totalComponentCount,
                                       component.getComponentCount(),
                                       iRendererUtils::convertType(component._type),
                                       component._normalized ? GL_TRUE : GL_FALSE,
                                       info.getStride(),
-                                      BUFFER_OFFSET(component._offset));
+                                      BUFFER_OFFSET(component._offset));*/
+
+                // TODO -> https://www.youtube.com/watch?v=cadzqhqPqVA
+                glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
                 GL_CHECK_ERROR();
+                glVertexArrayAttribFormat(_vertexArrayObject,
+                                          _totalComponentCount,
+                                          component.getComponentCount(),
+                                          iRendererUtils::convertType(component._type),
+                                          component._normalized ? GL_TRUE : GL_FALSE,
+                                          component._offset);
+                GL_CHECK_ERROR();                                          
                 _totalComponentCount++;
                 break;
             }
@@ -88,21 +91,23 @@ namespace igor
             case iShaderDataType::Int4:
             case iShaderDataType::Boolean:
             {
-                glEnableVertexAttribArray(_totalComponentCount);
+                glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
                 GL_CHECK_ERROR();
 
-                con_trace("glVertexAttribIPointer(" << _totalComponentCount << ", " <<
-                                      component.getComponentCount() << ", " <<
-                                      (int)iRendererUtils::convertType(component._type) << ", " <<
-                                      (component._normalized ? "GL_TRUE" : "GL_FALSE") << ", " <<
-                                      info.getStride() << ", " <<
-                                      component._offset << ")");
-
-                glVertexAttribIPointer(_totalComponentCount,
+                /*glVertexAttribIPointer(_totalComponentCount,
                                        component.getComponentCount(),
                                        iRendererUtils::convertType(component._type),
                                        info.getStride(),
-                                       BUFFER_OFFSET(component._offset));
+                                       BUFFER_OFFSET(component._offset));*/
+
+                glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
+                GL_CHECK_ERROR();
+                glVertexArrayAttribFormat(_vertexArrayObject,
+                                          _totalComponentCount,
+                                          component.getComponentCount(),
+                                          iRendererUtils::convertType(component._type),
+                                          component._normalized ? GL_TRUE : GL_FALSE,
+                                          component._offset);
                 GL_CHECK_ERROR();
                 _totalComponentCount++;
                 break;
@@ -113,26 +118,23 @@ namespace igor
                 uint8_t count = component.getComponentCount();
                 for (uint8_t i = 0; i < count; i++)
                 {
-                    glEnableVertexAttribArray(_totalComponentCount);
+                    glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
                     GL_CHECK_ERROR();
+
+                    glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
+                    GL_CHECK_ERROR();                    
 
                     const uint32 offset = component._offset + sizeof(float) * count * i;
 
-                    con_trace("glVertexAttribPointer(" << _totalComponentCount << ", " <<
-                                    count << ", " <<
-                                    (int)iRendererUtils::convertType(component._type) << ", " <<
-                                    (component._normalized ? "GL_TRUE" : "GL_FALSE") << ", " <<
-                                    info.getStride() << ", " <<
-                                    offset << ")");
-
-                    glVertexAttribPointer(_totalComponentCount,
+                    glVertexArrayAttribFormat(_vertexArrayObject,
                                           count,
+                                          component.getComponentCount(),
                                           iRendererUtils::convertType(component._type),
                                           component._normalized ? GL_TRUE : GL_FALSE,
-                                          info.getStride(),
-                                          BUFFER_OFFSET(offset));
+                                          component._offset);
                     GL_CHECK_ERROR();
-                    glVertexAttribDivisor(_totalComponentCount, 1);
+
+                    glVertexArrayBindingDivisor(_vertexArrayObject, _totalComponentCount, 1);
                     GL_CHECK_ERROR();
                     _totalComponentCount++;
                 }
@@ -143,15 +145,16 @@ namespace igor
             }
         }
 
+        glVertexArrayVertexBuffer(_vertexArrayObject, 0, vertexBuffer->_vertexBufferObject, 0, info.getStride());
+        GL_CHECK_ERROR();
+
         _vertexBuffers.push_back(vertexBuffer);
     }
 
     void iVertexArray::setIndexBuffer(const iIndexBufferPtr &indexBuffer)
     {
-        glBindVertexArray(_vertexArrayObject);
+        glVertexArrayElementBuffer(_vertexArrayObject, indexBuffer->_indexBufferObject);
         GL_CHECK_ERROR();
-        indexBuffer->bind();
-
         _indexBuffer = indexBuffer;
     }
 
