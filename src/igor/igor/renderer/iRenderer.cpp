@@ -2082,7 +2082,7 @@ namespace igor
                 shaderProperty << SAMPLER_TEXTURE << texUnit;
                 _data->_currentMaterial->setInt(shaderProperty.str().c_str(), texUnit);
 
-                if (texture->isDummy())
+                if (texture->useFallback())
                 {
                     _data->_fallbackTexture->bind(texUnit++);
                 }

@@ -632,9 +632,7 @@ namespace igor
     void iWidgetDefaultTheme::drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active)
     {
         const iaColor4f &color = active ? COLOR_WHITE : COLOR_AMBIENT;
-        // TODO iRenderer::getInstance().setMaterial TODO(true);
-        iRenderer::getInstance().drawTexturedRectangle(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture, color);
-        // TODO iRenderer::getInstance().setMaterial TODO(false);
+        iRenderer::getInstance().drawTexturedRectangle(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture, color, texture->hasTransparency());
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }

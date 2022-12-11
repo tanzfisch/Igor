@@ -50,37 +50,40 @@ namespace igor
     {
 
         friend class iTextureResourceFactory;
-        friend class iRenderer; // TODO remove
 
     public:
     
-        /*! true if there is actually a texture present
+        /*! \returns true if there is actually a texture present
         */
-        bool isValid();
+        bool isValid() const;
 
-        /*! true if the texture was processed
+        /*! \returns true if the texture was processed
         */
-        bool isProcessed();
+        bool isProcessed() const;
 
-        /*! true if it is a dummy texture
+        /*! \returns true if it is unprocessed or invalid. Then the renderer will use a fallback texture
         */
-        bool isDummy();
+        bool useFallback() const;
 
-        /*! returns the width
+        /*! \returns the width
         */
-        int32 getWidth();
+        int32 getWidth() const;
 
-        /*! returns the height
+        /*! \returns the height
         */
-        int32 getHeight();
+        int32 getHeight() const;
 
-        /*! returns the bits per pixel
+        /*! \returns the bits per pixel
         */
-        int32 getBpp();
+        int32 getBpp() const;
 
-        /*! returns the color format
+        /*! \returns the color format
         */
-        iColorFormat getColorFormat();
+        iColorFormat getColorFormat() const;
+
+        /*! \returns true if data contains alpha channel and values != 1.0
+        */
+        bool hasTransparency() const;
 
         /*! \returns cache mode
         */
@@ -119,7 +122,7 @@ namespace igor
 
         /*! true if it is a dummy texture
 		*/
-        bool _dummy = true;
+        bool _useFallback = true;
 
         /*! the file name. initialized in ctor
 		*/
@@ -156,6 +159,10 @@ namespace igor
         /*! renderer specific texture handle
 		*/
         uint32 _textureID = 0;
+
+        /*! if true data has alpha channel with values != 1.0
+        */
+        bool _hasTrans = false;
 
         /*! ctor
 

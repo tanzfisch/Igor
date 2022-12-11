@@ -312,7 +312,7 @@ namespace igor
 
         if (textureData == nullptr)
         {
-            texture->_dummy = true;
+            texture->_useFallback = true;
             texture->_valid = false;
             con_err("can't load \"" << texture->getFilename() << "\"");
         }
@@ -338,7 +338,7 @@ namespace igor
             };
 
             texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-            texture->_dummy = false;
+            texture->_useFallback = false;
             texture->_valid = true;
 
             iaString build = ".not mipmapped";

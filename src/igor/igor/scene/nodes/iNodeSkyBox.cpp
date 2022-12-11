@@ -171,7 +171,7 @@ namespace igor
         model.scale(_boxSize,_boxSize,_boxSize);
         iRenderer::getInstance().setModelMatrix(model);
 
-        if(_texture->isDummy())
+        if(_texture->useFallback())
         {
             iTextureResourceFactory::getInstance().getDummyTexture()->bind(0);
         }
