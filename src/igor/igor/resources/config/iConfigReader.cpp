@@ -99,16 +99,16 @@ namespace igor
                 return;
             }
 
-            TiXmlElement *resourceManager = root->FirstChildElement("ResourceManager");
-            if (resourceManager)
-            {
-                readResourceManagerConfig(resourceManager);
-            }
-
             TiXmlElement *logging = root->FirstChildElement("Logging");
             if (logging)
             {
                 readLoggingConfig(logging);
+            }
+
+            TiXmlElement *resourceManager = root->FirstChildElement("ResourceManager");
+            if (resourceManager)
+            {
+                readResourceManagerConfig(resourceManager);
             }
         }
     }

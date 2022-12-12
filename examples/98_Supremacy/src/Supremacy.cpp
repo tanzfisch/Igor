@@ -139,7 +139,7 @@ void Supremacy::onInit()
     _viewport = createViewport(_player.getID());
 
     // create some enemies
-    for (int i = 0; i < 30; ++i)
+    for (int i = 0; i < 10; ++i)
     {
         iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
         createUnit(pos, FOE, _player.getID());
@@ -149,11 +149,57 @@ void Supremacy::onInit()
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
 
+    _statsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdateStats), iaTime::fromMilliseconds(1000));
+    _statsTimerHandle->start();
+
+    _spawnTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onSpawnStuff), iaTime::fromMilliseconds(5000));
+    _spawnTimerHandle->start();
+
     _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("background.png");
     _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
 
     // init font for render profiler
     _font = iTextureFont::create("StandardFont.png");
+}
+
+void Supremacy::onSpawnStuff(const iaTime &time)
+{
+    uint32 enemiesToCreate = std::min(5 + (time.getSeconds() * time.getSeconds()) * 0.001f, 100.0); // cap at 100
+
+    con_endl("onSpawnStuff " << time.getSeconds() << "s new enemies:" << enemiesToCreate);
+
+    PositionComponent &playerPosition = _player.getComponent<PositionComponent>();  
+
+    for (int i = 0; i < enemiesToCreate; ++i)
+    {
+        iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
+        while(playerPosition._position.distance(pos) < 500)
+        {
+            pos.set(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
+        }
+        
+        createUnit(pos, FOE, _player.getID());
+    }
+}
+
+void Supremacy::onUpdateStats(const iaTime &time)
+{
+    GameStats stats = {0.0f, 0.0f};
+    auto view = _entityScene.getEntities<HealthComponent, PartyComponent>();
+    for (auto entityID : view)
+    {
+        auto [health, party] = view.get<HealthComponent, PartyComponent>(entityID);
+
+        if(party._partyID == FOE)
+        {
+            stats._enemyHealth += health._health;
+        }
+    }
+
+    auto weapon = _player.getComponent<WeaponComponent>();
+    stats._playerDamage = weapon._damage / weapon._attackInterval.getSeconds();
+
+    _stats.push_back(stats);
 }
 
 void Supremacy::onUpdateQuadtreeSystem()
@@ -210,7 +256,6 @@ void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEn
 
     const bool right = circle._center._x - circle._radius < 0.0;
     const bool left = circle._center._x + circle._radius > _quadtree.getRootBox()._width;
-
     const bool bottom = circle._center._y - circle._radius < 0.0;
     const bool top = circle._center._y + circle._radius > _quadtree.getRootBox()._height;
 
@@ -826,6 +871,26 @@ void Supremacy::onEvent(iEvent &event)
     event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
 }
 
+void Supremacy::onRenderStats()
+{
+    std::vector<iaVector3f> playerDamage;
+    std::vector<iaVector3f> enemyHealth;
+
+    float32 x = 10.0f;
+    float32 y = getWindow()->getClientHeight() - 100;
+
+    for(const auto &data : _stats)
+    {
+        playerDamage.push_back(iaVector3f(x, y - data._playerDamage * 1.0, 0.0));
+        enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.1, 0.0));
+        x+=1.0f;
+    }
+
+    iRenderer::getInstance().setLineWidth(1);
+    iRenderer::getInstance().drawLineStrip(enemyHealth, iaColor4f(1, 0, 0, 1));
+    iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 0, 1, 1));
+}
+
 void Supremacy::onRenderHUD()
 {
     float64 health = 0.0;
@@ -842,7 +907,7 @@ void Supremacy::onRenderHUD()
 
     iRenderer::getInstance().setFont(_font);
     iRenderer::getInstance().setFontSize(15.0f);
-    iRenderer::getInstance().drawString(10, 10, iaString::toString(health, 0));
+    iRenderer::getInstance().drawString(10, 10, iaString::toString(health, 0));    
 }
 
 void Supremacy::onRenderOrtho()
@@ -883,9 +948,9 @@ void Supremacy::onRenderOrtho()
         position = pos._position + position;
 
         float64 width = size._size;
-        float64 height = size._size;           
+        float64 height = size._size;
 
-        if(visual._castShadow)
+        if (visual._castShadow)
         {
             iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor, true);
         }
@@ -907,6 +972,7 @@ void Supremacy::onRenderOrtho()
     }
 
     onRenderHUD();
+    onRenderStats();
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

@@ -154,12 +154,7 @@ namespace iaux
 
     void iaConsole::setLogLevel(iaLogLevel logLevel)
     {
-        if (_logLevel != logLevel)
-        {
-            _logLevel = iaLogLevel::Info;
-            con_info("log level is " << logLevel);
-            _logLevel = logLevel;
-        }
+        _logLevel = logLevel;
     }
 
     std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel)
@@ -322,10 +317,9 @@ namespace iaux
 
     void iaConsole::printStats()
     {
-        *this << LOCK;
-        printHead(iaLogLevel::Info);
-        *this << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl;
-        iaConsole::getInstance() << UNLOCK;
+        *this << LOCK << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
+              << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [STATS] "
+              << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl << UNLOCK;
     }
 
     void iaConsole::activateLogfile(bool activate)

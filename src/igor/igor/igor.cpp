@@ -108,9 +108,7 @@ namespace igor
             date.getDay() == 29)
         {
             iaConsole::getInstance().printCake();
-        }
-
-        con_info("current directory \"" << iaDirectory::getCurrentDirectory() << "\"");
+        }        
     }
 
     void startup()
@@ -120,8 +118,6 @@ namespace igor
 
     void createModules()
     {
-        iTimer::create();
-        printInfo();
         iApplication::create();
         iEvaluationManager::create();
         iEntityManager::create();
@@ -133,8 +129,7 @@ namespace igor
         iPhysics::create();
         iRenderer::create();
         iMaterialResourceFactory::create();
-        iTextureResourceFactory::create();
-        iResourceManager::create();
+        iTextureResourceFactory::create();        
         iWidgetManager::create();
         iSceneFactory::create();
         iNodeManager::create();
@@ -243,9 +238,10 @@ namespace igor
 
     void startupArgs(int argc, wchar_t **argv)
     {
-        iaux::startup();
-
-        createModules();
+        // first things first
+        iaux::startup();        
+        iTimer::create();
+        printInfo();
 
         iConfigReader configReader;
         iaString configurationFilepath;
@@ -265,7 +261,7 @@ namespace igor
                     }
                     else
                     {
-                        con_err("config file " << file.getFullFileName() << " does no exist");
+                        con_err("config file " << file.getFullFileName() << " does no exist. Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
                     }
                 }
                 else
@@ -303,15 +299,20 @@ namespace igor
 
         }
 
+        // need the resource manager befor we read the config
+        iResourceManager::create();
+
         if (!configurationFilepath.isEmpty())
         {
             configReader.readConfiguration(configurationFilepath);
-            con_info("load configuration \"" << configurationFilepath << "\"");
+            con_info("loaded configuration \"" << configurationFilepath << "\"");
         }
         else
         {
-            con_crit("found no configuration file");
+            con_crit("found no configuration file. Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
         }
+        
+        createModules();
     }
 
     void shutdown()

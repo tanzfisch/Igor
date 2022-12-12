@@ -76,6 +76,9 @@ private:
      */
     iTimerHandlePtr _updateTimerHandle;
 
+    iTimerHandlePtr _statsTimerHandle;
+    iTimerHandlePtr _spawnTimerHandle;
+
     /*! async loading of textures
      */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
@@ -119,6 +122,8 @@ private:
     /*! renders HUD
     */
     void onRenderHUD();
+
+    void onRenderStats();
 
     /*! game logic intervall
 
@@ -164,6 +169,10 @@ private:
 
     void onUpdateWeaponSystem();
 
+    void onSpawnStuff(const iaTime &time);
+
+    void onUpdateStats(const iaTime &time);
+
     void aquireTargetFor(iEntity &entity);
 
     void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType);
@@ -179,6 +188,14 @@ private:
 
     bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
     bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
+
+    struct GameStats
+    {
+        float32 _playerDamage;
+        float32 _enemyHealth;
+    };
+
+    std::vector<GameStats> _stats;
 };
 
 #endif // __SUPREMACY__
