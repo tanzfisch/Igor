@@ -238,13 +238,14 @@ namespace igor
 
         void setVSync(bool vsync) override
         {
-            // TODO PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC) wglGetProcAddress(“wglSwapIntervalEXT”);
-            // TODO wglSwapIntervalEXT(vsync ? 1 : 0);
+            /*PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC) wglGetProcAddress(“wglSwapIntervalEXT”);
+            wglSwapIntervalEXT(vsync ? 1 : 0);*/
         }
 
         bool getVSync() const override
         {
-            // TODO return wglGetSwapIntervalEXT() > 0 ? true : false;
+            /*PFNWGLSWAPINTERVALEXTPROC wglGetSwapIntervalEXT = (PFNWGLGETSWAPINTERVALEXTPROC) wglGetProcAddress(“wglGetSwapIntervalEXT”);
+            return wglGetSwapInter() > 0 ? true : false;*/
             return false;
         }
 
@@ -587,10 +588,12 @@ namespace igor
 
             if (renderContext != nullptr)
             {
+                _wglMutex.lock();
                 if (!wglShareLists((HGLRC)renderContext, (HGLRC)result))
                 {
                     con_err("can't share lists");
                 }
+                _wglMutex.unlock();
             }
 
             return result;

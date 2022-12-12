@@ -1035,9 +1035,11 @@ namespace igor
 
         for (int32 i = 0; i < texQuads._nextTextureIndex; ++i)
         {
-            if (texQuads._textures[i]->isValid())
+            if (texQuads._textures[i] != nullptr &&
+                texQuads._textures[i]->isValid())
             {
                 texQuads._textures[i]->bind(i);
+                texQuads._textures[i] = nullptr;
             }
             else
             {

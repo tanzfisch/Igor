@@ -165,9 +165,9 @@ namespace igor
 
         if (buildMode == iTextureBuildMode::Mipmapped)
         {
-            glGenerateTextureMipmap(_textureID);
-            GL_CHECK_ERROR();
             glTextureParameteri(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            GL_CHECK_ERROR();            
+            glGenerateTextureMipmap(_textureID);
             GL_CHECK_ERROR();
         }
         else

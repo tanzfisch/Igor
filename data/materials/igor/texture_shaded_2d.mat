@@ -5,6 +5,7 @@
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>Off</Blend>
+			<DepthMask>Off</DepthMask>
 		</States>
         <Program>
             <Vertex>

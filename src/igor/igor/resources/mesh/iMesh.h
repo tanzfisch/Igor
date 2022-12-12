@@ -47,7 +47,7 @@ namespace igor
 
     /*! internal mesh structure
     */
-    class iMesh
+    class IGOR_API iMesh
     {
 
         friend class iMeshDeleter;
