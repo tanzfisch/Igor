@@ -96,6 +96,7 @@ namespace igor
         const GLchar *message,
         const void *userParam)
     {
+        return;
         switch (severity)
         {
         case GL_DEBUG_SEVERITY_HIGH:

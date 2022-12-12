@@ -291,6 +291,10 @@ namespace igor
         */
         bool _visible = true;
 
+        /*! if true this view will be rendered in wireframe mode
+        */
+        bool _wireframeEnabled = false;
+
         /*! views name
         */
         iaString _name = "iView";

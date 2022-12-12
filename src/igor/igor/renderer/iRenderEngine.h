@@ -54,16 +54,6 @@ namespace igor
          */
         virtual ~iRenderEngine() = default;
 
-        /*! shows all rendering in wireframe mode or normal mode
-
-        \param wireframe if true all rendering is using wireframe
-        */
-        void setWireframeVisible(bool wireframe = true);
-
-        /*! \returns true if wireframe mode is active
-         */
-        bool isWireframeVisible() const;
-
         /*! defines if bounding boxes are shown or not
 
         \param boundingBox if true bounding boxes are shown

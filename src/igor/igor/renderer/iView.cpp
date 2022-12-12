@@ -50,12 +50,12 @@ namespace igor
 
     void iView::setWireframeVisible(bool wireframe)
     {
-        _renderEngine.setWireframeVisible(wireframe);
+        _wireframeEnabled = wireframe;
     }
 
     bool iView::isWireframeVisible() const
     {
-        return _renderEngine.isWireframeVisible();
+        return _wireframeEnabled;
     }
 
     void iView::setBoundingBoxVisible(bool boundingBox)
@@ -189,8 +189,9 @@ namespace igor
         }
 
         if (_visible)
-        {            
+        {
             iRenderer::getInstance().beginFrame();
+            iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
             iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 

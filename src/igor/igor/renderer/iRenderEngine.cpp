@@ -68,16 +68,6 @@ namespace igor
         return _renderColorID;
     }
 
-    void iRenderEngine::setWireframeVisible(bool wireframe)
-    {
-        _showWireframe = wireframe;
-    }
-
-    bool iRenderEngine::isWireframeVisible() const
-    {
-        return _showWireframe;
-    }
-
     void iRenderEngine::setBoundingBoxVisible(bool boundingBox)
     {
         _showBoundingBoxes = boundingBox;

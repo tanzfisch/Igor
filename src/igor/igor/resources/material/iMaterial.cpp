@@ -245,7 +245,7 @@ namespace igor
             break;
         }
 
-        if (_renderStateSet.getRenderState(iRenderState::Wireframe) == iRenderStateValue::On) // TODO || forceWireframe
+        if (_renderStateSet.getRenderState(iRenderState::Wireframe) == iRenderStateValue::On)
         {
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }

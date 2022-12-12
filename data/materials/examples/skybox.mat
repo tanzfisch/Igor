@@ -5,7 +5,6 @@
 		<States>
 			<DepthTest>Off</DepthTest>
             <DepthFunc>Less</DepthFunc>
-            <DepthMask>On</DepthMask>
             <Blend>Off</Blend>
             <CullFace>On</CullFace>
             <CullFaceFunc>Back</CullFaceFunc>

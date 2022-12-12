@@ -361,6 +361,10 @@ namespace igor
          */
         bool _keepRenderOrder = true;
 
+        /*! if true everything will be rendered in wireframe mode
+         */
+        bool _wireframeEnabled = false;
+
         /*! line width
          */
         float32 _lineWidth = 1.0f;
@@ -381,8 +385,12 @@ namespace igor
          */
         float32 _fontLineHeight = 1.15f;
 
+        /*! current viewport dimensions
+         */
         iaRectanglei _viewport;
 
+        /*! fallback texture used when there is no texture available
+         */
         iTexturePtr _fallbackTexture;
 
         /*! current render target
@@ -616,6 +624,7 @@ namespace igor
     void iRenderer::endFrame()
     {
         flush();
+        setWireframeEnabled(false);
     }
 
     void iRenderer::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
@@ -1047,7 +1056,7 @@ namespace igor
             }
         }
 
-        _data->_currentMaterial->bind();
+        bindCurrentMaterial();
         _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
         glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
@@ -1078,29 +1087,26 @@ namespace igor
             return;
         }
 
-        if (_data->_currentMaterial != nullptr)
-        {
-            _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        bindCurrentMaterial();
+        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
-            uint32 vertexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
-            triangles._vertexBuffer->setData(vertexDataSize, triangles._vertexData);
-            uint32 indexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
-            triangles._indexBuffer->setData(indexDataSize, triangles._indexData);
+        uint32 vertexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
+        triangles._vertexBuffer->setData(vertexDataSize, triangles._vertexData);
+        uint32 indexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
+        triangles._indexBuffer->setData(indexDataSize, triangles._indexData);
 
-            triangles._vertexArray->bind();
-            glDrawElements(GL_TRIANGLES, triangles._indexCount, GL_UNSIGNED_INT, nullptr);
-            GL_CHECK_ERROR();
-            triangles._vertexArray->unbind();
+        triangles._vertexArray->bind();
+        glDrawElements(GL_TRIANGLES, triangles._indexCount, GL_UNSIGNED_INT, nullptr);
+        GL_CHECK_ERROR();
+        triangles._vertexArray->unbind();
 
-            _data->_currentMaterial->unbind();
+        _data->_currentMaterial->unbind();
 
-            // save stats
-            _data->_stats._drawCalls++;
-            _data->_stats._vertices += triangles._vertexCount;
-            _data->_stats._indices += triangles._indexCount;
-            _data->_stats._triangles += triangles._vertexCount / 3;
-        }
+        // save stats
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += triangles._vertexCount;
+        _data->_stats._indices += triangles._indexCount;
+        _data->_stats._triangles += triangles._vertexCount / 3;
 
         // reset queue
         triangles._vertexCount = 0;
@@ -1118,27 +1124,24 @@ namespace igor
             return;
         }
 
-        if (_data->_currentMaterial != nullptr)
-        {
-            _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        bindCurrentMaterial();
+        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
-            uint32 dataSize = (uint32)((uint8 *)quads._vertexDataPtr - (uint8 *)quads._vertexData);
-            quads._vertexBuffer->setData(dataSize, quads._vertexData);
+        uint32 dataSize = (uint32)((uint8 *)quads._vertexDataPtr - (uint8 *)quads._vertexData);
+        quads._vertexBuffer->setData(dataSize, quads._vertexData);
 
-            quads._vertexArray->bind();
-            glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
-            GL_CHECK_ERROR();
-            quads._vertexArray->unbind();
+        quads._vertexArray->bind();
+        glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
+        GL_CHECK_ERROR();
+        quads._vertexArray->unbind();
 
-            _data->_currentMaterial->unbind();
+        _data->_currentMaterial->unbind();
 
-            // save stats
-            _data->_stats._drawCalls++;
-            _data->_stats._vertices += quads._vertexCount;
-            _data->_stats._indices += quads._indexCount;
-            _data->_stats._triangles += quads._vertexCount / 2;
-        }
+        // save stats
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += quads._vertexCount;
+        _data->_stats._indices += quads._indexCount;
+        _data->_stats._triangles += quads._vertexCount / 2;
 
         // reset queue
         quads._vertexCount = 0;
@@ -1155,25 +1158,22 @@ namespace igor
             return;
         }
 
-        if (_data->_currentMaterial != nullptr)
-        {
-            _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        bindCurrentMaterial();
+        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
-            uint32 dataSize = (uint32)((uint8 *)lines._vertexDataPtr - (uint8 *)lines._vertexData);
-            lines._vertexBuffer->setData(dataSize, lines._vertexData);
+        uint32 dataSize = (uint32)((uint8 *)lines._vertexDataPtr - (uint8 *)lines._vertexData);
+        lines._vertexBuffer->setData(dataSize, lines._vertexData);
 
-            lines._vertexArray->bind();
-            glDrawArrays(GL_LINES, 0, lines._vertexCount);
-            GL_CHECK_ERROR();
-            lines._vertexArray->unbind();
+        lines._vertexArray->bind();
+        glDrawArrays(GL_LINES, 0, lines._vertexCount);
+        GL_CHECK_ERROR();
+        lines._vertexArray->unbind();
 
-            _data->_currentMaterial->unbind();
+        _data->_currentMaterial->unbind();
 
-            // save stats
-            _data->_stats._drawCalls++;
-            _data->_stats._vertices += lines._vertexCount;
-        }
+        // save stats
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += lines._vertexCount;
 
         // reset queue
         lines._vertexCount = 0;
@@ -1189,25 +1189,22 @@ namespace igor
             return;
         }
 
-        if (_data->_currentMaterial != nullptr)
-        {
-            _data->_currentMaterial->bind();
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        bindCurrentMaterial();
+        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
-            uint32 dataSize = (uint32)((uint8 *)points._vertexDataPtr - (uint8 *)points._vertexData);
-            points._vertexBuffer->setData(dataSize, points._vertexData);
+        uint32 dataSize = (uint32)((uint8 *)points._vertexDataPtr - (uint8 *)points._vertexData);
+        points._vertexBuffer->setData(dataSize, points._vertexData);
 
-            points._vertexArray->bind();
-            glDrawArrays(GL_POINTS, 0, points._vertexCount);
-            GL_CHECK_ERROR();
-            points._vertexArray->unbind();
+        points._vertexArray->bind();
+        glDrawArrays(GL_POINTS, 0, points._vertexCount);
+        GL_CHECK_ERROR();
+        points._vertexArray->unbind();
 
-            _data->_currentMaterial->unbind();
+        _data->_currentMaterial->unbind();
 
-            // save stats
-            _data->_stats._drawCalls++;
-            _data->_stats._vertices += points._vertexCount;
-        }
+        // save stats
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += points._vertexCount;
 
         // reset queue
         points._vertexCount = 0;
@@ -1668,6 +1665,7 @@ namespace igor
 
     void iRenderer::clearDepthBuffer(float32 depth)
     {
+        glDepthMask(true);
         glClearDepth(depth);
         glClear(GL_DEPTH_BUFFER_BIT);
     }
@@ -1992,6 +1990,16 @@ namespace igor
         _data->_fallbackTexture = texture;
     }
 
+    void iRenderer::bindCurrentMaterial()
+    {
+        _data->_currentMaterial->bind();
+
+        if (_data->_wireframeEnabled)
+        {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        }
+    }
+
     void iRenderer::drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial)
     {
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Mesh)
@@ -1999,8 +2007,7 @@ namespace igor
             flushLastUsed();
         }
 
-        _data->_currentMaterial->bind();
-
+        bindCurrentMaterial();
         writeShaderParameters(targetMaterial);
 
         mesh->bind();
@@ -2735,5 +2742,15 @@ namespace igor
         _dirtyModelViewProjectionMatrix = true;
     }
     */
+
+    void iRenderer::setWireframeEnabled(bool active)
+    {
+        _data->_wireframeEnabled = active;
+    }
+
+    bool iRenderer::isWireframeEnabled() const
+    {
+        return _data->_wireframeEnabled;
+    }
 
 }

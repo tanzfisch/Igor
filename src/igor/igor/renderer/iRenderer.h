@@ -84,7 +84,7 @@ namespace igor
         void setMaterial(const iMaterialPtr &material);
 
         /*! \returns currently active material
-        */
+         */
         const iMaterialPtr &getMaterial() const;
 
         /*! \returns render hardware vendor
@@ -148,7 +148,7 @@ namespace igor
         void setProjectionMatrix(const iaMatrixd &matrix);
 
         /*! \returns camera matrix in world coordinates
-        */
+         */
         const iaMatrixd &getCamMatrix() const;
 
         /*! \returns current model matrix
@@ -177,7 +177,7 @@ namespace igor
 
         \param texture the texture to use
         */
-        void setFallbackTexture(const iTexturePtr& texture);
+        void setFallbackTexture(const iTexturePtr &texture);
 
         /////// 2D //////
 
@@ -256,17 +256,16 @@ namespace igor
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
         void setLightAmbient(int32 lightnum, iaColor3f &ambient);
         void setLightDiffuse(int32 lightnum, iaColor3f &diffuse);
-        void setLightSpecular(int32 lightnum, iaColor3f &specular);        
-
+        void setLightSpecular(int32 lightnum, iaColor3f &specular);
 
         /*! \todo this is weired stuff we should do that differently
-        */
+         */
         iMeshBuffersPtr createBuffersAsync(iMeshPtr mesh);
 
         /*!
         \todo this is weired stuff we should do that differently
         */
-        void createBuffers(float64 timeLimit = 10.0);        
+        void createBuffers(float64 timeLimit = 10.0);
 
         /*! sets line render width
 
@@ -495,7 +494,7 @@ namespace igor
 
         /*! \returns id of current active render target
          */
-        iRenderTargetID getRenderTarget() const;        
+        iRenderTargetID getRenderTarget() const;
 
         /*! reads rectangular area from screen buffer
 
@@ -506,7 +505,17 @@ namespace igor
         \param format color format
         \param data destination buffer to store the data in
         */
-        void readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data);        
+        void readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data);
+
+        /*! sets globally forced wireframe mode
+
+        \param active if true from now on everything is rendered in wireframe
+        */
+        void setWireframeEnabled(bool active);
+
+        /*! \returns true if wireframe mode is on
+         */
+        bool isWireframeEnabled() const;
 
     private:
         /*! internal render data
@@ -596,8 +605,11 @@ namespace igor
         /*!
         \todo this is weired stuff we should do that differently
         */
-        void initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers);        
+        void initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers);
 
+        /*! binds current material
+        */
+        void bindCurrentMaterial();
     };
 
 }
