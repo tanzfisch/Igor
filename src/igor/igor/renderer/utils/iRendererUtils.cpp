@@ -179,7 +179,7 @@ namespace igor
         const static std::wstring text[] = {
             L"Undefined",
             L"RGB",
-            L"RGBA"
+            L"RGBA",
             L"BGR",
             L"BGRA"};
 
