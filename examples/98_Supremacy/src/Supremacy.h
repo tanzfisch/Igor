@@ -192,6 +192,7 @@ private:
     struct GameStats
     {
         float32 _playerDamage;
+        float32 _playerExperience;
         float32 _enemyHealth;
     };
 

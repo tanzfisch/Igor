@@ -28,6 +28,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
+    entity.addComponent<ExperienceComponent>(0.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
     weapon._time = iTimer::getInstance().getTime();
@@ -70,6 +71,7 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
+    entity.addComponent<ExperienceGainComponent>(10.0f);
 
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
     entity.addComponent<PartyComponent>(party);
@@ -164,9 +166,15 @@ void Supremacy::onInit()
 
 void Supremacy::onSpawnStuff(const iaTime &time)
 {
-    uint32 enemiesToCreate = std::min(5 + (time.getSeconds() * time.getSeconds()) * 0.001f, 100.0); // cap at 100
+    if (!_player.isValid())
+    {
+        return;
+    }
 
-    con_endl("onSpawnStuff " << time.getSeconds() << "s new enemies:" << enemiesToCreate);
+    con_endl("onSpawnStuff " << time.getSeconds());
+
+    uint32 enemiesToCreate = std::min(5 + (time.getSeconds() * time.getSeconds()) * 0.001f, 100.0); // cap at 100
+    con_endl("new enemies:" << enemiesToCreate);
 
     PositionComponent &playerPosition = _player.getComponent<PositionComponent>();  
 
@@ -184,6 +192,11 @@ void Supremacy::onSpawnStuff(const iaTime &time)
 
 void Supremacy::onUpdateStats(const iaTime &time)
 {
+    if (!_player.isValid())
+    {
+        return;
+    }
+
     GameStats stats = {0.0f, 0.0f};
     auto view = _entityScene.getEntities<HealthComponent, PartyComponent>();
     for (auto entityID : view)
@@ -196,8 +209,10 @@ void Supremacy::onUpdateStats(const iaTime &time)
         }
     }
 
-    auto weapon = _player.getComponent<WeaponComponent>();
+    const auto &weapon = _player.getComponent<WeaponComponent>();
     stats._playerDamage = weapon._damage / weapon._attackInterval.getSeconds();
+    const auto &experience = _player.getComponent<ExperienceComponent>();
+    stats._playerExperience = experience._experience;
 
     _stats.push_back(stats);
 }
@@ -811,15 +826,27 @@ void Supremacy::onUpdateOrientationSystem()
 
 void Supremacy::onUpdateCleanUpTheDeadSystem()
 {
+    if (!_player.isValid())
+    {
+        return;
+    }
+
     // clean up the dead
-    auto healthView = _entityScene.getEntities<HealthComponent, QuadtreeObjectComponent>();
+    auto healthView = _entityScene.getEntities<ExperienceGainComponent, HealthComponent, PartyComponent, QuadtreeObjectComponent>();
+    
+    auto &playerExperience = _player.getComponent<ExperienceComponent>();
 
     for (auto entity : healthView)
     {
-        auto [health, object] = healthView.get<HealthComponent, QuadtreeObjectComponent>(entity);
+        auto [exp, health, party, object] = healthView.get<ExperienceGainComponent, HealthComponent, PartyComponent, QuadtreeObjectComponent>(entity);
 
         if (health._health <= 0.0)
         {
+            if(party._partyID == FOE)
+            {
+                playerExperience._experience += exp._experience;
+            }
+
             _quadtree.remove(object._object);
             _entityScene.destroyEntity(entity);
         }
@@ -874,6 +901,7 @@ void Supremacy::onEvent(iEvent &event)
 void Supremacy::onRenderStats()
 {
     std::vector<iaVector3f> playerDamage;
+    std::vector<iaVector3f> playerExperience;
     std::vector<iaVector3f> enemyHealth;
 
     float32 x = 10.0f;
@@ -882,32 +910,35 @@ void Supremacy::onRenderStats()
     for(const auto &data : _stats)
     {
         playerDamage.push_back(iaVector3f(x, y - data._playerDamage * 1.0, 0.0));
+        playerExperience.push_back(iaVector3f(x, y - data._playerExperience * 0.1, 0.0));
         enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.1, 0.0));
         x+=1.0f;
     }
 
     iRenderer::getInstance().setLineWidth(1);
     iRenderer::getInstance().drawLineStrip(enemyHealth, iaColor4f(1, 0, 0, 1));
-    iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 0, 1, 1));
+    iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 0, 1));
+    iRenderer::getInstance().drawLineStrip(playerExperience, iaColor4f(0, 0, 1, 1));
 }
 
 void Supremacy::onRenderHUD()
 {
-    float64 health = 0.0;
-
-    if (_player.isValid())
+    if (!_player.isValid())
     {
-        auto &healthComp = _player.getComponent<HealthComponent>();
-        health = healthComp._health;
+        return;
     }
 
+    auto &healthComp = _player.getComponent<HealthComponent>();
+    auto &playerExperience = _player.getComponent<ExperienceComponent>();        
+    
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
 
     iRenderer::getInstance().setFont(_font);
     iRenderer::getInstance().setFontSize(15.0f);
-    iRenderer::getInstance().drawString(10, 10, iaString::toString(health, 0));    
+    iRenderer::getInstance().drawString(10, 10, iaString::toString(healthComp._health, 0));
+    iRenderer::getInstance().drawString(10, 40, iaString::toString(playerExperience._experience, 0));
 }
 
 void Supremacy::onRenderOrtho()

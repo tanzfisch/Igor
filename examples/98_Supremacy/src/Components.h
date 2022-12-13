@@ -108,6 +108,16 @@ struct PartyComponent
     uint32 _partyID = 0;
 };
 
+struct ExperienceComponent
+{
+    float64 _experience = 0;
+};
+
+struct ExperienceGainComponent
+{
+    float64 _experience = 0;
+};
+
 struct VisualComponent
 {
     iTexturePtr _texture;
