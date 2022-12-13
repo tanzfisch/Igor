@@ -139,11 +139,10 @@ namespace igor
 
     void iApplication::iterate()
     {
-        iaLogLevel logLevel;
+        iTimer::getInstance().onUpdate();
         iProfiler::nextFrame();
 
         IGOR_PROFILER_BEGIN(app);
-        iTimer::getInstance().handle();
         iNodeManager::getInstance().handle();
         windowHandle();
         dispatch();

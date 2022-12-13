@@ -8,6 +8,7 @@ Changelog                           {#changelog}
 - added some missing implementations in iQuadtree and iIntersection
 - wrote entirely new Renderer using batch rendering where ever possible (called iRenderer2 which will be existing in parallel to iRenderer until it has feature parity)
 - improved 2d shooter example
+- added start/stop to iTimer to start/stop "game time" which essentially can be used to pause a game
 
 0.33.0
 ------

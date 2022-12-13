@@ -986,7 +986,7 @@ void Supremacy::onRenderOrtho()
             iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor, true);
         }
 
-        iaTime time = iaTime::getNow() + visual._timerOffset;
+        iaTime time = iTimer::getInstance().getTime() + visual._timerOffset;
         float64 timing = std::fmod((time.getMilliseconds() * 2.0), 1000.0) / 1000.0 * M_PI * 2;
 
         float64 value = 1.0f + (sin(timing) * 0.1);
@@ -1070,6 +1070,21 @@ bool Supremacy::onKeyUp(iEventKeyUp &event)
     case iKeyCode::D:
         movementControl._right = false;
         return true;
+
+    case iKeyCode::Space:
+        _gamePause = !_gamePause;
+
+        if(_gamePause)
+        {
+            iTimer::getInstance().stop();
+        }
+        else
+        {
+            iTimer::getInstance().start();
+        }
+
+        return true;
+
     }
 
     return false;

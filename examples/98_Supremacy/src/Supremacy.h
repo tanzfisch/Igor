@@ -99,6 +99,10 @@ private:
      */
     iTextureFontPtr _font;
 
+    /*! if true game logic is on hold
+    */
+    bool _gamePause = false;
+
     /*! called when added to layer stack
      */
     void onInit() override;
