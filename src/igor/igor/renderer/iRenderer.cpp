@@ -1049,12 +1049,13 @@ namespace igor
                 texQuads._textures[i]->isValid())
             {
                 texQuads._textures[i]->bind(i);
-                texQuads._textures[i] = nullptr;
             }
             else
             {
                 _data->_fallbackTexture->bind(i);
             }
+
+            texQuads._textures[i] = nullptr;
         }
 
         bindCurrentMaterial();
@@ -1062,8 +1063,8 @@ namespace igor
 
         glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
-        texQuads._vertexArray->unbind();
 
+        texQuads._vertexArray->unbind();
         _data->_currentMaterial->unbind();
 
         // save stats

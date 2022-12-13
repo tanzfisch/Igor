@@ -153,35 +153,39 @@ namespace igor
             break;
         }
 
-        glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        GL_CHECK_ERROR();
-
         if (buildMode == iTextureBuildMode::Mipmapped)
         {
             _mipMapLevels = floor(log2(std::max(width,height)))+1;
-        }
-
-        // TODO use DSA here. something like this but make it work
-        // glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
-        // glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
-
-        glBindTexture(GL_TEXTURE_2D, _textureID);
-        GL_CHECK_ERROR();
-        glTexImage2D(GL_TEXTURE_2D, 0, glformatSized, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, data);
-        GL_CHECK_ERROR();
-
-        if (buildMode == iTextureBuildMode::Mipmapped)
-        {
             glTextureParameteri(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            GL_CHECK_ERROR();
+            glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             GL_CHECK_ERROR();            
+
+            /* TODO use DSA here. something like this but make it work
+            glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
+            glTexImage2D(GL_TEXTURE_2D, 0, glformatSized, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, data);
             glGenerateTextureMipmap(_textureID);
+            */
+
+            glBindTexture(GL_TEXTURE_2D, _textureID);
+            GL_CHECK_ERROR();         
+            gluBuild2DMipmaps(GL_TEXTURE_2D, _bpp, width, height, glformat, GL_UNSIGNED_BYTE, data);
+            glFinish();
             GL_CHECK_ERROR();
         }
         else
         {
             glTextureParameterf(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             GL_CHECK_ERROR();
+            glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            GL_CHECK_ERROR();
+
+            glTextureStorage2D(_textureID, 1, glformatSized, _width, _height);
+            GL_CHECK_ERROR();
+            glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
+            GL_CHECK_ERROR();
         }
+            
     }
 
     uint32 iTexture::getMipMapLevels() const
