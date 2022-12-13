@@ -527,7 +527,8 @@ namespace igor
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
         glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
         glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-        glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
+        glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+        glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         setStencilMask(0xff);

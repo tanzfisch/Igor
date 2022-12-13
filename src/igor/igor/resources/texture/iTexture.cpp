@@ -157,10 +157,20 @@ namespace igor
         glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         GL_CHECK_ERROR();
 
-        glTextureStorage2D(_textureID, 1, glformatSized, _width, _height);
-        GL_CHECK_ERROR();
+        if (buildMode == iTextureBuildMode::Mipmapped)
+        {
+            _mipMapLevels = floor(log2(std::max(width,height)))+1;
+        }
 
-        glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
+        // TODO remove glTexImage2D
+        //glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
+        //GL_CHECK_ERROR();
+
+        // glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
+        //GL_CHECK_ERROR();
+
+        glBindTexture(GL_TEXTURE_2D, _textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, _bpp, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, data);
         GL_CHECK_ERROR();
 
         if (buildMode == iTextureBuildMode::Mipmapped)
@@ -174,6 +184,11 @@ namespace igor
         {
             glTextureParameterf(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         }
+    }
+
+    uint32 iTexture::getMipMapLevels() const
+    {
+        return _mipMapLevels;
     }
 
 }; // namespace igor

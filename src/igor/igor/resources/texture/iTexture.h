@@ -77,6 +77,10 @@ namespace igor
         */
         int32 getBpp() const;
 
+        /*! \returns the mip map levels
+        */
+        uint32 getMipMapLevels() const;
+
         /*! \returns the color format
         */
         iColorFormat getColorFormat() const;
@@ -155,6 +159,10 @@ namespace igor
         /*! color format
 		*/
         iColorFormat _colorFormat = iColorFormat::Undefined;
+
+        /*! mip map levels
+        */
+        uint32 _mipMapLevels = 1;
 
         /*! renderer specific texture handle
 		*/
