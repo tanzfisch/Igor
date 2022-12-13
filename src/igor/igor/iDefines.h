@@ -86,9 +86,7 @@ namespace igor
     {
         Undefined,
         RGB,
-        RGBA,
-        BGR,
-        BGRA
+        RGBA
     };
 
     /*! prints the folor format in the console

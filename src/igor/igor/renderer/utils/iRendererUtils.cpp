@@ -164,10 +164,6 @@ namespace igor
             return sized ? GL_RGB8 : GL_RGB;
         case iColorFormat::RGBA:
             return sized ? GL_RGBA8 : GL_RGBA;
-        case iColorFormat::BGR:
-            return sized ? GL_RGB8 : GL_BGR;
-        case iColorFormat::BGRA:
-            return sized ? GL_RGBA8 : GL_BGRA;
         };
 
         con_err("unsupported color format " << format);
@@ -179,9 +175,7 @@ namespace igor
         const static std::wstring text[] = {
             L"Undefined",
             L"RGB",
-            L"RGBA",
-            L"BGR",
-            L"BGRA"};
+            L"RGBA"};
 
         stream << text[static_cast<int>(colorFormat)];
 

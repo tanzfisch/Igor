@@ -112,8 +112,7 @@ namespace igor
         _colorFormat = format;
         _bpp = bytepp;
 
-        if (format == iColorFormat::BGRA ||
-            format == iColorFormat::RGBA)
+        if (format == iColorFormat::RGBA)
         {
             const uint32 dataSize = _width * _height * _bpp;
 
@@ -170,7 +169,7 @@ namespace igor
         //GL_CHECK_ERROR();
 
         glBindTexture(GL_TEXTURE_2D, _textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, _bpp, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, glformatSized, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, data);
         GL_CHECK_ERROR();
 
         if (buildMode == iTextureBuildMode::Mipmapped)
