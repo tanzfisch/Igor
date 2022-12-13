@@ -167,11 +167,11 @@ struct WeaponComponent
      */
     float64 _damage;
 
-    /*! base speed of this weapon
+    /*! base speed of this weapon's projectiles
      */
     float64 _speed;
 
-    /*! base speed of this weapon
+    /*! base range of this weapon
      */
     float64 _range;
 
@@ -183,7 +183,7 @@ struct WeaponComponent
      */
     bool _standStillToFire;
 
-    /*! offeset to unit position to fire from
+    /*! offset to unit position to fire from
      */
     iaVector2d _offset;
 
