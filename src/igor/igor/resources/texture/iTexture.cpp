@@ -161,14 +161,12 @@ namespace igor
             _mipMapLevels = floor(log2(std::max(width,height)))+1;
         }
 
-        // TODO remove glTexImage2D
-        //glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
-        //GL_CHECK_ERROR();
-
+        // TODO use DSA here. something like this but make it work
+        // glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
         // glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
-        //GL_CHECK_ERROR();
 
         glBindTexture(GL_TEXTURE_2D, _textureID);
+        GL_CHECK_ERROR();
         glTexImage2D(GL_TEXTURE_2D, 0, glformatSized, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, data);
         GL_CHECK_ERROR();
 
@@ -182,6 +180,7 @@ namespace igor
         else
         {
             glTextureParameterf(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            GL_CHECK_ERROR();
         }
     }
 
