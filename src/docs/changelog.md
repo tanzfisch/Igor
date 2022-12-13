@@ -9,6 +9,7 @@ Changelog                           {#changelog}
 - wrote entirely new Renderer using batch rendering where ever possible
 - improved top down 2d shooter example
 - added start/stop to iTimer to start/stop "game time" which essentially can be used to pause a game
+- introduced new material file format .mat
 
 0.33.0
 ------
