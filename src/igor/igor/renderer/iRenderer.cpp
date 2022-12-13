@@ -630,73 +630,10 @@ namespace igor
 
     void iRenderer::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        auto &texQuads = _data->_texQuads;
-
-        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::TexturedQuads)
-        {
-            flushLastUsed();
-        }
-
-        if (texQuads._vertexCount >= MAX_QUAD_VERTICES)
-        {
-            flushTexQuads();
-        }
-
-        (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
-
-        int32 textureIndex = -1;
-        for (uint32_t i = 0; i < texQuads._nextTextureIndex; i++)
-        {
-            if (texQuads._textures[i] == texture)
-            {
-                textureIndex = (float)i;
-                break;
-            }
-        }
-
-        if (textureIndex == -1)
-        {
-            if (texQuads._nextTextureIndex > MAX_TEXTURE_UNITS)
-            {
-                flushTexQuads();
-            }
-
-            textureIndex = texQuads._nextTextureIndex;
-            texQuads._textures[texQuads._nextTextureIndex] = texture;
-            texQuads._nextTextureIndex++;
-        }
-
-        texQuads._vertexDataPtr->_pos.set(x, y, 0.0);
-        texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord0 = QUAD_TEXTURE_COORDS[0];
-        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-        texQuads._vertexDataPtr++;
-
-        texQuads._vertexDataPtr->_pos.set(x, y + height, 0.0);
-        texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[1]._x;
-        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[1]._y * tiling._y;
-        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-        texQuads._vertexDataPtr++;
-
-        texQuads._vertexDataPtr->_pos.set(x + width, y + height, 0.0);
-        texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[2]._x * tiling._x;
-        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[2]._y * tiling._y;
-        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-        texQuads._vertexDataPtr++;
-
-        texQuads._vertexDataPtr->_pos.set(x + width, y, 0.0);
-        texQuads._vertexDataPtr->_color = color;
-        texQuads._vertexDataPtr->_texCoord0._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
-        texQuads._vertexDataPtr->_texCoord0._y = QUAD_TEXTURE_COORDS[3]._y;
-        texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-        texQuads._vertexDataPtr++;
-
-        texQuads._vertexCount += 4;
-        texQuads._indexCount += 6;
-
-        _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
+        drawTexturedQuad(iaVector3f(x, y, 0.0),
+                         iaVector3f(x, y + height, 0.0),
+                         iaVector3f(x + width, y + height, 0.0),
+                         iaVector3f(x + width, y, 0.0), texture, color, blend, tiling);
     }
 
     void iRenderer::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
@@ -763,9 +700,9 @@ namespace igor
 
     void iRenderer::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        const int32 textureIndex = beginTexturedQuad(texture);
-
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
+
+        const int32 textureIndex = beginTexturedQuad(texture);
 
         auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = v1;
@@ -800,9 +737,9 @@ namespace igor
 
     void iRenderer::drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
     {
-        const int32 textureIndex = beginTexturedQuad(atlas->getTexture());
-
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
+
+        const int32 textureIndex = beginTexturedQuad(atlas->getTexture());
 
         const iAtlas::iFrame &frame = atlas->getFrame(frameIndex);
 
