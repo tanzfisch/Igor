@@ -81,7 +81,7 @@ private:
 
 	iWidgetButton *_shaderReload = nullptr;
 
-	uint64 _materialID = 0;
+	iMaterialID _materialID;
 
 	uint32 _loadShaderNumber = 0;
 
@@ -99,7 +99,7 @@ private:
 
 	void onFileLoadDialogClosed(iDialogPtr dialog);
 
-	void reloadShader(iMaterial_oldPtr material);
+	void reloadShader(iMaterialPtr material);
 
 	void updateGUI();
 	void updateMaterial();

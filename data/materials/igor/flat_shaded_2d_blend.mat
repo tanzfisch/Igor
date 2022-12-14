@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="igor.flat_shaded_2d_blended" uuid="888740e6-7943-45d3-8711-2a476d3e2cdb">
+	<Material name="igor.flat_shaded_2d_blended" uuid="2da5bbe8-7b46-11ed-a3ae-bfd271ecc05e">
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>On</Blend>

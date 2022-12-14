@@ -1,28 +1,33 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="igor.skybox" uuid="7b6a4eec-4e7c-4497-9f3f-9b32572bff2b" zIndex="MIN">
+	<Material name="mica.manipulator" uuid="6dbf625e-7b48-11ed-acf8-ab7ebd6463ff">
 		<States>
-			<DepthTest>Off</DepthTest>
-            <DepthFunc>Less</DepthFunc>
-            <Blend>Off</Blend>
+            <Wireframe>On</Wireframe>
             <CullFace>On</CullFace>
-            <CullFaceFunc>Back</CullFaceFunc>
+            <CullFaceFunc>Front</CullFaceFunc>
+			<DepthTest>Off</DepthTest>
+            <Blend>Off</Blend>
 		</States>
         <Program>
             <Vertex>
 <![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
-layout(location = 1) in vec2 in_texCoord;
+layout(location = 1) in vec3 in_normal;	
 
 uniform mat4 igor_modelViewProjection;
+uniform mat4 igor_model;
 
-out vec2 VertexTexCoord;
+out vec3 VertexWorld;
+out vec3 VertexNormal;
 
 void main()
 {
-	VertexTexCoord = in_texCoord;
+	VertexWorld = (igor_model * vec4(in_position, 1)).xyz;
+
+	mat4 norm = transpose(inverse(igor_model));
+	VertexNormal = (norm * vec4(in_normal, 1)).xyz;	
 	
 	gl_Position = igor_modelViewProjection * vec4(in_position,1);
 }]]>
@@ -30,15 +35,11 @@ void main()
             <Fragment>
 <![CDATA[#version 450
 
-in vec2 VertexTexCoord;
-
 layout(location = 0) out vec4 out_color;
-
-uniform sampler2D igor_matTexture0;
 
 void main()
 {
-    out_color.rgba = texture2D(igor_matTexture0, VertexTexCoord).rgba;
+	out_color = vec4(1,1,0,1);
 }
 ]]>
             </Fragment>

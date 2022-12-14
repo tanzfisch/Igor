@@ -42,8 +42,8 @@ void WorkspaceLayer::onInit()
     _directionalLightTranslate->insertNode(_lightNode);
 
     // create materials
-    _materialCelShading = iMaterialResourceFactory_old::getInstance().createMaterial("celShadingMaterial");
-    auto celShadingMaterial = iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading);
+    _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial("celShadingMaterial");
+    auto celShadingMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading);
     celShadingMaterial->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
     celShadingMaterial->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
     celShadingMaterial->compileShader();
@@ -51,7 +51,7 @@ void WorkspaceLayer::onInit()
     celShadingMaterial->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
     celShadingMaterial->setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
-    _materialBoundingBox = iMaterialResourceFactory_old::getInstance().createMaterial("materialBoundingBox");
+    _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial("materialBoundingBox");
 }
 
 void WorkspaceLayer::onDeinit()
@@ -91,7 +91,7 @@ void WorkspaceLayer::renderSelection()
 
         if (node->getType() == iNodeType::iNodeMesh)
         {
-            iRenderer::getInstance().setMaterial(iMaterialResourceFactory_old::getInstance().getMaterial(_materialCelShading));
+            iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
 
             iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
             iMeshBuffersPtr buffers = meshNode->getMeshBuffers();
@@ -103,7 +103,7 @@ void WorkspaceLayer::renderSelection()
             if (node->getKind() == iNodeKind::Volume)
             {
                 iNodeVolume *renderVolume = static_cast<iNodeVolume *>(node);
-                iRenderer::getInstance().setMaterial(iMaterialResourceFactory_old::getInstance().getMaterial(_materialBoundingBox));
+                iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
 
                 iAABoxd box = renderVolume->getBoundingBox();
 

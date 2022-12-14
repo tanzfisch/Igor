@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- material definition for 2d flat shading -->
-	<Material name="example.voxel.terrain_directional_light" uuid="095d02dc-7b46-11ed-8093-e3b420dd3214">
+	<!-- material definition -->
+	<Material name="mica.manipulator" uuid="3be5e502-7b46-11ed-90b4-3b84db5ec17f" zIndex="MAX">
 		<States>
-			<DepthTest>On</DepthTest>
-            <Blend>Off</Blend>
+			<DepthTest>Off</DepthTest>
+            <Blend>On</Blend>
 		</States>
         <Program>
             <Vertex>
 <![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
-layout(location = 1) in vec3 in_normal;
+layout(location = 1) in vec3 in_normal;	
 
 uniform mat4 igor_modelViewProjection;
 uniform mat4 igor_model;
@@ -27,8 +27,7 @@ void main()
 	VertexNormal = (norm * vec4(in_normal, 1)).xyz;	
 	
 	gl_Position = igor_modelViewProjection * vec4(in_position,1);
-}
-]]>
+}]]>
             </Vertex>
             <Fragment>
 <![CDATA[#version 450

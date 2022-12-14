@@ -137,7 +137,7 @@ private:
 
     /*! cel chader material for selection
     */
-    iMaterialID _materialCelShading;
+    iMaterialPtr _materialCelShading;
 
     uint64 _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;
@@ -161,12 +161,12 @@ private:
 
     ManipulatorMode _manipulatorMode = ManipulatorMode::None;
 
-    iTargetMaterial *_red = nullptr;
-    iTargetMaterial *_green = nullptr;
-    iTargetMaterial *_blue = nullptr;
-    iTargetMaterial *_cyan = nullptr;
+    iTargetMaterialPtr _red = nullptr;
+    iTargetMaterialPtr _green = nullptr;
+    iTargetMaterialPtr _blue = nullptr;
+    iTargetMaterialPtr _cyan = nullptr;
 
-    uint64 _material = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialPtr _material;
 
     iMeshPtr createTranslateMesh();
     iMeshPtr createScaleMesh();

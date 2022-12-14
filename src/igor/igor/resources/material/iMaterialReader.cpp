@@ -169,11 +169,33 @@ namespace igor
             {
                 material->setName(attrib->Value());
             }
-
-            if(attrib->NameTStr() == "uuid")
+            else if(attrib->NameTStr() == "uuid")
             {
                 material->setID(iMaterialID(attrib->Value()));
             } 
+            else if (attrib->NameTStr() == "zIndex" ||
+            attrib->NameTStr() == "order")
+            {
+                if (attrib->ValueStr() == "RENDER_ORDER_DEFAULT" ||
+                    attrib->ValueStr() == "DEFAULT")
+                {
+                    material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+                }
+                else if (attrib->ValueStr() == "RENDER_ORDER_MIN" ||
+                         attrib->ValueStr() == "MIN")
+                {
+                    material->setOrder(iMaterial::RENDER_ORDER_MIN);
+                }
+                else if (attrib->ValueStr() == "RENDER_ORDER_MAX" ||
+                         attrib->ValueStr() == "MAX")
+                {
+                    material->setOrder(iMaterial::RENDER_ORDER_MAX);
+                }
+                else
+                {
+                    material->setOrder(iaString::toInt(attrib->Value()));
+                }
+            }
       
             attrib = attrib->Next();
         }

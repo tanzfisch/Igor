@@ -166,7 +166,7 @@ void UserControlParticleSystem::updateGUI()
         _userDataMaterialID.clear();
         _materialSelection->clear();
 
-        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
+        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
         for (auto material : materials)
         {
             uint32 materialID = material->getID();

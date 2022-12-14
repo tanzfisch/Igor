@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="igor.default" uuid="7b6a4eec-4e7c-4497-9f3f-9b32572bff2b">
+	<Material name="igor.default" uuid="27e54b88-7b46-11ed-8fdb-bfb70a005443">
 		<States>
 			<DepthTest>On</DepthTest>
             <DepthFunc>Less</DepthFunc>

@@ -16,7 +16,7 @@ UserControlMaterial::~UserControlMaterial()
 
 void UserControlMaterial::updateMaterial()
 {
-    iMaterial_oldPtr material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialID);
+    iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
     if (!_ignoreMaterialUpdate &&
         material != nullptr &&
@@ -75,7 +75,7 @@ void UserControlMaterial::updateMaterial()
                 break;
             }
 
-            material->setRenderState(iRenderState::BlendFuncSource, value);
+            // material->setRenderState(iRenderState::BlendFuncSource, value);
         }
 
         if (_selectBoxBlendFuncDestination->getSelectedIndex() != -1)
@@ -113,7 +113,7 @@ void UserControlMaterial::updateMaterial()
                 value = iRenderStateValue::OneMinusDestinationAlpha;
                 break;
             }
-            material->setRenderState(iRenderState::BlendFuncDestination, value);
+            // material->setRenderState(iRenderState::BlendFuncDestination, value);
         }
 
         reloadShader(material);
@@ -124,7 +124,7 @@ void UserControlMaterial::updateMaterial()
 
 void UserControlMaterial::reloadShader(iMaterialPtr material)
 {
-    material->clearShader();
+/* TODO     material->clearShader();
     if (_textShaderGeometry->getText() != "")
     {
         material->addShaderSource(_textShaderGeometry->getText(), iShaderObjectType::Geometry);
@@ -139,12 +139,12 @@ void UserControlMaterial::reloadShader(iMaterialPtr material)
     {
         material->addShaderSource(_textShaderFragment->getText(), iShaderObjectType::Fragment);
     }
-    material->compileShader();
+    material->compileShader();*/ 
 }
 
 void UserControlMaterial::updateGUI()
 {
-    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialID);
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
     if (material != nullptr &&
         material->isValid())
@@ -691,7 +691,7 @@ void UserControlMaterial::onShader2Button(const iWidgetPtr source)
 
 void UserControlMaterial::onReloadShader(const iWidgetPtr source)
 {
-    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(_materialID);
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
     if (!_ignoreMaterialUpdate &&
         material != nullptr &&

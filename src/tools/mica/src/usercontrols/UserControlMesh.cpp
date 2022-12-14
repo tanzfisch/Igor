@@ -175,7 +175,7 @@ void UserControlMesh::updateGUI()
         _userDataMaterialID.clear();
         _selectMaterial->clear();
 
-        auto materials = iMaterialResourceFactory_old::getInstance().getSortedMaterials();
+        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
         for (auto material : materials)
         {
             if (material->isValid())
