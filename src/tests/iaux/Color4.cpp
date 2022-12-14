@@ -8,20 +8,20 @@ IAUX_TEST(Color4Tests, Initial1)
 {
 	iaColor4f color;
 
-	IAUX_EXPECT_EQUAL(color._r, 0);
-	IAUX_EXPECT_EQUAL(color._g, 0);
-	IAUX_EXPECT_EQUAL(color._b, 0);
-	IAUX_EXPECT_EQUAL(color._a, 0);
+	IAUX_EXPECT_EQUAL(color._r, 1.0);
+	IAUX_EXPECT_EQUAL(color._g, 1.0);
+	IAUX_EXPECT_EQUAL(color._b, 1.0);
+	IAUX_EXPECT_EQUAL(color._a, 1.0);
 }
 
 IAUX_TEST(Color4Tests, Initial2)
 {
 	iaColor4c color;
 
-	IAUX_EXPECT_EQUAL(color._r, 0);
-	IAUX_EXPECT_EQUAL(color._g, 0);
-	IAUX_EXPECT_EQUAL(color._b, 0);
-	IAUX_EXPECT_EQUAL(color._a, 0);
+	IAUX_EXPECT_EQUAL(color._r, 0xff);
+	IAUX_EXPECT_EQUAL(color._g, 0xff);
+	IAUX_EXPECT_EQUAL(color._b, 0xff);
+	IAUX_EXPECT_EQUAL(color._a, 0xff);
 }
 
 IAUX_TEST(Color4Tests, Initial1b)

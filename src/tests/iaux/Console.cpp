@@ -49,7 +49,7 @@ IAUX_TEST(ConsoleTests, SupressWarning)
 
     IAUX_EXPECT_EQUAL(iaConsole::getInstance().getErrors(), 0);
     IAUX_EXPECT_EQUAL(iaConsole::getInstance().getWarnings(), 0);
-    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::Error);
 }
 
 IAUX_TEST(ConsoleTests, TestColors)
@@ -75,5 +75,4 @@ IAUX_TEST(ConsoleTests, TestColors)
 
     IAUX_EXPECT_EQUAL(iaConsole::getInstance().getErrors(), 0);
     IAUX_EXPECT_EQUAL(iaConsole::getInstance().getWarnings(), 0);
-    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
 }

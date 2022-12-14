@@ -1,15 +1,26 @@
 Changelog                           {#changelog}
 =========
 
-0.34.0
-------
+0.34.0 (unstable/incomplete)
+----------------------------
 
-- improved testing framework and added some more tests
-- added some missing implementations in iQuadtree and iIntersection
+!This version is incomplete!
+Missing features are:
+- Instancing
+- multi texturing for particles
+- Mica
+
 - wrote entirely new Renderer using batch rendering where ever possible
+- replaced Glee with Glad
+- switched to Direct State Access
+- improved testing framework and added some more tests
+- added some missing functions in iQuadtree and iIntersection
 - improved top down 2d shooter example
 - added start/stop to iTimer to start/stop "game time" which essentially can be used to pause a game
 - introduced new material file format .mat
+- set minimum OpenGL version to 4.5
+- iNodeSkyBox now takes a cube map texture 
+- improved cmake configuration. Though there is more todo here
 
 0.33.0
 ------
