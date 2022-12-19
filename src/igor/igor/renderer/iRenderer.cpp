@@ -1927,8 +1927,6 @@ namespace igor
 
         glDrawElements(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
-        glBindVertexArray(0);
-        GL_CHECK_ERROR();
 
         // save stats
         _data->_stats._drawCalls++;
