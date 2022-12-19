@@ -41,7 +41,7 @@ using namespace iaux;
 namespace igor
 {
     /*! target material pointer definition
-    */
+     */
     class iTargetMaterial;
     typedef std::shared_ptr<iTargetMaterial> iTargetMaterialPtr;
 
@@ -55,7 +55,6 @@ namespace igor
         friend class iTargetMaterialDeleter;
 
     public:
-
         /*! \returns a newly created target material
          */
         static iTargetMaterialPtr create();
@@ -69,25 +68,25 @@ namespace igor
         void addTexture(iTexturePtr texture);
 
         /*! \returns all the textures in the target material
-        */
-        const std::vector<iTexturePtr>& getTextures() const;
+         */
+        const std::vector<iTexturePtr> &getTextures() const;
 
         /*! removes all textures
-        */
+         */
         void clearTextures();
 
         /*! sets the tiling configuration that can be use in a shader
 
         \param tiling column and row count of tiles
         */
-        void setTilingConfig(const iaVector2f& tiling);
+        void setTilingConfig(const iaVector2f &tiling);
 
         /*! \returns tiling config
-        */
-        const iaVector2f& getTilingConfig() const;
+         */
+        const iaVector2f &getTilingConfig() const;
 
         /*! \returns true if mesh has textures and texture coordinates
-        */
+         */
         bool hasTextures() const;
 
         /*! set emmisive color
@@ -97,7 +96,7 @@ namespace igor
         void setEmissive(const iaColor3f &e);
 
         /*! \returns emissive color
-        */
+         */
         iaColor3f getEmissive() const;
 
         /*! set ambient color
@@ -107,7 +106,7 @@ namespace igor
         void setAmbient(const iaColor3f &a);
 
         /*! \returns ambient color
-        */
+         */
         iaColor3f getAmbient() const;
 
         /*! set specular color
@@ -117,7 +116,7 @@ namespace igor
         void setSpecular(const iaColor3f &s);
 
         /*! \returns specular color
-        */
+         */
         iaColor3f getSpecular() const;
 
         /*! set diffuse color
@@ -127,7 +126,7 @@ namespace igor
         void setDiffuse(const iaColor3f &d);
 
         /*! \returns diffuse color
-        */
+         */
         iaColor3f getDiffuse() const;
 
         /*! set shininess
@@ -137,58 +136,72 @@ namespace igor
         void setShininess(float32 shininess);
 
         /*! \returns shininess
-        */
+         */
         float32 getShininess() const;
 
         /*! sets alpha value of material
-		*/
+         */
         void setAlpha(float32 alpha);
 
         /*! \returns alpha value of material
-		*/
+         */
         float32 getAlpha() const;
+
+        /*! sets velocity orientation
+
+        \param enable if true orientation will be along velocity axis
+        */
+        void setVelocityOriented(bool enable);
+
+        /*! \returns true if orientation will be along velocity axis
+         */
+        bool isVelocityOriented() const;
 
     private:
         /*! list of textures associated to the target
-        */
+         */
         std::vector<iTexturePtr> _textures;
 
         /*! material emissive value
-        */
+         */
         iaColor3f _emissive;
 
         /*! material ambient value
-        */
+         */
         iaColor3f _ambient;
 
         /*! material specular value
-        */
+         */
         iaColor3f _specular;
 
         /*! material diffuse value
-        */
+         */
         iaColor3f _diffuse;
 
         /*! material shininess value
-        */
+         */
         float32 _shininess;
 
         /*! alpha value
-		*/
+         */
         float32 _alpha;
 
         /*! tiling config
-        */
+         */
         iaVector2f _tilingConfig;
 
+        /*! if true target material will be displayed oriented along it's velocity axis
+         */
+        bool _velocityOriented;
+
         /*! initializes members
-        */
+         */
         iTargetMaterial();
 
         /*! releases resources
-        */
+         */
         ~iTargetMaterial();
-    };    
+    };
 
 } // namespace igor
 

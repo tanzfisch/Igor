@@ -124,22 +124,27 @@ namespace igor
     /*! igor specific shader properties
     */
     static constexpr const char *UNIFORM_SOLIDCOLOR = "igor_solidColor";
+    static constexpr const char *UNIFORM_EYE_POSITION = "igor_eyePosition";
+
     static constexpr const char *UNIFORM_LIGHT_ORIENTATION = "igor_lightOrientation";
     static constexpr const char *UNIFORM_LIGHT_AMBIENT = "igor_lightAmbient";
     static constexpr const char *UNIFORM_LIGHT_DIFFUSE = "igor_lightDiffuse";
     static constexpr const char *UNIFORM_LIGHT_SPECULAR = "igor_lightSpecular";
-    static constexpr const char *UNIFORM_EYE_POSITION = "igor_eyePosition";
+
     static constexpr const char *UNIFORM_MODEL_VIEW_PROJECTION = "igor_modelViewProjection";
     static constexpr const char *UNIFORM_VIEW_PROJECTION = "igor_viewProjection";
     static constexpr const char *UNIFORM_MODEL = "igor_model";
     static constexpr const char *UNIFORM_MODEL_VIEW = "igor_modelView";
+
     static constexpr const char *UNIFORM_MATERIAL_AMBIENT = "igor_matAmbient";
     static constexpr const char *UNIFORM_MATERIAL_DIFFUSE = "igor_matDiffuse";
     static constexpr const char *UNIFORM_MATERIAL_SPECULAR = "igor_matSpecular";
     static constexpr const char *UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
     static constexpr const char *UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
     static constexpr const char *UNIFORM_MATERIAL_ALPHA = "igor_matAlpha";
-    static constexpr const char *UNIFORM_TILING_CONFIG = "igor_tilingConfig";
+
+    static constexpr const char *UNIFORM_CONFIG_TILING = "igor_configTiling";
+    static constexpr const char *UNIFORM_CONFIG_VELOCITY_ORIENTED = "igor_configVelocityOriented";
 
     static constexpr const char *SAMPLER_TEXTURE = "igor_matTexture";
     static constexpr const char *SAMPLER_TEXTURE0 = "igor_matTexture0";

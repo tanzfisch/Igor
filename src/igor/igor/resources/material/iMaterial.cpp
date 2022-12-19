@@ -17,7 +17,7 @@ namespace igor
     class iMaterialDeleter
     {
     public:
-        void operator()(iMaterial * p) { delete p; }
+        void operator()(iMaterial *p) { delete p; }
     };
 
     iMaterialPtr iMaterial::create()
@@ -42,7 +42,7 @@ namespace igor
 
     bool iMaterial::isValid() const
     {
-        if(_shaderProgram == nullptr)
+        if (_shaderProgram == nullptr)
         {
             return false;
         }
@@ -86,17 +86,22 @@ namespace igor
         if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL_VIEW))
         {
             _hasModelViewMatrix = true;
-        }        
+        }
 
         if (_shaderProgram->hasUniformLocation(UNIFORM_VIEW_PROJECTION))
         {
             _hasViewProjectionMatrix = true;
-        }           
-          
-        if (_shaderProgram->hasUniformLocation(UNIFORM_TILING_CONFIG))
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_CONFIG_TILING))
         {
-            _hasTilingConfig = true;
-        } 
+            _hasConfigTiling = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_CONFIG_VELOCITY_ORIENTED))
+        {
+            _hasConfigVelocityOriented = true;
+        }
 
         if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL))
         {
@@ -123,7 +128,7 @@ namespace igor
             std::stringstream shaderProperty;
             shaderProperty << SAMPLER_TEXTURE << i;
             _hasTexture[i] = _shaderProgram->hasUniformLocation(shaderProperty.str().c_str());
-        }        
+        }
     }
 
     bool iMaterial::hasDirectionalLight() const
@@ -149,7 +154,7 @@ namespace igor
     bool iMaterial::hasViewProjectionMatrix() const
     {
         return _hasViewProjectionMatrix;
-    }    
+    }
 
     bool iMaterial::hasModelMatrix() const
     {
@@ -168,14 +173,19 @@ namespace igor
 
     bool iMaterial::hasTilingConfig() const
     {
-        return _hasTilingConfig;
+        return _hasConfigTiling;
+    }
+
+    bool iMaterial::hasVelocityOrientedConfig() const
+    {
+        return _hasConfigVelocityOriented;
     }
 
     bool iMaterial::hasTextureUnit(uint32 texUnit) const
     {
         con_assert(texUnit < MAX_TEXTURE_UNITS, "out of bounds");
         return _hasTexture[texUnit];
-    }    
+    }
 
     iShaderProgramPtr iMaterial::getShaderProgram() const
     {
@@ -227,7 +237,7 @@ namespace igor
         else
         {
             glDisable(GL_CULL_FACE);
-        }        
+        }
 
         switch (_renderStateSet.getRenderState(iRenderState::DepthFunc))
         {

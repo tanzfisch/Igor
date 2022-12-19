@@ -46,6 +46,16 @@ namespace igor
         return _tilingConfig;
     }
 
+    void iTargetMaterial::setVelocityOriented(bool enable)
+    {
+        _velocityOriented = enable;
+    }
+
+    bool iTargetMaterial::isVelocityOriented() const
+    {
+        return _velocityOriented;
+    }
+
     void iTargetMaterial::clearTextures()
     {
         _textures.clear();

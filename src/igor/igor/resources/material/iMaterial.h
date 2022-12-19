@@ -168,6 +168,10 @@ namespace igor
          */
         bool hasTilingConfig() const;
 
+        /*! \returns true if shader has velocity oriented roperty
+        */
+        bool hasVelocityOrientedConfig() const;
+
         /*! \returns true if gien texture unit is used
 
         \param texUnit the given texture unit
@@ -235,7 +239,11 @@ namespace igor
 
         /*! if true shader understands the tiling property
         */
-        bool _hasTilingConfig = false;
+        bool _hasConfigTiling = false;
+
+        /*! if true shader usese verlocity oriented property
+        */
+        bool _hasConfigVelocityOriented = false;
 
         /*! list of avail able texture units in shader
          */

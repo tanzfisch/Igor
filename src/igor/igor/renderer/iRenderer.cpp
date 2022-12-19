@@ -2034,7 +2034,12 @@ namespace igor
 
             if (_data->_currentMaterial->hasTilingConfig())
             {
-                _data->_currentMaterial->setFloat2(UNIFORM_TILING_CONFIG, targetMaterial->getTilingConfig());
+                _data->_currentMaterial->setFloat2(UNIFORM_CONFIG_TILING, targetMaterial->getTilingConfig());
+            }
+
+            if (_data->_currentMaterial->hasVelocityOrientedConfig())
+            {
+                _data->_currentMaterial->setFloat(UNIFORM_CONFIG_VELOCITY_ORIENTED, targetMaterial->isVelocityOriented() ? 1.0 : 0.0);
             }
 
             uint32 texUnit = 0;
