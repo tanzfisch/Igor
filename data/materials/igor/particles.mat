@@ -6,10 +6,6 @@
 			<DepthTest>On</DepthTest>
             <DepthMask>Off</DepthMask>
             <Blend>On</Blend>
-            <Texture2D0>On</Texture2D0>
-            <Texture2D1>Off</Texture2D1>
-            <Texture2D2>Off</Texture2D2>
-            <CullFace>On</CullFace>
 		</States>
         <Program>
             <Vertex>
@@ -58,20 +54,53 @@ in Vertex
 out vec4 Vertex_Color;
 out vec2 Vertex_UV;
 
+vec3 rotate(in vec3 p, in vec3 axis, in float angle)
+{
+    vec3 result;
+    float c = cos(angle);
+    float s = sin(angle);
+
+    float x = axis.x;
+    float y = axis.y;
+    float z = axis.z;
+
+    result.x = p.x * (x*x * (1.0 - c) + c)
+        + p.y * (x*y * (1.0 - c) + z * s)
+        + p.z * (x*z * (1.0 - c) - y * s);
+
+    result.y = p.x * (y*x * (1.0 - c) - z * s)
+        + p.y * (y*y * (1.0 - c) + c)
+        + p.z * (y*z * (1.0 - c) + x * s);
+
+    result.z = p.x * (z*x * (1.0 - c) + y * s)
+        + p.y * (z*y * (1.0 - c) - x * s)
+        + p.z * (z*z * (1.0 - c) + c); 
+
+    return result;
+}
+
 void main() {
     mat4 MV = igor_modelView;
     float size = vertex[0].lifeSizeAngle.y;
+    float angle = vertex[0].lifeSizeAngle.z;
+
+    vec3 depth = vec3(MV[0][2], 
+                    MV[1][2], 
+                    MV[2][2]);    
 
     vec3 right = vec3(MV[0][0], 
                     MV[1][0], 
                     MV[2][0]) * size;
 
+    right = rotate(right, depth, angle);
+
     vec3 up = vec3(MV[0][1], 
                     MV[1][1], 
                     MV[2][1]) * size;
 
+    up = rotate(up, depth, angle);
+
     vec3 pos = gl_in[0].gl_Position.xyz;
-    
 
     vec3 va = pos - right + up;
     gl_Position = igor_viewProjection * vec4(va, 1);
