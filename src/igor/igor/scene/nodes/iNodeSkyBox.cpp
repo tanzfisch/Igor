@@ -21,6 +21,8 @@ namespace igor
         setName(L"iNodeSkyBox");
         _nodeType = iNodeType::iNodeSkyBox;
         buildMesh();
+
+        _targetMaterial = iTargetMaterial::create();
     }
 
     iNodeSkyBox::iNodeSkyBox(iNodeSkyBox *node)
@@ -32,11 +34,6 @@ namespace igor
         _nodeKind = node->_nodeKind;
 
         setName(node->getName());
-
-        iaMatrixd matrix;
-        node->getOffsetMatrix(matrix);
-        setOffsetMatrix(matrix);
-        setUseOffsetMatrix(node->isOffsetMatrixUsed());
 
         _mesh = node->_mesh;
     }
@@ -125,27 +122,8 @@ namespace igor
 
     void iNodeSkyBox::setTexture(iTexturePtr texture)
     {
-        _texture = texture;
-    }
-
-    void iNodeSkyBox::setOffsetMatrix(iaMatrixd &offsetMatrix)
-    {
-        _offsetMatrix = offsetMatrix;
-    }
-
-    void iNodeSkyBox::getOffsetMatrix(iaMatrixd &offsetMatrix)
-    {
-        offsetMatrix = _offsetMatrix;
-    }
-
-    void iNodeSkyBox::setUseOffsetMatrix(bool useMatrix)
-    {
-        _useMatrix = useMatrix;
-    }
-
-    bool iNodeSkyBox::isOffsetMatrixUsed() const
-    {
-        return _useMatrix;
+        _targetMaterial->clearTextures();
+        _targetMaterial->addTexture(texture);
     }
 
     void iNodeSkyBox::setBoxSize(float32 boxSize)
@@ -160,26 +138,14 @@ namespace igor
 
     void iNodeSkyBox::draw()
     {
-        iaMatrixd model;
         const iaMatrixd &camMatrix = iRenderer::getInstance().getCamMatrix();
 
-        model._pos = camMatrix._pos;
-        if (_useMatrix)
-        {
-            model *= _offsetMatrix;
-        }
+        iaMatrixd model;
+        model._pos = camMatrix._pos;       
         model.scale(_boxSize,_boxSize,_boxSize);
         iRenderer::getInstance().setModelMatrix(model);
 
-        if(_texture->useFallback())
-        {
-            iTextureResourceFactory::getInstance().getDummyTexture()->bind(0);
-        }
-        else
-        {
-            _texture->bind(0);
-        }
-        iRenderer::getInstance().drawMesh(_mesh, nullptr);
+        iRenderer::getInstance().drawMesh(_mesh, _targetMaterial);
     }
 
 } // namespace igor

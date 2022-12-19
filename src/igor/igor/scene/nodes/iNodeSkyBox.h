@@ -30,7 +30,7 @@
 #define __IGOR_SKYBOXNODE__
 
 #include <igor/scene/nodes/iNodeRender.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/material/iTargetMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 
 namespace igor
@@ -44,34 +44,6 @@ namespace igor
         friend class iNodeManager;
 
     public:
-        /*! draw the sky box
-        */
-        virtual void draw();
-
-        /*! sets texture coordinates scaling
-
-        /*! sets the offset matrix
-
-        \param offsetMatrix the offset matrix to set
-        */
-        void setOffsetMatrix(iaMatrixd &offsetMatrix);
-
-        /*! returns the offset matrix
-
-        \param offsetMatrix in out value for the offset matrix
-        */
-        void getOffsetMatrix(iaMatrixd &offsetMatrix);
-
-        /*! switches the usage of the offset matrix on and off
-
-        \param useMatrix true: offset matrix is used; false: no offset matrix is used
-        */
-        void setUseOffsetMatrix(bool useMatrix);
-
-        /*! \returns true if offset matrix is used
-        */
-        bool isOffsetMatrixUsed() const;
-
         /*! set the textures used for the sky box
 
         \param texture the texture to use
@@ -88,22 +60,18 @@ namespace igor
         */
         float32 getBoxSize() const;
 
+        /*! draw the sky box
+        */
+        virtual void draw();
+
     private:
         /*! scale of the box
         */
         float32 _boxSize = 10.0f;
 
-        /*! true if the matrix has to be set as offset on top of the camera matrix
+        /*! target material to use
         */
-        bool _useMatrix = false;
-
-        /*! offset matrix
-        */
-        iaMatrixd _offsetMatrix;
-
-        /*! shared pointer to texture
-        */
-        iTexturePtr _texture;
+        iTargetMaterialPtr _targetMaterial;
 
         /*! mesh for sky box
         */

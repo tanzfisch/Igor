@@ -7,7 +7,7 @@ Changelog                           {#changelog}
 !This version is incomplete!
 Missing features are:
 - Instancing
-- multi texturing for particles
+- new particle system does not support all previous features yet
 - Mica
 
 - wrote entirely new Renderer using batch rendering where ever possible
@@ -21,6 +21,8 @@ Missing features are:
 - set minimum OpenGL version to 4.5
 - iNodeSkyBox now takes a cube map texture 
 - improved cmake configuration. Though there is more todo here
+- new particle system replacing 2D and 3D ones
+- support for geometry shaders
 
 0.33.0
 ------
