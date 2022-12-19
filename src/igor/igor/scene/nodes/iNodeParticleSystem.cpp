@@ -58,7 +58,7 @@ namespace igor
 
     uint32 iNodeParticleSystem::getParticleCount()
     {
-        return _particleSystem.getParticleCount();
+        return _particleSystem.getMaxParticleCount();
     }
 
     void iNodeParticleSystem::onPostCopyLink(std::map<uint32, uint32> &nodeIDMap)

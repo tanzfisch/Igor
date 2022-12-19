@@ -42,8 +42,7 @@
 #include <iaux/math/iaRandomNumberGenerator.h>
 using namespace iaux;
 
-#include <memory>
-#include <queue>
+#include <vector>
 
 namespace igor
 {
@@ -259,10 +258,6 @@ namespace igor
          */
         float32 getThirdTextureRotation();
 
-        /*! \returns particles of current frame
-         */
-        const std::deque<iParticle> &getParticles() const; // TODO use array
-
         /*! set's the inverse matrix of the particle system coordinate system
 
         \param worldInvMatrix the inverse of the particle system
@@ -467,10 +462,6 @@ namespace igor
          */
         static float32 getSimulationRate();
 
-        /*! \returns current particle count in use
-         */
-        uint32 getParticleCount();
-
         /*! \returns the vertex array for rendering
         */
         iVertexArrayPtr getVertexArray() const;
@@ -594,7 +585,7 @@ namespace igor
 
         /*! particle system period time in ms
          */
-        float32 _particleSystemPeriodTime = 1000.0;
+        iaTime _particleSystemPeriodTime = iaTime::fromSeconds(2.0);
 
         /*! life time of any particle
 
@@ -660,11 +651,20 @@ namespace igor
          */
         float32 _vorticityConfinement = 0.05f;
 
-        /*! actual particles
+        /*! particle pool
          */
-        std::deque<iParticle> _particles; // TODO use array!
+        std::vector<iParticle> _particlePool;
 
+        /*! next particle in pool
+        */
+        int32 _particlePoolIndex;
+
+        /*! vertex buffer for rendering
+        */
         iVertexBufferPtr _vertexBuffer;
+
+        /*! vertex array for rendering
+        */
         iVertexArrayPtr _vertexArray;
 
         /*! particle vertex which will be feed in to a geometry shader
@@ -688,7 +688,9 @@ namespace igor
             iaVector4f _lifeSizeAngleTilingIndex;
         };
 
-        iParticleVertex *_vertexData = nullptr;
+        /*! vertex buffer data
+        */
+        iParticleVertex *_vertexBufferData = nullptr;
 
         /*! if true vertex buffer needs to be recreated
          */

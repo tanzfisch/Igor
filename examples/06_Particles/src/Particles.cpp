@@ -54,11 +54,11 @@ void Particles::onInit()
     // _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/default.mat");
 
     // create the various particle systems
-    createWaveParticleSystem();
+    /*createWaveParticleSystem();
     createDotParticleSystem();
     createSmokeParticleSystem();
     createRingParticleSystem();
-    createFontainParticleSystem();
+    createFontainParticleSystem();*/
     createFireParticleSystem();
 
     // animation
@@ -93,7 +93,7 @@ void Particles::createWaveParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleKreuzHerzPikKaro.png");
-    particleSystem->setMaxParticleCount(500);
+    particleSystem->setMaxParticleCount(300);
     particleSystem->setTextureTiling(2, 2);
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
@@ -164,14 +164,13 @@ void Particles::createFireParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleFire.png");
-    particleSystem->setMaxParticleCount(500);
+    particleSystem->setMaxParticleCount(200);
     particleSystem->setTextureTiling(4, 4);
     particleSystem->setColorGradient(colors);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setStartVisibleTimeGradient(visibility);
     particleSystem->setStartSizeGradient(startSize);
     particleSystem->setStartVelocityGradient(velocity);
-    particleSystem->setPeriodTime(2.0f);
     particleSystem->setVortexTorque(0.2f, 0.5f);
     particleSystem->setVorticityConfinement(0.05f);
     particleSystem->setVortexRange(10.0f, 15.0f);
@@ -193,9 +192,9 @@ void Particles::createFireParticleSystem()
 void Particles::createFontainParticleSystem()
 {
     iaGradientColor4f colors;
-    colors.setValue(0.0f, iaColor4f(0.0f, 0.8f, 1.0f, 1.0f));
-    colors.setValue(0.5f, iaColor4f(0.0f, 0.2f, 1.0f, 1.0f));
-    colors.setValue(1.0f, iaColor4f(0.0f, 0.0f, 1.0f, 0.0f));
+    colors.setValue(0.0f, iaColor4f(0.0f, 0.2f, 1.0f, 1.0f));
+    colors.setValue(0.5f, iaColor4f(0.0f, 0.8f, 1.0f, 1.0f));
+    colors.setValue(1.0f, iaColor4f(0.0f, 0.8f, 1.0f, 0.0f));
 
     iaGradientVector2f visibility;
     visibility.setValue(0.0f, iaVector2f(4.5f, 5.0f));
@@ -221,7 +220,7 @@ void Particles::createFontainParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleTrail.png");
-    particleSystem->setMaxParticleCount(500);
+    particleSystem->setMaxParticleCount(800);
     particleSystem->setColorGradient(colors);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setStartVisibleTimeGradient(visibility);
@@ -230,7 +229,6 @@ void Particles::createFontainParticleSystem()
     particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setStartLiftGradient(lift);
     particleSystem->setAirDrag(0.985f);
-    particleSystem->setPeriodTime(2.0f);
     getScene()->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
@@ -241,7 +239,7 @@ void Particles::createFontainParticleSystem()
 
     iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     transform->translate(-30, 12, 40);
-    transform->rotate(-0.25 * M_PI, iaAxis::Z);
+    transform->rotate(-0.12 * M_PI, iaAxis::Z);
     transform->insertNode(emitter);
     getScene()->getRoot()->insertNode(transform);
 }
@@ -280,7 +278,6 @@ void Particles::createRingParticleSystem()
     circleParticleSystem->setStartVisibleTimeGradient(visibility);
     circleParticleSystem->setStartSizeGradient(startSize);
     circleParticleSystem->setStartOrientationRateGradient(startOrientationRate);
-    circleParticleSystem->setPeriodTime(4.0f);
     getScene()->getRoot()->insertNode(circleParticleSystem);
     circleParticleSystem->start();
 
@@ -392,7 +389,6 @@ void Particles::createDotParticleSystem()
     particleSystem->setVelocityOriented();
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
-    particleSystem->setPeriodTime(3.0f);
     particleSystem->start();
 
     iaGradientf emission2;
@@ -439,7 +435,6 @@ void Particles::createDotParticleSystem()
     particleSystem2->setStartSizeGradient(size2);
     particleSystem2->setSizeScaleGradient(sizeScale2);
     particleSystem2->setEmissionGradient(emission2);
-    particleSystem2->setPeriodTime(3.0f);
     particleSystem2->start();
 
     iNodeEmitter *dotEmitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
