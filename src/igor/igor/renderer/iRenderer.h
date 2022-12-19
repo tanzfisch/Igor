@@ -245,13 +245,18 @@ namespace igor
         void drawBox(const iAABoxf &box, const iaColor4f &color = iaColor4f::white);
 
         void drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial);
-        void drawBufferPoints(iVertexArrayPtr vertexArray, iTargetMaterialPtr targetMaterial);
+
+        /*! draws buffer with given target material and primitive type
+
+        \param vertexArray the buffer to draw
+        \param primitiveType the given primitive type
+        \param targetMaterial the target material (optional)
+        */
+        void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial = nullptr);
 
         // TODO
         void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer);
 
-        void drawParticles(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient);
-        void drawParticlesVelocityOriented(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient);
         /////////////// LIGHT ///////////
 
         void setLightPosition(int32 lightnum, const iaVector3d &pos);

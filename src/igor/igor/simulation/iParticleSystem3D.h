@@ -665,7 +665,6 @@ namespace igor
         std::deque<iParticle> _particles; // TODO use array!
 
         iVertexBufferPtr _vertexBuffer;
-        iIndexBufferPtr _indexBuffer;
         iVertexArrayPtr _vertexArray;
 
         /*! particle vertex which will be feed in to a geometry shader

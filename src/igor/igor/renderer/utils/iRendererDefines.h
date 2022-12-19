@@ -54,6 +54,132 @@ namespace igor
         ToRenderBuffer
     };
 
+    /*! render primitives definition
+    */
+    enum class iRenderPrimitive
+    {
+        Points,
+        Lines,
+        Triangles
+    };
+
+    /*! prints given data type in the console
+
+    \param stream the stream to log to
+    \param type the data type to print
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderPrimitive &type);    
+
+    /*! render states
+     */
+    enum class iRenderState
+    {
+        DepthTest,
+        DepthMask,
+        Blend,
+        CullFace,
+        Texture2D0, // TODO remove textures from here?
+        Texture2D1,
+        Texture2D2,
+        Texture2D3,
+        Texture2D4,
+        Texture2D5,
+        Texture2D6,
+        Texture2D7,
+        Wireframe,
+        DepthFunc,
+        CullFaceFunc,
+        Instanced,
+        InstancedFunc,
+        RenderStateCount
+    };
+
+    /*! render state values
+
+    Note: not everything maps to OpenGL
+     */
+    enum class iRenderStateValue
+    {
+        Off = 0,
+        On = 1,
+        One,
+        Zero,
+        DestinationColor,
+        OneMinusDestinationColor,
+        SourceAlpha,
+        OneMinusSourceAlpha,
+        DestinationAlpha,
+        OneMinusDestinationAlpha,
+        SourceColor,
+        OneMinusSourceColor,
+        Never,
+        Less,
+        Equal,
+        LessOrEqual,
+        Greater,
+        NotEqual,
+        GreaterOrEqual,
+        Always,
+        Front,
+        Back,
+        Keep,
+        Replace,
+        Increment,
+        IncrementWrap,
+        Decrement,
+        DecrementWrap,
+        Invert,
+        Invalid,
+        PositionOrientation, // this one does not map to ogl
+        Position,             //! \todo not implemented
+    
+        LastEntry
+    };
+
+    /*! shader data type
+     */
+    enum class iShaderDataType
+    {
+        None = 0,
+        Float,
+        Float2,
+        Float3,
+        Float4,
+        Matrix3x3,
+        Matrix4x4,
+        Int,
+        Int2,
+        Int3,
+        Int4,
+        Boolean
+    };
+
+    /*! prints the shader data type in the console
+
+    \param stream the stream to log to
+    \param type the shader data type
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderDataType &type);   
+
+    /*! shader object types
+     */
+    enum class iShaderObjectType
+    {        
+        Vertex,
+        Fragment,
+        Geometry
+    };
+
+    /*! prints the shader object type in the console
+
+    \param stream the stream to log to
+    \param type the shader object type
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderObjectType &type);
+
     /*! the default render target ID
      */
     static const iRenderTargetID DEFAULT_RENDER_TARGET = 0;

@@ -191,6 +191,12 @@ namespace igor
         \param sized if true it returns the sized internal format
         */
         static uint32 convertType(iColorFormat format, bool sized = false);
+
+        /*! \returns openGL render primitive type for given igor type
+
+        \param type the igor render primitive type
+        */
+        static uint32 convertType(iRenderPrimitive type);        
     };
 
 }

@@ -113,16 +113,7 @@ namespace igor
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
 
         _targetMaterial->setVelocityOriented(_particleSystem.getVelocityOriented());
-        /*if (_particleSystem.getVelocityOriented())
-        {
-            iRenderer::getInstance().drawParticlesVelocityOriented(_particleSystem.getParticles(), _textureA, _particleSystem.getColorGradient());
-        }
-        else
-        {
-            iRenderer::getInstance().drawParticles(_particleSystem.getParticles(), _textureA, _particleSystem.getColorGradient());
-        }*/
-
-        iRenderer::getInstance().drawBufferPoints(_particleSystem.getVertexArray(), _targetMaterial);
+        iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _targetMaterial);
     }
 
     void iNodeParticleSystem::setStartVelocityGradient(const iaGradientVector2f &velocityGradient)

@@ -1083,9 +1083,6 @@ namespace igor
         lines._vertexArray->bind();
         glDrawArrays(GL_LINES, 0, lines._vertexCount);
         GL_CHECK_ERROR();
-        lines._vertexArray->unbind();
-
-        _data->_currentMaterial->unbind();
 
         // save stats
         _data->_stats._drawCalls++;
@@ -1114,9 +1111,6 @@ namespace igor
         points._vertexArray->bind();
         glDrawArrays(GL_POINTS, 0, points._vertexCount);
         GL_CHECK_ERROR();
-        points._vertexArray->unbind();
-
-        _data->_currentMaterial->unbind();
 
         // save stats
         _data->_stats._drawCalls++;
@@ -1908,6 +1902,7 @@ namespace igor
         _data->_fallbackTexture = texture;
     }
 
+    // TODO only bind if it changed
     void iRenderer::bindCurrentMaterial()
     {
         _data->_currentMaterial->bind();
@@ -1944,7 +1939,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawBufferPoints(iVertexArrayPtr vertexArray, iTargetMaterialPtr targetMaterial)
+    void iRenderer::drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial)
     {
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
@@ -1957,11 +1952,17 @@ namespace igor
         vertexArray->bind();
 
         const uint32 indexCount = vertexArray->getIndexCount();
-
-        glDrawElements(GL_POINTS, indexCount, GL_UNSIGNED_INT, nullptr);
-        GL_CHECK_ERROR();
-        glBindVertexArray(0);
-        GL_CHECK_ERROR();
+        
+        if (indexCount != 0)
+        {
+            glDrawElements(iRendererUtils::convertType(primitiveType), indexCount, GL_UNSIGNED_INT, nullptr);
+            GL_CHECK_ERROR();
+        }
+        else
+        {
+            glDrawArrays(iRendererUtils::convertType(primitiveType), 0, vertexArray->getVertexCount());
+            GL_CHECK_ERROR();
+        }
 
         // save stats
         _data->_stats._drawCalls++;
@@ -2327,88 +2328,6 @@ namespace igor
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data);
     }
 
-    void iRenderer::drawParticlesVelocityOriented(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient)
-    {
-        /*iaVector3f right;
-        iaVector3f top(_data->_camMatrix._top._x, _data->_camMatrix._top._y, _data->_camMatrix._top._z);
-        iaVector3f depth(_data->_camMatrix._depth._x, _data->_camMatrix._depth._y, _data->_camMatrix._depth._z);
-        iaColor4f color;
-        float32 size;
-
-        iaVector3f rightScale;
-        iaVector3f topScale;
-        iaVector3f direction;
-
-        iaVector2f x(1, 0);
-        iaVector2f y;
-
-        setMaterial(_data->_textureShaderBlend);
-
-        for (auto particle : particles)
-        {
-            if (particle._visible)
-            {
-                size = particle._size * particle._sizeScale;
-
-                gradient.getValue(particle._visibleTime, color);
-
-                direction = particle._velocity;
-                direction.normalize();
-
-                right = direction % depth;
-                top = depth % right;
-
-                right *= size;
-                top *= size;
-
-                x.set(1, 0);
-                x.rotateXY(particle._orientation);
-                y._x = -x._y;
-                y._y = x._x;
-
-                rightScale = right * x._x + top * x._y;
-                topScale = right * y._x + top * y._y;
-
-                const int32 textureIndex = beginTexturedQuad(texture);
-
-                auto &texQuads = _data->_texQuads;
-                texQuads._vertexDataPtr->_pos = particle._position - rightScale + topScale;
-                texQuads._vertexDataPtr->_color = color;
-                texQuads._vertexDataPtr->_texCoord0 = particle._texturefrom;
-                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-                texQuads._vertexDataPtr++;
-
-                texQuads._vertexDataPtr->_pos = particle._position - rightScale - topScale;
-                texQuads._vertexDataPtr->_color = color;
-                texQuads._vertexDataPtr->_texCoord0._x = particle._texturefrom._x;
-                texQuads._vertexDataPtr->_texCoord0._y = particle._textureto._y;
-                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-                texQuads._vertexDataPtr++;
-
-                texQuads._vertexDataPtr->_pos = particle._position + rightScale - topScale;
-                texQuads._vertexDataPtr->_color = color;
-                texQuads._vertexDataPtr->_texCoord0 = particle._textureto;
-                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-                texQuads._vertexDataPtr++;
-
-                texQuads._vertexDataPtr->_pos = particle._position + rightScale + topScale;
-                texQuads._vertexDataPtr->_color = color;
-                texQuads._vertexDataPtr->_texCoord0._x = particle._textureto._x;
-                texQuads._vertexDataPtr->_texCoord0._y = particle._texturefrom._y;
-                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-                texQuads._vertexDataPtr++;
-
-                endTexturedQuad();
-            }
-        }
-
-        // save stats
-        _data->_stats._drawCalls++;
-        // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
-        // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
-        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();*/
-    }
-
     void iRenderer::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
     {
         con_assert(particles != nullptr, "zero pointer");
@@ -2464,104 +2383,6 @@ namespace igor
 
             drawTexturedQuad(a, b, c, d, texture, color, blend);
         }
-    }
-
-    void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient)
-    {
-        /*// orient particles to camera
-        iaVector4f camright;
-        camright.set(_data->_camMatrix._right._x, _data->_camMatrix._right._y, _data->_camMatrix._right._z, 0);
-        iaVector4f camtop;
-        camtop.set(_data->_camMatrix._top._x, _data->_camMatrix._top._y, _data->_camMatrix._top._z, 0);
-        iaMatrixf invModelMatrix = _data->_modelMatrix.convert<float32>();
-        invModelMatrix.invert();
-
-        iaVector4f rightPreComp = invModelMatrix * camright;
-        iaVector4f topPreComp = invModelMatrix * camtop;
-        iaVector3f right;
-        iaVector3f top;
-        iaColor4f color;
-        float32 size;
-
-        iaVector3f rightScale;
-        iaVector3f topScale;
-
-        iaVector2f x(1, 0);
-        iaVector2f y;
-
-        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Particles)
-        {
-            flushLastUsed();
-        }
-
-        bindCurrentMaterial();
-        // TODO writeShaderParameters(targetMaterial);
-
-        for (auto particle : particles)
-        {
-            if (particle._visible)
-            {
-                size = particle._size * particle._sizeScale;
-
-                right._x = rightPreComp._x;
-                right._y = rightPreComp._y;
-                right._z = rightPreComp._z;
-                right *= size;
-                top._x = topPreComp._x;
-                top._y = topPreComp._y;
-                top._z = topPreComp._z;
-                top *= size;
-
-                gradient.getValue(particle._visibleTime, color);
-
-                x.set(1, 0);
-                x.rotateXY(particle._orientation);
-                y._x = -x._y;
-                y._y = x._x;
-
-                rightScale = right * x._x + top * x._y;
-                topScale = right * y._x + top * y._y;
-
-                const int32 textureIndex = beginTexturedQuad(texture);
-
-                auto &texQuads = _data->_texQuads;
-                texQuads._vertexDataPtr->_pos = particle._position - rightScale + topScale;
-                texQuads._vertexDataPtr->_color = color;
-                texQuads._vertexDataPtr->_texCoord0 = particle._texturefrom;
-                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-                texQuads._vertexDataPtr++;
-
-                texQuads._vertexDataPtr->_pos = particle._position - rightScale - topScale;
-                texQuads._vertexDataPtr->_color = color;
-                texQuads._vertexDataPtr->_texCoord0._x = particle._texturefrom._x;
-                texQuads._vertexDataPtr->_texCoord0._y = particle._textureto._y;
-                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-                texQuads._vertexDataPtr++;
-
-                texQuads._vertexDataPtr->_pos = particle._position + rightScale - topScale;
-                texQuads._vertexDataPtr->_color = color;
-                texQuads._vertexDataPtr->_texCoord0 = particle._textureto;
-                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-                texQuads._vertexDataPtr++;
-
-                texQuads._vertexDataPtr->_pos = particle._position + rightScale + topScale;
-                texQuads._vertexDataPtr->_color = color;
-                texQuads._vertexDataPtr->_texCoord0._x = particle._textureto._x;
-                texQuads._vertexDataPtr->_texCoord0._y = particle._texturefrom._y;
-                texQuads._vertexDataPtr->_texIndex0 = textureIndex;
-                texQuads._vertexDataPtr++;
-
-                endTexturedQuad();
-            }
-        }
-
-        // save stats
-        _data->_stats._drawCalls++;
-        // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
-        // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
-        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
-
-        _data->_lastRenderDataSetUsed = iRenderDataSet::Particles;*/
     }
 
     /* TODO

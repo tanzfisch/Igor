@@ -553,22 +553,6 @@ namespace igor
     {
         if (_dirtyBuffers)
         {
-            uint32 *indexData = new uint32[_maxParticleCount * 6];
-
-            for (uint32 i = 0; i < _maxParticleCount; ++i)
-            {
-                indexData[i * 6 + 0] = i * 4 + 0;
-                indexData[i * 6 + 1] = i * 4 + 1;
-                indexData[i * 6 + 2] = i * 4 + 3;
-
-                indexData[i * 6 + 3] = i * 4 + 1;
-                indexData[i * 6 + 4] = i * 4 + 2;
-                indexData[i * 6 + 5] = i * 4 + 3;
-            }
-
-            _indexBuffer = iIndexBuffer::create(_maxParticleCount * 6, indexData);
-            delete[] indexData;
-
             if (_vertexData != nullptr)
             {
                 delete[] _vertexData;
@@ -585,7 +569,6 @@ namespace igor
                     {iShaderDataType::Float4}});
 
             _vertexArray = iVertexArray::create();
-            _vertexArray->setIndexBuffer(_indexBuffer);
             _vertexArray->addVertexBuffer(_vertexBuffer);
 
             _dirtyBuffers = false;

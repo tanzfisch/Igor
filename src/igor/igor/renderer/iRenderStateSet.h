@@ -29,7 +29,7 @@
 #ifndef __IGOR_RENDERERSTATE__
 #define __IGOR_RENDERERSTATE__
 
-#include <igor/iDefines.h>
+#include <igor/renderer/utils/iRendererDefines.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -38,8 +38,6 @@ namespace igor
 {
 
     /*! render state set holds a list of all render states the renderer can process
-
-	\todo alpha test besides blending would be nice to have
 	*/
     class iRenderStateSet
     {

@@ -39,6 +39,22 @@ namespace igor
         return 0;
     }
 
+    uint32 iRendererUtils::convertType(iRenderPrimitive type)
+    {
+        switch(type)
+        {
+            case iRenderPrimitive::Points:
+                return GL_POINTS;
+            case iRenderPrimitive::Lines:
+                return GL_LINES;
+            case iRenderPrimitive::Triangles:
+                return GL_TRIANGLES;
+        }
+
+        con_crit("Unknown render primitive type");
+        return 0;
+    }
+
     uint32 iRendererUtils::getSize(iShaderDataType type)
     {
         switch (type)
@@ -181,4 +197,16 @@ namespace igor
 
         return stream;
     }
+
+    std::wostream &operator<<(std::wostream &stream, const iRenderPrimitive &type)
+    {
+        const static std::wstring text[] = {
+            L"Points",
+            L"Lines",
+            L"Triangles"};
+
+        stream << text[static_cast<int>(type)];
+
+        return stream;
+    } 
 }

@@ -154,7 +154,7 @@ void main() {
 in vec4 Vertex_Color;
 in vec2 Vertex_UV;
 
-layout(location = 0) out vec4 out_color;
+layout (location = 0) out vec4 out_color;
 
 layout (binding = 0) uniform sampler2D igor_matTexture0;
 

@@ -30,7 +30,7 @@
 #ifndef __IGOR_COMPONENT_INFO__
 #define __IGOR_COMPONENT_INFO__
 
-#include <igor/iDefines.h>
+#include <igor/renderer/utils/iRendererDefines.h>
 
 #include <vector>
 
