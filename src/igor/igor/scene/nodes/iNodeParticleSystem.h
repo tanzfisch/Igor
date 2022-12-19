@@ -160,15 +160,15 @@ namespace igor
         \param columns column count (<= 1)
         \param rows row count (<= 1)
         */
-        void setFirstTextureTiling(uint8 columns, uint8 rows);
+        void setTextureTiling(uint32 columns, uint32 rows);
 
         /*! \returns the horizontal tiling resolution of the first texture layer
         */
-        uint8 getFirstTextureColumns() const;
+        uint32 getTextureColumns() const;
 
         /*! \returns the vertical tiling resolution of the first texture layer
         */
-        uint8 getFirstTextureRows() const;
+        uint32 getTextureRows() const;
 
         /*! sets rainbow gradient for particles color
 

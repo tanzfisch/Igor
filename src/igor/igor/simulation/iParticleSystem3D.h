@@ -104,16 +104,9 @@ namespace igor
          */
         bool _visible = true;
 
-        /*! lower left coordinates in first texture layer
-         */
-        iaVector2f _texturefrom;
-
-        /*! upper right coordinates in first texture layer
-         */
-        iaVector2f _textureto;
-
-        iaVector2f _phase0;
-        iaVector2f _phase1;
+        /*! tiling index of this particle
+        */
+        float32 _tilingIndex = 0;
 
         /*! if particle is a vortex particle it will rotate around this axis
          */
@@ -236,15 +229,15 @@ namespace igor
         \param columns column count (<= 1)
         \param rows row count (<= 1)
         */
-        void setFirstTextureTiling(uint8 columns, uint8 rows);
+        void setTextureTiling(uint8 columns, uint8 rows);
 
         /*! \returns the horizontal tiling resolution of the first texture layer
          */
-        uint8 getFirstTextureColumns() const;
+        uint8 getTextureColumns() const;
 
         /*! \returns the vertical tiling resolution of the first texture layer
          */
-        uint8 getFirstTextureRows() const;
+        uint8 getTextureRows() const;
 
         /*! sets the rotation per frame of the second texture
 
@@ -691,9 +684,9 @@ namespace igor
              */
             iaColor4f _color;
 
-            /*! time alive in seconds, individual base size before scaled and current angle of particle
+            /*! time alive in seconds, individual base size before scaled, current angle of particle and tiling index
              */
-            iaVector3f _lifeSizeAngle;
+            iaVector4f _lifeSizeAngleTilingIndex;
         };
 
         iParticleVertex *_vertexData = nullptr;

@@ -105,7 +105,7 @@ namespace igor
     {
         handle();
 
-        if(_particleSystem.getVertexArray() == nullptr)
+        if (_particleSystem.getVertexArray() == nullptr)
         {
             return;
         }
@@ -118,7 +118,7 @@ namespace igor
         else
         {
             iRenderer::getInstance().drawParticles(_particleSystem.getParticles(), _textureA, _particleSystem.getColorGradient());
-        }*/        
+        }*/
 
         iRenderer::getInstance().drawBufferPoints(_particleSystem.getVertexArray(), _targetMaterial);
     }
@@ -396,18 +396,19 @@ namespace igor
         return _particleSystem.getVelocityOriented();
     }
 
-    void iNodeParticleSystem::setFirstTextureTiling(uint8 columns, uint8 rows)
+    void iNodeParticleSystem::setTextureTiling(uint32 columns, uint32 rows)
     {
-        _particleSystem.setFirstTextureTiling(columns, rows);
+        _particleSystem.setTextureTiling(columns, rows);
+        _targetMaterial->setTilingConfig(iaVector2f(static_cast<float32>(columns), static_cast<float32>(rows)));
     }
 
-    uint8 iNodeParticleSystem::getFirstTextureColumns() const
+    uint32 iNodeParticleSystem::getTextureColumns() const
     {
-        return _particleSystem.getFirstTextureColumns();
+        return _particleSystem.getTextureColumns();
     }
 
-    uint8 iNodeParticleSystem::getFirstTextureRows() const
+    uint32 iNodeParticleSystem::getTextureRows() const
     {
-        return _particleSystem.getFirstTextureRows();
+        return _particleSystem.getTextureRows();
     }
 } // namespace igor

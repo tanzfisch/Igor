@@ -13,13 +13,13 @@ namespace igor
     class iTargetMaterialDeleter
     {
     public:
-        void operator()(iTargetMaterial * p) { delete p; }
+        void operator()(iTargetMaterial *p) { delete p; }
     };
 
     iTargetMaterialPtr iTargetMaterial::create()
     {
         return std::shared_ptr<iTargetMaterial>(new iTargetMaterial(), iTargetMaterialDeleter());
-    }    
+    }
 
     iTargetMaterial::iTargetMaterial()
     {
@@ -29,10 +29,21 @@ namespace igor
         _specular.set(0.6f, 0.6f, 0.6f);
         _shininess = 5.0f;
         _alpha = 1.0f;
+        _tilingConfig.set(1.0, 1.0);
     }
 
     iTargetMaterial::~iTargetMaterial()
     {
+    }
+
+    void iTargetMaterial::setTilingConfig(const iaVector2f &tiling)
+    {
+        _tilingConfig = tiling;
+    }
+
+    const iaVector2f &iTargetMaterial::getTilingConfig() const
+    {
+        return _tilingConfig;
     }
 
     void iTargetMaterial::clearTextures()
@@ -40,7 +51,7 @@ namespace igor
         _textures.clear();
     }
 
-    const std::vector<iTexturePtr>& iTargetMaterial::getTextures() const
+    const std::vector<iTexturePtr> &iTargetMaterial::getTextures() const
     {
         return _textures;
     }

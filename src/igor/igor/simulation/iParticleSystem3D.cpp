@@ -104,7 +104,7 @@ namespace igor
         emissionGradient = _emissionRateGradient;
     }
 
-    void iParticleSystem3D::setFirstTextureTiling(uint8 columns, uint8 rows)
+    void iParticleSystem3D::setTextureTiling(uint8 columns, uint8 rows)
     {
         con_assert(columns > 0 && rows > 0, "out of range");
 
@@ -115,12 +115,12 @@ namespace igor
         }
     }
 
-    uint8 iParticleSystem3D::getFirstTextureColumns() const
+    uint8 iParticleSystem3D::getTextureColumns() const
     {
         return _firstTextureColumns;
     }
 
-    uint8 iParticleSystem3D::getFirstTextureRows() const
+    uint8 iParticleSystem3D::getTextureRows() const
     {
         return _firstTextureRows;
     }
@@ -310,24 +310,12 @@ namespace igor
 
         if (_firstTextureColumns == 1 && _firstTextureRows == 1)
         {
-            particle._texturefrom.set(0, 0);
-            particle._textureto.set(1, 1);
+            particle._tilingIndex = 0.0f;
         }
         else
         {
-            uint8 col = static_cast<uint8>(_rand.getNext()) % _firstTextureColumns;
-            uint8 row = static_cast<uint8>(_rand.getNext()) % _firstTextureRows;
-
-            float32 width = 1.0f / static_cast<float32>(_firstTextureColumns);
-            float32 height = 1.0f / static_cast<float32>(_firstTextureRows);
-
-            particle._texturefrom.set(col * static_cast<float32>(width), row * static_cast<float32>(height));
-            particle._textureto._x = particle._texturefrom._x + width;
-            particle._textureto._y = particle._texturefrom._y + width;
+            particle._tilingIndex = static_cast<float32>(_rand.getNext() % (_firstTextureColumns * _firstTextureRows));
         }
-
-        particle._phase0.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
-        particle._phase1.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
     }
 
     void iParticleSystem3D::setVortexToParticleRate(float32 rate)
@@ -450,9 +438,6 @@ namespace igor
                 particle._orientation += particle._orientationRate;
 
                 particle._sizeScale = sizeScale;
-
-                particle._phase0.rotateXY(_octave1Rotation);
-                particle._phase1.rotateXY(_octave2Rotation);
 
                 particle._visibleTime += particle._visibleTimeIncrease;
                 if (particle._visibleTime > 1.0f)
@@ -597,7 +582,7 @@ namespace igor
                     {iShaderDataType::Float3},
                     {iShaderDataType::Float3},
                     {iShaderDataType::Float4},
-                    {iShaderDataType::Float3}});
+                    {iShaderDataType::Float4}});
 
             _vertexArray = iVertexArray::create();
             _vertexArray->setIndexBuffer(_indexBuffer);
@@ -614,10 +599,11 @@ namespace igor
             vertexDataPtr->_position = particle._position;
             _colorGradient.getValue(particle._visibleTime, vertexDataPtr->_color);
             vertexDataPtr->_velocity = particle._velocity;
-            vertexDataPtr->_lifeSizeAngle.set(
+            vertexDataPtr->_lifeSizeAngleTilingIndex.set(
                 particle._life,
                 particle._size,
-                particle._orientation);
+                particle._orientation,
+                particle._tilingIndex);
 
             vertexDataPtr++;
         }

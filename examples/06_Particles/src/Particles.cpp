@@ -94,7 +94,7 @@ void Particles::createWaveParticleSystem()
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleKreuzHerzPikKaro.png");
     particleSystem->setMaxParticleCount(500);
-    particleSystem->setFirstTextureTiling(2, 2);
+    particleSystem->setTextureTiling(2, 2);
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setStartOrientationGradient(startOrientation);
@@ -165,7 +165,7 @@ void Particles::createFireParticleSystem()
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleFire.png");
     particleSystem->setMaxParticleCount(500);
-    particleSystem->setFirstTextureTiling(4, 4);
+    particleSystem->setTextureTiling(4, 4);
     particleSystem->setColorGradient(colors);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setStartVisibleTimeGradient(visibility);

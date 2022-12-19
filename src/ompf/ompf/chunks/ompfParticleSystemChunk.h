@@ -162,15 +162,15 @@ namespace OMPF
         \param columns column count (<= 1)
         \param rows row count (<= 1)
         */
-        void setFirstTextureTiling(uint8 columns, uint8 rows);
+        void setTextureTiling(uint8 columns, uint8 rows);
 
         /*! \returns the horizontal tiling resolution of the first texture layer
         */
-        uint8 getFirstTextureColumns() const;
+        uint8 getTextureColumns() const;
 
         /*! \returns the vertical tiling resolution of the first texture layer
         */
-        uint8 getFirstTextureRows() const;
+        uint8 getTextureRows() const;
 
         /*! sets visible gradient for particles per frame
 

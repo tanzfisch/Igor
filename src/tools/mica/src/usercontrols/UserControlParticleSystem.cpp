@@ -66,7 +66,7 @@ void UserControlParticleSystem::updateNode()
             node->setVortexToParticleRate(_vortexToParticleRateChooser->getValue() / 100.0f);
             node->setVortexTorque(_vortexTorqueMinChooser->getValue(), _vortexTorqueMaxChooser->getValue());
             node->setVortexRange(_vortexRangeMinChooser->getValue(), _vortexRangeMaxChooser->getValue());
-            node->setFirstTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
+            node->setTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
             node->setColorGradient(_colorGradient->getGradient());
 
             iaGradientVector2f startSizeGradient;
@@ -197,8 +197,8 @@ void UserControlParticleSystem::updateGUI()
         _vortexTorqueMaxChooser->setValue(node->getVortexTorqueMax());
         _vortexRangeMinChooser->setValue(node->getVortexRangeMin());
         _vortexRangeMaxChooser->setValue(node->getVortexRangeMax());
-        _tilingHorizontalChooser->setValue(node->getFirstTextureColumns());
-        _tilingVerticalChooser->setValue(node->getFirstTextureRows());
+        _tilingHorizontalChooser->setValue(node->getTextureColumns());
+        _tilingVerticalChooser->setValue(node->getTextureRows());
 
         iaGradientColor4f gradient;
         node->getColorGradient(gradient);

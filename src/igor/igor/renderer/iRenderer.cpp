@@ -2032,6 +2032,11 @@ namespace igor
                 _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
             }
 
+            if (_data->_currentMaterial->hasTilingConfig())
+            {
+                _data->_currentMaterial->setFloat2(UNIFORM_TILING_CONFIG, targetMaterial->getTilingConfig());
+            }
+
             uint32 texUnit = 0;
             for (const auto &texture : targetMaterial->getTextures())
             {
@@ -2080,19 +2085,19 @@ namespace igor
             {
                 modelView[i] = _data->_modelViewMatrix[i];
             }
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW, modelView);            
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW, modelView);
         }
 
         if (_data->_currentMaterial->hasViewProjectionMatrix())
         {
-            iaMatrixd vpd =_data->_projectionMatrix * _data->_viewMatrix;
+            iaMatrixd vpd = _data->_projectionMatrix * _data->_viewMatrix;
             iaMatrixf viewProjection;
 
             for (int i = 0; i < 16; ++i)
             {
                 viewProjection[i] = vpd[i];
             }
-            _data->_currentMaterial->setMatrix(UNIFORM_VIEW_PROJECTION, viewProjection);            
+            _data->_currentMaterial->setMatrix(UNIFORM_VIEW_PROJECTION, viewProjection);
         }
 
         if (_data->_currentMaterial->hasModelMatrix())
@@ -2319,7 +2324,7 @@ namespace igor
 
     void iRenderer::drawParticlesVelocityOriented(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient)
     {
-        iaVector3f right;
+        /*iaVector3f right;
         iaVector3f top(_data->_camMatrix._top._x, _data->_camMatrix._top._y, _data->_camMatrix._top._z);
         iaVector3f depth(_data->_camMatrix._depth._x, _data->_camMatrix._depth._y, _data->_camMatrix._depth._z);
         iaColor4f color;
@@ -2396,7 +2401,7 @@ namespace igor
         _data->_stats._drawCalls++;
         // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
         // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
-        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
+        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();*/
     }
 
     void iRenderer::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
@@ -2458,7 +2463,7 @@ namespace igor
 
     void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iTexturePtr &texture, const iaGradientColor4f &gradient)
     {
-        // orient particles to camera
+        /*// orient particles to camera
         iaVector4f camright;
         camright.set(_data->_camMatrix._right._x, _data->_camMatrix._right._y, _data->_camMatrix._right._z, 0);
         iaVector4f camtop;
@@ -2551,7 +2556,7 @@ namespace igor
         // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
         // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
 
-        _data->_lastRenderDataSetUsed = iRenderDataSet::Particles;
+        _data->_lastRenderDataSetUsed = iRenderDataSet::Particles;*/
     }
 
     /* TODO

@@ -164,6 +164,10 @@ namespace igor
          */
         bool hasSolidColor() const;
 
+        /*! \returns true if shader contains tiling property
+         */
+        bool hasTilingConfig() const;
+
         /*! \returns true if gien texture unit is used
 
         \param texUnit the given texture unit
@@ -228,6 +232,10 @@ namespace igor
         /*! if true shader contains solid color property
          */
         bool _hasSolidColor = false;
+
+        /*! if true shader understands the tiling property
+        */
+        bool _hasTilingConfig = false;
 
         /*! list of avail able texture units in shader
          */

@@ -76,6 +76,16 @@ namespace igor
         */
         void clearTextures();
 
+        /*! sets the tiling configuration that can be use in a shader
+
+        \param tiling column and row count of tiles
+        */
+        void setTilingConfig(const iaVector2f& tiling);
+
+        /*! \returns tiling config
+        */
+        const iaVector2f& getTilingConfig() const;
+
         /*! \returns true if mesh has textures and texture coordinates
         */
         bool hasTextures() const;
@@ -166,6 +176,10 @@ namespace igor
         /*! alpha value
 		*/
         float32 _alpha;
+
+        /*! tiling config
+        */
+        iaVector2f _tilingConfig;
 
         /*! initializes members
         */

@@ -317,7 +317,7 @@ namespace igor
         particleSystemNode->setVortexTorque(particleSystemChunk->getVortexTorqueMin(), particleSystemChunk->getVortexTorqueMax());
         particleSystemNode->setVortexRange(particleSystemChunk->getVortexRangeMin(), particleSystemChunk->getVortexRangeMax());
         particleSystemNode->setVortexCheckRange(particleSystemChunk->getVortexCheckRange());
-        particleSystemNode->setFirstTextureTiling(particleSystemChunk->getFirstTextureColumns(), particleSystemChunk->getFirstTextureRows());
+        particleSystemNode->setTextureTiling(particleSystemChunk->getTextureColumns(), particleSystemChunk->getTextureRows());
 
         iaGradientVector2f startSizeGradient;
         particleSystemChunk->getStartSizeGradient(startSizeGradient);
@@ -688,7 +688,7 @@ namespace igor
         result->setVortexTorque(node->getVortexTorqueMin(), node->getVortexTorqueMax());
         result->setVortexRange(node->getVortexRangeMin(), node->getVortexRangeMax());
         result->setVortexCheckRange(node->getVortexCheckRange());
-        result->setFirstTextureTiling(node->getFirstTextureColumns(), node->getFirstTextureRows());
+        result->setTextureTiling(node->getTextureColumns(), node->getTextureRows());
 
         iaGradientVector2f startSizeGradient;
         node->getStartSizeGradient(startSizeGradient);

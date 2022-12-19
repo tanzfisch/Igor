@@ -139,6 +139,7 @@ namespace igor
     static constexpr const char *UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
     static constexpr const char *UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
     static constexpr const char *UNIFORM_MATERIAL_ALPHA = "igor_matAlpha";
+    static constexpr const char *UNIFORM_TILING_CONFIG = "igor_tilingConfig";
 
     static constexpr const char *SAMPLER_TEXTURE = "igor_matTexture";
     static constexpr const char *SAMPLER_TEXTURE0 = "igor_matTexture0";

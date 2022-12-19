@@ -36,18 +36,18 @@ namespace OMPF
         return _loop;
     }
 
-    void ompfParticleSystemChunk::setFirstTextureTiling(uint8 columns, uint8 rows)
+    void ompfParticleSystemChunk::setTextureTiling(uint8 columns, uint8 rows)
     {
         _firstTectureTilingColumns = columns;
         _firstTectureTilingRows = rows;
     }
 
-    uint8 ompfParticleSystemChunk::getFirstTextureColumns() const
+    uint8 ompfParticleSystemChunk::getTextureColumns() const
     {
         return _firstTectureTilingColumns;
     }
 
-    uint8 ompfParticleSystemChunk::getFirstTextureRows() const
+    uint8 ompfParticleSystemChunk::getTextureRows() const
     {
         return _firstTectureTilingRows;
     }

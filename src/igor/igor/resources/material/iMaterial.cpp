@@ -92,6 +92,11 @@ namespace igor
         {
             _hasViewProjectionMatrix = true;
         }           
+          
+        if (_shaderProgram->hasUniformLocation(UNIFORM_TILING_CONFIG))
+        {
+            _hasTilingConfig = true;
+        } 
 
         if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL))
         {
@@ -159,6 +164,11 @@ namespace igor
     bool iMaterial::hasSolidColor() const
     {
         return _hasSolidColor;
+    }
+
+    bool iMaterial::hasTilingConfig() const
+    {
+        return _hasTilingConfig;
     }
 
     bool iMaterial::hasTextureUnit(uint32 texUnit) const
