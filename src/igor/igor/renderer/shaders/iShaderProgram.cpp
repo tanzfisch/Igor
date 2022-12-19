@@ -47,13 +47,12 @@ namespace igor
             file.read(fileSize, buffer);
             file.close();
 
-            if (addSource(buffer, type))
-            {
-                _sources.push_back(file.getFullFileName());
+            if (addSource(buffer, type, file.getFullFileName()))
+            {                
                 con_info("loaded " << type << " shader \"" << file.getFullFileName() << "\"");
             }
             else
-            {
+            {                
                 con_err("can't load shader source from " << filename);
             }
 
@@ -65,7 +64,7 @@ namespace igor
         }
     }
 
-    bool iShaderProgram::addSource(const char *source, iShaderObjectType type)
+    bool iShaderProgram::addSource(const char *source, iShaderObjectType type, const iaString &sourceName)
     {
         int32 shaderObject = glCreateShader(iRendererUtils::convertType(type));
         GL_CHECK_ERROR();
@@ -100,6 +99,7 @@ namespace igor
         }
 
         _shaderObjects.push_back(shaderObject);
+        _sources.push_back(sourceName);
 
         return true;
     }

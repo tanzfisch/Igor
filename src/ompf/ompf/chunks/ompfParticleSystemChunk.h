@@ -65,7 +65,7 @@ namespace OMPF
 
         /*! \returns true if particle system runs in loop
         */
-        bool getLoop() const;
+        bool isLooped() const;
 
         /*! sets rainbow gradient for particles color
 

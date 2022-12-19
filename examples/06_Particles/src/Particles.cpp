@@ -50,13 +50,8 @@ void Particles::onInit()
     getView().setCurrentCamera(camera->getID());
 
     // set up a meterial for the particles
-    _particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial("Particles Material");
-    _particlesMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    _particlesMaterial->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-    _particlesMaterial->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    _particlesMaterial->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
-    _particlesMaterial->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
-    _particlesMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/particles.mat");
+    // _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/default.mat");
 
     // create the various particle systems
     createWaveParticleSystem();
@@ -98,6 +93,7 @@ void Particles::createWaveParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleKreuzHerzPikKaro.png");
+    particleSystem->setMaxParticleCount(500);
     particleSystem->setFirstTextureTiling(2, 2);
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
@@ -168,6 +164,7 @@ void Particles::createFireParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleFire.png");
+    particleSystem->setMaxParticleCount(500);
     particleSystem->setFirstTextureTiling(4, 4);
     particleSystem->setColorGradient(colors);
     particleSystem->setEmissionGradient(emission);
@@ -224,6 +221,7 @@ void Particles::createFontainParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleTrail.png");
+    particleSystem->setMaxParticleCount(500);
     particleSystem->setColorGradient(colors);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setStartVisibleTimeGradient(visibility);
@@ -335,6 +333,7 @@ void Particles::createSmokeParticleSystem()
     particleSystem->setTextureA("particleDot.png");
     particleSystem->setTextureB("octave1.png");
     particleSystem->setTextureC("octave2.png");
+    particleSystem->setMaxParticleCount(500);
     particleSystem->setVortexTorque(0.5f, 0.7f);
     particleSystem->setStartOrientationGradient(startOrientation);
     particleSystem->setStartOrientationRateGradient(startOrientationRate);
@@ -386,6 +385,7 @@ void Particles::createDotParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleTrail.png");
+    particleSystem->setMaxParticleCount(500);
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setStartVisibleTimeGradient(visibility);
@@ -430,6 +430,7 @@ void Particles::createDotParticleSystem()
     particleSystem2->setTextureA("particleFlame.png");
     particleSystem2->setTextureB("octave1.png");
     particleSystem2->setTextureC("octave2.png");
+    particleSystem->setMaxParticleCount(500);
     particleSystem2->setColorGradient(colorGradient2);
     particleSystem2->setStartVelocityGradient(velocity2);
     particleSystem2->setStartVisibleTimeGradient(visibility2);

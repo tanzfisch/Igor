@@ -83,6 +83,16 @@ namespace igor
             _hasModelViewProjectionMatrix = true;
         }
 
+        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL_VIEW))
+        {
+            _hasModelViewMatrix = true;
+        }        
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_VIEW_PROJECTION))
+        {
+            _hasViewProjectionMatrix = true;
+        }           
+
         if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL))
         {
             _hasModelMatrix = true;
@@ -125,6 +135,16 @@ namespace igor
     {
         return _hasModelViewProjectionMatrix;
     }
+
+    bool iMaterial::hasModelViewMatrix() const
+    {
+        return _hasModelViewMatrix;
+    }
+
+    bool iMaterial::hasViewProjectionMatrix() const
+    {
+        return _hasViewProjectionMatrix;
+    }    
 
     bool iMaterial::hasModelMatrix() const
     {

@@ -49,30 +49,6 @@ namespace igor
         float32 _texIndex0;
     };
 
-    // textured vertex definition with two textures
-    struct iTexturedVertex2
-    {
-        iaVector3f _pos;
-        iaColor4f _color;
-        iaVector2f _texCoord0;
-        float32 _texIndex0;
-        iaVector2f _texCoord1;
-        float32 _texIndex1;
-    };
-
-    // textured vertex definition with three textures
-    struct iTexturedVertex3
-    {
-        iaVector3f _pos;
-        iaColor4f _color;
-        iaVector2f _texCoord0;
-        float32 _texIndex0;
-        iaVector2f _texCoord1;
-        float32 _texIndex1;
-        iaVector2f _texCoord2;
-        float32 _texIndex2;
-    };
-
     /// data to render points
     struct iRenderDataPoints
     {
@@ -260,7 +236,8 @@ namespace igor
         Triangles,
         Quads,
         TexturedQuads,
-        Mesh
+        Buffer,
+        Particles // 3d particles
     };
 
     /*! internal structure for handling lights
@@ -1740,6 +1717,8 @@ namespace igor
 
     void iRenderer::setMaterial(const iMaterialPtr &material)
     {
+        con_assert(material != nullptr, "invalid material");
+
         if (_data->_currentMaterial == material)
         {
             return;
@@ -1941,7 +1920,7 @@ namespace igor
 
     void iRenderer::drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial)
     {
-        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Mesh)
+        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
             flushLastUsed();
         }
@@ -1962,7 +1941,35 @@ namespace igor
         _data->_stats._indices += mesh->getIndexCount();
         _data->_stats._triangles += mesh->getTrianglesCount();
 
-        _data->_lastRenderDataSetUsed = iRenderDataSet::Mesh;
+        _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
+    }
+
+    void iRenderer::drawBufferPoints(iVertexArrayPtr vertexArray, iTargetMaterialPtr targetMaterial)
+    {
+        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
+        {
+            flushLastUsed();
+        }
+
+        bindCurrentMaterial();
+        writeShaderParameters(targetMaterial);
+
+        vertexArray->bind();
+
+        const uint32 indexCount = vertexArray->getIndexCount();
+
+        glDrawElements(GL_POINTS, indexCount, GL_UNSIGNED_INT, nullptr);
+        GL_CHECK_ERROR();
+        glBindVertexArray(0);
+        GL_CHECK_ERROR();
+
+        // save stats
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += vertexArray->getVertexCount();
+        _data->_stats._indices += indexCount;
+        _data->_stats._triangles += vertexArray->getVertexCount() / 3; // TODO this is just an estimate
+
+        _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
     void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
@@ -2066,6 +2073,28 @@ namespace igor
             _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
         }
 
+        if (_data->_currentMaterial->hasModelViewMatrix())
+        {
+            iaMatrixf modelView;
+            for (int i = 0; i < 16; ++i)
+            {
+                modelView[i] = _data->_modelViewMatrix[i];
+            }
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW, modelView);            
+        }
+
+        if (_data->_currentMaterial->hasViewProjectionMatrix())
+        {
+            iaMatrixd vpd =_data->_projectionMatrix * _data->_viewMatrix;
+            iaMatrixf viewProjection;
+
+            for (int i = 0; i < 16; ++i)
+            {
+                viewProjection[i] = vpd[i];
+            }
+            _data->_currentMaterial->setMatrix(UNIFORM_VIEW_PROJECTION, viewProjection);            
+        }
+
         if (_data->_currentMaterial->hasModelMatrix())
         {
             iaMatrixf model;
@@ -2151,83 +2180,9 @@ namespace igor
         }*/
     }
 
-    void iRenderer::initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers)
-    {
-        /*uint32 vao = 0;
-        uint32 ibo = 0;
-        uint32 vbo = 0;
-
-        glGenVertexArrays(1, (GLuint *)&vao);
-
-        meshBuffers->setVertexArrayObject(vao);
-        glBindVertexArray(meshBuffers->getVertexArrayObject());
-
-        if (mesh->getIndexData() != nullptr)
-        {
-            glGenBuffers(1, (GLuint *)&ibo);
-
-            meshBuffers->setIndexBufferObject(ibo);
-
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshBuffers->getIndexBufferObject());
-
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->getIndexDataSize(), mesh->getIndexData(), GL_STATIC_DRAW);
-        }
-
-        glGenBuffers(1, (GLuint *)&vbo);
-
-        meshBuffers->setVertexBufferObject(vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, meshBuffers->getVertexBufferObject());
-
-        glBufferData(GL_ARRAY_BUFFER, mesh->getVertexDataSize(), mesh->getVertexData(), GL_STATIC_DRAW);
-
-        uint32 location = 0;
-        uint32 offset = 0;
-
-        glEnableVertexAttribArray(0);
-
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
-
-        offset += 3 * sizeof(float32);
-
-        if (mesh->hasNormals())
-        {
-            glEnableVertexAttribArray(1);
-
-            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
-
-            offset += 3 * sizeof(float32);
-        }
-
-        for (int i = 0; i < 4; ++i)
-        {
-            if (mesh->hasTextureUnit(i))
-            {
-                glEnableVertexAttribArray(2 + i);
-
-                glVertexAttribPointer(2 + i, 2, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
-
-                offset += 2 * sizeof(float32);
-            }
-        }
-
-        meshBuffers->setIndexesCount(mesh->getIndexesCount());
-        meshBuffers->setTrianglesCount(mesh->getTrianglesCount());
-        meshBuffers->setVertexCount(mesh->getVertexCount());
-
-        meshBuffers->setReady();*/
-    }
-
-    // TODO remove
-    void iRenderer::destroyBuffer(uint32 bufferID)
-    {
-        if (glIsBuffer(bufferID))
-        {
-            glDeleteBuffers(1, (GLuint *)&bufferID);
-        }
-    }
-
     void iRenderer::setColorID(uint64 colorID)
     {
+        // TODO
         /*if (!_currentMaterial->hasSolidColor())
         {
             return;
@@ -2434,30 +2389,6 @@ namespace igor
                 texQuads._vertexDataPtr++;
 
                 endTexturedQuad();
-
-                /*glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
-                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
-
-                glVertex3fv((particle._position - rightScale + topScale).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._textureto._y);
-                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 0 + particle._phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 0 + particle._phase1[1]);
-
-                glVertex3fv((particle._position - rightScale - topScale).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, particle._textureto._x, particle._textureto._y);
-                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 0 + particle._phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 0 + particle._phase1[1]);
-
-                glVertex3fv((particle._position + rightScale - topScale).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, particle._textureto._x, particle._texturefrom._y);
-                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 1 + particle._phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
-
-                glVertex3fv((particle._position + rightScale + topScale).getData());*/
             }
         }
 
@@ -2548,7 +2479,13 @@ namespace igor
         iaVector2f x(1, 0);
         iaVector2f y;
 
-        setMaterial(_data->_textureShaderBlend);
+        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Particles)
+        {
+            flushLastUsed();
+        }
+
+        bindCurrentMaterial();
+        // TODO writeShaderParameters(targetMaterial);
 
         for (auto particle : particles)
         {
@@ -2605,30 +2542,6 @@ namespace igor
                 texQuads._vertexDataPtr++;
 
                 endTexturedQuad();
-
-                /*glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
-                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
-
-                glVertex3fv((particle._position - rightScale + topScale).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._textureto._y);
-                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 0 + particle._phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 0 + particle._phase1[1]);
-
-                glVertex3fv((particle._position - rightScale - topScale).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, particle._textureto._x, particle._textureto._y);
-                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 0 + particle._phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 0 + particle._phase1[1]);
-
-                glVertex3fv((particle._position + rightScale - topScale).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, particle._textureto._x, particle._texturefrom._y);
-                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 1 + particle._phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
-
-                glVertex3fv((particle._position + rightScale + topScale).getData());*/
             }
         }
 
@@ -2637,6 +2550,8 @@ namespace igor
         // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
         // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
         // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
+
+        _data->_lastRenderDataSetUsed = iRenderDataSet::Particles;
     }
 
     /* TODO

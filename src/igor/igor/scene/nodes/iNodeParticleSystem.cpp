@@ -21,6 +21,8 @@ namespace igor
         setName(L"iNodeParticleSystem");
         _nodeType = iNodeType::iNodeParticleSystem;
         _nodeKind = iNodeKind::Volume;
+
+        _targetMaterial = iTargetMaterial::create();
     }
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem *node)
@@ -33,10 +35,8 @@ namespace igor
         setName(node->getName());
 
         _particleSystem = node->_particleSystem;
+        _targetMaterial = node->_targetMaterial;
 
-        setTextureA(node->getTextureA());
-        setTextureB(node->getTextureB());
-        setTextureC(node->getTextureC());
         setMaterial(node->getMaterial());
         setEmitter(node->getEmitter());
     }
@@ -91,7 +91,7 @@ namespace igor
         iNodeEmitter *emitter = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(_emitterID));
         if (emitter != nullptr)
         {
-            _particleSystem.calcNextFrame(emitter->getParticleEmitter());
+            _particleSystem.onUpdate(emitter->getParticleEmitter());
             setBoundingBox(_particleSystem.getBoundingBox());
         }
 
@@ -105,15 +105,22 @@ namespace igor
     {
         handle();
 
-        iRenderer::getInstance().setModelMatrix(_worldMatrix);
-        if (_particleSystem.getVelocityOriented())
+        if(_particleSystem.getVertexArray() == nullptr)
         {
-             iRenderer::getInstance().drawParticlesVelocityOriented(_particleSystem.getCurrentFrame(), _textureA, _particleSystem.getColorGradient());
+            return;
+        }
+
+        iRenderer::getInstance().setModelMatrix(_worldMatrix);
+        /*if (_particleSystem.getVelocityOriented())
+        {
+            iRenderer::getInstance().drawParticlesVelocityOriented(_particleSystem.getParticles(), _textureA, _particleSystem.getColorGradient());
         }
         else
         {
-            iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _textureA, _particleSystem.getColorGradient());
-        }
+            iRenderer::getInstance().drawParticles(_particleSystem.getParticles(), _textureA, _particleSystem.getColorGradient());
+        }*/        
+
+        iRenderer::getInstance().drawBufferPoints(_particleSystem.getVertexArray(), _targetMaterial);
     }
 
     void iNodeParticleSystem::setStartVelocityGradient(const iaGradientVector2f &velocityGradient)
@@ -163,9 +170,9 @@ namespace igor
         _particleSystem.setLoop(loop);
     }
 
-    bool iNodeParticleSystem::getLoop() const
+    bool iNodeParticleSystem::isLooped() const
     {
-        return _particleSystem.getLoop();
+        return _particleSystem.isLooped();
     }
 
     void iNodeParticleSystem::setPeriodTime(float32 periodTime)
@@ -289,30 +296,18 @@ namespace igor
     iaString iNodeParticleSystem::getTextureA() const
     {
         iaString result;
-        if (_textureA != nullptr)
-        {
-            result = _textureA->getFilename();
-        }
         return result;
     }
 
     iaString iNodeParticleSystem::getTextureB() const
     {
         iaString result;
-        if (_textureB != nullptr)
-        {
-            result = _textureB->getFilename();
-        }
         return result;
     }
 
     iaString iNodeParticleSystem::getTextureC() const
     {
         iaString result;
-        if (_textureC != nullptr)
-        {
-            result = _textureC->getFilename();
-        }
         return result;
     }
 
@@ -338,17 +333,17 @@ namespace igor
 
     void iNodeParticleSystem::setTextureA(const iaString &texture)
     {
-        _textureA = iTextureResourceFactory::getInstance().requestFile(texture);
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().requestFile(texture));
     }
 
     void iNodeParticleSystem::setTextureB(const iaString &texture)
     {
-        _textureB = iTextureResourceFactory::getInstance().requestFile(texture);
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().requestFile(texture));
     }
 
     void iNodeParticleSystem::setTextureC(const iaString &texture)
     {
-        _textureC = iTextureResourceFactory::getInstance().requestFile(texture);
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().requestFile(texture));
     }
 
     void iNodeParticleSystem::setEmissionGradient(const iaGradientf &emissionGradient)

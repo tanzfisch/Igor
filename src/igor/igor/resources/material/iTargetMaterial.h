@@ -72,6 +72,10 @@ namespace igor
         */
         const std::vector<iTexturePtr>& getTextures() const;
 
+        /*! removes all textures
+        */
+        void clearTextures();
+
         /*! \returns true if mesh has textures and texture coordinates
         */
         bool hasTextures() const;

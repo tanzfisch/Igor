@@ -17,7 +17,6 @@ using namespace iaux;
 
 namespace igor
 {
-
     float32 iParticleSystem3D::_simulationRate = 60.0f;
 
     iParticleSystem3D::iParticleSystem3D()
@@ -225,7 +224,14 @@ namespace igor
 
     void iParticleSystem3D::setMaxParticleCount(uint16 max)
     {
+        if (_maxParticleCount == max)
+        {
+            return;
+        }
+
         _maxParticleCount = max;
+        _dirtyBuffers = true;
+        _mustReset = true;
     }
 
     uint16 iParticleSystem3D::getMaxParticleCount() const
@@ -367,7 +373,7 @@ namespace igor
         }
     }
 
-    const std::deque<iParticle> &iParticleSystem3D::getCurrentFrame() const
+    const std::deque<iParticle> &iParticleSystem3D::getParticles() const
     {
         return _particles;
     }
@@ -410,12 +416,102 @@ namespace igor
         _mustReset = true;
     }
 
-    bool iParticleSystem3D::getLoop() const
+    bool iParticleSystem3D::isLooped() const
     {
         return _loop;
     }
 
-    void iParticleSystem3D::calcNextFrame(iParticleEmitter &emitter)
+    void iParticleSystem3D::iterateFrame()
+    {
+        float32 sizeScale = 0;
+        uint64 index = 0;
+        float32 torqueFactor = 0;
+        uint32 startIndex;
+        uint32 endIndex;
+
+        auto particleIter = _particles.begin();
+        while (particleIter != _particles.end())
+        {
+            iParticle &particle = (*particleIter);
+
+            particle._life -= 1.0f / _simulationRate;
+            if (particle._life <= 0)
+            {
+                particleIter = _particles.erase(particleIter);
+            }
+            else
+            {
+                _sizeScaleGradient.getValue(particle._visibleTime, sizeScale);
+
+                particle._velocity[1] += particle._lift;
+
+                particle._velocity *= _airDrag;
+
+                particle._orientation += particle._orientationRate;
+
+                particle._sizeScale = sizeScale;
+
+                particle._phase0.rotateXY(_octave1Rotation);
+                particle._phase1.rotateXY(_octave2Rotation);
+
+                particle._visibleTime += particle._visibleTimeIncrease;
+                if (particle._visibleTime > 1.0f)
+                {
+                    particle._visible = false;
+                }
+
+                if (particle._torque != 0.0)
+                {
+                    _torqueFactorGradient.getValue(particle._visibleTime, torqueFactor);
+
+                    startIndex = index - _vortexCheckRange;
+                    if (startIndex > 0)
+                    {
+                        startIndex = 0;
+                    }
+
+                    endIndex = index + _vortexCheckRange;
+                    if (endIndex > _particles.size())
+                    {
+                        endIndex = _particles.size();
+                    }
+
+                    // TODO need overflow here
+
+                    for (uint32 i = startIndex; i < endIndex; ++i)
+                    {
+                        if (index == i) // ignore your self
+                        {
+                            continue;
+                        }
+
+                        iaVector3f vortexAxis = particle._position - _particles[i]._position;
+                        if (vortexAxis.length() > particle._vortexRange)
+                        {
+                            continue;
+                        }
+
+                        iaVector3f vortexTangent = vortexAxis % particle._normal;
+                        vortexTangent.normalize();
+                        vortexTangent *= (particle._vortexRange - vortexAxis.length()) / particle._vortexRange;
+                        vortexTangent *= particle._torque * torqueFactor;
+                        vortexAxis.normalize();
+                        vortexAxis *= _vorticityConfinement;
+                        vortexTangent += vortexAxis;
+
+                        _particles[i]._velocity += vortexTangent * 0.001f; // TODO 0.001 ???
+                    }
+                }
+
+                particle._position += particle._velocity;
+
+                particleIter++;
+                index++;
+            }
+        }
+    }
+
+    void iParticleSystem3D::onUpdate(iParticleEmitter &emitter)
     {
         if (_mustReset)
         {
@@ -424,11 +520,7 @@ namespace igor
 
         if (_running)
         {
-            iaVector3f a, b;
-
-            uint32 startIndex;
-            uint32 endIndex;
-
+            iParticleSystem3D::iParticleVertex *vertexDataPtr = _vertexData;
             iaTime frameTime = iTimer::getInstance().getTime();
 
             // ignore hickups
@@ -454,90 +546,7 @@ namespace igor
 
             while (_playbackTime <= frameTime)
             {
-                float32 sizeScale = 0;
-                uint64 index = 0;
-                float32 torqueFactor = 0;
-
-                auto particleIter = _particles.begin();
-                while (particleIter != _particles.end())
-                {
-                    iParticle &particle = (*particleIter);
-
-                    particle._life -= 1.0f / _simulationRate;
-                    if (particle._life <= 0)
-                    {
-                        particleIter = _particles.erase(particleIter);
-                    }
-                    else
-                    {
-                        _sizeScaleGradient.getValue(particle._visibleTime, sizeScale);
-
-                        particle._velocity[1] += particle._lift;
-
-                        particle._velocity *= _airDrag;
-
-                        particle._orientation += particle._orientationRate;
-
-                        particle._sizeScale = sizeScale;
-
-                        particle._phase0.rotateXY(_octave1Rotation);
-                        particle._phase1.rotateXY(_octave2Rotation);
-
-                        particle._visibleTime += particle._visibleTimeIncrease;
-                        if (particle._visibleTime > 1.0f)
-                        {
-                            particle._visible = false;
-                        }
-
-                        if (particle._torque != 0.0)
-                        {
-                            _torqueFactorGradient.getValue(particle._visibleTime, torqueFactor);
-
-                            startIndex = index - _vortexCheckRange;
-                            if (startIndex > 0)
-                            {
-                                startIndex = 0;
-                            }
-
-                            endIndex = index + _vortexCheckRange;
-                            if (endIndex > _particles.size())
-                            {
-                                endIndex = _particles.size();
-                            }
-
-                            // TODO need overflow here
-
-                            for (uint32 i = startIndex; i < endIndex; ++i)
-                            {
-                                if (index == i) // ignore your self
-                                {
-                                    continue;
-                                }
-
-                                a = particle._position - _particles[i]._position;
-                                if (a.length() > particle._vortexRange)
-                                {
-                                    continue;
-                                }
-
-                                b = a % particle._normal;
-                                b.normalize();
-                                b *= (particle._vortexRange - a.length()) / particle._vortexRange;
-                                b *= particle._torque * torqueFactor;
-                                a.normalize();
-                                a *= _vorticityConfinement;
-                                b += a;
-
-                                _particles[i]._velocity += b * 0.001f; // TODO 0.001 ???
-                            }
-                        }
-
-                        particle._position += particle._velocity;
-
-                        particleIter++;
-                        index++;
-                    }
-                }
+                iterateFrame();
 
                 float32 emissionRate = 0.0f;
                 _emissionRateGradient.getValue(particleSystemTime.getSeconds(), emissionRate);
@@ -549,60 +558,136 @@ namespace igor
                 _playbackTime += iaTime::fromMilliseconds(1000.0 / _simulationRate);
                 particleSystemTime += iaTime::fromMilliseconds(1000.0 / _simulationRate); // TODO redundant
             }
+
+            updateBuffer();
+            updateBoundings();
         }
+    }
 
-        // TODO this seems a bit inefficient
-        if (!_particles.empty())
+    void iParticleSystem3D::updateBuffer()
+    {
+        if (_dirtyBuffers)
         {
-            iaVector3f minPos = _particles.front()._position;
-            iaVector3f maxPos = _particles.front()._position;
+            uint32 *indexData = new uint32[_maxParticleCount * 6];
 
-            for (int i = 0; i < _particles.size(); i += 40)
+            for (uint32 i = 0; i < _maxParticleCount; ++i)
             {
-                if (_particles[i]._position._x < minPos._x)
-                {
-                    minPos._x = _particles[i]._position._x;
-                }
+                indexData[i * 6 + 0] = i * 4 + 0;
+                indexData[i * 6 + 1] = i * 4 + 1;
+                indexData[i * 6 + 2] = i * 4 + 3;
 
-                if (_particles[i]._position._y < minPos._y)
-                {
-                    minPos._y = _particles[i]._position._y;
-                }
-
-                if (_particles[i]._position._z < minPos._z)
-                {
-                    minPos._z = _particles[i]._position._z;
-                }
-
-                if (_particles[i]._position._x > maxPos._x)
-                {
-                    maxPos._x = _particles[i]._position._x;
-                }
-
-                if (_particles[i]._position._y > maxPos._y)
-                {
-                    maxPos._y = _particles[i]._position._y;
-                }
-                if (_particles[i]._position._z > maxPos._z)
-                {
-                    maxPos._z = _particles[i]._position._z;
-                }
+                indexData[i * 6 + 3] = i * 4 + 1;
+                indexData[i * 6 + 4] = i * 4 + 2;
+                indexData[i * 6 + 5] = i * 4 + 3;
             }
 
-            iaVector3d minPosd = minPos.convert<float64>();
-            iaVector3d maxPosd = maxPos.convert<float64>();
+            _indexBuffer = iIndexBuffer::create(_maxParticleCount * 6, indexData);
+            delete[] indexData;
 
-            _boundingBox._center = minPosd;
-            _boundingBox._center += maxPosd;
-            _boundingBox._center *= 0.5;
+            if (_vertexData != nullptr)
+            {
+                delete[] _vertexData;
+            }
 
-            _boundingBox._halfWidths = maxPosd;
-            _boundingBox._halfWidths -= minPosd;
-            _boundingBox._halfWidths *= 0.5;
+            _vertexData = new iParticleSystem3D::iParticleVertex[_maxParticleCount * 4];
 
-            _boundingSphere._center = _boundingBox._center;
-            _boundingSphere._radius = std::max(_boundingBox._halfWidths._x, std::max(_boundingBox._halfWidths._y, _boundingBox._halfWidths._z));
+            _vertexBuffer = iVertexBuffer::create(_maxParticleCount * 4 * sizeof(iParticleVertex));
+            _vertexBuffer->setLayout(
+                std::vector<iBufferLayoutEntry>{
+                    {iShaderDataType::Float3},
+                    {iShaderDataType::Float3},
+                    {iShaderDataType::Float4},
+                    {iShaderDataType::Float3}});
+
+            _vertexArray = iVertexArray::create();
+            _vertexArray->setIndexBuffer(_indexBuffer);
+            _vertexArray->addVertexBuffer(_vertexBuffer);
+
+            _dirtyBuffers = false;
         }
+
+        // update buffer data
+        iParticleVertex *vertexDataPtr = _vertexData;
+
+        for (const auto &particle : _particles)
+        {
+            vertexDataPtr->_position = particle._position;
+            _colorGradient.getValue(particle._visibleTime, vertexDataPtr->_color);
+            vertexDataPtr->_velocity = particle._velocity;
+            vertexDataPtr->_lifeSizeAngle.set(
+                particle._life,
+                particle._size,
+                particle._orientation);
+
+            vertexDataPtr++;
+        }
+
+        uint32 dataSize = (uint32)((uint8 *)vertexDataPtr - (uint8 *)_vertexData);
+        _vertexBuffer->setData(dataSize, _vertexData);
+    }
+
+    iVertexArrayPtr iParticleSystem3D::getVertexArray() const
+    {
+        return _vertexArray;
+    }
+
+    void iParticleSystem3D::updateBoundings()
+    {
+        // TODO
+        if (_particles.empty())
+        {
+            return;
+        }
+
+        iaVector3f minPos = _particles.front()._position;
+        iaVector3f maxPos = _particles.front()._position;
+        uint32 steps = std::min(_maxParticleCount / 20, 1);
+
+        for (int i = 0; i < _particles.size(); i += steps)
+        {
+            if (_particles[i]._position._x < minPos._x)
+            {
+                minPos._x = _particles[i]._position._x;
+            }
+
+            if (_particles[i]._position._y < minPos._y)
+            {
+                minPos._y = _particles[i]._position._y;
+            }
+
+            if (_particles[i]._position._z < minPos._z)
+            {
+                minPos._z = _particles[i]._position._z;
+            }
+
+            if (_particles[i]._position._x > maxPos._x)
+            {
+                maxPos._x = _particles[i]._position._x;
+            }
+
+            if (_particles[i]._position._y > maxPos._y)
+            {
+                maxPos._y = _particles[i]._position._y;
+            }
+            if (_particles[i]._position._z > maxPos._z)
+            {
+                maxPos._z = _particles[i]._position._z;
+            }
+        }
+
+        iaVector3d minPosd = minPos.convert<float64>();
+        iaVector3d maxPosd = maxPos.convert<float64>();
+
+        _boundingBox._center = minPosd;
+        _boundingBox._center += maxPosd;
+        _boundingBox._center *= 0.5;
+
+        _boundingBox._halfWidths = maxPosd;
+        _boundingBox._halfWidths -= minPosd;
+        _boundingBox._halfWidths *= 0.5;
+
+        _boundingSphere._center = _boundingBox._center;
+        _boundingSphere._radius = std::max(_boundingBox._halfWidths._x, std::max(_boundingBox._halfWidths._y, _boundingBox._halfWidths._z));
     }
 
     uint32 iParticleSystem3D::getParticleCount()

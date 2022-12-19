@@ -31,6 +31,7 @@
 
 #include <iaux/data/iaGradient.h>
 #include <igor/data/iAABox.h>
+#include <igor/renderer/buffers/iVertexArray.h>
 
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>
@@ -50,18 +51,15 @@ namespace igor
     class iParticleEmitter;
 
     /*! single particle
-
-    \todo phase is broken ... or better we need to define what it actually should do
-    */
-    class IGOR_API iParticle
+     */
+    struct IGOR_API iParticle
     {
-    public:
-        /*! current position of particle
-        */
+        /*! position of particle
+         */
         iaVector3f _position;
 
-        /*! current velocity (also direction) of particle
-        */
+        /*! velocity of particle
+         */
         iaVector3f _velocity;
 
         /*! current lift value
@@ -71,54 +69,54 @@ namespace igor
         float32 _lift = 0.0;
 
         /*! life of particle in seconds
-        */
+         */
         float32 _life = 0.0;
 
         /*! visible time of particles
 
-        the scale is basically seconds time goes by a little faster  
+        the scale is basically seconds time goes by a little faster
         depending on the individual particle visible time wich is <= it's life time
         thats why there is _visibleTimeIncrease
         */
         float32 _visibleTime = 0.0;
 
         /*! individual visible time increase
-        */
+         */
         float32 _visibleTimeIncrease = 0.0;
 
         /*! size of the particle given at birth
-        */
+         */
         float32 _size = 1.0;
 
         /*! size scale changes during life time of particle
-        */
+         */
         float32 _sizeScale = 1.0;
 
         /*! orientation angle of particle in rad
-        */
+         */
         float32 _orientation = 0.0;
 
         /*! orientation / rotation rate in rad per frame
-        */
+         */
         float32 _orientationRate = 0.0;
 
         /*! if particle is actually visible
-        */
+         */
         bool _visible = true;
 
         /*! lower left coordinates in first texture layer
-        */
+         */
         iaVector2f _texturefrom;
 
         /*! upper right coordinates in first texture layer
-        */
+         */
         iaVector2f _textureto;
 
         iaVector2f _phase0;
         iaVector2f _phase1;
 
         /*! if particle is a vortex particle it will rotate around this axis
-        */
+         */
         iaVector3f _normal;
 
         /*! the torque the vortex particle is rotating the other particles with
@@ -128,7 +126,7 @@ namespace igor
         float32 _torque = 0;
 
         /*! the range the vortex has an effect on other particles
-        */
+         */
         float32 _vortexRange = 0;
     };
 
@@ -143,24 +141,32 @@ namespace igor
     {
 
     public:
+        /*! init default values
+         */
+        iParticleSystem3D();
+
+        /*! clean up
+         */
+        virtual ~iParticleSystem3D();
+
         /*! clears all particles
-        */
+         */
         void reset();
 
         /*! starts or resumes particle system
-        */
+         */
         void start();
 
         /*! stops or pauses the particle system
-        */
+         */
         void stop();
 
         /*! \returns true if particle system is currently running
-        */
+         */
         bool isRunning();
 
         /*! \returns true if particle system is finished
-        */
+         */
         bool isFinished() const;
 
         /*! sets if the particle system runs in a loop
@@ -170,8 +176,8 @@ namespace igor
         void setLoop(bool loop = true);
 
         /*! \returns true if particle system runs in loop
-        */
-        bool getLoop() const;
+         */
+        bool isLooped() const;
 
         /*! sets the range of vortex torque
 
@@ -181,11 +187,11 @@ namespace igor
         void setVortexTorque(float32 min, float32 max);
 
         /*! \returns minimum vortex torque
-        */
+         */
         float32 getVortexTorqueMin();
 
         /*! \returns maximum vortex torque
-        */
+         */
         float32 getVortexTorqueMax();
 
         /*! sets minimum and maximum range of vortexes
@@ -196,11 +202,11 @@ namespace igor
         void setVortexRange(float32 min, float32 max);
 
         /*! \returns minimum range of vortexes
-        */
+         */
         float32 getVortexRangeMin();
 
         /*! \returns maximum range of vortexes
-        */
+         */
         float32 getVortexRangeMax();
 
         /*! sets vortex check range
@@ -210,7 +216,7 @@ namespace igor
         void setVortexCheckRange(uint8 particles);
 
         /*! \return vortex check rangein indexes from vortex particle
-        */
+         */
         uint8 getVortexCheckRange();
 
         /*! sets the maximum particle count
@@ -222,7 +228,7 @@ namespace igor
         void setMaxParticleCount(uint16 max);
 
         /*! \returns the maximum particle count used
-        */
+         */
         uint16 getMaxParticleCount() const;
 
         /*! sets the tiling resolution of the first texture layer
@@ -233,11 +239,11 @@ namespace igor
         void setFirstTextureTiling(uint8 columns, uint8 rows);
 
         /*! \returns the horizontal tiling resolution of the first texture layer
-        */
+         */
         uint8 getFirstTextureColumns() const;
 
         /*! \returns the vertical tiling resolution of the first texture layer
-        */
+         */
         uint8 getFirstTextureRows() const;
 
         /*! sets the rotation per frame of the second texture
@@ -247,7 +253,7 @@ namespace igor
         void setSecondTextureRotation(float32 angle);
 
         /*! \returns rotation speed of second texture in rad per frame
-        */
+         */
         float32 getSecondTextureRotation();
 
         /*! sets the rotation per frame of the third texture
@@ -257,15 +263,15 @@ namespace igor
         void setThirdTextureRotation(float32 angle);
 
         /*! \returns rotation speed of third texture in rad per frame
-        */
+         */
         float32 getThirdTextureRotation();
 
         /*! \returns particles of current frame
-        */
-        const std::deque<iParticle> &getCurrentFrame() const;
+         */
+        const std::deque<iParticle> &getParticles() const; // TODO use array
 
         /*! set's the inverse matrix of the particle system coordinate system
-        
+
         \param worldInvMatrix the inverse of the particle system
         \todo not fully implemented yet. usually particle systems run in world coordinates and not local
         */
@@ -278,14 +284,14 @@ namespace igor
         void setVortexToParticleRate(float32 rate);
 
         /*! \returns likeliness of vortex particle to appear
-        */
+         */
         float32 getVortexToParticleRate() const;
 
         /*! calculates next frame
 
         \param emitter the emitter to emitt particles from
         */
-        void calcNextFrame(iParticleEmitter &emitter);
+        void onUpdate(iParticleEmitter &emitter);
 
         /*! sets vorticity confinement force
 
@@ -294,7 +300,7 @@ namespace igor
         void setVorticityConfinement(float32 vorticityConfinement);
 
         /*! \returns vorticity confinement force
-        */
+         */
         float32 getVorticityConfinement();
 
         /*! sets color gradient
@@ -314,7 +320,7 @@ namespace igor
         void getColorGradient(iaGradientColor4f &colorGradient) const;
 
         /*! \returns reference to color gradient
-        */
+         */
         const iaGradientColor4f &getColorGradient() const;
 
         /*! sets emission gradient for particles per frame
@@ -425,7 +431,7 @@ namespace igor
         void setVelocityOriented(bool velocityOriented = true);
 
         /*! \returns velocity oriented flag
-        */
+         */
         bool getVelocityOriented() const;
 
         /*! sets the air drag
@@ -440,7 +446,7 @@ namespace igor
         void setAirDrag(float32 airDrag);
 
         /*! \returns air drag factor
-        */
+         */
         float32 getAirDrag() const;
 
         /*! sets period time of this particle system
@@ -453,118 +459,132 @@ namespace igor
         void setPeriodTime(float32 periodTime);
 
         /*! \returns period time of this particle system in seconds
-        */
+         */
         float32 getPeriodTime() const;
 
         /*! \returns approximated bounding sphere
-		*/
+         */
         const iSphered &getBoundingSphere() const;
 
         /*! \returns approximated bounding box
-        */
+         */
         const iAABoxd &getBoundingBox() const;
 
         /*! \returns simulation rate in frames per scond or Hz
-        */
+         */
         static float32 getSimulationRate();
 
         /*! \returns current particle count in use
-        */
+         */
         uint32 getParticleCount();
 
-        /*! init default values
+        /*! \returns the vertex array for rendering
         */
-        iParticleSystem3D();
+        iVertexArrayPtr getVertexArray() const;
 
-        /*! clean up
+        /*! \returns seed of random generator
+         */
+        // TODO uint32 getSeed() const;
+
+        /*! sets seed of random generator
+         */
+        // TODO void setSeed(uint32 seed);
+
+        /*! sets wether to use a random seed or not
+
+        \param useRandomSeed if true use a random seed. If false the random generator is using a fixed seed every time the particle system starts.
         */
-        virtual ~iParticleSystem3D();
+        // TODO void setUseRandomSeed(bool useRandomSeed);
+
+        /*! \returns true if particle system is using a random seed each time the particle system is started
+         */
+        // TODO bool isUsingRandomSeed() const;
 
     private:
         /*! current simulation rate in Hz
-        */
+         */
         static float32 _simulationRate;
 
         /*! to prevent endless generation of particles
 
         set to zero if you don't want a limit
         */
-        uint16 _maxParticleCount = 500;
+        uint16 _maxParticleCount = 100;
 
         /*! column count of first texture tiling
-        */
+         */
         uint8 _firstTextureColumns = 1;
 
         /*! row count of first texture tiling
-        */
+         */
         uint8 _firstTextureRows = 1;
 
         /*! flag that defines if particles get rendered velocity oriented
-        */
+         */
         bool _velocityOriented = false;
 
         /*! approximated bounding sphere of particle system
-        */
+         */
         iSphered _boundingSphere;
 
         /*! approximated bounding box of particle system
-        */
+         */
         iAABoxd _boundingBox;
 
         /*! true if particle system is finished
-        */
+         */
         bool _finished = false;
 
         /*! true if particle system runs in endless loop
-        */
+         */
         bool _loop = true;
 
         /*! true if particle system is currently running. false if paused or finished
-        */
+         */
         bool _running = false;
 
         /*! inverse of particle system coordinate system
-        */
+         */
         iaMatrixd _particleSystemInvWorldMatrix;
 
         /*! works like a dirty flag. if true all is set to beginning
-        */
+         */
         bool _mustReset = true;
 
         /*! color gradient for particles during their lifetime
-        */
+         */
         iaGradientColor4f _colorGradient;
 
         /*! min max start sizes of particles
-        */
+         */
         iaGradientVector2f _startSizeGradient;
 
         /*! size modification gradient during particle system lifetime
-        */
+         */
         iaGradientf _sizeScaleGradient;
 
         /*! start visible time gradient
-        */
+         */
         iaGradientVector2f _startVisibleTimeGradient;
 
         /*! min max start orientation of particles
-        */
+         */
         iaGradientVector2f _startOrientationGradient;
 
         /*! min max start orientation rate of particles
-        */
+         */
         iaGradientVector2f _startOrientationRateGradient;
 
         /*! min max start velocity of particles
-        */
+         */
         iaGradientVector2f _startVelocityGradient;
 
         /*! min max start lift of particles
-        */
+         */
         iaGradientVector2f _startLiftGradient;
 
         /*! stacks emission impulses
-        */
+         */
         float32 _emissionImpulseStack = 0.0f;
 
         /*! emission rate gradient during particle system lifetime
@@ -580,7 +600,7 @@ namespace igor
         iaGradientf _torqueFactorGradient;
 
         /*! particle system period time in ms
-        */
+         */
         float32 _particleSystemPeriodTime = 1000.0;
 
         /*! life time of any particle
@@ -590,23 +610,23 @@ namespace igor
         float32 _lifeTime = 0.0;
 
         /*! air drag for particles
-        */
+         */
         float32 _airDrag = 1.0;
 
         /*! angular velocity of octave 1
-        */
+         */
         float32 _octave1Rotation = 0.01f;
 
         /*! angular velocity of octave 2
-        */
+         */
         float32 _octave2Rotation = -0.01f;
 
         /*! time when the particle system was started last time
-        */
+         */
         iaTime _startTime;
 
         /*! current time in a simulation rate grid
-        */
+         */
         iaTime _playbackTime;
 
         /*! vortex to particle rate
@@ -616,43 +636,86 @@ namespace igor
         float32 _vortexToParticleRate = 0.00;
 
         /*! particle counter to figure out when to create the next vortex particle
-        */
+         */
         uint64 _particleCounter = 0;
 
         /*! minimum votex torque
-        */
+         */
         float32 _minVortexTorque = 0.5f;
 
         /*! maximum votex torque
-        */
+         */
         float32 _maxVortexTorque = 0.7f;
 
         /*! minimum votex range
-        */
+         */
         float32 _minVortexRange = 20.0f;
 
         /*! maximum votex range
-        */
+         */
         float32 _maxVortexRange = 40.0f;
 
         /*! random number generator
-        */
+         */
         iaRandomNumberGeneratoru _rand;
 
         /*! vortex check range
-        */
+         */
         uint8 _vortexCheckRange = 20;
 
         /*! vorticity confinement
-        */
+         */
         float32 _vorticityConfinement = 0.05f;
 
         /*! actual particles
-        */
-        std::deque<iParticle> _particles;
+         */
+        std::deque<iParticle> _particles; // TODO use array!
+
+        iVertexBufferPtr _vertexBuffer;
+        iIndexBufferPtr _indexBuffer;
+        iVertexArrayPtr _vertexArray;
+
+        /*! particle vertex which will be feed in to a geometry shader
+         */
+        struct iParticleVertex
+        {
+            /*! position of particle
+             */
+            iaVector3f _position;
+
+            /*! velocity of particle
+             */
+            iaVector3f _velocity;
+
+            /*! color of particle
+             */
+            iaColor4f _color;
+
+            /*! time alive in seconds, individual base size before scaled and current angle of particle
+             */
+            iaVector3f _lifeSizeAngle;
+        };
+
+        iParticleVertex *_vertexData = nullptr;
+
+        /*! if true vertex buffer needs to be recreated
+         */
+        bool _dirtyBuffers = true;
+
+        /*! iterates next frame
+         */
+        void iterateFrame();
+
+        /*! update boundings
+         */
+        void updateBoundings();
+
+        /*! update buffers
+         */
+        void updateBuffer();
 
         /*! initializes default gradients
-        */
+         */
         void initDefaultGradients();
 
         /*! creates particles

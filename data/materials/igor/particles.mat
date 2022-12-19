@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<Igor>
+	<!-- material definition -->
+	<Material name="igor.particles" uuid="0ab14d4a-7c0a-11ed-a986-27d5f6cc5c6e">
+		<States>
+			<DepthTest>On</DepthTest>
+            <DepthMask>Off</DepthMask>
+            <Blend>On</Blend>
+            <Texture2D0>On</Texture2D0>
+            <Texture2D1>Off</Texture2D1>
+            <Texture2D2>Off</Texture2D2>
+            <CullFace>On</CullFace>
+		</States>
+        <Program>
+            <Vertex>
+<![CDATA[#version 450
+
+layout(location = 0) in vec3 in_position;
+layout(location = 1) in vec3 in_velocity;
+layout(location = 2) in vec4 in_color;
+layout(location = 3) in vec3 in_lifeSizeAngle;
+
+uniform mat4 igor_model;
+uniform mat4 igor_viewProjection;
+
+out Vertex
+{
+    vec4 color;
+    vec3 velocity;
+    vec3 lifeSizeAngle;
+} vertex;
+
+void main()
+{
+    vertex.color = in_color;
+    vertex.velocity = in_velocity;
+    vertex.lifeSizeAngle = in_lifeSizeAngle;
+
+    gl_Position = igor_model * vec4(in_position,1);
+}]]>
+            </Vertex>
+            <Geometry>
+<![CDATA[#version 450
+
+layout (points) in;
+layout (triangle_strip, max_vertices = 4) out;
+
+uniform mat4 igor_viewProjection;
+uniform mat4 igor_modelView;
+
+in Vertex
+{
+    vec4 color;
+    vec3 velocity;
+    vec3 lifeSizeAngle;
+} vertex[];
+
+out vec4 Vertex_Color;
+out vec2 Vertex_UV;
+
+void main() {
+    mat4 MV = igor_modelView;
+    float size = vertex[0].lifeSizeAngle.y;
+
+    vec3 right = vec3(MV[0][0], 
+                    MV[1][0], 
+                    MV[2][0]) * size;
+
+    vec3 up = vec3(MV[0][1], 
+                    MV[1][1], 
+                    MV[2][1]) * size;
+
+    vec3 pos = gl_in[0].gl_Position.xyz;
+    
+
+    vec3 va = pos - right + up;
+    gl_Position = igor_viewProjection * vec4(va, 1);
+    Vertex_Color = vertex[0].color;
+    Vertex_UV = vec2(1.0, 0.0);
+    EmitVertex();
+
+    vec3 vb = pos - right - up;
+    gl_Position = igor_viewProjection * vec4(vb, 1);
+    Vertex_Color = vertex[0].color;
+    Vertex_UV = vec2(1.0, 1.0);
+    EmitVertex();
+
+    vec3 vc = pos + right + up;
+    gl_Position = igor_viewProjection * vec4(vc, 1);
+    Vertex_Color = vertex[0].color;
+    Vertex_UV = vec2(0.0, 0.0);
+    EmitVertex();    
+
+    vec3 vd = pos + right - up;
+    gl_Position = igor_viewProjection * vec4(vd, 1);
+    Vertex_Color = vertex[0].color;
+    Vertex_UV = vec2(0.0, 1.0);
+    EmitVertex();
+
+    EndPrimitive();
+}]]>
+            </Geometry>
+            <Fragment>
+<![CDATA[#version 450
+
+in vec4 Vertex_Color;
+in vec2 Vertex_UV;
+
+layout(location = 0) out vec4 out_color;
+
+layout (binding = 0) uniform sampler2D igor_matTexture0;
+
+void main()
+{
+    vec4 color = Vertex_Color;
+    color *= texture2D(igor_matTexture0, Vertex_UV).rgba;
+    out_color = color;
+}]]>
+            </Fragment>
+        </Program>            
+	</Material>
+</Igor>

@@ -84,7 +84,7 @@ namespace igor
         \param type the type of shader object
         \returns true if sucessful
         */
-        bool addSource(const char *source, iShaderObjectType type);
+        bool addSource(const char *source, iShaderObjectType type, const iaString &sourceName = "");
 
         /*! compiles shader programm with shader objects
          */

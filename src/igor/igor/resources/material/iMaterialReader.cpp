@@ -116,9 +116,9 @@ namespace igor
 
     static void readProgram(TiXmlElement *program, const iMaterialPtr &material)
     {
-        TiXmlElement *vertex = program->FirstChildElement("Vertex");
+        TiXmlElement *vertex = program->FirstChildElement("Vertex");        
         TiXmlElement *fragment = program->FirstChildElement("Fragment");
-
+        
         if (vertex == nullptr && fragment == nullptr)
         {
             con_err("no shaders specified");
@@ -133,7 +133,7 @@ namespace igor
             if (text != nullptr &&
                 text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
             {
-                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Vertex);
+                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Vertex, "mat.Vertex");
             }
             else
             {
@@ -146,14 +146,29 @@ namespace igor
             TiXmlNode *text = fragment->FirstChild();
             if (text != nullptr &&
                 text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
-            {
-                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Fragment);
+            { 
+                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Fragment, "mat.Fragment");
             }
             else
             {
                 con_err("invalid node");
             }
-        }
+        }        
+
+        TiXmlElement *geometry = program->FirstChildElement("Geometry");
+        if (geometry)
+        {
+            TiXmlNode *text = geometry->FirstChild();
+            if (text != nullptr &&
+                text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
+            {
+                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Geometry, "mat.Geometry");
+            }
+            else
+            {
+                con_err("invalid node");
+            }
+        }        
 
         shaderProgram->compile();
 

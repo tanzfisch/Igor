@@ -81,6 +81,14 @@ namespace igor
          */
         const iIndexBufferPtr &getIndexBuffer() const;
 
+        /*! \returns index count of index buffer
+        */
+        uint32 getIndexCount() const;
+
+        /*! \returns vertex count
+        */
+        uint32 getVertexCount() const;
+
     private:
         /*! internal handle for the vertex array object
          */

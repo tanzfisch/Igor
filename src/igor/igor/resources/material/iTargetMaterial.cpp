@@ -35,6 +35,11 @@ namespace igor
     {
     }
 
+    void iTargetMaterial::clearTextures()
+    {
+        _textures.clear();
+    }
+
     const std::vector<iTexturePtr>& iTargetMaterial::getTextures() const
     {
         return _textures;

@@ -31,6 +31,7 @@
 
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/material/iTargetMaterial.h>
 #include <igor/simulation/iParticleSystem3D.h>
 
 #include <iaux/system/iaEvent.h>
@@ -102,7 +103,7 @@ namespace igor
 
         /*! \returns true if particle system runs in loop
         */
-        bool getLoop() const;
+        bool isLooped() const;
 
         /*! sets emitter node id
 
@@ -397,17 +398,9 @@ namespace igor
         */
         iParticleSystem3D _particleSystem;
 
-        /*! first texture
+        /*! target material
         */
-        iTexturePtr _textureA;
-
-        /*! second texture
-        */
-        iTexturePtr _textureB;
-
-        /*! third texture
-        */
-        iTexturePtr _textureC;
+        iTargetMaterialPtr _targetMaterial;
 
         /*! called after a node was copied
 

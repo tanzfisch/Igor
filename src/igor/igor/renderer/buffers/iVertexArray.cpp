@@ -32,6 +32,33 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
+    uint32 iVertexArray::getVertexCount() const
+    {
+        if(_vertexBuffers.empty())
+        {
+            return 0;
+        }
+
+        uint32 result = 0;
+
+        for(const auto &vertexBuffer : _vertexBuffers)
+        {
+            result += vertexBuffer->getVertexCount();
+        }
+
+        return result;
+    }
+
+    uint32 iVertexArray::getIndexCount() const
+    {
+        if(_indexBuffer == nullptr)
+        {
+            return 0;
+        }
+
+        return _indexBuffer->getIndexCount();
+    }
+
     void iVertexArray::bind() const
     {
         glBindVertexArray(_vertexArrayObject);
@@ -64,15 +91,6 @@ namespace igor
             {
                 glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
                 GL_CHECK_ERROR();
-
-                /*glVertexAttribPointer(_totalComponentCount,
-                                      component.getComponentCount(),
-                                      iRendererUtils::convertType(component._type),
-                                      component._normalized ? GL_TRUE : GL_FALSE,
-                                      info.getStride(),
-                                      BUFFER_OFFSET(component._offset));*/
-
-                // TODO -> https://www.youtube.com/watch?v=cadzqhqPqVA
                 glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
                 GL_CHECK_ERROR();
                 glVertexArrayAttribFormat(_vertexArrayObject,
@@ -93,13 +111,6 @@ namespace igor
             {
                 glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
                 GL_CHECK_ERROR();
-
-                /*glVertexAttribIPointer(_totalComponentCount,
-                                       component.getComponentCount(),
-                                       iRendererUtils::convertType(component._type),
-                                       info.getStride(),
-                                       BUFFER_OFFSET(component._offset));*/
-
                 glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
                 GL_CHECK_ERROR();
                 glVertexArrayAttribFormat(_vertexArrayObject,
@@ -120,7 +131,6 @@ namespace igor
                 {
                     glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
                     GL_CHECK_ERROR();
-
                     glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
                     GL_CHECK_ERROR();                    
 

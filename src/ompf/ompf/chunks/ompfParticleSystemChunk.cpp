@@ -31,7 +31,7 @@ namespace OMPF
         _loop = loop;
     }
 
-    bool ompfParticleSystemChunk::getLoop() const
+    bool ompfParticleSystemChunk::isLooped() const
     {
         return _loop;
     }

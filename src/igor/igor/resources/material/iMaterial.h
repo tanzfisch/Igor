@@ -47,7 +47,7 @@ namespace igor
     typedef std::shared_ptr<iMaterial> iMaterialPtr;
 
     /*! material ID definition
-    */
+     */
     typedef iaUUID iMaterialID;
 
     /*! material definition
@@ -59,15 +59,15 @@ namespace igor
 
     public:
         /*! default render order value
-        */
+         */
         static const int32 RENDER_ORDER_DEFAULT = 200;
 
         /*! min render order value
-        */
+         */
         static const int32 RENDER_ORDER_MIN = 0;
 
         /*! max render order value
-        */
+         */
         static const int32 RENDER_ORDER_MAX = 400;
 
         /*! \returns a newly created material
@@ -106,7 +106,7 @@ namespace igor
 
         \param materialID the material id
         */
-        void setID(const iMaterialID &materialID);        
+        void setID(const iMaterialID &materialID);
 
         /*! defines the value of a specific render state
 
@@ -123,37 +123,45 @@ namespace igor
         iRenderStateValue getRenderState(const iRenderState state) const;
 
         /*! \returns render order
-        */
+         */
         int32 getOrder() const;
 
         /*! set render order
 
         \param order the higher the value the later it get's rendered (default is iMaterial_old::RENDER_ORDER_DEFAULT)
         */
-        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);        
+        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
 
         /*! \returns true if shader has directional light
-        */
+         */
         bool hasDirectionalLight() const;
 
         /*! \returns true if shader has eye position
-        */
+         */
         bool hasEyePosition() const;
 
         /*! \returns true if shader contains model view projection matrix
-        */
+         */
         bool hasModelViewProjectionMatrix() const;
 
         /*! \returns true if shader contains model matrix
-        */
+         */
         bool hasModelMatrix() const;
 
+        /*! \returns true if shader contains model view matrix
+         */
+        bool hasModelViewMatrix() const;
+
+        /*! \returns true if shader contains view projection matrix
+         */
+        bool hasViewProjectionMatrix() const;
+
         /*! \returns true if shader contains target material
-        */
+         */
         bool hasTargetMaterial() const;
 
         /*! \returns true if shader contains solid color property
-        */
+         */
         bool hasSolidColor() const;
 
         /*! \returns true if gien texture unit is used
@@ -163,7 +171,7 @@ namespace igor
         bool hasTextureUnit(uint32 texUnit) const;
 
         /*! \returns true if this material is ready for use
-        */
+         */
         bool isValid() const;
 
     private:
@@ -187,35 +195,43 @@ namespace igor
 
         default value is iMaterial_old::RENDER_ORDER_DEFAULT
         */
-        int32 _order = iMaterial::RENDER_ORDER_DEFAULT;     
+        int32 _order = iMaterial::RENDER_ORDER_DEFAULT;
 
         /*! if true shader has directional light
-        */
+         */
         bool _hasDirectionalLight = false;
 
         /*! if true shader has eye position
-        */
+         */
         bool _hasEyePosition = false;
 
         /*! if true shader contains model view projection matrix
-        */
+         */
         bool _hasModelViewProjectionMatrix = false;
 
         /*! if true shader contains model matrix
-        */
+         */
         bool _hasModelMatrix = false;
 
+        /*! if true shader contains model view matrix definition
+         */
+        bool _hasModelViewMatrix = false;
+
+        /*! if true shader contains view projection matrix definition
+         */
+        bool _hasViewProjectionMatrix = false;
+
         /*! if true shader contains target material
-        */
+         */
         bool _hasTargetMaterial = false;
 
         /*! if true shader contains solid color property
-        */
-        bool _hasSolidColor = false;         
+         */
+        bool _hasSolidColor = false;
 
         /*! list of avail able texture units in shader
-        */
-        bool _hasTexture[MAX_TEXTURE_UNITS];   
+         */
+        bool _hasTexture[MAX_TEXTURE_UNITS];
 
         /*! does nothing
          */
@@ -280,7 +296,7 @@ namespace igor
         \param uniform the uniform name
         \param value the value to set
         */
-        void setFloat4(const iaString &uniform, const iaColor4f &value);        
+        void setFloat4(const iaString &uniform, const iaColor4f &value);
 
         /*! sets 4x4 matrix on given uniform
 

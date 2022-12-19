@@ -185,7 +185,7 @@ void UserControlParticleSystem::updateGUI()
         _textureChooser1->setFileName(node->getTextureB());
         _textureChooser2->setFileName(node->getTextureC());
 
-        _loopCheckBox->setChecked(node->getLoop());
+        _loopCheckBox->setChecked(node->isLooped());
         _periodChooser->setValue(node->getPeriodTime());
         _maxParticleCount->setValue(node->getMaxParticleCount());
         _airDragChooser->setValue(1.0f - node->getAirDrag());

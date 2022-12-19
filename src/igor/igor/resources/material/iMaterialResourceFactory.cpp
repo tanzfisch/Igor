@@ -130,7 +130,7 @@ namespace igor
             _mutexMaterial.unlock();
         }
 
-        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " (" << (cache ? "cached" : "not cached") << ")");
+        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " shaders:"<< result->getShaderProgram()->getShaderSources().size() << " (" << (cache ? "cached" : "not cached") << ")");
 
         return result;
     }

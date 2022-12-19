@@ -245,6 +245,7 @@ namespace igor
         void drawBox(const iAABoxf &box, const iaColor4f &color = iaColor4f::white);
 
         void drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial);
+        void drawBufferPoints(iVertexArrayPtr vertexArray, iTargetMaterialPtr targetMaterial);
 
         // TODO
         void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer);

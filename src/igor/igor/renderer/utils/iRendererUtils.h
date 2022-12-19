@@ -121,10 +121,6 @@ namespace igor
     }
 #endif
 
-/*! turns an index in to a pointer
- */
-#define BUFFER_OFFSET(i) ((char *)NULL + (i))
-
     /*! igor specific shader properties
     */
     static constexpr const char *UNIFORM_SOLIDCOLOR = "igor_solidColor";
@@ -134,7 +130,9 @@ namespace igor
     static constexpr const char *UNIFORM_LIGHT_SPECULAR = "igor_lightSpecular";
     static constexpr const char *UNIFORM_EYE_POSITION = "igor_eyePosition";
     static constexpr const char *UNIFORM_MODEL_VIEW_PROJECTION = "igor_modelViewProjection";
+    static constexpr const char *UNIFORM_VIEW_PROJECTION = "igor_viewProjection";
     static constexpr const char *UNIFORM_MODEL = "igor_model";
+    static constexpr const char *UNIFORM_MODEL_VIEW = "igor_modelView";
     static constexpr const char *UNIFORM_MATERIAL_AMBIENT = "igor_matAmbient";
     static constexpr const char *UNIFORM_MATERIAL_DIFFUSE = "igor_matDiffuse";
     static constexpr const char *UNIFORM_MATERIAL_SPECULAR = "igor_matSpecular";
