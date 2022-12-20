@@ -39,7 +39,7 @@ public:
 
     \param window the given window
     */
-    ExampleInstancing(iWindow *window);
+    ExampleInstancing(iWindowPtr window);
 
     /*! does nothing
     */
@@ -72,8 +72,8 @@ private:
 
     /*! instancing material
     */
-    uint64 _materialWithInstancingA = iMaterial::INVALID_MATERIAL_ID;
-    uint64 _materialWithInstancingB = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialPtr _materialWithInstancingA;
+    iMaterialPtr _materialWithInstancingB;
 
     /*! perlin noise generator
     */

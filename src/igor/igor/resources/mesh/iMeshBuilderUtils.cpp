@@ -226,7 +226,7 @@ namespace igor
 			}
 		}
 
-		void addMesh(iMeshBuilder& meshBuilder, const iMeshPtr mesh)
+		/*void addMesh(iMeshBuilder& meshBuilder, const iMeshPtr mesh)
 		{
 			uint32* indexesData = mesh->getIndexData();
 			float32* vertexData = mesh->getVertexData();
@@ -291,6 +291,6 @@ namespace igor
 				// get vertices
 				meshBuilder.addTriangle(triA, triB, triC, offsetIndex);
 			}
-		}
+		}*/
 	};
 };

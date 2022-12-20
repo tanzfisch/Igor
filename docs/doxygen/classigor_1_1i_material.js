@@ -14,7 +14,7 @@ var classigor_1_1i_material =
     [ "setName", "classigor_1_1i_material.html#a7ccc94359e88fd9abe6642d007ec94c8", null ],
     [ "setOrder", "classigor_1_1i_material.html#a27a9c1a0f6431d74ddd24c78d9a9b91b", null ],
     [ "setRenderState", "classigor_1_1i_material.html#a9ce7599a98a6e37f1c21b7f7a78ac856", null ],
-    [ "iMaterialResourceFactory", "classigor_1_1i_material.html#a4741448fd6adeeeb1916fa880b53f0d2", null ],
+    [ "iMaterialResourceFactory_old", "classigor_1_1i_material.html#a4741448fd6adeeeb1916fa880b53f0d2", null ],
     [ "iRenderer", "classigor_1_1i_material.html#a3169e12ae7cf3e5c6fd53a245e5e2d52", null ],
     [ "INVALID_MATERIAL_ID", "classigor_1_1i_material.html#ae9325a7dc8ad2e2429aecca1ef7b376a", null ],
     [ "MAX_TEXTURE_UNITS", "classigor_1_1i_material.html#afea8c0d5afe1257f9491aac8f0a12981", null ],

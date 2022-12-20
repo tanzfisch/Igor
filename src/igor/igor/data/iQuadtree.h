@@ -49,6 +49,13 @@ namespace igor
     template <typename F, typename T>
     struct iQuadtreeObject
     {
+        iQuadtreeObject() = default;
+
+        iQuadtreeObject(const iaCircle<F> &circle, const T &userData)
+            : _circle(circle), _userData(userData)
+        {
+        }
+
         /*! the circle of this object
          */
         iaCircle<F> _circle;
@@ -87,7 +94,7 @@ namespace igor
     /*! quadtree implementation
      */
     template <typename F, typename T>
-    class IGOR_API_TEMPLATE iQuadtree
+    class IGOR_API_EXPORT_ONLY iQuadtree
     {
 
     public:
@@ -117,7 +124,7 @@ namespace igor
 
         \param userData the user data to update
         */
-        void update(const std::shared_ptr<iQuadtreeObject<F, T>> object, const iaVector2d &newPosition);
+        void update(const std::shared_ptr<iQuadtreeObject<F, T>> object, const iaVector2<F> &newPosition);
 
         /*! \returns root of tree
          */
@@ -180,6 +187,14 @@ namespace igor
         \param objects the resulting found user data
         */
         void queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
+
+        /*! queries for user data within given rectangle
+
+        \param node the current node
+        \param circle the given rectangle
+        \param objects the resulting found user data
+        */
+        void queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
 
         /*! split given node
 

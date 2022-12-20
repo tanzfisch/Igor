@@ -94,7 +94,7 @@ namespace igor
 
         \param materialID the material id to set
         */
-        void setMaterial(iMaterialID materialID);
+        void setMaterial(const iMaterialPtr& material);
 
         /*! returns multiple lines of information about this node
 
@@ -147,14 +147,6 @@ namespace igor
         */
         bool onUpdateData() override;
 
-        /*! checks if mesh buffers are generated and read for rendering
-
-        \returns true if meshs are all ready for rendering
-        */
-        bool checkForBuffers();
-
-        bool checkForBuffers(iNodePtr node);
-
         /*! called by update transform run
 
         ignores the matrix
@@ -168,7 +160,7 @@ namespace igor
         \param node the current node
         \param materialID the material to set
         */
-        void setMaterial(iNodePtr node, iMaterialID materialID);
+        void setMaterial(iNodePtr node, const iMaterialPtr& material);
 
         /*! initializes memeber variables
          */

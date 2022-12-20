@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iVOXELBLOCK__
-#define __iVOXELBLOCK__
+#ifndef __IGOR_VOXELBLOCK__
+#define __IGOR_VOXELBLOCK__
 
 #include <igor/terrain/data/iVoxelData.h>
 #include <igor/threading/iTaskManager.h>

@@ -5,14 +5,14 @@
 #include "iLayerWidgets.h"
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 
 namespace igor
 {
 
     // set an increase z index of 1 to make sure the ui is rendered above the background
-    iLayerWidgets::iLayerWidgets(iWidgetTheme *theme, iWindow *window, const iaString &name, int32 zIndex)
-        : iLayer(window, name, zIndex), _theme(theme), _view(iView(false))
+    iLayerWidgets::iLayerWidgets(iWidgetTheme *theme, iWindowPtr window, const iaString &name, int32 zIndex)
+        : iLayer(window, name, zIndex), _theme(theme)
     {
         iWidgetManager::getInstance().setTheme(_theme);
     }
@@ -20,8 +20,8 @@ namespace igor
     void iLayerWidgets::onInit()
     {
         // set up the view
-        _view.setClearColor(false);
-        _view.setClearDepth(false);
+        _view.setClearColorActive(false);
+        _view.setClearDepthActive(false);
         _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
         _view.registerRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRender));
         getWindow()->addView(&_view, 10);
@@ -65,14 +65,11 @@ namespace igor
 
     void iLayerWidgets::onRender()
     {
-        // initialize view matrix with identity matrix
         iaMatrixd identity;
         iRenderer::getInstance().setViewMatrix(identity);
 
-        // move scene between near and far plane so be ca actually see what we render
-        // any value between near and far plane would do the trick
         iaMatrixd modelMatrix;
-        modelMatrix.translate(0, 0, -30);
+        modelMatrix.translate(0, 0, -1);
         iRenderer::getInstance().setModelMatrix(modelMatrix);
 
         // tell the widget manager to draw the widgets

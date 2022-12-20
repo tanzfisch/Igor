@@ -32,6 +32,7 @@
 #include <igor/data/iAABox.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/renderer/buffers/iVertexArray.h>
 
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector2.h>
@@ -237,18 +238,19 @@ namespace igor
         */
         void calcNormals(bool sharpEdges = false);
 
-        /*! creates ans returns a mesh based on current data
+
+        /*! creates and returns a mesh based on current data
 
         \returns shared pointer to iMesh
         */
         iMeshPtr createMesh();
 
-        /*! creates ans returns a mesh based on current data but filtered by triangle list
+        /*! creates ans returns a mesh based on current data filtered by given triangles list
 
         \param triangles list of triangle IDs that end up in the mesh
-        \returns shared pointer to iMesh
+        \returns shared pointer to mesh
         */
-        iMeshPtr createMesh(std::vector<uint32> triangles);
+        iMeshPtr createMesh(const std::vector<uint32>& triangles);
 
         /*! clears data and set transformation matrix to identity
         */
@@ -328,18 +330,18 @@ namespace igor
         */
         uint32 addVertexIntern(const iaVector3f &vertex);
 
-        /*! fills iMesh with data
+        /*! compiles data in to mesh
 
-        \param mesh the mesh to fill the data in
+        \param[out] mesh the resulting mesh
         */
-        void compile(iMesh *mesh);
+        void compile(iMeshPtr mesh);
 
-        /*! fills iMesh with data filtered by triangles list
+        /*! compiles data in to mesh filtered by triangle list
 
-        \param[in,out] mesh the mesh to fill the data in
-        \param triangles list of triangles that are supposed to end up in the mesh
+        \param[out] mesh the resulting mesh
+        \param triangles the list of triangles we want in the mesh
         */
-        void compile(iMesh *mesh, std::vector<uint32> triangles);
+        void compile(iMeshPtr mesh, const std::vector<uint32>& triangles);
 
         /*! checks boundaries of generated data
         */
@@ -355,6 +357,11 @@ namespace igor
         \param[out] indexC index of vertex C
         */
         void getIndexOfVertexes(const iaVector3f &vertexA, int64 &indexA, const iaVector3f &vertexB, int64 &indexB, const iaVector3f &vertexC, int64 &indexC);
+
+        /*! \returns layout based on current data
+        */
+        iBufferLayout generateLayout() const;
+
     };
 
 }; // namespace igor

@@ -32,32 +32,39 @@
 #include <igor/iDefines.h>
 #include <igor/data/iAABox.h>
 
-#include <iaux/data/iaColor3.h>
-using namespace iaux;
+#include <igor/renderer/buffers/iVertexArray.h>
 
 #include <map>
 
 namespace igor
 {
 
+    /*! definition of shared pointer mesh
+	*/
+    class iMesh;
+    typedef std::shared_ptr<iMesh> iMeshPtr;
+
+
     /*! internal mesh structure
-    
-    sorry it got verry opengl specific
     */
-    class iMesh
+    class IGOR_API iMesh
     {
 
-        friend class iRenderer;
-        friend class iMeshBuilder;
+        friend class iMeshDeleter;
 
     public:
-        /*! initializes members
-        */
-        iMesh();
 
-        /*! releases resources
+        /*! \returns a newly created mesh
         */
-        ~iMesh();
+        static iMeshPtr create();
+
+        /*! binds mesh vertex array for rendering
+        */
+        void bind();
+
+        /*! \returns true if mesh is in a valid state
+        */
+        bool isValid() const;
 
         /*! set bounding box
 
@@ -67,21 +74,21 @@ namespace igor
 
         /*! \returns the bounding box
         */
-        __IGOR_INLINE__ const iAABoxd &getBoundingBox() const;
+        const iAABoxd &getBoundingBox() const;
 
         /*! \returns indexes count
         */
-        __IGOR_INLINE__ uint32 getIndexesCount() const;
+        uint32 getIndexCount() const;
 
         /*! sets index count
 
         \param count indexes count
         */
-        void setIndexesCount(uint32 count);
+        void setIndexCount(uint32 count);
 
         /*! \returns vertex count
         */
-        __IGOR_INLINE__ uint32 getVertexCount() const;
+        uint32 getVertexCount() const;
 
         /*! sets vertex count
 
@@ -91,7 +98,7 @@ namespace igor
 
         /*! \returns triangles count
         */
-        __IGOR_INLINE__ uint32 getTrianglesCount() const;
+        uint32 getTrianglesCount() const;
 
         /*! set triangles count
 
@@ -101,11 +108,11 @@ namespace igor
 
         /*! \returns true if mesh has color deifnitions
         */
-        __IGOR_INLINE__ bool hasColors() const;
+        bool hasColors() const;
 
         /*! \returns true if mesh has normals
         */
-        __IGOR_INLINE__ bool hasNormals() const;
+        bool hasNormals() const;
 
         /*! sets texture unit active or inactive
 
@@ -116,15 +123,15 @@ namespace igor
 
         /*! \returns true if mesh has textures and texture coordinates
         */
-        __IGOR_INLINE__ bool hasTextures() const;
+        bool hasTextures() const;
 
         /*! \returns texture unit count
         */
-        __IGOR_INLINE__ uint32 getTextureUnitCount() const;
+        uint32 getTextureUnitCount() const;
 
         /*! \returns true if mesh has specified texture unit
         */
-        __IGOR_INLINE__ bool hasTextureUnit(uint32 unit) const;
+        bool hasTextureUnit(uint32 unit) const;
 
         /*! set texture coordinates per vertex count
 
@@ -134,63 +141,7 @@ namespace igor
 
         /*! \returns texture coordinates count
 		*/
-        __IGOR_INLINE__ uint32 getTextureCoordinatesCount() const;
-
-        /*! sets index data
-
-        \param data the data
-        \param size the size in bytes of the data
-        */
-        void setIndexData(uint32 *data, uint32 size);
-
-        /*! deletes index buffer 
-        */
-        void resetIndexData();
-
-        /*! \returns true if index data buffer is present
-        */
-        __IGOR_INLINE__ bool hasIndexData();
-
-        /*! sets vertex data
-
-        \param data the data
-        \param size the size in bytes of the data
-        */
-        void setVertexData(float32 *data, uint32 size);
-
-        /*! deletes vertex buffer
-        */
-        void resetVertexData();
-
-        /*! \returns true if vertex data buffer is present
-        */
-        __IGOR_INLINE__ bool hasVertexData();
-
-        /*! sets size in byte of a vertex data set
-
-        \param size size in bytes
-        */
-        void setVertexSize(uint32 size);
-
-        /*! \returns pointer to index data
-        */
-        __IGOR_INLINE__ uint32 *getIndexData() const;
-
-        /*! \returns index data size in bytes
-        */
-        __IGOR_INLINE__ uint32 getIndexDataSize() const;
-
-        /*! \returns pointer to vertex data
-        */
-        __IGOR_INLINE__ float32 *getVertexData() const;
-
-        /*! \returns vertex data size in bytes
-        */
-        __IGOR_INLINE__ uint32 getVertexDataSize() const;
-
-        /*! \returns a single vertex data set size in bytes
-        */
-        __IGOR_INLINE__ uint32 getVertexSize() const;
+        uint32 getTextureCoordinatesCount() const;
 
         /*! sets if mesh has normals
 
@@ -204,10 +155,56 @@ namespace igor
         */
         void setHasColors(bool hasColors);
 
-    private:
-        /*! indexes count
+        /*! \returns vertex array
         */
-        uint32 _indexesCount = 0;
+        const iVertexArrayPtr& getVertexArray() const;        
+
+        /*! sets index data
+
+        can be called from non main thread
+
+        \param indexData the index data
+        \param indexDataSize the index data size
+        \param vertexData the vertex data
+        \param vertexDataSize the vertex data size
+        \param keepRawData if true the raw data will not be deleted after passing it to the GPU
+        */
+        void setData(const void *indexData, uint32 indexDataSize, const void *vertexData, uint32 vertexDataSize, const iBufferLayout &layout, bool keepRawData = false);
+
+        /*! sets keep data flag
+
+        \param keepRawData if true the raw data will not be deleted after passing it to the GPU
+        */
+        void setKeepRawData(bool keepRawData);
+
+        /*! \returns true if the raw data will not be deleted after passing it to the GPU
+        */
+        bool isKeepingRawData() const;
+
+        /*! \returns true if mesh has raw data available
+        */
+        bool hasRawData() const;
+
+        /*! \returns buffer layout
+        */
+        const iBufferLayout& getLayout() const;
+
+        /*! \returns raw data if available
+        Availability can be tested with hasRawData
+
+        \param[out] indexData the index data pointer
+        \param[out] indexDataSize the index data size
+        \param[out] vertexData the vertex data pointer
+        \param[out] vertexDataSize the vertex data size
+        */
+        void getRawData(void* &indexData, uint32 &indexDataSize, void* &vertexData, uint32 &vertexDataSize);
+
+
+    private:
+
+        /*! index count
+        */
+        uint32 _indexCount = 0;
 
         /*! vertex count
         */
@@ -229,28 +226,6 @@ namespace igor
         */
         bool _hasColors = false;
 
-        /*! vertex size 
-
-        depends if there are normals, colors or texture coordinates
-        */
-        uint32 _vertexSize = 0;
-
-        /*! index data buffer
-        */
-        uint32 *_indexData = nullptr;
-
-        /*! index data buffer size
-        */
-        uint32 _indexDataSize = 0;
-
-        /*! vertex data buffer
-        */
-        float32 *_vertexData = nullptr;
-
-        /*! vertex data buffer size
-        */
-        uint32 _vertexDataSize = 0;
-
         /*! map for texture units
         */
         std::map<uint32, bool> _textures;
@@ -258,13 +233,43 @@ namespace igor
         /*! bounding box
         */
         iAABoxd _bbox;
+
+        /*! vertex array
+        */
+        iVertexArrayPtr _vertexArray;
+
+        /*! index data buffer
+        */
+        uint8* _indexData = nullptr;
+
+        /*! index data buffer size
+        */
+        uint32 _indexDataSize = 0;
+
+        /*! vertex data buffer
+        */
+        uint8* _vertexData = nullptr;
+
+        /*! vertex data buffer size
+        */
+        uint32 _vertexDataSize = 0;      
+
+        /*! the buffer layout
+        */
+        iBufferLayout _layout;
+
+        /*! if true the mesh will hold on to a copy of vertex and index data
+        */
+        bool _keepRawData = false;  
+
+        /*! does nothing
+        */
+        iMesh() = default;
+
+        /*! does nothing
+        */
+        ~iMesh();
     };
-
-#include <igor/resources/mesh/iMesh.inl>
-
-    /*! definition of shared pointer mesh
-	*/
-    typedef std::shared_ptr<iMesh> iMeshPtr;
 
 } // namespace igor
 

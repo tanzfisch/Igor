@@ -1,15 +1,31 @@
 Changelog                           {#changelog}
 =========
 
-0.34.0
-------
+0.34.0 (unstable/incomplete)
+----------------------------
 
+!This version is incomplete. See below!
 
-0.33.1
-------
+- wrote entirely new Renderer using batch rendering where ever possible
+- replaced Glee with Glad
+- switched to Direct State Access
+- improved testing framework and added some more tests
+- added some missing functions in iQuadtree and iIntersection
+- improved top down 2d shooter example
+- added start/stop to iTimer to start/stop "game time" which essentially can be used to pause a game
+- introduced new material file format .mat
+- set minimum OpenGL version to 4.5
+- iNodeSkyBox now takes a cube map texture 
+- improved cmake configuration. Though there is more todo here
+- new particle system replacing 2D and 3D ones
+- support for geometry shaders
 
-- fixed build under windows
-
+Known Missing features are:
+- Instancing
+- new particle system does not support all previous features yet
+- Mica does not build
+- missing world grid resolution feature
+- missing color ID render mode feture used to select objects in the scene by Mica
 
 0.33.0
 ------

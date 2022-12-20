@@ -4,12 +4,7 @@
 
 #include "OBJ2OMPF.h"
 
-#include <iaux/system/iaDirectory.h>
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 #include <igor/igor.h>
-using namespace igor;
 
 int main(int argc, char* argv[])
 {

@@ -17,5 +17,5 @@ var classigor_1_1i_target_material =
     [ "setShininess", "classigor_1_1i_target_material.html#ab504d03bc85a6bb41d92f2386f5b09f6", null ],
     [ "setSpecular", "classigor_1_1i_target_material.html#abe6871704add2ec32b9bb93448098001", null ],
     [ "setTexture", "classigor_1_1i_target_material.html#ab271b744064ab61efaff0dcb59278f45", null ],
-    [ "iMaterialResourceFactory", "classigor_1_1i_target_material.html#a4741448fd6adeeeb1916fa880b53f0d2", null ]
+    [ "iMaterialResourceFactory_old", "classigor_1_1i_target_material.html#a4741448fd6adeeeb1916fa880b53f0d2", null ]
 ];

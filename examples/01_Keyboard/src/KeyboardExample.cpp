@@ -4,7 +4,7 @@
 
 #include "KeyboardExample.h"
 
-KeyboardExample::KeyboardExample(iWindow *window)
+KeyboardExample::KeyboardExample(iWindowPtr window)
 	: ExampleBase(window, L"Keyboard Input")
 {
 }

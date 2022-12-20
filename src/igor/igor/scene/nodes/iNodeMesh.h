@@ -32,16 +32,13 @@
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
+#include <igor/resources/material/iTargetMaterial.h>
 
 #include <iaux/data/iaColor3.h>
 using namespace iaux;
 
 namespace igor
 {
-
-    class iTargetMaterial;
-
-    __IGOR_DISABLE_WARNING__(4275) // the interface of iNodeVolume is not fully public on purpose
 
     /*! represents a mesh within the scene
 
@@ -55,12 +52,8 @@ namespace igor
         friend class iModelDataIOOMPF;
 
     public:
-        /*! \returns shared pointer to mesh buffers
-        */
-        iMeshBuffersPtr getMeshBuffers();
-
         /*! \returns shared pointer to mesh
-        */
+         */
         iMeshPtr getMesh();
 
         /*! sets mesh for mesh node
@@ -70,46 +63,34 @@ namespace igor
         void setMesh(iMeshPtr mesh);
 
         /*! \returns emissive color
-        */
+         */
         iaColor3f getEmissive() const;
 
         /*! \returns ambient color
-        */
+         */
         iaColor3f getAmbient() const;
 
         /*! \returns specular color
-        */
+         */
         iaColor3f getSpecular() const;
 
         /*! \returns diffuse color
-        */
+         */
         iaColor3f getDiffuse() const;
 
         /*! \returns shininess
-        */
+         */
         float32 getShininess() const;
 
-        /*! \returns vertexes count
-        */
-        uint32 getVertexCount() const;
-
-        /*! \returns triangles count
-        */
-        uint32 getTrianglesCount() const;
-
-        /*! \returns indexes count
-        */
-        uint32 getIndexesCount() const;
-
         /*! \returns target material
-        */
-        iTargetMaterial *getTargetMaterial();
+         */
+        iTargetMaterialPtr getTargetMaterial() const;
 
         /*! configures target material
 
         \param targetMaterial the target material configuration to copy
         */
-        void setTargetMaterial(const iTargetMaterial *const targetMaterial);
+        void setTargetMaterial(const iTargetMaterialPtr &targetMaterial);
 
         /*! sets the keep mesh flag
 
@@ -118,63 +99,51 @@ namespace igor
 
         \param keepMesh keep mesh flag. if true mesh will not be released after buffer creation
         */
-        void setKeepMesh(bool keepMesh = true);
+        void setKeepMeshData(bool keepMesh = true);
 
         /*! \retruns keep mesh flag. if true mesh will not be released after buffer creation
-        */
-        bool getKeepMesh() const;
+         */
+        bool getKeepMeshData() const;
 
         /*! returns multiple lines of information about this node
 
-		\param[out] info the returned information
-		*/
+        \param[out] info the returned information
+        */
         void getInfo(std::vector<iaString> &info) const override;
 
     private:
         /*! flag where to keep mesh after creating buffers or not
-        */
-        bool _keepMesh = false;
+         */
+        bool _keepMeshData = false;
 
         /*! target material
-        */
-        iTargetMaterial *_targetMaterial = nullptr;
-
-        /*! shared pointer to mesh buffers
-        */
-        iMeshBuffersPtr _meshBuffers = nullptr;
+         */
+        iTargetMaterialPtr _targetMaterial;
 
         /*! shared pointer to mesh
-        */
-        iMeshPtr _mesh = nullptr;
-
-        /*! sets mesh buffers for mesh node
-
-        \param meshBuffers shared pointer to mesh buffers
-        */
-        void setMeshBuffers(iMeshBuffersPtr meshBuffers);
+         */
+        iMeshPtr _mesh;
 
         /*! draw mesh
-        */
+         */
         virtual void draw();
 
         /*! initializes member variables
-        */
+         */
         iNodeMesh();
 
         /*! copy ctor
-        */
+         */
         iNodeMesh(iNodeMesh *node);
 
         /*! release target material
-        */
+         */
         virtual ~iNodeMesh();
     };
 
     /*! mesh node pointer definition
-    */
+     */
     typedef iNodeMesh *iNodeMeshPtr;
-
-    __IGOR_ENABLE_WARNING__(4275)
 
 } // namespace igor
 

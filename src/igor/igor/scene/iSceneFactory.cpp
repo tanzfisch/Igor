@@ -16,7 +16,7 @@ namespace igor
     {
         if (sceneCount > 0)
         {
-            con_err("possible mem leak. scenes left: " << sceneCount);
+            con_warn("possible mem leak. scenes left: " << sceneCount);
         }
     }
 

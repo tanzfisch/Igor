@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTARGETMATERIAL__
-#define __iTARGETMATERIAL__
+#ifndef __IGOR_TARGETMATERIAL__
+#define __IGOR_TARGETMATERIAL__
 
 #include <igor/iDefines.h>
 #include <igor/resources/texture/iTexture.h>
@@ -40,39 +40,54 @@ using namespace iaux;
 
 namespace igor
 {
+    /*! target material pointer definition
+     */
+    class iTargetMaterial;
+    typedef std::shared_ptr<iTargetMaterial> iTargetMaterialPtr;
 
     /*! contains all material information that belong to the surface of an object
+
+    Whereas iMaterial contains all the information realted to shader and environment ie lights etc.
     */
     class IGOR_API iTargetMaterial
     {
 
-        friend class iMaterialResourceFactory;
+        friend class iTargetMaterialDeleter;
 
     public:
-        /*! set a texture for a specific texture unit
+        /*! \returns a newly created target material
+         */
+        static iTargetMaterialPtr create();
 
-        \param texture the texture to bind
-        \param texunit the texture unit the texture will bond to
+        /*! add a texture
+
+        texture unit will be interpreted by added order first is 0 and so on
+
+        \param texture the texture to add
         */
-        void setTexture(iTexturePtr texture, int texunit);
+        void addTexture(iTexturePtr texture);
 
-        /*! \returns texture of specified texture unit
+        /*! \returns all the textures in the target material
+         */
+        const std::vector<iTexturePtr> &getTextures() const;
 
-        \param texunit texture unit
+        /*! removes all textures
+         */
+        void clearTextures();
+
+        /*! sets the tiling configuration that can be use in a shader
+
+        \param tiling column and row count of tiles
         */
-        iTexturePtr getTexture(int texunit) const;
+        void setTilingConfig(const iaVector2f &tiling);
+
+        /*! \returns tiling config
+         */
+        const iaVector2f &getTilingConfig() const;
 
         /*! \returns true if mesh has textures and texture coordinates
-        */
-        __IGOR_INLINE__ bool hasTextures() const;
-
-        /*! \returns texture unit count
-        */
-        __IGOR_INLINE__ uint32 getTextureUnitCount() const;
-
-        /*! \returns true if mesh has specified texture unit
-        */
-        __IGOR_INLINE__ bool hasTextureUnit(uint32 unit) const;
+         */
+        bool hasTextures() const;
 
         /*! set emmisive color
 
@@ -81,8 +96,8 @@ namespace igor
         void setEmissive(const iaColor3f &e);
 
         /*! \returns emissive color
-        */
-        __IGOR_INLINE__ iaColor3f getEmissive() const;
+         */
+        iaColor3f getEmissive() const;
 
         /*! set ambient color
 
@@ -91,8 +106,8 @@ namespace igor
         void setAmbient(const iaColor3f &a);
 
         /*! \returns ambient color
-        */
-        __IGOR_INLINE__ iaColor3f getAmbient() const;
+         */
+        iaColor3f getAmbient() const;
 
         /*! set specular color
 
@@ -101,8 +116,8 @@ namespace igor
         void setSpecular(const iaColor3f &s);
 
         /*! \returns specular color
-        */
-        __IGOR_INLINE__ iaColor3f getSpecular() const;
+         */
+        iaColor3f getSpecular() const;
 
         /*! set diffuse color
 
@@ -111,66 +126,82 @@ namespace igor
         void setDiffuse(const iaColor3f &d);
 
         /*! \returns diffuse color
-        */
-        __IGOR_INLINE__ iaColor3f getDiffuse() const;
+         */
+        iaColor3f getDiffuse() const;
 
         /*! set shininess
 
-        \param s shininess value
+        \param shininess the shininess value
         */
-        void setShininess(float32 s);
+        void setShininess(float32 shininess);
 
         /*! \returns shininess
-        */
-        __IGOR_INLINE__ float32 getShininess() const;
+         */
+        float32 getShininess() const;
 
         /*! sets alpha value of material
-		*/
+         */
         void setAlpha(float32 alpha);
 
         /*! \returns alpha value of material
-		*/
-        __IGOR_INLINE__ float32 getAlpha() const;
+         */
+        float32 getAlpha() const;
+
+        /*! sets velocity orientation
+
+        \param enable if true orientation will be along velocity axis
+        */
+        void setVelocityOriented(bool enable);
+
+        /*! \returns true if orientation will be along velocity axis
+         */
+        bool isVelocityOriented() const;
 
     private:
-        /*! map of textures associated to the mesh
-        */
-        std::map<uint32, iTexturePtr> _textures;
+        /*! list of textures associated to the target
+         */
+        std::vector<iTexturePtr> _textures;
 
         /*! material emissive value
-        */
+         */
         iaColor3f _emissive;
 
         /*! material ambient value
-        */
+         */
         iaColor3f _ambient;
 
         /*! material specular value
-        */
+         */
         iaColor3f _specular;
 
         /*! material diffuse value
-        */
+         */
         iaColor3f _diffuse;
 
         /*! material shininess value
-        */
+         */
         float32 _shininess;
 
         /*! alpha value
-		*/
+         */
         float32 _alpha;
 
+        /*! tiling config
+         */
+        iaVector2f _tilingConfig;
+
+        /*! if true target material will be displayed oriented along it's velocity axis
+         */
+        bool _velocityOriented;
+
         /*! initializes members
-        */
+         */
         iTargetMaterial();
 
         /*! releases resources
-        */
+         */
         ~iTargetMaterial();
     };
-
-#include <igor/resources/material/iTargetMaterial.inl>
 
 } // namespace igor
 

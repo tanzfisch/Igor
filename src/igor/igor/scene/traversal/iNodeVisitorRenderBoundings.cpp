@@ -6,7 +6,7 @@
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeVolume.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
@@ -14,12 +14,6 @@ using namespace iaux;
 
 namespace igor
 {
-
-    iNodeVisitorRenderBoundings::iNodeVisitorRenderBoundings()
-    {
-        _material = iMaterialResourceFactory::getInstance().createMaterial("igor.boundings");
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    }
 
     bool iNodeVisitorRenderBoundings::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
@@ -40,7 +34,7 @@ namespace igor
 
             iAABoxd bbox = volume->getBoundingBox();
 
-            iRenderer::getInstance().drawBBox(bbox);
+            iRenderer::getInstance().drawBox(bbox);
         }
 
         return true;
@@ -61,8 +55,6 @@ namespace igor
     void iNodeVisitorRenderBoundings::preTraverse()
     {
         _currentMatrix.identity();
-        iRenderer::getInstance().setColor(1, 1, 1, 1);
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_material));
     }
 
     void iNodeVisitorRenderBoundings::postTraverse()

@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    PhysicsExample(iWindow *window);
+    PhysicsExample(iWindowPtr window);
 
     /*! does nothing
     */
@@ -82,10 +82,6 @@ private:
     /*! clean up scene
     */
     void onDeinit() override;
-
-    /*! renders orthogonal stuff
-    */
-    void onRenderOrtho() override;
 
     /*! called on any other event
 

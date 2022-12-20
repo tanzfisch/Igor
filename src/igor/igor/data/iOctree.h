@@ -31,7 +31,6 @@
 
 #include <igor/data/iAACube.h>
 #include <igor/data/iFrustum.h>
-#include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaSphere.h>
 
@@ -233,10 +232,6 @@ namespace igor
         /*! frustum filter list
          */
         std::vector<iFrustumd> _frustumFilter;
-
-        /*! material for debug rendering the octree
-         */
-        iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
 
         /*! recursive function to insert a scene node to the octree
 

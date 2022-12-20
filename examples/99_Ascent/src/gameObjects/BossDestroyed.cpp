@@ -51,7 +51,7 @@ BossDestroyed::BossDestroyed(iScenePtr scene, const iaMatrixd &matrix)
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _traceNodeID = particleSystem->getID();
-    particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("Particles"));
+    particleSystem->setMaterial(iMaterialResourceFactory_old::getInstance().getMaterialID("Particles"));
     particleSystem->setTextureA("particleTrail.png");
     particleSystem->setLoop(false);
     particleSystem->setColorGradient(colorGradient);
@@ -94,7 +94,7 @@ BossDestroyed::BossDestroyed(iScenePtr scene, const iaMatrixd &matrix)
 
     iNodeParticleSystem *particleSystem2 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _smokeNodeID = particleSystem2->getID();
-    particleSystem2->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("Particles"));
+    particleSystem2->setMaterial(iMaterialResourceFactory_old::getInstance().getMaterialID("Particles"));
     particleSystem2->setTextureA("particleSmoke.png");
     particleSystem2->setTextureB("octave1.png");
     particleSystem2->setTextureC("octave2.png");
@@ -138,7 +138,7 @@ BossDestroyed::BossDestroyed(iScenePtr scene, const iaMatrixd &matrix)
 
     iNodeParticleSystem *particleSystem3 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _fireBallNodeID = particleSystem3->getID();
-    particleSystem3->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("Particles"));
+    particleSystem3->setMaterial(iMaterialResourceFactory_old::getInstance().getMaterialID("Particles"));
     particleSystem3->setTextureA("particleFlame.png");
     particleSystem3->setTextureB("octave1.png");
     particleSystem3->setTextureC("octave2.png");

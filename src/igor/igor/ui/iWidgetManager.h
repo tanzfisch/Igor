@@ -67,7 +67,7 @@ namespace igor
 		\param pos the position to show the tooltip
 		\param text the text of the tooltip
 		*/
-        void showTooltip(const iaVector2i &pos, const iaString &text);
+        void showTooltip(const iaVector2f &pos, const iaString &text);
 
         /*! hides the tooltip
 		*/
@@ -169,7 +169,7 @@ namespace igor
 
         /*! tooltip position
 		*/
-        iaVector2i _tooltipPos;
+        iaVector2f _tooltipPos;
 
         /*! tooltip text
 		*/
@@ -228,7 +228,7 @@ namespace igor
 
         \param to the mouse postion to use
         */
-        bool handleMouseMove(const iaux::iaVector2i &to);
+        bool handleMouseMove(const iaux::iaVector2f &pos);
 
         /*! called when key was pressed
 

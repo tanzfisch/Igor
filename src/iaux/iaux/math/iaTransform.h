@@ -38,7 +38,7 @@ namespace iaux
     /*! Transform based on the components translate, rotate, scale, shear and perspective
 	*/
     template <class T>
-    class IAUX_API_TEMPLATE iaTransform
+    class IAUX_API_EXPORT_ONLY iaTransform
     {
 
     public:

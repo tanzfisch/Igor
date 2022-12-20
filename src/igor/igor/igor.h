@@ -52,14 +52,15 @@
 #include <igor/generation/iLSystem.h>
 #include <igor/generation/iPerlinNoise.h>
 
-#include <igor/graphics/iRenderer.h>
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iView.h>
 
 #include <igor/layers/iLayer.h>
 #include <igor/layers/iLayerWidgets.h>
 #include <igor/layers/iLayerProfiler.h>
 
 #include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsMaterialCombo.h>
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
@@ -95,8 +96,6 @@
 #include <igor/scene/traversal/iNodeVisitorBoundings.h>
 #include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
-
-#include <igor/simulation/iParticleSystem2D.h>
 
 #include <igor/system/iApplication.h>
 #include <igor/system/iKeyboard.h>

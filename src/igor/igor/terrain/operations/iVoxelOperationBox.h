@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iVOXELOPERATIONBOX__
-#define __iVOXELOPERATIONBOX__
+#ifndef __IGOR_VOXELOPERATIONBOX__
+#define __IGOR_VOXELOPERATIONBOX__
 
 #include <igor/terrain/operations/iVoxelOperation.h>
 

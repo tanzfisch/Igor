@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    VoxelExample(iWindow *window);
+    VoxelExample(iWindowPtr window);
 
     /*! does nothing
     */
@@ -66,7 +66,7 @@ private:
 
     /*! voxel mesh material
     */
-    uint64 _voxelMeshMaterialID = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialPtr _voxelMeshMaterial;
 
     /*! the actual voxel data
     */
@@ -91,10 +91,6 @@ private:
     /*! incarnation of mesh
     */
     uint32 _incarnation = 1;
-
-    /*! material definition for the sky box
-    */
-    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
 
     /*! initialize scene
     */

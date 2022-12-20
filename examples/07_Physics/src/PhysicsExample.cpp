@@ -4,7 +4,7 @@
 
 #include "PhysicsExample.h"
 
-PhysicsExample::PhysicsExample(iWindow *window)
+PhysicsExample::PhysicsExample(iWindowPtr window)
     : ExampleBase(window, "Physics")
 {
 }
@@ -134,9 +134,9 @@ void PhysicsExample::onInit()
     directionalLightTransform->translate(100, 100, 100);
 
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
-    lightNode->setSpecular(iaColor4f(1.0f, 01.0f, 1.0f, 1.0f));
+    lightNode->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
+    lightNode->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
+    lightNode->setSpecular(iaColor3f(1.0f, 01.0f, 1.0f));
     directionalLightTransform->insertNode(lightNode);
     getScene()->getRoot()->insertNode(directionalLightTransform);
 }
@@ -163,18 +163,6 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
     iPhysics::getInstance().getMassMatrix(body->getNewtonBody(), mass, Ixx, Iyy, Izz);
     force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
     body->setForce(force);
-}
-
-void PhysicsExample::onRenderOrtho()
-{
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
-
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    ExampleBase::onRenderOrtho();
 }
 
 void PhysicsExample::onEvent(iEvent &event)

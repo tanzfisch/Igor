@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 #include <iaux/math/iaMatrix.h>
-#include <igor/graphics/iInstancer.h>
+#include <igor/renderer/iInstancer.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeRender.h>
@@ -48,7 +48,7 @@ namespace igor
     struct iInstancingData
     {
         iInstancer *_instancer = nullptr;
-        iTargetMaterial *_targetMaterial = nullptr;
+        iTargetMaterialPtr _targetMaterial = nullptr;
     };
 
     /*! material group describes a group of render nodes that use the same material
@@ -57,15 +57,22 @@ namespace igor
     {
 
     public:
+
         /*! does nothing
         */
         iMaterialGroup() = default;
 
-        void setMaterial(iMaterialPtr material);
-
         /*! clean up
         */
         virtual ~iMaterialGroup();
+
+        /*! \returns true if material is instanced
+        */
+        bool isInstanced() const;
+
+        /*! \returns true if group has nodes
+        */
+        bool hasNodes() const;
 
         /*! clear node list
         */
@@ -86,9 +93,6 @@ namespace igor
         const std::unordered_map<iMeshBuffersPtr, iInstancingData> &getInstancedRenderNodes() const;
 
     private:
-        /*! corresponding material
-        */
-        iMaterialPtr _material;
 
         /*! render node IDs registred to this material
         */

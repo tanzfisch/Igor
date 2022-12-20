@@ -10,7 +10,7 @@
 namespace igor
 {
 
-    iEventKeyDown::iEventKeyDown(iWindow *window, const iKeyCode key)
+    iEventKeyDown::iEventKeyDown(iWindowPtr window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
@@ -33,7 +33,7 @@ namespace igor
         return _key;
     }
 
-    iEventKeyUp::iEventKeyUp(iWindow *window, const iKeyCode key)
+    iEventKeyUp::iEventKeyUp(iWindowPtr window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
@@ -56,7 +56,7 @@ namespace igor
         return _key;
     }
 
-    iEventKeyASCII::iEventKeyASCII(iWindow *window, const char character)
+    iEventKeyASCII::iEventKeyASCII(iWindowPtr window, const char character)
         : iEvent(window), _character(character)
     {
     }
@@ -66,10 +66,20 @@ namespace igor
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
+    static char filterChar(char character)
+    {
+        if(character == 0x1B)
+        {
+            return ' ';
+        }
+
+        return character;
+    }
+
     const iaString iEventKeyASCII::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName() << "[" << _character << "]";
+        stream << getName() << "[" << filterChar(_character) << "]";
 
         return stream.str().c_str();
     }

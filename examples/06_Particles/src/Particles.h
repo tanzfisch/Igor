@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    Particles(iWindow *window);
+    Particles(iWindowPtr window);
 
     /*! does nothing
     */
@@ -66,7 +66,7 @@ private:
 
     /*! particles material
     */
-    uint64 _particlesMaterial = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialPtr _particlesMaterial;
 
     /*! ids of particle systems
     */
@@ -103,10 +103,6 @@ private:
     /*! crates a fire particle system
     */
     void createFireParticleSystem();
-
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
 
     /*! called by timer
 

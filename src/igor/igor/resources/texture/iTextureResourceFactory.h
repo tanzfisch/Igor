@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TEXTURERESOURCEFACTORY_H__
-#define __IGOR_TEXTURERESOURCEFACTORY_H__
+#ifndef __IGOR_TEXTURERESOURCEFACTORY__
+#define __IGOR_TEXTURERESOURCEFACTORY__
 
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/texture/iPixmap.h>
@@ -38,7 +38,7 @@
 using namespace iaux;
 
 #include <list>
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 namespace igor
@@ -107,6 +107,14 @@ namespace igor
         */
         iPixmapPtr loadPixmap(const iaString &filename);
 
+        /*! releases all textures
+        */
+        void deinit();
+
+        /*! generates a dummy texture
+        */
+        void init();        
+
     private:
         /*! mutex to protect the texture manager access
         */
@@ -122,19 +130,11 @@ namespace igor
 
         /*! map of textures
         */
-        std::map<int64, iTexturePtr> _textures;
+        std::unordered_map<int64, iTexturePtr> _textures;
 
         /*! generated dummy texture
         */
         iTexturePtr _dummyTexture = nullptr;
-
-        /*! releases all textures
-        */
-        void deinit();
-
-        /*! generates a dummy texture
-        */
-        void init();
 
         /*! actually loads a texture
 
@@ -160,4 +160,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_TEXTURERESOURCEFACTORY_H__
+#endif // __IGOR_TEXTURERESOURCEFACTORY__

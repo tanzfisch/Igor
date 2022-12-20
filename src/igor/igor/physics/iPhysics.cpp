@@ -7,7 +7,6 @@
 #include <iaux/system/iaConsole.h>
 #include <igor/physics/iPhysicsWorld.h>
 #include <igor/system/iTimer.h>
-#include <igor/graphics/iRenderer.h>
 #include <igor/system/iApplication.h>
 #include <iaux/math/iaVector3.h>
 #include <igor/threading/iTaskManager.h>
@@ -150,7 +149,7 @@ namespace igor
 
         if (!_bodies.empty())
         {
-            con_err("possible mem leak! " << iaString::toString(_bodies.size()) << " physics bodys left");
+            con_warn("possible mem leak! " << iaString::toString(_bodies.size()) << " physics bodys left");
             auto bodies = _bodies;
 
             for (auto pair : bodies)
@@ -161,7 +160,7 @@ namespace igor
 
         if (!_collisions.empty())
         {
-            con_err("possible mem leak! " << iaString::toString(_collisions.size()) << " physics collisions left");
+            con_warn("possible mem leak! " << iaString::toString(_collisions.size()) << " physics collisions left");
             auto collisions = _collisions;
 
             for (auto pair : collisions)
@@ -1199,29 +1198,32 @@ namespace igor
 
                 float64 temp[9];
 
-                uint32 *indexes = mesh->getIndexData();
-                float32 *vertexes = mesh->getVertexData();
+                void *indexData;
+                uint32 indexDataSize;
+                void *vertexData;
+                uint32 vertexDataSize;
+                mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
 
-                uint32 vertexFloatCount = mesh->getVertexSize() / 4;
+                uint32 vertexFloatCount = mesh->getLayout().getStride() / 4;
                 uint32 vertexPos = 0;
-                uint32 indexCount = mesh->getIndexesCount();
+                uint32 indexCount = indexDataSize / 4;
 
                 for (int i = 0; i < indexCount; i += 3)
                 {
-                    vertexPos = (indexes[i + 0] * vertexFloatCount);
-                    temp[0] = vertexes[vertexPos++];
-                    temp[1] = vertexes[vertexPos++];
-                    temp[2] = vertexes[vertexPos++];
+                    vertexPos = (static_cast<uint32*>(indexData)[i + 0] * vertexFloatCount);
+                    temp[0] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[1] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[2] = static_cast<float32*>(vertexData)[vertexPos++];
 
-                    vertexPos = (indexes[i + 1] * vertexFloatCount);
-                    temp[3] = vertexes[vertexPos++];
-                    temp[4] = vertexes[vertexPos++];
-                    temp[5] = vertexes[vertexPos++];
+                    vertexPos = (static_cast<uint32*>(indexData)[i + 1] * vertexFloatCount);
+                    temp[3] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[4] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[5] = static_cast<float32*>(vertexData)[vertexPos++];
 
-                    vertexPos = (indexes[i + 2] * vertexFloatCount);
-                    temp[6] = vertexes[vertexPos++];
-                    temp[7] = vertexes[vertexPos++];
-                    temp[8] = vertexes[vertexPos++];
+                    vertexPos = (static_cast<uint32*>(indexData)[i + 2] * vertexFloatCount);
+                    temp[6] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[7] = static_cast<float32*>(vertexData)[vertexPos++];
+                    temp[8] = static_cast<float32*>(vertexData)[vertexPos++];
 
                     NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float64) * 3, faceAttribute);
                 }

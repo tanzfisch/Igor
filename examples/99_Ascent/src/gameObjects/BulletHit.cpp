@@ -50,7 +50,7 @@ BulletHit::BulletHit(iScenePtr scene, const iaMatrixd &matrix)
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemNodeID = particleSystem->getID();
     particleSystem->setLoop(false);
-    particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("Particles"));
+    particleSystem->setMaterial(iMaterialResourceFactory_old::getInstance().getMaterialID("Particles"));
     particleSystem->setTextureA("particleTrail.png");
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);

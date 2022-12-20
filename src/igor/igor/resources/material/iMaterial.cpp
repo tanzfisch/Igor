@@ -4,127 +4,310 @@
 
 #include <igor/resources/material/iMaterial.h>
 
-#include <igor/graphics/iRenderer.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/resources/material/iShader.h>
+#include <igor/resources/material/iMaterialReader.h>
+#include <igor/resources/iResourceManager.h>
+
+#include <igor/renderer/utils/iRendererUtils.h>
 
 #include <sstream>
 
 namespace igor
 {
 
-    iaIDGenerator64 iMaterial::_idGenerator;
-
-    iMaterial::iMaterial()
+    class iMaterialDeleter
     {
-        _id = _idGenerator.createID();
+    public:
+        void operator()(iMaterial *p) { delete p; }
+    };
+
+    iMaterialPtr iMaterial::create()
+    {
+        iMaterialPtr result = std::shared_ptr<iMaterial>(new iMaterial(), iMaterialDeleter());
+        result->_materialID = iMaterialID::create();
+        return result;
     }
 
-    iMaterial::~iMaterial()
+    iMaterialPtr iMaterial::create(const iaString &filename)
     {
-        clearShader();
-    }
-
-    void iMaterial::clearShader()
-    {
-        if (_shader != nullptr)
+        std::shared_ptr<iMaterial> result(new iMaterial(), iMaterialDeleter());
+        iMaterialReader::read(iResourceManager::getInstance().getPath(filename), result);
+        if (!result->_materialID.isValid())
         {
-            delete _shader;
-            _shader = nullptr;
+            result->_materialID = iMaterialID::create();
         }
+        return result;
     }
 
-    iMaterialID iMaterial::getID() const
-    {
-        return _id;
-    }
-
-    void iMaterial::compileShader()
-    {
-        if (iRenderer::getInstance().isReady())
-        {
-            deactivateShader();
-            clearShader();
-
-            _shader = new iShader();
-
-            for (auto source : _shaderSources)
-            {
-                _shader->loadFile(source._filename, source._type);
-            }
-
-            _shader->compile();
-
-            uint32 program = _shader->getProgram();
-
-            _lightOrientation = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_LIGHT_ORIENTATION);
-            _lightAmbient = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_LIGHT_AMBIENT);
-            _lightDiffuse = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_LIGHT_DIFFUSE);
-            _lightSpecular = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_LIGHT_SPECULAR);
-
-            if (_lightOrientation != -1 &&
-                _lightAmbient != -1 &&
-                _lightDiffuse != -1 &&
-                _lightSpecular != -1)
-            {
-                _hasDirectionalLight = true;
-            }
-
-            _eyePosition = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_EYE_POSITION);
-            if (_eyePosition != -1)
-            {
-                _hasEyePosition = true;
-            }
-
-            _mvp_matrix = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MODEL_VIEW_PROJECTION);
-            if (_mvp_matrix != -1)
-            {
-                _hasModelViewProjectionMatrix = true;
-            }
-
-            _model_matrix = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MODEL);
-            if (_mvp_matrix != -1)
-            {
-                _hasModelMatrix = true;
-            }
-
-            _matAmbient = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_AMBIENT);
-            _matDiffuse = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_DIFFUSE);
-            _matSpecular = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_SPECULAR);
-            _matShininess = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_SHININESS);
-            _matAlpha = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_ALPHA);
-            _matEmissive = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_EMISSIVE);
-
-            if (_matAmbient != -1 &&
-                _matDiffuse != -1 &&
-                _matSpecular != -1 &&
-                _matShininess != -1 &&
-                _matEmissive != -1 &&
-                _matAlpha != -1)
-            {
-                _hasTargetMaterial = true;
-            }
-
-            _matSolidColor = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_SOLIDCOLOR);
-            if (_matSolidColor != -1)
-            {
-                _hasSolidColor = true;
-            }
-
-            for (int i = 0; i < MAX_TEXTURE_UNITS; ++i)
-            {
-                std::stringstream shaderProperty;
-                shaderProperty << SAMPLER_TEXTURE << i;
-                _matTexture[i] = iRenderer::getInstance().getShaderPropertyID(program, shaderProperty.str().c_str());
-                _hasTexture[i] = _matTexture[i] != -1 ? true : false;
-            }
-        }
-    }
+    iMaterial::~iMaterial() = default;
 
     bool iMaterial::isValid() const
     {
-        return _isValid;
+        if (_shaderProgram == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    void iMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
+    {
+        _shaderProgram = shaderProgram;
+
+        if (_shaderProgram == nullptr)
+        {
+            _hasDirectionalLight = false;
+            _hasEyePosition = false;
+            _hasModelViewProjectionMatrix = false;
+            _hasModelMatrix = false;
+            _hasTargetMaterial = false;
+            _hasSolidColor = false;
+            return;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_LIGHT_ORIENTATION) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_AMBIENT) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_DIFFUSE) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_SPECULAR))
+        {
+            _hasDirectionalLight = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_EYE_POSITION))
+        {
+            _hasEyePosition = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL_VIEW_PROJECTION))
+        {
+            _hasModelViewProjectionMatrix = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL_VIEW))
+        {
+            _hasModelViewMatrix = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_VIEW_PROJECTION))
+        {
+            _hasViewProjectionMatrix = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_CONFIG_TILING))
+        {
+            _hasConfigTiling = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_CONFIG_VELOCITY_ORIENTED))
+        {
+            _hasConfigVelocityOriented = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL))
+        {
+            _hasModelMatrix = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_AMBIENT) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_DIFFUSE) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_SPECULAR) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_SHININESS) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_ALPHA) &&
+            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_EMISSIVE))
+        {
+            _hasTargetMaterial = true;
+        }
+
+        if (_shaderProgram->hasUniformLocation(UNIFORM_SOLIDCOLOR))
+        {
+            _hasSolidColor = true;
+        }
+
+        for (int i = 0; i < MAX_TEXTURE_UNITS; ++i)
+        {
+            std::stringstream shaderProperty;
+            shaderProperty << SAMPLER_TEXTURE << i;
+            _hasTexture[i] = _shaderProgram->hasUniformLocation(shaderProperty.str().c_str());
+        }
+    }
+
+    bool iMaterial::hasDirectionalLight() const
+    {
+        return _hasDirectionalLight;
+    }
+
+    bool iMaterial::hasEyePosition() const
+    {
+        return _hasEyePosition;
+    }
+
+    bool iMaterial::hasModelViewProjectionMatrix() const
+    {
+        return _hasModelViewProjectionMatrix;
+    }
+
+    bool iMaterial::hasModelViewMatrix() const
+    {
+        return _hasModelViewMatrix;
+    }
+
+    bool iMaterial::hasViewProjectionMatrix() const
+    {
+        return _hasViewProjectionMatrix;
+    }
+
+    bool iMaterial::hasModelMatrix() const
+    {
+        return _hasModelMatrix;
+    }
+
+    bool iMaterial::hasTargetMaterial() const
+    {
+        return _hasTargetMaterial;
+    }
+
+    bool iMaterial::hasSolidColor() const
+    {
+        return _hasSolidColor;
+    }
+
+    bool iMaterial::hasTilingConfig() const
+    {
+        return _hasConfigTiling;
+    }
+
+    bool iMaterial::hasVelocityOrientedConfig() const
+    {
+        return _hasConfigVelocityOriented;
+    }
+
+    bool iMaterial::hasTextureUnit(uint32 texUnit) const
+    {
+        con_assert(texUnit < MAX_TEXTURE_UNITS, "out of bounds");
+        return _hasTexture[texUnit];
+    }
+
+    iShaderProgramPtr iMaterial::getShaderProgram() const
+    {
+        return _shaderProgram;
+    }
+
+    void iMaterial::unbind()
+    {
+        _shaderProgram->unbind();
+    }
+
+    void iMaterial::bind()
+    {
+        con_assert(isValid(), "invalid material \"" << getName() << "\" [" << getID() << "]");
+
+        _shaderProgram->bind();
+
+        if (_renderStateSet.getRenderState(iRenderState::DepthTest) == iRenderStateValue::On)
+        {
+            glEnable(GL_DEPTH_TEST);
+        }
+        else
+        {
+            glDisable(GL_DEPTH_TEST);
+        }
+
+        if (_renderStateSet.getRenderState(iRenderState::DepthMask) == iRenderStateValue::On)
+        {
+            glDepthMask(GL_TRUE);
+        }
+        else
+        {
+            glDepthMask(GL_FALSE);
+        }
+
+        if (_renderStateSet.getRenderState(iRenderState::Blend) == iRenderStateValue::On)
+        {
+            glEnable(GL_BLEND);
+        }
+        else
+        {
+            glDisable(GL_BLEND);
+        }
+
+        if (_renderStateSet.getRenderState(iRenderState::CullFace) == iRenderStateValue::On)
+        {
+            glEnable(GL_CULL_FACE);
+        }
+        else
+        {
+            glDisable(GL_CULL_FACE);
+        }
+
+        switch (_renderStateSet.getRenderState(iRenderState::DepthFunc))
+        {
+        case iRenderStateValue::Less:
+            glDepthFunc(GL_LESS);
+            break;
+
+        case iRenderStateValue::LessOrEqual:
+            glDepthFunc(GL_LEQUAL);
+            break;
+
+        case iRenderStateValue::Never:
+            glDepthFunc(GL_NEVER);
+            break;
+
+        case iRenderStateValue::Equal:
+            glDepthFunc(GL_EQUAL);
+            break;
+
+        case iRenderStateValue::Greater:
+            glDepthFunc(GL_GREATER);
+            break;
+
+        case iRenderStateValue::NotEqual:
+            glDepthFunc(GL_NOTEQUAL);
+            break;
+
+        case iRenderStateValue::GreaterOrEqual:
+            glDepthFunc(GL_GEQUAL);
+            break;
+
+        case iRenderStateValue::Always:
+            glDepthFunc(GL_ALWAYS);
+            break;
+        }
+
+        switch (_renderStateSet.getRenderState(iRenderState::CullFaceFunc))
+        {
+        case iRenderStateValue::Front:
+            glCullFace(GL_FRONT);
+            break;
+
+        case iRenderStateValue::Back:
+            glCullFace(GL_BACK);
+            break;
+        }
+
+        if (_renderStateSet.getRenderState(iRenderState::Wireframe) == iRenderStateValue::On)
+        {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        }
+        else
+        {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
+    }
+
+    void iMaterial::setName(const iaString &name)
+    {
+        _name = name;
+    }
+
+    void iMaterial::setID(const iMaterialID &materialID)
+    {
+        _materialID = materialID;
+    }
+
+    const iaString &iMaterial::getName() const
+    {
+        return _name;
     }
 
     void iMaterial::setRenderState(const iRenderState state, const iRenderStateValue value)
@@ -132,31 +315,54 @@ namespace igor
         _renderStateSet.setRenderState(state, value);
     }
 
-    void iMaterial::addShaderSource(iaString filename, iShaderObjectType type)
+    iRenderStateValue iMaterial::getRenderState(const iRenderState state) const
     {
-        for (auto source : _shaderSources)
-        {
-            if (source._filename == filename)
-            {
-                con_warn("shader " << filename << " already added");
-                return;
-            }
-        }
-
-        iShaderSource shaderSource;
-        shaderSource._filename = filename;
-        shaderSource._type = type;
-        _shaderSources.push_back(shaderSource);
+        return _renderStateSet.getRenderState(state);
     }
 
-    std::vector<iShaderSource> iMaterial::getShaderSources() const
+    void iMaterial::setInt(const iaString &uniform, int value)
     {
-        return _shaderSources;
+        _shaderProgram->setInt(uniform, value);
     }
 
-    iShader *iMaterial::getShader()
+    void iMaterial::setFloat(const iaString &uniform, float32 value)
     {
-        return _shader;
+        _shaderProgram->setFloat(uniform, value);
+    }
+
+    void iMaterial::setFloat2(const iaString &uniform, const iaVector2f &value)
+    {
+        _shaderProgram->setFloat2(uniform, value);
+    }
+
+    void iMaterial::setFloat3(const iaString &uniform, const iaVector3f &value)
+    {
+        _shaderProgram->setFloat3(uniform, value);
+    }
+
+    void iMaterial::setFloat4(const iaString &uniform, const iaVector4f &value)
+    {
+        _shaderProgram->setFloat4(uniform, value);
+    }
+
+    void iMaterial::setFloat3(const iaString &uniform, const iaColor3f &value)
+    {
+        _shaderProgram->setFloat3(uniform, iaVector3f(value._r, value._g, value._b));
+    }
+
+    void iMaterial::setFloat4(const iaString &uniform, const iaColor4f &value)
+    {
+        _shaderProgram->setFloat4(uniform, iaVector4f(value._r, value._g, value._b, value._a));
+    }
+
+    void iMaterial::setMatrix(const iaString &uniform, const iaMatrixf &value)
+    {
+        _shaderProgram->setMatrix(uniform, value);
+    }
+
+    const iMaterialID &iMaterial::getID() const
+    {
+        return _materialID;
     }
 
     int32 iMaterial::getOrder() const
@@ -171,35 +377,4 @@ namespace igor
         _order = order;
     }
 
-    iRenderStateSet &iMaterial::getRenderStateSet()
-    {
-        return _renderStateSet;
-    }
-
-    void iMaterial::activateShader()
-    {
-        if (nullptr != _shader)
-        {
-            _shader->enable();
-        }
-    }
-
-    void iMaterial::deactivateShader()
-    {
-        if (nullptr != _shader)
-        {
-            _shader->disable();
-        }
-    }
-
-    iaString iMaterial::getName()
-    {
-        return _name;
-    }
-
-    void iMaterial::setName(iaString name)
-    {
-        _name = name;
-    }
-
-} // namespace igor
+}

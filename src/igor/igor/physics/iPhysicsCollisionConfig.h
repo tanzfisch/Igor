@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPHYSICSCOLLISIONCONFIG__
-#define __iPHYSICSCOLLISIONCONFIG__
+#ifndef __IGOR_PHYSICSCOLLISIONCONFIG__
+#define __IGOR_PHYSICSCOLLISIONCONFIG__
 
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/physics/iPhysicsCollision.h>

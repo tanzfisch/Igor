@@ -4,45 +4,7 @@
 
 #include "ExampleCharacterController.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/physics/iPhysics.h>
-#include <igor/physics/iPhysicsCollision.h>
-#include <igor/physics/iPhysicsBody.h>
-#include <igor/physics/iPhysicsJoint.h>
-#include <igor/physics/iPhysicsMaterial.h>
-#include <igor/physics/iPhysicsMaterialCombo.h>
-#include <igor/scene/nodes/iNodePhysics.h>
-using namespace igor;
-
-ExampleCharacterController::ExampleCharacterController(iWindow *window)
+ExampleCharacterController::ExampleCharacterController(iWindowPtr window)
     : ExampleBase(window, "Character Controller", true, false)
 {
 }
@@ -144,18 +106,10 @@ void ExampleCharacterController::onInit()
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
-    skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/left.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/right.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
+    skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skyboxes/stars.png"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
+    _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("examples/skybox.mat");
+    _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
     // and add it to the scene
@@ -166,9 +120,9 @@ void ExampleCharacterController::onInit()
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
-    lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    lightNode->setAmbient(iaColor3f(0.5f, 0.5f, 0.5f));
+    lightNode->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
+    lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
     // insert light to scene
     getScene()->getRoot()->insertNode(directionalLightTranslate);
     directionalLightTranslate->insertNode(lightNode);
@@ -313,21 +267,18 @@ void ExampleCharacterController::onDeinit()
         _characterController = nullptr;
     }
 
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
+    _materialSkyBox = nullptr;
 }
 
 void ExampleCharacterController::onRenderOrtho()
 {
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
+    iaMatrixd identity;
+    iRenderer::getInstance().setViewMatrix(identity);
 
     iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
+    modelMatrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
-    iRenderer::getInstance().setColor(1, 1, 1, 1);
-
-    iRenderer::getInstance().setMaterial(getFontMaterial());
     iRenderer::getInstance().setFont(getFont());
     iRenderer::getInstance().setFontSize(15.0f);
 

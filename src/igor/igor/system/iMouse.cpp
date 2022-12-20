@@ -48,7 +48,7 @@ namespace igor
         iMouse *_mouse;
         iaVector2i _posLast;
         iaVector2i _pos;
-        iWindow *_window = nullptr;
+        iWindowPtr _window = nullptr;
     };
 
 #ifdef __IGOR_WINDOWS__
@@ -496,12 +496,12 @@ namespace igor
         _impl->showCursor(show);
     }
 
-    iaVector2i iMouse::getPos()
+    const iaVector2i& iMouse::getPos() const
     {
         return _impl->_pos;
     }
 
-    iaVector2i iMouse::getPosDelta()
+    iaVector2i iMouse::getPosDelta() const
     {
         return _impl->_pos - _impl->_posLast;
     }
@@ -531,7 +531,7 @@ namespace igor
         return _impl->_buttonStates[4]._pressed;
     }
 
-    iWindow *iMouse::getWindow() const
+    iWindowPtr iMouse::getWindow() const
     {
         return _impl->_window;
     }

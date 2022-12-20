@@ -91,7 +91,7 @@ namespace igor
 
 			if (parameter != nullptr)
 			{
-				meshNode->setKeepMesh(parameter->_keepMesh);
+				meshNode->setKeepMeshData(parameter->_keepMesh);
 			}
 
 			meshNode->setMesh(mesh);
@@ -110,13 +110,13 @@ namespace igor
 
 			if (material->_texture != "")
 			{
-				meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(material->_texture.getData()), 0);
+				meshNode->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().requestFile(material->_texture.getData()));
 			}
 		}
 
 		if (result != nullptr)
 		{
-			con_info("loaded obj \"" << filename << "\"");
+			con_info("loaded model \"" << filename << "\"");
 		}
 
 		return result;

@@ -8,7 +8,6 @@
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/graphics/iRenderer.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/data/iIntersection.h>
 
@@ -202,13 +201,13 @@ namespace igor
                     horizontalLines.push_back(iaVector2f(static_cast<float32>(i) * stepY, (boundings._y + boundings._height) - static_cast<float32>(i) * stepYData));
                 }
 
-                iWidgetManager::getInstance().getTheme()->drawGraphGridlines(iaRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
+                iWidgetManager::getInstance().getTheme()->drawGraphGridlines(iaRectanglef(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
                                                                                          static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height)),
                                                                              1.0, verticalLines, horizontalLines, isActive());
 
                 if (_viewLabels)
                 {
-                    iWidgetManager::getInstance().getTheme()->drawGraphLabels(iaRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
+                    iWidgetManager::getInstance().getTheme()->drawGraphLabels(iaRectanglef(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
                                                                                           static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height)),
                                                                               verticalLines, horizontalLines, isActive());
                 }
@@ -251,7 +250,7 @@ namespace igor
                         points.push_back(currentPoint);
                     }
 
-                    iWidgetManager::getInstance().getTheme()->drawGraph(iaRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y)),
+                    iWidgetManager::getInstance().getTheme()->drawGraph(iaRectanglef(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y)),
                                                                         graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
                 }
             }
@@ -260,7 +259,7 @@ namespace igor
             {
                 std::vector<iaVector2f> points = _graphs[0]._points;
 
-                iaRectanglei buttonRect;
+                iaRectanglef buttonRect;
                 buttonRect._height = _buttonHeight;
                 buttonRect._width = 9;
                 buttonRect._y = static_cast<int32>(graphRenderArea._height + graphRenderArea._y + 1.0f);

@@ -8,9 +8,9 @@ IAUX_TEST(Vector3Tests, Initial)
 {
 	iaVector3d vec;
 
-	IAUX_EXPECT_EQ(vec._x, 0);
-	IAUX_EXPECT_EQ(vec._y, 0);
-	IAUX_EXPECT_EQ(vec._z, 0);
+	IAUX_EXPECT_EQUAL(vec._x, 0);
+	IAUX_EXPECT_EQUAL(vec._y, 0);
+	IAUX_EXPECT_EQUAL(vec._z, 0);
 }
 
 IAUX_TEST(Vector3Tests, Convert)
@@ -18,9 +18,9 @@ IAUX_TEST(Vector3Tests, Convert)
 	iaVector3d vec(1,2,3);
 	iaVector3f vec2 = vec.convert<float32>();
 
-	IAUX_EXPECT_EQ(vec2._x, 1.0f);
-	IAUX_EXPECT_EQ(vec2._y, 2.0f);
-	IAUX_EXPECT_EQ(vec2._z, 3.0f);
+	IAUX_EXPECT_EQUAL(vec2._x, 1.0f);
+	IAUX_EXPECT_EQUAL(vec2._y, 2.0f);
+	IAUX_EXPECT_EQUAL(vec2._z, 3.0f);
 }
 
 IAUX_TEST(Vector3Tests, Vector3dParamCtor)
@@ -35,7 +35,7 @@ IAUX_TEST(Vector3Tests, Vector3dLenghtZero)
 	iaVector3d vec;
 	float64 lenght = vec.length();
 
-	IAUX_EXPECT_EQ(lenght, 0.0);
+	IAUX_EXPECT_EQUAL(lenght, 0.0);
 }
 
 IAUX_TEST(Vector3Tests, Vector3dLenght)
@@ -43,7 +43,7 @@ IAUX_TEST(Vector3Tests, Vector3dLenght)
 	iaVector3d vec(3.0, 0.0, 4.0);
 	float64 lenght = vec.length();
 
-	IAUX_EXPECT_EQ(lenght, 5.0);
+	IAUX_EXPECT_EQUAL(lenght, 5.0);
 }
 
 IAUX_TEST(Vector3Tests, Vector3dLenght2)
@@ -51,7 +51,7 @@ IAUX_TEST(Vector3Tests, Vector3dLenght2)
 	iaVector3d vec(0.0, 3.0, 4.0);
 	float64 lenght = vec.length2();
 
-	IAUX_EXPECT_EQ(lenght, 25.0);
+	IAUX_EXPECT_EQUAL(lenght, 25.0);
 }
 
 IAUX_TEST(Vector3Tests, Vector3dDistance)
@@ -60,7 +60,7 @@ IAUX_TEST(Vector3Tests, Vector3dDistance)
 	iaVector3d vec2(1.0, 1.0, 3.0);
 	float64 distance = vec1.distance(vec2);
 
-	IAUX_EXPECT_EQ(distance, 5.0);
+	IAUX_EXPECT_EQUAL(distance, 5.0);
 }
 
 IAUX_TEST(Vector3Tests, Vector3dDistance2)
@@ -69,7 +69,7 @@ IAUX_TEST(Vector3Tests, Vector3dDistance2)
 	iaVector3d vec2(1.0, 7.0, 1.0);
 	float64 distance = vec1.distance2(vec2);
 
-	IAUX_EXPECT_EQ(distance, 25.0);
+	IAUX_EXPECT_EQUAL(distance, 25.0);
 }
 
 IAUX_TEST(Vector3Tests, Vector3dAngle)
@@ -78,7 +78,7 @@ IAUX_TEST(Vector3Tests, Vector3dAngle)
 	iaVector3d vec2(0.0, 1.0, 0.0);
 	float64 angle = vec1.angle(vec2);
 
-	IAUX_EXPECT_EQ(angle, static_cast<float64>(M_PI) * 0.5);
+	IAUX_EXPECT_EQUAL(angle, static_cast<float64>(M_PI) * 0.5);
 }
 
 IAUX_TEST(Vector3Tests, Vector3dSet)

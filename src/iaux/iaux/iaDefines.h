@@ -93,10 +93,12 @@
 
     #ifdef __IAUX_BUILDING_DLL__
         #define IAUX_API __declspec(dllexport)
-        #define IAUX_API_TEMPLATE __declspec(dllexport)
+        #define IAUX_API_EXPORT_ONLY __declspec(dllexport)
+        #define IAUX_API_IMPORT_ONLY
     #else
         #define IAUX_API __declspec(dllimport)
-        #define IAUX_API_TEMPLATE
+        #define IAUX_API_EXPORT_ONLY
+        #define IAUX_API_IMPORT_ONLY __declspec(dllimport)
     #endif
 
     #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
@@ -122,7 +124,8 @@
     #define __IGOR_ENABLE_WARNING__(num)  // TODO
 
     #define IAUX_API
-    #define IAUX_API_TEMPLATE
+    #define IAUX_API_EXPORT_ONLY
+    #define IAUX_API_IMPORT_ONLY
 
     #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(*name) parameters
     #define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters

@@ -37,6 +37,8 @@ namespace igor
 {
 
     /*! set of opengl buffer IDs
+
+    // TODO this should use iIndexBuffer and iVertexBuffer etc
     */
     class iMeshBuffers
     {

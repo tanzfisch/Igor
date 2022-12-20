@@ -38,10 +38,22 @@ namespace iaux
 
     \todo implement more operators
     */
-    template <class T>
-    class IAUX_API_TEMPLATE iaVector4
+    template <typename T>
+    struct IAUX_API_EXPORT_ONLY iaVector4
     {
-    public:
+        /*! does nothing
+        */
+        iaVector4() = default;
+
+        /*! param ctor
+
+        \pram x x component
+        \pram y y component
+        \pram z z component
+        \pram w w component
+        */
+        iaVector4(T x, T y, T z, T w);
+
         /*! x component
 		*/
         T _x = static_cast<T>(0);
@@ -63,7 +75,7 @@ namespace iaux
         \param src vector to copy
         \returns this
         */
-        __IGOR_INLINE__ iaVector4<T> operator=(const iaVector4<T> &src);
+        iaVector4<T> operator=(const iaVector4<T> &src);
 
         /*! copy operator 3 components
 
@@ -72,35 +84,35 @@ namespace iaux
         \param src vector to copy
         \returns this
         */
-        __IGOR_INLINE__ iaVector4<T> operator=(const iaVector3<T> &src);
+        iaVector4<T> operator=(const iaVector3<T> &src);
 
         /*! compares two vectors
 
         \param a the vector to compare this vector with
         \returns true if both vectors are equal
         */
-        __IGOR_INLINE__ bool operator==(const iaVector4<T> &a) const;
+        bool operator==(const iaVector4<T> &a) const;
 
         /*! compares two vectors
 
         \param a the vector to compare this vector with
         \returns true if both vectors are not equal
         */
-        __IGOR_INLINE__ bool operator!=(const iaVector4<T> &a) const;
+        bool operator!=(const iaVector4<T> &a) const;
 
         /*! array operator read only versione
 
         \param i index of field to access
         \returns value of field
         */
-        __IGOR_INLINE__ const T &operator[](int i) const;
+        const T &operator[](int i) const;
 
         /*! array operator read and write
 
         \param i index of field to access
         \returns reference to value
         */
-        __IGOR_INLINE__ T &operator[](int i);
+        T &operator[](int i);
 
         /*! sets the components of this vector
 
@@ -126,26 +138,7 @@ namespace iaux
 		\returns vector for given type
 		*/
         template <class T2>
-        __IGOR_INLINE__ iaVector4<T2> convert() const;
-
-        /*! default ctor
-
-        initializes components with zero
-        */
-        iaVector4();
-
-        /*! param ctor
-
-        \pram x x component
-        \pram y y component
-        \pram z z component
-        \pram w w component
-        */
-        iaVector4(T x, T y, T z, T w);
-
-        /*! does nothing
-        */
-        ~iaVector4() = default;
+        iaVector4<T2> convert() const;
     };
 
     /*! linear interpolation of two vectors

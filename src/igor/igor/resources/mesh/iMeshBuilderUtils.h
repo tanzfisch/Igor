@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMESHBUILDERUTILS__
-#define __iMESHBUILDERUTILS__
+#ifndef __IGOR_MESHBUILDERUTILS__
+#define __IGOR_MESHBUILDERUTILS__
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMesh.h>
@@ -106,7 +106,7 @@ namespace igor
 		\param meshBuilder the given mesh builder instance
 		\param mesh the mesh to be added
 		*/
-        void IGOR_API addMesh(iMeshBuilder &meshBuilder, const iMeshPtr mesh);
+        // void IGOR_API addMesh(iMeshBuilder &meshBuilder, const iMeshPtr mesh);
 
     } // namespace iMeshBuilderUtils
 

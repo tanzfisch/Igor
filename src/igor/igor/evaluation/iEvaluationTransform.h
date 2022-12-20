@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iEVALUATION_TRANSFORM__
-#define __iEVALUATION_TRANSFORM__
+#ifndef __IGOR_EVALUATION_TRANSFORM__
+#define __IGOR_EVALUATION_TRANSFORM__
 
 #include <igor/evaluation/iEvaluation.h>
 

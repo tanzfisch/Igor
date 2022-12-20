@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPIXMAP__
-#define __iPIXMAP__
+#ifndef __IGOR_PIXMAP__
+#define __IGOR_PIXMAP__
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>

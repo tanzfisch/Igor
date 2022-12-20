@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMODEL__
-#define __iMODEL__
+#ifndef __IGOR_MODEL__
+#define __IGOR_MODEL__
 
 #include <igor/iDefines.h>
 #include <igor/threading/tasks/iTask.h>

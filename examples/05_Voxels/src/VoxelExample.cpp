@@ -6,7 +6,7 @@
 
 #include "VoxelTerrainMeshGenerator.h"
 
-VoxelExample::VoxelExample(iWindow *window)
+VoxelExample::VoxelExample(iWindowPtr window)
     : ExampleBase(window, "Voxel", true, false)
 {
 }
@@ -26,9 +26,6 @@ void VoxelExample::onDeinit()
 {
     // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("example_vtg");
-
-    // destroy material
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
 }
 
 void VoxelExample::initScene()
@@ -60,39 +57,27 @@ void VoxelExample::initScene()
     lightTranslate->translate(100, 100, 100);
     // and light node
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor4f(0.6f, 0.6f, 0.6f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
-    lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
+    lightNode->setAmbient(iaColor3f(0.6f, 0.6f, 0.6f));
+    lightNode->setDiffuse(iaColor3f(0.9f, 0.7f, 0.6f));
+    lightNode->setSpecular(iaColor3f(1.0f, 0.9f, 0.87f));
     // and add it to the scene
     getScene()->getRoot()->insertNode(lightTranslate);
     lightTranslate->insertNode(lightNode);
 
+    // set up voxel mesh material
+    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().loadMaterial("examples/voxel_terrain_directional_light.mat");
+
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
-    skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/left.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/right.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
+    skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skyboxes/stars.png"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setOrder(iMaterial::RENDER_ORDER_MIN);
+    iMaterialPtr materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("examples/skybox.mat");
+    materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
     // set that material
-    skyBoxNode->setMaterial(_materialSkyBox);
+    skyBoxNode->setMaterial(materialSkyBox);
     // and add it to the scene
     getScene()->getRoot()->insertNode(skyBoxNode);
-
-    // set up voxel mesh material
-    _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -237,7 +222,7 @@ void VoxelExample::prepareMeshGeneration()
 {
     // prepar special tile information for the VoxelTerrainMeshGenerator
     TileInformation tileInformation;
-    tileInformation._materialID = _voxelMeshMaterialID;
+    tileInformation._material = _voxelMeshMaterial;
     tileInformation._voxelData = _voxelData;
     // define the input parameter so Igor knows which iModelDataIO implementation to use and how
     iModelDataInputParameter *inputParam = new iModelDataInputParameter();
@@ -267,27 +252,21 @@ void VoxelExample::prepareMeshGeneration()
 
 void VoxelExample::onRenderOrtho()
 {
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
-
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
-
-    iRenderer::getInstance().setMaterial(getFontMaterial());
+    iaMatrixd matrix;
+    iRenderer::getInstance().setViewMatrix(matrix);
+    matrix.translate(0, 0, -1);
+    iRenderer::getInstance().setModelMatrix(matrix);
 
     iRenderer::getInstance().setFont(getFont());
     iRenderer::getInstance().setFontSize(25.0f);
 
     if (_loading)
     {
-        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::white);
     }
     else
     {
-        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::white);
     }
 
     ExampleBase::onRenderOrtho();
@@ -306,7 +285,7 @@ void VoxelExample::onPreDraw()
             if (_loading)
             {
                 _loading = false;
-                con_endl("generation time: " << (iaTime::getNow() - _time));
+                con_info("generation time: " << (iaTime::getNow() - _time));
             }
         }
     }

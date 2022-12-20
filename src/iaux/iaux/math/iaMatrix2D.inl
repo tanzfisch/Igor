@@ -132,12 +132,12 @@ __IGOR_INLINE__ iaMatrix2D<T>::iaMatrix2D()
 }
 
 /*!
-\todo replace with memcpy
+\todo replace with memcpy. test first what is fastest
 */
 template <class T>
 __IGOR_INLINE__ iaMatrix2D<T>::iaMatrix2D(const T data[9])
 {
-	T *localData = getData();
+	const T *localData = getData();
 
 	for (int i = 0; i < 9; i++)
 	{

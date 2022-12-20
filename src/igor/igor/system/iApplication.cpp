@@ -10,7 +10,7 @@
 #include <igor/physics/iPhysics.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/evaluation/iEvaluationManager.h>
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iView.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -139,11 +139,10 @@ namespace igor
 
     void iApplication::iterate()
     {
-        iaLogLevel logLevel;
+        iTimer::getInstance().onUpdate();
         iProfiler::nextFrame();
 
         IGOR_PROFILER_BEGIN(app);
-        iTimer::getInstance().handle();
         iNodeManager::getInstance().handle();
         windowHandle();
         dispatch();
@@ -208,14 +207,14 @@ namespace igor
         _layerStack.removeLayer(layer);
     }
 
-    iWindowPtr iApplication::createWindow()
+    iWindowPtr iApplication::createWindow(const iaString& title)
     {
-        iWindowPtr window = new iWindow();
+        iWindowPtr window = new iWindow(title);
         _windows.push_back(window);
         return window;
     }
 
-    void iApplication::destroyWindow(iWindow *window)
+    void iApplication::destroyWindow(iWindowPtr window)
     {
         con_assert(window != nullptr, "zero pointer");
         if (window == nullptr)
@@ -235,7 +234,7 @@ namespace igor
         }
     }
 
-    iWindow *iApplication::getWindow(iWindowID windowID) const
+    iWindowPtr iApplication::getWindow(iWindowID windowID) const
     {
         auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window)
                                  { return window->getID() == windowID; });

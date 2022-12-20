@@ -19,7 +19,7 @@ namespace igor
     {
         if (_entities.size() > 0)
         {
-            con_err("possible mem leak. " << _entities.size() << " entitties still registered");
+            con_warn("possible mem leak. " << _entities.size() << " entitties still registered");
         }
 
         delete _octree;

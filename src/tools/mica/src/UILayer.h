@@ -39,7 +39,7 @@ class UILayer : public iLayerWidgets
 public:
     /*! nothing to do
 	*/
-    UILayer(iWindow *window, int32 zIndex, WorkspacePtr workspace);
+    UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace);
 
     /*! deinit resources
 	*/

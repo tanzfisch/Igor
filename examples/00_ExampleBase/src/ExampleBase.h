@@ -30,6 +30,7 @@
 #define __EXAMPLEBASE_H__
 
 #include <igor/igor.h>
+using namespace igor;
 
 /*! Examples base class
 */
@@ -39,7 +40,7 @@ class ExampleBase : public iLayer
 public:
     /*! init example
     */
-    ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup = true, bool createSkyBox = true, int32 zIndex = 0);
+    ExampleBase(iWindowPtr window, const iaString &name, bool createBaseSetup = true, bool createSkyBox = true, int32 zIndex = 0);
 
     /*! release resources
     */
@@ -100,6 +101,10 @@ protected:
     */
     bool onKeyUp(iEventKeyUp &event);
 
+    /*! \returns help screen string
+    */
+    virtual iaString getHelpString();
+
 private:
     /*! the view we render 2D to
     */
@@ -123,11 +128,11 @@ private:
 
     /*! igor logo
     */
-    iTexturePtr _igorLogo = nullptr;
+    iTexturePtr _igorLogo;
 
     /*! texture font we use to display the profiler
     */
-    iTextureFontPtr _font = nullptr;
+    iTextureFontPtr _font;
 
     /*! if true we display a help screen
     */
@@ -135,11 +140,7 @@ private:
 
     /*! material definition for the sky box
     */
-    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! material for igor logo
-    */
-    iMaterialID _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialPtr _materialSkyBox;
 
     /*! draw igor logo
     */
@@ -147,7 +148,7 @@ private:
 
     /*! draw help screen
     */
-    void drawHelpScreen();    
+    void drawHelpScreen();
 
     /*! handle window resize event
 

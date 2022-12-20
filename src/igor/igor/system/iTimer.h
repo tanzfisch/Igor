@@ -41,9 +41,9 @@ namespace igor
 {
     /*! Handles Application time and intervals.
 
-	Meshures time of application cycles based on render frames.
-	Can also just meashure current time see getTime()
-	*/
+    Meshures time of application cycles based on render frames.
+    Can also just meashure current time see getTime()
+    */
     class IGOR_API iTimer : public iModule<iTimer>
     {
         friend class iTimerHandle;
@@ -52,59 +52,73 @@ namespace igor
 
     public:
         /*! \returns time at beginning of current frame
-        */
+         */
         iaTime getTime() const;
 
         /*! \returns delta time since last frame
-        */
+         */
         iaTime getTimeDelta() const;
 
         /*! \returns frame rate based only on one frame's time delta
+         */
+        float64 getFPS() const;
+
+        /*! stops time and everyting that is triggered by it
         */
-        float64 getFPS() const;        
+        void stop();
+
+        /*! continues time
+        */
+        void start();
 
     protected:
         /*! call timer handle events
-        */
+         */
         void handleTimerHandles();
 
     private:
         /*! time delta between last and current frame (in miliseconds)
-		*/
+         */
         iaTime _timeDelta;
 
-        /*! time since timer was initialized (in miliseconds)
-		*/
-        iaTime _startTime;
-
-        /*! time meshured current frame (in miliseconds)
-		*/
+        /*! time simce application start accounding for start/stop
+         */
         iaTime _currentTime;
 
-        /*! registered timer handles
+        /*! actual time since application start
+        */
+        iaTime _currentActualTime;
 
-		\todo why is this pointers?
-		*/
+        /*! if true time is running
+        */
+        bool _timeRunning = true;
+
+        /*! registered timer handles
+        */
         std::vector<iTimerHandle *> _timerHandles;
 
+        /*! mutex to protect timer handle list
+        */
+        iaMutex _mutexHandleList;
+
         /*! registers timer handle to timer
-		*/
+         */
         void insertTimerHandle(const iTimerHandle *timer_handle);
 
         /*! unregisters timer handle from timer
-		*/
+         */
         void removeTimerHandle(const iTimerHandle *timer_handle);
 
         /*! called by iApplication to handle timer handle events
-		*/
-        void handle();
+         */
+        void onUpdate();
 
         /*! Registers to iApplication and initializes performance counter
-		*/
+         */
         iTimer();
 
         /*! Unregisters from iApplication
-		*/
+         */
         virtual ~iTimer();
     };
 

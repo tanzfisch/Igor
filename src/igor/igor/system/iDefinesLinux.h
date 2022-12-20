@@ -26,16 +26,20 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iDEFINES_LINUX__
-#define __iDEFINES_LINUX__
+#ifndef __IGOR_DEFINES_LINUX__
+#define __IGOR_DEFINES_LINUX__
 
 #ifdef __IGOR_LINUX__
 
 #include <igor/iDefines.h>
 
-#include <GLee.h>
+#include <glad/glad.h>
+#include <GL/glx.h>
+#include <GL/glext.h>
+
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
 #ifdef XF86VMODE_FOUND
 #include <X11/extensions/xf86vmode.h>
 #endif
@@ -67,7 +71,7 @@ namespace igor
     {
         /*! the window the events will come from
         */
-        iWindow *_window;
+        iWindowPtr _window;
 
         /*! display instance
         */
@@ -82,4 +86,4 @@ namespace igor
 
 #endif // __IGOR_LINUX__
 
-#endif // __iDEFINES_LINUX__
+#endif // __IGOR_DEFINES_LINUX__

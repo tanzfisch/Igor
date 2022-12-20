@@ -19,11 +19,8 @@
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iApplication.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
 #include <igor/ui/theme/iWidgetTheme.h>
-#include <igor/resources/texture/iTextureFont.h>
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
@@ -35,7 +32,11 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iApplication.h>
+#include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -53,7 +54,7 @@ namespace igor
     {
         if (!_widgets.empty())
         {
-            con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
+            con_warn("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
 
 #ifdef __IGOR_DEBUG__
             for (auto pair : _widgets)
@@ -105,7 +106,7 @@ namespace igor
         }
     }
 
-    void iWidgetManager::showTooltip(const iaVector2i &pos, const iaString &text)
+    void iWidgetManager::showTooltip(const iaVector2f &pos, const iaString &text)
     {
         _tooltipPos = pos;
         _tooltipText = text;
@@ -205,12 +206,12 @@ namespace igor
         }
     }
 
-    bool iWidgetManager::handleMouseMove(const iaux::iaVector2i &to)
+    bool iWidgetManager::handleMouseMove(const iaux::iaVector2f &pos)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleMouseMove(to);
+            getModal()->handleMouseMove(pos);
             return true;
         }
 
@@ -223,7 +224,7 @@ namespace igor
         {
             for (auto dialog : dialogs)
             {
-                dialog->handleMouseMove(to);
+                dialog->handleMouseMove(pos);
 
                 if (dialog->_isMouseOver)
                 {
@@ -254,8 +255,8 @@ namespace igor
         // refresh mouse pos on other dialogs because they have been blocked so far
         if (refreshMousePos)
         {
-            auto pos = iMouse::getInstance().getPos();
-            handleMouseMove(pos);
+            const iaVector2i &mousePos = iMouse::getInstance().getPos();
+            handleMouseMove(iaVector2f(mousePos._x, mousePos._y));
         }
 
         for (auto dialog : _dialogs)
@@ -291,7 +292,7 @@ namespace igor
             widget->updateAlignment(clientRectWidth, clientRectHeight);
             widget->updatePosition(offsetX, offsetY);
 
-            std::vector<iaRectanglei> offsets;
+            std::vector<iaRectanglef> offsets;
             widget->calcChildOffsets(offsets);
 
             con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
@@ -541,7 +542,9 @@ namespace igor
 
     bool iWidgetManager::onMouseMoveEvent(iEventMouseMove &event)
     {
-        if (handleMouseMove(event.getPosition()))
+        const iaVector2i& pos = event.getPosition();
+
+        if (handleMouseMove(iaVector2f(pos._x, pos._y)))
         {
             return true;
         }

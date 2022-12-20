@@ -2,7 +2,7 @@
 
 namespace igor
 {
-    iLayer::iLayer(iWindow *window, const iaString &name, int32 zIndex)
+    iLayer::iLayer(iWindowPtr window, const iaString &name, int32 zIndex)
         : _name(name), _zIndex(zIndex), _window(window)
     {
     }
@@ -22,7 +22,7 @@ namespace igor
         return _zIndex;
     }
 
-    iWindow *iLayer::getWindow() const
+    iWindowPtr iLayer::getWindow() const
     {
         return _window;
     }

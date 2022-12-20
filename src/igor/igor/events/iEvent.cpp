@@ -7,7 +7,7 @@
 namespace igor
 {
 
-    iEvent::iEvent(iWindow *window)
+    iEvent::iEvent(iWindowPtr window)
         : _window(window)
     {
     }
@@ -27,7 +27,7 @@ namespace igor
         _consumed = true;
     }
 
-    iWindow *iEvent::getWindow() const
+    iWindowPtr iEvent::getWindow() const
     {
         return _window;
     }

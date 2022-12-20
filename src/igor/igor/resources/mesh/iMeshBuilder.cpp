@@ -4,7 +4,8 @@
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/utils/iRendererDefines.h>
+
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
@@ -376,19 +377,6 @@ namespace igor
                              maxPos._z - minPos._z * 0.5);
     }
 
-    iMeshPtr iMeshBuilder::createMesh(std::vector<uint32> triangles)
-    {
-        iMesh *mesh = new iMesh();
-
-        compile(mesh, triangles);
-
-        iAABoxd bbox;
-        calcBoundingBox(bbox);
-        mesh->setBoundingBox(bbox);
-
-        return iMeshPtr(mesh);
-    }
-
     void iMeshBuilder::cleanup()
     {
         if (_triangles.size() == 0)
@@ -426,46 +414,21 @@ namespace igor
         }
     }
 
-    iMeshPtr iMeshBuilder::createMesh()
-    {
-        iMesh *mesh = nullptr;
-        if (_vertexes.size() > 0)
-        {
-            mesh = new iMesh();
-
-            compile(mesh);
-
-            iAABoxd bbox;
-            calcBoundingBox(bbox);
-            mesh->setBoundingBox(bbox);
-        }
-        return iMeshPtr(mesh);
-    }
-
-    void iMeshBuilder::compile(iMesh *mesh, std::vector<uint32> triangles)
+    void iMeshBuilder::compile(iMeshPtr mesh, const std::vector<uint32> &triangles)
     {
         if (!checkConsistency())
         {
             return;
         }
 
-        mesh->setTrianglesCount(static_cast<uint32>(triangles.size()));
-        mesh->setIndexesCount(static_cast<uint32>(triangles.size() * 3));
-        mesh->setIndexData(reinterpret_cast<uint32 *>(new uint8[mesh->getIndexesCount() * sizeof(int32)]), mesh->getIndexesCount() * sizeof(int32));
-        mesh->setVertexSize((3 + (hasNormals() ? 3 : 0) + (hasColors() ? 4 : 0) + (getTextureUnitCount() * 2)) * sizeof(float32));
-        mesh->setHasNormals(hasNormals());
-        mesh->setHasColors(hasColors());
-        for (int i = 0; i < 4; ++i)
-        {
-            if (_texCoords.find(i) != _texCoords.end())
-            {
-                mesh->setTexture(i, true);
-            }
-        }
-        mesh->setTextureCoordinatesCount(_texCoords.size());
+        const uint32 indexCount = _triangles.size() * 3;
+        uint32 *indexBufferData = new uint32[indexCount];
 
-        uint32 tempBufferSize = (3 + (hasNormals() ? 3 : 0) + (hasColors() ? 4 : 0) + (getTextureUnitCount() * 2)) * _vertexes.size();
-        float32 *tempBuffer = new float32[tempBufferSize];
+        const uint32 vertexSize = (3 + (hasNormals() ? 3 : 0) + (hasColors() ? 4 : 0) + (getTextureUnitCount() * 2)) * sizeof(float32);
+        const uint32 vertexCountTotal = _vertexes.size();
+        const uint32 vertexBufferSizeTotal = vertexCountTotal * vertexSize;
+        // allocating potentially too much on purpose to have space for all filter scenarios
+        float32 *vertexBufferData = new float32[vertexBufferSizeTotal / sizeof(float32)];
 
         std::map<uint32, uint32> indexMap;
         std::map<uint32, uint32>::iterator foundIndex;
@@ -492,75 +455,53 @@ namespace igor
                 if (foundIndex != indexMap.end())
                 {
                     newVertexIndex = (*foundIndex).second;
-                    mesh->_indexData[indexDataIndex++] = newVertexIndex;
+                    indexBufferData[indexDataIndex++] = newVertexIndex;
                 }
                 else
                 {
                     newVertexIndex = nextNewVertexIndex++;
                     indexMap[oldVertexIndex] = newVertexIndex;
-                    mesh->_indexData[indexDataIndex++] = newVertexIndex;
+                    indexBufferData[indexDataIndex++] = newVertexIndex;
 
-                    tempBuffer[vertexDataIndex++] = _vertexes[oldVertexIndex]._x;
-                    tempBuffer[vertexDataIndex++] = _vertexes[oldVertexIndex]._y;
-                    tempBuffer[vertexDataIndex++] = _vertexes[oldVertexIndex]._z;
+                    vertexBufferData[vertexDataIndex++] = _vertexes[oldVertexIndex]._x;
+                    vertexBufferData[vertexDataIndex++] = _vertexes[oldVertexIndex]._y;
+                    vertexBufferData[vertexDataIndex++] = _vertexes[oldVertexIndex]._z;
 
                     if (hasNormals())
                     {
-                        tempBuffer[vertexDataIndex++] = _normals[oldVertexIndex]._x;
-                        tempBuffer[vertexDataIndex++] = _normals[oldVertexIndex]._y;
-                        tempBuffer[vertexDataIndex++] = _normals[oldVertexIndex]._z;
+                        vertexBufferData[vertexDataIndex++] = _normals[oldVertexIndex]._x;
+                        vertexBufferData[vertexDataIndex++] = _normals[oldVertexIndex]._y;
+                        vertexBufferData[vertexDataIndex++] = _normals[oldVertexIndex]._z;
                     }
 
                     if (hasColors())
                     {
-                        tempBuffer[vertexDataIndex++] = _colors[oldVertexIndex]._r;
-                        tempBuffer[vertexDataIndex++] = _colors[oldVertexIndex]._g;
-                        tempBuffer[vertexDataIndex++] = _colors[oldVertexIndex]._b;
-                        tempBuffer[vertexDataIndex++] = _colors[oldVertexIndex]._a;
+                        vertexBufferData[vertexDataIndex++] = _colors[oldVertexIndex]._r;
+                        vertexBufferData[vertexDataIndex++] = _colors[oldVertexIndex]._g;
+                        vertexBufferData[vertexDataIndex++] = _colors[oldVertexIndex]._b;
+                        vertexBufferData[vertexDataIndex++] = _colors[oldVertexIndex]._a;
                     }
 
                     for (uint32 texIndex = 0; texIndex < getTextureUnitCount(); ++texIndex)
                     {
-                        tempBuffer[vertexDataIndex++] = _texCoords[texIndex][oldVertexIndex]._x;
-                        tempBuffer[vertexDataIndex++] = _texCoords[texIndex][oldVertexIndex]._y;
+                        vertexBufferData[vertexDataIndex++] = _texCoords[texIndex][oldVertexIndex]._x;
+                        vertexBufferData[vertexDataIndex++] = _texCoords[texIndex][oldVertexIndex]._y;
                     }
                 }
             }
         }
 
-        mesh->setVertexCount(static_cast<uint32>(indexMap.size()));
-        mesh->setVertexData(reinterpret_cast<float32 *>(new uint8[mesh->getVertexSize() * mesh->getVertexCount()]), mesh->getVertexSize() * mesh->getVertexCount());
+        const uint32 vertexCount = vertexDataIndex;
+        const uint32 vertexBufferSize = vertexCount * vertexSize;
 
-        memcpy(mesh->_vertexData, tempBuffer, mesh->getVertexSize() * mesh->getVertexCount());
+        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout());
 
-        delete[] tempBuffer;
-    }
+        delete[] indexBufferData;
+        delete[] vertexBufferData;
 
-    void iMeshBuilder::compile(iMesh *mesh)
-    {
-        if (!checkConsistency())
-        {
-            return;
-        }
-
-        mesh->setTrianglesCount(static_cast<uint32>(_triangles.size()));
-        mesh->setIndexesCount(static_cast<uint32>(_triangles.size() * 3));
-        mesh->setIndexData(reinterpret_cast<uint32 *>(new uint8[mesh->getIndexesCount() * sizeof(int32)]), mesh->getIndexesCount() * sizeof(int32));
-
-        uint32 index = 0;
-
-        auto interTriangle = _triangles.begin();
-        while (_triangles.end() != interTriangle)
-        {
-            mesh->_indexData[index++] = (*interTriangle)._a;
-            mesh->_indexData[index++] = (*interTriangle)._b;
-            mesh->_indexData[index++] = (*interTriangle)._c;
-            ++interTriangle;
-        }
-
-        mesh->setVertexSize((3 + (hasNormals() ? 3 : 0) + (hasColors() ? 4 : 0) + (getTextureUnitCount() * 2)) * sizeof(float32));
-        mesh->setVertexCount(static_cast<uint32>(_vertexes.size()));
-        mesh->setVertexData(reinterpret_cast<float32 *>(new uint8[mesh->getVertexSize() * mesh->getVertexCount()]), mesh->getVertexSize() * mesh->getVertexCount());
+        mesh->setTrianglesCount(static_cast<uint32>(triangles.size()));
+        mesh->setIndexCount(static_cast<uint32>(triangles.size() * 3));
+        mesh->setVertexCount(vertexCount);
 
         for (int i = 0; i < 4; ++i)
         {
@@ -574,38 +515,139 @@ namespace igor
         mesh->setHasNormals(hasNormals());
         mesh->setHasColors(hasColors());
 
-        index = 0;
-        uint32 vertex = 0;
+        iAABoxd bbox;
+        calcBoundingBox(bbox);
+        mesh->setBoundingBox(bbox);
+    }
 
-        while (_vertexes.size() > vertex)
+    iMeshPtr iMeshBuilder::createMesh()
+    {
+        iMeshPtr mesh = iMesh::create();
+
+        if (!_vertexes.empty())
         {
-            mesh->_vertexData[index++] = _vertexes[vertex]._x;
-            mesh->_vertexData[index++] = _vertexes[vertex]._y;
-            mesh->_vertexData[index++] = _vertexes[vertex]._z;
+            compile(mesh);
+        }
+
+        return mesh;
+    }
+
+    iMeshPtr iMeshBuilder::createMesh(const std::vector<uint32> &triangles)
+    {
+        iMeshPtr mesh = iMesh::create();
+
+        if (!_vertexes.empty() && !triangles.empty())
+        {
+            if (triangles.size() == _triangles.size())
+            {
+                compile(mesh);
+            }
+            else
+            {
+                compile(mesh, triangles);
+            }
+        }
+
+        return mesh;
+    }
+
+    iBufferLayout iMeshBuilder::generateLayout() const
+    {
+        iBufferLayout layout;
+        layout.addElement({iShaderDataType::Float3});
+        if (hasNormals())
+        {
+            layout.addElement({iShaderDataType::Float3});
+        }
+        if (hasColors())
+        {
+            layout.addElement({iShaderDataType::Float4});
+        }
+        for (int i = 0; i < getTextureUnitCount(); ++i)
+        {
+            layout.addElement({iShaderDataType::Float2});
+        }
+
+        return layout;
+    }
+
+    void iMeshBuilder::compile(iMeshPtr mesh)
+    {
+        if (!checkConsistency())
+        {
+            return;
+        }
+
+        const uint32 indexCount = _triangles.size() * 3;
+        uint32 *indexBufferData = new uint32[indexCount];
+
+        uint32 bufferIndex = 0;
+        for (const auto &triangle : _triangles)
+        {
+            indexBufferData[bufferIndex++] = triangle._a;
+            indexBufferData[bufferIndex++] = triangle._b;
+            indexBufferData[bufferIndex++] = triangle._c;
+        }
+
+        const uint32 vertexSize = (3 + (hasNormals() ? 3 : 0) + (hasColors() ? 4 : 0) + (getTextureUnitCount() * 2)) * sizeof(float32);
+        const uint32 vertexCount = _vertexes.size();
+        const uint32 vertexBufferSize = vertexCount * vertexSize;
+        float32 *vertexBufferData = new float32[vertexBufferSize / sizeof(float32)];
+
+        bufferIndex = 0;
+
+        for (int vertexIndex = 0; vertexIndex < _vertexes.size(); ++vertexIndex)
+        {
+            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._x;
+            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._y;
+            vertexBufferData[bufferIndex++] = _vertexes[vertexIndex]._z;
 
             if (hasNormals())
             {
-                mesh->_vertexData[index++] = _normals[vertex]._x;
-                mesh->_vertexData[index++] = _normals[vertex]._y;
-                mesh->_vertexData[index++] = _normals[vertex]._z;
+                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._x;
+                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._y;
+                vertexBufferData[bufferIndex++] = _normals[vertexIndex]._z;
             }
 
             if (hasColors())
             {
-                mesh->_vertexData[index++] = _colors[vertex]._r;
-                mesh->_vertexData[index++] = _colors[vertex]._g;
-                mesh->_vertexData[index++] = _colors[vertex]._b;
-                mesh->_vertexData[index++] = _colors[vertex]._a;
+                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._r;
+                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._g;
+                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._b;
+                vertexBufferData[bufferIndex++] = _colors[vertexIndex]._a;
             }
 
             for (uint32 texIndex = 0; texIndex < getTextureUnitCount(); ++texIndex)
             {
-                mesh->_vertexData[index++] = _texCoords[texIndex][vertex]._x;
-                mesh->_vertexData[index++] = _texCoords[texIndex][vertex]._y;
+                vertexBufferData[bufferIndex++] = _texCoords[texIndex][vertexIndex]._x;
+                vertexBufferData[bufferIndex++] = _texCoords[texIndex][vertexIndex]._y;
             }
-
-            ++vertex;
         }
+
+        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout());
+
+        delete[] indexBufferData;
+        delete[] vertexBufferData;
+
+        mesh->setTrianglesCount(static_cast<uint32>(_triangles.size()));
+        mesh->setIndexCount(static_cast<uint32>(_triangles.size() * 3));
+        mesh->setVertexCount(static_cast<uint32>(_vertexes.size()));
+
+        for (int i = 0; i < 4; ++i)
+        {
+            if (_texCoords.find(i) != _texCoords.end())
+            {
+                mesh->setTexture(i, true);
+            }
+        }
+
+        mesh->setTextureCoordinatesCount(_texCoords.size());
+        mesh->setHasNormals(hasNormals());
+        mesh->setHasColors(hasColors());
+
+        iAABoxd bbox;
+        calcBoundingBox(bbox);
+        mesh->setBoundingBox(bbox);
     }
 
     void iMeshBuilder::calcNormals(bool sharpEdges)

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iLOADEROBJ__
-#define __iLOADEROBJ__
+#ifndef __IGOR_LOADEROBJ__
+#define __IGOR_LOADEROBJ__
 
 #include <igor/resources/model/loader/iModelDataIO.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
@@ -47,8 +47,6 @@ namespace igor
     /*! model data loader for the OBJ aka Wavefront format
 
 	source: http://de.wikipedia.org/wiki/Wavefront_OBJ
-
-    \todo hopeless implementation. remove or rewrite asap
 	*/
     class iModelDataIOOBJ : public iModelDataIO
     {

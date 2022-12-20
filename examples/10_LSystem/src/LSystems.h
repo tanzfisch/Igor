@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    LSystems(iWindow *window);
+    LSystems(iWindowPtr window);
 
     /*! does nothing
     */

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEVISITORPRINTTREE__
-#define __iNODEVISITORPRINTTREE__
+#ifndef __IGOR_NODEVISITORPRINTTREE__
+#define __IGOR_NODEVISITORPRINTTREE__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;

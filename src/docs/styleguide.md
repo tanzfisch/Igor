@@ -21,7 +21,7 @@ Examples:
 - _matrix
 - _fooBar
 
-Yes this might be a bad idea but the autor realized that years of work too late.
+Yes this might be a bad idea but the autor realized that years of work too late. It seemed cool back in the day. :-D
 
 Functions and Methods
 ---------------------

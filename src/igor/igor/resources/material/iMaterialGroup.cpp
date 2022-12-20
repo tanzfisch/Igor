@@ -6,13 +6,10 @@
 
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
+// #include <igor/resources/mesh/iMesh.h>
 
 namespace igor
 {
-
     iMaterialGroup::~iMaterialGroup()
     {
         for (auto &iter : _instancedRenderNodes)
@@ -24,9 +21,14 @@ namespace igor
         }
     }
 
-    void iMaterialGroup::setMaterial(iMaterialPtr material)
+    bool iMaterialGroup::isInstanced() const
     {
-        _material = material;
+        return false; // TODO
+    }
+
+    bool iMaterialGroup::hasNodes() const
+    {
+        return !_renderNodes.empty() || !_instancedRenderNodes.empty();
     }
 
     const std::vector<iNodeRenderPtr> &iMaterialGroup::getRenderNodes() const
@@ -51,14 +53,10 @@ namespace igor
 
     void iMaterialGroup::addRenderNode(iNodeRenderPtr renderNode)
     {
-        con_assert(_material != nullptr, "invalid material");
-
-        const bool instancing = _material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On;
-
-        if (instancing &&
+        if (isInstanced() &&
             iNodeType::iNodeMesh == renderNode->getType())
         {
-            const auto meshBuffers = static_cast<iNodeMeshPtr>(renderNode)->getMeshBuffers();
+        /*    const auto meshBuffers = static_cast<iNodeMeshPtr>(renderNode)->getMeshBuffers();
             auto &instanceData = _instancedRenderNodes[meshBuffers];
 
             if (instanceData._instancer == nullptr)
@@ -76,7 +74,7 @@ namespace igor
                 matrix[i] = worldMatrix[i];
             }
 
-            instanceData._instancer->addInstance(&matrix);
+            instanceData._instancer->addInstance(&matrix);*/
         }
         else
         {

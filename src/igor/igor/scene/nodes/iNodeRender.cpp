@@ -16,7 +16,7 @@ namespace igor
     iNodeRender::iNodeRender()
         : iNode()
     {
-        _materialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+        _material = iMaterialResourceFactory::getInstance().getDefaultMaterial();
 
         setName(L"iNodeRender");
         _nodeType = iNodeType::iNodeRender;
@@ -26,7 +26,7 @@ namespace igor
     iNodeRender::iNodeRender(iNodeRender *node)
         : iNode()
     {
-        _materialID = node->_materialID;
+        _material = node->_material;
         _visible = node->_visible;
     }
 
@@ -63,12 +63,24 @@ namespace igor
         _worldMatrix = matrix;
     }
 
-    void iNodeRender::setMaterial(uint64 materialID)
+    void iNodeRender::setMaterial(const iMaterialPtr &material)
     {
-        if (_materialID != materialID)
-        {
-            _materialID = materialID;
-        }
+        _material = material;
+    }
+
+    bool iNodeRender::isVisible() const
+    {
+        return _visible;
+    }
+
+    iMaterialPtr iNodeRender::getMaterial() const
+    {
+        return _material;
+    }
+
+    const iaMatrixd &iNodeRender::getWorldMatrix() const
+    {
+        return _worldMatrix;
     }
 
 }; // namespace igor

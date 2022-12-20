@@ -29,15 +29,8 @@
 #ifndef __WIDGET3D_H__
 #define __WIDGET3D_H__
 
-#include <igor/scene/nodes/iNode.h>
+#include <igor/igor.h>
 using namespace igor;
-
-namespace igor
-{
-	class iScene;
-	class iWindow;
-	class iView;
-} // namespace igor
 
 /*! 3d space widget base class for representing nodes
 */
@@ -52,7 +45,7 @@ public:
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3D(iWindow *window, iView *view, iScenePtr scene);
+	Widget3D(iWindowPtr window, iView *view, iScenePtr scene);
 
 	/*! default dtor
 	*/
@@ -79,7 +72,7 @@ protected:
 
 	/*! the window this widget is visible at
 	*/
-	iWindow *_window = nullptr;
+	iWindowPtr _window = nullptr;
 
 	/*! the view this widget it visible at
 	*/

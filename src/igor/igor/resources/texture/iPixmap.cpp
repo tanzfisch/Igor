@@ -28,14 +28,6 @@ namespace igor
             _bytesPerPixel = 4;
             break;
 
-        case iColorFormat::BGR:
-            _bytesPerPixel = 3;
-            break;
-
-        case iColorFormat::BGRA:
-            _bytesPerPixel = 4;
-            break;
-
         default:
             _bytesPerPixel = 0;
             con_err("unsupported color format");

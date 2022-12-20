@@ -40,7 +40,7 @@ public:
 
     \param window the given window
     */
-    ExampleSound(iWindow *window);
+    ExampleSound(iWindowPtr window);
 
     /*! nothing to do
     */

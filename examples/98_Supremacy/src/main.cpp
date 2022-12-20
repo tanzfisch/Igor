@@ -10,7 +10,7 @@ int main(void)
 	igor::startup();
 
 	// create window and open it
-	iWindow *window = igor::iApplication::getInstance().createWindow();
+	iWindowPtr window = igor::iApplication::getInstance().createWindow("Supremacy");
 	window->setClientSize(1920, 1080);
 	window->setCentered();
 	window->open();

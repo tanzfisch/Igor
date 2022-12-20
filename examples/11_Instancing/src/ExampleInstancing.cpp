@@ -13,12 +13,11 @@
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/material/iShader.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/system/iMouse.h>
 using namespace igor;
 
-ExampleInstancing::ExampleInstancing(iWindow *window)
+ExampleInstancing::ExampleInstancing(iWindowPtr window)
     : ExampleBase(window, "Instacing")
 {
 }
@@ -70,22 +69,24 @@ void ExampleInstancing::onInit()
     // first we have to override the material which is stored within the model
     // to do that we create a new material using instancing
     _materialWithInstancingA = iMaterialResourceFactory::getInstance().createMaterial("Instancing Textured");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancingA);
-    material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
-    material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->addShaderSource("igor/textured_ipo.vert", iShaderObjectType::Vertex);
-    material->addShaderSource("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
-    material->compileShader();
+    _materialWithInstancingA->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
+    _materialWithInstancingA->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
+    _materialWithInstancingA->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iShaderProgramPtr programA = iShaderProgram::create();
+    programA->addShader("igor/textured_ipo.vert", iShaderObjectType::Vertex);
+    programA->addShader("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
+    programA->compile();
+    _materialWithInstancingA->setShaderProgram(programA);
 
     _materialWithInstancingB = iMaterialResourceFactory::getInstance().createMaterial("Instancing No Texture");
-    material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancingB);
-    material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
-    material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->addShaderSource("igor/default_ipo.vert", iShaderObjectType::Vertex);
-    material->addShaderSource("igor/default_ipo_directional_light.frag", iShaderObjectType::Fragment);
-    material->compileShader();
+    _materialWithInstancingB->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
+    _materialWithInstancingB->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
+    _materialWithInstancingB->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iShaderProgramPtr programB = iShaderProgram::create();
+    programB->addShader("igor/default_ipo.vert", iShaderObjectType::Vertex);
+    programB->addShader("igor/default_ipo_directional_light.frag", iShaderObjectType::Fragment);
+    programB->compile();
+    _materialWithInstancingB->setShaderProgram(programB);
 
     // now we can just put copies of that model in the scene
     iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -159,9 +160,9 @@ void ExampleInstancing::onInit()
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
-    lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    lightNode->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
+    lightNode->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
+    lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
     // insert light to scene
     getScene()->getRoot()->insertNode(directionalLightRotate);
     directionalLightRotate->insertNode(directionalLightTranslate);
@@ -181,10 +182,8 @@ void ExampleInstancing::onDeinit()
         _animationTimingHandle = nullptr;
     }
 
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancingA);
-    _materialWithInstancingA = iMaterial::INVALID_MATERIAL_ID;
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancingB);
-    _materialWithInstancingB = iMaterial::INVALID_MATERIAL_ID;
+    _materialWithInstancingA = nullptr;
+    _materialWithInstancingB = nullptr;
 }
 
 void ExampleInstancing::onEvent(iEvent &event)

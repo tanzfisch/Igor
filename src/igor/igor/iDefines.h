@@ -29,22 +29,26 @@
 #ifndef __IGOR_DEFINES_H__
 #define __IGOR_DEFINES_H__
 
+#include <ostream>
+
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
 #ifdef __IGOR_MSCOMPILER__
-    #ifdef __IGOR_BUILDING_DLL__
-        #define IGOR_API __declspec(dllexport)
-        #define IGOR_API_TEMPLATE __declspec(dllexport)
-    #else
-        #define IGOR_API __declspec(dllimport)
-        #define IGOR_API_TEMPLATE
-    #endif
+#ifdef __IGOR_BUILDING_DLL__
+#define IGOR_API __declspec(dllexport)
+#define IGOR_API_EXPORT_ONLY __declspec(dllexport)
+#define IGOR_API_IMPORT_ONLY
+#else
+#define IGOR_API __declspec(dllimport)
+#define IGOR_API_EXPORT_ONLY
+#define IGOR_API_IMPORT_ONLY __declspec(dllimport)
+#endif
 #endif
 
 #ifdef __IGOR_GCC__
-    #define IGOR_API
-    #define IGOR_API_TEMPLATE
+#define IGOR_API
+#define IGOR_API_EXPORT_ONLY
 #endif
 
 //! Igor configuration short
@@ -53,7 +57,7 @@ extern const iaString __IGOR_CONFIGURATION__;
 namespace igor
 {
     /*! horizontal alignment relative to parent widget
-    */
+     */
     enum class iHorizontalAlignment
     {
         Left,
@@ -65,7 +69,7 @@ namespace igor
     };
 
     /*! vertical alignment relative to parent widget
-    */
+     */
     enum class iVerticalAlignment
     {
         Top,
@@ -77,23 +81,24 @@ namespace igor
     };
 
     /*! color format of textures pixmaps etc.
-    */
+     */
     enum class iColorFormat
     {
         Undefined,
         RGB,
-        RGBA,
-        RED,
-        GREEN,
-        BLUE,
-        ALPHA,
-        DEPTH,
-        BGR,
-        BGRA
+        RGBA
     };
 
-    /*! how to generate a texture
+    /*! prints the folor format in the console
+
+    \param stream the stream to log to
+    \param colorFormat the color format
+    \returns the stream
     */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iColorFormat &colorFormat);    
+
+    /*! how to generate a texture
+     */
     enum class iTextureBuildMode
     {
         Normal,
@@ -101,7 +106,7 @@ namespace igor
     };
 
     /*! texture wrap mode
-    */
+     */
     enum class iTextureWrapMode
     {
         Repeat,
@@ -110,7 +115,7 @@ namespace igor
     };
 
     /*! cache mode for resources
-    */
+     */
     enum class iResourceCacheMode
     {
         Free = 0,  //! free immidiatly after not in use
@@ -119,7 +124,7 @@ namespace igor
     };
 
     /*! Igor key codes
-    */
+     */
     enum class iKeyCode
     {
         Undefined,
@@ -249,10 +254,10 @@ namespace igor
         MouseWheelDown,
         KeyCodeCount
     };
-
+    
     /*! user data type
-    */
-    typedef void* iUserData;
+     */
+    typedef void *iUserData;
 
 }; // namespace igor
 

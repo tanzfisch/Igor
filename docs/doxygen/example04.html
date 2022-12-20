@@ -216,11 +216,11 @@ skyBoxNode-&gt;setTextures(
 // manipulate the texture scale so we can see the repeating pattern of the textures
 skyBoxNode-&gt;setTextureScale(10);
 // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-_materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)-&gt;setOrder(iMaterial::RENDER_ORDER_EARLY);
-iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)-&gt;getMaterial()-&gt;setName("SkyBox");
+_materialSkyBox = iMaterialResourceFactory_old::getInstance().createMaterial();
+iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+iMaterialResourceFactory_old::getInstance().getMaterialGroup(_materialSkyBox)-&gt;setOrder(iMaterial::RENDER_ORDER_EARLY);
+iMaterialResourceFactory_old::getInstance().getMaterialGroup(_materialSkyBox)-&gt;getMaterial()-&gt;setName("SkyBox");
 // set that material
 skyBoxNode-&gt;setMaterial(_materialSkyBox);
 // and add it to the scene

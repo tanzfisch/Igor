@@ -43,7 +43,7 @@ public:
 
     \param window the given window
     */
-    Example2D(iWindow *window);
+    Example2D(iWindowPtr window);
 
     /*! does nothing
     */
@@ -59,29 +59,21 @@ private:
     */
     iaVector2f _lastMousePos;
 
-    /*! particles
-    */
-    iParticleSystem2D _particleSystem;
-
-    /*! texture used for the particles
-    */
-    iTexturePtr _particleTexture;
-
-    /*! just increases over time and feeds a sinus function to change the orientation of the particle stream
-    */
-    float32 _particleAnimatioValue = 0.0f;
-
-    /*! multicolor gradient used for coloring the particles
-    */
-    iaGradientColor4f _rainbow;
-
     /*! opengl logo
     */
-    iAtlasPtr _openGLLogo = nullptr;
+    iAtlasPtr _doughnuts = nullptr;
 
-    /*! current position of renderer logo 
+    /*! current transform of doughnuts
     */
-    iaVector2f _logoPosition{200, 200};
+    iaMatrixf _doughnutMatrix;
+
+    /*! frame index of doughnuts
+    */
+    uint32 _doughnutsFrameIndex;
+
+    /*! timer to control frame switching
+    */
+    iaTime _doughnutsTime;
 
     /*! background tileable texture
     */
@@ -90,18 +82,6 @@ private:
     /*! a dummy texture
     */
     iTexturePtr _dummyTexture = nullptr;
-
-    /*! material id of a textured material
-    */
-    uint64 _materialWithTexture = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! material id of a textured material with alpha blending
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! material id of a non textured material
-    */
-    uint64 _materialWithoutDepthTest = iMaterial::INVALID_MATERIAL_ID;
 
     /*! a B-Spline
     */
@@ -114,12 +94,6 @@ private:
     /*! update timer
     */
     iTimerHandlePtr _updateTimingHandle;
-
-    /*! call the particles system handle to update particle positions
-
-    also changes initiali velocity of particles for waving particle stream effect
-    */
-    void updateParticles();
 
     /*! called by timer
 

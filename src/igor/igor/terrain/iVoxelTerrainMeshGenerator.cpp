@@ -9,7 +9,6 @@
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodePhysics.h>
 
@@ -60,7 +59,7 @@ namespace igor
         {
             iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
             meshNode->setMesh(mesh);
-            meshNode->setMaterial(tileInformation->_materialID);
+            // TODO meshNode->setMaterial(tileInformation->_materialID);
             meshNode->setName("mesh");
             meshNode->setVisible(false);
 

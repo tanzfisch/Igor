@@ -12,49 +12,37 @@ Submodules
 Igor currently links to the following libraries as sub modules.
  
 - newton-dynamics
+- openal-soft
  
-dont forget to
+dont forget to run the following unless your git client already does it for you
 
 ``` 
 git submodule init
-```
-
-and
-
-```
 git submodule update
 ```
 
 Build
 -----
 
-Igor is using cmake to build. It is configured to work with Debian/g++ (Windows/MSVC is currently not supported).
+Igor is using cmake to build. It is tested to work on Ubuntu and Debian with GCC and Windows/MSVC.
 
-**Build Debug**
-
-```
-cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
-cmake --build build/debug
-```
-
-**Build Release with Debug**
-
-```
-cmake -S . -B build/release -DCMAKE_BUILD_TYPE=RelWithDebInfo
-cmake --build build/reldeb
-```
-
-**Build Release**
-
-```
-cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
-cmake --build build/release
-```
+Preffered setup is VSCode, MSVC and CMAKE extension but it should work with Visual Studio as well.
 
 **Note!** Under Linux you might need to install some additional dependencies like the following ...
 
 ```
 sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev
+```
+
+Run from VSCode
+---------------
+
+Make sure when debugging from vscode to add the following to your settings.json in order for it to start from the correct working directory otherwise all relative paths to the data folder will fail.
+
+```
+    "cmake.debugConfig": {
+        "cwd": "${workspaceFolder}"
+    }
 ```
 
 Git Flow
@@ -71,15 +59,19 @@ For making a release do the following steps.
 
 1. create a release branch from develop named by the next release version (e.g. 0.23.0).
 
-2. Update the [Changelog](@ref changelog)
+2. run smoke tests (run all the examples, tests and applications like Mica)
 
-3. Update doxygen config (src/docs/Doxyfile.doxy) using the new version of the release. And generate the doxygen docs.
+3. if tests fail try to fix on the release branch if possible or abbort the release and start over
 
-4. Run some smoke tests (e.g. run all the examples once) and when satisfied merge in to master and develop. 
+4. Update the [Changelog](@ref changelog)
 
-5. Create a tag with the new version number on master and push master, develop and the new tag to github.
+5. Update doxygen config file (src/docs/Doxyfile.doxy) using the new version of the release. And generate the doxygen docs.
 
-Make a Patch Release 
+6. when satisfied with test and docs merge the release in to master and develop. 
+
+7. Create a tag with the new version number on master and push master, develop and the new tag
+
+Make a Patch Release
 --------------------
 
 When happy with your hotfix update the [Changelog](@ref changelog) before mergin back in to master and develop.

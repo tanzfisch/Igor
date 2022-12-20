@@ -10,15 +10,15 @@ IAUX_TEST(ConvertTests, color3fto3c)
     iaColor3c color2;
     iaConvert::convert(color1, color2);
 
-    IAUX_EXPECT_EQ(color2._r, 0);
-    IAUX_EXPECT_EQ(color2._g, 128);
-    IAUX_EXPECT_EQ(color2._b, 255);
+    IAUX_EXPECT_EQUAL(color2._r, 0);
+    IAUX_EXPECT_EQUAL(color2._g, 128);
+    IAUX_EXPECT_EQUAL(color2._b, 255);
 
     iaConvert::convert(color2, color1);
 
-    IAUX_EXPECT_EQ(color1._r, 0.0);
+    IAUX_EXPECT_EQUAL(color1._r, 0.0);
     IAUX_EXPECT_NEAR(color1._g, 0.5, 0.005);
-    IAUX_EXPECT_EQ(color1._b, 1.0);
+    IAUX_EXPECT_EQUAL(color1._b, 1.0);
 }
 
 IAUX_TEST(ConvertTests, color4fto4c)
@@ -27,16 +27,16 @@ IAUX_TEST(ConvertTests, color4fto4c)
     iaColor4c color2;
     iaConvert::convert(color1, color2);
 
-    IAUX_EXPECT_EQ(color2._r, 0);
-    IAUX_EXPECT_EQ(color2._g, 128);
-    IAUX_EXPECT_EQ(color2._b, 255);
-    IAUX_EXPECT_EQ(color2._a, 128);
+    IAUX_EXPECT_EQUAL(color2._r, 0);
+    IAUX_EXPECT_EQUAL(color2._g, 128);
+    IAUX_EXPECT_EQUAL(color2._b, 255);
+    IAUX_EXPECT_EQUAL(color2._a, 128);
 
     iaConvert::convert(color2, color1);
 
-    IAUX_EXPECT_EQ(color1._r, 0.0);
+    IAUX_EXPECT_EQUAL(color1._r, 0.0);
     IAUX_EXPECT_NEAR(color1._g, 0.5, 0.005);
-    IAUX_EXPECT_EQ(color1._b, 1.0);
+    IAUX_EXPECT_EQUAL(color1._b, 1.0);
     IAUX_EXPECT_NEAR(color1._a, 0.5, 0.005);
 }
 
@@ -69,9 +69,9 @@ IAUX_TEST(ConvertTests, RGBtoHSV3c)
     iaColor3c hsv;
     iaConvert::convertRGBtoHSV(rgb, hsv);
 
-    IAUX_EXPECT_EQ(hsv._r, 147);
-    IAUX_EXPECT_EQ(hsv._g, 198); // expected rounding errors :-/
-    IAUX_EXPECT_EQ(hsv._b, 200); // expected rounding errors :-/
+    IAUX_EXPECT_EQUAL(hsv._r, 147);
+    IAUX_EXPECT_EQUAL(hsv._g, 198); // expected rounding errors :-/
+    IAUX_EXPECT_EQUAL(hsv._b, 200); // expected rounding errors :-/
 }
 
 IAUX_TEST(ConvertTests, RGBtoHSV4c)
@@ -80,10 +80,10 @@ IAUX_TEST(ConvertTests, RGBtoHSV4c)
     iaColor4c hsva;
     iaConvert::convertRGBtoHSV(rgba, hsva);
 
-    IAUX_EXPECT_EQ(hsva._r, 147);
-    IAUX_EXPECT_EQ(hsva._g, 198); // expected rounding errors :-/
-    IAUX_EXPECT_EQ(hsva._b, 200); // expected rounding errors :-/
-    IAUX_EXPECT_EQ(hsva._a, 50);
+    IAUX_EXPECT_EQUAL(hsva._r, 147);
+    IAUX_EXPECT_EQUAL(hsva._g, 198); // expected rounding errors :-/
+    IAUX_EXPECT_EQUAL(hsva._b, 200); // expected rounding errors :-/
+    IAUX_EXPECT_EQUAL(hsva._a, 50);
 }
 
 IAUX_TEST(ConvertTests, HSVtoRGB3f)
@@ -115,9 +115,9 @@ IAUX_TEST(ConvertTests, HSVtoRGB3c)
     iaColor3c rgba;
     iaConvert::convertHSVtoRGB(hsva, rgba);
 
-    IAUX_EXPECT_EQ(rgba._r, 45);
-    IAUX_EXPECT_EQ(rgba._g, 129); // expected rounding errors :-/
-    IAUX_EXPECT_EQ(rgba._b, 200);
+    IAUX_EXPECT_EQUAL(rgba._r, 45);
+    IAUX_EXPECT_EQUAL(rgba._g, 129); // expected rounding errors :-/
+    IAUX_EXPECT_EQUAL(rgba._b, 200);
 }
 
 IAUX_TEST(ConvertTests, HSVtoRGB4c)
@@ -126,8 +126,8 @@ IAUX_TEST(ConvertTests, HSVtoRGB4c)
     iaColor4c rgba;
     iaConvert::convertHSVtoRGB(hsva, rgba);
 
-    IAUX_EXPECT_EQ(rgba._r, 45);
-    IAUX_EXPECT_EQ(rgba._g, 129); // expected rounding errors :-/
-    IAUX_EXPECT_EQ(rgba._b, 200);
-    IAUX_EXPECT_EQ(rgba._a, 50);
+    IAUX_EXPECT_EQUAL(rgba._r, 45);
+    IAUX_EXPECT_EQUAL(rgba._g, 129); // expected rounding errors :-/
+    IAUX_EXPECT_EQUAL(rgba._b, 200);
+    IAUX_EXPECT_EQUAL(rgba._a, 50);
 }

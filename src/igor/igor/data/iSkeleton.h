@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iSKELETON__
-#define __iSKELETON__
+#ifndef __IGOR_SKELETON__
+#define __IGOR_SKELETON__
 
 #include <igor/data/iJoint.h>
 #include <igor/data/iBone.h>

@@ -46,7 +46,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventKeyDown(iWindow *window, const iKeyCode key);
+        iEventKeyDown(iWindowPtr window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -78,7 +78,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventKeyUp(iWindow *window, const iKeyCode key);
+        iEventKeyUp(iWindowPtr window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -110,7 +110,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventKeyASCII(iWindow *window, const char character);
+        iEventKeyASCII(iWindowPtr window, const char character);
 
         /*! \returns event kind mask
         */

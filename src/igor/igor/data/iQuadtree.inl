@@ -24,7 +24,38 @@ void iQuadtree<F, T>::query(const iaCircle<F> &circle, std::vector<std::shared_p
 template <typename F, typename T>
 void iQuadtree<F, T>::query(const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
 {
-    // TODO
+    if (!iIntersection::intersects(rectangle, _root->_box))
+    {
+        return;
+    }
+
+    queryInternal(_root, rectangle, objects);
+}
+
+template <typename F, typename T>
+void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+{
+    if (isLeaf(node))
+    {
+        for (auto ud : node->_objects)
+        {
+            if (iIntersection::intersects(ud->_circle, rectangle))
+            {
+                objects.push_back(ud);
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            const std::shared_ptr<iQuadtreeNode<F, T>> &child = node->_children[i];
+            if (iIntersection::intersects(rectangle, child->_box))
+            {
+                queryInternal(child, rectangle, objects);
+            }
+        }
+    }
 }
 
 template <typename F, typename T>
@@ -54,7 +85,7 @@ void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &
 }
 
 template <typename F, typename T>
-void iQuadtree<F, T>::update(const std::shared_ptr<iQuadtreeObject<F, T>> object, const iaVector2d &newPosition)
+void iQuadtree<F, T>::update(const std::shared_ptr<iQuadtreeObject<F, T>> object, const iaVector2<F> &newPosition)
 {
     if (iIntersection::intersects(newPosition, object->_parent.lock()->_box))
     {
@@ -91,7 +122,7 @@ template <typename F, typename T>
 void iQuadtree<F, T>::split(const std::shared_ptr<iQuadtreeNode<F, T>> &node)
 {
     const iaRectangle<F> &nodeBox = node->_box;
-    const iaVector2d center = nodeBox.getCenter();
+    const iaVector2<F> center = nodeBox.getCenter();
 
     node->_children[0] = std::make_shared<iQuadtreeNode<F, T>>();
     node->_children[0]->_box = iaRectangle<F>(nodeBox._x, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
@@ -137,10 +168,10 @@ void iQuadtree<F, T>::insertInternal(const std::shared_ptr<iQuadtreeNode<F, T>> 
     if (!isLeaf(node))
     {
         const iaRectangle<F> &nodeBox = node->_box;
-        const iaVector2d center = nodeBox.getCenter();
+        const iaVector2<F> center = nodeBox.getCenter();
         uint32 childIndex = 0;
 
-        const iaVector2d &pos = object->_circle._center;
+        const iaVector2<F> &pos = object->_circle._center;
 
         if (pos._x > center._x)
         {

@@ -3,6 +3,15 @@
 // see copyright notice in corresponding header file
 
 template <class T>
+std::wostream &operator<<(std::wostream &ostr, const iaVector3<T> &v)
+{
+    ostr << "(" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._x << ", ";
+    ostr << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._y << ", ";
+    ostr << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._z << ")";
+    return ostr;
+}
+
+template <class T>
 iaVector3<T>::iaVector3(T x, T y, T z)
 {
     _x = x;
@@ -21,30 +30,6 @@ __IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator+(const iaVector3<T> &a) cons
 
     return c;
 }
-
-template <class T>
-std::wostream &operator<<(std::wostream &ostr, const iaVector3<T> &v)
-{
-    ostr << "(" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._x << ", ";
-    ostr << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._y << ", ";
-    ostr << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._z << ")";
-    return ostr;
-}
-
-/*
-
-__IGOR_INLINE__ iaVector3<T> Projection(Vector3 other)
-{
-// (scalar/scalar)*(vector) = (vector)
-return (other*this) / (other*other)*other;
-}
-public Vector3 Rejection(Vector3 other)
-{
-// (vector)-(vector) = (vector)
-return this - Projection(other);
-}
-
-*/
 
 template <class T>
 iaVector3<T> iaVector3<T>::project(const iaVector3<T> &v) const

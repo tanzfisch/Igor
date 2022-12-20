@@ -16,8 +16,7 @@
 #include <igor/physics/iPhysicsCollision.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iView.h>
 #include <igor/system/iWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/scene/nodes/iNodeEmitter.h>
@@ -124,9 +123,9 @@ Player::Player(iScenePtr scene, iView *view, const iaMatrixd &matrix)
 
     view->setCurrentCamera(_cameraNodeID);
 
-    _materialSolid = iMaterialResourceFactory::getInstance().createMaterial("Solid");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    _materialSolid = iMaterialResourceFactory_old::getInstance().createMaterial("Solid");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     _primaryWeaponTime = iTimer::getInstance().getTime();
 }
@@ -274,18 +273,18 @@ iaVector3d Player::getCurrentPos()
     return result;
 }
 
-void Player::drawReticle(iWindow *window)
+void Player::drawReticle(iWindowPtr window)
 {
     iaVector3f weaponPos(window->getClientWidth() * 0.5, window->getClientHeight() * 0.5, 0);
 
     float32 scale = 0.001 * window->getClientWidth();
 
     iRenderer::getInstance().setMaterial(_materialSolid);
-    iRenderer::getInstance().setLineWidth(1 * scale);
+    // TODO iRenderer::getInstance().setLineWidth(1 * scale);
 
-    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-    iRenderer::getInstance().drawLine(weaponPos + iaVector3f(-10 * scale, 0, 0), weaponPos + iaVector3f(10 * scale, 0, 0));
-    iRenderer::getInstance().drawLine(weaponPos + iaVector3f(0, -10 * scale, 0), weaponPos + iaVector3f(0, 10 * scale, 0));
+    // TODO iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+    // TODO iRenderer::getInstance().drawLine(weaponPos + iaVector3f(-10 * scale, 0, 0), weaponPos + iaVector3f(10 * scale, 0, 0));
+    // TODO iRenderer::getInstance().drawLine(weaponPos + iaVector3f(0, -10 * scale, 0), weaponPos + iaVector3f(0, 10 * scale, 0));
 }
 
 void Player::handle()

@@ -18,6 +18,7 @@
 namespace iaux
 {
 
+// this was already very helpful let's keep this!
 #ifdef __IGOR_DEBUG__
 #define CHECK_CONSISTENCY()                                               \
     {                                                                     \
@@ -418,24 +419,26 @@ namespace iaux
     {
         clear();
 
-        if (text != nullptr)
+        if (text == nullptr)
         {
-            if (size != INVALID_POSITION)
-            {
-                con_assert(wcslen(text) >= size, "inconsistant data");
-                _charCount = size;
-            }
-            else
-            {
-                _charCount = static_cast<int64>(wcslen(text));
-            }
-
-            _data = new wchar_t[_charCount + 1];
-            wmemcpy(_data, text, _charCount);
-            _data[_charCount] = 0;
-
-            CHECK_CONSISTENCY();
+            return;
         }
+
+        if (size != INVALID_POSITION)
+        {
+            con_assert(wcslen(text) >= size, "inconsistant data");
+            _charCount = size;
+        }
+        else
+        {
+            _charCount = static_cast<int64>(wcslen(text));
+        }
+
+        _data = new wchar_t[_charCount + 1];
+        wmemcpy(_data, text, _charCount);
+        _data[_charCount] = 0;
+
+        CHECK_CONSISTENCY();
     }
 
     void iaString::setData(const char *text, const int64 size)
@@ -624,7 +627,11 @@ namespace iaux
 
     iaString iaString::operator=(const iaString &text)
     {
-        setData(text.getData());
+        // skip if this is the same exact data
+        if(getData() != text.getData())
+        {
+            setData(text.getData());
+        }
         return *this;
     }
 
@@ -1075,6 +1082,37 @@ namespace iaux
         return intToStrInternal(value, 0, base);
     }
 
+    iaString iaString::toStringUnits(int64 value)
+    {
+        iaString result;
+        if (value < 1000)
+        {
+            result += iaString::toString(value);
+        }
+        else if (value < 1000000)
+        {
+            result += iaString::toString(value / 1000);
+            result += "k";
+        }
+        else if (value < 1000000000)
+        {
+            result += iaString::toString(value / 1000000);
+            result += "M";
+        }
+        else if (value < 1000000000000)
+        {
+            result += iaString::toString(value / 1000000000);
+            result += "G";
+        }        
+        else
+        {
+            result += iaString::toString(value / 1000000000000);
+            result += "T";
+        }        
+
+        return result;
+    }    
+
     iaString iaString::toString(int64 value, int base)
     {
         iaString result;
@@ -1261,5 +1299,8 @@ namespace iaux
     {
         return trimLeft(trimRight(text));
     }
+
+
+
 
 } // namespace iaux

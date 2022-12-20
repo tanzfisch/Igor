@@ -39,7 +39,7 @@ public:
 
     \param window pass the window we work with
     */
-    MouseExample(iWindow *window);
+    MouseExample(iWindowPtr window);
 
     /*! does nothing
     */

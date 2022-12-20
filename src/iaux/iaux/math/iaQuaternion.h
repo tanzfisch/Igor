@@ -39,7 +39,7 @@ namespace iaux
     /*! quaternion class
     */
     template <class T>
-    class IAUX_API_TEMPLATE iaQuaternion
+    class IAUX_API_EXPORT_ONLY iaQuaternion
     {
     public:
         /*! x component

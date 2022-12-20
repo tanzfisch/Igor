@@ -26,17 +26,19 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iDEFINES_WINDOWS__
-#define __iDEFINES_WINDOWS__
+#ifndef __IGOR_DEFINES_WINDOWS__
+#define __IGOR_DEFINES_WINDOWS__
 
 #ifdef __IGOR_WINDOWS__
 
 #include <igor/iDefines.h>
-#include <GLee.h>
 #include <windows.h>
 #include <windowsx.h>
 #define WM_MOUSEWHEEL 0x020A
 #define WHEEL_DELTA 120
+
+#include <glad/glad.h>
+#include <gl/gl.h>
 
 namespace igor
 {
@@ -69,11 +71,11 @@ namespace igor
     {
         /*! the window the events will come from
         */
-        iWindow *_window;
+        iWindowPtr _window;
     };
 
 } // namespace igor
 
 #endif // __IGOR_WINDOWS__
 
-#endif // __iDEFINES_WINDOWS__
+#endif // __IGOR_DEFINES_WINDOWS__

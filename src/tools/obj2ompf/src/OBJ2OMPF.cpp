@@ -1,21 +1,5 @@
 #include "OBJ2OMPF.h"
 
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iShader.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/graphics/iRenderer.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-#include <iaux/system/iaDirectory.h>
-using namespace iaux;
-
 #include <list>
 
 bool OBJ2OMPF::analyzeParam(int argc, char *argv[])

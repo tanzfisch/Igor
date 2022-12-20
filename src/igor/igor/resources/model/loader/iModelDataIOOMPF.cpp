@@ -12,8 +12,7 @@
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/graphics/iRenderStateSet.h>
-#include <igor/resources/material/iShader.h>
+#include <igor/renderer/iRenderStateSet.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeEmitter.h>
@@ -26,7 +25,6 @@ using namespace iaux;
 #include <ompf/ompf.h>
 
 #include <algorithm>
-#include <cstring>
 
 namespace igor
 {
@@ -167,94 +165,9 @@ namespace igor
         return result;
     }
 
-    iNodePtr iModelDataIOOMPF::createMeshNode(OMPF::ompfBaseChunk *chunk)
-    {
-        OMPF::ompfMeshChunk *meshChunk = static_cast<OMPF::ompfMeshChunk *>(chunk);
-
-        con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
-        con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
-
-        // create mesh and mesh node
-        iMesh *mesh = new iMesh();
-        iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-
-        if (_parameter != nullptr)
-        {
-            meshNode->setKeepMesh(_parameter->_keepMesh);
-        }
-
-        // set material properties
-        iaColor3f ambient;
-        iaColor3f diffuse;
-        iaColor3f specular;
-        iaColor3f emissive;
-
-        iaConvert::convert(meshChunk->getAmbient(), ambient);
-        iaConvert::convert(meshChunk->getDiffuse(), diffuse);
-        iaConvert::convert(meshChunk->getSpecular(), specular);
-        iaConvert::convert(meshChunk->getEmissive(), emissive);
-
-        meshNode->getTargetMaterial()->setAmbient(ambient);
-        meshNode->getTargetMaterial()->setDiffuse(diffuse);
-        meshNode->getTargetMaterial()->setSpecular(specular);
-        meshNode->getTargetMaterial()->setEmissive(emissive);
-        meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
-
-        // set texture properties
-        uint32 textureCount = meshChunk->getTextureCount();
-        for (uint32 i = 0; i < textureCount; ++i)
-        {
-            iaString texturePath = _ompf->getFileDirectory();
-            texturePath += __IGOR_PATHSEPARATOR__;
-            texturePath += meshChunk->getTexture(i);
-
-            meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(texturePath), i);
-            mesh->setTexture(i, true);
-        }
-
-        // prepare mesh data
-        float32 *vertexData = reinterpret_cast<float32 *>(new char[meshChunk->getVertexDataSize()]);
-        uint32 *indexData = reinterpret_cast<uint32 *>(new char[meshChunk->getIndexDataSize()]);
-
-        memcpy(vertexData, meshChunk->getVertexData(), meshChunk->getVertexDataSize());
-        memcpy(indexData, meshChunk->getIndexData(), meshChunk->getIndexDataSize());
-
-        mesh->setVertexData(vertexData, meshChunk->getVertexDataSize());
-        mesh->setIndexData(indexData, meshChunk->getIndexDataSize());
-        uint32 vertexSize = meshChunk->getVertexSize();
-        mesh->setVertexSize(vertexSize);
-
-        mesh->setVertexCount(meshChunk->getVertexCount());
-        mesh->setIndexesCount(meshChunk->getIndexCount());
-        mesh->setTrianglesCount(meshChunk->getIndexCount() / 3);
-
-        mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
-        mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
-        mesh->setTextureCoordinatesCount(meshChunk->getTexCoordPerVertex());
-
-        // calculate boundings
-        iaVector3d minPos;
-        iaVector3d maxPos;
-
-        calculateBoundingBox(vertexData, vertexSize / 4, meshChunk->getVertexCount(), minPos, maxPos);
-
-        iAABoxd bbox;
-        bbox.set(minPos, maxPos);
-        mesh->setBoundingBox(bbox);
-
-        // push mesh to mesh node
-        meshNode->setMesh(iMeshPtr(mesh));
-
-        uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());
-        meshNode->setMaterial(materialID);
-
-        return meshNode;
-    }
-
-    void iModelDataIOOMPF::calculateBoundingBox(float32 *vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d &minPos, iaVector3d &maxPos)
+    static void calculateBoundingBox(const float32 *vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d &minPos, iaVector3d &maxPos)
     {
         uint32 stride = vertexSize - 3;
-        float32 *vertexDataIter = vertexData;
 
         for (uint32 vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex)
         {
@@ -298,6 +211,92 @@ namespace igor
                 }
             }
         }
+    }    
+
+    iNodePtr iModelDataIOOMPF::createMeshNode(OMPF::ompfBaseChunk *chunk)
+    {
+        OMPF::ompfMeshChunk *meshChunk = static_cast<OMPF::ompfMeshChunk *>(chunk);
+
+        con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
+        con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
+
+        // create mesh node
+        iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+        bool keepData = (_parameter != nullptr && _parameter->_keepMesh);
+
+        // set material properties
+        iaColor3f ambient;
+        iaColor3f diffuse;
+        iaColor3f specular;
+        iaColor3f emissive;
+
+        iaConvert::convert(meshChunk->getAmbient(), ambient);
+        iaConvert::convert(meshChunk->getDiffuse(), diffuse);
+        iaConvert::convert(meshChunk->getSpecular(), specular);
+        iaConvert::convert(meshChunk->getEmissive(), emissive);
+
+        meshNode->getTargetMaterial()->setAmbient(ambient);
+        meshNode->getTargetMaterial()->setDiffuse(diffuse);
+        meshNode->getTargetMaterial()->setSpecular(specular);
+        meshNode->getTargetMaterial()->setEmissive(emissive);
+        meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
+
+        iMeshPtr mesh = iMesh::create();
+
+        // set texture properties
+        uint32 textureCount = meshChunk->getTextureCount();
+        for (uint32 i = 0; i < textureCount; ++i)
+        {
+            iaString texturePath = _ompf->getFileDirectory();
+            texturePath += __IGOR_PATHSEPARATOR__;
+            texturePath += meshChunk->getTexture(i);
+
+            meshNode->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().requestFile(texturePath));
+            mesh->setTexture(i, true);
+        }
+
+        iBufferLayout layout;
+        layout.addElement({iShaderDataType::Float3});
+        if (meshChunk->getNormalsPerVertex() ? true : false)
+        {
+            layout.addElement({iShaderDataType::Float3});
+        }
+        if (meshChunk->getColorsPerVertex() ? true : false)
+        {
+            layout.addElement({iShaderDataType::Float4});
+        }
+        for (int i = 0; i < meshChunk->getTexCoordPerVertex(); ++i)
+        {
+            layout.addElement({iShaderDataType::Float2});
+        }        
+
+        mesh->setData(meshChunk->getIndexData(), meshChunk->getIndexDataSize(), meshChunk->getVertexData(), meshChunk->getVertexDataSize(), layout, keepData);
+
+        mesh->setVertexCount(meshChunk->getVertexCount());
+        mesh->setIndexCount(meshChunk->getIndexCount());
+        mesh->setTrianglesCount(meshChunk->getIndexCount() / 3);
+
+        mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
+        mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
+        mesh->setTextureCoordinatesCount(meshChunk->getTexCoordPerVertex());
+
+        // calculate boundings
+        iaVector3d minPos;
+        iaVector3d maxPos;
+
+        calculateBoundingBox(reinterpret_cast<const float32*>(meshChunk->getVertexData()), layout.getStride() / 4, meshChunk->getVertexCount(), minPos, maxPos);
+
+        iAABoxd bbox;
+        bbox.set(minPos, maxPos);
+        mesh->setBoundingBox(bbox);
+
+        // push mesh to mesh node
+        meshNode->setMesh(mesh);
+
+        iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
+        meshNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
+
+        return meshNode;
     }
 
     iNodePtr iModelDataIOOMPF::createParticleSystem(OMPF::ompfBaseChunk *chunk)
@@ -305,7 +304,7 @@ namespace igor
         OMPF::ompfParticleSystemChunk *particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk *>(chunk);
         iNodeParticleSystem *particleSystemNode = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
         particleSystemNode->setMaxParticleCount(particleSystemChunk->getMaxParticleCount());
-        particleSystemNode->setLoop(particleSystemChunk->getLoop());
+        particleSystemNode->setLoop(particleSystemChunk->isLooped());
 
         iaGradientColor4f colorGradient;
         particleSystemChunk->getColorGradient(colorGradient);
@@ -318,7 +317,7 @@ namespace igor
         particleSystemNode->setVortexTorque(particleSystemChunk->getVortexTorqueMin(), particleSystemChunk->getVortexTorqueMax());
         particleSystemNode->setVortexRange(particleSystemChunk->getVortexRangeMin(), particleSystemChunk->getVortexRangeMax());
         particleSystemNode->setVortexCheckRange(particleSystemChunk->getVortexCheckRange());
-        particleSystemNode->setFirstTextureTiling(particleSystemChunk->getFirstTextureColumns(), particleSystemChunk->getFirstTextureRows());
+        particleSystemNode->setTextureTiling(particleSystemChunk->getTextureColumns(), particleSystemChunk->getTextureRows());
 
         iaGradientVector2f startSizeGradient;
         particleSystemChunk->getStartSizeGradient(startSizeGradient);
@@ -359,8 +358,8 @@ namespace igor
         particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
-        uint32 materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
-        particleSystemNode->setMaterial(materialID);
+        iMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
+        particleSystemNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
 
         return particleSystemNode;
     }
@@ -384,7 +383,7 @@ namespace igor
 
         if (result != nullptr)
         {
-            con_info("loaded ompf \"" << filename << "\"");
+            con_info("loaded model \"" << filename << "\"");
         }
 
         return result;
@@ -392,54 +391,122 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterials()
     {
-        auto materials = _ompf->getMaterialChunks();
-        auto matIter = materials.begin();
-        while (matIter != materials.end())
+        const auto &materialChunks = _ompf->getMaterialChunks();
+        for (const auto materialChunk : materialChunks)
         {
-            createMaterial(*matIter);
-            matIter++;
+            createMaterial(materialChunk);
         }
+    }
+
+    iRenderStateValue convert(OMPF::OMPFRenderStateValue value)
+    {
+        switch (value)
+        {
+        case OMPF::OMPFRenderStateValue::Off:
+            return iRenderStateValue::Off;
+        case OMPF::OMPFRenderStateValue::On:
+            return iRenderStateValue::On;
+        case OMPF::OMPFRenderStateValue::One:
+            return iRenderStateValue::One;
+        case OMPF::OMPFRenderStateValue::Zero:
+            return iRenderStateValue::Zero;
+        case OMPF::OMPFRenderStateValue::DestinationColor:
+            return iRenderStateValue::DestinationColor;
+        case OMPF::OMPFRenderStateValue::OneMinusDestinationColor:
+            return iRenderStateValue::OneMinusDestinationColor;
+        case OMPF::OMPFRenderStateValue::SourceAlpha:
+            return iRenderStateValue::SourceAlpha;
+        case OMPF::OMPFRenderStateValue::OneMinusSourceAlpha:
+            return iRenderStateValue::OneMinusSourceAlpha;
+        case OMPF::OMPFRenderStateValue::DestinationAlpha:
+            return iRenderStateValue::DestinationAlpha;
+        case OMPF::OMPFRenderStateValue::OneMinusDestinationAlpha:
+            return iRenderStateValue::OneMinusDestinationAlpha;
+        case OMPF::OMPFRenderStateValue::SourceColor:
+            return iRenderStateValue::SourceColor;
+        case OMPF::OMPFRenderStateValue::OneMinusSourceColor:
+            return iRenderStateValue::OneMinusSourceColor;
+        case OMPF::OMPFRenderStateValue::Never:
+            return iRenderStateValue::Never;
+        case OMPF::OMPFRenderStateValue::Less:
+            return iRenderStateValue::Less;
+        case OMPF::OMPFRenderStateValue::Equal:
+            return iRenderStateValue::Equal;
+        case OMPF::OMPFRenderStateValue::LessOrEqual:
+            return iRenderStateValue::LessOrEqual;
+        case OMPF::OMPFRenderStateValue::Greater:
+            return iRenderStateValue::Greater;
+        case OMPF::OMPFRenderStateValue::NotEqual:
+            return iRenderStateValue::NotEqual;
+        case OMPF::OMPFRenderStateValue::GreaterOrEqual:
+            return iRenderStateValue::GreaterOrEqual;
+        case OMPF::OMPFRenderStateValue::Always:
+            return iRenderStateValue::Always;
+        case OMPF::OMPFRenderStateValue::Front:
+            return iRenderStateValue::Front;
+        case OMPF::OMPFRenderStateValue::Back:
+            return iRenderStateValue::Back;
+        case OMPF::OMPFRenderStateValue::Invalid:
+            return iRenderStateValue::Invalid;
+        case OMPF::OMPFRenderStateValue::PositionOrientation:
+            return iRenderStateValue::PositionOrientation;
+        case OMPF::OMPFRenderStateValue::Position:
+            return iRenderStateValue::Position;
+        };
+
+        return iRenderStateValue::Off;
     }
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialChunk *materialChunk)
     {
-        con_assert(materialChunk != nullptr, "zero pointer");
+        con_assert_sticky(materialChunk != nullptr, "zero pointer");
 
-        if (materialChunk != nullptr)
+        iaString materialName = materialChunk->getMaterialName();
+
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialName);
+        if (material != nullptr)
         {
-            int32 materialID = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
-            iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+            con_warn("material name dublicate \"" << materialName << "\". Generating new name.");
 
-            con_assert(material != nullptr, "zero pointer");
-
-            if (material != nullptr)
-            {
-                _materialMapping[materialChunk->getID()] = materialID;
-                material->setOrder(materialChunk->getOrder());
-
-                uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
-                for (uint32 i = 0; i < shaderObjectCount; ++i)
-                {
-                    material->addShaderSource(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
-                }
-
-                material->compileShader();
-
-                for (int i = 0; i < 19; ++i) // TODO magic number
-                {
-                    OMPF::OMPFRenderStateValue value = materialChunk->getRenderState(static_cast<OMPF::OMPFRenderState>(i));
-                    material->setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
-                }
-            }
-            else
-            {
-                con_err("material not found");
-            }
+            // this is a workaround until ompf understands UUIDs to identify materials
+            materialName += "_";
+            materialName += iaUUID::create().getValue();
         }
-        else
+
+        material = iMaterialResourceFactory::getInstance().createMaterial(materialName);
+        _materialMapping[materialChunk->getID()] = material->getID();
+        material->setOrder(materialChunk->getOrder());
+
+        uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
+        if (shaderObjectCount != 0)
         {
-            con_err("zero pointer");
+            iShaderProgramPtr program = iShaderProgram::create();
+            for (uint32 i = 0; i < shaderObjectCount; ++i)
+            {
+                program->addShader(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
+            }
+
+            program->compile();
+            material->setShaderProgram(program);
         }
+
+        material->setRenderState(iRenderState::DepthTest, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthTest)));
+        material->setRenderState(iRenderState::DepthMask, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthMask)));
+        material->setRenderState(iRenderState::Blend, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Blend)));
+        material->setRenderState(iRenderState::CullFace, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::CullFace)));
+        material->setRenderState(iRenderState::Texture2D0, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D0)));
+        material->setRenderState(iRenderState::Texture2D1, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D1)));
+        material->setRenderState(iRenderState::Texture2D2, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D2)));
+        material->setRenderState(iRenderState::Texture2D3, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D3)));
+        material->setRenderState(iRenderState::Texture2D4, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D4)));
+        material->setRenderState(iRenderState::Texture2D5, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D5)));
+        material->setRenderState(iRenderState::Texture2D6, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D6)));
+        material->setRenderState(iRenderState::Texture2D7, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D7)));
+        material->setRenderState(iRenderState::Wireframe, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Wireframe)));
+        material->setRenderState(iRenderState::DepthFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthFunc)));
+        material->setRenderState(iRenderState::CullFaceFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::CullFaceFunc)));
+        material->setRenderState(iRenderState::Instanced, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Instanced)));
+        material->setRenderState(iRenderState::InstancedFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::InstancedFunc)));
     }
 
     void iModelDataIOOMPF::exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode)
@@ -608,7 +675,7 @@ namespace igor
     {
         OMPF::ompfParticleSystemChunk *result = _ompf->createParticleSystemChunk();
         result->setMaxParticleCount(node->getMaxParticleCount());
-        result->setLoop(node->getLoop());
+        result->setLoop(node->isLooped());
 
         iaGradientColor4f colorGradient;
         node->getColorGradient(colorGradient);
@@ -621,7 +688,7 @@ namespace igor
         result->setVortexTorque(node->getVortexTorqueMin(), node->getVortexTorqueMax());
         result->setVortexRange(node->getVortexRangeMin(), node->getVortexRangeMax());
         result->setVortexCheckRange(node->getVortexCheckRange());
-        result->setFirstTextureTiling(node->getFirstTextureColumns(), node->getFirstTextureRows());
+        result->setTextureTiling(node->getTextureColumns(), node->getTextureRows());
 
         iaGradientVector2f startSizeGradient;
         node->getStartSizeGradient(startSizeGradient);
@@ -662,7 +729,7 @@ namespace igor
         result->setTextureB(node->getTextureB());
         result->setTextureC(node->getTextureC());
 
-        uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
+        uint32 materialChunkID = getMaterialChunkID(node->getMaterial()->getID());
         result->setMaterialChunkID(materialChunkID);
 
         return result;
@@ -700,20 +767,22 @@ namespace igor
                 result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
                 result->setTexCoordPerVertex(node->getMesh()->getTextureCoordinatesCount());
 
-                result->setVertexCount(node->getMesh()->getVertexCount());
+                /*result->setVertexCount(node->getMesh()->getVertexCount());
+                for(auto vertexBuffer : node->getMesh()->getVertexArray()->getVertexBuffers())
+                {
+                    vertexBuffer->getData????
+                    break;
+                }
                 result->setVertexData(reinterpret_cast<char *>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
 
                 result->setIndexCount(node->getMesh()->getIndexesCount());
-                result->setIndexData(reinterpret_cast<char *>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());
+                result->setIndexData(reinterpret_cast<char *>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());#*/
 
-                for (uint32 i = 0; i < node->getTargetMaterial()->getTextureUnitCount(); ++i)
+                uint32 texUnit = 0;
+                for (auto texture : node->getTargetMaterial()->getTextures())
                 {
-                    iTexturePtr texture = node->getTargetMaterial()->getTexture(i);
-                    if (texture != nullptr)
-                    {
                         iaString relative = iaDirectory::getRelativePath(_filename, texture->getFilename());
-                        result->setTexture(relative, i);
-                    }
+                        result->setTexture(relative, texUnit++);
                 }
             }
             else
@@ -721,7 +790,7 @@ namespace igor
                 con_err("mesh was not loaded with keep mesh param true");
             }
 
-            uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
+            uint32 materialChunkID = getMaterialChunkID(node->getMaterial()->getID());
             result->setMaterialChunkID(materialChunkID);
         }
 
@@ -743,51 +812,50 @@ namespace igor
         return result;
     }
 
-    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(uint32 materialID)
+    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(const iMaterialID &materialID)
     {
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+
+        if (material == nullptr)
+        {
+            con_err("material id \"" << materialID << "\" not found");
+            return nullptr;
+        }
+
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
-        if (material != nullptr)
+        const auto &shaderSources = material->getShaderProgram()->getShaderSources();
+        for (const auto &filename : shaderSources)
         {
-            auto shaderSources = material->getShaderSources();
-            for (auto shaderSource : shaderSources)
-            {
-                result->addShader(shaderSource._filename, static_cast<OMPF::OMPFShaderType>(shaderSource._type));
-            }
-
-            result->setMaterialName(material->getName());
-            iRenderStateSet &renderStateSet = material->getRenderStateSet();
-
-            for (int i = 0; i < static_cast<int>(iRenderState::RenderStateCount); ++i)
-            {
-                result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(renderStateSet.getRenderState(static_cast<iRenderState>(i))));
-            }
-
-            result->setOrder(material->getOrder());
+            result->addShader(filename, static_cast<OMPF::OMPFShaderType>(1)); // TODO type
         }
-        else
+
+        result->setMaterialName(material->getName());
+
+        for (int i = 0; i < static_cast<int>(iRenderState::RenderStateCount); ++i)
         {
-            con_err("material id " << materialID << " not found");
+            result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(material->getRenderState(static_cast<iRenderState>(i))));
         }
+
+        result->setOrder(material->getOrder());
 
         return result;
     }
 
-    uint32 iModelDataIOOMPF::getMaterialChunkID(uint32 materialID)
+    uint32 iModelDataIOOMPF::getMaterialChunkID(const iMaterialID &materialID)
     {
-        if (materialID != 0)
+        if (!materialID.isValid())
         {
-            auto iter = _materialsInUse.find(materialID);
-            if (iter == _materialsInUse.end())
-            {
-                _materialsInUse[materialID] = createMaterialChunk(materialID);
-            }
-
-            return _materialsInUse[materialID]->getID();
+            return 0;
         }
 
-        return 0;
+        auto iter = _materialsInUse.find(materialID);
+        if (iter == _materialsInUse.end())
+        {
+            _materialsInUse[materialID] = createMaterialChunk(materialID);
+        }
+
+        return _materialsInUse[materialID]->getID();
     }
 
     uint32 iModelDataIOOMPF::getNodeID(uint32 chunkID)
@@ -828,15 +896,16 @@ namespace igor
         return result;
     }
 
-    uint32 iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
+    iMaterialID iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
     {
-        uint32 result = 0;
+        iMaterialID result;
+
         if (materialChunkID != 0)
         {
             auto materiIter = _materialMapping.find(materialChunkID);
             if (materiIter != _materialMapping.end())
             {
-                result = (*materiIter).second;
+                result = materiIter->second;
             }
             else
             {

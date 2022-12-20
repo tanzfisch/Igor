@@ -34,8 +34,6 @@ namespace OMPF
 {
 
     /*! transformation chunk
-
-    \todo need additional 64bit transform chunk
     */
     class OMPF_API ompfTransformChunk : public ompfBaseChunk
     {

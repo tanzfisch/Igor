@@ -48,7 +48,7 @@ namespace igor
 
         \param window window connected to render context
         */
-        iTaskFlushModels(iWindow *window);
+        iTaskFlushModels(iWindowPtr window);
 
         /*! does nothing
         */

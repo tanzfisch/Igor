@@ -6,7 +6,6 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/graphics/iRenderer.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/nodes/iNodeRender.h>
@@ -94,7 +93,7 @@ namespace igor
         }
     }
 
-    void iNodeModel::setMaterial(iMaterialID materialID)
+    void iNodeModel::setMaterial(const iMaterialPtr& material)
     {
         if (!isLoaded())
         {
@@ -102,22 +101,22 @@ namespace igor
             return;
         }
 
-        setMaterial(this, materialID);
+        setMaterial(this, material);
     }
 
-    void iNodeModel::setMaterial(iNodePtr node, iMaterialID materialID)
+    void iNodeModel::setMaterial(iNodePtr node, const iMaterialPtr& material)
     {
         if (node->getType() == iNodeType::iNodeMesh)
         {
             iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(node);
-            meshNode->setMaterial(materialID);
+            meshNode->setMaterial(material);
         }
 
         std::vector<iNodePtr> children;
         node->getAllChildren(children);
         for (auto &child : children)
         {
-            setMaterial(child, materialID);
+            setMaterial(child, material);
         }
     }
 
@@ -148,42 +147,6 @@ namespace igor
             _model = iModelResourceFactory::getInstance().requestModelData(_filename, _cacheMode, _parameters);
             _parameters = nullptr; // passing ownership to iModel
         }
-    }
-
-    bool iNodeModel::checkForBuffers(iNodePtr node)
-    {
-        if (node->getType() == iNodeType::iNodeMesh)
-        {
-            iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-            if (meshNode->getMeshBuffers() == nullptr ||
-                !meshNode->getMeshBuffers()->isReady())
-            {
-                return false;
-            }
-        }
-
-        for (auto child : node->getChildren())
-        {
-            if (!checkForBuffers(child))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    bool iNodeModel::checkForBuffers()
-    {
-        for (auto child : _children)
-        {
-            if (!checkForBuffers(child))
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     bool iNodeModel::onUpdateData()

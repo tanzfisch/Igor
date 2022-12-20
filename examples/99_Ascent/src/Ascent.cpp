@@ -19,7 +19,6 @@
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
 #include <igor/system/iApplication.h>
 #include <igor/scene/iSceneFactory.h>
 #include <igor/scene/iScene.h>
@@ -50,7 +49,7 @@ uint64 Ascent::_terrainMaterialID = 0;
 uint64 Ascent::_entityMaterialID = 0;
 uint64 Ascent::_bulletMaterialID = 0;
 
-Ascent::Ascent(iWindow *window)
+Ascent::Ascent(iWindowPtr window)
     : iLayer(window), _viewOrtho(iView(false))
 {
 }
@@ -106,19 +105,13 @@ void Ascent::initScene()
 
     // reate a sky box and add it to scene
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/left.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/right.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
+    skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skybox_default.jpg"));
     skyBoxNode->setTextureScale(1);
     // create a sky box material
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
+    _materialSkyBox = iMaterialResourceFactory_old::getInstance().createMaterial("Sky Box");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
     // and set the sky box material
     skyBoxNode->setMaterial(_materialSkyBox);
     // insert sky box to scene
@@ -186,7 +179,7 @@ void Ascent::initVoxelData()
 {
     oulineLevelStructure();
 
-    iTargetMaterial *targetMaterial = _voxelTerrain->getTargetMaterial();
+    iTargetMaterialPtr targetMaterial = _voxelTerrain->getTargetMaterial();
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 2);
@@ -197,8 +190,8 @@ void Ascent::initVoxelData()
     targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
     targetMaterial->setShininess(1000.0f);
 
-    uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+    uint64 materialID = iMaterialResourceFactory_old::getInstance().createMaterial("TerrainMaterial");
+    auto material = iMaterialResourceFactory_old::getInstance().getMaterial(materialID);
     material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
     material->addShaderSource("ascent/terrain_directional_light.frag", iShaderObjectType::Fragment);
     material->compileShader();
@@ -548,27 +541,27 @@ void Ascent::onInit()
     initVoxelData();
 
     // set up octree debug rendering
-    _octreeMaterial = iMaterialResourceFactory::getInstance().createMaterial("Octree");
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+    _octreeMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("Octree");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
 
     // set up statistics
     _font = new iTextureFont("StandardFont.png");
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    _materialWithTextureAndBlending = iMaterialResourceFactory_old::getInstance().createMaterial("TextureAndBlending");
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-    uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial("Particles");
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
+    uint64 particlesMaterial = iMaterialResourceFactory_old::getInstance().createMaterial("Particles");
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
+    iMaterialResourceFactory_old::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
     // launch resource handlers
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(getWindow()));
@@ -742,29 +735,29 @@ void Ascent::handleHitList()
 void Ascent::onRenderOrtho()
 {
     iaMatrixd matrix;
-    iRenderer::getInstance().setViewMatrix(matrix);
+    // TODO iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(matrix);
+    // TODO iRenderer::getInstance().setModelMatrix(matrix);
     iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setFont(_font);
+    // TODO iRenderer::getInstance().setFont(_font);
 
     if (_loading)
     {
-        iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-        iRenderer::getInstance().drawFilledRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
+        //// TODO iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+        // // TODO iRenderer::getInstance().drawFilledRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
 
-        iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-        iRenderer::getInstance().setFontSize(40.0f);
-        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        // TODO iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+        // TODO iRenderer::getInstance().setFontSize(40.0f);
+        // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
         BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
-            iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
-            iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+            // TODO iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
+            // TODO iRenderer::getInstance().setFontSize(40.0f);
+            // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
         }
 
         Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
@@ -773,25 +766,25 @@ void Ascent::onRenderOrtho()
             iaString healthText = iaString::toString(player->getHealth(), 0);
             iaString shieldText = iaString::toString(player->getShield(), 0);
 
-            iRenderer::getInstance().setFontSize(15.0f);
-            iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.05, getWindow()->getClientHeight() * 0.05, healthText);
+            // TODO iRenderer::getInstance().setFontSize(15.0f);
+            // TODO iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+            // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.05, getWindow()->getClientHeight() * 0.05, healthText);
 
-            iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.10, getWindow()->getClientHeight() * 0.05, shieldText);
+            // TODO iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+            // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.10, getWindow()->getClientHeight() * 0.05, shieldText);
 
             player->drawReticle(getWindow());
         }
         else
         {
-            iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-            iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+            // TODO iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+            // TODO iRenderer::getInstance().setFontSize(40.0f);
+            // TODO iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
             _activeControls = false;
         }
     }
 
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    // TODO iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 }
 
 void Ascent::onEvent(iEvent &event)

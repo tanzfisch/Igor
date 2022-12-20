@@ -37,7 +37,7 @@ namespace igor
 
         if (_nodes.size())
         {
-            con_err("possible mem leak. nodes left: " << static_cast<int>(_nodes.size()));
+            con_warn("possible mem leak. nodes left: " << static_cast<int>(_nodes.size()));
 
             for (auto pair : _nodes)
             {

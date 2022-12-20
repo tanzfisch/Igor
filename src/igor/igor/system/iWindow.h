@@ -214,7 +214,7 @@ namespace igor
         /*! adds view to the window
 
         \param view the view to be added
-        \todo would be nice to manipulate the order of views beeing added
+        \param zIndex determines the render order of the views
         */
         void addView(iView *view, int32 zIndex = 0);
 
@@ -225,6 +225,19 @@ namespace igor
         void removeView(iView *view);
 
     private:
+
+        /*! ctor
+
+        initializes all member variables and registeres os event listeners
+        */
+        iWindow(const iaString &title = "");
+
+        /*! dtor
+
+        unregisteres os event listeners
+        */
+        virtual ~iWindow();
+
         /*! pimpl
         */
         iWindowImpl *_impl = nullptr;
@@ -294,23 +307,11 @@ namespace igor
         /*! draws contend of view in to the window
         */
         void draw();
-
-        /*! ctor
-
-        initializes all member variables and registeres os event listeners
-        */
-        iWindow();
-
-        /*! dtor
-
-        unregisteres os event listeners
-        */
-        virtual ~iWindow();
     };
 
     /*! the window pointer definition
     */
-    typedef iWindow *iWindowPtr;
+    typedef iWindow* iWindowPtr;
 
 }; // namespace igor
 

@@ -26,10 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iGENERATORTERRAIN__
-#define __iGENERATORTERRAIN__
+#ifndef __IGOR_GENERATORTERRAIN__
+#define __IGOR_GENERATORTERRAIN__
 
 #include <igor/resources/model/loader/iModelDataIO.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/material/iTargetMaterial.h>
 
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
@@ -40,7 +42,6 @@ namespace igor
     class iContouringCubes;
     class iVoxelData;
     class iMeshBuilder;
-    class iTargetMaterial;
 
     /*! tile information package to be able to generate a cetain tile
     */
@@ -62,9 +63,9 @@ namespace igor
         */
         iaVector3I _voxelOffsetToNextLOD;
 
-        /*! material ID of tile
+        /*! material of tile
         */
-        uint64 _materialID = 0;
+        iMaterialPtr _materialID;
 
         /*! physics material of terrain tile
         */
@@ -72,7 +73,7 @@ namespace igor
 
         /*! target material for given tile
         */
-        iTargetMaterial *_targetMaterial = nullptr;
+        iTargetMaterialPtr _targetMaterial;
 
         /*! neighbors LOD flags
         */

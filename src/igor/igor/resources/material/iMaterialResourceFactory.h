@@ -26,199 +26,106 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MATERIALRESOURCEFACTORY_H__
-#define __IGOR_MATERIALRESOURCEFACTORY_H__
+#ifndef __IGOR_MATERIALRESOURCEFACTORY__
+#define __IGOR_MATERIALRESOURCEFACTORY__
 
-#include <igor/iDefines.h>
-#include <igor/resources/material/iMaterial.h>
 #include <igor/resources/module/iModule.h>
+#include <igor/resources/material/iMaterial.h>
 
-#include <iaux/data/iaString.h>
-#include <iaux/system/iaMutex.h>
-#include <iaux/system/iaEvent.h>
-using namespace iaux;
-
-#include <list>
 #include <unordered_map>
-#include <vector>
 
 namespace igor
 {
 
-    /*! event triggered by material created
-
-    \param materialID id of material created
-    */
-    iaEVENT(iMaterialCreatedEvent, iMaterialCreatedDelegate, (uint64 materialID), (materialID));
-
-    /*! event triggered by material destroyed
-
-    \param materialID id of material destroyed
-    */
-    iaEVENT(iMaterialDestroyedEvent, iMaterialDestroyedDelegate, (uint64 materialID), (materialID));
-
-    class iTargetMaterial;
-
     /*! material resource factory
-    */
+     */
     class IGOR_API iMaterialResourceFactory : public iModule<iMaterialResourceFactory>
     {
         friend class iModule<iMaterialResourceFactory>;
 
     public:
         /*! creates material
-
-        \returns id of new material
+        \param name the materials name which must be unique
+        \param cache if true this material will be added to the cache
+        \returns new material
+        If the name already exists it will return a previously created material
         */
-        uint64 createMaterial(iaString name = L"");
+        iMaterialPtr createMaterial(const iaString &name, bool cache = true);
 
-        /*! destoys material by id
+        /*! loads material from file. If the same material was already loaded it will return from cache
 
-        \param materialID the materials id
+        \param filename name of file to load
+        \param cache if true this material will be added to the cache
+        \returns shared pointer to material
         */
-        void destroyMaterial(uint64 materialID);
-
-        /*! creates and returns a target material
-
-        \returns pointer to new target material
-        */
-        iTargetMaterial *createTargetMaterial();
-
-        /*! destroyes given target material
-
-        \param targetMaterial target material to destroy
-        */
-        void destroyTargetMaterial(iTargetMaterial *targetMaterial);
-
-        /*! \returns materials with given material id
-        \param materialID the materials id
-        */
-        iMaterialPtr getMaterial(uint64 materialID);
+        iMaterialPtr loadMaterial(const iaString &filename, bool cache = true);
 
         /*! \returns default material
+         */
+        const iMaterialPtr &getDefaultMaterial() const;
+
+        /*! \returns colorID material
+         */
+        const iMaterialPtr &getColorIDMaterial() const;
+
+        /*! returns a list of all materials sorted by order
+
+        \param[out] the materials list
         */
-        iMaterialPtr getDefaultMaterial();
+        void getMaterials(std::vector<iMaterialPtr> &materials);
 
-        /*! \returns default material ID
+        /*! \return material for given name
+
+        \param name the given material name
         */
-        uint64 getDefaultMaterialID() const;
+        iMaterialPtr getMaterial(const iaString &name);
 
-        /*! \returns color ID material ID
+        /*! \returns material for given material id
+        
+        \param materialID the given id
         */
-        uint64 getColorIDMaterialID() const;
+        iMaterialPtr getMaterial(const iMaterialID &materialID);
 
-        /*! \returns materials with given material name
-        \param materialName the materials name
+        /*! creates default materials
+         */
+        void init();
+
+        /*! release resources
+         */
+        void deinit();
+
+        /*! works like a garbage collector.
+
+        Interrates through all materials and checks how many references every material has. If reference count
+        goes down to 1 then the material will be released.
         */
-        iMaterialPtr getMaterial(iaString materialName);
-
-        /*! \retruns material id with given material name
-        \param materialName the materials name
-        */
-        uint64 getMaterialID(iaString materialName);
-
-        /*! \returns the currently activated material
-        */
-        iMaterialPtr getCurrentMaterial();
-
-        /*! \returns materials list sorted by render order
-        */
-        std::vector<iMaterialPtr> getSortedMaterials();
-
-        /*! register delegate to material created event
-
-        \param materialCreatedDelegate delegate to register
-        */
-        void registerMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate);
-
-        /*! unregister delegate from material created event
-
-        \param materialCreatedDelegate delegate to unregister
-        */
-        void unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate);
-
-        /*! register delegate to material destroyed event
-
-        \param materialDestroyedDelegate delegate to register
-        */
-        void registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate);
-
-        /*! unregister delegate from material destroyed event
-
-        \param materialDestroyedDelegate delegate to unregister
-        */
-        void unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate);
+        void flush();        
 
     private:
-        /*! material created event
-        */
-        iMaterialCreatedEvent _materialCreatedEvent;
 
-        /*! material destroyed event
-        */
-        iMaterialDestroyedEvent _materialDestroyedEvent;
-
-        /*! dirty flag to control changes in render order
-        */
-        bool _dirtyMaterials = true;
-
-        /*! materials sorted by render order
-        */
-        std::vector<iMaterialPtr> _sortedMaterials;
-
-        /*! lookup table for materials
-        */
-        std::unordered_map<uint64, iMaterialPtr> _materials;
-
-        /*! mutex to protect the target material list
-        */
-        iaMutex _targetMaterialMutex;
-
-        /*! list of target materials
-        */
-        std::vector<iTargetMaterial *> _targetMaterials;
-
-        /*! current material in use
-        */
-        iMaterialPtr _currentMaterial = nullptr;
-
-        /*! mutex for material lists
-        */
+        /*! mutex to protect the materials map
+         */
         iaMutex _mutexMaterial;
 
-        /*! default material ID
-        */
-        uint64 _defaultMaterial = iMaterial::INVALID_MATERIAL_ID;
+        /*! map of materials
+         */
+        std::unordered_map<int64, iMaterialPtr> _materials;
 
-        /*! color id material id
-        */
-        uint64 _colorIDMaterial = iMaterial::INVALID_MATERIAL_ID;
+        /*! the default material
+         */
+        iMaterialPtr _defaultMaterial;
 
-        /*! set a material as the active material.
+        /*! the colorID material
+         */
+        iMaterialPtr _colorIDMaterial;
 
-        changes render states as needed.
+        /*! does nothing
+         */
+        iMaterialResourceFactory() = default;
 
-        ATTENTION can only be used if window is open and renderer initialized
-
-        \param materialID the material's id to be activated
-        */
-        void setMaterial(uint64 materialID);
-
-        /*! sorts the materials if needed
-        */
-        virtual void updateGroups();
-
-        /*! initializes default materials
-        */
-        void initDefaultMaterials();
-
-        /*! initialisation of members
-        */
-        iMaterialResourceFactory();
-
-        /*! clean up and error handling
-        */
-        virtual ~iMaterialResourceFactory();
+        /*! does nothing
+         */
+        virtual ~iMaterialResourceFactory() = default;
     };
 
 }; // namespace igor

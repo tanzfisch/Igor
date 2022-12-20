@@ -6,7 +6,6 @@
 
 #include <igor/resources/sound/iSoundFactory.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/graphics/iRenderer.h>
 
 #include <iaux/system/iaFile.h>
 #include <iaux/system/iaConsole.h>

@@ -66,7 +66,7 @@ public:
 
 	\param window the given window
     */
-	SpriteAnimation(iWindow *window);
+	SpriteAnimation(iWindowPtr window);
 
 	/*! does nothing
     */
@@ -111,7 +111,7 @@ private:
 
 	/*! terrain material
 	*/
-	iMaterialID _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
+	iMaterialPtr _materialTerrain;
 
 	/*! transform of camera
 	*/

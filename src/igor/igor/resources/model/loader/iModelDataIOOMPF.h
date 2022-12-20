@@ -26,16 +26,18 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iLOADERIGOR__
-#define __iLOADERIGOR__
+#ifndef __IGOR_LOADERIGOR__
+#define __IGOR_LOADERIGOR__
+
+#include <igor/resources/model/loader/iModelDataIO.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/scene/traversal/iNodeVisitor.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#include <igor/resources/model/loader/iModelDataIO.h>
-#include <igor/scene/traversal/iNodeVisitor.h>
-
 #include <map>
+#include <unordered_map>
 
 namespace OMPF
 {
@@ -115,7 +117,7 @@ namespace igor
 
         /*! maps chunk material id to materil id
         */
-        std::map<uint32, uint32> _materialMapping;
+        std::unordered_map<uint32, iMaterialID> _materialMapping;
 
         /*! maps chunk id to node id
         */
@@ -127,7 +129,7 @@ namespace igor
 
         /*! map of materials currently in use
         */
-        std::map<uint32, OMPF::ompfMaterialChunk *> _materialsInUse;
+        std::unordered_map<iMaterialID, OMPF::ompfMaterialChunk *> _materialsInUse;
 
         /*! additional input parameter
 
@@ -171,8 +173,6 @@ namespace igor
         \param currentChunk current ompf chunk
         */
         iNodePtr createNodeTree(iNodePtr parent, OMPF::ompfBaseChunk *currentChunk);
-
-        void calculateBoundingBox(float32 *vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d &minPos, iaVector3d &maxPos);
 
         /*! creates mesh node from chunk
 
@@ -218,23 +218,23 @@ namespace igor
         */
         OMPF::ompfParticleSystemChunk *createParticleSystemChunk(iNodeParticleSystem *node);
 
-        /*! creates material chunk
+        /*! creates material chunk from given igor material
 
-        \param node the node the chunk is created from
+        \param materialID the igor material id
         */
-        OMPF::ompfMaterialChunk *createMaterialChunk(uint32 materialID);
+        OMPF::ompfMaterialChunk *createMaterialChunk(const iMaterialID& materialID);
 
         /*! \returns material chunk id for given material id
 
-        \param materialID the material id
+        \param materialID the igor material id
         */
-        uint32 getMaterialChunkID(uint32 materialID);
+        uint32 getMaterialChunkID(const iMaterialID &materialID);
 
-        /*! \returns material id from material chunk id
+        /*! \returns igor material ID
 
         \param materialChunkID material chunk id
         */
-        uint32 getMaterialID(uint32 materialChunkID);
+        iMaterialID getMaterialID(uint32 materialChunkID);
 
         /*! \returns node id based on chunk id
 

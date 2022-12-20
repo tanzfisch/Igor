@@ -74,7 +74,7 @@ namespace igor
         return iWidget::handleMouseKeyDown(key);
     }
 
-    void iWidgetSelectBox::handleMouseMove(const iaVector2i &pos)
+    void iWidgetSelectBox::handleMouseMove(const iaVector2f &pos)
     {
         if (!isActive())
         {

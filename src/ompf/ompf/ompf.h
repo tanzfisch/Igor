@@ -49,8 +49,6 @@ namespace OMPF
 {
 
     /*! this is the OMPF file format reference implementation
-
-    \todo OMPF should be handled as plugin or even all Loaders should be handeled as plugin
     */
     class OMPF_API OMPF
     {
@@ -71,9 +69,6 @@ namespace OMPF
         /*! export data in to file
 
         \param filename the destination file name
-        \param saveMode the policy how to export data
-
-        \todo handle save mode
         */
         void saveFile(iaString filename);
 
