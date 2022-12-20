@@ -10,8 +10,8 @@ var igor_8cpp =
     [ "createModules", "igor_8cpp.html#ad7324f710167c958912815ba719e75d0", null ],
     [ "destroyModules", "igor_8cpp.html#aca58709fd86d64631d1d3a11abbc3cf3", null ],
     [ "printInfo", "igor_8cpp.html#af68f95c2759782213759d6aadf327ad7", null ],
-    [ "shutdown", "igor_8cpp.html#a10b2ddc4c372b6753c6e09e7a3299abf", null ],
-    [ "startup", "igor_8cpp.html#aac0acbe5b467c273c0b8a66c9d3ff788", null ],
+    [ "shutdown", "igor_8cpp.html#a4512e4c9774e4173030572df0847e4f3", null ],
+    [ "startup", "igor_8cpp.html#abe9536c70b4809b702e5f7431fe53d56", null ],
     [ "startupArgs", "igor_8cpp.html#a417c88d864a4291547b22fbfae279bb5", null ],
     [ "__IGOR_CONFIGURATION__", "igor_8cpp.html#a62512b4a7f0d4a97d7c4a7ccd8388c3f", null ]
 ];

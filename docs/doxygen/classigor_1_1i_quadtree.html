@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_quadtree.html',''); ini
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a236bd5f5f5540522ebc50abe6bc0b588"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a236bd5f5f5540522ebc50abe6bc0b588">iQuadtree</a> (const iaRectangle&lt; F &gt; &amp;box, const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> splitThreshold=4, const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> maxDepth=16)</td></tr>
+<tr class="memitem:a236bd5f5f5540522ebc50abe6bc0b588"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a236bd5f5f5540522ebc50abe6bc0b588">iQuadtree</a> (const iaRectangle&lt; F &gt; &amp;box, const uint32 splitThreshold=4, const uint32 maxDepth=16)</td></tr>
 <tr class="separator:a236bd5f5f5540522ebc50abe6bc0b588"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33067e93ddb10ed03214fbd6fac07ce9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a33067e93ddb10ed03214fbd6fac07ce9">~iQuadtree</a> ()=default</td></tr>
 <tr class="separator:a33067e93ddb10ed03214fbd6fac07ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -104,8 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad6925d347096ae1b8ede4eb07db4e5ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac97e15fc1b64f463be7f2e057687ae1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#ac97e15fc1b64f463be7f2e057687ae1d">remove</a> (const std::shared_ptr&lt; <a class="el" href="structigor_1_1i_quadtree_object.html">iQuadtreeObject</a>&lt; F, T &gt;&gt; object)</td></tr>
 <tr class="separator:ac97e15fc1b64f463be7f2e057687ae1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a462bb0ad2127046fa1be60a0403a7b48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a462bb0ad2127046fa1be60a0403a7b48">update</a> (const std::shared_ptr&lt; <a class="el" href="structigor_1_1i_quadtree_object.html">iQuadtreeObject</a>&lt; F, T &gt;&gt; object, const iaVector2d &amp;newPosition)</td></tr>
-<tr class="separator:a462bb0ad2127046fa1be60a0403a7b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a047d30a57dd4b18a9b262f87010fa744"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a047d30a57dd4b18a9b262f87010fa744">update</a> (const std::shared_ptr&lt; <a class="el" href="structigor_1_1i_quadtree_object.html">iQuadtreeObject</a>&lt; F, T &gt;&gt; object, const iaVector2&lt; F &gt; &amp;newPosition)</td></tr>
+<tr class="separator:a047d30a57dd4b18a9b262f87010fa744"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24efb0e47833aaae15a7c73f0016be72"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="structigor_1_1i_quadtree_node.html">iQuadtreeNode</a>&lt; F, T &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a24efb0e47833aaae15a7c73f0016be72">getRoot</a> () const</td></tr>
 <tr class="separator:a24efb0e47833aaae15a7c73f0016be72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae29417cec463c9eeb4715a39e0f62e32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#ae29417cec463c9eeb4715a39e0f62e32">query</a> (const iaCircle&lt; F &gt; &amp;circle, std::vector&lt; std::shared_ptr&lt; <a class="el" href="structigor_1_1i_quadtree_object.html">iQuadtreeObject</a>&lt; F, T &gt;&gt;&gt; &amp;objects)</td></tr>
@@ -140,13 +140,13 @@ template&lt;typename F , typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramtype">const uint32&#160;</td>
           <td class="paramname"><em>splitThreshold</em> = <code>4</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramtype">const uint32&#160;</td>
           <td class="paramname"><em>maxDepth</em> = <code>16</code>&#160;</td>
         </tr>
         <tr>
@@ -385,8 +385,8 @@ template&lt;typename F , typename T &gt; </div>
 
 </div>
 </div>
-<a id="a462bb0ad2127046fa1be60a0403a7b48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a462bb0ad2127046fa1be60a0403a7b48">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a047d30a57dd4b18a9b262f87010fa744"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a047d30a57dd4b18a9b262f87010fa744">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -402,7 +402,7 @@ template&lt;typename F , typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const iaVector2d &amp;&#160;</td>
+          <td class="paramtype">const iaVector2&lt; F &gt; &amp;&#160;</td>
           <td class="paramname"><em>newPosition</em>&#160;</td>
         </tr>
         <tr>

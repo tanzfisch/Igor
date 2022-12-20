@@ -1,8 +1,8 @@
 var i_texture_font_8h =
 [
-    [ "iCharacterDimensions", "classigor_1_1i_character_dimensions.html", "classigor_1_1i_character_dimensions" ],
+    [ "iCharacterDimensions", "structigor_1_1i_character_dimensions.html", "structigor_1_1i_character_dimensions" ],
     [ "iTextureFont", "classigor_1_1i_texture_font.html", "classigor_1_1i_texture_font" ],
-    [ "iTextureFontPtr", "i_texture_font_8h.html#aa9dd4ff62bb61e6357e76a00c4202797", null ],
+    [ "iTextureFontPtr", "i_texture_font_8h.html#aff74a717a3eb672b035bad5216c49e13", null ],
     [ "iColorMask", "i_texture_font_8h.html#ae0f348eb7fe6d7d0cfe54e5646709afd", [
       [ "Red", "i_texture_font_8h.html#ae0f348eb7fe6d7d0cfe54e5646709afdaee38e4d5dd68c4e440825018d549cb47", null ],
       [ "Green", "i_texture_font_8h.html#ae0f348eb7fe6d7d0cfe54e5646709afdad382816a3cbeed082c9e216e7392eed1", null ],

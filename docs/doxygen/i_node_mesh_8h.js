@@ -1,4 +1,5 @@
 var i_node_mesh_8h =
 [
-    [ "iNodeMeshPtr", "i_node_mesh_8h.html#aee9883182c335f798294f76f0886fd94", null ]
+    [ "iNodeMesh", "classigor_1_1i_node_mesh.html", "classigor_1_1i_node_mesh" ],
+    [ "iNodeMeshPtr", "i_node_mesh_8h.html#ac83f14c901f063c685bba4202d5a227f", null ]
 ];

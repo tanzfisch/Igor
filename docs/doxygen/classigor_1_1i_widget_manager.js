@@ -15,7 +15,7 @@ var classigor_1_1i_widget_manager =
     [ "setDesktopDimensions", "classigor_1_1i_widget_manager.html#a1d4dfafa326339615b4cba4a7d05f62f", null ],
     [ "setModal", "classigor_1_1i_widget_manager.html#a68f255c3258c02d7e59bf534d52c3a7b", null ],
     [ "setTheme", "classigor_1_1i_widget_manager.html#ab4993e9d5fad202d874e25634a8ef2a1", null ],
-    [ "showTooltip", "classigor_1_1i_widget_manager.html#ac941d84b68487c454cdfeed14629645b", null ],
+    [ "showTooltip", "classigor_1_1i_widget_manager.html#a78b9d806c28ca4c08713d206792a9681", null ],
     [ "iDialog", "classigor_1_1i_widget_manager.html#af7f6f50efeae1e3310a0ba88374672f2", null ],
     [ "iModule< iWidgetManager >", "classigor_1_1i_widget_manager.html#a33f293f0ad1af9e47ad082e39cba4c85", null ],
     [ "iWidget", "classigor_1_1i_widget_manager.html#ae2aa33c5f391ceae8d0c3476619fb5cc", null ]

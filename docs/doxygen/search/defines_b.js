@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['ompf_5fconfiguration_7050',['OMPF_CONFIGURATION',['../ompf_version_8h.html#a71a801b36cca0699d8e484121d3e0911',1,'ompfVersion.h']]],
-  ['ompf_5fversion_7051',['OMPF_VERSION',['../ompf_version_8h.html#adbb1210113445324ce74b6ed78e491a3',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fmajor_7052',['OMPF_VERSION_MAJOR',['../ompf_version_8h.html#a379f95657e49e5055c92fd0936d02c01',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fminor_7053',['OMPF_VERSION_MINOR',['../ompf_version_8h.html#acb67df7b9060ed3fafcf8e7c9c12abb7',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fpatch_7054',['OMPF_VERSION_PATCH',['../ompf_version_8h.html#a2ab3bf9ea1d00686e180b9eedd53c428',1,'ompfVersion.h']]]
+  ['stb_5fimage_5fimplementation_5933',['STB_IMAGE_IMPLEMENTATION',['../i_texture_resource_factory_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78',1,'iTextureResourceFactory.cpp']]],
+  ['str_5934',['STR',['../ompf_version_8h.html#a18d295a837ac71add5578860b55e5502',1,'ompfVersion.h']]],
+  ['str2_5935',['STR2',['../ompf_version_8h.html#ac8a66a18d26209f0d893dbe246f6cc1f',1,'ompfVersion.h']]]
 ];

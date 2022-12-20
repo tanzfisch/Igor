@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -88,12 +88,14 @@ $(document).ready(function(){initNavTree('i_defines_8h.html',''); initResizable(
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">iDefines.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="ia_string_8h.html">iaux/data/iaString.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;ostream&gt;</code><br />
+<code>#include &lt;iaux/data/iaString.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -129,20 +131,9 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:aaad3f3a7c1829b5eab5873bac6948aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09233c080a182bbad53c9d2881358650"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650">igor::iColorFormat</a> { <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650aec0fc0100c4fc1ce4eea230c3dc10360">igor::Undefined</a>
+<tr class="memitem:a09233c080a182bbad53c9d2881358650"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650">igor::iColorFormat</a> { <a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650aec0fc0100c4fc1ce4eea230c3dc10360">igor::Undefined</a>
 , <a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650a889574aebacda6bfd3e534e2b49b8028">igor::RGB</a>
 , <a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650aea3495a278957dc58165e48a8945469f">igor::RGBA</a>
-, <a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650aa2d9547b5d3dd9f05984475f7c926da0">igor::RED</a>
-, <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650a9de0e5dd94e861317e74964bed179fa0">igor::GREEN</a>
-, <a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650a1b3e1ee9bff86431dea6b181365ba65f">igor::BLUE</a>
-, <a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650a002101f8725e5c78d9f30d87f3fa4c87">igor::ALPHA</a>
-, <a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650aaa1780b4fcce2d5d9af13dc25386d111">igor::DEPTH</a>
-, <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650a2ad5640ebdec72fc79531d1778c6c2dc">igor::BGR</a>
-, <a class="el" href="namespaceigor.html#a09233c080a182bbad53c9d2881358650a5a1fe3c61c9e2fd6dbbc823589f6e697">igor::BGRA</a>
-<br />
  }</td></tr>
 <tr class="separator:a09233c080a182bbad53c9d2881358650"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace7988c80527d8744c218d3f70209f9a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ace7988c80527d8744c218d3f70209f9a">igor::iTextureBuildMode</a> { <a class="el" href="namespaceigor.html#ace7988c80527d8744c218d3f70209f9aa960b44c579bc2f6818d2daaf9e4c16f0">igor::Normal</a>
@@ -320,6 +311,11 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a80a6b547ebec2fad44cd23cbceeba9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a728632759bccb048d7e6082f2400dd20"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a728632759bccb048d7e6082f2400dd20">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iColorFormat &amp;colorFormat)</td></tr>
+<tr class="separator:a728632759bccb048d7e6082f2400dd20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>

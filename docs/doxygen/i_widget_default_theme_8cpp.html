@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -93,12 +93,11 @@ $(document).ready(function(){initNavTree('i_widget_default_theme_8cpp.html','');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_widget_default_theme_8h.html">igor/ui/theme/iWidgetDefaultTheme.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_texture_font_8h.html">igor/resources/texture/iTextureFont.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory_old.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_texture_resource_factory_8h.html">igor/resources/texture/iTextureResourceFactory.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/graphics/iRenderer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/renderer/iRenderer.h</a>&gt;</code><br />
+<code>#include &lt;iaux/system/iaConsole.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -114,25 +113,25 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a1a6fcb5ea916bca9d69542eade5df0fa"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a1a6fcb5ea916bca9d69542eade5df0fa">COLOR_AMBIENT</a> = {0.2f, 0.2f, 0.2f, 1.0f}</td></tr>
+<tr class="memitem:a1a6fcb5ea916bca9d69542eade5df0fa"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a1a6fcb5ea916bca9d69542eade5df0fa">COLOR_AMBIENT</a> = {0.2f, 0.2f, 0.2f, 1.0f}</td></tr>
 <tr class="separator:a1a6fcb5ea916bca9d69542eade5df0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f0dd6fe9626f29366a3a6de8fa6e49b"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a1f0dd6fe9626f29366a3a6de8fa6e49b">COLOR_DIFFUSE_DARK</a> = {0.35f, 0.35f, 0.35f, 1.0f}</td></tr>
+<tr class="memitem:a1f0dd6fe9626f29366a3a6de8fa6e49b"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a1f0dd6fe9626f29366a3a6de8fa6e49b">COLOR_DIFFUSE_DARK</a> = {0.35f, 0.35f, 0.35f, 1.0f}</td></tr>
 <tr class="separator:a1f0dd6fe9626f29366a3a6de8fa6e49b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f5bc0b07a87a39fe3ad4561e098987c"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a5f5bc0b07a87a39fe3ad4561e098987c">COLOR_DIFFUSE</a> = {0.5f, 0.5f, 0.5f, 1.0f}</td></tr>
+<tr class="memitem:a5f5bc0b07a87a39fe3ad4561e098987c"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a5f5bc0b07a87a39fe3ad4561e098987c">COLOR_DIFFUSE</a> = {0.5f, 0.5f, 0.5f, 1.0f}</td></tr>
 <tr class="separator:a5f5bc0b07a87a39fe3ad4561e098987c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f9c0325fe9bed2537cbc7d86fd8a138"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a8f9c0325fe9bed2537cbc7d86fd8a138">COLOR_DIFFUSE_TRANSPARENT</a> = {0.5f, 0.5f, 0.5f, 0.75f}</td></tr>
+<tr class="memitem:a8f9c0325fe9bed2537cbc7d86fd8a138"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a8f9c0325fe9bed2537cbc7d86fd8a138">COLOR_DIFFUSE_TRANSPARENT</a> = {0.5f, 0.5f, 0.5f, 0.75f}</td></tr>
 <tr class="separator:a8f9c0325fe9bed2537cbc7d86fd8a138"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a683ab557ff114b3fb3982ca8d03abc33"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a683ab557ff114b3fb3982ca8d03abc33">COLOR_DIFFUSE_LIGHT</a> = {0.6f, 0.6f, 0.6f, 1.0f}</td></tr>
+<tr class="memitem:a683ab557ff114b3fb3982ca8d03abc33"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a683ab557ff114b3fb3982ca8d03abc33">COLOR_DIFFUSE_LIGHT</a> = {0.6f, 0.6f, 0.6f, 1.0f}</td></tr>
 <tr class="separator:a683ab557ff114b3fb3982ca8d03abc33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a3809e62316f76e48ce48d25c7bec87"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a7a3809e62316f76e48ce48d25c7bec87">COLOR_SPECULAR</a> = {0.8f, 0.8f, 0.8f, 1.0f}</td></tr>
+<tr class="memitem:a7a3809e62316f76e48ce48d25c7bec87"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a7a3809e62316f76e48ce48d25c7bec87">COLOR_SPECULAR</a> = {0.8f, 0.8f, 0.8f, 1.0f}</td></tr>
 <tr class="separator:a7a3809e62316f76e48ce48d25c7bec87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06ae910e9ad1c0ac096e711db4cb2e17"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a06ae910e9ad1c0ac096e711db4cb2e17">COLOR_WHITE</a> = {1.0f, 1.0f, 1.0f, 1.0f}</td></tr>
+<tr class="memitem:a06ae910e9ad1c0ac096e711db4cb2e17"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a06ae910e9ad1c0ac096e711db4cb2e17">COLOR_WHITE</a> = {1.0f, 1.0f, 1.0f, 1.0f}</td></tr>
 <tr class="separator:a06ae910e9ad1c0ac096e711db4cb2e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a80fe9971cae7ff3d1b95f32002c68b"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a6a80fe9971cae7ff3d1b95f32002c68b">COLOR_BLACK</a> = {0.0f, 0.0f, 0.0f, 1.0f}</td></tr>
+<tr class="memitem:a6a80fe9971cae7ff3d1b95f32002c68b"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a6a80fe9971cae7ff3d1b95f32002c68b">COLOR_BLACK</a> = {0.0f, 0.0f, 0.0f, 1.0f}</td></tr>
 <tr class="separator:a6a80fe9971cae7ff3d1b95f32002c68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6be58cf7521da7e17d025478ba2e1848"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a6be58cf7521da7e17d025478ba2e1848">COLOR_TEXT</a> = {0.2f, 0.2f, 0.2f, 1.0f}</td></tr>
+<tr class="memitem:a6be58cf7521da7e17d025478ba2e1848"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a6be58cf7521da7e17d025478ba2e1848">COLOR_TEXT</a> = {0.2f, 0.2f, 0.2f, 1.0f}</td></tr>
 <tr class="separator:a6be58cf7521da7e17d025478ba2e1848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa81158675a695aa64616d3d4be0eb2be"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#aa81158675a695aa64616d3d4be0eb2be">COLOR_TEXT_DARK</a> = {0.0f, 0.0f, 0.0f, 1.0f}</td></tr>
+<tr class="memitem:aa81158675a695aa64616d3d4be0eb2be"><td class="memItemLeft" align="right" valign="top">static const iaColor4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#aa81158675a695aa64616d3d4be0eb2be">COLOR_TEXT_DARK</a> = {0.0f, 0.0f, 0.0f, 1.0f}</td></tr>
 <tr class="separator:aa81158675a695aa64616d3d4be0eb2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -175,7 +174,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_AMBIENT = {0.2f, 0.2f, 0.2f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_AMBIENT = {0.2f, 0.2f, 0.2f, 1.0f}</td>
         </tr>
       </table>
   </td>
@@ -197,7 +196,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_BLACK = {0.0f, 0.0f, 0.0f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_BLACK = {0.0f, 0.0f, 0.0f, 1.0f}</td>
         </tr>
       </table>
   </td>
@@ -219,7 +218,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_DIFFUSE = {0.5f, 0.5f, 0.5f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_DIFFUSE = {0.5f, 0.5f, 0.5f, 1.0f}</td>
         </tr>
       </table>
   </td>
@@ -241,7 +240,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_DIFFUSE_DARK = {0.35f, 0.35f, 0.35f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_DIFFUSE_DARK = {0.35f, 0.35f, 0.35f, 1.0f}</td>
         </tr>
       </table>
   </td>
@@ -263,7 +262,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_DIFFUSE_LIGHT = {0.6f, 0.6f, 0.6f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_DIFFUSE_LIGHT = {0.6f, 0.6f, 0.6f, 1.0f}</td>
         </tr>
       </table>
   </td>
@@ -285,7 +284,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_DIFFUSE_TRANSPARENT = {0.5f, 0.5f, 0.5f, 0.75f}</td>
+          <td class="memname">const iaColor4f COLOR_DIFFUSE_TRANSPARENT = {0.5f, 0.5f, 0.5f, 0.75f}</td>
         </tr>
       </table>
   </td>
@@ -307,7 +306,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_SPECULAR = {0.8f, 0.8f, 0.8f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_SPECULAR = {0.8f, 0.8f, 0.8f, 1.0f}</td>
         </tr>
       </table>
   </td>
@@ -329,7 +328,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_TEXT = {0.2f, 0.2f, 0.2f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_TEXT = {0.2f, 0.2f, 0.2f, 1.0f}</td>
         </tr>
       </table>
   </td>
@@ -351,7 +350,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f}</td>
         </tr>
       </table>
   </td>
@@ -373,7 +372,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_WHITE = {1.0f, 1.0f, 1.0f, 1.0f}</td>
+          <td class="memname">const iaColor4f COLOR_WHITE = {1.0f, 1.0f, 1.0f, 1.0f}</td>
         </tr>
       </table>
   </td>

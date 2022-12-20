@@ -63,7 +63,7 @@ var namespace_o_m_p_f =
       [ "SourceAlpha", "namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a5660d86f4a66c824e699b26a51201a70", null ],
       [ "OneMinusSourceAlpha", "namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72aa1e6a89ebadf4a9ff9a6eaaac32dcd3e", null ],
       [ "DestinationAlpha", "namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a01b896b89509884af9544fec983ef271", null ],
-      [ "OneMinusDEstinationAlpha", "namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72aeeb1549862e46e16d04253129f7449ca", null ],
+      [ "OneMinusDestinationAlpha", "namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72afccdb697ecd743d6a2618b73d9fc53e8", null ],
       [ "SourceColor", "namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a1901920023e2275becaae076a28b590a", null ],
       [ "OneMinusSourceColor", "namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a835824be5decf84a1823ba3a803b7fef", null ],
       [ "Never", "namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a6e7b34fa59e1bd229b207892956dc41c", null ],
@@ -83,9 +83,8 @@ var namespace_o_m_p_f =
     [ "OMPFShaderType", "namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1", [
       [ "Vertex", "namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1ab22b929ba52471a02d18bb3a4e4472e6", null ],
       [ "Fragment", "namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1a37d01b98065725fe3a1d30acf3a0064a", null ],
-      [ "Geometry", "namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1ad9c6333623e6357515fcbf17be806273", null ],
-      [ "Effect", "namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1aa62d22910732d5343689f5117999abfa", null ]
+      [ "Geometry", "namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1ad9c6333623e6357515fcbf17be806273", null ]
     ] ],
-    [ "operator<<", "namespace_o_m_p_f.html#a823dfa4ef6849f1196ade9d91f52cb49", null ],
-    [ "operator<<", "namespace_o_m_p_f.html#abeb7f938198e3a3f9aae2a942e8cee45", null ]
+    [ "operator<<", "namespace_o_m_p_f.html#a8661c049da82969e5993641b43b53ccb", null ],
+    [ "operator<<", "namespace_o_m_p_f.html#a7ce6a465f767a98afef24d7d4eec22bc", null ]
 ];

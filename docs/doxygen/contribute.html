@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -89,52 +89,52 @@ $(document).ready(function(){initNavTree('contribute.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_contribute"></a></p>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 Get Igor</h1>
 <p>Get the Igor sources from <a href="https://github.com/tanzfisch/Igor.git">github</a>.</p>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Submodules</h1>
 <p>Igor currently links to the following libraries as sub modules.</p>
 <ul>
 <li>newton-dynamics</li>
+<li>openal-soft</li>
 </ul>
-<p>dont forget to</p>
+<p>dont forget to run the following unless your git client already does it for you</p>
 <div class="fragment"><div class="line">git submodule init</div>
-</div><!-- fragment --><p>and</p>
-<div class="fragment"><div class="line">git submodule update</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
-Build</h1>
-<p>Igor is using cmake to build. It is configured to work with Debian/g++ (Windows/MSVC is currently not supported).</p>
-<p><b>Build Debug</b></p>
-<div class="fragment"><div class="line">cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug</div>
-<div class="line">cmake --build build/debug</div>
-</div><!-- fragment --><p><b>Build Release with Debug</b></p>
-<div class="fragment"><div class="line">cmake -S . -B build/release -DCMAKE_BUILD_TYPE=RelWithDebInfo</div>
-<div class="line">cmake --build build/reldeb</div>
-</div><!-- fragment --><p><b>Build Release</b></p>
-<div class="fragment"><div class="line">cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release</div>
-<div class="line">cmake --build build/release</div>
-</div><!-- fragment --><p><b>Note!</b> Under Linux you might need to install some additional dependencies like the following ...</p>
-<div class="fragment"><div class="line">sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev</div>
+<div class="line">git submodule update</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
+Build</h1>
+<p>Igor is using cmake to build. It is tested to work on Ubuntu and Debian with GCC and Windows/MSVC.</p>
+<p>Preffered setup is VSCode, MSVC and CMAKE extension but it should work with Visual Studio as well.</p>
+<p><b>Note!</b> Under Linux you might need to install some additional dependencies like the following ...</p>
+<div class="fragment"><div class="line">sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md26"></a>
+Run from VSCode</h1>
+<p>Make sure when debugging from vscode to add the following to your settings.json in order for it to start from the correct working directory otherwise all relative paths to the data folder will fail.</p>
+<div class="fragment"><div class="line">&quot;cmake.debugConfig&quot;: {</div>
+<div class="line">    &quot;cwd&quot;: &quot;${workspaceFolder}&quot;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md27"></a>
 Git Flow</h1>
 <p>Use git flow for branching and merging etc. Please find <a href="https://danielkummer.github.io/git-flow-cheatsheet/">here</a> a very usefull cheat sheet.</p>
 <p>Maybe get a git client that supports git flow naturally (e.g. <a href="https://www.gitkraken.com/">gitkraken</a>).</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Make a release</h1>
 <p>For making a release do the following steps.</p>
 <ol type="1">
 <li>create a release branch from develop named by the next release version (e.g. 0.23.0).</li>
+<li>run smoke tests (run all the examples, tests and applications like Mica)</li>
+<li>if tests fail try to fix on the release branch if possible or abbort the release and start over</li>
 <li>Update the <a class="el" href="changelog.html">Changelog</a></li>
-<li>Update doxygen config (src/docs/Doxyfile.doxy) using the new version of the release. And generate the doxygen docs.</li>
-<li>Run some smoke tests (e.g. run all the examples once) and when satisfied merge in to master and develop.</li>
-<li>Create a tag with the new version number on master and push master, develop and the new tag to github.</li>
+<li>Update doxygen config file (src/docs/Doxyfile.doxy) using the new version of the release. And generate the doxygen docs.</li>
+<li>when satisfied with test and docs merge the release in to master and develop.</li>
+<li>Create a tag with the new version number on master and push master, develop and the new tag</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 Make a Patch Release</h1>
 <p>When happy with your hotfix update the <a class="el" href="changelog.html">Changelog</a> before mergin back in to master and develop.</p>
 <p>Crate patch release version tag on master branch.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Doxygen</h1>
 <p>Install <a href="http://www.doxygen.nl/download.html">doxygen</a> (ver. 1.8.8) than run doxygen using the configuration file located at src/docs/Doxyfile.doxy </p>
 </div></div><!-- contents -->

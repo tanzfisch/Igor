@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.1"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/martin/dev/Igor/src/igor/igor/graphics/iRenderer.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/igor/igor/renderer/iRenderer.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,76 +86,45 @@ $(document).ready(function(){initNavTree('i_renderer_8h.html',''); initResizable
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">iRenderer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="i_texture_8h.html">igor/resources/texture/iTexture.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_a_a_box_8h.html">igor/data/iAABox.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="i_a_a_box_8h.html">igor/data/iAABox.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_a_a_cube_8h.html">igor/data/iAACube.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_render_state_set_8h.html">igor/graphics/iRenderStateSet.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_vertex_array_8h.html">igor/renderer/buffers/iVertexArray.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_mesh_8h.html">igor/resources/mesh/iMesh.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_module_8h.html">igor/resources/module/iModule.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_texture_font_8h.html">igor/resources/texture/iTextureFont.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_atlas_8h.html">igor/resources/texture/iAtlas.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_mesh_buffers_8h.html">igor/resources/mesh/iMeshBuffers.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_rectangle_8h.html">iaux/data/iaRectangle.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_gradient_8h.html">iaux/data/iaGradient.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_string_8h.html">iaux/data/iaString.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_color4_8h.html">iaux/data/iaColor4.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_color3_8h.html">iaux/data/iaColor3.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_matrix_8h.html">iaux/math/iaMatrix.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_event_8h.html">iaux/system/iaEvent.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_mutex_8h.html">iaux/system/iaMutex.h</a>&gt;</code><br />
-<code>#include &lt;list&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;queue&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_mesh_8h.html">igor/resources/mesh/iMesh.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_target_material_8h.html">igor/resources/material/iTargetMaterial.h</a>&gt;</code><br />
+<code>#include &lt;iaux/data/iaColor4.h&gt;</code><br />
+<code>#include &lt;iaux/data/iaRectangle.h&gt;</code><br />
+<code>#include &lt;iaux/math/iaMatrix.h&gt;</code><br />
+<code>#include &lt;iaux/math/iaVector2.h&gt;</code><br />
 <code>#include &lt;deque&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_texture.html">igor::iRendererTexture</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_stats.html">igor::iRendererStats</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_renderer.html">igor::iRenderer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_1_1i_renderer_stats.html">igor::iRenderer::iRendererStats</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a180dfdd8a7c8c77767f02dd01392b85b"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a180dfdd8a7c8c77767f02dd01392b85b">igor::iRenderTargetID</a></td></tr>
-<tr class="separator:a180dfdd8a7c8c77767f02dd01392b85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:af9d44cb3ea7ca354dcfbc9cc1ff16418"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#af9d44cb3ea7ca354dcfbc9cc1ff16418">igor::iRenderTargetType</a> { <a class="el" href="namespaceigor.html#af9d44cb3ea7ca354dcfbc9cc1ff16418afb55ad7d87f507a96a7d851e2366cecb">igor::ToTexture</a>
-, <a class="el" href="namespaceigor.html#af9d44cb3ea7ca354dcfbc9cc1ff16418abcb4bb95a9f5ad744476df6071f48afa">igor::ToRenderBuffer</a>
- }</td></tr>
-<tr class="separator:af9d44cb3ea7ca354dcfbc9cc1ff16418"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ac3a3bf82af0664e19dd9720f4baf031a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac3a3bf82af0664e19dd9720f4baf031a">igor::iaEVENT</a> (iRendererInitializedEvent, iRendererInitializedDelegate,(),())</td></tr>
-<tr class="separator:ac3a3bf82af0664e19dd9720f4baf031a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a192b80b09b7132f3b028047a4a514891"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a192b80b09b7132f3b028047a4a514891">igor::iaEVENT</a> (iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate,(),())</td></tr>
-<tr class="separator:a192b80b09b7132f3b028047a4a514891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d894fa9681194a2649327099c43d8582.html">igor</a></li><li class="navelem"><a class="el" href="dir_ff63218eb8d6b76bf6f3638bd523226b.html">igor</a></li><li class="navelem"><a class="el" href="dir_539bf18a9c2498899a69d8797789d2c3.html">graphics</a></li><li class="navelem"><a class="el" href="i_renderer_8h.html">iRenderer.h</a></li>
+				<li class="navelem"><a class="el" href="dir_d894fa9681194a2649327099c43d8582.html">igor</a></li><li class="navelem"><a class="el" href="dir_ff63218eb8d6b76bf6f3638bd523226b.html">igor</a></li><li class="navelem"><a class="el" href="dir_785af6e17744cfc8ec5bccd5a7762feb.html">renderer</a></li><li class="navelem"><a class="el" href="i_renderer_8h.html">iRenderer.h</a></li>
 				<li class="footer">
 					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.1.

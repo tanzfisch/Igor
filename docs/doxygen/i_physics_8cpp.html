@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -93,12 +93,11 @@ $(document).ready(function(){initNavTree('i_physics_8cpp.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_physics_8h.html">igor/physics/iPhysics.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</code><br />
+<code>#include &lt;iaux/system/iaConsole.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_physics_world_8h.html">igor/physics/iPhysicsWorld.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_timer_8h.html">igor/system/iTimer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/graphics/iRenderer.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_application_8h.html">igor/system/iApplication.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_vector3_8h.html">iaux/math/iaVector3.h</a>&gt;</code><br />
+<code>#include &lt;iaux/math/iaVector3.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_task_manager_8h.html">igor/threading/iTaskManager.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_physics_body_8h.html">igor/physics/iPhysicsBody.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_node_manager_8h.html">igor/scene/nodes/iNodeManager.h</a>&gt;</code><br />
@@ -109,7 +108,7 @@ $(document).ready(function(){initNavTree('i_physics_8cpp.html',''); initResizabl
 <code>#include &lt;<a class="el" href="i_physics_collision_config_8h.html">igor/physics/iPhysicsCollisionConfig.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_node_transform_8h.html">igor/scene/nodes/iNodeTransform.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_physics_user_mesh_collision_handler_8h.html">igor/physics/iPhysicsUserMeshCollisionHandler.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_convert_8h.html">iaux/data/iaConvert.h</a>&gt;</code><br />
+<code>#include &lt;iaux/data/iaConvert.h&gt;</code><br />
 <code>#include &lt;newton/Newton.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -126,15 +125,15 @@ Namespaces</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ad94a741a29dd3b5aef0fad37ee323b7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ad94a741a29dd3b5aef0fad37ee323b7e">igor::PhysicsNodeDestructor</a> (const void *body)</td></tr>
 <tr class="separator:ad94a741a29dd3b5aef0fad37ee323b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41daf24f66e21439e9267a7b961e94c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a41daf24f66e21439e9267a7b961e94c1">igor::PhysicsNodeSetTransform</a> (const void *body, const <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> *matrix, int threadIndex)</td></tr>
+<tr class="memitem:a41daf24f66e21439e9267a7b961e94c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a41daf24f66e21439e9267a7b961e94c1">igor::PhysicsNodeSetTransform</a> (const void *body, const float64 *matrix, int threadIndex)</td></tr>
 <tr class="separator:a41daf24f66e21439e9267a7b961e94c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c5f102ea84fcd8b9e868198c934b689"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6c5f102ea84fcd8b9e868198c934b689">igor::PhysicsNodeSetTransformation</a> (const NewtonBody *const body, const dFloat *const matrix, int threadIndex)</td></tr>
 <tr class="separator:a6c5f102ea84fcd8b9e868198c934b689"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b13dbb85e205f0d5c0dc791c06e5eb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a0b13dbb85e205f0d5c0dc791c06e5eb9">igor::PhysicsApplyForceAndTorque</a> (const void *body, <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> timestep, int threadIndex)</td></tr>
+<tr class="memitem:a0b13dbb85e205f0d5c0dc791c06e5eb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a0b13dbb85e205f0d5c0dc791c06e5eb9">igor::PhysicsApplyForceAndTorque</a> (const void *body, float64 timestep, int threadIndex)</td></tr>
 <tr class="separator:a0b13dbb85e205f0d5c0dc791c06e5eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9494a7793a57fd2c429bf12689f08f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae9494a7793a57fd2c429bf12689f08f7">igor::SubmitConstraints</a> (const void *const joint, <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> timestep, int threadIndex)</td></tr>
+<tr class="memitem:ae9494a7793a57fd2c429bf12689f08f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae9494a7793a57fd2c429bf12689f08f7">igor::SubmitConstraints</a> (const void *const joint, float64 timestep, int threadIndex)</td></tr>
 <tr class="separator:ae9494a7793a57fd2c429bf12689f08f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb34f9daadd9596dd6bece1826ded7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a1fb34f9daadd9596dd6bece1826ded7b">igor::GenericContactProcessCompatible</a> (const void *const newtonContactJoint, <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> timestep, int threadIndex)</td></tr>
+<tr class="memitem:a1fb34f9daadd9596dd6bece1826ded7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a1fb34f9daadd9596dd6bece1826ded7b">igor::GenericContactProcessCompatible</a> (const void *const newtonContactJoint, float64 timestep, int threadIndex)</td></tr>
 <tr class="separator:a1fb34f9daadd9596dd6bece1826ded7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2d34f7b0e8789f82dd3274a6aec61a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae2d34f7b0e8789f82dd3274a6aec61a8">igor::GenericContactProcess</a> (const NewtonJoint *const newtonContactJoint, dFloat timestep, int threadIndex)</td></tr>
 <tr class="separator:ae2d34f7b0e8789f82dd3274a6aec61a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,15 +141,15 @@ Functions</h2></td></tr>
 <tr class="separator:a48768cd182c4b74fd3a238b31ca8f626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd4db97a0f9cfdf60172d5695ff7cc5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#abd4db97a0f9cfdf60172d5695ff7cc5b">igor::CollideCallback</a> (NewtonUserMeshCollisionCollideDesc *const collideDesc, const void *const continueCollisionHandle)</td></tr>
 <tr class="separator:abd4db97a0f9cfdf60172d5695ff7cc5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac61cb1c564f6c20a2e57dd6c36fceb49"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac61cb1c564f6c20a2e57dd6c36fceb49">igor::RayHitCallback</a> (NewtonUserMeshCollisionRayHitDesc *const rayDesc)</td></tr>
+<tr class="memitem:ac61cb1c564f6c20a2e57dd6c36fceb49"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac61cb1c564f6c20a2e57dd6c36fceb49">igor::RayHitCallback</a> (NewtonUserMeshCollisionRayHitDesc *const rayDesc)</td></tr>
 <tr class="separator:ac61cb1c564f6c20a2e57dd6c36fceb49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86fbd9c1313c013547e187fa56181672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a86fbd9c1313c013547e187fa56181672">igor::DestroyCallback</a> (void *userData)</td></tr>
 <tr class="separator:a86fbd9c1313c013547e187fa56181672"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58cdcc77a989674c944f4d0a104acb30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a58cdcc77a989674c944f4d0a104acb30">igor::GetCollisionInfo</a> (void *const userData, NewtonCollisionInfoRecord *const infoRecord)</td></tr>
 <tr class="separator:a58cdcc77a989674c944f4d0a104acb30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac01cd7e628ea9406cff0df45aabd902d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac01cd7e628ea9406cff0df45aabd902d">igor::AABBOverlapTest</a> (void *userData, const <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> *const box0, const <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> *const box1)</td></tr>
+<tr class="memitem:ac01cd7e628ea9406cff0df45aabd902d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac01cd7e628ea9406cff0df45aabd902d">igor::AABBOverlapTest</a> (void *userData, const float64 *const box0, const float64 *const box1)</td></tr>
 <tr class="separator:ac01cd7e628ea9406cff0df45aabd902d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f6ad9a41bfb74ca13d8ceda294ac94c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a1f6ad9a41bfb74ca13d8ceda294ac94c">igor::GetFacesInAABB</a> (void *userData, const <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> *p0, const <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> *p1, const <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> **vertexArray, int *vertexCount, int *vertexStrideInBytes, const int *indexList, int maxIndexCount, const int *userDataList)</td></tr>
+<tr class="memitem:a1f6ad9a41bfb74ca13d8ceda294ac94c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a1f6ad9a41bfb74ca13d8ceda294ac94c">igor::GetFacesInAABB</a> (void *userData, const float64 *p0, const float64 *p1, const float64 **vertexArray, int *vertexCount, int *vertexStrideInBytes, const int *indexList, int maxIndexCount, const int *userDataList)</td></tr>
 <tr class="separator:a1f6ad9a41bfb74ca13d8ceda294ac94c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
