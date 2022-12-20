@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPLANE__
-#define __iPLANE__
+#ifndef __IGOR_PLANE__
+#define __IGOR_PLANE__
 
 #include <igor/iDefines.h>
 
@@ -40,7 +40,7 @@ namespace igor
     /*! a plane
     */
     template <class T>
-    class IGOR_API_TEMPLATE iPlane
+    class IGOR_API_EXPORT_ONLY iPlane
     {
 
     public:

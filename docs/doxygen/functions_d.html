@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -90,18 +90,14 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 <li>decCursorPos()
 : <a class="el" href="classigor_1_1i_widget_text_edit.html#a0460a2f5a051af39786aa417958affbb">igor::iWidgetTextEdit</a>
 </li>
-<li>decompose()
-: <a class="el" href="classiaux_1_1ia_matrix.html#a5a343af8710dd6dd76aa14cbbb328f32">iaux::iaMatrix&lt; T &gt;</a>
-</li>
 <li>DEFAULT_PRIORITY
 : <a class="el" href="classigor_1_1i_task.html#ab8f4a3c30b35f372959f49fae55bb966">igor::iTask</a>
 </li>
-<li>DEFAULT_RENDER_TARGET
-: <a class="el" href="classigor_1_1i_renderer.html#a3ed37edc0478106b89fa1e6c49b6ef29">igor::iRenderer</a>
-</li>
 <li>deinit()
-: <a class="el" href="classiaux_1_1ia_thread.html#a9803256476c01161d7305d1c0f1ff7c2">iaux::iaThread</a>
+: <a class="el" href="classigor_1_1i_material_resource_factory.html#ac9d5e39fae8578d4b981a63c8da8e83a">igor::iMaterialResourceFactory</a>
 , <a class="el" href="classigor_1_1i_render_context_thread.html#ada4b9e2e2e06908da78ffa3d13ebea3a">igor::iRenderContextThread</a>
+, <a class="el" href="classigor_1_1i_renderer.html#a7974e1c0aaa19a8bc4c79d46cc090b29">igor::iRenderer</a>
+, <a class="el" href="classigor_1_1i_texture_resource_factory.html#a6867b3e1d1d595d809d3e4228cc7d1f3">igor::iTextureResourceFactory</a>
 , <a class="el" href="classigor_1_1i_thread.html#a9d101402edde64ea4626b2e2d934a3ae">igor::iThread</a>
 </li>
 <li>deinitDevice()
@@ -111,8 +107,11 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 <li>deleteRenderContext()
 : <a class="el" href="classigor_1_1i_window_impl.html#a01653011dbce01509cc3c21798be498d">igor::iWindowImpl</a>
 </li>
+<li>destroy()
+: <a class="el" href="classigor_1_1i_module.html#ab1cbc7cafc2b5c18ef4e05563eb4337d">igor::iModule&lt; T &gt;</a>
+</li>
 <li>destroyBody()
-: <a class="el" href="classigor_1_1i_physics.html#a60b33edba4aad71415d4bb1c339aedc7">igor::iPhysics</a>
+: <a class="el" href="classigor_1_1i_physics.html#a03311b88bbe3b4eeaf9a8a553eeada8f">igor::iPhysics</a>
 </li>
 <li>destroyBodyAsync()
 : <a class="el" href="classigor_1_1i_physics.html#a0f14f8df42d70a86f6e40061ed119bfe">igor::iPhysics</a>
@@ -126,7 +125,7 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 : <a class="el" href="classigor_1_1i_physics_user_mesh_collision_handler.html#a427967561e7a198a63c8e3b97aa67178">igor::iPhysicsUserMeshCollisionHandler</a>
 </li>
 <li>destroyCollision()
-: <a class="el" href="classigor_1_1i_physics.html#aae43dd6b6dfbd053a065570b5a7256ce">igor::iPhysics</a>
+: <a class="el" href="classigor_1_1i_physics.html#a5342edba1651844dc4e32f6b3c6e4bb5">igor::iPhysics</a>
 </li>
 <li>destroyCollisionConfig()
 : <a class="el" href="classigor_1_1i_physics.html#a7b4f00ce0a5793a7e68cb3c07356fb09">igor::iPhysics</a>
@@ -138,12 +137,6 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 <li>destroyEvaluation()
 : <a class="el" href="classigor_1_1i_evaluation_manager.html#ad43bf3bc142d04c8239f213db4f81e59">igor::iEvaluationManager</a>
 </li>
-<li>destroyMaterial()
-: <a class="el" href="classigor_1_1i_material_resource_factory.html#aa9e9fa156e8c7a602f3427c9081e3a73">igor::iMaterialResourceFactory</a>
-</li>
-<li>destroyModules
-: <a class="el" href="classigor_1_1i_module.html#a92b0f48da1a342faad57d220daf0fded">igor::iModule&lt; T &gt;</a>
-</li>
 <li>destroyNodeAsync()
 : <a class="el" href="classigor_1_1i_node_manager.html#a6bcfd2a822a86d5452475932c134d4e5">igor::iNodeManager</a>
 </li>
@@ -153,61 +146,25 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 <li>destroyScene()
 : <a class="el" href="classigor_1_1i_scene_factory.html#a63b66bc228404ea0d65cdf6e3d385bd8">igor::iSceneFactory</a>
 </li>
-<li>destroyShaderObject()
-: <a class="el" href="classigor_1_1i_renderer.html#a10e5168eed5bc30289bb65c2decb1760">igor::iRenderer</a>
-</li>
-<li>destroyShaderProgram()
-: <a class="el" href="classigor_1_1i_renderer.html#a45db13423154ddc3b92c9c3864431260">igor::iRenderer</a>
-</li>
 <li>destroySource()
 : <a class="el" href="classigor_1_1i_audio.html#af086232c1c737206e86a093cc4c38d57">igor::iAudio</a>
 , <a class="el" href="classigor_1_1i_audio_impl.html#a930cd03bb93645b99b09d8116eae8555">igor::iAudioImpl</a>
 </li>
-<li>destroyTargetMaterial()
-: <a class="el" href="classigor_1_1i_material_resource_factory.html#a196abbd43e20462a752ed9d55d924dda">igor::iMaterialResourceFactory</a>
-</li>
-<li>destroyVertexArray()
-: <a class="el" href="classigor_1_1i_renderer.html#aa67eeda46bdadd1e59814787df2bd1b4">igor::iRenderer</a>
-</li>
 <li>destroyWindow()
-: <a class="el" href="classigor_1_1i_application.html#ab1743ba614843bb1e1b606f4c08f7238">igor::iApplication</a>
+: <a class="el" href="classigor_1_1i_application.html#abbbc2002e36c1d639d49b1f666406aa6">igor::iApplication</a>
 </li>
 <li>destroyWorld()
-: <a class="el" href="classigor_1_1i_physics.html#a07d0fd78ee671db016450c2befc64f38">igor::iPhysics</a>
-</li>
-<li>determinant()
-: <a class="el" href="classiaux_1_1ia_matrix2_d.html#a841fd0274304688a46dfd9c5662f370b">iaux::iaMatrix2D&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_matrix.html#ac23ffdf05fa6a30634115b86fdf1b9dc">iaux::iaMatrix&lt; T &gt;</a>
-</li>
-<li>determinant3x3()
-: <a class="el" href="classiaux_1_1ia_matrix.html#a5047b578fd5a6ff58e152c0a0aaeb114">iaux::iaMatrix&lt; T &gt;</a>
-</li>
-<li>directoryIsAbsolute()
-: <a class="el" href="classiaux_1_1ia_directory.html#a0214dc7c097476465bfcb803a8841602">iaux::iaDirectory</a>
-</li>
-<li>disable()
-: <a class="el" href="classigor_1_1i_shader.html#add0b21e9f065d40e53650ecbc0ec1a62">igor::iShader</a>
+: <a class="el" href="classigor_1_1i_physics.html#a4464b262cc66151d876b6256f08c69cd">igor::iPhysics</a>
 </li>
 <li>dispatch()
 : <a class="el" href="classigor_1_1i_event.html#a7706cdb4a2ce39d197f4a02fa2c5a9dd">igor::iEvent</a>
-</li>
-<li>distance()
-: <a class="el" href="classiaux_1_1ia_vector2.html#a66a3b0cebd13476d1cae3164881c6f3f">iaux::iaVector2&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_vector3.html#ab1a7cd2a1cba0083c205f9da60706e9e">iaux::iaVector3&lt; T &gt;</a>
-</li>
-<li>distance2()
-: <a class="el" href="classiaux_1_1ia_vector2.html#a8ce7801ac41c201b4b90795c6e316502">iaux::iaVector2&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_vector3.html#ad13edb9250f71297098991f349de165c">iaux::iaVector3&lt; T &gt;</a>
-</li>
-<li>doTransition()
-: <a class="el" href="classiaux_1_1ia_state_machine.html#aef6113302c8914c141c9e1acfd078fa0">iaux::iaStateMachine</a>
 </li>
 <li>draw()
 : <a class="el" href="classigor_1_1i_node_render.html#a708bb931859381531e90e1d92c5d899e">igor::iNodeRender</a>
 , <a class="el" href="classigor_1_1i_node_sky_box.html#a0c28c33d1a48ace9a69da0a3a10c8748">igor::iNodeSkyBox</a>
 , <a class="el" href="classigor_1_1i_node_water.html#a3392ffec90aa3871a945336bc558ea9a">igor::iNodeWater</a>
 , <a class="el" href="classigor_1_1i_octree.html#a0198d8b053bc4aae03454a5347f1787d">igor::iOctree</a>
-, <a class="el" href="classigor_1_1i_profiler_visualizer.html#a540a8b47a4ce2c0eb1fe6f0ed0088916">igor::iProfilerVisualizer</a>
+, <a class="el" href="classigor_1_1i_profiler_visualizer.html#a4eb513b5e89244e7d557239273056231">igor::iProfilerVisualizer</a>
 , <a class="el" href="classigor_1_1i_widget.html#aa6cc4f688ce6a86fad44bb11e828be3c">igor::iWidget</a>
 , <a class="el" href="classigor_1_1i_widget_button.html#ad0dd85a4f5d107f560e558816c7bb690">igor::iWidgetButton</a>
 , <a class="el" href="classigor_1_1i_widget_check_box.html#ab1cbb15092234140e93754f20008474b">igor::iWidgetCheckBox</a>
@@ -215,164 +172,153 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 , <a class="el" href="classigor_1_1i_widget_spacer.html#a7a9cc99dae2795c0d0222c37ba8bf360">igor::iWidgetSpacer</a>
 </li>
 <li>drawBackgroundFrame()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#afd7b4dbd8c5e5855241a85ae4d37fbe6">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#aeea4593d413c906048fdd29afb7f7830">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a02a385a9dd968b488807aeaa555b0b2f">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#af8911dbfcd19bf6257b96ae529c2aaa5">igor::iWidgetTheme</a>
 </li>
-<li>drawBBox()
-: <a class="el" href="classigor_1_1i_renderer.html#acf05b8d84de68d0e36ee3912acfd23ee">igor::iRenderer</a>
+<li>drawBox()
+: <a class="el" href="classigor_1_1i_renderer.html#a811a0434bc4b5c89021af5326e43ebf1">igor::iRenderer</a>
 </li>
-<li>drawBillboard()
-: <a class="el" href="classigor_1_1i_renderer.html#a0abfb23c90132966d7e7d77d266b3f57">igor::iRenderer</a>
+<li>drawBuffer()
+: <a class="el" href="classigor_1_1i_renderer.html#a49fa99da39798cbdc5a685a8c9aa542e">igor::iRenderer</a>
 </li>
 <li>drawButton()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#ade70c7061f9eace06364b8a54787d4de">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a41339c43695a3508e23492ad0ae98a08">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a9bb77eff019b5e7c5589e1e7502b5ee1">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a61f2018a2b39eb66b5377a2e520fec48">igor::iWidgetTheme</a>
 </li>
 <li>drawCheckBox()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a60f98fc5124e48a3a5e106620e969b1b">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a83e20fd08c5d3d3badf3e9d7a17c5860">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a5c5b63d784a3c5add9dd479c8aee1ac0">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#af009b660e5eefa84b4b81b78ead827fc">igor::iWidgetTheme</a>
 </li>
 <li>drawCircle()
-: <a class="el" href="classigor_1_1i_renderer.html#a1e4cd7a3e9e44fe20075a3907c659914">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_renderer.html#a762a9348e3f3ef384f80a4995f7931d0">igor::iRenderer</a>
 </li>
 <li>drawDialog()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#af36c088aa8d2f324804eca272c6ca462">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#aabf010432079dd7ba2fed055b750cc8c">igor::iWidgetTheme</a>
-</li>
-<li>drawFilledBox()
-: <a class="el" href="classigor_1_1i_renderer.html#a0950004218a56c78777f630bea3333a7">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a72308263a0137bc685a005054c2a10e0">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a395816fd5634ee33d9fa04ab30c89f2f">igor::iWidgetTheme</a>
 </li>
 <li>drawFilledCircle()
-: <a class="el" href="classigor_1_1i_renderer.html#a4227e7125c57d37fffcd70380bd5ff25">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_renderer.html#a613bfb18c8073ee79f33e9f7ac4ff7e5">igor::iRenderer</a>
 </li>
 <li>drawFilledRectangle()
-: <a class="el" href="classigor_1_1i_renderer.html#a53ee5434325773605185f82ebcbf22e0">igor::iRenderer</a>
-, <a class="el" href="classigor_1_1i_widget_default_theme.html#abb45f2c2ff2f5e1087ee03834c22c8b0">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a4dbeaad87f726feb87d47fdfba5deee9">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_renderer.html#a4c032951880837342d15c1cf05626279">igor::iRenderer</a>
+, <a class="el" href="classigor_1_1i_widget_default_theme.html#ae43a6c2034b4f9d2915808ab51faeec6">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a16ced7a6dd8b82944157636d4fa64725">igor::iWidgetTheme</a>
 </li>
 <li>drawFrame()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#ac3ba5a32cdc5f17775e278cdd8afea43">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#aae6af186b840652e5d01a3ed6004d791">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_renderer.html#ab468fa0b1424d9b9b3b53186ad810359">igor::iRenderer</a>
+, <a class="el" href="classigor_1_1i_widget_default_theme.html#a470e2803f927aaa9c5e819c29d61dd26">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a52853a0b2eadeff8fa05bf61e1174a3b">igor::iWidgetTheme</a>
 </li>
 <li>drawGradient()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a7d8d623fe32ecbd253e5eb42a86df046">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a298d3dfc827faec9f67d765a9c4300e2">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a22ef9beee6542183e0b37025a0522eed">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a6e66dc1a663d6f880c0b9330918e4f3c">igor::iWidgetTheme</a>
 </li>
 <li>drawGraph()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a662cc5da9006d1da3628f3b134558951">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a7b02bce5945d20bafcb6db1e82dcf1ed">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a07ce8912e11325b8457ab65f8467952e">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#ab08e9506536292605777d86c1b563c44">igor::iWidgetTheme</a>
 </li>
 <li>drawGraphFrame()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a9de47b7cb4b53a94d41efe2067b43197">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a08a71e164267397c3cf3c34e9816d22e">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a8520d317ca6f0f5a869938b673918fe6">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a7214d2950a5c37c9461f66174983ea46">igor::iWidgetTheme</a>
 </li>
 <li>drawGraphGridlines()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a726fd9e6b7c2dfd14fd340b0b21d1dfd">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a725517bd40255877703925f0edc5b3b6">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#aedf9cd96def69f989b06001b8bb265fa">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a792c3218a92e4b5b99ec2a7909483588">igor::iWidgetTheme</a>
 </li>
 <li>drawGraphLabels()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a3f629c882aec226121b4b8f725cac13d">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#af0f6830646113febea29c81a68cf3b11">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a66981c9f095257bcb4f802d2ee628706">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#ae09147d6139794c6ca8db72a64ffbdb8">igor::iWidgetTheme</a>
 </li>
 <li>drawGridCell()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#ad8c6619fa957507e43f8ae5ff4233e2b">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a0d349afa5801363a16d4ee979ce77ad1">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a74dc4f8ce38f248fe3c24dedcfe47ca8">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a711171cd311ac52ea2f839f84f0639e6">igor::iWidgetTheme</a>
 </li>
 <li>drawGridHighlight()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a14f888aea1d2b29e9df097260b782d9c">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#ac9ed2789c3a9d58e7b8c7f2d6874f897">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a4cd5b96151e813cb2fcf2a3d30647add">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a28a1d59bbd2dba6b064bd9b9a684afdc">igor::iWidgetTheme</a>
 </li>
 <li>drawGridSelection()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a6a2ea77bd25136c34b450942229459ef">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#aca6a23e1794b00366ae3b383eaf219ee">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a2352346e5154b291fed0931c60563237">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a3fa859659b1391526d738f0850ce3b05">igor::iWidgetTheme</a>
 </li>
 <li>drawGroupBox()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a15ffef5b98e2913102e598be21a3b88c">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#af5d4ddede24be8924871af9d3825df54">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#ac22246c8b9c649e62af44762b60e65e8">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a48088f3e82018c40ebbc5f680228d164">igor::iWidgetTheme</a>
 </li>
 <li>drawLabel()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a5d4d48d1157f0b59bc46b04759789912">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#abdc6e6d6e1827e60a0a3133a61bf763a">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a0e4e90c32ab1ebbbb5e44649fee6624e">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a64d30bbfc09286709416a0842033f3b4">igor::iWidgetTheme</a>
 </li>
 <li>drawLine()
-: <a class="el" href="classigor_1_1i_renderer.html#a18813b7732444517a1fcf09e1a4e70da">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_renderer.html#a40ac0e11b2a51ac25bf4908d46fbc76f">igor::iRenderer</a>
 </li>
 <li>drawLineStrip()
-: <a class="el" href="classigor_1_1i_renderer.html#a48149fa1ff850c15afb3beadaa57759e">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_renderer.html#a2e47b49d0d5ad702aadcf643cf5de793">igor::iRenderer</a>
 </li>
 <li>drawMesh()
-: <a class="el" href="classigor_1_1i_renderer.html#a37821c2da683fe75e49e03ece6722bd6">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_renderer.html#abcfe59ce4f51c053b1a544cd30643076">igor::iRenderer</a>
 </li>
 <li>drawNumberChooser()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a9d6b12cdfc17c608d8e03b2aa027ad78">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a82f1c8a7994d80e4451408967803ae46">igor::iWidgetTheme</a>
-</li>
-<li>drawParticles()
-: <a class="el" href="classigor_1_1i_renderer.html#aa98f930d01576770f4b8f7ab2aaacd40">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a781cad4ac20ba07115a66fafedff749d">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a0666ccd9799e0731d40c242524427eaf">igor::iWidgetTheme</a>
 </li>
 <li>drawPicture()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a58a679f6a5dbf6526d4906d7b3673762">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#acebc76510bf9dc4950174d767a2bd4e1">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#aaf7edced7bba515b560abf650851548a">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a4bf7e9dc43b1cf79a887b0b83abfec75">igor::iWidgetTheme</a>
 </li>
 <li>drawPoint()
-: <a class="el" href="classigor_1_1i_renderer.html#ac2afa7d933f15dc6c3d67e36e0eb0716">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_renderer.html#a5cc3107421ce2a830945c0cd9cb568e3">igor::iRenderer</a>
+</li>
+<li>drawQuad()
+: <a class="el" href="classigor_1_1i_renderer.html#a2d46f676c132bec5adb2bec4460d4dd7">igor::iRenderer</a>
 </li>
 <li>drawRectangle()
-: <a class="el" href="classigor_1_1i_renderer.html#a5b6fbda0d9af2659ef1a470ecd2f5029">igor::iRenderer</a>
-, <a class="el" href="classigor_1_1i_widget_default_theme.html#a4da8d6febcf39b15e273b34948d661b3">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#abb31df6f4b9aacf82a5276d0406c075d">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_renderer.html#a73d9674a7b74ae3620727f353f2f325f">igor::iRenderer</a>
+, <a class="el" href="classigor_1_1i_widget_default_theme.html#a4c68d53ea47df9e0e4c9c19b6dca6e17">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#afc646afa55c06003946e4a44e28c078f">igor::iWidgetTheme</a>
 </li>
 <li>drawSelectBox()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#ab008cf831b985f5d92931bc09d19754a">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a7205e195426eee3cd4f46b4f12fa0c3b">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a39df7b066b202667762a3d55d5733c84">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a4348cf725229ca868e7ebf5392682917">igor::iWidgetTheme</a>
 </li>
 <li>drawSelectBoxDropDown()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#adc4aeef1f018c08b394ac3c5154cbb5a">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a45a24729501739678fc01f729fda97f0">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#ab887e4ed80ebf829a4d095a6e49bdc50">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#ac956875c0bcd4ea8f2f656c44fdb2d35">igor::iWidgetTheme</a>
 </li>
 <li>drawSpacer()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a9883753cf2d6eb107acc1e3c966eb9df">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a3562e340beaf2523ef0941679d14aaab">igor::iWidgetTheme</a>
-</li>
-<li>drawSprite()
-: <a class="el" href="classigor_1_1i_renderer.html#af15a4b0e990aeeeef152d0ad1d8ee36d">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#af5ca08bbcd67e90d62eb9a04fe62474c">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#ac6b6d90aaead1d29b8be4bc633dcc777">igor::iWidgetTheme</a>
 </li>
 <li>drawString()
-: <a class="el" href="classigor_1_1i_renderer.html#a6d43a05a176bf0bdb87befc573a18f10">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_renderer.html#a391056621606fd77bf5d6950e916728c">igor::iRenderer</a>
 </li>
 <li>drawText()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a15ca21bf00b87b9099b2b04de4d718f2">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a3c9ece97a9e459843de8d1d9f02a4d8a">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a40e8ea468148de4affa562aeee9dc2fd">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#ae91b4ace395adfb780388c0f4cce5bbc">igor::iWidgetTheme</a>
 </li>
 <li>drawTextEdit()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#a15e0751d1a0285b74d745d218929ed20">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a742af6e0cc2bfdae509489498d133b52">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a92b6e542f2507b933d1503fa3d3aaef0">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#aac5f5f36f6f8507fa91de539421b4698">igor::iWidgetTheme</a>
 </li>
-<li>drawTexture()
-: <a class="el" href="classigor_1_1i_renderer.html#ab55d2f722c909c969385b8ce6f48afa4">igor::iRenderer</a>
+<li>drawTexturedQuad()
+: <a class="el" href="classigor_1_1i_renderer.html#a467b86977d85123c073391e9bf037101">igor::iRenderer</a>
 </li>
-<li>drawTextureTiled()
-: <a class="el" href="classigor_1_1i_renderer.html#a12693b54ef30561078b0e59c5cec4885">igor::iRenderer</a>
+<li>drawTexturedRectangle()
+: <a class="el" href="classigor_1_1i_renderer.html#adf403ae19e25d04c640a821f89ca2fc1">igor::iRenderer</a>
 </li>
 <li>drawTiledRectangle()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#afd8c91d5afd67db93f13ce81c901110a">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a2b998e32a1ca727e7602326c19eb8082">igor::iWidgetTheme</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a93d0c00989f356bd3944e678b1c95d99">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#af333c705e09a2f59215dba7d5528d1a1">igor::iWidgetTheme</a>
 </li>
 <li>drawTooltip()
-: <a class="el" href="classigor_1_1i_widget_default_theme.html#abb6db6317a5d71d2142d540c564ac328">igor::iWidgetDefaultTheme</a>
-, <a class="el" href="classigor_1_1i_widget_theme.html#a5c791f9c2cb237de9657f65793912c63">igor::iWidgetTheme</a>
-</li>
-<li>drawVelocityOrientedParticles()
-: <a class="el" href="classigor_1_1i_renderer.html#a2e100e0b16cec0915901c8e1dcc97809">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_widget_default_theme.html#a0cf85c5b6b2cc0467be6f6628a8399fb">igor::iWidgetDefaultTheme</a>
+, <a class="el" href="classigor_1_1i_widget_theme.html#a4c6b47ed401684cc61668859382a3a0b">igor::iWidgetTheme</a>
 </li>
 <li>iDataUpdateQueue
 : <a class="el" href="classigor_1_1i_node.html#ad76feae0f2eae8d85174c7dd5665457b">igor::iNode</a>
 </li>
 <li>identity()
-: <a class="el" href="classiaux_1_1ia_matrix2_d.html#ab634c3922c3cd2cdbcdc30b2ce817fdc">iaux::iaMatrix2D&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122">iaux::iaMatrix&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_quaternion.html#ac4ce26a50b5b85303bf008c98a879f23">iaux::iaQuaternion&lt; T &gt;</a>
-, <a class="el" href="classigor_1_1i_node_transform.html#afe2c46e703826e6fd671734ef47b45cf">igor::iNodeTransform</a>
+: <a class="el" href="classigor_1_1i_node_transform.html#afe2c46e703826e6fd671734ef47b45cf">igor::iNodeTransform</a>
 </li>
 <li>iDialog()
 : <a class="el" href="classigor_1_1i_dialog.html#a8c66c1abf20d974ac35c961458aaa2f6">igor::iDialog</a>

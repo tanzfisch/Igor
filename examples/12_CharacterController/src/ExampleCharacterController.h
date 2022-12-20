@@ -41,7 +41,7 @@ public:
 
     \param window the given window
     */
-    ExampleCharacterController(iWindow *window);
+    ExampleCharacterController(iWindowPtr window);
 
     /*! does nothing
     */
@@ -75,7 +75,7 @@ private:
 
     /*! material definition for the sky box
     */
-    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialPtr _materialSkyBox;
 
     /*! the character controller
     */

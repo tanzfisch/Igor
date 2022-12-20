@@ -6,6 +6,7 @@ var i_event_8h =
     [ "IGOR_EVENT_KIND_MASK", "i_event_8h.html#aae7605c3a64e7f37671c9d0a9dedec8f", null ],
     [ "iEventKindMask", "i_event_8h.html#a2cea86b93bf6f5c69e7c8916d0117e5e", null ],
     [ "iEventPtr", "i_event_8h.html#a70c7d0deaa6ca886246d59b1b652ddb4", null ],
+    [ "iWindowPtr", "i_event_8h.html#aceb6e919b1456f47edac6b6788cfe5ed", null ],
     [ "iEventKind", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdec", [
       [ "Input", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdeca324118a6721dd6b8a9b9f4e327df2bf5", null ],
       [ "Keyboard", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdeca6ce4d85a628a88bbdb3ac24a8e5a9c2e", null ],

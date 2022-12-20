@@ -40,7 +40,7 @@ public:
 
     \param window the given window
     */
-    Background3D(iWindow *window);
+    Background3D(iWindowPtr window);
 
     /*! nothing to do
     */

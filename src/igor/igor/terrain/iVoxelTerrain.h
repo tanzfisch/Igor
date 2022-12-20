@@ -31,6 +31,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeManager.h>
+#include <igor/resources/material/iTargetMaterial.h>
 
 #include <igor/terrain/tasks/iTaskGenerateVoxels.h>
 #include <igor/terrain/tasks/iTaskPropsOnVoxels.h>
@@ -53,7 +54,6 @@ namespace igor
 
     class iNodeLODTrigger;
     class iScene;
-    class iTargetMaterial;
 
     /*! voxel terrain class
     */
@@ -126,15 +126,15 @@ namespace igor
         */
         void setLODTrigger(uint32 lodTriggerID);
 
-        /*! sets material ID
+        /*! sets material
 
-        \param materialID the material ID to use
+        \param material the material to use
         */
-        void setMaterialID(uint64 materialID);
+        void setMaterial(const iMaterialPtr& material);
 
-        /*! \returns terrain material ID
+        /*! \returns terrain material
         */
-        uint64 getMaterialID() const;
+        iMaterialPtr getMaterial() const;
 
         /*! sets physics material ID
 
@@ -148,7 +148,7 @@ namespace igor
 
         /*! \returns target material
         */
-        iTargetMaterial *getTargetMaterial();
+        iTargetMaterialPtr getTargetMaterial() const;
 
         /*! modifies voxel data by manipulating a box area
 
@@ -202,7 +202,7 @@ namespace igor
 
         /*! target material for given tile
         */
-        iTargetMaterial *_targetMaterial = nullptr;
+        iTargetMaterialPtr _targetMaterial;
 
         /*! voxel operations queue
         */
@@ -258,7 +258,7 @@ namespace igor
 
         /*! terrain material id
         */
-        uint64 _terrainMaterialID = 0;
+        iMaterialPtr _terrainMaterial;
 
         /*! lod trigger node id
         */

@@ -26,11 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iSKYBOXNODE__
-#define __iSKYBOXNODE__
+#ifndef __IGOR_SKYBOXNODE__
+#define __IGOR_SKYBOXNODE__
 
 #include <igor/scene/nodes/iNodeRender.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/mesh/iMesh.h>
 
 namespace igor
 {
@@ -43,62 +44,13 @@ namespace igor
         friend class iNodeManager;
 
     public:
-        /*! draw the sky box
-        */
-        virtual void draw();
-
-        /*! sets texture coordinates scaling
-
-        \param scale scale of texture coordinates
-        */
-        void setTextureScale(float32 scale);
-
-        /*! \returns texture scale
-        */
-        float32 getTextureScale() const;
-
-        /*! sets the offset matrix
-
-        \param offsetMatrix the offset matrix to set
-        */
-        void setOffsetMatrix(iaMatrixd &offsetMatrix);
-
-        /*! returns the offset matrix
-
-        \param offsetMatrix in out value for the offset matrix
-        */
-        void getOffsetMatrix(iaMatrixd &offsetMatrix);
-
-        /*! switches the usage of the offset matrix on and off
-
-        \param useMatrix true: offset matrix is used; false: no offset matrix is used
-        */
-        void setUseOffsetMatrix(bool useMatrix);
-
-        /*! \returns true if offset matrix is used
-        */
-        bool isOffsetMatrixUsed() const;
-
-        /*! sets the alpha value for rendering the sky box
-
-        this can be used to render multiple sky boxes that layer up
-
-        \param alpha
-        */
-        void setAlpha(float32 alpha);
-
         /*! set the textures used for the sky box
 
-        \param front front texture
-        \param back back texture
-        \param left left texture
-        \param right right texture
-        \param top top texture
-        \param bottom bottom texture
+        \param texture the texture to use
         */
-        void setTextures(iTexturePtr front, iTexturePtr back, iTexturePtr left, iTexturePtr right, iTexturePtr top, iTexturePtr bottom);
+        void setTexture(iTexturePtr texture);
 
-        /*! sets the sky box size
+        /*! sets the sky box size (radius)
 
         \param boxSize the sky box size
         */
@@ -108,48 +60,22 @@ namespace igor
         */
         float32 getBoxSize() const;
 
+        /*! draw the sky box
+        */
+        virtual void draw();
+
     private:
+        /*! scale of the box
+        */
         float32 _boxSize = 10.0f;
 
-        /*! texture scaling
+        /*! target material to use
         */
-        float32 _textureScale = 1.0f;
+        iTargetMaterialPtr _targetMaterial;
 
-        /*! alpha value
+        /*! mesh for sky box
         */
-        float32 _alpha = 1.0f;
-
-        /*! true if the matrix has to be set as offset on top of the camera matrix
-        */
-        bool _useMatrix = false;
-
-        /*! offset matrix
-        */
-        iaMatrixd _offsetMatrix;
-
-        /*! shared pointer to front texture
-        */
-        iTexturePtr _front;
-
-        /*! shared pointer to back texture
-        */
-        iTexturePtr _back;
-
-        /*! shared pointer to left texture
-        */
-        iTexturePtr _left;
-
-        /*! shared pointer to right texture
-        */
-        iTexturePtr _right;
-
-        /*! shared pointer to top texture
-        */
-        iTexturePtr _top;
-
-        /*! shared pointer to bottom texture
-        */
-        iTexturePtr _bottom;
+        iMeshPtr _mesh;
 
         /*! initializes member variables
         */
@@ -161,7 +87,11 @@ namespace igor
 
         /*! releases textures
         */
-        virtual ~iNodeSkyBox();
+        virtual ~iNodeSkyBox() = default;
+
+        /*! builds up a mesh for later rendering
+        */
+        void buildMesh();
     };
 
 } // namespace igor

@@ -45,7 +45,7 @@ public:
 
     \param window the given window
     */
-    WidgetsExample(iWindow *window);
+    WidgetsExample(iWindowPtr window);
 
     /*! does nothing
     */

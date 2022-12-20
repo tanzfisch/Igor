@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPHYSICSMATERIALCOMBO__
-#define __iPHYSICSMATERIALCOMBO__
+#ifndef __IGOR_PHYSICSMATERIALCOMBO__
+#define __IGOR_PHYSICSMATERIALCOMBO__
 
 #include <igor/iDefines.h>
 

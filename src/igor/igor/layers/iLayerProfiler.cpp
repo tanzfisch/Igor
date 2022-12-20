@@ -3,16 +3,15 @@
 // see copyright notice in corresponding header file
 
 #include <igor/layers/iLayerProfiler.h>
-
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
 namespace igor
 {
 
     // set an increase z index of 1 to make sure the ui is rendered above the background
-    iLayerProfiler::iLayerProfiler(iWindow *window, const iaString &name, int32 zIndex, iProfilerVerbosity verbosity)
-        : iLayer(window, name, zIndex), _view(iView(false))
+    iLayerProfiler::iLayerProfiler(iWindowPtr window, const iaString &name, int32 zIndex, iProfilerVerbosity verbosity)
+        : iLayer(window, name, zIndex)
     {
         _profilerVisualizer.setVerbosity(verbosity);
     }
@@ -21,25 +20,21 @@ namespace igor
     {
         // set up the view
         _view.setName("Profiler View");
-        _view.setClearColor(false);
-        _view.setClearDepth(false);
+        _view.setClearColorActive(false);
+        _view.setClearDepthActive(false);
         _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()),
                             static_cast<float32>(getWindow()->getClientHeight()), 0.0);
         _view.registerRenderDelegate(iDrawDelegate(this, &iLayerProfiler::onRender));
         getWindow()->addView(&_view, getZIndex());
 
         // init font for render profiler
-        _font = new iTextureFont("StandardFont.png");
+        _font = std::make_shared<iTextureFont>("StandardFont.png");
     }
 
     void iLayerProfiler::onDeinit()
     {
         // release resources
-        if (_font != nullptr)
-        {
-            delete _font;
-            _font = nullptr;
-        }
+        _font = nullptr;
 
         _view.unregisterRenderDelegate(iDrawDelegate(this, &iLayerProfiler::onRender));
     }
@@ -79,7 +74,7 @@ namespace igor
         // move scene between near and far plane so be ca actually see what we render
         // any value between near and far plane would do the trick
         iaMatrixd modelMatrix;
-        modelMatrix.translate(0, 0, -30);
+        modelMatrix.translate(0, 0, -1);
         iRenderer::getInstance().setModelMatrix(modelMatrix);
 
         _profilerVisualizer.draw(getWindow(), _font);

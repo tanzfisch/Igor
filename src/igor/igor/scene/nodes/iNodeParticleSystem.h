@@ -31,7 +31,8 @@
 
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/texture/iTexture.h>
-#include <igor/simulation/iParticleSystem3D.h>
+#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/simulation/iParticleSystem.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaGradient.h>
@@ -102,7 +103,7 @@ namespace igor
 
         /*! \returns true if particle system runs in loop
         */
-        bool getLoop() const;
+        bool isLooped() const;
 
         /*! sets emitter node id
 
@@ -159,15 +160,15 @@ namespace igor
         \param columns column count (<= 1)
         \param rows row count (<= 1)
         */
-        void setFirstTextureTiling(uint8 columns, uint8 rows);
+        void setTextureTiling(uint32 columns, uint32 rows);
 
         /*! \returns the horizontal tiling resolution of the first texture layer
         */
-        uint8 getFirstTextureColumns() const;
+        uint32 getTextureColumns() const;
 
         /*! \returns the vertical tiling resolution of the first texture layer
         */
-        uint8 getFirstTextureRows() const;
+        uint32 getTextureRows() const;
 
         /*! sets rainbow gradient for particles color
 
@@ -395,19 +396,11 @@ namespace igor
 
         /*! the actual particle system implementation
         */
-        iParticleSystem3D _particleSystem;
+        iParticleSystem _particleSystem;
 
-        /*! first texture
+        /*! target material
         */
-        iTexturePtr _textureA;
-
-        /*! second texture
-        */
-        iTexturePtr _textureB;
-
-        /*! third texture
-        */
-        iTexturePtr _textureC;
+        iTargetMaterialPtr _targetMaterial;
 
         /*! called after a node was copied
 

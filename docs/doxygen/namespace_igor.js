@@ -41,7 +41,7 @@ var namespace_igor =
     [ "iLSystem", "class_igor_1_1i_l_system.html", "class_igor_1_1i_l_system" ],
     [ "iMaterial", "class_igor_1_1i_material.html", "class_igor_1_1i_material" ],
     [ "iMaterialGroup", "class_igor_1_1i_material_group.html", "class_igor_1_1i_material_group" ],
-    [ "iMaterialResourceFactory", "class_igor_1_1i_material_resource_factory.html", "class_igor_1_1i_material_resource_factory" ],
+    [ "iMaterialResourceFactory_old", "class_igor_1_1i_material_resource_factory.html", "class_igor_1_1i_material_resource_factory" ],
     [ "iMesh", "class_igor_1_1i_mesh.html", "class_igor_1_1i_mesh" ],
     [ "iMeshBuffers", "class_igor_1_1i_mesh_buffers.html", "class_igor_1_1i_mesh_buffers" ],
     [ "iMeshBuilder", "class_igor_1_1i_mesh_builder.html", "class_igor_1_1i_mesh_builder" ],

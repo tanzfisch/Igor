@@ -26,11 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTASKGENERATEVOXELS__
-#define __iTASKGENERATEVOXELS__
+#ifndef __IGOR_TASKGENERATEVOXELS__
+#define __IGOR_TASKGENERATEVOXELS__
 
 #include <igor/threading/tasks/iTask.h>
-using namespace igor;
 
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>

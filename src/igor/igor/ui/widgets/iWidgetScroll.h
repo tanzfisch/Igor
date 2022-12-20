@@ -85,7 +85,7 @@ namespace igor
         {
             /*! rectangle of button
 			*/
-            iaRectanglei _rectangle;
+            iaRectanglef _rectangle;
 
             /*! button apearance state
 			*/
@@ -175,7 +175,7 @@ namespace igor
 
 		\param pos mouse position
 		*/
-        void handleMouseMove(const iaVector2i &pos) override;
+        void handleMouseMove(const iaVector2f &pos) override;
 
         /*! handles incomming mouse key down events
 
@@ -240,7 +240,7 @@ namespace igor
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-        void calcChildOffsets(std::vector<iaRectanglei> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglef> &offsets);
     };
 
     /*! widget scroll pointer definition

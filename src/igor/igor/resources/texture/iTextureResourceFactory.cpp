@@ -3,41 +3,39 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
+#ifdef __IGOR_WINDOWS__
+#pragma warning(disable : 4312)
+#endif
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+
+#ifdef __IGOR_WINDOWS__
+#pragma warning(default : 4100)
+#endif
 
 namespace igor
 {
 
     iTextureResourceFactory::iTextureResourceFactory()
     {
-        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
-        iRenderer::getInstance().registerPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
-
-        if (iRenderer::getInstance().isReady())
-        {
-            init();
-        }
     }
 
     iTextureResourceFactory::~iTextureResourceFactory()
     {
-        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
-        iRenderer::getInstance().unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
-
         // run a flush once more but only if renderer still exists
         flush(iResourceCacheMode::Keep);
 
         // now check if it was actually released
         if (!_textures.empty())
         {
-            con_err("possible mem leak. not all textures were released.");
+            con_warn("possible mem leak. not all textures were released.");
 
             con_endl("non released textures: ");
             for (auto texture : _textures)
@@ -126,14 +124,13 @@ namespace igor
             }
         }
 
-        _dummyTexture = iTexturePtr(new iTexture("dummyTexture", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat));
-        _dummyTexture->_width = width;
-        _dummyTexture->_height = height;
+        _dummyTexture = iTexture::create("dummyTexture", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat);
+        _dummyTexture->setData(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
+
         _dummyTexture->_valid = true;
         _dummyTexture->_processed = true;
 
-        _dummyTexture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
-        iRenderer::getInstance().setDummyTextureID(_dummyTexture->_rendererTexture->_id);
+        iRenderer::getInstance().setFallbackTexture(_dummyTexture);
 
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         _textures[hashValue] = _dummyTexture;
@@ -191,12 +188,6 @@ namespace igor
         iTexturePtr result;
 
         con_assert_sticky(!filename.isEmpty(), "empty filename");
-
-        if (!iRenderer::getInstance().isReady())
-        {
-            con_warn("renderer not ready to load textures yet. queued your request.");
-            requestFile(filename, cacheMode, buildMode, wrapMode);
-        }
 
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
         if (keyPath.isEmpty())
@@ -278,7 +269,6 @@ namespace igor
                     texture->second.use_count() == 1 &&
                     texture->second->_cacheMode <= cacheModeLevel)
                 {
-                    iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
                     con_info("released texture \"" << (*texture).second->getFilename() << "\"");
                     texture = _textures.erase(texture);
                     continue;
@@ -294,16 +284,13 @@ namespace igor
 
         _mutex.unlock();
 
-        if (iRenderer::getInstance().isReady())
+        for (auto texture : texturesToProcess)
         {
-            for (auto texture : texturesToProcess)
-            {
-                loadTexture(texture);
+            loadTexture(texture);
 
-                if (_interrupLoading)
-                {
-                    break;
-                }
+            if (_interrupLoading)
+            {
+                break;
             }
         }
 
@@ -325,7 +312,7 @@ namespace igor
 
         if (textureData == nullptr)
         {
-            texture->_dummy = true;
+            texture->_useFallback = true;
             texture->_valid = false;
             con_err("can't load \"" << texture->getFilename() << "\"");
         }
@@ -350,13 +337,9 @@ namespace igor
                 con_assert(false, "unsupported color format");
             };
 
-            texture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-            texture->_width = width;
-            texture->_height = height;
-            texture->_dummy = false;
+            texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
+            texture->_useFallback = false;
             texture->_valid = true;
-            texture->_colorFormat = colorFormat;
-            texture->_bpp = bpp;
 
             iaString build = ".not mipmapped";
             if (texture->_buildMode == iTextureBuildMode::Mipmapped)
@@ -427,8 +410,8 @@ namespace igor
                 con_err("unknown color format");
             };
 
-            result = iTexturePtr(new iTexture(pixmapname, cacheMode, buildMode, wrapMode));
-            result->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorformat, data, buildMode, wrapMode);
+            result = iTexture::create(pixmapname, cacheMode, buildMode, wrapMode);
+            result->setData(width, height, bpp, colorformat, data, buildMode, wrapMode);
 
             _mutex.lock();
             _textures[hashValue] = result;

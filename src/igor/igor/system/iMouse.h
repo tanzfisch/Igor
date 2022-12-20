@@ -82,11 +82,11 @@ namespace igor
 
         origin is top left 
         */
-        iaVector2i getPos();
+        const iaVector2i& getPos() const;
 
         /*! \returns the delta mouse movement since last mouse update.
         */
-        iaVector2i getPosDelta();
+        iaVector2i getPosDelta() const;
 
         /*! \returns true: right mouse button is pressed; false: right mouse button is not pressed
         */
@@ -111,7 +111,7 @@ namespace igor
         /*! \retruns pointer to corresponding window
 		if it returns nullptr the listener was not registred to a window yet
 		*/
-        iWindow *getWindow() const override;
+        iWindowPtr getWindow() const override;
 
     private:
         /*! pimpl

@@ -31,7 +31,7 @@
 
 #include <igor/layers/iLayer.h>
 #include <igor/ui/theme/iWidgetTheme.h>
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iView.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventKeyboard.h>
 #include <igor/resources/profiler/iProfilerVisualizer.h>
@@ -52,7 +52,7 @@ namespace igor
         \param zIndex the z index
         \param verbosity the profiler verbosity
         */
-        iLayerProfiler(iWindow *window, const iaString &name = "Profiler", int32 zIndex = 1000, iProfilerVerbosity verbosity = iProfilerVerbosity::FPSOnly);
+        iLayerProfiler(iWindowPtr window, const iaString &name = "Profiler", int32 zIndex = 1000, iProfilerVerbosity verbosity = iProfilerVerbosity::FPSOnly);
 
         /*! does nothing
         */
@@ -69,7 +69,7 @@ namespace igor
 
         /*! texture font we use to display the profiler
         */
-        iTextureFontPtr _font = nullptr;
+        iTextureFontPtr _font;
 
         /*! initialize example
         */

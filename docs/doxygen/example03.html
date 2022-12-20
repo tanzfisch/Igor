@@ -188,25 +188,25 @@ _spline.addSupportPoint(iaVector3f(100, 100, 0));
 // defines the resolution of the output line strip if we later call getSpline
 _spline.setResolution(20);
 </pre><p>For rendering anything in Igor we need to set up a couple of materials. Basically a material is a set of OpenGL based render states and or some shaders. Right now most of Igor still uses old school fix function pipeline due to laziness of the programmer ;-) but given enough time this will change. </p><pre class="fragment">// create some materials
-_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::Blend, iRenderStateValue::On);
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+_materialWithTextureAndBlending = iMaterialResourceFactory_old::getInstance().createMaterial();
+iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::Blend, iRenderStateValue::On);
+iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-_materialWithTexture = iMaterialResourceFactory::getInstance().createMaterial();
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+_materialWithTexture = iMaterialResourceFactory_old::getInstance().createMaterial();
+iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTexture)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTexture)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-_materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial();
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+_materialWithoutDepthTest = iMaterialResourceFactory_old::getInstance().createMaterial();
+iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithoutDepthTest)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 </pre><p>No it's time to load the requested textures by doing a flush in the iTextureResourceFactory. So technically this is not asynchronous loading of textures. And that is correct but this way you can choose whether to just make a flush between level loading or run it in a separate thread to continuously loading/unloading textures in the background. The last scenario is easiest by just creating iTaskFlushTextures and add it in to the iTaskManager. </p><pre class="fragment">// load requested textures
 iTextureResourceFactory::getInstance().flush();
 </pre><p>On the deinit end we destroy the created materials ... </p><pre class="fragment">// release materials (optional)
-iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
+iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialWithTextureAndBlending);
 _materialWithTextureAndBlending = 0;
-iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTexture);
+iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialWithTexture);
 _materialWithTexture = 0;
-iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithoutDepthTest);
+iMaterialResourceFactory_old::getInstance().destroyMaterial(_materialWithoutDepthTest);
 _materialWithoutDepthTest = 0;
 </pre><p>... and destroy the font and the sprite and release the textures. </p><pre class="fragment">// release some textures. otherwhise you will get a reminder of possible mem leak
 if (_logo != nullptr)
@@ -241,11 +241,11 @@ iRenderer::getInstance().setViewMatrix(matrix);
 matrix.translate(iaVector3f(0, 0, -30));
 iRenderer::getInstance().setModelMatrix(matrix);
 </pre><p>Now that the matrices are set up we can besically just switch between materials and colors and directly use all the 2d rendering methods the iRenderer provides. So for rendering our tiled background texture we call ... </p><pre class="fragment">// set a textured material and draw the tiles texture as background
-iMaterialResourceFactory::getInstance().setMaterial(_materialWithTexture);
+iMaterialResourceFactory_old::getInstance().setMaterial(_materialWithTexture);
 iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 iRenderer::getInstance().drawTextureTiled(0, 0, _window.getClientWidth(), _window.getClientHeight(), _backgroundTexture);
 </pre><p>... and to draw some non textured primitives we call ... </p><pre class="fragment">// set non textured material and draw some primitves
-iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
+iMaterialResourceFactory_old::getInstance().setMaterial(_materialWithoutDepthTest);
 iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
 
 iRenderer::getInstance().drawRectangle(10, 10, 200, 150);
@@ -268,7 +268,7 @@ for (int x = 0; x &lt; 19; ++x)
     }
 }
 </pre><p>... and this is how we draw a sprite ... </p><pre class="fragment">// change material again to textured an draw the logo
-iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+iMaterialResourceFactory_old::getInstance().setMaterial(_materialWithTextureAndBlending);
 iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 iRenderer::getInstance().drawSprite(_logo, _logoPosition._x, _logoPosition._y, _logoRotationAngle, 1.5f, 1.5f);
 </pre><p>... and a regular texture ... </p><pre class="fragment">// draw the texture that we could not load at startup
@@ -285,7 +285,7 @@ iRenderer::getInstance().setFontSize(15.0f);
 iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
 iRenderer::getInstance().drawString(600, 100, wikipediaOpenGL, -30, 400);
 </pre><p>... and render the spline ... </p><pre class="fragment">// draw spline
-iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
+iMaterialResourceFactory_old::getInstance().setMaterial(_materialWithoutDepthTest);
 iRenderer::getInstance().setColor(iaColor4f(1, 0, 0.5, 1));
 iRenderer::getInstance().drawLineStrip(_spline.getSpline());
 </pre><p>.. and some perlin nioise based 2D graph. </p><pre class="fragment">// draw random graph in the upper right corner

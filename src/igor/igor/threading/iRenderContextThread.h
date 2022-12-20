@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRENDERCONTEXTTHREAD__
-#define __iRENDERCONTEXTTHREAD__
+#ifndef __IGOR_RENDERCONTEXTTHREAD__
+#define __IGOR_RENDERCONTEXTTHREAD__
 
 #include <igor/threading/iThread.h>
 #include <igor/system/iWindow.h>
@@ -45,7 +45,7 @@ namespace igor
     public:
         /*! creates render context and starts sharing lists with parent thread
         */
-        iRenderContextThread(iWindow *window);
+        iRenderContextThread(iWindowPtr window);
 
         /*! does nothing
         */
@@ -67,7 +67,7 @@ namespace igor
     private:
         /*! pointer to window to get the device context from
         */
-        iWindow *_window = nullptr;
+        iWindowPtr _window = nullptr;
 
         /*! handle to render context
         */

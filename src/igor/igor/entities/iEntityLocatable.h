@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iENTITYLOCATABLE__
-#define __iENTITYLOCATABLE__
+#ifndef __IGOR_ENTITYLOCATABLE__
+#define __IGOR_ENTITYLOCATABLE__
 
 #include <igor/entities/iEntity.h>
 

@@ -89,18 +89,11 @@ set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER})
 
-# tinyXML
-message(STATUS "tinyXML")
-set(TINYXML_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/TinyXML/")
-set(TINYXML_HEADERS_DIR ${TINYXML_SRC_DIR})
-set(TINYXML_SOURCES
-    "${TINYXML_SRC_DIR}/tinystr.cpp" "${TINYXML_SRC_DIR}/tinyxml.cpp"
-    "${TINYXML_SRC_DIR}/tinyxmlerror.cpp"
-    "${TINYXML_SRC_DIR}/tinyxmlparser.cpp")
-set(TINYXML_HEADERS "${TINYXML_HEADERS_DIR}/tinystr.h"
-                    "${TINYXML_HEADERS_DIR}/tinyxml.h")
-list(APPEND TINYXML_SOURCES ${TINYXML_HEADERS})
-source_group_special("${TINYXML_SOURCES}" ${TINYXML_SRC_DIR} "\\vendor\\TinyXML\\")               
+add_subdirectory(vendor/Glad)
+set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER})
+
+add_subdirectory(vendor/TinyXML)
+set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER})           
 
 # stb_image
 message(STATUS "stb_image")
@@ -117,21 +110,6 @@ set(ENTT_HEADERS_DIR ${ENTT_SRC_DIR})
 set(ENTT_HEADERS "${ENTT_HEADERS_DIR}entt.h")
 list(APPEND ENTT_SOURCES ${ENTT_HEADERS})
 source_group_special("${ENTT_SOURCES}" ${ENTT_SRC_DIR} "\\vendor\\EnTT\\")
-
-# GLee
-message(STATUS "GLee")
-set(GLEE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/GLee")
-set(GLEE_HEADERS_DIR ${GLEE_SRC_DIR})
-file(
-  GLOB_RECURSE GLEE_SOURCES
-  LIST_DIRECTORIES false
-  "${GLEE_SRC_DIR}*.c*")
-file(
-  GLOB_RECURSE GLEE_HEADERS
-  LIST_DIRECTORIES false
-  "${GLEE_SRC_DIR}*.h*")
-list(APPEND GLEE_SOURCES ${GLEE_HEADERS})
-source_group_special("${GLEE_SOURCES}" ${GLEE_SRC_DIR} "\\vendor\\GLee\\")
 
 # newton core
 message(STATUS "newton core")
@@ -243,30 +221,8 @@ target_include_directories(newton PRIVATE ${NEWTON_HEADERS_DIR} ${NEWTON_MESH_UT
 target_link_libraries(newton PUBLIC core physics meshUtil)
 set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER})
 
-#####################
-# iaux
-#####################
-message(STATUS "iaux")
-set(IAUX_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/iaux/")
-set(IAUX_HEADERS_DIR ${IAUX_SRC_DIR})
-file(GLOB_RECURSE IAUX_SOURCES LIST_DIRECTORIES false "${IAUX_SRC_DIR}*.c*") #TODO
-file(GLOB_RECURSE IAUX_HEADERS LIST_DIRECTORIES false "${IAUX_HEADERS_DIR}*.h*" "${IAUX_HEADERS_DIR}*.inl") #TODO
-list(APPEND IAUX_SOURCES ${IAUX_HEADERS})
-add_library(iaux SHARED ${IAUX_SOURCES})
-
-if(IS_GNU)
-    target_compile_definitions(iaux PRIVATE -D__IAUX_BUILDING_DLL__ PUBLIC -D_cplusplus=201703L ${IGOR_GNU_BUILD_TYPE})
-    target_compile_options(iaux PRIVATE -std=c++17)
-    target_link_libraries(iaux PRIVATE stdc++fs Threads::Threads)
-elseif(IS_MSVC)
-    target_compile_definitions(iaux PRIVATE -D__IAUX_BUILDING_DLL__ PUBLIC -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(iaux PRIVATE "/std:c++17" "/MP" "/W2")
-    target_link_libraries(iaux PRIVATE DbgHelp Threads::Threads)
-endif()
-
-target_include_directories(iaux PUBLIC ${IAUX_HEADERS_DIR})
-set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})
-source_group_special("${IAUX_SOURCES}" ${IAUX_SRC_DIR})
+add_subdirectory(src/iaux)
+set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})           
 
 #####################
 # OMPF
@@ -285,7 +241,7 @@ if(IS_GNU)
     target_compile_options(ompf PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(ompf PRIVATE -D__OMPF_BUILDING_DLL__)
-    target_compile_options(ompf PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(ompf PRIVATE "/std:c++17" "/MP" "/FS")
 endif()
 
 target_include_directories(ompf PUBLIC ${OMPF_HEADERS_DIR})
@@ -310,28 +266,28 @@ set(IGOR_HEADERS_DIR ${IGOR_SRC_DIR})
 file(GLOB_RECURSE IGOR_SOURCES LIST_DIRECTORIES false "${IGOR_SRC_DIR}*.c*") #TODO
 file(GLOB_RECURSE IGOR_HEADERS LIST_DIRECTORIES false "${IGOR_HEADERS_DIR}*.h*" "${IGOR_HEADERS_DIR}*.inl") #TODO
 list(APPEND IGOR_SOURCES ${IGOR_HEADERS})
-add_library(igor SHARED ${IGOR_SOURCES} ${GLEE_SOURCES} ${TINYXML_SOURCES} ${STB_IMAGE_SOURCES} ${IGOR_VERSION_FILE} ${ENTT_SOURCES})
+add_library(igor SHARED ${IGOR_SOURCES} ${TINYXML_SOURCES} ${STB_IMAGE_SOURCES} ${IGOR_VERSION_FILE} ${ENTT_SOURCES})
 
-target_include_directories(
-  igor
-  PRIVATE ${GLEE_HEADERS_DIR}
-          ${TINYXML_HEADERS_DIR}
-          ${STB_IMAGE_HEADERS_DIR}
-          ${ENTT_HEADERS_DIR}
-          ${NEWTON_PHYSICS_HEADERS_DIR}
-          ${NEWTON_CORE_HEADERS_DIR}
-          ${NEWTON_HEADERS_DIR}
-          ${ALSOFT_HEADERS_DIR}
-  PUBLIC ${IGOR_HEADERS_DIR})
+target_include_directories(igor
+    PRIVATE 
+    ${TINYXML_HEADERS_DIR}
+    ${STB_IMAGE_HEADERS_DIR}
+    ${ENTT_HEADERS_DIR}
+    ${NEWTON_PHYSICS_HEADERS_DIR}
+    ${NEWTON_CORE_HEADERS_DIR}
+    ${NEWTON_HEADERS_DIR}
+    ${ALSOFT_HEADERS_DIR}
+    PUBLIC 
+    ${IGOR_HEADERS_DIR})
 
 if(IS_GNU)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} PUBLIC -DENTT_USE_ATOMIC)
     target_compile_options(igor PRIVATE -std=c++17)
-    target_link_libraries(igor PUBLIC iaux PRIVATE ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
+    target_link_libraries(igor PUBLIC iaux PRIVATE Glad TinyXML ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
 elseif(IS_MSVC)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ PUBLIC -DENTT_USE_ATOMIC)
-    target_compile_options(igor PRIVATE "/std:c++17" "/MP" "/W2")
-    target_link_libraries(igor PUBLIC iaux PRIVATE ompf OpenGL32 glu32 newton OpenAL)
+    target_compile_options(igor PRIVATE "/std:c++17" "/MP" "/FS")
+    target_link_libraries(igor PUBLIC iaux PRIVATE Glad TinyXML ompf OpenGL32 glu32 newton OpenAL)
 endif()
 
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})
@@ -351,11 +307,11 @@ if(IS_GNU)
     target_compile_options(mica PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(mica PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(mica PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(mica PRIVATE "/std:c++17" "/MP" "/FS")
 endif()
 
-target_link_libraries(mica PRIVATE igor)
-target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${ENTT_HEADERS_DIR})
+target_link_libraries(mica PRIVATE igor iaux ompf)
+target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR} ${ENTT_HEADERS_DIR})
 set_property(TARGET mica PROPERTY FOLDER ${TOOLS_FOLDER})
 source_group_special("${MICA_SOURCES}" ${MICA_SRC_DIR})
 
@@ -372,7 +328,7 @@ if(IS_GNU)
     target_compile_options(obj2ompf PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(obj2ompf PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(obj2ompf PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(obj2ompf PRIVATE "/std:c++17" "/MP" "/FS")
 endif()
 
 target_include_directories(obj2ompf PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${ENTT_HEADERS_DIR})
@@ -420,7 +376,7 @@ foreach(
         target_compile_options(${EXAMPLE} PRIVATE -std=c++17)
     elseif(IS_MSVC)
         target_compile_definitions(${EXAMPLE} PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-        target_compile_options(${EXAMPLE} PRIVATE "/std:c++17" "/MP" "/W2")
+        target_compile_options(${EXAMPLE} PRIVATE "/std:c++17" "/MP" "/FS")
     endif()
 
     set_property(TARGET ${EXAMPLE} PROPERTY FOLDER ${EXAMPLES_FOLDER})
@@ -440,7 +396,7 @@ if(IS_GNU)
     target_compile_options(iauxTest PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(iauxTest PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(iauxTest PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(iauxTest PRIVATE "/std:c++17" "/MP" "/FS")
 endif()
 
 target_include_directories(iauxTest PRIVATE ${IAUX_TEST_HEADERS_DIR} ${IAUX_HEADERS_DIR})
@@ -461,7 +417,7 @@ if(IS_GNU)
     target_compile_options(igorTest PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(igorTest PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(igorTest PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(igorTest PRIVATE "/std:c++17" "/MP" "/FS")
 endif()
 
 target_include_directories(igorTest PRIVATE ${IGOR_TEST_HEADERS_DIR} ${IGOR_HEADERS_DIR})

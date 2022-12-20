@@ -41,7 +41,7 @@ public:
 
     \param window the window this example is living in
     */
-    KeyboardExample(iWindow *window);
+    KeyboardExample(iWindowPtr window);
 
     /*! does nothing
     */

@@ -66,7 +66,7 @@ void UserControlParticleSystem::updateNode()
             node->setVortexToParticleRate(_vortexToParticleRateChooser->getValue() / 100.0f);
             node->setVortexTorque(_vortexTorqueMinChooser->getValue(), _vortexTorqueMaxChooser->getValue());
             node->setVortexRange(_vortexRangeMinChooser->getValue(), _vortexRangeMaxChooser->getValue());
-            node->setFirstTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
+            node->setTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
             node->setColorGradient(_colorGradient->getGradient());
 
             iaGradientVector2f startSizeGradient;
@@ -185,7 +185,7 @@ void UserControlParticleSystem::updateGUI()
         _textureChooser1->setFileName(node->getTextureB());
         _textureChooser2->setFileName(node->getTextureC());
 
-        _loopCheckBox->setChecked(node->getLoop());
+        _loopCheckBox->setChecked(node->isLooped());
         _periodChooser->setValue(node->getPeriodTime());
         _maxParticleCount->setValue(node->getMaxParticleCount());
         _airDragChooser->setValue(1.0f - node->getAirDrag());
@@ -197,8 +197,8 @@ void UserControlParticleSystem::updateGUI()
         _vortexTorqueMaxChooser->setValue(node->getVortexTorqueMax());
         _vortexRangeMinChooser->setValue(node->getVortexRangeMin());
         _vortexRangeMaxChooser->setValue(node->getVortexRangeMax());
-        _tilingHorizontalChooser->setValue(node->getFirstTextureColumns());
-        _tilingVerticalChooser->setValue(node->getFirstTextureRows());
+        _tilingHorizontalChooser->setValue(node->getTextureColumns());
+        _tilingVerticalChooser->setValue(node->getTextureRows());
 
         iaGradientColor4f gradient;
         node->getColorGradient(gradient);
@@ -393,7 +393,7 @@ void UserControlParticleSystem::initGUI()
     _textFrequency->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textFrequency->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textFrequency->setActive(false);
-    iaString frequency = iaString::toString(iParticleSystem3D::getSimulationRate(), 2);
+    iaString frequency = iaString::toString(iParticleSystem::getSimulationRate(), 2);
     frequency += " Hz";
     _textFrequency->setText(frequency);
 

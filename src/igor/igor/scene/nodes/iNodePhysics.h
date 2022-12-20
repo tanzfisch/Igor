@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEPHYSICS__
-#define __iNODEPHYSICS__
+#ifndef __IGOR_NODEPHYSICS__
+#define __IGOR_NODEPHYSICS__
 
 #include <igor/scene/nodes/iNodeVolume.h>
 

@@ -29,10 +29,7 @@
 #ifndef __WIDGET3DEMITTER_H__
 #define __WIDGET3DEMITTER_H__
 
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-using namespace igor;
+#include <igor/igor.h>
 
 #include "Widget3D.h"
 
@@ -54,7 +51,7 @@ public:
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3DEmitter(iWindow *window, iView *view, iScenePtr scene);
+	Widget3DEmitter(iWindowPtr window, iView *view, iScenePtr scene);
 
 	/*! cleanup
 	*/

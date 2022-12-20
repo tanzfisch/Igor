@@ -4,8 +4,8 @@
 
 #include "ExampleBase.h"
 
-ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup, bool createSkyBox, int32 zIndex)
-    : iLayer(window, name, zIndex), _viewOrtho(iView(false)), m_displayHelpScreen(false)
+ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBaseSetup, bool createSkyBox, int32 zIndex)
+    : iLayer(window, name, zIndex), m_displayHelpScreen(false)
 {
     con_info("starting example \"" << getName() << "\"");
 
@@ -31,8 +31,9 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
 
             // setup orthogonal view
             _viewOrtho.setName("Logo View");
-            _viewOrtho.setClearColor(false);
-            _viewOrtho.setClearDepth(false);
+            _viewOrtho.setClearColorActive(false);
+            _viewOrtho.setClearDepthActive(false);
+            _viewOrtho.setClipPlanes(0.1f, 10000.0f);
             _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
             _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
             getWindow()->addView(&_viewOrtho, getZIndex() + 1);
@@ -46,19 +47,10 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
                 // create a skybox
                 iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
                 // set it up with the default skybox texture
-                skyBoxNode->setTextures(
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-                    iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
+                skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skyboxes/debug.png"));
                 // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-                _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
-                auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
-                material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-                material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-                material->setOrder(iMaterial::RENDER_ORDER_MIN);
+                _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("examples/skybox.mat");
+                _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
                 // set that material
                 skyBoxNode->setMaterial(_materialSkyBox);
                 // and add it to the scene
@@ -66,15 +58,10 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
             }
 
             // init font
-            _font = new iTextureFont("StandardFont.png");
+            _font = iTextureFont::create("StandardFont.png");
 
             // prepare igor logo
             _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-            _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("LogoMaterial");
-            auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-            material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-            material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-            material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
         }
     }
 }
@@ -84,25 +71,15 @@ ExampleBase::~ExampleBase()
     if (getWindow() != nullptr &&
         getWindow()->isOpen())
     {
-        // destroy materials
-        if (_materialSkyBox != iMaterial::INVALID_MATERIAL_ID)
-        {
-            iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
-        }
-        iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
+        // release material
+        _materialSkyBox = nullptr;
 
         // clear scene by destoying it
         iSceneFactory::getInstance().destroyScene(_scene);
         _scene = nullptr;
 
         // release resources
-        if (_font != nullptr)
-        {
-            delete _font;
-            _font = nullptr;
-        }
-
-        // release logo texture
+        _font = nullptr;
         _igorLogo = nullptr;
 
         // abort resource tasks
@@ -192,11 +169,6 @@ iScenePtr ExampleBase::getScene()
     return _scene;
 }
 
-iMaterialID ExampleBase::getFontMaterial() const
-{
-    return _materialWithTextureAndBlending;
-}
-
 void ExampleBase::onInit()
 {
     // nothing to do
@@ -213,8 +185,11 @@ void ExampleBase::onPreDraw()
 
 void ExampleBase::onRenderOrtho()
 {
+    // initialize view matrix with identity matrix
+    iaMatrixd identity;
+    iRenderer::getInstance().setViewMatrix(identity);
+
     iaMatrixd matrix;
-    iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
 
@@ -228,43 +203,41 @@ void ExampleBase::onRenderOrtho()
 
 void ExampleBase::drawLogo()
 {
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    const float32 width = static_cast<float32>(_igorLogo->getWidth());
+    const float32 height = static_cast<float32>(_igorLogo->getHeight());
+    const float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
+    const float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
 
-    float32 width = static_cast<float32>(_igorLogo->getWidth());
-    float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
-    float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
+    iRenderer::getInstance().drawTexturedRectangle(x, y, width, height, _igorLogo, iaColor4f::white, true);
+}
 
-    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
+iaString ExampleBase::getHelpString()
+{
+    static const iaString help = "Help Screen\n"
+                                 "----------\n\n"
+                                 "[ESC] Exit\n"
+                                 "[F1]  Display this screen\n"
+                                 "[F3]  Cycle profiler verbosity\n"
+                                 "[F6]  Print scene graph to console\n"
+                                 "[F10] Toggle wireframe\n"
+                                 "[F11] Toggle octree debug display\n"
+                                 "[F12] Toggle bounding box display\n";
+
+    return help;
 }
 
 void ExampleBase::drawHelpScreen()
 {
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-    // draw some text from wikipedia
-    iaString help = "Help Screen\n"
-                    "----------\n\n"
-                    "[ESC] Exit\n"
-                    "[F1]  Display this screen\n"
-                    "[F3]  Cycle profiler verbosity\n"
-                    "[F6]  Print scene graph to console\n"
-                    "[F10] Toggle wireframe\n"
-                    "[F11] Toggle octree debug display\n"
-                    "[F12] Toggle bounding box display\n";
+    const iaString& help = getHelpString();
 
     iRenderer::getInstance().setFont(getFont());
     iRenderer::getInstance().setFontSize(30.0f);
 
-    // fake an outline lol
-    iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    iRenderer::getInstance().drawString(100 - 2, 100 - 2, help, 0);
-    iRenderer::getInstance().drawString(100 - 2, 100 + 2, help, 0);
-    iRenderer::getInstance().drawString(100 + 2, 100 - 2, help, 0);
-    iRenderer::getInstance().drawString(100 + 2, 100 + 2, help, 0);
+    // fake an outline
+    iRenderer::getInstance().drawString(100 - 2, 100 - 2, help, iaColor4f::black);
+    iRenderer::getInstance().drawString(100 - 2, 100 + 2, help, iaColor4f::black);
+    iRenderer::getInstance().drawString(100 + 2, 100 - 2, help, iaColor4f::black);
+    iRenderer::getInstance().drawString(100 + 2, 100 + 2, help, iaColor4f::black);
 
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iRenderer::getInstance().drawString(100, 100, help, 0);
+    iRenderer::getInstance().drawString(100, 100, help, iaColor4f::white);
 }

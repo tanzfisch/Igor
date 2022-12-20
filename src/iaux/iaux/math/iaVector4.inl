@@ -76,11 +76,6 @@ iaVector4<T> iaVector4<T>::operator = (const iaVector3<T> &a)
 }
 
 template <class T>
-iaVector4<T>::iaVector4()
-{
-}
-
-template <class T>
 iaVector4<T>::iaVector4(T x, T y, T z, T w)
 {
     _x = x;

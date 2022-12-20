@@ -42,7 +42,7 @@ class OverlayLayer : public iLayer
 public:
     /*! init members
 	*/
-    OverlayLayer(iWindow *window, int32 zIndex, WorkspacePtr workspace);
+    OverlayLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace);
 
     /*! deinit resources
 	*/

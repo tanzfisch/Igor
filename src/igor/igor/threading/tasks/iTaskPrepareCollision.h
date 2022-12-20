@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTASKPREPARECOLLISION__
-#define __iTASKPREPARECOLLISION__
+#ifndef __IGOR_TASKPREPARECOLLISION__
+#define __IGOR_TASKPREPARECOLLISION__
 
 #include <igor/threading/tasks/iTask.h>
 

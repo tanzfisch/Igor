@@ -10,7 +10,7 @@ int main()
 	igor::startup();
 
 	// create window and open it
-	iWindow *window = igor::iApplication::getInstance().createWindow();
+	iWindowPtr window = igor::iApplication::getInstance().createWindow("Igor - Sound Example");
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->open();

@@ -70,7 +70,7 @@ namespace OMPF
         SourceAlpha = 0x06,
         OneMinusSourceAlpha = 0x07,
         DestinationAlpha = 0x08,
-        OneMinusDEstinationAlpha = 0x09,
+        OneMinusDestinationAlpha = 0x09,
         SourceColor = 0x0a,
         OneMinusSourceColor = 0x0b,
         Never = 0x0c,
@@ -94,8 +94,7 @@ namespace OMPF
     {
         Vertex = 0x00,
         Fragment = 0x01,
-        Geometry = 0x02,
-        Effect = 0x03
+        Geometry = 0x02
     };
 
     /*! the material chunk contains all details to set up the renderer to render a certain object

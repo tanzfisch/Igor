@@ -43,29 +43,19 @@ namespace igor
         _type = type;
     }
 
-    iLightType iNodeLight::getType()
+    iLightType iNodeLight::getType() const
     {
         return _type;
     }
 
-    iaVector4d iNodeLight::getPosition()
+    const iaVector3d& iNodeLight::getPosition() const
     {
-        iaVector4d result;
-        result._x = _worldMatrix._pos._x;
-        result._y = _worldMatrix._pos._y;
-        result._z = _worldMatrix._pos._z;
-        result._w = 1.0f;
-        return result;
+        return _worldMatrix._pos;
     }
 
-    iaVector4d iNodeLight::getDirection() const
+    const iaVector3d& iNodeLight::getDirection() const
     {
-        iaVector4d result;
-        result._x = _worldMatrix._pos._x;
-        result._y = _worldMatrix._pos._y;
-        result._z = _worldMatrix._pos._z;
-        result._w = 0.0f;
-        return result;
+        return _worldMatrix._pos;
     }
 
     void iNodeLight::getWorldMatrix(iaMatrixd &matrix)
@@ -78,32 +68,32 @@ namespace igor
         _worldMatrix = matrix;
     }
 
-    iaColor4f &iNodeLight::getAmbient()
+    iaColor3f &iNodeLight::getAmbient()
     {
         return _ambient;
     }
 
-    void iNodeLight::setAmbient(const iaColor4f &color)
+    void iNodeLight::setAmbient(const iaColor3f &color)
     {
         _ambient = color;
     }
 
-    iaColor4f &iNodeLight::getDiffuse()
+    iaColor3f &iNodeLight::getDiffuse()
     {
         return _diffuse;
     }
 
-    void iNodeLight::setDiffuse(const iaColor4f &color)
+    void iNodeLight::setDiffuse(const iaColor3f &color)
     {
         _diffuse = color;
     }
 
-    iaColor4f &iNodeLight::getSpecular()
+    iaColor3f &iNodeLight::getSpecular()
     {
         return _specular;
     }
 
-    void iNodeLight::setSpecular(const iaColor4f &color)
+    void iNodeLight::setSpecular(const iaColor3f &color)
     {
         _specular = color;
     }

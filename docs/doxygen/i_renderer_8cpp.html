@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.1"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/martin/dev/Igor/src/igor/igor/graphics/iRenderer.cpp File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/igor/igor/renderer/iRenderer.cpp File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -85,94 +85,112 @@ $(document).ready(function(){initNavTree('i_renderer_8cpp.html',''); initResizab
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">iRenderer.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/graphics/iRenderer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_timer_8h.html">igor/system/iTimer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_particle_system2_d_8h.html">igor/simulation/iParticleSystem2D.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_instancer_8h.html">igor/graphics/iInstancer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_particle_system3_d_8h.html">igor/simulation/iParticleSystem3D.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_texture_font_8h.html">igor/resources/texture/iTextureFont.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_atlas_8h.html">igor/resources/texture/iAtlas.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_mesh_8h.html">igor/resources/mesh/iMesh.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_texture_resource_factory_8h.html">igor/resources/texture/iTextureResourceFactory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_shader_8h.html">igor/resources/material/iShader.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_target_material_8h.html">igor/resources/material/iTargetMaterial.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_mesh_buffers_8h.html">igor/resources/mesh/iMeshBuffers.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/renderer/iRenderer.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_renderer_utils_8h.html">igor/renderer/utils/iRendererUtils.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_particle_system_8h.html">igor/simulation/iParticleSystem.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory.h</a>&gt;</code><br />
-<code>#include &lt;GLee.h&gt;</code><br />
-<code>#include &lt;GL/glu.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_mesh_8h.html">igor/resources/mesh/iMesh.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_instancer_8h.html">igor/renderer/iInstancer.h</a>&gt;</code><br />
+<code>#include &lt;deque&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_convert_8h.html">iaux/data/iaConvert.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_time_8h.html">iaux/system/iaTime.h</a>&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_flat_vertex.html">igor::iFlatVertex</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_textured_vertex.html">igor::iTexturedVertex</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_render_data_points.html">igor::iRenderDataPoints</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">data to render points  <a href="structigor_1_1i_render_data_points.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_render_data_lines.html">igor::iRenderDataLines</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">data to render lines  <a href="structigor_1_1i_render_data_lines.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_data_quads.html">igor::iRendererDataQuads</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">data to render quads  <a href="structigor_1_1i_renderer_data_quads.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_data_triangles.html">igor::iRendererDataTriangles</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">data to render triangles  <a href="structigor_1_1i_renderer_data_triangles.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_data_textured_quads.html">igor::iRendererDataTexturedQuads</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">data to render textured quads  <a href="structigor_1_1i_renderer_data_textured_quads.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_target.html">igor::iRendererTarget</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_light.html">igor::iRendererLight</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_renderer_data.html">igor::iRendererData</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a120fb070bddb21f0bd899f50252c4cb5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_renderer_8cpp.html#a120fb070bddb21f0bd899f50252c4cb5">GL_GLEXT_PROTOTYPES</a></td></tr>
-<tr class="separator:a120fb070bddb21f0bd899f50252c4cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a063a3af905ecefe83d76ca3f0fe0653e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_renderer_8cpp.html#a063a3af905ecefe83d76ca3f0fe0653e">BUFFER_OFFSET</a>(i)&#160;&#160;&#160;((char *)NULL + (i))</td></tr>
-<tr class="separator:a063a3af905ecefe83d76ca3f0fe0653e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aaf2363a31b0b7f61ecff2da4314d07a1"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1">igor::iRenderDataSet</a> { <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1aff043d0825d4bb12bac740468194d234">igor::NoDataSet</a>
+, <a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1a75dd5f1160a3f02b6fae89c54361a1b3">igor::Points</a>
+, <a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1aa0b0293a2db49f5f93c15a62e095c819">igor::Lines</a>
+, <a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1a7ca66fdfaad3eb33fc65d7490178f856">igor::Triangles</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1a456de28f607f812b42743dfdd8d89314">igor::Quads</a>
+, <a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1a44c8fdd8e49a3856111b702f93e6b501">igor::TexturedQuads</a>
+, <a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1a7e62bc342f41c946868f0ea6f0b712d8">igor::Buffer</a>
+, <a class="el" href="namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1aad4aa221c22fd934ecd55e34457ffc3b">igor::Particles</a>
+<br />
+ }</td></tr>
+<tr class="separator:aaf2363a31b0b7f61ecff2da4314d07a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a72e72c6c887c1a0bb5c63a01ffe6cc74"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a72e72c6c887c1a0bb5c63a01ffe6cc74">igor::onOGLDebugOutput</a> (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam)</td></tr>
-<tr class="separator:a72e72c6c887c1a0bb5c63a01ffe6cc74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15d168c09c42cd7846dc51f465c7189e"><td class="memItemLeft" align="right" valign="top">static GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a15d168c09c42cd7846dc51f465c7189e">igor::convertGLColorFormat</a> (iColorFormat format)</td></tr>
-<tr class="separator:a15d168c09c42cd7846dc51f465c7189e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e0c6af36b348f0fc0a61ff8c595b547"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6e0c6af36b348f0fc0a61ff8c595b547">igor::getOGLEnum</a> (iRenderStateValue value)</td></tr>
-<tr class="separator:a6e0c6af36b348f0fc0a61ff8c595b547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e03534b10d13b5e6120f21a8ee0250d"><td class="memItemLeft" align="right" valign="top">static GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6e03534b10d13b5e6120f21a8ee0250d">igor::getOGLEnum</a> (iRenderer::iStencilFunction value)</td></tr>
+<tr class="separator:a6e03534b10d13b5e6120f21a8ee0250d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c56915db2aa40346eac08daaef7aef"><td class="memItemLeft" align="right" valign="top">static GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a10c56915db2aa40346eac08daaef7aef">igor::getOGLEnum</a> (iRenderer::iStencilOperation value)</td></tr>
+<tr class="separator:a10c56915db2aa40346eac08daaef7aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a899083662f764c1eca876819733d60fd"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a899083662f764c1eca876819733d60fd">igor::MAX_POINT_VERTICES</a> = 10000</td></tr>
+<tr class="separator:a899083662f764c1eca876819733d60fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a320f34d1ce81ed60fab143d88e877c13"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a320f34d1ce81ed60fab143d88e877c13">igor::MAX_LINES</a> = 10000</td></tr>
+<tr class="separator:a320f34d1ce81ed60fab143d88e877c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8da7e7329ab11ab73c89933cde98e6b"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ad8da7e7329ab11ab73c89933cde98e6b">igor::MAX_LINE_VERTICES</a> = MAX_LINES * 2</td></tr>
+<tr class="separator:ad8da7e7329ab11ab73c89933cde98e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ed6387376b7882fbb1ebf999107ec94"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a8ed6387376b7882fbb1ebf999107ec94">igor::MAX_QUADS</a> = 10000</td></tr>
+<tr class="separator:a8ed6387376b7882fbb1ebf999107ec94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a072ed87ffc9d5c2646e7c1fc9eeec247"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a072ed87ffc9d5c2646e7c1fc9eeec247">igor::MAX_QUAD_VERTICES</a> = MAX_QUADS * 4</td></tr>
+<tr class="separator:a072ed87ffc9d5c2646e7c1fc9eeec247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13248ed69ff93a2cb53e9892674dc785"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a13248ed69ff93a2cb53e9892674dc785">igor::MAX_QUAD_INDICES</a> = MAX_QUADS * 6</td></tr>
+<tr class="separator:a13248ed69ff93a2cb53e9892674dc785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11962986c7155c8ba903baf29c53f069"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a11962986c7155c8ba903baf29c53f069">igor::MAX_TRIANGLES</a> = 10000</td></tr>
+<tr class="separator:a11962986c7155c8ba903baf29c53f069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33087ebdacdfec7c556c8e94a3e27159"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a33087ebdacdfec7c556c8e94a3e27159">igor::MAX_TRIANGLE_VERTICES</a> = MAX_TRIANGLES * 3</td></tr>
+<tr class="separator:a33087ebdacdfec7c556c8e94a3e27159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe6e15974907fd978362612018ad1388"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#afe6e15974907fd978362612018ad1388">igor::MAX_TRIANGLE_INDICES</a> = MAX_TRIANGLES * 3</td></tr>
+<tr class="separator:afe6e15974907fd978362612018ad1388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb274253c15d7b0ae396c1046f1c5778"><td class="memItemLeft" align="right" valign="top">static const iaVector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#abb274253c15d7b0ae396c1046f1c5778">igor::QUAD_TEXTURE_COORDS</a> [] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}}</td></tr>
+<tr class="separator:abb274253c15d7b0ae396c1046f1c5778"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81faf6fe0c245ab777cf7be76f367855"><td class="memItemLeft" align="right" valign="top">static const iaVector3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a81faf6fe0c245ab777cf7be76f367855">igor::QUAD_VERTEX_POSITIONS</a> [] = {{-0.5f, -0.5, 0.0f}, {-0.5f, 0.5, 0.0f}, {0.5f, 0.5, 0.0f}, {0.5f, -0.5, 0.0f}}</td></tr>
+<tr class="separator:a81faf6fe0c245ab777cf7be76f367855"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a063a3af905ecefe83d76ca3f0fe0653e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a063a3af905ecefe83d76ca3f0fe0653e">&#9670;&nbsp;</a></span>BUFFER_OFFSET</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BUFFER_OFFSET</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">i</td><td>)</td>
-          <td>&#160;&#160;&#160;((char *)NULL + (i))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a120fb070bddb21f0bd899f50252c4cb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a120fb070bddb21f0bd899f50252c4cb5">&#9670;&nbsp;</a></span>GL_GLEXT_PROTOTYPES</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define GL_GLEXT_PROTOTYPES</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d894fa9681194a2649327099c43d8582.html">igor</a></li><li class="navelem"><a class="el" href="dir_ff63218eb8d6b76bf6f3638bd523226b.html">igor</a></li><li class="navelem"><a class="el" href="dir_539bf18a9c2498899a69d8797789d2c3.html">graphics</a></li><li class="navelem"><a class="el" href="i_renderer_8cpp.html">iRenderer.cpp</a></li>
+				<li class="navelem"><a class="el" href="dir_d894fa9681194a2649327099c43d8582.html">igor</a></li><li class="navelem"><a class="el" href="dir_ff63218eb8d6b76bf6f3638bd523226b.html">igor</a></li><li class="navelem"><a class="el" href="dir_785af6e17744cfc8ec5bccd5a7762feb.html">renderer</a></li><li class="navelem"><a class="el" href="i_renderer_8cpp.html">iRenderer.cpp</a></li>
 				<li class="footer">
 					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.1.

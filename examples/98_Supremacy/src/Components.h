@@ -30,16 +30,13 @@
 #define __SUPREMACY_COMPONENTS__
 
 #include <igor/igor.h>
+using namespace igor;
 
 struct PositionComponent
 {
     /*! current position
      */
     iaVector2d _position;
-
-    /*! distance traveled
-     */
-    float64 _distanceTraveled = 0.0;
 };
 
 struct RangeComponent
@@ -47,6 +44,28 @@ struct RangeComponent
     /*! max range
      */
     float64 _maxRange;
+
+    /*! distance traveled
+     */
+    float64 _distanceTraveled = 0.0;
+};
+
+struct OrientationComponent
+{
+    /*! direction the entity is pointing at
+    */
+    iaVector2d _direction;
+
+    /*! if true orientation follows current velocity
+    */
+    bool followVelocity;
+};
+
+struct AngularVelocityComponent
+{
+    /*! angular velocity in rad per frame
+    */
+    float64 _velocity;
 };
 
 struct SizeComponent
@@ -61,8 +80,15 @@ struct QuadtreeObjectComponent
 
 struct VelocityComponent
 {
+    /*! normalized vector to discribe the direction
+    */
     iaVector2d _direction;
+
+    /*! speed in units per frame
+    */
     float64 _speed;
+
+    // TODO does this need to be in here?
     bool _nonBlockable = false;
 };
 
@@ -82,10 +108,20 @@ struct PartyComponent
     uint32 _partyID = 0;
 };
 
+struct ExperienceComponent
+{
+    float64 _experience = 0;
+};
+
+struct ExperienceGainComponent
+{
+    float64 _experience = 0;
+};
+
 struct VisualComponent
 {
     iTexturePtr _texture;
-    bool _useDirection = false;
+    bool _castShadow;
     iaTime _timerOffset;
 };
 
@@ -131,11 +167,11 @@ struct WeaponComponent
      */
     float64 _damage;
 
-    /*! base speed of this weapon
+    /*! base speed of this weapon's projectiles
      */
     float64 _speed;
 
-    /*! base speed of this weapon
+    /*! base range of this weapon
      */
     float64 _range;
 
@@ -147,7 +183,7 @@ struct WeaponComponent
      */
     bool _standStillToFire;
 
-    /*! offeset to unit position to fire from
+    /*! offset to unit position to fire from
      */
     iaVector2d _offset;
 

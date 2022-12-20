@@ -10,7 +10,7 @@
 namespace igor
 {
 
-    iEventMouseKeyDown::iEventMouseKeyDown(iWindow *window, const iKeyCode key)
+    iEventMouseKeyDown::iEventMouseKeyDown(iWindowPtr window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
@@ -33,7 +33,7 @@ namespace igor
         return _key;
     }
 
-    iEventMouseKeyUp::iEventMouseKeyUp(iWindow *window, const iKeyCode key)
+    iEventMouseKeyUp::iEventMouseKeyUp(iWindowPtr window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
@@ -56,7 +56,7 @@ namespace igor
         return _key;
     }
 
-    iEventMouseKeyDoubleClick::iEventMouseKeyDoubleClick(iWindow *window, const iKeyCode key)
+    iEventMouseKeyDoubleClick::iEventMouseKeyDoubleClick(iWindowPtr window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
@@ -79,7 +79,7 @@ namespace igor
         return _key;
     }
 
-    iEventMouseWheel::iEventMouseWheel(iWindow *window, const int32 wheelDelta)
+    iEventMouseWheel::iEventMouseWheel(iWindowPtr window, const int32 wheelDelta)
         : iEvent(window), _wheelDelta(wheelDelta)
     {
     }
@@ -102,7 +102,7 @@ namespace igor
         return _wheelDelta;
     }
 
-    iEventMouseMove::iEventMouseMove(iWindow *window, const iaVector2i &from, const iaVector2i &to)
+    iEventMouseMove::iEventMouseMove(iWindowPtr window, const iaVector2i &from, const iaVector2i &to)
         : iEvent(window), _from(from), _to(to)
     {
     }

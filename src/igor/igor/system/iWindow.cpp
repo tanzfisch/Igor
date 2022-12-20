@@ -7,12 +7,14 @@
 #include <igor/system/iApplication.h>
 #include <iaux/system/iaConsole.h>
 #include <igor/system/iOSEventListener.h>
-#include <igor/graphics/iView.h>
 #include <igor/system/iMouse.h>
 #include <igor/system/iKeyboard.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iView.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
 
 #include <algorithm>
 #include <sstream>
@@ -38,7 +40,7 @@ namespace igor
         friend class iWindow;
 
     public:
-        iWindowImpl(iWindow *window) { _window = window; }
+        iWindowImpl(iWindowPtr window) { _window = window; }
         virtual ~iWindowImpl() = default;
 
         virtual void calcClientSize() = 0;
@@ -75,7 +77,7 @@ namespace igor
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowResize(_window, width, height)));
         }
 
-        __IGOR_INLINE__ static iWindowImpl *getImpl(iWindow *window)
+        __IGOR_INLINE__ static iWindowImpl *getImpl(iWindowPtr window)
         {
             return window->_impl;
         }
@@ -141,7 +143,7 @@ namespace igor
 
         /*! window handle
          */
-        iWindow *_window = nullptr;
+        iWindowPtr _window = nullptr;
     };
 
 #ifdef __IGOR_WINDOWS__
@@ -154,7 +156,7 @@ namespace igor
         friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     public:
-        iWindowImplWindows(iWindow *window)
+        iWindowImplWindows(iWindowPtr window)
             : iWindowImpl(window)
         {
             memset(&_dmScreenSettings, 0, sizeof(_dmScreenSettings));
@@ -236,12 +238,15 @@ namespace igor
 
         void setVSync(bool vsync) override
         {
-            wglSwapIntervalEXT(vsync ? 1 : 0);
+            /*PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC) wglGetProcAddress(“wglSwapIntervalEXT”);
+            wglSwapIntervalEXT(vsync ? 1 : 0);*/
         }
 
         bool getVSync() const override
         {
-            return wglGetSwapIntervalEXT() > 0 ? true : false;
+            /*PFNWGLSWAPINTERVALEXTPROC wglGetSwapIntervalEXT = (PFNWGLGETSWAPINTERVALEXTPROC) wglGetProcAddress(“wglGetSwapIntervalEXT”);
+            return wglGetSwapInter() > 0 ? true : false;*/
+            return false;
         }
 
         void swapBuffers() override
@@ -395,6 +400,13 @@ namespace igor
                 close();
                 return false;
             }
+
+            if (!gladLoadGL())
+            {
+                con_err("Can't initialize Glad");
+                close();
+                return false;
+            }                      
 
             ShowWindow(_hWnd, SW_SHOW);
             SetForegroundWindow(_hWnd);
@@ -576,10 +588,12 @@ namespace igor
 
             if (renderContext != nullptr)
             {
+                _wglMutex.lock();
                 if (!wglShareLists((HGLRC)renderContext, (HGLRC)result))
                 {
                     con_err("can't share lists");
                 }
+                _wglMutex.unlock();
             }
 
             return result;
@@ -644,20 +658,20 @@ namespace igor
     // TODO this is a mess
     LRESULT CALLBACK WndProc(HWND _hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
-        iWindow *window = nullptr;
+        iWindowPtr window = nullptr;
         iWindowImplWindows *impl = nullptr;
 
         if (WM_CREATE == uMsg)
         {
             LPCREATESTRUCT lpcs = (LPCREATESTRUCT)lParam;
-            window = (iWindow *)(lpcs->lpCreateParams);
+            window = (iWindowPtr )(lpcs->lpCreateParams);
             SetWindowLongPtr(_hWnd, GWLP_USERDATA, (LONG_PTR)window);
             impl = static_cast<iWindowImplWindows *>(iWindowImpl::getImpl(window));
             impl->sizeChanged(impl->_width, impl->_height);
             return true;
         }
 
-        window = (iWindow *)GetWindowLongPtr(_hWnd, GWLP_USERDATA);
+        window = (iWindowPtr )GetWindowLongPtr(_hWnd, GWLP_USERDATA);
 
         if (window)
         {
@@ -708,7 +722,7 @@ namespace igor
         friend class iWindow;
 
     public:
-        iWindowImplLinux(iWindow *window)
+        iWindowImplLinux(iWindowPtr window)
             : iWindowImpl(window)
         {
         }
@@ -957,7 +971,7 @@ namespace igor
                 XMapRaised(_display, _xwindow);
             }
 
-            _isOpen = true;
+            _isOpen = true;    
 
             XSelectInput(_display, _xwindow, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask | PointerMotionMask | StructureNotifyMask);
 
@@ -968,7 +982,14 @@ namespace igor
             {
                 close();
                 return false;
-            }
+            }        
+
+            if (!gladLoadGL())
+            {
+                con_err("Can't initialize Glad");
+                close();
+                return false;
+            }          
 
             XMapWindow(_display, _xwindow);
             XFlush(_display);
@@ -1087,10 +1108,7 @@ namespace igor
             iRenderContextPtr result = static_cast<iRenderContextPtr>(glXCreateContext(_display, _visual, static_cast<GLXContext>(renderContext), true));
             _glxMutex.unlock();
 
-            if (result == nullptr)
-            {
-                con_err("Can't create GLX-context!");
-            }
+            con_assert(result != nullptr, "Can't create GLX-context!");
             return result;
         }
 
@@ -1126,7 +1144,7 @@ namespace igor
         void setVSync(bool vsync) override
         {
             _vsync = vsync;
-            glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
+            // glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
         }
 
         bool getVSync() const override
@@ -1193,7 +1211,7 @@ namespace igor
 
 #endif // __IGOR_LINUX__
 
-    iWindow::iWindow()
+    iWindow::iWindow(const iaString &title)
     {
         _windowID = iWindow::_idGenerator.createID();
 
@@ -1203,6 +1221,11 @@ namespace igor
 #ifdef __IGOR_LINUX__
         _impl = new iWindowImplLinux(this);
 #endif
+
+        if(!title.isEmpty())
+        {
+            setTitle(title);
+        }
 
         _impl->calcClientSize();
     }
@@ -1275,7 +1298,10 @@ namespace igor
         if (result)
         {
             iTaskManager::getInstance().createRenderContextThreads(this);
+            
             iRenderer::getInstance().init();
+            iMaterialResourceFactory::getInstance().init();
+            iTextureResourceFactory::getInstance().init();
             _impl->swapBuffers();
 
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));
@@ -1291,10 +1317,9 @@ namespace igor
             con_warn("window was not opened");
         }
 
-        if (iRenderer::isInstantiated())
-        {
-            iRenderer::getInstance().deinit();
-        }
+        iTextureResourceFactory::getInstance().deinit();
+        iRenderer::getInstance().deinit();
+        iMaterialResourceFactory::getInstance().deinit();
 
         iTaskManager::getInstance().killRenderContextThreads(this);
 
@@ -1477,12 +1502,13 @@ namespace igor
     }
 
     void iWindow::draw()
-    {
+    {        
+        iRenderer::getInstance().clearStats();
+
         for (auto view : _views)
         {
             view->draw();
-        }
-
+        }        
         swapBuffers();
     }
 

@@ -38,7 +38,7 @@ class WorkspaceLayer : public iLayer
 public:
     /*! init members
 	*/
-    WorkspaceLayer(iWindow *window, int32 zIndex, WorkspacePtr workspace);
+    WorkspaceLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace);
 
     /*! deinit resources
 	*/

@@ -42,41 +42,75 @@ const float64 PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH = PLAYFIELD_VIEWPORT_WIDTH * 0.
 const float64 PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT = PLAYFIELD_VIEWPORT_HEIGHT * 0.3;
 const float64 STANDARD_UNIT_SIZE = 30.0;
 
+struct WeaponConfiguration
+{
+    iaString _texture;
+    float32 _size;
+    uint32 _projectileCount;
+    float32 _accuracy;
+    float32 _angularVelocity;
+    WeaponComponent _component;
+};
+
 // weapon definitions
-const WeaponComponent WEAPON_KNIFE{
-    WeaponType::Knife,               // weapon type
-    10.0,                            // damage
-    10.0,                            // speed
-    70.0,                            // range
-    iaTime::fromMilliseconds(600.0), // attack interval
-    true,                            // need to stand still
-};
+const WeaponConfiguration WEAPON_KNIFE{
+    "through_knife.png", // texture
+    25.0,                // size
+    1,                   // projectile count
+    0.0,                 // accuracy 0.0 == perfect
+    0.15,                // angular velocity
+    {
+        WeaponType::Knife,               // weapon type
+        10.0,                            // damage
+        5.0,                             // speed
+        200.0,                           // range
+        iaTime::fromMilliseconds(500.0), // attack interval
+        false,                           // need to stand still
+    }};
 
-const WeaponComponent WEAPON_SHOTGUN{
-    WeaponType::Shotgun,              // weapon type
-    100.0,                            // damage
-    20.0,                             // speed
-    100.0,                            // range
-    iaTime::fromMilliseconds(1000.0), // attack interval
-    true,                             // need to stand still
-};
+const WeaponConfiguration WEAPON_SHOTGUN{
+    "pellets.png", // texture
+    25.0,          // size
+    3,             // projectile count
+    1.0,           // accuracy 0.0 == perfect
+    0.0,           // angular velocity
+    {
+        WeaponType::Shotgun,              // weapon type
+        100.0,                            // damage
+        7.0,                              // speed
+        120.0,                            // range
+        iaTime::fromMilliseconds(1000.0), // attack interval
+        true,                             // need to stand still
+    }};
 
-const WeaponComponent WEAPON_MINIGUN{
-    WeaponType::Minigun,            // weapon type
-    30.0,                           // damage
-    25.0,                           // speed
-    150.0,                          // range
-    iaTime::fromMilliseconds(20.0), // attack interval
-    true,                           // need to stand still
-};
+const WeaponConfiguration WEAPON_MINIGUN{
+    "bullet.png", // texture
+    20.0,         // size
+    1,            // projectile count
+    0.0,          // accuracy 0.0 == perfect
+    0.0,          // angular velocity
+    {
+        WeaponType::Minigun,            // weapon type
+        30.0,                           // damage
+        15.0,                           // speed
+        150.0,                          // range
+        iaTime::fromMilliseconds(20.0), // attack interval
+        true,                           // need to stand still
+    }};
 
-const WeaponComponent WEAPON_ROCKETLAUNCHER{
-    WeaponType::RocketLauncher,       // weapon type
-    2000.0,                           // damage
-    5.0,                              // speed
-    150.0,                            // range
-    iaTime::fromMilliseconds(2000.0), // attack interval
-    true,                             // need to stand still
-};
+const WeaponConfiguration WEAPON_ROCKETLAUNCHER{
+    "rocket.png", // texture
+    20.0,         // size
+    1,            // projectile count
+    0.0,          // accuracy 0.0 == perfect
+    0.0,          // angular velocity
+    {
+        WeaponType::RocketLauncher,       // weapon type
+        2000.0,                           // damage
+        5.0,                              // speed
+        150.0,                            // range
+        iaTime::fromMilliseconds(2000.0), // attack interval
+        true,                             // need to stand still
+    }};
 
 #endif // __SUPREMACY_DEFINES__

@@ -44,7 +44,7 @@ namespace igor
     class iPixmap;
 
     /*! defines how the spacing is between letters and digits
-    */
+     */
     enum class iFontType
     {
         Standard,
@@ -53,7 +53,7 @@ namespace igor
     };
 
     /*! masks specific channel to determine the background within the texture font
-    */
+     */
     enum class iColorMask
     {
         Red,
@@ -63,99 +63,105 @@ namespace igor
     };
 
     /*! dimensions of a character in the texture
-	*/
-    class iCharacterDimensions
+     */
+    struct iCharacterDimensions
     {
-
-    public:
-        iaRectanglef rect;
-        float32 relRenderWidth;
+        iaRectanglef _characterRect;
+        float32 _characterOffset;
     };
 
+    class iTextureFont;
+
+    /*! texture font pointer definition
+     */
+    typedef std::shared_ptr<iTextureFont> iTextureFontPtr;
+
     /*! texture font
-	*/
+     */
     class IGOR_API iTextureFont
     {
-
-    private:
-        /*! true if the font is a valid font
-		*/
-        bool valid;
-
-        /*! 
-		*/
-        void makeFixedWidth();
-
-        /*! 
-		*/
-        void makeFixedDigitWidth();
-
-        /*! 
-		*/
-        void modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 newRelRenderWidth);
-
-        /*! texture
-		*/
-        iTexturePtr _texture;
-
-        /*! pixmap of the the texture
-		*/
-        iPixmap *_pixmap;
-
-        /*! character set of the font
-		*/
-        std::vector<iCharacterDimensions> _characters;
-
     public:
+        /*! \returns a newly created font
+
+        \param cound index count
+        \param indices the index data
+        */
+        static iTextureFontPtr create(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreashold = 0.0f);
+
+        /*! ctor
+
+        \param filename filename of font texture
+        \param type font type
+        \param colorMask use this color channel to detect the size of characters
+        \param colorMaskThreashold this threashold dertermines what texel belongs to the character and wich not
+        */
+        iTextureFont(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreashold = 0.0f);
+
+        /*! cleans up
+         */
+        ~iTextureFont();
+
         /*! calculates the width of the given iaString using this font
 
-		\param text the text to calculate the width
-		\param size size of the font
-		*/
+        \param text the text to calculate the width
+        \param size size of the font
+        */
         float32 measureWidth(iaString text, float32 size);
 
         /*! calculates the height of a iaString with line breaks
 
-		\param text the text to calculate with
-		\param size font size
-		\param max_width with to make line break
-		\param line_height factor for the line height (default value is 1.15)
-		*/
+        \param text the text to calculate with
+        \param size font size
+        \param max_width with to make line break
+        \param line_height factor for the line height (default value is 1.15)
+        */
         float32 measureHeight(iaString text, float32 size, float32 max_width, float32 line_height = 1.15f);
 
         /*! returns true if the font was loading correctly
-		*/
+         */
         bool isValid();
 
         /*! returns pointer to the font texture
 
-		\return pointer to font texture
-		*/
+        \return pointer to font texture
+        */
         iTexturePtr getTexture();
 
         /*! returns character set
 
-		\return vector of characters
-		*/
-        std::vector<iCharacterDimensions> &getCharacters();
+        \return vector of characters
+        */
+        const std::vector<iCharacterDimensions> &getCharacters() const;
 
-        /*! ctor
+    private:
+        /*! true if the font is a valid font
+         */
+        bool valid;
 
-		\param font_file filename of font texture
-		\param font_type font type
-		\param mask_channel use this color channel to detect the size of characters
-		\param mask_threashold this threashold dertermines what texel belongs to the character and wich not
-		*/
-        iTextureFont(iaString font_file, iFontType font_type = iFontType::FixedDigitWidth, iColorMask mask_channel = iColorMask::Alpha, float32 mask_threashold = 0);
+        /*! texture
+         */
+        iTexturePtr _texture;
 
-        /*! cleans up
-		*/
-        ~iTextureFont();
+        /*! pixmap of the the texture
+         */
+        iPixmap *_pixmap;
+
+        /*! character set of the font
+         */
+        std::vector<iCharacterDimensions> _characters;
+
+        /*!
+         */
+        void makeFixedWidth();
+
+        /*!
+         */
+        void makeFixedDigitWidth();
+
+        /*!
+         */
+        void modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 new_characterOffset);
     };
-
-    /*! texture font pointer definition
-	*/
-    typedef iTextureFont *iTextureFontPtr;
 
 }; // namespace igor
 

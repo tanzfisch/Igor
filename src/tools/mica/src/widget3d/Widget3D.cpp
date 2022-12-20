@@ -4,7 +4,7 @@
 
 #include "Widget3D.h"
 
-Widget3D::Widget3D(iWindow *window, iView *view, iScenePtr scene)
+Widget3D::Widget3D(iWindowPtr window, iView *view, iScenePtr scene)
 {
 	_scene = scene;
 	_view = view;

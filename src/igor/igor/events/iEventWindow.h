@@ -47,7 +47,7 @@ namespace igor
 
         \param window the window that was closed
         */
-        iEventWindowClose(iWindow *window);
+        iEventWindowClose(iWindowPtr window);
 
         IGOR_EVENT_CLASS_TYPE(iEventWindowClose)
         IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Window)
@@ -64,7 +64,7 @@ namespace igor
 
         \param window the window that was opened
         */
-        iEventWindowOpen(iWindow *window);
+        iEventWindowOpen(iWindowPtr window);
 
         IGOR_EVENT_CLASS_TYPE(iEventWindowOpen)
         IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Window)
@@ -81,7 +81,7 @@ namespace igor
         \param width width of the window
         \param height height of the window
         */
-        iEventWindowResize(iWindow *window, int32 width, int32 height);
+        iEventWindowResize(iWindowPtr window, int32 width, int32 height);
 
         /*! \returns information to event
         */

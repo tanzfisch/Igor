@@ -164,9 +164,6 @@ namespace OMPF
     };
 
     /*! stream operator for chunk type
-
-    \todo fix that
-
     \param stream the destination
     \param chunkType the chunk type to stream
     \returns the resulting stream
@@ -174,9 +171,6 @@ namespace OMPF
     OMPF_API std::wostream &operator<<(std::wostream &stream, const OMPFChunkType chunkType);
 
     /*! stream operator for chunk type
-
-    \todo fix that
-
     \param stream the destination
     \param pathType the path type to stream
     \returns the resulting stream

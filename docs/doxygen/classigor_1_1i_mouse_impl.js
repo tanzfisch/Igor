@@ -13,5 +13,5 @@ var classigor_1_1i_mouse_impl =
     [ "_mouse", "classigor_1_1i_mouse_impl.html#af3bc85ad733f934c5c663debff9e8504", null ],
     [ "_pos", "classigor_1_1i_mouse_impl.html#a32796cbc0d1805e654353b07ad817ec6", null ],
     [ "_posLast", "classigor_1_1i_mouse_impl.html#afeb2c5c6050b8ffce909aa26fc175407", null ],
-    [ "_window", "classigor_1_1i_mouse_impl.html#affaef8847ee7a0a6d454d1d129f57899", null ]
+    [ "_window", "classigor_1_1i_mouse_impl.html#a331eee914245071421f9445973e6bb77", null ]
 ];

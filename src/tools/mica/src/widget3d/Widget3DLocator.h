@@ -29,10 +29,6 @@
 #ifndef __WIDGET3DLOCATOR_H__
 #define __WIDGET3DLOCATOR_H__
 
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iMaterial.h>
-using namespace igor;
-
 #include "Widget3D.h"
 
 namespace igor
@@ -54,7 +50,7 @@ public:
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3DLocator(iWindow *window, iView *view, iScenePtr scene);
+	Widget3DLocator(iWindowPtr window, iView *view, iScenePtr scene);
 
 	/*! cleanup
 	*/

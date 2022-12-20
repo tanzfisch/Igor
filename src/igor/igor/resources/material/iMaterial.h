@@ -26,309 +26,301 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MATERIAL_H__
-#define __IGOR_MATERIAL_H__
+#ifndef __IGOR_MATERIAL__
+#define __IGOR_MATERIAL__
 
-#include <iaux/data/iaString.h>
-#include <iaux/data/iaIDGenerator.h>
-using namespace iaux;
+#include <igor/renderer/iRenderStateSet.h>
+#include <igor/renderer/shaders/iShaderProgram.h>
 
-#include <igor/graphics/iRenderStateSet.h>
-#include <igor/resources/material/iShader.h>
+#include <iaux/data/iaUUID.h>
+#include <iaux/data/iaColor3.h>
+#include <iaux/data/iaColor4.h>
 
-#include <vector>
 #include <memory>
 
 namespace igor
 {
 
-    class iNodeLight;
-    class iNodeCamera;
+    /*! material pointer definition
+     */
+    class iMaterial;
+    typedef std::shared_ptr<iMaterial> iMaterialPtr;
 
-    /*! shader source and type definition
-    */
-    struct iShaderSource
-    {
-        /*! source file name
-        */
-        iaString _filename;
+    /*! material ID definition
+     */
+    typedef iaUUID iMaterialID;
 
-        /*! shader type
-        */
-        iShaderObjectType _type;
-    };
-
-    /*! material id definition
-    */
-    typedef uint64 iMaterialID;
-
-    /*! defines visual material
-
-    \todo need a unique material ID. maybe a hash code
-    */
+    /*! material definition
+     */
     class IGOR_API iMaterial
     {
-
         friend class iRenderer;
-        friend class iMaterialResourceFactory;
+        friend class iMaterialDeleter;
 
     public:
-        static constexpr const char *UNIFORM_SOLIDCOLOR = "igor_solidColor";
-
-        static constexpr const char *UNIFORM_LIGHT_ORIENTATION = "igor_lightOrientation";
-        static constexpr const char *UNIFORM_LIGHT_AMBIENT = "igor_lightAmbient";
-        static constexpr const char *UNIFORM_LIGHT_DIFFUSE = "igor_lightDiffuse";
-        static constexpr const char *UNIFORM_LIGHT_SPECULAR = "igor_lightSpecular";
-        static constexpr const char *UNIFORM_EYE_POSITION = "igor_eyePosition";
-        static constexpr const char *UNIFORM_MODEL_VIEW_PROJECTION = "igor_modelViewProjection";
-        static constexpr const char *UNIFORM_MODEL = "igor_model";
-
-        static constexpr const char *UNIFORM_MATERIAL_AMBIENT = "igor_matAmbient";
-        static constexpr const char *UNIFORM_MATERIAL_DIFFUSE = "igor_matDiffuse";
-        static constexpr const char *UNIFORM_MATERIAL_SPECULAR = "igor_matSpecular";
-        static constexpr const char *UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
-        static constexpr const char *UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
-        static constexpr const char *UNIFORM_MATERIAL_ALPHA = "igor_matAlpha";
-
-        static constexpr const char *SAMPLER_TEXTURE = "igor_matTexture";
-
-        /*! invalid material ID
-        */
-        static const int64 INVALID_MATERIAL_ID = IGOR_INVALID_ID;
-
         /*! default render order value
-        */
+         */
         static const int32 RENDER_ORDER_DEFAULT = 200;
 
-        /*! maximum texture units supported in shaders
-        */
-        static const int32 MAX_TEXTURE_UNITS = 8;
-
         /*! min render order value
-        */
+         */
         static const int32 RENDER_ORDER_MIN = 0;
 
         /*! max render order value
-        */
+         */
         static const int32 RENDER_ORDER_MAX = 400;
 
-        /*! \returns name of material
-        */
-        iaString getName();
+        /*! \returns a newly created material
+         */
+        static iMaterialPtr create();
 
-        /*! \returns material ID
+        /*! \returns a newly created material from file
+         */
+        static iMaterialPtr create(const iaString &filename);
+
+        /*! sets shader program to be used
+
+        \param shaderProgram the shader program to be used
         */
-        iMaterialID getID() const;
+        void setShaderProgram(const iShaderProgramPtr &shaderProgram);
+
+        /*! \returns the shader program
+         */
+        iShaderProgramPtr getShaderProgram() const;
 
         /*! sets name of material
 
         \param name name to be set
         */
-        void setName(iaString name);
+        void setName(const iaString &name);
 
-        /*! \returns render state set of this material 
+        /*! \returns name of material
+         */
+        const iaString &getName() const;
+
+        /*! \returns material id
+         */
+        const iMaterialID &getID() const;
+
+        /*! sets material id
+
+        \param materialID the material id
         */
-        iRenderStateSet &getRenderStateSet();
+        void setID(const iMaterialID &materialID);
 
         /*! defines the value of a specific render state
 
-		\param state render state
-		\param value render state value
-		*/
+        \param state render state
+        \param value render state value
+        */
         void setRenderState(const iRenderState state, const iRenderStateValue value);
 
         /*! returns the value of a specific render state
 
-		\param state render state
-		\return render state value
-		*/
+        \param state render state
+        \return render state value
+        */
         iRenderStateValue getRenderState(const iRenderState state) const;
 
-        /*! add shader source file
-
-        \param filename shader code file
-        \param type type of shader code to add
-        */
-        void addShaderSource(iaString filename, iShaderObjectType type);
-
-        /*! \returns all shader sources that where added before
-        */
-        std::vector<iShaderSource> getShaderSources() const;
-
-        /*! compiles the shader including all added sources
-        */
-        void compileShader();
-
-        /*! destroyes shaders and removes all information about them
-        */
-        void clearShader();
-
         /*! \returns render order
-        */
+         */
         int32 getOrder() const;
 
         /*! set render order
 
-        \param order the higher the value the later it get's rendered (default is iMaterial::RENDER_ORDER_DEFAULT)
+        \param order the higher the value the later it get's rendered (default is iMaterial_old::RENDER_ORDER_DEFAULT)
         */
         void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
 
-        /*! \returns true if material is valid to use
+        /*! \returns true if shader has directional light
+         */
+        bool hasDirectionalLight() const;
+
+        /*! \returns true if shader has eye position
+         */
+        bool hasEyePosition() const;
+
+        /*! \returns true if shader contains model view projection matrix
+         */
+        bool hasModelViewProjectionMatrix() const;
+
+        /*! \returns true if shader contains model matrix
+         */
+        bool hasModelMatrix() const;
+
+        /*! \returns true if shader contains model view matrix
+         */
+        bool hasModelViewMatrix() const;
+
+        /*! \returns true if shader contains view projection matrix
+         */
+        bool hasViewProjectionMatrix() const;
+
+        /*! \returns true if shader contains target material
+         */
+        bool hasTargetMaterial() const;
+
+        /*! \returns true if shader contains solid color property
+         */
+        bool hasSolidColor() const;
+
+        /*! \returns true if shader contains tiling property
+         */
+        bool hasTilingConfig() const;
+
+        /*! \returns true if shader has velocity oriented roperty
         */
+        bool hasVelocityOrientedConfig() const;
+
+        /*! \returns true if gien texture unit is used
+
+        \param texUnit the given texture unit
+        */
+        bool hasTextureUnit(uint32 texUnit) const;
+
+        /*! \returns true if this material is ready for use
+         */
         bool isValid() const;
 
-        /*! deletes shader if one was used
-        */
-        ~iMaterial();
-
     private:
-        /*! material id generator
-        */
-        static iaIDGenerator64 _idGenerator;
+        /*! name of the material.
+         */
+        iaString _name = L"iMaterial";
+
+        /*! the shader program
+         */
+        iShaderProgramPtr _shaderProgram;
+
+        /*! render states set
+         */
+        iRenderStateSet _renderStateSet;
 
         /*! material id
-        */
-        iMaterialID _id = iMaterial::INVALID_MATERIAL_ID;
-
-        /*! if false the material was already destroyed by the iMaterialResourceFactory
-        */
-        bool _isValid = false;
-
-        /*! if true shader has directional light
-        */
-        bool _hasDirectionalLight = false;
-
-        /*! id of shader property light orientation
-        */
-        int32 _lightOrientation;
-
-        /*! id of shader property light ambient
-        */
-        int32 _lightAmbient;
-
-        /*! id of shader property light diffuse
-        */
-        int32 _lightDiffuse;
-
-        /*! id of shader property light specular
-        */
-        int32 _lightSpecular;
-
-        /*! if true shader has eye position
-        */
-        bool _hasEyePosition = false;
-
-        /*! id of shader property eye position
-        */
-        int32 _eyePosition;
-
-        /*! if true shader contains model view projection matrix
-        */
-        bool _hasModelViewProjectionMatrix = false;
-
-        /*! id of shader property model view projection matrix
-        */
-        int32 _mvp_matrix;
-
-        /*! if true shader contains model matrix
-        */
-        bool _hasModelMatrix = false;
-
-        /*! id of shader property model matrix
-        */
-        int32 _model_matrix;
-
-        /*! if true shader contains target material
-        */
-        bool _hasTargetMaterial = false;
-
-        /*! id of shader property material ambient
-        */
-        int32 _matAmbient;
-
-        /*! id of shader property material diffuse
-        */
-        int32 _matDiffuse;
-
-        /*! id of shader property material specular
-        */
-        int32 _matSpecular;
-
-        /*! id of shader property material shininess
-        */
-        int32 _matShininess;
-
-        /*! if of shader property material alpha
-		*/
-        int32 _matAlpha;
-
-        /*! id of shader property material emissive
-        */
-        int32 _matEmissive;
-
-        /*! if true shader contains solid color property
-        */
-        bool _hasSolidColor = false;
-
-        /*! id of shader property solid color
-        */
-        int32 _matSolidColor;
-
-        /*! list of avail able texture units in shader
-        */
-        bool _hasTexture[MAX_TEXTURE_UNITS];
-
-        /*! ids of shader properties regarding texture units
-        */
-        int32 _matTexture[MAX_TEXTURE_UNITS];
+         */
+        iMaterialID _materialID;
 
         /*! oder that material groups get sorted by
 
-        default value is iMaterial::RENDER_ORDER_DEFAULT
+        default value is iMaterial_old::RENDER_ORDER_DEFAULT
         */
         int32 _order = iMaterial::RENDER_ORDER_DEFAULT;
 
-        /*! name of the material.
+        /*! if true shader has directional light
+         */
+        bool _hasDirectionalLight = false;
 
-        must be unique! but this implementation has no future
-        */
-        iaString _name = L"";
+        /*! if true shader has eye position
+         */
+        bool _hasEyePosition = false;
 
-        /*! pointer to shader (optional)
-        */
-        iShader *_shader = nullptr;
+        /*! if true shader contains model view projection matrix
+         */
+        bool _hasModelViewProjectionMatrix = false;
 
-        /*! shader sources
-        */
-        std::vector<iShaderSource> _shaderSources;
+        /*! if true shader contains model matrix
+         */
+        bool _hasModelMatrix = false;
 
-        /*! render states set
+        /*! if true shader contains model view matrix definition
+         */
+        bool _hasModelViewMatrix = false;
+
+        /*! if true shader contains view projection matrix definition
+         */
+        bool _hasViewProjectionMatrix = false;
+
+        /*! if true shader contains target material
+         */
+        bool _hasTargetMaterial = false;
+
+        /*! if true shader contains solid color property
+         */
+        bool _hasSolidColor = false;
+
+        /*! if true shader understands the tiling property
         */
-        iRenderStateSet _renderStateSet;
+        bool _hasConfigTiling = false;
+
+        /*! if true shader usese verlocity oriented property
+        */
+        bool _hasConfigVelocityOriented = false;
+
+        /*! list of avail able texture units in shader
+         */
+        bool _hasTexture[MAX_TEXTURE_UNITS];
 
         /*! does nothing
-        */
-        iMaterial();
+         */
+        iMaterial() = default;
 
-        /*! activate material
-        */
-        void activateShader();
+        /*! does nothing
+         */
+        ~iMaterial();
 
-        /*! deactivate material
-        */
-        void deactivateShader();
+        /*! bind this material
+         */
+        void bind();
 
-        /*! \returns shader in use
+        /*! unbind material
+         */
+        void unbind();
+
+        /*! sets integer on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
         */
-        iShader *getShader();
+        void setInt(const iaString &uniform, int value);
+
+        /*! sets float on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat(const iaString &uniform, float32 value);
+
+        /*! sets 2 dimensional vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat2(const iaString &uniform, const iaVector2f &value);
+
+        /*! sets 3 dimensional vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat3(const iaString &uniform, const iaVector3f &value);
+
+        /*! sets 4 dimensional vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat4(const iaString &uniform, const iaVector4f &value);
+
+        /*! sets 3 dimensional color vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat3(const iaString &uniform, const iaColor3f &value);
+
+        /*! sets 4 dimensional color vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat4(const iaString &uniform, const iaColor4f &value);
+
+        /*! sets 4x4 matrix on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setMatrix(const iaString &uniform, const iaMatrixf &value);
     };
+}
 
-#include <igor/resources/material/iMaterial.inl>
-
-    /*! definition of material pointer
-    */
-    typedef std::shared_ptr<iMaterial> iMaterialPtr;
-
-} // namespace igor
-
-#endif // __IGOR_MATERIAL_H__
+#endif // __IGOR_MATERIAL__

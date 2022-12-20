@@ -26,10 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iAABOX__
-#define __iAABOX__
+#ifndef __IGOR_AABOX__
+#define __IGOR_AABOX__
 
 #include <igor/iDefines.h>
+
 #include <iaux/math/iaVector3.h>
 using namespace iaux;
 
@@ -39,7 +40,7 @@ namespace igor
     /*! Axis aligned box
 	*/
     template <class T>
-    class IGOR_API_TEMPLATE iAABox
+    class IGOR_API_EXPORT_ONLY iAABox
     {
 
     public:

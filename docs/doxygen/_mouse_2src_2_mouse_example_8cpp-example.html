@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -126,7 +126,7 @@ $(document).ready(function(){initNavTree('_mouse_2src_2_mouse_example_8cpp-examp
 <div class="line">{</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    MouseExample(iWindow *window);</div>
+<div class="line">    MouseExample(<a name="a0"></a><a class="code" href="namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed">iWindowPtr</a> window);</div>
 <div class="line"> </div>
 <div class="line">    ~MouseExample() = <span class="keywordflow">default</span>;</div>
 <div class="line"> </div>
@@ -150,13 +150,14 @@ $(document).ready(function(){initNavTree('_mouse_2src_2_mouse_example_8cpp-examp
 <div class="ttc" id="anamespaceigor_html_a504f0931de9d9729518c78c53d39710da593ef4127c5eb3d2ca2c7d37dbdb4a44"><div class="ttname"><a href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da593ef4127c5eb3d2ca2c7d37dbdb4a44">igor::iEventType::iEventMouseKeyDoubleClick</a></div><div class="ttdeci">@ iEventMouseKeyDoubleClick</div></div>
 <div class="ttc" id="anamespaceigor_html_a504f0931de9d9729518c78c53d39710dac2190c3ff76de09a1a5d8189f883b9d8"><div class="ttname"><a href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dac2190c3ff76de09a1a5d8189f883b9d8">igor::iEventType::iEventMouseWheel</a></div><div class="ttdeci">@ iEventMouseWheel</div></div>
 <div class="ttc" id="anamespaceigor_html_a504f0931de9d9729518c78c53d39710dad91489ab3b2c02a62f753fe4193636e3"><div class="ttname"><a href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dad91489ab3b2c02a62f753fe4193636e3">igor::iEventType::iEventMouseMove</a></div><div class="ttdeci">@ iEventMouseMove</div></div>
+<div class="ttc" id="anamespaceigor_html_aceb6e919b1456f47edac6b6788cfe5ed"><div class="ttname"><a href="namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed">igor::iWindowPtr</a></div><div class="ttdeci">iWindow * iWindowPtr</div><div class="ttdef"><b>Definition:</b> iEvent.h:42</div></div>
 </div><!-- fragment --><div class="fragment"><div class="line"><span class="comment">// Igor game engine</span></div>
 <div class="line"><span class="comment">// (c) Copyright 2012-2019 by Martin Loga</span></div>
 <div class="line"><span class="comment">// see copyright notice in corresponding header file</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;MouseExample.h&quot;</span></div>
 <div class="line"> </div>
-<div class="line">MouseExample::MouseExample(iWindow *window)</div>
+<div class="line">MouseExample::MouseExample(<a class="code" href="namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed">iWindowPtr</a> window)</div>
 <div class="line">    : ExampleBase(window, <a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdad20caec3b48a1eef164cb4ca81ba2587">L</a><span class="stringliteral">&quot;Mouse Input&quot;</span>)</div>
 <div class="line">{</div>
 <div class="line">}</div>
@@ -176,39 +177,38 @@ $(document).ready(function(){initNavTree('_mouse_2src_2_mouse_example_8cpp-examp
 <div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseKeyDownEvent(iEventMouseKeyDown &amp;event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// prints if a key was pressed to the console</span></div>
-<div class="line">    <a name="a1"></a><a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse key down &quot;</span> &lt;&lt; event.getKey());</div>
+<div class="line">    con_endl(<span class="stringliteral">&quot;mouse key down &quot;</span> &lt;&lt; event.getKey());</div>
 <div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseKeyUpEvent(iEventMouseKeyUp &amp;event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// prints if a key was released to the console</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse key up &quot;</span> &lt;&lt; event.getKey());</div>
+<div class="line">    con_endl(<span class="stringliteral">&quot;mouse key up &quot;</span> &lt;&lt; event.getKey());</div>
 <div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &amp;event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// prints if a double click was performed</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse key double clicked &quot;</span> &lt;&lt; event.getKey());</div>
+<div class="line">    con_endl(<span class="stringliteral">&quot;mouse key double clicked &quot;</span> &lt;&lt; event.getKey());</div>
 <div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseMoveEvent(iEventMouseMove &amp;event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// prints old and new mouse position to the console</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse moved from &quot;</span> &lt;&lt; event.getLastPosition() &lt;&lt; <span class="stringliteral">&quot; to &quot;</span> &lt;&lt; event.getPosition());</div>
+<div class="line">    con_endl(<span class="stringliteral">&quot;mouse moved from &quot;</span> &lt;&lt; event.getLastPosition() &lt;&lt; <span class="stringliteral">&quot; to &quot;</span> &lt;&lt; event.getPosition());</div>
 <div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseWheelEvent(iEventMouseWheel &amp;event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// prints the mouse wheel delta to the console</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse wheel delta &quot;</span> &lt;&lt; event.getWheelDelta());</div>
+<div class="line">    con_endl(<span class="stringliteral">&quot;mouse wheel delta &quot;</span> &lt;&lt; event.getWheelDelta());</div>
 <div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="ai_event_8h_html_aba3d4ba34f4c5cc603450d336d9312c8"><div class="ttname"><a href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a></div><div class="ttdeci">#define IGOR_BIND_EVENT_FUNCTION(fn)</div><div class="ttdef"><b>Definition:</b> iEvent.h:196</div></div>
-<div class="ttc" id="aia_console_8h_html_a69fc580cdd73de577a6029db6c9975f7"><div class="ttname"><a href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a></div><div class="ttdeci">#define con_endl(Message)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:496</div></div>
+<div class="ttc" id="ai_event_8h_html_aba3d4ba34f4c5cc603450d336d9312c8"><div class="ttname"><a href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a></div><div class="ttdeci">#define IGOR_BIND_EVENT_FUNCTION(fn)</div><div class="ttdef"><b>Definition:</b> iEvent.h:197</div></div>
 <div class="ttc" id="anamespaceigor_html_a80a6b547ebec2fad44cd23cbceeba9bdad20caec3b48a1eef164cb4ca81ba2587"><div class="ttname"><a href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdad20caec3b48a1eef164cb4ca81ba2587">igor::iKeyCode::L</a></div><div class="ttdeci">@ L</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

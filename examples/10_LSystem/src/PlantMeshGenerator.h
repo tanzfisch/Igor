@@ -94,9 +94,9 @@ struct PlantInformation
     */
     iaColor3f _leafColor;
 
-    /*! material ID
+    /*! material
     */
-    uint64 _materialID = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialPtr _material;
 };
 
 /*! plant mesh generator

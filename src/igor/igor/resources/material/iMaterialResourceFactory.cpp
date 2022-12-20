@@ -4,324 +4,182 @@
 
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/material/iShader.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/iResourceManager.h>
 
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
+#include <algorithm>
 
 namespace igor
 {
-
-    iMaterialResourceFactory::iMaterialResourceFactory()
+    void iMaterialResourceFactory::init()
     {
-        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
-
-        // if already ready just use it now
-        if (iRenderer::getInstance().isReady())
-        {
-            initDefaultMaterials();
-        }
+        _defaultMaterial = loadMaterial("igor/default.mat");
+        _colorIDMaterial = loadMaterial("igor/colorID.mat");
     }
 
-    iMaterialResourceFactory::~iMaterialResourceFactory()
+    void iMaterialResourceFactory::deinit()
     {
-        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
+        _defaultMaterial = nullptr;
+        _colorIDMaterial = nullptr;
 
-        if (_defaultMaterial != iMaterial::INVALID_MATERIAL_ID)
-        {
-            destroyMaterial(_defaultMaterial);
-        }
+        flush();
 
         if (!_materials.empty())
         {
-            con_debug(static_cast<int>(_materials.size()) << " materials left. will clean up for you");
+            con_warn("possible mem leak. not all materials were released.");
+
+            if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Warning)
+            {
+                con_endl("non released materials: ");
+                for (const auto &material : _materials)
+                {
+                    con_endl(material.second->getID() << " ref:" << material.second.use_count() << " - " << material.second->getName());
+                }
+            }
         }
 
         _materials.clear();
-        _sortedMaterials.clear();
-        _currentMaterial = nullptr;
-
-        if (!_targetMaterials.empty())
-        {
-            con_err("possible mem leak! " << _targetMaterials.size() << " target materials left");
-        }
-
-        auto targetmaterialIter = _targetMaterials.begin();
-        while (targetmaterialIter != _targetMaterials.end())
-        {
-            delete (*targetmaterialIter);
-            ++targetmaterialIter;
-        }
-
-        _targetMaterials.clear();
     }
 
-    iTargetMaterial *iMaterialResourceFactory::createTargetMaterial()
+    iMaterialPtr iMaterialResourceFactory::getMaterial(const iMaterialID &materialID)
     {
-        iTargetMaterial *result = new iTargetMaterial();
+        iMaterialPtr result;
 
-        _targetMaterialMutex.lock();
-        _targetMaterials.push_back(result);
-        _targetMaterialMutex.unlock();
+        _mutexMaterial.lock();
+        for (const auto &pair : _materials)
+        {
+            if (pair.second->getID() == materialID)
+            {
+                result = pair.second;
+                break;
+            }
+        }
+        _mutexMaterial.unlock();
+
+        if (result == nullptr)
+        {
+            con_err("material with id " << materialID << " does not exist");
+        }
 
         return result;
     }
 
-    void iMaterialResourceFactory::destroyTargetMaterial(iTargetMaterial *targetMaterial)
+    iMaterialPtr iMaterialResourceFactory::getMaterial(const iaString &name)
     {
-        _targetMaterialMutex.lock();
-        auto iter = find(_targetMaterials.begin(), _targetMaterials.end(), targetMaterial);
+        iMaterialPtr result;
 
-        if (iter != _targetMaterials.end())
+        con_assert_sticky(!name.isEmpty(), "empty filename");
+        int64 hashValue = name.getHashValue();
+
+        _mutexMaterial.lock();
+        auto iter = _materials.find(hashValue);
+        if (iter != _materials.end())
         {
-            delete (*iter);
-            _targetMaterials.erase(iter);
+            result = iter->second;
         }
-        _targetMaterialMutex.unlock();
+        _mutexMaterial.unlock();
+
+        return result;
     }
 
-    uint64 iMaterialResourceFactory::getDefaultMaterialID() const
+    iMaterialPtr iMaterialResourceFactory::createMaterial(const iaString &name, bool cache)
+    {
+        iMaterialPtr result = getMaterial(name);
+        if (result != nullptr)
+        {
+            return result;
+        }
+
+        result = iMaterial::create();
+        result->setName(name);
+        const int64 hashValue = name.getHashValue();
+
+        if (cache)
+        {
+            _mutexMaterial.lock();
+            _materials[hashValue] = result;
+            _mutexMaterial.unlock();
+        }
+
+        con_info("created material [" << result->getID() << "] \"" << result->getName() << "\"");
+
+        return result;
+    }
+
+    iMaterialPtr iMaterialResourceFactory::loadMaterial(const iaString &filename, bool cache)
+    {
+        iaString keyPath = iResourceManager::getInstance().getPath(filename);
+
+        if (keyPath.isEmpty())
+        {
+            keyPath = filename;
+        }
+
+        iMaterialPtr result = getMaterial(keyPath);
+        if (result != nullptr)
+        {
+            return result;
+        }
+
+        result = iMaterial::create(keyPath);
+        const int64 hashValue = keyPath.getHashValue();
+
+        if (cache)
+        {
+            _mutexMaterial.lock();
+            _materials[hashValue] = result;
+            _mutexMaterial.unlock();
+        }
+
+        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " shaders:"<< result->getShaderProgram()->getShaderSources().size() << " (" << (cache ? "cached" : "not cached") << ")");
+
+        return result;
+    }
+
+    const iMaterialPtr &iMaterialResourceFactory::getDefaultMaterial() const
     {
         return _defaultMaterial;
     }
 
-    uint64 iMaterialResourceFactory::getColorIDMaterialID() const
+    const iMaterialPtr &iMaterialResourceFactory::getColorIDMaterial() const
     {
         return _colorIDMaterial;
     }
 
-    void iMaterialResourceFactory::updateGroups()
+    void iMaterialResourceFactory::getMaterials(std::vector<iMaterialPtr> &materials)
     {
-        _mutexMaterial.lock();
-        if (_dirtyMaterials)
-        {
-            sort(_sortedMaterials.begin(), _sortedMaterials.end(),
-                 [](const iMaterialPtr a, const iMaterialPtr b) -> bool {
-                     return a->getOrder() < b->getOrder();
-                 });
-
-            _dirtyMaterials = false;
-        }
-        _mutexMaterial.unlock();
-    }
-
-    std::vector<iMaterialPtr> iMaterialResourceFactory::getSortedMaterials()
-    {
-        updateGroups();
+        materials.clear();
 
         _mutexMaterial.lock();
-        std::vector<iMaterialPtr> copyList(_sortedMaterials);
-        _mutexMaterial.unlock();
-
-        return copyList;
-    }
-
-    void iMaterialResourceFactory::initDefaultMaterials()
-    {
-        // create the default material
-        _defaultMaterial = createMaterial("igor.default");
-        auto material = getMaterial(_defaultMaterial);
-        material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-        material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
-        material->compileShader();
-        material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
-
-        // set material to start with
-        setMaterial(_defaultMaterial);
-
-        // create the color ID material
-        _colorIDMaterial = createMaterial("igor.colorid");
-        material = getMaterial(_colorIDMaterial);
-        material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-        material->addShaderSource("igor/solidColor.frag", iShaderObjectType::Fragment);
-        material->compileShader();
-        material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
-
-        // creating this one as option because it is used far more often then the actual default one
-        uint64 defaultTextureMaterial = createMaterial("igor.texture");
-        material = getMaterial(defaultTextureMaterial);
-        material->addShaderSource("igor/textured.vert", iShaderObjectType::Vertex);
-        material->addShaderSource("igor/textured_directional_light.frag", iShaderObjectType::Fragment);
-        material->compileShader();
-        material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
-    }
-
-    uint64 iMaterialResourceFactory::createMaterial(iaString name)
-    {
-        iMaterial *material = new iMaterial();
-        if (name != L"")
+        for (const auto &pair : _materials)
         {
-            material->setName(name);
-        }
-
-        material->_isValid = true;
-
-        iMaterialPtr shared = iMaterialPtr(material);
-
-        _mutexMaterial.lock();
-        _materials[material->getID()] = shared;
-        _sortedMaterials.push_back(shared);
-        _dirtyMaterials = true;
-        _mutexMaterial.unlock();
-
-        _materialCreatedEvent(material->getID());
-
-        return material->getID();
-    }
-
-    void iMaterialResourceFactory::registerMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate)
-    {
-        _materialCreatedEvent.append(materialCreatedDelegate);
-    }
-
-    void iMaterialResourceFactory::unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate)
-    {
-        _materialCreatedEvent.remove(materialCreatedDelegate);
-    }
-
-    void iMaterialResourceFactory::registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate)
-    {
-        _materialDestroyedEvent.append(materialDestroyedDelegate);
-    }
-
-    void iMaterialResourceFactory::unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate)
-    {
-        _materialDestroyedEvent.remove(materialDestroyedDelegate);
-    }
-
-    void iMaterialResourceFactory::destroyMaterial(uint64 materialID)
-    {
-        _mutexMaterial.lock();
-
-        auto iterMaterial = _materials.find(materialID);
-        if (iterMaterial != _materials.end())
-        {
-            (*iterMaterial).second->_isValid = false;
-
-            auto sortedIter = find(_sortedMaterials.begin(), _sortedMaterials.end(), (*iterMaterial).second);
-
-            con_assert_sticky(sortedIter != _sortedMaterials.end(), "inconsistent material list");
-
-            if (sortedIter != _sortedMaterials.end())
-            {
-                _sortedMaterials.erase(sortedIter);
-            }
-
-            _materials.erase(iterMaterial);
-        }
-        else
-        {
-            con_err("material id: " << materialID << " does not exist");
-        }
-
-        _mutexMaterial.unlock();
-
-        _materialDestroyedEvent(materialID);
-    }
-
-    void iMaterialResourceFactory::setMaterial(uint64 materialID)
-    {
-        iMaterialPtr material = 0;
-
-        _mutexMaterial.lock();
-        auto iter = _materials.find(materialID);
-        if (iter != _materials.end())
-        {
-            material = (*iter).second;
+            materials.push_back(pair.second);
         }
         _mutexMaterial.unlock();
 
-        if (material != nullptr)
-        {
-            con_assert_sticky(iRenderer::getInstance().isReady(), "renderer not ready");
-            iRenderer::getInstance().setMaterial(material);
-        }
+        sort(materials.begin(), materials.end(),
+             [](const iMaterialPtr a, const iMaterialPtr b) -> bool
+             {
+                 return a->getOrder() < b->getOrder();
+             });
     }
 
-    iMaterialPtr iMaterialResourceFactory::getDefaultMaterial()
+    void iMaterialResourceFactory::flush()
     {
-        return getMaterial(_defaultMaterial);
-    }
-
-    iMaterialPtr iMaterialResourceFactory::getMaterial(uint64 materialID)
-    {
-        iMaterialPtr material = nullptr;
-
-        _mutexMaterial.lock();
-        auto iter = _materials.find(materialID);
-        if (iter != _materials.end())
-        {
-            material = (*iter).second;
-        }
-        _mutexMaterial.unlock();
-
-        if (material == nullptr)
-        {
-            con_err("material id: " << materialID << " does not exist");
-        }
-
-        return material;
-    }
-
-    uint64 iMaterialResourceFactory::getMaterialID(iaString materialName)
-    {
-        uint64 result = iMaterial::INVALID_MATERIAL_ID;
-
         _mutexMaterial.lock();
         auto materialIter = _materials.begin();
+
         while (materialIter != _materials.end())
         {
-            if ((*materialIter).second->getName() == materialName)
+            if (materialIter->second.use_count() == 1)
             {
-                result = (*materialIter).first;
+                con_info("released material \"" << materialIter->second->getName() << "\"");
+                materialIter = _materials.erase(materialIter);
+                continue;
             }
 
-            ++materialIter;
+            materialIter++;
         }
-
         _mutexMaterial.unlock();
-
-        if (result == iMaterial::INVALID_MATERIAL_ID)
-        {
-            con_err("material with name:" << materialName << " does not exist");
-        }
-
-        return result;
-    }
-
-    iMaterialPtr iMaterialResourceFactory::getMaterial(iaString materialName)
-    {
-        iMaterialPtr material = 0;
-
-        _mutexMaterial.lock();
-        auto materialIter = _materials.begin();
-        while (materialIter != _materials.end())
-        {
-            if ((*materialIter).second->getName() == materialName)
-            {
-                material = (*materialIter).second;
-                break;
-            }
-
-            ++materialIter;
-        }
-
-        _mutexMaterial.unlock();
-
-        if (material == nullptr)
-        {
-            con_err("material with name:" << materialName << " does not exist");
-        }
-
-        return material;
-    }
-
-    iMaterialPtr iMaterialResourceFactory::getCurrentMaterial()
-    {
-        return _currentMaterial;
     }
 
 } // namespace igor

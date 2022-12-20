@@ -36,7 +36,7 @@ using namespace iaux;
 struct TileInformation
 {
     iVoxelData *_voxelData = nullptr;
-    uint64 _materialID = 0;
+    iMaterialPtr _material;
 };
 
 class VoxelTerrainMeshGenerator : public iModelDataIO

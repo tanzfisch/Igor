@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTRANSFORMNODE__
-#define __iTRANSFORMNODE__
+#ifndef __IGOR_TRANSFORMNODE__
+#define __IGOR_TRANSFORMNODE__
 
 #include <igor/scene/nodes/iNode.h>
 #include <iaux/math/iaMatrix.h>

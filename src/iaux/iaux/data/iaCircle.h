@@ -37,7 +37,7 @@ namespace iaux
     /*! 2d circle
      */
     template <class T>
-    class IAUX_API_TEMPLATE iaCircle
+    class IAUX_API_EXPORT_ONLY iaCircle
     {
 
     public:

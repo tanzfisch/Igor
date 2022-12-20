@@ -4,7 +4,7 @@
 
 #include "Example3D.h"
 
-Example3D::Example3D(iWindow *window)
+Example3D::Example3D(iWindowPtr window)
     : ExampleBase(window, "3D Scene")
 {
 }
@@ -126,7 +126,7 @@ void Example3D::onInit()
     lod1Transform->insertNode(lod1Model);
     // the create as LOD2
     iNodeTransform *lod2Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    lod2Transform->setName("lod0 transform");
+    lod2Transform->setName("lod2 transform");
     lod2Transform->translate(-1, -0.5, 0);
     iNodeModel *lod2Model = iNodeManager::getInstance().createNode<iNodeModel>();
     lod2Model->setModel("crate.ompf");
@@ -161,9 +161,9 @@ void Example3D::onInit()
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
-    lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    lightNode->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
+    lightNode->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
+    lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
     // insert light to scene
     getScene()->getRoot()->insertNode(directionalLightRotate);
     directionalLightRotate->insertNode(directionalLightTranslate);
@@ -326,4 +326,18 @@ void Example3D::onUpdate(const iaTime &time)
 {
     iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
+}
+
+iaString Example3D::getHelpString()
+{
+    static const iaString help = "\n"
+                                 "[MouseWheel] Zoom\n"
+                                 "[Space] Toggle switch node\n"
+                                 "[RightMouseDrag] Rotate node group\n"
+                                 "[LeftMouseDrag] Rotate cam\n";
+
+    iaString result = ExampleBase::getHelpString();
+    result += help;
+
+    return result;
 }

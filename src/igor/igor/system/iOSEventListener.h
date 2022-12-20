@@ -32,6 +32,7 @@
 namespace igor
 {
 	class iWindow;
+	typedef iWindow *iWindowPtr;
 
 	/*! classes that need operating system messages to work with derive from this class
 
@@ -55,7 +56,7 @@ namespace igor
 		/*! \retruns pointer to corresponding window
 		if it returns nullptr the listener was not registred to a window yet
 		*/
-		virtual iWindow *getWindow() const = 0;
+		virtual iWindowPtr getWindow() const = 0;
 
 	private:
 		/*! called by an os event like key down or close window

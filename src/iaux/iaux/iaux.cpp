@@ -52,8 +52,11 @@ namespace iaux
 
     void shutdown()
     {
-        iaConsole::getInstance().setLogLevel(iaLogLevel::User);
-        iaConsole::getInstance().printStats();
+        if (iaConsole::getInstance().getErrors() != 0 ||
+            iaConsole::getInstance().getWarnings() != 0)
+        {
+            iaConsole::getInstance().printStats();
+        }
         iaConsole::getInstance().closeLogfile();
         iaConsole::getInstance().resetStats();
         // do not destroy instance of iaConsole

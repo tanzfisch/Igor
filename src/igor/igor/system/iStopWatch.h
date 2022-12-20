@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iSTOPWATCH__
-#define __iSTOPWATCH__
+#ifndef __IGOR_STOPWATCH__
+#define __IGOR_STOPWATCH__
 
 #include <igor/iDefines.h>
 

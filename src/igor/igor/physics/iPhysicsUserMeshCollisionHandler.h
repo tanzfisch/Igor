@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPHYSICSUSERMESHCOLLISIONHANDLER__
-#define __iPHYSICSUSERMESHCOLLISIONHANDLER__
+#ifndef __IGOR_PHYSICSUSERMESHCOLLISIONHANDLER__
+#define __IGOR_PHYSICSUSERMESHCOLLISIONHANDLER__
 
 #include <igor/iDefines.h>
 

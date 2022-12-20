@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMODELDATAIO__
-#define __iMODELDATAIO__
+#ifndef __IGOR_MODELDATAIO__
+#define __IGOR_MODELDATAIO__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;

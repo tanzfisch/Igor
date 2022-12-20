@@ -10,6 +10,17 @@ using namespace iaux;
 namespace igor
 {
 
+    class iTargetMaterialDeleter
+    {
+    public:
+        void operator()(iTargetMaterial *p) { delete p; }
+    };
+
+    iTargetMaterialPtr iTargetMaterial::create()
+    {
+        return std::shared_ptr<iTargetMaterial>(new iTargetMaterial(), iTargetMaterialDeleter());
+    }
+
     iTargetMaterial::iTargetMaterial()
     {
         _emissive.set(0, 0, 0);
@@ -18,29 +29,46 @@ namespace igor
         _specular.set(0.6f, 0.6f, 0.6f);
         _shininess = 5.0f;
         _alpha = 1.0f;
+        _tilingConfig.set(1.0, 1.0);
     }
 
     iTargetMaterial::~iTargetMaterial()
     {
     }
 
-    void iTargetMaterial::setTexture(iTexturePtr texture, int texunit)
+    void iTargetMaterial::setTilingConfig(const iaVector2f &tiling)
     {
-        con_assert(texunit < 4 && texunit >= 0, "tex unit out of range");
-        _textures[texunit] = texture;
+        _tilingConfig = tiling;
     }
 
-    iTexturePtr iTargetMaterial::getTexture(int texunit) const
+    const iaVector2f &iTargetMaterial::getTilingConfig() const
     {
-        con_assert(_textures.size() != 0, "no textures available");
+        return _tilingConfig;
+    }
 
-        auto tex = _textures.find(texunit);
-        if (_textures.end() != tex)
-        {
-            return tex->second;
-        }
+    void iTargetMaterial::setVelocityOriented(bool enable)
+    {
+        _velocityOriented = enable;
+    }
 
-        return nullptr;
+    bool iTargetMaterial::isVelocityOriented() const
+    {
+        return _velocityOriented;
+    }
+
+    void iTargetMaterial::clearTextures()
+    {
+        _textures.clear();
+    }
+
+    const std::vector<iTexturePtr> &iTargetMaterial::getTextures() const
+    {
+        return _textures;
+    }
+
+    void iTargetMaterial::addTexture(iTexturePtr texture)
+    {
+        _textures.push_back(texture);
     }
 
     void iTargetMaterial::setEmissive(const iaColor3f &e)
@@ -63,13 +91,49 @@ namespace igor
         _diffuse = d;
     }
 
-    void iTargetMaterial::setShininess(float32 s)
+    void iTargetMaterial::setShininess(float32 shininess)
     {
-        _shininess = s;
+        _shininess = shininess;
     }
 
     void iTargetMaterial::setAlpha(float32 alpha)
     {
         _alpha = alpha;
     }
+
+    iaColor3f iTargetMaterial::getAmbient() const
+    {
+        return _ambient;
+    }
+
+    iaColor3f iTargetMaterial::getEmissive() const
+    {
+        return _emissive;
+    }
+
+    iaColor3f iTargetMaterial::getSpecular() const
+    {
+        return _specular;
+    }
+
+    iaColor3f iTargetMaterial::getDiffuse() const
+    {
+        return _diffuse;
+    }
+
+    float32 iTargetMaterial::getShininess() const
+    {
+        return _shininess;
+    }
+
+    float32 iTargetMaterial::getAlpha() const
+    {
+        return _alpha;
+    }
+
+    bool iTargetMaterial::hasTextures() const
+    {
+        return !_textures.empty();
+    }
+
 } // namespace igor

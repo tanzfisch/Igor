@@ -119,17 +119,17 @@ namespace igor
 
         \returns window id
 		*/
-        iWindow *createWindow();
+        iWindowPtr createWindow(const iaString& title = "");
 
         /*! destroy window
 		*/
-        void destroyWindow(iWindow *window);
+        void destroyWindow(iWindowPtr window);
 
         /*! \returns window for given window id
 
         \param windowID the given window id
         */
-        iWindow *getWindow(iWindowID windowID) const;
+        iWindowPtr getWindow(iWindowID windowID) const;
 
     private:
 

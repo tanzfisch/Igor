@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRAY__
-#define __iRAY__
+#ifndef __IGOR_RAY__
+#define __IGOR_RAY__
 
 #include <igor/iDefines.h>
 
@@ -40,7 +40,7 @@ namespace igor
     /*! a ray
     */
     template <class T>
-    class IGOR_API_TEMPLATE iRay
+    class IGOR_API_EXPORT_ONLY iRay
     {
 
     public:

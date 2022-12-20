@@ -27,9 +27,7 @@
 #include <igor/terrain/tasks/iTaskVoxelTerrain.h>
 #include <igor/terrain/operations/iVoxelOperationBox.h>
 #include <igor/terrain/operations/iVoxelOperationSphere.h>
-#include <igor/graphics/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iTargetMaterial.h>
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
@@ -135,7 +133,7 @@ namespace igor
         _actionQueue.push_back(action);
     }
 
-    iTargetMaterial *iVoxelTerrain::getTargetMaterial()
+    iTargetMaterialPtr iVoxelTerrain::getTargetMaterial() const
     {
         return _targetMaterial;
     }
@@ -181,13 +179,13 @@ namespace igor
         }
 
         // set up terrain material
-        _terrainMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+        _terrainMaterial = iMaterialResourceFactory::getInstance().getDefaultMaterial();
 
         // set up terrain target material
-        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);
+        _targetMaterial = iTargetMaterial::create();
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture()); // TODO
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture());
+        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture());
         _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -200,9 +198,7 @@ namespace igor
         con_endl("shutdown iVoxelTerrain ...");
 
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
-
-        iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
-
+        _targetMaterial = nullptr;
         // TODO cleanup
     }
 
@@ -211,14 +207,14 @@ namespace igor
         _lodTrigger = lodTriggerID;
     }
 
-    void iVoxelTerrain::setMaterialID(uint64 materialID)
+    void iVoxelTerrain::setMaterial(const iMaterialPtr& material)
     {
-        _terrainMaterialID = materialID;
+        _terrainMaterial = material;
     }
 
-    uint64 iVoxelTerrain::getMaterialID() const
+    iMaterialPtr iVoxelTerrain::getMaterial() const
     {
-        return _terrainMaterialID;
+        return _terrainMaterial;
     }
 
     void iVoxelTerrain::update()
@@ -1230,7 +1226,7 @@ namespace igor
                 {
                     iVoxelTerrainTileInformation tileInformation;
 
-                    tileInformation._materialID = _terrainMaterialID;
+                    tileInformation._materialID = _terrainMaterial;
                     tileInformation._voxelOffsetToNextLOD = childOffsetPosition[voxelBlock->_childAdress];
                     tileInformation._voxelOffsetToNextLOD *= 16;
                     tileInformation._voxelData = new iVoxelData();

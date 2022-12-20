@@ -1,7 +1,7 @@
 var classigor_1_1i_intersection =
 [
-    [ "contains", "classigor_1_1i_intersection.html#a5aff725c0e617a7ea3f72b228cebfc38", null ],
-    [ "contains", "classigor_1_1i_intersection.html#a4f8f88f230547733d896b09d829915fa", null ],
+    [ "contains", "classigor_1_1i_intersection.html#a25f9a8c2abe2d5e3ed8e30d6a7da34ad", null ],
+    [ "contains", "classigor_1_1i_intersection.html#aaaee554ba30f4a378f1beb01954b65e5", null ],
     [ "contains", "classigor_1_1i_intersection.html#a381b56fb5672060c4aeffc1a973dd454", null ],
     [ "contains", "classigor_1_1i_intersection.html#a08b31be21c1cba8540cebc46ce01eddc", null ],
     [ "inFrontOf", "classigor_1_1i_intersection.html#a91c9ec47f643e89aa33acf341b253d6e", null ],
@@ -20,6 +20,8 @@ var classigor_1_1i_intersection =
     [ "intersects", "classigor_1_1i_intersection.html#a8c36a7514933cc798c4592b6d11fbf22", null ],
     [ "intersects", "classigor_1_1i_intersection.html#a3647744f7a60df39178e2e40cc4e5b5a", null ],
     [ "intersects", "classigor_1_1i_intersection.html#a276073bdeacfd02e6b61a6abd4b15091", null ],
+    [ "intersects", "classigor_1_1i_intersection.html#ae47ebddc282b3a52f9c4d1f5620020ec", null ],
+    [ "intersects", "classigor_1_1i_intersection.html#a070c71859a166bc694eb938812f243db", null ],
     [ "intersects", "classigor_1_1i_intersection.html#a4419e26015748ab9e25077a1cef2e296", null ],
     [ "intersects", "classigor_1_1i_intersection.html#a75fe4628284c016b088923e4e4189a60", null ],
     [ "intersects", "classigor_1_1i_intersection.html#a0a8dfb88ffa698cb050a9fc1211f94be", null ],

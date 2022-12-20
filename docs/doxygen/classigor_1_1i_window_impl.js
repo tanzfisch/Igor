@@ -1,6 +1,6 @@
 var classigor_1_1i_window_impl =
 [
-    [ "iWindowImpl", "classigor_1_1i_window_impl.html#ad20fad39117808349d70598894b43526", null ],
+    [ "iWindowImpl", "classigor_1_1i_window_impl.html#acedf96f8b9b073e802b96a20b588e871", null ],
     [ "~iWindowImpl", "classigor_1_1i_window_impl.html#ab0db5f6d4f8e96e03c9d90550c1a269c", null ],
     [ "calcClientSize", "classigor_1_1i_window_impl.html#a634474e44da10026d7024ac41ea92b6f", null ],
     [ "close", "classigor_1_1i_window_impl.html#abd62ab410cf05e277caf4f2c22eb32ef", null ],
@@ -9,7 +9,7 @@ var classigor_1_1i_window_impl =
     [ "deleteRenderContext", "classigor_1_1i_window_impl.html#a01653011dbce01509cc3c21798be498d", null ],
     [ "getDefaultRenderContext", "classigor_1_1i_window_impl.html#aa7b52ae9c7947658237b5d8044f43bc3", null ],
     [ "getDesktopSize", "classigor_1_1i_window_impl.html#a27e1bea7489eb5bdbd9cb2238e185bf9", null ],
-    [ "getImpl", "classigor_1_1i_window_impl.html#a108689cb7f8fe3732a008927cb0ce06c", null ],
+    [ "getImpl", "classigor_1_1i_window_impl.html#aaa6119a34371b5392c348f1c26eaf2d3", null ],
     [ "getVSync", "classigor_1_1i_window_impl.html#a54c4ef48e1bece4e926d12fdaa92e9be", null ],
     [ "handle", "classigor_1_1i_window_impl.html#a22e656e177d3dc62f771290a933212c9", null ],
     [ "makeCurrent", "classigor_1_1i_window_impl.html#aff8ae2c531dc6cc919d4acbf113a57df", null ],
@@ -37,7 +37,7 @@ var classigor_1_1i_window_impl =
     [ "_oseventlisteners", "classigor_1_1i_window_impl.html#a6d97c20b283407d8493fe343594b1232", null ],
     [ "_title", "classigor_1_1i_window_impl.html#a35a9a634a30c64599ba84209c808b0c3", null ],
     [ "_width", "classigor_1_1i_window_impl.html#a4fb392c348a4cc34d918efa5c8350cd5", null ],
-    [ "_window", "classigor_1_1i_window_impl.html#ab6acdd7b50818da2034681fab38391c5", null ],
+    [ "_window", "classigor_1_1i_window_impl.html#aa2e0905387e6bccaeb5a057954b042dd", null ],
     [ "_x", "classigor_1_1i_window_impl.html#a1a1ee02f78d26cbf2614f427d54764da", null ],
     [ "_y", "classigor_1_1i_window_impl.html#a708bce7f8ee0d102a9e8c6dbee5cda89", null ],
     [ "_zdepth", "classigor_1_1i_window_impl.html#a2c7541fbed9b7848570557ddb60d3503", null ]

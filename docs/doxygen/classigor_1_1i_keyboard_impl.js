@@ -7,5 +7,5 @@ var classigor_1_1i_keyboard_impl =
     [ "onOSEvent", "classigor_1_1i_keyboard_impl.html#a21b8026be66ce2232a9541b08cfd67f5", null ],
     [ "iKeyboard", "classigor_1_1i_keyboard_impl.html#adcecc974f06caf5aeaa41e7e694e16e2", null ],
     [ "_keys", "classigor_1_1i_keyboard_impl.html#af935caf4e22c45b61b57e998aa1b56c2", null ],
-    [ "_window", "classigor_1_1i_keyboard_impl.html#a2dc8c882dd16e067bd27be6c2676f8f9", null ]
+    [ "_window", "classigor_1_1i_keyboard_impl.html#aca02576816119b1beecb2c3a1e572951", null ]
 ];

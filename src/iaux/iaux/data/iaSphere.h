@@ -39,7 +39,7 @@ namespace igor
     \todo mode to IgorAux
     */
     template <class T>
-    class IGOR_API_TEMPLATE iaSphere
+    class IGOR_API_EXPORT_ONLY iaSphere
     {
 
     public:

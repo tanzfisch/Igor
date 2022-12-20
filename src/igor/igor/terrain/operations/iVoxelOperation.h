@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iVOXELOPERATION__
-#define __iVOXELOPERATION__
+#ifndef __IGOR_VOXELOPERATION__
+#define __IGOR_VOXELOPERATION__
 
 #include <igor/data/iAABox.h>
 

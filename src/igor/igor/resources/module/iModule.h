@@ -36,18 +36,15 @@ namespace igor
 
     /*! module class
 
-    make sure if you derrive from this class that your module will be created during 
+    make sure if you derrive from this class that your module will be created during
     igor::startup() and destroyed during igor::shutdown()
     */
     template <typename T>
     class iModule
     {
-        friend void destroyModules();
-        friend void createModules();
-        
     public:
         /*! \returns the instance of this module
-        */
+         */
         __IGOR_INLINE__ static T &getInstance()
         {
             con_assert(iModule<T>::_instance != nullptr, "module not instanciated");
@@ -55,30 +52,16 @@ namespace igor
         }
 
         /*! returns true if the instance of this is currently instantiated
-        */
+         */
         __IGOR_INLINE__ static bool isInstantiated()
         {
             return iModule<T>::_instance ? true : false;
         }
 
-    protected:
-        /*! default ctor
-
-        does nothing
-        */
-        iModule() = default;
-
-        /*! dtor
-        */
-        virtual ~iModule() = default;
-
-    private:
-        /*! pointer to the module instance
-        */
-        static T *_instance;
-
         /*! creates the single instance of a module
-        */
+
+        only call this if you know what you are doing
+         */
         static void create()
         {
             con_assert_sticky(iModule<T>::_instance == nullptr, "module already initialized");
@@ -86,7 +69,9 @@ namespace igor
         }
 
         /*! destroys the single instance of a module
-        */
+
+        only call this if you know what you are doing
+         */
         static void destroy()
         {
             con_assert_sticky(iModule<T>::_instance != nullptr, "module already destroyed");
@@ -94,13 +79,27 @@ namespace igor
             iModule<T>::_instance = nullptr;
         }
 
-        /*! copy constructor is not allowed to use
-        */
+    protected:
+        /*! does nothing
+         */
+        iModule() = default;
+
+        /*! does nothing
+         */
+        virtual ~iModule() = default;
+
+    private:
+        /*! pointer to the module instance
+         */
+        static T *_instance;
+
+        /*! copy constructor is not allowed to be used
+         */
         iModule(const iModule &p) = default;
     };
 
     /*! the actual instance definition of any module
-    */
+     */
     template <typename T>
     T *iModule<T>::_instance = nullptr;
 

@@ -144,20 +144,20 @@ namespace iaux
 #ifdef __IGOR_WINDOWS__
         __debugbreak();
 #endif
+
+#ifdef __IGOR_LINUX__
+        __builtin_trap();
+#endif
+
         std::exit(EXIT_FAILURE);
     }
 
     void iaConsole::setLogLevel(iaLogLevel logLevel)
     {
-        if (_logLevel != logLevel)
-        {
-            _logLevel = iaLogLevel::Info;
-            con_info("log level is " << logLevel);
-            _logLevel = logLevel;
-        }
+        _logLevel = logLevel;
     }
 
-    std::wostream& operator<<(std::wostream& stream, const iaLogLevel &logLevel)
+    std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel)
     {
         const static std::wstring text[] = {
             L"Fatal",
@@ -261,8 +261,8 @@ namespace iaux
         }
 
         *this << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
-              << applicationTime << printThreadID << iaForegroundColor::White
-              << "[" << color << tag << iaForegroundColor::White << "] ";
+              << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White
+              << " [" << color << tag << iaForegroundColor::White << "] ";
     }
 
     void iaConsole::lock()
@@ -317,10 +317,9 @@ namespace iaux
 
     void iaConsole::printStats()
     {
-        *this << LOCK;
-        printHead(iaLogLevel::Info);
-        *this << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl;
-        iaConsole::getInstance() << UNLOCK;
+        *this << LOCK << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
+              << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [STATS] "
+              << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl << UNLOCK;
     }
 
     void iaConsole::activateLogfile(bool activate)

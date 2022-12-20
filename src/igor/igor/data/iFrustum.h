@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iFRUSTUM__
-#define __iFRUSTUM__
+#ifndef __IGOR_FRUSTUM__
+#define __IGOR_FRUSTUM__
 
 #include <igor/data/iPlane.h>
 
@@ -42,7 +42,7 @@ namespace igor
     \todo ther is something wrong with the planes
     */
     template <class T>
-    class IGOR_API_TEMPLATE iFrustum
+    class IGOR_API_EXPORT_ONLY iFrustum
     {
 
     public:

@@ -87,7 +87,7 @@ namespace igor
                                  << endl;
         iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek" << endl
                                  << endl;
-        iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, GLee, stb_image, TinyXML, EnTT" << endl
+        iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image, TinyXML, EnTT" << endl
                                  << endl;
         iaConsole::getInstance() << T << "    get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
@@ -108,9 +108,7 @@ namespace igor
             date.getDay() == 29)
         {
             iaConsole::getInstance().printCake();
-        }
-
-        con_info("current directory \"" << iaDirectory::getCurrentDirectory() << "\"");
+        }        
     }
 
     void startup()
@@ -120,8 +118,6 @@ namespace igor
 
     void createModules()
     {
-        iTimer::create();
-        printInfo();
         iApplication::create();
         iEvaluationManager::create();
         iEntityManager::create();
@@ -132,9 +128,8 @@ namespace igor
         iKeyboard::create();
         iPhysics::create();
         iRenderer::create();
-        iTextureResourceFactory::create();
         iMaterialResourceFactory::create();
-        iResourceManager::create();
+        iTextureResourceFactory::create();        
         iWidgetManager::create();
         iSceneFactory::create();
         iNodeManager::create();
@@ -188,7 +183,7 @@ namespace igor
         if (iRenderer::isInstantiated())
         {
             iRenderer::destroy();
-        }
+        }        
 
         if (iPhysics::isInstantiated())
         {
@@ -243,9 +238,10 @@ namespace igor
 
     void startupArgs(int argc, wchar_t **argv)
     {
-        iaux::startup();
-
-        createModules();
+        // first things first
+        iaux::startup();        
+        iTimer::create();
+        printInfo();
 
         iConfigReader configReader;
         iaString configurationFilepath;
@@ -265,7 +261,7 @@ namespace igor
                     }
                     else
                     {
-                        con_err("config file " << file.getFullFileName() << " does no exist");
+                        con_err("config file " << file.getFullFileName() << " does no exist. Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
                     }
                 }
                 else
@@ -279,23 +275,20 @@ namespace igor
         if (configurationFilepath.isEmpty())
         {
 #ifdef __IGOR_WINDOWS__
-            iaFile file(L"..\\config\\igor.xml");
-
-            if (file.exist())
-            {
-                configurationFilepath = file.getFullFileName();
-            }
+            const static std::vector<iaString> configLocations = {
+                L"config\\igor.xml"};
 #endif
 
 #ifdef __IGOR_LINUX__
-            const static iaString configLocations[] = {
+            const static std::vector<iaString> configLocations = {
                 L"~/.Igor/igor.xml",
                 L"/etc/igor/igor.xml",
                 L"../config/igor.xml"};
+#endif
 
-            for (int i = 0; i < 3; ++i)
+            for (const auto &config : configLocations)
             {
-                iaFile file(configLocations[i]);
+                iaFile file(config);
 
                 if (file.exist())
                 {
@@ -304,18 +297,22 @@ namespace igor
                 }
             }
 
-#endif
         }
+
+        // need the resource manager befor we read the config
+        iResourceManager::create();
 
         if (!configurationFilepath.isEmpty())
         {
             configReader.readConfiguration(configurationFilepath);
-            con_info("load configuration \"" << configurationFilepath << "\"");
+            con_info("loaded configuration \"" << configurationFilepath << "\"");
         }
         else
         {
-            con_err("found no configuration file");
+            con_crit("found no configuration file. Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
         }
+        
+        createModules();
     }
 
     void shutdown()

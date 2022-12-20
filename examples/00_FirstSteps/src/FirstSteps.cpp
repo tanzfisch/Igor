@@ -4,12 +4,6 @@
 
 #include "FirstSteps.h"
 
-#include <igor/system/iTimer.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 FirstSteps::FirstSteps()
     : ExampleBase(nullptr, "First Steps", false)
 {

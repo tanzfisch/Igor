@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPHYSICSJOINT__
-#define __iPHYSICSJOINT__
+#ifndef __IGOR_PHYSICSJOINT__
+#define __IGOR_PHYSICSJOINT__
 
 #include <igor/iDefines.h>
 

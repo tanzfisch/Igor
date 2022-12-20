@@ -29,18 +29,12 @@
 #ifndef __OBJ2OMPF__
 #define __OBJ2OMPF__
 
-#include <igor/scene/nodes/iNode.h>
-using namespace igor;
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/igor.h>
 
 namespace igor
 {
     class iNode;
 }
-
-using namespace igor;
 
 /*! obj to ompf converter
 */

@@ -40,7 +40,7 @@ namespace igor
     /*! Axis aligned cube
 	*/
     template <class T>
-    class IGOR_API_TEMPLATE iAACube
+    class IGOR_API_EXPORT_ONLY iAACube
     {
     public:
         /*! does nothing

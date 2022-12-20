@@ -51,7 +51,7 @@ namespace iaux
 
     /*! wide char (unicode) character string with trailing zero and length
 
-    \todo should eventually store data UTF-8 encoded internally
+    \todo should eventually store data UTF-8 encoded internally instead of wstring
     */
     class IAUX_API iaString
     {
@@ -416,6 +416,18 @@ namespace iaux
         */
         static iaString toString(float32 value, int afterPoint = 4);
 
+        /*! human readabile number
+
+        3000 -> 3k
+        3000000 -> 3M
+        3000000000 -> 3G
+        3000000000000 -> 3T
+
+        \param value input value
+        \returns human readable number
+        */
+        static iaString toStringUnits(int64 value);
+
         /*! transforms a iaString to a float
 
         \param text the string
@@ -624,12 +636,14 @@ namespace iaux
 
 } // namespace iaux
 
+/*! so can be used as key in a map
+ */
 template <>
 struct std::hash<iaux::iaString>
 {
-    std::size_t operator()(const iaux::iaString &f) const
+    std::size_t operator()(const iaux::iaString &value) const
     {
-        return static_cast<std::size_t>(f.getHashValue());
+        return static_cast<std::size_t>(value.getHashValue());
     }
 };
 

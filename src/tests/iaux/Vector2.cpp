@@ -8,8 +8,8 @@ IAUX_TEST(Vector2Tests, Initial)
 {
 	iaVector2d vec;
 
-	IAUX_EXPECT_EQ(vec._x, 0);
-	IAUX_EXPECT_EQ(vec._y, 0);
+	IAUX_EXPECT_EQUAL(vec._x, 0);
+	IAUX_EXPECT_EQUAL(vec._y, 0);
 }
 
 IAUX_TEST(Vector2Tests, Convert)
@@ -18,8 +18,8 @@ IAUX_TEST(Vector2Tests, Convert)
 
 	iaVector2f vec2 = vec.convert<float32>();
 
-	IAUX_EXPECT_EQ(vec2._x, 1.0f);
-	IAUX_EXPECT_EQ(vec2._y, 2.0f);
+	IAUX_EXPECT_EQUAL(vec2._x, 1.0f);
+	IAUX_EXPECT_EQUAL(vec2._y, 2.0f);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dParamCtor)
@@ -35,7 +35,7 @@ IAUX_TEST(Vector2Tests, Vector2dLenghtZero)
 	iaVector2d vec;
 	float64 lenght = vec.length();
 
-	IAUX_EXPECT_EQ(lenght, 0.0);
+	IAUX_EXPECT_EQUAL(lenght, 0.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dLenght)
@@ -43,7 +43,7 @@ IAUX_TEST(Vector2Tests, Vector2dLenght)
 	iaVector2d vec(3.0, 4.0);
 	float64 lenght = vec.length();
 
-	IAUX_EXPECT_EQ(lenght, 5.0);
+	IAUX_EXPECT_EQUAL(lenght, 5.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dLenght2)
@@ -51,7 +51,7 @@ IAUX_TEST(Vector2Tests, Vector2dLenght2)
 	iaVector2d vec(3.0, 4.0);
 	float64 lenght = vec.length2();
 
-	IAUX_EXPECT_EQ(lenght, 25.0);
+	IAUX_EXPECT_EQUAL(lenght, 25.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dDistance)
@@ -60,7 +60,7 @@ IAUX_TEST(Vector2Tests, Vector2dDistance)
 	iaVector2d vec2(1.0, 1.0);
 	float64 distance = vec1.distance(vec2);
 
-	IAUX_EXPECT_EQ(distance, 5.0);
+	IAUX_EXPECT_EQUAL(distance, 5.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dDistance2)
@@ -69,7 +69,7 @@ IAUX_TEST(Vector2Tests, Vector2dDistance2)
 	iaVector2d vec2(1.0, 1.0);
 	float64 distance = vec1.distance2(vec2);
 
-	IAUX_EXPECT_EQ(distance, 25.0);
+	IAUX_EXPECT_EQUAL(distance, 25.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dAngleX)
@@ -77,7 +77,7 @@ IAUX_TEST(Vector2Tests, Vector2dAngleX)
 	iaVector2d vec(1.0, 0.0);
 	float64 angle = vec.angle();
 
-	IAUX_EXPECT_EQ(angle, static_cast<float64>(M_PI) * 0.5);
+	IAUX_EXPECT_EQUAL(angle, static_cast<float64>(M_PI) * 0.5);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dAngle)
@@ -86,7 +86,7 @@ IAUX_TEST(Vector2Tests, Vector2dAngle)
 	iaVector2d vec2(0.0, 1.0);
 	float64 angle = vec1.angle(vec2);
 
-	IAUX_EXPECT_EQ(angle, static_cast<float64>(M_PI) * 0.5);
+	IAUX_EXPECT_EQUAL(angle, static_cast<float64>(M_PI) * 0.5);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dSet)

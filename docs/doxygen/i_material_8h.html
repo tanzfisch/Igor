@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -92,18 +92,15 @@ $(document).ready(function(){initNavTree('i_material_8h.html',''); initResizable
 <div class="title">iMaterial.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="ia_string_8h.html">iaux/data/iaString.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_i_d_generator_8h.html">iaux/data/iaIDGenerator.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_render_state_set_8h.html">igor/graphics/iRenderStateSet.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_shader_8h.html">igor/resources/material/iShader.h</a>&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="i_render_state_set_8h.html">igor/renderer/iRenderStateSet.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_shader_program_8h.html">igor/renderer/shaders/iShaderProgram.h</a>&gt;</code><br />
+<code>#include &lt;iaux/data/iaUUID.h&gt;</code><br />
+<code>#include &lt;iaux/data/iaColor3.h&gt;</code><br />
+<code>#include &lt;iaux/data/iaColor4.h&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_material_8inl.html">igor/resources/material/iMaterial.inl</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_shader_source.html">igor::iShaderSource</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html">igor::iMaterial</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -114,10 +111,10 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aa5075c79f09c75aef943cb9a505077ed"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aa5075c79f09c75aef943cb9a505077ed">igor::iMaterialID</a></td></tr>
-<tr class="separator:aa5075c79f09c75aef943cb9a505077ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41358a63f3a18dbf324fa5df53760e71"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; iMaterial &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">igor::iMaterialPtr</a></td></tr>
 <tr class="separator:a41358a63f3a18dbf324fa5df53760e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6108e4e7c2962f706448d22284ee3181"><td class="memItemLeft" align="right" valign="top">typedef iaUUID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6108e4e7c2962f706448d22284ee3181">igor::iMaterialID</a></td></tr>
+<tr class="separator:a6108e4e7c2962f706448d22284ee3181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

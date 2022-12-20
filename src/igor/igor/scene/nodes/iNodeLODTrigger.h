@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODELODTRIGGER__
-#define __iNODELODTRIGGER__
+#ifndef __IGOR_NODELODTRIGGER__
+#define __IGOR_NODELODTRIGGER__
 
 #include <igor/scene/nodes/iNode.h>
 

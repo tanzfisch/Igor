@@ -38,16 +38,32 @@
 namespace iaux
 {
 
+    /*! file open modes
+     */
+    enum class iFileOpenMode
+    {
+        ReadBinary,
+        WriteBinary,
+        ReadWriteBinary
+    };
+
+    /*! prints the file open mode in the console
+
+    \param stream the stream to log to
+    \param mode the file open mode
+    \returns the stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iFileOpenMode &mode);
+
     /*! handles files
 
     \todo nice to have getCreationTime
     \todo nice to have getModifyTime
     \todo nice to have getAccessTime
-    \todo nice to have getDriveLetter
+    \todo nice to have getDriveLetter for windows
     */
     class IAUX_API iaFile
     {
-
     public:
         /*! creates an object for a file
 
@@ -56,22 +72,26 @@ namespace iaux
         iaFile(const iaString &fileName);
 
         /*! automatic closes the file if not closed yet
-        */
+         */
         ~iaFile();
 
         /*! opens the file with the needed rights
 
-        \param writeable true: open for writing; false: open read only
+        \param mode file open mode
         */
-        bool open(bool writeable = false);
+        bool open(const iFileOpenMode &mode = iFileOpenMode::ReadBinary);
 
         /*! closes the file
-        */
+         */
         void close();
 
         /*! \returns true: if the file is open; false: if the file is closed
-        */
-        bool isOpen();
+         */
+        bool isOpen() const;
+
+        /*! \returns the file open mode if open
+         */
+        const iFileOpenMode &getFileOpenMode() const;
 
         /*! renames the file to a new name
 
@@ -100,28 +120,28 @@ namespace iaux
         static bool exist(const iaString &filename);
 
         /*! \returns only the parent path
-        */
+         */
         iaString getPath() const;
 
         /*! \returns only the filename
-        */
+         */
         iaString getFileName() const;
 
         /*! \returns filename without extension
-        */
+         */
         iaString getStem() const;
 
         /*! \returns the full path & filename
-        */
+         */
         iaString getFullFileName() const;
 
         /*! \returns the file extension
-        */
+         */
         iaString getExtension() const;
 
         /*! \returns the size of the file
-        */
-        int64 getSize();
+         */
+        int64 getSize() const;
 
         /*! resizes the file
 
@@ -155,19 +175,19 @@ namespace iaux
 
     private:
         /*! the file name
-        */
+         */
         iaString _filename = L"";
 
-        /*! true: the file is opened writeable; false: the file is read only
-        */
-        bool _isWriteable = false;
+        /*! file open mode
+         */
+        iFileOpenMode _mode;
 
         /*! size of file
-        */
+         */
         int64 _size = 0;
 
         /*! the file handle
-        */
+         */
         FILE *_fileHandle = nullptr;
     };
 

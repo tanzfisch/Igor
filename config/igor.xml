@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- all paths have to be relative to current directory when igor is executed -->
-	<ResourceManager>
-		<SearchPaths>
-			<SearchPath>..\data\textures</SearchPath>
-			<SearchPath>..\data\fonts</SearchPath>
-			<SearchPath>..\data\shaders</SearchPath>
-			<SearchPath>..\data\models</SearchPath>
-			<SearchPath>..\data\sounds</SearchPath>
-			<SearchPath>..\data\effects</SearchPath>
-			<SearchPath>..\data</SearchPath>
-		</SearchPaths>
-	</ResourceManager>
+    <!-- all paths have to be relative to current directory when igor is executed -->
+    <ResourceManager>
+        <SearchPaths>
+            <SearchPath>data\textures</SearchPath>
+            <SearchPath>data\fonts</SearchPath>
+            <SearchPath>data\shaders</SearchPath>
+            <SearchPath>data\materials</SearchPath>
+            <SearchPath>data\models</SearchPath>
+            <SearchPath>data\sounds</SearchPath>
+            <SearchPath>data\effects</SearchPath>
+            <SearchPath>data</SearchPath>
+        </SearchPaths>
+    </ResourceManager>
+
+    <!-- available log levels: Assert, Error, Warning, Info, User (default), Debug, Trace -->
     <Logging>
-        <!-- available log levels: Assert, Error, Warning, Info, User (default), Debug, Trace -->
         <LogLevel>User</LogLevel> 
     </Logging>
 </Igor>

@@ -101,7 +101,7 @@ namespace igor
 		return iWidget::handleMouseKeyDown(key);
 	}
 
-	void iWidgetNumberChooser::handleMouseMove(const iaVector2i &pos)
+	void iWidgetNumberChooser::handleMouseMove(const iaVector2f &pos)
 	{
 		if (!isActive())
 		{

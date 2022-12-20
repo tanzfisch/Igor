@@ -44,7 +44,7 @@ namespace igor
     public:
         /*! init members
         */
-        iLayer(iWindow *window, const iaString &name = "Layer", int32 zIndex = 0);
+        iLayer(iWindowPtr window, const iaString &name = "Layer", int32 zIndex = 0);
 
         /*! does nothing
         */
@@ -82,7 +82,7 @@ namespace igor
 
         /*! \returns window
         */
-        iWindow *getWindow() const;
+        iWindowPtr getWindow() const;
 
     private:
         /*! the layer name
@@ -95,7 +95,7 @@ namespace igor
 
         /*! id of the window the laye is part of
         */
-        iWindow *_window;
+        iWindowPtr _window;
     };
 
 }; // namespace igor

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iCONTOURINGCUBES__
-#define __iCONTOURINGCUBES__
+#ifndef __IGOR_CONTOURINGCUBES__
+#define __IGOR_CONTOURINGCUBES__
 
 #include <igor/terrain/data/iVoxelBlock.h>
 #include <igor/resources/mesh/iMeshBuilder.h>

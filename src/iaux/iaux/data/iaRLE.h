@@ -39,7 +39,7 @@ namespace iaux
     /*! one bock in rle
     */
     template <typename TValue, typename TIndex>
-    struct IAUX_API_TEMPLATE iaRLEBlock
+    struct IAUX_API_EXPORT_ONLY iaRLEBlock
     {
         TIndex _length = static_cast<TIndex>(0);
         TValue _value = static_cast<TValue>(0);
@@ -48,7 +48,7 @@ namespace iaux
     /*! run lenght encoded buffer
     */
     template <typename TValue, typename TIndex>
-    class IAUX_API_TEMPLATE iaRLE
+    class IAUX_API_EXPORT_ONLY iaRLE
     {
 
     public:

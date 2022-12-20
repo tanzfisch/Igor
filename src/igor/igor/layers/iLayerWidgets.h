@@ -31,7 +31,7 @@
 
 #include <igor/layers/iLayer.h>
 #include <igor/ui/theme/iWidgetTheme.h>
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iView.h>
 #include <igor/events/iEventWindow.h>
 
 namespace igor
@@ -49,7 +49,7 @@ namespace igor
         \param name the name of this layer
         \param zIndex the z index
         */
-        iLayerWidgets(iWidgetTheme *theme, iWindow *window, const iaString &name, int32 zIndex);
+        iLayerWidgets(iWidgetTheme *theme, iWindowPtr window, const iaString &name, int32 zIndex);
 
         /*! does nothing
         */

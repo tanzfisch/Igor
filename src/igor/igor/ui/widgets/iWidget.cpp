@@ -667,7 +667,7 @@ namespace igor
         return false;
     }
 
-    void iWidget::handleMouseMove(const iaVector2i &pos)
+    void iWidget::handleMouseMove(const iaVector2f &pos)
     {
         if (isActive())
         {
@@ -741,7 +741,7 @@ namespace igor
         }
     }
 
-    iaVector2i iWidget::getLastMousePos() const
+    iaVector2f iWidget::getLastMousePos() const
     {
         return _posLast;
     }
@@ -888,7 +888,7 @@ namespace igor
         _absoluteY = _relativeY + offsetY;
     }
 
-    void iWidget::calcChildOffsets(std::vector<iaRectanglei> &offsets)
+    void iWidget::calcChildOffsets(std::vector<iaRectanglef> &offsets)
     {
         offsets.clear();
 
@@ -897,7 +897,7 @@ namespace igor
             int32 clientWidth = _actualWidth - _clientAreaLeft - _clientAreaRight;
             int32 clientHeight = _actualHeight - _clientAreaTop - _clientAreaBottom;
 
-            offsets.push_back(iaRectanglei(_clientAreaLeft, _clientAreaTop, clientWidth, clientHeight));
+            offsets.push_back(iaRectanglef(_clientAreaLeft, _clientAreaTop, clientWidth, clientHeight));
         }
     }
 

@@ -6,7 +6,7 @@
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeVolume.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
@@ -14,15 +14,6 @@ using namespace iaux;
 
 namespace igor
 {
-
-    iNodeVisitorRenderColorID::iNodeVisitorRenderColorID()
-    {
-        _material = iMaterialResourceFactory::getInstance().createMaterial();
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("default.vert", iShaderObjectType::Vertex);
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("default_directional_light.frag", iShaderObjectType::Fragment);
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->compileShader();
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    }
 
     bool iNodeVisitorRenderColorID::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
@@ -61,8 +52,7 @@ namespace igor
     void iNodeVisitorRenderColorID::preTraverse()
     {
         _currentMatrix.identity();
-        iRenderer::getInstance().setColor(1, 1, 1, 1);
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_material));
+        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
     }
 
     void iNodeVisitorRenderColorID::postTraverse()

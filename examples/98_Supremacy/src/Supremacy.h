@@ -40,7 +40,7 @@ public:
 
     /*! ctor
     */
-    Supremacy(iWindow *window);
+    Supremacy(iWindowPtr window);
 
     /*! does nothing
     */
@@ -55,14 +55,6 @@ private:
     /*! the view we render 2D to
      */
     iView _viewOrtho;
-
-    /*! material id of a non textured material
-     */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! plain material for rendering primitives
-     */
-    uint64 _plainMaterial = iMaterial::INVALID_MATERIAL_ID;
 
     /*! entity scene
      */
@@ -84,6 +76,9 @@ private:
      */
     iTimerHandlePtr _updateTimerHandle;
 
+    iTimerHandlePtr _statsTimerHandle;
+    iTimerHandlePtr _spawnTimerHandle;
+
     /*! async loading of textures
      */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
@@ -96,9 +91,17 @@ private:
      */
     iTexturePtr _shadow;
 
+    /*! floor
+    */
+    iTexturePtr _backgroundTexture;
+
     /*! texture font we use to display texts
      */
-    iTextureFontPtr _font = nullptr;
+    iTextureFontPtr _font;
+
+    /*! if true game logic is on hold
+    */
+    bool _gamePause = false;
 
     /*! called when added to layer stack
      */
@@ -123,6 +126,8 @@ private:
     /*! renders HUD
     */
     void onRenderHUD();
+
+    void onRenderStats();
 
     /*! game logic intervall
 
@@ -162,9 +167,15 @@ private:
 
     void onUpdateRangeSystem();
 
+    void onUpdateOrientationSystem();
+
     void onUpdateCleanUpTheDeadSystem();
 
     void onUpdateWeaponSystem();
+
+    void onSpawnStuff(const iaTime &time);
+
+    void onUpdateStats(const iaTime &time);
 
     void aquireTargetFor(iEntity &entity);
 
@@ -181,6 +192,15 @@ private:
 
     bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
     bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
+
+    struct GameStats
+    {
+        float32 _playerDamage;
+        float32 _playerExperience;
+        float32 _enemyHealth;
+    };
+
+    std::vector<GameStats> _stats;
 };
 
 #endif // __SUPREMACY__
