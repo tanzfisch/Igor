@@ -23,9 +23,9 @@ Changelog                           {#changelog}
 Known Missing features are:
 - Instancing
 - new particle system does not support all previous features yet
-- Mica
-- world grid resolution feature
-- color ID render mode
+- Mica does not build
+- missing world grid resolution feature
+- missing color ID render mode feture used to select objects in the scene by Mica
 
 0.33.0
 ------
