@@ -6,7 +6,7 @@
 
 #include <igor/renderer/utils/iRendererUtils.h>
 
-#include <igor/simulation/iParticleSystem3D.h>
+#include <igor/simulation/iParticleSystem.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>

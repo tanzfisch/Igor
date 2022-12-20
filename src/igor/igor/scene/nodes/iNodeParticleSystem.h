@@ -32,7 +32,7 @@
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/material/iTargetMaterial.h>
-#include <igor/simulation/iParticleSystem3D.h>
+#include <igor/simulation/iParticleSystem.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaGradient.h>
@@ -396,7 +396,7 @@ namespace igor
 
         /*! the actual particle system implementation
         */
-        iParticleSystem3D _particleSystem;
+        iParticleSystem _particleSystem;
 
         /*! target material
         */

@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/simulation/iParticleSystem3D.h>
+#include <igor/simulation/iParticleSystem.h>
 #include <iaux/system/iaConsole.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
@@ -17,29 +17,29 @@ using namespace iaux;
 
 namespace igor
 {
-    float32 iParticleSystem3D::_simulationRate = 60.0f;
+    float32 iParticleSystem::_simulationRate = 60.0f;
 
-    iParticleSystem3D::iParticleSystem3D()
+    iParticleSystem::iParticleSystem()
     {
         _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
         initDefaultGradients();
     }
 
-    iParticleSystem3D::~iParticleSystem3D()
+    iParticleSystem::~iParticleSystem()
     {
     }
 
-    const iSphered &iParticleSystem3D::getBoundingSphere() const
+    const iSphered &iParticleSystem::getBoundingSphere() const
     {
         return _boundingSphere;
     }
 
-    const iAABoxd &iParticleSystem3D::getBoundingBox() const
+    const iAABoxd &iParticleSystem::getBoundingBox() const
     {
         return _boundingBox;
     }
 
-    void iParticleSystem3D::initDefaultGradients()
+    void iParticleSystem::initDefaultGradients()
     {
         _startVisibleTimeGradient.setValue(0.0f, iaVector2f(2.5f, 3.5f));
 
@@ -48,7 +48,7 @@ namespace igor
         _colorGradient.setValue(0.5f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
         _colorGradient.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
-        _emissionRateGradient.setValue(0.0f, 20.0f / iParticleSystem3D::_simulationRate);
+        _emissionRateGradient.setValue(0.0f, 20.0f / iParticleSystem::_simulationRate);
 
         _sizeScaleGradient.setValue(0.0f, 1.0f);
 
@@ -69,42 +69,42 @@ namespace igor
         _torqueFactorGradient.setValue(1.0f, 0.0f);
     }
 
-    void iParticleSystem3D::setVelocityOriented(bool velocityOriented)
+    void iParticleSystem::setVelocityOriented(bool velocityOriented)
     {
         _velocityOriented = velocityOriented;
     }
 
-    bool iParticleSystem3D::getVelocityOriented() const
+    bool iParticleSystem::getVelocityOriented() const
     {
         return _velocityOriented;
     }
 
-    void iParticleSystem3D::setColorGradient(const iaGradientColor4f &colorGradient)
+    void iParticleSystem::setColorGradient(const iaGradientColor4f &colorGradient)
     {
         _colorGradient = colorGradient;
     }
 
-    void iParticleSystem3D::getColorGradient(iaGradientColor4f &colorGradient) const
+    void iParticleSystem::getColorGradient(iaGradientColor4f &colorGradient) const
     {
         colorGradient = _colorGradient;
     }
 
-    const iaGradientColor4f &iParticleSystem3D::getColorGradient() const
+    const iaGradientColor4f &iParticleSystem::getColorGradient() const
     {
         return _colorGradient;
     }
 
-    void iParticleSystem3D::setEmissionGradient(const iaGradientf &emissionGradient)
+    void iParticleSystem::setEmissionGradient(const iaGradientf &emissionGradient)
     {
         _emissionRateGradient = emissionGradient;
     }
 
-    void iParticleSystem3D::getEmissionGradient(iaGradientf &emissionGradient) const
+    void iParticleSystem::getEmissionGradient(iaGradientf &emissionGradient) const
     {
         emissionGradient = _emissionRateGradient;
     }
 
-    void iParticleSystem3D::setTextureTiling(uint8 columns, uint8 rows)
+    void iParticleSystem::setTextureTiling(uint8 columns, uint8 rows)
     {
         con_assert(columns > 0 && rows > 0, "out of range");
 
@@ -115,89 +115,89 @@ namespace igor
         }
     }
 
-    uint8 iParticleSystem3D::getTextureColumns() const
+    uint8 iParticleSystem::getTextureColumns() const
     {
         return _firstTextureColumns;
     }
 
-    uint8 iParticleSystem3D::getTextureRows() const
+    uint8 iParticleSystem::getTextureRows() const
     {
         return _firstTextureRows;
     }
 
-    void iParticleSystem3D::setSecondTextureRotation(float32 angle)
+    void iParticleSystem::setSecondTextureRotation(float32 angle)
     {
         _octave1Rotation = angle;
     }
 
-    void iParticleSystem3D::setThirdTextureRotation(float32 angle)
+    void iParticleSystem::setThirdTextureRotation(float32 angle)
     {
         _octave2Rotation = angle;
     }
 
-    float32 iParticleSystem3D::getSecondTextureRotation()
+    float32 iParticleSystem::getSecondTextureRotation()
     {
         return _octave1Rotation;
     }
 
-    float32 iParticleSystem3D::getThirdTextureRotation()
+    float32 iParticleSystem::getThirdTextureRotation()
     {
         return _octave2Rotation;
     }
 
-    float32 iParticleSystem3D::getVorticityConfinement()
+    float32 iParticleSystem::getVorticityConfinement()
     {
         return _vorticityConfinement;
     }
 
-    float32 iParticleSystem3D::getVortexTorqueMin()
+    float32 iParticleSystem::getVortexTorqueMin()
     {
         return _minVortexTorque;
     }
 
-    float32 iParticleSystem3D::getVortexTorqueMax()
+    float32 iParticleSystem::getVortexTorqueMax()
     {
         return _maxVortexTorque;
     }
 
-    float32 iParticleSystem3D::getVortexRangeMin()
+    float32 iParticleSystem::getVortexRangeMin()
     {
         return _minVortexRange;
     }
 
-    float32 iParticleSystem3D::getVortexRangeMax()
+    float32 iParticleSystem::getVortexRangeMax()
     {
         return _maxVortexRange;
     }
 
-    uint8 iParticleSystem3D::getVortexCheckRange()
+    uint8 iParticleSystem::getVortexCheckRange()
     {
         return _vortexCheckRange;
     }
 
-    void iParticleSystem3D::setVortexCheckRange(uint8 checkRange)
+    void iParticleSystem::setVortexCheckRange(uint8 checkRange)
     {
         _vortexCheckRange = checkRange;
     }
 
-    void iParticleSystem3D::start()
+    void iParticleSystem::start()
     {
         _startTime = iTimer::getInstance().getTime();
         _playbackTime = _startTime;
         _running = true;
     }
 
-    void iParticleSystem3D::stop()
+    void iParticleSystem::stop()
     {
         _running = false;
     }
 
-    bool iParticleSystem3D::isRunning()
+    bool iParticleSystem::isRunning()
     {
         return _running;
     }
 
-    void iParticleSystem3D::reset()
+    void iParticleSystem::reset()
     {
         _particlePool.resize(_maxParticleCount);
         _particlePoolIndex = _particlePool.size() - 1;
@@ -218,7 +218,7 @@ namespace igor
         start();
     }
 
-    void iParticleSystem3D::setMaxParticleCount(uint16 max)
+    void iParticleSystem::setMaxParticleCount(uint16 max)
     {
         con_assert(max > 0, "invalid particle count");
 
@@ -232,37 +232,37 @@ namespace igor
         _mustReset = true;
     }
 
-    uint16 iParticleSystem3D::getMaxParticleCount() const
+    uint16 iParticleSystem::getMaxParticleCount() const
     {
         return _maxParticleCount;
     }
 
-    void iParticleSystem3D::setPeriodTime(float32 periodTime)
+    void iParticleSystem::setPeriodTime(float32 periodTime)
     {
         _particleSystemPeriodTime = iaTime::fromSeconds(periodTime);
         _mustReset = true;
     }
 
-    float32 iParticleSystem3D::getPeriodTime() const
+    float32 iParticleSystem::getPeriodTime() const
     {
         return _particleSystemPeriodTime.getSeconds();
     }
 
-    void iParticleSystem3D::setVortexTorque(float32 min, float32 max)
+    void iParticleSystem::setVortexTorque(float32 min, float32 max)
     {
         _minVortexTorque = min;
         _maxVortexTorque = max;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::setVortexRange(float32 min, float32 max)
+    void iParticleSystem::setVortexRange(float32 min, float32 max)
     {
         _minVortexRange = min;
         _maxVortexRange = max;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::resetParticle(iParticle &particle, iParticleEmitter &emitter, float32 particleSystemTime)
+    void iParticleSystem::resetParticle(iParticle &particle, iParticleEmitter &emitter, float32 particleSystemTime)
     {
         iaVector2f minMax;
         iaVector3d position;
@@ -331,18 +331,18 @@ namespace igor
         }
     }
 
-    void iParticleSystem3D::setVortexToParticleRate(float32 rate)
+    void iParticleSystem::setVortexToParticleRate(float32 rate)
     {
         _vortexToParticleRate = rate;
         _mustReset = true;
     }
 
-    float32 iParticleSystem3D::getVortexToParticleRate() const
+    float32 iParticleSystem::getVortexToParticleRate() const
     {
         return _vortexToParticleRate;
     }
 
-    void iParticleSystem3D::createParticles(uint32 particleCount, iParticleEmitter &emitter, float32 particleSystemTime)
+    void iParticleSystem::createParticles(uint32 particleCount, iParticleEmitter &emitter, float32 particleSystemTime)
     {
         for (uint32 i = 0; i < particleCount; ++i)
         {
@@ -353,50 +353,50 @@ namespace igor
         }
     }
 
-    void iParticleSystem3D::setParticleSystemMatrix(const iaMatrixd &worldInvMatrix)
+    void iParticleSystem::setParticleSystemMatrix(const iaMatrixd &worldInvMatrix)
     {
         _particleSystemInvWorldMatrix = worldInvMatrix;
     }
 
-    void iParticleSystem3D::setStartVisibleTimeGradient(const iaGradientVector2f &startVisibleTimeGradient)
+    void iParticleSystem::setStartVisibleTimeGradient(const iaGradientVector2f &startVisibleTimeGradient)
     {
         _startVisibleTimeGradient = startVisibleTimeGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartVisibleTimeGradient(iaGradientVector2f &startVisibleTimeGradient) const
+    void iParticleSystem::getStartVisibleTimeGradient(iaGradientVector2f &startVisibleTimeGradient) const
     {
         startVisibleTimeGradient = _startVisibleTimeGradient;
     }
 
-    void iParticleSystem3D::setSizeScaleGradient(const iaGradientf &sizeScaleGradient)
+    void iParticleSystem::setSizeScaleGradient(const iaGradientf &sizeScaleGradient)
     {
         _sizeScaleGradient = sizeScaleGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getSizeScaleGradient(iaGradientf &sizeScaleGradient) const
+    void iParticleSystem::getSizeScaleGradient(iaGradientf &sizeScaleGradient) const
     {
         sizeScaleGradient = _sizeScaleGradient;
     }
 
-    bool iParticleSystem3D::isFinished() const
+    bool iParticleSystem::isFinished() const
     {
         return _finished;
     }
 
-    void iParticleSystem3D::setLoop(bool loop)
+    void iParticleSystem::setLoop(bool loop)
     {
         _loop = loop;
         _mustReset = true;
     }
 
-    bool iParticleSystem3D::isLooped() const
+    bool iParticleSystem::isLooped() const
     {
         return _loop;
     }
 
-    void iParticleSystem3D::iterateFrame()
+    void iParticleSystem::iterateFrame()
     {
         int32 index = 0;
         float32 sizeScale = 0;
@@ -464,7 +464,7 @@ namespace igor
         }
     }
 
-    void iParticleSystem3D::onUpdate(iParticleEmitter &emitter)
+    void iParticleSystem::onUpdate(iParticleEmitter &emitter)
     {
         if (_mustReset)
         {
@@ -473,7 +473,7 @@ namespace igor
 
         if (_running)
         {
-            iParticleSystem3D::iParticleVertex *vertexBufferDataPtr = _vertexBufferData;
+            iParticleSystem::iParticleVertex *vertexBufferDataPtr = _vertexBufferData;
             iaTime frameTime = iTimer::getInstance().getTime();
 
             // ignore hickups
@@ -510,7 +510,7 @@ namespace igor
         }
     }
 
-    void iParticleSystem3D::updateBuffer()
+    void iParticleSystem::updateBuffer()
     {
         if (_dirtyBuffers)
         {
@@ -519,7 +519,7 @@ namespace igor
                 delete[] _vertexBufferData;
             }
 
-            _vertexBufferData = new iParticleSystem3D::iParticleVertex[_maxParticleCount * 4];
+            _vertexBufferData = new iParticleSystem::iParticleVertex[_maxParticleCount * 4];
 
             _vertexBuffer = iVertexBuffer::create(_maxParticleCount * 4 * sizeof(iParticleVertex));
             _vertexBuffer->setLayout(
@@ -561,12 +561,12 @@ namespace igor
         _vertexBuffer->setData(dataSize, _vertexBufferData);
     }
 
-    iVertexArrayPtr iParticleSystem3D::getVertexArray() const
+    iVertexArrayPtr iParticleSystem::getVertexArray() const
     {
         return _vertexArray;
     }
 
-    void iParticleSystem3D::updateBoundings()
+    void iParticleSystem::updateBoundings()
     {
         // TODO
         if (_particlePool.empty())
@@ -625,78 +625,78 @@ namespace igor
         _boundingSphere._radius = std::max(_boundingBox._halfWidths._x, std::max(_boundingBox._halfWidths._y, _boundingBox._halfWidths._z));
     }
 
-    float32 iParticleSystem3D::getSimulationRate()
+    float32 iParticleSystem::getSimulationRate()
     {
         return _simulationRate;
     }
 
-    void iParticleSystem3D::setStartSizeGradient(const iaGradientVector2f &sizeGradient)
+    void iParticleSystem::setStartSizeGradient(const iaGradientVector2f &sizeGradient)
     {
         _startSizeGradient = sizeGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartSizeGradient(iaGradientVector2f &sizeGradient) const
+    void iParticleSystem::getStartSizeGradient(iaGradientVector2f &sizeGradient) const
     {
         sizeGradient = _startSizeGradient;
     }
 
-    void iParticleSystem3D::setStartVelocityGradient(const iaGradientVector2f &velocityGradient)
+    void iParticleSystem::setStartVelocityGradient(const iaGradientVector2f &velocityGradient)
     {
         _startVelocityGradient = velocityGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartVelocityGradient(iaGradientVector2f &velocityGradient) const
+    void iParticleSystem::getStartVelocityGradient(iaGradientVector2f &velocityGradient) const
     {
         velocityGradient = _startVelocityGradient;
     }
 
-    void iParticleSystem3D::setStartLiftGradient(const iaGradientVector2f &liftGradient)
+    void iParticleSystem::setStartLiftGradient(const iaGradientVector2f &liftGradient)
     {
         _startLiftGradient = liftGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartLiftGradient(iaGradientVector2f &liftGradient) const
+    void iParticleSystem::getStartLiftGradient(iaGradientVector2f &liftGradient) const
     {
         liftGradient = _startLiftGradient;
     }
 
-    void iParticleSystem3D::setAirDrag(float32 airDrag)
+    void iParticleSystem::setAirDrag(float32 airDrag)
     {
         _airDrag = airDrag;
         _mustReset = true;
     }
 
-    float32 iParticleSystem3D::getAirDrag() const
+    float32 iParticleSystem::getAirDrag() const
     {
         return _airDrag;
     }
 
-    void iParticleSystem3D::setStartOrientationGradient(const iaGradientVector2f &orientationGradient)
+    void iParticleSystem::setStartOrientationGradient(const iaGradientVector2f &orientationGradient)
     {
         _startOrientationGradient = orientationGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartOrientationGradient(iaGradientVector2f &orientationGradient) const
+    void iParticleSystem::getStartOrientationGradient(iaGradientVector2f &orientationGradient) const
     {
         orientationGradient = _startOrientationGradient;
     }
 
-    void iParticleSystem3D::setStartOrientationRateGradient(const iaGradientVector2f &orientationRateGradient)
+    void iParticleSystem::setStartOrientationRateGradient(const iaGradientVector2f &orientationRateGradient)
     {
         _startOrientationRateGradient = orientationRateGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartOrientationRateGradient(iaGradientVector2f &orientationRateGradient) const
+    void iParticleSystem::getStartOrientationRateGradient(iaGradientVector2f &orientationRateGradient) const
     {
         orientationRateGradient = _startOrientationRateGradient;
     }
 
-    void iParticleSystem3D::setVorticityConfinement(float32 vc)
+    void iParticleSystem::setVorticityConfinement(float32 vc)
     {
         _vorticityConfinement = vc;
         _mustReset = true;

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PARTICLESYSTEM3D__
-#define __IGOR_PARTICLESYSTEM3D__
+#ifndef __IGOR_PARTICLESYSTEM__
+#define __IGOR_PARTICLESYSTEM__
 
 #include <iaux/data/iaGradient.h>
 #include <igor/data/iAABox.h>
@@ -129,17 +129,17 @@ namespace igor
     \todo maybe we put all particles together in one global particles pool. than we can sort them and we can have global effects like shadowing etc. on each other
     \todo would be nice to be able to show tiles sequencially and not just random aka animated texture
     */
-    class IGOR_API iParticleSystem3D
+    class IGOR_API iParticleSystem
     {
 
     public:
         /*! init default values
          */
-        iParticleSystem3D();
+        iParticleSystem();
 
         /*! clean up
          */
-        virtual ~iParticleSystem3D();
+        virtual ~iParticleSystem();
 
         /*! clears all particles
          */
