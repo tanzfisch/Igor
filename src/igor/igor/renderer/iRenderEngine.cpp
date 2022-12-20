@@ -98,16 +98,8 @@ namespace igor
         return _scene;
     }
 
-    void iRenderEngine::createBuffers()
-    {
-        IGOR_PROFILER_SCOPED(b_cre);
-        iRenderer::getInstance().createBuffers(10);
-    }
-
     void iRenderEngine::render()
     {
-        createBuffers();
-
         if (_scene != nullptr &&
             _currentCamera != nullptr)
         {

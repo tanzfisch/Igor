@@ -161,9 +161,6 @@ namespace igor
          */
         void drawColorIDs();
 
-        /*! triggers the creation of buffers
-         */
-        void createBuffers();
     };
 } // namespace igor
 

@@ -51,14 +51,13 @@ void Particles::onInit()
 
     // set up a meterial for the particles
     _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/particles.mat");
-    // _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/default.mat");
 
     // create the various particle systems
-    /*createWaveParticleSystem();
+    createWaveParticleSystem();
     createDotParticleSystem();
     createSmokeParticleSystem();
     createRingParticleSystem();
-    createFontainParticleSystem();*/
+    createFontainParticleSystem();
     createFireParticleSystem();
 
     // animation

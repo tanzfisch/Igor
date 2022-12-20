@@ -53,13 +53,8 @@ namespace igor
 
     class iInstancer;
     class iRendererData;
-    class iParticle;
 
-    /*! this will eventually replace iRenderer
-
-    \todo I don't like the stencil interfaces
-
-    Main difference between 2D and 3D functions is that in 2D all materials are set implicitly but for 3D you need to call setMaterial to make sure its rendered with the correct material
+    /*! renderer interface
      */
     class IGOR_API iRenderer : public iModule<iRenderer>
     {
@@ -179,8 +174,6 @@ namespace igor
         */
         void setFallbackTexture(const iTexturePtr &texture);
 
-        /////// 2D //////
-
         void drawPoint(float32 x, float32 y, const iaColor4f &color = iaColor4f::white);
         void drawPoint(const iaVector2f &v, const iaColor4f &color = iaColor4f::white);
         void drawPoint(const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
@@ -208,9 +201,9 @@ namespace igor
         void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
         void drawTexturedQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
-        /*! draw specified frame from given atlas
+        /*! draw specified frame of given atlas
          */
-        void drawFrame(const iaMatrixf &matrix, const iAtlasPtr &sprite, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
+        void drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
 
         void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend = true);
 
@@ -254,24 +247,14 @@ namespace igor
         */
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial = nullptr);
 
-        // TODO
+        // TODO this is not working
         void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer);
 
         /////////////// LIGHT ///////////
-
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
         void setLightAmbient(int32 lightnum, iaColor3f &ambient);
         void setLightDiffuse(int32 lightnum, iaColor3f &diffuse);
         void setLightSpecular(int32 lightnum, iaColor3f &specular);
-
-        /*! \todo this is weired stuff we should do that differently
-         */
-        iMeshBuffersPtr createBuffersAsync(iMeshPtr mesh);
-
-        /*!
-        \todo this is weired stuff we should do that differently
-        */
-        void createBuffers(float64 timeLimit = 10.0);
 
         /*! sets line render width
 
@@ -295,7 +278,12 @@ namespace igor
 
         /*! sets ignore render order flag
 
-        If render order is ignored performance might increase. This might make sense if you know what you are doing.
+        If render order is ignored the amount of draw calls will be reduced but this could cause massive artefacts.
+        Only use this if you know what xou are doing.
+
+        By default the renderer will always flush when the next render call changes the type of thing we are rendering.
+
+        For example: Points to Lines or Buffers to Quads
 
         \param ignoreRenderOrder if true render order will be ignored
         */
@@ -614,7 +602,7 @@ namespace igor
         void initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers);
 
         /*! binds current material
-        */
+         */
         void bindCurrentMaterial();
     };
 

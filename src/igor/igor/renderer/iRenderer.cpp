@@ -2135,60 +2135,6 @@ namespace igor
         _data->_lights[lightnum]._specular = specular;
     }
 
-    // TODO I don't like this
-    iMeshBuffersPtr iRenderer::createBuffersAsync(iMeshPtr mesh)
-    {
-        iMeshBuffers *meshBuffer = new iMeshBuffers();
-
-        iMeshBuffersPtr result = iMeshBuffersPtr(meshBuffer);
-
-        _data->_requestedBuffersMutex.lock();
-        _data->_requestedBuffers.push_back(std::pair<iMeshPtr, iMeshBuffersPtr>(mesh, result));
-        _data->_requestedBuffersMutex.unlock();
-
-        return result;
-    }
-
-    void iRenderer::createBuffers(float64 timeLimit)
-    {
-        /*iaTime endTime = iaTime::getNow();
-        endTime += iaTime::fromMilliseconds(timeLimit);
-        std::deque<std::pair<iMeshPtr, iMeshBuffersPtr>>::iterator entryIter;
-
-        iMeshPtr mesh;
-        iMeshBuffersPtr meshBuffers;
-        bool proceed = false;
-
-        while (true)
-        {
-            _data->_requestedBuffersMutex.lock();
-            if (!_data->_requestedBuffers.empty())
-            {
-                entryIter = _data->_requestedBuffers.begin();
-                mesh = (*entryIter).first;
-                meshBuffers = (*entryIter).second;
-                _data->_requestedBuffers.pop_front();
-                proceed = true;
-            }
-            _data->_requestedBuffersMutex.unlock();
-
-            if (proceed)
-            {
-                initBuffers(mesh, meshBuffers);
-                proceed = false;
-            }
-            else
-            {
-                break;
-            }
-
-            if (iaTime::getNow() > endTime)
-            {
-                break;
-            }
-        }*/
-    }
-
     void iRenderer::setColorID(uint64 colorID)
     {
         // TODO

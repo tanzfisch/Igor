@@ -4,11 +4,7 @@ Changelog                           {#changelog}
 0.34.0 (unstable/incomplete)
 ----------------------------
 
-!This version is incomplete!
-Missing features are:
-- Instancing
-- new particle system does not support all previous features yet
-- Mica
+!This version is incomplete. See below!
 
 - wrote entirely new Renderer using batch rendering where ever possible
 - replaced Glee with Glad
@@ -23,6 +19,13 @@ Missing features are:
 - improved cmake configuration. Though there is more todo here
 - new particle system replacing 2D and 3D ones
 - support for geometry shaders
+
+Known Missing features are:
+- Instancing
+- new particle system does not support all previous features yet
+- Mica
+- world grid resolution feature
+- color ID render mode
 
 0.33.0
 ------
