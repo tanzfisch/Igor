@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -94,14 +94,16 @@ $(document).ready(function(){initNavTree('i_window_8cpp.html',''); initResizable
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_window_8h.html">igor/system/iWindow.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_application_8h.html">igor/system/iApplication.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</code><br />
+<code>#include &lt;iaux/system/iaConsole.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_o_s_event_listener_8h.html">igor/system/iOSEventListener.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_view_8h.html">igor/graphics/iView.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_mouse_8h.html">igor/system/iMouse.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_keyboard_8h.html">igor/system/iKeyboard.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/graphics/iRenderer.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_view_8h.html">igor/renderer/iView.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/renderer/iRenderer.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_task_manager_8h.html">igor/threading/iTaskManager.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_event_window_8h.html">igor/events/iEventWindow.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_texture_resource_factory_8h.html">igor/resources/texture/iTextureResourceFactory.h</a>&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_defines_windows_8h.html">igor/system/iDefinesWindows.h</a>&gt;</code><br />
@@ -119,7 +121,7 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a5633fc4590a5bea7803eb74347143710"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a5633fc4590a5bea7803eb74347143710">igor::s_defaultWindowTitle</a> = &quot;Igor&quot;</td></tr>
+<tr class="memitem:a5633fc4590a5bea7803eb74347143710"><td class="memItemLeft" align="right" valign="top">static const iaString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a5633fc4590a5bea7803eb74347143710">igor::s_defaultWindowTitle</a> = &quot;Igor&quot;</td></tr>
 <tr class="separator:a5633fc4590a5bea7803eb74347143710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

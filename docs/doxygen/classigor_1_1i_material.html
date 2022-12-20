@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_material.html',''); ini
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_material-members.html">List of all members</a>  </div>
@@ -98,208 +99,159 @@ $(document).ready(function(){initNavTree('classigor_1_1i_material.html',''); ini
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7b06bb46d32018f8b1b5e8bb1cd634a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a7b06bb46d32018f8b1b5e8bb1cd634a3">getName</a> ()</td></tr>
-<tr class="separator:a7b06bb46d32018f8b1b5e8bb1cd634a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16c9c5a474634dbf3c9ee53ad80b70fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#aa5075c79f09c75aef943cb9a505077ed">iMaterialID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a16c9c5a474634dbf3c9ee53ad80b70fe">getID</a> () const</td></tr>
-<tr class="separator:a16c9c5a474634dbf3c9ee53ad80b70fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ccc94359e88fd9abe6642d007ec94c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a7ccc94359e88fd9abe6642d007ec94c8">setName</a> (<a class="el" href="classiaux_1_1ia_string.html">iaString</a> name)</td></tr>
-<tr class="separator:a7ccc94359e88fd9abe6642d007ec94c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0f9cb2e2c77e2161b858f45d5afe0d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classigor_1_1i_render_state_set.html">iRenderStateSet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#af0f9cb2e2c77e2161b858f45d5afe0d2">getRenderStateSet</a> ()</td></tr>
-<tr class="separator:af0f9cb2e2c77e2161b858f45d5afe0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05260c7496cfcf74dae16f0c68a178e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a05260c7496cfcf74dae16f0c68a178e4">setShaderProgram</a> (const <a class="el" href="namespaceigor.html#aa9e6de2c43297b0e7abfdd1a3cb2863b">iShaderProgramPtr</a> &amp;shaderProgram)</td></tr>
+<tr class="separator:a05260c7496cfcf74dae16f0c68a178e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa045a45d36df13dd8271daedab51d1e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#aa9e6de2c43297b0e7abfdd1a3cb2863b">iShaderProgramPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#aa045a45d36df13dd8271daedab51d1e7">getShaderProgram</a> () const</td></tr>
+<tr class="separator:aa045a45d36df13dd8271daedab51d1e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94e3e450119b8eba74d61d0734d79342"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a94e3e450119b8eba74d61d0734d79342">setName</a> (const iaString &amp;name)</td></tr>
+<tr class="separator:a94e3e450119b8eba74d61d0734d79342"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc140bde94d54019c6277374848b98e4"><td class="memItemLeft" align="right" valign="top">const iaString &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#abc140bde94d54019c6277374848b98e4">getName</a> () const</td></tr>
+<tr class="separator:abc140bde94d54019c6277374848b98e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a304904f67a48934bb00f1787f20c3996"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceigor.html#a6108e4e7c2962f706448d22284ee3181">iMaterialID</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a304904f67a48934bb00f1787f20c3996">getID</a> () const</td></tr>
+<tr class="separator:a304904f67a48934bb00f1787f20c3996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79858d2e4d52c1f9d26d4735d68f68fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a79858d2e4d52c1f9d26d4735d68f68fc">setID</a> (const <a class="el" href="namespaceigor.html#a6108e4e7c2962f706448d22284ee3181">iMaterialID</a> &amp;materialID)</td></tr>
+<tr class="separator:a79858d2e4d52c1f9d26d4735d68f68fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ce7599a98a6e37f1c21b7f7a78ac856"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a9ce7599a98a6e37f1c21b7f7a78ac856">setRenderState</a> (const <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfb">iRenderState</a> state, const <a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64">iRenderStateValue</a> value)</td></tr>
 <tr class="separator:a9ce7599a98a6e37f1c21b7f7a78ac856"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa66be721ccaf9b6d19627edfaa1a6b5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64">iRenderStateValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#aa66be721ccaf9b6d19627edfaa1a6b5a">getRenderState</a> (const <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfb">iRenderState</a> state) const</td></tr>
-<tr class="separator:aa66be721ccaf9b6d19627edfaa1a6b5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60abf5332b73883014c8de10b74015bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a60abf5332b73883014c8de10b74015bc">addShaderSource</a> (<a class="el" href="classiaux_1_1ia_string.html">iaString</a> filename, <a class="el" href="namespaceigor.html#a52aa8356f9249d7a3d1f87a2ef871fc9">iShaderObjectType</a> type)</td></tr>
-<tr class="separator:a60abf5332b73883014c8de10b74015bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5b7bd8bff88d74f87f206d87c36b65d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structigor_1_1i_shader_source.html">iShaderSource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#af5b7bd8bff88d74f87f206d87c36b65d">getShaderSources</a> () const</td></tr>
-<tr class="separator:af5b7bd8bff88d74f87f206d87c36b65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91183130dacd3e44f7a02dd228fa0114"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a91183130dacd3e44f7a02dd228fa0114">compileShader</a> ()</td></tr>
-<tr class="separator:a91183130dacd3e44f7a02dd228fa0114"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6722f9e7dbffb6eddc1c6479187f630"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ae6722f9e7dbffb6eddc1c6479187f630">clearShader</a> ()</td></tr>
-<tr class="separator:ae6722f9e7dbffb6eddc1c6479187f630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ca9e6c0616622152a75a78d6b514153"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a3ca9e6c0616622152a75a78d6b514153">getOrder</a> () const</td></tr>
+<tr class="memitem:a436dfc638c71f102cd33868b9b35710b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64">iRenderStateValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a436dfc638c71f102cd33868b9b35710b">getRenderState</a> (const <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfb">iRenderState</a> state) const</td></tr>
+<tr class="separator:a436dfc638c71f102cd33868b9b35710b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ca9e6c0616622152a75a78d6b514153"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a3ca9e6c0616622152a75a78d6b514153">getOrder</a> () const</td></tr>
 <tr class="separator:a3ca9e6c0616622152a75a78d6b514153"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27a9c1a0f6431d74ddd24c78d9a9b91b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a27a9c1a0f6431d74ddd24c78d9a9b91b">setOrder</a> (<a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> order=<a class="el" href="classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a">iMaterial::RENDER_ORDER_DEFAULT</a>)</td></tr>
+<tr class="memitem:a27a9c1a0f6431d74ddd24c78d9a9b91b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a27a9c1a0f6431d74ddd24c78d9a9b91b">setOrder</a> (int32 order=<a class="el" href="classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a">iMaterial::RENDER_ORDER_DEFAULT</a>)</td></tr>
 <tr class="separator:a27a9c1a0f6431d74ddd24c78d9a9b91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb5d60761cdb6f90b7256f2cafb748f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#abb5d60761cdb6f90b7256f2cafb748f7">hasDirectionalLight</a> () const</td></tr>
+<tr class="separator:abb5d60761cdb6f90b7256f2cafb748f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a830e002fa272c1337170fcd43b719335"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a830e002fa272c1337170fcd43b719335">hasEyePosition</a> () const</td></tr>
+<tr class="separator:a830e002fa272c1337170fcd43b719335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df5cf68a5c3fc6ee488de2770ea86af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a2df5cf68a5c3fc6ee488de2770ea86af">hasModelViewProjectionMatrix</a> () const</td></tr>
+<tr class="separator:a2df5cf68a5c3fc6ee488de2770ea86af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56377e8c8ef2e573f4537f07a643a11f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a56377e8c8ef2e573f4537f07a643a11f">hasModelMatrix</a> () const</td></tr>
+<tr class="separator:a56377e8c8ef2e573f4537f07a643a11f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a902d5d0a4bc27beb5a13708a49637bf6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a902d5d0a4bc27beb5a13708a49637bf6">hasModelViewMatrix</a> () const</td></tr>
+<tr class="separator:a902d5d0a4bc27beb5a13708a49637bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2375741cee8a8c16b5a89b9e5a0b7675"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a2375741cee8a8c16b5a89b9e5a0b7675">hasViewProjectionMatrix</a> () const</td></tr>
+<tr class="separator:a2375741cee8a8c16b5a89b9e5a0b7675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01a31c991c3daeb725d082fe514e7fc7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a01a31c991c3daeb725d082fe514e7fc7">hasTargetMaterial</a> () const</td></tr>
+<tr class="separator:a01a31c991c3daeb725d082fe514e7fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a779574e6a4117fef1b54257b2016d219"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a779574e6a4117fef1b54257b2016d219">hasSolidColor</a> () const</td></tr>
+<tr class="separator:a779574e6a4117fef1b54257b2016d219"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac712709311073c061374b059641d7cfc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ac712709311073c061374b059641d7cfc">hasTilingConfig</a> () const</td></tr>
+<tr class="separator:ac712709311073c061374b059641d7cfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48da2ca9bdc702264b887eb177795e53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a48da2ca9bdc702264b887eb177795e53">hasVelocityOrientedConfig</a> () const</td></tr>
+<tr class="separator:a48da2ca9bdc702264b887eb177795e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15ca694a1a744c2e87bb71276be07374"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a15ca694a1a744c2e87bb71276be07374">hasTextureUnit</a> (uint32 texUnit) const</td></tr>
+<tr class="separator:a15ca694a1a744c2e87bb71276be07374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b2eb9fd9b38a33a8b281f4d4e92d6e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a6b2eb9fd9b38a33a8b281f4d4e92d6e9">isValid</a> () const</td></tr>
 <tr class="separator:a6b2eb9fd9b38a33a8b281f4d4e92d6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae75fe6de2d90cd49e1d120b0d5b7c153"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ae75fe6de2d90cd49e1d120b0d5b7c153">~iMaterial</a> ()</td></tr>
-<tr class="separator:ae75fe6de2d90cd49e1d120b0d5b7c153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a12f3e27ebf811214d3838e337d0b06d1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a12f3e27ebf811214d3838e337d0b06d1">create</a> ()</td></tr>
+<tr class="separator:a12f3e27ebf811214d3838e337d0b06d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab57654f2d518a8393bd3a2aaa259f371"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ab57654f2d518a8393bd3a2aaa259f371">create</a> (const iaString &amp;filename)</td></tr>
+<tr class="separator:ab57654f2d518a8393bd3a2aaa259f371"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a14ac94fad7e5a341cc9625ed37392909"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a14ac94fad7e5a341cc9625ed37392909">UNIFORM_SOLIDCOLOR</a> = &quot;igor_solidColor&quot;</td></tr>
-<tr class="separator:a14ac94fad7e5a341cc9625ed37392909"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6379e68017901e25d679bea3eec4df2"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ac6379e68017901e25d679bea3eec4df2">UNIFORM_LIGHT_ORIENTATION</a> = &quot;igor_lightOrientation&quot;</td></tr>
-<tr class="separator:ac6379e68017901e25d679bea3eec4df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a368805b8660f7e9a66119503653b7c63"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a368805b8660f7e9a66119503653b7c63">UNIFORM_LIGHT_AMBIENT</a> = &quot;igor_lightAmbient&quot;</td></tr>
-<tr class="separator:a368805b8660f7e9a66119503653b7c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4dc19a081b0dc70de90af08cdd265e8"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ae4dc19a081b0dc70de90af08cdd265e8">UNIFORM_LIGHT_DIFFUSE</a> = &quot;igor_lightDiffuse&quot;</td></tr>
-<tr class="separator:ae4dc19a081b0dc70de90af08cdd265e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee887e1c90f95bbc55d20596304f60ef"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#aee887e1c90f95bbc55d20596304f60ef">UNIFORM_LIGHT_SPECULAR</a> = &quot;igor_lightSpecular&quot;</td></tr>
-<tr class="separator:aee887e1c90f95bbc55d20596304f60ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6afa0d1d42a540d4d82aca1c403957d8"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a6afa0d1d42a540d4d82aca1c403957d8">UNIFORM_EYE_POSITION</a> = &quot;igor_eyePosition&quot;</td></tr>
-<tr class="separator:a6afa0d1d42a540d4d82aca1c403957d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6aa1c2ff3e5afa1b9e4a1b0e01d805b"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ac6aa1c2ff3e5afa1b9e4a1b0e01d805b">UNIFORM_MODEL_VIEW_PROJECTION</a> = &quot;igor_modelViewProjection&quot;</td></tr>
-<tr class="separator:ac6aa1c2ff3e5afa1b9e4a1b0e01d805b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcf8e7d0685a5011433a027e3a05eb52"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#afcf8e7d0685a5011433a027e3a05eb52">UNIFORM_MODEL</a> = &quot;igor_model&quot;</td></tr>
-<tr class="separator:afcf8e7d0685a5011433a027e3a05eb52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af23471bbb9d75f3685cf6a08a77c842c"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#af23471bbb9d75f3685cf6a08a77c842c">UNIFORM_MATERIAL_AMBIENT</a> = &quot;igor_matAmbient&quot;</td></tr>
-<tr class="separator:af23471bbb9d75f3685cf6a08a77c842c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af131259129f0c01a4dbd353c5283b5ed"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#af131259129f0c01a4dbd353c5283b5ed">UNIFORM_MATERIAL_DIFFUSE</a> = &quot;igor_matDiffuse&quot;</td></tr>
-<tr class="separator:af131259129f0c01a4dbd353c5283b5ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07cf5022f2d35f9c9f34abae44177a48"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a07cf5022f2d35f9c9f34abae44177a48">UNIFORM_MATERIAL_SPECULAR</a> = &quot;igor_matSpecular&quot;</td></tr>
-<tr class="separator:a07cf5022f2d35f9c9f34abae44177a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e364d6e56ae531a47b10a27aaaab6f0"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a9e364d6e56ae531a47b10a27aaaab6f0">UNIFORM_MATERIAL_SHININESS</a> = &quot;igor_matShininess&quot;</td></tr>
-<tr class="separator:a9e364d6e56ae531a47b10a27aaaab6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a056c768d48c0fab8306954f842f5705d"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a056c768d48c0fab8306954f842f5705d">UNIFORM_MATERIAL_EMISSIVE</a> = &quot;igor_matEmissive&quot;</td></tr>
-<tr class="separator:a056c768d48c0fab8306954f842f5705d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7666d9ff16140001b1e71540d366dce9"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a7666d9ff16140001b1e71540d366dce9">UNIFORM_MATERIAL_ALPHA</a> = &quot;igor_matAlpha&quot;</td></tr>
-<tr class="separator:a7666d9ff16140001b1e71540d366dce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1025678f0331febdaa696dd4b014091"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ad1025678f0331febdaa696dd4b014091">SAMPLER_TEXTURE</a> = &quot;igor_matTexture&quot;</td></tr>
-<tr class="separator:ad1025678f0331febdaa696dd4b014091"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9325a7dc8ad2e2429aecca1ef7b376a"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#ae9325a7dc8ad2e2429aecca1ef7b376a">INVALID_MATERIAL_ID</a> = <a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a></td></tr>
-<tr class="separator:ae9325a7dc8ad2e2429aecca1ef7b376a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bc6e6f853cbe5113bc9a27f2adac82a"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a">RENDER_ORDER_DEFAULT</a> = 200</td></tr>
+<tr class="memitem:a8bc6e6f853cbe5113bc9a27f2adac82a"><td class="memItemLeft" align="right" valign="top">static const int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a">RENDER_ORDER_DEFAULT</a> = 200</td></tr>
 <tr class="separator:a8bc6e6f853cbe5113bc9a27f2adac82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afea8c0d5afe1257f9491aac8f0a12981"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#afea8c0d5afe1257f9491aac8f0a12981">MAX_TEXTURE_UNITS</a> = 8</td></tr>
-<tr class="separator:afea8c0d5afe1257f9491aac8f0a12981"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af88860fee92e64253045a188d8f699b3"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#af88860fee92e64253045a188d8f699b3">RENDER_ORDER_MIN</a> = 0</td></tr>
+<tr class="memitem:af88860fee92e64253045a188d8f699b3"><td class="memItemLeft" align="right" valign="top">static const int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#af88860fee92e64253045a188d8f699b3">RENDER_ORDER_MIN</a> = 0</td></tr>
 <tr class="separator:af88860fee92e64253045a188d8f699b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48fe1603d253de953a3f20413e102615"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a48fe1603d253de953a3f20413e102615">RENDER_ORDER_MAX</a> = 400</td></tr>
+<tr class="memitem:a48fe1603d253de953a3f20413e102615"><td class="memItemLeft" align="right" valign="top">static const int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a48fe1603d253de953a3f20413e102615">RENDER_ORDER_MAX</a> = 400</td></tr>
 <tr class="separator:a48fe1603d253de953a3f20413e102615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a3169e12ae7cf3e5c6fd53a245e5e2d52"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a3169e12ae7cf3e5c6fd53a245e5e2d52">iRenderer</a></td></tr>
 <tr class="separator:a3169e12ae7cf3e5c6fd53a245e5e2d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4741448fd6adeeeb1916fa880b53f0d2"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#a4741448fd6adeeeb1916fa880b53f0d2">iMaterialResourceFactory_old</a></td></tr>
-<tr class="separator:a4741448fd6adeeeb1916fa880b53f0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb1f00b3c67ed3a5a1953c20dbb2b1d6"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material.html#adb1f00b3c67ed3a5a1953c20dbb2b1d6">iMaterialDeleter</a></td></tr>
+<tr class="separator:adb1f00b3c67ed3a5a1953c20dbb2b1d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>defines visual material</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae75fe6de2d90cd49e1d120b0d5b7c153"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae75fe6de2d90cd49e1d120b0d5b7c153">&#9670;&nbsp;</a></span>~iMaterial()</h2>
+<div class="textblock"><p>material definition </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a12f3e27ebf811214d3838e337d0b06d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12f3e27ebf811214d3838e337d0b06d1">&#9670;&nbsp;</a></span>create() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">igor::iMaterial::~iMaterial </td>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iMaterial::create </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>deletes shader if one was used </p>
+<dl class="section return"><dt>Returns</dt><dd>a newly created material </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a60abf5332b73883014c8de10b74015bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60abf5332b73883014c8de10b74015bc">&#9670;&nbsp;</a></span>addShaderSource()</h2>
+<a id="ab57654f2d518a8393bd3a2aaa259f371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab57654f2d518a8393bd3a2aaa259f371">&#9670;&nbsp;</a></span>create() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void igor::iMaterial::addShaderSource </td>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iMaterial::create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceigor.html#a52aa8356f9249d7a3d1f87a2ef871fc9">iShaderObjectType</a>&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>add shader source file</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>shader code file </td></tr>
-    <tr><td class="paramname">type</td><td>type of shader code to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ae6722f9e7dbffb6eddc1c6479187f630"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6722f9e7dbffb6eddc1c6479187f630">&#9670;&nbsp;</a></span>clearShader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iMaterial::clearShader </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>destroyes shaders and removes all information about them </p>
+<dl class="section return"><dt>Returns</dt><dd>a newly created material from file </dd></dl>
 
 </div>
 </div>
-<a id="a91183130dacd3e44f7a02dd228fa0114"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91183130dacd3e44f7a02dd228fa0114">&#9670;&nbsp;</a></span>compileShader()</h2>
+<a id="a304904f67a48934bb00f1787f20c3996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a304904f67a48934bb00f1787f20c3996">&#9670;&nbsp;</a></span>getID()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void igor::iMaterial::compileShader </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>compiles the shader including all added sources </p>
-
-</div>
-</div>
-<a id="a16c9c5a474634dbf3c9ee53ad80b70fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16c9c5a474634dbf3c9ee53ad80b70fe">&#9670;&nbsp;</a></span>getID()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceigor.html#aa5075c79f09c75aef943cb9a505077ed">iMaterialID</a> igor::iMaterial::getID </td>
+          <td class="memname">const <a class="el" href="namespaceigor.html#a6108e4e7c2962f706448d22284ee3181">iMaterialID</a> &amp; igor::iMaterial::getID </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>material ID </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>material id </dd></dl>
 
 </div>
 </div>
-<a id="a7b06bb46d32018f8b1b5e8bb1cd634a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b06bb46d32018f8b1b5e8bb1cd634a3">&#9670;&nbsp;</a></span>getName()</h2>
+<a id="abc140bde94d54019c6277374848b98e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc140bde94d54019c6277374848b98e4">&#9670;&nbsp;</a></span>getName()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iMaterial::getName </td>
+          <td class="memname">const iaString &amp; igor::iMaterial::getName </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -314,7 +266,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> igor::iMaterial::getOrder </td>
+          <td class="memname">int32 igor::iMaterial::getOrder </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -325,14 +277,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="aa66be721ccaf9b6d19627edfaa1a6b5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa66be721ccaf9b6d19627edfaa1a6b5a">&#9670;&nbsp;</a></span>getRenderState()</h2>
+<a id="a436dfc638c71f102cd33868b9b35710b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a436dfc638c71f102cd33868b9b35710b">&#9670;&nbsp;</a></span>getRenderState()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">__IGOR_INLINE__ <a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64">iRenderStateValue</a> iMaterial::getRenderState </td>
+          <td class="memname"><a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64">iRenderStateValue</a> igor::iMaterial::getRenderState </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfb">iRenderState</a>&#160;</td>
           <td class="paramname"><em>state</em></td><td>)</td>
@@ -351,39 +303,226 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="af0f9cb2e2c77e2161b858f45d5afe0d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0f9cb2e2c77e2161b858f45d5afe0d2">&#9670;&nbsp;</a></span>getRenderStateSet()</h2>
+<a id="aa045a45d36df13dd8271daedab51d1e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa045a45d36df13dd8271daedab51d1e7">&#9670;&nbsp;</a></span>getShaderProgram()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classigor_1_1i_render_state_set.html">iRenderStateSet</a> &amp; igor::iMaterial::getRenderStateSet </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>render state set of this material </dd></dl>
-
-</div>
-</div>
-<a id="af5b7bd8bff88d74f87f206d87c36b65d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5b7bd8bff88d74f87f206d87c36b65d">&#9670;&nbsp;</a></span>getShaderSources()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="structigor_1_1i_shader_source.html">iShaderSource</a> &gt; igor::iMaterial::getShaderSources </td>
+          <td class="memname"><a class="el" href="namespaceigor.html#aa9e6de2c43297b0e7abfdd1a3cb2863b">iShaderProgramPtr</a> igor::iMaterial::getShaderProgram </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>all shader sources that where added before </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the shader program </dd></dl>
+
+</div>
+</div>
+<a id="abb5d60761cdb6f90b7256f2cafb748f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb5d60761cdb6f90b7256f2cafb748f7">&#9670;&nbsp;</a></span>hasDirectionalLight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasDirectionalLight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader has directional light </dd></dl>
+
+</div>
+</div>
+<a id="a830e002fa272c1337170fcd43b719335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a830e002fa272c1337170fcd43b719335">&#9670;&nbsp;</a></span>hasEyePosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasEyePosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader has eye position </dd></dl>
+
+</div>
+</div>
+<a id="a56377e8c8ef2e573f4537f07a643a11f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56377e8c8ef2e573f4537f07a643a11f">&#9670;&nbsp;</a></span>hasModelMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasModelMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader contains model matrix </dd></dl>
+
+</div>
+</div>
+<a id="a902d5d0a4bc27beb5a13708a49637bf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a902d5d0a4bc27beb5a13708a49637bf6">&#9670;&nbsp;</a></span>hasModelViewMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasModelViewMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader contains model view matrix </dd></dl>
+
+</div>
+</div>
+<a id="a2df5cf68a5c3fc6ee488de2770ea86af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df5cf68a5c3fc6ee488de2770ea86af">&#9670;&nbsp;</a></span>hasModelViewProjectionMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasModelViewProjectionMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader contains model view projection matrix </dd></dl>
+
+</div>
+</div>
+<a id="a779574e6a4117fef1b54257b2016d219"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a779574e6a4117fef1b54257b2016d219">&#9670;&nbsp;</a></span>hasSolidColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasSolidColor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader contains solid color property </dd></dl>
+
+</div>
+</div>
+<a id="a01a31c991c3daeb725d082fe514e7fc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01a31c991c3daeb725d082fe514e7fc7">&#9670;&nbsp;</a></span>hasTargetMaterial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasTargetMaterial </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader contains target material </dd></dl>
+
+</div>
+</div>
+<a id="a15ca694a1a744c2e87bb71276be07374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15ca694a1a744c2e87bb71276be07374">&#9670;&nbsp;</a></span>hasTextureUnit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasTextureUnit </td>
+          <td>(</td>
+          <td class="paramtype">uint32&#160;</td>
+          <td class="paramname"><em>texUnit</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if gien texture unit is used</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texUnit</td><td>the given texture unit </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac712709311073c061374b059641d7cfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac712709311073c061374b059641d7cfc">&#9670;&nbsp;</a></span>hasTilingConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasTilingConfig </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader contains tiling property </dd></dl>
+
+</div>
+</div>
+<a id="a48da2ca9bdc702264b887eb177795e53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48da2ca9bdc702264b887eb177795e53">&#9670;&nbsp;</a></span>hasVelocityOrientedConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasVelocityOrientedConfig </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader has velocity oriented roperty </dd></dl>
+
+</div>
+</div>
+<a id="a2375741cee8a8c16b5a89b9e5a0b7675"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2375741cee8a8c16b5a89b9e5a0b7675">&#9670;&nbsp;</a></span>hasViewProjectionMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterial::hasViewProjectionMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if shader contains view projection matrix </dd></dl>
 
 </div>
 </div>
@@ -401,12 +540,37 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if material is valid to use </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if this material is ready for use </dd></dl>
 
 </div>
 </div>
-<a id="a7ccc94359e88fd9abe6642d007ec94c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ccc94359e88fd9abe6642d007ec94c8">&#9670;&nbsp;</a></span>setName()</h2>
+<a id="a79858d2e4d52c1f9d26d4735d68f68fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79858d2e4d52c1f9d26d4735d68f68fc">&#9670;&nbsp;</a></span>setID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iMaterial::setID </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a6108e4e7c2962f706448d22284ee3181">iMaterialID</a> &amp;&#160;</td>
+          <td class="paramname"><em>materialID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>sets material id</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">materialID</td><td>the material id </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a94e3e450119b8eba74d61d0734d79342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94e3e450119b8eba74d61d0734d79342">&#9670;&nbsp;</a></span>setName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -414,7 +578,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iMaterial::setName </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td></td>
         </tr>
@@ -439,7 +603,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iMaterial::setOrder </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td>
+          <td class="paramtype">int32&#160;</td>
           <td class="paramname"><em>order</em> = <code><a class="el" href="classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a">iMaterial::RENDER_ORDER_DEFAULT</a></code></td><td>)</td>
           <td></td>
         </tr>
@@ -448,7 +612,7 @@ Friends</h2></td></tr>
 <p>set render order</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">order</td><td>the higher the value the later it get's rendered (default is <a class="el" href="classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a">iMaterial::RENDER_ORDER_DEFAULT</a>) </td></tr>
+    <tr><td class="paramname">order</td><td>the higher the value the later it get's rendered (default is iMaterial_old::RENDER_ORDER_DEFAULT) </td></tr>
   </table>
   </dd>
 </dl>
@@ -491,9 +655,34 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a05260c7496cfcf74dae16f0c68a178e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05260c7496cfcf74dae16f0c68a178e4">&#9670;&nbsp;</a></span>setShaderProgram()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iMaterial::setShaderProgram </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#aa9e6de2c43297b0e7abfdd1a3cb2863b">iShaderProgramPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>shaderProgram</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>sets shader program to be used</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shaderProgram</td><td>the shader program to be used </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a4741448fd6adeeeb1916fa880b53f0d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4741448fd6adeeeb1916fa880b53f0d2">&#9670;&nbsp;</a></span>iMaterialResourceFactory_old</h2>
+<a id="adb1f00b3c67ed3a5a1953c20dbb2b1d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb1f00b3c67ed3a5a1953c20dbb2b1d6">&#9670;&nbsp;</a></span>iMaterialDeleter</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -502,7 +691,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="classigor_1_1i_material_resource_factory.html">iMaterialResourceFactory_old</a></td>
+          <td class="memname">friend class <a class="el" href="classigor_1_1i_material_deleter.html">iMaterialDeleter</a></td>
         </tr>
       </table>
   </td>
@@ -537,52 +726,6 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ae9325a7dc8ad2e2429aecca1ef7b376a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9325a7dc8ad2e2429aecca1ef7b376a">&#9670;&nbsp;</a></span>INVALID_MATERIAL_ID</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a> igor::iMaterial::INVALID_MATERIAL_ID = <a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>invalid material ID </p>
-
-</div>
-</div>
-<a id="afea8c0d5afe1257f9491aac8f0a12981"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afea8c0d5afe1257f9491aac8f0a12981">&#9670;&nbsp;</a></span>MAX_TEXTURE_UNITS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> igor::iMaterial::MAX_TEXTURE_UNITS = 8</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>maximum texture units supported in shaders </p>
-
-</div>
-</div>
 <a id="a8bc6e6f853cbe5113bc9a27f2adac82a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bc6e6f853cbe5113bc9a27f2adac82a">&#9670;&nbsp;</a></span>RENDER_ORDER_DEFAULT</h2>
 
@@ -593,7 +736,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> igor::iMaterial::RENDER_ORDER_DEFAULT = 200</td>
+          <td class="memname">const int32 igor::iMaterial::RENDER_ORDER_DEFAULT = 200</td>
         </tr>
       </table>
   </td>
@@ -616,7 +759,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> igor::iMaterial::RENDER_ORDER_MAX = 400</td>
+          <td class="memname">const int32 igor::iMaterial::RENDER_ORDER_MAX = 400</td>
         </tr>
       </table>
   </td>
@@ -639,7 +782,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> igor::iMaterial::RENDER_ORDER_MIN = 0</td>
+          <td class="memname">const int32 igor::iMaterial::RENDER_ORDER_MIN = 0</td>
         </tr>
       </table>
   </td>
@@ -652,340 +795,9 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="ad1025678f0331febdaa696dd4b014091"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1025678f0331febdaa696dd4b014091">&#9670;&nbsp;</a></span>SAMPLER_TEXTURE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::SAMPLER_TEXTURE = &quot;igor_matTexture&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6afa0d1d42a540d4d82aca1c403957d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6afa0d1d42a540d4d82aca1c403957d8">&#9670;&nbsp;</a></span>UNIFORM_EYE_POSITION</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_EYE_POSITION = &quot;igor_eyePosition&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a368805b8660f7e9a66119503653b7c63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a368805b8660f7e9a66119503653b7c63">&#9670;&nbsp;</a></span>UNIFORM_LIGHT_AMBIENT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_LIGHT_AMBIENT = &quot;igor_lightAmbient&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae4dc19a081b0dc70de90af08cdd265e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4dc19a081b0dc70de90af08cdd265e8">&#9670;&nbsp;</a></span>UNIFORM_LIGHT_DIFFUSE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_LIGHT_DIFFUSE = &quot;igor_lightDiffuse&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac6379e68017901e25d679bea3eec4df2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6379e68017901e25d679bea3eec4df2">&#9670;&nbsp;</a></span>UNIFORM_LIGHT_ORIENTATION</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_LIGHT_ORIENTATION = &quot;igor_lightOrientation&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aee887e1c90f95bbc55d20596304f60ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee887e1c90f95bbc55d20596304f60ef">&#9670;&nbsp;</a></span>UNIFORM_LIGHT_SPECULAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_LIGHT_SPECULAR = &quot;igor_lightSpecular&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7666d9ff16140001b1e71540d366dce9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7666d9ff16140001b1e71540d366dce9">&#9670;&nbsp;</a></span>UNIFORM_MATERIAL_ALPHA</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_MATERIAL_ALPHA = &quot;igor_matAlpha&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af23471bbb9d75f3685cf6a08a77c842c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af23471bbb9d75f3685cf6a08a77c842c">&#9670;&nbsp;</a></span>UNIFORM_MATERIAL_AMBIENT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_MATERIAL_AMBIENT = &quot;igor_matAmbient&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af131259129f0c01a4dbd353c5283b5ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af131259129f0c01a4dbd353c5283b5ed">&#9670;&nbsp;</a></span>UNIFORM_MATERIAL_DIFFUSE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_MATERIAL_DIFFUSE = &quot;igor_matDiffuse&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a056c768d48c0fab8306954f842f5705d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a056c768d48c0fab8306954f842f5705d">&#9670;&nbsp;</a></span>UNIFORM_MATERIAL_EMISSIVE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_MATERIAL_EMISSIVE = &quot;igor_matEmissive&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9e364d6e56ae531a47b10a27aaaab6f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e364d6e56ae531a47b10a27aaaab6f0">&#9670;&nbsp;</a></span>UNIFORM_MATERIAL_SHININESS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_MATERIAL_SHININESS = &quot;igor_matShininess&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a07cf5022f2d35f9c9f34abae44177a48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07cf5022f2d35f9c9f34abae44177a48">&#9670;&nbsp;</a></span>UNIFORM_MATERIAL_SPECULAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_MATERIAL_SPECULAR = &quot;igor_matSpecular&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afcf8e7d0685a5011433a027e3a05eb52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcf8e7d0685a5011433a027e3a05eb52">&#9670;&nbsp;</a></span>UNIFORM_MODEL</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_MODEL = &quot;igor_model&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac6aa1c2ff3e5afa1b9e4a1b0e01d805b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6aa1c2ff3e5afa1b9e4a1b0e01d805b">&#9670;&nbsp;</a></span>UNIFORM_MODEL_VIEW_PROJECTION</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_MODEL_VIEW_PROJECTION = &quot;igor_modelViewProjection&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a14ac94fad7e5a341cc9625ed37392909"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14ac94fad7e5a341cc9625ed37392909">&#9670;&nbsp;</a></span>UNIFORM_SOLIDCOLOR</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* igor::iMaterial::UNIFORM_SOLIDCOLOR = &quot;igor_solidColor&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/martin/dev/Igor/src/igor/igor/resources/material/<a class="el" href="i_material_8h.html">iMaterial.h</a></li>
 <li>/home/martin/dev/Igor/src/igor/igor/resources/material/<a class="el" href="i_material_8cpp.html">iMaterial.cpp</a></li>
-<li>/home/martin/dev/Igor/src/igor/igor/resources/material/<a class="el" href="i_material_8inl.html">iMaterial.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

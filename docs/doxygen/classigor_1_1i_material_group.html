@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -98,10 +98,12 @@ $(document).ready(function(){initNavTree('classigor_1_1i_material_group.html',''
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8447ebc523accb118d8f7dac760af3e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_group.html#a8447ebc523accb118d8f7dac760af3e5">iMaterialGroup</a> ()=default</td></tr>
 <tr class="separator:a8447ebc523accb118d8f7dac760af3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab930c3dff3f0518f42a2ee0b4748e2f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_group.html#ab930c3dff3f0518f42a2ee0b4748e2f4">setMaterial</a> (<a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> material)</td></tr>
-<tr class="separator:ab930c3dff3f0518f42a2ee0b4748e2f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23ed79445ff0fec12d830d879a58471f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_group.html#a23ed79445ff0fec12d830d879a58471f">~iMaterialGroup</a> ()</td></tr>
 <tr class="separator:a23ed79445ff0fec12d830d879a58471f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c373115bbdcd9da493221bcc1c93f4e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_group.html#a0c373115bbdcd9da493221bcc1c93f4e">isInstanced</a> () const</td></tr>
+<tr class="separator:a0c373115bbdcd9da493221bcc1c93f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f38feb17668e916ee810d250b43fa0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_group.html#a44f38feb17668e916ee810d250b43fa0">hasNodes</a> () const</td></tr>
+<tr class="separator:a44f38feb17668e916ee810d250b43fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98348651750517a3c361462b61564d8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_group.html#a98348651750517a3c361462b61564d8e">clear</a> ()</td></tr>
 <tr class="separator:a98348651750517a3c361462b61564d8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c4f7c1531dbea41ac28dded2fac92f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_group.html#a4c4f7c1531dbea41ac28dded2fac92f2">addRenderNode</a> (<a class="el" href="namespaceigor.html#a941cc9f8cd27bb455db22c35a339fc5a">iNodeRenderPtr</a> renderNode)</td></tr>
@@ -246,21 +248,39 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab930c3dff3f0518f42a2ee0b4748e2f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab930c3dff3f0518f42a2ee0b4748e2f4">&#9670;&nbsp;</a></span>setMaterial()</h2>
+<a id="a44f38feb17668e916ee810d250b43fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44f38feb17668e916ee810d250b43fa0">&#9670;&nbsp;</a></span>hasNodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void igor::iMaterialGroup::setMaterial </td>
+          <td class="memname">bool igor::iMaterialGroup::hasNodes </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td>
-          <td class="paramname"><em>material</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if group has nodes </dd></dl>
+
+</div>
+</div>
+<a id="a0c373115bbdcd9da493221bcc1c93f4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c373115bbdcd9da493221bcc1c93f4e">&#9670;&nbsp;</a></span>isInstanced()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iMaterialGroup::isInstanced </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if material is instanced </dd></dl>
 
 </div>
 </div>

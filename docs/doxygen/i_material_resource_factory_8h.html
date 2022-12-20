@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.1"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/martin/dev/Igor/src/igor/igor/resources/material/iMaterialResourceFactory_old.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/igor/igor/resources/material/iMaterialResourceFactory.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,45 +86,31 @@ $(document).ready(function(){initNavTree('i_material_resource_factory_8h.html','
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">iMaterialResourceFactory_old.h File Reference</div>  </div>
+<div class="title">iMaterialResourceFactory.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="i_module_8h.html">igor/resources/module/iModule.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_module_8h.html">igor/resources/module/iModule.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_string_8h.html">iaux/data/iaString.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_mutex_8h.html">iaux/system/iaMutex.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_event_8h.html">iaux/system/iaEvent.h</a>&gt;</code><br />
-<code>#include &lt;list&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_resource_factory.html">igor::iMaterialResourceFactory_old</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_material_resource_factory.html">igor::iMaterialResourceFactory</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a99195bc94e07e08ea8cb4a25878d431e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a99195bc94e07e08ea8cb4a25878d431e">igor::iaEVENT</a> (iMaterialCreatedEvent, iMaterialCreatedDelegate,(<a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> materialID),(materialID))</td></tr>
-<tr class="separator:a99195bc94e07e08ea8cb4a25878d431e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ebe553d619774436aeb03a8f1c6b5dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a0ebe553d619774436aeb03a8f1c6b5dd">igor::iaEVENT</a> (iMaterialDestroyedEvent, iMaterialDestroyedDelegate,(<a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> materialID),(materialID))</td></tr>
-<tr class="separator:a0ebe553d619774436aeb03a8f1c6b5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d894fa9681194a2649327099c43d8582.html">igor</a></li><li class="navelem"><a class="el" href="dir_ff63218eb8d6b76bf6f3638bd523226b.html">igor</a></li><li class="navelem"><a class="el" href="dir_a414ea95b6e6a3b71ee83d64cb1e1f03.html">resources</a></li><li class="navelem"><a class="el" href="dir_ead176f53a3f46237531f0e31714fabc.html">material</a></li><li class="navelem"><a class="el" href="i_material_resource_factory_8h.html">iMaterialResourceFactory_old.h</a></li>
+				<li class="navelem"><a class="el" href="dir_d894fa9681194a2649327099c43d8582.html">igor</a></li><li class="navelem"><a class="el" href="dir_ff63218eb8d6b76bf6f3638bd523226b.html">igor</a></li><li class="navelem"><a class="el" href="dir_a414ea95b6e6a3b71ee83d64cb1e1f03.html">resources</a></li><li class="navelem"><a class="el" href="dir_ead176f53a3f46237531f0e31714fabc.html">material</a></li><li class="navelem"><a class="el" href="i_material_resource_factory_8h.html">iMaterialResourceFactory.h</a></li>
 				<li class="footer">
 					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.1.

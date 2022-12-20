@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,7 +87,6 @@ $(document).ready(function(){initNavTree('classigor_1_1i_module.html',''); initR
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_module-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">igor::iModule&lt; T &gt; Class Template Reference</div>  </div>
@@ -102,6 +101,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a89062eb2dfdedf0d3b93eaf5db670acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a982b761cbe8e92cc66c44ec2f5a6d092"><td class="memItemLeft" align="right" valign="top">static __IGOR_INLINE__ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a982b761cbe8e92cc66c44ec2f5a6d092">isInstantiated</a> ()</td></tr>
 <tr class="separator:a982b761cbe8e92cc66c44ec2f5a6d092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b88b62396bea01d733bb955d460ce98"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a9b88b62396bea01d733bb955d460ce98">create</a> ()</td></tr>
+<tr class="separator:a9b88b62396bea01d733bb955d460ce98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1cbc7cafc2b5c18ef4e05563eb4337d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#ab1cbc7cafc2b5c18ef4e05563eb4337d">destroy</a> ()</td></tr>
+<tr class="separator:ab1cbc7cafc2b5c18ef4e05563eb4337d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -109,20 +112,13 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:ad35ed52833d75603c6c5527b1bfb66c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c6f7a0d1bf43b2bc0999d40a38835f9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a4c6f7a0d1bf43b2bc0999d40a38835f9">~iModule</a> ()=default</td></tr>
 <tr class="separator:a4c6f7a0d1bf43b2bc0999d40a38835f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a92b0f48da1a342faad57d220daf0fded"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a92b0f48da1a342faad57d220daf0fded">destroyModules</a> ()</td></tr>
-<tr class="separator:a92b0f48da1a342faad57d220daf0fded"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acec99b900795f9e76b372a1a9c397a39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#acec99b900795f9e76b372a1a9c397a39">createModules</a> ()</td></tr>
-<tr class="separator:acec99b900795f9e76b372a1a9c397a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class igor::iModule&lt; T &gt;</h3>
 
 <p>module class</p>
-<p>make sure if you derrive from this class that your module will be created during <a class="el" href="namespaceigor.html#aac0acbe5b467c273c0b8a66c9d3ff788">igor::startup()</a> and destroyed during <a class="el" href="namespaceigor.html#a10b2ddc4c372b6753c6e09e7a3299abf">igor::shutdown()</a> </p>
+<p>make sure if you derrive from this class that your module will be created during <a class="el" href="namespaceigor.html#abe9536c70b4809b702e5f7431fe53d56">igor::startup()</a> and destroyed during <a class="el" href="namespaceigor.html#a4512e4c9774e4173030572df0847e4f3">igor::shutdown()</a> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad35ed52833d75603c6c5527b1bfb66c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad35ed52833d75603c6c5527b1bfb66c7">&#9670;&nbsp;</a></span>iModule()</h2>
@@ -148,7 +144,6 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>default ctor</p>
 <p>does nothing </p>
 
 </div>
@@ -177,11 +172,69 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>dtor </p>
+<p>does nothing </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9b88b62396bea01d733bb955d460ce98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b88b62396bea01d733bb955d460ce98">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="classigor_1_1i_module.html">igor::iModule</a>&lt; T &gt;::create </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>creates the single instance of a module</p>
+<p>only call this if you know what you are doing </p>
+
+</div>
+</div>
+<a id="ab1cbc7cafc2b5c18ef4e05563eb4337d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1cbc7cafc2b5c18ef4e05563eb4337d">&#9670;&nbsp;</a></span>destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="classigor_1_1i_module.html">igor::iModule</a>&lt; T &gt;::destroy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>destroys the single instance of a module</p>
+<p>only call this if you know what you are doing </p>
+
+</div>
+</div>
 <a id="a89062eb2dfdedf0d3b93eaf5db670acb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89062eb2dfdedf0d3b93eaf5db670acb">&#9670;&nbsp;</a></span>getInstance()</h2>
 
@@ -235,61 +288,6 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 <p>returns true if the instance of this is currently instantiated </p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="acec99b900795f9e76b372a1a9c397a39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acec99b900795f9e76b372a1a9c397a39">&#9670;&nbsp;</a></span>createModules</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void createModules </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a92b0f48da1a342faad57d220daf0fded"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92b0f48da1a342faad57d220daf0fded">&#9670;&nbsp;</a></span>destroyModules</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void destroyModules </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>

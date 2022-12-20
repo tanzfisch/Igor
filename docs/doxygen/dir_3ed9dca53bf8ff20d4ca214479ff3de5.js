@@ -1,8 +1,9 @@
 var dir_3ed9dca53bf8ff20d4ca214479ff3de5 =
 [
-    [ "iMesh.cpp", "i_mesh_8cpp.html", null ],
+    [ "iMesh.cpp", "i_mesh_8cpp.html", [
+      [ "iMeshDeleter", "classigor_1_1i_mesh_deleter.html", "classigor_1_1i_mesh_deleter" ]
+    ] ],
     [ "iMesh.h", "i_mesh_8h.html", "i_mesh_8h" ],
-    [ "iMesh.inl", "i_mesh_8inl.html", null ],
     [ "iMeshBuffers.cpp", "i_mesh_buffers_8cpp.html", null ],
     [ "iMeshBuffers.h", "i_mesh_buffers_8h.html", "i_mesh_buffers_8h" ],
     [ "iMeshBuffers.inl", "i_mesh_buffers_8inl.html", null ],

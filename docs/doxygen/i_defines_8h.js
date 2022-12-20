@@ -4,14 +4,7 @@ var i_defines_8h =
     [ "iColorFormat", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650", [
       [ "Undefined", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650aec0fc0100c4fc1ce4eea230c3dc10360", null ],
       [ "RGB", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650a889574aebacda6bfd3e534e2b49b8028", null ],
-      [ "RGBA", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650aea3495a278957dc58165e48a8945469f", null ],
-      [ "RED", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650aa2d9547b5d3dd9f05984475f7c926da0", null ],
-      [ "GREEN", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650a9de0e5dd94e861317e74964bed179fa0", null ],
-      [ "BLUE", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650a1b3e1ee9bff86431dea6b181365ba65f", null ],
-      [ "ALPHA", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650a002101f8725e5c78d9f30d87f3fa4c87", null ],
-      [ "DEPTH", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650aaa1780b4fcce2d5d9af13dc25386d111", null ],
-      [ "BGR", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650a2ad5640ebdec72fc79531d1778c6c2dc", null ],
-      [ "BGRA", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650a5a1fe3c61c9e2fd6dbbc823589f6e697", null ]
+      [ "RGBA", "i_defines_8h.html#a09233c080a182bbad53c9d2881358650aea3495a278957dc58165e48a8945469f", null ]
     ] ],
     [ "iHorizontalAlignment", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563", [
       [ "Left", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563a945d5e233cf7d6240f6b783b36a374ff", null ],
@@ -171,5 +164,6 @@ var i_defines_8h =
       [ "Strech", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2a6e5ab7ebfc243e8589be54e64b51d7bc", null ],
       [ "Undefined", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
+    [ "operator<<", "i_defines_8h.html#a728632759bccb048d7e6082f2400dd20", null ],
     [ "__IGOR_CONFIGURATION__", "i_defines_8h.html#a62512b4a7f0d4a97d7c4a7ccd8388c3f", null ]
 ];

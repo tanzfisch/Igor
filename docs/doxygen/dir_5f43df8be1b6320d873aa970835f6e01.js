@@ -41,7 +41,6 @@ var dir_5f43df8be1b6320d873aa970835f6e01 =
     [ "iNodeRender.h", "i_node_render_8h.html", [
       [ "iNodeRender", "classigor_1_1i_node_render.html", "classigor_1_1i_node_render" ]
     ] ],
-    [ "iNodeRender.inl", "i_node_render_8inl.html", null ],
     [ "iNodeSkyBox.cpp", "i_node_sky_box_8cpp.html", null ],
     [ "iNodeSkyBox.h", "i_node_sky_box_8h.html", [
       [ "iNodeSkyBox", "classigor_1_1i_node_sky_box.html", "classigor_1_1i_node_sky_box" ]

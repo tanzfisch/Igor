@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -93,15 +93,16 @@ $(document).ready(function(){initNavTree('i_voxel_terrain_8h.html',''); initResi
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_node_8h.html">igor/scene/nodes/iNode.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_node_manager_8h.html">igor/scene/nodes/iNodeManager.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_target_material_8h.html">igor/resources/material/iTargetMaterial.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_task_generate_voxels_8h.html">igor/terrain/tasks/iTaskGenerateVoxels.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_task_props_on_voxels_8h.html">igor/terrain/tasks/iTaskPropsOnVoxels.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_voxel_terrain_mesh_generator_8h.html">igor/terrain/iVoxelTerrainMeshGenerator.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_voxel_block_8h.html">igor/terrain/data/iVoxelBlock.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_voxel_operation_8h.html">igor/terrain/operations/iVoxelOperation.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_a_a_box_8h.html">igor/data/iAABox.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_event_8h.html">iaux/system/iaEvent.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_vector3_8h.html">iaux/math/iaVector3.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_mutex_8h.html">iaux/system/iaMutex.h</a>&gt;</code><br />
+<code>#include &lt;iaux/system/iaEvent.h&gt;</code><br />
+<code>#include &lt;iaux/math/iaVector3.h&gt;</code><br />
+<code>#include &lt;iaux/system/iaMutex.h&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;queue&gt;</code><br />
 </div><table class="memberdecls">

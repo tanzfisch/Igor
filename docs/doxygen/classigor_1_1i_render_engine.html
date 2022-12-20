@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -96,10 +96,10 @@ $(document).ready(function(){initNavTree('classigor_1_1i_render_engine.html','')
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a262050f4b85660927a03abe3eb92fcdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#a262050f4b85660927a03abe3eb92fcdd">setWireframeVisible</a> (bool wireframe=true)</td></tr>
-<tr class="separator:a262050f4b85660927a03abe3eb92fcdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0a09fe8929738939f19d5c1753bf0e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#af0a09fe8929738939f19d5c1753bf0e9">isWireframeVisible</a> () const</td></tr>
-<tr class="separator:af0a09fe8929738939f19d5c1753bf0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed9a3191cce0b882e46a07831f3c3b67"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#aed9a3191cce0b882e46a07831f3c3b67">iRenderEngine</a> ()=default</td></tr>
+<tr class="separator:aed9a3191cce0b882e46a07831f3c3b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ed579e498e97745c6fa0c140cad354e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#a5ed579e498e97745c6fa0c140cad354e">~iRenderEngine</a> ()=default</td></tr>
+<tr class="separator:a5ed579e498e97745c6fa0c140cad354e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf93bd2d553e35b63886d2eb63b3ba18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#aaf93bd2d553e35b63886d2eb63b3ba18">setBoundingBoxVisible</a> (bool boundingBox=true)</td></tr>
 <tr class="separator:aaf93bd2d553e35b63886d2eb63b3ba18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6af02ac74447881a00a50b6b1d880f41"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#a6af02ac74447881a00a50b6b1d880f41">isBoundingBoxVisible</a> () const</td></tr>
@@ -122,41 +122,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2840959996ad301f54059b25e187cf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab504582370c30f429d9fdc326644295f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#ab504582370c30f429d9fdc326644295f">render</a> ()</td></tr>
 <tr class="separator:ab504582370c30f429d9fdc326644295f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37af6eaa1de9dfa32c5976fac141fa73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#a37af6eaa1de9dfa32c5976fac141fa73">iRenderEngine</a> (bool useProfiling=false)</td></tr>
-<tr class="separator:a37af6eaa1de9dfa32c5976fac141fa73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2901828b7109dd2051537177f0c7f90"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_render_engine.html#ab2901828b7109dd2051537177f0c7f90">~iRenderEngine</a> ()</td></tr>
-<tr class="separator:ab2901828b7109dd2051537177f0c7f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>does control the render loop </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a37af6eaa1de9dfa32c5976fac141fa73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37af6eaa1de9dfa32c5976fac141fa73">&#9670;&nbsp;</a></span>iRenderEngine()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">igor::iRenderEngine::iRenderEngine </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>useProfiling</em> = <code>false</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>init</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">useProfiling</td><td>if true this render engine will be profiled </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab2901828b7109dd2051537177f0c7f90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2901828b7109dd2051537177f0c7f90">&#9670;&nbsp;</a></span>~iRenderEngine()</h2>
+<a id="aed9a3191cce0b882e46a07831f3c3b67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed9a3191cce0b882e46a07831f3c3b67">&#9670;&nbsp;</a></span>iRenderEngine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +136,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">igor::iRenderEngine::~iRenderEngine </td>
+          <td class="memname">igor::iRenderEngine::iRenderEngine </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -173,11 +144,37 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>deinit </p>
+<p>does nothing </p>
+
+</div>
+</div>
+<a id="a5ed579e498e97745c6fa0c140cad354e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ed579e498e97745c6fa0c140cad354e">&#9670;&nbsp;</a></span>~iRenderEngine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual igor::iRenderEngine::~iRenderEngine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>does nothing </p>
 
 </div>
 </div>
@@ -269,24 +266,6 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if octree is shown </dd></dl>
-
-</div>
-</div>
-<a id="af0a09fe8929738939f19d5c1753bf0e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0a09fe8929738939f19d5c1753bf0e9">&#9670;&nbsp;</a></span>isWireframeVisible()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool igor::iRenderEngine::isWireframeVisible </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if wireframe mode is active </dd></dl>
 
 </div>
 </div>
@@ -433,34 +412,9 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a262050f4b85660927a03abe3eb92fcdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a262050f4b85660927a03abe3eb92fcdd">&#9670;&nbsp;</a></span>setWireframeVisible()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iRenderEngine::setWireframeVisible </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>wireframe</em> = <code>true</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>shows all rendering in wireframe mode or normal mode</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">wireframe</td><td>if true all rendering is using wireframe </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/martin/dev/Igor/src/igor/igor/graphics/<a class="el" href="i_render_engine_8h.html">iRenderEngine.h</a></li>
-<li>/home/martin/dev/Igor/src/igor/igor/graphics/<a class="el" href="i_render_engine_8cpp.html">iRenderEngine.cpp</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/renderer/<a class="el" href="i_render_engine_8h.html">iRenderEngine.h</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/renderer/<a class="el" href="i_render_engine_8cpp.html">iRenderEngine.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
