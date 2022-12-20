@@ -97,8 +97,6 @@
 #include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
 
-#include <igor/simulation/iParticleSystem2D.h>
-
 #include <igor/system/iApplication.h>
 #include <igor/system/iKeyboard.h>
 #include <igor/system/iMouse.h>

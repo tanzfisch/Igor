@@ -59,22 +59,6 @@ private:
     */
     iaVector2f _lastMousePos;
 
-    /*! particles
-    */
-    iParticleSystem2D _particleSystem;
-
-    /*! texture used for the particles
-    */
-    iTexturePtr _particleTexture;
-
-    /*! just increases over time and feeds a sinus function to change the orientation of the particle stream
-    */
-    float32 _particleAnimatioValue = 0.0f;
-
-    /*! multicolor gradient used for coloring the particles
-    */
-    iaGradientColor4f _rainbow;
-
     /*! opengl logo
     */
     iAtlasPtr _doughnuts = nullptr;
@@ -110,12 +94,6 @@ private:
     /*! update timer
     */
     iTimerHandlePtr _updateTimingHandle;
-
-    /*! call the particles system handle to update particle positions
-
-    also changes initiali velocity of particles for waving particle stream effect
-    */
-    void updateParticles();
 
     /*! called by timer
 

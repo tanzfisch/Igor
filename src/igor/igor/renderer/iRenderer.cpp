@@ -2272,63 +2272,6 @@ namespace igor
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data);
     }
 
-    void iRenderer::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend)
-    {
-        con_assert(particles != nullptr, "zero pointer");
-
-        iaVector3f a, b, c, d;
-        iaVector2f u, v;
-        iaColor4f color;
-
-        for (uint32 i = 0; i < particleCount; ++i)
-        {
-            const iParticle2D &particle = particles[i];
-
-            if (particle._life <= 0)
-            {
-                continue;
-            }
-
-            const iaVector3f pos(particle._position._x, particle._position._y, 0.0f);
-
-            gradient.getValue(particle._life, color);
-
-            u.set(1.0f, 0.0f);
-            u.rotateXY(particle._angle);
-            v._x = -u._y;
-            v._y = u._x;
-
-            u *= 0.5f * particle._size;
-            v *= 0.5f * particle._size;
-
-            a = pos;
-            a._x -= u._x;
-            a._y -= u._y;
-            a._x += v._x;
-            a._y += v._y;
-
-            b = pos;
-            b._x += u._x;
-            b._y += u._y;
-            b._x += v._x;
-            b._y += v._y;
-
-            c = pos;
-            c._x += u._x;
-            c._y += u._y;
-            c._x -= v._x;
-            c._y -= v._y;
-
-            d = pos;
-            d._x -= u._x;
-            d._y -= u._y;
-            d._x -= v._x;
-            d._y -= v._y;
-
-            drawTexturedQuad(a, b, c, d, texture, color, blend);
-        }
-    }
-
     /* TODO
 
     float32 iRenderer::getWorldGridResolution() const

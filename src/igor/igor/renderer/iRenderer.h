@@ -39,7 +39,6 @@
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iTargetMaterial.h>
-#include <igor/simulation/iParticleSystem2D.h>
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaRectangle.h>
@@ -204,8 +203,6 @@ namespace igor
         /*! draw specified frame of given atlas
          */
         void drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
-
-        void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient, bool blend = true);
 
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);

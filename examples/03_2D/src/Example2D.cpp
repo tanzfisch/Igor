@@ -15,42 +15,6 @@ void Example2D::onInit()
 {
     // load the background tile texture
     _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("ice.png");
-    
-    // set up particle system
-    // load a texture for our particle system
-    _particleTexture = iTextureResourceFactory::getInstance().requestFile("particleDot.png");
-    // set the range of particle sizes at spawn
-    _particleSystem.setParticleSize(10.0f, 70.0f);
-    // set how much the particles should grow each frame
-    _particleSystem.setParticleSizeDelta(0.5f, 3.0f);
-    // set initial velocity vector of particles at spawn
-    _particleSystem.setInitialVelocity(iaVector2f(40, 0));
-    // make the animation endless. this causes the particles to be reused after their lifetime is over
-    _particleSystem.setLoopable(true);
-    // sets particle life time in frames
-    _particleSystem.setParticleLifetime(80);
-    // set the emission rate per frame
-    _particleSystem.setEmitRate(5);
-    // set maximal particle count. since the particle system is in loop mode we need at least as
-    // much particles as the life time times the emission rate to have a constant stream of particles
-    _particleSystem.setMaxParticleCount(_particleSystem.getParticleLifetime() * _particleSystem.getEmitRate());
-    // set the spread factor to 5% of the distribution circle
-    // you can also interpret it as opening angle in percent
-    _particleSystem.setSpreadFactor(0.05f);
-    // don't want air drag
-    _particleSystem.setAirDrag(0.0f);
-    // apply external force. in this case something like gravity but positive because the y coordinate axis goes down the screen
-    _particleSystem.setExternalForce(iaVector2f(0, 0.2f));
-    // set emitter position to lover left corner of the screen
-    _particleSystem.setEmitterPosition(iaVector2f(-10.0f, static_cast<float32>(getWindow()->getClientHeight() - 150)));
-
-    // define a rainbow multi color gradient for our particles
-    _rainbow.setValue(0.0f, iaColor4f(1.0f, 0.0f, 1.0f, 0.0f));
-    _rainbow.setValue(0.2f, iaColor4f(0.0f, 0.0f, 1.0f, 0.2f));
-    _rainbow.setValue(0.4f, iaColor4f(0.0f, 1.0f, 1.0f, 0.4f));
-    _rainbow.setValue(0.6f, iaColor4f(0.0f, 1.0f, 0.0f, 0.6f));
-    _rainbow.setValue(0.8f, iaColor4f(1.0f, 1.0f, 0.0f, 0.8f));
-    _rainbow.setValue(1.0f, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
 
     // load a texture as an atlas
     _doughnuts = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("doughnuts.png"));
@@ -93,7 +57,6 @@ void Example2D::onDeinit()
 
     // release some resources
     _doughnuts = nullptr;
-    _particleTexture = nullptr;
     _backgroundTexture = nullptr;
 }
 
@@ -128,25 +91,8 @@ void Example2D::onUpdate(const iaTime &time)
         _doughnutsTime = time;
     }
 
-    // update particles
-    updateParticles();
-
     // moves one of the splines support point to the logo's position
     _spline.setSupportPoint(iaVector3f(_lastMousePos._x, _lastMousePos._y, 0.0), 3);    
-}
-
-void Example2D::updateParticles()
-{
-    // manipulates particles initial velocity over time
-    iaVector2f velocity(12, 0);
-    float32 emitangle = static_cast<float32>(_perlinNoise.getValue(_particleAnimatioValue * 0.05, 3) - 1.0);
-
-    velocity.rotateXY(emitangle);
-    _particleSystem.setInitialVelocity(velocity);
-    _particleAnimatioValue += 1.0f;
-
-    // calls particles iteration
-    _particleSystem.handle();
 }
 
 void Example2D::onRenderOrtho()
@@ -195,9 +141,6 @@ void Example2D::onRenderOrtho()
 
     // draw with dummy texture
     iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 410, iTextureResourceFactory::getInstance().getDummyTexture(), iaColor4f::white, true);
-
-    // draw the particles
-    iRenderer::getInstance().drawParticles(_particleSystem.getParticles(), _particleSystem.getParticleCount(), _particleTexture, _rainbow);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "
