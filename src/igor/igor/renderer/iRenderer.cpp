@@ -10,7 +10,6 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/renderer/iInstancer.h>
 
 #include <deque>
 #include <sstream>
@@ -1971,7 +1970,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
+/*    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
     {
         iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
@@ -2016,7 +2015,7 @@ namespace igor
         // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
         // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
         // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
-    }
+    }*/
 
     void iRenderer::writeShaderParameters(iTargetMaterialPtr targetMaterial)
     {
@@ -2137,8 +2136,7 @@ namespace igor
 
     void iRenderer::setColorID(uint64 colorID)
     {
-        // TODO
-        /*if (!_currentMaterial->hasSolidColor())
+        if (!_data->_currentMaterial->hasSolidColor())
         {
             return;
         }
@@ -2148,7 +2146,7 @@ namespace igor
                          static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
                          1.0f);
 
-        _currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);*/
+        _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)

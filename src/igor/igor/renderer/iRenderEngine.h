@@ -29,7 +29,6 @@
 #ifndef __IGOR_RENDERENGINE_H__
 #define __IGOR_RENDERENGINE_H__
 
-#include <igor/resources/material/iMaterialGroup.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/material/iMaterial.h>
@@ -129,10 +128,6 @@ namespace igor
          */
         bool _renderColorID = false;
 
-        /*! material groups
-         */
-        std::unordered_map<iMaterialPtr, iMaterialGroup> _materialGroups;
-
         /*! handle to scene
          */
         iScenePtr _scene = nullptr;
@@ -140,6 +135,16 @@ namespace igor
         /*! temporary list of nodes that where filtered by the culling process
          */
         std::vector<iNodeID> _cullResult;
+
+        struct iMaterialGroup
+        {
+            iMaterialPtr _material;
+            std::vector<iNodeRenderPtr> _renderNodes;
+        };
+
+        /*! render nodes
+         */
+        std::vector<iMaterialGroup> _materialGroups;
 
         /*! cull scene relative to specified camera
 
@@ -150,6 +155,18 @@ namespace igor
         /*! updates material groups
          */
         void updateMaterialGroups();
+
+        /*! adds node to material groups
+
+        \param renderNode the node to add
+        */
+        void addNodeToMaterialGroups(iNodeRenderPtr renderNode);
+
+        /*! adds node to corresponding material group
+
+        \param renderNode the node to add
+        */
+        void addToMaterialGroup(const iNodeRenderPtr renderNode);
 
         /*! draw scene relative to specified camera
 

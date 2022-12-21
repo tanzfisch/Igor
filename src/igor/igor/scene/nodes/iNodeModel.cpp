@@ -12,7 +12,6 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/mesh/iMeshBuffers.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;

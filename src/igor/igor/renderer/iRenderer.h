@@ -50,7 +50,6 @@
 namespace igor
 {
 
-    class iInstancer;
     class iRendererData;
 
     /*! renderer interface
@@ -243,9 +242,6 @@ namespace igor
         \param targetMaterial the target material (optional)
         */
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial = nullptr);
-
-        // TODO this is not working
-        void drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer);
 
         /////////////// LIGHT ///////////
         void setLightPosition(int32 lightnum, const iaVector3d &pos);

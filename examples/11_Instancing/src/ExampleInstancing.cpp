@@ -25,7 +25,7 @@ ExampleInstancing::ExampleInstancing(iWindowPtr window)
 void ExampleInstancing::onInit()
 {
     const float32 spacing = 5.0f;
-    const int32 amountPerDimension = 60;
+    const int32 amountPerDimension = 10;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);
@@ -66,27 +66,10 @@ void ExampleInstancing::onInit()
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     getView().setCurrentCamera(camera->getID());
 
-    // first we have to override the material which is stored within the model
-    // to do that we create a new material using instancing
-    _materialWithInstancingA = iMaterialResourceFactory::getInstance().createMaterial("Instancing Textured");
-    _materialWithInstancingA->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
-    _materialWithInstancingA->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
-    _materialWithInstancingA->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iShaderProgramPtr programA = iShaderProgram::create();
-    programA->addShader("igor/textured_ipo.vert", iShaderObjectType::Vertex);
-    programA->addShader("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
-    programA->compile();
-    _materialWithInstancingA->setShaderProgram(programA);
-
-    _materialWithInstancingB = iMaterialResourceFactory::getInstance().createMaterial("Instancing No Texture");
-    _materialWithInstancingB->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
-    _materialWithInstancingB->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
-    _materialWithInstancingB->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iShaderProgramPtr programB = iShaderProgram::create();
-    programB->addShader("igor/default_ipo.vert", iShaderObjectType::Vertex);
-    programB->addShader("igor/default_ipo_directional_light.frag", iShaderObjectType::Fragment);
-    programB->compile();
-    _materialWithInstancingB->setShaderProgram(programB);
+    // we have to override the material which is stored within the model
+    // to do that we load a new material that is using instancing
+    _materialWithInstancingA = iMaterialResourceFactory::getInstance().loadMaterial("examples/instancing_textured.mat");
+    _materialWithInstancingB = iMaterialResourceFactory::getInstance().createMaterial("examples/instancing_flat_shaded.mat");
 
     // now we can just put copies of that model in the scene
     iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -249,7 +232,7 @@ void ExampleInstancing::onModelReadyA(uint64 modelNodeID)
     if (modelNode != nullptr &&
         modelNode->isValid())
     {
-        modelNode->setMaterial(_materialWithInstancingA);
+        //modelNode->setMaterial(_materialWithInstancingA);
     }
 }
 
@@ -259,6 +242,6 @@ void ExampleInstancing::onModelReadyB(uint64 modelNodeID)
     if (modelNode != nullptr &&
         modelNode->isValid())
     {
-        modelNode->setMaterial(_materialWithInstancingB);
+        //modelNode->setMaterial(_materialWithInstancingB);
     }
 }

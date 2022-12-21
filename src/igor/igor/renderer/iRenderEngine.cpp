@@ -7,7 +7,6 @@
 #include <igor/scene/iScene.h>
 #include <igor/data/iOctree.h>
 #include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/resources/material/iMaterialGroup.h>
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/renderer/iRenderer.h>
@@ -134,55 +133,49 @@ namespace igor
         _scene->getOctree()->filter(frustum);
     }
 
+    void iRenderEngine::addNodeToMaterialGroups(iNodeRenderPtr renderNode)
+    {
+        iMaterialPtr material = renderNode->getMaterial();
+
+        if (!renderNode->isVisible() ||
+            material == nullptr ||
+            !material->isValid())
+        {
+            return;
+        }
+
+        auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
+                                 [&material](const iMaterialGroup &materialGroup)
+                                 { return materialGroup._material == material; });
+
+        if (iter != _materialGroups.end())
+        {
+            iter->_renderNodes.push_back(renderNode);
+        }
+        else
+        {
+            _materialGroups.push_back({material, {renderNode}});
+        }
+    }
+
     void iRenderEngine::updateMaterialGroups()
     {
         IGOR_PROFILER_SCOPED(mat);
 
-        std::vector<iMaterialPtr> materials;
-        iMaterialResourceFactory::getInstance().getMaterials(materials);
-
-        for (auto material : materials)
-        {
-            auto iter = _materialGroups.find(material);
-            if (_materialGroups.end() != iter)
-            {
-                continue;
-            }
-
-            _materialGroups[material] = iMaterialGroup();
-        }
-
-        for (auto &group : _materialGroups)
-        {
-            group.second.clear();
-        }
+        _materialGroups.clear();
 
         for (void *ptr : _scene->getOctree()->getResult())
         {
-            iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(ptr);
-
-            if (renderNode != nullptr &&
-                renderNode->isVisible())
-            {
-
-                // TODO temp hack
-                if (renderNode->getMaterial() == nullptr)
-                {
-                    renderNode->setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial());
-                }
-
-                _materialGroups[renderNode->getMaterial()].addRenderNode(renderNode);
-            }
+            addNodeToMaterialGroups(static_cast<iNodeRenderPtr>(ptr));
         }
 
         for (const auto renderNode : _scene->getRenderables())
         {
-            if (renderNode->isVisible() &&
-                renderNode->getMaterial())
-            {
-                _materialGroups[renderNode->getMaterial()].addRenderNode(renderNode);
-            }
+            addNodeToMaterialGroups(renderNode);
         }
+
+        std::sort(_materialGroups.begin(), _materialGroups.end(), [](const iMaterialGroup a, const iMaterialGroup b) -> bool
+                  { return a._material->getOrder() < b._material->getOrder(); });
     }
 
     void iRenderEngine::drawColorIDs()
@@ -191,25 +184,12 @@ namespace igor
 
         iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
 
-        std::vector<iMaterialPtr> materials;
-        iMaterialResourceFactory::getInstance().getMaterials(materials);
-
-        for (auto material : materials)
+        for (const auto &materialGroup : _materialGroups)
         {
-            iMaterialGroup &materialGroup = _materialGroups[material];
-
-            if (iRenderStateValue::On == material->getRenderState(iRenderState::Instanced))
+            for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
             {
-                // TODO no color id for now
-            }
-            else
-            {
-                auto renderNodes = materialGroup.getRenderNodes();
-                for (auto renderNode : renderNodes)
-                {
-                    iRenderer::getInstance().setColorID(renderNode->getID());
-                    renderNode->draw();
-                }
+                iRenderer::getInstance().setColorID(renderNode->getID());
+                renderNode->draw();
             }
         }
     }
@@ -240,48 +220,24 @@ namespace igor
             ++lightNum;
         }
 
-        std::vector<iMaterialPtr> materials;
-        iMaterialResourceFactory::getInstance().getMaterials(materials);        
-
-        for (const auto &material : materials)
+        for (const auto &materialGroup : _materialGroups)
         {
-            const iMaterialGroup &materialGroup = _materialGroups[material];
-
-            if (!materialGroup.hasNodes())
+            if(materialGroup._material->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
             {
-                continue;
+            for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
+            {
+                iRenderer::getInstance().setMaterial(renderNode->getMaterial());
+                renderNode->draw();
             }
-
-            if (materialGroup.isInstanced())
-            {
-                // todo we should not do that every frame
-                const auto &instancedRenderNodes = materialGroup.getInstancedRenderNodes();
-                iRenderer::getInstance().setMaterial(material);
-
-                for (const auto &pair : instancedRenderNodes)
-                {
-                    auto instancer = pair.second._instancer;
-                    if (instancer->getInstanceCount() == 0)
-                    {
-                        continue;
-                    }
-
-                    iRenderer::getInstance().drawMesh(pair.first, pair.second._targetMaterial, instancer);
-                }
             }
             else
             {
-                const auto &renderNodes = materialGroup.getRenderNodes();
-
-                if (!renderNodes.empty())
+                for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
                 {
-                    iRenderer::getInstance().setMaterial(material);
+                    // TODO collect matrices in instance buffer
                 }
 
-                for (auto renderNode : renderNodes)
-                {
-                    renderNode->draw();
-                }
+                // render instance buffer
             }
         }
 

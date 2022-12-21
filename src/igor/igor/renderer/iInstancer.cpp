@@ -50,4 +50,34 @@ namespace igor
         _instanceArrayObject = instanceArrayObject;
     }
 
+    uint32 iInstancer::getInstanceSize() const
+    {
+        return _instanceSize;
+    }
+
+    uint32 iInstancer::getInstanceCount() const
+    {
+        return _instanceCount;
+    }
+
+    const void *iInstancer::getInstanceDataBuffer() const
+    {
+        return _instanceDataBuffer;
+    }
+
+    uint32 iInstancer::getInstanceArrayObject() const
+    {
+        return _instanceArrayObject;
+    }
+
+    uint32 iInstancer::getInstanceDataBufferSize() const
+    {
+        return _bufferSize;
+    }
+
+    uint32 iInstancer::getInstanceMaxCount() const
+    {
+        return _maxInstanceCount;
+    }
+
 } // namespace igor
