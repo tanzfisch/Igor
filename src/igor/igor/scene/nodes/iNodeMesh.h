@@ -91,19 +91,6 @@ namespace igor
         */
         void setTargetMaterial(const iTargetMaterialPtr &targetMaterial);
 
-        /*! sets the keep mesh flag
-
-        if the keep mesh flag is true. meshs will not be released after creation of buffers for rendering
-        this is needed if the mesh is supposed to be manipulated or exported later
-
-        \param keepMesh keep mesh flag. if true mesh will not be released after buffer creation
-        */
-        void setKeepMeshData(bool keepMesh = true);
-
-        /*! \retruns keep mesh flag. if true mesh will not be released after buffer creation
-         */
-        bool getKeepMeshData() const;
-
         /*! returns multiple lines of information about this node
 
         \param[out] info the returned information
@@ -111,9 +98,6 @@ namespace igor
         void getInfo(std::vector<iaString> &info) const override;
 
     private:
-        /*! flag where to keep mesh after creating buffers or not
-         */
-        bool _keepMeshData = false;
 
         /*! target material
          */
@@ -125,7 +109,7 @@ namespace igor
 
         /*! draw mesh
          */
-        virtual void draw();
+        virtual void draw() override;
 
         /*! initializes member variables
          */

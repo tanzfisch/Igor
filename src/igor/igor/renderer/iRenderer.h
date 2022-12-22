@@ -31,7 +31,7 @@
 
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
-#include <igor/renderer/buffers/iVertexArray.h>
+#include <igor/renderer/buffers/iInstancingBuffer.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
@@ -242,6 +242,8 @@ namespace igor
         \param targetMaterial the target material (optional)
         */
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial = nullptr);
+
+        void drawBuffer(iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial = nullptr);
 
         /////////////// LIGHT ///////////
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
@@ -588,11 +590,6 @@ namespace igor
         \param targetMaterial the target specifig material values. Ignored if nullptr
         */
         void writeShaderParameters(iTargetMaterialPtr targetMaterial);
-
-        /*!
-        \todo this is weired stuff we should do that differently
-        */
-        void initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers);
 
         /*! binds current material
          */

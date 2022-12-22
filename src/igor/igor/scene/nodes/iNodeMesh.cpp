@@ -34,7 +34,6 @@ namespace igor
         _nodeKind = node->_nodeKind;
 
         _name = node->_name;
-        _keepMeshData = node->_keepMeshData;
         _mesh = node->_mesh;
 
         if (_mesh != nullptr)
@@ -96,16 +95,6 @@ namespace igor
     iMeshPtr iNodeMesh::getMesh()
     {
         return _mesh;
-    }
-
-    void iNodeMesh::setKeepMeshData(bool keepMesh)
-    {
-        _keepMeshData = keepMesh;
-    }
-
-    bool iNodeMesh::getKeepMeshData() const
-    {
-        return _keepMeshData;
     }
 
     void iNodeMesh::draw()

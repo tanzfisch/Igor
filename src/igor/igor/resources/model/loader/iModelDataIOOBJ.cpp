@@ -89,11 +89,6 @@ namespace igor
 			iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setName(section.first);
 
-			if (parameter != nullptr)
-			{
-				meshNode->setKeepMeshData(parameter->_keepMesh);
-			}
-
 			meshNode->setMesh(mesh);
 			result->insertNode(meshNode);
 

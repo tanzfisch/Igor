@@ -232,7 +232,7 @@ void ExampleInstancing::onModelReadyA(uint64 modelNodeID)
     if (modelNode != nullptr &&
         modelNode->isValid())
     {
-        //modelNode->setMaterial(_materialWithInstancingA);
+        modelNode->setMaterial(_materialWithInstancingA);
     }
 }
 
@@ -242,6 +242,6 @@ void ExampleInstancing::onModelReadyB(uint64 modelNodeID)
     if (modelNode != nullptr &&
         modelNode->isValid())
     {
-        //modelNode->setMaterial(_materialWithInstancingB);
+        modelNode->setMaterial(_materialWithInstancingB);
     }
 }

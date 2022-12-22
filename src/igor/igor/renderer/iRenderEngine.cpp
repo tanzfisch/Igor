@@ -154,7 +154,19 @@ namespace igor
         }
         else
         {
-            _materialGroups.push_back({material, {renderNode}});
+            if (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
+            {
+                _materialGroups.push_back({material, {renderNode}, nullptr});
+            }
+            else
+            {
+                _materialGroups.push_back({
+                    material,
+                    {renderNode},
+                    iInstancingBuffer::create(100,                                                           // starting small. expanding later
+                                              std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}) // TODO this must be based on InstancedFunc
+                });
+            }
         }
     }
 
@@ -162,7 +174,23 @@ namespace igor
     {
         IGOR_PROFILER_SCOPED(mat);
 
-        _materialGroups.clear();
+        auto iter = _materialGroups.begin();
+        while (iter != _materialGroups.end())
+        {
+            // remove unused materials
+            if (iter->_renderNodes.empty())
+            {
+                iter = _materialGroups.erase(iter);
+                continue;
+            }
+
+            iter->_renderNodes.clear();
+            if(iter->_instancingBuffer != nullptr)
+            {
+                iter->_instancingBuffer->clear();
+            }
+            iter++;
+        }
 
         for (void *ptr : _scene->getOctree()->getResult())
         {
@@ -222,22 +250,31 @@ namespace igor
 
         for (const auto &materialGroup : _materialGroups)
         {
-            if(materialGroup._material->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
-            {
-            for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
-            {
-                iRenderer::getInstance().setMaterial(renderNode->getMaterial());
-                renderNode->draw();
-            }
-            }
-            else
+            if (materialGroup._material->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
             {
                 for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
                 {
-                    // TODO collect matrices in instance buffer
+                    iRenderer::getInstance().setMaterial(renderNode->getMaterial());
+                    renderNode->draw();
+                }
+            }
+            else
+            {
+                // TODO use materialGroup._renderNodes.size() to update instancing buffer size
+
+                for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
+                {
+                    iaMatrixd src = renderNode->getWorldMatrix();
+                    iaMatrixf dst;
+                    for (int i = 0; i < 16; ++i)
+                    {
+                        dst[i] = src[i];
+                    }
+
+                    materialGroup._instancingBuffer->addInstance(sizeof(iaMatrixf), dst.getData());
                 }
 
-                // render instance buffer
+                iRenderer::getInstance().drawBuffer(materialGroup._instancingBuffer, nullptr);
             }
         }
 

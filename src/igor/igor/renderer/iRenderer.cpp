@@ -1936,6 +1936,11 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
+    void iRenderer::drawBuffer(iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
+    {
+        // TODO
+    }
+
     void iRenderer::drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial)
     {
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
