@@ -64,19 +64,23 @@ namespace igor
         */
         void addInstance(uint32 size, const void* data);
 
+        /*! sets data on vertex buffer
+        */
+        void pushData();
+
         /*! clear the instancing data
         */
         void clear();
 
-        /*! \returns vertex array for rendering after updating the buffer with the instancing data
+        /*! bind instacing buffer
         */
-        iVertexArrayPtr getVertexArray();
+        void bind();
+
+        /*! \returns instance count
+        */
+        uint32 getInstanceCount() const;
 
     private:
-
-        /*! the vertex array
-        */
-        iVertexArrayPtr _vertexArray;
 
         /*! the vertex buffer which contains the instancing data
         */
@@ -94,6 +98,14 @@ namespace igor
         */
         uint8* _instancingDataPtr;
 
+        /*! counts instances added
+        */
+        uint32 _instanceCount;
+
+        /*! size of instance in bytes
+        */
+        uint32 _instanceSize;
+
         /*! init instancing buffer
 
         \param maxInstances the maximum amount if instances
@@ -108,4 +120,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_INSTANCING_BUFFER__
+#endif // __IGOR_INSTANCING_BUFFER__ 

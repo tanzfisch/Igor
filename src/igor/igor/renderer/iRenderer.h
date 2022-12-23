@@ -235,6 +235,8 @@ namespace igor
 
         void drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial);
 
+        void drawBuffer(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial = nullptr);
+
         /*! draws buffer with given target material and primitive type
 
         \param vertexArray the buffer to draw
@@ -242,8 +244,6 @@ namespace igor
         \param targetMaterial the target material (optional)
         */
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial = nullptr);
-
-        void drawBuffer(iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial = nullptr);
 
         /////////////// LIGHT ///////////
         void setLightPosition(int32 lightnum, const iaVector3d &pos);

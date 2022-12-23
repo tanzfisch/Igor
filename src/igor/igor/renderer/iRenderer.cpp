@@ -1936,11 +1936,6 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawBuffer(iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
-    {
-        // TODO
-    }
-
     void iRenderer::drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial)
     {
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
@@ -1954,7 +1949,7 @@ namespace igor
         vertexArray->bind();
 
         const uint32 indexCount = vertexArray->getIndexCount();
-        
+
         if (indexCount != 0)
         {
             glDrawElements(iRendererUtils::convertType(primitiveType), indexCount, GL_UNSIGNED_INT, nullptr);
@@ -1975,52 +1970,80 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-/*    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
+    void iRenderer::drawBuffer(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
     {
+        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
+        {
+            flushLastUsed();
+        }
+
         iaMatrixd idMatrix;
-        setModelMatrix(idMatrix);
+        setModelMatrix(idMatrix);        
 
-        // TODO createBuffers(instancer); // TODO that's not a good place to initialize the buffer
-
+        bindCurrentMaterial();
         writeShaderParameters(targetMaterial);
 
-        glBindVertexArray(meshBuffers->getVertexArrayObject());
+        mesh->bind();
+        instancingBuffer->bind();
 
-        glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject());
-
-        glBufferSubData(GL_ARRAY_BUFFER, 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
-
-        glEnableVertexAttribArray(3);
-
-        glEnableVertexAttribArray(4);
-
-        glEnableVertexAttribArray(5);
-
-        glEnableVertexAttribArray(6);
-
-        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(0 * sizeof(float32)));
-
-        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(4 * sizeof(float32)));
-
-        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(8 * sizeof(float32)));
-
-        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(12 * sizeof(float32)));
-
-        glVertexAttribDivisor(3, 1);
-        glVertexAttribDivisor(4, 1);
-        glVertexAttribDivisor(5, 1);
-        glVertexAttribDivisor(6, 1);
-
-        glDrawElementsInstanced(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
-
-        glBindVertexArray(0);
+        glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, 0, instancingBuffer->getInstanceCount());
+        GL_CHECK_ERROR();
 
         // save stats
         _data->_stats._drawCalls++;
-        // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
-        // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
-        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
-    }*/
+        // TODO _data->_stats._vertices += vertexArray->getVertexCount();
+        // TODO _data->_stats._indices += indexCount;
+        // TODO _data->_stats._triangles += vertexArray->getVertexCount();
+
+        _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
+    }
+
+    /*    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
+        {
+            iaMatrixd idMatrix;
+            setModelMatrix(idMatrix);
+
+            // TODO createBuffers(instancer); // TODO that's not a good place to initialize the buffer
+
+            writeShaderParameters(targetMaterial);
+
+            glBindVertexArray(meshBuffers->getVertexArrayObject());
+
+            glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject());
+
+            glBufferSubData(GL_ARRAY_BUFFER, 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
+
+            glEnableVertexAttribArray(3);
+
+            glEnableVertexAttribArray(4);
+
+            glEnableVertexAttribArray(5);
+
+            glEnableVertexAttribArray(6);
+
+            glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(0 * sizeof(float32)));
+
+            glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(4 * sizeof(float32)));
+
+            glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(8 * sizeof(float32)));
+
+            glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(12 * sizeof(float32)));
+
+            glVertexAttribDivisor(3, 1);
+            glVertexAttribDivisor(4, 1);
+            glVertexAttribDivisor(5, 1);
+            glVertexAttribDivisor(6, 1);
+
+            glDrawElementsInstanced(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
+
+            glBindVertexArray(0);
+
+            // save stats
+            _data->_stats._drawCalls++;
+            // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
+            // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
+            // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
+        }*/
 
     void iRenderer::writeShaderParameters(iTargetMaterialPtr targetMaterial)
     {

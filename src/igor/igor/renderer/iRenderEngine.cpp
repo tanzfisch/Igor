@@ -185,7 +185,7 @@ namespace igor
             }
 
             iter->_renderNodes.clear();
-            if(iter->_instancingBuffer != nullptr)
+            if (iter->_instancingBuffer != nullptr)
             {
                 iter->_instancingBuffer->clear();
             }
@@ -260,10 +260,21 @@ namespace igor
             }
             else
             {
-                // TODO use materialGroup._renderNodes.size() to update instancing buffer size
+                iNodeMeshPtr nodeMesh = nullptr;
 
                 for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
                 {
+                    if (renderNode->getType() != iNodeType::iNodeMesh)
+                    {
+                        continue;
+                    }
+
+                    // TODO for now we don't care if there is instances of different meshs we simply use the first we find.
+                    if (nodeMesh == nullptr)
+                    {
+                        nodeMesh = static_cast<iNodeMeshPtr>(renderNode);
+                    }
+
                     iaMatrixd src = renderNode->getWorldMatrix();
                     iaMatrixf dst;
                     for (int i = 0; i < 16; ++i)
@@ -274,7 +285,14 @@ namespace igor
                     materialGroup._instancingBuffer->addInstance(sizeof(iaMatrixf), dst.getData());
                 }
 
-                iRenderer::getInstance().drawBuffer(materialGroup._instancingBuffer, nullptr);
+                if (nodeMesh != nullptr &&
+                    nodeMesh->getMesh() != nullptr &&
+                    nodeMesh->getMesh()->isValid())
+                {
+                    materialGroup._instancingBuffer->pushData();
+
+                    iRenderer::getInstance().drawBuffer(nodeMesh->getMesh(), materialGroup._instancingBuffer, nullptr);
+                }
             }
         }
 
