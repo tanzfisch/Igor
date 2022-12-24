@@ -184,11 +184,6 @@ namespace igor
                 continue;
             }
 
-            iter->_renderNodes.clear();
-            if (iter->_instancingBuffer != nullptr)
-            {
-                iter->_instancingBuffer->clear();
-            }
             iter++;
         }
 
@@ -248,7 +243,7 @@ namespace igor
             ++lightNum;
         }
 
-        for (const auto &materialGroup : _materialGroups)
+        for (auto &materialGroup : _materialGroups)
         {
             if (materialGroup._material->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
             {
@@ -289,11 +284,13 @@ namespace igor
                     nodeMesh->getMesh() != nullptr &&
                     nodeMesh->getMesh()->isValid())
                 {
-                    materialGroup._instancingBuffer->pushData();
-
                     iRenderer::getInstance().drawBuffer(nodeMesh->getMesh(), materialGroup._instancingBuffer, nullptr);
                 }
+
+                materialGroup._instancingBuffer->clear();
             }
+
+            materialGroup._renderNodes.clear();
         }
 
         if (_showBoundingBoxes)

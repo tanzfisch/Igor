@@ -99,7 +99,7 @@ void ExampleInstancing::onInit()
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
 
                 iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
-                switch (count % 4)
+                switch (count % 2)
                 {
                 case 0:
                     modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
@@ -107,7 +107,7 @@ void ExampleInstancing::onInit()
                     break;
 
                 case 1:
-                    modelNode->setModel("crate.ompf", iResourceCacheMode::Keep);
+                    modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
                     modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyA));
                     break;
 

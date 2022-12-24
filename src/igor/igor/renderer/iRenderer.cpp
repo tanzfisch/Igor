@@ -1972,28 +1972,46 @@ namespace igor
 
     void iRenderer::drawBuffer(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
     {
+        if (!mesh->isValid())
+        {
+            return;
+        }
+
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
             flushLastUsed();
         }
 
+        instancingBuffer->finalizeData();
+
         iaMatrixd idMatrix;
-        setModelMatrix(idMatrix);        
+        setModelMatrix(idMatrix);
 
         bindCurrentMaterial();
         writeShaderParameters(targetMaterial);
 
-        mesh->bind();
+        // re combine mesh data wich instancing data
+        iVertexArrayPtr vertexArray = iVertexArray::create();
+
+        for (iVertexBufferPtr vertexBuffer : mesh->getVertexArray()->getVertexBuffers())
+        {
+            vertexArray->addVertexBuffer(vertexBuffer);
+        }
+        vertexArray->setIndexBuffer(mesh->getVertexArray()->getIndexBuffer());
+        vertexArray->addVertexBuffer(instancingBuffer->getVertexBuffer());
+        vertexArray->bind();
         instancingBuffer->bind();
 
-        glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, 0, instancingBuffer->getInstanceCount());
+        const uint32 instanceCount = instancingBuffer->getInstanceCount();
+
+        glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, 0, instanceCount);
         GL_CHECK_ERROR();
 
         // save stats
         _data->_stats._drawCalls++;
-        // TODO _data->_stats._vertices += vertexArray->getVertexCount();
-        // TODO _data->_stats._indices += indexCount;
-        // TODO _data->_stats._triangles += vertexArray->getVertexCount();
+        _data->_stats._vertices += mesh->getVertexCount() * instanceCount;
+        _data->_stats._indices += mesh->getIndexCount() * instanceCount;
+        _data->_stats._triangles += mesh->getTrianglesCount() * instanceCount;
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }

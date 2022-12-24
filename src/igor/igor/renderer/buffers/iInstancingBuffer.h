@@ -42,7 +42,7 @@ namespace igor
      */
     typedef std::shared_ptr<iInstancingBuffer> iInstancingBufferPtr;
 
-    /*! instancing buffer is a convenience wrapper arround a vertex buffer and an vertex array to help with instancing
+    /*! instancing buffer is a convenience wrapper arround a vertex buffer to help with instancing
      */
     class iInstancingBuffer
     {
@@ -66,7 +66,7 @@ namespace igor
 
         /*! sets data on vertex buffer
         */
-        void pushData();
+        void finalizeData();
 
         /*! clear the instancing data
         */
@@ -79,6 +79,10 @@ namespace igor
         /*! \returns instance count
         */
         uint32 getInstanceCount() const;
+
+        /*! \returns vertex buffer
+        */
+        iVertexBufferPtr getVertexBuffer() const;
 
     private:
 

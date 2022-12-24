@@ -26,7 +26,7 @@ namespace igor
         _instanceDataSize = _instanceSize * maxInstances;
 
         _instancingData = new uint8[_instanceDataSize];
-        _instancingDataPtr = _instancingData;        
+        _instancingDataPtr = _instancingData;
 
         _vertexBuffer = iVertexBuffer::create(_instanceDataSize);
         _vertexBuffer->setLayout(layout);
@@ -43,10 +43,21 @@ namespace igor
         }
     }
 
-    void iInstancingBuffer::pushData()
+    iVertexBufferPtr iInstancingBuffer::getVertexBuffer() const
+    {
+        return _vertexBuffer;
+    }
+
+    void iInstancingBuffer::finalizeData()
     {
         uint32 dataSize = (uint32)((uint8 *)_instancingDataPtr - (uint8 *)_instancingData);
-        _vertexBuffer->setData(dataSize, _instancingData);        
+        if (dataSize == 0)
+        {
+            return;
+        }
+        _vertexBuffer->setData(dataSize, _instancingData);
+
+        _instancingDataPtr = _instancingData;
     }
 
     void iInstancingBuffer::bind()
@@ -61,6 +72,11 @@ namespace igor
 
     void iInstancingBuffer::addInstance(uint32 size, const void *data)
     {
+        if(_instancingDataPtr == _instancingData)
+        {
+            _instanceCount = 0;
+        }
+
         con_assert(_instancingDataPtr + size <= _instancingData + _instanceDataSize, "buffer overflow");
         memcpy(_instancingDataPtr, data, size);
         _instancingDataPtr += size;
