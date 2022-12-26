@@ -25,7 +25,7 @@ ExampleInstancing::ExampleInstancing(iWindowPtr window)
 void ExampleInstancing::onInit()
 {
     const float32 spacing = 5.0f;
-    const int32 amountPerDimension = 10;
+    const int32 amountPerDimension = 60;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);
@@ -79,6 +79,8 @@ void ExampleInstancing::onInit()
     int count = 0;
     _perlinNoise.generateBase(42);
 
+    iaRandomNumberGeneratoru random;
+
     // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)
     {
@@ -93,10 +95,13 @@ void ExampleInstancing::onInit()
                 }
 
                 iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
-                transform->translate(x * spacing, y * spacing, z * spacing);
-                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);
-                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Y);
-                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
+                transform->translate(static_cast<float32>(x) * spacing + random.getNextFloatRange(0.0, spacing),
+                                     static_cast<float32>(y) * spacing + random.getNextFloatRange(0.0, spacing),
+                                     static_cast<float32>(z) * spacing + random.getNextFloatRange(0.0, spacing));
+
+                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::X);
+                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Y);
+                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Z);
 
                 iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
                 switch (count % 2)
@@ -107,7 +112,7 @@ void ExampleInstancing::onInit()
                     break;
 
                 case 1:
-                    modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
+                    modelNode->setModel("crate.ompf", iResourceCacheMode::Keep);
                     modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyA));
                     break;
 

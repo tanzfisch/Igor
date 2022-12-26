@@ -36,10 +36,9 @@
 namespace igor
 {
 
-    class iInstancingBuffer;
-
     /*! instancing buffer pointer definition
      */
+    class iInstancingBuffer;
     typedef std::shared_ptr<iInstancingBuffer> iInstancingBufferPtr;
 
     /*! instancing buffer is a convenience wrapper arround a vertex buffer to help with instancing
@@ -61,10 +60,20 @@ namespace igor
 
         /*! adds instance data. This can be the data of just one instance or many.
 
-        \param size the size of the data in bytes. Must be multiple of the layout size/stride
+        Will reallocate memory if amount of instances exceeds size hint.
+
+        \param size the size of the data in bytes. Must be multiple of the layout size (or stride)
         \param data the data to add
         */
         void addInstance(uint32 size, const void* data);
+
+        /*! sets a new size hint.
+
+        If new size hint is smaller then the previous one nothing will change.
+        
+        \param maxInstanceSizeHint a hint for the maximum amout of instances
+        */
+        void setSizeHint(uint32 maxInstanceSizeHint);
 
         /*! sets data on vertex buffer
         */
@@ -115,6 +124,12 @@ namespace igor
         /*! buffer layout
         */
         iBufferLayout _layout;
+
+        /*! resizes the buffer to new size
+
+        \param newSize the new size of the buffer
+        */
+        void resizeBuffer(uint32 newSize);
 
         /*! init instancing buffer
 

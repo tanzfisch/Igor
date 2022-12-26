@@ -21,7 +21,7 @@ namespace igor
     }
 
     iInstancingBuffer::iInstancingBuffer(const iBufferLayout &layout, uint32 maxInstanceSizeHint)
-    : _layout(layout)
+        : _layout(layout)
     {
         _instanceSize = layout.getStride();
         _instanceDataSize = _instanceSize * maxInstanceSizeHint;
@@ -69,24 +69,37 @@ namespace igor
         return _instanceCount;
     }
 
-    void iInstancingBuffer::addInstance(uint32 size, const void *data)
-    {    
-        // buffer too small. double it    
-        if(_instancingDataPtr + size > _instancingData + _instanceDataSize)
+    void iInstancingBuffer::resizeBuffer(uint32 newSize)
+    {
+        uint8 *newBuffer = new uint8[newSize];
+        memcpy(newBuffer, _instancingData, _instanceDataSize);
+
+        delete[] _instancingData;
+        _instancingData = newBuffer;
+        _instanceDataSize = newSize;
+
+        _instancingDataPtr = _instancingData + _instanceCount * _instanceSize;
+
+        _vertexBuffer = iVertexBuffer::create(_instanceDataSize);
+        _vertexBuffer->setLayout(_layout);
+    }
+
+    void iInstancingBuffer::setSizeHint(uint32 maxInstanceSizeHint)
+    {
+        if (maxInstanceSizeHint < _instanceDataSize / _instanceSize)
         {
-            const uint32 newSize = _instanceDataSize * 2;
-            uint8* newBuffer = new uint8[newSize];
+            return;
+        }
 
-            memcpy(newBuffer, _instancingData, _instanceDataSize);
+        resizeBuffer(maxInstanceSizeHint * _instanceSize);
+    }
 
-            delete [] _instancingData;
-            _instancingData = newBuffer;
-            _instanceDataSize = newSize;
-
-            _instancingDataPtr = _instancingData + _instanceCount * _instanceSize;
-
-            _vertexBuffer = iVertexBuffer::create(_instanceDataSize);
-            _vertexBuffer->setLayout(_layout);
+    void iInstancingBuffer::addInstance(uint32 size, const void *data)
+    {
+        // buffer too small. double it
+        if (_instancingDataPtr + size > _instancingData + _instanceDataSize)
+        {
+            resizeBuffer(_instanceDataSize * 2);
         }
 
         memcpy(_instancingDataPtr, data, size);

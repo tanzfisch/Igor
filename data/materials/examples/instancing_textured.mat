@@ -86,9 +86,7 @@ void main()
 	vec3 specular = igor_matSpecular * igor_lightSpecular * specularLightFactor;
 	
 	out_color.rgb = igor_matEmissive + ambient + diffuse + specular;
-	out_color.a = igor_matAlpha;
-    out_color.r = 1;
-    out_color.a = 1;
+ 	out_color.a = igor_matAlpha;
 }]]>
             </Fragment>
         </Program>            

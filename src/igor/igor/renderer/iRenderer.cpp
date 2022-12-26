@@ -2013,54 +2013,9 @@ namespace igor
         _data->_stats._triangles += mesh->getTrianglesCount() * instanceCount;
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
+
+        con_endl("instanceCount " << instanceCount);
     }
-
-    /*    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
-        {
-            iaMatrixd idMatrix;
-            setModelMatrix(idMatrix);
-
-            // TODO createBuffers(instancer); // TODO that's not a good place to initialize the buffer
-
-            writeShaderParameters(targetMaterial);
-
-            glBindVertexArray(meshBuffers->getVertexArrayObject());
-
-            glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject());
-
-            glBufferSubData(GL_ARRAY_BUFFER, 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
-
-            glEnableVertexAttribArray(3);
-
-            glEnableVertexAttribArray(4);
-
-            glEnableVertexAttribArray(5);
-
-            glEnableVertexAttribArray(6);
-
-            glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(0 * sizeof(float32)));
-
-            glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(4 * sizeof(float32)));
-
-            glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(8 * sizeof(float32)));
-
-            glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(12 * sizeof(float32)));
-
-            glVertexAttribDivisor(3, 1);
-            glVertexAttribDivisor(4, 1);
-            glVertexAttribDivisor(5, 1);
-            glVertexAttribDivisor(6, 1);
-
-            glDrawElementsInstanced(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
-
-            glBindVertexArray(0);
-
-            // save stats
-            _data->_stats._drawCalls++;
-            // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
-            // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
-            // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
-        }*/
 
     void iRenderer::writeShaderParameters(iTargetMaterialPtr targetMaterial)
     {
@@ -2071,6 +2026,7 @@ namespace igor
                 _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
                 _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
                 _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
+                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_EMISSIVE, targetMaterial->getEmissive());
                 _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
                 _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
             }

@@ -45,7 +45,7 @@ namespace iaux
     public:
         /*! init seed
         */
-        iaRandomNumberGenerator(T seed = 0);
+        iaRandomNumberGenerator(T seed = 1337);
 
         /*! does nothing
         */
@@ -64,6 +64,13 @@ namespace iaux
         /*! \returns next random number as float 0.0-1.0
         */
         float64 getNextFloat();
+
+        /*! \returns next random number as float min-max
+
+        \param min the min value returned
+        \param max the max value returned
+        */
+        float64 getNextFloatRange(float64 min, float64 max);
 
     private:
         /*! the seed

@@ -256,6 +256,9 @@ namespace igor
             else
             {
                 iNodeMeshPtr nodeMesh = nullptr;
+                iTargetMaterialPtr targetMaterial;
+
+                materialGroup._instancingBuffer->setSizeHint(materialGroup._renderNodes.size());
 
                 for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
                 {
@@ -268,6 +271,7 @@ namespace igor
                     if (nodeMesh == nullptr)
                     {
                         nodeMesh = static_cast<iNodeMeshPtr>(renderNode);
+                        targetMaterial = nodeMesh->getTargetMaterial();
                     }
 
                     iaMatrixd src = renderNode->getWorldMatrix();
@@ -284,7 +288,9 @@ namespace igor
                     nodeMesh->getMesh() != nullptr &&
                     nodeMesh->getMesh()->isValid())
                 {
-                    iRenderer::getInstance().drawBuffer(nodeMesh->getMesh(), materialGroup._instancingBuffer, nullptr);
+                    
+
+                    iRenderer::getInstance().drawBuffer(nodeMesh->getMesh(), materialGroup._instancingBuffer, targetMaterial);
                 }
 
                 materialGroup._instancingBuffer->clear();
