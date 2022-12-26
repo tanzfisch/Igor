@@ -169,7 +169,7 @@ namespace igor
 
             glBindTexture(GL_TEXTURE_2D, _textureID);
             GL_CHECK_ERROR();         
-            gluBuild2DMipmaps(GL_TEXTURE_2D, _bpp, width, height, glformat, GL_UNSIGNED_BYTE, data);
+            gluBuild2DMipmaps(GL_TEXTURE_2D, glformatSized, width, height, glformat, GL_UNSIGNED_BYTE, data);
             glFinish();
             GL_CHECK_ERROR();
         }

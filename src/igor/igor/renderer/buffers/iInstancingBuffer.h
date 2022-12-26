@@ -51,13 +51,15 @@ namespace igor
     public:
 
         /*! \returns a newly created vertex buffer
-
-        \param maxInstances the maximum amount if instances
+        
         \param layout the layout of data used for instancing
-        */
-        static iInstancingBufferPtr create(uint32 maxInstances, const iBufferLayout &layout);
+        \param maxInstanceSizeHint a hint for the maximum amout of instances
 
-        /*! adds instance data. This can be the date of just one instance or many.
+        Adding more instances then specified with maxInstanceSizeHint will lead to reallocating memory and doubling the buffer size.
+        */
+        static iInstancingBufferPtr create(const iBufferLayout &layout, uint32 maxInstanceSizeHint = 100);
+
+        /*! adds instance data. This can be the data of just one instance or many.
 
         \param size the size of the data in bytes. Must be multiple of the layout size/stride
         \param data the data to add
@@ -110,12 +112,16 @@ namespace igor
         */
         uint32 _instanceSize;
 
+        /*! buffer layout
+        */
+        iBufferLayout _layout;
+
         /*! init instancing buffer
 
         \param maxInstances the maximum amount if instances
         \param layout the layout of data used for instancing
         */
-        iInstancingBuffer(uint32 maxInstances, const iBufferLayout &layout);
+        iInstancingBuffer(const iBufferLayout &layout, uint32 maxInstanceSizeHint);
 
         /*! release buffer
          */

@@ -163,8 +163,7 @@ namespace igor
                 _materialGroups.push_back({
                     material,
                     {renderNode},
-                    iInstancingBuffer::create(10000,                                                           // starting small. expanding later
-                                              std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}) // TODO this must be based on InstancedFunc
+                    iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}) // TODO this must be based on InstancedFunc
                 });
             }
         }

@@ -15,21 +15,22 @@ namespace igor
         void operator()(iInstancingBuffer *p) { delete p; }
     };
 
-    iInstancingBufferPtr iInstancingBuffer::create(uint32 maxInstances, const iBufferLayout &layout)
+    iInstancingBufferPtr iInstancingBuffer::create(const iBufferLayout &layout, uint32 maxInstanceSizeHint)
     {
-        return std::shared_ptr<iInstancingBuffer>(new iInstancingBuffer(maxInstances, layout), iInstancingBufferDeleter());
+        return std::shared_ptr<iInstancingBuffer>(new iInstancingBuffer(layout, maxInstanceSizeHint), iInstancingBufferDeleter());
     }
 
-    iInstancingBuffer::iInstancingBuffer(uint32 maxInstances, const iBufferLayout &layout)
+    iInstancingBuffer::iInstancingBuffer(const iBufferLayout &layout, uint32 maxInstanceSizeHint)
+    : _layout(layout)
     {
         _instanceSize = layout.getStride();
-        _instanceDataSize = _instanceSize * maxInstances;
+        _instanceDataSize = _instanceSize * maxInstanceSizeHint;
 
         _instancingData = new uint8[_instanceDataSize];
         _instancingDataPtr = _instancingData;
 
         _vertexBuffer = iVertexBuffer::create(_instanceDataSize);
-        _vertexBuffer->setLayout(layout);
+        _vertexBuffer->setLayout(_layout);
 
         _instanceCount = 0;
     }
@@ -56,8 +57,6 @@ namespace igor
             return;
         }
         _vertexBuffer->setData(dataSize, _instancingData);
-
-        _instancingDataPtr = _instancingData;
     }
 
     void iInstancingBuffer::bind()
@@ -71,13 +70,25 @@ namespace igor
     }
 
     void iInstancingBuffer::addInstance(uint32 size, const void *data)
-    {
-        if(_instancingDataPtr == _instancingData)
+    {    
+        // buffer too small. double it    
+        if(_instancingDataPtr + size > _instancingData + _instanceDataSize)
         {
-            _instanceCount = 0;
+            const uint32 newSize = _instanceDataSize * 2;
+            uint8* newBuffer = new uint8[newSize];
+
+            memcpy(newBuffer, _instancingData, _instanceDataSize);
+
+            delete [] _instancingData;
+            _instancingData = newBuffer;
+            _instanceDataSize = newSize;
+
+            _instancingDataPtr = _instancingData + _instanceCount * _instanceSize;
+
+            _vertexBuffer = iVertexBuffer::create(_instanceDataSize);
+            _vertexBuffer->setLayout(_layout);
         }
 
-        con_assert(_instancingDataPtr + size <= _instancingData + _instanceDataSize, "buffer overflow");
         memcpy(_instancingDataPtr, data, size);
         _instancingDataPtr += size;
 
@@ -87,6 +98,7 @@ namespace igor
     void iInstancingBuffer::clear()
     {
         _instancingDataPtr = _instancingData;
+        _instanceCount = 0;
     }
 
 }
