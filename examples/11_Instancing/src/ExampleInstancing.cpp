@@ -66,27 +66,10 @@ void ExampleInstancing::onInit()
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     getView().setCurrentCamera(camera->getID());
 
-    // first we have to override the material which is stored within the model
-    // to do that we create a new material using instancing
-    _materialWithInstancingA = iMaterialResourceFactory::getInstance().createMaterial("Instancing Textured");
-    _materialWithInstancingA->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
-    _materialWithInstancingA->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
-    _materialWithInstancingA->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iShaderProgramPtr programA = iShaderProgram::create();
-    programA->addShader("igor/textured_ipo.vert", iShaderObjectType::Vertex);
-    programA->addShader("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
-    programA->compile();
-    _materialWithInstancingA->setShaderProgram(programA);
-
-    _materialWithInstancingB = iMaterialResourceFactory::getInstance().createMaterial("Instancing No Texture");
-    _materialWithInstancingB->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
-    _materialWithInstancingB->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
-    _materialWithInstancingB->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iShaderProgramPtr programB = iShaderProgram::create();
-    programB->addShader("igor/default_ipo.vert", iShaderObjectType::Vertex);
-    programB->addShader("igor/default_ipo_directional_light.frag", iShaderObjectType::Fragment);
-    programB->compile();
-    _materialWithInstancingB->setShaderProgram(programB);
+    // we have to override the material which is stored within the model
+    // to do that we load a new material that is using instancing
+    _materialWithInstancingA = iMaterialResourceFactory::getInstance().loadMaterial("examples/instancing_textured.mat");
+    _materialWithInstancingB = iMaterialResourceFactory::getInstance().loadMaterial("examples/instancing_flat_shaded.mat");
 
     // now we can just put copies of that model in the scene
     iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -95,6 +78,8 @@ void ExampleInstancing::onInit()
 
     int count = 0;
     _perlinNoise.generateBase(42);
+
+    iaRandomNumberGeneratoru random;
 
     // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)
@@ -110,10 +95,13 @@ void ExampleInstancing::onInit()
                 }
 
                 iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
-                transform->translate(x * spacing, y * spacing, z * spacing);
-                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);
-                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Y);
-                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
+                transform->translate(static_cast<float32>(x) * spacing + random.getNextFloatRange(0.0, spacing),
+                                     static_cast<float32>(y) * spacing + random.getNextFloatRange(0.0, spacing),
+                                     static_cast<float32>(z) * spacing + random.getNextFloatRange(0.0, spacing));
+
+                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::X);
+                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Y);
+                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Z);
 
                 iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
                 switch (count % 4)

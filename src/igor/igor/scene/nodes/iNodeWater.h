@@ -43,9 +43,6 @@ namespace igor
         friend class iNodeManager;
 
     public:
-        /*! draw the water
-        */
-        virtual void draw();
 
         /*! y position of water plane
 
@@ -87,6 +84,11 @@ namespace igor
         /*! releases resources
         */
         virtual ~iNodeWater();
+
+        /*! draw the water
+        */
+        void draw() override;
+
     };
 
 } // namespace igor

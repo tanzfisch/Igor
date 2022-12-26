@@ -29,11 +29,13 @@
 #ifndef __IGOR_RENDERENGINE_H__
 #define __IGOR_RENDERENGINE_H__
 
-#include <igor/resources/material/iMaterialGroup.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/mesh/iMesh.h>
 #include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/renderer/buffers/iInstancingBuffer.h>
 
 #include <vector>
 #include <unordered_map>
@@ -129,10 +131,6 @@ namespace igor
          */
         bool _renderColorID = false;
 
-        /*! material groups
-         */
-        std::unordered_map<iMaterialPtr, iMaterialGroup> _materialGroups;
-
         /*! handle to scene
          */
         iScenePtr _scene = nullptr;
@@ -140,6 +138,33 @@ namespace igor
         /*! temporary list of nodes that where filtered by the culling process
          */
         std::vector<iNodeID> _cullResult;
+
+        struct iInstaningPackage
+        {
+            iInstancingBufferPtr _buffer;
+            iTargetMaterialPtr _targetMaterial;
+        };
+
+        /*! bringing all nodes using the same material together for more efficient rendering
+        */
+        struct iMaterialGroup
+        {
+            /*! the material used
+            */
+            iMaterialPtr _material;
+
+            /*! the nodes rendered with this materal
+            */
+            std::vector<iNodeRenderPtr> _renderNodes;
+
+            /*! optional instancing buffers per mesh that is using the same material
+            */
+            std::unordered_map<iMeshPtr, iInstaningPackage> _instancing;
+        };
+
+        /*! render nodes
+         */
+        std::vector<iMaterialGroup> _materialGroups;
 
         /*! cull scene relative to specified camera
 
@@ -150,6 +175,18 @@ namespace igor
         /*! updates material groups
          */
         void updateMaterialGroups();
+
+        /*! adds node to material groups
+
+        \param renderNode the node to add
+        */
+        void addNodeToMaterialGroups(iNodeRenderPtr renderNode);
+
+        /*! adds node to corresponding material group
+
+        \param renderNode the node to add
+        */
+        void addToMaterialGroup(const iNodeRenderPtr renderNode);
 
         /*! draw scene relative to specified camera
 

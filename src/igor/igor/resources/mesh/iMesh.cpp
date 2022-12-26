@@ -135,7 +135,7 @@ namespace igor
     {
         return _bbox;
     }
-    
+
     bool iMesh::isValid() const
     {
         if (_vertexArray != nullptr)
@@ -143,8 +143,8 @@ namespace igor
             return true;
         }
 
-        if(_vertexData != nullptr && 
-        _indexData != nullptr)
+        if (_vertexData != nullptr &&
+            _indexData != nullptr)
         {
             return true;
         }
@@ -152,29 +152,34 @@ namespace igor
         return false;
     }
 
+    void iMesh::createVertexArray()
+    {
+        con_assert(_vertexData != nullptr, "no data");
+        con_assert(_indexData != nullptr, "no data");
+
+        _vertexArray = iVertexArray::create();
+
+        iVertexBufferPtr vertexBuffer = iVertexBuffer::create(_vertexDataSize, _vertexData);
+        vertexBuffer->setLayout(_layout);
+        _vertexArray->addVertexBuffer(vertexBuffer);
+
+        iIndexBufferPtr indexBuffer = iIndexBuffer::create(getIndexCount(), reinterpret_cast<const uint32 *>(_indexData));
+        _vertexArray->setIndexBuffer(indexBuffer);
+
+        if (!_keepRawData)
+        {
+            delete[] _indexData;
+            _indexData = nullptr;
+            delete[] _vertexData;
+            _vertexData = nullptr;
+        }
+    }
+
     void iMesh::bind()
     {
         if (_vertexArray == nullptr)
         {
-            con_assert(_vertexData != nullptr, "no data");
-            con_assert(_indexData != nullptr, "no data");
-
-            _vertexArray = iVertexArray::create();
-
-            iVertexBufferPtr vertexBuffer = iVertexBuffer::create(_vertexDataSize, _vertexData);
-            vertexBuffer->setLayout(_layout);
-            _vertexArray->addVertexBuffer(vertexBuffer);
-
-            iIndexBufferPtr indexBuffer = iIndexBuffer::create(getIndexCount(), reinterpret_cast<const uint32 *>(_indexData));
-            _vertexArray->setIndexBuffer(indexBuffer);
-
-            if (!_keepRawData)
-            {
-                delete[] _indexData;
-                _indexData = nullptr;
-                delete[] _vertexData;
-                _vertexData = nullptr;
-            }
+            createVertexArray();
         }
 
         _vertexArray->bind();
@@ -207,10 +212,10 @@ namespace igor
 
     bool iMesh::isKeepingRawData() const
     {
-        return _keepRawData;        
+        return _keepRawData;
     }
 
-    void iMesh::getRawData(void* &indexData, uint32 &indexDataSize, void* &vertexData, uint32 &vertexDataSize)
+    void iMesh::getRawData(void *&indexData, uint32 &indexDataSize, void *&vertexData, uint32 &vertexDataSize)
     {
         indexData = _indexData;
         indexDataSize = _indexDataSize;
@@ -221,14 +226,19 @@ namespace igor
     bool iMesh::hasRawData() const
     {
         return _indexData != nullptr && _vertexData != nullptr;
-    }    
+    }
 
-    const iVertexArrayPtr &iMesh::getVertexArray() const
+    const iVertexArrayPtr &iMesh::getVertexArray()
     {
+        if (_vertexArray == nullptr)
+        {
+            createVertexArray();
+        }
+
         return _vertexArray;
     }
 
-    const iBufferLayout& iMesh::getLayout() const
+    const iBufferLayout &iMesh::getLayout() const
     {
         return _layout;
     }

@@ -60,10 +60,6 @@ namespace igor
         */
         float32 getBoxSize() const;
 
-        /*! draw the sky box
-        */
-        virtual void draw();
-
     private:
         /*! scale of the box
         */
@@ -88,6 +84,10 @@ namespace igor
         /*! releases textures
         */
         virtual ~iNodeSkyBox() = default;
+
+        /*! draw the sky box
+        */
+        void draw() override;
 
         /*! builds up a mesh for later rendering
         */

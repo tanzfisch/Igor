@@ -75,12 +75,10 @@ namespace igor
     {
         con_assert(vertexBuffer->getLayout().getElements().size(), "Vertex buffer has no layout");
 
-        /*glBindVertexArray(_vertexArrayObject);
-        GL_CHECK_ERROR();
-        vertexBuffer->bind();*/
-
-        const auto &info = vertexBuffer->getLayout();
-        for (const auto &component : info.getElements())
+        const uint32 bindingIndex = _totalComponentCount;
+        
+        const auto &layout = vertexBuffer->getLayout();
+        for (const auto &component : layout.getElements())
         {
             switch (component._type)
             {
@@ -91,7 +89,7 @@ namespace igor
             {
                 glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
                 GL_CHECK_ERROR();
-                glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
+                glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, bindingIndex);
                 GL_CHECK_ERROR();
                 glVertexArrayAttribFormat(_vertexArrayObject,
                                           _totalComponentCount,
@@ -111,7 +109,7 @@ namespace igor
             {
                 glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
                 GL_CHECK_ERROR();
-                glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
+                glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, bindingIndex);
                 GL_CHECK_ERROR();
                 glVertexArrayAttribFormat(_vertexArrayObject,
                                           _totalComponentCount,
@@ -130,19 +128,16 @@ namespace igor
                 for (uint8_t i = 0; i < count; i++)
                 {
                     glEnableVertexArrayAttrib(_vertexArrayObject, _totalComponentCount);
-                    GL_CHECK_ERROR();
-                    glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, 0);
-                    GL_CHECK_ERROR();                    
+                    glVertexArrayAttribBinding(_vertexArrayObject, _totalComponentCount, bindingIndex);
 
                     const uint32 offset = component._offset + sizeof(float) * count * i;
 
                     glVertexArrayAttribFormat(_vertexArrayObject,
-                                          count,
+                                          _totalComponentCount,
                                           component.getComponentCount(),
                                           iRendererUtils::convertType(component._type),
                                           component._normalized ? GL_TRUE : GL_FALSE,
-                                          component._offset);
-                    GL_CHECK_ERROR();
+                                          offset);
 
                     glVertexArrayBindingDivisor(_vertexArrayObject, _totalComponentCount, 1);
                     GL_CHECK_ERROR();
@@ -155,7 +150,7 @@ namespace igor
             }
         }
 
-        glVertexArrayVertexBuffer(_vertexArrayObject, 0, vertexBuffer->_vertexBufferObject, 0, info.getStride());
+        glVertexArrayVertexBuffer(_vertexArrayObject, bindingIndex, vertexBuffer->_vertexBufferObject, 0, layout.getStride());
         GL_CHECK_ERROR();
 
         _vertexBuffers.push_back(vertexBuffer);
