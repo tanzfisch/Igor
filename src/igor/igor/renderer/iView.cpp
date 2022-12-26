@@ -220,7 +220,7 @@ namespace igor
             }
 
             {
-                // IGOR_PROFILER_SCOPED(udraw);
+                IGOR_PROFILER_SCOPED(udraw);
                 _renderEvent();
             }
 

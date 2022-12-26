@@ -29,7 +29,7 @@
 #ifndef __IAUX_RANDOMNUMBERGENERATOR_H__
 #define __IAUX_RANDOMNUMBERGENERATOR_H__
 
-#include <iaux/iaDefines.h>
+#include <iaux/system/iaConsole.h>
 
 namespace iaux
 {

@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.34.1 
+------
+
+- fixed instancing
+
 0.34.0 (unstable/incomplete)
 ----------------------------
 
