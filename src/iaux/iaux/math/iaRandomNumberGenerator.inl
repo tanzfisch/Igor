@@ -20,7 +20,7 @@ void iaRandomNumberGenerator<T>::setSeed(T seed)
 }
 
 template <class T>
-__IGOR_INLINE__ T iaRandomNumberGenerator<T>::getNext()
+T iaRandomNumberGenerator<T>::getNext()
 {
     const uint64 _a = 48271;
     const uint64 _c = 0;
@@ -31,7 +31,19 @@ __IGOR_INLINE__ T iaRandomNumberGenerator<T>::getNext()
 }
 
 template <class T>
-__IGOR_INLINE__ float64 iaRandomNumberGenerator<T>::getNextFloat()
+float64 iaRandomNumberGenerator<T>::getNextFloatRange(float64 min, float64 max)
+{
+    con_assert(min < max, "max needs to be greater then min");
+
+    float64 result = getNext() % 1000000 / 1000000.0;
+    result *= max - min;
+    result += min;
+
+    return result;
+}
+
+template <class T>
+float64 iaRandomNumberGenerator<T>::getNextFloat()
 {
     return getNext() % 1000000 / 1000000.0;
 }

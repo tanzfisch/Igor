@@ -10,7 +10,6 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/renderer/iInstancer.h>
 
 #include <deque>
 #include <sstream>
@@ -1950,7 +1949,7 @@ namespace igor
         vertexArray->bind();
 
         const uint32 indexCount = vertexArray->getIndexCount();
-        
+
         if (indexCount != 0)
         {
             glDrawElements(iRendererUtils::convertType(primitiveType), indexCount, GL_UNSIGNED_INT, nullptr);
@@ -1971,51 +1970,49 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iTargetMaterialPtr targetMaterial, iInstancer *instancer)
+    void iRenderer::drawBuffer(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
     {
+        if (!mesh->isValid())
+        {
+            return;
+        }
+
+        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
+        {
+            flushLastUsed();
+        }
+
+        instancingBuffer->finalizeData();
+
         iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
 
-        // TODO createBuffers(instancer); // TODO that's not a good place to initialize the buffer
-
+        bindCurrentMaterial();
         writeShaderParameters(targetMaterial);
 
-        glBindVertexArray(meshBuffers->getVertexArrayObject());
+        // re combine mesh data wich instancing data
+        iVertexArrayPtr vertexArray = iVertexArray::create();
 
-        glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject());
+        for (iVertexBufferPtr vertexBuffer : mesh->getVertexArray()->getVertexBuffers())
+        {
+            vertexArray->addVertexBuffer(vertexBuffer);
+        }
+        vertexArray->setIndexBuffer(mesh->getVertexArray()->getIndexBuffer());
+        vertexArray->addVertexBuffer(instancingBuffer->getVertexBuffer());
+        vertexArray->bind();
 
-        glBufferSubData(GL_ARRAY_BUFFER, 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
+        const uint32 instanceCount = instancingBuffer->getInstanceCount();
 
-        glEnableVertexAttribArray(3);
-
-        glEnableVertexAttribArray(4);
-
-        glEnableVertexAttribArray(5);
-
-        glEnableVertexAttribArray(6);
-
-        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(0 * sizeof(float32)));
-
-        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(4 * sizeof(float32)));
-
-        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(8 * sizeof(float32)));
-
-        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(12 * sizeof(float32)));
-
-        glVertexAttribDivisor(3, 1);
-        glVertexAttribDivisor(4, 1);
-        glVertexAttribDivisor(5, 1);
-        glVertexAttribDivisor(6, 1);
-
-        glDrawElementsInstanced(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
-
-        glBindVertexArray(0);
+        glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr, instanceCount);
+        GL_CHECK_ERROR();
 
         // save stats
         _data->_stats._drawCalls++;
-        // TODO _data->_stats._vertices += meshBuffers->getVertexCount();
-        // TODO _data->_stats._indices += meshBuffers->getIndexesCount();
-        // TODO _data->_stats._triangles += meshBuffers->getTrianglesCount();
+        _data->_stats._vertices += mesh->getVertexCount() * instanceCount;
+        _data->_stats._indices += mesh->getIndexCount() * instanceCount;
+        _data->_stats._triangles += mesh->getTrianglesCount() * instanceCount;
+
+        _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
     void iRenderer::writeShaderParameters(iTargetMaterialPtr targetMaterial)
@@ -2027,6 +2024,7 @@ namespace igor
                 _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
                 _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
                 _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
+                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_EMISSIVE, targetMaterial->getEmissive());
                 _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
                 _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
             }
@@ -2137,8 +2135,7 @@ namespace igor
 
     void iRenderer::setColorID(uint64 colorID)
     {
-        // TODO
-        /*if (!_currentMaterial->hasSolidColor())
+        if (!_data->_currentMaterial->hasSolidColor())
         {
             return;
         }
@@ -2148,7 +2145,7 @@ namespace igor
                          static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
                          1.0f);
 
-        _currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);*/
+        _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)

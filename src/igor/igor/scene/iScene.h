@@ -115,6 +115,8 @@ namespace igor
 
         /*! adds node to data update queue
 
+        // TODO why is this here?
+
 		\param node the node to add
 		*/
         void addToDataUpdateQueue(iNodePtr node);
