@@ -2013,8 +2013,6 @@ namespace igor
         _data->_stats._triangles += mesh->getTrianglesCount() * instanceCount;
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
-
-        con_endl("instanceCount " << instanceCount);
     }
 
     void iRenderer::writeShaderParameters(iTargetMaterialPtr targetMaterial)

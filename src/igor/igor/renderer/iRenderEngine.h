@@ -32,6 +32,8 @@
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/mesh/iMesh.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/renderer/buffers/iInstancingBuffer.h>
 
@@ -137,6 +139,12 @@ namespace igor
          */
         std::vector<iNodeID> _cullResult;
 
+        struct iInstaningPackage
+        {
+            iInstancingBufferPtr _buffer;
+            iTargetMaterialPtr _targetMaterial;
+        };
+
         /*! bringing all nodes using the same material together for more efficient rendering
         */
         struct iMaterialGroup
@@ -149,9 +157,9 @@ namespace igor
             */
             std::vector<iNodeRenderPtr> _renderNodes;
 
-            /*! optional instancing buffer
+            /*! optional instancing buffers per mesh that is using the same material
             */
-            iInstancingBufferPtr _instancingBuffer;
+            std::unordered_map<iMeshPtr, iInstaningPackage> _instancing;
         };
 
         /*! render nodes

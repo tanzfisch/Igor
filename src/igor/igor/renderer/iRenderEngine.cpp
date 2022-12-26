@@ -156,15 +156,14 @@ namespace igor
         {
             if (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
             {
-                _materialGroups.push_back({material, {renderNode}, nullptr});
+                _materialGroups.push_back({material, {renderNode}, std::unordered_map<iMeshPtr, iInstaningPackage>()});
             }
             else
             {
                 _materialGroups.push_back({
                     material,
                     {renderNode},
-                    iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}) // TODO this must be based on InstancedFunc
-                });
+                    std::unordered_map<iMeshPtr, iInstaningPackage>()});
             }
         }
     }
@@ -255,11 +254,6 @@ namespace igor
             }
             else
             {
-                iNodeMeshPtr nodeMesh = nullptr;
-                iTargetMaterialPtr targetMaterial;
-
-                materialGroup._instancingBuffer->setSizeHint(materialGroup._renderNodes.size());
-
                 for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
                 {
                     if (renderNode->getType() != iNodeType::iNodeMesh)
@@ -267,12 +261,16 @@ namespace igor
                         continue;
                     }
 
-                    // TODO for now we don't care if there is instances of different meshs we simply use the first we find.
-                    if (nodeMesh == nullptr)
+                    iNodeMeshPtr nodeMesh = static_cast<iNodeMeshPtr>(renderNode);
+
+                    if (nodeMesh == nullptr ||
+                        nodeMesh->getMesh() == nullptr ||
+                        !nodeMesh->getMesh()->isValid())
                     {
-                        nodeMesh = static_cast<iNodeMeshPtr>(renderNode);
-                        targetMaterial = nodeMesh->getTargetMaterial();
+                        continue;
                     }
+
+                    iMeshPtr mesh = nodeMesh->getMesh();
 
                     iaMatrixd src = renderNode->getWorldMatrix();
                     iaMatrixf dst;
@@ -281,19 +279,21 @@ namespace igor
                         dst[i] = src[i];
                     }
 
-                    materialGroup._instancingBuffer->addInstance(sizeof(iaMatrixf), dst.getData());
+                    if(materialGroup._instancing[mesh]._buffer == nullptr)
+                    {
+                        materialGroup._instancing[mesh]._buffer = iInstancingBuffer::create( std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}, materialGroup._renderNodes.size());
+                    }
+
+                    materialGroup._instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
+                    // TODO using random target material we find for now
+                    materialGroup._instancing[mesh]._targetMaterial = nodeMesh->getTargetMaterial();
                 }
 
-                if (nodeMesh != nullptr &&
-                    nodeMesh->getMesh() != nullptr &&
-                    nodeMesh->getMesh()->isValid())
+                for (const auto &pair : materialGroup._instancing)
                 {
-                    
-
-                    iRenderer::getInstance().drawBuffer(nodeMesh->getMesh(), materialGroup._instancingBuffer, targetMaterial);
+                    iRenderer::getInstance().drawBuffer(pair.first, pair.second._buffer, pair.second._targetMaterial);
+                    pair.second._buffer->clear();
                 }
-
-                materialGroup._instancingBuffer->clear();
             }
 
             materialGroup._renderNodes.clear();
