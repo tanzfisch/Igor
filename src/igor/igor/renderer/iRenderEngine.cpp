@@ -163,7 +163,7 @@ namespace igor
                 _materialGroups.push_back({
                     material,
                     {renderNode},
-                    iInstancingBuffer::create(100,                                                           // starting small. expanding later
+                    iInstancingBuffer::create(10000,                                                           // starting small. expanding later
                                               std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}) // TODO this must be based on InstancedFunc
                 });
             }
@@ -245,11 +245,12 @@ namespace igor
 
         for (auto &materialGroup : _materialGroups)
         {
+            iRenderer::getInstance().setMaterial(materialGroup._material);
+
             if (materialGroup._material->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
             {
                 for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
                 {
-                    iRenderer::getInstance().setMaterial(renderNode->getMaterial());
                     renderNode->draw();
                 }
             }

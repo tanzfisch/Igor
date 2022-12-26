@@ -2000,11 +2000,10 @@ namespace igor
         vertexArray->setIndexBuffer(mesh->getVertexArray()->getIndexBuffer());
         vertexArray->addVertexBuffer(instancingBuffer->getVertexBuffer());
         vertexArray->bind();
-        instancingBuffer->bind();
 
         const uint32 instanceCount = instancingBuffer->getInstanceCount();
 
-        glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, 0, instanceCount);
+        glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr, instanceCount);
         GL_CHECK_ERROR();
 
         // save stats

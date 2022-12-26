@@ -14,7 +14,7 @@ layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec3 in_normal;
 layout(location = 2) in vec2 in_texCoord;
 
-layout(location = 3) in mat4 in_modelMatrix;
+layout(location = 3) in mat4 in_modelMatrix_Instance;
 
 uniform mat4 igor_modelViewProjection;
 
@@ -24,14 +24,14 @@ out vec2 VertexTexCoord;
 
 void main()
 {
-	VertexWorld = (in_modelMatrix * vec4(in_position, 1)).xyz;
+	VertexWorld = (in_modelMatrix_Instance * vec4(in_position, 1)).xyz;
 	
-	mat4 norm = transpose(inverse(in_modelMatrix));
+	mat4 norm = transpose(inverse(in_modelMatrix_Instance));
 	VertexNormal = (norm * vec4(in_normal, 1)).xyz;
 	
 	VertexTexCoord = in_texCoord;
 	
-	gl_Position = igor_modelViewProjection * in_modelMatrix * vec4(in_position, 1);
+	gl_Position = igor_modelViewProjection * in_modelMatrix_Instance * vec4(in_position, 1);
 }]]>
             </Vertex>
             <Fragment>
@@ -87,6 +87,8 @@ void main()
 	
 	out_color.rgb = igor_matEmissive + ambient + diffuse + specular;
 	out_color.a = igor_matAlpha;
+    out_color.r = 1;
+    out_color.a = 1;
 }]]>
             </Fragment>
         </Program>            
