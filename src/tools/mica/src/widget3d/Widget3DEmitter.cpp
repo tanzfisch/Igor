@@ -129,6 +129,7 @@ void Widget3DEmitter::update()
 		if (mesh != nullptr)
 		{
 			_meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+            _meshNode->setName("emitter");
 			_meshNode->setMesh(mesh);
 			_meshNode->setMaterial(material);
 			_meshNode->setTargetMaterial(_targetMaterial);

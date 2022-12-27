@@ -87,18 +87,21 @@ void Widget3DLocator::createLocator()
 	_rootTransform->insertNode(zTransform);
 
 	iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    xCylinder->setName("locator.cylinder.x");
 	xCylinder->setMesh(locatorMesh);
 	xCylinder->setMaterial(_material);
 	xCylinder->setTargetMaterial(_red);
 	xTransform->insertNode(xCylinder);
 
 	iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    yCylinder->setName("locator.cylinder.y");
 	yCylinder->setMesh(locatorMesh);
 	yCylinder->setMaterial(_material);
 	yCylinder->setTargetMaterial(_green);
 	yTransform->insertNode(yCylinder);
 
 	iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    zCylinder->setName("locator.cylinder.z");
 	zCylinder->setMesh(locatorMesh);
 	zCylinder->setMaterial(_material);
 	zCylinder->setTargetMaterial(_blue);
