@@ -46,7 +46,4 @@ void Mica::run(const iaString &filename)
 	}
 
 	iApplication::getInstance().run();
-
-	iTaskManager::getInstance().abortTask(_taskFlushModels);
-	iTaskManager::getInstance().abortTask(_taskFlushTextures);
 }

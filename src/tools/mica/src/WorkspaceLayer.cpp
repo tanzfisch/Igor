@@ -87,9 +87,8 @@ void WorkspaceLayer::renderSelection()
             iRenderer::getInstance().setMaterial(_materialCelShading);
 
             iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-            /*iMeshBuffersPtr buffers = meshNode->getMeshBuffers();
             iRenderer::getInstance().setLineWidth(4);
-            iRenderer::getInstance().drawMesh(buffers);*/
+            iRenderer::getInstance().drawMesh(meshNode->getMesh(), nullptr);
         }
         else
         {
@@ -99,9 +98,7 @@ void WorkspaceLayer::renderSelection()
                 iRenderer::getInstance().setMaterial(_materialBoundingBox);
 
                 iAABoxd box = renderVolume->getBoundingBox();
-
-                /*iRenderer::getInstance().setColor(1, 1, 0, 1);
-                iRenderer::getInstance().drawBBox(box);*/
+                iRenderer::getInstance().drawBox(box, iaColor4f::yellow);
             }
         }
     }

@@ -55,10 +55,6 @@ namespace igor
         friend class iModule<iTextureResourceFactory>;
 
     public:
-        /*! \returns shared pointer to genereated dummy texture
-        */
-        iTexturePtr getDummyTexture();
-
         /*! requests a file to be loaded asynchronously.
 
         \param filename name of file to load
@@ -107,11 +103,23 @@ namespace igor
         */
         iPixmapPtr loadPixmap(const iaString &filename);
 
+        /*! \returns shared pointer to genereated dummy texture
+        */
+        iTexturePtr getDummyTexture();
+
+        /*! \returns shared pointer to genereated white texture
+        */
+        iTexturePtr getWhiteTexture();
+
+        /*! \returns shared pointer to genereated black texture
+        */
+        iTexturePtr getBlackTexture();
+
         /*! releases all textures
         */
         void deinit();
 
-        /*! generates a dummy texture
+        /*! generates default textures
         */
         void init();        
 
@@ -136,6 +144,14 @@ namespace igor
         */
         iTexturePtr _dummyTexture = nullptr;
 
+        /*! generated white texture
+        */
+        iTexturePtr _whiteTexture = nullptr;
+
+        /*! generated black texture
+        */
+        iTexturePtr _blackTexture = nullptr;
+
         /*! actually loads a texture
 
         \param texture [in out] contains src information and texture
@@ -148,6 +164,18 @@ namespace igor
         \param mode the build mode of the texture
         */
         int64 calcHashValue(const iaString &name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode);
+
+        /*! init dummy texture
+        */
+        void initDummyTexture();
+
+        /*! init white texture
+        */
+        void initWhiteTexture();
+
+        /*! init black texture
+        */
+        void initBlackTexture();
 
         /*! initialisation of members 3rd party lib
         */

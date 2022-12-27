@@ -77,14 +77,13 @@ void Manipulator::highlightSelected()
 {
     if (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID)
     {
-        iNodePtr node = iNodeManager::getInstance().getNode(_selectedManipulatorNodeID);
+        const iNodePtr node = iNodeManager::getInstance().getNode(_selectedManipulatorNodeID);
 
         if (node->getKind() == iNodeKind::Renderable ||
             node->getKind() == iNodeKind::Volume)
         {
-            iNodeRender *renderNode = static_cast<iNodeRender *>(node);
-            iaMatrixd matrix = renderNode->getWorldMatrix();
-            iRenderer::getInstance().setModelMatrix(matrix);
+            const iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(node);
+            iRenderer::getInstance().setModelMatrix(renderNode->getWorldMatrix());
 
             if (node->getType() == iNodeType::iNodeMesh)
             {

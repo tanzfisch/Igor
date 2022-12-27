@@ -3,8 +3,12 @@
 	<!-- material definition -->
 	<Material name="mica.manipulator" uuid="3be5e502-7b46-11ed-90b4-3b84db5ec17f" zIndex="MAX">
 		<States>
-			<DepthTest>Off</DepthTest>
+			<DepthTest>On</DepthTest>
+            <DepthFunc>Less</DepthFunc>
+            <DepthMask>On</DepthMask>
             <Blend>On</Blend>
+            <CullFace>On</CullFace>
+            <CullFaceFunc>Back</CullFaceFunc>
 		</States>
         <Program>
             <Vertex>

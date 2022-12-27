@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.34.2
+------
+
+- fixed color id
+
 0.34.1 
 ------
 
