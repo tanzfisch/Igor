@@ -279,7 +279,7 @@ void UserControlProperties::deinitParticleSystem()
 
 void UserControlProperties::initMaterial()
 {
-	con_assert(_userControlMaterial == nullptr, "mem allocation error");
+/*	con_assert(_userControlMaterial == nullptr, "mem allocation error");
 
 	if (_userControlMaterial == nullptr)
 	{
@@ -287,7 +287,7 @@ void UserControlProperties::initMaterial()
 		_grid->addWidget(_userControlMaterial, 0, 1);
 		_userControlMaterial->setMaterial(static_cast<uint32>(_propertyID));
 		_userControlMaterial->registerNameChangeDelegate(MaterialNameChangedDelegate(this, &UserControlProperties::onNameChanged));
-	}
+	}*/
 }
 
 void UserControlProperties::deinitMaterial()

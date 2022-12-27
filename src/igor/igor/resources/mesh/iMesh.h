@@ -169,7 +169,7 @@ namespace igor
 
         \param keepRawData if true the raw data will not be deleted after passing it to the GPU
         */
-        void setKeepRawData(bool keepRawData);
+        void setKeepRawData(bool keepRawData = true);
 
         /*! \returns true if the raw data will not be deleted after passing it to the GPU
          */
