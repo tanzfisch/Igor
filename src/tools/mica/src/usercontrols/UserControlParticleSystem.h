@@ -208,10 +208,6 @@ private:
     */
     std::vector<uint64> _emitters;
 
-    /*! contains user data that has to be deleted after use in the widgets
-    */
-    std::vector<uint32 *> _userDataMaterialID;
-
     /*! current node
     */
     uint64 _nodeId = iNode::INVALID_NODE_ID;

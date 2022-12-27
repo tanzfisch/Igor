@@ -46,10 +46,11 @@ void UserControlParticleSystem::updateNode()
                 }
             }
 
-            if (_materialSelection->getSelectedUserData() != nullptr)
+            if (_materialSelection->getSelectedUserData().has_value())
             {
-                uint32 materialID = *(static_cast<uint32 *>(_materialSelection->getSelectedUserData()));
-                node->setMaterial(materialID);
+                std::any userData = _materialSelection->getSelectedUserData();
+                iMaterialID materialID = std::any_cast<iMaterialID>(userData);
+                node->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
             }
 
             node->setTextureA(_textureChooser0->getFileName());
@@ -159,23 +160,16 @@ void UserControlParticleSystem::updateGUI()
             i++;
         }
 
-        for (auto entry : _userDataMaterialID)
-        {
-            delete entry;
-        }
-        _userDataMaterialID.clear();
         _materialSelection->clear();
 
-        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        std::vector<iMaterialPtr> materials;
+        iMaterialResourceFactory::getInstance().getMaterials(materials);
         for (auto material : materials)
         {
-            uint32 materialID = material->getID();
+            const iMaterialID &materialID = material->getID();
+            _materialSelection->addSelectionEntry(material->getName(), materialID);
 
-            uint32 *ptrmaterialID = new uint32(materialID);
-            _materialSelection->addSelectionEntry(material->getName(), ptrmaterialID);
-            _userDataMaterialID.push_back(ptrmaterialID);
-
-            if (materialID == node->getMaterial())
+            if (materialID == node->getMaterial()->getID())
             {
                 _materialSelection->setSelection(_materialSelection->getSelectionEntryCount() - 1);
             }

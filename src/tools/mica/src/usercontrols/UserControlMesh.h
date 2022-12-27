@@ -79,8 +79,6 @@ private:
     bool _ignoreNodeUpdate = false;
     uint32 _loadTextureTexUnit = 0;
 
-    std::vector<uint32 *> _userDataMaterialID;
-
     void onAmbientChange(const iaColor4f &color);
     void onDiffuseChange(const iaColor4f &color);
     void onSpecularChange(const iaColor4f &color);

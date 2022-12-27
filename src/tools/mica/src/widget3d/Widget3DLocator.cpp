@@ -9,34 +9,34 @@ Widget3DLocator::Widget3DLocator(iWindowPtr window, iView *view, iScenePtr scene
 {
 	_view->registerRenderDelegate(iDrawDelegate(this, &Widget3DLocator::update));
 
-	_red = iMaterialResourceFactory::getInstance().createTargetMaterial();
+	_red = iTargetMaterial::create();
 	_red->setEmissive(iaColor3f(0.6f, 0.0f, 0.0f));
 	_red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
 	_red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
 	_red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
 	_red->setAlpha(0.8);
 
-	_green = iMaterialResourceFactory::getInstance().createTargetMaterial();
+	_green = iTargetMaterial::create();
 	_green->setEmissive(iaColor3f(0.0f, 0.6f, 0.0f));
 	_green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
 	_green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
 	_green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
 	_green->setAlpha(0.8);
 
-	_blue = iMaterialResourceFactory::getInstance().createTargetMaterial();
+	_blue = iTargetMaterial::create();
 	_blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.6f));
 	_blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
 	_blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
 	_blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
 	_blue->setAlpha(0.8);
 
-	_materialID = iMaterialResourceFactory::getInstance().createMaterial("Locator");
-	auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+	_material = iMaterialResourceFactory::getInstance().createMaterial("Locator");
+	/*auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 	material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
 	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	material->compileShader();
-	material->setOrder(iMaterial::RENDER_ORDER_MAX);
+	material->setOrder(iMaterial::RENDER_ORDER_MAX);*/
 
 	createLocator();
 }
@@ -46,10 +46,6 @@ Widget3DLocator::~Widget3DLocator()
 	_view->unregisterRenderDelegate(iDrawDelegate(this, &Widget3DLocator::update));
 
 	iNodeManager::getInstance().destroyNodeAsync(_rootTransform);
-
-	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_red);
-	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_green);
-	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_blue);
 }
 
 void Widget3DLocator::update()
@@ -92,19 +88,19 @@ void Widget3DLocator::createLocator()
 
 	iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xCylinder->setMesh(locatorMesh);
-	xCylinder->setMaterial(_materialID);
+	xCylinder->setMaterial(_material);
 	xCylinder->setTargetMaterial(_red);
 	xTransform->insertNode(xCylinder);
 
 	iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	yCylinder->setMesh(locatorMesh);
-	yCylinder->setMaterial(_materialID);
+	yCylinder->setMaterial(_material);
 	yCylinder->setTargetMaterial(_green);
 	yTransform->insertNode(yCylinder);
 
 	iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	zCylinder->setMesh(locatorMesh);
-	zCylinder->setMaterial(_materialID);
+	zCylinder->setMaterial(_material);
 	zCylinder->setTargetMaterial(_blue);
 	zTransform->insertNode(zCylinder);
 }

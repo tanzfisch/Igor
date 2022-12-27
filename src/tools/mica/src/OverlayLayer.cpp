@@ -13,8 +13,8 @@ void OverlayLayer::onInit()
 {
     // init 3D user controls
     _view.setName("Overlay");
-    _view.setClearColor(false);
-    _view.setClearDepth(true);
+    _view.setClearColorActive(false);
+    _view.setClearDepthActive(true);
     _view.setPerspective(45.0f);
     _view.setClipPlanes(1.0f, 10000.f);
     _view.registerRenderDelegate(iDrawDelegate(this, &OverlayLayer::render));
@@ -29,9 +29,9 @@ void OverlayLayer::onInit()
     _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
 
     _materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial("OrientationPlane");
-    auto oriPlaneMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane);
+    /*auto oriPlaneMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane);
     oriPlaneMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    oriPlaneMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    oriPlaneMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);*/
 
     // font for
     _font = iTextureFont::create("StandardFont.png");
@@ -93,7 +93,7 @@ void OverlayLayer::renderOrientationPlane()
     iRenderer::getInstance().setMaterial(_materialOrientationPlane);
     iRenderer::getInstance().setLineWidth(1);
 
-    for (int i = -20; i < 21; ++i)
+/*    for (int i = -20; i < 21; ++i)
     {
         if (i % 2 == 0)
         {
@@ -111,7 +111,7 @@ void OverlayLayer::renderOrientationPlane()
     iRenderer::getInstance().setColor(1.0f, 0.0f, 0.0f, 1.0f);
     iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(20.0f, 0.0f, 0.0f));
     iRenderer::getInstance().setColor(0.0f, 0.0f, 1.0f, 1.0f);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 20.0f));
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 20.0f));*/
 }
 
 void OverlayLayer::onEvent(iEvent &event)

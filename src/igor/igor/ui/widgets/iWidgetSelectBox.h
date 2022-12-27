@@ -31,6 +31,8 @@
 
 #include <igor/ui/widgets/iWidget.h>
 
+#include <any>
+
 namespace igor
 {
 
@@ -59,9 +61,9 @@ namespace igor
         /*! adds entry to select box
 
 		\param entryText the entry text
-		\param userData optional pointer to user data
+		\param userData optional user data
 		*/
-        void addSelectionEntry(const iaString &entryText, void *userData = nullptr);
+        void addSelectionEntry(const iaString &entryText, const std::any &userData = std::any());
 
         /*! clears all entries
 
@@ -87,12 +89,12 @@ namespace igor
 
         /*! \returns user data pointer of selected entry
 		*/
-        void *getSelectedUserData() const;
+        const std::any getSelectedUserData() const;
 
     private:
         /*! list of selct box entries
 		*/
-        std::vector<std::pair<iaString, void *>> _entries;
+        std::vector<std::pair<iaString, std::any>> _entries;
 
         /*! current selected index
 

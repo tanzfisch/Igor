@@ -73,15 +73,17 @@ void UserControlMesh::updateNode()
             node->getTargetMaterial()->setEmissive(emissive);
             node->getTargetMaterial()->setShininess(_shininess);
 
-            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser0->getFileName()), 0);
-            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser1->getFileName()), 1);
-            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser2->getFileName()), 2);
-            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser3->getFileName()), 3);
+            node->getTargetMaterial()->clearTextures();
+            node->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser0->getFileName()));
+            node->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser1->getFileName()));
+            node->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser2->getFileName()));
+            node->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser3->getFileName()));
 
-            if (_selectMaterial->getSelectedUserData() != nullptr)
+            if (_selectMaterial->getSelectedUserData().has_value())
             {
-                uint32 materialID = *(static_cast<uint32 *>(_selectMaterial->getSelectedUserData()));
-                node->setMaterial(materialID);
+                std::any userData = _selectMaterial->getSelectedUserData();
+                iMaterialID materialID = std::any_cast<iMaterialID>(userData);
+                node->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
             }
         }
     }
@@ -116,11 +118,13 @@ void UserControlMesh::updateGUI()
         _sliderShininess->setValue(_shininess);
         _textShininess->setValue(_shininess);
 
-        _textVertices->setText(iaString::toString(node->getVertexCount()));
-        _textTriangles->setText(iaString::toString(node->getTrianglesCount()));
-        _textIndexes->setText(iaString::toString(node->getIndexesCount()));
+        iMeshPtr mesh = node->getMesh();
 
-        if (node->getTargetMaterial()->hasTextureUnit(0))
+        _textVertices->setText(iaString::toString(mesh->getVertexCount()));
+        _textTriangles->setText(iaString::toString(mesh->getTrianglesCount()));
+        _textIndexes->setText(iaString::toString(mesh->getIndexCount()));
+
+        /*if (node->getTargetMaterial()->hasTextureUnit(0))
         {
             iaString filename = node->getTargetMaterial()->getTexture(0)->getFilename();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
@@ -166,28 +170,22 @@ void UserControlMesh::updateGUI()
             }
 
             _textureChooser3->setFileName(filename);
-        }
+        }*/
 
-        for (auto entry : _userDataMaterialID)
-        {
-            delete entry;
-        }
-        _userDataMaterialID.clear();
         _selectMaterial->clear();
 
-        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        std::vector<iMaterialPtr> materials;
+        iMaterialResourceFactory::getInstance().getMaterials(materials);
         for (auto material : materials)
         {
             if (material->isValid())
             {
-                uint32 materialID = material->getID();
-                iaString materialName = material->getName();
+                const iMaterialID &materialID = material->getID();
+                const iaString &materialName = material->getName();
 
-                uint32 *ptrmaterialID = new uint32(materialID);
-                _selectMaterial->addSelectionEntry(materialName, ptrmaterialID);
-                _userDataMaterialID.push_back(ptrmaterialID);
+                _selectMaterial->addSelectionEntry(materialName, materialID.getValue());
 
-                if (materialID == node->getMaterial())
+                if (materialID == node->getMaterial()->getID())
                 {
                     _selectMaterial->setSelection(_selectMaterial->getSelectionEntryCount() - 1);
                 }

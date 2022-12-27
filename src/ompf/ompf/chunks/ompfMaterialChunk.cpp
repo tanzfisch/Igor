@@ -21,19 +21,9 @@ namespace OMPF
         _renderStates[static_cast<unsigned int>(OMPFRenderState::DepthMask)] = static_cast<uint8>(OMPFRenderStateValue::On);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Blend)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::CullFace)] = static_cast<uint8>(OMPFRenderStateValue::On);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D0)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D1)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D2)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D3)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D4)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D5)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D6)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D7)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Wireframe)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::DepthFunc)] = static_cast<uint8>(OMPFRenderStateValue::Less);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::CullFaceFunc)] = static_cast<uint8>(OMPFRenderStateValue::Back);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::BlendFuncSource)] = static_cast<uint8>(OMPFRenderStateValue::SourceAlpha);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::BlendFuncDestination)] = static_cast<uint8>(OMPFRenderStateValue::OneMinusSourceAlpha);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Instanced)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::InstancedFunc)] = static_cast<uint8>(OMPFRenderStateValue::PositionOrientation);
     }

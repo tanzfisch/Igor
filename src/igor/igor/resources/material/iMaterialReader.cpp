@@ -99,14 +99,6 @@ namespace igor
         material->setRenderState(iRenderState::DepthMask, getRenderStateValue(states, "DepthMask", iRenderStateValue::On));
         material->setRenderState(iRenderState::Blend, getRenderStateValue(states, "Blend", iRenderStateValue::On));
         material->setRenderState(iRenderState::CullFace, getRenderStateValue(states, "CullFace", iRenderStateValue::On));
-        material->setRenderState(iRenderState::Texture2D0, getRenderStateValue(states, "Texture2D0", iRenderStateValue::Off));
-        material->setRenderState(iRenderState::Texture2D1, getRenderStateValue(states, "Texture2D1", iRenderStateValue::Off));
-        material->setRenderState(iRenderState::Texture2D2, getRenderStateValue(states, "Texture2D2", iRenderStateValue::Off));
-        material->setRenderState(iRenderState::Texture2D3, getRenderStateValue(states, "Texture2D3", iRenderStateValue::Off));
-        material->setRenderState(iRenderState::Texture2D4, getRenderStateValue(states, "Texture2D4", iRenderStateValue::Off));
-        material->setRenderState(iRenderState::Texture2D5, getRenderStateValue(states, "Texture2D5", iRenderStateValue::Off));
-        material->setRenderState(iRenderState::Texture2D6, getRenderStateValue(states, "Texture2D6", iRenderStateValue::Off));
-        material->setRenderState(iRenderState::Texture2D7, getRenderStateValue(states, "Texture2D7", iRenderStateValue::Off));
         material->setRenderState(iRenderState::Wireframe, getRenderStateValue(states, "Wireframe", iRenderStateValue::Off));
         material->setRenderState(iRenderState::DepthFunc, getRenderStateValue(states, "DepthFunc", iRenderStateValue::Less));
         material->setRenderState(iRenderState::CullFaceFunc, getRenderStateValue(states, "CullFaceFunc", iRenderStateValue::Back));

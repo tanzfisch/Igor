@@ -33,23 +33,16 @@ void WorkspaceLayer::onInit()
 
     _lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     _lightNode->setName("directional light");
-    _lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
-    _lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
-    _lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    _lightNode->setAmbient(iaColor3f(0.5f, 0.5f, 0.5f));
+    _lightNode->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
+    _lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
 
     _workspace->getRootMica()->insertNode(_directionalLightRotate);
     _directionalLightRotate->insertNode(_directionalLightTranslate);
     _directionalLightTranslate->insertNode(_lightNode);
 
     // create materials
-    _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial("celShadingMaterial");
-    auto celShadingMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading);
-    celShadingMaterial->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-    celShadingMaterial->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
-    celShadingMaterial->compileShader();
-    celShadingMaterial->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-    celShadingMaterial->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-    celShadingMaterial->setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
+    _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulatorCellShading.mat");    
 
     _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial("materialBoundingBox");
 }
@@ -91,24 +84,24 @@ void WorkspaceLayer::renderSelection()
 
         if (node->getType() == iNodeType::iNodeMesh)
         {
-            iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
+            iRenderer::getInstance().setMaterial(_materialCelShading);
 
             iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-            iMeshBuffersPtr buffers = meshNode->getMeshBuffers();
+            /*iMeshBuffersPtr buffers = meshNode->getMeshBuffers();
             iRenderer::getInstance().setLineWidth(4);
-            iRenderer::getInstance().drawMesh(buffers);
+            iRenderer::getInstance().drawMesh(buffers);*/
         }
         else
         {
             if (node->getKind() == iNodeKind::Volume)
             {
                 iNodeVolume *renderVolume = static_cast<iNodeVolume *>(node);
-                iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
+                iRenderer::getInstance().setMaterial(_materialBoundingBox);
 
                 iAABoxd box = renderVolume->getBoundingBox();
 
-                iRenderer::getInstance().setColor(1, 1, 0, 1);
-                iRenderer::getInstance().drawBBox(box);
+                /*iRenderer::getInstance().setColor(1, 1, 0, 1);
+                iRenderer::getInstance().drawBBox(box);*/
             }
         }
     }

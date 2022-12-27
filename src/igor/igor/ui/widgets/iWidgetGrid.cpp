@@ -50,7 +50,7 @@ namespace igor
         return _highlightMode;
     }
 
-    std::any iWidgetGrid::getSelectedUserData()
+    const std::any iWidgetGrid::getSelectedUserData()
     {
         if (!isSelected())
         {

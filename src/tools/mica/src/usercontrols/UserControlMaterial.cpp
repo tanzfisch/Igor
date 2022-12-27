@@ -28,93 +28,10 @@ void UserControlMaterial::updateMaterial()
         material->setRenderState(iRenderState::DepthTest, _checkBoxDepthTest->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
         material->setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
         material->setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::Texture2D0, _checkBoxTexture2D0->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::Texture2D1, _checkBoxTexture2D1->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::Texture2D2, _checkBoxTexture2D2->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::Texture2D3, _checkBoxTexture2D3->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
         material->setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        //material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        // TODO material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
         material->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
         material->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
-
-        // TODO optimize!
-        iRenderStateValue value;
-        if (_selectBoxBlendFuncSource->getSelectedIndex() != -1)
-        {
-            switch (_selectBoxBlendFuncSource->getSelectedIndex())
-            {
-            case 0:
-                value = iRenderStateValue::Zero;
-                break;
-            case 1:
-                value = iRenderStateValue::One;
-                break;
-            case 2:
-                value = iRenderStateValue::SourceColor;
-                break;
-            case 3:
-                value = iRenderStateValue::OneMinusSourceColor;
-                break;
-            case 4:
-                value = iRenderStateValue::DestinationColor;
-                break;
-            case 5:
-                value = iRenderStateValue::OneMinusDestinationColor;
-                break;
-            case 6:
-                value = iRenderStateValue::SourceAlpha;
-                break;
-            case 7:
-                value = iRenderStateValue::OneMinusSourceAlpha;
-                break;
-            case 8:
-                value = iRenderStateValue::DestinationAlpha;
-                break;
-            case 9:
-                value = iRenderStateValue::OneMinusDestinationAlpha;
-                break;
-            }
-
-            // material->setRenderState(iRenderState::BlendFuncSource, value);
-        }
-
-        if (_selectBoxBlendFuncDestination->getSelectedIndex() != -1)
-        {
-            switch (_selectBoxBlendFuncDestination->getSelectedIndex())
-            {
-            case 0:
-                value = iRenderStateValue::Zero;
-                break;
-            case 1:
-                value = iRenderStateValue::One;
-                break;
-            case 2:
-                value = iRenderStateValue::SourceColor;
-                break;
-            case 3:
-                value = iRenderStateValue::OneMinusSourceColor;
-                break;
-            case 4:
-                value = iRenderStateValue::DestinationColor;
-                break;
-            case 5:
-                value = iRenderStateValue::OneMinusDestinationColor;
-                break;
-            case 6:
-                value = iRenderStateValue::SourceAlpha;
-                break;
-            case 7:
-                value = iRenderStateValue::OneMinusSourceAlpha;
-                break;
-            case 8:
-                value = iRenderStateValue::DestinationAlpha;
-                break;
-            case 9:
-                value = iRenderStateValue::OneMinusDestinationAlpha;
-                break;
-            }
-            // material->setRenderState(iRenderState::BlendFuncDestination, value);
-        }
 
         reloadShader(material);
 
@@ -156,92 +73,14 @@ void UserControlMaterial::updateGUI()
         _checkBoxDepthTest->setChecked(material->getRenderState(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
         _checkBoxDepthMask->setChecked(material->getRenderState(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
         _checkBoxBlend->setChecked(material->getRenderState(iRenderState::Blend) == iRenderStateValue::On ? true : false);
-        _checkBoxTexture2D0->setChecked(material->getRenderState(iRenderState::Texture2D0) == iRenderStateValue::On ? true : false);
-        _checkBoxTexture2D1->setChecked(material->getRenderState(iRenderState::Texture2D1) == iRenderStateValue::On ? true : false);
-        _checkBoxTexture2D2->setChecked(material->getRenderState(iRenderState::Texture2D2) == iRenderStateValue::On ? true : false);
-        _checkBoxTexture2D3->setChecked(material->getRenderState(iRenderState::Texture2D3) == iRenderStateValue::On ? true : false);
         _checkBoxWireframe->setChecked(material->getRenderState(iRenderState::Wireframe) == iRenderStateValue::On ? true : false);
-        //_checkBoxInstanced->setChecked(material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
-
         _selectBoxDepthFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::DepthFunc)) - static_cast<int>(iRenderStateValue::Never));
         _selectBoxCullFaceFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::CullFaceFunc)) - static_cast<int>(iRenderStateValue::Front));
 
-        // TODO optimize!
-        int selection = 0;
-        switch (material->getRenderState(iRenderState::BlendFuncSource))
-        {
-        case iRenderStateValue::Zero:
-            selection = 0;
-            break;
-        case iRenderStateValue::One:
-            selection = 1;
-            break;
-        case iRenderStateValue::SourceColor:
-            selection = 2;
-            break;
-        case iRenderStateValue::OneMinusSourceColor:
-            selection = 3;
-            break;
-        case iRenderStateValue::DestinationColor:
-            selection = 4;
-            break;
-        case iRenderStateValue::OneMinusDestinationColor:
-            selection = 5;
-            break;
-        case iRenderStateValue::SourceAlpha:
-            selection = 6;
-            break;
-        case iRenderStateValue::OneMinusSourceAlpha:
-            selection = 7;
-            break;
-        case iRenderStateValue::DestinationAlpha:
-            selection = 8;
-            break;
-        case iRenderStateValue::OneMinusDestinationAlpha:
-            selection = 9;
-            break;
-        }
+        //TODO_checkBoxInstanced->setChecked(material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
+        //TODO _selectBoxInstancedFunc = nullptr;
 
-        _selectBoxBlendFuncSource->setSelection(selection);
-
-        switch (material->getRenderState(iRenderState::BlendFuncDestination))
-        {
-        case iRenderStateValue::Zero:
-            selection = 0;
-            break;
-        case iRenderStateValue::One:
-            selection = 1;
-            break;
-        case iRenderStateValue::SourceColor:
-            selection = 2;
-            break;
-        case iRenderStateValue::OneMinusSourceColor:
-            selection = 3;
-            break;
-        case iRenderStateValue::DestinationColor:
-            selection = 4;
-            break;
-        case iRenderStateValue::OneMinusDestinationColor:
-            selection = 5;
-            break;
-        case iRenderStateValue::SourceAlpha:
-            selection = 6;
-            break;
-        case iRenderStateValue::OneMinusSourceAlpha:
-            selection = 7;
-            break;
-        case iRenderStateValue::DestinationAlpha:
-            selection = 8;
-            break;
-        case iRenderStateValue::OneMinusDestinationAlpha:
-            selection = 9;
-            break;
-        }
-
-        _selectBoxBlendFuncDestination->setSelection(selection);
-        //_selectBoxInstancedFunc = nullptr;
-
-        auto shaderSources = material->getShaderSources();
+      /*  auto shaderSources = material->getShaderSources();
 
         if (!shaderSources.empty())
         {
@@ -270,7 +109,7 @@ void UserControlMaterial::updateGUI()
                 }
             }
         }
-        else
+        else*/
         {
             _textShaderGeometry->setText("");
             _textShaderVertex->setText("");
@@ -281,13 +120,13 @@ void UserControlMaterial::updateGUI()
     }
 }
 
-void UserControlMaterial::setMaterial(uint64 id)
+void UserControlMaterial::setMaterial(const iMaterialID &materialID)
 {
-    _materialID = id;
+    _materialID = materialID;
     updateGUI();
 }
 
-uint64 UserControlMaterial::getMaterialID() const
+const iMaterialID& UserControlMaterial::getMaterialID() const
 {
     return _materialID;
 }
@@ -364,42 +203,6 @@ void UserControlMaterial::initGUI()
     _checkBoxBlend = new iWidgetCheckBox();
     _checkBoxBlend->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetLabel *labelBlendFuncSource = new iWidgetLabel();
-    labelBlendFuncSource->setText("Blend Source");
-    labelBlendFuncSource->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _selectBoxBlendFuncSource = new iWidgetSelectBox();
-    _selectBoxBlendFuncSource->addSelectionEntry("Zero");
-    _selectBoxBlendFuncSource->addSelectionEntry("One");
-    _selectBoxBlendFuncSource->addSelectionEntry("SourceColor");
-    _selectBoxBlendFuncSource->addSelectionEntry("OneMinusSourceColor");
-    _selectBoxBlendFuncSource->addSelectionEntry("DestinationColor");
-    _selectBoxBlendFuncSource->addSelectionEntry("OneMinusDestinationColor");
-    _selectBoxBlendFuncSource->addSelectionEntry("SourceAlpha");
-    _selectBoxBlendFuncSource->addSelectionEntry("OneMinusSourceAlpha");
-    _selectBoxBlendFuncSource->addSelectionEntry("DestinationAlpha");
-    _selectBoxBlendFuncSource->addSelectionEntry("OneMinusDestinationAlpha");
-    _selectBoxBlendFuncSource->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _selectBoxBlendFuncSource->setWidth(200);
-
-    iWidgetLabel *labelBlendFuncDestination = new iWidgetLabel();
-    labelBlendFuncDestination->setText("Blend Destination");
-    labelBlendFuncDestination->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _selectBoxBlendFuncDestination = new iWidgetSelectBox();
-    _selectBoxBlendFuncDestination->addSelectionEntry("Zero");
-    _selectBoxBlendFuncDestination->addSelectionEntry("One");
-    _selectBoxBlendFuncDestination->addSelectionEntry("SourceColor");
-    _selectBoxBlendFuncDestination->addSelectionEntry("OneMinusSourceColor");
-    _selectBoxBlendFuncDestination->addSelectionEntry("DestinationColor");
-    _selectBoxBlendFuncDestination->addSelectionEntry("OneMinusDestinationColor");
-    _selectBoxBlendFuncDestination->addSelectionEntry("SourceAlpha");
-    _selectBoxBlendFuncDestination->addSelectionEntry("OneMinusSourceAlpha");
-    _selectBoxBlendFuncDestination->addSelectionEntry("DestinationAlpha");
-    _selectBoxBlendFuncDestination->addSelectionEntry("OneMinusDestinationAlpha");
-    _selectBoxBlendFuncDestination->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _selectBoxBlendFuncDestination->setWidth(200);
 
     iWidgetLabel *labelCullFace = new iWidgetLabel();
     labelCullFace->setText("Cull Face");
@@ -590,8 +393,6 @@ void UserControlMaterial::initGUI()
     gridParam->addWidget(labelDepthFunction, 0, 2);
     gridParam->addWidget(labelDepthMask, 0, 3);
     gridParam->addWidget(labelBlend, 0, 4);
-    gridParam->addWidget(labelBlendFuncSource, 0, 5);
-    gridParam->addWidget(labelBlendFuncDestination, 0, 6);
     gridParam->addWidget(labelCullFace, 0, 7);
     gridParam->addWidget(labelCullFaceFunc, 0, 8);
     gridParam->addWidget(labelTexture2D0, 0, 9);
@@ -606,8 +407,6 @@ void UserControlMaterial::initGUI()
     gridParam->addWidget(_selectBoxDepthFunc, 1, 2);
     gridParam->addWidget(_checkBoxDepthMask, 1, 3);
     gridParam->addWidget(_checkBoxBlend, 1, 4);
-    gridParam->addWidget(_selectBoxBlendFuncSource, 1, 5);
-    gridParam->addWidget(_selectBoxBlendFuncDestination, 1, 6);
     gridParam->addWidget(_checkBoxCullFace, 1, 7);
     gridParam->addWidget(_selectBoxCullFaceFunc, 1, 8);
     gridParam->addWidget(_checkBoxTexture2D0, 1, 9);

@@ -59,7 +59,7 @@ private:
 
     /*! material for orientation plane 
 	*/
-    iMaterialID _materialOrientationPlane;
+    iMaterialPtr _materialOrientationPlane;
 
     /*! the mica workspace
     */

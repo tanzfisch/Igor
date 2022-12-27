@@ -43,8 +43,8 @@ public:
 	UserControlMaterial();
 	~UserControlMaterial();
 
-	void setMaterial(uint64 id);
-	uint64 getMaterialID() const;
+	void setMaterial(const iMaterialID &materialID);
+	const iMaterialID& getMaterialID() const;
 
 	void registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
 	void unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
@@ -67,8 +67,6 @@ private:
 	iWidgetCheckBox *_checkBoxInstanced = nullptr;
 	iWidgetSelectBox *_selectBoxDepthFunc = nullptr;
 	iWidgetSelectBox *_selectBoxCullFaceFunc = nullptr;
-	iWidgetSelectBox *_selectBoxBlendFuncSource = nullptr;
-	iWidgetSelectBox *_selectBoxBlendFuncDestination = nullptr;
 	iWidgetSelectBox *_selectBoxInstancedFunc = nullptr;
 
 	iWidgetTextEdit *_textShaderGeometry = nullptr;

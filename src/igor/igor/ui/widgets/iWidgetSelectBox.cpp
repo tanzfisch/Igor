@@ -200,15 +200,12 @@ namespace igor
         _currentSelection = -1;
     }
 
-    void iWidgetSelectBox::addSelectionEntry(const iaString &entryText, void *userData)
+    void iWidgetSelectBox::addSelectionEntry(const iaString &entryText, const std::any &userData)
     {
-        std::pair<iaString, void *> entry;
-        entry.first = entryText;
-        entry.second = userData;
-        _entries.push_back(entry);
+        _entries.push_back({entryText, userData});
     }
 
-    void *iWidgetSelectBox::getSelectedUserData() const
+    const std::any iWidgetSelectBox::getSelectedUserData() const
     {
         if (_currentSelection != -1)
         {
@@ -216,7 +213,7 @@ namespace igor
         }
         else
         {
-            return nullptr;
+            return "";
         }
     }
 

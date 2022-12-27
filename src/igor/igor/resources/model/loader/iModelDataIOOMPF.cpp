@@ -494,14 +494,6 @@ namespace igor
         material->setRenderState(iRenderState::DepthMask, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthMask)));
         material->setRenderState(iRenderState::Blend, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Blend)));
         material->setRenderState(iRenderState::CullFace, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::CullFace)));
-        material->setRenderState(iRenderState::Texture2D0, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D0)));
-        material->setRenderState(iRenderState::Texture2D1, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D1)));
-        material->setRenderState(iRenderState::Texture2D2, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D2)));
-        material->setRenderState(iRenderState::Texture2D3, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D3)));
-        material->setRenderState(iRenderState::Texture2D4, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D4)));
-        material->setRenderState(iRenderState::Texture2D5, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D5)));
-        material->setRenderState(iRenderState::Texture2D6, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D6)));
-        material->setRenderState(iRenderState::Texture2D7, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Texture2D7)));
         material->setRenderState(iRenderState::Wireframe, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Wireframe)));
         material->setRenderState(iRenderState::DepthFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthFunc)));
         material->setRenderState(iRenderState::CullFaceFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::CullFaceFunc)));

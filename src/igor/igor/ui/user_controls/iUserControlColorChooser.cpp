@@ -649,4 +649,9 @@ namespace igor
         updateWidgets();
     }
 
+    void iUserControlColorChooser::setColor(const iaColor3f &color)
+    {
+        setColor(iaColor4f(color._r, color._g, color._b, 1.0));
+    }
+
 } // namespace igor

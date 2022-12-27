@@ -59,19 +59,19 @@ public:
 private:
 	/*! material id
 	*/
-	iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
+	iMaterialPtr _material;
 
 	/*! target material red
 	*/
-	iTargetMaterial *_red = nullptr;
+	iTargetMaterialPtr _red = nullptr;
 
 	/*! target material green
 	*/
-	iTargetMaterial *_green = nullptr;
+	iTargetMaterialPtr _green = nullptr;
 
 	/*! target material blue
 	*/
-	iTargetMaterial *_blue = nullptr;
+	iTargetMaterialPtr _blue = nullptr;
 
 	/*! root transform node
 	*/
