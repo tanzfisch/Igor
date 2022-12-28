@@ -714,9 +714,7 @@ namespace igor
         iaMatrixd matrix;
         matrix.translate(0.0, 0.0, -1.0);
         iRenderer::getInstance().setModelMatrix(matrix);
-
-        iRenderer::getInstance().drawRectangle(10, 10, 1000, 1000, iaColor4f::red);
-
+        
         child->draw();
 
         // restore everything
