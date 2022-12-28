@@ -250,9 +250,12 @@ namespace igor
 
     iTexturePtr iTextureResourceFactory::loadFile(const iaString &filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        iTexturePtr result;
+        if(filename.isEmpty())
+        {
+            return nullptr;
+        }
 
-        con_assert_sticky(!filename.isEmpty(), "empty filename");
+        iTexturePtr result;
 
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
         if (keyPath.isEmpty())

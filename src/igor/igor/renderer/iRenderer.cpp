@@ -2043,16 +2043,19 @@ namespace igor
                 _data->_currentMaterial->setFloat(UNIFORM_CONFIG_VELOCITY_ORIENTED, targetMaterial->isVelocityOriented() ? 1.0 : 0.0);
             }
 
-            uint32 texUnit = 0;
-            for (const auto &texture : targetMaterial->getTextures())
+            for (const auto &pair : targetMaterial->getTextures())
             {
+                const auto &texture = pair.second;
+                const auto &texUnit = pair.first;
+
                 if (_data->_currentMaterial->hasTextureUnit(texUnit))
                 {
                     std::stringstream shaderProperty;
                     shaderProperty << SAMPLER_TEXTURE << texUnit;
                     _data->_currentMaterial->setInt(shaderProperty.str().c_str(), texUnit);
 
-                    if (texture->useFallback())
+                    if (texture == nullptr ||
+                        texture->useFallback())
                     {
                         _data->_fallbackTexture->bind(texUnit);
                     }
@@ -2061,7 +2064,6 @@ namespace igor
                         texture->bind(texUnit);
                     }
                 }
-                texUnit++;
             }
         }
 

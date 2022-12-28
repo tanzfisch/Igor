@@ -102,7 +102,7 @@ iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i &size, uint32 fro
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
 			iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
-			targetMaterial->addTexture(_atlas->getTexture());
+			targetMaterial->setTexture(_atlas->getTexture(), 0);
 
 			transformNode->insertNode(meshNode);
 			result->insertNode(transformNode);
@@ -219,7 +219,7 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
 			iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
-			targetMaterial->addTexture(_atlas->getTexture());
+			targetMaterial->setTexture(_atlas->getTexture(), 0);
 
 			transformNode->insertNode(meshNode);
 			result->insertNode(transformNode);

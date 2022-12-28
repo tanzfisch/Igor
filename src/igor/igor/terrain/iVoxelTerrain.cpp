@@ -183,9 +183,9 @@ namespace igor
 
         // set up terrain target material
         _targetMaterial = iTargetMaterial::create();
-        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture()); // TODO
-        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture());
-        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().getDummyTexture());
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);
         _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -207,7 +207,7 @@ namespace igor
         _lodTrigger = lodTriggerID;
     }
 
-    void iVoxelTerrain::setMaterial(const iMaterialPtr& material)
+    void iVoxelTerrain::setMaterial(const iMaterialPtr &material)
     {
         _terrainMaterial = material;
     }

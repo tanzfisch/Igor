@@ -73,16 +73,15 @@ void UserControlMesh::updateNode()
             node->getTargetMaterial()->setEmissive(emissive);
             node->getTargetMaterial()->setShininess(_shininess);
 
-            node->getTargetMaterial()->clearTextures();
-            node->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser0->getFileName()));
-            node->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser1->getFileName()));
-            node->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser2->getFileName()));
-            node->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser3->getFileName()));
+            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser0->getFileName()), 0);
+            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser1->getFileName()), 1);
+            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser2->getFileName()), 2);
+            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser3->getFileName()), 3);
 
             if (_selectMaterial->getSelectedUserData().has_value())
             {
                 std::any userData = _selectMaterial->getSelectedUserData();
-                iMaterialID materialID = std::any_cast<iMaterialID>(userData);
+                iMaterialID materialID(std::any_cast<iaString>(userData));
                 node->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
             }
         }
@@ -124,7 +123,7 @@ void UserControlMesh::updateGUI()
         _textTriangles->setText(iaString::toString(mesh->getTrianglesCount()));
         _textIndexes->setText(iaString::toString(mesh->getIndexCount()));
 
-        /*if (node->getTargetMaterial()->hasTextureUnit(0))
+        if (node->getTargetMaterial()->hasTextureUnit(0))
         {
             iaString filename = node->getTargetMaterial()->getTexture(0)->getFilename();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
@@ -170,7 +169,7 @@ void UserControlMesh::updateGUI()
             }
 
             _textureChooser3->setFileName(filename);
-        }*/
+        }
 
         _selectMaterial->clear();
 
