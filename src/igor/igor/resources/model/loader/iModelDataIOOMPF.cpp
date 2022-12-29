@@ -735,8 +735,6 @@ namespace igor
 
         if (node != nullptr)
         {
-            con_assert(node->getMesh() != nullptr, "zero pointer");
-
             iaColor3c ambient;
             iaColor3c diffuse;
             iaColor3c specular;
@@ -753,21 +751,27 @@ namespace igor
             result->setEmissive(emissive);
             result->setShininess(node->getShininess());
 
-            if (node->getMesh() != nullptr)
+            const iMeshPtr &mesh = node->getMesh();
+
+            if (mesh != nullptr &&
+                mesh->hasRawData())
             {
-                result->setNormalsPerVertex(node->getMesh()->hasNormals() ? 1 : 0);
-                result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
-                result->setTexCoordPerVertex(node->getMesh()->getTextureCoordinatesCount());
+                result->setNormalsPerVertex(mesh->hasNormals() ? 1 : 0);
+                result->setColorsPerVertex(mesh->hasColors() ? 1 : 0);
+                result->setTexCoordPerVertex(mesh->getTextureCoordinatesCount());
 
-                result->setVertexCount(node->getMesh()->getVertexCount());
-                /*for (auto vertexBuffer : node->getMesh()->getVertexArray()->getVertexBuffers())
-                {
-                    vertexBuffer->getData ? ? ? ? break;
-                }
-                result->setVertexData(reinterpret_cast<char *>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
+                result->setVertexCount(mesh->getVertexCount());
 
-                result->setIndexCount(node->getMesh()->getIndexesCount());
-                result->setIndexData(reinterpret_cast<char *>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());*/
+                void *indexData;
+                uint32 indexDataSize;
+                void *vertexData;
+                uint32 vertexDataSize;
+                mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
+
+                result->setVertexData(reinterpret_cast<char *>(vertexData), vertexDataSize);
+
+                result->setIndexCount(mesh->getIndexCount());
+                result->setIndexData(reinterpret_cast<char *>(indexData), indexDataSize);
 
                 for (const auto &pair : node->getTargetMaterial()->getTextures())
                 {

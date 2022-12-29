@@ -87,11 +87,11 @@ void OverlayLayer::renderOrientationPlane()
     iaMatrixd identity;
     iRenderer::getInstance().setModelMatrix(identity);
 
-    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial());
+    iRenderer::getInstance().setMaterial(_materialOrientationPlane);
     iRenderer::getInstance().setLineWidth(1);
 
-    const iaColor4f color1(1.0f, 1.0f, 1.0f, 0.5f);
-    const iaColor4f color2(1.0f, 1.0f, 1.0f, 0.25f);
+    const iaColor4f color1(1.0f, 1.0f, 1.0f, 0.25f);
+    const iaColor4f color2(1.0f, 1.0f, 1.0f, 0.125f);
 
     for (int i = -20; i < 21; ++i)
     {
