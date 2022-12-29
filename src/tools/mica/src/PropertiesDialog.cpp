@@ -54,12 +54,12 @@ void PropertiesDialog::onStructureChanged()
 
 void PropertiesDialog::onGraphViewSelectionChanged(uint64 nodeID)
 {
-    _userControlProperties->setProperty(nodeID, PropertyType::Node);
+    _userControlProperties->setNode(nodeID);
 }
 
-void PropertiesDialog::onMaterialSelectionChanged(uint64 materialID)
+void PropertiesDialog::onMaterialSelectionChanged(const iMaterialID &materialID)
 {
-    _userControlProperties->setProperty(materialID, PropertyType::Material);
+    _userControlProperties->setMaterial(materialID);
 }
 
 void PropertiesDialog::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)

@@ -77,8 +77,6 @@ private:
 	iWidgetButton *_shader1Button = nullptr;
 	iWidgetButton *_shader2Button = nullptr;
 
-	iWidgetButton *_shaderReload = nullptr;
-
 	iMaterialID _materialID;
 
 	uint32 _loadShaderNumber = 0;
@@ -90,14 +88,11 @@ private:
 	void onShader0Button(const iWidgetPtr source);
 	void onShader1Button(const iWidgetPtr source);
 	void onShader2Button(const iWidgetPtr source);
-	void onReloadShader(const iWidgetPtr source);
 
 	void onTextChangedName(const iWidgetPtr source);
 	void onDoUpdateMaterial(const iWidgetPtr source);
 
 	void onFileLoadDialogClosed(iDialogPtr dialog);
-
-	void reloadShader(iMaterialPtr material);
 
 	void updateGUI();
 	void updateMaterial();

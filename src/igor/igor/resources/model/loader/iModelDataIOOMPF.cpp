@@ -815,9 +815,9 @@ namespace igor
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
         const auto &shaderSources = material->getShaderProgram()->getShaderSources();
-        for (const auto &filename : shaderSources)
+        for (const auto &pair : shaderSources)
         {
-            result->addShader(filename, static_cast<OMPF::OMPFShaderType>(1)); // TODO type
+            result->addShader(pair.first, static_cast<OMPF::OMPFShaderType>(pair.second));
         }
 
         result->setMaterialName(material->getName());

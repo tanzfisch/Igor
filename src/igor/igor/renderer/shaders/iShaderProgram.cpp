@@ -30,7 +30,7 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    const std::vector<iaString>& iShaderProgram::getShaderSources() const
+    const std::vector<std::pair<iaString, iShaderObjectType>>& iShaderProgram::getShaderSources() const
     {
         return _sources;
     }
@@ -99,7 +99,7 @@ namespace igor
         }
 
         _shaderObjects.push_back(shaderObject);
-        _sources.push_back(sourceName);
+        _sources.push_back({sourceName, type});
 
         return true;
     }

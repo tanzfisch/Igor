@@ -228,18 +228,18 @@ void Outliner::setViewType(ViewType viewType)
 
 void Outliner::deinitMaterialView()
 {
-    /*if (_userControlMaterialView != nullptr)
+    if (_userControlMaterialView != nullptr)
     {
         _userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
         _grid->removeWidget(_userControlMaterialView);
-    }*/
+    }
 }
 
 void Outliner::initMaterialView()
 {
-    /*if (_userControlMaterialView == nullptr)
+    if (_userControlMaterialView == nullptr)
     {
         _userControlMaterialView = new UserControlMaterialView();
     }
@@ -248,7 +248,7 @@ void Outliner::initMaterialView()
     _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
     _grid->addWidget(_userControlMaterialView, 0, 2);
-    refresh();*/
+    refresh();
 }
 
 void Outliner::deinitGraphView()
@@ -278,9 +278,9 @@ void Outliner::onGraphSelectionChanged(uint64 nodeID)
     _graphSelectionChanged(nodeID);
 }
 
-void Outliner::onMaterialSelectionChanged(uint64 materialID)
+void Outliner::onMaterialSelectionChanged(const iMaterialID &materialID)
 {
-    // TODO _materialSelectionChanged(materialID);
+    _materialSelectionChanged(materialID);
 }
 
 void Outliner::onDelete(const iWidgetPtr source)

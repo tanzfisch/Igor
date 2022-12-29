@@ -35,7 +35,7 @@ using namespace igor;
 #include "usercontrols/UserControlProperties.h"
 
 /*! properties dialog
-*/
+ */
 class PropertiesDialog : public iDialog
 {
 
@@ -43,11 +43,11 @@ class PropertiesDialog : public iDialog
 
 public:
     /*! init UI
-    */
+     */
     PropertiesDialog();
 
     /*! does nothing
-    */
+     */
     ~PropertiesDialog() = default;
 
     void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
@@ -57,7 +57,7 @@ public:
     void unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
 
     void onGraphViewSelectionChanged(uint64 nodeID);
-    void onMaterialSelectionChanged(uint64 materialID);
+    void onMaterialSelectionChanged(const iMaterialID &materialID);
 
 private:
     PropertiesChangedEvent _propertiesChangedEvent;
@@ -66,7 +66,7 @@ private:
     UserControlProperties *_userControlProperties = nullptr;
 
     /*! init UI
-    */
+     */
     void initGUI();
 
     void onStructureChanged();

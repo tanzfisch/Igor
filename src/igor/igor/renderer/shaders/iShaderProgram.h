@@ -76,7 +76,7 @@ namespace igor
 
         it does not return sources added via addSource
         */
-        const std::vector<iaString>& getShaderSources() const;
+        const std::vector<std::pair<iaString, iShaderObjectType>>& getShaderSources() const;
 
         /*! add shader from buffer
 
@@ -157,7 +157,7 @@ namespace igor
 
         /*! shader source files
         */
-        std::vector<iaString> _sources;
+        std::vector<std::pair<iaString, iShaderObjectType>> _sources;
 
         /*! id of glsl shader program
          */

@@ -33,30 +33,8 @@ void UserControlMaterial::updateMaterial()
         material->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
         material->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
 
-        reloadShader(material);
-
         // TODO		_selectBoxInstancedFunc
     }
-}
-
-void UserControlMaterial::reloadShader(iMaterialPtr material)
-{
-/* TODO     material->clearShader();
-    if (_textShaderGeometry->getText() != "")
-    {
-        material->addShaderSource(_textShaderGeometry->getText(), iShaderObjectType::Geometry);
-    }
-
-    if (_textShaderVertex->getText() != "")
-    {
-        material->addShaderSource(_textShaderVertex->getText(), iShaderObjectType::Vertex);
-    }
-
-    if (_textShaderFragment->getText() != "")
-    {
-        material->addShaderSource(_textShaderFragment->getText(), iShaderObjectType::Fragment);
-    }
-    material->compileShader();*/ 
 }
 
 void UserControlMaterial::updateGUI()
@@ -77,39 +55,32 @@ void UserControlMaterial::updateGUI()
         _selectBoxDepthFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::DepthFunc)) - static_cast<int>(iRenderStateValue::Never));
         _selectBoxCullFaceFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::CullFaceFunc)) - static_cast<int>(iRenderStateValue::Front));
 
-        //TODO_checkBoxInstanced->setChecked(material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
-        //TODO _selectBoxInstancedFunc = nullptr;
+        // TODO_checkBoxInstanced->setChecked(material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
+        // TODO _selectBoxInstancedFunc = nullptr;
 
-      /*  auto shaderSources = material->getShaderSources();
+        const auto &shaderSources = material->getShaderProgram()->getShaderSources();
 
         if (!shaderSources.empty())
         {
-            for (auto shader : shaderSources)
+            for (const auto &pair : shaderSources)
             {
-                iaString filename = shader._filename;
-                // todo need contains or begins with function for iaString iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-                //   if (!shortName.isEmpty())
-                //            {
-                //              filename = shortName;
-                //        }
-
-                switch (shader._type)
+                switch (pair.second)
                 {
                 case iShaderObjectType::Geometry:
-                    _textShaderGeometry->setText(filename);
+                    _textShaderGeometry->setText(pair.first);
                     break;
 
                 case iShaderObjectType::Vertex:
-                    _textShaderVertex->setText(filename);
+                    _textShaderVertex->setText(pair.first);
                     break;
 
                 case iShaderObjectType::Fragment:
-                    _textShaderFragment->setText(filename);
+                    _textShaderFragment->setText(pair.first);
                     break;
                 }
             }
         }
-        else*/
+        else
         {
             _textShaderGeometry->setText("");
             _textShaderVertex->setText("");
@@ -126,7 +97,7 @@ void UserControlMaterial::setMaterial(const iMaterialID &materialID)
     updateGUI();
 }
 
-const iMaterialID& UserControlMaterial::getMaterialID() const
+const iMaterialID &UserControlMaterial::getMaterialID() const
 {
     return _materialID;
 }
@@ -307,11 +278,11 @@ void UserControlMaterial::initGUI()
     gridShaders->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelShader0 = new iWidgetLabel();
-    labelShader0->setText("Geometry");
+    labelShader0->setText("Vertex");
     labelShader0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelShader1 = new iWidgetLabel();
-    labelShader1->setText("Vertex");
+    labelShader1->setText("Geometry");
     labelShader1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelShader2 = new iWidgetLabel();
@@ -319,6 +290,7 @@ void UserControlMaterial::initGUI()
     labelShader2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textShaderGeometry = new iWidgetTextEdit();
+    _textShaderGeometry->setActive(false);
     _textShaderGeometry->setWidth(200);
     _textShaderGeometry->setMaxTextLength(200);
     _textShaderGeometry->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -327,6 +299,7 @@ void UserControlMaterial::initGUI()
     _textShaderGeometry->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _textShaderVertex = new iWidgetTextEdit();
+    _textShaderVertex->setActive(false);
     _textShaderVertex->setWidth(200);
     _textShaderVertex->setMaxTextLength(200);
     _textShaderVertex->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -335,6 +308,7 @@ void UserControlMaterial::initGUI()
     _textShaderVertex->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _textShaderFragment = new iWidgetTextEdit();
+    _textShaderFragment->setActive(false);
     _textShaderFragment->setWidth(200);
     _textShaderFragment->setMaxTextLength(200);
     _textShaderFragment->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -343,6 +317,7 @@ void UserControlMaterial::initGUI()
     _textShaderFragment->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _shader0Button = new iWidgetButton();
+    _shader0Button->setActive(false);
     _shader0Button->setWidth(20);
     _shader0Button->setHeight(20);
     _shader0Button->setText("...");
@@ -350,6 +325,7 @@ void UserControlMaterial::initGUI()
     _shader0Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader0Button));
 
     _shader1Button = new iWidgetButton();
+    _shader1Button->setActive(false);
     _shader1Button->setWidth(20);
     _shader1Button->setHeight(20);
     _shader1Button->setText("...");
@@ -357,31 +333,23 @@ void UserControlMaterial::initGUI()
     _shader1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader1Button));
 
     _shader2Button = new iWidgetButton();
+    _shader2Button->setActive(false);
     _shader2Button->setWidth(20);
     _shader2Button->setHeight(20);
     _shader2Button->setText("...");
     _shader2Button->setTooltip("Browse for fragment shader");
     _shader2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader2Button));
 
-    _shaderReload = new iWidgetButton();
-    _shaderReload->setWidth(20);
-    _shaderReload->setHeight(20);
-    _shaderReload->setText("Reload");
-    _shaderReload->setTooltip("Reload shaders");
-    _shaderReload->setHorizontalAlignment(iHorizontalAlignment::Right);
-    _shaderReload->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onReloadShader));
-
     shaderGroupBox->addWidget(gridShadersGroup);
 
     gridShadersGroup->addWidget(gridShaders, 0, 0);
-    gridShadersGroup->addWidget(_shaderReload, 0, 1);
 
     gridShaders->addWidget(labelShader0, 0, 0);
     gridShaders->addWidget(labelShader1, 0, 1);
     gridShaders->addWidget(labelShader2, 0, 2);
 
-    gridShaders->addWidget(_textShaderGeometry, 1, 0);
-    gridShaders->addWidget(_textShaderVertex, 1, 1);
+    gridShaders->addWidget(_textShaderVertex, 1, 0);
+    gridShaders->addWidget(_textShaderGeometry, 1, 1);
     gridShaders->addWidget(_textShaderFragment, 1, 2);
 
     gridShaders->addWidget(_shader0Button, 2, 0);
@@ -486,18 +454,6 @@ void UserControlMaterial::onShader2Button(const iWidgetPtr source)
     }
 
     _fileDialog->open(iDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), iFileDialogPurpose::Load, "..\\data\\shaders"); // TODO hard coded path
-}
-
-void UserControlMaterial::onReloadShader(const iWidgetPtr source)
-{
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
-
-    if (!_ignoreMaterialUpdate &&
-        material != nullptr &&
-        material->isValid())
-    {
-        reloadShader(material);
-    }
 }
 
 void UserControlMaterial::onFileLoadDialogClosed(iDialogPtr dialog)

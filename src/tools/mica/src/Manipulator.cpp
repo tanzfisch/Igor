@@ -19,7 +19,7 @@ void Manipulator::init()
 {
     _view->registerRenderDelegate(iDrawDelegate(this, &Manipulator::render));
 
-    _material = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulatorBase.mat");
+    _material = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulator_base.mat");
 
     _red = iTargetMaterial::create();
     _red->setEmissive(iaColor3f(0.8f, 0.0f, 0.0f));
@@ -68,7 +68,7 @@ void Manipulator::init()
 
     _scene->getRoot()->insertNode(_rootTransform);
 
-    _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulatorCellShading.mat");
+    _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulator_cellshading.mat");
 
     setManipulatorMode(_manipulatorMode);
 }

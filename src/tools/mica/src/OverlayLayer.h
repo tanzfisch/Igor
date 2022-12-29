@@ -73,10 +73,6 @@ private:
 	*/
     Manipulator *_manipulator = nullptr;
 
-    /*! pointer to active 3d widget
-	*/
-    // Widget3D *_widget3D = nullptr;
-
     /*! reset manipulator mode to none
 	*/
     void resetManipulatorMode();

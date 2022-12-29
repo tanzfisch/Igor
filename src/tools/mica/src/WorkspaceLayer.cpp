@@ -42,9 +42,8 @@ void WorkspaceLayer::onInit()
     _directionalLightTranslate->insertNode(_lightNode);
 
     // create materials
-    _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulatorCellShading.mat");    
-
-    _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial("materialBoundingBox");
+    _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulator_cellshading.mat");    
+    _materialBoundingBox = iMaterialResourceFactory::getInstance().loadMaterial("mica/bounding_box.mat");
 }
 
 void WorkspaceLayer::onDeinit()
