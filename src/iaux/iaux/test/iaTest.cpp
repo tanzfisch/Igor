@@ -97,14 +97,14 @@ namespace iaux
             }
         }
 
-        iaConsole::getInstance() << "over all result " << (testFails ? iaForegroundColor::Red : iaForegroundColor::Green) << (testFails ? "FAILED" : "OK") << iaForegroundColor::Gray << endl;
-        
         iaConsole::getInstance() << "ran " << testRun << " tests";
         if (testFails)
         {
             iaConsole::getInstance() << " of which " << testFails << " failed";
         }
         iaConsole::getInstance() << endl;
+
+        iaConsole::getInstance() << "over all result " << (testFails ? iaForegroundColor::Red : iaForegroundColor::Green) << (testFails ? "FAILED" : "OK") << iaForegroundColor::Gray << endl;
     }
 
 } // namespace iaux
