@@ -59,7 +59,7 @@ private:
 
     /*! material for orientation plane 
 	*/
-    iMaterialID _materialOrientationPlane;
+    iMaterialPtr _materialOrientationPlane;
 
     /*! the mica workspace
     */
@@ -72,10 +72,6 @@ private:
     /*! manipulator
 	*/
     Manipulator *_manipulator = nullptr;
-
-    /*! pointer to active 3d widget
-	*/
-    // Widget3D *_widget3D = nullptr;
 
     /*! reset manipulator mode to none
 	*/

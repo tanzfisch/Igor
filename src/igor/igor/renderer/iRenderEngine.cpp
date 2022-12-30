@@ -160,10 +160,9 @@ namespace igor
             }
             else
             {
-                _materialGroups.push_back({
-                    material,
-                    {renderNode},
-                    std::unordered_map<iMeshPtr, iInstaningPackage>()});
+                _materialGroups.push_back({material,
+                                           {renderNode},
+                                           std::unordered_map<iMeshPtr, iInstaningPackage>()});
             }
         }
     }
@@ -209,6 +208,11 @@ namespace igor
         {
             for (iNodeRenderPtr renderNode : materialGroup._renderNodes)
             {
+                if (renderNode->getType() != iNodeType::iNodeMesh)
+                {
+                    continue;
+                }
+
                 iRenderer::getInstance().setColorID(renderNode->getID());
                 renderNode->draw();
             }
@@ -279,9 +283,9 @@ namespace igor
                         dst[i] = src[i];
                     }
 
-                    if(materialGroup._instancing[mesh]._buffer == nullptr)
+                    if (materialGroup._instancing[mesh]._buffer == nullptr)
                     {
-                        materialGroup._instancing[mesh]._buffer = iInstancingBuffer::create( std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}, materialGroup._renderNodes.size());
+                        materialGroup._instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}, materialGroup._renderNodes.size());
                     }
 
                     materialGroup._instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());

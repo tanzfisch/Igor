@@ -39,19 +39,19 @@ void UserControlLight::updateNode()
 
 void UserControlLight::onAmbientChange(const iaColor4f &color)
 {
-    _ambient = color;
+    _ambient.set(color._r, color._g, color._b);
     updateNode();
 }
 
 void UserControlLight::onDiffuseChange(const iaColor4f &color)
 {
-    _diffuse = color;
+    _diffuse.set(color._r, color._g, color._b);
     updateNode();
 }
 
 void UserControlLight::onSpecularChange(const iaColor4f &color)
 {
-    _specular = color;
+    _specular.set(color._r, color._g, color._b);
     updateNode();
 }
 

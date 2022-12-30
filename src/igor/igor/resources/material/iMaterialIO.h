@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MATERIALREADER__
-#define __IGOR_MATERIALREADER__
+#ifndef __IGOR_MATERIALIO__
+#define __IGOR_MATERIALIO__
 
 #include <igor/resources/material/iMaterial.h>
 
@@ -35,7 +35,7 @@ namespace igor
 {
 	/*! reader for Igor material files
 	*/
-	class iMaterialReader
+	class iMaterialIO
 	{
 	public:
 		/*! reads material file and configures given material with it
@@ -45,8 +45,15 @@ namespace igor
 		*/
 		static void read(const iaString &filename, const iMaterialPtr &material);
 
+		/*! writes material to file
+
+		\param filename path to new material file
+        \param material the material to use
+		*/
+		static void write(const iaString &filename, const iMaterialPtr &material);
+
 	};
 
 } // namespace igor
 
-#endif // __IGOR_MATERIALREADER__
+#endif // __IGOR_MATERIALIO__

@@ -106,7 +106,7 @@ namespace igor
 		\param meshBuilder the given mesh builder instance
 		\param mesh the mesh to be added
 		*/
-        // void IGOR_API addMesh(iMeshBuilder &meshBuilder, const iMeshPtr mesh);
+        void IGOR_API addMesh(iMeshBuilder &meshBuilder, const iMeshPtr mesh);
 
     } // namespace iMeshBuilderUtils
 

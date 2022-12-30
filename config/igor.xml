@@ -4,12 +4,12 @@
     <ResourceManager>
         <SearchPaths>
             <SearchPath>data\textures</SearchPath>
+            <SearchPath>data\models</SearchPath>
+            <SearchPath>data\materials</SearchPath>
+            <SearchPath>data\effects</SearchPath>
+            <SearchPath>data\sounds</SearchPath>
             <SearchPath>data\fonts</SearchPath>
             <SearchPath>data\shaders</SearchPath>
-            <SearchPath>data\materials</SearchPath>
-            <SearchPath>data\models</SearchPath>
-            <SearchPath>data\sounds</SearchPath>
-            <SearchPath>data\effects</SearchPath>
             <SearchPath>data</SearchPath>
         </SearchPaths>
     </ResourceManager>

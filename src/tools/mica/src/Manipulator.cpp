@@ -19,7 +19,7 @@ void Manipulator::init()
 {
     _view->registerRenderDelegate(iDrawDelegate(this, &Manipulator::render));
 
-    _material = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulatorBase.mat");
+    _material = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulator_base.mat");
 
     _red = iTargetMaterial::create();
     _red->setEmissive(iaColor3f(0.8f, 0.0f, 0.0f));
@@ -68,7 +68,7 @@ void Manipulator::init()
 
     _scene->getRoot()->insertNode(_rootTransform);
 
-    _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulatorCellShading.mat");
+    _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("mica/manipulator_cellshading.mat");
 
     setManipulatorMode(_manipulatorMode);
 }
@@ -77,14 +77,13 @@ void Manipulator::highlightSelected()
 {
     if (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID)
     {
-        iNodePtr node = iNodeManager::getInstance().getNode(_selectedManipulatorNodeID);
+        const iNodePtr node = iNodeManager::getInstance().getNode(_selectedManipulatorNodeID);
 
         if (node->getKind() == iNodeKind::Renderable ||
             node->getKind() == iNodeKind::Volume)
         {
-            iNodeRender *renderNode = static_cast<iNodeRender *>(node);
-            iaMatrixd matrix = renderNode->getWorldMatrix();
-            iRenderer::getInstance().setModelMatrix(matrix);
+            const iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(node);
+            iRenderer::getInstance().setModelMatrix(renderNode->getWorldMatrix());
 
             if (node->getType() == iNodeType::iNodeMesh)
             {
@@ -124,18 +123,21 @@ void Manipulator::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D,
     _roateModifier->insertNode(zRingTransform);
 
     iNodeMesh *xRing = iNodeManager::getInstance().createNode<iNodeMesh>();
+    xRing->setName("manipulator.ring.x");
     xRing->setMesh(ringMesh);
     xRing->setMaterial(_material);
     xRing->setTargetMaterial(_red);
     xRingTransform->insertNode(xRing);
 
     iNodeMesh *yRing = iNodeManager::getInstance().createNode<iNodeMesh>();
+    yRing->setName("manipulator.ring.y");
     yRing->setMesh(ringMesh);
     yRing->setMaterial(_material);
     yRing->setTargetMaterial(_green);
     yRingTransform->insertNode(yRing);
 
     iNodeMesh *zRing = iNodeManager::getInstance().createNode<iNodeMesh>();
+    zRing->setName("manipulator.ring.z");
     zRing->setMesh(ringMesh);
     zRing->setMaterial(_material);
     zRing->setTargetMaterial(_blue);
@@ -145,6 +147,7 @@ void Manipulator::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D,
     _roateModifier->insertNode(_rotateBillboardTransform);
 
     iNodeMesh *ring = iNodeManager::getInstance().createNode<iNodeMesh>();
+    ring->setName("manipulator.ring");
     ring->setMesh(ringMesh2D);
     ring->setMaterial(_material);
     ring->setTargetMaterial(_cyan);
@@ -167,18 +170,21 @@ void Manipulator::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D,
     _roateModifier->insertNode(zTransform);
 
     iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    xCylinder->setName("manipulator.cylinder.x");
     xCylinder->setMesh(cylinder);
     xCylinder->setMaterial(_material);
     xCylinder->setTargetMaterial(_red);
     xTransform->insertNode(xCylinder);
 
     iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    yCylinder->setName("manipulator.cylinder.y");
     yCylinder->setMesh(cylinder);
     yCylinder->setMaterial(_material);
     yCylinder->setTargetMaterial(_green);
     yTransform->insertNode(yCylinder);
 
     iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    zCylinder->setName("manipulator.cylinder.z");
     zCylinder->setMesh(cylinder);
     zCylinder->setMaterial(_material);
     zCylinder->setTargetMaterial(_blue);
@@ -202,18 +208,21 @@ void Manipulator::createTransformRepresentation(iMeshPtr &cylinder)
     _transformRepresentation->insertNode(zTransform);
 
     iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    xCylinder->setName("manipulator.cylinder.x");
     xCylinder->setMesh(cylinder);
     xCylinder->setMaterial(_material);
     xCylinder->setTargetMaterial(_red);
     xTransform->insertNode(xCylinder);
 
     iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    yCylinder->setName("manipulator.cylinder.y");
     yCylinder->setMesh(cylinder);
     yCylinder->setMaterial(_material);
     yCylinder->setTargetMaterial(_green);
     yTransform->insertNode(yCylinder);
 
     iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
+    zCylinder->setName("manipulator.cylinder.z");
     zCylinder->setMesh(cylinder);
     zCylinder->setMaterial(_material);
     zCylinder->setTargetMaterial(_blue);
@@ -237,18 +246,21 @@ void Manipulator::createTranslateModifier(iMeshPtr &translateMesh)
     _translateModifier->insertNode(zTransform);
 
     iNodeMesh *xUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
+    xUmbrella->setName("manipulator.umbrella.x");
     xUmbrella->setMesh(translateMesh);
     xUmbrella->setMaterial(_material);
     xUmbrella->setTargetMaterial(_red);
     xTransform->insertNode(xUmbrella);
 
     iNodeMesh *yUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
+    yUmbrella->setName("manipulator.umbrella.y");
     yUmbrella->setMesh(translateMesh);
     yUmbrella->setMaterial(_material);
     yUmbrella->setTargetMaterial(_green);
     yTransform->insertNode(yUmbrella);
 
     iNodeMesh *zUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
+    zUmbrella->setName("manipulator.umbrella.z");
     zUmbrella->setMesh(translateMesh);
     zUmbrella->setMaterial(_material);
     zUmbrella->setTargetMaterial(_blue);
@@ -276,18 +288,21 @@ void Manipulator::createScaleModifier(iMeshPtr &scaleMesh)
     _scaleModifier->insertNode(zTransform);
 
     iNodeMesh *xCube = iNodeManager::getInstance().createNode<iNodeMesh>();
+    xCube->setName("manipulator.cube.x");
     xCube->setMesh(scaleMesh);
     xCube->setMaterial(_material);
     xCube->setTargetMaterial(_red);
     xTransform->insertNode(xCube);
 
     iNodeMesh *yCube = iNodeManager::getInstance().createNode<iNodeMesh>();
+    yCube->setName("manipulator.cube.y");
     yCube->setMesh(scaleMesh);
     yCube->setMaterial(_material);
     yCube->setTargetMaterial(_green);
     yTransform->insertNode(yCube);
 
     iNodeMesh *zCube = iNodeManager::getInstance().createNode<iNodeMesh>();
+    zCube->setName("manipulator.cube.z");
     zCube->setMesh(scaleMesh);
     zCube->setMaterial(_material);
     zCube->setTargetMaterial(_blue);
@@ -296,6 +311,7 @@ void Manipulator::createScaleModifier(iMeshPtr &scaleMesh)
     iMeshPtr cube = createCube();
 
     iNodeMesh *xyzCube = iNodeManager::getInstance().createNode<iNodeMesh>();
+    xyzCube->setName("manipulator.cube.xyz");
     xyzCube->setMesh(cube);
     xyzCube->setMaterial(_material);
     xyzCube->setTargetMaterial(_cyan);

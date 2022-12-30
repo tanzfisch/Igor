@@ -326,17 +326,17 @@ namespace igor
 
     void iNodeParticleSystem::setTextureA(const iaString &texture)
     {
-        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().requestFile(texture));
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile(texture), 0);
     }
 
     void iNodeParticleSystem::setTextureB(const iaString &texture)
     {
-        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().requestFile(texture));
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile(texture), 1);
     }
 
     void iNodeParticleSystem::setTextureC(const iaString &texture)
     {
-        _targetMaterial->addTexture(iTextureResourceFactory::getInstance().requestFile(texture));
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile(texture), 2);
     }
 
     void iNodeParticleSystem::setEmissionGradient(const iaGradientf &emissionGradient)

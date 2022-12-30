@@ -21,19 +21,9 @@ namespace OMPF
         _renderStates[static_cast<unsigned int>(OMPFRenderState::DepthMask)] = static_cast<uint8>(OMPFRenderStateValue::On);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Blend)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::CullFace)] = static_cast<uint8>(OMPFRenderStateValue::On);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D0)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D1)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D2)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D3)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D4)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D5)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D6)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D7)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Wireframe)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::DepthFunc)] = static_cast<uint8>(OMPFRenderStateValue::Less);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::CullFaceFunc)] = static_cast<uint8>(OMPFRenderStateValue::Back);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::BlendFuncSource)] = static_cast<uint8>(OMPFRenderStateValue::SourceAlpha);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::BlendFuncDestination)] = static_cast<uint8>(OMPFRenderStateValue::OneMinusSourceAlpha);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Instanced)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::InstancedFunc)] = static_cast<uint8>(OMPFRenderStateValue::PositionOrientation);
     }
@@ -58,40 +48,9 @@ namespace OMPF
         return _order;
     }
 
-    void ompfMaterialChunk::addShader(const iaString &filename, OMPFShaderType type)
+    void ompfMaterialChunk::addShader(const iaString &filename, const iaString &source, OMPFShaderType type)
     {
-        Shader shader;
-        shader._filename = filename;
-        shader._type = type;
-
-        auto iter = _shaders.begin();
-        while (iter != _shaders.end())
-        {
-            if ((*iter)._filename == filename)
-            {
-                con_warn("filename allready exists " << filename);
-                return;
-            }
-
-            iter++;
-        }
-
-        _shaders.push_back(shader);
-    }
-
-    void ompfMaterialChunk::removeShader(const iaString &filename)
-    {
-        auto iter = _shaders.begin();
-        while (iter != _shaders.end())
-        {
-            if ((*iter)._filename == filename)
-            {
-                _shaders.erase(iter);
-                return;
-            }
-        }
-
-        con_warn("filename not found " << filename);
+        _shaders.push_back({filename, source, type});
     }
 
     void ompfMaterialChunk::setRenderStateValue(OMPFRenderState state, OMPFRenderStateValue value)
@@ -107,6 +66,11 @@ namespace OMPF
     iaString ompfMaterialChunk::getShaderFilename(uint32 index) const
     {
         return _shaders[index]._filename;
+    }
+
+    iaString ompfMaterialChunk::getShaderSource(uint32 index) const
+    {
+        return _shaders[index]._source;
     }
 
     OMPFShaderType ompfMaterialChunk::getShaderType(uint32 index) const
@@ -236,7 +200,7 @@ namespace OMPF
                 return false;
             }
 
-            addShader(filename, static_cast<OMPFShaderType>(type));
+            addShader(filename, "", static_cast<OMPFShaderType>(type));
         }
 
         if (!iaSerializable::read(stream, reinterpret_cast<char *>(_renderStates), _renderStateSetCount))

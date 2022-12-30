@@ -17,7 +17,7 @@ git_describe(VERSION_SHORT --abbrev=0 --tags)
 message(STATUS "building version: ${VERSION_SHORT}")
 
 # set up project
-project(igor VERSION ${VERSION_SHORT} DESCRIPTION "Igor Game Engine")
+project(igor DESCRIPTION "Igor Game Engine")
 
 # definitions
 set(ENGINE_FOLDER "01 engine")

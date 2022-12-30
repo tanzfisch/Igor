@@ -385,9 +385,11 @@ void ActionBakeMeshToWorld::bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root)
     iMeshPtr mesh = meshNode->getMesh();
     iMeshBuilderUtils::addMesh(meshBuilder, mesh);
 
+    iMeshPtr newMesh = meshBuilder.createMesh();
+    newMesh->setKeepRawData(true);
+
     iNodeMesh *newMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-    newMeshNode->setKeepMesh();
-    newMeshNode->setMesh(meshBuilder.createMesh());
+    newMeshNode->setMesh(newMesh);
     newMeshNode->setMaterial(meshNode->getMaterial());
     newMeshNode->setTargetMaterial(meshNode->getTargetMaterial());
 

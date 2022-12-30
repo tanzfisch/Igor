@@ -243,7 +243,7 @@ namespace igor
 
         /*! \returns pointer to user Data of selected field
         */
-        std::any getSelectedUserData();
+        const std::any getSelectedUserData();
 
         /*! \returns pointer to user Data of specified field
 

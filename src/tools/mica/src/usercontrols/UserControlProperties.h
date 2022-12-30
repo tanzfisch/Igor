@@ -47,9 +47,9 @@ iaEVENT(StructureChangedEvent, StructureChangedDelegate, (), ());
 
 enum class PropertyType
 {
+    Undefined,
     Node,
-    Material,
-    Undefined
+    Material
 };
 
 class UserControlProperties : public iUserControl
@@ -63,7 +63,8 @@ public:
     */
     ~UserControlProperties() = default;
 
-    void setProperty(uint64 id, PropertyType propertyType);
+    void setNode(const iNodeID &id);
+    void setMaterial(const iMaterialID& materialID);
 
     void clear();
 
@@ -104,7 +105,10 @@ private:
 
     void onNameChanged();
 
-    uint64 _propertyID = 0;
+    void cleanUpPropertyUI();
+
+    iNodeID _nodeID;
+    iMaterialID _materialID;
     PropertyType _propertyType = PropertyType::Undefined;
 
     // iDialog* _dialog = nullptr;

@@ -77,7 +77,72 @@ namespace igor
         return _dummyTexture;
     }
 
+    iTexturePtr iTextureResourceFactory::getWhiteTexture()
+    {
+        return _whiteTexture;
+    }
+
+    iTexturePtr iTextureResourceFactory::getBlackTexture()
+    {
+        return _blackTexture;
+    }
+
     void iTextureResourceFactory::init()
+    {
+        initDummyTexture();
+        initWhiteTexture();
+        initBlackTexture();
+    }
+
+    void iTextureResourceFactory::initWhiteTexture()
+    {
+        const int width = 1;
+        const int height = 1;
+
+        uint8 data[4];
+
+        data[0] = 0xff;
+        data[1] = 0xff;
+        data[2] = 0xff;
+        data[3] = 0xff;
+
+        _whiteTexture = iTexture::create("white", iResourceCacheMode::Keep, iTextureBuildMode::Normal, iTextureWrapMode::Repeat);
+        _whiteTexture->setData(width, height, 4, iColorFormat::RGBA, data, _whiteTexture->_buildMode, _whiteTexture->_wrapMode);
+
+        _whiteTexture->_valid = true;
+        _whiteTexture->_processed = true;
+
+        int64 hashValue = calcHashValue(_whiteTexture->getFilename(), _whiteTexture->_cacheMode, _whiteTexture->_buildMode, _whiteTexture->_wrapMode);
+        _textures[hashValue] = _whiteTexture;
+
+        con_info("generated texture \"" << _whiteTexture->getFilename() << "\" [" << width << ":" << height << "]");
+    }
+
+    void iTextureResourceFactory::initBlackTexture()
+    {
+        const int width = 1;
+        const int height = 1;
+
+        uint8 data[4];
+
+        data[0] = 0x00;
+        data[1] = 0x00;
+        data[2] = 0x00;
+        data[3] = 0xff;
+
+        _blackTexture = iTexture::create("black", iResourceCacheMode::Keep, iTextureBuildMode::Normal, iTextureWrapMode::Repeat);
+        _blackTexture->setData(width, height, 4, iColorFormat::RGBA, data, _blackTexture->_buildMode, _blackTexture->_wrapMode);
+
+        _blackTexture->_valid = true;
+        _blackTexture->_processed = true;
+
+        int64 hashValue = calcHashValue(_blackTexture->getFilename(), _blackTexture->_cacheMode, _blackTexture->_buildMode, _blackTexture->_wrapMode);
+        _textures[hashValue] = _blackTexture;
+
+        con_info("generated texture \"" << _blackTexture->getFilename() << "\" [" << width << ":" << height << "]");
+    }
+
+    void iTextureResourceFactory::initDummyTexture()
     {
         const int width = 256;
         const int height = 256;
@@ -124,7 +189,7 @@ namespace igor
             }
         }
 
-        _dummyTexture = iTexture::create("dummyTexture", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat);
+        _dummyTexture = iTexture::create("dummy", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat);
         _dummyTexture->setData(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
 
         _dummyTexture->_valid = true;
@@ -135,7 +200,7 @@ namespace igor
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         _textures[hashValue] = _dummyTexture;
 
-        con_info("loaded texture \"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");
+        con_info("generated texture \"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");
     }
 
     int64 iTextureResourceFactory::calcHashValue(const iaString &name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
@@ -185,9 +250,12 @@ namespace igor
 
     iTexturePtr iTextureResourceFactory::loadFile(const iaString &filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        iTexturePtr result;
+        if(filename.isEmpty())
+        {
+            return nullptr;
+        }
 
-        con_assert_sticky(!filename.isEmpty(), "empty filename");
+        iTexturePtr result;
 
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
         if (keyPath.isEmpty())

@@ -14,14 +14,6 @@ namespace igor
         _renderStates[static_cast<unsigned int>(iRenderState::DepthMask)] = iRenderStateValue::On;
         _renderStates[static_cast<unsigned int>(iRenderState::Blend)] = iRenderStateValue::Off;
         _renderStates[static_cast<unsigned int>(iRenderState::CullFace)] = iRenderStateValue::On;
-        _renderStates[static_cast<unsigned int>(iRenderState::Texture2D0)] = iRenderStateValue::Off;
-        _renderStates[static_cast<unsigned int>(iRenderState::Texture2D1)] = iRenderStateValue::Off;
-        _renderStates[static_cast<unsigned int>(iRenderState::Texture2D2)] = iRenderStateValue::Off;
-        _renderStates[static_cast<unsigned int>(iRenderState::Texture2D3)] = iRenderStateValue::Off;
-        _renderStates[static_cast<unsigned int>(iRenderState::Texture2D4)] = iRenderStateValue::Off;
-        _renderStates[static_cast<unsigned int>(iRenderState::Texture2D5)] = iRenderStateValue::Off;
-        _renderStates[static_cast<unsigned int>(iRenderState::Texture2D6)] = iRenderStateValue::Off;
-        _renderStates[static_cast<unsigned int>(iRenderState::Texture2D7)] = iRenderStateValue::Off;
         _renderStates[static_cast<unsigned int>(iRenderState::Wireframe)] = iRenderStateValue::Off;
         _renderStates[static_cast<unsigned int>(iRenderState::DepthFunc)] = iRenderStateValue::Less;
         _renderStates[static_cast<unsigned int>(iRenderState::CullFaceFunc)] = iRenderStateValue::Back;
@@ -31,15 +23,12 @@ namespace igor
 
     void iRenderStateSet::setRenderState(const iRenderState state, const iRenderStateValue value)
     {
-        if (value != iRenderStateValue::Invalid ||
-            state != iRenderState::RenderStateCount)
-        {
-            _renderStates[static_cast<unsigned int>(state)] = value;
-        }
-        else
-        {
-            con_err("invalid parameter");
-        }
+        _renderStates[static_cast<unsigned int>(state)] = value;
+    }
+
+    iRenderStateValue iRenderStateSet::getRenderState(const iRenderState state) const
+    {
+        return _renderStates[static_cast<unsigned int>(state)];
     }
 
 }; // namespace igor

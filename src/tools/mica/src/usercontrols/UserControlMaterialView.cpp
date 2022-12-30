@@ -67,12 +67,12 @@ void UserControlMaterialView::onAddMaterial(const iWidgetPtr source)
 
 void UserControlMaterialView::OnSelectionChange(iWidgetPtr widget)
 {
-    uint64 materialID = iMaterial_old::INVALID_MATERIAL_ID;
+    iMaterialID materialID;
     std::any userData = _gridGraph->getSelectedUserData();
 
     if (userData.has_value())
     {
-        materialID = std::any_cast<uint64>(userData);
+        materialID = std::any_cast<iMaterialID>(userData);
     }
 
     _selectedMaterial = materialID;
@@ -89,7 +89,9 @@ void UserControlMaterialView::refresh()
     clear();
 
     uint32 currentRowIndex = 0;
-    auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+    std::vector<iMaterialPtr> materials;
+    iMaterialResourceFactory::getInstance().getMaterials(materials);
+    
     for (auto material : materials)
     {
         iWidgetGrid *entry = new iWidgetGrid();

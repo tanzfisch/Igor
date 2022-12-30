@@ -49,9 +49,9 @@ private:
     iUserControlColorChooser *_specularColorChooser = nullptr;
     iUserControlColorChooser *_diffuseColorChooser = nullptr;
 
-    iaColor4f _ambient;
-    iaColor4f _diffuse;
-    iaColor4f _specular;
+    iaColor3f _ambient;
+    iaColor3f _diffuse;
+    iaColor3f _specular;
 
     uint32 _lightNodeId = 0;
 

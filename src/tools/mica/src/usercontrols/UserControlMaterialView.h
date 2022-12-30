@@ -34,7 +34,7 @@ using namespace iaux;
 using namespace igor;
 
 iaEVENT(AddMaterial, AddMaterialDelegate, (), ());
-iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, (uint64 materialID), (materialID));
+iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, (const iMaterialID &materialID), (materialID));
 
 class UserControlMaterialView : public iUserControl
 {
@@ -58,7 +58,7 @@ private:
 
     /*! id of current selected material
     */
-    uint64 _selectedMaterial = iMaterial_old::INVALID_MATERIAL_ID;
+    iMaterialID _selectedMaterial;
 
     void initGUI();
 
