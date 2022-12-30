@@ -59,10 +59,6 @@ private:
 	iWidgetCheckBox *_checkBoxDepthTest = nullptr;
 	iWidgetCheckBox *_checkBoxDepthMask = nullptr;
 	iWidgetCheckBox *_checkBoxBlend = nullptr;
-	iWidgetCheckBox *_checkBoxTexture2D0 = nullptr;
-	iWidgetCheckBox *_checkBoxTexture2D1 = nullptr;
-	iWidgetCheckBox *_checkBoxTexture2D2 = nullptr;
-	iWidgetCheckBox *_checkBoxTexture2D3 = nullptr;
 	iWidgetCheckBox *_checkBoxWireframe = nullptr;
 	iWidgetCheckBox *_checkBoxInstanced = nullptr;
 	iWidgetSelectBox *_selectBoxDepthFunc = nullptr;

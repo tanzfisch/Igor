@@ -29,10 +29,10 @@ void UserControlMaterial::updateMaterial()
         material->setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
         material->setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
         material->setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        // TODO material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
         material->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
         material->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
 
+        // TODO material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
         // TODO		_selectBoxInstancedFunc
     }
 }
@@ -86,6 +86,8 @@ void UserControlMaterial::updateGUI()
             _textShaderVertex->setText("");
             _textShaderFragment->setText("");
         }
+
+        _renderingOrder->setValue(material->getOrder());
 
         _ignoreMaterialUpdate = false;
     }
@@ -192,38 +194,6 @@ void UserControlMaterial::initGUI()
     _selectBoxCullFaceFunc->addSelectionEntry("Back");
     _selectBoxCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxCullFaceFunc->setWidth(200);
-
-    iWidgetLabel *labelTexture2D0 = new iWidgetLabel();
-    labelTexture2D0->setText("Texture 0");
-    labelTexture2D0->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _checkBoxTexture2D0 = new iWidgetCheckBox();
-    _checkBoxTexture2D0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxTexture2D0->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetLabel *labelTexture2D1 = new iWidgetLabel();
-    labelTexture2D1->setText("Texture 1");
-    labelTexture2D1->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _checkBoxTexture2D1 = new iWidgetCheckBox();
-    _checkBoxTexture2D1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxTexture2D1->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetLabel *labelTexture2D2 = new iWidgetLabel();
-    labelTexture2D2->setText("Texture 2");
-    labelTexture2D2->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _checkBoxTexture2D2 = new iWidgetCheckBox();
-    _checkBoxTexture2D2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxTexture2D2->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetLabel *labelTexture2D3 = new iWidgetLabel();
-    labelTexture2D3->setText("Texture 3");
-    labelTexture2D3->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _checkBoxTexture2D3 = new iWidgetCheckBox();
-    _checkBoxTexture2D3->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxTexture2D3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelWireframe = new iWidgetLabel();
     labelWireframe->setText("Wireframe");
@@ -363,12 +333,8 @@ void UserControlMaterial::initGUI()
     gridParam->addWidget(labelBlend, 0, 4);
     gridParam->addWidget(labelCullFace, 0, 7);
     gridParam->addWidget(labelCullFaceFunc, 0, 8);
-    gridParam->addWidget(labelTexture2D0, 0, 9);
-    gridParam->addWidget(labelTexture2D1, 0, 10);
-    gridParam->addWidget(labelTexture2D2, 0, 11);
-    gridParam->addWidget(labelTexture2D3, 0, 12);
-    gridParam->addWidget(labelWireframe, 0, 13);
-    gridParam->addWidget(labelRenderingOrder, 0, 14);
+    gridParam->addWidget(labelWireframe, 0, 9);
+    gridParam->addWidget(labelRenderingOrder, 0, 10);
 
     gridParam->addWidget(_textName, 1, 0);
     gridParam->addWidget(_checkBoxDepthTest, 1, 1);
@@ -377,12 +343,8 @@ void UserControlMaterial::initGUI()
     gridParam->addWidget(_checkBoxBlend, 1, 4);
     gridParam->addWidget(_checkBoxCullFace, 1, 7);
     gridParam->addWidget(_selectBoxCullFaceFunc, 1, 8);
-    gridParam->addWidget(_checkBoxTexture2D0, 1, 9);
-    gridParam->addWidget(_checkBoxTexture2D1, 1, 10);
-    gridParam->addWidget(_checkBoxTexture2D2, 1, 11);
-    gridParam->addWidget(_checkBoxTexture2D3, 1, 12);
-    gridParam->addWidget(_checkBoxWireframe, 1, 13);
-    gridParam->addWidget(_renderingOrder, 1, 14);
+    gridParam->addWidget(_checkBoxWireframe, 1, 9);
+    gridParam->addWidget(_renderingOrder, 1, 10);
 
     paramGroupBox->addWidget(gridParam);
 

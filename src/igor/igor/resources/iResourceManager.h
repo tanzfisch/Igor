@@ -84,6 +84,12 @@ namespace igor
         */
         iaString getRelativePath(const iaString &filename);
 
+        /*! \returns true if filename is a file in our search paths or an absolute path to an existing file
+
+        \param filename the file we are looking for
+        */
+        bool fileExists(const iaString &filename);
+
         /*! requests a resource to be loaded asynchronously.
 
         \param param parameters for loading resource

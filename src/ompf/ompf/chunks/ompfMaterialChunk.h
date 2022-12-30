@@ -144,12 +144,6 @@ namespace OMPF
         */
         virtual uint32 getSize(const ompfSettings &settings);
 
-        /*! removed shader from internal list
-
-        \param filname shader to be removed
-        */
-        void removeShader(const iaString &filename);
-
         /*! adds shader to export list
 
         \param filename name of the shader (optional)
@@ -163,6 +157,12 @@ namespace OMPF
         \param index the index of the shader name to be returned
         */
         iaString getShaderFilename(uint32 index) const;
+
+        /*! \returns shader source for given shader index
+
+        \param index the index of the shader
+        */
+        iaString getShaderSource(uint32 index) const;
 
         /*! \returns shader type with specified index
 

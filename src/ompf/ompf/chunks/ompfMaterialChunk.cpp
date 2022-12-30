@@ -53,21 +53,6 @@ namespace OMPF
         _shaders.push_back({filename, source, type});
     }
 
-    void ompfMaterialChunk::removeShader(const iaString &filename)
-    {
-        auto iter = _shaders.begin();
-        while (iter != _shaders.end())
-        {
-            if ((*iter)._filename == filename)
-            {
-                _shaders.erase(iter);
-                return;
-            }
-        }
-
-        con_warn("filename not found " << filename);
-    }
-
     void ompfMaterialChunk::setRenderStateValue(OMPFRenderState state, OMPFRenderStateValue value)
     {
         _renderStates[static_cast<int>(state)] = static_cast<uint8>(value);
@@ -81,6 +66,11 @@ namespace OMPF
     iaString ompfMaterialChunk::getShaderFilename(uint32 index) const
     {
         return _shaders[index]._filename;
+    }
+
+    iaString ompfMaterialChunk::getShaderSource(uint32 index) const
+    {
+        return _shaders[index]._source;
     }
 
     OMPFShaderType ompfMaterialChunk::getShaderType(uint32 index) const

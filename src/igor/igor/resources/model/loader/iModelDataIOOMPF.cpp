@@ -17,6 +17,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeEmitter.h>
 #include <igor/scene/nodes/iNodeParticleSystem.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaDirectory.h>
@@ -483,7 +484,16 @@ namespace igor
             iShaderProgramPtr program = iShaderProgram::create();
             for (uint32 i = 0; i < shaderObjectCount; ++i)
             {
-                program->addShader(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
+                if(iResourceManager::getInstance().fileExists(materialChunk->getShaderFilename(i)))
+                {
+                    program->addShader(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
+                }
+                else
+                {
+                    char temp[4000]; // TODO
+                    materialChunk->getShaderSource(i).getData(temp, 4000);
+                    program->addSource(temp, static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
+                }
             }
 
             program->compile();
