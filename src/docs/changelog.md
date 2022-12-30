@@ -4,7 +4,7 @@ Changelog                           {#changelog}
 0.34.2
 ------
 
-- Mica generally works again
+- Mica generally works again. But there is still a lot to do arround materials ompf and mica
 - fixed color id
 - fixed selection highlighting
 
