@@ -48,7 +48,7 @@ namespace iaux
         }
     }
 
-    void iaTest::runTests()
+    int iaTest::runTests()
     {
         uint32 testRun = 0;
         uint32 testFails = 0;
@@ -92,7 +92,7 @@ namespace iaux
 
                 if (_stopOnError && testFails == 0)
                 {
-                    return;
+                    return 1;
                 }
             }
         }
@@ -105,6 +105,8 @@ namespace iaux
         iaConsole::getInstance() << endl;
 
         iaConsole::getInstance() << "over all result " << (testFails ? iaForegroundColor::Red : iaForegroundColor::Green) << (testFails ? "FAILED" : "OK") << iaForegroundColor::Gray << endl;
+
+        return testFails ? 1 : 0;
     }
 
 } // namespace iaux
