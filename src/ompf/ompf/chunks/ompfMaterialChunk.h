@@ -40,14 +40,14 @@ namespace OMPF
         DepthMask = 0x01,
         Blend = 0x02,
         CullFace = 0x03,
-        Texture2D0 = 0x04,
-        Texture2D1 = 0x05,
-        Texture2D2 = 0x06,
-        Texture2D3 = 0x07,
-        Texture2D4 = 0x08,
-        Texture2D5 = 0x09,
-        Texture2D6 = 0x0a,
-        Texture2D7 = 0x0b,
+        //Texture2D0 = 0x04,
+        //Texture2D1 = 0x05,
+        //Texture2D2 = 0x06,
+        //Texture2D3 = 0x07,
+        //Texture2D4 = 0x08,
+        //Texture2D5 = 0x09,
+        //Texture2D6 = 0x0a,
+        //Texture2D7 = 0x0b,
         Wireframe = 0x0c,
         DepthFunc = 0x0d,
         CullFaceFunc = 0x0e,
@@ -107,6 +107,7 @@ namespace OMPF
         struct Shader
         {
             iaString _filename;
+            iaString _source;
             OMPFShaderType _type;
         };
 
@@ -143,24 +144,25 @@ namespace OMPF
         */
         virtual uint32 getSize(const ompfSettings &settings);
 
-        /*! removed shader from internal list
-
-        \param filname shader to be removed
-        */
-        void removeShader(const iaString &filename);
-
         /*! adds shader to export list
 
-        \param filename name of the shader
+        \param filename name of the shader (optional)
+        \param source the shader source
         \param type the type of the shader
         */
-        void addShader(const iaString &filename, OMPFShaderType type);
+        void addShader(const iaString &filename, const iaString &source, OMPFShaderType type);
 
         /*! \returns shader name with specified index
 
         \param index the index of the shader name to be returned
         */
         iaString getShaderFilename(uint32 index) const;
+
+        /*! \returns shader source for given shader index
+
+        \param index the index of the shader
+        */
+        iaString getShaderSource(uint32 index) const;
 
         /*! \returns shader type with specified index
 

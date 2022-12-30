@@ -33,6 +33,7 @@
 #include <igor/ui/widgets/iWidget.h>
 
 #include <iaux/system/iaEvent.h>
+#include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -107,6 +108,14 @@ namespace igor
 		\param color color
 		*/
         void setColor(const iaColor4f &color);
+
+        /*! set color without alpha
+
+        alpha is assumed 1.0
+
+		\param color color
+		*/
+        void setColor(const iaColor3f &color);
 
         /*! register on color change event
 

@@ -13,8 +13,8 @@ void OverlayLayer::onInit()
 {
     // init 3D user controls
     _view.setName("Overlay");
-    _view.setClearColor(false);
-    _view.setClearDepth(true);
+    _view.setClearColorActive(false);
+    _view.setClearDepthActive(true);
     _view.setPerspective(45.0f);
     _view.setClipPlanes(1.0f, 10000.f);
     _view.registerRenderDelegate(iDrawDelegate(this, &OverlayLayer::render));
@@ -28,10 +28,7 @@ void OverlayLayer::onInit()
     // set default camera as current
     _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
 
-    _materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial("OrientationPlane");
-    auto oriPlaneMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane);
-    oriPlaneMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    oriPlaneMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    _materialOrientationPlane = iMaterialResourceFactory::getInstance().loadMaterial("mica/orientation_plane.mat");
 
     // font for
     _font = iTextureFont::create("StandardFont.png");
@@ -93,25 +90,19 @@ void OverlayLayer::renderOrientationPlane()
     iRenderer::getInstance().setMaterial(_materialOrientationPlane);
     iRenderer::getInstance().setLineWidth(1);
 
+    const iaColor4f color1(1.0f, 1.0f, 1.0f, 0.25f);
+    const iaColor4f color2(1.0f, 1.0f, 1.0f, 0.125f);
+
     for (int i = -20; i < 21; ++i)
     {
-        if (i % 2 == 0)
-        {
-            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.5f);
-        }
-        else
-        {
-            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.25f);
-        }
-
-        iRenderer::getInstance().drawLine(iaVector3f(-20.0f, 0.0f, i), iaVector3f(20.0f, 0.0f, i));
-        iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f));
+        iRenderer::getInstance().drawLine(iaVector3f(-20.0f, 0.0f, i), iaVector3f(20.0f, 0.0f, i), i % 2 == 0 ? color1 : color2);
+        iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f), i % 2 == 0 ? color1 : color2);
     }
 
-    iRenderer::getInstance().setColor(1.0f, 0.0f, 0.0f, 1.0f);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(20.0f, 0.0f, 0.0f));
-    iRenderer::getInstance().setColor(0.0f, 0.0f, 1.0f, 1.0f);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 20.0f));
+    // TODO put this in top right corner of view
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(1.0f, 0.0f, 0.0f), iaColor4f::red);
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 1.0f, 0.0f), iaColor4f::green);
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 1.0f), iaColor4f::blue);
 }
 
 void OverlayLayer::onEvent(iEvent &event)
@@ -176,29 +167,6 @@ bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
         _manipulator->setNodeID(_workspace->getSelection()[0]);
         resetManipulatorMode();
     }
-
-    /*    // todo caching?
-    if (_widget3D != nullptr)
-    {
-        delete _widget3D;
-        _widget3D = nullptr;
-    }*/
-
-    /*    iNode *node = iNodeManager::getInstance().getNode(_selectedNodeID);
-    if (node)
-    {
-        switch (node->getType())
-        {
-        case iNodeType::iNodeEmitter:
-            _widget3D = new Widget3DEmitter(&_window, &_viewWidget3D, _sceneWidget3D);
-            break;
-        }
-    }
-
-    if (_widget3D != nullptr)
-    {
-        _widget3D->setNodeID(_selectedNodeID);
-    }*/
 
     return false;
 }

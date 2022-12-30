@@ -377,6 +377,10 @@ namespace igor
          */
         std::map<uint32, iRendererTarget> _renderTargets;
 
+        /*! color id value
+         */
+        iaColor4f _colorID;
+
         ////// stats ////
         iRenderer::iRendererStats _stats;
 
@@ -526,10 +530,10 @@ namespace igor
                                      << "OpenGL Renderer: " << _data->_renderer);
 
         ///////////// MATERIALS ////////////
-        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded_2d.mat", false);
-        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded_2d_blend.mat", false);
-        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_2d.mat", false);
-        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_2d_blend.mat", false);
+        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded.mat", false);
+        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded_blend.mat", false);
+        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded.mat", false);
+        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_blend.mat", false);        
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
@@ -2039,16 +2043,19 @@ namespace igor
                 _data->_currentMaterial->setFloat(UNIFORM_CONFIG_VELOCITY_ORIENTED, targetMaterial->isVelocityOriented() ? 1.0 : 0.0);
             }
 
-            uint32 texUnit = 0;
-            for (const auto &texture : targetMaterial->getTextures())
+            for (const auto &pair : targetMaterial->getTextures())
             {
+                const auto &texture = pair.second;
+                const auto &texUnit = pair.first;
+
                 if (_data->_currentMaterial->hasTextureUnit(texUnit))
                 {
                     std::stringstream shaderProperty;
                     shaderProperty << SAMPLER_TEXTURE << texUnit;
                     _data->_currentMaterial->setInt(shaderProperty.str().c_str(), texUnit);
 
-                    if (texture->useFallback())
+                    if (texture == nullptr ||
+                        texture->useFallback())
                     {
                         _data->_fallbackTexture->bind(texUnit);
                     }
@@ -2057,7 +2064,6 @@ namespace igor
                         texture->bind(texUnit);
                     }
                 }
-                texUnit++;
             }
         }
 
@@ -2111,6 +2117,11 @@ namespace igor
             }
             _data->_currentMaterial->setMatrix(UNIFORM_MODEL, model);
         }
+
+        if (_data->_currentMaterial->hasSolidColor())
+        {
+            _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, _data->_colorID);
+        }
     }
 
     void iRenderer::setLightPosition(int32 lightnum, const iaVector3d &pos)
@@ -2135,17 +2146,10 @@ namespace igor
 
     void iRenderer::setColorID(uint64 colorID)
     {
-        if (!_data->_currentMaterial->hasSolidColor())
-        {
-            return;
-        }
-
-        iaVector4f color(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
-                         static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
-                         static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
-                         1.0f);
-
-        _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, color);
+        _data->_colorID.set(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
+                            static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
+                            static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
+                            1.0f);
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)

@@ -43,8 +43,8 @@ public:
 	UserControlMaterial();
 	~UserControlMaterial();
 
-	void setMaterial(uint64 id);
-	uint64 getMaterialID() const;
+	void setMaterial(const iMaterialID &materialID);
+	const iMaterialID& getMaterialID() const;
 
 	void registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
 	void unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
@@ -59,16 +59,10 @@ private:
 	iWidgetCheckBox *_checkBoxDepthTest = nullptr;
 	iWidgetCheckBox *_checkBoxDepthMask = nullptr;
 	iWidgetCheckBox *_checkBoxBlend = nullptr;
-	iWidgetCheckBox *_checkBoxTexture2D0 = nullptr;
-	iWidgetCheckBox *_checkBoxTexture2D1 = nullptr;
-	iWidgetCheckBox *_checkBoxTexture2D2 = nullptr;
-	iWidgetCheckBox *_checkBoxTexture2D3 = nullptr;
 	iWidgetCheckBox *_checkBoxWireframe = nullptr;
 	iWidgetCheckBox *_checkBoxInstanced = nullptr;
 	iWidgetSelectBox *_selectBoxDepthFunc = nullptr;
 	iWidgetSelectBox *_selectBoxCullFaceFunc = nullptr;
-	iWidgetSelectBox *_selectBoxBlendFuncSource = nullptr;
-	iWidgetSelectBox *_selectBoxBlendFuncDestination = nullptr;
 	iWidgetSelectBox *_selectBoxInstancedFunc = nullptr;
 
 	iWidgetTextEdit *_textShaderGeometry = nullptr;
@@ -78,8 +72,6 @@ private:
 	iWidgetButton *_shader0Button = nullptr;
 	iWidgetButton *_shader1Button = nullptr;
 	iWidgetButton *_shader2Button = nullptr;
-
-	iWidgetButton *_shaderReload = nullptr;
 
 	iMaterialID _materialID;
 
@@ -92,14 +84,11 @@ private:
 	void onShader0Button(const iWidgetPtr source);
 	void onShader1Button(const iWidgetPtr source);
 	void onShader2Button(const iWidgetPtr source);
-	void onReloadShader(const iWidgetPtr source);
 
 	void onTextChangedName(const iWidgetPtr source);
 	void onDoUpdateMaterial(const iWidgetPtr source);
 
 	void onFileLoadDialogClosed(iDialogPtr dialog);
-
-	void reloadShader(iMaterialPtr material);
 
 	void updateGUI();
 	void updateMaterial();

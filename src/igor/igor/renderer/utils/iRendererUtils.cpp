@@ -41,14 +41,14 @@ namespace igor
 
     uint32 iRendererUtils::convertType(iRenderPrimitive type)
     {
-        switch(type)
+        switch (type)
         {
-            case iRenderPrimitive::Points:
-                return GL_POINTS;
-            case iRenderPrimitive::Lines:
-                return GL_LINES;
-            case iRenderPrimitive::Triangles:
-                return GL_TRIANGLES;
+        case iRenderPrimitive::Points:
+            return GL_POINTS;
+        case iRenderPrimitive::Lines:
+            return GL_LINES;
+        case iRenderPrimitive::Triangles:
+            return GL_TRIANGLES;
         }
 
         con_crit("Unknown render primitive type");
@@ -142,9 +142,9 @@ namespace igor
     std::wostream &operator<<(std::wostream &stream, const iShaderObjectType &type)
     {
         const static std::wstring text[] = {
-            L"vertex",
-            L"fragment",
-            L"geometry"};
+            L"Vertex",
+            L"Fragment",
+            L"Geometry"};
 
         stream << text[static_cast<int>(type)];
 
@@ -176,7 +176,7 @@ namespace igor
     {
         switch (format)
         {
-        case iColorFormat::RGB:            
+        case iColorFormat::RGB:
             return sized ? GL_RGB8 : GL_RGB;
         case iColorFormat::RGBA:
             return sized ? GL_RGBA8 : GL_RGBA;
@@ -208,5 +208,64 @@ namespace igor
         stream << text[static_cast<int>(type)];
 
         return stream;
-    } 
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iRenderStateValue &value)
+    {
+        const static std::wstring text[] = {
+            L"Off",
+            L"On",
+            L"One",
+            L"Zero",
+            L"DestinationColor",
+            L"OneMinusDestinationColor",
+            L"SourceAlpha",
+            L"OneMinusSourceAlpha",
+            L"DestinationAlpha",
+            L"OneMinusDestinationAlpha",
+            L"SourceColor",
+            L"OneMinusSourceColor",
+            L"Never",
+            L"Less",
+            L"Equal",
+            L"LessOrEqual",
+            L"Greater",
+            L"NotEqual",
+            L"GreaterOrEqual",
+            L"Always",
+            L"Front",
+            L"Back",
+            L"Keep",
+            L"Replace",
+            L"Increment",
+            L"IncrementWrap",
+            L"Decrement",
+            L"DecrementWrap",
+            L"Invert",
+            L"Invalid",
+            L"PositionOrientation",
+            L"Position"};
+
+        stream << text[static_cast<int>(value)];
+
+        return stream;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iRenderState &state)
+    {
+        const static std::wstring text[] = {
+            L"DepthTest", 
+            L"DepthMask",
+            L"Blend",
+            L"CullFace",
+            L"Wireframe",
+            L"DepthFunc",
+            L"CullFaceFunc",
+            L"Instanced",
+            L"InstancedFunc"};
+
+        stream << text[static_cast<int>(state)];
+
+        return stream;
+    }
 }

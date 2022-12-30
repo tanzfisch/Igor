@@ -278,7 +278,7 @@ void Outliner::onGraphSelectionChanged(uint64 nodeID)
     _graphSelectionChanged(nodeID);
 }
 
-void Outliner::onMaterialSelectionChanged(uint64 materialID)
+void Outliner::onMaterialSelectionChanged(const iMaterialID &materialID)
 {
     _materialSelectionChanged(materialID);
 }

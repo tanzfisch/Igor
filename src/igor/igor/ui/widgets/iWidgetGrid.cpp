@@ -50,7 +50,7 @@ namespace igor
         return _highlightMode;
     }
 
-    std::any iWidgetGrid::getSelectedUserData()
+    const std::any iWidgetGrid::getSelectedUserData()
     {
         if (!isSelected())
         {
@@ -928,7 +928,10 @@ namespace igor
 
     bool iWidgetGrid::isCellEmpty(int32 col, int32 row)
     {
-        con_assert(_widgetRows.size() > row && _widgetRows[row]._widgetColumn.size() > col, "out of range " << col << "," << row);
+        if(_widgetRows.size() < row || _widgetRows[row]._widgetColumn.size() < col)
+        {
+            return false;
+        }
 
         return (_widgetRows[row]._widgetColumn[col]._widgetID == iWidget::INVALID_WIDGET_ID) &&
                (!_widgetRows[row]._widgetColumn[col]._userData.has_value());

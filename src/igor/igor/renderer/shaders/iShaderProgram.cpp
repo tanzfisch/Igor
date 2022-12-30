@@ -30,7 +30,7 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    const std::vector<iaString>& iShaderProgram::getShaderSources() const
+    const std::vector<iShaderSource>& iShaderProgram::getShaderSources() const
     {
         return _sources;
     }
@@ -99,13 +99,19 @@ namespace igor
         }
 
         _shaderObjects.push_back(shaderObject);
-        _sources.push_back(sourceName);
+        _sources.push_back({type, source, sourceName});
 
         return true;
     }
 
     void iShaderProgram::compile()
     {
+        if(_shaderObjects.empty())
+        {
+            _isValid = false;
+            return;
+        }
+
         for (auto object : _shaderObjects)
         {
             glAttachShader(_shaderProgram, object);
@@ -116,9 +122,7 @@ namespace igor
         GL_CHECK_ERROR();
 
         _shaderObjects.clear();
-        _isValid = true;        
-
-        GL_CHECK_ERROR();
+        _isValid = true;
     }
 
     void iShaderProgram::bind()

@@ -122,8 +122,7 @@ namespace igor
 
     void iNodeSkyBox::setTexture(iTexturePtr texture)
     {
-        _targetMaterial->clearTextures();
-        _targetMaterial->addTexture(texture);
+        _targetMaterial->setTexture(texture, 0);
     }
 
     void iNodeSkyBox::setBoxSize(float32 boxSize)

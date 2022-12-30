@@ -369,4 +369,30 @@ namespace igor
         return result;
     }
 
+    bool iResourceManager::fileExists(const iaString &filename)
+    {
+        iaFile file(filename);
+
+        if (file.exist())
+        {
+            return true;
+        }
+
+        bool result = false;
+        _mutex.lock();
+
+        for (auto path : _searchPaths)
+        {
+            iaFile composed(path + __IGOR_PATHSEPARATOR__ + filename);
+            if (composed.exist())
+            {
+                result = true;
+            }
+        }
+
+        _mutex.unlock();
+
+        return result;
+    }
+
 } // namespace igor

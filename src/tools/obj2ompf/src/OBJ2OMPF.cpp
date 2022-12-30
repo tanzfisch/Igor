@@ -68,7 +68,6 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("Textured");
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured.vert", iShaderObjectType::Vertex);
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured_directional_light.frag", iShaderObjectType::Fragment);
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
         iModelDataInputParameter *parameters = new iModelDataInputParameter();

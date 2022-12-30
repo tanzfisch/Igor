@@ -105,7 +105,7 @@ namespace igor
 
 			if (material->_texture != "")
 			{
-				meshNode->getTargetMaterial()->addTexture(iTextureResourceFactory::getInstance().requestFile(material->_texture.getData()));
+				meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(material->_texture.getData()), 0);
 			}
 		}
 

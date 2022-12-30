@@ -59,21 +59,28 @@ namespace igor
          */
         static iTargetMaterialPtr create();
 
-        /*! add a texture
-
-        texture unit will be interpreted by added order first is 0 and so on
+        /*! set a texture for a given texture unit
 
         \param texture the texture to add
+        \param texunit the texture unit
         */
-        void addTexture(iTexturePtr texture);
+        void setTexture(iTexturePtr texture, uint32 texunit);
+
+        /*! \returns texture for given texture unit
+
+        \param texunit the given texture unit
+        */
+        iTexturePtr getTexture(uint32 texunit) const;
+
+        /*! \returns true if target material has texture for given texture unit
+
+        \param texunit the given texture unit
+        */
+        bool hasTextureUnit(uint32 texunit) const;
 
         /*! \returns all the textures in the target material
          */
-        const std::vector<iTexturePtr> &getTextures() const;
-
-        /*! removes all textures
-         */
-        void clearTextures();
+        const std::map<uint32, iTexturePtr> &getTextures() const;
 
         /*! sets the tiling configuration that can be use in a shader
 
@@ -158,9 +165,10 @@ namespace igor
         bool isVelocityOriented() const;
 
     private:
-        /*! list of textures associated to the target
+
+        /*! texture unit to texture map
          */
-        std::vector<iTexturePtr> _textures;
+        std::map<uint32, iTexturePtr> _textures;
 
         /*! material emissive value
          */

@@ -56,19 +56,37 @@ namespace igor
         return _velocityOriented;
     }
 
-    void iTargetMaterial::clearTextures()
+    void iTargetMaterial::setTexture(iTexturePtr texture, uint32 texunit)
     {
-        _textures.clear();
+        _textures[texunit] = texture;
     }
 
-    const std::vector<iTexturePtr> &iTargetMaterial::getTextures() const
+    bool iTargetMaterial::hasTextureUnit(uint32 texunit) const
+    {
+        auto tex = _textures.find(texunit);
+        if (_textures.end() != tex &&
+            tex->second != nullptr)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    iTexturePtr iTargetMaterial::getTexture(uint32 texunit) const
+    {
+        auto tex = _textures.find(texunit);
+        if (_textures.end() != tex)
+        {
+            return tex->second;
+        }
+
+        return nullptr;
+    }
+
+    const std::map<uint32, iTexturePtr> &iTargetMaterial::getTextures() const
     {
         return _textures;
-    }
-
-    void iTargetMaterial::addTexture(iTexturePtr texture)
-    {
-        _textures.push_back(texture);
     }
 
     void iTargetMaterial::setEmissive(const iaColor3f &e)

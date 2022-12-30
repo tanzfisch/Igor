@@ -70,11 +70,11 @@ private:
 
     /*! cel shading material for selecting nodes in the scene
 	*/
-    iMaterialID _materialCelShading;
+    iMaterialPtr _materialCelShading;
 
     /*! material for bounding box display 
 	*/
-    uint64 _materialBoundingBox;
+    iMaterialPtr _materialBoundingBox;
 
     /*! render selection
     */

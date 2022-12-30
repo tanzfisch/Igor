@@ -60,7 +60,7 @@ public:
 private:
 	/*! target materials
 	*/
-	iTargetMaterial *_targetMaterial = nullptr;
+	iTargetMaterialPtr _targetMaterial = nullptr;
 
 	/*! root transform node
 	*/
@@ -76,12 +76,14 @@ private:
 
 	/*! material
 	*/
-	uint64 _material = iMaterial::INVALID_MATERIAL_ID;
+	iMaterialPtr _material;
 
 	/*! material for volumes
 	*/
-	uint64 _materialVolume = iMaterial::INVALID_MATERIAL_ID;
+	iMaterialPtr _materialVolume;
 
+    /*! emitter type
+    */
 	iEmitterType _emitterType = iEmitterType::Point;
 
 	/*! renders the 3d widget

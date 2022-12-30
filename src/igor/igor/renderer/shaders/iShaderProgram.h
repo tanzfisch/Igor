@@ -46,6 +46,23 @@ namespace igor
      */
     typedef std::shared_ptr<iShaderProgram> iShaderProgramPtr;
 
+    /*! shader source struct
+    */
+    struct IGOR_API iShaderSource
+    {
+        /*! type of shader
+        */
+        iShaderObjectType _type;
+
+        /*! shader source
+        */
+        iaString _source;
+
+        /*! shader filename (optional)
+        */
+        iaString _filename;
+    };
+
     /*! glsl shader program wrapper
      */
     class IGOR_API iShaderProgram
@@ -70,13 +87,13 @@ namespace igor
 
         If type is undefined we use the file ending to determine the type
         */
-        void addShader(const iaString& filename, iShaderObjectType type);
+        void addShader(const iaString &filename, iShaderObjectType type);
 
         /*! \returns shader source files
 
         it does not return sources added via addSource
         */
-        const std::vector<iaString>& getShaderSources() const;
+        const std::vector<iShaderSource> &getShaderSources() const;
 
         /*! add shader from buffer
 
@@ -156,8 +173,8 @@ namespace igor
         std::vector<uint32> _shaderObjects;
 
         /*! shader source files
-        */
-        std::vector<iaString> _sources;
+         */
+        std::vector<iShaderSource> _sources;
 
         /*! id of glsl shader program
          */

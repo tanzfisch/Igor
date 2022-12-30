@@ -46,7 +46,7 @@ public:
 
     /*! \returns the workspace
     */
-    __IGOR_INLINE__ WorkspacePtr getWorkspace() const
+    WorkspacePtr getWorkspace() const
     {
         return _workspace;
     }
