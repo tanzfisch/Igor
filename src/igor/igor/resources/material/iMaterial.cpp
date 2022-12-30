@@ -52,6 +52,11 @@ namespace igor
 
     void iMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
     {
+        if(!shaderProgram->isValid())
+        {
+            return;
+        }
+
         _shaderProgram = shaderProgram;
 
         if (_shaderProgram == nullptr)

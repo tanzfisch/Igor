@@ -106,6 +106,12 @@ namespace igor
 
     void iShaderProgram::compile()
     {
+        if(_shaderObjects.empty())
+        {
+            _isValid = false;
+            return;
+        }
+
         for (auto object : _shaderObjects)
         {
             glAttachShader(_shaderProgram, object);
@@ -116,9 +122,7 @@ namespace igor
         GL_CHECK_ERROR();
 
         _shaderObjects.clear();
-        _isValid = true;        
-
-        GL_CHECK_ERROR();
+        _isValid = true;
     }
 
     void iShaderProgram::bind()
