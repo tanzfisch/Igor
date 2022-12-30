@@ -2,9 +2,14 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/material/iMaterialReader.h>
+#include <igor/resources/material/iMaterialIO.h>
+
+#include <iaux/system/iaFile.h>
 
 #include <tinyxml.h>
+
+#include <fstream>
+#include <iostream>
 
 namespace igor
 {
@@ -107,11 +112,44 @@ namespace igor
         material->setRenderState(iRenderState::DepthTest, getRenderStateValue(states, "DepthTest", iRenderStateValue::On));
     }
 
+    static void readShader(TiXmlElement *element, iShaderObjectType shaderObjectType, iShaderProgramPtr shaderProgram)
+    {
+        TiXmlAttribute *attrib = element->FirstAttribute();
+        iaString filename;
+        while (attrib)
+        {
+            if (attrib->NameTStr() == "filename")
+            {
+                filename = iaString(attrib->Value());
+            }
+
+            attrib = attrib->Next();
+        }
+
+        if (filename.isEmpty())
+        {
+            TiXmlNode *text = element->FirstChild();
+            if (text != nullptr &&
+                text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
+            {
+                shaderProgram->addSource(text->ValueStr().c_str(), shaderObjectType, "mat.Vertex");
+            }
+            else
+            {
+                con_err("invalid node");
+            }
+        }
+        else
+        {
+            shaderProgram->addShader(filename, shaderObjectType);
+        }
+    }
+
     static void readProgram(TiXmlElement *program, const iMaterialPtr &material)
     {
-        TiXmlElement *vertex = program->FirstChildElement("Vertex");        
+        TiXmlElement *vertex = program->FirstChildElement("Vertex");
         TiXmlElement *fragment = program->FirstChildElement("Fragment");
-        
+
         if (vertex == nullptr && fragment == nullptr)
         {
             con_err("no shaders specified");
@@ -122,46 +160,19 @@ namespace igor
 
         if (vertex)
         {
-            TiXmlNode *text = vertex->FirstChild();
-            if (text != nullptr &&
-                text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
-            {
-                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Vertex, "mat.Vertex");
-            }
-            else
-            {
-                con_err("invalid node");
-            }
+            readShader(vertex, iShaderObjectType::Vertex, shaderProgram);
         }
 
         if (fragment)
         {
-            TiXmlNode *text = fragment->FirstChild();
-            if (text != nullptr &&
-                text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
-            { 
-                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Fragment, "mat.Fragment");
-            }
-            else
-            {
-                con_err("invalid node");
-            }
-        }        
+            readShader(fragment, iShaderObjectType::Fragment, shaderProgram);
+        }
 
         TiXmlElement *geometry = program->FirstChildElement("Geometry");
         if (geometry)
         {
-            TiXmlNode *text = geometry->FirstChild();
-            if (text != nullptr &&
-                text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
-            {
-                shaderProgram->addSource(text->ValueStr().c_str(), iShaderObjectType::Geometry, "mat.Geometry");
-            }
-            else
-            {
-                con_err("invalid node");
-            }
-        }        
+            readShader(geometry, iShaderObjectType::Geometry, shaderProgram);
+        }
 
         shaderProgram->compile();
 
@@ -173,16 +184,16 @@ namespace igor
         TiXmlAttribute *attrib = materialXML->FirstAttribute();
         while (attrib)
         {
-            if(attrib->NameTStr() == "name")
+            if (attrib->NameTStr() == "name")
             {
                 material->setName(attrib->Value());
             }
-            else if(attrib->NameTStr() == "uuid")
+            else if (attrib->NameTStr() == "uuid")
             {
                 material->setID(iMaterialID(attrib->Value()));
-            } 
+            }
             else if (attrib->NameTStr() == "zIndex" ||
-            attrib->NameTStr() == "order")
+                     attrib->NameTStr() == "order")
             {
                 if (attrib->ValueStr() == "RENDER_ORDER_DEFAULT" ||
                     attrib->ValueStr() == "DEFAULT")
@@ -204,7 +215,7 @@ namespace igor
                     material->setOrder(iaString::toInt(attrib->Value()));
                 }
             }
-      
+
             attrib = attrib->Next();
         }
 
@@ -221,7 +232,7 @@ namespace igor
         }
     }
 
-    void iMaterialReader::read(const iaString &filename, const iMaterialPtr &material)
+    void iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -247,4 +258,56 @@ namespace igor
             con_err("can't read file \"" << filename << "\". " << document.ErrorDesc() << " In line " << document.ErrorRow());
         }
     }
+
+    void iMaterialIO::write(const iaString &filename, const iMaterialPtr &material)
+    {
+        char temp[2048];
+        filename.getData(temp, 2048);
+
+        std::wofstream file;
+        file.open(temp);
+
+        file << "<?xml version=\"1.0\"?>\n";
+        file << "<Igor>\n";
+        file << "\t<Material name=\"" << material->getName() << "\" uuid=\"" << material->getID() << "\" order=\"" << material->getOrder() << "\">\n";
+        file << "\t\t<States>\n";
+        file << "\t\t\t<DepthTest>" << material->getRenderState(iRenderState::DepthTest) << "</DepthTest>\n";
+        file << "\t\t\t<DepthFunc>" << material->getRenderState(iRenderState::DepthFunc) << "</DepthFunc>\n";
+        file << "\t\t\t<DepthMask>" << material->getRenderState(iRenderState::DepthMask) << "</DepthMask>\n";
+        file << "\t\t\t<Blend>" << material->getRenderState(iRenderState::Blend) << "</Blend>\n";
+        file << "\t\t\t<CullFace>" << material->getRenderState(iRenderState::CullFace) << "</CullFace>\n";
+        file << "\t\t\t<CullFaceFunc>" << material->getRenderState(iRenderState::CullFaceFunc) << "</CullFaceFunc>\n";
+        file << "\t\t\t<Wireframe>" << material->getRenderState(iRenderState::Wireframe) << "</Wireframe>\n";
+        file << "\t\t\t<Instanced>" << material->getRenderState(iRenderState::Instanced) << "</Instanced>\n";
+        file << "\t\t\t<InstancedFunc>" << material->getRenderState(iRenderState::InstancedFunc) << "</InstancedFunc>\n";
+        file << "\t\t</States>\n";
+
+        const auto &shaderSources = material->getShaderProgram()->getShaderSources();
+        if (!shaderSources.empty())
+        {
+            file << "\t\t<Program>\n";
+
+            for (const auto &source : shaderSources)
+            {
+                file << "\t\t\t<" << source._type;
+
+                if (iaFile::exist(source._filename))
+                {
+                    file << " name=\"" << source._filename << "\" />\n";
+                }
+                else
+                {
+                    file << ">\n";
+                    file << "<![CDATA[" << source._source << "]]>\n";
+                    file << "\t\t\t</" << source._type << ">\n";
+                }
+            }
+
+            file << "\t\t</Program>\n";
+        }
+
+        file << "\t</Material>\n";
+        file << "</Igor>\n";
+    }
+
 } // namespace igor

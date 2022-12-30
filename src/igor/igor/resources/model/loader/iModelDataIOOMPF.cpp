@@ -819,14 +819,14 @@ namespace igor
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
         const auto &shaderSources = material->getShaderProgram()->getShaderSources();
-        for (const auto &pair : shaderSources)
+        for (const auto &source : shaderSources)
         {
-            result->addShader(pair.first, static_cast<OMPF::OMPFShaderType>(pair.second));
+            result->addShader(source._filename, source._source, static_cast<OMPF::OMPFShaderType>(source._type));
         }
 
         result->setMaterialName(material->getName());
 
-        for (int i = 0; i < static_cast<int>(iRenderState::RenderStateCount); ++i)
+        for (int i = 0; i < RENDER_STATE_COUNT; ++i)
         {
             result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(material->getRenderState(static_cast<iRenderState>(i))));
         }

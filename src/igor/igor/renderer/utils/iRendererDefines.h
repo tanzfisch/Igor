@@ -83,9 +83,18 @@ namespace igor
         DepthFunc,
         CullFaceFunc,
         Instanced,
-        InstancedFunc,
-        RenderStateCount
+        InstancedFunc
     };
+
+    const uint32 RENDER_STATE_COUNT = 9;
+
+    /*! prints given render state in a stream
+
+    \param stream the stream to log to
+    \param state the render state to print
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderState &state);     
 
     /*! render state values
 
@@ -124,10 +133,16 @@ namespace igor
         Invert,
         Invalid,
         PositionOrientation, // this one does not map to ogl
-        Position,             //! \todo not implemented
-    
-        LastEntry
+        Position             //! \todo not implemented
     };
+
+    /*! prints given render state value in a stream
+
+    \param stream the stream to log to
+    \param value the render state value to print
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderStateValue &value);   
 
     /*! shader data type
      */

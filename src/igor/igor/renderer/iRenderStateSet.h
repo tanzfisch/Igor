@@ -70,10 +70,8 @@ namespace igor
     private:
         /*! array with all supported render states
 		*/
-        iRenderStateValue _renderStates[static_cast<unsigned int>(iRenderState::RenderStateCount)];
+        iRenderStateValue _renderStates[RENDER_STATE_COUNT];
     };
-
-#include <igor/renderer/iRenderStateSet.inl>
 
 }; // namespace igor
 

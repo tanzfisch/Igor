@@ -107,6 +107,7 @@ namespace OMPF
         struct Shader
         {
             iaString _filename;
+            iaString _source;
             OMPFShaderType _type;
         };
 
@@ -151,10 +152,11 @@ namespace OMPF
 
         /*! adds shader to export list
 
-        \param filename name of the shader
+        \param filename name of the shader (optional)
+        \param source the shader source
         \param type the type of the shader
         */
-        void addShader(const iaString &filename, OMPFShaderType type);
+        void addShader(const iaString &filename, const iaString &source, OMPFShaderType type);
 
         /*! \returns shader name with specified index
 

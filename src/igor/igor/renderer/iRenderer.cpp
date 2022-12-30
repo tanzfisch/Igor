@@ -533,7 +533,7 @@ namespace igor
         _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded.mat", false);
         _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded_blend.mat", false);
         _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded.mat", false);
-        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_blend.mat", false);
+        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_blend.mat", false);        
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();

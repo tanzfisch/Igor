@@ -48,25 +48,9 @@ namespace OMPF
         return _order;
     }
 
-    void ompfMaterialChunk::addShader(const iaString &filename, OMPFShaderType type)
+    void ompfMaterialChunk::addShader(const iaString &filename, const iaString &source, OMPFShaderType type)
     {
-        Shader shader;
-        shader._filename = filename;
-        shader._type = type;
-
-        auto iter = _shaders.begin();
-        while (iter != _shaders.end())
-        {
-            if ((*iter)._filename == filename)
-            {
-                con_warn("filename allready exists " << filename);
-                return;
-            }
-
-            iter++;
-        }
-
-        _shaders.push_back(shader);
+        _shaders.push_back({filename, source, type});
     }
 
     void ompfMaterialChunk::removeShader(const iaString &filename)
@@ -226,7 +210,7 @@ namespace OMPF
                 return false;
             }
 
-            addShader(filename, static_cast<OMPFShaderType>(type));
+            addShader(filename, "", static_cast<OMPFShaderType>(type));
         }
 
         if (!iaSerializable::read(stream, reinterpret_cast<char *>(_renderStates), _renderStateSetCount))

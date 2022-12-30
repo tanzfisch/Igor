@@ -1,17 +1,19 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- material definition -->
-	<Material name="igor.colorID" uuid="6943104a-6c75-11ed-8d42-5724172fb848">
+	<Material name="igor.colorID" uuid="6943104a-6c75-11ed-8d42-5724172fb848" order="200">
 		<States>
 			<DepthTest>On</DepthTest>
-            <DepthFunc>Less</DepthFunc>
-            <DepthMask>On</DepthMask>
-            <Blend>Off</Blend>
-            <CullFace>On</CullFace>
-            <CullFaceFunc>Back</CullFaceFunc>
+			<DepthFunc>Less</DepthFunc>
+			<DepthMask>On</DepthMask>
+			<Blend>Off</Blend>
+			<CullFace>On</CullFace>
+			<CullFaceFunc>Back</CullFaceFunc>
+			<Wireframe>Off</Wireframe>
+			<Instanced>Off</Instanced>
+			<InstancedFunc>PositionOrientation</InstancedFunc>
 		</States>
-        <Program>
-            <Vertex>
+		<Program>
+			<Vertex>
 <![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
@@ -22,8 +24,8 @@ void main()
 {
     gl_Position = igor_modelViewProjection * vec4(in_position,1);
 }]]>
-            </Vertex>
-            <Fragment>
+			</Vertex>
+			<Fragment>
 <![CDATA[#version 450
 
 layout(location = 0) out vec4 out_color;
@@ -34,7 +36,7 @@ void main()
 {
 	out_color = igor_solidColor;
 }]]>
-            </Fragment>
-        </Program>            
+			</Fragment>
+		</Program>
 	</Material>
 </Igor>

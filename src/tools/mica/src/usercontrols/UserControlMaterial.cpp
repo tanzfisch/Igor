@@ -62,20 +62,20 @@ void UserControlMaterial::updateGUI()
 
         if (!shaderSources.empty())
         {
-            for (const auto &pair : shaderSources)
+            for (const auto &source : shaderSources)
             {
-                switch (pair.second)
+                switch (source._type)
                 {
                 case iShaderObjectType::Geometry:
-                    _textShaderGeometry->setText(pair.first);
+                    _textShaderGeometry->setText(source._filename);
                     break;
 
                 case iShaderObjectType::Vertex:
-                    _textShaderVertex->setText(pair.first);
+                    _textShaderVertex->setText(source._filename);
                     break;
 
                 case iShaderObjectType::Fragment:
-                    _textShaderFragment->setText(pair.first);
+                    _textShaderFragment->setText(source._filename);
                     break;
                 }
             }

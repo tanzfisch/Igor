@@ -23,15 +23,12 @@ namespace igor
 
     void iRenderStateSet::setRenderState(const iRenderState state, const iRenderStateValue value)
     {
-        if (value != iRenderStateValue::Invalid ||
-            state != iRenderState::RenderStateCount)
-        {
-            _renderStates[static_cast<unsigned int>(state)] = value;
-        }
-        else
-        {
-            con_err("invalid parameter");
-        }
+        _renderStates[static_cast<unsigned int>(state)] = value;
+    }
+
+    iRenderStateValue iRenderStateSet::getRenderState(const iRenderState state) const
+    {
+        return _renderStates[static_cast<unsigned int>(state)];
     }
 
 }; // namespace igor

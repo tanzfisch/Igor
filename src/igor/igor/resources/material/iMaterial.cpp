@@ -4,7 +4,7 @@
 
 #include <igor/resources/material/iMaterial.h>
 
-#include <igor/resources/material/iMaterialReader.h>
+#include <igor/resources/material/iMaterialIO.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
@@ -30,11 +30,13 @@ namespace igor
     iMaterialPtr iMaterial::create(const iaString &filename)
     {
         std::shared_ptr<iMaterial> result(new iMaterial(), iMaterialDeleter());
-        iMaterialReader::read(iResourceManager::getInstance().getPath(filename), result);
+        iMaterialIO::read(iResourceManager::getInstance().getPath(filename), result);
+        
         if (!result->_materialID.isValid())
         {
             result->_materialID = iMaterialID::create();
         }
+
         return result;
     }
 
