@@ -4,7 +4,9 @@ Changelog                           {#changelog}
 0.34.2
 ------
 
+- Mica generally works again
 - fixed color id
+- fixed selection highlighting
 
 0.34.1 
 ------
