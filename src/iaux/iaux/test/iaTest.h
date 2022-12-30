@@ -68,7 +68,7 @@ namespace iaux
 
         /*! runs the tests according to initialisation parameters
          */
-        static void runTests();
+        static int runTests();
 
         /*! \returns true if this individual test was successful
          */
