@@ -981,9 +981,6 @@ namespace igor
         glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
 
-        texQuads._vertexArray->unbind();
-        _data->_currentMaterial->unbind();
-
         // save stats
         _data->_stats._drawCalls++;
         _data->_stats._vertices += texQuads._vertexCount;
@@ -1017,9 +1014,6 @@ namespace igor
         triangles._vertexArray->bind();
         glDrawElements(GL_TRIANGLES, triangles._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
-        triangles._vertexArray->unbind();
-
-        _data->_currentMaterial->unbind();
 
         // save stats
         _data->_stats._drawCalls++;
@@ -1052,9 +1046,6 @@ namespace igor
         quads._vertexArray->bind();
         glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
-        quads._vertexArray->unbind();
-
-        _data->_currentMaterial->unbind();
 
         // save stats
         _data->_stats._drawCalls++;

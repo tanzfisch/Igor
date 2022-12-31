@@ -179,7 +179,7 @@ namespace igor
         material->setShaderProgram(shaderProgram);
     }
 
-    static void readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
+    void iMaterialIO::readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
     {
         TiXmlAttribute *attrib = materialXML->FirstAttribute();
         while (attrib)

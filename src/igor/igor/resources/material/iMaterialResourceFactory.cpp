@@ -91,6 +91,9 @@ namespace igor
 
         result = iMaterial::create();
         result->setName(name);
+
+        con_assert_sticky(checkForIDCollisions(result), "duplicate material ID detected " << result->getID() << " material name:" << result->getName() << " (not from file)");
+
         const int64 hashValue = name.getHashValue();
 
         if (cache)

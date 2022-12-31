@@ -39,7 +39,7 @@
 #include <memory>
 
 namespace igor
-{
+{    
 
     /*! material pointer definition
      */
@@ -76,6 +76,8 @@ namespace igor
     {
         friend class iRenderer;
         friend class iMaterialDeleter;
+        friend class iMaterialResourceFactory;
+        friend class iMaterialIO;
 
     public:
         /*! default render order value
@@ -89,14 +91,6 @@ namespace igor
         /*! max render order value
          */
         static const int32 RENDER_ORDER_MAX = 400;
-
-        /*! \returns a newly created material
-         */
-        static iMaterialPtr create();
-
-        /*! \returns a newly created material from file
-         */
-        static iMaterialPtr create(const iaString &filename);
 
         /*! sets shader program to be used
 
@@ -121,12 +115,6 @@ namespace igor
         /*! \returns material id
          */
         const iMaterialID &getID() const;
-
-        /*! sets material id
-
-        \param materialID the material id
-        */
-        void setID(const iMaterialID &materialID);
 
         /*! defines the value of a specific render state
 
@@ -288,6 +276,20 @@ namespace igor
         /*! does nothing
          */
         ~iMaterial();
+
+        /*! \returns a newly created material
+         */
+        static iMaterialPtr create();
+
+        /*! \returns a newly created material from file
+         */
+        static iMaterialPtr create(const iaString &filename);        
+
+        /*! sets material id
+
+        \param materialID the material id
+        */
+        void setID(const iMaterialID &materialID);        
 
         /*! bind this material
          */
