@@ -105,6 +105,24 @@ namespace igor
         return result;
     }
 
+    bool iMaterialResourceFactory::checkForIDCollisions(iMaterialPtr material)
+    {
+        bool result = true;
+
+        _mutexMaterial.lock();
+        for (const auto &pair : _materials)
+        {
+            if (material->getID() == pair.second->getID())
+            {
+                result = false;
+                break;
+            }
+        }
+        _mutexMaterial.unlock();
+
+        return result;
+    }
+
     iMaterialPtr iMaterialResourceFactory::loadMaterial(const iaString &filename, bool cache)
     {
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
@@ -121,16 +139,18 @@ namespace igor
         }
 
         result = iMaterial::create(keyPath);
-        const int64 hashValue = keyPath.getHashValue();
+
+        con_assert_sticky(checkForIDCollisions(result), "duplicate material ID detected " << result->getID() << " material name:" << result->getName() << " filename:" << filename);
 
         if (cache)
         {
+            const int64 hashValue = keyPath.getHashValue();
             _mutexMaterial.lock();
             _materials[hashValue] = result;
             _mutexMaterial.unlock();
         }
 
-        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " shaders:"<< result->getShaderProgram()->getShaderSources().size() << " (" << (cache ? "cached" : "not cached") << ")");
+        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " shaders:" << result->getShaderProgram()->getShaderSources().size() << " (" << (cache ? "cached" : "not cached") << ")");
 
         return result;
     }
