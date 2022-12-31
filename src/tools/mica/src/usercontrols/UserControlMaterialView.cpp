@@ -94,6 +94,11 @@ void UserControlMaterialView::refresh()
     
     for (auto material : materials)
     {
+        if(material->getVisibility() != iMaterialVisibility::Public)
+        {
+            continue;
+        }
+
         iWidgetGrid *entry = new iWidgetGrid();
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);

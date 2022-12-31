@@ -214,6 +214,16 @@ namespace igor
                 {
                     material->setOrder(iaString::toInt(attrib->Value()));
                 }
+            }else if (attrib->NameTStr() == "visibility")
+            {
+                if (attrib->ValueStr() == "Public")
+                {
+                    material->setVisibility(iMaterialVisibility::Public);
+                }
+                else
+                {
+                    material->setVisibility(iMaterialVisibility::Private);
+                }
             }
 
             attrib = attrib->Next();
@@ -269,7 +279,7 @@ namespace igor
 
         file << "<?xml version=\"1.0\"?>\n";
         file << "<Igor>\n";
-        file << "\t<Material name=\"" << material->getName() << "\" uuid=\"" << material->getID() << "\" order=\"" << material->getOrder() << "\">\n";
+        file << "\t<Material name=\"" << material->getName() << "\" uuid=\"" << material->getID() << "\" order=\"" << material->getOrder() << "\" visibility=\"" << material->getVisibility() << "\">\n";
         file << "\t\t<States>\n";
         file << "\t\t\t<DepthTest>" << material->getRenderState(iRenderState::DepthTest) << "</DepthTest>\n";
         file << "\t\t\t<DepthFunc>" << material->getRenderState(iRenderState::DepthFunc) << "</DepthFunc>\n";

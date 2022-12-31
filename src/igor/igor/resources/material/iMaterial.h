@@ -50,6 +50,26 @@ namespace igor
      */
     typedef iaUUID iMaterialID;
 
+    /*! A flag specifiying the character of the material
+
+    The application is free to interpret it any way it likes.
+
+    In Mica for example we only display public materials in the material list
+    */
+    enum class iMaterialVisibility
+    {
+        Private,
+        Public
+    };
+    
+    /*! prints the material visibility to a stream
+
+    \param stream the stream to log to
+    \param visibility the value to log
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iMaterialVisibility &visibility);
+
     /*! material definition
      */
     class IGOR_API iMaterial
@@ -182,6 +202,14 @@ namespace igor
          */
         bool isValid() const;
 
+        /*! \returns visibility of material
+        */
+        iMaterialVisibility getVisibility() const;
+
+        /*! sets visibility of material
+        */
+        void setVisibility(iMaterialVisibility visibility);
+
     private:
         /*! name of the material.
          */
@@ -248,6 +276,10 @@ namespace igor
         /*! list of avail able texture units in shader
          */
         bool _hasTexture[MAX_TEXTURE_UNITS];
+
+        /*! visibility of material
+        */
+        iMaterialVisibility _visibility = iMaterialVisibility::Public;
 
         /*! does nothing
          */

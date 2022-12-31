@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-	<Material name="igor.colorID" uuid="6943104a-6c75-11ed-8d42-5724172fb848" order="200">
+	<Material name="igor.colorID" uuid="6943104a-6c75-11ed-8d42-5724172fb848" order="200" visibility="Private">
 		<States>
 			<DepthTest>On</DepthTest>
 			<DepthFunc>Less</DepthFunc>

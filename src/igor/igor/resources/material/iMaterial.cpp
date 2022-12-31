@@ -31,7 +31,7 @@ namespace igor
     {
         std::shared_ptr<iMaterial> result(new iMaterial(), iMaterialDeleter());
         iMaterialIO::read(iResourceManager::getInstance().getPath(filename), result);
-        
+
         if (!result->_materialID.isValid())
         {
             result->_materialID = iMaterialID::create();
@@ -54,7 +54,7 @@ namespace igor
 
     void iMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
     {
-        if(!shaderProgram->isValid())
+        if (!shaderProgram->isValid())
         {
             return;
         }
@@ -382,6 +382,27 @@ namespace igor
         con_assert(order >= RENDER_ORDER_MIN && order <= RENDER_ORDER_MAX, "out of bounds");
 
         _order = order;
+    }
+
+    iMaterialVisibility iMaterial::getVisibility() const
+    {
+        return _visibility;
+    }
+
+    void iMaterial::setVisibility(iMaterialVisibility visibility)
+    {
+        _visibility = visibility;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iMaterialVisibility &visibility)
+    {
+        const static std::wstring text[] = {
+            L"Private",
+            L"Public"};
+
+        stream << text[static_cast<int>(visibility)];
+
+        return stream;
     }
 
 }
