@@ -34,6 +34,7 @@
 #include <ompf/chunks/ompfGroupChunk.h>
 #include <ompf/chunks/ompfHeaderChunk.h>
 #include <ompf/chunks/ompfMaterialChunk.h>
+#include <ompf/chunks/ompfMaterialReferenceChunk.h>
 #include <ompf/chunks/ompfMeshChunk.h>
 #include <ompf/chunks/ompfParticleSystemChunk.h>
 #include <ompf/chunks/ompfResourceSearchPathChunk.h>
@@ -102,6 +103,12 @@ namespace OMPF
 		*/
         ompfMaterialChunk *createMaterialChunk();
 
+        /*! creates a material reference chunk
+
+		\returns pointer to material chunk
+		*/
+        ompfMaterialReferenceChunk *createMaterialReferenceChunk();
+
         /*! creates a mesh chunk
 
         \returns pointer to new mesh chunk
@@ -129,6 +136,10 @@ namespace OMPF
         /*! \returns list of materials
         */
         const std::vector<ompfMaterialChunk *> &getMaterialChunks() const;
+
+        /*! \returns list of material references
+        */
+        const std::vector<ompfMaterialReferenceChunk *> &getMaterialReferenceChunks() const;
 
         /*! \returns the directory of the file we want to load or save
 
@@ -176,13 +187,6 @@ namespace OMPF
         */
         void writeMaterials(std::ofstream &outfile);
 
-        /*! write a material to file stream
-
-        \param outfile output stream
-        \param materialChunk material chunk to write
-        */
-        void writeMaterial(std::ofstream &outfile, ompfMaterialChunk *materialChunk);
-
         /*! \returns chunk by given ID
 
         \param chunkID the chunk id given
@@ -208,6 +212,10 @@ namespace OMPF
         /*! list of material chunks
         */
         std::vector<ompfMaterialChunk *> _materialChunks;
+
+        /*! list of material reference chunks
+        */
+        std::vector<ompfMaterialReferenceChunk *> _materialReferenceChunks;
 
         /*! internal counter for chunk IDs
         */

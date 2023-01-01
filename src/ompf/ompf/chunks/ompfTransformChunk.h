@@ -51,7 +51,7 @@ namespace OMPF
 
         \param settings the settings the size calculation is based on
         */
-        virtual uint32 getSize(const ompfSettings &settings);
+        uint32 getSize(const ompfSettings &settings) override;
 
         /*! sets transformation matrix
 

@@ -83,21 +83,23 @@ namespace OMPF
 
     void OMPF::clearChunks()
     {
-        std::map<uint32, ompfBaseChunk *>::iterator iterChunk = _chunks.begin();
-        while (iterChunk != _chunks.end())
+        for (const auto &pair : _chunks)
         {
-            delete (*iterChunk).second;
-            iterChunk++;
+            delete pair.second;
         }
         _chunks.clear();
 
-        std::vector<ompfMaterialChunk *>::iterator iterMat = _materialChunks.begin();
-        while (iterMat != _materialChunks.end())
+        for (const auto material : _materialChunks)
         {
-            delete (*iterMat);
-            iterMat++;
+            delete material;
         }
         _materialChunks.clear();
+
+        for (const auto material : _materialReferenceChunks)
+        {
+            delete material;
+        }
+        _materialReferenceChunks.clear();
     }
 
     ompfGroupChunk *OMPF::createGroupChunk()
@@ -119,9 +121,16 @@ namespace OMPF
     ompfMaterialChunk *OMPF::createMaterialChunk()
     {
         ompfMaterialChunk *result = new ompfMaterialChunk();
-        result->setID(OMPFDefaultConfiguration::INVALID_CHUNK_ID);
         result->setID(getNextChunkID());
         _materialChunks.push_back(result);
+        return result;
+    }
+
+    ompfMaterialReferenceChunk *OMPF::createMaterialReferenceChunk()
+    {
+        ompfMaterialReferenceChunk *result = new ompfMaterialReferenceChunk();
+        result->setID(getNextChunkID());
+        _materialReferenceChunks.push_back(result);
         return result;
     }
 
@@ -200,12 +209,10 @@ namespace OMPF
         uint32 chunkSize;
         uint32 tempType;
         ompfBaseChunk *chunk = nullptr;
-        ompfMaterialChunk *materialChunk = nullptr;
 
         while (!file.eof())
         {
             chunk = nullptr;
-            materialChunk = nullptr;
 
             if (!getNextChunk(file, tempType, chunkSize))
             {
@@ -259,9 +266,15 @@ namespace OMPF
             case OMPFChunkType::Material:
                 chunk = new ompfMaterialChunk();
                 result = chunk->read(file, _settings);
+                _materialChunks.push_back(static_cast<ompfMaterialChunk *>(chunk));
 
-                materialChunk = static_cast<ompfMaterialChunk *>(chunk);
-                _materialChunks.push_back(materialChunk);
+                chunk = nullptr;
+                break;
+
+            case OMPFChunkType::MaterialReference:
+                chunk = new ompfMaterialReferenceChunk();
+                result = chunk->read(file, _settings);
+                _materialReferenceChunks.push_back(static_cast<ompfMaterialReferenceChunk *>(chunk));
 
                 chunk = nullptr;
                 break;
@@ -305,7 +318,7 @@ namespace OMPF
 
         file.open(cfilename, std::ios_base::in | std::ios_base::binary);
 
-        con_debug("reading OMPF file: " << filename);
+        con_trace("reading OMPF file: " << filename);
 
         if (!file.fail())
         {
@@ -351,6 +364,11 @@ namespace OMPF
         return _materialChunks;
     }
 
+    const std::vector<ompfMaterialReferenceChunk *> &OMPF::getMaterialReferenceChunks() const
+    {
+        return _materialReferenceChunks;
+    }
+
     void OMPF::saveFile(iaString filename)
     {
         iaDirectory dir(filename);
@@ -382,18 +400,15 @@ namespace OMPF
 
     void OMPF::writeMaterials(std::ofstream &outfile)
     {
-        auto iter = _materialChunks.begin();
-        while (iter != _materialChunks.end())
+        for (const auto material : _materialChunks)
         {
-            writeMaterial(outfile, static_cast<ompfMaterialChunk *>((*iter)));
-            iter++;
+            material->write(outfile, _settings);
         }
-    }
 
-    void OMPF::writeMaterial(std::ofstream &outfile, ompfMaterialChunk *materialChunk)
-    {
-        ompfBaseChunk *chunk = static_cast<ompfBaseChunk *>(materialChunk);
-        chunk->write(outfile, _settings);
+        for (const auto material : _materialReferenceChunks)
+        {
+            material->write(outfile, _settings);
+        }
     }
 
     void OMPF::write(std::ofstream &outfile, ompfBaseChunk *currentChunk, ompfBaseChunk *parentChunk)

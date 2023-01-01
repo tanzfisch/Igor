@@ -49,7 +49,7 @@ namespace OMPF
 
         \param settigns the settings to calculate the size
         */
-        virtual uint32 getSize(const ompfSettings &settings);
+        uint32 getSize(const ompfSettings &settings) override;
 
         /*! writes chunk to stream
 

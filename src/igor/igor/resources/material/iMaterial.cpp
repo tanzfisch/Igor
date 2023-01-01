@@ -28,7 +28,7 @@ namespace igor
     }
 
     iMaterialPtr iMaterial::create(const iaString &filename)
-    {
+    {        
         std::shared_ptr<iMaterial> result(new iMaterial(), iMaterialDeleter());
         iMaterialIO::read(iResourceManager::getInstance().getPath(filename), result);
 
@@ -36,6 +36,8 @@ namespace igor
         {
             result->_materialID = iMaterialID::create();
         }
+
+        result->_filename = filename;
 
         return result;
     }
@@ -405,4 +407,8 @@ namespace igor
         return stream;
     }
 
+    const iaString &iMaterial::getFilename() const
+    {
+        return _filename;
+    }
 }

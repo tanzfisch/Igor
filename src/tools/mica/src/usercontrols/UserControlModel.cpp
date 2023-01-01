@@ -24,7 +24,7 @@ void UserControlModel::updateGUI()
 
     if (node != nullptr)
     {
-        _textFilename->setText(node->getModelName());
+        _textFilename->setText(node->getFilename());
     }
 }
 

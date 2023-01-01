@@ -808,6 +808,11 @@ namespace iaux
         return INVALID_POSITION;
     }
 
+    int64 iaString::findFirstOf(const iaString &characters, const int64 from) const
+    {
+        return findFirstOf(characters.getData(), from);
+    }
+
     int64 iaString::findFirstOf(const wchar_t character, const int64 from) const
     {
         CHECK_CONSISTENCY();

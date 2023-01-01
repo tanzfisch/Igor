@@ -13,6 +13,7 @@ namespace igor
     void iMaterialResourceFactory::init()
     {
         _defaultMaterial = loadMaterial("igor/default.mat");
+        _defaultMaterial = loadMaterial("igor/textured.mat");
         _colorIDMaterial = loadMaterial("igor/colorID.mat");
     }
 
