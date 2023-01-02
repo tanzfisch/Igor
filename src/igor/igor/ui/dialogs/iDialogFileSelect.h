@@ -42,7 +42,7 @@ namespace igor
     class iWidget;
     class iDialog;
     class iWidgetSpacer;
-    class iWidgetTextEdit;
+    class iWidgetLineTextEdit;
     class iWidgetScroll;
 
     /*! file dialog porpose definition
@@ -117,11 +117,11 @@ namespace igor
 
         /*! path edit text field
 		*/
-        iWidgetTextEdit *_pathEdit = nullptr;
+        iWidgetLineTextEdit *_pathEdit = nullptr;
 
         /*! file name text field
 		*/
-        iWidgetTextEdit *_filenameEdit = nullptr;
+        iWidgetLineTextEdit *_filenameEdit = nullptr;
 
         /*! handles ok button click
 

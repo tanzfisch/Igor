@@ -10,7 +10,7 @@
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
+#include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
 
@@ -89,7 +89,7 @@ namespace igor
         headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         grid->addWidget(headerLabel, 0, 0);
 
-        _pathEdit = new iWidgetTextEdit();
+        _pathEdit = new iWidgetLineTextEdit();
         _pathEdit->setWidth(600);
         _pathEdit->setWriteProtected(false);
         _pathEdit->setChangeEventOnEnterAndLostFocus();
@@ -122,7 +122,7 @@ namespace igor
         filenameLabel->setText("File name:");
         filenameGrid->addWidget(filenameLabel, 0, 0);
 
-        _filenameEdit = new iWidgetTextEdit();
+        _filenameEdit = new iWidgetLineTextEdit();
         _filenameEdit->setWidth(300);
         _filenameEdit->setWriteProtected(false);
         _filenameEdit->setChangeEventOnEnterAndLostFocus();

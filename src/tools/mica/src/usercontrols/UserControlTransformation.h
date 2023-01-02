@@ -47,16 +47,16 @@ public:
 private:
     iWidgetGrid *_grid = nullptr;
 
-    std::vector<iWidgetTextEdit *> _translateText;
-    std::vector<iWidgetTextEdit *> _scaleText;
-    std::vector<iWidgetTextEdit *> _rotateText;
-    std::vector<iWidgetTextEdit *> _shearText;
+    std::vector<iWidgetLineTextEdit *> _translateText;
+    std::vector<iWidgetLineTextEdit *> _scaleText;
+    std::vector<iWidgetLineTextEdit *> _rotateText;
+    std::vector<iWidgetLineTextEdit *> _shearText;
 
     uint32 _nodeId = iNode::INVALID_NODE_ID;
 
     void onTransformationChanged(iNode *node);
 
-    iWidgetTextEdit *createTextEdit();
+    iWidgetLineTextEdit *createTextEdit();
 
     void onChange(const iWidgetPtr source);
 

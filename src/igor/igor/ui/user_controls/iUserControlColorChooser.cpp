@@ -6,7 +6,7 @@
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
+#include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>

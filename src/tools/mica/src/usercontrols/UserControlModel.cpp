@@ -52,7 +52,7 @@ void UserControlModel::initGUI()
     _labelFilename->setText("Filename");
     _labelFilename->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textFilename = new iWidgetTextEdit();
+    _textFilename = new iWidgetLineTextEdit();
     _textFilename->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textFilename->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textFilename->setActive(false);

@@ -49,7 +49,7 @@ void UserControlNode::initGUI()
     _labelName->setWidth(MICA_REGULARBUTTON_SIZE);
     _labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textName = new iWidgetTextEdit();
+    _textName = new iWidgetLineTextEdit();
     _textName->setMaxTextLength(256);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Strech);

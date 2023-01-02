@@ -55,9 +55,9 @@ private:
     iUserControlFileChooser *_textureChooser2 = nullptr;
     iUserControlFileChooser *_textureChooser3 = nullptr;
 
-    iWidgetTextEdit *_textVertices = nullptr;
-    iWidgetTextEdit *_textTriangles = nullptr;
-    iWidgetTextEdit *_textIndexes = nullptr;
+    iWidgetLineTextEdit *_textVertices = nullptr;
+    iWidgetLineTextEdit *_textTriangles = nullptr;
+    iWidgetLineTextEdit *_textIndexes = nullptr;
 
     iWidgetNumberChooser *_textShininess = nullptr;
     iWidgetSlider *_sliderShininess = nullptr;

@@ -36,7 +36,7 @@ namespace igor
 
     /*! text edit widget
 	*/
-    class IGOR_API iWidgetTextEdit : public iWidget
+    class IGOR_API iWidgetLineTextEdit : public iWidget
     {
 
     public:
@@ -44,11 +44,11 @@ namespace igor
 
 		\param parent optional parent
 		*/
-        iWidgetTextEdit(const iWidgetPtr parent = nullptr);
+        iWidgetLineTextEdit(const iWidgetPtr parent = nullptr);
 
         /*! deinitializes member variables
 		*/
-        virtual ~iWidgetTextEdit() = default;
+        virtual ~iWidgetLineTextEdit() = default;
 
         /*! sets horrizotnal text aligment
 

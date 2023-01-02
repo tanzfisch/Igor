@@ -45,7 +45,7 @@ private:
     iWidgetGrid *_grid = nullptr;
 
     iWidgetLabel *_labelFilename = nullptr;
-    iWidgetTextEdit *_textFilename = nullptr;
+    iWidgetLineTextEdit *_textFilename = nullptr;
 
     uint32 _nodeId = 0;
 

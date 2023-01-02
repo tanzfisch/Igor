@@ -43,7 +43,7 @@ namespace igor
 
     class iWidgetGrid;
     class iWidgetLabel;
-    class iWidgetTextEdit;
+    class iWidgetLineTextEdit;
     class iWidgetButton;
     class iWidgetSpacer;
     class iWidgetColor;

@@ -64,7 +64,7 @@ private:
 
     /*! text box for emitter size
     */
-    iWidgetTextEdit *_textSize = nullptr;
+    iWidgetLineTextEdit *_textSize = nullptr;
 
     /*! current selected node
     */

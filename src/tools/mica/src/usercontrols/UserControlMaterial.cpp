@@ -125,7 +125,7 @@ void UserControlMaterial::initGUI()
     labelName->setText("Name");
     labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textName = new iWidgetTextEdit();
+    _textName = new iWidgetLineTextEdit();
     _textName->setMaxTextLength(100);
     _textName->setWidth(200);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -275,7 +275,7 @@ void UserControlMaterial::initGUI()
     labelShader2->setText("Fragment");
     labelShader2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textShaderGeometry = new iWidgetTextEdit();
+    _textShaderGeometry = new iWidgetLineTextEdit();
     _textShaderGeometry->setActive(false);
     _textShaderGeometry->setWidth(200);
     _textShaderGeometry->setMaxTextLength(200);
@@ -284,7 +284,7 @@ void UserControlMaterial::initGUI()
     _textShaderGeometry->setText("");
     _textShaderGeometry->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _textShaderVertex = new iWidgetTextEdit();
+    _textShaderVertex = new iWidgetLineTextEdit();
     _textShaderVertex->setActive(false);
     _textShaderVertex->setWidth(200);
     _textShaderVertex->setMaxTextLength(200);
@@ -293,7 +293,7 @@ void UserControlMaterial::initGUI()
     _textShaderVertex->setText("");
     _textShaderVertex->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _textShaderFragment = new iWidgetTextEdit();
+    _textShaderFragment = new iWidgetLineTextEdit();
     _textShaderFragment->setActive(false);
     _textShaderFragment->setWidth(200);
     _textShaderFragment->setMaxTextLength(200);

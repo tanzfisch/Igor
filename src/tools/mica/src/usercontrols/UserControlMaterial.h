@@ -52,7 +52,7 @@ public:
 private:
 	MaterialNameChangedEvent _materialNameChangedEvent;
 
-	iWidgetTextEdit *_textName;
+	iWidgetLineTextEdit *_textName;
     iWidgetLabel *_textID;
 	iWidgetNumberChooser *_renderingOrder = nullptr;
 
@@ -66,9 +66,9 @@ private:
 	iWidgetSelectBox *_selectBoxCullFaceFunc = nullptr;
 	iWidgetSelectBox *_selectBoxInstancedFunc = nullptr;
 
-	iWidgetTextEdit *_textShaderGeometry = nullptr;
-	iWidgetTextEdit *_textShaderVertex = nullptr;
-	iWidgetTextEdit *_textShaderFragment = nullptr;
+	iWidgetLineTextEdit *_textShaderGeometry = nullptr;
+	iWidgetLineTextEdit *_textShaderVertex = nullptr;
+	iWidgetLineTextEdit *_textShaderFragment = nullptr;
 
 	iWidgetButton *_shader0Button = nullptr;
 	iWidgetButton *_shader1Button = nullptr;
