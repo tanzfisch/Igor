@@ -21,7 +21,7 @@
 #include "usercontrols/UserControlGraphView.h"
 
 /*! default file open folder definition
-*/
+ */
 static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
 
 UILayer::UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
@@ -50,6 +50,7 @@ void UILayer::onInit()
     _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
     _outliner->registerOnSaveFile(SaveFileDelegate(this, &UILayer::onSaveFile));
     _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &UILayer::onAddMaterial));
+    _outliner->registerOnLoadMaterial(LoadMaterialDelegate(this, &UILayer::onLoadMaterial));
 
     // _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 
@@ -93,6 +94,15 @@ void UILayer::onAddMaterial()
 {
     iMaterialResourceFactory::getInstance().createMaterial("new Material");
     _outliner->refresh();
+}
+
+void UILayer::onLoadMaterial()
+{
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onLoadMaterialFileDialogClosed), iFileDialogPurpose::Load);
+    }
 }
 
 void UILayer::onImportFile()
@@ -154,6 +164,19 @@ void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
         {
             iModelResourceFactory::getInstance().exportModelData(filename, rootNode);
         }
+    }
+
+    delete _fileDialog;
+    _fileDialog = nullptr;
+}
+
+void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
+{
+    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial(_fileDialog->getFullPath());
+        material->setVisibility(iMaterialVisibility::Public);
+        _outliner->refresh();
     }
 
     delete _fileDialog;

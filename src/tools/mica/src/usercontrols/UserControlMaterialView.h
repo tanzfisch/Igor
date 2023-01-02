@@ -34,6 +34,7 @@ using namespace iaux;
 using namespace igor;
 
 iaEVENT(AddMaterial, AddMaterialDelegate, (), ());
+iaEVENT(LoadMaterial, LoadMaterialDelegate, (), ());
 iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, (const iMaterialID &materialID), (materialID));
 
 class UserControlMaterialView : public iUserControl
@@ -47,12 +48,16 @@ public:
     void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
     void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
 
+    void registerOnLoadMaterial(LoadMaterialDelegate delegate);
+    void unregisterOnLoadMaterial(LoadMaterialDelegate delegate);
+
     void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
     void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
 
 private:
     MaterialSelectionChanged _materialSelectionChanged;
     AddMaterial _addMaterial;
+    LoadMaterial _loadMaterial;
 
     iWidgetGrid *_gridGraph = nullptr;
 
@@ -67,6 +72,7 @@ private:
     void OnSelectionChange(iWidgetPtr widget);
 
     void onAddMaterial(const iWidgetPtr source);
+    void onLoadMaterial(const iWidgetPtr source);
 };
 
 #endif // __USERCONTROLMATERIALVIEW_H__
