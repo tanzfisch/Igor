@@ -92,6 +92,9 @@ public:
     void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
     void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
 
+    void registerOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
+    void unregisterOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
+
     void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
     void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
 
@@ -111,6 +114,7 @@ private:
     GraphSelectionChanged _graphSelectionChanged;
 
     AddMaterial _addMaterial;
+    LoadMaterial _loadMaterial;
     MaterialSelectionChanged _materialSelectionChanged;
 
     CopyNode _copyNode;
@@ -160,6 +164,7 @@ private:
 
     void onGraphSelectionChanged(uint64 nodeID);
     void onAddMaterial();
+    void onLoadMaterial();
     void onMaterialSelectionChanged(const iMaterialID &materialID);
 
     void onGraphViewSelected(const iWidgetPtr source);

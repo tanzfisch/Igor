@@ -198,11 +198,11 @@ private:
 
     /*! text field to show the current particle count
     */
-    iWidgetTextEdit *_textParticleCount = nullptr;
+    iWidgetLineTextEdit *_textParticleCount = nullptr;
 
     /*! text field to show the current particle simulation frequency
     */
-    iWidgetTextEdit *_textFrequency = nullptr;
+    iWidgetLineTextEdit *_textFrequency = nullptr;
 
     /*! list with all available emitters in all scenes
     */

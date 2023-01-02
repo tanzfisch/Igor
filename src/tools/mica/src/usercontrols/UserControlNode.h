@@ -54,7 +54,7 @@ private:
     iWidgetLabel *_labelName = nullptr;
     iWidgetLabel *_labelActive = nullptr;
     iWidgetCheckBox *_checkBoxActive = nullptr;
-    iWidgetTextEdit *_textName = nullptr;
+    iWidgetLineTextEdit *_textName = nullptr;
 
     uint32 _nodeId = 0;
 

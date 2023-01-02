@@ -246,6 +246,7 @@ void Outliner::initMaterialView()
 
     _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
     _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
+    _userControlMaterialView->registerOnLoadMaterial(LoadMaterialDelegate(this, &Outliner::onLoadMaterial));
 
     _grid->addWidget(_userControlMaterialView, 0, 2);
     refresh();
@@ -306,6 +307,11 @@ void Outliner::onCut(const iWidgetPtr source)
 void Outliner::onAddMaterial()
 {
     _addMaterial();
+}
+
+void Outliner::onLoadMaterial()
+{
+    _loadMaterial();
 }
 
 void Outliner::refresh()
@@ -491,4 +497,13 @@ void Outliner::registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 void Outliner::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 {
     _addMaterial.remove(addMaterialDelegate);
+}
+
+void Outliner::registerOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate)
+{
+    _loadMaterial.append(addMaterialDelegate);
+}
+void Outliner::unregisterOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate)
+{
+    _loadMaterial.remove(addMaterialDelegate);
 }

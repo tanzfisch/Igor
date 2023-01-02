@@ -154,8 +154,8 @@ namespace OMPF
             return false;
         }
 
-        con_debug("---------------------------------------------------");
-        con_debug("write chunk type:0x" << std::hex << static_cast<uint64>(_type) << std::dec << " size:" << _chunkSize << " ID:" << _ID << " parent:" << _parentID);
+        con_trace("---------------------------------------------------");
+        con_trace("write chunk type:0x" << std::hex << static_cast<uint64>(_type) << std::dec << " size:" << _chunkSize << " ID:" << _ID << " parent:" << _parentID);
 
         return true;
     }
@@ -201,8 +201,8 @@ namespace OMPF
             return false;
         }
 
-        con_debug("---------------------------------------------------");
-        con_debug("read chunk type: 0x" << std::hex << static_cast<uint32>(_type) << std::dec << " size:" << _chunkSize << " ID:" << _ID << " parent: " << _parentID << " name:" << _name);
+        con_trace("---------------------------------------------------");
+        con_trace("read chunk type: 0x" << std::hex << static_cast<uint32>(_type) << std::dec << " size:" << _chunkSize << " ID:" << _ID << " parent: " << _parentID << " name:" << _name);
 
         return true;
     }

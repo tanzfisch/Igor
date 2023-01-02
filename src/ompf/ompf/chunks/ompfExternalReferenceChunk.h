@@ -48,7 +48,7 @@ namespace OMPF
 
         \param settings the settings the chunk's size depends on
         */
-        virtual uint32 getSize(const ompfSettings &settings);
+        uint32 getSize(const ompfSettings &settings) override;
 
         /*! sets file name of external reference
 

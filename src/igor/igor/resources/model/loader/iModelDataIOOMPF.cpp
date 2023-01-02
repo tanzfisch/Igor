@@ -248,11 +248,7 @@ namespace igor
         uint32 textureCount = meshChunk->getTextureCount();
         for (uint32 i = 0; i < textureCount; ++i)
         {
-            iaString texturePath = _ompf->getFileDirectory();
-            texturePath += __IGOR_PATHSEPARATOR__;
-            texturePath += meshChunk->getTexture(i);
-
-            meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(texturePath), i);
+            meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(meshChunk->getTexture(i)), i);
             mesh->setTexture(i, true);
         }
 
@@ -384,7 +380,7 @@ namespace igor
 
         if (result != nullptr)
         {
-            con_info("loaded model \"" << filename << "\"");
+            con_info("loaded ompf \"" << filename << "\"");
         }
 
         return result;
@@ -392,11 +388,21 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterials()
     {
-        const auto &materialChunks = _ompf->getMaterialChunks();
-        for (const auto materialChunk : materialChunks)
+        for (const auto materialChunk : _ompf->getMaterialChunks())
         {
             createMaterial(materialChunk);
         }
+
+        for (const auto materialReferenceChunk : _ompf->getMaterialReferenceChunks())
+        {
+            createMaterial(materialReferenceChunk);
+        }
+    }
+
+    void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialReferenceChunk *materialReferenceChunk)
+    {
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial(materialReferenceChunk->getFilename());
+        _materialMapping[materialReferenceChunk->getID()] = material->getID();
     }
 
     iRenderStateValue convert(OMPF::OMPFRenderStateValue value)
@@ -484,7 +490,7 @@ namespace igor
             iShaderProgramPtr program = iShaderProgram::create();
             for (uint32 i = 0; i < shaderObjectCount; ++i)
             {
-                if(iResourceManager::getInstance().fileExists(materialChunk->getShaderFilename(i)))
+                if (iResourceManager::getInstance().fileExists(materialChunk->getShaderFilename(i)))
                 {
                     program->addShader(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
                 }
@@ -655,7 +661,7 @@ namespace igor
     OMPF::ompfExternalReferenceChunk *iModelDataIOOMPF::createExternalReferenceChunk(iNodeModel *node)
     {
         OMPF::ompfExternalReferenceChunk *result = _ompf->createExternalReferenceChunk();
-        result->setFilename(node->getModelName());
+        result->setFilename(iResourceManager::getInstance().getRelativePath(node->getFilename()));
         return result;
     }
 
@@ -785,8 +791,12 @@ namespace igor
 
                 for (const auto &pair : node->getTargetMaterial()->getTextures())
                 {
-                    iaString relative = iaDirectory::getRelativePath(_filename, pair.second->getFilename());
-                    result->setTexture(relative, pair.first);
+                    if (pair.second == nullptr)
+                    {
+                        continue;
+                    }
+
+                    result->setTexture(iResourceManager::getInstance().getRelativePath(pair.second->getFilename()), pair.first);
                 }
             }
             else
@@ -816,22 +826,22 @@ namespace igor
         return result;
     }
 
-    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(const iMaterialID &materialID)
+    OMPF::ompfMaterialReferenceChunk *iModelDataIOOMPF::createMaterialReferenceChunk(iMaterialPtr material)
     {
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+        OMPF::ompfMaterialReferenceChunk *result = _ompf->createMaterialReferenceChunk();
+        result->setFilename(iResourceManager::getInstance().getRelativePath(material->getFilename()));
+        return result;
+    }
 
-        if (material == nullptr)
-        {
-            con_err("material id \"" << materialID << "\" not found");
-            return nullptr;
-        }
-
+    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(iMaterialPtr material)
+    {
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
         const auto &shaderSources = material->getShaderProgram()->getShaderSources();
         for (const auto &source : shaderSources)
         {
-            result->addShader(source._filename, source._source, static_cast<OMPF::OMPFShaderType>(source._type));
+            result->addShader(iResourceManager::getInstance().getRelativePath(source._filename),
+                              source._source, static_cast<OMPF::OMPFShaderType>(source._type));
         }
 
         result->setMaterialName(material->getName());
@@ -848,18 +858,34 @@ namespace igor
 
     uint32 iModelDataIOOMPF::getMaterialChunkID(const iMaterialID &materialID)
     {
-        if (!materialID.isValid())
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+
+        if (material == nullptr)
         {
+            con_err("material id \"" << materialID << "\" not found");
             return 0;
         }
 
-        auto iter = _materialsInUse.find(materialID);
-        if (iter == _materialsInUse.end())
+        if (material->getFilename().isEmpty())
         {
-            _materialsInUse[materialID] = createMaterialChunk(materialID);
-        }
+            auto iter = _materialsInUse.find(materialID);
+            if (iter == _materialsInUse.end())
+            {
+                _materialsInUse[materialID] = createMaterialChunk(material);
+            }
 
-        return _materialsInUse[materialID]->getID();
+            return _materialsInUse[materialID]->getID();
+        }
+        else
+        {
+            auto iter = _materialReferencesInUse.find(materialID);
+            if (iter == _materialReferencesInUse.end())
+            {
+                _materialReferencesInUse[materialID] = createMaterialReferenceChunk(material);
+            }
+
+            return _materialReferencesInUse[materialID]->getID();
+        }
     }
 
     uint32 iModelDataIOOMPF::getNodeID(uint32 chunkID)
@@ -923,6 +949,7 @@ namespace igor
     void iModelDataIOOMPF::clearMaterials()
     {
         _materialsInUse.clear();
+        _materialReferencesInUse.clear();
     }
 
 } // namespace igor

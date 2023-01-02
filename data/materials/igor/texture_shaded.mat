@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="igor.texture_shaded_opaque" uuid="1f2308d7-07bb-4f28-bec3-733b246dfe8f">
+	<Material name="igor.texture_shaded_opaque" uuid="1f2308d7-07bb-4f28-bec3-733b246dfe8f" visibility="Private">
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>Off</Blend>

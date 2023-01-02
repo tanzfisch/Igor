@@ -39,7 +39,7 @@ using namespace iaux;
 namespace igor
 {
 
-    class iWidgetTextEdit;
+    class iWidgetLineTextEdit;
 
     class IGOR_API iUserControlFileChooser : public iUserControl
     {
@@ -114,7 +114,7 @@ namespace igor
 
         /*! text edit field for filename
 		*/
-        iWidgetTextEdit *_fileNameTextEdit = nullptr;
+        iWidgetLineTextEdit *_fileNameTextEdit = nullptr;
 
         /*! file dialog used to select files
 		*/

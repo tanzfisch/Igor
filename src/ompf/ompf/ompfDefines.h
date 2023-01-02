@@ -99,7 +99,8 @@ namespace OMPF
 		Mesh = 0x06,
 		Material = 0x07,
 		Emitter = 0x08,
-		ParticleSystem = 0x09
+		ParticleSystem = 0x09,
+        MaterialReference = 0x0a
 	};
 
 	/*! ompf path types

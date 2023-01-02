@@ -2,32 +2,32 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <ompf/chunks/ompfExternalReferenceChunk.h>
+#include <ompf/chunks/ompfMaterialReferenceChunk.h>
 
 namespace OMPF
 {
 
-    ompfExternalReferenceChunk::ompfExternalReferenceChunk()
-        : ompfBaseChunk(OMPFChunkType::External)
+    ompfMaterialReferenceChunk::ompfMaterialReferenceChunk()
+        : ompfBaseChunk(OMPFChunkType::MaterialReference)
     {
     }
 
-    void ompfExternalReferenceChunk::setFilename(const iaString &filename)
+    void ompfMaterialReferenceChunk::setFilename(const iaString &filename)
     {
         _filename = filename;
     }
 
-    iaString ompfExternalReferenceChunk::getFilename() const
+    iaString ompfMaterialReferenceChunk::getFilename() const
     {
         return _filename;
     }
 
-    uint32 ompfExternalReferenceChunk::getSize(const ompfSettings &settings)
+    uint32 ompfMaterialReferenceChunk::getSize(const ompfSettings &settings)
     {
         return static_cast<uint32>(_filename.getUTF8Size() + 2) + static_cast<uint32>(ompfBaseChunk::getSize(settings));
     }
 
-    bool ompfExternalReferenceChunk::write(std::ofstream &stream, const ompfSettings &settings)
+    bool ompfMaterialReferenceChunk::write(std::ofstream &stream, const ompfSettings &settings)
     {
         if (!ompfBaseChunk::write(stream, settings))
         {
@@ -35,7 +35,7 @@ namespace OMPF
         }
 
         con_trace("---------------------------------------------------");
-        con_trace("write ompfExternalReferenceChunk " << this->getName());
+        con_trace("write ompfMaterialReferenceChunk " << this->getName());
 
         if (!iaSerializable::writeUTF8(stream, _filename))
         {
@@ -46,7 +46,7 @@ namespace OMPF
         return true;
     }
 
-    bool ompfExternalReferenceChunk::read(std::ifstream &stream, ompfSettings &settings)
+    bool ompfMaterialReferenceChunk::read(std::ifstream &stream, ompfSettings &settings)
     {
         if (!ompfBaseChunk::read(stream, settings))
         {
@@ -54,7 +54,7 @@ namespace OMPF
         }
 
         con_trace("---------------------------------------------------");
-        con_trace("read ompfExternalReferenceChunk " << this->getName());
+        con_trace("read ompfMaterialReferenceChunk " << this->getName());
 
         if (!iaSerializable::readUTF8(stream, _filename))
         {

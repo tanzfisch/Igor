@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="example.sprite_animation.textured" uuid="15802b98-7b46-11ed-a6a3-c3a98e5f6f07">
+	<Material name="example.sprite_animation.textured" uuid="15802b98-7b46-11ed-a6a3-c3a98e5f6f07" visibility="Public">
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>On</Blend>

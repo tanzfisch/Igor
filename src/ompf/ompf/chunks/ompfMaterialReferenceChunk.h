@@ -22,35 +22,51 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __GROUPCHUNK__
-#define __GROUPCHUNK__
+#ifndef __MATERIALREFERENCECHUNK__
+#define __MATERIALREFERENCECHUNK__
 
 #include <ompf/chunks/ompfBaseChunk.h>
 
 namespace OMPF
 {
 
-    /*! group chunk wich simply groups other chunks
+    /*! chunk that contains an external reference to a material file
     */
-    class OMPF_API ompfGroupChunk : public ompfBaseChunk
+    class OMPF_API ompfMaterialReferenceChunk : public ompfBaseChunk
     {
+
+        friend class OMPF;
 
     public:
         /*! does nothing
         */
-        ompfGroupChunk();
+        ompfMaterialReferenceChunk();
 
         /*! does nothing
         */
-        virtual ~ompfGroupChunk() = default;
+        ~ompfMaterialReferenceChunk() = default;
 
-        /*! \returns size of chunk
+        /*! \returns size of chunk in bytes
 
-        \param settings the settings to use to calculate the size
+        \param settings the settings the chunk's size depends on
         */
         uint32 getSize(const ompfSettings &settings) override;
 
+        /*! sets file name of external material reference
+
+        \param filename the file name
+        */
+        void setFilename(const iaString &filename);
+
+        /*! \returns file name of external reference
+        */
+        iaString getFilename() const;
+
     private:
+        /*! file name of external reference
+        */
+        iaString _filename;
+
         /*! writes chunk to stream
 
         \param stream destination stream

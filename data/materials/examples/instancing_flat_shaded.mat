@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="example.instancing.flat_shaded" uuid="92f9e372-809e-11ed-9224-0b1e68795aef">
+	<Material name="example.instancing.flat_shaded" uuid="92f9e372-809e-11ed-9224-0b1e68795aef" visibility="Public">
 		<States>
             <Instanced>On</Instanced>
             <InstancedFunc>PositionOrientation</InstancedFunc>

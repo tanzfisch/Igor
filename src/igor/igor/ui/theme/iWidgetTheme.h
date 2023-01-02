@@ -73,7 +73,8 @@ namespace igor
         virtual void drawNumberChooser(const iaRectanglef &rect, const iaString &text, iWidgetState buttonUp, iWidgetState buttonDown, bool active) = 0;
         virtual void drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool active) = 0;
         virtual void drawSelectBoxDropDown(const iaRectanglef &rect, std::vector<iaString> &text, int highlightIndex, bool active) = 0;
-        virtual void drawTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool active) = 0;
+        virtual void drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool active) = 0;
+        virtual void drawTextEdit(const iaRectanglef &rect, const iaString &text, float32 maxwidth, iWidgetState state, bool active) = 0;
         virtual void drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth) = 0;
         virtual void drawGraph(const iaRectanglef &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points) = 0;
         virtual void drawGraphGridlines(const iaRectanglef &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool active) = 0;

@@ -126,6 +126,12 @@ namespace igor
         /*! does nothing
          */
         virtual ~iMaterialResourceFactory() = default;
+
+        /*! \returns true if material ID is colliding with existing materials in cache
+
+        \param toCheck the material to check
+        */
+        bool checkForIDCollisions(iMaterialPtr toCheck);
     };
 
 }; // namespace igor

@@ -101,7 +101,7 @@ namespace igor
     }
 
     void iWidgetDefaultTheme::drawGradient(const iaRectanglef &rect, const iaGradientColor4f &gradient)
-    {       
+    {
         iRenderer::getInstance().setLineWidth(1);
 
         iaColor4f color;
@@ -132,7 +132,7 @@ namespace igor
 
     void iWidgetDefaultTheme::drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color)
     {
-        if(color._a != 1.0f)
+        if (color._a != 1.0f)
         {
             // TODO iRenderer::getInstance().setMaterial TODO(true);
         }
@@ -202,7 +202,7 @@ namespace igor
             offset = +1;
         }
 
-       if (texture == nullptr)
+        if (texture == nullptr)
         {
             drawButtonFrame(rect, state, active);
         }
@@ -260,7 +260,26 @@ namespace igor
         DRAW_DEBUG_OUTPUT(rect, state);
     }
 
-    void iWidgetDefaultTheme::drawTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool active)
+    void iWidgetDefaultTheme::drawTextEdit(const iaRectanglef &rect, const iaString &text, float32 maxwidth, iWidgetState state, bool active)
+    {
+        iRenderer::getInstance().drawFilledRectangle(rect, active ? COLOR_SPECULAR : COLOR_DIFFUSE);
+
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
+
+        // render text
+        iRenderer::getInstance().setFont(_font);
+        iRenderer::getInstance().setFontSize(_fontSize);
+        iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
+
+        iRenderer::getInstance().drawString(0.0, 0.0, text, active ? COLOR_TEXT_DARK : COLOR_AMBIENT, maxwidth);
+    }
+
+    void iWidgetDefaultTheme::drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool active)
     {
         iaString modText = text;
 

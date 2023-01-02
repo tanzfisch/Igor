@@ -13,6 +13,7 @@ namespace igor
     void iMaterialResourceFactory::init()
     {
         _defaultMaterial = loadMaterial("igor/default.mat");
+        _defaultMaterial = loadMaterial("igor/textured.mat");
         _colorIDMaterial = loadMaterial("igor/colorID.mat");
     }
 
@@ -83,15 +84,12 @@ namespace igor
 
     iMaterialPtr iMaterialResourceFactory::createMaterial(const iaString &name, bool cache)
     {
-        iMaterialPtr result = getMaterial(name);
-        if (result != nullptr)
-        {
-            return result;
-        }
-
-        result = iMaterial::create();
+        iMaterialPtr result = iMaterial::create();
         result->setName(name);
-        const int64 hashValue = name.getHashValue();
+
+        con_assert_sticky(checkForIDCollisions(result), "duplicate material ID detected " << result->getID() << " material name:" << result->getName() << " (not from file)");
+
+        const int64 hashValue = result->getID().getValue().getHashValue();
 
         if (cache)
         {
@@ -101,6 +99,24 @@ namespace igor
         }
 
         con_info("created material [" << result->getID() << "] \"" << result->getName() << "\"");
+
+        return result;
+    }
+
+    bool iMaterialResourceFactory::checkForIDCollisions(iMaterialPtr material)
+    {
+        bool result = true;
+
+        _mutexMaterial.lock();
+        for (const auto &pair : _materials)
+        {
+            if (material->getID() == pair.second->getID())
+            {
+                result = false;
+                break;
+            }
+        }
+        _mutexMaterial.unlock();
 
         return result;
     }
@@ -121,16 +137,18 @@ namespace igor
         }
 
         result = iMaterial::create(keyPath);
-        const int64 hashValue = keyPath.getHashValue();
+
+        con_assert_sticky(checkForIDCollisions(result), "duplicate material ID detected " << result->getID() << " material name:" << result->getName() << " filename:" << filename);
 
         if (cache)
         {
+            const int64 hashValue = keyPath.getHashValue();
             _mutexMaterial.lock();
             _materials[hashValue] = result;
             _mutexMaterial.unlock();
         }
 
-        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " shaders:"<< result->getShaderProgram()->getShaderSources().size() << " (" << (cache ? "cached" : "not cached") << ")");
+        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " shaders:" << result->getShaderProgram()->getShaderSources().size() << " (" << (cache ? "cached" : "not cached") << ")");
 
         return result;
     }
