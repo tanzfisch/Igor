@@ -65,9 +65,12 @@ void UserControlMaterial::updateGUI()
     if (material->getShaderProgram() == nullptr ||
         material->getShaderProgram()->getShaderSources().empty())
     {
-        _textShaderGeometry->setText("");
         _textShaderVertex->setText("");
+        _textShaderVertex->setActive();
+        _textShaderGeometry->setText("");
+        _textShaderGeometry->setActive();
         _textShaderFragment->setText("");
+        _textShaderFragment->setActive();
     }
     else
     {
@@ -77,16 +80,43 @@ void UserControlMaterial::updateGUI()
         {
             switch (source._type)
             {
-            case iShaderObjectType::Geometry:
-                _textShaderGeometry->setText(iResourceManager::getInstance().getRelativePath(source._filename));
+            case iShaderObjectType::Vertex:
+                if (iaFile::exist(source._filename))
+                {
+                    _textShaderVertex->setText(iResourceManager::getInstance().getRelativePath(source._filename));
+                    _textShaderVertex->setActive(true);
+                }
+                else
+                {
+                    _textShaderVertex->setText("can't edit");
+                    _textShaderVertex->setActive(false);
+                }
                 break;
 
-            case iShaderObjectType::Vertex:
-                _textShaderVertex->setText(iResourceManager::getInstance().getRelativePath(source._filename));
+            case iShaderObjectType::Geometry:
+                if (iaFile::exist(source._filename))
+                {
+                    _textShaderGeometry->setText(iResourceManager::getInstance().getRelativePath(source._filename));
+                    _textShaderGeometry->setActive(true);
+                }
+                else
+                {
+                    _textShaderGeometry->setText("can't edit");
+                    _textShaderGeometry->setActive(false);
+                }
                 break;
 
             case iShaderObjectType::Fragment:
-                _textShaderFragment->setText(iResourceManager::getInstance().getRelativePath(source._filename));
+                if (iaFile::exist(source._filename))
+                {
+                    _textShaderFragment->setText(iResourceManager::getInstance().getRelativePath(source._filename));
+                    _textShaderFragment->setActive(true);
+                }
+                else
+                {
+                    _textShaderFragment->setText("can't edit");
+                    _textShaderFragment->setActive(false);
+                }
                 break;
             }
         }

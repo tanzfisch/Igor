@@ -1,6 +1,13 @@
 Changelog                           {#changelog}
 =========
 
+0.34.3
+------
+
+- Mica now can load and safe .mat files (material files)
+- Mica is only displaying materials with public visibility
+- ompf has a new chunk type wich storeas a reference to a material file
+
 0.34.2
 ------
 
