@@ -8,7 +8,7 @@ namespace OMPF
 {
 
     ompfExternalReferenceChunk::ompfExternalReferenceChunk()
-        : ompfBaseChunk(OMPFChunkType::MaterialReference)
+        : ompfBaseChunk(OMPFChunkType::External)
     {
     }
 
