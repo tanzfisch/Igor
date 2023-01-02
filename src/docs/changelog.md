@@ -1,6 +1,13 @@
 Changelog                           {#changelog}
 =========
 
+0.34.4
+------
+
+- fixed text line edit clamping
+- made iRenderer::flush public so we can force draw calls when needed for stencil testing
+- activated 8bit stencil buffer for linux implementation
+
 0.34.3
 ------
 

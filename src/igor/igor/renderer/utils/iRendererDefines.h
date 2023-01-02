@@ -55,7 +55,7 @@ namespace igor
     };
 
     /*! render primitives definition
-    */
+     */
     enum class iRenderPrimitive
     {
         Points,
@@ -69,7 +69,49 @@ namespace igor
     \param type the data type to print
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderPrimitive &type);    
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderPrimitive &type);
+
+    /*! stencil function types
+     */
+    enum class iStencilFunction
+    {
+        Never,
+        Less,
+        Equal,
+        LessOrEqual,
+        Greater,
+        NotEqual,
+        GreaterOrEqual,
+        Always
+    };
+
+    /*! prints given data type in the console
+
+    \param stream the stream to log to
+    \param type the data type to print
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iStencilFunction &type);    
+
+    /*! stencil operation types
+     */
+    enum class iStencilOperation
+    {
+        Keep,
+        Zero,
+        Replace,
+        Increment,
+        Decrement,
+        Invert
+    };
+
+    /*! prints given data type in the console
+
+    \param stream the stream to log to
+    \param type the data type to print
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iStencilOperation &type);     
 
     /*! render states
      */
@@ -94,7 +136,7 @@ namespace igor
     \param state the render state to print
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderState &state);     
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderState &state);
 
     /*! render state values
 
@@ -142,7 +184,7 @@ namespace igor
     \param value the render state value to print
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderStateValue &value);   
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iRenderStateValue &value);
 
     /*! shader data type
      */
@@ -168,12 +210,12 @@ namespace igor
     \param type the shader data type
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderDataType &type);   
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderDataType &type);
 
     /*! shader object types
      */
     enum class iShaderObjectType
-    {        
+    {
         Vertex,
         Fragment,
         Geometry

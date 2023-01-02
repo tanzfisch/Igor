@@ -867,10 +867,8 @@ namespace igor
 
             GLint attr[] = {
                 GLX_USE_GL,
-                GLX_RED_SIZE, 1,
-                GLX_GREEN_SIZE, 1,
-                GLX_BLUE_SIZE, 1,
                 GLX_DEPTH_SIZE, 16,
+                GLX_STENCIL_SIZE, 8,
                 GLX_DOUBLEBUFFER,
                 GLX_RGBA,
                 None};

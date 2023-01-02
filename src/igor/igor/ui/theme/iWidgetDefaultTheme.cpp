@@ -285,11 +285,13 @@ namespace igor
 
         float32 textwidth = _font->measureWidth(modText, _fontSize);
 
-        iRenderer::getInstance().setStencilTestActive(true);
-        iRenderer::getInstance().setStencilFunction(iRenderer::iStencilFunction::Always, 1, 0xff);
-        iRenderer::getInstance().setStencilOperation(iRenderer::iStencilOperation::Keep, iRenderer::iStencilOperation::Keep, iRenderer::iStencilOperation::Replace);
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
 
         // draw stencil pattern
+        iRenderer::getInstance().setStencilTestActive(true);
+        iRenderer::getInstance().setStencilFunction(iStencilFunction::Always, 1, 0xff);
+        iRenderer::getInstance().setStencilOperation(iStencilOperation::Keep, iStencilOperation::Keep, iStencilOperation::Replace);
         iRenderer::getInstance().setStencilMask(0xff);
 
         iRenderer::getInstance().drawFilledRectangle(rect, active ? COLOR_SPECULAR : COLOR_DIFFUSE);
@@ -334,8 +336,11 @@ namespace igor
             break;
         };
 
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
         iRenderer::getInstance().setStencilMask(0xff);
-        iRenderer::getInstance().setStencilFunction(iRenderer::iStencilFunction::Equal, 1, 0xff);
+        iRenderer::getInstance().setStencilFunction(iStencilFunction::Equal, 1, 0xff);
 
         if (keyboardFocus)
         {
@@ -361,6 +366,9 @@ namespace igor
         iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
 
         iRenderer::getInstance().drawString(rect._x + relativeTextPosX, rect._y + relatoveTextPosY, modText, keyboardFocus ? COLOR_TEXT_DARK : COLOR_AMBIENT);
+
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
 
         iRenderer::getInstance().setStencilTestActive(false);
 
