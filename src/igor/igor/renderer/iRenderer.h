@@ -381,20 +381,6 @@ namespace igor
 
         bool isStencilTestActive() const;
 
-        /*! stencil function types
-         */
-        enum class iStencilFunction
-        {
-            Never,
-            Less,
-            Equal,
-            LessOrEqual,
-            Greater,
-            NotEqual,
-            GreaterOrEqual,
-            Always
-        };
-
         /*! sets the stencil function
 
         \param function the stencil function (legal values are Never, Less, LessOrEqual, Greater, GreaterOrEqual, Equal, NotEqual, and Always)
@@ -402,18 +388,6 @@ namespace igor
         \param mask the mask value to gate the result of the test
         */
         void setStencilFunction(iStencilFunction function, int32 ref, uint32 mask);
-
-        /*! stencil operation types
-         */
-        enum class iStencilOperation
-        {
-            Keep,
-            Zero,
-            Replace,
-            Increment,
-            Decrement,
-            Invert
-        };
 
         /*! sets the stencil test actions
 
@@ -506,6 +480,10 @@ namespace igor
          */
         bool isWireframeEnabled() const;
 
+        /*! draws everything that is still in the queue
+         */
+        void flush();        
+
     private:
         /*! internal render data
          */
@@ -542,10 +520,6 @@ namespace igor
         /*! flushes last used queue
          */
         void flushLastUsed();
-
-        /*! draws everything that is still in the queue
-         */
-        void flush();
 
         /*! updats internal matrices
          */

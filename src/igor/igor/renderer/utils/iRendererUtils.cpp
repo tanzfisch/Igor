@@ -139,6 +139,59 @@ namespace igor
         return 0;
     }
 
+    uint32 iRendererUtils::convertType(iStencilFunction type)
+    {
+        switch (type)
+        {
+        case iStencilFunction::Never:
+            return GL_NEVER;
+        case iStencilFunction::Less:
+            return GL_LESS;
+        case iStencilFunction::LessOrEqual:
+            return GL_LEQUAL;
+        case iStencilFunction::Greater:
+            return GL_GREATER;
+        case iStencilFunction::GreaterOrEqual:
+            return GL_GEQUAL;
+        case iStencilFunction::Equal:
+            return GL_EQUAL;
+        case iStencilFunction::NotEqual:
+            return GL_NOTEQUAL;
+        case iStencilFunction::Always:
+            return GL_ALWAYS;
+
+        default:
+            con_crit("unsupported stencil function type");
+        };
+
+        return 0;
+    }
+
+    uint32 iRendererUtils::convertType(iStencilOperation type)
+    {
+        switch (type)
+        {
+        case iStencilOperation::Zero:
+            return GL_ZERO;
+        case iStencilOperation::Keep:
+            return GL_KEEP;
+        case iStencilOperation::Replace:
+            return GL_REPLACE;
+        case iStencilOperation::Increment:
+            return GL_INCR;
+        case iStencilOperation::Decrement:
+            return GL_DECR;
+        case iStencilOperation::Invert:
+            return GL_INVERT;
+
+        default:
+            con_crit("unsupported stencil operation type");
+        }
+
+        con_err("invalid value");
+        return 0;
+    }
+
     std::wostream &operator<<(std::wostream &stream, const iShaderObjectType &type)
     {
         const static std::wstring text[] = {
@@ -254,7 +307,7 @@ namespace igor
     std::wostream &operator<<(std::wostream &stream, const iRenderState &state)
     {
         const static std::wstring text[] = {
-            L"DepthTest", 
+            L"DepthTest",
             L"DepthMask",
             L"Blend",
             L"CullFace",
@@ -265,6 +318,38 @@ namespace igor
             L"InstancedFunc"};
 
         stream << text[static_cast<int>(state)];
+
+        return stream;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iStencilFunction &func)
+    {
+        const static std::wstring text[] = {
+            L"Never",
+            L"Less",
+            L"Equal",
+            L"LessOrEqual",
+            L"Greater",
+            L"NotEqual",
+            L"GreaterOrEqual",
+            L"Always"};
+
+        stream << text[static_cast<int>(func)];
+
+        return stream;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iStencilOperation &operation)
+    {
+        const static std::wstring text[] = {
+            L"Keep",
+            L"Zero",
+            L"Replace",
+            L"Increment",
+            L"Decrement",
+            L"Invert"};
+
+        stream << text[static_cast<int>(operation)];
 
         return stream;
     }
