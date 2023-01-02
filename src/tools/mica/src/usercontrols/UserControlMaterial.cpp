@@ -47,6 +47,7 @@ void UserControlMaterial::updateGUI()
         _ignoreMaterialUpdate = true;
 
         _textName->setText(material->getName());
+        _textID->setText(material->getID().getValue());
         _checkBoxCullFace->setChecked(material->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
         _checkBoxDepthTest->setChecked(material->getRenderState(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
         _checkBoxDepthMask->setChecked(material->getRenderState(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
@@ -107,23 +108,18 @@ const iMaterialID &UserControlMaterial::getMaterialID() const
 void UserControlMaterial::initGUI()
 {
     iWidgetGridPtr grid = new iWidgetGrid(this);
-    grid->appendRows(1);
+    grid->appendRows(2);
     grid->setBorder(2);
     grid->setStrechColumn(0);
     grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGroupBox *paramGroupBox = new iWidgetGroupBox();
-    paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    paramGroupBox->setText("Render States");
-    paramGroupBox->setHeaderOnly();
-
-    iWidgetGrid *gridParam = new iWidgetGrid();
-    gridParam->appendRows(14);
-    gridParam->appendColumns(1);
-    gridParam->setBorder(2);
-    gridParam->setHorizontalAlignment(iHorizontalAlignment::Left);
-    gridParam->setVerticalAlignment(iVerticalAlignment::Top);
+    iWidgetGrid *gridHeader = new iWidgetGrid();
+    gridHeader->appendRows(2);
+    gridHeader->appendColumns(1);
+    gridHeader->setBorder(2);
+    gridHeader->setHorizontalAlignment(iHorizontalAlignment::Left);
+    gridHeader->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelName = new iWidgetLabel();
     labelName->setText("Name");
@@ -135,7 +131,27 @@ void UserControlMaterial::initGUI()
     _textName->setHorizontalAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setText("...");
-    _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
+    _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));    
+    
+    iWidgetLabel *labelID = new iWidgetLabel();
+    labelID->setText("ID");
+    labelID->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _textID = new iWidgetLabel();
+    _textID->setText("...");
+    _textID->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    iWidgetGroupBox *paramGroupBox = new iWidgetGroupBox();
+    paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    paramGroupBox->setText("Render States");
+    paramGroupBox->setHeaderOnly();
+
+    iWidgetGrid *gridParam = new iWidgetGrid();
+    gridParam->appendRows(8);
+    gridParam->appendColumns(1);
+    gridParam->setBorder(2);
+    gridParam->setHorizontalAlignment(iHorizontalAlignment::Left);
+    gridParam->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelDepthTest = new iWidgetLabel();
     labelDepthTest->setText("Depth Test");
@@ -310,6 +326,11 @@ void UserControlMaterial::initGUI()
     _shader2Button->setTooltip("Browse for fragment shader");
     _shader2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader2Button));
 
+    gridHeader->addWidget(labelName, 0, 0);
+    gridHeader->addWidget(_textName, 1, 0);
+    gridHeader->addWidget(labelID, 0, 1);
+    gridHeader->addWidget(_textID, 1, 1);
+
     shaderGroupBox->addWidget(gridShadersGroup);
 
     gridShadersGroup->addWidget(gridShaders, 0, 0);
@@ -326,30 +347,29 @@ void UserControlMaterial::initGUI()
     gridShaders->addWidget(_shader1Button, 2, 1);
     gridShaders->addWidget(_shader2Button, 2, 2);
 
-    gridParam->addWidget(labelName, 0, 0);
-    gridParam->addWidget(labelDepthTest, 0, 1);
-    gridParam->addWidget(labelDepthFunction, 0, 2);
-    gridParam->addWidget(labelDepthMask, 0, 3);
-    gridParam->addWidget(labelBlend, 0, 4);
-    gridParam->addWidget(labelCullFace, 0, 7);
-    gridParam->addWidget(labelCullFaceFunc, 0, 8);
-    gridParam->addWidget(labelWireframe, 0, 9);
-    gridParam->addWidget(labelRenderingOrder, 0, 10);
+    gridParam->addWidget(labelDepthTest, 0, 0);
+    gridParam->addWidget(labelDepthFunction, 0, 1);
+    gridParam->addWidget(labelDepthMask, 0, 2);
+    gridParam->addWidget(labelBlend, 0, 3);
+    gridParam->addWidget(labelCullFace, 0, 4);
+    gridParam->addWidget(labelCullFaceFunc, 0, 5);
+    gridParam->addWidget(labelWireframe, 0, 6);
+    gridParam->addWidget(labelRenderingOrder, 0, 7);
 
-    gridParam->addWidget(_textName, 1, 0);
-    gridParam->addWidget(_checkBoxDepthTest, 1, 1);
-    gridParam->addWidget(_selectBoxDepthFunc, 1, 2);
-    gridParam->addWidget(_checkBoxDepthMask, 1, 3);
-    gridParam->addWidget(_checkBoxBlend, 1, 4);
-    gridParam->addWidget(_checkBoxCullFace, 1, 7);
-    gridParam->addWidget(_selectBoxCullFaceFunc, 1, 8);
-    gridParam->addWidget(_checkBoxWireframe, 1, 9);
-    gridParam->addWidget(_renderingOrder, 1, 10);
+    gridParam->addWidget(_checkBoxDepthTest, 1, 0);
+    gridParam->addWidget(_selectBoxDepthFunc, 1, 1);
+    gridParam->addWidget(_checkBoxDepthMask, 1, 2);
+    gridParam->addWidget(_checkBoxBlend, 1, 3);
+    gridParam->addWidget(_checkBoxCullFace, 1, 4);
+    gridParam->addWidget(_selectBoxCullFaceFunc, 1, 5);
+    gridParam->addWidget(_checkBoxWireframe, 1, 6);
+    gridParam->addWidget(_renderingOrder, 1, 7);
 
     paramGroupBox->addWidget(gridParam);
 
-    grid->addWidget(paramGroupBox, 0, 0);
-    grid->addWidget(shaderGroupBox, 0, 1);
+    grid->addWidget(gridHeader, 0, 0);
+    grid->addWidget(paramGroupBox, 0, 1);
+    grid->addWidget(shaderGroupBox, 0, 2);
 }
 
 void UserControlMaterial::onDoUpdateMaterial(const iWidgetPtr source)

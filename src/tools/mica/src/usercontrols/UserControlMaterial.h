@@ -52,7 +52,8 @@ public:
 private:
 	MaterialNameChangedEvent _materialNameChangedEvent;
 
-	iWidgetTextEdit *_textName = nullptr;
+	iWidgetTextEdit *_textName;
+    iWidgetLabel *_textID;
 	iWidgetNumberChooser *_renderingOrder = nullptr;
 
 	iWidgetCheckBox *_checkBoxCullFace = nullptr;
