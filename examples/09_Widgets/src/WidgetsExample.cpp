@@ -317,19 +317,19 @@ void WidgetsExample::onInit()
     numberChooser->setValue(50);
     numberChooser->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetTextEdit *textEditLeft = new iWidgetTextEdit();
+    iWidgetLineTextEdit *textEditLeft = new iWidgetLineTextEdit();
     textEditLeft->setWidth(150);
     textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     textEditLeft->setText("left aligned");
     textEditLeft->setMaxTextLength(300);
 
-    iWidgetTextEdit *textEditCenter = new iWidgetTextEdit();
+    iWidgetLineTextEdit *textEditCenter = new iWidgetLineTextEdit();
     textEditCenter->setWidth(150);
     textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
     textEditCenter->setText("center aligned");
     textEditCenter->setMaxTextLength(300);
 
-    iWidgetTextEdit *textEditRight = new iWidgetTextEdit();
+    iWidgetLineTextEdit *textEditRight = new iWidgetLineTextEdit();
     textEditRight->setWidth(150);
     textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     textEditRight->setText("right aligned");

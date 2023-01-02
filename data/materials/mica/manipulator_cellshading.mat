@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="mica.manipulator.cellshading" uuid="6dbf625e-7b48-11ed-acf8-ab7ebd6463ff">
+	<Material name="mica.manipulator.cellshading" uuid="6dbf625e-7b48-11ed-acf8-ab7ebd6463ff" visibility="Private">
 		<States>
             <Wireframe>On</Wireframe>
             <CullFace>On</CullFace>

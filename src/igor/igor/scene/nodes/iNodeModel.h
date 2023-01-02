@@ -68,7 +68,7 @@ namespace igor
 
         /*! \returns filename of model
          */
-        iaString getModelName() const;
+        iaString getFilename() const;
 
         /*! \returns true if model data is ready to render
          */

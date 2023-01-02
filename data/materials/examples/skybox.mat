@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="igor.skybox" uuid="7b6a4eec-4e7c-4497-9f3f-9b32572bff2b" zIndex="MIN">
+	<Material name="igor.skybox" uuid="7b6a4eec-4e7c-4497-9f3f-9b32572bff2b" zIndex="MIN" visibility="Public">
 		<States>
 			<DepthTest>Off</DepthTest>
             <DepthFunc>Less</DepthFunc>

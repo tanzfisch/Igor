@@ -101,9 +101,9 @@ void UserControlTransformation::updateGUI(iNodeTransform *transformNode)
 	_shearText[2]->setText(iaString::toString(shear._z, 4));
 }
 
-iWidgetTextEdit *UserControlTransformation::createTextEdit()
+iWidgetLineTextEdit *UserControlTransformation::createTextEdit()
 {
-	iWidgetTextEdit *textEdit = new iWidgetTextEdit();
+	iWidgetLineTextEdit *textEdit = new iWidgetLineTextEdit();
 	textEdit->setText("");
 	textEdit->setWidth(MICA_REGULARBUTTON_SIZE);
 	textEdit->setMaxTextLength(11);
@@ -125,28 +125,28 @@ void UserControlTransformation::initGUI()
 
 	for (int i = 0; i < 3; ++i)
 	{
-		iWidgetTextEdit *textEdit = createTextEdit();
+		iWidgetLineTextEdit *textEdit = createTextEdit();
 		_translateText.push_back(textEdit);
 		_grid->addWidget(textEdit, i + 1, 0);
 	}
 
 	for (int i = 0; i < 3; ++i)
 	{
-		iWidgetTextEdit *textEdit = createTextEdit();
+		iWidgetLineTextEdit *textEdit = createTextEdit();
 		_scaleText.push_back(textEdit);
 		_grid->addWidget(textEdit, i + 1, 1);
 	}
 
 	for (int i = 0; i < 3; ++i)
 	{
-		iWidgetTextEdit *textEdit = createTextEdit();
+		iWidgetLineTextEdit *textEdit = createTextEdit();
 		_rotateText.push_back(textEdit);
 		_grid->addWidget(textEdit, i + 1, 2);
 	}
 
 	for (int i = 0; i < 3; ++i)
 	{
-		iWidgetTextEdit *textEdit = createTextEdit();
+		iWidgetLineTextEdit *textEdit = createTextEdit();
 		_shearText.push_back(textEdit);
 		_grid->addWidget(textEdit, i + 1, 3);
 	}

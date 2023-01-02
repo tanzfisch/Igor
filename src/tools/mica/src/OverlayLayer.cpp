@@ -90,8 +90,8 @@ void OverlayLayer::renderOrientationPlane()
     iRenderer::getInstance().setMaterial(_materialOrientationPlane);
     iRenderer::getInstance().setLineWidth(1);
 
-    const iaColor4f color1(1.0f, 1.0f, 1.0f, 0.25f);
-    const iaColor4f color2(1.0f, 1.0f, 1.0f, 0.125f);
+    const iaColor4f color1(1.0f, 1.0f, 1.0f, 0.08f);
+    const iaColor4f color2(1.0f, 1.0f, 1.0f, 0.04f);
 
     for (int i = -20; i < 21; ++i)
     {

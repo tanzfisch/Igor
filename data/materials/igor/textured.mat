@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- material definition for 2d flat shading -->
-	<Material name="example.voxel.terrain_directional_light" uuid="095d02dc-7b46-11ed-8093-e3b420dd3214" visibility="Public">
+	<Material name="igor.textured" uuid="b1604b38-8a23-11ed-b61d-bb70ade3fdec" visibility="Public">
 		<States>
 			<DepthTest>On</DepthTest>
+            <DepthFunc>Less</DepthFunc>
+            <DepthMask>On</DepthMask>
             <Blend>Off</Blend>
+            <CullFace>On</CullFace>
+            <CullFaceFunc>Back</CullFaceFunc>
 		</States>
         <Program>
             <Vertex>
@@ -12,12 +15,14 @@
 
 layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec3 in_normal;
+layout(location = 2) in vec2 in_texCoord;
 
 uniform mat4 igor_modelViewProjection;
 uniform mat4 igor_model;
 
 out vec3 VertexWorld;
 out vec3 VertexNormal;
+out vec2 VertexTexCoord;
 
 void main()
 {
@@ -26,21 +31,21 @@ void main()
 	mat4 norm = transpose(inverse(igor_model));
 	VertexNormal = (norm * vec4(in_normal, 1)).xyz;	
 	
+	VertexTexCoord = in_texCoord;
+	
 	gl_Position = igor_modelViewProjection * vec4(in_position,1);
-}
-]]>
+}]]>
             </Vertex>
             <Fragment>
 <![CDATA[#version 450
 
 in vec3 VertexWorld;
 in vec3 VertexNormal;
+in vec2 VertexTexCoord;
 
 layout(location = 0) out vec4 out_color;
 
 uniform sampler2D igor_matTexture0;
-uniform sampler2D igor_matTexture1;
-uniform sampler2D igor_matTexture2;
 
 uniform vec3 igor_eyePosition;
 
@@ -60,31 +65,9 @@ void main()
 {
 	vec3 N = normalize(VertexNormal);
 	vec3 P = VertexWorld;
-	
-	vec3 texSelector = vec3(N.x*N.x, N.y*N.y, N.z*N.z);
+	vec4 textureColor = texture2D(igor_matTexture0, VertexTexCoord);
+	vec3 diffuseTextureColor = textureColor.rgb;
 		
-	float scale = 0.1;
-	
-	vec3 diffuseTextureColor0;
-	
-	if(N.y > 0)
-	{
-		// top
-		diffuseTextureColor0 = texture2D(igor_matTexture0, P.xz * scale).rgb * texSelector.y;
-	}
-	else 
-	{
-		// bottom
-		diffuseTextureColor0 = texture2D(igor_matTexture2, P.xz * scale).rgb * texSelector.y; 
-	}
-	
-	vec3 diffuseTextureColor1 = texture2D(igor_matTexture1, P.yz * scale).rgb * texSelector.x; 
-	vec3 diffuseTextureColor2 = texture2D(igor_matTexture1, P.xy * scale).rgb * texSelector.z;
-	
-	vec3 diffuseTextureColor = diffuseTextureColor0 + diffuseTextureColor1 + diffuseTextureColor2;
-	
-	vec3 emissive = igor_matEmissive;
-	
 	// Compute the ambient term
 	vec3 ambient = igor_matAmbient * igor_lightAmbient * diffuseTextureColor;
 	
@@ -105,9 +88,10 @@ void main()
 	
 	vec3 specular = igor_matSpecular * igor_lightSpecular * specularLightFactor;
 	
-	out_color.rgb = emissive + ambient + diffuse + specular;
-	out_color.a = igor_matAlpha;
-}]]>
+	out_color.rgb = igor_matEmissive + ambient + diffuse + specular;
+	out_color.a = textureColor.a * igor_matAlpha;
+}
+]]>
             </Fragment>
         </Program>            
 	</Material>

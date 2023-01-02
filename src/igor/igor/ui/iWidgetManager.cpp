@@ -11,7 +11,7 @@
 #include <igor/ui/widgets/iWidgetGrid.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
+#include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>

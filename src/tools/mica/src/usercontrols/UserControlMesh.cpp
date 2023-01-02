@@ -293,19 +293,19 @@ void UserControlMesh::initGUI()
     labelIndexes->setWidth(MICA_REGULARBUTTON_SIZE);
     labelIndexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textVertices = new iWidgetTextEdit();
+    _textVertices = new iWidgetLineTextEdit();
     _textVertices->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textVertices->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textVertices->setActive(false);
     _textVertices->setText("0");
 
-    _textTriangles = new iWidgetTextEdit();
+    _textTriangles = new iWidgetLineTextEdit();
     _textTriangles->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textTriangles->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textTriangles->setActive(false);
     _textTriangles->setText("0");
 
-    _textIndexes = new iWidgetTextEdit();
+    _textIndexes = new iWidgetLineTextEdit();
     _textIndexes->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textIndexes->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textIndexes->setActive(false);

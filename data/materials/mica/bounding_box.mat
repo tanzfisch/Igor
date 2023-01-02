@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="mica.bounding_box" uuid="18437b90-8718-11ed-a852-ab23b14023aa">
+	<Material name="mica.bounding_box" uuid="18437b90-8718-11ed-a852-ab23b14023aa" visibility="Private">
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>Off</Blend>

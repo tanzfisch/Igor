@@ -88,7 +88,7 @@ void UserControlEmitter::initGUI()
     labelSize->setWidth(MICA_REGULARBUTTON_SIZE);
     labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textSize = new iWidgetTextEdit();
+    _textSize = new iWidgetLineTextEdit();
     _textSize->setWidth(100);
     _textSize->setWriteProtected(false);
     _textSize->setHorizontalAlignment(iHorizontalAlignment::Strech);

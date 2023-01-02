@@ -36,8 +36,8 @@ namespace OMPF
             return false;
         }
 
-        con_debug("---------------------------------------------------");
-        con_debug("write ompfTransformChunk " << this->getName());
+        con_trace("---------------------------------------------------");
+        con_trace("write ompfTransformChunk " << this->getName());
 
         if (!iaSerializable::write(file, reinterpret_cast<char *>(_matrix.getData()), sizeof(float32) * 16))
         {
@@ -54,8 +54,8 @@ namespace OMPF
             return false;
         }
 
-        con_debug("---------------------------------------------------");
-        con_debug("read ompfTransformChunk " << this->getName());
+        con_trace("---------------------------------------------------");
+        con_trace("read ompfTransformChunk " << this->getName());
 
         if (!iaSerializable::read(file, reinterpret_cast<char *>(_matrix.getData()), sizeof(float32) * 16))
         {

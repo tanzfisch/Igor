@@ -255,7 +255,16 @@ namespace iaux
         */
         void split(const char delimiter, std::vector<iaString> &tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
-        /*! \returns position of first occurence of specified characters
+        /*! \returns position of first occurence of on of the specified characters
+
+        if not found iaString::INVALID_POSITION will be returned
+
+        \param characters the characters to search for
+        \param from optional parameter to define start index to search from
+        */
+        int64 findFirstOf(const iaString &characters, const int64 from = INVALID_POSITION) const;        
+
+        /*! \returns position of first occurence of on of the specified characters
 
         if not found iaString::INVALID_POSITION will be returned
 
@@ -264,7 +273,7 @@ namespace iaux
         */
         int64 findFirstOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
 
-        /*! \returns position of first occurence of specified character
+        /*! \returns position of first occurence of on of the specified characters
 
         if not found INVALID_POSITION will be returned
 

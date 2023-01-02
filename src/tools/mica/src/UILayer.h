@@ -102,14 +102,14 @@ private:
 	*/
     void onExitMica();
 
-    /*! 
-    */
     void onAddMaterial();
+    void onLoadMaterial();
 
     void onFileLoadDialogClosed(iDialogPtr dialog);
     void onImportFileDialogClosed(iDialogPtr dialog);
     void onImportFileReferenceDialogClosed(iDialogPtr dialog);
     void onFileSaveDialogClosed(iDialogPtr dialog);
+    void onLoadMaterialFileDialogClosed(iDialogPtr dialog);
 
     iModelDataInputParameter *createDataInputParameter();
 

@@ -72,7 +72,7 @@ namespace OMPF
             return false;
         }
 
-        con_debug("write OMPF with following configuration" << endl
+        con_trace("write OMPF with following configuration" << endl
                                                             << "MajorVersion:" << settings.getMajorVersion() << endl
                                                             << "MinorVersion:" << settings.getMinorVersion() << endl
                                                             << "PatchVersion:" << settings.getPatchVersion() << endl
@@ -157,15 +157,15 @@ namespace OMPF
 
         settings.setStringSizeSize(stringSizeSize);
 
-        con_debug("read OMPF with following configuration");
-        con_debug("MajorVersion: " << settings.getMajorVersion());
-        con_debug("MinorVersion: " << settings.getMinorVersion());
-        con_debug("PatchVersion: " << settings.getPatchVersion());
-        con_debug("TypeIDSize: " << settings.getTypeIDSize());
-        con_debug("ChunkIDSize: " << settings.getChunkIDSize());
-        con_debug("ChunkSizeSize: " << settings.getChunkSizeSize());
-        con_debug("CustomDataSizeSize: " << settings.getCustomDataSizeSize());
-        con_debug("StringSizeSize: " << settings.getStringSizeSize());
+        con_trace("read OMPF with following configuration");
+        con_trace("MajorVersion: " << settings.getMajorVersion());
+        con_trace("MinorVersion: " << settings.getMinorVersion());
+        con_trace("PatchVersion: " << settings.getPatchVersion());
+        con_trace("TypeIDSize: " << settings.getTypeIDSize());
+        con_trace("ChunkIDSize: " << settings.getChunkIDSize());
+        con_trace("ChunkSizeSize: " << settings.getChunkSizeSize());
+        con_trace("CustomDataSizeSize: " << settings.getCustomDataSizeSize());
+        con_trace("StringSizeSize: " << settings.getStringSizeSize());
 
         char buffer[6];
         iaSerializable::read(stream, buffer, 6);

@@ -24,7 +24,7 @@ void UserControlModel::updateGUI()
 
     if (node != nullptr)
     {
-        _textFilename->setText(node->getModelName());
+        _textFilename->setText(node->getFilename());
     }
 }
 
@@ -52,7 +52,7 @@ void UserControlModel::initGUI()
     _labelFilename->setText("Filename");
     _labelFilename->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textFilename = new iWidgetTextEdit();
+    _textFilename = new iWidgetLineTextEdit();
     _textFilename->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textFilename->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textFilename->setActive(false);

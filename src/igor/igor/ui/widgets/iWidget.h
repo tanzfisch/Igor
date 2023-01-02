@@ -146,6 +146,7 @@ namespace igor
         iWidgetSelectBox,
         iWidgetSlider,
         iWidgetSpacer,
+        iWidgetLineTextEdit,
         iWidgetTextEdit,
 
         iUserControl,
@@ -197,6 +198,7 @@ namespace igor
         friend class iWidgetCheckBox;
         friend class iWidgetNumberChooser;
         friend class iWidgetPicture;
+        friend class iWidgetLineTextEdit;
         friend class iWidgetTextEdit;
         friend class iWidgetSlider;
 

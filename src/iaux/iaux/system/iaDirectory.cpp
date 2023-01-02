@@ -242,8 +242,6 @@ namespace iaux
 
     iaString iaDirectory::getRelativePath(const iaString &from, const iaString &to)
     {
-        iaString result;
-
         iaString tempFrom;
 
         if (iaFile::exist(from))

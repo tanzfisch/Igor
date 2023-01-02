@@ -108,6 +108,7 @@ void UserControlProperties::setNode(const iNodeID &nodeID)
     cleanUpPropertyUI();
 
     _propertyType = PropertyType::Node;
+    _nodeID = nodeID;
 
     iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
     if (node != nullptr)

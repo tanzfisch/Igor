@@ -102,6 +102,8 @@ namespace OMPF
     class OMPF_API ompfMaterialChunk : public ompfBaseChunk
     {
 
+        friend class OMPF;
+
         /*! internal helper struct to store shader information
         */
         struct Shader
@@ -142,7 +144,7 @@ namespace OMPF
 
         /*! \returns size of chunk
         */
-        virtual uint32 getSize(const ompfSettings &settings);
+        uint32 getSize(const ompfSettings &settings) override;
 
         /*! adds shader to export list
 

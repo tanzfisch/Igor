@@ -43,7 +43,7 @@ namespace OMPF
 
         /*! does nothing
         */
-        virtual ~ompfParticleSystemChunk() = default;
+        ~ompfParticleSystemChunk() = default;
 
         /*! sets the maximum particle count
 
@@ -155,7 +155,7 @@ namespace OMPF
 
         \param settings the settings the size calculation is based on
         */
-        virtual uint32 getSize(const ompfSettings &settings);
+        uint32 getSize(const ompfSettings &settings) override;
 
         /*! sets the tiling resolution of the first texture layer
 

@@ -959,7 +959,7 @@ namespace igor
             "iWidgetSelectBox",
             "iWidgetSlider",
             "iWidgetSpacer",
-            "iWidgetTextEdit",
+            "iWidgetLineTextEdit",
             "iUserControl",
             "iUserControlAction",
             "iUserControlColorChooser",

@@ -47,6 +47,7 @@ namespace OMPF
     class ompfMeshChunk;
     class ompfEmitterChunk;
     class ompfMaterialChunk;
+    class ompfMaterialReferenceChunk;
     class ompfBaseChunk;
     class ompfParticleSystemChunk;
 } // namespace OMPF
@@ -131,6 +132,10 @@ namespace igor
         */
         std::unordered_map<iMaterialID, OMPF::ompfMaterialChunk *> _materialsInUse;
 
+        /*! map of reference materials in use
+        */
+        std::unordered_map<iMaterialID, OMPF::ompfMaterialReferenceChunk *> _materialReferencesInUse;
+
         /*! additional input parameter
 
         do not delete. it does not belong to you
@@ -150,6 +155,12 @@ namespace igor
         \param materialChunk the data to create the material with
         */
         void createMaterial(OMPF::ompfMaterialChunk *materialChunk);
+
+        /*! creates material 
+
+        \param materialReferenceChunk the data to create the material with
+        */
+        void createMaterial(OMPF::ompfMaterialReferenceChunk *materialReferenceChunk);
 
         /*! generates ompf chunks for every node
 
@@ -220,9 +231,15 @@ namespace igor
 
         /*! creates material chunk from given igor material
 
-        \param materialID the igor material id
+        \param material the igor material
         */
-        OMPF::ompfMaterialChunk *createMaterialChunk(const iMaterialID& materialID);
+        OMPF::ompfMaterialChunk *createMaterialChunk(iMaterialPtr material);
+
+        /*! creates material reference chunk from given igor material
+
+        \param material the igor material
+        */
+        OMPF::ompfMaterialReferenceChunk *createMaterialReferenceChunk(iMaterialPtr material);
 
         /*! \returns material chunk id for given material id
 

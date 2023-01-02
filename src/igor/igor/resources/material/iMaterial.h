@@ -50,12 +50,34 @@ namespace igor
      */
     typedef iaUUID iMaterialID;
 
+    /*! A flag specifiying the character of the material
+
+    The application is free to interpret it any way it likes.
+
+    In Mica for example we only display public materials in the material list
+    */
+    enum class iMaterialVisibility
+    {
+        Private,
+        Public
+    };
+
+    /*! prints the material visibility to a stream
+
+    \param stream the stream to log to
+    \param visibility the value to log
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iMaterialVisibility &visibility);
+
     /*! material definition
      */
     class IGOR_API iMaterial
     {
         friend class iRenderer;
         friend class iMaterialDeleter;
+        friend class iMaterialResourceFactory;
+        friend class iMaterialIO;
 
     public:
         /*! default render order value
@@ -69,14 +91,6 @@ namespace igor
         /*! max render order value
          */
         static const int32 RENDER_ORDER_MAX = 400;
-
-        /*! \returns a newly created material
-         */
-        static iMaterialPtr create();
-
-        /*! \returns a newly created material from file
-         */
-        static iMaterialPtr create(const iaString &filename);
 
         /*! sets shader program to be used
 
@@ -101,12 +115,6 @@ namespace igor
         /*! \returns material id
          */
         const iMaterialID &getID() const;
-
-        /*! sets material id
-
-        \param materialID the material id
-        */
-        void setID(const iMaterialID &materialID);
 
         /*! defines the value of a specific render state
 
@@ -169,7 +177,7 @@ namespace igor
         bool hasTilingConfig() const;
 
         /*! \returns true if shader has velocity oriented roperty
-        */
+         */
         bool hasVelocityOrientedConfig() const;
 
         /*! \returns true if gien texture unit is used
@@ -182,10 +190,26 @@ namespace igor
          */
         bool isValid() const;
 
+        /*! \returns visibility of material
+         */
+        iMaterialVisibility getVisibility() const;
+
+        /*! sets visibility of material
+         */
+        void setVisibility(iMaterialVisibility visibility);
+
+        /*! \returns filename if material was create from a material file
+         */
+        const iaString &getFilename() const;
+
     private:
         /*! name of the material.
          */
         iaString _name = L"iMaterial";
+
+        /*! filename of material (optional)
+         */
+        iaString _filename;
 
         /*! the shader program
          */
@@ -238,16 +262,20 @@ namespace igor
         bool _hasSolidColor = false;
 
         /*! if true shader understands the tiling property
-        */
+         */
         bool _hasConfigTiling = false;
 
         /*! if true shader usese verlocity oriented property
-        */
+         */
         bool _hasConfigVelocityOriented = false;
 
         /*! list of avail able texture units in shader
          */
         bool _hasTexture[MAX_TEXTURE_UNITS];
+
+        /*! visibility of material
+         */
+        iMaterialVisibility _visibility = iMaterialVisibility::Public;
 
         /*! does nothing
          */
@@ -256,6 +284,20 @@ namespace igor
         /*! does nothing
          */
         ~iMaterial();
+
+        /*! \returns a newly created material
+         */
+        static iMaterialPtr create();
+
+        /*! \returns a newly created material from file
+         */
+        static iMaterialPtr create(const iaString &filename);
+
+        /*! sets material id
+
+        \param materialID the material id
+        */
+        void setID(const iMaterialID &materialID);
 
         /*! bind this material
          */

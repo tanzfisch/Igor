@@ -52,26 +52,30 @@ public:
 private:
 	MaterialNameChangedEvent _materialNameChangedEvent;
 
-	iWidgetTextEdit *_textName = nullptr;
-	iWidgetNumberChooser *_renderingOrder = nullptr;
+	iWidgetLineTextEdit *_textName;
+    iWidgetLabel *_textID;
+	iWidgetNumberChooser *_renderingOrder;
 
-	iWidgetCheckBox *_checkBoxCullFace = nullptr;
-	iWidgetCheckBox *_checkBoxDepthTest = nullptr;
-	iWidgetCheckBox *_checkBoxDepthMask = nullptr;
-	iWidgetCheckBox *_checkBoxBlend = nullptr;
-	iWidgetCheckBox *_checkBoxWireframe = nullptr;
-	iWidgetCheckBox *_checkBoxInstanced = nullptr;
-	iWidgetSelectBox *_selectBoxDepthFunc = nullptr;
-	iWidgetSelectBox *_selectBoxCullFaceFunc = nullptr;
-	iWidgetSelectBox *_selectBoxInstancedFunc = nullptr;
+	iWidgetCheckBox *_checkBoxCullFace;
+	iWidgetCheckBox *_checkBoxDepthTest;
+	iWidgetCheckBox *_checkBoxDepthMask;
+	iWidgetCheckBox *_checkBoxBlend;
+	iWidgetCheckBox *_checkBoxWireframe;
+	iWidgetCheckBox *_checkBoxInstanced;
+	iWidgetSelectBox *_selectBoxDepthFunc;
+	iWidgetSelectBox *_selectBoxCullFaceFunc;
+	iWidgetSelectBox *_selectBoxInstancedFunc;
 
-	iWidgetTextEdit *_textShaderGeometry = nullptr;
-	iWidgetTextEdit *_textShaderVertex = nullptr;
-	iWidgetTextEdit *_textShaderFragment = nullptr;
+	iWidgetLineTextEdit *_textShaderGeometry;
+	iWidgetLineTextEdit *_textShaderVertex;
+	iWidgetLineTextEdit *_textShaderFragment;
 
-	iWidgetButton *_shader0Button = nullptr;
-	iWidgetButton *_shader1Button = nullptr;
-	iWidgetButton *_shader2Button = nullptr;
+	iWidgetButton *_shader0Button;
+	iWidgetButton *_shader1Button;
+	iWidgetButton *_shader2Button;
+
+    iWidgetButton *_shaderReload;
+    iWidgetButton *_exportMaterial;
 
 	iMaterialID _materialID;
 
@@ -89,12 +93,18 @@ private:
 	void onDoUpdateMaterial(const iWidgetPtr source);
 
 	void onFileLoadDialogClosed(iDialogPtr dialog);
+    void onExportMaterialDialogClosed(iDialogPtr dialog);
+
+    void onReloadShader(const iWidgetPtr source);
+    void onExportMaterial(const iWidgetPtr source);
 
 	void updateGUI();
 	void updateMaterial();
 
 	void initGUI();
 	void deinitGUI();
+
+    void reloadShader(iMaterialPtr material);
 };
 
 #endif // __USERCONTROLMATERIAL_H__

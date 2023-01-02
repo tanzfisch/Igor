@@ -36,7 +36,7 @@ namespace igor
         _nodeType = node->_nodeType;
         _nodeKind = node->_nodeKind;
 
-        setModel(node->getModelName(), node->_cacheMode);
+        setModel(node->getFilename(), node->_cacheMode);
     }
 
     iNodeModel::~iNodeModel()
@@ -73,7 +73,7 @@ namespace igor
         return _loaded;
     }
 
-    iaString iNodeModel::getModelName() const
+    iaString iNodeModel::getFilename() const
     {
         return _filename;
     }

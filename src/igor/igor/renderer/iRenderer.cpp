@@ -533,7 +533,7 @@ namespace igor
         _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded.mat", false);
         _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/flat_shaded_blend.mat", false);
         _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded.mat", false);
-        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_blend.mat", false);        
+        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded_blend.mat", false);
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
@@ -981,9 +981,6 @@ namespace igor
         glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
 
-        texQuads._vertexArray->unbind();
-        _data->_currentMaterial->unbind();
-
         // save stats
         _data->_stats._drawCalls++;
         _data->_stats._vertices += texQuads._vertexCount;
@@ -1017,9 +1014,6 @@ namespace igor
         triangles._vertexArray->bind();
         glDrawElements(GL_TRIANGLES, triangles._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
-        triangles._vertexArray->unbind();
-
-        _data->_currentMaterial->unbind();
 
         // save stats
         _data->_stats._drawCalls++;
@@ -1052,9 +1046,6 @@ namespace igor
         quads._vertexArray->bind();
         glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
-        quads._vertexArray->unbind();
-
-        _data->_currentMaterial->unbind();
 
         // save stats
         _data->_stats._drawCalls++;

@@ -34,6 +34,14 @@ void UserControlMaterialView::initGUI()
     addMaterialButton->setTexture("icons/addMaterial.png");
     addMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onAddMaterial));
 
+    iWidgetButton *loadMaterialButton = new iWidgetButton();
+    loadMaterialButton->setText("");
+    loadMaterialButton->setTooltip("Load material.");
+    loadMaterialButton->setWidth(30);
+    loadMaterialButton->setHeight(30);
+    loadMaterialButton->setTexture("icons/loadMaterial.png");
+    loadMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onLoadMaterial));
+
     iWidgetGroupBox *groupBox = new iWidgetGroupBox();
     groupBox->setText("Graph");
     groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -53,11 +61,17 @@ void UserControlMaterialView::initGUI()
 
     grid->addWidget(gridButtons, 0, 0);
     gridButtons->addWidget(addMaterialButton, 0, 0);
+    gridButtons->addWidget(loadMaterialButton, 1, 0);
     grid->addWidget(groupBox, 0, 1);
     groupBox->addWidget(scroll);
     scroll->addWidget(_gridGraph);
 
     refresh();
+}
+
+void UserControlMaterialView::onLoadMaterial(const iWidgetPtr source)
+{
+    _loadMaterial();
 }
 
 void UserControlMaterialView::onAddMaterial(const iWidgetPtr source)
@@ -91,9 +105,14 @@ void UserControlMaterialView::refresh()
     uint32 currentRowIndex = 0;
     std::vector<iMaterialPtr> materials;
     iMaterialResourceFactory::getInstance().getMaterials(materials);
-    
+
     for (auto material : materials)
     {
+        if (material->getVisibility() != iMaterialVisibility::Public)
+        {
+            continue;
+        }
+
         iWidgetGrid *entry = new iWidgetGrid();
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
@@ -126,6 +145,16 @@ void UserControlMaterialView::registerOnAddMaterial(AddMaterialDelegate addMater
 void UserControlMaterialView::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 {
     _addMaterial.remove(addMaterialDelegate);
+}
+
+void UserControlMaterialView::registerOnLoadMaterial(LoadMaterialDelegate delegate)
+{
+    _loadMaterial.append(delegate);
+}
+
+void UserControlMaterialView::unregisterOnLoadMaterial(LoadMaterialDelegate delegate)
+{
+    _loadMaterial.remove(delegate);
 }
 
 void UserControlMaterialView::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)

@@ -377,13 +377,13 @@ void UserControlParticleSystem::initGUI()
     labelFrequency->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
     labelFrequency->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textParticleCount = new iWidgetTextEdit();
+    _textParticleCount = new iWidgetLineTextEdit();
     _textParticleCount->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textParticleCount->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textParticleCount->setActive(false);
     _textParticleCount->setText("0");
 
-    _textFrequency = new iWidgetTextEdit();
+    _textFrequency = new iWidgetLineTextEdit();
     _textFrequency->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textFrequency->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textFrequency->setActive(false);
