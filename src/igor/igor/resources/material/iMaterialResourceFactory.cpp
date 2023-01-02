@@ -84,18 +84,12 @@ namespace igor
 
     iMaterialPtr iMaterialResourceFactory::createMaterial(const iaString &name, bool cache)
     {
-        iMaterialPtr result = getMaterial(name);
-        if (result != nullptr)
-        {
-            return result;
-        }
-
-        result = iMaterial::create();
+        iMaterialPtr result = iMaterial::create();
         result->setName(name);
 
         con_assert_sticky(checkForIDCollisions(result), "duplicate material ID detected " << result->getID() << " material name:" << result->getName() << " (not from file)");
 
-        const int64 hashValue = name.getHashValue();
+        const int64 hashValue = result->getID().getValue().getHashValue();
 
         if (cache)
         {

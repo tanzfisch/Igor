@@ -26,15 +26,15 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETTEXTEDIT_H__
-#define __IGOR_WIDGETTEXTEDIT_H__
+#ifndef __IGOR_WIDGETLINETEXTEDIT__
+#define __IGOR_WIDGETLINETEXTEDIT__
 
 #include <igor/ui/widgets/iWidget.h>
 
 namespace igor
 {
 
-    /*! text edit widget
+    /*! single line text edit widget
 	*/
     class IGOR_API iWidgetLineTextEdit : public iWidget
     {
@@ -215,4 +215,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETTEXTEDIT_H__
+#endif // __IGOR_WIDGETLINETEXTEDIT__

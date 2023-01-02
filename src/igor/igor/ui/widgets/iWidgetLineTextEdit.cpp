@@ -186,7 +186,7 @@ namespace igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawLineTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetState, isActive() && !_writeProtected);
 		}
 	}
 
