@@ -197,6 +197,19 @@ namespace igor
         \param type the igor render primitive type
         */
         static uint32 convertType(iRenderPrimitive type);        
+
+        /*! \returns openGL stencil function type for given igor type
+
+        \param type the igor stencil function type
+        */
+        static uint32 convertType(iStencilFunction type);
+
+        /*! \returns openGL stencil operation type for given igor type
+
+        \param type the igor stencil operation type
+        */
+        static uint32 convertType(iStencilOperation type);
+
     };
 
 }

@@ -513,6 +513,7 @@ namespace igor
 
         setStencilMask(0xff);
         clearStencilBuffer();
+        setStencilTestActive(false);
 
         _data->_vendor = (const char *)glGetString(GL_VENDOR);
         _data->_renderer = (const char *)glGetString(GL_RENDERER);
@@ -1628,62 +1629,14 @@ namespace igor
         return result;
     }
 
-    static GLenum getOGLEnum(iRenderer::iStencilFunction value)
-    {
-        switch (value)
-        {
-        case iRenderer::iStencilFunction::Never:
-            return GL_NEVER;
-        case iRenderer::iStencilFunction::Less:
-            return GL_LESS;
-        case iRenderer::iStencilFunction::LessOrEqual:
-            return GL_LEQUAL;
-        case iRenderer::iStencilFunction::Greater:
-            return GL_GREATER;
-        case iRenderer::iStencilFunction::GreaterOrEqual:
-            return GL_GEQUAL;
-        case iRenderer::iStencilFunction::Equal:
-            return GL_EQUAL;
-        case iRenderer::iStencilFunction::NotEqual:
-            return GL_NOTEQUAL;
-        case iRenderer::iStencilFunction::Always:
-            return GL_ALWAYS;
-        };
-
-        con_crit("unknown value");
-        return GL_NONE;
-    }
-
     void iRenderer::setStencilFunction(iStencilFunction function, int32 ref, uint32 mask)
     {
-        glStencilFunc(getOGLEnum(function), ref, mask);
-    }
-
-    static GLenum getOGLEnum(iRenderer::iStencilOperation value)
-    {
-        switch (value)
-        {
-        case iRenderer::iStencilOperation::Zero:
-            return GL_ZERO;
-        case iRenderer::iStencilOperation::Keep:
-            return GL_KEEP;
-        case iRenderer::iStencilOperation::Replace:
-            return GL_REPLACE;
-        case iRenderer::iStencilOperation::Increment:
-            return GL_INCR;
-        case iRenderer::iStencilOperation::Decrement:
-            return GL_DECR;
-        case iRenderer::iStencilOperation::Invert:
-            return GL_INVERT;
-        }
-
-        con_err("invalid value");
-        return GL_ZERO;
+        glStencilFunc(iRendererUtils::convertType(function), ref, mask);
     }
 
     void iRenderer::setStencilOperation(iStencilOperation fail, iStencilOperation zfail, iStencilOperation zpass)
     {
-        glStencilOp(getOGLEnum(fail), getOGLEnum(zfail), getOGLEnum(zpass));
+        glStencilOp(iRendererUtils::convertType(fail), iRendererUtils::convertType(zfail), iRendererUtils::convertType(zpass));
     }
 
     void iRenderer::setStencilTestActive(bool enable)
