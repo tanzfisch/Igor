@@ -162,7 +162,7 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw some background
-/*    const float32 width = getWindow()->getClientWidth();
+    const float32 width = getWindow()->getClientWidth();
     const float32 height = getWindow()->getClientHeight();
     iaVector2f tiling(width / _backgroundTexture->getWidth(),
                       height / _backgroundTexture->getHeight());
@@ -234,7 +234,7 @@ void Example2D::onRenderOrtho()
     ExampleBase::onRenderOrtho();
 
     // doughnuts <3
-    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);*/
+    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);
 
     iRenderer::getInstance().setMaterial(_particlesMaterial);
     iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _particleTargetMaterial);
