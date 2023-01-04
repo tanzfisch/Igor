@@ -97,19 +97,7 @@ private:
 
     /*! particle system
     */
-    iParticleSystem _particleSystem;
-
-    /*! particle emitter
-    */
-    iParticleEmitter _particleEmitter;
-
-    /*! particle target material
-    */
-    iTargetMaterialPtr _particleTargetMaterial;
-
-    /*! particle material
-    */
-    iMaterialPtr _particlesMaterial;
+    iParticleSystem2D _particleSystem;
 
     /*! called by timer
 
