@@ -1852,6 +1852,8 @@ namespace igor
     // TODO only bind if it changed
     void iRenderer::bindCurrentMaterial()
     {
+        con_assert_sticky(_data->_currentMaterial != nullptr, "no material set");
+
         _data->_currentMaterial->bind();
 
         if (_data->_wireframeEnabled)

@@ -44,6 +44,58 @@ void Example2D::onInit()
 
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
+
+    initParticleSystem();
+}
+
+void Example2D::initParticleSystem()
+{
+    iaGradientColor4f colors;
+    colors.setValue(0.0f, iaColor4f(0.0f, 0.2f, 1.0f, 1.0f));
+    colors.setValue(0.5f, iaColor4f(0.0f, 0.8f, 1.0f, 1.0f));
+    colors.setValue(1.0f, iaColor4f(0.0f, 0.8f, 1.0f, 0.0f));
+
+    iaGradientVector2f visibility;
+    visibility.setValue(0.0f, iaVector2f(4.5f, 5.0f));
+    visibility.setValue(1.0f, iaVector2f(1.5f, 2.0f));
+    visibility.setValue(2.0f, iaVector2f(4.5f, 5.0f));
+
+    iaGradientf emission;
+    emission.setValue(0.0, 3);
+
+    iaGradientVector2f velocity;
+    velocity.setValue(0.0f, iaVector2f(0.4f, 0.5f));
+    velocity.setValue(1.0f, iaVector2f(0.6f, 0.6f));
+    velocity.setValue(2.0f, iaVector2f(0.4f, 0.5f));
+
+    // using negative lift here so it's basically weight
+    iaGradientVector2f lift;
+    lift.setValue(0.0f, iaVector2f(-0.002f, -0.002f));
+
+    iaGradientVector2f startSize;
+    startSize.setValue(0.0f, iaVector2f(100.0f, 100.0f));
+
+    _particleSystem.setMaxParticleCount(800);
+    _particleSystem.setColorGradient(colors);
+    _particleSystem.setEmissionGradient(emission);
+    _particleSystem.setStartVisibleTimeGradient(visibility);
+    _particleSystem.setVelocityOriented();
+    _particleSystem.setStartSizeGradient(startSize);
+    _particleSystem.setStartVelocityGradient(velocity);
+    _particleSystem.setStartLiftGradient(lift);
+    _particleSystem.setAirDrag(0.985f);
+    _particleSystem.start();
+    
+    _particleEmitter.setSize(100.0);
+    _particleEmitter.setType(iEmitterType::Sphere);
+    iaMatrixd matrix;
+    matrix.translate(300,300,-10);
+    _particleEmitter.setWorldMatrix(matrix);
+
+    _particleTargetMaterial = iTargetMaterial::create();
+    // _particleTargetMaterial->setVelocityOriented(true);
+
+    _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/particles_ortho_projection.mat");
 }
 
 void Example2D::onDeinit()
@@ -93,6 +145,8 @@ void Example2D::onUpdate(const iaTime &time)
 
     // moves one of the splines support point to the logo's position
     _spline.setSupportPoint(iaVector3f(_lastMousePos._x, _lastMousePos._y, 0.0), 3);    
+
+    _particleSystem.onUpdate(_particleEmitter);
 }
 
 void Example2D::onRenderOrtho()
@@ -104,11 +158,11 @@ void Example2D::onRenderOrtho()
     // since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero
     iaMatrixd matrix;
-    matrix.translate(0, 0, -1);
-    iRenderer::getInstance().setModelMatrix(matrix);    
+    matrix.translate(0, 0, -100);
+    iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw some background
-    const float32 width = getWindow()->getClientWidth();
+/*    const float32 width = getWindow()->getClientWidth();
     const float32 height = getWindow()->getClientHeight();
     iaVector2f tiling(width / _backgroundTexture->getWidth(),
                       height / _backgroundTexture->getHeight());
@@ -180,5 +234,9 @@ void Example2D::onRenderOrtho()
     ExampleBase::onRenderOrtho();
 
     // doughnuts <3
-    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);    
+    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);*/
+
+    iRenderer::getInstance().setMaterial(_particlesMaterial);
+    iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _particleTargetMaterial);
+
 }

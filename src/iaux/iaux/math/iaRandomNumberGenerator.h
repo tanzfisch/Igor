@@ -75,7 +75,7 @@ namespace iaux
     private:
         /*! the seed
         */
-        T _seed;
+        T _seed = (T)1337;
     };
 
 #include <iaux/math/iaRandomNumberGenerator.inl>

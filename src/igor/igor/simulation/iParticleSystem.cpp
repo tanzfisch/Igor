@@ -228,7 +228,7 @@ namespace igor
         }
 
         _maxParticleCount = max;
-        _dirtyBuffers = true;
+        _createBuffers = true;
         _mustReset = true;
     }
 
@@ -512,7 +512,7 @@ namespace igor
 
     void iParticleSystem::updateBuffer()
     {
-        if (_dirtyBuffers)
+        if (_createBuffers)
         {
             if (_vertexBufferData != nullptr)
             {
@@ -532,7 +532,7 @@ namespace igor
             _vertexArray = iVertexArray::create();
             _vertexArray->addVertexBuffer(_vertexBuffer);
 
-            _dirtyBuffers = false;
+            _createBuffers = false;
         }
 
         // update buffer data
