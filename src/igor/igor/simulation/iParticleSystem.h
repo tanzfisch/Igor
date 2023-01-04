@@ -694,7 +694,7 @@ namespace igor
 
         /*! if true vertex buffer needs to be recreated
          */
-        bool _dirtyBuffers = true;
+        bool _createBuffers = true;
 
         /*! iterates next frame
          */

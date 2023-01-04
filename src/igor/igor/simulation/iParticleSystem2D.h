@@ -26,64 +26,76 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RANDOMNUMBERGENERATOR_H__
-#define __IAUX_RANDOMNUMBERGENERATOR_H__
+#ifndef __IGOR_PARTICLESYSTEM2D__
+#define __IGOR_PARTICLESYSTEM2D__
 
-#include <iaux/system/iaConsole.h>
+#include <igor/simulation/iParticleSystem.h>
+#include <igor/simulation/iParticleEmitter.h>
+#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
-namespace iaux
+namespace igor
 {
 
-    /*! pseudo random number generator
-
-    the only reason to use this one is to keep seperate instances of seeds so multithreaded tasks don't interfear with each other using rand()
-    */
-    template <class T>
-    class IAUX_API_EXPORT_ONLY iaRandomNumberGenerator
+    /*! convenience wrapper for iParticleSystem to be used for orthogonal projections
+     */
+    class IGOR_API iParticleSystem2D
     {
 
     public:
-        /*! init seed
+
+        /*! init particle system
         */
-        iaRandomNumberGenerator(T seed = 1337);
+        iParticleSystem2D();
 
         /*! does nothing
         */
-        ~iaRandomNumberGenerator();
+        ~iParticleSystem2D() = default;
 
-        /*! sets the seed
-
-        \param seed the seed
+        /*! draw particle system
         */
-        void setSeed(T seed);
-
-        /*! \returns next random number
+        void draw(const iaMatrixd &matrix = iaMatrixd());
+        
+        /*! \returns particle system
         */
-        T getNext();
+        iParticleSystem& getSystem();
 
-        /*! \returns next random number as float 0.0-1.0
+        /*! \returns particle emitter
         */
-        float64 getNextFloat();
+        iParticleEmitter& getEmitter();
 
-        /*! \returns next random number as float min-max
-
-        \param min the min value returned
-        \param max the max value returned
+        /*! \returns target material
         */
-        float64 getNextFloatRange(float64 min, float64 max);
+        iTargetMaterialPtr& getTargetMaterial();
+
 
     private:
-        /*! the seed
+        /*! particle system
+         */
+        iParticleSystem _particleSystem;
+
+        /*! particle emitter
+         */
+        iParticleEmitter _particleEmitter;
+
+        /*! particle target material
+         */
+        iTargetMaterialPtr _particleTargetMaterial;
+
+        /*! particle material
+         */
+        iMaterialPtr _particlesMaterial;
+
+        /*! initialize particle system
         */
-        T _seed = (T)1337;
+        void init();
+
+        /*! update particle system
+        */
+        void update();
+
     };
 
-#include <iaux/math/iaRandomNumberGenerator.inl>
+}; // namespace igor
 
-    /*! uint32 random number generator
-	*/
-    typedef iaRandomNumberGenerator<uint32> iaRandomNumberGeneratoru;
-
-} // namespace iaux
-
-#endif // __IAUX_RANDOMNUMBERGENERATOR_H__
+#endif // __IGOR_PARTICLESYSTEM2D__

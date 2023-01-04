@@ -125,6 +125,8 @@
 #include <igor/threading/tasks/iTaskFlushModels.h>
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 
+#include <igor/simulation/iParticleSystem2D.h>
+
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
