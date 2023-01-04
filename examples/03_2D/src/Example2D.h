@@ -95,6 +95,10 @@ private:
     */
     iTimerHandlePtr _updateTimingHandle;
 
+    /*! particle system
+    */
+    iParticleSystem2D _particleSystem;
+
     /*! called by timer
 
     \param time the time
@@ -118,6 +122,10 @@ private:
     \param event the event to handle
     */
     void onEvent(iEvent &event) override;
+
+    /*! initialize particle system and emitter
+    */
+    void initParticleSystem();
 
     /*! handles mouse move event
 

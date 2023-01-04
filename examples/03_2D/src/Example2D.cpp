@@ -44,6 +44,53 @@ void Example2D::onInit()
 
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
+
+    initParticleSystem();
+}
+
+void Example2D::initParticleSystem()
+{
+    iaGradientColor4f colors;
+    colors.setValue(0.0f, iaColor4f(0.0f, 0.4f, 1.0f, 0.7f));
+    colors.setValue(0.5f, iaColor4f(0.4f, 0.8f, 1.0f, 0.6f));
+    colors.setValue(1.0f, iaColor4f(0.8f, 0.8f, 1.0f, 0.0f));
+
+    iaGradientVector2f visibility;
+    visibility.setValue(0.0f, iaVector2f(3.0f, 8.0f));
+
+    iaGradientf emission;
+    emission.setValue(0.0, 5);
+
+    iaGradientVector2f velocity;
+    velocity.setValue(0.0f, iaVector2f(7.0f, 9.0f));
+
+    // using positive lift here represents weight
+    iaGradientVector2f lift;
+    lift.setValue(0.0f, iaVector2f(0.02f, 0.02f));
+
+    iaGradientVector2f startSize;
+    startSize.setValue(0.0f, iaVector2f(15.0f, 25.0f));
+
+    _particleSystem.getSystem().setMaxParticleCount(5000);
+    _particleSystem.getSystem().setColorGradient(colors);
+    _particleSystem.getSystem().setEmissionGradient(emission);
+    _particleSystem.getSystem().setStartVisibleTimeGradient(visibility);
+    _particleSystem.getSystem().setVelocityOriented();
+    _particleSystem.getSystem().setStartSizeGradient(startSize);
+    _particleSystem.getSystem().setStartVelocityGradient(velocity);
+    _particleSystem.getSystem().setStartLiftGradient(lift);
+    _particleSystem.getSystem().setAirDrag(0.985f);
+    _particleSystem.getSystem().start();
+
+    _particleSystem.getEmitter().setType(iEmitterType::Disc);
+    _particleSystem.getEmitter().setSize(20.0);
+
+    // flip emitter upside down since in ortho the coordinates are upside down
+    iaMatrixd matrix;
+    matrix.rotate(-130.0 / 180.0 * M_PI, iaAxis::Z);
+    _particleSystem.getEmitter().setWorldMatrix(matrix);
+
+    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("particleTrail.png"), 0);
 }
 
 void Example2D::onDeinit()
@@ -82,7 +129,7 @@ void Example2D::onUpdate(const iaTime &time)
 
     // moves the doughnut towards the mouse position
     _doughnutMatrix._pos += (iaVector3f(_lastMousePos._x, _lastMousePos._y, 0.0) - _doughnutMatrix._pos) * 0.05f;
-  
+
     // doughnut time <3
     if (time > _doughnutsTime + iaTime::fromSeconds(0.5))
     {
@@ -92,7 +139,7 @@ void Example2D::onUpdate(const iaTime &time)
     }
 
     // moves one of the splines support point to the logo's position
-    _spline.setSupportPoint(iaVector3f(_lastMousePos._x, _lastMousePos._y, 0.0), 3);    
+    _spline.setSupportPoint(iaVector3f(_lastMousePos._x, _lastMousePos._y, 0.0), 3);
 }
 
 void Example2D::onRenderOrtho()
@@ -105,7 +152,7 @@ void Example2D::onRenderOrtho()
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
-    iRenderer::getInstance().setModelMatrix(matrix);    
+    iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw some background
     const float32 width = getWindow()->getClientWidth();
@@ -136,7 +183,7 @@ void Example2D::onRenderOrtho()
     }
 
     iRenderer::getInstance().drawFilledCircle(500, 400, 250, 5, iaColor4f::red);
-    iRenderer::getInstance().drawFilledCircle(700, 500, 100, 8, iaColor4f(1.0,1.0,0.0,0.5));
+    iRenderer::getInstance().drawFilledCircle(700, 500, 100, 8, iaColor4f(1.0, 1.0, 0.0, 0.5));
     iRenderer::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
     // draw with dummy texture
@@ -171,14 +218,19 @@ void Example2D::onRenderOrtho()
     {
         float64 value = _perlinNoise.getValue((offset + x) * 0.01, 6) * 150;
         iRenderer::getInstance().drawLine(static_cast<float32>(getWindow()->getClientWidth() - 260 + x - 1),
-                                           static_cast<float32>(10 + lastValue),
-                                           static_cast<float32>(getWindow()->getClientWidth() - 260 + x),
-                                           static_cast<float32>(10 + value), iaColor4f(0, 1, 0, 1));
+                                          static_cast<float32>(10 + lastValue),
+                                          static_cast<float32>(getWindow()->getClientWidth() - 260 + x),
+                                          static_cast<float32>(10 + value), iaColor4f(0, 1, 0, 1));
         lastValue = value;
     }
 
     ExampleBase::onRenderOrtho();
 
+    // draw particle system
+    iaMatrixd psmatrix;
+    psmatrix.translate(0, 650, 0);
+    _particleSystem.draw(psmatrix);
+
     // doughnuts <3
-    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);    
+    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);
 }

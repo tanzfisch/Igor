@@ -4,6 +4,7 @@
 
 #include <igor/resources/material/iMaterialIO.h>
 
+#include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaFile.h>
 
 #include <tinyxml.h>
@@ -303,7 +304,7 @@ namespace igor
 
                 if (iaFile::exist(source._filename))
                 {
-                    file << " name=\"" << source._filename << "\" />\n";
+                    file << " filename=\"" << iResourceManager::getInstance().getRelativePath(source._filename) << "\" />\n";
                 }
                 else
                 {

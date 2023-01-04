@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.34.5
+------
+
+- fixed iMaterialIO relative path to shader
+
 0.34.4
 ------
 
