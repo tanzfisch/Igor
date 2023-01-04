@@ -4,6 +4,7 @@ Changelog                           {#changelog}
 0.34.5
 ------
 
+- introduced a particle system wrapper for easy use of 2D particle systems
 - fixed iMaterialIO relative path to shader
 
 0.34.4
