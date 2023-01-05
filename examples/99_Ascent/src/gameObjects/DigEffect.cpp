@@ -57,7 +57,7 @@ DigEffect::DigEffect(iScenePtr scene, const iaMatrixd &matrix)
     particleSystem->setLoop(false);
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
-    particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setStartAgeGradient(visibility);
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setPeriodTime(4.0);

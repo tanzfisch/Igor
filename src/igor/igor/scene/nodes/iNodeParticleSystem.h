@@ -198,13 +198,13 @@ namespace igor
 
         \param visibleGradient the visible gradient
         */
-        void setStartVisibleTimeGradient(const iaGradientVector2f &visibleGradient);
+        void setStartAgeGradient(const iaGradientVector2f &visibleGradient);
 
         /*! returns the emission gradient
 
         \param[out] visibleGradient out value for the visible gradient
         */
-        void getStartVisibleTimeGradient(iaGradientVector2f &visibleGradient) const;
+        void getStartAgeGradient(iaGradientVector2f &visibleGradient) const;
 
         /*! sets size scale gradient for particles per frame
 

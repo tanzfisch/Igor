@@ -69,9 +69,9 @@ void Particles::createWaveParticleSystem()
 {
     // create the particle system
     iaGradientColor4f colorGradient;
-    colorGradient.setValue(0.0, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
-    colorGradient.setValue(0.5, iaColor4f(1.0f, 1.0f, 0.0f, 1.0f));
     colorGradient.setValue(1.0, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
+    colorGradient.setValue(0.5, iaColor4f(1.0f, 1.0f, 0.0f, 1.0f));
+    colorGradient.setValue(0.0, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
     iaGradientVector2f velocity;
     velocity.setValue(0.0, iaVector2f(0.2f, 0.4f));
@@ -97,7 +97,7 @@ void Particles::createWaveParticleSystem()
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setStartOrientationGradient(startOrientation);
-    particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setStartAgeGradient(visibility);
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
     getScene()->getRoot()->insertNode(particleSystem);
@@ -142,10 +142,10 @@ void Particles::createWaveParticleSystem()
 void Particles::createFireParticleSystem()
 {
     iaGradientColor4f colors;
-    colors.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
-    colors.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    colors.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
     colors.setValue(0.4f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
-    colors.setValue(1.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
+    colors.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    colors.setValue(0.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
     iaGradientVector2f visibility;
     visibility.setValue(0.0f, iaVector2f(0.2f, 0.5f));
@@ -167,7 +167,7 @@ void Particles::createFireParticleSystem()
     particleSystem->setTextureTiling(4, 4);
     particleSystem->setColorGradient(colors);
     particleSystem->setEmissionGradient(emission);
-    particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setStartAgeGradient(visibility);
     particleSystem->setStartSizeGradient(startSize);
     particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setVortexTorque(0.2f, 0.5f);
@@ -191,9 +191,9 @@ void Particles::createFireParticleSystem()
 void Particles::createFontainParticleSystem()
 {
     iaGradientColor4f colors;
-    colors.setValue(0.0f, iaColor4f(0.0f, 0.2f, 1.0f, 1.0f));
+    colors.setValue(1.0f, iaColor4f(0.0f, 0.2f, 1.0f, 1.0f));
     colors.setValue(0.5f, iaColor4f(0.0f, 0.8f, 1.0f, 1.0f));
-    colors.setValue(1.0f, iaColor4f(0.0f, 0.8f, 1.0f, 0.0f));
+    colors.setValue(0.0f, iaColor4f(0.0f, 0.8f, 1.0f, 0.0f));
 
     iaGradientVector2f visibility;
     visibility.setValue(0.0f, iaVector2f(4.5f, 5.0f));
@@ -222,7 +222,7 @@ void Particles::createFontainParticleSystem()
     particleSystem->setMaxParticleCount(800);
     particleSystem->setColorGradient(colors);
     particleSystem->setEmissionGradient(emission);
-    particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setStartAgeGradient(visibility);
     particleSystem->setVelocityOriented();
     particleSystem->setStartSizeGradient(startSize);
     particleSystem->setStartVelocityGradient(velocity);
@@ -246,10 +246,10 @@ void Particles::createFontainParticleSystem()
 void Particles::createRingParticleSystem()
 {
     iaGradientColor4f ringColors;
-    ringColors.setValue(0.0f, iaColor4f(0.0f, 1.0f, 1.0f, 1.0f));
-    ringColors.setValue(0.33f, iaColor4f(1.0f, 0.0f, 1.0f, 1.0f));
-    ringColors.setValue(0.66f, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
-    ringColors.setValue(1.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
+    ringColors.setValue(1.0f, iaColor4f(0.0f, 1.0f, 1.0f, 1.0f));
+    ringColors.setValue(0.66f, iaColor4f(1.0f, 0.0f, 1.0f, 1.0f));
+    ringColors.setValue(0.33f, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
+    ringColors.setValue(0.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
     iaGradientVector2f visibility;
     visibility.setValue(0.0f, iaVector2f(3.5f, 4.0f));
@@ -274,7 +274,7 @@ void Particles::createRingParticleSystem()
     circleParticleSystem->setTextureB("octave1.png");
     circleParticleSystem->setColorGradient(ringColors);
     circleParticleSystem->setEmissionGradient(emission);
-    circleParticleSystem->setStartVisibleTimeGradient(visibility);
+    circleParticleSystem->setStartAgeGradient(visibility);
     circleParticleSystem->setStartSizeGradient(startSize);
     circleParticleSystem->setStartOrientationRateGradient(startOrientationRate);
     getScene()->getRoot()->insertNode(circleParticleSystem);
@@ -302,10 +302,10 @@ void Particles::createSmokeParticleSystem()
     startOrientationRate.setValue(0.0f, iaVector2f(-0.05f, 0.05f));
 
     iaGradientColor4f smokeGradient;
-    smokeGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
-    smokeGradient.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 0.6f));
-    smokeGradient.setValue(0.5f, iaColor4f(1.0f, 1.0f, 1.0f, 0.5f));
     smokeGradient.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+    smokeGradient.setValue(0.5f, iaColor4f(1.0f, 1.0f, 1.0f, 0.6f));
+    smokeGradient.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 0.5f));
+    smokeGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
     iaGradientVector2f smokeSize;
     smokeSize.setValue(0.0f, iaVector2f(3.0f, 6.0f));
@@ -339,7 +339,7 @@ void Particles::createSmokeParticleSystem()
     particleSystem->setStartSizeGradient(smokeSize);
     particleSystem->setSizeScaleGradient(sizeScale);
     particleSystem->setColorGradient(smokeGradient);
-    particleSystem->setStartVisibleTimeGradient(smokeVisibility);
+    particleSystem->setStartAgeGradient(smokeVisibility);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setStartLiftGradient(lift);
     getScene()->getRoot()->insertNode(particleSystem);
@@ -363,10 +363,10 @@ void Particles::createDotParticleSystem()
     emission.setValue(0.2f, 0.0f);
 
     iaGradientColor4f colorGradient;
-    colorGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
-    colorGradient.setValue(0.5f, iaColor4f(0.8f, 0.8f, 1.0f, 1.0f));
-    colorGradient.setValue(0.8f, iaColor4f(0.3f, 0.3f, 0.5f, 1.0f));
-    colorGradient.setValue(1.0f, iaColor4f(0.3f, 0.3f, 0.0f, 0.0f));
+    colorGradient.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+    colorGradient.setValue(0.8f, iaColor4f(0.8f, 0.8f, 1.0f, 1.0f));
+    colorGradient.setValue(0.5f, iaColor4f(0.3f, 0.3f, 0.5f, 1.0f));
+    colorGradient.setValue(0.0f, iaColor4f(0.3f, 0.3f, 0.0f, 0.0f));
 
     iaGradientVector2f velocity;
     velocity.setValue(0.0f, iaVector2f(0.1f, 0.3f));
@@ -384,7 +384,7 @@ void Particles::createDotParticleSystem()
     particleSystem->setMaxParticleCount(500);
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
-    particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setStartAgeGradient(visibility);
     particleSystem->setVelocityOriented();
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
@@ -395,10 +395,10 @@ void Particles::createDotParticleSystem()
     emission2.setValue(0.5f, 0.0f);
 
     iaGradientColor4f colorGradient2;
-    colorGradient2.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
-    colorGradient2.setValue(0.1f, iaColor4f(1.0f, 1.0f, 1.0f, 0.5f));
-    colorGradient2.setValue(0.4f, iaColor4f(1.0f, 1.0f, 1.0f, 0.25f));
     colorGradient2.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+    colorGradient2.setValue(0.4f, iaColor4f(1.0f, 1.0f, 1.0f, 0.5f));
+    colorGradient2.setValue(0.1f, iaColor4f(1.0f, 1.0f, 1.0f, 0.25f));
+    colorGradient2.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
     iaGradientVector2f velocity2;
     velocity2.setValue(0.0f, iaVector2f(0.05f, 0.3f));
@@ -428,7 +428,7 @@ void Particles::createDotParticleSystem()
     particleSystem->setMaxParticleCount(500);
     particleSystem2->setColorGradient(colorGradient2);
     particleSystem2->setStartVelocityGradient(velocity2);
-    particleSystem2->setStartVisibleTimeGradient(visibility2);
+    particleSystem2->setStartAgeGradient(visibility2);
     particleSystem2->setStartOrientationGradient(startOrientation);
     particleSystem2->setStartOrientationRateGradient(startOrientationRate);
     particleSystem2->setStartSizeGradient(size2);

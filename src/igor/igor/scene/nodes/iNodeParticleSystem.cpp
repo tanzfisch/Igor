@@ -349,14 +349,14 @@ namespace igor
         _particleSystem.getEmissionGradient(emissionGradient);
     }
 
-    void iNodeParticleSystem::setStartVisibleTimeGradient(const iaGradientVector2f &visibleGradient)
+    void iNodeParticleSystem::setStartAgeGradient(const iaGradientVector2f &visibleGradient)
     {
-        _particleSystem.setStartVisibleTimeGradient(visibleGradient);
+        _particleSystem.setStartAgeGradient(visibleGradient);
     }
 
-    void iNodeParticleSystem::getStartVisibleTimeGradient(iaGradientVector2f &visibleGradient) const
+    void iNodeParticleSystem::getStartAgeGradient(iaGradientVector2f &visibleGradient) const
     {
-        _particleSystem.getStartVisibleTimeGradient(visibleGradient);
+        _particleSystem.getStartAgeGradient(visibleGradient);
     }
 
     void iNodeParticleSystem::setStartOrientationGradient(const iaGradientVector2f &orientationGradient)
