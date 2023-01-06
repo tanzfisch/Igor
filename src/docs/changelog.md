@@ -1,6 +1,14 @@
 Changelog                           {#changelog}
 =========
 
+0.34.6
+------
+
+- added missing texture tiling for particles
+- added new tile index increment
+- added missing multi texture support for particles
+- fixed change of particle size over time
+
 0.34.5
 ------
 
