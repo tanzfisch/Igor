@@ -109,14 +109,7 @@ namespace igor
     {
         handle();
 
-        if (_particleSystem.getVertexArray() == nullptr)
-        {
-            return;
-        }
-
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
-
-        _targetMaterial->setVelocityOriented(_particleSystem.getVelocityOriented());
         iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _targetMaterial);
     }
 
@@ -386,6 +379,7 @@ namespace igor
     void iNodeParticleSystem::setVelocityOriented(bool velocityOriented)
     {
         _particleSystem.setVelocityOriented(velocityOriented);
+        _targetMaterial->setVelocityOriented(velocityOriented);
     }
 
     bool iNodeParticleSystem::getVelocityOriented() const
