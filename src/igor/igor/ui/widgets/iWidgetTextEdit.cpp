@@ -19,7 +19,7 @@ namespace igor
 
 	void iWidgetTextEdit::calcMinSize()
 	{
-		setMinSize(0, 0);
+		setMinSize(0, 100);
 	}
 
 	void iWidgetTextEdit::draw()
