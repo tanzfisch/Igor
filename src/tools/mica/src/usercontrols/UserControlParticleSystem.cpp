@@ -90,7 +90,7 @@ void UserControlParticleSystem::updateNode()
             {
                 startVisibilityGradient.setValue(_visibilityGraph->getPoints(0)[i]._x, iaVector2f(_visibilityGraph->getPoints(0)[i]._y, _visibilityGraph->getPoints(1)[i]._y));
             }
-            node->setStartVisibleTimeGradient(startVisibilityGradient);
+            node->setStartAgeGradient(startVisibilityGradient);
 
             iaGradientVector2f orientationGradient;
             for (int i = 0; i < _orientationGraph->getPoints(0).size(); ++i)
@@ -237,7 +237,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
 
     // visibility
     iaGradientVector2f visibilityGradient;
-    node->getStartVisibleTimeGradient(visibilityGradient);
+    node->getStartAgeGradient(visibilityGradient);
 
     std::vector<iaVector2f> minVisibility;
     std::vector<iaVector2f> maxVisibility;

@@ -56,7 +56,7 @@ EnemyDestroyed::EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix)
     particleSystem->setLoop(false);
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
-    particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setStartAgeGradient(visibility);
     particleSystem->setVelocityOriented();
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
@@ -101,7 +101,7 @@ EnemyDestroyed::EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix)
     particleSystem2->setLoop(false);
     particleSystem2->setColorGradient(colorGradient2);
     particleSystem2->setStartVelocityGradient(velocity2);
-    particleSystem2->setStartVisibleTimeGradient(visibility2);
+    particleSystem2->setStartAgeGradient(visibility2);
     particleSystem2->setStartOrientationGradient(startOrientation2);
     particleSystem2->setStartOrientationRateGradient(startOrientationRate2);
     particleSystem2->setStartSizeGradient(size2);
@@ -145,7 +145,7 @@ EnemyDestroyed::EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix)
     particleSystem3->setLoop(false);
     particleSystem3->setColorGradient(colorGradient3);
     particleSystem3->setStartVelocityGradient(velocity3);
-    particleSystem3->setStartVisibleTimeGradient(visibility3);
+    particleSystem3->setStartAgeGradient(visibility3);
     particleSystem3->setStartOrientationGradient(startOrientation3);
     particleSystem3->setStartOrientationRateGradient(startOrientationRate3);
     particleSystem3->setAirDrag(0.98);

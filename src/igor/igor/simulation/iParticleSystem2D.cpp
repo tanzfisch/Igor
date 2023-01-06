@@ -5,6 +5,7 @@
 #include <igor/simulation/iParticleSystem2D.h>
 
 #include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/renderer/iRenderer.h>
 
 namespace igor
@@ -21,6 +22,9 @@ namespace igor
         _particleSystem.start();
 
         _particleTargetMaterial = iTargetMaterial::create();
+        _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 0);
+        _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 1);
+        _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 2);
         _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/particles_ortho_projection.mat");
     }
 
@@ -39,22 +43,23 @@ namespace igor
 
         iRenderer::getInstance().setMaterial(_particlesMaterial);
         _particleTargetMaterial->setVelocityOriented(_particleSystem.getVelocityOriented());
+        _particleTargetMaterial->setTilingConfig(iaVector2f(_particleSystem.getTextureColumns(), _particleSystem.getTextureRows()));
         iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _particleTargetMaterial);
 
         iRenderer::getInstance().setModelMatrix(modelMatrix);
     }
 
-    iParticleSystem& iParticleSystem2D::getSystem()
+    iParticleSystem &iParticleSystem2D::getSystem()
     {
         return _particleSystem;
     }
 
-    iParticleEmitter& iParticleSystem2D::getEmitter()
+    iParticleEmitter &iParticleSystem2D::getEmitter()
     {
         return _particleEmitter;
     }
 
-    iTargetMaterialPtr& iParticleSystem2D::getTargetMaterial()
+    iTargetMaterialPtr &iParticleSystem2D::getTargetMaterial()
     {
         return _particleTargetMaterial;
     }

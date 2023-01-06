@@ -52,12 +52,12 @@ namespace OMPF
         return _firstTectureTilingRows;
     }
 
-    void ompfParticleSystemChunk::setStartVisibleTimeGradient(const iaGradientVector2f &visibleGradient)
+    void ompfParticleSystemChunk::setStartAgeGradient(const iaGradientVector2f &visibleGradient)
     {
         _startVisibleTimeGradient = visibleGradient;
     }
 
-    void ompfParticleSystemChunk::getStartVisibleTimeGradient(iaGradientVector2f &visibleGradient) const
+    void ompfParticleSystemChunk::getStartAgeGradient(iaGradientVector2f &visibleGradient) const
     {
         visibleGradient = _startVisibleTimeGradient;
     }

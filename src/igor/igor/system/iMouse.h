@@ -141,10 +141,10 @@ namespace igor
         virtual ~iMouse();
     };
 
-    /*! \example Mouse/src/MouseExample.cpp
+    /*! \example examples/02_Mouse/MouseExample.cpp
 	Mouse usage example.
 
-	\include Mouse/src/MouseExample.h
+	\include examples/02_Mouse/MouseExample.h
 	*/
 
 }; // namespace igor

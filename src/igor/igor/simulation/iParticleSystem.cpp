@@ -41,7 +41,7 @@ namespace igor
 
     void iParticleSystem::initDefaultGradients()
     {
-        _startVisibleTimeGradient.setValue(0.0f, iaVector2f(2.5f, 3.5f));
+        _startAgeGradient.setValue(0.0f, iaVector2f(2.5f, 3.5f));
 
         _colorGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
         _colorGradient.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
@@ -202,16 +202,6 @@ namespace igor
         _particlePool.resize(_maxParticleCount);
         _particlePoolIndex = _particlePool.size() - 1;
 
-        float32 maxVisibleTime = 0;
-        for (auto value : _startVisibleTimeGradient.getValues())
-        {
-            if (value.second._y > maxVisibleTime)
-            {
-                maxVisibleTime = value.second._y;
-            }
-        }
-
-        _lifeTime = maxVisibleTime;
         _mustReset = false;
         _particleCounter = 0;
 
@@ -290,14 +280,9 @@ namespace igor
         _startSizeGradient.getValue(particleSystemTime, minMax);
         particle._size = minMax._x + randomFactor * (minMax._y - minMax._x);
 
-        particle._life = _lifeTime;
-
-        particle._visibleTime = 0.0;
-
-        _startVisibleTimeGradient.getValue(particleSystemTime, minMax);
-        float32 visibleTime = minMax._x + randomFactor * (minMax._y - minMax._x);
-        visibleTime /= 1.0f / _simulationRate;
-        particle._visibleTimeIncrease = 1.0f / visibleTime;
+        _startAgeGradient.getValue(particleSystemTime, minMax);
+        particle._maxAge = minMax._x + randomFactor * (minMax._y - minMax._x);
+        particle._lifeLeft = particle._maxAge;
         particle._visible = true;
 
         _startOrientationGradient.getValue(particleSystemTime, minMax);
@@ -358,15 +343,17 @@ namespace igor
         _particleSystemInvWorldMatrix = worldInvMatrix;
     }
 
-    void iParticleSystem::setStartVisibleTimeGradient(const iaGradientVector2f &startVisibleTimeGradient)
+    void iParticleSystem::setStartAgeGradient(const iaGradientVector2f &startAgeGradient)
     {
-        _startVisibleTimeGradient = startVisibleTimeGradient;
+        // TODO check if max age can be 0 or less
+
+        _startAgeGradient = startAgeGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem::getStartVisibleTimeGradient(iaGradientVector2f &startVisibleTimeGradient) const
+    void iParticleSystem::getStartAgeGradient(iaGradientVector2f &startAgeGradient) const
     {
-        startVisibleTimeGradient = _startVisibleTimeGradient;
+        startAgeGradient = _startAgeGradient;
     }
 
     void iParticleSystem::setSizeScaleGradient(const iaGradientf &sizeScaleGradient)
@@ -402,31 +389,29 @@ namespace igor
         float32 sizeScale = 0;
         float32 torqueFactor = 0;
 
-        for (auto &particle : _particlePool)
+        for (int index = 0; index < _particlePool.size(); ++index)
         {
-            if (particle._life <= 0)
+            auto &particle = _particlePool[index];
+            if (particle._lifeLeft <= 0)
             {
+                particle._visible = false;
                 continue;
             }
 
-            particle._life -= 1.0f / _simulationRate;
+            particle._tilingIndex += _tileIncrement;
 
-            _sizeScaleGradient.getValue(particle._visibleTime, sizeScale);
+            const float32 normalizedAge = particle._lifeLeft / particle._maxAge;
+
+            _sizeScaleGradient.getValue(normalizedAge, sizeScale);
 
             particle._velocity[1] += particle._lift;
             particle._velocity *= _airDrag;
             particle._orientation += particle._orientationRate;
             particle._sizeScale = sizeScale;
 
-            particle._visibleTime += particle._visibleTimeIncrease;
-            if (particle._visibleTime > 1.0f)
-            {
-                particle._visible = false;
-            }
-
             if (particle._torque != 0.0)
             {
-                _torqueFactorGradient.getValue(particle._visibleTime, torqueFactor);
+                _torqueFactorGradient.getValue(normalizedAge, torqueFactor);
 
                 const int32 startIndex = index - _vortexCheckRange;
                 const int32 endIndex = index + _vortexCheckRange;
@@ -459,8 +444,7 @@ namespace igor
             }
 
             particle._position += particle._velocity;
-
-            index++;
+            particle._lifeLeft -= 1.0f / _simulationRate;
         }
     }
 
@@ -473,9 +457,9 @@ namespace igor
 
         if (_running)
         {
-            iParticleSystem::iParticleVertex *vertexBufferDataPtr = _vertexBufferData;
-            iaTime frameTime = iTimer::getInstance().getTime();
-
+            const iaTime frameTime = iTimer::getInstance().getTime();
+            const iaTime frameTick = iaTime::fromMilliseconds(1000.0 / _simulationRate);
+            
             // ignore hickups
             if (frameTime - _playbackTime > iaTime::fromMilliseconds(100))
             {
@@ -483,12 +467,6 @@ namespace igor
             }
 
             iaTime particleSystemTime = _playbackTime - _startTime;
-
-            if (particleSystemTime >= _particleSystemPeriodTime && !_loop)
-            {
-                _finished = true;
-                _running = false;
-            }
 
             while (_playbackTime <= frameTime)
             {
@@ -501,12 +479,25 @@ namespace igor
                 _emissionImpulseStack -= static_cast<float32>(createCount);
                 createParticles(createCount, emitter, particleSystemTime.getSeconds());
 
-                _playbackTime += iaTime::fromMilliseconds(1000.0 / _simulationRate);
-                particleSystemTime += iaTime::fromMilliseconds(1000.0 / _simulationRate); // TODO redundant
+                _playbackTime += frameTick;
+                particleSystemTime += frameTick;
             }
 
             updateBuffer();
             updateBoundings();
+
+            if (particleSystemTime >= _particleSystemPeriodTime)
+            {
+                if (_loop)
+                {
+                    start();
+                }
+                else
+                {
+                    _finished = true;
+                    _running = false;
+                }
+            }
         }
     }
 
@@ -540,17 +531,20 @@ namespace igor
 
         for (const auto &particle : _particlePool)
         {
-            if (particle._life <= 0.0)
+            if (particle._lifeLeft <= 0.0)
             {
                 continue;
             }
 
+            const float32 normalizedAge = particle._lifeLeft / particle._maxAge;
+            const float32 age = particle._maxAge - particle._lifeLeft;
+
             vertexBufferDataPtr->_position = particle._position;
-            _colorGradient.getValue(particle._visibleTime, vertexBufferDataPtr->_color);
+            _colorGradient.getValue(normalizedAge, vertexBufferDataPtr->_color);
             vertexBufferDataPtr->_velocity = particle._velocity;
             vertexBufferDataPtr->_lifeSizeAngleTilingIndex.set(
-                particle._life,
-                particle._size,
+                age,
+                particle._size * particle._sizeScale,
                 particle._orientation,
                 particle._tilingIndex);
 
@@ -700,6 +694,16 @@ namespace igor
     {
         _vorticityConfinement = vc;
         _mustReset = true;
+    }
+
+    void iParticleSystem::setTileIncrement(float32 tileIncrement)
+    {
+        _tileIncrement = tileIncrement;
+    }
+
+    float32 iParticleSystem::getTileIncrement() const
+    {
+        return _tileIncrement;
     }
 
 }; // namespace igor

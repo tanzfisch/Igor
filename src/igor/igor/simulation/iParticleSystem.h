@@ -61,27 +61,20 @@ namespace igor
          */
         iaVector3f _velocity;
 
+        /*! life left of particle in seconds
+         */
+        float32 _lifeLeft = 0.0;
+
+        /*! max age of particle
+        */
+        float32 _maxAge = 0.0;        
+
         /*! current lift value
 
-        negative values are considered weight
+        depending on the coordinate system this is used in 
+        a positive value can be interpreted as lift or weight
         */
         float32 _lift = 0.0;
-
-        /*! life of particle in seconds
-         */
-        float32 _life = 0.0;
-
-        /*! visible time of particles
-
-        the scale is basically seconds time goes by a little faster
-        depending on the individual particle visible time wich is <= it's life time
-        thats why there is _visibleTimeIncrease
-        */
-        float32 _visibleTime = 0.0;
-
-        /*! individual visible time increase
-         */
-        float32 _visibleTimeIncrease = 0.0;
 
         /*! size of the particle given at birth
          */
@@ -291,7 +284,11 @@ namespace igor
          */
         float32 getVorticityConfinement();
 
-        /*! sets color gradient
+        /*! sets color gradient 
+        
+        for time values from 0.0 - 1.0
+
+        where 1.0 is the time at which the particle spawns and 0.0 is where the particle dies
 
         the gradient must contain colors at given time in seconds
 
@@ -323,17 +320,17 @@ namespace igor
         */
         void getEmissionGradient(iaGradientf &emissionGradient) const;
 
-        /*! sets visible gradient for particles per frame
+        /*! sets min max age gradient for particles depending on their spawn time
 
-        \param visibleGradient the visible gradient
+        \param ageGradient the max age gradient
         */
-        void setStartVisibleTimeGradient(const iaGradientVector2f &visibleGradient);
+        void setStartAgeGradient(const iaGradientVector2f &ageGradient);
 
         /*! returns the emission gradient
 
-        \param[out] visibleGradient out value for the visible gradient
+        \param[out] ageGradient out value for the max age gradient
         */
-        void getStartVisibleTimeGradient(iaGradientVector2f &visibleGradient) const;
+        void getStartAgeGradient(iaGradientVector2f &ageGradient) const;
 
         /*! sets size scale gradient for particles per frame
 
@@ -421,6 +418,18 @@ namespace igor
         /*! \returns velocity oriented flag
          */
         bool getVelocityOriented() const;
+
+        /*! sets the increment the tile index is progressing per frame (default = 0.0)
+
+        franctional values are allowed
+
+        \param tileIncrement the tile increment to use
+        */
+        void setTileIncrement(float32 tileIncrement);
+
+        /*! \returns tile increment
+        */
+        float32 getTileIncrement() const;
 
         /*! sets the air drag
 
@@ -547,9 +556,9 @@ namespace igor
          */
         iaGradientf _sizeScaleGradient;
 
-        /*! start visible time gradient
+        /*! start min/max age gradient
          */
-        iaGradientVector2f _startVisibleTimeGradient;
+        iaGradientVector2f _startAgeGradient;
 
         /*! min max start orientation of particles
          */
@@ -586,12 +595,6 @@ namespace igor
         /*! particle system period time in ms
          */
         iaTime _particleSystemPeriodTime = iaTime::fromSeconds(2.0);
-
-        /*! life time of any particle
-
-        calculated based on longest visible time
-        */
-        float32 _lifeTime = 0.0;
 
         /*! air drag for particles
          */
@@ -666,6 +669,10 @@ namespace igor
         /*! vertex array for rendering
         */
         iVertexArrayPtr _vertexArray;
+
+        /*! tile increment per frame
+        */
+        float32 _tileIncrement = 0.0;
 
         /*! particle vertex which will be feed in to a geometry shader
          */

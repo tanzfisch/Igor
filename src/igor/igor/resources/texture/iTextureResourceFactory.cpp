@@ -111,6 +111,7 @@ namespace igor
 
         _whiteTexture->_valid = true;
         _whiteTexture->_processed = true;
+        _whiteTexture->_useFallback = false;
 
         int64 hashValue = calcHashValue(_whiteTexture->getFilename(), _whiteTexture->_cacheMode, _whiteTexture->_buildMode, _whiteTexture->_wrapMode);
         _textures[hashValue] = _whiteTexture;
@@ -135,6 +136,7 @@ namespace igor
 
         _blackTexture->_valid = true;
         _blackTexture->_processed = true;
+        _blackTexture->_useFallback = false;
 
         int64 hashValue = calcHashValue(_blackTexture->getFilename(), _blackTexture->_cacheMode, _blackTexture->_buildMode, _blackTexture->_wrapMode);
         _textures[hashValue] = _blackTexture;

@@ -86,10 +86,10 @@ void main() {
     mat4 MV = igor_modelView;
     float size = vertex[0].lifeSizeAngleTileIndex.y;
     float angle = vertex[0].lifeSizeAngleTileIndex.z;
-    float tileIndex = vertex[0].lifeSizeAngleTileIndex.w;    
+    float tileIndex = int(vertex[0].lifeSizeAngleTileIndex.w);
 
     float tileY = int(tileIndex / igor_configTiling.x);
-    float tileX = tileIndex - (tileY * igor_configTiling.x);
+    float tileX = tileIndex - (tileY * igor_configTiling.y);
 
     float tileSizeX = 1.0 / igor_configTiling.x;
     float tileSizeY = 1.0 / igor_configTiling.y;
@@ -157,11 +157,15 @@ in vec2 Vertex_UV;
 layout (location = 0) out vec4 out_color;
 
 layout (binding = 0) uniform sampler2D igor_matTexture0;
+layout (binding = 1) uniform sampler2D igor_matTexture1;
+layout (binding = 2) uniform sampler2D igor_matTexture2;
 
 void main()
 {
     vec4 color = Vertex_Color;
-    color *= texture2D(igor_matTexture0, Vertex_UV).rgba;
+    color *= texture2D(igor_matTexture0, Vertex_UV);
+    color *= texture2D(igor_matTexture1, Vertex_UV);
+    color *= texture2D(igor_matTexture2, Vertex_UV);
     out_color = color;
 }]]>
             </Fragment>

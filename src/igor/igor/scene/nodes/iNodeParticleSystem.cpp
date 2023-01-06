@@ -23,6 +23,10 @@ namespace igor
         _nodeKind = iNodeKind::Volume;
 
         _targetMaterial = iTargetMaterial::create();
+
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 0);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 1);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 2);
     }
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem *node)
@@ -105,14 +109,7 @@ namespace igor
     {
         handle();
 
-        if (_particleSystem.getVertexArray() == nullptr)
-        {
-            return;
-        }
-
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
-
-        _targetMaterial->setVelocityOriented(_particleSystem.getVelocityOriented());
         iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _targetMaterial);
     }
 
@@ -349,14 +346,14 @@ namespace igor
         _particleSystem.getEmissionGradient(emissionGradient);
     }
 
-    void iNodeParticleSystem::setStartVisibleTimeGradient(const iaGradientVector2f &visibleGradient)
+    void iNodeParticleSystem::setStartAgeGradient(const iaGradientVector2f &visibleGradient)
     {
-        _particleSystem.setStartVisibleTimeGradient(visibleGradient);
+        _particleSystem.setStartAgeGradient(visibleGradient);
     }
 
-    void iNodeParticleSystem::getStartVisibleTimeGradient(iaGradientVector2f &visibleGradient) const
+    void iNodeParticleSystem::getStartAgeGradient(iaGradientVector2f &visibleGradient) const
     {
-        _particleSystem.getStartVisibleTimeGradient(visibleGradient);
+        _particleSystem.getStartAgeGradient(visibleGradient);
     }
 
     void iNodeParticleSystem::setStartOrientationGradient(const iaGradientVector2f &orientationGradient)
@@ -382,6 +379,7 @@ namespace igor
     void iNodeParticleSystem::setVelocityOriented(bool velocityOriented)
     {
         _particleSystem.setVelocityOriented(velocityOriented);
+        _targetMaterial->setVelocityOriented(velocityOriented);
     }
 
     bool iNodeParticleSystem::getVelocityOriented() const
@@ -404,4 +402,15 @@ namespace igor
     {
         return _particleSystem.getTextureRows();
     }
+
+    void iNodeParticleSystem::setTileIncrement(float32 tileIncrement)
+    {
+        _particleSystem.setTileIncrement(tileIncrement);
+    }
+
+    float32 iNodeParticleSystem::getTileIncrement() const
+    {
+        return _particleSystem.getTileIncrement();
+    }
+
 } // namespace igor
