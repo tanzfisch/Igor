@@ -23,6 +23,10 @@ namespace igor
         _nodeKind = iNodeKind::Volume;
 
         _targetMaterial = iTargetMaterial::create();
+
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 0);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 1);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 2);
     }
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem *node)

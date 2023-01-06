@@ -465,11 +465,18 @@ namespace igor
             }
 
             iaTime particleSystemTime = _playbackTime - _startTime;
-
-            if (particleSystemTime >= _particleSystemPeriodTime && !_loop)
+            
+            if (particleSystemTime >= _particleSystemPeriodTime)
             {
-                _finished = true;
-                _running = false;
+                if (_loop)
+                {
+                    start();
+                }
+                else
+                {
+                    _finished = true;
+                    _running = false;
+                }
             }
 
             while (_playbackTime <= frameTime)

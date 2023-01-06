@@ -251,8 +251,8 @@ void Particles::createRingParticleSystem()
     ringColors.setValue(0.33f, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
     ringColors.setValue(0.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
-    iaGradientVector2f visibility;
-    visibility.setValue(0.0f, iaVector2f(3.5f, 4.0f));
+    iaGradientVector2f age;
+    age.setValue(0.0f, iaVector2f(4.0f, 4.0f));
 
     iaGradientf emission;
     emission.setValue(0.0f, 10.0f);
@@ -269,12 +269,13 @@ void Particles::createRingParticleSystem()
 
     iNodeParticleSystem *circleParticleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(circleParticleSystem->getID());
+    circleParticleSystem->setMaxParticleCount(500);
     circleParticleSystem->setMaterial(_particlesMaterial);
     circleParticleSystem->setTextureA("particleGem.png");
     circleParticleSystem->setTextureB("octave1.png");
     circleParticleSystem->setColorGradient(ringColors);
     circleParticleSystem->setEmissionGradient(emission);
-    circleParticleSystem->setStartAgeGradient(visibility);
+    circleParticleSystem->setStartAgeGradient(age);
     circleParticleSystem->setStartSizeGradient(startSize);
     circleParticleSystem->setStartOrientationRateGradient(startOrientationRate);
     getScene()->getRoot()->insertNode(circleParticleSystem);

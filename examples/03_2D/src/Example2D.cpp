@@ -59,7 +59,7 @@ void Example2D::initParticleSystem()
     visibility.setValue(0.0f, iaVector2f(3.0f, 8.0f));
 
     iaGradientf emission;
-    emission.setValue(0.0, 5);
+    emission.setValue(0.0, 1);
 
     iaGradientVector2f velocity;
     velocity.setValue(0.0f, iaVector2f(4.0f, 9.0f));
@@ -69,7 +69,7 @@ void Example2D::initParticleSystem()
     lift.setValue(0.0f, iaVector2f(0.02f, 0.02f));
 
     iaGradientVector2f startSize;
-    startSize.setValue(0.0f, iaVector2f(15.0f, 25.0f));
+    startSize.setValue(0.0f, iaVector2f(40.0f, 40.0f));
 
     iaGradientf scaleSize;
     scaleSize.setValue(1.0f, 1.0f);
