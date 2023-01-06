@@ -1412,6 +1412,8 @@ namespace igor
 
         iaVector3f a, b, c, d;
 
+        const float32 spaceWidth = font->measureWidth(" ", fontSize);
+
         for (uint32 i = 0; i < text.getLength(); i++)
         {
             const wchar_t &character = text[i];
@@ -1422,6 +1424,11 @@ namespace igor
             {
                 renderPos._x = x;
                 renderPos._y += fontSize * fontLineHeight;
+                donotdraw = true;
+            }
+            else if (character == L'\t')
+            {
+                renderPos._x += spaceWidth * 4;
                 donotdraw = true;
             }
             else if (maxWidth != 0)

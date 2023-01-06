@@ -262,21 +262,34 @@ namespace igor
 
     void iWidgetDefaultTheme::drawTextEdit(const iaRectanglef &rect, const iaString &text, float32 maxwidth, iWidgetState state, bool active)
     {
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
+        // draw stencil pattern
+        iRenderer::getInstance().setStencilTestActive(true);
+        iRenderer::getInstance().setStencilFunction(iStencilFunction::Always, 1, 0xff);
+        iRenderer::getInstance().setStencilOperation(iStencilOperation::Keep, iStencilOperation::Keep, iStencilOperation::Replace);
+        iRenderer::getInstance().setStencilMask(0xff);
+
         iRenderer::getInstance().drawFilledRectangle(rect, active ? COLOR_SPECULAR : COLOR_DIFFUSE);
 
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
 
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
+        iRenderer::getInstance().setStencilMask(0xff);
+        iRenderer::getInstance().setStencilFunction(iStencilFunction::Equal, 1, 0xff);
 
         // render text
         iRenderer::getInstance().setFont(_font);
         iRenderer::getInstance().setFontSize(_fontSize);
         iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
 
-        iRenderer::getInstance().drawString(0.0, 0.0, text, active ? COLOR_TEXT_DARK : COLOR_AMBIENT, maxwidth);
+        iRenderer::getInstance().drawString(rect._x, rect._y, text, active ? COLOR_TEXT_DARK : COLOR_AMBIENT, maxwidth);
+
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
+        iRenderer::getInstance().setStencilTestActive(false);
     }
 
     void iWidgetDefaultTheme::drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool active)
@@ -295,13 +308,6 @@ namespace igor
         iRenderer::getInstance().setStencilMask(0xff);
 
         iRenderer::getInstance().drawFilledRectangle(rect, active ? COLOR_SPECULAR : COLOR_DIFFUSE);
-
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
 
         int32 relativeTextPosX = 0;
         int32 relatoveTextPosY = 0;
@@ -371,6 +377,13 @@ namespace igor
         iRenderer::getInstance().flush();
 
         iRenderer::getInstance().setStencilTestActive(false);
+
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);        
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }
