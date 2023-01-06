@@ -51,8 +51,8 @@ void Example2D::onInit()
 void Example2D::initParticleSystem()
 {
     iaGradientColor4f colors;
-    colors.setValue(1.0f, iaColor4f(0.0f, 0.4f, 1.0f, 0.7f));
-    colors.setValue(0.5f, iaColor4f(0.4f, 0.8f, 1.0f, 0.6f));
+    colors.setValue(1.0f, iaColor4f(0.0f, 0.4f, 1.0f, 1.0f));
+    colors.setValue(0.5f, iaColor4f(0.4f, 0.8f, 1.0f, 0.8f));
     colors.setValue(0.0f, iaColor4f(0.8f, 0.8f, 1.0f, 0.0f));
 
     iaGradientVector2f visibility;
@@ -95,6 +95,7 @@ void Example2D::initParticleSystem()
     _particleSystem.getEmitter().setWorldMatrix(matrix);
 
     _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("particleDot.png"), 0);
+    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("octave1.png"), 1);
 }
 
 void Example2D::onDeinit()

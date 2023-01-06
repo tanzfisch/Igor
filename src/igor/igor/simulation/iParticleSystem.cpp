@@ -455,8 +455,8 @@ namespace igor
 
         if (_running)
         {
-            iParticleSystem::iParticleVertex *vertexBufferDataPtr = _vertexBufferData;
-            iaTime frameTime = iTimer::getInstance().getTime();
+            const iaTime frameTime = iTimer::getInstance().getTime();
+            const iaTime frameTick = iaTime::fromMilliseconds(1000.0 / _simulationRate);
 
             // ignore hickups
             if (frameTime - _playbackTime > iaTime::fromMilliseconds(100))
@@ -466,6 +466,24 @@ namespace igor
 
             iaTime particleSystemTime = _playbackTime - _startTime;
             
+            while (_playbackTime <= frameTime)
+            {
+                iterateFrame();
+
+                float32 emissionRate = 0.0f;
+                _emissionRateGradient.getValue(particleSystemTime.getSeconds(), emissionRate);
+                _emissionImpulseStack += emissionRate;
+                int32 createCount = static_cast<int32>(_emissionImpulseStack);
+                _emissionImpulseStack -= static_cast<float32>(createCount);
+                createParticles(createCount, emitter, particleSystemTime.getSeconds());
+
+                _playbackTime += frameTick;
+                particleSystemTime += frameTick;
+            }
+
+            updateBuffer();
+            updateBoundings();
+
             if (particleSystemTime >= _particleSystemPeriodTime)
             {
                 if (_loop)
@@ -478,24 +496,6 @@ namespace igor
                     _running = false;
                 }
             }
-
-            while (_playbackTime <= frameTime)
-            {
-                iterateFrame();
-
-                float32 emissionRate = 0.0f;
-                _emissionRateGradient.getValue(particleSystemTime.getSeconds(), emissionRate);
-                _emissionImpulseStack += emissionRate;
-                int32 createCount = static_cast<int32>(_emissionImpulseStack);
-                _emissionImpulseStack -= static_cast<float32>(createCount);
-                createParticles(createCount, emitter, particleSystemTime.getSeconds());
-
-                _playbackTime += iaTime::fromMilliseconds(1000.0 / _simulationRate);
-                particleSystemTime += iaTime::fromMilliseconds(1000.0 / _simulationRate); // TODO redundant
-            }
-
-            updateBuffer();
-            updateBoundings();
         }
     }
 

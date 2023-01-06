@@ -43,6 +43,7 @@ namespace igor
 
         iRenderer::getInstance().setMaterial(_particlesMaterial);
         _particleTargetMaterial->setVelocityOriented(_particleSystem.getVelocityOriented());
+        _particleTargetMaterial->setTilingConfig(iaVector2f(_particleSystem.getTextureColumns(), _particleSystem.getTextureRows()));
         iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _particleTargetMaterial);
 
         iRenderer::getInstance().setModelMatrix(modelMatrix);

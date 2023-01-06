@@ -89,7 +89,7 @@ void main() {
     float tileIndex = vertex[0].lifeSizeAngleTileIndex.w;    
 
     float tileY = int(tileIndex / igor_configTiling.x);
-    float tileX = tileIndex - (tileY * igor_configTiling.x);
+    float tileX = tileIndex - (tileY * igor_configTiling.y);
 
     float tileSizeX = 1.0 / igor_configTiling.x;
     float tileSizeY = 1.0 / igor_configTiling.y;
