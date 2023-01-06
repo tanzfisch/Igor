@@ -101,8 +101,8 @@ void Supremacy::updateViewRectangleSystem()
     const iaVector2d lastPlayerPosition = viewportComp._viewport.getCenter() + targetOffset;
     const iaVector2d diff = playerPosition - lastPlayerPosition;
 
-    const auto width = viewportComp._viewport.getWidth() * 0.5 * 0.6;
-    const auto height = viewportComp._viewport.getHeight() * 0.5 * 0.6;
+    const auto width = PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH * 0.5;
+    const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5;
 
     bool skipStep = false;
 
