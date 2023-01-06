@@ -64,8 +64,6 @@ namespace igor
 
         /*! sets data on buffer
 
-        Ideally only use this if the buffer is dynamic but generally it should always be safe to use
-
         \param size data size in bytes
         \param vertexData the vertex data
         */

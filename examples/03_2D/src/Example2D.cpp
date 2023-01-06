@@ -51,32 +51,36 @@ void Example2D::onInit()
 void Example2D::initParticleSystem()
 {
     iaGradientColor4f colors;
-    colors.setValue(0.0f, iaColor4f(0.0f, 0.4f, 1.0f, 0.7f));
-    colors.setValue(0.5f, iaColor4f(0.4f, 0.8f, 1.0f, 0.6f));
-    colors.setValue(1.0f, iaColor4f(0.8f, 0.8f, 1.0f, 0.0f));
+    colors.setValue(1.0f, iaColor4f(0.0f, 0.4f, 1.0f, 1.0f));
+    colors.setValue(0.5f, iaColor4f(0.4f, 0.8f, 1.0f, 0.8f));
+    colors.setValue(0.0f, iaColor4f(0.8f, 0.8f, 1.0f, 0.0f));
 
     iaGradientVector2f visibility;
     visibility.setValue(0.0f, iaVector2f(3.0f, 8.0f));
 
     iaGradientf emission;
-    emission.setValue(0.0, 5);
+    emission.setValue(0.0, 1);
 
     iaGradientVector2f velocity;
-    velocity.setValue(0.0f, iaVector2f(7.0f, 9.0f));
+    velocity.setValue(0.0f, iaVector2f(4.0f, 9.0f));
 
     // using positive lift here represents weight
     iaGradientVector2f lift;
     lift.setValue(0.0f, iaVector2f(0.02f, 0.02f));
 
     iaGradientVector2f startSize;
-    startSize.setValue(0.0f, iaVector2f(15.0f, 25.0f));
+    startSize.setValue(0.0f, iaVector2f(40.0f, 40.0f));
+
+    iaGradientf scaleSize;
+    scaleSize.setValue(1.0f, 1.0f);
+    scaleSize.setValue(0.0f, 3.0f);
 
     _particleSystem.getSystem().setMaxParticleCount(5000);
     _particleSystem.getSystem().setColorGradient(colors);
     _particleSystem.getSystem().setEmissionGradient(emission);
-    _particleSystem.getSystem().setStartVisibleTimeGradient(visibility);
-    _particleSystem.getSystem().setVelocityOriented();
+    _particleSystem.getSystem().setStartAgeGradient(visibility);
     _particleSystem.getSystem().setStartSizeGradient(startSize);
+    _particleSystem.getSystem().setSizeScaleGradient(scaleSize);
     _particleSystem.getSystem().setStartVelocityGradient(velocity);
     _particleSystem.getSystem().setStartLiftGradient(lift);
     _particleSystem.getSystem().setAirDrag(0.985f);
@@ -90,7 +94,8 @@ void Example2D::initParticleSystem()
     matrix.rotate(-130.0 / 180.0 * M_PI, iaAxis::Z);
     _particleSystem.getEmitter().setWorldMatrix(matrix);
 
-    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("particleTrail.png"), 0);
+    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("particleDot.png"), 0);
+    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("octave1.png"), 1);
 }
 
 void Example2D::onDeinit()

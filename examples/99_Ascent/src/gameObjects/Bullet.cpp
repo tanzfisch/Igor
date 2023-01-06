@@ -69,7 +69,7 @@ Bullet::Bullet(iScenePtr scene, const iaVector3d &addForce, const iaMatrixd &mat
     particleSystem->setTextureA("particleDot.png");
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
-    particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setStartAgeGradient(visibility);
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setPeriodTime(1.0);

@@ -325,8 +325,8 @@ namespace igor
         particleSystemNode->setSizeScaleGradient(sizeScaleGradient);
 
         iaGradientVector2f startVisibleTimeGradient;
-        particleSystemChunk->getStartVisibleTimeGradient(startVisibleTimeGradient);
-        particleSystemNode->setStartVisibleTimeGradient(startVisibleTimeGradient);
+        particleSystemChunk->getStartAgeGradient(startVisibleTimeGradient);
+        particleSystemNode->setStartAgeGradient(startVisibleTimeGradient);
 
         iaGradientVector2f orientationRateGradient;
         particleSystemChunk->getStartOrientationRateGradient(orientationRateGradient);
@@ -707,8 +707,8 @@ namespace igor
         result->setSizeScaleGradient(sizeScaleGradient);
 
         iaGradientVector2f startVisibleTimeGradient;
-        node->getStartVisibleTimeGradient(startVisibleTimeGradient);
-        result->setStartVisibleTimeGradient(startVisibleTimeGradient);
+        node->getStartAgeGradient(startVisibleTimeGradient);
+        result->setStartAgeGradient(startVisibleTimeGradient);
 
         iaGradientVector2f orientationRateGradient;
         node->getStartOrientationRateGradient(orientationRateGradient);

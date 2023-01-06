@@ -55,7 +55,7 @@ BulletHit::BulletHit(iScenePtr scene, const iaMatrixd &matrix)
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setVelocityOriented();
-    particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setStartAgeGradient(visibility);
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setPeriodTime(3.0);
