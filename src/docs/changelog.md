@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.35.0
+------
+
+- text edit widget has output only ready
+
 0.34.6
 ------
 
