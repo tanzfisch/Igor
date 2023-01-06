@@ -398,6 +398,8 @@ namespace igor
                 continue;
             }
 
+            particle._tilingIndex += _tileIncrement;
+
             const float32 normalizedAge = particle._lifeLeft / particle._maxAge;
 
             _sizeScaleGradient.getValue(normalizedAge, sizeScale);
@@ -457,7 +459,7 @@ namespace igor
         {
             const iaTime frameTime = iTimer::getInstance().getTime();
             const iaTime frameTick = iaTime::fromMilliseconds(1000.0 / _simulationRate);
-
+            
             // ignore hickups
             if (frameTime - _playbackTime > iaTime::fromMilliseconds(100))
             {
@@ -465,7 +467,7 @@ namespace igor
             }
 
             iaTime particleSystemTime = _playbackTime - _startTime;
-            
+
             while (_playbackTime <= frameTime)
             {
                 iterateFrame();
@@ -692,6 +694,16 @@ namespace igor
     {
         _vorticityConfinement = vc;
         _mustReset = true;
+    }
+
+    void iParticleSystem::setTileIncrement(float32 tileIncrement)
+    {
+        _tileIncrement = tileIncrement;
+    }
+
+    float32 iParticleSystem::getTileIncrement() const
+    {
+        return _tileIncrement;
     }
 
 }; // namespace igor

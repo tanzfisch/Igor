@@ -151,7 +151,7 @@ void Particles::createFireParticleSystem()
     maxAge.setValue(0.0f, iaVector2f(0.2f, 0.5f));
 
     iaGradientf emission;
-    emission.setValue(0.0f, 3.0f);
+    emission.setValue(0.0f, 2.0f);
 
     iaGradientVector2f velocity;
     velocity.setValue(0.0f, iaVector2f(0.4f, 0.7f));
@@ -163,6 +163,7 @@ void Particles::createFireParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleFire.png");
+    particleSystem->setTileIncrement(0.8);
     particleSystem->setMaxParticleCount(200);
     particleSystem->setTextureTiling(4, 4);
     particleSystem->setColorGradient(colors);

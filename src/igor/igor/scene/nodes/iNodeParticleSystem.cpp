@@ -408,4 +408,15 @@ namespace igor
     {
         return _particleSystem.getTextureRows();
     }
+
+    void iNodeParticleSystem::setTileIncrement(float32 tileIncrement)
+    {
+        _particleSystem.setTileIncrement(tileIncrement);
+    }
+
+    float32 iNodeParticleSystem::getTileIncrement() const
+    {
+        return _particleSystem.getTileIncrement();
+    }
+
 } // namespace igor

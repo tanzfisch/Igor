@@ -369,6 +369,18 @@ namespace igor
         */
         iaString getTextureC() const;
 
+        /*! sets the increment the tile index is progressing per frame (default = 0.0)
+
+        franctional values are allowed
+
+        \param tileIncrement the tile increment to use
+        */
+        void setTileIncrement(float32 tileIncrement);
+
+        /*! \returns tile increment
+        */
+        float32 getTileIncrement() const;        
+
         /*! register delegate to particle system finished event
 
         \param delegate the delegate to register

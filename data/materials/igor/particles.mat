@@ -86,7 +86,7 @@ void main() {
     mat4 MV = igor_modelView;
     float size = vertex[0].lifeSizeAngleTileIndex.y;
     float angle = vertex[0].lifeSizeAngleTileIndex.z;
-    float tileIndex = vertex[0].lifeSizeAngleTileIndex.w;    
+    float tileIndex = int(vertex[0].lifeSizeAngleTileIndex.w);
 
     float tileY = int(tileIndex / igor_configTiling.x);
     float tileX = tileIndex - (tileY * igor_configTiling.y);

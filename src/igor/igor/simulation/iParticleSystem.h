@@ -419,6 +419,18 @@ namespace igor
          */
         bool getVelocityOriented() const;
 
+        /*! sets the increment the tile index is progressing per frame (default = 0.0)
+
+        franctional values are allowed
+
+        \param tileIncrement the tile increment to use
+        */
+        void setTileIncrement(float32 tileIncrement);
+
+        /*! \returns tile increment
+        */
+        float32 getTileIncrement() const;
+
         /*! sets the air drag
 
         0.0-1.0
@@ -657,6 +669,10 @@ namespace igor
         /*! vertex array for rendering
         */
         iVertexArrayPtr _vertexArray;
+
+        /*! tile increment per frame
+        */
+        float32 _tileIncrement = 0.0;
 
         /*! particle vertex which will be feed in to a geometry shader
          */
