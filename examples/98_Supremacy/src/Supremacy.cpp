@@ -29,6 +29,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<ExperienceComponent>(0.0);
+    entity.addComponent<CoinsComponent>(0.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
     weapon._time = iTimer::getInstance().getTime();
@@ -63,6 +64,29 @@ iEntity Supremacy::createViewport(iEntityID targetID)
     viewportComp._viewport.setCenter(targetPosition);
 
     return entity;
+}
+
+void Supremacy::createObject(const iaVector2d &pos, uint32 party, ObjectType objectType)
+{
+    iEntity entity = _entityScene.createEntity("object");
+    entity.addComponent<PositionComponent>(pos);
+    entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
+    auto size = entity.addComponent<SizeComponent>(COIN_SIZE);
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
+
+    entity.addComponent<PickupComponent>(true);
+    entity.addComponent<ExperienceGainComponent>(0.0f);
+    entity.addComponent<CoinGainComponent>(objectType == ObjectType::Coin ? 1 : 0);
+    entity.addComponent<DamageComponent>(0.0);
+    entity.addComponent<HealComponent>(0.0);
+
+    entity.addComponent<PartyComponent>(party);
+
+    auto &object = entity.addComponent<QuadtreeObjectComponent>();
+    object._object = std::make_shared<QuadtreeObject>();
+    object._object->_userData = entity.getID();
+    object._object->_circle.set(pos, size._size);
+    _quadtree.insert(object._object);
 }
 
 void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target)
@@ -171,10 +195,7 @@ void Supremacy::onSpawnStuff(const iaTime &time)
         return;
     }
 
-    con_endl("onSpawnStuff " << time.getSeconds());
-
     uint32 enemiesToCreate = std::min(5 + (time.getSeconds() * time.getSeconds()) * 0.001f, 100.0); // cap at 100
-    con_endl("new enemies:" << enemiesToCreate);
 
     PositionComponent &playerPosition = _player.getComponent<PositionComponent>();
 
@@ -213,6 +234,8 @@ void Supremacy::onUpdateStats(const iaTime &time)
     stats._playerDamage = weapon._damage / weapon._attackInterval.getSeconds();
     const auto &experience = _player.getComponent<ExperienceComponent>();
     stats._playerExperience = experience._experience;
+    const auto &coins = _player.getComponent<CoinsComponent>();
+    stats._playerCoins = coins._coins;
 
     _stats.push_back(stats);
 }
@@ -545,7 +568,6 @@ void Supremacy::onUpdateFollowTargetSystem()
 
 void Supremacy::onUpdatePositionSystem()
 {
-    // move entity
     auto positionUpdateView = _entityScene.getEntities<PositionComponent, SizeComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
     for (auto entityID : positionUpdateView)
     {
@@ -572,32 +594,14 @@ void Supremacy::onUpdatePositionSystem()
                 continue;
             }
 
-            // get other entity
-            iEntity otherEntity(object->_userData, _entityScene);
-
-            // check if we do damage to other entity
-            auto *otherEntityParty = otherEntity.tryGetComponent<PartyComponent>();
-            if (otherEntityParty != nullptr &&
-                otherEntityParty->_partyID != party._partyID)
-            {
-                auto *otherEntityHealth = otherEntity.tryGetComponent<HealthComponent>();
-                if (otherEntityHealth != nullptr)
-                {
-                    otherEntityHealth->_health -= damage._damage;
-                }
-
-                // destroy your self on impact (no friendly fire)
-                if (health._destroyOnImpact)
-                {
-                    health._health = 0.0;
-                }
-            }
-
             // don't calculate diversion if non blockable
             if (vel._nonBlockable)
             {
                 continue;
             }
+
+            // get other entity
+            iEntity otherEntity(object->_userData, _entityScene);
 
             // ignore other entity for diversion if non blockable
             auto *otherEntityVel = otherEntity.tryGetComponent<VelocityComponent>();
@@ -649,6 +653,55 @@ void Supremacy::onUpdatePositionSystem()
         if (position._y < 0)
         {
             position._y += PLAYFIELD_HEIGHT;
+        }
+    }
+}
+
+void Supremacy::onUpdateCollisionSystem()
+{
+    auto positionUpdateView = _entityScene.getEntities<PositionComponent, SizeComponent, PartyComponent, DamageComponent, HealthComponent>();
+    for (auto entityID : positionUpdateView)
+    {
+        auto [pos, size, party, damage, health] = positionUpdateView.get<PositionComponent, SizeComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
+
+        iaVector2d &position = pos._position;
+        const float64 radius = size._size * 0.5;
+
+        iaCircled circle(position, radius);
+        QuadtreeObjects objects;
+        _quadtree.query(circle, objects);
+
+        iEntity entity(entityID, _entityScene);
+
+        for (const auto &object : objects)
+        {
+            // skip self
+            if (object->_userData == entityID)
+            {
+                continue;
+            }
+
+            // get other entity
+            iEntity otherEntity(object->_userData, _entityScene);
+
+            // check if we do damage to other entity
+            auto *otherEntityParty = otherEntity.tryGetComponent<PartyComponent>();
+            if (otherEntityParty != nullptr)
+            {
+                if (otherEntityParty->_partyID != party._partyID)
+                {
+                    auto *otherEntityHealth = otherEntity.tryGetComponent<HealthComponent>();
+                    if (otherEntityHealth != nullptr)
+                    {
+                        otherEntityHealth->_health -= damage._damage;
+                    }
+                    
+                    if (health._destroyOnImpact)
+                    {
+                        health._health = 0.0;
+                    }
+                }
+            }
         }
     }
 }
@@ -708,6 +761,59 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     }
 }
 
+void Supremacy::onUpdatePickupSystem(iEntity &entity)
+{
+    if (!entity.isValid())
+    {
+        return;
+    }
+
+    // aquire target for player
+    auto &position = entity.getComponent<PositionComponent>();
+    auto &experience = entity.getComponent<ExperienceComponent>();
+    auto &coins = entity.getComponent<CoinsComponent>();
+    auto &health = entity.getComponent<HealthComponent>();
+
+    const float32 pickupRange = 100;
+
+    iaCircled circle(position._position, pickupRange);
+    std::vector<std::pair<iEntityID, iaVector2d>> hits;
+    doughnutQuery(circle, hits);
+
+    for (const auto &hit : hits)
+    {
+        if (hit.first == entity.getID())
+        {
+            continue;
+        }
+
+        iEntity entity(hit.first, _entityScene);
+
+        auto *pickup = entity.tryGetComponent<PickupComponent>();
+        if(pickup == nullptr)
+        {
+            continue;
+        }
+
+        auto &expGain = entity.getComponent<ExperienceGainComponent>();
+        experience._experience += expGain._experience;
+
+        auto &coinGain = entity.getComponent<CoinGainComponent>();
+        coins._coins += coinGain._coins;
+
+        auto &damage = entity.getComponent<DamageComponent>();
+        health._health -= damage._damage;
+
+        auto &heal = entity.getComponent<HealComponent>();
+        health._health += heal._heal;
+
+        auto &object = entity.getComponent<QuadtreeObjectComponent>();
+
+        _quadtree.remove(object._object);
+        _entityScene.destroyEntity(hit.first);        
+    }
+}
+
 void Supremacy::aquireTargetFor(iEntity &entity)
 {
     if (!entity.isValid())
@@ -739,6 +845,7 @@ void Supremacy::aquireTargetFor(iEntity &entity)
 
         auto *entParty = entity.tryGetComponent<PartyComponent>();
         if (entParty == nullptr ||
+            entParty->_partyID == NEUTRAL ||
             entParty->_partyID == party._partyID)
         {
             continue;
@@ -851,6 +958,12 @@ void Supremacy::onUpdateCleanUpTheDeadSystem()
                 {
                     playerExperience._experience += exp->_experience;
                 }
+
+                const auto *pos = entity.tryGetComponent<PositionComponent>();
+                if (pos != nullptr)
+                {
+                    createObject(pos->_position, NEUTRAL, ObjectType::Coin);
+                }
             }
 
             _quadtree.remove(object._object);
@@ -866,8 +979,10 @@ void Supremacy::onUpdate(const iaTime &time)
     onUpdateFollowTargetSystem();
     onUpdateOrientationSystem();
     onUpdatePositionSystem();
-
+    onUpdateCollisionSystem();
+    
     aquireTargetFor(_player);
+    onUpdatePickupSystem(_player);
 
     onUpdateWeaponSystem();
 
@@ -936,6 +1051,7 @@ void Supremacy::onRenderHUD()
 
     auto &healthComp = _player.getComponent<HealthComponent>();
     auto &playerExperience = _player.getComponent<ExperienceComponent>();
+    auto &playerCoins = _player.getComponent<CoinsComponent>();
 
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
@@ -945,6 +1061,7 @@ void Supremacy::onRenderHUD()
     iRenderer::getInstance().setFontSize(15.0f);
     iRenderer::getInstance().drawString(10, 10, iaString::toString(healthComp._health, 0));
     iRenderer::getInstance().drawString(10, 40, iaString::toString(playerExperience._experience, 0));
+    iRenderer::getInstance().drawString(10, 70, iaString::toString(playerCoins._coins, 0));
 }
 
 void Supremacy::onRenderOrtho()

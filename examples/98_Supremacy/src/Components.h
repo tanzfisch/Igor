@@ -98,6 +98,16 @@ struct HealthComponent
     bool _destroyOnImpact = false;
 };
 
+struct PickupComponent
+{
+    bool _canBePickedUp = true;
+};
+
+struct HealComponent
+{
+    float64 _heal = 0;
+};
+
 struct DamageComponent
 {
     float64 _damage = 0;
@@ -113,9 +123,19 @@ struct ExperienceComponent
     float64 _experience = 0;
 };
 
+struct CoinsComponent
+{
+    float64 _coins = 0;
+};
+
 struct ExperienceGainComponent
 {
     float64 _experience = 0;
+};
+
+struct CoinGainComponent
+{
+    float64 _coins = 0;
 };
 
 struct VisualComponent
@@ -190,6 +210,11 @@ struct WeaponComponent
     /*! keeps track of cool down
      */
     iaTime _time;
+};
+
+enum class ObjectType
+{
+    Coin
 };
 
 #endif // __SUPREMACY_COMPONENTS__

@@ -157,6 +157,8 @@ private:
 
     void createUnit(const iaVector2d &pos, uint32 party, iEntityID target);
 
+    void createObject(const iaVector2d &pos, uint32 party, ObjectType objectType);
+
     void onUpdateQuadtreeSystem();
 
     void onUpdateMovementControlSystem();
@@ -164,6 +166,10 @@ private:
     void onUpdateFollowTargetSystem();
 
     void onUpdatePositionSystem();
+
+    void onUpdateCollisionSystem();
+
+    void onUpdatePickupSystem(iEntity &entity);
 
     void onUpdateRangeSystem();
 
@@ -197,6 +203,7 @@ private:
     {
         float32 _playerDamage;
         float32 _playerExperience;
+        float32 _playerCoins;
         float32 _enemyHealth;
     };
 
