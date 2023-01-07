@@ -211,7 +211,7 @@ private:
 
     std::vector<GameStats> _stats;
 
-    std::vector<std::pair<iEntityID, std::shared_ptr<iQuadtreeObject<float64, iEntityID>>>> _deleteQueue;
+    std::set<iEntityID> _deleteQueue;
 };
 
 #endif // __SUPREMACY__
