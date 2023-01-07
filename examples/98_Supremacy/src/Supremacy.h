@@ -103,9 +103,13 @@ private:
     */
     bool _gamePause = false;
 
+    std::vector<uint32> _expLvl;
+
     /*! called when added to layer stack
      */
     void onInit() override;
+
+    void initExpLvlTable();
 
     /*! called when removed from layer stack
      */

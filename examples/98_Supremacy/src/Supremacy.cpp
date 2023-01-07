@@ -186,6 +186,22 @@ void Supremacy::onInit()
 
     // init font for render profiler
     _font = iTextureFont::create("StandardFont.png");
+
+    initExpLvlTable();
+}
+
+void Supremacy::initExpLvlTable()
+{
+    float64 base = 2;
+    uint32 xp = 100;
+    float32 multiplier = 1.2;
+    for (int x = 1; x <= 200; ++x)
+    {
+        con_endl("level " << x << " xp " << xp);
+        _expLvl.push_back(xp);
+
+        xp *= multiplier;
+    }
 }
 
 void Supremacy::onSpawnStuff(const iaTime &time)
@@ -696,7 +712,8 @@ void Supremacy::onUpdateCollisionSystem()
                         otherEntityHealth->_health -= damage._damage;
                     }
 
-                    if (health._destroyOnImpact)
+                    if (otherEntityParty->_partyID != NEUTRAL &&
+                        health._destroyOnImpact)
                     {
                         health._health = 0.0;
                     }
@@ -971,7 +988,7 @@ void Supremacy::onUpdateCleanUpTheDeadSystem()
     {
         iEntity entity(entityID, _entityScene);
         auto *qud = entity.tryGetComponent<QuadtreeObjectComponent>();
-        if(qud != nullptr)
+        if (qud != nullptr)
         {
             _quadtree.remove(qud->_object);
         }
@@ -1032,7 +1049,7 @@ void Supremacy::onEvent(iEvent &event)
 void Supremacy::onRenderStats()
 {
     iaMatrixd matrix;
-    matrix.translate(0, 0, -1);    
+    matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
 
     std::vector<iaVector3f> playerDamage;
@@ -1057,11 +1074,52 @@ void Supremacy::onRenderStats()
     iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 0, 1));
     iRenderer::getInstance().drawLineStrip(playerExperience, iaColor4f(0, 0, 1, 1));
     iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 1, 1, 1));
+
+    std::vector<iaVector3f> experienceLevel;
+
+    x = 10.0f;
+
+    uint32 maxValue;
+    for (auto xp : _expLvl)
+    {
+        if(xp > maxValue)
+        {
+            maxValue = xp;
+        }
+    }
+    const float32 scale = 800.0f / maxValue;
+
+    for (auto xp : _expLvl)
+    {
+
+        playerDamage.push_back(iaVector3f(x, y - xp * scale, 0.0));
+        x += 5.0f;
+    }
+
+    iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 1, 1));
 }
 
 uint32 Supremacy::calcLevel(uint32 experience)
 {
-    return uint32(sqrt(experience) * 0.1) + 1;
+    uint32 level = 1;
+
+    for (int i = 0; i < _expLvl.size() - 1; ++i)
+    {
+        if (experience < _expLvl[i])
+        {
+            break;
+        }
+
+        if (experience >= _expLvl[i] &&
+            experience < _expLvl[i + 1])
+        {
+            break;
+        }
+
+        level++;
+    }
+
+    return level;
 }
 
 void Supremacy::onRenderHUD()
