@@ -807,9 +807,7 @@ void Supremacy::onUpdatePickupSystem(iEntity &entity)
         auto &heal = entity.getComponent<HealComponent>();
         health._health += heal._heal;
 
-        auto &object = entity.getComponent<QuadtreeObjectComponent>();
-
-        // _deleteQueue.push_back({hit.first, object._object});
+        _deleteQueue.insert(hit.first);
     }
 }
 
@@ -965,17 +963,20 @@ void Supremacy::onUpdateCleanUpTheDeadSystem()
                 }
             }
 
-            _deleteQueue.push_back({entityID, object._object});
+            _deleteQueue.insert(entityID);
         }
     }
 
-    for (const auto &pair : _deleteQueue)
+    for (const auto &entityID : _deleteQueue)
     {
-        if(pair.second != nullptr)
+        iEntity entity(entityID, _entityScene);
+        auto *qud = entity.tryGetComponent<QuadtreeObjectComponent>();
+        if(qud != nullptr)
         {
-            _quadtree.remove(pair.second);
+            _quadtree.remove(qud->_object);
         }
-        _entityScene.destroyEntity(pair.first);
+
+        _entityScene.destroyEntity(entityID);
     }
 
     _deleteQueue.clear();
@@ -1030,6 +1031,10 @@ void Supremacy::onEvent(iEvent &event)
 
 void Supremacy::onRenderStats()
 {
+    iaMatrixd matrix;
+    matrix.translate(0, 0, -1);    
+    iRenderer::getInstance().setModelMatrix(matrix);
+
     std::vector<iaVector3f> playerDamage;
     std::vector<iaVector3f> playerExperience;
     std::vector<iaVector3f> playerLevel;
