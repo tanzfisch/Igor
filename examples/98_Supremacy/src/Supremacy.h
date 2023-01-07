@@ -199,6 +199,8 @@ private:
     bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
     bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
 
+    uint32 calcLevel(uint32 experience);
+
     struct GameStats
     {
         float32 _playerDamage;
@@ -208,6 +210,8 @@ private:
     };
 
     std::vector<GameStats> _stats;
+
+    std::vector<std::pair<iEntityID, std::shared_ptr<iQuadtreeObject<float64, iEntityID>>>> _deleteQueue;
 };
 
 #endif // __SUPREMACY__

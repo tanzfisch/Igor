@@ -218,7 +218,7 @@ void Supremacy::onUpdateStats(const iaTime &time)
         return;
     }
 
-    GameStats stats = {0.0f, 0.0f};
+    GameStats stats;
     auto view = _entityScene.getEntities<HealthComponent, PartyComponent>();
     for (auto entityID : view)
     {
@@ -695,7 +695,7 @@ void Supremacy::onUpdateCollisionSystem()
                     {
                         otherEntityHealth->_health -= damage._damage;
                     }
-                    
+
                     if (health._destroyOnImpact)
                     {
                         health._health = 0.0;
@@ -774,7 +774,7 @@ void Supremacy::onUpdatePickupSystem(iEntity &entity)
     auto &coins = entity.getComponent<CoinsComponent>();
     auto &health = entity.getComponent<HealthComponent>();
 
-    const float32 pickupRange = 100;
+    const float32 pickupRange = 40;
 
     iaCircled circle(position._position, pickupRange);
     std::vector<std::pair<iEntityID, iaVector2d>> hits;
@@ -790,7 +790,7 @@ void Supremacy::onUpdatePickupSystem(iEntity &entity)
         iEntity entity(hit.first, _entityScene);
 
         auto *pickup = entity.tryGetComponent<PickupComponent>();
-        if(pickup == nullptr)
+        if (pickup == nullptr)
         {
             continue;
         }
@@ -809,8 +809,7 @@ void Supremacy::onUpdatePickupSystem(iEntity &entity)
 
         auto &object = entity.getComponent<QuadtreeObjectComponent>();
 
-        _quadtree.remove(object._object);
-        _entityScene.destroyEntity(hit.first);        
+        // _deleteQueue.push_back({hit.first, object._object});
     }
 }
 
@@ -966,10 +965,20 @@ void Supremacy::onUpdateCleanUpTheDeadSystem()
                 }
             }
 
-            _quadtree.remove(object._object);
-            _entityScene.destroyEntity(entityID);
+            _deleteQueue.push_back({entityID, object._object});
         }
     }
+
+    for (const auto &pair : _deleteQueue)
+    {
+        if(pair.second != nullptr)
+        {
+            _quadtree.remove(pair.second);
+        }
+        _entityScene.destroyEntity(pair.first);
+    }
+
+    _deleteQueue.clear();
 }
 
 void Supremacy::onUpdate(const iaTime &time)
@@ -980,7 +989,7 @@ void Supremacy::onUpdate(const iaTime &time)
     onUpdateOrientationSystem();
     onUpdatePositionSystem();
     onUpdateCollisionSystem();
-    
+
     aquireTargetFor(_player);
     onUpdatePickupSystem(_player);
 
@@ -1023,6 +1032,7 @@ void Supremacy::onRenderStats()
 {
     std::vector<iaVector3f> playerDamage;
     std::vector<iaVector3f> playerExperience;
+    std::vector<iaVector3f> playerLevel;
     std::vector<iaVector3f> enemyHealth;
 
     float32 x = 10.0f;
@@ -1030,8 +1040,9 @@ void Supremacy::onRenderStats()
 
     for (const auto &data : _stats)
     {
-        playerDamage.push_back(iaVector3f(x, y - data._playerDamage * 1.0, 0.0));
+        playerDamage.push_back(iaVector3f(x, y - data._playerDamage * 0.1, 0.0));
         playerExperience.push_back(iaVector3f(x, y - data._playerExperience * 0.1, 0.0));
+        playerLevel.push_back(iaVector3f(x, y - float32(calcLevel(data._playerExperience)) * 20.0, 0.0));
         enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.1, 0.0));
         x += 1.0f;
     }
@@ -1040,6 +1051,12 @@ void Supremacy::onRenderStats()
     iRenderer::getInstance().drawLineStrip(enemyHealth, iaColor4f(1, 0, 0, 1));
     iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 0, 1));
     iRenderer::getInstance().drawLineStrip(playerExperience, iaColor4f(0, 0, 1, 1));
+    iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 1, 1, 1));
+}
+
+uint32 Supremacy::calcLevel(uint32 experience)
+{
+    return uint32(sqrt(experience) * 0.1) + 1;
 }
 
 void Supremacy::onRenderHUD()
@@ -1060,7 +1077,8 @@ void Supremacy::onRenderHUD()
     iRenderer::getInstance().setFont(_font);
     iRenderer::getInstance().setFontSize(15.0f);
     iRenderer::getInstance().drawString(10, 10, iaString::toString(healthComp._health, 0));
-    iRenderer::getInstance().drawString(10, 40, iaString::toString(playerExperience._experience, 0));
+    iRenderer::getInstance().drawString(10, 40, iaString::toString(calcLevel(playerExperience._experience)));
+    iRenderer::getInstance().drawString(40, 40, iaString::toString(playerExperience._experience, 0));
     iRenderer::getInstance().drawString(10, 70, iaString::toString(playerCoins._coins, 0));
 }
 
