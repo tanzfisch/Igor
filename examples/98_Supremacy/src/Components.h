@@ -110,7 +110,7 @@ struct HealComponent
 
 struct DamageComponent
 {
-    float64 _damage = 0;
+    float64 _damage = 0.0;
 };
 
 struct PartyComponent
@@ -120,7 +120,7 @@ struct PartyComponent
 
 struct ExperienceComponent
 {
-    float64 _experience = 0;
+    float64 _experience = 0.0;
 };
 
 struct CoinsComponent
@@ -130,12 +130,12 @@ struct CoinsComponent
 
 struct ExperienceGainComponent
 {
-    float64 _experience = 0;
+    float64 _experience = 0.0;
 };
 
 struct CoinGainComponent
 {
-    float64 _coins = 0;
+    float64 _coins = 0.0;
 };
 
 struct VisualComponent

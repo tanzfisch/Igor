@@ -99,6 +99,8 @@ private:
      */
     iTextureFontPtr _font;
 
+    iTexturePtr _coin;
+
     /*! if true game logic is on hold
     */
     bool _gamePause = false;
@@ -203,14 +205,14 @@ private:
     bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
     bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
 
-    uint32 calcLevel(uint32 experience);
+    void calcLevel(uint32 experience, uint32 &level, uint32 &lowerBounds, uint32 &upperBounds);
 
     struct GameStats
     {
-        float32 _playerDamage;
-        float32 _playerExperience;
-        float32 _playerCoins;
-        float32 _enemyHealth;
+        float32 _playerDamage = 0.0;
+        float32 _playerExperience = 0.0;
+        float32 _playerCoins = 0.0;
+        float32 _enemyHealth = 0.0;
     };
 
     std::vector<GameStats> _stats;

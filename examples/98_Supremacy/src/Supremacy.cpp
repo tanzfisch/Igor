@@ -75,8 +75,8 @@ void Supremacy::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
 
     entity.addComponent<PickupComponent>(true);
-    entity.addComponent<ExperienceGainComponent>(0.0f);
-    entity.addComponent<CoinGainComponent>(objectType == ObjectType::Coin ? 1 : 0);
+    entity.addComponent<ExperienceGainComponent>(0.0);
+    entity.addComponent<CoinGainComponent>(objectType == ObjectType::Coin ? 1.0 : 0.0);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealComponent>(0.0);
 
@@ -187,20 +187,37 @@ void Supremacy::onInit()
     // init font for render profiler
     _font = iTextureFont::create("StandardFont.png");
 
+    _coin = iTextureResourceFactory::getInstance().requestFile("coin.png");
+
     initExpLvlTable();
 }
 
 void Supremacy::initExpLvlTable()
 {
-    float64 base = 2;
-    uint32 xp = 100;
-    float32 multiplier = 1.2;
-    for (int x = 1; x <= 200; ++x)
+    float64 xp = 100.0;
+    for (int x = 1; x < 100; ++x)
     {
-        con_endl("level " << x << " xp " << xp);
-        _expLvl.push_back(xp);
+        _expLvl.push_back((uint32)xp);
 
-        xp *= multiplier;
+        if (x < 5)
+        {
+            xp *= 2.0;
+        }
+        else if (x < 10)
+        {
+            xp *= 1.5;
+        }
+        else
+        {
+            xp *= 1.1341;
+        }
+    }
+
+    _expLvl.push_back(1000000000);
+
+    for (auto val : _expLvl)
+    {
+        con_endl(val);
     }
 }
 
@@ -791,9 +808,7 @@ void Supremacy::onUpdatePickupSystem(iEntity &entity)
     auto &coins = entity.getComponent<CoinsComponent>();
     auto &health = entity.getComponent<HealthComponent>();
 
-    const float32 pickupRange = 40;
-
-    iaCircled circle(position._position, pickupRange);
+    iaCircled circle(position._position, 40.0);
     std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
 
@@ -1062,9 +1077,15 @@ void Supremacy::onRenderStats()
 
     for (const auto &data : _stats)
     {
+        uint32 level;
+        uint32 lowerBounds;
+        uint32 upperBounds;
+
+        calcLevel(data._playerExperience, level, lowerBounds, upperBounds);
+
         playerDamage.push_back(iaVector3f(x, y - data._playerDamage * 0.1, 0.0));
         playerExperience.push_back(iaVector3f(x, y - data._playerExperience * 0.1, 0.0));
-        playerLevel.push_back(iaVector3f(x, y - float32(calcLevel(data._playerExperience)) * 20.0, 0.0));
+        playerLevel.push_back(iaVector3f(x, y - float32(level) * 20.0, 0.0));
         enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.1, 0.0));
         x += 1.0f;
     }
@@ -1079,10 +1100,10 @@ void Supremacy::onRenderStats()
 
     x = 10.0f;
 
-    uint32 maxValue;
+    uint32 maxValue = 0;
     for (auto xp : _expLvl)
     {
-        if(xp > maxValue)
+        if (xp > maxValue)
         {
             maxValue = xp;
         }
@@ -1099,27 +1120,29 @@ void Supremacy::onRenderStats()
     iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 1, 1));
 }
 
-uint32 Supremacy::calcLevel(uint32 experience)
+void Supremacy::calcLevel(uint32 experience, uint32 &level, uint32 &lowerBounds, uint32 &upperBounds)
 {
-    uint32 level = 1;
+    level = 1;
+    lowerBounds = 0;
+    upperBounds = _expLvl.front();
+
+    if (experience < _expLvl.front())
+    {
+        return;
+    }
 
     for (int i = 0; i < _expLvl.size() - 1; ++i)
     {
-        if (experience < _expLvl[i])
-        {
-            break;
-        }
-
-        if (experience >= _expLvl[i] &&
-            experience < _expLvl[i + 1])
-        {
-            break;
-        }
-
         level++;
-    }
+        lowerBounds = _expLvl[i];
+        upperBounds = _expLvl[i+1];
 
-    return level;
+        if (experience >= lowerBounds &&
+            experience < upperBounds)
+        {
+            break;
+        }
+    }
 }
 
 void Supremacy::onRenderHUD()
@@ -1138,11 +1161,25 @@ void Supremacy::onRenderHUD()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     iRenderer::getInstance().setFont(_font);
-    iRenderer::getInstance().setFontSize(15.0f);
+    iRenderer::getInstance().setFontSize(20.0f);
     iRenderer::getInstance().drawString(10, 10, iaString::toString(healthComp._health, 0));
-    iRenderer::getInstance().drawString(10, 40, iaString::toString(calcLevel(playerExperience._experience)));
-    iRenderer::getInstance().drawString(40, 40, iaString::toString(playerExperience._experience, 0));
-    iRenderer::getInstance().drawString(10, 70, iaString::toString(playerCoins._coins, 0));
+
+    uint32 level;
+    uint32 lowerBounds;
+    uint32 upperBounds;
+
+    calcLevel(playerExperience._experience, level, lowerBounds, upperBounds);
+
+    float32 percentOfLevel = float32(playerExperience._experience - lowerBounds) / float32(upperBounds - lowerBounds);
+
+    iRenderer::getInstance().drawString(10, 40, "lvl");
+    iRenderer::getInstance().drawString(50, 40, iaString::toString(level));
+
+    iRenderer::getInstance().drawRectangle(10, 80, 310, 20, iaColor4f::white);
+    iRenderer::getInstance().drawFilledRectangle(10, 80, (300 * percentOfLevel) + 10, 20, iaColor4f::red);
+
+    iRenderer::getInstance().drawTexturedRectangle(10, 120, 40, 40, _coin, iaColor4f::white, true);
+    iRenderer::getInstance().drawString(60, 130, iaString::toString(playerCoins._coins, 0));
 }
 
 void Supremacy::onRenderOrtho()
