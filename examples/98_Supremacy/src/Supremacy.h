@@ -99,6 +99,8 @@ private:
      */
     iTextureFontPtr _font;
 
+    /*! coin texture
+    */
     iTexturePtr _coin;
 
     /*! if true game logic is on hold
@@ -205,12 +207,18 @@ private:
     bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
     bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
 
-    void calcLevel(uint32 experience, uint32 &level, uint32 &lowerBounds, uint32 &upperBounds);
+    float64 calcLevel(uint32 experience);
+    void addExperience(iEntity &entity, float64 experience);
+
+    /*! called on level up
+    */
+    void onLevelUp();
 
     struct GameStats
     {
         float32 _playerDamage = 0.0;
         float32 _playerExperience = 0.0;
+        float32 _playerLevel = 0.0;
         float32 _playerCoins = 0.0;
         float32 _enemyHealth = 0.0;
     };

@@ -121,6 +121,7 @@ struct PartyComponent
 struct ExperienceComponent
 {
     float64 _experience = 0.0;
+    float64 _level = 1.0;
 };
 
 struct CoinsComponent

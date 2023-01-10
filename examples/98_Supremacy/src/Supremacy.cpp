@@ -28,7 +28,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
-    entity.addComponent<ExperienceComponent>(0.0);
+    entity.addComponent<ExperienceComponent>(0.0, 1.0);
     entity.addComponent<CoinsComponent>(0.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
@@ -267,6 +267,7 @@ void Supremacy::onUpdateStats(const iaTime &time)
     stats._playerDamage = weapon._damage / weapon._attackInterval.getSeconds();
     const auto &experience = _player.getComponent<ExperienceComponent>();
     stats._playerExperience = experience._experience;
+    stats._playerLevel = experience._level;
     const auto &coins = _player.getComponent<CoinsComponent>();
     stats._playerCoins = coins._coins;
 
@@ -795,6 +796,20 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     }
 }
 
+void Supremacy::addExperience(iEntity &entity, float64 experience)
+{
+    auto &comp = entity.getComponent<ExperienceComponent>();
+
+    comp._experience += experience;
+    uint32 level = comp._level;
+    comp._level = calcLevel(comp._experience);
+
+    if(level < uint32(comp._level))
+    {
+        onLevelUp();        
+    }
+}
+
 void Supremacy::onUpdatePickupSystem(iEntity &entity)
 {
     if (!entity.isValid())
@@ -819,24 +834,24 @@ void Supremacy::onUpdatePickupSystem(iEntity &entity)
             continue;
         }
 
-        iEntity entity(hit.first, _entityScene);
+        iEntity otherEntity(hit.first, _entityScene);
 
-        auto *pickup = entity.tryGetComponent<PickupComponent>();
+        auto *pickup = otherEntity.tryGetComponent<PickupComponent>();
         if (pickup == nullptr)
         {
             continue;
         }
+        
+        auto &expGain = otherEntity.getComponent<ExperienceGainComponent>();
+        addExperience(entity, expGain._experience);
 
-        auto &expGain = entity.getComponent<ExperienceGainComponent>();
-        experience._experience += expGain._experience;
-
-        auto &coinGain = entity.getComponent<CoinGainComponent>();
+        auto &coinGain = otherEntity.getComponent<CoinGainComponent>();
         coins._coins += coinGain._coins;
 
-        auto &damage = entity.getComponent<DamageComponent>();
+        auto &damage = otherEntity.getComponent<DamageComponent>();
         health._health -= damage._damage;
 
-        auto &heal = entity.getComponent<HealComponent>();
+        auto &heal = otherEntity.getComponent<HealComponent>();
         health._health += heal._heal;
 
         _deleteQueue.insert(hit.first);
@@ -971,8 +986,6 @@ void Supremacy::onUpdateCleanUpTheDeadSystem()
     // clean up the dead
     auto healthView = _entityScene.getEntities<HealthComponent, PartyComponent, QuadtreeObjectComponent>();
 
-    auto &playerExperience = _player.getComponent<ExperienceComponent>();
-
     for (auto entityID : healthView)
     {
         auto [health, party, object] = healthView.get<HealthComponent, PartyComponent, QuadtreeObjectComponent>(entityID);
@@ -985,7 +998,7 @@ void Supremacy::onUpdateCleanUpTheDeadSystem()
                 const auto *exp = entity.tryGetComponent<ExperienceGainComponent>();
                 if (exp != nullptr)
                 {
-                    playerExperience._experience += exp->_experience;
+                    addExperience(_player, exp->_experience);
                 }
 
                 const auto *pos = entity.tryGetComponent<PositionComponent>();
@@ -1032,6 +1045,8 @@ void Supremacy::onUpdate(const iaTime &time)
     onUpdateCleanUpTheDeadSystem();
 
     updateViewRectangleSystem();
+
+    auto &experience = _player.getComponent<ExperienceComponent>();
 }
 
 void Supremacy::onDeinit()
@@ -1077,15 +1092,9 @@ void Supremacy::onRenderStats()
 
     for (const auto &data : _stats)
     {
-        uint32 level;
-        uint32 lowerBounds;
-        uint32 upperBounds;
-
-        calcLevel(data._playerExperience, level, lowerBounds, upperBounds);
-
         playerDamage.push_back(iaVector3f(x, y - data._playerDamage * 0.1, 0.0));
         playerExperience.push_back(iaVector3f(x, y - data._playerExperience * 0.1, 0.0));
-        playerLevel.push_back(iaVector3f(x, y - float32(level) * 20.0, 0.0));
+        playerLevel.push_back(iaVector3f(x, y - (uint32)data._playerLevel * 20.0, 0.0));
         enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.1, 0.0));
         x += 1.0f;
     }
@@ -1094,55 +1103,35 @@ void Supremacy::onRenderStats()
     iRenderer::getInstance().drawLineStrip(enemyHealth, iaColor4f(1, 0, 0, 1));
     iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 0, 1));
     iRenderer::getInstance().drawLineStrip(playerExperience, iaColor4f(0, 0, 1, 1));
-    iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 1, 1, 1));
-
-    std::vector<iaVector3f> experienceLevel;
-
-    x = 10.0f;
-
-    uint32 maxValue = 0;
-    for (auto xp : _expLvl)
-    {
-        if (xp > maxValue)
-        {
-            maxValue = xp;
-        }
-    }
-    const float32 scale = 800.0f / maxValue;
-
-    for (auto xp : _expLvl)
-    {
-
-        playerDamage.push_back(iaVector3f(x, y - xp * scale, 0.0));
-        x += 5.0f;
-    }
-
-    iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 1, 1));
+    iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 0, 0, 1));
 }
 
-void Supremacy::calcLevel(uint32 experience, uint32 &level, uint32 &lowerBounds, uint32 &upperBounds)
+float64 Supremacy::calcLevel(uint32 experience)
 {
-    level = 1;
-    lowerBounds = 0;
-    upperBounds = _expLvl.front();
+    uint32 lowerBounds = 0;
+    uint32 upperBounds = _expLvl.front();
 
-    if (experience < _expLvl.front())
+    float64 level = 1.0;
+
+    if (experience >= _expLvl.front())
     {
-        return;
-    }
-
-    for (int i = 0; i < _expLvl.size() - 1; ++i)
-    {
-        level++;
-        lowerBounds = _expLvl[i];
-        upperBounds = _expLvl[i+1];
-
-        if (experience >= lowerBounds &&
-            experience < upperBounds)
+        for (int i = 0; i < _expLvl.size() - 1; ++i)
         {
-            break;
+            level += 1.0;
+            lowerBounds = _expLvl[i];
+            upperBounds = _expLvl[i + 1];
+
+            if (experience >= lowerBounds &&
+                experience < upperBounds)
+            {
+                break;
+            }
         }
     }
+
+    level += float64(experience - lowerBounds) / float64(upperBounds - lowerBounds);
+
+    return level;
 }
 
 void Supremacy::onRenderHUD()
@@ -1164,13 +1153,8 @@ void Supremacy::onRenderHUD()
     iRenderer::getInstance().setFontSize(20.0f);
     iRenderer::getInstance().drawString(10, 10, iaString::toString(healthComp._health, 0));
 
-    uint32 level;
-    uint32 lowerBounds;
-    uint32 upperBounds;
-
-    calcLevel(playerExperience._experience, level, lowerBounds, upperBounds);
-
-    float32 percentOfLevel = float32(playerExperience._experience - lowerBounds) / float32(upperBounds - lowerBounds);
+    uint32 level = playerExperience._level;
+    float64 percentOfLevel = playerExperience._level - float64(level);
 
     iRenderer::getInstance().drawString(10, 40, "lvl");
     iRenderer::getInstance().drawString(50, 40, iaString::toString(level));
@@ -1180,6 +1164,11 @@ void Supremacy::onRenderHUD()
 
     iRenderer::getInstance().drawTexturedRectangle(10, 120, 40, 40, _coin, iaColor4f::white, true);
     iRenderer::getInstance().drawString(60, 130, iaString::toString(playerCoins._coins, 0));
+}
+
+void Supremacy::onLevelUp()
+{
+    con_endl("level up");
 }
 
 void Supremacy::onRenderOrtho()
