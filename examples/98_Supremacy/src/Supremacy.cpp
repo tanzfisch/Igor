@@ -39,7 +39,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<MovementControlComponent>();
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<QuadtreeObject>(iaCircled(position._position._x, position._position._y, size._size), entity.getID());
+    object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(position._position._x, position._position._y, size._size), entity.getID());
     _quadtree.insert(object._object);
 
     iaVector2f a(-1.0, 0.0);
@@ -83,7 +83,7 @@ void Supremacy::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     entity.addComponent<PartyComponent>(party);
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<QuadtreeObject>();
+    object._object = std::make_shared<iQuadtreeObjectd>();
     object._object->_userData = entity.getID();
     object._object->_circle.set(pos, size._size);
     _quadtree.insert(object._object);
@@ -106,7 +106,7 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<QuadtreeObject>();
+    object._object = std::make_shared<iQuadtreeObjectd>();
     object._object->_userData = entity.getID();
     object._object->_circle.set(pos, size._size);
     _quadtree.insert(object._object);
@@ -318,12 +318,12 @@ void Supremacy::onUpdateMovementControlSystem()
 
 void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
 {
-    QuadtreeObjects objects;
+    iQuadtreeObjectsd objects;
     _quadtree.query(circle, objects);
 
     for (const auto &object : objects)
     {
-        hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - circle._center));
+        hits.emplace_back(std::pair<iEntityID, iaVector2d>(std::any_cast<iEntityID>(object->_userData), object->_circle._center - circle._center));
     }
 
     const bool right = circle._center._x - circle._radius < 0.0;
@@ -389,7 +389,7 @@ void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEn
 
         for (const auto &object : objects)
         {
-            hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - queryCircle._center));
+            hits.emplace_back(std::pair<iEntityID, iaVector2d>(std::any_cast<iEntityID>(object->_userData), object->_circle._center - queryCircle._center));
         }
     }
 }
@@ -612,7 +612,7 @@ void Supremacy::onUpdatePositionSystem()
         float64 speed = vel._speed;
 
         iaCircled circle(position, radius * 1.1);
-        QuadtreeObjects objects;
+        iQuadtreeObjectsd objects;
         _quadtree.query(circle, objects);
 
         iaVector2d diversion;
@@ -622,8 +622,10 @@ void Supremacy::onUpdatePositionSystem()
 
         for (const auto &object : objects)
         {
+            const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
+
             // skip self
-            if (object->_userData == entityID)
+            if (otherEntityID == entityID)
             {
                 continue;
             }
@@ -635,7 +637,7 @@ void Supremacy::onUpdatePositionSystem()
             }
 
             // get other entity
-            iEntity otherEntity(object->_userData, _entityScene);
+            iEntity otherEntity(otherEntityID, _entityScene);
 
             // ignore other entity for diversion if non blockable
             auto *otherEntityVel = otherEntity.tryGetComponent<VelocityComponent>();
@@ -702,21 +704,23 @@ void Supremacy::onUpdateCollisionSystem()
         const float64 radius = size._size * 0.5;
 
         iaCircled circle(position, radius);
-        QuadtreeObjects objects;
+        iQuadtreeObjectsd objects;
         _quadtree.query(circle, objects);
 
         iEntity entity(entityID, _entityScene);
 
         for (const auto &object : objects)
         {
+            const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
+
             // skip self
-            if (object->_userData == entityID)
+            if (otherEntityID == entityID)
             {
                 continue;
             }
 
             // get other entity
-            iEntity otherEntity(object->_userData, _entityScene);
+            iEntity otherEntity(otherEntityID, _entityScene);
 
             // check if we do damage to other entity
             auto *otherEntityParty = otherEntity.tryGetComponent<PartyComponent>();
@@ -787,9 +791,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
 
-        object._object = std::make_shared<QuadtreeObject>(iaCircled(from, config._size * 0.5), bullet.getID());
-
-        object._object = std::make_shared<QuadtreeObject>();
+        object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(from, config._size * 0.5), bullet.getID());
         object._object->_userData = bullet.getID();
         object._object->_circle.set(from, config._size * 0.5);
         _quadtree.insert(object._object);
@@ -1045,8 +1047,6 @@ void Supremacy::onUpdate(const iaTime &time)
     onUpdateCleanUpTheDeadSystem();
 
     updateViewRectangleSystem();
-
-    auto &experience = _player.getComponent<ExperienceComponent>();
 }
 
 void Supremacy::onDeinit()

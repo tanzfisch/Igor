@@ -47,10 +47,6 @@ public:
     ~Supremacy() = default;
 
 private:
-    using Quadtree = iQuadtree<float64, iEntityID>;
-    using QuadtreeObject = iQuadtreeObject<float64, iEntityID>;
-    using QuadtreeObjectPtr = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>;
-    using QuadtreeObjects = std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>>;
 
     /*! the view we render 2D to
      */
@@ -85,7 +81,7 @@ private:
 
     /*! quadtree
      */
-    Quadtree _quadtree;
+    iQuadtreed _quadtree;
 
     /*! floor shadow
      */
