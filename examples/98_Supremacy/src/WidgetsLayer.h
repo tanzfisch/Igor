@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SUPREMACY_WIDGETLAYER__
-#define __SUPREMACY_WIDGETLAYER__
+#ifndef __SUPREMACY_WIDGETSLAYER__
+#define __SUPREMACY_WIDGETSLAYER__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -53,4 +53,4 @@ private:
     void onEvent(iEvent &event) override;
 };
 
-#endif // __SUPREMACY_WIDGETLAYER__
+#endif // __SUPREMACY_WIDGETSLAYER__
