@@ -44,11 +44,10 @@ public:
     WidgetsLayer(iWindowPtr window);
 
     /*! does nothing
-    */
+     */
     ~WidgetsLayer() = default;
 
 private:
-
     void onInit() override;
     void onDeinit() override;
     void onEvent(iEvent &event) override;

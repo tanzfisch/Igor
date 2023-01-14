@@ -20,7 +20,6 @@
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/theme/iWidgetTheme.h>
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
@@ -324,12 +323,12 @@ namespace igor
         return _desktopHeight;
     }
 
-    iWidgetTheme *iWidgetManager::getTheme()
+    iWidgetThemePtr iWidgetManager::getTheme() const
     {
         return _currentTheme;
     }
 
-    void iWidgetManager::setTheme(iWidgetTheme *theme)
+    void iWidgetManager::setTheme(const iWidgetThemePtr &theme)
     {
         _currentTheme = theme;
     }

@@ -36,6 +36,7 @@
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/module/iModule.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 
 #include <vector>
 #include <unordered_map>
@@ -44,7 +45,6 @@
 namespace igor
 {
 
-    class iWidgetTheme;
     class iDialog;
     typedef iDialog *iDialogPtr;
 
@@ -87,13 +87,13 @@ namespace igor
 
         /*! \returns the theme in use
         */
-        iWidgetTheme *getTheme();
+        iWidgetThemePtr getTheme() const;
 
         /*! sets the theme to use
 
         \param theme the theme to use
         */
-        void setTheme(iWidgetTheme *theme);
+        void setTheme(const iWidgetThemePtr &theme);
 
         /*! sets the desktop dimensions
 
@@ -149,7 +149,7 @@ namespace igor
 
         /*! pointer to current theme
         */
-        iWidgetTheme *_currentTheme = nullptr;
+        iWidgetThemePtr _currentTheme;
 
         /*! list of all widgets
         */

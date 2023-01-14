@@ -5,7 +5,7 @@
 #include "WidgetsLayer.h"
 
 WidgetsLayer::WidgetsLayer(iWindowPtr window)
-    : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", 100)
+    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png")), window, "Widgets", 100)
 {
 }
 

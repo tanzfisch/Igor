@@ -49,7 +49,7 @@ namespace igor
         \param name the name of this layer
         \param zIndex the z index
         */
-        iLayerWidgets(iWidgetTheme *theme, iWindowPtr window, const iaString &name, int32 zIndex);
+        iLayerWidgets(iWidgetThemePtr theme, iWindowPtr window, const iaString &name, int32 zIndex);
 
         /*! does nothing
         */
@@ -81,7 +81,7 @@ namespace igor
 
         /*! the widget theme in use
         */
-        iWidgetTheme *_theme;
+        iWidgetThemePtr _theme;
 
         /*! called by orthogonal view
         */
