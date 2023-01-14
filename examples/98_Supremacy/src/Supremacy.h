@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \_/__/                     ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,44 +26,33 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLNODE_H__
-#define __USERCONTROLNODE_H__
+#ifndef __SUPREMACY__
+#define __SUPREMACY__
 
-#include <igor/igor.h>
-using namespace iaux;
-using namespace igor;
+#include "Defines.h"
 
-iaSIGNAL(NameChangedEvent, NameChangedDelegate, (), ());
-
-class UserControlNode : public iUserControl
+class Supremacy
 {
+
 public:
-    UserControlNode();
-    ~UserControlNode() = default;
 
-    void setNode(uint32 id);
-    uint32 getNode();
+    Supremacy();
 
-    void registerNameChangeDelegate(NameChangedDelegate nameChangedDelegate);
-    void unregisterNameChangeDelegate(NameChangedDelegate nameChangedDelegate);
+    ~Supremacy();
+
+    void run();
 
 private:
-    NameChangedEvent _nameChangedEvent;
 
-    iWidgetGrid *_grid = nullptr;
-    iWidgetLabel *_labelName = nullptr;
-    iWidgetLabel *_labelActive = nullptr;
-    iWidgetCheckBox *_checkBoxActive = nullptr;
-    iWidgetLineTextEdit *_textName = nullptr;
+    iWindowPtr _window;
 
-    uint32 _nodeId = 0;
+    void onInit();
 
-    void onNameChanged(const iWidgetPtr source);
+    void onRun();
 
-    void updateGUI();
-    void updateNode();
+    void onDeInit();
 
-    void initGUI();
+
 };
 
-#endif
+#endif // __SUPREMACY__

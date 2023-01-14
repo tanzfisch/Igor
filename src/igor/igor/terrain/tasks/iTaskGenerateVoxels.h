@@ -33,7 +33,7 @@
 
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>
-#include <iaux/system/iaDelegate.h>
+#include <iaux/system/iaSlot.h>
 using namespace iaux;
 
 #include <vector>
@@ -77,7 +77,7 @@ namespace igor
 
     \param voxelBlockInfo contains all information to generate the voxels
     */
-    iaDELEGATE(iVoxelTerrainGenerateDelegate, void, (iVoxelBlockInfo * voxelBlockInfo), (voxelBlockInfo));
+    iaSLOT(iVoxelTerrainGenerateDelegate, void, (iVoxelBlockInfo * voxelBlockInfo), (voxelBlockInfo));
 
     // TODO add callback onAfterMeshGeneration ?
 

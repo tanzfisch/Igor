@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/system/iaDelegate.h>
+#include <iaux/system/iaSlot.h>
 using namespace iaux;
 
 #include <functional>

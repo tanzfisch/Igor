@@ -34,7 +34,7 @@
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaColor4.h>
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaString.h>
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -52,7 +52,7 @@ namespace igor
 
     /*! render event triggered for every frame a view is rendered
     */
-    iaEVENT(iDrawEvent, iDrawDelegate, (), ());
+    iaSIGNAL(iDrawEvent, iDrawDelegate, (), ());
 
     /*! represents a view rectangle within a window and projection of the scene
 

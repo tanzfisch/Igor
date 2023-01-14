@@ -30,7 +30,7 @@
 #define __IAUX_TRANSITION__
 
 #include <iaux/iaDefines.h>
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 
 #include <iaux/statemachine/iaState.h>
 

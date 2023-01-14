@@ -34,7 +34,7 @@
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/simulation/iParticleSystem.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaGradient.h>
 using namespace iaux;
 
@@ -45,7 +45,7 @@ namespace igor
 
     /*! event triggered when particle system is finished
     */
-    iaEVENT(iParticleSystemFinishedEvent, iParticleSystemFinishedDelegate, (), ());
+    iaSIGNAL(iParticleSystemFinishedEvent, iParticleSystemFinishedDelegate, (), ());
 
     __IGOR_DISABLE_WARNING__(4275); // yes iNodeVolume is intentionally not a fully exported interface
 

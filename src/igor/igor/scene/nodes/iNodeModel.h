@@ -34,7 +34,7 @@
 #include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaString.h>
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 using namespace iaux;
 
 namespace igor
@@ -44,7 +44,7 @@ namespace igor
 
     /*! event triggered when model was loaded
      */
-    iaEVENT(iModelReadyEvent, iModelReadyDelegate, (iNodeID modelNodeID), (modelNodeID));
+    iaSIGNAL(iModelReadyEvent, iModelReadyDelegate, (iNodeID modelNodeID), (modelNodeID));
 
     /*! represents a model within the scene
 

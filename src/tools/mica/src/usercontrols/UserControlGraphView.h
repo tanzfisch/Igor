@@ -35,7 +35,7 @@
 #include <vector>
 #include <map>
 
-iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, (uint64 nodeID), (nodeID));
+iaSIGNAL(GraphSelectionChanged, GraphSelectionChangedDelegate, (uint64 nodeID), (nodeID));
 
 class Outliner;
 
