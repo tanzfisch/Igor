@@ -5,6 +5,8 @@ Changelog                           {#changelog}
 ------
 
 - text edit widget has output only ready
+- changed iaEvent/iaDelegate naming to iaSignal/iaSlot
+- iQuadtree uses std::any for user data instead of void*
 
 0.34.6
 ------
