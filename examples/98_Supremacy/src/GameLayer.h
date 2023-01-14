@@ -26,25 +26,25 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SUPREMACY__
-#define __SUPREMACY__
+#ifndef __SUPREMACY_GAMELAYER__
+#define __SUPREMACY_GAMELAYER__
 
 #include "Defines.h"
 
-/*! Supremacy
+/*! GameLayer
  */
-class Supremacy : public iLayer
+class GameLayer : public iLayer
 {
 
 public:
 
     /*! ctor
     */
-    Supremacy(iWindowPtr window);
+    GameLayer(iWindowPtr window);
 
     /*! does nothing
     */
-    ~Supremacy() = default;
+    ~GameLayer() = default;
 
 private:
 
@@ -224,4 +224,4 @@ private:
     std::set<iEntityID> _deleteQueue;
 };
 
-#endif // __SUPREMACY__
+#endif // __SUPREMACY_GAMELAYER__

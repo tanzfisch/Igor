@@ -2,7 +2,8 @@
 // (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "Supremacy.h"
+#include "GameLayer.h"
+#include "WidgetsLayer.h"
 
 int main(void)
 {
@@ -10,13 +11,14 @@ int main(void)
 	igor::startup();
 
 	// create window and open it
-	iWindowPtr window = igor::iApplication::getInstance().createWindow("Supremacy");
+	iWindowPtr window = igor::iApplication::getInstance().createWindow("GameLayer");
 	window->setClientSize(1920 * 0.5, 1080 * 0.5);
 	window->setCentered();
 	window->open();
 
 	// create example and add it as layer to the application
-	igor::iApplication::getInstance().addLayer(new Supremacy(window));
+	igor::iApplication::getInstance().addLayer(new GameLayer(window));
+    igor::iApplication::getInstance().addLayer(new WidgetsLayer(window));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(window, "Profiler", 1000,  iProfilerVerbosity::FPSAndMetrics));
 	igor::iApplication::getInstance().run();
 	iApplication::getInstance().clearLayerStack();

@@ -2,21 +2,21 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "Supremacy.h"
+#include "GameLayer.h"
 
-Supremacy::Supremacy(iWindowPtr window)
-    : iLayer(window, L"Supremacy"), _quadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
+GameLayer::GameLayer(iWindowPtr window)
+    : iLayer(window, L"GameLayer"), _quadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
 {
 }
 
-iaVector2d Supremacy::getRandomDir()
+iaVector2d GameLayer::getRandomDir()
 {
     iaVector2d direction(0.0, 1.0);
     direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
     return direction;
 }
 
-iEntity Supremacy::createPlayer()
+iEntity GameLayer::createPlayer()
 {
     // init player
     iEntity entity = _entityScene.createEntity("player");
@@ -50,7 +50,7 @@ iEntity Supremacy::createPlayer()
     return entity;
 }
 
-iEntity Supremacy::createViewport(iEntityID targetID)
+iEntity GameLayer::createViewport(iEntityID targetID)
 {
     iEntity target(targetID, _entityScene);
     const iaVector2d targetPosition = target.getComponent<PositionComponent>()._position;
@@ -66,7 +66,7 @@ iEntity Supremacy::createViewport(iEntityID targetID)
     return entity;
 }
 
-void Supremacy::createObject(const iaVector2d &pos, uint32 party, ObjectType objectType)
+void GameLayer::createObject(const iaVector2d &pos, uint32 party, ObjectType objectType)
 {
     iEntity entity = _entityScene.createEntity("object");
     entity.addComponent<PositionComponent>(pos);
@@ -89,7 +89,7 @@ void Supremacy::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     _quadtree.insert(object._object);
 }
 
-void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target)
+void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target)
 {
     iEntity entity = _entityScene.createEntity("enemy");
     entity.addComponent<PositionComponent>(pos);
@@ -112,7 +112,7 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     _quadtree.insert(object._object);
 }
 
-void Supremacy::updateViewRectangleSystem()
+void GameLayer::updateViewRectangleSystem()
 {
     if (!_player.isValid())
     {
@@ -147,14 +147,14 @@ void Supremacy::updateViewRectangleSystem()
     viewportComp._viewport.setCenter(playerPosition - targetOffset);
 }
 
-void Supremacy::onInit()
+void GameLayer::onInit()
 {
     _viewOrtho.setClearColor(0.3, 0.9, 0.5, 1.0);
     _viewOrtho.setName("view ortho");
     _viewOrtho.setClearColorActive(true);
     _viewOrtho.setClearDepthActive(false);
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
+    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &GameLayer::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
@@ -172,13 +172,13 @@ void Supremacy::onInit()
     }
 
     // game logic timer
-    _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(10));
+    _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
 
-    _statsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdateStats), iaTime::fromMilliseconds(1000));
+    _statsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdateStats), iaTime::fromMilliseconds(1000));
     _statsTimerHandle->start();
 
-    _spawnTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onSpawnStuff), iaTime::fromMilliseconds(5000));
+    _spawnTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onSpawnStuff), iaTime::fromMilliseconds(5000));
     _spawnTimerHandle->start();
 
     _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("background.png");
@@ -192,7 +192,7 @@ void Supremacy::onInit()
     initExpLvlTable();
 }
 
-void Supremacy::initExpLvlTable()
+void GameLayer::initExpLvlTable()
 {
     float64 xp = 100.0;
     for (int x = 1; x < 100; ++x)
@@ -221,7 +221,7 @@ void Supremacy::initExpLvlTable()
     }
 }
 
-void Supremacy::onSpawnStuff(const iaTime &time)
+void GameLayer::onSpawnStuff(const iaTime &time)
 {
     if (!_player.isValid())
     {
@@ -244,7 +244,7 @@ void Supremacy::onSpawnStuff(const iaTime &time)
     }
 }
 
-void Supremacy::onUpdateStats(const iaTime &time)
+void GameLayer::onUpdateStats(const iaTime &time)
 {
     if (!_player.isValid())
     {
@@ -274,7 +274,7 @@ void Supremacy::onUpdateStats(const iaTime &time)
     _stats.push_back(stats);
 }
 
-void Supremacy::onUpdateQuadtreeSystem()
+void GameLayer::onUpdateQuadtreeSystem()
 {
     // update quadtree data
     auto quadtreeView = _entityScene.getEntities<PositionComponent, QuadtreeObjectComponent>();
@@ -288,7 +288,7 @@ void Supremacy::onUpdateQuadtreeSystem()
     }
 }
 
-void Supremacy::onUpdateMovementControlSystem()
+void GameLayer::onUpdateMovementControlSystem()
 {
     auto movementControlView = _entityScene.getEntities<MovementControlComponent, VelocityComponent>();
     for (auto entity : movementControlView)
@@ -316,7 +316,7 @@ void Supremacy::onUpdateMovementControlSystem()
     }
 }
 
-void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
+void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
 {
     iQuadtreeObjectsd objects;
     _quadtree.query(circle, objects);
@@ -394,7 +394,7 @@ void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEn
     }
 }
 
-bool Supremacy::intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset)
+bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset)
 {
     if (iIntersection::intersects(position, rectangle))
     {
@@ -471,7 +471,7 @@ bool Supremacy::intersectDoughnut(const iaVector2d &position, const iaRectangled
     return false;
 }
 
-bool Supremacy::intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset)
+bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset)
 {
     if (iIntersection::intersects(position, circle))
     {
@@ -548,7 +548,7 @@ bool Supremacy::intersectDoughnut(const iaVector2d &position, const iaCircled &c
     return false;
 }
 
-void Supremacy::onUpdateFollowTargetSystem()
+void GameLayer::onUpdateFollowTargetSystem()
 {
     // follow given target
     auto targetView = _entityScene.getEntities<PositionComponent, VelocityComponent, TargetComponent>();
@@ -600,7 +600,7 @@ void Supremacy::onUpdateFollowTargetSystem()
     }
 }
 
-void Supremacy::onUpdatePositionSystem()
+void GameLayer::onUpdatePositionSystem()
 {
     auto positionUpdateView = _entityScene.getEntities<PositionComponent, SizeComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
     for (auto entityID : positionUpdateView)
@@ -693,7 +693,7 @@ void Supremacy::onUpdatePositionSystem()
     }
 }
 
-void Supremacy::onUpdateCollisionSystem()
+void GameLayer::onUpdateCollisionSystem()
 {
     auto positionUpdateView = _entityScene.getEntities<PositionComponent, SizeComponent, PartyComponent, DamageComponent, HealthComponent>();
     for (auto entityID : positionUpdateView)
@@ -751,7 +751,7 @@ static const WeaponConfiguration WEAPONS[]{
     WEAPON_MINIGUN,
     WEAPON_ROCKETLAUNCHER};
 
-void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType)
+void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType)
 {
     // skip if out of range
     if (!iIntersection::intersects(from, _quadtree.getRootBox()))
@@ -798,7 +798,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     }
 }
 
-void Supremacy::addExperience(iEntity &entity, float64 experience)
+void GameLayer::addExperience(iEntity &entity, float64 experience)
 {
     auto &comp = entity.getComponent<ExperienceComponent>();
 
@@ -812,7 +812,7 @@ void Supremacy::addExperience(iEntity &entity, float64 experience)
     }
 }
 
-void Supremacy::onUpdatePickupSystem(iEntity &entity)
+void GameLayer::onUpdatePickupSystem(iEntity &entity)
 {
     if (!entity.isValid())
     {
@@ -860,7 +860,7 @@ void Supremacy::onUpdatePickupSystem(iEntity &entity)
     }
 }
 
-void Supremacy::aquireTargetFor(iEntity &entity)
+void GameLayer::aquireTargetFor(iEntity &entity)
 {
     if (!entity.isValid())
     {
@@ -906,7 +906,7 @@ void Supremacy::aquireTargetFor(iEntity &entity)
     }
 }
 
-void Supremacy::onUpdateWeaponSystem()
+void GameLayer::onUpdateWeaponSystem()
 {
     iaTime now = iTimer::getInstance().getTime();
 
@@ -946,7 +946,7 @@ void Supremacy::onUpdateWeaponSystem()
     }
 }
 
-void Supremacy::onUpdateRangeSystem()
+void GameLayer::onUpdateRangeSystem()
 {
     auto view = _entityScene.getEntities<PositionComponent, RangeComponent, HealthComponent>();
     for (auto entity : view)
@@ -960,7 +960,7 @@ void Supremacy::onUpdateRangeSystem()
     }
 }
 
-void Supremacy::onUpdateOrientationSystem()
+void GameLayer::onUpdateOrientationSystem()
 {
     auto view = _entityScene.getEntities<AngularVelocityComponent, VelocityComponent, OrientationComponent>();
     for (auto entity : view)
@@ -978,7 +978,7 @@ void Supremacy::onUpdateOrientationSystem()
     }
 }
 
-void Supremacy::onUpdateCleanUpTheDeadSystem()
+void GameLayer::onUpdateCleanUpTheDeadSystem()
 {
     if (!_player.isValid())
     {
@@ -1029,7 +1029,7 @@ void Supremacy::onUpdateCleanUpTheDeadSystem()
     _deleteQueue.clear();
 }
 
-void Supremacy::onUpdate(const iaTime &time)
+void GameLayer::onUpdate(const iaTime &time)
 {
     onUpdateQuadtreeSystem();
     onUpdateMovementControlSystem();
@@ -1049,7 +1049,7 @@ void Supremacy::onUpdate(const iaTime &time)
     updateViewRectangleSystem();
 }
 
-void Supremacy::onDeinit()
+void GameLayer::onDeinit()
 {
     // release resources
     _font = nullptr;
@@ -1063,20 +1063,20 @@ void Supremacy::onDeinit()
 
     // clean up window
     getWindow()->removeView(&_viewOrtho);
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &GameLayer::onRenderOrtho));
 }
 
-void Supremacy::onPreDraw()
+void GameLayer::onPreDraw()
 {
 }
 
-void Supremacy::onEvent(iEvent &event)
+void GameLayer::onEvent(iEvent &event)
 {
-    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyDown));
-    event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(GameLayer::onKeyDown));
+    event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(GameLayer::onKeyUp));
 }
 
-void Supremacy::onRenderStats()
+void GameLayer::onRenderStats()
 {
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
@@ -1106,7 +1106,7 @@ void Supremacy::onRenderStats()
     iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 0, 0, 1));
 }
 
-float64 Supremacy::calcLevel(uint32 experience)
+float64 GameLayer::calcLevel(uint32 experience)
 {
     uint32 lowerBounds = 0;
     uint32 upperBounds = _expLvl.front();
@@ -1134,7 +1134,7 @@ float64 Supremacy::calcLevel(uint32 experience)
     return level;
 }
 
-void Supremacy::onRenderHUD()
+void GameLayer::onRenderHUD()
 {
     if (!_player.isValid())
     {
@@ -1166,12 +1166,12 @@ void Supremacy::onRenderHUD()
     iRenderer::getInstance().drawString(60, 130, iaString::toString(playerCoins._coins, 0));
 }
 
-void Supremacy::onLevelUp()
+void GameLayer::onLevelUp()
 {
     con_endl("level up");
 }
 
-void Supremacy::onRenderOrtho()
+void GameLayer::onRenderOrtho()
 {
     auto &viewportComp = _viewport.getComponent<ViewportComponent>();
     const iaRectangled &viewRectangle = viewportComp._viewport;
@@ -1236,7 +1236,7 @@ void Supremacy::onRenderOrtho()
     onRenderStats();
 }
 
-bool Supremacy::onKeyDown(iEventKeyDown &event)
+bool GameLayer::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {
@@ -1274,7 +1274,7 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
     return false;
 }
 
-bool Supremacy::onKeyUp(iEventKeyUp &event)
+bool GameLayer::onKeyUp(iEventKeyUp &event)
 {
     if (!_player.isValid())
     {
