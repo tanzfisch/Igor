@@ -5,7 +5,6 @@
 #include "Supremacy.h"
 
 #include "GameLayer.h"
-#include "WidgetsLayer.h"
 
 Supremacy::Supremacy()
 {
@@ -35,10 +34,8 @@ void Supremacy::onInit()
 
     // create example and add it as layer to the application
     igor::iApplication::getInstance().addLayer(new GameLayer(_window));
-    igor::iApplication::getInstance().addLayer(new WidgetsLayer(_window));
+    igor::iApplication::getInstance().addLayer(new iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png")), _window, "Widgets", 100));
     igor::iApplication::getInstance().addLayer(new iLayerProfiler(_window, "Profiler", 1000, iProfilerVerbosity::FPSAndMetrics));
-
-    
 }
 
 void Supremacy::onRun()

@@ -105,6 +105,19 @@ private:
 
     std::vector<uint32> _expLvl;
 
+    iDialogPtr _levelUpDialog = nullptr;
+
+    void initLevelUpDialog();
+
+    void onCloseLevelUpDialog(iDialogPtr dialog);
+
+    void pause();
+    void play();
+
+    void onSelectUpgrade1(const iWidgetPtr source);
+    void onSelectUpgrade2(const iWidgetPtr source);
+    void onSelectUpgrade3(const iWidgetPtr source);
+
     /*! called when added to layer stack
      */
     void onInit() override;

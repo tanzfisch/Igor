@@ -806,9 +806,9 @@ void GameLayer::addExperience(iEntity &entity, float64 experience)
     uint32 level = comp._level;
     comp._level = calcLevel(comp._experience);
 
-    if(level < uint32(comp._level))
+    if (level < uint32(comp._level))
     {
-        onLevelUp();        
+        onLevelUp();
     }
 }
 
@@ -843,7 +843,7 @@ void GameLayer::onUpdatePickupSystem(iEntity &entity)
         {
             continue;
         }
-        
+
         auto &expGain = otherEntity.getComponent<ExperienceGainComponent>();
         addExperience(entity, expGain._experience);
 
@@ -1168,7 +1168,79 @@ void GameLayer::onRenderHUD()
 
 void GameLayer::onLevelUp()
 {
-    con_endl("level up");
+    initLevelUpDialog();
+
+    pause();
+
+    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog));
+}
+
+void GameLayer::initLevelUpDialog()
+{
+    if (_levelUpDialog != nullptr)
+    {
+        return;
+    }
+
+    _levelUpDialog = new iDialog();
+    _levelUpDialog->setHorizontalAlignment(iHorizontalAlignment::Center);
+    _levelUpDialog->setVerticalAlignment(iVerticalAlignment::Center);
+    _levelUpDialog->setHeight(getWindow()->getClientHeight() * 0.5);
+    _levelUpDialog->setWidth(getWindow()->getClientWidth() * 0.5);
+
+    iWidgetGrid *grid = new iWidgetGrid(_levelUpDialog);
+    grid->appendColumns(2);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    grid->setVerticalAlignment(iVerticalAlignment::Strech);
+    grid->setBorder(10);
+    grid->setCellSpacing(5);
+    grid->setStrechColumn(1);
+    grid->setSelectMode(iSelectionMode::NoSelection);
+
+    iWidgetButton *button1 = new iWidgetButton();
+    button1->setSize(100, 100);
+    button1->setVerticalAlignment(iVerticalAlignment::Center);
+    button1->setHorizontalAlignment(iHorizontalAlignment::Center);
+    button1->setText("1");
+    button1->registerOnClickEvent(iClickDelegate(this, &GameLayer::onSelectUpgrade1));
+
+    iWidgetButton *button2 = new iWidgetButton();
+    button2->setSize(100, 100);
+    button2->setVerticalAlignment(iVerticalAlignment::Center);
+    button2->setHorizontalAlignment(iHorizontalAlignment::Center);
+    button2->setText("2");
+    button2->registerOnClickEvent(iClickDelegate(this, &GameLayer::onSelectUpgrade2));
+
+    iWidgetButton *button3 = new iWidgetButton();
+    button3->setSize(100, 100);
+    button3->setVerticalAlignment(iVerticalAlignment::Center);
+    button3->setHorizontalAlignment(iHorizontalAlignment::Center);
+    button3->setText("3");
+    button3->registerOnClickEvent(iClickDelegate(this, &GameLayer::onSelectUpgrade3));
+
+    grid->addWidget(button1, 0, 0);
+    grid->addWidget(button2, 1, 0);
+    grid->addWidget(button3, 2, 0);
+}
+
+void GameLayer::onSelectUpgrade1(const iWidgetPtr source)
+{
+    _levelUpDialog->close();
+}
+
+void GameLayer::onSelectUpgrade2(const iWidgetPtr source)
+{
+    _levelUpDialog->close();
+}
+
+void GameLayer::onSelectUpgrade3(const iWidgetPtr source)
+{
+    _levelUpDialog->close();
+}
+
+void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
+{
+    play();
 }
 
 void GameLayer::onRenderOrtho()
@@ -1272,6 +1344,19 @@ bool GameLayer::onKeyDown(iEventKeyDown &event)
     }
 
     return false;
+}
+
+void GameLayer::pause()
+{
+    _gamePause = true;
+
+    iTimer::getInstance().stop();
+}
+
+void GameLayer::play()
+{
+    _gamePause = false;
+    iTimer::getInstance().start();
 }
 
 bool GameLayer::onKeyUp(iEventKeyUp &event)

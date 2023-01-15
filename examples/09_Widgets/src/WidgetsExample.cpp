@@ -160,7 +160,6 @@ void WidgetsExample::onInit()
     _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
 
     iWidgetGrid *grid1 = new iWidgetGrid(_dialog);
-    // put all widgets in one list for easier later cleanup. this method might not always be suitable
     grid1->appendRows(2);
     grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid1->setVerticalAlignment(iVerticalAlignment::Strech);
