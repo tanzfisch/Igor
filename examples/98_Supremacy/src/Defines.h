@@ -68,8 +68,8 @@ const WeaponConfiguration WEAPON_KNIFE{
         10.0,                            // damage
         5.0,                             // speed
         200.0,                           // range
-        iaTime::fromMilliseconds(500.0), // attack interval
-        false,                           // need to stand still
+        iaTime::fromMilliseconds(1000.0), // attack interval
+        true,                            // need to stand still
     }};
 
 const WeaponConfiguration WEAPON_SHOTGUN{

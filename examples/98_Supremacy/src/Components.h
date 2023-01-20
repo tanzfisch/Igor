@@ -218,4 +218,15 @@ enum class ObjectType
     Coin
 };
 
+struct ModifierComponent
+{
+    float32 _damageFactor;
+    float32 _attackIntervalFactor;
+    float32 _criticalHitChanceFactor;
+    float32 _criticalHitFactor;
+    float32 _splashDamageRangeFactor;
+    float32 _walkSpeedFactor;
+    float32 _projectileSpeedFactor;    
+};
+
 #endif // __SUPREMACY_COMPONENTS__
