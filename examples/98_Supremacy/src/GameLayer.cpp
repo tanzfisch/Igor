@@ -190,6 +190,17 @@ void GameLayer::onInit()
     _coin = iTextureResourceFactory::getInstance().requestFile("coin.png");
 
     initExpLvlTable();
+    initUpgrades();
+}
+
+void GameLayer::initUpgrades()
+{
+    _upgrades[UpgradeType::IncreaseWalkingSpeed1] = {UpgradeType::IncreaseWalkingSpeed1, "foo", "Can't wait", "Walk faster 10 percent"};
+    _upgrades[UpgradeType::IncreaseWalkingSpeed2] = {UpgradeType::IncreaseWalkingSpeed2, "foo", "In a hurry", "Walk faster 20 percent"};
+    _upgrades[UpgradeType::IncreaseWalkingSpeed3] = {UpgradeType::IncreaseWalkingSpeed3, "foo", "Run Forrest", "Walk faster 30 percent"};
+    _upgrades[UpgradeType::IncreaseFireFrequency1] = {UpgradeType::IncreaseFireFrequency1, "foo", "foo", "Increase Fire Frequency by 10 percent"};
+    _upgrades[UpgradeType::IncreaseFireFrequency2] = {UpgradeType::IncreaseFireFrequency2, "foo", "Maniac", "Increase Fire Frequency by 20 percent"};
+    _upgrades[UpgradeType::IncreaseFireFrequency3] = {UpgradeType::IncreaseFireFrequency3, "foo", "Scarface", "Increase Fire Frequency by 30 percent"};
 }
 
 void GameLayer::initExpLvlTable()
@@ -214,11 +225,6 @@ void GameLayer::initExpLvlTable()
     }
 
     _expLvl.push_back(1000000000);
-
-    for (auto val : _expLvl)
-    {
-        con_endl(val);
-    }
 }
 
 void GameLayer::onSpawnStuff(const iaTime &time)
@@ -1168,78 +1174,23 @@ void GameLayer::onRenderHUD()
 
 void GameLayer::onLevelUp()
 {
-    initLevelUpDialog();
-
-    pause();
-
-    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog));
-}
-
-void GameLayer::initLevelUpDialog()
-{
-    if (_levelUpDialog != nullptr)
+    if (_levelUpDialog == nullptr)
     {
-        return;
+        _levelUpDialog = new UpgradeDialog();
     }
 
-    _levelUpDialog = new iDialog();
-    _levelUpDialog->setHorizontalAlignment(iHorizontalAlignment::Center);
-    _levelUpDialog->setVerticalAlignment(iVerticalAlignment::Center);
-    _levelUpDialog->setHeight(getWindow()->getClientHeight() * 0.5);
-    _levelUpDialog->setWidth(getWindow()->getClientWidth() * 0.5);
-
-    iWidgetGrid *grid = new iWidgetGrid(_levelUpDialog);
-    grid->appendColumns(2);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    grid->setVerticalAlignment(iVerticalAlignment::Strech);
-    grid->setBorder(10);
-    grid->setCellSpacing(5);
-    grid->setStrechColumn(1);
-    grid->setSelectMode(iSelectionMode::NoSelection);
-
-    iWidgetButton *button1 = new iWidgetButton();
-    button1->setSize(100, 100);
-    button1->setVerticalAlignment(iVerticalAlignment::Center);
-    button1->setHorizontalAlignment(iHorizontalAlignment::Center);
-    button1->setText("1");
-    button1->registerOnClickEvent(iClickDelegate(this, &GameLayer::onSelectUpgrade1));
-
-    iWidgetButton *button2 = new iWidgetButton();
-    button2->setSize(100, 100);
-    button2->setVerticalAlignment(iVerticalAlignment::Center);
-    button2->setHorizontalAlignment(iHorizontalAlignment::Center);
-    button2->setText("2");
-    button2->registerOnClickEvent(iClickDelegate(this, &GameLayer::onSelectUpgrade2));
-
-    iWidgetButton *button3 = new iWidgetButton();
-    button3->setSize(100, 100);
-    button3->setVerticalAlignment(iVerticalAlignment::Center);
-    button3->setHorizontalAlignment(iHorizontalAlignment::Center);
-    button3->setText("3");
-    button3->registerOnClickEvent(iClickDelegate(this, &GameLayer::onSelectUpgrade3));
-
-    grid->addWidget(button1, 0, 0);
-    grid->addWidget(button2, 1, 0);
-    grid->addWidget(button3, 2, 0);
-}
-
-void GameLayer::onSelectUpgrade1(const iWidgetPtr source)
-{
-    _levelUpDialog->close();
-}
-
-void GameLayer::onSelectUpgrade2(const iWidgetPtr source)
-{
-    _levelUpDialog->close();
-}
-
-void GameLayer::onSelectUpgrade3(const iWidgetPtr source)
-{
-    _levelUpDialog->close();
+    pause();
+    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog),
+                         _upgrades[UpgradeType::IncreaseWalkingSpeed1],
+                         _upgrades[UpgradeType::IncreaseWalkingSpeed2],
+                         _upgrades[UpgradeType::IncreaseWalkingSpeed3]);
 }
 
 void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
 {
+    UpgradeType upgradeType = _levelUpDialog->getSelection();
+
+    con_endl("onCloseLevelUpDialog " << (int)upgradeType);
     play();
 }
 

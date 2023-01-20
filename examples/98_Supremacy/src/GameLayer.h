@@ -30,6 +30,7 @@
 #define __SUPREMACY_GAMELAYER__
 
 #include "Defines.h"
+#include "UpgradeDialog.h"
 
 /*! GameLayer
  */
@@ -37,17 +38,15 @@ class GameLayer : public iLayer
 {
 
 public:
-
     /*! ctor
-    */
+     */
     GameLayer(iWindowPtr window);
 
     /*! does nothing
-    */
+     */
     ~GameLayer() = default;
 
 private:
-
     /*! the view we render 2D to
      */
     iView _viewOrtho;
@@ -88,7 +87,7 @@ private:
     iTexturePtr _shadow;
 
     /*! floor
-    */
+     */
     iTexturePtr _backgroundTexture;
 
     /*! texture font we use to display texts
@@ -96,33 +95,31 @@ private:
     iTextureFontPtr _font;
 
     /*! coin texture
-    */
+     */
     iTexturePtr _coin;
 
     /*! if true game logic is on hold
-    */
+     */
     bool _gamePause = false;
 
     std::vector<uint32> _expLvl;
 
-    iDialogPtr _levelUpDialog = nullptr;
+    std::map<UpgradeType, UpgradeConfiguration> _upgrades;
 
-    void initLevelUpDialog();
+    UpgradeDialog *_levelUpDialog = nullptr;
 
     void onCloseLevelUpDialog(iDialogPtr dialog);
 
     void pause();
     void play();
 
-    void onSelectUpgrade1(const iWidgetPtr source);
-    void onSelectUpgrade2(const iWidgetPtr source);
-    void onSelectUpgrade3(const iWidgetPtr source);
-
     /*! called when added to layer stack
      */
     void onInit() override;
 
     void initExpLvlTable();
+
+    void initUpgrades();
 
     /*! called when removed from layer stack
      */
@@ -141,7 +138,7 @@ private:
     void onRenderOrtho();
 
     /*! renders HUD
-    */
+     */
     void onRenderHUD();
 
     void onRenderStats();
@@ -220,7 +217,7 @@ private:
     void addExperience(iEntity &entity, float64 experience);
 
     /*! called on level up
-    */
+     */
     void onLevelUp();
 
     struct GameStats
