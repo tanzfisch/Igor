@@ -108,6 +108,19 @@ namespace iaux
         */
         iaTime operator*(float64 scalar) const;
 
+        /*! divides this time with scalar
+
+        \param scalar the value to divide the time with
+        */
+        void operator/=(float64 scalar);
+
+        /*! divides time with scalar
+
+        \param scalar the value to divide the time with
+        \returns the new time
+        */
+        iaTime operator/(float64 scalar) const;        
+
         /*! \returns true if both times are equal
          */
         bool operator==(const iaTime &time) const;

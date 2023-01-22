@@ -98,6 +98,12 @@ private:
      */
     iTexturePtr _coin;
 
+    iTexturePtr _damage;
+
+    iTexturePtr _attackSpeed;
+
+    iTexturePtr _walkSpeed;
+
     /*! if true game logic is on hold
      */
     bool _gamePause = false;
@@ -107,6 +113,8 @@ private:
     std::map<UpgradeType, UpgradeConfiguration> _upgrades;
 
     UpgradeDialog *_levelUpDialog = nullptr;
+
+    void upgrade(iEntity entity, UpgradeType upgradeType);
 
     void onCloseLevelUpDialog(iDialogPtr dialog);
 

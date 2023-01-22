@@ -30,6 +30,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<ExperienceComponent>(0.0, 1.0);
     entity.addComponent<CoinsComponent>(0.0);
+    entity.addComponent<ModifierComponent>(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
     weapon._time = iTimer::getInstance().getTime();
@@ -188,6 +189,9 @@ void GameLayer::onInit()
     _font = iTextureFont::create("StandardFont.png");
 
     _coin = iTextureResourceFactory::getInstance().requestFile("coin.png");
+    _damage = iTextureResourceFactory::getInstance().requestFile("fist.png");
+    _attackSpeed = iTextureResourceFactory::getInstance().requestFile("bullets.png");
+    _walkSpeed = iTextureResourceFactory::getInstance().requestFile("run.png");
 
     initExpLvlTable();
     initUpgrades();
@@ -195,12 +199,17 @@ void GameLayer::onInit()
 
 void GameLayer::initUpgrades()
 {
-    _upgrades[UpgradeType::IncreaseWalkingSpeed1] = {UpgradeType::IncreaseWalkingSpeed1, "foo", "Can't wait", "Walk faster 10 percent"};
-    _upgrades[UpgradeType::IncreaseWalkingSpeed2] = {UpgradeType::IncreaseWalkingSpeed2, "foo", "In a hurry", "Walk faster 20 percent"};
-    _upgrades[UpgradeType::IncreaseWalkingSpeed3] = {UpgradeType::IncreaseWalkingSpeed3, "foo", "Run Forrest", "Walk faster 30 percent"};
-    _upgrades[UpgradeType::IncreaseFireFrequency1] = {UpgradeType::IncreaseFireFrequency1, "foo", "foo", "Increase Fire Frequency by 10 percent"};
-    _upgrades[UpgradeType::IncreaseFireFrequency2] = {UpgradeType::IncreaseFireFrequency2, "foo", "Maniac", "Increase Fire Frequency by 20 percent"};
-    _upgrades[UpgradeType::IncreaseFireFrequency3] = {UpgradeType::IncreaseFireFrequency3, "foo", "Scarface", "Increase Fire Frequency by 30 percent"};
+    // _damageFactor, _attackIntervalFactor, _criticalHitChanceFactor, _criticalHitDamageFactor, _splashDamageRangeFactor, _walkSpeedFactor, _projectileSpeedFactor
+
+    _upgrades[UpgradeType::IncreaseWalkingSpeed1] = {UpgradeType::IncreaseWalkingSpeed1, "foo", "Can't wait", "Walk faster 10 percent", 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0};
+    _upgrades[UpgradeType::IncreaseWalkingSpeed2] = {UpgradeType::IncreaseWalkingSpeed2, "foo", "In a hurry", "Walk faster 20 percent", 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.0};
+    _upgrades[UpgradeType::IncreaseWalkingSpeed3] = {UpgradeType::IncreaseWalkingSpeed3, "foo", "Run Forrest", "Walk faster 30 percent", 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.0};
+    _upgrades[UpgradeType::IncreaseFireFrequency1] = {UpgradeType::IncreaseFireFrequency1, "foo", "Trigger happy", "Increase Fire Frequency by 10 percent", 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0};
+    _upgrades[UpgradeType::IncreaseFireFrequency2] = {UpgradeType::IncreaseFireFrequency2, "foo", "Maniac", "Increase Fire Frequency by 20 percent", 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0};
+    _upgrades[UpgradeType::IncreaseFireFrequency3] = {UpgradeType::IncreaseFireFrequency3, "foo", "Scarface", "Increase Fire Frequency by 30 percent", 0.0, 0.3, 0.0, 0.0, 0.0, 0.0, 0.0};
+    _upgrades[UpgradeType::IncreaseDamage1] = {UpgradeType::IncreaseDamage1, "foo", "Scarface", "Increase Damage by 10 percent", 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    _upgrades[UpgradeType::IncreaseDamage2] = {UpgradeType::IncreaseDamage2, "foo", "Scarface", "Increase Damage by 20 percent", 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    _upgrades[UpgradeType::IncreaseDamage3] = {UpgradeType::IncreaseDamage3, "foo", "Scarface", "Increase Damage by 30 percent", 0.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 }
 
 void GameLayer::initExpLvlTable()
@@ -270,7 +279,10 @@ void GameLayer::onUpdateStats(const iaTime &time)
     }
 
     const auto &weapon = _player.getComponent<WeaponComponent>();
-    stats._playerDamage = weapon._damage / weapon._attackInterval.getSeconds();
+
+    const ModifierComponent &modifierComponent = _player.getComponent<ModifierComponent>();
+
+    stats._playerDamage = (weapon._damage * modifierComponent._damageFactor) / (weapon._attackInterval.getSeconds() / modifierComponent._attackIntervalFactor);
     const auto &experience = _player.getComponent<ExperienceComponent>();
     stats._playerExperience = experience._experience;
     stats._playerLevel = experience._level;
@@ -626,6 +638,12 @@ void GameLayer::onUpdatePositionSystem()
 
         iEntity entity(entityID, _entityScene);
 
+        ModifierComponent* modifierComponent = entity.tryGetComponent<ModifierComponent>();
+        if(modifierComponent != nullptr)
+        {
+            speed *= modifierComponent->_walkSpeedFactor;
+        }
+
         for (const auto &object : objects)
         {
             const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
@@ -916,10 +934,10 @@ void GameLayer::onUpdateWeaponSystem()
 {
     iaTime now = iTimer::getInstance().getTime();
 
-    auto view = _entityScene.getEntities<WeaponComponent, TargetComponent, PositionComponent, VelocityComponent>();
-    for (auto entity : view)
+    auto view = _entityScene.getEntities<WeaponComponent, TargetComponent, PositionComponent, VelocityComponent, ModifierComponent>();
+    for (auto entityID : view)
     {
-        auto [weapon, target, position, velocity] = view.get<WeaponComponent, TargetComponent, PositionComponent, VelocityComponent>(entity);
+        auto [weapon, target, position, velocity, modifier] = view.get<WeaponComponent, TargetComponent, PositionComponent, VelocityComponent, ModifierComponent>(entityID);
 
         // skip if there is no target
         if (target._targetID == iInvalidEntityID)
@@ -933,8 +951,10 @@ void GameLayer::onUpdateWeaponSystem()
             continue;
         }
 
+        con_endl("weapon._attackInterval / modifier._attackIntervalFactor" << weapon._attackInterval << " / " << modifier._attackIntervalFactor << " = " << weapon._attackInterval / modifier._attackIntervalFactor);
+
         // check if it is time to fire again
-        if (now - weapon._time < weapon._attackInterval)
+        if ((now - weapon._time) < (weapon._attackInterval / modifier._attackIntervalFactor))
         {
             continue;
         }
@@ -948,7 +968,10 @@ void GameLayer::onUpdateWeaponSystem()
         iaVector2d direction = targetPosition._position - firePos;
         direction.normalize();
 
-        fire(firePos, direction, FRIEND, weapon._damage, weapon._speed, weapon._range, weapon._weaponType);
+        fire(firePos, direction, FRIEND, weapon._damage * modifier._damageFactor,
+             weapon._speed * modifier._projectileSpeedFactor,
+             weapon._range, // TODO projectile range
+             weapon._weaponType);
     }
 }
 
@@ -1101,7 +1124,7 @@ void GameLayer::onRenderStats()
         playerDamage.push_back(iaVector3f(x, y - data._playerDamage * 0.1, 0.0));
         playerExperience.push_back(iaVector3f(x, y - data._playerExperience * 0.1, 0.0));
         playerLevel.push_back(iaVector3f(x, y - (uint32)data._playerLevel * 20.0, 0.0));
-        enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.1, 0.0));
+        enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.05, 0.0));
         x += 1.0f;
     }
 
@@ -1150,6 +1173,8 @@ void GameLayer::onRenderHUD()
     auto &healthComp = _player.getComponent<HealthComponent>();
     auto &playerExperience = _player.getComponent<ExperienceComponent>();
     auto &playerCoins = _player.getComponent<CoinsComponent>();
+    auto &modifiers = _player.getComponent<ModifierComponent>();
+    auto &weapon = _player.getComponent<WeaponComponent>();
 
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
@@ -1170,6 +1195,15 @@ void GameLayer::onRenderHUD()
 
     iRenderer::getInstance().drawTexturedRectangle(10, 120, 40, 40, _coin, iaColor4f::white, true);
     iRenderer::getInstance().drawString(60, 130, iaString::toString(playerCoins._coins, 0));
+
+    iRenderer::getInstance().drawTexturedRectangle(10, 160, 40, 40, _damage, iaColor4f::white, true);
+    iRenderer::getInstance().drawString(60, 170, iaString::toString(weapon._damage * modifiers._damageFactor, 0));
+
+    iRenderer::getInstance().drawTexturedRectangle(10, 200, 40, 40, _attackSpeed, iaColor4f::white, true);
+    iRenderer::getInstance().drawString(60, 210, iaString::toString(1.0 / (weapon._attackInterval.getSeconds() / modifiers._attackIntervalFactor), 1));
+
+    iRenderer::getInstance().drawTexturedRectangle(10, 240, 40, 40, _walkSpeed, iaColor4f::white, true);
+    iRenderer::getInstance().drawString(60, 250, iaString::toString(modifiers._walkSpeedFactor, 1));
 }
 
 void GameLayer::onLevelUp()
@@ -1182,15 +1216,32 @@ void GameLayer::onLevelUp()
     pause();
     _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog),
                          _upgrades[UpgradeType::IncreaseWalkingSpeed1],
-                         _upgrades[UpgradeType::IncreaseWalkingSpeed2],
-                         _upgrades[UpgradeType::IncreaseWalkingSpeed3]);
+                         _upgrades[UpgradeType::IncreaseDamage2],
+                         _upgrades[UpgradeType::IncreaseFireFrequency3]);
+}
+
+void GameLayer::upgrade(iEntity entity, UpgradeType upgradeType)
+{
+    if (!entity.isValid())
+    {
+        return;
+    }
+
+    ModifierComponent &modifierComponent = entity.getComponent<ModifierComponent>();
+    const UpgradeConfiguration &upgradeConfiguration = _upgrades[upgradeType];
+
+    modifierComponent._damageFactor += upgradeConfiguration._damageFactor;
+    modifierComponent._attackIntervalFactor += upgradeConfiguration._attackIntervalFactor;
+    modifierComponent._criticalHitChanceFactor += upgradeConfiguration._criticalHitChanceFactor;
+    modifierComponent._criticalHitDamageFactor += upgradeConfiguration._criticalHitDamageFactor;
+    modifierComponent._splashDamageRangeFactor += upgradeConfiguration._splashDamageRangeFactor;
+    modifierComponent._walkSpeedFactor += upgradeConfiguration._walkSpeedFactor;
+    modifierComponent._projectileSpeedFactor += upgradeConfiguration._projectileSpeedFactor;
 }
 
 void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
 {
-    UpgradeType upgradeType = _levelUpDialog->getSelection();
-
-    con_endl("onCloseLevelUpDialog " << (int)upgradeType);
+    upgrade(_player, _levelUpDialog->getSelection());
     play();
 }
 

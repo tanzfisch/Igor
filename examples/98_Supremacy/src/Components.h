@@ -220,13 +220,13 @@ enum class ObjectType
 
 struct ModifierComponent
 {
-    float32 _damageFactor;
-    float32 _attackIntervalFactor;
-    float32 _criticalHitChanceFactor;
-    float32 _criticalHitFactor;
-    float32 _splashDamageRangeFactor;
-    float32 _walkSpeedFactor;
-    float32 _projectileSpeedFactor;    
+    float64 _damageFactor;
+    float64 _attackIntervalFactor;
+    float64 _criticalHitChanceFactor;
+    float64 _criticalHitDamageFactor;
+    float64 _splashDamageRangeFactor;
+    float64 _walkSpeedFactor;
+    float64 _projectileSpeedFactor;    
 };
 
 #endif // __SUPREMACY_COMPONENTS__

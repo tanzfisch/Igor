@@ -40,6 +40,9 @@ enum class UpgradeType
     IncreaseFireFrequency1,
     IncreaseFireFrequency2,
     IncreaseFireFrequency3,
+    IncreaseDamage1,
+    IncreaseDamage2,
+    IncreaseDamage3,
 };
 
 struct UpgradeConfiguration
@@ -48,6 +51,14 @@ struct UpgradeConfiguration
     iaString _texture;
     iaString _name;
     iaString _description;
+
+    float64 _damageFactor;
+    float64 _attackIntervalFactor;
+    float64 _criticalHitChanceFactor;
+    float64 _criticalHitDamageFactor;
+    float64 _splashDamageRangeFactor;
+    float64 _walkSpeedFactor;
+    float64 _projectileSpeedFactor;
 };
 
 class UpgradeDialog : public iDialog
