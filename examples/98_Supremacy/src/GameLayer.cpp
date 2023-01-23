@@ -638,8 +638,8 @@ void GameLayer::onUpdatePositionSystem()
 
         iEntity entity(entityID, _entityScene);
 
-        ModifierComponent* modifierComponent = entity.tryGetComponent<ModifierComponent>();
-        if(modifierComponent != nullptr)
+        ModifierComponent *modifierComponent = entity.tryGetComponent<ModifierComponent>();
+        if (modifierComponent != nullptr)
         {
             speed *= modifierComponent->_walkSpeedFactor;
         }
@@ -1214,10 +1214,20 @@ void GameLayer::onLevelUp()
     }
 
     pause();
-    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog),
-                         _upgrades[UpgradeType::IncreaseWalkingSpeed1],
-                         _upgrades[UpgradeType::IncreaseDamage2],
-                         _upgrades[UpgradeType::IncreaseFireFrequency3]);
+
+    std::set<UpgradeType> types;
+
+    do
+    {
+        types.insert(static_cast<UpgradeType>(_rand.getNext() % _upgrades.size()));
+    } while (types.size() < 3);
+
+    auto iter = types.begin();
+    UpgradeConfiguration &uc1 = _upgrades[(*iter++)];
+    UpgradeConfiguration &uc2 = _upgrades[(*iter++)];
+    UpgradeConfiguration &uc3 = _upgrades[(*iter++)];
+
+    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog), uc1, uc2, uc3);
 }
 
 void GameLayer::upgrade(iEntity entity, UpgradeType upgradeType)

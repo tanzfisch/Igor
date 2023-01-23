@@ -33,7 +33,7 @@
 using namespace igor;
 
 enum class UpgradeType
-{
+{    
     IncreaseWalkingSpeed1,
     IncreaseWalkingSpeed2,
     IncreaseWalkingSpeed3,
