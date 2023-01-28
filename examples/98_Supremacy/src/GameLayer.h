@@ -179,6 +179,8 @@ private:
 
     void createUnit(const iaVector2d &pos, uint32 party, iEntityID target);
 
+    void createShop(const iaVector2d &pos);
+
     void createObject(const iaVector2d &pos, uint32 party, ObjectType objectType);
 
     void onUpdateQuadtreeSystem();

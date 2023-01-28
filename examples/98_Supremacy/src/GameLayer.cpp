@@ -31,7 +31,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<ExperienceComponent>(0.0, 1.0);
     entity.addComponent<CoinsComponent>(0.0);
     entity.addComponent<ModifierComponent>(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, true, iaTime::fromSeconds(_rand.getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
     weapon._time = iTimer::getInstance().getTime();
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
@@ -73,7 +73,7 @@ void GameLayer::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     auto size = entity.addComponent<SizeComponent>(COIN_SIZE);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, true, iaTime::fromSeconds(_rand.getNextFloat()));
 
     entity.addComponent<PickupComponent>(true);
     entity.addComponent<ExperienceGainComponent>(0.0);
@@ -82,6 +82,22 @@ void GameLayer::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     entity.addComponent<HealComponent>(0.0);
 
     entity.addComponent<PartyComponent>(party);
+
+    auto &object = entity.addComponent<QuadtreeObjectComponent>();
+    object._object = std::make_shared<iQuadtreeObjectd>();
+    object._object->_userData = entity.getID();
+    object._object->_circle.set(pos, size._size);
+    _quadtree.insert(object._object);
+}
+
+void GameLayer::createShop(const iaVector2d &pos)
+{
+    iEntity entity = _entityScene.createEntity("shop");
+    entity.addComponent<PositionComponent>(pos);
+    auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE * 4);
+    entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
+    entity.addComponent<VelocityComponent>(getRandomDir(), 0.0, false);
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("shop.png"), true, false, iaTime::fromSeconds(_rand.getNextFloat()));
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreeObjectd>();
@@ -102,7 +118,7 @@ void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     entity.addComponent<PartyComponent>(party);
     entity.addComponent<DamageComponent>(10.0);
     entity.addComponent<HealthComponent>(30.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"), true, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"), true, true, iaTime::fromSeconds(_rand.getNextFloat()));
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
@@ -171,6 +187,8 @@ void GameLayer::onInit()
         iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
         createUnit(pos, FOE, _player.getID());
     }
+
+    createShop(iaVector2d(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT));
 
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));
@@ -628,14 +646,8 @@ void GameLayer::onUpdatePositionSystem()
         iaVector2d &position = pos._position;
         const float64 radius = size._size * 0.5;
         float64 speed = vel._speed;
-
-        iaCircled circle(position, radius * 1.1);
-        iQuadtreeObjectsd objects;
-        _quadtree.query(circle, objects);
-
         iaVector2d diversion;
-        uint32 totalHits = 0;
-
+        iaVector2d direction = vel._direction;
         iEntity entity(entityID, _entityScene);
 
         ModifierComponent *modifierComponent = entity.tryGetComponent<ModifierComponent>();
@@ -644,56 +656,56 @@ void GameLayer::onUpdatePositionSystem()
             speed *= modifierComponent->_walkSpeedFactor;
         }
 
-        for (const auto &object : objects)
-        {
-            const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
-
-            // skip self
-            if (otherEntityID == entityID)
-            {
-                continue;
-            }
-
-            // don't calculate diversion if non blockable
-            if (vel._nonBlockable)
-            {
-                continue;
-            }
-
-            // get other entity
-            iEntity otherEntity(otherEntityID, _entityScene);
-
-            // ignore other entity for diversion if non blockable
-            auto *otherEntityVel = otherEntity.tryGetComponent<VelocityComponent>();
-            if (otherEntityVel == nullptr || otherEntityVel->_nonBlockable)
-            {
-                continue;
-            }
-
-            // calc diversion
-            diversion += position - object->_circle._center;
-            totalHits++;
-        }
-
         auto *range = entity.tryGetComponent<RangeComponent>();
 
-        if (totalHits)
+        // don't calculate diversion if non blockable
+        if (!vel._nonBlockable)
         {
-            diversion.normalize();
-            diversion *= speed;
-            if (range != nullptr)
+            iaCircled circle(position, radius * 1.1);
+            iQuadtreeObjectsd objects;
+            _quadtree.query(circle, objects);
+            
+            uint32 totalHits = 0;
+
+            for (const auto &object : objects)
             {
-                range->_distanceTraveled += diversion.length();
+                const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
+
+                // skip self
+                if (otherEntityID == entityID)
+                {
+                    continue;
+                }
+
+                // get other entity
+                iEntity otherEntity(otherEntityID, _entityScene);
+
+                // ignore other entity for diversion if non blockable
+                auto *otherEntityVel = otherEntity.tryGetComponent<VelocityComponent>();
+                if (otherEntityVel == nullptr || otherEntityVel->_nonBlockable)
+                {
+                    continue;
+                }
+
+                // calc diversion
+                diversion += position - object->_circle._center;
+                totalHits++;
             }
-            position += diversion;
+
+            if (totalHits)
+            {
+                diversion.normalize();
+                diversion *= speed;               
+            }
         }
 
-        iaVector2d direction = vel._direction;
         direction *= speed;
         if (range != nullptr)
         {
+            range->_distanceTraveled += diversion.length();
             range->_distanceTraveled += direction.length();
         }
+        position += diversion;
         position += direction;
 
         // jump to other side
@@ -811,7 +823,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<DamageComponent>(damage);
         bullet.addComponent<HealthComponent>(100.0, true);
         bullet.addComponent<SizeComponent>(config._size);
-        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(config._texture), false, iaTime::fromSeconds(_rand.getNextFloat()));
+        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(config._texture), false, false, iaTime::fromSeconds(_rand.getNextFloat()));
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
 
@@ -1300,18 +1312,25 @@ void GameLayer::onRenderOrtho()
             iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor, true);
         }
 
-        iaTime time = iTimer::getInstance().getTime() + visual._timerOffset;
-        float64 timing = std::fmod((time.getMilliseconds() * 2.0), 1000.0) / 1000.0 * M_PI * 2;
-
-        float64 value = 1.0f + (sin(timing) * 0.1);
-
         iaMatrixf matrix;
         matrix.translate(position._x, position._y, 0.0);
+
         iaVector2d o = ori._direction;
         o._y *= -1.0;
         const float32 angle = o.angle();
         matrix.rotate(angle, iaAxis::Z);
-        matrix.scale(width * value, height * (1.0 / value), 1.0);
+
+        if (visual._scaleAnimation)
+        {
+            iaTime time = iTimer::getInstance().getTime() + visual._timerOffset;
+            float64 timing = std::fmod((time.getMilliseconds() * 2.0), 1000.0) / 1000.0 * M_PI * 2;
+            float64 value = 1.0f + (sin(timing) * 0.1);
+            matrix.scale(width * value, height * (1.0 / value), 1.0);
+        }
+        else
+        {
+            matrix.scale(width, height, 1.0);
+        }
 
         iRenderer::getInstance().drawTexturedQuad(matrix, visual._texture, iaColor4f::white, true);
     }
