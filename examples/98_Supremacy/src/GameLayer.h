@@ -108,6 +108,8 @@ private:
      */
     bool _gamePause = false;
 
+    bool _levelUp = false;
+
     std::vector<uint32> _expLvl;
 
     std::map<UpgradeType, UpgradeConfiguration> _upgrades;
@@ -117,6 +119,8 @@ private:
     void upgrade(iEntity entity, UpgradeType upgradeType);
 
     void onCloseLevelUpDialog(iDialogPtr dialog);
+
+    void onOpenBuilding(BuildingType buildingType);
 
     void pause();
     void play();
@@ -194,6 +198,8 @@ private:
     void onUpdateCollisionSystem();
 
     void onUpdatePickupSystem(iEntity &entity);
+
+    BuildingType onCheckForBuildingsNearBy(iEntity &entity);
 
     void onUpdateRangeSystem();
 

@@ -138,16 +138,8 @@ namespace igor
 
     void iWidgetManager::setModal(iDialogPtr dialog)
     {
-        con_assert(_modal == nullptr, "an other dialog is alsready modal");
-
-        if (_modal == nullptr)
-        {
-            _modal = dialog;
-        }
-        else
-        {
-            con_err("an other dialog is already modal");
-        }
+        con_assert_sticky(_modal == nullptr, "an other dialog is alsready modal");
+        _modal = dialog;
     }
 
     void iWidgetManager::closeDialog(iDialogPtr dialog)

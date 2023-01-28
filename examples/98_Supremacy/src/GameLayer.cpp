@@ -98,6 +98,7 @@ void GameLayer::createShop(const iaVector2d &pos)
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.0, false);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("shop.png"), true, false, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<BuildingComponent>(BuildingType::Shop);
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreeObjectd>();
@@ -664,7 +665,7 @@ void GameLayer::onUpdatePositionSystem()
             iaCircled circle(position, radius * 1.1);
             iQuadtreeObjectsd objects;
             _quadtree.query(circle, objects);
-            
+
             uint32 totalHits = 0;
 
             for (const auto &object : objects)
@@ -695,7 +696,7 @@ void GameLayer::onUpdatePositionSystem()
             if (totalHits)
             {
                 diversion.normalize();
-                diversion *= speed;               
+                diversion *= speed;
             }
         }
 
@@ -844,8 +845,33 @@ void GameLayer::addExperience(iEntity &entity, float64 experience)
 
     if (level < uint32(comp._level))
     {
-        onLevelUp();
+        _levelUp = true;
     }
+}
+
+BuildingType GameLayer::onCheckForBuildingsNearBy(iEntity &entity)
+{
+    if (!entity.isValid())
+    {
+        return BuildingType::None;
+    }
+
+    auto &entitySize = entity.getComponent<SizeComponent>();
+    auto &entityPosition = entity.getComponent<PositionComponent>();
+
+    auto view = _entityScene.getEntities<BuildingComponent, PositionComponent, SizeComponent>();
+    for (auto entityID : view)
+    {
+        auto [building, pos, size] = view.get<BuildingComponent, PositionComponent, SizeComponent>(entityID);
+
+        const float64 distance = pos._position.distance(entityPosition._position);
+        if (distance < entitySize._size + size._size)
+        {
+            return building._type;
+        }
+    }
+
+    return BuildingType::None;
 }
 
 void GameLayer::onUpdatePickupSystem(iEntity &entity)
@@ -1081,6 +1107,7 @@ void GameLayer::onUpdate(const iaTime &time)
 
     aquireTargetFor(_player);
     onUpdatePickupSystem(_player);
+    const BuildingType buildingType = onCheckForBuildingsNearBy(_player);
 
     onUpdateWeaponSystem();
 
@@ -1088,6 +1115,17 @@ void GameLayer::onUpdate(const iaTime &time)
     onUpdateCleanUpTheDeadSystem();
 
     updateViewRectangleSystem();
+
+    if (buildingType != BuildingType::None)
+    {
+        onOpenBuilding(buildingType);
+    }
+
+    if (_levelUp)
+    {
+        onLevelUp();
+        _levelUp = false;
+    }
 }
 
 void GameLayer::onDeinit()
@@ -1240,6 +1278,30 @@ void GameLayer::onLevelUp()
     UpgradeConfiguration &uc3 = _upgrades[(*iter++)];
 
     _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog), uc1, uc2, uc3);
+}
+
+void GameLayer::onOpenBuilding(BuildingType buildingType)
+{
+    /*if (_levelUpDialog == nullptr)
+    {
+        _levelUpDialog = new UpgradeDialog();
+    }
+
+    pause();
+
+    std::set<UpgradeType> types;
+
+    do
+    {
+        types.insert(static_cast<UpgradeType>(_rand.getNext() % _upgrades.size()));
+    } while (types.size() < 3);
+
+    auto iter = types.begin();
+    UpgradeConfiguration &uc1 = _upgrades[(*iter++)];
+    UpgradeConfiguration &uc2 = _upgrades[(*iter++)];
+    UpgradeConfiguration &uc3 = _upgrades[(*iter++)];
+
+    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog), uc1, uc2, uc3);*/
 }
 
 void GameLayer::upgrade(iEntity entity, UpgradeType upgradeType)

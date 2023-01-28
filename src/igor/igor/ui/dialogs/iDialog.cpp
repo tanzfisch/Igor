@@ -82,7 +82,6 @@ namespace igor
         setActive(false);
         setVisible(false);
         iWidgetManager::getInstance().resetModal();
-
         iWidgetManager::getInstance().closeDialog(this);
 
         _isOpen = false;

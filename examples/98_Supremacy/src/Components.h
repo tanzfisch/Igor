@@ -230,4 +230,15 @@ struct ModifierComponent
     float64 _projectileSpeedFactor;    
 };
 
+enum class BuildingType
+{
+    None,
+    Shop
+};
+
+struct BuildingComponent
+{
+    BuildingType _type;
+};
+
 #endif // __SUPREMACY_COMPONENTS__
