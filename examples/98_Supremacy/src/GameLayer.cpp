@@ -214,6 +214,9 @@ void GameLayer::onInit()
 
     initExpLvlTable();
     initUpgrades();
+
+    _levelUpDialog = new UpgradeDialog();
+    _shopDialog = new ShopDialog();
 }
 
 void GameLayer::initUpgrades()
@@ -989,8 +992,6 @@ void GameLayer::onUpdateWeaponSystem()
             continue;
         }
 
-        con_endl("weapon._attackInterval / modifier._attackIntervalFactor" << weapon._attackInterval << " / " << modifier._attackIntervalFactor << " = " << weapon._attackInterval / modifier._attackIntervalFactor);
-
         // check if it is time to fire again
         if ((now - weapon._time) < (weapon._attackInterval / modifier._attackIntervalFactor))
         {
@@ -1110,16 +1111,11 @@ void GameLayer::onUpdate(const iaTime &time)
     const BuildingType buildingType = onCheckForBuildingsNearBy(_player);
 
     onUpdateWeaponSystem();
-
     onUpdateRangeSystem();
     onUpdateCleanUpTheDeadSystem();
-
     updateViewRectangleSystem();
 
-    if (buildingType != BuildingType::None)
-    {
-        onOpenBuilding(buildingType);
-    }
+    onOpenBuilding(buildingType);
 
     if (_levelUp)
     {
@@ -1258,11 +1254,6 @@ void GameLayer::onRenderHUD()
 
 void GameLayer::onLevelUp()
 {
-    if (_levelUpDialog == nullptr)
-    {
-        _levelUpDialog = new UpgradeDialog();
-    }
-
     pause();
 
     std::set<UpgradeType> types;
@@ -1282,26 +1273,36 @@ void GameLayer::onLevelUp()
 
 void GameLayer::onOpenBuilding(BuildingType buildingType)
 {
-    /*if (_levelUpDialog == nullptr)
+    if (_currentBuilding == buildingType)
     {
-        _levelUpDialog = new UpgradeDialog();
+        return;
+    }
+
+    _currentBuilding = buildingType;
+
+    if (_currentBuilding == BuildingType::None)
+    {
+        return;
     }
 
     pause();
 
-    std::set<UpgradeType> types;
-
-    do
+    switch (_currentBuilding)
     {
-        types.insert(static_cast<UpgradeType>(_rand.getNext() % _upgrades.size()));
-    } while (types.size() < 3);
+    case BuildingType::Shop:
+        openShop();
+        break;
+    }
+}
 
-    auto iter = types.begin();
-    UpgradeConfiguration &uc1 = _upgrades[(*iter++)];
-    UpgradeConfiguration &uc2 = _upgrades[(*iter++)];
-    UpgradeConfiguration &uc3 = _upgrades[(*iter++)];
+void GameLayer::openShop()
+{
+    _shopDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseShopDialog), 100);
+}
 
-    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog), uc1, uc2, uc3);*/
+void GameLayer::onCloseShopDialog(iDialogPtr dialog)
+{
+    play();
 }
 
 void GameLayer::upgrade(iEntity entity, UpgradeType upgradeType)
@@ -1364,7 +1365,7 @@ void GameLayer::onRenderOrtho()
             continue;
         }
 
-        position = pos._position + position;
+        position += pos._position;
 
         float64 width = size._size;
         float64 height = size._size;
@@ -1444,12 +1445,26 @@ void GameLayer::pause()
     _gamePause = true;
 
     iTimer::getInstance().stop();
+
+    resetKeyboardInput();
 }
 
 void GameLayer::play()
 {
     _gamePause = false;
     iTimer::getInstance().start();
+}
+
+void GameLayer::resetKeyboardInput()
+{
+    if (_player.isValid())
+    {
+        MovementControlComponent &movementControl = _player.getComponent<MovementControlComponent>();
+        movementControl._up = false;
+        movementControl._down = false;
+        movementControl._left = false;
+        movementControl._right = false;
+    }
 }
 
 bool GameLayer::onKeyUp(iEventKeyUp &event)

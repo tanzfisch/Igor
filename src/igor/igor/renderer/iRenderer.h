@@ -216,6 +216,8 @@ namespace igor
         */
         void drawCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
+        void drawCircle(const iaVector2f &pos, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
         /*! draw a filled circle.
 
         \param x horizontal center position
@@ -225,6 +227,8 @@ namespace igor
         \param color the color to draw with
         */
         void drawFilledCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
+        void drawFilledCircle(const iaVector2f &pos, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
         ///////////////////// 3D ////////////////////////////
         void drawBox(const iAACubed &box, const iaColor4f &color = iaColor4f::white);

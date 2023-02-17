@@ -1746,6 +1746,11 @@ namespace igor
                  iaVector3f(b._x, b._y, b._z), color);
     }
 
+    void iRenderer::drawCircle(const iaVector2f &pos, float32 radius, int segments, const iaColor4f &color)
+    {
+        drawCircle(pos._x, pos._y, radius, segments, color);
+    }
+
     void iRenderer::drawCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
     {
         const float32 step = 2 * M_PI / static_cast<float32>(segments);
@@ -1759,6 +1764,11 @@ namespace igor
             angleA += step;
             angleB += step;
         }
+    }
+
+    void iRenderer::drawFilledCircle(const iaVector2f &pos, float32 radius, int segments, const iaColor4f &color)
+    {
+        drawFilledCircle(pos._x, pos._y, radius, segments, color);
     }
 
     void iRenderer::drawFilledCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)

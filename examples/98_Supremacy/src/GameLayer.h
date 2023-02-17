@@ -31,6 +31,7 @@
 
 #include "Defines.h"
 #include "UpgradeDialog.h"
+#include "ShopDialog.h"
 
 /*! GameLayer
  */
@@ -104,6 +105,8 @@ private:
 
     iTexturePtr _walkSpeed;
 
+    BuildingType _currentBuilding = BuildingType::None;
+
     /*! if true game logic is on hold
      */
     bool _gamePause = false;
@@ -115,15 +118,21 @@ private:
     std::map<UpgradeType, UpgradeConfiguration> _upgrades;
 
     UpgradeDialog *_levelUpDialog = nullptr;
+    ShopDialog *_shopDialog = nullptr;
 
     void upgrade(iEntity entity, UpgradeType upgradeType);
 
     void onCloseLevelUpDialog(iDialogPtr dialog);
+    void onCloseShopDialog(iDialogPtr dialog);
 
     void onOpenBuilding(BuildingType buildingType);
 
     void pause();
     void play();
+
+    void resetKeyboardInput();
+
+    void openShop();
 
     /*! called when added to layer stack
      */

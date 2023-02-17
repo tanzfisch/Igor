@@ -6,21 +6,35 @@
 
 UpgradeDialog::UpgradeDialog(const iWidgetPtr parent)
 {
+	initGUI();
 }
 
 void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3)
 {
-	iDialog::open(dialogCloseDelegate);
-	
-	initGUI(config1, config2, config3);
+	_option1 = config1._type;
+	_option2 = config2._type;
+	_option3 = config3._type;
 
+	updateGUI(config1, config2, config3);
+	iDialog::open(dialogCloseDelegate);
 	iWidgetManager::getInstance().setModal(this);
+
+//	setActive();
+//	setVisible();
 }
 
-void UpgradeDialog::initGUI(const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3)
-{	
-	setActive();
-	setVisible();
+void UpgradeDialog::updateGUI(const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3)
+{
+	_labelName1->setText(config1._name);
+	_labelName2->setText(config2._name);
+	_labelName3->setText(config3._name);
+	_labelDescription1->setText(config1._description);
+	_labelDescription2->setText(config2._description);
+	_labelDescription3->setText(config3._description);
+}
+
+void UpgradeDialog::initGUI()
+{
 	setWidth(500);
 	setHeight(200);
 
@@ -38,19 +52,13 @@ void UpgradeDialog::initGUI(const UpgradeConfiguration &config1, const UpgradeCo
 	grid->setStrechRow(1);
 	grid->setSelectMode(iSelectionMode::NoSelection);
 
-	iWidgetLabel *labelName1 = new iWidgetLabel();
-	labelName1->setText(config1._name);
-	iWidgetLabel *labelName2 = new iWidgetLabel();
-	labelName2->setText(config2._name);
-	iWidgetLabel *labelName3 = new iWidgetLabel();
-	labelName3->setText(config3._name);
+	_labelName1 = new iWidgetLabel();
+	_labelName2 = new iWidgetLabel();
+	_labelName3 = new iWidgetLabel();
 
-	iWidgetLabel *labelDescription1 = new iWidgetLabel();
-	labelDescription1->setText(config1._description);
-	iWidgetLabel *labelDescription2 = new iWidgetLabel();
-	labelDescription2->setText(config2._description);
-	iWidgetLabel *labelDescription3 = new iWidgetLabel();
-	labelDescription3->setText(config3._description);
+	_labelDescription1 = new iWidgetLabel();
+	_labelDescription2 = new iWidgetLabel();
+	_labelDescription3 = new iWidgetLabel();
 
 	iWidgetButton *button1 = new iWidgetButton();
 	button1->setSize(100, 100);
@@ -73,21 +81,17 @@ void UpgradeDialog::initGUI(const UpgradeConfiguration &config1, const UpgradeCo
 	button3->setText("3");
 	button3->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect3));
 
-	grid->addWidget(labelName1, 0, 0);
-	grid->addWidget(labelName2, 1, 0);
-	grid->addWidget(labelName3, 2, 0);
+	grid->addWidget(_labelName1, 0, 0);
+	grid->addWidget(_labelName2, 1, 0);
+	grid->addWidget(_labelName3, 2, 0);
 
 	grid->addWidget(button1, 0, 1);
 	grid->addWidget(button2, 1, 1);
 	grid->addWidget(button3, 2, 1);
 
-	grid->addWidget(labelDescription1, 0, 2);
-	grid->addWidget(labelDescription2, 1, 2);
-	grid->addWidget(labelDescription3, 2, 2);
-
-	_option1 = config1._type;
-	_option2 = config2._type;
-	_option3 = config3._type;
+	grid->addWidget(_labelDescription1, 0, 2);
+	grid->addWidget(_labelDescription2, 1, 2);
+	grid->addWidget(_labelDescription3, 2, 2);
 }
 
 void UpgradeDialog::onSelect1(const iWidgetPtr source)

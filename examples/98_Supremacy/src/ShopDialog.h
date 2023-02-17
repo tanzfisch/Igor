@@ -26,60 +26,43 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SUPREMACY_UPGRADE_DIALOG__
-#define __SUPREMACY_UPGRADE_DIALOG__
+#ifndef __SUPREMACY_SHOP_DIALOG__
+#define __SUPREMACY_SHOP_DIALOG__
 
 #include <igor/igor.h>
 using namespace igor;
 
-enum class UpgradeType
-{    
-    IncreaseWalkingSpeed1,
-    IncreaseWalkingSpeed2,
-    IncreaseWalkingSpeed3,
-    IncreaseFireFrequency1,
-    IncreaseFireFrequency2,
-    IncreaseFireFrequency3,
-    IncreaseDamage1,
-    IncreaseDamage2,
-    IncreaseDamage3,
+enum class ShopItemType
+{   
+    None,
+    Knife,
+    Shotgun,
+    Minigun,
+    RocketLauncher
 };
 
-struct UpgradeConfiguration
-{
-    UpgradeType _type;
-    iaString _texture;
-    iaString _name;
-    iaString _description;
-
-    float64 _damageFactor;
-    float64 _attackIntervalFactor;
-    float64 _criticalHitChanceFactor;
-    float64 _criticalHitDamageFactor;
-    float64 _splashDamageRangeFactor;
-    float64 _walkSpeedFactor;
-    float64 _projectileSpeedFactor;
-};
-
-class UpgradeDialog : public iDialog
+class ShopDialog : public iDialog
 {
 public:
-    UpgradeDialog(const iWidgetPtr parent = nullptr);
-    ~UpgradeDialog() = default;
-    void open(iDialogCloseDelegate dialogCloseDelegate, const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3);
-    UpgradeType getSelection() const;
+    ShopDialog(const iWidgetPtr parent = nullptr);
+    ~ShopDialog() = default;
+    void open(iDialogCloseDelegate dialogCloseDelegate, int coins);
+    ShopItemType getSelection() const;
 
 private:
 
-    UpgradeType _selection;
+    ShopItemType _selection;
 
-    UpgradeType _option1;
-    UpgradeType _option2;
-    UpgradeType _option3;
+    ShopItemType _option1;
+    ShopItemType _option2;
+    ShopItemType _option3;
 
 	iWidgetLabel *_labelName1;
 	iWidgetLabel *_labelName2;
 	iWidgetLabel *_labelName3;
+	iWidgetLabel *_labelPrice1;
+	iWidgetLabel *_labelPrice2;
+	iWidgetLabel *_labelPrice3;
 	iWidgetLabel *_labelDescription1;
 	iWidgetLabel *_labelDescription2;
 	iWidgetLabel *_labelDescription3;
@@ -87,9 +70,9 @@ private:
     void onSelect1(const iWidgetPtr source);
     void onSelect2(const iWidgetPtr source);
     void onSelect3(const iWidgetPtr source);
+    void onExit(const iWidgetPtr source);
 
     void initGUI();
-    void updateGUI(const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3);
 };
 
-#endif // __SUPREMACY_UPGRADE_DIALOG__
+#endif // __SUPREMACY_SHOP_DIALOG__
