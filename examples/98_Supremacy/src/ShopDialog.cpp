@@ -13,8 +13,14 @@ void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins)
 {
 	_selection = ShopItemType::None;
 
+	updateGUI(coins);
 	iDialog::open(dialogCloseDelegate);
 	iWidgetManager::getInstance().setModal(this);
+}
+
+void ShopDialog::updateGUI(int coins)
+{
+	_labelCoins->setText(iaString::toString(coins));
 }
 
 ShopItemType ShopDialog::getSelection() const
@@ -36,6 +42,12 @@ void ShopDialog::initGUI()
 	grid->setVerticalAlignment(iVerticalAlignment::Strech);
 	grid->setBorder(10);
 	grid->setCellSpacing(20);
+
+	iWidgetGrid *coinsGrid = new iWidgetGrid();
+	coinsGrid->appendColumns(1);
+	coinsGrid->setStrechColumn(1);
+	coinsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+	coinsGrid->setVerticalAlignment(iVerticalAlignment::Strech);
 
 	iWidgetGrid *headerGrid = new iWidgetGrid();
 	headerGrid->appendColumns(2);
@@ -106,6 +118,10 @@ void ShopDialog::initGUI()
 	itemGrid->addWidget(_labelDescription2, 1, 3);
 	itemGrid->addWidget(_labelDescription3, 2, 3);	
 
+	_labelCoins = new iWidgetLabel();
+	iWidgetPicturePtr coinPicture = new iWidgetPicture();
+	coinPicture->setTexture("coin.png");
+
 	iWidgetButton *exitButton = new iWidgetButton();
 	exitButton->setSize(50, 20);
 	exitButton->setVerticalAlignment(iVerticalAlignment::Center);
@@ -113,6 +129,10 @@ void ShopDialog::initGUI()
 	exitButton->setText("exit");
 	exitButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onExit));	
 
+	coinsGrid->addWidget(coinPicture, 0, 0);
+	coinsGrid->addWidget(_labelCoins, 1, 0);
+
+	headerGrid->addWidget(coinsGrid, 0, 0);
 	headerGrid->addWidget(exitButton, 2, 0);
 
 	grid->addWidget(headerGrid, 0, 0);

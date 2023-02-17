@@ -57,6 +57,7 @@ private:
     ShopItemType _option2;
     ShopItemType _option3;
 
+    iWidgetLabel *_labelCoins;
 	iWidgetLabel *_labelName1;
 	iWidgetLabel *_labelName2;
 	iWidgetLabel *_labelName3;
@@ -73,6 +74,7 @@ private:
     void onExit(const iWidgetPtr source);
 
     void initGUI();
+    void updateGUI(int coins);
 };
 
 #endif // __SUPREMACY_SHOP_DIALOG__

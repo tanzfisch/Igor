@@ -18,9 +18,6 @@ void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const Upgrade
 	updateGUI(config1, config2, config3);
 	iDialog::open(dialogCloseDelegate);
 	iWidgetManager::getInstance().setModal(this);
-
-//	setActive();
-//	setVisible();
 }
 
 void UpgradeDialog::updateGUI(const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3)
