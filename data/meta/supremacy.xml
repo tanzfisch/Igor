@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <Supremacy>
         <Upgrades>
-                <!--example <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="icon.png" damageFactor="0.0" attackIntervalFactor="0.0" criticalHitChanceFactor="0.0" criticalHitDamageFactor="0.0" splashDamageRangeFactor="0.0" walkSpeedFactor="0.1" projectileSpeedFactor="0.0" /> -->
+                <!--example 
+                <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="icon.png" damageFactor="0.0" attackIntervalFactor="0.0" criticalHitChanceFactor="0.0" criticalHitDamageFactor="0.0" splashDamageRangeFactor="0.0" walkSpeedFactor="0.1" projectileSpeedFactor="0.0" /> 
+                -->
 
                 <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="run_faster_1.png" walkSpeedFactor="0.1" />
                 <Upgrade name="In a hurry" description="Walk faster 20 percent" icon="run_faster_2.png" walkSpeedFactor="0.2" />
@@ -15,4 +17,26 @@
                 <Upgrade name="Trigger happy" description="Increase Damage by 20 percent" icon="damage_2.png" damageFactor="0.2" />
                 <Upgrade name="Trigger happy" description="Increase Damage by 30 percent" icon="damage_3.png" damageFactor="0.3" />
         </Upgrades>
+        <Weapons>
+                <!-- example
+                <Weapon name="Knife" projectileTexture="through_knife.png" projectileSize="25" projectileCount="1" accuracy="0.0" angularVelocity="0.15" projectileDamage="10" projectileSpeed="5" projectileRange="200" attackIntervall="1000" needToStandStill="true" />
+                -->
+
+                <Weapon name="Knife" projectileTexture="through_knife.png" projectileSize="25" projectileCount="1" accuracy="0.0" angularVelocity="0.15" projectileDamage="10" projectileSpeed="5" projectileRange="100" attackIntervall="1000" needToStandStill="true" />
+                <Weapon name="Shotgun" projectileTexture="pellets.png" projectileSize="25" projectileCount="3" accuracy="1.0" angularVelocity="0" projectileDamage="100" projectileSpeed="7" projectileRange="150" attackIntervall="1000" needToStandStill="true" />
+                <Weapon name="Minigun" projectileTexture="bullet.png" projectileSize="20" projectileCount="1" accuracy="1.0" angularVelocity="0" projectileDamage="30" projectileSpeed="15" projectileRange="200" attackIntervall="20" needToStandStill="true" />
+                <Weapon name="Rocket Launcher" projectileTexture="rocket.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="2000" projectileSpeed="5" projectileRange="200" attackIntervall="2000" needToStandStill="true" />
+        </Weapons>
+
+        <ShopItems>
+                <!-- example 
+                <ShopItem name="foo" description="foo bar" icon="icon.png" type="weapon"/> 
+
+                types: weapon
+                -->
+                <ShopItem name="Knife" description="Throwing knifes that stick." icon="through_knife.png" type="weapon" />
+                <ShopItem name="Shotgun" description="TODO" icon="tomato.png" type="weapon" />
+                <ShopItem name="Minigun" description="TODO" icon="tomato.png" type="weapon" />
+                <ShopItem name="Rocket Launcher" description="TODO" icon="tomato.png" type="weapon" />
+        </ShopItems>
 </Supremacy>
