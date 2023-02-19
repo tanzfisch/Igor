@@ -33,6 +33,8 @@
 #include "UpgradeDialog.h"
 #include "ShopDialog.h"
 
+#include <tinyxml.h>
+
 /*! GameLayer
  */
 class GameLayer : public iLayer
@@ -115,12 +117,12 @@ private:
 
     std::vector<uint32> _expLvl;
 
-    std::map<UpgradeType, UpgradeConfiguration> _upgrades;
+    std::vector<UpgradeConfiguration> _upgrades;
 
     UpgradeDialog *_levelUpDialog = nullptr;
     ShopDialog *_shopDialog = nullptr;
 
-    void upgrade(iEntity entity, UpgradeType upgradeType);
+    void upgrade(iEntity entity, const UpgradeConfiguration &upgradeConfiguration);
 
     void onCloseLevelUpDialog(iDialogPtr dialog);
     void onCloseShopDialog(iDialogPtr dialog);
@@ -140,7 +142,8 @@ private:
 
     void initExpLvlTable();
 
-    void initUpgrades();
+    void loadSpecs(const iaString &filename);
+    void readUpgrade(TiXmlElement *upgrade);
 
     /*! called when removed from layer stack
      */

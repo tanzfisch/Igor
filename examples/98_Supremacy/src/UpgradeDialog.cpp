@@ -9,31 +9,53 @@ UpgradeDialog::UpgradeDialog(const iWidgetPtr parent)
 	initGUI();
 }
 
-void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3)
+void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<UpgradeConfiguration> &upgrades)
 {
-	_option1 = config1._type;
-	_option2 = config2._type;
-	_option3 = config3._type;
+	_upgrades = upgrades;
+	_selection = 0;
 
-	updateGUI(config1, config2, config3);
+	std::set<int> indices;
+
+    do
+    {
+        indices.insert(_rand.getNext() % _upgrades.size());
+    } while (indices.size() < 3);
+
+    auto iter = indices.begin();
+	_option1 = (*iter++);
+	_option2 = (*iter++);
+	_option3 = (*iter++);
+
+	updateGUI();
 	iDialog::open(dialogCloseDelegate);
 	iWidgetManager::getInstance().setModal(this);
 }
 
-void UpgradeDialog::updateGUI(const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3)
+void UpgradeDialog::updateGUI()
 {
+	const UpgradeConfiguration &config1 = _upgrades[_option1];
+	const UpgradeConfiguration &config2 = _upgrades[_option2];
+	const UpgradeConfiguration &config3 = _upgrades[_option3];
+
 	_labelName1->setText(config1._name);
 	_labelName2->setText(config2._name);
 	_labelName3->setText(config3._name);
+
 	_labelDescription1->setText(config1._description);
 	_labelDescription2->setText(config2._description);
 	_labelDescription3->setText(config3._description);
+
+	_button1->setTexture(config1._icon);
+	_button2->setTexture(config2._icon);
+	_button3->setTexture(config3._icon);
 }
 
 void UpgradeDialog::initGUI()
 {
 	setWidth(500);
-	setHeight(200);
+	setHeight(100);
+
+	setBackground(iaColor4f::transparent);
 
 	setHorizontalAlignment(iHorizontalAlignment::Center);
 	setVerticalAlignment(iVerticalAlignment::Center);
@@ -44,7 +66,7 @@ void UpgradeDialog::initGUI()
 	grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
 	grid->setVerticalAlignment(iVerticalAlignment::Strech);
 	grid->setBorder(10);
-	grid->setCellSpacing(20);
+	grid->setCellSpacing(10);
 	grid->setStrechColumn(1);
 	grid->setStrechRow(1);
 	grid->setSelectMode(iSelectionMode::NoSelection);
@@ -54,37 +76,37 @@ void UpgradeDialog::initGUI()
 	_labelName3 = new iWidgetLabel();
 
 	_labelDescription1 = new iWidgetLabel();
+	_labelDescription1->setMaxTextWidth(150);
 	_labelDescription2 = new iWidgetLabel();
+	_labelDescription2->setMaxTextWidth(150);
 	_labelDescription3 = new iWidgetLabel();
+	_labelDescription3->setMaxTextWidth(150);
 
-	iWidgetButton *button1 = new iWidgetButton();
-	button1->setSize(100, 100);
-	button1->setVerticalAlignment(iVerticalAlignment::Center);
-	button1->setHorizontalAlignment(iHorizontalAlignment::Center);
-	button1->setText("1");
-	button1->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect1));
+	_button1 = new iWidgetButton();
+	_button1->setSize(100, 100);
+	_button1->setVerticalAlignment(iVerticalAlignment::Center);
+	_button1->setHorizontalAlignment(iHorizontalAlignment::Center);
+	_button1->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect1));
 
-	iWidgetButton *button2 = new iWidgetButton();
-	button2->setSize(100, 100);
-	button2->setVerticalAlignment(iVerticalAlignment::Center);
-	button2->setHorizontalAlignment(iHorizontalAlignment::Center);
-	button2->setText("2");
-	button2->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect2));
+	_button2 = new iWidgetButton();
+	_button2->setSize(100, 100);
+	_button2->setVerticalAlignment(iVerticalAlignment::Center);
+	_button2->setHorizontalAlignment(iHorizontalAlignment::Center);
+	_button2->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect2));
 
-	iWidgetButton *button3 = new iWidgetButton();
-	button3->setSize(100, 100);
-	button3->setVerticalAlignment(iVerticalAlignment::Center);
-	button3->setHorizontalAlignment(iHorizontalAlignment::Center);
-	button3->setText("3");
-	button3->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect3));
+	_button3 = new iWidgetButton();
+	_button3->setSize(100, 100);
+	_button3->setVerticalAlignment(iVerticalAlignment::Center);
+	_button3->setHorizontalAlignment(iHorizontalAlignment::Center);
+	_button3->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect3));
 
 	grid->addWidget(_labelName1, 0, 0);
 	grid->addWidget(_labelName2, 1, 0);
 	grid->addWidget(_labelName3, 2, 0);
 
-	grid->addWidget(button1, 0, 1);
-	grid->addWidget(button2, 1, 1);
-	grid->addWidget(button3, 2, 1);
+	grid->addWidget(_button1, 0, 1);
+	grid->addWidget(_button2, 1, 1);
+	grid->addWidget(_button3, 2, 1);
 
 	grid->addWidget(_labelDescription1, 0, 2);
 	grid->addWidget(_labelDescription2, 1, 2);
@@ -109,7 +131,7 @@ void UpgradeDialog::onSelect3(const iWidgetPtr source)
 	close();
 }
 
-UpgradeType UpgradeDialog::getSelection() const
+const UpgradeConfiguration& UpgradeDialog::getSelection() const
 {
-	return _selection;
+	return _upgrades[_selection];
 }

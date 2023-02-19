@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Supremacy>
+        <Upgrades>
+                <!--example <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="icon.png" damageFactor="0.0" attackIntervalFactor="0.0" criticalHitChanceFactor="0.0" criticalHitDamageFactor="0.0" splashDamageRangeFactor="0.0" walkSpeedFactor="0.1" projectileSpeedFactor="0.0" /> -->
+
+                <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="tomato.png" walkSpeedFactor="0.1" />
+                <Upgrade name="In a hurry" description="Walk faster 20 percent" icon="tomato.png" walkSpeedFactor="0.2" />
+                <Upgrade name="Run Forrest" description="Walk faster 30 percent" icon="tomato.png" walkSpeedFactor="0.3" />
+
+                <Upgrade name="Trigger happy" description="Increase Fire Frequency by 10 percent" icon="tomato.png" attackIntervalFactor="0.1" />
+                <Upgrade name="Maniac" description="Increase Fire Frequency by 20 percent" icon="tomato.png" attackIntervalFactor="0.2" />
+                <Upgrade name="Scarface" description="Increase Fire Frequency by 30 percent" icon="tomato.png" attackIntervalFactor="0.3" />
+
+                <Upgrade name="Trigger happy" description="Increase Damage by 10 percent" icon="tomato.png" damageFactor="0.1" />
+                <Upgrade name="Trigger happy" description="Increase Damage by 20 percent" icon="tomato.png" damageFactor="0.2" />
+                <Upgrade name="Trigger happy" description="Increase Damage by 30 percent" icon="tomato.png" damageFactor="0.3" />
+        </Upgrades>
+</Supremacy>

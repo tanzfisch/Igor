@@ -32,25 +32,11 @@
 #include <igor/igor.h>
 using namespace igor;
 
-enum class UpgradeType
-{    
-    IncreaseWalkingSpeed1,
-    IncreaseWalkingSpeed2,
-    IncreaseWalkingSpeed3,
-    IncreaseFireFrequency1,
-    IncreaseFireFrequency2,
-    IncreaseFireFrequency3,
-    IncreaseDamage1,
-    IncreaseDamage2,
-    IncreaseDamage3,
-};
-
 struct UpgradeConfiguration
 {
-    UpgradeType _type;
-    iaString _texture;
     iaString _name;
     iaString _description;
+    iaString _icon;
 
     float64 _damageFactor;
     float64 _attackIntervalFactor;
@@ -66,16 +52,19 @@ class UpgradeDialog : public iDialog
 public:
     UpgradeDialog(const iWidgetPtr parent = nullptr);
     ~UpgradeDialog() = default;
-    void open(iDialogCloseDelegate dialogCloseDelegate, const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3);
-    UpgradeType getSelection() const;
+    void open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<UpgradeConfiguration> &upgrades);
+    const UpgradeConfiguration& getSelection() const;
 
 private:
 
-    UpgradeType _selection;
+    std::vector<UpgradeConfiguration> _upgrades;
 
-    UpgradeType _option1;
-    UpgradeType _option2;
-    UpgradeType _option3;
+    uint32 _selection;
+    uint32 _option1;
+    uint32 _option2;
+    uint32 _option3;
+
+    iaRandomNumberGeneratoru _rand;
 
 	iWidgetLabel *_labelName1;
 	iWidgetLabel *_labelName2;
@@ -83,13 +72,16 @@ private:
 	iWidgetLabel *_labelDescription1;
 	iWidgetLabel *_labelDescription2;
 	iWidgetLabel *_labelDescription3;
+    iWidgetButton *_button1;
+    iWidgetButton *_button2;
+    iWidgetButton *_button3;
 
     void onSelect1(const iWidgetPtr source);
     void onSelect2(const iWidgetPtr source);
     void onSelect3(const iWidgetPtr source);
 
     void initGUI();
-    void updateGUI(const UpgradeConfiguration &config1, const UpgradeConfiguration &config2, const UpgradeConfiguration &config3);
+    void updateGUI();
 };
 
 #endif // __SUPREMACY_UPGRADE_DIALOG__

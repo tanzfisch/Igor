@@ -213,25 +213,67 @@ void GameLayer::onInit()
     _walkSpeed = iTextureResourceFactory::getInstance().requestFile("run.png");
 
     initExpLvlTable();
-    initUpgrades();
+    loadSpecs("meta/supremacy.xml");
 
     _levelUpDialog = new UpgradeDialog();
     _shopDialog = new ShopDialog();
 }
 
-void GameLayer::initUpgrades()
+void GameLayer::readUpgrade(TiXmlElement *upgrade)
 {
-    // _damageFactor, _attackIntervalFactor, _criticalHitChanceFactor, _criticalHitDamageFactor, _splashDamageRangeFactor, _walkSpeedFactor, _projectileSpeedFactor
+    iaString name(upgrade->Attribute("name"));
+    iaString description(upgrade->Attribute("description"));
+    iaString icon(upgrade->Attribute("icon"));
 
-    _upgrades[UpgradeType::IncreaseWalkingSpeed1] = {UpgradeType::IncreaseWalkingSpeed1, "foo", "Can't wait", "Walk faster 10 percent", 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0};
-    _upgrades[UpgradeType::IncreaseWalkingSpeed2] = {UpgradeType::IncreaseWalkingSpeed2, "foo", "In a hurry", "Walk faster 20 percent", 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.0};
-    _upgrades[UpgradeType::IncreaseWalkingSpeed3] = {UpgradeType::IncreaseWalkingSpeed3, "foo", "Run Forrest", "Walk faster 30 percent", 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.0};
-    _upgrades[UpgradeType::IncreaseFireFrequency1] = {UpgradeType::IncreaseFireFrequency1, "foo", "Trigger happy", "Increase Fire Frequency by 10 percent", 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0};
-    _upgrades[UpgradeType::IncreaseFireFrequency2] = {UpgradeType::IncreaseFireFrequency2, "foo", "Maniac", "Increase Fire Frequency by 20 percent", 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0};
-    _upgrades[UpgradeType::IncreaseFireFrequency3] = {UpgradeType::IncreaseFireFrequency3, "foo", "Scarface", "Increase Fire Frequency by 30 percent", 0.0, 0.3, 0.0, 0.0, 0.0, 0.0, 0.0};
-    _upgrades[UpgradeType::IncreaseDamage1] = {UpgradeType::IncreaseDamage1, "foo", "Scarface", "Increase Damage by 10 percent", 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    _upgrades[UpgradeType::IncreaseDamage2] = {UpgradeType::IncreaseDamage2, "foo", "Scarface", "Increase Damage by 20 percent", 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    _upgrades[UpgradeType::IncreaseDamage3] = {UpgradeType::IncreaseDamage3, "foo", "Scarface", "Increase Damage by 30 percent", 0.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    float64 damageFactor = 0.0;
+    upgrade->Attribute("damageFactor", &damageFactor);
+    float64 attackIntervalFactor = 0.0;
+    upgrade->Attribute("attackIntervalFactor", &attackIntervalFactor);
+    float64 criticalHitChanceFactor = 0.0;
+    upgrade->Attribute("criticalHitChanceFactor", &criticalHitChanceFactor);
+    float64 criticalHitDamageFactor = 0.0;
+    upgrade->Attribute("criticalHitDamageFactor", &criticalHitDamageFactor);
+    float64 splashDamageRangeFactor = 0.0;
+    upgrade->Attribute("splashDamageRangeFactor", &splashDamageRangeFactor);
+    float64 walkSpeedFactor = 0.0;
+    upgrade->Attribute("walkSpeedFactor", &walkSpeedFactor);
+    float64 projectileSpeedFactor = 0.0;
+    upgrade->Attribute("projectileSpeedFactor", &projectileSpeedFactor);
+
+    _upgrades.push_back({name, description, icon, damageFactor, attackIntervalFactor, criticalHitChanceFactor,
+                         criticalHitDamageFactor, splashDamageRangeFactor, walkSpeedFactor, projectileSpeedFactor});
+}
+
+void GameLayer::loadSpecs(const iaString &filename)
+{
+    con_assert_sticky(!filename.isEmpty(), "empty filename");
+
+    iaString path = iResourceManager::getInstance().getPath(filename);
+
+    char temp[2048];
+    path.getData(temp, 2048);
+
+    TiXmlDocument document(temp);
+    if (!document.LoadFile())
+    {
+        con_err("can't read \"" << filename << "\"");
+        return;
+    }
+
+    TiXmlElement *root = document.FirstChildElement("Supremacy");
+    if (root != nullptr)
+    {
+        TiXmlElement *upgrades = root->FirstChildElement("Upgrades");
+        if (upgrades != nullptr)
+        {
+            TiXmlElement *upgrade = upgrades->FirstChildElement("Upgrade");
+
+            do
+            {
+                readUpgrade(upgrade);
+            } while ((upgrade = upgrade->NextSiblingElement("Upgrade")) != nullptr);
+        }
+    }
 }
 
 void GameLayer::initExpLvlTable()
@@ -1256,19 +1298,7 @@ void GameLayer::onLevelUp()
 {
     pause();
 
-    std::set<UpgradeType> types;
-
-    do
-    {
-        types.insert(static_cast<UpgradeType>(_rand.getNext() % _upgrades.size()));
-    } while (types.size() < 3);
-
-    auto iter = types.begin();
-    UpgradeConfiguration &uc1 = _upgrades[(*iter++)];
-    UpgradeConfiguration &uc2 = _upgrades[(*iter++)];
-    UpgradeConfiguration &uc3 = _upgrades[(*iter++)];
-
-    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog), uc1, uc2, uc3);
+    _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog), _upgrades);
 }
 
 void GameLayer::onOpenBuilding(BuildingType buildingType)
@@ -1305,7 +1335,7 @@ void GameLayer::onCloseShopDialog(iDialogPtr dialog)
     play();
 }
 
-void GameLayer::upgrade(iEntity entity, UpgradeType upgradeType)
+void GameLayer::upgrade(iEntity entity, const UpgradeConfiguration &upgradeConfiguration)
 {
     if (!entity.isValid())
     {
@@ -1313,7 +1343,6 @@ void GameLayer::upgrade(iEntity entity, UpgradeType upgradeType)
     }
 
     ModifierComponent &modifierComponent = entity.getComponent<ModifierComponent>();
-    const UpgradeConfiguration &upgradeConfiguration = _upgrades[upgradeType];
 
     modifierComponent._damageFactor += upgradeConfiguration._damageFactor;
     modifierComponent._attackIntervalFactor += upgradeConfiguration._attackIntervalFactor;
