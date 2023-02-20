@@ -219,29 +219,59 @@ void GameLayer::onInit()
     _shopDialog = new ShopDialog();
 }
 
-void GameLayer::readUpgrade(TiXmlElement *upgrade)
+void GameLayer::readUpgrades(TiXmlElement *upgrades)
 {
-    iaString name(upgrade->Attribute("name"));
-    iaString description(upgrade->Attribute("description"));
-    iaString icon(upgrade->Attribute("icon"));
+    TiXmlElement *upgrade = upgrades->FirstChildElement("Upgrade");
 
-    float64 damageFactor = 0.0;
-    upgrade->Attribute("damageFactor", &damageFactor);
-    float64 attackIntervalFactor = 0.0;
-    upgrade->Attribute("attackIntervalFactor", &attackIntervalFactor);
-    float64 criticalHitChanceFactor = 0.0;
-    upgrade->Attribute("criticalHitChanceFactor", &criticalHitChanceFactor);
-    float64 criticalHitDamageFactor = 0.0;
-    upgrade->Attribute("criticalHitDamageFactor", &criticalHitDamageFactor);
-    float64 splashDamageRangeFactor = 0.0;
-    upgrade->Attribute("splashDamageRangeFactor", &splashDamageRangeFactor);
-    float64 walkSpeedFactor = 0.0;
-    upgrade->Attribute("walkSpeedFactor", &walkSpeedFactor);
-    float64 projectileSpeedFactor = 0.0;
-    upgrade->Attribute("projectileSpeedFactor", &projectileSpeedFactor);
+    do
+    {
+        iaString name(upgrade->Attribute("name"));
+        iaString description(upgrade->Attribute("description"));
+        iaString icon(upgrade->Attribute("icon"));
 
-    _upgrades.push_back({name, description, icon, damageFactor, attackIntervalFactor, criticalHitChanceFactor,
-                         criticalHitDamageFactor, splashDamageRangeFactor, walkSpeedFactor, projectileSpeedFactor});
+        float64 damageFactor = 0.0;
+        upgrade->Attribute("damageFactor", &damageFactor);
+        float64 attackIntervalFactor = 0.0;
+        upgrade->Attribute("attackIntervalFactor", &attackIntervalFactor);
+        float64 criticalHitChanceFactor = 0.0;
+        upgrade->Attribute("criticalHitChanceFactor", &criticalHitChanceFactor);
+        float64 criticalHitDamageFactor = 0.0;
+        upgrade->Attribute("criticalHitDamageFactor", &criticalHitDamageFactor);
+        float64 splashDamageRangeFactor = 0.0;
+        upgrade->Attribute("splashDamageRangeFactor", &splashDamageRangeFactor);
+        float64 walkSpeedFactor = 0.0;
+        upgrade->Attribute("walkSpeedFactor", &walkSpeedFactor);
+        float64 projectileSpeedFactor = 0.0;
+        upgrade->Attribute("projectileSpeedFactor", &projectileSpeedFactor);
+
+        _upgrades.push_back({name, description, icon, damageFactor, attackIntervalFactor, criticalHitChanceFactor,
+                             criticalHitDamageFactor, splashDamageRangeFactor, walkSpeedFactor, projectileSpeedFactor});
+    } while ((upgrade = upgrade->NextSiblingElement("Upgrade")) != nullptr);
+}
+
+void GameLayer::readShopItems(TiXmlElement *shopItems)
+{
+    TiXmlElement *shopItem = shopItems->FirstChildElement("ShopItem");
+
+    do
+    {
+        iaString name(shopItem->Attribute("name"));
+        iaString description(shopItem->Attribute("description"));
+        iaString icon(shopItem->Attribute("icon"));
+        iaString type(shopItem->Attribute("type"));
+
+        int price = 0;
+        shopItem->Attribute("price", &price);
+
+        ShopItemType shopItemType = ShopItemType::None;
+        if(type == "Weapon")
+        {
+            shopItemType = ShopItemType::Weapon;
+        }
+
+        _shopItems.push_back({name, description, icon, shopItemType, (uint32)price});
+
+    } while ((shopItem = shopItem->NextSiblingElement("ShopItem")) != nullptr);
 }
 
 void GameLayer::loadSpecs(const iaString &filename)
@@ -266,13 +296,14 @@ void GameLayer::loadSpecs(const iaString &filename)
         TiXmlElement *upgrades = root->FirstChildElement("Upgrades");
         if (upgrades != nullptr)
         {
-            TiXmlElement *upgrade = upgrades->FirstChildElement("Upgrade");
-
-            do
-            {
-                readUpgrade(upgrade);
-            } while ((upgrade = upgrade->NextSiblingElement("Upgrade")) != nullptr);
+            readUpgrades(upgrades);
         }
+
+        TiXmlElement *shopItems = root->FirstChildElement("ShopItems");
+        if (shopItems != nullptr)
+        {
+            readShopItems(shopItems);
+        }        
     }
 }
 
@@ -1327,7 +1358,7 @@ void GameLayer::onOpenBuilding(BuildingType buildingType)
 
 void GameLayer::openShop()
 {
-    _shopDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseShopDialog), 100);
+    _shopDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseShopDialog), 100, _shopItems);
 }
 
 void GameLayer::onCloseShopDialog(iDialogPtr dialog)

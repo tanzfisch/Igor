@@ -118,6 +118,7 @@ private:
     std::vector<uint32> _expLvl;
 
     std::vector<UpgradeConfiguration> _upgrades;
+    std::vector<ShopItem> _shopItems;
 
     UpgradeDialog *_levelUpDialog = nullptr;
     ShopDialog *_shopDialog = nullptr;
@@ -143,7 +144,8 @@ private:
     void initExpLvlTable();
 
     void loadSpecs(const iaString &filename);
-    void readUpgrade(TiXmlElement *upgrade);
+    void readUpgrades(TiXmlElement *upgrades);
+    void readShopItems(TiXmlElement *shopItems);
 
     /*! called when removed from layer stack
      */

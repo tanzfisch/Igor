@@ -12,7 +12,6 @@ UpgradeDialog::UpgradeDialog(const iWidgetPtr parent)
 void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<UpgradeConfiguration> &upgrades)
 {
 	_upgrades = upgrades;
-	_selection = 0;
 
 	std::set<int> indices;
 
@@ -83,19 +82,19 @@ void UpgradeDialog::initGUI()
 	_labelDescription3->setMaxTextWidth(150);
 
 	_button1 = new iWidgetButton();
-	_button1->setSize(100, 100);
+	_button1->setSize(128, 128);
 	_button1->setVerticalAlignment(iVerticalAlignment::Center);
 	_button1->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_button1->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect1));
 
 	_button2 = new iWidgetButton();
-	_button2->setSize(100, 100);
+	_button2->setSize(128, 128);
 	_button2->setVerticalAlignment(iVerticalAlignment::Center);
 	_button2->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_button2->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect2));
 
 	_button3 = new iWidgetButton();
-	_button3->setSize(100, 100);
+	_button3->setSize(128, 128);
 	_button3->setVerticalAlignment(iVerticalAlignment::Center);
 	_button3->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_button3->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect3));

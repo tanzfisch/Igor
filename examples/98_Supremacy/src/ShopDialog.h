@@ -33,12 +33,18 @@
 using namespace igor;
 
 enum class ShopItemType
-{   
+{
     None,
-    Knife,
-    Shotgun,
-    Minigun,
-    RocketLauncher
+    Weapon
+};
+
+struct ShopItem
+{
+    iaString _name;
+    iaString _description;
+    iaString _icon;    
+    ShopItemType _type;
+    uint32 _price;
 };
 
 class ShopDialog : public iDialog
@@ -46,16 +52,21 @@ class ShopDialog : public iDialog
 public:
     ShopDialog(const iWidgetPtr parent = nullptr);
     ~ShopDialog() = default;
-    void open(iDialogCloseDelegate dialogCloseDelegate, int coins);
-    ShopItemType getSelection() const;
+    void open(iDialogCloseDelegate dialogCloseDelegate, int coins, const std::vector<ShopItem> &shopItems);
+    const ShopItem& getSelection() const;
+    bool bought() const;
 
 private:
 
-    ShopItemType _selection;
+    std::vector<ShopItem> _shopItems;
 
-    ShopItemType _option1;
-    ShopItemType _option2;
-    ShopItemType _option3;
+    bool _buy;
+    uint32 _selection;
+    uint32 _option1;
+    uint32 _option2;
+    uint32 _option3;
+
+    iaRandomNumberGeneratoru _rand;
 
     iWidgetLabel *_labelCoins;
 	iWidgetLabel *_labelName1;
@@ -67,11 +78,14 @@ private:
 	iWidgetLabel *_labelDescription1;
 	iWidgetLabel *_labelDescription2;
 	iWidgetLabel *_labelDescription3;
+    iWidgetPicture *_picture1;
+    iWidgetPicture *_picture2;
+    iWidgetPicture *_picture3;
 
-    void onSelect1(const iWidgetPtr source);
-    void onSelect2(const iWidgetPtr source);
-    void onSelect3(const iWidgetPtr source);
-    void onExit(const iWidgetPtr source);
+    void onSelectionChanged(int32 index);
+
+    void onBuy(const iWidgetPtr source);
+    void onCancel(const iWidgetPtr source);
 
     void initGUI();
     void updateGUI(int coins);

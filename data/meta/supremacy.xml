@@ -17,6 +17,7 @@
                 <Upgrade name="Trigger happy" description="Increase Damage by 20 percent" icon="damage_2.png" damageFactor="0.2" />
                 <Upgrade name="Trigger happy" description="Increase Damage by 30 percent" icon="damage_3.png" damageFactor="0.3" />
         </Upgrades>
+
         <Weapons>
                 <!-- example
                 <Weapon name="Knife" projectileTexture="through_knife.png" projectileSize="25" projectileCount="1" accuracy="0.0" angularVelocity="0.15" projectileDamage="10" projectileSpeed="5" projectileRange="200" attackIntervall="1000" needToStandStill="true" />
@@ -30,13 +31,13 @@
 
         <ShopItems>
                 <!-- example 
-                <ShopItem name="foo" description="foo bar" icon="icon.png" type="weapon"/> 
+                <ShopItem name="foo" description="foo bar" icon="icon.png" type="Weapon"/> 
 
                 types: weapon
                 -->
-                <ShopItem name="Knife" description="Throwing knifes that stick." icon="through_knife.png" type="weapon" />
-                <ShopItem name="Shotgun" description="TODO" icon="tomato.png" type="weapon" />
-                <ShopItem name="Minigun" description="TODO" icon="tomato.png" type="weapon" />
-                <ShopItem name="Rocket Launcher" description="TODO" icon="tomato.png" type="weapon" />
+                <ShopItem name="Knife" description="Throwing knifes that stick." icon="shop_item_knifes.png" price="100" type="Weapon" />
+                <ShopItem name="Shotgun" description="Blam Blam" icon="shop_item_shotgun.png" price="1000" type="Weapon" />
+                <ShopItem name="Minigun" description="Brrrrrrrrrt" icon="tomato.png" price="10000" type="Weapon" />
+                <ShopItem name="Rocket Launcher" description="Shoosh BOOOOOM" icon="shop_item_rocketlauncher.png"  price="100000" type="Weapon" />
         </ShopItems>
 </Supremacy>

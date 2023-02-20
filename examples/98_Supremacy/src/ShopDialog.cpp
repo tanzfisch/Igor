@@ -9,9 +9,22 @@ ShopDialog::ShopDialog(const iWidgetPtr parent)
 	initGUI();
 }
 
-void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins)
+void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins, const std::vector<ShopItem> &shopItems)
 {
-	_selection = ShopItemType::None;
+	_shopItems = shopItems;
+	_buy = false;
+
+	std::set<int> indices;
+
+	do
+	{
+		indices.insert(_rand.getNext() % _shopItems.size());
+	} while (indices.size() < 3);
+
+	auto iter = indices.begin();
+	_option1 = (*iter++);
+	_option2 = (*iter++);
+	_option3 = (*iter++);
 
 	updateGUI(coins);
 	iDialog::open(dialogCloseDelegate);
@@ -21,11 +34,31 @@ void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins)
 void ShopDialog::updateGUI(int coins)
 {
 	_labelCoins->setText(iaString::toString(coins));
+
+	const ShopItem &shopItem1 = _shopItems[_option1];
+	const ShopItem &shopItem2 = _shopItems[_option2];
+	const ShopItem &shopItem3 = _shopItems[_option3];
+
+	_labelName1->setText(shopItem1._name);
+	_labelName2->setText(shopItem2._name);
+	_labelName3->setText(shopItem3._name);
+
+	_labelDescription1->setText(shopItem1._description);
+	_labelDescription2->setText(shopItem2._description);
+	_labelDescription3->setText(shopItem3._description);
+
+	_picture1->setTexture(shopItem1._icon);
+	_picture2->setTexture(shopItem2._icon);
+	_picture3->setTexture(shopItem3._icon);
+
+	_labelPrice1->setText(iaString("$") + iaString::toString(shopItem1._price));
+	_labelPrice2->setText(iaString("$") + iaString::toString(shopItem2._price));
+	_labelPrice3->setText(iaString("$") + iaString::toString(shopItem3._price));
 }
 
-ShopItemType ShopDialog::getSelection() const
+const ShopItem &ShopDialog::getSelection() const
 {
-	return _selection;
+	return _shopItems[_selection];
 }
 
 void ShopDialog::initGUI()
@@ -50,7 +83,7 @@ void ShopDialog::initGUI()
 	coinsGrid->setVerticalAlignment(iVerticalAlignment::Strech);
 
 	iWidgetGrid *headerGrid = new iWidgetGrid();
-	headerGrid->appendColumns(2);
+	headerGrid->appendColumns(3);
 	headerGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
 	headerGrid->setVerticalAlignment(iVerticalAlignment::Strech);
 	headerGrid->setCellSpacing(20);
@@ -58,106 +91,135 @@ void ShopDialog::initGUI()
 
 	iWidgetGrid *itemGrid = new iWidgetGrid();
 	itemGrid->appendColumns(2);
-	itemGrid->appendRows(4);
-	itemGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+	itemGrid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	itemGrid->setVerticalAlignment(iVerticalAlignment::Strech);
-	itemGrid->setCellSpacing(20);
+	itemGrid->setCellSpacing(0);
 	itemGrid->setStrechColumn(1);
 	itemGrid->setStrechRow(0);
+	itemGrid->setSelectMode(iSelectionMode::Column);
+	itemGrid->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &ShopDialog::onSelectionChanged));
+
+	iWidgetGrid *item1Grid = new iWidgetGrid();
+	item1Grid->appendRows(4);
+	item1Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
+	item1Grid->setVerticalAlignment(iVerticalAlignment::Strech);
+
+	iWidgetGrid *item2Grid = new iWidgetGrid();
+	item2Grid->appendRows(4);
+	item2Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
+	item2Grid->setVerticalAlignment(iVerticalAlignment::Strech);
+
+	iWidgetGrid *item3Grid = new iWidgetGrid();
+	item3Grid->appendRows(4);
+	item3Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
+	item3Grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
 	_labelName1 = new iWidgetLabel();
-	_labelName1->setText("megagun");
 	_labelName2 = new iWidgetLabel();
 	_labelName3 = new iWidgetLabel();
 
 	_labelPrice1 = new iWidgetLabel();
-	_labelPrice1->setText("1000$");
 	_labelPrice2 = new iWidgetLabel();
 	_labelPrice3 = new iWidgetLabel();
 
 	_labelDescription1 = new iWidgetLabel();
-	_labelDescription1->setText("mega booom gun hurt mucho");
 	_labelDescription2 = new iWidgetLabel();
 	_labelDescription3 = new iWidgetLabel();
 
-	iWidgetButton *button1 = new iWidgetButton();
-	button1->setSize(100, 100);
-	button1->setVerticalAlignment(iVerticalAlignment::Center);
-	button1->setHorizontalAlignment(iHorizontalAlignment::Center);
-	// button1->setText("picture of gun");
-	button1->setTexture("rocket.png");
-	button1->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onSelect1));
+	_picture1 = new iWidgetPicture();
+	_picture1->setSize(128, 128);
+	_picture1->setVerticalAlignment(iVerticalAlignment::Center);
+	_picture1->setHorizontalAlignment(iHorizontalAlignment::Center);
 
-	iWidgetButton *button2 = new iWidgetButton();
-	button2->setSize(100, 100);
-	button2->setVerticalAlignment(iVerticalAlignment::Center);
-	button2->setHorizontalAlignment(iHorizontalAlignment::Center);
-	button2->setText("2");
-	button2->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onSelect2));
+	_picture2 = new iWidgetPicture();
+	_picture2->setSize(128, 128);
+	_picture2->setVerticalAlignment(iVerticalAlignment::Center);
+	_picture2->setHorizontalAlignment(iHorizontalAlignment::Center);
 
-	iWidgetButton *button3 = new iWidgetButton();
-	button3->setSize(100, 100);
-	button3->setVerticalAlignment(iVerticalAlignment::Center);
-	button3->setHorizontalAlignment(iHorizontalAlignment::Center);
-	button3->setText("3");
-	button3->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onSelect3));
+	_picture3 = new iWidgetPicture();
+	_picture3->setSize(128, 128);
+	_picture3->setVerticalAlignment(iVerticalAlignment::Center);
+	_picture3->setHorizontalAlignment(iHorizontalAlignment::Center);
 
-	itemGrid->addWidget(button1, 0, 0);
-	itemGrid->addWidget(button2, 1, 0);
-	itemGrid->addWidget(button3, 2, 0);
+	itemGrid->addWidget(item1Grid, 0, 0);
+	itemGrid->addWidget(item2Grid, 1, 0);
+	itemGrid->addWidget(item3Grid, 2, 0);
 
-	itemGrid->addWidget(_labelName1, 0, 1);
-	itemGrid->addWidget(_labelName2, 1, 1);
-	itemGrid->addWidget(_labelName3, 2, 1);
+	item1Grid->addWidget(_picture1, 0, 0);
+	item1Grid->addWidget(_labelName1, 0, 1);
+	item1Grid->addWidget(_labelPrice1, 0, 2);
+	item1Grid->addWidget(_labelDescription1, 0, 3);
 
-	itemGrid->addWidget(_labelPrice1, 0, 2);
-	itemGrid->addWidget(_labelPrice2, 1, 2);
-	itemGrid->addWidget(_labelPrice3, 2, 2);
+	item2Grid->addWidget(_picture2, 0, 0);
+	item2Grid->addWidget(_labelName2, 0, 1);
+	item2Grid->addWidget(_labelPrice2, 0, 2);
+	item2Grid->addWidget(_labelDescription2, 0, 3);
 
-	itemGrid->addWidget(_labelDescription1, 0, 3);
-	itemGrid->addWidget(_labelDescription2, 1, 3);
-	itemGrid->addWidget(_labelDescription3, 2, 3);	
+	item3Grid->addWidget(_picture3, 0, 0);
+	item3Grid->addWidget(_labelName3, 0, 1);
+	item3Grid->addWidget(_labelPrice3, 0, 2);
+	item3Grid->addWidget(_labelDescription3, 0, 3);
 
 	_labelCoins = new iWidgetLabel();
 	iWidgetPicturePtr coinPicture = new iWidgetPicture();
 	coinPicture->setTexture("coin.png");
 
-	iWidgetButton *exitButton = new iWidgetButton();
-	exitButton->setSize(50, 20);
-	exitButton->setVerticalAlignment(iVerticalAlignment::Center);
-	exitButton->setHorizontalAlignment(iHorizontalAlignment::Center);
-	exitButton->setText("exit");
-	exitButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onExit));	
+	iWidgetButton *buyButton = new iWidgetButton();
+	buyButton->setSize(50, 20);
+	buyButton->setVerticalAlignment(iVerticalAlignment::Center);
+	buyButton->setHorizontalAlignment(iHorizontalAlignment::Center);
+	buyButton->setText("buy");
+	buyButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onBuy));
+
+	iWidgetButton *cancelButton = new iWidgetButton();
+	cancelButton->setSize(50, 20);
+	cancelButton->setVerticalAlignment(iVerticalAlignment::Center);
+	cancelButton->setHorizontalAlignment(iHorizontalAlignment::Center);
+	cancelButton->setText("cancel");
+	cancelButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onCancel));
 
 	coinsGrid->addWidget(coinPicture, 0, 0);
 	coinsGrid->addWidget(_labelCoins, 1, 0);
 
 	headerGrid->addWidget(coinsGrid, 0, 0);
-	headerGrid->addWidget(exitButton, 2, 0);
+	headerGrid->addWidget(cancelButton, 2, 0);
+	headerGrid->addWidget(buyButton, 3, 0);
 
 	grid->addWidget(headerGrid, 0, 0);
 	grid->addWidget(itemGrid, 0, 1);
 }
 
-void ShopDialog::onSelect1(const iWidgetPtr source)
+void ShopDialog::onSelectionChanged(int32 index)
 {
-	_selection = _option1;
+	switch (index)
+	{
+	case 0:
+		_selection = _option1;
+		break;
+	case 1:
+		_selection = _option2;
+		break;
+	case 2:
+		_selection = _option3;
+		break;
+	}
+
+	_buy = true;
+}
+
+void ShopDialog::onBuy(const iWidgetPtr source)
+{
+
 	close();
 }
 
-void ShopDialog::onSelect2(const iWidgetPtr source)
+void ShopDialog::onCancel(const iWidgetPtr source)
 {
-	_selection = _option2;
+	_buy = false;
 	close();
 }
 
-void ShopDialog::onSelect3(const iWidgetPtr source)
+bool ShopDialog::bought() const
 {
-	_selection = _option3;
-	close();
-}
-
-void ShopDialog::onExit(const iWidgetPtr source)
-{
-	close();
+	return _buy;
 }
