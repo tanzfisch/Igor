@@ -181,9 +181,11 @@ enum class WeaponType
 
 struct WeaponComponent
 {
-    /*! weapon type used
-     */
-    WeaponType _weaponType;
+    iaString _texture;
+    float64 _size;
+    uint32 _projectileCount;
+    float64 _accuracy;
+    float64 _angularVelocity;
 
     /*! base damage of this weapon
      */
@@ -204,6 +206,8 @@ struct WeaponComponent
     /*! if true unit must stand still so it can fire
      */
     bool _standStillToFire;
+
+    bool _returnToSender;
 
     /*! offset to unit position to fire from
      */

@@ -81,8 +81,9 @@ private:
     iWidgetPicture *_picture1;
     iWidgetPicture *_picture2;
     iWidgetPicture *_picture3;
+    iWidgetGrid *_itemGrid;
 
-    void onSelectionChanged(int32 index);
+    void onSelectionChanged(const iWidgetPtr source);
 
     void onBuy(const iWidgetPtr source);
     void onCancel(const iWidgetPtr source);

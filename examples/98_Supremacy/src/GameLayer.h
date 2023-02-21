@@ -119,6 +119,7 @@ private:
 
     std::vector<UpgradeConfiguration> _upgrades;
     std::vector<ShopItem> _shopItems;
+    std::map<iaString, WeaponComponent> _weapons;
 
     UpgradeDialog *_levelUpDialog = nullptr;
     ShopDialog *_shopDialog = nullptr;
@@ -229,7 +230,7 @@ private:
 
     void aquireTargetFor(iEntity &entity);
 
-    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType);
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 
     void updateViewRectangleSystem();
 

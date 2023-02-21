@@ -13,6 +13,7 @@ void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins, const
 {
 	_shopItems = shopItems;
 	_buy = false;
+	_itemGrid->unselect();	
 
 	std::set<int> indices;
 
@@ -89,42 +90,55 @@ void ShopDialog::initGUI()
 	headerGrid->setCellSpacing(20);
 	headerGrid->setStrechColumn(1);
 
-	iWidgetGrid *itemGrid = new iWidgetGrid();
-	itemGrid->appendColumns(2);
-	itemGrid->setHorizontalAlignment(iHorizontalAlignment::Center);
-	itemGrid->setVerticalAlignment(iVerticalAlignment::Strech);
-	itemGrid->setCellSpacing(0);
-	itemGrid->setStrechColumn(1);
-	itemGrid->setStrechRow(0);
-	itemGrid->setSelectMode(iSelectionMode::Column);
-	itemGrid->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &ShopDialog::onSelectionChanged));
+	_itemGrid = new iWidgetGrid();
+	_itemGrid->appendColumns(2);
+	_itemGrid->setHorizontalAlignment(iHorizontalAlignment::Center);
+	_itemGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+	_itemGrid->setCellSpacing(0);
+	_itemGrid->setStrechColumn(1);
+	_itemGrid->setStrechRow(0);
+	_itemGrid->setSelectMode(iSelectionMode::Column);
+	_itemGrid->setEmptyCellsSelecable();
+	_itemGrid->registerOnChangeEvent(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
 
 	iWidgetGrid *item1Grid = new iWidgetGrid();
 	item1Grid->appendRows(4);
 	item1Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
-	item1Grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	item1Grid->setVerticalAlignment(iVerticalAlignment::Top);
+	item1Grid->setStrechRow(3);
 
 	iWidgetGrid *item2Grid = new iWidgetGrid();
 	item2Grid->appendRows(4);
 	item2Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
-	item2Grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	item2Grid->setVerticalAlignment(iVerticalAlignment::Top);
+	item1Grid->setStrechRow(3);
 
 	iWidgetGrid *item3Grid = new iWidgetGrid();
 	item3Grid->appendRows(4);
 	item3Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
-	item3Grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	item3Grid->setVerticalAlignment(iVerticalAlignment::Top);
+	item1Grid->setStrechRow(3);
 
 	_labelName1 = new iWidgetLabel();
 	_labelName2 = new iWidgetLabel();
 	_labelName3 = new iWidgetLabel();
 
 	_labelPrice1 = new iWidgetLabel();
+	_labelPrice1->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_labelPrice2 = new iWidgetLabel();
+	_labelPrice2->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_labelPrice3 = new iWidgetLabel();
+	_labelPrice3->setHorizontalAlignment(iHorizontalAlignment::Center);
 
 	_labelDescription1 = new iWidgetLabel();
+	_labelDescription1->setMaxTextWidth(128);
+	_labelDescription1->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_labelDescription2 = new iWidgetLabel();
+	_labelDescription2->setMaxTextWidth(128);
+	_labelDescription2->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_labelDescription3 = new iWidgetLabel();
+	_labelDescription3->setMaxTextWidth(128);
+	_labelDescription3->setHorizontalAlignment(iHorizontalAlignment::Center);
 
 	_picture1 = new iWidgetPicture();
 	_picture1->setSize(128, 128);
@@ -141,9 +155,9 @@ void ShopDialog::initGUI()
 	_picture3->setVerticalAlignment(iVerticalAlignment::Center);
 	_picture3->setHorizontalAlignment(iHorizontalAlignment::Center);
 
-	itemGrid->addWidget(item1Grid, 0, 0);
-	itemGrid->addWidget(item2Grid, 1, 0);
-	itemGrid->addWidget(item3Grid, 2, 0);
+	_itemGrid->addWidget(item1Grid, 0, 0);
+	_itemGrid->addWidget(item2Grid, 1, 0);
+	_itemGrid->addWidget(item3Grid, 2, 0);
 
 	item1Grid->addWidget(_picture1, 0, 0);
 	item1Grid->addWidget(_labelName1, 0, 1);
@@ -186,12 +200,14 @@ void ShopDialog::initGUI()
 	headerGrid->addWidget(buyButton, 3, 0);
 
 	grid->addWidget(headerGrid, 0, 0);
-	grid->addWidget(itemGrid, 0, 1);
+	grid->addWidget(_itemGrid, 0, 1);
 }
 
-void ShopDialog::onSelectionChanged(int32 index)
+void ShopDialog::onSelectionChanged(const iWidgetPtr source)
 {
-	switch (index)
+	iWidgetGridPtr grid = static_cast<iWidgetGridPtr>(source);
+
+	switch (grid->getSelectedColumn())
 	{
 	case 0:
 		_selection = _option1;
@@ -209,7 +225,6 @@ void ShopDialog::onSelectionChanged(int32 index)
 
 void ShopDialog::onBuy(const iWidgetPtr source)
 {
-
 	close();
 }
 

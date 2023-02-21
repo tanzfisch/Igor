@@ -32,9 +32,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<CoinsComponent>(0.0);
     entity.addComponent<ModifierComponent>(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, true, iaTime::fromSeconds(_rand.getNextFloat()));
-    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
-    weapon._time = iTimer::getInstance().getTime();
-    weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
+    auto &weapon = entity.addComponent<WeaponComponent>(_weapons["Knife"]);
 
     entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
     entity.addComponent<MovementControlComponent>();
@@ -167,6 +165,11 @@ void GameLayer::updateViewRectangleSystem()
 
 void GameLayer::onInit()
 {
+    _rand.setSeed(1337);
+
+    initExpLvlTable();
+    loadSpecs("meta/supremacy.xml");
+
     _viewOrtho.setClearColor(0.3, 0.9, 0.5, 1.0);
     _viewOrtho.setName("view ortho");
     _viewOrtho.setClearColorActive(true);
@@ -176,8 +179,6 @@ void GameLayer::onInit()
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
-
-    _rand.setSeed(1337);
 
     _player = createPlayer();
     _viewport = createViewport(_player.getID());
@@ -211,9 +212,6 @@ void GameLayer::onInit()
     _damage = iTextureResourceFactory::getInstance().requestFile("fist.png");
     _attackSpeed = iTextureResourceFactory::getInstance().requestFile("bullets.png");
     _walkSpeed = iTextureResourceFactory::getInstance().requestFile("run.png");
-
-    initExpLvlTable();
-    loadSpecs("meta/supremacy.xml");
 
     _levelUpDialog = new UpgradeDialog();
     _shopDialog = new ShopDialog();
@@ -258,18 +256,60 @@ void GameLayer::readShopItems(TiXmlElement *shopItems)
         iaString name(shopItem->Attribute("name"));
         iaString description(shopItem->Attribute("description"));
         iaString icon(shopItem->Attribute("icon"));
-        iaString type(shopItem->Attribute("type"));
-
         int price = 0;
         shopItem->Attribute("price", &price);
 
-        ShopItemType shopItemType = ShopItemType::None;
-        if(type == "Weapon")
+        ShopItemType type = ShopItemType::None;
+
+        TiXmlElement *weapon = shopItem->FirstChildElement("Weapon");
+        if (weapon != nullptr)
         {
-            shopItemType = ShopItemType::Weapon;
+            iaString projectileTexture(weapon->Attribute("projectileTexture"));
+            float64 projectileSize = 1.0;
+            weapon->Attribute("projectileSize", &projectileSize);
+            int projectileCount = 1;
+            weapon->Attribute("projectileCount", &projectileCount);
+            float64 accuracy = 0.0;
+            weapon->Attribute("accuracy", &accuracy);
+            float64 angularVelocity = 0.0;
+            weapon->Attribute("angularVelocity", &angularVelocity);
+            float64 projectileDamage = 0.0;
+            weapon->Attribute("projectileDamage", &projectileDamage);
+            float64 projectileSpeed = 0.0;
+            weapon->Attribute("projectileSpeed", &projectileSpeed);
+            float64 projectileRange = 0.0;
+            weapon->Attribute("projectileRange", &projectileRange);
+            float64 attackIntervall = 0.0;
+            weapon->Attribute("attackIntervall", &attackIntervall);
+
+            iaString temp(weapon->Attribute("needToStandStill"));
+            bool needToStandStill = temp == "true" ? true : false;
+            iaString temp2(weapon->Attribute("returnToSender"));
+            bool returnToSender = temp2 == "true" ? true : false;
+
+            type = ShopItemType::Weapon;
+
+            WeaponComponent weaponComponent =
+                {
+                    projectileTexture,
+                    projectileSize,
+                    (uint32)projectileCount,
+                    accuracy,
+                    angularVelocity,
+                    projectileDamage,
+                    projectileSpeed,
+                    projectileRange,
+                    iaTime::fromMilliseconds(attackIntervall),
+                    needToStandStill,
+                    returnToSender,
+                    iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5),
+                    iTimer::getInstance().getTime(),
+                };
+
+            _weapons[name] = weaponComponent;
         }
 
-        _shopItems.push_back({name, description, icon, shopItemType, (uint32)price});
+        _shopItems.push_back({name, description, icon, type, (uint32)price});
 
     } while ((shopItem = shopItem->NextSiblingElement("ShopItem")) != nullptr);
 }
@@ -303,7 +343,7 @@ void GameLayer::loadSpecs(const iaString &filename)
         if (shopItems != nullptr)
         {
             readShopItems(shopItems);
-        }        
+        }
     }
 }
 
@@ -858,13 +898,7 @@ void GameLayer::onUpdateCollisionSystem()
     }
 }
 
-static const WeaponConfiguration WEAPONS[]{
-    WEAPON_KNIFE,
-    WEAPON_SHOTGUN,
-    WEAPON_MINIGUN,
-    WEAPON_ROCKETLAUNCHER};
-
-void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType)
+void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier)
 {
     // skip if out of range
     if (!iIntersection::intersects(from, _quadtree.getRootBox()))
@@ -872,14 +906,12 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         return;
     }
 
-    const WeaponConfiguration &config = WEAPONS[(int)waponType];
-
-    for (int i = 0; i < config._projectileCount; ++i)
+    for (int i = 0; i < weapon._projectileCount; ++i)
     {
-        auto bullet = _entityScene.createEntity(config._texture);
-        bullet.addComponent<PositionComponent>(from + dir * config._size * 0.5);
+        auto bullet = _entityScene.createEntity(weapon._texture);
+        bullet.addComponent<PositionComponent>(from + dir * weapon._size * 0.5);
 
-        float32 angularVelocity = config._angularVelocity;
+        float32 angularVelocity = weapon._angularVelocity;
 
         if (angularVelocity != 0.0)
         {
@@ -887,26 +919,26 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         }
 
         bullet.addComponent<AngularVelocityComponent>(angularVelocity);
-        bullet.addComponent<RangeComponent>(range);
+        bullet.addComponent<RangeComponent>(weapon._range);
 
         iaVector2d d = dir;
-        d.rotateXY((_rand.getNextFloat() - 0.2) * config._accuracy * 0.2);
-        float64 s = speed + config._accuracy * (_rand.getNextFloat() - 0.5);
+        d.rotateXY((_rand.getNextFloat() - 0.2) * weapon._accuracy * 0.2);
+        float64 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (_rand.getNextFloat() - 0.5));
         bullet.addComponent<VelocityComponent>(d, s, true);
 
-        bullet.addComponent<OrientationComponent>(d, config._angularVelocity == 0.0);
+        bullet.addComponent<OrientationComponent>(d, weapon._angularVelocity == 0.0);
 
         bullet.addComponent<PartyComponent>(party);
-        bullet.addComponent<DamageComponent>(damage);
+        bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
         bullet.addComponent<HealthComponent>(100.0, true);
-        bullet.addComponent<SizeComponent>(config._size);
-        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(config._texture), false, false, iaTime::fromSeconds(_rand.getNextFloat()));
+        bullet.addComponent<SizeComponent>(weapon._size);
+        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(weapon._texture), false, false, iaTime::fromSeconds(_rand.getNextFloat()));
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
 
-        object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(from, config._size * 0.5), bullet.getID());
+        object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(from, weapon._size * 0.5), bullet.getID());
         object._object->_userData = bullet.getID();
-        object._object->_circle.set(from, config._size * 0.5);
+        object._object->_circle.set(from, weapon._size * 0.5);
         _quadtree.insert(object._object);
     }
 }
@@ -1080,10 +1112,7 @@ void GameLayer::onUpdateWeaponSystem()
         iaVector2d direction = targetPosition._position - firePos;
         direction.normalize();
 
-        fire(firePos, direction, FRIEND, weapon._damage * modifier._damageFactor,
-             weapon._speed * modifier._projectileSpeedFactor,
-             weapon._range, // TODO projectile range
-             weapon._weaponType);
+        fire(firePos, direction, FRIEND, weapon, modifier);
     }
 }
 
@@ -1364,6 +1393,26 @@ void GameLayer::openShop()
 void GameLayer::onCloseShopDialog(iDialogPtr dialog)
 {
     play();
+
+    if (!_shopDialog->bought() ||
+        !_player.isValid())
+    {
+        return;
+    }
+
+    const ShopItem &shopItem = _shopDialog->getSelection();
+    auto &coins = _player.getComponent<CoinsComponent>();
+    coins._coins -= shopItem._price;
+
+    switch(shopItem._type)
+    {
+        case ShopItemType::Weapon:
+            auto &weapon = _player.getComponent<WeaponComponent>();
+            weapon = _weapons[shopItem._name];
+            weapon._time = iTimer::getInstance().getTime();
+            break;
+    }
+
 }
 
 void GameLayer::upgrade(iEntity entity, const UpgradeConfiguration &upgradeConfiguration)
