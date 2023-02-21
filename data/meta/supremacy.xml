@@ -37,7 +37,7 @@
                 </ShopItem>
 
                 <ShopItem name="Shotgun" description="Blam Blam" icon="shop_item_shotgun.png" price="1000">
-                        <Weapon projectileTexture="projectile_pellets.png" projectileSize="25" projectileCount="3" accuracy="1.0" angularVelocity="0" projectileDamage="100" projectileSpeed="7" projectileRange="150" attackIntervall="1000" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="projectile_pellets.png" projectileSize="30" projectileCount="3" accuracy="1.0" angularVelocity="0" projectileDamage="100" projectileSpeed="7" projectileRange="150" attackIntervall="1000" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
 
                 <ShopItem name="AR-15" description="Ratatat" icon="shop_item_AR15.png" price="1500">
@@ -49,7 +49,7 @@
                 </ShopItem>
 
                 <ShopItem name="Rocket Launcher" description="Shoosh BOOOOOM" icon="shop_item_rocketlauncher.png" price="100000">
-                        <Weapon projectileTexture="projectile_rocket.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="2000" projectileSpeed="10" projectileRange="200" attackIntervall="2000" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="projectile_rocket.png" projectileSize="30" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="2000" projectileSpeed="10" projectileRange="200" attackIntervall="2000" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
         </ShopItems>
 </Supremacy>
