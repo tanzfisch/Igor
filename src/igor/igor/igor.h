@@ -176,6 +176,7 @@
 #include <iaux/math/iaBSpline.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
+#include <iaux/math/iaRandom.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
 

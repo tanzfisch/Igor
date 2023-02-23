@@ -17,7 +17,7 @@ void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const std::ve
 
     do
     {
-        indices.insert(_rand.getNext() % _upgrades.size());
+        indices.insert(iaRandom::getNext() % _upgrades.size());
     } while (indices.size() < 3);
 
     auto iter = indices.begin();

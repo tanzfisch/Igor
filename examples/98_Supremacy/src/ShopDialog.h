@@ -66,8 +66,6 @@ private:
     uint32 _option2;
     uint32 _option3;
 
-    iaRandomNumberGeneratoru _rand;
-
     iWidgetLabel *_labelCoins;
 	iWidgetLabel *_labelName1;
 	iWidgetLabel *_labelName2;

@@ -1,0 +1,37 @@
+// Igor game engineiaRandom
+// (c) Copyright 2012-2019 by Martin Loga
+// see copyright notice in corresponding header file
+
+#include <iaux/math/iaRandom.h>
+#include <iaux/system/iaTime.h>
+
+namespace iaux
+{
+    static iaRandomNumberGenerator _randomNumberGenerator(iaTime::getNow().getMicrosenconds());
+
+    void iaRandom::setSeed(uint64 seed)
+    {
+        _randomNumberGenerator.setSeed(seed);
+    }
+
+    uint64 iaRandom::getNext()
+    {
+        return _randomNumberGenerator.getNext();
+    }
+
+    int64 iaRandom::getNextRange(int64 min, int64 max)
+    {
+        return _randomNumberGenerator.getNextRange(min, max);
+    }
+
+    float64 iaRandom::getNextFloat()
+    {
+        return _randomNumberGenerator.getNextFloat();
+    }
+
+    float64 iaRandom::getNextFloatRange(float64 min, float64 max)
+    {
+        return _randomNumberGenerator.getNextFloatRange(min, max);
+    }
+
+} // namespace iaux

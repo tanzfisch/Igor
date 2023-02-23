@@ -28,7 +28,7 @@ void Supremacy::onInit()
 
     // create window and open it
     _window = igor::iApplication::getInstance().createWindow("GameLayer");
-    _window->setClientSize(1920 * 0.5, 1080 * 0.5);
+    _window->setClientSize(1920, 1080);
     _window->setCentered();
     _window->open();
 

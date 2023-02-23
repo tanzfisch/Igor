@@ -35,6 +35,19 @@
 
 #include <tinyxml.h>
 
+struct EnemyClass
+{
+    iaString _name;
+    iaString _description;
+    iaString _texture;
+    float64 _damage;
+    float64 _health;
+    float64 _size;
+    float64 _speed; 
+    uint32 _xpDrop;
+    uint32 _coinDrop;
+};
+
 /*! GameLayer
  */
 class GameLayer : public iLayer
@@ -65,10 +78,6 @@ private:
     /*! viewport entity which follows the player
      */
     iEntity _viewport;
-
-    /*! random numbers
-     */
-    iaRandomNumberGeneratoru _rand;
 
     /*! update timer
      */
@@ -120,6 +129,7 @@ private:
     std::vector<UpgradeConfiguration> _upgrades;
     std::vector<ShopItem> _shopItems;
     std::map<iaString, WeaponComponent> _weapons;
+    std::vector<EnemyClass> _enemies;
 
     UpgradeDialog *_levelUpDialog = nullptr;
     ShopDialog *_shopDialog = nullptr;
@@ -147,6 +157,7 @@ private:
     void loadSpecs(const iaString &filename);
     void readUpgrades(TiXmlElement *upgrades);
     void readShopItems(TiXmlElement *shopItems);
+    void readEnemies(TiXmlElement *enemies);
 
     /*! called when removed from layer stack
      */
@@ -196,7 +207,7 @@ private:
 
     iEntity createViewport(iEntityID targetID);
 
-    void createUnit(const iaVector2d &pos, uint32 party, iEntityID target);
+    void createUnit(const iaVector2d &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
     void createShop(const iaVector2d &pos);
 

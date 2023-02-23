@@ -44,6 +44,14 @@
                         <Weapon projectileTexture="projectile_bullet.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="30" projectileSpeed="15" projectileRange="200" attackIntervall="100" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
 
+                <ShopItem name="Laser Pistol" description="Ratatat" icon="shop_item_laser_pistol.png" price="900">
+                        <Weapon projectileTexture="projectile_lazer.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="25" projectileSpeed="15" projectileRange="200" attackIntervall="300" needToStandStill="true" returnToSender="false" />
+                </ShopItem>
+
+                <ShopItem name="Laser Rifle" description="Ratatat" icon="shop_item_laser_rifle.png" price="2500">
+                        <Weapon projectileTexture="projectile_lazer.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="100" projectileSpeed="15" projectileRange="200" attackIntervall="200" needToStandStill="true" returnToSender="false" />
+                </ShopItem>                
+
                 <ShopItem name="Minigun" description="Brrrrrrrrrt" icon="shop_item_minigun.png" price="10000">
                         <Weapon projectileTexture="projectile_bullet.png" projectileSize="20" projectileCount="1" accuracy="1.0" angularVelocity="0" projectileDamage="30" projectileSpeed="15" projectileRange="200" attackIntervall="20" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
@@ -52,4 +60,12 @@
                         <Weapon projectileTexture="projectile_rocket.png" projectileSize="30" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="2000" projectileSpeed="10" projectileRange="200" attackIntervall="2000" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
         </ShopItems>
+
+        <Enemies>
+                <Enemy name="Leek" description="TODO" texture="leek.png" damage="10" health="20" size="30" speed="0.5" xpDrop="10" coinDrop="1"/>
+                <Enemy name="Broccoli" description="TODO" texture="broccoli.png" damage="20" health="30" size="30" speed="0.3" xpDrop="20" coinDrop="10"/>
+                <Enemy name="Carrot" description="TODO" texture="carrot.png" damage="50" health="50" size="30" speed="0.6" xpDrop="100" coinDrop="50"/>
+                <Enemy name="Capsicum" description="TODO" texture="capsicum.png" damage="200" health="200" size="30" speed="0.2" xpDrop="150" coinDrop="100"/>
+                <Enemy name="Eggplant" description="TODO" texture="eggplant.png" damage="100" health="1000" size="100" xpDrop="1000" coinDrop="1000"/>
+        </Enemies>
 </Supremacy>

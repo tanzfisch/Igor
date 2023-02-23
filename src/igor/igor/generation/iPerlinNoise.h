@@ -108,7 +108,7 @@ namespace igor
 
         /*! random number generator
         */
-        iaRandomNumberGeneratoru _rand;
+        iaRandomNumberGenerator _rand;
 
         /*! linear interpolation between two values
 

@@ -353,7 +353,7 @@ IAUX_TEST(MatrixTests, DecomposeRotateZ)
 
 IAUX_TEST(MatrixTests, DecomposeRotate100)
 {
-	iaRandomNumberGeneratoru random(1337);
+	iaRandomNumberGenerator random(1337);
 
 	for (int i = 0; i < 100; ++i)
 	{

@@ -89,7 +89,7 @@ private:
 
     /*! random number generator
     */
-    iaRandomNumberGeneratoru _rand;
+    iaRandomNumberGenerator _rand;
 
     /*! update timer
     */

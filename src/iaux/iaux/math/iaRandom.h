@@ -26,62 +26,50 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RANDOMNUMBERGENERATOR__
-#define __IAUX_RANDOMNUMBERGENERATOR__
+#ifndef __IAUX_RANDOM__
+#define __IAUX_RANDOM__
 
-#include <iaux/system/iaConsole.h>
+#include <iaux/math/iaRandomNumberGenerator.h>
 
 namespace iaux
 {
 
-    /*! pseudo random number generator
+    /*! wrapper for one random number generator 
+
+    if you need individual random number generators use iaRandomNumberGenerator instead of iaRandom
     */
-    class IAUX_API iaRandomNumberGenerator
+    class IAUX_API iaRandom
     {
-
     public:
-        /*! init seed
-        */
-        iaRandomNumberGenerator(uint64 seed = 1337);
-
-        /*! does nothing
-        */
-        ~iaRandomNumberGenerator();
-
         /*! sets the seed
 
         \param seed the seed
         */
-        void setSeed(uint64 seed);
+        static void setSeed(uint64 seed);
 
         /*! \returns next random number
         */
-        uint64 getNext();
+        static uint64 getNext();
 
-        /*! \returns next random number
+        /*! \returns next random number min-max
 
         \param min the min value returned
         \param max the max value returned
         */
-        int64 getNextRange(int64 min, int64 max);
+        static int64 getNextRange(int64 min, int64 max);
 
         /*! \returns next random number as float 0.0-1.0
         */
-        float64 getNextFloat();
+        static float64 getNextFloat();
 
         /*! \returns next random number as float min-max
 
         \param min the min value returned
         \param max the max value returned
         */
-        float64 getNextFloatRange(float64 min, float64 max);
-
-    private:
-        /*! the seed
-        */
-        uint64 _seed = 1337;
+        static float64 getNextFloatRange(float64 min, float64 max);
     };
 
 } // namespace iaux
 
-#endif // __IAUX_RANDOMNUMBERGENERATOR__
+#endif // __IAUX_RANDOM__

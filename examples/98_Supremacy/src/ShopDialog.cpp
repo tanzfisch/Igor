@@ -19,7 +19,7 @@ void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins, const
 
 	do
 	{
-		indices.insert(_rand.getNext() % _shopItems.size());
+		indices.insert(iaRandom::getNext() % _shopItems.size());
 	} while (indices.size() < 3);
 
 	auto iter = indices.begin();

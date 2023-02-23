@@ -12,7 +12,7 @@ GameLayer::GameLayer(iWindowPtr window)
 iaVector2d GameLayer::getRandomDir()
 {
     iaVector2d direction(0.0, 1.0);
-    direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
+    direction.rotateXY(iaRandom::getNextFloat() * M_PI * 2.0);
     return direction;
 }
 
@@ -31,7 +31,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<ExperienceComponent>(0.0, 1.0);
     entity.addComponent<CoinsComponent>(0.0);
     entity.addComponent<ModifierComponent>(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, true, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(_weapons["Knife"]);
 
     entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
@@ -71,7 +71,7 @@ void GameLayer::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     auto size = entity.addComponent<SizeComponent>(COIN_SIZE);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, true, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
     entity.addComponent<PickupComponent>(true);
     entity.addComponent<ExperienceGainComponent>(0.0);
@@ -95,7 +95,7 @@ void GameLayer::createShop(const iaVector2d &pos)
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE * 4);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.0, false);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("shop.png"), true, false, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("shop.png"), true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     entity.addComponent<BuildingComponent>(BuildingType::Shop);
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
@@ -105,19 +105,19 @@ void GameLayer::createShop(const iaVector2d &pos)
     _quadtree.insert(object._object);
 }
 
-void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target)
+void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
-    iEntity entity = _entityScene.createEntity("enemy");
+    iEntity entity = _entityScene.createEntity(enemyClass._name);
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
-    entity.addComponent<ExperienceGainComponent>(10.0f);
+    entity.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
 
-    auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
+    auto size = entity.addComponent<SizeComponent>(enemyClass._size);
     entity.addComponent<PartyComponent>(party);
-    entity.addComponent<DamageComponent>(10.0);
-    entity.addComponent<HealthComponent>(30.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"), true, true, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<DamageComponent>(enemyClass._damage);
+    entity.addComponent<HealthComponent>(enemyClass._health);
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
@@ -165,7 +165,7 @@ void GameLayer::updateViewRectangleSystem()
 
 void GameLayer::onInit()
 {
-    _rand.setSeed(1337);
+    iaRandom::setSeed(1337);
 
     initExpLvlTable();
     loadSpecs("meta/supremacy.xml");
@@ -186,11 +186,11 @@ void GameLayer::onInit()
     // create some enemies
     for (int i = 0; i < 10; ++i)
     {
-        iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
-        createUnit(pos, FOE, _player.getID());
+        iaVector2d pos(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT);
+        createUnit(pos, FOE, _player.getID(), _enemies.front());
     }
 
-    createShop(iaVector2d(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT));
+    createShop(iaVector2d(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT));
 
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));
@@ -215,6 +215,34 @@ void GameLayer::onInit()
 
     _levelUpDialog = new UpgradeDialog();
     _shopDialog = new ShopDialog();
+}
+
+void GameLayer::readEnemies(TiXmlElement *enemies)
+{
+    TiXmlElement *enemy = enemies->FirstChildElement("Enemy");
+
+    do
+    {
+        iaString name(enemy->Attribute("name"));
+        iaString description(enemy->Attribute("description"));
+        iaString texture(enemy->Attribute("texture"));
+
+        float64 damage = 0.0;
+        enemy->Attribute("damage", &damage);
+        float64 health = 0.0;
+        enemy->Attribute("health", &health);
+        float64 size = 1.0;
+        enemy->Attribute("size", &size);
+        float64 speed = 1.0;
+        enemy->Attribute("speed", &speed);
+        int xpDrop = 0;
+        enemy->Attribute("xpDrop", &xpDrop);
+        int coinDrop = 0;
+        enemy->Attribute("coinDrop", &coinDrop);
+
+        _enemies.push_back({name, description, texture, damage, health, size, speed, (uint32)xpDrop, (uint32)coinDrop});
+
+    } while ((enemy = enemy->NextSiblingElement("Enemy")) != nullptr);
 }
 
 void GameLayer::readUpgrades(TiXmlElement *upgrades)
@@ -344,6 +372,12 @@ void GameLayer::loadSpecs(const iaString &filename)
         {
             readShopItems(shopItems);
         }
+
+        TiXmlElement *enemies = root->FirstChildElement("Enemies");
+        if (enemies != nullptr)
+        {
+            readEnemies(enemies);
+        }
     }
 }
 
@@ -378,19 +412,19 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         return;
     }
 
-    uint32 enemiesToCreate = std::min(5 + (time.getSeconds() * time.getSeconds()) * 0.001f, 100.0); // cap at 100
+    uint32 enemiesToCreate = std::min(1 + (time.getSeconds() * time.getSeconds()) * 0.001f, 30.0); // cap at 100
 
     PositionComponent &playerPosition = _player.getComponent<PositionComponent>();
 
     for (int i = 0; i < enemiesToCreate; ++i)
     {
-        iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
+        iaVector2d pos(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT);
         while (playerPosition._position.distance(pos) < 500)
         {
-            pos.set(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
+            pos.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT);
         }
 
-        createUnit(pos, FOE, _player.getID());
+        createUnit(pos, FOE, _player.getID(), _enemies.front());
     }
 }
 
@@ -915,15 +949,15 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
         if (angularVelocity != 0.0)
         {
-            angularVelocity += (_rand.getNextFloat() - 0.5f) * 0.2;
+            angularVelocity += (iaRandom::getNextFloat() - 0.5f) * 0.2;
         }
 
         bullet.addComponent<AngularVelocityComponent>(angularVelocity);
         bullet.addComponent<RangeComponent>(weapon._range);
 
         iaVector2d d = dir;
-        d.rotateXY((_rand.getNextFloat() - 0.2) * weapon._accuracy * 0.2);
-        float64 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (_rand.getNextFloat() - 0.5));
+        d.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon._accuracy * 0.2);
+        float64 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (iaRandom::getNextFloat() - 0.5));
         bullet.addComponent<VelocityComponent>(d, s, true);
 
         bullet.addComponent<OrientationComponent>(d, weapon._angularVelocity == 0.0);
@@ -932,7 +966,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
         bullet.addComponent<HealthComponent>(100.0, true);
         bullet.addComponent<SizeComponent>(weapon._size);
-        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(weapon._texture), false, false, iaTime::fromSeconds(_rand.getNextFloat()));
+        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(weapon._texture), false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
 
@@ -1404,15 +1438,14 @@ void GameLayer::onCloseShopDialog(iDialogPtr dialog)
     auto &coins = _player.getComponent<CoinsComponent>();
     coins._coins -= shopItem._price;
 
-    switch(shopItem._type)
+    switch (shopItem._type)
     {
-        case ShopItemType::Weapon:
-            auto &weapon = _player.getComponent<WeaponComponent>();
-            weapon = _weapons[shopItem._name];
-            weapon._time = iTimer::getInstance().getTime();
-            break;
+    case ShopItemType::Weapon:
+        auto &weapon = _player.getComponent<WeaponComponent>();
+        weapon = _weapons[shopItem._name];
+        weapon._time = iTimer::getInstance().getTime();
+        break;
     }
-
 }
 
 void GameLayer::upgrade(iEntity entity, const UpgradeConfiguration &upgradeConfiguration)

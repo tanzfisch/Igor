@@ -4,9 +4,14 @@ Changelog                           {#changelog}
 0.35.0
 ------
 
-- text edit widget has output only ready
+- multiline text edit widget with "output only" ready
 - changed iaEvent/iaDelegate naming to iaSignal/iaSlot
 - iQuadtree uses std::any for user data instead of void*
+- introduced iaRandom for cases where one does not need a random number genrator instance
+- added iaColor4::transparent
+- added scalar operators for iaTime
+- added more interfaces to the renderer
+- updated some tests
 
 0.34.6
 ------
