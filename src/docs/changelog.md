@@ -11,7 +11,7 @@ Changelog                           {#changelog}
 - added iaColor4::transparent
 - added scalar operators for iaTime
 - added more interfaces to the renderer
-- updated some tests
+- updated and added some tests
 
 0.34.6
 ------

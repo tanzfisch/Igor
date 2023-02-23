@@ -35,7 +35,12 @@ namespace iaux
     {
         con_assert(min < max, "min has to be smaller then max");
 
-        return (getNext() % (max - min)) - min;
+        return (getNext() % (max - min)) + min;
+    }
+
+    int64 iaRandomNumberGenerator::getNextRange(int64 range)
+    {
+        return getNext() % range;
     }
 
     float64 iaRandomNumberGenerator::getNextFloatRange(float64 min, float64 max)

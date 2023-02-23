@@ -25,19 +25,19 @@
                 types: weapon
                 -->
                 <ShopItem name="Knife" description="Throwing knifes that stick." icon="shop_item_knifes.png" price="100">
-                        <Weapon projectileTexture="projectile_through_knife.png" projectileSize="40" projectileCount="1" accuracy="0.0" angularVelocity="0.3" projectileDamage="10" projectileSpeed="10" projectileRange="100" attackIntervall="1000" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="projectile_through_knife.png" projectileSize="40" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="10" projectileSpeed="8" projectileRange="200" attackIntervall="1000" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
 
                 <ShopItem name="Boomerang" description="coming back to you" icon="shop_item_boomerang.png" price="150">
-                        <Weapon projectileTexture="projectile_boomerang.png" projectileSize="40" projectileCount="1" accuracy="1.0" angularVelocity="0.25" projectileDamage="20" projectileSpeed="8" projectileRange="100" attackIntervall="800" needToStandStill="false" returnToSender="true" />
+                        <Weapon projectileTexture="projectile_boomerang.png" projectileSize="40" projectileCount="1" accuracy="1.0" angularVelocity="0.25" projectileDamage="20" projectileSpeed="5" projectileRange="120" attackIntervall="800" needToStandStill="false" returnToSender="true" />
                 </ShopItem>
 
                 <ShopItem name="Ninja Star" description="pointy and coming back to you" icon="shop_item_ninja_star.png" price="300">
-                        <Weapon projectileTexture="projectile_ninja_star.png" projectileSize="40" projectileCount="1" accuracy="0.0" angularVelocity="0.4" projectileDamage="40" projectileSpeed="15" projectileRange="100" attackIntervall="500" needToStandStill="false" returnToSender="true" />
+                        <Weapon projectileTexture="projectile_ninja_star.png" projectileSize="40" projectileCount="1" accuracy="0.0" angularVelocity="0.4" projectileDamage="40" projectileSpeed="10" projectileRange="180" attackIntervall="500" needToStandStill="false" returnToSender="true" />
                 </ShopItem>
 
                 <ShopItem name="Shotgun" description="Blam Blam" icon="shop_item_shotgun.png" price="1000">
-                        <Weapon projectileTexture="projectile_pellets.png" projectileSize="30" projectileCount="3" accuracy="1.0" angularVelocity="0" projectileDamage="100" projectileSpeed="7" projectileRange="150" attackIntervall="1000" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="projectile_pellets.png" projectileSize="30" projectileCount="3" accuracy="1.0" angularVelocity="0" projectileDamage="100" projectileSpeed="12" projectileRange="150" attackIntervall="1000" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
 
                 <ShopItem name="AR-15" description="Ratatat" icon="shop_item_AR15.png" price="1500">
@@ -45,11 +45,11 @@
                 </ShopItem>
 
                 <ShopItem name="Laser Pistol" description="Ratatat" icon="shop_item_laser_pistol.png" price="900">
-                        <Weapon projectileTexture="projectile_lazer.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="25" projectileSpeed="15" projectileRange="200" attackIntervall="300" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="projectile_lazer.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="25" projectileSpeed="20" projectileRange="200" attackIntervall="300" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
 
                 <ShopItem name="Laser Rifle" description="Ratatat" icon="shop_item_laser_rifle.png" price="2500">
-                        <Weapon projectileTexture="projectile_lazer.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="100" projectileSpeed="15" projectileRange="200" attackIntervall="200" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="projectile_lazer.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="100" projectileSpeed="20" projectileRange="200" attackIntervall="200" needToStandStill="true" returnToSender="false" />
                 </ShopItem>                
 
                 <ShopItem name="Minigun" description="Brrrrrrrrrt" icon="shop_item_minigun.png" price="10000">
@@ -57,7 +57,7 @@
                 </ShopItem>
 
                 <ShopItem name="Rocket Launcher" description="Shoosh BOOOOOM" icon="shop_item_rocketlauncher.png" price="100000">
-                        <Weapon projectileTexture="projectile_rocket.png" projectileSize="30" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="2000" projectileSpeed="10" projectileRange="200" attackIntervall="2000" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="projectile_rocket.png" projectileSize="30" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="2000" projectileSpeed="7" projectileRange="200" attackIntervall="2000" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
         </ShopItems>
 

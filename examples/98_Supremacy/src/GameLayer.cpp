@@ -107,7 +107,10 @@ void GameLayer::createShop(const iaVector2d &pos)
 
 void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
-    iEntity entity = _entityScene.createEntity(enemyClass._name);
+    static uint32 counter =0;
+    iEntity entity = _entityScene.createEntity(enemyClass._name + iaString::toString(counter));
+    counter++;
+
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
@@ -125,6 +128,9 @@ void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     object._object = std::make_shared<iQuadtreeObjectd>();
     object._object->_userData = entity.getID();
     object._object->_circle.set(pos, size._size);
+
+    auto entityID = entity.getID();
+    uint32 id = *reinterpret_cast<uint32 *>(reinterpret_cast<void *>(&entityID));
     _quadtree.insert(object._object);
 }
 
@@ -412,19 +418,43 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         return;
     }
 
-    uint32 enemiesToCreate = std::min(1 + (time.getSeconds() * time.getSeconds()) * 0.001f, 30.0); // cap at 100
+    uint32 enemiesToCreate = std::min(3 + (time.getSeconds() * time.getSeconds()) * 0.001f, 30.0);
 
     PositionComponent &playerPosition = _player.getComponent<PositionComponent>();
+    ExperienceComponent &playerXP = _player.getComponent<ExperienceComponent>();
+
+    const uint32 playerLevel = playerXP._level;
+    const uint32 minEnemyLevel = playerLevel;
+    const uint32 maxEnemyLevel = minEnemyLevel + 2;
 
     for (int i = 0; i < enemiesToCreate; ++i)
     {
-        iaVector2d pos(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT);
-        while (playerPosition._position.distance(pos) < 500)
+        iaVector2d pos(iaRandom::getNextFloat(), iaRandom::getNextFloat());
+        pos *= PLAYFIELD_VIEWPORT_WIDTH + iaRandom::getNextFloat() * 100;
+        pos += playerPosition._position;
+
+        if (pos._x < 0)
         {
-            pos.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT);
+            pos._x += PLAYFIELD_WIDTH;
         }
 
-        createUnit(pos, FOE, _player.getID(), _enemies.front());
+        if (pos._x > PLAYFIELD_WIDTH)
+        {
+            pos._x -= PLAYFIELD_WIDTH;
+        }
+
+        if (pos._y < 0)
+        {
+            pos._y += PLAYFIELD_HEIGHT;
+        }
+
+        if (pos._y > PLAYFIELD_HEIGHT)
+        {
+            pos._y -= PLAYFIELD_HEIGHT;
+        }
+
+        uint32 enemyLevel = iaRandom::getNextRange(minEnemyLevel, maxEnemyLevel);
+        createUnit(pos, FOE, _player.getID(), _enemies[enemyLevel - 1]);
     }
 }
 
@@ -465,12 +495,20 @@ void GameLayer::onUpdateQuadtreeSystem()
 {
     // update quadtree data
     auto quadtreeView = _entityScene.getEntities<PositionComponent, QuadtreeObjectComponent>();
-    for (auto entity : quadtreeView)
+    for (auto entityID : quadtreeView)
     {
-        auto [pos, object] = quadtreeView.get<PositionComponent, QuadtreeObjectComponent>(entity);
+        auto [pos, object] = quadtreeView.get<PositionComponent, QuadtreeObjectComponent>(entityID);
+        if (object._object == nullptr)
+        {
+            continue;
+        }
+
+        if(object._object->_parent.expired())
+        {
+            continue;
+        }
 
         iaVector2d newPosition(pos._position._x, pos._position._y);
-
         _quadtree.update(object._object, newPosition);
     }
 }
@@ -1184,12 +1222,9 @@ void GameLayer::onUpdateOrientationSystem()
 
 void GameLayer::onUpdateCleanUpTheDeadSystem()
 {
-    if (!_player.isValid())
-    {
-        return;
-    }
+    bool playerValid = _player.isValid();
 
-    // clean up the dead
+    // pick up the dead
     auto healthView = _entityScene.getEntities<HealthComponent, PartyComponent, QuadtreeObjectComponent>();
 
     for (auto entityID : healthView)
@@ -1204,7 +1239,10 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
                 const auto *exp = entity.tryGetComponent<ExperienceGainComponent>();
                 if (exp != nullptr)
                 {
-                    addExperience(_player, exp->_experience);
+                    if (playerValid)
+                    {
+                        addExperience(_player, exp->_experience);
+                    }
                 }
 
                 const auto *pos = entity.tryGetComponent<PositionComponent>();
@@ -1218,6 +1256,7 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
         }
     }
 
+    // dispose the dead
     for (const auto &entityID : _deleteQueue)
     {
         iEntity entity(entityID, _entityScene);
@@ -1225,6 +1264,7 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
         if (qud != nullptr)
         {
             _quadtree.remove(qud->_object);
+            qud->_object = nullptr;
         }
 
         _entityScene.destroyEntity(entityID);
@@ -1313,8 +1353,8 @@ void GameLayer::onRenderStats()
     iRenderer::getInstance().setLineWidth(1);
     iRenderer::getInstance().drawLineStrip(enemyHealth, iaColor4f(1, 0, 0, 1));
     iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 0, 1));
-    iRenderer::getInstance().drawLineStrip(playerExperience, iaColor4f(0, 0, 1, 1));
-    iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 0, 0, 1));
+    // iRenderer::getInstance().drawLineStrip(playerExperience, iaColor4f(0, 0, 1, 1));
+    // iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 0, 0, 1));
 }
 
 float64 GameLayer::calcLevel(uint32 experience)

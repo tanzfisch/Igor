@@ -35,17 +35,17 @@ namespace iaux
 {
 
     /*! pseudo random number generator
-    */
+     */
     class IAUX_API iaRandomNumberGenerator
     {
 
     public:
         /*! init seed
-        */
+         */
         iaRandomNumberGenerator(uint64 seed = 1337);
 
         /*! does nothing
-        */
+         */
         ~iaRandomNumberGenerator();
 
         /*! sets the seed
@@ -55,7 +55,7 @@ namespace iaux
         void setSeed(uint64 seed);
 
         /*! \returns next random number
-        */
+         */
         uint64 getNext();
 
         /*! \returns next random number
@@ -65,8 +65,14 @@ namespace iaux
         */
         int64 getNextRange(int64 min, int64 max);
 
-        /*! \returns next random number as float 0.0-1.0
+        /*! \returns next random number [0, range-1]
+
+        \param range the range of values
         */
+        int64 getNextRange(int64 range);
+
+        /*! \returns next random number as float 0.0-1.0
+         */
         float64 getNextFloat();
 
         /*! \returns next random number as float min-max
@@ -78,7 +84,7 @@ namespace iaux
 
     private:
         /*! the seed
-        */
+         */
         uint64 _seed = 1337;
     };
 

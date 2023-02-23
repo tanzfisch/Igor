@@ -51,12 +51,18 @@ namespace iaux
         */
         static uint64 getNext();
 
-        /*! \returns next random number min-max
+        /*! \returns next random number [min, max]
 
         \param min the min value returned
         \param max the max value returned
         */
         static int64 getNextRange(int64 min, int64 max);
+
+        /*! \returns next random number [0, range-1]
+
+        \param range the range of values
+        */
+        static int64 getNextRange(int64 range);
 
         /*! \returns next random number as float 0.0-1.0
         */
