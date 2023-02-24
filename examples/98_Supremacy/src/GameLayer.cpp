@@ -352,6 +352,8 @@ void GameLayer::readShopItems(TiXmlElement *shopItems)
                     iTimer::getInstance().getTime(),
                 };
 
+            con_endl(name << " " << projectileDamage / attackIntervall);
+
             _weapons[name] = weaponComponent;
         }
 
