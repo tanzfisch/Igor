@@ -142,8 +142,10 @@ struct CoinGainComponent
 struct VisualComponent
 {
     iTexturePtr _texture;
-    bool _castShadow;    
+    bool _castShadow;
     bool _scaleAnimation;
+    bool _hasShield;
+    bool _isEnraged;
     iaTime _timerOffset;
 };
 

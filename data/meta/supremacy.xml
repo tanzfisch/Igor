@@ -62,17 +62,48 @@
         </ShopItems>
 
         <Enemies>
-                <Enemy name="Radish" description="TODO" texture="radish.png"            damage="10" health="15" size="30" speed="1.0" xpDrop="15" coinDrop="1"/>
-                <Enemy name="Garlic" description="TODO" texture="garlic.png"            damage="10" health="30" size="30" speed="1.0" xpDrop="40" coinDrop="1"/>
-                <Enemy name="Onion" description="TODO" texture="onion.png"              damage="10" health="60" size="30" speed="1.0" xpDrop="90" coinDrop="5"/>
-                <Enemy name="Leek" description="TODO" texture="leek.png"                damage="10" health="90" size="30" speed="1.0" xpDrop="120" coinDrop="5"/>
-                <Enemy name="Carrot" description="TODO" texture="carrot.png"            damage="50" health="120" size="35" speed="1.0" xpDrop="200" coinDrop="10"/>
-                <Enemy name="Pepper" description="TODO" texture="pepper.png"            damage="10" health="200" size="35" speed="2.0" xpDrop="300" coinDrop="10"/>
-                <Enemy name="Beet" description="TODO" texture="beet.png"                damage="10" health="300" size="35" speed="1.0" xpDrop="500" coinDrop="50"/>
-                <Enemy name="Capsicum" description="TODO" texture="capsicum.png"        damage="20" health="400" size="35" speed="1.0" xpDrop="1000" coinDrop="50"/>
-                <Enemy name="Cucumber" description="TODO" texture="cucumber.png"        damage="10" health="700" size="40" speed="1.0" xpDrop="1500" coinDrop="100"/>
-                <Enemy name="Broccoli" description="TODO" texture="broccoli.png"        damage="20" health="1000" size="40" speed="1.0" xpDrop="3000" coinDrop="300"/>
-                <Enemy name="Zucchini" description="TODO" texture="zucchini.png"        damage="20" health="4000" size="45" speed="1.0" xpDrop="10000" coinDrop="500"/>
-                <Enemy name="Eggplant" description="TODO" texture="eggplant.png"        damage="10" health="10000" size="60" speed="1.0" xpDrop="50000" coinDrop="1000"/>
+                <Enemy name="Radish" description="TODO" texture="radish.png"            damage="10" health="15" size="30" speed="1.0" xpDrop="15" coinDrop="1" hasShield="false" isEnraged="false"/>
+                <Enemy name="Radish" description="TODO" texture="radish.png"            damage="10" health="15" size="30" speed="1.0" xpDrop="15" coinDrop="1" hasShield="true" isEnraged="false"/>
+                <Enemy name="Garlic" description="TODO" texture="garlic.png"            damage="10" health="30" size="30" speed="1.0" xpDrop="40" coinDrop="1" hasShield="false" isEnraged="false"/>
+                <Enemy name="Garlic" description="TODO" texture="garlic.png"            damage="10" health="30" size="30" speed="1.0" xpDrop="40" coinDrop="1" hasShield="false" isEnraged="true"/>
+                <Enemy name="Onion" description="TODO" texture="onion.png"              damage="10" health="60" size="30" speed="1.0" xpDrop="90" coinDrop="5" hasShield="false" isEnraged="false"/>
+                <Enemy name="Leek" description="TODO" texture="leek.png"                damage="10" health="90" size="30" speed="1.0" xpDrop="120" coinDrop="5" hasShield="false" isEnraged="false"/>
+                <Enemy name="Beet" description="TODO" texture="beet.png"                damage="10" health="250" size="35" speed="1.0" xpDrop="500" coinDrop="50" hasShield="false" isEnraged="false"/>
+                <Enemy name="Leek" description="TODO" texture="leek.png"                damage="10" health="90" size="30" speed="1.0" xpDrop="120" coinDrop="5" hasShield="true" isEnraged="false"/>
+                <Enemy name="Onion" description="TODO" texture="onion.png"              damage="10" health="60" size="30" speed="1.0" xpDrop="90" coinDrop="5" hasShield="false" isEnraged="true"/>
+                <Enemy name="Beet" description="TODO" texture="beet.png"                damage="10" health="250" size="35" speed="1.0" xpDrop="500" coinDrop="50" hasShield="false" isEnraged="true"/>
+                <Enemy name="Radish" description="TODO" texture="radish.png"            damage="10" health="15" size="30" speed="1.0" xpDrop="15" coinDrop="1" hasShield="false" isEnraged="true"/>
+                <Enemy name="Garlic" description="TODO" texture="garlic.png"            damage="10" health="30" size="30" speed="1.0" xpDrop="40" coinDrop="1" hasShield="true" isEnraged="false"/>
+                <Enemy name="Leek" description="TODO" texture="leek.png"                damage="10" health="90" size="30" speed="1.0" xpDrop="120" coinDrop="5" hasShield="false" isEnraged="true"/>
+                <Enemy name="Beet" description="TODO" texture="beet.png"                damage="10" health="250" size="35" speed="1.0" xpDrop="500" coinDrop="50" hasShield="true" isEnraged="false"/>
+                <Enemy name="Garlic" description="TODO" texture="garlic.png"            damage="10" health="30" size="30" speed="1.0" xpDrop="40" coinDrop="1" hasShield="true" isEnraged="true"/>
+                <Enemy name="Radish" description="TODO" texture="radish.png"            damage="10" health="15" size="30" speed="1.0" xpDrop="15" coinDrop="1" hasShield="true" isEnraged="true"/>
+                <Enemy name="Pepper" description="TODO" texture="pepper.png"            damage="10" health="200" size="35" speed="2.0" xpDrop="300" coinDrop="10" hasShield="false" isEnraged="false"/>
+                <Enemy name="Carrot" description="TODO" texture="carrot.png"            damage="50" health="120" size="35" speed="1.0" xpDrop="200" coinDrop="10" hasShield="false" isEnraged="false"/>
+                <Enemy name="Pepper" description="TODO" texture="pepper.png"            damage="10" health="200" size="35" speed="2.0" xpDrop="300" coinDrop="10" hasShield="true" isEnraged="false"/>
+                <Enemy name="Onion" description="TODO" texture="onion.png"              damage="10" health="60" size="30" speed="1.0" xpDrop="90" coinDrop="5" hasShield="true" isEnraged="false"/>
+                <Enemy name="Leek" description="TODO" texture="leek.png"                damage="10" health="90" size="30" speed="1.0" xpDrop="120" coinDrop="5" hasShield="true" isEnraged="true"/>
+                <Enemy name="Carrot" description="TODO" texture="carrot.png"            damage="50" health="120" size="35" speed="1.0" xpDrop="200" coinDrop="10" hasShield="false" isEnraged="true"/>
+                <Enemy name="Capsicum" description="TODO" texture="capsicum.png"        damage="20" health="400" size="35" speed="1.0" xpDrop="1000" coinDrop="50" hasShield="false" isEnraged="false"/>
+                <Enemy name="Pepper" description="TODO" texture="pepper.png"            damage="10" health="200" size="35" speed="2.0" xpDrop="300" coinDrop="10" hasShield="flase" isEnraged="true"/>
+                <Enemy name="Pepper" description="TODO" texture="pepper.png"            damage="10" health="200" size="35" speed="2.0" xpDrop="300" coinDrop="10" hasShield="true" isEnraged="true"/>
+                <Enemy name="Beet" description="TODO" texture="beet.png"                damage="10" health="250" size="35" speed="1.0" xpDrop="500" coinDrop="50" hasShield="true" isEnraged="true"/>
+                <Enemy name="Cucumber" description="TODO" texture="cucumber.png"        damage="10" health="700" size="40" speed="1.0" xpDrop="1500" coinDrop="100" hasShield="false" isEnraged="false"/>
+                <Enemy name="Onion" description="TODO" texture="onion.png"              damage="10" health="60" size="30" speed="1.0" xpDrop="90" coinDrop="5" hasShield="true" isEnraged="true"/>
+                <Enemy name="Broccoli" description="TODO" texture="broccoli.png"        damage="20" health="1000" size="40" speed="1.0" xpDrop="3000" coinDrop="300" hasShield="false" isEnraged="false"/>
+                <Enemy name="Cucumber" description="TODO" texture="cucumber.png"        damage="10" health="700" size="40" speed="1.0" xpDrop="1500" coinDrop="100" hasShield="true" isEnraged="false"/>
+                <Enemy name="Carrot" description="TODO" texture="carrot.png"            damage="50" health="120" size="35" speed="1.0" xpDrop="200" coinDrop="10" hasShield="true" isEnraged="false"/>
+                <Enemy name="Cucumber" description="TODO" texture="cucumber.png"        damage="10" health="700" size="40" speed="1.0" xpDrop="1500" coinDrop="100" hasShield="false" isEnraged="true"/>
+                <Enemy name="Broccoli" description="TODO" texture="broccoli.png"        damage="20" health="1000" size="40" speed="1.0" xpDrop="3000" coinDrop="300" hasShield="true" isEnraged="false"/>
+                <Enemy name="Cucumber" description="TODO" texture="cucumber.png"        damage="10" health="700" size="40" speed="1.0" xpDrop="1500" coinDrop="100" hasShield="true" isEnraged="true"/>
+                <Enemy name="Carrot" description="TODO" texture="carrot.png"            damage="50" health="120" size="35" speed="1.0" xpDrop="200" coinDrop="10" hasShield="true" isEnraged="true"/>
+                <Enemy name="Broccoli" description="TODO" texture="broccoli.png"        damage="20" health="1000" size="40" speed="1.0" xpDrop="3000" coinDrop="300" hasShield="false" isEnraged="true"/>
+                <Enemy name="Broccoli" description="TODO" texture="broccoli.png"        damage="20" health="1000" size="40" speed="1.0" xpDrop="3000" coinDrop="300" hasShield="true" isEnraged="true"/>
+                <Enemy name="Zucchini" description="TODO" texture="zucchini.png"        damage="20" health="4000" size="45" speed="1.0" xpDrop="10000" coinDrop="500" hasShield="false" isEnraged="false"/>
+                <Enemy name="Zucchini" description="TODO" texture="zucchini.png"        damage="20" health="4000" size="45" speed="1.0" xpDrop="10000" coinDrop="500" hasShield="true" isEnraged="false"/>
+                <Enemy name="Zucchini" description="TODO" texture="zucchini.png"        damage="20" health="4000" size="45" speed="1.0" xpDrop="10000" coinDrop="500" hasShield="true" isEnraged="true"/>
+                <Enemy name="Eggplant" description="TODO" texture="eggplant.png"        damage="10" health="10000" size="60" speed="1.0" xpDrop="50000" coinDrop="1000" hasShield="false" isEnraged="false"/>
+                <Enemy name="Eggplant" description="TODO" texture="eggplant.png"        damage="10" health="10000" size="60" speed="1.0" xpDrop="50000" coinDrop="1000" hasShield="true" isEnraged="false"/>
+                <Enemy name="Eggplant" description="TODO" texture="eggplant.png"        damage="10" health="10000" size="60" speed="1.0" xpDrop="50000" coinDrop="1000" hasShield="true" isEnraged="true"/>
         </Enemies>
 </Supremacy>

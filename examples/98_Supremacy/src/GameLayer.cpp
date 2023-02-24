@@ -31,7 +31,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<ExperienceComponent>(0.0, 1.0);
     entity.addComponent<CoinsComponent>(0.0);
     entity.addComponent<ModifierComponent>(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("wagiuA5.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("wagiuA5.png"), true, true, false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(_weapons["Knife"]);
 
     entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
@@ -71,7 +71,7 @@ void GameLayer::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     auto size = entity.addComponent<SizeComponent>(COIN_SIZE);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, true, false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
     entity.addComponent<PickupComponent>(true);
     entity.addComponent<ExperienceGainComponent>(0.0);
@@ -95,7 +95,7 @@ void GameLayer::createShop(const iaVector2d &pos)
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE * 4);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.0, false);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("shop.png"), true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("shop.png"), true, false, false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     entity.addComponent<BuildingComponent>(BuildingType::Shop);
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
@@ -118,9 +118,15 @@ void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
 
     auto size = entity.addComponent<SizeComponent>(enemyClass._size);
     entity.addComponent<PartyComponent>(party);
-    entity.addComponent<DamageComponent>(enemyClass._damage);
-    entity.addComponent<HealthComponent>(enemyClass._health);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    entity.addComponent<DamageComponent>(enemyClass._damage * (enemyClass._isEnraged ? 4.0 : 1.0));
+    entity.addComponent<HealthComponent>(enemyClass._health * (enemyClass._hasShield ? 2.0 : 1.0));
+    entity.addComponent<VisualComponent>(
+        iTextureResourceFactory::getInstance().requestFile(enemyClass._texture),
+        true,
+        true,
+        enemyClass._hasShield,
+        enemyClass._isEnraged,
+        iaTime::fromSeconds(iaRandom::getNextFloat()));
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
@@ -210,6 +216,8 @@ void GameLayer::onInit()
 
     _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("background.png");
     _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
+    _shield = iTextureResourceFactory::getInstance().requestFile("shield.png");
+    _rage = iTextureResourceFactory::getInstance().requestFile("rage.png");
 
     // init font for render profiler
     _font = iTextureFont::create("StandardFont.png");
@@ -245,8 +253,12 @@ void GameLayer::readEnemies(TiXmlElement *enemies)
         enemy->Attribute("xpDrop", &xpDrop);
         int coinDrop = 0;
         enemy->Attribute("coinDrop", &coinDrop);
+        iaString temp(enemy->Attribute("isEnraged"));
+        bool isEnraged = temp == "true" ? true : false;
+        iaString temp2(enemy->Attribute("hasShield"));
+        bool hasShield = temp2 == "true" ? true : false;
 
-        _enemies.push_back({name, description, texture, damage, health, size, speed, (uint32)xpDrop, (uint32)coinDrop});
+        _enemies.push_back({name, description, texture, damage, health, size, speed, (uint32)xpDrop, (uint32)coinDrop, hasShield, isEnraged});
 
     } while ((enemy = enemy->NextSiblingElement("Enemy")) != nullptr);
 }
@@ -418,14 +430,17 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         return;
     }
 
-    uint32 enemiesToCreate = 5; // one per second
-
     PositionComponent &playerPosition = _player.getComponent<PositionComponent>();
     ExperienceComponent &playerXP = _player.getComponent<ExperienceComponent>();
 
-    const int32 playerLevel = playerXP._level * 0.119;
+    // scaling all available enemies across 100 player levels
+    const int32 playerLevel = playerXP._level; //  * (_enemies.size() / 50.0);
     const int32 maxEnemyLevel = std::max(1, std::min(playerLevel, static_cast<int32>(_enemies.size())));
     const int32 minEnemyLevel = std::max(1, maxEnemyLevel - 4);
+
+    uint32 enemiesToCreate = 5 + (playerLevel / 10);
+
+    con_endl("playerLevel " << playerLevel);
 
     for (int i = 0; i < enemiesToCreate; ++i)
     {
@@ -455,9 +470,11 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         }
 
         uint32 enemyLevel = iaRandom::getNextRange(minEnemyLevel, maxEnemyLevel);
+        con_endl("enemyLevel " << enemyLevel);
         createUnit(pos, FOE, _player.getID(), _enemies[enemyLevel - 1]);
     }
 
+    con_endl("minEnemyLevel " << minEnemyLevel);
     con_endl("maxEnemyLevel " << maxEnemyLevel);
 }
 
@@ -1007,7 +1024,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
         bullet.addComponent<HealthComponent>(100.0, true);
         bullet.addComponent<SizeComponent>(weapon._size);
-        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(weapon._texture), false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
+        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(weapon._texture), false, false, false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
         object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(from, weapon._size * 0.5), bullet.getID());
@@ -1575,9 +1592,19 @@ void GameLayer::onRenderOrtho()
         else
         {
             matrix.scale(width, height, 1.0);
-        }
+        }    
 
         iRenderer::getInstance().drawTexturedQuad(matrix, visual._texture, iaColor4f::white, true);
+
+        if(visual._isEnraged)
+        {
+            iRenderer::getInstance().drawTexturedQuad(matrix, _rage, iaColor4f::white, true);
+        }
+
+        if (visual._hasShield)
+        {
+            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.25, position._y - height * 0.125, width * 0.25, height * 0.25, _shield, iaColor4f::white, true);
+        }          
     }
 
     // onRenderQuadtree(_quadtree.getRoot());
@@ -1588,19 +1615,19 @@ void GameLayer::onRenderOrtho()
 
 void GameLayer::onRenderQuadtree(std::shared_ptr<iQuadtreeNode<float64>> node)
 {
-    if(node == nullptr)
+    if (node == nullptr)
     {
         return;
     }
-    
+
     iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height, iaColor4f::red);
 
-    for(auto object : node->_objects)
+    for (auto object : node->_objects)
     {
         iRenderer::getInstance().drawCircle(object->_circle._center._x, object->_circle._center._y, object->_circle._radius);
     }
 
-    for(auto child : node->_children)
+    for (auto child : node->_children)
     {
         onRenderQuadtree(child);
     }

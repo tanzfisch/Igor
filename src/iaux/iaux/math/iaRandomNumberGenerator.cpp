@@ -33,14 +33,9 @@ namespace iaux
 
     int64 iaRandomNumberGenerator::getNextRange(int64 min, int64 max)
     {
-        con_assert(min <= max, "min has to be smaller then max");
+        con_assert(min <= max, "min has to be smaller or equal then max");
 
-        if(min == max)
-        {
-            return min;
-        }
-
-        return (getNext() % (max - min)) + min;
+        return (getNext() % ((max + 1) - min)) + min;
     }
 
     int64 iaRandomNumberGenerator::getNextRange(int64 range)

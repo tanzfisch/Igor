@@ -46,6 +46,8 @@ struct EnemyClass
     float64 _speed; 
     uint32 _xpDrop;
     uint32 _coinDrop;
+    bool _hasShield;
+    bool _isEnraged;
 };
 
 /*! GameLayer
@@ -97,6 +99,9 @@ private:
     /*! floor shadow
      */
     iTexturePtr _shadow;
+
+    iTexturePtr _shield;
+    iTexturePtr _rage;
 
     /*! floor
      */

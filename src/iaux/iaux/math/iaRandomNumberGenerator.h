@@ -58,7 +58,7 @@ namespace iaux
          */
         uint64 getNext();
 
-        /*! \returns next random number
+        /*! \returns next random number [min, max]
 
         \param min the min value returned
         \param max the max value returned
