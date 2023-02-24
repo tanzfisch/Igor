@@ -181,6 +181,8 @@ private:
 
     void onRenderStats();
 
+    void onRenderQuadtree(std::shared_ptr<iQuadtreeNode<float64>> node);
+
     /*! game logic intervall
 
     \param time the time

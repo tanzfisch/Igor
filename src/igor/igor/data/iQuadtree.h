@@ -121,11 +121,12 @@ namespace igor
         */
         void remove(const std::shared_ptr<iQuadtreeObject<F>> object);
 
-        /*! updates the user data
+        /*! updates an objects position
 
-        \param userData the user data to update
+        \param object the object to update
+        \param position the new position of the object
         */
-        void update(const std::shared_ptr<iQuadtreeObject<F>> object, const iaVector2<F> &newPosition);
+        void update(const std::shared_ptr<iQuadtreeObject<F>> object, const iaVector2<F> &position);
 
         /*! \returns root of tree
          */

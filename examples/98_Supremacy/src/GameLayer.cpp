@@ -22,7 +22,7 @@ iEntity GameLayer::createPlayer()
     iEntity entity = _entityScene.createEntity("player");
 
     auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
-    auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
+    auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE * 1.5);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     entity.addComponent<PartyComponent>(FRIEND);
@@ -31,14 +31,14 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<ExperienceComponent>(0.0, 1.0);
     entity.addComponent<CoinsComponent>(0.0);
     entity.addComponent<ModifierComponent>(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("wagiuA5.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(_weapons["Knife"]);
 
     entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
     entity.addComponent<MovementControlComponent>();
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(position._position._x, position._position._y, size._size), entity.getID());
+    object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(position._position._x, position._position._y, size._size * 0.5), entity.getID());
     _quadtree.insert(object._object);
 
     iaVector2f a(-1.0, 0.0);
@@ -84,7 +84,7 @@ void GameLayer::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreeObjectd>();
     object._object->_userData = entity.getID();
-    object._object->_circle.set(pos, size._size);
+    object._object->_circle.set(pos, size._size * 0.5);
     _quadtree.insert(object._object);
 }
 
@@ -101,13 +101,13 @@ void GameLayer::createShop(const iaVector2d &pos)
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreeObjectd>();
     object._object->_userData = entity.getID();
-    object._object->_circle.set(pos, size._size);
+    object._object->_circle.set(pos, size._size * 0.5);
     _quadtree.insert(object._object);
 }
 
 void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
-    static uint32 counter =0;
+    static uint32 counter = 0;
     iEntity entity = _entityScene.createEntity(enemyClass._name + iaString::toString(counter));
     counter++;
 
@@ -127,7 +127,7 @@ void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreeObjectd>();
     object._object->_userData = entity.getID();
-    object._object->_circle.set(pos, size._size);
+    object._object->_circle.set(pos, size._size * 0.5);
 
     auto entityID = entity.getID();
     uint32 id = *reinterpret_cast<uint32 *>(reinterpret_cast<void *>(&entityID));
@@ -418,18 +418,19 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         return;
     }
 
-    uint32 enemiesToCreate = std::min(3 + (time.getSeconds() * time.getSeconds()) * 0.001f, 30.0);
+    uint32 enemiesToCreate = 5; // one per second
 
     PositionComponent &playerPosition = _player.getComponent<PositionComponent>();
     ExperienceComponent &playerXP = _player.getComponent<ExperienceComponent>();
 
-    const uint32 playerLevel = playerXP._level;
-    const uint32 minEnemyLevel = playerLevel;
-    const uint32 maxEnemyLevel = minEnemyLevel + 2;
+    const int32 playerLevel = playerXP._level * 0.119;
+    const int32 maxEnemyLevel = std::max(1, std::min(playerLevel, static_cast<int32>(_enemies.size())));
+    const int32 minEnemyLevel = std::max(1, maxEnemyLevel - 4);
 
     for (int i = 0; i < enemiesToCreate; ++i)
     {
-        iaVector2d pos(iaRandom::getNextFloat(), iaRandom::getNextFloat());
+        iaVector2d pos(iaRandom::getNextFloat() - 0.5, iaRandom::getNextFloat() - 0.5);
+        pos.normalize();
         pos *= PLAYFIELD_VIEWPORT_WIDTH + iaRandom::getNextFloat() * 100;
         pos += playerPosition._position;
 
@@ -456,6 +457,8 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         uint32 enemyLevel = iaRandom::getNextRange(minEnemyLevel, maxEnemyLevel);
         createUnit(pos, FOE, _player.getID(), _enemies[enemyLevel - 1]);
     }
+
+    con_endl("maxEnemyLevel " << maxEnemyLevel);
 }
 
 void GameLayer::onUpdateStats(const iaTime &time)
@@ -503,7 +506,7 @@ void GameLayer::onUpdateQuadtreeSystem()
             continue;
         }
 
-        if(object._object->_parent.expired())
+        if (object._object->_parent.expired())
         {
             continue;
         }
@@ -806,7 +809,7 @@ void GameLayer::onUpdateFollowTargetSystem()
         const iaVector2d &targetPos = targetPosition._position;
         const iaVector2d &position = pos._position;
         iaVector2d offset;
-        iaCircled circle(position, 500.0);
+        iaCircled circle(position, 1000.0);
 
         if (!intersectDoughnut(targetPos, circle, offset))
         {
@@ -1007,7 +1010,6 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(weapon._texture), false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
-
         object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(from, weapon._size * 0.5), bullet.getID());
         object._object->_userData = bullet.getID();
         object._object->_circle.set(from, weapon._size * 0.5);
@@ -1067,7 +1069,7 @@ void GameLayer::onUpdatePickupSystem(iEntity &entity)
     auto &coins = entity.getComponent<CoinsComponent>();
     auto &health = entity.getComponent<HealthComponent>();
 
-    iaCircled circle(position._position, 40.0);
+    iaCircled circle(position._position, 100.0);
     std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
 
@@ -1521,15 +1523,13 @@ void GameLayer::onRenderOrtho()
     intersetRectangle.adjust(-scale, -scale, scale * 2.0, scale * 2.0);
 
     iaMatrixd matrix;
-    matrix.translate(0, 0, -1);
+    matrix.translate(0, 0, -100);
     matrix.scale(static_cast<float64>(getWindow()->getClientWidth() / PLAYFIELD_VIEWPORT_WIDTH),
                  (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_VIEWPORT_HEIGHT), 1.0);
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer::getInstance().setModelMatrix(matrix);
 
-    iaVector2f tiling(10.0, 10.0);
-    iaVector2f bPos(std::truncf(viewRectangle._x / 100.0) * 100.0 - 200.0, std::truncf(viewRectangle._y / 100.0) * 100.0 - 200.0);
-    iRenderer::getInstance().drawTexturedRectangle(bPos._x, bPos._y, 1000, 1000, _backgroundTexture, iaColor4f::white, false, tiling);
+    iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 14.0));
 
     const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.9);
 
@@ -1554,7 +1554,7 @@ void GameLayer::onRenderOrtho()
 
         if (visual._castShadow)
         {
-            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y + height * 0.25, width, height * 0.5, _shadow, shadowColor, true);
+            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.25, position._y + height * 0.5, width * 0.5, height * 0.25, _shadow, shadowColor, true);
         }
 
         iaMatrixf matrix;
@@ -1580,8 +1580,30 @@ void GameLayer::onRenderOrtho()
         iRenderer::getInstance().drawTexturedQuad(matrix, visual._texture, iaColor4f::white, true);
     }
 
+    // onRenderQuadtree(_quadtree.getRoot());
+
     onRenderHUD();
     onRenderStats();
+}
+
+void GameLayer::onRenderQuadtree(std::shared_ptr<iQuadtreeNode<float64>> node)
+{
+    if(node == nullptr)
+    {
+        return;
+    }
+    
+    iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height, iaColor4f::red);
+
+    for(auto object : node->_objects)
+    {
+        iRenderer::getInstance().drawCircle(object->_circle._center._x, object->_circle._center._y, object->_circle._radius);
+    }
+
+    for(auto child : node->_children)
+    {
+        onRenderQuadtree(child);
+    }
 }
 
 bool GameLayer::onKeyDown(iEventKeyDown &event)

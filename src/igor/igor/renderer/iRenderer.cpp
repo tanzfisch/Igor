@@ -657,7 +657,7 @@ namespace igor
 
         if (textureIndex == -1)
         {
-            if (texQuads._nextTextureIndex > MAX_TEXTURE_UNITS)
+            if (texQuads._nextTextureIndex >= MAX_TEXTURE_UNITS)
             {
                 flushTexQuads();
             }
@@ -952,41 +952,39 @@ namespace igor
     {
         auto &texQuads = _data->_texQuads;
 
-        if (texQuads._vertexCount == 0)
+        if (texQuads._vertexCount != 0)
         {
-            return;
-        }
+            uint32 dataSize = (uint32)((uint8 *)texQuads._vertexDataPtr - (uint8 *)texQuads._vertexData);
+            texQuads._vertexBuffer->setData(dataSize, texQuads._vertexData);
+            texQuads._vertexArray->bind();
 
-        uint32 dataSize = (uint32)((uint8 *)texQuads._vertexDataPtr - (uint8 *)texQuads._vertexData);
-        texQuads._vertexBuffer->setData(dataSize, texQuads._vertexData);
-        texQuads._vertexArray->bind();
-
-        for (int32 i = 0; i < texQuads._nextTextureIndex; ++i)
-        {
-            if (texQuads._textures[i] != nullptr &&
-                texQuads._textures[i]->isValid())
+            for (int32 i = 0; i < texQuads._nextTextureIndex; ++i)
             {
-                texQuads._textures[i]->bind(i);
-            }
-            else
-            {
-                _data->_fallbackTexture->bind(i);
+                if (texQuads._textures[i] != nullptr &&
+                    texQuads._textures[i]->isValid())
+                {
+                    texQuads._textures[i]->bind(i);
+                }
+                else
+                {
+                    _data->_fallbackTexture->bind(i);
+                }
+
+                texQuads._textures[i] = nullptr;
             }
 
-            texQuads._textures[i] = nullptr;
+            bindCurrentMaterial();
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+
+            glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
+            GL_CHECK_ERROR();
+
+            // save stats
+            _data->_stats._drawCalls++;
+            _data->_stats._vertices += texQuads._vertexCount;
+            _data->_stats._indices += texQuads._indexCount;
+            _data->_stats._triangles += texQuads._vertexCount / 2;
         }
-
-        bindCurrentMaterial();
-        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
-
-        glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
-        GL_CHECK_ERROR();
-
-        // save stats
-        _data->_stats._drawCalls++;
-        _data->_stats._vertices += texQuads._vertexCount;
-        _data->_stats._indices += texQuads._indexCount;
-        _data->_stats._triangles += texQuads._vertexCount / 2;
 
         // reset queue
         texQuads._vertexCount = 0;
@@ -1746,6 +1744,11 @@ namespace igor
                  iaVector3f(b._x, b._y, b._z), color);
     }
 
+    void iRenderer::drawCircle(const iaCirclef &circle, int segments, const iaColor4f &color)
+    {
+        drawCircle(circle._center._x, circle._center._y, circle._radius, segments, color);
+    }
+
     void iRenderer::drawCircle(const iaVector2f &pos, float32 radius, int segments, const iaColor4f &color)
     {
         drawCircle(pos._x, pos._y, radius, segments, color);
@@ -1764,6 +1767,11 @@ namespace igor
             angleA += step;
             angleB += step;
         }
+    }
+
+    void iRenderer::drawFilledCircle(const iaCirclef &circle, int segments, const iaColor4f &color)
+    {
+        drawFilledCircle(circle._center._x, circle._center._y, circle._radius, segments, color);
     }
 
     void iRenderer::drawFilledCircle(const iaVector2f &pos, float32 radius, int segments, const iaColor4f &color)

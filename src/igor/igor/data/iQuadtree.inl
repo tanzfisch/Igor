@@ -85,16 +85,16 @@ void iQuadtree<F>::queryInternal(const std::shared_ptr<iQuadtreeNode<F>> &node, 
 }
 
 template <typename F>
-void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject<F>> object, const iaVector2<F> &newPosition)
+void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject<F>> object, const iaVector2<F> &position)
 {
-    if (iIntersection::intersects(newPosition, object->_parent.lock()->_box))
+    if (iIntersection::intersects(position, object->_parent.lock()->_box))
     {
-        object->_circle._center = newPosition;
+        object->_circle._center = position;
     }
     else
     {
         remove(object);
-        object->_circle._center = newPosition;
+        object->_circle._center = position;
         uint32 depth = 0;
         insertInternal(_root, object, depth);
     }
