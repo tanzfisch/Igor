@@ -24,7 +24,7 @@ iEntity GameLayer::createPlayer()
     auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE * 1.5);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
-    entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
+    entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 0.5, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
@@ -113,7 +113,7 @@ void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
 
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
-    entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
+    entity.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed, false);
     entity.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
 
     auto size = entity.addComponent<SizeComponent>(enemyClass._size);
@@ -214,7 +214,7 @@ void GameLayer::onInit()
     _rage = iTextureResourceFactory::getInstance().requestFile("rage.png");
 
     // init font for render profiler
-    _font = iTextureFont::create("StandardFont.png");
+    _font = iTextureFont::create("StandardFontOutlined.png");
 
     _coin = iTextureResourceFactory::getInstance().requestFile("coin.png");
     _damage = iTextureResourceFactory::getInstance().requestFile("fist.png");
@@ -430,7 +430,17 @@ void GameLayer::onSpawnStuff(const iaTime &time)
     const int32 maxEnemyLevel = std::max(1, std::min(playerLevel, static_cast<int32>(_enemies.size())));
     const int32 minEnemyLevel = std::max(1, maxEnemyLevel - 4);
 
-    uint32 enemiesToCreate = 3 + (playerLevel / 10);
+    if (!_stats.empty())
+    {
+        if(_stats.back()._enemyCount > 40)
+        {
+            return;
+        }
+    }
+
+    uint32 enemiesToCreate = 3 + (playerLevel * 0.2);
+
+    con_endl("enemiesToCreate " << enemiesToCreate);
 
     for (int i = 0; i < enemiesToCreate; ++i)
     {
@@ -459,8 +469,6 @@ void GameLayer::onSpawnStuff(const iaTime &time)
             pos._y -= PLAYFIELD_HEIGHT;
         }
 
-        
-
         uint32 enemyLevel = iaRandom::getNextRangeExponentialDecrease(minEnemyLevel, maxEnemyLevel, 0.6);
         con_endl("create enemy level: " << enemyLevel);
         createUnit(pos, FOE, _player.getID(), _enemies[enemyLevel - 1]);
@@ -468,7 +476,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
 
     con_endl("minEnemyLevel " << minEnemyLevel);
     con_endl("maxEnemyLevel " << maxEnemyLevel);
- }
+}
 
 void GameLayer::onUpdateStats(const iaTime &time)
 {
@@ -478,6 +486,7 @@ void GameLayer::onUpdateStats(const iaTime &time)
     }
 
     GameStats stats;
+
     auto view = _entityScene.getEntities<HealthComponent, PartyComponent>();
     for (auto entityID : view)
     {
@@ -486,6 +495,7 @@ void GameLayer::onUpdateStats(const iaTime &time)
         if (party._partyID == FOE)
         {
             stats._enemyHealth += health._health;
+            stats._enemyCount++;
         }
     }
 
@@ -1340,6 +1350,11 @@ void GameLayer::onEvent(iEvent &event)
 
 void GameLayer::onRenderStats()
 {
+    if (_stats.empty())
+    {
+        return;
+    }
+
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
@@ -1348,9 +1363,10 @@ void GameLayer::onRenderStats()
     std::vector<iaVector3f> playerExperience;
     std::vector<iaVector3f> playerLevel;
     std::vector<iaVector3f> enemyHealth;
+    std::vector<iaVector3f> enemyCount;
 
     float32 x = 10.0f;
-    float32 y = getWindow()->getClientHeight() - 100;
+    float32 y = getWindow()->getClientHeight() - 100 - 100;
 
     for (const auto &data : _stats)
     {
@@ -1358,14 +1374,18 @@ void GameLayer::onRenderStats()
         playerExperience.push_back(iaVector3f(x, y - data._playerExperience * 0.1, 0.0));
         playerLevel.push_back(iaVector3f(x, y - (uint32)data._playerLevel * 20.0, 0.0));
         enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.05, 0.0));
+        enemyCount.push_back(iaVector3f(x, y - data._enemyCount * 1.0, 0.0));
         x += 1.0f;
     }
 
     iRenderer::getInstance().setLineWidth(1);
     iRenderer::getInstance().drawLineStrip(enemyHealth, iaColor4f(1, 0, 0, 1));
+    iRenderer::getInstance().drawLineStrip(enemyCount, iaColor4f(1, 1, 0, 1));
     iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 0, 1));
     // iRenderer::getInstance().drawLineStrip(playerExperience, iaColor4f(0, 0, 1, 1));
     // iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 0, 0, 1));
+
+    iRenderer::getInstance().drawString(10, getWindow()->getClientHeight() - 40, iaString("enemies: ") + iaString::toString((int)_stats.back()._enemyCount));
 }
 
 float64 GameLayer::calcLevel(uint32 experience)
@@ -1408,6 +1428,7 @@ void GameLayer::onRenderHUD()
     auto &playerCoins = _player.getComponent<CoinsComponent>();
     auto &modifiers = _player.getComponent<ModifierComponent>();
     auto &weapon = _player.getComponent<WeaponComponent>();
+    auto &playerVelocity = _player.getComponent<VelocityComponent>();
 
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
@@ -1420,11 +1441,21 @@ void GameLayer::onRenderHUD()
     uint32 level = playerExperience._level;
     float64 percentOfLevel = playerExperience._level - float64(level);
 
-    iRenderer::getInstance().drawString(10, 40, "lvl");
-    iRenderer::getInstance().drawString(50, 40, iaString::toString(level));
+    iRenderer::getInstance().drawString(10, 40, iaString("lvl: ") + iaString::toString(level));
 
     iRenderer::getInstance().drawRectangle(10, 80, 310, 20, iaColor4f::white);
     iRenderer::getInstance().drawFilledRectangle(10, 80, (300 * percentOfLevel) + 10, 20, iaColor4f::red);
+
+    uint32 nextLevel = 0;
+    for (auto val : _expLvl)
+    {
+        if (playerExperience._experience < val)
+        {
+            nextLevel = val;
+            break;
+        }
+    }
+    iRenderer::getInstance().drawString(350, 80, iaString::toString((int)playerExperience._experience) + " -> " + iaString::toString(nextLevel));
 
     iRenderer::getInstance().drawTexturedRectangle(10, 120, 40, 40, _coin, iaColor4f::white, true);
     iRenderer::getInstance().drawString(60, 130, iaString::toString(playerCoins._coins, 0));
@@ -1436,7 +1467,7 @@ void GameLayer::onRenderHUD()
     iRenderer::getInstance().drawString(60, 210, iaString::toString(1.0 / (weapon._attackInterval.getSeconds() / modifiers._attackIntervalFactor), 1));
 
     iRenderer::getInstance().drawTexturedRectangle(10, 240, 40, 40, _walkSpeed, iaColor4f::white, true);
-    iRenderer::getInstance().drawString(60, 250, iaString::toString(modifiers._walkSpeedFactor, 1));
+    iRenderer::getInstance().drawString(60, 250, iaString::toString(modifiers._walkSpeedFactor * playerVelocity._speed, 1));
 }
 
 void GameLayer::onLevelUp()
@@ -1584,7 +1615,7 @@ void GameLayer::onRenderOrtho()
         else
         {
             matrix.scale(width, height, 1.0);
-        }    
+        }
 
         iRenderer::getInstance().drawTexturedQuad(matrix, visual._texture, iaColor4f::white, true);
     }

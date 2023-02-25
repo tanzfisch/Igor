@@ -1,8 +1,32 @@
 <?xml version="1.0"?>
 <Supremacy>
+        <Player speed="0.5" />
+
+        <Enemies>
+                <Enemy name="Radish" description="TODO" texture="radish.png"            damage="10" health="15" size="30" speed="0.3" xpDrop="10" coinDrop="1"/>
+                <Enemy name="Garlic" description="TODO" texture="garlic.png"            damage="10" health="30" size="30" speed="0.3" xpDrop="20" coinDrop="2"/>
+                <Enemy name="Onion" description="TODO" texture="onion.png"              damage="10" health="60" size="30" speed="0.3" xpDrop="40" coinDrop="5"/>
+                <Enemy name="Leek" description="TODO" texture="leek.png"                damage="10" health="90" size="30" speed="0.3" xpDrop="80" coinDrop="10"/>
+                <Enemy name="Beet" description="TODO" texture="beet.png"                damage="10" health="250" size="35" speed="0.3" xpDrop="100" coinDrop="20"/>
+                <Enemy name="Pepper" description="TODO" texture="pepper.png"            damage="10" health="200" size="35" speed="0.45" xpDrop="150" coinDrop="30"/>
+                <Enemy name="Carrot" description="TODO" texture="carrot.png"            damage="50" health="120" size="35" speed="0.3" xpDrop="200" coinDrop="50"/>
+                <Enemy name="Capsicum" description="TODO" texture="capsicum.png"        damage="20" health="400" size="35" speed="0.3" xpDrop="300" coinDrop="100"/>
+                <Enemy name="Cucumber" description="TODO" texture="cucumber.png"        damage="10" health="700" size="40" speed="0.3" xpDrop="500" coinDrop="150"/>
+                <Enemy name="Broccoli" description="TODO" texture="broccoli.png"        damage="20" health="1000" size="40" speed="0.3" xpDrop="800" coinDrop="200"/>
+                <Enemy name="Zucchini" description="TODO" texture="zucchini.png"        damage="20" health="4000" size="45" speed="0.3" xpDrop="1000" coinDrop="300"/>
+                <Enemy name="Eggplant" description="TODO" texture="eggplant.png"        damage="10" health="10000" size="60" speed="0.3" xpDrop="2000" coinDrop="500"/>
+        </Enemies>        
+
         <Upgrades>
                 <!--example 
-                <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="icon.png" damageFactor="0.0" attackIntervalFactor="0.0" criticalHitChanceFactor="0.0" criticalHitDamageFactor="0.0" splashDamageRangeFactor="0.0" walkSpeedFactor="0.1" projectileSpeedFactor="0.0" /> 
+                <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="icon.png" 
+                        damageFactor="0.0" 
+                        attackIntervalFactor="0.0" 
+                        criticalHitChanceFactor="0.0" 
+                        criticalHitDamageFactor="0.0" 
+                        splashDamageRangeFactor="0.0" 
+                        walkSpeedFactor="0.1" 
+                        projectileSpeedFactor="0.0" /> 
                 -->
 
                 <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="run_faster_1.png" walkSpeedFactor="0.1" />
@@ -16,13 +40,17 @@
                 <Upgrade name="Trigger happy" description="Increase Damage by 10 percent" icon="damage_1.png" damageFactor="0.1" />
                 <Upgrade name="Trigger happy" description="Increase Damage by 20 percent" icon="damage_2.png" damageFactor="0.2" />
                 <Upgrade name="Trigger happy" description="Increase Damage by 30 percent" icon="damage_3.png" damageFactor="0.3" />
+
+                <Upgrade name="Speedy Projectiles" description="Increase projectile speed by 10 percent" icon="projectile_speed_1.png" projectileSpeedFactor="0.1" />
+                <Upgrade name="Speedy Projectiles" description="Increase projectile speed by 20 percent" icon="projectile_speed_2.png" projectileSpeedFactor="0.2" />
+                <Upgrade name="Speedy Projectiles" description="Increase projectile speed by 30 percent" icon="projectile_speed_3.png" projectileSpeedFactor="0.3" />                
         </Upgrades>
 
         <ShopItems>
-                <!-- example 
-                <ShopItem name="foo" description="foo bar" icon="icon.png"/> 
+                <!-- examples
+                <ShopItem name="foo" description="foo bar" icon="icon.png"  price="100"/> 
 
-                types: weapon
+                <Weapon projectileTexture="projectile_through_knife.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0.0" projectileDamage="10" projectileSpeed="3" projectileRange="110" attackIntervall="500" needToStandStill="true" returnToSender="false" />
                 -->
                 <ShopItem name="Knife" description="Throwing knifes that stick." icon="shop_item_knifes.png" price="100">
                         <Weapon projectileTexture="projectile_through_knife.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0.0" projectileDamage="10" projectileSpeed="3" projectileRange="110" attackIntervall="500" needToStandStill="true" returnToSender="false" />
@@ -75,7 +103,6 @@
                 <ShopItem name="Sniper" description="Ratatat" icon="shop_item_sniper.png" price="1500">
                         <Weapon projectileTexture="projectile_bullet.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="15" projectileSpeed="15" projectileRange="200" attackIntervall="100" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
-    
 
                 <ShopItem name="Minigun" description="Brrrrrrrrrt" icon="shop_item_minigun.png" price="10000">
                         <Weapon projectileTexture="projectile_bullet.png" projectileSize="20" projectileCount="1" accuracy="1.0" angularVelocity="0" projectileDamage="10" projectileSpeed="15" projectileRange="200" attackIntervall="20" needToStandStill="true" returnToSender="false" />
@@ -86,18 +113,6 @@
                 </ShopItem>
         </ShopItems>
 
-        <Enemies>
-                <Enemy name="Radish" description="TODO" texture="radish.png"            damage="10" health="15" size="30" speed="2.0" xpDrop="10" coinDrop="1"/>
-                <Enemy name="Garlic" description="TODO" texture="garlic.png"            damage="10" health="30" size="30" speed="2.0" xpDrop="40" coinDrop="1"/>
-                <Enemy name="Onion" description="TODO" texture="onion.png"              damage="10" health="60" size="30" speed="2.0" xpDrop="90" coinDrop="5"/>
-                <Enemy name="Leek" description="TODO" texture="leek.png"                damage="10" health="90" size="30" speed="2.0" xpDrop="120" coinDrop="5"/>
-                <Enemy name="Beet" description="TODO" texture="beet.png"                damage="10" health="250" size="35" speed="2.0" xpDrop="500" coinDrop="50"/>
-                <Enemy name="Pepper" description="TODO" texture="pepper.png"            damage="10" health="200" size="35" speed="2.0" xpDrop="300" coinDrop="10"/>
-                <Enemy name="Carrot" description="TODO" texture="carrot.png"            damage="50" health="120" size="35" speed="2.0" xpDrop="200" coinDrop="10"/>
-                <Enemy name="Capsicum" description="TODO" texture="capsicum.png"        damage="20" health="400" size="35" speed="2.0" xpDrop="1000" coinDrop="50"/>
-                <Enemy name="Cucumber" description="TODO" texture="cucumber.png"        damage="10" health="700" size="40" speed="2.0" xpDrop="1500" coinDrop="100"/>
-                <Enemy name="Broccoli" description="TODO" texture="broccoli.png"        damage="20" health="1000" size="40" speed="2.0" xpDrop="3000" coinDrop="300"/>
-                <Enemy name="Zucchini" description="TODO" texture="zucchini.png"        damage="20" health="4000" size="45" speed="2.0" xpDrop="10000" coinDrop="500"/>
-                <Enemy name="Eggplant" description="TODO" texture="eggplant.png"        damage="10" health="10000" size="60" speed="2.0" xpDrop="50000" coinDrop="1000"/>
-        </Enemies>
+
+        
 </Supremacy>

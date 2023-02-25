@@ -58,7 +58,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             }
 
             // init font
-            _font = iTextureFont::create("StandardFont.png");
+            _font = iTextureFont::create("StandardFontOutlined.png");
 
             // prepare igor logo
             _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);

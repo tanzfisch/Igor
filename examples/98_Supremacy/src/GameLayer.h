@@ -273,6 +273,7 @@ private:
         float32 _playerExperience = 0.0;
         float32 _playerLevel = 0.0;
         float32 _playerCoins = 0.0;
+        float32 _enemyCount = 0.0;
         float32 _enemyHealth = 0.0;
     };
 
