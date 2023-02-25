@@ -25,7 +25,7 @@
                 types: weapon
                 -->
                 <ShopItem name="Knife" description="Throwing knifes that stick." icon="shop_item_knifes.png" price="100">
-                        <Weapon projectileTexture="projectile_through_knife.png" projectileSize="40" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="10" projectileSpeed="8" projectileRange="200" attackIntervall="500" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="projectile_through_knife.png" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0.0" projectileDamage="10" projectileSpeed="3" projectileRange="110" attackIntervall="500" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
 
                 <ShopItem name="Boomerang" description="coming back to you" icon="shop_item_boomerang.png" price="150">

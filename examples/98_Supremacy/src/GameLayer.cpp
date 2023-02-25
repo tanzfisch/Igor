@@ -1088,7 +1088,7 @@ void GameLayer::onUpdatePickupSystem(iEntity &entity)
     auto &coins = entity.getComponent<CoinsComponent>();
     auto &health = entity.getComponent<HealthComponent>();
 
-    iaCircled circle(position._position, 100.0);
+    iaCircled circle(position._position, 70.0);
     std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
 
