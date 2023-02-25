@@ -24,6 +24,16 @@ namespace iaux
         return _randomNumberGenerator.getNextRange(min, max);
     }
 
+    int64 iaRandom::getNextRangeExponentialDecrease(int64 min, int64 max, float64 lambda)
+    {
+        return _randomNumberGenerator.getNextRangeExponentialDecrease(min, max , lambda);
+    }         
+
+    int64 iaRandom::getNextRangeExponentialIncrease(int64 min, int64 max, float64 lambda)
+    {
+        return _randomNumberGenerator.getNextRangeExponentialIncrease(min, max , lambda);
+    }     
+
     int64 iaRandom::getNextRange(int64 range)
     {
         return _randomNumberGenerator.getNextRange(range);

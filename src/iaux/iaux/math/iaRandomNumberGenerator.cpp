@@ -4,6 +4,8 @@
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 
+#include <cmath>
+
 namespace iaux
 {
 
@@ -35,7 +37,25 @@ namespace iaux
     {
         con_assert(min <= max, "min has to be smaller or equal then max");
 
-        return (getNext() % ((max + 1) - min)) + min;
+        return (getNext() % (max - min + 1)) + min;
+    }
+
+    int64 iaRandomNumberGenerator::getNextRangeExponentialDecrease(int64 min, int64 max, float64 lambda)
+    {
+        const float64 u = getNextFloat();
+        const float64 x = -lambda * log(1.0 - u);
+
+        const int64 result = min + ((float64)(max - min + 1) * (1.0 - exp(-lambda * x)));
+        return std::max(std::min(result, max), min);
+    }
+
+    int64 iaRandomNumberGenerator::getNextRangeExponentialIncrease(int64 min, int64 max, float64 lambda)
+    {
+        const float64 u = getNextFloat();
+        const float64 x = -lambda * log(1.0 - u);
+
+        const int64 result = min + ((float64)(max - min + 1) * exp(-lambda * x));
+        return std::max(std::min(result, max), min);
     }
 
     int64 iaRandomNumberGenerator::getNextRange(int64 range)

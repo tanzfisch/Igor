@@ -12,6 +12,8 @@ Changelog                           {#changelog}
 - added scalar operators for iaTime
 - added more interfaces to the renderer
 - updated and added some tests
+- added non linear random numbers
+- added triggerNow to iTimerHandle to allow to run a timed handle outside of the configured interval
 
 0.34.6
 ------

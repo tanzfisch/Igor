@@ -99,3 +99,49 @@ IAUX_TEST(RandomTests, GetNextRange2)
         IAUX_EXPECT_TRUE(value >= 0 && value <= 10);
     }
 }
+
+IAUX_TEST(RandomTests, GetNextRangeExponentialIncrease)
+{
+    iaRandomNumberGenerator rand;
+    rand.setSeed(1234);
+
+    int counters[6];
+    for(int i=0;i<6;++i)
+    {
+        counters[i] = 0;
+    }
+
+    for (int i = 0; i < 1000000; ++i)
+    {
+        counters[rand.getNextRangeExponentialIncrease(5, 10, 0.6) - 5]++;
+    }
+
+    IAUX_EXPECT_GREATER_THEN(counters[5], counters[4]);
+    IAUX_EXPECT_GREATER_THEN(counters[4], counters[3]);
+    IAUX_EXPECT_GREATER_THEN(counters[3], counters[2]);
+    IAUX_EXPECT_GREATER_THEN(counters[2], counters[1]);
+    IAUX_EXPECT_GREATER_THEN(counters[1], counters[0]);
+}
+
+IAUX_TEST(RandomTests, getNextRangeExponentialDecrease)
+{
+    iaRandomNumberGenerator rand;
+    rand.setSeed(1234);
+
+    int counters[6];
+    for(int i=0;i<6;++i)
+    {
+        counters[i] = 0;
+    }
+
+    for (int i = 0; i < 1000000; ++i)
+    {
+        counters[rand.getNextRangeExponentialDecrease(5, 10, 0.6) - 5]++;
+    }
+
+    IAUX_EXPECT_LESS_THEN(counters[5], counters[4]);
+    IAUX_EXPECT_LESS_THEN(counters[4], counters[3]);
+    IAUX_EXPECT_LESS_THEN(counters[3], counters[2]);
+    IAUX_EXPECT_LESS_THEN(counters[2], counters[1]);
+    IAUX_EXPECT_LESS_THEN(counters[1], counters[0]);
+}

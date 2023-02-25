@@ -104,6 +104,10 @@ namespace igor
 		*/
         void stop();
 
+        /*! what ever the settings this will trigger the timer handle right now and will not interfear with the interval set
+        */
+        void triggerNow();
+
     protected:
         /*! calls timer event according to how much time passed by
 		*/

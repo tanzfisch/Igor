@@ -65,6 +65,26 @@ namespace iaux
         */
         int64 getNextRange(int64 min, int64 max);
 
+        /*! \returns next random number with exponential distribution [min, max]
+
+        high chances towards min and lower chances towards max
+
+        \param min the min value returned
+        \param max the max value returned
+        \param lambda this value determines where the median of the distribution curve lies before it gets scaled back to the min max range
+        */
+        int64 getNextRangeExponentialDecrease(int64 min, int64 max, float64 lambda);        
+
+        /*! \returns next random number with exponential distribution [min, max]
+
+        high chances towards max and lower chances towards min
+
+        \param min the min value returned
+        \param max the max value returned
+        \param lambda this value determines where the median of the distribution curve lies before it gets scaled back to the min max range
+        */
+        int64 getNextRangeExponentialIncrease(int64 min, int64 max, float64 lambda);         
+
         /*! \returns next random number [0, range-1]
 
         \param range the range of values
