@@ -31,7 +31,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<ExperienceComponent>(0.0, 1.0);
     entity.addComponent<CoinsComponent>(0.0);
     entity.addComponent<ModifierComponent>(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("wagiuA5.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("wagiuA5.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()), true);
     auto &weapon = entity.addComponent<WeaponComponent>(_weapons["Knife"]);
 
     entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
@@ -71,7 +71,7 @@ void GameLayer::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
     auto size = entity.addComponent<SizeComponent>(COIN_SIZE);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()), true);
 
     entity.addComponent<PickupComponent>(true);
     entity.addComponent<ExperienceGainComponent>(0.0);
@@ -88,21 +88,51 @@ void GameLayer::createObject(const iaVector2d &pos, uint32 party, ObjectType obj
     _quadtree.insert(object._object);
 }
 
-void GameLayer::createShop(const iaVector2d &pos)
+void GameLayer::liftShop()
 {
-    iEntity entity = _entityScene.createEntity("shop");
-    entity.addComponent<PositionComponent>(pos);
-    auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE * 4);
-    entity.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
-    entity.addComponent<VelocityComponent>(getRandomDir(), 0.0, false);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("shop.png"), true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
-    entity.addComponent<BuildingComponent>(BuildingType::Shop);
+    auto &object = _shop.getComponent<QuadtreeObjectComponent>();
+    _quadtree.remove(object._object);
+    auto &vis = _shop.getComponent<VisualComponent>();
+    vis._visible = false;    
+}
 
-    auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<iQuadtreeObjectd>();
-    object._object->_userData = entity.getID();
-    object._object->_circle.set(pos, size._size * 0.5);
+void GameLayer::onLandShop(const iaTime &time)
+{
+    landShop();
+}
+
+void GameLayer::onShopLanded()
+{
+    auto &pos = _shop.getComponent<PositionComponent>();
+    auto &object = _shop.getComponent<QuadtreeObjectComponent>();
+    object._object->_circle._center = pos._position;
     _quadtree.insert(object._object);
+}
+
+void GameLayer::landShop()
+{
+    auto &vis = _shop.getComponent<VisualComponent>();
+    vis._visible = true;
+    auto &pos = _shop.getComponent<PositionComponent>();
+    pos._position.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT);
+
+    onShopLanded();
+}
+
+void GameLayer::createShop()
+{
+    _shop = _entityScene.createEntity("shop");
+    _shop.addComponent<PositionComponent>(iaVector2d());
+    auto size = _shop.addComponent<SizeComponent>(STANDARD_UNIT_SIZE * 4);
+    _shop.addComponent<OrientationComponent>(iaVector2d(0.0, -1.0), false);
+    _shop.addComponent<VelocityComponent>(getRandomDir(), 0.0, false);
+    _shop.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("shop.png"), true, false, iaTime::fromSeconds(iaRandom::getNextFloat()), false);
+    _shop.addComponent<BuildingComponent>(BuildingType::Shop);
+
+    auto &object = _shop.addComponent<QuadtreeObjectComponent>();
+    object._object = std::make_shared<iQuadtreeObjectd>();
+    object._object->_userData = _shop.getID();
+    object._object->_circle.set(iaVector2d(), size._size * 0.5);
 }
 
 void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
@@ -124,7 +154,8 @@ void GameLayer::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
         iTextureResourceFactory::getInstance().requestFile(enemyClass._texture),
         true,
         true,
-        iaTime::fromSeconds(iaRandom::getNextFloat()));
+        iaTime::fromSeconds(iaRandom::getNextFloat()),
+        true);
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
@@ -193,8 +224,6 @@ void GameLayer::onInit()
     _player = createPlayer();
     _viewport = createViewport(_player.getID());
 
-    createShop(iaVector2d(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT));
-
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
@@ -202,11 +231,16 @@ void GameLayer::onInit()
     _statsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdateStats), iaTime::fromMilliseconds(1000));
     _statsTimerHandle->start();
 
-    _spawnTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onSpawnStuff), iaTime::fromMilliseconds(5000));
-    _spawnTimerHandle->start();
+    _spawnUnitsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onSpawnStuff), iaTime::fromMilliseconds(5000));
+    _spawnUnitsTimerHandle->start();
 
     // run once right now so we have a few enemies right away
-    _spawnTimerHandle->triggerNow();
+    _spawnUnitsTimerHandle->triggerNow();
+
+    createShop();
+
+    _spawnShopTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onLandShop), iaTime::fromMilliseconds(5000), true);
+    _spawnShopTimerHandle->start();
 
     _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("background.png");
     _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
@@ -415,6 +449,7 @@ void GameLayer::initExpLvlTable()
     _expLvl.push_back(1000000000);
 }
 
+
 void GameLayer::onSpawnStuff(const iaTime &time)
 {
     if (!_player.isValid())
@@ -432,7 +467,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
 
     if (!_stats.empty())
     {
-        if(_stats.back()._enemyCount > 40)
+        if (_stats.back()._enemyCount > 40)
         {
             return;
         }
@@ -1026,7 +1061,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
         bullet.addComponent<HealthComponent>(100.0, true);
         bullet.addComponent<SizeComponent>(weapon._size);
-        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(weapon._texture), false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
+        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(weapon._texture), false, false, iaTime::fromSeconds(iaRandom::getNextFloat()), true);
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
         object._object = std::make_shared<iQuadtreeObjectd>(iaCircled(from, weapon._size * 0.5), bullet.getID());
@@ -1508,7 +1543,11 @@ void GameLayer::openShop()
 
 void GameLayer::onCloseShopDialog(iDialogPtr dialog)
 {
+    liftShop();
     play();
+
+    // start timer to next shop landing
+    _spawnShopTimerHandle->start();
 
     if (!_shopDialog->bought() ||
         !_player.isValid())
@@ -1569,9 +1608,7 @@ void GameLayer::onRenderOrtho()
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer::getInstance().setModelMatrix(matrix);
 
-    iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 14.0));
-
-    const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.9);
+    iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));
 
     // draw entities
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>();
@@ -1579,6 +1616,11 @@ void GameLayer::onRenderOrtho()
     for (auto entity : view)
     {
         auto [pos, size, visual, ori] = view.get<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>(entity);
+
+        if(!visual._visible)
+        {
+            continue;
+        }
 
         iaVector2d position;
 
@@ -1594,7 +1636,7 @@ void GameLayer::onRenderOrtho()
 
         if (visual._castShadow)
         {
-            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.25, position._y + height * 0.5, width * 0.5, height * 0.25, _shadow, shadowColor, true);
+            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.25, position._y + height * 0.5, width * 0.5, height * 0.25, _shadow, iaColor4f::black, true);
         }
 
         iaMatrixf matrix;

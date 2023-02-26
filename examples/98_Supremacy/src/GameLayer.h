@@ -75,6 +75,10 @@ private:
      */
     iEntity _player;
 
+    /*! handle to player entity
+     */
+    iEntity _shop;
+
     /*! viewport entity which follows the player
      */
     iEntity _viewport;
@@ -84,7 +88,8 @@ private:
     iTimerHandlePtr _updateTimerHandle;
 
     iTimerHandlePtr _statsTimerHandle;
-    iTimerHandlePtr _spawnTimerHandle;
+    iTimerHandlePtr _spawnUnitsTimerHandle;
+    iTimerHandlePtr _spawnShopTimerHandle;
 
     /*! async loading of textures
      */
@@ -214,7 +219,9 @@ private:
 
     void createUnit(const iaVector2d &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
-    void createShop(const iaVector2d &pos);
+    void createShop();
+    void liftShop();
+    void landShop();
 
     void createObject(const iaVector2d &pos, uint32 party, ObjectType objectType);
 
@@ -241,6 +248,10 @@ private:
     void onUpdateWeaponSystem();
 
     void onSpawnStuff(const iaTime &time);
+
+    void onShopLanded();
+
+    void onLandShop(const iaTime &time);
 
     void onUpdateStats(const iaTime &time);
 

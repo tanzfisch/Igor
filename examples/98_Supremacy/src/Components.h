@@ -145,6 +145,7 @@ struct VisualComponent
     bool _castShadow;
     bool _scaleAnimation;
     iaTime _timerOffset;
+    bool _visible;
 };
 
 struct TargetComponent
