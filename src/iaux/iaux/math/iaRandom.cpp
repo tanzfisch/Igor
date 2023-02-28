@@ -7,7 +7,7 @@
 
 namespace iaux
 {
-    static iaRandomNumberGenerator _randomNumberGenerator(iaTime::getNow().getMicrosenconds());
+    static iaRandomNumberGenerator _randomNumberGenerator(1337);
 
     void iaRandom::setSeed(uint64 seed)
     {

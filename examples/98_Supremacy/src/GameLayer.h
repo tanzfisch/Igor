@@ -44,8 +44,8 @@ struct EnemyClass
     float64 _health;
     float64 _size;
     float64 _speed; 
-    uint32 _xpDrop;
-    uint32 _coinDrop;
+    float64 _xpDrop;
+    float64 _coinDrop;
 };
 
 /*! GameLayer

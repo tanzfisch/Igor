@@ -277,12 +277,12 @@ void GameLayer::readEnemies(TiXmlElement *enemies)
         enemy->Attribute("size", &size);
         float64 speed = 1.0;
         enemy->Attribute("speed", &speed);
-        int xpDrop = 0;
+        float64 xpDrop = 0.0;
         enemy->Attribute("xpDrop", &xpDrop);
-        int coinDrop = 0;
+        float64 coinDrop = 0.0;
         enemy->Attribute("coinDrop", &coinDrop);
 
-        _enemies.push_back({name, description, texture, damage, health, size, speed, (uint32)xpDrop, (uint32)coinDrop});
+        _enemies.push_back({name, description, texture, damage, health, size, speed, xpDrop, coinDrop});
 
     } while ((enemy = enemy->NextSiblingElement("Enemy")) != nullptr);
 }

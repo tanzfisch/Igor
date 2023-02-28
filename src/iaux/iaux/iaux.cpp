@@ -5,7 +5,9 @@
 #include <iaux/iaux.h>
 
 #include <iaux/system/iaClock.h>
+#include <iaux/system/iaTime.h>
 #include <iaux/system/iaConsole.h>
+#include <iaux/math/iaRandom.h>
 
 #ifdef __IGOR_WINDOWS__
 
@@ -43,6 +45,8 @@ namespace iaux
     void startup()
     {
         iaClock::resetClock();
+        iaRandom::setSeed(iaTime::getNow().getMicrosenconds());
+
         iaConsole::getInstance().openLogfile();
         con_assert_sticky(1 == sizeof(int8), "sizeof(int8) != 1");
         con_assert_sticky(2 == sizeof(int16), "sizeof(int16) != 2");
