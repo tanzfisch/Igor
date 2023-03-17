@@ -4,6 +4,7 @@ Changelog                           {#changelog}
 0.35.0
 ------
 
+- worked on supremacy demo
 - added multiline text widget (output only for now)
 - changed iaEvent/iaDelegate naming to iaSignal/iaSlot
 - iQuadtree uses std::any for user data instead of void*
