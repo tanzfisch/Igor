@@ -26,7 +26,8 @@
                         criticalHitDamageFactor="0.0" 
                         splashDamageRangeFactor="0.0" 
                         walkSpeedFactor="0.1" 
-                        projectileSpeedFactor="0.0" /> 
+                        projectileSpeedFactor="0.0"
+                        rangeFactor="0.0" /> 
                 -->
 
                 <Upgrade name="Can't wait" description="Walk faster 10 percent" icon="run_faster_1.png" walkSpeedFactor="0.1" />
@@ -44,6 +45,10 @@
                 <Upgrade name="Speedy Projectiles" description="Increase projectile speed by 10 percent" icon="projectile_speed_1.png" projectileSpeedFactor="0.1" />
                 <Upgrade name="Speedy Projectiles" description="Increase projectile speed by 20 percent" icon="projectile_speed_2.png" projectileSpeedFactor="0.2" />
                 <Upgrade name="Speedy Projectiles" description="Increase projectile speed by 30 percent" icon="projectile_speed_3.png" projectileSpeedFactor="0.3" />                
+
+                <Upgrade name="Traveler" description="Increase projectile range by 5 percent" icon="projectile_speed_1.png" projectileRangeFactor="0.05" />
+                <Upgrade name="Traveler" description="Increase projectile range by 10 percent" icon="projectile_speed_1.png" projectileRangeFactor="0.1" />
+                <Upgrade name="Traveler" description="Increase projectile range by 15 percent" icon="projectile_speed_1.png" projectileRangeFactor="0.15" />
         </Upgrades>
 
         <ShopItems>

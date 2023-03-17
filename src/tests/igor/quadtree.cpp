@@ -6,6 +6,7 @@ using namespace igor;
 
 static const iaRectanglef testRect1(-100, -100, 200, 200);
 static const iaRectanglef testRect2(20, 0, 50, 50);
+static const iaCirclef testCircle1(20, 10, 15);
 
 IAUX_TEST(QuadtreeTests, EmptyTree)
 {
@@ -30,10 +31,10 @@ IAUX_TEST(QuadtreeTests, AddObjectsAndClear)
 {
     iQuadtreef tree(testRect1, 3);
 
-    iQuadtreeObjectfPtr object1 = std::make_shared<iQuadtreeObjectf>(iaCirclef(10, 10, 10), 10);
-    iQuadtreeObjectfPtr object2 = std::make_shared<iQuadtreeObjectf>(iaCirclef(40, 10, 10), 10);
-    iQuadtreeObjectfPtr object3 = std::make_shared<iQuadtreeObjectf>(iaCirclef(60, 10, 10), 10);
-    iQuadtreeObjectfPtr object4 = std::make_shared<iQuadtreeObjectf>(iaCirclef(90, 10, 10), 10);
+    auto object1 = std::make_shared<iQuadtreef::Object>(iaCirclef(10, 10, 10), 10);
+    auto object2 = std::make_shared<iQuadtreef::Object>(iaCirclef(40, 10, 10), 10);
+    auto object3 = std::make_shared<iQuadtreef::Object>(iaCirclef(60, 10, 10), 10);
+    auto object4 = std::make_shared<iQuadtreef::Object>(iaCirclef(90, 10, 10), 10);
 
     tree.insert(object1);
     tree.insert(object2);
@@ -90,10 +91,10 @@ IAUX_TEST(QuadtreeTests, AddObjectsAndRemove)
 {
     iQuadtreef tree(testRect1, 3);
 
-    iQuadtreeObjectfPtr object1 = std::make_shared<iQuadtreeObjectf>(iaCirclef(10, 10, 10), 1);
-    iQuadtreeObjectfPtr object2 = std::make_shared<iQuadtreeObjectf>(iaCirclef(40, 10, 10), 2);
-    iQuadtreeObjectfPtr object3 = std::make_shared<iQuadtreeObjectf>(iaCirclef(60, 10, 10), 3);
-    iQuadtreeObjectfPtr object4 = std::make_shared<iQuadtreeObjectf>(iaCirclef(90, 10, 10), 4);
+    auto object1 = std::make_shared<iQuadtreef::Object>(iaCirclef(10, 10, 10), 1);
+    auto object2 = std::make_shared<iQuadtreef::Object>(iaCirclef(40, 10, 10), 2);
+    auto object3 = std::make_shared<iQuadtreef::Object>(iaCirclef(60, 10, 10), 3);
+    auto object4 = std::make_shared<iQuadtreef::Object>(iaCirclef(90, 10, 10), 4);
 
     tree.insert(object1);
     tree.insert(object2);
@@ -109,21 +110,79 @@ IAUX_TEST(QuadtreeTests, AddObjectsAndQueryRectangle)
 {
     iQuadtreef tree(testRect1, 3);
 
-    iQuadtreeObjectfPtr object1 = std::make_shared<iQuadtreeObjectf>(iaCirclef(10, 10, 5), 1);
-    iQuadtreeObjectfPtr object2 = std::make_shared<iQuadtreeObjectf>(iaCirclef(40, 10, 10), 2);
-    iQuadtreeObjectfPtr object3 = std::make_shared<iQuadtreeObjectf>(iaCirclef(60, 10, 10), 3);
-    iQuadtreeObjectfPtr object4 = std::make_shared<iQuadtreeObjectf>(iaCirclef(90, 10, 10), 4);
+    auto object1 = std::make_shared<iQuadtreef::Object>(iaCirclef(10, 10, 5), 1);
+    auto object2 = std::make_shared<iQuadtreef::Object>(iaCirclef(40, 10, 10), 2);
+    auto object3 = std::make_shared<iQuadtreef::Object>(iaCirclef(60, 10, 10), 3);
+    auto object4 = std::make_shared<iQuadtreef::Object>(iaCirclef(90, 10, 10), 4);
 
     tree.insert(object1);
     tree.insert(object2);
     tree.insert(object3);
     tree.insert(object4);
 
-    iQuadtreeObjectsf objects;
+    iQuadtreef::Objects objects;
     tree.query(testRect2, objects);
 
     IAUX_EXPECT_EQUAL(objects.size(), 2);
 
     IAUX_EXPECT_TRUE(std::any_cast<int>(objects[0]->_userData) == 2 || std::any_cast<int>(objects[0]->_userData) == 3);
     IAUX_EXPECT_TRUE(std::any_cast<int>(objects[1]->_userData) == 2 || std::any_cast<int>(objects[1]->_userData) == 3);
+}
+
+IAUX_TEST(QuadtreeTests, AddObjectsAndQueryCircle)
+{
+    iQuadtreef tree(testRect1, 3);
+
+    auto object1 = std::make_shared<iQuadtreef::Object>(iaCirclef(10, 10, 10), 1);
+    auto object2 = std::make_shared<iQuadtreef::Object>(iaCirclef(30, 10, 10), 2);
+    auto object3 = std::make_shared<iQuadtreef::Object>(iaCirclef(60, 10, 10), 3);
+    auto object4 = std::make_shared<iQuadtreef::Object>(iaCirclef(90, 10, 10), 4);
+
+    tree.insert(object1);
+    tree.insert(object2);
+    tree.insert(object3);
+    tree.insert(object4);
+
+    iQuadtreef::Objects objects;
+    tree.query(testCircle1, objects);
+
+    IAUX_EXPECT_EQUAL(objects.size(), 2);
+
+    IAUX_EXPECT_TRUE(std::any_cast<int>(objects[0]->_userData) == 1 || std::any_cast<int>(objects[0]->_userData) == 2);
+    IAUX_EXPECT_TRUE(std::any_cast<int>(objects[1]->_userData) == 1 || std::any_cast<int>(objects[1]->_userData) == 2);
+}
+
+IAUX_TEST(QuadtreeTests, MoveObjects)
+{
+    iQuadtreef tree(testRect1, 3);
+
+    auto object1 = std::make_shared<iQuadtreef::Object>(iaCirclef(10, 10, 10), 1);
+    auto object2 = std::make_shared<iQuadtreef::Object>(iaCirclef(30, 10, 10), 2);
+    auto object3 = std::make_shared<iQuadtreef::Object>(iaCirclef(60, 10, 10), 3);
+    auto object4 = std::make_shared<iQuadtreef::Object>(iaCirclef(90, 10, 10), 4);
+
+    tree.insert(object1);
+    tree.insert(object2);
+    tree.insert(object3);
+    tree.insert(object4);
+
+    iQuadtreef::Objects objects;
+    tree.query(testCircle1, objects);
+
+    IAUX_EXPECT_EQUAL(objects.size(), 2);
+
+    IAUX_EXPECT_TRUE(std::any_cast<int>(objects[0]->_userData) == 1 || std::any_cast<int>(objects[0]->_userData) == 2);
+    IAUX_EXPECT_TRUE(std::any_cast<int>(objects[1]->_userData) == 1 || std::any_cast<int>(objects[1]->_userData) == 2);
+
+    tree.update(object2, iaVector2f(50,50));
+    tree.update(object3, iaVector2f(25,12));
+
+    objects.clear();
+    tree.query(testCircle1, objects);
+
+    IAUX_EXPECT_EQUAL(objects.size(), 2);
+
+    IAUX_EXPECT_TRUE(std::any_cast<int>(objects[0]->_userData) == 1 || std::any_cast<int>(objects[0]->_userData) == 3);
+    IAUX_EXPECT_TRUE(std::any_cast<int>(objects[1]->_userData) == 1 || std::any_cast<int>(objects[1]->_userData) == 3);
+
 }

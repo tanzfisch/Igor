@@ -181,7 +181,11 @@ namespace igor
         void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color = iaColor4f::white);
         void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color = iaColor4f::white);
 
+        void drawLineStrip(const std::vector<iaVector2f> &points, const iaColor4f &color = iaColor4f::white);
         void drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color = iaColor4f::white);
+
+        void drawLineLoop(const std::vector<iaVector2f> &points, const iaColor4f &color = iaColor4f::white);
+        void drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color = iaColor4f::white);
 
         void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
         void drawRectangle(const iaRectanglef &rect, const iaColor4f &color = iaColor4f::white);

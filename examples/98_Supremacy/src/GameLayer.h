@@ -40,12 +40,12 @@ struct EnemyClass
     iaString _name;
     iaString _description;
     iaString _texture;
-    float64 _damage;
-    float64 _health;
-    float64 _size;
-    float64 _speed; 
-    float64 _xpDrop;
-    float64 _coinDrop;
+    float32 _damage;
+    float32 _health;
+    float32 _size;
+    float32 _speed; 
+    float32 _xpDrop;
+    float32 _coinDrop;
 };
 
 /*! GameLayer
@@ -97,7 +97,7 @@ private:
 
     /*! quadtree
      */
-    iQuadtreed _quadtree;
+    iQuadtreef _quadtree;
 
     /*! floor shadow
      */
@@ -187,9 +187,11 @@ private:
      */
     void onRenderHUD();
 
+    void onRenderPlayerHUD();
+
     void onRenderStats();
 
-    void onRenderQuadtree(std::shared_ptr<iQuadtreeNode<float64>> node);
+    void onRenderQuadtree(const iQuadtreef::NodePtr &node);
 
     /*! game logic intervall
 
@@ -211,19 +213,19 @@ private:
 
     /*! \returns random direction
      */
-    iaVector2d getRandomDir();
+    iaVector2f getRandomDir();
 
     iEntity createPlayer();
 
     iEntity createViewport(iEntityID targetID);
 
-    void createUnit(const iaVector2d &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
+    void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
     void createShop();
     void liftShop();
     void landShop();
 
-    void createObject(const iaVector2d &pos, uint32 party, ObjectType objectType);
+    void createObject(const iaVector2f &pos, uint32 party, ObjectType objectType);
 
     void onUpdateQuadtreeSystem();
 
@@ -257,7 +259,7 @@ private:
 
     void aquireTargetFor(iEntity &entity);
 
-    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
+    void fire(const iaVector2f &from, const iaVector2f &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 
     void updateViewRectangleSystem();
 
@@ -266,13 +268,13 @@ private:
     \param circle the query circle
     \param hits the resulting list of entitties and relatice to the circle center positions
     */
-    void doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits);
+    void doughnutQuery(const iaCirclef &circle, std::vector<std::pair<iEntityID, iaVector2f>> &hits);
 
-    bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
-    bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
+    bool intersectDoughnut(const iaVector2f &position, const iaRectanglef &rectangle, iaVector2f &offset);
+    bool intersectDoughnut(const iaVector2f &position, const iaCirclef &circle, iaVector2f &offset);
 
-    float64 calcLevel(uint32 experience);
-    void addExperience(iEntity &entity, float64 experience);
+    float32 calcLevel(uint32 experience);
+    void addExperience(iEntity &entity, float32 experience);
 
     /*! called on level up
      */

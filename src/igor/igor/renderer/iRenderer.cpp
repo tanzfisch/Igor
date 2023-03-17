@@ -906,12 +906,35 @@ namespace igor
         drawLine(iaVector3f(v1._x, v1._y, 0.0), iaVector3f(v2._x, v2._y, 0.0), color);
     }
 
+    void iRenderer::drawLineLoop(const std::vector<iaVector2f> &points, const iaColor4f &color)
+    {
+        con_assert(points.size() > 1, "too few points");
+
+        drawLineStrip(points, color);
+        drawLine(points.back(), points.front(), color);
+    }
+    
+    void iRenderer::drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color)
+    {
+        con_assert(points.size() > 1, "too few points");
+
+        drawLineStrip(points, color);
+        drawLine(points.back(), points.front(), color);
+    }
+
+    void iRenderer::drawLineStrip(const std::vector<iaVector2f> &points, const iaColor4f &color)
+    {
+        con_assert(points.size() > 1, "too few points");
+
+        for (int i = 1; i < points.size(); ++i)
+        {
+            drawLine(points[i - 1], points[i], color);
+        }
+    }
+
     void iRenderer::drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color)
     {
-        if (points.size() <= 1)
-        {
-            return;
-        }
+        con_assert(points.size() > 1, "too few points");
 
         for (int i = 1; i < points.size(); ++i)
         {
@@ -1756,6 +1779,8 @@ namespace igor
 
     void iRenderer::drawCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
     {
+        con_assert(segments >= 3, "minimum segments is 3");
+
         const float32 step = 2 * M_PI / static_cast<float32>(segments);
         float32 angleA = 0;
         float32 angleB = step;

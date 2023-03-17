@@ -45,6 +45,7 @@ struct UpgradeConfiguration
     float64 _splashDamageRangeFactor;
     float64 _walkSpeedFactor;
     float64 _projectileSpeedFactor;
+    float64 _projectileRangeFactor;
 };
 
 class UpgradeDialog : public iDialog
