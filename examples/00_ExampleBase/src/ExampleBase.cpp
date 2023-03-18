@@ -57,8 +57,9 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
                 getScene()->getRoot()->insertNode(skyBoxNode);
             }
 
-            // init font
-            _font = iTextureFont::create("StandardFontOutlined.png");
+            // init fonts
+            _outlineFont = iTextureFont::create("StandardFontOutlined.png");
+            _standardFont = iTextureFont::create("StandardFont.png");
 
             // prepare igor logo
             _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
@@ -79,7 +80,8 @@ ExampleBase::~ExampleBase()
         _scene = nullptr;
 
         // release resources
-        _font = nullptr;
+        _standardFont = nullptr;
+        _outlineFont = nullptr;
         _igorLogo = nullptr;
 
         // abort resource tasks
@@ -151,7 +153,12 @@ bool ExampleBase::onKeyUp(iEventKeyUp &event)
 
 iTextureFontPtr ExampleBase::getFont() const
 {
-    return _font;
+    return _standardFont;
+}
+
+iTextureFontPtr ExampleBase::getOutlineFont() const
+{
+    return _outlineFont;
 }
 
 iView &ExampleBase::getView()
@@ -230,7 +237,7 @@ void ExampleBase::drawHelpScreen()
 {
     const iaString& help = getHelpString();
 
-    iRenderer::getInstance().setFont(getFont());
+    iRenderer::getInstance().setFont(getOutlineFont());
     iRenderer::getInstance().setFontSize(30.0f);
 
     // fake an outline
