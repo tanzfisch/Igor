@@ -10,6 +10,7 @@ var classigor_1_1i_timer_handle =
     [ "setIntervall", "classigor_1_1i_timer_handle.html#aa038468694dbba304319f2970b48f30c", null ],
     [ "start", "classigor_1_1i_timer_handle.html#afe584a506683e05e438e28772958d1a6", null ],
     [ "stop", "classigor_1_1i_timer_handle.html#ae3abe953b9820e6cf843aa4c233ae4eb", null ],
+    [ "triggerNow", "classigor_1_1i_timer_handle.html#a3e048e97054e8052d4bda57c4904504f", null ],
     [ "unregisterTimerDelegate", "classigor_1_1i_timer_handle.html#aa90892f60423441dc8e8a238c2a443ac", null ],
     [ "iTimer", "classigor_1_1i_timer_handle.html#a5941cfb647047d505ad803d141b837eb", null ]
 ];

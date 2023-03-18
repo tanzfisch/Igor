@@ -30,7 +30,7 @@
 #define __IAUX_THREAD_H__
 
 #include <iaux/iaDefines.h>
-#include <iaux/system/iaDelegate.h>
+#include <iaux/system/iaSlot.h>
 #include <iaux/data/iaIDGenerator.h>
 
 #include <thread>
@@ -42,7 +42,7 @@ namespace iaux
 
     /*! thread delegate calls the actuall function run by this thread
     */
-    iaDELEGATE(ThreadDelegate, void, (iaThread * thread), (thread));
+    iaSLOT(ThreadDelegate, void, (iaThread * thread), (thread));
 
     /*! the state a thread is currently in
     */

@@ -9,6 +9,10 @@ var dir_802ef6669340bfed30f754ccbd03c094 =
       [ "iIndexBufferDeleter", "classigor_1_1i_index_buffer_deleter.html", "classigor_1_1i_index_buffer_deleter" ]
     ] ],
     [ "iIndexBuffer.h", "i_index_buffer_8h.html", "i_index_buffer_8h" ],
+    [ "iInstancingBuffer.cpp", "i_instancing_buffer_8cpp.html", [
+      [ "iInstancingBufferDeleter", "classigor_1_1i_instancing_buffer_deleter.html", "classigor_1_1i_instancing_buffer_deleter" ]
+    ] ],
+    [ "iInstancingBuffer.h", "i_instancing_buffer_8h.html", "i_instancing_buffer_8h" ],
     [ "iVertexArray.cpp", "i_vertex_array_8cpp.html", [
       [ "iVertexArrayDeleter", "classigor_1_1i_vertex_array_deleter.html", "classigor_1_1i_vertex_array_deleter" ]
     ] ],

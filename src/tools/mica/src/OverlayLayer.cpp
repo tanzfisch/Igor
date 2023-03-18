@@ -31,7 +31,7 @@ void OverlayLayer::onInit()
     _materialOrientationPlane = iMaterialResourceFactory::getInstance().loadMaterial("mica/orientation_plane.mat");
 
     // font for
-    _font = iTextureFont::create("StandardFont.png");
+    _font = iTextureFont::create("StandardFontOutlined.png");
 
     // create the manipulator
     _manipulator = new Manipulator(&_view, _scene, _workspace);

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('i_event_8h.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
-<code>#include &lt;iaux/system/iaDelegate.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_slot_8h.html">iaux/system/iaSlot.h</a>&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 </div><table class="memberdecls">
@@ -123,7 +123,7 @@ Macros</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:aceb6e919b1456f47edac6b6788cfe5ed"><td class="memItemLeft" align="right" valign="top">typedef iWindow *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed">igor::iWindowPtr</a></td></tr>
 <tr class="separator:aceb6e919b1456f47edac6b6788cfe5ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cea86b93bf6f5c69e7c8916d0117e5e"><td class="memItemLeft" align="right" valign="top">typedef uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a2cea86b93bf6f5c69e7c8916d0117e5e">igor::iEventKindMask</a></td></tr>
+<tr class="memitem:a2cea86b93bf6f5c69e7c8916d0117e5e"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a2cea86b93bf6f5c69e7c8916d0117e5e">igor::iEventKindMask</a></td></tr>
 <tr class="separator:a2cea86b93bf6f5c69e7c8916d0117e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70c7d0deaa6ca886246d59b1b652ddb4"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; iEvent &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a70c7d0deaa6ca886246d59b1b652ddb4">igor::iEventPtr</a></td></tr>
 <tr class="separator:a70c7d0deaa6ca886246d59b1b652ddb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,7 +189,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>helper macro for defining a member function </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_keyboard_2src_2_keyboard_example_8cpp-example.html#a0">Keyboard/src/KeyboardExample.cpp</a>, <a class="el" href="_mouse_2src_2_mouse_example_8cpp-example.html#a0">Mouse/src/MouseExample.cpp</a>, and <a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a0">Physics/src/PhysicsExample.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_keyboard_2src_2_keyboard_example_8cpp-example.html#a1">Keyboard/src/KeyboardExample.cpp</a>, and <a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a4">Physics/src/PhysicsExample.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -211,7 +211,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">static</span> <a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710d">iEventType</a> getStaticType() { <span class="keywordflow">return</span> iEventType::type; }               \</div>
 <div class="line">    virtual <a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710d">iEventType</a> getEventType()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> getStaticType(); } \</div>
-<div class="line">    virtual <span class="keyword">const</span> iaString getName()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> #type; }</div>
+<div class="line">    virtual <span class="keyword">const</span> <a class="code" href="classiaux_1_1ia_string.html">iaString</a> getName()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> #type; }</div>
+<div class="ttc" id="aclassiaux_1_1ia_string_html"><div class="ttname"><a href="classiaux_1_1ia_string.html">iaux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:57</div></div>
 <div class="ttc" id="anamespaceigor_html_a504f0931de9d9729518c78c53d39710d"><div class="ttname"><a href="namespaceigor.html#a504f0931de9d9729518c78c53d39710d">igor::iEventType</a></div><div class="ttdeci">iEventType</div><div class="ttdef"><b>Definition:</b> iEvent.h:48</div></div>
 </div><!-- fragment --><p>helper macro to define event type </p>
 

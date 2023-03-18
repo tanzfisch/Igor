@@ -1,27 +1,9 @@
 var classigor_1_1i_particle_system2_d =
 [
     [ "iParticleSystem2D", "classigor_1_1i_particle_system2_d.html#a8eeba69e0a4d5c9e42929cfd8b68bc49", null ],
-    [ "~iParticleSystem2D", "classigor_1_1i_particle_system2_d.html#af830fc4e3091a841aebced3090c16d14", null ],
-    [ "finished", "classigor_1_1i_particle_system2_d.html#a3b4d9c9429e46e164b6fc69462e5fc7d", null ],
-    [ "getEmitRate", "classigor_1_1i_particle_system2_d.html#a332289e04bbd268b6419cd003419751f", null ],
-    [ "getMaxParticleCount", "classigor_1_1i_particle_system2_d.html#a2552608fe2d2fe24a9bf45745221f811", null ],
-    [ "getParticleCount", "classigor_1_1i_particle_system2_d.html#a449e749e1b99c1ef5ce2d4202122a4e2", null ],
-    [ "getParticleLifetime", "classigor_1_1i_particle_system2_d.html#a2d1118d711dfbe6c00132bc4ab8c3391", null ],
-    [ "getParticles", "classigor_1_1i_particle_system2_d.html#a0e731a615b1f4e56504115591c70af62", null ],
-    [ "handle", "classigor_1_1i_particle_system2_d.html#a9ded279c9d8c23509e6e8888df60829c", null ],
-    [ "restart", "classigor_1_1i_particle_system2_d.html#a25ea850e1453dcd8f63aef348485a2a5", null ],
-    [ "setAirDrag", "classigor_1_1i_particle_system2_d.html#ad5912eabdca61070dc7b2feba46fbd1e", null ],
-    [ "setEmitRate", "classigor_1_1i_particle_system2_d.html#aadeb827661714534868ff2240d451148", null ],
-    [ "setEmitterPos", "classigor_1_1i_particle_system2_d.html#a33185db0bdf0b42b5d541e7caf0e737d", null ],
-    [ "setExternalForce", "classigor_1_1i_particle_system2_d.html#a4ea69ede9dfc9e2b3bd3566d23334f0e", null ],
-    [ "setInitialVelocity", "classigor_1_1i_particle_system2_d.html#a8e377b4fbe497315f66f65ff39335ccd", null ],
-    [ "setLoopable", "classigor_1_1i_particle_system2_d.html#a71d0bc63e9d483aa1abdd7660c555af9", null ],
-    [ "setMaxParticleCount", "classigor_1_1i_particle_system2_d.html#aaf2b12e97596cc0fa8e0d6b5b3e7cb3e", null ],
-    [ "setParticleLifetime", "classigor_1_1i_particle_system2_d.html#a1cd7c4f088ba0f7fe51e3e83de5cd033", null ],
-    [ "setParticleRotation", "classigor_1_1i_particle_system2_d.html#a3e012007af165495c12a245787ff4387", null ],
-    [ "setParticleRotationDelta", "classigor_1_1i_particle_system2_d.html#a6e3dfa251639d1fcbc95d5d1eba584ff", null ],
-    [ "setParticleSize", "classigor_1_1i_particle_system2_d.html#a447dd3c9e3ed5509ffdc74e8bd615cc4", null ],
-    [ "setParticleSizeDelta", "classigor_1_1i_particle_system2_d.html#a9fb0d5b4a771c6190390ec6e933fcf88", null ],
-    [ "setSpreadFactor", "classigor_1_1i_particle_system2_d.html#ada87f5b424a13830be2195185e49fd62", null ],
-    [ "translateEmitter", "classigor_1_1i_particle_system2_d.html#ab792353d6f679a9fac09c41ed73f964b", null ]
+    [ "~iParticleSystem2D", "classigor_1_1i_particle_system2_d.html#a3ba156504a7ae23db03bb54e9c07cc0a", null ],
+    [ "draw", "classigor_1_1i_particle_system2_d.html#af0eab263a99789433b6cc1623796abd3", null ],
+    [ "getEmitter", "classigor_1_1i_particle_system2_d.html#a7cbbf27a8d3a334e8ecabbdd389baf6f", null ],
+    [ "getSystem", "classigor_1_1i_particle_system2_d.html#a04cc225a3eacd6afb9d5340cb6a084bc", null ],
+    [ "getTargetMaterial", "classigor_1_1i_particle_system2_d.html#a7db469c536743429cea5de2cd0f595d3", null ]
 ];

@@ -91,6 +91,10 @@ namespace igor
         virtual ~iWidgetTheme() = default;
     };
 
+    /*! widget theme pointer definition
+    */
+    typedef std::shared_ptr<iWidgetTheme> iWidgetThemePtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETTHEME_H__

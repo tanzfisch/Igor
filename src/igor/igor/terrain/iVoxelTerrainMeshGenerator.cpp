@@ -64,7 +64,7 @@ namespace igor
             meshNode->setVisible(false);
 
 #ifdef DEBUG_VOXEL_TERRAIN_COLORING
-            iaRandomNumberGeneratoru rand;
+            iaRandomNumberGenerator rand;
             rand.setSeed(reinterpret_cast<uint32>(voxelData));
             float32 r = ((rand.getNext() % 30) + 35.0f) / 100.0f;
             float32 g = ((rand.getNext() % 30) + 35.0f) / 100.0f;

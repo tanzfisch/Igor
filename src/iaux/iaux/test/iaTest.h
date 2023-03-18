@@ -164,10 +164,10 @@ namespace iaux
     }
 
 #define IAUX_EXPECT_NEAR(a, b, epsilon)                                                                                                                           \
-    if (std::abs((a) - (b)) > epsilon)                                                                                                                            \
+    if (std::abs(((float64)a) - ((float64)b)) > epsilon)                                                                                                                            \
     {                                                                                                                                                             \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                                                                                                  \
-        iaConsole::getInstance() << "diff of " << a << " and " << b << " is " << std::abs((a) - (b)) << " but should be smaller or equal to " << epsilon << endl; \
+        iaConsole::getInstance() << "diff of " << a << " and " << b << " is " << std::abs(((float64)a) - ((float64)b)) << " but should be smaller or equal to " << epsilon << endl; \
         _ok = false;                                                                                                                                              \
     }
 

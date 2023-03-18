@@ -9,8 +9,14 @@ var dir_19b5bc5409016bb3896fdbbd861978d7 =
     [ "iaMatrix2D.inl", "ia_matrix2_d_8inl.html", "ia_matrix2_d_8inl" ],
     [ "iaQuaternion.h", "ia_quaternion_8h.html", "ia_quaternion_8h" ],
     [ "iaQuaternion.inl", "ia_quaternion_8inl.html", "ia_quaternion_8inl" ],
-    [ "iaRandomNumberGenerator.h", "ia_random_number_generator_8h.html", "ia_random_number_generator_8h" ],
-    [ "iaRandomNumberGenerator.inl", "ia_random_number_generator_8inl.html", null ],
+    [ "iaRandom.cpp", "ia_random_8cpp.html", "ia_random_8cpp" ],
+    [ "iaRandom.h", "ia_random_8h.html", [
+      [ "iaRandom", "classiaux_1_1ia_random.html", "classiaux_1_1ia_random" ]
+    ] ],
+    [ "iaRandomNumberGenerator.cpp", "ia_random_number_generator_8cpp.html", null ],
+    [ "iaRandomNumberGenerator.h", "ia_random_number_generator_8h.html", [
+      [ "iaRandomNumberGenerator", "classiaux_1_1ia_random_number_generator.html", "classiaux_1_1ia_random_number_generator" ]
+    ] ],
     [ "iaTransform.h", "ia_transform_8h.html", "ia_transform_8h" ],
     [ "iaTransform.inl", "ia_transform_8inl.html", "ia_transform_8inl" ],
     [ "iaVector2.h", "ia_vector2_8h.html", "ia_vector2_8h" ],

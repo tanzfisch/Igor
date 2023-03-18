@@ -59,6 +59,16 @@ namespace iaux
         _microSeconds = static_cast<int64>(static_cast<float64>(_microSeconds) * scalar);
     }
 
+    iaTime iaTime::operator/(float64 scalar) const
+    {
+        return iaTime(static_cast<int64>(static_cast<float64>(_microSeconds) / scalar));
+    }
+
+    void iaTime::operator/=(float64 scalar)
+    {
+        _microSeconds = static_cast<int64>(static_cast<float64>(_microSeconds) / scalar);
+    }    
+
     bool iaTime::operator==(const iaTime &time) const
     {
         return _microSeconds == time._microSeconds;

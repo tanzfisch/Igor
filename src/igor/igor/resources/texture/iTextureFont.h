@@ -86,7 +86,7 @@ namespace igor
         \param cound index count
         \param indices the index data
         */
-        static iTextureFontPtr create(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreashold = 0.0f);
+        static iTextureFontPtr create(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreashold = 0.5f);
 
         /*! ctor
 

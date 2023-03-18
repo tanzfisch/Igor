@@ -139,11 +139,7 @@ namespace iaux
     public:
         /*! returns single instance of the console
          */
-        static iaConsole &getInstance()
-        {
-            static iaConsole _instance;
-            return _instance;
-        }
+        static iaConsole &getInstance();
 
         /*! lock console for exclusive access
          */

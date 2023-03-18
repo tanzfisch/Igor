@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -115,6 +115,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aed7da505792bbccc1c44d28d7bdfd747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69844383e2f09670737a8ff0fdb42162"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#a69844383e2f09670737a8ff0fdb42162">operator*</a> (<a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> scalar) const</td></tr>
 <tr class="separator:a69844383e2f09670737a8ff0fdb42162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cc253c8de7d7ac8dff1282af74f1afe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#a3cc253c8de7d7ac8dff1282af74f1afe">operator/=</a> (<a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> scalar)</td></tr>
+<tr class="separator:a3cc253c8de7d7ac8dff1282af74f1afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67c82fc50a7e2fb89644040247e75764"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#a67c82fc50a7e2fb89644040247e75764">operator/</a> (<a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> scalar) const</td></tr>
+<tr class="separator:a67c82fc50a7e2fb89644040247e75764"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad080421d2ed1a5ed46b7593e13b6d1ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#ad080421d2ed1a5ed46b7593e13b6d1ae">operator==</a> (const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;time) const</td></tr>
 <tr class="separator:ad080421d2ed1a5ed46b7593e13b6d1ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbdb010125baeaf193fe566b8d91baf6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#afbdb010125baeaf193fe566b8d91baf6">operator!=</a> (const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;time) const</td></tr>
@@ -526,6 +530,57 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">time</td><td>given time </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a67c82fc50a7e2fb89644040247e75764"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67c82fc50a7e2fb89644040247e75764">&#9670;&nbsp;</a></span>operator/()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a> iaux::iaTime::operator/ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a>&#160;</td>
+          <td class="paramname"><em>scalar</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>divides time with scalar</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scalar</td><td>the value to divide the time with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the new time </dd></dl>
+
+</div>
+</div>
+<a id="a3cc253c8de7d7ac8dff1282af74f1afe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc253c8de7d7ac8dff1282af74f1afe">&#9670;&nbsp;</a></span>operator/=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void iaux::iaTime::operator/= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a>&#160;</td>
+          <td class="paramname"><em>scalar</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>divides this time with scalar</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scalar</td><td>the value to divide the time with </td></tr>
   </table>
   </dd>
 </dl>

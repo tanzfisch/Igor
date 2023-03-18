@@ -4,7 +4,7 @@ var classiaux_1_1ia_console =
     [ "closeLogfile", "classiaux_1_1ia_console.html#ad0bbf4dd21b76a8c53838ff655b7a494", null ],
     [ "exit", "classiaux_1_1ia_console.html#aeb33b6c11df97c9bb24ff396578b4ceb", null ],
     [ "getErrors", "classiaux_1_1ia_console.html#ac3f7765c82a6fab491a2ef00430d9664", null ],
-    [ "getInstance", "classiaux_1_1ia_console.html#aa71e48a77bba2e64cc517577b9838258", null ],
+    [ "getInstance", "classiaux_1_1ia_console.html#a0e401f28072b8b49dd07df1cf592133f", null ],
     [ "getLogLevel", "classiaux_1_1ia_console.html#a762b7e64215d9415ec9d0e3302424853", null ],
     [ "getWarnings", "classiaux_1_1ia_console.html#a6ea8d4a79624fc3f55bc606c0b30179f", null ],
     [ "isUsingColors", "classiaux_1_1ia_console.html#a385f0879dcd58b8a59ea746251d1584f", null ],
@@ -29,7 +29,7 @@ var classiaux_1_1ia_console =
     [ "incerr", "classiaux_1_1ia_console.html#ad727866c58912c9d59f4c02c0f4a3432", null ],
     [ "incwarn", "classiaux_1_1ia_console.html#ad5e50117d5b40b1f8e7855ef7ee3924a", null ],
     [ "LOCK", "classiaux_1_1ia_console.html#ab712fd807ceb24bbd3ac71652bf56adb", null ],
-    [ "printThreadID", "classiaux_1_1ia_console.html#ac12f2bcfb38d6f14c3e30b4a66697b87", null ],
+    [ "printIgorThreadID", "classiaux_1_1ia_console.html#a5540ec8e2a2ee77509338c17d8c229b8", null ],
     [ "threadFunc", "classiaux_1_1ia_console.html#ad94778bc2f4ae24fb05883867d51df34", null ],
     [ "UNLOCK", "classiaux_1_1ia_console.html#a8044d4cf4037c9b905879780705cf937", null ]
 ];

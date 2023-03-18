@@ -45,7 +45,7 @@ var ia_console_8h =
     [ "incwarn", "ia_console_8h.html#a8c450300a2e4d0f17bbafc775bbf97ad", null ],
     [ "LOCK", "ia_console_8h.html#ad115e13c89b22dd2f51dc8564b1670d7", null ],
     [ "operator<<", "ia_console_8h.html#a8c286b903f78dd850081bf730ef493cd", null ],
-    [ "printThreadID", "ia_console_8h.html#a067a2ca9379c5a9def30c8e2ff861cb1", null ],
+    [ "printIgorThreadID", "ia_console_8h.html#a7f7099fd1480fa85d5ffd93073304726", null ],
     [ "UNLOCK", "ia_console_8h.html#a70d25d986c5fffd8bd895f55a6f20a16", null ],
     [ "iaConsole", "ia_console_8h.html#abc82355706630fc42170f31da49c8a6c", null ]
 ];

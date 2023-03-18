@@ -1,6 +1,5 @@
 var classigor_1_1i_node_sky_box =
 [
-    [ "draw", "classigor_1_1i_node_sky_box.html#a0c28c33d1a48ace9a69da0a3a10c8748", null ],
     [ "getBoxSize", "classigor_1_1i_node_sky_box.html#a18f47c4ba3acae72924d64bc13b816b6", null ],
     [ "setBoxSize", "classigor_1_1i_node_sky_box.html#a726cc988f1abd1637f6d338b32c15484", null ],
     [ "setTexture", "classigor_1_1i_node_sky_box.html#a2320c40b68bc1aad3452d53d6183a570", null ],

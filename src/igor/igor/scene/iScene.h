@@ -30,7 +30,7 @@
 #define __IGOR_SCENE_H__
 
 #include <iaux/data/iaString.h>
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 using namespace iaux;
 
 #include <igor/iDefines.h>

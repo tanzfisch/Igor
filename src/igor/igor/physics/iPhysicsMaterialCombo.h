@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
@@ -43,7 +43,7 @@ namespace igor
 
     /*! event triggered if there was a contact detected
     */
-    iaEVENT(iContactEvent, iContactDelegate, (iPhysicsBody * body0, iPhysicsBody *body1), (body0, body1));
+    iaSIGNAL(iContactEvent, iContactDelegate, (iPhysicsBody * body0, iPhysicsBody *body1), (body0, body1));
 
     /*! describes combination of two materials
     */

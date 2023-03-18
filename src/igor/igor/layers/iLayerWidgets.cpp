@@ -11,7 +11,7 @@ namespace igor
 {
 
     // set an increase z index of 1 to make sure the ui is rendered above the background
-    iLayerWidgets::iLayerWidgets(iWidgetTheme *theme, iWindowPtr window, const iaString &name, int32 zIndex)
+    iLayerWidgets::iLayerWidgets(iWidgetThemePtr theme, iWindowPtr window, const iaString &name, int32 zIndex)
         : iLayer(window, name, zIndex), _theme(theme)
     {
         iWidgetManager::getInstance().setTheme(_theme);
@@ -40,12 +40,8 @@ namespace igor
         _view.unregisterRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRender));
 
         iWidgetManager::getInstance().setTheme(nullptr);
-
-        if (_theme != nullptr)
-        {
-            delete _theme;
-            _theme = nullptr;
-        }
+        
+        _theme = nullptr;
     }
 
     void iLayerWidgets::onEvent(iEvent &event)

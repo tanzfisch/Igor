@@ -102,6 +102,7 @@ var classigor_1_1i_widget =
     [ "iWidgetCheckBox", "classigor_1_1i_widget.html#a7fe1dd6aab1887a0f3264892984073b0", null ],
     [ "iWidgetGrid", "classigor_1_1i_widget.html#a77732d40eecd0ce710cd89739880afe4", null ],
     [ "iWidgetGroupBox", "classigor_1_1i_widget.html#ad0bedee7d52c54d87af1425a4158410b", null ],
+    [ "iWidgetLineTextEdit", "classigor_1_1i_widget.html#a2bee9b352cd90cfca5cf79ebc7c9e21d", null ],
     [ "iWidgetManager", "classigor_1_1i_widget.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
     [ "iWidgetNumberChooser", "classigor_1_1i_widget.html#a55d77ea3a4ec652503d0a227b08987ed", null ],
     [ "iWidgetPicture", "classigor_1_1i_widget.html#a9f162318c3551d43787a509f7e8005cc", null ],

@@ -31,10 +31,10 @@
 
 #include <igor/resources/profiler/iProfiler.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
-#include <iaux/system/iaDelegate.h>
+#include <iaux/system/iaSlot.h>
 #include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 

@@ -24,7 +24,7 @@ public:
 private:
     bool _captureMouse = true;
 
-    iaRandomNumberGeneratoru rand;
+    iaRandomNumberGenerator rand;
 
     bool _loading = true;
     bool _activeControls = false;

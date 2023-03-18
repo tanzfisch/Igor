@@ -73,4 +73,10 @@ const iaColor4<float32> iaColor4<float32>::cyan(0.0, 1.0, 1.0, 1.0);
 template <>
 const iaColor4<uint8> iaColor4<uint8>::cyan(0x00, 0xff, 0xff, 0xff);
 
+template <>
+const iaColor4<float32> iaColor4<float32>::transparent(0.0, 0.0, 0.0, 0.0);
+
+template <>
+const iaColor4<uint8> iaColor4<uint8>::transparent(0x00, 0x00, 0x00, 0x00);
+
 }

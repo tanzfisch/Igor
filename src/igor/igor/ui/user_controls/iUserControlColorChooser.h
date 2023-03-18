@@ -32,7 +32,7 @@
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/widgets/iWidget.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
@@ -52,7 +52,7 @@ namespace igor
 
     /*! color has changed event
 	*/
-    iaEVENT(iColorChanged, iColorChangedDelegate, (const iaColor4f &color), (color));
+    iaSIGNAL(iColorChanged, iColorChangedDelegate, (const iaColor4f &color), (color));
 
     /*! color chooser mode
 	*/

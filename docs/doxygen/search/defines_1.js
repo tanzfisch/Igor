@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['c1_5903',['C1',['../igor_8cpp.html#a44779f18d87e71c78fc9fbf9dc88537d',1,'igor.cpp']]],
-  ['c2_5904',['C2',['../igor_8cpp.html#ad6fc13322a4f1c314332ff34aa8b3fa0',1,'igor.cpp']]],
-  ['characterintexheight_5905',['CHARACTERINTEXHEIGHT',['../i_texture_font_8cpp.html#ae9a27fc4e24c1165738685ff88232f3a',1,'iTextureFont.cpp']]],
-  ['characterintexwidth_5906',['CHARACTERINTEXWIDTH',['../i_texture_font_8cpp.html#a992f68f852c031c03eadb2c0cd60082e',1,'iTextureFont.cpp']]]
+  ['al_5fcheck_5ferror_7316',['AL_CHECK_ERROR',['../i_audio_8cpp.html#ae3250642376b4be58c369389444d3390',1,'iAudio.cpp']]],
+  ['alc_5fcheck_5ferror_7317',['ALC_CHECK_ERROR',['../i_audio_8cpp.html#a0ec670469fb8f09b41d9fefc442e058b',1,'iAudio.cpp']]]
 ];

@@ -156,6 +156,7 @@
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
+#include <igor/ui/widgets/iWidgetTextEdit.h>
 #include <igor/ui/user_controls/iUserControlAction.h>
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
@@ -175,6 +176,7 @@
 #include <iaux/math/iaBSpline.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
+#include <iaux/math/iaRandom.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
 

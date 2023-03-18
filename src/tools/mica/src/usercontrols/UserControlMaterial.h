@@ -35,7 +35,7 @@ using namespace igor;
 
 /*! material name change event
 */
-iaEVENT(MaterialNameChangedEvent, MaterialNameChangedDelegate, (), ());
+iaSIGNAL(MaterialNameChangedEvent, MaterialNameChangedDelegate, (), ());
 
 class UserControlMaterial : public iUserControl
 {

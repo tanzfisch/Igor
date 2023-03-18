@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/system/iaTime.h>
 using namespace iaux;
 
@@ -42,7 +42,7 @@ namespace igor
 
     called once per interval
     */
-    iaEVENT(iTimerTickEvent, iTimerTickDelegate, (const iaTime &time), (time));
+    iaSIGNAL(iTimerTickEvent, iTimerTickDelegate, (const iaTime &time), (time));
 
     /*! timer handle class
     */
@@ -103,6 +103,10 @@ namespace igor
         /*! stop timer handle
 		*/
         void stop();
+
+        /*! what ever the settings this will trigger the timer handle right now and will not interfear with the interval set
+        */
+        void triggerNow();
 
     protected:
         /*! calls timer event according to how much time passed by

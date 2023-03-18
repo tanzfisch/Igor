@@ -20,8 +20,6 @@ var i_renderer_8cpp =
       [ "Buffer", "i_renderer_8cpp.html#aaf2363a31b0b7f61ecff2da4314d07a1a7e62bc342f41c946868f0ea6f0b712d8", null ],
       [ "Particles", "i_renderer_8cpp.html#aaf2363a31b0b7f61ecff2da4314d07a1aad4aa221c22fd934ecd55e34457ffc3b", null ]
     ] ],
-    [ "getOGLEnum", "i_renderer_8cpp.html#a6e03534b10d13b5e6120f21a8ee0250d", null ],
-    [ "getOGLEnum", "i_renderer_8cpp.html#a10c56915db2aa40346eac08daaef7aef", null ],
     [ "MAX_LINE_VERTICES", "i_renderer_8cpp.html#ad8da7e7329ab11ab73c89933cde98e6b", null ],
     [ "MAX_LINES", "i_renderer_8cpp.html#a320f34d1ce81ed60fab143d88e877c13", null ],
     [ "MAX_POINT_VERTICES", "i_renderer_8cpp.html#a899083662f764c1eca876819733d60fd", null ],

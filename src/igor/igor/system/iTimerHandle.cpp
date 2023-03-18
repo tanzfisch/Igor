@@ -82,6 +82,11 @@ namespace igor
 		_timerEvent.remove(timerDelegate);
 	}
 
+	void iTimerHandle::triggerNow()
+	{
+		_timerEvent(iaTime::getNow());
+	}
+
 	void iTimerHandle::handle(iaTime time)
 	{
 		while (time - _time >= _intervall)

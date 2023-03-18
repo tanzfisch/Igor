@@ -657,7 +657,7 @@ namespace igor
 
         if (textureIndex == -1)
         {
-            if (texQuads._nextTextureIndex > MAX_TEXTURE_UNITS)
+            if (texQuads._nextTextureIndex >= MAX_TEXTURE_UNITS)
             {
                 flushTexQuads();
             }
@@ -906,12 +906,35 @@ namespace igor
         drawLine(iaVector3f(v1._x, v1._y, 0.0), iaVector3f(v2._x, v2._y, 0.0), color);
     }
 
+    void iRenderer::drawLineLoop(const std::vector<iaVector2f> &points, const iaColor4f &color)
+    {
+        con_assert(points.size() > 1, "too few points");
+
+        drawLineStrip(points, color);
+        drawLine(points.back(), points.front(), color);
+    }
+    
+    void iRenderer::drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color)
+    {
+        con_assert(points.size() > 1, "too few points");
+
+        drawLineStrip(points, color);
+        drawLine(points.back(), points.front(), color);
+    }
+
+    void iRenderer::drawLineStrip(const std::vector<iaVector2f> &points, const iaColor4f &color)
+    {
+        con_assert(points.size() > 1, "too few points");
+
+        for (int i = 1; i < points.size(); ++i)
+        {
+            drawLine(points[i - 1], points[i], color);
+        }
+    }
+
     void iRenderer::drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color)
     {
-        if (points.size() <= 1)
-        {
-            return;
-        }
+        con_assert(points.size() > 1, "too few points");
 
         for (int i = 1; i < points.size(); ++i)
         {
@@ -952,41 +975,39 @@ namespace igor
     {
         auto &texQuads = _data->_texQuads;
 
-        if (texQuads._vertexCount == 0)
+        if (texQuads._vertexCount != 0)
         {
-            return;
-        }
+            uint32 dataSize = (uint32)((uint8 *)texQuads._vertexDataPtr - (uint8 *)texQuads._vertexData);
+            texQuads._vertexBuffer->setData(dataSize, texQuads._vertexData);
+            texQuads._vertexArray->bind();
 
-        uint32 dataSize = (uint32)((uint8 *)texQuads._vertexDataPtr - (uint8 *)texQuads._vertexData);
-        texQuads._vertexBuffer->setData(dataSize, texQuads._vertexData);
-        texQuads._vertexArray->bind();
-
-        for (int32 i = 0; i < texQuads._nextTextureIndex; ++i)
-        {
-            if (texQuads._textures[i] != nullptr &&
-                texQuads._textures[i]->isValid())
+            for (int32 i = 0; i < texQuads._nextTextureIndex; ++i)
             {
-                texQuads._textures[i]->bind(i);
-            }
-            else
-            {
-                _data->_fallbackTexture->bind(i);
+                if (texQuads._textures[i] != nullptr &&
+                    texQuads._textures[i]->isValid())
+                {
+                    texQuads._textures[i]->bind(i);
+                }
+                else
+                {
+                    _data->_fallbackTexture->bind(i);
+                }
+
+                texQuads._textures[i] = nullptr;
             }
 
-            texQuads._textures[i] = nullptr;
+            bindCurrentMaterial();
+            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+
+            glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
+            GL_CHECK_ERROR();
+
+            // save stats
+            _data->_stats._drawCalls++;
+            _data->_stats._vertices += texQuads._vertexCount;
+            _data->_stats._indices += texQuads._indexCount;
+            _data->_stats._triangles += texQuads._vertexCount / 2;
         }
-
-        bindCurrentMaterial();
-        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
-
-        glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
-        GL_CHECK_ERROR();
-
-        // save stats
-        _data->_stats._drawCalls++;
-        _data->_stats._vertices += texQuads._vertexCount;
-        _data->_stats._indices += texQuads._indexCount;
-        _data->_stats._triangles += texQuads._vertexCount / 2;
 
         // reset queue
         texQuads._vertexCount = 0;
@@ -1412,6 +1433,8 @@ namespace igor
 
         iaVector3f a, b, c, d;
 
+        const float32 spaceWidth = font->measureWidth(" ", fontSize);
+
         for (uint32 i = 0; i < text.getLength(); i++)
         {
             const wchar_t &character = text[i];
@@ -1422,6 +1445,11 @@ namespace igor
             {
                 renderPos._x = x;
                 renderPos._y += fontSize * fontLineHeight;
+                donotdraw = true;
+            }
+            else if (character == L'\t')
+            {
+                renderPos._x += spaceWidth * 4;
                 donotdraw = true;
             }
             else if (maxWidth != 0)
@@ -1739,8 +1767,20 @@ namespace igor
                  iaVector3f(b._x, b._y, b._z), color);
     }
 
+    void iRenderer::drawCircle(const iaCirclef &circle, int segments, const iaColor4f &color)
+    {
+        drawCircle(circle._center._x, circle._center._y, circle._radius, segments, color);
+    }
+
+    void iRenderer::drawCircle(const iaVector2f &pos, float32 radius, int segments, const iaColor4f &color)
+    {
+        drawCircle(pos._x, pos._y, radius, segments, color);
+    }
+
     void iRenderer::drawCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
     {
+        con_assert(segments >= 3, "minimum segments is 3");
+
         const float32 step = 2 * M_PI / static_cast<float32>(segments);
         float32 angleA = 0;
         float32 angleB = step;
@@ -1752,6 +1792,16 @@ namespace igor
             angleA += step;
             angleB += step;
         }
+    }
+
+    void iRenderer::drawFilledCircle(const iaCirclef &circle, int segments, const iaColor4f &color)
+    {
+        drawFilledCircle(circle._center._x, circle._center._y, circle._radius, segments, color);
+    }
+
+    void iRenderer::drawFilledCircle(const iaVector2f &pos, float32 radius, int segments, const iaColor4f &color)
+    {
+        drawFilledCircle(pos._x, pos._y, radius, segments, color);
     }
 
     void iRenderer::drawFilledCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)

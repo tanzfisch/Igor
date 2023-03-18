@@ -22,11 +22,7 @@ var dir_b9bc800c5eeb123b0cfb1fef5c168ecc =
     [ "iOctree.h", "i_octree_8h.html", "i_octree_8h" ],
     [ "iPlane.h", "i_plane_8h.html", "i_plane_8h" ],
     [ "iPlane.inl", "i_plane_8inl.html", null ],
-    [ "iQuadtree.h", "i_quadtree_8h.html", [
-      [ "iQuadtreeObject", "structigor_1_1i_quadtree_object.html", "structigor_1_1i_quadtree_object" ],
-      [ "iQuadtreeNode", "structigor_1_1i_quadtree_node.html", "structigor_1_1i_quadtree_node" ],
-      [ "iQuadtree", "classigor_1_1i_quadtree.html", "classigor_1_1i_quadtree" ]
-    ] ],
+    [ "iQuadtree.h", "i_quadtree_8h.html", "i_quadtree_8h" ],
     [ "iQuadtree.inl", "i_quadtree_8inl.html", null ],
     [ "iRay.h", "i_ray_8h.html", "i_ray_8h" ],
     [ "iRay.inl", "i_ray_8inl.html", null ],

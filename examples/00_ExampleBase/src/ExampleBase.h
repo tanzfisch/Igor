@@ -62,6 +62,10 @@ public:
     */
     iTextureFontPtr getFont() const;
 
+    /*! \returns outline font
+    */
+    iTextureFontPtr getOutlineFont() const;
+
     /*! \returns font material
     */
     iMaterialID getFontMaterial() const;
@@ -130,9 +134,13 @@ private:
     */
     iTexturePtr _igorLogo;
 
-    /*! texture font we use to display the profiler
+    /*! outline font
     */
-    iTextureFontPtr _font;
+    iTextureFontPtr _outlineFont;
+
+    /*! standard font
+    */
+    iTextureFontPtr _standardFont;    
 
     /*! if true we display a help screen
     */

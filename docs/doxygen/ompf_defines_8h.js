@@ -11,7 +11,8 @@ var ompf_defines_8h =
       [ "Mesh", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3a710fdb6adb881b408116ef95335e1961", null ],
       [ "Material", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3ad92a8333dd3ccb895cc65f7455b71206", null ],
       [ "Emitter", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3a7efb1083296a38495362c24db34212c3", null ],
-      [ "ParticleSystem", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8", null ]
+      [ "ParticleSystem", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8", null ],
+      [ "MaterialReference", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3a25c9bae15adc40f67186bd0e85cd71cf", null ]
     ] ],
     [ "OMPFPathType", "ompf_defines_8h.html#af15031174ee135f3059a904aa1457a77", [
       [ "RelativeToModel", "ompf_defines_8h.html#af15031174ee135f3059a904aa1457a77a6c85fcc0627acda7913b399d9105ec2c", null ],

@@ -36,25 +36,25 @@ struct PositionComponent
 {
     /*! current position
      */
-    iaVector2d _position;
+    iaVector2f _position;
 };
 
 struct RangeComponent
 {
     /*! max range
      */
-    float64 _maxRange;
+    float32 _maxRange;
 
     /*! distance traveled
      */
-    float64 _distanceTraveled = 0.0;
+    float32 _distanceTraveled = 0.0;
 };
 
 struct OrientationComponent
 {
     /*! direction the entity is pointing at
     */
-    iaVector2d _direction;
+    iaVector2f _direction;
 
     /*! if true orientation follows current velocity
     */
@@ -65,28 +65,28 @@ struct AngularVelocityComponent
 {
     /*! angular velocity in rad per frame
     */
-    float64 _velocity;
+    float32 _velocity;
 };
 
 struct SizeComponent
 {
-    float64 _size;
+    float32 _size;
 };
 
 struct QuadtreeObjectComponent
 {
-    std::shared_ptr<iQuadtreeObject<float64, iEntityID>> _object;
+    iQuadtreef::ObjectPtr _object;
 };
 
 struct VelocityComponent
 {
     /*! normalized vector to discribe the direction
     */
-    iaVector2d _direction;
+    iaVector2f _direction;
 
     /*! speed in units per frame
     */
-    float64 _speed;
+    float32 _speed;
 
     // TODO does this need to be in here?
     bool _nonBlockable = false;
@@ -94,13 +94,23 @@ struct VelocityComponent
 
 struct HealthComponent
 {
-    float64 _health = 0;
+    float32 _health = 0;
     bool _destroyOnImpact = false;
+};
+
+struct PickupComponent
+{
+    bool _canBePickedUp = true;
+};
+
+struct HealComponent
+{
+    float32 _heal = 0;
 };
 
 struct DamageComponent
 {
-    float64 _damage = 0;
+    float32 _damage = 0.0;
 };
 
 struct PartyComponent
@@ -110,19 +120,32 @@ struct PartyComponent
 
 struct ExperienceComponent
 {
-    float64 _experience = 0;
+    float32 _experience = 0.0;
+    float32 _level = 1.0;
+};
+
+struct CoinsComponent
+{
+    float32 _coins = 0;
 };
 
 struct ExperienceGainComponent
 {
-    float64 _experience = 0;
+    float32 _experience = 0.0;
+};
+
+struct CoinGainComponent
+{
+    float32 _coins = 0.0;
 };
 
 struct VisualComponent
 {
     iTexturePtr _texture;
     bool _castShadow;
+    bool _scaleAnimation;
     iaTime _timerOffset;
+    bool _visible;
 };
 
 struct TargetComponent
@@ -142,8 +165,8 @@ struct MovementControlComponent
 
 struct ViewportComponent
 {
-    iaRectangled _viewport;
-    iaVector2d _targetOffset;
+    iaRectanglef _viewport;
+    iaVector2f _targetOffset;
     iEntityID _targetID;
 };
 
@@ -159,21 +182,23 @@ enum class WeaponType
 
 struct WeaponComponent
 {
-    /*! weapon type used
-     */
-    WeaponType _weaponType;
+    iaString _texture;
+    float32 _size;
+    uint32 _projectileCount;
+    float32 _accuracy;
+    float32 _angularVelocity;
 
     /*! base damage of this weapon
      */
-    float64 _damage;
+    float32 _damage;
 
     /*! base speed of this weapon's projectiles
      */
-    float64 _speed;
+    float32 _speed;
 
     /*! base range of this weapon
      */
-    float64 _range;
+    float32 _range;
 
     /*! attack speed interval
      */
@@ -183,13 +208,43 @@ struct WeaponComponent
      */
     bool _standStillToFire;
 
+    bool _returnToSender;
+
     /*! offset to unit position to fire from
      */
-    iaVector2d _offset;
+    iaVector2f _offset;
 
     /*! keeps track of cool down
      */
     iaTime _time;
+};
+
+enum class ObjectType
+{
+    Coin
+};
+
+struct ModifierComponent
+{
+    float32 _damageFactor;
+    float32 _attackIntervalFactor;
+    float32 _criticalHitChanceFactor;
+    float32 _criticalHitDamageFactor;
+    float32 _splashDamageRangeFactor;
+    float32 _walkSpeedFactor;
+    float32 _projectileSpeedFactor;
+    float32 _projectileRangeFactor;
+};
+
+enum class BuildingType
+{
+    None,
+    Shop
+};
+
+struct BuildingComponent
+{
+    BuildingType _type;
 };
 
 #endif // __SUPREMACY_COMPONENTS__

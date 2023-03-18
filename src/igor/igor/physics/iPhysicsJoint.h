@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
 
@@ -40,7 +40,7 @@ namespace igor
 
     class iPhysicsJoint;
 
-    iaEVENT(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, (iPhysicsJoint * joint, float32 timestep), (joint, timestep));
+    iaSIGNAL(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, (iPhysicsJoint * joint, float32 timestep), (joint, timestep));
 
     /*! wrapper for the NewtonJoint handle
     */

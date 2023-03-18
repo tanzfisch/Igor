@@ -34,7 +34,7 @@
 #include <igor/resources/module/iModule.h>
 #include <igor/threading/tasks/iTask.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 using namespace iaux;
 
 #include <list>
@@ -50,7 +50,7 @@ namespace igor
 
     /*! event triggered when task was finished
     */
-    iaEVENT(iTaskFinishedEvent, iTaskFinishedDelegate, (iTaskID taskID), (taskID));
+    iaSIGNAL(iTaskFinishedEvent, iTaskFinishedDelegate, (iTaskID taskID), (taskID));
 
     /*! manages tasks to be done in parallel
 
