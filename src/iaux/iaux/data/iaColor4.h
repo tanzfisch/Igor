@@ -128,6 +128,7 @@ namespace iaux
         static IAUX_API_IMPORT_ONLY const iaColor4<T> yellow;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> cyan;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> magenta;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> transparent;
     };
 
 #include <iaux/data/iaColor4.inl>

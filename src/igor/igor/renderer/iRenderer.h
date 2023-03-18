@@ -42,6 +42,7 @@
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaRectangle.h>
+#include <iaux/data/iaCircle.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaVector2.h>
 
@@ -180,7 +181,11 @@ namespace igor
         void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color = iaColor4f::white);
         void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color = iaColor4f::white);
 
+        void drawLineStrip(const std::vector<iaVector2f> &points, const iaColor4f &color = iaColor4f::white);
         void drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color = iaColor4f::white);
+
+        void drawLineLoop(const std::vector<iaVector2f> &points, const iaColor4f &color = iaColor4f::white);
+        void drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color = iaColor4f::white);
 
         void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
         void drawRectangle(const iaRectanglef &rect, const iaColor4f &color = iaColor4f::white);
@@ -216,6 +221,10 @@ namespace igor
         */
         void drawCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
+        void drawCircle(const iaVector2f &pos, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
+        void drawCircle(const iaCirclef &circle, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
         /*! draw a filled circle.
 
         \param x horizontal center position
@@ -225,6 +234,10 @@ namespace igor
         \param color the color to draw with
         */
         void drawFilledCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
+        void drawFilledCircle(const iaVector2f &pos, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
+        void drawFilledCircle(const iaCirclef &circle, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
         ///////////////////// 3D ////////////////////////////
         void drawBox(const iAACubed &box, const iaColor4f &color = iaColor4f::white);

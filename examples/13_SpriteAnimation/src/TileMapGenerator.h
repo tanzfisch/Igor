@@ -55,7 +55,7 @@ private:
 
 	/*! random number generator
 	*/
-	iaRandomNumberGeneratoru _random;
+	iaRandomNumberGenerator _random;
 
 	/*! adds a tile to a mesh builder
 

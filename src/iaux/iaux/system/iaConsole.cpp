@@ -86,6 +86,12 @@ namespace iaux
 #endif
     }
 
+    iaConsole &iaConsole::getInstance()
+    {
+        static iaConsole _instance;
+        return _instance;
+    }
+
     void iaConsole::closeLogfile()
     {
         if (_file.is_open())
@@ -319,7 +325,8 @@ namespace iaux
     {
         *this << LOCK << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
               << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [STATS] "
-              << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl << UNLOCK;
+              << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl
+              << UNLOCK;
     }
 
     void iaConsole::activateLogfile(bool activate)

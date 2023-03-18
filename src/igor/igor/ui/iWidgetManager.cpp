@@ -20,7 +20,6 @@
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/theme/iWidgetTheme.h>
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
@@ -139,16 +138,8 @@ namespace igor
 
     void iWidgetManager::setModal(iDialogPtr dialog)
     {
-        con_assert(_modal == nullptr, "an other dialog is alsready modal");
-
-        if (_modal == nullptr)
-        {
-            _modal = dialog;
-        }
-        else
-        {
-            con_err("an other dialog is already modal");
-        }
+        con_assert_sticky(_modal == nullptr, "an other dialog is alsready modal");
+        _modal = dialog;
     }
 
     void iWidgetManager::closeDialog(iDialogPtr dialog)
@@ -324,12 +315,12 @@ namespace igor
         return _desktopHeight;
     }
 
-    iWidgetTheme *iWidgetManager::getTheme()
+    iWidgetThemePtr iWidgetManager::getTheme() const
     {
         return _currentTheme;
     }
 
-    void iWidgetManager::setTheme(iWidgetTheme *theme)
+    void iWidgetManager::setTheme(const iWidgetThemePtr &theme)
     {
         _currentTheme = theme;
     }

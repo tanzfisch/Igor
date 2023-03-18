@@ -57,49 +57,49 @@ namespace igor
 
     /*! widget click event
 	*/
-    iaEVENT(iClickEvent, iClickDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iClickEvent, iClickDelegate, (const iWidgetPtr source), (source));
 
     /*! mouse off click event
 
 	so when there was a click outside the range of a widget
 	*/
-    iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iMouseOffClickEvent, iMouseOffClickDelegate, (const iWidgetPtr source), (source));
 
     /*! context menu event
 	*/
-    iaEVENT(iContextMenuEvent, iContextMenuDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iContextMenuEvent, iContextMenuDelegate, (const iWidgetPtr source), (source));
 
     /*! wheel up event
 	*/
-    iaEVENT(iWheelUpEvent, iWheelUpDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iWheelUpEvent, iWheelUpDelegate, (const iWidgetPtr source), (source));
 
     /*! wheel down event
 	*/
-    iaEVENT(iWheelDownEvent, iWheelDownDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iWheelDownEvent, iWheelDownDelegate, (const iWidgetPtr source), (source));
 
     /*! double click event
 	*/
-    iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iDoubleClickEvent, iDoubleClickDelegate, (const iWidgetPtr source), (source));
 
     /*! mouse over event
 	*/
-    iaEVENT(iMouseOverEvent, iMouseOverDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iMouseOverEvent, iMouseOverDelegate, (const iWidgetPtr source), (source));
 
     /*! mouse off event
 	*/
-    iaEVENT(iMouseOffEvent, iMouseOffDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iMouseOffEvent, iMouseOffDelegate, (const iWidgetPtr source), (source));
 
     /*! change event
 	*/
-    iaEVENT(iChangeEvent, iChangeDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iChangeEvent, iChangeDelegate, (const iWidgetPtr source), (source));
 
     /*! keyboard focus changed event
 	*/
-    iaEVENT(iFocusEvent, iFocusDelegate, (const iWidgetPtr source), (source));
+    iaSIGNAL(iFocusEvent, iFocusDelegate, (const iWidgetPtr source), (source));
 
     /*! selection changed event
 	*/
-    iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, (int32 index), (index));
+    iaSIGNAL(iSelectionChangedEvent, iSelectionChangedDelegate, (int32 index), (index));
 
     /*! interaction state of widget
 	*/

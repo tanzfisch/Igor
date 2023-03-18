@@ -283,11 +283,11 @@ target_include_directories(igor
 if(IS_GNU)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} PUBLIC -DENTT_USE_ATOMIC)
     target_compile_options(igor PRIVATE -std=c++17)
-    target_link_libraries(igor PUBLIC iaux PRIVATE Glad TinyXML ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
+    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
 elseif(IS_MSVC)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ PUBLIC -DENTT_USE_ATOMIC)
     target_compile_options(igor PRIVATE "/std:c++17" "/MP" "/FS")
-    target_link_libraries(igor PUBLIC iaux PRIVATE Glad TinyXML ompf OpenGL32 glu32 newton OpenAL)
+    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf OpenGL32 glu32 newton OpenAL)
 endif()
 
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})

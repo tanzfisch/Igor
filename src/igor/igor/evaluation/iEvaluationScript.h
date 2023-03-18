@@ -34,7 +34,7 @@
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaTransform.h>
-#include <iaux/system/iaDelegate.h>
+#include <iaux/system/iaSlot.h>
 using namespace iaux;
 
 #include <map>
@@ -44,7 +44,7 @@ namespace igor
 
     /*! evaluation script delegate
     */
-    iaDELEGATE(iEvaluationScriptDelegate, void, (iNodeTransformPtr transformNode, float64 t), (transformNode, t));
+    iaSLOT(iEvaluationScriptDelegate, void, (iNodeTransformPtr transformNode, float64 t), (transformNode, t));
 
     /*! evaluation that menipulates transform nodes via given callback function
     */

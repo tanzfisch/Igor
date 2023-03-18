@@ -2,16 +2,16 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-template <typename F, typename T>
-iQuadtree<F, T>::iQuadtree(const iaRectangle<F> &box, const uint32 splitThreshold, const uint32 maxDepth)
+template <typename F>
+iQuadtree<F>::iQuadtree(const iaRectangle<F> &box, const uint32 splitThreshold, const uint32 maxDepth)
     : _splitThreshold(splitThreshold), _maxDepth(maxDepth)
 {
-    _root = std::make_shared<iQuadtreeNode<F, T>>();
+    _root = std::make_shared<iQuadtreeNode>();
     _root->_box = box;
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::query(const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+template <typename F>
+void iQuadtree<F>::query(const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject>> &objects)
 {
     if (!iIntersection::intersects(circle, _root->_box))
     {
@@ -21,8 +21,8 @@ void iQuadtree<F, T>::query(const iaCircle<F> &circle, std::vector<std::shared_p
     queryInternal(_root, circle, objects);
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::query(const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+template <typename F>
+void iQuadtree<F>::query(const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject>> &objects)
 {
     if (!iIntersection::intersects(rectangle, _root->_box))
     {
@@ -32,8 +32,8 @@ void iQuadtree<F, T>::query(const iaRectangle<F> &rectangle, std::vector<std::sh
     queryInternal(_root, rectangle, objects);
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+template <typename F>
+void iQuadtree<F>::queryInternal(const std::shared_ptr<iQuadtreeNode> &node, const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject>> &objects)
 {
     if (isLeaf(node))
     {
@@ -49,7 +49,7 @@ void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &
     {
         for (int i = 0; i < 4; ++i)
         {
-            const std::shared_ptr<iQuadtreeNode<F, T>> &child = node->_children[i];
+            const std::shared_ptr<iQuadtreeNode> &child = node->_children[i];
             if (iIntersection::intersects(rectangle, child->_box))
             {
                 queryInternal(child, rectangle, objects);
@@ -58,8 +58,8 @@ void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &
     }
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+template <typename F>
+void iQuadtree<F>::queryInternal(const std::shared_ptr<iQuadtreeNode> &node, const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject>> &objects)
 {
     if (isLeaf(node))
     {
@@ -75,7 +75,7 @@ void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &
     {
         for (int i = 0; i < 4; ++i)
         {
-            const std::shared_ptr<iQuadtreeNode<F, T>> &child = node->_children[i];
+            const std::shared_ptr<iQuadtreeNode> &child = node->_children[i];
             if (iIntersection::intersects(circle, child->_box))
             {
                 queryInternal(child, circle, objects);
@@ -84,24 +84,24 @@ void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &
     }
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::update(const std::shared_ptr<iQuadtreeObject<F, T>> object, const iaVector2<F> &newPosition)
+template <typename F>
+void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const iaVector2<F> &position)
 {
-    if (iIntersection::intersects(newPosition, object->_parent.lock()->_box))
+    if (iIntersection::intersects(position, object->_parent.lock()->_box))
     {
-        object->_circle._center = newPosition;
+        object->_circle._center = position;
     }
     else
     {
         remove(object);
-        object->_circle._center = newPosition;
+        object->_circle._center = position;
         uint32 depth = 0;
         insertInternal(_root, object, depth);
     }
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::insert(const std::shared_ptr<iQuadtreeObject<F, T>> object)
+template <typename F>
+void iQuadtree<F>::insert(const std::shared_ptr<iQuadtreeObject> object)
 {
     if (object->_parent.lock() != nullptr)
     {
@@ -118,29 +118,29 @@ void iQuadtree<F, T>::insert(const std::shared_ptr<iQuadtreeObject<F, T>> object
     insertInternal(_root, object, depth);
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::split(const std::shared_ptr<iQuadtreeNode<F, T>> &node)
+template <typename F>
+void iQuadtree<F>::split(const std::shared_ptr<iQuadtreeNode> &node)
 {
     const iaRectangle<F> &nodeBox = node->_box;
     const iaVector2<F> center = nodeBox.getCenter();
 
-    node->_children[0] = std::make_shared<iQuadtreeNode<F, T>>();
+    node->_children[0] = std::make_shared<iQuadtreeNode>();
     node->_children[0]->_box = iaRectangle<F>(nodeBox._x, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
     node->_children[0]->_parent = node;
 
-    node->_children[1] = std::make_shared<iQuadtreeNode<F, T>>();
+    node->_children[1] = std::make_shared<iQuadtreeNode>();
     node->_children[1]->_box = iaRectangle<F>(nodeBox._x + nodeBox._width * 0.5, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
     node->_children[1]->_parent = node;
 
-    node->_children[2] = std::make_shared<iQuadtreeNode<F, T>>();
+    node->_children[2] = std::make_shared<iQuadtreeNode>();
     node->_children[2]->_box = iaRectangle<F>(nodeBox._x, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
     node->_children[2]->_parent = node;
 
-    node->_children[3] = std::make_shared<iQuadtreeNode<F, T>>();
+    node->_children[3] = std::make_shared<iQuadtreeNode>();
     node->_children[3]->_box = iaRectangle<F>(nodeBox._x + nodeBox._width * 0.5, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
     node->_children[3]->_parent = node;
 
-    for (const std::shared_ptr<iQuadtreeObject<F, T>> object : node->_objects)
+    for (const std::shared_ptr<iQuadtreeObject> object : node->_objects)
     {
         uint32 childIndex = 0;
 
@@ -161,8 +161,8 @@ void iQuadtree<F, T>::split(const std::shared_ptr<iQuadtreeNode<F, T>> &node)
     node->_objects.clear();
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::insertInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const std::shared_ptr<iQuadtreeObject<F, T>> object, uint32 &depth)
+template <typename F>
+void iQuadtree<F>::insertInternal(const std::shared_ptr<iQuadtreeNode> &node, const std::shared_ptr<iQuadtreeObject> object, uint32 &depth)
 {
     // check if node has children and follow that branch
     if (!isLeaf(node))
@@ -200,16 +200,16 @@ void iQuadtree<F, T>::insertInternal(const std::shared_ptr<iQuadtreeNode<F, T>> 
     insertInternal(node, object, ++depth);
 }
 
-template <typename F, typename T>
-const std::shared_ptr<iQuadtreeNode<F, T>> &iQuadtree<F, T>::getRoot() const
+template <typename F>
+const std::shared_ptr<typename iQuadtree<F>::iQuadtreeNode> &iQuadtree<F>::getRoot() const
 {
     return _root;
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::remove(const std::shared_ptr<iQuadtreeObject<F, T>> object)
+template <typename F>
+void iQuadtree<F>::remove(const std::shared_ptr<iQuadtreeObject> object)
 {
-    std::shared_ptr<iQuadtreeNode<F, T>> parent = object->_parent.lock();
+    std::shared_ptr<iQuadtreeNode> parent = object->_parent.lock();
 
     auto iter = std::find(parent->_objects.begin(), parent->_objects.end(), object);
     if (iter != parent->_objects.end())
@@ -227,14 +227,14 @@ void iQuadtree<F, T>::remove(const std::shared_ptr<iQuadtreeObject<F, T>> object
     }
 }
 
-template <typename F, typename T>
-bool iQuadtree<F, T>::isLeaf(const std::shared_ptr<iQuadtreeNode<F, T>> &node) const
+template <typename F>
+bool iQuadtree<F>::isLeaf(const std::shared_ptr<iQuadtreeNode> &node) const
 {
     return node->_children[0] == nullptr;
 }
 
-template <typename F, typename T>
-bool iQuadtree<F, T>::tryMerge(const std::shared_ptr<iQuadtreeNode<F, T>> &node)
+template <typename F>
+bool iQuadtree<F>::tryMerge(const std::shared_ptr<iQuadtreeNode> &node)
 {
     if (isLeaf(node))
     {
@@ -263,16 +263,16 @@ bool iQuadtree<F, T>::tryMerge(const std::shared_ptr<iQuadtreeNode<F, T>> &node)
     return true;
 }
 
-template <typename F, typename T>
-void iQuadtree<F, T>::clear()
+template <typename F>
+void iQuadtree<F>::clear()
 {
     const iaRectangle<F> box = _root->_box;
-    _root = std::make_shared<iQuadtreeNode<F, T>>();
+    _root = std::make_shared<iQuadtreeNode>();
     _root->_box = box;
 }
 
-template <typename F, typename T>
-const iaRectangle<F> &iQuadtree<F, T>::getRootBox() const
+template <typename F>
+const iaRectangle<F> &iQuadtree<F>::getRootBox() const
 {
     return _root->_box;
 }

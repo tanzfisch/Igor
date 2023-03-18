@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RANDOMNUMBERGENERATOR_H__
-#define __IAUX_RANDOMNUMBERGENERATOR_H__
+#ifndef __IAUX_RANDOMNUMBERGENERATOR__
+#define __IAUX_RANDOMNUMBERGENERATOR__
 
 #include <iaux/system/iaConsole.h>
 
@@ -35,34 +35,64 @@ namespace iaux
 {
 
     /*! pseudo random number generator
-
-    the only reason to use this one is to keep seperate instances of seeds so multithreaded tasks don't interfear with each other using rand()
-    */
-    template <class T>
-    class IAUX_API_EXPORT_ONLY iaRandomNumberGenerator
+     */
+    class IAUX_API iaRandomNumberGenerator
     {
 
     public:
         /*! init seed
-        */
-        iaRandomNumberGenerator(T seed = 1337);
+         */
+        iaRandomNumberGenerator(uint64 seed = 1337);
 
         /*! does nothing
-        */
+         */
         ~iaRandomNumberGenerator();
 
         /*! sets the seed
 
         \param seed the seed
         */
-        void setSeed(T seed);
+        void setSeed(uint64 seed);
 
         /*! \returns next random number
+         */
+        uint64 getNext();
+
+        /*! \returns next random number [min, max]
+
+        \param min the min value returned
+        \param max the max value returned
         */
-        T getNext();
+        int64 getNextRange(int64 min, int64 max);
+
+        /*! \returns next random number with exponential distribution [min, max]
+
+        high chances towards min and lower chances towards max
+
+        \param min the min value returned
+        \param max the max value returned
+        \param lambda this value determines where the median of the distribution curve lies before it gets scaled back to the min max range
+        */
+        int64 getNextRangeExponentialDecrease(int64 min, int64 max, float64 lambda);        
+
+        /*! \returns next random number with exponential distribution [min, max]
+
+        high chances towards max and lower chances towards min
+
+        \param min the min value returned
+        \param max the max value returned
+        \param lambda this value determines where the median of the distribution curve lies before it gets scaled back to the min max range
+        */
+        int64 getNextRangeExponentialIncrease(int64 min, int64 max, float64 lambda);         
+
+        /*! \returns next random number [0, range-1]
+
+        \param range the range of values
+        */
+        int64 getNextRange(int64 range);
 
         /*! \returns next random number as float 0.0-1.0
-        */
+         */
         float64 getNextFloat();
 
         /*! \returns next random number as float min-max
@@ -74,16 +104,10 @@ namespace iaux
 
     private:
         /*! the seed
-        */
-        T _seed = (T)1337;
+         */
+        uint64 _seed = 1337;
     };
-
-#include <iaux/math/iaRandomNumberGenerator.inl>
-
-    /*! uint32 random number generator
-	*/
-    typedef iaRandomNumberGenerator<uint32> iaRandomNumberGeneratoru;
 
 } // namespace iaux
 
-#endif // __IAUX_RANDOMNUMBERGENERATOR_H__
+#endif // __IAUX_RANDOMNUMBERGENERATOR__

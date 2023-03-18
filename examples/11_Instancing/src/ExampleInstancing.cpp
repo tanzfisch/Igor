@@ -79,7 +79,7 @@ void ExampleInstancing::onInit()
     int count = 0;
     _perlinNoise.generateBase(42);
 
-    iaRandomNumberGeneratoru random;
+    iaRandomNumberGenerator random;
 
     // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)

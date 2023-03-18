@@ -31,14 +31,14 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
 namespace igor
 {
 
-    iaEVENT(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, (int32 index), (index));
+    iaSIGNAL(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, (int32 index), (index));
 
     /*! pull down menu
 

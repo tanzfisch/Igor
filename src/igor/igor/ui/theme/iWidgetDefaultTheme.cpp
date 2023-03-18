@@ -777,7 +777,7 @@ namespace igor
 
     void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, iWidgetState state, bool active)
     {
-        drawTiledRectangle(rect, _backgroundTexture);
+        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE);
 
         iRenderer::getInstance().setLineWidth(_defaultLineWidth);
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);

@@ -31,176 +31,28 @@
 
 #include "Defines.h"
 
-/*! Supremacy
- */
-class Supremacy : public iLayer
+class Supremacy
 {
 
 public:
 
-    /*! ctor
-    */
-    Supremacy(iWindowPtr window);
+    Supremacy();
 
-    /*! does nothing
-    */
-    ~Supremacy() = default;
+    ~Supremacy();
+
+    void run();
 
 private:
-    using Quadtree = iQuadtree<float64, iEntityID>;
-    using QuadtreeObject = iQuadtreeObject<float64, iEntityID>;
-    using QuadtreeObjectPtr = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>;
-    using QuadtreeObjects = std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>>;
 
-    /*! the view we render 2D to
-     */
-    iView _viewOrtho;
+    iWindowPtr _window;
 
-    /*! entity scene
-     */
-    iEntityScene _entityScene;
+    void onInit();
 
-    /*! handle to player entity
-     */
-    iEntity _player;
+    void onRun();
 
-    /*! viewport entity which follows the player
-     */
-    iEntity _viewport;
+    void onDeInit();
 
-    /*! random numbers
-     */
-    iaRandomNumberGeneratoru _rand;
 
-    /*! update timer
-     */
-    iTimerHandlePtr _updateTimerHandle;
-
-    iTimerHandlePtr _statsTimerHandle;
-    iTimerHandlePtr _spawnTimerHandle;
-
-    /*! async loading of textures
-     */
-    iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
-
-    /*! quadtree
-     */
-    Quadtree _quadtree;
-
-    /*! floor shadow
-     */
-    iTexturePtr _shadow;
-
-    /*! floor
-    */
-    iTexturePtr _backgroundTexture;
-
-    /*! texture font we use to display texts
-     */
-    iTextureFontPtr _font;
-
-    /*! if true game logic is on hold
-    */
-    bool _gamePause = false;
-
-    /*! called when added to layer stack
-     */
-    void onInit() override;
-
-    /*! called when removed from layer stack
-     */
-    void onDeinit() override;
-
-    /*! called on application pre draw event
-     */
-    void onPreDraw() override;
-
-    /*! called on any other event
-     */
-    void onEvent(iEvent &event) override;
-
-    /*! called when render ortho viewport
-     */
-    void onRenderOrtho();
-
-    /*! renders HUD
-    */
-    void onRenderHUD();
-
-    void onRenderStats();
-
-    /*! game logic intervall
-
-    \param time the time
-     */
-    void onUpdate(const iaTime &time);
-
-    /*! called when key was pressed
-
-    \param event the event to handle
-    */
-    bool onKeyDown(iEventKeyDown &event);
-
-    /*! called when key was released
-
-    \param event the event to handle
-    */
-    bool onKeyUp(iEventKeyUp &event);
-
-    /*! \returns random direction
-     */
-    iaVector2d getRandomDir();
-
-    iEntity createPlayer();
-
-    iEntity createViewport(iEntityID targetID);
-
-    void createUnit(const iaVector2d &pos, uint32 party, iEntityID target);
-
-    void onUpdateQuadtreeSystem();
-
-    void onUpdateMovementControlSystem();
-
-    void onUpdateFollowTargetSystem();
-
-    void onUpdatePositionSystem();
-
-    void onUpdateRangeSystem();
-
-    void onUpdateOrientationSystem();
-
-    void onUpdateCleanUpTheDeadSystem();
-
-    void onUpdateWeaponSystem();
-
-    void onSpawnStuff(const iaTime &time);
-
-    void onUpdateStats(const iaTime &time);
-
-    void aquireTargetFor(iEntity &entity);
-
-    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType);
-
-    void updateViewRectangleSystem();
-
-    /*! query a circle on the quardtree while wrapping arround at the edges like a doughnut
-
-    \param circle the query circle
-    \param hits the resulting list of entitties and relatice to the circle center positions
-    */
-    void doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits);
-
-    bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
-    bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
-
-    struct GameStats
-    {
-        float32 _playerDamage;
-        float32 _playerExperience;
-        float32 _enemyHealth;
-    };
-
-    std::vector<GameStats> _stats;
 };
 
 #endif // __SUPREMACY__

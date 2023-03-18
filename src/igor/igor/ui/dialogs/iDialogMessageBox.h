@@ -31,7 +31,7 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 

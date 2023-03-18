@@ -4,7 +4,18 @@ Changelog                           {#changelog}
 0.35.0
 ------
 
-- text edit widget has output only ready
+- worked on supremacy demo
+- added multiline text widget (output only for now)
+- changed iaEvent/iaDelegate naming to iaSignal/iaSlot
+- iQuadtree uses std::any for user data instead of void*
+- refactored iQuadtree
+- introduced class iaRandom for cases where one does not need a unique random number genrator instance
+- added iaColor4::transparent
+- added scalar operators for iaTime
+- added more interfaces to the renderer
+- updated and added some tests
+- added non linear random numbers
+- added triggerNow to iTimerHandle to allow to run a timed handle outside of the configured interval
 
 0.34.6
 ------

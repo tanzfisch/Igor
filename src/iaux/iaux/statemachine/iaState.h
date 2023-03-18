@@ -30,7 +30,7 @@
 #define __IAUX_STATE__
 
 #include <iaux/iaDefines.h>
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 
 #include <vector>
 
@@ -39,23 +39,23 @@ namespace iaux
 
     /*! enter state event
     */
-    iaEVENT(EnterStateEvent, EnterStateDelegate, (), ());
+    iaSIGNAL(EnterStateEvent, EnterStateDelegate, (), ());
 
     /*! re enter state event
     */
-    iaEVENT(ReEnterStateEvent, ReEnterStateDelegate, (), ());
+    iaSIGNAL(ReEnterStateEvent, ReEnterStateDelegate, (), ());
 
     /*! leave state event
     */
-    iaEVENT(LeaveStateEvent, LeaveStateDelegate, (), ());
+    iaSIGNAL(LeaveStateEvent, LeaveStateDelegate, (), ());
 
     /*! handle state event
     */
-    iaEVENT(HandleStateEvent, HandleStateDelegate, (), ());
+    iaSIGNAL(HandleStateEvent, HandleStateDelegate, (), ());
 
     /*! render state event
     */
-    iaEVENT(RenderStateEvent, RenderStateDelegate, (), ());
+    iaSIGNAL(RenderStateEvent, RenderStateDelegate, (), ());
 
     /*! state in state machine
     */

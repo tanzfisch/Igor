@@ -28,7 +28,7 @@ namespace igor
         getWindow()->addView(&_view, getZIndex());
 
         // init font for render profiler
-        _font = std::make_shared<iTextureFont>("StandardFont.png");
+        _font = std::make_shared<iTextureFont>("StandardFontOutlined.png");
     }
 
     void iLayerProfiler::onDeinit()

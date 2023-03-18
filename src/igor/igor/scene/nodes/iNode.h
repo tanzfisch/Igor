@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaString.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaMutex.h>
@@ -102,7 +102,7 @@ namespace igor
 
     /*! transformation change event
 	*/
-    iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, (iNodePtr source), (source));
+    iaSIGNAL(iTransformationChangeEvent, iTransformationChangeDelegate, (iNodePtr source), (source));
 
     /*! node id definition
     */
