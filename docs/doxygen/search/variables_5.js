@@ -1,19 +1,4 @@
 var searchData=
 [
-  ['iinvalidentityid_5227',['iInvalidEntityID',['../namespaceigor.html#ac8ea7c63572f55856a5dcd630240d457',1,'igor']]],
-  ['insert_5228',['Insert',['../i_node_manager_8h.html#a8c1f14f07c9eedcbbb2cc61988030646',1,'iNodeManager.h']]],
-  ['invalid_5fbuffer_5fid_5229',['INVALID_BUFFER_ID',['../classigor_1_1i_mesh_buffers.html#a9b0e02829038fd76c1191a9f03ea4c68',1,'igor::iMeshBuffers::INVALID_BUFFER_ID()'],['../namespaceigor.html#ab96ae01341b97618c74c460e9f0accb4',1,'igor::INVALID_BUFFER_ID()']]],
-  ['invalid_5fchunk_5fid_5230',['INVALID_CHUNK_ID',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a652f81b781ce2135405f5d4482ab634f',1,'OMPF::OMPFDefaultConfiguration']]],
-  ['invalid_5fcollisionconfig_5fid_5231',['INVALID_COLLISIONCONFIG_ID',['../classigor_1_1i_physics_collision_config.html#a93bbe5f38154facfd05a3078679f2786',1,'igor::iPhysicsCollisionConfig']]],
-  ['invalid_5fentity_5fid_5232',['INVALID_ENTITY_ID',['../classigor_1_1i_entity___old.html#a1b280a48751b31c027310dac41414341',1,'igor::iEntity_Old']]],
-  ['invalid_5fevaluator_5fid_5233',['INVALID_EVALUATOR_ID',['../classigor_1_1i_evaluation.html#aabda9e8bd5d4774fd5cb7af11fb9618d',1,'igor::iEvaluation']]],
-  ['invalid_5fnode_5fid_5234',['INVALID_NODE_ID',['../classigor_1_1i_node.html#a7e74334add4648293a6f4dfc738d0d98',1,'igor::iNode']]],
-  ['invalid_5fphysicsbody_5fid_5235',['INVALID_PHYSICSBODY_ID',['../classigor_1_1i_physics_body.html#a42f66e626101d7a626c7f27fdb73b0af',1,'igor::iPhysicsBody']]],
-  ['invalid_5fphysicscollision_5fid_5236',['INVALID_PHYSICSCOLLISION_ID',['../classigor_1_1i_physics_collision.html#ab23658e7bdb81b32b0c7c7d9508b0dd8',1,'igor::iPhysicsCollision']]],
-  ['invalid_5fphysicsmaterial_5fid_5237',['INVALID_PHYSICSMATERIAL_ID',['../classigor_1_1i_physics_material.html#ac17a3407378454ace431fe8fbe45713f',1,'igor::iPhysicsMaterial']]],
-  ['invalid_5ftask_5fid_5238',['INVALID_TASK_ID',['../classigor_1_1i_task.html#a2155b4972b25b1cfffc2e46fd3189439',1,'igor::iTask']]],
-  ['invalid_5fvoxelblockid_5239',['INVALID_VOXELBLOCKID',['../structigor_1_1i_voxel_block.html#aab7dfa5c881479298501384327ea003e',1,'igor::iVoxelBlock']]],
-  ['invalid_5fwidget_5fid_5240',['INVALID_WIDGET_ID',['../classigor_1_1i_widget.html#ada5fc747d70923e401bac4c9a7ee25e9',1,'igor::iWidget']]],
-  ['invalid_5fwindow_5fid_5241',['INVALID_WINDOW_ID',['../classigor_1_1i_window.html#aee82da87b5c581d3e7680e2bee0e5c61',1,'igor::iWindow']]],
-  ['invalid_5fworld_5fid_5242',['INVALID_WORLD_ID',['../classigor_1_1i_physics_world.html#a3c2ed2a0252ebb67033040015fd00da4',1,'igor::iPhysicsWorld']]]
+  ['green_6420',['green',['../structiaux_1_1ia_color4.html#aabd89154a3192a5a2e4cf38e7895c223',1,'iaux::iaColor4']]]
 ];

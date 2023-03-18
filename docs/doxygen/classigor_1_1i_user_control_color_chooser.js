@@ -9,6 +9,7 @@ var classigor_1_1i_user_control_color_chooser =
     [ "getText", "classigor_1_1i_user_control_color_chooser.html#af79276d6a899e00d7a390e66aa1efead", null ],
     [ "isHeadlineVisible", "classigor_1_1i_user_control_color_chooser.html#abfae64133773205b63e06919ff3161dc", null ],
     [ "registerOnColorChangedEvent", "classigor_1_1i_user_control_color_chooser.html#a0d4b2e5d1fbad324cab887a3cf304177", null ],
+    [ "setColor", "classigor_1_1i_user_control_color_chooser.html#acc60bf1c117f96720ede08c1ad5a34ec", null ],
     [ "setColor", "classigor_1_1i_user_control_color_chooser.html#a3f75dfa9a88be9f4a31b865feb2cafae", null ],
     [ "setExpand", "classigor_1_1i_user_control_color_chooser.html#a40d05fd715320d006c617fefa28c6c6f", null ],
     [ "setHeadlineVisible", "classigor_1_1i_user_control_color_chooser.html#a7fe1710ff9be5cfa5d47d9249c5bd424", null ],

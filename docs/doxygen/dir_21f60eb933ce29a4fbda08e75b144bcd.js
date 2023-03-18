@@ -25,6 +25,10 @@ var dir_21f60eb933ce29a4fbda08e75b144bcd =
     [ "iWidgetLabel.h", "i_widget_label_8h.html", [
       [ "iWidgetLabel", "classigor_1_1i_widget_label.html", "classigor_1_1i_widget_label" ]
     ] ],
+    [ "iWidgetLineTextEdit.cpp", "i_widget_line_text_edit_8cpp.html", null ],
+    [ "iWidgetLineTextEdit.h", "i_widget_line_text_edit_8h.html", [
+      [ "iWidgetLineTextEdit", "classigor_1_1i_widget_line_text_edit.html", "classigor_1_1i_widget_line_text_edit" ]
+    ] ],
     [ "iWidgetMenu.cpp", "i_widget_menu_8cpp.html", null ],
     [ "iWidgetMenu.h", "i_widget_menu_8h.html", "i_widget_menu_8h" ],
     [ "iWidgetMenuBar.cpp", "i_widget_menu_bar_8cpp.html", null ],

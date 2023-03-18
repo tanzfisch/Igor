@@ -16,6 +16,8 @@ var classiaux_1_1ia_time =
     [ "operator+=", "classiaux_1_1ia_time.html#a596ec6821d6c16c0bcdd8c41b0ef4c62", null ],
     [ "operator-", "classiaux_1_1ia_time.html#ae7692b5842e13685ff1561003e58cb27", null ],
     [ "operator-=", "classiaux_1_1ia_time.html#a97fce08c961afe01a1de6287f745cf70", null ],
+    [ "operator/", "classiaux_1_1ia_time.html#a67c82fc50a7e2fb89644040247e75764", null ],
+    [ "operator/=", "classiaux_1_1ia_time.html#a3cc253c8de7d7ac8dff1282af74f1afe", null ],
     [ "operator<", "classiaux_1_1ia_time.html#ae33ea868868b7efc4c80d75915be0699", null ],
     [ "operator<=", "classiaux_1_1ia_time.html#a99a5fd7caffcd568cd099262068ff60c", null ],
     [ "operator==", "classiaux_1_1ia_time.html#ad080421d2ed1a5ed46b7593e13b6d1ae", null ],

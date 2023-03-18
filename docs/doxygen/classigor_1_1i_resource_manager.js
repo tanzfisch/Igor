@@ -2,6 +2,7 @@ var classigor_1_1i_resource_manager =
 [
     [ "addSearchPath", "classigor_1_1i_resource_manager.html#addbe8e6ac8befbbba020ce86f2268620", null ],
     [ "clearSearchPaths", "classigor_1_1i_resource_manager.html#a4c0d7904006c040c220e7a4a899efb39", null ],
+    [ "fileExists", "classigor_1_1i_resource_manager.html#ae1edfa79ca3a67dd0bfd243dcad30ee5", null ],
     [ "flush", "classigor_1_1i_resource_manager.html#a80c36ff9b17f621d4c62198aca0e4f52", null ],
     [ "getPath", "classigor_1_1i_resource_manager.html#a71c13e545f53c395866b8c7cc1261b59", null ],
     [ "getRelativePath", "classigor_1_1i_resource_manager.html#ae5e3271693953e0189bcda5b8cb8cf91", null ],

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -103,7 +103,7 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a180dfdd8a7c8c77767f02dd01392b85b"><td class="memItemLeft" align="right" valign="top">typedef uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a180dfdd8a7c8c77767f02dd01392b85b">igor::iRenderTargetID</a></td></tr>
+<tr class="memitem:a180dfdd8a7c8c77767f02dd01392b85b"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a180dfdd8a7c8c77767f02dd01392b85b">igor::iRenderTargetID</a></td></tr>
 <tr class="separator:a180dfdd8a7c8c77767f02dd01392b85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -117,21 +117,35 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceigor.html#a9c3e2ec6e690f2447ecf463fd72749dea7ca66fdfaad3eb33fc65d7490178f856">igor::Triangles</a>
  }</td></tr>
 <tr class="separator:a9c3e2ec6e690f2447ecf463fd72749de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee5fa6eb2cc93c2e86bd55640d84bd3f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3f">igor::iStencilFunction</a> { <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa6e7b34fa59e1bd229b207892956dc41c">igor::Never</a>
+, <a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa1cfdf0e8d0c87a228c1f40d9bee7888b">igor::Less</a>
+, <a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3faf5f286e73bda105e538310b3190f75c5">igor::Equal</a>
+, <a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3faa4cbdbb6070a5abb35fc95ecf1e22c14">igor::LessOrEqual</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa8768a6821cd735aea4f5b0df88c1fc6a">igor::Greater</a>
+, <a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa19bb0af2c3c530538cb41aff7f235b96">igor::NotEqual</a>
+, <a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa6f2f0aefb3d22da0f3839453add5f937">igor::GreaterOrEqual</a>
+, <a class="el" href="namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa68eec46437c384d8dad18d5464ebc35c">igor::Always</a>
+<br />
+ }</td></tr>
+<tr class="separator:aee5fa6eb2cc93c2e86bd55640d84bd3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3830ae6f18c191d66310dea2f1c48db"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae3830ae6f18c191d66310dea2f1c48db">igor::iStencilOperation</a> { <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#ae3830ae6f18c191d66310dea2f1c48dba02bce93bff905887ad2233110bf9c49e">igor::Keep</a>
+, <a class="el" href="namespaceigor.html#ae3830ae6f18c191d66310dea2f1c48dbad7ed4ee1df437474d005188535f74875">igor::Zero</a>
+, <a class="el" href="namespaceigor.html#ae3830ae6f18c191d66310dea2f1c48dba0ebe6df8a3ac338e0512acc741823fdb">igor::Replace</a>
+, <a class="el" href="namespaceigor.html#ae3830ae6f18c191d66310dea2f1c48dba6f15bdfa71aa83b0d197cad75757d580">igor::Increment</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#ae3830ae6f18c191d66310dea2f1c48dba6182913ea7b5c02fe2773ea87177d4f9">igor::Decrement</a>
+, <a class="el" href="namespaceigor.html#ae3830ae6f18c191d66310dea2f1c48dba9b8958acb7be504bb5f55f17c0eea366">igor::Invert</a>
+<br />
+ }</td></tr>
+<tr class="separator:ae3830ae6f18c191d66310dea2f1c48db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad24d341be883332531c440599df8ecfb"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfb">igor::iRenderState</a> { <br />
 &#160;&#160;<a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba16704bc95ff0bd3291ba157e6f06e0ee">igor::DepthTest</a>
 , <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba718a74a2684bcd2038799efa42367a0d">igor::DepthMask</a>
 , <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba09ac609fcdb514c9adca34e7f97b4ac4">igor::Blend</a>
 , <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba5fbf085d301b88f5c73689461c9b221b">igor::CullFace</a>
-, <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfbaba9e09d157b7e822d67aac5719d388d6">igor::Texture2D0</a>
-, <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfbac10d304ea144aa927540df5d122a0ee6">igor::Texture2D1</a>
-, <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba23a33254295ae1ec193b7e32a03235ae">igor::Texture2D2</a>
-, <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba5f68824139c02460b1755046c34c90e6">igor::Texture2D3</a>
-, <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfbaaa6ea6915ca4c31b97ac85e53bd9f441">igor::Texture2D4</a>
-, <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfbac6b7e58b124aff18a7f71f0f60fbf0ad">igor::Texture2D5</a>
-, <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba85f6af0f101cc13a11bfa0472f99f3c5">igor::Texture2D6</a>
-, <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfbad352e1645449d21ee200d99d077d536c">igor::Texture2D7</a>
 , <br />
 &#160;&#160;<a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba33e42d0f3b166a4c405127e4412fbef2">igor::Wireframe</a>
 , <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba186f899cfe5e87558c6d95968f50f317">igor::DepthFunc</a>
@@ -139,7 +153,6 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba70a496ea5ca54bbdb405d64ec244c4c7">igor::Instanced</a>
 , <br />
 &#160;&#160;<a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfba843af5716ab3065e30d0a4515ad821e2">igor::InstancedFunc</a>
-, <a class="el" href="namespaceigor.html#ad24d341be883332531c440599df8ecfbaf356c2363a05063db9e40aa4c5faeeec">igor::RenderStateCount</a>
 <br />
  }</td></tr>
 <tr class="separator:ad24d341be883332531c440599df8ecfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,8 +196,6 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64a4bbb8f967da6d1a610596d7257179c2b">igor::Invalid</a>
 , <a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64adb27a62351b3d0ab4c1e83ffaba33d1d">igor::PositionOrientation</a>
 , <a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64a52f5e0bc3859bc5f5e25130b6c7e8881">igor::Position</a>
-, <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#a7367729bc285c208adcf486163a76f64aa8dd94192f46c5d6b627fa48d2232456">igor::LastEntry</a>
 <br />
  }</td></tr>
 <tr class="separator:a7367729bc285c208adcf486163a76f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,6 +227,14 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a2633cb4ad8373d98eba631db3f8e2ec0"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a2633cb4ad8373d98eba631db3f8e2ec0">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iRenderPrimitive &amp;type)</td></tr>
 <tr class="separator:a2633cb4ad8373d98eba631db3f8e2ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7de607f349317d2b9db440afae3aa8ef"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a7de607f349317d2b9db440afae3aa8ef">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iStencilFunction &amp;type)</td></tr>
+<tr class="separator:a7de607f349317d2b9db440afae3aa8ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661a283e2f7b9de377a82fbffcf74456"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a661a283e2f7b9de377a82fbffcf74456">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iStencilOperation &amp;type)</td></tr>
+<tr class="separator:a661a283e2f7b9de377a82fbffcf74456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60616a028625bacd5e062f4d9bc59bc4"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a60616a028625bacd5e062f4d9bc59bc4">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iRenderState &amp;state)</td></tr>
+<tr class="separator:a60616a028625bacd5e062f4d9bc59bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b87810a76ad5b520f9f72a014169b30"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a7b87810a76ad5b520f9f72a014169b30">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iRenderStateValue &amp;value)</td></tr>
+<tr class="separator:a7b87810a76ad5b520f9f72a014169b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6335918dfc420002da79572d7e31d949"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6335918dfc420002da79572d7e31d949">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iShaderDataType &amp;type)</td></tr>
 <tr class="separator:a6335918dfc420002da79572d7e31d949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac92230d80889f8be6b2b790b446f0af3"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac92230d80889f8be6b2b790b446f0af3">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iShaderObjectType &amp;type)</td></tr>
@@ -223,10 +242,12 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ab96ae01341b97618c74c460e9f0accb4"><td class="memItemLeft" align="right" valign="top">static constexpr const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ab96ae01341b97618c74c460e9f0accb4">igor::INVALID_BUFFER_ID</a> = 0</td></tr>
+<tr class="memitem:ab96ae01341b97618c74c460e9f0accb4"><td class="memItemLeft" align="right" valign="top">static constexpr const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ab96ae01341b97618c74c460e9f0accb4">igor::INVALID_BUFFER_ID</a> = 0</td></tr>
 <tr class="separator:ab96ae01341b97618c74c460e9f0accb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac80e82460d5c8f84464da8a573976d78"><td class="memItemLeft" align="right" valign="top">static constexpr const int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac80e82460d5c8f84464da8a573976d78">igor::MAX_TEXTURE_UNITS</a> = 8</td></tr>
+<tr class="memitem:ac80e82460d5c8f84464da8a573976d78"><td class="memItemLeft" align="right" valign="top">static constexpr const <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac80e82460d5c8f84464da8a573976d78">igor::MAX_TEXTURE_UNITS</a> = 8</td></tr>
 <tr class="separator:ac80e82460d5c8f84464da8a573976d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3c408347872cce2f01b4f608d43477c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aa3c408347872cce2f01b4f608d43477c">igor::RENDER_STATE_COUNT</a> = 9</td></tr>
+<tr class="separator:aa3c408347872cce2f01b4f608d43477c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80049a2076c5eeedd3aaf968ed5b57bc"><td class="memItemLeft" align="right" valign="top">static const iRenderTargetID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a80049a2076c5eeedd3aaf968ed5b57bc">igor::DEFAULT_RENDER_TARGET</a> = 0</td></tr>
 <tr class="separator:a80049a2076c5eeedd3aaf968ed5b57bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

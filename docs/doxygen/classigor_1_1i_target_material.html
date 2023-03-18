@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -98,41 +98,43 @@ $(document).ready(function(){initNavTree('classigor_1_1i_target_material.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a341c1cce6ebe2afc86ed2d4498ff91bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a341c1cce6ebe2afc86ed2d4498ff91bd">addTexture</a> (<a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> texture)</td></tr>
-<tr class="separator:a341c1cce6ebe2afc86ed2d4498ff91bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01817b8b35e0970cadca2a6a837b4d44"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a01817b8b35e0970cadca2a6a837b4d44">getTextures</a> () const</td></tr>
-<tr class="separator:a01817b8b35e0970cadca2a6a837b4d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95b4c98a3a81f38d0c194b554a17cb19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a95b4c98a3a81f38d0c194b554a17cb19">clearTextures</a> ()</td></tr>
-<tr class="separator:a95b4c98a3a81f38d0c194b554a17cb19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66a819ca35ba10aa0d5c2660bff71037"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a66a819ca35ba10aa0d5c2660bff71037">setTilingConfig</a> (const iaVector2f &amp;tiling)</td></tr>
+<tr class="memitem:a82184de859e9258f51f79c2ce4af3222"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a82184de859e9258f51f79c2ce4af3222">setTexture</a> (<a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> texture, <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> texunit)</td></tr>
+<tr class="separator:a82184de859e9258f51f79c2ce4af3222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab39ce1c6a10eb7ab0cd11a5ac7e901a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#ab39ce1c6a10eb7ab0cd11a5ac7e901a3">getTexture</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> texunit) const</td></tr>
+<tr class="separator:ab39ce1c6a10eb7ab0cd11a5ac7e901a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7398cf194c0487fe6e28df0d3b701b4a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a7398cf194c0487fe6e28df0d3b701b4a">hasTextureUnit</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> texunit) const</td></tr>
+<tr class="separator:a7398cf194c0487fe6e28df0d3b701b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa376153fb31702ff1ae7033dc1ccc68e"><td class="memItemLeft" align="right" valign="top">const std::map&lt; <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>, <a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#aa376153fb31702ff1ae7033dc1ccc68e">getTextures</a> () const</td></tr>
+<tr class="separator:aa376153fb31702ff1ae7033dc1ccc68e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66a819ca35ba10aa0d5c2660bff71037"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a66a819ca35ba10aa0d5c2660bff71037">setTilingConfig</a> (const <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a> &amp;tiling)</td></tr>
 <tr class="separator:a66a819ca35ba10aa0d5c2660bff71037"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f5695444f4e8bcf43dbc603fbbaa783"><td class="memItemLeft" align="right" valign="top">const iaVector2f &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a3f5695444f4e8bcf43dbc603fbbaa783">getTilingConfig</a> () const</td></tr>
+<tr class="memitem:a3f5695444f4e8bcf43dbc603fbbaa783"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a3f5695444f4e8bcf43dbc603fbbaa783">getTilingConfig</a> () const</td></tr>
 <tr class="separator:a3f5695444f4e8bcf43dbc603fbbaa783"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08c8e0a8eb16147070f2bacf7ffb2b26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a08c8e0a8eb16147070f2bacf7ffb2b26">hasTextures</a> () const</td></tr>
 <tr class="separator:a08c8e0a8eb16147070f2bacf7ffb2b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2655699be1bb63f645034b29bbe771f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a2655699be1bb63f645034b29bbe771f2">setEmissive</a> (const iaColor3f &amp;e)</td></tr>
+<tr class="memitem:a2655699be1bb63f645034b29bbe771f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a2655699be1bb63f645034b29bbe771f2">setEmissive</a> (const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;e)</td></tr>
 <tr class="separator:a2655699be1bb63f645034b29bbe771f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cd64c8337e009975ef926ddb59a99af"><td class="memItemLeft" align="right" valign="top">iaColor3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a2cd64c8337e009975ef926ddb59a99af">getEmissive</a> () const</td></tr>
+<tr class="memitem:a2cd64c8337e009975ef926ddb59a99af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a2cd64c8337e009975ef926ddb59a99af">getEmissive</a> () const</td></tr>
 <tr class="separator:a2cd64c8337e009975ef926ddb59a99af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc75187789105f2eec02b0ba10a6020a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#acc75187789105f2eec02b0ba10a6020a">setAmbient</a> (const iaColor3f &amp;a)</td></tr>
+<tr class="memitem:acc75187789105f2eec02b0ba10a6020a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#acc75187789105f2eec02b0ba10a6020a">setAmbient</a> (const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;a)</td></tr>
 <tr class="separator:acc75187789105f2eec02b0ba10a6020a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe6a58a62b07e310a84d076f744ec635"><td class="memItemLeft" align="right" valign="top">iaColor3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#abe6a58a62b07e310a84d076f744ec635">getAmbient</a> () const</td></tr>
+<tr class="memitem:abe6a58a62b07e310a84d076f744ec635"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#abe6a58a62b07e310a84d076f744ec635">getAmbient</a> () const</td></tr>
 <tr class="separator:abe6a58a62b07e310a84d076f744ec635"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe6871704add2ec32b9bb93448098001"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#abe6871704add2ec32b9bb93448098001">setSpecular</a> (const iaColor3f &amp;s)</td></tr>
+<tr class="memitem:abe6871704add2ec32b9bb93448098001"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#abe6871704add2ec32b9bb93448098001">setSpecular</a> (const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;s)</td></tr>
 <tr class="separator:abe6871704add2ec32b9bb93448098001"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1181ae47d545536bf322a352b4ba035"><td class="memItemLeft" align="right" valign="top">iaColor3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#ab1181ae47d545536bf322a352b4ba035">getSpecular</a> () const</td></tr>
+<tr class="memitem:ab1181ae47d545536bf322a352b4ba035"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#ab1181ae47d545536bf322a352b4ba035">getSpecular</a> () const</td></tr>
 <tr class="separator:ab1181ae47d545536bf322a352b4ba035"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a330cfbfbed67ea9af48939b9cd38ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a7a330cfbfbed67ea9af48939b9cd38ee">setDiffuse</a> (const iaColor3f &amp;d)</td></tr>
+<tr class="memitem:a7a330cfbfbed67ea9af48939b9cd38ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a7a330cfbfbed67ea9af48939b9cd38ee">setDiffuse</a> (const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;d)</td></tr>
 <tr class="separator:a7a330cfbfbed67ea9af48939b9cd38ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a658c3f6f103a7a40cc697558b071cd57"><td class="memItemLeft" align="right" valign="top">iaColor3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a658c3f6f103a7a40cc697558b071cd57">getDiffuse</a> () const</td></tr>
+<tr class="memitem:a658c3f6f103a7a40cc697558b071cd57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a658c3f6f103a7a40cc697558b071cd57">getDiffuse</a> () const</td></tr>
 <tr class="separator:a658c3f6f103a7a40cc697558b071cd57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61c06cb63265ecf01e7092841f33a6d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a61c06cb63265ecf01e7092841f33a6d1">setShininess</a> (float32 shininess)</td></tr>
+<tr class="memitem:a61c06cb63265ecf01e7092841f33a6d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a61c06cb63265ecf01e7092841f33a6d1">setShininess</a> (<a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> shininess)</td></tr>
 <tr class="separator:a61c06cb63265ecf01e7092841f33a6d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab326f0c2e5536dd37346ce0fccca54d4"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#ab326f0c2e5536dd37346ce0fccca54d4">getShininess</a> () const</td></tr>
+<tr class="memitem:ab326f0c2e5536dd37346ce0fccca54d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#ab326f0c2e5536dd37346ce0fccca54d4">getShininess</a> () const</td></tr>
 <tr class="separator:ab326f0c2e5536dd37346ce0fccca54d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac94f329f7ac84123c8fb9afbac915bde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#ac94f329f7ac84123c8fb9afbac915bde">setAlpha</a> (float32 alpha)</td></tr>
+<tr class="memitem:ac94f329f7ac84123c8fb9afbac915bde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#ac94f329f7ac84123c8fb9afbac915bde">setAlpha</a> (<a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> alpha)</td></tr>
 <tr class="separator:ac94f329f7ac84123c8fb9afbac915bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a3661d65beb2c72908b3ae13ad0b451"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a8a3661d65beb2c72908b3ae13ad0b451">getAlpha</a> () const</td></tr>
+<tr class="memitem:a8a3661d65beb2c72908b3ae13ad0b451"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a8a3661d65beb2c72908b3ae13ad0b451">getAlpha</a> () const</td></tr>
 <tr class="separator:a8a3661d65beb2c72908b3ae13ad0b451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a987b3451698121f8c248fa049e3004f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_target_material.html#a987b3451698121f8c248fa049e3004f9">setVelocityOriented</a> (bool enable)</td></tr>
 <tr class="separator:a987b3451698121f8c248fa049e3004f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,50 +155,6 @@ Friends</h2></td></tr>
 <div class="textblock"><p>contains all material information that belong to the surface of an object</p>
 <p>Whereas <a class="el" href="classigor_1_1i_material.html">iMaterial</a> contains all the information realted to shader and environment ie lights etc. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a341c1cce6ebe2afc86ed2d4498ff91bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a341c1cce6ebe2afc86ed2d4498ff91bd">&#9670;&nbsp;</a></span>addTexture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iTargetMaterial::addTexture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>add a texture</p>
-<p>texture unit will be interpreted by added order first is 0 and so on</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>the texture to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a95b4c98a3a81f38d0c194b554a17cb19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95b4c98a3a81f38d0c194b554a17cb19">&#9670;&nbsp;</a></span>clearTextures()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iTargetMaterial::clearTextures </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>removes all textures </p>
-
-</div>
-</div>
 <a id="aadd492824453a2e65cd723452084fe6b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aadd492824453a2e65cd723452084fe6b">&#9670;&nbsp;</a></span>create()</h2>
 
@@ -230,7 +188,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float32 igor::iTargetMaterial::getAlpha </td>
+          <td class="memname"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> igor::iTargetMaterial::getAlpha </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -248,7 +206,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">iaColor3f igor::iTargetMaterial::getAmbient </td>
+          <td class="memname"><a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> igor::iTargetMaterial::getAmbient </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -266,7 +224,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">iaColor3f igor::iTargetMaterial::getDiffuse </td>
+          <td class="memname"><a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> igor::iTargetMaterial::getDiffuse </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -284,7 +242,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">iaColor3f igor::iTargetMaterial::getEmissive </td>
+          <td class="memname"><a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> igor::iTargetMaterial::getEmissive </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -302,7 +260,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float32 igor::iTargetMaterial::getShininess </td>
+          <td class="memname"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> igor::iTargetMaterial::getShininess </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -320,7 +278,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">iaColor3f igor::iTargetMaterial::getSpecular </td>
+          <td class="memname"><a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> igor::iTargetMaterial::getSpecular </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -331,14 +289,39 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a01817b8b35e0970cadca2a6a837b4d44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01817b8b35e0970cadca2a6a837b4d44">&#9670;&nbsp;</a></span>getTextures()</h2>
+<a id="ab39ce1c6a10eb7ab0cd11a5ac7e901a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab39ce1c6a10eb7ab0cd11a5ac7e901a3">&#9670;&nbsp;</a></span>getTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> &gt; &amp; igor::iTargetMaterial::getTextures </td>
+          <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iTargetMaterial::getTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramname"><em>texunit</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>texture for given texture unit</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texunit</td><td>the given texture unit </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa376153fb31702ff1ae7033dc1ccc68e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa376153fb31702ff1ae7033dc1ccc68e">&#9670;&nbsp;</a></span>getTextures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt; <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>, <a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> &gt; &amp; igor::iTargetMaterial::getTextures </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -356,7 +339,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const iaVector2f &amp; igor::iTargetMaterial::getTilingConfig </td>
+          <td class="memname">const <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a> &amp; igor::iTargetMaterial::getTilingConfig </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -382,6 +365,31 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if mesh has textures and texture coordinates </dd></dl>
+
+</div>
+</div>
+<a id="a7398cf194c0487fe6e28df0d3b701b4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7398cf194c0487fe6e28df0d3b701b4a">&#9670;&nbsp;</a></span>hasTextureUnit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iTargetMaterial::hasTextureUnit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramname"><em>texunit</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if target material has texture for given texture unit</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texunit</td><td>the given texture unit </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -412,7 +420,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iTargetMaterial::setAlpha </td>
           <td>(</td>
-          <td class="paramtype">float32&#160;</td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td>
           <td class="paramname"><em>alpha</em></td><td>)</td>
           <td></td>
         </tr>
@@ -431,7 +439,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iTargetMaterial::setAmbient </td>
           <td>(</td>
-          <td class="paramtype">const iaColor3f &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;&#160;</td>
           <td class="paramname"><em>a</em></td><td>)</td>
           <td></td>
         </tr>
@@ -456,7 +464,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iTargetMaterial::setDiffuse </td>
           <td>(</td>
-          <td class="paramtype">const iaColor3f &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;&#160;</td>
           <td class="paramname"><em>d</em></td><td>)</td>
           <td></td>
         </tr>
@@ -481,7 +489,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iTargetMaterial::setEmissive </td>
           <td>(</td>
-          <td class="paramtype">const iaColor3f &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;&#160;</td>
           <td class="paramname"><em>e</em></td><td>)</td>
           <td></td>
         </tr>
@@ -506,7 +514,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iTargetMaterial::setShininess </td>
           <td>(</td>
-          <td class="paramtype">float32&#160;</td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td>
           <td class="paramname"><em>shininess</em></td><td>)</td>
           <td></td>
         </tr>
@@ -531,7 +539,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iTargetMaterial::setSpecular </td>
           <td>(</td>
-          <td class="paramtype">const iaColor3f &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -547,6 +555,42 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a82184de859e9258f51f79c2ce4af3222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82184de859e9258f51f79c2ce4af3222">&#9670;&nbsp;</a></span>setTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iTargetMaterial::setTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramname"><em>texunit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>set a texture for a given texture unit</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>the texture to add </td></tr>
+    <tr><td class="paramname">texunit</td><td>the texture unit </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a66a819ca35ba10aa0d5c2660bff71037"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66a819ca35ba10aa0d5c2660bff71037">&#9670;&nbsp;</a></span>setTilingConfig()</h2>
 
@@ -556,7 +600,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void igor::iTargetMaterial::setTilingConfig </td>
           <td>(</td>
-          <td class="paramtype">const iaVector2f &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a> &amp;&#160;</td>
           <td class="paramname"><em>tiling</em></td><td>)</td>
           <td></td>
         </tr>

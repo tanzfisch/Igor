@@ -18,6 +18,10 @@ var dir_1fe74250b1e5b8900c8b235e674377de =
     ] ],
     [ "ompfMaterialChunk.cpp", "ompf_material_chunk_8cpp.html", null ],
     [ "ompfMaterialChunk.h", "ompf_material_chunk_8h.html", "ompf_material_chunk_8h" ],
+    [ "ompfMaterialReferenceChunk.cpp", "ompf_material_reference_chunk_8cpp.html", null ],
+    [ "ompfMaterialReferenceChunk.h", "ompf_material_reference_chunk_8h.html", [
+      [ "ompfMaterialReferenceChunk", "class_o_m_p_f_1_1ompf_material_reference_chunk.html", "class_o_m_p_f_1_1ompf_material_reference_chunk" ]
+    ] ],
     [ "ompfMeshChunk.cpp", "ompf_mesh_chunk_8cpp.html", null ],
     [ "ompfMeshChunk.h", "ompf_mesh_chunk_8h.html", [
       [ "ompfMeshChunk", "class_o_m_p_f_1_1ompf_mesh_chunk.html", "class_o_m_p_f_1_1ompf_mesh_chunk" ]

@@ -6,6 +6,7 @@ var namespace_o_m_p_f =
     [ "ompfGroupChunk", "class_o_m_p_f_1_1ompf_group_chunk.html", "class_o_m_p_f_1_1ompf_group_chunk" ],
     [ "ompfHeaderChunk", "class_o_m_p_f_1_1ompf_header_chunk.html", "class_o_m_p_f_1_1ompf_header_chunk" ],
     [ "ompfMaterialChunk", "class_o_m_p_f_1_1ompf_material_chunk.html", "class_o_m_p_f_1_1ompf_material_chunk" ],
+    [ "ompfMaterialReferenceChunk", "class_o_m_p_f_1_1ompf_material_reference_chunk.html", "class_o_m_p_f_1_1ompf_material_reference_chunk" ],
     [ "ompfMeshChunk", "class_o_m_p_f_1_1ompf_mesh_chunk.html", "class_o_m_p_f_1_1ompf_mesh_chunk" ],
     [ "ompfParticleSystemChunk", "class_o_m_p_f_1_1ompf_particle_system_chunk.html", "class_o_m_p_f_1_1ompf_particle_system_chunk" ],
     [ "ompfResourceSearchPathChunk", "class_o_m_p_f_1_1ompf_resource_search_path_chunk.html", "class_o_m_p_f_1_1ompf_resource_search_path_chunk" ],
@@ -23,7 +24,8 @@ var namespace_o_m_p_f =
       [ "Mesh", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a710fdb6adb881b408116ef95335e1961", null ],
       [ "Material", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ad92a8333dd3ccb895cc65f7455b71206", null ],
       [ "Emitter", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a7efb1083296a38495362c24db34212c3", null ],
-      [ "ParticleSystem", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8", null ]
+      [ "ParticleSystem", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8", null ],
+      [ "MaterialReference", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a25c9bae15adc40f67186bd0e85cd71cf", null ]
     ] ],
     [ "OMPFPathType", "namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77", [
       [ "RelativeToModel", "namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77a6c85fcc0627acda7913b399d9105ec2c", null ],
@@ -37,14 +39,6 @@ var namespace_o_m_p_f =
       [ "DepthMask", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a718a74a2684bcd2038799efa42367a0d", null ],
       [ "Blend", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a09ac609fcdb514c9adca34e7f97b4ac4", null ],
       [ "CullFace", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a5fbf085d301b88f5c73689461c9b221b", null ],
-      [ "Texture2D0", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761aba9e09d157b7e822d67aac5719d388d6", null ],
-      [ "Texture2D1", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761ac10d304ea144aa927540df5d122a0ee6", null ],
-      [ "Texture2D2", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a23a33254295ae1ec193b7e32a03235ae", null ],
-      [ "Texture2D3", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a5f68824139c02460b1755046c34c90e6", null ],
-      [ "Texture2D4", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761aaa6ea6915ca4c31b97ac85e53bd9f441", null ],
-      [ "Texture2D5", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761ac6b7e58b124aff18a7f71f0f60fbf0ad", null ],
-      [ "Texture2D6", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a85f6af0f101cc13a11bfa0472f99f3c5", null ],
-      [ "Texture2D7", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761ad352e1645449d21ee200d99d077d536c", null ],
       [ "Wireframe", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a33e42d0f3b166a4c405127e4412fbef2", null ],
       [ "DepthFunc", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a186f899cfe5e87558c6d95968f50f317", null ],
       [ "CullFaceFunc", "namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761af4f87a3c628c9d9564fc908b98bc70a1", null ],
@@ -85,6 +79,6 @@ var namespace_o_m_p_f =
       [ "Fragment", "namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1a37d01b98065725fe3a1d30acf3a0064a", null ],
       [ "Geometry", "namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1ad9c6333623e6357515fcbf17be806273", null ]
     ] ],
-    [ "operator<<", "namespace_o_m_p_f.html#a8661c049da82969e5993641b43b53ccb", null ],
-    [ "operator<<", "namespace_o_m_p_f.html#a7ce6a465f767a98afef24d7d4eec22bc", null ]
+    [ "operator<<", "namespace_o_m_p_f.html#a823dfa4ef6849f1196ade9d91f52cb49", null ],
+    [ "operator<<", "namespace_o_m_p_f.html#abeb7f938198e3a3f9aae2a942e8cee45", null ]
 ];

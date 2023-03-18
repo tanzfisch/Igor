@@ -1,23 +1,5 @@
 var searchData=
 [
-  ['undefined_5282',['Undefined',['../i_node_manager_8h.html#ab32fb9d57455c03e9f28cf7d73d52026',1,'iNodeManager.h']]],
-  ['uniform_5fconfig_5ftiling_5283',['UNIFORM_CONFIG_TILING',['../namespaceigor.html#a16a9726c713c29899df3ba036e4fb2c3',1,'igor']]],
-  ['uniform_5fconfig_5fvelocity_5foriented_5284',['UNIFORM_CONFIG_VELOCITY_ORIENTED',['../namespaceigor.html#ac81f4d59be3fc0c68b022aa954bb4502',1,'igor']]],
-  ['uniform_5feye_5fposition_5285',['UNIFORM_EYE_POSITION',['../namespaceigor.html#a145d39c2230e540b30f0bc1ebfd7d0c5',1,'igor']]],
-  ['uniform_5flight_5fambient_5286',['UNIFORM_LIGHT_AMBIENT',['../namespaceigor.html#ade85a75e61d079865b869451556f6149',1,'igor']]],
-  ['uniform_5flight_5fdiffuse_5287',['UNIFORM_LIGHT_DIFFUSE',['../namespaceigor.html#a2c552603c0c42cb79c341b91d0b948b6',1,'igor']]],
-  ['uniform_5flight_5forientation_5288',['UNIFORM_LIGHT_ORIENTATION',['../namespaceigor.html#adcbd44fc5b57d9decc33e0821a27d794',1,'igor']]],
-  ['uniform_5flight_5fspecular_5289',['UNIFORM_LIGHT_SPECULAR',['../namespaceigor.html#a57aeec8cd0d9519179efd7740fcf7265',1,'igor']]],
-  ['uniform_5fmaterial_5falpha_5290',['UNIFORM_MATERIAL_ALPHA',['../namespaceigor.html#a484041638b06fa7fa852a0fb3a0d158f',1,'igor']]],
-  ['uniform_5fmaterial_5fambient_5291',['UNIFORM_MATERIAL_AMBIENT',['../namespaceigor.html#ad2c44e1cc74a3f236dddf8b67b07da6a',1,'igor']]],
-  ['uniform_5fmaterial_5fdiffuse_5292',['UNIFORM_MATERIAL_DIFFUSE',['../namespaceigor.html#ab208c977562af88433d92919f266c451',1,'igor']]],
-  ['uniform_5fmaterial_5femissive_5293',['UNIFORM_MATERIAL_EMISSIVE',['../namespaceigor.html#ad812817048e2f52f0ce43cb636e778d3',1,'igor']]],
-  ['uniform_5fmaterial_5fshininess_5294',['UNIFORM_MATERIAL_SHININESS',['../namespaceigor.html#ae39a4556f59eec5e1f336c11325cffe8',1,'igor']]],
-  ['uniform_5fmaterial_5fspecular_5295',['UNIFORM_MATERIAL_SPECULAR',['../namespaceigor.html#a200ec8664cbd40770ad26662e135295c',1,'igor']]],
-  ['uniform_5fmodel_5296',['UNIFORM_MODEL',['../namespaceigor.html#a5b942eeaf6e7a2a09a1513b9d8b0a8a4',1,'igor']]],
-  ['uniform_5fmodel_5fview_5297',['UNIFORM_MODEL_VIEW',['../namespaceigor.html#a90d4bca8f30b7541c95e93720b911029',1,'igor']]],
-  ['uniform_5fmodel_5fview_5fprojection_5298',['UNIFORM_MODEL_VIEW_PROJECTION',['../namespaceigor.html#a5ff6c897f8d193baf6d50e1968d5e5f6',1,'igor']]],
-  ['uniform_5fsolidcolor_5299',['UNIFORM_SOLIDCOLOR',['../namespaceigor.html#a135be271acf8205a1165c004ab348f38',1,'igor']]],
-  ['uniform_5fview_5fprojection_5300',['UNIFORM_VIEW_PROJECTION',['../namespaceigor.html#a39f74df31d9b6c15e5d9681cbf69aff2',1,'igor']]],
-  ['userdata_5301',['userData',['../structigor_1_1_pre_filter_user_data.html#a0eefcf8e02732ff7bfa3223583e3b6cd',1,'igor::PreFilterUserData']]]
+  ['transparent_6483',['transparent',['../structiaux_1_1ia_color4.html#a096a967688a4d0a9446f057dd6bf1d84',1,'iaux::iaColor4']]],
+  ['typeidsize_6484',['TypeIDSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a230e83eea23e2d317b09cf1d66a0478d',1,'OMPF::OMPFDefaultConfiguration']]]
 ];
