@@ -37,40 +37,42 @@
 namespace igor
 {
 	class iEntityScene;
-	typedef iEntityScene* iEntityScenePtr;
+	typedef iEntityScene *iEntityScenePtr;
 
-    class iEntitySystem
-    {
-    public:
-        /*! does nothing
-        */
-        iEntitySystem() = default;
+	class iEntitySystem
+	{
+	public:
+		/*! does nothing
+		 */
+		iEntitySystem() = default;
 
-        /*! does nothing
-        */
-        virtual ~iEntitySystem() = default;
+		/*! does nothing
+		 */
+		virtual ~iEntitySystem() = default;
 
-        /*! updates system
-        */
-        virtual void update(iEntityScenePtr scene) {};
-    };	
+		/*! updates system
+		 */
+		virtual void update(iEntityScenePtr scene){};
+	};
 
+	/*! entity system pointer definition
+	 */
 	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
-	class iEntity;
 
-    /*! entity id definition
-    */
-    typedef entt::entity iEntityID;
+	/*! entity id definition
+	 */
+	typedef entt::entity iEntityID;
 
 	/*! iunvalid entity id definition
-	*/
-	const entt::entity iInvalidEntityID = entt::null;
+	 */
+	const entt::entity INVALID_ENTITY_ID = entt::null;
 
-	/*! wrapper for entt registry
-	*/
+	class iEntity;
+
+	/*! entity scene
+	 */
 	class IGOR_API iEntityScene
 	{
-		friend class iEntity;
 
 	public:
 		/*! creates an entity
@@ -96,31 +98,32 @@ namespace igor
 		void registerSystem(iEntitySystemPtr system);
 
 		/*! updates all systems in the order hey have been added to the scene
-		*/
+		 */
 		void updateSystems();
 
 		/*! clears the scene and the systems
-		*/
+		 */
 		void clear();
 
 		/*! \returns all entities with given components
-		*/
-		template<typename... Components>
+		 */
+		template <typename... Components>
 		auto getEntities()
 		{
 			return _registry.view<Components...>();
-		}		
+		}
+
+		/*! \returns entt registry
+		 */
+		entt::registry &getRegistry();
 
 	private:
-
 		/*! the entt registry
-
-		\todo we need a much more mighty registry wrapper in order to get rid of the header include
-		*/
+		 */
 		entt::registry _registry;
 
 		/*! currently registered systems
-		*/
+		 */
 		std::vector<iEntitySystemPtr> _systems;
 	};
 
