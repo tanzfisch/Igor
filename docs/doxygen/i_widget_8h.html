@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -97,9 +97,9 @@ $(document).ready(function(){initNavTree('i_widget_8h.html',''); initResizable()
 <div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_mouse_8h.html">igor/system/iMouse.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_timer_handle_8h.html">igor/system/iTimerHandle.h</a>&gt;</code><br />
-<code>#include &lt;iaux/math/iaVector4.h&gt;</code><br />
-<code>#include &lt;iaux/data/iaColor4.h&gt;</code><br />
-<code>#include &lt;iaux/data/iaIDGenerator.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_vector4_8h.html">iaux/math/iaVector4.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_color4_8h.html">iaux/data/iaColor4.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_i_d_generator_8h.html">iaux/data/iaIDGenerator.h</a>&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_widget_8inl.html">igor/ui/widgets/iWidget.inl</a>&gt;</code><br />
@@ -118,7 +118,7 @@ Namespaces</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a5e7f4b33adda456ed69993cc2eda4784"><td class="memItemLeft" align="right" valign="top">typedef iWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a5e7f4b33adda456ed69993cc2eda4784">igor::iWidgetPtr</a></td></tr>
 <tr class="separator:a5e7f4b33adda456ed69993cc2eda4784"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dec690b4a7acd298de5f80518354286"><td class="memItemLeft" align="right" valign="top">typedef uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6dec690b4a7acd298de5f80518354286">igor::iWidgetID</a></td></tr>
+<tr class="memitem:a6dec690b4a7acd298de5f80518354286"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6dec690b4a7acd298de5f80518354286">igor::iWidgetID</a></td></tr>
 <tr class="separator:a6dec690b4a7acd298de5f80518354286"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -154,25 +154,27 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a3dfe01754ecafb95bcf360a103ede9e3">igor::iWidgetSlider</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a4abdc792da177a0bf85bb3a3912325de">igor::iWidgetSpacer</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a2e1dff6974d2d435d982ba2346407751">igor::iWidgetTextEdit</a>
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a928ad8d211de579ba29c83fddc6e8b28">igor::iWidgetLineTextEdit</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a2e1dff6974d2d435d982ba2346407751">igor::iWidgetTextEdit</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a042972a0060cfe69011c6a982eca7c22">igor::iUserControl</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618ab45955d891e618b8843ccee323e45905">igor::iUserControlAction</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618af94ac2ab874b01585a45c9ea46e4152a">igor::iUserControlColorChooser</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a0be42edf3263e3ac34ae19d31269bc21">igor::iUserControlFileChooser</a>
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618af94ac2ab874b01585a45c9ea46e4152a">igor::iUserControlColorChooser</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a0be42edf3263e3ac34ae19d31269bc21">igor::iUserControlFileChooser</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618ae47738832438f1fe138c849f81f49ded">igor::iDialog</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618adaeced69e6c5e4e9f9dc894ccb895f40">igor::iDialogColorChooser</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a0cff16f295b11668b706718753d65a1b">igor::iDialogColorGradient</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618abc08a30df29a5c8e36ca18b324177612">igor::iDialogDecisionBox</a>
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a0cff16f295b11668b706718753d65a1b">igor::iDialogColorGradient</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618abc08a30df29a5c8e36ca18b324177612">igor::iDialogDecisionBox</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618afc4d0d0177d525a00cc6ce85b676409c">igor::iDialogFileSelect</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618abfcd661f3150a8d0710e607816d31b72">igor::iDialogGraph</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a398669d5fcf5454dc3ab4dd30c82fb2a">igor::iDialogIndexMenu</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a656a677fa80bb418c05af87d664cd8d0">igor::iDialogMenu</a>
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a398669d5fcf5454dc3ab4dd30c82fb2a">igor::iDialogIndexMenu</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a656a677fa80bb418c05af87d664cd8d0">igor::iDialogMenu</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a6158e98bc06a07d65fde90fdb5a9939f">igor::iDialogMessageBox</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a1ebfbf482ab458929ddc36d6c2aa062d">igor::iUserType</a> = 100
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618adb5b1a3beea7eb8499d465c616d438d1">igor::iUndefinedType</a> = 100
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618adb5b1a3beea7eb8499d465c616d438d1">igor::iUndefinedType</a> = 100
 <br />
  }</td></tr>
 <tr class="separator:af0faed1be6138ddb4a7333d713b7a618"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,28 +186,28 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8137edc98c09a02d04d3fdfdd7a8c820"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a8137edc98c09a02d04d3fdfdd7a8c820">igor::iaEVENT</a> (iClickEvent, iClickDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a8137edc98c09a02d04d3fdfdd7a8c820"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e00386e1904bf7d65bdceca3563c7df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a1e00386e1904bf7d65bdceca3563c7df">igor::iaEVENT</a> (iMouseOffClickEvent, iMouseOffClickDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a1e00386e1904bf7d65bdceca3563c7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5653eca63cd09352b7c4cb1325ff4da3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a5653eca63cd09352b7c4cb1325ff4da3">igor::iaEVENT</a> (iContextMenuEvent, iContextMenuDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a5653eca63cd09352b7c4cb1325ff4da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5661932204e46ce1e1859fd73567daba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a5661932204e46ce1e1859fd73567daba">igor::iaEVENT</a> (iWheelUpEvent, iWheelUpDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a5661932204e46ce1e1859fd73567daba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87d5d704e41c5677a3ad680970d4aadb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a87d5d704e41c5677a3ad680970d4aadb">igor::iaEVENT</a> (iWheelDownEvent, iWheelDownDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a87d5d704e41c5677a3ad680970d4aadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79f37245aced01abed1d36fd0ff0a9c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a79f37245aced01abed1d36fd0ff0a9c0">igor::iaEVENT</a> (iDoubleClickEvent, iDoubleClickDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a79f37245aced01abed1d36fd0ff0a9c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93ca030abefdf85c03858c667acc3cd8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a93ca030abefdf85c03858c667acc3cd8">igor::iaEVENT</a> (iMouseOverEvent, iMouseOverDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a93ca030abefdf85c03858c667acc3cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f490eb16c7ae6c82873e814a0e70f02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a2f490eb16c7ae6c82873e814a0e70f02">igor::iaEVENT</a> (iMouseOffEvent, iMouseOffDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a2f490eb16c7ae6c82873e814a0e70f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33c0cd9289b762c8b4ef6134a6de99d3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a33c0cd9289b762c8b4ef6134a6de99d3">igor::iaEVENT</a> (iChangeEvent, iChangeDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a33c0cd9289b762c8b4ef6134a6de99d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8785cf6d7deb55fb934ee2c802f4ddd3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a8785cf6d7deb55fb934ee2c802f4ddd3">igor::iaEVENT</a> (iFocusEvent, iFocusDelegate,(const iWidgetPtr source),(source))</td></tr>
-<tr class="separator:a8785cf6d7deb55fb934ee2c802f4ddd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a456d0e78dc7166beb9ad75789ebf0b02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a456d0e78dc7166beb9ad75789ebf0b02">igor::iaEVENT</a> (iSelectionChangedEvent, iSelectionChangedDelegate,(int32 index),(index))</td></tr>
-<tr class="separator:a456d0e78dc7166beb9ad75789ebf0b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a056266196d0f9dae6c9e9e8f922fa235"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a056266196d0f9dae6c9e9e8f922fa235">igor::iaSIGNAL</a> (iClickEvent, iClickDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:a056266196d0f9dae6c9e9e8f922fa235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bce1dbfd50bd0db86c65ead2eb5b5f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a2bce1dbfd50bd0db86c65ead2eb5b5f9">igor::iaSIGNAL</a> (iMouseOffClickEvent, iMouseOffClickDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:a2bce1dbfd50bd0db86c65ead2eb5b5f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae48416d786cf62b3ac08aa191863835d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae48416d786cf62b3ac08aa191863835d">igor::iaSIGNAL</a> (iContextMenuEvent, iContextMenuDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:ae48416d786cf62b3ac08aa191863835d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a9a2d261f191116f31221743bd423e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6a9a2d261f191116f31221743bd423e5">igor::iaSIGNAL</a> (iWheelUpEvent, iWheelUpDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:a6a9a2d261f191116f31221743bd423e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d4ff07d3bb3c5921f9e12fb8c07541"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ab5d4ff07d3bb3c5921f9e12fb8c07541">igor::iaSIGNAL</a> (iWheelDownEvent, iWheelDownDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:ab5d4ff07d3bb3c5921f9e12fb8c07541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b96ffaaed02d09ee6e6e5c9606e8aac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a7b96ffaaed02d09ee6e6e5c9606e8aac">igor::iaSIGNAL</a> (iDoubleClickEvent, iDoubleClickDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:a7b96ffaaed02d09ee6e6e5c9606e8aac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9ac8258f80ab126f196154b4ef581ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ab9ac8258f80ab126f196154b4ef581ab">igor::iaSIGNAL</a> (iMouseOverEvent, iMouseOverDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:ab9ac8258f80ab126f196154b4ef581ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1c108e5f258fc041b53108fd15a1f62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ab1c108e5f258fc041b53108fd15a1f62">igor::iaSIGNAL</a> (iMouseOffEvent, iMouseOffDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:ab1c108e5f258fc041b53108fd15a1f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab053bad6750ca9f7d848b281f236505d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ab053bad6750ca9f7d848b281f236505d">igor::iaSIGNAL</a> (iChangeEvent, iChangeDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:ab053bad6750ca9f7d848b281f236505d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e369640536b1c2d3da53f37885ebe99"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a4e369640536b1c2d3da53f37885ebe99">igor::iaSIGNAL</a> (iFocusEvent, iFocusDelegate,(const iWidgetPtr source),(source))</td></tr>
+<tr class="separator:a4e369640536b1c2d3da53f37885ebe99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54ae0ebc14f615fc6cbc2125603d153c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a54ae0ebc14f615fc6cbc2125603d153c">igor::iaSIGNAL</a> (iSelectionChangedEvent, iSelectionChangedDelegate,(<a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> index),(index))</td></tr>
+<tr class="separator:a54ae0ebc14f615fc6cbc2125603d153c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3366d13de4c08e19f06774ae37fe7f59"><td class="memItemLeft" align="right" valign="top">std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a3366d13de4c08e19f06774ae37fe7f59">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iWidgetType &amp;widgetType)</td></tr>
 <tr class="separator:a3366d13de4c08e19f06774ae37fe7f59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

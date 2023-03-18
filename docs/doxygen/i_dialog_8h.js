@@ -9,5 +9,5 @@ var i_dialog_8h =
       [ "Cancel", "i_dialog_8h.html#a122478c90d48716251aee24739420db4aea4788705e6873b424c65e91c2846b19", null ],
       [ "Error", "i_dialog_8h.html#a122478c90d48716251aee24739420db4a902b0d55fddef6f8d651fe1035b7d4bd", null ]
     ] ],
-    [ "iaDELEGATE", "i_dialog_8h.html#a6f6224cdd705926102034606cc5589e8", null ]
+    [ "iaSLOT", "i_dialog_8h.html#ad1ca99ca51ce495d99329e388960705f", null ]
 ];

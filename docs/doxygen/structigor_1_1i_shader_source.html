@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -92,17 +92,19 @@ $(document).ready(function(){initNavTree('structigor_1_1i_shader_source.html',''
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;iMaterial.h&gt;</code></p>
+<p><code>#include &lt;iShaderProgram.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:ae64b51390ea10b0c266a6618bad0f50c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a6010bf4687944c41cfac475595856062">iShaderObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_shader_source.html#ae64b51390ea10b0c266a6618bad0f50c">_type</a></td></tr>
+<tr class="separator:ae64b51390ea10b0c266a6618bad0f50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85acca7ed1f939aeaecccd12a3a79d58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_shader_source.html#a85acca7ed1f939aeaecccd12a3a79d58">_source</a></td></tr>
+<tr class="separator:a85acca7ed1f939aeaecccd12a3a79d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab99ebf080adb511b4c0b1f1eccb6b454"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_shader_source.html#ab99ebf080adb511b4c0b1f1eccb6b454">_filename</a></td></tr>
 <tr class="separator:ab99ebf080adb511b4c0b1f1eccb6b454"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae64b51390ea10b0c266a6618bad0f50c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a52aa8356f9249d7a3d1f87a2ef871fc9">iShaderObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_shader_source.html#ae64b51390ea10b0c266a6618bad0f50c">_type</a></td></tr>
-<tr class="separator:ae64b51390ea10b0c266a6618bad0f50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>shader source and type definition </p>
+<div class="textblock"><p>shader source struct </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="ab99ebf080adb511b4c0b1f1eccb6b454"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab99ebf080adb511b4c0b1f1eccb6b454">&#9670;&nbsp;</a></span>_filename</h2>
@@ -115,7 +117,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>source file name </p>
+<p>shader filename (optional) </p>
+
+</div>
+</div>
+<a id="a85acca7ed1f939aeaecccd12a3a79d58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85acca7ed1f939aeaecccd12a3a79d58">&#9670;&nbsp;</a></span>_source</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iShaderSource::_source</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>shader source </p>
 
 </div>
 </div>
@@ -126,16 +143,16 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceigor.html#a52aa8356f9249d7a3d1f87a2ef871fc9">iShaderObjectType</a> igor::iShaderSource::_type</td>
+          <td class="memname"><a class="el" href="namespaceigor.html#a6010bf4687944c41cfac475595856062">iShaderObjectType</a> igor::iShaderSource::_type</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>shader type </p>
+<p>type of shader </p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/home/martin/dev/Igor/src/igor/igor/resources/material/<a class="el" href="i_material_8h.html">iMaterial.h</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/renderer/shaders/<a class="el" href="i_shader_program_8h.html">iShaderProgram.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

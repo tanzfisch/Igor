@@ -7,5 +7,5 @@ var ia_thread_8h =
       [ "Deinit", "ia_thread_8h.html#a4449138a0b8e42b10f7af2e2f5270b97a423117289cde759e28105dc2ec4dcbb5", null ],
       [ "Done", "ia_thread_8h.html#a4449138a0b8e42b10f7af2e2f5270b97af92965e2c8a7afb3c1b9a5c09a263636", null ]
     ] ],
-    [ "iaDELEGATE", "ia_thread_8h.html#a42412a058de183a94868624025a19d39", null ]
+    [ "iaSLOT", "ia_thread_8h.html#a7d8be632964408dc356830d7a5f70429", null ]
 ];

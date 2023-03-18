@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -115,8 +115,8 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ad395fb4e298a48b689563783b9d16851"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html#ad395fb4e298a48b689563783b9d16851">initTests</a> (int argc, char **argv)</td></tr>
 <tr class="separator:ad395fb4e298a48b689563783b9d16851"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a654bc2223f12ad21ee85ab916fb476d5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html#a654bc2223f12ad21ee85ab916fb476d5">runTests</a> ()</td></tr>
-<tr class="separator:a654bc2223f12ad21ee85ab916fb476d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed2ae0afa07c7ac2892ee0d6dfb5444d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html#aed2ae0afa07c7ac2892ee0d6dfb5444d">runTests</a> ()</td></tr>
+<tr class="separator:aed2ae0afa07c7ac2892ee0d6dfb5444d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -132,6 +132,14 @@ Protected Attributes</h2></td></tr>
 Static Protected Attributes</h2></td></tr>
 <tr class="memitem:a6c2875b96f995e76130ced03372ce0bd"><td class="memItemLeft" align="right" valign="top">static std::map&lt; std::string, std::vector&lt; <a class="el" href="classiaux_1_1ia_test.html">iaTest</a> * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html#a6c2875b96f995e76130ced03372ce0bd">_tests</a></td></tr>
 <tr class="separator:a6c2875b96f995e76130ced03372ce0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a9c18762892ae5dd6f04897d03646b5"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html#a2a9c18762892ae5dd6f04897d03646b5">_stopOnError</a> = false</td></tr>
+<tr class="separator:a2a9c18762892ae5dd6f04897d03646b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6d47bfdc40601bbdf71631bb4e50872"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html#ae6d47bfdc40601bbdf71631bb4e50872">_useFilter</a> = false</td></tr>
+<tr class="separator:ae6d47bfdc40601bbdf71631bb4e50872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82e96cea50521cebb58ea18b0546404e"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html#a82e96cea50521cebb58ea18b0546404e">_filter</a></td></tr>
+<tr class="separator:a82e96cea50521cebb58ea18b0546404e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e94ac23e14595a7ff346e3ae210e2d1"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html#a3e94ac23e14595a7ff346e3ae210e2d1">_verbose</a> = false</td></tr>
+<tr class="separator:a3e94ac23e14595a7ff346e3ae210e2d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>igor aux testing </p>
@@ -317,8 +325,8 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a654bc2223f12ad21ee85ab916fb476d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a654bc2223f12ad21ee85ab916fb476d5">&#9670;&nbsp;</a></span>runTests()</h2>
+<a id="aed2ae0afa07c7ac2892ee0d6dfb5444d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2ae0afa07c7ac2892ee0d6dfb5444d">&#9670;&nbsp;</a></span>runTests()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,7 +335,7 @@ Static Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void iaux::iaTest::runTests </td>
+          <td class="memname">int iaux::iaTest::runTests </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -370,6 +378,29 @@ Static Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a82e96cea50521cebb58ea18b0546404e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82e96cea50521cebb58ea18b0546404e">&#9670;&nbsp;</a></span>_filter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string iaux::iaTest::_filter</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>filter to use </p>
+
+</div>
+</div>
 <a id="ac5802b2bd119a77b7e32ae3c36dd52de"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5802b2bd119a77b7e32ae3c36dd52de">&#9670;&nbsp;</a></span>_ok</h2>
 
@@ -393,6 +424,29 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2a9c18762892ae5dd6f04897d03646b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a9c18762892ae5dd6f04897d03646b5">&#9670;&nbsp;</a></span>_stopOnError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaux::iaTest::_stopOnError = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>if true stop testing on first error </p>
+
+</div>
+</div>
 <a id="a6c2875b96f995e76130ced03372ce0bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c2875b96f995e76130ced03372ce0bd">&#9670;&nbsp;</a></span>_tests</h2>
 
@@ -413,6 +467,52 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>the list of registred tests </p>
+
+</div>
+</div>
+<a id="ae6d47bfdc40601bbdf71631bb4e50872"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6d47bfdc40601bbdf71631bb4e50872">&#9670;&nbsp;</a></span>_useFilter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaux::iaTest::_useFilter = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>if true use filter to search for tests </p>
+
+</div>
+</div>
+<a id="a3e94ac23e14595a7ff346e3ae210e2d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e94ac23e14595a7ff346e3ae210e2d1">&#9670;&nbsp;</a></span>_verbose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaux::iaTest::_verbose = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>if true output is more verbose </p>
 
 </div>
 </div>

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -88,7 +88,6 @@ $(document).ready(function(){initNavTree('i_renderer_8cpp.html',''); initResizab
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">iRenderer.cpp File Reference</div>  </div>
@@ -100,7 +99,6 @@ $(document).ready(function(){initNavTree('i_renderer_8cpp.html',''); initResizab
 <code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_mesh_8h.html">igor/resources/mesh/iMesh.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_instancer_8h.html">igor/renderer/iInstancer.h</a>&gt;</code><br />
 <code>#include &lt;deque&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
 </div><table class="memberdecls">
@@ -153,36 +151,29 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="separator:aaf2363a31b0b7f61ecff2da4314d07a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a6e03534b10d13b5e6120f21a8ee0250d"><td class="memItemLeft" align="right" valign="top">static GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6e03534b10d13b5e6120f21a8ee0250d">igor::getOGLEnum</a> (iRenderer::iStencilFunction value)</td></tr>
-<tr class="separator:a6e03534b10d13b5e6120f21a8ee0250d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10c56915db2aa40346eac08daaef7aef"><td class="memItemLeft" align="right" valign="top">static GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a10c56915db2aa40346eac08daaef7aef">igor::getOGLEnum</a> (iRenderer::iStencilOperation value)</td></tr>
-<tr class="separator:a10c56915db2aa40346eac08daaef7aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a899083662f764c1eca876819733d60fd"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a899083662f764c1eca876819733d60fd">igor::MAX_POINT_VERTICES</a> = 10000</td></tr>
+<tr class="memitem:a899083662f764c1eca876819733d60fd"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a899083662f764c1eca876819733d60fd">igor::MAX_POINT_VERTICES</a> = 10000</td></tr>
 <tr class="separator:a899083662f764c1eca876819733d60fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a320f34d1ce81ed60fab143d88e877c13"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a320f34d1ce81ed60fab143d88e877c13">igor::MAX_LINES</a> = 10000</td></tr>
+<tr class="memitem:a320f34d1ce81ed60fab143d88e877c13"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a320f34d1ce81ed60fab143d88e877c13">igor::MAX_LINES</a> = 10000</td></tr>
 <tr class="separator:a320f34d1ce81ed60fab143d88e877c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8da7e7329ab11ab73c89933cde98e6b"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ad8da7e7329ab11ab73c89933cde98e6b">igor::MAX_LINE_VERTICES</a> = MAX_LINES * 2</td></tr>
+<tr class="memitem:ad8da7e7329ab11ab73c89933cde98e6b"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ad8da7e7329ab11ab73c89933cde98e6b">igor::MAX_LINE_VERTICES</a> = MAX_LINES * 2</td></tr>
 <tr class="separator:ad8da7e7329ab11ab73c89933cde98e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ed6387376b7882fbb1ebf999107ec94"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a8ed6387376b7882fbb1ebf999107ec94">igor::MAX_QUADS</a> = 10000</td></tr>
+<tr class="memitem:a8ed6387376b7882fbb1ebf999107ec94"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a8ed6387376b7882fbb1ebf999107ec94">igor::MAX_QUADS</a> = 10000</td></tr>
 <tr class="separator:a8ed6387376b7882fbb1ebf999107ec94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a072ed87ffc9d5c2646e7c1fc9eeec247"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a072ed87ffc9d5c2646e7c1fc9eeec247">igor::MAX_QUAD_VERTICES</a> = MAX_QUADS * 4</td></tr>
+<tr class="memitem:a072ed87ffc9d5c2646e7c1fc9eeec247"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a072ed87ffc9d5c2646e7c1fc9eeec247">igor::MAX_QUAD_VERTICES</a> = MAX_QUADS * 4</td></tr>
 <tr class="separator:a072ed87ffc9d5c2646e7c1fc9eeec247"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13248ed69ff93a2cb53e9892674dc785"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a13248ed69ff93a2cb53e9892674dc785">igor::MAX_QUAD_INDICES</a> = MAX_QUADS * 6</td></tr>
+<tr class="memitem:a13248ed69ff93a2cb53e9892674dc785"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a13248ed69ff93a2cb53e9892674dc785">igor::MAX_QUAD_INDICES</a> = MAX_QUADS * 6</td></tr>
 <tr class="separator:a13248ed69ff93a2cb53e9892674dc785"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11962986c7155c8ba903baf29c53f069"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a11962986c7155c8ba903baf29c53f069">igor::MAX_TRIANGLES</a> = 10000</td></tr>
+<tr class="memitem:a11962986c7155c8ba903baf29c53f069"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a11962986c7155c8ba903baf29c53f069">igor::MAX_TRIANGLES</a> = 10000</td></tr>
 <tr class="separator:a11962986c7155c8ba903baf29c53f069"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33087ebdacdfec7c556c8e94a3e27159"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a33087ebdacdfec7c556c8e94a3e27159">igor::MAX_TRIANGLE_VERTICES</a> = MAX_TRIANGLES * 3</td></tr>
+<tr class="memitem:a33087ebdacdfec7c556c8e94a3e27159"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a33087ebdacdfec7c556c8e94a3e27159">igor::MAX_TRIANGLE_VERTICES</a> = MAX_TRIANGLES * 3</td></tr>
 <tr class="separator:a33087ebdacdfec7c556c8e94a3e27159"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe6e15974907fd978362612018ad1388"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#afe6e15974907fd978362612018ad1388">igor::MAX_TRIANGLE_INDICES</a> = MAX_TRIANGLES * 3</td></tr>
+<tr class="memitem:afe6e15974907fd978362612018ad1388"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#afe6e15974907fd978362612018ad1388">igor::MAX_TRIANGLE_INDICES</a> = MAX_TRIANGLES * 3</td></tr>
 <tr class="separator:afe6e15974907fd978362612018ad1388"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb274253c15d7b0ae396c1046f1c5778"><td class="memItemLeft" align="right" valign="top">static const iaVector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#abb274253c15d7b0ae396c1046f1c5778">igor::QUAD_TEXTURE_COORDS</a> [] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}}</td></tr>
+<tr class="memitem:abb274253c15d7b0ae396c1046f1c5778"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#abb274253c15d7b0ae396c1046f1c5778">igor::QUAD_TEXTURE_COORDS</a> [] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}}</td></tr>
 <tr class="separator:abb274253c15d7b0ae396c1046f1c5778"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81faf6fe0c245ab777cf7be76f367855"><td class="memItemLeft" align="right" valign="top">static const iaVector3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a81faf6fe0c245ab777cf7be76f367855">igor::QUAD_VERTEX_POSITIONS</a> [] = {{-0.5f, -0.5, 0.0f}, {-0.5f, 0.5, 0.0f}, {0.5f, 0.5, 0.0f}, {0.5f, -0.5, 0.0f}}</td></tr>
+<tr class="memitem:a81faf6fe0c245ab777cf7be76f367855"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a81faf6fe0c245ab777cf7be76f367855">igor::QUAD_VERTEX_POSITIONS</a> [] = {{-0.5f, -0.5, 0.0f}, {-0.5f, 0.5, 0.0f}, {0.5f, 0.5, 0.0f}, {0.5f, -0.5, 0.0f}}</td></tr>
 <tr class="separator:a81faf6fe0c245ab777cf7be76f367855"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

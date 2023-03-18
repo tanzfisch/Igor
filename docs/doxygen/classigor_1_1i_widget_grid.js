@@ -17,7 +17,7 @@ var classigor_1_1i_widget_grid =
     [ "getRowCount", "classigor_1_1i_widget_grid.html#abb40892afa9e31c417e0bf7f6515863a", null ],
     [ "getSelectedColumn", "classigor_1_1i_widget_grid.html#a4ff8e8060dea12284bf541b2f3145b7a", null ],
     [ "getSelectedRow", "classigor_1_1i_widget_grid.html#abe3e6b854868760ae6da47fdbddf9e2d", null ],
-    [ "getSelectedUserData", "classigor_1_1i_widget_grid.html#a00c7ffe92c2f43daa00d8dcdc208f250", null ],
+    [ "getSelectedUserData", "classigor_1_1i_widget_grid.html#a3aa048b10bcb6806b3d1e2c6dcb961ba", null ],
     [ "getSelectMode", "classigor_1_1i_widget_grid.html#aa0c5e942a58be615a063364e19fd7aa9", null ],
     [ "getStrechColumn", "classigor_1_1i_widget_grid.html#a038e8a8ba6a393a576a82ce6ac606c9c", null ],
     [ "getStrechRow", "classigor_1_1i_widget_grid.html#ab33a0a8f51d4870e9352d3d21c70fc4c", null ],

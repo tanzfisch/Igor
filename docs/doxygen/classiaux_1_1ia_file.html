@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -102,12 +102,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3ac610755e0314d84b76c856445aec0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a564fe43a3f985878831aa6bbe1f7b632"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a564fe43a3f985878831aa6bbe1f7b632">~iaFile</a> ()</td></tr>
 <tr class="separator:a564fe43a3f985878831aa6bbe1f7b632"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e849748310e3a5b41da12fccada89d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a8e849748310e3a5b41da12fccada89d0">open</a> (bool writeable=false)</td></tr>
-<tr class="separator:a8e849748310e3a5b41da12fccada89d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21200789626095fac154f1fbb170213d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a21200789626095fac154f1fbb170213d">open</a> (const <a class="el" href="namespaceiaux.html#af9b0e0101196becafc1d8de41c5a85bc">iFileOpenMode</a> &amp;mode=<a class="el" href="namespaceiaux.html#af9b0e0101196becafc1d8de41c5a85bca087df96b394ba2f8b205fa9452fe2473">iFileOpenMode::ReadBinary</a>)</td></tr>
+<tr class="separator:a21200789626095fac154f1fbb170213d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad36e31c22514c2b47782b334c8825b13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#ad36e31c22514c2b47782b334c8825b13">close</a> ()</td></tr>
 <tr class="separator:ad36e31c22514c2b47782b334c8825b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95f9c723ce7648fb3fd94fef2aef4504"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a95f9c723ce7648fb3fd94fef2aef4504">isOpen</a> ()</td></tr>
-<tr class="separator:a95f9c723ce7648fb3fd94fef2aef4504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07a733805cbdc491305eb7275fe85096"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a07a733805cbdc491305eb7275fe85096">isOpen</a> () const</td></tr>
+<tr class="separator:a07a733805cbdc491305eb7275fe85096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fc9965a731592ebfcd9d91fbd904934"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceiaux.html#af9b0e0101196becafc1d8de41c5a85bc">iFileOpenMode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a4fc9965a731592ebfcd9d91fbd904934">getFileOpenMode</a> () const</td></tr>
+<tr class="separator:a4fc9965a731592ebfcd9d91fbd904934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad59eb89b7dca27cb8f7b68c2d33e26d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#aad59eb89b7dca27cb8f7b68c2d33e26d">rename</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;newFileName, bool replaceExisting=false)</td></tr>
 <tr class="separator:aad59eb89b7dca27cb8f7b68c2d33e26d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa052b70f89a7c05077d86e7bc1c9d3ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_file.html">iaFile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#aa052b70f89a7c05077d86e7bc1c9d3ef">copy</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;newFileName) const</td></tr>
@@ -124,8 +126,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a72bd305ef638234956426e84e1d05f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad9a65cebed146fdc65ff4d2cc188265"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#aad9a65cebed146fdc65ff4d2cc188265">getExtension</a> () const</td></tr>
 <tr class="separator:aad9a65cebed146fdc65ff4d2cc188265"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92527acd7190599af2f1019bc3e626d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a92527acd7190599af2f1019bc3e626d3">getSize</a> ()</td></tr>
-<tr class="separator:a92527acd7190599af2f1019bc3e626d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97d6e9a0b879412a6de423dad0f129c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a97d6e9a0b879412a6de423dad0f129c7">getSize</a> () const</td></tr>
+<tr class="separator:a97d6e9a0b879412a6de423dad0f129c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6d1e25846a8fc04e07a77beba1a1da0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#ae6d1e25846a8fc04e07a77beba1a1da0">setSize</a> (<a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a> size)</td></tr>
 <tr class="separator:ae6d1e25846a8fc04e07a77beba1a1da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab62ce0c7ca29c017b4b29cd935f916fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#ab62ce0c7ca29c017b4b29cd935f916fc">read</a> (<a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> size, char *destination, <a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a> offset=-1)</td></tr>
@@ -322,6 +324,24 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4fc9965a731592ebfcd9d91fbd904934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fc9965a731592ebfcd9d91fbd904934">&#9670;&nbsp;</a></span>getFileOpenMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceiaux.html#af9b0e0101196becafc1d8de41c5a85bc">iFileOpenMode</a> &amp; iaux::iaFile::getFileOpenMode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the file open mode if open </dd></dl>
+
+</div>
+</div>
 <a id="a72bd305ef638234956426e84e1d05f32"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72bd305ef638234956426e84e1d05f32">&#9670;&nbsp;</a></span>getFullFileName()</h2>
 
@@ -358,8 +378,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a92527acd7190599af2f1019bc3e626d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92527acd7190599af2f1019bc3e626d3">&#9670;&nbsp;</a></span>getSize()</h2>
+<a id="a97d6e9a0b879412a6de423dad0f129c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97d6e9a0b879412a6de423dad0f129c7">&#9670;&nbsp;</a></span>getSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -368,7 +388,7 @@ Protected Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a> iaux::iaFile::getSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -394,8 +414,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a95f9c723ce7648fb3fd94fef2aef4504"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95f9c723ce7648fb3fd94fef2aef4504">&#9670;&nbsp;</a></span>isOpen()</h2>
+<a id="a07a733805cbdc491305eb7275fe85096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07a733805cbdc491305eb7275fe85096">&#9670;&nbsp;</a></span>isOpen()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -404,7 +424,7 @@ Protected Member Functions</h2></td></tr>
           <td class="memname">bool iaux::iaFile::isOpen </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -412,8 +432,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8e849748310e3a5b41da12fccada89d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e849748310e3a5b41da12fccada89d0">&#9670;&nbsp;</a></span>open()</h2>
+<a id="a21200789626095fac154f1fbb170213d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21200789626095fac154f1fbb170213d">&#9670;&nbsp;</a></span>open()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -421,8 +441,8 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">bool iaux::iaFile::open </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>writeable</em> = <code>false</code></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceiaux.html#af9b0e0101196becafc1d8de41c5a85bc">iFileOpenMode</a> &amp;&#160;</td>
+          <td class="paramname"><em>mode</em> = <code><a class="el" href="namespaceiaux.html#af9b0e0101196becafc1d8de41c5a85bca087df96b394ba2f8b205fa9452fe2473">iFileOpenMode::ReadBinary</a></code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -430,7 +450,7 @@ Protected Member Functions</h2></td></tr>
 <p>opens the file with the needed rights</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">writeable</td><td>true: open for writing; false: open read only </td></tr>
+    <tr><td class="paramname">mode</td><td>file open mode </td></tr>
   </table>
   </dd>
 </dl>

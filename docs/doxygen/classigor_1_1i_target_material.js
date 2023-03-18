@@ -1,7 +1,5 @@
 var classigor_1_1i_target_material =
 [
-    [ "addTexture", "classigor_1_1i_target_material.html#a341c1cce6ebe2afc86ed2d4498ff91bd", null ],
-    [ "clearTextures", "classigor_1_1i_target_material.html#a95b4c98a3a81f38d0c194b554a17cb19", null ],
     [ "create", "classigor_1_1i_target_material.html#aadd492824453a2e65cd723452084fe6b", null ],
     [ "getAlpha", "classigor_1_1i_target_material.html#a8a3661d65beb2c72908b3ae13ad0b451", null ],
     [ "getAmbient", "classigor_1_1i_target_material.html#abe6a58a62b07e310a84d076f744ec635", null ],
@@ -9,9 +7,11 @@ var classigor_1_1i_target_material =
     [ "getEmissive", "classigor_1_1i_target_material.html#a2cd64c8337e009975ef926ddb59a99af", null ],
     [ "getShininess", "classigor_1_1i_target_material.html#ab326f0c2e5536dd37346ce0fccca54d4", null ],
     [ "getSpecular", "classigor_1_1i_target_material.html#ab1181ae47d545536bf322a352b4ba035", null ],
-    [ "getTextures", "classigor_1_1i_target_material.html#a01817b8b35e0970cadca2a6a837b4d44", null ],
+    [ "getTexture", "classigor_1_1i_target_material.html#ab39ce1c6a10eb7ab0cd11a5ac7e901a3", null ],
+    [ "getTextures", "classigor_1_1i_target_material.html#aa376153fb31702ff1ae7033dc1ccc68e", null ],
     [ "getTilingConfig", "classigor_1_1i_target_material.html#a3f5695444f4e8bcf43dbc603fbbaa783", null ],
     [ "hasTextures", "classigor_1_1i_target_material.html#a08c8e0a8eb16147070f2bacf7ffb2b26", null ],
+    [ "hasTextureUnit", "classigor_1_1i_target_material.html#a7398cf194c0487fe6e28df0d3b701b4a", null ],
     [ "isVelocityOriented", "classigor_1_1i_target_material.html#afc23fa25a84181b5bb8b7a0c88c26c8d", null ],
     [ "setAlpha", "classigor_1_1i_target_material.html#ac94f329f7ac84123c8fb9afbac915bde", null ],
     [ "setAmbient", "classigor_1_1i_target_material.html#acc75187789105f2eec02b0ba10a6020a", null ],
@@ -19,6 +19,7 @@ var classigor_1_1i_target_material =
     [ "setEmissive", "classigor_1_1i_target_material.html#a2655699be1bb63f645034b29bbe771f2", null ],
     [ "setShininess", "classigor_1_1i_target_material.html#a61c06cb63265ecf01e7092841f33a6d1", null ],
     [ "setSpecular", "classigor_1_1i_target_material.html#abe6871704add2ec32b9bb93448098001", null ],
+    [ "setTexture", "classigor_1_1i_target_material.html#a82184de859e9258f51f79c2ce4af3222", null ],
     [ "setTilingConfig", "classigor_1_1i_target_material.html#a66a819ca35ba10aa0d5c2660bff71037", null ],
     [ "setVelocityOriented", "classigor_1_1i_target_material.html#a987b3451698121f8c248fa049e3004f9", null ],
     [ "iTargetMaterialDeleter", "classigor_1_1i_target_material.html#a6286c43b893d5ba049325107d541e54e", null ]

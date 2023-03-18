@@ -1,6 +1,7 @@
 var structigor_1_1i_renderer_data =
 [
     [ "_camMatrix", "structigor_1_1i_renderer_data.html#a4768ec972f0d637abddade2a3a9920f6", null ],
+    [ "_colorID", "structigor_1_1i_renderer_data.html#a8f936d0d62872c6581e127ac21078b0d", null ],
     [ "_currentMaterial", "structigor_1_1i_renderer_data.html#a678253e53351a4f9a64ad4f3967ad5fb", null ],
     [ "_currentRenderTarget", "structigor_1_1i_renderer_data.html#afbc1581b3de15e3e8b2358d854e7fe52", null ],
     [ "_extensions", "structigor_1_1i_renderer_data.html#a0a93774310c795466b2bfc6d5acac84b", null ],

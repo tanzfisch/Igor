@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.34.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,32 +86,41 @@ $(document).ready(function(){initNavTree('i_quadtree_8h.html',''); initResizable
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">iQuadtree.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_intersection_8h.html">igor/data/iIntersection.h</a>&gt;</code><br />
-<code>#include &lt;iaux/data/iaRectangle.h&gt;</code><br />
-<code>#include &lt;iaux/data/iaCircle.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_rectangle_8h.html">iaux/data/iaRectangle.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_circle_8h.html">iaux/data/iaCircle.h</a>&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;any&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_quadtree_8inl.html">igor/data/iQuadtree.inl</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_quadtree_object.html">igor::iQuadtreeObject&lt; F, T &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html">igor::iQuadtree&lt; F &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_quadtree_node.html">igor::iQuadtreeNode&lt; F, T &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_quadtree_1_1i_quadtree_object.html">igor::iQuadtree&lt; F &gt;::iQuadtreeObject</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html">igor::iQuadtree&lt; F, T &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_quadtree_1_1i_quadtree_node.html">igor::iQuadtree&lt; F &gt;::iQuadtreeNode</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a139c2d1c3695a80b75a68715199855c5"><td class="memItemLeft" align="right" valign="top">typedef iQuadtree&lt; <a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a139c2d1c3695a80b75a68715199855c5">igor::iQuadtreef</a></td></tr>
+<tr class="separator:a139c2d1c3695a80b75a68715199855c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a451472b493fc1cbacbcc9e7572ab5e57"><td class="memItemLeft" align="right" valign="top">typedef iQuadtree&lt; <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a451472b493fc1cbacbcc9e7572ab5e57">igor::iQuadtreed</a></td></tr>
+<tr class="separator:a451472b493fc1cbacbcc9e7572ab5e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
