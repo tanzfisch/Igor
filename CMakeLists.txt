@@ -272,14 +272,14 @@ target_include_directories(igor
     PRIVATE 
     ${TINYXML_HEADERS_DIR}
     ${STB_IMAGE_HEADERS_DIR}
-    ${ENTT_HEADERS_DIR}
     ${NEWTON_PHYSICS_HEADERS_DIR}
     ${NEWTON_CORE_HEADERS_DIR}
     ${NEWTON_HEADERS_DIR}
     ${ALSOFT_HEADERS_DIR}
     PUBLIC 
-    ${IGOR_HEADERS_DIR})
-
+    ${IGOR_HEADERS_DIR}
+    ${ENTT_HEADERS_DIR})
+    
 if(IS_GNU)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} PUBLIC -DENTT_USE_ATOMIC)
     target_compile_options(igor PRIVATE -std=c++17)
@@ -311,7 +311,7 @@ elseif(IS_MSVC)
 endif()
 
 target_link_libraries(mica PRIVATE igor iaux ompf)
-target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR} ${ENTT_HEADERS_DIR})
+target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR})
 set_property(TARGET mica PROPERTY FOLDER ${TOOLS_FOLDER})
 source_group_special("${MICA_SOURCES}" ${MICA_SRC_DIR})
 
@@ -331,7 +331,7 @@ elseif(IS_MSVC)
     target_compile_options(obj2ompf PRIVATE "/std:c++17" "/MP" "/FS")
 endif()
 
-target_include_directories(obj2ompf PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${ENTT_HEADERS_DIR})
+target_include_directories(obj2ompf PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR})
 target_link_libraries(obj2ompf PRIVATE igor)
 set_property(TARGET obj2ompf PROPERTY FOLDER ${TOOLS_FOLDER})
 source_group_special("${OBJ2OMPF_SOURCES}" ${OBJ2OMPF_SRC_DIR})
@@ -367,8 +367,8 @@ foreach(
     set(EXAMPLE_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/examples/${EXAMPLE}/src/")
     file(GLOB_RECURSE EXAMPLE_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "examples/${EXAMPLE}/src/*.c*") #TODO
     file(GLOB_RECURSE EXAMPLE_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "examples/${EXAMPLE}/src/*.h*") #TODO
-    add_executable(${EXAMPLE} ${EXAMPLE_SOURCES} ${EXAMPLE_HEADERS} ${ENTT_SOURCES} ${EXAMPLE_BASE_SOURCES} ${EXAMPLE_BASE_HEADERS})
-    target_include_directories(${EXAMPLE} PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${ENTT_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${EXAMPLE_BASE_HEADERS_DIR})
+    add_executable(${EXAMPLE} ${EXAMPLE_SOURCES} ${EXAMPLE_HEADERS} ${EXAMPLE_BASE_SOURCES} ${EXAMPLE_BASE_HEADERS})
+    target_include_directories(${EXAMPLE} PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${EXAMPLE_BASE_HEADERS_DIR})
     target_link_libraries(${EXAMPLE} PRIVATE igor)
 
     if(IS_GNU)

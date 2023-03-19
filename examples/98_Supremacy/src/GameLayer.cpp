@@ -30,11 +30,11 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<HealthComponent>(100.0f);
     entity.addComponent<ExperienceComponent>(0.0f, 1.0f);
     entity.addComponent<CoinsComponent>(0.0f);
-    entity.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0);
+    entity.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("wagiuA5.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()), true);
     entity.addComponent<WeaponComponent>(_weapons["Knife"]);
 
-    entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
+    entity.addComponent<TargetComponent>(INVALID_ENTITY_ID, false, false);
     entity.addComponent<MovementControlComponent>();
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
@@ -132,7 +132,7 @@ void GameLayer::createShop()
     _shop.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f);
 
     _shop.addComponent<WeaponComponent>(_weapons["Minigun"]);
-    _shop.addComponent<TargetComponent>(iInvalidEntityID, false, false);
+    _shop.addComponent<TargetComponent>(INVALID_ENTITY_ID, false, false);
 
     auto &object = _shop.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreef::Object>();
@@ -1190,7 +1190,7 @@ void GameLayer::aquireTargetFor(iEntity &entity)
     doughnutQuery(circle, hits);
 
     float32 minDistance = std::numeric_limits<float32>::max();
-    target._targetID = iInvalidEntityID;
+    target._targetID = INVALID_ENTITY_ID;
 
     for (const auto &hit : hits)
     {
@@ -1228,7 +1228,7 @@ void GameLayer::onUpdateWeaponSystem()
         auto [weapon, target, position, velocity, modifier] = view.get<WeaponComponent, TargetComponent, PositionComponent, VelocityComponent, ModifierComponent>(entityID);
 
         // skip if there is no target
-        if (target._targetID == iInvalidEntityID)
+        if (target._targetID == INVALID_ENTITY_ID)
         {
             continue;
         }

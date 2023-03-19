@@ -18,7 +18,7 @@ namespace igor
 
     const iaString iEntity::getName() const
     { 
-        NameComponent *component = _scene->_registry.try_get<NameComponent>(_entity);
+        NameComponent *component = _scene->getRegistry().try_get<NameComponent>(_entity);
         if(component != nullptr)
         {
             return component->_name;
@@ -36,7 +36,7 @@ namespace igor
     
     bool iEntity::isValid() const
     {
-        return _scene->_registry.valid(_entity);
+        return _scene->getRegistry().valid(_entity);
     }
 
     ////////////// old deprecated stuff
