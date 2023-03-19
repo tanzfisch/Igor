@@ -334,39 +334,6 @@ namespace iaux
         iaConsole::getInstance().exit();                                                                                  \
     }
 
-    /*! works similar to an assert but opens the debugger instead of stopping the application in debug mode and stays in the release build
-
-    \param Condition a condition that returns false in case of an error
-    \param Message additional message output
-    */
-#define con_assert_sticky(Condition, Message)                                                                             \
-    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal && !(Condition))                                      \
-    {                                                                                                                     \
-        iaConsole::getInstance() << LOCK;                                                                                 \
-        iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endlTab;              \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
-        iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
-        iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
-        iaConsole::getInstance().printCallStack(10);                                                                      \
-        iaConsole::getInstance() << UNLOCK;                                                                               \
-        iaConsole::getInstance().exit();                                                                                  \
-    }
-
-#define con_crit(Message)                                                                                                 \
-    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal)                                                      \
-    {                                                                                                                     \
-        iaConsole::getInstance() << LOCK;                                                                                 \
-        iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << endlTab;                                     \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
-        iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
-        iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
-        iaConsole::getInstance().printCallStack(10);                                                                      \
-        iaConsole::getInstance() << UNLOCK;                                                                               \
-        iaConsole::getInstance().exit();                                                                                  \
-    }
-
     /*! only called in debug mode
 
     including line feed
@@ -413,9 +380,34 @@ namespace iaux
     }
 
 #else // __IGOR_DEBUG__
+    // RELEASE BUILD
 
 #define con_assert(Condition, Message)
+#define con_debug(Message)
+#define con_trace(Message)
+#define con_trace_call()
 
+#endif
+
+#define con_crit(Message)                                                                                                 \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal)                                                      \
+    {                                                                                                                     \
+        iaConsole::getInstance() << LOCK;                                                                                 \
+        iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << endlTab;                                     \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
+        iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
+        iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
+        iaConsole::getInstance().printCallStack(10);                                                                      \
+        iaConsole::getInstance() << UNLOCK;                                                                               \
+        iaConsole::getInstance().exit();                                                                                  \
+    }
+
+    /*! same as assert but it is not removed in release builds
+
+    \param Condition a condition that returns false in case of an error
+    \param Message additional message output
+    */
 #define con_assert_sticky(Condition, Message)                                                                             \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal && !(Condition))                                      \
     {                                                                                                                     \
@@ -425,22 +417,15 @@ namespace iaux
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
         iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
         iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
-        iaConsole::getInstance().printCallStack(10);                                                                      \
-        iaConsole::getInstance() << endl                                                                                  \
-                                 << UNLOCK;                                                                               \
+        iaConsole::getInstance().printCallStack();                                                                        \
+        iaConsole::getInstance() << UNLOCK;                                                                               \
         iaConsole::getInstance().exit();                                                                                  \
     }
 
-#define con_debug(Message)
-#define con_trace_call()
-#define con_trace(Message)
+/*! prints an error message to console and optionally to the log file
 
-#endif // __IGOR_DEBUG__
-
-    /*! prints an error message to console and optionally to the log file
-
-        \param Message message to be printed
-        */
+    \param Message message to be printed
+    */
 #define con_err(Message)                                                                        \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Error)                            \
     {                                                                                           \
@@ -449,16 +434,15 @@ namespace iaux
         iaConsole::getInstance() << incerr << iaForegroundColor::DarkRed << Message << endlTab; \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                              \
         iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                               \
-        iaConsole::getInstance().printCallStack(10);                                            \
         iaConsole::getInstance() << endl                                                        \
                                  << UNLOCK;                                                     \
         con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors");       \
     }
 
-    /*! prints an warning message to console and optionally to the log file
+/*! prints an warning message to console and optionally to the log file
 
-        \param Message message to be printed
-        */
+    \param Message message to be printed
+    */
 #define con_warn(Message)                                                                           \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Warning)                              \
     {                                                                                               \
@@ -471,11 +455,11 @@ namespace iaux
         con_assert_sticky(iaConsole::getInstance().getWarnings() < 200, "too many warnings");       \
     }
 
-    /*! prints an info message to console and optionally to the log file
+/*! prints an info message to console and optionally to the log file
 
-            \param Message message to be printed
-            \todo would be nice to have a fixed size of info type column
-            */
+        \param Message message to be printed
+        \todo would be nice to have a fixed size of info type column
+        */
 #define con_info(Message)                                                          \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Info)                \
     {                                                                              \
@@ -485,11 +469,11 @@ namespace iaux
                                  << UNLOCK;                                        \
     }
 
-    /*! prints an message to console and optionally to the log file.
-            In addition it prints an end line at the end.
+/*! prints an message to console and optionally to the log file.
+        In addition it prints an end line at the end.
 
-            \param Message message to be printed
-            */
+        \param Message message to be printed
+        */
 #define con_endl(Message)                                                      \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::User)            \
     {                                                                          \
@@ -611,7 +595,7 @@ namespace iaux
 
         console << std::setfill(L'0') << std::setw(2) << std::hex << id << std::dec;
         return console;
-    } 
+    }
 
     /*! prints application time in the console
 
@@ -638,7 +622,6 @@ namespace iaux
     \returns the stream
     */
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel);
-
 }; // namespace iaux
 
 #endif // __IAUX_CONSOLE_H__
