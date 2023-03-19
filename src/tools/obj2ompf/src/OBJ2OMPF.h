@@ -30,11 +30,7 @@
 #define __OBJ2OMPF__
 
 #include <igor/igor.h>
-
-namespace igor
-{
-    class iNode;
-}
+using namespace igor;
 
 /*! obj to ompf converter
 */
@@ -52,7 +48,7 @@ public:
 
 private:
 
-    void setMaterialRecursive(iNodePtr node, uint64 materialID);
+    void setMaterialRecursive(iNodePtr node, iMaterialPtr material);
     bool analyzeParam(int argc, char* argv[]);
 
     bool _joinVertexes = true;
