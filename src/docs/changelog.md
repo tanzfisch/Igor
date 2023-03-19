@@ -7,6 +7,12 @@ Changelog                           {#changelog}
 - minor improvements to entt wrapper interfaces
 
 
+0.35.1
+------
+
+- cleaned up logging verbose modes
+- removed console tests10
+
 0.35.0
 ------
 
