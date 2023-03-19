@@ -42,4 +42,9 @@ namespace igor
         }
     }
 
+    entt::registry& iEntityScene::getRegistry()
+    {
+        return _registry;
+    }
+
 } // igor

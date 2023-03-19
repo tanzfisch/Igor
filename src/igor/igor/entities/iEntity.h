@@ -35,13 +35,13 @@
 
 namespace igor
 {
-    /*! entt wrapper
-    */
+    /*! entity
+     */
     class IGOR_API iEntity
     {
     public:
         /*! does nothing
-        */
+         */
         iEntity() = default;
 
         /*! copy ctor
@@ -51,7 +51,7 @@ namespace igor
         iEntity(const iEntity &other) = default;
 
         /*! \returns true if entity is valid
-        */
+         */
         bool isValid() const;
 
         /*! param ctor
@@ -64,61 +64,66 @@ namespace igor
         iEntity(iEntityID entity, iEntityScene &scene);
 
         /*! \returns entity id
-        */
+         */
         iEntityID getID() const;
 
         /*! adds component to entity of given type
-        */
+         */
         template <typename T, typename... Args>
         T &addComponent(Args &&...args)
         {
-            return _scene->_registry.emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
+            return _scene->getRegistry().emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
         }
 
         /*! \returns component of entity of given type
-        */
+         */
         template <typename T>
         T &getComponent() const
         {
-            return _scene->_registry.get<T>(_entity);
+            return _scene->getRegistry().get<T>(_entity);
         }
 
         /*! \returns component of entity of given type
-        */
+         */
         template <typename T>
-        T* tryGetComponent() const
+        T *tryGetComponent() const
         {
-            return _scene->_registry.try_get<T>(_entity);
-        }        
+            return _scene->getRegistry().try_get<T>(_entity);
+        }
 
         /*! \returns true if entity has component of given type
-        */
+         */
         template <typename T>
         bool hasComponent() const
         {
-            return _scene->_registry.try_get<T>(_entity) != nullptr;
-        }        
+            return _scene->getRegistry().try_get<T>(_entity) != nullptr;
+        }
 
         /*! removes component of given type
-        */
+         */
         template <typename T>
         void removeComponent()
         {
-            _scene->_registry.remove<T>(_entity);
+            _scene->getRegistry().remove<T>(_entity);
         }
 
         /*! \returns entity name
-        */
+         */
         const iaString getName() const;
 
     private:
+        /*! the entity ID
+         */
         iEntityID _entity;
+
+        /*! the scene this entity is in
+         */
         iEntityScene *_scene;
     };
 
     /*! pointer to entity
-    */
-    typedef iEntity* iEntityPtr;
+     */
+    typedef iEntity *iEntityPtr;
 
     /*///////////////////7 deprecated*/
 
