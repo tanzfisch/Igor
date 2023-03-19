@@ -41,12 +41,12 @@ bool OBJ2OMPF::analyzeParam(int argc, char *argv[])
     return true;
 }
 
-void OBJ2OMPF::setMaterialRecursive(iNodePtr node, uint64 materialID)
+void OBJ2OMPF::setMaterialRecursive(iNodePtr node, iMaterialPtr material)
 {
     if (node->getType() == iNodeType::iNodeMesh)
     {
         iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-        meshNode->setMaterial(materialID);
+        meshNode->setMaterial(material);
     }
 
     if (node->hasChildren())
@@ -55,7 +55,7 @@ void OBJ2OMPF::setMaterialRecursive(iNodePtr node, uint64 materialID)
         auto childIter = children.begin();
         while (childIter != children.end())
         {
-            setMaterialRecursive((*childIter), materialID);
+            setMaterialRecursive((*childIter), material);
             childIter++;
         }
     }
@@ -65,10 +65,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
 {
     if (analyzeParam(argc, argv))
     {
-        uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("Textured");
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured.vert", iShaderObjectType::Vertex);
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured_directional_light.frag", iShaderObjectType::Fragment);
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded.mat");
 
         iModelDataInputParameter *parameters = new iModelDataInputParameter();
         parameters->_joinVertexes = _joinVertexes;
@@ -90,9 +87,10 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         }
 
         // force him to use the textured material
-        setMaterialRecursive(modelNode, materialID);
+        setMaterialRecursive(modelNode, material);
 
-        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        std::vector<iMaterialPtr> materials;
+        iMaterialResourceFactory::getInstance().getMaterials(materials);
         for (auto material : materials)
         {
             con_endl("material " << material->getName() << " with id " << material->getID());
