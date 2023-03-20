@@ -1,5 +1,5 @@
 // OMPF 3d model stream format
-// (c) Copyright 2012-2022 by Martin Loga
+// (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header stream
 
 #include <ompf/chunks/ompfParticleSystemChunk.h>
