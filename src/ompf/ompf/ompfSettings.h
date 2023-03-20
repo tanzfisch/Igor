@@ -5,7 +5,7 @@
 //  #   # #   # #     #
 //  ##### #   # #     #  3d model file format
 //
-// (c) Copyright 2012-2022 by Martin Loga
+// (c) Copyright 2012-2023 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
