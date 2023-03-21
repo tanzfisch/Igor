@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Igor>
+	<!-- material definition for 2d flat shading -->
+	<Material name="mica.orientation_plane" uuid="76a6ced6-8717-11ed-8b09-ef060ff635d9" visibility="Private">
+		<States>
+			<DepthTest>Off</DepthTest>
+            <Blend>Off</Blend>
+		</States>
+        <Program>
+            <Vertex>
+<![CDATA[#version 450
+
+layout(location = 0) in vec3 in_position;
+layout(location = 1) in vec4 in_color;
+
+uniform mat4 igor_modelViewProjection;
+
+out vec4 VertexColor;
+
+void main()
+{
+    VertexColor = in_color;
+
+    gl_Position = igor_modelViewProjection * vec4(in_position,1);
+}]]>
+            </Vertex>
+            <Fragment>
+<![CDATA[#version 450
+
+in vec4 VertexColor;
+
+layout(location = 0) out vec4 out_color;
+
+void main()
+{
+    out_color = VertexColor;
+}]]>
+            </Fragment>
+        </Program>            
+	</Material>
+</Igor>

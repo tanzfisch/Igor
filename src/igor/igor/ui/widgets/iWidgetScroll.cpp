@@ -30,10 +30,10 @@ namespace igor
         setGrowingByContent(false);
 
         // get some resources
-        _upTexture = iTextureResourceFactory::getInstance().loadFile("icons/up.png");
-        _downTexture = iTextureResourceFactory::getInstance().loadFile("icons/down.png");
-        _leftTexture = iTextureResourceFactory::getInstance().loadFile("icons/left.png");
-        _rightTexture = iTextureResourceFactory::getInstance().loadFile("icons/right.png");
+        _upTexture = iTextureResourceFactory::getInstance().loadFile("igor/icons/up.png");
+        _downTexture = iTextureResourceFactory::getInstance().loadFile("igor/icons/down.png");
+        _leftTexture = iTextureResourceFactory::getInstance().loadFile("igor/icons/left.png");
+        _rightTexture = iTextureResourceFactory::getInstance().loadFile("igor/icons/right.png");
     }
 
     bool iWidgetScroll::handleMouseKeyUp(iKeyCode key)

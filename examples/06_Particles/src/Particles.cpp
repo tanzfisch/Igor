@@ -50,7 +50,7 @@ void Particles::onInit()
     getView().setCurrentCamera(camera->getID());
 
     // set up a meterial for the particles
-    _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/particles.mat");
+    _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/particles.mat");
 
     // create the various particle systems
     createWaveParticleSystem();

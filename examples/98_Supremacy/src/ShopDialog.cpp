@@ -176,7 +176,7 @@ void ShopDialog::initGUI()
 
 	_labelCoins = new iWidgetLabel();
 	iWidgetPicturePtr coinPicture = new iWidgetPicture();
-	coinPicture->setTexture("coin.png");
+	coinPicture->setTexture("supremacy/coin.png");
 
 	iWidgetButton *buyButton = new iWidgetButton();
 	buyButton->setSize(50, 20);

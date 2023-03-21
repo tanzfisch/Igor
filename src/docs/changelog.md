@@ -5,6 +5,10 @@ Changelog                           {#changelog}
 ------
 
 - allowing custom config file names
+- fallback to default material when loading material fails
+- moved all igor specific data under data/igor
+- moved all mica specific data under data/mica
+- removed unused shader folder
 
 0.36.0
 ------

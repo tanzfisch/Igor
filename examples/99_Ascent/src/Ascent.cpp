@@ -546,7 +546,7 @@ void Ascent::onInit()
     iMaterialResourceFactory_old::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
 
     // set up statistics
-    _font = new iTextureFont("StandardFont.png");
+    _font = new iTextureFont("igor/textures/StandardFont.png");
     _materialWithTextureAndBlending = iMaterialResourceFactory_old::getInstance().createMaterial("TextureAndBlending");
     iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory_old::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);

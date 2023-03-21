@@ -22,10 +22,10 @@
 
 /*! default file open folder definition
  */
-static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
+static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"../../data/models";
 
 UILayer::UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
-    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png")), window, "Widgets", zIndex), _workspace(workspace)
+    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor/textures/StandardFont.png", "WidgetThemePattern.png")), window, "Widgets", zIndex), _workspace(workspace)
 {
 }
 

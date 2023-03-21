@@ -13,7 +13,7 @@ public:
         : iAction("example:one")
     {
         setDescription("Action One");
-        setPicturePath("icons/camera.png");
+        setPicturePath("igor/icons/camera.png");
     }
 
     /*! executed when action gets triggered
@@ -73,7 +73,7 @@ public:
     Action3()
         : iAction("example:three")
     {
-        setPicturePath("icons/delete.png");
+        setPicturePath("igor/icons/delete.png");
     }
 
     /*! executed when action gets triggered
@@ -103,7 +103,7 @@ public:
     Action4()
         : iAction("example:four")
     {
-        setPicturePath("icons/delete.png");
+        setPicturePath("igor/icons/delete.png");
     }
 
     /*! executed when action gets triggered
@@ -127,7 +127,7 @@ public:
 
 // set an increase z index of 1 to make sure the ui is rendered above the background
 WidgetsExample::WidgetsExample(iWindowPtr window)
-    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png")), window, "Widgets", 10)
+    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor/textures/StandardFont.png", "WidgetThemePattern.png")), window, "Widgets", 10)
 {
     // register the actions to make them globaly available
     iActionManager::getInstance().registerAction(new Action1());
@@ -297,7 +297,7 @@ void WidgetsExample::onInit()
     iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setText("");
     exitButton->setTooltip("Exists the application.");
-    exitButton->setTexture("icons/exit.png");
+    exitButton->setTexture("igor/icons/exit.png");
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);
     exitButton->setHorizontalAlignment(iHorizontalAlignment::Center);

@@ -65,7 +65,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
 {
     if (analyzeParam(argc, argv))
     {
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial("igor/texture_shaded.mat");
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/texture_shaded.mat");
 
         iModelDataInputParameter *parameters = new iModelDataInputParameter();
         parameters->_joinVertexes = _joinVertexes;

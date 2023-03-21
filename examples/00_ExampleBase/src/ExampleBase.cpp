@@ -58,11 +58,11 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             }
 
             // init fonts
-            _outlineFont = iTextureFont::create("StandardFontOutlined.png");
-            _standardFont = iTextureFont::create("StandardFont.png");
+            _outlineFont = iTextureFont::create("igor/textures/StandardFontOutlined.png");
+            _standardFont = iTextureFont::create("igor/textures/StandardFont.png");
 
             // prepare igor logo
-            _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
+            _igorLogo = iTextureResourceFactory::getInstance().loadFile("igor/textures/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
         }
     }
 }
