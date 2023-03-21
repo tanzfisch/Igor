@@ -31,7 +31,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<ExperienceComponent>(0.0f, 1.0f);
     entity.addComponent<CoinsComponent>(0.0f);
     entity.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("wagiuA5.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()), true);
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()), true);
     entity.addComponent<WeaponComponent>(_weapons["Knife"]);
 
     entity.addComponent<TargetComponent>(INVALID_ENTITY_ID, false, false);
@@ -71,7 +71,7 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<OrientationComponent>(iaVector2f(0.0f, -1.0f), false);
     auto size = entity.addComponent<SizeComponent>(COIN_SIZE);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("coin.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()), true);
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), true, true, iaTime::fromSeconds(iaRandom::getNextFloat()), true);
 
     entity.addComponent<PickupComponent>(true);
     entity.addComponent<ExperienceGainComponent>(0.0f);
@@ -126,7 +126,7 @@ void GameLayer::createShop()
     auto size = _shop.addComponent<SizeComponent>(STANDARD_UNIT_SIZE * 4);
     _shop.addComponent<OrientationComponent>(iaVector2f(0.0, -1.0), false);
     _shop.addComponent<VelocityComponent>(getRandomDir(), 0.0f, false);
-    _shop.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("drone.png"), true, false, iaTime::fromSeconds(iaRandom::getNextFloat()), false);
+    _shop.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"), true, false, iaTime::fromSeconds(iaRandom::getNextFloat()), false);
     _shop.addComponent<BuildingComponent>(BuildingType::Shop);
     _shop.addComponent<PartyComponent>(FRIEND);
     _shop.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f);
@@ -214,7 +214,7 @@ void GameLayer::onInit()
     iaRandom::setSeed(iaTime::getNow().getMicrosenconds());
 
     initExpLvlTable();
-    loadSpecs("meta/supremacy.xml");
+    loadSpecs("misc/supremacy.xml");
 
     _viewOrtho.setClearColor(0.3, 0.9, 0.5, 1.0);
     _viewOrtho.setName("view ortho");
@@ -247,18 +247,18 @@ void GameLayer::onInit()
     _spawnShopTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onLandShop), iaTime::fromMilliseconds(5000), true);
     _spawnShopTimerHandle->start();
 
-    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("background.png");
-    _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
-    _shield = iTextureResourceFactory::getInstance().requestFile("shield.png");
-    _rage = iTextureResourceFactory::getInstance().requestFile("rage.png");
+    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("supremacy/background.png");
+    _shadow = iTextureResourceFactory::getInstance().requestFile("supremacy/shadow.png");
+    _shield = iTextureResourceFactory::getInstance().requestFile("supremacy/shield.png");
+    _rage = iTextureResourceFactory::getInstance().requestFile("supremacy/rage.png");
 
     // init font for render profiler
-    _font = iTextureFont::create("StandardFontOutlined.png");
+    _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
 
-    _coin = iTextureResourceFactory::getInstance().requestFile("coin.png");
-    _damage = iTextureResourceFactory::getInstance().requestFile("fist.png");
-    _attackSpeed = iTextureResourceFactory::getInstance().requestFile("bullets.png");
-    _walkSpeed = iTextureResourceFactory::getInstance().requestFile("run.png");
+    _coin = iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png");
+    _damage = iTextureResourceFactory::getInstance().requestFile("supremacy/fist.png");
+    _attackSpeed = iTextureResourceFactory::getInstance().requestFile("supremacy/bullets.png");
+    _walkSpeed = iTextureResourceFactory::getInstance().requestFile("supremacy/run.png");
 
     _levelUpDialog = new UpgradeDialog();
     _shopDialog = new ShopDialog();

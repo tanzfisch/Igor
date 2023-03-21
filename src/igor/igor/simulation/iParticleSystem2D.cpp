@@ -25,7 +25,7 @@ namespace igor
         _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 0);
         _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 1);
         _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 2);
-        _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/particles_ortho_projection.mat");
+        _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/particles_ortho_projection.mat");
     }
 
     void iParticleSystem2D::update()

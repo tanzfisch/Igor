@@ -28,10 +28,10 @@ void OverlayLayer::onInit()
     // set default camera as current
     _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
 
-    _materialOrientationPlane = iMaterialResourceFactory::getInstance().loadMaterial("mica/orientation_plane.mat");
+    _materialOrientationPlane = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/orientation_plane.mat");
 
     // font for
-    _font = iTextureFont::create("StandardFontOutlined.png");
+    _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
 
     // create the manipulator
     _manipulator = new Manipulator(&_view, _scene, _workspace);

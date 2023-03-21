@@ -161,7 +161,7 @@ namespace igor
         _titleLabel->setVerticalAlignment(iVerticalAlignment::Top);
 
         _expandButton = new iWidgetButton();
-        _expandButton->setTexture("icons/plus.png");
+        _expandButton->setTexture("igor/icons/plus.png");
         _expandButton->setText("");
         _expandButton->setWidth(12);
         _expandButton->setHeight(12);
@@ -217,7 +217,7 @@ namespace igor
             _expandedGrid->setActive(true);
             _expandedGrid->setVisible(true);
             _grid->addWidget(_expandedGrid, 0, 1);
-            _expandButton->setTexture("icons/minus.png");
+            _expandButton->setTexture("igor/icons/minus.png");
         }
         else
         {
@@ -225,7 +225,7 @@ namespace igor
             _collapsedGrid->setActive(true);
             _collapsedGrid->setVisible(true);
             _grid->addWidget(_collapsedGrid, 0, 1);
-            _expandButton->setTexture("icons/plus.png");
+            _expandButton->setTexture("igor/icons/plus.png");
         }
     }
 
@@ -496,14 +496,14 @@ namespace igor
         _expandedSliderGrid->setCellSpacing(4);
         _expandedSliderGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-        _sliderH = createSlider("special\\gradientH.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedH));
-        _sliderS = createSlider("special\\gradientS.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedS));
-        _sliderV = createSlider("special\\gradientV.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedV));
-        _sliderR = createSlider("special\\gradientR.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedR));
-        _sliderG = createSlider("special\\gradientG.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedG));
-        _sliderB = createSlider("special\\gradientB.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedB));
-        _sliderA = createSlider("special\\gradientA.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedA));
-        _sliderA->setBackgroundTexture("special\\checker.png");
+        _sliderH = createSlider("igor/textures/gradientH.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedH));
+        _sliderS = createSlider("igor/textures/gradientS.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedS));
+        _sliderV = createSlider("igor/textures/gradientV.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedV));
+        _sliderR = createSlider("igor/textures/gradientR.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedR));
+        _sliderG = createSlider("igor/textures/gradientG.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedG));
+        _sliderB = createSlider("igor/textures/gradientB.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedB));
+        _sliderA = createSlider("igor/textures/gradientA.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedA));
+        _sliderA->setBackgroundTexture("igor/textures/checker.png");
 
         _colorViewExpanded = new iWidgetColor();
         _colorViewExpanded->setWidth(54);
