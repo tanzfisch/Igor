@@ -1,11 +1,15 @@
 Changelog                           {#changelog}
 =========
 
+0.37.0
+------
+
+- allowing custom config file names
+
 0.36.0
 ------
 
 - minor improvements to entt wrapper interfaces
-
 
 0.35.1
 ------

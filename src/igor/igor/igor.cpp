@@ -108,12 +108,7 @@ namespace igor
             date.getDay() == 29)
         {
             iaConsole::getInstance().printCake();
-        }        
-    }
-
-    void startup()
-    {
-        startupArgs(0, nullptr);
+        }
     }
 
     void createModules()
@@ -129,7 +124,7 @@ namespace igor
         iPhysics::create();
         iRenderer::create();
         iMaterialResourceFactory::create();
-        iTextureResourceFactory::create();        
+        iTextureResourceFactory::create();
         iWidgetManager::create();
         iSceneFactory::create();
         iNodeManager::create();
@@ -183,7 +178,7 @@ namespace igor
         if (iRenderer::isInstantiated())
         {
             iRenderer::destroy();
-        }        
+        }
 
         if (iPhysics::isInstantiated())
         {
@@ -236,67 +231,40 @@ namespace igor
         }
     }
 
-    void startupArgs(int argc, wchar_t **argv)
+    void startup(const iaString &configname)
     {
         // first things first
-        iaux::startup();        
+        iaux::startup();
         iTimer::create();
         printInfo();
 
-        iConfigReader configReader;
-        iaString configurationFilepath;
-
-        if (argv != nullptr)
-        {
-            if (argc == 3)
-            {
-                iaString arg1 = argv[1];
-                if (arg1 == L"-c")
-                {
-                    iaString arg1value = argv[2];
-                    iaFile file(arg1value);
-                    if (file.exist())
-                    {
-                        configurationFilepath = file.getFullFileName();
-                    }
-                    else
-                    {
-                        con_err("config file " << file.getFullFileName() << " does no exist. Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
-                    }
-                }
-                else
-                {
-                    con_err("unknown command line parameter");
-                }
-            }
-        }
-
-        // fall back to default configuration file
-        if (configurationFilepath.isEmpty())
-        {
 #ifdef __IGOR_WINDOWS__
-            const static std::vector<iaString> configLocations = {
-                L"config\\igor.xml"};
+        static const std::vector<iaString> configLocations = {
+            L"config",
+            L"..\\config",
+            L"..\\..\\config"};
 #endif
 
 #ifdef __IGOR_LINUX__
-            const static std::vector<iaString> configLocations = {
-                L"~/.Igor/igor.xml",
-                L"/etc/igor/igor.xml",
-                L"../config/igor.xml"};
+        static const std::vector<iaString> configLocations = {
+            L"~/.igor",
+            L"/etc/igor",
+            L"config",
+            L"../config",
+            L"../../config"};
 #endif
 
-            for (const auto &config : configLocations)
+        iaString configurationFilepath;
+
+        for (const auto &location : configLocations)
+        {
+            iaFile file(location + __IGOR_PATHSEPARATOR__ + configname + ".xml");
+
+            if (file.exist())
             {
-                iaFile file(config);
-
-                if (file.exist())
-                {
-                    configurationFilepath = file.getFullFileName();
-                    break;
-                }
+                configurationFilepath = file.getFullFileName();
+                break;
             }
-
         }
 
         // need the resource manager befor we read the config
@@ -304,14 +272,15 @@ namespace igor
 
         if (!configurationFilepath.isEmpty())
         {
+            iConfigReader configReader;
             configReader.readConfiguration(configurationFilepath);
             con_info("loaded configuration \"" << configurationFilepath << "\"");
         }
         else
         {
-            con_crit("found no configuration file. Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
+            con_crit("can't find config file for \"" << configname << "\". Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
         }
-        
+
         createModules();
     }
 
