@@ -9,6 +9,7 @@ Changelog                           {#changelog}
 - moved all igor specific data under data/igor
 - moved all mica specific data under data/mica
 - removed unused shader folder
+- added addPlane to iMeshBuilderUtils
 
 0.36.0
 ------
