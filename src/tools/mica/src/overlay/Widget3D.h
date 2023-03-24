@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2023 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,68 +26,61 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGET3DLOCATOR_H__
-#define __WIDGET3DLOCATOR_H__
+#ifndef __WIDGET3D_H__
+#define __WIDGET3D_H__
 
-#include "Widget3D.h"
+#include <igor/igor.h>
+using namespace igor;
 
-namespace igor
-{
-	class iTargetMaterial;
-	class iNodeTransform;
-} // namespace igor
-
-/*! 3d widget locator
+/*! 3d space widget base class for representing nodes
 */
-class Widget3DLocator : public Widget3D
+class Widget3D
 {
 
 public:
-	/*! init 3d widget for loactors
+	/*! init 3d widget
 
 	\param window the window this widget is visible at
 	\param view the view this widget it visible at
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3DLocator(iWindowPtr window, iView *view, iScenePtr scene);
+	Widget3D(iWindowPtr window, iView *view, iScenePtr scene);
 
-	/*! cleanup
+	/*! default dtor
 	*/
-	virtual ~Widget3DLocator() override;
+	virtual ~Widget3D() = default;
 
-private:
-	/*! material id
+	/*! specifies which node is to be manipulated or represented by this widget
+
+	\param nodeID the nodes id
 	*/
-	iMaterialPtr _material;
+	void setNodeID(iNodeID nodeID);
 
-	/*! target material red
+	/*! \returns the node id
 	*/
-	iTargetMaterialPtr _red = nullptr;
+	iNodeID getNodeID() const;
 
-	/*! target material green
-	*/
-	iTargetMaterialPtr _green = nullptr;
-
-	/*! target material blue
-	*/
-	iTargetMaterialPtr _blue = nullptr;
-
-	/*! root transform node
-	*/
-	iNodeTransform *_rootTransform = nullptr;
-
+protected:
 	/*! renders the 3d widget
 	*/
-	void update() override;
+	virtual void update() = 0;
 
-	/*! create a mesh the represents a locator
+	/*! the scene to use for the 3d widget
 	*/
-	iMeshPtr createLocatorMesh();
+	iScenePtr _scene = nullptr;
 
-	/*! create the locator
+	/*! the window this widget is visible at
 	*/
-	void createLocator();
+	iWindowPtr _window = nullptr;
+
+	/*! the view this widget it visible at
+	*/
+	iView *_view = nullptr;
+
+	/*! id of node to represent
+	*/
+	iNodeID _nodeID = iNode::INVALID_NODE_ID;
 };
 
-#endif // __WIDGET3DLOCATOR_H__
+#endif // __WIDGET3D_H__

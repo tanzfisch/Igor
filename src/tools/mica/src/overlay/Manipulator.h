@@ -29,7 +29,7 @@
 #ifndef __MANIPULATOR_H__
 #define __MANIPULATOR_H__
 
-#include "Workspace.h"
+#include "../Workspace.h"
 
 #include <memory>
 

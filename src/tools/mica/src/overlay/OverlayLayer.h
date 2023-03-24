@@ -30,7 +30,7 @@
 #ifndef __OVERLAYLAYER_H__
 #define __OVERLAYLAYER_H__
 
-#include "Workspace.h"
+#include "../Workspace.h"
 #include "Manipulator.h"
 
 #include <igor/igor.h>
