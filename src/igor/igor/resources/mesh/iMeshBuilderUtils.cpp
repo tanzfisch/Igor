@@ -8,7 +8,7 @@ namespace igor
 {
     namespace iMeshBuilderUtils
     {
-        void addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX, uint32 segmentsZ)
+        void addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX, uint32 segmentsZ, bool normals)
         {
             uint32 offsetIndex = meshBuilder.getVertexCount();
             const float32 xPos = -width * 0.5f;
@@ -20,7 +20,11 @@ namespace igor
             {
                 for (int x = 0; x < segmentsX; ++x)
                 {
-                    meshBuilder.addVertex(iaVector3f(xPos + x * xStepping, 0, zPos + z * zStepping));
+                    auto index = meshBuilder.addVertex(iaVector3f(xPos + x * xStepping, 0, zPos + z * zStepping));
+                    if (normals)
+                    {
+                        meshBuilder.setNormal(index, iaVector3f(0.0f, 1.0f, 0.0f));
+                    }
                 }
             }
 

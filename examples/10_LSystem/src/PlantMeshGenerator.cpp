@@ -159,6 +159,8 @@ void PlantMeshGenerator::generateTrunk(const iaVector3f &dir)
 {
     const iaVector3f vecs[4] = {{1, 0, 1}, {1, 0, -1}, {-1, 0, -1}, {-1, 0, 1}};
 
+    _meshBuilderTrunk.setMatrix(_modelMatrix);
+
     iaVector3f a = vecs[0];
     iaVector3f b = vecs[1];
     iaVector3f c = vecs[2];
@@ -169,20 +171,20 @@ void PlantMeshGenerator::generateTrunk(const iaVector3f &dir)
     c *= 0.03;
     d *= 0.03;
 
-    uint32 ai = _meshBuilderTrunk.addVertex(_modelMatrix * a);
-    uint32 bi = _meshBuilderTrunk.addVertex(_modelMatrix * b);
-    uint32 ci = _meshBuilderTrunk.addVertex(_modelMatrix * c);
-    uint32 di = _meshBuilderTrunk.addVertex(_modelMatrix * d);
+    uint32 ai = _meshBuilderTrunk.addVertex(a);
+    uint32 bi = _meshBuilderTrunk.addVertex(b);
+    uint32 ci = _meshBuilderTrunk.addVertex(c);
+    uint32 di = _meshBuilderTrunk.addVertex(d);
 
     a += dir;
     b += dir;
     c += dir;
     d += dir;
 
-    uint32 ati = _meshBuilderTrunk.addVertex(_modelMatrix * a);
-    uint32 bti = _meshBuilderTrunk.addVertex(_modelMatrix * b);
-    uint32 cti = _meshBuilderTrunk.addVertex(_modelMatrix * c);
-    uint32 dti = _meshBuilderTrunk.addVertex(_modelMatrix * d);
+    uint32 ati = _meshBuilderTrunk.addVertex(a);
+    uint32 bti = _meshBuilderTrunk.addVertex(b);
+    uint32 cti = _meshBuilderTrunk.addVertex(c);
+    uint32 dti = _meshBuilderTrunk.addVertex(d);
 
     _meshBuilderTrunk.setNormal(ai, vecs[0]);
     _meshBuilderTrunk.setNormal(bi, vecs[1]);
@@ -233,10 +235,12 @@ void PlantMeshGenerator::generateFlower(const iaVector3f &dir)
         current *= rotate;
         rotate.rotate(1.047, iaAxis::Y);
 
-        uint32 ai = _meshBuilderFlowers.addVertex(current * a);
-        uint32 bi = _meshBuilderFlowers.addVertex(current * b);
-        uint32 ci = _meshBuilderFlowers.addVertex(current * c);
-        uint32 di = _meshBuilderFlowers.addVertex(current * d);
+        _meshBuilderFlowers.setMatrix(current);
+
+        uint32 ai = _meshBuilderFlowers.addVertex(a);
+        uint32 bi = _meshBuilderFlowers.addVertex(b);
+        uint32 ci = _meshBuilderFlowers.addVertex(c);
+        uint32 di = _meshBuilderFlowers.addVertex(d);
 
         _meshBuilderFlowers.setNormal(ai, iaVector3f(0, 1, 0));
         _meshBuilderFlowers.setNormal(bi, iaVector3f(0, 1, 0));
@@ -274,10 +278,12 @@ void PlantMeshGenerator::generateBud(const iaVector3f &dir)
         current *= rotate;
         rotate.rotate(M_PI * 0.5, iaAxis::Y);
 
-        uint32 ai = _meshBuilderBuds.addVertex(current * a);
-        uint32 bi = _meshBuilderBuds.addVertex(current * b);
-        uint32 ci = _meshBuilderBuds.addVertex(current * c);
-        uint32 di = _meshBuilderBuds.addVertex(current * d);
+        _meshBuilderBuds.setMatrix(current);
+
+        uint32 ai = _meshBuilderBuds.addVertex(a);
+        uint32 bi = _meshBuilderBuds.addVertex(b);
+        uint32 ci = _meshBuilderBuds.addVertex(c);
+        uint32 di = _meshBuilderBuds.addVertex(d);
 
         _meshBuilderBuds.setNormal(ai, iaVector3f(0, -1, 0));
         _meshBuilderBuds.setNormal(bi, iaVector3f(1, 0, 0));
@@ -313,10 +319,12 @@ void PlantMeshGenerator::generateLeaf(const iaVector3f &dir)
     current = _modelMatrix;
     current *= rotate;
 
-    uint32 ai = _meshBuilderLeaves.addVertex(current * a);
-    uint32 bi = _meshBuilderLeaves.addVertex(current * b);
-    uint32 ci = _meshBuilderLeaves.addVertex(current * c);
-    uint32 di = _meshBuilderLeaves.addVertex(current * d);
+    _meshBuilderLeaves.setMatrix(current);
+
+    uint32 ai = _meshBuilderLeaves.addVertex(a);
+    uint32 bi = _meshBuilderLeaves.addVertex(b);
+    uint32 ci = _meshBuilderLeaves.addVertex(c);
+    uint32 di = _meshBuilderLeaves.addVertex(d);
 
     _meshBuilderLeaves.setNormal(ai, iaVector3f(0, 1, 0));
     _meshBuilderLeaves.setNormal(bi, iaVector3f(0, 1, 0));

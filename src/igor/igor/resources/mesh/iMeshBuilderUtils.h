@@ -50,10 +50,10 @@ namespace igor
 
         /*! adds a sphere to the given mesh builder instance
 
-		\param meshBuilder the given mesh builder instance
-		\param radius the radius of the cylinder
-		\param segments the segment count of the cylinder
-		*/
+        \param meshBuilder the given mesh builder instance
+        \param radius the radius of the cylinder
+        \param segments the segment count of the cylinder
+        */
         void IGOR_API addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments = 16);
 
         /*! adds a box to the given mesh builder instance
@@ -100,14 +100,15 @@ namespace igor
         \param depth the depth along the z axis
         \param segmentsX the segment count along the x axis
         \param segmentsZ the segment count along the z axis
+        \param normals if true add normals
         */
-        void IGOR_API addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX = 16, uint32 segmentsZ = 16);
+        void IGOR_API addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX = 16, uint32 segmentsZ = 16, bool normals = true);
 
         /*! adds a mesh to the mesh builder
 
-		\param meshBuilder the given mesh builder instance
-		\param mesh the mesh to be added
-		*/
+        \param meshBuilder the given mesh builder instance
+        \param mesh the mesh to be added
+        */
         void IGOR_API addMesh(iMeshBuilder &meshBuilder, const iMeshPtr mesh);
 
     } // namespace iMeshBuilderUtils
