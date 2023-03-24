@@ -35,7 +35,7 @@
 
 /*! manipulator modes
 */
-enum class ManipulatorMode
+enum class NodeOverlayMode
 {
     None,
     Translate,
@@ -43,10 +43,15 @@ enum class ManipulatorMode
     Rotate
 };
 
-/*! 3d ui element to modify position, orientation and scale of objects in the scene
+/*! 3d overlay ui element for scene nodes
+
+    to modify position, orientation and scale of objects in the scene
+    to display additional information when nodes are selected
 */
-class Manipulator
+class NodeOverlay
 {
+
+    friend class OverlayLayer;
 
 public:
     /*! initialize manipulator
@@ -55,11 +60,11 @@ public:
     \param scene the scene to use
     \param workspace the mica workspace
     */
-    Manipulator(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
+    NodeOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
 
     /*! cleanup
     */
-    ~Manipulator();
+    ~NodeOverlay();
 
     /*! sets the node to control by ID
 
@@ -79,30 +84,6 @@ public:
     */
     bool isVisible() const;
 
-    /*! sets camera center of interest
-
-    \param matrix center of interest transform in world space
-    */
-    void setCamCOI(const iaMatrixd &matrix);
-
-    /*! sets camera heading matrix
-
-    \param matrix should contain only heading of camera
-    */
-    void setCamHeading(const iaMatrixd &matrix);
-
-    /*! sets camera pitch matrix
-
-    \param matrix should contain only pitch of camera
-    */
-    void setCamPitch(const iaMatrixd &matrix);
-
-    /*! sets camera translation matrix
-
-    \param matrix contains distance to cio in Z axis
-    */
-    void setCamTranslate(const iaMatrixd &matrix);
-
     /*! \returns true if manipulator is selected
     */
     bool isSelected() const;
@@ -111,18 +92,18 @@ public:
 
     \param manipulatorMode the manipulator mode
     */
-    void setManipulatorMode(ManipulatorMode manipulatorMode);
+    void setNodeOverlayMode(NodeOverlayMode manipulatorMode);
 
     /*! \returns the current manipulator mode
     */
-    ManipulatorMode getManipulatorMode() const;
+    NodeOverlayMode getNodeOverlayMode() const;
 
+private:
     // ugly interfaces
     void onMouseMoved(const iaVector2i &from, const iaVector2i &to);
     void select();
     void unselect();
 
-private:
     /*! mica workspace
     */
     WorkspacePtr _workspace;
@@ -139,7 +120,7 @@ private:
     */
     iMaterialPtr _materialCelShading;
 
-    uint64 _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
+    uint64 _selectedNodeOverlayNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;
     iNodePtr _parent = nullptr;
     bool _visible = false;
@@ -159,7 +140,7 @@ private:
     iNodePtr _roateModifier = nullptr;
     iNodeTransform *_rotateBillboardTransform = nullptr;
 
-    ManipulatorMode _manipulatorMode = ManipulatorMode::None;
+    NodeOverlayMode _manipulatorMode = NodeOverlayMode::None;
 
     iTargetMaterialPtr _red = nullptr;
     iTargetMaterialPtr _green = nullptr;

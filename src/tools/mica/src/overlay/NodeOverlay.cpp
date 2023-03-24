@@ -2,22 +2,22 @@
 // (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "Manipulator.h"
+#include "NodeOverlay.h"
 
-Manipulator::Manipulator(iViewPtr view, iScenePtr scene, WorkspacePtr workspace)
+NodeOverlay::NodeOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace)
     : _view(view), _workspace(workspace), _scene(scene)
 {
     init();
 }
 
-Manipulator::~Manipulator()
+NodeOverlay::~NodeOverlay()
 {
     deinit();
 }
 
-void Manipulator::init()
+void NodeOverlay::init()
 {
-    _view->registerRenderDelegate(iDrawDelegate(this, &Manipulator::render));
+    _view->registerRenderDelegate(iDrawDelegate(this, &NodeOverlay::render));
 
     _material = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/manipulator_base.mat");
 
@@ -70,14 +70,14 @@ void Manipulator::init()
 
     _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/manipulator_cellshading.mat");
 
-    setManipulatorMode(_manipulatorMode);
+    setNodeOverlayMode(_manipulatorMode);
 }
 
-void Manipulator::highlightSelected()
+void NodeOverlay::highlightSelected()
 {
-    if (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID)
+    if (_selectedNodeOverlayNodeID != iNode::INVALID_NODE_ID)
     {
-        const iNodePtr node = iNodeManager::getInstance().getNode(_selectedManipulatorNodeID);
+        const iNodePtr node = iNodeManager::getInstance().getNode(_selectedNodeOverlayNodeID);
 
         if (node->getKind() == iNodeKind::Renderable ||
             node->getKind() == iNodeKind::Volume)
@@ -97,13 +97,13 @@ void Manipulator::highlightSelected()
     }
 }
 
-void Manipulator::render()
+void NodeOverlay::render()
 {
     update();
     highlightSelected();
 }
 
-void Manipulator::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder)
+void NodeOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder)
 {
     _roateModifier = iNodeManager::getInstance().createNode<iNode>();
     _switchNode->insertNode(_roateModifier);
@@ -191,7 +191,7 @@ void Manipulator::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D,
     zTransform->insertNode(zCylinder);
 }
 
-void Manipulator::createTransformRepresentation(iMeshPtr &cylinder)
+void NodeOverlay::createTransformRepresentation(iMeshPtr &cylinder)
 {
     _transformRepresentation = iNodeManager::getInstance().createNode<iNode>();
     _switchNode->insertNode(_transformRepresentation);
@@ -229,7 +229,7 @@ void Manipulator::createTransformRepresentation(iMeshPtr &cylinder)
     zTransform->insertNode(zCylinder);
 }
 
-void Manipulator::createTranslateModifier(iMeshPtr &translateMesh)
+void NodeOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 {
     _translateModifier = iNodeManager::getInstance().createNode<iNode>();
     _switchNode->insertNode(_translateModifier);
@@ -271,7 +271,7 @@ void Manipulator::createTranslateModifier(iMeshPtr &translateMesh)
     _translateIDs.push_back(zUmbrella->getID());
 }
 
-void Manipulator::createScaleModifier(iMeshPtr &scaleMesh)
+void NodeOverlay::createScaleModifier(iMeshPtr &scaleMesh)
 {
     _scaleModifier = iNodeManager::getInstance().createNode<iNode>();
     _switchNode->insertNode(_scaleModifier);
@@ -323,7 +323,7 @@ void Manipulator::createScaleModifier(iMeshPtr &scaleMesh)
     _scaleIDs.push_back(xyzCube->getID());
 }
 
-void Manipulator::update()
+void NodeOverlay::update()
 {
     iNodePtr node = iNodeManager::getInstance().getNode(_selectedNodeID);
     if (node == nullptr)
@@ -366,7 +366,7 @@ void Manipulator::update()
     _rotateBillboardTransform->scale(2.1, 2.1, 2.1);
 }
 
-void Manipulator::deinit()
+void NodeOverlay::deinit()
 {
     _red = nullptr;
     _green = nullptr;
@@ -375,21 +375,21 @@ void Manipulator::deinit()
     _materialCelShading = nullptr;
     _material = nullptr;
 
-    _view->unregisterRenderDelegate(iDrawDelegate(this, &Manipulator::render));
+    _view->unregisterRenderDelegate(iDrawDelegate(this, &NodeOverlay::render));
 }
 
-void Manipulator::setVisible(bool visible)
+void NodeOverlay::setVisible(bool visible)
 {
     _visible = visible;
     _rootTransform->setActive(_visible);
 }
 
-bool Manipulator::isVisible() const
+bool NodeOverlay::isVisible() const
 {
     return _visible;
 }
 
-iMeshPtr Manipulator::createRingMesh()
+iMeshPtr NodeOverlay::createRingMesh()
 {
     iMeshBuilder meshBuilder;
     iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 64, false);
@@ -397,7 +397,7 @@ iMeshPtr Manipulator::createRingMesh()
     return meshBuilder.createMesh();
 }
 
-iMeshPtr Manipulator::create2DRingMesh()
+iMeshPtr NodeOverlay::create2DRingMesh()
 {
     iMeshBuilder meshBuilder;
     iMeshBuilderUtils::addRing(meshBuilder, 0.99, 1, 64);
@@ -405,7 +405,7 @@ iMeshPtr Manipulator::create2DRingMesh()
     return meshBuilder.createMesh();
 }
 
-iMeshPtr Manipulator::createScaleMesh()
+iMeshPtr NodeOverlay::createScaleMesh()
 {
     iMeshBuilder meshBuilder;
 
@@ -424,7 +424,7 @@ iMeshPtr Manipulator::createScaleMesh()
     return meshBuilder.createMesh();
 }
 
-iMeshPtr Manipulator::createCube()
+iMeshPtr NodeOverlay::createCube()
 {
     iMeshBuilder meshBuilder;
 
@@ -437,7 +437,7 @@ iMeshPtr Manipulator::createCube()
     return meshBuilder.createMesh();
 }
 
-iMeshPtr Manipulator::createCylinder()
+iMeshPtr NodeOverlay::createCylinder()
 {
     iMeshBuilder meshBuilder;
     meshBuilder.setJoinVertexes(true);
@@ -452,7 +452,7 @@ iMeshPtr Manipulator::createCylinder()
     return meshBuilder.createMesh();
 }
 
-iMeshPtr Manipulator::createTranslateMesh()
+iMeshPtr NodeOverlay::createTranslateMesh()
 {
     iMeshBuilder meshBuilder;
     meshBuilder.setJoinVertexes(false);
@@ -474,36 +474,36 @@ iMeshPtr Manipulator::createTranslateMesh()
     return meshBuilder.createMesh();
 }
 
-void Manipulator::setManipulatorMode(ManipulatorMode manipulatorMode)
+void NodeOverlay::setNodeOverlayMode(NodeOverlayMode manipulatorMode)
 {
     _manipulatorMode = manipulatorMode;
 
     switch (_manipulatorMode)
     {
-    case ManipulatorMode::None:
+    case NodeOverlayMode::None:
         _switchNode->setActiveChild(_transformRepresentation);
         break;
 
-    case ManipulatorMode::Translate:
+    case NodeOverlayMode::Translate:
         _switchNode->setActiveChild(_translateModifier);
         break;
 
-    case ManipulatorMode::Scale:
+    case NodeOverlayMode::Scale:
         _switchNode->setActiveChild(_scaleModifier);
         break;
 
-    case ManipulatorMode::Rotate:
+    case NodeOverlayMode::Rotate:
         _switchNode->setActiveChild(_roateModifier);
         break;
     }
 }
 
-ManipulatorMode Manipulator::getManipulatorMode() const
+NodeOverlayMode NodeOverlay::getNodeOverlayMode() const
 {
     return _manipulatorMode;
 }
 
-void Manipulator::setNodeID(uint64 nodeID)
+void NodeOverlay::setNodeID(uint64 nodeID)
 {
     iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
     if (node != nullptr)
@@ -516,19 +516,19 @@ void Manipulator::setNodeID(uint64 nodeID)
     }
 }
 
-uint64 Manipulator::getNodeID() const
+uint64 NodeOverlay::getNodeID() const
 {
     return _selectedNodeID;
 }
 
-void Manipulator::scale(const iaVector3d &vec, iaMatrixd &matrix)
+void NodeOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
 {
     const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
     iaVector3d scale;
 
     for (int i = 0; i < 4; ++i)
     {
-        if (_selectedManipulatorNodeID == _scaleIDs[i])
+        if (_selectedNodeOverlayNodeID == _scaleIDs[i])
         {
             scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
             matrix.scale(scale);
@@ -537,14 +537,14 @@ void Manipulator::scale(const iaVector3d &vec, iaMatrixd &matrix)
     }
 }
 
-void Manipulator::translate(const iaVector3d &vec, iaMatrixd &matrix)
+void NodeOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
 {
     const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
     iaVector3d translate;
 
     for (int i = 0; i < 3; ++i)
     {
-        if (_selectedManipulatorNodeID == _translateIDs[i])
+        if (_selectedNodeOverlayNodeID == _translateIDs[i])
         {
             translate = vec.project(dir[i]);
             matrix.translate(translate);
@@ -553,7 +553,7 @@ void Manipulator::translate(const iaVector3d &vec, iaMatrixd &matrix)
     }
 }
 
-void Manipulator::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
+void NodeOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
 {
     iNode *node = iNodeManager::getInstance().getNode(_selectedNodeID);
     iaMatrixd transformWorldMatrix;
@@ -572,7 +572,7 @@ void Manipulator::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd
 
     for (int i = 0; i < 3; ++i)
     {
-        if (_selectedManipulatorNodeID == _rotateIDs[i])
+        if (_selectedNodeOverlayNodeID == _rotateIDs[i])
         {
             iaAxis axis = static_cast<iaAxis>(i);
             float64 scalar = 0;
@@ -603,9 +603,9 @@ void Manipulator::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd
     }
 }
 
-void Manipulator::onMouseMoved(const iaVector2i &from, const iaVector2i &to)
+void NodeOverlay::onMouseMoved(const iaVector2i &from, const iaVector2i &to)
 {
-    if (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID)
+    if (_selectedNodeOverlayNodeID != iNode::INVALID_NODE_ID)
     {
         iaVector2d fromd = from.convert<float64>();
         iaVector2d tod = to.convert<float64>();
@@ -634,15 +634,15 @@ void Manipulator::onMouseMoved(const iaVector2i &from, const iaVector2i &to)
 
             switch (_manipulatorMode)
             {
-            case ManipulatorMode::None:
+            case NodeOverlayMode::None:
                 break;
-            case ManipulatorMode::Rotate:
+            case NodeOverlayMode::Rotate:
                 rotate(fromd, tod, nodeMatrix);
                 break;
-            case ManipulatorMode::Scale:
+            case NodeOverlayMode::Scale:
                 scale((toWorld - fromWorld) * distance * 2, nodeMatrix);
                 break;
-            case ManipulatorMode::Translate:
+            case NodeOverlayMode::Translate:
                 translate((toWorld - fromWorld) * distance, nodeMatrix);
                 break;
             }
@@ -652,17 +652,17 @@ void Manipulator::onMouseMoved(const iaVector2i &from, const iaVector2i &to)
     }
 }
 
-bool Manipulator::isSelected() const
+bool NodeOverlay::isSelected() const
 {
-    return (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID) ? true : false;
+    return (_selectedNodeOverlayNodeID != iNode::INVALID_NODE_ID) ? true : false;
 }
 
-void Manipulator::select()
+void NodeOverlay::select()
 {
-    _selectedManipulatorNodeID = _view->pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+    _selectedNodeOverlayNodeID = _view->pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 }
 
-void Manipulator::unselect()
+void NodeOverlay::unselect()
 {
-    _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
+    _selectedNodeOverlayNodeID = iNode::INVALID_NODE_ID;
 }
