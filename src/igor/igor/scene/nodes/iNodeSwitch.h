@@ -85,6 +85,10 @@ namespace igor
         virtual ~iNodeSwitch() = default;
     };
 
+    /*! pointer definition of switch node
+    */
+    typedef iNodeSwitch* iNodeSwitchPtr;
+
 }; // namespace igor
 
 #endif

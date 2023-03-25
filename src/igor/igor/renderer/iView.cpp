@@ -228,6 +228,11 @@ namespace igor
         }
     }
 
+    uint64 iView::pickcolorID(const iaVector2i& pos)
+    {
+        return pickcolorID(pos._x, pos._y);
+    }
+
     uint64 iView::pickcolorID(uint32 posx, uint32 posy)
     {
         std::vector<uint64> colorIDs;

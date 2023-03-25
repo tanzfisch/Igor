@@ -33,41 +33,81 @@ void OverlayLayer::onInit()
     // font for
     _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
 
-    // create the manipulator
-    _nodeOverlay = new NodeOverlay(&_view, _scene, _workspace);
+    _nodeOverlayManipulator = new Manipulator(&_view, _scene, _workspace);
 }
 
-void OverlayLayer::resetNodeOverlayMode()
+void OverlayLayer::resetOverlayMode()
 {
-    setNodeOverlayMode(NodeOverlayMode::None);
-}
-
-void OverlayLayer::setNodeOverlayMode(NodeOverlayMode manipulatorMode)
-{
-    if (!_workspace->getSelection().empty())
+    if (_nodeOverlay != nullptr)
     {
-        iNodePtr node = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
-        if (node != nullptr &&
-            node->getKind() == iNodeKind::Transformation)
-        {
-            _nodeOverlay->setVisible(true);
-            _nodeOverlay->setNodeOverlayMode(manipulatorMode);
-
-            return;
-        }
+        _nodeOverlay->setVisible(false);
+        _nodeOverlay = nullptr;
     }
 
-    _nodeOverlay->setVisible(false);
-    _nodeOverlay->setNodeOverlayMode(NodeOverlayMode::None);
+    _overlayMode = OverlayMode::None;
+}
+
+void OverlayLayer::setOverlayMode(OverlayMode overlayMode)
+{
+    _overlayMode = overlayMode;
+
+    iNodePtr node = nullptr;
+    if (_workspace->getSelection().empty() ||
+        (node = iNodeManager::getInstance().getNode(_workspace->getSelection()[0])) == nullptr ||
+        _overlayMode == OverlayMode::None)
+    {
+        if (_nodeOverlay != nullptr)
+        {
+            _nodeOverlay->setVisible(false);
+            _nodeOverlay = nullptr;
+        }
+        return;
+    }
+
+    if (node->getKind() == iNodeKind::Transformation &&
+        (_overlayMode == OverlayMode::Translate ||
+         _overlayMode == OverlayMode::Scale ||
+         _overlayMode == OverlayMode::Rotate))
+    {
+        _nodeOverlay = _nodeOverlayManipulator;
+    }
+
+    if (_nodeOverlay != nullptr)
+    {
+        _nodeOverlay->setNodeID(node->getID());
+        _nodeOverlay->setOverlayMode(_overlayMode);
+        _nodeOverlay->setVisible(true);
+    }
+}
+
+bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
+{
+    if (_workspace->getSelection().empty() ||
+        _nodeOverlay == nullptr)
+    {
+        resetOverlayMode();
+        return false;
+    }
+
+    _nodeOverlay->setNodeID(_workspace->getSelection()[0]);
+
+    return false;
+}
+
+OverlayMode OverlayLayer::getOverlayMode() const
+{
+    return _overlayMode;
 }
 
 void OverlayLayer::onDeinit()
 {
-    if (_nodeOverlay != nullptr)
+    if (_nodeOverlayManipulator != nullptr)
     {
-        delete _nodeOverlay;
-        _nodeOverlay = nullptr;
+        delete _nodeOverlayManipulator;
+        _nodeOverlayManipulator = nullptr;
     }
+
+    _nodeOverlay = nullptr;
 
     // release some resources
     _font = nullptr;
@@ -116,13 +156,14 @@ void OverlayLayer::onEvent(iEvent &event)
 
 bool OverlayLayer::onMouseMoveEvent(iEventMouseMove &event)
 {
-    if (_nodeOverlay->isSelected())
+    if (_nodeOverlay == nullptr ||
+        !_nodeOverlay->isSelected())
     {
-        _nodeOverlay->onMouseMoved(event.getLastPosition(), event.getPosition());
-        return true;
+        return false;
     }
 
-    return false;
+    _nodeOverlay->onMouseMoved(event.getLastPosition(), event.getPosition());
+    return true;
 }
 
 bool OverlayLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
@@ -130,7 +171,8 @@ bool OverlayLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
     switch (event.getKey())
     {
     case iKeyCode::MouseLeft:
-        if (_nodeOverlay->isSelected())
+        if (_nodeOverlay != nullptr &&
+            _nodeOverlay->isSelected())
         {
             _nodeOverlay->unselect();
             return true;
@@ -148,8 +190,9 @@ bool OverlayLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     case iKeyCode::MouseLeft:
         if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
-            _nodeOverlay->select();
-            if (_nodeOverlay->isSelected())
+            iNodeID nodeID = _view.pickcolorID(event.getPosition()._x, event.getPosition()._x);
+            if (_nodeOverlay != nullptr &&
+                _nodeOverlay->select(nodeID))
             {
                 return true;
             }
@@ -160,35 +203,24 @@ bool OverlayLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     return false;
 }
 
-bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
-{
-    if (!_workspace->getSelection().empty())
-    {
-        _nodeOverlay->setNodeID(_workspace->getSelection()[0]);
-        resetNodeOverlayMode();
-    }
-
-    return false;
-}
-
 bool OverlayLayer::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {
     case iKeyCode::Q:
-        setNodeOverlayMode(NodeOverlayMode::None);
+        setOverlayMode(OverlayMode::None);
         return true;
 
     case iKeyCode::W:
-        setNodeOverlayMode(NodeOverlayMode::Translate);
+        setOverlayMode(OverlayMode::Translate);
         return true;
 
     case iKeyCode::E:
-        setNodeOverlayMode(NodeOverlayMode::Rotate);
+        setOverlayMode(OverlayMode::Rotate);
         return true;
 
     case iKeyCode::R:
-        setNodeOverlayMode(NodeOverlayMode::Scale);
+        setOverlayMode(OverlayMode::Scale);
         return true;
     }
 

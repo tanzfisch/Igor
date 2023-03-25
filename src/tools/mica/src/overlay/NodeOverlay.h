@@ -26,16 +26,16 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MANIPULATOR_H__
-#define __MANIPULATOR_H__
+#ifndef __NODEOVERLAY__
+#define __NODEOVERLAY__
 
 #include "../Workspace.h"
 
 #include <memory>
 
-/*! manipulator modes
-*/
-enum class NodeOverlayMode
+/*! overlay modes
+ */
+enum class OverlayMode
 {
     None,
     Translate,
@@ -54,7 +54,7 @@ class NodeOverlay
     friend class OverlayLayer;
 
 public:
-    /*! initialize manipulator
+    /*! initialize node overlay
 
     \param view the view to use
     \param scene the scene to use
@@ -63,7 +63,7 @@ public:
     NodeOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
 
     /*! cleanup
-    */
+     */
     ~NodeOverlay();
 
     /*! sets the node to control by ID
@@ -73,113 +73,79 @@ public:
     void setNodeID(uint64 nodeID);
 
     /*! \returns id of controled node
-    */
+     */
     uint64 getNodeID() const;
 
-    /*! sets manipulator visible
+    /*! sets node overlay visible
+
+    \param visible true to set node overlay visible
     */
-    void setVisible(bool visible);
+    virtual void setVisible(bool visible);
 
-    /*! \returns true if manipulator is visible
+    /*! \returns true if node overlay is visible
+     */
+    virtual bool isVisible() const;
+
+    /*! \returns true the node overlay is selected
+     */
+    virtual bool isSelected() const;
+
+    /*! sets the mode of the node overlay
+
+    \param nodeOverlayMode the node overlay mode
     */
-    bool isVisible() const;
+    virtual void setOverlayMode(OverlayMode nodeOverlayMode);
 
-    /*! \returns true if manipulator is selected
+    /*! \returns the current node overlay mode
+     */
+    OverlayMode getOverlayMode() const;
+
+    /*! selects node inside of node overlay if present
+
+    \returns true if node overlay has control and can select given nodeID
     */
-    bool isSelected() const;
+    virtual bool select(iNodeID nodeID);
 
-    /*! sets the mode of the manipulator
+    /*! unselect what ever may be selected
+     */
+    virtual void unselect();
 
-    \param manipulatorMode the manipulator mode
-    */
-    void setNodeOverlayMode(NodeOverlayMode manipulatorMode);
-
-    /*! \returns the current manipulator mode
-    */
-    NodeOverlayMode getNodeOverlayMode() const;
-
-private:
-    // ugly interfaces
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to);
-    void select();
-    void unselect();
-
+protected:
     /*! mica workspace
-    */
+     */
     WorkspacePtr _workspace;
 
-    /*! the manipulator scene
-    */
+    /*! the node overlay scene
+     */
     iScenePtr _scene;
 
     /*! the view
-    */
+     */
     iViewPtr _view = nullptr;
 
-    /*! cel chader material for selection
-    */
-    iMaterialPtr _materialCelShading;
+    /*! on mouse moved callback
 
-    uint64 _selectedNodeOverlayNodeID = iNode::INVALID_NODE_ID;
-    uint64 _selectedNodeID = iNode::INVALID_NODE_ID;
-    iNodePtr _parent = nullptr;
+    \param from the mouse moved from here
+    \param to the mouse moved to here
+    */
+    virtual void onMouseMoved(const iaVector2i &from, const iaVector2i &to);
+
+private:
+    /*! id of node connected to this node overlay
+     */
+    uint64 _nodeID = iNode::INVALID_NODE_ID;
+
+    /*! if true node overlay is visible
+     */
     bool _visible = false;
 
-    std::vector<uint64> _locatorIDs;
-    std::vector<uint64> _translateIDs;
-    std::vector<uint64> _scaleIDs;
-    std::vector<uint64> _rotateIDs;
-
-    iNodeTransform *_rootTransform = nullptr;
-
-    iNodeSwitch *_switchNode = nullptr;
-
-    iNodePtr _transformRepresentation = nullptr;
-    iNodePtr _translateModifier = nullptr;
-    iNodePtr _scaleModifier = nullptr;
-    iNodePtr _roateModifier = nullptr;
-    iNodeTransform *_rotateBillboardTransform = nullptr;
-
-    NodeOverlayMode _manipulatorMode = NodeOverlayMode::None;
-
-    iTargetMaterialPtr _red = nullptr;
-    iTargetMaterialPtr _green = nullptr;
-    iTargetMaterialPtr _blue = nullptr;
-    iTargetMaterialPtr _cyan = nullptr;
-
-    iMaterialPtr _material;
-
-    iMeshPtr createTranslateMesh();
-    iMeshPtr createScaleMesh();
-    iMeshPtr createCube();
-    iMeshPtr createRingMesh();
-    iMeshPtr create2DRingMesh();
-    iMeshPtr createCylinder();
-
-    /*! update internal structure
-    */
-    void update();
-
-    /*! initialisation
-    */
-    void init();
-
-    /*! clean up
-    */
-    void deinit();
-
-    void translate(const iaVector3d &vec, iaMatrixd &matrix);
-    void scale(const iaVector3d &vec, iaMatrixd &matrix);
-    void rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix);
-
-    void render();
-
-    void highlightSelected();
-
-    void createTranslateModifier(iMeshPtr &translateMesh);
-    void createScaleModifier(iMeshPtr &scaleMesh);
-    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder);
-    void createTransformRepresentation(iMeshPtr &cylinder);
+    /*! current user node overlay mode
+     */
+    OverlayMode _userNodeOverlayMode = OverlayMode::None;
 };
 
-#endif // __MANIPULATOR_H__
+/*! node overlay pointer definition
+ */
+typedef NodeOverlay *NodeOverlayPtr;
+
+#endif // __NODEOVERLAY__

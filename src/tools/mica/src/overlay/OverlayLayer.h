@@ -31,7 +31,7 @@
 #define __OVERLAYLAYER_H__
 
 #include "../Workspace.h"
-#include "NodeOverlay.h"
+#include "Manipulator.h"
 
 #include <igor/igor.h>
 using namespace igor;
@@ -71,18 +71,30 @@ private:
 
     /*! manipulator
 	*/
-    NodeOverlay *_nodeOverlay = nullptr;
+    NodeOverlayPtr _nodeOverlay = nullptr;
 
-    /*! reset manipulator mode to none
+    /*! manipulator overlay
+    */
+    ManipulatorPtr _nodeOverlayManipulator = nullptr;
+
+    /*! overlay mode
+    */
+    OverlayMode _overlayMode = OverlayMode::None;
+
+    /*! reset overlay mode to none
 	*/
-    void resetNodeOverlayMode();
+    void resetOverlayMode();
 
     /*! sets the manipulator mode on currently selected node 
 	but only if it is a transform node otherwise its set to none
 
 	\param modifierMode the modifier mode to set
 	*/
-    void setNodeOverlayMode(NodeOverlayMode modifierMode);
+    void setOverlayMode(OverlayMode overlayMode);
+
+    /*! \returns the overlay mode
+    */
+    OverlayMode getOverlayMode() const;
 
     /*! render selection
     */
