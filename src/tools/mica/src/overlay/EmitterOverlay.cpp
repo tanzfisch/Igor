@@ -216,12 +216,6 @@ iMeshPtr EmitterOverlay::createSquare()
 {
     iMeshBuilder meshBuilder;
 
-    meshBuilder.addVertex(iaVector3f(-1, 0, 1));
-    meshBuilder.addVertex(iaVector3f(1, 0, 1));
-    meshBuilder.addVertex(iaVector3f(1, 0, -1));
-    meshBuilder.addVertex(iaVector3f(-1, 0, -1));
-    meshBuilder.addTriangle(0, 1, 2);
-    meshBuilder.addTriangle(2, 3, 0);
-    meshBuilder.calcNormals(true);
+    iMeshBuilderUtils::addPlane(meshBuilder, 2, 2, 1, 1);
     return meshBuilder.createMesh();
 }

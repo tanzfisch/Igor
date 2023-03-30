@@ -16,9 +16,9 @@ namespace igor
             const float32 xStepping = width / segmentsX;
             const float32 zStepping = depth / segmentsZ;
 
-            for (int z = 0; z < segmentsX; ++z)
+            for (int z = 0; z < segmentsX + 1; ++z)
             {
-                for (int x = 0; x < segmentsX; ++x)
+                for (int x = 0; x < segmentsX + 1; ++x)
                 {
                     auto index = meshBuilder.addVertex(iaVector3f(xPos + x * xStepping, 0, zPos + z * zStepping));
                     if (normals)
@@ -28,11 +28,15 @@ namespace igor
                 }
             }
 
-            for (int i = 0; i < segmentsX * segmentsZ; ++i)
+            for (int z = 0; z < segmentsX; ++z)
             {
-                meshBuilder.addTriangle(1, 0, segmentsX + 1, offsetIndex);
-                meshBuilder.addTriangle(segmentsX + 1, segmentsX + 2, 1, offsetIndex);
+                for (int x = 0; x < segmentsX; ++x)
+                {
+                    meshBuilder.addTriangle(1, 0, segmentsX + 1, offsetIndex);
+                    meshBuilder.addTriangle(segmentsX + 1, segmentsX + 2, 1, offsetIndex);
 
+                    offsetIndex++;
+                }
                 offsetIndex++;
             }
         }
