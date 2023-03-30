@@ -4,8 +4,6 @@
 // see copyright notice in corresponding header file
 
 #include "UILayer.h"
-#include "widget3d/Widget3DLocator.h"
-#include "widget3d/Widget3DEmitter.h"
 #include "actions/Actions.h"
 
 #include "usercontrols/UserControlMesh.h"

@@ -1,5 +1,8 @@
 #include "OverlayLayer.h"
 
+#include "TransformOverlay.h"
+#include "EmitterOverlay.h"
+
 OverlayLayer::OverlayLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
     : iLayer(window, "Overlay", zIndex), _workspace(workspace)
 {
@@ -33,42 +36,82 @@ void OverlayLayer::onInit()
     // font for
     _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
 
-    // create the manipulator
-    _manipulator = new Manipulator(&_view, _scene, _workspace);
+    _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_view, _scene, _workspace));
+    _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_view, _scene, _workspace));
 }
 
-void OverlayLayer::resetManipulatorMode()
+void OverlayLayer::setOverlayMode(OverlayMode overlayMode)
 {
-    setManipulatorMode(ManipulatorMode::None);
+    _overlayMode = overlayMode;
+    updateAcceptance();
+
+    for (auto overlay : _nodeOverlays)
+    {
+        if(!overlay->isActive())
+        {
+            continue;
+        }
+
+        overlay->setOverlayMode(_overlayMode);
+    }
 }
 
-void OverlayLayer::setManipulatorMode(ManipulatorMode manipulatorMode)
+void OverlayLayer::updateAcceptance()
+{
+    if (_selectedNode != nullptr)
+    {
+        for (auto overlay : _nodeOverlays)
+        {
+            overlay->setActive(overlay->accepts(_overlayMode, _selectedNode->getKind(), _selectedNode->getType()));
+        }
+    }
+    else
+    {
+        for (auto overlay : _nodeOverlays)
+        {
+            overlay->setActive(overlay->accepts(OverlayMode::None, iNodeKind::Undefined, iNodeType::Undefined));
+        }
+    }
+}
+
+bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
 {
     if (!_workspace->getSelection().empty())
     {
-        iNodePtr node = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
-        if (node != nullptr &&
-            node->getKind() == iNodeKind::Transformation)
-        {
-            _manipulator->setVisible(true);
-            _manipulator->setManipulatorMode(manipulatorMode);
-
-            return;
-        }
+        _selectedNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
+    }
+    else
+    {
+        _selectedNode = nullptr;
     }
 
-    _manipulator->setVisible(false);
-    _manipulator->setManipulatorMode(ManipulatorMode::None);
+    updateAcceptance();
+
+    if(_selectedNode == nullptr)
+    {
+        return false;
+    }
+
+    for (auto overlay : _nodeOverlays)
+    {
+        if(!overlay->isActive())
+        {
+            continue;
+        }
+        
+        overlay->setNodeID(_selectedNode->getID());
+    }    
+
+    return false;
+}
+
+OverlayMode OverlayLayer::getOverlayMode() const
+{
+    return _overlayMode;
 }
 
 void OverlayLayer::onDeinit()
 {
-    if (_manipulator != nullptr)
-    {
-        delete _manipulator;
-        _manipulator = nullptr;
-    }
-
     // release some resources
     _font = nullptr;
 
@@ -116,81 +159,98 @@ void OverlayLayer::onEvent(iEvent &event)
 
 bool OverlayLayer::onMouseMoveEvent(iEventMouseMove &event)
 {
-    if (_manipulator->isSelected())
+    bool result = false;
+    for (auto &overlay : _nodeOverlays)
     {
-        _manipulator->onMouseMoved(event.getLastPosition(), event.getPosition());
-        return true;
+        if (!overlay->isActive())
+        {
+            continue;
+        }
+
+        if(overlay->onMouseMoveEvent(event))
+        {
+            result = true;
+        }
     }
 
-    return false;
+    return result;
 }
 
 bool OverlayLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
-    switch (event.getKey())
+    bool result = false;
+    for (auto &overlay : _nodeOverlays)
     {
-    case iKeyCode::MouseLeft:
-        if (_manipulator->isSelected())
+        if (!overlay->isActive())
         {
-            _manipulator->unselect();
-            return true;
+            continue;
         }
-        break;
+
+        if(overlay->onMouseKeyUpEvent(event))
+        {
+            result = true;
+        }
     }
 
-    return false;
+    return result;
 }
 
 bool OverlayLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
-    switch (event.getKey())
+    bool result = false;
+    for (auto &overlay : _nodeOverlays)
     {
-    case iKeyCode::MouseLeft:
-        if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
+        if (!overlay->isActive())
         {
-            _manipulator->select();
-            if (_manipulator->isSelected())
-            {
-                return true;
-            }
+            continue;
         }
-        break;
+
+        if(overlay->onMouseKeyDownEvent(event))
+        {
+            result = true;
+        }
     }
 
-    return false;
-}
-
-bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
-{
-    if (!_workspace->getSelection().empty())
-    {
-        _manipulator->setNodeID(_workspace->getSelection()[0]);
-        resetManipulatorMode();
-    }
-
-    return false;
+    return result;
 }
 
 bool OverlayLayer::onKeyDown(iEventKeyDown &event)
 {
+    bool result = false;
     switch (event.getKey())
     {
     case iKeyCode::Q:
-        setManipulatorMode(ManipulatorMode::None);
-        return true;
+        setOverlayMode(OverlayMode::None);
+        result = true;
+        break;
 
     case iKeyCode::W:
-        setManipulatorMode(ManipulatorMode::Translate);
-        return true;
+        setOverlayMode(OverlayMode::Translate);
+        result = true;
+        break;
 
     case iKeyCode::E:
-        setManipulatorMode(ManipulatorMode::Rotate);
-        return true;
+        setOverlayMode(OverlayMode::Rotate);
+        result = true;
+        break;
 
     case iKeyCode::R:
-        setManipulatorMode(ManipulatorMode::Scale);
-        return true;
+        setOverlayMode(OverlayMode::Scale);
+        result = true;
+        break;
     }
 
-    return false;
+    updateAcceptance();
+
+    for (auto &overlay : _nodeOverlays)
+    {
+        if (!overlay->isActive())
+        {
+            continue;
+        }
+
+        overlay->onKeyDown(event);
+    }
+
+    return result;
 }

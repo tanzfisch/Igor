@@ -50,10 +50,10 @@ namespace igor
 
         /*! adds a sphere to the given mesh builder instance
 
-		\param meshBuilder the given mesh builder instance
-		\param radius the radius of the cylinder
-		\param segments the segment count of the cylinder
-		*/
+        \param meshBuilder the given mesh builder instance
+        \param radius the radius of the cylinder
+        \param segments the segment count of the cylinder
+        */
         void IGOR_API addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments = 16);
 
         /*! adds a box to the given mesh builder instance
@@ -91,21 +91,24 @@ namespace igor
         */
         void IGOR_API addRing(iMeshBuilder &meshBuilder, float32 innerRadius, float32 outerRadius, uint32 segments = 16);
 
-        /*! adds a rectangle in XZ plane
+        /*! adds a plane to the given mesh builder instance
+
+        the plane is centered at the origin facing up
 
         \param meshBuilder the given mesh builder instance
-        \param x x position of plane
-        \param z z position of plane
-        \param sizeX size in x axis
-        \param sizeZ size in z axis
+        \param width the width along the x axis
+        \param depth the depth along the z axis
+        \param segmentsX the segment count along the x axis
+        \param segmentsZ the segment count along the z axis
+        \param normals if true add normals
         */
-        void IGOR_API addRectangle(iMeshBuilder &meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ);
+        void IGOR_API addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX = 16, uint32 segmentsZ = 16, bool normals = true);
 
         /*! adds a mesh to the mesh builder
 
-		\param meshBuilder the given mesh builder instance
-		\param mesh the mesh to be added
-		*/
+        \param meshBuilder the given mesh builder instance
+        \param mesh the mesh to be added
+        */
         void IGOR_API addMesh(iMeshBuilder &meshBuilder, const iMeshPtr mesh);
 
     } // namespace iMeshBuilderUtils

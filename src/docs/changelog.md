@@ -9,6 +9,8 @@ Changelog                           {#changelog}
 - moved all igor specific data under data/igor
 - moved all mica specific data under data/mica
 - removed unused shader folder
+- added addPlane to iMeshBuilderUtils
+- brought emitter node overlay back in mica
 
 0.36.0
 ------

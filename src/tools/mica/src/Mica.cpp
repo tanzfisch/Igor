@@ -5,7 +5,7 @@
 #include "Mica.h"
 
 #include "WorkspaceLayer.h"
-#include "OverlayLayer.h"
+#include "overlay/OverlayLayer.h"
 #include "UILayer.h"
 
 /*! window title definition

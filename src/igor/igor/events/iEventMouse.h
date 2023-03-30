@@ -46,7 +46,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyDown(iWindowPtr window, const iKeyCode key);
+        iEventMouseKeyDown(iWindowPtr window, const iKeyCode key, const iaVector2i &pos);
 
         /*! \returns event kind mask
         */
@@ -60,12 +60,20 @@ namespace igor
         */
         iKeyCode getKey() const;
 
+        /*! \returns mouse pos when key was down
+        */
+        const iaVector2i& getPosition() const;
+
         IGOR_EVENT_CLASS_TYPE(iEventMouseKeyDown)
 
     private:
         /*! the key code
         */
         iKeyCode _key;
+
+        /*! mouse pos when key was pressed
+        */
+        iaVector2i _pos;
     };
 
     /*! mouse key up event
@@ -78,7 +86,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyUp(iWindowPtr window, const iKeyCode key);
+        iEventMouseKeyUp(iWindowPtr window, const iKeyCode key, const iaVector2i &pos);
 
         /*! \returns event kind mask
         */
@@ -92,12 +100,20 @@ namespace igor
         */
         iKeyCode getKey() const;
 
+        /*! \returns mouse pos when key was down
+        */
+        const iaVector2i& getPosition() const;
+
         IGOR_EVENT_CLASS_TYPE(iEventMouseKeyUp)
 
     private:
         /*! the key code
         */
         iKeyCode _key;
+
+        /*! mouse pos when key was released
+        */
+        iaVector2i _pos;        
     };
 
     /*! mouse key double click event
@@ -110,7 +126,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyDoubleClick(iWindowPtr window, const iKeyCode key);
+        iEventMouseKeyDoubleClick(iWindowPtr window, const iKeyCode key, const iaVector2i &pos);
 
         /*! \returns event kind mask
         */
@@ -124,12 +140,20 @@ namespace igor
         */
         iKeyCode getKey() const;
 
+        /*! \returns mouse pos when key was down
+        */
+        const iaVector2i& getPosition() const;        
+
         IGOR_EVENT_CLASS_TYPE(iEventMouseKeyDoubleClick)
 
     private:
         /*! the key code
         */
         iKeyCode _key;
+
+        /*! mouse pos when key was double clicked
+        */
+        iaVector2i _pos;             
     };
 
     /*! mouse wheel event

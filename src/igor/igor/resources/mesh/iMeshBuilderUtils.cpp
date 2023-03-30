@@ -8,18 +8,37 @@ namespace igor
 {
     namespace iMeshBuilderUtils
     {
-
-        void addRectangle(iMeshBuilder &meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ)
+        void addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX, uint32 segmentsZ, bool normals)
         {
-            const uint32 offsetIndex = meshBuilder.getVertexCount();
+            uint32 offsetIndex = meshBuilder.getVertexCount();
+            const float32 xPos = -width * 0.5f;
+            const float32 zPos = -depth * 0.5f;
+            const float32 xStepping = width / segmentsX;
+            const float32 zStepping = depth / segmentsZ;
 
-            meshBuilder.addVertex(iaVector3f(x, 0, z + sizeZ));
-            meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z + sizeZ));
-            meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z));
-            meshBuilder.addVertex(iaVector3f(x, 0, z));
+            for (int z = 0; z < segmentsX + 1; ++z)
+            {
+                for (int x = 0; x < segmentsX + 1; ++x)
+                {
+                    auto index = meshBuilder.addVertex(iaVector3f(xPos + x * xStepping, 0, zPos + z * zStepping));
+                    if (normals)
+                    {
+                        meshBuilder.setNormal(index, iaVector3f(0.0f, 1.0f, 0.0f));
+                    }
+                }
+            }
 
-            meshBuilder.addTriangle(0, 1, 2, offsetIndex);
-            meshBuilder.addTriangle(2, 3, 0, offsetIndex);
+            for (int z = 0; z < segmentsX; ++z)
+            {
+                for (int x = 0; x < segmentsX; ++x)
+                {
+                    meshBuilder.addTriangle(1, 0, segmentsX + 1, offsetIndex);
+                    meshBuilder.addTriangle(segmentsX + 1, segmentsX + 2, 1, offsetIndex);
+
+                    offsetIndex++;
+                }
+                offsetIndex++;
+            }
         }
 
         void addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments)
@@ -254,7 +273,7 @@ namespace igor
             // iterate vertices
             for (uint32 i = 0; i < vertexCount; ++i)
             {
-                float32 *vertex = static_cast<float32*>(vertexData) + (layout.getStride() * i);
+                float32 *vertex = static_cast<float32 *>(vertexData) + (layout.getStride() * i);
 
                 uint32 index = meshBuilder.addVertex(iaVector3f(vertex[0], vertex[1], vertex[2]));
 
@@ -288,9 +307,9 @@ namespace igor
             for (uint32 i = 0; i < trianglesCount; ++i)
             {
                 // get triangle indeces
-                uint32 triA = static_cast<float32*>(indexData)[i * 3];
-                uint32 triB = static_cast<float32*>(indexData)[i * 3 + 1];
-                uint32 triC = static_cast<float32*>(indexData)[i * 3 + 2];
+                uint32 triA = static_cast<float32 *>(indexData)[i * 3];
+                uint32 triB = static_cast<float32 *>(indexData)[i * 3 + 1];
+                uint32 triC = static_cast<float32 *>(indexData)[i * 3 + 2];
 
                 // get vertices
                 meshBuilder.addTriangle(triA, triB, triC, offsetIndex);
