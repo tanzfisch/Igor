@@ -49,17 +49,23 @@ namespace igor
     public:
         /*! sets the active child by name
 
+        if name is not found all children are deactivated
+
         \param name the name of the child
         */
         void setActiveChild(const iaString &name);
 
         /*! sets the active child by object
 
+        if node pointer is nullptr all children are deactivated
+
         \param node pointer to node object
         */
         void setActiveChild(iNodePtr node);
 
         /*! sets the active child by id
+
+        if id is not found all children are deactivated
 
         \param id node id
         */

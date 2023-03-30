@@ -1,5 +1,8 @@
 #include "OverlayLayer.h"
 
+#include "TransformOverlay.h"
+#include "EmitterOverlay.h"
+
 OverlayLayer::OverlayLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
     : iLayer(window, "Overlay", zIndex), _workspace(workspace)
 {
@@ -33,63 +36,71 @@ void OverlayLayer::onInit()
     // font for
     _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
 
-    _nodeOverlayManipulator = new Manipulator(&_view, _scene, _workspace);
-}
-
-void OverlayLayer::resetOverlayMode()
-{
-    if (_nodeOverlay != nullptr)
-    {
-        _nodeOverlay->setVisible(false);
-        _nodeOverlay = nullptr;
-    }
-
-    _overlayMode = OverlayMode::None;
+    _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_view, _scene, _workspace));
+    _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_view, _scene, _workspace));
 }
 
 void OverlayLayer::setOverlayMode(OverlayMode overlayMode)
 {
     _overlayMode = overlayMode;
+    updateAcceptance();
 
-    iNodePtr node = nullptr;
-    if (_workspace->getSelection().empty() ||
-        (node = iNodeManager::getInstance().getNode(_workspace->getSelection()[0])) == nullptr ||
-        _overlayMode == OverlayMode::None)
+    for (auto overlay : _nodeOverlays)
     {
-        if (_nodeOverlay != nullptr)
+        if(!overlay->isActive())
         {
-            _nodeOverlay->setVisible(false);
-            _nodeOverlay = nullptr;
+            continue;
         }
-        return;
-    }
 
-    if (node->getKind() == iNodeKind::Transformation &&
-        (_overlayMode == OverlayMode::Translate ||
-         _overlayMode == OverlayMode::Scale ||
-         _overlayMode == OverlayMode::Rotate))
-    {
-        _nodeOverlay = _nodeOverlayManipulator;
+        overlay->setOverlayMode(_overlayMode);
     }
+}
 
-    if (_nodeOverlay != nullptr)
+void OverlayLayer::updateAcceptance()
+{
+    if (_selectedNode != nullptr)
     {
-        _nodeOverlay->setNodeID(node->getID());
-        _nodeOverlay->setOverlayMode(_overlayMode);
-        _nodeOverlay->setVisible(true);
+        for (auto overlay : _nodeOverlays)
+        {
+            overlay->setActive(overlay->accepts(_overlayMode, _selectedNode->getKind(), _selectedNode->getType()));
+        }
+    }
+    else
+    {
+        for (auto overlay : _nodeOverlays)
+        {
+            overlay->setActive(overlay->accepts(OverlayMode::None, iNodeKind::Undefined, iNodeType::Undefined));
+        }
     }
 }
 
 bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
 {
-    if (_workspace->getSelection().empty() ||
-        _nodeOverlay == nullptr)
+    if (!_workspace->getSelection().empty())
     {
-        resetOverlayMode();
+        _selectedNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
+    }
+    else
+    {
+        _selectedNode = nullptr;
+    }
+
+    updateAcceptance();
+
+    if(_selectedNode == nullptr)
+    {
         return false;
     }
 
-    _nodeOverlay->setNodeID(_workspace->getSelection()[0]);
+    for (auto overlay : _nodeOverlays)
+    {
+        if(!overlay->isActive())
+        {
+            continue;
+        }
+        
+        overlay->setNodeID(_selectedNode->getID());
+    }    
 
     return false;
 }
@@ -101,14 +112,6 @@ OverlayMode OverlayLayer::getOverlayMode() const
 
 void OverlayLayer::onDeinit()
 {
-    if (_nodeOverlayManipulator != nullptr)
-    {
-        delete _nodeOverlayManipulator;
-        _nodeOverlayManipulator = nullptr;
-    }
-
-    _nodeOverlay = nullptr;
-
     // release some resources
     _font = nullptr;
 
@@ -156,73 +159,98 @@ void OverlayLayer::onEvent(iEvent &event)
 
 bool OverlayLayer::onMouseMoveEvent(iEventMouseMove &event)
 {
-    if (_nodeOverlay == nullptr ||
-        !_nodeOverlay->isSelected())
+    bool result = false;
+    for (auto &overlay : _nodeOverlays)
     {
-        return false;
+        if (!overlay->isActive())
+        {
+            continue;
+        }
+
+        if(overlay->onMouseMoveEvent(event))
+        {
+            result = true;
+        }
     }
 
-    _nodeOverlay->onMouseMoved(event.getLastPosition(), event.getPosition());
-    return true;
+    return result;
 }
 
 bool OverlayLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
-    switch (event.getKey())
+    bool result = false;
+    for (auto &overlay : _nodeOverlays)
     {
-    case iKeyCode::MouseLeft:
-        if (_nodeOverlay != nullptr &&
-            _nodeOverlay->isSelected())
+        if (!overlay->isActive())
         {
-            _nodeOverlay->unselect();
-            return true;
+            continue;
         }
-        break;
+
+        if(overlay->onMouseKeyUpEvent(event))
+        {
+            result = true;
+        }
     }
 
-    return false;
+    return result;
 }
 
 bool OverlayLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
-    switch (event.getKey())
+    bool result = false;
+    for (auto &overlay : _nodeOverlays)
     {
-    case iKeyCode::MouseLeft:
-        if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
+        if (!overlay->isActive())
         {
-            iNodeID nodeID = _view.pickcolorID(event.getPosition()._x, event.getPosition()._x);
-            if (_nodeOverlay != nullptr &&
-                _nodeOverlay->select(nodeID))
-            {
-                return true;
-            }
+            continue;
         }
-        break;
+
+        if(overlay->onMouseKeyDownEvent(event))
+        {
+            result = true;
+        }
     }
 
-    return false;
+    return result;
 }
 
 bool OverlayLayer::onKeyDown(iEventKeyDown &event)
 {
+    bool result = false;
     switch (event.getKey())
     {
     case iKeyCode::Q:
         setOverlayMode(OverlayMode::None);
-        return true;
+        result = true;
+        break;
 
     case iKeyCode::W:
         setOverlayMode(OverlayMode::Translate);
-        return true;
+        result = true;
+        break;
 
     case iKeyCode::E:
         setOverlayMode(OverlayMode::Rotate);
-        return true;
+        result = true;
+        break;
 
     case iKeyCode::R:
         setOverlayMode(OverlayMode::Scale);
-        return true;
+        result = true;
+        break;
     }
 
-    return false;
+    updateAcceptance();
+
+    for (auto &overlay : _nodeOverlays)
+    {
+        if (!overlay->isActive())
+        {
+            continue;
+        }
+
+        overlay->onKeyDown(event);
+    }
+
+    return result;
 }

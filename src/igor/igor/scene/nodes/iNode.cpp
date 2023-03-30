@@ -416,69 +416,70 @@ namespace igor
 
     void iNode::setActive(bool active)
     {
-        if (_active != active)
+        if (_active == active)
         {
-            _active = active;
+            return;
+        }
 
-            if (!_active)
+        _active = active;
+
+        if (_parent == nullptr)
+        {
+            return;
+        }
+
+        if (!_active)
+        {
+            bool result = false;
+
+            auto iter = _parent->_children.begin();
+            while (iter != _parent->_children.end())
             {
-                if (_parent != nullptr)
+                if ((*iter) == this)
                 {
-                    bool result = false;
+                    setTransformationDirty();
 
-                    auto iter = _parent->_children.begin();
-                    while (iter != _parent->_children.end())
-                    {
-                        if ((*iter) == this)
-                        {
-                            setTransformationDirty();
+                    iApplication::getInstance().blockEvent(iEventType::iEventNodeRemovedFromScene);
+                    setScene(nullptr);
+                    iApplication::getInstance().unblockEvent(iEventType::iEventNodeRemovedFromScene);
 
-                            iApplication::getInstance().blockEvent(iEventType::iEventNodeRemovedFromScene);
-                            setScene(nullptr);
-                            iApplication::getInstance().unblockEvent(iEventType::iEventNodeRemovedFromScene);
+                    _parent->_children.erase(iter);
+                    _parent->_inactiveChildren.push_back(this);
 
-                            _parent->_children.erase(iter);
-                            _parent->_inactiveChildren.push_back(this);
-
-                            result = true;
-                            break;
-                        }
-
-                        iter++;
-                    }
-
-                    con_assert(result, "inconsistant data");
+                    result = true;
+                    break;
                 }
+
+                iter++;
             }
-            else
+
+            con_assert(result, "inconsistant data");
+        }
+        else
+        {
+            bool result = false;
+
+            auto iter = _parent->_inactiveChildren.begin();
+            while (iter != _parent->_inactiveChildren.end())
             {
-                if (_parent != nullptr)
+                if ((*iter) == this)
                 {
-                    bool result = false;
+                    iApplication::getInstance().blockEvent(iEventType::iEventNodeAddedToScene);
+                    setScene(_parent->getScene());
+                    iApplication::getInstance().unblockEvent(iEventType::iEventNodeAddedToScene);
+                    setTransformationDirty();
 
-                    auto iter = _parent->_inactiveChildren.begin();
-                    while (iter != _parent->_inactiveChildren.end())
-                    {
-                        if ((*iter) == this)
-                        {
-                            iApplication::getInstance().blockEvent(iEventType::iEventNodeAddedToScene);
-                            setScene(_parent->getScene());
-                            iApplication::getInstance().unblockEvent(iEventType::iEventNodeAddedToScene);
-                            setTransformationDirty();
+                    _parent->_inactiveChildren.erase(iter);
+                    _parent->_children.push_back(this);
 
-                            _parent->_inactiveChildren.erase(iter);
-                            _parent->_children.push_back(this);
-
-                            result = true;
-                            break;
-                        }
-
-                        iter++;
-                    }
-
-                    con_assert(result, "inconsistant data");
+                    result = true;
+                    break;
                 }
+
+                iter++;
             }
+
+            con_assert(result, "inconsistant data");
         }
     }
 

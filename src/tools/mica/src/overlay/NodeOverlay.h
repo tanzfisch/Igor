@@ -51,8 +51,6 @@ enum class OverlayMode
 class NodeOverlay
 {
 
-    friend class OverlayLayer;
-
 public:
     /*! initialize node overlay
 
@@ -70,47 +68,94 @@ public:
 
     \param nodeID id of node to control
     */
-    void setNodeID(uint64 nodeID);
+    virtual void setNodeID(uint64 nodeID);
+
+    /*! sets node overlay active
+
+    \param active true to set node overlay active
+    */
+    virtual void setActive(bool active);
+
+    /*! \returns true id overlay is active
+    */
+    bool isActive() const;
+
+    /*! sets overlay mode
+
+    \param mode the new overlay mode
+    */
+    virtual void setOverlayMode(OverlayMode mode);
+
+    /*! \returns true if mode in combination with node type can be handled by this node overlay
+
+    \param mode the overlay mod
+    \param nodeKind kind of node
+    \param nodeType type of node
+    */
+    virtual bool accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType) = 0;
+
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    virtual bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
+
+    /*! handles mouse key up event
+
+    \param event the mouse key up event
+    \returns true if consumed
+    */
+    virtual bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    virtual bool onMouseMoveEvent(iEventMouseMove &event);
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    virtual bool onKeyDown(iEventKeyDown &event);
+
+    /*! triggered when selection in scene changed
+
+    \param event the event handle
+    */
+    virtual bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
 
     /*! \returns id of controled node
      */
     uint64 getNodeID() const;
 
-    /*! sets node overlay visible
-
-    \param visible true to set node overlay visible
-    */
-    virtual void setVisible(bool visible);
-
-    /*! \returns true if node overlay is visible
-     */
-    virtual bool isVisible() const;
-
-    /*! \returns true the node overlay is selected
-     */
-    virtual bool isSelected() const;
-
-    /*! sets the mode of the node overlay
-
-    \param nodeOverlayMode the node overlay mode
-    */
-    virtual void setOverlayMode(OverlayMode nodeOverlayMode);
-
-    /*! \returns the current node overlay mode
+    /*! \returns current overlay mode
      */
     OverlayMode getOverlayMode() const;
 
-    /*! selects node inside of node overlay if present
-
-    \returns true if node overlay has control and can select given nodeID
-    */
-    virtual bool select(iNodeID nodeID);
-
-    /*! unselect what ever may be selected
+    /*! \returns mica workspace
      */
-    virtual void unselect();
+    WorkspacePtr getWorkspace() const;
 
-protected:
+    /*! \returns the node overlay scene
+     */
+    iScenePtr getScene() const;
+
+    /*! \returns the view
+     */
+    iViewPtr getView() const;
+
+private:
+    /*! id of node connected to this node overlay
+     */
+    uint64 _nodeID = iNode::INVALID_NODE_ID;
+
+    /*! the overlay mode
+     */
+    OverlayMode _overlayMode = OverlayMode::None;
+
     /*! mica workspace
      */
     WorkspacePtr _workspace;
@@ -123,29 +168,13 @@ protected:
      */
     iViewPtr _view = nullptr;
 
-    /*! on mouse moved callback
-
-    \param from the mouse moved from here
-    \param to the mouse moved to here
+    /*! if overlay is active or not
     */
-    virtual void onMouseMoved(const iaVector2i &from, const iaVector2i &to);
-
-private:
-    /*! id of node connected to this node overlay
-     */
-    uint64 _nodeID = iNode::INVALID_NODE_ID;
-
-    /*! if true node overlay is visible
-     */
-    bool _visible = false;
-
-    /*! current user node overlay mode
-     */
-    OverlayMode _userNodeOverlayMode = OverlayMode::None;
+    bool _active = false;
 };
 
 /*! node overlay pointer definition
  */
-typedef NodeOverlay *NodeOverlayPtr;
+typedef std::shared_ptr<NodeOverlay> NodeOverlayPtr;
 
 #endif // __NODEOVERLAY__

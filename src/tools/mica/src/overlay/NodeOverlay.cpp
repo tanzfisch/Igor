@@ -13,32 +13,9 @@ NodeOverlay::~NodeOverlay()
 {
 }
 
-void NodeOverlay::setVisible(bool visible)
-{
-    _visible = visible;
-}
-
-bool NodeOverlay::isVisible() const
-{
-    return _visible;
-}
-
-OverlayMode NodeOverlay::getOverlayMode() const
-{
-    return _userNodeOverlayMode;
-}
-
 void NodeOverlay::setNodeID(uint64 nodeID)
 {
-    iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-    if (node != nullptr)
-    {
-        _nodeID = nodeID;
-    }
-    else
-    {
-        _nodeID = iNode::INVALID_NODE_ID;
-    }
+    _nodeID = nodeID;
 }
 
 uint64 NodeOverlay::getNodeID() const
@@ -46,25 +23,62 @@ uint64 NodeOverlay::getNodeID() const
     return _nodeID;
 }
 
-bool NodeOverlay::isSelected() const
+void NodeOverlay::setOverlayMode(OverlayMode mode)
+{
+    _overlayMode = mode;
+}
+
+OverlayMode NodeOverlay::getOverlayMode() const
+{
+    return _overlayMode;
+}
+
+void NodeOverlay::setActive(bool active)
+{
+    _active = active;
+}
+
+bool NodeOverlay::isActive() const
+{
+    return _active;
+}
+
+bool NodeOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
     return false;
 }
 
-void NodeOverlay::onMouseMoved(const iaVector2i &from, const iaVector2i &to)
-{
-}
-
-void NodeOverlay::setOverlayMode(OverlayMode manipulatorMode)
-{
-    _userNodeOverlayMode = manipulatorMode;
-}
-
-bool NodeOverlay::select(iNodeID nodeID)
+bool NodeOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
     return false;
 }
 
-void NodeOverlay::unselect()
+bool NodeOverlay::onMouseMoveEvent(iEventMouseMove &event)
 {
+    return false;
+}
+
+bool NodeOverlay::onKeyDown(iEventKeyDown &event)
+{
+    return false;
+}
+
+bool NodeOverlay::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
+{
+    return false;
+}
+
+WorkspacePtr NodeOverlay::getWorkspace() const
+{
+    return _workspace;
+}
+
+iScenePtr NodeOverlay::getScene() const
+{
+    return _scene;
+}
+
+iViewPtr NodeOverlay::getView() const
+{
+    return _view;
 }

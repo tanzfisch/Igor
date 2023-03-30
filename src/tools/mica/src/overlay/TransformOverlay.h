@@ -26,43 +26,57 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MANIPULATOR_H__
-#define __MANIPULATOR_H__
+#ifndef __TRANSFORM_OVERLAY_H__
+#define __TRANSFORM_OVERLAY_H__
 
 #include "NodeOverlay.h"
-
-#include <memory>
 
 /*! 3d overlay ui element for scene nodes
 
     to modify position, orientation and scale of objects in the scene
     to display additional information when nodes are selected
 */
-class Manipulator : public NodeOverlay
+class TransformOverlay : public NodeOverlay
 {
 
 public:
-    Manipulator(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
+    /*! initialize node overlay
+
+    \param view the view to use
+    \param scene the scene to use
+    \param workspace the mica workspace
+    */
+    TransformOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
 
     /*! cleanup
      */
-    ~Manipulator();
+    ~TransformOverlay();
 
-    /*! \returns true the node overlay is selected
-     */
-    bool isSelected() const override;
+    /*! sets the node to control by ID
 
-    /*! sets node overlay visible
-
-    \param visible true to set node overlay visible
+    \param nodeID id of node to control
     */
-    void setVisible(bool visible) override;
+    void setNodeID(uint64 nodeID) override;
 
-    /*! sets the mode of the node overlay
+    /*! sets node overlay active
 
-    \param nodeOverlayMode the node overlay mode
+    \param active true to set node overlay active
     */
-    void setOverlayMode(OverlayMode nodeOverlayMode) override;
+    void setActive(bool active) override;
+
+    /*! \returns true if mode in combination with node type can be handled by this node overlay
+
+    \param mode the overlay mode
+    \param nodeKind kind of node
+    \param nodeType type of node
+    */
+    bool accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType) override;
+
+    /*! sets overlay mode
+
+    \param mode the new overlay mode
+    */
+    void setOverlayMode(OverlayMode mode) override;
 
 private:
     /*! id of selected manipulator node
@@ -159,12 +173,25 @@ private:
      */
     void update();
 
-    /*! on mouse moved callback
+    /*! handles mouse move event
 
-    \param from the mouse moved from here
-    \param to the mouse moved to here
+    \param event the mouse move event
     */
-    virtual void onMouseMoved(const iaVector2i &from, const iaVector2i &to) override;
+    bool onMouseMoveEvent(iEventMouseMove &event) override;
+
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    bool onMouseKeyDownEvent(iEventMouseKeyDown &event) override;
+
+    /*! handles mouse key up event
+
+    \param event the mouse key up event
+    \returns true if consumed
+    */
+    virtual bool onMouseKeyUpEvent(iEventMouseKeyUp &event);    
 
     /*! initialisation
      */
@@ -176,7 +203,7 @@ private:
 
     /*! on render callback
      */
-    virtual void onRender();
+    void onRender();
 
     /*! create translate mesh
      */
@@ -231,20 +258,6 @@ private:
     /*! highlight selected manipulator node
      */
     void renderHighlight();
-
-    /*! selects node inside of node overlay if present
-    
-    \returns true if node overlay has control and can select given nodeID
-    */
-    bool select(iNodeID nodeID) override;
-
-    /*! unselect what ever may be selected
-    */
-    void unselect() override;
 };
 
-/*! manipulator pointer definition
-*/
-typedef Manipulator* ManipulatorPtr;
-
-#endif // __MANIPULATOR_H__
+#endif // __TRANSFORM_OVERLAY_H__

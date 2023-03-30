@@ -31,7 +31,7 @@
 #define __OVERLAYLAYER_H__
 
 #include "../Workspace.h"
-#include "Manipulator.h"
+#include "NodeOverlay.h"
 
 #include <igor/igor.h>
 using namespace igor;
@@ -41,87 +41,87 @@ class OverlayLayer : public iLayer
 
 public:
     /*! init members
-	*/
+     */
     OverlayLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace);
 
     /*! deinit resources
-	*/
+     */
     ~OverlayLayer();
 
 private:
     /*! the view of this layer
-    */
+     */
     iView _view;
 
     /*! the scene of this layer
-    */
+     */
     iScenePtr _scene;
 
-    /*! material for orientation plane 
-	*/
+    /*! material for orientation plane
+     */
     iMaterialPtr _materialOrientationPlane;
 
     /*! the mica workspace
-    */
+     */
     WorkspacePtr _workspace;
 
     /*! font for profiler
-    */
+     */
     iTextureFontPtr _font;
 
-    /*! manipulator
-	*/
-    NodeOverlayPtr _nodeOverlay = nullptr;
-
-    /*! manipulator overlay
-    */
-    ManipulatorPtr _nodeOverlayManipulator = nullptr;
+    /*! node overlays
+     */
+    std::vector<NodeOverlayPtr> _nodeOverlays;
 
     /*! overlay mode
-    */
+     */
     OverlayMode _overlayMode = OverlayMode::None;
 
+    /*! selected node
+    */
+    iNodePtr _selectedNode = nullptr;
+
     /*! reset overlay mode to none
-	*/
+     */
     void resetOverlayMode();
 
-    /*! sets the manipulator mode on currently selected node 
-	but only if it is a transform node otherwise its set to none
+    /*! sets the manipulator mode on currently selected node
+    but only if it is a transform node otherwise its set to none
 
-	\param modifierMode the modifier mode to set
-	*/
+    \param modifierMode the modifier mode to set
+    */
     void setOverlayMode(OverlayMode overlayMode);
 
     /*! \returns the overlay mode
-    */
+     */
     OverlayMode getOverlayMode() const;
 
     /*! render selection
-    */
+     */
     void renderSelection();
 
     /*! render orientation plane
-    */
+     */
     void renderOrientationPlane();
 
     /*! render overlay
-    */
+     */
     void render();
 
     /*! render othogonal overlay
-    */
+     */
     void renderOrtho();
 
     /*! clear resources
-	*/
+     */
     void onDeinit() override;
 
     /*! init layer
-    */
+     */
     void onInit() override;
 
     /*! called on any other event
-    */
+     */
     void onEvent(iEvent &event) override;
 
     /*! handles mouse key down event
@@ -156,6 +156,10 @@ private:
     \param event the event handle
     */
     bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
+
+    /*! checks overlays for candidates that accept current mode node combination
+    */
+    void updateAcceptance();
 };
 
 #endif // __OverlayLayer_H__

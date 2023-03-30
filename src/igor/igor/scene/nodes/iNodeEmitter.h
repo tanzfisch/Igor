@@ -124,6 +124,10 @@ namespace igor
         virtual ~iNodeEmitter() = default;
     };
 
+    /*! node emitter pointer definition
+    */
+    typedef iNodeEmitter* iNodeEmitterPtr;
+
 }; // namespace igor
 
 #endif
