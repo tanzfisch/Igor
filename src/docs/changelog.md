@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.37.1
+------
+
+- sorting files and directories alphabetically
+
 0.37.0
 ------
 
