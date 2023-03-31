@@ -81,15 +81,17 @@ namespace iaux
         /*! \returns all subdirectorys
 
         \param recursive true: search recursively; false: search only in current directory
+        \param orderAlphabetically true: returns directories in alphabetical order
         */
-        std::vector<iaDirectory> getDirectorys(bool recursive = false);
+        std::vector<iaDirectory> getDirectorys(bool recursive = false, bool orderAlphabetically = true);
 
         /*! \returns all files
 
         \param searchPattern what to search for using regular expression
         \param recursive true: search recursively; false: search only in current directory
+        \param orderAlphabetically true: returns files in alphabetical order
         */
-        std::vector<iaFile> getFiles(iaString searchPattern = L"(.*)", bool recursive = false);
+        std::vector<iaFile> getFiles(iaString searchPattern = L"(.*)", bool recursive = false, bool orderAlphabetically = true);
 
         /*! set's the current or working directory
 
