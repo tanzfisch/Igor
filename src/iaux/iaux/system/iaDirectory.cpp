@@ -9,6 +9,7 @@
 
 #include <sstream>
 #include <filesystem>
+#include <algorithm>
 
 #ifdef __IGOR_LINUX__
 #include <unistd.h>
@@ -30,7 +31,7 @@ namespace iaux
         return *this;
     }
 
-    std::vector<iaDirectory> iaDirectory::getDirectorys(bool recursive)
+    std::vector<iaDirectory> iaDirectory::getDirectorys(bool recursive, bool orderAlphabetically)
     {
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaDirectory> result;
@@ -54,6 +55,17 @@ namespace iaux
                     result.push_back(iaDirectory(entry.path().c_str()));
                 }
             }
+        }
+
+        if (orderAlphabetically)
+        {
+            std::sort(result.begin(), result.end(), [](iaDirectory const a, iaDirectory const b)
+                      { 
+                        iaString sa = a.getFullDirectoryName();
+                        sa.toLower();
+                        iaString sb = b.getFullDirectoryName();
+                        sb.toLower();
+                        return sa < sb; });
         }
 
         return result;
@@ -88,7 +100,7 @@ namespace iaux
         return false;
     }
 
-    std::vector<iaFile> iaDirectory::getFiles(iaString searchPattern, bool recursive)
+    std::vector<iaFile> iaDirectory::getFiles(iaString searchPattern, bool recursive, bool orderAlphabetically)
     {
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaFile> result;
@@ -112,6 +124,17 @@ namespace iaux
                     result.push_back(iaFile(entry.path().c_str()));
                 }
             }
+        }
+
+        if (orderAlphabetically)
+        {
+            std::sort(result.begin(), result.end(), [](iaFile const a, iaFile const b)
+                      { 
+                        iaString sa = a.getFullFileName();
+                        sa.toLower();
+                        iaString sb = b.getFullFileName();
+                        sb.toLower();
+                        return sa < sb; });
         }
 
         return result;
@@ -221,7 +244,7 @@ namespace iaux
 
 #ifdef __IGOR_LINUX__
         // check if this is the user home folder
-        if(temp[0] == '~')
+        if (temp[0] == '~')
         {
             passwd *pw = getpwuid(getuid());
             const iaString homeDirectory(pw->pw_dir);
