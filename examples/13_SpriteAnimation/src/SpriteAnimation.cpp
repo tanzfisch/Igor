@@ -26,8 +26,8 @@ void SpriteAnimation::onInit()
     _materialTerrain = iMaterialResourceFactory::getInstance().loadMaterial("examples/sprite_animation_textured.mat");
 
     // load atlantes
-    _walk = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "meta/SpriteAnimationWalk.atlant");
-    _tiles = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "meta/SpriteAnimationTiles.atlant");
+    _walk = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "misc/SpriteAnimationWalk.atlant");
+    _tiles = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "misc/SpriteAnimationTiles.atlant");
 
     // generate ground map
     TileMapGenerator tileMapGenerator;

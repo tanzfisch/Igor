@@ -31,7 +31,7 @@ void UserControlMaterialView::initGUI()
     addMaterialButton->setTooltip("Create new material.");
     addMaterialButton->setWidth(30);
     addMaterialButton->setHeight(30);
-    addMaterialButton->setTexture("icons/addMaterial.png");
+    addMaterialButton->setTexture("igor/icons/addMaterial.png");
     addMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onAddMaterial));
 
     iWidgetButton *loadMaterialButton = new iWidgetButton();
@@ -39,7 +39,7 @@ void UserControlMaterialView::initGUI()
     loadMaterialButton->setTooltip("Load material.");
     loadMaterialButton->setWidth(30);
     loadMaterialButton->setHeight(30);
-    loadMaterialButton->setTexture("icons/loadMaterial.png");
+    loadMaterialButton->setTexture("igor/icons/loadMaterial.png");
     loadMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onLoadMaterial));
 
     iWidgetGroupBox *groupBox = new iWidgetGroupBox();

@@ -51,7 +51,7 @@ namespace igor
         _picture = new iWidgetPicture();
         _picture->setMaxSize(8, 8);
         _picture->setKeepAspectRatio(false);
-        _picture->setTexture("icons/right.png");
+        _picture->setTexture("igor/icons/right.png");
 
         grid->addWidget(_picture, 2, 0);
 

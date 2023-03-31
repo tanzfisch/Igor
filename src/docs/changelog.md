@@ -1,11 +1,21 @@
 Changelog                           {#changelog}
 =========
 
+0.37.0
+------
+
+- allowing custom config file names
+- fallback to default material when loading material fails
+- moved all igor specific data under data/igor
+- moved all mica specific data under data/mica
+- removed unused shader folder
+- added addPlane to iMeshBuilderUtils
+- brought emitter node overlay back in mica
+
 0.36.0
 ------
 
 - minor improvements to entt wrapper interfaces
-
 
 0.35.1
 ------

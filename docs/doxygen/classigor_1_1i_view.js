@@ -17,6 +17,7 @@ var classigor_1_1i_view =
     [ "isVisible", "classigor_1_1i_view.html#ad5b1c95ac10a2b903488283bd7802e12", null ],
     [ "isWireframeVisible", "classigor_1_1i_view.html#ada57379e78c5f1174016d7cf54e9ff09", null ],
     [ "pickcolorID", "classigor_1_1i_view.html#a4e07311e6f861cc40e4333e0c37ddcf1", null ],
+    [ "pickcolorID", "classigor_1_1i_view.html#adbd670144930e88fea2215aa01a13a1a", null ],
     [ "pickcolorID", "classigor_1_1i_view.html#a50dd049b339ea6aebf96e71637dd6382", null ],
     [ "project", "classigor_1_1i_view.html#a7875d59dd4e5d0ef7a904b81f91d027d", null ],
     [ "registerRenderDelegate", "classigor_1_1i_view.html#af36dbe12a9bda1b2e9b9bca2db2f76e1", null ],

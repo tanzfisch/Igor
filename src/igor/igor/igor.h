@@ -187,23 +187,33 @@
 */
 namespace igor
 {
-    /*! should be called before any other interface of Igor is used	
+    /*! starting up Igor.
+    
+    Must be called before any other interface of Igor is used
 
-	\param argc command line parameter count
-	\param argv command line parameters
-	*/
-    void IGOR_API startupArgs(int argc, wchar_t **argv);
+    \param configname name of config file
+    
+    config file will be searched for in this order
 
-    /*! alternative startup
+    Windows: 
+        config\[configname].xml
+        ..\config\[configname].xml
+        ..\..\config\[configname].xml
+    Linux:
+        ~/.[configname]/[configname].xml
+        /etc/[configname]/[configname].xml
+        config/[configname].xml
+        ../config/[configname].xml
+        ../../config/[configname].xml
+
+    in that order
 	*/
-    void IGOR_API startup();
+    void IGOR_API startup(const iaString &configname = "igor");
 
     /*! should be called last in your application. do not use any Igor interface after that
 	
 	Shuts down all the modules.
 	Not thread save. make shure only one thread is left when calling this.
-
-    \todo it would be nice to have the order of shutting down singletons implicitly or configurable
 	*/
     void IGOR_API shutdown();
 

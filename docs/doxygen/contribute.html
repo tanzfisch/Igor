@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -89,10 +89,10 @@ $(document).ready(function(){initNavTree('contribute.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_contribute"></a></p>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 Get Igor</h1>
 <p>Get the Igor sources from <a href="https://github.com/tanzfisch/Igor.git">github</a>.</p>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
 Submodules</h1>
 <p>Igor currently links to the following libraries as sub modules.</p>
 <ul>
@@ -102,23 +102,23 @@ Submodules</h1>
 <p>dont forget to run the following unless your git client already does it for you</p>
 <div class="fragment"><div class="line">git submodule init</div>
 <div class="line">git submodule update</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md32"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md35"></a>
 Build</h1>
 <p>Igor is using cmake to build. It is tested to work on Ubuntu and Debian with GCC and Windows/MSVC.</p>
 <p>Preffered setup is VSCode, MSVC and CMAKE extension but it should work with Visual Studio as well.</p>
 <p><b>Note!</b> Under Linux you might need to install some additional dependencies like the following ...</p>
 <div class="fragment"><div class="line">sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md33"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md36"></a>
 Run from VSCode</h1>
 <p>Make sure when debugging from vscode to add the following to your settings.json in order for it to start from the correct working directory otherwise all relative paths to the data folder will fail.</p>
 <div class="fragment"><div class="line">&quot;cmake.debugConfig&quot;: {</div>
 <div class="line">    &quot;cwd&quot;: &quot;${workspaceFolder}&quot;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md34"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md37"></a>
 Git Flow</h1>
 <p>Use git flow for branching and merging etc. Please find <a href="https://danielkummer.github.io/git-flow-cheatsheet/">here</a> a very usefull cheat sheet.</p>
 <p>Maybe get a git client that supports git flow naturally (e.g. <a href="https://www.gitkraken.com/">gitkraken</a>).</p>
-<h1><a class="anchor" id="autotoc_md35"></a>
+<h1><a class="anchor" id="autotoc_md38"></a>
 Make a release</h1>
 <p>For making a release do the following steps.</p>
 <ol type="1">
@@ -130,11 +130,11 @@ Make a release</h1>
 <li>when satisfied with test and docs merge the release in to master and develop.</li>
 <li>Create a tag with the new version number on master and push master, develop and the new tag</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 Make a Patch Release</h1>
 <p>When happy with your hotfix update the <a class="el" href="changelog.html">Changelog</a> before mergin back in to master and develop.</p>
 <p>Crate patch release version tag on master branch.</p>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 Doxygen</h1>
 <p>Install <a href="http://www.doxygen.nl/download.html">doxygen</a> (ver. 1.8.8) than run doxygen using the configuration file located at src/docs/Doxyfile.doxy </p>
 </div></div><!-- contents -->

@@ -249,7 +249,7 @@ var namespaceiaux =
     [ "printIgorThreadID", "namespaceiaux.html#a7f7099fd1480fa85d5ffd93073304726", null ],
     [ "shutdown", "namespaceiaux.html#a4512e4c9774e4173030572df0847e4f3", null ],
     [ "slerp", "namespaceiaux.html#ad1149934c1bcd907201d42fd480bc57c", null ],
-    [ "startup", "namespaceiaux.html#abe9536c70b4809b702e5f7431fe53d56", null ],
+    [ "startup", "namespaceiaux.html#a7d213dac77b6a28582205c12f526aab9", null ],
     [ "threadFunc", "namespaceiaux.html#a33610ed121c48d08d09654b085b398b7", null ],
     [ "UNLOCK", "namespaceiaux.html#a70d25d986c5fffd8bd895f55a6f20a16", null ],
     [ "_randomNumberGenerator", "namespaceiaux.html#a703cd6c86c847adbe3a7d1712f112b15", null ],

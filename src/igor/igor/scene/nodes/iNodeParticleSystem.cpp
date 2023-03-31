@@ -109,6 +109,11 @@ namespace igor
     {
         handle();
 
+        if(_particleSystem.getVertexArray() == nullptr)
+        {
+            return;
+        }
+
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
         iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _targetMaterial);
     }

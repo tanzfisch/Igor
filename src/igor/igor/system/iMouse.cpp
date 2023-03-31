@@ -300,11 +300,11 @@ namespace igor
 
             if (doubleClick)
             {
-                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDoubleClick(_window, buttonKey)));
+                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDoubleClick(_window, buttonKey, _pos)));
             }
             else
             {
-                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, buttonKey)));
+                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, buttonKey, _pos)));
             }
         }
 
@@ -312,7 +312,7 @@ namespace igor
         {
             const int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
             _buttonStates[buttonIndex]._pressed = false;
-            iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, buttonKey)));
+            iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, buttonKey, _pos)));
         }
 
         bool onOSEvent(const void *data) override

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.35.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,7 +86,6 @@ $(document).ready(function(){initNavTree('classigor_1_1i_entity_scene.html','');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_entity_scene-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">igor::iEntityScene Class Reference</div>  </div>
@@ -112,14 +111,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3219f68bade2c000e594038c4445fdb8"><td class="memTemplParams" colspan="2">template&lt;typename... Components&gt; </td></tr>
 <tr class="memitem:a3219f68bade2c000e594038c4445fdb8"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a3219f68bade2c000e594038c4445fdb8">getEntities</a> ()</td></tr>
 <tr class="separator:a3219f68bade2c000e594038c4445fdb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a021b8fb3624ee7fa31246cd91dfac21c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a021b8fb3624ee7fa31246cd91dfac21c">iEntity</a></td></tr>
-<tr class="separator:a021b8fb3624ee7fa31246cd91dfac21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8d19f22799e27c0f7b872f79d71e513"><td class="memItemLeft" align="right" valign="top">entt::registry &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#aa8d19f22799e27c0f7b872f79d71e513">getRegistry</a> ()</td></tr>
+<tr class="separator:aa8d19f22799e27c0f7b872f79d71e513"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>wrapper for entt registry </p>
+<div class="textblock"><p>entity scene </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a172bc8d42bbd41751660c6ba5ba35e64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a172bc8d42bbd41751660c6ba5ba35e64">&#9670;&nbsp;</a></span>clear()</h2>
@@ -236,6 +232,24 @@ template&lt;typename... Components&gt; </div>
 
 </div>
 </div>
+<a id="aa8d19f22799e27c0f7b872f79d71e513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8d19f22799e27c0f7b872f79d71e513">&#9670;&nbsp;</a></span>getRegistry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">entt::registry &amp; igor::iEntityScene::getRegistry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>entt registry </dd></dl>
+
+</div>
+</div>
 <a id="a7714dff004b8c1089cbcfba037b3193c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7714dff004b8c1089cbcfba037b3193c">&#9670;&nbsp;</a></span>registerSystem()</h2>
 
@@ -276,29 +290,6 @@ template&lt;typename... Components&gt; </div>
       </table>
 </div><div class="memdoc">
 <p>updates all systems in the order hey have been added to the scene </p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a021b8fb3624ee7fa31246cd91dfac21c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a021b8fb3624ee7fa31246cd91dfac21c">&#9670;&nbsp;</a></span>iEntity</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classigor_1_1i_entity.html">iEntity</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>

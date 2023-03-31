@@ -12,9 +12,9 @@ namespace igor
 {
     void iMaterialResourceFactory::init()
     {
-        _defaultMaterial = loadMaterial("igor/default.mat");
-        _defaultMaterial = loadMaterial("igor/textured.mat");
-        _colorIDMaterial = loadMaterial("igor/colorID.mat");
+        _defaultMaterial = loadMaterial("igor/materials/default.mat");
+        _defaultMaterial = loadMaterial("igor/materials/textured.mat");
+        _colorIDMaterial = loadMaterial("igor/materials/colorID.mat");
     }
 
     void iMaterialResourceFactory::deinit()
@@ -138,7 +138,13 @@ namespace igor
 
         result = iMaterial::create(keyPath);
 
-        con_assert_sticky(checkForIDCollisions(result), "duplicate material ID detected " << result->getID() << " material name:" << result->getName() << " filename:" << filename);
+        if (!result->isValid())
+        {
+            con_err("can't load material from \""<< keyPath << "\". Fallback to default material");
+            return getDefaultMaterial();
+        }
+
+        con_assert_sticky(checkForIDCollisions(result), "duplicate material ID detected id:\"" << result->getID() << "\" name:" << result->getName() << " filename:" << filename);
 
         if (cache)
         {
