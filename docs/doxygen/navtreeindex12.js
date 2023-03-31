@@ -1,5 +1,13 @@
 var NAVTREEINDEX12 =
 {
+"classigor_1_1i_widget.html#af7f6f50efeae1e3310a0ba88374672f2":[5,0,1,211,98],
+"classigor_1_1i_widget.html#af877834d99c536f85d76c3776a40299f":[5,0,1,211,107],
+"classigor_1_1i_widget.html#af905ba7bd8f192191f102c4482205f6e":[5,0,1,211,93],
+"classigor_1_1i_widget.html#afa2c6c9e1c823d970125d8cec352583b":[5,0,1,211,66],
+"classigor_1_1i_widget.html#afd8af5ba77e791aba478821e33f7fff2":[5,0,1,211,52],
+"classigor_1_1i_widget.html#afd9c7803508d23c1f08e98edd7513baa":[5,0,1,211,71],
+"classigor_1_1i_widget.html#aff6b5278f53ac40425615f2093eaf170":[5,0,1,211,59],
+"classigor_1_1i_widget_button.html":[5,0,1,212],
 "classigor_1_1i_widget_button.html#a037c4b9c56ec769c02a527eac9c0719b":[5,0,1,212,9],
 "classigor_1_1i_widget_button.html#a16204048c01325c593d2ecb4eb38c667":[5,0,1,212,5],
 "classigor_1_1i_widget_button.html#a1b5990e732d2e0c03ea8b747158bd5bd":[5,0,1,212,1],
@@ -241,13 +249,5 @@ var NAVTREEINDEX12 =
 "classigor_1_1i_widget_menu_bar.html#a2de99068999f229d508c54e005468577":[5,0,1,222,1],
 "classigor_1_1i_widget_menu_bar.html#a333b2761c38a4daab2195601190eb520":[5,0,1,222,3],
 "classigor_1_1i_widget_menu_bar.html#a83e28d98d51f5a7b2c7b9591a476f8c1":[5,0,1,222,5],
-"classigor_1_1i_widget_menu_bar.html#ad3b84fce3bd005b9b06ca5501af4d253":[5,0,1,222,0],
-"classigor_1_1i_widget_number_chooser.html":[5,0,1,223],
-"classigor_1_1i_widget_number_chooser.html#a175b9840e3fea0970370945d550f14dd":[5,0,1,223,5],
-"classigor_1_1i_widget_number_chooser.html#a3ea8370a23ae99bb9bea165655b57c82":[5,0,1,223,8],
-"classigor_1_1i_widget_number_chooser.html#a4b94a1188bdf5f6674025186c8e69058":[5,0,1,223,0],
-"classigor_1_1i_widget_number_chooser.html#a6a910e4be019ca03ac229cde7c2a25a7":[5,0,1,223,10],
-"classigor_1_1i_widget_number_chooser.html#a7d43b040a019cc3cc3a6695b6c615f67":[5,0,1,223,9],
-"classigor_1_1i_widget_number_chooser.html#a7f55d8b01ae4783502aa5fe26bb8b4d2":[5,0,1,223,7],
-"classigor_1_1i_widget_number_chooser.html#a84468365dcdb7207360ef61f39990c09":[5,0,1,223,2]
+"classigor_1_1i_widget_menu_bar.html#ad3b84fce3bd005b9b06ca5501af4d253":[5,0,1,222,0]
 };

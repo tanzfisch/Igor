@@ -11,7 +11,6 @@ var igor_8cpp =
     [ "destroyModules", "igor_8cpp.html#aca58709fd86d64631d1d3a11abbc3cf3", null ],
     [ "printInfo", "igor_8cpp.html#af68f95c2759782213759d6aadf327ad7", null ],
     [ "shutdown", "igor_8cpp.html#a10b2ddc4c372b6753c6e09e7a3299abf", null ],
-    [ "startup", "igor_8cpp.html#aac0acbe5b467c273c0b8a66c9d3ff788", null ],
-    [ "startupArgs", "igor_8cpp.html#a417c88d864a4291547b22fbfae279bb5", null ],
+    [ "startup", "igor_8cpp.html#ab8b34c22ef39bf85e86c87b304b3baa7", null ],
     [ "__IGOR_CONFIGURATION__", "igor_8cpp.html#a62512b4a7f0d4a97d7c4a7ccd8388c3f", null ]
 ];
