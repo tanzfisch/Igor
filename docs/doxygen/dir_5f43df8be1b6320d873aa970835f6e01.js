@@ -13,9 +13,7 @@ var dir_5f43df8be1b6320d873aa970835f6e01 =
     [ "iNodeCamera.cpp", "i_node_camera_8cpp.html", null ],
     [ "iNodeCamera.h", "i_node_camera_8h.html", "i_node_camera_8h" ],
     [ "iNodeEmitter.cpp", "i_node_emitter_8cpp.html", null ],
-    [ "iNodeEmitter.h", "i_node_emitter_8h.html", [
-      [ "iNodeEmitter", "classigor_1_1i_node_emitter.html", "classigor_1_1i_node_emitter" ]
-    ] ],
+    [ "iNodeEmitter.h", "i_node_emitter_8h.html", "i_node_emitter_8h" ],
     [ "iNodeLight.cpp", "i_node_light_8cpp.html", null ],
     [ "iNodeLight.h", "i_node_light_8h.html", "i_node_light_8h" ],
     [ "iNodeLODSwitch.cpp", "i_node_l_o_d_switch_8cpp.html", null ],
@@ -46,9 +44,7 @@ var dir_5f43df8be1b6320d873aa970835f6e01 =
       [ "iNodeSkyBox", "classigor_1_1i_node_sky_box.html", "classigor_1_1i_node_sky_box" ]
     ] ],
     [ "iNodeSwitch.cpp", "i_node_switch_8cpp.html", null ],
-    [ "iNodeSwitch.h", "i_node_switch_8h.html", [
-      [ "iNodeSwitch", "classigor_1_1i_node_switch.html", "classigor_1_1i_node_switch" ]
-    ] ],
+    [ "iNodeSwitch.h", "i_node_switch_8h.html", "i_node_switch_8h" ],
     [ "iNodeTransform.cpp", "i_node_transform_8cpp.html", null ],
     [ "iNodeTransform.h", "i_node_transform_8h.html", "i_node_transform_8h" ],
     [ "iNodeVolume.cpp", "i_node_volume_8cpp.html", null ],

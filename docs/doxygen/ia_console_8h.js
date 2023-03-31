@@ -4,6 +4,7 @@ var ia_console_8h =
     [ "__IGOR_LOGGING_TAB__", "ia_console_8h.html#a9b487d736f1ff95216577b03f57f1b2d", null ],
     [ "con_assert", "ia_console_8h.html#a6eebaa67b0bd67ba43d04abc729897c1", null ],
     [ "con_assert_sticky", "ia_console_8h.html#a4fc2be5c01a5e9bcacda006dadc2cc35", null ],
+    [ "con_crit", "ia_console_8h.html#a5bb51801a58d455e21b3ffcd40181881", null ],
     [ "con_debug", "ia_console_8h.html#a2fe059dd74a3e01c2082a11490b6f04f", null ],
     [ "con_endl", "ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7", null ],
     [ "con_err", "ia_console_8h.html#a78f0115042eb1a14efffca278878e5b6", null ],

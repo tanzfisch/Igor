@@ -26,7 +26,7 @@ var searchData=
   ['addlayer_362',['addLayer',['../classigor_1_1i_layer_stack.html#a8dd3ae2d6e5304211d4ac298a2cd5003',1,'igor::iLayerStack::addLayer()'],['../classigor_1_1i_application.html#aa84775678e8352dbe1dd9424f489a832',1,'igor::iApplication::addLayer()']]],
   ['addmenu_363',['addMenu',['../classigor_1_1i_widget_menu_bar.html#a2caecc376898a42b5152a366f1998edd',1,'igor::iWidgetMenuBar::addMenu()'],['../classigor_1_1i_widget_menu.html#a2da7dbeb19f855e030f137ccfd54ed64',1,'igor::iWidgetMenu::addMenu()'],['../classigor_1_1i_dialog_menu.html#a3c718df6213a693d9feef0940990a0bf',1,'igor::iDialogMenu::addMenu()']]],
   ['addmesh_364',['addMesh',['../namespaceigor_1_1i_mesh_builder_utils.html#abb356765819006cd20d00741c05b893d',1,'igor::iMeshBuilderUtils::addMesh()'],['../classigor_1_1i_physics_collision_config.html#a747d3d2b503547b39433de925dca2ea0',1,'igor::iPhysicsCollisionConfig::addMesh()']]],
-  ['addrectangle_365',['addRectangle',['../namespaceigor_1_1i_mesh_builder_utils.html#a7f4c2151eea3d80c0ece5372e6c0e452',1,'igor::iMeshBuilderUtils']]],
+  ['addplane_365',['addPlane',['../namespaceigor_1_1i_mesh_builder_utils.html#af7cfc2d1a3245dd3e32c08d79a73219e',1,'igor::iMeshBuilderUtils']]],
   ['addring_366',['addRing',['../namespaceigor_1_1i_mesh_builder_utils.html#af6df6545ce47a6594a6cb05a4bf67a7a',1,'igor::iMeshBuilderUtils']]],
   ['addsearchpath_367',['addSearchPath',['../classigor_1_1i_resource_manager.html#addbe8e6ac8befbbba020ce86f2268620',1,'igor::iResourceManager']]],
   ['addselectionentry_368',['addSelectionEntry',['../classigor_1_1i_widget_select_box.html#a8340c72c2c513cf2e58eb6e301f64ffd',1,'igor::iWidgetSelectBox']]],
