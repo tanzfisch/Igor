@@ -14,10 +14,14 @@
 #include <igor/system/iTimer.h>
 #include <igor/events/iEventScene.h>
 #include <igor/system/iApplication.h>
+#include <igor/threading/tasks/iTaskUpdateSceneData.h>
+#include <igor/threading/iTaskManager.h>
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaTime.h>
 using namespace iaux;
+
+#include <algorithm>
 
 namespace igor
 {
@@ -28,22 +32,30 @@ namespace igor
         _root->setName(L"RootNode");
         _root->setScene(this);
 
+        _mutexOctree.lock();
         _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 10.0, 8, 2);
+        _mutexOctree.unlock();
+
+        _updateSceneDataTask = iTaskManager::getInstance().addTask(new iTaskUpdateSceneData(this));
     }
 
     iScene::~iScene()
     {
+        iTaskManager::getInstance().abortTask(_updateSceneDataTask);
+
         if (_root != nullptr)
         {
             iNodeManager::getInstance().destroyNode(_root);
             _root = nullptr;
         }
 
+        _mutexOctree.lock();
         if (_octree != nullptr)
         {
             delete _octree;
             _octree = nullptr;
         }
+        _mutexOctree.unlock();
     }
 
     void iScene::registerLODTrigger(iNodeLODTrigger *trigger)
@@ -195,7 +207,10 @@ namespace igor
             sphere._center._y = volume->getCenter()._y;
             sphere._center._z = volume->getCenter()._z;
             sphere._radius = volume->getBoundingSphere()._radius;
+
+            _mutexOctree.lock();
             _octree->insert(volume, sphere);
+            _mutexOctree.unlock();
         }
     }
 
@@ -204,7 +219,9 @@ namespace igor
         auto iter = find(_volumes.begin(), _volumes.end(), volume);
         if (iter != _volumes.end())
         {
+            _mutexOctree.lock();
             _octree->remove(volume);
+            _mutexOctree.unlock();
             _volumes.erase(iter);
             return;
         }
@@ -220,7 +237,9 @@ namespace igor
         sphere._center._z = volume->getCenter()._z;
         sphere._radius = volume->getBoundingSphere()._radius;
 
+        _mutexOctree.lock();
         _octree->update(volume, sphere);
+        _mutexOctree.unlock();
     }
 
     void iScene::registerCamera(iNodeCamera *camera)
@@ -264,7 +283,7 @@ namespace igor
 
         // todo can not stay here. need to reduce update effort per frame. event based would be nice
         updateLOD();
-        updateData();
+        // updateData();
         _updateTransformVisitor.traverseTree(_root);
     }
 
@@ -286,10 +305,6 @@ namespace igor
         _loadingQueue.clear();
         _mutex.unlock();
 
-        // stop after 50ms to keep the front end responsive
-        iaTime endTime = iaTime::getNow();
-        endTime += iaTime::fromMilliseconds(50);
-
         auto iterP = _processingQueue.begin();
         while (iterP != _processingQueue.end())
         {
@@ -310,17 +325,28 @@ namespace igor
                 // node was destroyed in the mean time
                 iterP = _processingQueue.erase(iterP);
             }
-
-            if (iaTime::getNow() > endTime)
-            {
-                break;
-            }
         }
     }
 
-    iOctreePtr iScene::getOctree() const
+    void iScene::getCullResult(std::vector<void *> &cullResult)
     {
-        return _octree;
+        _mutexOctree.lock();
+        cullResult = _octree->getResult();
+        _mutexOctree.unlock();
+    }
+
+    void iScene::setFrustum(const iFrustumd &frustum)
+    {
+        _mutexOctree.lock();
+        _octree->filter(frustum);
+        _mutexOctree.unlock();
+    }
+
+    void iScene::drawOctree()
+    {
+        _mutexOctree.lock();
+        _octree->draw();
+        _mutexOctree.unlock();
     }
 
     void iScene::signalNodeAdded(iNodePtr node)

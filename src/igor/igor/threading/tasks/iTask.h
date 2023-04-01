@@ -64,6 +64,14 @@ namespace igor
         */
         static const iTaskID INVALID_TASK_ID = 0;
 
+        /*! max priority for a task to run
+        */
+        static const uint32 MAX_PRIORITY = 0;
+
+        /*! high priority for a task to run
+        */
+        static const uint32 HIGH_PRIORITY = 5;
+
         /*! default priority for a task to run
         */
         static const uint32 DEFAULT_PRIORITY = 10;
