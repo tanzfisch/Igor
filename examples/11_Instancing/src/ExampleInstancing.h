@@ -70,21 +70,17 @@ private:
     */
     iTimerHandlePtr _animationTimingHandle = nullptr;
 
-    /*! instancing material
+    /*! instancing material A
     */
     iMaterialPtr _materialWithInstancingA;
+
+    /*! instancing material B
+    */
     iMaterialPtr _materialWithInstancingB;
 
     /*! perlin noise generator
     */
     iPerlinNoise _perlinNoise;
-
-    /*! called when model was loaded
-
-    \param modelNodeID the node id of the loaded model
-    */
-    void onModelReadyA(uint64 modelNodeID);
-    void onModelReadyB(uint64 modelNodeID);
 
     /*! called by timer
 

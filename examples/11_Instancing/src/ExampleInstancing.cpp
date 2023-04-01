@@ -108,22 +108,22 @@ void ExampleInstancing::onInit()
                 {
                 case 0:
                     modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
-                    modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyA));
+                    modelNode->setMaterial(_materialWithInstancingA);
                     break;
 
                 case 1:
                     modelNode->setModel("crate.ompf", iResourceCacheMode::Keep);
-                    modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyA));
+                    modelNode->setMaterial(_materialWithInstancingA);
                     break;
 
                 case 2:
                     modelNode->setModel("tree.ompf", iResourceCacheMode::Keep);
-                    modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyB));
+                    modelNode->setMaterial(_materialWithInstancingB);
                     break;
 
                 case 3:
                     modelNode->setModel("teapot.ompf", iResourceCacheMode::Keep);
-                    modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyB));
+                    modelNode->setMaterial(_materialWithInstancingB);
                     break;
                 }
 
@@ -229,24 +229,4 @@ void ExampleInstancing::onUpdate(const iaTime &time)
 {
     iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
-}
-
-void ExampleInstancing::onModelReadyA(uint64 modelNodeID)
-{
-    iNodeModelPtr modelNode = dynamic_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
-    if (modelNode != nullptr &&
-        modelNode->isValid())
-    {
-        modelNode->setMaterial(_materialWithInstancingA);
-    }
-}
-
-void ExampleInstancing::onModelReadyB(uint64 modelNodeID)
-{
-    iNodeModelPtr modelNode = dynamic_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
-    if (modelNode != nullptr &&
-        modelNode->isValid())
-    {
-        modelNode->setMaterial(_materialWithInstancingB);
-    }
 }

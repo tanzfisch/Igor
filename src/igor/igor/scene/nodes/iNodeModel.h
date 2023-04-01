@@ -90,9 +90,9 @@ namespace igor
         */
         void unregisterModelReadyDelegate(iModelReadyDelegate delegate);
 
-        /*! sets material of all mesh nodes under this model
+        /*! sets and overrides material of all mesh nodes under this model
 
-        \param materialID the material id to set
+        \param material the material to set
         */
         void setMaterial(const iMaterialPtr& material);
 
@@ -124,6 +124,10 @@ namespace igor
         /*! shared poitner to requested model
          */
         iModelPtr _model;
+
+        /*! material to override 
+        */
+        iMaterialPtr _material;
 
         /*! true if requested model was actually loaded and subtree created
          */
