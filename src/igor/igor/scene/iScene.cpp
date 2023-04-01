@@ -295,6 +295,11 @@ namespace igor
         _mutex.unlock();
     }
 
+    void iScene::abortUpdateData()
+    {
+        _abortUpdateData = true;
+    }
+
     void iScene::updateData()
     {
         _mutex.lock();
@@ -303,7 +308,7 @@ namespace igor
         _mutex.unlock();
 
         auto iterP = _processingQueue.begin();
-        while (iterP != _processingQueue.end())
+        while (!_abortUpdateData && iterP != _processingQueue.end())
         {
             iNodePtr node = iNodeManager::getInstance().getNode((*iterP));
             if (node != nullptr)

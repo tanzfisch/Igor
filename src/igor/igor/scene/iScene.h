@@ -205,6 +205,10 @@ namespace igor
         */
         iTaskID _updateSceneDataTask;
 
+        /*! if true update data will be aborted
+        */
+        bool _abortUpdateData = false;
+
         /*! sets frustum on octree
 
         \param frustum the frustum to cull the scene with
@@ -224,6 +228,10 @@ namespace igor
         /*! handles dirty data ans tries to update it
 		*/
         void updateData();
+
+        /*! aborts update data
+        */
+        void abortUpdateData();
 
         /*! registers a camera node to the scene so it can be actually used as camera.
 

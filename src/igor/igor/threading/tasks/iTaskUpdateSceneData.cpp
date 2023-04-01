@@ -23,12 +23,8 @@ namespace igor
 
     void iTaskUpdateSceneData::abort()
     {
-        while (isRunning())
-        {
-            std::this_thread::yield();
-        }
-
-        setRepeating(false);
+        _parentScene->abortUpdateData();
+        iTask::abort();
     }
 
 }; // namespace igor
