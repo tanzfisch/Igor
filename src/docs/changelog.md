@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.37.2
+------
+
+- scene data update is now in separate thread
+
 0.37.1
 ------
 
@@ -36,7 +41,7 @@ Changelog                           {#changelog}
 - changed iaEvent/iaDelegate naming to iaSignal/iaSlot
 - iQuadtree uses std::any for user data instead of void*
 - refactored iQuadtree
-- introduced class iaRandom for cases where one does not need a unique random number genrator instance
+- introduced class iaRandom for cases where one does not need a unique random number generator instance
 - added iaColor4::transparent
 - added scalar operators for iaTime
 - added more interfaces to the renderer
@@ -70,12 +75,12 @@ Changelog                           {#changelog}
 
 - Mica now can load and safe .mat files (material files)
 - Mica is only displaying materials with public visibility
-- ompf has a new chunk type wich storeas a reference to a material file
+- ompf has a new chunk type which stores a reference to a material file
 
 0.34.2
 ------
 
-- Mica generally works again. But there is still a lot to do arround materials ompf and mica
+- Mica generally works again. But there is still a lot to do around materials ompf and mica
 - fixed color id
 - fixed selection highlighting
 
@@ -108,7 +113,7 @@ Known Missing features are:
 - new particle system does not support all previous features yet
 - Mica does not build
 - missing world grid resolution feature
-- missing color ID render mode feture used to select objects in the scene by Mica
+- missing color ID render mode feature used to select objects in the scene by Mica
 
 0.33.0
 ------
@@ -123,7 +128,7 @@ Known Missing features are:
 
 !Decided to drop MSVC support until I feel like it again!
 
-- improved slider widget behaviour
+- improved slider widget behavior
 - log level DebugInfo is now called User
 - default log level is now User
 - improved error handling in iAudio
@@ -137,7 +142,7 @@ Known Missing features are:
 
 - improved rendering performance (still a long way to go though)
 - replaced gtest with igorTest including writing more unit tests
-- fixed material initialisation problem in Ascent
+- fixed material initialization problem in Ascent
 
 0.30.0
 ------
@@ -153,15 +158,15 @@ Known Missing features are:
 - removed most of old event handling
 - using AL_DIRECT_CHANNELS_SOFT for all multi channel sounds
 - Mica: fixed framing by fixing bounding boxes
-- Mica: fixed backe to world action
-- improved behaviour of menu and sub menus
+- Mica: fixed bake to world action
+- improved behavior of menu and sub menus
 - replaced gtest with own simple implementation and adding more tests
-- fixed issue in cmake file rgarding building igor as submodule
+- fixed issue in cmake file regarding building igor as submodule
 - DebugInfo is the default log level again
 - renamed con_debug_endl to con_debug
 - con_trace now has a message parameter
 - renamed original con_trace to con_trace_call
-- improved profiling visualisation
+- improved profiling visualization
 - fixed performance issue in iScene where a queue was not cleared
 - reduced setMaterial calls
 - introduced one frame verbose output and render stats (F5 in examples)
@@ -178,18 +183,18 @@ I really needed to get this out before it get's even bigger.
 - improved console output
 - made instancing and the instancing example work again
   ![instancing](/images/Instancing.png)
-- surpressing auto key repeat under Linux
+- supressing auto key repeat under Linux
 - created an example base class for quicker prototyping
 - iaBSpline is a template now
 - fixed problem with setting transformations dirty down the tree
-- mapping thread IDs to igor internal IDs for more usefull logging output
+- mapping thread IDs to igor internal IDs for more useful logging output
 - fixed left and right audio channel being swapped
 - ALSA required on Linux
 - added regex to iaString
-- intruduced layer and layer-stack
-- introduced new queueable events and replaced some of the old ones osing event/delegate
+- introduced layer and layer-stack
+- introduced new queue-able events and replaced some of the old ones using event/delegate
 - killed the state machine example
-- some improvements arround mouse handling in widgets
+- some improvements around mouse handling in widgets
 
 0.27.0
 ------
@@ -207,7 +212,7 @@ I really needed to get this out before it get's even bigger.
 0.25.0
 ------
 
-- added basic evaluaiton functionality to control animations on transform nodes
+- added basic evaluation functionality to control animations on transform nodes
   ![basic evaluation](/images/basicEvaluation.gif)
 - added iaFile::getStem
 
@@ -240,7 +245,7 @@ I really needed to get this out before it get's even bigger.
   ![Scroll bars](/images/scrollbars.gif)
 - New interface to create and destroy widgets. Basically we can use new and delete on widgets now but the engine will keep track of them to prevent mem leaks.
 - Added colored axis indication to orientation grid in ModelViewer
-- Made iaMatrix2D more usefull
+- Made iaMatrix2D more useful
 - Made SpriteAnimation example more pretty (thank you opengameart.org)
 
 0.22.0
@@ -250,8 +255,8 @@ I really needed to get this out before it get's even bigger.
 - Created sprite animation example
   ![sprite animation](/images/SpriteAnimation.gif)
 - Ownership of widgets transfers to the engine the moment they are children of a dialog
-- Sdded mesh to world bake functionality
-- Removed all using namesapce std;
+- added mesh to world bake functionality
+- Removed all using namespace std;
 - Added some keyboard shortcuts to ModelViewer
   - Ctrl + N - clear scene
   - Del - deletes current selection
@@ -282,7 +287,7 @@ I really needed to get this out before it get's even bigger.
 ------
 
 - Replaced vector and matrix conversions in iaConvert with conversion methods directly on the classes.
-- Added log level to console. Controlable by config file and during runtime.
+- Added log level to console. Controllable by config file and during runtime.
 
 0.19.1
 ------
@@ -304,7 +309,7 @@ I really needed to get this out before it get's even bigger.
 
 - Improved OBJ loader. Now meshs get generated based on combinations of groups/objects and materials.
   ![Improved mesh nodes structure from obj files](/images/OBJLoaderImprovements.png)
-- ModelViewer: pan camera arround like in Maya (LeftAlt + middle mouse button)
+- ModelViewer: pan camera around like in Maya (LeftAlt + middle mouse button)
 - ModelViewer: fixed problem when loading unknown file format
 - Improved iaString to be able to be used as key in std maps
 - When loading models not to join vertices is now the default behavior

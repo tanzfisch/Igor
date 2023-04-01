@@ -36,6 +36,8 @@ using namespace iaux;
 #include <igor/iDefines.h>
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/traversal/iNodeVisitorUpdateTransform.h>
+#include <igor/threading/tasks/iTask.h>
+#include <igor/data/iFrustum.h>
 
 #include <memory>
 #include <vector>
@@ -65,7 +67,6 @@ namespace igor
 	*/
     class IGOR_API iScene
     {
-
         friend class iNode;
         friend class iNodeCamera;
         friend class iNodeLight;
@@ -76,6 +77,8 @@ namespace igor
         friend class iNodeRender;
         friend class iNodeLODTrigger;
         friend class iNodeLODSwitch;
+        friend class iTaskUpdateSceneData;
+        friend class iRenderEngine;
 
     public:
         /*! \returns scene name
@@ -91,10 +94,6 @@ namespace igor
         /*! \returns root node
 		*/
         iNodePtr getRoot() const;
-
-        /*! \returns octree
-		*/
-        iOctreePtr getOctree() const;
 
         /*! \returns list of registerred lights
 		*/
@@ -162,6 +161,10 @@ namespace igor
 		*/
         iOctree *_octree = nullptr;
 
+        /*! mutex for octree access
+        */
+        iaMutex _mutexOctree;
+
         /*! list of registered cameras to the scene
 		*/
         std::vector<iNodeID> _cameras;
@@ -198,9 +201,37 @@ namespace igor
 		*/
         std::vector<iNodeID> _selectedNodes;
 
+        /*! update data task id
+        */
+        iTaskID _updateSceneDataTask;
+
+        /*! if true update data will be aborted
+        */
+        bool _abortUpdateData = false;
+
+        /*! sets frustum on octree
+
+        \param frustum the frustum to cull the scene with
+        */
+        void setFrustum(const iFrustumd &frustum);
+
+        /*! returns cull result of scene
+
+        \param[out] cullResult the result after culling the scene
+        */
+        void getCullResult(std::vector<void *> &cullResult);
+
+        /*! draws the octree for debugging
+        */
+        void drawOctree();
+
         /*! handles dirty data ans tries to update it
 		*/
         void updateData();
+
+        /*! aborts update data
+        */
+        void abortUpdateData();
 
         /*! registers a camera node to the scene so it can be actually used as camera.
 
