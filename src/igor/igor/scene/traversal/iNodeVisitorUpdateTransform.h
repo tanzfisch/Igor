@@ -40,43 +40,43 @@ namespace igor
 {
 
     /*! scene visitor that updates transformations
-    */
+     */
     class iNodeVisitorUpdateTransform : public iNodeVisitor
     {
 
     public:
         /*! does nothing
-        */
+         */
         iNodeVisitorUpdateTransform() = default;
 
         /*! does nothing
-        */
+         */
         virtual ~iNodeVisitorUpdateTransform() = default;
 
     protected:
-        /*! called before starting traversation
-        */
+        /*! called before starting traversal
+         */
         void preTraverse() override;
 
         /*! called before decent to child nodes
-        */
+         */
         bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
         /*! called after ascent from child nodes
-        */
+         */
         void postOrderVisit(iNodePtr node) override;
 
-        /*! called after traversation is finisched
-        */
+        /*! called after traversal is finished
+         */
         void postTraverse() override;
 
     private:
-        /*! holds a stack of matrices while traversion tree
-        */
+        /*! holds a stack of matrices while traversal tree
+         */
         std::vector<iaMatrixd> _matrixStack;
 
-        /*! current matrix that eventually gets pushed on stack or came poped from stack
-        */
+        /*! current matrix that eventually gets pushed on stack or came popped from stack
+         */
         iaMatrixd _currentMatrix;
     };
 
