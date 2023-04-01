@@ -130,7 +130,7 @@ namespace igor
         iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
         projectionMatrix *= view;
         const iFrustumd frustum(projectionMatrix);
-        _scene->getOctree()->filter(frustum);
+        _scene->setFrustum(frustum);
     }
 
     void iRenderEngine::addNodeToMaterialGroups(iNodeRenderPtr renderNode)
@@ -184,7 +184,10 @@ namespace igor
             iter++;
         }
 
-        for (void *ptr : _scene->getOctree()->getResult())
+        std::vector<void *> cullResult;
+        _scene->getCullResult(cullResult);
+
+        for (void *ptr : cullResult)
         {
             addNodeToMaterialGroups(static_cast<iNodeRenderPtr>(ptr));
         }
@@ -311,7 +314,7 @@ namespace igor
 
         if (_showOctree)
         {
-            _scene->getOctree()->draw();
+            _scene->drawOctree();
         }
     }
 

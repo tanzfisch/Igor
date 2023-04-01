@@ -94,9 +94,10 @@ namespace igor
 
     void iNodeModel::setMaterial(const iMaterialPtr& material)
     {
+        _material = material;
+
         if (!isLoaded())
         {
-            con_err("can't set material on unloaded model");
             return;
         }
 
@@ -158,6 +159,12 @@ namespace igor
                 insertNode(_model->getNodeCopy());
                 _loaded = true;
                 _ready = true;
+
+                if(_material != nullptr)
+                {
+                    setMaterial(_material);
+                }
+
                 _modelReadyEvent(getID());
             }
             else if (_model->getState() == iModelState::LoadFailed)

@@ -51,4 +51,5 @@ namespace igor
 	{
 		con_assert(_matrixStack.size() == 0, "matrix stack should be empty");
 	}
+
 } // namespace igor

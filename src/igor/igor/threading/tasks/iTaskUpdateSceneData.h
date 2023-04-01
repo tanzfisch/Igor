@@ -26,60 +26,49 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_NODEVISITORUPDATETRANSFORM_H__
-#define __IGOR_NODEVISITORUPDATETRANSFORM_H__
+#ifndef __IGOR_TASKUPDATESCENEDATA_H__
+#define __IGOR_TASKUPDATESCENEDATA_H__
 
-#include <igor/scene/traversal/iNodeVisitor.h>
+#include <igor/threading/tasks/iTask.h>
 
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-#include <vector>
+#include <igor/scene/iScene.h>
 
 namespace igor
 {
 
-    /*! scene visitor that updates transformations
-     */
-    class iNodeVisitorUpdateTransform : public iNodeVisitor
+    /*! this task is updating data in a scene
+
+    It is owned by the scene it updates
+    */
+    class IGOR_API iTaskUpdateSceneData : public iTask
     {
 
     public:
-        /*! does nothing
-         */
-        iNodeVisitorUpdateTransform() = default;
+        /*! initializes member variables
+
+        \param parentScene the scene this task is updating
+        */
+        iTaskUpdateSceneData(iScenePtr parentScene);
 
         /*! does nothing
-         */
-        virtual ~iNodeVisitorUpdateTransform() = default;
+        */
+        virtual ~iTaskUpdateSceneData() = default;
 
-    protected:
-        /*! called before starting traversal
-         */
-        void preTraverse() override;
-
-        /*! called before decent to child nodes
-         */
-        bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
-
-        /*! called after ascent from child nodes
-         */
-        void postOrderVisit(iNodePtr node) override;
-
-        /*! called after traversal is finished
-         */
-        void postTraverse() override;
+        /*! aborts the task
+        */
+        void abort();
 
     private:
-        /*! holds a stack of matrices while traversal tree
-         */
-        std::vector<iaMatrixd> _matrixStack;
 
-        /*! current matrix that eventually gets pushed on stack or came popped from stack
-         */
-        iaMatrixd _currentMatrix;
+        /*! parenting scene
+        */
+        iScenePtr _parentScene;
+
+        /*! runs the task
+        */
+        void run();
     };
 
 }; // namespace igor
 
-#endif // __IGOR_NODEVISITORUPDATETRANSFORM_H__
+#endif // __IGOR_TASKUPDATESCENEDATA_H__
