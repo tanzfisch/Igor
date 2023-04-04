@@ -23,6 +23,7 @@ namespace igor
 
     static const int32 BORDER_WIDTH = 2;
     static const int32 BORDER_WIDTH2 = 4;
+    static const float32 SCROLL_STEPPING = 90.0f;
 
     iWidgetScroll::iWidgetScroll(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetScroll, iWidgetKind::Widget, parent)
@@ -154,12 +155,8 @@ namespace igor
             _leftButton._appearanceState = iWidgetState::Pressed;
             _leftButton._mouseDown = true;
 
-            _hscroll -= 1.0f / (child->getActualWidth() / getActualWidth());
-
-            if (_hscroll < 0.0f)
-            {
-                _hscroll = 0.0f;
-            }
+            _hscroll -= 1.0f / (child->getActualWidth() / SCROLL_STEPPING);
+            _hscroll = std::min(0.0f, _hscroll);
 
             return true;
         }
@@ -169,12 +166,8 @@ namespace igor
             _rightButton._appearanceState = iWidgetState::Pressed;
             _rightButton._mouseDown = true;
 
-            _hscroll += 1.0f / (child->getActualWidth() / getActualWidth());
-
-            if (_hscroll > 1.0f)
-            {
-                _hscroll = 1.0f;
-            }
+            _hscroll += 1.0f / (child->getActualWidth() / SCROLL_STEPPING);
+            _hscroll = std::max(1.0f, _hscroll);
 
             return true;
         }
@@ -184,12 +177,8 @@ namespace igor
             _upButton._appearanceState = iWidgetState::Pressed;
             _upButton._mouseDown = true;
 
-            _vscroll -= 1.0f / (child->getActualHeight() / getActualHeight());
-
-            if (_vscroll < 0.0f)
-            {
-                _vscroll = 0.0f;
-            }
+            _vscroll -= 1.0f / (child->getActualHeight() / SCROLL_STEPPING);
+            _vscroll = std::max(0.0f, _vscroll);
 
             return true;
         }
@@ -199,12 +188,8 @@ namespace igor
             _downButton._appearanceState = iWidgetState::Pressed;
             _downButton._mouseDown = true;
 
-            _vscroll += 1.0f / (child->getActualHeight() / getActualHeight());
-
-            if (_vscroll > 1.0f)
-            {
-                _vscroll = 1.0f;
-            }
+            _vscroll += 1.0f / (child->getActualHeight() / SCROLL_STEPPING);
+            _vscroll = std::min(1.0f, _vscroll);
 
             return true;
         }
@@ -232,15 +217,7 @@ namespace igor
             if (!_children.empty())
             {
                 _hscroll += static_cast<float32>(iMouse::getInstance().getPosDelta()._x) / static_cast<float32>(calcHorizontalScrollSpace() - _hscrollButton._rectangle._width);
-                if (_hscroll < 0.0f)
-                {
-                    _hscroll = 0.0f;
-                }
-
-                if (_hscroll > 1.0f)
-                {
-                    _hscroll = 1.0f;
-                }
+                _hscroll = std::max(0.0f, std::min(1.0f, _hscroll));
             }
         }
 
@@ -249,15 +226,7 @@ namespace igor
             if (!_children.empty())
             {
                 _vscroll += static_cast<float32>(iMouse::getInstance().getPosDelta()._y) / static_cast<float32>(calcVerticalScrollSpace() - _vscrollButton._rectangle._height);
-                if (_vscroll < 0.0f)
-                {
-                    _vscroll = 0.0f;
-                }
-
-                if (_vscroll > 1.0f)
-                {
-                    _vscroll = 1.0f;
-                }
+                _vscroll = std::max(0.0f, std::min(1.0f, _vscroll));
             }
         }
 
@@ -370,14 +339,12 @@ namespace igor
 
     void iWidgetScroll::setHorizontalScroll(float32 value)
     {
-        con_assert(value >= 0.0f && value <= 1.0f, "out od range");
-        _hscroll = value;
+        _hscroll = std::max(0.0f, std::min(1.0f, value));
     }
 
     void iWidgetScroll::setVerticalScroll(float32 value)
     {
-        con_assert(value >= 0.0f && value <= 1.0f, "out od range");
-        _vscroll = value;
+        _vscroll = std::max(0.0f, std::min(1.0f, value));
     }
 
     bool iWidgetScroll::handleMouseWheel(int32 d)
@@ -400,31 +367,15 @@ namespace igor
 
         if (_vscrollActive)
         {
-            _vscroll -= d * (1.0f / (child->getActualHeight() / getActualHeight()));
-            if (_vscroll < 0.0f)
-            {
-                _vscroll = 0.0f;
-            }
-
-            if (_vscroll > 1.0f)
-            {
-                _vscroll = 1.0f;
-            }
+            _vscroll -= d * (1.0f / (child->getActualHeight() / SCROLL_STEPPING));
+            _vscroll = std::max(0.0f, std::min(1.0f, _vscroll));
 
             return true;
         }
         else if (_hscrollActive)
         {
-            _hscroll -= d * (1.0f / (child->getActualWidth() / getActualWidth()));
-            if (_hscroll < 0.0f)
-            {
-                _hscroll = 0.0f;
-            }
-
-            if (_hscroll > 1.0f)
-            {
-                _hscroll = 1.0f;
-            }
+            _hscroll -= d * (1.0f / (child->getActualWidth() / SCROLL_STEPPING));
+            _hscroll = std::max(0.0f, std::min(1.0f, _hscroll));
 
             return true;
         }
