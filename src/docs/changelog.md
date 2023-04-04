@@ -1,15 +1,12 @@
 Changelog                           {#changelog}
 =========
 
-0.37.2
+0.38.0
 ------
 
 - scene data update is now in separate thread
-
-0.37.1
-------
-
 - sorting files and directories alphabetically
+- fixed scrolling of iWidgetScroll
 
 0.37.0
 ------
@@ -26,10 +23,6 @@ Changelog                           {#changelog}
 ------
 
 - minor improvements to entt wrapper interfaces
-
-0.35.1
-------
-
 - cleaned up logging verbose modes
 - removed console tests10
 
