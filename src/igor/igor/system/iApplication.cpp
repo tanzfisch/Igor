@@ -9,7 +9,6 @@
 #include <igor/system/iTimer.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/evaluation/iEvaluationManager.h>
 #include <igor/renderer/iView.h>
 
 #include <iaux/system/iaConsole.h>
@@ -149,7 +148,6 @@ namespace igor
         preDraw();
         IGOR_PROFILER_END(app);
 
-        iEvaluationManager::getInstance().handle();
         iPhysics::getInstance().handle();
 
         draw();
