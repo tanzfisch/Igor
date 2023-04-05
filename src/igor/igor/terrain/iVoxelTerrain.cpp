@@ -1247,7 +1247,7 @@ namespace igor
                     inputParam->_loadPriority = 0;
 
                     // makes a copy of tileInformation so it will also be deleted by iModel
-                    inputParam->_parameters.setData(reinterpret_cast<const char *>(&tileInformation), sizeof(iVoxelTerrainTileInformation));
+                    inputParam->_parameters = tileInformation;
 
                     iaString tileName = iaString::toString(voxelBlock->_positionInLOD._x);
                     tileName += ":";
