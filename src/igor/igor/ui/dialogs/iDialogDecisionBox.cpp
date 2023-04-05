@@ -44,7 +44,7 @@ namespace igor
 	void iDialogDecisionBox::initGUI(const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
 		iWidgetManager::getInstance().setModal(this);
-		setActive();
+		setEnabled();
 		setVisible();
 		setWidth(20);
 		setHeight(20);

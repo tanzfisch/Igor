@@ -66,11 +66,11 @@ void UserControlMaterial::updateGUI()
         material->getShaderProgram()->getShaderSources().empty())
     {
         _textShaderVertex->setText("");
-        _textShaderVertex->setActive();
+        _textShaderVertex->setEnabled();
         _textShaderGeometry->setText("");
-        _textShaderGeometry->setActive();
+        _textShaderGeometry->setEnabled();
         _textShaderFragment->setText("");
-        _textShaderFragment->setActive();
+        _textShaderFragment->setEnabled();
     }
     else
     {
@@ -84,12 +84,12 @@ void UserControlMaterial::updateGUI()
                 if (iaFile::exist(source._filename))
                 {
                     _textShaderVertex->setText(iResourceManager::getInstance().getRelativePath(source._filename));
-                    _textShaderVertex->setActive(true);
+                    _textShaderVertex->setEnabled(true);
                 }
                 else
                 {
                     _textShaderVertex->setText("can't edit");
-                    _textShaderVertex->setActive(false);
+                    _textShaderVertex->setEnabled(false);
                 }
                 break;
 
@@ -97,12 +97,12 @@ void UserControlMaterial::updateGUI()
                 if (iaFile::exist(source._filename))
                 {
                     _textShaderGeometry->setText(iResourceManager::getInstance().getRelativePath(source._filename));
-                    _textShaderGeometry->setActive(true);
+                    _textShaderGeometry->setEnabled(true);
                 }
                 else
                 {
                     _textShaderGeometry->setText("can't edit");
-                    _textShaderGeometry->setActive(false);
+                    _textShaderGeometry->setEnabled(false);
                 }
                 break;
 
@@ -110,12 +110,12 @@ void UserControlMaterial::updateGUI()
                 if (iaFile::exist(source._filename))
                 {
                     _textShaderFragment->setText(iResourceManager::getInstance().getRelativePath(source._filename));
-                    _textShaderFragment->setActive(true);
+                    _textShaderFragment->setEnabled(true);
                 }
                 else
                 {
                     _textShaderFragment->setText("can't edit");
-                    _textShaderFragment->setActive(false);
+                    _textShaderFragment->setEnabled(false);
                 }
                 break;
             }
@@ -142,7 +142,7 @@ void UserControlMaterial::initGUI()
     grid->appendRows(2);
     grid->setBorder(2);
     grid->setStrechColumn(0);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *gridHeader = new iWidgetGrid();
@@ -173,7 +173,7 @@ void UserControlMaterial::initGUI()
     _textID->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetGroupBox *paramGroupBox = new iWidgetGroupBox();
-    paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     paramGroupBox->setText("Render States");
     paramGroupBox->setHeaderOnly();
 
@@ -276,14 +276,14 @@ void UserControlMaterial::initGUI()
     _renderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetGroupBox *shaderGroupBox = new iWidgetGroupBox();
-    shaderGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    shaderGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     shaderGroupBox->setText("Shader Settings");
     shaderGroupBox->setHeaderOnly();
 
     iWidgetGrid *gridShadersGroup = new iWidgetGrid();
     gridShadersGroup->appendRows(2);
     gridShadersGroup->setBorder(2);
-    gridShadersGroup->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    gridShadersGroup->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     gridShadersGroup->setVerticalAlignment(iVerticalAlignment::Top);
     gridShadersGroup->setStrechColumn(0);
 
@@ -307,7 +307,7 @@ void UserControlMaterial::initGUI()
     labelShader2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textShaderVertex = new iWidgetLineTextEdit();
-    _textShaderVertex->setActive(false);
+    _textShaderVertex->setEnabled(false);
     _textShaderVertex->setWidth(200);
     _textShaderVertex->setMaxTextLength(200);
     _textShaderVertex->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -316,7 +316,7 @@ void UserControlMaterial::initGUI()
     _textShaderVertex->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _textShaderGeometry = new iWidgetLineTextEdit();
-    _textShaderGeometry->setActive(false);
+    _textShaderGeometry->setEnabled(false);
     _textShaderGeometry->setWidth(200);
     _textShaderGeometry->setMaxTextLength(200);
     _textShaderGeometry->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -325,7 +325,7 @@ void UserControlMaterial::initGUI()
     _textShaderGeometry->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _textShaderFragment = new iWidgetLineTextEdit();
-    _textShaderFragment->setActive(false);
+    _textShaderFragment->setEnabled(false);
     _textShaderFragment->setWidth(200);
     _textShaderFragment->setMaxTextLength(200);
     _textShaderFragment->setHorizontalAlignment(iHorizontalAlignment::Right);

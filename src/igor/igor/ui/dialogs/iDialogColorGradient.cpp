@@ -31,7 +31,7 @@ namespace igor
 		iDialog::open(dialogCloseDelegate);
 
 		iWidgetManager::getInstance().setModal(this);
-		setActive();
+		setEnabled();
 		setVisible();
 	}
 
@@ -89,8 +89,8 @@ namespace igor
 		iWidgetGridPtr grid = new iWidgetGrid(this);
 		grid->appendRows(4);
 		grid->setStrechRow(2);
-		grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-		grid->setVerticalAlignment(iVerticalAlignment::Strech);
+		grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+		grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 		grid->setCellSpacing(4);
 		grid->setBorder(4);
 
@@ -101,8 +101,8 @@ namespace igor
 
 		iWidgetGroupBox *groupBoxGradient = new iWidgetGroupBox();
 		groupBoxGradient->setText("Gradient");
-		groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
-		groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Strech);
+		groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+		groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Stretch);
 		grid->addWidget(groupBoxGradient, 0, 1);
 
 		iWidgetGrid *buttonGrid = new iWidgetGrid();
@@ -111,8 +111,8 @@ namespace igor
 		grid->addWidget(buttonGrid, 0, 3);
 
 		_gradientWidget = new iWidgetColorGradient();
-		_gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Strech);
-		_gradientWidget->setVerticalAlignment(iVerticalAlignment::Strech);
+		_gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+		_gradientWidget->setVerticalAlignment(iVerticalAlignment::Stretch);
 		_gradientWidget->setInteractive();
 		_gradientWidget->setHeight(60);
 		_gradientWidget->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
@@ -121,8 +121,8 @@ namespace igor
 
 		iWidgetGroupBox *groupBox = new iWidgetGroupBox();
 		groupBox->setText("Selected Color");
-		groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
-		groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
+		groupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+		groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
 		grid->addWidget(groupBox, 0, 2);
 
 		iWidgetGrid *controlGrid = new iWidgetGrid();
@@ -133,14 +133,14 @@ namespace igor
 		_colorChooser = new iUserControlColorChooser();
 		_colorChooser->setExpand();
 		_colorChooser->setHeadlineVisible(false);
-		_colorChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+		_colorChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		_colorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &iDialogColorGradient::onColorChanged));
 		controlGrid->addWidget(_colorChooser, 0, 0);
 
 		iWidgetGrid *positionGrid = new iWidgetGrid();
 		positionGrid->appendColumns(1);
 		positionGrid->setStrechColumn(1);
-		positionGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+		positionGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		controlGrid->addWidget(positionGrid, 0, 1);
 
 		iWidgetButton *delButton = new iWidgetButton();
@@ -161,7 +161,7 @@ namespace igor
 		_position->setSteppingWheel(1.0f, 1.0f);
 		_position->setAfterPoint(2);
 		_position->setPostFix("%");
-		_position->setHorizontalAlignment(iHorizontalAlignment::Strech);
+		_position->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		_position->registerOnChangeEvent(iChangeDelegate(this, &iDialogColorGradient::onPositionChanged));
 		positionGrid->addWidget(_position, 1, 0);
 

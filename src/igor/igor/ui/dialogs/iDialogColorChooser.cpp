@@ -36,7 +36,7 @@ namespace igor
     void iDialogColorChooser::initGUI(const iaColor4f &color, bool useAlpha)
     {
         iWidgetManager::getInstance().setModal(this);
-        setActive();
+        setEnabled();
         setVisible();
         setWidth(20);
         setHeight(20);

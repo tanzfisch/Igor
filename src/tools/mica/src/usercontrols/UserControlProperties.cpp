@@ -18,12 +18,12 @@ void UserControlProperties::initGUI()
 {
     iWidgetGroupBoxPtr groupBox = new iWidgetGroupBox(this);
     groupBox->setText("Properties");
-    groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
+    groupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetScrollPtr scroll = new iWidgetScroll(groupBox);
-    scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    scroll->setVerticalAlignment(iVerticalAlignment::Strech);
+    scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _grid = new iWidgetGrid();
     _grid->setBorder(5);

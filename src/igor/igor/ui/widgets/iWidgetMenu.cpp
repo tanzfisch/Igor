@@ -33,10 +33,10 @@ namespace igor
 
     void iWidgetMenu::init()
     {
-        setHorizontalAlignment(iHorizontalAlignment::Strech);
+        setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
         iWidgetGridPtr grid = new iWidgetGrid(this);
-        grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         grid->appendColumns(2);
         grid->setStrechColumn(1);
         grid->setCellSpacing(4);

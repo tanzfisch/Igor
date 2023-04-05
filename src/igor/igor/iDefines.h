@@ -63,8 +63,8 @@ namespace igor
         Left,
         Center,
         Right,
-        Absolut,
-        Strech, // currently only supported by dialogs
+        Absolute,
+        Stretch, // currently only supported by dialogs
         Undefined
     };
 
@@ -75,8 +75,8 @@ namespace igor
         Top,
         Center,
         Bottom,
-        Absolut,
-        Strech, // currently only supported by dialogs
+        Absolute,
+        Stretch, // currently only supported by dialogs
         Undefined
     };
 
@@ -89,7 +89,7 @@ namespace igor
         RGBA
     };
 
-    /*! prints the folor format in the console
+    /*! prints the color format in the console
 
     \param stream the stream to log to
     \param colorFormat the color format

@@ -10,8 +10,8 @@ namespace igor
 	iUserControl::iUserControl(iWidgetType type, const iWidgetPtr parent)
 		: iWidget(type, iWidgetKind::UserControl, parent)
 	{
-		setHorizontalAlignment(iHorizontalAlignment::Strech);
-		setVerticalAlignment(iVerticalAlignment::Strech);
+		setHorizontalAlignment(iHorizontalAlignment::Stretch);
+		setVerticalAlignment(iVerticalAlignment::Stretch);
 	}
 
 	void iUserControl::calcMinSize()

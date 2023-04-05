@@ -93,7 +93,7 @@ namespace igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getState(), isEnabled());
         }
     }
 

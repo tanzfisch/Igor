@@ -14,8 +14,8 @@ void UserControlMaterialView::initGUI()
     iWidgetGrid *grid = new iWidgetGrid(this);
     grid->appendRows(1);
     grid->setBorder(2);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    grid->setVerticalAlignment(iVerticalAlignment::Strech);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    grid->setVerticalAlignment(iVerticalAlignment::Stretch);
     grid->setStrechColumn(0);
     grid->setStrechRow(1);
 
@@ -44,12 +44,12 @@ void UserControlMaterialView::initGUI()
 
     iWidgetGroupBox *groupBox = new iWidgetGroupBox();
     groupBox->setText("Graph");
-    groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
+    groupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetScroll *scroll = new iWidgetScroll();
-    scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    scroll->setVerticalAlignment(iVerticalAlignment::Strech);
+    scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _gridGraph = new iWidgetGrid();
     _gridGraph->setBorder(0);

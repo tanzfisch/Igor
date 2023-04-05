@@ -83,7 +83,7 @@ namespace igor
 
 	bool iWidgetNumberChooser::handleMouseKeyDown(iKeyCode key)
 	{
-		if (!isActive())
+		if (!isEnabled())
 		{
 			return false;
 		}
@@ -103,7 +103,7 @@ namespace igor
 
 	void iWidgetNumberChooser::handleMouseMove(const iaVector2f &pos)
 	{
-		if (!isActive())
+		if (!isEnabled())
 		{
 			return;
 		}
@@ -145,7 +145,7 @@ namespace igor
 
 	bool iWidgetNumberChooser::handleMouseKeyUp(iKeyCode key)
 	{
-		if (!isActive())
+		if (!isEnabled())
 		{
 			return false;
 		}
@@ -179,7 +179,7 @@ namespace igor
 
 	bool iWidgetNumberChooser::handleMouseWheel(int32 d)
 	{
-		if (!isActive())
+		if (!isEnabled())
 		{
 			return false;
 		}
@@ -262,7 +262,7 @@ namespace igor
 			iaString displayString = iaString::toString(_value, _afterPoint);
 			displayString += _postFix;
 
-			iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
+			iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isEnabled());
 		}
 	}
 

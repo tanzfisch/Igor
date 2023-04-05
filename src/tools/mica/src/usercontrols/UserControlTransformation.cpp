@@ -88,7 +88,7 @@ iWidgetLineTextEdit *UserControlTransformation::createTextEdit()
 	textEdit->setMaxTextLength(11);
 	textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
 	textEdit->setVerticalAlignment(iVerticalAlignment::Top);
-	textEdit->setActive(false);
+	textEdit->setEnabled(false);
 
 	return textEdit;
 }

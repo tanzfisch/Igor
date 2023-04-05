@@ -62,8 +62,8 @@ void UpgradeDialog::initGUI()
 	iWidgetGrid *grid = new iWidgetGrid(this);
 	grid->appendColumns(2);
 	grid->appendRows(2);
-	grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+	grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	grid->setBorder(10);
 	grid->setCellSpacing(10);
 	grid->setStrechColumn(1);

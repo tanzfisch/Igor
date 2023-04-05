@@ -55,7 +55,7 @@ namespace igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isEnabled());
 		}
 	}
 

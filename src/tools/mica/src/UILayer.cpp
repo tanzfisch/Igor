@@ -56,11 +56,11 @@ void UILayer::onInit()
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
     _outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
 
-    _outliner->setActive();
+    _outliner->setEnabled();
     _outliner->setVisible();
     _outliner->refresh();
 
-    _propertiesDialog->setActive();
+    _propertiesDialog->setEnabled();
     _propertiesDialog->setVisible();
 }
 
@@ -330,26 +330,26 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     case iKeyCode::Space:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            if (_outliner->isActive() && _outliner->isVisible())
+            if (_outliner->isEnabled() && _outliner->isVisible())
             {
-                _outliner->setActive(false);
+                _outliner->setEnabled(false);
                 _outliner->setVisible(false);
             }
             else
             {
-                _outliner->setActive();
+                _outliner->setEnabled();
                 _outliner->setVisible();
                 _outliner->refresh();
             }
 
-            if (_propertiesDialog->isActive() && _propertiesDialog->isVisible())
+            if (_propertiesDialog->isEnabled() && _propertiesDialog->isVisible())
             {
-                _propertiesDialog->setActive(false);
+                _propertiesDialog->setEnabled(false);
                 _propertiesDialog->setVisible(false);
             }
             else
             {
-                _propertiesDialog->setActive();
+                _propertiesDialog->setEnabled();
                 _propertiesDialog->setVisible();
             }
         }
