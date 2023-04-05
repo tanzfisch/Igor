@@ -58,10 +58,6 @@ namespace iaux
 		*/
         iaVector3<T> _shear;
 
-        /*! perspective
-		*/
-        iaVector4<T> _perspective;
-
         /*! \returns true if transform has shear differnt from 0,0,0
 		*/
         bool hasShear() const;
@@ -82,12 +78,6 @@ namespace iaux
 		\param[out] matrix the resulting matrix
 		*/
         void getMatrix(iaMatrix<T> &matrix) const;
-
-        /*! decompose matrix and set transform
-
-		\param matrix the matrix to decompose
-		*/
-        void setMatrix(const iaMatrix<T> &matrix);
 
         /*! initializes the matrix with the id matrix
 		*/
@@ -115,16 +105,6 @@ namespace iaux
 		\param shear the shear component
 		*/
         iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale, const iaVector3<T> &_shear);
-
-        /*! initializes the matrix with given components
-
-		\param translate translation component
-		\param orientation the orientation component
-		\param scale the scale component
-		\param shear the shear component
-		\param perspective the perspective component
-		*/
-        iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale, const iaVector3<T> &_shear, const iaVector4<T> &_perspective);
 
         /*! does nothing
 		*/

@@ -46,18 +46,7 @@ namespace igor
 
         std::wstringstream stream;
 
-        iaVector3d scale;
-        iaQuaterniond orientation;
-        iaVector3d rotate;
-        iaVector3d translate;
-        iaVector3d shear;
-        iaVector4d perspective;
-
-        _transform.decompose(scale, orientation, translate, shear, perspective);
-
-        orientation.getEuler(rotate);
-
-        stream << "t" << translate << ", r" << rotate << ", sc" << scale << ", sh" << shear;
+        stream << _transform;
 
         info.push_back(iaString(stream.str().c_str()));
     }
