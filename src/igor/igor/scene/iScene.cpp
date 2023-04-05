@@ -14,7 +14,6 @@
 #include <igor/system/iTimer.h>
 #include <igor/events/iEventScene.h>
 #include <igor/system/iApplication.h>
-#include <igor/threading/tasks/iTaskUpdateSceneData.h>
 #include <igor/threading/iTaskManager.h>
 
 #include <iaux/system/iaConsole.h>
@@ -35,14 +34,10 @@ namespace igor
         _mutexOctree.lock();
         _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 10.0, 8, 2);
         _mutexOctree.unlock();
-
-        _updateSceneDataTask = iTaskManager::getInstance().addTask(new iTaskUpdateSceneData(this));
     }
 
     iScene::~iScene()
     {
-        iTaskManager::getInstance().abortTask(_updateSceneDataTask);
-
         if (_root != nullptr)
         {
             iNodeManager::getInstance().destroyNode(_root);
@@ -281,6 +276,7 @@ namespace igor
     {
         IGOR_PROFILER_SCOPED(scene);
         updateLOD();
+        updateData();
         _updateTransformVisitor.traverseTree(_root);
     }
 
@@ -307,6 +303,10 @@ namespace igor
         _loadingQueue.clear();
         _mutex.unlock();
 
+        // stop after 50ms to keep the front end responsive
+        iaTime endTime = iaTime::getNow();
+        endTime += iaTime::fromMilliseconds(50);        
+
         auto iterP = _processingQueue.begin();
         while (!_abortUpdateData && iterP != _processingQueue.end())
         {
@@ -327,6 +327,11 @@ namespace igor
                 // node was destroyed in the mean time
                 iterP = _processingQueue.erase(iterP);
             }
+
+            if (iaTime::getNow() > endTime)
+            {
+                break;
+            }            
         }
     }
 
