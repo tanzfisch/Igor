@@ -11,6 +11,7 @@ Changelog                           {#changelog}
 - removed evaluation
 - removed state machine
 - removed memblock
+- renamed iWidget setActive/isActive to setEnabled/isEnabled
 
 0.37.0
 ------
