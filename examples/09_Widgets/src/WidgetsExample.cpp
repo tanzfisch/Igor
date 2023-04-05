@@ -153,7 +153,7 @@ void WidgetsExample::onInit()
     iLayerWidgets::onInit();
 
     _dialog = new iDialog();
-    _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _dialog->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _dialog->setVerticalAlignment(iVerticalAlignment::Center);
     _dialog->setHeight(200);
     // it does not matter if we open it now or after adding all the child widgets
@@ -161,8 +161,8 @@ void WidgetsExample::onInit()
 
     iWidgetGrid *grid1 = new iWidgetGrid(_dialog);
     grid1->appendRows(2);
-    grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    grid1->setVerticalAlignment(iVerticalAlignment::Strech);
+    grid1->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    grid1->setVerticalAlignment(iVerticalAlignment::Stretch);
     grid1->setBorder(10);
     grid1->setCellSpacing(5);
     grid1->setStrechRow(2);
@@ -223,14 +223,14 @@ void WidgetsExample::onInit()
     // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
-    groupBox1->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
+    groupBox1->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    groupBox1->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     // a scroll widget can contain a child that is bigger than it self. if so the scroll widget
     // shows vertical and or horizontal sliders and allows to scroll the child.
     iWidgetScroll *widgetScoll = new iWidgetScroll();
-    widgetScoll->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
+    widgetScoll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    widgetScoll->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetGrid *grid3 = new iWidgetGrid();
     grid3->appendColumns(3);
@@ -244,7 +244,7 @@ void WidgetsExample::onInit()
     iWidgetGrid *grid4 = new iWidgetGrid();
     grid4->appendColumns(5);
     grid4->setStrechColumn(4);
-    grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    grid4->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
     grid4->setSelectMode(iSelectionMode::NoSelection);
 
@@ -270,7 +270,7 @@ void WidgetsExample::onInit()
 
     iWidgetButton *button1 = new iWidgetButton();
     button1->setSize(70, 20);
-    button1->setVerticalAlignment(iVerticalAlignment::Strech);
+    button1->setVerticalAlignment(iVerticalAlignment::Stretch);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
     button1->setText("Open Message Box");
     button1->setTooltip("Opens a message box");
@@ -289,7 +289,7 @@ void WidgetsExample::onInit()
     rainbow.setValue(0.8f, iaColor4f(1.0f, 1.0f, 0.0f, 0.8f));
     rainbow.setValue(1.0f, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
     _colorGradient->setGradient(rainbow);
-    _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
     _labelMousePos = new iWidgetLabel();

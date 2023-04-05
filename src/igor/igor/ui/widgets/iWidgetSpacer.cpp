@@ -34,7 +34,7 @@ namespace igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getState(), isEnabled());
 		}
 	}
 

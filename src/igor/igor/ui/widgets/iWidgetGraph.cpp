@@ -179,7 +179,7 @@ namespace igor
             iaRectanglef graphRenderArea;
             calcRenderArea(graphRenderArea);
 
-            iWidgetManager::getInstance().getTheme()->drawGraphFrame(getActualRect(), getState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawGraphFrame(getActualRect(), getState(), isEnabled());
 
             if (_viewGrid)
             {
@@ -203,13 +203,13 @@ namespace igor
 
                 iWidgetManager::getInstance().getTheme()->drawGraphGridlines(iaRectanglef(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
                                                                                          static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height)),
-                                                                             1.0, verticalLines, horizontalLines, isActive());
+                                                                             1.0, verticalLines, horizontalLines, isEnabled());
 
                 if (_viewLabels)
                 {
                     iWidgetManager::getInstance().getTheme()->drawGraphLabels(iaRectanglef(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
                                                                                           static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height)),
-                                                                              verticalLines, horizontalLines, isActive());
+                                                                              verticalLines, horizontalLines, isEnabled());
                 }
             }
 
@@ -267,7 +267,7 @@ namespace igor
                 for (auto point : points)
                 {
                     buttonRect._x = static_cast<int32>((((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4.0f);
-                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetState::Standby, isActive());
+                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetState::Standby, isEnabled());
                 }
             }
         }

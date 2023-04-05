@@ -121,7 +121,7 @@ namespace igor
 		if (isVisible())
 		{
 			iWidgetManager &wm = iWidgetManager::getInstance();
-			wm.getTheme()->drawGroupBox(getActualRect(), _headerOnly, _text, getState(), isActive());
+			wm.getTheme()->drawGroupBox(getActualRect(), _headerOnly, _text, getState(), isEnabled());
 
 			for (const auto child : _children)
 			{

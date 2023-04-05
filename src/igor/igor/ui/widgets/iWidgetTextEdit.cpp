@@ -26,7 +26,7 @@ namespace igor
 	{
 		if (isVisible())
 		{
-	 		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isActive());
+	 		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
 		}
 	}
 

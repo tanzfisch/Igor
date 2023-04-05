@@ -64,15 +64,15 @@ namespace igor
     void iDialogGraph::initGUI()
     {
         iWidgetManager::getInstance().setModal(this);
-        setActive();
+        setEnabled();
         setVisible();
         setWidth(450);
         setHeight(20);
 
         iWidgetGridPtr grid = new iWidgetGrid(this);
         grid->appendRows(4);
-        grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        grid->setVerticalAlignment(iVerticalAlignment::Strech);
+        grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        grid->setVerticalAlignment(iVerticalAlignment::Stretch);
         grid->setCellSpacing(4);
         grid->setBorder(4);
 
@@ -82,11 +82,11 @@ namespace igor
 
         iWidgetGroupBox *groupBoxGradient = new iWidgetGroupBox();
         groupBoxGradient->setText("Gradient");
-        groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Strech);
+        groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Stretch);
 
         _graph = new iWidgetGraph();
-        _graph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        _graph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _graph->setHeight(120);
         _graph->setInteractive();
         _graph->setExtrapolateData();
@@ -97,14 +97,14 @@ namespace igor
 
         iWidgetGroupBox *groupBoxSelection = new iWidgetGroupBox();
         groupBoxSelection->setText("Selected Value");
-        groupBoxSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        groupBoxSelection->setVerticalAlignment(iVerticalAlignment::Strech);
+        groupBoxSelection->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        groupBoxSelection->setVerticalAlignment(iVerticalAlignment::Stretch);
 
         iWidgetGrid *axisGrid = new iWidgetGrid();
         axisGrid->appendRows(static_cast<uint32>(_graphs.size() + 2));
         axisGrid->appendColumns(1);
-        axisGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        axisGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+        axisGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        axisGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
         axisGrid->setStrechColumn(1);
         axisGrid->setCellSpacing(4);
         axisGrid->setBorder(4);
@@ -118,7 +118,7 @@ namespace igor
         _axisNumberChooser[0]->setMinMaxNumber(_xMin, _xMax);
         _axisNumberChooser[0]->setStepping(_xStepping, _xStepping);
         _axisNumberChooser[0]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
-        _axisNumberChooser[0]->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        _axisNumberChooser[0]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _axisNumberChooser[0]->setValue(_graphs[0][0]._x);
         _axisNumberChooser[0]->setAfterPoint(_afterPoint);
         _axisNumberChooser[0]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
@@ -135,7 +135,7 @@ namespace igor
         _axisNumberChooser[1]->setMinMaxNumber(_yMin, _yMax);
         _axisNumberChooser[1]->setStepping(_yStepping, _yStepping);
         _axisNumberChooser[1]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
-        _axisNumberChooser[1]->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        _axisNumberChooser[1]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _axisNumberChooser[1]->setValue(_graphs[0][0]._y);
         _axisNumberChooser[1]->setAfterPoint(_afterPoint);
         _axisNumberChooser[1]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
@@ -154,7 +154,7 @@ namespace igor
             _axisNumberChooser[2]->setMinMaxNumber(_yMin, _yMax);
             _axisNumberChooser[2]->setStepping(_yStepping, _yStepping);
             _axisNumberChooser[2]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
-            _axisNumberChooser[2]->setHorizontalAlignment(iHorizontalAlignment::Strech);
+            _axisNumberChooser[2]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
             _axisNumberChooser[2]->setValue(_graphs[1][0]._y);
             _axisNumberChooser[2]->setAfterPoint(_afterPoint);
             _axisNumberChooser[2]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
@@ -174,7 +174,7 @@ namespace igor
             _axisNumberChooser[3]->setMinMaxNumber(_yMin, _yMax);
             _axisNumberChooser[3]->setStepping(_yStepping, _yStepping);
             _axisNumberChooser[3]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
-            _axisNumberChooser[3]->setHorizontalAlignment(iHorizontalAlignment::Strech);
+            _axisNumberChooser[3]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
             _axisNumberChooser[3]->setValue(_graphs[2][0]._y);
             _axisNumberChooser[3]->setAfterPoint(_afterPoint);
             _axisNumberChooser[3]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));

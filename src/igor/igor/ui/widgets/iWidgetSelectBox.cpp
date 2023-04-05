@@ -61,7 +61,7 @@ namespace igor
 
     bool iWidgetSelectBox::handleMouseKeyDown(iKeyCode key)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -76,7 +76,7 @@ namespace igor
 
     void iWidgetSelectBox::handleMouseMove(const iaVector2f &pos)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return;
         }
@@ -101,7 +101,7 @@ namespace igor
 
     bool iWidgetSelectBox::handleMouseKeyUp(iKeyCode key)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -155,7 +155,7 @@ namespace igor
 
     bool iWidgetSelectBox::handleMouseWheel(int32 d)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -238,7 +238,7 @@ namespace igor
                 displayString = _entries[_currentSelection].first;
             }
 
-            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isEnabled());
         }
     }
 

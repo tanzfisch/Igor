@@ -101,7 +101,7 @@ namespace igor
 
     bool iWidgetSlider::handleMouseWheel(int32 d)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -137,7 +137,7 @@ namespace igor
 
     void iWidgetSlider::handleMouseMove(const iaVector2f &pos)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return;
         }
@@ -202,7 +202,7 @@ namespace igor
 
     bool iWidgetSlider::handleMouseKeyUp(iKeyCode key)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -220,7 +220,7 @@ namespace igor
 
     bool iWidgetSlider::handleMouseKeyDown(iKeyCode key)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -275,7 +275,7 @@ namespace igor
 
             if (_texture != nullptr)
             {
-                iWidgetManager::getInstance().getTheme()->drawPicture(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isActive());
+                iWidgetManager::getInstance().getTheme()->drawPicture(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isEnabled());
             }
 
             if (_backgroundTexture == nullptr &&
@@ -293,7 +293,7 @@ namespace igor
             _sliderButton._rectangle.setY(getActualPosY());
             _sliderButton._rectangle.setX(getActualPosX() + static_cast<int32>(offset));
 
-            iWidgetManager::getInstance().getTheme()->drawButton(_sliderButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _sliderButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_sliderButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _sliderButton._appearanceState, isEnabled());
         }
     }
 

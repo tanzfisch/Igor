@@ -46,7 +46,7 @@ namespace igor
 
 	bool iWidgetCheckBox::handleMouseKeyUp(iKeyCode key)
 	{
-		if (!isActive())
+		if (!isEnabled())
 		{
 			return false;
 		}
@@ -123,7 +123,7 @@ namespace igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getState(), isEnabled());
 		}
 	}
 

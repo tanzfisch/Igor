@@ -24,7 +24,7 @@ namespace igor
 	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
 	{
 		iWidgetManager::getInstance().setModal(this);
-		setActive();
+		setEnabled();
 		setVisible();
 		setWidth(20);
 		setHeight(20);

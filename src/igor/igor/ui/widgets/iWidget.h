@@ -502,9 +502,9 @@ namespace igor
 		*/
         bool isVisible() const;
 
-        /*! \returns true if active aka enabled
+        /*! \returns true if enabled
 		*/
-        bool isActive() const;
+        bool isEnabled() const;
 
         /*! set widget visible
 
@@ -512,11 +512,11 @@ namespace igor
 		*/
         void setVisible(bool visible = true);
 
-        /*! set widget active aka enabled
+        /*! set widget enabled
 
-		\param active boolean to set is active or inactive
+		\param enabled if true widget is enabled
 		*/
-        void setActive(bool active = true);
+        void setEnabled(bool enabled = true);
 
         /*! \returns id of widget
 		*/
@@ -895,11 +895,11 @@ namespace igor
         */
         bool _growsByContent = true;
 
-        /*! flag if widget is active
+        /*! true if widget is enabled
         */
-        bool _active = true;
+        bool _enabled = true;
 
-        /*! flag if widget id visible
+        /*! true if widget id visible
         */
         bool _visible = true;
 

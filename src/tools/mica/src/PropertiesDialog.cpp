@@ -32,13 +32,13 @@ void PropertiesDialog::initGUI()
 {
     setWidth(370);
     setHorizontalAlignment(iHorizontalAlignment::Right);
-    setVerticalAlignment(iVerticalAlignment::Strech);
+    setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetGridPtr grid = new iWidgetGrid(this);
     grid->setBorder(2);
     grid->setCellSpacing(8);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    grid->setVerticalAlignment(iVerticalAlignment::Strech);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    grid->setVerticalAlignment(iVerticalAlignment::Stretch);
     grid->setStrechRow(0);
     grid->setStrechColumn(0);
 

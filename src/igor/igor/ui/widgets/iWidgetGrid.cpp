@@ -453,7 +453,7 @@ namespace igor
         int32 rowCount = static_cast<int32>(_widgetRows.size());
         int32 columnCount = static_cast<int32>(_widgetRows[0]._widgetColumn.size());
 
-        if (getVerticalAlignment() == iVerticalAlignment::Strech)
+        if (getVerticalAlignment() == iVerticalAlignment::Stretch)
         {
             if (_strechRow < rowCount)
             {
@@ -481,7 +481,7 @@ namespace igor
             }
         }
 
-        if (getHorizontalAlignment() == iHorizontalAlignment::Strech)
+        if (getHorizontalAlignment() == iHorizontalAlignment::Stretch)
         {
             if (_strechCol < columnCount)
             {
@@ -554,7 +554,7 @@ namespace igor
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (!isActive() || !_isMouseOver)
+        if (!isEnabled() || !_isMouseOver)
         {
             return false;
         }
@@ -605,7 +605,7 @@ namespace igor
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -634,7 +634,7 @@ namespace igor
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (isActive())
+        if (isEnabled())
         {
             if (_isMouseOver || _acceptOutOfBoundsClicks)
             {
@@ -739,7 +739,7 @@ namespace igor
             rowNum++;
         }
 
-        if (isActive())
+        if (isEnabled())
         {
             if (pos._x >= getActualPosX() &&
                 pos._x < getActualPosX() + getActualWidth() &&
@@ -771,7 +771,7 @@ namespace igor
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }

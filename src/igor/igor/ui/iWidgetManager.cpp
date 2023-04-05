@@ -181,7 +181,7 @@ namespace igor
 
         for (auto dialog : _dialogs)
         {
-            if (dialog.second->isActive())
+            if (dialog.second->isEnabled())
             {
                 dialogs.push_back(dialog.second);
             }
@@ -252,7 +252,7 @@ namespace igor
 
         for (auto dialog : _dialogs)
         {
-            if (dialog.second->isActive())
+            if (dialog.second->isEnabled())
             {
                 traverseContentSize(dialog.second);
                 traverseAlignment(dialog.second, 0, 0, getDesktopWidth(), getDesktopHeight());

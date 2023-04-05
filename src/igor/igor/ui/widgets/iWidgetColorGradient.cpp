@@ -176,7 +176,7 @@ namespace igor
                     _gradient.getValue(entry.first, color);
                     color._a = 1.0f;
                     buttonRect._x = static_cast<int32>(entry.first * gradientRect._width) + gradientRect._x - 4;
-                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, color, iWidgetState::Standby, isActive());
+                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, color, iWidgetState::Standby, isEnabled());
                 }
             }
         }

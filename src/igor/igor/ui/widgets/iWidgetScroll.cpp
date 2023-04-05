@@ -39,7 +39,7 @@ namespace igor
 
     bool iWidgetScroll::handleMouseKeyUp(iKeyCode key)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -94,7 +94,7 @@ namespace igor
 
     bool iWidgetScroll::handleMouseDoubleClick(iKeyCode key)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -112,7 +112,7 @@ namespace igor
 
     bool iWidgetScroll::handleMouseKeyDown(iKeyCode key)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -199,7 +199,7 @@ namespace igor
 
     void iWidgetScroll::handleMouseMove(const iaVector2f &pos)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return;
         }
@@ -349,7 +349,7 @@ namespace igor
 
     bool iWidgetScroll::handleMouseWheel(int32 d)
     {
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -591,7 +591,7 @@ namespace igor
         calcButtons();
 
         // begin rendering
-        iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualRect(), _widgetState, isActive());
+        iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualRect(), _widgetState, isEnabled());
 
         iaColor4f dark(0.3f, 0.3f, 0.3f, 1.0f);
 
@@ -602,48 +602,48 @@ namespace igor
             iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth), dark);
 
             // left button
-            iWidgetManager::getInstance().getTheme()->drawButton(_leftButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _leftTexture, _leftButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_leftButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _leftTexture, _leftButton._appearanceState, isEnabled());
 
             // right button
-            iWidgetManager::getInstance().getTheme()->drawButton(_rightButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _rightTexture, _rightButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_rightButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _rightTexture, _rightButton._appearanceState, isEnabled());
 
             // h scroll button
-            iWidgetManager::getInstance().getTheme()->drawButton(_hscrollButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _hscrollButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_hscrollButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _hscrollButton._appearanceState, isEnabled());
 
             // up button
-            iWidgetManager::getInstance().getTheme()->drawButton(_upButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _upTexture, _upButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_upButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _upTexture, _upButton._appearanceState, isEnabled());
 
             // down button
-            iWidgetManager::getInstance().getTheme()->drawButton(_downButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _downTexture, _downButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_downButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _downTexture, _downButton._appearanceState, isEnabled());
 
             // v scroll button
-            iWidgetManager::getInstance().getTheme()->drawButton(_vscrollButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _vscrollButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_vscrollButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _vscrollButton._appearanceState, isEnabled());
         }
         else if (_hscrollActive) // h scrollbar
         {
             iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth), dark);
 
             // left button
-            iWidgetManager::getInstance().getTheme()->drawButton(_leftButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _leftTexture, _leftButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_leftButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _leftTexture, _leftButton._appearanceState, isEnabled());
 
             // right button
-            iWidgetManager::getInstance().getTheme()->drawButton(_rightButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _rightTexture, _rightButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_rightButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _rightTexture, _rightButton._appearanceState, isEnabled());
 
             // h scroll button
-            iWidgetManager::getInstance().getTheme()->drawButton(_hscrollButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _hscrollButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_hscrollButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _hscrollButton._appearanceState, isEnabled());
         }
         else if (_vscrollActive) // v scrollbar
         {
             iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4), dark);
 
             // up button
-            iWidgetManager::getInstance().getTheme()->drawButton(_upButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _upTexture, _upButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_upButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _upTexture, _upButton._appearanceState, isEnabled());
 
             // down button
-            iWidgetManager::getInstance().getTheme()->drawButton(_downButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _downTexture, _downButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_downButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, _downTexture, _downButton._appearanceState, isEnabled());
 
             // v scroll button
-            iWidgetManager::getInstance().getTheme()->drawButton(_vscrollButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _vscrollButton._appearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(_vscrollButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _vscrollButton._appearanceState, isEnabled());
         }
 
         // render child

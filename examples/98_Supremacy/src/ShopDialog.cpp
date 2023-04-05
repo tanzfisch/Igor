@@ -72,28 +72,28 @@ void ShopDialog::initGUI()
 
 	iWidgetGrid *grid = new iWidgetGrid(this);
 	grid->appendRows(1);
-	grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+	grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	grid->setBorder(10);
 	grid->setCellSpacing(20);
 
 	iWidgetGrid *coinsGrid = new iWidgetGrid();
 	coinsGrid->appendColumns(1);
 	coinsGrid->setStrechColumn(1);
-	coinsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	coinsGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+	coinsGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+	coinsGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 
 	iWidgetGrid *headerGrid = new iWidgetGrid();
 	headerGrid->appendColumns(3);
-	headerGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	headerGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+	headerGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+	headerGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	headerGrid->setCellSpacing(20);
 	headerGrid->setStrechColumn(1);
 
 	_itemGrid = new iWidgetGrid();
 	_itemGrid->appendColumns(2);
 	_itemGrid->setHorizontalAlignment(iHorizontalAlignment::Center);
-	_itemGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+	_itemGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	_itemGrid->setCellSpacing(0);
 	_itemGrid->setStrechColumn(1);
 	_itemGrid->setStrechRow(0);

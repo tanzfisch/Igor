@@ -112,15 +112,15 @@ __IGOR_INLINE__ int32 iWidget::getRelativePosY() const
 	return _relativeY;
 }
 
-__IGOR_INLINE__ bool iWidget::isActive() const
+__IGOR_INLINE__ bool iWidget::isEnabled() const
 {
     if (_parent != nullptr)
     {
-        if (!_parent->isActive())
+        if (!_parent->isEnabled())
         {
             return false;
         }
     }
 
-    return _active;
+    return _enabled;
 }

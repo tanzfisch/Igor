@@ -67,7 +67,7 @@ namespace igor
         updateFileDir();
 
         iWidgetManager::getInstance().setModal(this);
-        setActive();
+        setEnabled();
         setVisible();
 
         updateFileGrid();
