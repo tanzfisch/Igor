@@ -44,10 +44,6 @@
 #include <igor/data/iSkeleton.h>
 #include <igor/data/iQuadtree.h>
 
-#include <igor/evaluation/iEvaluationManager.h>
-#include <igor/evaluation/iEvaluationScript.h>
-#include <igor/evaluation/iEvaluationTransform.h>
-
 #include <igor/generation/iContouringCubes.h>
 #include <igor/generation/iLSystem.h>
 #include <igor/generation/iPerlinNoise.h>

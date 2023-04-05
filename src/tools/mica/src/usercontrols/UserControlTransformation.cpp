@@ -74,31 +74,10 @@ void UserControlTransformation::updateGUI(iNodeTransform *transformNode)
 	iaMatrixd matrix;
 	transformNode->getMatrix(matrix);
 
-	iaVector3d scale;
-	iaQuaterniond orientation;
-	iaVector3d rotate;
-	iaVector3d translate;
-	iaVector3d shear;
-	iaVector4d perspective;
-	matrix.decompose(scale, orientation, translate, shear, perspective);
-
-	orientation.getEuler(rotate);
-
-	_translateText[0]->setText(iaString::toString(translate._x, 4));
-	_translateText[1]->setText(iaString::toString(translate._y, 4));
-	_translateText[2]->setText(iaString::toString(translate._z, 4));
-
-	_rotateText[0]->setText(iaString::toString(rotate._x / M_PI * 180.0, 4));
-	_rotateText[1]->setText(iaString::toString(rotate._y / M_PI * 180.0, 4));
-	_rotateText[2]->setText(iaString::toString(rotate._z / M_PI * 180.0, 4));
-
-	_scaleText[0]->setText(iaString::toString(scale._x, 4));
-	_scaleText[1]->setText(iaString::toString(scale._y, 4));
-	_scaleText[2]->setText(iaString::toString(scale._z, 4));
-
-	_shearText[0]->setText(iaString::toString(shear._x, 4));
-	_shearText[1]->setText(iaString::toString(shear._y, 4));
-	_shearText[2]->setText(iaString::toString(shear._z, 4));
+	for (int i = 0; i < 16; ++i)
+	{
+		_matrixText[i]->setText(iaString::toString(matrix[i], 4));
+	}
 }
 
 iWidgetLineTextEdit *UserControlTransformation::createTextEdit()
@@ -109,7 +88,7 @@ iWidgetLineTextEdit *UserControlTransformation::createTextEdit()
 	textEdit->setMaxTextLength(11);
 	textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
 	textEdit->setVerticalAlignment(iVerticalAlignment::Top);
-	textEdit->registerOnChangeEvent(iChangeDelegate(this, &UserControlTransformation::onChange));
+	textEdit->setActive(false);
 
 	return textEdit;
 }
@@ -123,81 +102,13 @@ void UserControlTransformation::initGUI()
 	_grid->appendRows(3);
 	addWidget(_grid);
 
-	for (int i = 0; i < 3; ++i)
+	for (int row = 0; row < 4; ++row)
 	{
-		iWidgetLineTextEdit *textEdit = createTextEdit();
-		_translateText.push_back(textEdit);
-		_grid->addWidget(textEdit, i + 1, 0);
-	}
-
-	for (int i = 0; i < 3; ++i)
-	{
-		iWidgetLineTextEdit *textEdit = createTextEdit();
-		_scaleText.push_back(textEdit);
-		_grid->addWidget(textEdit, i + 1, 1);
-	}
-
-	for (int i = 0; i < 3; ++i)
-	{
-		iWidgetLineTextEdit *textEdit = createTextEdit();
-		_rotateText.push_back(textEdit);
-		_grid->addWidget(textEdit, i + 1, 2);
-	}
-
-	for (int i = 0; i < 3; ++i)
-	{
-		iWidgetLineTextEdit *textEdit = createTextEdit();
-		_shearText.push_back(textEdit);
-		_grid->addWidget(textEdit, i + 1, 3);
-	}
-
-	iWidgetLabel *translateLabel = new iWidgetLabel();
-	translateLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-	translateLabel->setText("Translate");
-	iWidgetLabel *scaleLabel = new iWidgetLabel();
-	scaleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-	scaleLabel->setText("Scale");
-	iWidgetLabel *rotateLabel = new iWidgetLabel();
-	rotateLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-	rotateLabel->setText("Rotate");
-	iWidgetLabel *shearLabel = new iWidgetLabel();
-	shearLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-	shearLabel->setText("Shear");
-
-	_grid->addWidget(translateLabel, 0, 0);
-	_grid->addWidget(scaleLabel, 0, 1);
-	_grid->addWidget(rotateLabel, 0, 2);
-	_grid->addWidget(shearLabel, 0, 3);
-}
-
-void UserControlTransformation::onChange(const iWidgetPtr source)
-{
-	iNodeTransform *node = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_nodeId));
-
-	if (node != nullptr)
-	{
-		iaMatrixd matrix;
-
-		// translate
-		matrix.translate(iaString::toFloat(_translateText[0]->getText()),
-						 iaString::toFloat(_translateText[1]->getText()),
-						 iaString::toFloat(_translateText[2]->getText()));
-
-		// rotate order zyx
-		matrix.rotate(iaString::toFloat(_rotateText[2]->getText()) / 180.0 * M_PI, iaAxis::Z);
-		matrix.rotate(iaString::toFloat(_rotateText[1]->getText()) / 180.0 * M_PI, iaAxis::Y);
-		matrix.rotate(iaString::toFloat(_rotateText[0]->getText()) / 180.0 * M_PI, iaAxis::X);
-
-		// scale
-		matrix.scale(iaString::toFloat(_scaleText[0]->getText()),
-					 iaString::toFloat(_scaleText[1]->getText()),
-					 iaString::toFloat(_scaleText[2]->getText()));
-
-		// shear
-		matrix.shear(iaString::toFloat(_shearText[0]->getText()),
-					 iaString::toFloat(_shearText[1]->getText()),
-					 iaString::toFloat(_shearText[2]->getText()));
-
-		node->setMatrix(matrix);
+		for (int col = 0; col < 4; ++col)
+		{
+			iWidgetLineTextEdit *textEdit = createTextEdit();
+			_matrixText.push_back(textEdit);
+			_grid->addWidget(textEdit, row, col);
+		}
 	}
 }

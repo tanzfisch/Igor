@@ -47,10 +47,7 @@ public:
 private:
     iWidgetGrid *_grid = nullptr;
 
-    std::vector<iWidgetLineTextEdit *> _translateText;
-    std::vector<iWidgetLineTextEdit *> _scaleText;
-    std::vector<iWidgetLineTextEdit *> _rotateText;
-    std::vector<iWidgetLineTextEdit *> _shearText;
+    std::vector<iWidgetLineTextEdit *> _matrixText;
 
     uint32 _nodeId = iNode::INVALID_NODE_ID;
 

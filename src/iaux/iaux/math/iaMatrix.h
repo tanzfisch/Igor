@@ -196,29 +196,6 @@ namespace iaux
 		*/
         void transpose();
 
-        /*! decompose the matrix in its components
-
-		\param scale the scale component
-		\param orientation the orientation component as quaternion
-		\param translate the translate component
-		\param shear the shear component
-		\param perspective the perspective component
-
-		thanks to https://glm.g-truc.net
-		and thanks to http://www.opensource.apple.com/source/WebCore/WebCore-514/platform/renderer/transforms/TransformationMatrix.cpp
-		*/
-        bool decompose(iaVector3<T> &scale, iaQuaternion<T> &orientation, iaVector3<T> &translate, iaVector3<T> &shear, iaVector4<T> &perspective) const;
-
-        /*! recompose the matrix from it's components
-
-		\param scale scale component
-		\param orientation the orientation
-		\param translate the translation component
-		\param shear the shear component
-		\param perspective the perspective component
-		*/
-        void recompose(const iaVector3<T> &scale, const iaQuaternion<T> &orientation, const iaVector3<T> &translate, const iaVector3<T> &shear, const iaVector4<T> &perspective);
-
         /*! calculates a view matrix
 
 		\param eye eye point of the camera
@@ -389,7 +366,7 @@ namespace iaux
     \returns the resulting stream
     */
     template <class T>
-    IAUX_API iaConsole &operator<<(iaConsole &console, const iaMatrix<T> &m);
+	IAUX_API std::wostream &operator<<(std::wostream &stream, const iaMatrix<T> &m);
 
 #include <iaux/math/iaMatrix.inl>
 

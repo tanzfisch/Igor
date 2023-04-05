@@ -194,7 +194,7 @@ uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, u
 	inputParam->_needsRenderContext = false;
 	inputParam->_modelSourceType = iModelSourceType::Generated;
 	inputParam->_loadPriority = 0;
-	inputParam->_parameters.setData(reinterpret_cast<const char *>(&plantInformation), sizeof(PlantInformation));
+	inputParam->_parameters = plantInformation;
 
 	iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
 	modelNode->setModel(iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++), iResourceCacheMode::Free, inputParam);

@@ -34,8 +34,9 @@
 #include <igor/scene/nodes/iNode.h>
 
 #include <iaux/data/iaString.h>
-#include <iaux/data/iaMemBlock.h>
 using namespace iaux;
+
+#include <any>
 
 namespace igor
 {
@@ -84,7 +85,7 @@ namespace igor
 
         /*! custom parameters for loader or generator
         */
-        iaMemBlock _parameters;
+        std::any _parameters;
 
         /*! keep mesh flag. if true the mesh will not be deleted after buffer creation
 

@@ -232,7 +232,7 @@ void VoxelExample::prepareMeshGeneration()
     inputParam->_modelSourceType = iModelSourceType::Generated;
     inputParam->_loadPriority = 0;
     inputParam->_keepMesh = true;
-    inputParam->_parameters.setData(reinterpret_cast<const char *>(&tileInformation), sizeof(TileInformation));
+    inputParam->_parameters = tileInformation;
     // create a model node
     iNodeModel *voxelMeshModel = iNodeManager::getInstance().createNode<iNodeModel>();
     voxelMeshModel->setName("VoxelMeshModel");
