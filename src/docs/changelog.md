@@ -4,9 +4,13 @@ Changelog                           {#changelog}
 0.38.0
 ------
 
-- scene data update is now in separate thread
 - sorting files and directories alphabetically
 - fixed scrolling of iWidgetScroll
+- removed decompose/recompose matrix
+- removed clipboard
+- removed evaluation
+- removed state machine
+- removed memblock
 
 0.37.0
 ------
