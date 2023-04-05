@@ -36,7 +36,6 @@ using namespace iaux;
 #include <igor/iDefines.h>
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/traversal/iNodeVisitorUpdateTransform.h>
-#include <igor/threading/tasks/iTask.h>
 #include <igor/data/iFrustum.h>
 
 #include <memory>
@@ -77,7 +76,6 @@ namespace igor
         friend class iNodeRender;
         friend class iNodeLODTrigger;
         friend class iNodeLODSwitch;
-        friend class iTaskUpdateSceneData;
         friend class iRenderEngine;
 
     public:
@@ -143,7 +141,7 @@ namespace igor
 
         /*! contains model nodes to be processed in current frame
 
-		need to store them seperately because they might not all be processed within one frame
+		need to store them separately because they might not all be processed within one frame
 		*/
         std::vector<iNodeID> _processingQueue;
 
@@ -200,10 +198,6 @@ namespace igor
         /*! currently selected nodes
 		*/
         std::vector<iNodeID> _selectedNodes;
-
-        /*! update data task id
-        */
-        iTaskID _updateSceneDataTask;
 
         /*! if true update data will be aborted
         */
