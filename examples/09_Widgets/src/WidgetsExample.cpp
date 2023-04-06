@@ -147,32 +147,10 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
     _dialog = nullptr;
 }
 
-void WidgetsExample::onInit()
-{
-    // call base class
-    iLayerWidgets::onInit();
-
-    _dialog = new iDialog();
-    _dialog->setHorizontalAlignment(iHorizontalAlignment::Center);
-    _dialog->setVerticalAlignment(iVerticalAlignment::Center);
-    _dialog->setHeight(300);
-    // it does not matter if we open it now or after adding all the child widgets
-    _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
-
-    iWidgetGrid *grid1 = new iWidgetGrid(_dialog);
-    grid1->appendRows(2);
-    grid1->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    grid1->setVerticalAlignment(iVerticalAlignment::Stretch);
-    grid1->setBorder(10);
-    grid1->setCellSpacing(5);
-    grid1->setStretchRow(2);
-    grid1->setStretchColumn(0);
-    grid1->setSelectMode(iSelectionMode::NoSelection);
-
-    // create a menu
+iWidgetMenuBarPtr WidgetsExample::createMenu()
+{        
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
-    grid1->addWidget(menuBar, 0, 0);
-
+    
     // get some actions to add to the menu
     iActionPtr action1 = iActionManager::getInstance().getAction("example:one");
     iActionPtr action2 = iActionManager::getInstance().getAction("example:two");
@@ -220,19 +198,51 @@ void WidgetsExample::onInit()
     menu2->addAction(action1);
     menuBar->addMenu(menu2);
 
+    return menuBar;
+}
+
+void WidgetsExample::onInit()
+{
+    // call base class
+    iLayerWidgets::onInit();
+
+    _dialog = new iDialog();
+    _dialog->setHorizontalAlignment(iHorizontalAlignment::Center);
+    _dialog->setVerticalAlignment(iVerticalAlignment::Center);
+    _dialog->setHeight(300);
+    _dialog->setWidth(400);
+    // it does not matter if we open it now or after adding all the child widgets
+    _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
+
+    iWidgetGrid *grid1 = new iWidgetGrid(_dialog);
+    grid1->appendRows(2);
+    grid1->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    grid1->setVerticalAlignment(iVerticalAlignment::Stretch);
+    grid1->setBorder(10);
+    grid1->setCellSpacing(5);
+    grid1->setStretchRow(2);
+    grid1->setStretchColumn(0);
+    grid1->setSelectMode(iSelectionMode::NoSelection);
+
+    // create a menu and add to grid
+    iWidgetMenuBarPtr menuBar = createMenu();
+    grid1->addWidget(menuBar, 0, 0);
+
     // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     groupBox1->setVerticalAlignment(iVerticalAlignment::Stretch);
+    grid1->addWidget(groupBox1, 0, 1); 
 
     // a scroll widget can contain a child that is bigger than it self. if so the scroll widget
     // shows vertical and or horizontal sliders and allows to scroll the child.
     iWidgetScroll *widgetScroll = new iWidgetScroll();
     widgetScroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     widgetScroll->setVerticalAlignment(iVerticalAlignment::Stretch);
+    grid1->addWidget(widgetScroll, 0, 2);
 
-    iWidgetGrid *grid3 = new iWidgetGrid();
+    /*iWidgetGrid *grid3 = new iWidgetGrid();
     grid3->appendColumns(3);
     grid3->appendRows(5);
     grid3->setCellSpacing(5);
@@ -240,6 +250,7 @@ void WidgetsExample::onInit()
     grid3->setHorizontalAlignment(iHorizontalAlignment::Left);
     grid3->setVerticalAlignment(iVerticalAlignment::Top);
     grid3->setSelectMode(iSelectionMode::NoSelection);
+    widgetScroll->addWidget(grid3);
 
     iWidgetGrid *grid4 = new iWidgetGrid();
     grid4->appendColumns(5);
@@ -407,7 +418,7 @@ void WidgetsExample::onInit()
     graph->setViewGrid();
 
     // assemble all the widgets with their parents
-    grid1->addWidget(groupBox1, 0, 1);
+    
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
     grid4->addWidget(new iWidgetSpacer(30, 2), 1, 0);
@@ -416,8 +427,7 @@ void WidgetsExample::onInit()
     grid4->addWidget(_colorGradient, 4, 0);
     grid4->addWidget(graph, 5, 0);
 
-    grid1->addWidget(widgetScroll, 0, 2);
-    widgetScroll->addWidget(grid3);
+    
 
     grid3->addWidget(label1, 0, 0);
     grid3->addWidget(_labelMousePos, 1, 0);
@@ -433,7 +443,7 @@ void WidgetsExample::onInit()
     grid3->addWidget(radio2, 1, 4);
     grid3->addWidget(radio3, 2, 4);
     grid3->addWidget(selectBox, 0, 5);
-    grid3->addWidget(numberChooser, 1, 5);
+    grid3->addWidget(numberChooser, 1, 5);*/
 
 
     // update desktop size

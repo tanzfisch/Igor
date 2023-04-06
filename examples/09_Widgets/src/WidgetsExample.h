@@ -102,6 +102,10 @@ private:
     */
     void initGUI();
 
+    /*! \returns menu bar
+    */
+    iWidgetMenuBarPtr createMenu();
+
     /*! triggered by exit button. will shut down application
 
     \param source the source widget of this event
