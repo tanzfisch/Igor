@@ -39,7 +39,7 @@ namespace igor
     class iUserControl;
 
     /*! grid selection mode
-    */
+     */
     enum class iSelectionMode
     {
         Cell,
@@ -48,59 +48,10 @@ namespace igor
         NoSelection
     };
 
-    /*!
-    \todo cols und rows dynamisch anpassen
-    */
+    /*! grid widget
+     */
     class IGOR_API iWidgetGrid : public iWidget
     {
-
-        /*! internal helper struct that represents a child widget and it's position
-        */
-        struct Cell
-        {
-        public:
-            /*! pointer to child widget
-            */
-            uint64 _widgetID = iWidget::INVALID_WIDGET_ID;
-
-            /*! width of child
-            */
-            int32 _actualWidth = 10;
-
-            /*! height of child
-            */
-            int32 _actualHeight = 10;
-
-            /*! configured width of child
-            */
-            int32 _configuredWidth = 10;
-
-            /*! configured height of child
-            */
-            int32 _configuredHeight = 10;
-
-            /*! horizontal position of child
-            */
-            int32 _x = 0;
-
-            /*! vertical position of child
-            */
-            int32 _y = 0;
-
-            /*! user data that can be attached to a grid cell
-            */
-            std::any _userData;
-        };
-
-        /*! internal struct that represents a column of widgets
-        */
-        struct GridColumn
-        {
-            /*! list of widgets within one column
-            */
-            std::vector<Cell> _widgetColumn;
-        };
-
     public:
         /*! ctor initializes member variables
 
@@ -109,7 +60,7 @@ namespace igor
         iWidgetGrid(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-        */
+         */
         ~iWidgetGrid() = default;
 
         /*! appends rows at the bottom of the grid
@@ -149,31 +100,31 @@ namespace igor
         void removeColumn(uint32 at);
 
         /*! clears the whole grid
-        */
+         */
         void clear();
 
         /*! \returns row count
-        */
+         */
         uint32 getRowCount();
 
         /*! \returns column count
-        */
+         */
         uint32 getColumnCount();
 
         /*! \returns cell spacing
-        */
+         */
         int32 getCellSpacing();
 
         /*! sets cell spacing
-        */
+         */
         void setCellSpacing(int32 cellSpacing);
 
         /*! \returns border
-        */
+         */
         int32 getBorder();
 
         /*! sets border
-        */
+         */
         void setBorder(int32 border);
 
         /*! adds a child widget to this widget at position 0, 0
@@ -182,7 +133,7 @@ namespace igor
         */
         void addWidget(iWidgetPtr widget);
 
-        /*! removes a child widget frmo this widget regardless of it's position
+        /*! removes a child widget from this widget regardless of it's position
 
         the former position will be cleared
 
@@ -212,21 +163,21 @@ namespace igor
         void setHighlightMode(iSelectionMode highlightMode);
 
         /*! \returns selection mode
-        */
+         */
         iSelectionMode getSelectMode() const;
 
         /*! \returns highlight mode
-        */
+         */
         iSelectionMode getHighlightMode() const;
 
         void select(int32 column, int32 row);
 
         /*! unselects the grid
-        */
+         */
         void unselect();
 
         /*! \returns true: if grid is selected
-        */
+         */
         bool isSelected();
 
         /*! \returns selected row
@@ -242,7 +193,7 @@ namespace igor
         int32 getSelectedColumn() const;
 
         /*! \returns pointer to user Data of selected field
-        */
+         */
         const std::any getSelectedUserData();
 
         /*! \returns pointer to user Data of specified field
@@ -252,45 +203,45 @@ namespace igor
         */
         std::any getUserData(int32 col, int32 row);
 
-        /*! defines which row will be streched if the grid is vertically streched
+        /*! defines which row will be stretched if the grid is vertically stretched
 
-        \param row row number to be streched
+        \param row row number to be stretched
         */
         void setStretchRow(int32 row);
 
-        /*! \returns row number to be streched
-        */
-        int32 getStrechRow() const;
+        /*! \returns row number to be stretched
+         */
+        int32 getStretchRow() const;
 
-        /*! defines which column will be streched if the grid is horrizontally streched
+        /*! defines which column will be stretched if the grid is horizontally stretched
 
-        \param col column number to be streched
+        \param col column number to be stretched
         */
         void setStretchColumn(int32 col);
 
-        /*! \retruns column number to be streched
-        */
-        int32 getStrechColumn() const;
+        /*! \returns column number to be stretched
+         */
+        int32 getStretchColumn() const;
 
         /*! \returns mouse over row
-        */
+         */
         int32 getMouseOverRow() const;
 
         /*! \returns mouse over column
-        */
+         */
         int32 getMouseOverColumn() const;
 
         /*! sets wether or not an empty cell is selectable
 
         only active for iSelectionMode::Cell
 
-        \param emptyCellsSelecable if true empty cells are selectable (default is false)
+        \param emptyCellsSelectable if true empty cells are selectable (default is false)
         */
-        void setEmptyCellsSelecable(bool emptyCellsSelecable = true);
+        void setEmptyCellsSelectable(bool emptyCellsSelectable = true);
 
         /*! \returns true if empty cells are selectable
-        */
-        bool getEmptyCellsSelecable() const;
+         */
+        bool getEmptyCellsSelectable() const;
 
         /*! \returns true if a cell is empty
 
@@ -301,68 +252,114 @@ namespace igor
 
     private:
         /*! if true empty cells are selectable
-        */
-        bool _emptyCellsSelecable = false;
+         */
+        bool _emptyCellsSelectable = false;
 
-        /*! row number to be streched
-        */
-        int32 _strechRow = 0;
+        /*! row number to be stretched
+         */
+        int32 _stretchRow = 0;
 
-        /*! column number to be streched
-        */
-        int32 _strechCol = 0;
+        /*! column number to be stretched
+         */
+        int32 _stretchCol = 0;
+
+        /*! internal helper struct that represents a child widget and it's position
+         */
+        struct Cell
+        {
+            /*! pointer to child widget
+             */
+            uint64 _widgetID = iWidget::INVALID_WIDGET_ID;
+
+            /*! width of child
+             */
+            int32 _actualWidth = 10;
+
+            /*! height of child
+             */
+            int32 _actualHeight = 10;
+
+            /*! configured width of child
+             */
+            int32 _configuredWidth = 10;
+
+            /*! configured height of child
+             */
+            int32 _configuredHeight = 10;
+
+            /*! horizontal position of child
+             */
+            int32 _x = 0;
+
+            /*! vertical position of child
+             */
+            int32 _y = 0;
+
+            /*! user data that can be attached to a grid cell
+             */
+            std::any _userData;
+        };
+
+        /*! internal struct that represents a column of widgets
+         */
+        struct GridColumn
+        {
+            /*! list of widgets within one column
+             */
+            std::vector<Cell> _widgetColumn;
+        };
 
         /*! the child widgets
-        */
+         */
         std::vector<GridColumn> _widgetRows;
 
         /*! cellspacing within the grid
-        */
+         */
         int32 _cellspacing = 4;
 
         /*! border size
-        */
+         */
         int32 _border = 0;
 
-        /*! saves over wich row the mouse last was
-        */
+        /*! saves over which row the mouse last was
+         */
         int32 _mouseOverRow = -1;
 
-        /*! saves over wich column the mouse last was
-        */
+        /*! saves over which column the mouse last was
+         */
         int32 _mouseOverColumn = -1;
 
-        /*! saves over wich row the mouse last was
-        */
+        /*! saves over which row the mouse last was
+         */
         int32 _selectedRow = -1;
 
-        /*! saves over wich column the mouse last was
-        */
+        /*! saves over which column the mouse last was
+         */
         int32 _selectedColumn = -1;
 
         /*! mode of selection
-        */
+         */
         iSelectionMode _selectMode = iSelectionMode::NoSelection;
 
         /*! mode of highlight
-        */
+         */
         iSelectionMode _highlightMode = iSelectionMode::NoSelection;
 
-        /*! handles incomming mouse wheel event
+        /*! handles incoming mouse wheel event
 
         \param d mouse wheel delta
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool handleMouseWheel(int32 d);
 
-        /*! handles incomming mouse key down events
+        /*! handles incoming mouse key down events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool handleMouseKeyDown(iKeyCode key);
 
-        /*! handles incomming double click
+        /*! handles incoming double click
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
@@ -376,22 +373,22 @@ namespace igor
         */
         bool handleMouseKeyUp(iKeyCode key);
 
-        /*! handles incomming mouse move events
+        /*! handles incoming mouse move events
 
         \param position mouse position
         */
         void handleMouseMove(const iaVector2f &pos);
 
         /*! updates size based on it's content
-        */
+         */
         void calcMinSize() override;
 
         /*! draws the widget
-        */
+         */
         void draw();
 
         /*! initializes an empty grid with default size of one row and column
-        */
+         */
         void initGrid();
 
         /*! updates widget's alignment
@@ -401,7 +398,7 @@ namespace igor
         */
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 
-        /*! calculates childrens ofsets relative to thair parent
+        /*! calculates childrens offsets relative to their parent
 
         \param offsets vector to be filled with childrens offsets
         */
@@ -409,7 +406,7 @@ namespace igor
     };
 
     /*! widget grid pointer definition
-    */
+     */
     typedef iWidgetGrid *iWidgetGridPtr;
 
 } // namespace igor

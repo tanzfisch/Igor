@@ -153,9 +153,9 @@ void WidgetsExample::onInit()
     iLayerWidgets::onInit();
 
     _dialog = new iDialog();
-    _dialog->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    _dialog->setHorizontalAlignment(iHorizontalAlignment::Center);
     _dialog->setVerticalAlignment(iVerticalAlignment::Center);
-    _dialog->setHeight(200);
+    _dialog->setHeight(300);
     // it does not matter if we open it now or after adding all the child widgets
     _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
 
@@ -234,8 +234,8 @@ void WidgetsExample::onInit()
 
     iWidgetGrid *grid3 = new iWidgetGrid();
     grid3->appendColumns(3);
-    grid3->appendRows(4);
-    grid3->setCellSpacing(10);
+    grid3->appendRows(5);
+    grid3->setCellSpacing(5);
     // this grid has to be top left aligned because we want to use it as child of the scroll widget
     grid3->setHorizontalAlignment(iHorizontalAlignment::Left);
     grid3->setVerticalAlignment(iVerticalAlignment::Top);
@@ -429,11 +429,12 @@ void WidgetsExample::onInit()
     grid3->addWidget(label4, 2, 2);
     grid3->addWidget(label5, 2, 3);
     grid3->addWidget(button1, 1, 3);
-    grid3->addWidget(selectBox, 3, 2);
-    grid3->addWidget(numberChooser, 3, 1);
     grid3->addWidget(radio1, 0, 4);
     grid3->addWidget(radio2, 1, 4);
     grid3->addWidget(radio3, 2, 4);
+    grid3->addWidget(selectBox, 0, 5);
+    grid3->addWidget(numberChooser, 1, 5);
+
 
     // update desktop size
     iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
