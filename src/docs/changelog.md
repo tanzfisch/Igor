@@ -12,6 +12,8 @@ Changelog                           {#changelog}
 - removed state machine
 - removed memblock
 - renamed iWidget setActive/isActive to setEnabled/isEnabled
+- added align function to iaString
+- improved profiler visualizer
 
 0.37.0
 ------

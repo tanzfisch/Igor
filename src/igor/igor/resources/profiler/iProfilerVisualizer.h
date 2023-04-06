@@ -89,7 +89,7 @@ namespace igor
     private:
         /*! accumulation buffer
          */
-        std::array<float32, iProfiler::MAX_FRAMES_COUNT> _accumulationBuffer;
+        std::array<float32, PROFILER_MAX_FRAMES_COUNT> _accumulationBuffer;
 
         /*! the mode to rende the statistics with
          */

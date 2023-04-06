@@ -274,7 +274,7 @@ namespace igor
 
     void iScene::handle()
     {
-        IGOR_PROFILER_SCOPED(scene);
+        IGOR_PROFILER_SCOPED(handle_scene);
         updateLOD();
         updateData();
         _updateTransformVisitor.traverseTree(_root);

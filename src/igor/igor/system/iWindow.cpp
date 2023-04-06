@@ -250,8 +250,7 @@ namespace igor
         }
 
         void swapBuffers() override
-        {
-            IGOR_PROFILER_SCOPED(swap);
+        {            
             SwapBuffers(_hDC);
         }
 
@@ -406,7 +405,7 @@ namespace igor
                 con_err("Can't initialize Glad");
                 close();
                 return false;
-            }                      
+            }
 
             ShowWindow(_hWnd, SW_SHOW);
             SetForegroundWindow(_hWnd);
@@ -664,14 +663,14 @@ namespace igor
         if (WM_CREATE == uMsg)
         {
             LPCREATESTRUCT lpcs = (LPCREATESTRUCT)lParam;
-            window = (iWindowPtr )(lpcs->lpCreateParams);
+            window = (iWindowPtr)(lpcs->lpCreateParams);
             SetWindowLongPtr(_hWnd, GWLP_USERDATA, (LONG_PTR)window);
             impl = static_cast<iWindowImplWindows *>(iWindowImpl::getImpl(window));
             impl->sizeChanged(impl->_width, impl->_height);
             return true;
         }
 
-        window = (iWindowPtr )GetWindowLongPtr(_hWnd, GWLP_USERDATA);
+        window = (iWindowPtr)GetWindowLongPtr(_hWnd, GWLP_USERDATA);
 
         if (window)
         {
@@ -783,8 +782,7 @@ namespace igor
         }
 
         void swapBuffers() override
-        {
-            IGOR_PROFILER_SCOPED(swap);
+        {            
             _glxMutex.lock();
             glXSwapBuffers(_display, glXGetCurrentDrawable());
             _glxMutex.unlock();
@@ -969,7 +967,7 @@ namespace igor
                 XMapRaised(_display, _xwindow);
             }
 
-            _isOpen = true;    
+            _isOpen = true;
 
             XSelectInput(_display, _xwindow, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask | PointerMotionMask | StructureNotifyMask);
 
@@ -980,14 +978,14 @@ namespace igor
             {
                 close();
                 return false;
-            }        
+            }
 
             if (!gladLoadGL())
             {
                 con_err("Can't initialize Glad");
                 close();
                 return false;
-            }          
+            }
 
             XMapWindow(_display, _xwindow);
             XFlush(_display);
@@ -1220,7 +1218,7 @@ namespace igor
         _impl = new iWindowImplLinux(this);
 #endif
 
-        if(!title.isEmpty())
+        if (!title.isEmpty())
         {
             setTitle(title);
         }
@@ -1296,7 +1294,7 @@ namespace igor
         if (result)
         {
             iTaskManager::getInstance().createRenderContextThreads(this);
-            
+
             iRenderer::getInstance().init();
             iMaterialResourceFactory::getInstance().init();
             iTextureResourceFactory::getInstance().init();
@@ -1500,13 +1498,14 @@ namespace igor
     }
 
     void iWindow::draw()
-    {        
+    {
         iRenderer::getInstance().clearStats();
 
         for (auto view : _views)
         {
             view->draw();
-        }        
+        }
+
         swapBuffers();
     }
 
