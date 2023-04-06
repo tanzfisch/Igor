@@ -141,7 +141,7 @@ void UserControlMaterial::initGUI()
     iWidgetGridPtr grid = new iWidgetGrid(this);
     grid->appendRows(2);
     grid->setBorder(2);
-    grid->setStrechColumn(0);
+    grid->setStretchColumn(0);
     grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -285,7 +285,7 @@ void UserControlMaterial::initGUI()
     gridShadersGroup->setBorder(2);
     gridShadersGroup->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     gridShadersGroup->setVerticalAlignment(iVerticalAlignment::Top);
-    gridShadersGroup->setStrechColumn(0);
+    gridShadersGroup->setStretchColumn(0);
 
     iWidgetGrid *gridShaders = new iWidgetGrid();
     gridShaders->appendRows(2);

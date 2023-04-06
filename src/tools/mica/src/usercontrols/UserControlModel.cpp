@@ -45,7 +45,7 @@ void UserControlModel::initGUI()
     _grid->appendColumns(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    _grid->setStrechColumn(1);
+    _grid->setStretchColumn(1);
 
     _labelFilename = new iWidgetLabel();
     _labelFilename->setWidth(80);

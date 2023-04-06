@@ -16,8 +16,8 @@ void UserControlMaterialView::initGUI()
     grid->setBorder(2);
     grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid->setVerticalAlignment(iVerticalAlignment::Stretch);
-    grid->setStrechColumn(0);
-    grid->setStrechRow(1);
+    grid->setStretchColumn(0);
+    grid->setStretchRow(1);
 
     iWidgetGrid *gridButtons = new iWidgetGrid();
     gridButtons->setBorder(0);

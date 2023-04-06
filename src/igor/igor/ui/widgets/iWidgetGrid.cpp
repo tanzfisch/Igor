@@ -520,7 +520,7 @@ namespace igor
         _border = border;
     }
 
-    void iWidgetGrid::setStrechRow(int32 row)
+    void iWidgetGrid::setStretchRow(int32 row)
     {
         _strechRow = row;
     }
@@ -530,7 +530,7 @@ namespace igor
         return _strechRow;
     }
 
-    void iWidgetGrid::setStrechColumn(int32 col)
+    void iWidgetGrid::setStretchColumn(int32 col)
     {
         _strechCol = col;
     }

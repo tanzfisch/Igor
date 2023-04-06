@@ -88,7 +88,7 @@ namespace igor
 
 		iWidgetGridPtr grid = new iWidgetGrid(this);
 		grid->appendRows(4);
-		grid->setStrechRow(2);
+		grid->setStretchRow(2);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 		grid->setCellSpacing(4);
@@ -139,7 +139,7 @@ namespace igor
 
 		iWidgetGrid *positionGrid = new iWidgetGrid();
 		positionGrid->appendColumns(1);
-		positionGrid->setStrechColumn(1);
+		positionGrid->setStretchColumn(1);
 		positionGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		controlGrid->addWidget(positionGrid, 0, 1);
 

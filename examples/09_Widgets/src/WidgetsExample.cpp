@@ -95,7 +95,7 @@ public:
     }
 };
 
-// action that is incompaticle and will not appear in any menu
+// action that is incompatible and will not appear in any menu
 class Action4 : public iAction
 {
 
@@ -129,7 +129,7 @@ public:
 WidgetsExample::WidgetsExample(iWindowPtr window)
     : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor/textures/StandardFont.png", "WidgetThemePattern.png")), window, "Widgets", 10)
 {
-    // register the actions to make them globaly available
+    // register the actions to make them globally available
     iActionManager::getInstance().registerAction(new Action1());
     iActionManager::getInstance().registerAction(new Action2());
     iActionManager::getInstance().registerAction(new Action3());
@@ -165,8 +165,8 @@ void WidgetsExample::onInit()
     grid1->setVerticalAlignment(iVerticalAlignment::Stretch);
     grid1->setBorder(10);
     grid1->setCellSpacing(5);
-    grid1->setStrechRow(2);
-    grid1->setStrechColumn(0);
+    grid1->setStretchRow(2);
+    grid1->setStretchColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
     // create a menu
@@ -228,9 +228,9 @@ void WidgetsExample::onInit()
 
     // a scroll widget can contain a child that is bigger than it self. if so the scroll widget
     // shows vertical and or horizontal sliders and allows to scroll the child.
-    iWidgetScroll *widgetScoll = new iWidgetScroll();
-    widgetScoll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    widgetScoll->setVerticalAlignment(iVerticalAlignment::Stretch);
+    iWidgetScroll *widgetScroll = new iWidgetScroll();
+    widgetScroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    widgetScroll->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetGrid *grid3 = new iWidgetGrid();
     grid3->appendColumns(3);
@@ -243,7 +243,7 @@ void WidgetsExample::onInit()
 
     iWidgetGrid *grid4 = new iWidgetGrid();
     grid4->appendColumns(5);
-    grid4->setStrechColumn(4);
+    grid4->setStretchColumn(4);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
     grid4->setSelectMode(iSelectionMode::NoSelection);
@@ -416,8 +416,8 @@ void WidgetsExample::onInit()
     grid4->addWidget(_colorGradient, 4, 0);
     grid4->addWidget(graph, 5, 0);
 
-    grid1->addWidget(widgetScoll, 0, 2);
-    widgetScoll->addWidget(grid3);
+    grid1->addWidget(widgetScroll, 0, 2);
+    widgetScroll->addWidget(grid3);
 
     grid3->addWidget(label1, 0, 0);
     grid3->addWidget(_labelMousePos, 1, 0);

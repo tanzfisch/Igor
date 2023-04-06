@@ -64,7 +64,7 @@ void UserControlEmitter::initGUI()
     _grid->appendRows(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    _grid->setStrechColumn(1);
+    _grid->setStretchColumn(1);
     addWidget(_grid);
 
     iWidgetLabel *labelType = new iWidgetLabel();

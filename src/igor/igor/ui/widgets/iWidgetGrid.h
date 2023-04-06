@@ -256,7 +256,7 @@ namespace igor
 
         \param row row number to be streched
         */
-        void setStrechRow(int32 row);
+        void setStretchRow(int32 row);
 
         /*! \returns row number to be streched
         */
@@ -266,7 +266,7 @@ namespace igor
 
         \param col column number to be streched
         */
-        void setStrechColumn(int32 col);
+        void setStretchColumn(int32 col);
 
         /*! \retruns column number to be streched
         */
