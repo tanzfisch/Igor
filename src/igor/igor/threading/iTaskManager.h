@@ -130,7 +130,7 @@ namespace igor
 
         /*! \returns how many tasks where done since program start 
         */
-        uint64 getTaksDoneCount() const;
+        uint64 getTaskDoneCount() const;
 
         /*! registers delegate to task finished event
 

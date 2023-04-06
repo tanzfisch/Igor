@@ -141,12 +141,12 @@ namespace igor
         iTimer::getInstance().onUpdate();
         iProfiler::nextFrame();
 
-        IGOR_PROFILER_BEGIN(app);
+        IGOR_PROFILER_BEGIN(application);
         iNodeManager::getInstance().handle();
         windowHandle();
         dispatch();
         preDraw();
-        IGOR_PROFILER_END(app);
+        IGOR_PROFILER_END(application);
 
         iPhysics::getInstance().handle();
 

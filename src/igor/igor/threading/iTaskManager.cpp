@@ -376,7 +376,7 @@ namespace igor
         }
     }
 
-    uint64 iTaskManager::getTaksDoneCount() const
+    uint64 iTaskManager::getTaskDoneCount() const
     {
         return _tasksDone;
     }

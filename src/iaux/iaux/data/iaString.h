@@ -79,17 +79,19 @@ namespace iaux
         */
         iaString(const wchar_t *text, const int64 length = INVALID_POSITION);
 
-        /*! creates a string with only one character
+        /*! creates a string using given character
 
         \param character the wide character to create the string with
+        \param count how many times the character will be added to this string
         */
-        iaString(const wchar_t character);
+        iaString(const wchar_t character, int count = 1);
 
         /*! creates a string with only one character
 
         \param character the character to create the string with
+        \param count how many times the character will be added to this string
         */
-        iaString(const char character);
+        iaString(const char character, int count = 1);
 
         /*! copy ctor
 
@@ -217,12 +219,12 @@ namespace iaux
         */
         bool operator>(const iaString &text) const;
 
-        /*! \returns charachter at given position for manipulation
+        /*! \returns character at given position for manipulation
         \param index the position to get the character from
         */
         wchar_t &operator[](const int64 index);
 
-        /*! \returns charachter at given position
+        /*! \returns character at given position
         \param index the position to get the character from
         */
         const wchar_t &operator[](const int64 index) const;
@@ -234,7 +236,7 @@ namespace iaux
         */
         iaString getSubString(const int64 pos, const int64 len = INVALID_POSITION) const;
 
-        /*! plsits a string based on delimiter in to tokens (or substrings)
+        /*! splits a string based on delimiter in to tokens (or substrings)
 
         \param delimiters string with delimiter characters
         \param tokens the resulting tokens
@@ -255,7 +257,7 @@ namespace iaux
         */
         void split(const char delimiter, std::vector<iaString> &tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
-        /*! \returns position of first occurence of on of the specified characters
+        /*! \returns position of first occurrence of on of the specified characters
 
         if not found iaString::INVALID_POSITION will be returned
 
@@ -264,7 +266,7 @@ namespace iaux
         */
         int64 findFirstOf(const iaString &characters, const int64 from = INVALID_POSITION) const;        
 
-        /*! \returns position of first occurence of on of the specified characters
+        /*! \returns position of first occurrence of on of the specified characters
 
         if not found iaString::INVALID_POSITION will be returned
 
@@ -273,7 +275,7 @@ namespace iaux
         */
         int64 findFirstOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
 
-        /*! \returns position of first occurence of on of the specified characters
+        /*! \returns position of first occurrence of on of the specified characters
 
         if not found INVALID_POSITION will be returned
 
@@ -282,7 +284,7 @@ namespace iaux
         */
         int64 findFirstOf(const wchar_t character, const int64 from = INVALID_POSITION) const;
 
-        /*! \returns position of first occurence NOT of specified characters
+        /*! \returns position of first occurrence NOT of specified characters
 
         if not found INVALID_POSITION will be returned
 
@@ -291,7 +293,7 @@ namespace iaux
         */
         int64 findFirstNotOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
 
-        /*! \returns position of first occurence NOT of specified character
+        /*! \returns position of first occurrence NOT of specified character
 
         if not found INVALID_POSITION will be returned
 
@@ -300,7 +302,7 @@ namespace iaux
         */
         int64 findFirstNotOf(const wchar_t character, const int64 from = INVALID_POSITION) const;
 
-        /*! \returns position of last occurence of specified character
+        /*! \returns position of last occurrence of specified character
 
         if not found INVALID_POSITION will be returned
 
@@ -308,7 +310,7 @@ namespace iaux
         */
         int64 findLastOf(const wchar_t character) const;
 
-        /*! \returns position of last occurence of specified characters
+        /*! \returns position of last occurrence of specified characters
 
         if not found INVALID_POSITION will be returned
 
@@ -316,7 +318,7 @@ namespace iaux
         */
         int64 findLastOf(const wchar_t *characters) const;
 
-        /*! \returns position of last occurence NOT of specified character
+        /*! \returns position of last occurrence NOT of specified character
 
         if not found INVALID_POSITION will be returned
 
@@ -324,7 +326,7 @@ namespace iaux
         */
         int64 findLastNotOf(const wchar_t character) const;
 
-        /*! \returns position of last occurence NOT of specified characters
+        /*! \returns position of last occurrence NOT of specified characters
 
         if not found INVALID_POSITION will be returned
 
@@ -376,6 +378,22 @@ namespace iaux
         /*! reverses the string
          */
         void reverse();
+
+        enum class Alignment
+        {
+            Left,
+            Right,
+            Center
+        };
+
+        /*! adds padding to text so target width is reached
+
+        \param text the given text
+        \param width the target text length
+        \param alignment the desired alignment of the text
+        \param character the character used to fill up the string
+        */
+        static iaString align(const iaString &text, int width, Alignment alignment, wchar_t character = L' ');
 
         /*! transforms an integer to a iaString
 
@@ -497,7 +515,7 @@ namespace iaux
         */
         void insert(const iaString &text, int64 pos);
 
-        /*! removed charcters from string
+        /*! removed characters from string
 
         \param pos index of first character to remove
         \param length amount of characters to remove
