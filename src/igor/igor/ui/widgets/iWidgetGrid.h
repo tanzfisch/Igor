@@ -36,18 +36,6 @@
 namespace igor
 {
 
-    class iUserControl;
-
-    /*! grid selection mode
-     */
-    enum class iSelectionMode
-    {
-        Cell,
-        Row,
-        Column,
-        NoSelection
-    };
-
     /*! grid widget
      */
     class IGOR_API iWidgetGrid : public iWidget

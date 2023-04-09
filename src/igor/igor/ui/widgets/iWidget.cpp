@@ -846,7 +846,7 @@ namespace igor
             break;
 
         case iHorizontalAlignment::Absolute:
-            con_err("absolut positioning only supported for dialogs");
+            con_err("absolute positioning only supported for dialogs");
             break;
 
         default:;

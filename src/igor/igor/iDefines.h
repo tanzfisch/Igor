@@ -80,6 +80,16 @@ namespace igor
         Undefined
     };
 
+    /*! grid/cell selection mode
+     */
+    enum class iSelectionMode
+    {
+        Cell,
+        Row,
+        Column,
+        NoSelection
+    };
+
     /*! color format of textures pixmaps etc.
      */
     enum class iColorFormat

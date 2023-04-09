@@ -77,6 +77,10 @@ namespace igor
 
     };
 
+    /*! text widget pointer definition
+    */
+    typedef iWidgetTextEdit* iWidgetTextEditPtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETTEXTEDIT__

@@ -159,6 +159,11 @@ namespace igor
 		*/
         void draw();
     };
+
+    /*! select box pointer definition
+    */
+    typedef iWidgetSelectBox* iWidgetSelectBoxPtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETSELECTBOX_H__

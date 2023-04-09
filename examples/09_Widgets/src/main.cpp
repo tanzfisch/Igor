@@ -16,10 +16,13 @@ int main()
 	window->setCentered();
 	window->open();
 
+	Background3D* backGround = new Background3D(window);
+	iLayerProfilerPtr layerProfiler = new iLayerProfiler(window);
+
 	// create example and add it as layer to the application
-	iApplication::getInstance().addLayer(new Background3D(window));
-	iApplication::getInstance().addLayer(new WidgetsExample(window));
-	iApplication::getInstance().addLayer(new iLayerProfiler(window));
+	iApplication::getInstance().addLayer(backGround);
+	iApplication::getInstance().addLayer(new WidgetsExample(window, layerProfiler, backGround));
+	iApplication::getInstance().addLayer(layerProfiler);
 	iApplication::getInstance().run();
 	iApplication::getInstance().clearLayerStack();
 

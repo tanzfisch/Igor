@@ -33,6 +33,8 @@
 using namespace igor;
 using namespace iaux;
 
+#include "Background3D.h"
+
 /*! this example shows how to use Igor Widgets
 
     we derive from iLayerWidgets so the handling of the widget manager is covered for us
@@ -45,51 +47,59 @@ public:
 
     \param window the given window
     */
-    WidgetsExample(iWindowPtr window);
+    WidgetsExample(iWindowPtr window, iLayerProfilerPtr layerProfiler, Background3D *backGround);
 
     /*! does nothing
-    */
+     */
     ~WidgetsExample() = default;
 
 private:
     /*! the main dialog
-    */
+     */
     iDialogPtr _dialog = nullptr;
 
     /*! mouse position label
-    */
+     */
     iWidgetLabel *_labelMousePos = nullptr;
 
     /*! instance of a message box
-    */
+     */
     iDialogMessageBox *_messageBox = nullptr;
 
     /*! color chooser dialog
-    */
+     */
     iDialogColorChooserPtr _colorChooserDialog = nullptr;
 
     /*! color gradient editor dialog
-    */
+     */
     iDialogColorGradientPtr _colorGradientDialog = nullptr;
 
     /*! color view to display the color selected in color chooser
-    */
+     */
     iWidgetColor *_color = nullptr;
 
     /*! color gradient
-    */
+     */
     iWidgetColorGradient *_colorGradient = nullptr;
 
+    /*! layer profiler
+     */
+    iLayerProfilerPtr _layerProfiler;
+
+    /*! 3d scene in background
+     */
+    Background3D *_backGround;
+
     /*! simple action that prints some text in the console
-    */
+     */
     void onActionOne();
 
     /*! simple action that prints some text in the console
-    */
+     */
     void onActionTwo();
 
     /*! simple action that prints some text in the console
-    */
+     */
     void onActionThree();
 
     /*! triggered when main dialog got closed
@@ -99,11 +109,11 @@ private:
     void onCloseDialog(iDialogPtr dialog);
 
     /*! initializes GUI
-    */
+     */
     void initGUI();
 
     /*! \returns menu bar
-    */
+     */
     iWidgetMenuBarPtr createMenu();
 
     /*! triggered by exit button. will shut down application
@@ -112,62 +122,29 @@ private:
     */
     void onExitClick(const iWidgetPtr source);
 
-    /*! triggered by closing the message box
+    /*! profiler verbosity change event
+     */
+    void onProfilerVerbosityChange(const iWidgetPtr source);
 
-	\param dialog the dialog that was closed
-	*/
-    void onCloseMessageBox(iDialogPtr dialog);
+    /*! on wireframe change event
+     */
+    void onWireframeChange(const iWidgetPtr source);
 
-    /*! triggered by message box button. will open message box
+    /*! on wireframe change event
+     */
+    void onOctreeChange(const iWidgetPtr source);
 
-    \param source the source widget of this event
-    */
-    void onOpenMessageBox(const iWidgetPtr source);
-
-    /*! triggered by open color chooser button
-
-    \param source the source widget
-    */
-    void onOpenColorChooser(const iWidgetPtr source);
-
-    /*! triggered by cllicking on color gradient
-    */
-    void onOpenColorGradientEditor(const iWidgetPtr source);
-
-    /*! triggered when closing color chooser dialog
-
-    \param ok if true value ok, if false dialog was canceled
-    \param color the resulting color
-    */
-    void onCloseColorChooser(iDialogPtr dialog);
-
-    /*! triggered when color gradient editor was closed
-
-    \param ok if true the ok button was closing the dialog
-    \param gradient the resulting gradient
-    */
-    void onCloseColorGradient(iDialogPtr dialog);
+    /*! on wireframe change event
+     */
+    void onBoundingsChange(const iWidgetPtr source);
 
     /*! initialize example
-    */
+     */
     void onInit() override;
 
     /*! deinitialize example
-    */
+     */
     void onDeinit() override;
-
-    /*! called on any other event
-
-    \param event the event to handle
-    */
-    void onEvent(iEvent &event) override;
-
-    /*! handles mouse move event
-
-    \param event the mouse move event
-    \returns true if consumed
-    */
-    bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
 #endif // __WIDGETEXAMPLE_H__

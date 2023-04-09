@@ -558,6 +558,18 @@ namespace igor
         }
     }
 
+    void iWidgetScroll::addWidget(iWidgetPtr widget)
+    {
+        iWidget::addWidget(widget);
+
+        if(widget->getVerticalAlignment() != iVerticalAlignment::Top || widget->getHorizontalAlignment() != iHorizontalAlignment::Left)
+        {
+            con_warn("only top left alignment is supported for children of iWidgetScroll. Changing it for you");
+            widget->setVerticalAlignment(iVerticalAlignment::Top);
+            widget->setHorizontalAlignment(iHorizontalAlignment::Left);
+        }
+    }
+
     void iWidgetScroll::draw()
     {
         if (!isVisible() || _children.empty())
