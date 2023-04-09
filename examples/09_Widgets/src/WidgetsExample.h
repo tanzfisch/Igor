@@ -58,30 +58,6 @@ private:
      */
     iDialogPtr _dialog = nullptr;
 
-    /*! mouse position label
-     */
-    iWidgetLabel *_labelMousePos = nullptr;
-
-    /*! instance of a message box
-     */
-    iDialogMessageBox *_messageBox = nullptr;
-
-    /*! color chooser dialog
-     */
-    iDialogColorChooserPtr _colorChooserDialog = nullptr;
-
-    /*! color gradient editor dialog
-     */
-    iDialogColorGradientPtr _colorGradientDialog = nullptr;
-
-    /*! color view to display the color selected in color chooser
-     */
-    iWidgetColor *_color = nullptr;
-
-    /*! color gradient
-     */
-    iWidgetColorGradient *_colorGradient = nullptr;
-
     /*! layer profiler
      */
     iLayerProfilerPtr _layerProfiler;
@@ -89,18 +65,6 @@ private:
     /*! 3d scene in background
      */
     Background3D *_backGround;
-
-    /*! simple action that prints some text in the console
-     */
-    void onActionOne();
-
-    /*! simple action that prints some text in the console
-     */
-    void onActionTwo();
-
-    /*! simple action that prints some text in the console
-     */
-    void onActionThree();
 
     /*! triggered when main dialog got closed
 
