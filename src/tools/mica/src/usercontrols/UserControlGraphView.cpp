@@ -49,8 +49,8 @@ void UserControlGraphView::initGUI()
     grid->setBorder(0);
     grid->appendRows(1);
     grid->setCellSpacing(2);
-    grid->setStrechRow(1);
-    grid->setStrechColumn(0);
+    grid->setStretchRow(1);
+    grid->setStretchColumn(0);
     grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid->setVerticalAlignment(iVerticalAlignment::Stretch);
     addWidget(grid);

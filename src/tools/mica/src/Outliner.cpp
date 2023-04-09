@@ -50,8 +50,8 @@ void Outliner::initGUI()
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Stretch);
     _grid->appendRows(2);
-    _grid->setStrechRow(2);
-    _grid->setStrechColumn(0);
+    _grid->setStretchRow(2);
+    _grid->setStretchColumn(0);
 
     iWidgetGridPtr gridButtons = new iWidgetGrid();
     gridButtons->setBorder(0);

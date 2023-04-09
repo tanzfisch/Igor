@@ -247,8 +247,8 @@ void UserControlMesh::initGUI()
 
     iWidgetGridPtr grid = new iWidgetGrid(this);
     grid->appendRows(9);
-    grid->setStrechRow(8);
-    grid->setStrechColumn(0);
+    grid->setStretchRow(8);
+    grid->setStretchColumn(0);
     grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 
@@ -275,7 +275,7 @@ void UserControlMesh::initGUI()
     iWidgetGrid *detailsGrid = new iWidgetGrid();
     detailsGrid->appendColumns(1);
     detailsGrid->appendRows(2);
-    detailsGrid->setStrechColumn(1);
+    detailsGrid->setStretchColumn(1);
     detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetLabel *labelVertexes = new iWidgetLabel();
@@ -346,7 +346,7 @@ void UserControlMesh::initGUI()
     iWidgetGrid *gridTextures = new iWidgetGrid();
     gridTextures->appendRows(3);
     gridTextures->appendColumns(1);
-    gridTextures->setStrechColumn(1);
+    gridTextures->setStretchColumn(1);
     gridTextures->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 

@@ -356,13 +356,13 @@ void UserControlParticleSystem::initGUI()
     gridProperties->appendColumns(0);
     gridProperties->appendRows(2);
     gridProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    gridProperties->setStrechColumn(0);
+    gridProperties->setStretchColumn(0);
     gridProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *detailsGrid = new iWidgetGrid();
     detailsGrid->appendColumns(1);
     detailsGrid->appendRows(2);
-    detailsGrid->setStrechColumn(1);
+    detailsGrid->setStretchColumn(1);
     detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetLabel *labelParticleCount = new iWidgetLabel();
@@ -426,7 +426,7 @@ void UserControlParticleSystem::initGUI()
     gridSimulationProperties->appendColumns(1);
     gridSimulationProperties->appendRows(7);
     gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    gridSimulationProperties->setStrechColumn(1);
+    gridSimulationProperties->setStretchColumn(1);
     gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelMaxParticles = new iWidgetLabel();
@@ -513,7 +513,7 @@ void UserControlParticleSystem::initGUI()
     gridVortexSimulationProperties->appendColumns(1);
     gridVortexSimulationProperties->appendRows(6);
     gridVortexSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    gridVortexSimulationProperties->setStrechColumn(1);
+    gridVortexSimulationProperties->setStretchColumn(1);
     gridVortexSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelVortexRate = new iWidgetLabel();
@@ -669,7 +669,7 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->appendColumns(1);
     gridAppearanceProperties->appendRows(15);
     gridAppearanceProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    gridAppearanceProperties->setStrechColumn(1);
+    gridAppearanceProperties->setStretchColumn(1);
     gridAppearanceProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelVerticalTiling = new iWidgetLabel();

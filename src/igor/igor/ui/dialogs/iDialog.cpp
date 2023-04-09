@@ -207,4 +207,12 @@ namespace igor
         setVerticalAlignment(iVerticalAlignment::Absolute);
     }
 
+    void iDialog::setPos(int32 x, int32 y)
+    {
+        _offsetX = x;
+        _offsetY = y;
+        setVerticalAlignment(iVerticalAlignment::Absolute);
+        setHorizontalAlignment(iHorizontalAlignment::Absolute);
+    }
+
 } // namespace igor

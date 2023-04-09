@@ -59,7 +59,7 @@ namespace igor
     void iProfilerVisualizer::cycleVerbosity()
     {
         _renderStatisticsMode = static_cast<iProfilerVerbosity>(static_cast<int>(_renderStatisticsMode) + 1);
-        if (_renderStatisticsMode > iProfilerVerbosity::All)
+        if (_renderStatisticsMode > iProfilerVerbosity::Sections)
         {
             _renderStatisticsMode = iProfilerVerbosity::None;
         }

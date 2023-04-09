@@ -40,7 +40,7 @@
 namespace igor
 {
     /*! layer that shows profiler and debug information
-    */
+     */
     class IGOR_API iLayerProfiler : public iLayer
     {
 
@@ -55,28 +55,42 @@ namespace igor
         iLayerProfiler(iWindowPtr window, const iaString &name = "Profiler", int32 zIndex = 1000, iProfilerVerbosity verbosity = iProfilerVerbosity::FPSOnly);
 
         /*! does nothing
-        */
+         */
         ~iLayerProfiler() = default;
+
+        /*! sets profiler verbosity
+
+        \param verbosity the verbosity of the profiler visualization
+        */
+        void setVerbosity(iProfilerVerbosity verbosity);
+
+        /*! cycles verbosity
+        */
+        void cycleVerbosity();
+
+        /*! \returns current profiler verbosity
+        */
+        iProfilerVerbosity getVerbosity();
 
     private:
         /*! the viewport
-        */
+         */
         iView _view;
 
         /*! displays profiler
-        */
+         */
         iProfilerVisualizer _profilerVisualizer;
 
         /*! texture font we use to display the profiler
-        */
+         */
         iTextureFontPtr _font;
 
         /*! initialize example
-        */
+         */
         void onInit() override;
 
         /*! deinitialize example
-        */
+         */
         void onDeinit() override;
 
         /*! called on any other event
@@ -92,7 +106,7 @@ namespace igor
         bool onKeyUp(iEventKeyUp &event);
 
         /*! called by orthogonal view
-        */
+         */
         void onRender();
 
         /*! handle window resize event
@@ -102,6 +116,10 @@ namespace igor
         */
         bool onWindowResize(iEventWindowResize &event);
     };
+
+    /*! layer profiler pointer definition
+     */
+    typedef iLayerProfiler *iLayerProfilerPtr;
 
 } // namespace igor
 

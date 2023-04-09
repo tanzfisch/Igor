@@ -48,8 +48,7 @@ namespace igor
         FPSOnly,
         FPSAndMetrics,
         FPSMetricsAndTasks,
-        Sections,
-        All
+        Sections
     };
 
     /*! render statistics

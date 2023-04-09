@@ -105,7 +105,7 @@ namespace igor
         axisGrid->appendColumns(1);
         axisGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         axisGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
-        axisGrid->setStrechColumn(1);
+        axisGrid->setStretchColumn(1);
         axisGrid->setCellSpacing(4);
         axisGrid->setBorder(4);
 

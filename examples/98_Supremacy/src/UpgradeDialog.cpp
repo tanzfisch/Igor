@@ -66,8 +66,8 @@ void UpgradeDialog::initGUI()
 	grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	grid->setBorder(10);
 	grid->setCellSpacing(10);
-	grid->setStrechColumn(1);
-	grid->setStrechRow(1);
+	grid->setStretchColumn(1);
+	grid->setStretchRow(1);
 	grid->setSelectMode(iSelectionMode::NoSelection);
 
 	_labelName1 = new iWidgetLabel();

@@ -188,7 +188,6 @@ namespace igor
 	*/
     class IGOR_API iWidget
     {
-
         // iWidget has sooo many friends <3
         friend class iWidgetManager;
         friend class iDialog;

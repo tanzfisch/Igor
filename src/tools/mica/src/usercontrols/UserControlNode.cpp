@@ -42,7 +42,7 @@ void UserControlNode::initGUI()
     _grid->setCellSpacing(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    _grid->setStrechColumn(1);
+    _grid->setStretchColumn(1);
 
     _labelName = new iWidgetLabel();
     _labelName->setText("Name");

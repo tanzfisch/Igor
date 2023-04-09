@@ -80,4 +80,19 @@ namespace igor
         _profilerVisualizer.draw(getWindow(), _font);
     }
 
+    void iLayerProfiler::setVerbosity(iProfilerVerbosity verbosity)
+    {
+        _profilerVisualizer.setVerbosity(verbosity);
+    }
+
+    void iLayerProfiler::cycleVerbosity()
+    {
+        _profilerVisualizer.cycleVerbosity();
+    }
+
+    iProfilerVerbosity iLayerProfiler::getVerbosity()
+    {
+        return _profilerVisualizer.getVerbosity();
+    }
+
 } // namespace igor
