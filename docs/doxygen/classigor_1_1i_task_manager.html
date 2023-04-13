@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -119,8 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab6fe81f96cff2b697ee10c9892f2113c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48b0e8a5101d08ed0582388e43851640"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_manager.html#a48b0e8a5101d08ed0582388e43851640">getRunningRenderContextTaskCount</a> ()</td></tr>
 <tr class="separator:a48b0e8a5101d08ed0582388e43851640"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa090e34a6a92e618cc6b368e59c72788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_manager.html#aa090e34a6a92e618cc6b368e59c72788">getTaksDoneCount</a> () const</td></tr>
-<tr class="separator:aa090e34a6a92e618cc6b368e59c72788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f283ac0948f05b7907e4545fe91439c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_manager.html#a0f283ac0948f05b7907e4545fe91439c">getTaskDoneCount</a> () const</td></tr>
+<tr class="separator:a0f283ac0948f05b7907e4545fe91439c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2e26ad437b726b4723dbb7d3846f36b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_manager.html#af2e26ad437b726b4723dbb7d3846f36b">registerTaskFinishedDelegate</a> (iTaskFinishedDelegate taskFinishedDelegate)</td></tr>
 <tr class="separator:af2e26ad437b726b4723dbb7d3846f36b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1046a6b628679032433e7b13661bdeb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_manager.html#a1046a6b628679032433e7b13661bdeb5">unregisterTaskFinishedDelegate</a> (iTaskFinishedDelegate taskFinishedDelegate)</td></tr>
@@ -318,24 +318,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa090e34a6a92e618cc6b368e59c72788"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa090e34a6a92e618cc6b368e59c72788">&#9670;&nbsp;</a></span>getTaksDoneCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> igor::iTaskManager::getTaksDoneCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>how many tasks where done since program start </dd></dl>
-
-</div>
-</div>
 <a id="ae7c22cc5ccad1e50c993fb673b944714"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae7c22cc5ccad1e50c993fb673b944714">&#9670;&nbsp;</a></span>getTask()</h2>
 
@@ -358,6 +340,24 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a0f283ac0948f05b7907e4545fe91439c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f283ac0948f05b7907e4545fe91439c">&#9670;&nbsp;</a></span>getTaskDoneCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> igor::iTaskManager::getTaskDoneCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>how many tasks where done since program start </dd></dl>
 
 </div>
 </div>

@@ -5,9 +5,7 @@ var dir_6f45dbb785ffcf8c005adbdd23a2fb13 =
       [ "iLayer", "classigor_1_1i_layer.html", "classigor_1_1i_layer" ]
     ] ],
     [ "iLayerProfiler.cpp", "i_layer_profiler_8cpp.html", null ],
-    [ "iLayerProfiler.h", "i_layer_profiler_8h.html", [
-      [ "iLayerProfiler", "classigor_1_1i_layer_profiler.html", "classigor_1_1i_layer_profiler" ]
-    ] ],
+    [ "iLayerProfiler.h", "i_layer_profiler_8h.html", "i_layer_profiler_8h" ],
     [ "iLayerStack.cpp", "i_layer_stack_8cpp.html", null ],
     [ "iLayerStack.h", "i_layer_stack_8h.html", [
       [ "iLayerStack", "classigor_1_1i_layer_stack.html", "classigor_1_1i_layer_stack" ]

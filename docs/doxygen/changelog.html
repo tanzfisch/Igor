@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -90,6 +90,21 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_changelog"></a></p>
 <h1><a class="anchor" id="autotoc_md0"></a>
+0.38.0</h1>
+<ul>
+<li>sorting files and directories alphabetically</li>
+<li>fixed scrolling of iWidgetScroll</li>
+<li>removed decompose/recompose matrix</li>
+<li>removed clipboard</li>
+<li>removed evaluation</li>
+<li>removed state machine</li>
+<li>removed memblock</li>
+<li>renamed iWidget setActive/isActive to setEnabled/isEnabled</li>
+<li>added align function to iaString</li>
+<li>improved profiler visualizer</li>
+<li>fixed selection sync issue in Mica</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1"></a>
 0.37.0</h1>
 <ul>
 <li>allowing custom config file names</li>
@@ -100,14 +115,10 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>added addPlane to iMeshBuilderUtils</li>
 <li>brought emitter node overlay back in mica</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 0.36.0</h1>
 <ul>
 <li>minor improvements to entt wrapper interfaces</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
-0.35.1</h1>
-<ul>
 <li>cleaned up logging verbose modes</li>
 <li>removed console tests10</li>
 </ul>
@@ -119,7 +130,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>changed iaEvent/iaDelegate naming to iaSignal/iaSlot</li>
 <li>iQuadtree uses std::any for user data instead of void*</li>
 <li>refactored iQuadtree</li>
-<li>introduced class iaRandom for cases where one does not need a unique random number genrator instance</li>
+<li>introduced class iaRandom for cases where one does not need a unique random number generator instance</li>
 <li>added iaColor4::transparent</li>
 <li>added scalar operators for iaTime</li>
 <li>added more interfaces to the renderer</li>
@@ -153,12 +164,12 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <ul>
 <li>Mica now can load and safe .mat files (material files)</li>
 <li>Mica is only displaying materials with public visibility</li>
-<li>ompf has a new chunk type wich storeas a reference to a material file</li>
+<li>ompf has a new chunk type which stores a reference to a material file</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md8"></a>
 0.34.2</h1>
 <ul>
-<li>Mica generally works again. But there is still a lot to do arround materials ompf and mica</li>
+<li>Mica generally works again. But there is still a lot to do around materials ompf and mica</li>
 <li>fixed color id</li>
 <li>fixed selection highlighting</li>
 </ul>
@@ -190,7 +201,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>new particle system does not support all previous features yet</li>
 <li>Mica does not build</li>
 <li>missing world grid resolution feature</li>
-<li>missing color ID render mode feture used to select objects in the scene by Mica</li>
+<li>missing color ID render mode feature used to select objects in the scene by Mica</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md11"></a>
 0.33.0</h1>
@@ -204,7 +215,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 0.32.0</h1>
 <p>!Decided to drop MSVC support until I feel like it again!</p>
 <ul>
-<li>improved slider widget behaviour</li>
+<li>improved slider widget behavior</li>
 <li>log level DebugInfo is now called User</li>
 <li>default log level is now User</li>
 <li>improved error handling in iAudio</li>
@@ -217,7 +228,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <ul>
 <li>improved rendering performance (still a long way to go though)</li>
 <li>replaced gtest with igorTest including writing more unit tests</li>
-<li>fixed material initialisation problem in Ascent</li>
+<li>fixed material initialization problem in Ascent</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md14"></a>
 0.30.0</h1>
@@ -232,15 +243,15 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>removed most of old event handling</li>
 <li>using AL_DIRECT_CHANNELS_SOFT for all multi channel sounds</li>
 <li>Mica: fixed framing by fixing bounding boxes</li>
-<li>Mica: fixed backe to world action</li>
-<li>improved behaviour of menu and sub menus</li>
+<li>Mica: fixed bake to world action</li>
+<li>improved behavior of menu and sub menus</li>
 <li>replaced gtest with own simple implementation and adding more tests</li>
-<li>fixed issue in cmake file rgarding building igor as submodule</li>
+<li>fixed issue in cmake file regarding building igor as submodule</li>
 <li>DebugInfo is the default log level again</li>
 <li>renamed con_debug_endl to con_debug</li>
 <li>con_trace now has a message parameter</li>
 <li>renamed original con_trace to con_trace_call</li>
-<li>improved profiling visualisation</li>
+<li>improved profiling visualization</li>
 <li>fixed performance issue in iScene where a queue was not cleared</li>
 <li>reduced setMaterial calls</li>
 <li>introduced one frame verbose output and render stats (F5 in examples)</li>
@@ -254,18 +265,18 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>fixed how menus behave</li>
 <li>improved console output</li>
 <li>made instancing and the instancing example work again <img src="Instancing.png" alt="" class="inline" title="instancing"/></li>
-<li>surpressing auto key repeat under Linux</li>
+<li>supressing auto key repeat under Linux</li>
 <li>created an example base class for quicker prototyping</li>
 <li>iaBSpline is a template now</li>
 <li>fixed problem with setting transformations dirty down the tree</li>
-<li>mapping thread IDs to igor internal IDs for more usefull logging output</li>
+<li>mapping thread IDs to igor internal IDs for more useful logging output</li>
 <li>fixed left and right audio channel being swapped</li>
 <li>ALSA required on Linux</li>
 <li>added regex to iaString</li>
-<li>intruduced layer and layer-stack</li>
-<li>introduced new queueable events and replaced some of the old ones osing event/delegate</li>
+<li>introduced layer and layer-stack</li>
+<li>introduced new queue-able events and replaced some of the old ones using event/delegate</li>
 <li>killed the state machine example</li>
-<li>some improvements arround mouse handling in widgets</li>
+<li>some improvements around mouse handling in widgets</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md17"></a>
 0.27.0</h1>
@@ -282,7 +293,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <h1><a class="anchor" id="autotoc_md19"></a>
 0.25.0</h1>
 <ul>
-<li>added basic evaluaiton functionality to control animations on transform nodes <img src="basicEvaluation.gif" alt="" class="inline" title="basic evaluation"/></li>
+<li>added basic evaluation functionality to control animations on transform nodes <img src="basicEvaluation.gif" alt="" class="inline" title="basic evaluation"/></li>
 <li>added iaFile::getStem</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md20"></a>
@@ -312,7 +323,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>Scroll bars are now fully functional <img src="scrollbars.gif" alt="" class="inline" title="Scroll bars"/></li>
 <li>New interface to create and destroy widgets. Basically we can use new and delete on widgets now but the engine will keep track of them to prevent mem leaks.</li>
 <li>Added colored axis indication to orientation grid in ModelViewer</li>
-<li>Made iaMatrix2D more usefull</li>
+<li>Made iaMatrix2D more useful</li>
 <li>Made SpriteAnimation example more pretty (thank you opengameart.org)</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md23"></a>
@@ -321,8 +332,8 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>iSprite is now iAtlas and can read frames from file</li>
 <li>Created sprite animation example <img src="SpriteAnimation.gif" alt="" class="inline" title="sprite animation"/></li>
 <li>Ownership of widgets transfers to the engine the moment they are children of a dialog</li>
-<li>Sdded mesh to world bake functionality</li>
-<li>Removed all using namesapce std;</li>
+<li>added mesh to world bake functionality</li>
+<li>Removed all using namespace std;</li>
 <li>Added some keyboard shortcuts to ModelViewer<ul>
 <li>Ctrl + N - clear scene</li>
 <li>Del - deletes current selection</li>
@@ -354,7 +365,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 0.20.0</h1>
 <ul>
 <li>Replaced vector and matrix conversions in iaConvert with conversion methods directly on the classes.</li>
-<li>Added log level to console. Controlable by config file and during runtime.</li>
+<li>Added log level to console. Controllable by config file and during runtime.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md26"></a>
 0.19.1</h1>
@@ -374,7 +385,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 0.18.0</h1>
 <ul>
 <li>Improved OBJ loader. Now meshs get generated based on combinations of groups/objects and materials. <img src="OBJLoaderImprovements.png" alt="" class="inline" title="Improved mesh nodes structure from obj files"/></li>
-<li>ModelViewer: pan camera arround like in Maya (LeftAlt + middle mouse button)</li>
+<li>ModelViewer: pan camera around like in Maya (LeftAlt + middle mouse button)</li>
 <li>ModelViewer: fixed problem when loading unknown file format</li>
 <li>Improved iaString to be able to be used as key in std maps</li>
 <li>When loading models not to join vertices is now the default behavior</li>

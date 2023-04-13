@@ -44,9 +44,7 @@ var dir_21f60eb933ce29a4fbda08e75b144bcd =
     [ "iWidgetScroll.cpp", "i_widget_scroll_8cpp.html", "i_widget_scroll_8cpp" ],
     [ "iWidgetScroll.h", "i_widget_scroll_8h.html", "i_widget_scroll_8h" ],
     [ "iWidgetSelectBox.cpp", "i_widget_select_box_8cpp.html", null ],
-    [ "iWidgetSelectBox.h", "i_widget_select_box_8h.html", [
-      [ "iWidgetSelectBox", "classigor_1_1i_widget_select_box.html", "classigor_1_1i_widget_select_box" ]
-    ] ],
+    [ "iWidgetSelectBox.h", "i_widget_select_box_8h.html", "i_widget_select_box_8h" ],
     [ "iWidgetSlider.cpp", "i_widget_slider_8cpp.html", "i_widget_slider_8cpp" ],
     [ "iWidgetSlider.h", "i_widget_slider_8h.html", [
       [ "iWidgetSlider", "classigor_1_1i_widget_slider.html", "classigor_1_1i_widget_slider" ]
@@ -56,7 +54,5 @@ var dir_21f60eb933ce29a4fbda08e75b144bcd =
       [ "iWidgetSpacer", "classigor_1_1i_widget_spacer.html", "classigor_1_1i_widget_spacer" ]
     ] ],
     [ "iWidgetTextEdit.cpp", "i_widget_text_edit_8cpp.html", null ],
-    [ "iWidgetTextEdit.h", "i_widget_text_edit_8h.html", [
-      [ "iWidgetTextEdit", "classigor_1_1i_widget_text_edit.html", "classigor_1_1i_widget_text_edit" ]
-    ] ]
+    [ "iWidgetTextEdit.h", "i_widget_text_edit_8h.html", "i_widget_text_edit_8h" ]
 ];

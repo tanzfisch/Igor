@@ -27,9 +27,9 @@ var NAVTREE =
   [ "Igor", "index.html", [
     [ "Igor Game Engine", "index.html", null ],
     [ "Changelog", "changelog.html", [
-      [ "0.37.0", "changelog.html#autotoc_md0", null ],
-      [ "0.36.0", "changelog.html#autotoc_md1", null ],
-      [ "0.35.1", "changelog.html#autotoc_md2", null ],
+      [ "0.38.0", "changelog.html#autotoc_md0", null ],
+      [ "0.37.0", "changelog.html#autotoc_md1", null ],
+      [ "0.36.0", "changelog.html#autotoc_md2", null ],
       [ "0.35.0", "changelog.html#autotoc_md3", null ],
       [ "0.34.6", "changelog.html#autotoc_md4", null ],
       [ "0.34.5", "changelog.html#autotoc_md5", null ],
@@ -98,13 +98,14 @@ var NAVTREE =
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", "functions_vars" ],
         [ "Typedefs", "functions_type.html", null ],
+        [ "Enumerations", "functions_enum.html", null ],
         [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
+        [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
@@ -117,33 +118,32 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"",
-"classiaux_1_1ia_b_spline.html#a126dcb6c10ddd2b56cd0799e30581b1e",
-"classiaux_1_1ia_mem_block_control.html#a01f727b9bc80e2daf466c585b8c46d33",
-"classiaux_1_1ia_string.html#af52e5a26e4e3d364017ca2f870d1779b",
-"classigor_1_1i_dialog_file_select.html#a325a7705f0d5e8e80c5071c85dee7200",
-"classigor_1_1i_index_buffer_deleter.html#a65c87166ef1925362d6c04356bcbb1bf",
-"classigor_1_1i_model.html#a9700b81ff6c9a8c30bcf56bae3e47ed6",
-"classigor_1_1i_node_model.html#ad64c9a06babde60bdd79e94c1ae6ef70",
-"classigor_1_1i_particle_system.html#a6dee18f050a63ebd726644c697497533",
-"classigor_1_1i_pixmap.html#af852e5f4ba337ed48bff612208492d49",
-"classigor_1_1i_scene.html#ab5156748e0b546b80ac2fbe6e8256b7e",
-"classigor_1_1i_vertex_array.html",
-"classigor_1_1i_widget.html#af7f6f50efeae1e3310a0ba88374672f2",
-"classigor_1_1i_widget_number_chooser.html",
-"functions.html",
-"i_defines_8h.html#a80a6b547ebec2fad44cd23cbceeba9bdae53b55851b9ff4979f2c3ff434a4a138",
-"i_model_8h.html#a04ef5f5863b62459fed3fa27b245d1e0",
-"i_renderer_8cpp.html#aaf2363a31b0b7f61ecff2da4314d07a1aa0b0293a2db49f5f93c15a62e095c819",
-"i_view_8h.html#a55be5234a71857bc115fe31cbd3198df",
-"ia_defines_8h.html",
-"ia_sphere_8h.html#a764da0cfff0fca48fa3901b943bf529c",
-"namespaceiaux.html#a847f01db61436ef673df92ae259dceee",
-"namespaceigor.html#a34cfa0f07a677979b754ee1441fafa8c",
-"namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdae1e1d3d40573127e9ee0480caf1283d6",
-"namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a398669d5fcf5454dc3ab4dd30c82fb2a",
-"structiaux_1_1ia_rectangle.html#a264168e0547ed33d96aba977eb2813b7",
-"structigor_1_1i_renderer_data.html#ac355d5233e6dccaa80aeccbe5185ed02"
+"_keyboard_2src_2_keyboard_example_8cpp-example.html",
+"classiaux_1_1ia_b_spline.html#a44e304c571ef55fe3facfd22563b67b1",
+"classiaux_1_1ia_quaternion.html#a405b97513e91d5e7b600e1cd6ac39de1",
+"classiaux_1_1ia_u_u_i_d.html#a5ace751a1a0f2fdde2cc0e980d549bd9",
+"classigor_1_1i_entity_system.html",
+"classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a",
+"classigor_1_1i_node_audio_listener.html#ad7d4145383bb6d340f40435e9bdd53d9",
+"classigor_1_1i_node_visitor_print_tree.html#a95cdc9283320d044f6ad05e93a49d1e6",
+"classigor_1_1i_physics_body.html#a42f66e626101d7a626c7f27fdb73b0af",
+"classigor_1_1i_renderer.html#a4b32607b611426353cc0063000173fe3",
+"classigor_1_1i_task_prepare_collision.html#ad5688b690bdbbf4cb691a798889184b9",
+"classigor_1_1i_widget.html#a1a02e9f19a9a1f35c49cae987a59b09c",
+"classigor_1_1i_widget_grid.html#a0ec0d59912c91cae6f95bfba37ab43c6",
+"classigor_1_1i_window.html#ad7845946d3f43a166dfffa778e61f2ea",
+"i_contouring_cubes_8cpp.html",
+"i_event_8h.html#a504f0931de9d9729518c78c53d39710da3fd9f3142948a6a2a482035a334b384f",
+"i_node_visitor_render_boundings_8cpp.html",
+"i_renderer_utils_8h.html#a67e1e892a49d57bc82831ad8bc2fe921",
+"i_widget_label_8cpp.html",
+"ia_easing_8h.html#a08d401510fb63ab02c4e39301438bb41aad2c22c2a258215b03e47fcb3f4a0b0e",
+"namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a710fdb6adb881b408116ef95335e1961",
+"namespaceigor.html#a009030caae096a62dbe6aee7d8065faba2dbec34a65724db94f81e8533ee18192",
+"namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda06c2cea18679d64399783748fa367bdd",
+"namespaceigor.html#ad24d341be883332531c440599df8ecfba09ac609fcdb514c9adca34e7f97b4ac4",
+"ompf_material_chunk_8h.html#af9559df36c3cae8d0b073c8f04df1c72a1cfdf0e8d0c87a228c1f40d9bee7888b",
+"structigor_1_1i_flat_vertex.html#a876e9a38fedf9ae3a9956b0e3deb50df"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

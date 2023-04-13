@@ -4,8 +4,6 @@ var dir_6d07dfa8705351e9a3c03144c86ca094 =
     [ "iApplication.h", "i_application_8h.html", [
       [ "iApplication", "classigor_1_1i_application.html", "classigor_1_1i_application" ]
     ] ],
-    [ "iClipboard.cpp", "i_clipboard_8cpp.html", null ],
-    [ "iClipboard.h", "i_clipboard_8h.html", "i_clipboard_8h" ],
     [ "iDefinesLinux.h", "i_defines_linux_8h.html", null ],
     [ "iDefinesWindows.h", "i_defines_windows_8h.html", null ],
     [ "iKeyboard.cpp", "i_keyboard_8cpp.html", "i_keyboard_8cpp" ],

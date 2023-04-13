@@ -30,8 +30,6 @@ var hierarchy =
     [ "iaux::iaIDGenerator< T >", "classiaux_1_1ia_i_d_generator.html", null ],
     [ "iaux::iaMatrix< T >", "classiaux_1_1ia_matrix.html", null ],
     [ "iaux::iaMatrix2D< T >", "classiaux_1_1ia_matrix2_d.html", null ],
-    [ "iaux::iaMemBlock", "classiaux_1_1ia_mem_block.html", null ],
-    [ "iaux::iaMemBlockControl", "classiaux_1_1ia_mem_block_control.html", null ],
     [ "iaux::iaMutex", "classiaux_1_1ia_mutex.html", null ],
     [ "iaux::iaQuaternion< T >", "classiaux_1_1ia_quaternion.html", null ],
     [ "iaux::iaRandom", "classiaux_1_1ia_random.html", null ],
@@ -45,8 +43,6 @@ var hierarchy =
     [ "igor::iaSphere< T >", "classigor_1_1ia_sphere.html", null ],
     [ "igor::iaSphere< float64 >", "classigor_1_1ia_sphere.html", null ],
     [ "igor::iaSphere< int64 >", "classigor_1_1ia_sphere.html", null ],
-    [ "iaux::iaState", "classiaux_1_1ia_state.html", null ],
-    [ "iaux::iaStateMachine", "classiaux_1_1ia_state_machine.html", null ],
     [ "iaux::iaString", "classiaux_1_1ia_string.html", null ],
     [ "iaux::iaTest", "classiaux_1_1ia_test.html", null ],
     [ "iaux::iaThread", "classiaux_1_1ia_thread.html", [
@@ -57,7 +53,6 @@ var hierarchy =
     [ "iaux::iaTime", "classiaux_1_1ia_time.html", null ],
     [ "igor::iAtlas", "classigor_1_1i_atlas.html", null ],
     [ "iaux::iaTransform< T >", "classiaux_1_1ia_transform.html", null ],
-    [ "iaux::iaTransition", "classiaux_1_1ia_transition.html", null ],
     [ "igor::iAudioBuffer", "structigor_1_1i_audio_buffer.html", null ],
     [ "igor::iAudioImpl", "classigor_1_1i_audio_impl.html", null ],
     [ "igor::iAudioSource", "structigor_1_1i_audio_source.html", null ],
@@ -79,10 +74,6 @@ var hierarchy =
     ] ],
     [ "igor::iEntityScene", "classigor_1_1i_entity_scene.html", null ],
     [ "igor::iEntitySystem", "classigor_1_1i_entity_system.html", null ],
-    [ "igor::iEvaluation", "classigor_1_1i_evaluation.html", [
-      [ "igor::iEvaluationScript", "classigor_1_1i_evaluation_script.html", null ],
-      [ "igor::iEvaluationTransform", "classigor_1_1i_evaluation_transform.html", null ]
-    ] ],
     [ "igor::iEvent", "classigor_1_1i_event.html", [
       [ "igor::iEventKeyASCII", "classigor_1_1i_event_key_a_s_c_i_i.html", null ],
       [ "igor::iEventKeyDown", "classigor_1_1i_event_key_down.html", null ],
@@ -143,14 +134,8 @@ var hierarchy =
     [ "igor::iModule< iAudio >", "classigor_1_1i_module.html", [
       [ "igor::iAudio", "classigor_1_1i_audio.html", null ]
     ] ],
-    [ "igor::iModule< iClipboard >", "classigor_1_1i_module.html", [
-      [ "igor::iClipboard", "classigor_1_1i_clipboard.html", null ]
-    ] ],
     [ "igor::iModule< iEntityManager >", "classigor_1_1i_module.html", [
       [ "igor::iEntityManager", "classigor_1_1i_entity_manager.html", null ]
-    ] ],
-    [ "igor::iModule< iEvaluationManager >", "classigor_1_1i_module.html", [
-      [ "igor::iEvaluationManager", "classigor_1_1i_evaluation_manager.html", null ]
     ] ],
     [ "igor::iModule< iKeyboard >", "classigor_1_1i_module.html", [
       [ "igor::iKeyboard", "classigor_1_1i_keyboard.html", null ]

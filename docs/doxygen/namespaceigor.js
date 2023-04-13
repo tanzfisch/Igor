@@ -32,10 +32,6 @@ var namespaceigor =
     [ "iEntityManager", "classigor_1_1i_entity_manager.html", "classigor_1_1i_entity_manager" ],
     [ "iEntitySystem", "classigor_1_1i_entity_system.html", "classigor_1_1i_entity_system" ],
     [ "iEntityScene", "classigor_1_1i_entity_scene.html", "classigor_1_1i_entity_scene" ],
-    [ "iEvaluation", "classigor_1_1i_evaluation.html", "classigor_1_1i_evaluation" ],
-    [ "iEvaluationManager", "classigor_1_1i_evaluation_manager.html", "classigor_1_1i_evaluation_manager" ],
-    [ "iEvaluationScript", "classigor_1_1i_evaluation_script.html", "classigor_1_1i_evaluation_script" ],
-    [ "iEvaluationTransform", "classigor_1_1i_evaluation_transform.html", "classigor_1_1i_evaluation_transform" ],
     [ "iEvent", "classigor_1_1i_event.html", "classigor_1_1i_event" ],
     [ "iEventKeyDown", "classigor_1_1i_event_key_down.html", "classigor_1_1i_event_key_down" ],
     [ "iEventKeyUp", "classigor_1_1i_event_key_up.html", "classigor_1_1i_event_key_up" ],
@@ -167,7 +163,6 @@ var namespaceigor =
     [ "iParticleSystem", "classigor_1_1i_particle_system.html", "classigor_1_1i_particle_system" ],
     [ "iParticleSystem2D", "classigor_1_1i_particle_system2_d.html", "classigor_1_1i_particle_system2_d" ],
     [ "iApplication", "classigor_1_1i_application.html", "classigor_1_1i_application" ],
-    [ "iClipboard", "classigor_1_1i_clipboard.html", "classigor_1_1i_clipboard" ],
     [ "iKeyboardImpl", "classigor_1_1i_keyboard_impl.html", "classigor_1_1i_keyboard_impl" ],
     [ "iKeyboard", "classigor_1_1i_keyboard.html", "classigor_1_1i_keyboard" ],
     [ "iButtonState", "structigor_1_1i_button_state.html", "structigor_1_1i_button_state" ],
@@ -265,10 +260,6 @@ var namespaceigor =
     [ "iEntityPtr", "namespaceigor.html#a8c497fa18e489d53d28403e1caa03f00", null ],
     [ "iEntityScenePtr", "namespaceigor.html#af09d20b42b4bb128d39a4e32d72ebc93", null ],
     [ "iEntitySystemPtr", "namespaceigor.html#a50792ab2ca1ab99a3e11f3d3215b0f0e", null ],
-    [ "iEvaluationID", "namespaceigor.html#a830481fe87546a1ddf197ed2c733e8a5", null ],
-    [ "iEvaluationPtr", "namespaceigor.html#a23b6b193baa7e0f898c6fd52184bec99", null ],
-    [ "iEvaluationScriptPtr", "namespaceigor.html#a1880397fe7aa572416d9ede2fb173e9d", null ],
-    [ "iEvaluationTransformPtr", "namespaceigor.html#a514d98efc871382af5a08f2d1c74dd6a", null ],
     [ "iEvaluatorPtr", "namespaceigor.html#a8785d5ca8313cce3fb6a0e901d467994", null ],
     [ "iEventKindMask", "namespaceigor.html#a2cea86b93bf6f5c69e7c8916d0117e5e", null ],
     [ "iEventPtr", "namespaceigor.html#a70c7d0deaa6ca886246d59b1b652ddb4", null ],
@@ -277,6 +268,7 @@ var namespaceigor =
     [ "iFrustumf", "namespaceigor.html#aa092f70a174aec7113a1a947ace3886b", null ],
     [ "iIndexBufferPtr", "namespaceigor.html#a2f4c17ced46f30dc610682b165eb0bcd", null ],
     [ "iInstancingBufferPtr", "namespaceigor.html#a5412ccd2b320e81b306bd6f6a25f4630", null ],
+    [ "iLayerProfilerPtr", "namespaceigor.html#a7896f7b9ec62262142853760b5d6228a", null ],
     [ "iMaterialID", "namespaceigor.html#a6108e4e7c2962f706448d22284ee3181", null ],
     [ "iMaterialPtr", "namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71", null ],
     [ "iMenuPtr", "namespaceigor.html#ad186e6c98a8ea104fdc6767bd0f928ff", null ],
@@ -299,6 +291,7 @@ var namespaceigor =
     [ "iPixmapPtr", "namespaceigor.html#a5ca8b70f1cd7cae06bbe30593636f370", null ],
     [ "iPlaned", "namespaceigor.html#a97e525292cd84646c51f6f3461d3ab10", null ],
     [ "iPlanef", "namespaceigor.html#a4aea68ec5d32f910986939e8856e59b2", null ],
+    [ "iProfilerSectionDataPtr", "namespaceigor.html#a0a9880122ac1967e761e7b2433f1de04", null ],
     [ "iQuadtreed", "namespaceigor.html#a451472b493fc1cbacbcc9e7572ab5e57", null ],
     [ "iQuadtreef", "namespaceigor.html#a139c2d1c3695a80b75a68715199855c5", null ],
     [ "iRayd", "namespaceigor.html#a061c0c449523c35c91b127f9370f38a8", null ],
@@ -334,14 +327,12 @@ var namespaceigor =
     [ "iWidgetPicturePtr", "namespaceigor.html#ae9f33353689a8b8f7ea8ae49ab897afa", null ],
     [ "iWidgetPtr", "namespaceigor.html#a5e7f4b33adda456ed69993cc2eda4784", null ],
     [ "iWidgetScrollPtr", "namespaceigor.html#a3d981cbb07e317450e315086ac763196", null ],
+    [ "iWidgetSelectBoxPtr", "namespaceigor.html#ab21e36500ae61ec8706355c7a153ea19", null ],
     [ "iWidgetSpacerPtr", "namespaceigor.html#a20c5da2baff0292a05a84e965cf30374", null ],
+    [ "iWidgetTextEditPtr", "namespaceigor.html#a2371a5035cf5fa55771d7a959adf6fba", null ],
     [ "iWidgetThemePtr", "namespaceigor.html#aa53287b629a5eee64e25438219725144", null ],
     [ "iWindowID", "namespaceigor.html#ac25fdc3f015adfdbc85c6d869b7d6072", null ],
     [ "iWindowPtr", "namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed", null ],
-    [ "iClipboardFormat", "namespaceigor.html#ae289d213d889898575f4a28bd3c13ed0", [
-      [ "IgorNodes", "namespaceigor.html#ae289d213d889898575f4a28bd3c13ed0a83d90c02f21ca82cd44831b6782d4d41", null ],
-      [ "Empty", "namespaceigor.html#ae289d213d889898575f4a28bd3c13ed0ace2c8aed9c2fa0cfbed56cbda4d8bf07", null ]
-    ] ],
     [ "iColorChooserMode", "namespaceigor.html#ab9a1838bd35eb4e7d14864329f31dcbb", [
       [ "RGB", "namespaceigor.html#ab9a1838bd35eb4e7d14864329f31dcbba889574aebacda6bfd3e534e2b49b8028", null ],
       [ "RGBA", "namespaceigor.html#ab9a1838bd35eb4e7d14864329f31dcbbaea3495a278957dc58165e48a8945469f", null ]
@@ -409,8 +400,8 @@ var namespaceigor =
       [ "Left", "namespaceigor.html#abc0ef2568c622a21f0b741c63b354563a945d5e233cf7d6240f6b783b36a374ff", null ],
       [ "Center", "namespaceigor.html#abc0ef2568c622a21f0b741c63b354563a4f1f6016fc9f3f2353c0cc7c67b292bd", null ],
       [ "Right", "namespaceigor.html#abc0ef2568c622a21f0b741c63b354563a92b09c7c48c520c3c55e497875da437c", null ],
-      [ "Absolut", "namespaceigor.html#abc0ef2568c622a21f0b741c63b354563a03d8a31fe62908dfdaac78634612f247", null ],
-      [ "Strech", "namespaceigor.html#abc0ef2568c622a21f0b741c63b354563a6e5ab7ebfc243e8589be54e64b51d7bc", null ],
+      [ "Absolute", "namespaceigor.html#abc0ef2568c622a21f0b741c63b354563ab51ca26c6c89cfc9bec338f7a0d3e0c8", null ],
+      [ "Stretch", "namespaceigor.html#abc0ef2568c622a21f0b741c63b354563afbb09a82eafab60150d0996e8fe46560", null ],
       [ "Undefined", "namespaceigor.html#abc0ef2568c622a21f0b741c63b354563aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "iKeyCode", "namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd", [
@@ -612,8 +603,7 @@ var namespaceigor =
       [ "FPSOnly", "namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2da21ff57bb8b0ed51910e4d1d624ef00c1", null ],
       [ "FPSAndMetrics", "namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2daea55326c3da1b35339a2394107e6d565", null ],
       [ "FPSMetricsAndTasks", "namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2daf436b5de27be311e80706ecd3e3aece3", null ],
-      [ "Sections", "namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2da855c3eca6c7aaef477b4f03e4699944d", null ],
-      [ "All", "namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2dab1c94ca2fbc3e78fc30069c8d0f01680", null ]
+      [ "Sections", "namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2da855c3eca6c7aaef477b4f03e4699944d", null ]
     ] ],
     [ "iRenderDataSet", "namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1", [
       [ "NoDataSet", "namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1aff043d0825d4bb12bac740468194d234", null ],
@@ -748,8 +738,8 @@ var namespaceigor =
       [ "Top", "namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2aa4ffdcf0dc1f31b9acaf295d75b51d00", null ],
       [ "Center", "namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2a4f1f6016fc9f3f2353c0cc7c67b292bd", null ],
       [ "Bottom", "namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2a2ad9d63b69c4a10a5cc9cad923133bc4", null ],
-      [ "Absolut", "namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2a03d8a31fe62908dfdaac78634612f247", null ],
-      [ "Strech", "namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2a6e5ab7ebfc243e8589be54e64b51d7bc", null ],
+      [ "Absolute", "namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2ab51ca26c6c89cfc9bec338f7a0d3e0c8", null ],
+      [ "Stretch", "namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2afbb09a82eafab60150d0996e8fe46560", null ],
       [ "Undefined", "namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "iVoxelBlockState", "namespaceigor.html#a03f04fe27cf12ba6fd1ea3765951324e", [
@@ -851,7 +841,6 @@ var namespaceigor =
     [ "iaSIGNAL", "namespaceigor.html#ab5d4ff07d3bb3c5921f9e12fb8c07541", null ],
     [ "iaSIGNAL", "namespaceigor.html#a6a9a2d261f191116f31221743bd423e5", null ],
     [ "iaSLOT", "namespaceigor.html#ad1ca99ca51ce495d99329e388960705f", null ],
-    [ "iaSLOT", "namespaceigor.html#a8095bc3667fe4a17239d3872abb2da36", null ],
     [ "iaSLOT", "namespaceigor.html#ad83ef2d367890de118def47afb5c68af", null ],
     [ "iaSLOT", "namespaceigor.html#afb0fa5f5ebf60fbbf8cda52158851a3b", null ],
     [ "iaSLOT", "namespaceigor.html#a2c25271659e01f3a090d2c8a57055154", null ],
@@ -918,6 +907,7 @@ var namespaceigor =
     [ "SAMPLER_TEXTURE5", "namespaceigor.html#a9627cef8bae39d491b9265a8f799441c", null ],
     [ "SAMPLER_TEXTURE6", "namespaceigor.html#aa44baf82393e3eb2f60055955522e327", null ],
     [ "SAMPLER_TEXTURE7", "namespaceigor.html#af6868fcac0be1b6b10ff58df68fef597", null ],
+    [ "SCROLL_STEPPING", "namespaceigor.html#a6ba53cd7f0a4e79e816c28e650cb10ab", null ],
     [ "UNIFORM_CONFIG_TILING", "namespaceigor.html#a16a9726c713c29899df3ba036e4fb2c3", null ],
     [ "UNIFORM_CONFIG_VELOCITY_ORIENTED", "namespaceigor.html#ac81f4d59be3fc0c68b022aa954bb4502", null ],
     [ "UNIFORM_EYE_POSITION", "namespaceigor.html#a145d39c2230e540b30f0bc1ebfd7d0c5", null ],

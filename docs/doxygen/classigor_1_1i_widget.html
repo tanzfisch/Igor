@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -219,12 +219,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a46dfa32f08d195bf59b7fe7def246ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac081951a151fe2c6ba33c842aab9a70f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#ac081951a151fe2c6ba33c842aab9a70f">isVisible</a> () const</td></tr>
 <tr class="separator:ac081951a151fe2c6ba33c842aab9a70f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a154ffc114f423ac5ef193bdacb1e5251"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#a154ffc114f423ac5ef193bdacb1e5251">isActive</a> () const</td></tr>
-<tr class="separator:a154ffc114f423ac5ef193bdacb1e5251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dee483d5675c51cb1fb024713c601aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#a4dee483d5675c51cb1fb024713c601aa">isEnabled</a> () const</td></tr>
+<tr class="separator:a4dee483d5675c51cb1fb024713c601aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb3da53df06358086650e805c8e109a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#acb3da53df06358086650e805c8e109a9">setVisible</a> (bool visible=true)</td></tr>
 <tr class="separator:acb3da53df06358086650e805c8e109a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49b8d294d7873a5db2b6ac611c926bd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#a49b8d294d7873a5db2b6ac611c926bd6">setActive</a> (bool active=true)</td></tr>
-<tr class="separator:a49b8d294d7873a5db2b6ac611c926bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6afff5f6d090ec256cfdce16cfb132ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#a6afff5f6d090ec256cfdce16cfb132ce">setEnabled</a> (bool enabled=true)</td></tr>
+<tr class="separator:a6afff5f6d090ec256cfdce16cfb132ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5965e254b581dba1b3663ce0f3aa025"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a6dec690b4a7acd298de5f80518354286">iWidgetID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#ae5965e254b581dba1b3663ce0f3aa025">getID</a> () const</td></tr>
 <tr class="separator:ae5965e254b581dba1b3663ce0f3aa025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a709e34c5ad2731950153d7444857d834"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a6dec690b4a7acd298de5f80518354286">iWidgetID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#a709e34c5ad2731950153d7444857d834">getParentID</a> () const</td></tr>
@@ -496,7 +496,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classigor_1_1i_widget_grid.html#aeb44ec40ce78cd24ce0bfd5d8c9b53a8">igor::iWidgetGrid</a>.</p>
+<p>Reimplemented in <a class="el" href="classigor_1_1i_widget_scroll.html#aa28ef9e08ea9b4f80bc8ca4901133a09">igor::iWidgetScroll</a>, and <a class="el" href="classigor_1_1i_widget_grid.html#aeb44ec40ce78cd24ce0bfd5d8c9b53a8">igor::iWidgetGrid</a>.</p>
 
 </div>
 </div>
@@ -1507,24 +1507,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a154ffc114f423ac5ef193bdacb1e5251"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a154ffc114f423ac5ef193bdacb1e5251">&#9670;&nbsp;</a></span>isActive()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__IGOR_INLINE__ bool iWidget::isActive </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if active aka enabled </dd></dl>
-
-</div>
-</div>
 <a id="ae041dbd5ec539baa491ec2fa34d845fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae041dbd5ec539baa491ec2fa34d845fd">&#9670;&nbsp;</a></span>isBlocked()</h2>
 
@@ -1540,6 +1522,24 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if events on this widget are blocked </dd></dl>
+
+</div>
+</div>
+<a id="a4dee483d5675c51cb1fb024713c601aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dee483d5675c51cb1fb024713c601aa">&#9670;&nbsp;</a></span>isEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__IGOR_INLINE__ bool iWidget::isEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if enabled </dd></dl>
 
 </div>
 </div>
@@ -2001,31 +2001,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a49b8d294d7873a5db2b6ac611c926bd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49b8d294d7873a5db2b6ac611c926bd6">&#9670;&nbsp;</a></span>setActive()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iWidget::setActive </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>active</em> = <code>true</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>set widget active aka enabled</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">active</td><td>boolean to set is active or inactive </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a2bd8b09a1021019282df0b4ab3ea057a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2bd8b09a1021019282df0b4ab3ea057a">&#9670;&nbsp;</a></span>setBackground()</h2>
 
@@ -2103,6 +2078,31 @@ Friends</h2></td></tr>
     <tr><td class="paramname">right</td><td>right client area border </td></tr>
     <tr><td class="paramname">top</td><td>top client area border </td></tr>
     <tr><td class="paramname">bottom</td><td>bottom client area border </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6afff5f6d090ec256cfdce16cfb132ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6afff5f6d090ec256cfdce16cfb132ce">&#9670;&nbsp;</a></span>setEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iWidget::setEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enabled</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>set widget enabled</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enabled</td><td>if true widget is enabled </td></tr>
   </table>
   </dd>
 </dl>
