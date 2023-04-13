@@ -64,7 +64,7 @@ For making a release do the following steps.
 
 1. create a release branch from develop named by the next release version (e.g. 0.23.0).
 
-2. run smoke tests (run all the examples, tests and applications like Mica)
+2. build and run tests and examples on Linux & Windows
 
 3. if tests fail try to fix on the release branch if possible or abort the release and start over
 
