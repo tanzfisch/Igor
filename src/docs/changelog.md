@@ -7,6 +7,7 @@ Changelog                           {#changelog}
 - scene data update is now in separate thread
 - sorting files and directories alphabetically
 - fixed scrolling of iWidgetScroll
+- fixed selection sync issue in Mica
 
 0.37.0
 ------
