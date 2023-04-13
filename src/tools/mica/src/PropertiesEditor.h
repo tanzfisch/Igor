@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PROPERTIES_DIALOG_H__
-#define __PROPERTIES_DIALOG_H__
+#ifndef __PROPERTIES_EDITOR_H__
+#define __PROPERTIES_EDITOR_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 using namespace igor;
@@ -36,7 +36,7 @@ using namespace igor;
 
 /*! properties dialog
  */
-class PropertiesDialog : public iDialog
+class PropertiesEditor : public iDialog
 {
 
     friend class iWidgetManager;
@@ -44,11 +44,11 @@ class PropertiesDialog : public iDialog
 public:
     /*! init UI
      */
-    PropertiesDialog();
+    PropertiesEditor();
 
     /*! does nothing
      */
-    ~PropertiesDialog() = default;
+    ~PropertiesEditor() = default;
 
     void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
     void unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
@@ -72,4 +72,4 @@ private:
     void onStructureChanged();
 };
 
-#endif // __PROPERTIES_DIALOG_H__
+#endif // __PROPERTIES_EDITOR_H__

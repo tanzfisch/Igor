@@ -39,7 +39,7 @@ void UILayer::onInit()
 
     registerMicaActions();
 
-    _propertiesDialog = new PropertiesDialog();
+    _propertiesDialog = new PropertiesEditor();
     _outliner = new Outliner(_workspace);
 
     _outliner->registerOnExitMica(ExitMicaDelegate(this, &UILayer::onExitMica));
@@ -52,9 +52,9 @@ void UILayer::onInit()
 
     // _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 
-    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::onGraphViewSelectionChanged));
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
-    _outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
+    _outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::onMaterialSelectionChanged));
 
     _outliner->setActive();
     _outliner->setVisible();
