@@ -14,6 +14,7 @@ Changelog                           {#changelog}
 - renamed iWidget setActive/isActive to setEnabled/isEnabled
 - added align function to iaString
 - improved profiler visualizer
+- fixed selection sync issue in Mica
 
 0.37.0
 ------
