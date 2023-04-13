@@ -16,5 +16,7 @@ var classigor_1_1i_task =
     [ "setWorld", "classigor_1_1i_task.html#abcf689fd094a46017867b3ffc494c5ab", null ],
     [ "iTaskManager", "classigor_1_1i_task.html#aa7c6d28227948db9e4be591864eda3a5", null ],
     [ "DEFAULT_PRIORITY", "classigor_1_1i_task.html#ab8f4a3c30b35f372959f49fae55bb966", null ],
-    [ "INVALID_TASK_ID", "classigor_1_1i_task.html#a2155b4972b25b1cfffc2e46fd3189439", null ]
+    [ "HIGH_PRIORITY", "classigor_1_1i_task.html#abe3b2b80166e2187b1b6bc195eee195f", null ],
+    [ "INVALID_TASK_ID", "classigor_1_1i_task.html#a2155b4972b25b1cfffc2e46fd3189439", null ],
+    [ "MAX_PRIORITY", "classigor_1_1i_task.html#a6bcaa5bf389ebff626c7406cdfd8ee5e", null ]
 ];

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -103,8 +103,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae92e1d1e97dab64fb36c557945d9c4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5156748e0b546b80ac2fbe6e8256b7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a1420d8c8d3b036cdbd5f8665ec1bbeb1">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_scene.html#ab5156748e0b546b80ac2fbe6e8256b7e">getRoot</a> () const</td></tr>
 <tr class="separator:ab5156748e0b546b80ac2fbe6e8256b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91289de28de385440f0ae0fcba7749c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a435689c6ef3bb87398bd2634f321ad0f">iOctreePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_scene.html#a91289de28de385440f0ae0fcba7749c9">getOctree</a> () const</td></tr>
-<tr class="separator:a91289de28de385440f0ae0fcba7749c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3643114e3a0ce7ce3b577b49ae6ea2c"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="namespaceigor.html#a1dac8691d1bb4716be460cce7d4c4083">iNodeLightPtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_scene.html#ae3643114e3a0ce7ce3b577b49ae6ea2c">getLights</a> () const</td></tr>
 <tr class="separator:ae3643114e3a0ce7ce3b577b49ae6ea2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaada60365369935ecc743e85cca40e05"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="namespaceigor.html#a941cc9f8cd27bb455db22c35a339fc5a">iNodeRenderPtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_scene.html#aaada60365369935ecc743e85cca40e05">getRenderables</a> () const</td></tr>
@@ -142,6 +140,8 @@ Friends</h2></td></tr>
 <tr class="separator:a412dc71b52ca5a946641f1c664428ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3a01d5efe76901d9ac137827cc7cf77"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_scene.html#ae3a01d5efe76901d9ac137827cc7cf77">iNodeLODSwitch</a></td></tr>
 <tr class="separator:ae3a01d5efe76901d9ac137827cc7cf77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c82113aca1030bef77055fa5793cd6d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_scene.html#a7c82113aca1030bef77055fa5793cd6d">iRenderEngine</a></td></tr>
+<tr class="separator:a7c82113aca1030bef77055fa5793cd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>the scene graph</p>
@@ -217,24 +217,6 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>scene name </dd></dl>
-
-</div>
-</div>
-<a id="a91289de28de385440f0ae0fcba7749c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91289de28de385440f0ae0fcba7749c9">&#9670;&nbsp;</a></span>getOctree()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceigor.html#a435689c6ef3bb87398bd2634f321ad0f">iOctreePtr</a> igor::iScene::getOctree </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>octree </dd></dl>
 
 </div>
 </div>
@@ -544,6 +526,28 @@ Friends</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">friend class <a class="el" href="classigor_1_1i_node_volume.html">iNodeVolume</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c82113aca1030bef77055fa5793cd6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c82113aca1030bef77055fa5793cd6d">&#9670;&nbsp;</a></span>iRenderEngine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classigor_1_1i_render_engine.html">iRenderEngine</a></td>
         </tr>
       </table>
   </td>

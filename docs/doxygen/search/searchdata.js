@@ -5,12 +5,12 @@ var indexSectionsWithContent =
   2: "io",
   3: "cimos",
   4: "_abcdefghijklmnopqrstuwy~",
-  5: "_abcdgimpqrstuvwy",
+  5: "_abcdghimpqrstuvwy",
   6: "finou",
-  7: "eio",
+  7: "aeio",
   8: "abcdefghijklmnopqrstuvwxyz",
   9: "aefgilopstu",
-  10: "_acdfghikmorstw",
+  10: "_acdfghikmoprstw",
   11: "ci"
 };
 

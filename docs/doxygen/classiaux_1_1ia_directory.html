@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -106,10 +106,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af0836b5f5eea3e3fa41a377aea285a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa387838709d9ee29a1369a2e2c8463b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#aa387838709d9ee29a1369a2e2c8463b3">getFullParentDirectoryName</a> () const</td></tr>
 <tr class="separator:aa387838709d9ee29a1369a2e2c8463b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acea1bea3148dc0604b1740ed4f93f571"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#acea1bea3148dc0604b1740ed4f93f571">getDirectorys</a> (bool recursive=false)</td></tr>
-<tr class="separator:acea1bea3148dc0604b1740ed4f93f571"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84a269890772ce113beb73cfb67e8641"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_file.html">iaFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a84a269890772ce113beb73cfb67e8641">getFiles</a> (<a class="el" href="classiaux_1_1ia_string.html">iaString</a> searchPattern=L&quot;(.*)&quot;, bool recursive=false)</td></tr>
-<tr class="separator:a84a269890772ce113beb73cfb67e8641"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e8de38340da6d3a8b0c684fb5191ee5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a5e8de38340da6d3a8b0c684fb5191ee5">getDirectorys</a> (bool recursive=false, bool orderAlphabetically=true)</td></tr>
+<tr class="separator:a5e8de38340da6d3a8b0c684fb5191ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb69dedba70eef23f0dbc9ea69aaa808"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_file.html">iaFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#aeb69dedba70eef23f0dbc9ea69aaa808">getFiles</a> (<a class="el" href="classiaux_1_1ia_string.html">iaString</a> searchPattern=L&quot;(.*)&quot;, bool recursive=false, bool orderAlphabetically=true)</td></tr>
+<tr class="separator:aeb69dedba70eef23f0dbc9ea69aaa808"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a037e716ed33f4a3e8a961c7d0013c8f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a037e716ed33f4a3e8a961c7d0013c8f0">isRoot</a> ()</td></tr>
 <tr class="separator:a037e716ed33f4a3e8a961c7d0013c8f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7151088f1227a9d1197af58e40fb8167"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a7151088f1227a9d1197af58e40fb8167">iaDirectory</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;directoryName)</td></tr>
@@ -281,8 +281,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="acea1bea3148dc0604b1740ed4f93f571"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acea1bea3148dc0604b1740ed4f93f571">&#9670;&nbsp;</a></span>getDirectorys()</h2>
+<a id="a5e8de38340da6d3a8b0c684fb5191ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e8de38340da6d3a8b0c684fb5191ee5">&#9670;&nbsp;</a></span>getDirectorys()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,8 +291,18 @@ Friends</h2></td></tr>
           <td class="memname">std::vector&lt; <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> &gt; iaux::iaDirectory::getDirectorys </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>recursive</em> = <code>false</code></td><td>)</td>
+          <td class="paramname"><em>recursive</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>orderAlphabetically</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -300,14 +310,15 @@ Friends</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">recursive</td><td>true: search recursively; false: search only in current directory </td></tr>
+    <tr><td class="paramname">orderAlphabetically</td><td>true: returns directories in alphabetical order </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a84a269890772ce113beb73cfb67e8641"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84a269890772ce113beb73cfb67e8641">&#9670;&nbsp;</a></span>getFiles()</h2>
+<a id="aeb69dedba70eef23f0dbc9ea69aaa808"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb69dedba70eef23f0dbc9ea69aaa808">&#9670;&nbsp;</a></span>getFiles()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,7 +333,13 @@ Friends</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>recursive</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>recursive</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>orderAlphabetically</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -336,6 +353,7 @@ Friends</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">searchPattern</td><td>what to search for using regular expression </td></tr>
     <tr><td class="paramname">recursive</td><td>true: search recursively; false: search only in current directory </td></tr>
+    <tr><td class="paramname">orderAlphabetically</td><td>true: returns files in alphabetical order </td></tr>
   </table>
   </dd>
 </dl>

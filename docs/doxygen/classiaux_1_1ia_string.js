@@ -1,12 +1,18 @@
 var classiaux_1_1ia_string =
 [
+    [ "Alignment", "classiaux_1_1ia_string.html#aac2d868671dcc86611471403fd25351c", [
+      [ "Left", "classiaux_1_1ia_string.html#aac2d868671dcc86611471403fd25351ca945d5e233cf7d6240f6b783b36a374ff", null ],
+      [ "Right", "classiaux_1_1ia_string.html#aac2d868671dcc86611471403fd25351ca92b09c7c48c520c3c55e497875da437c", null ],
+      [ "Center", "classiaux_1_1ia_string.html#aac2d868671dcc86611471403fd25351ca4f1f6016fc9f3f2353c0cc7c67b292bd", null ]
+    ] ],
     [ "iaString", "classiaux_1_1ia_string.html#adafccb9dd8b67d7525b547f5a4e2824d", null ],
     [ "iaString", "classiaux_1_1ia_string.html#a1713c00efd42d0a9bb26600983413263", null ],
     [ "iaString", "classiaux_1_1ia_string.html#a7ac92e52f952292a63c8b7619d0aa49a", null ],
-    [ "iaString", "classiaux_1_1ia_string.html#aff1e0164634486e66e4a4977cf1843b3", null ],
-    [ "iaString", "classiaux_1_1ia_string.html#a2aba41d04066ba3aecd8ad9d7102d305", null ],
+    [ "iaString", "classiaux_1_1ia_string.html#a63bcf12c7eb48bce03ccdee31df8687c", null ],
+    [ "iaString", "classiaux_1_1ia_string.html#a775d1ed615f0d6e86cb7dff9ce7324cb", null ],
     [ "iaString", "classiaux_1_1ia_string.html#a643c45700a72ffa21353ec8a59356e1f", null ],
     [ "~iaString", "classiaux_1_1ia_string.html#aaf7a98f4fc39e9f23ee8360917471edd", null ],
+    [ "align", "classiaux_1_1ia_string.html#ad5fd18bd3d2167cacbf25e96eec6d931", null ],
     [ "clear", "classiaux_1_1ia_string.html#a86450b6e32ec24593165641f64402da7", null ],
     [ "findFirstNotOf", "classiaux_1_1ia_string.html#a19223446b7307ed503a51687c11a17cf", null ],
     [ "findFirstNotOf", "classiaux_1_1ia_string.html#a618a047b8bf19f5d144d5594c66f1acb", null ],
