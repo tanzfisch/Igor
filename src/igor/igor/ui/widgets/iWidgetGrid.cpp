@@ -453,22 +453,22 @@ namespace igor
         int32 rowCount = static_cast<int32>(_widgetRows.size());
         int32 columnCount = static_cast<int32>(_widgetRows[0]._widgetColumn.size());
 
-        if (getVerticalAlignment() == iVerticalAlignment::Strech)
+        if (getVerticalAlignment() == iVerticalAlignment::Stretch)
         {
-            if (_strechRow < rowCount)
+            if (_stretchRow < rowCount)
             {
                 int32 diff = _actualHeight - _minHeight;
 
                 for (int32 x = 0; x < columnCount; ++x)
                 {
-                    _widgetRows[_strechRow]._widgetColumn[x]._actualHeight = _widgetRows[_strechRow]._widgetColumn[x]._configuredHeight + diff;
+                    _widgetRows[_stretchRow]._widgetColumn[x]._actualHeight = _widgetRows[_stretchRow]._widgetColumn[x]._configuredHeight + diff;
                 }
 
-                if (_strechRow + 1 < rowCount)
+                if (_stretchRow + 1 < rowCount)
                 {
                     for (int32 x = 0; x < columnCount; ++x)
                     {
-                        for (int32 y = _strechRow + 1; y < rowCount; ++y)
+                        for (int32 y = _stretchRow + 1; y < rowCount; ++y)
                         {
                             _widgetRows[y]._widgetColumn[x]._y += diff;
                         }
@@ -481,22 +481,22 @@ namespace igor
             }
         }
 
-        if (getHorizontalAlignment() == iHorizontalAlignment::Strech)
+        if (getHorizontalAlignment() == iHorizontalAlignment::Stretch)
         {
-            if (_strechCol < columnCount)
+            if (_stretchCol < columnCount)
             {
                 int32 diff = _actualWidth - _minWidth;
 
                 for (int32 y = 0; y < rowCount; ++y)
                 {
-                    _widgetRows[y]._widgetColumn[_strechCol]._actualWidth = _widgetRows[y]._widgetColumn[_strechCol]._configuredWidth + diff;
+                    _widgetRows[y]._widgetColumn[_stretchCol]._actualWidth = _widgetRows[y]._widgetColumn[_stretchCol]._configuredWidth + diff;
                 }
 
-                if (_strechCol + 1 < columnCount)
+                if (_stretchCol + 1 < columnCount)
                 {
                     for (int32 y = 0; y < rowCount; ++y)
                     {
-                        for (int32 x = _strechCol + 1; x < columnCount; ++x)
+                        for (int32 x = _stretchCol + 1; x < columnCount; ++x)
                         {
                             _widgetRows[y]._widgetColumn[x]._x += diff;
                         }
@@ -520,24 +520,24 @@ namespace igor
         _border = border;
     }
 
-    void iWidgetGrid::setStrechRow(int32 row)
+    void iWidgetGrid::setStretchRow(int32 row)
     {
-        _strechRow = row;
+        _stretchRow = row;
     }
 
-    int32 iWidgetGrid::getStrechRow() const
+    int32 iWidgetGrid::getStretchRow() const
     {
-        return _strechRow;
+        return _stretchRow;
     }
 
-    void iWidgetGrid::setStrechColumn(int32 col)
+    void iWidgetGrid::setStretchColumn(int32 col)
     {
-        _strechCol = col;
+        _stretchCol = col;
     }
 
-    int32 iWidgetGrid::getStrechColumn() const
+    int32 iWidgetGrid::getStretchColumn() const
     {
-        return _strechCol;
+        return _stretchCol;
     }
 
     int32 iWidgetGrid::getMouseOverRow() const
@@ -554,7 +554,7 @@ namespace igor
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (!isActive() || !_isMouseOver)
+        if (!isEnabled() || !_isMouseOver)
         {
             return false;
         }
@@ -605,7 +605,7 @@ namespace igor
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }
@@ -620,21 +620,21 @@ namespace igor
         return false;
     }
 
-    void iWidgetGrid::setEmptyCellsSelecable(bool emptyCellsSelecable)
+    void iWidgetGrid::setEmptyCellsSelectable(bool emptyCellsSelectable)
     {
-        _emptyCellsSelecable = emptyCellsSelecable;
+        _emptyCellsSelectable = emptyCellsSelectable;
     }
 
-    bool iWidgetGrid::getEmptyCellsSelecable() const
+    bool iWidgetGrid::getEmptyCellsSelectable() const
     {
-        return _emptyCellsSelecable;
+        return _emptyCellsSelectable;
     }
 
     bool iWidgetGrid::handleMouseKeyUp(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (isActive())
+        if (isEnabled())
         {
             if (_isMouseOver || _acceptOutOfBoundsClicks)
             {
@@ -668,7 +668,7 @@ namespace igor
                                 _selectedRow != _mouseOverRow)
                             {
                                 if (_selectMode == iSelectionMode::Cell &&
-                                    !_emptyCellsSelecable &&
+                                    !_emptyCellsSelectable &&
                                     isCellEmpty(_mouseOverColumn, _mouseOverRow))
                                 {
                                     unselect();
@@ -739,7 +739,7 @@ namespace igor
             rowNum++;
         }
 
-        if (isActive())
+        if (isEnabled())
         {
             if (pos._x >= getActualPosX() &&
                 pos._x < getActualPosX() + getActualWidth() &&
@@ -771,7 +771,7 @@ namespace igor
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (!isActive())
+        if (!isEnabled())
         {
             return false;
         }

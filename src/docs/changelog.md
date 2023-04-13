@@ -4,9 +4,16 @@ Changelog                           {#changelog}
 0.38.0
 ------
 
-- scene data update is now in separate thread
 - sorting files and directories alphabetically
 - fixed scrolling of iWidgetScroll
+- removed decompose/recompose matrix
+- removed clipboard
+- removed evaluation
+- removed state machine
+- removed memblock
+- renamed iWidget setActive/isActive to setEnabled/isEnabled
+- added align function to iaString
+- improved profiler visualizer
 - fixed selection sync issue in Mica
 
 0.37.0

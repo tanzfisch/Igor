@@ -37,7 +37,7 @@ namespace igor
 
 	bool iWidgetLineTextEdit::handleASCII(uint8 c)
 	{
-		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
+		if (!isEnabled() || isWriteProtected() || !hasKeyboardFocus())
 		{
 			return false;
 		}
@@ -64,7 +64,7 @@ namespace igor
 
 	bool iWidgetLineTextEdit::handleKeyUp(iKeyCode key)
 	{
-		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
+		if (!isEnabled() || isWriteProtected() || !hasKeyboardFocus())
 		{
 			return false;
 		}
@@ -75,7 +75,7 @@ namespace igor
 
 	bool iWidgetLineTextEdit::handleKeyDown(iKeyCode key)
 	{
-		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
+		if (!isEnabled() || isWriteProtected() || !hasKeyboardFocus())
 		{
 			return false;
 		}
@@ -186,7 +186,7 @@ namespace igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawLineTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawLineTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetState, isEnabled() && !_writeProtected);
 		}
 	}
 

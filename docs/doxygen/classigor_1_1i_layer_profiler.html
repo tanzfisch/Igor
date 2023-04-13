@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -102,6 +102,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a21d0f8fd70d04146bb01f6627ba1dd14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab396352c4c042c0ad5d66389ceb5e2b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer_profiler.html#ab396352c4c042c0ad5d66389ceb5e2b4">~iLayerProfiler</a> ()=default</td></tr>
 <tr class="separator:ab396352c4c042c0ad5d66389ceb5e2b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ec62ebdbe125b4d27ac7d811bf5ae05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer_profiler.html#a4ec62ebdbe125b4d27ac7d811bf5ae05">setVerbosity</a> (<a class="el" href="namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2d">iProfilerVerbosity</a> verbosity)</td></tr>
+<tr class="separator:a4ec62ebdbe125b4d27ac7d811bf5ae05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff6ec15ce9a07311d7e73ca61590989c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer_profiler.html#aff6ec15ce9a07311d7e73ca61590989c">cycleVerbosity</a> ()</td></tr>
+<tr class="separator:aff6ec15ce9a07311d7e73ca61590989c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a650c9181fc91a7165c299f897bdd8167"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2d">iProfilerVerbosity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer_profiler.html#a650c9181fc91a7165c299f897bdd8167">getVerbosity</a> ()</td></tr>
+<tr class="separator:a650c9181fc91a7165c299f897bdd8167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classigor_1_1i_layer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classigor_1_1i_layer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classigor_1_1i_layer.html">igor::iLayer</a></td></tr>
 <tr class="memitem:afc034f27484cd05068d5281db4181a5d inherit pub_methods_classigor_1_1i_layer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer.html#afc034f27484cd05068d5281db4181a5d">iLayer</a> (<a class="el" href="namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed">iWindowPtr</a> window, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name=&quot;Layer&quot;, int32 zIndex=0)</td></tr>
 <tr class="separator:afc034f27484cd05068d5281db4181a5d inherit pub_methods_classigor_1_1i_layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -194,6 +200,68 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>does nothing </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aff6ec15ce9a07311d7e73ca61590989c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff6ec15ce9a07311d7e73ca61590989c">&#9670;&nbsp;</a></span>cycleVerbosity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iLayerProfiler::cycleVerbosity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>cycles verbosity </p>
+
+</div>
+</div>
+<a id="a650c9181fc91a7165c299f897bdd8167"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a650c9181fc91a7165c299f897bdd8167">&#9670;&nbsp;</a></span>getVerbosity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2d">iProfilerVerbosity</a> igor::iLayerProfiler::getVerbosity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>current profiler verbosity </dd></dl>
+
+</div>
+</div>
+<a id="a4ec62ebdbe125b4d27ac7d811bf5ae05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ec62ebdbe125b4d27ac7d811bf5ae05">&#9670;&nbsp;</a></span>setVerbosity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iLayerProfiler::setVerbosity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2d">iProfilerVerbosity</a>&#160;</td>
+          <td class="paramname"><em>verbosity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>sets profiler verbosity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">verbosity</td><td>the verbosity of the profiler visualization </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

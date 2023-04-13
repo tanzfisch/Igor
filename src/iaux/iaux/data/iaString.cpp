@@ -131,14 +131,20 @@ namespace iaux
         setData(text, lenght);
     }
 
-    iaString::iaString(const wchar_t character)
+    iaString::iaString(const wchar_t character, int count)
     {
-        setData(&character, 1);
+        _charCount = count;
+        _data = new wchar_t[_charCount + 1];
+        wmemset(_data, character, _charCount);
+        _data[_charCount] = 0;
     }
 
-    iaString::iaString(const char character)
+    iaString::iaString(const char character, int count)
     {
-        setData(&character, 1);
+        _charCount = count;
+        _data = new wchar_t[_charCount + 1];
+        wmemset(_data, (wchar_t)character, _charCount);
+        _data[_charCount] = 0;
     }
 
     iaString::iaString(const iaString &data)
@@ -628,7 +634,7 @@ namespace iaux
     iaString iaString::operator=(const iaString &text)
     {
         // skip if this is the same exact data
-        if(getData() != text.getData())
+        if (getData() != text.getData())
         {
             setData(text.getData());
         }
@@ -1108,15 +1114,15 @@ namespace iaux
         {
             result += iaString::toString(value / 1000000000);
             result += "G";
-        }        
+        }
         else
         {
             result += iaString::toString(value / 1000000000000);
             result += "T";
-        }        
+        }
 
         return result;
-    }    
+    }
 
     iaString iaString::toString(int64 value, int base)
     {
@@ -1305,7 +1311,37 @@ namespace iaux
         return trimLeft(trimRight(text));
     }
 
+    iaString iaString::align(const iaString &text, int width, Alignment alignment, wchar_t character)
+    {
+        if (text.getLength() >= width)
+        {
+            return text;
+        }
 
+        iaString result(character, width);
+        int offset = 0;
 
+        switch (alignment)
+        {
+        case Alignment::Left:
+            offset = 0;
+            break;
+
+        case Alignment::Right:
+            offset = width - text.getLength();
+            break;
+
+        case Alignment::Center:
+            offset = (width - text.getLength()) / 2;
+            break;
+        }
+
+        for (int i = 0; i < text.getLength(); ++i)
+        {
+            result[offset + i] = text[i];
+        }
+
+        return result;
+    }
 
 } // namespace iaux

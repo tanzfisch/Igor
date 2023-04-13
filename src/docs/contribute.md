@@ -26,7 +26,7 @@ Build
 
 Igor is using cmake to build. It is tested to work on Ubuntu and Debian with GCC and Windows/MSVC.
 
-Preffered setup is VSCode, MSVC and CMAKE extension but it should work with Visual Studio as well.
+Preferred setup is VSCode, MSVC and CMAKE extension but it should work with Visual Studio as well.
 
 **Note!** Under Linux you might need to install some additional dependencies like the following ...
 
@@ -48,7 +48,7 @@ Make sure when debugging from vscode to add the following to your settings.json 
 Git Flow
 --------
 
-Use git flow for branching and merging etc. Please find [here](https://danielkummer.github.io/git-flow-cheatsheet/) a very usefull cheat sheet.
+Use git flow for branching and merging etc. Please find [here](https://danielkummer.github.io/git-flow-cheatsheet/) a very useful cheat sheet.
 
 Maybe get a git client that supports git flow naturally (e.g. [gitkraken](https://www.gitkraken.com/)).
 
@@ -61,7 +61,7 @@ For making a release do the following steps.
 
 2. run smoke tests (run all the examples, tests and applications like Mica)
 
-3. if tests fail try to fix on the release branch if possible or abbort the release and start over
+3. if tests fail try to fix on the release branch if possible or abort the release and start over
 
 4. Update the [Changelog](@ref changelog)
 
@@ -74,7 +74,7 @@ For making a release do the following steps.
 Make a Patch Release
 --------------------
 
-When happy with your hotfix update the [Changelog](@ref changelog) before mergin back in to master and develop.
+When happy with your hotfix update the [Changelog](@ref changelog) before merging back in to master and develop.
 
 Crate patch release version tag on master branch.
 

@@ -10,8 +10,8 @@ var i_defines_8h =
       [ "Left", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563a945d5e233cf7d6240f6b783b36a374ff", null ],
       [ "Center", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563a4f1f6016fc9f3f2353c0cc7c67b292bd", null ],
       [ "Right", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563a92b09c7c48c520c3c55e497875da437c", null ],
-      [ "Absolut", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563a03d8a31fe62908dfdaac78634612f247", null ],
-      [ "Strech", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563a6e5ab7ebfc243e8589be54e64b51d7bc", null ],
+      [ "Absolute", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563ab51ca26c6c89cfc9bec338f7a0d3e0c8", null ],
+      [ "Stretch", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563afbb09a82eafab60150d0996e8fe46560", null ],
       [ "Undefined", "i_defines_8h.html#abc0ef2568c622a21f0b741c63b354563aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "iKeyCode", "i_defines_8h.html#a80a6b547ebec2fad44cd23cbceeba9bd", [
@@ -147,6 +147,12 @@ var i_defines_8h =
       [ "Cache", "i_defines_8h.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba", null ],
       [ "Keep", "i_defines_8h.html#a424b008e648b912ad459f21479742743a02bce93bff905887ad2233110bf9c49e", null ]
     ] ],
+    [ "iSelectionMode", "i_defines_8h.html#ae2ddd5b36b3c376f7ae18b12a15427f8", [
+      [ "Cell", "i_defines_8h.html#ae2ddd5b36b3c376f7ae18b12a15427f8a1a66ab62bfc858b7bcf9e01aa9cd1841", null ],
+      [ "Row", "i_defines_8h.html#ae2ddd5b36b3c376f7ae18b12a15427f8aa70367aa7cb74e510f4f9413ccf059d3", null ],
+      [ "Column", "i_defines_8h.html#ae2ddd5b36b3c376f7ae18b12a15427f8a1976d7f704de389d9fe064e08ea35b2d", null ],
+      [ "NoSelection", "i_defines_8h.html#ae2ddd5b36b3c376f7ae18b12a15427f8a5230c6f2cc0017a06cb7f3afd8f535cf", null ]
+    ] ],
     [ "iTextureBuildMode", "i_defines_8h.html#ace7988c80527d8744c218d3f70209f9a", [
       [ "Normal", "i_defines_8h.html#ace7988c80527d8744c218d3f70209f9aa960b44c579bc2f6818d2daaf9e4c16f0", null ],
       [ "Mipmapped", "i_defines_8h.html#ace7988c80527d8744c218d3f70209f9aafde5603b6965d5a8c0da74784fab8395", null ]
@@ -160,8 +166,8 @@ var i_defines_8h =
       [ "Top", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2aa4ffdcf0dc1f31b9acaf295d75b51d00", null ],
       [ "Center", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2a4f1f6016fc9f3f2353c0cc7c67b292bd", null ],
       [ "Bottom", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2a2ad9d63b69c4a10a5cc9cad923133bc4", null ],
-      [ "Absolut", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2a03d8a31fe62908dfdaac78634612f247", null ],
-      [ "Strech", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2a6e5ab7ebfc243e8589be54e64b51d7bc", null ],
+      [ "Absolute", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2ab51ca26c6c89cfc9bec338f7a0d3e0c8", null ],
+      [ "Stretch", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2afbb09a82eafab60150d0996e8fe46560", null ],
       [ "Undefined", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "operator<<", "i_defines_8h.html#a728632759bccb048d7e6082f2400dd20", null ],

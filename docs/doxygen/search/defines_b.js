@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['r_7380',['R',['../igor_8cpp.html#a5c71a5e59a53413cd6c270266d63b031',1,'igor.cpp']]],
-  ['rescale_7381',['rescale',['../i_contouring_cubes_8cpp.html#ac6b119b3ebcc760d922111f2532a8e49',1,'iContouringCubes.cpp']]]
+  ['profiler_5fmax_5fframes_5fcount_7166',['PROFILER_MAX_FRAMES_COUNT',['../i_profiler_8h.html#a8eb6d2fcc9bc760b53ee1a10924ebe5e',1,'iProfiler.h']]]
 ];

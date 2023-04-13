@@ -34,7 +34,6 @@ iaTransform<T>::iaTransform(const iaVector3<T>& translate, const iaQuaternion<T>
     _orientation = orientation;
     _scale = scale;
     _shear.set(0.0, 0.0, 0.0);
-    _perspective.set(0.0, 0.0, 0.0, 1.0);
 }
 
 template <class T>
@@ -44,17 +43,6 @@ iaTransform<T>::iaTransform(const iaVector3<T>& translate, const iaQuaternion<T>
     _orientation = orientation;
     _scale = scale;
     _shear = shear;
-    _perspective.set(0.0, 0.0, 0.0, 1.0);
-}
-
-template <class T>
-iaTransform<T>::iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale, const iaVector3<T>& shear, const iaVector4<T>& perspective)
-{
-    _translate = translate;
-    _orientation = orientation;
-    _scale = scale;
-    _shear = shear;
-    _perspective = perspective;
 }
 
 template <class T>
@@ -64,8 +52,6 @@ iaTransform<T>::iaTransform()
     _orientation.set(0.0, 0.0, 0.0, 1.0);
     _scale.set(1.0, 1.0, 1.0);
     _shear.set(0.0, 0.0, 0.0);
-    _perspective.set(0.0, 0.0, 0.0, 1.0);
-
 }
 
 template <class T>
@@ -83,13 +69,6 @@ template <class T>
 __IGOR_INLINE__ void iaTransform<T>::getMatrix(iaMatrix<T>& matrix) const
 {
     matrix.recompose(_scale, _orientation, _translate, _shear, iaVector4<T>(0, 0, 0, 1));
-}
-
-template <class T>
-__IGOR_INLINE__ void iaTransform<T>::setMatrix(const iaMatrix<T>& matrix)
-{
-    iaVector4d perspective;
-    matrix.decompose(_scale, _orientation, _translate, _shear, perspective);
 }
 
 template <class T>

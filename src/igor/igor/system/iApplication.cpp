@@ -9,7 +9,6 @@
 #include <igor/system/iTimer.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/evaluation/iEvaluationManager.h>
 #include <igor/renderer/iView.h>
 
 #include <iaux/system/iaConsole.h>
@@ -142,14 +141,13 @@ namespace igor
         iTimer::getInstance().onUpdate();
         iProfiler::nextFrame();
 
-        IGOR_PROFILER_BEGIN(app);
+        IGOR_PROFILER_BEGIN(application);
         iNodeManager::getInstance().handle();
         windowHandle();
         dispatch();
         preDraw();
-        IGOR_PROFILER_END(app);
+        IGOR_PROFILER_END(application);
 
-        iEvaluationManager::getInstance().handle();
         iPhysics::getInstance().handle();
 
         draw();

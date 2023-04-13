@@ -49,10 +49,10 @@ void UserControlGraphView::initGUI()
     grid->setBorder(0);
     grid->appendRows(1);
     grid->setCellSpacing(2);
-    grid->setStrechRow(1);
-    grid->setStrechColumn(0);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    grid->setVerticalAlignment(iVerticalAlignment::Strech);
+    grid->setStretchRow(1);
+    grid->setStretchColumn(0);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    grid->setVerticalAlignment(iVerticalAlignment::Stretch);
     addWidget(grid);
 
     iWidgetGrid *gridButtons = new iWidgetGrid();
@@ -112,12 +112,12 @@ void UserControlGraphView::initGUI()
 
     iWidgetGroupBox *groupBox = new iWidgetGroupBox();
     groupBox->setText("Graph");
-    groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
+    groupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetScroll *scroll = new iWidgetScroll();
-    scroll->setVerticalAlignment(iVerticalAlignment::Strech);
-    scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
+    scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     _gridGraph = new iWidgetGrid();
     _gridGraph->setAcceptOutOfBoundsClicks();

@@ -72,52 +72,52 @@ void ShopDialog::initGUI()
 
 	iWidgetGrid *grid = new iWidgetGrid(this);
 	grid->appendRows(1);
-	grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+	grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	grid->setBorder(10);
 	grid->setCellSpacing(20);
 
 	iWidgetGrid *coinsGrid = new iWidgetGrid();
 	coinsGrid->appendColumns(1);
-	coinsGrid->setStrechColumn(1);
-	coinsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	coinsGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+	coinsGrid->setStretchColumn(1);
+	coinsGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+	coinsGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 
 	iWidgetGrid *headerGrid = new iWidgetGrid();
 	headerGrid->appendColumns(3);
-	headerGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	headerGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+	headerGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+	headerGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	headerGrid->setCellSpacing(20);
-	headerGrid->setStrechColumn(1);
+	headerGrid->setStretchColumn(1);
 
 	_itemGrid = new iWidgetGrid();
 	_itemGrid->appendColumns(2);
 	_itemGrid->setHorizontalAlignment(iHorizontalAlignment::Center);
-	_itemGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+	_itemGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	_itemGrid->setCellSpacing(0);
-	_itemGrid->setStrechColumn(1);
-	_itemGrid->setStrechRow(0);
+	_itemGrid->setStretchColumn(1);
+	_itemGrid->setStretchRow(0);
 	_itemGrid->setSelectMode(iSelectionMode::Column);
-	_itemGrid->setEmptyCellsSelecable();
+	_itemGrid->setEmptyCellsSelectable();
 	_itemGrid->registerOnChangeEvent(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
 
 	iWidgetGrid *item1Grid = new iWidgetGrid();
 	item1Grid->appendRows(4);
 	item1Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item1Grid->setVerticalAlignment(iVerticalAlignment::Top);
-	item1Grid->setStrechRow(3);
+	item1Grid->setStretchRow(3);
 
 	iWidgetGrid *item2Grid = new iWidgetGrid();
 	item2Grid->appendRows(4);
 	item2Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item2Grid->setVerticalAlignment(iVerticalAlignment::Top);
-	item1Grid->setStrechRow(3);
+	item1Grid->setStretchRow(3);
 
 	iWidgetGrid *item3Grid = new iWidgetGrid();
 	item3Grid->appendRows(4);
 	item3Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item3Grid->setVerticalAlignment(iVerticalAlignment::Top);
-	item1Grid->setStrechRow(3);
+	item1Grid->setStretchRow(3);
 
 	_labelName1 = new iWidgetLabel();
 	_labelName2 = new iWidgetLabel();

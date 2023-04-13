@@ -71,17 +71,26 @@ namespace igor
 		*/
         virtual ~iDialog();
 
-        /*! set horizontal position of dialog and horizontal alignment to absolute
+        /*! sets horizontal position of dialog and horizontal alignment to absolute
 
         \param x horizontal position
         */
         void setX(int32 x);
 
-        /*! set vertical position of dialog and vertical alignment to absolute
+        /*! sets vertical position of dialog and vertical alignment to absolute
 
         \param y vertical position
         */
         void setY(int32 y);
+
+        /*! sets position of dialog
+
+        implicitly sets alignment to absolute
+
+        \param x horizontal position
+        \param y vertical position
+        */
+        void setPos(int32 x, int32 y);
 
         /*! set size of border
 

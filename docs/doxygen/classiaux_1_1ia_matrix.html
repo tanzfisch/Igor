@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -131,10 +131,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a041b034afbeb7dd3a3e0898ed78215be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2205310167339df3d03fe1b270de95f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_matrix.html#a2205310167339df3d03fe1b270de95f8">transpose</a> ()</td></tr>
 <tr class="separator:a2205310167339df3d03fe1b270de95f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a343af8710dd6dd76aa14cbbb328f32"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_matrix.html#a5a343af8710dd6dd76aa14cbbb328f32">decompose</a> (<a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;<a class="el" href="classiaux_1_1ia_matrix.html#a0d1f814a5844dbda77ed03f55768b8ba">scale</a>, <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;orientation, <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;<a class="el" href="classiaux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b">translate</a>, <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;<a class="el" href="classiaux_1_1ia_matrix.html#a08581dc9057929f0381ba29a464d19c5">shear</a>, <a class="el" href="structiaux_1_1ia_vector4.html">iaVector4</a>&lt; T &gt; &amp;<a class="el" href="classiaux_1_1ia_matrix.html#aa99c7c8d3fdc3b92d2f79c86dab3bba6">perspective</a>) const</td></tr>
-<tr class="separator:a5a343af8710dd6dd76aa14cbbb328f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcbc7d2adac8744ce84fd58ca9015ac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_matrix.html#adcbc7d2adac8744ce84fd58ca9015ac9">recompose</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;<a class="el" href="classiaux_1_1ia_matrix.html#a0d1f814a5844dbda77ed03f55768b8ba">scale</a>, const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;orientation, const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;<a class="el" href="classiaux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b">translate</a>, const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;<a class="el" href="classiaux_1_1ia_matrix.html#a08581dc9057929f0381ba29a464d19c5">shear</a>, const <a class="el" href="structiaux_1_1ia_vector4.html">iaVector4</a>&lt; T &gt; &amp;<a class="el" href="classiaux_1_1ia_matrix.html#aa99c7c8d3fdc3b92d2f79c86dab3bba6">perspective</a>)</td></tr>
-<tr class="separator:adcbc7d2adac8744ce84fd58ca9015ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae57766fa4a45a1d7ac35d642442a6c79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_matrix.html#ae57766fa4a45a1d7ac35d642442a6c79">lookAt</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;eye, const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;coi, const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;top)</td></tr>
 <tr class="separator:ae57766fa4a45a1d7ac35d642442a6c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9237890c08dc1116b7e7ae01176a834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_matrix.html#ae9237890c08dc1116b7e7ae01176a834">frustum</a> (T left, T right, T bottom, T top, T nearplain, T farplain)</td></tr>
@@ -338,66 +334,6 @@ template&lt;class T2 &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5a343af8710dd6dd76aa14cbbb328f32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a343af8710dd6dd76aa14cbbb328f32">&#9670;&nbsp;</a></span>decompose()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool iaMatrix::decompose </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>scale</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>orientation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>translate</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>shear</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structiaux_1_1ia_vector4.html">iaVector4</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>perspective</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>decompose the matrix in its components</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scale</td><td>the scale component </td></tr>
-    <tr><td class="paramname">orientation</td><td>the orientation component as quaternion </td></tr>
-    <tr><td class="paramname">translate</td><td>the translate component </td></tr>
-    <tr><td class="paramname">shear</td><td>the shear component </td></tr>
-    <tr><td class="paramname">perspective</td><td>the perspective component</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>thanks to <a href="https://glm.g-truc.net">https://glm.g-truc.net</a> and thanks to <a href="http://www.opensource.apple.com/source/WebCore/WebCore-514/platform/renderer/transforms/TransformationMatrix.cpp">http://www.opensource.apple.com/source/WebCore/WebCore-514/platform/renderer/transforms/TransformationMatrix.cpp</a> </p>
 
 </div>
 </div>
@@ -1121,65 +1057,6 @@ template&lt;class T &gt; </div>
     <tr><td class="paramname">aspect</td><td>aspect ratio </td></tr>
     <tr><td class="paramname">nearplain</td><td>near clipping plane distance </td></tr>
     <tr><td class="paramname">farplain</td><td>far clipping plane distance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="adcbc7d2adac8744ce84fd58ca9015ac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcbc7d2adac8744ce84fd58ca9015ac9">&#9670;&nbsp;</a></span>recompose()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void iaMatrix::recompose </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>scale</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>orientation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>translate</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>shear</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector4.html">iaVector4</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>perspective</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>recompose the matrix from it's components</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scale</td><td>scale component </td></tr>
-    <tr><td class="paramname">orientation</td><td>the orientation </td></tr>
-    <tr><td class="paramname">translate</td><td>the translation component </td></tr>
-    <tr><td class="paramname">shear</td><td>the shear component </td></tr>
-    <tr><td class="paramname">perspective</td><td>the perspective component </td></tr>
   </table>
   </dd>
 </dl>

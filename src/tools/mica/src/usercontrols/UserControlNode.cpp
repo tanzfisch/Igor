@@ -40,9 +40,9 @@ void UserControlNode::initGUI()
     _grid->appendColumns(1);
     _grid->appendRows(1);
     _grid->setCellSpacing(2);
-    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    _grid->setStrechColumn(1);
+    _grid->setStretchColumn(1);
 
     _labelName = new iWidgetLabel();
     _labelName->setText("Name");
@@ -52,7 +52,7 @@ void UserControlNode::initGUI()
     _textName = new iWidgetLineTextEdit();
     _textName->setMaxTextLength(256);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-    _textName->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textName->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textName->setText("");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlNode::onNameChanged));
 
@@ -63,7 +63,7 @@ void UserControlNode::initGUI()
 
     _checkBoxActive = new iWidgetCheckBox();
     _checkBoxActive->setText("");
-    _checkBoxActive->setActive(false);
+    _checkBoxActive->setEnabled(false);
     _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _grid->addWidget(_labelName, 0, 0);

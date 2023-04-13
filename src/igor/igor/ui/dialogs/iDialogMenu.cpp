@@ -55,7 +55,7 @@ namespace igor
     void iDialogMenu::addSpacer()
     {
         iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 2, true);
-        spacer->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        spacer->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _grid->addWidget(spacer, 0, _grid->getRowCount() - 1);
         _grid->appendRows(1);
     }
@@ -80,7 +80,7 @@ namespace igor
         }
 
         iUserControlActionPtr userControlAction = new iUserControlAction();
-        userControlAction->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        userControlAction->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         userControlAction->setAction(action, context);
         userControlAction->setFixedPictureSize();
         userControlAction->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));

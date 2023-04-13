@@ -4,7 +4,6 @@ var classigor_1_1i_scene =
     [ "clearSelection", "classigor_1_1i_scene.html#a354b07f553fdfe3db9ca5202a0385358", null ],
     [ "getLights", "classigor_1_1i_scene.html#ae3643114e3a0ce7ce3b577b49ae6ea2c", null ],
     [ "getName", "classigor_1_1i_scene.html#a447ea80129b31ec6d466f8888dd04908", null ],
-    [ "getOctree", "classigor_1_1i_scene.html#a91289de28de385440f0ae0fcba7749c9", null ],
     [ "getRenderables", "classigor_1_1i_scene.html#aaada60365369935ecc743e85cca40e05", null ],
     [ "getRoot", "classigor_1_1i_scene.html#ab5156748e0b546b80ac2fbe6e8256b7e", null ],
     [ "getSelection", "classigor_1_1i_scene.html#a011a33383e72cc0fc112aa1f6d38b79e", null ],
@@ -20,5 +19,6 @@ var classigor_1_1i_scene =
     [ "iNodeRender", "classigor_1_1i_scene.html#a7a93b519d2b7912bb6497908df89bccb", null ],
     [ "iNodeVisitorUpdateTransform", "classigor_1_1i_scene.html#ad64c9a06babde60bdd79e94c1ae6ef70", null ],
     [ "iNodeVolume", "classigor_1_1i_scene.html#aa97646632199f6632b7f8aa7cba2bebe", null ],
+    [ "iRenderEngine", "classigor_1_1i_scene.html#a7c82113aca1030bef77055fa5793cd6d", null ],
     [ "iSceneFactory", "classigor_1_1i_scene.html#a4d18a3a171c8df882723043fdfcf18d7", null ]
 ];

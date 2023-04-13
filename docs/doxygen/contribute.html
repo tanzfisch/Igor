@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -105,7 +105,7 @@ Submodules</h1>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md35"></a>
 Build</h1>
 <p>Igor is using cmake to build. It is tested to work on Ubuntu and Debian with GCC and Windows/MSVC.</p>
-<p>Preffered setup is VSCode, MSVC and CMAKE extension but it should work with Visual Studio as well.</p>
+<p>Preferred setup is VSCode, MSVC and CMAKE extension but it should work with Visual Studio as well.</p>
 <p><b>Note!</b> Under Linux you might need to install some additional dependencies like the following ...</p>
 <div class="fragment"><div class="line">sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md36"></a>
@@ -116,7 +116,7 @@ Run from VSCode</h1>
 <div class="line">}</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md37"></a>
 Git Flow</h1>
-<p>Use git flow for branching and merging etc. Please find <a href="https://danielkummer.github.io/git-flow-cheatsheet/">here</a> a very usefull cheat sheet.</p>
+<p>Use git flow for branching and merging etc. Please find <a href="https://danielkummer.github.io/git-flow-cheatsheet/">here</a> a very useful cheat sheet.</p>
 <p>Maybe get a git client that supports git flow naturally (e.g. <a href="https://www.gitkraken.com/">gitkraken</a>).</p>
 <h1><a class="anchor" id="autotoc_md38"></a>
 Make a release</h1>
@@ -124,7 +124,7 @@ Make a release</h1>
 <ol type="1">
 <li>create a release branch from develop named by the next release version (e.g. 0.23.0).</li>
 <li>run smoke tests (run all the examples, tests and applications like Mica)</li>
-<li>if tests fail try to fix on the release branch if possible or abbort the release and start over</li>
+<li>if tests fail try to fix on the release branch if possible or abort the release and start over</li>
 <li>Update the <a class="el" href="changelog.html">Changelog</a></li>
 <li>Update doxygen config file (src/docs/Doxyfile.doxy) using the new version of the release. And generate the doxygen docs.</li>
 <li>when satisfied with test and docs merge the release in to master and develop.</li>
@@ -132,7 +132,7 @@ Make a release</h1>
 </ol>
 <h1><a class="anchor" id="autotoc_md39"></a>
 Make a Patch Release</h1>
-<p>When happy with your hotfix update the <a class="el" href="changelog.html">Changelog</a> before mergin back in to master and develop.</p>
+<p>When happy with your hotfix update the <a class="el" href="changelog.html">Changelog</a> before merging back in to master and develop.</p>
 <p>Crate patch release version tag on master branch.</p>
 <h1><a class="anchor" id="autotoc_md40"></a>
 Doxygen</h1>

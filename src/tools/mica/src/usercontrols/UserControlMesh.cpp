@@ -247,10 +247,10 @@ void UserControlMesh::initGUI()
 
     iWidgetGridPtr grid = new iWidgetGrid(this);
     grid->appendRows(9);
-    grid->setStrechRow(8);
-    grid->setStrechColumn(0);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    grid->setVerticalAlignment(iVerticalAlignment::Strech);
+    grid->setStretchRow(8);
+    grid->setStretchColumn(0);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _ambientColorChooser = new iUserControlColorChooser();
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
@@ -275,8 +275,8 @@ void UserControlMesh::initGUI()
     iWidgetGrid *detailsGrid = new iWidgetGrid();
     detailsGrid->appendColumns(1);
     detailsGrid->appendRows(2);
-    detailsGrid->setStrechColumn(1);
-    detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    detailsGrid->setStretchColumn(1);
+    detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetLabel *labelVertexes = new iWidgetLabel();
     labelVertexes->setText("Vertexes");
@@ -294,21 +294,21 @@ void UserControlMesh::initGUI()
     labelIndexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textVertices = new iWidgetLineTextEdit();
-    _textVertices->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textVertices->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textVertices->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-    _textVertices->setActive(false);
+    _textVertices->setEnabled(false);
     _textVertices->setText("0");
 
     _textTriangles = new iWidgetLineTextEdit();
-    _textTriangles->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textTriangles->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textTriangles->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-    _textTriangles->setActive(false);
+    _textTriangles->setEnabled(false);
     _textTriangles->setText("0");
 
     _textIndexes = new iWidgetLineTextEdit();
-    _textIndexes->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textIndexes->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textIndexes->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-    _textIndexes->setActive(false);
+    _textIndexes->setEnabled(false);
     _textIndexes->setText("0");
 
     iWidgetGrid *gridShininess = new iWidgetGrid();
@@ -346,8 +346,8 @@ void UserControlMesh::initGUI()
     iWidgetGrid *gridTextures = new iWidgetGrid();
     gridTextures->appendRows(3);
     gridTextures->appendColumns(1);
-    gridTextures->setStrechColumn(1);
-    gridTextures->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    gridTextures->setStretchColumn(1);
+    gridTextures->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelTextureUnit0 = new iWidgetLabel();

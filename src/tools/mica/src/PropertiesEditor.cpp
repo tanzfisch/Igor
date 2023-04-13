@@ -32,15 +32,15 @@ void PropertiesEditor::initGUI()
 {
     setWidth(370);
     setHorizontalAlignment(iHorizontalAlignment::Right);
-    setVerticalAlignment(iVerticalAlignment::Strech);
+    setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetGridPtr grid = new iWidgetGrid(this);
     grid->setBorder(2);
     grid->setCellSpacing(8);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    grid->setVerticalAlignment(iVerticalAlignment::Strech);
-    grid->setStrechRow(0);
-    grid->setStrechColumn(0);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    grid->setVerticalAlignment(iVerticalAlignment::Stretch);
+    grid->setStretchRow(0);
+    grid->setStretchColumn(0);
 
     _userControlProperties = new UserControlProperties();
     _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesEditor::onStructureChanged));

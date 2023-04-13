@@ -219,16 +219,15 @@ namespace igor
                 _renderEngine.render();
             }
 
-            {
-                IGOR_PROFILER_SCOPED(udraw);
-                _renderEvent();
-            }
+            IGOR_PROFILER_BEGIN(draw_user);
+            _renderEvent();
+            IGOR_PROFILER_END(draw_user);
 
             iRenderer::getInstance().endFrame();
         }
     }
 
-    uint64 iView::pickcolorID(const iaVector2i& pos)
+    uint64 iView::pickcolorID(const iaVector2i &pos)
     {
         return pickcolorID(pos._x, pos._y);
     }

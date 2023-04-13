@@ -62,9 +62,9 @@ void UserControlEmitter::initGUI()
     _grid = new iWidgetGrid();
     _grid->appendColumns(1);
     _grid->appendRows(1);
-    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    _grid->setStrechColumn(1);
+    _grid->setStretchColumn(1);
     addWidget(_grid);
 
     iWidgetLabel *labelType = new iWidgetLabel();
@@ -80,7 +80,7 @@ void UserControlEmitter::initGUI()
     _selectType->addSelectionEntry("Sphere");
     _selectType->addSelectionEntry("Square");
     _selectType->addSelectionEntry("Cube");
-    _selectType->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _selectType->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 
     iWidgetLabel *labelSize = new iWidgetLabel();
@@ -91,7 +91,7 @@ void UserControlEmitter::initGUI()
     _textSize = new iWidgetLineTextEdit();
     _textSize->setWidth(100);
     _textSize->setWriteProtected(false);
-    _textSize->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textSize->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textSize->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textSize->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onSizeChanged));
 

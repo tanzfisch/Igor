@@ -395,7 +395,7 @@ namespace igor
 
     bool iWidget::handleMouseWheel(int32 d)
     {
-        if (isActive() && _reactOnMouseWheel)
+        if (isEnabled() && _reactOnMouseWheel)
         {
             if (_isMouseOver)
             {
@@ -437,7 +437,7 @@ namespace igor
 
     bool iWidget::handleMouseDoubleClick(iKeyCode key)
     {
-        if (isActive())
+        if (isEnabled())
         {
             if (_isMouseOver)
             {
@@ -475,7 +475,7 @@ namespace igor
 
     bool iWidget::handleMouseKeyUp(iKeyCode key)
     {
-        if (isActive())
+        if (isEnabled())
         {
             if (_isMouseOver)
             {
@@ -569,7 +569,7 @@ namespace igor
 
     bool iWidget::handleMouseKeyDown(iKeyCode key)
     {
-        if (isActive())
+        if (isEnabled())
         {
             if (_isMouseOver)
             {
@@ -606,7 +606,7 @@ namespace igor
 
     bool iWidget::handleASCII(uint8 c)
     {
-        if (isActive())
+        if (isEnabled())
         {
             // get copy of children
             std::vector<iWidgetPtr> widgets;
@@ -627,7 +627,7 @@ namespace igor
 
     bool iWidget::handleKeyDown(iKeyCode key)
     {
-        if (isActive())
+        if (isEnabled())
         {
             // get copy of children
             std::vector<iWidgetPtr> widgets;
@@ -648,7 +648,7 @@ namespace igor
 
     bool iWidget::handleKeyUp(iKeyCode key)
     {
-        if (isActive())
+        if (isEnabled())
         {
             // get copy of children
             std::vector<iWidgetPtr> widgets;
@@ -669,7 +669,7 @@ namespace igor
 
     void iWidget::handleMouseMove(const iaVector2f &pos)
     {
-        if (isActive())
+        if (isEnabled())
         {
             // get copy of children
             std::vector<iWidgetPtr> widgets;
@@ -776,11 +776,11 @@ namespace igor
         }
     }
 
-    void iWidget::setActive(bool active)
+    void iWidget::setEnabled(bool enabled)
     {
-        _active = active;
+        _enabled = enabled;
 
-        if (!isActive())
+        if (!_enabled)
         {
             _widgetState = iWidgetState::Standby;
             _isMouseOver = false;
@@ -832,7 +832,7 @@ namespace igor
             _relativeX = 0;
             break;
 
-        case iHorizontalAlignment::Strech:
+        case iHorizontalAlignment::Stretch:
             _relativeX = 0;
             width = clientWidth;
             break;
@@ -845,8 +845,8 @@ namespace igor
             _relativeX = clientWidth - width;
             break;
 
-        case iHorizontalAlignment::Absolut:
-            con_err("absolut positioning only supported for dialogs");
+        case iHorizontalAlignment::Absolute:
+            con_err("absolute positioning only supported for dialogs");
             break;
 
         default:;
@@ -858,7 +858,7 @@ namespace igor
             _relativeY = 0;
             break;
 
-        case iVerticalAlignment::Strech:
+        case iVerticalAlignment::Stretch:
             _relativeY = 0;
             height = clientHeight;
             break;
@@ -871,8 +871,8 @@ namespace igor
             _relativeY = clientHeight - height;
             break;
 
-        case iVerticalAlignment::Absolut:
-            con_err("absolut positioning only supported for dialogs");
+        case iVerticalAlignment::Absolute:
+            con_err("absolute positioning only supported for dialogs");
             break;
 
         default:;

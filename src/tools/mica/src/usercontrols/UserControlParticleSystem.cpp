@@ -348,22 +348,22 @@ void UserControlParticleSystem::initGUI()
 {
     _grid = new iWidgetGrid();
     _grid->appendRows(2);
-    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     addWidget(_grid);
 
     iWidgetGrid *gridProperties = new iWidgetGrid();
     gridProperties->appendColumns(0);
     gridProperties->appendRows(2);
-    gridProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    gridProperties->setStrechColumn(0);
+    gridProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    gridProperties->setStretchColumn(0);
     gridProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *detailsGrid = new iWidgetGrid();
     detailsGrid->appendColumns(1);
     detailsGrid->appendRows(2);
-    detailsGrid->setStrechColumn(1);
-    detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    detailsGrid->setStretchColumn(1);
+    detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetLabel *labelParticleCount = new iWidgetLabel();
     labelParticleCount->setText("Particles");
@@ -378,15 +378,15 @@ void UserControlParticleSystem::initGUI()
     labelFrequency->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textParticleCount = new iWidgetLineTextEdit();
-    _textParticleCount->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textParticleCount->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textParticleCount->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-    _textParticleCount->setActive(false);
+    _textParticleCount->setEnabled(false);
     _textParticleCount->setText("0");
 
     _textFrequency = new iWidgetLineTextEdit();
-    _textFrequency->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textFrequency->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textFrequency->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-    _textFrequency->setActive(false);
+    _textFrequency->setEnabled(false);
     iaString frequency = iaString::toString(iParticleSystem::getSimulationRate(), 2);
     frequency += " Hz";
     _textFrequency->setText(frequency);
@@ -419,14 +419,14 @@ void UserControlParticleSystem::initGUI()
     iWidgetGroupBox *simulationGroupBox = new iWidgetGroupBox();
     simulationGroupBox->setText("Simulation");
     simulationGroupBox->setHeaderOnly();
-    simulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    simulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     simulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *gridSimulationProperties = new iWidgetGrid();
     gridSimulationProperties->appendColumns(1);
     gridSimulationProperties->appendRows(7);
-    gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    gridSimulationProperties->setStrechColumn(1);
+    gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    gridSimulationProperties->setStretchColumn(1);
     gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelMaxParticles = new iWidgetLabel();
@@ -441,7 +441,7 @@ void UserControlParticleSystem::initGUI()
     _maxParticleCount->setSteppingWheel(10.0f, 10.0f);
     _maxParticleCount->setPostFix("");
     _maxParticleCount->setAfterPoint(0);
-    _maxParticleCount->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _maxParticleCount->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _maxParticleCount->setVerticalAlignment(iVerticalAlignment::Top);
     _maxParticleCount->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -468,7 +468,7 @@ void UserControlParticleSystem::initGUI()
     _periodChooser->setSteppingWheel(1.0f, 1.0f);
     _periodChooser->setPostFix("s");
     _periodChooser->setAfterPoint(1);
-    _periodChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _periodChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _periodChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _periodChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -479,7 +479,7 @@ void UserControlParticleSystem::initGUI()
     labelEmission->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _emissionGraph = new iWidgetGraph();
-    _emissionGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _emissionGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _emissionGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenEmissionGradientEditor));
     _emissionGraph->setExtrapolateData();
     _emissionGraph->setViewGrid();
@@ -498,7 +498,7 @@ void UserControlParticleSystem::initGUI()
     _airDragChooser->setSteppingWheel(0.01f, 0.01f);
     _airDragChooser->setPostFix("");
     _airDragChooser->setAfterPoint(3);
-    _airDragChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _airDragChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _airDragChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _airDragChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -506,14 +506,14 @@ void UserControlParticleSystem::initGUI()
     iWidgetGroupBox *vortexSimulationGroupBox = new iWidgetGroupBox();
     vortexSimulationGroupBox->setText("Vortex Simulation");
     vortexSimulationGroupBox->setHeaderOnly();
-    vortexSimulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    vortexSimulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     vortexSimulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *gridVortexSimulationProperties = new iWidgetGrid();
     gridVortexSimulationProperties->appendColumns(1);
     gridVortexSimulationProperties->appendRows(6);
-    gridVortexSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    gridVortexSimulationProperties->setStrechColumn(1);
+    gridVortexSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    gridVortexSimulationProperties->setStretchColumn(1);
     gridVortexSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelVortexRate = new iWidgetLabel();
@@ -528,7 +528,7 @@ void UserControlParticleSystem::initGUI()
     _vortexToParticleRateChooser->setSteppingWheel(1.0f, 1.0f);
     _vortexToParticleRateChooser->setPostFix(" %");
     _vortexToParticleRateChooser->setAfterPoint(0);
-    _vortexToParticleRateChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexToParticleRateChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _vortexToParticleRateChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vortexToParticleRateChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -544,7 +544,7 @@ void UserControlParticleSystem::initGUI()
     _vortexTorqueMinChooser->setSteppingWheel(0.01f, 0.01f);
     _vortexTorqueMinChooser->setPostFix("");
     _vortexTorqueMinChooser->setAfterPoint(4);
-    _vortexTorqueMinChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexTorqueMinChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _vortexTorqueMinChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vortexTorqueMinChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -560,7 +560,7 @@ void UserControlParticleSystem::initGUI()
     _vortexTorqueMaxChooser->setSteppingWheel(0.01f, 0.01f);
     _vortexTorqueMaxChooser->setPostFix("");
     _vortexTorqueMaxChooser->setAfterPoint(4);
-    _vortexTorqueMaxChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexTorqueMaxChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _vortexTorqueMaxChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vortexTorqueMaxChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -576,7 +576,7 @@ void UserControlParticleSystem::initGUI()
     _vortexRangeMinChooser->setSteppingWheel(1.0f, 1.0f);
     _vortexRangeMinChooser->setPostFix("");
     _vortexRangeMinChooser->setAfterPoint(2);
-    _vortexRangeMinChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexRangeMinChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _vortexRangeMinChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vortexRangeMinChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -592,7 +592,7 @@ void UserControlParticleSystem::initGUI()
     _vortexRangeMaxChooser->setSteppingWheel(1.0f, 1.0f);
     _vortexRangeMaxChooser->setPostFix("");
     _vortexRangeMaxChooser->setAfterPoint(2);
-    _vortexRangeMaxChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexRangeMaxChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _vortexRangeMaxChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vortexRangeMaxChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -608,7 +608,7 @@ void UserControlParticleSystem::initGUI()
     _vorticityConfinementChooser->setSteppingWheel(0.01f, 0.01f);
     _vorticityConfinementChooser->setPostFix("");
     _vorticityConfinementChooser->setAfterPoint(4);
-    _vorticityConfinementChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vorticityConfinementChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _vorticityConfinementChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vorticityConfinementChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -624,7 +624,7 @@ void UserControlParticleSystem::initGUI()
     _vortexCheckRange->setSteppingWheel(5.0f, 5.0f);
     _vortexCheckRange->setPostFix("");
     _vortexCheckRange->setAfterPoint(0);
-    _vortexCheckRange->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexCheckRange->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _vortexCheckRange->setVerticalAlignment(iVerticalAlignment::Top);
     _vortexCheckRange->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -636,7 +636,7 @@ void UserControlParticleSystem::initGUI()
     labelVelocityGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
     _startVelocityGraph = new iWidgetGraph();
-    _startVelocityGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startVelocityGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _startVelocityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartVelocityGradientEditor));
     _startVelocityGraph->setExtrapolateData();
     _startVelocityGraph->setViewGrid();
@@ -651,7 +651,7 @@ void UserControlParticleSystem::initGUI()
     labelLiftGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
     _startLiftGraph = new iWidgetGraph();
-    _startLiftGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startLiftGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _startLiftGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartLiftGradientEditor));
     _startLiftGraph->setExtrapolateData();
     _startLiftGraph->setViewGrid();
@@ -662,14 +662,14 @@ void UserControlParticleSystem::initGUI()
     iWidgetGroupBox *appearanceGroupBox = new iWidgetGroupBox();
     appearanceGroupBox->setText("Appearance");
     appearanceGroupBox->setHeaderOnly();
-    appearanceGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    appearanceGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     appearanceGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *gridAppearanceProperties = new iWidgetGrid();
     gridAppearanceProperties->appendColumns(1);
     gridAppearanceProperties->appendRows(15);
-    gridAppearanceProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    gridAppearanceProperties->setStrechColumn(1);
+    gridAppearanceProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    gridAppearanceProperties->setStretchColumn(1);
     gridAppearanceProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelVerticalTiling = new iWidgetLabel();
@@ -683,7 +683,7 @@ void UserControlParticleSystem::initGUI()
     _tilingVerticalChooser->setSteppingWheel(1.0f, 1.0f);
     _tilingVerticalChooser->setPostFix("");
     _tilingVerticalChooser->setAfterPoint(0);
-    _tilingVerticalChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _tilingVerticalChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _tilingVerticalChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _tilingVerticalChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -698,7 +698,7 @@ void UserControlParticleSystem::initGUI()
     _tilingHorizontalChooser->setSteppingWheel(1.0f, 1.0f);
     _tilingHorizontalChooser->setPostFix("");
     _tilingHorizontalChooser->setAfterPoint(0);
-    _tilingHorizontalChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _tilingHorizontalChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _tilingHorizontalChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _tilingHorizontalChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -717,7 +717,7 @@ void UserControlParticleSystem::initGUI()
     labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _colorGradient = new iWidgetColorGradient();
-    _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));
 
     iWidgetLabel *labelSizeGradient = new iWidgetLabel();
@@ -728,7 +728,7 @@ void UserControlParticleSystem::initGUI()
     labelSizeGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
     _startSizeGraph = new iWidgetGraph();
-    _startSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _startSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
     _startSizeGraph->setExtrapolateData();
     _startSizeGraph->setViewGrid();
@@ -743,7 +743,7 @@ void UserControlParticleSystem::initGUI()
     labelSizeScaleGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
     _scaleSizeGraph = new iWidgetGraph();
-    _scaleSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _scaleSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _scaleSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenScaleSizeGradientEditor));
     _scaleSizeGraph->setExtrapolateData();
     _scaleSizeGraph->setViewGrid();
@@ -758,7 +758,7 @@ void UserControlParticleSystem::initGUI()
     labelVisibilityGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
     _visibilityGraph = new iWidgetGraph();
-    _visibilityGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _visibilityGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _visibilityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenVisibilityGradientEditor));
     _visibilityGraph->setExtrapolateData();
     _visibilityGraph->setViewGrid();
@@ -773,7 +773,7 @@ void UserControlParticleSystem::initGUI()
     labelOrientationGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
     _orientationGraph = new iWidgetGraph();
-    _orientationGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _orientationGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _orientationGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationGradientEditor));
     _orientationGraph->setExtrapolateData();
     _orientationGraph->setViewGrid();
@@ -788,7 +788,7 @@ void UserControlParticleSystem::initGUI()
     labelOrientationRateGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
     _orientationRateGraph = new iWidgetGraph();
-    _orientationRateGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _orientationRateGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _orientationRateGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationRateGradientEditor));
     _orientationRateGraph->setExtrapolateData();
     _orientationRateGraph->setViewGrid();
@@ -801,7 +801,7 @@ void UserControlParticleSystem::initGUI()
     labelEmitter->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _emitterSelection = new iWidgetSelectBox();
-    _emitterSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _emitterSelection->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _emitterSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _emitterSelection->setWidth(200);
 
@@ -811,7 +811,7 @@ void UserControlParticleSystem::initGUI()
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _materialSelection = new iWidgetSelectBox();
-    _materialSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _materialSelection->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _materialSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _materialSelection->setGrowingByContent();
     _materialSelection->setWidth(200);

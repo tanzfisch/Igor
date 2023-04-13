@@ -37,9 +37,14 @@ using namespace iaux;
 
 #include <unordered_map>
 #include <array>
+#include <memory>
 
 namespace igor
 {
+    /*! size of buffer aka amount of frames that are logged
+        */
+    #define PROFILER_MAX_FRAMES_COUNT 2000
+
     struct IGOR_API iProfilerSectionData
     {
         /*! name of section
@@ -48,12 +53,14 @@ namespace igor
 
         /*! time used per frame
          */
-        std::array<iaTime, 500> _values;
+        std::array<iaTime, PROFILER_MAX_FRAMES_COUNT> _values;
 
         /*! time at beginning of section
          */
         iaTime _beginTime;
     };
+
+    typedef std::shared_ptr<iProfilerSectionData> iProfilerSectionDataPtr;
 
     struct IGOR_API iProfilerSectionScoped
     {
@@ -81,19 +88,15 @@ namespace igor
         friend class iProfilerSectionScoped;
 
     public:
-        /*! size of buffer aka amount of frames that are logged
-         */
-        static const uint64 MAX_FRAMES_COUNT = 500;
-
         /*! steps to next frame
          */
         static void nextFrame();
 
         /*! \returns reference to list of sections
 
-        be carefull to not change that list
+        be careful to not change that list
         */
-        static const std::unordered_map<int64, iProfilerSectionData> &getSections();
+        static const std::vector<iProfilerSectionDataPtr> getSections();
 
         /*! \returns current frame index
          */
@@ -103,7 +106,7 @@ namespace igor
 
         \param sectionName the given section name
         */
-        static iProfilerSectionData *getSectionData(const iaString &sectionName);
+        static iProfilerSectionDataPtr getSectionData(const iaString &sectionName);
 
         /*! begins section with given name
 
@@ -125,7 +128,7 @@ namespace igor
 
         /*! list of sections
          */
-        static std::unordered_map<int64, iProfilerSectionData> _sections;
+        static std::unordered_map<int64, iProfilerSectionDataPtr> _sections;
     };
 
 #define IGOR_PROFILER_SCOPED(sectionName) iProfilerSectionScoped sectionName(#sectionName)

@@ -19,38 +19,28 @@ namespace igor
 
     static const iaColor4f COLORS[] =
         {
-            iaColor4f(1, 0, 0, 1),
-            iaColor4f(0, 1, 0, 1),
-            iaColor4f(0, 0, 1, 1),
-            iaColor4f(1, 1, 0, 1),
-            iaColor4f(0, 1, 1, 1),
-            iaColor4f(1, 0, 1, 1),
-            iaColor4f(0.9, 0.9, 0.9, 1),
+            iaColor4f(0.996, 0.608, 0.000, 1.0),
+            iaColor4f(0.906, 0.141, 0.322, 1.0),
+            iaColor4f(0.396, 0.000, 0.502, 1.0),
+            iaColor4f(0.157, 0.220, 0.416, 1.0),
+            iaColor4f(0.133, 0.467, 0.706, 1.0),
+            iaColor4f(0.000, 0.588, 0.620, 1.0),
+            iaColor4f(0.000, 0.475, 0.365, 1.0),
+            iaColor4f(0.278, 0.729, 0.345, 1.0),
+            iaColor4f(0.600, 0.600, 0.600, 1.0),
+            iaColor4f(0.800, 0.800, 0.800, 1.0),
+            iaColor4f(0.996, 0.925, 0.702, 1.0),
+            iaColor4f(0.996, 0.863, 0.573, 1.0),
+            iaColor4f(0.996, 0.349, 0.384, 1.0),
+            iaColor4f(0.553, 0.263, 0.463, 1.0),
+            iaColor4f(0.400, 0.400, 0.400, 1.0),
+            iaColor4f(0.745, 0.745, 0.745, 1.0),
+            iaColor4f(0.443, 0.776, 0.776, 1.0),
+            iaColor4f(0.941, 0.769, 0.871, 1.0),
+            iaColor4f(0.922, 0.545, 0.718, 1.0),
+            iaColor4f(0.984, 0.710, 0.447, 1.0)};
 
-            iaColor4f(0.75, 0.25, 0, 1),
-            iaColor4f(0, 0.75, 0.25, 1),
-            iaColor4f(0.25, 0, 0.75, 1),
-            iaColor4f(0.75, 0.75, 0.25, 1),
-            iaColor4f(0.25, 0.75, 0.75, 1),
-            iaColor4f(0.75, 0.25, 0.75, 1),
-
-            iaColor4f(0.5, 0, 0, 1),
-            iaColor4f(0, 0.5, 0, 1),
-            iaColor4f(0, 0, 0.5, 1),
-            iaColor4f(0.5, 0.5, 0, 1),
-            iaColor4f(0, 0.5, 0.5, 1),
-            iaColor4f(0.5, 0, 0.5, 1),
-
-            iaColor4f(0.25, 0, 0, 1),
-            iaColor4f(0, 0.25, 0, 1),
-            iaColor4f(0, 0, 0.25, 1),
-            iaColor4f(0.25, 0.25, 0, 1),
-            iaColor4f(0, 0.25, 0.25, 1),
-            iaColor4f(0.25, 0, 0.25, 1)
-
-    };
-
-    static const int32 COLOR_COUNT = 25;
+    static const int32 COLOR_COUNT = 20;
 
     iProfilerVisualizer::iProfilerVisualizer()
     {
@@ -69,7 +59,7 @@ namespace igor
     void iProfilerVisualizer::cycleVerbosity()
     {
         _renderStatisticsMode = static_cast<iProfilerVerbosity>(static_cast<int>(_renderStatisticsMode) + 1);
-        if (_renderStatisticsMode > iProfilerVerbosity::All)
+        if (_renderStatisticsMode > iProfilerVerbosity::Sections)
         {
             _renderStatisticsMode = iProfilerVerbosity::None;
         }
@@ -87,7 +77,7 @@ namespace igor
             return;
         }
 
-        // get the stats before we add to them
+        // gather some data
         const iRenderer::iRendererStats stats = iRenderer::getInstance().getStats();
 
         if (iTimer::getInstance().getTime() > _time + iaTime::fromSeconds(0.25))
@@ -105,131 +95,112 @@ namespace igor
                 _lastQueuedRenderContextTaskCount = iTaskManager::getInstance().getQueuedRenderContextTaskCount();
                 _lastRunningRenderContextTaskCount = iTaskManager::getInstance().getRunningRenderContextTaskCount();
 
-                _lastDoneTaskCount = iTaskManager::getInstance().getTaksDoneCount();
+                _lastDoneTaskCount = iTaskManager::getInstance().getTaskDoneCount();
             }
         }
 
-        uint32 voffset = 0;
-
-        if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
-        {
-            voffset = 60;
-        }
+        const iaColor4f backgroundColor(0, 0, 0, 1.0);
 
         iRenderer::getInstance().setFont(font);
-        iRenderer::getInstance().setFontSize(15.0f);
+        iRenderer::getInstance().setFontSize(13.0f);
 
+        // draw footer background
+        iRenderer::getInstance().drawFilledRectangle(0, window->getClientHeight() - 40, window->getClientWidth(), 40, backgroundColor);
+
+        // always draw fps
         const iaString fpsText = iaString::toString(_lastFPS, 2) + L" fps";
-        iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
+        iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
         {
-            iaString unique = "v:";
-            unique += iaString::toStringUnits(stats._vertices);
-            unique += " t:";
-            unique += iaString::toStringUnits(stats._triangles);
-            unique += " i:";
-            unique += iaString::toStringUnits(stats._indices);
-            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), unique, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
-
-            iaString total = "draw calls:";
-            total += iaString::toStringUnits(stats._drawCalls);
-            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 30), total, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
+            iaString info = "v:";
+            info += iaString::align(iaString::toStringUnits(stats._vertices), 4, iaString::Alignment::Right);
+            info += " t:";
+            info += iaString::align(iaString::toStringUnits(stats._triangles), 4, iaString::Alignment::Right);
+            info += " i:";
+            info += iaString::align(iaString::toStringUnits(stats._indices), 4, iaString::Alignment::Right);
+            info += " dc:";
+            info += iaString::align(iaString::toStringUnits(stats._drawCalls), 4, iaString::Alignment::Right);
+            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 200), static_cast<float32>(window->getClientHeight() - 10), info, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
         {
-            iaString threads = "";
-            threads += iaString::toString(_lastThreadCount);
+            iaString threads = "tasks [";
+            threads += iaString::toString(_lastRunningTaskCount + _lastRunningRenderContextTaskCount);
             threads += ":";
-            threads += iaString::toString(_lastRunningTaskCount);
-            threads += ":";
-            threads += iaString::toString(_lastQueuedTaskCount);
+            threads += iaString::toString(_lastQueuedTaskCount + _lastQueuedRenderContextTaskCount);
+            threads += "]";
 
-            iaString rcthreads = "";
-            rcthreads += iaString::toString(_lastRenderContextThreadCount);
-            rcthreads += ":";
-            rcthreads += iaString::toString(_lastRunningRenderContextTaskCount);
-            rcthreads += ":";
-            rcthreads += iaString::toString(_lastQueuedRenderContextTaskCount);
-
-            iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 30), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
-            iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 10), rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
-
-            iaString done = "done ";
-            done += iaString::toString(_lastDoneTaskCount);
-
-            iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
+            iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 10), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
         {
-            const iaRectanglef rect(window->getClientWidth() * 0.1, window->getClientHeight() * 0.15, window->getClientWidth() * 0.8, window->getClientHeight() * 0.55);
+            const iaRectanglef rect(0, 0, window->getClientWidth(), window->getClientHeight() * 0.4);
             const float32 verticalScale = rect._height / 50; // 50ms
-            const float32 horizontalScale = rect._width / iProfiler::MAX_FRAMES_COUNT;
             const float32 Hz24 = 41.6666 * verticalScale;
             const float32 Hz60 = 16.6666 * verticalScale;
             const float32 Hz100 = 10 * verticalScale;
 
-            float32 textOffsetX = 0.0f;
+            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight(), backgroundColor);
 
-            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight() + 60.0f, iaColor4f(0, 0, 0, 0.6));
+            uint32 sectionIndex = 0;
+            const int32 lineCount = std::min(static_cast<int>(rect.getWidth()), PROFILER_MAX_FRAMES_COUNT);
+            const int32 currentFrame = (iProfiler::getCurrentFrameIndex() + 1 - lineCount) % PROFILER_MAX_FRAMES_COUNT;
 
-            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getBottom() + 30, rect.getWidth(), 30.0f);
+            memset(&_accumulationBuffer, 0, sizeof(float32) * PROFILER_MAX_FRAMES_COUNT);
+            const auto sections = iProfiler::getSections();
+
+            for (const auto section : sections)
+            {
+                const auto &values = section->_values;
+
+                const iaColor4f &sectionColor = COLORS[sectionIndex % COLOR_COUNT];
+
+                for (int i = 0; i < lineCount; ++i)
+                {
+                    int32 currentIndex = (currentFrame + i) % PROFILER_MAX_FRAMES_COUNT;
+                    if (currentIndex < 0)
+                    {
+                        currentIndex += PROFILER_MAX_FRAMES_COUNT;
+                    }
+                    const float32 bottomValue = _accumulationBuffer[currentIndex];
+                    _accumulationBuffer[currentIndex] += values[currentIndex].getMilliseconds() * verticalScale;
+                    const float32 topValue = _accumulationBuffer[currentIndex];
+
+                    iRenderer::getInstance().drawLine(i + rect.getRight() - lineCount,
+                                                      rect.getBottom() - bottomValue, i + rect.getRight() - lineCount,
+                                                      rect.getBottom() - topValue,
+                                                      sectionColor);
+                }
+
+                sectionIndex++;
+            }
+
+            iaColor4f lineColor(1.0, 1.0, 1.0, 0.5);
 
             iRenderer::getInstance().setLineWidth(1);
             iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom(), rect.getRight(), rect.getBottom());
 
-            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz24, rect.getRight(), rect.getBottom() - Hz24);
-            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz60, rect.getRight(), rect.getBottom() - Hz60);
-            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz100, rect.getRight(), rect.getBottom() - Hz100);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz24, rect.getRight(), rect.getBottom() - Hz24, lineColor);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz60, rect.getRight(), rect.getBottom() - Hz60, lineColor);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz100, rect.getRight(), rect.getBottom() - Hz100, lineColor);
 
-            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz24, "24Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz24, "24Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
-            uint32 sectionIndex = 0;
-            const uint32 currentFrame = (iProfiler::getCurrentFrameIndex() - 1) % iProfiler::MAX_FRAMES_COUNT;
-
-            memset(&_accumulationBuffer, 0, sizeof(float32) * iProfiler::MAX_FRAMES_COUNT);
-
-            float32 rightValue = 0;
-            float32 leftValue = 0;
-            float32 lrScalec = rect._width / std::max(0.01, iTimer::getInstance().getTimeDelta().getMilliseconds());
-
-            for (const auto &pair : iProfiler::getSections())
+            sectionIndex = 0;
+            float32 textOffsetY = 20.0f;
+            for (const auto section : sections)
             {
-                uint32 currentIndex = 0;
-                const auto &section = pair.second;
-                const auto &values = section._values;
-
-                currentIndex = static_cast<uint32>(currentFrame);
-                _accumulationBuffer[currentIndex] += values[currentIndex].getMilliseconds() * verticalScale;
-                rightValue += values[currentIndex].getMilliseconds() * lrScalec;
-                float32 lastValue = _accumulationBuffer[currentIndex];
-                float32 value;
-
+                const auto &values = section->_values;
                 const iaColor4f &sectionColor = COLORS[sectionIndex % COLOR_COUNT];
-
-                for (int i = 1; i < iProfiler::MAX_FRAMES_COUNT - 1; ++i)
-                {
-                    currentIndex = (currentFrame + i) % iProfiler::MAX_FRAMES_COUNT;
-                    _accumulationBuffer[currentIndex] += values[currentIndex].getMilliseconds() * verticalScale;
-
-                    value = _accumulationBuffer[currentIndex];
-
-                    iRenderer::getInstance().drawLine(i * horizontalScale + rect._x, rect.getBottom() - lastValue, (i + 1) * horizontalScale + rect._x, rect.getBottom() - value, sectionColor);
-                    lastValue = value;
-                }
-
-                iRenderer::getInstance().drawString(rect._x + textOffsetX, rect.getBottom() + 20.0f, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
-                textOffsetX += 80;
-
-                iRenderer::getInstance().drawFilledRectangle(rect.getLeft() + leftValue, rect.getBottom() + 30, rightValue - leftValue, 30.0f, sectionColor);
-
-                leftValue = rightValue;
-
                 sectionIndex++;
+
+                iRenderer::getInstance().drawString(rect.getRight() - 200, rect.getBottom() - textOffsetY, section->_name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
+                textOffsetY += 20;
             }
         }
     }

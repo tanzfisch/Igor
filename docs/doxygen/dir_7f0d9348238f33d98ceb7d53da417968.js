@@ -15,14 +15,6 @@ var dir_7f0d9348238f33d98ceb7d53da417968 =
     [ "iaGradient.h", "ia_gradient_8h.html", "ia_gradient_8h" ],
     [ "iaGradient.inl", "ia_gradient_8inl.html", null ],
     [ "iaIDGenerator.h", "ia_i_d_generator_8h.html", "ia_i_d_generator_8h" ],
-    [ "iaMemBlock.cpp", "ia_mem_block_8cpp.html", null ],
-    [ "iaMemBlock.h", "ia_mem_block_8h.html", [
-      [ "iaMemBlock", "classiaux_1_1ia_mem_block.html", "classiaux_1_1ia_mem_block" ]
-    ] ],
-    [ "iaMemBlockControl.cpp", "ia_mem_block_control_8cpp.html", null ],
-    [ "iaMemBlockControl.h", "ia_mem_block_control_8h.html", [
-      [ "iaMemBlockControl", "classiaux_1_1ia_mem_block_control.html", "classiaux_1_1ia_mem_block_control" ]
-    ] ],
     [ "iaRectangle.h", "ia_rectangle_8h.html", "ia_rectangle_8h" ],
     [ "iaRectangle.inl", "ia_rectangle_8inl.html", "ia_rectangle_8inl" ],
     [ "iaRLE.h", "ia_r_l_e_8h.html", [

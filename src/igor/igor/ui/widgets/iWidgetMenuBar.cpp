@@ -34,7 +34,7 @@ namespace igor
         menu->setMenuParent(this);
         _grid->addWidget(menu, _grid->getColumnCount() - 1, 0);
         _grid->appendColumns(1);
-        _grid->setStrechColumn(_grid->getColumnCount() - 1);
+        _grid->setStretchColumn(_grid->getColumnCount() - 1);
     }
 
     void iWidgetMenuBar::init()
@@ -54,7 +54,7 @@ namespace igor
         _grid->addWidget(userControlAction, _grid->getColumnCount() - 1, 0);
 
         _grid->appendColumns(1);
-        _grid->setStrechColumn(_grid->getColumnCount() - 1);
+        _grid->setStretchColumn(_grid->getColumnCount() - 1);
     }
 
     void iWidgetMenuBar::addAction(const iaString &actionName, const iActionContextPtr context)

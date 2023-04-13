@@ -18,8 +18,8 @@ iModelDataIO *VoxelTerrainMeshGenerator::createInstance()
 
 iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameter *parameter)
 {
-    TileInformation *tileInformation = reinterpret_cast<TileInformation *>(parameter->_parameters.getDataPointer());
-    iVoxelData *voxelData = tileInformation->_voxelData;
+    const TileInformation &tileInformation = std::any_cast<TileInformation>(parameter->_parameters);
+    iVoxelData *voxelData = tileInformation._voxelData;
     int64 width = voxelData->getWidth() - 1;
     int64 depth = voxelData->getDepth() - 1;
     int64 height = voxelData->getHeight() - 1;
@@ -35,7 +35,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iMod
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
         mesh->setKeepRawData(parameter->_keepMesh);
         meshNode->setMesh(mesh);
-        meshNode->setMaterial(tileInformation->_material);
+        meshNode->setMaterial(tileInformation._material);
 
         iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("grass.png"), 0);

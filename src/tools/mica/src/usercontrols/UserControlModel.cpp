@@ -43,9 +43,9 @@ void UserControlModel::initGUI()
 {
     _grid = new iWidgetGrid();
     _grid->appendColumns(1);
-    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    _grid->setStrechColumn(1);
+    _grid->setStretchColumn(1);
 
     _labelFilename = new iWidgetLabel();
     _labelFilename->setWidth(80);
@@ -53,9 +53,9 @@ void UserControlModel::initGUI()
     _labelFilename->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textFilename = new iWidgetLineTextEdit();
-    _textFilename->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textFilename->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textFilename->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-    _textFilename->setActive(false);
+    _textFilename->setEnabled(false);
 
     _grid->addWidget(_labelFilename, 0, 0);
     _grid->addWidget(_textFilename, 1, 0);

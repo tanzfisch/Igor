@@ -26,9 +26,9 @@ namespace igor
         setIgnoreChildEventHandling();
 
         iWidgetGridPtr actionGrid = new iWidgetGrid(this);
-        actionGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        actionGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         actionGrid->appendColumns(1);
-        actionGrid->setStrechColumn(1);
+        actionGrid->setStretchColumn(1);
 
         _picture = new iWidgetPicture();
         _picture->setSize(16, 16);

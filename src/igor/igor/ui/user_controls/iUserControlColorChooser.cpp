@@ -65,16 +65,16 @@ namespace igor
     {
         if (_mode == iColorChooserMode::RGBA)
         {
-            _valueChooserA->setActive(true);
+            _valueChooserA->setEnabled(true);
             _valueChooserA->setVisible(true);
-            _labelA->setActive(true);
+            _labelA->setEnabled(true);
             _labelA->setVisible(true);
 
-            _valueChooserAExpanded->setActive(true);
+            _valueChooserAExpanded->setEnabled(true);
             _valueChooserAExpanded->setVisible(true);
-            _labelAExpanded->setActive(true);
+            _labelAExpanded->setEnabled(true);
             _labelAExpanded->setVisible(true);
-            _sliderA->setActive(true);
+            _sliderA->setEnabled(true);
             _sliderA->setVisible(true);
 
             _expandedSliderGrid->addWidget(_labelAExpanded, 0, 6);
@@ -83,16 +83,16 @@ namespace igor
         }
         else
         {
-            _valueChooserA->setActive(false);
+            _valueChooserA->setEnabled(false);
             _valueChooserA->setVisible(false);
-            _labelA->setActive(false);
+            _labelA->setEnabled(false);
             _labelA->setVisible(false);
 
-            _valueChooserAExpanded->setActive(false);
+            _valueChooserAExpanded->setEnabled(false);
             _valueChooserAExpanded->setVisible(false);
-            _labelAExpanded->setActive(false);
+            _labelAExpanded->setEnabled(false);
             _labelAExpanded->setVisible(false);
-            _sliderA->setActive(false);
+            _sliderA->setEnabled(false);
             _sliderA->setVisible(false);
 
             _expandedSliderGrid->removeWidget(_valueChooserAExpanded);
@@ -118,7 +118,7 @@ namespace igor
         if (_expandButton != nullptr)
         {
             _expandButton->setVisible(_showHeadline);
-            _expandButton->setActive(_showHeadline);
+            _expandButton->setEnabled(_showHeadline);
 
             if (_showHeadline)
             {
@@ -167,7 +167,7 @@ namespace igor
         _expandButton->setHeight(12);
         _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColorChooser::onExpandButtonPressed));
         _expandButton->setVisible(_showHeadline);
-        _expandButton->setActive(_showHeadline);
+        _expandButton->setEnabled(_showHeadline);
 
         _valueChooserH = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedH));
         _valueChooserS = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedS));
@@ -213,16 +213,16 @@ namespace igor
 
         if (_expanded)
         {
-            _collapsedGrid->setActive(false);
-            _expandedGrid->setActive(true);
+            _collapsedGrid->setEnabled(false);
+            _expandedGrid->setEnabled(true);
             _expandedGrid->setVisible(true);
             _grid->addWidget(_expandedGrid, 0, 1);
             _expandButton->setTexture("igor/icons/minus.png");
         }
         else
         {
-            _expandedGrid->setActive(false);
-            _collapsedGrid->setActive(true);
+            _expandedGrid->setEnabled(false);
+            _collapsedGrid->setEnabled(true);
             _collapsedGrid->setVisible(true);
             _grid->addWidget(_collapsedGrid, 0, 1);
             _expandButton->setTexture("igor/icons/plus.png");

@@ -44,7 +44,7 @@ namespace igor
 	void iDialogIndexMenu::initGUI(std::vector<iaString> &texts)
 	{
 		iWidgetManager::getInstance().setModal(this);
-		setActive();
+		setEnabled();
 		setVisible();
 		setHeight(0);
 		setAcceptOutOfBoundsClicks();
@@ -75,7 +75,7 @@ namespace igor
 		con_assert_sticky(texts.size() == pictures.size(), "invalid data");
 
 		iWidgetManager::getInstance().setModal(this);
-		setActive();
+		setEnabled();
 		setVisible();
 		setHeight(0);
 		setAcceptOutOfBoundsClicks();

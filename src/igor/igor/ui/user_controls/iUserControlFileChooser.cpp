@@ -90,8 +90,8 @@ namespace igor
     {
         iWidgetGridPtr grid = new iWidgetGrid(this);
         grid->appendColumns(1);
-        grid->setStrechColumn(0);
-        grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        grid->setStretchColumn(0);
+        grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         grid->setVerticalAlignment(iVerticalAlignment::Top);
 
         _fileNameTextEdit = new iWidgetLineTextEdit();

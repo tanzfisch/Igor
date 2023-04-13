@@ -19,7 +19,7 @@ namespace igor
     {
         iWidgetManager::getInstance().registerDialog(this);
 
-        setActive(false);
+        setEnabled(false);
         setVisible(false);
         setWidth(100);
         setHeight(100);
@@ -71,7 +71,7 @@ namespace igor
     void iDialog::open(iDialogCloseDelegate dialogCloseDelegate)
     {
         _dialogCloseDelegate = dialogCloseDelegate;
-        setActive();
+        setEnabled();
         setVisible();
 
         _isOpen = true;
@@ -79,7 +79,7 @@ namespace igor
 
     void iDialog::close()
     {
-        setActive(false);
+        setEnabled(false);
         setVisible(false);
         iWidgetManager::getInstance().resetModal();
         iWidgetManager::getInstance().closeDialog(this);
@@ -120,7 +120,7 @@ namespace igor
             _relativeX = 0;
             break;
 
-        case iHorizontalAlignment::Strech:
+        case iHorizontalAlignment::Stretch:
             _relativeX = 0;
             width = clientWidth;
             break;
@@ -133,7 +133,7 @@ namespace igor
             _relativeX = clientWidth - width;
             break;
 
-        case iHorizontalAlignment::Absolut:
+        case iHorizontalAlignment::Absolute:
             _relativeX = _offsetX;
             break;
 
@@ -146,7 +146,7 @@ namespace igor
             _relativeY = 0;
             break;
 
-        case iVerticalAlignment::Strech:
+        case iVerticalAlignment::Stretch:
             _relativeY = 0;
             height = clientHeight;
             break;
@@ -159,7 +159,7 @@ namespace igor
             _relativeY = clientHeight - height;
             break;
 
-        case iVerticalAlignment::Absolut:
+        case iVerticalAlignment::Absolute:
             _relativeY = _offsetY;
             break;
 
@@ -186,7 +186,7 @@ namespace igor
         {
             iWidgetManager &wm = iWidgetManager::getInstance();
 
-            wm.getTheme()->drawDialog(getActualRect(), getState(), isActive());
+            wm.getTheme()->drawDialog(getActualRect(), getState(), isEnabled());
 
             for (const auto child : _children)
             {
@@ -198,13 +198,21 @@ namespace igor
     void iDialog::setX(int32 x)
     {
         _offsetX = x;
-        setHorizontalAlignment(iHorizontalAlignment::Absolut);
+        setHorizontalAlignment(iHorizontalAlignment::Absolute);
     }
 
     void iDialog::setY(int32 y)
     {
         _offsetY = y;
-        setVerticalAlignment(iVerticalAlignment::Absolut);
+        setVerticalAlignment(iVerticalAlignment::Absolute);
+    }
+
+    void iDialog::setPos(int32 x, int32 y)
+    {
+        _offsetX = x;
+        _offsetY = y;
+        setVerticalAlignment(iVerticalAlignment::Absolute);
+        setHorizontalAlignment(iHorizontalAlignment::Absolute);
     }
 
 } // namespace igor

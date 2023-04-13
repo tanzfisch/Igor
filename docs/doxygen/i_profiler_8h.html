@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,7 +87,8 @@ $(document).ready(function(){initNavTree('i_profiler_8h.html',''); initResizable
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">iProfiler.h File Reference</div>  </div>
 </div><!--header-->
@@ -98,6 +99,7 @@ $(document).ready(function(){initNavTree('i_profiler_8h.html',''); initResizable
 <code>#include &lt;<a class="el" href="ia_mutex_8h.html">iaux/system/iaMutex.h</a>&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;array&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -115,12 +117,19 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a8eb6d2fcc9bc760b53ee1a10924ebe5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_profiler_8h.html#a8eb6d2fcc9bc760b53ee1a10924ebe5e">PROFILER_MAX_FRAMES_COUNT</a>&#160;&#160;&#160;2000</td></tr>
+<tr class="separator:a8eb6d2fcc9bc760b53ee1a10924ebe5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47f1ffee06e013275f09d727edb3027a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_profiler_8h.html#a47f1ffee06e013275f09d727edb3027a">IGOR_PROFILER_SCOPED</a>(sectionName)&#160;&#160;&#160;iProfilerSectionScoped sectionName(#sectionName)</td></tr>
 <tr class="separator:a47f1ffee06e013275f09d727edb3027a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d287a9e1312575c300cdf391fba0c64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_profiler_8h.html#a1d287a9e1312575c300cdf391fba0c64">IGOR_PROFILER_BEGIN</a>(sectionName)&#160;&#160;&#160;iProfiler::beginSection(#sectionName)</td></tr>
 <tr class="separator:a1d287a9e1312575c300cdf391fba0c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1cba003ef5a1792cd023c8a91044877"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_profiler_8h.html#ae1cba003ef5a1792cd023c8a91044877">IGOR_PROFILER_END</a>(sectionName)&#160;&#160;&#160;iProfiler::endSection(#sectionName)</td></tr>
 <tr class="separator:ae1cba003ef5a1792cd023c8a91044877"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a0a9880122ac1967e761e7b2433f1de04"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; iProfilerSectionData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a0a9880122ac1967e761e7b2433f1de04">igor::iProfilerSectionDataPtr</a></td></tr>
+<tr class="separator:a0a9880122ac1967e761e7b2433f1de04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a1d287a9e1312575c300cdf391fba0c64"></a>
@@ -174,6 +183,21 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8eb6d2fcc9bc760b53ee1a10924ebe5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eb6d2fcc9bc760b53ee1a10924ebe5e">&#9670;&nbsp;</a></span>PROFILER_MAX_FRAMES_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROFILER_MAX_FRAMES_COUNT&#160;&#160;&#160;2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>size of buffer aka amount of frames that are logged </p>
 
 </div>
 </div>

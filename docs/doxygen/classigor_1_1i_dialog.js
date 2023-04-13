@@ -8,6 +8,7 @@ var classigor_1_1i_dialog =
     [ "isOpen", "classigor_1_1i_dialog.html#a5e86b16344b39dfa11d514021262e76c", null ],
     [ "open", "classigor_1_1i_dialog.html#ad8d97a926350449914bc988d479f8ae9", null ],
     [ "setBorder", "classigor_1_1i_dialog.html#a366b6d0074e430608dfa0d3b40f7712a", null ],
+    [ "setPos", "classigor_1_1i_dialog.html#aa813d0810d592234896fef2c19ad5040", null ],
     [ "setReturnState", "classigor_1_1i_dialog.html#a06956239f01a1138220545e94f00a953", null ],
     [ "setX", "classigor_1_1i_dialog.html#ab81f31c20129c8e5dc5a24b56c8cb4e9", null ],
     [ "setY", "classigor_1_1i_dialog.html#a7630904921b67344ab382e31fd0b0237", null ],
