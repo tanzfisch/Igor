@@ -31,7 +31,7 @@
 
 #include "Workspace.h"
 #include "Outliner.h"
-#include "PropertiesDialog.h"
+#include "PropertiesEditor.h"
 
 class UILayer : public iLayerWidgets
 {
@@ -56,7 +56,7 @@ private:
 
     /*! the properties dialog or editor
 	*/
-    PropertiesDialog *_propertiesDialog = nullptr;
+    PropertiesEditor *_propertiesDialog = nullptr;
 
     /*! file open/close dialog 
 	*/
