@@ -252,12 +252,8 @@ void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
 
 void UserControlGraphView::setSelectedNode(uint64 nodeID)
 {
-    if (nodeID == _selectedNode)
-    {
-        return;
-    }
-
     _selectedNode = nodeID;
+    _selectionChange(_selectedNode);
 
     if (_selectedNode == iNode::INVALID_NODE_ID)
     {
@@ -270,14 +266,8 @@ void UserControlGraphView::setSelectedNode(uint64 nodeID)
     int32 rowCount = _gridGraph->getRowCount();
     for (int row = 0; row < rowCount; ++row)
     {
-        std::any userData = _gridGraph->getUserData(0, row);
-        uint64 id = iNode::INVALID_NODE_ID;
-        if (userData.has_value())
-        {
-            id = std::any_cast<uint64>(userData);
-        }
-
-        if (nodeID == id)
+        iNodeID id = std::any_cast<iNodeID>(_gridGraph->getUserData(0, row));
+        if (_selectedNode == id)
         {
             _gridGraph->blockEvents();
             _gridGraph->select(0, row);
