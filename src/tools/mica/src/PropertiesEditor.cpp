@@ -1,4 +1,4 @@
-#include "PropertiesDialog.h"
+#include "PropertiesEditor.h"
 
 #include "usercontrols/UserControlTransformation.h"
 #include "usercontrols/UserControlLight.h"
@@ -23,12 +23,12 @@ using namespace igor;
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-PropertiesDialog::PropertiesDialog()
+PropertiesEditor::PropertiesEditor()
 {
     initGUI();
 }
 
-void PropertiesDialog::initGUI()
+void PropertiesEditor::initGUI()
 {
     setWidth(370);
     setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -43,41 +43,41 @@ void PropertiesDialog::initGUI()
     grid->setStretchColumn(0);
 
     _userControlProperties = new UserControlProperties();
-    _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
+    _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesEditor::onStructureChanged));
     grid->addWidget(_userControlProperties, 0, 0);
 }
 
-void PropertiesDialog::onStructureChanged()
+void PropertiesEditor::onStructureChanged()
 {
     _structureChangedEvent();
 }
 
-void PropertiesDialog::onGraphViewSelectionChanged(uint64 nodeID)
+void PropertiesEditor::onGraphViewSelectionChanged(uint64 nodeID)
 {
     _userControlProperties->setNode(nodeID);
 }
 
-void PropertiesDialog::onMaterialSelectionChanged(const iMaterialID &materialID)
+void PropertiesEditor::onMaterialSelectionChanged(const iMaterialID &materialID)
 {
     _userControlProperties->setMaterial(materialID);
 }
 
-void PropertiesDialog::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
+void PropertiesEditor::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
 {
     _propertiesChangedEvent.append(propertiesChangedDelegate);
 }
 
-void PropertiesDialog::unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
+void PropertiesEditor::unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
 {
     _propertiesChangedEvent.remove(propertiesChangedDelegate);
 }
 
-void PropertiesDialog::registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
+void PropertiesEditor::registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
 {
     _structureChangedEvent.append(structureChangedDelegate);
 }
 
-void PropertiesDialog::unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
+void PropertiesEditor::unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
 {
     _structureChangedEvent.remove(structureChangedDelegate);
 }
