@@ -21,7 +21,7 @@ iEntity GameLayer::createPlayer()
     // init player
     iEntity entity = _entityScene.createEntity("player");
 
-    const auto &transform = entity.addComponent<iTransformComponent2D>(iaVector2f(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f), iaVector2f(), iaVector2f(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f));
+    const auto &transform = entity.addComponent<iTransformComponent2D>(iaVector2f(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f), 0.0f, iaVector2f(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f));
     entity.addComponent<VelocityComponent>(iaVector2f(1.0f, 0.0f), 0.5f, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0f);
@@ -67,7 +67,7 @@ iEntity GameLayer::createViewport(iEntityID targetID)
 void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType objectType)
 {
     iEntity entity = _entityScene.createEntity("object");
-    const auto &transform = entity.addComponent<iTransformComponent2D>(pos, iaVector2f(), iaVector2f(COIN_SIZE, COIN_SIZE));
+    const auto &transform = entity.addComponent<iTransformComponent2D>(pos, 0.0f, iaVector2f(COIN_SIZE, COIN_SIZE));
     entity.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"));
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
@@ -101,9 +101,9 @@ void GameLayer::onLandShop(const iaTime &time)
 
 void GameLayer::onShopLanded()
 {
-    auto &pos = _shop.getComponent<iTransformComponent2D>();
+    auto &transform = _shop.getComponent<iTransformComponent2D>();
     auto &object = _shop.getComponent<QuadtreeObjectComponent>();
-    object._object->_circle._center = pos._position;
+    object._object->_circle._center = transform._position;
     _quadtree.insert(object._object);
 }
 
@@ -111,8 +111,8 @@ void GameLayer::landShop()
 {
     auto &component = _shop.getComponent<iBaseEntityComponent>();
     component._active = true;
-    auto &pos = _shop.getComponent<iTransformComponent2D>();
-    pos._position.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT);
+    auto &transform = _shop.getComponent<iTransformComponent2D>();
+    transform._position.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT);
 
     onShopLanded();
 }
@@ -120,7 +120,7 @@ void GameLayer::landShop()
 void GameLayer::createShop()
 {
     _shop = _entityScene.createEntity("shop", false);
-    auto transform = _shop.addComponent<iTransformComponent2D>(iaVector2f(), iaVector2f(), iaVector2f(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4));
+    auto transform = _shop.addComponent<iTransformComponent2D>(iaVector2f(), 0.0f, iaVector2f(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4));
     _shop.addComponent<VelocityComponent>(getRandomDir(), 0.0f, false);
     _shop.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"));
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
@@ -143,7 +143,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     iEntity entity = _entityScene.createEntity(enemyClass._name + iaString::toString(counter));
     counter++;
 
-    const auto &transform = entity.addComponent<iTransformComponent2D>(pos, iaVector2f(), iaVector2f(enemyClass._size, enemyClass._size));
+    const auto &transform = entity.addComponent<iTransformComponent2D>(pos, 0.0f, iaVector2f(enemyClass._size, enemyClass._size));
     entity.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed, false);
     entity.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
 
@@ -462,7 +462,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         return;
     }
 
-    iTransformComponent2D &playerPosition = _player.getComponent<iTransformComponent2D>();
+    iTransformComponent2D &playerTransform = _player.getComponent<iTransformComponent2D>();
     ExperienceComponent &playerXP = _player.getComponent<ExperienceComponent>();
 
     // scaling all available enemies across 100 player levels
@@ -487,7 +487,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         iaVector2f pos(iaRandom::getNextFloat() - 0.5, iaRandom::getNextFloat() - 0.5);
         pos.normalize();
         pos *= PLAYFIELD_VIEWPORT_WIDTH * 0.5 + iaRandom::getNextFloat() * 100.0;
-        pos += playerPosition._position;
+        pos += playerTransform._position;
 
         if (pos._x < 0)
         {
@@ -570,8 +570,7 @@ void GameLayer::onUpdateQuadtreeSystem()
             continue;
         }
 
-        iaVector2f newPosition(transform._position._x, transform._position._y);
-        _quadtree.update(object._object, newPosition);
+        _quadtree.update(object._object, transform._position);
     }
 }
 
@@ -841,7 +840,7 @@ void GameLayer::onUpdateFollowTargetSystem()
     auto targetView = _entityScene.getEntities<iTransformComponent2D, VelocityComponent, TargetComponent>();
     for (auto entity : targetView)
     {
-        auto &target = targetView.get<TargetComponent>(entity);
+        auto [transform, vel, target] = targetView.get<iTransformComponent2D, VelocityComponent, TargetComponent>(entity);
 
         // skip if entity is not following targets
         if (!target._followTarget)
@@ -856,16 +855,14 @@ void GameLayer::onUpdateFollowTargetSystem()
             continue;
         }
 
-        // skip if farget has no position
-        if (!targetEntity.hasComponent<iTransformComponent2D>())
+        // skip if target has no position
+        iTransformComponent2D *targetTransform = targetEntity.tryGetComponent<iTransformComponent2D>();
+        if (targetTransform == nullptr)
         {
             continue;
         }
 
-        auto [transform, vel] = targetView.get<iTransformComponent2D, VelocityComponent>(entity);
-
-        auto targetPosition = targetEntity.getComponent<iTransformComponent2D>();
-        const iaVector2f &targetPos = targetPosition._position;
+        const iaVector2f &targetPos = targetTransform->_position;
         const iaVector2f &position = transform._position;
         iaVector2f offset;
         iaCirclef circle(position, 1000.0);
@@ -1044,7 +1041,7 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
     {
         auto bullet = _entityScene.createEntity(weapon._texture);
         float32 angle = dir.angle() * IGOR_RAD2GRAD;
-        bullet.addComponent<iTransformComponent2D>(from + dir * weapon._size * 0.5, iaVector2f(0, angle), iaVector2f(weapon._size, weapon._size));
+        bullet.addComponent<iTransformComponent2D>(from + dir * weapon._size * 0.5, angle, iaVector2f(weapon._size, weapon._size));
 
         float32 angularVelocity = weapon._angularVelocity;
 
@@ -1270,7 +1267,7 @@ void GameLayer::onUpdateOrientationSystem()
 
 //        if (ori.followVelocity)
   //      {
-            transform._orientation._y = vel._direction.angle() * IGOR_RAD2GRAD + 90.0;
+            transform._orientation = vel._direction.angle() * IGOR_RAD2GRAD + 90.0;
     //    }
       //  else
        // {
@@ -1462,20 +1459,20 @@ void GameLayer::onRenderPlayerHUD()
         return;
     }
 
-    auto &playerPos = _player.getComponent<iTransformComponent2D>();
+    auto &playerTransform = _player.getComponent<iTransformComponent2D>();
     auto &component = _shop.getComponent<iBaseEntityComponent>();
-    auto &shopPos = _shop.getComponent<iTransformComponent2D>();
+    auto &shopTransform = _shop.getComponent<iTransformComponent2D>();
     if (component._active)
     {
         // TODO respect the doughnut
-        iaVector2f dir = shopPos._position - playerPos._position;
+        iaVector2f dir = shopTransform._position - playerTransform._position;
         dir.normalize();
         iaVector2f tangent(dir._y, -dir._x);
 
         std::vector<iaVector2f> points;
-        points.push_back(playerPos._position + dir * 100.0);
-        points.push_back(playerPos._position + dir * 95.0 + tangent * 5.0);
-        points.push_back(playerPos._position + dir * 95.0 - tangent * 5.0);
+        points.push_back(playerTransform._position + dir * 100.0);
+        points.push_back(playerTransform._position + dir * 95.0 + tangent * 5.0);
+        points.push_back(playerTransform._position + dir * 95.0 - tangent * 5.0);
 
         iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);
     }
@@ -1673,7 +1670,7 @@ void GameLayer::onRenderOrtho()
         iaMatrixf matrix;
         matrix.translate(position._x, position._y, 0.0);
 
-        matrix.rotate(transform._orientation._y * IGOR_GRAD2RAD, iaAxis::Z);
+        matrix.rotate(transform._orientation * IGOR_GRAD2RAD, iaAxis::Z);
 
         if (visual._scaleAnimation)
         {

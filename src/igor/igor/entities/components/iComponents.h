@@ -61,8 +61,14 @@ namespace igor
         iaVector2f _position;
 
         /*! orientation in rad
+
+            PI/2
+             |
+        PI ----- 0.0
+             |
+           -PI/2
          */
-        iaVector2f _orientation;
+        float32 _orientation;
 
         /*! scale
          */
@@ -77,15 +83,15 @@ namespace igor
     {
         /*! position
          */
-        iaVector3f _position;
+        iaVector3d _position;
 
         /*! orientation in rad
          */
-        iaVector3f _orientation;
+        iaVector3d _orientation;
 
         /*! scale
          */
-        iaVector3f _scale;
+        iaVector3d _scale;
     };
 
     struct iSpriteRendererComponent
