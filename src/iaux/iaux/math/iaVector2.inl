@@ -180,7 +180,7 @@ __IGOR_INLINE__ T iaVector2<T>::angle(iaVector2<T> &vec) const
 template <class T>
 __IGOR_INLINE__ T iaVector2<T>::angle() const
 {
-    return (T)std::atan2(_x ,_y);
+    return (T)std::atan2(_y ,_x);
 }
 
 template <class T>

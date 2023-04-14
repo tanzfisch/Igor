@@ -142,7 +142,7 @@ void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMa
     iaVector2d a = from - center2D;
     iaVector2d b = to - center2D;
 
-    float64 angle = b.angle() - a.angle();
+    float64 angle = b.angle(a);
 
     for (int i = 0; i < 3; ++i)
     {

@@ -43,17 +43,6 @@ struct RangeComponent
     float32 _distanceTraveled = 0.0;
 };
 
-struct OrientationComponent
-{
-    /*! direction the entity is pointing at
-    */
-    iaVector2f _direction;
-
-    /*! if true orientation follows current velocity
-    */
-    bool followVelocity;
-};
-
 struct AngularVelocityComponent
 {
     /*! angular velocity in rad per frame

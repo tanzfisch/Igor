@@ -22,7 +22,6 @@ iEntity GameLayer::createPlayer()
     iEntity entity = _entityScene.createEntity("player");
 
     const auto &transform = entity.addComponent<iTransformComponent2D>(iaVector2f(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f), iaVector2f(), iaVector2f(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f));
-    entity.addComponent<OrientationComponent>(iaVector2f(0.0f, -1.0f), false);
     entity.addComponent<VelocityComponent>(iaVector2f(1.0f, 0.0f), 0.5f, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0f);
@@ -69,7 +68,6 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
 {
     iEntity entity = _entityScene.createEntity("object");
     const auto &transform = entity.addComponent<iTransformComponent2D>(pos, iaVector2f(), iaVector2f(COIN_SIZE, COIN_SIZE));
-    entity.addComponent<OrientationComponent>(iaVector2f(0.0f, -1.0f), false);
     entity.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"));
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
@@ -123,7 +121,6 @@ void GameLayer::createShop()
 {
     _shop = _entityScene.createEntity("shop", false);
     auto transform = _shop.addComponent<iTransformComponent2D>(iaVector2f(), iaVector2f(), iaVector2f(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4));
-    _shop.addComponent<OrientationComponent>(iaVector2f(0.0, -1.0), false);
     _shop.addComponent<VelocityComponent>(getRandomDir(), 0.0f, false);
     _shop.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"));
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
@@ -147,7 +144,6 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     counter++;
 
     const auto &transform = entity.addComponent<iTransformComponent2D>(pos, iaVector2f(), iaVector2f(enemyClass._size, enemyClass._size));
-    entity.addComponent<OrientationComponent>(iaVector2f(0.0, -1.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed, false);
     entity.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
 
@@ -563,7 +559,7 @@ void GameLayer::onUpdateQuadtreeSystem()
     auto quadtreeView = _entityScene.getEntities<iTransformComponent2D, QuadtreeObjectComponent>();
     for (auto entityID : quadtreeView)
     {
-        auto [pos, object] = quadtreeView.get<iTransformComponent2D, QuadtreeObjectComponent>(entityID);
+        auto [transform, object] = quadtreeView.get<iTransformComponent2D, QuadtreeObjectComponent>(entityID);
         if (object._object == nullptr)
         {
             continue;
@@ -574,7 +570,7 @@ void GameLayer::onUpdateQuadtreeSystem()
             continue;
         }
 
-        iaVector2f newPosition(pos._position._x, pos._position._y);
+        iaVector2f newPosition(transform._position._x, transform._position._y);
         _quadtree.update(object._object, newPosition);
     }
 }
@@ -866,11 +862,11 @@ void GameLayer::onUpdateFollowTargetSystem()
             continue;
         }
 
-        auto [pos, vel] = targetView.get<iTransformComponent2D, VelocityComponent>(entity);
+        auto [transform, vel] = targetView.get<iTransformComponent2D, VelocityComponent>(entity);
 
         auto targetPosition = targetEntity.getComponent<iTransformComponent2D>();
         const iaVector2f &targetPos = targetPosition._position;
-        const iaVector2f &position = pos._position;
+        const iaVector2f &position = transform._position;
         iaVector2f offset;
         iaCirclef circle(position, 1000.0);
 
@@ -913,7 +909,7 @@ void GameLayer::onUpdatePositionSystem()
 
         auto *range = entity.tryGetComponent<RangeComponent>();
 
-        // don't calculate diversion if non blockable
+        // don't calculate diversion if non block able
         if (!vel._nonBlockable)
         {
             iaCirclef circle(position, radius * 1.1);
@@ -935,7 +931,7 @@ void GameLayer::onUpdatePositionSystem()
                 // get other entity
                 iEntity otherEntity(otherEntityID, _entityScene);
 
-                // ignore other entity for diversion if non blockable
+                // ignore other entity for diversion if non block able
                 auto *otherEntityVel = otherEntity.tryGetComponent<VelocityComponent>();
                 if (otherEntityVel == nullptr || otherEntityVel->_nonBlockable)
                 {
@@ -1047,7 +1043,8 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
     for (int i = 0; i < weapon._projectileCount; ++i)
     {
         auto bullet = _entityScene.createEntity(weapon._texture);
-        bullet.addComponent<iTransformComponent2D>(from + dir * weapon._size * 0.5, iaVector2f(), iaVector2f(weapon._size, weapon._size));
+        float32 angle = dir.angle() * IGOR_RAD2GRAD;
+        bullet.addComponent<iTransformComponent2D>(from + dir * weapon._size * 0.5, iaVector2f(0, angle), iaVector2f(weapon._size, weapon._size));
 
         float32 angularVelocity = weapon._angularVelocity;
 
@@ -1058,13 +1055,11 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
 
         bullet.addComponent<AngularVelocityComponent>(angularVelocity);
         bullet.addComponent<RangeComponent>(weapon._range * modifier._projectileRangeFactor);
-
+        
         iaVector2f d = dir;
         d.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon._accuracy * 0.2);
         float32 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (iaRandom::getNextFloat() - 0.5));
         bullet.addComponent<VelocityComponent>(d, s, true);
-
-        bullet.addComponent<OrientationComponent>(d, weapon._angularVelocity == 0.0);
 
         bullet.addComponent<PartyComponent>(party);
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
@@ -1125,12 +1120,12 @@ void GameLayer::onUpdatePickupSystem(iEntity &entity)
         return;
     }
 
-    auto &position = entity.getComponent<iTransformComponent2D>();
+    auto &transform = entity.getComponent<iTransformComponent2D>();
     auto &experience = entity.getComponent<ExperienceComponent>();
     auto &coins = entity.getComponent<CoinsComponent>();
     auto &health = entity.getComponent<HealthComponent>();
 
-    iaCirclef circle(position._position, 70.0);
+    iaCirclef circle(transform._position, 70.0);
     std::vector<std::pair<iEntityID, iaVector2f>> hits;
     doughnutQuery(circle, hits);
 
@@ -1173,13 +1168,13 @@ void GameLayer::aquireTargetFor(iEntity &entity)
     }
 
     // aquire target for player
-    auto &position = entity.getComponent<iTransformComponent2D>();
+    auto &transform = entity.getComponent<iTransformComponent2D>();
     auto &party = entity.getComponent<PartyComponent>();
     auto &target = entity.getComponent<TargetComponent>();
     auto &weapon = entity.getComponent<WeaponComponent>();
     auto &modifier = entity.getComponent<ModifierComponent>();
 
-    iaCirclef circle(position._position, weapon._range * modifier._projectileRangeFactor);
+    iaCirclef circle(transform._position, weapon._range * modifier._projectileRangeFactor);
     std::vector<std::pair<iEntityID, iaVector2f>> hits;
     doughnutQuery(circle, hits);
 
@@ -1219,7 +1214,7 @@ void GameLayer::onUpdateWeaponSystem()
     auto view = _entityScene.getEntities<WeaponComponent, TargetComponent, iTransformComponent2D, VelocityComponent, ModifierComponent>();
     for (auto entityID : view)
     {
-        auto [weapon, target, position, velocity, modifier] = view.get<WeaponComponent, TargetComponent, iTransformComponent2D, VelocityComponent, ModifierComponent>(entityID);
+        auto [weapon, target, transform, velocity, modifier] = view.get<WeaponComponent, TargetComponent, iTransformComponent2D, VelocityComponent, ModifierComponent>(entityID);
 
         // skip if there is no target
         if (target._targetID == INVALID_ENTITY_ID)
@@ -1244,7 +1239,7 @@ void GameLayer::onUpdateWeaponSystem()
         iEntity targetEntity(target._targetID, _entityScene);
         auto &targetPosition = targetEntity.getComponent<iTransformComponent2D>();
 
-        const iaVector2f firePos = position._position + weapon._offset;
+        const iaVector2f firePos = transform._position + weapon._offset;
         iaVector2f direction = targetPosition._position - firePos;
         direction.normalize();
 
@@ -1257,7 +1252,7 @@ void GameLayer::onUpdateRangeSystem()
     auto view = _entityScene.getEntities<iTransformComponent2D, RangeComponent, HealthComponent>();
     for (auto entity : view)
     {
-        auto [positiom, range, health] = view.get<iTransformComponent2D, RangeComponent, HealthComponent>(entity);
+        auto [transform, range, health] = view.get<iTransformComponent2D, RangeComponent, HealthComponent>(entity);
 
         if (range._distanceTraveled > range._maxRange)
         {
@@ -1268,19 +1263,19 @@ void GameLayer::onUpdateRangeSystem()
 
 void GameLayer::onUpdateOrientationSystem()
 {
-    auto view = _entityScene.getEntities<AngularVelocityComponent, VelocityComponent, OrientationComponent>();
+    auto view = _entityScene.getEntities<AngularVelocityComponent, VelocityComponent, iTransformComponent2D>();
     for (auto entity : view)
     {
-        auto [angularVel, vel, ori] = view.get<AngularVelocityComponent, VelocityComponent, OrientationComponent>(entity);
+        auto [angularVel, vel, transform] = view.get<AngularVelocityComponent, VelocityComponent, iTransformComponent2D>(entity);
 
-        if (ori.followVelocity)
-        {
-            ori._direction = vel._direction;
-        }
-        else
-        {
-            ori._direction.rotateXY(angularVel._velocity);
-        }
+//        if (ori.followVelocity)
+  //      {
+            transform._orientation._y = vel._direction.angle() * IGOR_RAD2GRAD + 90.0;
+    //    }
+      //  else
+       // {
+            //transform._orientation.rotateXY(angularVel._velocity);
+        //}
     }
 }
 
@@ -1647,11 +1642,11 @@ void GameLayer::onRenderOrtho()
     iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));
 
     // draw entities
-    auto view = _entityScene.getEntities<iTransformComponent2D, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent, OrientationComponent>();
+    auto view = _entityScene.getEntities<iTransformComponent2D, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>();
 
     for (auto entity : view)
     {
-        auto [transform, visual, base, spriteRender, ori] = view.get<iTransformComponent2D, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent, OrientationComponent>(entity);
+        auto [transform, visual, base, spriteRender] = view.get<iTransformComponent2D, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>(entity);
 
         if (!base._active)
         {
@@ -1678,10 +1673,7 @@ void GameLayer::onRenderOrtho()
         iaMatrixf matrix;
         matrix.translate(position._x, position._y, 0.0);
 
-        iaVector2f o = ori._direction;
-        o._y *= -1.0;
-        const float32 angle = o.angle();
-        matrix.rotate(angle, iaAxis::Z);
+        matrix.rotate(transform._orientation._y * IGOR_GRAD2RAD, iaAxis::Z);
 
         if (visual._scaleAnimation)
         {

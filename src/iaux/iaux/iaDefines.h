@@ -335,6 +335,9 @@ namespace iaux
 
 #define IGOR_INVALID_ID 0
 
+#define IGOR_RAD2GRAD 180.0/M_PI
+#define IGOR_GRAD2RAD M_PI/180.0
+
 // id types
 typedef uint64 iaID64;
 typedef uint32 iaID32;
