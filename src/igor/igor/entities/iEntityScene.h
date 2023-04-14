@@ -26,44 +26,20 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SECENE__
-#define __IGOR_ENTITY_SECENE__
+#ifndef __IGOR_ENTITY_SCENE__
+#define __IGOR_ENTITY_SCENE__
 
-#include <igor/iDefines.h>
-#include <igor/entities/iComponents.h>
+#include <igor/entities/iEntitySystem.h>
 
 #include <entt.h>
 
 namespace igor
 {
-	class iEntityScene;
-	typedef iEntityScene *iEntityScenePtr;
-
-	class iEntitySystem
-	{
-	public:
-		/*! does nothing
-		 */
-		iEntitySystem() = default;
-
-		/*! does nothing
-		 */
-		virtual ~iEntitySystem() = default;
-
-		/*! updates system
-		 */
-		virtual void update(iEntityScenePtr scene){};
-	};
-
-	/*! entity system pointer definition
-	 */
-	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
-
 	/*! entity id definition
 	 */
 	typedef entt::entity iEntityID;
 
-	/*! iunvalid entity id definition
+	/*! invalid entity id definition
 	 */
 	const entt::entity INVALID_ENTITY_ID = entt::null;
 
@@ -77,15 +53,15 @@ namespace igor
 	public:
 		/*! creates an entity
 		 */
-		iEntity createEntity(const iaString &name = "");
+		iEntity createEntity(const iaString &name = "", bool active = true);
 
-		/*! destroyes an entity
+		/*! destroys an entity
 
 		\param entity the entity to destroy
 		*/
 		void destroyEntity(iEntity entity);
 
-		/*! destroyes an entity by id
+		/*! destroys an entity by id
 
 		\param entityID the entity ID
 		*/
@@ -129,4 +105,4 @@ namespace igor
 
 } // igor
 
-#endif // __IGOR_ENTITY_SECENE__
+#endif // __IGOR_ENTITY_SCENE__

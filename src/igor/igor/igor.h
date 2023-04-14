@@ -106,7 +106,6 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
 
-#include <igor/entities/iEntityManager.h>
 #include <igor/entities/iEntity.h>
 
 #include <igor/terrain/iVoxelTerrain.h>

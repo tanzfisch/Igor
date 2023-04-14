@@ -32,13 +32,6 @@
 #include <igor/igor.h>
 using namespace igor;
 
-struct PositionComponent
-{
-    /*! current position
-     */
-    iaVector2f _position;
-};
-
 struct RangeComponent
 {
     /*! max range
@@ -66,11 +59,6 @@ struct AngularVelocityComponent
     /*! angular velocity in rad per frame
     */
     float32 _velocity;
-};
-
-struct SizeComponent
-{
-    float32 _size;
 };
 
 struct QuadtreeObjectComponent
@@ -141,11 +129,9 @@ struct CoinGainComponent
 
 struct VisualComponent
 {
-    iTexturePtr _texture;
     bool _castShadow;
     bool _scaleAnimation;
-    iaTime _timerOffset;
-    bool _visible;
+    iaTime _timerOffset;    
 };
 
 struct TargetComponent

@@ -26,56 +26,36 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITYLOCATABLE__
-#define __IGOR_ENTITYLOCATABLE__
+#ifndef __IGOR_ENTITY_SYSTEM__
+#define __IGOR_ENTITY_SYSTEM__
 
-#include <igor/entities/iEntity.h>
-
-#include <iaux/data/iaSphere.h>
-#include <iaux/math/iaVector3.h>
-using namespace iaux;
+#include <igor/entities/iComponents.h>
 
 namespace igor
 {
+	class iEntityScene;
+	typedef iEntityScene *iEntityScenePtr;
 
-    /*! enetity that can be located by it's position
-    \deprecated will work out an ECS
-    */
-    class IGOR_API iEntityLocatable : public iEntity_Old
-    {
+	class iEntitySystem
+	{
+	public:
+		/*! does nothing
+		 */
+		iEntitySystem() = default;
 
-        /*! so we can manipulate the sphere
-        */
-        friend class iEntityManager;
+		/*! does nothing
+		 */
+		virtual ~iEntitySystem() = default;
 
-    public:
-        /*! \returns current position sphere of entity
-        */
-        iSphered getSphere() const;
+		/*! updates system
+		 */
+		virtual void update(iEntityScenePtr scene){};
+	};
 
-        /*! init type
-        */
-        iEntityLocatable();
+	/*! entity system pointer definition
+	 */
+	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
 
-        /*! does nothing
-        */
-        virtual ~iEntityLocatable() = default;
+} // igor
 
-    protected:
-        /*! entity's handle
-        */
-        virtual void handle() = 0;
-
-        /*! \returns current position
-        */
-        virtual iaVector3d getCurrentPos() = 0;
-
-    private:
-        /*! position sphere
-        */
-        iSphered _sphere;
-    };
-
-} // namespace igor
-
-#endif
+#endif // __IGOR_ENTITY_SYSTEM__

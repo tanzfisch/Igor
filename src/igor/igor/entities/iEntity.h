@@ -31,8 +31,6 @@
 
 #include <igor/entities/iEntityScene.h>
 
-#include <iaux/system/iaMutex.h> // deprecated
-
 namespace igor
 {
     /*! entity
@@ -50,22 +48,42 @@ namespace igor
         */
         iEntity(const iEntity &other) = default;
 
-        /*! \returns true if entity is valid
-         */
-        bool isValid() const;
-
         /*! param ctor
 
         \param entity the entity handle
         \param scene the scene this entity belongs to
 
-        \todo maybe scene could be a module and globaly accessible
+        \todo maybe scene could be a module and globally accessible
         */
         iEntity(iEntityID entity, iEntityScene &scene);
 
         /*! \returns entity id
          */
         iEntityID getID() const;
+
+        /*! \returns true if entity is valid
+         */
+        bool isValid() const;
+
+        /*! \returns entity name
+         */
+        const iaString getName() const;
+
+        /*! sets name of entity
+
+        \param name the name to set
+        */
+        void setName(const iaString &name);
+
+        /*! \returns true if entity is active
+        */
+        bool isActive() const;
+
+        /*! sets entity active
+
+        \param active if true entity is active
+        */
+        void setActive(bool active);
 
         /*! adds component to entity of given type
          */
@@ -107,10 +125,6 @@ namespace igor
             _scene->getRegistry().remove<T>(_entity);
         }
 
-        /*! \returns entity name
-         */
-        const iaString getName() const;
-
     private:
         /*! the entity ID
          */
@@ -124,71 +138,6 @@ namespace igor
     /*! pointer to entity
      */
     typedef iEntity *iEntityPtr;
-
-    /*///////////////////7 deprecated*/
-
-    /*! engine internal entity base types
-     */
-    enum class iEntityType
-    {
-        Undefined,
-        Base,
-        Locatable
-    };
-
-    /*! entity base class
-    \deprecated will work out an ECS
-    */
-    class IGOR_API iEntity_Old
-    {
-
-        /*! so we can call the handle
-         */
-        friend class iEntityManager;
-
-    public:
-        /*! invalid entity id definition
-         */
-        static const uint64 INVALID_ENTITY_ID;
-
-        /*! \returns entity id
-         */
-        uint64 getID() const;
-
-        /*! \returns entity type
-         */
-        iEntityType getType() const;
-
-        /*! init id and register entity
-         */
-        iEntity_Old();
-
-        /*! unregister
-         */
-        virtual ~iEntity_Old();
-
-    protected:
-        /*! called every simulation frame
-         */
-        virtual void handle() = 0;
-
-        /*! entity type
-         */
-        iEntityType _type = iEntityType::Undefined;
-
-    private:
-        /*! entity id
-         */
-        uint64 _id = 0;
-
-        /*! next entity id
-         */
-        static uint64 _nextID;
-
-        /*! mutex to protec id generation
-         */
-        static iaMutex _mutexID;
-    };
 
 } // namespace igor
 

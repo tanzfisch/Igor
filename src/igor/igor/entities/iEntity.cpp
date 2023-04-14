@@ -6,8 +6,6 @@
 
 #include <igor/entities/iComponents.h>
 
-#include <igor/entities/iEntityManager.h> // deprecated
-
 namespace igor
 {
 
@@ -16,58 +14,38 @@ namespace igor
     {
     }
 
+    void iEntity::setName(const iaString &name)
+    {
+        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
+        component._name = name;
+    }
+
     const iaString iEntity::getName() const
-    { 
-        NameComponent *component = _scene->getRegistry().try_get<NameComponent>(_entity);
-        if(component != nullptr)
-        {
-            return component->_name;
-        }
-        else
-        {
-            return "";
-        }
-    } 
+    {
+        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
+        return component._name;
+    }
+
+    bool iEntity::isActive() const
+    {
+        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
+        return component._active;
+    }
+
+    void iEntity::setActive(bool active)
+    {
+        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
+        component._active = active;
+    }
 
     iEntityID iEntity::getID() const
     {
         return _entity;
     }
-    
+
     bool iEntity::isValid() const
     {
         return _scene->getRegistry().valid(_entity);
-    }
-
-    ////////////// old deprecated stuff
-    const uint64 iEntity_Old::INVALID_ENTITY_ID = 0;
-    uint64 iEntity_Old::_nextID = iEntity_Old::INVALID_ENTITY_ID + 1;
-    iaMutex iEntity_Old::_mutexID;
-
-    iEntity_Old::iEntity_Old()
-    {
-        _mutexID.lock();
-        _id = _nextID++;
-        _mutexID.unlock();
-
-        iEntityManager::getInstance().registerEntity(this);
-
-        _type = iEntityType::Base;
-    }
-
-    iEntity_Old::~iEntity_Old()
-    {
-        iEntityManager::getInstance().unregisterEntity(this);
-    }
-
-    uint64 iEntity_Old::getID() const
-    {
-        return _id;
-    }
-
-    iEntityType iEntity_Old::getType() const
-    {
-        return _type;
     }
 
 }

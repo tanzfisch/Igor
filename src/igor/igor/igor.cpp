@@ -114,7 +114,6 @@ namespace igor
     void createModules()
     {
         iApplication::create();
-        iEntityManager::create();
         iAudio::create();
         iActionManager::create();
         iMouse::create();
@@ -211,11 +210,6 @@ namespace igor
         if (iAudio::isInstantiated())
         {
             iAudio::destroy();
-        }
-
-        if (iEntityManager::isInstantiated())
-        {
-            iEntityManager::destroy();
         }
     }
 

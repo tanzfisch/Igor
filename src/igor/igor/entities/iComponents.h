@@ -29,15 +29,86 @@
 #ifndef __IGOR_COMPONENTS__
 #define __IGOR_COMPONENTS__
 
+#include <igor/resources/texture/iTexture.h>
+
 #include <iaux/data/iaString.h>
+#include <iaux/data/iaColor4.h>
 using namespace iaux;
 
 namespace igor
 {
-    struct NameComponent
+    /*! name component used in each entity by default
+     */
+    struct iBaseEntityComponent
     {
+        /*! name of entity
+        */
         iaString _name;
+
+        /*! if false this entity does nothing
+        */
+        bool _active = true;
     };
+
+    /*! transform component representing position, orientation and scale of given entity
+
+    2d variant
+    */
+    struct iTransformComponent2D
+    {
+        /*! position
+         */
+        iaVector2f _position;
+
+        /*! orientation in rad
+         */
+        iaVector2f _orientation;
+
+        /*! scale
+         */
+        iaVector2f _scale;
+    };
+
+    /*! transform component representing position, orientation and scale of given entity
+
+    3d variant
+    */
+    struct iTransformComponent3D
+    {
+        /*! position
+         */
+        iaVector3f _position;
+
+        /*! orientation in rad
+         */
+        iaVector3f _orientation;
+
+        /*! scale
+         */
+        iaVector3f _scale;
+    };
+
+    struct iSpriteRendererComponent
+    {
+        /*! texture to render as sprite
+        */
+        iTexturePtr _texture;
+
+        /*! color to render sprite with
+        */
+        iaColor4f _color = iaColor4f::white;
+
+        /*! specifies the render layer
+
+        higher numbers get rendered later
+        */
+        int32 _zLayer = 0;
+
+        /*! specifies the render order within a layer
+        */
+        int32 _zIndex = 0;
+    };
+
 }
 
 #endif //  __IGOR_COMPONENTS__
