@@ -26,36 +26,27 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SYSTEM__
-#define __IGOR_ENTITY_SYSTEM__
+#ifndef __IGOR_SPRITE_RENDER_SYSTEM__
+#define __IGOR_SPRITE_RENDER_SYSTEM__
 
-#include <igor/entities/components/iComponents.h>
+#include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
-	class iEntityScene;
-	typedef iEntityScene *iEntityScenePtr;
 
-	class iEntitySystem
+	class iSpriteRenderSystem : public iEntitySystem
 	{
 	public:
-		/*! does nothing
-		 */
-		iEntitySystem() = default;
-
-		/*! does nothing
-		 */
-		virtual ~iEntitySystem() = default;
+		iSpriteRenderSystem();
+		~iSpriteRenderSystem();
 
 		/*! updates system
-		 */
-		virtual void update(iEntityScenePtr scene){};
-	};
 
-	/*! entity system pointer definition
-	 */
-	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
+		\param scene the scene used for this update
+		 */
+		void update(iEntityScenePtr scene) override;
+	};
 
 } // igor
 
-#endif // __IGOR_ENTITY_SYSTEM__
+#endif // __IGOR_SPRITE_RENDER_SYSTEM__

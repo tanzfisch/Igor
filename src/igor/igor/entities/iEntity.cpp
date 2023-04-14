@@ -4,7 +4,7 @@
 
 #include <igor/entities/iEntity.h>
 
-#include <igor/entities/iComponents.h>
+#include <igor/entities/components/iComponents.h>
 
 namespace igor
 {
