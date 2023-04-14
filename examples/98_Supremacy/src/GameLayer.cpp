@@ -1052,7 +1052,7 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
 
         bullet.addComponent<AngularVelocityComponent>(angularVelocity);
         bullet.addComponent<RangeComponent>(weapon._range * modifier._projectileRangeFactor);
-        
+
         iaVector2f d = dir;
         d.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon._accuracy * 0.2);
         float32 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (iaRandom::getNextFloat() - 0.5));
@@ -1265,13 +1265,13 @@ void GameLayer::onUpdateOrientationSystem()
     {
         auto [angularVel, vel, transform] = view.get<AngularVelocityComponent, VelocityComponent, iTransformComponent2D>(entity);
 
-//        if (ori.followVelocity)
-  //      {
-            transform._orientation = vel._direction.angle() * IGOR_RAD2GRAD + 90.0;
-    //    }
-      //  else
-       // {
-            //transform._orientation.rotateXY(angularVel._velocity); // TODO later
+        //        if (ori.followVelocity)
+        //      {
+        transform._orientation = vel._direction.angle() + (M_PI * 0.5);
+        //    }
+        //  else
+        // {
+        // transform._orientation.rotateXY(angularVel._velocity); // TODO later
         //}
     }
 }
@@ -1670,7 +1670,7 @@ void GameLayer::onRenderOrtho()
         iaMatrixf matrix;
         matrix.translate(position._x, position._y, 0.0);
 
-        matrix.rotate(transform._orientation * IGOR_GRAD2RAD, iaAxis::Z);
+        matrix.rotate(transform._orientation, iaAxis::Z);
 
         if (visual._scaleAnimation)
         {
