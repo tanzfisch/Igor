@@ -1275,7 +1275,7 @@ void GameLayer::onUpdateOrientationSystem()
 
         //        if (ori.followVelocity)
         //      {
-        transform._orientation._y = vel._direction.angle() + (M_PI * 0.5);
+        transform._orientation._z = vel._direction.angle() + (M_PI * 0.5);
         //    }
         //  else
         // {
