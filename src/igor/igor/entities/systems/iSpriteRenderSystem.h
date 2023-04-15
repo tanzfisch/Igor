@@ -38,7 +38,7 @@ namespace igor
 
 	processes any entity that contains the following components:
 	- iBaseEntityComponent
-	- iTransformComponent2D
+	- iTransformComponent
 	- iSpriteRendererComponent
 	*/
 	class iSpriteRenderSystem : public iEntitySystem

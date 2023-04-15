@@ -30,7 +30,7 @@ namespace igor
     static const uint32 MAX_TRIANGLE_INDICES = MAX_TRIANGLES * 3;
 
     static const iaVector2f QUAD_TEXTURE_COORDS[] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}};
-    static const iaVector3f QUAD_VERTEX_POSITIONS[] = {{-0.5f, -0.5, 0.0f}, {-0.5f, 0.5, 0.0f}, {0.5f, 0.5, 0.0f}, {0.5f, -0.5, 0.0f}};
+    static const iaVector3f QUAD_VERTEX_POSITIONS[] = {{-0.5f, -0.5f, 0.0f}, {-0.5f, 0.5f, 0.0f}, {0.5f, 0.5f, 0.0f}, {0.5f, -0.5f, 0.0f}};
 
     // flat vertex definition
     struct iFlatVertex
@@ -629,6 +629,21 @@ namespace igor
                          matrix * QUAD_VERTEX_POSITIONS[2],
                          matrix * QUAD_VERTEX_POSITIONS[3],
                          texture, color, blend, tiling);
+    }
+
+    void iRenderer::drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
+    {
+        iaMatrixf matrixf;
+        for (int i = 0; i < 16; ++i)
+        {
+            matrixf[i] = matrix[i];
+        }
+
+        drawTexturedQuad(matrixf * QUAD_VERTEX_POSITIONS[0],
+                         matrixf * QUAD_VERTEX_POSITIONS[1],
+                         matrixf * QUAD_VERTEX_POSITIONS[2],
+                         matrixf * QUAD_VERTEX_POSITIONS[3],
+                         texture, color, blend, tiling);        
     }
 
     __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)

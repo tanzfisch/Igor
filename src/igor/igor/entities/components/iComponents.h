@@ -33,6 +33,7 @@
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
+#include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
 namespace igor
@@ -56,31 +57,6 @@ namespace igor
         /*! if false this entity does nothing
         */
         bool _active = true;
-    };
-
-    /*! transform component representing position, orientation and scale of given entity
-
-    2d variant
-    */
-    struct iTransformComponent2D
-    {
-        /*! position
-         */
-        iaVector2f _position;
-
-        /*! orientation in rad
-
-            PI/2
-             |
-        PI ----- 0.0
-             |
-           -PI/2
-         */
-        float32 _orientation;
-
-        /*! scale
-         */
-        iaVector2f _scale;
     };
 
     /*! sprite render component
@@ -110,7 +86,7 @@ namespace igor
 
     3d variant
     */
-    struct iTransformComponent3D
+    struct iTransformComponent
     {
         /*! position
          */
@@ -123,13 +99,14 @@ namespace igor
         /*! scale
          */
         iaVector3d _scale;
-    };
 
-    struct iParentComponent
-    {
         /*! parent entity id
         */
-        iEntityID _parent;
+        iEntityID _parent = IGOR_INVALID_ENTITY_ID;
+
+        /*! the world matrix of this transform
+        */
+        iaMatrixd _worldMatrix;
     };
 }
 

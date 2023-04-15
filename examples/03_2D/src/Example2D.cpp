@@ -43,7 +43,7 @@ void Example2D::onInit()
     _updateTimingHandle->start();
 
     // generate a random seed
-    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
+    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicroseconds()));
 
     initParticleSystem();
 }

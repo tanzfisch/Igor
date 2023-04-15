@@ -14,11 +14,11 @@ namespace igor
 {
 	void iSpriteRenderSystem::update(iEntityScenePtr scene)
 	{
-		auto view = scene->getEntities<iBaseEntityComponent, iTransformComponent2D, iSpriteRendererComponent>();
+		auto view = scene->getEntities<iBaseEntityComponent, iTransformComponent, iSpriteRendererComponent>();
 
 		for (auto entityID : view)
 		{
-			auto [base, transform, spriteRender] = view.get<iBaseEntityComponent, iTransformComponent2D, iSpriteRendererComponent>(entityID);
+			auto [base, transform, spriteRender] = view.get<iBaseEntityComponent, iTransformComponent, iSpriteRendererComponent>(entityID);
 
 			if (!base._active)
 			{
@@ -27,12 +27,13 @@ namespace igor
 
 			// TODO screen culling?	need cam or view information here
 
-			iaMatrixf matrix;
-			matrix.translate(transform._position._x, transform._position._y, 0.0);
-			matrix.rotate(transform._orientation, iaAxis::Z);
-			matrix.scale(transform._scale._x, transform._scale._y, 1.0);
+			// TODO move this in to transform hierarchy system
+			transform._worldMatrix.identity();
+			transform._worldMatrix.translate(transform._position);
+			transform._worldMatrix.rotate(transform._orientation);
+			transform._worldMatrix.scale(transform._scale);
 
-			iRenderer::getInstance().drawTexturedQuad(matrix, spriteRender._texture, spriteRender._color, true);
+			iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix, spriteRender._texture, spriteRender._color, true);
 		}
 	}
 

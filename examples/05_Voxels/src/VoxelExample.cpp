@@ -87,7 +87,7 @@ float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
 
 void VoxelExample::generateVoxelData()
 {
-    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
+    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicroseconds()));
 
     // if there is none create it
     if (_voxelData == nullptr)

@@ -79,7 +79,7 @@ namespace iaux
         return _microSeconds != time._microSeconds;
     }
 
-    int64 iaTime::getMicrosenconds() const
+    int64 iaTime::getMicroseconds() const
     {
         return _microSeconds;
     }
