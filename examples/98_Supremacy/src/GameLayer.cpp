@@ -140,28 +140,28 @@ void GameLayer::createShop()
 
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
-    static uint32 counter = 0;
-    iEntity unit = _entityScene->createEntity(enemyClass._name + iaString::toString(counter));
-    counter++;
-
+    iEntity unit = _entityScene->createEntity();
     const auto &transform = unit.addComponent<iTransformComponent2D>(pos, 0.0f, iaVector2f(enemyClass._size, enemyClass._size));
     unit.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed, false);
     unit.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
-
     unit.addComponent<PartyComponent>(party);
     unit.addComponent<DamageComponent>(enemyClass._damage);
     unit.addComponent<HealthComponent>(enemyClass._health);
     unit.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture));
     unit.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
-
     unit.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
     auto &object = unit.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreef::Object>();
     object._object->_userData = unit.getID();
     object._object->_circle.set(pos, transform._scale._x * 0.5);
-
     _quadtree.insert(object._object);
+
+    // add shadow
+/*    iEntity shadow = _entityScene->createEntity();
+    shadow.addComponent<iTransformComponent2D>(iaVector2f(-enemyClass._size*0.25, enemyClass._size*0.5), 0.0f, iaVector2f(enemyClass._size * 0.5, enemyClass._size * 0.25));
+    shadow.addComponent<iSpriteRendererComponent>(_shadow);
+    shadow.addComponent<iParentComponent>(unit.getID());*/
 }
 
 void GameLayer::updateViewRectangleSystem()
