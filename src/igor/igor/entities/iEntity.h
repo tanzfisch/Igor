@@ -90,7 +90,7 @@ namespace igor
         template <typename T, typename... Args>
         T &addComponent(Args &&...args)
         {
-            return _scene->getRegistry().emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
+            return _scene->getRegistry().emplace_or_replace<T>(static_cast<entt::entity>(_entity), std::forward<Args>(args)...);
         }
 
         /*! \returns component of entity of given type
@@ -98,7 +98,7 @@ namespace igor
         template <typename T>
         T &getComponent() const
         {
-            return _scene->getRegistry().get<T>(_entity);
+            return _scene->getRegistry().get<T>(static_cast<entt::entity>(_entity));
         }
 
         /*! \returns component of entity of given type
@@ -106,7 +106,7 @@ namespace igor
         template <typename T>
         T *tryGetComponent() const
         {
-            return _scene->getRegistry().try_get<T>(_entity);
+            return _scene->getRegistry().try_get<T>(static_cast<entt::entity>(_entity));
         }
 
         /*! \returns true if entity has component of given type
@@ -114,7 +114,7 @@ namespace igor
         template <typename T>
         bool hasComponent() const
         {
-            return _scene->getRegistry().try_get<T>(_entity) != nullptr;
+            return _scene->getRegistry().try_get<T>(static_cast<entt::entity>(_entity)) != nullptr;
         }
 
         /*! removes component of given type
@@ -122,7 +122,7 @@ namespace igor
         template <typename T>
         void removeComponent()
         {
-            _scene->getRegistry().remove<T>(_entity);
+            _scene->getRegistry().remove<T>(static_cast<entt::entity>(_entity));
         }
 
     private:

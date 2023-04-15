@@ -37,6 +37,14 @@ using namespace iaux;
 
 namespace igor
 {
+	/*! entity id definition
+	 */
+	typedef uint32 iEntityID;
+
+  	/*! invalid entity id definition
+    */
+	const iEntityID IGOR_INVALID_ENTITY_ID = 0xffffffff;
+
     /*! name component used in each entity by default
      */
     struct iBaseEntityComponent
@@ -117,7 +125,12 @@ namespace igor
         iaVector3d _scale;
     };
 
-
+    struct iParentComponent
+    {
+        /*! parent entity id
+        */
+        iEntityID _parent;
+    };
 }
 
 #endif //  __IGOR_COMPONENTS__

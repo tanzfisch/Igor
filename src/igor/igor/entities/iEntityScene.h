@@ -37,14 +37,6 @@
 
 namespace igor
 {
-	/*! entity id definition
-	 */
-	typedef entt::entity iEntityID;
-
-	/*! invalid entity id definition
-	 */
-	const entt::entity INVALID_ENTITY_ID = entt::null;
-
 	class iEntity;
 
 	/*! entity scene

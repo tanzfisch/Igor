@@ -14,7 +14,7 @@ namespace igor
 
     iEntity iEntityScene::createEntity(const iaString &name, bool active)
     {
-        iEntity entity(_registry.create(), shared_from_this());
+        iEntity entity(static_cast<uint32>(_registry.create()), shared_from_this());
         auto &component = entity.addComponent<iBaseEntityComponent>();
         component._name = name;
         component._active = active;
@@ -23,12 +23,12 @@ namespace igor
 
     void iEntityScene::destroyEntity(iEntity entity)
     {
-        _registry.destroy(entity.getID());
+        destroyEntity(entity.getID());
     }
 
     void iEntityScene::destroyEntity(iEntityID entityID)
     {        
-         _registry.destroy(entityID);
+         _registry.destroy(static_cast<entt::entity>(entityID));
     }
 
     void iEntityScene::clear()

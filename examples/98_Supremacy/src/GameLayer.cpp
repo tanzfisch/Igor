@@ -34,7 +34,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     entity.addComponent<WeaponComponent>(_weapons["Knife"]);
 
-    entity.addComponent<TargetComponent>(INVALID_ENTITY_ID, false, false);
+    entity.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
     entity.addComponent<MovementControlComponent>();
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
@@ -130,7 +130,7 @@ void GameLayer::createShop()
     _shop.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f);
 
     _shop.addComponent<WeaponComponent>(_weapons["Minigun"]);
-    _shop.addComponent<TargetComponent>(INVALID_ENTITY_ID, false, false);
+    _shop.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
 
     auto &object = _shop.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreef::Object>();
@@ -141,28 +141,26 @@ void GameLayer::createShop()
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
     static uint32 counter = 0;
-    iEntity entity = _entityScene->createEntity(enemyClass._name + iaString::toString(counter));
+    iEntity unit = _entityScene->createEntity(enemyClass._name + iaString::toString(counter));
     counter++;
 
-    const auto &transform = entity.addComponent<iTransformComponent2D>(pos, 0.0f, iaVector2f(enemyClass._size, enemyClass._size));
-    entity.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed, false);
-    entity.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
+    const auto &transform = unit.addComponent<iTransformComponent2D>(pos, 0.0f, iaVector2f(enemyClass._size, enemyClass._size));
+    unit.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed, false);
+    unit.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
 
-    entity.addComponent<PartyComponent>(party);
-    entity.addComponent<DamageComponent>(enemyClass._damage);
-    entity.addComponent<HealthComponent>(enemyClass._health);
-    entity.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture));
-    entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    unit.addComponent<PartyComponent>(party);
+    unit.addComponent<DamageComponent>(enemyClass._damage);
+    unit.addComponent<HealthComponent>(enemyClass._health);
+    unit.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture));
+    unit.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
-    entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
+    unit.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
-    auto &object = entity.addComponent<QuadtreeObjectComponent>();
+    auto &object = unit.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreef::Object>();
-    object._object->_userData = entity.getID();
+    object._object->_userData = unit.getID();
     object._object->_circle.set(pos, transform._scale._x * 0.5);
 
-    auto entityID = entity.getID();
-    uint32 id = *reinterpret_cast<uint32 *>(reinterpret_cast<void *>(&entityID));
     _quadtree.insert(object._object);
 }
 
@@ -897,7 +895,7 @@ void GameLayer::onUpdatePositionSystem()
         float32 speed = vel._speed;
         iaVector2f diversion;
         iaVector2f direction = vel._direction;
-        iEntity entity(entityID, _entityScene);
+        iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
 
         ModifierComponent *modifierComponent = entity.tryGetComponent<ModifierComponent>();
         if (modifierComponent != nullptr)
@@ -921,7 +919,7 @@ void GameLayer::onUpdatePositionSystem()
                 const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
 
                 // skip self
-                if (otherEntityID == entityID)
+                if (otherEntityID == static_cast<iEntityID>(entityID))
                 {
                     continue;
                 }
@@ -992,14 +990,14 @@ void GameLayer::onUpdateCollisionSystem()
         iQuadtreef::Objects objects;
         _quadtree.query(circle, objects);
 
-        iEntity entity(entityID, _entityScene);
+        iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
 
         for (const auto &object : objects)
         {
             const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
 
             // skip self
-            if (otherEntityID == entityID)
+            if (otherEntityID == static_cast<iEntityID>(entityID))
             {
                 continue;
             }
@@ -1177,7 +1175,7 @@ void GameLayer::aquireTargetFor(iEntity &entity)
     doughnutQuery(circle, hits);
 
     float32 minDistance = std::numeric_limits<float32>::max();
-    target._targetID = INVALID_ENTITY_ID;
+    target._targetID = IGOR_INVALID_ENTITY_ID;
 
     for (const auto &hit : hits)
     {
@@ -1215,7 +1213,7 @@ void GameLayer::onUpdateWeaponSystem()
         auto [weapon, target, transform, velocity, modifier] = view.get<WeaponComponent, TargetComponent, iTransformComponent2D, VelocityComponent, ModifierComponent>(entityID);
 
         // skip if there is no target
-        if (target._targetID == INVALID_ENTITY_ID)
+        if (target._targetID == IGOR_INVALID_ENTITY_ID)
         {
             continue;
         }
@@ -1292,7 +1290,7 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
         {
             if (party._partyID == FOE)
             {
-                iEntity entity(entityID, _entityScene);
+                iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
                 const auto *exp = entity.tryGetComponent<ExperienceGainComponent>();
                 if (exp != nullptr)
                 {
@@ -1309,7 +1307,7 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
                 }
             }
 
-            _deleteQueue.insert(entityID);
+            _deleteQueue.insert(static_cast<iEntityID>(entityID));
         }
     }
 

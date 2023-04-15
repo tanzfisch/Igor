@@ -40,7 +40,7 @@ namespace iaux
 
     class iaThread;
 
-    /*! thread delegate calls the actuall function run by this thread
+    /*! thread delegate calls the actual function run by this thread
     */
     iaSLOT(ThreadDelegate, void, (iaThread * thread), (thread));
 
