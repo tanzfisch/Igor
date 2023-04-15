@@ -75,25 +75,8 @@ namespace igor
         iaVector2f _scale;
     };
 
-    /*! transform component representing position, orientation and scale of given entity
-
-    3d variant
+    /*! sprite render component
     */
-    struct iTransformComponent3D
-    {
-        /*! position
-         */
-        iaVector3d _position;
-
-        /*! orientation in rad
-         */
-        iaVector3d _orientation;
-
-        /*! scale
-         */
-        iaVector3d _scale;
-    };
-
     struct iSpriteRendererComponent
     {
         /*! texture to render as sprite
@@ -114,6 +97,26 @@ namespace igor
         */
         int32 _zIndex = 0;
     };
+
+    /*! transform component representing position, orientation and scale of given entity
+
+    3d variant
+    */
+    struct iTransformComponent3D
+    {
+        /*! position
+         */
+        iaVector3d _position;
+
+        /*! orientation in rad
+         */
+        iaVector3d _orientation;
+
+        /*! scale
+         */
+        iaVector3d _scale;
+    };
+
 
 }
 

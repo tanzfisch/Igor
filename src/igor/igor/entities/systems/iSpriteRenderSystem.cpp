@@ -12,15 +12,6 @@ using namespace iaux;
 
 namespace igor
 {
-
-	iSpriteRenderSystem::iSpriteRenderSystem()
-	{
-	}
-
-	iSpriteRenderSystem::~iSpriteRenderSystem()
-	{
-	}
-
 	void iSpriteRenderSystem::update(iEntityScenePtr scene)
 	{
 		auto view = scene->getEntities<iBaseEntityComponent, iTransformComponent2D, iSpriteRendererComponent>();
