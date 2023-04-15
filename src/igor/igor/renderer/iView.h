@@ -97,7 +97,7 @@ namespace igor
 
         /*! \returns aspect ratio
         */
-        float32 getAspectRatio() const;
+        float64 getAspectRatio() const;
 
         /*! registers delegate to render event
 
@@ -136,10 +136,10 @@ namespace igor
 
         /*! defines the near and far clipping planes
 
-        \param nearPlane near clipping plane
-        \param farPlane far clipping plane
+        \param nearPlain near clipping plane
+        \param farPlain far clipping plane
         */
-        void setClipPlanes(float32 nearPlane, float32 farPlane);
+        void setClipPlanes(float32 nearPlain, float32 farPlain);
 
         /*! sets the clear color bit.
 
@@ -344,31 +344,31 @@ namespace igor
 
         /*! left value used for orthogonal projection
         */
-        float32 _left = -1.0f;
+        float64 _left = -1.0;
 
         /*! right value used for orthogonal projection
         */
-        float32 _right = 1.0f;
+        float64 _right = 1.0;
 
         /*! top value used for orthogonal projection
         */
-        float32 _top = 1.0f;
+        float64 _top = 1.0;
 
         /*! bottom value used for orthogonal projection
         */
-        float32 _bottom = -1.0f;
+        float64 _bottom = -1.0;
 
         /*! field of view
         */
-        float32 _viewAngel = 45.0f;
+        float64 _viewAngel = 45.0;
 
         /*! distance from camera to near clipping plane
         */
-        float32 _nearPlaneDistance = 1.0f;
+        float64 _nearPlaneDistance = 1.0;
 
         /*! distance from camera to far clipping plane
         */
-        float32 _farPlaneDistance = 10000.0f;
+        float64 _farPlaneDistance = 10000.0;
 
         /*! event called one per render frame
         */

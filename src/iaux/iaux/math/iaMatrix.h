@@ -210,19 +210,19 @@ namespace iaux
 		\param right the right value
 		\param bottom the bottom value
 		\param top the top value
-		\param nearplain the near plain distance
-		\param farplain the far plain distance
+		\param nearPlain the near plain distance
+		\param farPlain the far plain distance
 		*/
-        void frustum(T left, T right, T bottom, T top, T nearplain, T farplain);
+        void frustum(T left, T right, T bottom, T top, T nearPlain, T farPlain);
 
         /*! calculates a perspective projection matrix
 
 		\param fov field of view in degrees
 		\param aspect aspect ratio
-		\param nearplain near clipping plane distance
-		\param farplain far clipping plane distance
+		\param nearPlain near clipping plane distance
+		\param farPlain far clipping plane distance
 		*/
-        void perspective(T fov, T aspect, T nearplain, T farplain);
+        void perspective(T fov, T aspect, T nearPlain, T farPlain);
 
         /*! calculates a othogonal projection matrix
 
@@ -230,10 +230,10 @@ namespace iaux
 		\param right the right value
 		\param bottom the bottom value
 		\param top the top value
-		\param nearplain the near plain distance
-		\param farplain the far plain distance
+		\param nearPlain the near plain distance
+		\param farPlain the far plain distance
 		*/
-        void ortho(T left, T right, T bottom, T top, T nearplain, T farplain);
+        void ortho(T left, T right, T bottom, T top, T nearPlain, T farPlain);
 
         /*! calculates a orthogonal matrix based on one direction
 

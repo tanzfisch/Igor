@@ -140,10 +140,10 @@ namespace igor
         _perspective = false;
     }
 
-    void iView::setClipPlanes(float32 nearPlane, float32 farPlane)
+    void iView::setClipPlanes(float32 nearPlain, float32 farPlain)
     {
-        _nearPlaneDistance = nearPlane;
-        _farPlaneDistance = farPlane;
+        _nearPlaneDistance = nearPlain;
+        _farPlaneDistance = farPlain;
     }
 
     void iView::setClearColorActive(bool active)
@@ -322,9 +322,9 @@ namespace igor
         _renderEvent.remove(render_delegate);
     }
 
-    float32 iView::getAspectRatio() const
+    float64 iView::getAspectRatio() const
     {
-        return static_cast<float32>(_viewport.getWidth()) / static_cast<float32>(_viewport.getHeight());
+        return static_cast<float64>(_viewport.getWidth()) / static_cast<float64>(_viewport.getHeight());
     }
 
     iaVector3d iView::project(const iaVector3d &worldSpacePos, const iaMatrixd &cameraMatrix)

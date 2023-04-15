@@ -650,7 +650,7 @@ namespace igor
         {
             if (texQuads._textures[i] == texture)
             {
-                textureIndex = (float)i;
+                textureIndex = (float32)i;
                 break;
             }
         }
@@ -1235,10 +1235,10 @@ namespace igor
         _data->_modelViewProjectionMatrix = _data->_projectionMatrix * _data->_modelViewMatrix;
     }
 
-    void iRenderer::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
+    void iRenderer::setOrtho(float64 left, float64 right, float64 bottom, float64 top, float64 nearPlain, float64 farPlain)
     {
         iaMatrixd matrix;
-        matrix.ortho(left, right, bottom, top, nearplain, farplain);
+        matrix.ortho(left, right, bottom, top, nearPlain, farPlain);
         if (_data->_projectionMatrix == matrix)
         {
             return;
@@ -1250,10 +1250,10 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer::setPerspective(float32 fov, float32 aspect, float32 nearplain, float32 farplain)
+    void iRenderer::setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain)
     {
         iaMatrixd matrix;
-        matrix.perspective(fov, aspect, nearplain, farplain);
+        matrix.perspective(fov, aspect, nearPlain, farPlain);
         if (_data->_projectionMatrix == matrix)
         {
             return;

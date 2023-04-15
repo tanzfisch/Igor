@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERER_2D__
-#define __IGOR_RENDERER_2D__
+#ifndef __IGOR_RENDERER__
+#define __IGOR_RENDERER__
 
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
@@ -81,30 +81,14 @@ namespace igor
          */
         const iMaterialPtr &getMaterial() const;
 
-        /*! \returns render hardware vendor
-         */
-        iaString getVendor();
-
-        /*! \returns renderer type
-         */
-        iaString getRenderer();
-
-        /*! \returns version of renderer
-         */
-        iaString getVersion();
-
-        /*! \returns renderer extensions
-         */
-        iaString getExtensions();
-
         /*! set projection matrix with perspective projection
 
         \param fov field of view in degrees
         \param aspect aspect ratio of screen
-        \param nearplane near plane distance
-        \param farplane far plane distance
+        \param nearPlain near plane distance
+        \param farPlain far plane distance
         */
-        void setPerspective(float32 fov, float32 aspect, float32 nearplane, float32 farplane);
+        void setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain);
 
         /*! set projection matrix with orthogonal projection
 
@@ -112,10 +96,10 @@ namespace igor
         \param right right bounding
         \param bottom bottom bounding
         \param top top bounding
-        \param nearplane near plane distance
-        \param farplane far plane distance
+        \param nearPlain near plane distance
+        \param farPlain far plane distance
         */
-        void setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplane, float32 farplane);
+        void setOrtho(float64 left, float64 right, float64 bottom, float64 top, float64 nearPlain, float64 farPlain);
 
         /*! sets the model matrix
 
@@ -534,7 +518,7 @@ namespace igor
          */
         void flushLastUsed();
 
-        /*! updats internal matrices
+        /*! updates internal matrices
          */
         void updateMatrices();
 
@@ -585,4 +569,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_RENDERER_2D__
+#endif // __IGOR_RENDERER__
