@@ -49,7 +49,6 @@ namespace igor
     class IGOR_API iApplication : public iModule<iApplication>
     {
 
-        friend class iWindow;
         friend class iModule<iApplication>;
 
     public:
@@ -75,27 +74,27 @@ namespace igor
         */
         void onEvent(iEventPtr event);
 
-        /*! adds layer to stack for given window
+        /*! adds layer
 
-        adding a layer to the layer stack passes ownership to the layer stack
+        Adding a layer to the layer stack passes ownership to the layer stack.
 
-        most layers assume to be added after the window was already opened and the renderer being ready to receive calls but layers can be added and removed any time
+        Note: Most layers assume to be added after the window was already opened and the renderer being ready to receive calls.
 
         \param layer the layer to be added
         */
-        void addLayer(iLayer *layer);
+        void addLayer(iLayerPtr layer);
 
-        /*! removes layer from stack of given window
+        /*! removes layer
 
         removing a layer from the layer stack passes ownership back to the caller
 
         \param layer the layer to be removed
         */
-        void removeLayer(iLayer *layer);
+        void removeLayer(iLayerPtr layer);
 
-        /*! clears layer stack
+        /*! clears layer stack and deletes all layers on it
         */
-        void clearLayerStack();
+        void clearLayers();
 
         /*! \returns true if given event type is blocked
 
@@ -115,21 +114,15 @@ namespace igor
         */
         void blockEvent(iEventType eventType);
 
-        /*! creates window
-
-        \returns window id
+        /*! destroys the window if it existed
 		*/
-        iWindowPtr createWindow(const iaString& title = "");
+        void destroyWindow();
 
-        /*! destroy window
-		*/
-        void destroyWindow(iWindowPtr window);
+        /*! \returns pointer to window
 
-        /*! \returns window for given window id
-
-        \param windowID the given window id
+        if window did not exist before it gets created here
         */
-        iWindowPtr getWindow(iWindowID windowID) const;
+        iWindowPtr getWindow();
 
     private:
 
@@ -161,16 +154,16 @@ namespace igor
         */
         uint32 _handleCallbacksSectionID = 0;
 
-        /*! flag if the aplication is currently running
+        /*! flag if the application is currently running
 		*/
         bool _running = false;
 
-        /*! list of windows registered to the application
+        /*! the main window (only one supported)
 		*/
-        std::vector<iWindowPtr> _windows;
+        iWindowPtr _window = nullptr;
 
-        /*! additional layer stack for windowless applications
-            */
+        /*! the layer stack
+        */
         iLayerStack _layerStack;
 
         /*! handles events in the event queue
@@ -197,7 +190,7 @@ namespace igor
 
         /*! triggers ApplicationHandleEvent and updates windows
 		*/
-        void onWindowUpdate();
+        void updateWindow();
 
         /*! rendering
         */

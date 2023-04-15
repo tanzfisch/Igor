@@ -24,10 +24,6 @@ int main()
 	iApplication::getInstance().addLayer(new WidgetsExample(window, layerProfiler, backGround));
 	iApplication::getInstance().addLayer(layerProfiler);
 	iApplication::getInstance().run();
-	iApplication::getInstance().clearLayerStack();
-
-	// destroy window
-	iApplication::getInstance().destroyWindow(window);
 
 	// call this after you are done with using Igor
 	shutdown();

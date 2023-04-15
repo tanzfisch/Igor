@@ -40,9 +40,9 @@ public:
 	*/
 	Mica();
 
-	/*! deinit mica
+	/*! does nothing
 	*/
-	virtual ~Mica();
+	~Mica() = default;
 
 	/*! run mica
 

@@ -98,6 +98,10 @@ namespace igor
         iWindowPtr _window;
     };
 
+    /*! layer pointer definition
+    */
+    typedef iLayer* iLayerPtr;
+
 }; // namespace igor
 
-#endif // __IGOR_LAYER_H__
+#endif // __IGOR_LAYER_H__ 

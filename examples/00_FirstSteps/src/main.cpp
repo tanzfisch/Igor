@@ -17,10 +17,7 @@ int main(void)
     // run example
     igor::iApplication::getInstance().run();
 
-    // delete example by clearing the layer stack
-    igor::iApplication::getInstance().clearLayerStack();
-
-    // call this after you are done with using Igor
+    // call this after you are done using Igor
     igor::shutdown();
 
     return 0;

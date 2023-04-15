@@ -32,12 +32,6 @@ Mica::Mica()
 	_taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(_window));
 }
 
-Mica::~Mica()
-{
-	iApplication::getInstance().clearLayerStack();
-	iApplication::getInstance().destroyWindow(_window);
-}
-
 void Mica::run(const iaString &filename)
 {
 	if (!filename.isEmpty())
