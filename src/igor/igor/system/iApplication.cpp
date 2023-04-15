@@ -10,6 +10,7 @@
 #include <igor/physics/iPhysics.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/renderer/iView.h>
+#include <igor/entities/iEntitySystemModule.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -148,6 +149,7 @@ namespace igor
         preDraw();
         IGOR_PROFILER_END(application);
 
+        iEntitySystemModule::getInstance().onUpdate();
         iPhysics::getInstance().handle();
 
         draw();

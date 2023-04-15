@@ -127,11 +127,17 @@ namespace igor
         iNodeManager::create();
         iTaskManager::create();
         iModelResourceFactory::create();
+        iEntitySystemModule::create();
     }
 
     void destroyModules()
     {
         // don't change the order if you don't know what you are doing
+        if (iEntitySystemModule::isInstantiated())
+        {
+            iEntitySystemModule::destroy();
+        }
+
         if (iModelResourceFactory::isInstantiated())
         {
             iModelResourceFactory::destroy();

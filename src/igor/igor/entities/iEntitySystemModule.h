@@ -26,41 +26,65 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SYSTEM__
-#define __IGOR_ENTITY_SYSTEM__
+#ifndef __IGOR_ENTITY_SYSTEM_MODULE_H__
+#define __IGOR_ENTITY_SYSTEM_MODULE_H__
 
-#include <igor/entities/components/iComponents.h>
+#include <igor/resources/module/iModule.h>
 
-#include <memory>
+#include <igor/entities/iEntityScene.h>
+
+#include <iaux/system/iaMutex.h>
+using namespace iaux;
+
+#include <vector>
 
 namespace igor
 {
-	class iEntityScene;
 
-	/*! entity scene pointer definition
-	*/
-	typedef std::shared_ptr<iEntityScene> iEntityScenePtr;
+    /*! entity system module
 
-	class iEntitySystem
-	{
-	public:
-		/*! does nothing
-		 */
-		iEntitySystem() = default;
+    manages and updates all entity systems created
+    */
+    class IGOR_API iEntitySystemModule : public iModule<iEntitySystemModule>
+    {
 
-		/*! does nothing
-		 */
-		virtual ~iEntitySystem() = default;
+        friend class iModule<iEntitySystemModule>;
 
-		/*! updates system
-		 */
-		virtual void update(iEntityScenePtr scene){};
-	};
+    public:
 
-	/*! entity system pointer definition
-	 */
-	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
+        /*! creates a scene and returns it
 
-} // igor
+        \returns new created scene
+        */
+        iEntityScenePtr createScene();
 
-#endif // __IGOR_ENTITY_SYSTEM__
+        /*! updates all scenes and cleans up scene lists
+        */
+        void onUpdate();
+
+        /*! renders all scenes
+        */
+        void onRender();
+
+    private:
+
+        /*! mutex to safeguard entity scene list
+        */
+        iaMutex _mutex;
+
+        /*! entity scenes
+        */
+        std::vector<iEntityScenePtr> _scenes;
+        
+        /*! does nothing
+        */
+        iEntitySystemModule() = default;
+
+        /*! does nothing
+        */
+        ~iEntitySystemModule() = default;
+    };
+
+} // namespace igor
+
+#endif // __IGOR_ENTITY_SYSTEM_MODULE_H__

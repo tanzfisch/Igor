@@ -245,18 +245,18 @@ namespace igor
                 resource->_processed = true;
             }
 
-            if (_interrupLoading)
+            if (_interruptLoading)
             {
                 break;
             }
         }
 
-        _interrupLoading = false;
+        _interruptLoading = false;
     }
 
     void iResourceManager::interruptFlush()
     {
-        _interrupLoading = true;
+        _interruptLoading = true;
     }
 
     const std::vector<iaString> &iResourceManager::getSearchPaths() const

@@ -9,8 +9,8 @@
 namespace igor
 {
 
-    iEntity::iEntity(const entt::entity entity, iEntityScene &scene)
-        : _entity(entity), _scene(&scene)
+    iEntity::iEntity(const entt::entity entity, iEntityScenePtr scene)
+        : _entity(entity), _scene(scene)
     {
     }
 

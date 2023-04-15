@@ -130,7 +130,7 @@ namespace igor
 
         /*! flag to interrupt flush cross threads
         */
-        bool _interrupLoading = false;
+        bool _interruptLoading = false;
 
         /*! mutex to protect the DevIL interface
         */

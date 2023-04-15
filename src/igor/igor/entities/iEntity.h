@@ -55,7 +55,7 @@ namespace igor
 
         \todo maybe scene could be a module and globally accessible
         */
-        iEntity(iEntityID entity, iEntityScene &scene);
+        iEntity(iEntityID entity, iEntityScenePtr scene);
 
         /*! \returns entity id
          */
@@ -132,7 +132,7 @@ namespace igor
 
         /*! the scene this entity is in
          */
-        iEntityScene *_scene;
+        iEntityScenePtr _scene;
     };
 
     /*! pointer to entity

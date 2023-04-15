@@ -7,6 +7,7 @@
 GameLayer::GameLayer(iWindowPtr window)
     : iLayer(window, L"GameLayer"), _quadtree(iaRectanglef(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
 {
+    _entityScene = iEntitySystemModule::getInstance().createScene();
 }
 
 iaVector2f GameLayer::getRandomDir()
@@ -19,7 +20,7 @@ iaVector2f GameLayer::getRandomDir()
 iEntity GameLayer::createPlayer()
 {
     // init player
-    iEntity entity = _entityScene.createEntity("player");
+    iEntity entity = _entityScene->createEntity("player");
 
     const auto &transform = entity.addComponent<iTransformComponent2D>(iaVector2f(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f), 0.0f, iaVector2f(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f));
     entity.addComponent<VelocityComponent>(iaVector2f(1.0f, 0.0f), 0.5f, true);
@@ -53,7 +54,7 @@ iEntity GameLayer::createViewport(iEntityID targetID)
     iEntity target(targetID, _entityScene);
     const iaVector2f targetPosition = target.getComponent<iTransformComponent2D>()._position;
 
-    iEntity entity = _entityScene.createEntity("viewport");
+    iEntity entity = _entityScene->createEntity("viewport");
 
     auto &viewportComp = entity.addComponent<ViewportComponent>();
     viewportComp._targetOffset.set(0.0f, 0.0f);
@@ -66,7 +67,7 @@ iEntity GameLayer::createViewport(iEntityID targetID)
 
 void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType objectType)
 {
-    iEntity entity = _entityScene.createEntity("object");
+    iEntity entity = _entityScene->createEntity("object");
     const auto &transform = entity.addComponent<iTransformComponent2D>(pos, 0.0f, iaVector2f(COIN_SIZE, COIN_SIZE));
     entity.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"));
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
@@ -119,7 +120,7 @@ void GameLayer::landShop()
 
 void GameLayer::createShop()
 {
-    _shop = _entityScene.createEntity("shop", false);
+    _shop = _entityScene->createEntity("shop", false);
     auto transform = _shop.addComponent<iTransformComponent2D>(iaVector2f(), 0.0f, iaVector2f(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4));
     _shop.addComponent<VelocityComponent>(getRandomDir(), 0.0f, false);
     _shop.addComponent<iSpriteRendererComponent>(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"));
@@ -140,7 +141,7 @@ void GameLayer::createShop()
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
     static uint32 counter = 0;
-    iEntity entity = _entityScene.createEntity(enemyClass._name + iaString::toString(counter));
+    iEntity entity = _entityScene->createEntity(enemyClass._name + iaString::toString(counter));
     counter++;
 
     const auto &transform = entity.addComponent<iTransformComponent2D>(pos, 0.0f, iaVector2f(enemyClass._size, enemyClass._size));
@@ -527,7 +528,7 @@ void GameLayer::onUpdateStats(const iaTime &time)
 
     GameStats stats;
 
-    auto view = _entityScene.getEntities<HealthComponent, PartyComponent>();
+    auto view = _entityScene->getEntities<HealthComponent, PartyComponent>();
     for (auto entityID : view)
     {
         auto [health, party] = view.get<HealthComponent, PartyComponent>(entityID);
@@ -556,7 +557,7 @@ void GameLayer::onUpdateStats(const iaTime &time)
 void GameLayer::onUpdateQuadtreeSystem()
 {
     // update quadtree data
-    auto quadtreeView = _entityScene.getEntities<iTransformComponent2D, QuadtreeObjectComponent>();
+    auto quadtreeView = _entityScene->getEntities<iTransformComponent2D, QuadtreeObjectComponent>();
     for (auto entityID : quadtreeView)
     {
         auto [transform, object] = quadtreeView.get<iTransformComponent2D, QuadtreeObjectComponent>(entityID);
@@ -576,7 +577,7 @@ void GameLayer::onUpdateQuadtreeSystem()
 
 void GameLayer::onUpdateMovementControlSystem()
 {
-    auto movementControlView = _entityScene.getEntities<MovementControlComponent, VelocityComponent>();
+    auto movementControlView = _entityScene->getEntities<MovementControlComponent, VelocityComponent>();
     for (auto entity : movementControlView)
     {
         auto [movementControl, vel] = movementControlView.get<MovementControlComponent, VelocityComponent>(entity);
@@ -837,7 +838,7 @@ bool GameLayer::intersectDoughnut(const iaVector2f &position, const iaCirclef &c
 void GameLayer::onUpdateFollowTargetSystem()
 {
     // follow given target
-    auto targetView = _entityScene.getEntities<iTransformComponent2D, VelocityComponent, TargetComponent>();
+    auto targetView = _entityScene->getEntities<iTransformComponent2D, VelocityComponent, TargetComponent>();
     for (auto entity : targetView)
     {
         auto [transform, vel, target] = targetView.get<iTransformComponent2D, VelocityComponent, TargetComponent>(entity);
@@ -886,7 +887,7 @@ void GameLayer::onUpdateFollowTargetSystem()
 
 void GameLayer::onUpdatePositionSystem()
 {
-    auto positionUpdateView = _entityScene.getEntities<iTransformComponent2D, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
+    auto positionUpdateView = _entityScene->getEntities<iTransformComponent2D, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
     for (auto entityID : positionUpdateView)
     {
         auto [transform, vel, party, damage, health] = positionUpdateView.get<iTransformComponent2D, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
@@ -979,7 +980,7 @@ void GameLayer::onUpdatePositionSystem()
 
 void GameLayer::onUpdateCollisionSystem()
 {
-    auto positionUpdateView = _entityScene.getEntities<iTransformComponent2D, PartyComponent, DamageComponent, HealthComponent>();
+    auto positionUpdateView = _entityScene->getEntities<iTransformComponent2D, PartyComponent, DamageComponent, HealthComponent>();
     for (auto entityID : positionUpdateView)
     {
         auto [transform, party, damage, health] = positionUpdateView.get<iTransformComponent2D, PartyComponent, DamageComponent, HealthComponent>(entityID);
@@ -1039,7 +1040,7 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
 
     for (int i = 0; i < weapon._projectileCount; ++i)
     {
-        auto bullet = _entityScene.createEntity(weapon._texture);
+        auto bullet = _entityScene->createEntity(weapon._texture);
         float32 angle = dir.angle() * IGOR_RAD2GRAD;
         bullet.addComponent<iTransformComponent2D>(from + dir * weapon._size * 0.5, angle, iaVector2f(weapon._size, weapon._size));
 
@@ -1095,7 +1096,7 @@ BuildingType GameLayer::onCheckForBuildingsNearBy(iEntity &entity)
 
     auto &entityTransform = entity.getComponent<iTransformComponent2D>();
 
-    auto view = _entityScene.getEntities<BuildingComponent, iTransformComponent2D>();
+    auto view = _entityScene->getEntities<BuildingComponent, iTransformComponent2D>();
     for (auto entityID : view)
     {
         auto [building, transform] = view.get<BuildingComponent, iTransformComponent2D>(entityID);
@@ -1208,7 +1209,7 @@ void GameLayer::onUpdateWeaponSystem()
 {
     iaTime now = iTimer::getInstance().getTime();
 
-    auto view = _entityScene.getEntities<WeaponComponent, TargetComponent, iTransformComponent2D, VelocityComponent, ModifierComponent>();
+    auto view = _entityScene->getEntities<WeaponComponent, TargetComponent, iTransformComponent2D, VelocityComponent, ModifierComponent>();
     for (auto entityID : view)
     {
         auto [weapon, target, transform, velocity, modifier] = view.get<WeaponComponent, TargetComponent, iTransformComponent2D, VelocityComponent, ModifierComponent>(entityID);
@@ -1246,7 +1247,7 @@ void GameLayer::onUpdateWeaponSystem()
 
 void GameLayer::onUpdateRangeSystem()
 {
-    auto view = _entityScene.getEntities<iTransformComponent2D, RangeComponent, HealthComponent>();
+    auto view = _entityScene->getEntities<iTransformComponent2D, RangeComponent, HealthComponent>();
     for (auto entity : view)
     {
         auto [transform, range, health] = view.get<iTransformComponent2D, RangeComponent, HealthComponent>(entity);
@@ -1260,7 +1261,7 @@ void GameLayer::onUpdateRangeSystem()
 
 void GameLayer::onUpdateOrientationSystem()
 {
-    auto view = _entityScene.getEntities<AngularVelocityComponent, VelocityComponent, iTransformComponent2D>();
+    auto view = _entityScene->getEntities<AngularVelocityComponent, VelocityComponent, iTransformComponent2D>();
     for (auto entity : view)
     {
         auto [angularVel, vel, transform] = view.get<AngularVelocityComponent, VelocityComponent, iTransformComponent2D>(entity);
@@ -1281,7 +1282,7 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
     bool playerValid = _player.isValid();
 
     // pick up the dead
-    auto healthView = _entityScene.getEntities<HealthComponent, PartyComponent, QuadtreeObjectComponent>();
+    auto healthView = _entityScene->getEntities<HealthComponent, PartyComponent, QuadtreeObjectComponent>();
 
     for (auto entityID : healthView)
     {
@@ -1323,7 +1324,7 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
             qud->_object = nullptr;
         }
 
-        _entityScene.destroyEntity(entityID);
+        _entityScene->destroyEntity(entityID);
     }
 
     _deleteQueue.clear();
@@ -1638,8 +1639,11 @@ void GameLayer::onRenderOrtho()
 
     iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));
 
+    // TODO currently we have to call this manually until we add an association between scenes and views
+    iEntitySystemModule::getInstance().onRender();
+
     // draw entities
-    auto view = _entityScene.getEntities<iTransformComponent2D, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>();
+/*    auto view = _entityScene->getEntities<iTransformComponent2D, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>();
 
     for (auto entity : view)
     {
@@ -1685,7 +1689,7 @@ void GameLayer::onRenderOrtho()
         }
 
         iRenderer::getInstance().drawTexturedQuad(matrix, spriteRender._texture, spriteRender._color, true);
-    }
+    }*/
 
     onRenderPlayerHUD();
 

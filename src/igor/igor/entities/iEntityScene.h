@@ -33,6 +33,8 @@
 
 #include <entt.h>
 
+#include <memory>
+
 namespace igor
 {
 	/*! entity id definition
@@ -47,10 +49,14 @@ namespace igor
 
 	/*! entity scene
 	 */
-	class IGOR_API iEntityScene
+	class IGOR_API iEntityScene : public std::enable_shared_from_this<iEntityScene>
 	{
 
+		friend class iEntitySystemModule;
+		friend class iEntitySceneDeleter;
+
 	public:
+
 		/*! creates an entity
 		 */
 		iEntity createEntity(const iaString &name = "", bool active = true);
@@ -66,16 +72,6 @@ namespace igor
 		\param entityID the entity ID
 		*/
 		void destroyEntity(iEntityID entityID);
-
-		/*! registers a system to the scene
-
-		\param system the system to register
-		*/
-		void registerSystem(iEntitySystemPtr system);
-
-		/*! updates all systems in the order hey have been added to the scene
-		 */
-		void updateSystems();
 
 		/*! clears the scene and the systems
 		 */
@@ -98,9 +94,17 @@ namespace igor
 		 */
 		entt::registry _registry;
 
-		/*! currently registered systems
+		/*! systems to update
 		 */
 		std::vector<iEntitySystemPtr> _systems;
+
+		/*! systems that render
+		 */
+		std::vector<iEntitySystemPtr> _renderingSystems;
+
+		/*! init systems
+		*/
+		iEntityScene();
 	};
 
 } // igor

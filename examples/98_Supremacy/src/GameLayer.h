@@ -69,7 +69,7 @@ private:
 
     /*! entity scene
      */
-    iEntityScene _entityScene;
+    iEntityScenePtr _entityScene;
 
     /*! handle to player entity
      */

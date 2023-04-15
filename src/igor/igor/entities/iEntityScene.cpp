@@ -2,12 +2,19 @@
 
 #include <igor/entities/iEntity.h>
 
+#include <igor/entities/systems/iSpriteRenderSystem.h>
+
 namespace igor
 {
 
+    iEntityScene::iEntityScene()
+    {
+        _renderingSystems.push_back(std::make_unique<iSpriteRenderSystem>());
+    }
+
     iEntity iEntityScene::createEntity(const iaString &name, bool active)
     {
-        iEntity entity(_registry.create(), *this);
+        iEntity entity(_registry.create(), shared_from_this());
         auto &component = entity.addComponent<iBaseEntityComponent>();
         component._name = name;
         component._active = active;
@@ -24,23 +31,10 @@ namespace igor
          _registry.destroy(entityID);
     }
 
-    void iEntityScene::registerSystem(iEntitySystemPtr system)
-    {
-        _systems.push_back(std::move(system));
-    }
-
     void iEntityScene::clear()
     {
         _systems.clear();
         _registry.clear();
-    }
-
-    void iEntityScene::updateSystems()
-    {
-        for (iEntitySystemPtr &system : _systems)
-        {
-            system->update(this);
-        }
     }
 
     entt::registry& iEntityScene::getRegistry()
