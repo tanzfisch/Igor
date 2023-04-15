@@ -144,7 +144,7 @@ namespace igor
 
         IGOR_PROFILER_BEGIN(application);
         iNodeManager::getInstance().handle();
-        windowHandle();
+        onWindowUpdate();
         dispatch();
         preDraw();
         IGOR_PROFILER_END(application);
@@ -181,13 +181,13 @@ namespace igor
         }
     }
 
-    void iApplication::windowHandle()
+    void iApplication::onWindowUpdate()
     {
         for (auto window : _windows)
         {
             if (window->isOpen())
             {
-                window->handle();
+                window->onUpdate();
             }
         }
     }

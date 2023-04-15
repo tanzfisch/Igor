@@ -197,7 +197,7 @@ namespace igor
 
         /*! triggers ApplicationHandleEvent and updates windows
 		*/
-        void windowHandle();
+        void onWindowUpdate();
 
         /*! rendering
         */

@@ -294,11 +294,9 @@ namespace igor
         */
         iRenderContextPtr getDefaultRenderContext() const;
 
-        /*! handle to be called in the main loop
-
-        handles os messages
+        /*! handling os events sent to the window
         */
-        void handle();
+        void onUpdate();
 
         /*! swaps video buffers
         */

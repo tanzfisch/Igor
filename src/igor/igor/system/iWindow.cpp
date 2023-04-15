@@ -46,7 +46,7 @@ namespace igor
         virtual void calcClientSize() = 0;
         virtual void setDoubleClick(bool doubleClick) = 0;
         virtual void swapBuffers() = 0;
-        virtual void handle() = 0;
+        virtual void onUpdate() = 0;
         virtual bool open() = 0;
         virtual void close() = 0;
         virtual void setSizeByDesktop() = 0;
@@ -141,7 +141,7 @@ namespace igor
          */
         bool _doubleClick = false;
 
-        /*! window handle
+        /*! window pointer
          */
         iWindowPtr _window = nullptr;
     };
@@ -225,7 +225,7 @@ namespace igor
             }
         }
 
-        void handle() override
+        void onUpdate() override
         {
             MSG msg;
 
@@ -799,7 +799,7 @@ namespace igor
             return XPending(_display);
         }
 
-        void handle() override
+        void onUpdate() override
         {
             iOSEvent os_event;
             os_event._display = _display;
@@ -1259,9 +1259,9 @@ namespace igor
         }
     }
 
-    void iWindow::handle()
+    void iWindow::onUpdate()
     {
-        _impl->handle();
+        _impl->onUpdate();
     }
 
     void iWindow::swapBuffers()
