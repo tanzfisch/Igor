@@ -26,77 +26,37 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SCENE__
-#define __IGOR_ENTITY_SCENE__
+#ifndef __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
+#define __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
 
 #include <igor/entities/iEntitySystem.h>
 
-#include <memory>
-
 namespace igor
 {
-	class iEntity;
 
-	/*! entity scene
-	 */
-	class IGOR_API iEntityScene : public std::enable_shared_from_this<iEntityScene>
+	/*! sprite render system
+
+	processes any entity that contains the following components:
+	- iTransformComponent
+	*/
+	class iTransformHierarchySystem : public iEntitySystem
 	{
-
-		friend class iEntitySystemModule;
-		friend class iEntitySceneDeleter;
-
 	public:
-
-		/*! creates an entity
-		 */
-		iEntity createEntity(const iaString &name = "", bool active = true);
-
-		/*! destroys an entity
-
-		\param entity the entity to destroy
+		/*! does nothing
 		*/
-		void destroyEntity(iEntity entity);
+		iTransformHierarchySystem() = default;
 
-		/*! destroys an entity by id
-
-		\param entityID the entity ID
+		/*! does nothing
 		*/
-		void destroyEntity(iEntityID entityID);
+		~iTransformHierarchySystem() = default;
 
-		/*! clears the scene and the systems
+		/*! updates system
+
+		\param scene the scene used for this update
 		 */
-		void clear();
-
-		/*! \returns all entities with given components
-		 */
-		template <typename... Components>
-		auto getEntities()
-		{
-			return _registry.view<Components...>();
-		}
-
-		/*! \returns entt registry
-		 */
-		entt::registry &getRegistry();
-
-	private:
-		/*! the entt registry
-		 */
-		entt::registry _registry;
-
-		/*! systems to update
-		 */
-		std::vector<iEntitySystemPtr> _systems;
-
-		/*! systems that render
-		 */
-		std::vector<iEntitySystemPtr> _renderingSystems;
-
-		/*! init systems
-		*/
-		iEntityScene();
+		void update(iEntityScenePtr scene) override;
 	};
 
 } // igor
 
-#endif // __IGOR_ENTITY_SCENE__
+#endif // __IGOR_TRANSFORM_HIERARCHY_SYSTEM__

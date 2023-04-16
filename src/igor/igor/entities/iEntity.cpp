@@ -16,25 +16,25 @@ namespace igor
 
     void iEntity::setName(const iaString &name)
     {
-        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(static_cast<entt::entity>(_entity));
+        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
         component._name = name;
     }
 
     const iaString iEntity::getName() const
     {
-        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(static_cast<entt::entity>(_entity));
+        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
         return component._name;
     }
 
     bool iEntity::isActive() const
     {
-        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(static_cast<entt::entity>(_entity));
+        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
         return component._active;
     }
 
     void iEntity::setActive(bool active)
     {
-        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(static_cast<entt::entity>(_entity));
+        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
         component._active = active;
     }
 
@@ -45,7 +45,7 @@ namespace igor
 
     bool iEntity::isValid() const
     {
-        return _scene->getRegistry().valid(static_cast<entt::entity>(_entity));
+        return _scene->getRegistry().valid(_entity);
     }
 
 }

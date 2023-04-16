@@ -18,7 +18,7 @@ iaVector2f GameLayer::getRandomDir()
 }
 
 iEntity GameLayer::createPlayer()
-{
+{    
     // init player
     iEntity entity = _entityScene->createEntity("player");
 
@@ -45,6 +45,14 @@ iEntity GameLayer::createPlayer()
     iaVector2f b(1.0f, 0.0f);
     iaVector2f c(0.0f, 1.0f);
     iaVector2f d(0.0f, -1.0f);
+
+    // add shadow
+    iEntity shadow = _entityScene->createEntity();
+    shadow.addComponent<iTransformComponent>(
+        iaVector3d(0.0, 0.0, 0.0),
+        iaVector3d(), 
+        iaVector3d(0.5, 0.25, 1.0), entity.getID());
+    shadow.addComponent<iSpriteRendererComponent>(_shadow, iaColor4f::black);
 
     return entity;
 }
@@ -159,8 +167,11 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
-    shadow.addComponent<iTransformComponent>(iaVector3d(-enemyClass._size*0.25, enemyClass._size*0.5, 0.0), iaVector3d(), iaVector3d(enemyClass._size * 0.5, enemyClass._size * 0.25, 1.0), unit.getID());
-    shadow.addComponent<iSpriteRendererComponent>(_shadow);
+    shadow.addComponent<iTransformComponent>(
+        iaVector3d(0.0, 0.0, 0.0),
+        iaVector3d(), 
+        iaVector3d(0.5, 0.25, 1.0), unit.getID());
+    shadow.addComponent<iSpriteRendererComponent>(_shadow, iaColor4f::black);
 }
 
 void GameLayer::updateViewRectangleSystem()
@@ -217,6 +228,11 @@ void GameLayer::onInit()
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
+    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("supremacy/background.png");
+    // _shadow = iTextureResourceFactory::getInstance().requestFile("supremacy/shadow.png");
+    _shield = iTextureResourceFactory::getInstance().requestFile("supremacy/shield.png");
+    _rage = iTextureResourceFactory::getInstance().requestFile("supremacy/rage.png");
+
     _player = createPlayer();
     _viewport = createViewport(_player.getID());
 
@@ -237,11 +253,6 @@ void GameLayer::onInit()
 
     _spawnShopTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onLandShop), iaTime::fromMilliseconds(5000), true);
     _spawnShopTimerHandle->start();
-
-    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("supremacy/background.png");
-    _shadow = iTextureResourceFactory::getInstance().requestFile("supremacy/shadow.png");
-    _shield = iTextureResourceFactory::getInstance().requestFile("supremacy/shield.png");
-    _rage = iTextureResourceFactory::getInstance().requestFile("supremacy/rage.png");
 
     // init font for render profiler
     _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
@@ -1219,7 +1230,7 @@ void GameLayer::onUpdateWeaponSystem()
     auto view = _entityScene->getEntities<WeaponComponent, TargetComponent, iTransformComponent, VelocityComponent, ModifierComponent>();
     for (auto entityID : view)
     {
-        auto [weapon, target, transform, velocity, modifier] = view.get<WeaponComponent, TargetComponent, iTransformComponent, VelocityComponent, ModifierComponent>(entityID);        
+        auto [weapon, target, transform, velocity, modifier] = view.get<WeaponComponent, TargetComponent, iTransformComponent, VelocityComponent, ModifierComponent>(entityID);
 
         // skip if there is no target
         if (target._targetID == IGOR_INVALID_ENTITY_ID)
@@ -1651,53 +1662,53 @@ void GameLayer::onRenderOrtho()
     iEntitySystemModule::getInstance().onRender();
 
     // draw entities
-/*    auto view = _entityScene->getEntities<iTransformComponent, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>();
+    /*    auto view = _entityScene->getEntities<iTransformComponent, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>();
 
-    for (auto entity : view)
-    {
-        auto [transform, visual, base, spriteRender] = view.get<iTransformComponent, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>(entity);
-
-        if (!base._active)
+        for (auto entity : view)
         {
-            continue;
-        }
+            auto [transform, visual, base, spriteRender] = view.get<iTransformComponent, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>(entity);
 
-        iaVector2f position;
+            if (!base._active)
+            {
+                continue;
+            }
 
-        if (!intersectDoughnut(transform._position, intersectRectangle, position))
-        {
-            continue;
-        }
+            iaVector2f position;
 
-        position += transform._position;
+            if (!intersectDoughnut(transform._position, intersectRectangle, position))
+            {
+                continue;
+            }
 
-        float32 width = transform._scale._x;
-        float32 height = transform._scale._y;
+            position += transform._position;
 
-        if (visual._castShadow)
-        {
-            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.25, position._y + height * 0.5, width * 0.5, height * 0.25, _shadow, iaColor4f::black, true);
-        }
+            float32 width = transform._scale._x;
+            float32 height = transform._scale._y;
 
-        iaMatrixf matrix;
-        matrix.translate(position._x, position._y, 0.0);
+            if (visual._castShadow)
+            {
+                iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.25, position._y + height * 0.5, width * 0.5, height * 0.25, _shadow, iaColor4f::black, true);
+            }
 
-        matrix.rotate(transform._orientation, iaAxis::Z);
+            iaMatrixf matrix;
+            matrix.translate(position._x, position._y, 0.0);
 
-        if (visual._scaleAnimation)
-        {
-            iaTime time = iTimer::getInstance().getTime() + visual._timerOffset;
-            float32 timing = std::fmod((time.getMilliseconds() * 2.0), 1000.0) / 1000.0 * M_PI * 2;
-            float32 value = 1.0f + (sin(timing) * 0.1);
-            matrix.scale(width * value, height * (1.0 / value), 1.0);
-        }
-        else
-        {
-            matrix.scale(width, height, 1.0);
-        }
+            matrix.rotate(transform._orientation, iaAxis::Z);
 
-        iRenderer::getInstance().drawTexturedQuad(matrix, spriteRender._texture, spriteRender._color, true);
-    }*/
+            if (visual._scaleAnimation)
+            {
+                iaTime time = iTimer::getInstance().getTime() + visual._timerOffset;
+                float32 timing = std::fmod((time.getMilliseconds() * 2.0), 1000.0) / 1000.0 * M_PI * 2;
+                float32 value = 1.0f + (sin(timing) * 0.1);
+                matrix.scale(width * value, height * (1.0 / value), 1.0);
+            }
+            else
+            {
+                matrix.scale(width, height, 1.0);
+            }
+
+            iRenderer::getInstance().drawTexturedQuad(matrix, spriteRender._texture, spriteRender._color, true);
+        }*/
 
     onRenderPlayerHUD();
 

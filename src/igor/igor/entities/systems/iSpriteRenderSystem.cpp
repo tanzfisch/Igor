@@ -27,12 +27,6 @@ namespace igor
 
 			// TODO screen culling?	need cam or view information here
 
-			// TODO move this in to transform hierarchy system
-			transform._worldMatrix.identity();
-			transform._worldMatrix.translate(transform._position);
-			transform._worldMatrix.rotate(transform._orientation);
-			transform._worldMatrix.scale(transform._scale);
-
 			iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix, spriteRender._texture, spriteRender._color, true);
 		}
 	}

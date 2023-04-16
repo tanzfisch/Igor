@@ -3,18 +3,22 @@
 #include <igor/entities/iEntity.h>
 
 #include <igor/entities/systems/iSpriteRenderSystem.h>
+#include <igor/entities/systems/iTransformHierarchySystem.h>
+
 
 namespace igor
 {
 
     iEntityScene::iEntityScene()
     {
+        _systems.push_back(std::make_unique<iTransformHierarchySystem>());
+        
         _renderingSystems.push_back(std::make_unique<iSpriteRenderSystem>());
     }
 
     iEntity iEntityScene::createEntity(const iaString &name, bool active)
     {
-        iEntity entity(static_cast<uint32>(_registry.create()), shared_from_this());
+        iEntity entity(_registry.create(), shared_from_this());
         auto &component = entity.addComponent<iBaseEntityComponent>();
         component._name = name;
         component._active = active;
@@ -28,7 +32,7 @@ namespace igor
 
     void iEntityScene::destroyEntity(iEntityID entityID)
     {        
-         _registry.destroy(static_cast<entt::entity>(entityID));
+         _registry.destroy(entityID);
     }
 
     void iEntityScene::clear()

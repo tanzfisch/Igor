@@ -36,15 +36,17 @@
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
+#include <entt.h>
+
 namespace igor
 {
 	/*! entity id definition
 	 */
-	typedef uint32 iEntityID;
+	typedef entt::entity iEntityID;
 
   	/*! invalid entity id definition
     */
-	const iEntityID IGOR_INVALID_ENTITY_ID = 0xffffffff;
+	const iEntityID IGOR_INVALID_ENTITY_ID = entt::null;
 
     /*! name component used in each entity by default
      */
