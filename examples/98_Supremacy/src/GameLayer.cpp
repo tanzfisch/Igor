@@ -18,7 +18,7 @@ iaVector2f GameLayer::getRandomDir()
 }
 
 iEntity GameLayer::createPlayer()
-{    
+{
     // init player
     iEntity entity = _entityScene->createEntity("player");
 
@@ -49,10 +49,10 @@ iEntity GameLayer::createPlayer()
     // add shadow
     iEntity shadow = _entityScene->createEntity();
     shadow.addComponent<iTransformComponent>(
-        iaVector3d(0.0, 0.0, 0.0),
-        iaVector3d(), 
+        iaVector3d(0.0, 0.5, 0.0),
+        iaVector3d(),
         iaVector3d(0.5, 0.25, 1.0), entity.getID());
-    shadow.addComponent<iSpriteRendererComponent>(_shadow, iaColor4f::black);
+    shadow.addComponent<iSpriteRendererComponent>(_shadow, iaColor4f::black, -1);
 
     return entity;
 }
@@ -168,10 +168,10 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     // add shadow
     iEntity shadow = _entityScene->createEntity();
     shadow.addComponent<iTransformComponent>(
-        iaVector3d(0.0, 0.0, 0.0),
-        iaVector3d(), 
+        iaVector3d(0.0, 0.5, 0.0),
+        iaVector3d(),
         iaVector3d(0.5, 0.25, 1.0), unit.getID());
-    shadow.addComponent<iSpriteRendererComponent>(_shadow, iaColor4f::black);
+    shadow.addComponent<iSpriteRendererComponent>(_shadow, iaColor4f::black, -1);
 }
 
 void GameLayer::updateViewRectangleSystem()
@@ -229,7 +229,7 @@ void GameLayer::onInit()
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
     _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("supremacy/background.png");
-    // _shadow = iTextureResourceFactory::getInstance().requestFile("supremacy/shadow.png");
+    _shadow = iTextureResourceFactory::getInstance().requestFile("supremacy/shadow.png");
     _shield = iTextureResourceFactory::getInstance().requestFile("supremacy/shield.png");
     _rage = iTextureResourceFactory::getInstance().requestFile("supremacy/rage.png");
 
@@ -1658,6 +1658,8 @@ void GameLayer::onRenderOrtho()
 
     iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));
 
+    // TODO add culling back in -> if (!intersectDoughnut(transform._position, intersectRectangle, position))
+
     // TODO currently we have to call this manually until we add an association between scenes and views
     iEntitySystemModule::getInstance().onRender();
 
@@ -1712,7 +1714,7 @@ void GameLayer::onRenderOrtho()
 
     onRenderPlayerHUD();
 
-    onRenderQuadtree(_quadtree.getRoot());
+    // onRenderQuadtree(_quadtree.getRoot());
 
     onRenderHUD();
     onRenderStats();

@@ -14,18 +14,24 @@ namespace igor
 {
 	void iSpriteRenderSystem::update(iEntityScenePtr scene)
 	{
-		auto view = scene->getEntities<iBaseEntityComponent, iTransformComponent, iSpriteRendererComponent>();
+		auto &registry = scene->getRegistry();
+		registry.sort<iSpriteRendererComponent>([&registry](const entt::entity lhs, const entt::entity rhs) 
+		{
+			const auto &clhs = registry.get<iSpriteRendererComponent>(lhs);
+			const auto &crhs = registry.get<iSpriteRendererComponent>(rhs);
+			return clhs._zIndex < crhs._zIndex; 
+		});
+
+		auto view = scene->getEntities<iSpriteRendererComponent, iBaseEntityComponent, iTransformComponent>();
 
 		for (auto entityID : view)
 		{
-			auto [base, transform, spriteRender] = view.get<iBaseEntityComponent, iTransformComponent, iSpriteRendererComponent>(entityID);
+			auto [spriteRender, base, transform] = view.get<iSpriteRendererComponent, iBaseEntityComponent, iTransformComponent>(entityID);
 
 			if (!base._active)
 			{
 				continue;
 			}
-
-			// TODO screen culling?	need cam or view information here
 
 			iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix, spriteRender._texture, spriteRender._color, true);
 		}

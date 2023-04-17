@@ -73,16 +73,12 @@ namespace igor
         */
         iaColor4f _color = iaColor4f::white;
 
-        /*! specifies the render layer
-
-        higher numbers get rendered later
-        */
-        int32 _zLayer = 0;
-
         /*! specifies the render order within a layer
         */
         int32 _zIndex = 0;
     };
+
+    // TODO introduce a render layer component so we only have to order by zindex within a layer and not across all
 
     /*! transform component representing position, orientation and scale of given entity
 

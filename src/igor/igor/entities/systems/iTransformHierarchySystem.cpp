@@ -5,6 +5,7 @@
 #include <igor/entities/systems/iTransformHierarchySystem.h>
 
 #include <igor/entities/iEntityScene.h>
+#include <igor/entities/iEntity.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -13,31 +14,23 @@ namespace igor
 {
 	void iTransformHierarchySystem::update(iEntityScenePtr scene)
 	{
-		/*registry.sort<relationship>([&registry](const entt::entity lhs, const entt::entity rhs) {
-			const auto &clhs = registry.get<relationship>(lhs);
-			const auto &crhs = registry.get<relationship>(rhs);
-			return crhs.parent == lhs || clhs.next == rhs
-				|| (!(clhs.parent == rhs || crhs.next == lhs) && (clhs.parent < crhs.parent || (clhs.parent == crhs.parent && &clhs < &crhs)));
-		});*/
-
-
-
-		auto view = scene->getEntities<iTransformComponent>();
-
-		/*auto &registry = scene->getRegistry();
-		auto group = registry.group<iTransformComponent>();
-		
-		registry.sort<iTransformComponent>([&registry](const entt::entity lhs, const entt::entity rhs) {
+		// TODO this does not work for more then one layer of hierarchy
+		auto &registry = scene->getRegistry();
+		registry.sort<iTransformComponent>([&registry](const entt::entity lhs, const entt::entity rhs)
+		{
 			const auto &clhs = registry.get<iTransformComponent>(lhs);
 			const auto &crhs = registry.get<iTransformComponent>(rhs);
-			return crhs._parent == lhs || clhs.next == rhs
-				|| (!(clhs._parent == rhs || crhs.next == lhs) && (clhs._parent < crhs._parent || (clhs._parent == crhs._parent && &clhs < &crhs)));
-		});		*/
+
+			return crhs._parent == lhs || (!(clhs._parent == rhs) && (clhs._parent < crhs._parent || (clhs._parent == crhs._parent && lhs < rhs)));
+
+		});
+
+		auto view = scene->getEntities<iTransformComponent>();
 
 		for (auto entityID : view)
 		{
 			auto &transform = view.get<iTransformComponent>(entityID);
-			
+
 			transform._worldMatrix.identity();
 			transform._worldMatrix.translate(transform._position);
 			transform._worldMatrix.rotate(transform._orientation);
