@@ -42,7 +42,7 @@ namespace igor
 
     called once per interval
     */
-    iaSIGNAL(iTimerTickEvent, iTimerTickDelegate, (const iaTime &time), (time));
+    IGOR_SIGNAL(iTimerTickEvent, iTimerTickDelegate, (const iaTime &time), (time));
 
     /*! timer handle class
     */

@@ -36,7 +36,7 @@ namespace iaux
 
 /*! delegate
  */
-#define iaSLOT(SlotName, ReturnType, ParameterList, InnerParameterList)                                           \
+#define IGOR_SLOT(SlotName, ReturnType, ParameterList, InnerParameterList)                                           \
     class SlotName                                                                                                \
     {                                                                                                             \
     protected:                                                                                                    \

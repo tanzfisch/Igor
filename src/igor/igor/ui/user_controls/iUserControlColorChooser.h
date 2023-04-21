@@ -52,7 +52,7 @@ namespace igor
 
     /*! color has changed event
 	*/
-    iaSIGNAL(iColorChanged, iColorChangedDelegate, (const iaColor4f &color), (color));
+    IGOR_SIGNAL(iColorChanged, iColorChangedDelegate, (const iaColor4f &color), (color));
 
     /*! color chooser mode
 	*/

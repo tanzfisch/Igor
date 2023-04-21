@@ -38,7 +38,7 @@ using namespace iaux;
 namespace igor
 {
 
-    iaSIGNAL(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, (int32 index), (index));
+    IGOR_SIGNAL(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, (int32 index), (index));
 
     /*! pull down menu
 

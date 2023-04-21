@@ -54,7 +54,7 @@ namespace igor
 
     /*! event called by newton to apply force and Torque
     */
-    iaSIGNAL(iApplyForceAndTorqueEvent, iApplyForceAndTorqueDelegate, (iPhysicsBody * body, float32 timestep), (body, timestep));
+    IGOR_SIGNAL(iApplyForceAndTorqueEvent, iApplyForceAndTorqueDelegate, (iPhysicsBody * body, float32 timestep), (body, timestep));
 
     /*! wrapper for the NewtonBody handle
     */

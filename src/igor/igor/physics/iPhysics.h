@@ -53,7 +53,7 @@ namespace igor
     class iPhysicsUserMeshCollisionHandler;
     class iPhysicsCollisionConfig;
 
-    iaSLOT(iRayPreFilterDelegate, unsigned, (iPhysicsBody * body, iPhysicsCollision *collision, const void *userData), (body, collision, userData));
+    IGOR_SLOT(iRayPreFilterDelegate, unsigned, (iPhysicsBody * body, iPhysicsCollision *collision, const void *userData), (body, collision, userData));
 
     struct IGOR_API ConvexCastReturnInfo
     {

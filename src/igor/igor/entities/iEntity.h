@@ -115,6 +115,18 @@ namespace igor
          */
         iSpriteRendererComponent &addSpriteRendererComponent(iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
 
+        /*! adds behaviour to entity
+
+        \param behaviour the behaviour to be added
+        */
+        void addBehaviour(iBehaviourSlot behaviour);
+
+        /*! removes behaviour from entity
+        
+        \param behaviour the behaviour to be removed
+        */
+        void removeBehaviour(iBehaviourSlot behaviour);
+
         /*! \returns component of entity of given type
          */
         template <typename T>
@@ -129,14 +141,6 @@ namespace igor
         T *tryGetComponent() const
         {
             return _scene->getRegistry().try_get<T>(_entity);
-        }
-
-        /*! \returns true if entity has component of given type
-         */
-        template <typename T>
-        bool hasComponent() const
-        {
-            return _scene->getRegistry().try_get<T>(_entity) != nullptr;
         }
 
         /*! removes component of given type

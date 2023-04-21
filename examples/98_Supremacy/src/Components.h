@@ -64,9 +64,6 @@ struct VelocityComponent
     /*! speed in units per frame
     */
     float32 _speed;
-
-    // TODO does this need to be in here?
-    bool _nonBlockable = false;
 };
 
 struct HealthComponent
@@ -93,6 +90,9 @@ struct DamageComponent
 struct PartyComponent
 {
     uint32 _partyID = 0;
+
+    // TODO does this need to be in here?
+    bool _nonBlockable = false;
 };
 
 struct ExperienceComponent

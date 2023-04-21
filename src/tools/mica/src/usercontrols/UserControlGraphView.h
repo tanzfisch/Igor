@@ -35,7 +35,7 @@
 #include <vector>
 #include <map>
 
-iaSIGNAL(GraphSelectionChanged, GraphSelectionChangedDelegate, (uint64 nodeID), (nodeID));
+IGOR_SIGNAL(GraphSelectionChanged, GraphSelectionChangedDelegate, (uint64 nodeID), (nodeID));
 
 class Outliner;
 

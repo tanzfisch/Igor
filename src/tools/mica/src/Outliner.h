@@ -33,14 +33,14 @@
 #include "usercontrols/UserControlGraphView.h"
 #include "usercontrols/UserControlMaterialView.h"
 
-iaSIGNAL(LoadFile, LoadFileDelegate, (), ());
-iaSIGNAL(ImportFile, ImportFileDelegate, (), ());
-iaSIGNAL(ImportFileReference, ImportFileReferenceDelegate, (), ());
-iaSIGNAL(SaveFile, SaveFileDelegate, (), ());
-iaSIGNAL(ExitMica, ExitMicaDelegate, (), ());
-iaSIGNAL(CopyNode, CopyNodeDelegate, (uint64 nodeID), (nodeID));
-iaSIGNAL(PasteNode, PasteNodeDelegate, (uint64 nodeID), (nodeID));
-iaSIGNAL(CutNode, CutNodeDelegate, (uint64 nodeID), (nodeID));
+IGOR_SIGNAL(LoadFile, LoadFileDelegate, (), ());
+IGOR_SIGNAL(ImportFile, ImportFileDelegate, (), ());
+IGOR_SIGNAL(ImportFileReference, ImportFileReferenceDelegate, (), ());
+IGOR_SIGNAL(SaveFile, SaveFileDelegate, (), ());
+IGOR_SIGNAL(ExitMica, ExitMicaDelegate, (), ());
+IGOR_SIGNAL(CopyNode, CopyNodeDelegate, (uint64 nodeID), (nodeID));
+IGOR_SIGNAL(PasteNode, PasteNodeDelegate, (uint64 nodeID), (nodeID));
+IGOR_SIGNAL(CutNode, CutNodeDelegate, (uint64 nodeID), (nodeID));
 
 // replace later with iWidgetTab once implemented
 enum class ViewType

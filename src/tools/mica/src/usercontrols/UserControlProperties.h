@@ -42,8 +42,8 @@ class UserControlEmitter;
 class UserControlParticleSystem;
 class UserControlMaterial;
 
-iaSIGNAL(PropertiesChangedEvent, PropertiesChangedDelegate, (), ());
-iaSIGNAL(StructureChangedEvent, StructureChangedDelegate, (), ());
+IGOR_SIGNAL(PropertiesChangedEvent, PropertiesChangedDelegate, (), ());
+IGOR_SIGNAL(StructureChangedEvent, StructureChangedDelegate, (), ());
 
 enum class PropertyType
 {

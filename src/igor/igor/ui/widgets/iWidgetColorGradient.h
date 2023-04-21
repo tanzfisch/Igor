@@ -43,7 +43,7 @@ namespace igor
 
     /*! color created/added event
     */
-    iaSIGNAL(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, (float32 at, const iaColor4f &color), (at, color));
+    IGOR_SIGNAL(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, (float32 at, const iaColor4f &color), (at, color));
 
     /*! color view widget
     */

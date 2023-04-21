@@ -77,7 +77,7 @@ namespace igor
 
     \param voxelBlockInfo contains all information to generate the voxels
     */
-    iaSLOT(iVoxelTerrainGenerateDelegate, void, (iVoxelBlockInfo * voxelBlockInfo), (voxelBlockInfo));
+    IGOR_SLOT(iVoxelTerrainGenerateDelegate, void, (iVoxelBlockInfo * voxelBlockInfo), (voxelBlockInfo));
 
     // TODO add callback onAfterMeshGeneration ?
 

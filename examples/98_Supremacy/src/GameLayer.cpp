@@ -23,8 +23,8 @@ iEntity GameLayer::createPlayer()
     iEntity entity = _entityScene->createEntity("player");
 
     const auto &transform = entity.addTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0));
-    entity.addComponent<VelocityComponent>(iaVector2f(1.0f, 0.0f), 0.5f, true);
-    entity.addComponent<PartyComponent>(FRIEND);
+    entity.addComponent<VelocityComponent>(iaVector2f(1.0f, 0.0f), 0.5f);
+    entity.addComponent<PartyComponent>(FRIEND, true);
     entity.addComponent<DamageComponent>(0.0f);
     entity.addComponent<HealthComponent>(100.0f);
     entity.addComponent<ExperienceComponent>(0.0f, 1.0f);
@@ -130,7 +130,7 @@ void GameLayer::createShop()
 {
     _shop = _entityScene->createEntity("shop", false);
     auto transform = _shop.addTransformComponent(iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0));
-    _shop.addComponent<VelocityComponent>(getRandomDir(), 0.0f, false);
+    _shop.addComponent<VelocityComponent>(getRandomDir(), 0.0f);
     _shop.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"));
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     _shop.addComponent<BuildingComponent>(BuildingType::Shop);
@@ -150,7 +150,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 {
     iEntity unit = _entityScene->createEntity();
     const auto &transform = unit.addTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0));
-    unit.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed, false);
+    unit.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed);
     unit.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
     unit.addComponent<PartyComponent>(party);
     unit.addComponent<DamageComponent>(enemyClass._damage);
@@ -922,7 +922,7 @@ void GameLayer::onUpdatePositionSystem()
         auto *range = entity.tryGetComponent<RangeComponent>();
 
         // don't calculate diversion if non block able
-        if (!vel._nonBlockable)
+        if (!party._nonBlockable)
         {
             iaCirclef circle(position, radius * 1.1);
             iQuadtreef::Objects objects;
@@ -944,8 +944,8 @@ void GameLayer::onUpdatePositionSystem()
                 iEntity otherEntity(otherEntityID, _entityScene);
 
                 // ignore other entity for diversion if non block able
-                auto *otherEntityVel = otherEntity.tryGetComponent<VelocityComponent>();
-                if (otherEntityVel == nullptr || otherEntityVel->_nonBlockable)
+                auto *otherEntityParty = otherEntity.tryGetComponent<PartyComponent>();
+                if (otherEntityParty == nullptr || otherEntityParty->_nonBlockable)
                 {
                     continue;
                 }
@@ -1075,9 +1075,9 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
         iaVector2f d = dir;
         d.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon._accuracy * 0.2);
         float32 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (iaRandom::getNextFloat() - 0.5));
-        bullet.addComponent<VelocityComponent>(d, s, true);
+        bullet.addComponent<VelocityComponent>(d, s);
 
-        bullet.addComponent<PartyComponent>(party);
+        bullet.addComponent<PartyComponent>(party, true);
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
         bullet.addComponent<HealthComponent>(100.0f, true);
         bullet.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile(weapon._texture));
@@ -1351,7 +1351,9 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
 void GameLayer::onUpdate(const iaTime &time)
 {
     onUpdateQuadtreeSystem();
+
     onUpdateMovementControlSystem();
+
     onUpdateFollowTargetSystem();
     onUpdateOrientationSystem();
     onUpdatePositionSystem();

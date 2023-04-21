@@ -50,7 +50,7 @@ namespace igor
 
     /*! callback for placing props on terrain
     */
-    iaSLOT(iVoxelTerrainPlacePropsDelegate, void, (iVoxelBlockPropsInfo voxelBlockPropsInfo), (voxelBlockPropsInfo));
+    IGOR_SLOT(iVoxelTerrainPlacePropsDelegate, void, (iVoxelBlockPropsInfo voxelBlockPropsInfo), (voxelBlockPropsInfo));
 
     class iTaskPropsOnVoxels : public iTask
     {

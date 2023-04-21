@@ -52,7 +52,7 @@ namespace igor
 
     /*! render event triggered for every frame a view is rendered
     */
-    iaSIGNAL(iDrawEvent, iDrawDelegate, (), ());
+    IGOR_SIGNAL(iDrawEvent, iDrawDelegate, (), ());
 
     /*! represents a view rectangle within a window and projection of the scene
 

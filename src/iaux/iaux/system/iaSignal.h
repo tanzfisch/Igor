@@ -42,8 +42,8 @@ namespace iaux
 
     /*! event
      */
-#define iaSIGNAL(SignalName, SlotName, ParameterList, InnerParameterList)     \
-    iaSLOT(SlotName, void, ParameterList, InnerParameterList);                \
+#define IGOR_SIGNAL(SignalName, SlotName, ParameterList, InnerParameterList)     \
+    IGOR_SLOT(SlotName, void, ParameterList, InnerParameterList);                \
                                                                               \
     class SignalName                                                          \
     {                                                                         \

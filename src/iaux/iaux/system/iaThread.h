@@ -42,7 +42,7 @@ namespace iaux
 
     /*! thread delegate calls the actual function run by this thread
     */
-    iaSLOT(ThreadDelegate, void, (iaThread * thread), (thread));
+    IGOR_SLOT(ThreadDelegate, void, (iaThread * thread), (thread));
 
     /*! the state a thread is currently in
     */

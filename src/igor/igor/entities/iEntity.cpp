@@ -58,4 +58,27 @@ namespace igor
         return _scene->getRegistry().emplace_or_replace<iSpriteRendererComponent>(_entity, texture, color, zIndex);
     }
 
+    void iEntity::addBehaviour(iBehaviourSlot behaviour)
+    {
+        if(_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
+        {
+            _scene->getRegistry().emplace_or_replace<iBehaviourComponent>(_entity);
+        }
+
+        iBehaviourComponent &component = _scene->getRegistry().get<iBehaviourComponent>(_entity);
+        component._behaviour.append(behaviour);
+    }
+
+    void iEntity::removeBehaviour(iBehaviourSlot behaviour)
+    {
+        if(_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
+        {
+            con_err("no behaviour component available");
+            return;
+        }
+
+        iBehaviourComponent &component = _scene->getRegistry().get<iBehaviourComponent>(_entity);
+        component._behaviour.remove(behaviour);
+    }
+
 }

@@ -33,9 +33,9 @@
 using namespace iaux;
 using namespace igor;
 
-iaSIGNAL(AddMaterial, AddMaterialDelegate, (), ());
-iaSIGNAL(LoadMaterial, LoadMaterialDelegate, (), ());
-iaSIGNAL(MaterialSelectionChanged, MaterialSelectionChangedDelegate, (const iMaterialID &materialID), (materialID));
+IGOR_SIGNAL(AddMaterial, AddMaterialDelegate, (), ());
+IGOR_SIGNAL(LoadMaterial, LoadMaterialDelegate, (), ());
+IGOR_SIGNAL(MaterialSelectionChanged, MaterialSelectionChangedDelegate, (const iMaterialID &materialID), (materialID));
 
 class UserControlMaterialView : public iUserControl
 {

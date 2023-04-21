@@ -40,7 +40,7 @@ namespace igor
 
     class iPhysicsJoint;
 
-    iaSIGNAL(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, (iPhysicsJoint * joint, float32 timestep), (joint, timestep));
+    IGOR_SIGNAL(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, (iPhysicsJoint * joint, float32 timestep), (joint, timestep));
 
     /*! wrapper for the NewtonJoint handle
     */

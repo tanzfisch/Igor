@@ -34,47 +34,50 @@
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/math/iaMatrix.h>
+#include <iaux/system/iaSignal.h>
 using namespace iaux;
 
 #include <entt.h>
 
 namespace igor
 {
-	/*! entity id definition
-	 */
-	typedef entt::entity iEntityID;
+    /*! entity id definition
+     */
+    typedef entt::entity iEntityID;
 
-  	/*! invalid entity id definition
-    */
-	const iEntityID IGOR_INVALID_ENTITY_ID = entt::null;
+    /*! invalid entity id definition
+     */
+    const iEntityID IGOR_INVALID_ENTITY_ID = entt::null;
+
+    class iEntity;
 
     /*! name component used in each entity by default
      */
     struct iBaseEntityComponent
     {
         /*! name of entity
-        */
+         */
         iaString _name;
 
         /*! if false this entity does nothing
-        */
+         */
         bool _active = true;
     };
 
     /*! sprite render component
-    */
+     */
     struct iSpriteRendererComponent
     {
         /*! texture to render as sprite
-        */
-        iTexturePtr _texture;
+         */
+        iTexturePtr _texture; // TODO need sprite not just texture
 
         /*! color to render sprite with
-        */
+         */
         iaColor4f _color = iaColor4f::white;
 
         /*! specifies the render order within a layer
-        */
+         */
         int32 _zIndex = 0;
     };
 
@@ -99,13 +102,48 @@ namespace igor
         iaVector3d _scale;
 
         /*! parent entity id
-        */
-        iEntityID _parent = IGOR_INVALID_ENTITY_ID;
+         */
+        iEntityID _parent = IGOR_INVALID_ENTITY_ID;        
 
         /*! the world matrix of this transform
-        */
+         */
         iaMatrixd _worldMatrix;
     };
+
+    /*! behaviour signal definition
+    */
+    IGOR_SIGNAL(iBehaviourSignal, iBehaviourSlot, (iEntity &entity), (entity));
+
+    /*! behaviour component
+    */
+    struct iBehaviourComponent
+    {
+        /*! behaviour signal
+        */
+        iBehaviourSignal _behaviour;
+    };
+
+    // iTextComponent
+    // iPhysicsBodyComponent or specialized colliders and group colliders
+
+    // iCharacterControllerComponent
+
+    // iAudioSourceComponent
+    // iAudioListenerComponent
+    // iAudio remix reverb zone component
+    // audio high/low pass filter
+
+    // iParticleSystemComponent2D
+    // iParticleSystemComponent3D
+    // trail renderer
+    // light
+    // sky box
+    // UI elements as component
+
+    // constraints
+    // aim at / look at / transform / rotate / scale
+    // struct iMeshRenderComponent
+
 }
 
 #endif //  __IGOR_COMPONENTS__
