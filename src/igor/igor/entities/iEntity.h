@@ -93,6 +93,28 @@ namespace igor
             return _scene->getRegistry().emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
         }
 
+        /*! adds transform component to entity
+
+        \param position the transform position 
+        \param orientation the transform orientation in rad
+        \param scale the transform scale
+        \param parent the parent of this transform
+        \param worldMatrix world matrix of this transform
+
+        \returns reference to newly created component
+         */
+        iTransformComponent &addTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(), iEntityID parent = IGOR_INVALID_ENTITY_ID, const iaMatrixd &worldMatrix = iaMatrixd());
+
+        /*! adds sprite render component to entity
+
+        \param texture texture to use for render
+        \param color color to render with
+        \param zIndex z index order
+
+        \returns reference to newly created component
+         */
+        iSpriteRendererComponent &addSpriteRendererComponent(iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
+
         /*! \returns component of entity of given type
          */
         template <typename T>
