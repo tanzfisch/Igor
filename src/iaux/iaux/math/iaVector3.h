@@ -177,11 +177,11 @@ namespace iaux
 
         /*! \returns length of vector
         */
-        T length(void) const;
+        T length() const;
 
         /*! \returns quadratic length of vector
         */
-        T length2(void) const;
+        T length2() const;
 
         /*! \returns distance between two vectors
 
@@ -219,11 +219,11 @@ namespace iaux
 
         /*! normalizes the vector
         */
-        iaVector3<T> normalize(void);
+        void normalize();
 
         /*! negates the vector
         */
-        iaVector3<T> negate(void);
+        void negate();
 
         /*! \retruns pointer to internal data
         */

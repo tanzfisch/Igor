@@ -115,6 +115,15 @@ namespace igor
          */
         iSpriteRendererComponent &addSpriteRendererComponent(iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
 
+        /*! adds velocity component to entity
+
+        \param velocity velocity in 3 dimensions
+        \param angularVelocity angular velocity in 3 dimensions
+
+        \returns reference to newly created component
+         */
+        iVelocityComponent &addVelocityComponent(iaVector3d velocity = iaVector3d(), iaVector3d angularVelocity = iaVector3d());
+
         /*! adds behaviour to entity
 
         \param behaviour the behaviour to be added

@@ -144,13 +144,13 @@ __IGOR_INLINE__ void iaVector2<T>::set(T x, T y)
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::length(void) const
+__IGOR_INLINE__ T iaVector2<T>::length() const
 {
     return (T)sqrt(_x*_x + _y*_y);
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::length2(void) const
+__IGOR_INLINE__ T iaVector2<T>::length2() const
 {
     return (_x*_x + _y*_y);
 }
@@ -195,15 +195,20 @@ __IGOR_INLINE__ void  iaVector2<T>::rotateXY(T angle)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::normalize(void)
+__IGOR_INLINE__ void iaVector2<T>::normalize()
 {
+    if(_x == 0 && _y == 0)
+    {
+        return;
+    }
+
     T h = (T)sqrt(_x*_x + _y*_y);
     _x /= h;
     _y /= h;
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::negate(void)
+__IGOR_INLINE__ void iaVector2<T>::negate()
 {
     _x *= -1;
     _y *= -1;

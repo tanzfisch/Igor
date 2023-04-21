@@ -110,6 +110,17 @@ namespace igor
         iaMatrixd _worldMatrix;
     };
 
+    struct iVelocityComponent
+    {
+        /*! vector to describe the velocity
+        */
+        iaVector3d _velocity;
+
+        /*! vector to describe angular velocity of all three axis 
+        */
+        iaVector3d _angularVelocity;
+    };
+
     /*! behaviour signal definition
     */
     IGOR_SIGNAL(iBehaviourSignal, iBehaviourSlot, (iEntity &entity), (entity));

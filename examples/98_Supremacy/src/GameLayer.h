@@ -213,7 +213,7 @@ private:
 
     /*! \returns random direction
      */
-    iaVector2f getRandomDir();
+    iaVector3d getRandomDir();
 
     iEntity createPlayer();
 

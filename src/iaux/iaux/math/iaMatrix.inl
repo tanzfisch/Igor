@@ -574,7 +574,7 @@ __IGOR_INLINE__ void iaMatrix<T>::setData(const T *data)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::identity(void)
+__IGOR_INLINE__ void iaMatrix<T>::identity()
 {
     _right._x = 1;
     _top._x = 0;

@@ -48,19 +48,24 @@ namespace igor
         return _scene->getRegistry().valid(_entity);
     }
 
-    iTransformComponent& iEntity::addTransformComponent(const iaVector3d &position, const iaVector3d& orientation, const iaVector3d &scale, iEntityID parent, const iaMatrixd &worldMatrix)
+    iTransformComponent &iEntity::addTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale, iEntityID parent, const iaMatrixd &worldMatrix)
     {
         return _scene->getRegistry().emplace_or_replace<iTransformComponent>(_entity, position, orientation, scale, parent, worldMatrix);
-    }    
+    }
 
-    iSpriteRendererComponent & iEntity::addSpriteRendererComponent(iTexturePtr texture, const iaColor4f &color, int32 zIndex)
+    iSpriteRendererComponent &iEntity::addSpriteRendererComponent(iTexturePtr texture, const iaColor4f &color, int32 zIndex)
     {
         return _scene->getRegistry().emplace_or_replace<iSpriteRendererComponent>(_entity, texture, color, zIndex);
     }
 
+    iVelocityComponent &iEntity::addVelocityComponent(iaVector3d velocity, iaVector3d angularVelocity)
+    {
+        return _scene->getRegistry().emplace_or_replace<iVelocityComponent>(_entity, velocity, angularVelocity);
+    }
+
     void iEntity::addBehaviour(iBehaviourSlot behaviour)
     {
-        if(_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
+        if (_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
         {
             _scene->getRegistry().emplace_or_replace<iBehaviourComponent>(_entity);
         }
@@ -71,7 +76,7 @@ namespace igor
 
     void iEntity::removeBehaviour(iBehaviourSlot behaviour)
     {
-        if(_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
+        if (_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
         {
             con_err("no behaviour component available");
             return;

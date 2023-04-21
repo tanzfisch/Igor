@@ -171,11 +171,11 @@ namespace iaux
 
         /*! \returns length of vector
          */
-        T length(void) const;
+        T length() const;
 
         /*! \returns quadratic length of vector
          */
-        T length2(void) const;
+        T length2() const;
 
         /*! \returns distance between positions
 
@@ -213,11 +213,11 @@ namespace iaux
 
         /*! normalizes the vector
          */
-        void normalize(void);
+        void normalize();
 
         /*! conjugates (or negates) the vector
          */
-        void negate(void);
+        void negate();
 
         /*! converts the vector in to given type of vector
 

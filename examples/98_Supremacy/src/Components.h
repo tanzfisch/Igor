@@ -46,24 +46,13 @@ struct RangeComponent
 struct AngularVelocityComponent
 {
     /*! angular velocity in rad per frame
-    */
+     */
     float32 _velocity;
 };
 
 struct QuadtreeObjectComponent
 {
     iQuadtreef::ObjectPtr _object;
-};
-
-struct VelocityComponent
-{
-    /*! normalized vector to discribe the direction
-    */
-    iaVector2f _direction;
-
-    /*! speed in units per frame
-    */
-    float32 _speed;
 };
 
 struct HealthComponent
@@ -120,7 +109,7 @@ struct VisualComponent
 {
     bool _castShadow;
     bool _scaleAnimation;
-    iaTime _timerOffset;    
+    iaTime _timerOffset;
 };
 
 struct TargetComponent

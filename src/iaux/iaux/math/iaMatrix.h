@@ -178,7 +178,7 @@ namespace iaux
 
         /*! initializes matrix with id matrix
 		*/
-        void identity(void);
+        void identity();
 
         /*! returns the determinant of the matrix
 		*/

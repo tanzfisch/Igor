@@ -10,11 +10,12 @@ GameLayer::GameLayer(iWindowPtr window)
     _entityScene = iEntitySystemModule::getInstance().createScene();
 }
 
-iaVector2f GameLayer::getRandomDir()
+iaVector3d GameLayer::getRandomDir()
 {
     iaVector2f direction(0.0, 1.0);
     direction.rotateXY(iaRandom::getNextFloat() * M_PI * 2.0);
-    return direction;
+    direction.normalize();
+    return iaVector3d(direction._x, direction._y, 0.0);
 }
 
 iEntity GameLayer::createPlayer()
@@ -23,7 +24,7 @@ iEntity GameLayer::createPlayer()
     iEntity entity = _entityScene->createEntity("player");
 
     const auto &transform = entity.addTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0));
-    entity.addComponent<VelocityComponent>(iaVector2f(1.0f, 0.0f), 0.5f);
+    entity.addVelocityComponent(iaVector3d(1,0,0));
     entity.addComponent<PartyComponent>(FRIEND, true);
     entity.addComponent<DamageComponent>(0.0f);
     entity.addComponent<HealthComponent>(100.0f);
@@ -130,7 +131,7 @@ void GameLayer::createShop()
 {
     _shop = _entityScene->createEntity("shop", false);
     auto transform = _shop.addTransformComponent(iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0));
-    _shop.addComponent<VelocityComponent>(getRandomDir(), 0.0f);
+    _shop.addVelocityComponent();
     _shop.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"));
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     _shop.addComponent<BuildingComponent>(BuildingType::Shop);
@@ -150,7 +151,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 {
     iEntity unit = _entityScene->createEntity();
     const auto &transform = unit.addTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0));
-    unit.addComponent<VelocityComponent>(getRandomDir(), enemyClass._speed);
+    unit.addVelocityComponent(getRandomDir() * enemyClass._speed);
     unit.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
     unit.addComponent<PartyComponent>(party);
     unit.addComponent<DamageComponent>(enemyClass._damage);
@@ -591,29 +592,31 @@ void GameLayer::onUpdateQuadtreeSystem()
 
 void GameLayer::onUpdateMovementControlSystem()
 {
-    auto movementControlView = _entityScene->getEntities<MovementControlComponent, VelocityComponent>();
+    auto movementControlView = _entityScene->getEntities<MovementControlComponent, iVelocityComponent>();
     for (auto entity : movementControlView)
     {
-        auto [movementControl, vel] = movementControlView.get<MovementControlComponent, VelocityComponent>(entity);
+        auto [movementControl, vel] = movementControlView.get<MovementControlComponent, iVelocityComponent>(entity);
 
-        vel._direction.set(0, 0);
+        vel._velocity.set(0, 0, 0);
 
         if (movementControl._left)
         {
-            vel._direction._x -= 1.0;
+            vel._velocity._x -= 1.0;
         }
         if (movementControl._right)
         {
-            vel._direction._x += 1.0;
+            vel._velocity._x += 1.0;
         }
         if (movementControl._up)
         {
-            vel._direction._y -= 1.0;
+            vel._velocity._y -= 1.0;
         }
         if (movementControl._down)
         {
-            vel._direction._y += 1.0;
+            vel._velocity._y += 1.0;
         }
+
+        vel._velocity.normalize();
     }
 }
 
@@ -852,10 +855,12 @@ bool GameLayer::intersectDoughnut(const iaVector2f &position, const iaCirclef &c
 void GameLayer::onUpdateFollowTargetSystem()
 {
     // follow given target
-    auto targetView = _entityScene->getEntities<iTransformComponent, VelocityComponent, TargetComponent>();
+    auto targetView = _entityScene->getEntities<iTransformComponent, iVelocityComponent, TargetComponent>();
     for (auto entity : targetView)
     {
-        auto [transform, vel, target] = targetView.get<iTransformComponent, VelocityComponent, TargetComponent>(entity);
+        auto [transform, vel, target] = targetView.get<iTransformComponent, iVelocityComponent, TargetComponent>(entity);
+
+        const float64 speed = vel._velocity.length();
 
         // skip if entity is not following targets
         if (!target._followTarget)
@@ -886,14 +891,16 @@ void GameLayer::onUpdateFollowTargetSystem()
         {
             if (target._inRange)
             {
-                vel._direction = getRandomDir();
+                vel._velocity = getRandomDir() * speed;
                 target._inRange = false;
             }
         }
         else
         {
-            vel._direction = targetPos - position + offset;
-            vel._direction.normalize();
+            iaVector2f newVel = targetPos - position + offset;
+            newVel.normalize();
+            newVel *= speed;
+            vel._velocity.set(newVel._x, newVel._y, 0.0);
             target._inRange = true;
         }
     }
@@ -901,17 +908,23 @@ void GameLayer::onUpdateFollowTargetSystem()
 
 void GameLayer::onUpdatePositionSystem()
 {
-    auto positionUpdateView = _entityScene->getEntities<iTransformComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
+    auto positionUpdateView = _entityScene->getEntities<iTransformComponent, iVelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
     for (auto entityID : positionUpdateView)
     {
-        auto [transform, vel, party, damage, health] = positionUpdateView.get<iTransformComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
+        auto [transform, vel, party, damage, health] = positionUpdateView.get<iTransformComponent, iVelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
+
+        iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
+
+        if(entity.getName() == "player")
+        {
+            int x = 0;
+        }
 
         iaVector2f position(transform._position._x, transform._position._y);
         const float32 radius = transform._scale._x * 0.5;
-        float32 speed = vel._speed;
+        float32 speed = vel._velocity.length();
         iaVector2f diversion;
-        iaVector2f direction = vel._direction;
-        iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
+        iaVector2f direction(vel._velocity._x, vel._velocity._y);
 
         ModifierComponent *modifierComponent = entity.tryGetComponent<ModifierComponent>();
         if (modifierComponent != nullptr)
@@ -1072,10 +1085,12 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
         bullet.addComponent<AngularVelocityComponent>(angularVelocity);
         bullet.addComponent<RangeComponent>(weapon._range * modifier._projectileRangeFactor);
 
-        iaVector2f d = dir;
-        d.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon._accuracy * 0.2);
+        iaVector2f dir2 = dir;
+        dir2.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon._accuracy * 0.2);
+        iaVector3d d(dir2._x, dir2._y, 0.0);
         float32 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (iaRandom::getNextFloat() - 0.5));
-        bullet.addComponent<VelocityComponent>(d, s);
+        d *= s;
+        bullet.addVelocityComponent(d);
 
         bullet.addComponent<PartyComponent>(party, true);
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
@@ -1227,10 +1242,10 @@ void GameLayer::onUpdateWeaponSystem()
 {
     iaTime now = iTimer::getInstance().getTime();
 
-    auto view = _entityScene->getEntities<WeaponComponent, TargetComponent, iTransformComponent, VelocityComponent, ModifierComponent>();
+    auto view = _entityScene->getEntities<WeaponComponent, TargetComponent, iTransformComponent, iVelocityComponent, ModifierComponent>();
     for (auto entityID : view)
     {
-        auto [weapon, target, transform, velocity, modifier] = view.get<WeaponComponent, TargetComponent, iTransformComponent, VelocityComponent, ModifierComponent>(entityID);
+        auto [weapon, target, transform, velocity, modifier] = view.get<WeaponComponent, TargetComponent, iTransformComponent, iVelocityComponent, ModifierComponent>(entityID);
 
         // skip if there is no target
         if (target._targetID == IGOR_INVALID_ENTITY_ID)
@@ -1239,7 +1254,7 @@ void GameLayer::onUpdateWeaponSystem()
         }
 
         // check if unit needs to stand still
-        if (weapon._standStillToFire && velocity._direction.length() * velocity._speed > 0.0)
+        if (weapon._standStillToFire && velocity._velocity.length() > 0.0)
         {
             continue;
         }
@@ -1279,14 +1294,15 @@ void GameLayer::onUpdateRangeSystem()
 
 void GameLayer::onUpdateOrientationSystem()
 {
-    auto view = _entityScene->getEntities<AngularVelocityComponent, VelocityComponent, iTransformComponent>();
+    auto view = _entityScene->getEntities<AngularVelocityComponent, iVelocityComponent, iTransformComponent>();
     for (auto entity : view)
     {
-        auto [angularVel, vel, transform] = view.get<AngularVelocityComponent, VelocityComponent, iTransformComponent>(entity);
+        auto [angularVel, vel, transform] = view.get<AngularVelocityComponent, iVelocityComponent, iTransformComponent>(entity);
 
         //        if (ori.followVelocity)
         //      {
-        transform._orientation._z = vel._direction.angle() + (M_PI * 0.5);
+        iaVector2f vel2D(vel._velocity._x, vel._velocity._y);
+        transform._orientation._z = vel2D.angle() + (M_PI * 0.5);
         //    }
         //  else
         // {
@@ -1512,7 +1528,7 @@ void GameLayer::onRenderHUD()
     auto &playerCoins = _player.getComponent<CoinsComponent>();
     auto &modifiers = _player.getComponent<ModifierComponent>();
     auto &weapon = _player.getComponent<WeaponComponent>();
-    auto &playerVelocity = _player.getComponent<VelocityComponent>();
+    auto &playerVelocity = _player.getComponent<iVelocityComponent>();
 
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
@@ -1551,7 +1567,7 @@ void GameLayer::onRenderHUD()
     iRenderer::getInstance().drawString(60, 210, iaString::toString(1.0 / (weapon._attackInterval.getSeconds() / modifiers._attackIntervalFactor), 1));
 
     iRenderer::getInstance().drawTexturedRectangle(10, 240, 40, 40, _walkSpeed, iaColor4f::white, true);
-    iRenderer::getInstance().drawString(60, 250, iaString::toString(modifiers._walkSpeedFactor * playerVelocity._speed, 1));
+    iRenderer::getInstance().drawString(60, 250, iaString::toString(modifiers._walkSpeedFactor, 1));
 }
 
 void GameLayer::onLevelUp()
