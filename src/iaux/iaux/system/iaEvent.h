@@ -56,6 +56,11 @@ template <typename... Args>
 class iaDelegate
 {
 public:
+
+    /*! does nothing
+    */
+    iaDelegate() = default;
+
     iaDelegate(void (*function)(Args...))
     {
         _internal = (InternalDefaultCall *)malloc(sizeof(InternalDefaultCall));
@@ -182,7 +187,7 @@ private:
         }
 
     protected:
-        T *_instance;
+        T *_instance = nullptr;
         iMethodFunctionPointer<T *, Args...> _method;
     };
 
