@@ -84,7 +84,7 @@ private:
             }
 
             iFunctionPointer<Args...> function = ((InternalDefaultCall *)delegate)->_function;
-            return false; // (_function.target<void (*)(Args...)>() == function.target<void (*)(Args...)>());
+            return (_function.template target<void (*)(Args...)>() == function.template target<void (*)(Args...)>());
         }
 
         int getType() const override
@@ -131,7 +131,7 @@ private:
             }
 
             iMethodFunctionPointer<T *, Args...> method = ((InternalThisCall *)delegate)->_method;
-            return false; // (_method.target<void (T*)(Args...)>() == method.target<void (T*)(Args...)>());
+            return (_method.template target<void (*)(Args...)>() == method.template target<void (*)(Args...)>());
         }
 
         int getType() const override
