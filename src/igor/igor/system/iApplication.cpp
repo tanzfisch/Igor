@@ -149,8 +149,8 @@ namespace igor
             iterate();
         } while (_running);
 
-	    clearLayers();
-	    destroyWindow();
+        clearLayers();
+        destroyWindow();
     }
 
     bool iApplication::isRunning()
@@ -197,15 +197,16 @@ namespace igor
 
     void iApplication::destroyWindow()
     {
-        con_assert_sticky(_window != nullptr, "window does not exist");
-
-        delete _window;
-        _window = nullptr;
+        if (_window != nullptr)
+        {
+            delete _window;
+            _window = nullptr;
+        }
     }
 
     iWindowPtr iApplication::getWindow()
     {
-        if(_window == nullptr)
+        if (_window == nullptr)
         {
             _window = new iWindow();
         }

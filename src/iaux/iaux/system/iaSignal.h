@@ -28,8 +28,8 @@
 //
 // Originally this code was written by Markus Schulz for nexusPIL
 
-#ifndef __IAUX_EVENT_H__
-#define __IAUX_EVENT_H__
+#ifndef __IAUX_SIGNAL_H__
+#define __IAUX_SIGNAL_H__
 
 #include <iaux/system/iaMutex.h>
 #include <iaux/system/iaSlot.h>
@@ -124,4 +124,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_EVENT_H__
+#endif // __IAUX_SIGNAL_H__
