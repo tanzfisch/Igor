@@ -39,6 +39,9 @@ using namespace iaux;
 
 #include <entt.h>
 
+#include <array>
+#include <functional>
+
 namespace igor
 {
     /*! entity id definition
@@ -103,7 +106,7 @@ namespace igor
 
         /*! parent entity id
          */
-        iEntityID _parent = IGOR_INVALID_ENTITY_ID;        
+        iEntityID _parent = IGOR_INVALID_ENTITY_ID;
 
         /*! the world matrix of this transform
          */
@@ -113,25 +116,25 @@ namespace igor
     struct iVelocityComponent
     {
         /*! vector to describe the velocity
-        */
+         */
         iaVector3d _velocity;
 
-        /*! vector to describe angular velocity of all three axis 
-        */
+        /*! vector to describe angular velocity of all three axis
+         */
         iaVector3d _angularVelocity;
     };
 
-    /*! behaviour signal definition
+    /*! behaviour function definition
     */
-    IGOR_SIGNAL(iBehaviourSignal, iBehaviourSlot, (iEntity &entity), (entity));
+    typedef std::function<void(iEntity& entity)> iBehaviourFunction;
 
     /*! behaviour component
-    */
+     */
     struct iBehaviourComponent
     {
-        /*! behaviour signal
-        */
-        iBehaviourSignal _behaviour;
+        /*! behaviors
+         */
+        std::array<iBehaviourFunction, IGOR_MAX_BEHAVIORS_PER_COMPONENT> _behaviour;
     };
 
     // iTextComponent

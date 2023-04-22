@@ -31,12 +31,14 @@
 
 #include <cstdlib>
 
+#include <functional>
+
 namespace iaux
 {
 
 /*! delegate
  */
-#define IGOR_SLOT(SlotName, ReturnType, ParameterList, InnerParameterList)                                           \
+#define IGOR_SLOT(SlotName, ReturnType, ParameterList, InnerParameterList)                                        \
     class SlotName                                                                                                \
     {                                                                                                             \
     protected:                                                                                                    \

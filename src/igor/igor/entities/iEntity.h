@@ -76,7 +76,7 @@ namespace igor
         void setName(const iaString &name);
 
         /*! \returns true if entity is active
-        */
+         */
         bool isActive() const;
 
         /*! sets entity active
@@ -95,7 +95,7 @@ namespace igor
 
         /*! adds transform component to entity
 
-        \param position the transform position 
+        \param position the transform position
         \param orientation the transform orientation in rad
         \param scale the transform scale
         \param parent the parent of this transform
@@ -128,13 +128,13 @@ namespace igor
 
         \param behaviour the behaviour to be added
         */
-        void addBehaviour(iBehaviourSlot behaviour);
+        void addBehaviour(const iBehaviourFunction &behaviour);
 
         /*! removes behaviour from entity
-        
+
         \param behaviour the behaviour to be removed
         */
-        void removeBehaviour(iBehaviourSlot behaviour);
+        void removeBehaviour(const iBehaviourFunction &behaviour);
 
         /*! \returns component of entity of given type
          */

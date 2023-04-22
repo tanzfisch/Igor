@@ -18,6 +18,17 @@ iaVector3d GameLayer::getRandomDir()
     return iaVector3d(direction._x, direction._y, 0.0);
 }
 
+void GameLayer::onPlayerBehaviour(iEntity &entity)
+{
+    con_endl("onPlayerBehaviour");
+}
+
+void foo(iEntity &entity)
+{
+    con_endl("onPlayerBehaviour");
+}
+
+
 iEntity GameLayer::createPlayer()
 {
     // init player
@@ -25,6 +36,7 @@ iEntity GameLayer::createPlayer()
 
     const auto &transform = entity.addTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0));
     entity.addVelocityComponent(iaVector3d(1,0,0));
+    entity.addBehaviour(&foo);
     entity.addComponent<PartyComponent>(FRIEND, true);
     entity.addComponent<DamageComponent>(0.0f);
     entity.addComponent<HealthComponent>(100.0f);

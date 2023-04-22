@@ -54,6 +54,8 @@ using namespace iaux;
 //! Igor configuration short
 extern const iaString __IGOR_CONFIGURATION__;
 
+#define IGOR_MAX_BEHAVIORS_PER_COMPONENT 10
+
 namespace igor
 {
     /*! horizontal alignment relative to parent widget

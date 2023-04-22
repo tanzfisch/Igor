@@ -4,7 +4,7 @@
 
 #include <igor/entities/systems/iSpriteRenderSystem.h>
 #include <igor/entities/systems/iTransformHierarchySystem.h>
-
+#include <igor/entities/systems/iBehaviourSystem.h>
 
 namespace igor
 {
@@ -12,6 +12,7 @@ namespace igor
     iEntityScene::iEntityScene()
     {
         _systems.push_back(std::make_unique<iTransformHierarchySystem>());
+        _systems.push_back(std::make_unique<iBehaviourSystem>());
         
         _renderingSystems.push_back(std::make_unique<iSpriteRenderSystem>());
     }
