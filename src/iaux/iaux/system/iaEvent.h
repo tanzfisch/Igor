@@ -37,17 +37,6 @@
 
 namespace iaux
 {
-
-    /*! function pointer definition
-     */
-    template <typename R, typename... Args>
-    using iFunctionPointer = std::function<R(Args...)>;
-
-    /*! method pointer definition
-     */
-    template <class T, typename R, typename... Args>
-    using iMethodPointer = std::function<R(T, Args...)>;
-
     /*! a delegate that wraps a function or method
      */
     template <typename R, typename... Args>
@@ -122,7 +111,7 @@ namespace iaux
         class InternalDefaultCall : public InternalBase
         {
         public:
-            InternalDefaultCall(iFunctionPointer<R, Args...> function)
+            InternalDefaultCall(R (*function)(Args...))
             {
                 _function = function;
             }
@@ -146,8 +135,9 @@ namespace iaux
                     return false;
                 }
 
-                iFunctionPointer<R, Args...> function = ((InternalDefaultCall *)delegate)->_function;
-                return (_function.template target<R(Args...)>() == function.template target<R(Args...)>());
+                R (*function)
+                (Args...) = ((InternalDefaultCall *)delegate)->_function;
+                return (_function == function);
             }
 
             int getType() const override
@@ -166,22 +156,21 @@ namespace iaux
             }
 
         protected:
-            iFunctionPointer<R, Args...> _function;
+            R (*_function)(Args...);
         };
 
         template <typename T>
         class InternalThisCall : public InternalBase
         {
         public:
-            InternalThisCall(T *instance, iMethodPointer<T *, R, Args...> method)
+            InternalThisCall(T *instance, R (T::*method)(Args...))
+                : _instance(instance), _method(method)
             {
-                _method = method;
-                _instance = instance;
             }
 
             R execute(Args... args) const override
             {
-                return _method(_instance, std::forward<Args>(args)...);
+                return (_instance->*_method)(std::forward<Args>(args)...);
             }
 
             InternalBase *clone() const override
@@ -203,8 +192,9 @@ namespace iaux
                     return false;
                 }
 
-                iMethodPointer<T *, R, Args...> method = ((InternalThisCall *)delegate)->_method;
-                return (_method.template target<R(T *, Args...)>() == method.template target<R(T *, Args...)>());
+                R (T::*method)
+                (Args...) = ((InternalThisCall<T> *)delegate)->_method;
+                return (_method == method);
             }
 
             int getType() const override
@@ -224,7 +214,7 @@ namespace iaux
 
         protected:
             T *_instance = nullptr;
-            iMethodPointer<T *, R, Args...> _method;
+            R (T::*_method)(Args...);
         };
 
         InternalBase *_internal = nullptr;
@@ -381,11 +371,7 @@ namespace iaux
         bool _blocked = false;
     };
 
-/*! helper function to specify events and their corresponding delegates
-
-It will generate type names from the given name adding an 'i' as prefix and "Event" or "Delegate" as postfix.
-
-It expects at least a return type
+/*! helper function to specify an event and its corresponding delegate
 
 \param NAME the name of the event
 \param ... parameter types. first parameter is expected to be the return type

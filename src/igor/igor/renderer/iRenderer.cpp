@@ -403,6 +403,22 @@ namespace igor
 
     void iRenderer::init()
     {
+        /////////// CHECK VERSION ////////////
+        _data->_vendor = (const char *)glGetString(GL_VENDOR);
+        _data->_renderer = (const char *)glGetString(GL_RENDERER);
+        GLint major = 0;
+        GLint minor = 0;
+        glGetIntegerv(GL_MAJOR_VERSION, &major);
+        glGetIntegerv(GL_MINOR_VERSION, &minor);
+        _data->_version = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
+        _data->_extensions = (const char *)glGetString(GL_EXTENSIONS);
+
+        con_assert_sticky(major >= 4 && minor >= 5, "minimum OpenGL version is 4.5");
+
+        con_info("OpenGL Version : " << _data->_version << endlTab
+                                     << "OpenGL Vendor  : " << _data->_vendor << endlTab
+                                     << "OpenGL Renderer: " << _data->_renderer);
+
         /////////// LINES //////////////
         auto &lines = _data->_lines;
         lines._vertexArray = iVertexArray::create();
@@ -514,21 +530,6 @@ namespace igor
         setStencilMask(0xff);
         clearStencilBuffer();
         setStencilTestActive(false);
-
-        _data->_vendor = (const char *)glGetString(GL_VENDOR);
-        _data->_renderer = (const char *)glGetString(GL_RENDERER);
-        GLint major = 0;
-        GLint minor = 0;
-        glGetIntegerv(GL_MAJOR_VERSION, &major);
-        glGetIntegerv(GL_MINOR_VERSION, &minor);
-        _data->_version = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
-        _data->_extensions = (const char *)glGetString(GL_EXTENSIONS);
-
-        con_assert_sticky(major >= 4 && minor >= 5, "minimum OpenGL version is 4.5");
-
-        con_info("OpenGL Version : " << _data->_version << endlTab
-                                     << "OpenGL Vendor  : " << _data->_vendor << endlTab
-                                     << "OpenGL Renderer: " << _data->_renderer);
 
         ///////////// MATERIALS ////////////
         _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/flat_shaded.mat", false);
@@ -643,7 +644,7 @@ namespace igor
                          matrixf * QUAD_VERTEX_POSITIONS[1],
                          matrixf * QUAD_VERTEX_POSITIONS[2],
                          matrixf * QUAD_VERTEX_POSITIONS[3],
-                         texture, color, blend, tiling);        
+                         texture, color, blend, tiling);
     }
 
     __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
@@ -928,7 +929,7 @@ namespace igor
         drawLineStrip(points, color);
         drawLine(points.back(), points.front(), color);
     }
-    
+
     void iRenderer::drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color)
     {
         con_assert(points.size() > 1, "too few points");
