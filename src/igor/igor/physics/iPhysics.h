@@ -36,6 +36,7 @@
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaTime.h>
+#include <iaux/system/iaEvent.h>
 using namespace iaux;
 
 #include <memory>
@@ -53,7 +54,7 @@ namespace igor
     class iPhysicsUserMeshCollisionHandler;
     class iPhysicsCollisionConfig;
 
-    IGOR_SLOT(iRayPreFilterDelegate, unsigned, (iPhysicsBody * body, iPhysicsCollision *collision, const void *userData), (body, collision, userData));
+    typedef iaDelegate<unsigned, iPhysicsBody *, iPhysicsCollision *, const void *> iRayPreFilterDelegate;
 
     struct IGOR_API ConvexCastReturnInfo
     {

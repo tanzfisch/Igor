@@ -42,7 +42,7 @@ namespace igor
 
     /*! dialog close event
 	*/
-    IGOR_SLOT(iDialogCloseDelegate, void, (iDialogPtr dialog), (dialog));
+    typedef iaDelegate<void, iDialogPtr> iDialogCloseDelegate;
 
     /*! dialog return states
     */

@@ -214,7 +214,7 @@ namespace igor
 
     void iPhysicsBody::registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate applyForceAndTorqueDelegate)
     {
-        _applyForceAndTorque.append(applyForceAndTorqueDelegate);
+        _applyForceAndTorque.add(applyForceAndTorqueDelegate);
     }
 
     void iPhysicsBody::unregisterForceAndTorqueDelegate(iApplyForceAndTorqueDelegate applyForceAndTorqueDelegate)

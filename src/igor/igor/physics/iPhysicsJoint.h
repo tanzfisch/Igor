@@ -31,8 +31,9 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/system/iaSignal.h>
+#include <iaux/system/iaEvent.h>
 #include <iaux/system/iaMutex.h>
+#include <iaux/system/iaEvent.h>
 using namespace iaux;
 
 namespace igor
@@ -40,10 +41,12 @@ namespace igor
 
     class iPhysicsJoint;
 
-    IGOR_SIGNAL(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, (iPhysicsJoint * joint, float32 timestep), (joint, timestep));
+    /*! event called by newton to submit constraints
+     */
+    IGOR_EVENT_DEFINITION(iSubmitConstraints, void, iPhysicsJoint *, float64);
 
     /*! wrapper for the NewtonJoint handle
-    */
+     */
     class IGOR_API iPhysicsJoint
     {
 
@@ -52,11 +55,11 @@ namespace igor
 
     public:
         /*! \returns pointer to newton joint
-        */
+         */
         void *getNewtonJoint() const;
 
         /*! \returns joint ID
-        */
+         */
         uint64 getID();
 
         uint64 getBody0ID();
@@ -67,20 +70,20 @@ namespace igor
 
     private:
         /*! next joint id
-        */
+         */
         static uint64 _nextJointID;
 
         static iaMutex _mutex;
 
         /*! id of joint object
-        */
+         */
         uint64 _jointID = 0;
 
         uint64 _bodyID0 = 0;
         uint64 _bodyID1 = 0;
 
         /*! the handle to the newton joint
-        */
+         */
         void *_joint = nullptr;
 
         iSubmitConstraintsEvent _submitConstraints;
@@ -94,7 +97,7 @@ namespace igor
         iPhysicsJoint(void *joint, uint64 body0, uint64 body1);
 
         /*! does nothing
-        */
+         */
         virtual ~iPhysicsJoint() = default;
     };
 

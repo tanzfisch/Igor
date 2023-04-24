@@ -34,7 +34,7 @@
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaColor4.h>
-#include <iaux/system/iaSignal.h>
+#include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -50,9 +50,9 @@ namespace igor
     class iNodeCamera;
     class iOctreeObject;
 
-    /*! render event triggered for every frame a view is rendered
+    /*! draw event triggered for every frame a view is rendered
     */
-    IGOR_SIGNAL(iDrawEvent, iDrawDelegate, (), ());
+    IGOR_EVENT_DEFINITION(iDraw, void);
 
     /*! represents a view rectangle within a window and projection of the scene
 

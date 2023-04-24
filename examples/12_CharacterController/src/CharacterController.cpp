@@ -121,7 +121,7 @@ iaVector3d CharacterController::getForce() const
 	return _navigationForce;
 }
 
-void CharacterController::onSubmitConstraints(iPhysicsJoint *joint, float32 timestep)
+void CharacterController::onSubmitConstraints(iPhysicsJoint *joint, float64 timestep)
 {
 	// this is to keep the body up right at all times
 
@@ -187,7 +187,7 @@ void CharacterController::onSubmitConstraints(iPhysicsJoint *joint, float32 time
 	}
 }
 
-void CharacterController::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
+void CharacterController::onApplyForceAndTorque(iPhysicsBody *body, float64 timestep)
 {
 	iaVector3d velocity = body->getVelocity();
 	iaVector3d force;

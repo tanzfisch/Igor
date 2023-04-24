@@ -236,7 +236,7 @@ void GameLayer::onInit()
     _viewOrtho.setClearColorActive(true);
     _viewOrtho.setClearDepthActive(false);
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &GameLayer::onRenderOrtho));
+    _viewOrtho.registerRenderDelegate({this, &GameLayer::onRenderOrtho});
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
@@ -1420,7 +1420,7 @@ void GameLayer::onDeinit()
 
     // clean up window
     getWindow()->removeView(&_viewOrtho);
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &GameLayer::onRenderOrtho));
+    _viewOrtho.unregisterRenderDelegate({this, &GameLayer::onRenderOrtho});
 }
 
 void GameLayer::onPreDraw()

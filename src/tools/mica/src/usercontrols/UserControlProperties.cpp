@@ -166,7 +166,7 @@ void UserControlProperties::onNameChanged()
 
 void UserControlProperties::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
 {
-    _propertiesChangedEvent.append(propertiesChangedDelegate);
+    _propertiesChangedEvent.add(propertiesChangedDelegate);
 }
 
 void UserControlProperties::unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
@@ -176,7 +176,7 @@ void UserControlProperties::unregisterPropertiesChangedDelegate(PropertiesChange
 
 void UserControlProperties::registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
 {
-    _structureChangedEvent.append(structureChangedDelegate);
+    _structureChangedEvent.add(structureChangedDelegate);
 }
 
 void UserControlProperties::unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)

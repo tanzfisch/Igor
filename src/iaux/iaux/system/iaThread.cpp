@@ -69,7 +69,7 @@ namespace iaux
         return 0;
     }
 
-    void iaThread::run(ThreadDelegate threadDelegate)
+    void iaThread::run(iThreadCallbackDelegate threadDelegate)
     {
         _threadDelegate = threadDelegate;
 

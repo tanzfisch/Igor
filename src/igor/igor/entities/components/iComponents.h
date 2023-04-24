@@ -34,7 +34,6 @@
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/math/iaMatrix.h>
-#include <iaux/system/iaSignal.h>
 using namespace iaux;
 
 #include <entt.h>

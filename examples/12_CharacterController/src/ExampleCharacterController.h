@@ -114,7 +114,7 @@ private:
     \param body the body affected
     \param timestep the physics time
     */
-    void onApplyForceAndTorqueBox(iPhysicsBody *body, float32 timestep);
+    void onApplyForceAndTorqueBox(iPhysicsBody *body, float64 timestep);
 
     /*! handle called once per frame
     */

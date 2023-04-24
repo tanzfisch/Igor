@@ -440,7 +440,7 @@ void UserControlMaterial::deinitGUI()
 
 void UserControlMaterial::registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate)
 {
-    _materialNameChangedEvent.append(nameChangedDelegate);
+    _materialNameChangedEvent.add(nameChangedDelegate);
 }
 
 void UserControlMaterial::unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate)

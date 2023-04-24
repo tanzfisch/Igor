@@ -33,7 +33,7 @@
 
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>
-#include <iaux/system/iaSlot.h>
+#include <iaux/system/iaEvent.h>
 using namespace iaux;
 
 #include <vector>
@@ -50,7 +50,7 @@ namespace igor
 
     /*! callback for placing props on terrain
     */
-    IGOR_SLOT(iVoxelTerrainPlacePropsDelegate, void, (iVoxelBlockPropsInfo voxelBlockPropsInfo), (voxelBlockPropsInfo));
+    typedef iaDelegate<void, iVoxelBlockPropsInfo> iVoxelTerrainPlacePropsDelegate;
 
     class iTaskPropsOnVoxels : public iTask
     {

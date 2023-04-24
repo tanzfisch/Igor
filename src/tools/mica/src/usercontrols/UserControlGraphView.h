@@ -35,7 +35,7 @@
 #include <vector>
 #include <map>
 
-IGOR_SIGNAL(GraphSelectionChanged, GraphSelectionChangedDelegate, (uint64 nodeID), (nodeID));
+IGOR_EVENT_DEFINITION(GraphSelectionChanged, void, uint64);
 
 class Outliner;
 
@@ -82,10 +82,10 @@ private:
 
     Outliner *_outliner = nullptr;
 
-    GraphSelectionChanged _graphSelectionChanged;
+    GraphSelectionChangedEvent _graphSelectionChanged;
 
     uint64 _root = iNode::INVALID_NODE_ID;
-    GraphSelectionChanged _selectionChange;
+    GraphSelectionChangedEvent _selectionChange;
 
     int32 _indentation = 0;
     bool _firstNode = true;

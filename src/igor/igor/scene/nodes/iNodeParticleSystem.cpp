@@ -52,7 +52,7 @@ namespace igor
 
     void iNodeParticleSystem::registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate delegate)
     {
-        _fishedEvent.append(delegate);
+        _fishedEvent.add(delegate);
     }
 
     void iNodeParticleSystem::unregisterParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate delegate)
@@ -101,7 +101,7 @@ namespace igor
 
         if (_particleSystem.isFinished())
         {
-            _fishedEvent();
+            _fishedEvent(getID());
         }
     }
 

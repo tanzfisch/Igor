@@ -139,7 +139,7 @@ void UserControlMaterialView::refresh()
 
 void UserControlMaterialView::registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 {
-    _addMaterial.append(addMaterialDelegate);
+    _addMaterial.add(addMaterialDelegate);
 }
 
 void UserControlMaterialView::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
@@ -149,7 +149,7 @@ void UserControlMaterialView::unregisterOnAddMaterial(AddMaterialDelegate addMat
 
 void UserControlMaterialView::registerOnLoadMaterial(LoadMaterialDelegate delegate)
 {
-    _loadMaterial.append(delegate);
+    _loadMaterial.add(delegate);
 }
 
 void UserControlMaterialView::unregisterOnLoadMaterial(LoadMaterialDelegate delegate)
@@ -159,7 +159,7 @@ void UserControlMaterialView::unregisterOnLoadMaterial(LoadMaterialDelegate dele
 
 void UserControlMaterialView::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
 {
-    _materialSelectionChanged.append(materialSelectionChangedDelegate);
+    _materialSelectionChanged.add(materialSelectionChangedDelegate);
 }
 
 void UserControlMaterialView::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)

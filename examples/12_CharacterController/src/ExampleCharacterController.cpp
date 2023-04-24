@@ -245,7 +245,7 @@ void ExampleCharacterController::onPreDraw()
     _characterController->setForce(resultingForce);
 }
 
-void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody *body, float32 timestep)
+void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody *body, float64 timestep)
 {
     float64 Ixx;
     float64 Iyy;

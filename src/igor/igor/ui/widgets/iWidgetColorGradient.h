@@ -34,6 +34,7 @@
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaGradient.h>
+#include <iaux/system/iaEvent.h>
 using namespace iaux;
 
 #include <memory>
@@ -42,48 +43,48 @@ namespace igor
 {
 
     /*! color created/added event
-    */
-    IGOR_SIGNAL(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, (float32 at, const iaColor4f &color), (at, color));
+     */
+    IGOR_EVENT_DEFINITION(iColorGradientColorCreated, void, float32, const iaColor4f &);
 
     /*! color view widget
-    */
+     */
     class IGOR_API iWidgetColorGradient : public iWidget
     {
 
     public:
         /*! ctor initializes member variables
 
-		\param parent optional parent
-		*/
+        \param parent optional parent
+        */
         iWidgetColorGradient(const iWidgetPtr parent = nullptr);
 
         /*! release texture
-		*/
+         */
         virtual ~iWidgetColorGradient();
 
         /*! blocks all outgoing events
-        */
+         */
         virtual void blockEvents() override;
 
         /*! unblocks all outgoing events
-        */
+         */
         virtual void unblockEvents() override;
 
         /*! sets color gradient
-		\param color color value in rgba
-		*/
+        \param color color value in rgba
+        */
         void setGradient(const iaGradientColor4f &gradient);
 
         /*! \returns color gradient
-		*/
+         */
         const iaGradientColor4f &getGradient() const;
 
         /*! sets if alpha values are displayed
-        */
+         */
         void setUseAlpha(bool useAlpha = true);
 
         /*! \returns true if alpha values are displayed
-        */
+         */
         bool isUsingAlpha() const;
 
         /*! sets the interactive feature
@@ -93,7 +94,7 @@ namespace igor
         void setInteractive(bool interactive = true);
 
         /*! \returns true if gradient is interactive
-        */
+         */
         bool isInteractive();
 
         /*! registers delegate to color created event
@@ -110,23 +111,23 @@ namespace igor
 
     private:
         /*! color gradient
-        */
+         */
         iaGradientColor4f _gradient;
 
         /*! flag if alpha is displayed
-        */
+         */
         bool _useAlpha = true;
 
         /*! flag if gradient is interactive
-        */
+         */
         bool _interactive = false;
 
         /*! shared pointer to background texture
-        */
+         */
         iTexturePtr _texture;
 
         /*! color created event
-        */
+         */
         iColorGradientColorCreatedEvent _colorCreated;
 
         /*! handles incomming mouse key down events
@@ -137,11 +138,11 @@ namespace igor
         bool handleMouseKeyDown(iKeyCode key);
 
         /*! updates size based on it's content
-        */
+         */
         void calcMinSize() override;
 
         /*! draws the widget
-		*/
+         */
         void draw();
     };
 

@@ -274,37 +274,37 @@ namespace igor
 
     void iWidget::registerOnClickEvent(iClickDelegate iClickDelegate)
     {
-        _click.append(iClickDelegate);
+        _click.add(iClickDelegate);
     }
 
     void iWidget::registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
     {
-        _mouseOffClick.append(clickDelegate);
+        _mouseOffClick.add(clickDelegate);
     }
 
     void iWidget::registerOnMouseOverEvent(iMouseOverDelegate iMouseOverDelegate)
     {
-        _mouseOver.append(iMouseOverDelegate);
+        _mouseOver.add(iMouseOverDelegate);
     }
 
     void iWidget::registerOnMouseOffEvent(iMouseOffDelegate iMouseOffDelegate)
     {
-        _mouseOff.append(iMouseOffDelegate);
+        _mouseOff.add(iMouseOffDelegate);
     }
 
     void iWidget::registerOnChangeEvent(iChangeDelegate iChangeDelegate)
     {
-        _change.append(iChangeDelegate);
+        _change.add(iChangeDelegate);
     }
 
     void iWidget::registerOnFocusEvent(iFocusDelegate iFocusDelegate)
     {
-        _focus.append(iFocusDelegate);
+        _focus.add(iFocusDelegate);
     }
 
     void iWidget::registerOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate)
     {
-        _doubleClick.append(doubleClickDelegate);
+        _doubleClick.add(doubleClickDelegate);
     }
 
     void iWidget::unregisterOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate)
@@ -314,7 +314,7 @@ namespace igor
 
     void iWidget::registerOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate)
     {
-        _contextMenu.append(contextMenuDelegate);
+        _contextMenu.add(contextMenuDelegate);
     }
 
     void iWidget::unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate)
@@ -365,7 +365,7 @@ namespace igor
 
     void iWidget::registerOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate)
     {
-        _wheelUp.append(wheelUpDelegate);
+        _wheelUp.add(wheelUpDelegate);
     }
 
     void iWidget::unregisterOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate)
@@ -375,7 +375,7 @@ namespace igor
 
     void iWidget::registerOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate)
     {
-        _wheelDown.append(wheelDownDelegate);
+        _wheelDown.add(wheelDownDelegate);
     }
 
     void iWidget::unregisterOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate)
@@ -559,7 +559,7 @@ namespace igor
 
     void iWidget::registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
     {
-        _selectionChanged.append(delegate);
+        _selectionChanged.add(delegate);
     }
 
     void iWidget::unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate)

@@ -97,9 +97,9 @@ private:
 
     unsigned onRayPreFilter(iPhysicsBody *body, iPhysicsCollision *collision, const void *userData);
 
-    void onApplyForceAndTorque(iPhysicsBody *body, float32 timestep);
+    void onApplyForceAndTorque(iPhysicsBody *body, float64 timestep);
 
-    void onSubmitConstraints(iPhysicsJoint *joint, float32 timestep);
+    void onSubmitConstraints(iPhysicsJoint *joint, float64 timestep);
 };
 
 #endif // __CHARACTERCONTROLLER_H__

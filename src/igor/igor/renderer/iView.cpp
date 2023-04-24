@@ -314,7 +314,7 @@ namespace igor
 
     void iView::registerRenderDelegate(iDrawDelegate render_delegate)
     {
-        _renderEvent.append(render_delegate);
+        _renderEvent.add(render_delegate);
     }
 
     void iView::unregisterRenderDelegate(iDrawDelegate render_delegate)
