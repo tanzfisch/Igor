@@ -28,14 +28,22 @@ namespace igor
 
     bool iEntity::isActive() const
     {
-        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
-        return component._active;
+        iActiveComponent *component = _scene->getRegistry().try_get<iActiveComponent>(_entity);
+        return component != nullptr;
     }
 
     void iEntity::setActive(bool active)
     {
-        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
-        component._active = active;
+        iActiveComponent *component = _scene->getRegistry().try_get<iActiveComponent>(_entity);
+        if(component == nullptr && active)
+        {
+            _scene->getRegistry().emplace_or_replace<iActiveComponent>(_entity);
+        }
+
+        if(component != nullptr && !active)
+        {
+            _scene->getRegistry().remove<iActiveComponent>(_entity);
+        }
     }
 
     iEntityID iEntity::getID() const

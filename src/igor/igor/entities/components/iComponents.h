@@ -61,10 +61,17 @@ namespace igor
         /*! name of entity
          */
         iaString _name;
+    };
 
-        /*! if false this entity does nothing
-         */
-        bool _active = true;
+    /*! active component
+
+    added or not added to an entity to filter out non active entities
+    */
+    struct iActiveComponent
+    {
+        /*! just a placeholder to satisfy entt
+        */
+        bool _placeholder;
     };
 
     /*! sprite render component
@@ -125,8 +132,8 @@ namespace igor
     };
 
     /*! behaviour function definition
-    */
-    typedef iaDelegate<void, iEntity&> iBehaviourDelegate;
+     */
+    typedef iaDelegate<void, iEntity &> iBehaviourDelegate;
 
     /*! behaviour component
      */

@@ -129,8 +129,8 @@ void GameLayer::liftShop()
 {
     auto &object = _shop.getComponent<QuadtreeObjectComponent>();
     _quadtree.remove(object._object);
-    auto &component = _shop.getComponent<iBaseEntityComponent>();
-    component._active = false;
+
+    _shop.setActive(false);
 }
 
 void GameLayer::onLandShop(const iaTime &time)
@@ -148,8 +148,8 @@ void GameLayer::onShopLanded()
 
 void GameLayer::landShop()
 {
-    auto &component = _shop.getComponent<iBaseEntityComponent>();
-    component._active = true;
+    _shop.setActive(true);
+
     auto &transform = _shop.getComponent<iTransformComponent>();
     transform._position.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT, 0.0);
 
@@ -913,12 +913,6 @@ void GameLayer::onUpdatePositionSystem()
         auto [transform, vel, party, damage, health] = positionUpdateView.get<iTransformComponent, iVelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
 
         iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
-
-        if (entity.getName() == "player")
-        {
-            int x = 0;
-        }
-
         iaVector2f position(transform._position._x, transform._position._y);
         const float32 radius = transform._scale._x * 0.5;
         float32 speed = vel._velocity.length();
@@ -1494,9 +1488,8 @@ void GameLayer::onRenderPlayerHUD()
     }
 
     auto &playerTransform = _player.getComponent<iTransformComponent>();
-    auto &component = _shop.getComponent<iBaseEntityComponent>();
     auto &shopTransform = _shop.getComponent<iTransformComponent>();
-    if (component._active)
+    if (_shop.isActive())
     {
         // TODO respect the doughnut
         iaVector2f playerPosition(playerTransform._position._x, playerTransform._position._y);
@@ -1679,16 +1672,11 @@ void GameLayer::onRenderOrtho()
     iEntitySystemModule::getInstance().onRender();
 
     // draw entities
-    /*    auto view = _entityScene->getEntities<iTransformComponent, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>();
+    /*    auto view = _entityScene->getEntities<iTransformComponent, VisualComponent, iSpriteRendererComponent>();
 
         for (auto entity : view)
         {
-            auto [transform, visual, base, spriteRender] = view.get<iTransformComponent, VisualComponent, iBaseEntityComponent, iSpriteRendererComponent>(entity);
-
-            if (!base._active)
-            {
-                continue;
-            }
+            auto [transform, visual, spriteRender] = view.get<iTransformComponent, VisualComponent, iSpriteRendererComponent>(entity);
 
             iaVector2f position;
 

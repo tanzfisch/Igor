@@ -35,9 +35,6 @@ namespace igor
 {
 
 	/*! behaviour system
-
-	processes any entity that contains the following components:
-	- iBehaviourComponent
 	*/
 	class iBehaviourSystem : public iEntitySystem
 	{
@@ -59,4 +56,4 @@ namespace igor
 
 } // igor
 
-#endif // __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
+#endif // __IGOR_BEHAVIOUR_SYSTEM__

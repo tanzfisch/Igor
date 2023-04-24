@@ -26,26 +26,26 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
-#define __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
+#ifndef __IGOR_VELOCITY_SYSTEM__
+#define __IGOR_VELOCITY_SYSTEM__
 
 #include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
 
-	/*! sprite render system
+	/*! velocity system
 	*/
-	class iTransformHierarchySystem : public iEntitySystem
+	class iVelocitySystem : public iEntitySystem
 	{
 	public:
 		/*! does nothing
 		*/
-		iTransformHierarchySystem() = default;
+		iVelocitySystem() = default;
 
 		/*! does nothing
 		*/
-		~iTransformHierarchySystem() = default;
+		~iVelocitySystem() = default;
 
 		/*! updates system
 
@@ -56,4 +56,4 @@ namespace igor
 
 } // igor
 
-#endif // __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
+#endif // __IGOR_VELOCITY_SYSTEM__

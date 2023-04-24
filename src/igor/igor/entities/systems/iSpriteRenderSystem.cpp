@@ -14,6 +14,8 @@ namespace igor
 {
 	void iSpriteRenderSystem::update(iEntityScenePtr scene)
 	{
+		// TODO use group with iActiveComponent
+		
 		auto &registry = scene->getRegistry();
 		registry.sort<iSpriteRendererComponent>([&registry](const entt::entity lhs, const entt::entity rhs) 
 		{
@@ -22,17 +24,11 @@ namespace igor
 			return clhs._zIndex < crhs._zIndex; 
 		});
 
-		auto view = scene->getEntities<iSpriteRendererComponent, iBaseEntityComponent, iTransformComponent>();
+		auto view = scene->getEntities<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
 
 		for (auto entityID : view)
 		{
-			auto [spriteRender, base, transform] = view.get<iSpriteRendererComponent, iBaseEntityComponent, iTransformComponent>(entityID);
-
-			if (!base._active)
-			{
-				continue;
-			}
-
+			auto [spriteRender, transform] = view.get<iSpriteRendererComponent, iTransformComponent>(entityID);
 			iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix, spriteRender._texture, spriteRender._color, true);
 		}
 	}

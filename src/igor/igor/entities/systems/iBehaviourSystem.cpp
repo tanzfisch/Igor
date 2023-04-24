@@ -11,15 +11,11 @@ namespace igor
 {
 	void iBehaviourSystem::update(iEntityScenePtr scene)
 	{
-		auto view = scene->getEntities<iBehaviourComponent, iBaseEntityComponent>();
+		auto view = scene->getEntities<iBehaviourComponent, iActiveComponent>();
 
 		for (auto entityID : view)
 		{
-			auto [behaviour, base] = view.get<iBehaviourComponent, iBaseEntityComponent>(entityID);
-			if (!base._active)
-			{
-				continue;
-			}
+			const auto &behaviour = view.get<iBehaviourComponent>(entityID);
 
 			iEntity entity(entityID, scene);
 

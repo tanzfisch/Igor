@@ -5,12 +5,14 @@
 #include <igor/entities/systems/iSpriteRenderSystem.h>
 #include <igor/entities/systems/iTransformHierarchySystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
+#include <igor/entities/systems/iVelocitySystem.h>
 
 namespace igor
 {
 
     iEntityScene::iEntityScene()
     {
+        _systems.push_back(std::make_unique<iVelocitySystem>());
         _systems.push_back(std::make_unique<iTransformHierarchySystem>());
         _systems.push_back(std::make_unique<iBehaviourSystem>());
         
@@ -22,7 +24,10 @@ namespace igor
         iEntity entity(_registry.create(), shared_from_this());
         auto &component = entity.addComponent<iBaseEntityComponent>();
         component._name = name;
-        component._active = active;
+        if(active)
+        {
+            entity.addComponent<iActiveComponent>();
+        }
         return entity;
     }
 

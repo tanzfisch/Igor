@@ -15,15 +15,16 @@ namespace igor
 	void iTransformHierarchySystem::update(iEntityScenePtr scene)
 	{
 		// TODO this does not work for more then one layer of hierarchy
+		// maybe we can traverse the tree set an index on the transform and then order the transforms
+		// and only traverse again if the topology changes hmm
 		auto &registry = scene->getRegistry();
 		registry.sort<iTransformComponent>([&registry](const entt::entity lhs, const entt::entity rhs)
-		{
-			const auto &clhs = registry.get<iTransformComponent>(lhs);
-			const auto &crhs = registry.get<iTransformComponent>(rhs);
+										   {
+											   const auto &clhs = registry.get<iTransformComponent>(lhs);
+											   const auto &crhs = registry.get<iTransformComponent>(rhs);
 
-			return crhs._parent == lhs || (!(clhs._parent == rhs) && (clhs._parent < crhs._parent || (clhs._parent == crhs._parent && lhs < rhs)));
-
-		});
+											   return crhs._parent == lhs || (!(clhs._parent == rhs) && (clhs._parent < crhs._parent || (clhs._parent == crhs._parent && lhs < rhs)));
+										   });
 
 		auto view = scene->getEntities<iTransformComponent>();
 
@@ -39,7 +40,10 @@ namespace igor
 			if (scene->getRegistry().valid(transform._parent))
 			{
 				iTransformComponent *parentTransform = scene->getRegistry().try_get<iTransformComponent>(transform._parent);
-				transform._worldMatrix = parentTransform->_worldMatrix * transform._worldMatrix;
+				if (parentTransform != nullptr)
+				{
+					transform._worldMatrix = parentTransform->_worldMatrix * transform._worldMatrix;
+				}
 			}
 		}
 	}

@@ -35,11 +35,6 @@ namespace igor
 {
 
 	/*! sprite render system
-
-	processes any entity that contains the following components:
-	- iBaseEntityComponent
-	- iTransformComponent
-	- iSpriteRendererComponent
 	*/
 	class iSpriteRenderSystem : public iEntitySystem
 	{
