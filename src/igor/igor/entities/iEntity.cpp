@@ -35,12 +35,12 @@ namespace igor
     void iEntity::setActive(bool active)
     {
         iActiveComponent *component = _scene->getRegistry().try_get<iActiveComponent>(_entity);
-        if(component == nullptr && active)
+        if (component == nullptr && active)
         {
             _scene->getRegistry().emplace_or_replace<iActiveComponent>(_entity);
         }
 
-        if(component != nullptr && !active)
+        if (component != nullptr && !active)
         {
             _scene->getRegistry().remove<iActiveComponent>(_entity);
         }
@@ -66,7 +66,7 @@ namespace igor
         return _scene->getRegistry().emplace_or_replace<iSpriteRendererComponent>(_entity, texture, color, zIndex);
     }
 
-    iVelocityComponent &iEntity::addVelocityComponent(iaVector3d velocity, iaVector3d angularVelocity)
+    iVelocityComponent &iEntity::addVelocityComponent(const iaVector3d &velocity, const iaVector3d &angularVelocity)
     {
         return _scene->getRegistry().emplace_or_replace<iVelocityComponent>(_entity, velocity, angularVelocity);
     }

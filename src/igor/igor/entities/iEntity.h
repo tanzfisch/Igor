@@ -122,7 +122,7 @@ namespace igor
 
         \returns reference to newly created component
          */
-        iVelocityComponent &addVelocityComponent(iaVector3d velocity = iaVector3d(), iaVector3d angularVelocity = iaVector3d());
+        iVelocityComponent &addVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d());
 
         /*! adds behaviour to entity
 

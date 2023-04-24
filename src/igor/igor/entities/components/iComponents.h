@@ -70,7 +70,7 @@ namespace igor
     struct iActiveComponent
     {
         /*! just a placeholder to satisfy entt
-        */
+         */
         bool _placeholder;
     };
 
@@ -142,6 +142,30 @@ namespace igor
         /*! behaviors
          */
         std::array<iBehaviourDelegate, IGOR_MAX_BEHAVIORS_PER_COMPONENT> _behaviour;
+    };
+
+    /*! box boundary contraint mode
+    */
+    enum class iBoxBoundaryConstraintMode
+    {
+        Repeat /// when transform is outside of the boundaries it is moved back in on the opposite side
+    };
+
+    /*! axis aligned box boundary contraint component
+     */
+    struct iBoxBoundaryConstraintComponent
+    {
+        /*! min coordinates of axis aligned box
+         */
+        iaVector3d _min;
+
+        /*! max coordinates of axis aligned box
+         */
+        iaVector3d _max;
+
+        /*! contraint mode
+         */
+        iBoxBoundaryConstraintMode _mode = iBoxBoundaryConstraintMode::Repeat;
     };
 
     // iTextComponent
