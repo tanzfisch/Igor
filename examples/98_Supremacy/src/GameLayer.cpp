@@ -18,9 +18,33 @@ iaVector3d GameLayer::getRandomDir()
     return iaVector3d(direction._x, direction._y, 0.0);
 }
 
-void GameLayer::onPlayerBehaviour(iEntity &entity)
+void GameLayer::onPlayerMovementBehaviour(iEntity &entity)
 {
-    con_endl("onPlayerBehaviour foo");
+    auto &velocityComponent = entity.getComponent<iVelocityComponent>();
+
+    velocityComponent._velocity.set(0, 0, 0);
+
+    if(iKeyboard::getInstance().getKey(iKeyCode::W))
+    {
+        velocityComponent._velocity._y -= 1.0;
+    }
+
+    if(iKeyboard::getInstance().getKey(iKeyCode::A))
+    {
+        velocityComponent._velocity._x -= 1.0;
+    }
+
+    if(iKeyboard::getInstance().getKey(iKeyCode::S))
+    {
+        velocityComponent._velocity._y += 1.0;
+    }
+
+    if(iKeyboard::getInstance().getKey(iKeyCode::D))
+    {
+        velocityComponent._velocity._x += 1.0;
+    }
+
+    velocityComponent._velocity.normalize();
 }
 
 iEntity GameLayer::createPlayer()
@@ -29,20 +53,19 @@ iEntity GameLayer::createPlayer()
     iEntity entity = _entityScene->createEntity("player");
 
     const auto &transform = entity.addTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0));
-    entity.addVelocityComponent(iaVector3d(1,0,0));
-    entity.addBehaviour({this, &GameLayer::onPlayerBehaviour});
+    entity.addVelocityComponent(iaVector3d(1, 0, 0));
+    entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
+    entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"));
+
     entity.addComponent<PartyComponent>(FRIEND, true);
     entity.addComponent<DamageComponent>(0.0f);
     entity.addComponent<HealthComponent>(100.0f);
     entity.addComponent<ExperienceComponent>(0.0f, 1.0f);
     entity.addComponent<CoinsComponent>(0.0f);
     entity.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f);
-    entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"));
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     entity.addComponent<WeaponComponent>(_weapons["Knife"]);
-
     entity.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
-    entity.addComponent<MovementControlComponent>();
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<iQuadtreef::Object>(iaCirclef(transform._position._x, transform._position._y, transform._scale._x * 0.5f), entity.getID());
@@ -596,36 +619,6 @@ void GameLayer::onUpdateQuadtreeSystem()
     }
 }
 
-void GameLayer::onUpdateMovementControlSystem()
-{
-    auto movementControlView = _entityScene->getEntities<MovementControlComponent, iVelocityComponent>();
-    for (auto entity : movementControlView)
-    {
-        auto [movementControl, vel] = movementControlView.get<MovementControlComponent, iVelocityComponent>(entity);
-
-        vel._velocity.set(0, 0, 0);
-
-        if (movementControl._left)
-        {
-            vel._velocity._x -= 1.0;
-        }
-        if (movementControl._right)
-        {
-            vel._velocity._x += 1.0;
-        }
-        if (movementControl._up)
-        {
-            vel._velocity._y -= 1.0;
-        }
-        if (movementControl._down)
-        {
-            vel._velocity._y += 1.0;
-        }
-
-        vel._velocity.normalize();
-    }
-}
-
 void GameLayer::doughnutQuery(const iaCirclef &circle, std::vector<std::pair<iEntityID, iaVector2f>> &hits)
 {
     iQuadtreef::Objects objects;
@@ -921,7 +914,7 @@ void GameLayer::onUpdatePositionSystem()
 
         iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
 
-        if(entity.getName() == "player")
+        if (entity.getName() == "player")
         {
             int x = 0;
         }
@@ -1374,8 +1367,6 @@ void GameLayer::onUpdate(const iaTime &time)
 {
     onUpdateQuadtreeSystem();
 
-    onUpdateMovementControlSystem();
-
     onUpdateFollowTargetSystem();
     onUpdateOrientationSystem();
     onUpdatePositionSystem();
@@ -1764,6 +1755,19 @@ void GameLayer::onRenderQuadtree(const iQuadtreef::NodePtr &node)
     }
 }
 
+void GameLayer::pause()
+{
+    _gamePause = true;
+
+    iTimer::getInstance().stop();
+}
+
+void GameLayer::play()
+{
+    _gamePause = false;
+    iTimer::getInstance().start();
+}
+
 bool GameLayer::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
@@ -1773,89 +1777,13 @@ bool GameLayer::onKeyDown(iEventKeyDown &event)
         return true;
     }
 
-    if (!_player.isValid())
-    {
-        return false;
-    }
-
-    MovementControlComponent &movementControl = _player.getComponent<MovementControlComponent>();
-
-    switch (event.getKey())
-    {
-    case iKeyCode::W:
-        movementControl._up = true;
-        return true;
-
-    case iKeyCode::A:
-        movementControl._left = true;
-        return true;
-
-    case iKeyCode::S:
-        movementControl._down = true;
-        return true;
-
-    case iKeyCode::D:
-        movementControl._right = true;
-        return true;
-    }
-
     return false;
-}
-
-void GameLayer::pause()
-{
-    _gamePause = true;
-
-    iTimer::getInstance().stop();
-
-    resetKeyboardInput();
-}
-
-void GameLayer::play()
-{
-    _gamePause = false;
-    iTimer::getInstance().start();
-}
-
-void GameLayer::resetKeyboardInput()
-{
-    if (_player.isValid())
-    {
-        MovementControlComponent &movementControl = _player.getComponent<MovementControlComponent>();
-        movementControl._up = false;
-        movementControl._down = false;
-        movementControl._left = false;
-        movementControl._right = false;
-    }
 }
 
 bool GameLayer::onKeyUp(iEventKeyUp &event)
 {
-    if (!_player.isValid())
-    {
-        return false;
-    }
-
-    MovementControlComponent &movementControl = _player.getComponent<MovementControlComponent>();
-
     switch (event.getKey())
     {
-    case iKeyCode::W:
-        movementControl._up = false;
-        return true;
-
-    case iKeyCode::A:
-        movementControl._left = false;
-        return true;
-
-    case iKeyCode::S:
-        movementControl._down = false;
-        return true;
-
-    case iKeyCode::D:
-        movementControl._right = false;
-        return true;
-
     case iKeyCode::Space:
         _gamePause = !_gamePause;
 

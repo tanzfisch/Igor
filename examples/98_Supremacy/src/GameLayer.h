@@ -152,8 +152,6 @@ private:
     void pause();
     void play();
 
-    void resetKeyboardInput();
-
     void openShop();
 
     /*! called when added to layer stack
@@ -221,7 +219,7 @@ private:
 
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
-    void onPlayerBehaviour(iEntity &entity);
+    void onPlayerMovementBehaviour(iEntity &entity);
 
     void createShop();
     void liftShop();
