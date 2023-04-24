@@ -128,13 +128,13 @@ namespace igor
 
         \param behaviour the behaviour to be added
         */
-        void addBehaviour(const iBehaviourFunction &behaviour);
+        void addBehaviour(const iBehaviourDelegate &behaviour);
 
         /*! removes behaviour from entity
 
         \param behaviour the behaviour to be removed
         */
-        void removeBehaviour(const iBehaviourFunction &behaviour);
+        void removeBehaviour(const iBehaviourDelegate &behaviour);
 
         /*! \returns component of entity of given type
          */

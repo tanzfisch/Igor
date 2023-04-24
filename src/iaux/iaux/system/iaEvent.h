@@ -98,6 +98,16 @@ namespace iaux
             return (_internal->compare(delegate._internal));
         }
 
+        bool isValid() const
+        {
+            if (_internal == nullptr)
+            {
+                return false;
+            }
+
+            return _internal->isValid();
+        }
+
     private:
         class InternalBase
         {
@@ -106,6 +116,7 @@ namespace iaux
             virtual InternalBase *clone() const = 0;
             virtual bool compare(const InternalBase *delegate) const = 0;
             virtual int getType() const = 0;
+            virtual bool isValid() const = 0;
         };
 
         class InternalDefaultCall : public InternalBase
@@ -142,6 +153,16 @@ namespace iaux
             int getType() const override
             {
                 return 1;
+            }
+
+            bool isValid() const override
+            {
+                if (_function == nullptr)
+                {
+                    return false;
+                }
+
+                return true;
             }
 
         protected:
@@ -191,16 +212,26 @@ namespace iaux
                 return 0;
             }
 
+            bool isValid() const override
+            {
+                if (_instance == nullptr || _method == nullptr)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
         protected:
             T *_instance = nullptr;
             iMethodPointer<T *, R, Args...> _method;
         };
 
-        InternalBase *_internal;
+        InternalBase *_internal = nullptr;
     };
 
     /*! helper class to determine return type
-    */
+     */
     template <typename R, typename... Args>
     class iaEventReturnHandler
     {
@@ -214,7 +245,7 @@ namespace iaux
     };
 
     /*! helper class for void return type
-    */
+     */
     template <typename... Args>
     class iaEventReturnHandler<void, Args...>
     {
@@ -228,7 +259,7 @@ namespace iaux
     };
 
     /*! event container for delegates that executes delegates when triggered
-    */
+     */
     template <typename R, typename... Args>
     class iaEvent
     {
@@ -276,21 +307,21 @@ namespace iaux
         }
 
         /*! unblocks event
-        */
+         */
         void unblock()
         {
             _blocked = false;
         }
 
         /*! \returns true if event is blocked
-        */
+         */
         bool isBlocked()
         {
             return _blocked;
         }
 
         /*! executes event
-        */
+         */
         ReturnType operator()(Args... args)
         {
             if (_blocked)
@@ -329,7 +360,7 @@ namespace iaux
         }
 
         /*! clears delegates from event
-        */
+         */
         void clear()
         {
             _mutex.lock();
@@ -338,7 +369,7 @@ namespace iaux
         }
 
         /*! \returns true if event contains delegates
-        */
+         */
         bool hasDelegates()
         {
             return _delegates.size() ? true : false;
@@ -359,7 +390,7 @@ It expects at least a return type
 \param NAME the name of the event
 \param ... parameter types. first parameter is expected to be the return type
 */
-#define IGOR_EVENT_DEFINITION(NAME, ...) \
+#define IGOR_EVENT_DEFINITION(NAME, ...)      \
     typedef iaEvent<__VA_ARGS__> NAME##Event; \
     typedef iaDelegate<__VA_ARGS__> NAME##Delegate;
 

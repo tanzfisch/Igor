@@ -34,6 +34,7 @@
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/math/iaMatrix.h>
+#include <iaux/system/iaEvent.h>
 using namespace iaux;
 
 #include <entt.h>
@@ -125,7 +126,7 @@ namespace igor
 
     /*! behaviour function definition
     */
-    typedef std::function<void(iEntity& entity)> iBehaviourFunction;
+    typedef iaDelegate<void, iEntity&> iBehaviourDelegate;
 
     /*! behaviour component
      */
@@ -133,7 +134,7 @@ namespace igor
     {
         /*! behaviors
          */
-        std::array<iBehaviourFunction, IGOR_MAX_BEHAVIORS_PER_COMPONENT> _behaviour;
+        std::array<iBehaviourDelegate, IGOR_MAX_BEHAVIORS_PER_COMPONENT> _behaviour;
     };
 
     // iTextComponent

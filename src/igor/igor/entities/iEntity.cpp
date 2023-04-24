@@ -63,7 +63,7 @@ namespace igor
         return _scene->getRegistry().emplace_or_replace<iVelocityComponent>(_entity, velocity, angularVelocity);
     }
 
-    void iEntity::addBehaviour(const iBehaviourFunction &behaviour)
+    void iEntity::addBehaviour(const iBehaviourDelegate &behaviour)
     {
         if (_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
         {
@@ -73,7 +73,7 @@ namespace igor
         iBehaviourComponent &component = _scene->getRegistry().get<iBehaviourComponent>(_entity);
         for (auto &function : component._behaviour)
         {
-            if (function == nullptr)
+            if (!function.isValid())
             {
                 function = behaviour;
                 return;
@@ -83,7 +83,7 @@ namespace igor
         con_err("can't add more then " << component._behaviour.size() << " behaviors");
     }
 
-    void iEntity::removeBehaviour(const iBehaviourFunction &behaviour)
+    void iEntity::removeBehaviour(const iBehaviourDelegate &behaviour)
     {
         if (_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
         {
@@ -91,7 +91,7 @@ namespace igor
             return;
         }
 
-     /*   iBehaviourComponent &component = _scene->getRegistry().get<iBehaviourComponent>(_entity);
+        iBehaviourComponent &component = _scene->getRegistry().get<iBehaviourComponent>(_entity);
         for (auto b : component._behaviour)
         {
             if (b == behaviour)
@@ -99,7 +99,9 @@ namespace igor
                 b = nullptr;
                 return;
             }
-        }*/
+        }
+
+        // TODO remove component
 
         con_err("can't remove given behaviour");
     }
