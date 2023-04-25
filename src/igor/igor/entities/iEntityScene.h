@@ -37,6 +37,8 @@ namespace igor
 {
 	class iEntity;
 
+	class iEntitySceneImpl;
+
 	/*! entity scene
 	 */
 	class IGOR_API iEntityScene : public std::enable_shared_from_this<iEntityScene>
@@ -46,7 +48,6 @@ namespace igor
 		friend class iEntitySceneDeleter;
 
 	public:
-
 		/*! creates an entity
 		 */
 		iEntity createEntity(const iaString &name = "", bool active = true);
@@ -55,7 +56,7 @@ namespace igor
 
 		\param entity the entity to destroy
 		*/
-		void destroyEntity(iEntity entity);
+		void destroyEntity(const iEntity &entity);
 
 		/*! destroys an entity by id
 
@@ -72,29 +73,30 @@ namespace igor
 		template <typename... Components>
 		auto getEntities()
 		{
-			return _registry.view<Components...>();
-		}
+			return getRegistry().view<Components...>();
+		}		
 
 		/*! \returns entt registry
 		 */
 		entt::registry &getRegistry();
 
 	private:
-		/*! the entt registry
+		/*! pimpl
 		 */
-		entt::registry _registry;
+		iEntitySceneImpl* _impl = nullptr;
 
-		/*! systems to update
-		 */
-		std::vector<iEntitySystemPtr> _systems;
+		void onUpdate();
 
-		/*! systems that render
-		 */
-		std::vector<iEntitySystemPtr> _renderingSystems;
+		void onRender();
 
 		/*! init systems
-		*/
+		 */
 		iEntityScene();
+
+		/*! cleanup
+		*/
+		~iEntityScene();
+
 	};
 
 } // igor

@@ -24,10 +24,7 @@ namespace igor
     {
         for (auto scene : _scenes)
         {
-            for (iEntitySystemPtr &system : scene->_systems)
-            {
-                system->update(scene);
-            }
+            scene->onUpdate();
         }
     }
 
@@ -35,10 +32,7 @@ namespace igor
     {
         for (auto scene : _scenes)
         {
-            for (iEntitySystemPtr &system : scene->_renderingSystems)
-            {
-                system->update(scene);
-            }
+            scene->onRender();
         }
     }
 
