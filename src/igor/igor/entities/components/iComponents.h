@@ -30,6 +30,7 @@
 #define __IGOR_COMPONENTS__
 
 #include <igor/resources/texture/iTexture.h>
+#include <igor/data/iQuadtree.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
@@ -110,7 +111,7 @@ namespace igor
 
         /*! scale
          */
-        iaVector3d _scale;
+        iaVector3d _scale = {1.0, 1.0, 1.0};
 
         /*! parent entity id
          */
@@ -119,6 +120,15 @@ namespace igor
         /*! the world matrix of this transform
          */
         iaMatrixd _worldMatrix;
+    };
+
+    /*! component that holds an object in a quadtree
+     */
+    struct iQuadtreeComponent
+    {
+        /*! quadtree object
+         */
+        iQuadtreed::ObjectPtr _object;
     };
 
     struct iVelocityComponent
@@ -134,21 +144,21 @@ namespace igor
 
     /*! behaviour function definition
      */
-    typedef iaDelegate<void, iEntity &, void*> iBehaviourDelegate;
+    typedef iaDelegate<void, iEntity &, void *> iBehaviourDelegate;
 
     /*! behaviour data
-    */
+     */
     struct iBehaviourData
     {
         /*! delegate to be executed with given entity and user data
-        */
+         */
         iBehaviourDelegate _delegate;
 
         /*! user data
-        
+
         the application is responsible for storing this data in an efficient way
         */
-        void* _userData = nullptr;        
+        void *_userData = nullptr;
     };
 
     /*! behaviour component

@@ -50,11 +50,6 @@ struct AngularVelocityComponent
     float32 _velocity;
 };
 
-struct QuadtreeObjectComponent
-{
-    iQuadtreef::ObjectPtr _object;
-};
-
 struct HealthComponent
 {
     float32 _health = 0;
@@ -176,7 +171,7 @@ struct WeaponComponent
 
     /*! offset to unit position to fire from
      */
-    iaVector2f _offset;
+    iaVector2d _offset;
 
     /*! keeps track of cool down
      */

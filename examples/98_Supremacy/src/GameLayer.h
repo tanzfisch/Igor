@@ -95,10 +95,6 @@ private:
      */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
 
-    /*! quadtree
-     */
-    iQuadtreef _quadtree;
-
     /*! floor shadow
      */
     iTexturePtr _shadow;
@@ -227,8 +223,6 @@ private:
 
     void createObject(const iaVector2f &pos, uint32 party, ObjectType objectType);
 
-    void onUpdateQuadtreeSystem();
-
     void onUpdateMovementControlSystem();
 
     void onUpdateFollowTargetSystem();
@@ -259,7 +253,7 @@ private:
 
     void aquireTargetFor(iEntity &entity);
 
-    void fire(const iaVector2f &from, const iaVector2f &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 
     void updateViewRectangleSystem();
 
@@ -268,10 +262,10 @@ private:
     \param circle the query circle
     \param hits the resulting list of entitties and relatice to the circle center positions
     */
-    void doughnutQuery(const iaCirclef &circle, std::vector<std::pair<iEntityID, iaVector2f>> &hits);
+    void doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits);
 
-    bool intersectDoughnut(const iaVector2f &position, const iaRectanglef &rectangle, iaVector2f &offset);
-    bool intersectDoughnut(const iaVector2f &position, const iaCirclef &circle, iaVector2f &offset);
+    bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
+    bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
 
     float32 calcLevel(uint32 experience);
     void addExperience(iEntity &entity, float32 experience);

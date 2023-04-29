@@ -6,6 +6,7 @@
 #include <igor/entities/systems/iTransformHierarchySystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iVelocitySystem.h>
+#include <igor/entities/systems/iQuadtreeSystem.h>
 
 #include <utility>
 #include <tuple>
@@ -20,9 +21,18 @@ namespace igor
         {
             _systems.push_back(std::make_unique<iVelocitySystem>());
             _systems.push_back(std::make_unique<iTransformHierarchySystem>());
+            _systems.push_back(std::make_unique<iQuadtreeSystem>());
             _systems.push_back(std::make_unique<iBehaviourSystem>());
 
             _renderingSystems.push_back(std::make_unique<iSpriteRenderSystem>());
+        }
+
+        ~iEntitySceneImpl()
+        {
+            if (_quadtree != nullptr)
+            {
+                delete _quadtree;
+            }
         }
 
         iEntity createEntity(const iaString &name, bool active, iEntityScenePtr scene)
@@ -53,6 +63,19 @@ namespace igor
             return _registry;
         }
 
+        void initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
+        {
+            con_assert(_quadtree == nullptr, "Quadtree already initialized");
+
+            _quadtree = new iQuadtreed(box, splitThreshold, maxDepth);
+        }
+
+        iQuadtreed &getQuadtree() const
+        {
+            con_assert(_quadtree != nullptr, "Quadtree not initialized");
+            return *_quadtree;
+        }
+
         void onUpdate(iEntityScenePtr scene)
         {
             for (iEntitySystemPtr &system : _systems)
@@ -74,6 +97,10 @@ namespace igor
          */
         entt::registry _registry;
 
+        /*! quadtree
+         */
+        iQuadtreed *_quadtree = nullptr;
+
         /*! systems to update
          */
         std::vector<iEntitySystemPtr> _systems;
@@ -85,6 +112,7 @@ namespace igor
 
     template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iVelocityComponent, iTransformComponent, iActiveComponent>();
     template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iTransformComponent>();
+    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iTransformComponent, iQuadtreeComponent>();
     template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
     template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iBehaviourComponent, iActiveComponent>();
 
@@ -121,6 +149,7 @@ namespace igor
 
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
+        removeFromQuadtree(entityID);
         _impl->destroyEntity(entityID);
     }
 
@@ -170,6 +199,56 @@ namespace igor
         return _entityIDCache[key];
     }
 
+    iTransformComponent &iEntityScene::addTransformComponent(iEntityID entityID, const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale, iEntityID parent, const iaMatrixd &worldMatrix)
+    {
+        return getRegistry().emplace_or_replace<iTransformComponent>(entityID, position, orientation, scale, parent, worldMatrix);
+    }
+
+    iSpriteRendererComponent &iEntityScene::addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture, const iaColor4f &color, int32 zIndex)
+    {
+        return getRegistry().emplace_or_replace<iSpriteRendererComponent>(entityID, texture, color, zIndex);
+    }
+
+    iVelocityComponent &iEntityScene::addVelocityComponent(iEntityID entityID, const iaVector3d &velocity, const iaVector3d &angularVelocity)
+    {
+        return getRegistry().emplace_or_replace<iVelocityComponent>(entityID, velocity, angularVelocity);
+    }
+
+    void iEntityScene::addToQuadtree(iEntityID entityID, float64 size)
+    {
+        iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
+        if(transform == nullptr)
+        {
+            const iaVector2d center = getQuadtree().getRootBox().getCenter();
+            transform = &(getRegistry().emplace_or_replace<iTransformComponent>(entityID, iaVector3d(center._x, center._y, 0.0)));
+        }
+
+        iQuadtreeComponent &component = getRegistry().emplace_or_replace<iQuadtreeComponent>(entityID, nullptr);
+        component._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, size), entityID);
+        _impl->getQuadtree().insert(component._object);
+    }
+
+    void iEntityScene::removeFromQuadtree(iEntityID entityID)
+    {
+        iQuadtreeComponent *component = tryGetComponent<iQuadtreeComponent>(entityID);
+        if(component == nullptr)
+        {
+            return;
+        }
+
+        _impl->getQuadtree().remove(component->_object);
+    }
+
+    void iEntityScene::initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
+    {
+        _impl->initializeQuadtree(box, splitThreshold, maxDepth);
+    }
+
+    iQuadtreed &iEntityScene::getQuadtree() const
+    {
+        return _impl->getQuadtree();
+    }
+
     template <typename T>
     T &iEntityScene::getComponent(iEntityID entityID)
     {
@@ -196,12 +275,11 @@ namespace igor
     template iTransformComponent *iEntityScene::tryGetComponent<iTransformComponent>(iEntityID entityID);
     template iVelocityComponent *iEntityScene::tryGetComponent<iVelocityComponent>(iEntityID entityID);
 
-
     template <typename T>
     void iEntityScene::removeComponent(iEntityID entityID)
     {
         getRegistry().remove<T>(entityID);
-    }		
+    }
 
     template void iEntityScene::removeComponent<iBaseEntityComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iBehaviourComponent>(iEntityID entityID);

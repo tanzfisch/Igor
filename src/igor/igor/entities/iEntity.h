@@ -124,11 +124,27 @@ namespace igor
          */
         iVelocityComponent &addVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d());
 
+        /*! adds entity to quadtree
+
+        will only work if quadtree on the scene was initialized before
+        will use transform component for position
+        if transform component does not exist it will be added too
+
+        \param size size of object (radius)
+
+        \returns reference to newly created component
+         */
+        void addToQuadtree(float64 size = 1.0);
+
+        /*! removed entity from quadtree
+        */
+        void removeFromQuadtree();
+
         /*! adds behaviour to entity
 
         \param behaviour the behaviour to be added
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour, void* userData = nullptr);
+        void addBehaviour(const iBehaviourDelegate &behaviour, void *userData = nullptr);
 
         /*! removes behaviour from entity
 

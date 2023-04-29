@@ -58,17 +58,27 @@ namespace igor
 
     iTransformComponent &iEntity::addTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale, iEntityID parent, const iaMatrixd &worldMatrix)
     {
-        return _scene->getRegistry().emplace_or_replace<iTransformComponent>(_entity, position, orientation, scale, parent, worldMatrix);
+        return _scene->addTransformComponent(_entity, position, orientation, scale, parent, worldMatrix);
     }
 
     iSpriteRendererComponent &iEntity::addSpriteRendererComponent(iTexturePtr texture, const iaColor4f &color, int32 zIndex)
     {
-        return _scene->getRegistry().emplace_or_replace<iSpriteRendererComponent>(_entity, texture, color, zIndex);
+        return _scene->addSpriteRendererComponent(_entity, texture, color, zIndex);
     }
 
     iVelocityComponent &iEntity::addVelocityComponent(const iaVector3d &velocity, const iaVector3d &angularVelocity)
     {
-        return _scene->getRegistry().emplace_or_replace<iVelocityComponent>(_entity, velocity, angularVelocity);
+        return _scene->addVelocityComponent(_entity, velocity, angularVelocity);
+    }
+
+    void iEntity::addToQuadtree(float64 size)
+    {
+        _scene->addToQuadtree(_entity, size);        
+    }
+
+    void iEntity::removeFromQuadtree()
+    {
+        _scene->removeFromQuadtree(_entity);
     }
 
     void iEntity::addBehaviour(const iBehaviourDelegate &delegate, void* userData)

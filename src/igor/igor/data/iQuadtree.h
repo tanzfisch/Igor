@@ -97,7 +97,11 @@ namespace igor
 
         /*! creates the quadtree including the root node
 
+        \todo why do we have a max depth????
+
         \param box volume of the whole quadtree
+        \param splitThreshold threshold count of objects on a node before splitting the node
+        \param maxDepth the maximum depth of the tree
         */
         iQuadtree(const iaRectangle<F> &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
 

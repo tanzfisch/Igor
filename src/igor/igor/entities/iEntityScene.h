@@ -73,7 +73,7 @@ namespace igor
 		/*! \returns all entities with given components
 		 */
 		template <typename... Components>
-		const std::vector<iEntityID>& getEntitiesV2();
+		const std::vector<iEntityID> &getEntitiesV2();
 
 		template <typename... Components>
 		auto getEntities()
@@ -85,40 +85,96 @@ namespace igor
 
 		\param entityID the given entity
 		*/
-        template <typename T>
-        T &getComponent(iEntityID entityID);
+		template <typename T>
+		T &getComponent(iEntityID entityID);
 
 		/*! \returns pointer to component for given entity. nullptr if component does not exist
 
 		\param entityID the given entity
 		*/
-        template <typename T>
-        T *tryGetComponent(iEntityID entityID);
+		template <typename T>
+		T *tryGetComponent(iEntityID entityID);
 
-        /*! removes component of given entity with given type
+		/*! removes component of given entity with given type
+		 */
+		template <typename T>
+		void removeComponent(iEntityID entityID);
+
+        /*! adds transform component to given entity
+
+        \param position the transform position
+        \param orientation the transform orientation in rad
+        \param scale the transform scale
+        \param parent the parent of this transform
+        \param worldMatrix world matrix of this transform
+
+        \returns reference to newly created component
          */
-        template <typename T>
-        void removeComponent(iEntityID entityID);
+        iTransformComponent &addTransformComponent(iEntityID entityID, const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(), iEntityID parent = IGOR_INVALID_ENTITY_ID, const iaMatrixd &worldMatrix = iaMatrixd());
+
+        /*! adds sprite render component to given entity
+
+        \param texture texture to use for render
+        \param color color to render with
+        \param zIndex z index order
+
+        \returns reference to newly created component
+         */
+        iSpriteRendererComponent &addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
+
+        /*! adds velocity component to given entity
+
+        \param velocity velocity in 3 dimensions
+        \param angularVelocity angular velocity in 3 dimensions
+
+        \returns reference to newly created component
+         */
+        iVelocityComponent &addVelocityComponent(iEntityID entityID, const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d());
+
+		/*! adds Quadtree component to given entity
+
+		will only work if Quadtree on the scene was initialized before
+
+		\param entityID the given entity
+		\param size size of object (radius)
+		 */
+		void addToQuadtree(iEntityID entityID, float64 size = 1.0);
+
+		/*! removes given entity form quadtree
+		*/
+		void removeFromQuadtree(iEntityID entityID);
 
 		/*! \returns entt registry
 		 */
 		entt::registry &getRegistry() const;
 
+		/*! initialize quadtree
+
+		\param box volume of the whole quadtree
+		\param splitThreshold threshold count of objects on a node before splitting the node
+		\param maxDepth the maximum depth of the tree
+		*/
+		void initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
+
+		/*! \returns internal quadtree
+		 */
+		iQuadtreed &getQuadtree() const;
+
 	private:
 		/*! pimpl
 		 */
-		iEntitySceneImpl* _impl = nullptr;
+		iEntitySceneImpl *_impl = nullptr;
 
 		/*! caching entity ID lists
-		*/
+		 */
 		std::unordered_map<std::type_index, std::vector<iEntityID>> _entityIDCache;
 
 		/*! updates all non rendering systems
-		*/
+		 */
 		void onUpdate();
 
 		/*! updates all rendering systems
-		*/
+		 */
 		void onRender();
 
 		/*! init systems
@@ -126,9 +182,8 @@ namespace igor
 		iEntityScene();
 
 		/*! cleanup
-		*/
+		 */
 		~iEntityScene();
-
 	};
 
 } // igor

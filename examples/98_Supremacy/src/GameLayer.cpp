@@ -5,9 +5,10 @@
 #include "GameLayer.h"
 
 GameLayer::GameLayer(iWindowPtr window)
-    : iLayer(window, L"GameLayer"), _quadtree(iaRectanglef(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
+    : iLayer(window, L"GameLayer")
 {
     _entityScene = iEntitySystemModule::getInstance().createScene();
+    _entityScene->initializeQuadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT));
 }
 
 iaVector3d GameLayer::getRandomDir()
@@ -67,9 +68,8 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<WeaponComponent>(_weapons["Knife"]);
     entity.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
 
-    auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<iQuadtreef::Object>(iaCirclef(transform._position._x, transform._position._y, transform._scale._x * 0.5f), entity.getID());
-    _quadtree.insert(object._object);
+    entity.addToQuadtree(0.5);
+  
 
     iaVector2f a(-1.0f, 0.0f);
     iaVector2f b(1.0f, 0.0f);
@@ -118,18 +118,12 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
 
     entity.addComponent<PartyComponent>(party);
 
-    auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<iQuadtreef::Object>();
-    object._object->_userData = entity.getID();
-    object._object->_circle.set(pos, transform._scale._x * 0.5);
-    _quadtree.insert(object._object);
+    entity.addToQuadtree(0.5);
 }
 
 void GameLayer::liftShop()
 {
-    auto &object = _shop.getComponent<QuadtreeObjectComponent>();
-    _quadtree.remove(object._object);
-
+    _shop.removeFromQuadtree();
     _shop.setActive(false);
 }
 
@@ -140,16 +134,12 @@ void GameLayer::onLandShop(const iaTime &time)
 
 void GameLayer::onShopLanded()
 {
-    auto &transform = _shop.getComponentV2<iTransformComponent>();
-    auto &object = _shop.getComponent<QuadtreeObjectComponent>();
-    object._object->_circle._center.set(transform._position._x, transform._position._y);
-    _quadtree.insert(object._object);
+    _shop.addToQuadtree(2.0);
+    _shop.setActive(true);
 }
 
 void GameLayer::landShop()
 {
-    _shop.setActive(true);
-
     auto &transform = _shop.getComponentV2<iTransformComponent>();
     transform._position.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT, 0.0);
 
@@ -169,11 +159,6 @@ void GameLayer::createShop()
 
     _shop.addComponent<WeaponComponent>(_weapons["Minigun"]);
     _shop.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
-
-    auto &object = _shop.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<iQuadtreef::Object>();
-    object._object->_userData = _shop.getID();
-    object._object->_circle.set(iaVector2f(), transform._scale._x * 0.5);
 }
 
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
@@ -189,11 +174,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     unit.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
-    auto &object = unit.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<iQuadtreef::Object>();
-    object._object->_userData = unit.getID();
-    object._object->_circle.set(pos, transform._scale._x * 0.5);
-    _quadtree.insert(object._object);
+    unit.addToQuadtree(0.5);
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
@@ -419,7 +400,7 @@ void GameLayer::readShopItems(TiXmlElement *shopItems)
                     iaTime::fromMilliseconds(attackIntervall),
                     needToStandStill,
                     returnToSender,
-                    iaVector2f(0.0, -STANDARD_UNIT_SIZE * 0.5),
+                    iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5),
                     iTimer::getInstance().getTime(),
                 };
 
@@ -596,108 +577,85 @@ void GameLayer::onUpdateStats(const iaTime &time)
     _stats.push_back(stats);
 }
 
-void GameLayer::onUpdateQuadtreeSystem()
+void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
 {
-    // update quadtree data
-    auto quadtreeView = _entityScene->getEntities<iTransformComponent, QuadtreeObjectComponent>();
-    for (auto entityID : quadtreeView)
-    {
-        auto [transform, object] = quadtreeView.get<iTransformComponent, QuadtreeObjectComponent>(entityID);
-        const iaVector2f position(transform._position._x, transform._position._y);
-
-        if (object._object == nullptr)
-        {
-            continue;
-        }
-
-        if (object._object->_parent.expired())
-        {
-            continue;
-        }
-
-        _quadtree.update(object._object, position);
-    }
-}
-
-void GameLayer::doughnutQuery(const iaCirclef &circle, std::vector<std::pair<iEntityID, iaVector2f>> &hits)
-{
-    iQuadtreef::Objects objects;
-    _quadtree.query(circle, objects);
+    iQuadtreed::Objects objects;    
+    _entityScene->getQuadtree().query(circle, objects);
 
     for (const auto &object : objects)
     {
-        hits.emplace_back(std::pair<iEntityID, iaVector2f>(std::any_cast<iEntityID>(object->_userData), object->_circle._center - circle._center));
+        hits.emplace_back(std::pair<iEntityID, iaVector2d>(std::any_cast<iEntityID>(object->_userData), object->_circle._center - circle._center));
     }
 
     const bool right = circle._center._x - circle._radius < 0.0;
-    const bool left = circle._center._x + circle._radius > _quadtree.getRootBox()._width;
+    const bool left = circle._center._x + circle._radius > _entityScene->getQuadtree().getRootBox()._width;
     const bool bottom = circle._center._y - circle._radius < 0.0;
-    const bool top = circle._center._y + circle._radius > _quadtree.getRootBox()._height;
+    const bool top = circle._center._y + circle._radius > _entityScene->getQuadtree().getRootBox()._height;
 
-    std::vector<iaCirclef> additionalQueries;
+    std::vector<iaCircled> additionalQueries;
 
     if (right || left)
     {
-        iaCirclef queryCircle = circle;
+        iaCircled queryCircle = circle;
         if (right)
         {
-            queryCircle._center._x += _quadtree.getRootBox()._width;
+            queryCircle._center._x += _entityScene->getQuadtree().getRootBox()._width;
         }
         if (left)
         {
-            queryCircle._center._x -= _quadtree.getRootBox()._width;
+            queryCircle._center._x -= _entityScene->getQuadtree().getRootBox()._width;
         }
         additionalQueries.push_back(queryCircle);
     }
 
     if (bottom || top)
     {
-        iaCirclef queryCircle = circle;
+        iaCircled queryCircle = circle;
         if (bottom)
         {
-            queryCircle._center._y += _quadtree.getRootBox()._height;
+            queryCircle._center._y += _entityScene->getQuadtree().getRootBox()._height;
         }
         if (top)
         {
-            queryCircle._center._y -= _quadtree.getRootBox()._height;
+            queryCircle._center._y -= _entityScene->getQuadtree().getRootBox()._height;
         }
         additionalQueries.push_back(queryCircle);
     }
 
     if (right || left && bottom || top)
     {
-        iaCirclef queryCircle = circle;
+        iaCircled queryCircle = circle;
         if (right)
         {
-            queryCircle._center._x += _quadtree.getRootBox()._width;
+            queryCircle._center._x += _entityScene->getQuadtree().getRootBox()._width;
         }
         if (left)
         {
-            queryCircle._center._x -= _quadtree.getRootBox()._width;
+            queryCircle._center._x -= _entityScene->getQuadtree().getRootBox()._width;
         }
         if (bottom)
         {
-            queryCircle._center._y += _quadtree.getRootBox()._height;
+            queryCircle._center._y += _entityScene->getQuadtree().getRootBox()._height;
         }
         if (top)
         {
-            queryCircle._center._y -= _quadtree.getRootBox()._height;
+            queryCircle._center._y -= _entityScene->getQuadtree().getRootBox()._height;
         }
         additionalQueries.push_back(queryCircle);
     }
 
     for (const auto &queryCircle : additionalQueries)
     {
-        _quadtree.query(queryCircle, objects);
+        _entityScene->getQuadtree().query(queryCircle, objects);
 
         for (const auto &object : objects)
         {
-            hits.emplace_back(std::pair<iEntityID, iaVector2f>(std::any_cast<iEntityID>(object->_userData), object->_circle._center - queryCircle._center));
+            hits.emplace_back(std::pair<iEntityID, iaVector2d>(std::any_cast<iEntityID>(object->_userData), object->_circle._center - queryCircle._center));
         }
     }
 }
 
-bool GameLayer::intersectDoughnut(const iaVector2f &position, const iaRectanglef &rectangle, iaVector2f &offset)
+bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset)
 {
     if (iIntersection::intersects(position, rectangle))
     {
@@ -705,59 +663,59 @@ bool GameLayer::intersectDoughnut(const iaVector2f &position, const iaRectanglef
     }
 
     const bool right = rectangle._x < 0.0;
-    const bool left = rectangle.getRight() > _quadtree.getRootBox()._width;
+    const bool left = rectangle.getRight() > _entityScene->getQuadtree().getRootBox()._width;
 
     const bool bottom = rectangle._y < 0.0;
-    const bool top = rectangle.getBottom() > _quadtree.getRootBox()._height;
+    const bool top = rectangle.getBottom() > _entityScene->getQuadtree().getRootBox()._height;
 
-    std::vector<iaRectanglef> additionalQueries;
+    std::vector<iaRectangled> additionalQueries;
 
     if (right || left)
     {
-        iaRectanglef queryRectangle = rectangle;
+        iaRectangled queryRectangle = rectangle;
         if (right)
         {
-            queryRectangle._x += _quadtree.getRootBox()._width;
+            queryRectangle._x += _entityScene->getQuadtree().getRootBox()._width;
         }
         if (left)
         {
-            queryRectangle._x -= _quadtree.getRootBox()._width;
+            queryRectangle._x -= _entityScene->getQuadtree().getRootBox()._width;
         }
         additionalQueries.push_back(queryRectangle);
     }
 
     if (bottom || top)
     {
-        iaRectanglef queryRectangle = rectangle;
+        iaRectangled queryRectangle = rectangle;
         if (bottom)
         {
-            queryRectangle._y += _quadtree.getRootBox()._height;
+            queryRectangle._y += _entityScene->getQuadtree().getRootBox()._height;
         }
         if (top)
         {
-            queryRectangle._y -= _quadtree.getRootBox()._height;
+            queryRectangle._y -= _entityScene->getQuadtree().getRootBox()._height;
         }
         additionalQueries.push_back(queryRectangle);
     }
 
     if (right || left && bottom || top)
     {
-        iaRectanglef queryRectangle = rectangle;
+        iaRectangled queryRectangle = rectangle;
         if (right)
         {
-            queryRectangle._x += _quadtree.getRootBox()._width;
+            queryRectangle._x += _entityScene->getQuadtree().getRootBox()._width;
         }
         if (left)
         {
-            queryRectangle._x -= _quadtree.getRootBox()._width;
+            queryRectangle._x -= _entityScene->getQuadtree().getRootBox()._width;
         }
         if (bottom)
         {
-            queryRectangle._y += _quadtree.getRootBox()._height;
+            queryRectangle._y += _entityScene->getQuadtree().getRootBox()._height;
         }
         if (top)
         {
-            queryRectangle._y -= _quadtree.getRootBox()._height;
+            queryRectangle._y -= _entityScene->getQuadtree().getRootBox()._height;
         }
         additionalQueries.push_back(queryRectangle);
     }
@@ -774,7 +732,7 @@ bool GameLayer::intersectDoughnut(const iaVector2f &position, const iaRectanglef
     return false;
 }
 
-bool GameLayer::intersectDoughnut(const iaVector2f &position, const iaCirclef &circle, iaVector2f &offset)
+bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset)
 {
     if (iIntersection::intersects(position, circle))
     {
@@ -782,59 +740,59 @@ bool GameLayer::intersectDoughnut(const iaVector2f &position, const iaCirclef &c
     }
 
     const bool right = circle._center._x - circle._radius < 0.0;
-    const bool left = circle._center._x + circle._radius > _quadtree.getRootBox()._width;
+    const bool left = circle._center._x + circle._radius > _entityScene->getQuadtree().getRootBox()._width;
 
     const bool bottom = circle._center._y - circle._radius < 0.0;
-    const bool top = circle._center._y + circle._radius > _quadtree.getRootBox()._height;
+    const bool top = circle._center._y + circle._radius > _entityScene->getQuadtree().getRootBox()._height;
 
-    std::vector<iaCirclef> additionalQueries;
+    std::vector<iaCircled> additionalQueries;
 
     if (right || left)
     {
-        iaCirclef queryCircle = circle;
+        iaCircled queryCircle = circle;
         if (right)
         {
-            queryCircle._center._x += _quadtree.getRootBox()._width;
+            queryCircle._center._x += _entityScene->getQuadtree().getRootBox()._width;
         }
         if (left)
         {
-            queryCircle._center._x -= _quadtree.getRootBox()._width;
+            queryCircle._center._x -= _entityScene->getQuadtree().getRootBox()._width;
         }
         additionalQueries.push_back(queryCircle);
     }
 
     if (bottom || top)
     {
-        iaCirclef queryCircle = circle;
+        iaCircled queryCircle = circle;
         if (bottom)
         {
-            queryCircle._center._y += _quadtree.getRootBox()._height;
+            queryCircle._center._y += _entityScene->getQuadtree().getRootBox()._height;
         }
         if (top)
         {
-            queryCircle._center._y -= _quadtree.getRootBox()._height;
+            queryCircle._center._y -= _entityScene->getQuadtree().getRootBox()._height;
         }
         additionalQueries.push_back(queryCircle);
     }
 
     if (right || left && bottom || top)
     {
-        iaCirclef queryCircle = circle;
+        iaCircled queryCircle = circle;
         if (right)
         {
-            queryCircle._center._x += _quadtree.getRootBox()._width;
+            queryCircle._center._x += _entityScene->getQuadtree().getRootBox()._width;
         }
         if (left)
         {
-            queryCircle._center._x -= _quadtree.getRootBox()._width;
+            queryCircle._center._x -= _entityScene->getQuadtree().getRootBox()._width;
         }
         if (bottom)
         {
-            queryCircle._center._y += _quadtree.getRootBox()._height;
+            queryCircle._center._y += _entityScene->getQuadtree().getRootBox()._height;
         }
         if (top)
         {
-            queryCircle._center._y -= _quadtree.getRootBox()._height;
+            queryCircle._center._y -= _entityScene->getQuadtree().getRootBox()._height;
         }
         additionalQueries.push_back(queryCircle);
     }
@@ -881,10 +839,10 @@ void GameLayer::onUpdateFollowTargetSystem()
             continue;
         }
 
-        const iaVector2f targetPos(targetTransform->_position._x, targetTransform->_position._y);
-        const iaVector2f position(transform._position._x, transform._position._y);
-        iaVector2f offset;
-        iaCirclef circle(position, 1000.0);
+        const iaVector2d targetPos(targetTransform->_position._x, targetTransform->_position._y);
+        const iaVector2d position(transform._position._x, transform._position._y);
+        iaVector2d offset;
+        iaCircled circle(position, 1000.0);
 
         if (!intersectDoughnut(targetPos, circle, offset))
         {
@@ -896,7 +854,7 @@ void GameLayer::onUpdateFollowTargetSystem()
         }
         else
         {
-            iaVector2f newVel = targetPos - position + offset;
+            iaVector2d newVel = targetPos - position + offset;
             newVel.normalize();
             newVel *= speed;
             vel._velocity.set(newVel._x, newVel._y, 0.0);
@@ -913,11 +871,11 @@ void GameLayer::onUpdatePositionSystem()
         auto [transform, vel, party, damage, health] = positionUpdateView.get<iTransformComponent, iVelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
 
         iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
-        iaVector2f position(transform._position._x, transform._position._y);
+        iaVector2d position(transform._position._x, transform._position._y);
         const float32 radius = transform._scale._x * 0.5;
         float32 speed = vel._velocity.length();
-        iaVector2f diversion;
-        iaVector2f direction(vel._velocity._x, vel._velocity._y);
+        iaVector2d diversion;
+        iaVector2d direction(vel._velocity._x, vel._velocity._y);
 
         ModifierComponent *modifierComponent = entity.tryGetComponent<ModifierComponent>();
         if (modifierComponent != nullptr)
@@ -930,9 +888,9 @@ void GameLayer::onUpdatePositionSystem()
         // don't calculate diversion if non block able
         if (!party._nonBlockable)
         {
-            iaCirclef circle(position, radius * 1.1);
-            iQuadtreef::Objects objects;
-            _quadtree.query(circle, objects);
+            iaCircled circle(position, radius * 1.1);
+            iQuadtreed::Objects objects;
+            _entityScene->getQuadtree().query(circle, objects);
 
             uint32 totalHits = 0;
 
@@ -1008,12 +966,12 @@ void GameLayer::onUpdateCollisionSystem()
     {
         auto [transform, party, damage, health] = positionUpdateView.get<iTransformComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
 
-        const iaVector2f position(transform._position._x, transform._position._y);
+        const iaVector2d position(transform._position._x, transform._position._y);
         const float32 radius = transform._scale._x * 0.5;
 
-        iaCirclef circle(position, radius);
-        iQuadtreef::Objects objects;
-        _quadtree.query(circle, objects);
+        iaCircled circle(position, radius);
+        iQuadtreed::Objects objects;
+        _entityScene->getQuadtree().query(circle, objects);
 
         iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
 
@@ -1053,10 +1011,10 @@ void GameLayer::onUpdateCollisionSystem()
     }
 }
 
-void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier)
+void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier)
 {
     // skip if out of range
-    if (!iIntersection::intersects(from, _quadtree.getRootBox()))
+    if (!iIntersection::intersects(from, _entityScene->getQuadtree().getRootBox()))
     {
         return;
     }
@@ -1065,7 +1023,7 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
     {
         auto bullet = _entityScene->createEntity(weapon._texture);
         float32 angle = dir.angle() * IGOR_RAD2GRAD;
-        iaVector2f firePosition(from + dir * weapon._size * 0.5);
+        iaVector2d firePosition(from + dir * weapon._size * 0.5);
         bullet.addTransformComponent(iaVector3d(firePosition._x, firePosition._y, 0.0), iaVector3d(0.0, 0.0, angle), iaVector3d(weapon._size, weapon._size, 1.0));
 
         float32 angularVelocity = weapon._angularVelocity;
@@ -1078,7 +1036,7 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
         bullet.addComponent<AngularVelocityComponent>(angularVelocity);
         bullet.addComponent<RangeComponent>(weapon._range * modifier._projectileRangeFactor);
 
-        iaVector2f dir2 = dir;
+        iaVector2d dir2 = dir;
         dir2.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon._accuracy * 0.2);
         iaVector3d d(dir2._x, dir2._y, 0.0);
         float32 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (iaRandom::getNextFloat() - 0.5));
@@ -1091,11 +1049,7 @@ void GameLayer::fire(const iaVector2f &from, const iaVector2f &dir, uint32 party
         bullet.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile(weapon._texture));
         bullet.addComponent<VisualComponent>(false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
-        auto &object = bullet.addComponent<QuadtreeObjectComponent>();
-        object._object = std::make_shared<iQuadtreef::Object>(iaCirclef(from, weapon._size * 0.5), bullet.getID());
-        object._object->_userData = bullet.getID();
-        object._object->_circle.set(from, weapon._size * 0.5);
-        _quadtree.insert(object._object);
+        bullet.addToQuadtree(weapon._size * 0.5);
     }
 }
 
@@ -1149,8 +1103,8 @@ void GameLayer::onUpdatePickupSystem(iEntity &entity)
     auto &coins = entity.getComponent<CoinsComponent>();
     auto &health = entity.getComponent<HealthComponent>();
 
-    iaCirclef circle(iaVector2f(transform._position._x, transform._position._y), 70.0);
-    std::vector<std::pair<iEntityID, iaVector2f>> hits;
+    iaCircled circle(iaVector2d(transform._position._x, transform._position._y), 70.0);
+    std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
 
     for (const auto &hit : hits)
@@ -1198,8 +1152,8 @@ void GameLayer::aquireTargetFor(iEntity &entity)
     auto &weapon = entity.getComponent<WeaponComponent>();
     auto &modifier = entity.getComponent<ModifierComponent>();
 
-    iaCirclef circle(iaVector2f(transform._position._x, transform._position._y), weapon._range * modifier._projectileRangeFactor);
-    std::vector<std::pair<iEntityID, iaVector2f>> hits;
+    iaCircled circle(iaVector2d(transform._position._x, transform._position._y), weapon._range * modifier._projectileRangeFactor);
+    std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
 
     float32 minDistance = std::numeric_limits<float32>::max();
@@ -1263,8 +1217,8 @@ void GameLayer::onUpdateWeaponSystem()
         iEntity targetEntity(target._targetID, _entityScene);
         const auto &targetPosition = targetEntity.getComponentV2<iTransformComponent>();
 
-        const iaVector2f firePos = iaVector2f(transform._position._x, transform._position._y) + weapon._offset;
-        iaVector2f direction = iaVector2f(targetPosition._position._x, targetPosition._position._y) - firePos;
+        const iaVector2d firePos = iaVector2d(transform._position._x, transform._position._y) + weapon._offset;
+        iaVector2d direction = iaVector2d(targetPosition._position._x, targetPosition._position._y) - firePos;
         direction.normalize();
 
         fire(firePos, direction, FRIEND, weapon, modifier);
@@ -1309,11 +1263,11 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
     bool playerValid = _player.isValid();
 
     // pick up the dead
-    auto healthView = _entityScene->getEntities<HealthComponent, PartyComponent, QuadtreeObjectComponent>();
+    auto healthView = _entityScene->getEntities<HealthComponent, PartyComponent>();
 
     for (auto entityID : healthView)
     {
-        auto [health, party, object] = healthView.get<HealthComponent, PartyComponent, QuadtreeObjectComponent>(entityID);
+        auto [health, party] = healthView.get<HealthComponent, PartyComponent>(entityID);
 
         if (health._health <= 0.0)
         {
@@ -1343,14 +1297,6 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
     // dispose the dead
     for (const auto &entityID : _deleteQueue)
     {
-        iEntity entity(entityID, _entityScene);
-        auto *qud = entity.tryGetComponent<QuadtreeObjectComponent>();
-        if (qud != nullptr)
-        {
-            _quadtree.remove(qud->_object);
-            qud->_object = nullptr;
-        }
-
         _entityScene->destroyEntity(entityID);
     }
 
@@ -1359,8 +1305,6 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
 
 void GameLayer::onUpdate(const iaTime &time)
 {
-    onUpdateQuadtreeSystem();
-
     onUpdateFollowTargetSystem();
     onUpdateOrientationSystem();
     onUpdatePositionSystem();
@@ -1717,7 +1661,7 @@ void GameLayer::onRenderOrtho()
 
     onRenderPlayerHUD();
 
-    // onRenderQuadtree(_quadtree.getRoot());
+    // onRenderQuadtree(_entityScene->getQuadtree().getRoot());
 
     onRenderHUD();
     onRenderStats();
