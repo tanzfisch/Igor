@@ -60,7 +60,7 @@ namespace igor
 
         /*! called on application pre draw event
         */
-        virtual void onPreDraw(){};
+        virtual void onUpdate(){};
         
         /*! called on any other event
         */

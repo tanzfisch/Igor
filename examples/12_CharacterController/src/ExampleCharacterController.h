@@ -118,7 +118,7 @@ private:
 
     /*! handle called once per frame
     */
-    void onPreDraw() override;
+    void onUpdate() override;
 
     /*! called by orthogonal view
     */

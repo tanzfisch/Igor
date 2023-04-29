@@ -151,7 +151,7 @@ void PhysicsExample::onDeinit()
     _bodyIDs.clear();
 }
 
-void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
+void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float64 timestep)
 {
     float64 Ixx;
     float64 Iyy;

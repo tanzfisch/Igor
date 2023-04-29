@@ -83,7 +83,7 @@ protected:
 
     override if you need to work with it
     */
-    virtual void onPreDraw() override;
+    virtual void onUpdate() override;
 
     /*! called on any other event
     */

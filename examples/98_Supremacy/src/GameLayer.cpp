@@ -1346,7 +1346,7 @@ void GameLayer::onDeinit()
     _viewOrtho.unregisterRenderDelegate({this, &GameLayer::onRenderOrtho});
 }
 
-void GameLayer::onPreDraw()
+void GameLayer::onUpdate()
 {
 }
 
@@ -1705,7 +1705,7 @@ bool GameLayer::onKeyDown(iEventKeyDown &event)
     switch (event.getKey())
     {
     case iKeyCode::ESC:
-        iApplication::getInstance().stop();
+        iApplication::getInstance().exit();
         return true;
     }
 

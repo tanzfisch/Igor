@@ -4,6 +4,8 @@
 
 #include <igor/entities/iEntitySystemModule.h>
 
+#include<igor/resources/profiler/iProfiler.h>
+
 namespace igor
 {
 

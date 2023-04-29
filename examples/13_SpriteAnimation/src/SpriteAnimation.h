@@ -135,7 +135,7 @@ private:
 
 	/*! called before every frame
     */
-	void onPreDraw() override;
+	void onUpdate() override;
 
 	/*! called every frame 
     

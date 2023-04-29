@@ -62,7 +62,7 @@ namespace igor
 
         quits the main application loop. works only in combination with iApplication::run
         */
-        void stop();
+        void exit();
 
         /*! returns true if application is still running
         */
@@ -170,9 +170,9 @@ namespace igor
         */
         void dispatch();
 
-        /*! triggers pre draw event on all layers
+        /*! updates layer stack
         */
-        void preDraw();
+        void onUpdateLayerStack();
 
         /*! dispatch event on given layer stack
 

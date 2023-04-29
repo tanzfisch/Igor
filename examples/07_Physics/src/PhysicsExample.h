@@ -73,7 +73,7 @@ private:
     \param body the body affected
     \param timestep the time passed
     */
-    void onApplyForceAndTorque(iPhysicsBody *body, float32 timestep);
+    void onApplyForceAndTorque(iPhysicsBody *body, float64 timestep);
 
     /*! initialize scene
     */

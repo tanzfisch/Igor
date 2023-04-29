@@ -198,7 +198,7 @@ iaString SpriteAnimation::getCharacterStateName(CharacterState state)
     return "unknown";
 }
 
-void SpriteAnimation::onPreDraw()
+void SpriteAnimation::onUpdate()
 {
     // moves the logo towards the mouse position
 

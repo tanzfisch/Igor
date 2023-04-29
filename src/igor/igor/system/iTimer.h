@@ -59,46 +59,62 @@ namespace igor
          */
         iaTime getTimeDelta() const;
 
+        /*! \returns average delta time over TIME_DELTAS frames
+         */
+        iaTime getAverageTimeDelta() const;
+
+        /*! \returns peak delta time over the last TIME_DELTAS frames
+        */
+        iaTime getPeakTimeDelta() const;
+
         /*! \returns frame rate based only on one frame's time delta
          */
         float64 getFPS() const;
 
-        /*! stops time and everyting that is triggered by it
-        */
+        /*! \returns average frame rate over TIME_DELTAS frames
+         */
+        float64 getAverageFPS() const;
+
+        /*! stops time and everything that is triggered by it
+         */
         void stop();
 
         /*! continues time
-        */
+         */
         void start();
 
-    protected:
-        /*! call timer handle events
-         */
-        void handleTimerHandles();
-
     private:
-        /*! time delta between last and current frame (in miliseconds)
-         */
-        iaTime _timeDelta;
+    
+        /*! time deltas count to be stored
+        */
+        static constexpr uint32 TIME_DELTAS = 500;
 
-        /*! time simce application start accounding for start/stop
+        /*! time delta between frames
+         */
+        std::array<iaTime, TIME_DELTAS> _timeDeltas;
+
+        /*! time delta index
+         */
+        uint32 _timeDeltaIndex = 0;
+
+        /*! time since application start accounding for start/stop
          */
         iaTime _currentTime;
 
         /*! actual time since application start
-        */
+         */
         iaTime _currentActualTime;
 
         /*! if true time is running
-        */
+         */
         bool _timeRunning = true;
 
         /*! registered timer handles
-        */
+         */
         std::vector<iTimerHandle *> _timerHandles;
 
         /*! mutex to protect timer handle list
-        */
+         */
         iaMutex _mutexHandleList;
 
         /*! registers timer handle to timer
@@ -112,6 +128,10 @@ namespace igor
         /*! called by iApplication to handle timer handle events
          */
         void onUpdate();
+
+        /*! measure time at beginning of new frame
+         */
+        void nextFrame();
 
         /*! Registers to iApplication and initializes performance counter
          */

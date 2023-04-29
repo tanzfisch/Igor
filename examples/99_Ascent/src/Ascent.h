@@ -102,7 +102,7 @@ private:
 
     /*! called on application pre draw event
         */
-    void onPreDraw() override;
+    void onUpdate() override;
 
     /*! called on any other event
         */

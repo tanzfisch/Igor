@@ -30,9 +30,9 @@ namespace igor
         iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
     }
 
-    void iLayerWidgets::onPreDraw()
+    void iLayerWidgets::onUpdate()
     {
-        iWidgetManager::getInstance().onPreDraw();
+        iWidgetManager::getInstance().onUpdate();
     }
 
     void iLayerWidgets::onDeinit()

@@ -128,7 +128,7 @@ namespace igor
         }
     }
 
-    void iNodeManager::handle()
+    void iNodeManager::onUpdate()
     {
         flush();
     }

@@ -1499,12 +1499,14 @@ namespace igor
 
     void iWindow::draw()
     {
+        IGOR_PROFILER_BEGIN(render);
         iRenderer::getInstance().clearStats();
 
         for (auto view : _views)
         {
             view->draw();
         }
+        IGOR_PROFILER_END(render);
 
         swapBuffers();
     }

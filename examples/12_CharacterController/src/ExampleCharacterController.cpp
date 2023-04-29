@@ -159,7 +159,7 @@ void ExampleCharacterController::makeCollisions(iNodePtr node)
     }
 }
 
-void ExampleCharacterController::onPreDraw()
+void ExampleCharacterController::onUpdate()
 {
     float64 movingForceOnFloor = 10000;
     float64 movingForceInAir = 6000;

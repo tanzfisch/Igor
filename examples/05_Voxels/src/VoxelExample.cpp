@@ -272,7 +272,7 @@ void VoxelExample::onRenderOrtho()
     ExampleBase::onRenderOrtho();
 }
 
-void VoxelExample::onPreDraw()
+void VoxelExample::onUpdate()
 {
     // detect if loading is done
     if (_voxelMeshModel != iNode::INVALID_NODE_ID)

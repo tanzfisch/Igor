@@ -227,7 +227,7 @@ namespace igor
         return consumed;
     }
 
-    void iWidgetManager::onPreDraw()
+    void iWidgetManager::onUpdate()
     {
         bool refreshMousePos = false;
 

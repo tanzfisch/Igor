@@ -103,39 +103,48 @@ namespace igor
         }
     }
 
-    void iApplication::preDraw()
+    void iApplication::onUpdateLayerStack()
     {
         for (auto layer : _layerStack.getStack())
         {
-            layer->onPreDraw();
+            layer->onUpdate();
         }
     }
 
     bool iApplication::onWindowClose(iEventWindowClose &event)
     {
-        stop();
+        exit();
         return false;
     }
 
-    void iApplication::stop()
+    void iApplication::exit()
     {
         _running = false;
     }
 
     void iApplication::iterate()
     {
-        iTimer::getInstance().onUpdate();
+        iTimer::getInstance().nextFrame();
         iProfiler::nextFrame();
-
+               
         IGOR_PROFILER_BEGIN(application);
-        iNodeManager::getInstance().handle();
         updateWindow();
         dispatch();
-        preDraw();
+        onUpdateLayerStack();
+        iTimer::getInstance().onUpdate();
         IGOR_PROFILER_END(application);
 
+        IGOR_PROFILER_BEGIN(entities);
         iEntitySystemModule::getInstance().onUpdate();
+        IGOR_PROFILER_END(entities);
+
+        IGOR_PROFILER_BEGIN(nodes);
+        iNodeManager::getInstance().onUpdate();
+        IGOR_PROFILER_END(nodes);
+
+        IGOR_PROFILER_BEGIN(physics);
         iPhysics::getInstance().handle();
+        IGOR_PROFILER_END(physics);
 
         draw();
     }

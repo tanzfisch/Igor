@@ -12,7 +12,7 @@ namespace igor
 
     void iActionApplicationStop::execute(const iActionContext &context)
     {
-        iApplication::getInstance().stop();
+        iApplication::getInstance().exit();
     }
 
     bool iActionApplicationStop::isCompatible(const iActionContext &context)

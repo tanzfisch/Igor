@@ -219,9 +219,17 @@ namespace igor
                 _renderEngine.render();
             }
 
-            IGOR_PROFILER_BEGIN(draw_user);
-            _renderEvent();
-            IGOR_PROFILER_END(draw_user);
+            // workaround to not measure the profiler render
+            if (getName() == "Profiler View")
+            {
+                _renderEvent();
+                iRenderer::getInstance().flush();
+            }
+            else
+            {                
+                _renderEvent();
+                iRenderer::getInstance().flush();
+            }
 
             iRenderer::getInstance().endFrame();
         }
