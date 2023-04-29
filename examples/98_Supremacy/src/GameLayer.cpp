@@ -18,9 +18,9 @@ iaVector3d GameLayer::getRandomDir()
     return iaVector3d(direction._x, direction._y, 0.0);
 }
 
-void GameLayer::onPlayerMovementBehaviour(iEntity &entity)
+void GameLayer::onPlayerMovementBehaviour(iEntity &entity, void* data)
 {
-    auto &velocityComponent = entity.getComponent<iVelocityComponent>();
+    auto &velocityComponent = entity.getComponentV2<iVelocityComponent>();
 
     velocityComponent._velocity.set(0, 0, 0);
 
@@ -90,7 +90,7 @@ iEntity GameLayer::createPlayer()
 iEntity GameLayer::createViewport(iEntityID targetID)
 {
     iEntity target(targetID, _entityScene);
-    const auto transform = target.getComponent<iTransformComponent>();
+    const auto transform = target.getComponentV2<iTransformComponent>();
 
     iEntity entity = _entityScene->createEntity("viewport");
 
@@ -140,7 +140,7 @@ void GameLayer::onLandShop(const iaTime &time)
 
 void GameLayer::onShopLanded()
 {
-    auto &transform = _shop.getComponent<iTransformComponent>();
+    auto &transform = _shop.getComponentV2<iTransformComponent>();
     auto &object = _shop.getComponent<QuadtreeObjectComponent>();
     object._object->_circle._center.set(transform._position._x, transform._position._y);
     _quadtree.insert(object._object);
@@ -150,7 +150,7 @@ void GameLayer::landShop()
 {
     _shop.setActive(true);
 
-    auto &transform = _shop.getComponent<iTransformComponent>();
+    auto &transform = _shop.getComponentV2<iTransformComponent>();
     transform._position.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT, 0.0);
 
     onShopLanded();
@@ -213,7 +213,7 @@ void GameLayer::updateViewRectangleSystem()
 
     auto &viewportComp = _viewport.getComponent<ViewportComponent>();
     auto &targetOffset = viewportComp._targetOffset;
-    const auto &playerTransform = _player.getComponent<iTransformComponent>();
+    const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
 
     const iaVector2f playerPosition(playerTransform._position._x, playerTransform._position._y);
     const iaVector2f lastPlayerPosition = viewportComp._viewport.getCenter() + targetOffset;
@@ -503,7 +503,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         return;
     }
 
-    const auto &playerTransform = _player.getComponent<iTransformComponent>();
+    const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
     const iaVector2f playerPosition(playerTransform._position._x, playerTransform._position._y);
 
     ExperienceComponent &playerXP = _player.getComponent<ExperienceComponent>();
@@ -875,7 +875,7 @@ void GameLayer::onUpdateFollowTargetSystem()
         }
 
         // skip if target has no position
-        iTransformComponent *targetTransform = targetEntity.tryGetComponent<iTransformComponent>();
+        iTransformComponent *targetTransform = targetEntity.tryGetComponentV2<iTransformComponent>();
         if (targetTransform == nullptr)
         {
             continue;
@@ -1120,7 +1120,7 @@ BuildingType GameLayer::onCheckForBuildingsNearBy(iEntity &entity)
         return BuildingType::None;
     }
 
-    auto &entityTransform = entity.getComponent<iTransformComponent>();
+    auto &entityTransform = entity.getComponentV2<iTransformComponent>();
 
     auto view = _entityScene->getEntities<BuildingComponent, iTransformComponent>();
     for (auto entityID : view)
@@ -1144,7 +1144,7 @@ void GameLayer::onUpdatePickupSystem(iEntity &entity)
         return;
     }
 
-    const auto &transform = entity.getComponent<iTransformComponent>();
+    const auto &transform = entity.getComponentV2<iTransformComponent>();
     auto &experience = entity.getComponent<ExperienceComponent>();
     auto &coins = entity.getComponent<CoinsComponent>();
     auto &health = entity.getComponent<HealthComponent>();
@@ -1192,7 +1192,7 @@ void GameLayer::aquireTargetFor(iEntity &entity)
     }
 
     // acquire target for player
-    const auto &transform = entity.getComponent<iTransformComponent>();
+    const auto &transform = entity.getComponentV2<iTransformComponent>();
     auto &party = entity.getComponent<PartyComponent>();
     auto &target = entity.getComponent<TargetComponent>();
     auto &weapon = entity.getComponent<WeaponComponent>();
@@ -1261,7 +1261,7 @@ void GameLayer::onUpdateWeaponSystem()
 
         // get target position
         iEntity targetEntity(target._targetID, _entityScene);
-        const auto &targetPosition = targetEntity.getComponent<iTransformComponent>();
+        const auto &targetPosition = targetEntity.getComponentV2<iTransformComponent>();
 
         const iaVector2f firePos = iaVector2f(transform._position._x, transform._position._y) + weapon._offset;
         iaVector2f direction = iaVector2f(targetPosition._position._x, targetPosition._position._y) - firePos;
@@ -1329,7 +1329,7 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
                     }
                 }
 
-                const auto *pos = entity.tryGetComponent<iTransformComponent>();
+                const auto *pos = entity.tryGetComponentV2<iTransformComponent>();
                 if (pos != nullptr)
                 {
                     createObject(iaVector2f(pos->_position._x, pos->_position._y), NEUTRAL, ObjectType::Coin);
@@ -1487,8 +1487,8 @@ void GameLayer::onRenderPlayerHUD()
         return;
     }
 
-    auto &playerTransform = _player.getComponent<iTransformComponent>();
-    auto &shopTransform = _shop.getComponent<iTransformComponent>();
+    auto &playerTransform = _player.getComponentV2<iTransformComponent>();
+    auto &shopTransform = _shop.getComponentV2<iTransformComponent>();
     if (_shop.isActive())
     {
         // TODO respect the doughnut
@@ -1518,7 +1518,7 @@ void GameLayer::onRenderHUD()
     auto &playerCoins = _player.getComponent<CoinsComponent>();
     auto &modifiers = _player.getComponent<ModifierComponent>();
     auto &weapon = _player.getComponent<WeaponComponent>();
-    auto &playerVelocity = _player.getComponent<iVelocityComponent>();
+    auto &playerVelocity = _player.getComponentV2<iVelocityComponent>();
 
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);

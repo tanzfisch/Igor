@@ -11,9 +11,10 @@ namespace igor
 {
 	void iVelocitySystem::update(iEntityScenePtr scene)
 	{
+		auto &entities = scene->getEntitiesV2<iVelocityComponent, iTransformComponent, iActiveComponent>();
 		auto view = scene->getEntities<iVelocityComponent, iTransformComponent, iActiveComponent>();
 
-		for (auto entityID : view)
+		for (auto entityID : entities)
 		{
 			auto [velocity, transform] = view.get<iVelocityComponent, iTransformComponent>(entityID);
 

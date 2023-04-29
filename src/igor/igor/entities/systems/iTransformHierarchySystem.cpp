@@ -26,9 +26,10 @@ namespace igor
 											   return crhs._parent == lhs || (!(clhs._parent == rhs) && (clhs._parent < crhs._parent || (clhs._parent == crhs._parent && lhs < rhs)));
 										   });
 
+		auto &entities = scene->getEntitiesV2<iTransformComponent>();
 		auto view = scene->getEntities<iTransformComponent>();
 
-		for (auto entityID : view)
+		for (auto entityID : entities)
 		{
 			auto &transform = view.get<iTransformComponent>(entityID);
 

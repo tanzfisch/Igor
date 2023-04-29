@@ -11,22 +11,23 @@ namespace igor
 {
 	void iBehaviourSystem::update(iEntityScenePtr scene)
 	{
+		auto &entities = scene->getEntitiesV2<iBehaviourComponent, iActiveComponent>();
 		auto view = scene->getEntities<iBehaviourComponent, iActiveComponent>();
 
-		for (auto entityID : view)
+		for (auto entityID : entities)
 		{
 			const auto &behaviour = view.get<iBehaviourComponent>(entityID);
 
 			iEntity entity(entityID, scene);
 
-			for (auto &function : behaviour._behaviour)
+			for (auto behaviourData : behaviour._behaviour)
 			{
-				if (!function.isValid())
+				if (!behaviourData._delegate.isValid())
 				{
 					continue;
 				}
 
-				function(entity);
+				behaviourData._delegate(entity, behaviourData._userData);
 			}
 		}
 	}

@@ -219,7 +219,7 @@ private:
 
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
-    void onPlayerMovementBehaviour(iEntity &entity);
+    void onPlayerMovementBehaviour(iEntity &entity, void* data);
 
     void createShop();
     void liftShop();

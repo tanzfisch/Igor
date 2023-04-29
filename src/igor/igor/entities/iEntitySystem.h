@@ -54,7 +54,7 @@ namespace igor
 
 		/*! updates system
 		 */
-		virtual void update(iEntityScenePtr scene){};
+		virtual void update(iEntityScenePtr scene) = 0;
 	};
 
 	/*! entity system pointer definition

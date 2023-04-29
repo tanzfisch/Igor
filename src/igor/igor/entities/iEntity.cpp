@@ -71,47 +71,56 @@ namespace igor
         return _scene->getRegistry().emplace_or_replace<iVelocityComponent>(_entity, velocity, angularVelocity);
     }
 
-    void iEntity::addBehaviour(const iBehaviourDelegate &behaviour)
+    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, void* userData)
     {
-        if (_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
+        iBehaviourComponent* component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);
+        if (component == nullptr)
         {
-            _scene->getRegistry().emplace_or_replace<iBehaviourComponent>(_entity);
+            component = &(_scene->getRegistry().emplace_or_replace<iBehaviourComponent>(_entity));
         }
 
-        iBehaviourComponent &component = _scene->getRegistry().get<iBehaviourComponent>(_entity);
-        for (auto &function : component._behaviour)
+        for (auto &behaviourData : component->_behaviour)
         {
-            if (!function.isValid())
+            if(!behaviourData._delegate.isValid())
             {
-                function = behaviour;
+                behaviourData._delegate = delegate;
+                behaviourData._userData = userData;
                 return;
             }
         }
 
-        con_err("can't add more then " << component._behaviour.size() << " behaviors");
+        con_err("can't add more then " << component->_behaviour.size() << " behaviors");
     }
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &behaviour)
     {
-        if (_scene->getRegistry().try_get<iBehaviourComponent>(_entity) == nullptr)
+        iBehaviourComponent* component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);
+        if (component == nullptr)
         {
             con_err("no behaviour component available");
             return;
         }
 
-        iBehaviourComponent &component = _scene->getRegistry().get<iBehaviourComponent>(_entity);
-        for (auto b : component._behaviour)
+        int nonZero = 0;
+        for (auto &behaviourData : component->_behaviour)
         {
-            if (b == behaviour)
+            if (behaviourData._delegate == behaviour)
             {
-                b = nullptr;
-                return;
+                nonZero++;
+                behaviourData._delegate = nullptr;
+                behaviourData._userData = nullptr;
             }
         }
 
-        // TODO remove component
+        if(nonZero == 1)
+        {
+            _scene->removeComponent<iBehaviourComponent>(_entity);
+        }
 
-        con_err("can't remove given behaviour");
+        if(nonZero == 0)
+        {
+            con_err("can't remove given behaviour");
+        }
     }
 
 }

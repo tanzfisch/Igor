@@ -24,9 +24,10 @@ namespace igor
 			return clhs._zIndex < crhs._zIndex; 
 		});
 
+		auto &entities = scene->getEntitiesV2<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
 		auto view = scene->getEntities<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
 
-		for (auto entityID : view)
+		for (auto entityID : entities)
 		{
 			auto [spriteRender, transform] = view.get<iSpriteRendererComponent, iTransformComponent>(entityID);
 			iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix, spriteRender._texture, spriteRender._color, true);

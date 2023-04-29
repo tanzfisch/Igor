@@ -41,6 +41,7 @@ using namespace iaux;
 
 #include <array>
 #include <functional>
+#include <any>
 
 namespace igor
 {
@@ -133,7 +134,22 @@ namespace igor
 
     /*! behaviour function definition
      */
-    typedef iaDelegate<void, iEntity &> iBehaviourDelegate;
+    typedef iaDelegate<void, iEntity &, void*> iBehaviourDelegate;
+
+    /*! behaviour data
+    */
+    struct iBehaviourData
+    {
+        /*! delegate to be executed with given entity and user data
+        */
+        iBehaviourDelegate _delegate;
+
+        /*! user data
+        
+        the application is responsible for storing this data in an efficient way
+        */
+        void* _userData = nullptr;        
+    };
 
     /*! behaviour component
      */
@@ -141,7 +157,7 @@ namespace igor
     {
         /*! behaviors
          */
-        std::array<iBehaviourDelegate, IGOR_MAX_BEHAVIORS_PER_COMPONENT> _behaviour;
+        std::array<iBehaviourData, IGOR_MAX_BEHAVIORS_PER_COMPONENT> _behaviour;
     };
 
     // iTextComponent

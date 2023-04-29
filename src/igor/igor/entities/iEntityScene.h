@@ -32,6 +32,8 @@
 #include <igor/entities/iEntitySystem.h>
 
 #include <memory>
+#include <unordered_map>
+#include <typeindex>
 
 namespace igor
 {
@@ -71,22 +73,52 @@ namespace igor
 		/*! \returns all entities with given components
 		 */
 		template <typename... Components>
+		const std::vector<iEntityID>& getEntitiesV2();
+
+		template <typename... Components>
 		auto getEntities()
 		{
 			return getRegistry().view<Components...>();
-		}		
+		}
+
+		/*! \returns reference to component for given entity
+
+		\param entityID the given entity
+		*/
+        template <typename T>
+        T &getComponent(iEntityID entityID);
+
+		/*! \returns pointer to component for given entity. nullptr if component does not exist
+
+		\param entityID the given entity
+		*/
+        template <typename T>
+        T *tryGetComponent(iEntityID entityID);
+
+        /*! removes component of given entity with given type
+         */
+        template <typename T>
+        void removeComponent(iEntityID entityID);
 
 		/*! \returns entt registry
 		 */
-		entt::registry &getRegistry();
+		entt::registry &getRegistry() const;
 
 	private:
 		/*! pimpl
 		 */
 		iEntitySceneImpl* _impl = nullptr;
 
+		/*! caching entity ID lists
+		*/
+		std::unordered_map<std::type_index, std::vector<iEntityID>> _entityIDCache;
+
+		/*! updates all non rendering systems
+		*/
 		void onUpdate();
 
+		/*! updates all rendering systems
+		*/
 		void onRender();
 
 		/*! init systems

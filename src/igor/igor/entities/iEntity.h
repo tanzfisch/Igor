@@ -128,7 +128,7 @@ namespace igor
 
         \param behaviour the behaviour to be added
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour);
+        void addBehaviour(const iBehaviourDelegate &behaviour, void* userData = nullptr);
 
         /*! removes behaviour from entity
 
@@ -144,6 +144,12 @@ namespace igor
             return _scene->getRegistry().get<T>(_entity);
         }
 
+        template <typename T>
+        T &getComponentV2()
+        {
+            return _scene->getComponent<T>(_entity);
+        }
+
         /*! \returns component of entity of given type
          */
         template <typename T>
@@ -152,12 +158,18 @@ namespace igor
             return _scene->getRegistry().try_get<T>(_entity);
         }
 
+        template <typename T>
+        T *tryGetComponentV2() const
+        {
+            return _scene->tryGetComponent<T>(_entity);
+        }
+
         /*! removes component of given type
          */
         template <typename T>
         void removeComponent()
         {
-            _scene->getRegistry().remove<T>(_entity);
+            _scene->removeComponent<T>(_entity);
         }
 
     private:

@@ -7,6 +7,9 @@
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iVelocitySystem.h>
 
+#include <utility>
+#include <tuple>
+
 namespace igor
 {
 
@@ -80,9 +83,25 @@ namespace igor
         std::vector<iEntitySystemPtr> _renderingSystems;
     };
 
+    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iVelocityComponent, iTransformComponent, iActiveComponent>();
+    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iTransformComponent>();
+    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
+    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iBehaviourComponent, iActiveComponent>();
+
     iEntityScene::iEntityScene()
     {
         _impl = new iEntitySceneImpl();
+
+        /*generate_all_combinations<std::tuple<iBaseEntityComponent,
+                                             iActiveComponent,
+                                             iSpriteRendererComponent,
+                                             iTransformComponent,
+                                             iVelocityComponent>>();*/
+
+        /*generate_combination<iVelocityComponent, iTransformComponent, iActiveComponent>();
+        generate_combination<iTransformComponent>();
+        generate_combination<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
+        generate_combination<iBehaviourComponent, iActiveComponent>();                                             */
     }
 
     iEntityScene::~iEntityScene()
@@ -110,7 +129,7 @@ namespace igor
         _impl->clear();
     }
 
-    entt::registry &iEntityScene::getRegistry()
+    entt::registry &iEntityScene::getRegistry() const
     {
         return _impl->getRegistry();
     }
@@ -125,5 +144,70 @@ namespace igor
         _impl->onRender(shared_from_this());
     }
 
+    template <typename... Components>
+    std::type_index getTypeIndex()
+    {
+        return std::type_index(typeid(std::tuple<Components...>));
+    }
+
+    template <typename... Components>
+    const std::vector<iEntityID> &iEntityScene::getEntitiesV2()
+    {
+        std::type_index key = getTypeIndex<Components...>();
+
+        // TODO need to cache it and need to figure out when the update the cache. for now always overwrite
+        // if (_entityIDCache.find(key) == _entityIDCache.end())
+        {
+            auto view = getRegistry().view<Components...>();
+            std::vector<iEntityID> entities;
+            for (auto entityID : view)
+            {
+                entities.emplace_back(entityID);
+            }
+            _entityIDCache[key] = entities;
+        }
+
+        return _entityIDCache[key];
+    }
+
+    template <typename T>
+    T &iEntityScene::getComponent(iEntityID entityID)
+    {
+        return getRegistry().get<T>(entityID);
+    }
+
+    template iBaseEntityComponent &iEntityScene::getComponent<iBaseEntityComponent>(iEntityID entityID);
+    template iBehaviourComponent &iEntityScene::getComponent<iBehaviourComponent>(iEntityID entityID);
+    template iActiveComponent &iEntityScene::getComponent<iActiveComponent>(iEntityID entityID);
+    template iSpriteRendererComponent &iEntityScene::getComponent<iSpriteRendererComponent>(iEntityID entityID);
+    template iTransformComponent &iEntityScene::getComponent<iTransformComponent>(iEntityID entityID);
+    template iVelocityComponent &iEntityScene::getComponent<iVelocityComponent>(iEntityID entityID);
+
+    template <typename T>
+    T *iEntityScene::tryGetComponent(iEntityID entityID)
+    {
+        return getRegistry().try_get<T>(entityID);
+    }
+
+    template iBaseEntityComponent *iEntityScene::tryGetComponent<iBaseEntityComponent>(iEntityID entityID);
+    template iBehaviourComponent *iEntityScene::tryGetComponent<iBehaviourComponent>(iEntityID entityID);
+    template iActiveComponent *iEntityScene::tryGetComponent<iActiveComponent>(iEntityID entityID);
+    template iSpriteRendererComponent *iEntityScene::tryGetComponent<iSpriteRendererComponent>(iEntityID entityID);
+    template iTransformComponent *iEntityScene::tryGetComponent<iTransformComponent>(iEntityID entityID);
+    template iVelocityComponent *iEntityScene::tryGetComponent<iVelocityComponent>(iEntityID entityID);
+
+
+    template <typename T>
+    void iEntityScene::removeComponent(iEntityID entityID)
+    {
+        getRegistry().remove<T>(entityID);
+    }		
+
+    template void iEntityScene::removeComponent<iBaseEntityComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iBehaviourComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iActiveComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iSpriteRendererComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iTransformComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iVelocityComponent>(iEntityID entityID);
 
 } // igor
