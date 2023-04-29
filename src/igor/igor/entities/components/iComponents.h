@@ -52,7 +52,7 @@ namespace igor
 
     /*! invalid entity id definition
      */
-    const iEntityID IGOR_INVALID_ENTITY_ID = entt::null;
+    static constexpr iEntityID IGOR_INVALID_ENTITY_ID = entt::null;
 
     class iEntity;
 
@@ -161,6 +161,8 @@ namespace igor
         void *_userData = nullptr;
     };
 
+    static constexpr uint32 IGOR_MAX_BEHAVIORS_PER_COMPONENT = 10;
+
     /*! behaviour component
      */
     struct iBehaviourComponent
@@ -168,6 +170,24 @@ namespace igor
         /*! behaviors
          */
         std::array<iBehaviourData, IGOR_MAX_BEHAVIORS_PER_COMPONENT> _behaviour;
+    };
+
+    /*! global boundary contraint type
+    */
+    enum class iGlobalBoundaryConstraintType
+    {
+        /*! if the entity leaves the bounds it reappears at the other end of the boundaries
+        */
+        Repeat
+    };
+
+    /*! keeps entities within some global boundaries
+
+    check the scene interface for configuring the global boundaries
+    */
+    struct iGlobalBoundaryConstraintComponent
+    {
+        iGlobalBoundaryConstraintType _type = iGlobalBoundaryConstraintType::Repeat;
     };
 
     // iTextComponent
