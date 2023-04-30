@@ -185,7 +185,7 @@ private:
 
     void onRenderStats();
 
-    void onRenderQuadtree(const iQuadtreef::NodePtr &node);
+    void onRenderQuadtree(const iQuadtreed::NodePtr &node);
 
     /*! game logic intervall
 

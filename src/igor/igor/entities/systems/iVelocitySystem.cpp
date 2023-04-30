@@ -11,16 +11,96 @@ namespace igor
 {
 	void iVelocitySystem::update(iEntityScenePtr scene)
 	{
-		auto &entities = scene->getEntitiesV2<iVelocityComponent, iTransformComponent, iActiveComponent>();
-		auto view = scene->getEntities<iVelocityComponent, iTransformComponent, iActiveComponent>();
+		auto &registry = scene->getRegistry();
 
-		for (auto entityID : entities)
+		if (_bounds._halfWidths.length2() != 0)
 		{
-			auto [velocity, transform] = view.get<iVelocityComponent, iTransformComponent>(entityID);
+			auto viewNoBounds = registry.view<iVelocityComponent, iTransformComponent>(entt::exclude<iGlobalBoundaryComponent>);
 
-			transform._position += velocity._velocity;
-			transform._orientation += velocity._angularVelocity;
+			for (auto entityID : viewNoBounds)
+			{
+				auto [velocity, transform] = viewNoBounds.get<iVelocityComponent, iTransformComponent>(entityID);
+
+				transform._position += velocity._velocity;
+				transform._orientation += velocity._angularVelocity;
+			}
+
+			auto viewWithBounds = registry.view<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
+			iaVector3d min;
+			iaVector3d max;
+			_bounds.getMinMax(min, max);
+			const iaVector3d dimensions = _bounds._halfWidths * 2.0;
+
+			for (auto entityID : viewWithBounds)
+			{
+				auto [velocity, transform, bounds] = viewWithBounds.get<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>(entityID);
+
+				auto &position = transform._position;
+
+				transform._orientation += velocity._angularVelocity;
+
+				switch (bounds._type)
+				{
+				case iGlobalBoundaryType::Repeat:
+
+					position += velocity._velocity;
+
+					if (position._x > max._x)
+					{
+						position._x -= dimensions._x;
+					}
+					if (position._x < min._x)
+					{
+						position._x += dimensions._x;
+					}
+
+					if (position._y > max._y)
+					{
+						position._y -= dimensions._y;
+					}
+					if (position._y < min._y)
+					{
+						position._y += dimensions._y;
+					}
+
+					if (position._z > max._z)
+					{
+						position._z -= dimensions._z;
+					}
+					if (position._z < min._z)
+					{
+						position._z += dimensions._z;
+					}
+					break;
+
+				case iGlobalBoundaryType::None:
+				default:
+					position += velocity._velocity;
+				}
+			}
 		}
+		else
+		{
+			auto view = registry.view<iVelocityComponent, iTransformComponent>();
+
+			for (auto entityID : view)
+			{
+				auto [velocity, transform] = view.get<iVelocityComponent, iTransformComponent>(entityID);
+
+				transform._position += velocity._velocity;
+				transform._orientation += velocity._angularVelocity;
+			}
+		}
+	}
+
+	void iVelocitySystem::setBounds(const iAABoxd &box)
+	{
+		_bounds = box;
+	}
+
+	const iAABoxd &iVelocitySystem::getBounds() const
+	{
+		return _bounds;
 	}
 
 } // igor

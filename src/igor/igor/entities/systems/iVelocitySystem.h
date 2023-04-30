@@ -31,27 +31,42 @@
 
 #include <igor/entities/iEntitySystem.h>
 
+#include <igor/data/iAABox.h>
+
 namespace igor
 {
 
 	/*! velocity system
-	*/
+	 */
 	class iVelocitySystem : public iEntitySystem
 	{
 	public:
 		/*! does nothing
-		*/
+		 */
 		iVelocitySystem() = default;
 
 		/*! does nothing
-		*/
+		 */
 		~iVelocitySystem() = default;
+
+		/*! sets global bounds
+		 */
+		void setBounds(const iAABoxd &box);
+
+		/*! \returns global bounds
+		 */
+		const iAABoxd &getBounds() const;
 
 		/*! updates system
 
 		\param scene the scene used for this update
 		 */
 		void update(iEntityScenePtr scene) override;
+
+	private:
+		/*! global bounds
+		 */
+		iAABoxd _bounds;
 	};
 
 } // igor

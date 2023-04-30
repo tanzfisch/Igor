@@ -68,7 +68,14 @@ namespace igor
         \param min min vector for aa box
         \param max max vector for aa box
         */
-        void set(const iaVector3<T> &min, const iaVector3<T> &max);
+        void setMinMax(const iaVector3<T> &min, const iaVector3<T> &max);
+
+        /*! returns min, max values
+
+        \param[out] min the min value
+        \param[out] max the max value
+        */
+        void getMinMax(iaVector3<T> &min, iaVector3<T> &max);
     };
 
 #include <igor/data/iAABox.inl>

@@ -134,17 +134,13 @@ namespace igor
 		will only work if Quadtree on the scene was initialized before
 
 		\param entityID the given entity
-		\param size size of object (radius)
+		\param radius size of object as radius
 		 */
-		void addToQuadtree(iEntityID entityID, float64 size = 1.0);
+		void addToQuadtree(iEntityID entityID, float64 radius = 1.0);
 
 		/*! removes given entity form quadtree
 		*/
-		void removeFromQuadtree(iEntityID entityID);
-
-		/*! \returns entt registry
-		 */
-		entt::registry &getRegistry() const;
+		void removeFromQuadtree(iEntityID entityID);		
 
 		/*! initialize quadtree
 
@@ -157,6 +153,18 @@ namespace igor
 		/*! \returns internal quadtree
 		 */
 		iQuadtreed &getQuadtree() const;
+
+		/*! \returns entt registry
+		 */
+		entt::registry &getRegistry() const;
+
+		/*! sets global bounds
+		 */
+		void setBounds(const iAABoxd &box);
+
+		/*! \returns global bounds
+		 */
+		const iAABoxd &getBounds() const;		
 
 	private:
 		/*! pimpl

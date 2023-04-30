@@ -284,7 +284,7 @@ namespace igor
         calculateBoundingBox(reinterpret_cast<const float32 *>(meshChunk->getVertexData()), layout.getStride() / 4, meshChunk->getVertexCount(), minPos, maxPos);
 
         iAABoxd bbox;
-        bbox.set(minPos, maxPos);
+        bbox.setMinMax(minPos, maxPos);
         mesh->setBoundingBox(bbox);
 
         // push mesh to mesh node

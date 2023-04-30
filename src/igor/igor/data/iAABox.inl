@@ -11,7 +11,7 @@ iAABox<T>::iAABox(const iaVector3<T>& center, const iaVector3<T>& halfWidths)
 }
 
 template <class T>
-void iAABox<T>::set(const iaVector3<T>& min, const iaVector3<T>& max)
+void iAABox<T>::setMinMax(const iaVector3<T>& min, const iaVector3<T>& max)
 {
     _center = min;
     _center += max;
@@ -22,3 +22,9 @@ void iAABox<T>::set(const iaVector3<T>& min, const iaVector3<T>& max)
     _halfWidths *= 0.5;
 }
 
+template <class T>
+void iAABox<T>::getMinMax(iaVector3<T> &min, iaVector3<T> &max)
+{
+    min = _center - _halfWidths;
+    max = _center + _halfWidths;
+}

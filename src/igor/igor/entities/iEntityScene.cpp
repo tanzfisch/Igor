@@ -19,12 +19,14 @@ namespace igor
     public:
         iEntitySceneImpl()
         {
-            _systems.push_back(std::make_unique<iVelocitySystem>());
-            _systems.push_back(std::make_unique<iTransformHierarchySystem>());
-            _systems.push_back(std::make_unique<iQuadtreeSystem>());
-            _systems.push_back(std::make_unique<iBehaviourSystem>());
+            _velocitySystem = std::make_shared<iVelocitySystem>();
 
-            _renderingSystems.push_back(std::make_unique<iSpriteRenderSystem>());
+            _systems.push_back(_velocitySystem);
+            _systems.push_back(std::make_shared<iTransformHierarchySystem>());
+            _systems.push_back(std::make_shared<iQuadtreeSystem>());
+            _systems.push_back(std::make_shared<iBehaviourSystem>());
+
+            _renderingSystems.push_back(std::make_shared<iSpriteRenderSystem>());
         }
 
         ~iEntitySceneImpl()
@@ -33,6 +35,16 @@ namespace igor
             {
                 delete _quadtree;
             }
+        }
+
+        void setBounds(const iAABoxd &box)
+        {
+            _velocitySystem->setBounds(box);
+        }
+
+        const iAABoxd &getBounds() const
+        {
+            return _velocitySystem->getBounds();
         }
 
         iEntity createEntity(const iaString &name, bool active, iEntityScenePtr scene)
@@ -59,7 +71,7 @@ namespace igor
                 {
                     parentHierarchy->_childCount = std::max(0, parentHierarchy->_childCount - 1);
                 }
-            }            
+            }
 
             _registry.destroy(entityID);
         }
@@ -112,6 +124,8 @@ namespace igor
         /*! quadtree
          */
         iQuadtreed *_quadtree = nullptr;
+
+        std::shared_ptr<iVelocitySystem> _velocitySystem;
 
         /*! systems to update
          */
@@ -226,7 +240,7 @@ namespace igor
         return getRegistry().emplace_or_replace<iVelocityComponent>(entityID, velocity, angularVelocity);
     }
 
-    void iEntityScene::addToQuadtree(iEntityID entityID, float64 size)
+    void iEntityScene::addToQuadtree(iEntityID entityID, float64 radius)
     {
         iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
         if (transform == nullptr)
@@ -236,7 +250,7 @@ namespace igor
         }
 
         iQuadtreeComponent &component = getRegistry().emplace_or_replace<iQuadtreeComponent>(entityID, nullptr);
-        component._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, size), entityID);
+        component._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, radius), entityID);
         _impl->getQuadtree().insert(component._object);
     }
 
@@ -259,6 +273,16 @@ namespace igor
     iQuadtreed &iEntityScene::getQuadtree() const
     {
         return _impl->getQuadtree();
+    }
+
+    void iEntityScene::setBounds(const iAABoxd &box)
+    {
+        _impl->setBounds(box);
+    }
+
+    const iAABoxd &iEntityScene::getBounds() const
+    {
+        return _impl->getBounds();
     }
 
     template <typename T>

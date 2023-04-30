@@ -59,7 +59,7 @@ namespace igor
 
 	/*! entity system pointer definition
 	 */
-	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
+	typedef std::shared_ptr<iEntitySystem> iEntitySystemPtr;
 
 } // igor
 

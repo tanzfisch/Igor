@@ -9,6 +9,10 @@ GameLayer::GameLayer(iWindowPtr window)
 {
     _entityScene = iEntitySystemModule::getInstance().createScene();
     _entityScene->initializeQuadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT));
+
+    iAABoxd box;
+    box.setMinMax(iaVector3d(), iaVector3d(PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT, 0));
+    _entityScene->setBounds(box);
 }
 
 iaVector3d GameLayer::getRandomDir()
@@ -57,6 +61,7 @@ iEntity GameLayer::createPlayer()
     entity.addVelocityComponent(iaVector3d(1, 0, 0));
     entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
     entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"));
+    entity.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
 
     entity.addComponent<PartyComponent>(FRIEND, true);
     entity.addComponent<DamageComponent>(0.0f);
@@ -68,7 +73,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<WeaponComponent>(_weapons["Knife"]);
     entity.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
 
-    entity.addToQuadtree(0.5);
+    entity.addToQuadtree(STANDARD_UNIT_SIZE * 1.5 * 0.5);
 
     iaVector2f a(-1.0f, 0.0f);
     iaVector2f b(1.0f, 0.0f);
@@ -115,7 +120,7 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
 
     entity.addComponent<PartyComponent>(party);
 
-    entity.addToQuadtree(0.5);
+    entity.addToQuadtree(COIN_SIZE * 0.5);
 }
 
 void GameLayer::liftShop()
@@ -148,6 +153,7 @@ void GameLayer::createShop()
     _shop = _entityScene->createEntity("shop", false);
     auto transform = _shop.addTransformComponent(iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0));
     _shop.addVelocityComponent();
+    _shop.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
     _shop.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"));
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     _shop.addComponent<BuildingComponent>(BuildingType::Shop);
@@ -161,17 +167,19 @@ void GameLayer::createShop()
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
     iEntity unit = _entityScene->createEntity();
-    const auto &transform = unit.addTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0));
+    unit.addTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0));
+    unit.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
     unit.addVelocityComponent(getRandomDir() * enemyClass._speed);
+    unit.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture));
+
     unit.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
     unit.addComponent<PartyComponent>(party);
     unit.addComponent<DamageComponent>(enemyClass._damage);
     unit.addComponent<HealthComponent>(enemyClass._health);
-    unit.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture));
     unit.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     unit.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
-    unit.addToQuadtree(0.5);
+    unit.addToQuadtree(enemyClass._size * 0.5);
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
@@ -929,28 +937,6 @@ void GameLayer::onUpdatePositionSystem()
         }
         position += diversion;
         position += direction;
-
-        // jump to other side
-        if (position._x > PLAYFIELD_WIDTH)
-        {
-            position._x -= PLAYFIELD_WIDTH;
-        }
-        if (position._x < 0)
-        {
-            position._x += PLAYFIELD_WIDTH;
-        }
-
-        if (position._y > PLAYFIELD_HEIGHT)
-        {
-            position._y -= PLAYFIELD_HEIGHT;
-        }
-        if (position._y < 0)
-        {
-            position._y += PLAYFIELD_HEIGHT;
-        }
-
-        transform._position._x = position._x;
-        transform._position._y = position._y;
     }
 }
 
@@ -1442,6 +1428,8 @@ void GameLayer::onRenderPlayerHUD()
         points.push_back(playerPosition + dir * 95.0 - tangent * 5.0);
 
         iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);
+
+        iRenderer::getInstance().drawString(playerPosition._x, playerPosition._y, iaString::toString(playerPosition._x,0) + L", " + iaString::toString(playerPosition._y,0));
     }
 }
 
@@ -1656,13 +1644,13 @@ void GameLayer::onRenderOrtho()
 
     onRenderPlayerHUD();
 
-    // onRenderQuadtree(_entityScene->getQuadtree().getRoot());
+    onRenderQuadtree(_entityScene->getQuadtree().getRoot());
 
     onRenderHUD();
     onRenderStats();
 }
 
-void GameLayer::onRenderQuadtree(const iQuadtreef::NodePtr &node)
+void GameLayer::onRenderQuadtree(const iQuadtreed::NodePtr &node)
 {
     if (node == nullptr)
     {
