@@ -135,7 +135,7 @@ namespace igor
 
     void iEntity::setParent(iEntityID parent)
     {
-        iTransformComponent *component = _scene->getRegistry().try_get<iTransformComponent>(_entity);
+        iHierarchyComponent *component = _scene->getRegistry().try_get<iHierarchyComponent>(_entity);
         if (component == nullptr)
         {
             if (parent == IGOR_INVALID_ENTITY_ID)
@@ -143,7 +143,7 @@ namespace igor
                 return;
             }
 
-            component = &(_scene->getRegistry().emplace_or_replace<iTransformComponent>(_entity));
+            component = &(_scene->getRegistry().emplace_or_replace<iHierarchyComponent>(_entity));
         }
 
         if (component->_parent == parent)
@@ -151,11 +151,11 @@ namespace igor
             return;
         }
 
-        iTransformComponent *parentComponent = nullptr;
+        iHierarchyComponent *parentComponent = nullptr;
 
         if (component->_parent != IGOR_INVALID_ENTITY_ID)
         {
-            parentComponent = _scene->getRegistry().try_get<iTransformComponent>(component->_parent);
+            parentComponent = _scene->getRegistry().try_get<iHierarchyComponent>(component->_parent);
             if (parentComponent != nullptr)
             {
                 parentComponent->_childCount = std::max(0, parentComponent->_childCount--);
@@ -166,10 +166,10 @@ namespace igor
 
         if (parent != IGOR_INVALID_ENTITY_ID)
         {
-            parentComponent = _scene->getRegistry().try_get<iTransformComponent>(parent);
+            parentComponent = _scene->getRegistry().try_get<iHierarchyComponent>(parent);
             if (parentComponent == nullptr)
             {
-                parentComponent = &(_scene->getRegistry().emplace_or_replace<iTransformComponent>(parent));
+                parentComponent = &(_scene->getRegistry().emplace_or_replace<iHierarchyComponent>(parent));
             }
 
             parentComponent->_childCount++;
@@ -180,7 +180,7 @@ namespace igor
 
     iEntityID iEntity::getParent() const
     {
-        iTransformComponent *component = _scene->getRegistry().try_get<iTransformComponent>(_entity);
+        iHierarchyComponent *component = _scene->getRegistry().try_get<iHierarchyComponent>(_entity);
         if (component == nullptr)
         {
             return IGOR_INVALID_ENTITY_ID;

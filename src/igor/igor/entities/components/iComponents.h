@@ -113,13 +113,18 @@ namespace igor
          */
         iaVector3d _scale = {1.0, 1.0, 1.0};
 
-        /*! parent entity id
-         */
-        iEntityID _parent = IGOR_INVALID_ENTITY_ID;
-
         /*! the world matrix of this transform
          */
         iaMatrixd _worldMatrix;
+    };
+
+    /*! hierarchy component to create parent child relationships
+    */
+    struct iHierarchyComponent
+    {
+        /*! parent entity id
+         */
+        iEntityID _parent = IGOR_INVALID_ENTITY_ID;
 
         /*! counting how many child this entity has
         */
