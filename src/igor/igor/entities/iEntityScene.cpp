@@ -49,6 +49,18 @@ namespace igor
 
         void destroyEntity(iEntityID entityID)
         {
+            // cleanup hierarchy
+            iHierarchyComponent *hierarchy = _registry.try_get<iHierarchyComponent>(entityID);
+            if (hierarchy != nullptr &&
+                _registry.valid(hierarchy->_parent))
+            {
+                iHierarchyComponent *parentHierarchy = _registry.try_get<iHierarchyComponent>(hierarchy->_parent);
+                if (parentHierarchy != nullptr)
+                {
+                    parentHierarchy->_childCount = std::max(0, parentHierarchy->_childCount - 1);
+                }
+            }            
+
             _registry.destroy(entityID);
         }
 
@@ -217,7 +229,7 @@ namespace igor
     void iEntityScene::addToQuadtree(iEntityID entityID, float64 size)
     {
         iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
-        if(transform == nullptr)
+        if (transform == nullptr)
         {
             const iaVector2d center = getQuadtree().getRootBox().getCenter();
             transform = &(getRegistry().emplace_or_replace<iTransformComponent>(entityID, iaVector3d(center._x, center._y, 0.0)));
@@ -231,7 +243,7 @@ namespace igor
     void iEntityScene::removeFromQuadtree(iEntityID entityID)
     {
         iQuadtreeComponent *component = tryGetComponent<iQuadtreeComponent>(entityID);
-        if(component == nullptr)
+        if (component == nullptr)
         {
             return;
         }

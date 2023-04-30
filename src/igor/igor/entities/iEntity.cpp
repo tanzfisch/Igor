@@ -158,7 +158,7 @@ namespace igor
             parentComponent = _scene->getRegistry().try_get<iHierarchyComponent>(component->_parent);
             if (parentComponent != nullptr)
             {
-                parentComponent->_childCount = std::max(0, parentComponent->_childCount--);
+                parentComponent->_childCount = std::max(0, parentComponent->_childCount - 1);
             }
 
             component->_parent = IGOR_INVALID_ENTITY_ID;
