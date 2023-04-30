@@ -19,28 +19,28 @@ iaVector3d GameLayer::getRandomDir()
     return iaVector3d(direction._x, direction._y, 0.0);
 }
 
-void GameLayer::onPlayerMovementBehaviour(iEntity &entity, void* data)
+void GameLayer::onPlayerMovementBehaviour(iEntity &entity, void *data)
 {
     auto &velocityComponent = entity.getComponentV2<iVelocityComponent>();
 
     velocityComponent._velocity.set(0, 0, 0);
 
-    if(iKeyboard::getInstance().getKey(iKeyCode::W))
+    if (iKeyboard::getInstance().getKey(iKeyCode::W))
     {
         velocityComponent._velocity._y -= 1.0;
     }
 
-    if(iKeyboard::getInstance().getKey(iKeyCode::A))
+    if (iKeyboard::getInstance().getKey(iKeyCode::A))
     {
         velocityComponent._velocity._x -= 1.0;
     }
 
-    if(iKeyboard::getInstance().getKey(iKeyCode::S))
+    if (iKeyboard::getInstance().getKey(iKeyCode::S))
     {
         velocityComponent._velocity._y += 1.0;
     }
 
-    if(iKeyboard::getInstance().getKey(iKeyCode::D))
+    if (iKeyboard::getInstance().getKey(iKeyCode::D))
     {
         velocityComponent._velocity._x += 1.0;
     }
@@ -69,7 +69,6 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
 
     entity.addToQuadtree(0.5);
-  
 
     iaVector2f a(-1.0f, 0.0f);
     iaVector2f b(1.0f, 0.0f);
@@ -78,10 +77,8 @@ iEntity GameLayer::createPlayer()
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
-    shadow.addTransformComponent(
-        iaVector3d(0.0, 0.5, 0.0),
-        iaVector3d(),
-        iaVector3d(0.5, 0.25, 1.0), entity.getID());
+    shadow.addTransformComponent(iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0));
+    shadow.setParent(entity.getID());
     shadow.addSpriteRendererComponent(_shadow, iaColor4f::black, -1);
 
     return entity;
@@ -178,10 +175,8 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
-    shadow.addTransformComponent(
-        iaVector3d(0.0, 0.5, 0.0),
-        iaVector3d(),
-        iaVector3d(0.5, 0.25, 1.0), unit.getID());
+    shadow.addTransformComponent(iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0));
+    shadow.setParent(unit.getID());
     shadow.addSpriteRendererComponent(_shadow, iaColor4f::black, -1);
 }
 
@@ -579,7 +574,7 @@ void GameLayer::onUpdateStats(const iaTime &time)
 
 void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
 {
-    iQuadtreed::Objects objects;    
+    iQuadtreed::Objects objects;
     _entityScene->getQuadtree().query(circle, objects);
 
     for (const auto &object : objects)

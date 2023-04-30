@@ -98,12 +98,10 @@ namespace igor
         \param position the transform position
         \param orientation the transform orientation in rad
         \param scale the transform scale
-        \param parent the parent of this transform
-        \param worldMatrix world matrix of this transform
 
         \returns reference to newly created component
          */
-        iTransformComponent &addTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(), iEntityID parent = IGOR_INVALID_ENTITY_ID, const iaMatrixd &worldMatrix = iaMatrixd());
+        iTransformComponent &addTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
 
         /*! adds sprite render component to entity
 
@@ -151,6 +149,16 @@ namespace igor
         \param behaviour the behaviour to be removed
         */
         void removeBehaviour(const iBehaviourDelegate &behaviour);
+
+        /*! set parent of entity
+
+        \param parent the parent id to use. if parent id invalid the parent relationship is reset
+        */
+        void setParent(iEntityID parent);
+
+        /*! \returns the parent id or invalid id if there is no parent
+        */
+        iEntityID getParent() const;
 
         /*! \returns component of entity of given type
          */

@@ -14,22 +14,46 @@ namespace igor
 {
 	void iTransformHierarchySystem::update(iEntityScenePtr scene)
 	{
-		// TODO this does not work for more then one layer of hierarchy
-		// maybe we can traverse the tree set an index on the transform and then order the transforms
-		// and only traverse again if the topology changes hmm
 		auto &registry = scene->getRegistry();
+		auto view = scene->getEntities<iTransformComponent>();
+
+		for (auto entityID : view)
+		{
+			auto &transform = view.get<iTransformComponent>(entityID);
+
+			if(transform._childCount != 0)
+			{
+				continue;
+			}
+
+			iEntityID parentID = transform._parent;
+			int32 generation = 0;
+			transform._generation = generation;
+
+			while (registry.valid(parentID))
+			{
+				generation++;
+
+				auto &parentTransform = view.get<iTransformComponent>(parentID);
+
+				if(parentTransform._generation < generation)
+				{
+					parentTransform._generation = generation;
+				}
+
+				parentID = parentTransform._parent;
+			};
+		}
+		
 		registry.sort<iTransformComponent>([&registry](const entt::entity lhs, const entt::entity rhs)
 										   {
 											   const auto &clhs = registry.get<iTransformComponent>(lhs);
 											   const auto &crhs = registry.get<iTransformComponent>(rhs);
 
-											   return crhs._parent == lhs || (!(clhs._parent == rhs) && (clhs._parent < crhs._parent || (clhs._parent == crhs._parent && lhs < rhs)));
+											   return clhs._generation > crhs._generation;
 										   });
 
-		auto &entities = scene->getEntitiesV2<iTransformComponent>();
-		auto view = scene->getEntities<iTransformComponent>();
-
-		for (auto entityID : entities)
+		for (auto entityID : view)
 		{
 			auto &transform = view.get<iTransformComponent>(entityID);
 
@@ -38,13 +62,10 @@ namespace igor
 			transform._worldMatrix.rotate(transform._orientation);
 			transform._worldMatrix.scale(transform._scale);
 
-			if (scene->getRegistry().valid(transform._parent))
+			if (registry.valid(transform._parent))
 			{
-				iTransformComponent *parentTransform = scene->getRegistry().try_get<iTransformComponent>(transform._parent);
-				if (parentTransform != nullptr)
-				{
-					transform._worldMatrix = parentTransform->_worldMatrix * transform._worldMatrix;
-				}
+				iTransformComponent parentTransform = registry.get<iTransformComponent>(transform._parent);
+				transform._worldMatrix = parentTransform._worldMatrix * transform._worldMatrix;
 			}
 		}
 	}

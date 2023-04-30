@@ -105,12 +105,10 @@ namespace igor
         \param position the transform position
         \param orientation the transform orientation in rad
         \param scale the transform scale
-        \param parent the parent of this transform
-        \param worldMatrix world matrix of this transform
 
         \returns reference to newly created component
          */
-        iTransformComponent &addTransformComponent(iEntityID entityID, const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(), iEntityID parent = IGOR_INVALID_ENTITY_ID, const iaMatrixd &worldMatrix = iaMatrixd());
+        iTransformComponent &addTransformComponent(iEntityID entityID, const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
 
         /*! adds sprite render component to given entity
 

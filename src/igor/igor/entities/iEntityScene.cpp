@@ -199,9 +199,9 @@ namespace igor
         return _entityIDCache[key];
     }
 
-    iTransformComponent &iEntityScene::addTransformComponent(iEntityID entityID, const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale, iEntityID parent, const iaMatrixd &worldMatrix)
+    iTransformComponent &iEntityScene::addTransformComponent(iEntityID entityID, const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale)
     {
-        return getRegistry().emplace_or_replace<iTransformComponent>(entityID, position, orientation, scale, parent, worldMatrix);
+        return getRegistry().emplace_or_replace<iTransformComponent>(entityID, position, orientation, scale);
     }
 
     iSpriteRendererComponent &iEntityScene::addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture, const iaColor4f &color, int32 zIndex)

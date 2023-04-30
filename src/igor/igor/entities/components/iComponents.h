@@ -120,6 +120,16 @@ namespace igor
         /*! the world matrix of this transform
          */
         iaMatrixd _worldMatrix;
+
+        /*! counting how many child this entity has
+        */
+        int32 _childCount = 0;
+
+        /*! the higher the number the more generations are below it
+
+        this is used for sorting entities by hierarchy
+        */
+        int32 _generation = 0;
     };
 
     /*! component that holds an object in a quadtree

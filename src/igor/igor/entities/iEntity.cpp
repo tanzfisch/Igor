@@ -56,9 +56,9 @@ namespace igor
         return _scene->getRegistry().valid(_entity);
     }
 
-    iTransformComponent &iEntity::addTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale, iEntityID parent, const iaMatrixd &worldMatrix)
+    iTransformComponent &iEntity::addTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale)
     {
-        return _scene->addTransformComponent(_entity, position, orientation, scale, parent, worldMatrix);
+        return _scene->addTransformComponent(_entity, position, orientation, scale);
     }
 
     iSpriteRendererComponent &iEntity::addSpriteRendererComponent(iTexturePtr texture, const iaColor4f &color, int32 zIndex)
@@ -73,7 +73,7 @@ namespace igor
 
     void iEntity::addToQuadtree(float64 size)
     {
-        _scene->addToQuadtree(_entity, size);        
+        _scene->addToQuadtree(_entity, size);
     }
 
     void iEntity::removeFromQuadtree()
@@ -81,9 +81,9 @@ namespace igor
         _scene->removeFromQuadtree(_entity);
     }
 
-    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, void* userData)
+    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, void *userData)
     {
-        iBehaviourComponent* component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);
+        iBehaviourComponent *component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);
         if (component == nullptr)
         {
             component = &(_scene->getRegistry().emplace_or_replace<iBehaviourComponent>(_entity));
@@ -91,7 +91,7 @@ namespace igor
 
         for (auto &behaviourData : component->_behaviour)
         {
-            if(!behaviourData._delegate.isValid())
+            if (!behaviourData._delegate.isValid())
             {
                 behaviourData._delegate = delegate;
                 behaviourData._userData = userData;
@@ -104,7 +104,7 @@ namespace igor
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &behaviour)
     {
-        iBehaviourComponent* component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);
+        iBehaviourComponent *component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);
         if (component == nullptr)
         {
             con_err("no behaviour component available");
@@ -122,15 +122,70 @@ namespace igor
             }
         }
 
-        if(nonZero == 1)
+        if (nonZero == 1)
         {
             _scene->removeComponent<iBehaviourComponent>(_entity);
         }
 
-        if(nonZero == 0)
+        if (nonZero == 0)
         {
             con_err("can't remove given behaviour");
         }
     }
 
+    void iEntity::setParent(iEntityID parent)
+    {
+        iTransformComponent *component = _scene->getRegistry().try_get<iTransformComponent>(_entity);
+        if (component == nullptr)
+        {
+            if (parent == IGOR_INVALID_ENTITY_ID)
+            {
+                return;
+            }
+
+            component = &(_scene->getRegistry().emplace_or_replace<iTransformComponent>(_entity));
+        }
+
+        if (component->_parent == parent)
+        {
+            return;
+        }
+
+        iTransformComponent *parentComponent = nullptr;
+
+        if (component->_parent != IGOR_INVALID_ENTITY_ID)
+        {
+            parentComponent = _scene->getRegistry().try_get<iTransformComponent>(component->_parent);
+            if (parentComponent != nullptr)
+            {
+                parentComponent->_childCount = std::max(0, parentComponent->_childCount--);
+            }
+
+            component->_parent = IGOR_INVALID_ENTITY_ID;
+        }
+
+        if (parent != IGOR_INVALID_ENTITY_ID)
+        {
+            parentComponent = _scene->getRegistry().try_get<iTransformComponent>(parent);
+            if (parentComponent == nullptr)
+            {
+                parentComponent = &(_scene->getRegistry().emplace_or_replace<iTransformComponent>(parent));
+            }
+
+            parentComponent->_childCount++;
+        }
+
+        component->_parent = parent;
+    }
+
+    iEntityID iEntity::getParent() const
+    {
+        iTransformComponent *component = _scene->getRegistry().try_get<iTransformComponent>(_entity);
+        if (component == nullptr)
+        {
+            return IGOR_INVALID_ENTITY_ID;
+        }
+
+        return component->_parent;
+    }
 }
