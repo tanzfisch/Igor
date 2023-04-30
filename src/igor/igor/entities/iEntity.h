@@ -160,6 +160,16 @@ namespace igor
         */
         iEntityID getParent() const;
 
+        /*! sets global boundary constraint type
+
+        \param boundaryType the boundary constraint type
+        */
+        void setGlobalBoundaryType(iGlobalBoundaryType boundaryType);
+
+        /*! \returns global boundary constraint type
+        */
+        iGlobalBoundaryType getGlobalBoundaryType() const;
+
         /*! \returns component of entity of given type
          */
         template <typename T>

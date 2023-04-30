@@ -189,8 +189,11 @@ namespace igor
 
     /*! global boundary contraint type
     */
-    enum class iGlobalBoundaryConstraintType
+    enum class iGlobalBoundaryType
     {
+        /*! no constraint
+        */
+        None,
         /*! if the entity leaves the bounds it reappears at the other end of the boundaries
         */
         Repeat
@@ -200,9 +203,9 @@ namespace igor
 
     check the scene interface for configuring the global boundaries
     */
-    struct iGlobalBoundaryConstraintComponent
+    struct iGlobalBoundaryComponent
     {
-        iGlobalBoundaryConstraintType _type = iGlobalBoundaryConstraintType::Repeat;
+        iGlobalBoundaryType _type = iGlobalBoundaryType::None;
     };
 
     // iTextComponent

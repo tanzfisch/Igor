@@ -188,4 +188,27 @@ namespace igor
 
         return component->_parent;
     }
+
+    void iEntity::setGlobalBoundaryType(iGlobalBoundaryType boundaryType)
+    {
+        iGlobalBoundaryComponent *component = _scene->getRegistry().try_get<iGlobalBoundaryComponent>(_entity);
+        if(component == nullptr)
+        {
+            component = &(_scene->getRegistry().emplace_or_replace<iGlobalBoundaryComponent>(_entity));
+        }
+
+        component->_type = boundaryType;
+    }
+
+    iGlobalBoundaryType iEntity::getGlobalBoundaryType() const
+    {
+        iGlobalBoundaryComponent *component = _scene->getRegistry().try_get<iGlobalBoundaryComponent>(_entity);
+        if (component == nullptr)
+        {
+            return iGlobalBoundaryType::None;
+        }
+
+        return component->_type; 
+    }
+
 }
