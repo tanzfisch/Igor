@@ -104,7 +104,9 @@ namespace igor
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &behaviour)
     {
-        iBehaviourComponent *component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);
+        auto &registry = _scene->getRegistry();
+
+        iBehaviourComponent *component = registry.try_get<iBehaviourComponent>(_entity);
         if (component == nullptr)
         {
             con_err("no behaviour component available");
@@ -124,7 +126,7 @@ namespace igor
 
         if (nonZero == 1)
         {
-            _scene->removeComponent<iBehaviourComponent>(_entity);
+            registry.remove<iBehaviourComponent>(_entity);
         }
 
         if (nonZero == 0)
@@ -189,12 +191,60 @@ namespace igor
         return component->_parent;
     }
 
+    void iEntity::setMotionInteractionType(iMotionInteractionType interactionType)
+    {
+        auto &registry = _scene->getRegistry();
+
+        iMotionInteractionResolverComponent *component = registry.try_get<iMotionInteractionResolverComponent>(_entity);
+        if (component == nullptr)
+        {
+            if (interactionType == iMotionInteractionType::None)
+            {
+                return;
+            }
+
+            component = &(registry.emplace_or_replace<iMotionInteractionResolverComponent>(_entity));
+        }
+
+        if (interactionType == iMotionInteractionType::None)
+        {
+            registry.remove<iMotionInteractionResolverComponent>(_entity);
+            return;
+        }
+
+        component->_type = interactionType;
+    }
+
+    iMotionInteractionType iEntity::getMotionInteractionType() const
+    {
+        iMotionInteractionResolverComponent *component = _scene->getRegistry().try_get<iMotionInteractionResolverComponent>(_entity);
+        if (component == nullptr)
+        {
+            return iMotionInteractionType::None;
+        }
+
+        return component->_type;
+    }
+
     void iEntity::setGlobalBoundaryType(iGlobalBoundaryType boundaryType)
     {
-        iGlobalBoundaryComponent *component = _scene->getRegistry().try_get<iGlobalBoundaryComponent>(_entity);
-        if(component == nullptr)
+        auto &registry = _scene->getRegistry();
+
+        iGlobalBoundaryComponent *component = registry.try_get<iGlobalBoundaryComponent>(_entity);
+        if (component == nullptr)
         {
-            component = &(_scene->getRegistry().emplace_or_replace<iGlobalBoundaryComponent>(_entity));
+            if (boundaryType == iGlobalBoundaryType::None)
+            {
+                return;
+            }
+
+            component = &(registry.emplace_or_replace<iGlobalBoundaryComponent>(_entity));
+        }
+
+        if (boundaryType == iGlobalBoundaryType::None)
+        {
+            registry.remove<iGlobalBoundaryComponent>(_entity);
+            return;
         }
 
         component->_type = boundaryType;
@@ -208,7 +258,7 @@ namespace igor
             return iGlobalBoundaryType::None;
         }
 
-        return component->_type; 
+        return component->_type;
     }
 
 }

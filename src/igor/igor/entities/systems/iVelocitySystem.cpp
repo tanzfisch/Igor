@@ -12,83 +12,116 @@ namespace igor
 	void iVelocitySystem::update(iEntityScenePtr scene)
 	{
 		auto &registry = scene->getRegistry();
+		auto &quadtree = scene->getQuadtree();
 
-		if (_bounds._halfWidths.length2() != 0)
+		auto viewInteractionResolver = registry.view<iVelocityComponent, iQuadtreeComponent, iMotionInteractionResolverComponent>();
+
+		for (auto entityID : viewInteractionResolver)
 		{
-			auto viewNoBounds = registry.view<iVelocityComponent, iTransformComponent>(entt::exclude<iGlobalBoundaryComponent>);
+			auto [velocity, quadComp, motionResolver] = viewInteractionResolver.get<iVelocityComponent, iQuadtreeComponent, iMotionInteractionResolverComponent>(entityID);
 
-			for (auto entityID : viewNoBounds)
+			switch (motionResolver._type)
 			{
-				auto [velocity, transform] = viewNoBounds.get<iVelocityComponent, iTransformComponent>(entityID);
-
-				transform._position += velocity._velocity;
-				transform._orientation += velocity._angularVelocity;
-			}
-
-			auto viewWithBounds = registry.view<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
-			iaVector3d min;
-			iaVector3d max;
-			_bounds.getMinMax(min, max);
-			const iaVector3d dimensions = _bounds._halfWidths * 2.0;
-
-			for (auto entityID : viewWithBounds)
+			case iMotionInteractionType::Divert:
 			{
-				auto [velocity, transform, bounds] = viewWithBounds.get<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>(entityID);
+				iaCircled circle = quadComp._object->_circle;
+				circle._radius *= 1.1;
+				iQuadtreed::Objects objects;
+				quadtree.query(circle, objects);
 
-				auto &position = transform._position;
+				float64 speed = velocity._velocity.length();
+				iaVector2d diversion;
 
-				transform._orientation += velocity._angularVelocity;
-
-				switch (bounds._type)
+				for (const auto &object : objects)
 				{
-				case iGlobalBoundaryType::Repeat:
+					const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
 
-					position += velocity._velocity;
-
-					if (position._x > max._x)
+					// skip self
+					if (otherEntityID == entityID)
 					{
-						position._x -= dimensions._x;
-					}
-					if (position._x < min._x)
-					{
-						position._x += dimensions._x;
+						continue;
 					}
 
-					if (position._y > max._y)
-					{
-						position._y -= dimensions._y;
-					}
-					if (position._y < min._y)
-					{
-						position._y += dimensions._y;
-					}
-
-					if (position._z > max._z)
-					{
-						position._z -= dimensions._z;
-					}
-					if (position._z < min._z)
-					{
-						position._z += dimensions._z;
-					}
-					break;
-
-				case iGlobalBoundaryType::None:
-				default:
-					position += velocity._velocity;
+					// calc diversion
+					diversion += circle._center - object->_circle._center;
 				}
+
+				diversion.normalize();
+				diversion *= speed;
+
+				velocity._velocity._x += diversion._x;
+				velocity._velocity._y += diversion._y;
+			}
+			break;
+
+			case iMotionInteractionType::None:
+			default:
+				break;
 			}
 		}
-		else
+
+		auto viewNoBounds = registry.view<iVelocityComponent, iTransformComponent>(entt::exclude<iGlobalBoundaryComponent>);
+
+		for (auto entityID : viewNoBounds)
 		{
-			auto view = registry.view<iVelocityComponent, iTransformComponent>();
+			auto [velocity, transform] = viewNoBounds.get<iVelocityComponent, iTransformComponent>(entityID);
 
-			for (auto entityID : view)
+			transform._position += velocity._velocity;
+			transform._orientation += velocity._angularVelocity;
+		}
+
+		auto viewWithBounds = registry.view<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
+		iaVector3d min;
+		iaVector3d max;
+		_bounds.getMinMax(min, max);
+		const iaVector3d dimensions = _bounds._halfWidths * 2.0;
+
+		for (auto entityID : viewWithBounds)
+		{
+			auto [velocity, transform, bounds] = viewWithBounds.get<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>(entityID);
+
+			auto &position = transform._position;
+
+			transform._orientation += velocity._angularVelocity;
+
+			switch (bounds._type)
 			{
-				auto [velocity, transform] = view.get<iVelocityComponent, iTransformComponent>(entityID);
+			case iGlobalBoundaryType::Repeat:
 
-				transform._position += velocity._velocity;
-				transform._orientation += velocity._angularVelocity;
+				position += velocity._velocity;
+
+				if (position._x > max._x)
+				{
+					position._x -= dimensions._x;
+				}
+				if (position._x < min._x)
+				{
+					position._x += dimensions._x;
+				}
+
+				if (position._y > max._y)
+				{
+					position._y -= dimensions._y;
+				}
+				if (position._y < min._y)
+				{
+					position._y += dimensions._y;
+				}
+
+				if (position._z > max._z)
+				{
+					position._z -= dimensions._z;
+				}
+				if (position._z < min._z)
+				{
+					position._z += dimensions._z;
+				}
+				break;
+
+			case iGlobalBoundaryType::None:
+			default:
+				position += velocity._velocity;
+				break;
 			}
 		}
 	}

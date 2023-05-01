@@ -170,6 +170,16 @@ namespace igor
         */
         iGlobalBoundaryType getGlobalBoundaryType() const;
 
+        /*! sets motion interaction type
+
+        \param interactionType the motion interaction type
+        */
+        void setMotionInteractionType(iMotionInteractionType interactionType);
+
+        /*! \returns motion interaction type
+        */
+        iMotionInteractionType getMotionInteractionType() const;
+
         /*! \returns component of entity of given type
          */
         template <typename T>

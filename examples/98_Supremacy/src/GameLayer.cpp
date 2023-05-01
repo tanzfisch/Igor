@@ -171,6 +171,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
     unit.addVelocityComponent(getRandomDir() * enemyClass._speed);
     unit.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture));
+    unit.setMotionInteractionType(iMotionInteractionType::Divert);
 
     unit.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
     unit.addComponent<PartyComponent>(party);
@@ -820,7 +821,7 @@ void GameLayer::onUpdateFollowTargetSystem()
     {
         auto [transform, vel, target] = targetView.get<iTransformComponent, iVelocityComponent, TargetComponent>(entity);
 
-        const float64 speed = vel._velocity.length();
+        const float64 speed = 0.5; // vel._velocity.length();
 
         // skip if entity is not following targets
         if (!target._followTarget)
@@ -863,80 +864,6 @@ void GameLayer::onUpdateFollowTargetSystem()
             vel._velocity.set(newVel._x, newVel._y, 0.0);
             target._inRange = true;
         }
-    }
-}
-
-void GameLayer::onUpdatePositionSystem()
-{
-    auto positionUpdateView = _entityScene->getEntities<iTransformComponent, iVelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
-    for (auto entityID : positionUpdateView)
-    {
-        auto [transform, vel, party, damage, health] = positionUpdateView.get<iTransformComponent, iVelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
-
-        iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
-        iaVector2d position(transform._position._x, transform._position._y);
-        const float32 radius = transform._scale._x * 0.5;
-        float32 speed = vel._velocity.length();
-        iaVector2d diversion;
-        iaVector2d direction(vel._velocity._x, vel._velocity._y);
-
-        ModifierComponent *modifierComponent = entity.tryGetComponent<ModifierComponent>();
-        if (modifierComponent != nullptr)
-        {
-            speed *= modifierComponent->_walkSpeedFactor;
-        }
-
-        auto *range = entity.tryGetComponent<RangeComponent>();
-
-        // don't calculate diversion if non block able
-        if (!party._nonBlockable)
-        {
-            iaCircled circle(position, radius * 1.1);
-            iQuadtreed::Objects objects;
-            _entityScene->getQuadtree().query(circle, objects);
-
-            uint32 totalHits = 0;
-
-            for (const auto &object : objects)
-            {
-                const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
-
-                // skip self
-                if (otherEntityID == static_cast<iEntityID>(entityID))
-                {
-                    continue;
-                }
-
-                // get other entity
-                iEntity otherEntity(otherEntityID, _entityScene);
-
-                // ignore other entity for diversion if non block able
-                auto *otherEntityParty = otherEntity.tryGetComponent<PartyComponent>();
-                if (otherEntityParty == nullptr || otherEntityParty->_nonBlockable)
-                {
-                    continue;
-                }
-
-                // calc diversion
-                diversion += position - object->_circle._center;
-                totalHits++;
-            }
-
-            if (totalHits)
-            {
-                diversion.normalize();
-                diversion *= speed;
-            }
-        }
-
-        direction *= speed;
-        if (range != nullptr)
-        {
-            range->_distanceTraveled += diversion.length();
-            range->_distanceTraveled += direction.length();
-        }
-        position += diversion;
-        position += direction;
     }
 }
 
@@ -1288,7 +1215,6 @@ void GameLayer::onUpdate(const iaTime &time)
 {
     onUpdateFollowTargetSystem();
     onUpdateOrientationSystem();
-    onUpdatePositionSystem();
     onUpdateCollisionSystem();
 
     aquireTargetFor(_player);

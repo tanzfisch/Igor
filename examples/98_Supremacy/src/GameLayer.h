@@ -227,8 +227,6 @@ private:
 
     void onUpdateFollowTargetSystem();
 
-    void onUpdatePositionSystem();
-
     void onUpdateCollisionSystem();
 
     void onUpdatePickupSystem(iEntity &entity);

@@ -208,6 +208,26 @@ namespace igor
         iGlobalBoundaryType _type = iGlobalBoundaryType::None;
     };
 
+    /*! motion interaction type
+    */
+    enum class iMotionInteractionType
+    {
+        /*! no action
+        */
+        None,
+
+        /*! divert an prevent collision if possible
+        */
+        Divert
+    };
+
+    /*! defines instructions how to handle collisions or near collisions
+    */
+    struct iMotionInteractionResolverComponent
+    {
+        iMotionInteractionType _type = iMotionInteractionType::None;
+    };
+
     // iTextComponent
     // iPhysicsBodyComponent or specialized colliders and group colliders
 
