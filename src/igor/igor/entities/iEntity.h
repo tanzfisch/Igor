@@ -85,16 +85,6 @@ namespace igor
         */
         void setActive(bool active);
 
-        /*! adds transform component to entity
-
-        \param position the transform position
-        \param orientation the transform orientation in rad
-        \param scale the transform scale
-
-        \returns reference to newly created component
-         */
-        iTransformComponent &addTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
-
         /*! adds sprite render component to entity
 
         \param texture texture to use for render
@@ -104,15 +94,6 @@ namespace igor
         \returns reference to newly created component
          */
         iSpriteRendererComponent &addSpriteRendererComponent(iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
-
-        /*! adds velocity component to entity
-
-        \param velocity velocity in 3 dimensions
-        \param angularVelocity angular velocity in 3 dimensions
-
-        \returns reference to newly created component
-         */
-        iVelocityComponent &addVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d());
 
         /*! adds entity to quadtree
 
@@ -171,6 +152,16 @@ namespace igor
         /*! \returns motion interaction type
         */
         iMotionInteractionType getMotionInteractionType() const;
+
+        /*! adds component to entity
+
+        \param component the component to add
+        */
+        template<typename T>
+        T &addComponent(const T &component)
+        {
+            return _scene->addComponent<T>(_entity, component);
+        }
 
         /*! \returns component of entity of given type
          */

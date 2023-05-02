@@ -76,6 +76,13 @@ namespace igor
 			return getRegistry().view<Components...>();
 		}
 
+        /*! adds component to entity
+
+        \param component the component to add
+        */
+        template<typename T>
+        T &addComponent(iEntityID entityID, const T &component);
+
 		/*! \returns reference to component for given entity
 
 		\param entityID the given entity
@@ -95,16 +102,6 @@ namespace igor
 		template <typename T>
 		void removeComponent(iEntityID entityID);
 
-		/*! adds transform component to given entity
-
-		\param position the transform position
-		\param orientation the transform orientation in rad
-		\param scale the transform scale
-
-		\returns reference to newly created component
-		 */
-		iTransformComponent &addTransformComponent(iEntityID entityID, const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
-
 		/*! adds sprite render component to given entity
 
 		\param texture texture to use for render
@@ -114,15 +111,6 @@ namespace igor
 		\returns reference to newly created component
 		 */
 		iSpriteRendererComponent &addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
-
-		/*! adds velocity component to given entity
-
-		\param velocity velocity in 3 dimensions
-		\param angularVelocity angular velocity in 3 dimensions
-
-		\returns reference to newly created component
-		 */
-		iVelocityComponent &addVelocityComponent(iEntityID entityID, const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d());
 
 		/*! adds Quadtree component to given entity
 

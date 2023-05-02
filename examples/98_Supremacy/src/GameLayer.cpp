@@ -57,8 +57,8 @@ iEntity GameLayer::createPlayer()
     // init player
     iEntity entity = _entityScene->createEntity("player");
 
-    const auto &transform = entity.addTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0));
-    entity.addVelocityComponent(iaVector3d(1, 0, 0));
+    const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0)});
+    entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
     entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
     entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"));
     entity.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
@@ -82,7 +82,7 @@ iEntity GameLayer::createPlayer()
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
-    shadow.addTransformComponent(iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0));
+    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0)});
     shadow.setParent(entity.getID());
     shadow.addSpriteRendererComponent(_shadow, iaColor4f::black, -1);
 
@@ -108,7 +108,7 @@ iEntity GameLayer::createViewport(iEntityID targetID)
 void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType objectType)
 {
     iEntity entity = _entityScene->createEntity("object");
-    const auto &transform = entity.addTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0));
+    const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
     entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaColor4f::white, -10);
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
@@ -151,8 +151,8 @@ void GameLayer::landShop()
 void GameLayer::createShop()
 {
     _shop = _entityScene->createEntity("shop", false);
-    auto transform = _shop.addTransformComponent(iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0));
-    _shop.addVelocityComponent();
+    auto transform = _shop.addComponent<iTransformComponent>({iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)});
+    _shop.addComponent<iVelocityComponent>();
     _shop.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
     _shop.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"));
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
@@ -167,9 +167,9 @@ void GameLayer::createShop()
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
     iEntity unit = _entityScene->createEntity();
-    unit.addTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0));
+    unit.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0)});
     unit.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
-    unit.addVelocityComponent(getRandomDir() * enemyClass._speed);
+    unit.addComponent<iVelocityComponent>({getRandomDir() * enemyClass._speed});
     unit.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture));
     unit.setMotionInteractionType(iMotionInteractionType::Divert);
 
@@ -184,7 +184,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
-    shadow.addTransformComponent(iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0));
+    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0)});
     shadow.setParent(unit.getID());
     shadow.addSpriteRendererComponent(_shadow, iaColor4f::black, -1);
 }
@@ -932,7 +932,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         auto bullet = _entityScene->createEntity(weapon._texture);
         float32 angle = dir.angle() * IGOR_RAD2GRAD;
         iaVector2d firePosition(from + dir * weapon._size * 0.5);
-        bullet.addTransformComponent(iaVector3d(firePosition._x, firePosition._y, 0.0), iaVector3d(0.0, 0.0, angle), iaVector3d(weapon._size, weapon._size, 1.0));
+        bullet.addComponent<iTransformComponent>({iaVector3d(firePosition._x, firePosition._y, 0.0), iaVector3d(0.0, 0.0, angle), iaVector3d(weapon._size, weapon._size, 1.0)});
 
         float32 angularVelocity = weapon._angularVelocity;
 
@@ -949,7 +949,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         iaVector3d d(dir2._x, dir2._y, 0.0);
         float32 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (iaRandom::getNextFloat() - 0.5));
         d *= s;
-        bullet.addVelocityComponent(d);
+        bullet.addComponent<iVelocityComponent>({d});
 
         bullet.addComponent<PartyComponent>(party, true);
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);

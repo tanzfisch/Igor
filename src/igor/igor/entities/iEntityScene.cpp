@@ -187,19 +187,9 @@ namespace igor
         return std::type_index(typeid(std::tuple<Components...>));
     }
 
-    iTransformComponent &iEntityScene::addTransformComponent(iEntityID entityID, const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale)
-    {
-        return getRegistry().emplace_or_replace<iTransformComponent>(entityID, position, orientation, scale);
-    }
-
     iSpriteRendererComponent &iEntityScene::addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture, const iaColor4f &color, int32 zIndex)
     {
         return getRegistry().emplace_or_replace<iSpriteRendererComponent>(entityID, texture, color, zIndex);
-    }
-
-    iVelocityComponent &iEntityScene::addVelocityComponent(iEntityID entityID, const iaVector3d &velocity, const iaVector3d &angularVelocity)
-    {
-        return getRegistry().emplace_or_replace<iVelocityComponent>(entityID, velocity, angularVelocity);
     }
 
     void iEntityScene::addToQuadtree(iEntityID entityID, float64 radius)
@@ -246,6 +236,22 @@ namespace igor
     {
         return _impl->getBounds();
     }
+
+    template<typename T>
+    T &iEntityScene::addComponent(iEntityID entityID, const T &component)
+    {
+        T &result = getRegistry().emplace_or_replace<T>(entityID);
+        result = component;
+
+        return result;
+    }
+
+    // the following types are left out on purpose
+    // iBaseEntityComponent, iActiveComponent
+    template iBehaviourComponent &iEntityScene::addComponent<iBehaviourComponent>(iEntityID entityID, const iBehaviourComponent &component);
+    template iSpriteRendererComponent &iEntityScene::addComponent<iSpriteRendererComponent>(iEntityID entityID, const iSpriteRendererComponent &component);
+    template iTransformComponent &iEntityScene::addComponent<iTransformComponent>(iEntityID entityID, const iTransformComponent &component);
+    template iVelocityComponent &iEntityScene::addComponent<iVelocityComponent>(iEntityID entityID, const iVelocityComponent &component);
 
     template <typename T>
     T &iEntityScene::getComponent(iEntityID entityID)
