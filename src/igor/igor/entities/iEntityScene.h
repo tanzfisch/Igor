@@ -102,16 +102,6 @@ namespace igor
 		template <typename T>
 		void removeComponent(iEntityID entityID);
 
-		/*! adds sprite render component to given entity
-
-		\param texture texture to use for render
-		\param color color to render with
-		\param zIndex z index order
-
-		\returns reference to newly created component
-		 */
-		iSpriteRendererComponent &addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
-
 		/*! adds Quadtree component to given entity
 
 		will only work if Quadtree on the scene was initialized before

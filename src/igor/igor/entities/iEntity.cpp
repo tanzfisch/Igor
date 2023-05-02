@@ -55,11 +55,6 @@ namespace igor
         return _scene->getRegistry().valid(_entity);
     }
 
-    iSpriteRendererComponent &iEntity::addSpriteRendererComponent(iTexturePtr texture, const iaColor4f &color, int32 zIndex)
-    {
-        return _scene->addSpriteRendererComponent(_entity, texture, color, zIndex);
-    }
-
     void iEntity::addToQuadtree(float64 size)
     {
         _scene->addToQuadtree(_entity, size);

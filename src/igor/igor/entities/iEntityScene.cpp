@@ -187,11 +187,6 @@ namespace igor
         return std::type_index(typeid(std::tuple<Components...>));
     }
 
-    iSpriteRendererComponent &iEntityScene::addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture, const iaColor4f &color, int32 zIndex)
-    {
-        return getRegistry().emplace_or_replace<iSpriteRendererComponent>(entityID, texture, color, zIndex);
-    }
-
     void iEntityScene::addToQuadtree(iEntityID entityID, float64 radius)
     {
         iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);

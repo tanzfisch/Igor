@@ -60,7 +60,7 @@ iEntity GameLayer::createPlayer()
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0)});
     entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
     entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
-    entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"));
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png")});
     entity.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
 
     entity.addComponent<PartyComponent>(FRIEND, true);
@@ -84,7 +84,7 @@ iEntity GameLayer::createPlayer()
     iEntity shadow = _entityScene->createEntity();
     shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0)});
     shadow.setParent(entity.getID());
-    shadow.addSpriteRendererComponent(_shadow, iaColor4f::black, -1);
+    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaColor4f::black, -1});
 
     return entity;
 }
@@ -109,7 +109,7 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
 {
     iEntity entity = _entityScene->createEntity("object");
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
-    entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaColor4f::white, -10);
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaColor4f::white, -10});
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
     entity.addComponent<PickupComponent>(true);
@@ -154,7 +154,7 @@ void GameLayer::createShop()
     auto transform = _shop.addComponent<iTransformComponent>({iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)});
     _shop.addComponent<iVelocityComponent>();
     _shop.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
-    _shop.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png"));
+    _shop.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png")});
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     _shop.addComponent<BuildingComponent>(BuildingType::Shop);
     _shop.addComponent<PartyComponent>(FRIEND);
@@ -170,7 +170,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0)});
     unit.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
     unit.addComponent<iVelocityComponent>({getRandomDir() * enemyClass._speed});
-    unit.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile(enemyClass._texture));
+    unit.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(enemyClass._texture)});
     unit.setMotionInteractionType(iMotionInteractionType::Divert);
 
     unit.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
@@ -186,7 +186,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     iEntity shadow = _entityScene->createEntity();
     shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0)});
     shadow.setParent(unit.getID());
-    shadow.addSpriteRendererComponent(_shadow, iaColor4f::black, -1);
+    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaColor4f::black, -1});
 }
 
 void GameLayer::updateViewRectangleSystem()
@@ -954,7 +954,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<PartyComponent>(party, true);
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
         bullet.addComponent<HealthComponent>(100.0f, true);
-        bullet.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile(weapon._texture));
+        bullet.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(weapon._texture)});
         bullet.addComponent<VisualComponent>(false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
         bullet.addToQuadtree(weapon._size * 0.5);

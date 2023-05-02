@@ -85,16 +85,6 @@ namespace igor
         */
         void setActive(bool active);
 
-        /*! adds sprite render component to entity
-
-        \param texture texture to use for render
-        \param color color to render with
-        \param zIndex z index order
-
-        \returns reference to newly created component
-         */
-        iSpriteRendererComponent &addSpriteRendererComponent(iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
-
         /*! adds entity to quadtree
 
         will only work if quadtree on the scene was initialized before
