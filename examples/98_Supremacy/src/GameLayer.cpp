@@ -109,7 +109,7 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
 {
     iEntity entity = _entityScene->createEntity("object");
     const auto &transform = entity.addTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0));
-    entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"));
+    entity.addSpriteRendererComponent(iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaColor4f::white, -10);
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
     entity.addComponent<PickupComponent>(true);

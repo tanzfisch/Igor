@@ -42,6 +42,12 @@ namespace igor
 						continue;
 					}
 
+					auto *hasMotionInteraction = registry.try_get<iMotionInteractionResolverComponent>(otherEntityID);
+					if(hasMotionInteraction == nullptr)
+					{
+						continue;
+					}
+
 					// calc diversion
 					diversion += circle._center - object->_circle._center;
 				}
