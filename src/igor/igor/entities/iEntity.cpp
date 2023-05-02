@@ -39,8 +39,7 @@ namespace igor
         {
             _scene->getRegistry().emplace_or_replace<iActiveComponent>(_entity);
         }
-
-        if (component != nullptr && !active)
+        else if (component != nullptr && !active)
         {
             _scene->getRegistry().remove<iActiveComponent>(_entity);
         }

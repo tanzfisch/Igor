@@ -66,14 +66,9 @@ namespace igor
 		*/
 		void destroyEntity(iEntityID entityID);
 
-		/*! clears the scene and the systems
+		/*! clears the scene
 		 */
 		void clear();
-
-		/*! \returns all entities with given components
-		 */
-		template <typename... Components>
-		const std::vector<iEntityID> &getEntitiesV2();
 
 		template <typename... Components>
 		auto getEntities()
@@ -100,34 +95,34 @@ namespace igor
 		template <typename T>
 		void removeComponent(iEntityID entityID);
 
-        /*! adds transform component to given entity
+		/*! adds transform component to given entity
 
-        \param position the transform position
-        \param orientation the transform orientation in rad
-        \param scale the transform scale
+		\param position the transform position
+		\param orientation the transform orientation in rad
+		\param scale the transform scale
 
-        \returns reference to newly created component
-         */
-        iTransformComponent &addTransformComponent(iEntityID entityID, const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
+		\returns reference to newly created component
+		 */
+		iTransformComponent &addTransformComponent(iEntityID entityID, const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
 
-        /*! adds sprite render component to given entity
+		/*! adds sprite render component to given entity
 
-        \param texture texture to use for render
-        \param color color to render with
-        \param zIndex z index order
+		\param texture texture to use for render
+		\param color color to render with
+		\param zIndex z index order
 
-        \returns reference to newly created component
-         */
-        iSpriteRendererComponent &addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
+		\returns reference to newly created component
+		 */
+		iSpriteRendererComponent &addSpriteRendererComponent(iEntityID entityID, iTexturePtr texture = nullptr, const iaColor4f &color = iaColor4f(), int32 zIndex = 0);
 
-        /*! adds velocity component to given entity
+		/*! adds velocity component to given entity
 
-        \param velocity velocity in 3 dimensions
-        \param angularVelocity angular velocity in 3 dimensions
+		\param velocity velocity in 3 dimensions
+		\param angularVelocity angular velocity in 3 dimensions
 
-        \returns reference to newly created component
-         */
-        iVelocityComponent &addVelocityComponent(iEntityID entityID, const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d());
+		\returns reference to newly created component
+		 */
+		iVelocityComponent &addVelocityComponent(iEntityID entityID, const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d());
 
 		/*! adds Quadtree component to given entity
 
@@ -139,8 +134,8 @@ namespace igor
 		void addToQuadtree(iEntityID entityID, float64 radius = 1.0);
 
 		/*! removes given entity form quadtree
-		*/
-		void removeFromQuadtree(iEntityID entityID);		
+		 */
+		void removeFromQuadtree(iEntityID entityID);
 
 		/*! initialize quadtree
 
@@ -164,7 +159,7 @@ namespace igor
 
 		/*! \returns global bounds
 		 */
-		const iAABoxd &getBounds() const;		
+		const iAABoxd &getBounds() const;
 
 	private:
 		/*! pimpl

@@ -14,10 +14,9 @@ namespace igor
 {
 	void iQuadtreeSystem::update(iEntityScenePtr scene)
 	{
-		auto quadtreeView = scene->getEntitiesV2<iTransformComponent, iQuadtreeComponent>();
 		auto view = scene->getEntities<iTransformComponent, iQuadtreeComponent>();
 
-		for (auto entityID : quadtreeView)
+		for (auto entityID : view)
 		{
 			auto [transform, object] = view.get<iTransformComponent, iQuadtreeComponent>(entityID);
 			const iaVector2d position(transform._position._x, transform._position._y);

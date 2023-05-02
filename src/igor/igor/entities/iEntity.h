@@ -85,14 +85,6 @@ namespace igor
         */
         void setActive(bool active);
 
-        /*! adds component to entity of given type
-         */
-        template <typename T, typename... Args>
-        T &addComponent(Args &&...args)
-        {
-            return _scene->getRegistry().emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
-        }
-
         /*! adds transform component to entity
 
         \param position the transform position
@@ -183,25 +175,15 @@ namespace igor
         /*! \returns component of entity of given type
          */
         template <typename T>
-        T &getComponent() const
-        {
-            return _scene->getRegistry().get<T>(_entity);
-        }
-
-        template <typename T>
         T &getComponentV2()
         {
             return _scene->getComponent<T>(_entity);
         }
 
         /*! \returns component of entity of given type
-         */
-        template <typename T>
-        T *tryGetComponent() const
-        {
-            return _scene->getRegistry().try_get<T>(_entity);
-        }
 
+        returns nullptr in case component does not exist
+         */
         template <typename T>
         T *tryGetComponentV2() const
         {
@@ -215,6 +197,27 @@ namespace igor
         {
             _scene->removeComponent<T>(_entity);
         }
+
+        /////////// deprecated
+        template <typename T>
+        T *tryGetComponent() const
+        {
+            return _scene->getRegistry().try_get<T>(_entity);
+        }        
+
+        /////////// deprecated
+        template <typename T>
+        T &getComponent() const
+        {
+            return _scene->getRegistry().get<T>(_entity);
+        }        
+
+        /////////// deprecated
+        template <typename T, typename... Args>
+        T &addComponent(Args &&...args)
+        {
+            return _scene->getRegistry().emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
+        }        
 
     private:
         /*! the entity ID

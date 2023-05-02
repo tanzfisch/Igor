@@ -35,7 +35,7 @@ namespace igor
             {
                 delete _quadtree;
             }
-        }
+        }        
 
         void setBounds(const iAABoxd &box)
         {
@@ -49,13 +49,12 @@ namespace igor
 
         iEntity createEntity(const iaString &name, bool active, iEntityScenePtr scene)
         {
-            iEntity entity(_registry.create(), scene);
-            auto &component = entity.addComponent<iBaseEntityComponent>();
-            component._name = name;
-            if (active)
-            {
-                entity.addComponent<iActiveComponent>();
-            }
+            iEntityID entityID = _registry.create();
+            _registry.emplace_or_replace<iBaseEntityComponent>(entityID, name);
+
+            iEntity entity(entityID, scene);
+            entity.setActive(active);
+
             return entity;
         }
 
@@ -136,26 +135,9 @@ namespace igor
         std::vector<iEntitySystemPtr> _renderingSystems;
     };
 
-    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iVelocityComponent, iTransformComponent, iActiveComponent>();
-    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iTransformComponent>();
-    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iTransformComponent, iQuadtreeComponent>();
-    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
-    template const std::vector<iEntityID> &iEntityScene::getEntitiesV2<iBehaviourComponent, iActiveComponent>();
-
     iEntityScene::iEntityScene()
     {
         _impl = new iEntitySceneImpl();
-
-        /*generate_all_combinations<std::tuple<iBaseEntityComponent,
-                                             iActiveComponent,
-                                             iSpriteRendererComponent,
-                                             iTransformComponent,
-                                             iVelocityComponent>>();*/
-
-        /*generate_combination<iVelocityComponent, iTransformComponent, iActiveComponent>();
-        generate_combination<iTransformComponent>();
-        generate_combination<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
-        generate_combination<iBehaviourComponent, iActiveComponent>();                                             */
     }
 
     iEntityScene::~iEntityScene()
@@ -203,26 +185,6 @@ namespace igor
     std::type_index getTypeIndex()
     {
         return std::type_index(typeid(std::tuple<Components...>));
-    }
-
-    template <typename... Components>
-    const std::vector<iEntityID> &iEntityScene::getEntitiesV2()
-    {
-        std::type_index key = getTypeIndex<Components...>();
-
-        // TODO need to cache it and need to figure out when the update the cache. for now always overwrite
-        // if (_entityIDCache.find(key) == _entityIDCache.end())
-        {
-            auto view = getRegistry().view<Components...>();
-            std::vector<iEntityID> entities;
-            for (auto entityID : view)
-            {
-                entities.emplace_back(entityID);
-            }
-            _entityIDCache[key] = entities;
-        }
-
-        return _entityIDCache[key];
     }
 
     iTransformComponent &iEntityScene::addTransformComponent(iEntityID entityID, const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale)
