@@ -36,6 +36,7 @@
 using namespace iaux;
 
 #include <vector>
+#include <array>
 
 namespace igor
 {
