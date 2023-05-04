@@ -82,7 +82,7 @@ namespace igor
 
     /*!
 
-    \param joint the newtonw joint to submit the constraints to
+    \param joint the newton joint to submit the constraints to
     \param timestep time delta
     \param threadIndex thread index
     */
@@ -95,7 +95,7 @@ namespace igor
         }
     }
 
-    /*! generic handle to handle contacts beween two bodies
+    /*! generic handle to handle contacts between two bodies
 
     \param newtonContactJoint the contact joint
     \param timestep time delta

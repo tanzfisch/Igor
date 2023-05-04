@@ -44,25 +44,25 @@ void ExampleCharacterController::onInit()
     // setup which physics materials interact with each other
     iPhysicsMaterialCombo *terrainEntity = new iPhysicsMaterialCombo(materialTerrain, materialEntity);
     terrainEntity->setName("terrain-entity");
-    //terrainEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
-    //terrainEntity->setElasticity(0.0);
-    //terrainEntity->setFriction(0.5, 0.4);
+    // terrainEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
+    // terrainEntity->setElasticity(0.0);
+    // terrainEntity->setFriction(0.5, 0.4);
 
     iPhysicsMaterialCombo *terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
     terrainBullet->setName("terrain-bullet");
-    //terrainBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContactTerrainBullet));
+    // terrainBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContactTerrainBullet));
 
     iPhysicsMaterialCombo *bulletEntity = new iPhysicsMaterialCombo(materialBullet, materialEntity);
     bulletEntity->setName("bullet-entity");
-    //bulletEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
+    // bulletEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
     iPhysicsMaterialCombo *entityEntity = new iPhysicsMaterialCombo(materialEntity, materialEntity);
     entityEntity->setName("entity-entity");
-    //entityEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
+    // entityEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
     iPhysicsMaterialCombo *bulletBullet = new iPhysicsMaterialCombo(materialBullet, materialBullet);
     bulletBullet->setName("bullet-bullet");
-    //bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
+    // bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
     // setup floor model
     iNodeModel *levelModel = iNodeManager::getInstance().createNode<iNodeModel>();
@@ -81,7 +81,7 @@ void ExampleCharacterController::onInit()
     createBox(iaVector3d(2, 180, -4));
     createBox(iaVector3d(-3, 180, -2));
 
-    // setup character and attache camera to it
+    // setup character and attach camera to it
     iaMatrixd startMatrix;
     startMatrix.translate(0, 176, 0);
     _characterController = new CharacterController(getScene()->getRoot(), _entityMaterialID, startMatrix);
@@ -90,7 +90,7 @@ void ExampleCharacterController::onInit()
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     _characterController->getHeadTransform()->insertNode(camera);
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
-    // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
+    // scene associated with the view which we achieved by adding all those nodes on to an other starting with the root node
     getView().setCurrentCamera(camera->getID());
 
     // setup gun
