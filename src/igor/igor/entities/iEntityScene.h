@@ -102,19 +102,6 @@ namespace igor
 		template <typename T>
 		void removeComponent(iEntityID entityID);
 
-		/*! adds Quadtree component to given entity
-
-		will only work if Quadtree on the scene was initialized before
-
-		\param entityID the given entity
-		\param radius size of object as radius
-		 */
-		void addToQuadtree(iEntityID entityID, float64 radius = 1.0);
-
-		/*! removes given entity form quadtree
-		 */
-		void removeFromQuadtree(iEntityID entityID);
-
 		/*! initialize quadtree
 
 		\param box volume of the whole quadtree

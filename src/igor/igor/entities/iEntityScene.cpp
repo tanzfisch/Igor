@@ -20,7 +20,6 @@ namespace igor
         iEntitySceneImpl()
         {
             _velocitySystem = std::make_shared<iVelocitySystem>();
-
             _systems.push_back(_velocitySystem);
             _systems.push_back(std::make_shared<iTransformHierarchySystem>());
             _systems.push_back(std::make_shared<iQuadtreeSystem>());
@@ -35,7 +34,7 @@ namespace igor
             {
                 delete _quadtree;
             }
-        }        
+        }
 
         void setBounds(const iAABoxd &box)
         {
@@ -157,7 +156,12 @@ namespace igor
 
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
-        removeFromQuadtree(entityID);
+        iBody2DComponent *component = tryGetComponent<iBody2DComponent>(entityID);
+        if (component != nullptr)
+        {
+            _impl->getQuadtree().remove(component->_object);
+        }
+
         _impl->destroyEntity(entityID);
     }
 
@@ -187,31 +191,6 @@ namespace igor
         return std::type_index(typeid(std::tuple<Components...>));
     }
 
-    void iEntityScene::addToQuadtree(iEntityID entityID, float64 radius)
-    {
-        iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
-        if (transform == nullptr)
-        {
-            const iaVector2d center = getQuadtree().getRootBox().getCenter();
-            transform = &(getRegistry().emplace_or_replace<iTransformComponent>(entityID, iaVector3d(center._x, center._y, 0.0)));
-        }
-
-        iQuadtreeComponent &component = getRegistry().emplace_or_replace<iQuadtreeComponent>(entityID, nullptr);
-        component._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, radius), entityID);
-        _impl->getQuadtree().insert(component._object);
-    }
-
-    void iEntityScene::removeFromQuadtree(iEntityID entityID)
-    {
-        iQuadtreeComponent *component = tryGetComponent<iQuadtreeComponent>(entityID);
-        if (component == nullptr)
-        {
-            return;
-        }
-
-        _impl->getQuadtree().remove(component->_object);
-    }
-
     void iEntityScene::initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
     {
         _impl->initializeQuadtree(box, splitThreshold, maxDepth);
@@ -232,7 +211,7 @@ namespace igor
         return _impl->getBounds();
     }
 
-    template<typename T>
+    template <typename T>
     T &iEntityScene::addComponent(iEntityID entityID, const T &component)
     {
         T &result = getRegistry().emplace_or_replace<T>(entityID);
@@ -241,8 +220,28 @@ namespace igor
         return result;
     }
 
+    template <>
+    iBody2DComponent &iEntityScene::addComponent<iBody2DComponent>(iEntityID entityID, const iBody2DComponent &component)
+    {
+        iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
+        if (transform == nullptr)
+        {
+            const iaVector2d center = getQuadtree().getRootBox().getCenter();
+            transform = &(getRegistry().emplace_or_replace<iTransformComponent>(entityID, iaVector3d(center._x, center._y, 0.0)));
+        }
+
+        iBody2DComponent &result = getRegistry().emplace_or_replace<iBody2DComponent>(entityID);
+        // result = component;
+
+        result._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, 1.0), entityID);
+        _impl->getQuadtree().insert(result._object);
+
+        return result;
+    }
+
     // the following types are left out on purpose
     // iBaseEntityComponent, iActiveComponent
+    template iCircleCollision2DComponent &iEntityScene::addComponent<iCircleCollision2DComponent>(iEntityID entityID, const iCircleCollision2DComponent &component);
     template iBehaviourComponent &iEntityScene::addComponent<iBehaviourComponent>(iEntityID entityID, const iBehaviourComponent &component);
     template iSpriteRendererComponent &iEntityScene::addComponent<iSpriteRendererComponent>(iEntityID entityID, const iSpriteRendererComponent &component);
     template iTransformComponent &iEntityScene::addComponent<iTransformComponent>(iEntityID entityID, const iTransformComponent &component);
@@ -254,6 +253,7 @@ namespace igor
         return getRegistry().get<T>(entityID);
     }
 
+    template iCircleCollision2DComponent &iEntityScene::getComponent<iCircleCollision2DComponent>(iEntityID entityID);
     template iBaseEntityComponent &iEntityScene::getComponent<iBaseEntityComponent>(iEntityID entityID);
     template iBehaviourComponent &iEntityScene::getComponent<iBehaviourComponent>(iEntityID entityID);
     template iActiveComponent &iEntityScene::getComponent<iActiveComponent>(iEntityID entityID);
@@ -267,6 +267,7 @@ namespace igor
         return getRegistry().try_get<T>(entityID);
     }
 
+    template iCircleCollision2DComponent *iEntityScene::tryGetComponent<iCircleCollision2DComponent>(iEntityID entityID);
     template iBaseEntityComponent *iEntityScene::tryGetComponent<iBaseEntityComponent>(iEntityID entityID);
     template iBehaviourComponent *iEntityScene::tryGetComponent<iBehaviourComponent>(iEntityID entityID);
     template iActiveComponent *iEntityScene::tryGetComponent<iActiveComponent>(iEntityID entityID);
@@ -280,7 +281,23 @@ namespace igor
         getRegistry().remove<T>(entityID);
     }
 
-    template void iEntityScene::removeComponent<iBaseEntityComponent>(iEntityID entityID);
+    template <>
+    void iEntityScene::removeComponent<iBody2DComponent>(iEntityID entityID)
+    {
+        iBody2DComponent *component = tryGetComponent<iBody2DComponent>(entityID);
+        if (component == nullptr)
+        {
+            return;
+        }
+
+        _impl->getQuadtree().remove(component->_object);
+
+        getRegistry().remove<iBody2DComponent>(entityID);
+    }
+
+    // the following types are left out on purpose
+    // iBaseEntityComponent
+    template void iEntityScene::removeComponent<iCircleCollision2DComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iBehaviourComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iActiveComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iSpriteRendererComponent>(iEntityID entityID);

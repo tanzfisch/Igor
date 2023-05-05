@@ -14,24 +14,41 @@ namespace igor
 {
 	void iQuadtreeSystem::update(iEntityScenePtr scene)
 	{
-		auto view = scene->getEntities<iTransformComponent, iQuadtreeComponent>();
+		auto &registry = scene->getRegistry();
+		auto &quadtree = scene->getQuadtree();
+
+		auto viewNoCollision = registry.view<iTransformComponent, iBody2DComponent>(entt::exclude<iCircleCollision2DComponent>);
+
+		for (auto entityID : viewNoCollision)
+		{
+			auto [transform, object] = viewNoCollision.get<iTransformComponent, iBody2DComponent>(entityID);
+
+			if (object._object == nullptr ||
+				object._object->_parent.expired())
+			{
+				continue;
+			}
+
+			const iaVector2d position(transform._position._x, transform._position._y);
+			quadtree.update(object._object, position);
+		}
+
+		auto view = registry.view<iTransformComponent, iBody2DComponent, iCircleCollision2DComponent>();
 
 		for (auto entityID : view)
 		{
-			auto [transform, object] = view.get<iTransformComponent, iQuadtreeComponent>(entityID);
-			const iaVector2d position(transform._position._x, transform._position._y);
+			auto [transform, object, circleCollision] = view.get<iTransformComponent, iBody2DComponent, iCircleCollision2DComponent>(entityID);
 
-			if (object._object == nullptr)
+			if (object._object == nullptr ||
+				object._object->_parent.expired())
 			{
 				continue;
 			}
 
-			if (object._object->_parent.expired())
-			{
-				continue;
-			}
-
-			scene->getQuadtree().update(object._object, position);
+			const iaCircled circle(transform._position._x + circleCollision._offset._x,
+								   transform._position._y + circleCollision._offset._y,
+								   circleCollision._radius);
+			quadtree.update(object._object, circle);
 		}
 	}
 

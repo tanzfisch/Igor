@@ -55,16 +55,6 @@ namespace igor
         return _scene->getRegistry().valid(_entity);
     }
 
-    void iEntity::addToQuadtree(float64 size)
-    {
-        _scene->addToQuadtree(_entity, size);
-    }
-
-    void iEntity::removeFromQuadtree()
-    {
-        _scene->removeFromQuadtree(_entity);
-    }
-
     void iEntity::addBehaviour(const iBehaviourDelegate &delegate, void *userData)
     {
         iBehaviourComponent *component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);

@@ -119,7 +119,7 @@ namespace igor
     };
 
     /*! hierarchy component to create parent child relationships
-    */
+     */
     struct iHierarchyComponent
     {
         /*! parent entity id
@@ -127,7 +127,7 @@ namespace igor
         iEntityID _parent = IGOR_INVALID_ENTITY_ID;
 
         /*! counting how many child this entity has
-        */
+         */
         int32 _childCount = 0;
 
         /*! the higher the number the more generations are below it
@@ -137,13 +137,26 @@ namespace igor
         int32 _generation = 0;
     };
 
-    /*! component that holds an object in a quadtree
+    /*! 2D body component
      */
-    struct iQuadtreeComponent
+    struct iBody2DComponent
     {
         /*! quadtree object
          */
         iQuadtreed::ObjectPtr _object;
+    };
+
+    /*! 2D collision component
+     */
+    struct iCircleCollision2DComponent
+    {
+        /*! the circles radius
+         */
+        float64 _radius;
+
+        /*! the offset position
+         */
+        iaVector2d _offset;
     };
 
     struct iVelocityComponent
@@ -188,14 +201,14 @@ namespace igor
     };
 
     /*! global boundary contraint type
-    */
+     */
     enum class iGlobalBoundaryType
     {
         /*! no constraint
-        */
+         */
         None,
         /*! if the entity leaves the bounds it reappears at the other end of the boundaries
-        */
+         */
         Repeat
     };
 
@@ -209,20 +222,20 @@ namespace igor
     };
 
     /*! motion interaction type
-    */
+     */
     enum class iMotionInteractionType
     {
         /*! no action
-        */
+         */
         None,
 
         /*! divert an prevent collision if possible
-        */
+         */
         Divert
     };
 
     /*! defines instructions how to handle collisions or near collisions
-    */
+     */
     struct iMotionInteractionResolverComponent
     {
         iMotionInteractionType _type = iMotionInteractionType::None;

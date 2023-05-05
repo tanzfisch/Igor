@@ -73,7 +73,8 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<WeaponComponent>(_weapons["Knife"]);
     entity.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
 
-    entity.addToQuadtree(STANDARD_UNIT_SIZE * 1.5 * 0.5);
+    entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
+    entity.addComponent<iBody2DComponent>({});
 
     iaVector2f a(-1.0f, 0.0f);
     iaVector2f b(1.0f, 0.0f);
@@ -120,12 +121,13 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
 
     entity.addComponent<PartyComponent>(party);
 
-    entity.addToQuadtree(COIN_SIZE * 0.5);
+    entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
+    entity.addComponent<iBody2DComponent>({});
 }
 
 void GameLayer::liftShop()
 {
-    _shop.removeFromQuadtree();
+    _shop.removeComponent<iBody2DComponent>();
     _shop.setActive(false);
 }
 
@@ -136,7 +138,7 @@ void GameLayer::onLandShop(const iaTime &time)
 
 void GameLayer::onShopLanded()
 {
-    _shop.addToQuadtree(2.0);
+    _shop.addComponent<iBody2DComponent>({});
     _shop.setActive(true);
 }
 
@@ -162,6 +164,7 @@ void GameLayer::createShop()
 
     _shop.addComponent<WeaponComponent>(_weapons["Minigun"]);
     _shop.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
+    _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});
 }
 
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
@@ -180,7 +183,8 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     unit.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
-    unit.addToQuadtree(enemyClass._size * 0.5);
+    unit.addComponent<iCircleCollision2DComponent>({enemyClass._size * 0.5});
+    unit.addComponent<iBody2DComponent>({});
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
@@ -957,7 +961,8 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(weapon._texture)});
         bullet.addComponent<VisualComponent>(false, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
-        bullet.addToQuadtree(weapon._size * 0.5);
+        bullet.addComponent<iCircleCollision2DComponent>({weapon._size * 0.5});
+        bullet.addComponent<iBody2DComponent>({});
     }
 }
 

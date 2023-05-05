@@ -14,11 +14,11 @@ namespace igor
 		auto &registry = scene->getRegistry();
 		auto &quadtree = scene->getQuadtree();
 
-		auto viewInteractionResolver = registry.view<iVelocityComponent, iQuadtreeComponent, iMotionInteractionResolverComponent>();
+		auto viewInteractionResolver = registry.view<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
 
 		for (auto entityID : viewInteractionResolver)
 		{
-			auto [velocity, quadComp, motionResolver] = viewInteractionResolver.get<iVelocityComponent, iQuadtreeComponent, iMotionInteractionResolverComponent>(entityID);
+			auto [velocity, quadComp, motionResolver] = viewInteractionResolver.get<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>(entityID);
 
 			switch (motionResolver._type)
 			{

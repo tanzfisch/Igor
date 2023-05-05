@@ -128,6 +128,13 @@ namespace igor
         */
         void update(const std::shared_ptr<iQuadtreeObject> object, const iaVector2<F> &position);
 
+        /*! updates position and radius of given object
+
+        \param object the object to update
+        \param circle the new position and radius of the object
+        */
+        void update(const std::shared_ptr<iQuadtreeObject> object, const iaCircle<F> &circle);
+
         /*! \returns root of tree
          */
         const std::shared_ptr<iQuadtreeNode> &getRoot() const;
