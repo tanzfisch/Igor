@@ -33,6 +33,9 @@
 
 namespace igor
 {
+	/*! event triggered when two entities overlap
+	*/
+	IGOR_EVENT_DEFINITION(iEntityCollision, void, iEntityID, iEntityID);
 
 	/*! quadtree system
 	*/

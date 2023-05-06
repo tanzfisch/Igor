@@ -58,16 +58,17 @@ iEntity GameLayer::createPlayer()
     iEntity entity = _entityScene->createEntity("player");
 
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0)});
-    entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
-    entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
+    entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});    
     entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png")});
-    entity.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
+    entity.addComponent<iGlobalBoundaryComponent>(iGlobalBoundaryType::Repeat);
+    entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
 
     entity.addComponent<PartyComponent>(FRIEND, true);
     entity.addComponent<DamageComponent>(0.0f);
     entity.addComponent<HealthComponent>(100.0f);
     entity.addComponent<ExperienceComponent>(0.0f, 1.0f);
     entity.addComponent<CoinsComponent>(0.0f);
+
     entity.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f);
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     entity.addComponent<WeaponComponent>(_weapons["Knife"]);
@@ -155,7 +156,7 @@ void GameLayer::createShop()
     _shop = _entityScene->createEntity("shop", false);
     auto transform = _shop.addComponent<iTransformComponent>({iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)});
     _shop.addComponent<iVelocityComponent>();
-    _shop.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
+    _shop.addComponent<iGlobalBoundaryComponent>(iGlobalBoundaryType::Repeat);
     _shop.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png")});
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     _shop.addComponent<BuildingComponent>(BuildingType::Shop);
@@ -171,7 +172,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 {
     iEntity unit = _entityScene->createEntity();
     unit.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0)});
-    unit.setGlobalBoundaryType(iGlobalBoundaryType::Repeat);
+    unit.addComponent<iGlobalBoundaryComponent>(iGlobalBoundaryType::Repeat);
     unit.addComponent<iVelocityComponent>({getRandomDir() * enemyClass._speed});
     unit.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(enemyClass._texture)});
     unit.setMotionInteractionType(iMotionInteractionType::Divert);

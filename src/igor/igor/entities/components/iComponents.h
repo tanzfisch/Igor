@@ -93,7 +93,7 @@ namespace igor
         int32 _zIndex = 0;
     };
 
-    // TODO introduce a render layer component so we only have to order by zindex within a layer and not across all
+    // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
 
     /*! transform component representing position, orientation and scale of given entity
 
