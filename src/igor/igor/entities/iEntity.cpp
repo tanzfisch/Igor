@@ -55,25 +55,21 @@ namespace igor
         return _scene->getRegistry().valid(_entity);
     }
 
-    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, void *userData)
+    void iEntity::addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData)
     {
-        iBehaviourComponent *component = _scene->getRegistry().try_get<iBehaviourComponent>(_entity);
-        if (component == nullptr)
-        {
-            component = &(_scene->getRegistry().emplace_or_replace<iBehaviourComponent>(_entity));
-        }
+        auto &component = addComponent<iBehaviourComponent>();
 
-        for (auto &behaviourData : component->_behaviour)
+        for (auto &behaviourData : component._behaviour)
         {
             if (!behaviourData._delegate.isValid())
             {
-                behaviourData._delegate = delegate;
+                behaviourData._delegate = behaviour;
                 behaviourData._userData = userData;
                 return;
             }
         }
 
-        con_err("can't add more then " << component->_behaviour.size() << " behaviors");
+        con_err("can't add more then " << component._behaviour.size() << " behaviors");
     }
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &behaviour)
@@ -94,7 +90,6 @@ namespace igor
             {
                 nonZero++;
                 behaviourData._delegate = nullptr;
-                behaviourData._userData = nullptr;
             }
         }
 

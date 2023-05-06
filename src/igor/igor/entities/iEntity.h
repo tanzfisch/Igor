@@ -88,8 +88,9 @@ namespace igor
         /*! adds behaviour to entity
 
         \param behaviour the behaviour to be added
+        \param userData user data added to behaviour
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour, void *userData = nullptr);
+        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any());
 
         /*! removes behaviour from entity
 
@@ -104,9 +105,8 @@ namespace igor
         void setParent(iEntityID parent);
 
         /*! \returns the parent id or invalid id if there is no parent
-        */
+         */
         iEntityID getParent() const;
-
 
         /*! sets motion interaction type
 
@@ -115,14 +115,14 @@ namespace igor
         void setMotionInteractionType(iMotionInteractionType interactionType);
 
         /*! \returns motion interaction type
-        */
+         */
         iMotionInteractionType getMotionInteractionType() const;
 
         /*! adds component to entity
 
         \param component the component to add
         */
-        template<typename T>
+        template <typename T>
         T &addComponent(const T &component)
         {
             return _scene->addComponent<T>(_entity, component);
@@ -159,21 +159,21 @@ namespace igor
         T *tryGetComponent() const
         {
             return _scene->getRegistry().try_get<T>(_entity);
-        }        
+        }
 
         /////////// deprecated
         template <typename T>
         T &getComponent() const
         {
             return _scene->getRegistry().get<T>(_entity);
-        }        
+        }
 
         /////////// deprecated
         template <typename T, typename... Args>
         T &addComponent(Args &&...args)
         {
             return _scene->getRegistry().emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
-        }        
+        }
 
     private:
         /*! the entity ID

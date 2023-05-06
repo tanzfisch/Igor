@@ -172,7 +172,7 @@ namespace igor
 
     /*! behaviour function definition
      */
-    typedef iaDelegate<void, iEntity &, void *> iBehaviourDelegate;
+    typedef iaDelegate<void, iEntity &, std::any &> iBehaviourDelegate;
 
     /*! behaviour data
      */
@@ -184,9 +184,9 @@ namespace igor
 
         /*! user data
 
-        the application is responsible for storing this data in an efficient way
+        \todo this is not ideal maybe fix in #300
         */
-        void *_userData = nullptr;
+        std::any _userData;
     };
 
     static constexpr uint32 IGOR_MAX_BEHAVIORS_PER_COMPONENT = 10;

@@ -23,7 +23,7 @@ iaVector3d GameLayer::getRandomDir()
     return iaVector3d(direction._x, direction._y, 0.0);
 }
 
-void GameLayer::onPlayerMovementBehaviour(iEntity &entity, void *data)
+void GameLayer::onPlayerMovementBehaviour(iEntity &entity, std::any &userData)
 {
     auto &velocityComponent = entity.getComponentV2<iVelocityComponent>();
 
