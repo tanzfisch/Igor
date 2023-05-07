@@ -632,7 +632,7 @@ namespace igor
                          texture, color, blend, tiling);
     }
 
-    void iRenderer::drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
+    void iRenderer::drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
     {
         iaMatrixf matrixf;
         for (int i = 0; i < 16; ++i)
@@ -644,7 +644,7 @@ namespace igor
                          matrixf * QUAD_VERTEX_POSITIONS[1],
                          matrixf * QUAD_VERTEX_POSITIONS[2],
                          matrixf * QUAD_VERTEX_POSITIONS[3],
-                         texture, color, blend, tiling);
+                         texture, color, blend, tiling.convert<float32>());
     }
 
     __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
@@ -693,6 +693,17 @@ namespace igor
         texQuads._indexCount += 6;
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
+    }
+
+    void iRenderer::drawTexturedQuad(const iaVector3d &v1, const iaVector3d &v2, const iaVector3d &v3, const iaVector3d &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
+    {
+        drawTexturedQuad(v1.convert<float32>(),
+                         v2.convert<float32>(),
+                         v3.convert<float32>(),
+                         v4.convert<float32>(),
+                         texture,
+                         color,
+                         blend, tiling.convert<float32>());
     }
 
     void iRenderer::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
@@ -1901,12 +1912,20 @@ namespace igor
                  color);
     }
 
+    void iRenderer::drawTexturedQuad(const iaVector3d &o, const iaVector3d &u, const iaVector3d &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
+    {
+        drawTexturedQuad(o.convert<float32>(),
+                         u.convert<float32>(),
+                         v.convert<float32>(), texture, color, blend,
+                         tiling.convert<float32>());
+    }
+
     void iRenderer::drawTexturedQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        drawTexturedQuad(o + v + u,
-                         o - v + u,
+        drawTexturedQuad(o + v - u,
                          o - v - u,
-                         o + v - u,
+                         o - v + u,
+                         o + v + u,
                          texture, color, blend, tiling);
     }
 

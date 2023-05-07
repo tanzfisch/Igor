@@ -90,6 +90,10 @@ namespace igor
          */
         iTexturePtr _texture; // TODO need sprite not just texture
 
+        /*! render size
+         */
+        iaVector2d _size = {1.0, 1.0};
+
         /*! color to render sprite with
          */
         iaColor4f _color = iaColor4f::white;
@@ -99,12 +103,8 @@ namespace igor
         int32 _zIndex = 0;
 
         /*! sprite render mode
-        */
+         */
         iSpriteRenderMode _renderMode = iSpriteRenderMode::Simple;
-
-        /*! interpretation of size depends on render mode
-        */
-        iaVector2d _size;
     };
 
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all

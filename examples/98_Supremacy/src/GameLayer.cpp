@@ -57,9 +57,9 @@ iEntity GameLayer::createPlayer()
     // init player
     iEntity entity = _entityScene->createEntity("player");
 
-    const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0)});
+    const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0)});
     entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png")});
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"), iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)});
     entity.addComponent<iGlobalBoundaryComponent>(iGlobalBoundaryType::Repeat);
     entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
 
@@ -84,9 +84,9 @@ iEntity GameLayer::createPlayer()
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
-    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0)});
+    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, STANDARD_UNIT_SIZE * 0.8, 0.0)});
     shadow.setParent(entity.getID());
-    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaColor4f::black, -1});
+    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaVector2d(STANDARD_UNIT_SIZE * 0.7, STANDARD_UNIT_SIZE * 0.3), iaColor4f::black, -1});
 
     return entity;
 }
@@ -100,7 +100,7 @@ void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
 
     const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
     auto &camTransform = entity.getComponent<iTransformComponent>();
-    iaVector2d &targetOffset = std::any_cast<iaVector2d&>(userData);
+    iaVector2d &targetOffset = std::any_cast<iaVector2d &>(userData);
 
     const iaVector2d playerPosition(playerTransform._position._x, playerTransform._position._y);
     const iaVector2d lastPlayerPosition(camTransform._position._x + targetOffset._x,
@@ -110,7 +110,7 @@ void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
 
     bool skipStep = false;
     const auto width = PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH * 0.5;
-    const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5;    
+    const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5;
 
     if (std::abs(diff._x) > width ||
         std::abs(diff._y) > height)
@@ -121,7 +121,7 @@ void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
     if (!skipStep)
     {
         targetOffset += diff;
-    }    
+    }
 
     targetOffset._x = std::clamp(targetOffset._x, -width, width);
     targetOffset._y = std::clamp(targetOffset._y, -height, height);
@@ -136,8 +136,8 @@ void GameLayer::createBackground()
 {
     iEntity entity = _entityScene->createEntity("background");
 
-    entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(100, 100, 1.0)});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/background.png")});
+    entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d{200.0, 150.0, 1.0}});
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/background.png"), iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderMode::Tiled});
 }
 
 iEntity GameLayer::createCamera()
@@ -169,7 +169,7 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
 {
     iEntity entity = _entityScene->createEntity("object");
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaColor4f::white, -10});
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
 
     entity.addComponent<PickupComponent>(true);
@@ -249,7 +249,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     iEntity shadow = _entityScene->createEntity();
     shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0)});
     shadow.setParent(unit.getID());
-    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaColor4f::black, -1});
+    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaVector2d(1.0, 1.0), iaColor4f::black, -1});
 }
 
 void GameLayer::onInit()

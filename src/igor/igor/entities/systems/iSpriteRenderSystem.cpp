@@ -15,19 +15,35 @@ namespace igor
 	void iSpriteRenderSystem::update(iEntityScenePtr scene)
 	{
 		auto &registry = scene->getRegistry();
-		registry.sort<iSpriteRendererComponent>([&registry](const entt::entity lhs, const entt::entity rhs) 
-		{
+		registry.sort<iSpriteRendererComponent>([&registry](const entt::entity lhs, const entt::entity rhs)
+												{
 			const auto &clhs = registry.get<iSpriteRendererComponent>(lhs);
 			const auto &crhs = registry.get<iSpriteRendererComponent>(rhs);
-			return clhs._zIndex < crhs._zIndex; 
-		});
+			return clhs._zIndex < crhs._zIndex; });
 
 		auto view = registry.view<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
 
 		for (auto entityID : view)
 		{
 			auto [spriteRender, transform] = view.get<iSpriteRendererComponent, iTransformComponent>(entityID);
-			iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix, spriteRender._texture, spriteRender._color, true);
+
+			switch (spriteRender._renderMode)
+			{
+			case iSpriteRenderMode::Tiled:
+				iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix._pos,
+														  transform._worldMatrix._right * spriteRender._size._x * 0.5,
+														  transform._worldMatrix._top * -spriteRender._size._y * 0.5,
+														  spriteRender._texture, spriteRender._color, true, spriteRender._size);
+				break;
+
+			case iSpriteRenderMode::Simple:
+			default:
+				iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix._pos,
+														  transform._worldMatrix._right * spriteRender._size._x * 0.5,
+														  transform._worldMatrix._top * -spriteRender._size._y * 0.5,
+														  spriteRender._texture, spriteRender._color, true);
+				break;
+			}
 		}
 	}
 

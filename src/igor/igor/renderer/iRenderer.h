@@ -186,9 +186,11 @@ namespace igor
         void drawQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
 
         void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
-        void drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
         void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaVector3d &v1, const iaVector3d &v2, const iaVector3d &v3, const iaVector3d &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
         void drawTexturedQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaVector3d &o, const iaVector3d &u, const iaVector3d &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
 
         /*! draw specified frame of given atlas
          */
