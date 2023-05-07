@@ -101,22 +101,22 @@ void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
     const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
     auto &camTransform = entity.getComponent<iTransformComponent>();
 
-    if(playerTransform._position._x - camTransform._position._x > PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH)
+    if (playerTransform._position._x - camTransform._position._x > PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH)
     {
         camTransform._position._x = playerTransform._position._x - PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH;
     }
 
-    if(playerTransform._position._x - camTransform._position._x < -PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH)
+    if (playerTransform._position._x - camTransform._position._x < -PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH)
     {
         camTransform._position._x = playerTransform._position._x + PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH;
     }
 
-    if(playerTransform._position._y - camTransform._position._y > PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT)
+    if (playerTransform._position._y - camTransform._position._y > PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT)
     {
         camTransform._position._y = playerTransform._position._y - PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT;
     }
 
-    if(playerTransform._position._y - camTransform._position._y < -PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT)
+    if (playerTransform._position._y - camTransform._position._y < -PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT)
     {
         camTransform._position._y = playerTransform._position._y + PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT;
     }
@@ -139,6 +139,10 @@ iEntity GameLayer::createCamera(iEntityID targetID)
     component._topOrtho = -PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
     component._clearColorActive = false;
     component._clearDepthActive = false;
+
+    // DEBUG
+    auto &debug = entity.addComponent<iRenderDebugComponent>({});
+    debug._renderSpacePartitioning = true;
 
     return entity;
 }
@@ -1344,8 +1348,11 @@ void GameLayer::onRenderStats()
 
     iRenderer::getInstance().drawString(10, getWindow()->getClientHeight() - 40, iaString("enemies: ") + iaString::toString((int)_stats.back()._enemyCount));
 
-    auto &playerTransform = _player.getComponentV2<iTransformComponent>();
-    iRenderer::getInstance().drawString(10, getWindow()->getClientHeight() - 80, iaString::toString(playerTransform._position._x, 0) + L", " + iaString::toString(playerTransform._position._y, 0));
+    if (_player.isValid())
+    {
+        auto &playerTransform = _player.getComponentV2<iTransformComponent>();
+        iRenderer::getInstance().drawString(10, getWindow()->getClientHeight() - 80, iaString::toString(playerTransform._position._x, 0) + L", " + iaString::toString(playerTransform._position._y, 0));
+    }
 }
 
 float32 GameLayer::calcLevel(uint32 experience)
@@ -1398,7 +1405,7 @@ void GameLayer::onRenderPlayerHUD()
         points.push_back(playerPosition + dir * 95.0 + tangent * 5.0);
         points.push_back(playerPosition + dir * 95.0 - tangent * 5.0);
 
-        iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);        
+        iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);
     }
 }
 
@@ -1612,32 +1619,12 @@ void GameLayer::onRenderOrtho()
             iRenderer::getInstance().drawTexturedQuad(matrix, spriteRender._texture, spriteRender._color, true);
         }*/
 
-    onRenderPlayerHUD();
+    // onRenderPlayerHUD();
 
-    onRenderQuadtree(_entityScene->getQuadtree().getRoot());
+    
 
     onRenderHUD();
     onRenderStats();
-}
-
-void GameLayer::onRenderQuadtree(const iQuadtreed::NodePtr &node)
-{
-    if (node == nullptr)
-    {
-        return;
-    }
-
-    iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height, iaColor4f::red);
-
-    for (auto object : node->_objects)
-    {
-        iRenderer::getInstance().drawCircle(object->_circle._center._x, object->_circle._center._y, object->_circle._radius);
-    }
-
-    for (auto child : node->_children)
-    {
-        onRenderQuadtree(child);
-    }
 }
 
 void GameLayer::pause()

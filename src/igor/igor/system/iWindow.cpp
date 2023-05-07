@@ -1504,8 +1504,6 @@ namespace igor
         iRenderer::getInstance().clearStats();
         iRenderer::getInstance().beginFrame();
 
-        // TODO iRenderer::getInstance().setWireframeEnabled(camera._w);
-
         for (auto view : _views)
         {
             view->draw();

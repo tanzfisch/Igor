@@ -242,7 +242,7 @@ namespace igor
     };
 
     /*! projection type definition
-    */
+     */
     enum class iProjectionType
     {
         Perspective,
@@ -302,6 +302,26 @@ namespace igor
         /*! bottom value used for orthogonal projection
          */
         float64 _bottomOrtho = -1.0;
+
+        /*! z index aka order in which cameras will be rendered
+         */
+        int32 _zIndex = 0;
+    };
+
+    struct iRenderDebugComponent
+    {
+        /*! render everything in wireframe mode
+         */
+        bool _renderWireframe = false;
+
+        /*! display what ever spacial partitioning is currently used
+        ie Quadtree, Octree etc.
+        */
+        bool _renderSpacePartitioning = false;
+
+        /*! display bounds of scene objects
+         */
+        bool _renderBounds = false;
     };
 
     // iTextComponent

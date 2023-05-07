@@ -185,8 +185,6 @@ private:
 
     void onRenderStats();
 
-    void onRenderQuadtree(const iQuadtreed::NodePtr &node);
-
     /*! game logic intervall
 
     \param time the time
