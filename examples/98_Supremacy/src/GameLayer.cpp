@@ -93,7 +93,6 @@ iEntity GameLayer::createPlayer()
 
 void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
 {
-    con_endl("onCameraFollowPlayer");
     if (!_player.isValid())
     {
         return;
@@ -103,7 +102,7 @@ void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
     auto &camTransform = entity.getComponent<iTransformComponent>();
     iaVector2d &targetOffset = std::any_cast<iaVector2d&>(userData);
 
-    const iaVector2d playerPosition(playerTransform._worldMatrix._pos._x, playerTransform._worldMatrix._pos._y);
+    const iaVector2d playerPosition(playerTransform._position._x, playerTransform._position._y);
     const iaVector2d lastPlayerPosition(camTransform._position._x + targetOffset._x,
                                         camTransform._position._y + targetOffset._y);
 
@@ -133,7 +132,15 @@ void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
     userData = targetOffset;
 }
 
-iEntity GameLayer::createCamera(iEntityID targetID)
+void GameLayer::createBackground()
+{
+    iEntity entity = _entityScene->createEntity("background");
+
+    entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(100, 100, 1.0)});
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/background.png")});
+}
+
+iEntity GameLayer::createCamera()
 {
     const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
 
@@ -245,43 +252,6 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     shadow.addComponent<iSpriteRendererComponent>({_shadow, iaColor4f::black, -1});
 }
 
-/*void GameLayer::updateViewRectangleSystem()
-{
-    if (!_player.isValid())
-    {
-        return;
-    }
-
-    auto &viewportComp = _camera.getComponent<ViewportComponent>();
-    auto &targetOffset = viewportComp._targetOffset;
-    const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
-
-    const iaVector2f playerPosition(playerTransform._position._x, playerTransform._position._y);
-    const iaVector2f lastPlayerPosition = viewportComp._viewport.getCenter() + targetOffset;
-    const iaVector2f diff = playerPosition - lastPlayerPosition;
-
-    const auto width = PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH * 0.5f;
-    const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5f;
-
-    bool skipStep = false;
-
-    if (std::abs(diff._x) > width ||
-        std::abs(diff._y) > height)
-    {
-        skipStep = true;
-    }
-
-    if (!skipStep)
-    {
-        targetOffset += diff;
-    }
-
-    targetOffset._x = std::clamp(targetOffset._x, -width, width);
-    targetOffset._y = std::clamp(targetOffset._y, -height, height);
-
-    viewportComp._viewport.setCenter(playerPosition - targetOffset);
-}*/
-
 void GameLayer::onInit()
 {
     iaRandom::setSeed(iaTime::getNow().getMicroseconds());
@@ -299,13 +269,13 @@ void GameLayer::onInit()
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
-    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("supremacy/background.png");
     _shadow = iTextureResourceFactory::getInstance().requestFile("supremacy/shadow.png");
     _shield = iTextureResourceFactory::getInstance().requestFile("supremacy/shield.png");
     _rage = iTextureResourceFactory::getInstance().requestFile("supremacy/rage.png");
 
     _player = createPlayer();
-    _camera = createCamera(_player.getID());
+    _camera = createCamera();
+    createBackground();
 
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));

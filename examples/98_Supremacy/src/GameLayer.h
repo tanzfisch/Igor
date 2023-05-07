@@ -102,10 +102,6 @@ private:
     iTexturePtr _shield;
     iTexturePtr _rage;
 
-    /*! floor
-     */
-    iTexturePtr _backgroundTexture;
-
     /*! texture font we use to display texts
      */
     iTextureFontPtr _font;
@@ -208,8 +204,8 @@ private:
     iaVector3d getRandomDir();
 
     iEntity createPlayer();
-
-    iEntity createCamera(iEntityID targetID);
+    iEntity createCamera();
+    void createBackground();
 
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 

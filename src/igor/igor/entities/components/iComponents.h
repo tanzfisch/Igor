@@ -76,6 +76,12 @@ namespace igor
         bool _placeholder;
     };
 
+    enum class iSpriteRenderMode
+    {
+        Simple,
+        Tiled
+    };
+
     /*! sprite render component
      */
     struct iSpriteRendererComponent
@@ -91,6 +97,14 @@ namespace igor
         /*! specifies the render order within a layer
          */
         int32 _zIndex = 0;
+
+        /*! sprite render mode
+        */
+        iSpriteRenderMode _renderMode = iSpriteRenderMode::Simple;
+
+        /*! interpretation of size depends on render mode
+        */
+        iaVector2d _size;
     };
 
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
