@@ -284,7 +284,7 @@ namespace igor
 
         /*! \returns true if configure with perspective projection
 
-        esle it must be a orthogonal projection
+        else it must be a orthogonal projection
         */
         bool isPerspective() const;
 

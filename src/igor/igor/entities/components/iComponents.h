@@ -241,6 +241,67 @@ namespace igor
         iMotionInteractionType _type = iMotionInteractionType::None;
     };
 
+    enum class iProjectionType
+    {
+        Perspective,
+        Orthogonal
+    };
+
+    struct iCameraComponent
+    {
+        /*! viewport
+         */
+        iaRectangled _viewport = {0.0, 0.0, 1.0, 1.0};
+
+        /*! projection type
+         */
+        iProjectionType _projection = iProjectionType::Perspective;
+
+        /*! field of view
+         */
+        float64 _fieldOfView = 45.0;
+
+        /*! near clip plane
+         */
+        float64 _clipNear = 1.0;
+
+        /*! far clip plane
+         */
+        float64 _clipFar = 10000.0;
+
+        /*! if true clear the color buffer
+         */
+        bool _clearColorActive = true;
+
+        /*! if true clear the depth buffer
+         */
+        bool _clearDepthActive = true;
+
+        /*! the clear color
+         */
+        iaColor4f _clearColor = iaColor4f::gray;
+
+        /*! clear depth value
+         */
+        float64 _clearDepth = 1.0;
+
+        /*! left value used for orthogonal projection
+         */
+        float64 _leftOrtho = -1.0;
+
+        /*! right value used for orthogonal projection
+         */
+        float64 _rightOrtho = 1.0;
+
+        /*! top value used for orthogonal projection
+         */
+        float64 _topOrtho = 1.0;
+
+        /*! bottom value used for orthogonal projection
+         */
+        float64 _bottomOrtho = -1.0;
+    };
+
     // iTextComponent
     // iPhysicsBodyComponent or specialized colliders and group colliders
 

@@ -61,6 +61,7 @@ namespace igor
         friend class iModule<iRenderer>;
         friend class iWindow;
         friend class iView;
+        friend class iEntityScene;
 
     public:
         /*! initializes renderer

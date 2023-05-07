@@ -5,8 +5,8 @@
 #include <igor/entities/systems/iSpriteRenderSystem.h>
 #include <igor/entities/systems/iTransformHierarchySystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
-#include <igor/entities/systems/iVelocitySystem.h>
 #include <igor/entities/systems/iQuadtreeSystem.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <utility>
 #include <tuple>
@@ -14,201 +14,160 @@
 namespace igor
 {
 
-    class iEntitySceneImpl
+    class iRegistry
     {
     public:
-        iEntitySceneImpl()
-        {
-            _velocitySystem = std::make_shared<iVelocitySystem>();
-            _systems.push_back(_velocitySystem);
-            _systems.push_back(std::make_shared<iTransformHierarchySystem>());
-            _systems.push_back(std::make_shared<iQuadtreeSystem>());
-            _systems.push_back(std::make_shared<iBehaviourSystem>());
-
-            _renderingSystems.push_back(std::make_shared<iSpriteRenderSystem>());
-        }
-
-        ~iEntitySceneImpl()
-        {
-            if (_quadtree != nullptr)
-            {
-                delete _quadtree;
-            }
-        }
-
-        void setBounds(const iAABoxd &box)
-        {
-            _velocitySystem->setBounds(box);
-        }
-
-        const iAABoxd &getBounds() const
-        {
-            return _velocitySystem->getBounds();
-        }
-
-        iEntity createEntity(const iaString &name, bool active, iEntityScenePtr scene)
-        {
-            iEntityID entityID = _registry.create();
-            _registry.emplace_or_replace<iBaseEntityComponent>(entityID, name);
-
-            iEntity entity(entityID, scene);
-            entity.setActive(active);
-
-            return entity;
-        }
-
-        void destroyEntity(iEntityID entityID)
-        {
-            // cleanup hierarchy
-            iHierarchyComponent *hierarchy = _registry.try_get<iHierarchyComponent>(entityID);
-            if (hierarchy != nullptr &&
-                _registry.valid(hierarchy->_parent))
-            {
-                iHierarchyComponent *parentHierarchy = _registry.try_get<iHierarchyComponent>(hierarchy->_parent);
-                if (parentHierarchy != nullptr)
-                {
-                    parentHierarchy->_childCount = std::max(0, parentHierarchy->_childCount - 1);
-                }
-            }
-
-            _registry.destroy(entityID);
-        }
-
-        void clear()
-        {
-            _systems.clear();
-            _registry.clear();
-        }
-
-        entt::registry &getRegistry()
-        {
-            return _registry;
-        }
-
-        void initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
-        {
-            con_assert(_quadtree == nullptr, "Quadtree already initialized");
-
-            _quadtree = new iQuadtreed(box, splitThreshold, maxDepth);
-        }
-
-        iQuadtreed &getQuadtree() const
-        {
-            con_assert(_quadtree != nullptr, "Quadtree not initialized");
-            return *_quadtree;
-        }
-
-        void onUpdate(iEntityScenePtr scene)
-        {
-            for (iEntitySystemPtr &system : _systems)
-            {
-                system->update(scene);
-            }
-        }
-
-        void onRender(iEntityScenePtr scene)
-        {
-            for (iEntitySystemPtr &system : _renderingSystems)
-            {
-                system->update(scene);
-            }
-        }
-
-    private:
         /*! the entt registry
          */
         entt::registry _registry;
-
-        /*! quadtree
-         */
-        iQuadtreed *_quadtree = nullptr;
-
-        std::shared_ptr<iVelocitySystem> _velocitySystem;
-
-        /*! systems to update
-         */
-        std::vector<iEntitySystemPtr> _systems;
-
-        /*! systems that render
-         */
-        std::vector<iEntitySystemPtr> _renderingSystems;
     };
 
     iEntityScene::iEntityScene()
     {
-        _impl = new iEntitySceneImpl();
+        _registry = new iRegistry();
+
+        _velocitySystem = std::make_shared<iVelocitySystem>();
+        _systems.push_back(_velocitySystem);
+        _systems.push_back(std::make_shared<iTransformHierarchySystem>());
+        _systems.push_back(std::make_shared<iQuadtreeSystem>());
+        _systems.push_back(std::make_shared<iBehaviourSystem>());
+
+        _renderingSystems.push_back(std::make_shared<iSpriteRenderSystem>());
     }
 
     iEntityScene::~iEntityScene()
     {
-        delete _impl;
-    }
-
-    iEntity iEntityScene::createEntity(const iaString &name, bool active)
-    {
-        return _impl->createEntity(name, active, shared_from_this());
-    }
-
-    void iEntityScene::destroyEntity(const iEntity &entity)
-    {
-        _impl->destroyEntity(entity.getID());
-    }
-
-    void iEntityScene::destroyEntity(iEntityID entityID)
-    {
-        iBody2DComponent *component = tryGetComponent<iBody2DComponent>(entityID);
-        if (component != nullptr)
+        if (_quadtree != nullptr)
         {
-            _impl->getQuadtree().remove(component->_object);
+            delete _quadtree;
         }
 
-        _impl->destroyEntity(entityID);
+        delete _registry;
     }
 
     void iEntityScene::clear()
     {
-        _impl->clear();
+        _systems.clear();
+        getRegistry().clear();
     }
 
-    entt::registry &iEntityScene::getRegistry() const
+    void iEntityScene::setBounds(const iAABoxd &box)
     {
-        return _impl->getRegistry();
+        _velocitySystem->setBounds(box);
+    }
+
+    const iAABoxd &iEntityScene::getBounds() const
+    {
+        return _velocitySystem->getBounds();
+    }
+
+    void iEntityScene::initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
+    {
+        con_assert(_quadtree == nullptr, "Quadtree already initialized");
+
+        _quadtree = new iQuadtreed(box, splitThreshold, maxDepth);
+    }
+
+    iQuadtreed &iEntityScene::getQuadtree() const
+    {
+        con_assert(_quadtree != nullptr, "Quadtree not initialized");
+        return *_quadtree;
     }
 
     void iEntityScene::onUpdate()
     {
-        _impl->onUpdate(shared_from_this());
+        for (iEntitySystemPtr &system : _systems)
+        {
+            system->update(shared_from_this());
+        }
     }
 
-    void iEntityScene::onRender()
+    void iEntityScene::onRender(float32 clientWidth, float32 clientHeight)
     {
-        _impl->onRender(shared_from_this());
+        auto cameraView = _registry->_registry.view<iCameraComponent>();
+
+        for (auto entityID : cameraView)
+        {
+            auto &camera = cameraView.get<iCameraComponent>(entityID);            
+
+            iRenderer::getInstance().setViewport(camera._viewport._x * clientWidth,
+                                                 camera._viewport._y * clientHeight,
+                                                 camera._viewport._width * clientWidth,
+                                                 camera._viewport._height * clientHeight);
+
+            if (camera._clearColorActive)
+            {
+                iRenderer::getInstance().clearColorBuffer(camera._clearColor);
+            }
+
+            if (camera._clearDepthActive)
+            {
+                iRenderer::getInstance().clearDepthBuffer(camera._clearDepth);
+            }
+
+            if (camera._projection == iProjectionType::Perspective)
+            {
+                iRenderer::getInstance().setPerspective(camera._fieldOfView, camera._viewport._width / camera._viewport._height, camera._clipNear, camera._clipFar);
+            }
+            else
+            {
+                iRenderer::getInstance().setOrtho(camera._leftOrtho, camera._rightOrtho, camera._bottomOrtho, camera._topOrtho, camera._clipNear, camera._clipFar);
+            }
+
+            for (iEntitySystemPtr &system : _renderingSystems)
+            {
+                system->update(shared_from_this());
+            }            
+        }
+
+        iRenderer::getInstance().flush();
+    }
+
+    iEntity iEntityScene::createEntity(const iaString &name, bool active)
+    {
+        iEntityID entityID = getRegistry().create();
+        getRegistry().emplace_or_replace<iBaseEntityComponent>(entityID, name);
+
+        iEntity entity(entityID, shared_from_this());
+        entity.setActive(active);
+
+        return entity;
+    }
+
+    void iEntityScene::destroyEntity(iEntityID entityID)
+    {
+        /*! cleanup quadtree
+         */
+        iBody2DComponent *component = tryGetComponent<iBody2DComponent>(entityID);
+        if (component != nullptr)
+        {
+            getQuadtree().remove(component->_object);
+        }
+
+        // cleanup hierarchy
+        iHierarchyComponent *hierarchy = getRegistry().try_get<iHierarchyComponent>(entityID);
+        if (hierarchy != nullptr &&
+            getRegistry().valid(hierarchy->_parent))
+        {
+            iHierarchyComponent *parentHierarchy = getRegistry().try_get<iHierarchyComponent>(hierarchy->_parent);
+            if (parentHierarchy != nullptr)
+            {
+                parentHierarchy->_childCount = std::max(0, parentHierarchy->_childCount - 1);
+            }
+        }
+
+        getRegistry().destroy(entityID);
+    }
+
+    entt::registry &iEntityScene::getRegistry() const
+    {
+        return _registry->_registry;
     }
 
     template <typename... Components>
     std::type_index getTypeIndex()
     {
         return std::type_index(typeid(std::tuple<Components...>));
-    }
-
-    void iEntityScene::initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
-    {
-        _impl->initializeQuadtree(box, splitThreshold, maxDepth);
-    }
-
-    iQuadtreed &iEntityScene::getQuadtree() const
-    {
-        return _impl->getQuadtree();
-    }
-
-    void iEntityScene::setBounds(const iAABoxd &box)
-    {
-        _impl->setBounds(box);
-    }
-
-    const iAABoxd &iEntityScene::getBounds() const
-    {
-        return _impl->getBounds();
     }
 
     template <typename T>
@@ -234,7 +193,7 @@ namespace igor
         // result = component;
 
         result._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, 1.0), entityID);
-        _impl->getQuadtree().insert(result._object);
+        getQuadtree().insert(result._object);
 
         return result;
     }
@@ -246,6 +205,7 @@ namespace igor
     template iSpriteRendererComponent &iEntityScene::addComponent<iSpriteRendererComponent>(iEntityID entityID, const iSpriteRendererComponent &component);
     template iTransformComponent &iEntityScene::addComponent<iTransformComponent>(iEntityID entityID, const iTransformComponent &component);
     template iVelocityComponent &iEntityScene::addComponent<iVelocityComponent>(iEntityID entityID, const iVelocityComponent &component);
+    template iCameraComponent &iEntityScene::addComponent<iCameraComponent>(iEntityID entityID, const iCameraComponent &component);
 
     template <typename T>
     T &iEntityScene::getComponent(iEntityID entityID)
@@ -260,6 +220,7 @@ namespace igor
     template iSpriteRendererComponent &iEntityScene::getComponent<iSpriteRendererComponent>(iEntityID entityID);
     template iTransformComponent &iEntityScene::getComponent<iTransformComponent>(iEntityID entityID);
     template iVelocityComponent &iEntityScene::getComponent<iVelocityComponent>(iEntityID entityID);
+    template iCameraComponent &iEntityScene::getComponent<iCameraComponent>(iEntityID entityID);
 
     template <typename T>
     T *iEntityScene::tryGetComponent(iEntityID entityID)
@@ -274,6 +235,7 @@ namespace igor
     template iSpriteRendererComponent *iEntityScene::tryGetComponent<iSpriteRendererComponent>(iEntityID entityID);
     template iTransformComponent *iEntityScene::tryGetComponent<iTransformComponent>(iEntityID entityID);
     template iVelocityComponent *iEntityScene::tryGetComponent<iVelocityComponent>(iEntityID entityID);
+    template iCameraComponent *iEntityScene::tryGetComponent<iCameraComponent>(iEntityID entityID);
 
     template <typename T>
     void iEntityScene::removeComponent(iEntityID entityID)
@@ -290,8 +252,7 @@ namespace igor
             return;
         }
 
-        _impl->getQuadtree().remove(component->_object);
-
+        getQuadtree().remove(component->_object);
         getRegistry().remove<iBody2DComponent>(entityID);
     }
 
@@ -303,5 +264,6 @@ namespace igor
     template void iEntityScene::removeComponent<iSpriteRendererComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iTransformComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iVelocityComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iCameraComponent>(iEntityID entityID);
 
 } // igor

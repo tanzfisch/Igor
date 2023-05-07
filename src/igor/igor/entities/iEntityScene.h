@@ -30,6 +30,7 @@
 #define __IGOR_ENTITY_SCENE__
 
 #include <igor/entities/iEntitySystem.h>
+#include <igor/entities/systems/iVelocitySystem.h>
 
 #include <memory>
 #include <unordered_map>
@@ -39,7 +40,9 @@ namespace igor
 {
 	class iEntity;
 
-	class iEntitySceneImpl;
+	/*! wrapper for entt registry
+	*/
+	class iRegistry;
 
 	/*! entity scene
 	 */
@@ -129,11 +132,25 @@ namespace igor
 	private:
 		/*! pimpl
 		 */
-		iEntitySceneImpl *_impl = nullptr;
+		iRegistry *_registry = nullptr;
 
 		/*! caching entity ID lists
 		 */
 		std::unordered_map<std::type_index, std::vector<iEntityID>> _entityIDCache;
+
+        /*! quadtree
+         */
+        iQuadtreed *_quadtree = nullptr;
+
+        std::shared_ptr<iVelocitySystem> _velocitySystem;
+
+        /*! systems to update
+         */
+        std::vector<iEntitySystemPtr> _systems;
+
+        /*! systems that render
+         */
+        std::vector<iEntitySystemPtr> _renderingSystems;		
 
 		/*! updates all non rendering systems
 		 */
@@ -141,7 +158,7 @@ namespace igor
 
 		/*! updates all rendering systems
 		 */
-		void onRender();
+		void onRender(float32 clientWidth, float32 clientHeight);
 
 		/*! init systems
 		 */

@@ -30,11 +30,11 @@ namespace igor
         }
     }
 
-    void iEntitySystemModule::onRender()
+    void iEntitySystemModule::onRender(float32 clientWidth, float32 clientHeight)
     {
         for (auto scene : _scenes)
         {
-            scene->onRender();
+            scene->onRender(clientWidth, clientHeight);
         }
     }
 

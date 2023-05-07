@@ -15,6 +15,7 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/entities/iEntitySystemModule.h>
 
 #include <algorithm>
 #include <sstream>
@@ -250,7 +251,7 @@ namespace igor
         }
 
         void swapBuffers() override
-        {            
+        {
             SwapBuffers(_hDC);
         }
 
@@ -782,7 +783,7 @@ namespace igor
         }
 
         void swapBuffers() override
-        {            
+        {
             _glxMutex.lock();
             glXSwapBuffers(_display, glXGetCurrentDrawable());
             _glxMutex.unlock();
@@ -1501,11 +1502,18 @@ namespace igor
     {
         IGOR_PROFILER_BEGIN(render);
         iRenderer::getInstance().clearStats();
+        iRenderer::getInstance().beginFrame();
+
+        // TODO iRenderer::getInstance().setWireframeEnabled(camera._w);
 
         for (auto view : _views)
         {
             view->draw();
         }
+
+        iEntitySystemModule::getInstance().onRender(getClientWidth(), getClientHeight());
+
+        iRenderer::getInstance().endFrame();
         IGOR_PROFILER_END(render);
 
         swapBuffers();

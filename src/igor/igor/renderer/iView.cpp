@@ -189,8 +189,7 @@ namespace igor
         }
 
         if (_visible)
-        {
-            iRenderer::getInstance().beginFrame();
+        {            
             iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
             iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
@@ -230,8 +229,6 @@ namespace igor
                 _renderEvent();
                 iRenderer::getInstance().flush();
             }
-
-            iRenderer::getInstance().endFrame();
         }
     }
 

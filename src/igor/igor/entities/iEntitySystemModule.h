@@ -51,7 +51,6 @@ namespace igor
         friend class iModule<iEntitySystemModule>;
 
     public:
-
         /*! creates a scene and returns it
 
         \returns new created scene
@@ -59,29 +58,28 @@ namespace igor
         iEntityScenePtr createScene();
 
         /*! updates all scenes and cleans up scene lists
-        */
+         */
         void onUpdate();
 
         /*! renders all scenes
-        */
-        void onRender();
+         */
+        void onRender(float32 clientWidth, float32 clientHeight);
 
     private:
-
         /*! mutex to safeguard entity scene list
-        */
+         */
         iaMutex _mutex;
 
         /*! entity scenes
-        */
+         */
         std::vector<iEntityScenePtr> _scenes;
-        
+
         /*! does nothing
-        */
+         */
         iEntitySystemModule() = default;
 
         /*! does nothing
-        */
+         */
         ~iEntitySystemModule() = default;
     };
 

@@ -98,12 +98,15 @@ iEntity GameLayer::createViewport(iEntityID targetID)
 
     iEntity entity = _entityScene->createEntity("viewport");
 
-    auto &viewportComp = entity.addComponent<ViewportComponent>();
-    viewportComp._targetOffset.set(0.0f, 0.0f);
-    viewportComp._targetID = targetID;
-    viewportComp._viewport.setSize(PLAYFIELD_VIEWPORT_WIDTH, PLAYFIELD_VIEWPORT_HEIGHT);
-    viewportComp._viewport.setCenter(transform._position._x, transform._position._y);
-
+    auto &component = entity.addComponent<iCameraComponent>();
+    component._projection = iProjectionType::Orthogonal;
+    component._leftOrtho = 0.0;
+    component._rightOrtho = PLAYFIELD_VIEWPORT_WIDTH;
+    component._bottomOrtho = PLAYFIELD_VIEWPORT_HEIGHT;
+    component._topOrtho = 0.0;
+    component._clearColorActive = false;
+    component._clearDepthActive = false;
+    
     return entity;
 }
 
@@ -1231,7 +1234,7 @@ void GameLayer::onUpdate(const iaTime &time)
     onUpdateWeaponSystem();
     onUpdateRangeSystem();
     onUpdateCleanUpTheDeadSystem();
-    updateViewRectangleSystem();
+    // updateViewRectangleSystem();
 
     onOpenBuilding(buildingType);
 
@@ -1510,7 +1513,7 @@ void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
 
 void GameLayer::onRenderOrtho()
 {
-    auto &viewportComp = _viewport.getComponent<ViewportComponent>();
+/*    auto &viewportComp = _viewport.getComponent<ViewportComponent>();
     const iaRectanglef &viewRectangle = viewportComp._viewport;
     iaRectanglef intersectRectangle = viewRectangle;
     float32 scale = viewRectangle._width * 0.1;
@@ -1523,12 +1526,12 @@ void GameLayer::onRenderOrtho()
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer::getInstance().setModelMatrix(matrix);
 
-    iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));
+    iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));*/
 
     // TODO add culling back in -> if (!intersectDoughnut(transform._position, intersectRectangle, position))
 
     // TODO currently we have to call this manually until we add an association between scenes and views
-    iEntitySystemModule::getInstance().onRender();
+    
 
     // draw entities
     /*    auto view = _entityScene->getEntities<iTransformComponent, VisualComponent, iSpriteRendererComponent>();
