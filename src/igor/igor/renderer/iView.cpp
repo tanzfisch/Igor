@@ -190,8 +190,6 @@ namespace igor
 
         if (_visible)
         {            
-            iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
-
             iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 
             if (_clearColorActive)

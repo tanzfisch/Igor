@@ -1504,12 +1504,12 @@ namespace igor
         iRenderer::getInstance().clearStats();
         iRenderer::getInstance().beginFrame();
 
+        iEntitySystemModule::getInstance().onRender(getClientWidth(), getClientHeight());
+
         for (auto view : _views)
         {
             view->draw();
         }
-
-        iEntitySystemModule::getInstance().onRender(getClientWidth(), getClientHeight());
 
         iRenderer::getInstance().endFrame();
         IGOR_PROFILER_END(render);

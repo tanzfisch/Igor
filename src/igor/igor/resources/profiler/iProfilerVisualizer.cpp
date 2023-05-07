@@ -99,7 +99,7 @@ namespace igor
             }
         }
 
-        const iaColor4f backgroundColor(0, 0, 0, 1.0);
+        const iaColor4f backgroundColor(0, 0, 0, 0.8);
 
         iRenderer::getInstance().setFont(font);
         iRenderer::getInstance().setFontSize(13.0f);

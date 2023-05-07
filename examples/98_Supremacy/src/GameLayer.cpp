@@ -259,9 +259,8 @@ void GameLayer::onInit()
     initExpLvlTable();
     loadSpecs("misc/supremacy.xml");
 
-    _viewOrtho.setClearColor(0.3, 0.9, 0.5, 1.0);
     _viewOrtho.setName("view ortho");
-    _viewOrtho.setClearColorActive(true);
+    _viewOrtho.setClearColorActive(false);
     _viewOrtho.setClearDepthActive(false);
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
     _viewOrtho.registerRenderDelegate({this, &GameLayer::onRenderOrtho});
