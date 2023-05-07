@@ -248,8 +248,6 @@ private:
 
     void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 
-    void updateViewRectangleSystem();
-
     /*! query a circle on the quardtree while wrapping arround at the edges like a doughnut
 
     \param circle the query circle

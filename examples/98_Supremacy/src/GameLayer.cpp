@@ -1251,7 +1251,6 @@ void GameLayer::onUpdate(const iaTime &time)
     onUpdateWeaponSystem();
     onUpdateRangeSystem();
     onUpdateCleanUpTheDeadSystem();
-    // updateViewRectangleSystem();
 
     onOpenBuilding(buildingType);
 
