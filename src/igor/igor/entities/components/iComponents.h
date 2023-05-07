@@ -241,6 +241,8 @@ namespace igor
         iMotionInteractionType _type = iMotionInteractionType::None;
     };
 
+    /*! projection type definition
+    */
     enum class iProjectionType
     {
         Perspective,

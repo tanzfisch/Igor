@@ -84,11 +84,11 @@ namespace igor
 
     void iEntityScene::onRender(float32 clientWidth, float32 clientHeight)
     {
-        auto cameraView = _registry->_registry.view<iCameraComponent>();
+        auto cameraView = _registry->_registry.view<iCameraComponent, iTransformComponent>();
 
         for (auto entityID : cameraView)
         {
-            auto &camera = cameraView.get<iCameraComponent>(entityID);            
+            auto [camera, transform] = cameraView.get<iCameraComponent, iTransformComponent>(entityID);            
 
             iRenderer::getInstance().setViewport(camera._viewport._x * clientWidth,
                                                  camera._viewport._y * clientHeight,
@@ -113,6 +113,8 @@ namespace igor
             {
                 iRenderer::getInstance().setOrtho(camera._leftOrtho, camera._rightOrtho, camera._bottomOrtho, camera._topOrtho, camera._clipNear, camera._clipFar);
             }
+
+            iRenderer::getInstance().setViewMatrixFromCam(transform._worldMatrix);
 
             for (iEntitySystemPtr &system : _renderingSystems)
             {
@@ -190,10 +192,24 @@ namespace igor
         }
 
         iBody2DComponent &result = getRegistry().emplace_or_replace<iBody2DComponent>(entityID);
-        // result = component;
 
         result._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, 1.0), entityID);
         getQuadtree().insert(result._object);
+
+        return result;
+    }
+
+    template <>
+    iCameraComponent &iEntityScene::addComponent<iCameraComponent>(iEntityID entityID, const iCameraComponent &component)
+    {
+        iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
+        if (transform == nullptr)
+        {
+            getRegistry().emplace_or_replace<iTransformComponent>(entityID);
+        }
+
+        iCameraComponent &result = getRegistry().emplace_or_replace<iCameraComponent>(entityID);
+        result = component;
 
         return result;
     }

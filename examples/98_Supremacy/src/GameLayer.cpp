@@ -58,7 +58,7 @@ iEntity GameLayer::createPlayer()
     iEntity entity = _entityScene->createEntity("player");
 
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 1.5f, STANDARD_UNIT_SIZE * 1.5f, 1.0)});
-    entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});    
+    entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
     entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png")});
     entity.addComponent<iGlobalBoundaryComponent>(iGlobalBoundaryType::Repeat);
     entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
@@ -91,22 +91,55 @@ iEntity GameLayer::createPlayer()
     return entity;
 }
 
-iEntity GameLayer::createViewport(iEntityID targetID)
+void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
 {
-    iEntity target(targetID, _entityScene);
-    const auto transform = target.getComponentV2<iTransformComponent>();
+    if (!_player.isValid())
+    {
+        return;
+    }
 
-    iEntity entity = _entityScene->createEntity("viewport");
+    const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
+    auto &camTransform = entity.getComponent<iTransformComponent>();
 
-    auto &component = entity.addComponent<iCameraComponent>();
+    if(playerTransform._position._x - camTransform._position._x > PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH)
+    {
+        camTransform._position._x = playerTransform._position._x - PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH;
+    }
+
+    if(playerTransform._position._x - camTransform._position._x < -PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH)
+    {
+        camTransform._position._x = playerTransform._position._x + PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH;
+    }
+
+    if(playerTransform._position._y - camTransform._position._y > PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT)
+    {
+        camTransform._position._y = playerTransform._position._y - PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT;
+    }
+
+    if(playerTransform._position._y - camTransform._position._y < -PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT)
+    {
+        camTransform._position._y = playerTransform._position._y + PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT;
+    }
+}
+
+iEntity GameLayer::createCamera(iEntityID targetID)
+{
+    const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
+
+    iEntity entity = _entityScene->createEntity("camera");
+
+    entity.addComponent<iTransformComponent>({playerTransform._position});
+    entity.addBehaviour({this, &GameLayer::onCameraFollowPlayer});
+
+    auto &component = entity.addComponent<iCameraComponent>({});
     component._projection = iProjectionType::Orthogonal;
-    component._leftOrtho = 0.0;
-    component._rightOrtho = PLAYFIELD_VIEWPORT_WIDTH;
-    component._bottomOrtho = PLAYFIELD_VIEWPORT_HEIGHT;
-    component._topOrtho = 0.0;
+    component._leftOrtho = -PLAYFIELD_VIEWPORT_WIDTH * 0.5;
+    component._rightOrtho = PLAYFIELD_VIEWPORT_WIDTH * 0.5;
+    component._bottomOrtho = PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
+    component._topOrtho = -PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
     component._clearColorActive = false;
     component._clearDepthActive = false;
-    
+
     return entity;
 }
 
@@ -204,7 +237,7 @@ void GameLayer::updateViewRectangleSystem()
         return;
     }
 
-    auto &viewportComp = _viewport.getComponent<ViewportComponent>();
+    auto &viewportComp = _camera.getComponent<ViewportComponent>();
     auto &targetOffset = viewportComp._targetOffset;
     const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
 
@@ -257,7 +290,7 @@ void GameLayer::onInit()
     _rage = iTextureResourceFactory::getInstance().requestFile("supremacy/rage.png");
 
     _player = createPlayer();
-    _viewport = createViewport(_player.getID());
+    _camera = createCamera(_player.getID());
 
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));
@@ -1310,6 +1343,9 @@ void GameLayer::onRenderStats()
     // iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 0, 0, 1));
 
     iRenderer::getInstance().drawString(10, getWindow()->getClientHeight() - 40, iaString("enemies: ") + iaString::toString((int)_stats.back()._enemyCount));
+
+    auto &playerTransform = _player.getComponentV2<iTransformComponent>();
+    iRenderer::getInstance().drawString(10, getWindow()->getClientHeight() - 80, iaString::toString(playerTransform._position._x, 0) + L", " + iaString::toString(playerTransform._position._y, 0));
 }
 
 float32 GameLayer::calcLevel(uint32 experience)
@@ -1362,9 +1398,7 @@ void GameLayer::onRenderPlayerHUD()
         points.push_back(playerPosition + dir * 95.0 + tangent * 5.0);
         points.push_back(playerPosition + dir * 95.0 - tangent * 5.0);
 
-        iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);
-
-        iRenderer::getInstance().drawString(playerPosition._x, playerPosition._y, iaString::toString(playerPosition._x,0) + L", " + iaString::toString(playerPosition._y,0));
+        iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);        
     }
 }
 
@@ -1383,6 +1417,8 @@ void GameLayer::onRenderHUD()
     auto &playerVelocity = _player.getComponentV2<iVelocityComponent>();
 
     iaMatrixd matrix;
+    iRenderer::getInstance().setViewMatrix(matrix);
+
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
 
@@ -1513,25 +1549,24 @@ void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
 
 void GameLayer::onRenderOrtho()
 {
-/*    auto &viewportComp = _viewport.getComponent<ViewportComponent>();
-    const iaRectanglef &viewRectangle = viewportComp._viewport;
-    iaRectanglef intersectRectangle = viewRectangle;
-    float32 scale = viewRectangle._width * 0.1;
-    intersectRectangle.adjust(-scale, -scale, scale * 2.0, scale * 2.0);
+    /*    auto &viewportComp = _camera.getComponent<ViewportComponent>();
+        const iaRectanglef &viewRectangle = viewportComp._viewport;
+        iaRectanglef intersectRectangle = viewRectangle;
+        float32 scale = viewRectangle._width * 0.1;
+        intersectRectangle.adjust(-scale, -scale, scale * 2.0, scale * 2.0);
 
-    iaMatrixd matrix;
-    matrix.translate(0, 0, -100);
-    matrix.scale(static_cast<float32>(getWindow()->getClientWidth() / PLAYFIELD_VIEWPORT_WIDTH),
-                 (static_cast<float32>(getWindow()->getClientHeight()) / PLAYFIELD_VIEWPORT_HEIGHT), 1.0);
-    matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
-    iRenderer::getInstance().setModelMatrix(matrix);
+        iaMatrixd matrix;
+        matrix.translate(0, 0, -100);
+        matrix.scale(static_cast<float32>(getWindow()->getClientWidth() / PLAYFIELD_VIEWPORT_WIDTH),
+                     (static_cast<float32>(getWindow()->getClientHeight()) / PLAYFIELD_VIEWPORT_HEIGHT), 1.0);
+        matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
+        iRenderer::getInstance().setModelMatrix(matrix);
 
-    iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));*/
+        iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));*/
 
     // TODO add culling back in -> if (!intersectDoughnut(transform._position, intersectRectangle, position))
 
     // TODO currently we have to call this manually until we add an association between scenes and views
-    
 
     // draw entities
     /*    auto view = _entityScene->getEntities<iTransformComponent, VisualComponent, iSpriteRendererComponent>();

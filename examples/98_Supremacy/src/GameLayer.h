@@ -81,7 +81,7 @@ private:
 
     /*! viewport entity which follows the player
      */
-    iEntity _viewport;
+    iEntity _camera;
 
     /*! update timer
      */
@@ -211,11 +211,12 @@ private:
 
     iEntity createPlayer();
 
-    iEntity createViewport(iEntityID targetID);
+    iEntity createCamera(iEntityID targetID);
 
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
     void onPlayerMovementBehaviour(iEntity &entity, std::any &userData);
+    void onCameraFollowPlayer(iEntity &entity, std::any &userData);
 
     void createShop();
     void liftShop();
