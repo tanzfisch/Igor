@@ -93,6 +93,7 @@ iEntity GameLayer::createPlayer()
 
 void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
 {
+    con_endl("onCameraFollowPlayer");
     if (!_player.isValid())
     {
         return;
@@ -100,26 +101,36 @@ void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
 
     const auto &playerTransform = _player.getComponentV2<iTransformComponent>();
     auto &camTransform = entity.getComponent<iTransformComponent>();
+    iaVector2d &targetOffset = std::any_cast<iaVector2d&>(userData);
 
-    if (playerTransform._position._x - camTransform._position._x > PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH)
+    const iaVector2d playerPosition(playerTransform._worldMatrix._pos._x, playerTransform._worldMatrix._pos._y);
+    const iaVector2d lastPlayerPosition(camTransform._position._x + targetOffset._x,
+                                        camTransform._position._y + targetOffset._y);
+
+    const iaVector2d diff = playerPosition - lastPlayerPosition;
+
+    bool skipStep = false;
+    const auto width = PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH * 0.5;
+    const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5;    
+
+    if (std::abs(diff._x) > width ||
+        std::abs(diff._y) > height)
     {
-        camTransform._position._x = playerTransform._position._x - PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH;
+        skipStep = true;
     }
 
-    if (playerTransform._position._x - camTransform._position._x < -PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH)
+    if (!skipStep)
     {
-        camTransform._position._x = playerTransform._position._x + PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH;
-    }
+        targetOffset += diff;
+    }    
 
-    if (playerTransform._position._y - camTransform._position._y > PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT)
-    {
-        camTransform._position._y = playerTransform._position._y - PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT;
-    }
+    targetOffset._x = std::clamp(targetOffset._x, -width, width);
+    targetOffset._y = std::clamp(targetOffset._y, -height, height);
 
-    if (playerTransform._position._y - camTransform._position._y < -PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT)
-    {
-        camTransform._position._y = playerTransform._position._y + PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT;
-    }
+    camTransform._position._x = playerPosition._x - targetOffset._x;
+    camTransform._position._y = playerPosition._y - targetOffset._y;
+
+    userData = targetOffset;
 }
 
 iEntity GameLayer::createCamera(iEntityID targetID)
@@ -129,7 +140,7 @@ iEntity GameLayer::createCamera(iEntityID targetID)
     iEntity entity = _entityScene->createEntity("camera");
 
     entity.addComponent<iTransformComponent>({playerTransform._position});
-    entity.addBehaviour({this, &GameLayer::onCameraFollowPlayer});
+    entity.addBehaviour({this, &GameLayer::onCameraFollowPlayer}, iaVector2d());
 
     auto &component = entity.addComponent<iCameraComponent>({});
     component._projection = iProjectionType::Orthogonal;
@@ -234,7 +245,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     shadow.addComponent<iSpriteRendererComponent>({_shadow, iaColor4f::black, -1});
 }
 
-void GameLayer::updateViewRectangleSystem()
+/*void GameLayer::updateViewRectangleSystem()
 {
     if (!_player.isValid())
     {
@@ -269,7 +280,7 @@ void GameLayer::updateViewRectangleSystem()
     targetOffset._y = std::clamp(targetOffset._y, -height, height);
 
     viewportComp._viewport.setCenter(playerPosition - targetOffset);
-}
+}*/
 
 void GameLayer::onInit()
 {
@@ -1620,8 +1631,6 @@ void GameLayer::onRenderOrtho()
         }*/
 
     // onRenderPlayerHUD();
-
-    
 
     onRenderHUD();
     onRenderStats();

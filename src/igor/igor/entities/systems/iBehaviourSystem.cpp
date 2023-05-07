@@ -15,11 +15,11 @@ namespace igor
 
 		for (auto entityID : view)
 		{
-			const auto &behaviour = view.get<iBehaviourComponent>(entityID);
+			auto &behaviour = view.get<iBehaviourComponent>(entityID);
 
 			iEntity entity(entityID, scene);
 
-			for (auto behaviourData : behaviour._behaviour)
+			for (auto &behaviourData : behaviour._behaviour)
 			{
 				if (!behaviourData._delegate.isValid())
 				{
