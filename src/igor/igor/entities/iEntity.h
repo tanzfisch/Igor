@@ -128,6 +128,12 @@ namespace igor
             return _scene->addComponent<T>(_entity, component);
         }
 
+        template<typename T>
+        T &addCustomComponent(const T &component)        
+        {
+            return _scene->addCustomComponent<T>(_entity, component);
+        }
+
         /*! \returns component of entity of given type
          */
         template <typename T>
@@ -135,6 +141,12 @@ namespace igor
         {
             return _scene->getComponent<T>(_entity);
         }
+
+        template<typename T>
+        T &getCustomComponent()
+        {
+            return _scene->getCustomComponent<T>(_entity);
+        }        
 
         /*! \returns component of entity of given type
 

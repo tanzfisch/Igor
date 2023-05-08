@@ -29,7 +29,7 @@
 #ifndef __IGOR_ENTITY_SYSTEM__
 #define __IGOR_ENTITY_SYSTEM__
 
-#include <igor/entities/components/iComponents.h>
+#include <igor/entities/components/iComponentMap.h>
 
 #include <memory>
 

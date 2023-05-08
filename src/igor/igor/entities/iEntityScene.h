@@ -86,12 +86,43 @@ namespace igor
         template<typename T>
         T &addComponent(iEntityID entityID, const T &component);
 
+        /*! adds custom component to entity
+
+		this is meant for types unknown to Igor
+
+        \param component the component to add
+        */
+        template<typename T>
+        T &addCustomComponent(iEntityID entityID, const T &component)
+		{
+			auto iter = _customComponents.find(typeid(T));
+			if(iter == _customComponents.end())
+			{
+				_customComponents[typeid(T)] = std::make_shared<iComponentMap<T>>();	
+			}
+
+			return std::static_pointer_cast<iComponentMap<T>>(_customComponents[typeid(T)])->add(entityID, component);
+		}
+
 		/*! \returns reference to component for given entity
 
 		\param entityID the given entity
 		*/
 		template <typename T>
 		T &getComponent(iEntityID entityID);
+
+        /*! \returns reference to custom component of given entity
+
+        \param component the component to add
+        */
+        template<typename T>
+        T &getCustomComponent(iEntityID entityID)
+		{
+			auto iter = _customComponents.find(typeid(T));
+			con_assert(iter != _customComponents.end(), "component does not exist")
+
+			return std::static_pointer_cast<iComponentMap<T>>(iter->second)->get(entityID);
+		}		
 
 		/*! \returns pointer to component for given entity. nullptr if component does not exist
 
@@ -151,6 +182,10 @@ namespace igor
         /*! systems that render
          */
         std::vector<iEntitySystemPtr> _renderingSystems;		
+
+		/*! storing custom component type data
+		*/
+		std::unordered_map<std::type_index, std::shared_ptr<void>> _customComponents;
 
 		/*! updates all non rendering systems
 		 */

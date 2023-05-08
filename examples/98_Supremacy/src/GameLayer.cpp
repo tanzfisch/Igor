@@ -52,6 +52,8 @@ void GameLayer::onPlayerMovementBehaviour(iEntity &entity, std::any &userData)
     velocityComponent._velocity.normalize();
 }
 
+
+
 iEntity GameLayer::createPlayer()
 {
     // init player
