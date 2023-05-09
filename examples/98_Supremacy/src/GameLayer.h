@@ -211,6 +211,10 @@ private:
 
     void onPlayerMovementBehaviour(iEntity &entity, std::any &userData);
     void onCameraFollowPlayer(iEntity &entity, std::any &userData);
+    void onAquireTarget(iEntity &entity, std::any &userData);
+    void onUpdateProjectileOrientation(iEntity &entity, std::any &userData);
+    void onCheckCollision(iEntity &entity, std::any &userData);
+    void onCheckForBuildingsNearBy(iEntity &entity, std::any &userData);
 
     void createShop();
     void liftShop();
@@ -222,15 +226,13 @@ private:
 
     void onUpdateFollowTargetSystem();
 
-    void onUpdateCollisionSystem();
+    
 
     void onUpdatePickupSystem(iEntity &entity);
 
-    BuildingType onCheckForBuildingsNearBy(iEntity &entity);
+    
 
     void onUpdateRangeSystem();
-
-    void onUpdateOrientationSystem();
 
     void onUpdateCleanUpTheDeadSystem();
 
@@ -244,7 +246,7 @@ private:
 
     void onUpdateStats(const iaTime &time);
 
-    void aquireTargetFor(iEntity &entity);
+    
 
     void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 

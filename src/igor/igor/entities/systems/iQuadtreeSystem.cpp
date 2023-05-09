@@ -50,24 +50,6 @@ namespace igor
 								   circleCollision._radius);
 			quadtree.update(body._object, circle);
 		}
-
-		/*auto checkCollision = registry.view<iBody2DComponent>();
-
-		for (auto entityID : checkCollision)
-		{
-			const auto body = checkCollision.get<iBody2DComponent>(entityID);
-
-			if (body._object == nullptr ||
-				body._object->_parent.expired())
-			{
-				continue;
-			}
-
-			iQuadtreed::Objects objects;
-			quadtree.query(body._object->_circle, objects);
-
-			// TODO call collision event
-		}*/
 	}
 
 } // igor

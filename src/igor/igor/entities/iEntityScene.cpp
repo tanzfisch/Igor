@@ -258,6 +258,7 @@ namespace igor
     template iVelocityComponent &iEntityScene::addComponent<iVelocityComponent>(iEntityID entityID, const iVelocityComponent &component);
     template iCameraComponent &iEntityScene::addComponent<iCameraComponent>(iEntityID entityID, const iCameraComponent &component);
     template iRenderDebugComponent &iEntityScene::addComponent<iRenderDebugComponent>(iEntityID entityID, const iRenderDebugComponent &component);
+    template iPartyComponent &iEntityScene::addComponent<iPartyComponent>(iEntityID entityID, const iPartyComponent &component);
 
     template <typename T>
     T &iEntityScene::getComponent(iEntityID entityID)
@@ -274,6 +275,7 @@ namespace igor
     template iVelocityComponent &iEntityScene::getComponent<iVelocityComponent>(iEntityID entityID);
     template iCameraComponent &iEntityScene::getComponent<iCameraComponent>(iEntityID entityID);
     template iRenderDebugComponent &iEntityScene::getComponent<iRenderDebugComponent>(iEntityID entityID);
+    template iPartyComponent &iEntityScene::getComponent<iPartyComponent>(iEntityID entityID);
 
     template <typename T>
     T *iEntityScene::tryGetComponent(iEntityID entityID)
@@ -290,6 +292,7 @@ namespace igor
     template iVelocityComponent *iEntityScene::tryGetComponent<iVelocityComponent>(iEntityID entityID);
     template iCameraComponent *iEntityScene::tryGetComponent<iCameraComponent>(iEntityID entityID);
     template iRenderDebugComponent *iEntityScene::tryGetComponent<iRenderDebugComponent>(iEntityID entityID);
+    template iPartyComponent *iEntityScene::tryGetComponent<iPartyComponent>(iEntityID entityID);
 
     template <typename T>
     void iEntityScene::removeComponent(iEntityID entityID)
@@ -320,5 +323,6 @@ namespace igor
     template void iEntityScene::removeComponent<iVelocityComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iCameraComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iRenderDebugComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iPartyComponent>(iEntityID entityID);
 
 } // igor

@@ -26,6 +26,7 @@ iaVector3d GameLayer::getRandomDir()
 void GameLayer::onPlayerMovementBehaviour(iEntity &entity, std::any &userData)
 {
     auto &velocityComponent = entity.getComponentV2<iVelocityComponent>();
+    const auto &modifier = entity.getComponent<ModifierComponent>();
 
     velocityComponent._velocity.set(0, 0, 0);
 
@@ -50,9 +51,70 @@ void GameLayer::onPlayerMovementBehaviour(iEntity &entity, std::any &userData)
     }
 
     velocityComponent._velocity.normalize();
+    velocityComponent._velocity *= modifier._walkSpeedFactor;
 }
 
+void GameLayer::onAquireTarget(iEntity &entity, std::any &userData)
+{
+    const auto &transform = entity.getComponentV2<iTransformComponent>();
+    const auto &party = entity.getComponent<iPartyComponent>();
+    const auto &weapon = entity.getComponent<WeaponComponent>();
+    const auto &modifier = entity.getComponent<ModifierComponent>();
+    auto &target = entity.getComponent<TargetComponent>();
 
+    iaCircled circle(iaVector2d(transform._position._x, transform._position._y), weapon._range * modifier._projectileRangeFactor);
+    std::vector<std::pair<iEntityID, iaVector2d>> hits;
+    doughnutQuery(circle, hits);
+
+    float32 minDistance = std::numeric_limits<float32>::max();
+    target._targetID = IGOR_INVALID_ENTITY_ID;
+
+    for (const auto &hit : hits)
+    {
+        if (hit.first == entity.getID())
+        {
+            continue;
+        }
+
+        iEntity entity(hit.first, _entityScene);
+
+        auto *entParty = entity.tryGetComponent<iPartyComponent>();
+        if (entParty == nullptr ||
+            entParty->_partyID == NEUTRAL ||
+            entParty->_partyID == party._partyID)
+        {
+            continue;
+        }
+
+        const float32 dist = hit.second.length2();
+        if (dist < minDistance)
+        {
+            minDistance = dist;
+            target._targetID = hit.first;
+        }
+    }
+}
+
+void GameLayer::onCheckForBuildingsNearBy(iEntity &entity, std::any &userData)
+{
+    BuildingType building = BuildingType::None;
+    auto &entityTransform = entity.getComponentV2<iTransformComponent>();
+
+    auto view = _entityScene->getEntities<BuildingComponent, iTransformComponent>();
+    for (auto entityID : view)
+    {
+        auto [buildingComponent, transform] = view.get<BuildingComponent, iTransformComponent>(entityID);
+
+        const float32 distance = transform._position.distance(entityTransform._position);
+        if (distance < (entityTransform._scale._x + transform._scale._x) * 0.5)
+        {
+            building = buildingComponent._type;
+            break;
+        }
+    }
+
+    onOpenBuilding(building);
+}
 
 iEntity GameLayer::createPlayer()
 {
@@ -64,8 +126,10 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"), iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)});
     entity.addComponent<iGlobalBoundaryComponent>(iGlobalBoundaryType::Repeat);
     entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
+    entity.addBehaviour({this, &GameLayer::onAquireTarget});
+    entity.addBehaviour({this, &GameLayer::onCheckForBuildingsNearBy});
+    entity.addComponent<iPartyComponent>({FRIEND});
 
-    entity.addComponent<PartyComponent>(FRIEND, true);
     entity.addComponent<DamageComponent>(0.0f);
     entity.addComponent<HealthComponent>(100.0f);
     entity.addComponent<ExperienceComponent>(0.0f, 1.0f);
@@ -173,17 +237,15 @@ void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType obj
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
     entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
     entity.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
+    entity.addComponent<iPartyComponent>({party});
+    entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
+    entity.addComponent<iBody2DComponent>({});
 
     entity.addComponent<PickupComponent>(true);
     entity.addComponent<ExperienceGainComponent>(0.0f);
     entity.addComponent<CoinGainComponent>(objectType == ObjectType::Coin ? 1.0f : 0.0f);
     entity.addComponent<DamageComponent>(0.0f);
     entity.addComponent<HealComponent>(0.0f);
-
-    entity.addComponent<PartyComponent>(party);
-
-    entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
-    entity.addComponent<iBody2DComponent>({});
 }
 
 void GameLayer::liftShop()
@@ -218,14 +280,15 @@ void GameLayer::createShop()
     _shop.addComponent<iVelocityComponent>();
     _shop.addComponent<iGlobalBoundaryComponent>(iGlobalBoundaryType::Repeat);
     _shop.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png")});
+    _shop.addComponent<iPartyComponent>({FRIEND});
+    _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});
+    _shop.addBehaviour({this, &GameLayer::onAquireTarget});
+
     _shop.addComponent<VisualComponent>(true, false, iaTime::fromSeconds(iaRandom::getNextFloat()));
     _shop.addComponent<BuildingComponent>(BuildingType::Shop);
-    _shop.addComponent<PartyComponent>(FRIEND);
     _shop.addComponent<ModifierComponent>(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f);
-
     _shop.addComponent<WeaponComponent>(_weapons["Minigun"]);
     _shop.addComponent<TargetComponent>(IGOR_INVALID_ENTITY_ID, false, false);
-    _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});
 }
 
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
@@ -236,16 +299,16 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<iVelocityComponent>({getRandomDir() * enemyClass._speed});
     unit.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(enemyClass._texture)});
     unit.setMotionInteractionType(iMotionInteractionType::Divert);
+    unit.addComponent<iPartyComponent>({party});
+    unit.addComponent<iCircleCollision2DComponent>({enemyClass._size * 0.5});
+    unit.addComponent<iBody2DComponent>({});
+    unit.addBehaviour({this, &GameLayer::onCheckCollision});
 
     unit.addComponent<ExperienceGainComponent>(enemyClass._xpDrop);
-    unit.addComponent<PartyComponent>(party);
     unit.addComponent<DamageComponent>(enemyClass._damage);
     unit.addComponent<HealthComponent>(enemyClass._health);
     unit.addComponent<VisualComponent>(true, true, iaTime::fromSeconds(iaRandom::getNextFloat()));
     unit.addComponent<TargetComponent>(target); // I don't like this but it's quick
-
-    unit.addComponent<iCircleCollision2DComponent>({enemyClass._size * 0.5});
-    unit.addComponent<iBody2DComponent>({});
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();
@@ -582,10 +645,10 @@ void GameLayer::onUpdateStats(const iaTime &time)
 
     GameStats stats;
 
-    auto view = _entityScene->getEntities<HealthComponent, PartyComponent>();
+    auto view = _entityScene->getEntities<HealthComponent, iPartyComponent>();
     for (auto entityID : view)
     {
-        auto [health, party] = view.get<HealthComponent, PartyComponent>(entityID);
+        auto [health, party] = view.get<HealthComponent, iPartyComponent>(entityID);
 
         if (party._partyID == FOE)
         {
@@ -894,52 +957,55 @@ void GameLayer::onUpdateFollowTargetSystem()
     }
 }
 
-void GameLayer::onUpdateCollisionSystem()
+void GameLayer::onUpdateProjectileOrientation(iEntity &entity, std::any &userData)
 {
-    auto positionUpdateView = _entityScene->getEntities<iTransformComponent, PartyComponent, DamageComponent, HealthComponent>();
-    for (auto entityID : positionUpdateView)
+    const auto &velocity = entity.getComponent<iVelocityComponent>();
+    auto &transform = entity.getComponent<iTransformComponent>();
+
+    iaVector2d vel2D(velocity._velocity._x, velocity._velocity._y);
+    transform._orientation._z = vel2D.angle() + (M_PI * 0.5);
+}
+
+void GameLayer::onCheckCollision(iEntity &entity, std::any &userData)
+{
+    auto &transform = entity.getComponent<iTransformComponent>();
+    const auto &party = entity.getComponent<iPartyComponent>();
+    auto &damage = entity.getComponent<DamageComponent>();
+    auto &health = entity.getComponent<HealthComponent>();
+    const auto &body = entity.getComponent<iBody2DComponent>();
+
+    iQuadtreed::Objects objects;
+    _entityScene->getQuadtree().query(body._object->_circle, objects);
+
+    for (const auto &object : objects)
     {
-        auto [transform, party, damage, health] = positionUpdateView.get<iTransformComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
+        const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
 
-        const iaVector2d position(transform._position._x, transform._position._y);
-        const float32 radius = transform._scale._x * 0.5;
-
-        iaCircled circle(position, radius);
-        iQuadtreed::Objects objects;
-        _entityScene->getQuadtree().query(circle, objects);
-
-        iEntity entity(static_cast<iEntityID>(entityID), _entityScene);
-
-        for (const auto &object : objects)
+        // skip self
+        if (otherEntityID == entity.getID())
         {
-            const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
+            continue;
+        }
 
-            // skip self
-            if (otherEntityID == static_cast<iEntityID>(entityID))
+        // get other entity
+        iEntity otherEntity(otherEntityID, _entityScene);
+
+        // check if we do damage to other entity
+        auto *otherEntityParty = otherEntity.tryGetComponent<iPartyComponent>();
+        if (otherEntityParty != nullptr)
+        {
+            if (otherEntityParty->_partyID != party._partyID)
             {
-                continue;
-            }
-
-            // get other entity
-            iEntity otherEntity(otherEntityID, _entityScene);
-
-            // check if we do damage to other entity
-            auto *otherEntityParty = otherEntity.tryGetComponent<PartyComponent>();
-            if (otherEntityParty != nullptr)
-            {
-                if (otherEntityParty->_partyID != party._partyID)
+                auto *otherEntityHealth = otherEntity.tryGetComponent<HealthComponent>();
+                if (otherEntityHealth != nullptr)
                 {
-                    auto *otherEntityHealth = otherEntity.tryGetComponent<HealthComponent>();
-                    if (otherEntityHealth != nullptr)
-                    {
-                        otherEntityHealth->_health -= damage._damage;
-                    }
+                    otherEntityHealth->_health -= damage._damage;
+                }
 
-                    if (otherEntityParty->_partyID != NEUTRAL &&
-                        health._destroyOnImpact)
-                    {
-                        health._health = 0.0;
-                    }
+                if (otherEntityParty->_partyID != NEUTRAL &&
+                    health._destroyOnImpact)
+                {
+                    health._health = 0.0;
                 }
             }
         }
@@ -961,14 +1027,13 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         iaVector2d firePosition(from + dir * weapon._size * 0.5);
         bullet.addComponent<iTransformComponent>({iaVector3d(firePosition._x, firePosition._y, 0.0), iaVector3d(0.0, 0.0, angle), iaVector3d(weapon._size, weapon._size, 1.0)});
 
-        float32 angularVelocity = weapon._angularVelocity;
+        float64 angularVelocity = weapon._angularVelocity;
 
         if (angularVelocity != 0.0)
         {
-            angularVelocity += (iaRandom::getNextFloat() - 0.5f) * 0.2;
+            angularVelocity += (iaRandom::getNextFloat() - 0.5) * 0.2;
         }
 
-        bullet.addComponent<AngularVelocityComponent>(angularVelocity);
         bullet.addComponent<RangeComponent>(weapon._range * modifier._projectileRangeFactor);
 
         iaVector2d dir2 = dir;
@@ -976,9 +1041,9 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         iaVector3d d(dir2._x, dir2._y, 0.0);
         float32 s = (weapon._speed * modifier._projectileSpeedFactor) + (weapon._accuracy * (iaRandom::getNextFloat() - 0.5));
         d *= s;
-        bullet.addComponent<iVelocityComponent>({d});
+        bullet.addComponent<iVelocityComponent>({d, iaVector3d(0.0, 0.0, angularVelocity)});
+        bullet.addComponent<iPartyComponent>({party});
 
-        bullet.addComponent<PartyComponent>(party, true);
         bullet.addComponent<DamageComponent>(weapon._damage * modifier._damageFactor);
         bullet.addComponent<HealthComponent>(100.0f, true);
         bullet.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(weapon._texture)});
@@ -986,6 +1051,9 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
         bullet.addComponent<iCircleCollision2DComponent>({weapon._size * 0.5});
         bullet.addComponent<iBody2DComponent>({});
+
+        bullet.addBehaviour({this, &GameLayer::onUpdateProjectileOrientation});
+        bullet.addBehaviour({this, &GameLayer::onCheckCollision});
     }
 }
 
@@ -1001,30 +1069,6 @@ void GameLayer::addExperience(iEntity &entity, float32 experience)
     {
         _levelUp = true;
     }
-}
-
-BuildingType GameLayer::onCheckForBuildingsNearBy(iEntity &entity)
-{
-    if (!entity.isValid())
-    {
-        return BuildingType::None;
-    }
-
-    auto &entityTransform = entity.getComponentV2<iTransformComponent>();
-
-    auto view = _entityScene->getEntities<BuildingComponent, iTransformComponent>();
-    for (auto entityID : view)
-    {
-        auto [building, transform] = view.get<BuildingComponent, iTransformComponent>(entityID);
-
-        const float32 distance = transform._position.distance(entityTransform._position);
-        if (distance < (entityTransform._scale._x + transform._scale._x) * 0.5)
-        {
-            return building._type;
-        }
-    }
-
-    return BuildingType::None;
 }
 
 void GameLayer::onUpdatePickupSystem(iEntity &entity)
@@ -1071,53 +1115,6 @@ void GameLayer::onUpdatePickupSystem(iEntity &entity)
         health._health += heal._heal;
 
         _deleteQueue.insert(hit.first);
-    }
-}
-
-void GameLayer::aquireTargetFor(iEntity &entity)
-{
-    if (!entity.isValid())
-    {
-        return;
-    }
-
-    // acquire target for player
-    const auto &transform = entity.getComponentV2<iTransformComponent>();
-    auto &party = entity.getComponent<PartyComponent>();
-    auto &target = entity.getComponent<TargetComponent>();
-    auto &weapon = entity.getComponent<WeaponComponent>();
-    auto &modifier = entity.getComponent<ModifierComponent>();
-
-    iaCircled circle(iaVector2d(transform._position._x, transform._position._y), weapon._range * modifier._projectileRangeFactor);
-    std::vector<std::pair<iEntityID, iaVector2d>> hits;
-    doughnutQuery(circle, hits);
-
-    float32 minDistance = std::numeric_limits<float32>::max();
-    target._targetID = IGOR_INVALID_ENTITY_ID;
-
-    for (const auto &hit : hits)
-    {
-        if (hit.first == entity.getID())
-        {
-            continue;
-        }
-
-        iEntity entity(hit.first, _entityScene);
-
-        auto *entParty = entity.tryGetComponent<PartyComponent>();
-        if (entParty == nullptr ||
-            entParty->_partyID == NEUTRAL ||
-            entParty->_partyID == party._partyID)
-        {
-            continue;
-        }
-
-        const float32 dist = hit.second.length2();
-        if (dist < minDistance)
-        {
-            minDistance = dist;
-            target._targetID = hit.first;
-        }
     }
 }
 
@@ -1175,35 +1172,16 @@ void GameLayer::onUpdateRangeSystem()
     }
 }
 
-void GameLayer::onUpdateOrientationSystem()
-{
-    auto view = _entityScene->getEntities<AngularVelocityComponent, iVelocityComponent, iTransformComponent>();
-    for (auto entity : view)
-    {
-        auto [angularVel, vel, transform] = view.get<AngularVelocityComponent, iVelocityComponent, iTransformComponent>(entity);
-
-        //        if (ori.followVelocity)
-        //      {
-        iaVector2f vel2D(vel._velocity._x, vel._velocity._y);
-        transform._orientation._z = vel2D.angle() + (M_PI * 0.5);
-        //    }
-        //  else
-        // {
-        // transform._orientation.rotateXY(angularVel._velocity); // TODO later
-        //}
-    }
-}
-
 void GameLayer::onUpdateCleanUpTheDeadSystem()
 {
     bool playerValid = _player.isValid();
 
     // pick up the dead
-    auto healthView = _entityScene->getEntities<HealthComponent, PartyComponent>();
+    auto healthView = _entityScene->getEntities<HealthComponent, iPartyComponent>();
 
     for (auto entityID : healthView)
     {
-        auto [health, party] = healthView.get<HealthComponent, PartyComponent>(entityID);
+        auto [health, party] = healthView.get<HealthComponent, iPartyComponent>(entityID);
 
         if (health._health <= 0.0)
         {
@@ -1242,19 +1220,16 @@ void GameLayer::onUpdateCleanUpTheDeadSystem()
 void GameLayer::onUpdate(const iaTime &time)
 {
     onUpdateFollowTargetSystem();
-    onUpdateOrientationSystem();
-    onUpdateCollisionSystem();
 
-    aquireTargetFor(_player);
-    aquireTargetFor(_shop);
-    onUpdatePickupSystem(_player);
-    const BuildingType buildingType = onCheckForBuildingsNearBy(_player);
+    // aquireTargetFor(_player);
+    // aquireTargetFor(_shop);
+    onUpdatePickupSystem(_player);    
 
     onUpdateWeaponSystem();
     onUpdateRangeSystem();
     onUpdateCleanUpTheDeadSystem();
 
-    onOpenBuilding(buildingType);
+    
 
     if (_levelUp)
     {

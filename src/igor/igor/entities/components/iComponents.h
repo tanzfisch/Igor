@@ -338,6 +338,13 @@ namespace igor
         bool _renderBounds = false;
     };
 
+    /*! I love parties <3
+    */
+    struct iPartyComponent
+    {
+        uint32 _partyID = 0;
+    };
+
     // iTextComponent
     // iPhysicsBodyComponent or specialized colliders and group colliders
 

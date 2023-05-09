@@ -71,14 +71,6 @@ struct DamageComponent
     float32 _damage = 0.0;
 };
 
-struct PartyComponent
-{
-    uint32 _partyID = 0;
-
-    // TODO does this need to be in here?
-    bool _nonBlockable = false;
-};
-
 struct ExperienceComponent
 {
     float32 _experience = 0.0;

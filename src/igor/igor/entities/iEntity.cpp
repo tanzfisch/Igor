@@ -57,9 +57,15 @@ namespace igor
 
     void iEntity::addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData)
     {
-        auto &component = addComponent<iBehaviourComponent>();
+        auto &registry = _scene->getRegistry();
 
-        for (auto &behaviourData : component._behaviour)
+        iBehaviourComponent *component = registry.try_get<iBehaviourComponent>(_entity);
+        if (component == nullptr)
+        {
+            component = &(registry.emplace_or_replace<iBehaviourComponent>(_entity));
+        }
+
+        for (auto &behaviourData : component->_behaviour)
         {
             if (!behaviourData._delegate.isValid())
             {
@@ -69,7 +75,7 @@ namespace igor
             }
         }
 
-        con_err("can't add more then " << component._behaviour.size() << " behaviors");
+        con_err("can't add more then " << component->_behaviour.size() << " behaviors");
     }
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &behaviour)
