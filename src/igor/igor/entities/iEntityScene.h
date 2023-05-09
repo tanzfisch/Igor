@@ -57,12 +57,6 @@ namespace igor
 		 */
 		iEntity createEntity(const iaString &name = "", bool active = true);
 
-		/*! destroys an entity
-
-		\param entity the entity to destroy
-		*/
-		void destroyEntity(const iEntity &entity);
-
 		/*! destroys an entity by id
 
 		\param entityID the entity ID
@@ -131,6 +125,22 @@ namespace igor
 		template <typename T>
 		T *tryGetComponent(iEntityID entityID);
 
+		/*! \returns pointer to custom component for given entity. nullptr if component does not exist
+
+		\param entityID the given entity
+		*/
+		template <typename T>
+		T *tryGetCustomComponent(iEntityID entityID)
+		{
+			auto iter = _customComponents.find(typeid(T));
+			if(iter == _customComponents.end())
+			{
+				return nullptr;
+			}
+
+			return std::static_pointer_cast<iComponentMap<T>>(iter->second)->tryGet(entityID);
+		}			
+
 		/*! removes component of given entity with given type
 		 */
 		template <typename T>
@@ -186,6 +196,14 @@ namespace igor
 		/*! storing custom component type data
 		*/
 		std::unordered_map<std::type_index, std::shared_ptr<void>> _customComponents;
+
+		/*! entities set up for deletion
+		*/
+		std::deque<iEntityID> _deleteQueue;
+
+		/*! destroys entities in the delete queue
+		*/
+		void destroyEntities();
 
 		/*! updates all non rendering systems
 		 */

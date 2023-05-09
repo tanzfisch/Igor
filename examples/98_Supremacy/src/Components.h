@@ -36,11 +36,11 @@ struct RangeComponent
 {
     /*! max range
      */
-    float32 _maxRange;
+    float64 _rangeLeft = 0.0;
 
-    /*! distance traveled
-     */
-    float32 _distanceTraveled = 0.0;
+    /*! last position
+    */
+    iaVector3d _lastPosition;
 };
 
 struct AngularVelocityComponent

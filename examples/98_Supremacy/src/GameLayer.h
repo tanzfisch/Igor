@@ -215,6 +215,10 @@ private:
     void onUpdateProjectileOrientation(iEntity &entity, std::any &userData);
     void onCheckCollision(iEntity &entity, std::any &userData);
     void onCheckForBuildingsNearBy(iEntity &entity, std::any &userData);
+    void onFollowTarget(iEntity &entity, std::any &userData);
+    void onUpdatePickup(iEntity &entity, std::any &userData);
+    void onUpdateWeapon(iEntity &entity, std::any &userData);
+    void onUpdateRange(iEntity &entity, std::any &userData);
 
     void createShop();
     void liftShop();
@@ -224,19 +228,11 @@ private:
 
     void onUpdateMovementControlSystem();
 
-    void onUpdateFollowTargetSystem();
-
     
-
-    void onUpdatePickupSystem(iEntity &entity);
-
-    
-
-    void onUpdateRangeSystem();
 
     void onUpdateCleanUpTheDeadSystem();
 
-    void onUpdateWeaponSystem();
+    
 
     void onSpawnStuff(const iaTime &time);
 

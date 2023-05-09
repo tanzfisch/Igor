@@ -71,7 +71,16 @@ namespace igor
     */
     struct iActiveComponent
     {
-        /*! just a placeholder to satisfy entt
+        /*! just a placeholder
+         */
+        bool _placeholder;
+    };
+
+    /*! after adding this component to an entity it will be deleted
+     */
+    struct iDeleteComponent
+    {
+        /*! just a placeholder
          */
         bool _placeholder;
     };
@@ -339,7 +348,7 @@ namespace igor
     };
 
     /*! I love parties <3
-    */
+     */
     struct iPartyComponent
     {
         uint32 _partyID = 0;

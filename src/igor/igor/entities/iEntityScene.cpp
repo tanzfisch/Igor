@@ -97,6 +97,8 @@ namespace igor
 
     void iEntityScene::onUpdate()
     {
+        destroyEntities();
+
         for (iEntitySystemPtr &system : _systems)
         {
             system->update(shared_from_this());
@@ -173,27 +175,42 @@ namespace igor
 
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
-        /*! cleanup quadtree
-         */
-        iBody2DComponent *component = tryGetComponent<iBody2DComponent>(entityID);
-        if (component != nullptr)
-        {
-            getQuadtree().remove(component->_object);
-        }
+        _deleteQueue.push_back(entityID);
+    }
 
-        // cleanup hierarchy
-        iHierarchyComponent *hierarchy = getRegistry().try_get<iHierarchyComponent>(entityID);
-        if (hierarchy != nullptr &&
-            getRegistry().valid(hierarchy->_parent))
+    void iEntityScene::destroyEntities()
+    {
+        for (auto entityID : _deleteQueue)
         {
-            iHierarchyComponent *parentHierarchy = getRegistry().try_get<iHierarchyComponent>(hierarchy->_parent);
-            if (parentHierarchy != nullptr)
+            if(!getRegistry().valid(entityID))
             {
-                parentHierarchy->_childCount = std::max(0, parentHierarchy->_childCount - 1);
+                continue;
             }
+
+            /*! cleanup quadtree
+             */
+            iBody2DComponent *component = tryGetComponent<iBody2DComponent>(entityID);
+            if (component != nullptr)
+            {
+                getQuadtree().remove(component->_object);
+            }
+
+            // cleanup hierarchy
+            iHierarchyComponent *hierarchy = getRegistry().try_get<iHierarchyComponent>(entityID);
+            if (hierarchy != nullptr &&
+                getRegistry().valid(hierarchy->_parent))
+            {
+                iHierarchyComponent *parentHierarchy = getRegistry().try_get<iHierarchyComponent>(hierarchy->_parent);
+                if (parentHierarchy != nullptr)
+                {
+                    parentHierarchy->_childCount = std::max(0, parentHierarchy->_childCount - 1);
+                }
+            }
+
+            getRegistry().destroy(entityID);
         }
 
-        getRegistry().destroy(entityID);
+        _deleteQueue.clear();
     }
 
     entt::registry &iEntityScene::getRegistry() const

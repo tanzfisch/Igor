@@ -158,6 +158,12 @@ namespace igor
             return _scene->tryGetComponent<T>(_entity);
         }
 
+        template <typename T>
+        T *tryGetCustomComponent() const
+        {
+            return _scene->tryGetCustomComponent<T>(_entity);
+        }        
+
         /*! removes component of given type
          */
         template <typename T>
