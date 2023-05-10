@@ -63,6 +63,13 @@ namespace igor
         */
         iAABox(const iaVector3<T> &center, const iaVector3<T> &halfWidths);
 
+        /*! creates iAABox from min max values
+
+        \param min min vector for aa box
+        \param max max vector for aa box
+        */
+        static iAABox<T> fromMinMax(const iaVector3<T> &min, const iaVector3<T> &max);
+
         /*! sets min max values of aabox
 
         \param min min vector for aa box

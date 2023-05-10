@@ -9,446 +9,7 @@ GameLayer::GameLayer(iWindowPtr window)
 {
     _entityScene = iEntitySystemModule::getInstance().createScene();
     _entityScene->initializeQuadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT));
-
-    iAABoxd box;
-    box.setMinMax(iaVector3d(), iaVector3d(PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT, 0));
-    _entityScene->setBounds(box);
-}
-
-iaVector3d GameLayer::getRandomDir()
-{
-    iaVector2f direction(0.0, 1.0);
-    direction.rotateXY(iaRandom::getNextFloat() * M_PI * 2.0);
-    direction.normalize();
-    return iaVector3d(direction._x, direction._y, 0.0);
-}
-
-void GameLayer::onPlayerMovementBehaviour(iEntity &entity, std::any &userData)
-{
-    auto &velocityComponent = entity.getComponent<iVelocityComponent>();
-    const auto &modifier = entity.getCustomComponent<ModifierComponent>();
-
-    velocityComponent._velocity.set(0, 0, 0);
-
-    if (iKeyboard::getInstance().getKey(iKeyCode::W))
-    {
-        velocityComponent._velocity._y -= 1.0;
-    }
-
-    if (iKeyboard::getInstance().getKey(iKeyCode::A))
-    {
-        velocityComponent._velocity._x -= 1.0;
-    }
-
-    if (iKeyboard::getInstance().getKey(iKeyCode::S))
-    {
-        velocityComponent._velocity._y += 1.0;
-    }
-
-    if (iKeyboard::getInstance().getKey(iKeyCode::D))
-    {
-        velocityComponent._velocity._x += 1.0;
-    }
-
-    velocityComponent._velocity.normalize();
-    velocityComponent._velocity *= modifier._walkSpeedFactor;
-}
-
-void GameLayer::onAquireTarget(iEntity &entity, std::any &userData)
-{
-    const auto &transform = entity.getComponent<iTransformComponent>();
-    const auto &party = entity.getComponent<iPartyComponent>();
-    const auto &weapon = entity.getCustomComponent<WeaponComponent>();
-    const auto &modifier = entity.getCustomComponent<ModifierComponent>();
-    auto &target = entity.getCustomComponent<TargetComponent>();
-
-    iaCircled circle(iaVector2d(transform._position._x, transform._position._y), weapon._range * modifier._projectileRangeFactor);
-    std::vector<std::pair<iEntityID, iaVector2d>> hits;
-    doughnutQuery(circle, hits);
-
-    float32 minDistance = std::numeric_limits<float32>::max();
-    target._targetID = IGOR_INVALID_ENTITY_ID;
-
-    for (const auto &hit : hits)
-    {
-        if (hit.first == entity.getID())
-        {
-            continue;
-        }
-
-        iEntity entity(hit.first, _entityScene);
-
-        auto *entParty = entity.tryGetComponent<iPartyComponent>();
-        if (entParty == nullptr ||
-            entParty->_partyID == NEUTRAL ||
-            entParty->_partyID == party._partyID)
-        {
-            continue;
-        }
-
-        const float32 dist = hit.second.length2();
-        if (dist < minDistance)
-        {
-            minDistance = dist;
-            target._targetID = hit.first;
-        }
-    }
-}
-
-
-void GameLayer::onUpdateCollision(iEntity &entity, std::any &userData)
-{
-    BuildingType buildingType = BuildingType::None;
-
-    const auto &transform = entity.getComponent<iTransformComponent>();
-    auto &body = entity.getComponent<iBody2DComponent>();
-
-    auto &experience = entity.getCustomComponent<ExperienceComponent>();
-    auto &coins = entity.getCustomComponent<CoinsComponent>();
-    auto &health = entity.getCustomComponent<HealthComponent>();
-
-    iaCircled circle = body._object->_circle;
-    circle._radius = 70.0;
-    std::vector<std::pair<iEntityID, iaVector2d>> hits;
-    doughnutQuery(body._object->_circle, hits);
-
-    for (const auto &hit : hits)
-    {
-        if (hit.first == entity.getID())
-        {
-            continue;
-        }
-
-        iEntity otherEntity(hit.first, _entityScene);
-
-        auto *pickup = otherEntity.tryGetCustomComponent<PickupComponent>();
-        if (pickup != nullptr)
-        {
-            if (hit.second.length2() > 70.0 * 70.0)
-            {
-                continue;
-            }
-
-            auto &expGain = otherEntity.getCustomComponent<ExperienceGainComponent>();
-            addExperience(entity, expGain._experience);
-
-            auto &coinGain = otherEntity.getCustomComponent<CoinGainComponent>();
-            coins._coins += coinGain._coins;
-
-            auto &damage = otherEntity.getCustomComponent<DamageComponent>();
-            health._health -= damage._damage;
-
-            auto &heal = otherEntity.getCustomComponent<HealComponent>();
-            health._health += heal._heal;
-
-            _entityScene->destroyEntity(otherEntity.getID());
-        }
-
-        auto *buildingComponent = otherEntity.tryGetCustomComponent<BuildingComponent>();
-        if (buildingComponent != nullptr)
-        {
-            auto &otherBody = otherEntity.getComponent<iBody2DComponent>();
-            if (iIntersection::intersects(otherBody._object->_circle, body._object->_circle))
-            {
-                buildingType = buildingComponent->_type;
-            }
-        }
-    }
-
-    onOpenBuilding(buildingType);
-}
-
-void GameLayer::onUpdateWeapon(iEntity &entity, std::any &userData)
-{
-    iaTime now = iTimer::getInstance().getTime();
-
-    auto &weapon = entity.getCustomComponent<WeaponComponent>();
-    auto &transform = entity.getComponent<iTransformComponent>();
-    auto &velocity = entity.getComponent<iVelocityComponent>();
-    auto &modifier = entity.getCustomComponent<ModifierComponent>();
-    auto &target = entity.getCustomComponent<TargetComponent>();
-
-    // skip if there is no target
-    if (target._targetID == IGOR_INVALID_ENTITY_ID)
-    {
-        return;
-    }
-
-    // check if unit needs to stand still
-    if (weapon._standStillToFire && velocity._velocity.length() > 0.0)
-    {
-        return;
-    }
-
-    // check if it is time to fire again
-    if ((now - weapon._time) < (weapon._attackInterval / modifier._attackIntervalFactor))
-    {
-        return;
-    }
-
-    weapon._time = now;
-
-    // get target position
-    iEntity targetEntity(target._targetID, _entityScene);
-    const auto &targetPosition = targetEntity.getComponent<iTransformComponent>();
-
-    const iaVector2d firePos = iaVector2d(transform._position._x, transform._position._y) + weapon._offset;
-    iaVector2d direction = iaVector2d(targetPosition._position._x, targetPosition._position._y) - firePos;
-    direction.normalize();
-
-    fire(firePos, direction, FRIEND, weapon, modifier);
-}
-
-iEntity GameLayer::createPlayer()
-{
-    // init player
-    iEntity entity = _entityScene->createEntity("player");
-
-    const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0)});
-    entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"), iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)});
-    entity.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
-    entity.addComponent<iPartyComponent>({FRIEND});
-    entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
-    entity.addComponent<iBody2DComponent>({});
-    entity.addCustomComponent<TargetComponent>({IGOR_INVALID_ENTITY_ID, false, false});
-    entity.addCustomComponent<HealthComponent>({100.0f});
-    entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
-    entity.addBehaviour({this, &GameLayer::onAquireTarget});
-    entity.addBehaviour({this, &GameLayer::onUpdateCollision});
-    entity.addBehaviour({this, &GameLayer::onUpdateWeapon});
-
-    entity.addCustomComponent<DamageComponent>({0.0f});
-    entity.addCustomComponent<ExperienceComponent>({0.0f, 1.0f});
-    entity.addCustomComponent<CoinsComponent>({0.0f});
-    entity.addCustomComponent<ModifierComponent>({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f});
-    entity.addCustomComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
-    entity.addCustomComponent<WeaponComponent>({_weapons["Knife"]});
-
-    iaVector2f a(-1.0f, 0.0f);
-    iaVector2f b(1.0f, 0.0f);
-    iaVector2f c(0.0f, 1.0f);
-    iaVector2f d(0.0f, -1.0f);
-
-    // add shadow
-    iEntity shadow = _entityScene->createEntity();
-    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, STANDARD_UNIT_SIZE * 0.8, 0.0)});
-    shadow.setParent(entity.getID());
-    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaVector2d(STANDARD_UNIT_SIZE * 0.7, STANDARD_UNIT_SIZE * 0.3), iaColor4f::black, -1});
-
-    return entity;
-}
-
-void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
-{
-    if (!_player.isValid())
-    {
-        return;
-    }
-
-    const auto &playerTransform = _player.getComponent<iTransformComponent>();
-    auto &camTransform = entity.getComponent<iTransformComponent>();
-    iaVector2d &targetOffset = std::any_cast<iaVector2d &>(userData);
-
-    const iaVector2d playerPosition(playerTransform._position._x, playerTransform._position._y);
-    const iaVector2d lastPlayerPosition(camTransform._position._x + targetOffset._x,
-                                        camTransform._position._y + targetOffset._y);
-
-    const iaVector2d diff = playerPosition - lastPlayerPosition;
-
-    bool skipStep = false;
-    const auto width = PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH * 0.5;
-    const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5;
-
-    if (std::abs(diff._x) > width ||
-        std::abs(diff._y) > height)
-    {
-        skipStep = true;
-    }
-
-    if (!skipStep)
-    {
-        targetOffset += diff;
-    }
-
-    targetOffset._x = std::clamp(targetOffset._x, -width, width);
-    targetOffset._y = std::clamp(targetOffset._y, -height, height);
-
-    camTransform._position._x = playerPosition._x - targetOffset._x;
-    camTransform._position._y = playerPosition._y - targetOffset._y;
-
-    userData = targetOffset;
-}
-
-void GameLayer::createBackground()
-{
-    iEntity entity = _entityScene->createEntity("background");
-
-    entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d{200.0, 150.0, 1.0}});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/background.png"), iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderMode::Tiled});
-}
-
-iEntity GameLayer::createCamera()
-{
-    const auto &playerTransform = _player.getComponent<iTransformComponent>();
-
-    iEntity entity = _entityScene->createEntity("camera");
-
-    entity.addComponent<iTransformComponent>({playerTransform._position});
-    entity.addBehaviour({this, &GameLayer::onCameraFollowPlayer}, iaVector2d());
-
-    auto &component = entity.addComponent<iCameraComponent>({});
-    component._projection = iProjectionType::Orthogonal;
-    component._leftOrtho = -PLAYFIELD_VIEWPORT_WIDTH * 0.5;
-    component._rightOrtho = PLAYFIELD_VIEWPORT_WIDTH * 0.5;
-    component._bottomOrtho = PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
-    component._topOrtho = -PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
-    component._clearColorActive = false;
-    component._clearDepthActive = false;
-
-    // DEBUG
-    auto &debug = entity.addComponent<iRenderDebugComponent>({});
-    debug._renderSpacePartitioning = true;
-
-    return entity;
-}
-
-void GameLayer::createObject(const iaVector2f &pos, uint32 party, ObjectType objectType)
-{
-    iEntity entity = _entityScene->createEntity("object");
-    const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
-    entity.addCustomComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
-    entity.addComponent<iPartyComponent>({party});
-    entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
-    entity.addComponent<iBody2DComponent>({});
-
-    entity.addCustomComponent<PickupComponent>({true});
-    entity.addCustomComponent<ExperienceGainComponent>({0.0f});
-    entity.addCustomComponent<CoinGainComponent>({objectType == ObjectType::Coin ? 1.0f : 0.0f});
-    entity.addCustomComponent<DamageComponent>({0.0f});
-    entity.addCustomComponent<HealComponent>({0.0f});
-}
-
-void GameLayer::liftShop()
-{
-    _shop.removeComponent<iBody2DComponent>();
-    _shop.setActive(false);
-}
-
-void GameLayer::onLandShop(const iaTime &time)
-{
-    landShop();
-}
-
-void GameLayer::onShopLanded()
-{
-    _shop.addComponent<iBody2DComponent>({});
-    _shop.setActive(true);
-}
-
-void GameLayer::landShop()
-{
-    auto &transform = _shop.getComponent<iTransformComponent>();
-    transform._position.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT, 0.0);
-
-    onShopLanded();
-}
-
-void GameLayer::createShop()
-{
-    _shop = _entityScene->createEntity("shop", false);
-    auto transform = _shop.addComponent<iTransformComponent>({iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)});
-    _shop.addComponent<iVelocityComponent>({});
-    _shop.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
-    _shop.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png")});
-    _shop.addComponent<iPartyComponent>({FRIEND});
-    _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});
-    _shop.addBehaviour({this, &GameLayer::onAquireTarget});
-    _shop.addBehaviour({this, &GameLayer::onUpdateWeapon});
-    _shop.addCustomComponent<VisualComponent>({true, false, iaTime::fromSeconds(iaRandom::getNextFloat())});
-    _shop.addCustomComponent<BuildingComponent>({BuildingType::Shop});
-    _shop.addCustomComponent<ModifierComponent>({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f});
-    _shop.addCustomComponent<WeaponComponent>({_weapons["Minigun"]});
-    _shop.addCustomComponent<TargetComponent>({IGOR_INVALID_ENTITY_ID, false, false});
-}
-
-void GameLayer::onFollowTarget(iEntity &entity, std::any &userData)
-{
-    auto &target = entity.getCustomComponent<TargetComponent>();
-
-    const float64 speed = 0.5; // TODO vel._velocity.length();
-
-    // skip if entity is not following targets
-    if (!target._followTarget)
-    {
-        return;
-    }
-
-    // skip if there is no valid target
-    iEntity targetEntity(target._targetID, _entityScene);
-    if (!targetEntity.isValid())
-    {
-        return;
-    }
-
-    // skip if target has no position
-    iTransformComponent *targetTransform = targetEntity.tryGetComponent<iTransformComponent>();
-    if (targetTransform == nullptr)
-    {
-        return;
-    }
-
-    auto &velocity = entity.getComponent<iVelocityComponent>();
-    auto &transform = entity.getComponent<iTransformComponent>();
-
-    const iaVector2d targetPos(targetTransform->_position._x, targetTransform->_position._y);
-    const iaVector2d position(transform._position._x, transform._position._y);
-    iaVector2d offset;
-    iaCircled circle(position, 1000.0);
-
-    if (!intersectDoughnut(targetPos, circle, offset))
-    {
-        if (target._inRange)
-        {
-            velocity._velocity = getRandomDir() * speed;
-            target._inRange = false;
-        }
-    }
-    else
-    {
-        iaVector2d newVel = targetPos - position + offset;
-        newVel.normalize();
-        newVel *= speed;
-        velocity._velocity.set(newVel._x, newVel._y, 0.0);
-        target._inRange = true;
-    }
-}
-
-void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
-{
-    iEntity unit = _entityScene->createEntity();
-    unit.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0)});
-    unit.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
-    unit.addComponent<iVelocityComponent>({getRandomDir() * enemyClass._speed});
-    unit.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(enemyClass._texture)});
-    unit.addComponent<iPartyComponent>({party});
-    unit.addComponent<iCircleCollision2DComponent>({enemyClass._size * 0.5});
-    unit.addComponent<iBody2DComponent>({});
-    unit.addCustomComponent<HealthComponent>({enemyClass._health});
-    unit.addCustomComponent<TargetComponent>({target});
-    unit.addCustomComponent<ExperienceGainComponent>({enemyClass._xpDrop});
-    unit.addCustomComponent<DamageComponent>({enemyClass._damage});
-    unit.addCustomComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
-    unit.addBehaviour({this, &GameLayer::onCheckCollision});
-    unit.addBehaviour({this, &GameLayer::onFollowTarget});
-    unit.setMotionInteractionType(iMotionInteractionType::Divert);
-
-    // add shadow
-    iEntity shadow = _entityScene->createEntity();
-    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0)});
-    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaVector2d(1.0, 1.0), iaColor4f::black, -1});
-    shadow.setParent(unit.getID());
+    _entityScene->setBounds(iAABoxd::fromMinMax(iaVector3d(), iaVector3d(PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT, 0)));
 }
 
 void GameLayer::onInit()
@@ -478,9 +39,6 @@ void GameLayer::onInit()
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
-
-    _statsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdateStats), iaTime::fromMilliseconds(1000));
-    _statsTimerHandle->start();
 
     _spawnUnitsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onSpawnStuff), iaTime::fromMilliseconds(5000));
     _spawnUnitsTimerHandle->start();
@@ -705,6 +263,441 @@ void GameLayer::initExpLvlTable()
     _expLvl.push_back(1000000000);
 }
 
+iaVector3d GameLayer::getRandomDir()
+{
+    iaVector2f direction(0.0, 1.0);
+    direction.rotateXY(iaRandom::getNextFloat() * M_PI * 2.0);
+    direction.normalize();
+    return iaVector3d(direction._x, direction._y, 0.0);
+}
+
+void GameLayer::onPlayerMovementBehaviour(iEntity &entity, std::any &userData)
+{
+    auto &velocityComponent = entity.getComponent<iVelocityComponent>();
+    const auto &modifier = entity.getUserComponent<ModifierComponent>();
+
+    velocityComponent._velocity.set(0, 0, 0);
+
+    if (iKeyboard::getInstance().getKey(iKeyCode::W))
+    {
+        velocityComponent._velocity._y -= 1.0;
+    }
+
+    if (iKeyboard::getInstance().getKey(iKeyCode::A))
+    {
+        velocityComponent._velocity._x -= 1.0;
+    }
+
+    if (iKeyboard::getInstance().getKey(iKeyCode::S))
+    {
+        velocityComponent._velocity._y += 1.0;
+    }
+
+    if (iKeyboard::getInstance().getKey(iKeyCode::D))
+    {
+        velocityComponent._velocity._x += 1.0;
+    }
+
+    velocityComponent._velocity.normalize();
+    velocityComponent._velocity *= modifier._walkSpeedFactor;
+}
+
+void GameLayer::onAquireTarget(iEntity &entity, std::any &userData)
+{
+    const auto &transform = entity.getComponent<iTransformComponent>();
+    const auto &party = entity.getComponent<iPartyComponent>();
+    const auto &weapon = entity.getUserComponent<WeaponComponent>();
+    const auto &modifier = entity.getUserComponent<ModifierComponent>();
+    auto &target = entity.getUserComponent<TargetComponent>();
+
+    iaCircled circle(iaVector2d(transform._position._x, transform._position._y), weapon._range * modifier._projectileRangeFactor);
+    std::vector<std::pair<iEntityID, iaVector2d>> hits;
+    doughnutQuery(circle, hits);
+
+    float32 minDistance = std::numeric_limits<float32>::max();
+    target._targetID = IGOR_INVALID_ENTITY_ID;
+
+    for (const auto &hit : hits)
+    {
+        if (hit.first == entity.getID())
+        {
+            continue;
+        }
+
+        iEntity entity(hit.first, _entityScene);
+
+        auto *entParty = entity.tryGetComponent<iPartyComponent>();
+        if (entParty == nullptr ||
+            entParty->_partyID == NEUTRAL ||
+            entParty->_partyID == party._partyID)
+        {
+            continue;
+        }
+
+        const float32 dist = hit.second.length2();
+        if (dist < minDistance)
+        {
+            minDistance = dist;
+            target._targetID = hit.first;
+        }
+    }
+}
+
+void GameLayer::onUpdateCollision(iEntity &entity, std::any &userData)
+{
+    BuildingType buildingType = BuildingType::None;
+
+    const auto &transform = entity.getComponent<iTransformComponent>();
+    auto &body = entity.getComponent<iBody2DComponent>();
+    auto &experience = entity.getUserComponent<ExperienceComponent>();
+    auto &coins = entity.getUserComponent<CoinsComponent>();
+    auto &health = entity.getUserComponent<HealthComponent>();
+
+    iaCircled circle = body._object->_circle;
+    circle._radius = 70.0;
+    std::vector<std::pair<iEntityID, iaVector2d>> hits;
+    doughnutQuery(circle, hits);
+
+    for (const auto &hit : hits)
+    {
+        if (hit.first == entity.getID())
+        {
+            continue;
+        }
+
+        iEntity otherEntity(hit.first, _entityScene);
+
+        auto *pickup = otherEntity.tryGetUserComponent<PickupComponent>();
+        if (pickup != nullptr)
+        {
+            if (hit.second.length2() > 70.0 * 70.0)
+            {
+                continue;
+            }
+
+            auto &expGain = otherEntity.getUserComponent<ExperienceGainComponent>();
+            addExperience(entity, expGain._experience);
+
+            auto &coinGain = otherEntity.getUserComponent<CoinGainComponent>();
+            coins._coins += coinGain._coins;
+
+            auto &damage = otherEntity.getUserComponent<DamageComponent>();
+            health._health -= damage._damage;
+
+            auto &heal = otherEntity.getUserComponent<HealComponent>();
+            health._health += heal._heal;
+
+            _entityScene->destroyEntity(otherEntity.getID());
+        }
+
+        auto *buildingComponent = otherEntity.tryGetUserComponent<BuildingComponent>();
+        if (buildingComponent != nullptr)
+        {
+            auto &otherBody = otherEntity.getComponent<iBody2DComponent>();
+            if (iIntersection::intersects(otherBody._object->_circle, body._object->_circle))
+            {
+                buildingType = buildingComponent->_type;
+            }
+        }
+    }
+
+    onOpenBuilding(buildingType);
+}
+
+void GameLayer::onUpdateWeapon(iEntity &entity, std::any &userData)
+{
+    iaTime now = iTimer::getInstance().getTime();
+
+    auto &weapon = entity.getUserComponent<WeaponComponent>();
+    auto &transform = entity.getComponent<iTransformComponent>();
+    auto &velocity = entity.getComponent<iVelocityComponent>();
+    auto &modifier = entity.getUserComponent<ModifierComponent>();
+    auto &target = entity.getUserComponent<TargetComponent>();
+
+    // skip if there is no target
+    if (target._targetID == IGOR_INVALID_ENTITY_ID)
+    {
+        return;
+    }
+
+    // check if unit needs to stand still
+    if (weapon._standStillToFire && velocity._velocity.length() > 0.0)
+    {
+        return;
+    }
+
+    // check if it is time to fire again
+    if ((now - weapon._time) < (weapon._attackInterval / modifier._attackIntervalFactor))
+    {
+        return;
+    }
+
+    weapon._time = now;
+
+    // get target position
+    iEntity targetEntity(target._targetID, _entityScene);
+    const auto &targetPosition = targetEntity.getComponent<iTransformComponent>();
+
+    const iaVector2d firePos = iaVector2d(transform._position._x, transform._position._y) + weapon._offset;
+    iaVector2d direction = iaVector2d(targetPosition._position._x, targetPosition._position._y) - firePos;
+    direction.normalize();
+
+    fire(firePos, direction, FRIEND, weapon, modifier);
+}
+
+iEntity GameLayer::createPlayer()
+{
+    // init player
+    iEntity entity = _entityScene->createEntity("player");
+
+    const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0)});
+    entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"), iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)});
+    entity.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
+    entity.addComponent<iPartyComponent>({FRIEND});
+    entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
+    entity.addComponent<iBody2DComponent>({});
+    entity.addUserComponent<TargetComponent>({IGOR_INVALID_ENTITY_ID, false, false});
+    entity.addUserComponent<HealthComponent>({100.0f});
+    entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
+    entity.addBehaviour({this, &GameLayer::onAquireTarget});
+    entity.addBehaviour({this, &GameLayer::onUpdateCollision});
+    entity.addBehaviour({this, &GameLayer::onUpdateWeapon});
+
+    entity.addUserComponent<DamageComponent>({0.0f});
+    entity.addUserComponent<ExperienceComponent>({0.0f, 1.0f});
+    entity.addUserComponent<CoinsComponent>({0.0f});
+    entity.addUserComponent<ModifierComponent>({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f});
+    entity.addUserComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
+    entity.addUserComponent<WeaponComponent>({_weapons["Knife"]});
+
+    // add shadow
+    iEntity shadow = _entityScene->createEntity();
+    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, STANDARD_UNIT_SIZE * 0.8, 0.0)});
+    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaVector2d(STANDARD_UNIT_SIZE * 0.7, STANDARD_UNIT_SIZE * 0.3), iaColor4f::black, -1});
+    shadow.setParent(entity.getID());
+
+    return entity;
+}
+
+void GameLayer::onCameraFollowPlayer(iEntity &entity, std::any &userData)
+{
+    if (!_player.isValid())
+    {
+        return;
+    }
+
+    const auto &playerTransform = _player.getComponent<iTransformComponent>();
+    auto &camTransform = entity.getComponent<iTransformComponent>();
+    iaVector2d &targetOffset = std::any_cast<iaVector2d &>(userData);
+
+    const iaVector2d playerPosition(playerTransform._position._x, playerTransform._position._y);
+    const iaVector2d lastPlayerPosition(camTransform._position._x + targetOffset._x,
+                                        camTransform._position._y + targetOffset._y);
+
+    const iaVector2d diff = playerPosition - lastPlayerPosition;
+
+    bool skipStep = false;
+    const auto width = PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH * 0.5;
+    const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5;
+
+    if (std::abs(diff._x) > width ||
+        std::abs(diff._y) > height)
+    {
+        skipStep = true;
+    }
+
+    if (!skipStep)
+    {
+        targetOffset += diff;
+    }
+
+    targetOffset._x = std::clamp(targetOffset._x, -width, width);
+    targetOffset._y = std::clamp(targetOffset._y, -height, height);
+
+    camTransform._position._x = playerPosition._x - targetOffset._x;
+    camTransform._position._y = playerPosition._y - targetOffset._y;
+
+    userData = targetOffset;
+}
+
+iEntity GameLayer::createCamera()
+{
+    const auto &playerTransform = _player.getComponent<iTransformComponent>();
+
+    iEntity entity = _entityScene->createEntity("camera");
+
+    entity.addComponent<iTransformComponent>({playerTransform._position});
+    entity.addBehaviour({this, &GameLayer::onCameraFollowPlayer}, iaVector2d());
+
+    auto &component = entity.addComponent<iCameraComponent>({});
+    component._projection = iProjectionType::Orthogonal;
+    component._leftOrtho = -PLAYFIELD_VIEWPORT_WIDTH * 0.5;
+    component._rightOrtho = PLAYFIELD_VIEWPORT_WIDTH * 0.5;
+    component._bottomOrtho = PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
+    component._topOrtho = -PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
+    component._clearColorActive = false;
+    component._clearDepthActive = false;
+
+    // DEBUG
+    auto &debug = entity.addComponent<iRenderDebugComponent>({});
+    debug._renderSpacePartitioning = true;
+
+    return entity;
+}
+
+void GameLayer::createBackground()
+{
+    iEntity entity = _entityScene->createEntity("background");
+
+    entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d{200.0, 150.0, 1.0}});
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/background.png"), iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderMode::Tiled});
+}
+
+void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType)
+{
+    iEntity entity = _entityScene->createEntity("object");
+    const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
+    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
+    entity.addUserComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
+    entity.addComponent<iPartyComponent>({party});
+    entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
+    entity.addComponent<iBody2DComponent>({});
+
+    entity.addUserComponent<PickupComponent>({true});
+    entity.addUserComponent<ExperienceGainComponent>({0.0f});
+    entity.addUserComponent<CoinGainComponent>({objectType == ObjectType::Coin ? 1.0f : 0.0f});
+    entity.addUserComponent<DamageComponent>({0.0f});
+    entity.addUserComponent<HealComponent>({0.0f});
+}
+
+void GameLayer::liftShop()
+{
+    _shop.removeComponent<iBody2DComponent>();
+    _shop.setActive(false);
+}
+
+void GameLayer::onLandShop(const iaTime &time)
+{
+    landShop();
+}
+
+void GameLayer::onShopLanded()
+{
+    _shop.addComponent<iBody2DComponent>({});
+    _shop.setActive(true);
+}
+
+void GameLayer::landShop()
+{
+    auto &transform = _shop.getComponent<iTransformComponent>();
+    transform._position.set(iaRandom::getNextFloat() * PLAYFIELD_WIDTH, iaRandom::getNextFloat() * PLAYFIELD_HEIGHT, 0.0);
+
+    onShopLanded();
+}
+
+void GameLayer::createShop()
+{
+    _shop = _entityScene->createEntity("shop", false);
+    _shop.addComponent<iTransformComponent>({iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)});
+    _shop.addComponent<iVelocityComponent>({});
+    _shop.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
+    _shop.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png")});
+    _shop.addComponent<iPartyComponent>({FRIEND});
+    _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});
+    _shop.addUserComponent<VisualComponent>({true, false, iaTime::fromSeconds(iaRandom::getNextFloat())});
+    _shop.addUserComponent<BuildingComponent>({BuildingType::Shop});
+    _shop.addUserComponent<ModifierComponent>({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f});
+    _shop.addUserComponent<WeaponComponent>({_weapons["Minigun"]});
+    _shop.addUserComponent<TargetComponent>({IGOR_INVALID_ENTITY_ID, false, false});
+    _shop.addBehaviour({this, &GameLayer::onAquireTarget});
+    _shop.addBehaviour({this, &GameLayer::onUpdateWeapon});
+
+    // add shadow
+    iEntity shadow = _entityScene->createEntity();
+    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.25, 0.0)});
+    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaVector2d(0.8, 0.8), iaColor4f::black, -1});
+    shadow.setParent(_shop.getID());
+}
+
+void GameLayer::onFollowTarget(iEntity &entity, std::any &userData)
+{
+    auto &target = entity.getUserComponent<TargetComponent>();
+
+    const float64 speed = 0.5; // TODO
+
+    // skip if entity is not following targets
+    if (!target._followTarget)
+    {
+        return;
+    }
+
+    // skip if there is no valid target
+    iEntity targetEntity(target._targetID, _entityScene);
+    if (!targetEntity.isValid())
+    {
+        return;
+    }
+
+    // skip if target has no position
+    iTransformComponent *targetTransform = targetEntity.tryGetComponent<iTransformComponent>();
+    if (targetTransform == nullptr)
+    {
+        return;
+    }
+
+    auto &velocity = entity.getComponent<iVelocityComponent>();
+    auto &transform = entity.getComponent<iTransformComponent>();
+
+    const iaVector2d targetPos(targetTransform->_position._x, targetTransform->_position._y);
+    const iaVector2d position(transform._position._x, transform._position._y);
+    iaVector2d offset;
+    iaCircled circle(position, 1000.0);
+
+    if (!intersectDoughnut(targetPos, circle, offset))
+    {
+        if (target._inRange)
+        {
+            velocity._velocity = getRandomDir() * speed;
+            target._inRange = false;
+        }
+    }
+    else
+    {
+        iaVector2d newVel = targetPos - position + offset;
+        newVel.normalize();
+        newVel *= speed;
+        velocity._velocity.set(newVel._x, newVel._y, 0.0);
+        target._inRange = true;
+    }
+}
+
+void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
+{
+    iEntity unit = _entityScene->createEntity();
+    unit.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0)});
+    unit.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
+    unit.addComponent<iVelocityComponent>({getRandomDir() * enemyClass._speed});
+    unit.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(enemyClass._texture)});
+    unit.addComponent<iPartyComponent>({party});
+    unit.addComponent<iCircleCollision2DComponent>({enemyClass._size * 0.5});
+    unit.addComponent<iBody2DComponent>({});
+    unit.addUserComponent<HealthComponent>({enemyClass._health});
+    unit.addUserComponent<TargetComponent>({target});
+    unit.addUserComponent<ExperienceGainComponent>({enemyClass._xpDrop});
+    unit.addUserComponent<DamageComponent>({enemyClass._damage});
+    unit.addUserComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
+    unit.addBehaviour({this, &GameLayer::onCheckCollision});
+    unit.addBehaviour({this, &GameLayer::onFollowTarget});
+    unit.setMotionInteractionType(iMotionInteractionType::Divert);
+
+    // add shadow
+    iEntity shadow = _entityScene->createEntity();
+    shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.5, 0.0), iaVector3d(), iaVector3d(0.5, 0.25, 1.0)});
+    shadow.addComponent<iSpriteRendererComponent>({_shadow, iaVector2d(1.0, 1.0), iaColor4f::black, -1});
+    shadow.setParent(unit.getID());
+}
+
 void GameLayer::onSpawnStuff(const iaTime &time)
 {
     if (!_player.isValid())
@@ -715,7 +708,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
     const auto &playerTransform = _player.getComponent<iTransformComponent>();
     const iaVector2f playerPosition(playerTransform._position._x, playerTransform._position._y);
 
-    ExperienceComponent &playerXP = _player.getCustomComponent<ExperienceComponent>();
+    ExperienceComponent &playerXP = _player.getUserComponent<ExperienceComponent>();
 
     // scaling all available enemies across 100 player levels
     const int32 playerLevel = playerXP._level; //  * (_enemies.size() / 50.0);
@@ -768,41 +761,6 @@ void GameLayer::onSpawnStuff(const iaTime &time)
 
     con_endl("minEnemyLevel " << minEnemyLevel);
     con_endl("maxEnemyLevel " << maxEnemyLevel);
-}
-
-void GameLayer::onUpdateStats(const iaTime &time)
-{
-    /*    if (!_player.isValid())
-        {
-            return;
-        }
-
-        GameStats stats;
-
-        auto view = _entityScene->getEntities<HealthComponent, iPartyComponent>();
-        for (auto entityID : view)
-        {
-            auto [health, party] = view.get<HealthComponent, iPartyComponent>(entityID);
-
-            if (party._partyID == FOE)
-            {
-                stats._enemyHealth += health._health;
-                stats._enemyCount++;
-            }
-        }
-
-        const auto &weapon = _player.getCustomComponent<WeaponComponent>();
-
-        const ModifierComponent &modifierComponent = _player.getCustomComponent<ModifierComponent>();
-
-        stats._playerDamage = (weapon._damage * modifierComponent._damageFactor) / (weapon._attackInterval.getSeconds() / modifierComponent._attackIntervalFactor);
-        const auto &experience = _player.getCustomComponent<ExperienceComponent>();
-        stats._playerExperience = experience._experience;
-        stats._playerLevel = experience._level;
-        const auto &coins = _player.getCustomComponent<CoinsComponent>();
-        stats._playerCoins = coins._coins;
-
-        _stats.push_back(stats);*/
 }
 
 void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
@@ -1050,8 +1008,8 @@ void GameLayer::onCheckCollision(iEntity &entity, std::any &userData)
 {
     auto &transform = entity.getComponent<iTransformComponent>();
     const auto &party = entity.getComponent<iPartyComponent>();
-    auto &damage = entity.getCustomComponent<DamageComponent>();
-    auto &health = entity.getCustomComponent<HealthComponent>();
+    auto &damage = entity.getUserComponent<DamageComponent>();
+    auto &health = entity.getUserComponent<HealthComponent>();
     const auto &body = entity.getComponent<iBody2DComponent>();
 
     iQuadtreed::Objects objects;
@@ -1076,7 +1034,7 @@ void GameLayer::onCheckCollision(iEntity &entity, std::any &userData)
         {
             if (otherEntityParty->_partyID != party._partyID)
             {
-                auto *otherEntityHealth = otherEntity.tryGetCustomComponent<HealthComponent>();
+                auto *otherEntityHealth = otherEntity.tryGetUserComponent<HealthComponent>();
                 if (otherEntityHealth != nullptr)
                 {
                     otherEntityHealth->_health -= damage._damage;
@@ -1086,7 +1044,7 @@ void GameLayer::onCheckCollision(iEntity &entity, std::any &userData)
 
                         if (otherEntityParty->_partyID == FOE)
                         {
-                            const auto *exp = otherEntity.tryGetCustomComponent<ExperienceGainComponent>();
+                            const auto *exp = otherEntity.tryGetUserComponent<ExperienceGainComponent>();
                             if (exp != nullptr)
                             {
                                 if (_player.isValid())
@@ -1096,7 +1054,7 @@ void GameLayer::onCheckCollision(iEntity &entity, std::any &userData)
                             }
 
                             const auto &transform = otherEntity.getComponent<iTransformComponent>();
-                            createObject(iaVector2f(transform._position._x, transform._position._y), NEUTRAL, ObjectType::Coin);
+                            createCoin(iaVector2f(transform._position._x, transform._position._y), NEUTRAL, ObjectType::Coin);
                         }
                     }
                 }
@@ -1115,8 +1073,8 @@ void GameLayer::onCheckCollision(iEntity &entity, std::any &userData)
 void GameLayer::onUpdateRange(iEntity &entity, std::any &userData)
 {
     auto &transform = entity.getComponent<iTransformComponent>();
-    auto &range = entity.getCustomComponent<RangeComponent>();
-    auto &health = entity.getCustomComponent<HealthComponent>();
+    auto &range = entity.getUserComponent<RangeComponent>();
+    auto &health = entity.getUserComponent<HealthComponent>();
 
     range._rangeLeft -= range._lastPosition.distance(transform._position);
 
@@ -1150,7 +1108,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
             angularVelocity += (iaRandom::getNextFloat() - 0.5) * 0.2;
         }
 
-        bullet.addCustomComponent<RangeComponent>({weapon._range * modifier._projectileRangeFactor, bulletSpawnPosition});
+        bullet.addUserComponent<RangeComponent>({weapon._range * modifier._projectileRangeFactor, bulletSpawnPosition});
 
         iaVector2d dir2 = dir;
         dir2.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon._accuracy * 0.2);
@@ -1162,9 +1120,9 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(weapon._texture)});
         bullet.addComponent<iCircleCollision2DComponent>({weapon._size * 0.5});
         bullet.addComponent<iBody2DComponent>({});
-        bullet.addCustomComponent<DamageComponent>({weapon._damage * modifier._damageFactor});
-        bullet.addCustomComponent<HealthComponent>({100.0f, true});
-        bullet.addCustomComponent<VisualComponent>({false, false, iaTime::fromSeconds(iaRandom::getNextFloat())});
+        bullet.addUserComponent<DamageComponent>({weapon._damage * modifier._damageFactor});
+        bullet.addUserComponent<HealthComponent>({100.0f, true});
+        bullet.addUserComponent<VisualComponent>({false, false, iaTime::fromSeconds(iaRandom::getNextFloat())});
         bullet.addBehaviour({this, &GameLayer::onUpdateProjectileOrientation});
         bullet.addBehaviour({this, &GameLayer::onCheckCollision});
     }
@@ -1172,7 +1130,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
 void GameLayer::addExperience(iEntity &entity, float32 experience)
 {
-    auto &comp = entity.getCustomComponent<ExperienceComponent>();
+    auto &comp = entity.getUserComponent<ExperienceComponent>();
 
     comp._experience += experience;
     uint32 level = comp._level;
@@ -1220,52 +1178,6 @@ void GameLayer::onEvent(iEvent &event)
     event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(GameLayer::onKeyUp));
 }
 
-void GameLayer::onRenderStats()
-{
-    if (_stats.size() < 2)
-    {
-        return;
-    }
-
-    iaMatrixd matrix;
-    matrix.translate(0, 0, -1);
-    iRenderer::getInstance().setModelMatrix(matrix);
-
-    std::vector<iaVector3f> playerDamage;
-    std::vector<iaVector3f> playerExperience;
-    std::vector<iaVector3f> playerLevel;
-    std::vector<iaVector3f> enemyHealth;
-    std::vector<iaVector3f> enemyCount;
-
-    float32 x = 10.0f;
-    float32 y = getWindow()->getClientHeight() - 100 - 100;
-
-    for (const auto &data : _stats)
-    {
-        playerDamage.push_back(iaVector3f(x, y - data._playerDamage * 0.1, 0.0));
-        playerExperience.push_back(iaVector3f(x, y - data._playerExperience * 0.1, 0.0));
-        playerLevel.push_back(iaVector3f(x, y - (uint32)data._playerLevel * 20.0, 0.0));
-        enemyHealth.push_back(iaVector3f(x, y - data._enemyHealth * 0.05, 0.0));
-        enemyCount.push_back(iaVector3f(x, y - data._enemyCount * 1.0, 0.0));
-        x += 1.0f;
-    }
-
-    iRenderer::getInstance().setLineWidth(1);
-    iRenderer::getInstance().drawLineStrip(enemyHealth, iaColor4f(1, 0, 0, 1));
-    iRenderer::getInstance().drawLineStrip(enemyCount, iaColor4f(1, 1, 0, 1));
-    iRenderer::getInstance().drawLineStrip(playerDamage, iaColor4f(0, 1, 0, 1));
-    // iRenderer::getInstance().drawLineStrip(playerExperience, iaColor4f(0, 0, 1, 1));
-    // iRenderer::getInstance().drawLineStrip(playerLevel, iaColor4f(0, 0, 0, 1));
-
-    iRenderer::getInstance().drawString(10, getWindow()->getClientHeight() - 40, iaString("enemies: ") + iaString::toString((int)_stats.back()._enemyCount));
-
-    if (_player.isValid())
-    {
-        auto &playerTransform = _player.getComponent<iTransformComponent>();
-        iRenderer::getInstance().drawString(10, getWindow()->getClientHeight() - 80, iaString::toString(playerTransform._position._x, 0) + L", " + iaString::toString(playerTransform._position._y, 0));
-    }
-}
-
 float32 GameLayer::calcLevel(uint32 experience)
 {
     uint32 lowerBounds = 0;
@@ -1296,7 +1208,7 @@ float32 GameLayer::calcLevel(uint32 experience)
 
 void GameLayer::onRenderPlayerHUD()
 {
-    if (!_player.isValid())
+/*    if (!_player.isValid())
     {
         return;
     }
@@ -1317,7 +1229,7 @@ void GameLayer::onRenderPlayerHUD()
         points.push_back(playerPosition + dir * 95.0 - tangent * 5.0);
 
         iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);
-    }
+    }*/
 }
 
 void GameLayer::onRenderHUD()
@@ -1327,11 +1239,11 @@ void GameLayer::onRenderHUD()
         return;
     }
 
-    auto &healthComp = _player.getCustomComponent<HealthComponent>();
-    auto &playerExperience = _player.getCustomComponent<ExperienceComponent>();
-    auto &playerCoins = _player.getCustomComponent<CoinsComponent>();
-    auto &modifiers = _player.getCustomComponent<ModifierComponent>();
-    auto &weapon = _player.getCustomComponent<WeaponComponent>();
+    auto &healthComp = _player.getUserComponent<HealthComponent>();
+    auto &playerExperience = _player.getUserComponent<ExperienceComponent>();
+    auto &playerCoins = _player.getUserComponent<CoinsComponent>();
+    auto &modifiers = _player.getUserComponent<ModifierComponent>();
+    auto &weapon = _player.getUserComponent<WeaponComponent>();
     auto &playerVelocity = _player.getComponent<iVelocityComponent>();
 
     iaMatrixd matrix;
@@ -1427,13 +1339,13 @@ void GameLayer::onCloseShopDialog(iDialogPtr dialog)
     }
 
     const ShopItem &shopItem = _shopDialog->getSelection();
-    auto &coins = _player.getCustomComponent<CoinsComponent>();
+    auto &coins = _player.getUserComponent<CoinsComponent>();
     coins._coins -= shopItem._price;
 
     switch (shopItem._type)
     {
     case ShopItemType::Weapon:
-        auto &weapon = _player.getCustomComponent<WeaponComponent>();
+        auto &weapon = _player.getUserComponent<WeaponComponent>();
         weapon = _weapons[shopItem._name];
         weapon._time = iTimer::getInstance().getTime();
         break;
@@ -1447,7 +1359,7 @@ void GameLayer::upgrade(iEntity entity, const UpgradeConfiguration &upgradeConfi
         return;
     }
 
-    ModifierComponent &modifierComponent = entity.getCustomComponent<ModifierComponent>();
+    ModifierComponent &modifierComponent = entity.getUserComponent<ModifierComponent>();
 
     modifierComponent._damageFactor += upgradeConfiguration._damageFactor;
     modifierComponent._attackIntervalFactor += upgradeConfiguration._attackIntervalFactor;
@@ -1466,74 +1378,8 @@ void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
 }
 
 void GameLayer::onRenderOrtho()
-{
-    /*    auto &viewportComp = _camera.getComponent<ViewportComponent>();
-        const iaRectanglef &viewRectangle = viewportComp._viewport;
-        iaRectanglef intersectRectangle = viewRectangle;
-        float32 scale = viewRectangle._width * 0.1;
-        intersectRectangle.adjust(-scale, -scale, scale * 2.0, scale * 2.0);
-
-        iaMatrixd matrix;
-        matrix.translate(0, 0, -100);
-        matrix.scale(static_cast<float32>(getWindow()->getClientWidth() / PLAYFIELD_VIEWPORT_WIDTH),
-                     (static_cast<float32>(getWindow()->getClientHeight()) / PLAYFIELD_VIEWPORT_HEIGHT), 1.0);
-        matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
-        iRenderer::getInstance().setModelMatrix(matrix);
-
-        iRenderer::getInstance().drawTexturedRectangle(-1000, -1000, 3000, 3000, _backgroundTexture, iaColor4f::white, false, iaVector2f(10.0, 15.0));*/
-
-    // TODO add culling back in -> if (!intersectDoughnut(transform._position, intersectRectangle, position))
-
-    // TODO currently we have to call this manually until we add an association between scenes and views
-
-    // draw entities
-    /*    auto view = _entityScene->getEntities<iTransformComponent, VisualComponent, iSpriteRendererComponent>();
-
-        for (auto entity : view)
-        {
-            auto [transform, visual, spriteRender] = view.get<iTransformComponent, VisualComponent, iSpriteRendererComponent>(entity);
-
-            iaVector2f position;
-
-            if (!intersectDoughnut(transform._position, intersectRectangle, position))
-            {
-                continue;
-            }
-
-            position += transform._position;
-
-            float32 width = transform._scale._x;
-            float32 height = transform._scale._y;
-
-            if (visual._castShadow)
-            {
-                iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.25, position._y + height * 0.5, width * 0.5, height * 0.25, _shadow, iaColor4f::black, true);
-            }
-
-            iaMatrixf matrix;
-            matrix.translate(position._x, position._y, 0.0);
-
-            matrix.rotate(transform._orientation, iaAxis::Z);
-
-            if (visual._scaleAnimation)
-            {
-                iaTime time = iTimer::getInstance().getTime() + visual._timerOffset;
-                float32 timing = std::fmod((time.getMilliseconds() * 2.0), 1000.0) / 1000.0 * M_PI * 2;
-                float32 value = 1.0f + (sin(timing) * 0.1);
-                matrix.scale(width * value, height * (1.0 / value), 1.0);
-            }
-            else
-            {
-                matrix.scale(width, height, 1.0);
-            }
-
-            iRenderer::getInstance().drawTexturedQuad(matrix, spriteRender._texture, spriteRender._color, true);
-        }*/
-
-    // onRenderPlayerHUD();
-
+{    
     onRenderHUD();
-    onRenderStats();
 }
 
 void GameLayer::pause()

@@ -222,28 +222,12 @@ private:
     void createShop();
     void liftShop();
     void landShop();
-
-    void createObject(const iaVector2f &pos, uint32 party, ObjectType objectType);
-
-    void onUpdateMovementControlSystem();
-
-    
-
-    void onUpdateCleanUpTheDeadSystem();
-
-    
+    void createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType);
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 
     void onSpawnStuff(const iaTime &time);
-
     void onShopLanded();
-
     void onLandShop(const iaTime &time);
-
-    void onUpdateStats(const iaTime &time);
-
-    
-
-    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 
     /*! query a circle on the quardtree while wrapping arround at the edges like a doughnut
 

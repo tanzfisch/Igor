@@ -87,7 +87,7 @@ namespace igor
 		\param component the component to add
 		*/
 		template <typename T>
-		T &addCustomComponent(iEntityID entityID, const T &component)
+		T &addUserComponent(iEntityID entityID, const T &component)
 		{
 			auto iter = _customComponents.find(typeid(T));
 			if (iter == _customComponents.end())
@@ -110,7 +110,7 @@ namespace igor
 		\param component the component to add
 		*/
 		template <typename T>
-		T &getCustomComponent(iEntityID entityID)
+		T &getUserComponent(iEntityID entityID)
 		{
 			auto iter = _customComponents.find(typeid(T));
 			con_assert(iter != _customComponents.end(), "component does not exist")
@@ -131,7 +131,7 @@ namespace igor
 		\param entityID the given entity
 		*/
 		template <typename T>
-		T *tryGetCustomComponent(iEntityID entityID)
+		T *tryGetUserComponent(iEntityID entityID)
 		{
 			auto iter = _customComponents.find(typeid(T));
 			if (iter == _customComponents.end())

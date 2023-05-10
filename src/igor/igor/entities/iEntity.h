@@ -129,9 +129,9 @@ namespace igor
         }
 
         template<typename T>
-        T &addCustomComponent(const T &component)        
+        T &addUserComponent(const T &component)        
         {
-            return _scene->addCustomComponent<T>(_entity, component);
+            return _scene->addUserComponent<T>(_entity, component);
         }
 
         /*! \returns component of entity of given type
@@ -143,9 +143,9 @@ namespace igor
         }
 
         template<typename T>
-        T &getCustomComponent()
+        T &getUserComponent()
         {
-            return _scene->getCustomComponent<T>(_entity);
+            return _scene->getUserComponent<T>(_entity);
         }        
 
         /*! \returns component of entity of given type
@@ -159,9 +159,9 @@ namespace igor
         }
 
         template <typename T>
-        T *tryGetCustomComponent() const
+        T *tryGetUserComponent() const
         {
-            return _scene->tryGetCustomComponent<T>(_entity);
+            return _scene->tryGetUserComponent<T>(_entity);
         }        
 
         /*! removes component of given type
