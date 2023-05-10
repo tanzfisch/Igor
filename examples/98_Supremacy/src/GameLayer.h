@@ -214,9 +214,8 @@ private:
     void onAquireTarget(iEntity &entity, std::any &userData);
     void onUpdateProjectileOrientation(iEntity &entity, std::any &userData);
     void onCheckCollision(iEntity &entity, std::any &userData);
-    void onCheckForBuildingsNearBy(iEntity &entity, std::any &userData);
     void onFollowTarget(iEntity &entity, std::any &userData);
-    void onUpdatePickup(iEntity &entity, std::any &userData);
+    void onUpdateCollision(iEntity &entity, std::any &userData);
     void onUpdateWeapon(iEntity &entity, std::any &userData);
     void onUpdateRange(iEntity &entity, std::any &userData);
 
@@ -274,8 +273,6 @@ private:
     };
 
     std::vector<GameStats> _stats;
-
-    std::set<iEntityID> _deleteQueue;
 };
 
 #endif // __SUPREMACY_GAMELAYER__

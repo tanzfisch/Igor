@@ -38,8 +38,6 @@
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
 
-#include <entt.h>
-
 #include <array>
 #include <functional>
 #include <any>
@@ -48,11 +46,11 @@ namespace igor
 {
     /*! entity id definition
      */
-    typedef entt::entity iEntityID;
+    typedef uint32 iEntityID;
 
     /*! invalid entity id definition
      */
-    static constexpr iEntityID IGOR_INVALID_ENTITY_ID = entt::null;
+    static constexpr iEntityID IGOR_INVALID_ENTITY_ID = 0xffffffff;
 
     class iEntity;
 

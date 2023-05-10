@@ -10,13 +10,15 @@
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
+#include <entt.h>
+
 namespace igor
 {
 	void iTransformHierarchySystem::update(iEntityScenePtr scene)
 	{
 		// update matrices
-		auto &registry = scene->getRegistry();
-		auto transformOnlyView = scene->getEntities<iTransformComponent>();
+		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
+		auto transformOnlyView = registry->view<iTransformComponent>();
 
 		for (auto entityID : transformOnlyView)
 		{
@@ -29,7 +31,7 @@ namespace igor
 		}
 
 		// update hierarchy generations
-		auto hierarchyView = scene->getEntities<iHierarchyComponent>();
+		auto hierarchyView = registry->view<iHierarchyComponent>();
 
 		for (auto entityID : hierarchyView)
 		{
@@ -40,11 +42,11 @@ namespace igor
 				continue;
 			}
 
-			iEntityID parentID = hierarchy._parent;
+			entt::entity parentID = static_cast<entt::entity>(hierarchy._parent);
 			int32 generation = 0;
 			hierarchy._generation = generation;
 
-			while (registry.valid(parentID))
+			while (registry->valid(parentID))
 			{
 				generation++;
 
@@ -55,30 +57,30 @@ namespace igor
 					parentHierarchy._generation = generation;
 				}
 
-				parentID = parentHierarchy._parent;
+				parentID = static_cast<entt::entity>(parentHierarchy._parent);
 			};
 		}
 		
-		registry.sort<iHierarchyComponent>([&registry](const entt::entity lhs, const entt::entity rhs)
+		registry->sort<iHierarchyComponent>([&registry](const entt::entity lhs, const entt::entity rhs)
 										   {
-											   const auto &clhs = registry.get<iHierarchyComponent>(lhs);
-											   const auto &crhs = registry.get<iHierarchyComponent>(rhs);
+											   const auto &clhs = registry->get<iHierarchyComponent>(lhs);
+											   const auto &crhs = registry->get<iHierarchyComponent>(rhs);
 
 											   return clhs._generation > crhs._generation;
 										   });
 
-		registry.sort<iTransformComponent, iHierarchyComponent>();
+		registry->sort<iTransformComponent, iHierarchyComponent>();
 
 		// update hierarchy generations
-		auto transformHierarchyView = scene->getEntities<iTransformComponent, iHierarchyComponent>();
+		auto transformHierarchyView = registry->view<iTransformComponent, iHierarchyComponent>();
 
 		for (auto entityID : transformHierarchyView)
 		{
 			auto [transform, hierarchy] = transformHierarchyView.get<iTransformComponent, iHierarchyComponent>(entityID);
 
-			if (registry.valid(hierarchy._parent))
+			if (registry->valid(static_cast<entt::entity>(hierarchy._parent)))
 			{
-				iTransformComponent parentTransform = registry.get<iTransformComponent>(hierarchy._parent);
+				iTransformComponent parentTransform = registry->get<iTransformComponent>(static_cast<entt::entity>(hierarchy._parent));
 				transform._worldMatrix = parentTransform._worldMatrix * transform._worldMatrix;
 			}
 		}

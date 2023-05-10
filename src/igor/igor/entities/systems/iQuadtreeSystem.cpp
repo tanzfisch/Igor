@@ -10,14 +10,16 @@
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
+#include <entt.h>
+
 namespace igor
 {
 	void iQuadtreeSystem::update(iEntityScenePtr scene)
 	{
-		auto &registry = scene->getRegistry();
+		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
 		auto &quadtree = scene->getQuadtree();
 
-		auto viewNoCollision = registry.view<iTransformComponent, iBody2DComponent>(entt::exclude<iCircleCollision2DComponent>);
+		auto viewNoCollision = registry->view<iTransformComponent, iBody2DComponent>(entt::exclude<iCircleCollision2DComponent>);
 
 		for (auto entityID : viewNoCollision)
 		{
@@ -33,7 +35,7 @@ namespace igor
 			quadtree.update(body._object, position);
 		}
 
-		auto view = registry.view<iTransformComponent, iBody2DComponent, iCircleCollision2DComponent>();
+		auto view = registry->view<iTransformComponent, iBody2DComponent, iCircleCollision2DComponent>();
 
 		for (auto entityID : view)
 		{

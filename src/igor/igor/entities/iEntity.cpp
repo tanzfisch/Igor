@@ -6,6 +6,8 @@
 
 #include <igor/entities/components/iComponents.h>
 
+#include <entt.h>
+
 namespace igor
 {
 
@@ -16,32 +18,40 @@ namespace igor
 
     void iEntity::setName(const iaString &name)
     {
-        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+
+        iBaseEntityComponent &component = registry->get<iBaseEntityComponent>(static_cast<entt::entity>(_entity));
         component._name = name;
     }
 
     const iaString iEntity::getName() const
     {
-        iBaseEntityComponent &component = _scene->getRegistry().get<iBaseEntityComponent>(_entity);
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+
+        iBaseEntityComponent &component = registry->get<iBaseEntityComponent>(static_cast<entt::entity>(_entity));
         return component._name;
     }
 
     bool iEntity::isActive() const
     {
-        iActiveComponent *component = _scene->getRegistry().try_get<iActiveComponent>(_entity);
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+
+        iActiveComponent *component = registry->try_get<iActiveComponent>(static_cast<entt::entity>(_entity));
         return component != nullptr;
     }
 
     void iEntity::setActive(bool active)
     {
-        iActiveComponent *component = _scene->getRegistry().try_get<iActiveComponent>(_entity);
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+        
+        iActiveComponent *component = registry->try_get<iActiveComponent>(static_cast<entt::entity>(_entity));
         if (component == nullptr && active)
         {
-            _scene->getRegistry().emplace_or_replace<iActiveComponent>(_entity);
+            registry->emplace_or_replace<iActiveComponent>(static_cast<entt::entity>(_entity));
         }
         else if (component != nullptr && !active)
         {
-            _scene->getRegistry().remove<iActiveComponent>(_entity);
+            registry->remove<iActiveComponent>(static_cast<entt::entity>(_entity));
         }
     }
 
@@ -52,17 +62,19 @@ namespace igor
 
     bool iEntity::isValid() const
     {
-        return _scene->getRegistry().valid(_entity);
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+
+        return registry->valid(static_cast<entt::entity>(_entity));
     }
 
     void iEntity::addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData)
     {
-        auto &registry = _scene->getRegistry();
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
 
-        iBehaviourComponent *component = registry.try_get<iBehaviourComponent>(_entity);
+        iBehaviourComponent *component = registry->try_get<iBehaviourComponent>(static_cast<entt::entity>(_entity));
         if (component == nullptr)
         {
-            component = &(registry.emplace_or_replace<iBehaviourComponent>(_entity));
+            component = &(registry->emplace_or_replace<iBehaviourComponent>(static_cast<entt::entity>(_entity)));
         }
 
         for (auto &behaviourData : component->_behaviour)
@@ -80,9 +92,9 @@ namespace igor
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &behaviour)
     {
-        auto &registry = _scene->getRegistry();
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
 
-        iBehaviourComponent *component = registry.try_get<iBehaviourComponent>(_entity);
+        iBehaviourComponent *component = registry->try_get<iBehaviourComponent>(static_cast<entt::entity>(_entity));
         if (component == nullptr)
         {
             con_err("no behaviour component available");
@@ -101,7 +113,7 @@ namespace igor
 
         if (nonZero == 1)
         {
-            registry.remove<iBehaviourComponent>(_entity);
+            registry->remove<iBehaviourComponent>(static_cast<entt::entity>(_entity));
         }
 
         if (nonZero == 0)
@@ -112,7 +124,9 @@ namespace igor
 
     void iEntity::setParent(iEntityID parent)
     {
-        iHierarchyComponent *component = _scene->getRegistry().try_get<iHierarchyComponent>(_entity);
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+
+        iHierarchyComponent *component = registry->try_get<iHierarchyComponent>(static_cast<entt::entity>(_entity));
         if (component == nullptr)
         {
             if (parent == IGOR_INVALID_ENTITY_ID)
@@ -120,7 +134,7 @@ namespace igor
                 return;
             }
 
-            component = &(_scene->getRegistry().emplace_or_replace<iHierarchyComponent>(_entity));
+            component = &(registry->emplace_or_replace<iHierarchyComponent>(static_cast<entt::entity>(_entity)));
         }
 
         if (component->_parent == parent)
@@ -132,7 +146,7 @@ namespace igor
 
         if (component->_parent != IGOR_INVALID_ENTITY_ID)
         {
-            parentComponent = _scene->getRegistry().try_get<iHierarchyComponent>(component->_parent);
+            parentComponent = registry->try_get<iHierarchyComponent>(static_cast<entt::entity>(component->_parent));
             if (parentComponent != nullptr)
             {
                 parentComponent->_childCount = std::max(0, parentComponent->_childCount - 1);
@@ -143,10 +157,10 @@ namespace igor
 
         if (parent != IGOR_INVALID_ENTITY_ID)
         {
-            parentComponent = _scene->getRegistry().try_get<iHierarchyComponent>(parent);
+            parentComponent = registry->try_get<iHierarchyComponent>(static_cast<entt::entity>(parent));
             if (parentComponent == nullptr)
             {
-                parentComponent = &(_scene->getRegistry().emplace_or_replace<iHierarchyComponent>(parent));
+                parentComponent = &(registry->emplace_or_replace<iHierarchyComponent>(static_cast<entt::entity>(parent)));
             }
 
             parentComponent->_childCount++;
@@ -157,7 +171,9 @@ namespace igor
 
     iEntityID iEntity::getParent() const
     {
-        iHierarchyComponent *component = _scene->getRegistry().try_get<iHierarchyComponent>(_entity);
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+
+        iHierarchyComponent *component = registry->try_get<iHierarchyComponent>(static_cast<entt::entity>(_entity));
         if (component == nullptr)
         {
             return IGOR_INVALID_ENTITY_ID;
@@ -168,9 +184,9 @@ namespace igor
 
     void iEntity::setMotionInteractionType(iMotionInteractionType interactionType)
     {
-        auto &registry = _scene->getRegistry();
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
 
-        iMotionInteractionResolverComponent *component = registry.try_get<iMotionInteractionResolverComponent>(_entity);
+        iMotionInteractionResolverComponent *component = registry->try_get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(_entity));
         if (component == nullptr)
         {
             if (interactionType == iMotionInteractionType::None)
@@ -178,12 +194,12 @@ namespace igor
                 return;
             }
 
-            component = &(registry.emplace_or_replace<iMotionInteractionResolverComponent>(_entity));
+            component = &(registry->emplace_or_replace<iMotionInteractionResolverComponent>(static_cast<entt::entity>(_entity)));
         }
 
         if (interactionType == iMotionInteractionType::None)
         {
-            registry.remove<iMotionInteractionResolverComponent>(_entity);
+            registry->remove<iMotionInteractionResolverComponent>(static_cast<entt::entity>(_entity));
             return;
         }
 
@@ -192,7 +208,9 @@ namespace igor
 
     iMotionInteractionType iEntity::getMotionInteractionType() const
     {
-        iMotionInteractionResolverComponent *component = _scene->getRegistry().try_get<iMotionInteractionResolverComponent>(_entity);
+        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+
+        iMotionInteractionResolverComponent *component = registry->try_get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(_entity));
         if (component == nullptr)
         {
             return iMotionInteractionType::None;

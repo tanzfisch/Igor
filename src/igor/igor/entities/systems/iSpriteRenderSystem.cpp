@@ -10,18 +10,20 @@
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
+#include <entt.h>
+
 namespace igor
 {
 	void iSpriteRenderSystem::update(iEntityScenePtr scene)
 	{
-		auto &registry = scene->getRegistry();
-		registry.sort<iSpriteRendererComponent>([&registry](const entt::entity lhs, const entt::entity rhs)
+		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
+		registry->sort<iSpriteRendererComponent>([registry](const entt::entity lhs, const entt::entity rhs)
 												{
-			const auto &clhs = registry.get<iSpriteRendererComponent>(lhs);
-			const auto &crhs = registry.get<iSpriteRendererComponent>(rhs);
+			const auto &clhs = registry->get<iSpriteRendererComponent>(lhs);
+			const auto &crhs = registry->get<iSpriteRendererComponent>(rhs);
 			return clhs._zIndex < crhs._zIndex; });
 
-		auto view = registry.view<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
+		auto view = registry->view<iSpriteRendererComponent, iTransformComponent, iActiveComponent>();
 
 		for (auto entityID : view)
 		{

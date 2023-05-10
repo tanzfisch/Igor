@@ -137,7 +137,7 @@ namespace igor
         /*! \returns component of entity of given type
          */
         template <typename T>
-        T &getComponentV2()
+        T &getComponent()
         {
             return _scene->getComponent<T>(_entity);
         }
@@ -153,7 +153,7 @@ namespace igor
         returns nullptr in case component does not exist
          */
         template <typename T>
-        T *tryGetComponentV2() const
+        T *tryGetComponent() const
         {
             return _scene->tryGetComponent<T>(_entity);
         }
@@ -170,27 +170,6 @@ namespace igor
         void removeComponent()
         {
             _scene->removeComponent<T>(_entity);
-        }
-
-        /////////// deprecated
-        template <typename T>
-        T *tryGetComponent() const
-        {
-            return _scene->getRegistry().try_get<T>(_entity);
-        }
-
-        /////////// deprecated
-        template <typename T>
-        T &getComponent() const
-        {
-            return _scene->getRegistry().get<T>(_entity);
-        }
-
-        /////////// deprecated
-        template <typename T, typename... Args>
-        T &addComponent(Args &&...args)
-        {
-            return _scene->getRegistry().emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
         }
 
     private:

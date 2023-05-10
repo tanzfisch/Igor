@@ -11,6 +11,8 @@
 #include <utility>
 #include <tuple>
 
+#include <entt.h>
+
 namespace igor
 {
 
@@ -69,7 +71,7 @@ namespace igor
     void iEntityScene::clear()
     {
         _systems.clear();
-        getRegistry().clear();
+        _registry->_registry.clear();
     }
 
     void iEntityScene::setBounds(const iAABoxd &box)
@@ -164,8 +166,8 @@ namespace igor
 
     iEntity iEntityScene::createEntity(const iaString &name, bool active)
     {
-        iEntityID entityID = getRegistry().create();
-        getRegistry().emplace_or_replace<iBaseEntityComponent>(entityID, name);
+        iEntityID entityID = static_cast<iEntityID>(_registry->_registry.create());
+        _registry->_registry.emplace_or_replace<iBaseEntityComponent>(static_cast<entt::entity>(entityID), name);
 
         iEntity entity(entityID, shared_from_this());
         entity.setActive(active);
@@ -178,44 +180,49 @@ namespace igor
         _deleteQueue.push_back(entityID);
     }
 
+    void iEntityScene::destroyEntity(const iEntity &entity)
+    {
+        _deleteQueue.push_back(entity.getID());
+    }
+
     void iEntityScene::destroyEntities()
     {
         for (auto entityID : _deleteQueue)
         {
-            if(!getRegistry().valid(entityID))
+            if (!_registry->_registry.valid(static_cast<entt::entity>(entityID)))
             {
                 continue;
             }
 
             /*! cleanup quadtree
              */
-            iBody2DComponent *component = tryGetComponent<iBody2DComponent>(entityID);
+            iBody2DComponent *component = _registry->_registry.try_get<iBody2DComponent>(static_cast<entt::entity>(entityID));
             if (component != nullptr)
             {
                 getQuadtree().remove(component->_object);
             }
 
             // cleanup hierarchy
-            iHierarchyComponent *hierarchy = getRegistry().try_get<iHierarchyComponent>(entityID);
+            iHierarchyComponent *hierarchy = _registry->_registry.try_get<iHierarchyComponent>(static_cast<entt::entity>(entityID));
             if (hierarchy != nullptr &&
-                getRegistry().valid(hierarchy->_parent))
+                _registry->_registry.valid(static_cast<entt::entity>(hierarchy->_parent)))
             {
-                iHierarchyComponent *parentHierarchy = getRegistry().try_get<iHierarchyComponent>(hierarchy->_parent);
+                iHierarchyComponent *parentHierarchy = _registry->_registry.try_get<iHierarchyComponent>(static_cast<entt::entity>(hierarchy->_parent));
                 if (parentHierarchy != nullptr)
                 {
                     parentHierarchy->_childCount = std::max(0, parentHierarchy->_childCount - 1);
                 }
             }
 
-            getRegistry().destroy(entityID);
+            _registry->_registry.destroy(static_cast<entt::entity>(entityID));
         }
 
         _deleteQueue.clear();
     }
 
-    entt::registry &iEntityScene::getRegistry() const
+    void *iEntityScene::getRegistry() const
     {
-        return _registry->_registry;
+        return &_registry->_registry;
     }
 
     template <typename... Components>
@@ -227,7 +234,7 @@ namespace igor
     template <typename T>
     T &iEntityScene::addComponent(iEntityID entityID, const T &component)
     {
-        T &result = getRegistry().emplace_or_replace<T>(entityID);
+        T &result = _registry->_registry.emplace_or_replace<T>(static_cast<entt::entity>(entityID));
         result = component;
 
         return result;
@@ -236,14 +243,14 @@ namespace igor
     template <>
     iBody2DComponent &iEntityScene::addComponent<iBody2DComponent>(iEntityID entityID, const iBody2DComponent &component)
     {
-        iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
+        iTransformComponent *transform = _registry->_registry.try_get<iTransformComponent>(static_cast<entt::entity>(entityID));
         if (transform == nullptr)
         {
             const iaVector2d center = getQuadtree().getRootBox().getCenter();
-            transform = &(getRegistry().emplace_or_replace<iTransformComponent>(entityID, iaVector3d(center._x, center._y, 0.0)));
+            transform = &(_registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID), iaVector3d(center._x, center._y, 0.0)));
         }
 
-        iBody2DComponent &result = getRegistry().emplace_or_replace<iBody2DComponent>(entityID);
+        iBody2DComponent &result = _registry->_registry.emplace_or_replace<iBody2DComponent>(static_cast<entt::entity>(entityID));
 
         result._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, 1.0), entityID);
         getQuadtree().insert(result._object);
@@ -257,10 +264,10 @@ namespace igor
         iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
         if (transform == nullptr)
         {
-            getRegistry().emplace_or_replace<iTransformComponent>(entityID);
+            _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
         }
 
-        iCameraComponent &result = getRegistry().emplace_or_replace<iCameraComponent>(entityID);
+        iCameraComponent &result = _registry->_registry.emplace_or_replace<iCameraComponent>(static_cast<entt::entity>(entityID));
         result = component;
 
         return result;
@@ -276,11 +283,12 @@ namespace igor
     template iCameraComponent &iEntityScene::addComponent<iCameraComponent>(iEntityID entityID, const iCameraComponent &component);
     template iRenderDebugComponent &iEntityScene::addComponent<iRenderDebugComponent>(iEntityID entityID, const iRenderDebugComponent &component);
     template iPartyComponent &iEntityScene::addComponent<iPartyComponent>(iEntityID entityID, const iPartyComponent &component);
+    template iGlobalBoundaryComponent &iEntityScene::addComponent<iGlobalBoundaryComponent>(iEntityID entityID, const iGlobalBoundaryComponent &component);
 
     template <typename T>
     T &iEntityScene::getComponent(iEntityID entityID)
     {
-        return getRegistry().get<T>(entityID);
+        return _registry->_registry.get<T>(static_cast<entt::entity>(entityID));
     }
 
     template iCircleCollision2DComponent &iEntityScene::getComponent<iCircleCollision2DComponent>(iEntityID entityID);
@@ -293,11 +301,13 @@ namespace igor
     template iCameraComponent &iEntityScene::getComponent<iCameraComponent>(iEntityID entityID);
     template iRenderDebugComponent &iEntityScene::getComponent<iRenderDebugComponent>(iEntityID entityID);
     template iPartyComponent &iEntityScene::getComponent<iPartyComponent>(iEntityID entityID);
+    template iBody2DComponent &iEntityScene::getComponent<iBody2DComponent>(iEntityID entityID);
+    template iGlobalBoundaryComponent &iEntityScene::getComponent<iGlobalBoundaryComponent>(iEntityID entityID);
 
     template <typename T>
     T *iEntityScene::tryGetComponent(iEntityID entityID)
     {
-        return getRegistry().try_get<T>(entityID);
+        return _registry->_registry.try_get<T>(static_cast<entt::entity>(entityID));
     }
 
     template iCircleCollision2DComponent *iEntityScene::tryGetComponent<iCircleCollision2DComponent>(iEntityID entityID);
@@ -310,11 +320,13 @@ namespace igor
     template iCameraComponent *iEntityScene::tryGetComponent<iCameraComponent>(iEntityID entityID);
     template iRenderDebugComponent *iEntityScene::tryGetComponent<iRenderDebugComponent>(iEntityID entityID);
     template iPartyComponent *iEntityScene::tryGetComponent<iPartyComponent>(iEntityID entityID);
+    template iBody2DComponent *iEntityScene::tryGetComponent<iBody2DComponent>(iEntityID entityID);
+    template iGlobalBoundaryComponent *iEntityScene::tryGetComponent<iGlobalBoundaryComponent>(iEntityID entityID);
 
     template <typename T>
     void iEntityScene::removeComponent(iEntityID entityID)
     {
-        getRegistry().remove<T>(entityID);
+        _registry->_registry.remove<T>(static_cast<entt::entity>(entityID));
     }
 
     template <>
@@ -327,7 +339,7 @@ namespace igor
         }
 
         getQuadtree().remove(component->_object);
-        getRegistry().remove<iBody2DComponent>(entityID);
+        _registry->_registry.remove<iBody2DComponent>(static_cast<entt::entity>(entityID));
     }
 
     // the following types are left out on purpose
@@ -341,5 +353,6 @@ namespace igor
     template void iEntityScene::removeComponent<iCameraComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iRenderDebugComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iPartyComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iGlobalBoundaryComponent>(iEntityID entityID);
 
 } // igor

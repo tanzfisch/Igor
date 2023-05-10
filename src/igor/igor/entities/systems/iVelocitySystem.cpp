@@ -7,14 +7,16 @@
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntity.h>
 
+#include <entt.h>
+
 namespace igor
 {
 	void iVelocitySystem::update(iEntityScenePtr scene)
 	{
-		auto &registry = scene->getRegistry();
+		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
 		auto &quadtree = scene->getQuadtree();
 
-		auto viewInteractionResolver = registry.view<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
+		auto viewInteractionResolver = registry->view<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
 
 		for (auto entityID : viewInteractionResolver)
 		{
@@ -34,7 +36,7 @@ namespace igor
 
 				for (const auto &object : objects)
 				{
-					const iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
+					const entt::entity otherEntityID = static_cast<entt::entity>(std::any_cast<iEntityID>(object->_userData));
 
 					// skip self
 					if (otherEntityID == entityID)
@@ -42,7 +44,7 @@ namespace igor
 						continue;
 					}
 
-					auto *hasMotionInteraction = registry.try_get<iMotionInteractionResolverComponent>(otherEntityID);
+					auto *hasMotionInteraction = registry->try_get<iMotionInteractionResolverComponent>(otherEntityID);
 					if(hasMotionInteraction == nullptr)
 					{
 						continue;
@@ -66,7 +68,7 @@ namespace igor
 			}
 		}
 
-		auto viewNoBounds = registry.view<iVelocityComponent, iTransformComponent>(entt::exclude<iGlobalBoundaryComponent>);
+		auto viewNoBounds = registry->view<iVelocityComponent, iTransformComponent>(entt::exclude<iGlobalBoundaryComponent>);
 
 		for (auto entityID : viewNoBounds)
 		{
@@ -76,7 +78,7 @@ namespace igor
 			transform._orientation += velocity._angularVelocity;
 		}
 
-		auto viewWithBounds = registry.view<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
+		auto viewWithBounds = registry->view<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
 		iaVector3d min;
 		iaVector3d max;
 		_bounds.getMinMax(min, max);
