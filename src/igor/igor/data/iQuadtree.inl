@@ -101,6 +101,22 @@ void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const i
 }
 
 template <typename F>
+void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const iaCircle<F> &circle)
+{
+    if (iIntersection::intersects(circle._center, object->_parent.lock()->_box))
+    {
+        object->_circle = circle;
+    }
+    else
+    {
+        remove(object);
+        object->_circle = circle;
+        uint32 depth = 0;
+        insertInternal(_root, object, depth);
+    }
+}
+
+template <typename F>
 void iQuadtree<F>::insert(const std::shared_ptr<iQuadtreeObject> object)
 {
     if (object->_parent.lock() != nullptr)

@@ -121,6 +121,7 @@ namespace iaux
         void lerp(const iaColor4<T> &color1, const iaColor4<T> &color2, float32 w);
 
         static IAUX_API_IMPORT_ONLY const iaColor4<T> white;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> gray;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> black;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> red;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> green;

@@ -48,9 +48,6 @@ public:
     ~PhysicsExample() = default;
 
 private:
-    /*! controls wether the physics simulation is running or not
-    */
-    bool _running = false;
 
     /*! camera heading transform
     */
@@ -73,7 +70,7 @@ private:
     \param body the body affected
     \param timestep the time passed
     */
-    void onApplyForceAndTorque(iPhysicsBody *body, float32 timestep);
+    void onApplyForceAndTorque(iPhysicsBody *body, float64 timestep);
 
     /*! initialize scene
     */

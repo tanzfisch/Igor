@@ -54,7 +54,7 @@ private:
 
     /*! called every frame
     */
-    void onPreDraw() override;
+    void onUpdate() override;
 
     /*! initialize example
     */

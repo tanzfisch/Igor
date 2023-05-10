@@ -135,7 +135,7 @@ namespace igor
 
     void iUserControlFileChooser::registerOnChangedDelegate(iChangeDelegate changeDelegate)
     {
-        _fileNameChanged.append(changeDelegate);
+        _fileNameChanged.add(changeDelegate);
     }
 
     void iUserControlFileChooser::unregisterOnChangedDelegate(iChangeDelegate changeDelegate)

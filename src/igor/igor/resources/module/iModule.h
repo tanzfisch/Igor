@@ -47,7 +47,7 @@ namespace igor
          */
         __IGOR_INLINE__ static T &getInstance()
         {
-            con_assert(iModule<T>::_instance != nullptr, "module not instanciated");
+            con_assert(iModule<T>::_instance != nullptr, "module not instantiated");
             return *iModule<T>::_instance;
         }
 

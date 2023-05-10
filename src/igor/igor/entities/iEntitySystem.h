@@ -26,18 +26,41 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_COMPONENTS__
-#define __IGOR_COMPONENTS__
+#ifndef __IGOR_ENTITY_SYSTEM__
+#define __IGOR_ENTITY_SYSTEM__
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/entities/components/iComponentMap.h>
+
+#include <memory>
 
 namespace igor
 {
-    struct NameComponent
-    {
-        iaString _name;
-    };
-}
+	class iEntityScene;
 
-#endif //  __IGOR_COMPONENTS__
+	/*! entity scene pointer definition
+	*/
+	typedef std::shared_ptr<iEntityScene> iEntityScenePtr;
+
+	class iEntitySystem
+	{
+	public:
+		/*! does nothing
+		 */
+		iEntitySystem() = default;
+
+		/*! does nothing
+		 */
+		virtual ~iEntitySystem() = default;
+
+		/*! updates system
+		 */
+		virtual void update(iEntityScenePtr scene) = 0;
+	};
+
+	/*! entity system pointer definition
+	 */
+	typedef std::shared_ptr<iEntitySystem> iEntitySystemPtr;
+
+} // igor
+
+#endif // __IGOR_ENTITY_SYSTEM__

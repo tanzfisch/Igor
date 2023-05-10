@@ -121,10 +121,18 @@ namespace igor
         */
         static void endSection(const iaString &sectionName);
 
+        /*! \returns peak frame over collected data
+        */
+        static iaTime getPeakFrame();
+
     private:
         /*! current frame
          */
         static int32 _frame;
+
+        /*! accumulated frame time
+        */
+        static std::array<iaTime, PROFILER_MAX_FRAMES_COUNT> _frameTime;
 
         /*! list of sections
          */

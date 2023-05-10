@@ -204,13 +204,13 @@ void iaVector3<T>::set(T x, T y, T z)
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector3<T>::length(void) const
+__IGOR_INLINE__ T iaVector3<T>::length() const
 {
     return (T)sqrt(_x * _x + _y * _y + _z * _z);
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector3<T>::length2(void) const
+__IGOR_INLINE__ T iaVector3<T>::length2() const
 {
     return (_x * _x + _y * _y + _z * _z);
 }
@@ -228,24 +228,25 @@ __IGOR_INLINE__ T iaVector3<T>::distance2(const iaVector3<T> &V) const
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaVector3<T>::negate(void)
+__IGOR_INLINE__ void iaVector3<T>::negate()
 {
     _x *= -1;
     _y *= -1;
     _z *= -1;
-
-    return *this;
 }
 
 template <class T>
-iaVector3<T> iaVector3<T>::normalize(void)
+void iaVector3<T>::normalize()
 {
+    if(_x == 0 && _y == 0 && _z == 0)
+    {
+        return;
+    }
+
     T h = static_cast<T>(sqrt(static_cast<float64>(_x) * static_cast<float64>(_x) + static_cast<float64>(_y) * static_cast<float64>(_y) + static_cast<float64>(_z) * static_cast<float64>(_z)));
     _x /= h;
     _y /= h;
     _z /= h;
-
-    return *this;
 }
 
 template <class T>

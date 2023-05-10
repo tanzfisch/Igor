@@ -140,10 +140,10 @@ namespace igor
         _perspective = false;
     }
 
-    void iView::setClipPlanes(float32 nearPlane, float32 farPlane)
+    void iView::setClipPlanes(float32 nearPlain, float32 farPlain)
     {
-        _nearPlaneDistance = nearPlane;
-        _farPlaneDistance = farPlane;
+        _nearPlaneDistance = nearPlain;
+        _farPlaneDistance = farPlain;
     }
 
     void iView::setClearColorActive(bool active)
@@ -189,10 +189,7 @@ namespace igor
         }
 
         if (_visible)
-        {
-            iRenderer::getInstance().beginFrame();
-            iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
-
+        {            
             iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 
             if (_clearColorActive)
@@ -219,11 +216,17 @@ namespace igor
                 _renderEngine.render();
             }
 
-            IGOR_PROFILER_BEGIN(draw_user);
-            _renderEvent();
-            IGOR_PROFILER_END(draw_user);
-
-            iRenderer::getInstance().endFrame();
+            // workaround to not measure the profiler render
+            if (getName() == "Profiler View")
+            {
+                _renderEvent();
+                iRenderer::getInstance().flush();
+            }
+            else
+            {                
+                _renderEvent();
+                iRenderer::getInstance().flush();
+            }
         }
     }
 
@@ -314,7 +317,7 @@ namespace igor
 
     void iView::registerRenderDelegate(iDrawDelegate render_delegate)
     {
-        _renderEvent.append(render_delegate);
+        _renderEvent.add(render_delegate);
     }
 
     void iView::unregisterRenderDelegate(iDrawDelegate render_delegate)
@@ -322,9 +325,9 @@ namespace igor
         _renderEvent.remove(render_delegate);
     }
 
-    float32 iView::getAspectRatio() const
+    float64 iView::getAspectRatio() const
     {
-        return static_cast<float32>(_viewport.getWidth()) / static_cast<float32>(_viewport.getHeight());
+        return static_cast<float64>(_viewport.getWidth()) / static_cast<float64>(_viewport.getHeight());
     }
 
     iaVector3d iView::project(const iaVector3d &worldSpacePos, const iaMatrixd &cameraMatrix)

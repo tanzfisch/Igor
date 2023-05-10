@@ -26,107 +26,203 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SECENE__
-#define __IGOR_ENTITY_SECENE__
+#ifndef __IGOR_ENTITY_SCENE__
+#define __IGOR_ENTITY_SCENE__
 
-#include <igor/iDefines.h>
-#include <igor/entities/iComponents.h>
+#include <igor/entities/iEntitySystem.h>
+#include <igor/entities/systems/iVelocitySystem.h>
 
-#include <entt.h>
+#include <memory>
+#include <unordered_map>
+#include <typeindex>
 
 namespace igor
 {
-	class iEntityScene;
-	typedef iEntityScene *iEntityScenePtr;
-
-	class iEntitySystem
-	{
-	public:
-		/*! does nothing
-		 */
-		iEntitySystem() = default;
-
-		/*! does nothing
-		 */
-		virtual ~iEntitySystem() = default;
-
-		/*! updates system
-		 */
-		virtual void update(iEntityScenePtr scene){};
-	};
-
-	/*! entity system pointer definition
-	 */
-	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
-
-	/*! entity id definition
-	 */
-	typedef entt::entity iEntityID;
-
-	/*! iunvalid entity id definition
-	 */
-	const entt::entity INVALID_ENTITY_ID = entt::null;
-
 	class iEntity;
+
+	/*! wrapper for entt registry
+	 */
+	class iRegistry;
 
 	/*! entity scene
 	 */
-	class IGOR_API iEntityScene
+	class IGOR_API iEntityScene : public std::enable_shared_from_this<iEntityScene>
 	{
+
+		friend class iEntitySystemModule;
+		friend class iEntitySceneDeleter;
 
 	public:
 		/*! creates an entity
 		 */
-		iEntity createEntity(const iaString &name = "");
+		iEntity createEntity(const iaString &name = "", bool active = true);
 
-		/*! destroyes an entity
-
-		\param entity the entity to destroy
-		*/
-		void destroyEntity(iEntity entity);
-
-		/*! destroyes an entity by id
+		/*! destroys an entity by id
 
 		\param entityID the entity ID
 		*/
 		void destroyEntity(iEntityID entityID);
 
-		/*! registers a system to the scene
+		/*! destroys an entity
 
-		\param system the system to register
+		\param entity the entity to destroy
 		*/
-		void registerSystem(iEntitySystemPtr system);
+		void destroyEntity(const iEntity &entity);
 
-		/*! updates all systems in the order hey have been added to the scene
-		 */
-		void updateSystems();
-
-		/*! clears the scene and the systems
+		/*! clears the scene
 		 */
 		void clear();
 
-		/*! \returns all entities with given components
-		 */
-		template <typename... Components>
-		auto getEntities()
+		/*! adds component to entity
+
+		\param component the component to add
+		*/
+		template <typename T>
+		T &addComponent(iEntityID entityID, const T &component);
+
+		/*! adds custom component to entity
+
+		this is meant for types unknown to Igor
+
+		\param component the component to add
+		*/
+		template <typename T>
+		T &addUserComponent(iEntityID entityID, const T &component)
 		{
-			return _registry.view<Components...>();
+			auto iter = _customComponents.find(typeid(T));
+			if (iter == _customComponents.end())
+			{
+				_customComponents[typeid(T)] = std::make_shared<iComponentMap<T>>();
+			}
+
+			return std::static_pointer_cast<iComponentMap<T>>(_customComponents[typeid(T)])->add(entityID, component);
 		}
+
+		/*! \returns reference to component for given entity
+
+		\param entityID the given entity
+		*/
+		template <typename T>
+		T &getComponent(iEntityID entityID);
+
+		/*! \returns reference to custom component of given entity
+
+		\param component the component to add
+		*/
+		template <typename T>
+		T &getUserComponent(iEntityID entityID)
+		{
+			auto iter = _customComponents.find(typeid(T));
+			con_assert(iter != _customComponents.end(), "component does not exist")
+
+				return std::static_pointer_cast<iComponentMap<T>>(iter->second)
+					->get(entityID);
+		}
+
+		/*! \returns pointer to component for given entity. nullptr if component does not exist
+
+		\param entityID the given entity
+		*/
+		template <typename T>
+		T *tryGetComponent(iEntityID entityID);
+
+		/*! \returns pointer to custom component for given entity. nullptr if component does not exist
+
+		\param entityID the given entity
+		*/
+		template <typename T>
+		T *tryGetUserComponent(iEntityID entityID)
+		{
+			auto iter = _customComponents.find(typeid(T));
+			if (iter == _customComponents.end())
+			{
+				return nullptr;
+			}
+
+			return std::static_pointer_cast<iComponentMap<T>>(iter->second)->tryGet(entityID);
+		}
+
+		/*! removes component of given entity with given type
+		 */
+		template <typename T>
+		void removeComponent(iEntityID entityID);
+
+		/*! initialize quadtree
+
+		\param box volume of the whole quadtree
+		\param splitThreshold threshold count of objects on a node before splitting the node
+		\param maxDepth the maximum depth of the tree
+		*/
+		void initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
+
+		/*! \returns internal quadtree
+		 */
+		iQuadtreed &getQuadtree() const;
 
 		/*! \returns entt registry
 		 */
-		entt::registry &getRegistry();
+		void *getRegistry() const;
+
+		/*! sets global bounds
+		 */
+		void setBounds(const iAABoxd &box);
+
+		/*! \returns global bounds
+		 */
+		const iAABoxd &getBounds() const;
 
 	private:
-		/*! the entt registry
+		/*! pimpl
 		 */
-		entt::registry _registry;
+		iRegistry *_registry = nullptr;
 
-		/*! currently registered systems
+		/*! caching entity ID lists
+		 */
+		std::unordered_map<std::type_index, std::vector<iEntityID>> _entityIDCache;
+
+		/*! quadtree
+		 */
+		iQuadtreed *_quadtree = nullptr;
+
+		std::shared_ptr<iVelocitySystem> _velocitySystem;
+
+		/*! systems to update
 		 */
 		std::vector<iEntitySystemPtr> _systems;
+
+		/*! systems that render
+		 */
+		std::vector<iEntitySystemPtr> _renderingSystems;
+
+		/*! storing custom component type data
+		 */
+		std::unordered_map<std::type_index, std::shared_ptr<void>> _customComponents;
+
+		/*! entities set up for deletion
+		 */
+		std::deque<iEntityID> _deleteQueue;
+
+		/*! destroys entities in the delete queue
+		 */
+		void destroyEntities();
+
+		/*! updates all non rendering systems
+		 */
+		void onUpdate();
+
+		/*! updates all rendering systems
+		 */
+		void onRender(float32 clientWidth, float32 clientHeight);
+
+		/*! init systems
+		 */
+		iEntityScene();
+
+		/*! cleanup
+		 */
+		~iEntityScene();
 	};
 
 } // igor
 
-#endif // __IGOR_ENTITY_SECENE__
+#endif // __IGOR_ENTITY_SCENE__

@@ -10,7 +10,8 @@ int main(void)
 	igor::startup();
 
 	// create window and open it
-	iWindowPtr window = igor::iApplication::getInstance().createWindow("Igor - Mouse Example");
+	iWindowPtr window = igor::iApplication::getInstance().getWindow();
+	window->setTitle("Igor - Mouse Example");
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->setDoubleClick(true);
@@ -19,10 +20,6 @@ int main(void)
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new MouseExample(window));
 	igor::iApplication::getInstance().run();
-	iApplication::getInstance().clearLayerStack();
-
-	// destroy window
-	igor::iApplication::getInstance().destroyWindow(window);
 
 	// call this after you are done with using Igor
 	igor::shutdown();

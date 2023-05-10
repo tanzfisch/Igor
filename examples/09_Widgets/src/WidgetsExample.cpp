@@ -336,5 +336,5 @@ void WidgetsExample::onExitClick(const iWidgetPtr source)
     _dialog->close();
 
     // shut down application
-    iApplication::getInstance().stop();
+    iApplication::getInstance().exit();
 }

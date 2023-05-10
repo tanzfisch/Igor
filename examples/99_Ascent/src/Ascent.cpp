@@ -656,7 +656,7 @@ void Ascent::handleMouse() // TODO
     }
 }
 
-void Ascent::onPreDraw()
+void Ascent::onUpdate()
 {
     if (_loading)
     {
@@ -922,7 +922,7 @@ bool Ascent::onKeyDown(iEventKeyDown &event)
     switch (event.getKey())
     {
     case iKeyCode::ESC:
-        iApplication::getInstance().stop();
+        iApplication::getInstance().exit();
         return true;
     }
 

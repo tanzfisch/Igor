@@ -11,6 +11,8 @@ PhysicsExample::PhysicsExample(iWindowPtr window)
 
 void PhysicsExample::onInit()
 {
+    iApplication::getInstance().pause(true);
+
     // set physics simulation rate to 60Hz
     iPhysics::getInstance().setSimulationRate(60);
 
@@ -151,7 +153,7 @@ void PhysicsExample::onDeinit()
     _bodyIDs.clear();
 }
 
-void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
+void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float64 timestep)
 {
     float64 Ixx;
     float64 Iyy;
@@ -180,15 +182,7 @@ bool PhysicsExample::onKeyDown(iEventKeyDown &event)
     switch (event.getKey())
     {
     case iKeyCode::Space:
-        _running = !_running;
-        if (_running)
-        {
-            iPhysics::getInstance().start();
-        }
-        else
-        {
-            iPhysics::getInstance().stop();
-        }
+        iApplication::getInstance().pause(!iApplication::getInstance().isPaused());
         return true;
     }
 

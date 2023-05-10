@@ -31,50 +31,52 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 
-#include <iaux/system/iaSignal.h>
+#include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
 namespace igor
 {
 
-    iaSIGNAL(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, (int32 index), (index));
+    /*! event triggered when dialog index menu closes
+     */
+    IGOR_EVENT_DEFINITION(iDialogIndexMenuClose, void, int32);
 
     /*! pull down menu
 
-	\deprecated remove this
-	*/
+    \deprecated remove this
+    */
     class IGOR_API iDialogIndexMenu : public iDialog
     {
 
     public:
         /*! init members
 
-		\param parent the parent of this widget
-		*/
+        \param parent the parent of this widget
+        */
         iDialogIndexMenu(const iWidgetPtr parent = nullptr);
 
         /*! deinitializes gui
-		*/
+         */
         virtual ~iDialogIndexMenu() = default;
 
         /*! opens dialog
 
-		leave the pictures list empty if you don't want pictures or call the alternative implementation of show
+        leave the pictures list empty if you don't want pictures or call the alternative implementation of show
 
-		\param dialogCloseDelegate delegate for closing event
-		\param texts the texts to put in the selection list
-		*/
+        \param dialogCloseDelegate delegate for closing event
+        \param texts the texts to put in the selection list
+        */
         void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts);
 
         /*! opens dialog
 
-		leave the pictures list empty if you don't want pictures or call the alternative implementation of show
+        leave the pictures list empty if you don't want pictures or call the alternative implementation of show
 
-		\param dialogCloseDelegate delegate for closing event
-		\param texts the texts to put in the selection list
-		\param pictures paths to textures used as icons next to the text
-		*/
+        \param dialogCloseDelegate delegate for closing event
+        \param texts the texts to put in the selection list
+        \param pictures paths to textures used as icons next to the text
+        */
         void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts, std::vector<iaString> &pictures);
 
         /*! \returns selected menu entry index
@@ -85,43 +87,43 @@ namespace igor
 
     private:
         /*! the close event
-		*/
+         */
         iDialogIndexMenuCloseEvent _selectBoxCloseEvent;
 
         /*! the return value of the selection box
 
-		-1 stands for cancel
-		*/
+        -1 stands for cancel
+        */
         int32 _returnValue = -1;
 
         /*! handles change event
 
-		\param source the source of the event (should be the grid)
-		*/
+        \param source the source of the event (should be the grid)
+        */
         void onChange(const iWidgetPtr source);
 
         /*! handle mouse off click event
 
-		\param source the source of that event
-		*/
+        \param source the source of that event
+        */
         void onMouseOffClick(const iWidgetPtr source);
 
         /*! initializes the gui
 
-		\param texts the texts for the menu
-		*/
+        \param texts the texts for the menu
+        */
         void initGUI(std::vector<iaString> &texts);
 
         /*! initializes the gui
 
-		\param texts the texts for the menu
-		\param pictures the pictures for the menu
-		*/
+        \param texts the texts for the menu
+        \param pictures the pictures for the menu
+        */
         void initGUI(std::vector<iaString> &texts, std::vector<iaString> &pictures);
     };
 
     /*! dialog menu pointer definition
-    */
+     */
     typedef iDialogIndexMenu *iDialogIndexMenuPtr;
 
 } // namespace igor

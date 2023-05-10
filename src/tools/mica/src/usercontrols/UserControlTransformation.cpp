@@ -48,7 +48,7 @@ void UserControlTransformation::setNode(uint32 id)
 
 	// register to new node id
 	_nodeId = id;
-	node->getTransformationChangeEvent().append(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
+	node->getTransformationChangeEvent().add(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
 
 	updateGUI(static_cast<iNodeTransform *>(node));
 }

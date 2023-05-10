@@ -41,7 +41,6 @@
 #include <igor/terrain/operations/iVoxelOperation.h>
 #include <igor/data/iAABox.h>
 
-#include <iaux/system/iaSignal.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;

@@ -49,7 +49,7 @@ namespace igor
 
     void iPhysicsMaterialCombo::registerContactDelegate(iContactDelegate contactDelegate)
     {
-        _contactEvent.append(contactDelegate);
+        _contactEvent.add(contactDelegate);
     }
 
     void iPhysicsMaterialCombo::unregisterContactDelegate(iContactDelegate contactDelegate)

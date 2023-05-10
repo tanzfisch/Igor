@@ -9,12 +9,15 @@
 
 namespace igor
 {
-    std::unordered_map<int64, iProfilerSectionDataPtr> iProfiler::_sections;
+    
     int32 iProfiler::_frame = 0;
+    std::array<iaTime, PROFILER_MAX_FRAMES_COUNT> iProfiler::_frameTime;
+    std::unordered_map<int64, iProfilerSectionDataPtr> iProfiler::_sections;
 
     void iProfiler::nextFrame()
     {
         _frame = (_frame + 1) % PROFILER_MAX_FRAMES_COUNT;
+        _frameTime[_frame] = iaTime::fromMilliseconds(0);
     }
 
     const std::vector<iProfilerSectionDataPtr> iProfiler::getSections()
@@ -43,14 +46,14 @@ namespace igor
     {
         iProfilerSectionDataPtr sectionData;
         int64 hash = sectionName.getHashValue();
-        auto iter = iProfiler::_sections.find(hash);
-        if (iter == iProfiler::_sections.end())
+        auto iter = _sections.find(hash);
+        if (iter == _sections.end())
         {
             sectionData = iProfilerSectionDataPtr(new iProfilerSectionData());
             sectionData->_name = sectionName;
             memset(&sectionData->_values, 0, sizeof(iaTime) * PROFILER_MAX_FRAMES_COUNT);
 
-            iProfiler::_sections[hash] = sectionData;
+            _sections[hash] = sectionData;
         }
         else
         {
@@ -64,7 +67,7 @@ namespace igor
     {
         iProfilerSectionDataPtr sectionData = getSectionData(sectionName);
 
-        sectionData->_values[iProfiler::_frame] = 0;
+        sectionData->_values[_frame] = 0;
         sectionData->_beginTime = iaTime::getNow();
     }
 
@@ -74,7 +77,25 @@ namespace igor
 
         iProfilerSectionDataPtr sectionData = getSectionData(sectionName);
 
-        sectionData->_values[iProfiler::_frame] += now - sectionData->_beginTime;
+        iaTime delta = now - sectionData->_beginTime;
+
+        sectionData->_values[_frame] += delta;
+        _frameTime[_frame] += delta;
+    }
+
+    iaTime iProfiler::getPeakFrame()
+    {
+        iaTime result;
+
+        for(auto time : _frameTime)
+        {
+            if(time > result)
+            {
+                result = time;
+            }
+        }
+
+        return result;
     }
 
     iProfilerSectionScoped::iProfilerSectionScoped(const iaString &sectionName)

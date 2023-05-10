@@ -34,7 +34,7 @@
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/simulation/iParticleSystem.h>
 
-#include <iaux/system/iaSignal.h>
+#include <iaux/system/iaEvent.h>
 #include <iaux/data/iaGradient.h>
 using namespace iaux;
 
@@ -44,13 +44,13 @@ namespace igor
 {
 
     /*! event triggered when particle system is finished
-    */
-    iaSIGNAL(iParticleSystemFinishedEvent, iParticleSystemFinishedDelegate, (), ());
+     */
+    IGOR_EVENT_DEFINITION(iParticleSystemFinished, void, iNodeID);
 
     __IGOR_DISABLE_WARNING__(4275); // yes iNodeVolume is intentionally not a fully exported interface
 
     /*! node to control a 3d particle system
-    */
+     */
     class IGOR_API iNodeParticleSystem : public iNodeVolume
     {
 
@@ -58,23 +58,23 @@ namespace igor
 
     public:
         /*! clears all particles
-        */
+         */
         void reset();
 
         /*! starts or resumes particle system
-        */
+         */
         void start();
 
         /*! stops or pauses the particle system
-        */
+         */
         void stop();
 
         /*! \returns true if particle system is currently running
-        */
+         */
         bool isRunning();
 
         /*! \returns true if particle system is finished
-        */
+         */
         bool isFinished() const;
 
         /*! \returns current particle count in use
@@ -92,7 +92,7 @@ namespace igor
         void setMaxParticleCount(uint16 max);
 
         /*! \returns the maximum particle count used
-        */
+         */
         uint16 getMaxParticleCount() const;
 
         /*! sets if the particle system runs in a loop
@@ -102,7 +102,7 @@ namespace igor
         void setLoop(bool loop = true);
 
         /*! \returns true if particle system runs in loop
-        */
+         */
         bool isLooped() const;
 
         /*! sets emitter node id
@@ -112,7 +112,7 @@ namespace igor
         void setEmitter(uint64 emitterID);
 
         /*! \returns the emitter node's id
-        */
+         */
         uint64 getEmitter() const;
 
         /*! sets the range of vortex torque
@@ -123,11 +123,11 @@ namespace igor
         void setVortexTorque(float32 min, float32 max);
 
         /*! \returns minimum vortex torque
-        */
+         */
         float32 getVortexTorqueMin();
 
         /*! \returns maximum vortex torque
-        */
+         */
         float32 getVortexTorqueMax();
 
         /*! sets minimum and maximum range of vortexes
@@ -138,11 +138,11 @@ namespace igor
         void setVortexRange(float32 min, float32 max);
 
         /*! \returns minimum range of vortexes
-        */
+         */
         float32 getVortexRangeMin();
 
         /*! \returns maximum range of vortexes
-        */
+         */
         float32 getVortexRangeMax();
 
         /*! sets vortex check range
@@ -152,7 +152,7 @@ namespace igor
         void setVortexCheckRange(uint8 particles);
 
         /*! \return vortex check rangein indexes from vortex particle
-        */
+         */
         uint8 getVortexCheckRange();
 
         /*! sets the tiling resolution of the first texture layer
@@ -163,11 +163,11 @@ namespace igor
         void setTextureTiling(uint32 columns, uint32 rows);
 
         /*! \returns the horizontal tiling resolution of the first texture layer
-        */
+         */
         uint32 getTextureColumns() const;
 
         /*! \returns the vertical tiling resolution of the first texture layer
-        */
+         */
         uint32 getTextureRows() const;
 
         /*! sets rainbow gradient for particles color
@@ -285,7 +285,7 @@ namespace igor
         void setVortexToParticleRate(float32 rate);
 
         /*! \returns likeliness of vortex particle to appear
-        */
+         */
         float32 getVortexToParticleRate() const;
 
         /*! sets vorticity confinement force
@@ -295,7 +295,7 @@ namespace igor
         void setVorticityConfinement(float32 vorticityConfinement);
 
         /*! \returns vorticity confinement force
-        */
+         */
         float32 getVorticityConfinement();
 
         /*! sets the air drag
@@ -310,7 +310,7 @@ namespace igor
         void setAirDrag(float32 airDrag);
 
         /*! \returns air drag factor
-        */
+         */
         float32 getAirDrag() const;
 
         /*! sets period time of this particle system
@@ -323,7 +323,7 @@ namespace igor
         void setPeriodTime(float32 periodTime);
 
         /*! \returns period time of this particle system
-        */
+         */
         float32 getPeriodTime() const;
 
         /*! sets the velocity oriented flag
@@ -336,7 +336,7 @@ namespace igor
         void setVelocityOriented(bool velocityOriented = true);
 
         /*! \returns velocity oriented flag
-        */
+         */
         bool getVelocityOriented() const;
 
         /*! sets first texture
@@ -358,15 +358,15 @@ namespace igor
         void setTextureC(const iaString &filename);
 
         /*! \returns file name of first texture
-        */
+         */
         iaString getTextureA() const;
 
         /*! \returns file name of second texture
-        */
+         */
         iaString getTextureB() const;
 
         /*! \returns file name of third texture
-        */
+         */
         iaString getTextureC() const;
 
         /*! sets the increment the tile index is progressing per frame (default = 0.0)
@@ -378,8 +378,8 @@ namespace igor
         void setTileIncrement(float32 tileIncrement);
 
         /*! \returns tile increment
-        */
-        float32 getTileIncrement() const;        
+         */
+        float32 getTileIncrement() const;
 
         /*! register delegate to particle system finished event
 
@@ -395,23 +395,23 @@ namespace igor
 
     private:
         /*! triggered when particle system is finished
-        */
+         */
         iParticleSystemFinishedEvent _fishedEvent;
 
         /*! inverted world matrix
-        */
+         */
         iaMatrixd _worldMatrixInv;
 
         /*! id of emitter node
-        */
+         */
         uint64 _emitterID = iNode::INVALID_NODE_ID;
 
         /*! the actual particle system implementation
-        */
+         */
         iParticleSystem _particleSystem;
 
         /*! target material
-        */
+         */
         iTargetMaterialPtr _targetMaterial;
 
         /*! called after a node was copied
@@ -421,7 +421,7 @@ namespace igor
         void onPostCopyLink(std::map<uint32, uint32> &nodeIDMap);
 
         /*! draw function
-        */
+         */
         void draw();
 
         /*! called when there is a new transformation matrix for this node
@@ -436,7 +436,7 @@ namespace igor
         void handle();
 
         /*! init members
-        */
+         */
         iNodeParticleSystem();
 
         /*! copy ctor
@@ -446,7 +446,7 @@ namespace igor
         iNodeParticleSystem(iNodeParticleSystem *node);
 
         /*! clean up
-        */
+         */
         virtual ~iNodeParticleSystem();
     };
 

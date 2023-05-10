@@ -140,7 +140,7 @@ namespace igor
 
         /*! updates recursively all widgets before rendering
         */
-        void onPreDraw();
+        void onUpdate();
 
     private:
         /*! modal marker

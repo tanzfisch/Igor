@@ -26,56 +26,49 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITYLOCATABLE__
-#define __IGOR_ENTITYLOCATABLE__
+#ifndef __IGOR_VELOCITY_SYSTEM__
+#define __IGOR_VELOCITY_SYSTEM__
 
-#include <igor/entities/iEntity.h>
+#include <igor/entities/iEntitySystem.h>
 
-#include <iaux/data/iaSphere.h>
-#include <iaux/math/iaVector3.h>
-using namespace iaux;
+#include <igor/data/iAABox.h>
 
 namespace igor
 {
 
-    /*! enetity that can be located by it's position
-    \deprecated will work out an ECS
-    */
-    class IGOR_API iEntityLocatable : public iEntity_Old
-    {
+	/*! velocity system
+	 */
+	class iVelocitySystem : public iEntitySystem
+	{
+	public:
+		/*! does nothing
+		 */
+		iVelocitySystem() = default;
 
-        /*! so we can manipulate the sphere
-        */
-        friend class iEntityManager;
+		/*! does nothing
+		 */
+		~iVelocitySystem() = default;
 
-    public:
-        /*! \returns current position sphere of entity
-        */
-        iSphered getSphere() const;
+		/*! sets global bounds
+		 */
+		void setBounds(const iAABoxd &box);
 
-        /*! init type
-        */
-        iEntityLocatable();
+		/*! \returns global bounds
+		 */
+		const iAABoxd &getBounds() const;
 
-        /*! does nothing
-        */
-        virtual ~iEntityLocatable() = default;
+		/*! updates system
 
-    protected:
-        /*! entity's handle
-        */
-        virtual void handle() = 0;
+		\param scene the scene used for this update
+		 */
+		void update(iEntityScenePtr scene) override;
 
-        /*! \returns current position
-        */
-        virtual iaVector3d getCurrentPos() = 0;
+	private:
+		/*! global bounds
+		 */
+		iAABoxd _bounds;
+	};
 
-    private:
-        /*! position sphere
-        */
-        iSphered _sphere;
-    };
+} // igor
 
-} // namespace igor
-
-#endif
+#endif // __IGOR_VELOCITY_SYSTEM__

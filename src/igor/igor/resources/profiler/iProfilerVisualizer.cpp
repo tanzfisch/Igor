@@ -99,7 +99,7 @@ namespace igor
             }
         }
 
-        const iaColor4f backgroundColor(0, 0, 0, 1.0);
+        const iaColor4f backgroundColor(0, 0, 0, 0.8);
 
         iRenderer::getInstance().setFont(font);
         iRenderer::getInstance().setFontSize(13.0f);
@@ -137,11 +137,7 @@ namespace igor
 
         if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
         {
-            const iaRectanglef rect(0, 0, window->getClientWidth(), window->getClientHeight() * 0.4);
-            const float32 verticalScale = rect._height / 50; // 50ms
-            const float32 Hz24 = 41.6666 * verticalScale;
-            const float32 Hz60 = 16.6666 * verticalScale;
-            const float32 Hz100 = 10 * verticalScale;
+            const iaRectanglef rect(0, 0, window->getClientWidth(), window->getClientHeight() * 0.4);            
 
             iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight(), backgroundColor);
 
@@ -151,6 +147,9 @@ namespace igor
 
             memset(&_accumulationBuffer, 0, sizeof(float32) * PROFILER_MAX_FRAMES_COUNT);
             const auto sections = iProfiler::getSections();
+
+            const float32 peakFrameTime = iProfiler::getPeakFrame().getMilliseconds();
+            const float32 verticalScale = rect._height / (peakFrameTime + 5.0);
 
             for (const auto section : sections)
             {
@@ -178,15 +177,23 @@ namespace igor
                 sectionIndex++;
             }
 
-            iaColor4f lineColor(1.0, 1.0, 1.0, 0.5);
+            const iaColor4f lineColor(1.0, 1.0, 1.0, 0.5);
+            const iaColor4f peakLineColor(1.0, 0.0, 0.0, 0.5);
 
             iRenderer::getInstance().setLineWidth(1);
             iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom(), rect.getRight(), rect.getBottom());
 
+            const float32 peak = peakFrameTime * verticalScale;
+            const float32 Hz24 = 41.6666 * verticalScale;
+            const float32 Hz60 = 16.6666 * verticalScale;
+            const float32 Hz100 = 10 * verticalScale;
+
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - peak, rect.getRight(), rect.getBottom() - peak, peakLineColor);
             iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz24, rect.getRight(), rect.getBottom() - Hz24, lineColor);
             iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz60, rect.getRight(), rect.getBottom() - Hz60, lineColor);
             iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz100, rect.getRight(), rect.getBottom() - Hz100, lineColor);
 
+            iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - peak, iaString::toString(peakFrameTime, 0) +  "ms", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz24, "24Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);

@@ -14,10 +14,10 @@ static const iaString MICA_TITLE_PREFIX = L"Mica";
 
 Mica::Mica()
 {
-	_window = iApplication::getInstance().createWindow();
+	_window = iApplication::getInstance().getWindow();
+	_window->setTitle(MICA_TITLE_PREFIX);
 	_window->setSize(1280, 720);
 	_window->setCentered();
-	_window->setTitle(MICA_TITLE_PREFIX);
 	_window->setDoubleClick(true);
 	_window->open();
 
@@ -30,12 +30,6 @@ Mica::Mica()
 
 	_taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(_window));
 	_taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(_window));
-}
-
-Mica::~Mica()
-{
-	iApplication::getInstance().clearLayerStack();
-	iApplication::getInstance().destroyWindow(_window);
 }
 
 void Mica::run(const iaString &filename)

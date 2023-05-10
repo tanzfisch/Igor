@@ -228,10 +228,10 @@ void UILayer::onGraphViewSelectionChanged(uint64 nodeID)
 
 void UILayer::onExitMica()
 {
-    iApplication::getInstance().stop();
+    iApplication::getInstance().exit();
 }
 
-void UILayer::onPreDraw()
+void UILayer::onUpdate()
 {
     if (_refresh)
     {
@@ -239,7 +239,7 @@ void UILayer::onPreDraw()
         _refresh = false;
     }
 
-    iLayerWidgets::onPreDraw();
+    iLayerWidgets::onUpdate();
 }
 
 void UILayer::onEvent(iEvent &event)

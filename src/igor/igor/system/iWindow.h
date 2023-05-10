@@ -31,10 +31,8 @@
 
 #include <igor/resources/profiler/iProfiler.h>
 
-#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
-#include <iaux/system/iaSlot.h>
 #include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 
@@ -294,11 +292,9 @@ namespace igor
         */
         iRenderContextPtr getDefaultRenderContext() const;
 
-        /*! handle to be called in the main loop
-
-        handles os messages
+        /*! handling os events sent to the window
         */
-        void handle();
+        void onUpdate();
 
         /*! swaps video buffers
         */

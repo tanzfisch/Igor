@@ -195,7 +195,7 @@ namespace igor
             _renderContextThreads[workerThread] = context;
             _mutexRenderContextThreads.unlock();
 
-            workerThread->run(ThreadDelegate(this, &iTaskManager::workWithRenderContextTasks));
+            workerThread->run(iThreadCallbackDelegate(this, &iTaskManager::workWithRenderContextTasks));
             return true;
         }
         else
@@ -208,7 +208,7 @@ namespace igor
     void iTaskManager::createThread()
     {
         iThread *workerThread = new iThread();
-        workerThread->run(ThreadDelegate(this, &iTaskManager::workWithRegularTasks));
+        workerThread->run(iThreadCallbackDelegate(this, &iTaskManager::workWithRegularTasks));
 
         _mutexRegularThreads.lock();
         _regularThreads.push_back(workerThread);
@@ -551,7 +551,7 @@ namespace igor
 
     void iTaskManager::registerTaskFinishedDelegate(iTaskFinishedDelegate taskFinishedDelegate)
     {
-        _taskFinished.append(taskFinishedDelegate);
+        _taskFinished.add(taskFinishedDelegate);
     }
 
     void iTaskManager::unregisterTaskFinishedDelegate(iTaskFinishedDelegate taskFinishedDelegate)

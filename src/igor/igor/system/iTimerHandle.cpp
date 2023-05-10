@@ -14,7 +14,7 @@ namespace igor
 
 	iTimerHandle::iTimerHandle(iTimerTickDelegate timerDelegate, const iaTime &interval, bool oneShot)
 	{
-		_timerEvent.append(timerDelegate);
+		_timerEvent.add(timerDelegate);
 		setIntervall(interval);
 		_oneShot = oneShot;
 	}
@@ -74,7 +74,7 @@ namespace igor
 
 	void iTimerHandle::registerTimerDelegate(iTimerTickDelegate timerDelegate)
 	{
-		_timerEvent.append(timerDelegate);
+		_timerEvent.add(timerDelegate);
 	}
 
 	void iTimerHandle::unregisterTimerDelegate(iTimerTickDelegate timerDelegate)

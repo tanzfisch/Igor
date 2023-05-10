@@ -30,7 +30,7 @@ namespace igor
     static const uint32 MAX_TRIANGLE_INDICES = MAX_TRIANGLES * 3;
 
     static const iaVector2f QUAD_TEXTURE_COORDS[] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}};
-    static const iaVector3f QUAD_VERTEX_POSITIONS[] = {{-0.5f, -0.5, 0.0f}, {-0.5f, 0.5, 0.0f}, {0.5f, 0.5, 0.0f}, {0.5f, -0.5, 0.0f}};
+    static const iaVector3f QUAD_VERTEX_POSITIONS[] = {{-0.5f, -0.5f, 0.0f}, {-0.5f, 0.5f, 0.0f}, {0.5f, 0.5f, 0.0f}, {0.5f, -0.5f, 0.0f}};
 
     // flat vertex definition
     struct iFlatVertex
@@ -403,6 +403,22 @@ namespace igor
 
     void iRenderer::init()
     {
+        /////////// CHECK VERSION ////////////
+        _data->_vendor = (const char *)glGetString(GL_VENDOR);
+        _data->_renderer = (const char *)glGetString(GL_RENDERER);
+        GLint major = 0;
+        GLint minor = 0;
+        glGetIntegerv(GL_MAJOR_VERSION, &major);
+        glGetIntegerv(GL_MINOR_VERSION, &minor);
+        _data->_version = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
+        _data->_extensions = (const char *)glGetString(GL_EXTENSIONS);
+
+        con_info("OpenGL Version : " << _data->_version << endlTab
+                                     << "OpenGL Vendor  : " << _data->_vendor << endlTab
+                                     << "OpenGL Renderer: " << _data->_renderer);
+
+        con_assert_sticky(major >= 4 && minor >= 5, "minimum OpenGL version is 4.5");
+
         /////////// LINES //////////////
         auto &lines = _data->_lines;
         lines._vertexArray = iVertexArray::create();
@@ -515,21 +531,6 @@ namespace igor
         clearStencilBuffer();
         setStencilTestActive(false);
 
-        _data->_vendor = (const char *)glGetString(GL_VENDOR);
-        _data->_renderer = (const char *)glGetString(GL_RENDERER);
-        GLint major = 0;
-        GLint minor = 0;
-        glGetIntegerv(GL_MAJOR_VERSION, &major);
-        glGetIntegerv(GL_MINOR_VERSION, &minor);
-        _data->_version = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
-        _data->_extensions = (const char *)glGetString(GL_EXTENSIONS);
-
-        con_assert_sticky(major >= 4 && minor >= 5, "minimum OpenGL version is 4.5");
-
-        con_info("OpenGL Version : " << _data->_version << endlTab
-                                     << "OpenGL Vendor  : " << _data->_vendor << endlTab
-                                     << "OpenGL Renderer: " << _data->_renderer);
-
         ///////////// MATERIALS ////////////
         _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/flat_shaded.mat", false);
         _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/flat_shaded_blend.mat", false);
@@ -631,6 +632,21 @@ namespace igor
                          texture, color, blend, tiling);
     }
 
+    void iRenderer::drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
+    {
+        iaMatrixf matrixf;
+        for (int i = 0; i < 16; ++i)
+        {
+            matrixf[i] = matrix[i];
+        }
+
+        drawTexturedQuad(matrixf * QUAD_VERTEX_POSITIONS[0],
+                         matrixf * QUAD_VERTEX_POSITIONS[1],
+                         matrixf * QUAD_VERTEX_POSITIONS[2],
+                         matrixf * QUAD_VERTEX_POSITIONS[3],
+                         texture, color, blend, tiling.convert<float32>());
+    }
+
     __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
     {
         auto &texQuads = _data->_texQuads;
@@ -650,7 +666,7 @@ namespace igor
         {
             if (texQuads._textures[i] == texture)
             {
-                textureIndex = (float)i;
+                textureIndex = (float32)i;
                 break;
             }
         }
@@ -677,6 +693,17 @@ namespace igor
         texQuads._indexCount += 6;
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
+    }
+
+    void iRenderer::drawTexturedQuad(const iaVector3d &v1, const iaVector3d &v2, const iaVector3d &v3, const iaVector3d &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
+    {
+        drawTexturedQuad(v1.convert<float32>(),
+                         v2.convert<float32>(),
+                         v3.convert<float32>(),
+                         v4.convert<float32>(),
+                         texture,
+                         color,
+                         blend, tiling.convert<float32>());
     }
 
     void iRenderer::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
@@ -913,7 +940,7 @@ namespace igor
         drawLineStrip(points, color);
         drawLine(points.back(), points.front(), color);
     }
-    
+
     void iRenderer::drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color)
     {
         con_assert(points.size() > 1, "too few points");
@@ -1235,10 +1262,10 @@ namespace igor
         _data->_modelViewProjectionMatrix = _data->_projectionMatrix * _data->_modelViewMatrix;
     }
 
-    void iRenderer::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
+    void iRenderer::setOrtho(float64 left, float64 right, float64 bottom, float64 top, float64 nearPlain, float64 farPlain)
     {
         iaMatrixd matrix;
-        matrix.ortho(left, right, bottom, top, nearplain, farplain);
+        matrix.ortho(left, right, bottom, top, nearPlain, farPlain);
         if (_data->_projectionMatrix == matrix)
         {
             return;
@@ -1250,10 +1277,10 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer::setPerspective(float32 fov, float32 aspect, float32 nearplain, float32 farplain)
+    void iRenderer::setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain)
     {
         iaMatrixd matrix;
-        matrix.perspective(fov, aspect, nearplain, farplain);
+        matrix.perspective(fov, aspect, nearPlain, farPlain);
         if (_data->_projectionMatrix == matrix)
         {
             return;
@@ -1885,12 +1912,20 @@ namespace igor
                  color);
     }
 
+    void iRenderer::drawTexturedQuad(const iaVector3d &o, const iaVector3d &u, const iaVector3d &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
+    {
+        drawTexturedQuad(o.convert<float32>(),
+                         u.convert<float32>(),
+                         v.convert<float32>(), texture, color, blend,
+                         tiling.convert<float32>());
+    }
+
     void iRenderer::drawTexturedQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        drawTexturedQuad(o + v + u,
-                         o - v + u,
+        drawTexturedQuad(o + v - u,
                          o - v - u,
-                         o + v - u,
+                         o - v + u,
+                         o + v + u,
                          texture, color, blend, tiling);
     }
 

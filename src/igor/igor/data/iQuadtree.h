@@ -97,7 +97,11 @@ namespace igor
 
         /*! creates the quadtree including the root node
 
+        \todo why do we have a max depth????
+
         \param box volume of the whole quadtree
+        \param splitThreshold threshold count of objects on a node before splitting the node
+        \param maxDepth the maximum depth of the tree
         */
         iQuadtree(const iaRectangle<F> &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
 
@@ -123,6 +127,13 @@ namespace igor
         \param position the new position of the object
         */
         void update(const std::shared_ptr<iQuadtreeObject> object, const iaVector2<F> &position);
+
+        /*! updates position and radius of given object
+
+        \param object the object to update
+        \param circle the new position and radius of the object
+        */
+        void update(const std::shared_ptr<iQuadtreeObject> object, const iaCircle<F> &circle);
 
         /*! \returns root of tree
          */

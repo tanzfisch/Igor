@@ -34,7 +34,7 @@
 #include <igor/physics/iPhysicsMaterial.h>
 
 #include <iaux/data/iaIDGenerator.h>
-#include <iaux/system/iaSignal.h>
+#include <iaux/system/iaEvent.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
@@ -54,7 +54,7 @@ namespace igor
 
     /*! event called by newton to apply force and Torque
     */
-    iaSIGNAL(iApplyForceAndTorqueEvent, iApplyForceAndTorqueDelegate, (iPhysicsBody * body, float32 timestep), (body, timestep));
+    IGOR_EVENT_DEFINITION(iApplyForceAndTorque, void, iPhysicsBody*, float64);
 
     /*! wrapper for the NewtonBody handle
     */

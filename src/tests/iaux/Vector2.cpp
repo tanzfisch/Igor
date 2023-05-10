@@ -74,10 +74,26 @@ IAUX_TEST(Vector2Tests, Vector2dDistance2)
 
 IAUX_TEST(Vector2Tests, Vector2dAngleX)
 {
-	iaVector2d vec(1.0, 0.0);
-	float64 angle = vec.angle();
+	iaVector2d vec1(0.0, 1.0);
+	float64 angle1 = vec1.angle();
 
-	IAUX_EXPECT_EQUAL(angle, static_cast<float64>(M_PI) * 0.5);
+	IAUX_EXPECT_EQUAL(angle1, 90.0 * IGOR_GRAD2RAD);
+
+	iaVector2d vec2(1.0, 0.0);
+	float64 angle2 = vec2.angle();
+
+	IAUX_EXPECT_EQUAL(angle2, 0.0 * IGOR_GRAD2RAD);	
+
+	iaVector2d vec3(0.0, -1.0);
+	float64 angle3 = vec3.angle();
+
+	IAUX_EXPECT_EQUAL(angle3, -90.0 * IGOR_GRAD2RAD);
+
+	iaVector2d vec4(-1.0, 0.0);
+	float64 angle4 = vec4.angle();
+
+	IAUX_EXPECT_EQUAL(angle4, 180.0 * IGOR_GRAD2RAD);	
+
 }
 
 IAUX_TEST(Vector2Tests, Vector2dAngle)

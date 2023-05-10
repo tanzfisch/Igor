@@ -98,7 +98,7 @@ namespace igor
 
     void iWidgetColorGradient::registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate)
     {
-        _colorCreated.append(delegate);
+        _colorCreated.add(delegate);
     }
 
     void iWidgetColorGradient::unregisterOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate)

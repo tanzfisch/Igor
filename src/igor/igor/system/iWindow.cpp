@@ -15,6 +15,7 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/entities/iEntitySystemModule.h>
 
 #include <algorithm>
 #include <sstream>
@@ -46,7 +47,7 @@ namespace igor
         virtual void calcClientSize() = 0;
         virtual void setDoubleClick(bool doubleClick) = 0;
         virtual void swapBuffers() = 0;
-        virtual void handle() = 0;
+        virtual void onUpdate() = 0;
         virtual bool open() = 0;
         virtual void close() = 0;
         virtual void setSizeByDesktop() = 0;
@@ -141,7 +142,7 @@ namespace igor
          */
         bool _doubleClick = false;
 
-        /*! window handle
+        /*! window pointer
          */
         iWindowPtr _window = nullptr;
     };
@@ -225,7 +226,7 @@ namespace igor
             }
         }
 
-        void handle() override
+        void onUpdate() override
         {
             MSG msg;
 
@@ -250,7 +251,7 @@ namespace igor
         }
 
         void swapBuffers() override
-        {            
+        {
             SwapBuffers(_hDC);
         }
 
@@ -782,7 +783,7 @@ namespace igor
         }
 
         void swapBuffers() override
-        {            
+        {
             _glxMutex.lock();
             glXSwapBuffers(_display, glXGetCurrentDrawable());
             _glxMutex.unlock();
@@ -799,7 +800,7 @@ namespace igor
             return XPending(_display);
         }
 
-        void handle() override
+        void onUpdate() override
         {
             iOSEvent os_event;
             os_event._display = _display;
@@ -1259,9 +1260,9 @@ namespace igor
         }
     }
 
-    void iWindow::handle()
+    void iWindow::onUpdate()
     {
-        _impl->handle();
+        _impl->onUpdate();
     }
 
     void iWindow::swapBuffers()
@@ -1499,12 +1500,19 @@ namespace igor
 
     void iWindow::draw()
     {
+        IGOR_PROFILER_BEGIN(render);
         iRenderer::getInstance().clearStats();
+        iRenderer::getInstance().beginFrame();
+
+        iEntitySystemModule::getInstance().onRender(getClientWidth(), getClientHeight());
 
         for (auto view : _views)
         {
             view->draw();
         }
+
+        iRenderer::getInstance().endFrame();
+        IGOR_PROFILER_END(render);
 
         swapBuffers();
     }

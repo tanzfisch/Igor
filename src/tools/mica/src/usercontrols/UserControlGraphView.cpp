@@ -289,7 +289,7 @@ iNodeID UserControlGraphView::getSelectedNode() const
 
 void UserControlGraphView::registerOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate)
 {
-    _selectionChange.append(selectionChangeDelegate);
+    _selectionChange.add(selectionChangeDelegate);
 }
 
 void UserControlGraphView::unregisterOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate)

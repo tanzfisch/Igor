@@ -15,8 +15,7 @@ namespace igor
 
     iTimer::iTimer()
     {
-        _currentActualTime = _currentTime = iaTime::getNow();
-        _timeDelta = 0;
+        _currentTime = iaTime::getNow();
     }
 
     iTimer::~iTimer()
@@ -35,23 +34,21 @@ namespace igor
     void iTimer::start()
     {
         _timeRunning = true;
-        _currentActualTime = iaTime::getNow() - _timeDelta;
+        _currentTime = iaTime::getNow();
     }
 
-    void iTimer::onUpdate()
+    void iTimer::nextFrame()    
     {
         if (!_timeRunning)
         {
             return;
         }
 
+        _timeDeltaIndex = (_timeDeltaIndex + 1) % TIME_DELTAS;
+
         iaTime now = iaTime::getNow();
-        _timeDelta = now - _currentActualTime;
-        _currentActualTime = now;
-
-        _currentTime += _timeDelta;
-
-        handleTimerHandles();
+        _timeDeltas[_timeDeltaIndex] = now - _currentTime;
+        _currentTime = now;
     }
 
     iaTime iTimer::getTime() const
@@ -59,17 +56,57 @@ namespace igor
         return _currentTime;
     }
 
+    iaTime iTimer::getPeakTimeDelta() const
+    {
+        iaTime result;
+        for(int i=0;i<TIME_DELTAS;++i)
+        {
+            if(result < _timeDeltas[i])
+            {
+                result = _timeDeltas[i];
+            }
+        }
+
+        return result;
+    }
+
+    iaTime iTimer::getAverageTimeDelta() const
+    {
+        iaTime result;
+
+        int counter = 0;
+
+        for(int i=0;i<TIME_DELTAS;++i)
+        {
+            if(_timeDeltas[i].getMicroseconds() == 0)
+            {
+                continue;
+            }
+            result += _timeDeltas[i];
+            counter++;
+        }
+
+        result /= counter;
+
+        return result;
+    }
+
     iaTime iTimer::getTimeDelta() const
     {
-        return _timeDelta;
+        return _timeDeltas[_timeDeltaIndex];
+    }
+
+    float64 iTimer::getAverageFPS() const
+    {
+        return 1.0 / getAverageTimeDelta().getSeconds();
     }
 
     float64 iTimer::getFPS() const
     {
-        return 1.0 / _timeDelta.getSeconds();
+        return 1.0 / _timeDeltas[_timeDeltaIndex].getSeconds();
     }
 
-    void iTimer::handleTimerHandles()
+    void iTimer::onUpdate()
     {
         _mutexHandleList.lock();
         std::vector<iTimerHandle *> timerHandles(_timerHandles);
