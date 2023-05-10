@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -107,8 +107,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a12451f004934665017fec7d53a417b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5569f1f41fb18aa83f0a8b767f5866d2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window_impl.html#a5569f1f41fb18aa83f0a8b767f5866d2">swapBuffers</a> ()=0</td></tr>
 <tr class="separator:a5569f1f41fb18aa83f0a8b767f5866d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22e656e177d3dc62f771290a933212c9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window_impl.html#a22e656e177d3dc62f771290a933212c9">handle</a> ()=0</td></tr>
-<tr class="separator:a22e656e177d3dc62f771290a933212c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1ff5d66eb9322621f2ac85ef2ca8cb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window_impl.html#afe1ff5d66eb9322621f2ac85ef2ca8cb">onUpdate</a> ()=0</td></tr>
+<tr class="separator:afe1ff5d66eb9322621f2ac85ef2ca8cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48290f97acce4d329ffb65bab1b05f80"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window_impl.html#a48290f97acce4d329ffb65bab1b05f80">open</a> ()=0</td></tr>
 <tr class="separator:a48290f97acce4d329ffb65bab1b05f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd62ab410cf05e277caf4f2c22eb32ef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window_impl.html#abd62ab410cf05e277caf4f2c22eb32ef">close</a> ()=0</td></tr>
@@ -483,31 +483,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a22e656e177d3dc62f771290a933212c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22e656e177d3dc62f771290a933212c9">&#9670;&nbsp;</a></span>handle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void igor::iWindowImpl::handle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aff8ae2c531dc6cc919d4acbf113a57df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff8ae2c531dc6cc919d4acbf113a57df">&#9670;&nbsp;</a></span>makeCurrent()</h2>
 
@@ -522,6 +497,31 @@ Friends</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceigor.html#ae2644d9b73104baa2aed8f6649bbc3ca">iRenderContextPtr</a>&#160;</td>
           <td class="paramname"><em>renderContext</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe1ff5d66eb9322621f2ac85ef2ca8cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe1ff5d66eb9322621f2ac85ef2ca8cb">&#9670;&nbsp;</a></span>onUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void igor::iWindowImpl::onUpdate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1184,7 +1184,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>window handle </p>
+<p>window pointer </p>
 
 </div>
 </div>

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -110,6 +110,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_angularDamping
 : <a class="el" href="classigor_1_1i_physics_body.html#a41fea33e367b1b83ad58e28e5dd17734">igor::iPhysicsBody</a>
 </li>
+<li>_angularVelocity
+: <a class="el" href="structigor_1_1i_velocity_component.html#a809c5cd4c5953741d65ee59d374b415b">igor::iVelocityComponent</a>
+</li>
 <li>_audioFormat
 : <a class="el" href="structigor_1_1i_w_a_v_header.html#a54ff2c2ee4febd646b21e2e1ded99a05">igor::iWAVHeader</a>
 </li>
@@ -124,14 +127,23 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_beginTime
 : <a class="el" href="structigor_1_1i_profiler_section_data.html#a8aad183e3789e5d8c0535242f22ce8d0">igor::iProfilerSectionData</a>
 </li>
+<li>_behaviour
+: <a class="el" href="structigor_1_1i_behaviour_component.html#a38a017184b5e259e42282068551e2a92">igor::iBehaviourComponent</a>
+</li>
 <li>_bitsPerSample
 : <a class="el" href="structigor_1_1i_w_a_v_header.html#a887e1ffd2cf039a7a3344434e45ecf2b">igor::iWAVHeader</a>
 </li>
 <li>_blockAlign
 : <a class="el" href="structigor_1_1i_w_a_v_header.html#a585dfee4c88c6691b4cad506196ef3c2">igor::iWAVHeader</a>
 </li>
+<li>_blocked
+: <a class="el" href="classiaux_1_1ia_event.html#a381243fd08db62b244f1f408797044fb">iaux::iaEvent&lt; R, Args &gt;</a>
+</li>
 <li>_blockedEvents
 : <a class="el" href="classigor_1_1i_widget.html#ac20ed601b9609e0a4dff50ec2a321174">igor::iWidget</a>
+</li>
+<li>_bottomOrtho
+: <a class="el" href="structigor_1_1i_camera_component.html#ae592a189d65361fcf325180646d875a3">igor::iCameraComponent</a>
 </li>
 <li>_bottomPlane
 : <a class="el" href="classigor_1_1i_frustum.html#a8094c841193dbcdf75f49ace59569855">igor::iFrustum&lt; T &gt;</a>
@@ -175,6 +187,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_childAdress
 : <a class="el" href="structigor_1_1i_voxel_block.html#ad322343cd59eace37894d4ca50e559ec">igor::iVoxelBlock</a>
 </li>
+<li>_childCount
+: <a class="el" href="structigor_1_1i_hierarchy_component.html#a35b5fe59b9fb24ca63dd8be6f9b35b61">igor::iHierarchyComponent</a>
+</li>
 <li>_children
 : <a class="el" href="classigor_1_1i_node.html#a02e7c7dcd4556f32e3afaff263f048eb">igor::iNode</a>
 , <a class="el" href="structigor_1_1i_quadtree_1_1i_quadtree_node.html#ae1b0b08846fe8f1c1125ad613e55e89b">igor::iQuadtree&lt; F &gt;::iQuadtreeNode</a>
@@ -190,6 +205,18 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_circle
 : <a class="el" href="structigor_1_1i_quadtree_1_1i_quadtree_object.html#ae491dd4f074663e6c4f41824c999967b">igor::iQuadtree&lt; F &gt;::iQuadtreeObject</a>
 </li>
+<li>_clearColor
+: <a class="el" href="structigor_1_1i_camera_component.html#ab9ed76635ecdd02282cdcee7b78a959a">igor::iCameraComponent</a>
+</li>
+<li>_clearColorActive
+: <a class="el" href="structigor_1_1i_camera_component.html#ab89aee74e3ff9cc2bd26c24f81bc01c6">igor::iCameraComponent</a>
+</li>
+<li>_clearDepth
+: <a class="el" href="structigor_1_1i_camera_component.html#a2a8e1bfa858f1110dfd0d54f752beb7c">igor::iCameraComponent</a>
+</li>
+<li>_clearDepthActive
+: <a class="el" href="structigor_1_1i_camera_component.html#a20988ee7ee0ffcaaf34313a3bda0e879">igor::iCameraComponent</a>
+</li>
 <li>_click
 : <a class="el" href="classigor_1_1i_widget.html#ad25c136b58917147098e3bc314770346">igor::iWidget</a>
 </li>
@@ -199,8 +226,15 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_clientWidth
 : <a class="el" href="classigor_1_1i_window_impl.html#a16af3a427a5f29d83ab3996ee44997cd">igor::iWindowImpl</a>
 </li>
+<li>_clipFar
+: <a class="el" href="structigor_1_1i_camera_component.html#a4f3b29fc1d8b3221a3d50e704a07af76">igor::iCameraComponent</a>
+</li>
+<li>_clipNear
+: <a class="el" href="structigor_1_1i_camera_component.html#ac0a8436b89b7a6d647af13d62ec76cfb">igor::iCameraComponent</a>
+</li>
 <li>_color
 : <a class="el" href="structigor_1_1i_flat_vertex.html#a876e9a38fedf9ae3a9956b0e3deb50df">igor::iFlatVertex</a>
+, <a class="el" href="structigor_1_1i_sprite_renderer_component.html#a7ffca1d6443fdf4fc8ab02926840b6a4">igor::iSpriteRendererComponent</a>
 , <a class="el" href="structigor_1_1i_textured_vertex.html#a9c5f4938e14349d7ea73536c3ddc2d46">igor::iTexturedVertex</a>
 </li>
 <li>_colorBuffer
@@ -235,6 +269,12 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>_data
 : <a class="el" href="structigor_1_1i_resource_parameters.html#a9e9c33f1ae7790397df6a681c392c0f4">igor::iResourceParameters</a>
+</li>
+<li>_delegate
+: <a class="el" href="structigor_1_1i_behaviour_data.html#a41be0cf26ad6559076cd6de315e7dd6a">igor::iBehaviourData</a>
+</li>
+<li>_delegates
+: <a class="el" href="classiaux_1_1ia_event.html#ad9af183d58f2d591b764ecb31f3879d9">iaux::iaEvent&lt; R, Args &gt;</a>
 </li>
 <li>_density
 : <a class="el" href="structigor_1_1i_voxel_pole.html#a9a744328abc10a934715db62a47dd50a">igor::iVoxelPole</a>
@@ -280,6 +320,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_farPlane
 : <a class="el" href="classigor_1_1i_frustum.html#add8dc4c167743afed98ef7129e242d7f">igor::iFrustum&lt; T &gt;</a>
 </li>
+<li>_fieldOfView
+: <a class="el" href="structigor_1_1i_camera_component.html#a55379d03caeaa3f93e392d5385c3adc3">igor::iCameraComponent</a>
+</li>
 <li>_filename
 : <a class="el" href="structigor_1_1i_shader_source.html#ab99ebf080adb511b4c0b1f1eccb6b454">igor::iShaderSource</a>
 </li>
@@ -322,6 +365,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>_generatingRadioButtonGroup
 : <a class="el" href="classigor_1_1i_widget_check_box.html#ad7ea4ee663b02b8fb5c352b05001b938">igor::iWidgetCheckBox</a>
+</li>
+<li>_generation
+: <a class="el" href="structigor_1_1i_hierarchy_component.html#aed2d4133a7c9127dbc5208a3646d0846">igor::iHierarchyComponent</a>
 </li>
 <li>_halfEdgeLength
 : <a class="el" href="classigor_1_1i_a_a_cube.html#a994206cd530b904dc7b495f8ee5fd20c">igor::iAACube&lt; T &gt;</a>
@@ -403,6 +449,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>_lastRenderDataSetUsed
 : <a class="el" href="structigor_1_1i_renderer_data.html#a717b6bbcaffdd5f43be86781d641f0f3">igor::iRendererData</a>
+</li>
+<li>_leftOrtho
+: <a class="el" href="structigor_1_1i_camera_component.html#a7b6028dae353235dae514355e10c6bcb">igor::iCameraComponent</a>
 </li>
 <li>_leftPlane
 : <a class="el" href="classigor_1_1i_frustum.html#a6fffbacd3e64ae4aaed4d8c43f9af2b8">igor::iFrustum&lt; T &gt;</a>
@@ -497,12 +546,15 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_mutationCounter
 : <a class="el" href="structigor_1_1i_voxel_block.html#a2d1638ad6cba25ee8c11eb006c9384b4">igor::iVoxelBlock</a>
 </li>
+<li>_mutex
+: <a class="el" href="classiaux_1_1ia_event.html#ae44655bd836f6f6a33e5370098682ae0">iaux::iaEvent&lt; R, Args &gt;</a>
+</li>
 <li>_name
-: <a class="el" href="classigor_1_1i_model_data_i_o.html#a98e599ca787a6dd8eab918d58661f9af">igor::iModelDataIO</a>
+: <a class="el" href="structigor_1_1i_base_entity_component.html#a84a0fc4c23b1c0f1c60e19f0057cff20">igor::iBaseEntityComponent</a>
+, <a class="el" href="classigor_1_1i_model_data_i_o.html#a98e599ca787a6dd8eab918d58661f9af">igor::iModelDataIO</a>
 , <a class="el" href="classigor_1_1i_node.html#a8a1bb87dab3d2d70b034291b93bd0090">igor::iNode</a>
 , <a class="el" href="structigor_1_1i_profiler_section_data.html#a4b358c3dd2fbc84710a4f61328940ae0">igor::iProfilerSectionData</a>
 , <a class="el" href="structigor_1_1i_resource_parameters.html#a69b54b9cbb2086b4f5605d647c37f2da">igor::iResourceParameters</a>
-, <a class="el" href="structigor_1_1_name_component.html#a2726f2692a2e81ba55aea037364e7429">igor::NameComponent</a>
 </li>
 <li>_nearPlane
 : <a class="el" href="classigor_1_1i_frustum.html#a86fc3d0b5b40f084718bc176745e93eb">igor::iFrustum&lt; T &gt;</a>
@@ -546,11 +598,15 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_numChannels
 : <a class="el" href="structigor_1_1i_w_a_v_header.html#a26601ba05d7f4f3e2518bda976100878">igor::iWAVHeader</a>
 </li>
+<li>_object
+: <a class="el" href="structigor_1_1i_body2_d_component.html#a0eee4d889e7a2e76661bc96627368204">igor::iBody2DComponent</a>
+</li>
 <li>_objects
 : <a class="el" href="structigor_1_1i_quadtree_1_1i_quadtree_node.html#a93db7dc22a08b7a9ca5c3b4286ca6cf4">igor::iQuadtree&lt; F &gt;::iQuadtreeNode</a>
 </li>
 <li>_offset
 : <a class="el" href="structigor_1_1i_buffer_layout_entry.html#ab61d9622b10fc29fb243ed41b41b0bc9">igor::iBufferLayoutEntry</a>
+, <a class="el" href="structigor_1_1i_circle_collision2_d_component.html#a5ab809c4ffb7b099fd971cc08be702d4">igor::iCircleCollision2DComponent</a>
 </li>
 <li>_ok
 : <a class="el" href="classiaux_1_1ia_test.html#ac5802b2bd119a77b7e32ae3c36dd52de">iaux::iaTest</a>
@@ -561,6 +617,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_orientation
 : <a class="el" href="classiaux_1_1ia_transform.html#ad1d2ce9966b12f37798192ce43f10cb8">iaux::iaTransform&lt; T &gt;</a>
 , <a class="el" href="structigor_1_1i_particle.html#a78fd1d08408ee2cf9360864db8cea335">igor::iParticle</a>
+, <a class="el" href="structigor_1_1i_transform_component.html#aa004311b3316f90dd91437d127563d36">igor::iTransformComponent</a>
 </li>
 <li>_orientationRate
 : <a class="el" href="structigor_1_1i_particle.html#a48c0e3ce02a604f739c9fb0b3b69dbd5">igor::iParticle</a>
@@ -575,16 +632,24 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 : <a class="el" href="structigor_1_1i_model_data_input_parameter.html#a8d5be59905aa4bbd9fe85ba68322ca6c">igor::iModelDataInputParameter</a>
 </li>
 <li>_parent
-: <a class="el" href="classigor_1_1i_node.html#a747646ac11c7fa2ea77eb556c5d2a455">igor::iNode</a>
+: <a class="el" href="structigor_1_1i_hierarchy_component.html#a6361687832524a1e01a64e4aa7ce7635">igor::iHierarchyComponent</a>
+, <a class="el" href="classigor_1_1i_node.html#a747646ac11c7fa2ea77eb556c5d2a455">igor::iNode</a>
 , <a class="el" href="structigor_1_1i_quadtree_1_1i_quadtree_node.html#ad89766213d5315ce4a460af38125906b">igor::iQuadtree&lt; F &gt;::iQuadtreeNode</a>
 , <a class="el" href="structigor_1_1i_quadtree_1_1i_quadtree_object.html#a80a525620138bad23850038744cccbd6">igor::iQuadtree&lt; F &gt;::iQuadtreeObject</a>
 , <a class="el" href="structigor_1_1i_voxel_block.html#af691bb574afc6a340af722aafd69f225">igor::iVoxelBlock</a>
+</li>
+<li>_partyID
+: <a class="el" href="structigor_1_1i_party_component.html#a3cffd10f35a10d0ccb41401677f96555">igor::iPartyComponent</a>
 </li>
 <li>_penetration
 : <a class="el" href="structigor_1_1_convex_cast_return_info.html#aa47fc295c04c0b7ddc5189b8bfb44ecf">igor::ConvexCastReturnInfo</a>
 </li>
 <li>_physicsMaterialID
 : <a class="el" href="structigor_1_1i_voxel_terrain_tile_information.html#afca8e78ec83d67f177af4c3b766a404d">igor::iVoxelTerrainTileInformation</a>
+</li>
+<li>_placeholder
+: <a class="el" href="structigor_1_1i_active_component.html#a2509c4443c755833204824a7b0103d03">igor::iActiveComponent</a>
+, <a class="el" href="structigor_1_1i_delete_component.html#ae1ced9987f303cf7af24dc62f9bc5466">igor::iDeleteComponent</a>
 </li>
 <li>_point
 : <a class="el" href="structigor_1_1_convex_cast_return_info.html#a64f3d8da885bc8970bb2923d797bf364">igor::ConvexCastReturnInfo</a>
@@ -605,6 +670,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 : <a class="el" href="classigor_1_1i_node_audio_source.html#a9339885676992512bba28ba6ad710008">igor::iNodeAudioSource</a>
 , <a class="el" href="structigor_1_1i_particle.html#a3c66fdbaa044f250b8bb83ad2f5af4a5">igor::iParticle</a>
 , <a class="el" href="structigor_1_1i_renderer_light.html#a22988cc708b1351c01ae84940a8358b4">igor::iRendererLight</a>
+, <a class="el" href="structigor_1_1i_transform_component.html#aaf6f313707bf26528df8fb3969090b99">igor::iTransformComponent</a>
 </li>
 <li>_positionInLOD
 : <a class="el" href="structigor_1_1i_voxel_block.html#ad04f98344ca5aa21ad80771ff14b6777">igor::iVoxelBlock</a>
@@ -615,6 +681,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>_pressed
 : <a class="el" href="structigor_1_1i_button_state.html#a6ee9493027fcd04b11792f104d6527d0">igor::iButtonState</a>
+</li>
+<li>_projection
+: <a class="el" href="structigor_1_1i_camera_component.html#a1eff38f95f24edde4eaad3f538403547">igor::iCameraComponent</a>
 </li>
 <li>_projectionMatrix
 : <a class="el" href="structigor_1_1i_renderer_data.html#a35399e49d9583afe049f17a58b9d8745">igor::iRendererData</a>
@@ -632,6 +701,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_radius
 : <a class="el" href="classiaux_1_1ia_circle.html#aa051f5672afa0885e8467372b02e6ccc">iaux::iaCircle&lt; T &gt;</a>
 , <a class="el" href="classigor_1_1ia_sphere.html#a88347d51c7b48836a8f25bf1fe2d1bff">igor::iaSphere&lt; T &gt;</a>
+, <a class="el" href="structigor_1_1i_circle_collision2_d_component.html#a32bf6ef4abb0630f93a029d8c061ef4c">igor::iCircleCollision2DComponent</a>
 </li>
 <li>_rand
 : <a class="el" href="classigor_1_1i_particle_emitter.html#a97e97f09f9c13ab9bb7807254cf49e49">igor::iParticleEmitter</a>
@@ -642,14 +712,29 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_rect
 : <a class="el" href="structigor_1_1i_atlas_1_1i_frame.html#a9ab636c9264fe9cbf8bc94e7606686c5">igor::iAtlas::iFrame</a>
 </li>
+<li>_registry
+: <a class="el" href="classigor_1_1i_registry.html#a9e9658f0d41a3ff47910de5f0317bd77">igor::iRegistry</a>
+</li>
+<li>_renderBounds
+: <a class="el" href="structigor_1_1i_render_debug_component.html#aa15f88c0de6441dbb9bf47fdd63cef89">igor::iRenderDebugComponent</a>
+</li>
 <li>_renderer
 : <a class="el" href="structigor_1_1i_renderer_data.html#af9f89a728da94977cafb51ef0f290339">igor::iRendererData</a>
+</li>
+<li>_renderMode
+: <a class="el" href="structigor_1_1i_sprite_renderer_component.html#a86493317f5725c5f77e1167f0e796a84">igor::iSpriteRendererComponent</a>
+</li>
+<li>_renderSpacePartitioning
+: <a class="el" href="structigor_1_1i_render_debug_component.html#a4f581659b64bf1d920ddb5dd69f14a9b">igor::iRenderDebugComponent</a>
 </li>
 <li>_renderTargets
 : <a class="el" href="structigor_1_1i_renderer_data.html#aa83638d9b687a432d760512d3c6d35f2">igor::iRendererData</a>
 </li>
 <li>_renderTargetType
 : <a class="el" href="structigor_1_1i_renderer_target.html#a785e99b0ef4f53d03f400aa9a8d8c915">igor::iRendererTarget</a>
+</li>
+<li>_renderWireframe
+: <a class="el" href="structigor_1_1i_render_debug_component.html#afcfffe06f0856dc1f14236cfc29a5e38">igor::iRenderDebugComponent</a>
 </li>
 <li>_requestedBuffers
 : <a class="el" href="structigor_1_1i_renderer_data.html#a5b8ace0e1c4b050b7e6ec0c38f09391f">igor::iRendererData</a>
@@ -660,6 +745,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>_right
 : <a class="el" href="classiaux_1_1ia_matrix.html#a32332419aca8e4778465e3569882b821">iaux::iaMatrix&lt; T &gt;</a>
 </li>
+<li>_rightOrtho
+: <a class="el" href="structigor_1_1i_camera_component.html#aa58895cefac9dcd63c703e6743bf4adf">igor::iCameraComponent</a>
+</li>
 <li>_rightPlane
 : <a class="el" href="classigor_1_1i_frustum.html#a1d37a96f89f793a809663e9949b2b523">igor::iFrustum&lt; T &gt;</a>
 </li>
@@ -668,6 +756,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>_scale
 : <a class="el" href="classiaux_1_1ia_transform.html#ab3f0315d958d50a88d91d6b1ba0f050a">iaux::iaTransform&lt; T &gt;</a>
+, <a class="el" href="structigor_1_1i_transform_component.html#a28a1cb24fa1ef797507577fd5adc76ee">igor::iTransformComponent</a>
 </li>
 <li>_scene
 : <a class="el" href="classigor_1_1i_node.html#a2f38b994979aae8412ac4c06ac7e2bb8">igor::iNode</a>
@@ -685,6 +774,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 : <a class="el" href="structigor_1_1i_buffer_layout_entry.html#a3d4c83f3fa0393a35481643bf50fcab9">igor::iBufferLayoutEntry</a>
 , <a class="el" href="structigor_1_1i_particle.html#a56ede114be19a104677b503176d64385">igor::iParticle</a>
 , <a class="el" href="classigor_1_1i_particle_emitter.html#a53e2d93f376323e772ad8a6ff5a5d6c3">igor::iParticleEmitter</a>
+, <a class="el" href="structigor_1_1i_sprite_renderer_component.html#a83c3e4bbdab1179ea113542da5f77dc3">igor::iSpriteRendererComponent</a>
 , <a class="el" href="structigor_1_1i_voxel_block.html#af8bb3ef6dc8be700e5e888314113a145">igor::iVoxelBlock</a>
 , <a class="el" href="structigor_1_1i_voxel_block_info.html#a8d05e59f746345c7824e55372251b5ed">igor::iVoxelBlockInfo</a>
 </li>
@@ -744,7 +834,8 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 : <a class="el" href="classigor_1_1i_widget_line_text_edit.html#a443eeb2bbc759f601e8cab54f0853ad1">igor::iWidgetLineTextEdit</a>
 </li>
 <li>_texture
-: <a class="el" href="classigor_1_1i_widget_button.html#ad073631fa1c8eb5fe8239c181fddb855">igor::iWidgetButton</a>
+: <a class="el" href="structigor_1_1i_sprite_renderer_component.html#a70d23001a84b73e1dfec4a9f0c84dd45">igor::iSpriteRendererComponent</a>
+, <a class="el" href="classigor_1_1i_widget_button.html#ad073631fa1c8eb5fe8239c181fddb855">igor::iWidgetButton</a>
 </li>
 <li>_texturePath
 : <a class="el" href="classigor_1_1i_widget_button.html#a64a1e1aed967438c1e701f43ecf6b2f1">igor::iWidgetButton</a>
@@ -775,6 +866,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>_top
 : <a class="el" href="classiaux_1_1ia_matrix.html#ad83b4c308dfa051cc526662fc394782a">iaux::iaMatrix&lt; T &gt;</a>
+</li>
+<li>_topOrtho
+: <a class="el" href="structigor_1_1i_camera_component.html#a99e0272e4a04222f6598ab2a10486d37">igor::iCameraComponent</a>
 </li>
 <li>_topPlane
 : <a class="el" href="classigor_1_1i_frustum.html#aa825f2b58e573d1ef791f645a603df67">igor::iFrustum&lt; T &gt;</a>
@@ -813,7 +907,8 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>_type
 : <a class="el" href="structigor_1_1i_buffer_layout_entry.html#ac8f8274f1caf1f342a2974ccc3c4950a">igor::iBufferLayoutEntry</a>
-, <a class="el" href="classigor_1_1i_entity___old.html#ad7dba5fc5d9f4fe202a11ae37e875ed4">igor::iEntity_Old</a>
+, <a class="el" href="structigor_1_1i_global_boundary_component.html#a4b4537162d8797701e5751d3fd8ccecd">igor::iGlobalBoundaryComponent</a>
+, <a class="el" href="structigor_1_1i_motion_interaction_resolver_component.html#ad56d75c18434fdf3e08c83edcc2f2367">igor::iMotionInteractionResolverComponent</a>
 , <a class="el" href="classigor_1_1i_node_light.html#a5bb27c40c518609ca3507192350b5f51">igor::iNodeLight</a>
 , <a class="el" href="classigor_1_1i_particle_emitter.html#a992f403f4f8c913bfec1a1f024c857c5">igor::iParticleEmitter</a>
 , <a class="el" href="structigor_1_1i_resource_parameters.html#a51510121b7ea023af5ed355ebeed1d92">igor::iResourceParameters</a>
@@ -823,7 +918,8 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 : <a class="el" href="classiaux_1_1ia_test.html#ae6d47bfdc40601bbdf71631bb4e50872">iaux::iaTest</a>
 </li>
 <li>_userData
-: <a class="el" href="classigor_1_1i_physics_body.html#ac9d99b8fb0de4671d74e9c0ac6410f44">igor::iPhysicsBody</a>
+: <a class="el" href="structigor_1_1i_behaviour_data.html#a28eccb9364abb911fd7d6906d113c9b9">igor::iBehaviourData</a>
+, <a class="el" href="classigor_1_1i_physics_body.html#ac9d99b8fb0de4671d74e9c0ac6410f44">igor::iPhysicsBody</a>
 , <a class="el" href="structigor_1_1i_quadtree_1_1i_quadtree_object.html#aab9790435e8c8104fca44dfe3cb4b4e2">igor::iQuadtree&lt; F &gt;::iQuadtreeObject</a>
 </li>
 <li>_value
@@ -836,6 +932,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 : <a class="el" href="classigor_1_1i_node_audio_source.html#a26cec9a101c6d243a1423e3eb6ec7219">igor::iNodeAudioSource</a>
 , <a class="el" href="structigor_1_1i_particle.html#aaa63fbd6e652673588d2e42852ab263e">igor::iParticle</a>
 , <a class="el" href="classigor_1_1i_physics_body.html#a92aa9cb61789603364d226ab74d56023">igor::iPhysicsBody</a>
+, <a class="el" href="structigor_1_1i_velocity_component.html#aea346c08a8ab407fe329ced33005fd58">igor::iVelocityComponent</a>
 </li>
 <li>_vendor
 : <a class="el" href="structigor_1_1i_renderer_data.html#a3ed960953da292952a4e9793e8eb8264">igor::iRendererData</a>
@@ -892,7 +989,8 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 : <a class="el" href="structigor_1_1i_renderer_data.html#a5f9ab94d6b616ec52e67d386735a617e">igor::iRendererData</a>
 </li>
 <li>_viewport
-: <a class="el" href="structigor_1_1i_renderer_data.html#a79bd19965c1fd1b64537f4146787671e">igor::iRendererData</a>
+: <a class="el" href="structigor_1_1i_camera_component.html#ab44a935aba5c7656b89296890c3c3f14">igor::iCameraComponent</a>
+, <a class="el" href="structigor_1_1i_renderer_data.html#a79bd19965c1fd1b64537f4146787671e">igor::iRendererData</a>
 </li>
 <li>_visible
 : <a class="el" href="classigor_1_1i_node_render.html#aaeba8f5f22613d15c793bed9d5fc5405">igor::iNodeRender</a>
@@ -968,6 +1066,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 , <a class="el" href="classigor_1_1i_node_light.html#a9ace6ca85ed7191f75a4cb0bc99010e3">igor::iNodeLight</a>
 , <a class="el" href="classigor_1_1i_node_render.html#a2e6a1b658fb56dd15280b31349611619">igor::iNodeRender</a>
 , <a class="el" href="classigor_1_1i_particle_emitter.html#a60c78d978a78b72f6efe161a006b8c11">igor::iParticleEmitter</a>
+, <a class="el" href="structigor_1_1i_transform_component.html#adaf5c79a0cde4c52b0535bfaceb84ab3">igor::iTransformComponent</a>
 </li>
 <li>_x
 : <a class="el" href="classiaux_1_1ia_quaternion.html#ac9fd6c27bbee4d109b6704a2eb48219c">iaux::iaQuaternion&lt; T &gt;</a>
@@ -994,6 +1093,10 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>_zdepth
 : <a class="el" href="classigor_1_1i_window_impl.html#a2c7541fbed9b7848570557ddb60d3503">igor::iWindowImpl</a>
+</li>
+<li>_zIndex
+: <a class="el" href="structigor_1_1i_camera_component.html#a7ba93510e06e219b9b44ffa9a94c0745">igor::iCameraComponent</a>
+, <a class="el" href="structigor_1_1i_sprite_renderer_component.html#ad89fc03b39534f5740179c088f8dfb12">igor::iSpriteRendererComponent</a>
 </li>
 <li>_zValue
 : <a class="el" href="classigor_1_1i_widget.html#a768d9f473cecd33228f08c5e737ab3d7">igor::iWidget</a>

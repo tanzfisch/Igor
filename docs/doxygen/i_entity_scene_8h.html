@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,21 +86,19 @@ $(document).ready(function(){initNavTree('i_entity_scene_8h.html',''); initResiz
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">iEntityScene.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_components_8h.html">igor/entities/iComponents.h</a>&gt;</code><br />
-<code>#include &lt;entt.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="i_entity_system_8h.html">igor/entities/iEntitySystem.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_velocity_system_8h.html">igor/entities/systems/iVelocitySystem.h</a>&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html">igor::iEntitySystem</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html">igor::iEntityScene</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -108,20 +106,6 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:af09d20b42b4bb128d39a4e32d72ebc93"><td class="memItemLeft" align="right" valign="top">typedef iEntityScene *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#af09d20b42b4bb128d39a4e32d72ebc93">igor::iEntityScenePtr</a></td></tr>
-<tr class="separator:af09d20b42b4bb128d39a4e32d72ebc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50792ab2ca1ab99a3e11f3d3215b0f0e"><td class="memItemLeft" align="right" valign="top">typedef std::unique_ptr&lt; iEntitySystem &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a50792ab2ca1ab99a3e11f3d3215b0f0e">igor::iEntitySystemPtr</a></td></tr>
-<tr class="separator:a50792ab2ca1ab99a3e11f3d3215b0f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ec2293e7e6ff67ac351906a8d74bd77"><td class="memItemLeft" align="right" valign="top">typedef entt::entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a9ec2293e7e6ff67ac351906a8d74bd77">igor::iEntityID</a></td></tr>
-<tr class="separator:a9ec2293e7e6ff67ac351906a8d74bd77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:aa1116d520b2e9a2840bcd316a8ff6144"><td class="memItemLeft" align="right" valign="top">const entt::entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aa1116d520b2e9a2840bcd316a8ff6144">igor::INVALID_ENTITY_ID</a> = entt::null</td></tr>
-<tr class="separator:aa1116d520b2e9a2840bcd316a8ff6144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

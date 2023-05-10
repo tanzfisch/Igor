@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -157,6 +157,14 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event_return_handler.html">iaEventReturnHandler</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event_return_handler_3_01void_00_01_args_8_8_8_01_4.html">iaEventReturnHandler&lt; void, Args... &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html">iaEvent</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html">iaFile</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_mutex.html">iaMutex</a></td></tr>
@@ -264,6 +272,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a7bf7b1dad1ce8fa20658f3cae49685b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7398e8fed18aeac9f4cdc14f1ab82f2e"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structiaux_1_1ia_vector4.html">iaVector4</a>&lt; <a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a7398e8fed18aeac9f4cdc14f1ab82f2e">iaVector4I</a></td></tr>
 <tr class="separator:a7398e8fed18aeac9f4cdc14f1ab82f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00b0b551e837f86769b7355b13281183"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt; void, <a class="el" href="classiaux_1_1ia_thread.html">iaThread</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a00b0b551e837f86769b7355b13281183">iThreadCallbackDelegate</a></td></tr>
+<tr class="separator:a00b0b551e837f86769b7355b13281183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -393,8 +403,6 @@ Functions</h2></td></tr>
 <tr class="separator:af9b0a4003fe51b9de40fdcd18e5e0999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33610ed121c48d08d09654b085b398b7"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a33610ed121c48d08d09654b085b398b7">threadFunc</a> (void *data)</td></tr>
 <tr class="separator:a33610ed121c48d08d09654b085b398b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d8be632964408dc356830d7a5f70429"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a7d8be632964408dc356830d7a5f70429">iaSLOT</a> (ThreadDelegate, void,(<a class="el" href="classiaux_1_1ia_thread.html">iaThread</a> *thread),(thread))</td></tr>
-<tr class="separator:a7d8be632964408dc356830d7a5f70429"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21a9f417e653ed5555438605ea775166"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a21a9f417e653ed5555438605ea775166">operator&lt;&lt;</a> (std::wostream &amp;ostr, const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;time)</td></tr>
 <tr class="separator:a21a9f417e653ed5555438605ea775166"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -1117,6 +1125,21 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a00b0b551e837f86769b7355b13281183"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00b0b551e837f86769b7355b13281183">&#9670;&nbsp;</a></span>iThreadCallbackDelegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt;void, <a class="el" href="classiaux_1_1ia_thread.html">iaThread</a>*&gt; <a class="el" href="namespaceiaux.html#a00b0b551e837f86769b7355b13281183">iaux::iThreadCallbackDelegate</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>thread delegate calls the actual function run by this thread </p>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ad667fe7c1ad6757a475a5913e3789d2b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad667fe7c1ad6757a475a5913e3789d2b">&#9670;&nbsp;</a></span>iaAxis</h2>
@@ -1606,47 +1629,6 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7d8be632964408dc356830d7a5f70429"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d8be632964408dc356830d7a5f70429">&#9670;&nbsp;</a></span>iaSLOT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">iaux::iaSLOT </td>
-          <td>(</td>
-          <td class="paramtype">ThreadDelegate&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">(<a class="el" href="classiaux_1_1ia_thread.html">iaThread</a> *thread)&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">(thread)&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>thread delegate calls the actuall function run by this thread </p>
 
 </div>
 </div>

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -101,10 +101,17 @@ $(document).ready(function(){initNavTree('functions_a.html',''); initResizable()
 <li>activateLogfile()
 : <a class="el" href="classiaux_1_1ia_console.html#a89117fafa072554a601b231e862ff011">iaux::iaConsole</a>
 </li>
+<li>add()
+: <a class="el" href="classiaux_1_1ia_event.html#adf3a28ffdb042fe806639ddd8b1b14ff">iaux::iaEvent&lt; R, Args &gt;</a>
+, <a class="el" href="classigor_1_1i_component_map.html#a457030e66344700e8ef9c4179378ebb3">igor::iComponentMap&lt; T &gt;</a>
+</li>
 <li>addAction()
-: <a class="el" href="classigor_1_1i_dialog_menu.html#aadbf031e59676843ce7e96fcf5a0b1b0">igor::iDialogMenu</a>
+: <a class="el" href="classigor_1_1i_dialog_menu.html#ab5b72f2411b609a793d78e16d1ec8044">igor::iDialogMenu</a>
 , <a class="el" href="classigor_1_1i_widget_menu.html#aee39b46f511c951c2694653701aa221f">igor::iWidgetMenu</a>
 , <a class="el" href="classigor_1_1i_widget_menu_bar.html#a29dcf644f00e95be752f5886d7f3294f">igor::iWidgetMenuBar</a>
+</li>
+<li>addBehaviour()
+: <a class="el" href="classigor_1_1i_entity.html#a2b502dbc389ffc42e66e4f64be20244c">igor::iEntity</a>
 </li>
 <li>addBone()
 : <a class="el" href="classigor_1_1i_skeleton.html#a06e93f78436894ad8fda2c98ef2ce578">igor::iSkeleton</a>
@@ -119,7 +126,8 @@ $(document).ready(function(){initNavTree('functions_a.html',''); initResizable()
 : <a class="el" href="classigor_1_1i_joint.html#a284bcf4c36ef273ab9e5c82077f823be">igor::iJoint</a>
 </li>
 <li>addComponent()
-: <a class="el" href="classigor_1_1i_entity.html#abc8439d840313fbd4ce4ab2b1be5b0f3">igor::iEntity</a>
+: <a class="el" href="classigor_1_1i_entity.html#a5662f4d8cc571d478d65e2d8b54a4620">igor::iEntity</a>
+, <a class="el" href="classigor_1_1i_entity_scene.html#ae535754f48872d7be59cd65e2b354315">igor::iEntityScene</a>
 </li>
 <li>addCone()
 : <a class="el" href="classigor_1_1i_physics_collision_config.html#a3913c2e6d15b8a0df6150ba0271349fc">igor::iPhysicsCollisionConfig</a>
@@ -140,7 +148,7 @@ $(document).ready(function(){initNavTree('functions_a.html',''); initResizable()
 : <a class="el" href="classigor_1_1i_instancing_buffer.html#a2cbacbafcb5ec7d3186bab032a15f2d2">igor::iInstancingBuffer</a>
 </li>
 <li>addLayer()
-: <a class="el" href="classigor_1_1i_application.html#aa84775678e8352dbe1dd9424f489a832">igor::iApplication</a>
+: <a class="el" href="classigor_1_1i_application.html#a71c55f926ce96f510dc5b4358b393351">igor::iApplication</a>
 , <a class="el" href="classigor_1_1i_layer_stack.html#a8dd3ae2d6e5304211d4ac298a2cd5003">igor::iLayerStack</a>
 </li>
 <li>addMenu()
@@ -186,6 +194,10 @@ $(document).ready(function(){initNavTree('functions_a.html',''); initResizable()
 </li>
 <li>addTrigger()
 : <a class="el" href="classigor_1_1i_node_l_o_d_switch.html#afa8b52a7f1f8506ae4f7e9b8f9dbded1">igor::iNodeLODSwitch</a>
+</li>
+<li>addUserComponent()
+: <a class="el" href="classigor_1_1i_entity.html#a91be8c4a2aac9fbc62c92b243c72f9f1">igor::iEntity</a>
+, <a class="el" href="classigor_1_1i_entity_scene.html#ab24f69444628fcfe8470e274b3e2d5a3">igor::iEntityScene</a>
 </li>
 <li>addVertex()
 : <a class="el" href="classigor_1_1i_mesh_builder.html#a0622de0af01077fa0803c312f61835a5">igor::iMeshBuilder</a>
@@ -242,22 +254,22 @@ $(document).ready(function(){initNavTree('functions_a.html',''); initResizable()
 : <a class="el" href="classigor_1_1i_a_a_box.html#a5c494b42a71fa7630f65396813a8fae3">igor::iAABox&lt; T &gt;</a>
 </li>
 <li>iAACube()
-: <a class="el" href="classigor_1_1i_a_a_cube.html#a50423dd0115767240c540d56eac6e8a3">igor::iAACube&lt; T &gt;</a>
+: <a class="el" href="classigor_1_1i_a_a_cube.html#a6e6e77f1f77c87965f7b4063f0cf634f">igor::iAACube&lt; T &gt;</a>
 </li>
 <li>iaBits()
-: <a class="el" href="classiaux_1_1ia_bits.html#a388d23fdf076cf09a52976e1a44e6a64">iaux::iaBits&lt; T &gt;</a>
+: <a class="el" href="classiaux_1_1ia_bits.html#a9b84aafa7c030498f93806d989c5ff44">iaux::iaBits&lt; T &gt;</a>
 </li>
 <li>iaBSpline()
 : <a class="el" href="classiaux_1_1ia_b_spline.html#a1c7cde74b82f74254e87ebcbc03f45d8">iaux::iaBSpline&lt; T &gt;</a>
 </li>
 <li>iaCircle()
-: <a class="el" href="classiaux_1_1ia_circle.html#a09c397bd38d2c4c904e9e8a1b1c68391">iaux::iaCircle&lt; T &gt;</a>
+: <a class="el" href="classiaux_1_1ia_circle.html#a3761e3c3cebfd213d45a6cde6f9a5363">iaux::iaCircle&lt; T &gt;</a>
 </li>
 <li>iaColor3()
 : <a class="el" href="classiaux_1_1ia_color3.html#a07e0e1302683e33f7f059bade1aa440b">iaux::iaColor3&lt; T &gt;</a>
 </li>
 <li>iaColor4()
-: <a class="el" href="structiaux_1_1ia_color4.html#aafbf041013610ef42660d260fc498a1f">iaux::iaColor4&lt; T &gt;</a>
+: <a class="el" href="structiaux_1_1ia_color4.html#a89121585156a2e0cfc62c0815d7b2d90">iaux::iaColor4&lt; T &gt;</a>
 </li>
 <li>iAction()
 : <a class="el" href="classigor_1_1i_action.html#a47b16772981ef5140c7bc3db050a4823">igor::iAction</a>
@@ -269,7 +281,10 @@ $(document).ready(function(){initNavTree('functions_a.html',''); initResizable()
 : <a class="el" href="classigor_1_1i_action_context.html#a3a0cd720452d5e43b269c614a354cb3c">igor::iActionContext</a>
 </li>
 <li>iaDate()
-: <a class="el" href="classiaux_1_1ia_date.html#a238689d597d34e091eec7eb443d9f07e">iaux::iaDate</a>
+: <a class="el" href="classiaux_1_1ia_date.html#aa20e916a5a1393a973be06425be7bfc1">iaux::iaDate</a>
+</li>
+<li>iaDelegate()
+: <a class="el" href="classiaux_1_1ia_delegate.html#a7c3dc025c19e74b86a01a7c4e94c0178">iaux::iaDelegate&lt; R, Args &gt;</a>
 </li>
 <li>iaDirectory()
 : <a class="el" href="classiaux_1_1ia_directory.html#a7151088f1227a9d1197af58e40fb8167">iaux::iaDirectory</a>
@@ -297,7 +312,7 @@ $(document).ready(function(){initNavTree('functions_a.html',''); initResizable()
 , <a class="el" href="classigor_1_1i_window.html#ac95e62eb30700f633cc8c60341f159f6">igor::iWindow</a>
 </li>
 <li>iaQuaternion()
-: <a class="el" href="classiaux_1_1ia_quaternion.html#a16b97404c131fbd1d3c93b4701e7f7c3">iaux::iaQuaternion&lt; T &gt;</a>
+: <a class="el" href="classiaux_1_1ia_quaternion.html#adcdd33517598035dd8ed57e7da1b18f6">iaux::iaQuaternion&lt; T &gt;</a>
 </li>
 <li>iaRandomNumberGenerator()
 : <a class="el" href="classiaux_1_1ia_random_number_generator.html#ac409d67f97d7415f99f5a517aa2046fa">iaux::iaRandomNumberGenerator</a>
@@ -318,7 +333,7 @@ $(document).ready(function(){initNavTree('functions_a.html',''); initResizable()
 : <a class="el" href="classiaux_1_1ia_thread.html#a9c728a1f84b68c6339f2c68e5eab7147">iaux::iaThread</a>
 </li>
 <li>iaTime()
-: <a class="el" href="classiaux_1_1ia_time.html#ae9444122fb5e3d3c15c73fa615b61f0a">iaux::iaTime</a>
+: <a class="el" href="classiaux_1_1ia_time.html#adc0fe640dfa4645ad0781613d608d1a4">iaux::iaTime</a>
 </li>
 <li>iAtlas()
 : <a class="el" href="classigor_1_1i_atlas.html#ac8587ebe15878f0e0d3f71f77319f28b">igor::iAtlas</a>
