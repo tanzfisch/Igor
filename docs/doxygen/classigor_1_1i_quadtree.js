@@ -16,5 +16,6 @@ var classigor_1_1i_quadtree =
     [ "query", "classigor_1_1i_quadtree.html#a74a6468830a1289420f428e3458cec73", null ],
     [ "query", "classigor_1_1i_quadtree.html#aadb9427996d556d31651d8c915fe70b1", null ],
     [ "remove", "classigor_1_1i_quadtree.html#a29acb5c8f99b8451e4da43ce5d8f1784", null ],
+    [ "update", "classigor_1_1i_quadtree.html#a669fb8c2ea20232592594a840410b052", null ],
     [ "update", "classigor_1_1i_quadtree.html#a784f92ac0c202f05d35510b38a710693", null ]
 ];

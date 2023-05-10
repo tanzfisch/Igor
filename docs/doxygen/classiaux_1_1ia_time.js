@@ -5,7 +5,7 @@ var classiaux_1_1ia_time =
     [ "iaTime", "classiaux_1_1ia_time.html#adc0fe640dfa4645ad0781613d608d1a4", null ],
     [ "fromMilliseconds", "classiaux_1_1ia_time.html#a62333c3d85273c956be2db3fc59ea954", null ],
     [ "fromSeconds", "classiaux_1_1ia_time.html#a7701a2dfa645f177de3f6b6baf009cf1", null ],
-    [ "getMicrosenconds", "classiaux_1_1ia_time.html#a1d36f237d01f1ac23d4a2205f7a6b190", null ],
+    [ "getMicroseconds", "classiaux_1_1ia_time.html#a17fc2073c566564ceb11580b262a9da6", null ],
     [ "getMilliseconds", "classiaux_1_1ia_time.html#afd27d10cca8240447e91a10b0a363d64", null ],
     [ "getNow", "classiaux_1_1ia_time.html#a0e6fb3c320906300576a8093a64a6c0d", null ],
     [ "getSeconds", "classiaux_1_1ia_time.html#aa0e0a35194c6ac5f7090abcb69260e4a", null ],

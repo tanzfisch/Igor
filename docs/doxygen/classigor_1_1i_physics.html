@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -128,7 +128,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a07d0fd78ee671db016450c2befc64f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a937504711ac4d26a2d0142224ea1a904"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_physics.html#a937504711ac4d26a2d0142224ea1a904">isWorld</a> (<a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> id)</td></tr>
 <tr class="separator:a937504711ac4d26a2d0142224ea1a904"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80a2988e3d4a0ad2ed7db9f02378cf6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_physics.html#a80a2988e3d4a0ad2ed7db9f02378cf6e">convexCast</a> (const <a class="el" href="namespaceiaux.html#a3b3ecae191d331ad79198b631e30db4d">iaMatrixd</a> &amp;matrix, const <a class="el" href="namespaceiaux.html#a5b3f0308fd280c7f533d812b118f8fe3">iaVector3d</a> &amp;target, <a class="el" href="classigor_1_1i_physics_collision.html">iPhysicsCollision</a> *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, std::vector&lt; <a class="el" href="structigor_1_1_convex_cast_return_info.html">ConvexCastReturnInfo</a> &gt; &amp;result, <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> maxContactCount=10)</td></tr>
+<tr class="memitem:a80a2988e3d4a0ad2ed7db9f02378cf6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_physics.html#a80a2988e3d4a0ad2ed7db9f02378cf6e">convexCast</a> (const <a class="el" href="namespaceiaux.html#a3b3ecae191d331ad79198b631e30db4d">iaMatrixd</a> &amp;matrix, const <a class="el" href="namespaceiaux.html#a5b3f0308fd280c7f533d812b118f8fe3">iaVector3d</a> &amp;target, <a class="el" href="classigor_1_1i_physics_collision.html">iPhysicsCollision</a> *collisionVolume, <a class="el" href="namespaceigor.html#a53fe4cc7b18dd72b531d21bb4a2687c3">iRayPreFilterDelegate</a> preFilterDelegate, void *userData, std::vector&lt; <a class="el" href="structigor_1_1_convex_cast_return_info.html">ConvexCastReturnInfo</a> &gt; &amp;result, <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> maxContactCount=10)</td></tr>
 <tr class="separator:a80a2988e3d4a0ad2ed7db9f02378cf6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcf31d70d6fd26a15d74830d52d408e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classigor_1_1i_physics_collision_config.html">iPhysicsCollisionConfig</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_physics.html#afcf31d70d6fd26a15d74830d52d408e2">createCollisionConfig</a> ()</td></tr>
 <tr class="separator:afcf31d70d6fd26a15d74830d52d408e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -308,7 +308,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">iRayPreFilterDelegate&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a53fe4cc7b18dd72b531d21bb4a2687c3">iRayPreFilterDelegate</a>&#160;</td>
           <td class="paramname"><em>preFilterDelegate</em>, </td>
         </tr>
         <tr>
@@ -1663,7 +1663,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>generic handle to handle contacts beween two bodies</p>
+<p>generic handle to handle contacts between two bodies</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">newtonContactJoint</td><td>the contact joint </td></tr>

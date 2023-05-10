@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_a_a_box.html',''); init
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classigor_1_1i_a_a_box-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -101,8 +102,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0058abf25378d2473a19cbfb88d64eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c494b42a71fa7630f65396813a8fae3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_a_a_box.html#a5c494b42a71fa7630f65396813a8fae3">iAABox</a> (const iaVector3&lt; T &gt; &amp;center, const iaVector3&lt; T &gt; &amp;halfWidths)</td></tr>
 <tr class="separator:a5c494b42a71fa7630f65396813a8fae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19b29dd9c13b0d0e47fcc45711d819ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_a_a_box.html#a19b29dd9c13b0d0e47fcc45711d819ab">set</a> (const iaVector3&lt; T &gt; &amp;min, const iaVector3&lt; T &gt; &amp;max)</td></tr>
-<tr class="separator:a19b29dd9c13b0d0e47fcc45711d819ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa88697e76cf38edc2c3890c5a9e3328a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_a_a_box.html#aa88697e76cf38edc2c3890c5a9e3328a">setMinMax</a> (const iaVector3&lt; T &gt; &amp;min, const iaVector3&lt; T &gt; &amp;max)</td></tr>
+<tr class="separator:aa88697e76cf38edc2c3890c5a9e3328a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33c6bfe843a7a8131967a1ebde8cfa8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_a_a_box.html#ad33c6bfe843a7a8131967a1ebde8cfa8">getMinMax</a> (iaVector3&lt; T &gt; &amp;min, iaVector3&lt; T &gt; &amp;max)</td></tr>
+<tr class="separator:ad33c6bfe843a7a8131967a1ebde8cfa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:abd2f3458f11510cf0442de9cc469e73e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classigor_1_1i_a_a_box.html">iAABox</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_a_a_box.html#abd2f3458f11510cf0442de9cc469e73e">fromMinMax</a> (const iaVector3&lt; T &gt; &amp;min, const iaVector3&lt; T &gt; &amp;max)</td></tr>
+<tr class="separator:abd2f3458f11510cf0442de9cc469e73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -184,8 +192,54 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a19b29dd9c13b0d0e47fcc45711d819ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19b29dd9c13b0d0e47fcc45711d819ab">&#9670;&nbsp;</a></span>set()</h2>
+<a id="abd2f3458f11510cf0442de9cc469e73e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd2f3458f11510cf0442de9cc469e73e">&#9670;&nbsp;</a></span>fromMinMax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classigor_1_1i_a_a_box.html">iAABox</a>&lt; T &gt; iAABox::fromMinMax </td>
+          <td>(</td>
+          <td class="paramtype">const iaVector3&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const iaVector3&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>creates <a class="el" href="classigor_1_1i_a_a_box.html">iAABox</a> from min max values</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">min</td><td>min vector for aa box </td></tr>
+    <tr><td class="paramname">max</td><td>max vector for aa box </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad33c6bfe843a7a8131967a1ebde8cfa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33c6bfe843a7a8131967a1ebde8cfa8">&#9670;&nbsp;</a></span>getMinMax()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,7 +247,45 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iAABox::set </td>
+          <td class="memname">void iAABox::getMinMax </td>
+          <td>(</td>
+          <td class="paramtype">iaVector3&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">iaVector3&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>returns min, max values</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">min</td><td>the min value </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">max</td><td>the max value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa88697e76cf38edc2c3890c5a9e3328a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa88697e76cf38edc2c3890c5a9e3328a">&#9670;&nbsp;</a></span>setMinMax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void iAABox::setMinMax </td>
           <td>(</td>
           <td class="paramtype">const iaVector3&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>min</em>, </td>

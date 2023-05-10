@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -158,11 +158,6 @@ $(document).ready(function(){initNavTree('functions_func_o.html',''); initResiza
 , <a class="el" href="classigor_1_1i_node_render.html#a735406d2419ef54fa51e7c8aee125abc">igor::iNodeRender</a>
 , <a class="el" href="classigor_1_1i_node_volume.html#ac1ee269f034d24fae534796634204160">igor::iNodeVolume</a>
 </li>
-<li>onPreDraw()
-: <a class="el" href="classigor_1_1i_layer.html#a43618358328f9d80f6bad50ad072cd3f">igor::iLayer</a>
-, <a class="el" href="classigor_1_1i_layer_widgets.html#aaebaac171f3b3f17f17cd9f691e79870">igor::iLayerWidgets</a>
-, <a class="el" href="classigor_1_1i_widget_manager.html#a04960d50b080e56eaed6abe722cdd0f8">igor::iWidgetManager</a>
-</li>
 <li>onPreSetScene()
 : <a class="el" href="classigor_1_1i_node.html#ac13c783f693aecfed750932d20f89f79">igor::iNode</a>
 , <a class="el" href="classigor_1_1i_node_camera.html#ab8cf711b03bca62de5c01166d86e78aa">igor::iNodeCamera</a>
@@ -171,8 +166,16 @@ $(document).ready(function(){initNavTree('functions_func_o.html',''); initResiza
 , <a class="el" href="classigor_1_1i_node_render.html#a3640e4101c1195c95101b63b2601bb9a">igor::iNodeRender</a>
 , <a class="el" href="classigor_1_1i_node_volume.html#a69d27451c61636df80a30f3efea8af4e">igor::iNodeVolume</a>
 </li>
+<li>onRender()
+: <a class="el" href="classigor_1_1i_entity_system_module.html#a8a102e226abac24e729812e9702d2ffa">igor::iEntitySystemModule</a>
+</li>
 <li>onUpdate()
-: <a class="el" href="classigor_1_1i_particle_system.html#ac6a3be63a7827f7a71ada448e2d72e26">igor::iParticleSystem</a>
+: <a class="el" href="classigor_1_1i_entity_system_module.html#a72336d8b96452c773454f14d689e874e">igor::iEntitySystemModule</a>
+, <a class="el" href="classigor_1_1i_layer.html#ac263b3b2ea34d7568f81dc3455415c55">igor::iLayer</a>
+, <a class="el" href="classigor_1_1i_layer_widgets.html#ac2ca54ec4bfbc1250f4396f29a0da991">igor::iLayerWidgets</a>
+, <a class="el" href="classigor_1_1i_particle_system.html#ac6a3be63a7827f7a71ada448e2d72e26">igor::iParticleSystem</a>
+, <a class="el" href="classigor_1_1i_widget_manager.html#aaf6ff72921f7a4af5561f8403bac33d6">igor::iWidgetManager</a>
+, <a class="el" href="classigor_1_1i_window_impl.html#afe1ff5d66eb9322621f2ac85ef2ca8cb">igor::iWindowImpl</a>
 </li>
 <li>onUpdateData()
 : <a class="el" href="classigor_1_1i_node.html#aaee4c87af81d26e6a0903e06ae1ed45e">igor::iNode</a>
@@ -197,7 +200,7 @@ $(document).ready(function(){initNavTree('functions_func_o.html',''); initResiza
 , <a class="el" href="classigor_1_1i_dialog_graph.html#adeecd64ab879611d485e9b786ba1edf4">igor::iDialogGraph</a>
 , <a class="el" href="classigor_1_1i_dialog_index_menu.html#a552e06b2f75eec6ed11531996ebf6f85">igor::iDialogIndexMenu</a>
 , <a class="el" href="classigor_1_1i_dialog_menu.html#a97eb4d75d0f99d4d0dda67c45f68d149">igor::iDialogMenu</a>
-, <a class="el" href="classigor_1_1i_dialog_message_box.html#aba2a86e264e1b02434955ee7a6dbf216">igor::iDialogMessageBox</a>
+, <a class="el" href="classigor_1_1i_dialog_message_box.html#a30d37aae9251c7fbba9100b2414fe136">igor::iDialogMessageBox</a>
 , <a class="el" href="classigor_1_1i_window.html#acf4ea40db0c4e1f8bb5c1b16d0968867">igor::iWindow</a>
 , <a class="el" href="classigor_1_1i_window_impl.html#a48290f97acce4d329ffb65bab1b05f80">igor::iWindowImpl</a>
 </li>
@@ -221,7 +224,10 @@ $(document).ready(function(){initNavTree('functions_func_o.html',''); initResiza
 : <a class="el" href="structiaux_1_1ia_vector3.html#adeb488c4504f9bc85d2837d6a9faa06a">iaux::iaVector3&lt; T &gt;</a>
 </li>
 <li>operator()()
-: <a class="el" href="classigor_1_1i_index_buffer_deleter.html#a65c87166ef1925362d6c04356bcbb1bf">igor::iIndexBufferDeleter</a>
+: <a class="el" href="classiaux_1_1ia_delegate.html#a97ce7fcf26b484a7f2987e1f10f6ebcd">iaux::iaDelegate&lt; R, Args &gt;</a>
+, <a class="el" href="classiaux_1_1ia_event.html#a8761a58ae1254250cacd9289223de116">iaux::iaEvent&lt; R, Args &gt;</a>
+, <a class="el" href="classigor_1_1i_entity_scene_deleter.html#abfbd58f640f39ec4f911d37ed2a38bed">igor::iEntitySceneDeleter</a>
+, <a class="el" href="classigor_1_1i_index_buffer_deleter.html#a65c87166ef1925362d6c04356bcbb1bf">igor::iIndexBufferDeleter</a>
 , <a class="el" href="classigor_1_1i_instancing_buffer_deleter.html#a79844d43d1edcc35877804ba18eb47fe">igor::iInstancingBufferDeleter</a>
 , <a class="el" href="classigor_1_1i_material_deleter.html#ad23bb94b395805a8816d61b938a3a306">igor::iMaterialDeleter</a>
 , <a class="el" href="classigor_1_1i_mesh_deleter.html#a3e9175b743d93921f8e8fe3e20906eb0">igor::iMeshDeleter</a>
@@ -318,7 +324,8 @@ $(document).ready(function(){initNavTree('functions_func_o.html',''); initResiza
 , <a class="el" href="classigor_1_1i_rectangle.html#a7055b24b1231962e666565b134af08cd">igor::iRectangle&lt; T &gt;</a>
 </li>
 <li>operator==()
-: <a class="el" href="classiaux_1_1ia_matrix2_d.html#a23ad575a06951773d674aa5866274bfa">iaux::iaMatrix2D&lt; T &gt;</a>
+: <a class="el" href="classiaux_1_1ia_delegate.html#a49c83a28070bd5c61986a072c67ef8ba">iaux::iaDelegate&lt; R, Args &gt;</a>
+, <a class="el" href="classiaux_1_1ia_matrix2_d.html#a23ad575a06951773d674aa5866274bfa">iaux::iaMatrix2D&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_matrix.html#a7d47cddffa694107c9765d20a8bdee23">iaux::iaMatrix&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_quaternion.html#a8c7258908348491755e59a0259bd2d56">iaux::iaQuaternion&lt; T &gt;</a>
 , <a class="el" href="structiaux_1_1ia_rectangle.html#a377218822d269efe4f2b80922c4a19b4">iaux::iaRectangle&lt; T &gt;</a>
@@ -347,7 +354,7 @@ $(document).ready(function(){initNavTree('functions_func_o.html',''); initResiza
 , <a class="el" href="structiaux_1_1ia_vector4.html#a7408581a3c3902fa9ed6a6d176c96a8a">iaux::iaVector4&lt; T &gt;</a>
 </li>
 <li>ortho()
-: <a class="el" href="classiaux_1_1ia_matrix.html#a53c2067c87628e22c4a04e50c3c97bef">iaux::iaMatrix&lt; T &gt;</a>
+: <a class="el" href="classiaux_1_1ia_matrix.html#ad737dcea9e36db2cbfd1b5602b172000">iaux::iaMatrix&lt; T &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

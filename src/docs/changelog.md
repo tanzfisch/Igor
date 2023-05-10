@@ -1,6 +1,26 @@
 Changelog                           {#changelog}
 =========
 
+0.39.0
+------
+
+!This release does not build with MSVC!
+
+- wrapped entt. Let's see if this was so smart later
+- implemented a whole bunch of components and systems
+- added simple and probably slow home brewed components interface for custom user components (see iComponentMap)
+- removed old entity system completely
+- used Sipremacy to make use of changed in ECS interfaces
+- introduced application wide simulation pause/continue
+- fixed lots of typos
+- removed multi window support since it never worked anyway
+- fixed issue in iaCircle
+- added gray as standard color
+- rewrote signal/slot aka event/delegate
+- improved iAABox and iQuadtree interface
+- changed profiler sections
+- improved profiler visualization
+
 0.38.0
 ------
 

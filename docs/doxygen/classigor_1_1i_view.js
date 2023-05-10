@@ -2,7 +2,7 @@ var classigor_1_1i_view =
 [
     [ "iView", "classigor_1_1i_view.html#a92b15ce6b394a28471821a313fa368d0", null ],
     [ "~iView", "classigor_1_1i_view.html#a003191967e23a4f4e88a5b689b3ecc90", null ],
-    [ "getAspectRatio", "classigor_1_1i_view.html#a47797e3b7479b5acd753393bf43d8827", null ],
+    [ "getAspectRatio", "classigor_1_1i_view.html#a328695ef342067971869cd177face576", null ],
     [ "getClearColor", "classigor_1_1i_view.html#a958acb9d9d368df85a1690c6670d8869", null ],
     [ "getClearDepth", "classigor_1_1i_view.html#a1ff936cfbe88e884a422b0d10f882c7a", null ],
     [ "getCurrentCamera", "classigor_1_1i_view.html#aadb54bef627ca90b68ba05124037e6bd", null ],
@@ -27,7 +27,7 @@ var classigor_1_1i_view =
     [ "setClearColorActive", "classigor_1_1i_view.html#a22226f67217aed702261783c71e4b48d", null ],
     [ "setClearDepth", "classigor_1_1i_view.html#af66c1150b7a5ce4ce26b224b22dc8443", null ],
     [ "setClearDepthActive", "classigor_1_1i_view.html#afd73bfd2100853322e5ce268babe9c88", null ],
-    [ "setClipPlanes", "classigor_1_1i_view.html#a4288f2030aeaedf780623595023dc5b2", null ],
+    [ "setClipPlanes", "classigor_1_1i_view.html#aa6829da1888c0eee2784293915dc7f89", null ],
     [ "setCurrentCamera", "classigor_1_1i_view.html#ae1884466964f8e048f41cdce5420f12d", null ],
     [ "setName", "classigor_1_1i_view.html#af44bb9ea4ccbf362b9c3f569cf2b628c", null ],
     [ "setOctreeVisible", "classigor_1_1i_view.html#ada3b9e0b641a3e9c91dbb14a54b048c9", null ],
