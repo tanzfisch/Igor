@@ -354,7 +354,7 @@ void Outliner::onExitMica(const iWidgetPtr source)
 
 void Outliner::registerOnCopyNode(CopyNodeDelegate copyNodeDelegate)
 {
-    _copyNode.append(copyNodeDelegate);
+    _copyNode.add(copyNodeDelegate);
 }
 
 void Outliner::unregisterOnCopyNode(CopyNodeDelegate copyNodeDelegate)
@@ -364,7 +364,7 @@ void Outliner::unregisterOnCopyNode(CopyNodeDelegate copyNodeDelegate)
 
 void Outliner::registerOnPasteNode(PasteNodeDelegate pasteNodeDelegate)
 {
-    _pasteNode.append(pasteNodeDelegate);
+    _pasteNode.add(pasteNodeDelegate);
 }
 
 void Outliner::unregisterOnPasteNode(PasteNodeDelegate pasteNodeDelegate)
@@ -374,7 +374,7 @@ void Outliner::unregisterOnPasteNode(PasteNodeDelegate pasteNodeDelegate)
 
 void Outliner::registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
 {
-    _graphSelectionChanged.append(graphSelectionChangedDelegate);
+    _graphSelectionChanged.add(graphSelectionChangedDelegate);
 }
 
 void Outliner::unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
@@ -384,7 +384,7 @@ void Outliner::unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate g
 
 void Outliner::registerOnCutNode(CutNodeDelegate cutNodeDelegate)
 {
-    _cutNode.append(cutNodeDelegate);
+    _cutNode.add(cutNodeDelegate);
 }
 
 void Outliner::unregisterOnCutNode(CutNodeDelegate cutNodeDelegate)
@@ -394,7 +394,7 @@ void Outliner::unregisterOnCutNode(CutNodeDelegate cutNodeDelegate)
 
 void Outliner::registerOnImportFile(ImportFileDelegate importFileDelegate)
 {
-    _importFile.append(importFileDelegate);
+    _importFile.add(importFileDelegate);
 }
 
 void Outliner::unregisterOnImportFile(ImportFileDelegate importFileDelegate)
@@ -404,7 +404,7 @@ void Outliner::unregisterOnImportFile(ImportFileDelegate importFileDelegate)
 
 void Outliner::registerOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate)
 {
-    _importFileReference.append(importFileReferenceDelegate);
+    _importFileReference.add(importFileReferenceDelegate);
 }
 
 void Outliner::unregisterOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate)
@@ -414,7 +414,7 @@ void Outliner::unregisterOnImportFileReference(ImportFileReferenceDelegate impor
 
 void Outliner::registerOnLoadFile(LoadFileDelegate loadFileDelegate)
 {
-    _loadFile.append(loadFileDelegate);
+    _loadFile.add(loadFileDelegate);
 }
 
 void Outliner::unregisterOnLoadFile(LoadFileDelegate loadFileDelegate)
@@ -424,7 +424,7 @@ void Outliner::unregisterOnLoadFile(LoadFileDelegate loadFileDelegate)
 
 void Outliner::registerOnSaveFile(SaveFileDelegate saveFileDelegate)
 {
-    _saveFile.append(saveFileDelegate);
+    _saveFile.add(saveFileDelegate);
 }
 
 void Outliner::unregisterOnSaveFile(SaveFileDelegate saveFileDelegate)
@@ -434,7 +434,7 @@ void Outliner::unregisterOnSaveFile(SaveFileDelegate saveFileDelegate)
 
 void Outliner::registerOnExitMica(ExitMicaDelegate exitMicaDelegate)
 {
-    _exitMica.append(exitMicaDelegate);
+    _exitMica.add(exitMicaDelegate);
 }
 
 void Outliner::unregisterOnExitMica(ExitMicaDelegate exitMicaDelegate)
@@ -481,7 +481,7 @@ void Outliner::onAddModelDecision(iDialogPtr dialog)
 
 void Outliner::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
 {
-    _materialSelectionChanged.append(materialSelectionChangedDelegate);
+    _materialSelectionChanged.add(materialSelectionChangedDelegate);
 }
 
 void Outliner::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
@@ -491,7 +491,7 @@ void Outliner::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDele
 
 void Outliner::registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 {
-    _addMaterial.append(addMaterialDelegate);
+    _addMaterial.add(addMaterialDelegate);
 }
 
 void Outliner::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
@@ -501,7 +501,7 @@ void Outliner::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 
 void Outliner::registerOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate)
 {
-    _loadMaterial.append(addMaterialDelegate);
+    _loadMaterial.add(addMaterialDelegate);
 }
 void Outliner::unregisterOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate)
 {

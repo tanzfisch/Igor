@@ -104,8 +104,7 @@ namespace igor
         {
             cullScene(_currentCamera);
             updateMaterialGroups();
-
-            IGOR_PROFILER_SCOPED(draw_scene);
+            
             iaMatrixd camMatrix;
             _currentCamera->getWorldMatrix(camMatrix);
             iRenderer::getInstance().setViewMatrixFromCam(camMatrix);
@@ -118,13 +117,13 @@ namespace igor
             {
                 drawScene();
             }
+
+            iRenderer::getInstance().flush();
         }
     }
 
     void iRenderEngine::cullScene(iNodeCamera *camera)
     {
-        IGOR_PROFILER_SCOPED(cull_scene);
-
         iaMatrixd view;
         camera->getViewMatrix(view);
 
@@ -170,8 +169,6 @@ namespace igor
 
     void iRenderEngine::updateMaterialGroups()
     {
-        IGOR_PROFILER_SCOPED(update_materials);
-
         auto iter = _materialGroups.begin();
         while (iter != _materialGroups.end())
         {

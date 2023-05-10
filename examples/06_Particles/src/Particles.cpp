@@ -478,21 +478,7 @@ bool Particles::onKeyDown(iEventKeyDown &event)
     switch (event.getKey())
     {
     case iKeyCode::Space:
-        for (auto particleSystemID : _particleSystemIDs)
-        {
-            iNodeParticleSystem *circleParticleSystem = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(particleSystemID));
-            if (circleParticleSystem != nullptr)
-            {
-                if (circleParticleSystem->isRunning())
-                {
-                    circleParticleSystem->stop();
-                }
-                else
-                {
-                    circleParticleSystem->start();
-                }
-            }
-        }
+        iApplication::getInstance().pause(!iApplication::getInstance().isPaused());
         return true;
 
     case iKeyCode::R:

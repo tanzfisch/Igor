@@ -43,7 +43,7 @@ void Example2D::onInit()
     _updateTimingHandle->start();
 
     // generate a random seed
-    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
+    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicroseconds()));
 
     initParticleSystem();
 }
@@ -117,6 +117,7 @@ void Example2D::onEvent(iEvent &event)
     // first call example base
     ExampleBase::onEvent(event);
 
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example2D::onKeyDown));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Example2D::onMouseMoveEvent));
 }
 
@@ -238,4 +239,16 @@ void Example2D::onRenderOrtho()
 
     // doughnuts <3
     iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);
+}
+
+bool Example2D::onKeyDown(iEventKeyDown &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::Space:
+        iApplication::getInstance().pause(!iApplication::getInstance().isPaused());
+        return true;
+    }
+
+    return false;
 }

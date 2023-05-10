@@ -19,7 +19,7 @@ namespace igor
 
     void iPhysicsUserMeshCollisionHandler::setAABB(const iaVector3f &min, const iaVector3f &max)
     {
-        _bb.set(min, max);
+        _bb.setMinMax(min, max);
     }
 
     void iPhysicsUserMeshCollisionHandler::collideCallback(void *const collideDesc, const void *const continueCollisionHandle)
@@ -42,7 +42,7 @@ namespace igor
     int iPhysicsUserMeshCollisionHandler::testOverlapAABB(const float64 *const box0, const float64 *const box1)
     {
         iAABoxf bb;
-        bb.set(iaVector3f(box0[0], box0[1], box0[2]), iaVector3f(box1[0], box1[1], box1[2]));
+        bb.setMinMax(iaVector3f(box0[0], box0[1], box0[2]), iaVector3f(box1[0], box1[1], box1[2]));
         return iIntersection::intersects(bb, _bb) ? 1 : 0;
     }
 

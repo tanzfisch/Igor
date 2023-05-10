@@ -45,7 +45,7 @@ namespace iaux
     void startup()
     {
         iaClock::resetClock();
-        iaRandom::setSeed(iaTime::getNow().getMicrosenconds());
+        iaRandom::setSeed(iaTime::getNow().getMicroseconds());
 
         iaConsole::getInstance().openLogfile();
         con_assert_sticky(1 == sizeof(int8), "sizeof(int8) != 1");

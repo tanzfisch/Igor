@@ -27,7 +27,8 @@ void Supremacy::onInit()
     igor::startup();
 
     // create window and open it
-    _window = igor::iApplication::getInstance().createWindow("GameLayer");
+    _window = igor::iApplication::getInstance().getWindow(); 
+    _window->setTitle("Supremacy");
     _window->setClientSize(1920, 1080);
     _window->setCentered();
     _window->open();
@@ -45,10 +46,5 @@ void Supremacy::onRun()
 
 void Supremacy::onDeInit()
 {
-    iApplication::getInstance().clearLayerStack();
-
-    // destroy window
-    igor::iApplication::getInstance().destroyWindow(_window);
-    // call this after you are done with using Igor
     igor::shutdown();
 }

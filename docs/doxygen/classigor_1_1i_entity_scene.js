@@ -1,11 +1,24 @@
 var classigor_1_1i_entity_scene =
 [
+    [ "addComponent", "classigor_1_1i_entity_scene.html#a9673f437cb43cc64a66b64fb0af2fced", null ],
+    [ "addComponent", "classigor_1_1i_entity_scene.html#ae535754f48872d7be59cd65e2b354315", null ],
+    [ "addComponent", "classigor_1_1i_entity_scene.html#a0bec1ae4869236c412808610a155dc5d", null ],
+    [ "addUserComponent", "classigor_1_1i_entity_scene.html#ab24f69444628fcfe8470e274b3e2d5a3", null ],
     [ "clear", "classigor_1_1i_entity_scene.html#a172bc8d42bbd41751660c6ba5ba35e64", null ],
-    [ "createEntity", "classigor_1_1i_entity_scene.html#af50fa02be3b3c4b6abc06a29cab48432", null ],
-    [ "destroyEntity", "classigor_1_1i_entity_scene.html#a6f973558102a90f1f60da368bbd65083", null ],
+    [ "createEntity", "classigor_1_1i_entity_scene.html#a89e7f4387ccd2b93b1ac332aca6a93da", null ],
+    [ "destroyEntity", "classigor_1_1i_entity_scene.html#a0feaf5a6446ae1c9ac69d00a2bcc3a38", null ],
     [ "destroyEntity", "classigor_1_1i_entity_scene.html#adfc3f9bfc70b13f2226332bdd3f936b6", null ],
-    [ "getEntities", "classigor_1_1i_entity_scene.html#a3219f68bade2c000e594038c4445fdb8", null ],
-    [ "getRegistry", "classigor_1_1i_entity_scene.html#aa8d19f22799e27c0f7b872f79d71e513", null ],
-    [ "registerSystem", "classigor_1_1i_entity_scene.html#a7714dff004b8c1089cbcfba037b3193c", null ],
-    [ "updateSystems", "classigor_1_1i_entity_scene.html#a0071fd8233cfdc383697c201967211ae", null ]
+    [ "getBounds", "classigor_1_1i_entity_scene.html#a820357e58fc629d40ecf69291e3c48d0", null ],
+    [ "getComponent", "classigor_1_1i_entity_scene.html#a62ae5c1c5196b5558594fdbf532003e0", null ],
+    [ "getQuadtree", "classigor_1_1i_entity_scene.html#aa5c834e1929cfdb5739271ff1db97202", null ],
+    [ "getRegistry", "classigor_1_1i_entity_scene.html#a3b03dbc83344f47aa74447afab8a1f97", null ],
+    [ "getUserComponent", "classigor_1_1i_entity_scene.html#ae95f4ea50c49a32dbdf4d2a3530d30ad", null ],
+    [ "initializeQuadtree", "classigor_1_1i_entity_scene.html#aea80fe6f64ff15379e8cbbd4cda0a714", null ],
+    [ "removeComponent", "classigor_1_1i_entity_scene.html#a07af9a281b856b7fc1e786439f722a16", null ],
+    [ "removeComponent", "classigor_1_1i_entity_scene.html#a9d37b12e90a5a7fd426974d5833ca66d", null ],
+    [ "setBounds", "classigor_1_1i_entity_scene.html#a05599b3703058400e60d4dc497bf7ca3", null ],
+    [ "tryGetComponent", "classigor_1_1i_entity_scene.html#a2a9e82d67795f47a05db4646a58a06c1", null ],
+    [ "tryGetUserComponent", "classigor_1_1i_entity_scene.html#a4afa508cc33f09530cbe92cb561efce8", null ],
+    [ "iEntitySceneDeleter", "classigor_1_1i_entity_scene.html#a331bbbb90f1cdb3b32bd5b68d7d6515b", null ],
+    [ "iEntitySystemModule", "classigor_1_1i_entity_scene.html#a504a134f79715af133e86dcd7b35d967", null ]
 ];

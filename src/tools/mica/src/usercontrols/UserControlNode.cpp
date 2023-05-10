@@ -92,7 +92,7 @@ void UserControlNode::onNameChanged(const iWidgetPtr source)
 
 void UserControlNode::registerNameChangeDelegate(NameChangedDelegate nameChangedDelegate)
 {
-    _nameChangedEvent.append(nameChangedDelegate);
+    _nameChangedEvent.add(nameChangedDelegate);
 }
 
 void UserControlNode::unregisterNameChangeDelegate(NameChangedDelegate nameChangedDelegate)

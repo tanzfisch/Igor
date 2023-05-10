@@ -55,7 +55,7 @@ namespace igor
 
     void iNodeModel::registerModelReadyDelegate(iModelReadyDelegate delegate)
     {
-        _modelReadyEvent.append(delegate);
+        _modelReadyEvent.add(delegate);
     }
 
     void iNodeModel::unregisterModelReadyDelegate(iModelReadyDelegate delegate)

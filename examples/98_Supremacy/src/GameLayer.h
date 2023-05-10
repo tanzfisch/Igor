@@ -69,7 +69,7 @@ private:
 
     /*! entity scene
      */
-    iEntityScene _entityScene;
+    iEntityScenePtr _entityScene;
 
     /*! handle to player entity
      */
@@ -81,7 +81,7 @@ private:
 
     /*! viewport entity which follows the player
      */
-    iEntity _viewport;
+    iEntity _camera;
 
     /*! update timer
      */
@@ -95,20 +95,12 @@ private:
      */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
 
-    /*! quadtree
-     */
-    iQuadtreef _quadtree;
-
     /*! floor shadow
      */
     iTexturePtr _shadow;
 
     iTexturePtr _shield;
     iTexturePtr _rage;
-
-    /*! floor
-     */
-    iTexturePtr _backgroundTexture;
 
     /*! texture font we use to display texts
      */
@@ -125,10 +117,6 @@ private:
     iTexturePtr _walkSpeed;
 
     BuildingType _currentBuilding = BuildingType::None;
-
-    /*! if true game logic is on hold
-     */
-    bool _gamePause = false;
 
     bool _levelUp = false;
 
@@ -149,11 +137,6 @@ private:
 
     void onOpenBuilding(BuildingType buildingType);
 
-    void pause();
-    void play();
-
-    void resetKeyboardInput();
-
     void openShop();
 
     /*! called when added to layer stack
@@ -173,7 +156,7 @@ private:
 
     /*! called on application pre draw event
      */
-    void onPreDraw() override;
+    void onUpdate() override;
 
     /*! called on any other event
      */
@@ -190,8 +173,6 @@ private:
     void onRenderPlayerHUD();
 
     void onRenderStats();
-
-    void onRenderQuadtree(const iQuadtreef::NodePtr &node);
 
     /*! game logic intervall
 
@@ -213,65 +194,43 @@ private:
 
     /*! \returns random direction
      */
-    iaVector2f getRandomDir();
+    iaVector3d getRandomDir();
 
     iEntity createPlayer();
-
-    iEntity createViewport(iEntityID targetID);
+    iEntity createCamera();
+    void createBackground();
 
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
+
+    void onPlayerMovementBehaviour(iEntity &entity, std::any &userData);
+    void onCameraFollowPlayer(iEntity &entity, std::any &userData);
+    void onAquireTarget(iEntity &entity, std::any &userData);
+    void onUpdateProjectileOrientation(iEntity &entity, std::any &userData);
+    void onCheckCollision(iEntity &entity, std::any &userData);
+    void onFollowTarget(iEntity &entity, std::any &userData);
+    void onUpdateCollision(iEntity &entity, std::any &userData);
+    void onUpdateWeapon(iEntity &entity, std::any &userData);
+    void onUpdateRange(iEntity &entity, std::any &userData);
 
     void createShop();
     void liftShop();
     void landShop();
-
-    void createObject(const iaVector2f &pos, uint32 party, ObjectType objectType);
-
-    void onUpdateQuadtreeSystem();
-
-    void onUpdateMovementControlSystem();
-
-    void onUpdateFollowTargetSystem();
-
-    void onUpdatePositionSystem();
-
-    void onUpdateCollisionSystem();
-
-    void onUpdatePickupSystem(iEntity &entity);
-
-    BuildingType onCheckForBuildingsNearBy(iEntity &entity);
-
-    void onUpdateRangeSystem();
-
-    void onUpdateOrientationSystem();
-
-    void onUpdateCleanUpTheDeadSystem();
-
-    void onUpdateWeaponSystem();
+    void createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType);
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 
     void onSpawnStuff(const iaTime &time);
-
     void onShopLanded();
-
     void onLandShop(const iaTime &time);
-
-    void onUpdateStats(const iaTime &time);
-
-    void aquireTargetFor(iEntity &entity);
-
-    void fire(const iaVector2f &from, const iaVector2f &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
-
-    void updateViewRectangleSystem();
 
     /*! query a circle on the quardtree while wrapping arround at the edges like a doughnut
 
     \param circle the query circle
     \param hits the resulting list of entitties and relatice to the circle center positions
     */
-    void doughnutQuery(const iaCirclef &circle, std::vector<std::pair<iEntityID, iaVector2f>> &hits);
+    void doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits);
 
-    bool intersectDoughnut(const iaVector2f &position, const iaRectanglef &rectangle, iaVector2f &offset);
-    bool intersectDoughnut(const iaVector2f &position, const iaCirclef &circle, iaVector2f &offset);
+    bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
+    bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
 
     float32 calcLevel(uint32 experience);
     void addExperience(iEntity &entity, float32 experience);
@@ -291,8 +250,6 @@ private:
     };
 
     std::vector<GameStats> _stats;
-
-    std::set<iEntityID> _deleteQueue;
 };
 
 #endif // __SUPREMACY_GAMELAYER__

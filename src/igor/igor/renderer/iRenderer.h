@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERER_2D__
-#define __IGOR_RENDERER_2D__
+#ifndef __IGOR_RENDERER__
+#define __IGOR_RENDERER__
 
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
@@ -61,6 +61,7 @@ namespace igor
         friend class iModule<iRenderer>;
         friend class iWindow;
         friend class iView;
+        friend class iEntityScene;
 
     public:
         /*! initializes renderer
@@ -81,30 +82,14 @@ namespace igor
          */
         const iMaterialPtr &getMaterial() const;
 
-        /*! \returns render hardware vendor
-         */
-        iaString getVendor();
-
-        /*! \returns renderer type
-         */
-        iaString getRenderer();
-
-        /*! \returns version of renderer
-         */
-        iaString getVersion();
-
-        /*! \returns renderer extensions
-         */
-        iaString getExtensions();
-
         /*! set projection matrix with perspective projection
 
         \param fov field of view in degrees
         \param aspect aspect ratio of screen
-        \param nearplane near plane distance
-        \param farplane far plane distance
+        \param nearPlain near plane distance
+        \param farPlain far plane distance
         */
-        void setPerspective(float32 fov, float32 aspect, float32 nearplane, float32 farplane);
+        void setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain);
 
         /*! set projection matrix with orthogonal projection
 
@@ -112,10 +97,10 @@ namespace igor
         \param right right bounding
         \param bottom bottom bounding
         \param top top bounding
-        \param nearplane near plane distance
-        \param farplane far plane distance
+        \param nearPlain near plane distance
+        \param farPlain far plane distance
         */
-        void setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplane, float32 farplane);
+        void setOrtho(float64 left, float64 right, float64 bottom, float64 top, float64 nearPlain, float64 farPlain);
 
         /*! sets the model matrix
 
@@ -201,8 +186,11 @@ namespace igor
         void drawQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
 
         void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
         void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaVector3d &v1, const iaVector3d &v2, const iaVector3d &v3, const iaVector3d &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
         void drawTexturedQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaVector3d &o, const iaVector3d &u, const iaVector3d &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
 
         /*! draw specified frame of given atlas
          */
@@ -534,7 +522,7 @@ namespace igor
          */
         void flushLastUsed();
 
-        /*! updats internal matrices
+        /*! updates internal matrices
          */
         void updateMatrices();
 
@@ -585,4 +573,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_RENDERER_2D__
+#endif // __IGOR_RENDERER__

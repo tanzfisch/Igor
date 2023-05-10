@@ -202,7 +202,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::setData(T *data)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::identity(void)
+__IGOR_INLINE__ void iaMatrix2D<T>::identity()
 {
 	_m[0] = static_cast<T>(1);
 	_m[3] = static_cast<T>(0);

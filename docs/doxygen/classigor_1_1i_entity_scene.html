@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_entity_scene.html','');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_entity_scene-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">igor::iEntityScene Class Reference</div>  </div>
@@ -93,30 +94,213 @@ $(document).ready(function(){initNavTree('classigor_1_1i_entity_scene.html','');
 <div class="contents">
 
 <p><code>#include &lt;iEntityScene.h&gt;</code></p>
+
+<p>Inherits std::enable_shared_from_this&lt; iEntityScene &gt;.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af50fa02be3b3c4b6abc06a29cab48432"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classigor_1_1i_entity.html">iEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#af50fa02be3b3c4b6abc06a29cab48432">createEntity</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name=&quot;&quot;)</td></tr>
-<tr class="separator:af50fa02be3b3c4b6abc06a29cab48432"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f973558102a90f1f60da368bbd65083"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a6f973558102a90f1f60da368bbd65083">destroyEntity</a> (<a class="el" href="classigor_1_1i_entity.html">iEntity</a> entity)</td></tr>
-<tr class="separator:a6f973558102a90f1f60da368bbd65083"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfc3f9bfc70b13f2226332bdd3f936b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#adfc3f9bfc70b13f2226332bdd3f936b6">destroyEntity</a> (<a class="el" href="namespaceigor.html#a9ec2293e7e6ff67ac351906a8d74bd77">iEntityID</a> entityID)</td></tr>
+<tr class="memitem:a89e7f4387ccd2b93b1ac332aca6a93da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classigor_1_1i_entity.html">iEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a89e7f4387ccd2b93b1ac332aca6a93da">createEntity</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name=&quot;&quot;, bool active=true)</td></tr>
+<tr class="separator:a89e7f4387ccd2b93b1ac332aca6a93da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfc3f9bfc70b13f2226332bdd3f936b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#adfc3f9bfc70b13f2226332bdd3f936b6">destroyEntity</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID)</td></tr>
 <tr class="separator:adfc3f9bfc70b13f2226332bdd3f936b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7714dff004b8c1089cbcfba037b3193c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a7714dff004b8c1089cbcfba037b3193c">registerSystem</a> (<a class="el" href="namespaceigor.html#a50792ab2ca1ab99a3e11f3d3215b0f0e">iEntitySystemPtr</a> system)</td></tr>
-<tr class="separator:a7714dff004b8c1089cbcfba037b3193c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0071fd8233cfdc383697c201967211ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a0071fd8233cfdc383697c201967211ae">updateSystems</a> ()</td></tr>
-<tr class="separator:a0071fd8233cfdc383697c201967211ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0feaf5a6446ae1c9ac69d00a2bcc3a38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a0feaf5a6446ae1c9ac69d00a2bcc3a38">destroyEntity</a> (const <a class="el" href="classigor_1_1i_entity.html">iEntity</a> &amp;entity)</td></tr>
+<tr class="separator:a0feaf5a6446ae1c9ac69d00a2bcc3a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172bc8d42bbd41751660c6ba5ba35e64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a172bc8d42bbd41751660c6ba5ba35e64">clear</a> ()</td></tr>
 <tr class="separator:a172bc8d42bbd41751660c6ba5ba35e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3219f68bade2c000e594038c4445fdb8"><td class="memTemplParams" colspan="2">template&lt;typename... Components&gt; </td></tr>
-<tr class="memitem:a3219f68bade2c000e594038c4445fdb8"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a3219f68bade2c000e594038c4445fdb8">getEntities</a> ()</td></tr>
-<tr class="separator:a3219f68bade2c000e594038c4445fdb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8d19f22799e27c0f7b872f79d71e513"><td class="memItemLeft" align="right" valign="top">entt::registry &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#aa8d19f22799e27c0f7b872f79d71e513">getRegistry</a> ()</td></tr>
-<tr class="separator:aa8d19f22799e27c0f7b872f79d71e513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bec1ae4869236c412808610a155dc5d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a0bec1ae4869236c412808610a155dc5d"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a0bec1ae4869236c412808610a155dc5d">addComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID, const T &amp;component)</td></tr>
+<tr class="separator:a0bec1ae4869236c412808610a155dc5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab24f69444628fcfe8470e274b3e2d5a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab24f69444628fcfe8470e274b3e2d5a3"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#ab24f69444628fcfe8470e274b3e2d5a3">addUserComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID, const T &amp;component)</td></tr>
+<tr class="separator:ab24f69444628fcfe8470e274b3e2d5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62ae5c1c5196b5558594fdbf532003e0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a62ae5c1c5196b5558594fdbf532003e0"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a62ae5c1c5196b5558594fdbf532003e0">getComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID)</td></tr>
+<tr class="separator:a62ae5c1c5196b5558594fdbf532003e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae95f4ea50c49a32dbdf4d2a3530d30ad"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae95f4ea50c49a32dbdf4d2a3530d30ad"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#ae95f4ea50c49a32dbdf4d2a3530d30ad">getUserComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID)</td></tr>
+<tr class="separator:ae95f4ea50c49a32dbdf4d2a3530d30ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a9e82d67795f47a05db4646a58a06c1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a2a9e82d67795f47a05db4646a58a06c1"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a2a9e82d67795f47a05db4646a58a06c1">tryGetComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID)</td></tr>
+<tr class="separator:a2a9e82d67795f47a05db4646a58a06c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4afa508cc33f09530cbe92cb561efce8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4afa508cc33f09530cbe92cb561efce8"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a4afa508cc33f09530cbe92cb561efce8">tryGetUserComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID)</td></tr>
+<tr class="separator:a4afa508cc33f09530cbe92cb561efce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d37b12e90a5a7fd426974d5833ca66d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9d37b12e90a5a7fd426974d5833ca66d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a9d37b12e90a5a7fd426974d5833ca66d">removeComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID)</td></tr>
+<tr class="separator:a9d37b12e90a5a7fd426974d5833ca66d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea80fe6f64ff15379e8cbbd4cda0a714"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#aea80fe6f64ff15379e8cbbd4cda0a714">initializeQuadtree</a> (const <a class="el" href="namespaceigor.html#a03e69d652494282a5ee3de06feeff3ab">iaRectangled</a> &amp;box, const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> splitThreshold=4, const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> maxDepth=16)</td></tr>
+<tr class="separator:aea80fe6f64ff15379e8cbbd4cda0a714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5c834e1929cfdb5739271ff1db97202"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a451472b493fc1cbacbcc9e7572ab5e57">iQuadtreed</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#aa5c834e1929cfdb5739271ff1db97202">getQuadtree</a> () const</td></tr>
+<tr class="separator:aa5c834e1929cfdb5739271ff1db97202"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b03dbc83344f47aa74447afab8a1f97"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a3b03dbc83344f47aa74447afab8a1f97">getRegistry</a> () const</td></tr>
+<tr class="separator:a3b03dbc83344f47aa74447afab8a1f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05599b3703058400e60d4dc497bf7ca3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a05599b3703058400e60d4dc497bf7ca3">setBounds</a> (const <a class="el" href="namespaceigor.html#a503ba06ae6b1e9c1752d24113ae764cf">iAABoxd</a> &amp;box)</td></tr>
+<tr class="separator:a05599b3703058400e60d4dc497bf7ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a820357e58fc629d40ecf69291e3c48d0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceigor.html#a503ba06ae6b1e9c1752d24113ae764cf">iAABoxd</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a820357e58fc629d40ecf69291e3c48d0">getBounds</a> () const</td></tr>
+<tr class="separator:a820357e58fc629d40ecf69291e3c48d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9673f437cb43cc64a66b64fb0af2fced"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a9673f437cb43cc64a66b64fb0af2fced"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structigor_1_1i_body2_d_component.html">iBody2DComponent</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a9673f437cb43cc64a66b64fb0af2fced">addComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID, const <a class="el" href="structigor_1_1i_body2_d_component.html">iBody2DComponent</a> &amp;component)</td></tr>
+<tr class="separator:a9673f437cb43cc64a66b64fb0af2fced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae535754f48872d7be59cd65e2b354315"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ae535754f48872d7be59cd65e2b354315"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structigor_1_1i_camera_component.html">iCameraComponent</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#ae535754f48872d7be59cd65e2b354315">addComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID, const <a class="el" href="structigor_1_1i_camera_component.html">iCameraComponent</a> &amp;component)</td></tr>
+<tr class="separator:ae535754f48872d7be59cd65e2b354315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07af9a281b856b7fc1e786439f722a16"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a07af9a281b856b7fc1e786439f722a16"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a07af9a281b856b7fc1e786439f722a16">removeComponent</a> (<a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a> entityID)</td></tr>
+<tr class="separator:a07af9a281b856b7fc1e786439f722a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a504a134f79715af133e86dcd7b35d967"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a504a134f79715af133e86dcd7b35d967">iEntitySystemModule</a></td></tr>
+<tr class="separator:a504a134f79715af133e86dcd7b35d967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a331bbbb90f1cdb3b32bd5b68d7d6515b"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_scene.html#a331bbbb90f1cdb3b32bd5b68d7d6515b">iEntitySceneDeleter</a></td></tr>
+<tr class="separator:a331bbbb90f1cdb3b32bd5b68d7d6515b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>entity scene </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9673f437cb43cc64a66b64fb0af2fced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9673f437cb43cc64a66b64fb0af2fced">&#9670;&nbsp;</a></span>addComponent() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structigor_1_1i_body2_d_component.html">iBody2DComponent</a>&amp; igor::iEntityScene::addComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structigor_1_1i_body2_d_component.html">iBody2DComponent</a> &amp;&#160;</td>
+          <td class="paramname"><em>component</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae535754f48872d7be59cd65e2b354315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae535754f48872d7be59cd65e2b354315">&#9670;&nbsp;</a></span>addComponent() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">template <a class="el" href="structigor_1_1i_camera_component.html">iCameraComponent</a> &amp; igor::iEntityScene::addComponent&lt; <a class="el" href="structigor_1_1i_camera_component.html">iCameraComponent</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structigor_1_1i_camera_component.html">iCameraComponent</a> &amp;&#160;</td>
+          <td class="paramname"><em>component</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0bec1ae4869236c412808610a155dc5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bec1ae4869236c412808610a155dc5d">&#9670;&nbsp;</a></span>addComponent() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; igor::iEntityScene::addComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>component</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>adds component to entity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">component</td><td>the component to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab24f69444628fcfe8470e274b3e2d5a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab24f69444628fcfe8470e274b3e2d5a3">&#9670;&nbsp;</a></span>addUserComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T&amp; igor::iEntityScene::addUserComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>component</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>adds custom component to entity</p>
+<p>this is meant for types unknown to Igor</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">component</td><td>the component to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a172bc8d42bbd41751660c6ba5ba35e64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a172bc8d42bbd41751660c6ba5ba35e64">&#9670;&nbsp;</a></span>clear()</h2>
 
@@ -131,12 +315,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>clears the scene and the systems </p>
+<p>clears the scene </p>
 
 </div>
 </div>
-<a id="af50fa02be3b3c4b6abc06a29cab48432"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af50fa02be3b3c4b6abc06a29cab48432">&#9670;&nbsp;</a></span>createEntity()</h2>
+<a id="a89e7f4387ccd2b93b1ac332aca6a93da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89e7f4387ccd2b93b1ac332aca6a93da">&#9670;&nbsp;</a></span>createEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,8 +329,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classigor_1_1i_entity.html">iEntity</a> igor::iEntityScene::createEntity </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code></td><td>)</td>
+          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>active</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -154,8 +348,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6f973558102a90f1f60da368bbd65083"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f973558102a90f1f60da368bbd65083">&#9670;&nbsp;</a></span>destroyEntity() <span class="overload">[1/2]</span></h2>
+<a id="a0feaf5a6446ae1c9ac69d00a2bcc3a38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0feaf5a6446ae1c9ac69d00a2bcc3a38">&#9670;&nbsp;</a></span>destroyEntity() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,13 +357,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void igor::iEntityScene::destroyEntity </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classigor_1_1i_entity.html">iEntity</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_entity.html">iEntity</a> &amp;&#160;</td>
           <td class="paramname"><em>entity</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>destroyes an entity</p>
+<p>destroys an entity</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entity</td><td>the entity to destroy </td></tr>
@@ -188,13 +382,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void igor::iEntityScene::destroyEntity </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceigor.html#a9ec2293e7e6ff67ac351906a8d74bd77">iEntityID</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
           <td class="paramname"><em>entityID</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>destroyes an entity by id</p>
+<p>destroys an entity by id</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityID</td><td>the entity ID </td></tr>
@@ -204,21 +398,103 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3219f68bade2c000e594038c4445fdb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3219f68bade2c000e594038c4445fdb8">&#9670;&nbsp;</a></span>getEntities()</h2>
+<a id="a820357e58fc629d40ecf69291e3c48d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a820357e58fc629d40ecf69291e3c48d0">&#9670;&nbsp;</a></span>getBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceigor.html#a503ba06ae6b1e9c1752d24113ae764cf">iAABoxd</a> &amp; igor::iEntityScene::getBounds </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>global bounds </dd></dl>
+
+</div>
+</div>
+<a id="a62ae5c1c5196b5558594fdbf532003e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62ae5c1c5196b5558594fdbf532003e0">&#9670;&nbsp;</a></span>getComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename... Components&gt; </div>
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">template <a class="el" href="structigor_1_1i_global_boundary_component.html">iGlobalBoundaryComponent</a> &amp; igor::iEntityScene::getComponent&lt; <a class="el" href="structigor_1_1i_global_boundary_component.html">iGlobalBoundaryComponent</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>reference to component for given entity</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityID</td><td>the given entity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa5c834e1929cfdb5739271ff1db97202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5c834e1929cfdb5739271ff1db97202">&#9670;&nbsp;</a></span>getQuadtree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a451472b493fc1cbacbcc9e7572ab5e57">iQuadtreed</a> &amp; igor::iEntityScene::getQuadtree </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>internal quadtree </dd></dl>
+
+</div>
+</div>
+<a id="a3b03dbc83344f47aa74447afab8a1f97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b03dbc83344f47aa74447afab8a1f97">&#9670;&nbsp;</a></span>getRegistry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * igor::iEntityScene::getRegistry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>entt registry </dd></dl>
+
+</div>
+</div>
+<a id="ae95f4ea50c49a32dbdf4d2a3530d30ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae95f4ea50c49a32dbdf4d2a3530d30ad">&#9670;&nbsp;</a></span>getUserComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto igor::iEntityScene::getEntities </td>
+          <td class="memname">T&amp; igor::iEntityScene::getUserComponent </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -228,68 +504,223 @@ template&lt;typename... Components&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>all entities with given components </dd></dl>
-
-</div>
-</div>
-<a id="aa8d19f22799e27c0f7b872f79d71e513"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8d19f22799e27c0f7b872f79d71e513">&#9670;&nbsp;</a></span>getRegistry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">entt::registry &amp; igor::iEntityScene::getRegistry </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>entt registry </dd></dl>
-
-</div>
-</div>
-<a id="a7714dff004b8c1089cbcfba037b3193c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7714dff004b8c1089cbcfba037b3193c">&#9670;&nbsp;</a></span>registerSystem()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iEntityScene::registerSystem </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceigor.html#a50792ab2ca1ab99a3e11f3d3215b0f0e">iEntitySystemPtr</a>&#160;</td>
-          <td class="paramname"><em>system</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>registers a system to the scene</p>
+<dl class="section return"><dt>Returns</dt><dd>reference to custom component of given entity</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">system</td><td>the system to register </td></tr>
+    <tr><td class="paramname">component</td><td>the component to add </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a0071fd8233cfdc383697c201967211ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0071fd8233cfdc383697c201967211ae">&#9670;&nbsp;</a></span>updateSystems()</h2>
+<a id="aea80fe6f64ff15379e8cbbd4cda0a714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea80fe6f64ff15379e8cbbd4cda0a714">&#9670;&nbsp;</a></span>initializeQuadtree()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void igor::iEntityScene::updateSystems </td>
+          <td class="memname">void igor::iEntityScene::initializeQuadtree </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a03e69d652494282a5ee3de06feeff3ab">iaRectangled</a> &amp;&#160;</td>
+          <td class="paramname"><em>box</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramname"><em>splitThreshold</em> = <code>4</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramname"><em>maxDepth</em> = <code>16</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>initialize quadtree</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">box</td><td>volume of the whole quadtree </td></tr>
+    <tr><td class="paramname">splitThreshold</td><td>threshold count of objects on a node before splitting the node </td></tr>
+    <tr><td class="paramname">maxDepth</td><td>the maximum depth of the tree </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a07af9a281b856b7fc1e786439f722a16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07af9a281b856b7fc1e786439f722a16">&#9670;&nbsp;</a></span>removeComponent() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">template void igor::iEntityScene::removeComponent&lt; <a class="el" href="structigor_1_1i_global_boundary_component.html">iGlobalBoundaryComponent</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>updates all systems in the order hey have been added to the scene </p>
+
+</div>
+</div>
+<a id="a9d37b12e90a5a7fd426974d5833ca66d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d37b12e90a5a7fd426974d5833ca66d">&#9670;&nbsp;</a></span>removeComponent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntityScene::removeComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>removes component of given entity with given type </p>
+
+</div>
+</div>
+<a id="a05599b3703058400e60d4dc497bf7ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05599b3703058400e60d4dc497bf7ca3">&#9670;&nbsp;</a></span>setBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntityScene::setBounds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a503ba06ae6b1e9c1752d24113ae764cf">iAABoxd</a> &amp;&#160;</td>
+          <td class="paramname"><em>box</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>sets global bounds </p>
+
+</div>
+</div>
+<a id="a2a9e82d67795f47a05db4646a58a06c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a9e82d67795f47a05db4646a58a06c1">&#9670;&nbsp;</a></span>tryGetComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">template <a class="el" href="structigor_1_1i_global_boundary_component.html">iGlobalBoundaryComponent</a> * igor::iEntityScene::tryGetComponent&lt; <a class="el" href="structigor_1_1i_global_boundary_component.html">iGlobalBoundaryComponent</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>pointer to component for given entity. nullptr if component does not exist</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityID</td><td>the given entity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4afa508cc33f09530cbe92cb561efce8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4afa508cc33f09530cbe92cb561efce8">&#9670;&nbsp;</a></span>tryGetUserComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T* igor::iEntityScene::tryGetUserComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a4470582744b1e2d0933fb12ddead0555">iEntityID</a>&#160;</td>
+          <td class="paramname"><em>entityID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>pointer to custom component for given entity. nullptr if component does not exist</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityID</td><td>the given entity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a331bbbb90f1cdb3b32bd5b68d7d6515b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a331bbbb90f1cdb3b32bd5b68d7d6515b">&#9670;&nbsp;</a></span>iEntitySceneDeleter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classigor_1_1i_entity_scene_deleter.html">iEntitySceneDeleter</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a504a134f79715af133e86dcd7b35d967"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a504a134f79715af133e86dcd7b35d967">&#9670;&nbsp;</a></span>iEntitySystemModule</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classigor_1_1i_entity_system_module.html">iEntitySystemModule</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

@@ -31,8 +31,6 @@
 
 #include <igor/entities/iEntityScene.h>
 
-#include <iaux/system/iaMutex.h> // deprecated
-
 namespace igor
 {
     /*! entity
@@ -50,66 +48,129 @@ namespace igor
         */
         iEntity(const iEntity &other) = default;
 
-        /*! \returns true if entity is valid
-         */
-        bool isValid() const;
-
         /*! param ctor
 
         \param entity the entity handle
         \param scene the scene this entity belongs to
 
-        \todo maybe scene could be a module and globaly accessible
+        \todo maybe scene could be a module and globally accessible
         */
-        iEntity(iEntityID entity, iEntityScene &scene);
+        iEntity(iEntityID entity, iEntityScenePtr scene);
 
         /*! \returns entity id
          */
         iEntityID getID() const;
 
-        /*! adds component to entity of given type
+        /*! \returns true if entity is valid
          */
-        template <typename T, typename... Args>
-        T &addComponent(Args &&...args)
+        bool isValid() const;
+
+        /*! \returns entity name
+         */
+        const iaString getName() const;
+
+        /*! sets name of entity
+
+        \param name the name to set
+        */
+        void setName(const iaString &name);
+
+        /*! \returns true if entity is active
+         */
+        bool isActive() const;
+
+        /*! sets entity active
+
+        \param active if true entity is active
+        */
+        void setActive(bool active);
+
+        /*! adds behaviour to entity
+
+        \param behaviour the behaviour to be added
+        \param userData user data added to behaviour
+        */
+        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any());
+
+        /*! removes behaviour from entity
+
+        \param behaviour the behaviour to be removed
+        */
+        void removeBehaviour(const iBehaviourDelegate &behaviour);
+
+        /*! set parent of entity
+
+        \param parent the parent id to use. if parent id invalid the parent relationship is reset
+        */
+        void setParent(iEntityID parent);
+
+        /*! \returns the parent id or invalid id if there is no parent
+         */
+        iEntityID getParent() const;
+
+        /*! sets motion interaction type
+
+        \param interactionType the motion interaction type
+        */
+        void setMotionInteractionType(iMotionInteractionType interactionType);
+
+        /*! \returns motion interaction type
+         */
+        iMotionInteractionType getMotionInteractionType() const;
+
+        /*! adds component to entity
+
+        \param component the component to add
+        */
+        template <typename T>
+        T &addComponent(const T &component)
         {
-            return _scene->getRegistry().emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
+            return _scene->addComponent<T>(_entity, component);
+        }
+
+        template<typename T>
+        T &addUserComponent(const T &component)        
+        {
+            return _scene->addUserComponent<T>(_entity, component);
         }
 
         /*! \returns component of entity of given type
          */
         template <typename T>
-        T &getComponent() const
+        T &getComponent()
         {
-            return _scene->getRegistry().get<T>(_entity);
+            return _scene->getComponent<T>(_entity);
         }
 
+        template<typename T>
+        T &getUserComponent()
+        {
+            return _scene->getUserComponent<T>(_entity);
+        }        
+
         /*! \returns component of entity of given type
+
+        returns nullptr in case component does not exist
          */
         template <typename T>
         T *tryGetComponent() const
         {
-            return _scene->getRegistry().try_get<T>(_entity);
+            return _scene->tryGetComponent<T>(_entity);
         }
 
-        /*! \returns true if entity has component of given type
-         */
         template <typename T>
-        bool hasComponent() const
+        T *tryGetUserComponent() const
         {
-            return _scene->getRegistry().try_get<T>(_entity) != nullptr;
-        }
+            return _scene->tryGetUserComponent<T>(_entity);
+        }        
 
         /*! removes component of given type
          */
         template <typename T>
         void removeComponent()
         {
-            _scene->getRegistry().remove<T>(_entity);
+            _scene->removeComponent<T>(_entity);
         }
-
-        /*! \returns entity name
-         */
-        const iaString getName() const;
 
     private:
         /*! the entity ID
@@ -118,77 +179,12 @@ namespace igor
 
         /*! the scene this entity is in
          */
-        iEntityScene *_scene;
+        iEntityScenePtr _scene;
     };
 
     /*! pointer to entity
      */
     typedef iEntity *iEntityPtr;
-
-    /*///////////////////7 deprecated*/
-
-    /*! engine internal entity base types
-     */
-    enum class iEntityType
-    {
-        Undefined,
-        Base,
-        Locatable
-    };
-
-    /*! entity base class
-    \deprecated will work out an ECS
-    */
-    class IGOR_API iEntity_Old
-    {
-
-        /*! so we can call the handle
-         */
-        friend class iEntityManager;
-
-    public:
-        /*! invalid entity id definition
-         */
-        static const uint64 INVALID_ENTITY_ID;
-
-        /*! \returns entity id
-         */
-        uint64 getID() const;
-
-        /*! \returns entity type
-         */
-        iEntityType getType() const;
-
-        /*! init id and register entity
-         */
-        iEntity_Old();
-
-        /*! unregister
-         */
-        virtual ~iEntity_Old();
-
-    protected:
-        /*! called every simulation frame
-         */
-        virtual void handle() = 0;
-
-        /*! entity type
-         */
-        iEntityType _type = iEntityType::Undefined;
-
-    private:
-        /*! entity id
-         */
-        uint64 _id = 0;
-
-        /*! next entity id
-         */
-        static uint64 _nextID;
-
-        /*! mutex to protec id generation
-         */
-        static iaMutex _mutexID;
-    };
 
 } // namespace igor
 

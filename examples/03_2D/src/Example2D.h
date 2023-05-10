@@ -123,6 +123,12 @@ private:
     */
     void onEvent(iEvent &event) override;
 
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);    
+
     /*! initialize particle system and emitter
     */
     void initParticleSystem();

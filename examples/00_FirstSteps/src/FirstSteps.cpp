@@ -19,7 +19,7 @@ void FirstSteps::onDeinit()
     con_endl("deinitialize");
 }
 
-void FirstSteps::onPreDraw()
+void FirstSteps::onUpdate()
 {
     // since there is nothing to do for the application besides init and deinit some internal stuff
     // the handle will be called es often as possible. which should be reflected in a very high frame rate
@@ -33,6 +33,6 @@ void FirstSteps::onPreDraw()
     if (_counter >= 10)
     {
         // breaks the applications endless loop
-        iApplication::getInstance().stop();
+        iApplication::getInstance().exit();
     }
 }

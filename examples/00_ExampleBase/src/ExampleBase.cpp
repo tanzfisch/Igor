@@ -118,7 +118,7 @@ bool ExampleBase::onKeyUp(iEventKeyUp &event)
     switch (event.getKey())
     {
     case iKeyCode::ESC:
-        iApplication::getInstance().stop();
+        iApplication::getInstance().exit();
         return true;
 
     case iKeyCode::F1:
@@ -186,7 +186,7 @@ void ExampleBase::onDeinit()
     // nothing to do
 }
 
-void ExampleBase::onPreDraw()
+void ExampleBase::onUpdate()
 {
 }
 

@@ -32,64 +32,22 @@
 #include <igor/igor.h>
 using namespace igor;
 
-struct PositionComponent
-{
-    /*! current position
-     */
-    iaVector2f _position;
-};
-
 struct RangeComponent
 {
     /*! max range
      */
-    float32 _maxRange;
+    float64 _rangeLeft = 0.0;
 
-    /*! distance traveled
-     */
-    float32 _distanceTraveled = 0.0;
-};
-
-struct OrientationComponent
-{
-    /*! direction the entity is pointing at
+    /*! last position
     */
-    iaVector2f _direction;
-
-    /*! if true orientation follows current velocity
-    */
-    bool followVelocity;
+    iaVector3d _lastPosition;
 };
 
 struct AngularVelocityComponent
 {
     /*! angular velocity in rad per frame
-    */
+     */
     float32 _velocity;
-};
-
-struct SizeComponent
-{
-    float32 _size;
-};
-
-struct QuadtreeObjectComponent
-{
-    iQuadtreef::ObjectPtr _object;
-};
-
-struct VelocityComponent
-{
-    /*! normalized vector to discribe the direction
-    */
-    iaVector2f _direction;
-
-    /*! speed in units per frame
-    */
-    float32 _speed;
-
-    // TODO does this need to be in here?
-    bool _nonBlockable = false;
 };
 
 struct HealthComponent
@@ -111,11 +69,6 @@ struct HealComponent
 struct DamageComponent
 {
     float32 _damage = 0.0;
-};
-
-struct PartyComponent
-{
-    uint32 _partyID = 0;
 };
 
 struct ExperienceComponent
@@ -141,11 +94,9 @@ struct CoinGainComponent
 
 struct VisualComponent
 {
-    iTexturePtr _texture;
     bool _castShadow;
     bool _scaleAnimation;
     iaTime _timerOffset;
-    bool _visible;
 };
 
 struct TargetComponent
@@ -212,7 +163,7 @@ struct WeaponComponent
 
     /*! offset to unit position to fire from
      */
-    iaVector2f _offset;
+    iaVector2d _offset;
 
     /*! keeps track of cool down
      */

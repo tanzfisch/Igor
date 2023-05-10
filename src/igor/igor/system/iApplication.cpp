@@ -10,6 +10,7 @@
 #include <igor/physics/iPhysics.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/renderer/iView.h>
+#include <igor/entities/iEntitySystemModule.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -29,9 +30,9 @@ namespace igor
 
     iApplication::~iApplication()
     {
-        if (!_windows.empty())
+        if (_window != nullptr)
         {
-            con_warn("close and destroy all windows before shutdown");
+            con_warn("close and destroy window before shutdown");
         }
     }
 
@@ -102,55 +103,78 @@ namespace igor
         }
     }
 
-    void iApplication::preDraw()
+    void iApplication::onUpdateLayerStack()
     {
         for (auto layer : _layerStack.getStack())
         {
-            layer->onPreDraw();
+            layer->onUpdate();
         }
     }
 
     bool iApplication::onWindowClose(iEventWindowClose &event)
     {
-        bool allClosed = true;
-
-        for (auto window : _windows)
-        {
-            if (window->isOpen())
-            {
-                allClosed = false;
-                break;
-            }
-        }
-
-        if (allClosed)
-        {
-            stop();
-        }
-
+        exit();
         return false;
     }
 
-    void iApplication::stop()
+    void iApplication::exit()
     {
         _running = false;
     }
 
     void iApplication::iterate()
     {
-        iTimer::getInstance().onUpdate();
+        iTimer::getInstance().nextFrame();
         iProfiler::nextFrame();
 
         IGOR_PROFILER_BEGIN(application);
-        iNodeManager::getInstance().handle();
-        windowHandle();
+        updateWindow();
         dispatch();
-        preDraw();
+        onUpdateLayerStack();
+        iTimer::getInstance().onUpdate();
         IGOR_PROFILER_END(application);
 
+        IGOR_PROFILER_BEGIN(entities);
+        iEntitySystemModule::getInstance().onUpdate();
+        IGOR_PROFILER_END(entities);
+
+        IGOR_PROFILER_BEGIN(nodes);
+        iNodeManager::getInstance().onUpdate();
+        IGOR_PROFILER_END(nodes);
+
+        IGOR_PROFILER_BEGIN(physics);
         iPhysics::getInstance().handle();
+        IGOR_PROFILER_END(physics);
 
         draw();
+    }
+
+    void iApplication::pause(bool pause)
+    {
+        if (_paused == pause)
+        {
+            return;
+        }
+
+        _paused = pause;
+
+        if (_paused)
+        {
+            iTimer::getInstance().stop();
+            iPhysics::getInstance().stop();
+            iEntitySystemModule::getInstance().stop();
+        }
+        else
+        {
+            iTimer::getInstance().start();
+            iPhysics::getInstance().start();
+            iEntitySystemModule::getInstance().start();
+        }
+    }
+
+    bool iApplication::isPaused() const
+    {
+        return _paused;
     }
 
     void iApplication::run()
@@ -161,6 +185,9 @@ namespace igor
         {
             iterate();
         } while (_running);
+
+        clearLayers();
+        destroyWindow();
     }
 
     bool iApplication::isRunning()
@@ -170,27 +197,27 @@ namespace igor
 
     void iApplication::draw()
     {
-        for (auto window : _windows)
+        if (_window == nullptr ||
+            !_window->isOpen())
         {
-            if (window->isOpen())
-            {
-                window->draw();
-            }
+            return;
         }
+
+        _window->draw();
     }
 
-    void iApplication::windowHandle()
+    void iApplication::updateWindow()
     {
-        for (auto window : _windows)
+        if (_window == nullptr ||
+            !_window->isOpen())
         {
-            if (window->isOpen())
-            {
-                window->handle();
-            }
+            return;
         }
+
+        _window->onUpdate();
     }
 
-    void iApplication::clearLayerStack()
+    void iApplication::clearLayers()
     {
         _layerStack.clear();
     }
@@ -205,45 +232,22 @@ namespace igor
         _layerStack.removeLayer(layer);
     }
 
-    iWindowPtr iApplication::createWindow(const iaString& title)
+    void iApplication::destroyWindow()
     {
-        iWindowPtr window = new iWindow(title);
-        _windows.push_back(window);
-        return window;
-    }
-
-    void iApplication::destroyWindow(iWindowPtr window)
-    {
-        con_assert(window != nullptr, "zero pointer");
-        if (window == nullptr)
+        if (_window != nullptr)
         {
-            return;
-        }
-
-        auto iter = std::find(_windows.begin(), _windows.end(), window);
-        if (iter != _windows.end())
-        {
-            delete window;
-            _windows.erase(iter);
-        }
-        else
-        {
-            con_err("window with id " << window->getID() << " does not exist");
+            delete _window;
+            _window = nullptr;
         }
     }
 
-    iWindowPtr iApplication::getWindow(iWindowID windowID) const
+    iWindowPtr iApplication::getWindow()
     {
-        auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window)
-                                 { return window->getID() == windowID; });
-
-        if (iter != _windows.end())
+        if (_window == nullptr)
         {
-            return *iter;
+            _window = new iWindow();
         }
-
-        con_err("window with id " << windowID << " does not exist");
-        return nullptr;
+        return _window;
     }
 
 }; // namespace igor

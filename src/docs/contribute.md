@@ -6,15 +6,20 @@ Get Igor
 
 Get the Igor sources from [github](https://github.com/tanzfisch/Igor.git).
  
-Submodules
-----------
+Dependencies
+------------
 
-Igor currently links to the following libraries as sub modules.
- 
-- newton-dynamics
-- openal-soft
- 
-dont forget to run the following unless your git client already does it for you
+Igor depends on a range of libraries.
+
+- entt -> an entity component system from [on github](https://github.com/skypjack/entt)
+- Glad -> an OpenGL loading library generated at [glad.dav1d.de](https://glad.dav1d.de/)
+- newton-dynamics -> physics simulation [newtondynamics.com](http://newtondynamics.com/forum/newton.php), [on github](https://github.com/MADEAPPS/newton-dynamics)
+- openal-soft -> OpenAL software implementation [on github](https://github.com/kcat/openal-soft)
+- stb_image -> image loader library [on github](https://github.com/nothings/stb)
+- TinyXML -> simply xml reader library
+
+Some of which are copied in to the code base and some are pulled as submodules.
+So don't forget to run the following unless your git client already does it for you:
 
 ``` 
 git submodule init
@@ -59,7 +64,7 @@ For making a release do the following steps.
 
 1. create a release branch from develop named by the next release version (e.g. 0.23.0).
 
-2. run smoke tests (run all the examples, tests and applications like Mica)
+2. build and run tests and examples on Linux & Windows
 
 3. if tests fail try to fix on the release branch if possible or abort the release and start over
 

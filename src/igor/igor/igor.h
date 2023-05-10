@@ -106,8 +106,8 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
 
-#include <igor/entities/iEntityManager.h>
 #include <igor/entities/iEntity.h>
+#include <igor/entities/iEntitySystemModule.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>

@@ -87,7 +87,7 @@ float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
 
 void VoxelExample::generateVoxelData()
 {
-    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
+    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicroseconds()));
 
     // if there is none create it
     if (_voxelData == nullptr)
@@ -272,7 +272,7 @@ void VoxelExample::onRenderOrtho()
     ExampleBase::onRenderOrtho();
 }
 
-void VoxelExample::onPreDraw()
+void VoxelExample::onUpdate()
 {
     // detect if loading is done
     if (_voxelMeshModel != iNode::INVALID_NODE_ID)

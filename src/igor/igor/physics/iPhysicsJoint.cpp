@@ -49,7 +49,7 @@ namespace igor
 
     void iPhysicsJoint::registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate submitConstraintsDelegate)
     {
-        _submitConstraints.append(submitConstraintsDelegate);
+        _submitConstraints.add(submitConstraintsDelegate);
     }
 
     void iPhysicsJoint::unregisterSubmitConstraintsDelegate(iSubmitConstraintsDelegate submitConstraintsDelegate)

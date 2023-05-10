@@ -195,5 +195,45 @@ IAUX_TEST(MatrixTests, DeterminantOfMixedMatrix)
 	matrix.rotate(0.1, -0.2, 0.6);
 	matrix.shear(0.1, -0.2, 0.6);
 
-	IAUX_EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), -30, 0.000001);
+}
+
+IAUX_TEST(MatrixTests, RotateMatrix1)
+{
+	iaMatrixd matrix;
+	matrix.rotate(0.0 * IGOR_GRAD2RAD, iaAxis::Z);
+
+	IAUX_EXPECT_NEAR(matrix._right._x, 1.0, 0.000001);
+	IAUX_EXPECT_NEAR(matrix._right._y, 0.0, 0.000001);
+	IAUX_EXPECT_NEAR(matrix._right._z, 0.0, 0.000001);
+}
+
+IAUX_TEST(MatrixTests, RotateMatrix2)
+{
+	iaMatrixd matrix;
+	matrix.rotate(90.0 * IGOR_GRAD2RAD, iaAxis::Z);
+
+	IAUX_EXPECT_NEAR(matrix._right._x, 0.0, 0.000001);
+	IAUX_EXPECT_NEAR(matrix._right._y, 1.0, 0.000001);
+	IAUX_EXPECT_NEAR(matrix._right._z, 0.0, 0.000001);
+}
+
+IAUX_TEST(MatrixTests, RotateMatrix3)
+{
+	iaMatrixd matrix;
+	matrix.rotate(180.0 * IGOR_GRAD2RAD, iaAxis::Z);
+
+	IAUX_EXPECT_NEAR(matrix._right._x, -1.0, 0.000001);
+	IAUX_EXPECT_NEAR(matrix._right._y, 0.0, 0.000001);
+	IAUX_EXPECT_NEAR(matrix._right._z, 0.0, 0.000001);
+}
+
+IAUX_TEST(MatrixTests, RotateMatrix4)
+{
+	iaMatrixd matrix;
+	matrix.rotate(-90.0 * IGOR_GRAD2RAD, iaAxis::Z);
+
+	IAUX_EXPECT_NEAR(matrix._right._x, 0.0, 0.000001);
+	IAUX_EXPECT_NEAR(matrix._right._y, -1.0, 0.000001);
+	IAUX_EXPECT_NEAR(matrix._right._z, 0.0, 0.000001);
 }

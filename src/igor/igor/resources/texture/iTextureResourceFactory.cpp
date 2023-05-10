@@ -321,7 +321,7 @@ namespace igor
 
     void iTextureResourceFactory::interruptFlush()
     {
-        _interrupLoading = true;
+        _interruptLoading = true;
     }
 
     void iTextureResourceFactory::flush(iResourceCacheMode cacheModeLevel)
@@ -358,13 +358,13 @@ namespace igor
         {
             loadTexture(texture);
 
-            if (_interrupLoading)
+            if (_interruptLoading)
             {
                 break;
             }
         }
 
-        _interrupLoading = false;
+        _interruptLoading = false;
     }
 
     void iTextureResourceFactory::loadTexture(iTexturePtr texture)

@@ -8,6 +8,6 @@ var classigor_1_1i_layer =
     [ "onDeinit", "classigor_1_1i_layer.html#a5c42e78286d9133b187d17e8d36aa3be", null ],
     [ "onEvent", "classigor_1_1i_layer.html#a24b4cb0e038a86e6e1b197b8f66662ff", null ],
     [ "onInit", "classigor_1_1i_layer.html#a8d585d5dddc9ac082b07faf5ff8394c4", null ],
-    [ "onPreDraw", "classigor_1_1i_layer.html#a43618358328f9d80f6bad50ad072cd3f", null ],
+    [ "onUpdate", "classigor_1_1i_layer.html#ac263b3b2ea34d7568f81dc3455415c55", null ],
     [ "setName", "classigor_1_1i_layer.html#aac1787f9214d461becdb80d0e5ababe2", null ]
 ];

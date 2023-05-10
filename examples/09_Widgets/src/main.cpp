@@ -11,7 +11,8 @@ int main()
 	startup();
 
 	// create window and open it
-	iWindowPtr window = iApplication::getInstance().createWindow("Igor - Widgets Example");
+	iWindowPtr window = iApplication::getInstance().getWindow();
+	window->setTitle("Igor - Widgets Example");
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->open();
@@ -24,10 +25,6 @@ int main()
 	iApplication::getInstance().addLayer(new WidgetsExample(window, layerProfiler, backGround));
 	iApplication::getInstance().addLayer(layerProfiler);
 	iApplication::getInstance().run();
-	iApplication::getInstance().clearLayerStack();
-
-	// destroy window
-	iApplication::getInstance().destroyWindow(window);
 
 	// call this after you are done with using Igor
 	shutdown();

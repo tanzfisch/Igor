@@ -10,7 +10,7 @@ var classigor_1_1i_widget_manager =
     [ "hideTooltip", "classigor_1_1i_widget_manager.html#a8d66843c675aeeb51444d5328321808d", null ],
     [ "isModal", "classigor_1_1i_widget_manager.html#acac42873428e62d0687d2da0abe085bf", null ],
     [ "onEvent", "classigor_1_1i_widget_manager.html#ae463cc926d321cd5506cbf58522ce3c3", null ],
-    [ "onPreDraw", "classigor_1_1i_widget_manager.html#a04960d50b080e56eaed6abe722cdd0f8", null ],
+    [ "onUpdate", "classigor_1_1i_widget_manager.html#aaf6ff72921f7a4af5561f8403bac33d6", null ],
     [ "resetModal", "classigor_1_1i_widget_manager.html#a93301564db3ba90413dfcf3916716eef", null ],
     [ "setDesktopDimensions", "classigor_1_1i_widget_manager.html#a1d4dfafa326339615b4cba4a7d05f62f", null ],
     [ "setModal", "classigor_1_1i_widget_manager.html#a68f255c3258c02d7e59bf534d52c3a7b", null ],

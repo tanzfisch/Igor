@@ -109,7 +109,7 @@ namespace igor
         /*! set up mesh for physics mesh
 
         \param mesh the mesh to make a physics collision from
-        \param faceAttribute the faceattribute for the whole mesh
+        \param faceAttribute the face attribute for the whole mesh
         \param offset off the mesh collision object
         */
         void addMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd &offset);

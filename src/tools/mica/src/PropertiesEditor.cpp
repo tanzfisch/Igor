@@ -64,7 +64,7 @@ void PropertiesEditor::onMaterialSelectionChanged(const iMaterialID &materialID)
 
 void PropertiesEditor::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
 {
-    _propertiesChangedEvent.append(propertiesChangedDelegate);
+    _propertiesChangedEvent.add(propertiesChangedDelegate);
 }
 
 void PropertiesEditor::unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
@@ -74,7 +74,7 @@ void PropertiesEditor::unregisterPropertiesChangedDelegate(PropertiesChangedDele
 
 void PropertiesEditor::registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
 {
-    _structureChangedEvent.append(structureChangedDelegate);
+    _structureChangedEvent.add(structureChangedDelegate);
 }
 
 void PropertiesEditor::unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)

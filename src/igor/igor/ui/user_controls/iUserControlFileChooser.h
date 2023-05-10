@@ -32,7 +32,6 @@
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
 
-#include <iaux/system/iaSignal.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 

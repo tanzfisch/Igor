@@ -77,7 +77,7 @@ namespace igor
          */
         iShaderProgram();
 
-        /*! destroyes shader program
+        /*! destroys shader program
          */
         virtual ~iShaderProgram();
 

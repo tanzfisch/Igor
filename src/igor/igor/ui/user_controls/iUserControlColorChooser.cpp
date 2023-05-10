@@ -614,7 +614,7 @@ namespace igor
 
     void iUserControlColorChooser::registerOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)
     {
-        _colorChanged.append(colorChangedDelegate);
+        _colorChanged.add(colorChangedDelegate);
     }
 
     void iUserControlColorChooser::unregisterOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)

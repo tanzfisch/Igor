@@ -74,8 +74,8 @@ template <class T>
 iaCircle<T> iaCircle<T>::operator=(const iaCircle<T> &circle)
 {
     iaCircle<T> result;
-    result._center = circle._center;
-    result._radius = circle._radius;
+    result._center = _center = circle._center;
+    result._radius = _radius = circle._radius;
 
     return result;
 }

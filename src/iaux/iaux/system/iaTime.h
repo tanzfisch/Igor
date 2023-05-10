@@ -155,7 +155,7 @@ namespace iaux
 
         /*! \returns time in micro seconds
          */
-        int64 getMicrosenconds() const;
+        int64 getMicroseconds() const;
 
         /*! \returns time in seconds
          */

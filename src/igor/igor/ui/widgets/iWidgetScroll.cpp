@@ -676,10 +676,10 @@ namespace igor
         const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
 
         iRenderer::getInstance().setViewport(absoluteFramePos.getX(), iWidgetManager::getInstance().getDesktopHeight() - absoluteFramePos.getY() - absoluteFramePos.getHeight(), absoluteFramePos.getWidth(), absoluteFramePos.getHeight());
-        iRenderer::getInstance().setOrtho(static_cast<float32>(getActualPosX()),
-                                          static_cast<float32>(getActualPosX() + absoluteFramePos.getWidth()),
-                                          static_cast<float32>(getActualPosY() + absoluteFramePos.getHeight()),
-                                          static_cast<float32>(getActualPosY()), 0.1f, 10.0f);
+        iRenderer::getInstance().setOrtho(static_cast<float64>(getActualPosX()),
+                                          static_cast<float64>(getActualPosX() + absoluteFramePos.getWidth()),
+                                          static_cast<float64>(getActualPosY() + absoluteFramePos.getHeight()),
+                                          static_cast<float64>(getActualPosY()), 0.1f, 10.0f);
 
         iaMatrixd matrix;
         matrix.translate(0.0, 0.0, -1.0);

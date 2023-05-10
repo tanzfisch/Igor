@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.38.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,14 +87,14 @@ $(document).ready(function(){initNavTree('ia_thread_8h.html',''); initResizable(
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">iaThread.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="ia_defines_8h.html">iaux/iaDefines.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_slot_8h.html">iaux/system/iaSlot.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_event_8h.html">iaux/system/iaEvent.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_i_d_generator_8h.html">iaux/data/iaIDGenerator.h</a>&gt;</code><br />
 <code>#include &lt;thread&gt;</code><br />
 </div><table class="memberdecls">
@@ -108,6 +108,11 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceiaux"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html">iaux</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a00b0b551e837f86769b7355b13281183"><td class="memItemLeft" align="right" valign="top">typedef iaDelegate&lt; void, iaThread * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a00b0b551e837f86769b7355b13281183">iaux::iThreadCallbackDelegate</a></td></tr>
+<tr class="separator:a00b0b551e837f86769b7355b13281183"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a4449138a0b8e42b10f7af2e2f5270b97"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a4449138a0b8e42b10f7af2e2f5270b97">iaux::iaThreadState</a> { <a class="el" href="namespaceiaux.html#a4449138a0b8e42b10f7af2e2f5270b97a95b19f7739b0b7ea7d6b07586be54f36">iaux::Init</a>
@@ -116,11 +121,6 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceiaux.html#a4449138a0b8e42b10f7af2e2f5270b97af92965e2c8a7afb3c1b9a5c09a263636">iaux::Done</a>
  }</td></tr>
 <tr class="separator:a4449138a0b8e42b10f7af2e2f5270b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a7d8be632964408dc356830d7a5f70429"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a7d8be632964408dc356830d7a5f70429">iaux::iaSLOT</a> (ThreadDelegate, void,(iaThread *thread),(thread))</td></tr>
-<tr class="separator:a7d8be632964408dc356830d7a5f70429"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

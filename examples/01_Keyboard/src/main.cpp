@@ -10,7 +10,8 @@ int main(void)
     igor::startup();
 
     // create window and open it
-    iWindowPtr window = igor::iApplication::getInstance().createWindow("Igor - Keyboard Example");
+    iWindowPtr window = igor::iApplication::getInstance().getWindow();
+    window->setTitle("Igor - Keyboard Example");
     window->setClientSize(1024, 768);
     window->setCentered();
     window->open();
@@ -18,10 +19,6 @@ int main(void)
     // create example and add it as layer to the application
     igor::iApplication::getInstance().addLayer(new KeyboardExample(window));
     igor::iApplication::getInstance().run();
-    iApplication::getInstance().clearLayerStack();
-
-    // destroy window
-    igor::iApplication::getInstance().destroyWindow(window);
 
     // call this after you are done with using Igor
     igor::shutdown();

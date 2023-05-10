@@ -218,7 +218,7 @@ namespace igor
 
         /*! called once per frame by application
 		*/
-        void handle();
+        void onUpdate();
 
         /*! does nothing
 		*/
