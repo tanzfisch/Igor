@@ -12,7 +12,6 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iTimer.h>
 #include <igor/physics/iPhysicsCollision.h>
 #include <igor/physics/iPhysicsJoint.h>
 #include <igor/physics/iPhysicsMaterial.h>
@@ -42,7 +41,7 @@ namespace igor
     }
 
     /*! \todo dirty workaround because of casting issues
-    */
+     */
     void PhysicsNodeSetTransform(const void *body, const float64 *matrix, int threadIndex)
     {
         iPhysicsBody *physicsBody = static_cast<iPhysicsBody *>(NewtonBodyGetUserData(static_cast<const NewtonBody *>(body)));
@@ -58,7 +57,7 @@ namespace igor
 
     \param body the body that changed it's position
     \param matrix the updated matrix from newton
-    \param threadIndex 
+    \param threadIndex
     */
     void PhysicsNodeSetTransformation(const NewtonBody *const body, const dFloat *const matrix, int threadIndex)
     {
@@ -115,7 +114,7 @@ namespace igor
             iPhysicsBody *physicsBody0 = static_cast<iPhysicsBody *>(NewtonBodyGetUserData(static_cast<const NewtonBody *>(body0)));
             iPhysicsBody *physicsBody1 = static_cast<iPhysicsBody *>(NewtonBodyGetUserData(static_cast<const NewtonBody *>(body1)));
 
-            //con_assert(physicsBody0 != nullptr && physicsBody1 != nullptr, "zero pointers");
+            // con_assert(physicsBody0 != nullptr && physicsBody1 != nullptr, "zero pointers");
 
             if (physicsBody0 != nullptr && physicsBody1 != nullptr)
             {
@@ -423,19 +422,18 @@ namespace igor
 
     void iPhysics::start()
     {
-        if (!_running)
+        if (_running)
         {
-            _lastTime = iTimer::getInstance().getTime();
-            _running = true;
+            return;
         }
+
+        _lastTime = iTimer::getInstance().getTime();
+        _running = true;
     }
 
     void iPhysics::stop()
     {
-        if (_running)
-        {
-            _running = false;
-        }
+        _running = false;
     }
 
     void iPhysics::destroyNewtonCollision(void *collision, uint64 worldID)
@@ -506,12 +504,12 @@ namespace igor
     void iPhysics::handle()
     {
         IGOR_PROFILER_SCOPED(physics);
-        
+
         if (_running)
         {
             handleQueues();
 
-            const uint32 maxUpdateCount = 2;
+            const uint32 maxUpdateCount = 3;
             const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
 
             uint32 updateCount = 0;
@@ -520,7 +518,6 @@ namespace igor
             while ((_lastTime + timeDelta < currentTime) &&
                    (updateCount < maxUpdateCount))
             {
-                // "if you call another NewtonUpdateAsync before anothe one is still running the the secund will wait act as a NewtonUpdate wating fo rteh first updateAsyn To complete." Julio Jerez
                 NewtonUpdateAsync(static_cast<const NewtonWorld *>(_defaultWorld), timeDelta.getSeconds());
                 _lastTime += timeDelta;
                 updateCount++;
@@ -1210,20 +1207,20 @@ namespace igor
 
                 for (int i = 0; i < indexCount; i += 3)
                 {
-                    vertexPos = (static_cast<uint32*>(indexData)[i + 0] * vertexFloatCount);
-                    temp[0] = static_cast<float32*>(vertexData)[vertexPos++];
-                    temp[1] = static_cast<float32*>(vertexData)[vertexPos++];
-                    temp[2] = static_cast<float32*>(vertexData)[vertexPos++];
+                    vertexPos = (static_cast<uint32 *>(indexData)[i + 0] * vertexFloatCount);
+                    temp[0] = static_cast<float32 *>(vertexData)[vertexPos++];
+                    temp[1] = static_cast<float32 *>(vertexData)[vertexPos++];
+                    temp[2] = static_cast<float32 *>(vertexData)[vertexPos++];
 
-                    vertexPos = (static_cast<uint32*>(indexData)[i + 1] * vertexFloatCount);
-                    temp[3] = static_cast<float32*>(vertexData)[vertexPos++];
-                    temp[4] = static_cast<float32*>(vertexData)[vertexPos++];
-                    temp[5] = static_cast<float32*>(vertexData)[vertexPos++];
+                    vertexPos = (static_cast<uint32 *>(indexData)[i + 1] * vertexFloatCount);
+                    temp[3] = static_cast<float32 *>(vertexData)[vertexPos++];
+                    temp[4] = static_cast<float32 *>(vertexData)[vertexPos++];
+                    temp[5] = static_cast<float32 *>(vertexData)[vertexPos++];
 
-                    vertexPos = (static_cast<uint32*>(indexData)[i + 2] * vertexFloatCount);
-                    temp[6] = static_cast<float32*>(vertexData)[vertexPos++];
-                    temp[7] = static_cast<float32*>(vertexData)[vertexPos++];
-                    temp[8] = static_cast<float32*>(vertexData)[vertexPos++];
+                    vertexPos = (static_cast<uint32 *>(indexData)[i + 2] * vertexFloatCount);
+                    temp[6] = static_cast<float32 *>(vertexData)[vertexPos++];
+                    temp[7] = static_cast<float32 *>(vertexData)[vertexPos++];
+                    temp[8] = static_cast<float32 *>(vertexData)[vertexPos++];
 
                     NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float64) * 3, faceAttribute);
                 }

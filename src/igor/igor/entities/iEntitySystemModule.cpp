@@ -4,7 +4,8 @@
 
 #include <igor/entities/iEntitySystemModule.h>
 
-#include<igor/resources/profiler/iProfiler.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/system/iTimer.h>
 
 namespace igor
 {
@@ -12,7 +13,7 @@ namespace igor
     class iEntitySceneDeleter
     {
     public:
-        void operator()(iEntityScene * p) { delete p; }
+        void operator()(iEntityScene *p) { delete p; }
     };
 
     iEntityScenePtr iEntitySystemModule::createScene()
@@ -22,11 +23,53 @@ namespace igor
         return scene;
     }
 
+    void iEntitySystemModule::start()
+    {
+        if (!_running)
+        {
+            _lastTime = iTimer::getInstance().getTime();
+            _running = true;
+        }
+    }
+
+    void iEntitySystemModule::stop()
+    {
+        if (_running)
+        {
+            _running = false;
+        }
+    }
+
+    void iEntitySystemModule::setSimulationRate(float64 simulationRate)
+    {
+        _simulationRate = simulationRate;
+    }
+
+    float64 iEntitySystemModule::getSimulationRate()
+    {
+        return _simulationRate;
+    }
+
     void iEntitySystemModule::onUpdate()
     {
-        for (auto scene : _scenes)
+        if (_running)
         {
-            scene->onUpdate();
+            const uint32 maxUpdateCount = 10;
+            const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
+
+            uint32 updateCount = 0;
+            iaTime currentTime = iTimer::getInstance().getTime();
+
+            while ((_lastTime + timeDelta < currentTime) &&
+                   (updateCount < maxUpdateCount))
+            {
+                for (auto scene : _scenes)
+                {
+                    scene->onUpdate();
+                }
+                _lastTime += timeDelta;
+                updateCount++;
+            };
         }
     }
 

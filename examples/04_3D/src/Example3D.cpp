@@ -189,7 +189,6 @@ void Example3D::onEvent(iEvent &event)
     // first call example base
     ExampleBase::onEvent(event);
 
-    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseKeyDownEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseMoveEvent));
     event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseWheelEvent));
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onKeyDown));
@@ -225,43 +224,6 @@ bool Example3D::onKeyDown(iEventKeyDown &event)
         }
     }
         return true;
-    }
-
-    return false;
-}
-
-bool Example3D::onMouseKeyDownEvent(iEventMouseKeyDown &event)
-{
-    switch (event.getKey())
-    {
-    case iKeyCode::Space:
-    {
-        _activeNode++;
-        if (_activeNode > 2)
-        {
-            _activeNode = 0;
-        }
-
-        iNodeSwitch *switchNode = static_cast<iNodeSwitch *>(iNodeManager::getInstance().getNode(_switchNode));
-        if (switchNode != nullptr)
-        {
-            switch (_activeNode)
-            {
-            case 0:
-                switchNode->setActiveChild("crate transform");
-                break;
-            case 1:
-                switchNode->setActiveChild("cat transform");
-                break;
-            case 2:
-                switchNode->setActiveChild("teapot transform");
-                break;
-            }
-        }
-
-        return true;
-    }
-    break;
     }
 
     return false;

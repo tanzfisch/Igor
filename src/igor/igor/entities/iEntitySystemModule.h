@@ -34,6 +34,7 @@
 #include <igor/entities/iEntityScene.h>
 
 #include <iaux/system/iaMutex.h>
+#include <iaux/system/iaTime.h>
 using namespace iaux;
 
 #include <vector>
@@ -65,6 +66,26 @@ namespace igor
          */
         void onRender(float32 clientWidth, float32 clientHeight);
 
+        /*! starts/continues the entity systems to run
+        */
+        void start();
+
+        /*! stops the entity system to run (except rendering)
+        */
+        void stop();
+
+        /*! set's the simulation rate in Hz
+
+        default is 60Hz
+
+        \param simulationRate simulation rate in Hz
+        */
+        void setSimulationRate(float64 simulationRate);
+
+        /*! \returns simulation rate
+        */
+        float64 getSimulationRate();        
+
     private:
         /*! mutex to safeguard entity scene list
          */
@@ -73,6 +94,20 @@ namespace igor
         /*! entity scenes
          */
         std::vector<iEntityScenePtr> _scenes;
+
+        /*! simulation rate in Hz
+        */
+        float64 _simulationRate = 60.0;        
+
+        /*! if true entity system is running
+
+        render is always running
+        */
+        bool _running = true;
+
+        /*! last frame time
+        */
+        iaTime _lastTime;
 
         /*! does nothing
          */

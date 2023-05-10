@@ -48,9 +48,6 @@ public:
     ~PhysicsExample() = default;
 
 private:
-    /*! controls wether the physics simulation is running or not
-    */
-    bool _running = false;
 
     /*! camera heading transform
     */

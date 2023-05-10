@@ -118,10 +118,6 @@ private:
 
     BuildingType _currentBuilding = BuildingType::None;
 
-    /*! if true game logic is on hold
-     */
-    bool _gamePause = false;
-
     bool _levelUp = false;
 
     std::vector<uint32> _expLvl;
@@ -140,9 +136,6 @@ private:
     void onCloseShopDialog(iDialogPtr dialog);
 
     void onOpenBuilding(BuildingType buildingType);
-
-    void pause();
-    void play();
 
     void openShop();
 

@@ -1208,28 +1208,28 @@ float32 GameLayer::calcLevel(uint32 experience)
 
 void GameLayer::onRenderPlayerHUD()
 {
-/*    if (!_player.isValid())
-    {
-        return;
-    }
+    /*    if (!_player.isValid())
+        {
+            return;
+        }
 
-    auto &playerTransform = _player.getComponent<iTransformComponent>();
-    auto &shopTransform = _shop.getComponent<iTransformComponent>();
-    if (_shop.isActive())
-    {
-        // TODO respect the doughnut
-        iaVector2f playerPosition(playerTransform._position._x, playerTransform._position._y);
-        iaVector2f dir = iaVector2f(shopTransform._position._x, shopTransform._position._y) - playerPosition;
-        dir.normalize();
-        iaVector2f tangent(dir._y, -dir._x);
+        auto &playerTransform = _player.getComponent<iTransformComponent>();
+        auto &shopTransform = _shop.getComponent<iTransformComponent>();
+        if (_shop.isActive())
+        {
+            // TODO respect the doughnut
+            iaVector2f playerPosition(playerTransform._position._x, playerTransform._position._y);
+            iaVector2f dir = iaVector2f(shopTransform._position._x, shopTransform._position._y) - playerPosition;
+            dir.normalize();
+            iaVector2f tangent(dir._y, -dir._x);
 
-        std::vector<iaVector2f> points;
-        points.push_back(playerPosition + dir * 100.0);
-        points.push_back(playerPosition + dir * 95.0 + tangent * 5.0);
-        points.push_back(playerPosition + dir * 95.0 - tangent * 5.0);
+            std::vector<iaVector2f> points;
+            points.push_back(playerPosition + dir * 100.0);
+            points.push_back(playerPosition + dir * 95.0 + tangent * 5.0);
+            points.push_back(playerPosition + dir * 95.0 - tangent * 5.0);
 
-        iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);
-    }*/
+            iRenderer::getInstance().drawLineLoop(points, iaColor4f::green);
+        }*/
 }
 
 void GameLayer::onRenderHUD()
@@ -1290,7 +1290,7 @@ void GameLayer::onRenderHUD()
 
 void GameLayer::onLevelUp()
 {
-    pause();
+    iApplication::getInstance().pause(true);
 
     _levelUpDialog->open(iDialogCloseDelegate(this, &GameLayer::onCloseLevelUpDialog), _upgrades);
 }
@@ -1309,7 +1309,7 @@ void GameLayer::onOpenBuilding(BuildingType buildingType)
         return;
     }
 
-    pause();
+    iApplication::getInstance().pause(true);
 
     switch (_currentBuilding)
     {
@@ -1327,7 +1327,7 @@ void GameLayer::openShop()
 void GameLayer::onCloseShopDialog(iDialogPtr dialog)
 {
     liftShop();
-    play();
+    iApplication::getInstance().pause(false);
 
     // start timer to next shop landing
     _spawnShopTimerHandle->start();
@@ -1374,25 +1374,12 @@ void GameLayer::upgrade(iEntity entity, const UpgradeConfiguration &upgradeConfi
 void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
 {
     upgrade(_player, _levelUpDialog->getSelection());
-    play();
+    iApplication::getInstance().pause(false);
 }
 
 void GameLayer::onRenderOrtho()
-{    
+{
     onRenderHUD();
-}
-
-void GameLayer::pause()
-{
-    _gamePause = true;
-
-    iTimer::getInstance().stop();
-}
-
-void GameLayer::play()
-{
-    _gamePause = false;
-    iTimer::getInstance().start();
 }
 
 bool GameLayer::onKeyDown(iEventKeyDown &event)
@@ -1412,17 +1399,7 @@ bool GameLayer::onKeyUp(iEventKeyUp &event)
     switch (event.getKey())
     {
     case iKeyCode::Space:
-        _gamePause = !_gamePause;
-
-        if (_gamePause)
-        {
-            iTimer::getInstance().stop();
-        }
-        else
-        {
-            iTimer::getInstance().start();
-        }
-
+        iApplication::getInstance().pause(!iApplication::getInstance().isPaused());
         return true;
     }
 

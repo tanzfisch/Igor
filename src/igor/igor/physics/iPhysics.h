@@ -479,7 +479,7 @@ namespace igor
 
         /*! if true physics is running
         */
-        bool _running = false;
+        bool _running = true;
 
         /*! current simulation rate in Hz
         */

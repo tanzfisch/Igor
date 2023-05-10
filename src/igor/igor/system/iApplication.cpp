@@ -126,7 +126,7 @@ namespace igor
     {
         iTimer::getInstance().nextFrame();
         iProfiler::nextFrame();
-               
+
         IGOR_PROFILER_BEGIN(application);
         updateWindow();
         dispatch();
@@ -147,6 +147,34 @@ namespace igor
         IGOR_PROFILER_END(physics);
 
         draw();
+    }
+
+    void iApplication::pause(bool pause)
+    {
+        if (_paused == pause)
+        {
+            return;
+        }
+
+        _paused = pause;
+
+        if (_paused)
+        {
+            iTimer::getInstance().stop();
+            iPhysics::getInstance().stop();
+            iEntitySystemModule::getInstance().stop();
+        }
+        else
+        {
+            iTimer::getInstance().start();
+            iPhysics::getInstance().start();
+            iEntitySystemModule::getInstance().start();
+        }
+    }
+
+    bool iApplication::isPaused() const
+    {
+        return _paused;
     }
 
     void iApplication::run()

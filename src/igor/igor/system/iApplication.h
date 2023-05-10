@@ -64,6 +64,18 @@ namespace igor
         */
         void exit();
 
+        /*! stops/pauses the engine
+
+        pauses all simulation but not IO or rendering
+
+        \param pause if true simulations are paused
+        */
+        void pause(bool pause);
+
+        /*! \returns true if engine is paused
+        */
+        bool isPaused() const;
+
         /*! returns true if application is still running
         */
         bool isRunning();
@@ -157,6 +169,10 @@ namespace igor
         /*! flag if the application is currently running
 		*/
         bool _running = false;
+
+        /*! if true engine is paused
+        */
+        bool _paused = false;
 
         /*! the main window (only one supported)
 		*/

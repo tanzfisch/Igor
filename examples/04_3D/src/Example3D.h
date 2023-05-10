@@ -122,13 +122,6 @@ private:
     */
     void onEvent(iEvent &event) override;
 
-    /*! handles mouse key down event
-
-    \param event the mouse key down event
-    \returns true if consumed
-    */
-    bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
-
     /*! handles mouse move event
 
     \param event the mouse move event
