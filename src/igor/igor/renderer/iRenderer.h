@@ -158,28 +158,184 @@ namespace igor
         */
         void setFallbackTexture(const iTexturePtr &texture);
 
-        void drawPoint(float32 x, float32 y, const iaColor4f &color = iaColor4f::white);
-        void drawPoint(const iaVector2f &v, const iaColor4f &color = iaColor4f::white);
+        /*! draw point at given position (z = 0)
+
+        \param x horizontal position
+        \param y vertical position
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawPoint(T x, T y, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw point at given position (z = 0)
+
+        \param v position
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawPoint(const iaVector2<T> &v, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw point at given position
+
+        \param v position
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawPoint(const iaVector3<T> &v, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw point at given position
+
+        \param v position
+        \param color the color to draw with
+        */
         void drawPoint(const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
 
-        void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color = iaColor4f::white);
-        void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color = iaColor4f::white);
+        /*! draw line (z = 0)
+
+        \param x1 horizontal position of line start
+        \param y1 vertical position of line start
+        \param x2 horizontal position of line end
+        \param y2 vertical position of line end
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawLine(T x1, T y1, T x2, T y2, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw line (z = 0)
+
+        \param v1 position of line start
+        \param v2 position of line end
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawLine(const iaVector2<T> &v1, const iaVector2<T> &v2, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw line
+
+        \param v1 position of line start
+        \param v2 position of line end
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawLine(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw line
+
+        \param v1 position of line start
+        \param v2 position of line end
+        \param color the color to draw with
+        */
         void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color = iaColor4f::white);
 
-        void drawLineStrip(const std::vector<iaVector2f> &points, const iaColor4f &color = iaColor4f::white);
-        void drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color = iaColor4f::white);
+        /*! draw line strip (z = 0)
 
-        void drawLineLoop(const std::vector<iaVector2f> &points, const iaColor4f &color = iaColor4f::white);
-        void drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color = iaColor4f::white);
+        \param points points to draw the line strip with
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawLineStrip(const std::vector<iaVector2<T>> &points, const iaColor4f &color = iaColor4f::white);
 
-        void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
-        void drawRectangle(const iaRectanglef &rect, const iaColor4f &color = iaColor4f::white);
+        /*! draw line strip
 
+        \param points points to draw the line strip with
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawLineStrip(const std::vector<iaVector3<T>> &points, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw line loop (z = 0)
+
+        last point will be connected to the first point to close the loop
+
+        \param points points to draw the line strip with
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawLineLoop(const std::vector<iaVector2<T>> &points, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw line loop
+
+        last point will be connected to the first point to close the loop
+
+        \param points points to draw the line strip with
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawLineLoop(const std::vector<iaVector3<T>> &points, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw rectangle (z = 0)
+
+        \param x horizontal position
+        \param y vertical position
+        \param width horizontal size
+        \param height vertical size
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawRectangle(T x, T y, T width, T height, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw rectangle (z = 0)
+
+        \param rect the rectangle to draw
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawRectangle(const iaRectangle<T> &rect, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw filled rectangle (z = 0)
+
+        \param rect the rectangle to draw
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawFilledRectangle(const iaRectangle<T> &rect, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw filled rectangle (z = 0)
+
+        \param x horizontal position
+        \param y vertical position
+        \param width horizontal size
+        \param height vertical size
+
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawFilledRectangle(T x, T y, T width, T height, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw filled rectangle (z = 0)
+
+        \param x horizontal position
+        \param y vertical position
+        \param width horizontal size
+        \param height vertical size
+        \param color the color to draw with
+        */
         void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
-        void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color = iaColor4f::white);
 
-        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
-        void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        /*! draw textured rectangle (z = 0)
+
+        \param x horizontal position
+        \param y vertical position
+        \param width horizontal size
+        \param height vertical size
+        \param texture the texture to use. if invalid fallback texture is used
+        \param color the color to draw with
+        \param blend if true blending is used to draw the rectangle
+        \param tiling tiling of the texture in two dimensions
+        */
+        template <typename T>
+        void drawTexturedRectangle(T x, T y, T width, T height, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
+
+        /*! draw textured rectangle (z = 0)
+
+        \param rect the rectangle to draw
+        \param texture the texture to use. if invalid fallback texture is used
+        \param color the color to draw with
+        \param blend if true blending is used to draw the rectangle
+        \param tiling tiling of the texture in two dimensions
+        */
+        template <typename T>
+        void drawTexturedRectangle(const iaRectangle<T> &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
         void drawQuad(const iaMatrixf &matrix, const iaColor4f &color = iaColor4f::white);
         void drawQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color = iaColor4f::white);
@@ -483,7 +639,7 @@ namespace igor
 
         /*! draws everything that is still in the queue
          */
-        void flush();        
+        void flush();
 
     private:
         /*! internal render data
@@ -570,6 +726,8 @@ namespace igor
          */
         void bindCurrentMaterial();
     };
+
+#include <igor/renderer/iRenderer.inl>
 
 }
 

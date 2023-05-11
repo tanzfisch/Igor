@@ -610,19 +610,6 @@ namespace igor
         setWireframeEnabled(false);
     }
 
-    void iRenderer::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
-    {
-        drawTexturedQuad(iaVector3f(x, y, 0.0),
-                         iaVector3f(x, y + height, 0.0),
-                         iaVector3f(x + width, y + height, 0.0),
-                         iaVector3f(x + width, y, 0.0), texture, color, blend, tiling);
-    }
-
-    void iRenderer::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
-    {
-        drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, color, blend, tiling);
-    }
-
     void iRenderer::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         drawTexturedQuad(matrix * QUAD_VERTEX_POSITIONS[0],
@@ -782,14 +769,6 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer::drawPoint(float32 x, float32 y, const iaColor4f &color)
-    {
-        drawPoint(iaVector3f(x, y, 0.0), color);
-    }
-    void iRenderer::drawPoint(const iaVector2f &v, const iaColor4f &color)
-    {
-        drawPoint(iaVector3f(v._x, v._y, 0.0), color);
-    }
     void iRenderer::drawPoint(const iaVector3f &v, const iaColor4f &color)
     {
         auto &points = _data->_points;
@@ -813,24 +792,6 @@ namespace igor
         points._vertexCount++;
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::Points;
-    }
-
-    void iRenderer::drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color)
-    {
-        iaVector3f v0(x, y, 0.0);
-        iaVector3f v1(x, y + height, 0.0);
-        iaVector3f v2(x + width, y + height, 0.0);
-        iaVector3f v3(x + width, y, 0.0);
-
-        drawLine(v0, v1, color);
-        drawLine(v1, v2, color);
-        drawLine(v2, v3, color);
-        drawLine(v3, v0, color);
-    }
-
-    void iRenderer::drawRectangle(const iaRectanglef &rect, const iaColor4f &color)
-    {
-        drawRectangle(rect._x, rect._y, rect._width, rect._height, color);
     }
 
     void iRenderer::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color)
@@ -871,10 +832,6 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Quads;
     }
 
-    void iRenderer::drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color)
-    {
-        drawFilledRectangle(rect._x, rect._y, rect._width, rect._height, color);
-    }
 
     void iRenderer::drawQuad(const iaMatrixf &matrix, const iaColor4f &color)
     {
@@ -921,52 +878,6 @@ namespace igor
         quads._indexCount += 6;
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::Quads;
-    }
-
-    void iRenderer::drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color)
-    {
-        drawLine(iaVector3f(x1, y1, 0.0), iaVector3f(x2, y2, 0.0), color);
-    }
-
-    void iRenderer::drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color)
-    {
-        drawLine(iaVector3f(v1._x, v1._y, 0.0), iaVector3f(v2._x, v2._y, 0.0), color);
-    }
-
-    void iRenderer::drawLineLoop(const std::vector<iaVector2f> &points, const iaColor4f &color)
-    {
-        con_assert(points.size() > 1, "too few points");
-
-        drawLineStrip(points, color);
-        drawLine(points.back(), points.front(), color);
-    }
-
-    void iRenderer::drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color)
-    {
-        con_assert(points.size() > 1, "too few points");
-
-        drawLineStrip(points, color);
-        drawLine(points.back(), points.front(), color);
-    }
-
-    void iRenderer::drawLineStrip(const std::vector<iaVector2f> &points, const iaColor4f &color)
-    {
-        con_assert(points.size() > 1, "too few points");
-
-        for (int i = 1; i < points.size(); ++i)
-        {
-            drawLine(points[i - 1], points[i], color);
-        }
-    }
-
-    void iRenderer::drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color)
-    {
-        con_assert(points.size() > 1, "too few points");
-
-        for (int i = 1; i < points.size(); ++i)
-        {
-            drawLine(points[i - 1], points[i], color);
-        }
     }
 
     void iRenderer::drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color)
