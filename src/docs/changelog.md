@@ -1,6 +1,12 @@
 Changelog                           {#changelog}
 =========
 
+0.40.0
+------
+
+- improved renderer interface and fleshed out the docs
+- fixed issue around texture fonts rendering and measuring size
+
 0.39.0
 ------
 
