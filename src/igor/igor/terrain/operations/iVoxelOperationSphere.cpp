@@ -12,7 +12,7 @@
 namespace igor
 {
 
-    iVoxelOperationSphere::iVoxelOperationSphere(const iSphereI &sphere, uint8 density)
+    iVoxelOperationSphere::iVoxelOperationSphere(const iaSphereI &sphere, uint8 density)
     {
         _sphere = sphere;
         _density = density;

@@ -29,7 +29,7 @@ namespace igor
     {
     }
 
-    const iSphered &iParticleSystem::getBoundingSphere() const
+    const iaSphered &iParticleSystem::getBoundingSphere() const
     {
         return _boundingSphere;
     }

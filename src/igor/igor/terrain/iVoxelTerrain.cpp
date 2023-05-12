@@ -82,7 +82,7 @@ namespace igor
         deinit();
     }
 
-    void iVoxelTerrain::modify(const iSphereI &sphere, uint8 density)
+    void iVoxelTerrain::modify(const iaSphereI &sphere, uint8 density)
     {
         iVoxelOperationSphere *voxelOperationBox = new iVoxelOperationSphere(sphere, density);
         _operationsQueueMutex.lock();

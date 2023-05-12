@@ -5,12 +5,12 @@
 template <class T>
 iaSphere<T>::iaSphere(iaVector3<T> pos, T radius)
 {
-	_center = pos;
-	_radius = radius;
+    _center = pos;
+    _radius = radius;
 }
 
 template <class T>
-bool iaSphere<T>::contains(const iaSphere<T>& sphere)
+bool iaSphere<T>::contains(const iaSphere<T> &sphere)
 {
     iaVector3<T> diff = sphere._center - _center;
     T distance = diff.length();
@@ -26,13 +26,13 @@ bool iaSphere<T>::contains(const iaSphere<T>& sphere)
 }
 
 template <class T>
-bool iaSphere<T>::operator == (const iaSphere<T> &sphere) const
+bool iaSphere<T>::operator==(const iaSphere<T> &sphere) const
 {
     return ((_center == sphere._center) && (_radius == sphere._radius)) ? true : false;
 }
 
 template <class T>
-bool iaSphere<T>::operator != (const iaSphere<T> &sphere) const
+bool iaSphere<T>::operator!=(const iaSphere<T> &sphere) const
 {
     return ((_center != sphere._center) || (_radius != sphere._radius)) ? true : false;
 }
@@ -52,13 +52,11 @@ void iaSphere<T>::merge(iaSphere<T> &sphere)
         return;
     }
 
-    iaVector3<T> newCenter = sphere._center - _center;
-    T newRadius = _radius + sphere._radius + newCenter.length();
+    iaVector3<T> newCenterOffset = sphere._center - _center;
+    T newRadius = _radius + sphere._radius + newCenterOffset.length();
     newRadius *= static_cast<T>(0.5);
-    newCenter.normalize();
-    newCenter *= newRadius - _radius;
+    newCenterOffset.normalize();
+    newCenterOffset *= newRadius - _radius;
     _radius = newRadius;
-    _center += newCenter;
+    _center += newCenterOffset;
 }
-
-

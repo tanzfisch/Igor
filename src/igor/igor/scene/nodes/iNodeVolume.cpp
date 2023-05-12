@@ -40,7 +40,7 @@ namespace igor
         calcActualBBox();
     }
 
-    const iSphered &iNodeVolume::getBoundingSphere() const
+    const iaSphered &iNodeVolume::getBoundingSphere() const
     {
         return _sphere;
     }

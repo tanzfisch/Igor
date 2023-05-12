@@ -31,25 +31,27 @@
 
 #include <iaux/math/iaVector3.h>
 
-namespace igor
+namespace iaux
 {
 
     /*! sphere
-
-    \todo mode to IgorAux
-    */
+     */
     template <class T>
     class IGOR_API_EXPORT_ONLY iaSphere
     {
-
+    
     public:
         /*! center position of sphere
-        */
+         */
         iaVector3<T> _center;
 
         /*! radius of sphere
-        */
-        T _radius = static_cast<T>(0);
+         */
+        T _radius = static_cast<T>(1.0);
+
+        /*! does nothing
+         */
+        iaSphere() = default;
 
         /*! constructor that initializes member variables
 
@@ -59,26 +61,26 @@ namespace igor
         iaSphere(iaVector3<T> center, T radius);
 
         /*! does nothing
-        */
-        iaSphere() = default;
-
-        /*! does nothing
-        */
+         */
         virtual ~iaSphere() = default;
 
-        /*! merges on spehre in to an other
+        /*! merges one sphere in to an other
 
         \param sphere the sphere to merge with
         */
-        __IGOR_INLINE__ void merge(iaSphere<T> &sphere);
+        void merge(iaSphere<T> &sphere);
 
-        /*! compares of two spheres are equal
-        */
-        __IGOR_INLINE__ bool operator==(const iaSphere<T> &sphere) const;
+        /*! \returns true if two spheres are equal
 
-        /*! compares of two spheres are not equal
+        \param sphere the sphere to compare with
         */
-        __IGOR_INLINE__ bool operator!=(const iaSphere<T> &sphere) const;
+        bool operator==(const iaSphere<T> &sphere) const;
+
+        /*! \returns true if spheres are not equal
+
+        \param sphere the sphere to compare with
+        */
+        bool operator!=(const iaSphere<T> &sphere) const;
 
     private:
         /*! containment test with an other sphere
@@ -86,23 +88,23 @@ namespace igor
         \param sphere the other sphere to test with
         \returns true: if sphere is completely inside sphere; false: if not
         */
-        __IGOR_INLINE__ bool contains(const iaSphere<T> &sphere);
+        bool contains(const iaSphere<T> &sphere);
     };
 
 #include <iaux/data/iaSphere.inl>
 
     /*! float32 precision of sphere
-    */
-    typedef iaSphere<float32> iSpheref;
+     */
+    typedef iaSphere<float32> iaSpheref;
 
     /*! float64 precision of sphere
-    */
-    typedef iaSphere<float64> iSphered;
+     */
+    typedef iaSphere<float64> iaSphered;
 
     /*! uint64 precision of sphere
-    */
-    typedef iaSphere<int64> iSphereI;
+     */
+    typedef iaSphere<int64> iaSphereI;
 
-} // namespace igor
+} // namespace iaux
 
 #endif // __IAUX_SPHERE_H__

@@ -214,15 +214,15 @@ void Ascent::oulineLevelStructure()
         iaVector3d bossPosition = boss->getCurrentPos();
 
         // covering the boss
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x - 20, bossPosition._y, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y + 20, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y - 20, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z + 20), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z - 20), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x - 20, bossPosition._y, bossPosition._z), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y + 20, bossPosition._z), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y - 20, bossPosition._z), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z + 20), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z - 20), 1.7));
 
         // hole where the boss sits
-        _holes.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z), 1.7));
+        _holes.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z), 1.7));
 
         // body
         for (int i = 0; i < 15; ++i)
@@ -232,7 +232,7 @@ void Ascent::oulineLevelStructure()
             pos *= 20 + (rand.getNext() % 40);
             pos += bossPosition;
 
-            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 4.0));
+            _metaballs.push_back(iaSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 4.0));
         }
     }
 }
@@ -440,7 +440,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
         {
             iaVector3d creationPos = pos + offset;
 
-            iSphered sphere(creationPos, 5);
+            iaSphered sphere(creationPos, 5);
             std::vector<uint64> result;
             iEntityManager::getInstance().getEntities(sphere, result);
             if (result.empty())
@@ -503,7 +503,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
 
             if (_voxelTerrain->castRay(iaVector3I(from._x, from._y, from._z), iaVector3I(to._x, to._y, to._z), outside, inside))
             {
-                iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
+                iaSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
                 std::vector<uint64> result;
                 iEntityManager::getInstance().getEntities(sphere, result);
                 if (result.empty())
@@ -626,7 +626,7 @@ void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
     box._halfWidths.set(toolSize, toolSize, toolSize);
     _voxelTerrain->modify(box, density);*/
 
-    iSphereI sphere;
+    iaSphereI sphere;
     sphere._center = position;
     sphere._radius = toolSize;
     _voxelTerrain->modify(sphere, density);

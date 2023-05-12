@@ -197,7 +197,7 @@ namespace igor
         {
             _volumes.push_back(volume);
 
-            iSphered sphere;
+            iaSphered sphere;
             sphere._center._x = volume->getCenter()._x;
             sphere._center._y = volume->getCenter()._y;
             sphere._center._z = volume->getCenter()._z;
@@ -226,7 +226,7 @@ namespace igor
 
     void iScene::updateVolume(iNodeVolume *volume)
     {
-        iSphered sphere;
+        iaSphered sphere;
         sphere._center._x = volume->getCenter()._x;
         sphere._center._y = volume->getCenter()._y;
         sphere._center._z = volume->getCenter()._z;

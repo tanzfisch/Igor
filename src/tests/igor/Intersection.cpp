@@ -6,9 +6,9 @@ using namespace igor;
 
 IAUX_TEST(IntersectionTests, SphereSphereIntersect)
 {
-    iSphered sphere1(iaVector3d(-13, 1, 0), 1);
-    iSphered sphere2(iaVector3d(10, -2, 0), 1);
-    iSphered sphere3(iaVector3d(5, 3, 0), 30);
+    iaSphered sphere1(iaVector3d(-13, 1, 0), 1);
+    iaSphered sphere2(iaVector3d(10, -2, 0), 1);
+    iaSphered sphere3(iaVector3d(5, 3, 0), 30);
 
     IAUX_EXPECT_FALSE(iIntersection::intersects(sphere1, sphere2));
     IAUX_EXPECT_TRUE(iIntersection::intersects(sphere1, sphere3));
@@ -17,9 +17,9 @@ IAUX_TEST(IntersectionTests, SphereSphereIntersect)
 
 IAUX_TEST(IntersectionTests, SphereSphereContains)
 {
-    iSphered sphere1(iaVector3d(-13, 1, 0), 1);
-    iSphered sphere2(iaVector3d(10, -2, 0), 1);
-    iSphered sphere3(iaVector3d(5, 3, 0), 30);
+    iaSphered sphere1(iaVector3d(-13, 1, 0), 1);
+    iaSphered sphere2(iaVector3d(10, -2, 0), 1);
+    iaSphered sphere3(iaVector3d(5, 3, 0), 30);
 
     IAUX_EXPECT_FALSE(iIntersection::contains(sphere1, sphere2));
     IAUX_EXPECT_FALSE(iIntersection::contains(sphere1, sphere3));
@@ -45,13 +45,13 @@ IAUX_TEST(IntersectionTests, CircleRectangleContains)
 
 IAUX_TEST(IntersectionTests, SphereInFrontOfPlane)
 {
-    iSphered sphere1(iaVector3d(-20, 0, 0), 1);
-    iSphered sphere2(iaVector3d(20, 0, 0), 1);
-    iSphered sphere3(iaVector3d(0, 0, 0), 1);
-    iSphered sphere4(iaVector3d(-11, 0, 0), 2);
-    iSphered sphere5(iaVector3d(11, 0, 0), 2);
-    iSphered sphere6(iaVector3d(-9, 0, 0), 2);
-    iSphered sphere7(iaVector3d(9, 0, 0), 2);
+    iaSphered sphere1(iaVector3d(-20, 0, 0), 1);
+    iaSphered sphere2(iaVector3d(20, 0, 0), 1);
+    iaSphered sphere3(iaVector3d(0, 0, 0), 1);
+    iaSphered sphere4(iaVector3d(-11, 0, 0), 2);
+    iaSphered sphere5(iaVector3d(11, 0, 0), 2);
+    iaSphered sphere6(iaVector3d(-9, 0, 0), 2);
+    iaSphered sphere7(iaVector3d(9, 0, 0), 2);
 
     iPlaned plane1(iaVector3d(1, 0, 0), -10);
     iPlaned plane2(iaVector3d(-1, 0, 0), -10);
@@ -93,14 +93,14 @@ IAUX_TEST(IntersectionTests, SphereInFrontOfPlane)
 
 IAUX_TEST(IntersectionTests, SphereIntersectsFrustum)
 {
-    iSphered sphere1(iaVector3d(0, 0, 0), 1);
-    iSphered sphere2(iaVector3d(0, 0, -20), 1);
-    iSphered sphere3(iaVector3d(0, 0, -9), 2);
-    iSphered sphere4(iaVector3d(0, 0, -11), 2);
-    iSphered sphere5(iaVector3d(0, 0, -200), 90);
-    iSphered sphere6(iaVector3d(0, 0, -99), 2);
-    iSphered sphere7(iaVector3d(0, 0, -101), 2);
-    iSphered sphere8(iaVector3d(-60, 0, -50), 2);
+    iaSphered sphere1(iaVector3d(0, 0, 0), 1);
+    iaSphered sphere2(iaVector3d(0, 0, -20), 1);
+    iaSphered sphere3(iaVector3d(0, 0, -9), 2);
+    iaSphered sphere4(iaVector3d(0, 0, -11), 2);
+    iaSphered sphere5(iaVector3d(0, 0, -200), 90);
+    iaSphered sphere6(iaVector3d(0, 0, -99), 2);
+    iaSphered sphere7(iaVector3d(0, 0, -101), 2);
+    iaSphered sphere8(iaVector3d(-60, 0, -50), 2);
 
     iaMatrixd matrix;
     matrix.perspective(90, 1, 10, 100);

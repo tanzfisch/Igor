@@ -63,8 +63,8 @@ private:
     iaMutex _hitListMutex;
     std::vector<std::pair<uint64, uint64>> _hitList;
 
-    std::vector<iSphered> _metaballs;
-    std::vector<iSphered> _holes;
+    std::vector<iaSphered> _metaballs;
+    std::vector<iaSphered> _holes;
     iVoxelTerrain *_voxelTerrain = nullptr;
 
     int _enemyCount = 0;

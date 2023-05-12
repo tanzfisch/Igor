@@ -461,7 +461,7 @@ namespace igor
 
         /*! \returns approximated bounding sphere
          */
-        const iSphered &getBoundingSphere() const;
+        const iaSphered &getBoundingSphere() const;
 
         /*! \returns approximated bounding box
          */
@@ -518,7 +518,7 @@ namespace igor
 
         /*! approximated bounding sphere of particle system
          */
-        iSphered _boundingSphere;
+        iaSphered _boundingSphere;
 
         /*! approximated bounding box of particle system
          */

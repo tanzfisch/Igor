@@ -161,7 +161,7 @@ namespace igor
         \param sphere the defined area to manipulate
         \param density the density to set within the box area
         */
-        void modify(const iSphereI &sphere, uint8 density);
+        void modify(const iaSphereI &sphere, uint8 density);
 
         /*! casts ray to voxels to detect intersection
 

@@ -4,7 +4,7 @@
 #include <iaux/data/iaGradient.h>
 using namespace iaux;
 
-IAUX_TEST(gradientTests, Empty)
+IAUX_TEST(GradientTests, Empty)
 {
 	iaGradientd gradient;
 
@@ -21,7 +21,7 @@ IAUX_TEST(gradientTests, Empty)
 	IAUX_EXPECT_EQUAL(gradient.getValueCount(), 0);	
 }
 
-IAUX_TEST(gradientTests, GetValue)
+IAUX_TEST(GradientTests, GetValue)
 {
 	iaGradientd gradient;
 
@@ -36,7 +36,7 @@ IAUX_TEST(gradientTests, GetValue)
 	IAUX_EXPECT_EQUAL(value2, 175.0);
 }
 
-IAUX_TEST(gradientTests, WorkWithIndex)
+IAUX_TEST(GradientTests, WorkWithIndex)
 {
 	iaGradientd gradient;
 

@@ -56,7 +56,7 @@ namespace igor
 
         /*! \returns bounding sphere
         */
-        const IGOR_API iSphered &getBoundingSphere() const;
+        const IGOR_API iaSphered &getBoundingSphere() const;
 
         /*! sets bounding box
 
@@ -108,7 +108,7 @@ namespace igor
 
         /*! bounding sphere
         */
-        iSphered _sphere;
+        iaSphered _sphere;
 
         /*! bbox of content
         */
