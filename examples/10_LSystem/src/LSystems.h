@@ -175,6 +175,10 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iEventKeyDown &event);
+
+    /*! \returns help screen string
+    */
+    iaString getHelpString() override;    
 };
 
 #endif // __LSYSTEMSEXAMPLE_H__
