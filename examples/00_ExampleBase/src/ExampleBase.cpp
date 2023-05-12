@@ -237,14 +237,11 @@ void ExampleBase::drawHelpScreen()
 {
     const iaString& help = getHelpString();
 
+    iaColor4f backgroundColor(0.0,0.0,0.0,0.8);
+    iRenderer::getInstance().drawFilledCircle(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, getWindow()->getClientHeight() * 0.4, 64, backgroundColor);
+    iRenderer::getInstance().drawCircle(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, getWindow()->getClientHeight() * 0.4, 64);
+
     iRenderer::getInstance().setFont(getOutlineFont());
-    iRenderer::getInstance().setFontSize(30.0f);
-
-    // fake an outline
-    iRenderer::getInstance().drawString(100 - 2, 100 - 2, help, iaColor4f::black);
-    iRenderer::getInstance().drawString(100 - 2, 100 + 2, help, iaColor4f::black);
-    iRenderer::getInstance().drawString(100 + 2, 100 - 2, help, iaColor4f::black);
-    iRenderer::getInstance().drawString(100 + 2, 100 + 2, help, iaColor4f::black);
-
-    iRenderer::getInstance().drawString(100, 100, help, iaColor4f::white);
+    iRenderer::getInstance().setFontSize(15.0f);
+    iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, help, iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::white);
 }
