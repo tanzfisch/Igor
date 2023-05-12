@@ -363,7 +363,7 @@ namespace igor
 
             relativeTextPosX += scrollOffset;
 
-            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2, _fontSize, COLOR_TEXT_DARK);
+            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2.0f, _fontSize, COLOR_TEXT_DARK);
         }
 
         // render text
@@ -602,7 +602,7 @@ namespace igor
 
                 if (i > 0)
                 {
-                    iRenderer::getInstance().drawLine(lastPoint._x, lastPoint._y, currentPoint._x, currentPoint._y, lineColor);
+                    iRenderer::getInstance().drawLine(lastPoint, currentPoint, lineColor);
                 }
 
                 lastPoint = currentPoint;
@@ -618,7 +618,7 @@ namespace igor
                 currentPoint._x = points[i]._x + rect._x;
                 currentPoint._y = points[i]._y + rect._y;
 
-                iRenderer::getInstance().drawPoint(currentPoint._x, currentPoint._y, pointColor);
+                iRenderer::getInstance().drawPoint(currentPoint, pointColor);
             }
         }
 

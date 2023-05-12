@@ -327,7 +327,7 @@ namespace igor
 
         iaMatrixd _camMatrix;
 
-        ///////////// LIGHTS //////////////7
+        ///////////// LIGHTS //////////////
         /*! list of lights
          */
         std::map<int32, iRendererLight> _lights;
@@ -379,7 +379,7 @@ namespace igor
 
         /*! color id value
          */
-        iaColor4f _colorID;
+        iaColor4f _solidColor;
 
         ////// stats ////
         iRenderer::iRendererStats _stats;
@@ -610,43 +610,6 @@ namespace igor
         setWireframeEnabled(false);
     }
 
-    void iRenderer::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
-    {
-        drawTexturedQuad(iaVector3f(x, y, 0.0),
-                         iaVector3f(x, y + height, 0.0),
-                         iaVector3f(x + width, y + height, 0.0),
-                         iaVector3f(x + width, y, 0.0), texture, color, blend, tiling);
-    }
-
-    void iRenderer::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
-    {
-        drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, color, blend, tiling);
-    }
-
-    void iRenderer::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
-    {
-        drawTexturedQuad(matrix * QUAD_VERTEX_POSITIONS[0],
-                         matrix * QUAD_VERTEX_POSITIONS[1],
-                         matrix * QUAD_VERTEX_POSITIONS[2],
-                         matrix * QUAD_VERTEX_POSITIONS[3],
-                         texture, color, blend, tiling);
-    }
-
-    void iRenderer::drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
-    {
-        iaMatrixf matrixf;
-        for (int i = 0; i < 16; ++i)
-        {
-            matrixf[i] = matrix[i];
-        }
-
-        drawTexturedQuad(matrixf * QUAD_VERTEX_POSITIONS[0],
-                         matrixf * QUAD_VERTEX_POSITIONS[1],
-                         matrixf * QUAD_VERTEX_POSITIONS[2],
-                         matrixf * QUAD_VERTEX_POSITIONS[3],
-                         texture, color, blend, tiling.convert<float32>());
-    }
-
     __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
     {
         auto &texQuads = _data->_texQuads;
@@ -695,18 +658,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
     }
 
-    void iRenderer::drawTexturedQuad(const iaVector3d &v1, const iaVector3d &v2, const iaVector3d &v3, const iaVector3d &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
-    {
-        drawTexturedQuad(v1.convert<float32>(),
-                         v2.convert<float32>(),
-                         v3.convert<float32>(),
-                         v4.convert<float32>(),
-                         texture,
-                         color,
-                         blend, tiling.convert<float32>());
-    }
-
-    void iRenderer::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
+    void iRenderer::drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
@@ -743,7 +695,7 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer::drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+    void iRenderer::drawFrameInternal(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
     {
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
@@ -782,15 +734,7 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer::drawPoint(float32 x, float32 y, const iaColor4f &color)
-    {
-        drawPoint(iaVector3f(x, y, 0.0), color);
-    }
-    void iRenderer::drawPoint(const iaVector2f &v, const iaColor4f &color)
-    {
-        drawPoint(iaVector3f(v._x, v._y, 0.0), color);
-    }
-    void iRenderer::drawPoint(const iaVector3f &v, const iaColor4f &color)
+    void iRenderer::drawPointInternal(const iaVector3f &v, const iaColor4f &color)
     {
         auto &points = _data->_points;
 
@@ -815,77 +759,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Points;
     }
 
-    void iRenderer::drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color)
-    {
-        iaVector3f v0(x, y, 0.0);
-        iaVector3f v1(x, y + height, 0.0);
-        iaVector3f v2(x + width, y + height, 0.0);
-        iaVector3f v3(x + width, y, 0.0);
-
-        drawLine(v0, v1, color);
-        drawLine(v1, v2, color);
-        drawLine(v2, v3, color);
-        drawLine(v3, v0, color);
-    }
-
-    void iRenderer::drawRectangle(const iaRectanglef &rect, const iaColor4f &color)
-    {
-        drawRectangle(rect._x, rect._y, rect._width, rect._height, color);
-    }
-
-    void iRenderer::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color)
-    {
-        auto &quads = _data->_quads;
-
-        if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Quads)
-        {
-            flushLastUsed();
-        }
-
-        if (quads._vertexCount >= MAX_QUAD_VERTICES)
-        {
-            flushQuads();
-        }
-
-        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
-
-        quads._vertexDataPtr->_pos.set(x, y, 0.0);
-        quads._vertexDataPtr->_color = color;
-        quads._vertexDataPtr++;
-
-        quads._vertexDataPtr->_pos.set(x, y + height, 0.0);
-        quads._vertexDataPtr->_color = color;
-        quads._vertexDataPtr++;
-
-        quads._vertexDataPtr->_pos.set(x + width, y + height, 0.0);
-        quads._vertexDataPtr->_color = color;
-        quads._vertexDataPtr++;
-
-        quads._vertexDataPtr->_pos.set(x + width, y, 0.0);
-        quads._vertexDataPtr->_color = color;
-        quads._vertexDataPtr++;
-
-        quads._vertexCount += 4;
-        quads._indexCount += 6;
-
-        _data->_lastRenderDataSetUsed = iRenderDataSet::Quads;
-    }
-
-    void iRenderer::drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color)
-    {
-        drawFilledRectangle(rect._x, rect._y, rect._width, rect._height, color);
-    }
-
-    void iRenderer::drawQuad(const iaMatrixf &matrix, const iaColor4f &color)
-    {
-        drawQuad(matrix * QUAD_VERTEX_POSITIONS[0],
-                 matrix * QUAD_VERTEX_POSITIONS[1],
-                 matrix * QUAD_VERTEX_POSITIONS[2],
-                 matrix * QUAD_VERTEX_POSITIONS[3],
-                 color);
-    }
-
-    void iRenderer::drawQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color)
+    void iRenderer::drawQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color)
     {
         auto &quads = _data->_quads;
 
@@ -923,53 +797,91 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Quads;
     }
 
-    void iRenderer::drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color)
+    template <>
+    void iRenderer::drawFrame(const iaMatrix<float32> &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
     {
-        drawLine(iaVector3f(x1, y1, 0.0), iaVector3f(x2, y2, 0.0), color);
+        drawFrameInternal(matrix, atlas, frameIndex, color, blend);
     }
 
-    void iRenderer::drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color)
+    template <>
+    void iRenderer::drawTexturedQuad(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaVector3<float32> &v3, const iaVector3<float32> &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
     {
-        drawLine(iaVector3f(v1._x, v1._y, 0.0), iaVector3f(v2._x, v2._y, 0.0), color);
+        drawTexturedQuadInternal(v1, v2, v3, v4, texture, color, blend, tiling);
     }
 
-    void iRenderer::drawLineLoop(const std::vector<iaVector2f> &points, const iaColor4f &color)
+    template <>
+    void iRenderer::drawTexturedQuad(const iaMatrix<float32> &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
     {
-        con_assert(points.size() > 1, "too few points");
-
-        drawLineStrip(points, color);
-        drawLine(points.back(), points.front(), color);
+        drawTexturedQuadInternal(matrix * QUAD_VERTEX_POSITIONS[0],
+                                 matrix * QUAD_VERTEX_POSITIONS[1],
+                                 matrix * QUAD_VERTEX_POSITIONS[2],
+                                 matrix * QUAD_VERTEX_POSITIONS[3],
+                                 texture, color, blend, tiling);
     }
 
-    void iRenderer::drawLineLoop(const std::vector<iaVector3f> &points, const iaColor4f &color)
+    template <>
+    void iRenderer::drawTexturedQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
     {
-        con_assert(points.size() > 1, "too few points");
-
-        drawLineStrip(points, color);
-        drawLine(points.back(), points.front(), color);
+        drawTexturedQuadInternal(o + v - u,
+                                 o - v - u,
+                                 o - v + u,
+                                 o + v + u,
+                                 texture, color, blend, tiling);
     }
 
-    void iRenderer::drawLineStrip(const std::vector<iaVector2f> &points, const iaColor4f &color)
+    template <>
+    void iRenderer::drawQuad(const iaMatrix<float32> &matrix, const iaColor4f &color)
+    {
+        drawQuadInternal(matrix * QUAD_VERTEX_POSITIONS[0],
+                         matrix * QUAD_VERTEX_POSITIONS[1],
+                         matrix * QUAD_VERTEX_POSITIONS[2],
+                         matrix * QUAD_VERTEX_POSITIONS[3],
+                         color);
+    }
+
+    template <>
+    void iRenderer::drawQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, const iaColor4f &color)
+    {
+        drawQuadInternal(o + v - u,
+                         o - v - u,
+                         o - v + u,
+                         o + v + u,
+                         color);
+    }
+
+    template <>
+    void iRenderer::drawLineStrip(const std::vector<iaVector3<float32>> &points, const iaColor4f &color)
     {
         con_assert(points.size() > 1, "too few points");
 
         for (int i = 1; i < points.size(); ++i)
         {
-            drawLine(points[i - 1], points[i], color);
+            const auto &start = points[i - 1];
+            const auto &stop = points[i];
+
+            drawLineInternal(start, stop, color);
         }
     }
 
-    void iRenderer::drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color)
+    template <>
+    void iRenderer::drawLine(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaColor4f &color)
     {
-        con_assert(points.size() > 1, "too few points");
-
-        for (int i = 1; i < points.size(); ++i)
-        {
-            drawLine(points[i - 1], points[i], color);
-        }
+        drawLineInternal(v1, v2, color);
     }
 
-    void iRenderer::drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color)
+    template <>
+    void iRenderer::drawPoint(const iaVector3<float32> &v, const iaColor4f &color)
+    {
+        drawPointInternal(v, color);
+    }
+
+    template <>
+    void iRenderer::drawBox(const iAABox<float32> &box, const iaColor4f &color)
+    {
+        drawBoxInternal(box, color);
+    }
+
+    void iRenderer::drawLineInternal(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color)
     {
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Lines)
         {
@@ -1729,109 +1641,51 @@ namespace igor
         return _data->_currentMaterial;
     }
 
-    void iRenderer::drawBox(const iAACubed &box, const iaColor4f &color)
-    {
-        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
-                        iaVector3f(box._halfEdgeLength, box._halfEdgeLength, box._halfEdgeLength)),
-                color);
-    }
-
-    void iRenderer::drawBox(const iAACubef &box, const iaColor4f &color)
-    {
-        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
-                        iaVector3f(box._halfEdgeLength, box._halfEdgeLength, box._halfEdgeLength)),
-                color);
-    }
-
-    void iRenderer::drawBox(const iAABoxd &box, const iaColor4f &color)
-    {
-        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
-                        iaVector3f(box._halfWidths._x, box._halfWidths._y, box._halfWidths._z)),
-                color);
-    }
-
-    void iRenderer::drawBox(const iAABoxf &box, const iaColor4f &color)
+    void iRenderer::drawBoxInternal(const iAABoxf &box, const iaColor4f &color)
     {
         iaVector3f a = box._center;
         a -= box._halfWidths;
         iaVector3f b = box._center;
         b += box._halfWidths;
 
-        drawLine(iaVector3f(a._x, a._y, a._z),
-                 iaVector3f(b._x, a._y, a._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, a._z),
+                         iaVector3f(b._x, a._y, a._z), color);
 
-        drawLine(iaVector3f(a._x, a._y, a._z),
-                 iaVector3f(a._x, b._y, a._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, a._z),
+                         iaVector3f(a._x, b._y, a._z), color);
 
-        drawLine(iaVector3f(a._x, a._y, a._z),
-                 iaVector3f(a._x, a._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, a._z),
+                         iaVector3f(a._x, a._y, b._z), color);
 
-        drawLine(iaVector3f(b._x, a._y, a._z),
-                 iaVector3f(b._x, a._y, b._z), color);
+        drawLineInternal(iaVector3f(b._x, a._y, a._z),
+                         iaVector3f(b._x, a._y, b._z), color);
 
-        drawLine(iaVector3f(b._x, a._y, a._z),
-                 iaVector3f(b._x, b._y, a._z), color);
+        drawLineInternal(iaVector3f(b._x, a._y, a._z),
+                         iaVector3f(b._x, b._y, a._z), color);
 
-        drawLine(iaVector3f(b._x, a._y, b._z),
-                 iaVector3f(b._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(b._x, a._y, b._z),
+                         iaVector3f(b._x, b._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, a._y, b._z),
-                 iaVector3f(b._x, a._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, b._z),
+                         iaVector3f(b._x, a._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, a._y, b._z),
-                 iaVector3f(a._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, b._z),
+                         iaVector3f(a._x, b._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, b._y, a._z),
-                 iaVector3f(a._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, b._y, a._z),
+                         iaVector3f(a._x, b._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, b._y, b._z),
-                 iaVector3f(b._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, b._y, b._z),
+                         iaVector3f(b._x, b._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, b._y, a._z),
-                 iaVector3f(b._x, b._y, a._z), color);
+        drawLineInternal(iaVector3f(a._x, b._y, a._z),
+                         iaVector3f(b._x, b._y, a._z), color);
 
-        drawLine(iaVector3f(b._x, b._y, a._z),
-                 iaVector3f(b._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(b._x, b._y, a._z),
+                         iaVector3f(b._x, b._y, b._z), color);
     }
 
-    void iRenderer::drawCircle(const iaCirclef &circle, int segments, const iaColor4f &color)
-    {
-        drawCircle(circle._center._x, circle._center._y, circle._radius, segments, color);
-    }
-
-    void iRenderer::drawCircle(const iaVector2f &pos, float32 radius, int segments, const iaColor4f &color)
-    {
-        drawCircle(pos._x, pos._y, radius, segments, color);
-    }
-
-    void iRenderer::drawCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
-    {
-        con_assert(segments >= 3, "minimum segments is 3");
-
-        const float32 step = 2 * M_PI / static_cast<float32>(segments);
-        float32 angleA = 0;
-        float32 angleB = step;
-
-        for (int i = 0; i < segments; ++i)
-        {
-            drawLine(iaVector3f(x + radius * cosf(angleA), y + radius * sinf(angleA), 0.0f),
-                     iaVector3f(x + radius * cosf(angleB), y + radius * sinf(angleB), 0.0f), color);
-            angleA += step;
-            angleB += step;
-        }
-    }
-
-    void iRenderer::drawFilledCircle(const iaCirclef &circle, int segments, const iaColor4f &color)
-    {
-        drawFilledCircle(circle._center._x, circle._center._y, circle._radius, segments, color);
-    }
-
-    void iRenderer::drawFilledCircle(const iaVector2f &pos, float32 radius, int segments, const iaColor4f &color)
-    {
-        drawFilledCircle(pos._x, pos._y, radius, segments, color);
-    }
-
-    void iRenderer::drawFilledCircle(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
+    void iRenderer::drawFilledCircleInternal(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
     {
         beginTriangles();
 
@@ -1901,32 +1755,6 @@ namespace igor
     __IGOR_INLINE__ void iRenderer::endTriangles()
     {
         _data->_lastRenderDataSetUsed = iRenderDataSet::Triangles;
-    }
-
-    void iRenderer::drawQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color)
-    {
-        drawQuad(o + v + u,
-                 o - v + u,
-                 o - v - u,
-                 o + v - u,
-                 color);
-    }
-
-    void iRenderer::drawTexturedQuad(const iaVector3d &o, const iaVector3d &u, const iaVector3d &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2d &tiling)
-    {
-        drawTexturedQuad(o.convert<float32>(),
-                         u.convert<float32>(),
-                         v.convert<float32>(), texture, color, blend,
-                         tiling.convert<float32>());
-    }
-
-    void iRenderer::drawTexturedQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
-    {
-        drawTexturedQuad(o + v - u,
-                         o - v - u,
-                         o - v + u,
-                         o + v + u,
-                         texture, color, blend, tiling);
     }
 
     void iRenderer::setFallbackTexture(const iTexturePtr &texture)
@@ -2005,7 +1833,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawBuffer(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
+    void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
     {
         if (!mesh->isValid())
         {
@@ -2151,7 +1979,7 @@ namespace igor
 
         if (_data->_currentMaterial->hasSolidColor())
         {
-            _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, _data->_colorID);
+            _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, _data->_solidColor);
         }
     }
 
@@ -2177,10 +2005,15 @@ namespace igor
 
     void iRenderer::setColorID(uint64 colorID)
     {
-        _data->_colorID.set(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
-                            static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
-                            static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
-                            1.0f);
+        _data->_solidColor.set(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
+                               static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
+                               static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
+                               1.0f);
+    }
+
+    void iRenderer::setColor(const iaColor4f &color)
+    {
+        _data->_solidColor = color;
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)

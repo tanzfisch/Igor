@@ -1261,8 +1261,8 @@ void GameLayer::onRenderHUD()
 
     iRenderer::getInstance().drawString(10, 40, iaString("lvl: ") + iaString::toString(level));
 
-    iRenderer::getInstance().drawRectangle(10, 80, 310, 20, iaColor4f::white);
-    iRenderer::getInstance().drawFilledRectangle(10, 80, (300 * percentOfLevel) + 10, 20, iaColor4f::red);
+    iRenderer::getInstance().drawRectangle(10.0f, 80.0f, 310.0f, 20.0f, iaColor4f::white);
+    iRenderer::getInstance().drawFilledRectangle(10.0f, 80.0f, (300.0f * percentOfLevel) + 10.0f, 20.0f, iaColor4f::red);
 
     uint32 nextLevel = 0;
     for (auto val : _expLvl)
