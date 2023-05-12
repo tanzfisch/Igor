@@ -94,13 +94,13 @@ private:
      */
     void onWireframeChange(const iWidgetPtr source);
 
-    /*! on wireframe change event
+    /*! on octree change event
      */
     void onOctreeChange(const iWidgetPtr source);
 
-    /*! on wireframe change event
+    /*! on bounds change event
      */
-    void onBoundingsChange(const iWidgetPtr source);
+    void onBoundsChange(const iWidgetPtr source);
 
     /*! initialize example
      */

@@ -285,7 +285,7 @@ void WidgetsExample::onInit()
     iWidgetCheckBox *radioBoundings = new iWidgetCheckBox();
     radioBoundings->setText("Boundings");
     radioBoundings->setHorizontalAlignment(iHorizontalAlignment::Left);    
-    radioBoundings->registerOnChangeEvent(iChangeDelegate(this, &WidgetsExample::onBoundingsChange));
+    radioBoundings->registerOnChangeEvent(iChangeDelegate(this, &WidgetsExample::onBoundsChange));
     gridControls->addWidget(radioBoundings, 1, 3);
 
     _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
@@ -318,7 +318,7 @@ void WidgetsExample::onOctreeChange(const iWidgetPtr source)
     _backGround->getView().setOctreeVisible(checkBox->isChecked());
 }
 
-void WidgetsExample::onBoundingsChange(const iWidgetPtr source)
+void WidgetsExample::onBoundsChange(const iWidgetPtr source)
 {
     iWidgetCheckBoxPtr checkBox = static_cast<iWidgetCheckBoxPtr>(source);
     _backGround->getView().setBoundingBoxVisible(checkBox->isChecked());
