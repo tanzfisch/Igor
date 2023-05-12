@@ -6,6 +6,8 @@ Changelog                           {#changelog}
 
 - improved renderer interface and fleshed out the docs
 - fixed issue around texture fonts rendering and measuring size
+- fixed more typos
+- added more tests in iaux
 
 0.39.0
 ------

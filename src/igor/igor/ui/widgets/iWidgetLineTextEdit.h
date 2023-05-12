@@ -192,7 +192,7 @@ namespace igor
 		*/
         int64 _scrollOffset = 0;
 
-        /*! max text lenght in characters
+        /*! max text length in characters
 		*/
         int32 _maxTextLenght = 20;
 

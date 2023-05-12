@@ -111,8 +111,8 @@ void WorkspaceLayer::frameOnSelection()
     auto selection = _workspace->getSelection();
 
     iNodeVisitorBoundings visitorBoundings;
-    iSphered sphere;
-    iSphered selectionSphere;
+    iaSphered sphere;
+    iaSphered selectionSphere;
 
     for (auto nodeID : selection)
     {

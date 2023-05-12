@@ -76,7 +76,7 @@ private:
     */
     iLSystem _lSystem;
 
-    /*! segment lenght
+    /*! segment length
     */
     float32 _segmentLength = 0;
 
@@ -175,6 +175,10 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iEventKeyDown &event);
+
+    /*! \returns help screen string
+    */
+    iaString getHelpString() override;    
 };
 
 #endif // __LSYSTEMSEXAMPLE_H__

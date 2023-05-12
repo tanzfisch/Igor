@@ -13,7 +13,7 @@ namespace iaux
 
     iaThread::iaThread()
     {
-        _id = _idGenerator.createID() + 1;
+        _id = _idGenerator.getNextID() + 1;
     }
 
     iaThread::~iaThread()

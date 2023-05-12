@@ -10,7 +10,6 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/mesh/iMesh.h>
 
-#include <iaux/data/iaSphere.h>
 #include <iaux/system/iaFile.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>

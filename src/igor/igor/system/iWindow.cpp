@@ -1210,7 +1210,7 @@ namespace igor
 
     iWindow::iWindow(const iaString &title)
     {
-        _windowID = iWindow::_idGenerator.createID();
+        _windowID = iWindow::_idGenerator.getNextID();
 
 #ifdef __IGOR_WINDOWS__
         _impl = new iWindowImplWindows(this);

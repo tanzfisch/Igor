@@ -47,7 +47,7 @@ namespace igor
         \param box the box to manipulate
         \param density the new density to set
         */
-        iVoxelOperationSphere(const iSphereI &sphere, uint8 density);
+        iVoxelOperationSphere(const iaSphereI &sphere, uint8 density);
 
         /*! applies the operation within a specified voxel block
 
@@ -64,7 +64,7 @@ namespace igor
     private:
         /*! sphere that defines wich area to set the new value
         */
-        iSphereI _sphere;
+        iaSphereI _sphere;
 
         /*! the new density to set
         */

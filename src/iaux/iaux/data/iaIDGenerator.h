@@ -31,42 +31,28 @@
 
 #include <iaux/system/iaMutex.h>
 
-#include <vector>
+#include <atomic>
 
 namespace iaux
 {
 
+    /*! id generator
+     */
     template <class T>
     class IAUX_API_EXPORT_ONLY iaIDGenerator
     {
     public:
-        /*! creates a new or recycles an old id
-
-        \returns an ID
-        */
-        T createID();
+        /*! \returns a new ID
+         */
+        T getNextID();
 
     private:
         /*! the next id in case the recycled ID list is empty
-        */
-        T _nextID = static_cast<T>(IGOR_INVALID_ID + 1);
-
-        /*! mutex to make shure the ID generation is uninterruped
-        */
-        iaMutex _mutex;
+         */
+        std::atomic<T> _nextID = static_cast<T>(IGOR_INVALID_ID + 1);
     };
 
-    template <class T>
-    __IGOR_INLINE__ T iaIDGenerator<T>::createID()
-    {
-        T result;
-
-        _mutex.lock();
-        result = _nextID++;
-        _mutex.unlock();
-
-        return result;
-    }
+#include <iaux/data/iaIDGenerator.inl>
 
     typedef iaIDGenerator<iaID64> iaIDGenerator64;
     typedef iaIDGenerator<iaID32> iaIDGenerator32;

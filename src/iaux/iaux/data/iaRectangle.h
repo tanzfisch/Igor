@@ -39,7 +39,7 @@ namespace iaux
     template <typename T>
     struct IAUX_API_EXPORT_ONLY iaRectangle
     {
-        /*! horrizontal position
+        /*! horizontal position
          */
         T _x = (T)0;
 
@@ -61,7 +61,7 @@ namespace iaux
 
         /*! ctor with parameters
 
-        \param x horrizontal position
+        \param x horizontal position
         \param y vertical position
         \param width width
         \param height height
@@ -169,9 +169,9 @@ namespace iaux
          */
         const iaVector2<T> getBottomRight() const;        
 
-        /*! sets horrizontal position
+        /*! sets horizontal position
 
-        \param x horrizontal position
+        \param x horizontal position
         */
         void setX(T x);
 
@@ -219,9 +219,16 @@ namespace iaux
         /*! compares two rectangles
 
         \param other the other rectangle
-        \returns true if both vectors are equal
+        \returns true if both rectangles are equal
         */
-        bool operator==(const iaRectangle<T> &other) const;        
+        bool operator==(const iaRectangle<T> &other) const;       
+
+        /*! compares two rectangles
+
+        \param other the other rectangle
+        \returns true if rectangles are not equal
+        */
+        bool operator!=(const iaRectangle<T> &other) const;            
     };
 
 #include <iaux/data/iaRectangle.inl>

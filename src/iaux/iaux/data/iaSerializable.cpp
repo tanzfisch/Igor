@@ -366,7 +366,7 @@ namespace iaux
             }
             else
             {
-                con_err("failed to write buffer lenght");
+                con_err("failed to write buffer length");
                 return false;
             }
         }

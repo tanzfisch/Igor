@@ -244,7 +244,7 @@ namespace iaux
 */
 #define __IGOR_KILOMETER__ 1000.0
 
-/*! base lenght
+/*! base length
 */
 #define __IGOR_BASE_LENGHT__ __IGOR_METER__
 

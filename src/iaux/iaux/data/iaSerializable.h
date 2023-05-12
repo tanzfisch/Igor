@@ -209,7 +209,7 @@ namespace iaux
         */
         static bool readFloat64(std::ifstream &stream, float64 &value);
 
-        /*! writes unsigned integer value with specified lenght to stream
+        /*! writes unsigned integer value with specified length to stream
 
         \param stream output stream
         \param value value to write
@@ -218,7 +218,7 @@ namespace iaux
         */
         static bool writeUInt(std::ofstream &stream, uint64 value, uint8 bytes);
 
-        /*! reads unsigned integer value with specified lenght from stream
+        /*! reads unsigned integer value with specified length from stream
 
         \param stream input stream
         \param value value to read
@@ -227,7 +227,7 @@ namespace iaux
         */
         static bool readUInt(std::ifstream &stream, uint64 &value, uint8 bytes);
 
-        /*! writes integer value with specified lenght to stream
+        /*! writes integer value with specified length to stream
 
         \param stream output stream
         \param value value to write
@@ -236,7 +236,7 @@ namespace iaux
         */
         static bool writeInt(std::ofstream &stream, int64 value, uint8 bytes);
 
-        /*! reads integer value with specified lenght from stream
+        /*! reads integer value with specified length from stream
 
         \param stream input stream
         \param value value to read
@@ -245,7 +245,7 @@ namespace iaux
         */
         static bool readInt(std::ifstream &stream, int64 &value, uint8 bytes);
 
-        /*! writes buffer with specified lenght to stream
+        /*! writes buffer with specified length to stream
 
         \param stream output stream
         \param buffer buffer to write
@@ -254,7 +254,7 @@ namespace iaux
         */
         static bool write(std::ofstream &stream, const char *buffer, uint32 bytes);
 
-        /*! reads buffer with specified lenght from stream
+        /*! reads buffer with specified length from stream
 
         \param stream input stream
         \param buffer buffer to read

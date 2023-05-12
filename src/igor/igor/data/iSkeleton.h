@@ -64,9 +64,9 @@ namespace igor
         /*! adds a bone at current position
 
         \param matrix the orientation and offset of the bone
-        \param lenght the lenght of the bone
+        \param length the length of the bone
         */
-        void addBone(const iaMatrixf &matrix, float64 lenght);
+        void addBone(const iaMatrixf &matrix, float64 length);
 
         /*! pushes current position in skeleton
         */

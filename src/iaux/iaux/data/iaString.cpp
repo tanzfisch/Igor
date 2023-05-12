@@ -113,22 +113,22 @@ namespace iaux
         return static_cast<int64>(hashFunc(_data));
     }
 
-    iaString::iaString(const char *text, const int64 lenght)
+    iaString::iaString(const char *text, const int64 length)
     {
-        if (lenght != INVALID_POSITION)
+        if (length != INVALID_POSITION)
         {
-            con_assert(strlen(text) >= lenght, "inconsistent data");
+            con_assert(strlen(text) >= length, "inconsistent data");
         }
-        setData(text, lenght);
+        setData(text, length);
     }
 
-    iaString::iaString(const wchar_t *text, const int64 lenght)
+    iaString::iaString(const wchar_t *text, const int64 length)
     {
-        if (lenght != INVALID_POSITION)
+        if (length != INVALID_POSITION)
         {
-            con_assert(wcslen(text) >= lenght, "inconsistent data");
+            con_assert(wcslen(text) >= length, "inconsistent data");
         }
-        setData(text, lenght);
+        setData(text, length);
     }
 
     iaString::iaString(const wchar_t character, int count)

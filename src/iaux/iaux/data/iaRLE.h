@@ -45,7 +45,7 @@ namespace iaux
         TValue _value = static_cast<TValue>(0);
     };
 
-    /*! run lenght encoded buffer
+    /*! run length encoded buffer
     */
     template <typename TValue, typename TIndex>
     class IAUX_API_EXPORT_ONLY iaRLE
