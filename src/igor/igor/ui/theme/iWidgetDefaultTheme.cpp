@@ -363,7 +363,7 @@ namespace igor
 
             relativeTextPosX += scrollOffset;
 
-            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2, _fontSize, COLOR_TEXT_DARK);
+            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2.0f, _fontSize, COLOR_TEXT_DARK);
         }
 
         // render text

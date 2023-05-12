@@ -183,13 +183,6 @@ namespace igor
         template <typename T>
         void drawPoint(const iaVector3<T> &v, const iaColor4f &color = iaColor4f::white);
 
-        /*! draw point at given position
-
-        \param v position
-        \param color the color to draw with
-        */
-        void drawPoint(const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
-
         /*! draw line (z = 0)
 
         \param x1 horizontal position of line start
@@ -218,14 +211,6 @@ namespace igor
         */
         template <typename T>
         void drawLine(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaColor4f &color = iaColor4f::white);
-
-        /*! draw line
-
-        \param v1 position of line start
-        \param v2 position of line end
-        \param color the color to draw with
-        */
-        void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color = iaColor4f::white);
 
         /*! draw line strip (z = 0)
 
@@ -302,15 +287,34 @@ namespace igor
         template <typename T>
         void drawFilledRectangle(T x, T y, T width, T height, const iaColor4f &color = iaColor4f::white);
 
-        /*! draw filled rectangle (z = 0)
+        /*! draw quad
 
-        \param x horizontal position
-        \param y vertical position
-        \param width horizontal size
-        \param height vertical size
+        \param o center/origin position of quad
+        \param u u/x/horizontal extension of quad
+        \param v v/y/vertical extension of quad
         \param color the color to draw with
         */
-        void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
+        template <typename T>
+        void drawQuad(const iaVector3<T> &o, const iaVector3<T> &u, const iaVector3<T> &v, const iaColor4f &color = iaColor4f::white);
+
+        /*! draws a unit sized quad multiplied with given matrix
+
+        \param matrix the given matrix
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawQuad(const iaMatrix<T> &matrix, const iaColor4f &color = iaColor4f::white);
+
+        /*! draws a quad with 4 given points
+
+        \param v1 first given point
+        \param v2 second given point
+        \param v3 third given point
+        \param v4 fourth given point
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iaColor4f &color = iaColor4f::white);
 
         /*! draw textured rectangle (z = 0)
 
@@ -337,22 +341,75 @@ namespace igor
         template <typename T>
         void drawTexturedRectangle(const iaRectangle<T> &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
-        void drawQuad(const iaMatrixf &matrix, const iaColor4f &color = iaColor4f::white);
-        void drawQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color = iaColor4f::white);
-        void drawQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
+        /*! draw textured unit quad multiplied by a matrix
 
-        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
-        void drawTexturedQuad(const iaMatrixd &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
-        void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
-        void drawTexturedQuad(const iaVector3d &v1, const iaVector3d &v2, const iaVector3d &v3, const iaVector3d &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
-        void drawTexturedQuad(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
-        void drawTexturedQuad(const iaVector3d &o, const iaVector3d &u, const iaVector3d &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2d &tiling = iaVector2d(1.0, 1.0));
+        \param matrix the given matrix
+        \param texture the texture to use. if invalid fallback texture is used
+        \param color the color to draw with
+        \param blend if true blending is used to draw the rectangle
+        \param tiling tiling of the texture in two dimensions
+        */
+        template <typename T>
+        void drawTexturedQuad(const iaMatrix<T> &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
+
+        /*! draw textured quad
+
+        \param o center/origin position of quad
+        \param u u/x/horizontal extension of quad
+        \param v v/y/vertical extension of quad
+        \param texture the texture to use. if invalid fallback texture is used
+        \param color the color to draw with
+        \param blend if true blending is used to draw the rectangle
+        \param tiling tiling of the texture in two dimensions
+        */
+        template <typename T>
+        void drawTexturedQuad(const iaVector3<T> &o, const iaVector3<T> &u, const iaVector3<T> &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
+
+        /*! draw textured quad with four given points
+
+        \param v1 first given point
+        \param v2 second given point
+        \param v3 third given point
+        \param v4 fourth given point
+        \param texture the texture to use. if invalid fallback texture is used
+        \param color the color to draw with
+        \param blend if true blending is used to draw the rectangle
+        \param tiling tiling of the texture in two dimensions
+        */
+        template <typename T>
+        void drawTexturedQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
         /*! draw specified frame of given atlas
-         */
-        void drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
 
+        \param matrix the matrix to position and scale the frame
+        \param atlas the atlas texture to use
+        \param frameIndext the frame index in the atlas
+        \param color the color to draw with
+        \param blend if true blending is used to draw the rectangle
+         */
+        template <typename T>
+        void drawFrame(const iaMatrix<T> &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
+
+        /*! draw string
+
+        \param x horizontal position
+        \param y vertical position
+        \param text the text to draw
+        \param horz the horizontal alignment
+        \param vert the vertical alignment
+        \param color the color to draw with
+        \param maxWidth the maximum width to render or else there will be line breaks
+        */
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
+
+        /*! draw string
+
+        \param x horizontal position
+        \param y vertical position
+        \param text the text to draw
+        \param color the color to draw with
+        \param maxWidth the maximum width to render or else there will be line breaks
+        */
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
 
         /*! draw a circle.
@@ -363,11 +420,27 @@ namespace igor
         \param segments segments count
         \param color the color to draw with
         */
-        void drawCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+        template <typename T>
+        void drawCircle(T x, T y, T radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
-        void drawCircle(const iaVector2f &pos, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+        /*! draw a circle.
 
-        void drawCircle(const iaCirclef &circle, int segments = 16, const iaColor4f &color = iaColor4f::white);
+        \param pos center position
+        \param radius radius of the circle
+        \param segments segments count
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawCircle(const iaVector2<T> &pos, T radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw a circle.
+
+        \param circle circle definition to draw
+        \param segments segments count
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawCircle(const iaCircle<T> &circle, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
         /*! draw a filled circle.
 
@@ -377,11 +450,27 @@ namespace igor
         \param segments segments count
         \param color the color to draw with
         */
-        void drawFilledCircle(float32 x, float32 y, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+        template <typename T>
+        void drawFilledCircle(T x, T y, T radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
-        void drawFilledCircle(const iaVector2f &pos, float32 radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+        /*! draw a filled circle.
 
-        void drawFilledCircle(const iaCirclef &circle, int segments = 16, const iaColor4f &color = iaColor4f::white);
+        \param pos center position
+        \param radius radius of the circle
+        \param segments segments count
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawFilledCircle(const iaVector2<T> &pos, T radius, int segments = 16, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw a filled circle.
+
+        \param circle circle definition to draw
+        \param segments segments count
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawFilledCircle(const iaCircle<T> &circle, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
         ///////////////////// 3D ////////////////////////////
         void drawBox(const iAACubed &box, const iaColor4f &color = iaColor4f::white);
@@ -725,6 +814,64 @@ namespace igor
         /*! binds current material
          */
         void bindCurrentMaterial();
+
+        /*! draw point at given position
+
+        \param v position
+        \param color the color to draw with
+        */
+        void drawPointInternal(const iaVector3f &v, const iaColor4f &color);
+
+        /*! draw line
+
+        \param v1 position of line start
+        \param v2 position of line end
+        \param color the color to draw with
+        */
+        void drawLineInternal(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color);
+
+        /*! draws a quad with 4 given points
+
+        \param v1 first given point
+        \param v2 second given point
+        \param v3 third given point
+        \param v4 fourth given point
+        \param color the color to draw with
+        */
+        void drawQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color);
+
+        /*! draw textured quad with four given points
+
+        \param v1 first given point
+        \param v2 second given point
+        \param v3 third given point
+        \param v4 fourth given point
+        \param texture the texture to use. if invalid fallback texture is used
+        \param color the color to draw with
+        \param blend if true blending is used to draw the rectangle
+        \param tiling tiling of the texture in two dimensions
+        */
+        void drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling);
+
+        /*! draw specified frame of given atlas
+
+        \param matrix the matrix to position and scale the frame
+        \param atlas the atlas texture to use
+        \param frameIndext the frame index in the atlas
+        \param color the color to draw with
+        \param blend if true blending is used to draw the rectangle
+         */
+        void drawFrameInternal(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend);
+
+        /*! draw a filled circle.
+
+        \param x horizontal center position
+        \param y vertical center position
+        \param radius radius of the circle
+        \param segments segments count
+        \param color the color to draw with
+        */
+        void drawFilledCircleInternal(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color);
     };
 
 #include <igor/renderer/iRenderer.inl>
