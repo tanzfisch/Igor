@@ -55,28 +55,45 @@ void iaGradient<T>::removeIndex(int32 index)
 }
 
 template <class T>
-void iaGradient<T>::setValueAtIndex(int32 index, const T &value)
+void iaGradient<T>::setValueAtIndex(int32 index, float32 at, const T &value)
 {
-    if (index < _values.size())
-    {
-        _values[index] = std::pair<float32, T>(_values[index].first, value);
-    }
+    con_assert(index < _values.size(), "out of bounds");
+
+    _values[index].first = at;
+    _values[index].second = value;
+
+    std::sort(_values.begin(), _values.end(), [](std::pair<float32, T> const &a, std::pair<float32, T> const &b)
+              { return a.first < b.first; });
 }
 
 template <class T>
 void iaGradient<T>::getValueAtIndex(int32 index, float32 &at, T &value)
 {
-    if (index < _values.size())
-    {
-        at = _values[index].first;
-        value = _values[index].second;
-    }
+    con_assert(index < _values.size(), "out of bounds");
+
+    at = _values[index].first;
+    value = _values[index].second;
 }
 
 template <class T>
 const std::vector<std::pair<float32, T>> &iaGradient<T>::getValues() const
 {
     return _values;
+}
+
+template <class T>
+uint32 iaGradient<T>::getValueCount() const
+{
+    return _values.size();
+}
+
+template <class T>
+T iaGradient<T>::getValue(float32 at) const
+{
+    T result;
+    getValue(at, result);
+
+    return result;
 }
 
 template <class T>
@@ -104,7 +121,6 @@ void iaGradient<T>::getValue(float32 at, T &value) const
                 T b = _values[i].second;
                 b *= t;
                 value += b;
-
                 break;
             }
         }

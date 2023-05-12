@@ -42,10 +42,8 @@
 namespace iaux
 {
 
-    /*! multi color gradient
-
-    \todo move to IgorAux
-    */
+    /*! gradient of values
+     */
     template <class T>
     class IAUX_API_EXPORT_ONLY iaGradient
     {
@@ -53,8 +51,8 @@ namespace iaux
     public:
         /*! sets or if not present inserts a value at given position
 
-        \param value the value
         \param at the given position
+        \param value the value
         */
         void setValue(float32 at, const T &value);
 
@@ -65,16 +63,27 @@ namespace iaux
         */
         void getValue(float32 at, T &value) const;
 
+        /*! \returns value at given position
+
+        \param at the given position
+        */
+        T getValue(float32 at) const;
+
+        /*! \returns count of values in gradient
+        */
+        uint32 getValueCount() const;
+
         /*! sets value at specified index
 
         \param index index to modify
+        \param at the at value
         \param value the new value
         */
-        void setValueAtIndex(int32 index, const T &value);
+        void setValueAtIndex(int32 index, float32 at, const T &value);
 
         /*! returns location and value from specified index
 
-        \param index index to retrive data from
+        \param index index to retrieve data from
         \param[out] at location at index
         \param[out] value value at index
         */
@@ -87,51 +96,55 @@ namespace iaux
         void removeIndex(int32 index);
 
         /*! clears gradient entries
-        */
+         */
         void clear();
 
         /*! \returns reference to values
-        */
+         */
         const std::vector<std::pair<float32, T>> &getValues() const;
 
         /*! \returns true if color gradient is empty
-        */
+         */
         bool isEmpty() const;
 
         /*! does nothing
-        */
+         */
         iaGradient() = default;
 
         /*! does nothing
-        */
+         */
         ~iaGradient() = default;
 
     private:
         /*! the colors
-        */
+         */
         std::vector<std::pair<float32, T>> _values;
     };
 
 #include <iaux/data/iaGradient.inl>
 
     /*! uint32 gradient
-    */
+     */
     typedef iaGradient<uint32> iaGradientui;
 
     /*! float32 gradient
-    */
+     */
     typedef iaGradient<float32> iaGradientf;
 
+    /*! float64 gradient
+     */
+    typedef iaGradient<float64> iaGradientd;
+
     /*! float32 3d vector gradient
-    */
+     */
     typedef iaGradient<iaVector3f> iaGradientVector3f;
 
     /*! float32 2d vector gradient
-    */
+     */
     typedef iaGradient<iaVector2f> iaGradientVector2f;
 
     /*! color vector gradient
-    */
+     */
     typedef iaGradient<iaColor4f> iaGradientColor4f;
 
 }; // namespace iaux
