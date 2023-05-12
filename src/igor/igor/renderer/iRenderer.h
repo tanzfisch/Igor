@@ -473,15 +473,42 @@ namespace igor
         void drawFilledCircle(const iaCircle<T> &circle, int segments = 16, const iaColor4f &color = iaColor4f::white);
 
         ///////////////////// 3D ////////////////////////////
-        void drawBox(const iAACubed &box, const iaColor4f &color = iaColor4f::white);
-        void drawBox(const iAACubef &box, const iaColor4f &color = iaColor4f::white);
+        /*! draw box based on given axis aligned cube
 
-        void drawBox(const iAABoxd &box, const iaColor4f &color = iaColor4f::white);
-        void drawBox(const iAABoxf &box, const iaColor4f &color = iaColor4f::white);
+        positioned based on current model view and projection matrices
 
+        \param cube the given cube
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawBox(const iAACube<T> &cube, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw box based on given axis aligned box
+
+        \param box the given box
+        \param color the color to draw with
+        */
+        template <typename T>
+        void drawBox(const iAABox<T> &box, const iaColor4f &color = iaColor4f::white);
+
+        /*! draw mesh 
+
+        positioned based on current model view and projection matrices
+
+        \param mesh the given mesh to draw
+        \param targetMaterial the target material to use
+        */
         void drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial);
 
-        void drawBuffer(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial = nullptr);
+        /*! draw mesh instanced
+
+        positioned based on current model view and projection matrices
+
+        \param mesh the given mesh to draw
+        \param instancingBuffer the instancing buffer
+        \param targetMaterial the target material to use
+        */
+        void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial = nullptr);
 
         /*! draws buffer with given target material and primitive type
 
@@ -491,7 +518,7 @@ namespace igor
         */
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial = nullptr);
 
-        /////////////// LIGHT ///////////
+        /////////////// LIGHT TODO this might change a lot ///////////
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
         void setLightAmbient(int32 lightnum, iaColor3f &ambient);
         void setLightDiffuse(int32 lightnum, iaColor3f &diffuse);
@@ -625,6 +652,8 @@ namespace igor
         */
         void setStencilTestActive(bool enable);
 
+        /*! \returns true if stencil test is active
+        */
         bool isStencilTestActive() const;
 
         /*! sets the stencil function
@@ -646,10 +675,19 @@ namespace igor
         void setStencilOperation(iStencilOperation fail, iStencilOperation zfail, iStencilOperation zpass);
 
         /*! sets the stencil mask value
+
+        \param mask the stencil mas
          */
         void setStencilMask(uint8 mask);
 
+        /*! sets the depth test active/inactive
+
+        \param enable if true the depth test is enabled
+        */
         void setDepthTestActive(bool enable);
+
+        /*! \returns true if depth test is enabled
+        */
         bool isDepthTestActive() const;
 
         /*! render statistics definition
@@ -671,12 +709,21 @@ namespace igor
         */
         void destroyBuffer(uint32 bufferID);
 
-        // TODO
         /*! sets color Id to render with
+
+        is used by materials which use UNIFORM_SOLIDCOLOR to encode a color id
 
         \param colorID next color ID to render with
         */
         void setColorID(uint64 colorID);
+
+        /*! sets the solid color
+
+        only used by specialized shaders. see UNIFORM_SOLIDCOLOR
+
+        \param color the color to set
+        */
+        void setColor(const iaColor4f &color);
 
         /*! creates a render target
 
@@ -689,7 +736,7 @@ namespace igor
         */
         iRenderTargetID createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
 
-        /*! destroyes render target by id
+        /*! destroys render target by id
 
         \param id the given render target id
         */
@@ -708,7 +755,7 @@ namespace igor
         /*! reads rectangular area from screen buffer
 
         \param x horizontal position in pixel
-        \parma y vertical position in pixel
+        \param y vertical position in pixel
         \param width width in pixel
         \param height height in pixel
         \param format color format
@@ -872,6 +919,13 @@ namespace igor
         \param color the color to draw with
         */
         void drawFilledCircleInternal(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color);
+
+        /*! draw box based on given axis aligned box
+
+        \param box the given box
+        \param color the color to draw with
+        */
+        void drawBoxInternal(const iAABoxf &box, const iaColor4f &color);
     };
 
 #include <igor/renderer/iRenderer.inl>

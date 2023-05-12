@@ -292,3 +292,19 @@ void iRenderer::drawFilledCircle(T x, T y, T radius, int segments, const iaColor
 {
     drawFilledCircleInternal(static_cast<float32>(x), static_cast<float32>(y), static_cast<float32>(radius), segments, color);
 }
+
+template <typename T>
+void iRenderer::drawBox(const iAACube<T> &cube, const iaColor4f &color)
+{
+    drawBoxInternal(iAABoxf(iaVector3f(cube._center._x, cube._center._y, cube._center._z),
+                    iaVector3f(cube._halfEdgeLength, cube._halfEdgeLength, cube._halfEdgeLength)),
+            color);
+}
+
+template <typename T>
+void iRenderer::drawBox(const iAABox<T> &box, const iaColor4f &color)
+{
+    drawBoxInternal(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
+                    iaVector3f(box._halfWidths._x, box._halfWidths._y, box._halfWidths._z)),
+            color);
+}

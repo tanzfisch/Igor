@@ -327,7 +327,7 @@ namespace igor
 
         iaMatrixd _camMatrix;
 
-        ///////////// LIGHTS //////////////7
+        ///////////// LIGHTS //////////////
         /*! list of lights
          */
         std::map<int32, iRendererLight> _lights;
@@ -379,7 +379,7 @@ namespace igor
 
         /*! color id value
          */
-        iaColor4f _colorID;
+        iaColor4f _solidColor;
 
         ////// stats ////
         iRenderer::iRendererStats _stats;
@@ -873,6 +873,12 @@ namespace igor
     void iRenderer::drawPoint(const iaVector3<float32> &v, const iaColor4f &color)
     {
         drawPointInternal(v, color);
+    }
+
+    template <>
+    void iRenderer::drawBox(const iAABox<float32> &box, const iaColor4f &color)
+    {
+        drawBoxInternal(box, color);
     }
 
     void iRenderer::drawLineInternal(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color)
@@ -1635,71 +1641,49 @@ namespace igor
         return _data->_currentMaterial;
     }
 
-    void iRenderer::drawBox(const iAACubed &box, const iaColor4f &color)
-    {
-        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
-                        iaVector3f(box._halfEdgeLength, box._halfEdgeLength, box._halfEdgeLength)),
-                color);
-    }
-
-    void iRenderer::drawBox(const iAACubef &box, const iaColor4f &color)
-    {
-        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
-                        iaVector3f(box._halfEdgeLength, box._halfEdgeLength, box._halfEdgeLength)),
-                color);
-    }
-
-    void iRenderer::drawBox(const iAABoxd &box, const iaColor4f &color)
-    {
-        drawBox(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
-                        iaVector3f(box._halfWidths._x, box._halfWidths._y, box._halfWidths._z)),
-                color);
-    }
-
-    void iRenderer::drawBox(const iAABoxf &box, const iaColor4f &color)
+    void iRenderer::drawBoxInternal(const iAABoxf &box, const iaColor4f &color)
     {
         iaVector3f a = box._center;
         a -= box._halfWidths;
         iaVector3f b = box._center;
         b += box._halfWidths;
 
-        drawLine(iaVector3f(a._x, a._y, a._z),
-                 iaVector3f(b._x, a._y, a._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, a._z),
+                         iaVector3f(b._x, a._y, a._z), color);
 
-        drawLine(iaVector3f(a._x, a._y, a._z),
-                 iaVector3f(a._x, b._y, a._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, a._z),
+                         iaVector3f(a._x, b._y, a._z), color);
 
-        drawLine(iaVector3f(a._x, a._y, a._z),
-                 iaVector3f(a._x, a._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, a._z),
+                         iaVector3f(a._x, a._y, b._z), color);
 
-        drawLine(iaVector3f(b._x, a._y, a._z),
-                 iaVector3f(b._x, a._y, b._z), color);
+        drawLineInternal(iaVector3f(b._x, a._y, a._z),
+                         iaVector3f(b._x, a._y, b._z), color);
 
-        drawLine(iaVector3f(b._x, a._y, a._z),
-                 iaVector3f(b._x, b._y, a._z), color);
+        drawLineInternal(iaVector3f(b._x, a._y, a._z),
+                         iaVector3f(b._x, b._y, a._z), color);
 
-        drawLine(iaVector3f(b._x, a._y, b._z),
-                 iaVector3f(b._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(b._x, a._y, b._z),
+                         iaVector3f(b._x, b._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, a._y, b._z),
-                 iaVector3f(b._x, a._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, b._z),
+                         iaVector3f(b._x, a._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, a._y, b._z),
-                 iaVector3f(a._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, a._y, b._z),
+                         iaVector3f(a._x, b._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, b._y, a._z),
-                 iaVector3f(a._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, b._y, a._z),
+                         iaVector3f(a._x, b._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, b._y, b._z),
-                 iaVector3f(b._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(a._x, b._y, b._z),
+                         iaVector3f(b._x, b._y, b._z), color);
 
-        drawLine(iaVector3f(a._x, b._y, a._z),
-                 iaVector3f(b._x, b._y, a._z), color);
+        drawLineInternal(iaVector3f(a._x, b._y, a._z),
+                         iaVector3f(b._x, b._y, a._z), color);
 
-        drawLine(iaVector3f(b._x, b._y, a._z),
-                 iaVector3f(b._x, b._y, b._z), color);
+        drawLineInternal(iaVector3f(b._x, b._y, a._z),
+                         iaVector3f(b._x, b._y, b._z), color);
     }
-
 
     void iRenderer::drawFilledCircleInternal(float32 x, float32 y, float32 radius, int segments, const iaColor4f &color)
     {
@@ -1849,7 +1833,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawBuffer(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
+    void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
     {
         if (!mesh->isValid())
         {
@@ -1995,7 +1979,7 @@ namespace igor
 
         if (_data->_currentMaterial->hasSolidColor())
         {
-            _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, _data->_colorID);
+            _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, _data->_solidColor);
         }
     }
 
@@ -2021,10 +2005,15 @@ namespace igor
 
     void iRenderer::setColorID(uint64 colorID)
     {
-        _data->_colorID.set(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
-                            static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
-                            static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
-                            1.0f);
+        _data->_solidColor.set(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
+                               static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
+                               static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
+                               1.0f);
+    }
+
+    void iRenderer::setColor(const iaColor4f &color)
+    {
+        _data->_solidColor = color;
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)

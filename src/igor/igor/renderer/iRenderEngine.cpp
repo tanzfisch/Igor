@@ -292,7 +292,7 @@ namespace igor
 
                 for (const auto &pair : materialGroup._instancing)
                 {
-                    iRenderer::getInstance().drawBuffer(pair.first, pair.second._buffer, pair.second._targetMaterial);
+                    iRenderer::getInstance().drawMeshInstanced(pair.first, pair.second._buffer, pair.second._targetMaterial);
                     pair.second._buffer->clear();
                 }
             }
