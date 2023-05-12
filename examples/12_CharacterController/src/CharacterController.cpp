@@ -262,7 +262,7 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody *body, float64 time
 		force += gravityForce;
 	}
 
-	// horrizontal dampening
+	// horizontal dampening
 	iaVector3d horizontalVelocity = velocity;
 	horizontalVelocity.negate();
 	horizontalVelocity._y = 0;

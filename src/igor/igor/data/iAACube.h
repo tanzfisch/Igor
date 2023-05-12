@@ -50,7 +50,7 @@ namespace igor
         /*! init members constructor
 
         \param center center position of cube
-        \param halfEdgeLenght half of the edge lenght of the cube
+        \param halfEdgeLenght half of the edge length of the cube
         */
         iAACube(const iaVector3<T> &center, T halfEdgeLenght);
 
@@ -58,7 +58,7 @@ namespace igor
         */
         iaVector3<T> _center;
 
-        /*! half of the edge lenght
+        /*! half of the edge length
         */
         T _halfEdgeLength = static_cast<T>(0);
     };

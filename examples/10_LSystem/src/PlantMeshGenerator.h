@@ -66,7 +66,7 @@ struct PlantInformation
     */
     uint64 _seed = 0;
 
-    /*! segemnt lenght
+    /*! segemnt length
     */
     float64 _segmentLenght = 0;
 
@@ -143,7 +143,7 @@ public:
 
 private:
 
-    /*! segment lenght
+    /*! segment length
     */
     float64 _segmentLength = 0;
 
@@ -186,31 +186,31 @@ private:
     /*! generate mesh
 
     \param sectionType type of current section to generate mesh for
-    \param dir direction and lenght of current section
+    \param dir direction and length of current section
     */
     void generateMesh(SectionType sectionType, const iaVector3f& dir);
 
     /*! generates trunk mesh
 
-    \param dir direction and lenght of current section
+    \param dir direction and length of current section
     */
     void generateTrunk(const iaVector3f& dir);
 
     /*! generates flower mesh
 
-    \param dir direction and lenght of current section
+    \param dir direction and length of current section
     */
     void generateFlower(const iaVector3f& dir);
 
     /*! generates bud mesh
 
-    \param dir direction and lenght of current section
+    \param dir direction and length of current section
     */
     void generateBud(const iaVector3f& dir);
 
     /*! generates leaf mesh
 
-    \param dir direction and lenght of current section
+    \param dir direction and length of current section
     */
     void generateLeaf(const iaVector3f& dir);
 

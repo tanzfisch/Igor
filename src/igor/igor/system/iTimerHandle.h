@@ -59,7 +59,7 @@ namespace igor
         /*! creates timer handle and registers it to the iTimer running with given interval
 
 		\param timer_delegate timer delegate to register
-		\param intervall the lenght of the intervall
+		\param intervall the length of the intervall
 		\param oneShot if true the timed even only occurs once
 		*/
         iTimerHandle(iTimerTickDelegate timerDelegate, const iaTime &interval, bool oneShot = false);
@@ -82,7 +82,7 @@ namespace igor
 
         /*! changes timer interval
 
-		\param interval the lenght of the intervall
+		\param interval the length of the intervall
 
 		triggers restart()
 		*/

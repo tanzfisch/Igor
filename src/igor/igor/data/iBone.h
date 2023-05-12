@@ -65,13 +65,13 @@ namespace igor
         */
         void getMatrix(iaMatrixf &matrix) const;
 
-        /*! sets lenght of bone
+        /*! sets length of bone
 
-        \param lenght the lenght of the bone
+        \param length the length of the bone
         */
-        void setLenght(float64 lenght);
+        void setLenght(float64 length);
 
-        /*! \returns the lenght of the bone
+        /*! \returns the length of the bone
         */
         float64 getLenght() const;
 
@@ -110,7 +110,7 @@ namespace igor
         */
         iaMatrixf _matrix;
 
-        /*! lenght of bone
+        /*! length of bone
         */
         float64 _lenght = 0.0;
 

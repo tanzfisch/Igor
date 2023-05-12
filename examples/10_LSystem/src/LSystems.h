@@ -76,7 +76,7 @@ private:
     */
     iLSystem _lSystem;
 
-    /*! segment lenght
+    /*! segment length
     */
     float32 _segmentLength = 0;
 

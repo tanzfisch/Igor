@@ -47,7 +47,7 @@ namespace igor
 
         /*! ctor with parameters
 
-        \param x horrizontal position
+        \param x horizontal position
         \param y vertical position
         \param width width
         \param height height
@@ -118,9 +118,9 @@ namespace igor
         */
         const iaVector2<T> getCenter() const;
 
-        /*! sets horrizontal position
+        /*! sets horizontal position
 
-        \param x horrizontal position
+        \param x horizontal position
         */
         void setX(T x);
 
@@ -165,7 +165,7 @@ namespace igor
         */
         iRectangle<T> operator=(const iRectangle<T> &rectangle);
 
-        /*! horrizontal position
+        /*! horizontal position
          */
         T _x = (T)0;
 
