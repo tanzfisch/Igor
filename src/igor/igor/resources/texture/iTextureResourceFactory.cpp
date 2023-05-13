@@ -40,7 +40,7 @@ namespace igor
             con_endl("non released textures: ");
             for (auto texture : _textures)
             {
-                con_endl(texture.second->getFilename() << " ref:" << texture.second.use_count());
+                con_endl(texture.second->getName() << " ref:" << texture.second.use_count());
             }
         }
 
@@ -113,10 +113,10 @@ namespace igor
         _whiteTexture->_processed = true;
         _whiteTexture->_useFallback = false;
 
-        int64 hashValue = calcHashValue(_whiteTexture->getFilename(), _whiteTexture->_cacheMode, _whiteTexture->_buildMode, _whiteTexture->_wrapMode);
+        int64 hashValue = calcHashValue(_whiteTexture->getName(), _whiteTexture->_cacheMode, _whiteTexture->_buildMode, _whiteTexture->_wrapMode);
         _textures[hashValue] = _whiteTexture;
 
-        con_info("generated texture \"" << _whiteTexture->getFilename() << "\" [" << width << ":" << height << "]");
+        con_info("generated texture \"" << _whiteTexture->getName() << "\" [" << width << ":" << height << "]");
     }
 
     void iTextureResourceFactory::initBlackTexture()
@@ -138,10 +138,10 @@ namespace igor
         _blackTexture->_processed = true;
         _blackTexture->_useFallback = false;
 
-        int64 hashValue = calcHashValue(_blackTexture->getFilename(), _blackTexture->_cacheMode, _blackTexture->_buildMode, _blackTexture->_wrapMode);
+        int64 hashValue = calcHashValue(_blackTexture->getName(), _blackTexture->_cacheMode, _blackTexture->_buildMode, _blackTexture->_wrapMode);
         _textures[hashValue] = _blackTexture;
 
-        con_info("generated texture \"" << _blackTexture->getFilename() << "\" [" << width << ":" << height << "]");
+        con_info("generated texture \"" << _blackTexture->getName() << "\" [" << width << ":" << height << "]");
     }
 
     void iTextureResourceFactory::initDummyTexture()
@@ -199,10 +199,10 @@ namespace igor
 
         iRenderer::getInstance().setFallbackTexture(_dummyTexture);
 
-        int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
+        int64 hashValue = calcHashValue(_dummyTexture->getName(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         _textures[hashValue] = _dummyTexture;
 
-        con_info("generated texture \"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");
+        con_info("generated texture \"" << _dummyTexture->getName() << "\" [" << width << ":" << height << "]");
     }
 
     int64 iTextureResourceFactory::calcHashValue(const iaString &name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
@@ -339,7 +339,7 @@ namespace igor
                     texture->second.use_count() == 1 &&
                     texture->second->_cacheMode <= cacheModeLevel)
                 {
-                    con_info("released texture \"" << (*texture).second->getFilename() << "\"");
+                    con_info("released texture \"" << (*texture).second->getName() << "\"");
                     texture = _textures.erase(texture);
                     continue;
                 }
@@ -374,7 +374,7 @@ namespace igor
         int components = 0;
 
         char temp[1024];
-        texture->getFilename().getData(temp, 1024);
+        texture->getName().getData(temp, 1024);
 
         _mutexImageLibrary.lock();
         unsigned char *textureData = stbi_load(temp, &width, &height, &components, 0);
@@ -384,7 +384,7 @@ namespace igor
         {
             texture->_useFallback = true;
             texture->_valid = false;
-            con_err("can't load \"" << texture->getFilename() << "\"");
+            con_err("can't load \"" << texture->getName() << "\"");
         }
         else
         {
@@ -433,7 +433,7 @@ namespace igor
                 break;
             }
 
-            con_info("loaded texture \"" << texture->getFilename() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
+            con_info("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
 
             _mutexImageLibrary.lock();
             stbi_image_free(textureData);

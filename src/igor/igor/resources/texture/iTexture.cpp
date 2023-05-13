@@ -26,7 +26,7 @@ namespace igor
     }
 
     iTexture::iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
-        : _filename(name), _buildMode(buildMode), _wrapMode(wrapMode), _cacheMode(cacheMode)
+        : _name(name), _buildMode(buildMode), _wrapMode(wrapMode), _cacheMode(cacheMode)
     {
     }
 
@@ -92,9 +92,9 @@ namespace igor
         return _buildMode;
     }
 
-    const iaString &iTexture::getFilename() const
+    const iaString &iTexture::getName() const
     {
-        return _filename;
+        return _name;
     }
 
     bool iTexture::useFallback() const

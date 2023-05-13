@@ -92,6 +92,22 @@ namespace igor
 
         /*! requests a resource to be loaded asynchronously.
 
+        \param name the name of the resource
+        \param type the type of the resource
+        \returns shared pointer to resource
+        */
+        iResourcePtr requestResource(const iaString &name, const iaString &type = "");
+
+        /*! loads a resource synchronously.
+
+        \param name the name of the resource
+        \param type the type of the resource
+        \returns shared pointer to resource
+        */
+        iResourcePtr loadResource(const iaString &name, const iaString &type = "");
+
+        /*! requests a resource to be loaded asynchronously.
+
         \param param parameters for loading resource
         \returns shared pointer to resource
         */
@@ -106,9 +122,9 @@ namespace igor
 
         /*! works like a garbage collector.
 
-        Interrates through all textures and checks how many references every texture has. If reference count
-        goes down to 1 then the texture will be released. If reference count is greater 1 and the texture was
-        not loaded yet and the texture will be loaded.
+        Iterates through all resources and checks how many references every resource has. If reference count
+        goes down to 1 then the resource will be released. If reference count is greater 1 and the resource was
+        not loaded yet then the resource will be loaded.
 
         \param cacheModeLevel level of cache mode to be released
         */

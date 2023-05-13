@@ -26,62 +26,51 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SOUND_FACTORY_H__
-#define __SOUND_FACTORY_H__
+#ifndef __IGOR_ANIMATION__
+#define __IGOR_ANIMATION__
 
-#include <igor/resources/iFactory.h>
+#include <igor/resources/iResource.h>
+#include <iaux/system/iaTime.h>
+using namespace iaux;
 
 #include <memory>
 
 namespace igor
 {
 
-    /*! this factory creates and destroys sound resources
+    /*! animation base class
     */
-    class iSoundFactory : public iFactory
+    class IGOR_API iAnimation : public iResource
     {
+    public:
+
+        /*! does nothing
+        */
+        virtual ~iAnimation() = default;
+
+        /*! \returns duration of animation
+        */
+        virtual iaTime getDuration() const = 0;
+
+        /*! evaluates animation
+
+        \param t the scale form 0 to 1 from start to stop
+        */
+        virtual void evaluate(float64 t) = 0;
 
     private:
 
-        /*! \returns the factory type
+        /*! initializes members
 
-        this type is used to register with the resource manager
+        \param parameters the parameters which define the animation
         */
-        const iaString& getType() const override;
-
-        /*! \returns true if resource parameters are supported by this factory
-
-        \param parameters the given resource parameters
-        */
-        bool matchingType(const iResourceParameters& parameters) const override;    
-
-        /*! \returns resource type specific hash data
-        */
-        iaString getHashData(const iResourceParameters& parameters) const override;
-
-        /*! creates a resource object
-
-        \param parameters the resource parameters
-        \returns loaded or created new resource
-        */
-        iResourcePtr createResource(const iResourceParameters& parameters) const override;
-
-        /*! loads the resource
-
-        \param resource the resource to load
-        \returns true if loading the resource was successful
-        */
-        bool loadResource(iResourcePtr resource) const override;
-
-        /*! unloads the resource
-
-        \param resource the resource to unload
-        */
-        void unloadResource(iResourcePtr resource) const override;
-
+        iAnimation(const iResourceParameters &parameters);            
     };
 
+    /*! evaluation pointer definition
+    */
+    typedef std::shared_ptr<iAnimation> iAnimationPtr;
 
-}; // namespace igor
+} // namespace igor
 
-#endif // __SOUND_FACTORY_H__
+#endif

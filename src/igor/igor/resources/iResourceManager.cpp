@@ -177,6 +177,16 @@ namespace igor
         return result;
     }
 
+    iResourcePtr iResourceManager::requestResource(const iaString &name, const iaString &type)
+    {
+        return requestResource({name, type});
+    }
+
+    iResourcePtr iResourceManager::loadResource(const iaString &name, const iaString &type)
+    {
+        return loadResource({name, type});
+    }
+
     iResourcePtr iResourceManager::loadResource(const iResourceParameters &parameters)
     {
         iResourcePtr result;
@@ -365,7 +375,7 @@ namespace igor
             iaDirectory dir(path);
 
             con_endl("dir " << dir.getFullDirectoryName());
-            
+
             std::vector<iaString> matches;
             iaString::searchRegex(filename, dir.getFullDirectoryName(), matches);
             if (!matches.empty())

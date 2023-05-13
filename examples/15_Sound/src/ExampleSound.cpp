@@ -12,10 +12,8 @@ ExampleSound::ExampleSound(iWindowPtr window)
 void ExampleSound::onInit()
 {
     // load some sounds
-    iResourceParameters parametersBeep = {"beep.wav"};
-    _soundBeep = iResourceManager::getInstance().loadResource(parametersBeep);
-    iResourceParameters parametersLeftRight = {"left_right.wav"};
-    _soundLeftRight = iResourceManager::getInstance().loadResource(parametersLeftRight);
+    _soundBeep = iResourceManager::getInstance().loadResource("beep.wav");
+    _soundLeftRight = iResourceManager::getInstance().loadResource("left_right.wav");
 
     // setup camera
     iNodeTransform *camTransform = iNodeManager::getInstance().createNode<iNodeTransform>();

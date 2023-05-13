@@ -796,7 +796,7 @@ namespace igor
                         continue;
                     }
 
-                    result->setTexture(iResourceManager::getInstance().getRelativePath(pair.second->getFilename()), pair.first);
+                    result->setTexture(iResourceManager::getInstance().getRelativePath(pair.second->getName()), pair.first);
                 }
             }
             else

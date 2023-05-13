@@ -57,7 +57,7 @@ namespace igor
         */
         bool isValid() const;
 
-        /*! \returns true if the texture was processed
+        /*! \returns true if the texture was processed (ie loaded or generated)
         */
         bool isProcessed() const;
 
@@ -65,19 +65,19 @@ namespace igor
         */
         bool useFallback() const;
 
-        /*! \returns the width
+        /*! \returns the width in texels
         */
         int32 getWidth() const;
 
-        /*! \returns the height
+        /*! \returns the height in texels
         */
         int32 getHeight() const;
 
-        /*! \returns the bits per pixel
+        /*! \returns the bits per pixel (texel)
         */
         int32 getBpp() const;
 
-        /*! \returns the mip map levels
+        /*! \returns the mip map level count
         */
         uint32 getMipMapLevels() const;
 
@@ -101,9 +101,9 @@ namespace igor
         */
         iTextureWrapMode getWrapMode() const;
 
-        /*! returns the filename
+        /*! returns the textures name (usually the filename unless generated)
         */
-        const iaString &getFilename() const;
+        const iaString &getName() const;
 
         /*! binds and activates texture to given texture unit
 
@@ -130,7 +130,7 @@ namespace igor
 
         /*! the file name. initialized in ctor
 		*/
-        iaString _filename;
+        iaString _name;
 
         /*! cache mode. initialized in ctor
         */
