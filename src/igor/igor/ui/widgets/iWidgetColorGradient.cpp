@@ -7,7 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 #include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
@@ -26,7 +26,7 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
 
-        _texture = iTextureResourceFactory::getInstance().loadFile("igor/textures/checker.png");
+        _texture = iResourceManager::getInstance().loadResource<iTexture>("igor/textures/checker.png");
         _gradient.setValue(0.0, iaColor4f(1, 1, 1, 1));
     }
 

@@ -30,7 +30,7 @@
 #define __IGOR_NODEWATER__
 
 #include <igor/scene/nodes/iNodeRender.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 
 namespace igor
 {

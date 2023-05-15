@@ -49,11 +49,11 @@ public:
 private:
     /*! sound resource beep
     */
-    iResourcePtr _soundBeep;
+    iSoundPtr _soundBeep;
 
     /*! sound resource left right
     */
-    iResourcePtr _soundLeftRight;
+    iSoundPtr _soundLeftRight;
 
     /*! the transform the manipulates the audio source position
     */

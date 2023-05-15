@@ -156,7 +156,7 @@ namespace igor
 
         \param texture the texture to use
         */
-        void setFallbackTexture(const iTextureOldPtr &texture);
+        void setFallbackTexture(const iTexturePtr &texture);
 
         /*! draw point at given position (z = 0)
 
@@ -328,7 +328,7 @@ namespace igor
         \param tiling tiling of the texture in two dimensions
         */
         template <typename T>
-        void drawTexturedRectangle(T x, T y, T width, T height, const iTextureOldPtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
+        void drawTexturedRectangle(T x, T y, T width, T height, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
         /*! draw textured rectangle (z = 0)
 
@@ -339,7 +339,7 @@ namespace igor
         \param tiling tiling of the texture in two dimensions
         */
         template <typename T>
-        void drawTexturedRectangle(const iaRectangle<T> &rect, const iTextureOldPtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
+        void drawTexturedRectangle(const iaRectangle<T> &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
         /*! draw textured unit quad multiplied by a matrix
 
@@ -350,7 +350,7 @@ namespace igor
         \param tiling tiling of the texture in two dimensions
         */
         template <typename T>
-        void drawTexturedQuad(const iaMatrix<T> &matrix, const iTextureOldPtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
+        void drawTexturedQuad(const iaMatrix<T> &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
         /*! draw textured quad
 
@@ -363,7 +363,7 @@ namespace igor
         \param tiling tiling of the texture in two dimensions
         */
         template <typename T>
-        void drawTexturedQuad(const iaVector3<T> &o, const iaVector3<T> &u, const iaVector3<T> &v, iTextureOldPtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
+        void drawTexturedQuad(const iaVector3<T> &o, const iaVector3<T> &u, const iaVector3<T> &v, iTexturePtr texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
         /*! draw textured quad with four given points
 
@@ -377,7 +377,7 @@ namespace igor
         \param tiling tiling of the texture in two dimensions
         */
         template <typename T>
-        void drawTexturedQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iTextureOldPtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
+        void drawTexturedQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
         /*! draw specified frame of given atlas
 
@@ -826,7 +826,7 @@ namespace igor
 
         \param texture the texture to use
         */
-        int32 beginTexturedQuad(const iTextureOldPtr &texture);
+        int32 beginTexturedQuad(const iTexturePtr &texture);
 
         /*! end textured quad
          */
@@ -898,7 +898,7 @@ namespace igor
         \param blend if true blending is used to draw the rectangle
         \param tiling tiling of the texture in two dimensions
         */
-        void drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTextureOldPtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling);
+        void drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling);
 
         /*! draw specified frame of given atlas
 

@@ -10,7 +10,7 @@
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/renderer/iRenderStateSet.h>
 #include <igor/resources/material/iTargetMaterial.h>
@@ -248,7 +248,7 @@ namespace igor
         uint32 textureCount = meshChunk->getTextureCount();
         for (uint32 i = 0; i < textureCount; ++i)
         {
-            meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(meshChunk->getTexture(i)), i);
+            meshNode->getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(meshChunk->getTexture(i)), i);
             mesh->setTexture(i, true);
         }
 

@@ -30,7 +30,7 @@
 #define __IGOR_WIDGETCOLORGRADIENT__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTextureOld.h>
+#include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaGradient.h>
@@ -124,7 +124,7 @@ namespace igor
 
         /*! shared pointer to background texture
          */
-        iTextureOldPtr _texture;
+        iTexturePtr _texture;
 
         /*! color created event
          */

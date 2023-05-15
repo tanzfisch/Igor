@@ -97,10 +97,10 @@ private:
 
     /*! floor shadow
      */
-    iTextureOldPtr _shadow;
+    iTexturePtr _shadow;
 
-    iTextureOldPtr _shield;
-    iTextureOldPtr _rage;
+    iTexturePtr _shield;
+    iTexturePtr _rage;
 
     /*! texture font we use to display texts
      */
@@ -108,13 +108,13 @@ private:
 
     /*! coin texture
      */
-    iTextureOldPtr _coin;
+    iTexturePtr _coin;
 
-    iTextureOldPtr _damage;
+    iTexturePtr _damage;
 
-    iTextureOldPtr _attackSpeed;
+    iTexturePtr _attackSpeed;
 
-    iTextureOldPtr _walkSpeed;
+    iTexturePtr _walkSpeed;
 
     BuildingType _currentBuilding = BuildingType::None;
 

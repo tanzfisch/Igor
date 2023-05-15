@@ -14,7 +14,7 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/entities/iEntitySystemModule.h>
 
 #include <algorithm>
@@ -1298,7 +1298,7 @@ namespace igor
 
             iRenderer::getInstance().init();
             iMaterialResourceFactory::getInstance().init();
-            iTextureResourceFactory::getInstance().init();
+            //iTextureResourceFactory::getInstance().init();
             _impl->swapBuffers();
 
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));
@@ -1314,7 +1314,7 @@ namespace igor
             con_warn("window was not opened");
         }
 
-        iTextureResourceFactory::getInstance().deinit();
+        //iTextureResourceFactory::getInstance().deinit();
         iRenderer::getInstance().deinit();
         iMaterialResourceFactory::getInstance().deinit();
 

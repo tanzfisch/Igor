@@ -120,7 +120,7 @@ namespace igor
         _mesh = meshBuilder.createMesh();
     }
 
-    void iNodeSkyBox::setTexture(iTextureOldPtr texture)
+    void iNodeSkyBox::setTexture(iTexturePtr texture)
     {
         _targetMaterial->setTexture(texture, 0);
     }

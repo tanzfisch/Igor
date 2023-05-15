@@ -40,14 +40,14 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
 
             // start resource tasks
             _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(window));
-            _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(window));
+            _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(window));
 
             if (createSkyBox)
             {
                 // create a skybox
                 iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
                 // set it up with the default skybox texture
-                skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skyboxes/debug.png"));
+                skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/debug.png"));
                 // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
                 _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("examples/skybox.mat");
                 _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
@@ -62,7 +62,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             _standardFont = iTextureFont::create("igor/textures/StandardFont.png");
 
             // prepare igor logo
-            _igorLogo = iTextureResourceFactory::getInstance().loadFile("igor/textures/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
+            _igorLogo = iResourceManager::getInstance().loadResource<iTexture>("igor/textures/splash.png");
         }
     }
 }

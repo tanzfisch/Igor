@@ -29,7 +29,7 @@
 #ifndef __IGOR_FONT__
 #define __IGOR_FONT__
 
-#include <igor/resources/texture/iTextureOld.h>
+#include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaString.h>
@@ -118,7 +118,7 @@ namespace igor
 
         \return pointer to font texture
         */
-        iTextureOldPtr getTexture() const;
+        iTexturePtr getTexture() const;
 
         /*! returns character set
 
@@ -133,7 +133,7 @@ namespace igor
 
         /*! texture
          */
-        iTextureOldPtr _texture;
+        iTexturePtr _texture;
 
         /*! pixmap of the the texture
          */

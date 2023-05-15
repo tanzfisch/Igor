@@ -73,10 +73,10 @@ void UserControlMesh::updateNode()
             node->getTargetMaterial()->setEmissive(emissive);
             node->getTargetMaterial()->setShininess(_shininess);
 
-            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser0->getFileName()), 0);
-            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser1->getFileName()), 1);
-            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser2->getFileName()), 2);
-            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser3->getFileName()), 3);
+            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser0->getFileName()), 0);
+            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser1->getFileName()), 1);
+            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser2->getFileName()), 2);
+            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser3->getFileName()), 3);
 
             if (_selectMaterial->getSelectedUserData().has_value())
             {

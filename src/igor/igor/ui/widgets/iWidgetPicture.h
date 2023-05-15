@@ -30,7 +30,7 @@
 #define __IGOR_WIDGETPICTURE__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTextureOld.h>
+#include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -107,7 +107,7 @@ namespace igor
 
         /*! shared pointer to texture
 		*/
-        iTextureOldPtr _texture;
+        iTexturePtr _texture;
 
         /*! maximum dispaly width
 		*/

@@ -30,7 +30,7 @@
 #define __IGOR_WIDGETSLIDER__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTextureOld.h>
+#include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -155,11 +155,11 @@ namespace igor
 
         /*! the texture
 		*/
-        iTextureOldPtr _texture = nullptr;
+        iTexturePtr _texture = nullptr;
 
         /*! optional background texture
 		*/
-        iTextureOldPtr _backgroundTexture = nullptr;
+        iTexturePtr _backgroundTexture = nullptr;
 
         /*! texture path
 		*/

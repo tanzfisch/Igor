@@ -4,7 +4,7 @@
 
 #include <igor/simulation/iParticleSystem.h>
 #include <iaux/system/iaConsole.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <iaux/data/iaGradient.h>
 #include <igor/system/iTimer.h>

@@ -30,7 +30,7 @@
 #define __IGOR_WIDGETTHEME__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTextureOld.h>
+#include <igor/resources/texture/iTexture.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/data/iaString.h>
@@ -55,17 +55,17 @@ namespace igor
         virtual void drawFilledRectangle(const iaRectanglef &rect) = 0;
         virtual void drawGradient(const iaRectanglef &rect, const iaGradientColor4f &gradient) = 0;
 
-        virtual void drawTiledRectangle(const iaRectanglef &rect, iTextureOldPtr texture) = 0;
+        virtual void drawTiledRectangle(const iaRectanglef &rect, iTexturePtr texture) = 0;
 
         virtual void drawGridCell(const iaRectanglef &rect, iWidgetState state) = 0;
         virtual void drawGridHighlight(const iaRectanglef &rect) = 0;
         virtual void drawGridSelection(const iaRectanglef &rect) = 0;
         virtual void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool active) = 0;
         virtual void drawFrame(const iaRectanglef &rect, iWidgetState state, bool active) = 0;
-        virtual void drawPicture(const iaRectanglef &rect, iTextureOldPtr texture, iWidgetState state, bool active) = 0;
+        virtual void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active) = 0;
         virtual void drawDialog(const iaRectanglef &rect, iWidgetState state, bool active) = 0;
         virtual void drawSpacer(const iaRectanglef &rect, iWidgetState state, bool active) = 0;
-        virtual void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTextureOldPtr texture, iWidgetState state, bool active) = 0;
+        virtual void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetState state, bool active) = 0;
         virtual void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool active) = 0;
         virtual void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool active) = 0;
         virtual void drawCheckBox(const iaRectanglef &rect, const iaString &text, bool checked, iWidgetState state, bool active) = 0;

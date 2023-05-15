@@ -26,21 +26,19 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TASKFLUSHTEXTURES__
-#define __IGOR_TASKFLUSHTEXTURES__
+#ifndef __IGOR_TASKFLUSHRESOURCES__
+#define __IGOR_TASKFLUSHRESOURCES__
 
 #include <igor/threading/tasks/iTask.h>
 
 namespace igor
 {
 
-    /*! this task triggers the texture resource manager flush function repedatly
+    /*! this task triggers the resource manager flush function repeatedly
 
-    when ever there was a texture requested this task get's it actually loaded from disk
-
-    \see iTextureResourceFactory
+    when ever there was a resource requested this task get's it actually loaded from disk
     */
-    class IGOR_API iTaskFlushTextures : public iTask
+    class IGOR_API iTaskFlushResources : public iTask
     {
 
     public:
@@ -48,11 +46,11 @@ namespace igor
 
         \param window window connected to render context
         */
-        iTaskFlushTextures(iWindowPtr window);
+        iTaskFlushResources(iWindowPtr window);
 
         /*! does nothing
         */
-        virtual ~iTaskFlushTextures() = default;
+        virtual ~iTaskFlushResources() = default;
 
         /*! aborts the task
         */
@@ -66,4 +64,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_TASKFLUSHTEXTURES__
+#endif // __IGOR_TASKFLUSHRESOURCES__

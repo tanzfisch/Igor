@@ -14,10 +14,10 @@ Example2D::Example2D(iWindowPtr window)
 void Example2D::onInit()
 {
     // load the background tile texture
-    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("ice.png");
+    _backgroundTexture = iResourceManager::getInstance().loadResource<iTexture>("ice.png");
 
     // load a texture as an atlas
-    _doughnuts = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("doughnuts.png"));
+    _doughnuts = iAtlas::create(iResourceManager::getInstance().loadResource<iTexture>("doughnuts.png"));
     // set up frame
     _doughnutsFrameIndex = _doughnuts->addFrame(iaVector2f(0.0, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
     _doughnuts->addFrame(iaVector2f(0.5, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
@@ -94,8 +94,8 @@ void Example2D::initParticleSystem()
     matrix.rotate(-130.0 / 180.0 * M_PI, iaAxis::Z);
     _particleSystem.getEmitter().setWorldMatrix(matrix);
 
-    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("particleDot.png"), 0);
-    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("octave1.png"), 1);
+    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("particleDot.png"), 0);
+    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("octave1.png"), 1);
 }
 
 void Example2D::onDeinit()

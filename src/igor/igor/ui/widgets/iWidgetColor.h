@@ -30,7 +30,7 @@
 #define __IGOR_WIDGETCOLOR__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTextureOld.h>
+#include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
@@ -73,7 +73,7 @@ namespace igor
 
         /*! shared pointer to background texture
         */
-        iTextureOldPtr _texture;
+        iTexturePtr _texture;
 
         /*! updates size based on it's content
         */

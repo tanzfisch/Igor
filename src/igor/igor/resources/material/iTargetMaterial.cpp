@@ -56,7 +56,7 @@ namespace igor
         return _velocityOriented;
     }
 
-    void iTargetMaterial::setTexture(iTextureOldPtr texture, uint32 texunit)
+    void iTargetMaterial::setTexture(iTexturePtr texture, uint32 texunit)
     {
         _textures[texunit] = texture;
     }
@@ -73,7 +73,7 @@ namespace igor
         return false;
     }
 
-    iTextureOldPtr iTargetMaterial::getTexture(uint32 texunit) const
+    iTexturePtr iTargetMaterial::getTexture(uint32 texunit) const
     {
         auto tex = _textures.find(texunit);
         if (_textures.end() != tex)
@@ -84,7 +84,7 @@ namespace igor
         return nullptr;
     }
 
-    const std::map<uint32, iTextureOldPtr> &iTargetMaterial::getTextures() const
+    const std::map<uint32, iTexturePtr> &iTargetMaterial::getTextures() const
     {
         return _textures;
     }

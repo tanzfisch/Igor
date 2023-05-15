@@ -45,7 +45,7 @@ namespace igor
 {
 
     /*! manages resoruces and their factories
-    */
+     */
     class IGOR_API iResourceManager : public iModule<iResourceManager>
     {
 
@@ -65,11 +65,11 @@ namespace igor
         void removeSearchPath(const iaString &folder);
 
         /*! \returns list of search paths
-        */
+         */
         const std::vector<iaString> &getSearchPaths() const;
 
         /*! clears search path list
-        */
+         */
         void clearSearchPaths();
 
         /*! \returns full path to a file if it exists
@@ -93,18 +93,24 @@ namespace igor
         /*! requests a resource to be loaded asynchronously.
 
         \param name the name of the resource
-        \param type the type of the resource
         \returns shared pointer to resource
         */
-        iResourcePtr requestResource(const iaString &name, const iaString &type = "");
+        template <typename T>
+        std::shared_ptr<T> requestResource(const iaString &name)
+        {
+            return std::dynamic_pointer_cast<T>(requestResource({name}));
+        }
 
         /*! loads a resource synchronously.
 
         \param name the name of the resource
-        \param type the type of the resource
         \returns shared pointer to resource
         */
-        iResourcePtr loadResource(const iaString &name, const iaString &type = "");
+        template <typename T>
+        std::shared_ptr<T> loadResource(const iaString &name)
+        {
+            return std::dynamic_pointer_cast<T>(loadResource({name}));
+        }
 
         /*! requests a resource to be loaded asynchronously.
 
@@ -131,7 +137,7 @@ namespace igor
         void flush(iResourceCacheMode cacheModeLevel = iResourceCacheMode::Free);
 
         /*! if a flush in a different thread is currently running. this will prevent loading new data from disk and in consequence make it stop earlier
-        */
+         */
         void interruptFlush();
 
         /*! registers factory to resource manager
@@ -148,23 +154,23 @@ namespace igor
 
     private:
         /*! mutex to manage access to internal data
-        */
+         */
         iaMutex _mutex;
 
         /*! list of search paths
-        */
+         */
         std::vector<iaString> _searchPaths;
 
         /*! map of registered factories
-        */
+         */
         std::map<iaString, iFactoryPtr> _factories;
 
         /*! flag to interrupt flush cross threads
-        */
+         */
         bool _interruptLoading = false;
 
         /*! map of resources
-        */
+         */
         std::unordered_map<int64, iResourcePtr> _resources;
 
         /*! \returns resource for given parameters
@@ -188,11 +194,11 @@ namespace igor
         int64 calcHashValue(const iResourceParameters &parameters, iFactoryPtr factory);
 
         /*! does nothing
-        */
+         */
         iResourceManager();
 
         /*! free resources
-        */
+         */
         ~iResourceManager();
     };
 

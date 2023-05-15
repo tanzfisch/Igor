@@ -26,11 +26,11 @@ void GameLayer::onInit()
     _viewOrtho.registerRenderDelegate({this, &GameLayer::onRenderOrtho});
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(getWindow()));
 
-    _shadow = iTextureResourceFactory::getInstance().requestFile("supremacy/shadow.png");
-    _shield = iTextureResourceFactory::getInstance().requestFile("supremacy/shield.png");
-    _rage = iTextureResourceFactory::getInstance().requestFile("supremacy/rage.png");
+    _shadow = iResourceManager::getInstance().requestResource<iTexture>("supremacy/shadow.png");
+    _shield = iResourceManager::getInstance().requestResource<iTexture>("supremacy/shield.png");
+    _rage = iResourceManager::getInstance().requestResource<iTexture>("supremacy/rage.png");
 
     _player = createPlayer();
     _camera = createCamera();
@@ -54,10 +54,10 @@ void GameLayer::onInit()
     // init font for render profiler
     _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
 
-    _coin = iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png");
-    _damage = iTextureResourceFactory::getInstance().requestFile("supremacy/fist.png");
-    _attackSpeed = iTextureResourceFactory::getInstance().requestFile("supremacy/bullets.png");
-    _walkSpeed = iTextureResourceFactory::getInstance().requestFile("supremacy/run.png");
+    _coin = iResourceManager::getInstance().requestResource<iTexture>("supremacy/coin.png");
+    _damage = iResourceManager::getInstance().requestResource<iTexture>("supremacy/fist.png");
+    _attackSpeed = iResourceManager::getInstance().requestResource<iTexture>("supremacy/bullets.png");
+    _walkSpeed = iResourceManager::getInstance().requestResource<iTexture>("supremacy/run.png");
 
     _levelUpDialog = new UpgradeDialog();
     _shopDialog = new ShopDialog();
@@ -452,7 +452,7 @@ iEntity GameLayer::createPlayer()
 
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0)});
     entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/wagiuA5.png"), iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)});
+    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>("supremacy/wagiuA5.png"), iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)});
     entity.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
     entity.addComponent<iPartyComponent>({FRIEND});
     entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
@@ -551,14 +551,14 @@ void GameLayer::createBackground()
     iEntity entity = _entityScene->createEntity("background");
 
     entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d{200.0, 150.0, 1.0}});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/background.png"), iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderMode::Tiled});
+    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>("supremacy/background.png"), iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderMode::Tiled});
 }
 
 void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType)
 {
     iEntity entity = _entityScene->createEntity("object");
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
-    entity.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/coin.png"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
+    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>("supremacy/coin.png"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
     entity.addUserComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
     entity.addComponent<iPartyComponent>({party});
     entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
@@ -602,7 +602,7 @@ void GameLayer::createShop()
     _shop.addComponent<iTransformComponent>({iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)});
     _shop.addComponent<iVelocityComponent>({});
     _shop.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
-    _shop.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile("supremacy/drone.png")});
+    _shop.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>("supremacy/drone.png")});
     _shop.addComponent<iPartyComponent>({FRIEND});
     _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});
     _shop.addUserComponent<VisualComponent>({true, false, iaTime::fromSeconds(iaRandom::getNextFloat())});
@@ -678,7 +678,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0)});
     unit.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
     unit.addComponent<iVelocityComponent>({getRandomDir() * enemyClass._speed});
-    unit.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(enemyClass._texture)});
+    unit.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>(enemyClass._texture)});
     unit.addComponent<iPartyComponent>({party});
     unit.addComponent<iCircleCollision2DComponent>({enemyClass._size * 0.5});
     unit.addComponent<iBody2DComponent>({});
@@ -1117,7 +1117,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         d *= s;
         bullet.addComponent<iVelocityComponent>({d, iaVector3d(0.0, 0.0, angularVelocity)});
         bullet.addComponent<iPartyComponent>({party});
-        bullet.addComponent<iSpriteRendererComponent>({iTextureResourceFactory::getInstance().requestFile(weapon._texture)});
+        bullet.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>(weapon._texture)});
         bullet.addComponent<iCircleCollision2DComponent>({weapon._size * 0.5});
         bullet.addComponent<iBody2DComponent>({});
         bullet.addUserComponent<DamageComponent>({weapon._damage * modifier._damageFactor});

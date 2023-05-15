@@ -132,7 +132,7 @@ private:
 
     /*! igor logo
     */
-    iTextureOldPtr _igorLogo;
+    iTexturePtr _igorLogo;
 
     /*! outline font
     */

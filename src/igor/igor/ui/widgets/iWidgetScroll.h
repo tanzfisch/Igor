@@ -30,7 +30,7 @@
 #define __IGOR_WIDGETSCROLL__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTextureOld.h>
+#include <igor/resources/texture/iTexture.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -156,19 +156,19 @@ namespace igor
 
         /*! texture for button up
          */
-        iTextureOldPtr _upTexture;
+        iTexturePtr _upTexture;
 
         /*! texture for button down
          */
-        iTextureOldPtr _downTexture;
+        iTexturePtr _downTexture;
 
         /*! texture for button left
          */
-        iTextureOldPtr _leftTexture;
+        iTexturePtr _leftTexture;
 
         /*! texture for button uright
          */
-        iTextureOldPtr _rightTexture;
+        iTexturePtr _rightTexture;
 
         /*! handles incomming mouse wheel event
 

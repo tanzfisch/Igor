@@ -193,7 +193,7 @@ namespace igor
 
         /*! quad textures
          */
-        iTextureOldPtr _textures[MAX_TEXTURE_UNITS];
+        iTexturePtr _textures[MAX_TEXTURE_UNITS];
 
         /*! next available texture index for quads
          */
@@ -367,7 +367,7 @@ namespace igor
 
         /*! fallback texture used when there is no texture available
          */
-        iTextureOldPtr _fallbackTexture;
+        iTexturePtr _fallbackTexture;
 
         /*! current render target
          */
@@ -610,7 +610,7 @@ namespace igor
         setWireframeEnabled(false);
     }
 
-    __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTextureOldPtr &texture)
+    __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
     {
         auto &texQuads = _data->_texQuads;
 
@@ -658,7 +658,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
     }
 
-    void iRenderer::drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTextureOldPtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
+    void iRenderer::drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
@@ -804,13 +804,13 @@ namespace igor
     }
 
     template <>
-    void iRenderer::drawTexturedQuad(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaVector3<float32> &v3, const iaVector3<float32> &v4, const iTextureOldPtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
+    void iRenderer::drawTexturedQuad(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaVector3<float32> &v3, const iaVector3<float32> &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
     {
         drawTexturedQuadInternal(v1, v2, v3, v4, texture, color, blend, tiling);
     }
 
     template <>
-    void iRenderer::drawTexturedQuad(const iaMatrix<float32> &matrix, const iTextureOldPtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
+    void iRenderer::drawTexturedQuad(const iaMatrix<float32> &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
     {
         drawTexturedQuadInternal(matrix * QUAD_VERTEX_POSITIONS[0],
                                  matrix * QUAD_VERTEX_POSITIONS[1],
@@ -820,7 +820,7 @@ namespace igor
     }
 
     template <>
-    void iRenderer::drawTexturedQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, iTextureOldPtr texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
+    void iRenderer::drawTexturedQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
     {
         drawTexturedQuadInternal(o + v - u,
                                  o - v - u,
@@ -1362,7 +1362,7 @@ namespace igor
         const float32 &fontSize = _data->_fontSize;
         const float32 &fontLineHeight = _data->_fontLineHeight;
         const iTextureFontPtr &font = _data->_font;
-        const iTextureOldPtr &texture = font->getTexture();
+        const iTexturePtr &texture = font->getTexture();
 
         iaVector2f renderPos(x, y);
         iaVector2f renderSize(fontSize, fontSize);
@@ -1757,7 +1757,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Triangles;
     }
 
-    void iRenderer::setFallbackTexture(const iTextureOldPtr &texture)
+    void iRenderer::setFallbackTexture(const iTexturePtr &texture)
     {
         _data->_fallbackTexture = texture;
     }

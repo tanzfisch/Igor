@@ -3,9 +3,9 @@
 // see copyright notice in corresponding header file
 
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
-
+#include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/resources/material/iMaterial.h>
 #include <igor/renderer/iRenderer.h>
 
@@ -68,7 +68,7 @@ namespace igor
     iWidgetDefaultTheme::iWidgetDefaultTheme(const iaString &fontTexture, const iaString &backgroundTexture)
     {
         _font = iTextureFont::create(fontTexture);
-        _backgroundTexture = iTextureResourceFactory::getInstance().loadFile(backgroundTexture);
+        _backgroundTexture = iResourceManager::getInstance().loadResource<iTexture>(backgroundTexture);
     }
 
     iWidgetDefaultTheme::~iWidgetDefaultTheme()
@@ -193,7 +193,7 @@ namespace igor
         DRAW_DEBUG_OUTPUT(rect, state);
     }
 
-    void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTextureOldPtr texture, iWidgetState state, bool active)
+    void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetState state, bool active)
     {
         const int32 reduction = 2;
         int32 offset = 0;
@@ -662,14 +662,14 @@ namespace igor
         DRAW_DEBUG_OUTPUT(rect, state);
     }
 
-    void iWidgetDefaultTheme::drawTiledRectangle(const iaRectanglef &rect, iTextureOldPtr texture)
+    void iWidgetDefaultTheme::drawTiledRectangle(const iaRectanglef &rect, iTexturePtr texture)
     {
         const iaVector2f tiling(rect._width / texture->getWidth(),
                                 rect._height / texture->getHeight());
         iRenderer::getInstance().drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, iaColor4f::white, false, tiling);
     }
 
-    void iWidgetDefaultTheme::drawPicture(const iaRectanglef &rect, iTextureOldPtr texture, iWidgetState state, bool active)
+    void iWidgetDefaultTheme::drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active)
     {
         const iaColor4f &color = active ? COLOR_WHITE : COLOR_AMBIENT;
         iRenderer::getInstance().drawTexturedRectangle(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture, color, texture->hasTransparency());

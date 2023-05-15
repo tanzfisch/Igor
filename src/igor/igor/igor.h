@@ -68,7 +68,6 @@
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
@@ -119,7 +118,7 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/threading/tasks/iTaskFlushResources.h>
 
 #include <igor/simulation/iParticleSystem2D.h>
 

@@ -8,7 +8,7 @@
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodePhysics.h>
 

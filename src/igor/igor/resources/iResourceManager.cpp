@@ -167,16 +167,6 @@ namespace igor
         return result;
     }
 
-    iResourcePtr iResourceManager::requestResource(const iaString &name, const iaString &type)
-    {
-        return requestResource({name, type});
-    }
-
-    iResourcePtr iResourceManager::loadResource(const iaString &name, const iaString &type)
-    {
-        return loadResource({name, type});
-    }
-
     iResourcePtr iResourceManager::requestResource(const iResourceParameters &parameters)
     {
         iResourcePtr result;

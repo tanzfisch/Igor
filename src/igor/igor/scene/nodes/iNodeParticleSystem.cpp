@@ -5,7 +5,7 @@
 #include <igor/scene/nodes/iNodeParticleSystem.h>
 
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeEmitter.h>
 #include <igor/system/iApplication.h>
@@ -24,9 +24,9 @@ namespace igor
 
         _targetMaterial = iTargetMaterial::create();
 
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 0);
+        /*_targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 0);
         _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 1);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 2);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 2);*/ // TODO
     }
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem *node)
@@ -328,17 +328,17 @@ namespace igor
 
     void iNodeParticleSystem::setTextureA(const iaString &texture)
     {
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile(texture), 0);
+        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 0);
     }
 
     void iNodeParticleSystem::setTextureB(const iaString &texture)
     {
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile(texture), 1);
+        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 1);
     }
 
     void iNodeParticleSystem::setTextureC(const iaString &texture)
     {
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile(texture), 2);
+        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 2);
     }
 
     void iNodeParticleSystem::setEmissionGradient(const iaGradientf &emissionGradient)

@@ -4,7 +4,7 @@
 
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iPixmap.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/iResourceManager.h>
 
@@ -25,7 +25,7 @@ namespace igor
 
         const iaString resolved = iResourceManager::getInstance().getPath(filename);
 
-        _texture = iTextureResourceFactory::getInstance().loadFile(resolved, iResourceCacheMode::Free, iTextureBuildMode::Normal);
+        _texture = iResourceManager::getInstance().loadResource<iTexture>(resolved);
 
         if (!_texture->isValid())
         {
@@ -162,7 +162,7 @@ namespace igor
         _characters.clear();
     }
 
-    iTextureOldPtr iTextureFont::getTexture() const
+    iTexturePtr iTextureFont::getTexture() const
     {
         return _texture;
     }

@@ -30,7 +30,7 @@
 #define __IGOR_MESHBUILDER__
 
 #include <igor/data/iAABox.h>
-#include <igor/resources/texture/iTextureOld.h>
+#include <igor/resources/texture/iTexture.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/renderer/buffers/iVertexArray.h>
 

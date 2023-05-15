@@ -106,7 +106,7 @@ void ExampleCharacterController::onInit()
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
-    skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skyboxes/stars.png"));
+    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/stars.png"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
     _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("examples/skybox.mat");
     _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);

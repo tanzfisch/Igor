@@ -122,7 +122,6 @@ namespace igor
         iPhysics::create();
         iRenderer::create();
         iMaterialResourceFactory::create();
-        iTextureResourceFactory::create();
         iWidgetManager::create();
         iSceneFactory::create();
         iNodeManager::create();
@@ -172,11 +171,6 @@ namespace igor
         if (iMaterialResourceFactory::isInstantiated())
         {
             iMaterialResourceFactory::destroy();
-        }
-
-        if (iTextureResourceFactory::isInstantiated())
-        {
-            iTextureResourceFactory::destroy();
         }
 
         if (iRenderer::isInstantiated())
