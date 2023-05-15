@@ -53,11 +53,20 @@ namespace igor
         iTexturePattern pattern = iTexturePattern::SolidColor;
         iaColor4c primary = iaColor4c::white;
         iaColor4c secondary = iaColor4c::black;
-        uint32 width = 1;
-        uint32 height = 1;
-        const int Bpp = 4;
 
-        auto iter = parameters.find("pattern");
+        auto iter = parameters.find("wrapMode");
+        if (iter != parameters.end())
+        {
+            texture->_wrapMode = std::any_cast<iTextureWrapMode>(iter->second);
+        }
+
+        iter = parameters.find("buildMode");
+        if (iter != parameters.end())
+        {
+            texture->_buildMode = std::any_cast<iTextureBuildMode>(iter->second);
+        }
+
+        iter = parameters.find("pattern");
         if (iter != parameters.end())
         {
             pattern = std::any_cast<iTexturePattern>(iter->second);
@@ -80,22 +89,32 @@ namespace igor
         iter = parameters.find("width");
         if (iter != parameters.end())
         {
-            width = std::any_cast<uint32>(iter->second);
+            texture->_width = std::any_cast<int32>(iter->second);
+        }
+        else
+        {
+            texture->_width = 1;
         }
 
         iter = parameters.find("height");
         if (iter != parameters.end())
         {
-            height = std::any_cast<uint32>(iter->second);
+            texture->_height = std::any_cast<int32>(iter->second);
+        }
+        else
+        {
+            texture->_height = 1;
         }
 
-        uint8 *data = new uint8[width * height * Bpp];
+        uint32 Bpp = 4;
+
+        uint8 *data = new uint8[texture->_width * texture->_height * Bpp];
 
         switch (pattern)
         {
         case iTexturePattern::SolidColor:
         {
-            for (int i = 0; i < width * height; ++i)
+            for (int i = 0; i < texture->_width * texture->_height; ++i)
             {
                 memcpy(data + i * Bpp, &primary, Bpp);
             }
@@ -106,14 +125,14 @@ namespace igor
         {
             bool black = false;
 
-            for (uint32 y = 0; y < height; y++)
+            for (uint32 y = 0; y < texture->_height; y++)
             {
                 if (y % 8 == 0)
                 {
                     black = !black;
                 }
 
-                for (uint32 x = 0; x < width; x++)
+                for (uint32 x = 0; x < texture->_width; x++)
                 {
                     if (x % 8 == 0)
                     {
@@ -122,17 +141,20 @@ namespace igor
 
                     if (black)
                     {
-                        memcpy(data + (y * width + x) * Bpp, &primary, Bpp);
+                        memcpy(data + (y * texture->_width + x) * Bpp, &primary, Bpp);
                     }
                     else
                     {
-                        memcpy(data + (y * width + x) * Bpp, &secondary, Bpp);
+                        memcpy(data + (y * texture->_width + x) * Bpp, &secondary, Bpp);
                     }
                 }
             }
         }
         break;
         }
+
+        texture->setData(texture->_width, texture->_height, Bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
+        con_info("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] "); // TODO << texture->_buildMode << " " << texture->_wrapMode);
 
         delete[] data;
 

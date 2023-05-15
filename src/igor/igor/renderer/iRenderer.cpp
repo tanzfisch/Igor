@@ -10,6 +10,7 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <deque>
 #include <sstream>
@@ -539,6 +540,18 @@ namespace igor
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
+
+
+        ////////////// fallback texture //////////
+        _data->_fallbackTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource({"fallback_texture", "texture", iResourceCacheMode::Keep, 
+        {
+            {"generate", true},
+            {"pattern", iTexturePattern::Checker},
+            {"primary", iaColor4f::black},
+            {"secondary", iaColor4f::magenta},
+            {"width", 128},
+            {"height", 128}
+        }}));
     }
 
     void iRenderer::deinit()

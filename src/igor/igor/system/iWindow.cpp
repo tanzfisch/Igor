@@ -1298,7 +1298,6 @@ namespace igor
 
             iRenderer::getInstance().init();
             iMaterialResourceFactory::getInstance().init();
-            //iTextureResourceFactory::getInstance().init();
             _impl->swapBuffers();
 
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));
@@ -1314,7 +1313,6 @@ namespace igor
             con_warn("window was not opened");
         }
 
-        //iTextureResourceFactory::getInstance().deinit();
         iRenderer::getInstance().deinit();
         iMaterialResourceFactory::getInstance().deinit();
 

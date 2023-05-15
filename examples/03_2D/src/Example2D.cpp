@@ -193,7 +193,7 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
     // draw with dummy texture
-    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 410, iTextureResourceFactory::getInstance().getDummyTexture(), iaColor4f::white, true);
+    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 410, iResourceManager::getInstance().requestResource<iTexture>("fallback_texture"), iaColor4f::white, true);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "
