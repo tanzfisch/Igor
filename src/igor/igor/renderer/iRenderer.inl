@@ -174,7 +174,7 @@ void iRenderer::drawFilledRectangle(T x, T y, T width, T height, const iaColor4f
 }
 
 template <typename T>
-void iRenderer::drawTexturedRectangle(T x, T y, T width, T height, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
+void iRenderer::drawTexturedRectangle(T x, T y, T width, T height, const iTextureOldPtr &texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
 {
     drawTexturedQuadInternal(iaVector3f(static_cast<float32>(x), static_cast<float32>(y), 0.0),
                              iaVector3f(static_cast<float32>(x), static_cast<float32>(y + height), 0.0),
@@ -184,7 +184,7 @@ void iRenderer::drawTexturedRectangle(T x, T y, T width, T height, const iTextur
 }
 
 template <typename T>
-void iRenderer::drawTexturedRectangle(const iaRectangle<T> &rect, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
+void iRenderer::drawTexturedRectangle(const iaRectangle<T> &rect, const iTextureOldPtr &texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
 {
     drawTexturedQuadInternal(iaVector3f(static_cast<float32>(rect._x), static_cast<float32>(rect._y), 0.0),
                              iaVector3f(static_cast<float32>(rect._x), static_cast<float32>(rect._y + rect._height), 0.0),
@@ -194,7 +194,7 @@ void iRenderer::drawTexturedRectangle(const iaRectangle<T> &rect, const iTexture
 }
 
 template <typename T>
-void iRenderer::drawTexturedQuad(const iaVector3<T> &o, const iaVector3<T> &u, const iaVector3<T> &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
+void iRenderer::drawTexturedQuad(const iaVector3<T> &o, const iaVector3<T> &u, const iaVector3<T> &v, iTextureOldPtr texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
 {
     const iaVector3f of = iaVector3f(static_cast<float32>(o._x), static_cast<float32>(o._y), static_cast<float32>(o._z));
     const iaVector3f uf = iaVector3f(static_cast<float32>(u._x), static_cast<float32>(u._y), static_cast<float32>(u._z));
@@ -209,7 +209,7 @@ void iRenderer::drawTexturedQuad(const iaVector3<T> &o, const iaVector3<T> &u, c
 }
 
 template <typename T>
-void iRenderer::drawTexturedQuad(const iaMatrix<T> &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
+void iRenderer::drawTexturedQuad(const iaMatrix<T> &matrix, const iTextureOldPtr &texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
 {
     const iaVector3<T> v0(-0.5f, -0.5f, 0.0f);
     const iaVector3<T> v1(-0.5f, 0.5f, 0.0f);
@@ -225,7 +225,7 @@ void iRenderer::drawTexturedQuad(const iaMatrix<T> &matrix, const iTexturePtr &t
 }
 
 template <typename T>
-void iRenderer::drawTexturedQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
+void iRenderer::drawTexturedQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iTextureOldPtr &texture, const iaColor4f &color, bool blend, const iaVector2<T> &tiling)
 {
     drawTexturedQuadInternal(iaVector3f(static_cast<float32>(v1._x), static_cast<float32>(v1._y), static_cast<float32>(v1._z)),
                              iaVector3f(static_cast<float32>(v2._x), static_cast<float32>(v2._y), static_cast<float32>(v2._z)),

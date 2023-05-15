@@ -124,6 +124,15 @@ namespace igor
         MirrorRepeat
     };
 
+    /*! texture patterns
+     */
+    enum class iTexturePattern
+    {
+        SolidColor,
+        Checker
+    };
+
+
     /*! cache mode for resources
      */
     enum class iResourceCacheMode

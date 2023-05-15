@@ -15,6 +15,8 @@ void ExampleSound::onInit()
     _soundBeep = iResourceManager::getInstance().loadResource("beep.wav");
     _soundLeftRight = iResourceManager::getInstance().loadResource("left_right.wav");
 
+    iResourcePtr texture = iResourceManager::getInstance().loadResource("black.png");
+
     // setup camera
     iNodeTransform *camTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     camTransform->setName("camera transform");

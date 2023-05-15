@@ -73,20 +73,28 @@ namespace igor
         \param parameters the resource parameters
         \returns loaded or created new resource
         */
-        virtual iResourcePtr createResource(const iResourceParameters &parameters) const = 0;
+        virtual iResourcePtr createResource(const iResourceParameters &parameters) = 0;
 
         /*! loads the resource
 
         \param resource the resource to load
         \returns true if loading the resource was successful
         */
-        virtual bool loadResource(iResourcePtr resource) const = 0;
+        virtual bool loadResource(iResourcePtr resource) = 0;
 
         /*! unloads the resource
 
         \param resource the resource to unload
         */
-        virtual void unloadResource(iResourcePtr resource) const = 0;
+        virtual void unloadResource(iResourcePtr resource) = 0;
+
+        /*! called once after registration to resource manager
+        */
+        virtual void init() {};
+
+        /*! called once before unregistration from resource manager
+        */
+        virtual void deinit() {};
     };
 
     /*! definition of texture shared pointer

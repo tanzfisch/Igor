@@ -29,7 +29,7 @@
 #ifndef __IGOR_SPRITE__
 #define __IGOR_SPRITE__
 
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iTextureOld.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/math/iaVector2.h>
@@ -61,13 +61,13 @@ namespace igor
         \param texture atlas texture
         \param filename optional atlas data file
         */
-        static iAtlasPtr create(const iTexturePtr &texture, const iaString &filename = "");
+        static iAtlasPtr create(const iTextureOldPtr &texture, const iaString &filename = "");
 
         /*! ctor initializes member variables
 
         \param texture texture used for this sprite
         */
-        iAtlas(const iTexturePtr &texture, const iaString &filename = "");
+        iAtlas(const iTextureOldPtr &texture, const iaString &filename = "");
 
         /*! does nothing
          */
@@ -115,13 +115,13 @@ namespace igor
 
         /*! \returns texture
          */
-        const iTexturePtr &getTexture() const;
+        const iTextureOldPtr &getTexture() const;
 
         /*! sets txture used by this atlas
 
         \param texture the texture to use
         */
-        void setTexture(const iTexturePtr &texture);
+        void setTexture(const iTextureOldPtr &texture);
 
         /*! \returns the amount of frames
          */
@@ -143,7 +143,7 @@ namespace igor
 
         /*! texture in use
          */
-        iTexturePtr _texture;
+        iTextureOldPtr _texture;
 
         /*! read an atlas from xml file
          */

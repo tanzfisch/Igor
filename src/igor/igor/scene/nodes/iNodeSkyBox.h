@@ -48,7 +48,7 @@ namespace igor
 
         \param texture the texture to use
         */
-        void setTexture(iTexturePtr texture);
+        void setTexture(iTextureOldPtr texture);
 
         /*! sets the sky box size (radius)
 

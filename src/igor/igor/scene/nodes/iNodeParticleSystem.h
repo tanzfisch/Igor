@@ -30,7 +30,7 @@
 #define __IGOR_NODEPARTICLESYSTEM_H__
 
 #include <igor/scene/nodes/iNodeVolume.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iTextureOld.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/simulation/iParticleSystem.h>
 

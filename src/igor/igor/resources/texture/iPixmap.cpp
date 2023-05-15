@@ -4,6 +4,8 @@
 
 #include <igor/resources/texture/iPixmap.h>
 
+#include <igor/resources/iResourceManager.h>
+
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
 using namespace iaux;

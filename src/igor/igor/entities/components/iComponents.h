@@ -29,7 +29,7 @@
 #ifndef __IGOR_COMPONENTS__
 #define __IGOR_COMPONENTS__
 
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iTextureOld.h>
 #include <igor/data/iQuadtree.h>
 
 #include <iaux/data/iaString.h>
@@ -95,7 +95,7 @@ namespace igor
     {
         /*! texture to render as sprite
          */
-        iTexturePtr _texture; // TODO need sprite not just texture
+        iTextureOldPtr _texture; // TODO need sprite not just texture
 
         /*! render size
          */

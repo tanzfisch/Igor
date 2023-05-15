@@ -29,7 +29,7 @@
 #ifndef __IGOR_TEXTURERESOURCEFACTORY__
 #define __IGOR_TEXTURERESOURCEFACTORY__
 
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iTextureOld.h>
 #include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/module/iModule.h>
 
@@ -62,7 +62,7 @@ namespace igor
         \param wrapMode wrap mode of texture
         \returns shared pointer to texture
         */
-        iTexturePtr requestFile(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        iTextureOldPtr requestFile(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! load texture synchronously
 
@@ -70,7 +70,7 @@ namespace igor
         \param mode default ist mipmapped
         \returns shared pointer to texture
         */
-        iTexturePtr loadFile(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        iTextureOldPtr loadFile(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! works like a garbage collector.
 
@@ -92,28 +92,19 @@ namespace igor
         \param pixmapname artificial filename used as identifier (has to be a uNiQue)
         \param mode default ist mipmapped
         */
-        iTexturePtr loadFromPixmap(iPixmap *pixmap, const iaString &pixmapname, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
-
-        /*! synchronously loading a texture and returning a iPixmap
-
-		the returned pixmap must be deleted by the caller
-
-        \param filename name of file to load
-        \returns pointer to pixmap
-        */
-        iPixmapPtr loadPixmap(const iaString &filename);
+        iTextureOldPtr loadFromPixmap(iPixmap *pixmap, const iaString &pixmapname, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! \returns shared pointer to genereated dummy texture
         */
-        iTexturePtr getDummyTexture();
+        iTextureOldPtr getDummyTexture();
 
         /*! \returns shared pointer to genereated white texture
         */
-        iTexturePtr getWhiteTexture();
+        iTextureOldPtr getWhiteTexture();
 
         /*! \returns shared pointer to genereated black texture
         */
-        iTexturePtr getBlackTexture();
+        iTextureOldPtr getBlackTexture();
 
         /*! releases all textures
         */
@@ -132,31 +123,31 @@ namespace igor
         */
         bool _interruptLoading = false;
 
-        /*! mutex to protect the DevIL interface
+        /*! mutex to protect the image lib interface
         */
         iaMutex _mutexImageLibrary;
 
         /*! map of textures
         */
-        std::unordered_map<int64, iTexturePtr> _textures;
+        std::unordered_map<int64, iTextureOldPtr> _textures;
 
         /*! generated dummy texture
         */
-        iTexturePtr _dummyTexture = nullptr;
+        iTextureOldPtr _dummyTexture = nullptr;
 
         /*! generated white texture
         */
-        iTexturePtr _whiteTexture = nullptr;
+        iTextureOldPtr _whiteTexture = nullptr;
 
         /*! generated black texture
         */
-        iTexturePtr _blackTexture = nullptr;
+        iTextureOldPtr _blackTexture = nullptr;
 
         /*! actually loads a texture
 
         \param texture [in out] contains src information and texture
         */
-        void loadTexture(iTexturePtr texture);
+        void loadTexture(iTextureOldPtr texture);
 
         /*! calculates hash value based on filename or name and build mode
 

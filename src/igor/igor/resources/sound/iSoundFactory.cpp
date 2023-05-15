@@ -4,7 +4,6 @@
 
 #include <igor/resources/sound/iSoundFactory.h>
 
-#include <igor/resources/sound/iSound.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/sound/loader/iLoaderWAV.h>
 #include <igor/audio/iAudio.h>
@@ -21,56 +20,57 @@ namespace igor
         return typeName;
     }
 
-    iResourcePtr iSoundFactory::createResource(const iResourceParameters &parameters) const
+    iResourcePtr iSoundFactory::createResource(const iResourceParameters &parameters)
     {
         return iResourcePtr(new iSound(parameters));
     }
 
-    bool iSoundFactory::loadResource(iResourcePtr resource) const
+    bool iSoundFactory::loadResource(iResourcePtr resource)
     {
-        bool result = false;
-        iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        iSoundPtr sound = std::dynamic_pointer_cast<iSound>(resource);
+        return loadSound(filename, sound);
+    }
 
+    bool iSoundFactory::loadSound(const iaString &filename, iSoundPtr sound)
+    {
         iWAVHeader header;
         char *buffer = nullptr;
         int32 bufferSize;
-        if (loadWav(filename, header, &buffer, bufferSize))
+        if (!loadWav(filename, header, &buffer, bufferSize))
         {
-            auto sound = std::dynamic_pointer_cast<iSound>(resource);
-            con_assert(sound != nullptr, "zero pointer");
-
-            sound->_bitsPerSample = header._bitsPerSample;
-            sound->_byteRate = header._byteRate;
-            sound->_numChannels = header._numChannels;
-            sound->_sampleRate = header._sampleRate;
-
-            sound->_bytesPerSample = header._blockAlign;
-            sound->_sampleCount = bufferSize / sound->_bytesPerSample;
-
-            if (iAudio::getInstance().createBuffer(sound->_buffer, sound->_numChannels, sound->_bitsPerSample, sound->_sampleRate, buffer, bufferSize))
-            {
-                iaString channels;
-                switch (header._numChannels)
-                {
-                case 1:
-                    channels = L"mono";
-                    break;
-                case 2:
-                    channels = L"stereo";
-                    break;
-                }
-
-                con_info("loaded sound \"" << resource->getName() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
-                result = true;
-            }
-
-            delete[] buffer;
+            return false;
         }
 
-        return result;
+        sound->_bitsPerSample = header._bitsPerSample;
+        sound->_byteRate = header._byteRate;
+        sound->_numChannels = header._numChannels;
+        sound->_sampleRate = header._sampleRate;
+
+        sound->_bytesPerSample = header._blockAlign;
+        sound->_sampleCount = bufferSize / sound->_bytesPerSample;
+
+        if (iAudio::getInstance().createBuffer(sound->_buffer, sound->_numChannels, sound->_bitsPerSample, sound->_sampleRate, buffer, bufferSize))
+        {
+            iaString channels;
+            switch (header._numChannels)
+            {
+            case 1:
+                channels = L"mono";
+                break;
+            case 2:
+                channels = L"stereo";
+                break;
+            }
+
+            con_info("loaded sound \"" << sound->getName() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
+        }
+
+        delete[] buffer;
+        return true;
     }
 
-    void iSoundFactory::unloadResource(iResourcePtr resource) const
+    void iSoundFactory::unloadResource(iResourcePtr resource)
     {
         auto sound = std::dynamic_pointer_cast<iSound>(resource);
         con_assert(sound != nullptr, "zero pointer");

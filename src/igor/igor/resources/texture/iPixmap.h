@@ -36,18 +36,20 @@ using namespace iaux;
 
 #include <igor/iDefines.h>
 
+#include <memory>
+
 namespace igor
 {
 
     /*! pixmap is an editable texture
 
-    in order to use it for rendering one have to transform it in to a iTexture
+    in order to use it for rendering one have to transform it in to a iTextureOld
 
     \see iTextureResourceFactory::loadFromPixmap
     */
     class IGOR_API iPixmap
     {
-        friend class iTextureResourceFactory;
+        friend class iTextureFactory;
 
     public:
         /*! \returns width of pixmap
@@ -209,7 +211,7 @@ namespace igor
 
     /*! pixmap pointer definition
 	*/
-    typedef iPixmap *iPixmapPtr;
+    typedef std::shared_ptr<iPixmap> iPixmapPtr;
 
 }; // namespace igor
 

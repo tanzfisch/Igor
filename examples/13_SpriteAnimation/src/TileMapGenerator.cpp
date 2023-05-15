@@ -49,7 +49,7 @@ iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i
 
 	int wy, wx;
 
-	iTexturePtr texture = _atlas->getTexture();
+	iTextureOldPtr texture = _atlas->getTexture();
 	iaVector2i textureSize(texture->getWidth(), texture->getHeight());
 
 	for (int y = pos._y, wy = 0; y < pos._y + size._y; ++y, ++wy)
@@ -160,7 +160,7 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 
 	int wy, wx;
 
-	iTexturePtr texture = _atlas->getTexture();
+	iTextureOldPtr texture = _atlas->getTexture();
 	iaVector2i textureSize(texture->getWidth(), texture->getHeight());
 
 	for (int y = pos._y, wy = 0; y < pos._y + size._y; ++y, ++wy)
@@ -197,7 +197,7 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 		return nullptr;
 	}
 
-	iPixmapPtr pixmap = iTextureResourceFactory::getInstance().loadPixmap(filename);
+	iPixmapPtr pixmap = iTextureFactory::loadPixmap(filename);
 
 	iNode *result = iNodeManager::getInstance().createNode<iNode>();
 

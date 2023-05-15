@@ -77,11 +77,11 @@ private:
 
     /*! background tileable texture
     */
-    iTexturePtr _backgroundTexture = nullptr;
+    iTextureOldPtr _backgroundTexture = nullptr;
 
     /*! a dummy texture
     */
-    iTexturePtr _dummyTexture = nullptr;
+    iTextureOldPtr _dummyTexture = nullptr;
 
     /*! a B-Spline
     */

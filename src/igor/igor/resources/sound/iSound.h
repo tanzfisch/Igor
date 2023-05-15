@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SOUND_H__
-#define __SOUND_H__
+#ifndef __IGOR_SOUND__
+#define __IGOR_SOUND__
 
 #include <igor/resources/iResource.h>
 
@@ -35,21 +35,21 @@ namespace igor
 {
 
     /*! audio buffer
-    */
+     */
     struct IGOR_API iAudioBuffer
     {
         uint32 _id = 0;
     };
 
     /*! audio source
-    */
+     */
     struct IGOR_API iAudioSource
     {
         uint32 _id = 0;
     };
 
     /*! represents a sound resource
-    */
+     */
     class IGOR_API iSound : public iResource
     {
 
@@ -58,64 +58,52 @@ namespace igor
 
     public:
         /*! does nothing
-        */
+         */
         ~iSound() = default;
 
         /*! \returns number of channels
-        */
-        __IGOR_INLINE__ int16 getNumberOfChannels() const
-        {
-            return _numChannels;
-        }
+         */
+        int16 getNumberOfChannels() const;
 
         /*! \returns sample rate
-        */
-        __IGOR_INLINE__ int32 getSampleRate() const
-        {
-            return _sampleRate;
-        }
+         */
+        int32 getSampleRate() const;
 
         /*! \returns byte rate
-        */
-        __IGOR_INLINE__ int32 getByteRate() const
-        {
-            return _byteRate;
-        }
+         */
+        int32 getByteRate() const;
 
         /*! \returns bits per sample
-        */
-        __IGOR_INLINE__ int16 getBitsPerSample() const
-        {
-            return _bitsPerSample;
-        }
+         */
+        int16 getBitsPerSample() const;
 
     private:
         /*! sound buffer
-        */
+         */
         iAudioBuffer _buffer;
 
         /*! number of channels
-        */
+         */
         int16 _numChannels = 0;
 
         /*! sample rate
-        */
+         */
         int32 _sampleRate = 0;
 
         /*! byte rate
-        */
+         */
         int32 _byteRate = 0;
 
         /*! bits per sample
-        */
+         */
         int16 _bitsPerSample = 0;
 
         /*! bytes per sample
-        */
+         */
         int32 _bytesPerSample = 0;
 
         /*! sample count
-        */
+         */
         int32 _sampleCount = 0;
 
         /*! initializes members
@@ -126,9 +114,9 @@ namespace igor
     };
 
     /*! definition of sound pointer
-    */
+     */
     typedef std::shared_ptr<iSound> iSoundPtr;
 
 }; // namespace igor
 
-#endif // __SOUND_H__
+#endif // __IGOR_SOUND__

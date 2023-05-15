@@ -30,7 +30,7 @@
 #define __IGOR_TARGETMATERIAL__
 
 #include <igor/iDefines.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iTextureOld.h>
 
 #include <iaux/data/iaColor3.h>
 using namespace iaux;
@@ -64,13 +64,13 @@ namespace igor
         \param texture the texture to add
         \param texunit the texture unit
         */
-        void setTexture(iTexturePtr texture, uint32 texunit);
+        void setTexture(iTextureOldPtr texture, uint32 texunit);
 
         /*! \returns texture for given texture unit
 
         \param texunit the given texture unit
         */
-        iTexturePtr getTexture(uint32 texunit) const;
+        iTextureOldPtr getTexture(uint32 texunit) const;
 
         /*! \returns true if target material has texture for given texture unit
 
@@ -80,7 +80,7 @@ namespace igor
 
         /*! \returns all the textures in the target material
          */
-        const std::map<uint32, iTexturePtr> &getTextures() const;
+        const std::map<uint32, iTextureOldPtr> &getTextures() const;
 
         /*! sets the tiling configuration that can be use in a shader
 
@@ -168,7 +168,7 @@ namespace igor
 
         /*! texture unit to texture map
          */
-        std::map<uint32, iTexturePtr> _textures;
+        std::map<uint32, iTextureOldPtr> _textures;
 
         /*! material emissive value
          */

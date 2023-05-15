@@ -30,7 +30,7 @@
 #define __IGOR_WIDGETBUTTON_H__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iTextureOld.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -111,7 +111,7 @@ namespace igor
 
         /*! the buttons texture
         */
-        iTexturePtr _texture;
+        iTextureOldPtr _texture;
 
         /*! texture path
         */

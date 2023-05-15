@@ -26,64 +26,84 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TEXTURE__
-#define __IGOR_TEXTURE__
+#ifndef __IGOR_TEXTURE_OLD__
+#define __IGOR_TEXTURE_OLD__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#include <igor/resources/iResource.h>
-#include <igor/resources/texture/iPixmap.h>
+#include <igor/iDefines.h>
 
 #include <memory>
 
 namespace igor
 {
 
+    /*! definition of texture shared pointer
+	*/
+    class iTextureOld;
+    typedef std::shared_ptr<iTextureOld> iTextureOldPtr;    
+
     /*! represents a texture resource
-     */
-    class IGOR_API iTexture : public iResource
+    */
+    class IGOR_API iTextureOld
     {
 
-        friend class iTextureFactory;
+        friend class iTextureResourceFactory;
 
     public:
+    
+        /*! \returns true if there is actually a texture present
+        */
+        bool isValid() const;
+
+        /*! \returns true if the texture was processed (ie loaded or generated)
+        */
+        bool isProcessed() const;
 
         /*! \returns true if it is unprocessed or invalid. Then the renderer will use a fallback texture
-         */
+        */
         bool useFallback() const;
 
         /*! \returns the width in texels
-         */
+        */
         int32 getWidth() const;
 
         /*! \returns the height in texels
-         */
+        */
         int32 getHeight() const;
 
         /*! \returns the bits per pixel (texel)
-         */
+        */
         int32 getBpp() const;
 
         /*! \returns the mip map level count
-         */
+        */
         uint32 getMipMapLevels() const;
 
         /*! \returns the color format
-         */
+        */
         iColorFormat getColorFormat() const;
 
         /*! \returns true if data contains alpha channel and values != 1.0
-         */
+        */
         bool hasTransparency() const;
 
+        /*! \returns cache mode
+        */
+        iResourceCacheMode getCacheMode() const;
+
         /*! \returns the texture build mode
-         */
+        */
         iTextureBuildMode getBuildMode() const;
 
         /*! \returns texture wrap mode
-         */
+        */
         iTextureWrapMode getWrapMode() const;
+
+        /*! returns the textures name (usually the filename unless generated)
+        */
+        const iaString &getName() const;
 
         /*! binds and activates texture to given texture unit
 
@@ -92,56 +112,80 @@ namespace igor
         void bind(uint32 textureUnit);
 
         /*! \returns texture id
-         */
+        */
         uint32 getTextureID() const;
 
     private:
+        /*! true if there was actually a texture loaded
+		*/
+        bool _valid = false;
+
+        /*! if true the texture is considered loaded regardless if it was a success or not
+        */
+        bool _processed = false;
 
         /*! true if it is a dummy texture
-         */
+		*/
         bool _useFallback = true;
 
+        /*! the file name. initialized in ctor
+		*/
+        iaString _name;
+
+        /*! cache mode. initialized in ctor
+        */
+        iResourceCacheMode _cacheMode;
+
         /*! build mode. initialized in ctor
-         */
+		*/
         iTextureBuildMode _buildMode;
 
         /*! wrap mode. initialized in ctor
-         */
+        */
         iTextureWrapMode _wrapMode;
 
         /*! the width
-         */
+		*/
         int32 _width = 256;
 
         /*! the height
-         */
+		*/
         int32 _height = 256;
 
         /*! bits per pixel
-         */
+		*/
         int32 _bpp = 0;
 
         /*! color format
-         */
+		*/
         iColorFormat _colorFormat = iColorFormat::Undefined;
 
         /*! mip map levels
-         */
+        */
         uint32 _mipMapLevels = 1;
 
         /*! renderer specific texture handle
-         */
+		*/
         uint32 _textureID = 0;
 
         /*! if true data has alpha channel with values != 1.0
-         */
+        */
         bool _hasTrans = false;
 
         /*! ctor
 
-        initializes member variables
-        */
-        iTexture(const iResourceParameters &parameters);
+		initializes member variables
+		*/
+        iTextureOld(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
+
+        /*! \returns a newly created texture
+
+        \param name name of the texture (usually the filename)
+        \param cacheMode caching mode
+        \param buildMode build mode 
+        \param wrapMode texture coordinates wrapping mode
+         */
+        static iTextureOldPtr create(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
 
         /*! sets data on texture
 
@@ -153,13 +197,10 @@ namespace igor
         \param buildMode generation mode of texture like mimapping or not
         \param wrapMode wrap mode of texture
         */
-        void setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
-    };
+        void setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);        
 
-    /*! definition of texture shared pointer
-     */
-    typedef std::shared_ptr<iTexture> iTexturePtr;
+    };
 
 }; // namespace igor
 
-#endif // __IGOR_TEXTURE__
+#endif // __IGOR_TEXTURE_OLD__

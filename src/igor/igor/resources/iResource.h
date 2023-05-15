@@ -61,9 +61,9 @@ namespace igor
         */
         iResourceCacheMode _cacheMode = iResourceCacheMode::Free;
 
-        /*! type specific parameters
+        /*! key value parameters
         */
-        std::any _data;
+        std::map<iaString, std::any> _parameters;
     };
 
     /*! represents a resource
@@ -79,48 +79,30 @@ namespace igor
 
         /*! \returns true if there is valid data present
         */
-        __IGOR_INLINE__ bool isValid() const
-        {
-            return _valid;
-        }
+        bool isValid() const;
 
         /*! \returns true if the resource was processed
 
         processed does not mean that it was loaded correctly 
         it can also mean that we are done trying to loading it
         */
-        __IGOR_INLINE__ bool isProcessed() const
-        {
-            return _processed;
-        }
+        bool isProcessed() const;
 
         /*! \returns the resource name
         */
-        __IGOR_INLINE__ const iaString &getName() const
-        {
-            return _parameters._name;
-        }
+        const iaString &getName() const;
 
         /*! \returns cache mode
         */
-        __IGOR_INLINE__ iResourceCacheMode getCacheMode() const
-        {
-            return _parameters._cacheMode;
-        }
+        iResourceCacheMode getCacheMode() const;
 
         /*! \returns resource parameters
         */
-        __IGOR_INLINE__ const iResourceParameters &getParameters() const
-        {
-            return _parameters;
-        }
+        const iResourceParameters &getParameters() const;
 
         /*! \returns the resource type
         */
-        __IGOR_INLINE__ const iaString &getType() const
-        {
-            return _parameters._type;
-        }
+        const iaString &getType() const;
 
     protected:
         /*! initializes members
@@ -133,17 +115,25 @@ namespace igor
         }
 
     private:
-        /*! true if there was actually a texture loaded
+        /*! true if there was actually a resource loaded
 		*/
         bool _valid = false;
 
-        /*! if true the texture is considered loaded regardless if it was a success or not
+        /*! if true the resource is considered loaded regardless if it was a success or not
         */
         bool _processed = false;
 
         /*! parameters of this resource
         */
         iResourceParameters _parameters;
+
+        /*! sets processed flag on resource
+        */
+        void setProcessed(bool processed);
+
+        /*! sets valid flag on resource
+        */
+        void setValid(bool valid);
 
         /*! does nothing
         */

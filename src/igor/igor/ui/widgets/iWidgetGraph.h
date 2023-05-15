@@ -42,7 +42,7 @@ using namespace iaux;
 namespace igor
 {
 
-    class iTexture;
+    class iTextureOld;
 
     /*! graph widget. to display graphs
 

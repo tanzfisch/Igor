@@ -13,7 +13,6 @@ using namespace iaux;
 #pragma warning(disable : 4312)
 #endif
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 #ifdef __IGOR_WINDOWS__
@@ -72,17 +71,17 @@ namespace igor
         flush(iResourceCacheMode::Keep);
     }
 
-    iTexturePtr iTextureResourceFactory::getDummyTexture()
+    iTextureOldPtr iTextureResourceFactory::getDummyTexture()
     {
         return _dummyTexture;
     }
 
-    iTexturePtr iTextureResourceFactory::getWhiteTexture()
+    iTextureOldPtr iTextureResourceFactory::getWhiteTexture()
     {
         return _whiteTexture;
     }
 
-    iTexturePtr iTextureResourceFactory::getBlackTexture()
+    iTextureOldPtr iTextureResourceFactory::getBlackTexture()
     {
         return _blackTexture;
     }
@@ -106,7 +105,7 @@ namespace igor
         data[2] = 0xff;
         data[3] = 0xff;
 
-        _whiteTexture = iTexture::create("white", iResourceCacheMode::Keep, iTextureBuildMode::Normal, iTextureWrapMode::Repeat);
+        _whiteTexture = iTextureOld::create("white", iResourceCacheMode::Keep, iTextureBuildMode::Normal, iTextureWrapMode::Repeat);
         _whiteTexture->setData(width, height, 4, iColorFormat::RGBA, data, _whiteTexture->_buildMode, _whiteTexture->_wrapMode);
 
         _whiteTexture->_valid = true;
@@ -131,7 +130,7 @@ namespace igor
         data[2] = 0x00;
         data[3] = 0xff;
 
-        _blackTexture = iTexture::create("black", iResourceCacheMode::Keep, iTextureBuildMode::Normal, iTextureWrapMode::Repeat);
+        _blackTexture = iTextureOld::create("black", iResourceCacheMode::Keep, iTextureBuildMode::Normal, iTextureWrapMode::Repeat);
         _blackTexture->setData(width, height, 4, iColorFormat::RGBA, data, _blackTexture->_buildMode, _blackTexture->_wrapMode);
 
         _blackTexture->_valid = true;
@@ -191,7 +190,7 @@ namespace igor
             }
         }
 
-        _dummyTexture = iTexture::create("dummy", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat);
+        _dummyTexture = iTextureOld::create("dummy", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat);
         _dummyTexture->setData(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
 
         _dummyTexture->_valid = true;
@@ -250,14 +249,14 @@ namespace igor
         return hashFunc(combined.getData());
     }
 
-    iTexturePtr iTextureResourceFactory::loadFile(const iaString &filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    iTextureOldPtr iTextureResourceFactory::loadFile(const iaString &filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         if(filename.isEmpty())
         {
             return nullptr;
         }
 
-        iTexturePtr result;
+        iTextureOldPtr result;
 
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
         if (keyPath.isEmpty())
@@ -276,7 +275,7 @@ namespace igor
 
         if (nullptr == result.get())
         {
-            result = iTexturePtr(new iTexture(keyPath, cacheMode, buildMode, wrapMode));
+            result = iTextureOldPtr(new iTextureOld(keyPath, cacheMode, buildMode, wrapMode));
             loadTexture(result);
             _textures[hashValue] = result;
         }
@@ -285,9 +284,9 @@ namespace igor
         return result;
     }
 
-    iTexturePtr iTextureResourceFactory::requestFile(const iaString &filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    iTextureOldPtr iTextureResourceFactory::requestFile(const iaString &filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        iTexturePtr result;
+        iTextureOldPtr result;
 
         if (!filename.isEmpty())
         {
@@ -309,7 +308,7 @@ namespace igor
 
             if (nullptr == result.get())
             {
-                result = iTexturePtr(new iTexture(keyPath, cacheMode, buildMode, wrapMode));
+                result = iTextureOldPtr(new iTextureOld(keyPath, cacheMode, buildMode, wrapMode));
                 _mutex.lock();
                 _textures[hashValue] = result;
                 _mutex.unlock();
@@ -326,7 +325,7 @@ namespace igor
 
     void iTextureResourceFactory::flush(iResourceCacheMode cacheModeLevel)
     {
-        std::vector<iTexturePtr> texturesToProcess;
+        std::vector<iTextureOldPtr> texturesToProcess;
 
         _mutex.lock();
         auto texture = _textures.begin();
@@ -367,7 +366,7 @@ namespace igor
         _interruptLoading = false;
     }
 
-    void iTextureResourceFactory::loadTexture(iTexturePtr texture)
+    void iTextureResourceFactory::loadTexture(iTextureOldPtr texture)
     {
         int width = 0;
         int height = 0;
@@ -444,9 +443,9 @@ namespace igor
         texture->_processed = true;
     }
 
-    iTexturePtr iTextureResourceFactory::loadFromPixmap(iPixmap *pixmap, const iaString &pixmapname, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    iTextureOldPtr iTextureResourceFactory::loadFromPixmap(iPixmap *pixmap, const iaString &pixmapname, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        iTexturePtr result;
+        iTextureOldPtr result;
         int64 hashValue = calcHashValue(pixmapname, cacheMode, buildMode, wrapMode);
 
         _mutex.lock();
@@ -480,7 +479,7 @@ namespace igor
                 con_err("unknown color format");
             };
 
-            result = iTexture::create(pixmapname, cacheMode, buildMode, wrapMode);
+            result = iTextureOld::create(pixmapname, cacheMode, buildMode, wrapMode);
             result->setData(width, height, bpp, colorformat, data, buildMode, wrapMode);
 
             _mutex.lock();
@@ -489,56 +488,6 @@ namespace igor
         }
 
         return result;
-    }
-
-    iPixmapPtr iTextureResourceFactory::loadPixmap(const iaString &filename)
-    {
-        iaString fullPath = iResourceManager::getInstance().getPath(filename);
-
-        iPixmap *pixmap = nullptr;
-
-        int width = 0;
-        int height = 0;
-        int components = 0;
-
-        char temp[1024];
-        fullPath.getData(temp, 1024);
-
-        _mutexImageLibrary.lock();
-        unsigned char *textureData = stbi_load(temp, &width, &height, &components, 0);
-        _mutexImageLibrary.unlock();
-
-        if (textureData == nullptr)
-        {
-            con_err("can't load \"" << fullPath << "\"");
-        }
-        else
-        {
-            iColorFormat colorFormat = iColorFormat::Undefined;
-
-            switch (components)
-            {
-            case 3:
-                colorFormat = iColorFormat::RGB;
-                break;
-
-            case 4:
-                colorFormat = iColorFormat::RGBA;
-                break;
-
-            default:
-                con_warn("unsupported color format");
-            };
-
-            pixmap = new iPixmap(width, height, colorFormat);
-            pixmap->setData(textureData);
-        }
-
-        _mutexImageLibrary.lock();
-        stbi_image_free(textureData);
-        _mutexImageLibrary.unlock();
-
-        return pixmap;
     }
 
 }; // namespace igor

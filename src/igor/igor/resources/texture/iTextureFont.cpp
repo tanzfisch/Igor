@@ -5,6 +5,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/iResourceManager.h>
 
 namespace igor
@@ -30,7 +31,7 @@ namespace igor
         {
             return;
         }
-        _pixmap = iTextureResourceFactory::getInstance().loadPixmap(resolved);
+        _pixmap = iTextureFactory::loadPixmap(resolved);
 
         if (_pixmap == nullptr)
         {
@@ -161,7 +162,7 @@ namespace igor
         _characters.clear();
     }
 
-    iTexturePtr iTextureFont::getTexture() const
+    iTextureOldPtr iTextureFont::getTexture() const
     {
         return _texture;
     }

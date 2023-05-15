@@ -12,12 +12,12 @@
 namespace igor
 {
 
-    iAtlasPtr iAtlas::create(const iTexturePtr &texture, const iaString &filename)
+    iAtlasPtr iAtlas::create(const iTextureOldPtr &texture, const iaString &filename)
     {
         return std::make_shared<iAtlas>(texture, filename);
     }
 
-    iAtlas::iAtlas(const iTexturePtr &texture, const iaString &filename)
+    iAtlas::iAtlas(const iTextureOldPtr &texture, const iaString &filename)
     {
         _texture = texture;
 
@@ -27,7 +27,7 @@ namespace igor
         }
     }
 
-    void iAtlas::setTexture(const iTexturePtr &texture)
+    void iAtlas::setTexture(const iTextureOldPtr &texture)
     {
         _texture = texture;
     }
@@ -109,7 +109,7 @@ namespace igor
         }
     }
 
-    const iTexturePtr &iAtlas::getTexture() const
+    const iTextureOldPtr &iAtlas::getTexture() const
     {
         return _texture;
     }

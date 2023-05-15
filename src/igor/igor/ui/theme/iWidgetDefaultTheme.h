@@ -30,7 +30,7 @@
 #define __IGOR_WIDGETDEFAULTTHEME__
 
 #include <igor/ui/theme/iWidgetTheme.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iTextureOld.h>
 
 #include <iaux/data/iaColor4.h>
 using namespace iaux;
@@ -53,17 +53,17 @@ namespace igor
         void drawFilledRectangle(const iaRectanglef &rect);
         void drawGradient(const iaRectanglef &rect, const iaGradientColor4f &gradient);
 
-        void drawTiledRectangle(const iaRectanglef &rect, iTexturePtr texture);
+        void drawTiledRectangle(const iaRectanglef &rect, iTextureOldPtr texture);
 
         void drawGridCell(const iaRectanglef &rect, iWidgetState state);
         void drawGridHighlight(const iaRectanglef &rect);
         void drawGridSelection(const iaRectanglef &rect);
         void drawFrame(const iaRectanglef &rect, iWidgetState state, bool active);
         void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool active);
-        void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active);
+        void drawPicture(const iaRectanglef &rect, iTextureOldPtr texture, iWidgetState state, bool active);
         void drawDialog(const iaRectanglef &rect, iWidgetState state, bool active);
         void drawSpacer(const iaRectanglef &rect, iWidgetState state, bool active);
-        void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetState state, bool active);
+        void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTextureOldPtr texture, iWidgetState state, bool active);
         void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool active);
         void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool active);
         void drawCheckBox(const iaRectanglef &rect, const iaString &text, bool checked, iWidgetState state, bool active);
@@ -101,7 +101,7 @@ namespace igor
 		*/
         float32 _fontLineHeight = 1.1f;
 
-        iTexturePtr _backgroundTexture = nullptr;
+        iTextureOldPtr _backgroundTexture = nullptr;
 
         /*! texture based font
         */

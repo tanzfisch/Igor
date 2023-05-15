@@ -2,8 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/texture/iTexture.h>
-#include <igor/resources/iResourceManager.h>
+#include <igor/resources/texture/iTextureOld.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
 
@@ -16,77 +15,94 @@
 namespace igor
 {
 
-    iTexture::iTexture(const iResourceParameters &parameters)
-        : iResource(parameters)
+    void deleter(const iTextureOld *texture)
     {
-        auto &data = parameters._parameters;
-
-        auto iterWrapMode = data.find("wrapMode");
-        if(iterWrapMode != data.end())
-        {
-            _wrapMode = std::any_cast<iTextureWrapMode>(iterWrapMode->second);
-        }
-
-        auto iterBuildMode = data.find("buildMode");
-        if(iterBuildMode != data.end())
-        {
-            _buildMode = std::any_cast<iTextureBuildMode>(iterBuildMode->second);
-        }     
+        delete texture;
     }
 
-    void iTexture::bind(uint32 textureUnit)
+    iTextureOldPtr iTextureOld::create(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    {
+        return std::shared_ptr<iTextureOld>(new iTextureOld(name, cacheMode, buildMode, wrapMode), deleter);
+    }
+
+    iTextureOld::iTextureOld(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+        : _name(name), _buildMode(buildMode), _wrapMode(wrapMode), _cacheMode(cacheMode)
+    {
+    }
+
+    void iTextureOld::bind(uint32 textureUnit)
     {
         con_assert(glIsTexture(_textureID), "invalid texture id " << _textureID);
         glBindTextureUnit(textureUnit, _textureID);
         GL_CHECK_ERROR();
     }
 
-    uint32 iTexture::getTextureID() const
+    uint32 iTextureOld::getTextureID() const
     {
         return _textureID;
     }
 
-    int32 iTexture::getWidth() const
+    bool iTextureOld::isProcessed() const
+    {
+        return _processed;
+    }
+
+    bool iTextureOld::isValid() const
+    {
+        return _valid;
+    }
+
+    int32 iTextureOld::getWidth() const
     {
         return _width;
     }
 
-    int32 iTexture::getHeight() const
+    int32 iTextureOld::getHeight() const
     {
         return _height;
     }
 
-    int32 iTexture::getBpp() const
+    int32 iTextureOld::getBpp() const
     {
         return _bpp;
     }
 
-    iColorFormat iTexture::getColorFormat() const
+    iColorFormat iTextureOld::getColorFormat() const
     {
         return _colorFormat;
     }
 
-    bool iTexture::hasTransparency() const
+    bool iTextureOld::hasTransparency() const
     {
         return _hasTrans;
     }
 
-    iTextureWrapMode iTexture::getWrapMode() const
+    iResourceCacheMode iTextureOld::getCacheMode() const
+    {
+        return _cacheMode;
+    }
+
+    iTextureWrapMode iTextureOld::getWrapMode() const
     {
         return _wrapMode;
     }
 
-    iTextureBuildMode iTexture::getBuildMode() const
+    iTextureBuildMode iTextureOld::getBuildMode() const
     {
         return _buildMode;
     }
 
-    bool iTexture::useFallback() const
+    const iaString &iTextureOld::getName() const
+    {
+        return _name;
+    }
+
+    bool iTextureOld::useFallback() const
     {
         return _useFallback;
     }
 
-    void iTexture::setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    void iTextureOld::setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         const int32 glformat = iRendererUtils::convertType(format, false);
         const int32 glformatSized = iRendererUtils::convertType(format, true);
@@ -172,10 +188,9 @@ namespace igor
             
     }
 
-    uint32 iTexture::getMipMapLevels() const
+    uint32 iTextureOld::getMipMapLevels() const
     {
         return _mipMapLevels;
     }
-
 
 }; // namespace igor

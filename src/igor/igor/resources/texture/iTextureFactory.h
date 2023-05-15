@@ -26,20 +26,30 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SOUND_FACTORY_H__
-#define __SOUND_FACTORY_H__
+#ifndef __TEXTURE_FACTORY__
+#define __TEXTURE_FACTORY__
 
 #include <igor/resources/iFactory.h>
-
-#include <igor/resources/sound/iSound.h>
+#include <igor/resources/texture/iTexture.h>
 
 namespace igor
 {
 
-    /*! this factory creates and destroys sound resources
+    class iPixmap;
+
+    /*! this factory creates and destroys texture resources
      */
-    class iSoundFactory : public iFactory
+    class iTextureFactory : public iFactory
     {
+
+    public:
+        /*! loads pixmap from texture
+
+        \param filename the file to load
+        \returns pixmap
+        \todo need a better place for this
+        */
+        static iPixmap *loadPixmap(const iaString &filename);
 
     private:
         /*! \returns the factory type
@@ -78,14 +88,25 @@ namespace igor
         */
         void unloadResource(iResourcePtr resource) override;
 
-        /*! loads sound from given file
+        /*! mutex to protect the image lib interface
+         */
+        static iaMutex _mutexImageLibrary;
+
+        /*! loads texture from given file
 
         \param filename the given filename
-        \param sound the sound resource
+        \param texture the texture resource
         */
-        bool loadSound(const iaString &filename, iSoundPtr sound);
+        bool loadTexture(const iaString &filename, iTexturePtr texture);
+
+        /*! generates some simple textures
+
+        \param texture the texture resource
+        \param parameters parameters to generate a texture
+        */
+        bool generateTexture(iTexturePtr texture, const std::map<iaString, std::any> &parameters);
     };
 
 }; // namespace igor
 
-#endif // __SOUND_FACTORY_H__
+#endif // __TEXTURE_FACTORY__

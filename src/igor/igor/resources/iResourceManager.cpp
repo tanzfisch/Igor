@@ -5,6 +5,7 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <igor/resources/sound/iSoundFactory.h>
+#include <igor/resources/texture/iTextureFactory.h>
 #include <igor/threading/iTaskManager.h>
 
 #include <iaux/system/iaFile.h>
@@ -16,6 +17,7 @@ namespace igor
     iResourceManager::iResourceManager()
     {
         registerFactory(iFactoryPtr(new iSoundFactory()));
+        registerFactory(iFactoryPtr(new iTextureFactory()));
     }
 
     iResourceManager::~iResourceManager()
@@ -90,6 +92,7 @@ namespace igor
         }
 
         _factories[factory->getType()] = factory;
+        factory->init();
     }
 
     void iResourceManager::unregisterFactory(iFactoryPtr factory)
@@ -101,6 +104,7 @@ namespace igor
             return;
         }
 
+        factory->deinit();
         _factories.erase(iter);
     }
 
@@ -163,20 +167,6 @@ namespace igor
         return result;
     }
 
-    iResourcePtr iResourceManager::requestResource(const iResourceParameters &parameters)
-    {
-        iResourcePtr result;
-        iFactoryPtr factory;
-
-        if ((factory = getFactory(parameters)) == nullptr)
-        {
-            return result;
-        }
-
-        result = getResource(parameters, factory);
-        return result;
-    }
-
     iResourcePtr iResourceManager::requestResource(const iaString &name, const iaString &type)
     {
         return requestResource({name, type});
@@ -185,6 +175,19 @@ namespace igor
     iResourcePtr iResourceManager::loadResource(const iaString &name, const iaString &type)
     {
         return loadResource({name, type});
+    }
+
+    iResourcePtr iResourceManager::requestResource(const iResourceParameters &parameters)
+    {
+        iResourcePtr result;
+        iFactoryPtr factory;
+        if ((factory = getFactory(parameters)) == nullptr)
+        {
+            return result;
+        }
+
+        result = getResource(parameters, factory);
+        return result;
     }
 
     iResourcePtr iResourceManager::loadResource(const iResourceParameters &parameters)
@@ -197,7 +200,11 @@ namespace igor
         }
 
         result = getResource(parameters, factory);
-        factory->loadResource(result);
+        if (!result->isProcessed())
+        {
+            result->setValid(factory->loadResource(result));
+            result->setProcessed(true);
+        }
 
         return result;
     }
