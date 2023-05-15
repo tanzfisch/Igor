@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLTRANSFORMATION_H__
-#define __USERCONTROLTRANSFORMATION_H__
+#ifndef __USERCONTROLTRANSFORMATION__
+#define __USERCONTROLTRANSFORMATION__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -63,4 +63,4 @@ private:
     void deinitGUI();
 };
 
-#endif // __USERCONTROLTRANSFORMATION_H__
+#endif // __USERCONTROLTRANSFORMATION__

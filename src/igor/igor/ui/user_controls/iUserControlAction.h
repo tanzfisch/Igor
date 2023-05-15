@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROLACTION_H__
-#define __IGOR_USERCONTROLACTION_H__
+#ifndef __IGOR_USERCONTROLACTION__
+#define __IGOR_USERCONTROLACTION__
 
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/user_controls/iUserControl.h>
@@ -122,4 +122,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROLACTION_H__
+#endif // __IGOR_USERCONTROLACTION__

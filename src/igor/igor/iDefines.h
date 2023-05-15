@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DEFINES_H__
-#define __IGOR_DEFINES_H__
+#ifndef __IGOR_DEFINES__
+#define __IGOR_DEFINES__
 
 #include <ostream>
 
@@ -280,4 +280,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_DEFINES_H__
+#endif // __IGOR_DEFINES__

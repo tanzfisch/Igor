@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __FIRSTSTEPS_H__
-#define __FIRSTSTEPS_H__
+#ifndef __FIRSTSTEPS__
+#define __FIRSTSTEPS__
 
 #include <ExampleBase.h>
 
@@ -65,4 +65,4 @@ private:
     virtual void onDeinit() override;
 };
 
-#endif // __FIRSTSTEPS_H__
+#endif // __FIRSTSTEPS__

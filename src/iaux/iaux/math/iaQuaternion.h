@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_QUATERNION_H__
-#define __IAUX_QUATERNION_H__
+#ifndef __IAUX_QUATERNION__
+#define __IAUX_QUATERNION__
 
 #include <iaux/math/iaVector3.h>
 
@@ -239,4 +239,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif // __IAUX_QUATERNION_H__
+#endif // __IAUX_QUATERNION__

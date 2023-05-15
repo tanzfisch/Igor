@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_NODEPARTICLESYSTEM_H__
-#define __IGOR_NODEPARTICLESYSTEM_H__
+#ifndef __IGOR_NODEPARTICLESYSTEM__
+#define __IGOR_NODEPARTICLESYSTEM__
 
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/texture/iTextureOld.h>
@@ -454,4 +454,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_NODEPARTICLESYSTEM_H__
+#endif // __IGOR_NODEPARTICLESYSTEM__

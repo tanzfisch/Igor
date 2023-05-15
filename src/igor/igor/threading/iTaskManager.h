@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TASKMANAGER_H__
-#define __IGOR_TASKMANAGER_H__
+#ifndef __IGOR_TASKMANAGER__
+#define __IGOR_TASKMANAGER__
 
 #include <igor/iDefines.h>
 #include <igor/threading/iThread.h>
@@ -265,4 +265,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_TASKMANAGER_H__
+#endif // __IGOR_TASKMANAGER__

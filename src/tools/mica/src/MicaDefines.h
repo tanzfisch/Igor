@@ -26,9 +26,9 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MICADEFINES_H__
-#define __MICADEFINES_H__
+#ifndef __MICADEFINES__
+#define __MICADEFINES__
 
 #define MICA_REGULARBUTTON_SIZE 80
 
-#endif // __MICADEFINES_H__
+#endif // __MICADEFINES__

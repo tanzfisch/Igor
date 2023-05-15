@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETGRAPH_H__
-#define __IGOR_WIDGETGRAPH_H__
+#ifndef __IGOR_WIDGETGRAPH__
+#define __IGOR_WIDGETGRAPH__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -315,4 +315,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif // __IGOR_WIDGETGRAPH_H__
+#endif // __IGOR_WIDGETGRAPH__

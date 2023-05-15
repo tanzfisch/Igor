@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OUTLINER_H__
-#define __OUTLINER_H__
+#ifndef __OUTLINER__
+#define __OUTLINER__
 
 #include "Workspace.h"
 #include "usercontrols/UserControlGraphView.h"
@@ -171,4 +171,4 @@ private:
     void onMaterialViewSelected(const iWidgetPtr source);
 };
 
-#endif // __OUTLINER_H__
+#endif // __OUTLINER__

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __RESOURCE_H__
-#define __RESOURCE_H__
+#ifndef __RESOURCE__
+#define __RESOURCE__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -146,4 +146,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __RESOURCE_H__
+#endif // __RESOURCE__

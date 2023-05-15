@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_MATRIX2D_H__
-#define __IAUX_MATRIX2D_H__
+#ifndef __IAUX_MATRIX2D__
+#define __IAUX_MATRIX2D__
 
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
@@ -184,4 +184,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_MATRIX2D_H__
+#endif // __IAUX_MATRIX2D__

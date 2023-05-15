@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_SPHERE_H__
-#define __IAUX_SPHERE_H__
+#ifndef __IAUX_SPHERE__
+#define __IAUX_SPHERE__
 
 #include <iaux/math/iaVector3.h>
 
@@ -107,4 +107,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif // __IAUX_SPHERE_H__
+#endif // __IAUX_SPHERE__

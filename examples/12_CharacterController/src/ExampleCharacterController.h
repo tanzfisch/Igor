@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLECHARACTERCONTROLLER_H__
-#define __EXAMPLECHARACTERCONTROLLER_H__
+#ifndef __EXAMPLECHARACTERCONTROLLER__
+#define __EXAMPLECHARACTERCONTROLLER__
 
 #include <ExampleBase.h>
 
@@ -172,4 +172,4 @@ private:
     bool onKeyUp(iEventKeyUp &event);
 };
 
-#endif // __EXAMPLECHARACTERCONTROLLER_H__
+#endif // __EXAMPLECHARACTERCONTROLLER__

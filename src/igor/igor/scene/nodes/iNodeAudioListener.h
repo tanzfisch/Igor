@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __NODE_AUDIO_LISTENER_H__
-#define __NODE_AUDIO_LISTENER_H__
+#ifndef __NODE_AUDIO_LISTENER__
+#define __NODE_AUDIO_LISTENER__
 
 #include <igor/scene/nodes/iNode.h>
 
@@ -87,4 +87,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __NODE_AUDIO_LISTENER_H__
+#endif // __NODE_AUDIO_LISTENER__

@@ -136,4 +136,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_MATERIALRESOURCEFACTORY_H__
+#endif // __IGOR_MATERIALRESOURCEFACTORY__

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RESOURCEMANAGER_H__
-#define __IGOR_RESOURCEMANAGER_H__
+#ifndef __IGOR_RESOURCEMANAGER__
+#define __IGOR_RESOURCEMANAGER__
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/module/iModule.h>
@@ -198,4 +198,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_RESOURCEMANAGER_H__
+#endif // __IGOR_RESOURCEMANAGER__

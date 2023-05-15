@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROLFILECHOOSER_H__
-#define __IGOR_USERCONTROLFILECHOOSER_H__
+#ifndef __IGOR_USERCONTROLFILECHOOSER__
+#define __IGOR_USERCONTROLFILECHOOSER__
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
@@ -148,4 +148,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROLFILECHOOSER_H__
+#endif // __IGOR_USERCONTROLFILECHOOSER__

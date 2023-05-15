@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLMESH_H__
-#define __USERCONTROLMESH_H__
+#ifndef __USERCONTROLMESH__
+#define __USERCONTROLMESH__
 
 #include <igor/igor.h>
 using namespace iaux;
@@ -99,4 +99,4 @@ private:
     void deinitGUI();
 };
 
-#endif // __USERCONTROLMESH_H__
+#endif // __USERCONTROLMESH__

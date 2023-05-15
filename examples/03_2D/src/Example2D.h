@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE2D_H__
-#define __EXAMPLE2D_H__
+#ifndef __EXAMPLE2D__
+#define __EXAMPLE2D__
 
 #include <ExampleBase.h>
 
@@ -141,4 +141,4 @@ private:
     bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
-#endif // __EXAMPLE2D_H__
+#endif // __EXAMPLE2D__

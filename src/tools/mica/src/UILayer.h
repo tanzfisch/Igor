@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __UILAYER_H__
-#define __UILAYER_H__
+#ifndef __UILAYER__
+#define __UILAYER__
 
 #include "Workspace.h"
 #include "Outliner.h"
@@ -154,4 +154,4 @@ private:
     bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
 };
 
-#endif // __UILAYER_H__
+#endif // __UILAYER__

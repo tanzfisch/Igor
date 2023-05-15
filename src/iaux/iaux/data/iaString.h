@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_STRING_H__
-#define __IAUX_STRING_H__
+#ifndef __IAUX_STRING__
+#define __IAUX_STRING__
 
 #include <iaux/iaDefines.h>
 #include <iaux/math/iaVector2.h>
@@ -674,4 +674,4 @@ struct std::hash<iaux::iaString>
     }
 };
 
-#endif // __IAUX_STRING_H__
+#endif // __IAUX_STRING__

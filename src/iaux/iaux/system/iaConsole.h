@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CONSOLE_H__
-#define __IAUX_CONSOLE_H__
+#ifndef __IAUX_CONSOLE__
+#define __IAUX_CONSOLE__
 
 #include <iaux/system/iaClock.h>
 #include <iaux/system/iaMutex.h>
@@ -624,4 +624,4 @@ namespace iaux
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel);
 }; // namespace iaux
 
-#endif // __IAUX_CONSOLE_H__
+#endif // __IAUX_CONSOLE__

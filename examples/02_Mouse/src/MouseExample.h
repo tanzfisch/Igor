@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MOUSEEXAMPLE_H__
-#define __MOUSEEXAMPLE_H__
+#ifndef __MOUSEEXAMPLE__
+#define __MOUSEEXAMPLE__
 
 #include <ExampleBase.h>
 
@@ -88,4 +88,4 @@ private:
     bool onMouseWheelEvent(iEventMouseWheel &event);
 };
 
-#endif // __MOUSEEXAMPLE_H__
+#endif // __MOUSEEXAMPLE__

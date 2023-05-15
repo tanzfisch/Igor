@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_DEFINES_H__
-#define __IAUX_DEFINES_H__
+#ifndef __IAUX_DEFINES__
+#define __IAUX_DEFINES__
 
 #include <stdint.h>
 
@@ -315,4 +315,4 @@ typedef uint32 iaID32;
 typedef uint16 iaID16;
 typedef uint8 iaID8;
 
-#endif // __IAUX_DEFINES_H__
+#endif // __IAUX_DEFINES__

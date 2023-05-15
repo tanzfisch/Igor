@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_LAYERSTACK_H__
-#define __IGOR_LAYERSTACK_H__
+#ifndef __IGOR_LAYERSTACK__
+#define __IGOR_LAYERSTACK__
 
 #include <igor/layers/iLayer.h>
 
@@ -76,4 +76,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_LAYERSTACK_H__
+#endif // __IGOR_LAYERSTACK__

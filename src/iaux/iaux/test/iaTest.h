@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_TEST_H__
-#define __IAUX_TEST_H__
+#ifndef __IAUX_TEST__
+#define __IAUX_TEST__
 
 #include <iaux/system/iaConsole.h>
 
@@ -211,4 +211,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif // __IAUX_TEST_H__
+#endif // __IAUX_TEST__

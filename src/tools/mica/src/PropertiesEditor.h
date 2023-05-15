@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PROPERTIES_EDITOR_H__
-#define __PROPERTIES_EDITOR_H__
+#ifndef __PROPERTIES_EDITOR__
+#define __PROPERTIES_EDITOR__
 
 #include <igor/ui/dialogs/iDialog.h>
 using namespace igor;
@@ -72,4 +72,4 @@ private:
     void onStructureChanged();
 };
 
-#endif // __PROPERTIES_EDITOR_H__
+#endif // __PROPERTIES_EDITOR__

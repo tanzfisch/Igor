@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_GRADIENT_H__
-#define __IAUX_GRADIENT_H__
+#ifndef __IAUX_GRADIENT__
+#define __IAUX_GRADIENT__
 
 #include <iaux/iaDefines.h>
 
@@ -149,4 +149,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_GRADIENT_H__
+#endif // __IAUX_GRADIENT__

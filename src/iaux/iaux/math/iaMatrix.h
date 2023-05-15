@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_MATRIX_H__
-#define __IAUX_MATRIX_H__
+#ifndef __IAUX_MATRIX__
+#define __IAUX_MATRIX__
 
 #include <iaux/math/iaVector4.h>
 #include <iaux/math/iaQuaternion.h>
@@ -380,4 +380,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_MATRIX_H__
+#endif // __IAUX_MATRIX__

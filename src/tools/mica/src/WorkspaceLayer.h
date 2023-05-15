@@ -27,8 +27,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WORKSPACELAYER_H__
-#define __WORKSPACELAYER_H__
+#ifndef __WORKSPACELAYER__
+#define __WORKSPACELAYER__
 
 #include "Workspace.h"
 
@@ -127,4 +127,4 @@ private:
     bool onKeyDown(iEventKeyDown &event);
 };
 
-#endif // __WORKSPACELAYER_H__
+#endif // __WORKSPACELAYER__

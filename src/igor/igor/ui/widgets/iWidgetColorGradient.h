@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETCOLORGRADIENT_H__
-#define __IGOR_WIDGETCOLORGRADIENT_H__
+#ifndef __IGOR_WIDGETCOLORGRADIENT__
+#define __IGOR_WIDGETCOLORGRADIENT__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTextureOld.h>
@@ -148,4 +148,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETCOLORGRADIENT_H__
+#endif // __IGOR_WIDGETCOLORGRADIENT__

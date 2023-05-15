@@ -27,8 +27,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OVERLAYLAYER_H__
-#define __OVERLAYLAYER_H__
+#ifndef __OVERLAYLAYER__
+#define __OVERLAYLAYER__
 
 #include "../Workspace.h"
 #include "NodeOverlay.h"
@@ -162,4 +162,4 @@ private:
     void updateAcceptance();
 };
 
-#endif // __OverlayLayer_H__
+#endif // __OverlayLayer__

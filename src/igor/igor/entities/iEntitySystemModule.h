@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SYSTEM_MODULE_H__
-#define __IGOR_ENTITY_SYSTEM_MODULE_H__
+#ifndef __IGOR_ENTITY_SYSTEM_MODULE__
+#define __IGOR_ENTITY_SYSTEM_MODULE__
 
 #include <igor/resources/module/iModule.h>
 
@@ -120,4 +120,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_ENTITY_SYSTEM_MODULE_H__
+#endif // __IGOR_ENTITY_SYSTEM_MODULE__

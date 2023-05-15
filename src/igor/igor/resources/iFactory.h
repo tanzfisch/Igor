@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __FACTORY_H__
-#define __FACTORY_H__
+#ifndef __FACTORY__
+#define __FACTORY__
 
 #include <igor/resources/iResource.h>
 
@@ -103,4 +103,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __SOUND_H__
+#endif // __SOUND__

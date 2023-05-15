@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MODELNODE_H__
-#define __IGOR_MODELNODE_H__
+#ifndef __IGOR_MODELNODE__
+#define __IGOR_MODELNODE__
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/model/iModel.h>
@@ -185,4 +185,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_MODELNODE_H__
+#endif // __IGOR_MODELNODE__

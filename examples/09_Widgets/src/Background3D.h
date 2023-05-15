@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __BACKGROUND3D_H__
-#define __BACKGROUND3D_H__
+#ifndef __BACKGROUND3D__
+#define __BACKGROUND3D__
 
 #include <ExampleBase.h>
 
@@ -145,4 +145,4 @@ private:
     bool onMouseWheelEvent(iEventMouseWheel &event);
 };
 
-#endif // __BACKGROUND3D_H__
+#endif // __BACKGROUND3D__

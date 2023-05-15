@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETGROUPBOX_H__
-#define __IGOR_WIDGETGROUPBOX_H__
+#ifndef __IGOR_WIDGETGROUPBOX__
+#define __IGOR_WIDGETGROUPBOX__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -114,4 +114,4 @@ namespace igor
     typedef iWidgetGroupBox *iWidgetGroupBoxPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGETGROUPBOX_H__
+#endif // __IGOR_WIDGETGROUPBOX__

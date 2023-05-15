@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETLABEL_H__
-#define __IGOR_WIDGETLABEL_H__
+#ifndef __IGOR_WIDGETLABEL__
+#define __IGOR_WIDGETLABEL__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -99,4 +99,4 @@ namespace igor
     typedef iWidgetLabel *iWidgetLabelPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGETLABEL_H__
+#endif // __IGOR_WIDGETLABEL__

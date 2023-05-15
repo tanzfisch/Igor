@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETCOLOR_H__
-#define __IGOR_WIDGETCOLOR_H__
+#ifndef __IGOR_WIDGETCOLOR__
+#define __IGOR_WIDGETCOLOR__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTextureOld.h>
@@ -85,4 +85,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif // __IGOR_WIDGETCOLOR_H__
+#endif // __IGOR_WIDGETCOLOR__

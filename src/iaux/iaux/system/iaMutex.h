@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_MUTEX_H__
-#define __IAUX_MUTEX_H__
+#ifndef __IAUX_MUTEX__
+#define __IAUX_MUTEX__
 
 #include <iaux/iaDefines.h>
 
@@ -71,4 +71,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif // __IAUX_MUTEX_H__
+#endif // __IAUX_MUTEX__

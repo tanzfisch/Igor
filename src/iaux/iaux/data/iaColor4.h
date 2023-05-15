@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_COLOR4_H__
-#define __IAUX_COLOR4_H__
+#ifndef __IAUX_COLOR4__
+#define __IAUX_COLOR4__
 
 #include <iaux/iaDefines.h>
 
@@ -144,4 +144,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_COLOR4_H__
+#endif // __IAUX_COLOR4__

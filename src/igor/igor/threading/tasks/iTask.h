@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TASK_H__
-#define __IGOR_TASK_H__
+#ifndef __IGOR_TASK__
+#define __IGOR_TASK__
 
 #include <igor/iDefines.h>
 #include <igor/physics/iPhysicsWorld.h>
@@ -194,4 +194,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_TASK_H__
+#endif // __IGOR_TASK__
