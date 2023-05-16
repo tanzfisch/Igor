@@ -52,7 +52,7 @@ namespace igor
         virtual ~iFactory() = default;
 
     protected:
-        /*! \returns the fatory type
+        /*! \returns the factory type
 
         this type is used to register with the resource manager
         */
@@ -60,20 +60,22 @@ namespace igor
 
         /*! \returns true if resource parameters are supported by this factory
 
+        \param name the name of the resource
         \param parameters the given resource parameters
         */
-        virtual bool matchingType(const iResourceParameters &parameters) const = 0;
+        virtual bool matchingType(const iParameters &parameters) const = 0;
 
         /*! \returns resource type specific hash data
         */
-        virtual iaString getHashData(const iResourceParameters &parameters) const = 0;
+        virtual iaString getHashData(const iParameters &parameters) const = 0;
 
         /*! creates a resource object
 
+        \param name the name of the resource
         \param parameters the resource parameters
         \returns loaded or created new resource
         */
-        virtual iResourcePtr createResource(const iResourceParameters &parameters) = 0;
+        virtual iResourcePtr createResource(const iParameters &parameters) = 0;
 
         /*! loads the resource
 

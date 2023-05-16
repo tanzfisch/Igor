@@ -62,7 +62,9 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             _standardFont = iTextureFont::create("igor/textures/StandardFont.png");
 
             // prepare igor logo
-            _igorLogo = iResourceManager::getInstance().loadResource<iTexture>("igor/textures/splash.png");
+            iParameters param({{"name", iaString("igor/textures/splash.png")},
+                               {"buildMode", iTextureBuildMode::Normal}});
+            _igorLogo = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
         }
     }
 }
@@ -235,9 +237,9 @@ iaString ExampleBase::getHelpString()
 
 void ExampleBase::drawHelpScreen()
 {
-    const iaString& help = getHelpString();
+    const iaString &help = getHelpString();
 
-    iaColor4f backgroundColor(0.0,0.0,0.0,0.8);
+    iaColor4f backgroundColor(0.0, 0.0, 0.0, 0.8);
     iRenderer::getInstance().drawFilledCircle(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, getWindow()->getClientHeight() * 0.4, 64, backgroundColor);
     iRenderer::getInstance().drawCircle(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, getWindow()->getClientHeight() * 0.4, 64);
 

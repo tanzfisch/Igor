@@ -25,7 +25,9 @@ namespace igor
 
         const iaString resolved = iResourceManager::getInstance().getPath(filename);
 
-        _texture = iResourceManager::getInstance().loadResource<iTexture>(resolved);
+        iParameters param({{"name", resolved},
+                           {"buildMode", iTextureBuildMode::Normal}});
+        _texture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
 
         if (!_texture->isValid())
         {

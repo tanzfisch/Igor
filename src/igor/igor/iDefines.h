@@ -129,7 +129,7 @@ namespace igor
     enum class iTexturePattern
     {
         SolidColor,
-        Checker
+        CheckerBoard
     };
 
 

@@ -96,10 +96,7 @@ namespace igor
         \returns shared pointer to resource
         */
         template <typename T>
-        std::shared_ptr<T> requestResource(const iaString &name)
-        {
-            return std::dynamic_pointer_cast<T>(requestResource({name}));
-        }
+        std::shared_ptr<T> requestResource(const iaString &name);
 
         /*! loads a resource synchronously.
 
@@ -107,24 +104,21 @@ namespace igor
         \returns shared pointer to resource
         */
         template <typename T>
-        std::shared_ptr<T> loadResource(const iaString &name)
-        {
-            return std::dynamic_pointer_cast<T>(loadResource({name}));
-        }
+        std::shared_ptr<T> loadResource(const iaString &name);
 
         /*! requests a resource to be loaded asynchronously.
 
         \param param parameters for loading resource
         \returns shared pointer to resource
         */
-        iResourcePtr requestResource(const iResourceParameters &parameters);
+        iResourcePtr requestResource(const iParameters &parameters);
 
         /*! loads a resource synchronously.
 
         \param param parameters for loading resource
         \returns shared pointer to resource
         */
-        iResourcePtr loadResource(const iResourceParameters &parameters);
+        iResourcePtr loadResource(const iParameters &parameters);
 
         /*! works like a garbage collector.
 
@@ -178,20 +172,20 @@ namespace igor
         \param parameters the resource parameters
         \param factory the factory used to create the resource if not found
         */
-        iResourcePtr getResource(const iResourceParameters &parameters, iFactoryPtr factory);
+        iResourcePtr getResource(const iParameters &parameters, iFactoryPtr factory);
 
         /*! \returns factory for given resource parameters
 
         \param parameters given resource parameters
         */
-        iFactoryPtr getFactory(const igor::iResourceParameters &parameters);
+        iFactoryPtr getFactory(const igor::iParameters &parameters);
 
         /*! calculates hash value based on resource parameters
 
         \param parameters the resource parameters
         \param factory the factory that will be used to load this resource
         */
-        int64 calcHashValue(const iResourceParameters &parameters, iFactoryPtr factory);
+        int64 calcHashValue(const iParameters &parameters, iFactoryPtr factory);
 
         /*! does nothing
          */

@@ -16,22 +16,11 @@
 namespace igor
 {
 
-    iTexture::iTexture(const iResourceParameters &parameters)
+    iTexture::iTexture(const iParameters &parameters)
         : iResource(parameters)
     {
-        auto &data = parameters._parameters;
-
-        auto iterWrapMode = data.find("wrapMode");
-        if(iterWrapMode != data.end())
-        {
-            _wrapMode = std::any_cast<iTextureWrapMode>(iterWrapMode->second);
-        }
-
-        auto iterBuildMode = data.find("buildMode");
-        if(iterBuildMode != data.end())
-        {
-            _buildMode = std::any_cast<iTextureBuildMode>(iterBuildMode->second);
-        }     
+        _wrapMode = parameters.getValue<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
+        _buildMode = parameters.getValue<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
     }
 
     void iTexture::bind(uint32 textureUnit)

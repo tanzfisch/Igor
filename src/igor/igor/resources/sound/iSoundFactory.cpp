@@ -20,7 +20,7 @@ namespace igor
         return typeName;
     }
 
-    iResourcePtr iSoundFactory::createResource(const iResourceParameters &parameters)
+    iResourcePtr iSoundFactory::createResource(const iParameters &parameters)
     {
         return iResourcePtr(new iSound(parameters));
     }
@@ -80,20 +80,20 @@ namespace igor
         con_info("released sound \"" << resource->getName() << "\"");
     }
 
-    iaString iSoundFactory::getHashData(const iResourceParameters &parameters) const
+    iaString iSoundFactory::getHashData(const iParameters &parameters) const
     {
         // there is no type specific data for sounds at this point
         return L"";
     }
 
-    bool iSoundFactory::matchingType(const iResourceParameters &parameters) const
+    bool iSoundFactory::matchingType(const iParameters &parameters) const
     {
-        if (parameters._type == getType())
+        if (parameters.getValue<iaString>("type") == getType())
         {
             return true;
         }
 
-        iaFile file(parameters._name);
+        iaFile file(parameters.getValue<iaString>("name"));
         const iaString &extension = file.getExtension();
         if (extension == "wav")
         {

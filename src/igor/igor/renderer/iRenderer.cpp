@@ -541,17 +541,29 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
 
+        ////////////// generate textures //////////
+        iParameters paramFallback({{"name", iaString("fallback_texture")},
+                                   {"type", iaString("texture")},
+                                   {"cacheMode", iResourceCacheMode::Keep},
+                                   {"generate", true},
+                                   {"pattern", iTexturePattern::CheckerBoard},
+                                   {"primary", iaColor4f::black},
+                                   {"secondary", iaColor4f::magenta},
+                                   {"width", 128},
+                                   {"height", 128}});
 
-        ////////////// fallback texture //////////
-        _data->_fallbackTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource({"fallback_texture", "texture", iResourceCacheMode::Keep, 
-        {
-            {"generate", true},
-            {"pattern", iTexturePattern::Checker},
-            {"primary", iaColor4f::black},
-            {"secondary", iaColor4f::magenta},
-            {"width", 128},
-            {"height", 128}
-        }}));
+        _data->_fallbackTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(paramFallback));
+
+        iParameters paramWhite({{"name", iaString("white_texture")},
+                                {"type", iaString("texture")},
+                                {"cacheMode", iResourceCacheMode::Keep},
+                                {"generate", true},
+                                {"pattern", iTexturePattern::SolidColor},
+                                {"primary", iaColor4f::white},
+                                {"width", 1},
+                                {"height", 1}});
+
+        std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(paramWhite));
     }
 
     void iRenderer::deinit()

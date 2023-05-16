@@ -32,40 +32,13 @@
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#include <igor/iDefines.h>
+#include <igor/data/iParameters.h>
 
 #include <memory>
 #include <any>
 
 namespace igor
 {
-
-    /*! resource parameters that define how to load given resource
-    */
-    struct IGOR_API iResourceParameters
-    {
-        /*! name of the resource 
-        
-        this can be a filename or anything really
-        */
-        iaString _name;
-
-        /*! type of this resource (optional)
-
-        if set the resource manager will use a factory of this type to create this resource
-        if not set the resource manager will use other information to figure out which factory to use
-        */
-        iaString _type;
-
-        /*! resource cache mode. default Free
-        */
-        iResourceCacheMode _cacheMode = iResourceCacheMode::Free;
-
-        /*! key value parameters
-        */
-        std::map<iaString, std::any> _parameters;
-    };
-
     /*! represents a resource
     */
     class IGOR_API iResource
@@ -98,7 +71,7 @@ namespace igor
 
         /*! \returns resource parameters
         */
-        const iResourceParameters &getParameters() const;
+        const iParameters &getParameters() const;
 
         /*! \returns the resource type
         */
@@ -109,10 +82,7 @@ namespace igor
 
 		\param parameters the parameters which define the resource
 		*/
-        iResource(const iResourceParameters &parameters)
-            : _parameters(parameters)
-        {
-        }
+        iResource(const iParameters &parameters);
 
     private:
         /*! true if there was actually a resource loaded
@@ -125,7 +95,19 @@ namespace igor
 
         /*! parameters of this resource
         */
-        iResourceParameters _parameters;
+        iParameters _parameters;
+
+        /*! name of resource
+        */
+        iaString _name;
+
+        /*! type of the resource
+        */
+        iaString _type;
+
+        /*! the resources cache mode
+        */
+        iResourceCacheMode _cacheMode;
 
         /*! sets processed flag on resource
         */

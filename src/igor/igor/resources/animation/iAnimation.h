@@ -64,7 +64,7 @@ namespace igor
 
         \param parameters the parameters which define the animation
         */
-        iAnimation(const iResourceParameters &parameters);            
+        iAnimation(const iParameters &parameters);            
     };
 
     /*! evaluation pointer definition

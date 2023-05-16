@@ -110,7 +110,7 @@ namespace igor
 
         \param parameters the parameters which define the resource
         */
-        iSound(const iResourceParameters &parameters);
+        iSound(const iParameters &parameters);
     };
 
     /*! definition of sound pointer

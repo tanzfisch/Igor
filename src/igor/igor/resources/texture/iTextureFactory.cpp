@@ -24,7 +24,7 @@ namespace igor
         return typeName;
     }
 
-    iResourcePtr iTextureFactory::createResource(const iResourceParameters &parameters)
+    iResourcePtr iTextureFactory::createResource(const iParameters &parameters)
     {
         return iResourcePtr(new iTexture(parameters));
     }
@@ -34,81 +34,33 @@ namespace igor
         const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
         iTexturePtr texture = std::dynamic_pointer_cast<iTexture>(resource);
 
-        auto &parameters = resource->getParameters()._parameters;
+        const auto &parameters = resource->getParameters();
 
-        auto iterGenerate = parameters.find("generate");
-        if (iterGenerate != parameters.end())
+        const bool generate = parameters.getValue<bool>("generate", false);
+        if (generate)
         {
-            if (std::any_cast<bool>(iterGenerate->second))
-            {
-                return generateTexture(texture, parameters);
-            }
+            return generateTexture(texture, parameters);
         }
 
         return loadTexture(filename, texture);
     }
 
-    bool iTextureFactory::generateTexture(iTexturePtr texture, const std::map<iaString, std::any> &parameters)
+    bool iTextureFactory::generateTexture(iTexturePtr texture, const iParameters &parameters)
     {
-        iTexturePattern pattern = iTexturePattern::SolidColor;
-        iaColor4c primary = iaColor4c::white;
-        iaColor4c secondary = iaColor4c::black;
+        const iTexturePattern pattern = parameters.getValue<iTexturePattern>("pattern", iTexturePattern::SolidColor);
+        const iaColor4f primaryf = parameters.getValue<iaColor4f>("primary", iaColor4f::white);
+        const iaColor4f secondaryf = parameters.getValue<iaColor4f>("secondary", iaColor4f::black);
 
-        auto iter = parameters.find("wrapMode");
-        if (iter != parameters.end())
-        {
-            texture->_wrapMode = std::any_cast<iTextureWrapMode>(iter->second);
-        }
+        iaColor4c primary;
+        iaConvert::convert(primaryf, primary);
+        iaColor4c secondary;
+        iaConvert::convert(secondaryf, secondary);
 
-        iter = parameters.find("buildMode");
-        if (iter != parameters.end())
-        {
-            texture->_buildMode = std::any_cast<iTextureBuildMode>(iter->second);
-        }
+        texture->_width = parameters.getValue<int32>("width", 1);
+        texture->_height = parameters.getValue<int32>("height", 1);
+        texture->_bpp = 4;
 
-        iter = parameters.find("pattern");
-        if (iter != parameters.end())
-        {
-            pattern = std::any_cast<iTexturePattern>(iter->second);
-        }
-
-        iter = parameters.find("primary");
-        if (iter != parameters.end())
-        {
-            iaColor4f temp = std::any_cast<iaColor4f>(iter->second);
-            iaConvert::convert(temp, primary);
-        }
-
-        iter = parameters.find("secondary");
-        if (iter != parameters.end())
-        {
-            iaColor4f temp = std::any_cast<iaColor4f>(iter->second);
-            iaConvert::convert(temp, secondary);
-        }
-
-        iter = parameters.find("width");
-        if (iter != parameters.end())
-        {
-            texture->_width = std::any_cast<int32>(iter->second);
-        }
-        else
-        {
-            texture->_width = 1;
-        }
-
-        iter = parameters.find("height");
-        if (iter != parameters.end())
-        {
-            texture->_height = std::any_cast<int32>(iter->second);
-        }
-        else
-        {
-            texture->_height = 1;
-        }
-
-        uint32 Bpp = 4;
-
-        uint8 *data = new uint8[texture->_width * texture->_height * Bpp];
+        uint8 *data = new uint8[texture->_width * texture->_height * texture->_bpp];
 
         switch (pattern)
         {
@@ -116,36 +68,36 @@ namespace igor
         {
             for (int i = 0; i < texture->_width * texture->_height; ++i)
             {
-                memcpy(data + i * Bpp, &primary, Bpp);
+                memcpy(data + i * texture->_bpp, &primary, texture->_bpp);
             }
         }
         break;
 
-        case iTexturePattern::Checker:
+        case iTexturePattern::CheckerBoard:
         {
             bool black = false;
 
             for (uint32 y = 0; y < texture->_height; y++)
             {
-                if (y % 8 == 0)
+                if (y % 16 == 0)
                 {
                     black = !black;
                 }
 
                 for (uint32 x = 0; x < texture->_width; x++)
                 {
-                    if (x % 8 == 0)
+                    if (x % 16 == 0)
                     {
                         black = !black;
                     }
 
                     if (black)
                     {
-                        memcpy(data + (y * texture->_width + x) * Bpp, &primary, Bpp);
+                        memcpy(data + (y * texture->_width + x) * texture->_bpp, &primary, texture->_bpp);
                     }
                     else
                     {
-                        memcpy(data + (y * texture->_width + x) * Bpp, &secondary, Bpp);
+                        memcpy(data + (y * texture->_width + x) * texture->_bpp, &secondary, texture->_bpp);
                     }
                 }
             }
@@ -153,8 +105,9 @@ namespace igor
         break;
         }
 
-        texture->setData(texture->_width, texture->_height, Bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
+        texture->setData(texture->_width, texture->_height, texture->_bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
         con_info("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] "); // TODO << texture->_buildMode << " " << texture->_wrapMode);
+        texture->_useFallback = false;
 
         delete[] data;
 
@@ -242,56 +195,45 @@ namespace igor
         con_info("released texture \"" << resource->getName() << "\"");
     }
 
-    iaString iTextureFactory::getHashData(const iResourceParameters &parameters) const
+    iaString iTextureFactory::getHashData(const iParameters &parameters) const
     {
         iaString hashData;
-        auto &data = parameters._parameters;
 
-        auto iterWrapMode = data.find("wrapMode");
-        if (iterWrapMode != data.end())
+        iTextureWrapMode wrapMode = parameters.getValue<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
+        switch (wrapMode)
         {
-            iTextureWrapMode wrapMode = std::any_cast<iTextureWrapMode>(iterWrapMode->second);
-
-            switch (wrapMode)
-            {
-            case iTextureWrapMode::Repeat:
-                hashData += "R";
-                break;
-            case iTextureWrapMode::Clamp:
-                hashData += "C";
-                break;
-            case iTextureWrapMode::MirrorRepeat:
-                hashData += "M";
-                break;
-            }
+        case iTextureWrapMode::Repeat:
+            hashData += "R";
+            break;
+        case iTextureWrapMode::Clamp:
+            hashData += "C";
+            break;
+        case iTextureWrapMode::MirrorRepeat:
+            hashData += "M";
+            break;
         }
 
-        auto iterBuildMode = data.find("buildMode");
-        if (iterBuildMode != data.end())
+        iTextureBuildMode buildMode = parameters.getValue<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
+        if (buildMode == iTextureBuildMode::Mipmapped)
         {
-            iTextureBuildMode buildMode = std::any_cast<iTextureBuildMode>(iterBuildMode->second);
-
-            if (buildMode == iTextureBuildMode::Mipmapped)
-            {
-                hashData += "M";
-            }
-            else
-            {
-                hashData += "N";
-            }
+            hashData += "M";
+        }
+        else
+        {
+            hashData += "N";
         }
 
         return hashData;
     }
 
-    bool iTextureFactory::matchingType(const iResourceParameters &parameters) const
+    bool iTextureFactory::matchingType(const iParameters &parameters) const
     {
-        if (parameters._type == getType())
+        if (parameters.getValue<iaString>("type") == getType())
         {
             return true;
         }
 
-        iaFile file(parameters._name);
+        iaFile file(parameters.getValue<iaString>("name"));
         const iaString &fileExtension = file.getExtension();
         static const std::vector<iaString> supportedExtensions = {L"png", L"jpg"};
 

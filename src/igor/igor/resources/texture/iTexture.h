@@ -137,11 +137,11 @@ namespace igor
          */
         bool _hasTrans = false;
 
-        /*! ctor
+        /*! initializes member variables
 
-        initializes member variables
+        \param parameters the parameters of this texture
         */
-        iTexture(const iResourceParameters &parameters);
+        iTexture(const iParameters &parameters);
 
         /*! sets data on texture
 

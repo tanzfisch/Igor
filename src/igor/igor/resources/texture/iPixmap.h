@@ -211,7 +211,7 @@ namespace igor
 
     /*! pixmap pointer definition
 	*/
-    typedef std::shared_ptr<iPixmap> iPixmapPtr;
+    typedef iPixmap* iPixmapPtr;
 
 }; // namespace igor
 

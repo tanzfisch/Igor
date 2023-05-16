@@ -14,7 +14,8 @@ Example2D::Example2D(iWindowPtr window)
 void Example2D::onInit()
 {
     // load the background tile texture
-    _backgroundTexture = iResourceManager::getInstance().loadResource<iTexture>("ice.png");
+    _backgroundTexture = iResourceManager::getInstance().requestResource<iTexture>("ice.png");
+    _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("fallback_texture");
 
     // load a texture as an atlas
     _doughnuts = iAtlas::create(iResourceManager::getInstance().loadResource<iTexture>("doughnuts.png"));
@@ -193,7 +194,7 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
     // draw with dummy texture
-    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 410, iResourceManager::getInstance().requestResource<iTexture>("fallback_texture"), iaColor4f::white, true);
+    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 410, _dummyTexture, iaColor4f::white, true);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "

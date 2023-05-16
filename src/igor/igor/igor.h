@@ -68,6 +68,7 @@
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/texture/iTextureFont.h>
+#include <igor/resources/texture/iTextureFactory.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>

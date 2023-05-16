@@ -7,7 +7,7 @@
 namespace igor
 {
 
-	iAnimation::iAnimation(const iResourceParameters& parameters)
+	iAnimation::iAnimation(const iParameters& parameters)
 		: iResource(parameters)
 	{
 	}

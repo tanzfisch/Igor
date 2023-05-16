@@ -7,7 +7,7 @@
 namespace igor
 {
 
-	iSound::iSound(const iResourceParameters &parameters)
+	iSound::iSound(const iParameters &parameters)
 		: iResource(parameters)
 	{
 	}

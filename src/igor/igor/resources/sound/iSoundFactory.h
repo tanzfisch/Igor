@@ -52,18 +52,18 @@ namespace igor
 
         \param parameters the given resource parameters
         */
-        bool matchingType(const iResourceParameters &parameters) const override;
+        bool matchingType(const iParameters &parameters) const override;
 
         /*! \returns resource type specific hash data
          */
-        iaString getHashData(const iResourceParameters &parameters) const override;
+        iaString getHashData(const iParameters &parameters) const override;
 
         /*! creates a resource object
 
         \param parameters the resource parameters
         \returns loaded or created new resource
         */
-        iResourcePtr createResource(const iResourceParameters &parameters) override;
+        iResourcePtr createResource(const iParameters &parameters) override;
 
         /*! loads the resource
 

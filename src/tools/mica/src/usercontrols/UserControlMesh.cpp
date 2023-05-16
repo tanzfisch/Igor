@@ -125,7 +125,7 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(0))
         {
-            iaString filename = node->getTargetMaterial()->getTexture(0)->getFilename();
+            iaString filename = node->getTargetMaterial()->getTexture(0)->getName();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
             if (!shortName.isEmpty())
             {
@@ -137,7 +137,7 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(1))
         {
-            iaString filename = node->getTargetMaterial()->getTexture(1)->getFilename();
+            iaString filename = node->getTargetMaterial()->getTexture(1)->getName();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
             if (!shortName.isEmpty())
             {
@@ -149,7 +149,7 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(2))
         {
-            iaString filename = node->getTargetMaterial()->getTexture(2)->getFilename();
+            iaString filename = node->getTargetMaterial()->getTexture(2)->getName();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
             if (!shortName.isEmpty())
             {
@@ -161,7 +161,7 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(3))
         {
-            iaString filename = node->getTargetMaterial()->getTexture(3)->getFilename();
+            iaString filename = node->getTargetMaterial()->getTexture(3)->getName();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
             if (!shortName.isEmpty())
             {
