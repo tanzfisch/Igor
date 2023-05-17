@@ -73,7 +73,7 @@ namespace iaux
             InOutCirc,
             OutInCirc,
 
-            InBack,
+            /*InBack,
             OutBack,
             InOutBack,
             OutInBack,
@@ -81,7 +81,7 @@ namespace iaux
             InElastic,
             OutElastic,
             InOutElastic,
-            OutInElastic,
+            OutInElastic,*/
 
             InBounce,
             OutBounce,
