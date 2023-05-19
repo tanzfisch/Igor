@@ -12,13 +12,18 @@ namespace igor
 
     iAnimationController::iAnimationController()
     {
-        _begin = _stateMachine.addState("begin");
-        _stateMachine.setInitialState(_begin);
     }
 
     void iAnimationController::addAnimation(iAnimationPtr animation)
-    {
+    {        
+        iaStateID state = _stateMachine.addState(animation->getName());
+        _animations[state] = animation;
 
+        if(_begin == IGOR_INVALID_ID)
+        {
+            _begin = state;
+            _stateMachine.setInitialState(_begin);
+        }
     }
 
     iaStateMachine& iAnimationController::getStateMachine()
@@ -28,10 +33,19 @@ namespace igor
 
     void iAnimationController::update(iEntity &entity)
     {
-        if(_stateMachine.getCurrentState() == _begin)
+        _stateMachine.update();
+
+        const iaStateID current = _stateMachine.getCurrentState();
+
+        auto iter = _animations.find(current);
+        if(_animations.end() == iter)
         {
             return;
         }
+
+        iAnimationPtr &animation = iter->second;
+
+        animation->evaluate
 
         con_endl("iAnimationController::update");
     }

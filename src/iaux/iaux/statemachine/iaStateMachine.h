@@ -33,6 +33,7 @@
 #include <iaux/statemachine/iaTransition.h>
 
 #include <map>
+#include <vector>
 
 namespace iaux
 {
@@ -122,7 +123,13 @@ namespace iaux
         \param to destination state
         \returns transition id
         */
-        uint32 addTransition(iaStateID from, iaStateID to);
+        iaTransitionID addTransition(iaStateID from, iaStateID to);
+
+        /*! \returns outgoing transition for given state id
+
+        \param stateID the given state id
+        */
+        std::vector<iaTransitionID> getOutgoingTransitions(iaStateID stateID);
 
         /*! activate a gate for given transition
 

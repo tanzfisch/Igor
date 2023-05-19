@@ -84,6 +84,21 @@ namespace iaux
         }
     }
 
+    std::vector<iaTransitionID> iaStateMachine::getOutgoingTransitions(iaStateID stateID)
+    {
+        std::vector<iaTransitionID> result;
+
+        for(const auto &transition : _transitions)
+        {
+            if(transition.second->getFrom() == stateID)
+            {
+                result.push_back(transition.first);
+            }
+        }
+
+        return result;
+    }
+
     iaTransition *iaStateMachine::getTransition(iaTransitionID id)
     {
         auto transIter = _transitions.find(id);

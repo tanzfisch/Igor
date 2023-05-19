@@ -63,9 +63,11 @@ namespace igor
 
         /*! begin state
         */
-        iaStateID _begin;
+        iaStateID _begin = IGOR_INVALID_ID;
 
-        std::unordered_map<iaStateID, iAnimationPtr> _states;
+        /*! state animation map
+        */
+        std::unordered_map<iaStateID, iAnimationPtr> _animations;
 
         void update(iEntity &entity);
     };
