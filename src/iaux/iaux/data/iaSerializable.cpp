@@ -72,7 +72,7 @@ namespace iaux
         return iaSerializable::read(stream, reinterpret_cast<char *>(value.getData()), sizeof(iaVector4f));
     }
 
-    bool iaSerializable::write(std::ofstream &stream, const iaGradientf &value)
+    bool iaSerializable::write(std::ofstream &stream, const iaKeyFrameGraphf &value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -96,7 +96,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::read(std::ifstream &stream, iaGradientf &value)
+    bool iaSerializable::read(std::ifstream &stream, iaKeyFrameGraphf &value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -125,7 +125,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::write(std::ofstream &stream, const iaGradientui &value)
+    bool iaSerializable::write(std::ofstream &stream, const iaKeyFrameGraphui &value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -149,7 +149,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::read(std::ifstream &stream, iaGradientui &value)
+    bool iaSerializable::read(std::ifstream &stream, iaKeyFrameGraphui &value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -178,7 +178,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::write(std::ofstream &stream, const iaGradientVector3f &value)
+    bool iaSerializable::write(std::ofstream &stream, const iaKeyFrameGraphVector3f &value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -202,7 +202,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::read(std::ifstream &stream, iaGradientVector3f &value)
+    bool iaSerializable::read(std::ifstream &stream, iaKeyFrameGraphVector3f &value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -231,7 +231,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::write(std::ofstream &stream, const iaGradientVector2f &value)
+    bool iaSerializable::write(std::ofstream &stream, const iaKeyFrameGraphVector2f &value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -255,7 +255,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::read(std::ifstream &stream, iaGradientVector2f &value)
+    bool iaSerializable::read(std::ifstream &stream, iaKeyFrameGraphVector2f &value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -284,7 +284,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::write(std::ofstream &stream, const iaGradientColor4f &value)
+    bool iaSerializable::write(std::ofstream &stream, const iaKeyFrameGraphColor4f &value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -308,7 +308,7 @@ namespace iaux
         return true;
     }
 
-    bool iaSerializable::read(std::ifstream &stream, iaGradientColor4f &value)
+    bool iaSerializable::read(std::ifstream &stream, iaKeyFrameGraphColor4f &value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;

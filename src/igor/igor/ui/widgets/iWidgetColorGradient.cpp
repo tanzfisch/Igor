@@ -121,12 +121,12 @@ namespace igor
         setMinSize(0, 0);
     }
 
-    void iWidgetColorGradient::setGradient(const iaGradientColor4f &gradient)
+    void iWidgetColorGradient::setGradient(const iaKeyFrameGraphColor4f &gradient)
     {
         _gradient = gradient;
     }
 
-    const iaGradientColor4f &iWidgetColorGradient::getGradient() const
+    const iaKeyFrameGraphColor4f &iWidgetColorGradient::getGradient() const
     {
         return _gradient;
     }

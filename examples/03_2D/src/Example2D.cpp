@@ -51,28 +51,28 @@ void Example2D::onInit()
 
 void Example2D::initParticleSystem()
 {
-    iaGradientColor4f colors;
+    iaKeyFrameGraphColor4f colors;
     colors.setValue(1.0f, iaColor4f(0.0f, 0.4f, 1.0f, 1.0f));
     colors.setValue(0.5f, iaColor4f(0.4f, 0.8f, 1.0f, 0.8f));
     colors.setValue(0.0f, iaColor4f(0.8f, 0.8f, 1.0f, 0.0f));
 
-    iaGradientVector2f visibility;
+    iaKeyFrameGraphVector2f visibility;
     visibility.setValue(0.0f, iaVector2f(3.0f, 8.0f));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0, 1);
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0f, iaVector2f(4.0f, 9.0f));
 
     // using positive lift here represents weight
-    iaGradientVector2f lift;
+    iaKeyFrameGraphVector2f lift;
     lift.setValue(0.0f, iaVector2f(0.02f, 0.02f));
 
-    iaGradientVector2f startSize;
+    iaKeyFrameGraphVector2f startSize;
     startSize.setValue(0.0f, iaVector2f(40.0f, 40.0f));
 
-    iaGradientf scaleSize;
+    iaKeyFrameGraphf scaleSize;
     scaleSize.setValue(1.0f, 1.0f);
     scaleSize.setValue(0.0f, 3.0f);
 

@@ -326,7 +326,7 @@ namespace iaux
             }
         }
 
-        __IGOR_INLINE__ float64 inBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
+        /*__IGOR_INLINE__ float64 inBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
         {
             t = t / d;
             return c * t * t * ((s + 1.0) * t - s) + b;
@@ -472,7 +472,7 @@ namespace iaux
             {
                 return inElastic((t * 2.0) - d, b + c * 0.5, c * 0.5, d, a, p);
             }
-        }
+        }*/
 
         __IGOR_INLINE__ float64 outBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {

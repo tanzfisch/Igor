@@ -164,7 +164,7 @@
 #include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaConvert.h>
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaSphere.h>
 #include <iaux/data/iaRectangle.h>

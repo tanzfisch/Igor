@@ -682,6 +682,9 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<iPartyComponent>({party});
     unit.addComponent<iCircleCollision2DComponent>({enemyClass._size * 0.5});
     unit.addComponent<iBody2DComponent>({});
+
+    iAnimationControllerPtr animationController(new iAnimationController());
+    unit.addComponent<iAnimationComponent>({animationController});
     unit.addUserComponent<HealthComponent>({enemyClass._health});
     unit.addUserComponent<TargetComponent>({target});
     unit.addUserComponent<ExperienceGainComponent>({enemyClass._xpDrop});
@@ -690,6 +693,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addBehaviour({this, &GameLayer::onCheckCollision});
     unit.addBehaviour({this, &GameLayer::onFollowTarget});
     unit.setMotionInteractionType(iMotionInteractionType::Divert);
+
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();

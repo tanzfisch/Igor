@@ -79,7 +79,7 @@ namespace igor
     public:
         /*! ctor initializes member variables
 
-		\param parent optional parnt
+		\param parent optional parent
 		*/
         iWidgetGraph(const iWidgetPtr parent = nullptr);
 

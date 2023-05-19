@@ -29,7 +29,7 @@
 #ifndef __IGOR_PARTICLESYSTEM__
 #define __IGOR_PARTICLESYSTEM__
 
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 #include <igor/data/iAABox.h>
 #include <igor/renderer/buffers/iVertexArray.h>
 
@@ -294,7 +294,7 @@ namespace igor
 
         \param colorGradient the color gradient
         */
-        void setColorGradient(const iaGradientColor4f &colorGradient);
+        void setColorGradient(const iaKeyFrameGraphColor4f &colorGradient);
 
         /*! returns the color gradient
 
@@ -302,71 +302,71 @@ namespace igor
 
         \param[out] colorGradient out value for the color gradient
         */
-        void getColorGradient(iaGradientColor4f &colorGradient) const;
+        void getColorGradient(iaKeyFrameGraphColor4f &colorGradient) const;
 
         /*! \returns reference to color gradient
          */
-        const iaGradientColor4f &getColorGradient() const;
+        const iaKeyFrameGraphColor4f &getColorGradient() const;
 
         /*! sets emission gradient for particles per frame
 
         \param emissionGradient the emission gradient
         */
-        void setEmissionGradient(const iaGradientf &emissionGradient);
+        void setEmissionGradient(const iaKeyFrameGraphf &emissionGradient);
 
         /*! returns the emission gradient
 
         \param[out] emissionGradient out value for the emission gradient
         */
-        void getEmissionGradient(iaGradientf &emissionGradient) const;
+        void getEmissionGradient(iaKeyFrameGraphf &emissionGradient) const;
 
         /*! sets min max age gradient for particles depending on their spawn time
 
         \param ageGradient the max age gradient
         */
-        void setStartAgeGradient(const iaGradientVector2f &ageGradient);
+        void setStartAgeGradient(const iaKeyFrameGraphVector2f &ageGradient);
 
         /*! returns the emission gradient
 
         \param[out] ageGradient out value for the max age gradient
         */
-        void getStartAgeGradient(iaGradientVector2f &ageGradient) const;
+        void getStartAgeGradient(iaKeyFrameGraphVector2f &ageGradient) const;
 
         /*! sets size scale gradient for particles per frame
 
         \param sizeScaleGradient the size gradient
         */
-        void setSizeScaleGradient(const iaGradientf &sizeScaleGradient);
+        void setSizeScaleGradient(const iaKeyFrameGraphf &sizeScaleGradient);
 
         /*! returns the size scale gradient
 
         \param[out] sizeScaleGradient out value for the size gradient
         */
-        void getSizeScaleGradient(iaGradientf &sizeScaleGradient) const;
+        void getSizeScaleGradient(iaKeyFrameGraphf &sizeScaleGradient) const;
 
         /*! sets min max start size gradient for particles at birth
 
         \param sizeGradient the min max start size gradient
         */
-        void setStartSizeGradient(const iaGradientVector2f &sizeGradient);
+        void setStartSizeGradient(const iaKeyFrameGraphVector2f &sizeGradient);
 
         /*! returns the min max start size gradient for particles at birth
 
         \param[out] sizeGradient out value for the start size gradient
         */
-        void getStartSizeGradient(iaGradientVector2f &sizeGradient) const;
+        void getStartSizeGradient(iaKeyFrameGraphVector2f &sizeGradient) const;
 
         /*! sets min max start velocity gradient for particles at birth
 
         \param velocityGradient the min max start velocity gradient
         */
-        void setStartVelocityGradient(const iaGradientVector2f &velocityGradient);
+        void setStartVelocityGradient(const iaKeyFrameGraphVector2f &velocityGradient);
 
         /*! returns the min max start velocity gradient for particles at birth
 
         \param[out] velocityGradient out value for the start velocity gradient
         */
-        void getStartVelocityGradient(iaGradientVector2f &velocityGradient) const;
+        void getStartVelocityGradient(iaKeyFrameGraphVector2f &velocityGradient) const;
 
         /*! sets min max start lift gradient for particles at birth
 
@@ -374,37 +374,37 @@ namespace igor
 
         \param liftGradient the min max start lift gradient
         */
-        void setStartLiftGradient(const iaGradientVector2f &liftGradient);
+        void setStartLiftGradient(const iaKeyFrameGraphVector2f &liftGradient);
 
         /*! returns the min max start lift gradient for particles at birth
 
         \param[out] liftGradient out value for the start lift gradient
         */
-        void getStartLiftGradient(iaGradientVector2f &liftGradient) const;
+        void getStartLiftGradient(iaKeyFrameGraphVector2f &liftGradient) const;
 
         /*! sets min max start orientation gradient for particles at birth
 
         \param orientationGradient the min max start orientation gradient
         */
-        void setStartOrientationGradient(const iaGradientVector2f &orientationGradient);
+        void setStartOrientationGradient(const iaKeyFrameGraphVector2f &orientationGradient);
 
         /*! returns the min max start lift gradient for particles at birth
 
         \param[out] orientationGradient out value for the start orientation gradient
         */
-        void getStartOrientationGradient(iaGradientVector2f &orientationGradient) const;
+        void getStartOrientationGradient(iaKeyFrameGraphVector2f &orientationGradient) const;
 
         /*! sets start min max orientation rate gradient for particles during visible time
 
         \param orientationRateGradient the min max orientation rate gradient
         */
-        void setStartOrientationRateGradient(const iaGradientVector2f &orientationRateGradient);
+        void setStartOrientationRateGradient(const iaKeyFrameGraphVector2f &orientationRateGradient);
 
         /*! returns the start min max orientation offset gradient for particles during visuble time
 
         \param[out] orientationRateGradient out value for the orientation rate gradient
         */
-        void getStartOrientationRateGradient(iaGradientVector2f &orientationRateGradient) const;
+        void getStartOrientationRateGradient(iaKeyFrameGraphVector2f &orientationRateGradient) const;
 
         /*! sets the velocity oriented flag
         particles will be rendered oriented by thair velocity and screen
@@ -546,35 +546,35 @@ namespace igor
 
         /*! color gradient for particles during their lifetime
          */
-        iaGradientColor4f _colorGradient;
+        iaKeyFrameGraphColor4f _colorGradient;
 
         /*! min max start sizes of particles
          */
-        iaGradientVector2f _startSizeGradient;
+        iaKeyFrameGraphVector2f _startSizeGradient;
 
         /*! size modification gradient during particle system lifetime
          */
-        iaGradientf _sizeScaleGradient;
+        iaKeyFrameGraphf _sizeScaleGradient;
 
         /*! start min/max age gradient
          */
-        iaGradientVector2f _startAgeGradient;
+        iaKeyFrameGraphVector2f _startAgeGradient;
 
         /*! min max start orientation of particles
          */
-        iaGradientVector2f _startOrientationGradient;
+        iaKeyFrameGraphVector2f _startOrientationGradient;
 
         /*! min max start orientation rate of particles
          */
-        iaGradientVector2f _startOrientationRateGradient;
+        iaKeyFrameGraphVector2f _startOrientationRateGradient;
 
         /*! min max start velocity of particles
          */
-        iaGradientVector2f _startVelocityGradient;
+        iaKeyFrameGraphVector2f _startVelocityGradient;
 
         /*! min max start lift of particles
          */
-        iaGradientVector2f _startLiftGradient;
+        iaKeyFrameGraphVector2f _startLiftGradient;
 
         /*! stacks emission impulses
          */
@@ -584,13 +584,13 @@ namespace igor
 
         emitting particles per 1/60 of a second
         */
-        iaGradientf _emissionRateGradient;
+        iaKeyFrameGraphf _emissionRateGradient;
 
         /*! gradient how the torque of vortex particles changes over time
 
         for internal use only
         */
-        iaGradientf _torqueFactorGradient;
+        iaKeyFrameGraphf _torqueFactorGradient;
 
         /*! particle system period time in ms
          */

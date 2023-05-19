@@ -30,6 +30,7 @@
 #define __IGOR_COMPONENTS__
 
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/animation/iAnimationController.h>
 #include <igor/data/iQuadtree.h>
 
 #include <iaux/data/iaString.h>
@@ -350,6 +351,13 @@ namespace igor
     struct iPartyComponent
     {
         uint32 _partyID = 0;
+    };
+
+    /*! animation component
+    */
+    struct iAnimationComponent
+    {
+        iAnimationControllerPtr _animationController;
     };
 
     // iTextComponent

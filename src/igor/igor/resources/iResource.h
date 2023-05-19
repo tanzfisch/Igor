@@ -82,7 +82,7 @@ namespace igor
 
 		\param parameters the parameters which define the resource
 		*/
-        iResource(const iParameters &parameters);
+        iResource(const iaString &type, const iParameters &parameters);
 
     private:
         /*! true if there was actually a resource loaded

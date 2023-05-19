@@ -33,7 +33,7 @@
 #include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaString.h>
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
 
@@ -73,11 +73,11 @@ namespace igor
         /*! sets color gradient
         \param color color value in rgba
         */
-        void setGradient(const iaGradientColor4f &gradient);
+        void setGradient(const iaKeyFrameGraphColor4f &gradient);
 
         /*! \returns color gradient
          */
-        const iaGradientColor4f &getGradient() const;
+        const iaKeyFrameGraphColor4f &getGradient() const;
 
         /*! sets if alpha values are displayed
          */
@@ -112,7 +112,7 @@ namespace igor
     private:
         /*! color gradient
          */
-        iaGradientColor4f _gradient;
+        iaKeyFrameGraphColor4f _gradient;
 
         /*! flag if alpha is displayed
          */

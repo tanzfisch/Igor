@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_GRADIENT__
-#define __IAUX_GRADIENT__
+#ifndef __IAUX_KEYFRAMEGRAPH__
+#define __IAUX_KEYFRAMEGRAPH__
 
 #include <iaux/iaDefines.h>
 
@@ -45,7 +45,7 @@ namespace iaux
     /*! gradient of values
      */
     template <class T>
-    class IAUX_API_EXPORT_ONLY iaGradient
+    class IAUX_API_EXPORT_ONLY iaKeyFrameGraph
     {
 
     public:
@@ -109,11 +109,11 @@ namespace iaux
 
         /*! does nothing
          */
-        iaGradient() = default;
+        iaKeyFrameGraph() = default;
 
         /*! does nothing
          */
-        ~iaGradient() = default;
+        ~iaKeyFrameGraph() = default;
 
     private:
         /*! the colors
@@ -121,32 +121,32 @@ namespace iaux
         std::vector<std::pair<float32, T>> _values;
     };
 
-#include <iaux/data/iaGradient.inl>
+#include <iaux/data/iaKeyFrameGraph.inl>
 
     /*! uint32 gradient
      */
-    typedef iaGradient<uint32> iaGradientui;
+    typedef iaKeyFrameGraph<uint32> iaKeyFrameGraphui;
 
     /*! float32 gradient
      */
-    typedef iaGradient<float32> iaGradientf;
+    typedef iaKeyFrameGraph<float32> iaKeyFrameGraphf;
 
     /*! float64 gradient
      */
-    typedef iaGradient<float64> iaGradientd;
+    typedef iaKeyFrameGraph<float64> iaKeyFrameGraphd;
 
     /*! float32 3d vector gradient
      */
-    typedef iaGradient<iaVector3f> iaGradientVector3f;
+    typedef iaKeyFrameGraph<iaVector3f> iaKeyFrameGraphVector3f;
 
     /*! float32 2d vector gradient
      */
-    typedef iaGradient<iaVector2f> iaGradientVector2f;
+    typedef iaKeyFrameGraph<iaVector2f> iaKeyFrameGraphVector2f;
 
     /*! color vector gradient
      */
-    typedef iaGradient<iaColor4f> iaGradientColor4f;
+    typedef iaKeyFrameGraph<iaColor4f> iaKeyFrameGraphColor4f;
 
 }; // namespace iaux
 
-#endif // __IAUX_GRADIENT__
+#endif // __IAUX_KEYFRAMEGRAPH__

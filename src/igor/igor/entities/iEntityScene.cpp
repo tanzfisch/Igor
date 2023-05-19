@@ -6,6 +6,7 @@
 #include <igor/entities/systems/iTransformHierarchySystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iQuadtreeSystem.h>
+#include <igor/entities/systems/iAnimationSystem.h>
 #include <igor/renderer/iRenderer.h>
 
 #include <utility>
@@ -49,12 +50,14 @@ namespace igor
     {
         _registry = new iRegistry();
 
+        _systems.push_back(std::make_shared<iAnimationSystem>());
+        _systems.push_back(std::make_shared<iBehaviourSystem>());
+        
         _velocitySystem = std::make_shared<iVelocitySystem>();
         _systems.push_back(_velocitySystem);
         _systems.push_back(std::make_shared<iTransformHierarchySystem>());
         _systems.push_back(std::make_shared<iQuadtreeSystem>());
-        _systems.push_back(std::make_shared<iBehaviourSystem>());
-
+        
         _renderingSystems.push_back(std::make_shared<iSpriteRenderSystem>());
     }
 
@@ -273,6 +276,21 @@ namespace igor
         return result;
     }
 
+    template <>
+    iAnimationComponent &iEntityScene::addComponent<iAnimationComponent>(iEntityID entityID, const iAnimationComponent &component)
+    {
+        iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
+        if (transform == nullptr)
+        {
+            _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
+        }
+
+        iAnimationComponent &result = _registry->_registry.emplace_or_replace<iAnimationComponent>(static_cast<entt::entity>(entityID));
+        result = component;
+
+        return result;
+    }    
+
     // the following types are left out on purpose
     // iBaseEntityComponent, iActiveComponent
     template iCircleCollision2DComponent &iEntityScene::addComponent<iCircleCollision2DComponent>(iEntityID entityID, const iCircleCollision2DComponent &component);
@@ -284,6 +302,7 @@ namespace igor
     template iRenderDebugComponent &iEntityScene::addComponent<iRenderDebugComponent>(iEntityID entityID, const iRenderDebugComponent &component);
     template iPartyComponent &iEntityScene::addComponent<iPartyComponent>(iEntityID entityID, const iPartyComponent &component);
     template iGlobalBoundaryComponent &iEntityScene::addComponent<iGlobalBoundaryComponent>(iEntityID entityID, const iGlobalBoundaryComponent &component);
+    template iAnimationComponent &iEntityScene::addComponent<iAnimationComponent>(iEntityID entityID, const iAnimationComponent &component);
 
     template <typename T>
     T &iEntityScene::getComponent(iEntityID entityID)
@@ -303,6 +322,7 @@ namespace igor
     template iPartyComponent &iEntityScene::getComponent<iPartyComponent>(iEntityID entityID);
     template iBody2DComponent &iEntityScene::getComponent<iBody2DComponent>(iEntityID entityID);
     template iGlobalBoundaryComponent &iEntityScene::getComponent<iGlobalBoundaryComponent>(iEntityID entityID);
+    template iAnimationComponent &iEntityScene::getComponent<iAnimationComponent>(iEntityID entityID);
 
     template <typename T>
     T *iEntityScene::tryGetComponent(iEntityID entityID)
@@ -322,6 +342,7 @@ namespace igor
     template iPartyComponent *iEntityScene::tryGetComponent<iPartyComponent>(iEntityID entityID);
     template iBody2DComponent *iEntityScene::tryGetComponent<iBody2DComponent>(iEntityID entityID);
     template iGlobalBoundaryComponent *iEntityScene::tryGetComponent<iGlobalBoundaryComponent>(iEntityID entityID);
+    template iAnimationComponent *iEntityScene::tryGetComponent<iAnimationComponent>(iEntityID entityID);
 
     template <typename T>
     void iEntityScene::removeComponent(iEntityID entityID)
@@ -354,5 +375,7 @@ namespace igor
     template void iEntityScene::removeComponent<iRenderDebugComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iPartyComponent>(iEntityID entityID);
     template void iEntityScene::removeComponent<iGlobalBoundaryComponent>(iEntityID entityID);
+    template void iEntityScene::removeComponent<iAnimationComponent>(iEntityID entityID);
+    
 
 } // igor

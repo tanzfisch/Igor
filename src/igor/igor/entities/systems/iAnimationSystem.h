@@ -26,51 +26,34 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ANIMATION__
-#define __IGOR_ANIMATION__
+#ifndef __IGOR_ANIMATION_SYSTEM__
+#define __IGOR_ANIMATION_SYSTEM__
 
-#include <igor/resources/iResource.h>
-#include <iaux/system/iaTime.h>
-using namespace iaux;
-
-#include <memory>
+#include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
 
-    /*! animation base class
-    */
-    class IGOR_API iAnimation : public iResource
-    {
-    public:
+	/*! behaviour system
+	*/
+	class iAnimationSystem : public iEntitySystem
+	{
+	public:
+		/*! does nothing
+		*/
+		iAnimationSystem() = default;
 
-        /*! does nothing
-        */
-        virtual ~iAnimation() = default;
+		/*! does nothing
+		*/
+		~iAnimationSystem() = default;
 
-        /*! \returns duration of animation
-        */
-        virtual iaTime getDuration() const = 0;
+		/*! updates system
 
-        /*! evaluates animation
+		\param scene the scene used for this update
+		 */
+		void update(iEntityScenePtr scene) override;
+	};
 
-        \param t the scale form 0 to 1 from start to stop
-        */
-        virtual void evaluate(float64 t) = 0;
+} // igor
 
-    private:
-
-        /*! initializes members
-
-        \param parameters the parameters which define the animation
-        */
-        iAnimation(const iParameters &parameters);            
-    };
-
-    /*! evaluation pointer definition
-    */
-    typedef std::shared_ptr<iAnimation> iAnimationPtr;
-
-} // namespace igor
-
-#endif // __IGOR_ANIMATION__
+#endif // __IGOR_ANIMATION_SYSTEM__

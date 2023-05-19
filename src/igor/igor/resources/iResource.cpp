@@ -6,12 +6,12 @@
 
 namespace igor
 {
-    iResource::iResource(const iParameters &parameters)
+    iResource::iResource(const iaString &type, const iParameters &parameters)
         : _parameters(parameters)
     {
-        _type = parameters.getValue<iaString>("type", "unknown");
+        _type = type;
+        _name = parameters.getValue<iaString>("name", "");
         _cacheMode = parameters.getValue<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
-        _name = parameters.getValue<iaString>("name", "noname");
     }
 
     bool iResource::isValid() const

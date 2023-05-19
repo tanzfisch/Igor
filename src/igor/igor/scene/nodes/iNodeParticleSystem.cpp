@@ -80,12 +80,12 @@ namespace igor
         }
     }
 
-    void iNodeParticleSystem::setColorGradient(const iaGradientColor4f &colorGradient)
+    void iNodeParticleSystem::setColorGradient(const iaKeyFrameGraphColor4f &colorGradient)
     {
         _particleSystem.setColorGradient(colorGradient);
     }
 
-    void iNodeParticleSystem::getColorGradient(iaGradientColor4f &colorGradient) const
+    void iNodeParticleSystem::getColorGradient(iaKeyFrameGraphColor4f &colorGradient) const
     {
         _particleSystem.getColorGradient(colorGradient);
     }
@@ -118,12 +118,12 @@ namespace igor
         iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _targetMaterial);
     }
 
-    void iNodeParticleSystem::setStartVelocityGradient(const iaGradientVector2f &velocityGradient)
+    void iNodeParticleSystem::setStartVelocityGradient(const iaKeyFrameGraphVector2f &velocityGradient)
     {
         _particleSystem.setStartVelocityGradient(velocityGradient);
     }
 
-    void iNodeParticleSystem::getStartVelocityGradient(iaGradientVector2f &velocityGradient) const
+    void iNodeParticleSystem::getStartVelocityGradient(iaKeyFrameGraphVector2f &velocityGradient) const
     {
         _particleSystem.getStartVelocityGradient(velocityGradient);
     }
@@ -225,32 +225,32 @@ namespace igor
         return _particleSystem.getVortexRangeMax();
     }
 
-    void iNodeParticleSystem::setStartLiftGradient(const iaGradientVector2f &liftGradient)
+    void iNodeParticleSystem::setStartLiftGradient(const iaKeyFrameGraphVector2f &liftGradient)
     {
         _particleSystem.setStartLiftGradient(liftGradient);
     }
 
-    void iNodeParticleSystem::getStartLiftGradient(iaGradientVector2f &liftGradient) const
+    void iNodeParticleSystem::getStartLiftGradient(iaKeyFrameGraphVector2f &liftGradient) const
     {
         _particleSystem.getStartLiftGradient(liftGradient);
     }
 
-    void iNodeParticleSystem::setSizeScaleGradient(const iaGradientf &sizeScaleGradient)
+    void iNodeParticleSystem::setSizeScaleGradient(const iaKeyFrameGraphf &sizeScaleGradient)
     {
         _particleSystem.setSizeScaleGradient(sizeScaleGradient);
     }
 
-    void iNodeParticleSystem::getSizeScaleGradient(iaGradientf &sizeScaleGradient) const
+    void iNodeParticleSystem::getSizeScaleGradient(iaKeyFrameGraphf &sizeScaleGradient) const
     {
         _particleSystem.getSizeScaleGradient(sizeScaleGradient);
     }
 
-    void iNodeParticleSystem::setStartSizeGradient(const iaGradientVector2f &sizeGradient)
+    void iNodeParticleSystem::setStartSizeGradient(const iaKeyFrameGraphVector2f &sizeGradient)
     {
         _particleSystem.setStartSizeGradient(sizeGradient);
     }
 
-    void iNodeParticleSystem::getStartSizeGradient(iaGradientVector2f &sizeGradient) const
+    void iNodeParticleSystem::getStartSizeGradient(iaKeyFrameGraphVector2f &sizeGradient) const
     {
         _particleSystem.getStartSizeGradient(sizeGradient);
     }
@@ -341,42 +341,42 @@ namespace igor
         _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 2);
     }
 
-    void iNodeParticleSystem::setEmissionGradient(const iaGradientf &emissionGradient)
+    void iNodeParticleSystem::setEmissionGradient(const iaKeyFrameGraphf &emissionGradient)
     {
         _particleSystem.setEmissionGradient(emissionGradient);
     }
 
-    void iNodeParticleSystem::getEmissionGradient(iaGradientf &emissionGradient) const
+    void iNodeParticleSystem::getEmissionGradient(iaKeyFrameGraphf &emissionGradient) const
     {
         _particleSystem.getEmissionGradient(emissionGradient);
     }
 
-    void iNodeParticleSystem::setStartAgeGradient(const iaGradientVector2f &visibleGradient)
+    void iNodeParticleSystem::setStartAgeGradient(const iaKeyFrameGraphVector2f &visibleGradient)
     {
         _particleSystem.setStartAgeGradient(visibleGradient);
     }
 
-    void iNodeParticleSystem::getStartAgeGradient(iaGradientVector2f &visibleGradient) const
+    void iNodeParticleSystem::getStartAgeGradient(iaKeyFrameGraphVector2f &visibleGradient) const
     {
         _particleSystem.getStartAgeGradient(visibleGradient);
     }
 
-    void iNodeParticleSystem::setStartOrientationGradient(const iaGradientVector2f &orientationGradient)
+    void iNodeParticleSystem::setStartOrientationGradient(const iaKeyFrameGraphVector2f &orientationGradient)
     {
         _particleSystem.setStartOrientationGradient(orientationGradient);
     }
 
-    void iNodeParticleSystem::getStartOrientationGradient(iaGradientVector2f &orientationGradient) const
+    void iNodeParticleSystem::getStartOrientationGradient(iaKeyFrameGraphVector2f &orientationGradient) const
     {
         _particleSystem.getStartOrientationGradient(orientationGradient);
     }
 
-    void iNodeParticleSystem::setStartOrientationRateGradient(const iaGradientVector2f &orientationRateGradient)
+    void iNodeParticleSystem::setStartOrientationRateGradient(const iaKeyFrameGraphVector2f &orientationRateGradient)
     {
         _particleSystem.setStartOrientationRateGradient(orientationRateGradient);
     }
 
-    void iNodeParticleSystem::getStartOrientationRateGradient(iaGradientVector2f &orientationRateGradient) const
+    void iNodeParticleSystem::getStartOrientationRateGradient(iaKeyFrameGraphVector2f &orientationRateGradient) const
     {
         _particleSystem.getStartOrientationRateGradient(orientationRateGradient);
     }

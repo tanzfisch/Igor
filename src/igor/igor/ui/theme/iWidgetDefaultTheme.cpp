@@ -100,7 +100,7 @@ namespace igor
         drawFilledRectangle(rect, COLOR_DIFFUSE);
     }
 
-    void iWidgetDefaultTheme::drawGradient(const iaRectanglef &rect, const iaGradientColor4f &gradient)
+    void iWidgetDefaultTheme::drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient)
     {
         iRenderer::getInstance().setLineWidth(1);
 

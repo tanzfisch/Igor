@@ -35,7 +35,7 @@ namespace igor
 		setVisible();
 	}
 
-	void iDialogColorGradient::setColorGradient(const iaGradientColor4f &gradient)
+	void iDialogColorGradient::setColorGradient(const iaKeyFrameGraphColor4f &gradient)
 	{
 		con_assert(_gradient.isEmpty(), "invalid parameter");
 
@@ -54,12 +54,12 @@ namespace igor
 		return _useAlpha;
 	}
 
-	const iaGradientColor4f &iDialogColorGradient::getColorGradient() const
+	const iaKeyFrameGraphColor4f &iDialogColorGradient::getColorGradient() const
 	{
 		return _gradient;
 	}
 
-	const iaGradientColor4f &iDialogColorGradient::getResetColorGradient() const
+	const iaKeyFrameGraphColor4f &iDialogColorGradient::getResetColorGradient() const
 	{
 		return _oldGradient;
 	}
@@ -186,7 +186,7 @@ namespace igor
 
 	void iDialogColorGradient::onPositionChanged(const iWidgetPtr source)
 	{
-		iaGradientColor4f temp = _gradient;
+		iaKeyFrameGraphColor4f temp = _gradient;
 
 		float32 at = _position->getValue() / 100.0f;
 		iaColor4f color = _gradient.getValues()[_selectedColor].second;

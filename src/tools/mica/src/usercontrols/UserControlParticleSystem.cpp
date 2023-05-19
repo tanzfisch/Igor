@@ -70,14 +70,14 @@ void UserControlParticleSystem::updateNode()
             node->setTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
             node->setColorGradient(_colorGradient->getGradient());
 
-            iaGradientVector2f startSizeGradient;
+            iaKeyFrameGraphVector2f startSizeGradient;
             for (int i = 0; i < _startSizeGraph->getPoints(0).size(); ++i)
             {
                 startSizeGradient.setValue(_startSizeGraph->getPoints(0)[i]._x, iaVector2f(_startSizeGraph->getPoints(0)[i]._y, _startSizeGraph->getPoints(1)[i]._y));
             }
             node->setStartSizeGradient(startSizeGradient);
 
-            iaGradientf sizeScaleGradient;
+            iaKeyFrameGraphf sizeScaleGradient;
             auto scaleSizePoints = _scaleSizeGraph->getPoints(0);
             for (auto point : scaleSizePoints)
             {
@@ -85,14 +85,14 @@ void UserControlParticleSystem::updateNode()
             }
             node->setSizeScaleGradient(sizeScaleGradient);
 
-            iaGradientVector2f startVisibilityGradient;
+            iaKeyFrameGraphVector2f startVisibilityGradient;
             for (int i = 0; i < _visibilityGraph->getPoints(0).size(); ++i)
             {
                 startVisibilityGradient.setValue(_visibilityGraph->getPoints(0)[i]._x, iaVector2f(_visibilityGraph->getPoints(0)[i]._y, _visibilityGraph->getPoints(1)[i]._y));
             }
             node->setStartAgeGradient(startVisibilityGradient);
 
-            iaGradientVector2f orientationGradient;
+            iaKeyFrameGraphVector2f orientationGradient;
             for (int i = 0; i < _orientationGraph->getPoints(0).size(); ++i)
             {
                 orientationGradient.setValue(_orientationGraph->getPoints(0)[i]._x,
@@ -100,7 +100,7 @@ void UserControlParticleSystem::updateNode()
             }
             node->setStartOrientationGradient(orientationGradient);
 
-            iaGradientVector2f orientationRateGradient;
+            iaKeyFrameGraphVector2f orientationRateGradient;
             for (int i = 0; i < _orientationRateGraph->getPoints(0).size(); ++i)
             {
                 orientationRateGradient.setValue(_orientationRateGraph->getPoints(0)[i]._x,
@@ -108,21 +108,21 @@ void UserControlParticleSystem::updateNode()
             }
             node->setStartOrientationRateGradient(orientationRateGradient);
 
-            iaGradientVector2f startVelocityGradient;
+            iaKeyFrameGraphVector2f startVelocityGradient;
             for (int i = 0; i < _startVelocityGraph->getPoints(0).size(); ++i)
             {
                 startVelocityGradient.setValue(_startVelocityGraph->getPoints(0)[i]._x, iaVector2f(_startVelocityGraph->getPoints(0)[i]._y, _startVelocityGraph->getPoints(1)[i]._y));
             }
             node->setStartVelocityGradient(startVelocityGradient);
 
-            iaGradientVector2f startLiftGradient;
+            iaKeyFrameGraphVector2f startLiftGradient;
             for (int i = 0; i < _startLiftGraph->getPoints(0).size(); ++i)
             {
                 startLiftGradient.setValue(_startLiftGraph->getPoints(0)[i]._x, iaVector2f(_startLiftGraph->getPoints(0)[i]._y, _startLiftGraph->getPoints(1)[i]._y));
             }
             node->setStartLiftGradient(startLiftGradient);
 
-            iaGradientf emissionGradient;
+            iaKeyFrameGraphf emissionGradient;
             auto emissionPoints = _emissionGraph->getPoints(0);
             for (auto point : emissionPoints)
             {
@@ -194,7 +194,7 @@ void UserControlParticleSystem::updateGUI()
         _tilingHorizontalChooser->setValue(node->getTextureColumns());
         _tilingVerticalChooser->setValue(node->getTextureRows());
 
-        iaGradientColor4f gradient;
+        iaKeyFrameGraphColor4f gradient;
         node->getColorGradient(gradient);
         _colorGradient->setGradient(gradient);
 
@@ -207,7 +207,7 @@ void UserControlParticleSystem::updateGUI()
 void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
 {
     // start size
-    iaGradientVector2f startSizeGradient;
+    iaKeyFrameGraphVector2f startSizeGradient;
     node->getStartSizeGradient(startSizeGradient);
 
     std::vector<iaVector2f> minStartSize;
@@ -224,7 +224,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     _startSizeGraph->setPoints(1, maxStartSize);
 
     // scale size
-    iaGradientf sizeScaleGradient;
+    iaKeyFrameGraphf sizeScaleGradient;
     node->getSizeScaleGradient(sizeScaleGradient);
 
     std::vector<iaVector2f> scaleSize;
@@ -236,7 +236,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     _scaleSizeGraph->setPoints(0, scaleSize);
 
     // visibility
-    iaGradientVector2f visibilityGradient;
+    iaKeyFrameGraphVector2f visibilityGradient;
     node->getStartAgeGradient(visibilityGradient);
 
     std::vector<iaVector2f> minVisibility;
@@ -253,7 +253,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     _visibilityGraph->setPoints(1, maxVisibility);
 
     // start orientation
-    iaGradientVector2f startOrientationGradient;
+    iaKeyFrameGraphVector2f startOrientationGradient;
     node->getStartOrientationGradient(startOrientationGradient);
 
     std::vector<iaVector2f> minStartOrientation;
@@ -270,7 +270,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     _orientationGraph->setPoints(1, maxStartOrientation);
 
     // start orientation rate
-    iaGradientVector2f startOrientationRateGradient;
+    iaKeyFrameGraphVector2f startOrientationRateGradient;
     node->getStartOrientationRateGradient(startOrientationRateGradient);
 
     std::vector<iaVector2f> minStartOrientationRate;
@@ -287,7 +287,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     _orientationRateGraph->setPoints(1, maxStartOrientationRate);
 
     // start velocity
-    iaGradientVector2f startVelocityGradient;
+    iaKeyFrameGraphVector2f startVelocityGradient;
     node->getStartVelocityGradient(startVelocityGradient);
 
     std::vector<iaVector2f> minStartVelocity;
@@ -304,7 +304,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     _startVelocityGraph->setPoints(1, maxStartVelocity);
 
     // start Lift
-    iaGradientVector2f startLiftGradient;
+    iaKeyFrameGraphVector2f startLiftGradient;
     node->getStartLiftGradient(startLiftGradient);
 
     std::vector<iaVector2f> minStartLift;
@@ -321,7 +321,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     _startLiftGraph->setPoints(1, maxStartLift);
 
     // emission
-    iaGradientf emissionGradient;
+    iaKeyFrameGraphf emissionGradient;
     node->getEmissionGradient(emissionGradient);
 
     std::vector<iaVector2f> emissionGraph;

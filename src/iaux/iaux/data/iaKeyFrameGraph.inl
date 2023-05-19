@@ -3,19 +3,19 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-void iaGradient<T>::clear()
+void iaKeyFrameGraph<T>::clear()
 {
     _values.clear();
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaGradient<T>::isEmpty() const
+__IGOR_INLINE__ bool iaKeyFrameGraph<T>::isEmpty() const
 {
     return _values.empty();
 }
 
 template <class T>
-void iaGradient<T>::setValue(float32 at, const T &value)
+void iaKeyFrameGraph<T>::setValue(float32 at, const T &value)
 {
     if (_values.size() == 0)
     {
@@ -46,7 +46,7 @@ void iaGradient<T>::setValue(float32 at, const T &value)
 }
 
 template <class T>
-void iaGradient<T>::removeIndex(int32 index)
+void iaKeyFrameGraph<T>::removeIndex(int32 index)
 {
     if (index < _values.size())
     {
@@ -55,7 +55,7 @@ void iaGradient<T>::removeIndex(int32 index)
 }
 
 template <class T>
-void iaGradient<T>::setValueAtIndex(int32 index, float32 at, const T &value)
+void iaKeyFrameGraph<T>::setValueAtIndex(int32 index, float32 at, const T &value)
 {
     con_assert(index < _values.size(), "out of bounds");
 
@@ -67,7 +67,7 @@ void iaGradient<T>::setValueAtIndex(int32 index, float32 at, const T &value)
 }
 
 template <class T>
-void iaGradient<T>::getValueAtIndex(int32 index, float32 &at, T &value)
+void iaKeyFrameGraph<T>::getValueAtIndex(int32 index, float32 &at, T &value)
 {
     con_assert(index < _values.size(), "out of bounds");
 
@@ -76,19 +76,19 @@ void iaGradient<T>::getValueAtIndex(int32 index, float32 &at, T &value)
 }
 
 template <class T>
-const std::vector<std::pair<float32, T>> &iaGradient<T>::getValues() const
+const std::vector<std::pair<float32, T>> &iaKeyFrameGraph<T>::getValues() const
 {
     return _values;
 }
 
 template <class T>
-uint32 iaGradient<T>::getValueCount() const
+uint32 iaKeyFrameGraph<T>::getValueCount() const
 {
     return _values.size();
 }
 
 template <class T>
-T iaGradient<T>::getValue(float32 at) const
+T iaKeyFrameGraph<T>::getValue(float32 at) const
 {
     T result;
     getValue(at, result);
@@ -97,7 +97,7 @@ T iaGradient<T>::getValue(float32 at) const
 }
 
 template <class T>
-void iaGradient<T>::getValue(float32 at, T &value) const
+void iaKeyFrameGraph<T>::getValue(float32 at, T &value) const
 {
     if (at >= _values[_values.size() - 1].first)
     {

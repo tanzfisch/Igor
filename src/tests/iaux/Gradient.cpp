@@ -1,12 +1,12 @@
 #include <iaux/iaux.h>
 #include <iaux/test/iaTest.h>
 
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 using namespace iaux;
 
 IAUX_TEST(GradientTests, Empty)
 {
-	iaGradientd gradient;
+	iaKeyFrameGraphd gradient;
 
 	IAUX_EXPECT_TRUE(gradient.isEmpty());
 	IAUX_EXPECT_TRUE(gradient.getValues().empty());
@@ -23,7 +23,7 @@ IAUX_TEST(GradientTests, Empty)
 
 IAUX_TEST(GradientTests, GetValue)
 {
-	iaGradientd gradient;
+	iaKeyFrameGraphd gradient;
 
 	gradient.setValue(-13.0, 100.0);
 	gradient.setValue(13.0, 200.0);
@@ -38,7 +38,7 @@ IAUX_TEST(GradientTests, GetValue)
 
 IAUX_TEST(GradientTests, WorkWithIndex)
 {
-	iaGradientd gradient;
+	iaKeyFrameGraphd gradient;
 
 	gradient.setValue(100.0, 150.0);
 	gradient.setValue(200.0, 250.0);

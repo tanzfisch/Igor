@@ -6,7 +6,7 @@
 #include <iaux/system/iaConsole.h>
 
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 #include <igor/system/iTimer.h>
 #include <igor/simulation/iParticleEmitter.h>
 
@@ -79,27 +79,27 @@ namespace igor
         return _velocityOriented;
     }
 
-    void iParticleSystem::setColorGradient(const iaGradientColor4f &colorGradient)
+    void iParticleSystem::setColorGradient(const iaKeyFrameGraphColor4f &colorGradient)
     {
         _colorGradient = colorGradient;
     }
 
-    void iParticleSystem::getColorGradient(iaGradientColor4f &colorGradient) const
+    void iParticleSystem::getColorGradient(iaKeyFrameGraphColor4f &colorGradient) const
     {
         colorGradient = _colorGradient;
     }
 
-    const iaGradientColor4f &iParticleSystem::getColorGradient() const
+    const iaKeyFrameGraphColor4f &iParticleSystem::getColorGradient() const
     {
         return _colorGradient;
     }
 
-    void iParticleSystem::setEmissionGradient(const iaGradientf &emissionGradient)
+    void iParticleSystem::setEmissionGradient(const iaKeyFrameGraphf &emissionGradient)
     {
         _emissionRateGradient = emissionGradient;
     }
 
-    void iParticleSystem::getEmissionGradient(iaGradientf &emissionGradient) const
+    void iParticleSystem::getEmissionGradient(iaKeyFrameGraphf &emissionGradient) const
     {
         emissionGradient = _emissionRateGradient;
     }
@@ -343,7 +343,7 @@ namespace igor
         _particleSystemInvWorldMatrix = worldInvMatrix;
     }
 
-    void iParticleSystem::setStartAgeGradient(const iaGradientVector2f &startAgeGradient)
+    void iParticleSystem::setStartAgeGradient(const iaKeyFrameGraphVector2f &startAgeGradient)
     {
         // TODO check if max age can be 0 or less
 
@@ -351,18 +351,18 @@ namespace igor
         _mustReset = true;
     }
 
-    void iParticleSystem::getStartAgeGradient(iaGradientVector2f &startAgeGradient) const
+    void iParticleSystem::getStartAgeGradient(iaKeyFrameGraphVector2f &startAgeGradient) const
     {
         startAgeGradient = _startAgeGradient;
     }
 
-    void iParticleSystem::setSizeScaleGradient(const iaGradientf &sizeScaleGradient)
+    void iParticleSystem::setSizeScaleGradient(const iaKeyFrameGraphf &sizeScaleGradient)
     {
         _sizeScaleGradient = sizeScaleGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem::getSizeScaleGradient(iaGradientf &sizeScaleGradient) const
+    void iParticleSystem::getSizeScaleGradient(iaKeyFrameGraphf &sizeScaleGradient) const
     {
         sizeScaleGradient = _sizeScaleGradient;
     }
@@ -624,35 +624,35 @@ namespace igor
         return _simulationRate;
     }
 
-    void iParticleSystem::setStartSizeGradient(const iaGradientVector2f &sizeGradient)
+    void iParticleSystem::setStartSizeGradient(const iaKeyFrameGraphVector2f &sizeGradient)
     {
         _startSizeGradient = sizeGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem::getStartSizeGradient(iaGradientVector2f &sizeGradient) const
+    void iParticleSystem::getStartSizeGradient(iaKeyFrameGraphVector2f &sizeGradient) const
     {
         sizeGradient = _startSizeGradient;
     }
 
-    void iParticleSystem::setStartVelocityGradient(const iaGradientVector2f &velocityGradient)
+    void iParticleSystem::setStartVelocityGradient(const iaKeyFrameGraphVector2f &velocityGradient)
     {
         _startVelocityGradient = velocityGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem::getStartVelocityGradient(iaGradientVector2f &velocityGradient) const
+    void iParticleSystem::getStartVelocityGradient(iaKeyFrameGraphVector2f &velocityGradient) const
     {
         velocityGradient = _startVelocityGradient;
     }
 
-    void iParticleSystem::setStartLiftGradient(const iaGradientVector2f &liftGradient)
+    void iParticleSystem::setStartLiftGradient(const iaKeyFrameGraphVector2f &liftGradient)
     {
         _startLiftGradient = liftGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem::getStartLiftGradient(iaGradientVector2f &liftGradient) const
+    void iParticleSystem::getStartLiftGradient(iaKeyFrameGraphVector2f &liftGradient) const
     {
         liftGradient = _startLiftGradient;
     }
@@ -668,24 +668,24 @@ namespace igor
         return _airDrag;
     }
 
-    void iParticleSystem::setStartOrientationGradient(const iaGradientVector2f &orientationGradient)
+    void iParticleSystem::setStartOrientationGradient(const iaKeyFrameGraphVector2f &orientationGradient)
     {
         _startOrientationGradient = orientationGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem::getStartOrientationGradient(iaGradientVector2f &orientationGradient) const
+    void iParticleSystem::getStartOrientationGradient(iaKeyFrameGraphVector2f &orientationGradient) const
     {
         orientationGradient = _startOrientationGradient;
     }
 
-    void iParticleSystem::setStartOrientationRateGradient(const iaGradientVector2f &orientationRateGradient)
+    void iParticleSystem::setStartOrientationRateGradient(const iaKeyFrameGraphVector2f &orientationRateGradient)
     {
         _startOrientationRateGradient = orientationRateGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem::getStartOrientationRateGradient(iaGradientVector2f &orientationRateGradient) const
+    void iParticleSystem::getStartOrientationRateGradient(iaKeyFrameGraphVector2f &orientationRateGradient) const
     {
         orientationRateGradient = _startOrientationRateGradient;
     }

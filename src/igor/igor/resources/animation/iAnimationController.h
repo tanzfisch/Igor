@@ -1,3 +1,4 @@
+
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -26,51 +27,53 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ANIMATION__
-#define __IGOR_ANIMATION__
+#ifndef __IGOR_ANIMATION_CONTROLLER__
+#define __IGOR_ANIMATION_CONTROLLER__
 
-#include <igor/resources/iResource.h>
-#include <iaux/system/iaTime.h>
-using namespace iaux;
+#include <igor/resources/animation/iAnimation.h>
 
-#include <memory>
+#include <iaux/statemachine/iaStateMachine.h>
+
+#include <unordered_map>
 
 namespace igor
 {
 
-    /*! animation base class
-    */
-    class IGOR_API iAnimation : public iResource
+    class iEntity;
+
+    /*! animation controller
+     */
+    class IGOR_API iAnimationController
     {
+        friend class iAnimationSystem;
+
     public:
 
-        /*! does nothing
-        */
-        virtual ~iAnimation() = default;
+        iAnimationController();
 
-        /*! \returns duration of animation
-        */
-        virtual iaTime getDuration() const = 0;
+        void addAnimation(iAnimationPtr animation);
 
-        /*! evaluates animation
-
-        \param t the scale form 0 to 1 from start to stop
-        */
-        virtual void evaluate(float64 t) = 0;
+        iaStateMachine& getStateMachine();
 
     private:
 
-        /*! initializes members
-
-        \param parameters the parameters which define the animation
+        /*! state machine
         */
-        iAnimation(const iParameters &parameters);            
+        iaStateMachine _stateMachine;
+
+        /*! begin state
+        */
+        iaStateID _begin;
+
+        std::unordered_map<iaStateID, iAnimationPtr> _states;
+
+        void update(iEntity &entity);
     };
 
-    /*! evaluation pointer definition
-    */
-    typedef std::shared_ptr<iAnimation> iAnimationPtr;
+    /*! animation controller pointer definition
+     */
+    typedef std::shared_ptr<iAnimationController> iAnimationControllerPtr;
 
 } // namespace igor
 
-#endif // __IGOR_ANIMATION__
+#endif // __IGOR_ANIMATION_CONTROLLER__

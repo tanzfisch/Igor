@@ -29,21 +29,21 @@ BulletHit::BulletHit(iScenePtr scene, const iaMatrixd &matrix)
     setDamage(0.0);
     setShieldDamage(0.0);
 
-    iaGradientColor4f colorGradient;
+    iaKeyFrameGraphColor4f colorGradient;
     colorGradient.setValue(0.0, iaColor4f(1.0, 1.0, 0.1, 1));
     colorGradient.setValue(0.5, iaColor4f(0.9, 0.5, 0.1, 0.7));
     colorGradient.setValue(1.0, iaColor4f(0.3, 0.3, 0.3, 0));
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0, iaVector2f(0.2, 0.6));
 
-    iaGradientVector2f visibility;
+    iaKeyFrameGraphVector2f visibility;
     visibility.setValue(0.0, iaVector2f(0.1, 0.2));
 
-    iaGradientVector2f size;
+    iaKeyFrameGraphVector2f size;
     size.setValue(0.0, iaVector2f(0.3, 0.5));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0, 20);
     emission.setValue(0.1, 0);
 

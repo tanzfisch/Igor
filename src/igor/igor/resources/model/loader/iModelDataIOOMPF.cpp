@@ -303,11 +303,11 @@ namespace igor
         particleSystemNode->setMaxParticleCount(particleSystemChunk->getMaxParticleCount());
         particleSystemNode->setLoop(particleSystemChunk->isLooped());
 
-        iaGradientColor4f colorGradient;
+        iaKeyFrameGraphColor4f colorGradient;
         particleSystemChunk->getColorGradient(colorGradient);
         particleSystemNode->setColorGradient(colorGradient);
 
-        iaGradientf emissionGradient;
+        iaKeyFrameGraphf emissionGradient;
         particleSystemChunk->getEmissionGradient(emissionGradient);
         particleSystemNode->setEmissionGradient(emissionGradient);
 
@@ -316,31 +316,31 @@ namespace igor
         particleSystemNode->setVortexCheckRange(particleSystemChunk->getVortexCheckRange());
         particleSystemNode->setTextureTiling(particleSystemChunk->getTextureColumns(), particleSystemChunk->getTextureRows());
 
-        iaGradientVector2f startSizeGradient;
+        iaKeyFrameGraphVector2f startSizeGradient;
         particleSystemChunk->getStartSizeGradient(startSizeGradient);
         particleSystemNode->setStartSizeGradient(startSizeGradient);
 
-        iaGradientf sizeScaleGradient;
+        iaKeyFrameGraphf sizeScaleGradient;
         particleSystemChunk->getSizeScaleGradient(sizeScaleGradient);
         particleSystemNode->setSizeScaleGradient(sizeScaleGradient);
 
-        iaGradientVector2f startVisibleTimeGradient;
+        iaKeyFrameGraphVector2f startVisibleTimeGradient;
         particleSystemChunk->getStartAgeGradient(startVisibleTimeGradient);
         particleSystemNode->setStartAgeGradient(startVisibleTimeGradient);
 
-        iaGradientVector2f orientationRateGradient;
+        iaKeyFrameGraphVector2f orientationRateGradient;
         particleSystemChunk->getStartOrientationRateGradient(orientationRateGradient);
         particleSystemNode->setStartOrientationRateGradient(orientationRateGradient);
 
-        iaGradientVector2f orientationGradient;
+        iaKeyFrameGraphVector2f orientationGradient;
         particleSystemChunk->getStartOrientationGradient(orientationGradient);
         particleSystemNode->setStartOrientationGradient(orientationGradient);
 
-        iaGradientVector2f liftGradient;
+        iaKeyFrameGraphVector2f liftGradient;
         particleSystemChunk->getStartLiftGradient(liftGradient);
         particleSystemNode->setStartLiftGradient(liftGradient);
 
-        iaGradientVector2f velocityGradient;
+        iaKeyFrameGraphVector2f velocityGradient;
         particleSystemChunk->getStartVelocityGradient(velocityGradient);
         particleSystemNode->setStartVelocityGradient(velocityGradient);
 
@@ -685,11 +685,11 @@ namespace igor
         result->setMaxParticleCount(node->getMaxParticleCount());
         result->setLoop(node->isLooped());
 
-        iaGradientColor4f colorGradient;
+        iaKeyFrameGraphColor4f colorGradient;
         node->getColorGradient(colorGradient);
         result->setColorGradient(colorGradient);
 
-        iaGradientf emissionGradient;
+        iaKeyFrameGraphf emissionGradient;
         node->getEmissionGradient(emissionGradient);
         result->setEmissionGradient(emissionGradient);
 
@@ -698,31 +698,31 @@ namespace igor
         result->setVortexCheckRange(node->getVortexCheckRange());
         result->setTextureTiling(node->getTextureColumns(), node->getTextureRows());
 
-        iaGradientVector2f startSizeGradient;
+        iaKeyFrameGraphVector2f startSizeGradient;
         node->getStartSizeGradient(startSizeGradient);
         result->setStartSizeGradient(startSizeGradient);
 
-        iaGradientf sizeScaleGradient;
+        iaKeyFrameGraphf sizeScaleGradient;
         node->getSizeScaleGradient(sizeScaleGradient);
         result->setSizeScaleGradient(sizeScaleGradient);
 
-        iaGradientVector2f startVisibleTimeGradient;
+        iaKeyFrameGraphVector2f startVisibleTimeGradient;
         node->getStartAgeGradient(startVisibleTimeGradient);
         result->setStartAgeGradient(startVisibleTimeGradient);
 
-        iaGradientVector2f orientationRateGradient;
+        iaKeyFrameGraphVector2f orientationRateGradient;
         node->getStartOrientationRateGradient(orientationRateGradient);
         result->setStartOrientationRateGradient(orientationRateGradient);
 
-        iaGradientVector2f orientationGradient;
+        iaKeyFrameGraphVector2f orientationGradient;
         node->getStartOrientationGradient(orientationGradient);
         result->setStartOrientationGradient(orientationGradient);
 
-        iaGradientVector2f liftGradient;
+        iaKeyFrameGraphVector2f liftGradient;
         node->getStartLiftGradient(liftGradient);
         result->setStartLiftGradient(liftGradient);
 
-        iaGradientVector2f velocityGradient;
+        iaKeyFrameGraphVector2f velocityGradient;
         node->getStartVelocityGradient(velocityGradient);
         result->setStartVelocityGradient(velocityGradient);
 
