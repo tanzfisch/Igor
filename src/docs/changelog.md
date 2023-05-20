@@ -9,6 +9,8 @@ Changelog                           {#changelog}
 - fixed more typos
 - added more tests in iaux
 - remove iTextureResourceFactory and have textures now handled by the iResourceManager
+- added state machine back in
+- added pixmap to texture back in
 
 0.39.0
 ------
