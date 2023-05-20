@@ -5,6 +5,7 @@
 #include "Example2D.h"
 
 #include <sstream>
+#include <complex>
 
 Example2D::Example2D(iWindowPtr window)
     : ExampleBase(window, "2D Interfaces")
@@ -46,7 +47,60 @@ void Example2D::onInit()
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicroseconds()));
 
+    initMandelbrotTexture();
     initParticleSystem();
+}
+
+static int32 mandelbrotSet(float32 real, float32 imag)
+{
+    std::complex<float32> c(real, imag);
+    std::complex<float32> z(0, 0);
+
+    int32 iterations = 0;
+    while (abs(z) <= 2 && iterations < 255)
+    {
+        z = z * z + c;
+        iterations++;
+    }
+
+    return iterations;
+}
+
+void Example2D::initMandelbrotTexture()
+{
+    const float64 width = 256;
+    const float64 height = 256;
+    const float64 scale = 3.0;
+    const int32 maxIterations = 100;
+
+    iPixmapPtr pixmap = iPixmap::createPixmap(width, height, iColorFormat::RGBA);
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            double real = (x - width / 2.0) * scale / width;
+            double imag = (y - height / 2.0) * scale / height;
+
+            std::complex<float32> c(real, imag);
+            std::complex<float32> z(0, 0);
+            int32 iterations = 0;
+            while (abs(z) <= 2 && iterations < maxIterations)
+            {
+                z = z * z + c;
+                iterations++;
+            }
+
+            pixmap->setPixelRGBA(x, y, 0xff, 0xff, 0xff, iterations * 2);
+        }
+    }
+
+    iParameters param({{"name", iaString("mandelbrot_texture")},
+                       {"type", iaString("texture")},
+                       {"cacheMode", iResourceCacheMode::Keep},
+                       {"pixmap", pixmap}});
+
+    _mandelbrotTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
 }
 
 void Example2D::initParticleSystem()
@@ -111,6 +165,7 @@ void Example2D::onDeinit()
     // release some resources
     _doughnuts = nullptr;
     _backgroundTexture = nullptr;
+    _mandelbrotTexture = nullptr;
 }
 
 void Example2D::onEvent(iEvent &event)
@@ -194,7 +249,11 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
     // draw with dummy texture
-    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 410, _dummyTexture, iaColor4f::white, true);
+    iRenderer::getInstance().drawTexturedRectangle(10, 170, 200, 200, _dummyTexture, iaColor4f::white, true);
+
+    // draw with mandelbrot texture
+    iRenderer::getInstance().drawTexturedRectangle(static_cast<float32>(getWindow()->getClientWidth() - 200), 180.0f, 
+                                                   256.0f, 256.0f, _mandelbrotTexture, iaColor4f::black, true);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "

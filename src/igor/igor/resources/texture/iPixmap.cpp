@@ -14,6 +14,12 @@ using namespace iaux;
 
 namespace igor
 {
+
+    iPixmapPtr iPixmap::createPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
+    {
+        return iPixmapPtr(new iPixmap(width, height, colorFormat));
+    }
+
     iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
     {
         _colorFormat = colorFormat;

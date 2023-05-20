@@ -80,6 +80,8 @@ namespace igor
         const int32 glformat = iRendererUtils::convertType(format, false);
         const int32 glformatSized = iRendererUtils::convertType(format, true);
 
+        _buildMode = buildMode;
+        _wrapMode = wrapMode;
         _width = width;
         _height = height;
         _colorFormat = format;
@@ -102,7 +104,7 @@ namespace igor
         glCreateTextures(GL_TEXTURE_2D, 1, &_textureID);
         GL_CHECK_ERROR();
 
-        switch (wrapMode)
+        switch (_wrapMode)
         {
         case iTextureWrapMode::Repeat:
             glTextureParameteri(_textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -126,7 +128,7 @@ namespace igor
             break;
         }
 
-        if (buildMode == iTextureBuildMode::Mipmapped)
+        if (_buildMode == iTextureBuildMode::Mipmapped)
         {
             _mipMapLevels = floor(log2(std::max(width,height)))+1;
             glTextureParameteri(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

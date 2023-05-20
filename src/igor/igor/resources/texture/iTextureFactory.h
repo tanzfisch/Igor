@@ -49,7 +49,7 @@ namespace igor
         \returns pixmap
         \todo need a better place for this
         */
-        static iPixmap *loadPixmap(const iaString &filename);
+        static iPixmapPtr loadPixmap(const iaString &filename);
 
     private:
         /*! \returns the factory type
@@ -105,6 +105,13 @@ namespace igor
         \param parameters parameters to generate a texture
         */
         bool generateTexture(iTexturePtr texture, const iParameters &parameters);
+
+        /*! use pixmap as textures
+
+        \param pixmap the pixmap to load in to the texture
+        \param texture the texture resource
+        */
+        bool pixmapToTexture(iPixmapPtr pixmap, iTexturePtr texture);
     };
 
 }; // namespace igor

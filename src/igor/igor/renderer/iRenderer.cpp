@@ -563,7 +563,7 @@ namespace igor
                                 {"width", 1},
                                 {"height", 1}});
 
-        std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(paramWhite));
+        iResourceManager::getInstance().loadResource(paramWhite);
     }
 
     void iRenderer::deinit()

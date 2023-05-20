@@ -42,7 +42,42 @@ namespace igor
             return generateTexture(texture, parameters);
         }
 
+        iPixmapPtr pixmap = parameters.getValue<iPixmapPtr>("pixmap", nullptr);
+        if (pixmap != nullptr)
+        {
+            return pixmapToTexture(pixmap, texture);
+        }
+
         return loadTexture(filename, texture);
+    }
+
+    bool iTextureFactory::pixmapToTexture(iPixmapPtr pixmap, iTexturePtr texture)
+    {
+        uint32 width = pixmap->getWidth();
+        uint32 height = pixmap->getHeight();
+        uint32 bpp = pixmap->getBytesPerPixel();
+
+        uint8 *data = pixmap->getData();
+        iColorFormat colorformat = iColorFormat::Undefined;
+
+        switch (bpp)
+        {
+        case 3:
+            colorformat = iColorFormat::RGB;
+            break;
+
+        case 4:
+            colorformat = iColorFormat::RGBA;
+            break;
+
+        default:
+            con_err("unknown color format");
+            return false;
+        };
+
+        texture->setData(width, height, bpp, colorformat, data, texture->_buildMode, texture->_wrapMode);
+
+        return true;
     }
 
     bool iTextureFactory::generateTexture(iTexturePtr texture, const iParameters &parameters)
@@ -56,19 +91,19 @@ namespace igor
         iaColor4c secondary;
         iaConvert::convert(secondaryf, secondary);
 
-        texture->_width = parameters.getValue<int32>("width", 1);
-        texture->_height = parameters.getValue<int32>("height", 1);
-        texture->_bpp = 4;
+        const uint32 width = parameters.getValue<int32>("width", 1);
+        const uint32 height = parameters.getValue<int32>("height", 1);
+        const uint32 bpp = 4;
 
-        uint8 *data = new uint8[texture->_width * texture->_height * texture->_bpp];
+        uint8 *data = new uint8[width * height * bpp];
 
         switch (pattern)
         {
         case iTexturePattern::SolidColor:
         {
-            for (int i = 0; i < texture->_width * texture->_height; ++i)
+            for (int i = 0; i < width * height; ++i)
             {
-                memcpy(data + i * texture->_bpp, &primary, texture->_bpp);
+                memcpy(data + i * bpp, &primary, bpp);
             }
         }
         break;
@@ -77,14 +112,14 @@ namespace igor
         {
             bool black = false;
 
-            for (uint32 y = 0; y < texture->_height; y++)
+            for (uint32 y = 0; y < height; y++)
             {
                 if (y % 16 == 0)
                 {
                     black = !black;
                 }
 
-                for (uint32 x = 0; x < texture->_width; x++)
+                for (uint32 x = 0; x < width; x++)
                 {
                     if (x % 16 == 0)
                     {
@@ -93,11 +128,11 @@ namespace igor
 
                     if (black)
                     {
-                        memcpy(data + (y * texture->_width + x) * texture->_bpp, &primary, texture->_bpp);
+                        memcpy(data + (y * width + x) * bpp, &primary, bpp);
                     }
                     else
                     {
-                        memcpy(data + (y * texture->_width + x) * texture->_bpp, &secondary, texture->_bpp);
+                        memcpy(data + (y * width + x) * bpp, &secondary, bpp);
                     }
                 }
             }
@@ -105,7 +140,7 @@ namespace igor
         break;
         }
 
-        texture->setData(texture->_width, texture->_height, texture->_bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
+        texture->setData(width, height, bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
         con_info("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] "); // TODO << texture->_buildMode << " " << texture->_wrapMode);
         texture->_useFallback = false;
 
@@ -248,11 +283,11 @@ namespace igor
         return false;
     }
 
-    iPixmap *iTextureFactory::loadPixmap(const iaString &filename)
+    iPixmapPtr iTextureFactory::loadPixmap(const iaString &filename)
     {
         iaString fullPath = iResourceManager::getInstance().getPath(filename);
 
-        iPixmap *pixmap = nullptr;
+        iPixmapPtr pixmap;
 
         int width = 0;
         int height = 0;
@@ -287,8 +322,10 @@ namespace igor
                 con_warn("unsupported color format");
             };
 
-            pixmap = new iPixmap(width, height, colorFormat);
+            pixmap = iPixmap::createPixmap(width, height, colorFormat);
             pixmap->setData(textureData);
+
+            con_info("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
         }
 
         _mutexImageLibrary.lock();

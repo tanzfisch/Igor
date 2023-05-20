@@ -137,7 +137,7 @@ namespace igor
 
         /*! pixmap of the the texture
          */
-        iPixmap *_pixmap;
+        iPixmapPtr _pixmap;
 
         /*! character set of the font
          */

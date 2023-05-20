@@ -137,8 +137,6 @@ namespace igor
             }
         }
 
-        // no need to old on to this
-        delete _pixmap;
         _pixmap = nullptr;
 
         switch (type)

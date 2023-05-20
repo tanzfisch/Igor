@@ -45,7 +45,7 @@ namespace igor
 
         iAnimationPtr &animation = iter->second;
 
-        animation->evaluate
+        // animation->evaluate
 
         con_endl("iAnimationController::update");
     }

@@ -83,6 +83,10 @@ private:
     */
     iTexturePtr _dummyTexture;
 
+    /*! a mandelbrot texture
+    */
+    iTexturePtr _mandelbrotTexture;    
+
     /*! a B-Spline
     */
     iaBSplinef _spline;
@@ -132,6 +136,10 @@ private:
     /*! initialize particle system and emitter
     */
     void initParticleSystem();
+
+    /*! initialize a generated texture
+    */
+    void initMandelbrotTexture();
 
     /*! handles mouse move event
 
