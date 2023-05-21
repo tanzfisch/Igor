@@ -15,11 +15,11 @@ __IGOR_INLINE__ bool iaKeyFrameGraph<T>::isEmpty() const
 }
 
 template <class T>
-void iaKeyFrameGraph<T>::setValue(float32 at, const T &value)
+void iaKeyFrameGraph<T>::setValue(float64 at, const T &value)
 {
     if (_values.size() == 0)
     {
-        _values.push_back(std::pair<float32, T>(at, value));
+        _values.push_back(std::pair<float64, T>(at, value));
         return;
     }
 
@@ -55,19 +55,19 @@ void iaKeyFrameGraph<T>::removeIndex(int32 index)
 }
 
 template <class T>
-void iaKeyFrameGraph<T>::setValueAtIndex(int32 index, float32 at, const T &value)
+void iaKeyFrameGraph<T>::setValueAtIndex(int32 index, float64 at, const T &value)
 {
     con_assert(index < _values.size(), "out of bounds");
 
     _values[index].first = at;
     _values[index].second = value;
 
-    std::sort(_values.begin(), _values.end(), [](std::pair<float32, T> const &a, std::pair<float32, T> const &b)
+    std::sort(_values.begin(), _values.end(), [](std::pair<float64, T> const &a, std::pair<float64, T> const &b)
               { return a.first < b.first; });
 }
 
 template <class T>
-void iaKeyFrameGraph<T>::getValueAtIndex(int32 index, float32 &at, T &value)
+void iaKeyFrameGraph<T>::getValueAtIndex(int32 index, float64 &at, T &value)
 {
     con_assert(index < _values.size(), "out of bounds");
 
@@ -76,7 +76,7 @@ void iaKeyFrameGraph<T>::getValueAtIndex(int32 index, float32 &at, T &value)
 }
 
 template <class T>
-const std::vector<std::pair<float32, T>> &iaKeyFrameGraph<T>::getValues() const
+const std::vector<std::pair<float64, T>> &iaKeyFrameGraph<T>::getValues() const
 {
     return _values;
 }
@@ -88,7 +88,7 @@ uint32 iaKeyFrameGraph<T>::getValueCount() const
 }
 
 template <class T>
-T iaKeyFrameGraph<T>::getValue(float32 at) const
+T iaKeyFrameGraph<T>::getValue(float64 at) const
 {
     T result;
     getValue(at, result);
@@ -97,7 +97,7 @@ T iaKeyFrameGraph<T>::getValue(float32 at) const
 }
 
 template <class T>
-void iaKeyFrameGraph<T>::getValue(float32 at, T &value) const
+void iaKeyFrameGraph<T>::getValue(float64 at, T &value) const
 {
     if (at >= _values[_values.size() - 1].first)
     {

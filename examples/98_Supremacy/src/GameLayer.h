@@ -116,6 +116,8 @@ private:
 
     iTexturePtr _walkSpeed;
 
+    iAnimationPtr _scaleAnimation;
+
     BuildingType _currentBuilding = BuildingType::None;
 
     bool _levelUp = false;

@@ -54,20 +54,20 @@ namespace iaux
         \param at the given position
         \param value the value
         */
-        void setValue(float32 at, const T &value);
+        void setValue(float64 at, const T &value);
 
         /*! returns value at given position
 
         \param[in,out] value the value at given position
         \param at the given position
         */
-        void getValue(float32 at, T &value) const;
+        void getValue(float64 at, T &value) const;
 
         /*! \returns value at given position
 
         \param at the given position
         */
-        T getValue(float32 at) const;
+        T getValue(float64 at) const;
 
         /*! \returns count of values in gradient
         */
@@ -79,7 +79,7 @@ namespace iaux
         \param at the at value
         \param value the new value
         */
-        void setValueAtIndex(int32 index, float32 at, const T &value);
+        void setValueAtIndex(int32 index, float64 at, const T &value);
 
         /*! returns location and value from specified index
 
@@ -87,7 +87,7 @@ namespace iaux
         \param[out] at location at index
         \param[out] value value at index
         */
-        void getValueAtIndex(int32 index, float32 &at, T &value);
+        void getValueAtIndex(int32 index, float64 &at, T &value);
 
         /*! removes specified index
 
@@ -101,7 +101,7 @@ namespace iaux
 
         /*! \returns reference to values
          */
-        const std::vector<std::pair<float32, T>> &getValues() const;
+        const std::vector<std::pair<float64, T>> &getValues() const;
 
         /*! \returns true if color gradient is empty
          */
@@ -118,7 +118,7 @@ namespace iaux
     private:
         /*! the colors
          */
-        std::vector<std::pair<float32, T>> _values;
+        std::vector<std::pair<float64, T>> _values;
     };
 
 #include <iaux/data/iaKeyFrameGraph.inl>
@@ -146,6 +146,14 @@ namespace iaux
     /*! color vector gradient
      */
     typedef iaKeyFrameGraph<iaColor4f> iaKeyFrameGraphColor4f;
+
+    /*! float64 3d vector gradient
+     */
+    typedef iaKeyFrameGraph<iaVector3d> iaKeyFrameGraphVector3d;
+
+    /*! float64 2d vector gradient
+     */
+    typedef iaKeyFrameGraph<iaVector2d> iaKeyFrameGraphVector2d;
 
 }; // namespace iaux
 

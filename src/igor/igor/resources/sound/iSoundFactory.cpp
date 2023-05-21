@@ -88,12 +88,12 @@ namespace igor
 
     bool iSoundFactory::matchingType(const iParameters &parameters) const
     {
-        if (parameters.getValue<iaString>("type") == getType())
+        if (parameters.getParameter<iaString>("type") == getType())
         {
             return true;
         }
 
-        iaFile file(parameters.getValue<iaString>("name"));
+        iaFile file(parameters.getParameter<iaString>("name"));
         const iaString &extension = file.getExtension();
         if (extension == "wav")
         {

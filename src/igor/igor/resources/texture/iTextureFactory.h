@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __TEXTURE_FACTORY__
-#define __TEXTURE_FACTORY__
+#ifndef __IGOR_TEXTURE_FACTORY__
+#define __IGOR_TEXTURE_FACTORY__
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/texture/iTexture.h>
@@ -37,7 +37,7 @@ namespace igor
 
     class iPixmap;
 
-    /*! this factory creates and destroys texture resources
+    /*! this factory creates texture resources
      */
     class iTextureFactory : public iFactory
     {
@@ -116,4 +116,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __TEXTURE_FACTORY__
+#endif // __IGOR_TEXTURE_FACTORY__

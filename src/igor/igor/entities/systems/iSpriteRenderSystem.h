@@ -36,7 +36,7 @@ namespace igor
 
 	/*! sprite render system
 	*/
-	class iSpriteRenderSystem : public iEntitySystem
+	class iSpriteRenderSystem : public iEntityRenderSystem
 	{
 	public:
 		/*! does nothing
@@ -51,7 +51,7 @@ namespace igor
 
 		\param scene the scene used for this update
 		 */
-		void update(iEntityScenePtr scene) override;
+		void render(iEntityScenePtr scene) override;
 	};
 
 } // igor

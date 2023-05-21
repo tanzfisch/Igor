@@ -6,12 +6,13 @@
 
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntity.h>
+#include <igor/system/iTimer.h>
 
 #include <entt.h>
 
 namespace igor
 {
-	void iAnimationSystem::update(iEntityScenePtr scene)
+	void iAnimationSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
 		auto *registry = static_cast<entt::registry *>(scene->getRegistry());
 		auto view = registry->view<iAnimationComponent, iTransformComponent>();
@@ -22,7 +23,7 @@ namespace igor
 
 			iEntity entity(static_cast<iEntityID>(entityID), scene);
 
-			animation._animationController->update(entity);
+			animation._animationController->update(time, entity);
 		}
 	}
 

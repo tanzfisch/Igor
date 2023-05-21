@@ -28,9 +28,30 @@ void GameLayer::onInit()
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(getWindow()));
 
+    // init font for render profiler
+    _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
+
+    _coin = iResourceManager::getInstance().requestResource<iTexture>("supremacy/coin.png");
+    _damage = iResourceManager::getInstance().requestResource<iTexture>("supremacy/fist.png");
+    _attackSpeed = iResourceManager::getInstance().requestResource<iTexture>("supremacy/bullets.png");
+    _walkSpeed = iResourceManager::getInstance().requestResource<iTexture>("supremacy/run.png");
+
     _shadow = iResourceManager::getInstance().requestResource<iTexture>("supremacy/shadow.png");
     _shield = iResourceManager::getInstance().requestResource<iTexture>("supremacy/shield.png");
     _rage = iResourceManager::getInstance().requestResource<iTexture>("supremacy/rage.png");
+
+    iaKeyFrameGraphVector3d scaleAnimData;
+    scaleAnimData.setValue(0.0, iaVector3d(1.0f, 1.0f, 1.0f));
+    scaleAnimData.setValue(0.33, iaVector3d(1.2f, 0.9f, 1.0f));
+    scaleAnimData.setValue(0.66, iaVector3d(0.9f, 1.2f, 1.0f));
+    scaleAnimData.setValue(1.0, iaVector3d(1.0f, 1.0f, 1.0f));
+
+    // set up a simply scale animation
+    iParameters paramScaleAnim({{"name", iaString("scale_animation")},
+                                {"type", iaString("animation")},
+                                {"scaleAnimation", scaleAnimData}});
+
+    _scaleAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramScaleAnim));    
 
     _player = createPlayer();
     _camera = createCamera();
@@ -40,7 +61,7 @@ void GameLayer::onInit()
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
 
-    _spawnUnitsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onSpawnStuff), iaTime::fromMilliseconds(5000));
+    _spawnUnitsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onSpawnStuff), iaTime::fromMilliseconds(500000));
     _spawnUnitsTimerHandle->start();
 
     // run once right now so we have a few enemies right away
@@ -50,14 +71,6 @@ void GameLayer::onInit()
 
     _spawnShopTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onLandShop), iaTime::fromMilliseconds(5000), true);
     _spawnShopTimerHandle->start();
-
-    // init font for render profiler
-    _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
-
-    _coin = iResourceManager::getInstance().requestResource<iTexture>("supremacy/coin.png");
-    _damage = iResourceManager::getInstance().requestResource<iTexture>("supremacy/fist.png");
-    _attackSpeed = iResourceManager::getInstance().requestResource<iTexture>("supremacy/bullets.png");
-    _walkSpeed = iResourceManager::getInstance().requestResource<iTexture>("supremacy/run.png");
 
     _levelUpDialog = new UpgradeDialog();
     _shopDialog = new ShopDialog();
@@ -675,15 +688,18 @@ void GameLayer::onFollowTarget(iEntity &entity, std::any &userData)
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
     iEntity unit = _entityScene->createEntity();
-    unit.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(enemyClass._size, enemyClass._size, 1.0)});
+    unit.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d()});
     unit.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
     unit.addComponent<iVelocityComponent>({getRandomDir() * enemyClass._speed});
-    unit.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>(enemyClass._texture)});
+    unit.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>(enemyClass._texture), iaVector2d(enemyClass._size, enemyClass._size)});
     unit.addComponent<iPartyComponent>({party});
     unit.addComponent<iCircleCollision2DComponent>({enemyClass._size * 0.5});
     unit.addComponent<iBody2DComponent>({});
 
     iAnimationControllerPtr animationController(new iAnimationController());
+    auto clip = iClip::createClip(iaTime::fromSeconds(0.5));
+    clip->addAnimation(_scaleAnimation);
+    animationController->addClip(clip);
     unit.addComponent<iAnimationComponent>({animationController});
     unit.addUserComponent<HealthComponent>({enemyClass._health});
     unit.addUserComponent<TargetComponent>({target});
@@ -693,7 +709,6 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addBehaviour({this, &GameLayer::onCheckCollision});
     unit.addBehaviour({this, &GameLayer::onFollowTarget});
     unit.setMotionInteractionType(iMotionInteractionType::Divert);
-
 
     // add shadow
     iEntity shadow = _entityScene->createEntity();

@@ -105,9 +105,9 @@ namespace igor
         */
         bool _running = true;
 
-        /*! last frame time
+        /*! simulation frame time
         */
-        iaTime _lastTime;
+        iaTime _simulationFrameTime;
 
         /*! does nothing
          */

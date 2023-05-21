@@ -38,8 +38,24 @@
 namespace iaux
 {
 
+    /*! enter state event
+     */
+    IGOR_EVENT_DEFINITION(iaEnterState, void, iaStateID);
+
+    /*! re enter state event
+     */
+    IGOR_EVENT_DEFINITION(iaReEnterState, void, iaStateID);
+
+    /*! leave state event
+     */
+    IGOR_EVENT_DEFINITION(iaLeaveState, void, iaStateID);
+
+    /*! handle state event
+     */
+    IGOR_EVENT_DEFINITION(iaUpdateState, void, iaStateID);
+
     /*! state machine
-    */
+     */
     class IAUX_API iaStateMachine
     {
 
@@ -57,65 +73,13 @@ namespace iaux
         */
         void setInitialState(iaStateID id);
 
+        /*! \returns initial state
+         */
+        iaStateID getInitialState() const;
+
         /*! \returns current state id
-        */
+         */
         iaStateID getCurrentState() const;
-
-        /*! register delegate to enter event of specified state
-
-        \param stateID specified state id
-        \param enterStateDelegate enter state delegate
-        */
-        void registerEnterStateDelegate(iaStateID stateID, iaEnterStateDelegate enterStateDelegate);
-
-        /*! register delegate to reenter event of specified state
-
-        \param stateID specified state id
-        \param reEnterStateDelegate reenter state delegate
-        */
-        void registerReEnterStateDelegate(iaStateID stateID, iaReEnterStateDelegate reEnterStateDelegate);
-
-        /*! register delegate to leave event of specified state
-
-        \param stateID specified state id
-        \param leaveStateDelegate leave state delegate
-        */
-        void registerLeaveStateDelegate(iaStateID stateID, iaLeaveStateDelegate leaveStateDelegate);
-
-        /*! register delegate to update event of specified state
-
-        \param stateID specified state id
-        \param updateStateDelegate update state delegate
-        */
-        void registerUpdateStateDelegate(iaStateID stateID, iaUpdateStateDelegate updateStateDelegate);
-
-        /*! unregister delegate from enter event with specified state
-
-        \param stateID specified state id
-        \param enterStateDelegate enter state delegate
-        */
-        void unregisterEnterStateDelegate(iaStateID stateID, iaEnterStateDelegate enterStateDelegate);
-
-        /*! unregister delegate from reenter event with specified state
-
-        \param stateID specified state id
-        \param reEnterStateDelegate reenter state delegate
-        */
-        void unregisterReEnterStateDelegate(iaStateID stateID, iaReEnterStateDelegate reEnterStateDelegate);
-
-        /*! unregister delegate from leave event with specified state
-
-        \param stateID specified state id
-        \param leaveStateDelegate leave state delegate
-        */
-        void unregisterLeaveStateDelegate(iaStateID stateID, iaLeaveStateDelegate leaveStateDelegate);
-
-        /*! unregister delegate from update event with specified state
-
-        \param stateID specified state id
-        \param updateStateDelegate update state delegate
-        */
-        void unregisterUpdateStateDelegate(iaStateID stateID, iaUpdateStateDelegate updateStateDelegate);
 
         /*! creates transition form source state to destination state
 
@@ -165,59 +129,115 @@ namespace iaux
         */
         void resetGates(iaTransitionID transitionID);
 
-        /*! if there are no gates defined it will directly do the transition
-
-        if there are gates defined it will only make the transition if all gates are open
-
-        \param transitionID specified transition id
-        */
-        void doTransition(iaTransitionID transitionID);
-
         /*! calls the update of the current state
-        */
+         */
         void update();
 
         /*! finalizes the state machine.
-        
+
         after this you can not manipulate the state machine anymore
         */
         void start();
 
-        /*! does nothing
+        /*! register delegate to enter event of specified state
+
+        \param enterStateDelegate enter state delegate
         */
+        void registerEnterStateDelegate(iaEnterStateDelegate enterStateDelegate);
+
+        /*! register delegate to reenter event of specified state
+
+        \param reEnterStateDelegate reenter state delegate
+        */
+        void registerReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate);
+
+        /*! register delegate to leave event of specified state
+
+        \param leaveStateDelegate leave state delegate
+        */
+        void registerLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate);
+
+        /*! register delegate to update event of specified state
+
+        \param updateStateDelegate update state delegate
+        */
+        void registerUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate);
+
+        /*! unregister delegate from enter event with specified state
+
+        \param enterStateDelegate enter state delegate
+        */
+        void unregisterEnterStateDelegate(iaEnterStateDelegate enterStateDelegate);
+
+        /*! unregister delegate from reenter event with specified state
+
+        \param reEnterStateDelegate reenter state delegate
+        */
+        void unregisterReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate);
+
+        /*! unregister delegate from leave event with specified state
+
+        \param leaveStateDelegate leave state delegate
+        */
+        void unregisterLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate);
+
+        /*! unregister delegate from update event with specified state
+
+        \param updateStateDelegate update state delegate
+        */
+        void unregisterUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate);
+
+        /*! does nothing
+         */
         iaStateMachine() = default;
 
         /*! does nothing
-        */
+         */
         ~iaStateMachine() = default;
 
     private:
         /*! pointer to initial state
-        */
+         */
         iaStatePtr _initState = nullptr;
 
         /*! pointer to current active state
-        */
+         */
         iaStatePtr _currentState = nullptr;
 
         /*! map of all states
-        */
+         */
         std::map<iaStateID, iaStatePtr> _states;
 
         /*! map of all transitions
-        */
+         */
         std::map<iaTransitionID, iaTransitionPtr> _transitions;
 
+        /*! enter state event
+         */
+        iaEnterStateEvent _enterStateEvent;
+
+        /*! reenter state event
+         */
+        iaReEnterStateEvent _reEnterStateEvent;
+
+        /*! leave state event
+         */
+        iaLeaveStateEvent _leaveStateEvent;
+
+        /*! update state event
+         */
+        iaUpdateStateEvent _updateStateEvent;
+
         /*! triggers the current states enter event
-        */
+         */
         void enterCurrentState();
 
         /*! triggers the current states reenter event
-        */
+         */
         void reEnterCurrentState();
 
         /*! triggers a transition
-        */
+         */
         void transit(iaTransition *transition);
 
         /*! \returns pointer to specified state

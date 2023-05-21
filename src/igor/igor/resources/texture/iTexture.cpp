@@ -19,8 +19,8 @@ namespace igor
     iTexture::iTexture(const iParameters &parameters)
         : iResource("texture", parameters)
     {
-        _wrapMode = parameters.getValue<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
-        _buildMode = parameters.getValue<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
+        _wrapMode = parameters.getParameter<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
+        _buildMode = parameters.getParameter<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
     }
 
     void iTexture::bind(uint32 textureUnit)

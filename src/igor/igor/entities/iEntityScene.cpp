@@ -100,13 +100,13 @@ namespace igor
         return *_quadtree;
     }
 
-    void iEntityScene::onUpdate()
+    void iEntityScene::onUpdate(const iaTime &time)
     {
         destroyEntities();
 
         for (iEntitySystemPtr &system : _systems)
         {
-            system->update(shared_from_this());
+            system->update(time, shared_from_this());
         }
     }
 
@@ -153,9 +153,9 @@ namespace igor
                 iRenderer::getInstance().setWireframeEnabled(debug->_renderWireframe);
             }
 
-            for (iEntitySystemPtr &system : _renderingSystems)
+            for (auto &system : _renderingSystems)
             {
-                system->update(shared_from_this());
+                system->render(shared_from_this());
             }
 
             if (debug != nullptr && debug->_renderSpacePartitioning && _quadtree != nullptr)

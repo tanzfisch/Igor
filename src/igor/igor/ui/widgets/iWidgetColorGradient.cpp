@@ -62,7 +62,7 @@ namespace igor
             gradientRect._width -= 10;
             gradientRect._height /= 2;
 
-            const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
+            const auto &gradient = _gradient.getValues();
 
             iaRectanglef buttonRect(0, 0, 0, 0);
             buttonRect._height = getActualHeight() - gradientRect._height - 1;
@@ -162,7 +162,7 @@ namespace igor
 
             if (_interactive)
             {
-                const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
+                const auto &gradient = _gradient.getValues();
 
                 iaRectanglef buttonRect(0, 0, 0, 0);
                 buttonRect._height = buttonHeight;

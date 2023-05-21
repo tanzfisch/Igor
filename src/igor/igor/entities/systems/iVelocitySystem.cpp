@@ -11,7 +11,7 @@
 
 namespace igor
 {
-	void iVelocitySystem::update(iEntityScenePtr scene)
+	void iVelocitySystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
 		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
 		auto &quadtree = scene->getQuadtree();

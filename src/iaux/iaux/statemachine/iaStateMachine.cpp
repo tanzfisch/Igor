@@ -12,22 +12,22 @@ namespace iaux
 
     void iaStateMachine::enterCurrentState()
     {
-        for(auto &transition : _transitions)
+        for (auto &transition : _transitions)
         {
             transition.second->resetGates();
         }
 
-        _currentState->enter();
+        _enterStateEvent(_currentState->getID());
     }
 
     void iaStateMachine::reEnterCurrentState()
     {
-        for(auto &transition : _transitions)
+        for (auto &transition : _transitions)
         {
             transition.second->resetGates();
         }
 
-        _currentState->reEnter();
+        _reEnterStateEvent(_currentState->getID());
     }
 
     void iaStateMachine::start()
@@ -39,8 +39,23 @@ namespace iaux
 
     void iaStateMachine::update()
     {
-        con_assert(nullptr != _currentState, "invalid state. try run start()");
-        _currentState->update();
+        for (const auto &pair : _transitions)
+        {
+            auto transition = pair.second;
+
+            if (transition->getFrom() != _currentState->getID())
+            {
+                continue;
+            }
+
+            if (transition->isOpen())
+            {
+                transit(transition);
+                return;
+            }
+        }
+
+        _updateStateEvent(_currentState->getID());
     }
 
     iaStateID iaStateMachine::getCurrentState() const
@@ -78,7 +93,7 @@ namespace iaux
         }
         else
         {
-            getState(transition->getFrom())->leave();
+            _leaveStateEvent(transition->getFrom());
             _currentState = getState(transition->getTo());
             enterCurrentState();
         }
@@ -88,9 +103,9 @@ namespace iaux
     {
         std::vector<iaTransitionID> result;
 
-        for(const auto &transition : _transitions)
+        for (const auto &transition : _transitions)
         {
-            if(transition.second->getFrom() == stateID)
+            if (transition.second->getFrom() == stateID)
             {
                 result.push_back(transition.first);
             }
@@ -123,6 +138,11 @@ namespace iaux
         }
     }
 
+    iaStateID iaStateMachine::getInitialState() const
+    {
+        return _initState != nullptr ? _initState->getID() : IGOR_INVALID_ID;
+    }
+
     uint32 iaStateMachine::addTransition(iaStateID from, iaStateID to)
     {
         auto fromState = getState(from);
@@ -139,27 +159,6 @@ namespace iaux
         {
             con_err("impossible transition");
             return 0;
-        }
-    }
-
-    void iaStateMachine::doTransition(iaTransitionID transitionID)
-    {
-        auto transition = getTransition(transitionID);
-
-        if (transition->getFrom() == _currentState->getID())
-        {
-            if (transition->isOpen())
-            {
-                transit(transition);
-            }
-            else
-            {
-                con_err("gates are closed");
-            }
-        }
-        else
-        {
-            con_err("illegal transition");
         }
     }
 
@@ -198,44 +197,44 @@ namespace iaux
         transition->resetGates();
     }
 
-    void iaStateMachine::registerEnterStateDelegate(uint32 stateID, iaEnterStateDelegate enterStateDelegate)
+    void iaStateMachine::registerEnterStateDelegate(iaEnterStateDelegate enterStateDelegate)
     {
-        getState(stateID)->registerEnterStateDelegate(enterStateDelegate);
+        _enterStateEvent.add(enterStateDelegate);
     }
 
-    void iaStateMachine::registerReEnterStateDelegate(uint32 stateID, iaReEnterStateDelegate reEnterStateDelegate)
+    void iaStateMachine::registerReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate)
     {
-        getState(stateID)->registerReEnterStateDelegate(reEnterStateDelegate);
+        _reEnterStateEvent.add(reEnterStateDelegate);
     }
 
-    void iaStateMachine::registerLeaveStateDelegate(uint32 stateID, iaLeaveStateDelegate leaveStateDelegate)
+    void iaStateMachine::registerLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate)
     {
-        getState(stateID)->registerLeaveStateDelegate(leaveStateDelegate);
+        _leaveStateEvent.add(leaveStateDelegate);
     }
 
-    void iaStateMachine::registerUpdateStateDelegate(uint32 stateID, iaUpdateStateDelegate updateStateDelegate)
+    void iaStateMachine::registerUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate)
     {
-        getState(stateID)->registerUpdateStateDelegate(updateStateDelegate);
+        _updateStateEvent.add(updateStateDelegate);
     }
 
-    void iaStateMachine::unregisterEnterStateDelegate(uint32 stateID, iaEnterStateDelegate enterStateDelegate)
+    void iaStateMachine::unregisterEnterStateDelegate(iaEnterStateDelegate enterStateDelegate)
     {
-        getState(stateID)->unregisterEnterStateDelegate(enterStateDelegate);
+        _enterStateEvent.remove(enterStateDelegate);
     }
 
-    void iaStateMachine::unregisterReEnterStateDelegate(uint32 stateID, iaReEnterStateDelegate reEnterStateDelegate)
+    void iaStateMachine::unregisterReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate)
     {
-        getState(stateID)->unregisterReEnterStateDelegate(reEnterStateDelegate);
+        _reEnterStateEvent.remove(reEnterStateDelegate);
     }
 
-    void iaStateMachine::unregisterLeaveStateDelegate(uint32 stateID, iaLeaveStateDelegate leaveStateDelegate)
+    void iaStateMachine::unregisterLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate)
     {
-        getState(stateID)->unregisterLeaveStateDelegate(leaveStateDelegate);
+        _leaveStateEvent.remove(leaveStateDelegate);
     }
 
-    void iaStateMachine::unregisterUpdateStateDelegate(uint32 stateID, iaUpdateStateDelegate updateStateDelegate)
+    void iaStateMachine::unregisterUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate)
     {
-        getState(stateID)->unregisterUpdateStateDelegate(updateStateDelegate);
+        _updateStateEvent.remove(updateStateDelegate);
     }
 
 } // namespace iaux

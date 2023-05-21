@@ -14,7 +14,7 @@ using namespace iaux;
 
 namespace igor
 {
-	void iTransformHierarchySystem::update(iEntityScenePtr scene)
+	void iTransformHierarchySystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
 		// update matrices
 		auto *registry = static_cast<entt::registry*>(scene->getRegistry());

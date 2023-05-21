@@ -12,6 +12,16 @@ using namespace iaux;
 namespace igor
 {
 
+    iClipPtr iClip::createClip(const iaTime &duration)
+    {
+        return iClipPtr(new iClip(duration));
+    }
+
+    iClip::iClip(const iaTime &duration)
+    {
+        _duration = duration;
+    }
+
     void iClip::setLooped(bool loop)
     {
         _looped = loop;
@@ -22,34 +32,39 @@ namespace igor
         return _looped;
     }
 
-    void iClip::setStart(const iaTime &start)
+    const std::vector<iAnimationPtr> &iClip::getAnimations() const
     {
-        _start = start;
+        return _animations;
     }
 
-    const iaTime &iClip::getStart() const
+    void iClip::addAnimation(iAnimationPtr animation)
     {
-        return _start;
+        auto iter = std::find(_animations.begin(), _animations.end(), animation);
+        if (iter != _animations.end())
+        {
+            return;
+        }
+
+        _animations.push_back(animation);
     }
 
-    void iClip::setStop(const iaTime &stop)
+    void iClip::removeAnimation(iAnimationPtr animation)
     {
-        _stop = stop;
-    }
-
-    const iaTime &iClip::getStop() const
-    {
-        return _stop;
+        auto iter = std::find(_animations.begin(), _animations.end(), animation);
+        if (iter != _animations.end())
+        {
+            _animations.erase(iter);
+        }
     }
 
     void iClip::setDuration(const iaTime &duration)
     {
-        _stop = _start + duration;
+        _duration = duration;
     }
 
     iaTime iClip::getDuration() const
     {
-        return _stop - _start;
+        return _duration;
     }
 
     void iClip::setEasingFunction(iaEasing::iaEasingFunction easingFunction)
@@ -262,20 +277,19 @@ namespace igor
         inOutBounce,
         outInBounce};
 
-    float64 iClip::getNormalizedTime(const iaTime &time)
+    float64 iClip::getNormalizedTime(const iaTime &startTime, const iaTime &time)
     {
-        if (time <= _start)
+        if (time <= startTime)
         {
             return 0.0;
         }
 
-        if (time >= _stop)
+        if (time >= startTime + _duration)
         {
             return 1.0;
         }
 
-        const float64 duration = getDuration().getMilliseconds();
-        const float64 t = (time.getMilliseconds() - _start.getMilliseconds()) / duration;
+        const float64 t = static_cast<float64>(time.getMicroseconds() - startTime.getMicroseconds()) / static_cast<float64>(_duration.getMicroseconds());
         return s_easingFunctionTable[(int)_easingFunction](t);
     }
 

@@ -26,63 +26,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ANIMATION__
-#define __IGOR_ANIMATION__
+#ifndef __IGOR_ANIMATION_FACTORY__
+#define __IGOR_ANIMATION_FACTORY__
 
-#include <igor/resources/iResource.h>
-
-#include <iaux/system/iaTime.h>
-#include <iaux/data/iaKeyFrameGraph.h>
-using namespace iaux;
-
-#include <memory>
+#include <igor/resources/iFactory.h>
+#include <igor/resources/animation/iAnimation.h>
 
 namespace igor
 {
 
-    /*! animation
+    /*! this factory creates animation resources
      */
-    class IGOR_API iAnimation : public iResource
+    class iAnimationFactory : public iFactory
     {
-        friend class iAnimationFactory;
-
-    public:
-        /*! does nothing
-         */
-        virtual ~iAnimation() = default;
-
-        /*! \returns duration of animation
-         */
-        iaTime getDuration() const;
-
-        bool hasTranslateAnimation() const;
-        const iaVector3d getTranslate(float64 t) const;
-        bool hasRotateAnimation() const;
-        const iaVector3d getRotate(float64 t) const;
-        bool hasScaleAnimation() const;
-        const iaVector3d getScale(float64 t) const;
 
     private:
+        /*! \returns the factory type
 
-        iaKeyFrameGraphVector3d _translate;
-        iaKeyFrameGraphVector3d _rotate;
-        iaKeyFrameGraphVector3d _scale;
-
-        /*! initializes members
-
-        \param parameters the parameters which define the animation
+        this type is used to register with the resource manager
         */
-        iAnimation(const iParameters &parameters);
+        const iaString &getType() const override;
 
-        void setTranslateAnimation(iaKeyFrameGraphVector3d translate);
-        void setRotateAnimation(iaKeyFrameGraphVector3d rotate);
-        void setScaleAnimation(iaKeyFrameGraphVector3d scale);
+        /*! \returns true if resource parameters are supported by this factory
+
+        \param parameters the given resource parameters
+        */
+        bool matchingType(const iParameters &parameters) const override;
+
+        /*! \returns resource type specific hash data
+         */
+        iaString getHashData(const iParameters &parameters) const override;
+
+        /*! creates a resource object
+
+        \param parameters the resource parameters
+        \returns loaded or created new resource
+        */
+        iResourcePtr createResource(const iParameters &parameters) override;
+
+        /*! loads the resource
+
+        \param resource the resource to load
+        \returns true if loading the resource was successful
+        */
+        bool loadResource(iResourcePtr resource) override;
+
+        /*! unloads the resource
+
+        \param resource the resource to unload
+        */
+        void unloadResource(iResourcePtr resource) override;
     };
 
-    /*! evaluation pointer definition
-     */
-    typedef std::shared_ptr<iAnimation> iAnimationPtr;
+}; // namespace igor
 
-} // namespace igor
-
-#endif // __IGOR_ANIMATION__
+#endif // __IGOR_ANIMATION_FACTORY__

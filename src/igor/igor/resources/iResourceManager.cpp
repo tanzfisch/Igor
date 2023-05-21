@@ -6,6 +6,7 @@
 
 #include <igor/resources/sound/iSoundFactory.h>
 #include <igor/resources/texture/iTextureFactory.h>
+#include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/threading/iTaskManager.h>
 
 #include <iaux/system/iaFile.h>
@@ -16,8 +17,9 @@ namespace igor
 {
     iResourceManager::iResourceManager()
     {
-        registerFactory(iFactoryPtr(new iSoundFactory()));
         registerFactory(iFactoryPtr(new iTextureFactory()));
+        registerFactory(iFactoryPtr(new iAnimationFactory()));
+        registerFactory(iFactoryPtr(new iSoundFactory()));
     }
 
     iResourceManager::~iResourceManager()
@@ -61,8 +63,8 @@ namespace igor
     {
         std::hash<std::wstring> hashFunc;
 
-        iaString hashData = parameters.getValue<iaString>("type");
-        hashData += parameters.getValue<iaString>("name");
+        iaString hashData = parameters.getParameter<iaString>("type");
+        hashData += parameters.getParameter<iaString>("name");
         hashData += factory->getHashData(parameters);
 
         return hashFunc(hashData.getData());
@@ -98,7 +100,7 @@ namespace igor
     {
         iFactoryPtr result;
 
-        const iaString type = parameters.getValue<iaString>("type");        
+        const iaString type = parameters.getParameter<iaString>("type");
 
         if (!type.isEmpty())
         {
@@ -123,7 +125,7 @@ namespace igor
 
         if (result == nullptr)
         {
-            const iaString name = parameters.getValue<iaString>("name");
+            const iaString name = parameters.getParameter<iaString>("name");
             con_err("No compatible factory registered for resource \"" << name << "\"");
         }
 
@@ -195,12 +197,12 @@ namespace igor
 
         result = getResource(parameters, factory);
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getValue<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
-        const iResourceCacheMode cacheMode = parameters.getValue<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
 
-        if(currentCacheMode < cacheMode)
+        if (currentCacheMode < cacheMode)
         {
-            result->_parameters.setValue("cacheMode", cacheMode);
+            result->_parameters.setParameter("cacheMode", cacheMode);
         }
 
         return result;
@@ -222,12 +224,12 @@ namespace igor
             result->setProcessed(true);
         }
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getValue<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
-        const iResourceCacheMode cacheMode = parameters.getValue<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
 
-        if(currentCacheMode < cacheMode)
+        if (currentCacheMode < cacheMode)
         {
-            result->_parameters.setValue("cacheMode", cacheMode);
+            result->_parameters.setParameter("cacheMode", cacheMode);
         }
 
         return result;

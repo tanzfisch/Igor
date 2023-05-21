@@ -36,13 +36,13 @@ namespace igor
 
         const auto &parameters = resource->getParameters();
 
-        const bool generate = parameters.getValue<bool>("generate", false);
+        const bool generate = parameters.getParameter<bool>("generate", false);
         if (generate)
         {
             return generateTexture(texture, parameters);
         }
 
-        iPixmapPtr pixmap = parameters.getValue<iPixmapPtr>("pixmap", nullptr);
+        iPixmapPtr pixmap = parameters.getParameter<iPixmapPtr>("pixmap", nullptr);
         if (pixmap != nullptr)
         {
             return pixmapToTexture(pixmap, texture);
@@ -82,17 +82,17 @@ namespace igor
 
     bool iTextureFactory::generateTexture(iTexturePtr texture, const iParameters &parameters)
     {
-        const iTexturePattern pattern = parameters.getValue<iTexturePattern>("pattern", iTexturePattern::SolidColor);
-        const iaColor4f primaryf = parameters.getValue<iaColor4f>("primary", iaColor4f::white);
-        const iaColor4f secondaryf = parameters.getValue<iaColor4f>("secondary", iaColor4f::black);
+        const iTexturePattern pattern = parameters.getParameter<iTexturePattern>("pattern", iTexturePattern::SolidColor);
+        const iaColor4f primaryf = parameters.getParameter<iaColor4f>("primary", iaColor4f::white);
+        const iaColor4f secondaryf = parameters.getParameter<iaColor4f>("secondary", iaColor4f::black);
 
         iaColor4c primary;
         iaConvert::convert(primaryf, primary);
         iaColor4c secondary;
         iaConvert::convert(secondaryf, secondary);
 
-        const uint32 width = parameters.getValue<int32>("width", 1);
-        const uint32 height = parameters.getValue<int32>("height", 1);
+        const uint32 width = parameters.getParameter<int32>("width", 1);
+        const uint32 height = parameters.getParameter<int32>("height", 1);
         const uint32 bpp = 4;
 
         uint8 *data = new uint8[width * height * bpp];
@@ -234,7 +234,7 @@ namespace igor
     {
         iaString hashData;
 
-        iTextureWrapMode wrapMode = parameters.getValue<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
+        iTextureWrapMode wrapMode = parameters.getParameter<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
         switch (wrapMode)
         {
         case iTextureWrapMode::Repeat:
@@ -248,7 +248,7 @@ namespace igor
             break;
         }
 
-        iTextureBuildMode buildMode = parameters.getValue<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
+        iTextureBuildMode buildMode = parameters.getParameter<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
         if (buildMode == iTextureBuildMode::Mipmapped)
         {
             hashData += "M";
@@ -263,12 +263,12 @@ namespace igor
 
     bool iTextureFactory::matchingType(const iParameters &parameters) const
     {
-        if (parameters.getValue<iaString>("type") == getType())
+        if (parameters.getParameter<iaString>("type") == getType())
         {
             return true;
         }
 
-        iaFile file(parameters.getValue<iaString>("name"));
+        iaFile file(parameters.getParameter<iaString>("name"));
         const iaString &fileExtension = file.getExtension();
         static const std::vector<iaString> supportedExtensions = {L"png", L"jpg"};
 

@@ -44,6 +44,10 @@ namespace igor
 
     public:
 
+        /*! does nothing
+        */
+        iParameters() = default;
+
         /*! init members
 
         \param parameters the parameters
@@ -53,17 +57,17 @@ namespace igor
             _parameters = parameters;
         }
 
-        /*! \returns value for given key
+        /*! \returns value for given parameter name
 
-        if key does not exist it returns some default value
+        if name does not exist it returns some default value
 
-        \param key the given key
+        \param name the parameter name
         \param defaultValue the given default value
         */
         template <typename T>
-        T getValue(const iaString &key, const T &defaultValue = T()) const
+        T getParameter(const iaString &name, const T &defaultValue = T()) const
         {
-            auto iter = _parameters.find(key);
+            auto iter = _parameters.find(name);
             if (iter == _parameters.end())
             {
                 return defaultValue;
@@ -82,14 +86,23 @@ namespace igor
             return T();
         }
 
-        /*! sets value for given key
+        /*! \returns true if given key exists
 
-        \param key the given key
+        \param name name of parameter
+        */
+        bool hasParameter(const iaString &name) const
+        {
+            return _parameters.find(name) != _parameters.end();
+        }
+
+        /*! sets value for given parameter
+
+        \param name name of parameter
         \param value the value to set
         */
-        void setValue(const iaString &key, const std::any value)
+        void setParameter(const iaString &name, const std::any value)
         {
-            _parameters[key] = value;
+            _parameters[name] = value;
         }
 
     private:

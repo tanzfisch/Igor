@@ -54,12 +54,34 @@ namespace igor
 
 		/*! updates system
 		 */
-		virtual void update(iEntityScenePtr scene) = 0;
+		virtual void update(const iaTime &time, iEntityScenePtr scene) = 0;
+
 	};
 
 	/*! entity system pointer definition
 	 */
 	typedef std::shared_ptr<iEntitySystem> iEntitySystemPtr;
+
+	class iEntityRenderSystem
+	{
+	public:
+		/*! does nothing
+		 */
+		iEntityRenderSystem() = default;
+
+		/*! does nothing
+		 */
+		virtual ~iEntityRenderSystem() = default;
+
+		/*! render system
+		 */
+		virtual void render(iEntityScenePtr scene) = 0;
+
+	};
+
+	/*! entity render system pointer definition
+	*/
+	typedef std::shared_ptr<iEntityRenderSystem> iEntityRenderSystemPtr;
 
 } // igor
 

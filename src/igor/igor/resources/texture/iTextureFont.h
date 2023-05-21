@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_FONT__
-#define __IGOR_FONT__
+#ifndef __IGOR_TEXTURE_FONT__
+#define __IGOR_TEXTURE_FONT__
 
 #include <igor/resources/texture/iTexture.h>
 
@@ -167,4 +167,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_FONT__
+#endif // __IGOR_TEXTURE_FONT__

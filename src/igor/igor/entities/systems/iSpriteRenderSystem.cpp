@@ -14,7 +14,7 @@ using namespace iaux;
 
 namespace igor
 {
-	void iSpriteRenderSystem::update(iEntityScenePtr scene)
+	void iSpriteRenderSystem::render(iEntityScenePtr scene)
 	{
 		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
 		registry->sort<iSpriteRendererComponent>([registry](const entt::entity lhs, const entt::entity rhs)

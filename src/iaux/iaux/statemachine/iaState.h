@@ -38,22 +38,6 @@
 namespace iaux
 {
 
-    /*! enter state event
-     */
-    IGOR_EVENT_DEFINITION(iaEnterState, void);
-
-    /*! re enter state event
-     */
-    IGOR_EVENT_DEFINITION(iaReEnterState, void);
-
-    /*! leave state event
-     */
-    IGOR_EVENT_DEFINITION(iaLeaveState, void);
-
-    /*! handle state event
-     */
-    IGOR_EVENT_DEFINITION(iaUpdateState, void);
-
     /*! state ID definition
      */
     typedef iaID32 iaStateID;
@@ -69,72 +53,8 @@ namespace iaux
         iaStateID getID() const;
 
         /*! \returns name of state
-        */
+         */
         const iaString &getName() const;
-
-        /*! triggers leave event
-         */
-        void leave();
-
-        /*! triggers enter event
-         */
-        void enter();
-
-        /*! triggers reenter event
-         */
-        void reEnter();
-
-        /*! triggers handle event
-         */
-        void update();
-
-        /*! register delegate to enter event
-
-        \param enterStateDelegate delegate to register
-        */
-        void registerEnterStateDelegate(iaEnterStateDelegate enterStateDelegate);
-
-        /*! register delegate to reenter event
-
-        \param reEnterStateDelegate delegate to register
-        */
-        void registerReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate);
-
-        /*! register delegate to leave event
-
-        \param leaveStateDelegate delegate to register
-        */
-        void registerLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate);
-
-        /*! register delegate to handle event
-
-        \param updateStateDelegate delegate to register
-        */
-        void registerUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate);
-
-        /*! unregister delegate from enter event
-
-        \param enterStateDelegate enter state delegate
-        */
-        void unregisterEnterStateDelegate(iaEnterStateDelegate enterStateDelegate);
-
-        /*! unregister delegate from reenter event
-
-        \param reEnterStateDelegate reenter state delegate
-        */
-        void unregisterReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate);
-
-        /*! unregister delegate from leave event
-
-        \param leaveStateDelegate leave state delegate
-        */
-        void unregisterLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate);
-
-        /*! unregister delegate from handle event
-
-        \param updateStateDelegate handle state delegate
-        */
-        void unregisterUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate);
 
         /*! init id
          */
@@ -156,27 +76,11 @@ namespace iaux
         /*! the id generator
          */
         static iaIDGenerator32 _idGenerator;
-
-        /*! enter state event
-         */
-        iaEnterStateEvent _enterStateEvent;
-
-        /*! reenter state event
-         */
-        iaReEnterStateEvent _reEnterStateEvent;
-
-        /*! leave state event
-         */
-        iaLeaveStateEvent _leaveStateEvent;
-
-        /*! update state event
-         */
-        iaUpdateStateEvent _updateStateEvent;
     };
 
     /*! state pointer definition
-    */
-    typedef iaState* iaStatePtr;
+     */
+    typedef iaState *iaStatePtr;
 
 } // namespace iaux
 

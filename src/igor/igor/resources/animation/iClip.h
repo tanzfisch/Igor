@@ -29,16 +29,20 @@
 #ifndef __IGOR_CLIP__
 #define __IGOR_CLIP__
 
-#include <igor/iDefines.h>
+#include <igor/resources/animation/iAnimation.h>
 
 #include <iaux/math/iaEasing.h>
-#include <iaux/system/iaTime.h>
 using namespace iaux;
 
 #include <vector>
 
 namespace igor
 {
+    class iClip;
+
+    /*! evaluation pointer definition
+     */
+    typedef std::shared_ptr<iClip> iClipPtr;
 
     /*! clip to time an animation
      */
@@ -46,33 +50,31 @@ namespace igor
     {
 
     public:
-        /*! does nothing
+        /*! create clip with given duration
+
+        \param duration the duration of the clip
          */
-        iClip() = default;
+        static iClipPtr createClip(const iaTime &duration);
 
         /*! does nothing
          */
         ~iClip() = default;
 
-        /*! sets start time of evaluation
+        /*! adds animation to this clip
 
-        \param start the start time for evaluation
+        \param animation the to add
         */
-        void setStart(const iaTime &start);
+        void addAnimation(iAnimationPtr animation);
 
-        /*! \returns start time of evaluation
-         */
-        const iaTime &getStart() const;
+        /*! removes animation from this clip
 
-        /*! sets stop time of evaluation
-
-        \param stop the stop time for evaluation
+        \param animation the to remove
         */
-        void setStop(const iaTime &stop);
+        void removeAnimation(iAnimationPtr animation);
 
-        /*! \returns stop time of evaluation
+        /*! \returns animations under this clip
          */
-        const iaTime &getStop() const;
+        const std::vector<iAnimationPtr> &getAnimations() const;
 
         /*! sets stop based on current start plus duration
 
@@ -104,28 +106,25 @@ namespace igor
          */
         bool isLooped() const;
 
-        /*! \returns value generally between 0.0-1.0 
+        /*! \returns value generally between 0.0-1.0
 
-        Where 0.0 represents the starts and 1.0 the stop time
+        Where 0.0 represents the start and 1.0 the stop time
         If the time given is before start the returns value is 0.0
         If the time given is after stop the returns value is 1.0
 
-        \param time the time given
+        \param startTime the time this clip was started to playback
+        \param time the time we want to normalize
         */
-        float64 getNormalizedTime(const iaTime &time);
+        float64 getNormalizedTime(const iaTime &startTime, const iaTime &time);
 
     private:
         /*! interpolation function
          */
         iaEasing::iaEasingFunction _easingFunction = iaEasing::iaEasingFunction::Linear;
 
-        /*! start time of evaluation
+        /*! duration time of evaluation
          */
-        iaTime _start = iaTime::fromSeconds(0.0);
-
-        /*! stop time of evaluation
-         */
-        iaTime _stop = iaTime::fromSeconds(1.0);
+        iaTime _duration = iaTime::fromSeconds(1.0);
 
         /*! amplitude of elastic easing function
          */
@@ -141,12 +140,18 @@ namespace igor
 
         /*! looped flag
          */
-        bool _looped = false;
-    };
+        bool _looped = true;
 
-    /*! evaluation pointer definition
-     */
-    typedef iClip *iClipPtr;
+        /*! animation under this clip
+         */
+        std::vector<iAnimationPtr> _animations;
+
+        /*! init members
+
+        \param duration the duration of the clip
+         */
+        iClip(const iaTime &duration);
+    };
 
 } // namespace igor
 

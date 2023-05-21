@@ -30,7 +30,7 @@
 #ifndef __IGOR_ANIMATION_CONTROLLER__
 #define __IGOR_ANIMATION_CONTROLLER__
 
-#include <igor/resources/animation/iAnimation.h>
+#include <igor/resources/animation/iClip.h>
 
 #include <iaux/statemachine/iaStateMachine.h>
 
@@ -51,9 +51,10 @@ namespace igor
 
         iAnimationController();
 
-        void addAnimation(iAnimationPtr animation);
+        void addClip(iClipPtr clip);
 
-        iaStateMachine& getStateMachine();
+
+        // iaStateMachine& getStateMachine(); // I don't like this
 
     private:
 
@@ -65,11 +66,15 @@ namespace igor
         */
         iaStateID _begin = IGOR_INVALID_ID;
 
+        iaTime _startTime;
+
         /*! state animation map
         */
-        std::unordered_map<iaStateID, iAnimationPtr> _animations;
+        std::unordered_map<iaStateID, iClipPtr> _clips;
 
-        void update(iEntity &entity);
+        void update(const iaTime &time, iEntity &entity);
+
+        void onEnterState(iaStateID stateID);
     };
 
     /*! animation controller pointer definition
