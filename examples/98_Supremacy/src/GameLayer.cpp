@@ -48,7 +48,7 @@ void GameLayer::onInit()
 
     // set up a simply scale animation
     iParameters paramScaleAnim({{"name", iaString("scale_animation")},
-                                {"type", iaString("animation")},
+                                {"type", iaString("animation")},                                
                                 {"scaleAnimation", scaleAnimData}});
 
     _scaleAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramScaleAnim));    
@@ -61,7 +61,7 @@ void GameLayer::onInit()
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
 
-    _spawnUnitsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onSpawnStuff), iaTime::fromMilliseconds(500000));
+    _spawnUnitsTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &GameLayer::onSpawnStuff), iaTime::fromMilliseconds(5000));
     _spawnUnitsTimerHandle->start();
 
     // run once right now so we have a few enemies right away
@@ -470,6 +470,10 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<iPartyComponent>({FRIEND});
     entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
     entity.addComponent<iBody2DComponent>({});
+    iAnimationControllerPtr animationController(new iAnimationController());
+    animationController->addClip(iClip::createClip(iaTime::fromSeconds(0.7), {_scaleAnimation}, true, true));
+    entity.addComponent<iAnimationComponent>({animationController});
+
     entity.addUserComponent<TargetComponent>({IGOR_INVALID_ENTITY_ID, false, false});
     entity.addUserComponent<HealthComponent>({100.0f});
     entity.addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
@@ -697,9 +701,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<iBody2DComponent>({});
 
     iAnimationControllerPtr animationController(new iAnimationController());
-    auto clip = iClip::createClip(iaTime::fromSeconds(0.5));
-    clip->addAnimation(_scaleAnimation);
-    animationController->addClip(clip);
+    animationController->addClip(iClip::createClip(iaTime::fromSeconds(0.5), {_scaleAnimation}, true, true));
     unit.addComponent<iAnimationComponent>({animationController});
     unit.addUserComponent<HealthComponent>({enemyClass._health});
     unit.addUserComponent<TargetComponent>({target});

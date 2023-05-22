@@ -44,7 +44,7 @@ using namespace iaux;
 namespace igor
 {
 
-    /*! manages resoruces and their factories
+    /*! manages resources and their factories
      */
     class IGOR_API iResourceManager : public iModule<iResourceManager>
     {

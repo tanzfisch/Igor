@@ -12,9 +12,19 @@ using namespace iaux;
 namespace igor
 {
 
-    iClipPtr iClip::createClip(const iaTime &duration)
+    iClipPtr iClip::createClip(const iaTime &duration, const std::vector<iAnimationPtr> &animations, bool looped, bool randomStart)
     {
-        return iClipPtr(new iClip(duration));
+        iClipPtr result(new iClip(duration));
+
+        for (auto animation : animations)
+        {
+            result->addAnimation(animation);
+        }
+
+        result->setLooped(looped);
+        result->setRandomStart(randomStart);
+
+        return result;
     }
 
     iClip::iClip(const iaTime &duration)
@@ -30,6 +40,16 @@ namespace igor
     bool iClip::isLooped() const
     {
         return _looped;
+    }
+
+    void iClip::setRandomStart(bool randomStart)
+    {
+        _randomStart = randomStart;
+    }
+
+    bool iClip::hasRandomStart() const
+    {
+        return _randomStart;
     }
 
     const std::vector<iAnimationPtr> &iClip::getAnimations() const

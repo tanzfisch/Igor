@@ -49,6 +49,13 @@ namespace igor
     };
 
     /*! represents a sound resource
+
+    available parameters:
+
+    - inherits all parameters from iResource
+    
+    has no other parameters
+
      */
     class IGOR_API iSound : public iResource
     {

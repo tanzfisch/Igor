@@ -40,6 +40,15 @@ using namespace iaux;
 namespace igor
 {
     /*! represents a resource
+
+    available parameters for loading data:
+
+    - type: the type of resource (type: iaString)
+    - name: the name of the resource (type: iaString)
+    - cacheMode: the cache mode of this resource (type: iResourceCacheMode)
+
+    Cache mode of a resource can be increased by requesting the same resource with a higher level of cache mode.
+
     */
     class IGOR_API iResource
     {

@@ -53,8 +53,13 @@ namespace igor
         /*! create clip with given duration
 
         \param duration the duration of the clip
+        \param animations list of animations to bind to this clip
+        \param looped if true clip is looped
+        \param randomStart if true clip starts with a random offset
          */
-        static iClipPtr createClip(const iaTime &duration);
+        static iClipPtr createClip(const iaTime &duration = iaTime::fromSeconds(1.0),
+                                   const std::vector<iAnimationPtr> &animations = std::vector<iAnimationPtr>(),
+                                   bool looped = true, bool randomStart = false);
 
         /*! does nothing
          */
@@ -106,6 +111,16 @@ namespace igor
          */
         bool isLooped() const;
 
+        /*! sets random start time flag
+
+        This flag can be used to have an animation playback with a random offset so copies of an animation don't appear too artificially synchronous
+        */
+        void setRandomStart(bool randomStart);
+
+        /*! \returns true if random start is active
+         */
+        bool hasRandomStart() const;
+
         /*! \returns value generally between 0.0-1.0
 
         Where 0.0 represents the start and 1.0 the stop time
@@ -141,6 +156,10 @@ namespace igor
         /*! looped flag
          */
         bool _looped = true;
+
+        /*! random start flag
+         */
+        bool _randomStart = false;
 
         /*! animation under this clip
          */

@@ -8,6 +8,8 @@
 #include <igor/resources/animation/iAnimation.h>
 #include <igor/entities/iEntity.h>
 
+#include <iaux/math/iaRandom.h>
+
 namespace igor
 {
 
@@ -19,7 +21,20 @@ namespace igor
     void iAnimationController::onEnterState(iaStateID stateID)
     {
         // would be good to have the simulation frame time here but the actual time will do too
+
+        auto iter = _clips.find(_stateMachine.getCurrentState());
+        if (_clips.end() == iter)
+        {
+            return;
+        }
+
+        iClipPtr clip = iter->second;
+
         _startTime = iaTime::getNow();
+        if(clip->hasRandomStart()) 
+        {
+            _startTime += clip->getDuration() * iaRandom::getNextFloat();
+        }
     }
 
     void iAnimationController::addClip(iClipPtr clip)
@@ -40,9 +55,7 @@ namespace igor
     {
         _stateMachine.update();
 
-        const iaStateID current = _stateMachine.getCurrentState();
-
-        auto iter = _clips.find(current);
+        auto iter = _clips.find(_stateMachine.getCurrentState());
         if (_clips.end() == iter)
         {
             return;
@@ -50,7 +63,6 @@ namespace igor
 
         iClipPtr clip = iter->second;
         const float64 t = clip->getNormalizedTime(_startTime, time);
-        con_endl("t " << t);
 
         for (const auto &animation : clip->getAnimations())
         {
@@ -79,7 +91,6 @@ namespace igor
             if (time - _startTime >= clip->getDuration())
             {
                 _startTime += clip->getDuration();
-                con_endl("loop " << _startTime.getSeconds());
             }
         }
     }

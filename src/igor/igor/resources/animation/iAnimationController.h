@@ -53,9 +53,6 @@ namespace igor
 
         void addClip(iClipPtr clip);
 
-
-        // iaStateMachine& getStateMachine(); // I don't like this
-
     private:
 
         /*! state machine

@@ -41,6 +41,21 @@ namespace igor
 {
 
     /*! represents a texture resource
+
+    available parameters:
+
+    - inherits all parameters from iResource
+    - generate: leads to generating a texture procedurally (type: bool)
+      + pattern: type of pattern to use for procedurally generation (type: iTexturePattern)
+      + primary: primary color to use (type: iaColor4f)
+      + secondary: secondary color to use (type: iaColor4f)
+      + width: width of texture (type: uint32)
+      + height: height of texture (type: uint32)
+    - pixmap: use data from given pixmap for texture (type: iPixmapPtr)
+    - wrapMode: texture wrap mode (type: iTextureWrapMode, default: Repeat)
+    - buildMode: texture wrap mode (type: iTextureBuildMode, default: Mipmapped)
+    
+
      */
     class IGOR_API iTexture : public iResource
     {

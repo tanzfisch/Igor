@@ -11,7 +11,7 @@ namespace igor
     {
         _type = type;
         _name = parameters.getParameter<iaString>("name", "");
-        _cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        _cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
     }
 
     bool iResource::isValid() const
