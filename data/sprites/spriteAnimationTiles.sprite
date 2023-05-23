@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>	
-        <Atlas texture="SpriteAnimationTiles.png">
+        <Sprite texture="spriteAnimationTiles.png">
                 <!-- 0 ground -->
                 <Frame pos="0, 33" size="64, 31" origin="32, 31" pixel="true"/>
                 <Frame pos="64, 33" size="64, 31" origin="32, 31" pixel="true"/>
@@ -139,5 +139,5 @@
                 <Frame pos="192, 896" size="64, 128" origin="32, 128" pixel="true"/>
                 <Frame pos="256, 896" size="192, 128" origin="96, 128" pixel="true"/>
                 <Frame pos="448, 869" size="192, 155" origin="96, 155" pixel="true"/>
-	</Atlas>
+	</Sprite>
 </Igor>

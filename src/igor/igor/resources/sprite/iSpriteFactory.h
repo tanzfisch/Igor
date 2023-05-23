@@ -73,12 +73,12 @@ namespace igor
         */
         void unloadResource(iResourcePtr resource) override;
 
-        /*! reads atlas element
+        /*! reads sprite element
 
-        \param atlas the atlas element
+        \param sprite the sprite element
         \param sprite the target sprite
         */
-        void readAtlas(TiXmlElement *atlas, iSpritePtr sprite);
+        void readSpriteElement(TiXmlElement *spriteElement, iSpritePtr sprite);
 
         /*! load sprite from file
 

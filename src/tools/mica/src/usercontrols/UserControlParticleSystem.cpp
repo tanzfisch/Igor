@@ -213,7 +213,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     std::vector<iaVector2f> minStartSize;
     std::vector<iaVector2f> maxStartSize;
 
-    std::vector<std::pair<float, iaVector2f>> startSizeValues = startSizeGradient.getValues();
+    const auto &startSizeValues = startSizeGradient.getValues();
     for (auto value : startSizeValues)
     {
         minStartSize.push_back(iaVector2f(value.first, value.second._x));
@@ -228,7 +228,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     node->getSizeScaleGradient(sizeScaleGradient);
 
     std::vector<iaVector2f> scaleSize;
-    std::vector<std::pair<float, float32>> scaleSizeValues = sizeScaleGradient.getValues();
+    const auto &scaleSizeValues = sizeScaleGradient.getValues();
     for (auto value : scaleSizeValues)
     {
         scaleSize.push_back(iaVector2f(value.first, value.second));
@@ -242,7 +242,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     std::vector<iaVector2f> minVisibility;
     std::vector<iaVector2f> maxVisibility;
 
-    std::vector<std::pair<float, iaVector2f>> visibilityValues = visibilityGradient.getValues();
+    const auto &visibilityValues = visibilityGradient.getValues();
     for (auto value : visibilityValues)
     {
         minVisibility.push_back(iaVector2f(value.first, value.second._x));
@@ -259,7 +259,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     std::vector<iaVector2f> minStartOrientation;
     std::vector<iaVector2f> maxStartOrientation;
 
-    std::vector<std::pair<float, iaVector2f>> startOrientationValues = startOrientationGradient.getValues();
+    const auto &startOrientationValues = startOrientationGradient.getValues();
     for (auto value : startOrientationValues)
     {
         minStartOrientation.push_back(iaVector2f(value.first, value.second._x));
@@ -276,7 +276,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     std::vector<iaVector2f> minStartOrientationRate;
     std::vector<iaVector2f> maxStartOrientationRate;
 
-    std::vector<std::pair<float, iaVector2f>> startOrientationRateValues = startOrientationRateGradient.getValues();
+    const auto &startOrientationRateValues = startOrientationRateGradient.getValues();
     for (auto value : startOrientationRateValues)
     {
         minStartOrientationRate.push_back(iaVector2f(value.first, value.second._x));
@@ -293,7 +293,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     std::vector<iaVector2f> minStartVelocity;
     std::vector<iaVector2f> maxStartVelocity;
 
-    std::vector<std::pair<float, iaVector2f>> startVelocityValues = startVelocityGradient.getValues();
+    const auto &startVelocityValues = startVelocityGradient.getValues();
     for (auto value : startVelocityValues)
     {
         minStartVelocity.push_back(iaVector2f(value.first, value.second._x));
@@ -310,7 +310,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     std::vector<iaVector2f> minStartLift;
     std::vector<iaVector2f> maxStartLift;
 
-    std::vector<std::pair<float, iaVector2f>> startLiftValues = startLiftGradient.getValues();
+    const auto &startLiftValues = startLiftGradient.getValues();
     for (auto value : startLiftValues)
     {
         minStartLift.push_back(iaVector2f(value.first, value.second._x));
@@ -325,7 +325,7 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
     node->getEmissionGradient(emissionGradient);
 
     std::vector<iaVector2f> emissionGraph;
-    std::vector<std::pair<float, float32>> emissionValues = emissionGradient.getValues();
+    const auto &emissionValues = emissionGradient.getValues();
     for (auto value : emissionValues)
     {
         emissionGraph.push_back(iaVector2f(value.first, value.second));

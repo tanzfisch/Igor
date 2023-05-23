@@ -71,10 +71,10 @@ namespace igor
         return loadSprite(filename, sprite);
     }
 
-    void iSpriteFactory::readAtlas(TiXmlElement *atlas, iSpritePtr sprite)
+    void iSpriteFactory::readSpriteElement(TiXmlElement *spriteElement, iSpritePtr sprite)
     {
-        TiXmlElement *frame = atlas->FirstChildElement("Frame");
-        const iaString textureFileName(atlas->Attribute("texture"));
+        TiXmlElement *frame = spriteElement->FirstChildElement("Frame");
+        const iaString textureFileName(spriteElement->Attribute("texture"));
 
         sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(textureFileName);
 
@@ -117,10 +117,10 @@ namespace igor
         TiXmlElement *root = document.FirstChildElement("Igor");
         if (root != nullptr)
         {
-            TiXmlElement *atlas = root->FirstChildElement("Atlas");
-            if (atlas != nullptr)
+            TiXmlElement *spriteElement = root->FirstChildElement("Sprite");
+            if (spriteElement != nullptr)
             {
-                readAtlas(atlas, sprite);
+                readSpriteElement(spriteElement, sprite);
             }
         }
 

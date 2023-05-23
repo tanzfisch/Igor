@@ -26,8 +26,8 @@ void SpriteAnimation::onInit()
     _materialTerrain = iMaterialResourceFactory::getInstance().loadMaterial("examples/sprite_animation_textured.mat");
 
     // load atlantes
-    _walk = iSprite::create("atlases/SpriteAnimationWalk.atlas");
-    _tiles = iSprite::create("atlases/SpriteAnimationTiles.atlas");
+    _walk = iResourceManager::getInstance().loadResource<iSprite>("spriteAnimationWalk.sprite");
+    _tiles = iResourceManager::getInstance().loadResource<iSprite>("spriteAnimationTiles.sprite");
 
     // generate ground map
     TileMapGenerator tileMapGenerator;
@@ -41,7 +41,7 @@ void SpriteAnimation::onInit()
     getScene()->getRoot()->insertNode(terrainGroundTransform);
 
     // generate dressing and trees map
-    iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("SpriteAnimationTerrain.png");
+    iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("spriteAnimationTerrain.png");
     terrainNodeDressing->setName("Dressing");
     iNodeTransform *terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     terrainDressingTransform->translate(0, 0, 0);
@@ -333,7 +333,7 @@ void SpriteAnimation::onRenderOrtho()
     walkMatrix.translate(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, 0.0);
     walkMatrix.scale(70.0,70.0,1.0);
 
-    iRenderer::getInstance().drawSprite(walkMatrix, _walk, _animationOffset + _animationIndex, iaColor4f::white, true);
+    iRenderer::getInstance().drawSprite(walkMatrix, _walk, _animationOffset + _animationIndex, iaVector2f(1.0,1.0), iaColor4f::white, true);
 
     ExampleBase::onRenderOrtho();
 }

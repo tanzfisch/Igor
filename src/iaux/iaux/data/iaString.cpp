@@ -997,7 +997,10 @@ namespace iaux
         iaString result;
 
         if (pos > 0)
+        {
             result = getSubString(0, pos);
+        }
+
         result += getSubString(pos + length);
 
         setData(result.getData());
@@ -1012,7 +1015,7 @@ namespace iaux
             return iaString();
         }
 
-        con_assert(pos != INVALID_POSITION, "out of range");
+        con_assert(pos != INVALID_POSITION, "out of range ");
 
         int64 length = len;
         if (length == INVALID_POSITION ||
@@ -1296,12 +1299,22 @@ namespace iaux
 
     iaString iaString::trimLeft(const iaString &text)
     {
+        if(text.isEmpty())
+        {
+            return text;
+        }
+
         int64 start = text.findFirstNotOf(L" \n\r\t\f\v");
         return text.getSubString(start);
     }
 
     iaString iaString::trimRight(const iaString &text)
     {
+        if(text.isEmpty())
+        {
+            return text;
+        }
+
         int64 stop = text.findLastNotOf(L" \n\r\t\f\v");
         return (stop == iaString::INVALID_POSITION) ? "" : text.getSubString(0, stop + 1);
     }

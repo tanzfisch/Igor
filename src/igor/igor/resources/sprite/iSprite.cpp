@@ -28,7 +28,7 @@ namespace igor
         {
             frame._rect.setTopLeft(rect._x / _texture->getWidth(), rect._y / _texture->getHeight());
             frame._rect.setSize(rect._width / _texture->getWidth(), rect._height / _texture->getHeight());
-            frame._origin.set(origin._x / rect._x, origin._y / rect._y);
+            frame._origin.set(origin._x / rect._width, origin._y / rect._height);
         }
         else
         {

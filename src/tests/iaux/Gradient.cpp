@@ -44,7 +44,7 @@ IAUX_TEST(GradientTests, WorkWithIndex)
 	gradient.setValue(200.0, 250.0);
 	gradient.setValueAtIndex(0, 300.0, 350.0);
 
-	float32 at;
+	float64 at;
 	float64 value;
 	gradient.getValueAtIndex(1, at, value);
 

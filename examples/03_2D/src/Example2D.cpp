@@ -19,15 +19,8 @@ void Example2D::onInit()
     _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("fallback_texture");
 
     // load a texture as an atlas
-    _doughnuts = iSprite::create(iResourceManager::getInstance().loadResource<iTexture>("doughnuts.png"));
-    // set up frame
-    _doughnutsFrameIndex = _doughnuts->addFrame(iaVector2f(0.0, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
-    _doughnuts->addFrame(iaVector2f(0.5, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
-    _doughnuts->addFrame(iaVector2f(0.0, 0.5), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
-    _doughnuts->addFrame(iaVector2f(0.5, 0.5), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
+    _doughnuts = iResourceManager::getInstance().loadResource<iSprite>("doughnuts.sprite");
     // setup matrix
-    _doughnutMatrix.scale(64.0f, 64.0f, 1.0f);
-
     _doughnutsTime = iaTime::getNow();
 
     // initalize a spline loop
@@ -297,7 +290,8 @@ void Example2D::onRenderOrtho()
     psmatrix.translate(0, 650, 0);
     _particleSystem.draw(psmatrix);
 
-    // doughnuts <3drawSprite(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);
+    // doughnuts <3
+    iRenderer::getInstance().drawSprite(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaVector2f(64.0, 64.0), iaColor4f::white, true);
 }
 
 bool Example2D::onKeyDown(iEventKeyDown &event)
