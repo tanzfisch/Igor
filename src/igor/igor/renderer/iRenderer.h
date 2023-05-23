@@ -35,7 +35,7 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/texture/iAtlas.h>
+#include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iTargetMaterial.h>
@@ -388,7 +388,7 @@ namespace igor
         \param blend if true blending is used to draw the rectangle
          */
         template <typename T>
-        void drawFrame(const iaMatrix<T> &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
+        void drawFrame(const iaMatrix<T> &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
 
         /*! draw string
 
@@ -908,7 +908,7 @@ namespace igor
         \param color the color to draw with
         \param blend if true blending is used to draw the rectangle
          */
-        void drawFrameInternal(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend);
+        void drawFrameInternal(const iaMatrixf &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend);
 
         /*! draw a filled circle.
 

@@ -235,7 +235,7 @@ void iRenderer::drawTexturedQuad(const iaVector3<T> &v1, const iaVector3<T> &v2,
 }
 
 template <typename T>
-void iRenderer::drawFrame(const iaMatrix<T> &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+void iRenderer::drawFrame(const iaMatrix<T> &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
 {
     iaMatrixf matrixf;
     for (int i = 0; i < 16; ++i)

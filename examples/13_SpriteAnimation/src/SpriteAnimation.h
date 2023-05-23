@@ -75,11 +75,11 @@ public:
 private:
 	/*! walk animation atlas
     */
-	iAtlasPtr _walk = nullptr;
+	iSpritePtr _walk = nullptr;
 
 	/*! tiles atlas
 	*/
-	iAtlasPtr _tiles = nullptr;
+	iSpritePtr _tiles = nullptr;
 
 	/*! flags to determine what the character is doing
 	*/

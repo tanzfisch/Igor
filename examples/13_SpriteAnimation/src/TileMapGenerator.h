@@ -18,7 +18,7 @@ public:
 
 	\param atlas the atlas to use
 	*/
-	void setAtlas(iAtlasPtr atlas);
+	void setAtlas(iSpritePtr atlas);
 
 	/*! generates map based on a texture
 
@@ -51,7 +51,7 @@ private:
 
 	/*! the atlas to use
 	*/
-	iAtlasPtr _atlas = nullptr;
+	iSpritePtr _atlas = nullptr;
 
 	/*! random number generator
 	*/
@@ -64,7 +64,7 @@ private:
 	\param size the size of the tile in world space
 	\param frame the frame to use within the atlas
 	*/
-	void addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::iFrame &frame);
+	void addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iSprite::iFrame &frame);
 
 	/*! generates the mesh of a single patch of tiles based on texture information
 

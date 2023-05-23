@@ -61,7 +61,7 @@ private:
 
     /*! opengl logo
     */
-    iAtlasPtr _doughnuts = nullptr;
+    iSpritePtr _doughnuts = nullptr;
 
     /*! current transform of doughnuts
     */

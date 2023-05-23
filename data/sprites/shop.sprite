@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Igor>
+    <Atlas texture="supremacy/drone.png">
+        <Frame pos="0, 0" size="256, 256" origin="128, 128" pixel="true"/>
+        <Frame pos="256, 0" size="256, 256" origin="128, 128" pixel="true"/>
+        <Frame pos="512, 0" size="256, 256" origin="128, 128" pixel="true"/>
+        <Frame pos="768, 0" size="256, 256" origin="128, 128" pixel="true"/>
+    </Atlas>
+</Igor>

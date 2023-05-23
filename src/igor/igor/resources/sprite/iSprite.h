@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SPRITE__
-#define __IGOR_SPRITE__
+#ifndef __IGOR_ATLAS__
+#define __IGOR_ATLAS__
 
 #include <igor/resources/texture/iTexture.h>
 
@@ -44,34 +44,20 @@ class TiXmlElement;
 namespace igor
 {
 
-    class iAtlas;
+    class iSprite;
 
     /*! atlas pointer definition
      */
-    typedef std::shared_ptr<iAtlas> iAtlasPtr;
+    typedef std::shared_ptr<iSprite> iSpritePtr;
 
     /*! used to have 2d sprites
      */
-    class IGOR_API iAtlas
+    class IGOR_API iSprite : public iResource
     {
 
+        friend class iSpriteFactory;
+
     public:
-        /*! \returns a newly created atlas
-
-        \param texture atlas texture
-        \param filename optional atlas data file
-        */
-        static iAtlasPtr create(const iTexturePtr &texture, const iaString &filename = "");
-
-        /*! ctor initializes member variables
-
-        \param texture texture used for this sprite
-        */
-        iAtlas(const iTexturePtr &texture, const iaString &filename = "");
-
-        /*! does nothing
-         */
-        ~iAtlas() = default;
 
         /*! a frame defines an area within the texture that later can be rendered
          */
@@ -86,7 +72,39 @@ namespace igor
             can be used to position on screen
             */
             iaVector2f _origin;
-        };
+        };   
+
+        /*! \returns the amount of frames
+         */
+        uint32 getFrameCount() const;     
+
+        /*! returns frame for given index
+
+        no range check!
+
+        \param index the frame index to return
+        \returns the specified frame
+        */
+        const iFrame &getFrame(uint32 index) const;
+
+        /*! \returns texture
+         */
+        const iTexturePtr &getTexture() const;        
+
+    private:
+        /*! the atlas frames
+         */
+        std::vector<iFrame> _frames;
+
+        /*! texture in use
+         */
+        iTexturePtr _texture;
+
+        /*! ctor initializes member variables
+
+        \param parameters the parameters of this sprite
+        */
+        iSprite(const iParameters &parameters);        
 
         /*! adds a frame to the atlas
 
@@ -106,50 +124,9 @@ namespace igor
         \param pixel if true values are in pixel coordinates if false than 0.0-1.0
         */
         uint32 addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel = true);
-
-        /*! loads frames from file
-
-        \param filename filename to load from
-        */
-        void loadFrames(const iaString &filename);
-
-        /*! \returns texture
-         */
-        const iTexturePtr &getTexture() const;
-
-        /*! sets txture used by this atlas
-
-        \param texture the texture to use
-        */
-        void setTexture(const iTexturePtr &texture);
-
-        /*! \returns the amount of frames
-         */
-        uint32 getFrameCount() const;
-
-        /*! returns frame for given index
-
-        no range check!
-
-        \param index the frame index to return
-        \returns the specified frame
-        */
-        const iFrame &getFrame(uint32 index) const;
-
-    private:
-        /*! the atlas frames
-         */
-        std::vector<iFrame> _frames;
-
-        /*! texture in use
-         */
-        iTexturePtr _texture;
-
-        /*! read an atlas from xml file
-         */
-        void readAtlas(TiXmlElement *atlas);
+     
     };
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_ATLAS__

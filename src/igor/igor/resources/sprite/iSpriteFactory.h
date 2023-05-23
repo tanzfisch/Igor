@@ -26,83 +26,69 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __FACTORY__
-#define __FACTORY__
+#ifndef __IGOR_SPRITE_FACTORY__
+#define __IGOR_SPRITE_FACTORY__
 
-#include <igor/resources/iResource.h>
-
-#include <memory>
+#include <igor/resources/iFactory.h>
+#include <igor/resources/sprite/iSprite.h>
 
 namespace igor
 {
 
-    /*! represents a factory that can process resources
+    /*! this factory creates sprite resources
      */
-    class IGOR_API iFactory
+    class iSpriteFactory : public iFactory
     {
-        friend class iResourceManager;
 
-    public:
-        /*! does nothing
-         */
-        iFactory() = default;
-
-        /*! does nothing
-         */
-        virtual ~iFactory() = default;
-
-    protected:
+    private:
         /*! \returns the factory type
 
         this type is used to register with the resource manager
         */
-        virtual const iaString &getType() const = 0;
+        const iaString &getType() const override;
 
         /*! \returns true if resource parameters are supported by this factory
 
-        \param name the name of the resource
         \param parameters the given resource parameters
         */
-        virtual bool matchingType(const iParameters &parameters) const = 0;
-
-        /*! \returns resource type specific hash data
-         */
-        virtual iaString getHashData(const iParameters &parameters) const { return ""; };
+        bool matchingType(const iParameters &parameters) const override;
 
         /*! creates a resource object
 
-        \param name the name of the resource
         \param parameters the resource parameters
         \returns loaded or created new resource
         */
-        virtual iResourcePtr createResource(const iParameters &parameters) = 0;
+        iResourcePtr createResource(const iParameters &parameters) override;
 
         /*! loads the resource
 
         \param resource the resource to load
         \returns true if loading the resource was successful
         */
-        virtual bool loadResource(iResourcePtr resource) = 0;
+        bool loadResource(iResourcePtr resource) override;
 
         /*! unloads the resource
 
         \param resource the resource to unload
         */
-        virtual void unloadResource(iResourcePtr resource) = 0;
+        void unloadResource(iResourcePtr resource) override;
 
-        /*! called once after registration to resource manager
-         */
-        virtual void init(){};
+        /*! reads atlas element
 
-        /*! called once before unregistration from resource manager
-         */
-        virtual void deinit(){};
+        \param atlas the atlas element
+        \param sprite the target sprite
+        */
+        void readAtlas(TiXmlElement *atlas, iSpritePtr sprite);
+
+        /*! load sprite from file
+
+        \param filename the filename
+        \param sprite the target sprite
+        */
+        bool loadSprite(const iaString &filename, iSpritePtr sprite);
+
     };
-
-    /*! definition of texture shared pointer
-     */
-    typedef std::shared_ptr<iFactory> iFactoryPtr;
 
 }; // namespace igor
 
-#endif // __SOUND__
+#endif // __IGOR_SPRITE_FACTORY__

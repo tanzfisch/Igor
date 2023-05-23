@@ -7,6 +7,7 @@
 #include <igor/resources/sound/iSoundFactory.h>
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/animation/iAnimationFactory.h>
+#include <igor/resources/sprite/iSpriteFactory.h>
 #include <igor/threading/iTaskManager.h>
 
 #include <iaux/system/iaFile.h>
@@ -18,6 +19,7 @@ namespace igor
     iResourceManager::iResourceManager()
     {
         registerFactory(iFactoryPtr(new iTextureFactory()));
+        registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
     }
@@ -185,6 +187,35 @@ namespace igor
         iParameters param({{"name", name}, {"type", iaString("sound")}});
         return std::dynamic_pointer_cast<iSound>(loadResource(param));
     }
+
+    template <>
+    iSpritePtr iResourceManager::requestResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("sprite")}});
+        return std::dynamic_pointer_cast<iSprite>(requestResource(param));
+    }
+
+    template <>
+    iSpritePtr iResourceManager::loadResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("sprite")}});
+        return std::dynamic_pointer_cast<iSprite>(loadResource(param));
+    }
+
+    template <>
+    iAnimationPtr iResourceManager::requestResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("animation")}});
+        return std::dynamic_pointer_cast<iAnimation>(requestResource(param));
+    }
+
+    template <>
+    iAnimationPtr iResourceManager::loadResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("animation")}});
+        return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
+    }
+
 
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
     {

@@ -720,16 +720,13 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer::drawFrameInternal(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+    void iRenderer::drawFrameInternal(const iaMatrixf &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
     {
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
         const int32 textureIndex = beginTexturedQuad(atlas->getTexture());
 
-        const iAtlas::iFrame &frame = atlas->getFrame(frameIndex);
-
-        // TODO offset origin
-        const iaVector3f offset; // (frame._origin._x, frame._origin._y, 0.0);
+        const iSprite::iFrame &frame = atlas->getFrame(frameIndex);
 
         auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
@@ -823,7 +820,7 @@ namespace igor
     }
 
     template <>
-    void iRenderer::drawFrame(const iaMatrix<float32> &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+    void iRenderer::drawFrame(const iaMatrix<float32> &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
     {
         drawFrameInternal(matrix, atlas, frameIndex, color, blend);
     }

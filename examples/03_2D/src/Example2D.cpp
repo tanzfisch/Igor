@@ -19,7 +19,7 @@ void Example2D::onInit()
     _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("fallback_texture");
 
     // load a texture as an atlas
-    _doughnuts = iAtlas::create(iResourceManager::getInstance().loadResource<iTexture>("doughnuts.png"));
+    _doughnuts = iSprite::create(iResourceManager::getInstance().loadResource<iTexture>("doughnuts.png"));
     // set up frame
     _doughnutsFrameIndex = _doughnuts->addFrame(iaVector2f(0.0, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
     _doughnuts->addFrame(iaVector2f(0.5, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);

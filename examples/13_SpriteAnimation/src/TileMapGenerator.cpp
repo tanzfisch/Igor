@@ -6,7 +6,7 @@
 
 #include <map>
 
-void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::iFrame &frame)
+void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iSprite::iFrame &frame)
 {
 	const uint32 offsetIndex = meshBuilder.getVertexCount();
 
@@ -29,7 +29,7 @@ void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos,
 	meshBuilder.addTriangle(2, 3, 0, offsetIndex);
 }
 
-void TileMapGenerator::setAtlas(iAtlasPtr atlas)
+void TileMapGenerator::setAtlas(iSpritePtr atlas)
 {
 	_atlas = atlas;
 }
@@ -60,7 +60,7 @@ iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i
 
 			if (tileType < _atlas->getFrameCount())
 			{
-				const iAtlas::iFrame &frame = _atlas->getFrame(tileType);
+				const iSprite::iFrame &frame = _atlas->getFrame(tileType);
 				iaVector2i tilePos = xdir * wx + ydir * wy;
 				tilePos._y *= -1;
 				iaVector2i tileSize(frame._rect._width * static_cast<float32>(textureSize._x), frame._rect._height * static_cast<float32>(textureSize._y));
@@ -176,7 +176,7 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 
 			if (tileType < _atlas->getFrameCount())
 			{
-				const iAtlas::iFrame &frame = _atlas->getFrame(tileType);
+				const iSprite::iFrame &frame = _atlas->getFrame(tileType);
 				iaVector2i tilePos = xdir * wx + ydir * wy;
 				tilePos._y *= -1;
 				iaVector2i tileSize(frame._rect._width * static_cast<float32>(textureSize._x), frame._rect._height * static_cast<float32>(textureSize._y));
@@ -225,8 +225,6 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 			result->insertNode(transformNode);
 		}
 	}
-
-	delete pixmap;
 
 	return result;
 }

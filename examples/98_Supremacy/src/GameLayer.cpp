@@ -619,6 +619,9 @@ void GameLayer::createShop()
     _shop.addComponent<iTransformComponent>({iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)});
     _shop.addComponent<iVelocityComponent>({});
     _shop.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
+
+    auto sprite = iResourceManager::getInstance().loadResource<iSprite>("shop.sprite");
+
     _shop.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iTexture>("supremacy/drone.png")});
     _shop.addComponent<iPartyComponent>({FRIEND});
     _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<Igor>	
-	<Atlas>
+<Igor>
+    <Atlas texture="SpriteAnimationWalk.png">
         <!-- walk south -->
-		<Frame pos="50, 0" size="50, 85" origin="25, 80" pixel="true"/>
+        <Frame pos="50, 0" size="50, 85" origin="25, 80" pixel="true"/>
         <Frame pos="100, 0" size="50, 85" origin="25, 80" pixel="true"/>
-	
+
         <!-- walk west -->
         <Frame pos="50, 82" size="50, 85" origin="25, 80" pixel="true"/>
         <Frame pos="150, 82" size="50, 85" origin="25, 80" pixel="true"/>
@@ -42,6 +42,6 @@
         <Frame pos="772, 258" size="50, 85" origin="25, 80" pixel="true"/>
         <Frame pos="827, 258" size="50, 85" origin="25, 80" pixel="true"/>
         <Frame pos="896, 258" size="50, 85" origin="25, 80" pixel="true"/>
-        <Frame pos="964, 258" size="50, 85" origin="25, 80" pixel="true"/>        
-	</Atlas>
+        <Frame pos="964, 258" size="50, 85" origin="25, 80" pixel="true"/>
+    </Atlas>
 </Igor>
