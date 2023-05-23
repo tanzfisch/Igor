@@ -12,6 +12,7 @@ namespace igor
     iSprite::iSprite(const iParameters &parameters)
         : iResource("sprite", parameters)
     {
+        addFrame(iaVector2f(), iaVector2f(1.0f, 1.0f), iaVector2f(0.5f, 0.5f), false);
     }
 
     uint32 iSprite::addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel)
@@ -52,7 +53,7 @@ namespace igor
 
     const iSprite::iFrame &iSprite::getFrame(uint32 index) const
     {
-        con_assert(index < _frames.size(), "out of range");
+        con_assert(index < _frames.size(), "out of range " << index << " - " << _frames.size());
 
         return _frames[index];
     }

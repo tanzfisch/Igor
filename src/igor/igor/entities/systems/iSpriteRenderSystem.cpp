@@ -41,7 +41,7 @@ namespace igor
 			case iSpriteRenderMode::Simple:
 			default:
 				iRenderer::getInstance().drawSprite(transform._worldMatrix,
-													spriteRender._sprite, 0, spriteRender._size,
+													spriteRender._sprite, spriteRender._frameIndex, spriteRender._size,
 													spriteRender._color, true);
 				break;
 			}

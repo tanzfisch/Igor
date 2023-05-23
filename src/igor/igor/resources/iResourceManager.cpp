@@ -42,7 +42,8 @@ namespace igor
             iter++;
         }
 
-        // than run a flush to clear all released data
+        // run flush twice so resources which hold on to other resources release them too
+        flush(iResourceCacheMode::Keep);
         flush(iResourceCacheMode::Keep);
 
         // now check if it was actually released

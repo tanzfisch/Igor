@@ -114,6 +114,10 @@ namespace igor
         /*! sprite render mode
          */
         iSpriteRenderMode _renderMode = iSpriteRenderMode::Simple;
+
+        /*! index of the sprite frame to render
+        */
+        uint32 _frameIndex = 0;
     };
 
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all

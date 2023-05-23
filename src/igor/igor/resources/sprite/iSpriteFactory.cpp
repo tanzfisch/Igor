@@ -65,7 +65,7 @@ namespace igor
         if(isTexture(filename))
         {
             sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(filename);
-            sprite->addFrame(iaVector2f(), iaVector2f(1.0f, 1.0f), iaVector2f(0.5f, 0.5f), false);
+            return true;
         }
 
         return loadSprite(filename, sprite);
@@ -100,6 +100,8 @@ namespace igor
 
     bool iSpriteFactory::loadSprite(const iaString &filename, iSpritePtr sprite)
     {
+        sprite->_frames.clear();
+
         iaString path = iResourceManager::getInstance().getPath(filename);
 
         char temp[2048];
@@ -120,6 +122,12 @@ namespace igor
             {
                 readAtlas(atlas, sprite);
             }
+        }
+
+        if(sprite->getFrameCount() == 0)
+        {
+            con_err("no frames defined in \"" << sprite->getName() << "\"");
+            return false;
         }
 
         con_info("loaded sprite \"" << sprite->getName() << "\" with " << sprite->getFrameCount() << " frames.");
