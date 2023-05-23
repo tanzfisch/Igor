@@ -169,7 +169,7 @@ namespace OMPF
         }
         _type = static_cast<OMPFChunkType>(value);
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
         value = 0;
 #endif
         if (!iaSerializable::readUInt(stream, value, settings.getChunkSizeSize()))
@@ -178,7 +178,7 @@ namespace OMPF
         }
         _chunkSize = static_cast<uint32>(value);
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
         value = 0;
 #endif
         if (!iaSerializable::readUInt(stream, value, settings.getChunkIDSize()))
@@ -187,7 +187,7 @@ namespace OMPF
         }
         _ID = static_cast<uint32>(value);
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
         value = 0;
 #endif
         if (!iaSerializable::readUInt(stream, value, settings.getChunkIDSize()))

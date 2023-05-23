@@ -297,8 +297,7 @@ void Example2D::onRenderOrtho()
     psmatrix.translate(0, 650, 0);
     _particleSystem.draw(psmatrix);
 
-    // doughnuts <3
-    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);
+    // doughnuts <3drawSprite(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);
 }
 
 bool Example2D::onKeyDown(iEventKeyDown &event)

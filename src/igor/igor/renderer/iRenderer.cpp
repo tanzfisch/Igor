@@ -511,7 +511,7 @@ namespace igor
         texQuads._nextTextureIndex = 0;
 
         /////////// OGL //////////
-#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH) // TODO can we drop this now? GL_DEBUG_SEVERITY_HIGH
+#if defined(IGOR_DEBUG) && defined(GL_DEBUG_SEVERITY_HIGH) // TODO can we drop this now? GL_DEBUG_SEVERITY_HIGH
         glEnable(GL_DEBUG_OUTPUT);
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         glDebugMessageCallback(onOGLDebugOutput, nullptr);
@@ -720,34 +720,37 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer::drawFrameInternal(const iaMatrixf &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+    void iRenderer::drawSpriteInternal(const iaMatrixf &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2f &size, const iaColor4f &color, bool blend)
     {
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
-        const int32 textureIndex = beginTexturedQuad(atlas->getTexture());
+        const int32 textureIndex = beginTexturedQuad(sprite->getTexture());
 
-        const iSprite::iFrame &frame = atlas->getFrame(frameIndex);
+        const iSprite::iFrame &frame = sprite->getFrame(frameIndex);
+
+        iaMatrixf scaledMatrix = matrix;
+        scaledMatrix.scale(size._x, size._y, 1.0);
 
         auto &texQuads = _data->_texQuads;
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
+        texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[0];
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord0 = frame._rect.getTopLeft();
         texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[1];
+        texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[1];
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord0 = frame._rect.getBottomLeft();
         texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[2];
+        texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[2];
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord0 = frame._rect.getBottomRight();
         texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[3];
+        texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[3];
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord0 = frame._rect.getTopRight();
         texQuads._vertexDataPtr->_texIndex0 = textureIndex;
@@ -820,9 +823,9 @@ namespace igor
     }
 
     template <>
-    void iRenderer::drawFrame(const iaMatrix<float32> &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+    void iRenderer::drawSprite(const iaMatrix<float32> &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2<float32> &size, const iaColor4f &color, bool blend)
     {
-        drawFrameInternal(matrix, atlas, frameIndex, color, blend);
+        drawSpriteInternal(matrix, sprite, frameIndex, size, color, blend);
     }
 
     template <>

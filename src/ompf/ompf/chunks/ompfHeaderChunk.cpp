@@ -88,7 +88,7 @@ namespace OMPF
     bool ompfHeaderChunk::read(std::ifstream &stream, ompfSettings &settings)
     {
         char magicNumber[5];
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
         memset(magicNumber, '#', 5);
 #endif
         iaSerializable::read(stream, magicNumber, 4);

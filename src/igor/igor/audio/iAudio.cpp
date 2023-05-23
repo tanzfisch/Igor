@@ -10,7 +10,7 @@ using namespace iaux;
 namespace igor
 {
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
 #define AL_CHECK_ERROR()                              \
     do                                                \
     {                                                 \

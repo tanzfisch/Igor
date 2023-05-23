@@ -7,7 +7,7 @@
 
 #include <igor/renderer/utils/iRendererUtils.h>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 // glu needs this under windows
 #include <windows.h>
 #endif

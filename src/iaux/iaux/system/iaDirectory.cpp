@@ -164,7 +164,7 @@ namespace iaux
             return false;
         }
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         if (_directoryName.getLength() > 1 &&
             _directoryName.getLength() <= 3)
         {
@@ -194,7 +194,7 @@ namespace iaux
             return false;
         }
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         if (iswalpha(directoryname[0]) &&
             directoryname[1] == ':')
         {

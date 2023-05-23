@@ -349,7 +349,7 @@ namespace iaux
                 if (utf8Size != 0)
                 {
                     char *buffer = new char[utf8Size];
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
                     memset(buffer, '#', utf8Size);
 #endif
                     value.getUTF8(buffer, utf8Size);

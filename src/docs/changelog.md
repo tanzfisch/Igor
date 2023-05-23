@@ -9,11 +9,11 @@ Changelog                           {#changelog}
 - fixed more typos
 - added more tests in iaux
 - remove iTextureResourceFactory and have textures now handled by the iResourceManager
-- new resources iAnimation and iTexture (replaced previous iTexture)
+- new resources iAnimation, iSprite and iTexture (replaced previous iTexture)
 - added state machine back in
 - added pixmap to texture back in
 - added new animation system
-
+- removed iAtlas
 
 0.39.0
 ------

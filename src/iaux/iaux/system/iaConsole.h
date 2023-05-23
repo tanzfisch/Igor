@@ -312,7 +312,7 @@ namespace iaux
         virtual ~iaConsole() = default;
     };
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
     /*! works like the original assert
 
     will be fully removed in rlease build
@@ -379,7 +379,7 @@ namespace iaux
                                  << UNLOCK;                                                                                  \
     }
 
-#else // __IGOR_DEBUG__
+#else // IGOR_DEBUG
     // RELEASE BUILD
 
 #define con_assert(Condition, Message)

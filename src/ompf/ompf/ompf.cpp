@@ -10,7 +10,7 @@ using namespace iaux;
 
 #include <iostream>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 #include <windows.h>
 
 //! gets called when the dll is loaded into memory

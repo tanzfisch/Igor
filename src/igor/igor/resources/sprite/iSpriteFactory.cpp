@@ -14,6 +14,38 @@ using namespace iaux;
 namespace igor
 {
 
+    static bool isSprite(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_SPRITE_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    static bool isTexture(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }        
+
+        return false;
+    }    
+
     const iaString &iSpriteFactory::getType() const
     {
         const static iaString typeName(L"sprite");
@@ -29,6 +61,12 @@ namespace igor
     {
         const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
         iSpritePtr sprite = std::dynamic_pointer_cast<iSprite>(resource);
+
+        if(isTexture(filename))
+        {
+            sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(filename);
+            sprite->addFrame(iaVector2f(), iaVector2f(1.0f, 1.0f), iaVector2f(0.5f, 0.5f), false);
+        }
 
         return loadSprite(filename, sprite);
     }
@@ -101,19 +139,7 @@ namespace igor
             return true;
         }
 
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &fileExtension = file.getExtension();
-        static const std::vector<iaString> supportedExtensions = {L"atlas", L"sprite"};
-
-        for (const auto &extension : supportedExtensions)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return isSprite(parameters.getParameter<iaString>("name"));
     }
 
 }; // namespace igor

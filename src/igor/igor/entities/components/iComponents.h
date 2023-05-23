@@ -30,6 +30,7 @@
 #define __IGOR_COMPONENTS__
 
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimationController.h>
 #include <igor/data/iQuadtree.h>
 
@@ -94,9 +95,9 @@ namespace igor
      */
     struct iSpriteRendererComponent
     {
-        /*! texture to render as sprite
+        /*! sprite to render
          */
-        iTexturePtr _texture; // TODO need sprite not just texture
+        iSpritePtr _sprite;
 
         /*! render size
          */

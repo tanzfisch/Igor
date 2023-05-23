@@ -97,10 +97,10 @@ private:
 
     /*! floor shadow
      */
-    iTexturePtr _shadow;
+    iSpritePtr _shadow;
 
-    iTexturePtr _shield;
-    iTexturePtr _rage;
+    iSpritePtr _shield;
+    iSpritePtr _rage;
 
     /*! texture font we use to display texts
      */
@@ -108,13 +108,13 @@ private:
 
     /*! coin texture
      */
-    iTexturePtr _coin;
+    iSpritePtr _coin;
 
-    iTexturePtr _damage;
+    iSpritePtr _damage;
 
-    iTexturePtr _attackSpeed;
+    iSpritePtr _attackSpeed;
 
-    iTexturePtr _walkSpeed;
+    iSpritePtr _walkSpeed;
 
     iAnimationPtr _scaleAnimation;
 

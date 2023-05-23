@@ -1,6 +1,6 @@
 #include <iaux/data/iaString.h>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 #include <windows.h>
 #endif
 
@@ -19,7 +19,7 @@ namespace iaux
 {
 
 // this was already very helpful let's keep this!
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
 #define CHECK_CONSISTENCY()                                               \
     {                                                                     \
         if (_data != nullptr)                                             \
@@ -262,7 +262,7 @@ namespace iaux
             return result;
         }
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         result = static_cast<int64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getLength()), nullptr, 0, nullptr, nullptr));
 #endif
 
@@ -315,7 +315,7 @@ namespace iaux
             return result;
         }
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         int64 measuredSize = static_cast<int64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getLength()), nullptr, 0, nullptr, nullptr));
 
         if (size < measuredSize)
@@ -375,7 +375,7 @@ namespace iaux
 
         clear();
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         _charCount = static_cast<int64>(MultiByteToWideChar(CP_UTF8, 0, buffer, static_cast<int>(size), nullptr, 0));
         _data = new wchar_t[_charCount + 1];
 

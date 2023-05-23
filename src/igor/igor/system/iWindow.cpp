@@ -147,7 +147,7 @@ namespace igor
         iWindowPtr _window = nullptr;
     };
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 
     /*! windows implementation of a window
      */
@@ -714,7 +714,7 @@ namespace igor
         return (DefWindowProc(_hWnd, uMsg, wParam, lParam));
     }
 
-#endif // __IGOR_WINDOWS__
+#endif // IGOR_WINDOWS
 
 #ifdef __IGOR_LINUX__
     class iWindowImplLinux : public iWindowImpl
@@ -1212,7 +1212,7 @@ namespace igor
     {
         _windowID = iWindow::_idGenerator.getNextID();
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         _impl = new iWindowImplWindows(this);
 #endif
 #ifdef __IGOR_LINUX__

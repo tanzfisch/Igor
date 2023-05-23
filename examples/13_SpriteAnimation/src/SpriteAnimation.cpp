@@ -333,7 +333,7 @@ void SpriteAnimation::onRenderOrtho()
     walkMatrix.translate(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, 0.0);
     walkMatrix.scale(70.0,70.0,1.0);
 
-    iRenderer::getInstance().drawFrame(walkMatrix, _walk, _animationOffset + _animationIndex, iaColor4f::white, true);
+    iRenderer::getInstance().drawSprite(walkMatrix, _walk, _animationOffset + _animationIndex, iaColor4f::white, true);
 
     ExampleBase::onRenderOrtho();
 }

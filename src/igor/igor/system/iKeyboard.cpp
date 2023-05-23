@@ -172,7 +172,7 @@ namespace igor
         iWindowPtr _window = nullptr;
     };
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
     class iKeyboardImplWindows : public iKeyboardImpl
     {
     public:
@@ -897,7 +897,7 @@ namespace igor
 
     iKeyboard::iKeyboard()
     {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         _impl = new iKeyboardImplWindows();
 #endif
 

@@ -52,7 +52,13 @@ using namespace iaux;
 #endif
 
 //! Igor configuration short
-extern const iaString __IGOR_CONFIGURATION__;
+extern const iaString IGOR_BUILD_CONFIGURATION;
+
+//! supported file extensions for sprites
+extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS;
+
+//! supported file extensions for textures
+extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS;
 
 namespace igor
 {

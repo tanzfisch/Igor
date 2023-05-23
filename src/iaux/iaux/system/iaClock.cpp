@@ -4,7 +4,7 @@
 
 #include <iaux/system/iaClock.h>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 #include <Windows.h>
 #endif
 
@@ -16,7 +16,7 @@
 
 namespace iaux
 {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
     static LARGE_INTEGER s_frequency;
     static LARGE_INTEGER s_startTime;
 #endif
@@ -37,7 +37,7 @@ namespace iaux
 
     int64 iaClock::getTimeMicroseconds()
     {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         LARGE_INTEGER count;
         QueryPerformanceCounter(&count);
         count.QuadPart -= s_startTime.QuadPart;
@@ -56,7 +56,7 @@ namespace iaux
     */
     void iaClock::resetClock()
     {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         if (QueryPerformanceFrequency(&s_frequency))
         {
             QueryPerformanceCounter((LARGE_INTEGER *)&s_startTime);

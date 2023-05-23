@@ -4,7 +4,7 @@
 
 #include <iaux/system/iaSystem.h>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 #include <Windows.h>
 #include <DbgHelp.h>
 #endif
@@ -23,7 +23,7 @@ namespace iaux
 	{
 		callStack.clear();
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 		void *stack[100];
 
 		HANDLE process = GetCurrentProcess();

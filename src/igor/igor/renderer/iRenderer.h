@@ -379,16 +379,17 @@ namespace igor
         template <typename T>
         void drawTexturedQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, bool blend = false, const iaVector2<T> &tiling = iaVector2<T>(static_cast<T>(1), static_cast<T>(1)));
 
-        /*! draw specified frame of given atlas
+        /*! draw specified frame of given sprite
 
         \param matrix the matrix to position and scale the frame
-        \param atlas the atlas texture to use
-        \param frameIndext the frame index in the atlas
+        \param sprite the sprite texture to use
+        \param frameIndex the frame index in the sprite
+        \param size the size of the sprite (on top of matrix scale)
         \param color the color to draw with
         \param blend if true blending is used to draw the rectangle
          */
         template <typename T>
-        void drawFrame(const iaMatrix<T> &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color = iaColor4f::white, bool blend = false);
+        void drawSprite(const iaMatrix<T> &matrix, const iSpritePtr &sprite, uint32 frameIndex = 0, const iaVector2<T> &size = iaVector2<T>(1.0f, 1.0f), const iaColor4f &color = iaColor4f::white, bool blend = false);
 
         /*! draw string
 
@@ -900,15 +901,16 @@ namespace igor
         */
         void drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling);
 
-        /*! draw specified frame of given atlas
+        /*! draw specified frame of given sprite
 
         \param matrix the matrix to position and scale the frame
-        \param atlas the atlas texture to use
-        \param frameIndext the frame index in the atlas
+        \param sprite the sprite texture to use
+        \param frameIndex the frame index in the sprite
+        \param size the size of the sprite to render
         \param color the color to draw with
         \param blend if true blending is used to draw the rectangle
          */
-        void drawFrameInternal(const iaMatrixf &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend);
+        void drawSpriteInternal(const iaMatrixf &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2f &size, const iaColor4f &color, bool blend);
 
         /*! draw a filled circle.
 
