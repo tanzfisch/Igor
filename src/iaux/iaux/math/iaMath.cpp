@@ -16,25 +16,25 @@ namespace iaux
     template <>
     const float32 iaMath::lerp(const float32 &value1, const float32 &value2, float64 w)
     {
-        return value1 * w + value2 * (1.0 - w);
+        return value2 * w + value1 * (1.0 - w);
     }
 
     template <>
     const float64 iaMath::lerp(const float64 &value1, const float64 &value2, float64 w)
     {
-        return value1 * w + value2 * (1.0 - w);
+        return value2 * w + value1 * (1.0 - w);
     }
 
     template <>
     const uint32 iaMath::lerp(const uint32 &value1, const uint32 &value2, float64 w)
     {
-        return (uint32)round((float64)value1 * w + (float64)value2 * (1.0 - w));
+        return (uint32)round((float64)value2 * w + (float64)value1 * (1.0 - w));
     }
 
     template <>
     const int32 iaMath::lerp(const int32 &value1, const int32 &value2, float64 w)
     {
-        return (int32)round((float64)value1 * w + (float64)value2 * (1.0 - w));
+        return (int32)round((float64)value2 * w + (float64)value1 * (1.0 - w));
     }
 
     template <>
@@ -44,10 +44,10 @@ namespace iaux
 
         const float64 w1 = 1.0 - w;
 
-        result._r = value1._r * w + value2._r * w1;
-        result._g = value1._g * w + value2._g * w1;
-        result._b = value1._b * w + value2._b * w1;
-        result._a = value1._a * w + value2._a * w1;
+        result._r = value2._r * w + value1._r * w1;
+        result._g = value2._g * w + value1._g * w1;
+        result._b = value2._b * w + value1._b * w1;
+        result._a = value2._a * w + value1._a * w1;
 
         return result;
     }
@@ -59,10 +59,10 @@ namespace iaux
 
         const float64 w1 = 1.0 - w;
 
-        result._r = value1._r * w + value2._r * w1;
-        result._g = value1._g * w + value2._g * w1;
-        result._b = value1._b * w + value2._b * w1;
-        result._a = value1._a * w + value2._a * w1;
+        result._r = value2._r * w + value1._r * w1;
+        result._g = value2._g * w + value1._g * w1;
+        result._b = value2._b * w + value1._b * w1;
+        result._a = value2._a * w + value1._a * w1;
 
         return result;
     }
@@ -74,8 +74,8 @@ namespace iaux
 
         const float64 w1 = 1.0 - w;
 
-        result._x = value1._x * w + value2._x * w1;
-        result._y = value1._y * w + value2._y * w1;
+        result._x = value2._x * w + value1._x * w1;
+        result._y = value2._y * w + value1._y * w1;
 
         return result;
     }
@@ -87,8 +87,8 @@ namespace iaux
 
         const float64 w1 = 1.0 - w;
 
-        result._x = value1._x * w + value2._x * w1;
-        result._y = value1._y * w + value2._y * w1;
+        result._x = value2._x * w + value1._x * w1;
+        result._y = value2._y * w + value1._y * w1;
 
         return result;
     }
@@ -100,9 +100,9 @@ namespace iaux
 
         const float64 w1 = 1.0 - w;
 
-        result._x = value1._x * w + value2._x * w1;
-        result._y = value1._y * w + value2._y * w1;
-        result._z = value1._z * w + value2._z * w1;
+        result._x = value2._x * w + value1._x * w1;
+        result._y = value2._y * w + value1._y * w1;
+        result._z = value2._z * w + value1._z * w1;
 
         return result;
     }
@@ -114,9 +114,9 @@ namespace iaux
 
         const float64 w1 = 1.0 - w;
 
-        result._x = value1._x * w + value2._x * w1;
-        result._y = value1._y * w + value2._y * w1;
-        result._z = value1._z * w + value2._z * w1;
+        result._x = value2._x * w + value1._x * w1;
+        result._y = value2._y * w + value1._y * w1;
+        result._z = value2._z * w + value1._z * w1;
 
         return result;
     }
@@ -128,10 +128,10 @@ namespace iaux
 
         const float64 w1 = 1.0 - w;
 
-        result._x = value1._x * w + value2._x * w1;
-        result._y = value1._y * w + value2._y * w1;
-        result._z = value1._z * w + value2._z * w1;
-        result._w = value1._w;
+        result._x = value2._x * w + value1._x * w1;
+        result._y = value2._y * w + value1._y * w1;
+        result._z = value2._z * w + value1._z * w1;
+        result._w = value2._w;
 
         return result;
     }
@@ -143,10 +143,10 @@ namespace iaux
 
         const float64 w1 = 1.0 - w;
 
-        result._x = value1._x * w + value2._x * w1;
-        result._y = value1._y * w + value2._y * w1;
-        result._z = value1._z * w + value2._z * w1;
-        result._w = value1._w;
+        result._x = value2._x * w + value1._x * w1;
+        result._y = value2._y * w + value1._y * w1;
+        result._z = value2._z * w + value1._z * w1;
+        result._w = value2._w;
 
         return result;
     }

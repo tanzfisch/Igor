@@ -41,9 +41,9 @@ void GameLayer::onInit()
 
     iaKeyFrameGraphVector3d scaleAnimData;
     scaleAnimData.setValue(0.0, iaVector3d(1.0f, 1.0f, 1.0f));
-    scaleAnimData.setValue(0.25, iaVector3d(1.2f, 0.9f, 1.0f));
-    scaleAnimData.setValue(0.5, iaVector3d(0.9f, 1.2f, 1.0f));
-    scaleAnimData.setValue(0.75, iaVector3d(1.0f, 1.0f, 1.0f));
+    scaleAnimData.setValue(0.33, iaVector3d(1.2f, 0.9f, 1.0f));
+    scaleAnimData.setValue(0.66, iaVector3d(0.9f, 1.2f, 1.0f));
+    scaleAnimData.setValue(1.0, iaVector3d(1.0f, 1.0f, 1.0f));
     iParameters paramScaleAnim({{"name", iaString("bounceAnimation")},
                                 {"type", iaString("animation")},
                                 {"scaleAnimation", scaleAnimData}});
@@ -58,12 +58,6 @@ void GameLayer::onInit()
                                    {"type", iaString("animation")},
                                    {"spriteAnimation", shopIdleFrames}});
     _shopIdleAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramShopIdleAnim));
-
-    for(int i=0;i<=10;++i)
-    {
-        float32 t = (float32)i * 0.1;
-        con_endl(i << " " << t << " " << scaleAnimData.getValue(t));
-    }
 
     _player = createPlayer();
     _camera = createCamera();

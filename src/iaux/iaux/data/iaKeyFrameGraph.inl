@@ -111,15 +111,18 @@ void iaKeyFrameGraph<T>::getValue(float64 at, T &value) const
         return;
     }
 
-    for (int i = 0; i < _values.size() - 1; ++i)
+    for (int i = 0; i < _values.size(); ++i)
     {
-        if (at < _values[i].first)
+        const float64 &right = _values[i].first;
+        if (at > right)
         {
             continue;
         }
 
-        float32 t = (at - _values[i].first) / (_values[i + 1].first - _values[i].first);
-        value = iaMath::lerp(_values[i + 1].second, _values[i].second, t);
-        break;
+        const float64 &left = _values[i - 1].first;
+
+        const float64 t = (at - left) / (right - left);
+        value = iaMath::lerp(_values[i - 1].second, _values[i].second, t);
+        return;
     }
 }
