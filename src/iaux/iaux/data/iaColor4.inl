@@ -93,10 +93,11 @@ void iaColor4<T>::operator*=(float32 factor)
 }
 
 template <typename T>
-void iaColor4<T>::lerp(const iaColor4<T> &color1, const iaColor4<T> &color2, float32 w)
+void iaColor4<T>::operator*(float32 factor)
 {
-    _r = color1._r * w + color2._r * (1.0f - w);
-    _g = color1._g * w + color2._g * (1.0f - w);
-    _b = color1._b * w + color2._b * (1.0f - w);
-    _a = color1._a * w + color2._a * (1.0f - w);
+    iaColor4<T> result;
+    result._r = _r * factor;
+    result._g = _g * factor;
+    result._b = _b * factor;
+    result._a = _a * factor;
 }

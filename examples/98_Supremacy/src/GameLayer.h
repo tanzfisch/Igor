@@ -116,7 +116,9 @@ private:
 
     iSpritePtr _walkSpeed;
 
-    iAnimationPtr _scaleAnimation;
+    iAnimationPtr _bounceAnimation;
+
+    iAnimationPtr _shopIdleAnimation;
 
     BuildingType _currentBuilding = BuildingType::None;
 

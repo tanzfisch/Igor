@@ -41,16 +41,29 @@ void GameLayer::onInit()
 
     iaKeyFrameGraphVector3d scaleAnimData;
     scaleAnimData.setValue(0.0, iaVector3d(1.0f, 1.0f, 1.0f));
-    scaleAnimData.setValue(0.33, iaVector3d(1.2f, 0.9f, 1.0f));
-    scaleAnimData.setValue(0.66, iaVector3d(0.9f, 1.2f, 1.0f));
-    scaleAnimData.setValue(1.0, iaVector3d(1.0f, 1.0f, 1.0f));
-
-    // set up a simply scale animation
-    iParameters paramScaleAnim({{"name", iaString("scale_animation")},
+    scaleAnimData.setValue(0.25, iaVector3d(1.2f, 0.9f, 1.0f));
+    scaleAnimData.setValue(0.5, iaVector3d(0.9f, 1.2f, 1.0f));
+    scaleAnimData.setValue(0.75, iaVector3d(1.0f, 1.0f, 1.0f));
+    iParameters paramScaleAnim({{"name", iaString("bounceAnimation")},
                                 {"type", iaString("animation")},
                                 {"scaleAnimation", scaleAnimData}});
+    _bounceAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramScaleAnim));
 
-    _scaleAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramScaleAnim));
+    iaKeyFrameGraphui shopIdleFrames;
+    shopIdleFrames.setValue(0.0, 0);
+    shopIdleFrames.setValue(0.25, 1);
+    shopIdleFrames.setValue(0.5, 2);
+    shopIdleFrames.setValue(0.75, 3);
+    iParameters paramShopIdleAnim({{"name", iaString("shopIdleAnimation")},
+                                   {"type", iaString("animation")},
+                                   {"spriteAnimation", shopIdleFrames}});
+    _shopIdleAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramShopIdleAnim));
+
+    for(int i=0;i<=10;++i)
+    {
+        float32 t = (float32)i * 0.1;
+        con_endl(i << " " << t << " " << scaleAnimData.getValue(t));
+    }
 
     _player = createPlayer();
     _camera = createCamera();
@@ -470,7 +483,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
     entity.addComponent<iBody2DComponent>({});
     iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip(iaTime::fromSeconds(0.7), {_scaleAnimation}, true, true));
+    animationController->addClip(iClip::createClip(iaTime::fromSeconds(0.7), {_bounceAnimation}, true, true));
     entity.addComponent<iAnimationComponent>({animationController});
 
     entity.addUserComponent<TargetComponent>({IGOR_INVALID_ENTITY_ID, false, false});
@@ -629,6 +642,10 @@ void GameLayer::createShop()
     _shop.addBehaviour({this, &GameLayer::onAquireTarget});
     _shop.addBehaviour({this, &GameLayer::onUpdateWeapon});
 
+    iAnimationControllerPtr animationController(new iAnimationController());
+    animationController->addClip(iClip::createClip(iaTime::fromSeconds(4.0), {_shopIdleAnimation}, true, true));
+    _shop.addComponent<iAnimationComponent>({animationController});
+
     // add shadow
     iEntity shadow = _entityScene->createEntity();
     shadow.addComponent<iTransformComponent>({iaVector3d(0.0, 0.25, 0.0)});
@@ -700,7 +717,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<iBody2DComponent>({});
 
     iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip(iaTime::fromSeconds(0.5), {_scaleAnimation}, true, true));
+    animationController->addClip(iClip::createClip(iaTime::fromSeconds(0.5), {_bounceAnimation}, true, true));
     unit.addComponent<iAnimationComponent>({animationController});
     unit.addUserComponent<HealthComponent>({enemyClass._health});
     unit.addUserComponent<TargetComponent>({target});

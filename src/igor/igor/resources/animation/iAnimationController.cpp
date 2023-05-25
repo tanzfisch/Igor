@@ -31,7 +31,7 @@ namespace igor
         iClipPtr clip = iter->second;
 
         _startTime = iaTime::getNow();
-        if(clip->hasRandomStart()) 
+        if (clip->hasRandomStart())
         {
             _startTime += clip->getDuration() * iaRandom::getNextFloat();
         }
@@ -64,11 +64,13 @@ namespace igor
         iClipPtr clip = iter->second;
         const float64 t = clip->getNormalizedTime(_startTime, time);
 
+        auto &transform = entity.getComponent<iTransformComponent>();
+        auto spriteRender = entity.tryGetComponent<iSpriteRendererComponent>();
+
         for (const auto &animation : clip->getAnimations())
         {
             // TODO blending animations
-
-            auto &transform = entity.getComponent<iTransformComponent>();
+            // TODO this is not good ... but simple enough for now
 
             if (animation->hasTranslateAnimation())
             {
@@ -83,6 +85,12 @@ namespace igor
             if (animation->hasScaleAnimation())
             {
                 transform._scale = animation->getScale(t);
+            }
+
+            if (animation->hasFrameIndexAnimation() &&
+                spriteRender)
+            {
+                spriteRender->_frameIndex = animation->getFrameIndex(t);
             }
         }
 

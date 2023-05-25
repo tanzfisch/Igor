@@ -99,30 +99,27 @@ T iaKeyFrameGraph<T>::getValue(float64 at) const
 template <class T>
 void iaKeyFrameGraph<T>::getValue(float64 at, T &value) const
 {
-    if (at >= _values[_values.size() - 1].first)
+    if (at <= _values.front().first)
     {
-        value = _values[_values.size() - 1].second;
+        value = _values.front().second;
+        return;
     }
-    else if (at <= _values[0].first)
-    {
-        value = _values[0].second;
-    }
-    else
-    {
-        value = _values[0].second;
 
-        for (int i = 0; i < _values.size(); ++i)
+    if (at >= _values.back().first)
+    {
+        value = _values.back().second;
+        return;
+    }
+
+    for (int i = 0; i < _values.size() - 1; ++i)
+    {
+        if (at < _values[i].first)
         {
-            if (_values[i].first > at)
-            {
-                float32 t = (at - _values[i - 1].first) / (_values[i].first - _values[i - 1].first);
-                value = _values[i - 1].second;
-                value *= (1.0f - t);
-                T b = _values[i].second;
-                b *= t;
-                value += b;
-                break;
-            }
+            continue;
         }
+
+        float32 t = (at - _values[i].first) / (_values[i + 1].first - _values[i].first);
+        value = iaMath::lerp(_values[i + 1].second, _values[i].second, t);
+        break;
     }
 }

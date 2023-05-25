@@ -175,6 +175,7 @@
 #include <iaux/math/iaRandom.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
+#include <iaux/math/iaMath.h>
 
 #include <iaux/system/iaFile.h>
 #include <iaux/system/iaConsole.h>

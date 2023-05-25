@@ -45,6 +45,13 @@ namespace igor
             animation->setScaleAnimation(scaleAnimation);
         }
 
+        const auto spriteAnimation = parameters.getParameter<iaKeyFrameGraphui>("spriteAnimation");
+        if (!spriteAnimation.isEmpty())
+        {
+            animation->setFrameIndexAnimation(spriteAnimation);
+        }
+        
+
         return true;
     }
 

@@ -48,6 +48,7 @@ namespace igor
     - translateAnimation: translate animation data (type: iaKeyFrameGraphVector3d)
     - rotateAnimation: rotate animation data (type: iaKeyFrameGraphVector3d)
     - scaleAnimation: scale animation data (type: iaKeyFrameGraphVector3d)
+    - spriteAnimation: sprite frame index animation data (type: iaKeyFrameGraphui)
 
      */
     class IGOR_API iAnimation : public iResource
@@ -64,7 +65,7 @@ namespace igor
         iaTime getDuration() const;
 
         /*! \returns true if translate animation is present
-        */
+         */
         bool hasTranslateAnimation() const;
 
         /*! \returns translate value for given t
@@ -74,7 +75,7 @@ namespace igor
         const iaVector3d getTranslate(float64 t) const;
 
         /*! \returns true if rotate animation is present
-        */
+         */
         bool hasRotateAnimation() const;
 
         /*! \returns rotation value for given t
@@ -84,7 +85,7 @@ namespace igor
         const iaVector3d getRotate(float64 t) const;
 
         /*! \returns true if scale animation is present
-        */
+         */
         bool hasScaleAnimation() const;
 
         /*! \returns scale value for given t
@@ -93,19 +94,34 @@ namespace igor
         */
         const iaVector3d getScale(float64 t) const;
 
+        /*! \returns true if frame index animation is present
+         */
+        bool hasFrameIndexAnimation() const;
+
+        /*! \returns frame index value for given t
+
+        \param t normalized time from clip
+        */
+        const uint32 getFrameIndex(float64 t) const;
+
     private:
+        // TODO I don't like that we have so many placeholders here
 
         /*! translate animation
-        */
+         */
         iaKeyFrameGraphVector3d _translate;
 
         /*! rotate animation
-        */
+         */
         iaKeyFrameGraphVector3d _rotate;
 
         /*! scale animation
-        */
+         */
         iaKeyFrameGraphVector3d _scale;
+
+        /*! frame index animation
+         */
+        iaKeyFrameGraphui _frameIndex;
 
         /*! initializes members
 
@@ -117,19 +133,25 @@ namespace igor
 
         \param translate the new translate animation
         */
-        void setTranslateAnimation(iaKeyFrameGraphVector3d translate);
+        void setTranslateAnimation(const iaKeyFrameGraphVector3d &translate);
 
         /*! overrides rotate animation
 
         \param rotate the new rotate animation
         */
-        void setRotateAnimation(iaKeyFrameGraphVector3d rotate);
+        void setRotateAnimation(const iaKeyFrameGraphVector3d &rotate);
 
         /*! overrides scale animation
 
         \param scale the new scale animation
         */
-        void setScaleAnimation(iaKeyFrameGraphVector3d scale);
+        void setScaleAnimation(const iaKeyFrameGraphVector3d &scale);
+
+        /*! overrides frame index animation
+
+        \param frameIndex the new frame index animation
+        */
+        void setFrameIndexAnimation(const iaKeyFrameGraphui &frameIndex);
     };
 
     /*! evaluation pointer definition

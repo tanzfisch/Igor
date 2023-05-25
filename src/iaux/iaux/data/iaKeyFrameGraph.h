@@ -32,6 +32,7 @@
 #include <iaux/iaDefines.h>
 
 #include <iaux/data/iaColor4.h>
+#include <iaux/math/iaMath.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/system/iaConsole.h>

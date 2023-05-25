@@ -42,19 +42,34 @@ namespace igor
 		return _scale.getValue(t);
 	}
 
-	void iAnimation::setTranslateAnimation(iaKeyFrameGraphVector3d translate)
+	bool iAnimation::hasFrameIndexAnimation() const
+	{
+		return !_frameIndex.isEmpty();
+	}
+
+	const uint32 iAnimation::getFrameIndex(float64 t) const
+	{
+		return _frameIndex.getValue(t);
+	}
+
+	void iAnimation::setTranslateAnimation(const iaKeyFrameGraphVector3d &translate)
 	{
 		_translate = translate;
 	}
 
-	void iAnimation::setRotateAnimation(iaKeyFrameGraphVector3d rotate)
+	void iAnimation::setRotateAnimation(const iaKeyFrameGraphVector3d &rotate)
 	{
 		_rotate = rotate;
 	}
 
-	void iAnimation::setScaleAnimation(iaKeyFrameGraphVector3d scale)
+	void iAnimation::setScaleAnimation(const iaKeyFrameGraphVector3d &scale)
 	{
 		_scale = scale;
+	}
+
+	void iAnimation::setFrameIndexAnimation(const iaKeyFrameGraphui &frameIndex)
+	{
+		_frameIndex = frameIndex;
 	}
 
 }; // namespace igor
