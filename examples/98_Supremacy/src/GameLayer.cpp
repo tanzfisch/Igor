@@ -70,8 +70,8 @@ void GameLayer::onInit()
     coinSpin.setValue(0.16, 1);
     coinSpin.setValue(0.32, 2);
     coinSpin.setValue(0.48, 3);
-    coinSpin.setValue(0.64, 4);
-    coinSpin.setValue(0.8, 5);
+    coinSpin.setValue(0.64, 2);
+    coinSpin.setValue(0.8, 1);
     iParameters coinSpinParam({{"name", iaString("coinSpinAnimation")},
                                    {"type", iaString("animation")},
                                    {"spriteAnimation", coinSpin}});

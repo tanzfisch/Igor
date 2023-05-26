@@ -67,11 +67,11 @@ namespace igor
              */
             iaRectanglef _rect;
 
-            /*! origin or pivot of frame in texture coordinates 0.0-1.0
+            /*! pivot or pivot of frame in texture coordinates 0.0-1.0
 
             can be used to position on screen
             */
-            iaVector2f _origin;
+            iaVector2f _pivot;
         };   
 
         /*! \returns the amount of frames
@@ -110,20 +110,20 @@ namespace igor
 
         \returns index of the added frame
         \param rect the frame dimensions
-        \param origin the origin of the frame
+        \param pivot the pivot of the frame
         \param pixel if true values are in pixel coordinates if false than 0.0-1.0
         */
-        uint32 addFrame(const iaRectanglef &rect, const iaVector2f &origin, bool pixel = true);
+        uint32 addFrame(const iaRectanglef &rect, const iaVector2f &pivot, bool pixel = true);
 
         /*! adds a frame to the atlas
 
         \returns index of the added frame
         \param pos top left corner of frame
         \param size size of frame
-        \param origin the origin of the frame
+        \param pivot the pivot of the frame
         \param pixel if true values are in pixel coordinates if false than 0.0-1.0
         */
-        uint32 addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel = true);
+        uint32 addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &pivot, bool pixel = true);
      
     };
 

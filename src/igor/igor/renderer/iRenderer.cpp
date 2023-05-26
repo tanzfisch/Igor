@@ -722,6 +722,11 @@ namespace igor
 
     void iRenderer::drawSpriteInternal(const iaMatrixf &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2f &size, const iaColor4f &color, bool blend)
     {
+        if(!sprite->isValid())
+        {
+            return;
+        }
+
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
         const int32 textureIndex = beginTexturedQuad(sprite->getTexture());
@@ -730,6 +735,8 @@ namespace igor
 
         iaMatrixf scaledMatrix = matrix;
         scaledMatrix.scale(size._x, size._y, 1.0);
+
+        // TODO use pivot
 
         auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[0];

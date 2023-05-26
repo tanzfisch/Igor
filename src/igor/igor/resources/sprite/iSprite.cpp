@@ -15,12 +15,12 @@ namespace igor
         addFrame(iaVector2f(), iaVector2f(1.0f, 1.0f), iaVector2f(0.5f, 0.5f), false);
     }
 
-    uint32 iSprite::addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel)
+    uint32 iSprite::addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &pivot, bool pixel)
     {
-        return addFrame(iaRectanglef(pos, size), origin, pixel);
+        return addFrame(iaRectanglef(pos, size), pivot, pixel);
     }
 
-    uint32 iSprite::addFrame(const iaRectanglef &rect, const iaVector2f &origin, bool pixel)
+    uint32 iSprite::addFrame(const iaRectanglef &rect, const iaVector2f &pivot, bool pixel)
     {
         iFrame frame;
 
@@ -28,12 +28,12 @@ namespace igor
         {
             frame._rect.setTopLeft(rect._x / _texture->getWidth(), rect._y / _texture->getHeight());
             frame._rect.setSize(rect._width / _texture->getWidth(), rect._height / _texture->getHeight());
-            frame._origin.set(origin._x / rect._width, origin._y / rect._height);
+            frame._pivot.set(pivot._x / rect._width, pivot._y / rect._height);
         }
         else
         {
             frame._rect = rect;
-            frame._origin = origin;
+            frame._pivot = pivot;
         }
 
         _frames.push_back(frame);

@@ -60,10 +60,6 @@ namespace igor
          */
         virtual ~iAnimation() = default;
 
-        /*! \returns duration of animation
-         */
-        iaTime getDuration() const;
-
         /*! \returns true if translate animation is present
          */
         bool hasTranslateAnimation() const;

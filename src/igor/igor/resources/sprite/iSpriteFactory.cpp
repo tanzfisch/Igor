@@ -76,24 +76,27 @@ namespace igor
         TiXmlElement *frame = spriteElement->FirstChildElement("Frame");
         const iaString textureFileName(spriteElement->Attribute("texture"));
 
+        //int32 pixelPerUnit = 1;        
+        //spriteElement->Attribute("pixelPerUnit", &pixelPerUnit);
+
         sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(textureFileName);
 
         do
         {
             iaString attrPos(frame->Attribute("pos"));
             iaString attrSize(frame->Attribute("size"));
-            iaString attrOrigin(frame->Attribute("origin"));
+            iaString attrPivot(frame->Attribute("pivot"));
             iaString attrPixel(frame->Attribute("pixel"));
 
             iaVector2f pos;
             iaVector2f size;
-            iaVector2f origin;
+            iaVector2f pivot;
 
             iaString::toVector<float32>(attrPos, pos);
             iaString::toVector<float32>(attrSize, size);
-            iaString::toVector<float32>(attrOrigin, origin);
+            iaString::toVector<float32>(attrPivot, pivot);
 
-            sprite->addFrame(pos, size, origin, iaString::toBool(attrPixel));
+            sprite->addFrame(pos, size, pivot, iaString::toBool(attrPixel));
 
         } while ((frame = frame->NextSiblingElement("Frame")) != nullptr);
     }
