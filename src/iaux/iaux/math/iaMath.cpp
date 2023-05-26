@@ -38,6 +38,46 @@ namespace iaux
     }
 
     template <>
+    const uint64 iaMath::lerp(const uint64 &value1, const uint64 &value2, float64 w)
+    {
+        return (uint64)round((float64)value2 * w + (float64)value1 * (1.0 - w));
+    }
+
+    template <>
+    const int64 iaMath::lerp(const int64 &value1, const int64 &value2, float64 w)
+    {
+        return (int64)round((float64)value2 * w + (float64)value1 * (1.0 - w));
+    }
+
+    template <>
+    const iaColor3<float32> iaMath::lerp(const iaColor3<float32> &value1, const iaColor3<float32> &value2, float64 w)
+    {
+        iaColor3<float32> result;
+
+        const float64 w1 = 1.0 - w;
+
+        result._r = value2._r * w + value1._r * w1;
+        result._g = value2._g * w + value1._g * w1;
+        result._b = value2._b * w + value1._b * w1;
+
+        return result;
+    }
+
+    template <>
+    const iaColor3<uint8> iaMath::lerp(const iaColor3<uint8> &value1, const iaColor3<uint8> &value2, float64 w)
+    {
+        iaColor3<uint8> result;
+
+        const float64 w1 = 1.0 - w;
+
+        result._r = value2._r * w + value1._r * w1;
+        result._g = value2._g * w + value1._g * w1;
+        result._b = value2._b * w + value1._b * w1;
+
+        return result;
+    }
+
+    template <>
     const iaColor4<float32> iaMath::lerp(const iaColor4<float32> &value1, const iaColor4<float32> &value2, float64 w)
     {
         iaColor4<float32> result;
@@ -65,7 +105,7 @@ namespace iaux
         result._a = value2._a * w + value1._a * w1;
 
         return result;
-    }
+    }    
 
     template <>
     const iaVector2<float32> iaMath::lerp(const iaVector2<float32> &value1, const iaVector2<float32> &value2, float64 w)
@@ -124,6 +164,8 @@ namespace iaux
     template <>
     const iaVector4<float32> iaMath::lerp(const iaVector4<float32> &value1, const iaVector4<float32> &value2, float64 w)
     {
+        con_assert(value1._w == value2._w, "can't lerp this");
+
         iaVector4<float32> result;
 
         const float64 w1 = 1.0 - w;
@@ -139,6 +181,8 @@ namespace iaux
     template <>
     const iaVector4<float64> iaMath::lerp(const iaVector4<float64> &value1, const iaVector4<float64> &value2, float64 w)
     {
+        con_assert(value1._w == value2._w, "can't lerp this");
+        
         iaVector4<float64> result;
 
         const float64 w1 = 1.0 - w;

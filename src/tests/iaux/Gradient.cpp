@@ -30,7 +30,7 @@ IAUX_TEST(GradientTests, GetValue)
 
 	float64 value1 = gradient.getValue(0.0);
 	float64 value2;
-	gradient.getValue(6.5, value2);
+	value2 = gradient.getValue(6.5);
 
 	IAUX_EXPECT_EQUAL(value1, 150.0);
 	IAUX_EXPECT_EQUAL(value2, 175.0);

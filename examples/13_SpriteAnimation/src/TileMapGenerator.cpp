@@ -10,8 +10,8 @@ void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos,
 {
 	const uint32 offsetIndex = meshBuilder.getVertexCount();
 
-	float32 x = pos._x - frame._origin._x;
-	float32 y = pos._y - frame._origin._y;
+	float32 x = pos._x - frame._pivot._x;
+	float32 y = pos._y - frame._pivot._y;
 
 	meshBuilder.addVertex(iaVector3f(x, y, 0));
 	meshBuilder.setTexCoord(iaVector2f(frame._rect._x, frame._rect._y), 0);
