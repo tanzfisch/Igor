@@ -2,19 +2,19 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-template <class T>
+template <typename T>
 void iaKeyFrameGraph<T>::clear()
 {
     _values.clear();
 }
 
-template <class T>
+template <typename T>
 __IGOR_INLINE__ bool iaKeyFrameGraph<T>::isEmpty() const
 {
     return _values.empty();
 }
 
-template <class T>
+template <typename T>
 void iaKeyFrameGraph<T>::setValue(float64 at, const T &value)
 {
     if (_values.size() == 0)
@@ -45,7 +45,7 @@ void iaKeyFrameGraph<T>::setValue(float64 at, const T &value)
     _values.push_back(std::pair<float32, T>(at, value));
 }
 
-template <class T>
+template <typename T>
 void iaKeyFrameGraph<T>::removeIndex(int32 index)
 {
     if (index < _values.size())
@@ -54,7 +54,7 @@ void iaKeyFrameGraph<T>::removeIndex(int32 index)
     }
 }
 
-template <class T>
+template <typename T>
 void iaKeyFrameGraph<T>::setValueAtIndex(int32 index, float64 at, const T &value)
 {
     con_assert(index < _values.size(), "out of bounds");
@@ -66,7 +66,7 @@ void iaKeyFrameGraph<T>::setValueAtIndex(int32 index, float64 at, const T &value
               { return a.first < b.first; });
 }
 
-template <class T>
+template <typename T>
 void iaKeyFrameGraph<T>::getValueAtIndex(int32 index, float64 &at, T &value)
 {
     con_assert(index < _values.size(), "out of bounds");
@@ -75,40 +75,41 @@ void iaKeyFrameGraph<T>::getValueAtIndex(int32 index, float64 &at, T &value)
     value = _values[index].second;
 }
 
-template <class T>
+template <typename T>
 const std::vector<std::pair<float64, T>> &iaKeyFrameGraph<T>::getValues() const
 {
     return _values;
 }
 
-template <class T>
+template <typename T>
 uint32 iaKeyFrameGraph<T>::getValueCount() const
 {
     return _values.size();
 }
 
-template <class T>
-T iaKeyFrameGraph<T>::getValue(float64 at) const
+template <typename T>
+void iaKeyFrameGraph<T>::setInterpolationMode(iInterpolationMode mode)
 {
-    T result;
-    getValue(at, result);
-
-    return result;
+    _interpolationMode = mode;
 }
 
-template <class T>
-void iaKeyFrameGraph<T>::getValue(float64 at, T &value) const
+template <typename T>
+iInterpolationMode iaKeyFrameGraph<T>::getInterpolationMode() const
+{
+    return _interpolationMode;
+}
+
+template <typename T>
+T iaKeyFrameGraph<T>::getValue(float64 at) const
 {
     if (at <= _values.front().first)
     {
-        value = _values.front().second;
-        return;
+        return _values.front().second;
     }
 
     if (at >= _values.back().first)
     {
-        value = _values.back().second;
-        return;
+        return _values.back().second;
     }
 
     for (int i = 0; i < _values.size(); ++i)
@@ -119,10 +120,21 @@ void iaKeyFrameGraph<T>::getValue(float64 at, T &value) const
             continue;
         }
 
-        const float64 &left = _values[i - 1].first;
+        switch(_interpolationMode)
+        {
+            case iInterpolationMode::Linear:
+            default:
+            {
+                const float64 &left = _values[i - 1].first;
+                const float64 t = (at - left) / (right - left);
+                return iaMath::lerp(_values[i - 1].second, _values[i].second, t);
+            }
 
-        const float64 t = (at - left) / (right - left);
-        value = iaMath::lerp(_values[i - 1].second, _values[i].second, t);
-        return;
+            case iInterpolationMode::None:
+                return _values[i - 1].second;
+        };
     }
+
+    con_crit("can't happen");
+    return T();
 }

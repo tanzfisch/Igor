@@ -43,9 +43,17 @@
 namespace iaux
 {
 
+    /*! interpolation mode
+    */
+    enum class iInterpolationMode
+    {
+        None,
+        Linear
+    };
+
     /*! gradient of values
      */
-    template <class T>
+    template <typename T>
     class IAUX_API_EXPORT_ONLY iaKeyFrameGraph
     {
 
@@ -56,13 +64,6 @@ namespace iaux
         \param value the value
         */
         void setValue(float64 at, const T &value);
-
-        /*! returns value at given position
-
-        \param[in,out] value the value at given position
-        \param at the given position
-        */
-        void getValue(float64 at, T &value) const;
 
         /*! \returns value at given position
 
@@ -108,6 +109,16 @@ namespace iaux
          */
         bool isEmpty() const;
 
+        /*! sets interpolation mode
+
+        \param mode the interpolation mode
+        */
+        void setInterpolationMode(iInterpolationMode mode);
+
+        /*! \returns interpolation mode
+        */
+        iInterpolationMode getInterpolationMode() const;
+
         /*! does nothing
          */
         iaKeyFrameGraph() = default;
@@ -117,6 +128,11 @@ namespace iaux
         ~iaKeyFrameGraph() = default;
 
     private:
+
+        /*! interpolation mode
+        */
+        iInterpolationMode _interpolationMode = iInterpolationMode::Linear;
+
         /*! the colors
          */
         std::vector<std::pair<float64, T>> _values;

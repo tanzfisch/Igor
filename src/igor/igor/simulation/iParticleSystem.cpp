@@ -267,28 +267,28 @@ namespace igor
         float32 randomFactor = (_rand.getNext() % 1000 / 1000.0f);
 
         float32 vel = 0;
-        _startVelocityGradient.getValue(particleSystemTime, minMax);
+        minMax = _startVelocityGradient.getValue(particleSystemTime);
         vel = minMax._x + randomFactor * (minMax._y - minMax._x);
         velocity *= vel;
 
         particle._position.set(position._x, position._y, position._z);
         particle._velocity.set(velocity._x, velocity._y, velocity._z);
 
-        _startLiftGradient.getValue(particleSystemTime, minMax);
+        minMax = _startLiftGradient.getValue(particleSystemTime);
         particle._lift = minMax._x + (1 - randomFactor) * (minMax._y - minMax._x);
 
-        _startSizeGradient.getValue(particleSystemTime, minMax);
+        minMax = _startSizeGradient.getValue(particleSystemTime);
         particle._size = minMax._x + randomFactor * (minMax._y - minMax._x);
 
-        _startAgeGradient.getValue(particleSystemTime, minMax);
+        minMax = _startAgeGradient.getValue(particleSystemTime);
         particle._maxAge = minMax._x + randomFactor * (minMax._y - minMax._x);
         particle._lifeLeft = particle._maxAge;
         particle._visible = true;
 
-        _startOrientationGradient.getValue(particleSystemTime, minMax);
+        minMax = _startOrientationGradient.getValue(particleSystemTime);
         particle._orientation = minMax._x + randomFactor * (minMax._y - minMax._x);
 
-        _startOrientationRateGradient.getValue(particleSystemTime, minMax);
+        minMax = _startOrientationRateGradient.getValue(particleSystemTime);
         particle._orientationRate = minMax._x + randomFactor * (minMax._y - minMax._x);
 
         if (_firstTextureColumns == 1 && _firstTextureRows == 1)
@@ -402,7 +402,7 @@ namespace igor
 
             const float32 normalizedAge = particle._lifeLeft / particle._maxAge;
 
-            _sizeScaleGradient.getValue(normalizedAge, sizeScale);
+            sizeScale = _sizeScaleGradient.getValue(normalizedAge);
 
             particle._velocity[1] += particle._lift;
             particle._velocity *= _airDrag;
@@ -411,7 +411,7 @@ namespace igor
 
             if (particle._torque != 0.0)
             {
-                _torqueFactorGradient.getValue(normalizedAge, torqueFactor);
+                torqueFactor = _torqueFactorGradient.getValue(normalizedAge);
 
                 const int32 startIndex = index - _vortexCheckRange;
                 const int32 endIndex = index + _vortexCheckRange;
@@ -473,7 +473,7 @@ namespace igor
                 iterateFrame();
 
                 float32 emissionRate = 0.0f;
-                _emissionRateGradient.getValue(particleSystemTime.getSeconds(), emissionRate);
+                emissionRate = _emissionRateGradient.getValue(particleSystemTime.getSeconds());
                 _emissionImpulseStack += emissionRate;
                 int32 createCount = static_cast<int32>(_emissionImpulseStack);
                 _emissionImpulseStack -= static_cast<float32>(createCount);
@@ -540,7 +540,7 @@ namespace igor
             const float32 age = particle._maxAge - particle._lifeLeft;
 
             vertexBufferDataPtr->_position = particle._position;
-            _colorGradient.getValue(normalizedAge, vertexBufferDataPtr->_color);
+            vertexBufferDataPtr->_color = _colorGradient.getValue(normalizedAge);
             vertexBufferDataPtr->_velocity = particle._velocity;
             vertexBufferDataPtr->_lifeSizeAngleTilingIndex.set(
                 age,

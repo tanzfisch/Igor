@@ -88,7 +88,7 @@ namespace igor
             {
                 float32 value = (static_cast<float32>(mousePos._x - gradientRect._x) / static_cast<float32>(gradientRect._width));
                 iaColor4f color;
-                _gradient.getValue(value, color);
+                color = _gradient.getValue(value);
                 _colorCreated(value, color);
             }
         }
@@ -173,7 +173,7 @@ namespace igor
 
                 for (auto entry : gradient)
                 {
-                    _gradient.getValue(entry.first, color);
+                    color = _gradient.getValue(entry.first);
                     color._a = 1.0f;
                     buttonRect._x = static_cast<int32>(entry.first * gradientRect._width) + gradientRect._x - 4;
                     iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, color, iWidgetState::Standby, isEnabled());

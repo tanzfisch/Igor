@@ -111,7 +111,7 @@ namespace igor
             float32 indexPosX = static_cast<float32>(rect._x + i) + 0.5f;
             float32 halfHeight = static_cast<float32>(rect._height) * 0.5f;
 
-            gradient.getValue(static_cast<float32>(i) / static_cast<float32>(rect._width), color);
+            color = gradient.getValue(static_cast<float32>(i) / static_cast<float32>(rect._width));
             // TODO iRenderer::getInstance().setMaterial TODO(true);
             iRenderer::getInstance().drawLine(indexPosX, static_cast<float32>(rect._y) + halfHeight + 0.5f, indexPosX, static_cast<float32>(rect._y + rect._height) + 0.5f, color);
             // TODO iRenderer::getInstance().setMaterial TODO(false);

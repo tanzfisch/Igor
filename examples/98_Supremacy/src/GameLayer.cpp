@@ -50,6 +50,7 @@ void GameLayer::onInit()
     _bounceAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramScaleAnim));
 
     iaKeyFrameGraphui shopIdleFrames;
+    shopIdleFrames.setInterpolationMode(iInterpolationMode::None);
     shopIdleFrames.setValue(0.0, 0);
     shopIdleFrames.setValue(0.25, 1);
     shopIdleFrames.setValue(0.5, 2);
@@ -637,7 +638,7 @@ void GameLayer::createShop()
     _shop.addBehaviour({this, &GameLayer::onUpdateWeapon});
 
     iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip(iaTime::fromSeconds(4.0), {_shopIdleAnimation}, true, true));
+    animationController->addClip(iClip::createClip(iaTime::fromSeconds(1.0), {_shopIdleAnimation}, true, true));
     _shop.addComponent<iAnimationComponent>({animationController});
 
     // add shadow
