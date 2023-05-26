@@ -120,6 +120,8 @@ private:
 
     iAnimationPtr _shopIdleAnimation;
 
+    iAnimationPtr _coinSpinAnimation;
+
     BuildingType _currentBuilding = BuildingType::None;
 
     bool _levelUp = false;

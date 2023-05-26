@@ -52,13 +52,30 @@ void GameLayer::onInit()
     iaKeyFrameGraphui shopIdleFrames;
     shopIdleFrames.setInterpolationMode(iInterpolationMode::None);
     shopIdleFrames.setValue(0.0, 0);
-    shopIdleFrames.setValue(0.25, 1);
-    shopIdleFrames.setValue(0.5, 2);
-    shopIdleFrames.setValue(0.75, 3);
+    shopIdleFrames.setValue(0.125, 1);
+    shopIdleFrames.setValue(0.25, 2);
+    shopIdleFrames.setValue(0.375, 3);
+    shopIdleFrames.setValue(0.5, 4);
+    shopIdleFrames.setValue(0.625, 5);
+    shopIdleFrames.setValue(0.75, 6);
+    shopIdleFrames.setValue(0.875, 7);
     iParameters paramShopIdleAnim({{"name", iaString("shopIdleAnimation")},
                                    {"type", iaString("animation")},
                                    {"spriteAnimation", shopIdleFrames}});
     _shopIdleAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramShopIdleAnim));
+
+    iaKeyFrameGraphui coinSpin;
+    coinSpin.setInterpolationMode(iInterpolationMode::None);
+    coinSpin.setValue(0.0, 0);
+    coinSpin.setValue(0.16, 1);
+    coinSpin.setValue(0.32, 2);
+    coinSpin.setValue(0.48, 3);
+    coinSpin.setValue(0.64, 4);
+    coinSpin.setValue(0.8, 5);
+    iParameters coinSpinParam({{"name", iaString("coinSpinAnimation")},
+                                   {"type", iaString("animation")},
+                                   {"spriteAnimation", coinSpin}});
+    _coinSpinAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(coinSpinParam));    
 
     _player = createPlayer();
     _camera = createCamera();
@@ -564,8 +581,8 @@ iEntity GameLayer::createCamera()
     component._clearDepthActive = false;
 
     // DEBUG
-    auto &debug = entity.addComponent<iRenderDebugComponent>({});
-    debug._renderSpacePartitioning = true;
+    /*auto &debug = entity.addComponent<iRenderDebugComponent>({});
+    debug._renderSpacePartitioning = true;*/
 
     return entity;
 }
@@ -582,7 +599,7 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
 {
     iEntity entity = _entityScene->createEntity("object");
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
-    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("supremacy/coin.png"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
+    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("coin.sprite"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
     entity.addUserComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
     entity.addComponent<iPartyComponent>({party});
     entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
@@ -593,6 +610,10 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
     entity.addUserComponent<CoinGainComponent>({objectType == ObjectType::Coin ? 1.0f : 0.0f});
     entity.addUserComponent<DamageComponent>({0.0f});
     entity.addUserComponent<HealComponent>({0.0f});
+
+    iAnimationControllerPtr animationController(new iAnimationController());
+    animationController->addClip(iClip::createClip(iaTime::fromSeconds(1.0), {_coinSpinAnimation}, true, true));
+    entity.addComponent<iAnimationComponent>({animationController});    
 }
 
 void GameLayer::liftShop()

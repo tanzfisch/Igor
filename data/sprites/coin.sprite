@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Igor>
+    <Sprite texture="supremacy/coin.png">
+        <Frame pos="0, 0" size="0.5, 0.5" origin="0.5, 0.5"/>
+        <Frame pos="0.5, 0" size="0.5, 0.5" origin="0.5, 0.5"/>
+        <Frame pos="0, 0.5" size="0.5, 0.5" origin="0.5, 0.5"/>
+        <Frame pos="0.5, 0.5" size="0.5, 0.5" origin="0.5, 0.5"/>
+        <Frame pos="0, 0.5" size="0.5, 0.5" origin="0.5, 0.5"/>
+        <Frame pos="0.5, 0" size="0.5, 0.5" origin="0.5, 0.5"/>
+    </Sprite>
+</Igor>
