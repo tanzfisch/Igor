@@ -105,15 +105,13 @@ namespace igor
     {
         sprite->_frames.clear();
 
-        iaString path = iResourceManager::getInstance().getPath(filename);
-
         char temp[2048];
-        path.getData(temp, 2048);
+        filename.getData(temp, 2048);
 
         TiXmlDocument document(temp);
         if (!document.LoadFile())
         {
-            con_err("can't read \"" << filename << "\"");
+            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
             return false;
         }
 

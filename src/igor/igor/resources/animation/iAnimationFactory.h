@@ -32,6 +32,8 @@
 #include <igor/resources/iFactory.h>
 #include <igor/resources/animation/iAnimation.h>
 
+class TiXmlElement;
+
 namespace igor
 {
 
@@ -76,6 +78,22 @@ namespace igor
         \param resource the resource to unload
         */
         void unloadResource(iResourcePtr resource) override;
+
+        /*! loads animation from file
+
+        \param filename the file to load the animation from
+        \param animation the target animation
+        */
+        bool loadAnimation(const iaString &filename, iAnimationPtr animation);
+
+        /*! reads animation element from xml file
+
+        \param animationElement the animation element to read
+        \param animation the target animation 
+        */
+        void readAnimationElement(TiXmlElement *animationElement, iAnimationPtr animation);
+
+        iaKeyFrameGraphui readFrameIndexAnimation(TiXmlElement *animationElement, iAnimationPtr animation);
     };
 
 }; // namespace igor

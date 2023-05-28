@@ -215,7 +215,8 @@ namespace igor
                 {
                     material->setOrder(iaString::toInt(attrib->Value()));
                 }
-            }else if (attrib->NameTStr() == "visibility")
+            }
+            else if (attrib->NameTStr() == "visibility")
             {
                 if (attrib->ValueStr() == "Public")
                 {
@@ -249,24 +250,23 @@ namespace igor
         filename.getData(temp, 2048);
 
         TiXmlDocument document(temp);
-        if (document.LoadFile())
+        if (!document.LoadFile())
         {
-            TiXmlElement *root = document.FirstChildElement("Igor");
-            if (!root)
-            {
-                con_err("not an igor xml file");
-                return;
-            }
-
-            TiXmlElement *materialXML = root->FirstChildElement("Material");
-            if (materialXML)
-            {
-                readMaterial(materialXML, material);
-            }
+            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
+            return;
         }
-        else
+
+        TiXmlElement *root = document.FirstChildElement("Igor");
+        if (!root)
         {
-            con_err("can't read file \"" << filename << "\". " << document.ErrorDesc() << " In line " << document.ErrorRow());
+            con_err("not an igor xml file");
+            return;
+        }
+
+        TiXmlElement *materialXML = root->FirstChildElement("Material");
+        if (materialXML)
+        {
+            readMaterial(materialXML, material);
         }
     }
 

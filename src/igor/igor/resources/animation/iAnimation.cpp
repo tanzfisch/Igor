@@ -72,4 +72,14 @@ namespace igor
 		_frameIndex = frameIndex;
 	}
 
+	void iAnimation::setFps(float64 fps)
+	{
+		_fps = fps;
+	}
+
+	float64 iAnimation::getFps() const
+	{
+		return _fps;
+	}
+
 }; // namespace igor

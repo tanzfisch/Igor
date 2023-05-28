@@ -64,18 +64,7 @@ void GameLayer::onInit()
                                    {"spriteAnimation", shopIdleFrames}});
     _shopIdleAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramShopIdleAnim));
 
-    iaKeyFrameGraphui coinSpin;
-    coinSpin.setInterpolationMode(iInterpolationMode::None);
-    coinSpin.setValue(0.0, 0);
-    coinSpin.setValue(0.16, 1);
-    coinSpin.setValue(0.32, 2);
-    coinSpin.setValue(0.48, 3);
-    coinSpin.setValue(0.64, 2);
-    coinSpin.setValue(0.8, 1);
-    iParameters coinSpinParam({{"name", iaString("coinSpinAnimation")},
-                                   {"type", iaString("animation")},
-                                   {"spriteAnimation", coinSpin}});
-    _coinSpinAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(coinSpinParam));    
+    _coinSpinAnimation = iResourceManager::getInstance().requestResource<iAnimation>("coin.anim");
 
     _player = createPlayer();
     _camera = createCamera();
@@ -249,7 +238,7 @@ void GameLayer::loadSpecs(const iaString &filename)
     TiXmlDocument document(temp);
     if (!document.LoadFile())
     {
-        con_err("can't read \"" << filename << "\"");
+        con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
         return;
     }
 
@@ -613,7 +602,7 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
 
     iAnimationControllerPtr animationController(new iAnimationController());
     animationController->addClip(iClip::createClip(iaTime::fromSeconds(1.0), {_coinSpinAnimation}, true, true));
-    entity.addComponent<iAnimationComponent>({animationController});    
+    entity.addComponent<iAnimationComponent>({animationController});
 }
 
 void GameLayer::liftShop()

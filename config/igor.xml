@@ -7,6 +7,7 @@
             <SearchPath>data\sprites</SearchPath>
             <SearchPath>data\models</SearchPath>
             <SearchPath>data\materials</SearchPath>
+            <SearchPath>data\animations</SearchPath>
             <SearchPath>data\sounds</SearchPath>
             <SearchPath>data</SearchPath>
         </SearchPaths>
