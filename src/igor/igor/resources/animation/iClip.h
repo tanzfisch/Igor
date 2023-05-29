@@ -50,15 +50,13 @@ namespace igor
     {
 
     public:
-        /*! create clip with given duration
+        /*! create clip
 
-        \param duration the duration of the clip
         \param animations list of animations to bind to this clip
         \param looped if true clip is looped
         \param randomStart if true clip starts with a random offset
          */
-        static iClipPtr createClip(const iaTime &duration = iaTime::fromSeconds(1.0),
-                                   const std::vector<iAnimationPtr> &animations = std::vector<iAnimationPtr>(),
+        static iClipPtr createClip(const std::vector<iAnimationPtr> &animations = std::vector<iAnimationPtr>(),
                                    bool looped = true, bool randomStart = false);
 
         /*! does nothing
@@ -81,15 +79,17 @@ namespace igor
          */
         const std::vector<iAnimationPtr> &getAnimations() const;
 
-        /*! sets stop based on current start plus duration
-
-        \param duration the duration to be set
-        */
-        void setDuration(const iaTime &duration);
-
-        /*! \returns duration
+        /*! \returns start time
          */
-        iaTime getDuration() const;
+        const iaTime& getStart() const;
+
+        /*! \returns start time
+         */
+        const iaTime& getStop() const;
+
+        /*! \returns duration time
+         */
+        const iaTime& getDuration() const;
 
         /*! sets the interpolation function
 
@@ -137,10 +137,6 @@ namespace igor
          */
         iaEasing::iaEasingFunction _easingFunction = iaEasing::iaEasingFunction::Linear;
 
-        /*! duration time of evaluation
-         */
-        iaTime _duration = iaTime::fromSeconds(1.0);
-
         /*! amplitude of elastic easing function
          */
         float64 _amplitude = 0.5;
@@ -161,15 +157,33 @@ namespace igor
          */
         bool _randomStart = false;
 
+        /*! start time or time of first key frame
+        */
+        iaTime _start;
+
+        /*! stop time or time of last key frame
+        */
+        iaTime _stop;
+
+        /*! duration of clip playing
+        */
+        iaTime _duration;
+
         /*! animation under this clip
          */
         std::vector<iAnimationPtr> _animations;
 
-        /*! init members
+        /*! dirty start stop flag
+        */
+        bool _dirtyStartStop = true;
 
-        \param duration the duration of the clip
+        /*! ctor
          */
-        iClip(const iaTime &duration);
+        iClip();
+
+        /*! update start stop times
+        */
+        void updateStartStop();
     };
 
 } // namespace igor

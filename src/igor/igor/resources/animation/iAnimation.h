@@ -100,13 +100,13 @@ namespace igor
         */
         const uint32 getFrameIndex(float64 t) const;
 
-        /*! sets frame rate of animation
+        /*! \returns time of first key frame
         */
-        void setFps(float64 fps);
+        const iaTime getStart() const;
 
-        /*! \returns animation framerate
+        /*! \returns time of last key frame
         */
-        float64 getFps() const;
+        const iaTime getStop() const;
 
     private:
         // TODO I don't like that we have so many placeholders here
@@ -126,10 +126,6 @@ namespace igor
         /*! frame index animation
          */
         iaKeyFrameGraphui _frameIndex;
-
-        /*! frame rate of animation
-        */
-        float64 _fps = 60;
 
         /*! initializes members
 

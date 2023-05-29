@@ -12,9 +12,9 @@ using namespace iaux;
 namespace igor
 {
 
-    iClipPtr iClip::createClip(const iaTime &duration, const std::vector<iAnimationPtr> &animations, bool looped, bool randomStart)
+    iClipPtr iClip::createClip(const std::vector<iAnimationPtr> &animations, bool looped, bool randomStart)
     {
-        iClipPtr result(new iClip(duration));
+        iClipPtr result(new iClip());
 
         for (auto animation : animations)
         {
@@ -27,9 +27,8 @@ namespace igor
         return result;
     }
 
-    iClip::iClip(const iaTime &duration)
+    iClip::iClip()
     {
-        _duration = duration;
     }
 
     void iClip::setLooped(bool loop)
@@ -66,6 +65,8 @@ namespace igor
         }
 
         _animations.push_back(animation);
+
+        _dirtyStartStop = true;
     }
 
     void iClip::removeAnimation(iAnimationPtr animation)
@@ -75,14 +76,54 @@ namespace igor
         {
             _animations.erase(iter);
         }
+
+        _dirtyStartStop = true;
     }
 
-    void iClip::setDuration(const iaTime &duration)
+    void iClip::updateStartStop()
     {
-        _duration = duration;
+        if (!_dirtyStartStop)
+        {
+            return;
+        }
+
+        bool first = true;
+        for (auto &animation : _animations)
+        {
+            if (!animation->isProcessed() ||
+                !animation->isValid())
+            {
+                return;
+            }
+
+            if (first)
+            {
+                _start = animation->getStart();
+                _stop = animation->getStop();
+                first = false;
+            }
+            else
+            {
+                _start = std::min(_start, animation->getStart());
+                _stop = std::max(_stop, animation->getStop());
+            }
+        }
+
+        _duration = _stop - _start;
+        _dirtyStartStop = false;
     }
 
-    iaTime iClip::getDuration() const
+    const iaTime &iClip::getStart() const
+    {
+        return _start;
+    }
+
+    const iaTime &iClip::getStop() const
+    {
+        return _stop;
+    }
+
+    const iaTime &iClip::getDuration() const
     {
         return _duration;
     }
@@ -299,12 +340,14 @@ namespace igor
 
     float64 iClip::getNormalizedTime(const iaTime &startTime, const iaTime &time)
     {
-        if (time <= startTime)
+        updateStartStop();
+
+        if (time <= startTime + _start)
         {
             return 0.0;
         }
 
-        if (time >= startTime + _duration)
+        if (time >= startTime + _stop)
         {
             return 1.0;
         }

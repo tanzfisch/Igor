@@ -484,7 +484,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
     entity.addComponent<iBody2DComponent>({});
     iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip(iaTime::fromSeconds(0.7), {_bounceAnimation}, true, true));
+    animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
     entity.addComponent<iAnimationComponent>({animationController});
 
     entity.addUserComponent<TargetComponent>({IGOR_INVALID_ENTITY_ID, false, false});
@@ -601,7 +601,7 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
     entity.addUserComponent<HealComponent>({0.0f});
 
     iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip(iaTime::fromSeconds(1.0), {_coinSpinAnimation}, true, true));
+    animationController->addClip(iClip::createClip({_coinSpinAnimation}, true, true));
     entity.addComponent<iAnimationComponent>({animationController});
 }
 
@@ -648,7 +648,7 @@ void GameLayer::createShop()
     _shop.addBehaviour({this, &GameLayer::onUpdateWeapon});
 
     iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip(iaTime::fromSeconds(1.0), {_shopIdleAnimation}, true, true));
+    animationController->addClip(iClip::createClip({_shopIdleAnimation}, true, true));
     _shop.addComponent<iAnimationComponent>({animationController});
 
     // add shadow
@@ -722,7 +722,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addComponent<iBody2DComponent>({});
 
     iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip(iaTime::fromSeconds(0.5), {_bounceAnimation}, true, true));
+    animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
     unit.addComponent<iAnimationComponent>({animationController});
     unit.addUserComponent<HealthComponent>({enemyClass._health});
     unit.addUserComponent<TargetComponent>({target});

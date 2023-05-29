@@ -62,7 +62,9 @@ namespace igor
         }
 
         iClipPtr clip = iter->second;
-        const float64 t = clip->getNormalizedTime(_startTime, time);
+        // const float64 t = clip->getNormalizedTime(_startTime, time);
+        const iaTime runTime = time - _startTime;
+        const float64 t = runTime.getSeconds();
 
         auto &transform = entity.getComponent<iTransformComponent>();
         auto spriteRender = entity.tryGetComponent<iSpriteRendererComponent>();
@@ -96,7 +98,7 @@ namespace igor
 
         if (clip->isLooped())
         {
-            if (time - _startTime >= clip->getDuration())
+            if (runTime >= clip->getDuration())
             {
                 _startTime += clip->getDuration();
             }

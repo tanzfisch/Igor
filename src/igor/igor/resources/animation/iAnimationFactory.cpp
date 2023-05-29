@@ -104,8 +104,6 @@ namespace igor
         const iaString keyFrameType(animationElement->Attribute("keyFrameType"));
         const iaString target(animationElement->Attribute("target"));
         iInterpolationMode interpolationMode = getInterpolationMode(animationElement->Attribute("interpolationMode"));
-        float64 fps;
-        animationElement->Attribute("fps", &fps); // TODO
 
         if (keyFrameType == "uint32" &&
             target == "FrameIndex")
@@ -114,8 +112,6 @@ namespace igor
             result.setInterpolationMode(interpolationMode);
             animation->setFrameIndexAnimation(result);
         }
-
-        animation->setFps(fps);
     }
 
     bool iAnimationFactory::loadAnimation(const iaString &filename, iAnimationPtr animation)

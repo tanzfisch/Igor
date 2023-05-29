@@ -72,14 +72,58 @@ namespace igor
 		_frameIndex = frameIndex;
 	}
 
-	void iAnimation::setFps(float64 fps)
+	const iaTime iAnimation::getStart() const
 	{
-		_fps = fps;
+		iaTime result = iaTime::fromSeconds(999999999);
+
+		if(!_translate.isEmpty())
+		{
+			result = std::min(result, iaTime::fromSeconds(_translate.getValues().front().first));
+		}
+
+		if(!_rotate.isEmpty())
+		{
+			result = std::min(result, iaTime::fromSeconds(_rotate.getValues().front().first));
+		}
+
+		if(!_scale.isEmpty())
+		{
+			result = std::min(result, iaTime::fromSeconds(_scale.getValues().front().first));
+		}
+
+		if(!_frameIndex.isEmpty())
+		{
+			result = std::min(result, iaTime::fromSeconds(_frameIndex.getValues().front().first));
+		}		
+
+		return result;
 	}
 
-	float64 iAnimation::getFps() const
+	const iaTime iAnimation::getStop() const
 	{
-		return _fps;
+		iaTime result;
+
+		if(!_translate.isEmpty())
+		{
+			result = std::max(result, iaTime::fromSeconds(_translate.getValues().back().first));
+		}
+
+		if(!_rotate.isEmpty())
+		{
+			result = std::max(result, iaTime::fromSeconds(_rotate.getValues().back().first));
+		}
+
+		if(!_scale.isEmpty())
+		{
+			result = std::max(result, iaTime::fromSeconds(_scale.getValues().back().first));
+		}
+
+		if(!_frameIndex.isEmpty())
+		{
+			result = std::max(result, iaTime::fromSeconds(_frameIndex.getValues().back().first));
+		}		
+
+		return result;
 	}
 
 }; // namespace igor
