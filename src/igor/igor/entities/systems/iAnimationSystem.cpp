@@ -15,7 +15,7 @@ namespace igor
 	void iAnimationSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
 		auto *registry = static_cast<entt::registry *>(scene->getRegistry());
-		auto view = registry->view<iAnimationComponent, iTransformComponent>();
+		auto view = registry->view<iAnimationComponent, iTransformComponent, iActiveComponent>();
 
 		for (auto entityID : view)
 		{

@@ -91,8 +91,8 @@ namespace igor
                 transform._scale = animation->getScale(t);
             }
 
-            if (animation->hasFrameIndexAnimation() &&
-                spriteRender)
+            if (spriteRender &&
+                animation->hasFrameIndexAnimation())
             {
                 spriteRender->_frameIndex = animation->getFrameIndex(t);
             }
