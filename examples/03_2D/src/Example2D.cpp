@@ -18,10 +18,10 @@ void Example2D::onInit()
     _backgroundTexture = iResourceManager::getInstance().requestResource<iTexture>("ice.png");
     _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("fallback_texture");
 
-    // load a texture as an atlas
+    // load a texture as sprite
     _doughnuts = iResourceManager::getInstance().loadResource<iSprite>("doughnuts.sprite");
     // setup matrix
-    _doughnutsTime = iaTime::getNow();
+    _doughnutsTime = iaTime::getNow();   
 
     // initalize a spline loop
     _spline.addSupportPoint(iaVector3f(100, 100, 0));

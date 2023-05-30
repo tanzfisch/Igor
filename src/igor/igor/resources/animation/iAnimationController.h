@@ -64,6 +64,7 @@ namespace igor
         iaStateID _begin = IGOR_INVALID_ID;
 
         iaTime _startTime;
+        iaTime _offsetTime;
 
         /*! state animation map
         */

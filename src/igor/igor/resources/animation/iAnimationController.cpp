@@ -20,8 +20,6 @@ namespace igor
 
     void iAnimationController::onEnterState(iaStateID stateID)
     {
-        // would be good to have the simulation frame time here but the actual time will do too
-
         auto iter = _clips.find(_stateMachine.getCurrentState());
         if (_clips.end() == iter)
         {
@@ -30,10 +28,16 @@ namespace igor
 
         iClipPtr clip = iter->second;
 
+        // would be good to have the simulation frame time here but the actual time will do too
         _startTime = iaTime::getNow();
+
         if (clip->hasRandomStart())
         {
-            _startTime += clip->getDuration() * iaRandom::getNextFloat();
+            _offsetTime = clip->getDuration() * iaRandom::getNextFloat();
+        }
+        else
+        {
+            _offsetTime = iaTime::fromSeconds(0.0);
         }
     }
 
@@ -62,9 +66,7 @@ namespace igor
         }
 
         iClipPtr clip = iter->second;
-        // const float64 t = clip->getNormalizedTime(_startTime, time);
-        const iaTime runTime = time - _startTime;
-        const float64 t = runTime.getSeconds();
+        float64 t = clip->getNormalizedTime(_startTime, time) * clip->getDuration().getSeconds();
 
         auto &transform = entity.getComponent<iTransformComponent>();
         auto spriteRender = entity.tryGetComponent<iSpriteRendererComponent>();
@@ -98,7 +100,7 @@ namespace igor
 
         if (clip->isLooped())
         {
-            if (runTime >= clip->getDuration())
+            if (t >= clip->getDuration().getSeconds())
             {
                 _startTime += clip->getDuration();
             }

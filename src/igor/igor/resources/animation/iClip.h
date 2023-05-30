@@ -55,9 +55,11 @@ namespace igor
         \param animations list of animations to bind to this clip
         \param looped if true clip is looped
         \param randomStart if true clip starts with a random offset
+        \param easingFunction the easing function to use (default linear)
          */
         static iClipPtr createClip(const std::vector<iAnimationPtr> &animations = std::vector<iAnimationPtr>(),
-                                   bool looped = true, bool randomStart = false);
+                                   bool looped = true, bool randomStart = false, 
+                                   iaEasing::iaEasingFunction easingFunction = iaEasing::iaEasingFunction::Linear);
 
         /*! does nothing
          */
@@ -81,15 +83,15 @@ namespace igor
 
         /*! \returns start time
          */
-        const iaTime& getStart() const;
+        const iaTime& getStart();
 
         /*! \returns start time
          */
-        const iaTime& getStop() const;
+        const iaTime& getStop();
 
         /*! \returns duration time
          */
-        const iaTime& getDuration() const;
+        const iaTime& getDuration();
 
         /*! sets the interpolation function
 

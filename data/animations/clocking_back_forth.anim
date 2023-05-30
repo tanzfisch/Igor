@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<Igor>
+    <!-- keyframe types = uint32, float32, float64, Vector3f, Vector2f, Color4f, Vector3d, Vector2d -->
+    <!-- interpolation modes = None, Linear -->
+    <!-- target = FrameIndex, Translate, Rotate, Scale -->
+    <Animation keyFrameType="uint32" interpolationMode="None" target="FrameIndex">
+        <!-- time in seconds -->
+        <Frame time="0.0" value="0"/>
+        <Frame time="0.1" value="1"/>
+        <Frame time="0.2" value="2"/>
+        <Frame time="0.3" value="3"/>
+        <Frame time="0.4" value="4"/>
+        <Frame time="0.5" value="5"/>
+        <Frame time="0.6" value="6"/>
+        <Frame time="0.7" value="7"/>
+        <Frame time="0.8" value="8"/>
+        <Frame time="0.9" value="9"/>
+        <Frame time="1.0" value="10"/>
+        <Frame time="1.1" value="11"/>
+        <Frame time="1.2" value="12"/>
+        <Frame time="1.3" value="13"/>
+        <Frame time="1.4" value="14"/>
+        <Frame time="1.5" value="15"/>
+        <Frame time="1.6" value="0"/>
+        <Frame time="1.7" value="15"/>
+        <Frame time="1.8" value="14"/>
+        <Frame time="1.9" value="13"/>
+        <Frame time="2.0" value="12"/>
+        <Frame time="2.1" value="11"/>
+        <Frame time="2.2" value="10"/>
+        <Frame time="2.3" value="9"/>
+        <Frame time="2.4" value="8"/>
+        <Frame time="2.5" value="7"/>
+        <Frame time="2.6" value="6"/>
+        <Frame time="2.7" value="5"/>
+        <Frame time="2.8" value="4"/>
+        <Frame time="2.9" value="3"/>
+        <Frame time="3.0" value="2"/>
+        <Frame time="3.1" value="1"/>
+        <Frame time="3.2" value="0"/>
+    </Animation>
+</Igor>

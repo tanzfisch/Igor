@@ -59,7 +59,7 @@ private:
     */
     iaVector2f _lastMousePos;
 
-    /*! opengl logo
+    /*! doughnuts
     */
     iSpritePtr _doughnuts = nullptr;
 

@@ -12,7 +12,7 @@ using namespace iaux;
 namespace igor
 {
 
-    iClipPtr iClip::createClip(const std::vector<iAnimationPtr> &animations, bool looped, bool randomStart)
+    iClipPtr iClip::createClip(const std::vector<iAnimationPtr> &animations, bool looped, bool randomStart, iaEasing::iaEasingFunction easingFunction)
     {
         iClipPtr result(new iClip());
 
@@ -23,6 +23,7 @@ namespace igor
 
         result->setLooped(looped);
         result->setRandomStart(randomStart);
+        result->setEasingFunction(easingFunction);
 
         return result;
     }
@@ -58,6 +59,8 @@ namespace igor
 
     void iClip::addAnimation(iAnimationPtr animation)
     {
+        con_assert(animation != nullptr, "zero pointer");
+
         auto iter = std::find(_animations.begin(), _animations.end(), animation);
         if (iter != _animations.end())
         {
@@ -113,18 +116,21 @@ namespace igor
         _dirtyStartStop = false;
     }
 
-    const iaTime &iClip::getStart() const
+    const iaTime &iClip::getStart()
     {
+        updateStartStop();
         return _start;
     }
 
-    const iaTime &iClip::getStop() const
+    const iaTime &iClip::getStop()
     {
+        updateStartStop();
         return _stop;
     }
 
-    const iaTime &iClip::getDuration() const
+    const iaTime &iClip::getDuration()
     {
+        updateStartStop();
         return _duration;
     }
 
@@ -352,7 +358,7 @@ namespace igor
             return 1.0;
         }
 
-        const float64 t = static_cast<float64>(time.getMicroseconds() - startTime.getMicroseconds()) / static_cast<float64>(_duration.getMicroseconds());
+        const float64 t = static_cast<float64>(time.getMicroseconds() - (startTime.getMicroseconds() + _start.getMicroseconds())) / static_cast<float64>(_duration.getMicroseconds());
         return s_easingFunctionTable[(int)_easingFunction](t);
     }
 

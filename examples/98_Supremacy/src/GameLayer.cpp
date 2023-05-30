@@ -86,7 +86,7 @@ void GameLayer::onInit()
     _spawnShopTimerHandle->start();
 
     _levelUpDialog = new UpgradeDialog();
-    _shopDialog = new ShopDialog();
+    _shopDialog = new ShopDialog();    
 }
 
 void GameLayer::readEnemies(TiXmlElement *enemies)
