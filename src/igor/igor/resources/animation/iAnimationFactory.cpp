@@ -41,7 +41,7 @@ namespace igor
             animation->setTranslateAnimation(translateAnimation);
             directData = true;
         }
-        
+
         if (!rotateAnimation.isEmpty())
         {
             animation->setRotateAnimation(rotateAnimation);
@@ -53,14 +53,14 @@ namespace igor
             animation->setScaleAnimation(scaleAnimation);
             directData = true;
         }
-        
+
         if (!spriteAnimation.isEmpty())
         {
             animation->setFrameIndexAnimation(spriteAnimation);
             directData = true;
         }
 
-        if(directData)
+        if (directData)
         {
             return true;
         }
@@ -69,7 +69,7 @@ namespace igor
         return loadAnimation(filename, animation);
     }
 
-    iaKeyFrameGraphui iAnimationFactory::readFrameIndexAnimation(TiXmlElement *animationElement, iAnimationPtr animation)
+    iaKeyFrameGraphui iAnimationFactory::readIndexAnimation(TiXmlElement *animationElement, iAnimationPtr animation)
     {
         iaKeyFrameGraphui result;
         TiXmlElement *frame = animationElement->FirstChildElement("Frame");
@@ -82,6 +82,26 @@ namespace igor
             frame->Attribute("value", &value);
 
             result.setValue(time, value);
+
+        } while ((frame = frame->NextSiblingElement("Frame")) != nullptr);
+
+        return result;
+    }
+
+    iaKeyFrameGraphVector3d iAnimationFactory::readVector3Animation(TiXmlElement *animationElement, iAnimationPtr animation)
+    {
+        iaKeyFrameGraphVector3d result;
+        TiXmlElement *frame = animationElement->FirstChildElement("Frame");
+
+        do
+        {
+            float64 time;
+            frame->Attribute("time", &time);
+            iaString value = frame->Attribute("value");
+            iaVector3d vec;
+            iaString::toVector<float64>(value, vec);
+
+            result.setValue(time, vec);
 
         } while ((frame = frame->NextSiblingElement("Frame")) != nullptr);
 
@@ -105,12 +125,34 @@ namespace igor
         const iaString target(animationElement->Attribute("target"));
         iInterpolationMode interpolationMode = getInterpolationMode(animationElement->Attribute("interpolationMode"));
 
-        if (keyFrameType == "uint32" &&
+        if (keyFrameType == "int" &&
             target == "FrameIndex")
         {
-            iaKeyFrameGraphui result = readFrameIndexAnimation(animationElement, animation);
+            iaKeyFrameGraphui result = readIndexAnimation(animationElement, animation);
             result.setInterpolationMode(interpolationMode);
             animation->setFrameIndexAnimation(result);
+            return;
+        }
+
+        if (keyFrameType == "Vector3")
+        {
+            iaKeyFrameGraphVector3d result = readVector3Animation(animationElement, animation);
+            result.setInterpolationMode(interpolationMode);
+
+            if (target == "Translate")
+            {
+                animation->setTranslateAnimation(result);
+            }
+
+            if (target == "Rotate")
+            {
+                animation->setRotateAnimation(result);
+            }
+
+            if (target == "Scale")
+            {
+                animation->setScaleAnimation(result);
+            }
         }
     }
 

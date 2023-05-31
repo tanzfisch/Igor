@@ -39,31 +39,8 @@ void GameLayer::onInit()
     _shield = iResourceManager::getInstance().requestResource<iSprite>("supremacy/shield.png");
     _rage = iResourceManager::getInstance().requestResource<iSprite>("supremacy/rage.png");
 
-    iaKeyFrameGraphVector3d scaleAnimData;
-    scaleAnimData.setValue(0.0, iaVector3d(1.0f, 1.0f, 1.0f));
-    scaleAnimData.setValue(0.33, iaVector3d(1.2f, 0.9f, 1.0f));
-    scaleAnimData.setValue(0.66, iaVector3d(0.9f, 1.2f, 1.0f));
-    scaleAnimData.setValue(1.0, iaVector3d(1.0f, 1.0f, 1.0f));
-    iParameters paramScaleAnim({{"name", iaString("bounceAnimation")},
-                                {"type", iaString("animation")},
-                                {"scaleAnimation", scaleAnimData}});
-    _bounceAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramScaleAnim));
-
-    iaKeyFrameGraphui shopIdleFrames;
-    shopIdleFrames.setInterpolationMode(iInterpolationMode::None);
-    shopIdleFrames.setValue(0.0, 0);
-    shopIdleFrames.setValue(0.125, 1);
-    shopIdleFrames.setValue(0.25, 2);
-    shopIdleFrames.setValue(0.375, 3);
-    shopIdleFrames.setValue(0.5, 4);
-    shopIdleFrames.setValue(0.625, 5);
-    shopIdleFrames.setValue(0.75, 6);
-    shopIdleFrames.setValue(0.875, 7);
-    iParameters paramShopIdleAnim({{"name", iaString("shopIdleAnimation")},
-                                   {"type", iaString("animation")},
-                                   {"spriteAnimation", shopIdleFrames}});
-    _shopIdleAnimation = std::dynamic_pointer_cast<iAnimation>(iResourceManager::getInstance().requestResource(paramShopIdleAnim));
-
+    _bounceAnimation = iResourceManager::getInstance().requestResource<iAnimation>("bounce.anim");
+    _shopIdleAnimation = iResourceManager::getInstance().requestResource<iAnimation>("shopIdle.anim");
     _coinSpinAnimation = iResourceManager::getInstance().requestResource<iAnimation>("coin.anim");
 
     _player = createPlayer();

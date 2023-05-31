@@ -93,7 +93,9 @@ namespace igor
         */
         void readAnimationElement(TiXmlElement *animationElement, iAnimationPtr animation);
 
-        iaKeyFrameGraphui readFrameIndexAnimation(TiXmlElement *animationElement, iAnimationPtr animation);
+        iaKeyFrameGraphui readIndexAnimation(TiXmlElement *animationElement, iAnimationPtr animation);
+
+        iaKeyFrameGraphVector3d readVector3Animation(TiXmlElement *animationElement, iAnimationPtr animation);
     };
 
 }; // namespace igor

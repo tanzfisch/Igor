@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Igor>
-    <!-- keyframe types = uint32, float32, float64, Vector3f, Vector2f, Color4f, Vector3d, Vector2d -->
+    <!-- keyframe types = int, double, Vector3, Vector2, Color4 -->
     <!-- interpolation modes = None, Linear -->
     <!-- target = FrameIndex, Translate, Rotate, Scale -->
-    <Animation keyFrameType="uint32" interpolationMode="None" target="FrameIndex">
+    <Animation keyFrameType="int" interpolationMode="None" target="FrameIndex">
         <!-- time in seconds -->
         <Frame time="0.0" value="0"/>
         <Frame time="0.1" value="1"/>
