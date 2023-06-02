@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __LOADER_WAV_H__
-#define __LOADER_WAV_H__
+#ifndef __LOADER_WAV__
+#define __LOADER_WAV__
 
 #include <igor/iDefines.h>
 
@@ -67,4 +67,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __LOADER_WAV_H__
+#endif // __LOADER_WAV__

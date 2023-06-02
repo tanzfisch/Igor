@@ -2,9 +2,9 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/threading/tasks/iTaskFlushResources.h>
 
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 #include <igor/system/iWindow.h>
 
 #include <thread>
@@ -12,19 +12,19 @@
 namespace igor
 {
 
-    iTaskFlushTextures::iTaskFlushTextures(iWindowPtr window)
+    iTaskFlushResources::iTaskFlushResources(iWindowPtr window)
         : iTask(window, iTask::DEFAULT_PRIORITY, true, iTaskContext::RenderContext)
     {
     }
 
-    void iTaskFlushTextures::run()
+    void iTaskFlushResources::run()
     {
-        iTextureResourceFactory::getInstance().flush(iResourceCacheMode::Free);
+        iResourceManager::getInstance().flush(iResourceCacheMode::Free);
     }
 
-    void iTaskFlushTextures::abort()
+    void iTaskFlushResources::abort()
     {
-        iTextureResourceFactory::getInstance().interruptFlush();
+        iResourceManager::getInstance().interruptFlush();
 
         while (isRunning())
         {

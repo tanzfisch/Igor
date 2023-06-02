@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLLIGHT_H__
-#define __USERCONTROLLIGHT_H__
+#ifndef __USERCONTROLLIGHT__
+#define __USERCONTROLLIGHT__
 
 #include <igor/igor.h>
 using namespace iaux;
@@ -65,4 +65,4 @@ private:
     void initGUI();
 };
 
-#endif // __USERCONTROLLIGHT_H__
+#endif // __USERCONTROLLIGHT__

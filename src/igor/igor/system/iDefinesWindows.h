@@ -29,7 +29,7 @@
 #ifndef __IGOR_DEFINES_WINDOWS__
 #define __IGOR_DEFINES_WINDOWS__
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 
 #include <igor/iDefines.h>
 #include <windows.h>
@@ -76,6 +76,6 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WINDOWS__
+#endif // IGOR_WINDOWS
 
 #endif // __IGOR_DEFINES_WINDOWS__

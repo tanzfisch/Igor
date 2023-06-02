@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __VOXELEXAMPLE_H__
-#define __VOXELEXAMPLE_H__
+#ifndef __VOXELEXAMPLE__
+#define __VOXELEXAMPLE__
 
 #include <ExampleBase.h>
 
@@ -148,4 +148,4 @@ private:
     bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
-#endif // __VOXELEXAMPLE_H__
+#endif // __VOXELEXAMPLE__

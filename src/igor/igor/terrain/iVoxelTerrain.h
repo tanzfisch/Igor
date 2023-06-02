@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VOXELTERRAINGENERATOR_H__
-#define __IGOR_VOXELTERRAINGENERATOR_H__
+#ifndef __IGOR_VOXELTERRAINGENERATOR__
+#define __IGOR_VOXELTERRAINGENERATOR__
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeManager.h>
@@ -330,4 +330,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_VOXELTERRAINGENERATOR_H__
+#endif // __IGOR_VOXELTERRAINGENERATOR__

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<Igor>	
+        <Sprite texture="spriteAnimationTiles.png" pixelPerUnit="1">
+                <!-- 0 ground -->
+                <Frame pos="0, 33" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="64, 33" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="128, 33" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="192, 33" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="256, 33" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="320, 33" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="384, 33" size="64, 31" pivot="32, 31" pixel="true"/>
+                
+                <!-- 7 ground --> 
+                <Frame pos="0, 97" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="64, 97" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="128, 97" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="192, 97" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="256, 97" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="320, 97" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="384, 97" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="448, 97" size="64, 31" pivot="32, 31" pixel="true"/>
+                
+                <!-- 15 ground -->
+                <Frame pos="0, 161" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="64, 161" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="128, 161" size="64, 31" pivot="32, 31" pixel="true"/>
+                <Frame pos="192, 161" size="64, 31" pivot="32, 31" pixel="true"/>
+                
+                <!-- 19 hills -->
+                <Frame pos="0, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="192, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="256, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="320, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="384, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="448, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="512, 192" size="64, 64" pivot="32, 64" pixel="true"/>
+                
+                <!-- 28 hills -->
+                <Frame pos="0, 256" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 256" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 256" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="192, 256" size="64, 64" pivot="32, 64" pixel="true"/>
+                
+                <!-- 32 stone -->
+                <Frame pos="0, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="192, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="256, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="320, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="384, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="448, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="512, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="576, 320" size="64, 64" pivot="32, 64" pixel="true"/>
+                
+                <!-- 42 stone with water -->
+                <Frame pos="0, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="192, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="256, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="320, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="384, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="448, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="512, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="576, 384" size="64, 64" pivot="32, 64" pixel="true"/>
+        
+                <!-- 52 stone with grass -->
+                <Frame pos="0, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="192, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="256, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="320, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="384, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="448, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="512, 448" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="576, 448" size="64, 64" pivot="32, 64" pixel="true"/>     
+
+                <!-- 62 water -->
+                <Frame pos="0, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="192, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="256, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="320, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="384, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="448, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="512, 512" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="576, 512" size="64, 64" pivot="32, 64" pixel="true"/>       
+
+                <!-- 72 water -->
+                <Frame pos="0, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="192, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="256, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="320, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="384, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="448, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="512, 576" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="576, 576" size="64, 64" pivot="32, 64" pixel="true"/>       
+
+                <!-- 82 water -->
+                <Frame pos="0, 640" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 640" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 640" size="64, 64" pivot="32, 64" pixel="true"/>
+                
+                <!-- 85 grass -->
+                <Frame pos="0, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="192, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="256, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="320, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="384, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="448, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="512, 704" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="576, 704" size="64, 64" pivot="32, 64" pixel="true"/>    
+
+                <!-- 85 dressing -->
+                <Frame pos="0, 768" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="64, 768" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="128, 768" size="64, 128" pivot="32, 128" pixel="true"/>
+                <Frame pos="192, 768" size="64, 128" pivot="32, 128" pixel="true"/>
+                <Frame pos="256, 768" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="320, 768" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="384, 768" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="448, 768" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="512, 768" size="64, 64" pivot="32, 64" pixel="true"/>
+                <Frame pos="576, 768" size="64, 64" pivot="32, 64" pixel="true"/>   
+                
+                <!-- 85 trees -->
+                <Frame pos="0, 832" size="64, 192" pivot="32, 192" pixel="true"/>
+                <Frame pos="64, 832" size="64, 192" pivot="32, 192" pixel="true"/>
+                <Frame pos="128, 896" size="64, 128" pivot="32, 128" pixel="true"/>
+                <Frame pos="192, 896" size="64, 128" pivot="32, 128" pixel="true"/>
+                <Frame pos="256, 896" size="192, 128" pivot="96, 128" pixel="true"/>
+                <Frame pos="448, 869" size="192, 155" pivot="96, 155" pixel="true"/>
+	</Sprite>
+</Igor>

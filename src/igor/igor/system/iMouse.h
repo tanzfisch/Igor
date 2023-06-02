@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MOUSE_H__
-#define __IGOR_MOUSE_H__
+#ifndef __IGOR_MOUSE__
+#define __IGOR_MOUSE__
 
 #include <igor/system/iOSEventListener.h>
 #include <igor/resources/module/iModule.h>
@@ -149,4 +149,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_MOUSE_H__
+#endif // __IGOR_MOUSE__

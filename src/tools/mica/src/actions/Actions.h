@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __ACTIONS_H__
-#define __ACTIONS_H__
+#ifndef __ACTIONS__
+#define __ACTIONS__
 
 #include "ActionContext.h"
 
@@ -296,4 +296,4 @@ private:
 */
 void registerMicaActions();
 
-#endif // __ACTIONS_H__
+#endif // __ACTIONS__

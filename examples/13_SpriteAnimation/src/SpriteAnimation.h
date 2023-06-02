@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLESPRITEANIMATION_H__
-#define __EXAMPLESPRITEANIMATION_H__
+#ifndef __EXAMPLESPRITEANIMATION__
+#define __EXAMPLESPRITEANIMATION__
 
 #include <ExampleBase.h>
 
@@ -73,13 +73,13 @@ public:
 	~SpriteAnimation() = default;
 
 private:
-	/*! walk animation atlas
+	/*! walk animation sprite
     */
-	iAtlasPtr _walk = nullptr;
+	iSpritePtr _walk = nullptr;
 
-	/*! tiles atlas
+	/*! tiles sprite
 	*/
-	iAtlasPtr _tiles = nullptr;
+	iSpritePtr _tiles = nullptr;
 
 	/*! flags to determine what the character is doing
 	*/
@@ -168,4 +168,4 @@ private:
 	bool onKeyUp(iEventKeyUp &event);
 };
 
-#endif // __EXAMPLESPRITEANIMATION_H__
+#endif // __EXAMPLESPRITEANIMATION__

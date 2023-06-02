@@ -26,15 +26,15 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETTHEME_H__
-#define __IGOR_WIDGETTHEME_H__
+#ifndef __IGOR_WIDGETTHEME__
+#define __IGOR_WIDGETTHEME__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/data/iaString.h>
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 using namespace iaux;
 
 #include <memory>
@@ -53,7 +53,7 @@ namespace igor
 
         virtual void drawRectangle(const iaRectanglef &rect) = 0;
         virtual void drawFilledRectangle(const iaRectanglef &rect) = 0;
-        virtual void drawGradient(const iaRectanglef &rect, const iaGradientColor4f &gradient) = 0;
+        virtual void drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient) = 0;
 
         virtual void drawTiledRectangle(const iaRectanglef &rect, iTexturePtr texture) = 0;
 
@@ -97,4 +97,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETTHEME_H__
+#endif // __IGOR_WIDGETTHEME__

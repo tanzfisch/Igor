@@ -68,24 +68,24 @@ void Particles::onInit()
 void Particles::createWaveParticleSystem()
 {
     // create the particle system
-    iaGradientColor4f colorGradient;
+    iaKeyFrameGraphColor4f colorGradient;
     colorGradient.setValue(1.0, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
     colorGradient.setValue(0.5, iaColor4f(1.0f, 1.0f, 0.0f, 1.0f));
     colorGradient.setValue(0.0, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0, iaVector2f(0.2f, 0.4f));
 
-    iaGradientVector2f maxAge;
+    iaKeyFrameGraphVector2f maxAge;
     maxAge.setValue(0.0, iaVector2f(0.7f, 1.0f));
 
-    iaGradientVector2f size;
+    iaKeyFrameGraphVector2f size;
     size.setValue(0.0, iaVector2f(2.0f, 3.0f));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0f, 5.0f);
 
-    iaGradientVector2f startOrientation;
+    iaKeyFrameGraphVector2f startOrientation;
     startOrientation.setValue(0.0f, iaVector2f(0.0f, 2.0f * static_cast<float32>(M_PI)));
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
@@ -141,22 +141,22 @@ void Particles::createWaveParticleSystem()
 
 void Particles::createFireParticleSystem()
 {
-    iaGradientColor4f colors;
+    iaKeyFrameGraphColor4f colors;
     colors.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
     colors.setValue(0.4f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
     colors.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
     colors.setValue(0.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
-    iaGradientVector2f maxAge;
+    iaKeyFrameGraphVector2f maxAge;
     maxAge.setValue(0.0f, iaVector2f(0.2f, 0.5f));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0f, 2.0f);
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0f, iaVector2f(0.4f, 0.7f));
 
-    iaGradientVector2f startSize;
+    iaKeyFrameGraphVector2f startSize;
     startSize.setValue(0.0f, iaVector2f(3.0f, 4.0f));
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
@@ -191,29 +191,29 @@ void Particles::createFireParticleSystem()
 
 void Particles::createFontainParticleSystem()
 {
-    iaGradientColor4f colors;
+    iaKeyFrameGraphColor4f colors;
     colors.setValue(1.0f, iaColor4f(0.0f, 0.2f, 1.0f, 1.0f));
     colors.setValue(0.5f, iaColor4f(0.0f, 0.8f, 1.0f, 1.0f));
     colors.setValue(0.0f, iaColor4f(0.0f, 0.8f, 1.0f, 0.0f));
 
-    iaGradientVector2f maxAge;
+    iaKeyFrameGraphVector2f maxAge;
     maxAge.setValue(0.0f, iaVector2f(4.5f, 5.0f));
     maxAge.setValue(1.0f, iaVector2f(1.5f, 2.0f));
     maxAge.setValue(2.0f, iaVector2f(4.5f, 5.0f));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0, 3);
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0f, iaVector2f(0.4f, 0.5f));
     velocity.setValue(1.0f, iaVector2f(0.6f, 0.6f));
     velocity.setValue(2.0f, iaVector2f(0.4f, 0.5f));
 
     // using negative lift here so it's basically weight
-    iaGradientVector2f lift;
+    iaKeyFrameGraphVector2f lift;
     lift.setValue(0.0f, iaVector2f(-0.002f, -0.002f));
 
-    iaGradientVector2f startSize;
+    iaKeyFrameGraphVector2f startSize;
     startSize.setValue(0.0f, iaVector2f(0.5f, 0.8f));
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
@@ -246,26 +246,26 @@ void Particles::createFontainParticleSystem()
 
 void Particles::createRingParticleSystem()
 {
-    iaGradientColor4f ringColors;
+    iaKeyFrameGraphColor4f ringColors;
     ringColors.setValue(1.0f, iaColor4f(0.0f, 1.0f, 1.0f, 1.0f));
     ringColors.setValue(0.66f, iaColor4f(1.0f, 0.0f, 1.0f, 1.0f));
     ringColors.setValue(0.33f, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
     ringColors.setValue(0.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
-    iaGradientVector2f maxAge;
+    iaKeyFrameGraphVector2f maxAge;
     maxAge.setValue(0.0f, iaVector2f(4.0f, 4.0f));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0f, 10.0f);
 
-    iaGradientVector2f startSize;
+    iaKeyFrameGraphVector2f startSize;
     startSize.setValue(0.0f, iaVector2f(2.0f, 2.5f));
     startSize.setValue(1.0f, iaVector2f(0.1f, 0.5f));
     startSize.setValue(2.0f, iaVector2f(2.0f, 2.5f));
     startSize.setValue(3.0f, iaVector2f(0.1f, 0.5f));
     startSize.setValue(4.0f, iaVector2f(2.0f, 2.5f));
 
-    iaGradientVector2f startOrientationRate;
+    iaKeyFrameGraphVector2f startOrientationRate;
     startOrientationRate.setValue(0.0f, iaVector2f(-0.1f, 0.1f));
 
     iNodeParticleSystem *circleParticleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
@@ -297,31 +297,31 @@ void Particles::createRingParticleSystem()
 
 void Particles::createSmokeParticleSystem()
 {
-    iaGradientVector2f startOrientation;
+    iaKeyFrameGraphVector2f startOrientation;
     startOrientation.setValue(0.0f, iaVector2f(0.0f, 2.0f * static_cast<float32>(M_PI)));
 
-    iaGradientVector2f startOrientationRate;
+    iaKeyFrameGraphVector2f startOrientationRate;
     startOrientationRate.setValue(0.0f, iaVector2f(-0.05f, 0.05f));
 
-    iaGradientColor4f smokeGradient;
+    iaKeyFrameGraphColor4f smokeGradient;
     smokeGradient.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
     smokeGradient.setValue(0.5f, iaColor4f(1.0f, 1.0f, 1.0f, 0.6f));
     smokeGradient.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 0.5f));
     smokeGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
-    iaGradientVector2f smokeSize;
+    iaKeyFrameGraphVector2f smokeSize;
     smokeSize.setValue(0.0f, iaVector2f(3.0f, 6.0f));
 
-    iaGradientVector2f smokemaxAge;
+    iaKeyFrameGraphVector2f smokemaxAge;
     smokemaxAge.setValue(0.0f, iaVector2f(7.0f, 10.0f));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0f, 1.0f);
 
-    iaGradientVector2f lift;
+    iaKeyFrameGraphVector2f lift;
     lift.setValue(0.0f, iaVector2f(0.0007f, 0.0015f));
 
-    iaGradientf sizeScale;
+    iaKeyFrameGraphf sizeScale;
     sizeScale.setValue(0.0f, 1.0f);
     sizeScale.setValue(10.0f, 10.0f);
 
@@ -360,23 +360,23 @@ void Particles::createSmokeParticleSystem()
 
 void Particles::createDotParticleSystem()
 {
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0f, 60.0f);
     emission.setValue(0.2f, 0.0f);
 
-    iaGradientColor4f colorGradient;
+    iaKeyFrameGraphColor4f colorGradient;
     colorGradient.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
     colorGradient.setValue(0.8f, iaColor4f(0.8f, 0.8f, 1.0f, 1.0f));
     colorGradient.setValue(0.5f, iaColor4f(0.3f, 0.3f, 0.5f, 1.0f));
     colorGradient.setValue(0.0f, iaColor4f(0.3f, 0.3f, 0.0f, 0.0f));
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0f, iaVector2f(0.1f, 0.3f));
 
-    iaGradientVector2f maxAge;
+    iaKeyFrameGraphVector2f maxAge;
     maxAge.setValue(0.0f, iaVector2f(1.5f, 2.0f));
 
-    iaGradientVector2f size;
+    iaKeyFrameGraphVector2f size;
     size.setValue(0.0f, iaVector2f(1.0f, 1.5f));
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
@@ -392,33 +392,33 @@ void Particles::createDotParticleSystem()
     particleSystem->setEmissionGradient(emission);
     particleSystem->start();
 
-    iaGradientf emission2;
+    iaKeyFrameGraphf emission2;
     emission2.setValue(0.0f, 10.0f);
     emission2.setValue(0.5f, 0.0f);
 
-    iaGradientColor4f colorGradient2;
+    iaKeyFrameGraphColor4f colorGradient2;
     colorGradient2.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
     colorGradient2.setValue(0.4f, iaColor4f(1.0f, 1.0f, 1.0f, 0.5f));
     colorGradient2.setValue(0.1f, iaColor4f(1.0f, 1.0f, 1.0f, 0.25f));
     colorGradient2.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
-    iaGradientVector2f velocity2;
+    iaKeyFrameGraphVector2f velocity2;
     velocity2.setValue(0.0f, iaVector2f(0.05f, 0.3f));
 
-    iaGradientVector2f maxAge2;
+    iaKeyFrameGraphVector2f maxAge2;
     maxAge2.setValue(0.0f, iaVector2f(0.5f, 1.0f));
 
-    iaGradientVector2f size2;
+    iaKeyFrameGraphVector2f size2;
     size2.setValue(0.0f, iaVector2f(1.0f, 2.5f));
 
-    iaGradientf sizeScale2;
+    iaKeyFrameGraphf sizeScale2;
     sizeScale2.setValue(0.0f, 1.0f);
     sizeScale2.setValue(3.0f, 20.0f);
 
-    iaGradientVector2f startOrientation;
+    iaKeyFrameGraphVector2f startOrientation;
     startOrientation.setValue(0.0f, iaVector2f(0.0f, 2.0f * static_cast<float32>(M_PI)));
 
-    iaGradientVector2f startOrientationRate;
+    iaKeyFrameGraphVector2f startOrientationRate;
     startOrientationRate.setValue(0.0f, iaVector2f(-0.01f, 0.01f));
 
     iNodeParticleSystem *particleSystem2 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();

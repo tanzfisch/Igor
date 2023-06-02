@@ -222,7 +222,7 @@ namespace igor
 
     bool iMeshBuilder::checkConsistency()
     {
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
         if (_triangles.size() == 0)
         {
             return false;

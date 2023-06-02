@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_THREAD_H__
-#define __IGOR_THREAD_H__
+#ifndef __IGOR_THREAD__
+#define __IGOR_THREAD__
 
 #include <iaux/system/iaThread.h>
 using namespace iaux;

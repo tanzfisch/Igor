@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EMITTER_OVERLAY_H__
-#define __EMITTER_OVERLAY_H__
+#ifndef __EMITTER_OVERLAY__
+#define __EMITTER_OVERLAY__
 
 #include "NodeOverlay.h"
 
@@ -161,4 +161,4 @@ private:
  */
 typedef EmitterOverlay *EmitterOverlayPtr;
 
-#endif // __EMITTER_OVERLAY_H__
+#endif // __EMITTER_OVERLAY__

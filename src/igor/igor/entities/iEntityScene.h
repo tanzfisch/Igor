@@ -192,7 +192,7 @@ namespace igor
 
 		/*! systems that render
 		 */
-		std::vector<iEntitySystemPtr> _renderingSystems;
+		std::vector<iEntityRenderSystemPtr> _renderingSystems;
 
 		/*! storing custom component type data
 		 */
@@ -208,7 +208,7 @@ namespace igor
 
 		/*! updates all non rendering systems
 		 */
-		void onUpdate();
+		void onUpdate(const iaTime &time);
 
 		/*! updates all rendering systems
 		 */

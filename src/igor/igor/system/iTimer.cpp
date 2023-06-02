@@ -37,7 +37,7 @@ namespace igor
         _currentTime = iaTime::getNow();
     }
 
-    void iTimer::nextFrame()    
+    void iTimer::nextFrame()
     {
         if (!_timeRunning)
         {
@@ -51,7 +51,7 @@ namespace igor
         _currentTime = now;
     }
 
-    iaTime iTimer::getTime() const
+    const iaTime &iTimer::getTime() const
     {
         return _currentTime;
     }
@@ -59,9 +59,9 @@ namespace igor
     iaTime iTimer::getPeakTimeDelta() const
     {
         iaTime result;
-        for(int i=0;i<TIME_DELTAS;++i)
+        for (int i = 0; i < TIME_DELTAS; ++i)
         {
-            if(result < _timeDeltas[i])
+            if (result < _timeDeltas[i])
             {
                 result = _timeDeltas[i];
             }
@@ -76,9 +76,9 @@ namespace igor
 
         int counter = 0;
 
-        for(int i=0;i<TIME_DELTAS;++i)
+        for (int i = 0; i < TIME_DELTAS; ++i)
         {
-            if(_timeDeltas[i].getMicroseconds() == 0)
+            if (_timeDeltas[i].getMicroseconds() == 0)
             {
                 continue;
             }
@@ -91,7 +91,7 @@ namespace igor
         return result;
     }
 
-    iaTime iTimer::getTimeDelta() const
+    const iaTime& iTimer::getTimeDelta() const
     {
         return _timeDeltas[_timeDeltaIndex];
     }

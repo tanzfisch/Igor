@@ -26,47 +26,29 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __RESOURCE_H__
-#define __RESOURCE_H__
+#ifndef __RESOURCE__
+#define __RESOURCE__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#include <igor/iDefines.h>
+#include <igor/data/iParameters.h>
 
 #include <memory>
 #include <any>
 
 namespace igor
 {
-
-    /*! resource parameters that define how to load given resource
-    */
-    struct IGOR_API iResourceParameters
-    {
-        /*! name of the resource 
-        
-        this can be a filename or anything really
-        */
-        iaString _name;
-
-        /*! type of this resource (optional)
-
-        if set the resource manager will use a factory of this type to create this resource
-        if not set the resource manager will use other information to figure out which factory to use
-        */
-        iaString _type;
-
-        /*! resource cache mode. default Free
-        */
-        iResourceCacheMode _cacheMode = iResourceCacheMode::Free;
-
-        /*! type specific parameters
-        */
-        std::any _data;
-    };
-
     /*! represents a resource
+
+    available parameters for loading data:
+
+    - type: the type of resource (type: iaString)
+    - name: the name of the resource (type: iaString)
+    - cacheMode: the cache mode of this resource (type: iResourceCacheMode)
+
+    Cache mode of a resource can be increased by requesting the same resource with a higher level of cache mode.
+
     */
     class IGOR_API iResource
     {
@@ -79,71 +61,70 @@ namespace igor
 
         /*! \returns true if there is valid data present
         */
-        __IGOR_INLINE__ bool isValid() const
-        {
-            return _valid;
-        }
+        bool isValid() const;
 
         /*! \returns true if the resource was processed
 
         processed does not mean that it was loaded correctly 
         it can also mean that we are done trying to loading it
         */
-        __IGOR_INLINE__ bool isProcessed() const
-        {
-            return _processed;
-        }
+        bool isProcessed() const;
 
         /*! \returns the resource name
         */
-        __IGOR_INLINE__ const iaString &getName() const
-        {
-            return _parameters._name;
-        }
+        const iaString &getName() const;
 
         /*! \returns cache mode
         */
-        __IGOR_INLINE__ iResourceCacheMode getCacheMode() const
-        {
-            return _parameters._cacheMode;
-        }
+        iResourceCacheMode getCacheMode() const;
 
         /*! \returns resource parameters
         */
-        __IGOR_INLINE__ const iResourceParameters &getParameters() const
-        {
-            return _parameters;
-        }
+        const iParameters &getParameters() const;
 
         /*! \returns the resource type
         */
-        __IGOR_INLINE__ const iaString &getType() const
-        {
-            return _parameters._type;
-        }
+        const iaString &getType() const;
 
     protected:
         /*! initializes members
 
 		\param parameters the parameters which define the resource
 		*/
-        iResource(const iResourceParameters &parameters)
-            : _parameters(parameters)
-        {
-        }
+        iResource(const iaString &type, const iParameters &parameters);
 
     private:
-        /*! true if there was actually a texture loaded
+        /*! true if there was actually a resource loaded
 		*/
         bool _valid = false;
 
-        /*! if true the texture is considered loaded regardless if it was a success or not
+        /*! if true the resource is considered loaded regardless if it was a success or not
         */
         bool _processed = false;
 
         /*! parameters of this resource
         */
-        iResourceParameters _parameters;
+        iParameters _parameters;
+
+        /*! name of resource
+        */
+        iaString _name;
+
+        /*! type of the resource
+        */
+        iaString _type;
+
+        /*! the resources cache mode
+        */
+        iResourceCacheMode _cacheMode;
+
+        /*! sets processed flag on resource
+        */
+        void setProcessed(bool processed);
+
+        /*! sets valid flag on resource
+        */
+        void setValid(bool valid);
 
         /*! does nothing
         */
@@ -156,4 +137,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __RESOURCE_H__
+#endif // __RESOURCE__

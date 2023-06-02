@@ -5,6 +5,7 @@
 #include "Example2D.h"
 
 #include <sstream>
+#include <complex>
 
 Example2D::Example2D(iWindowPtr window)
     : ExampleBase(window, "2D Interfaces")
@@ -14,19 +15,13 @@ Example2D::Example2D(iWindowPtr window)
 void Example2D::onInit()
 {
     // load the background tile texture
-    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("ice.png");
+    _backgroundTexture = iResourceManager::getInstance().requestResource<iTexture>("ice.png");
+    _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("fallback_texture");
 
-    // load a texture as an atlas
-    _doughnuts = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("doughnuts.png"));
-    // set up frame
-    _doughnutsFrameIndex = _doughnuts->addFrame(iaVector2f(0.0, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
-    _doughnuts->addFrame(iaVector2f(0.5, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
-    _doughnuts->addFrame(iaVector2f(0.0, 0.5), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
-    _doughnuts->addFrame(iaVector2f(0.5, 0.5), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
+    // load a texture as sprite
+    _doughnuts = iResourceManager::getInstance().loadResource<iSprite>("doughnuts.sprite");
     // setup matrix
-    _doughnutMatrix.scale(64.0f, 64.0f, 1.0f);
-
-    _doughnutsTime = iaTime::getNow();
+    _doughnutsTime = iaTime::getNow();   
 
     // initalize a spline loop
     _spline.addSupportPoint(iaVector3f(100, 100, 0));
@@ -45,33 +40,86 @@ void Example2D::onInit()
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicroseconds()));
 
+    initMandelbrotTexture();
     initParticleSystem();
+}
+
+static int32 mandelbrotSet(float32 real, float32 imag)
+{
+    std::complex<float32> c(real, imag);
+    std::complex<float32> z(0, 0);
+
+    int32 iterations = 0;
+    while (abs(z) <= 2 && iterations < 255)
+    {
+        z = z * z + c;
+        iterations++;
+    }
+
+    return iterations;
+}
+
+void Example2D::initMandelbrotTexture()
+{
+    const float64 width = 256;
+    const float64 height = 256;
+    const float64 scale = 3.0;
+    const int32 maxIterations = 100;
+
+    iPixmapPtr pixmap = iPixmap::createPixmap(width, height, iColorFormat::RGBA);
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            double real = (x - width / 2.0) * scale / width;
+            double imag = (y - height / 2.0) * scale / height;
+
+            std::complex<float32> c(real, imag);
+            std::complex<float32> z(0, 0);
+            int32 iterations = 0;
+            while (abs(z) <= 2 && iterations < maxIterations)
+            {
+                z = z * z + c;
+                iterations++;
+            }
+
+            pixmap->setPixelRGBA(x, y, 0xff, 0xff, 0xff, iterations * 2);
+        }
+    }
+
+    iParameters param({{"name", iaString("mandelbrot_texture")},
+                       {"type", iaString("texture")},
+                       {"cacheMode", iResourceCacheMode::Keep},
+                       {"pixmap", pixmap}});
+
+    _mandelbrotTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
 }
 
 void Example2D::initParticleSystem()
 {
-    iaGradientColor4f colors;
+    iaKeyFrameGraphColor4f colors;
     colors.setValue(1.0f, iaColor4f(0.0f, 0.4f, 1.0f, 1.0f));
     colors.setValue(0.5f, iaColor4f(0.4f, 0.8f, 1.0f, 0.8f));
     colors.setValue(0.0f, iaColor4f(0.8f, 0.8f, 1.0f, 0.0f));
 
-    iaGradientVector2f visibility;
+    iaKeyFrameGraphVector2f visibility;
     visibility.setValue(0.0f, iaVector2f(3.0f, 8.0f));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0, 1);
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0f, iaVector2f(4.0f, 9.0f));
 
     // using positive lift here represents weight
-    iaGradientVector2f lift;
+    iaKeyFrameGraphVector2f lift;
     lift.setValue(0.0f, iaVector2f(0.02f, 0.02f));
 
-    iaGradientVector2f startSize;
+    iaKeyFrameGraphVector2f startSize;
     startSize.setValue(0.0f, iaVector2f(40.0f, 40.0f));
 
-    iaGradientf scaleSize;
+    iaKeyFrameGraphf scaleSize;
     scaleSize.setValue(1.0f, 1.0f);
     scaleSize.setValue(0.0f, 3.0f);
 
@@ -94,8 +142,8 @@ void Example2D::initParticleSystem()
     matrix.rotate(-130.0 / 180.0 * M_PI, iaAxis::Z);
     _particleSystem.getEmitter().setWorldMatrix(matrix);
 
-    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("particleDot.png"), 0);
-    _particleSystem.getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile("octave1.png"), 1);
+    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("particleDot.png"), 0);
+    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("octave1.png"), 1);
 }
 
 void Example2D::onDeinit()
@@ -110,6 +158,7 @@ void Example2D::onDeinit()
     // release some resources
     _doughnuts = nullptr;
     _backgroundTexture = nullptr;
+    _mandelbrotTexture = nullptr;
 }
 
 void Example2D::onEvent(iEvent &event)
@@ -193,7 +242,11 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
 
     // draw with dummy texture
-    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 410, iTextureResourceFactory::getInstance().getDummyTexture(), iaColor4f::white, true);
+    iRenderer::getInstance().drawTexturedRectangle(10, 170, 200, 200, _dummyTexture, iaColor4f::white, true);
+
+    // draw with mandelbrot texture
+    iRenderer::getInstance().drawTexturedRectangle(static_cast<float32>(getWindow()->getClientWidth() - 200), 180.0f, 
+                                                   256.0f, 256.0f, _mandelbrotTexture, iaColor4f::black, true);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "
@@ -238,7 +291,7 @@ void Example2D::onRenderOrtho()
     _particleSystem.draw(psmatrix);
 
     // doughnuts <3
-    iRenderer::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaColor4f::white, true);
+    iRenderer::getInstance().drawSprite(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex, iaVector2f(64.0, 64.0), iaColor4f::white, true);
 }
 
 bool Example2D::onKeyDown(iEventKeyDown &event)

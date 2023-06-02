@@ -7,7 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/data/iIntersection.h>
 

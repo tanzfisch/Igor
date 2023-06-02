@@ -51,7 +51,7 @@ namespace igor
         iWindowPtr _window = nullptr;
     };
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 
     class iMouseImplWindows : public iMouseImpl
     {
@@ -448,7 +448,7 @@ namespace igor
 
     iMouse::iMouse()
     {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         _impl = new iMouseImplWindows(this);
 #endif
 #ifdef __IGOR_LINUX__

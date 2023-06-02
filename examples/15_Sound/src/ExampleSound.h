@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE_SOUND_H__
-#define __EXAMPLE_SOUND_H__
+#ifndef __EXAMPLE_SOUND__
+#define __EXAMPLE_SOUND__
 
 #include <ExampleBase.h>
 
@@ -49,11 +49,11 @@ public:
 private:
     /*! sound resource beep
     */
-    iResourcePtr _soundBeep;
+    iSoundPtr _soundBeep;
 
     /*! sound resource left right
     */
-    iResourcePtr _soundLeftRight;
+    iSoundPtr _soundLeftRight;
 
     /*! the transform the manipulates the audio source position
     */
@@ -78,4 +78,4 @@ private:
     void onDeinit() override;
 };
 
-#endif // __EXAMPLE_SOUND_H__
+#endif // __EXAMPLE_SOUND__

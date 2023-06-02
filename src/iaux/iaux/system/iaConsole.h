@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CONSOLE_H__
-#define __IAUX_CONSOLE_H__
+#ifndef __IAUX_CONSOLE__
+#define __IAUX_CONSOLE__
 
 #include <iaux/system/iaClock.h>
 #include <iaux/system/iaMutex.h>
@@ -312,7 +312,7 @@ namespace iaux
         virtual ~iaConsole() = default;
     };
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
     /*! works like the original assert
 
     will be fully removed in rlease build
@@ -379,7 +379,7 @@ namespace iaux
                                  << UNLOCK;                                                                                  \
     }
 
-#else // __IGOR_DEBUG__
+#else // IGOR_DEBUG
     // RELEASE BUILD
 
 #define con_assert(Condition, Message)
@@ -624,4 +624,4 @@ namespace iaux
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel);
 }; // namespace iaux
 
-#endif // __IAUX_CONSOLE_H__
+#endif // __IAUX_CONSOLE__

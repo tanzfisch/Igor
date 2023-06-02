@@ -23,7 +23,7 @@ IAUX_TEST(FileDirTests, FixPathLinux)
 }
 #endif
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 IAUX_TEST(FileDirTests, FixPathWindows)
 {
     IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"c:\\foo\\bar", false), "c:\\foo\\bar");

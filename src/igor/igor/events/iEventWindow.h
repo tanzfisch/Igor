@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTWINDOW_H__
-#define __IGOR_EVENTWINDOW_H__
+#ifndef __IGOR_EVENTWINDOW__
+#define __IGOR_EVENTWINDOW__
 
 #include <igor/events/iEvent.h>
 
@@ -110,4 +110,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_EVENTKEYBOARD_H__
+#endif // __IGOR_EVENTKEYBOARD__

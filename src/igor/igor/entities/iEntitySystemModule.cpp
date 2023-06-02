@@ -27,7 +27,7 @@ namespace igor
     {
         if (!_running)
         {
-            _lastTime = iTimer::getInstance().getTime();
+            _simulationFrameTime = iTimer::getInstance().getTime();
             _running = true;
         }
     }
@@ -60,14 +60,14 @@ namespace igor
             uint32 updateCount = 0;
             iaTime currentTime = iTimer::getInstance().getTime();
 
-            while ((_lastTime + timeDelta < currentTime) &&
+            while ((_simulationFrameTime + timeDelta < currentTime) &&
                    (updateCount < maxUpdateCount))
             {
                 for (auto scene : _scenes)
                 {
-                    scene->onUpdate();
+                    scene->onUpdate(_simulationFrameTime);
                 }
-                _lastTime += timeDelta;
+                _simulationFrameTime += timeDelta;
                 updateCount++;
             };
         }

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MESH_H__
-#define __IGOR_MESH_H__
+#ifndef __IGOR_MESH__
+#define __IGOR_MESH__
 
 #include <igor/iDefines.h>
 #include <igor/data/iAABox.h>
@@ -273,4 +273,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_MESH_H__
+#endif // __IGOR_MESH__

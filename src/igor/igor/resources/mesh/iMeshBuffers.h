@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MESHBUFFERS_H__
-#define __IGOR_MESHBUFFERS_H__
+#ifndef __IGOR_MESHBUFFERS__
+#define __IGOR_MESHBUFFERS__
 
 #include <igor/iDefines.h>
 
@@ -162,4 +162,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_MESHBUFFERS_H__
+#endif // __IGOR_MESHBUFFERS__

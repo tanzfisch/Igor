@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_VECTOR3_H__
-#define __IAUX_VECTOR3_H__
+#ifndef __IAUX_VECTOR3__
+#define __IAUX_VECTOR3__
 
 #include <iaux/iaDefines.h>
 
@@ -270,4 +270,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_VECTOR3_H__
+#endif // __IAUX_VECTOR3__

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLNODE_H__
-#define __USERCONTROLNODE_H__
+#ifndef __USERCONTROLNODE__
+#define __USERCONTROLNODE__
 
 #include <igor/igor.h>
 using namespace iaux;

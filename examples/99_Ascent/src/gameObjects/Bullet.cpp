@@ -45,21 +45,21 @@ Bullet::Bullet(iScenePtr scene, const iaVector3d &addForce, const iaMatrixd &mat
     transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
-    iaGradientColor4f colorGradient;
+    iaKeyFrameGraphColor4f colorGradient;
     colorGradient.setValue(0.0, iaColor4f(0.0, 1.0, 1.0, 1));
     colorGradient.setValue(0.5, iaColor4f(0.0, 0.4, 1.0, 0.7));
     colorGradient.setValue(1.0, iaColor4f(0.0, 0.0, 0.0, 0));
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0, iaVector2f(0.0, 1.0));
 
-    iaGradientVector2f visibility;
+    iaKeyFrameGraphVector2f visibility;
     visibility.setValue(0.0, iaVector2f(0.1, 0.2));
 
-    iaGradientVector2f size;
+    iaKeyFrameGraphVector2f size;
     size.setValue(0.0, iaVector2f(0.1, 0.2));
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0, 2);
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();

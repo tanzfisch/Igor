@@ -27,11 +27,11 @@
 #include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/threading/tasks/iTaskFlushResources.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/terrain/data/iVoxelData.h>
 
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
@@ -105,7 +105,7 @@ void Ascent::initScene()
 
     // reate a sky box and add it to scene
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skybox_default.jpg"));
+    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skybox_default.jpg"));
     skyBoxNode->setTextureScale(1);
     // create a sky box material
     _materialSkyBox = iMaterialResourceFactory_old::getInstance().createMaterial("Sky Box");
@@ -179,10 +179,10 @@ void Ascent::initVoxelData()
     oulineLevelStructure();
 
     iTargetMaterialPtr targetMaterial = _voxelTerrain->getTargetMaterial();
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 2);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("detail.png"), 3);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 0);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 1);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 2);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("detail.png"), 3);
     targetMaterial->setAmbient(iaColor3f(0.1f, 0.1f, 0.1f));
     targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
     targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
@@ -558,7 +558,7 @@ void Ascent::onInit()
 
     // launch resource handlers
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(getWindow()));
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(getWindow()));
 }
 
 void Ascent::onDeinit()

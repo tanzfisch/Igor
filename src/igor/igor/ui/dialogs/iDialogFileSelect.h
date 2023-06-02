@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGFILESELECT_H__
-#define __IGOR_DIALOGFILESELECT_H__
+#ifndef __IGOR_DIALOGFILESELECT__
+#define __IGOR_DIALOGFILESELECT__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -190,4 +190,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGFILESELECT_H__
+#endif // __IGOR_DIALOGFILESELECT__

@@ -3,10 +3,11 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 // glu needs this under windows
 #include <windows.h>
 #endif
@@ -15,19 +16,11 @@
 namespace igor
 {
 
-    void deleter(const iTexture *texture)
+    iTexture::iTexture(const iParameters &parameters)
+        : iResource("texture", parameters)
     {
-        delete texture;
-    }
-
-    iTexturePtr iTexture::create(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
-    {
-        return std::shared_ptr<iTexture>(new iTexture(name, cacheMode, buildMode, wrapMode), deleter);
-    }
-
-    iTexture::iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
-        : _filename(name), _buildMode(buildMode), _wrapMode(wrapMode), _cacheMode(cacheMode)
-    {
+        _wrapMode = parameters.getParameter<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
+        _buildMode = parameters.getParameter<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
     }
 
     void iTexture::bind(uint32 textureUnit)
@@ -40,16 +33,6 @@ namespace igor
     uint32 iTexture::getTextureID() const
     {
         return _textureID;
-    }
-
-    bool iTexture::isProcessed() const
-    {
-        return _processed;
-    }
-
-    bool iTexture::isValid() const
-    {
-        return _valid;
     }
 
     int32 iTexture::getWidth() const
@@ -77,11 +60,6 @@ namespace igor
         return _hasTrans;
     }
 
-    iResourceCacheMode iTexture::getCacheMode() const
-    {
-        return _cacheMode;
-    }
-
     iTextureWrapMode iTexture::getWrapMode() const
     {
         return _wrapMode;
@@ -90,11 +68,6 @@ namespace igor
     iTextureBuildMode iTexture::getBuildMode() const
     {
         return _buildMode;
-    }
-
-    const iaString &iTexture::getFilename() const
-    {
-        return _filename;
     }
 
     bool iTexture::useFallback() const
@@ -107,6 +80,8 @@ namespace igor
         const int32 glformat = iRendererUtils::convertType(format, false);
         const int32 glformatSized = iRendererUtils::convertType(format, true);
 
+        _buildMode = buildMode;
+        _wrapMode = wrapMode;
         _width = width;
         _height = height;
         _colorFormat = format;
@@ -129,7 +104,7 @@ namespace igor
         glCreateTextures(GL_TEXTURE_2D, 1, &_textureID);
         GL_CHECK_ERROR();
 
-        switch (wrapMode)
+        switch (_wrapMode)
         {
         case iTextureWrapMode::Repeat:
             glTextureParameteri(_textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -153,7 +128,7 @@ namespace igor
             break;
         }
 
-        if (buildMode == iTextureBuildMode::Mipmapped)
+        if (_buildMode == iTextureBuildMode::Mipmapped)
         {
             _mipMapLevels = floor(log2(std::max(width,height)))+1;
             glTextureParameteri(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -192,5 +167,6 @@ namespace igor
     {
         return _mipMapLevels;
     }
+
 
 }; // namespace igor

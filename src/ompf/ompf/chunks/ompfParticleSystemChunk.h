@@ -71,25 +71,25 @@ namespace OMPF
 
         \param rainbow the rainbow gradient
         */
-        void setColorGradient(const iaGradientColor4f &colorGradient);
+        void setColorGradient(const iaKeyFrameGraphColor4f &colorGradient);
 
         /*! returns the rainbow gradient
 
         \param[out] rainbow out value for the rainbow gradient
         */
-        void getColorGradient(iaGradientColor4f &colorGradient) const;
+        void getColorGradient(iaKeyFrameGraphColor4f &colorGradient) const;
 
         /*! sets emission gradient for particles per frame
 
         \param emissionGradient the emission gradient
         */
-        void setEmissionGradient(const iaGradientf &emissionGradient);
+        void setEmissionGradient(const iaKeyFrameGraphf &emissionGradient);
 
         /*! returns the emission gradient
 
         \param[out] emissionGradient out value for the emission gradient
         */
-        void getEmissionGradient(iaGradientf &emissionGradient) const;
+        void getEmissionGradient(iaKeyFrameGraphf &emissionGradient) const;
 
         /*! sets the range of vortex torque
 
@@ -176,85 +176,85 @@ namespace OMPF
 
         \param visibleGradient the visible gradient
         */
-        void setStartAgeGradient(const iaGradientVector2f &visibleGradient);
+        void setStartAgeGradient(const iaKeyFrameGraphVector2f &visibleGradient);
 
         /*! returns the emission gradient
 
         \param[out] visibleGradient out value for the visible gradient
         */
-        void getStartAgeGradient(iaGradientVector2f &visibleGradient) const;
+        void getStartAgeGradient(iaKeyFrameGraphVector2f &visibleGradient) const;
 
         /*! sets size scale gradient for particles per frame
 
         \param sizeScaleGradient the size gradient
         */
-        void setSizeScaleGradient(const iaGradientf &sizeScaleGradient);
+        void setSizeScaleGradient(const iaKeyFrameGraphf &sizeScaleGradient);
 
         /*! returns the size scale gradient
 
         \param[out] sizeScaleGradient out value for the size gradient
         */
-        void getSizeScaleGradient(iaGradientf &sizeScaleGradient) const;
+        void getSizeScaleGradient(iaKeyFrameGraphf &sizeScaleGradient) const;
 
         /*! sets start size gradient for particles at birth
 
         \param sizeGradient the start size gradient with min and max values
         */
-        void setStartSizeGradient(const iaGradientVector2f &sizeGradient);
+        void setStartSizeGradient(const iaKeyFrameGraphVector2f &sizeGradient);
 
         /*! returns the start size gradient for particles at birth
 
         \param[out] sizeGradient out value for the start size gradient
         */
-        void getStartSizeGradient(iaGradientVector2f &sizeGradient) const;
+        void getStartSizeGradient(iaKeyFrameGraphVector2f &sizeGradient) const;
 
         /*! sets min max start velocity gradient for particles at birth
 
         \param velocityGradient the min max start velocity gradient
         */
-        void setStartVelocityGradient(const iaGradientVector2f &velocityGradient);
+        void setStartVelocityGradient(const iaKeyFrameGraphVector2f &velocityGradient);
 
         /*! returns the min max start velocity gradient for particles at birth
 
         \param[out] velocityGradient out value for the start velocity gradient
         */
-        void getStartVelocityGradient(iaGradientVector2f &velocityGradient) const;
+        void getStartVelocityGradient(iaKeyFrameGraphVector2f &velocityGradient) const;
 
         /*! sets min max start lift gradient for particles at birth
 
         \param liftGradient the min max start lift gradient
         */
-        void setStartLiftGradient(const iaGradientVector2f &liftGradient);
+        void setStartLiftGradient(const iaKeyFrameGraphVector2f &liftGradient);
 
         /*! returns the min max start lift gradient for particles at birth
 
         \param[out] liftGradient out value for the start lift gradient
         */
-        void getStartLiftGradient(iaGradientVector2f &liftGradient) const;
+        void getStartLiftGradient(iaKeyFrameGraphVector2f &liftGradient) const;
 
         /*! sets min max start orientation gradient for particles at birth
 
         \param orientationGradient the min max start orientation gradient
         */
-        void setStartOrientationGradient(const iaGradientVector2f &orientationGradient);
+        void setStartOrientationGradient(const iaKeyFrameGraphVector2f &orientationGradient);
 
         /*! returns the min max start lift gradient for particles at birth
 
         \param[out] orientationGradient out value for the start orientation gradient
         */
-        void getStartOrientationGradient(iaGradientVector2f &orientationGradient) const;
+        void getStartOrientationGradient(iaKeyFrameGraphVector2f &orientationGradient) const;
 
         /*! sets start min max orientation rate gradient for particles during visible time
 
         \param orientationRateGradient the min max orientation rate gradient
         */
-        void setStartOrientationRateGradient(const iaGradientVector2f &orientationRateGradient);
+        void setStartOrientationRateGradient(const iaKeyFrameGraphVector2f &orientationRateGradient);
 
         /*! returns the start min max orientation offset gradient for particles during visuble time
 
         \param[out] orientationRateGradient out value for the orientation rate gradient
         */
-        void getStartOrientationRateGradient(iaGradientVector2f &orientationRateGradient) const;
+        void getStartOrientationRateGradient(iaKeyFrameGraphVector2f &orientationRateGradient) const;
 
         /*! sets air drag 
         0.0-1.0
@@ -362,22 +362,22 @@ namespace OMPF
         */
         uint32 _materialChunkID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
 
-        iaGradientVector2f _orientationRateGradient;
-        iaGradientVector2f _orientationGradient;
-        iaGradientVector2f _liftGradient;
-        iaGradientVector2f _velocityGradient;
+        iaKeyFrameGraphVector2f _orientationRateGradient;
+        iaKeyFrameGraphVector2f _orientationGradient;
+        iaKeyFrameGraphVector2f _liftGradient;
+        iaKeyFrameGraphVector2f _velocityGradient;
 
         /*! start size gradient
         */
-        iaGradientVector2f _sizeGradient;
+        iaKeyFrameGraphVector2f _sizeGradient;
 
         /*! size scale gradient
         */
-        iaGradientf _sizeScaleGradient;
+        iaKeyFrameGraphf _sizeScaleGradient;
 
         /*! start visibility time
         */
-        iaGradientVector2f _startVisibleTimeGradient;
+        iaKeyFrameGraphVector2f _startVisibleTimeGradient;
 
         /*! first texture tiling in columns
         */
@@ -409,11 +409,11 @@ namespace OMPF
 
         /*! emission gradient
         */
-        iaGradientf _emissionGradient;
+        iaKeyFrameGraphf _emissionGradient;
 
         /*! color gradient for particles during their lifetime
         */
-        iaGradientColor4f _colorGradient;
+        iaKeyFrameGraphColor4f _colorGradient;
 
         /*! maximum particle count
         */

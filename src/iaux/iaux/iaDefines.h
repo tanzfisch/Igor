@@ -26,15 +26,15 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_DEFINES_H__
-#define __IAUX_DEFINES_H__
+#ifndef __IAUX_DEFINES__
+#define __IAUX_DEFINES__
 
 #include <stdint.h>
 
 // detect environment
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
     #ifdef _WIN64
-        #define __IGOR_WINDOWS__
+        #define IGOR_WINDOWS
 
         #ifndef _UNICODE
             #error Igor needs unicode!
@@ -52,7 +52,7 @@
 #define __IGOR_PATHSEPARATOR_WINDOWS__ '\\'
 #define __IGOR_PATHSEPARATOR_LINUX__ '/'
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
     #define __IGOR_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_WINDOWS__
     #define __IGOR_NOT_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_LINUX__
 #elif defined(__IGOR_LINUX__)
@@ -80,7 +80,7 @@
     #define __IGOR_FUNCTION__ __FUNCTION__
 
     #ifdef _DEBUG
-        #define __IGOR_DEBUG__
+        #define IGOR_DEBUG
         #define __IGOR_INLINE__ __inline
     #else
         #define __IGOR_INLINE__ __inline
@@ -104,7 +104,7 @@
     #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
     #define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
 
-#endif // __IGOR_WINDOWS__
+#endif // IGOR_WINDOWS
 
 // configure linux environment
 #ifdef __GNUG__
@@ -114,7 +114,7 @@
     #define __IGOR_FUNCTION__ __PRETTY_FUNCTION__
 
     #if defined(DEBUG) || defined(_DEBUG)
-        #define __IGOR_DEBUG__
+        #define IGOR_DEBUG
         #define __IGOR_INLINE__ inline
     #else
         #define __IGOR_INLINE__ inline
@@ -193,7 +193,7 @@ namespace iaux
     };
 } // namespace iaux
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
 #define __IAUX_CONFIG_STR__ debug
 #else
 #define __IAUX_CONFIG_STR__ release
@@ -315,4 +315,4 @@ typedef uint32 iaID32;
 typedef uint16 iaID16;
 typedef uint8 iaID8;
 
-#endif // __IAUX_DEFINES_H__
+#endif // __IAUX_DEFINES__

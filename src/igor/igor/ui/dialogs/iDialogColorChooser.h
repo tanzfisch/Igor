@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGCOLORCHOOSER_H__
-#define __IGOR_DIALOGCOLORCHOOSER_H__
+#ifndef __IGOR_DIALOGCOLORCHOOSER__
+#define __IGOR_DIALOGCOLORCHOOSER__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -116,4 +116,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGCOLORCHOOSER_H__
+#endif // __IGOR_DIALOGCOLORCHOOSER__

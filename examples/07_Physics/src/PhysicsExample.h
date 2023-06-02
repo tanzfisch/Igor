@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PHYSICSEXAMPLE_H__
-#define __PHYSICSEXAMPLE_H__
+#ifndef __PHYSICSEXAMPLE__
+#define __PHYSICSEXAMPLE__
 
 #include <ExampleBase.h>
 
@@ -107,4 +107,4 @@ private:
     bool onMouseWheelEvent(iEventMouseWheel &event);
 };
 
-#endif // __PHYSICSEXAMPLE_H__
+#endif // __PHYSICSEXAMPLE__

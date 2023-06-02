@@ -26,12 +26,13 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_GRADIENT_H__
-#define __IAUX_GRADIENT_H__
+#ifndef __IAUX_KEYFRAMEGRAPH__
+#define __IAUX_KEYFRAMEGRAPH__
 
 #include <iaux/iaDefines.h>
 
 #include <iaux/data/iaColor4.h>
+#include <iaux/math/iaMath.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/system/iaConsole.h>
@@ -42,10 +43,18 @@
 namespace iaux
 {
 
+    /*! interpolation mode
+    */
+    enum class iInterpolationMode
+    {
+        None,
+        Linear
+    };
+
     /*! gradient of values
      */
-    template <class T>
-    class IAUX_API_EXPORT_ONLY iaGradient
+    template <typename T>
+    class IAUX_API_EXPORT_ONLY iaKeyFrameGraph
     {
 
     public:
@@ -54,20 +63,13 @@ namespace iaux
         \param at the given position
         \param value the value
         */
-        void setValue(float32 at, const T &value);
-
-        /*! returns value at given position
-
-        \param[in,out] value the value at given position
-        \param at the given position
-        */
-        void getValue(float32 at, T &value) const;
+        void setValue(float64 at, const T &value);
 
         /*! \returns value at given position
 
         \param at the given position
         */
-        T getValue(float32 at) const;
+        T getValue(float64 at) const;
 
         /*! \returns count of values in gradient
         */
@@ -79,7 +81,7 @@ namespace iaux
         \param at the at value
         \param value the new value
         */
-        void setValueAtIndex(int32 index, float32 at, const T &value);
+        void setValueAtIndex(int32 index, float64 at, const T &value);
 
         /*! returns location and value from specified index
 
@@ -87,7 +89,7 @@ namespace iaux
         \param[out] at location at index
         \param[out] value value at index
         */
-        void getValueAtIndex(int32 index, float32 &at, T &value);
+        void getValueAtIndex(int32 index, float64 &at, T &value);
 
         /*! removes specified index
 
@@ -101,52 +103,75 @@ namespace iaux
 
         /*! \returns reference to values
          */
-        const std::vector<std::pair<float32, T>> &getValues() const;
+        const std::vector<std::pair<float64, T>> &getValues() const;
 
         /*! \returns true if color gradient is empty
          */
         bool isEmpty() const;
 
-        /*! does nothing
-         */
-        iaGradient() = default;
+        /*! sets interpolation mode
+
+        \param mode the interpolation mode
+        */
+        void setInterpolationMode(iInterpolationMode mode);
+
+        /*! \returns interpolation mode
+        */
+        iInterpolationMode getInterpolationMode() const;
 
         /*! does nothing
          */
-        ~iaGradient() = default;
+        iaKeyFrameGraph() = default;
+
+        /*! does nothing
+         */
+        ~iaKeyFrameGraph() = default;
 
     private:
+
+        /*! interpolation mode
+        */
+        iInterpolationMode _interpolationMode = iInterpolationMode::Linear;
+
         /*! the colors
          */
-        std::vector<std::pair<float32, T>> _values;
+        std::vector<std::pair<float64, T>> _values;
     };
 
-#include <iaux/data/iaGradient.inl>
+#include <iaux/data/iaKeyFrameGraph.inl>
 
     /*! uint32 gradient
      */
-    typedef iaGradient<uint32> iaGradientui;
+    typedef iaKeyFrameGraph<uint32> iaKeyFrameGraphui;
 
     /*! float32 gradient
      */
-    typedef iaGradient<float32> iaGradientf;
+    typedef iaKeyFrameGraph<float32> iaKeyFrameGraphf;
 
     /*! float64 gradient
      */
-    typedef iaGradient<float64> iaGradientd;
+    typedef iaKeyFrameGraph<float64> iaKeyFrameGraphd;
 
     /*! float32 3d vector gradient
      */
-    typedef iaGradient<iaVector3f> iaGradientVector3f;
+    typedef iaKeyFrameGraph<iaVector3f> iaKeyFrameGraphVector3f;
 
     /*! float32 2d vector gradient
      */
-    typedef iaGradient<iaVector2f> iaGradientVector2f;
+    typedef iaKeyFrameGraph<iaVector2f> iaKeyFrameGraphVector2f;
 
     /*! color vector gradient
      */
-    typedef iaGradient<iaColor4f> iaGradientColor4f;
+    typedef iaKeyFrameGraph<iaColor4f> iaKeyFrameGraphColor4f;
+
+    /*! float64 3d vector gradient
+     */
+    typedef iaKeyFrameGraph<iaVector3d> iaKeyFrameGraphVector3d;
+
+    /*! float64 2d vector gradient
+     */
+    typedef iaKeyFrameGraph<iaVector2d> iaKeyFrameGraphVector2d;
 
 }; // namespace iaux
 
-#endif // __IAUX_GRADIENT_H__
+#endif // __IAUX_KEYFRAMEGRAPH__

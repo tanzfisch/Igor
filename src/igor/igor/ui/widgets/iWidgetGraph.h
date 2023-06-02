@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETGRAPH_H__
-#define __IGOR_WIDGETGRAPH_H__
+#ifndef __IGOR_WIDGETGRAPH__
+#define __IGOR_WIDGETGRAPH__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -42,7 +42,7 @@ using namespace iaux;
 namespace igor
 {
 
-    class iTexture;
+    class iTextureOld;
 
     /*! graph widget. to display graphs
 
@@ -79,7 +79,7 @@ namespace igor
     public:
         /*! ctor initializes member variables
 
-		\param parent optional parnt
+		\param parent optional parent
 		*/
         iWidgetGraph(const iWidgetPtr parent = nullptr);
 
@@ -315,4 +315,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif // __IGOR_WIDGETGRAPH_H__
+#endif // __IGOR_WIDGETGRAPH__

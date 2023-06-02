@@ -4,14 +4,23 @@
 
 #include <igor/resources/texture/iPixmap.h>
 
+#include <igor/resources/iResourceManager.h>
+
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
+#include <iaux/math/iaMath.h>
 using namespace iaux;
 
 #include <cstring>
 
 namespace igor
 {
+
+    iPixmapPtr iPixmap::createPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
+    {
+        return iPixmapPtr(new iPixmap(width, height, colorFormat));
+    }
+
     iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
     {
         _colorFormat = colorFormat;
@@ -207,7 +216,7 @@ namespace igor
 
         iaConvert::convert(c, c2);
 
-        c3.lerp(c2, c1, dx);
+        c3 = iaMath::lerp(c2, c1, dx);
 
         yi++;
         pos = (yi * _width + xi) * _bytesPerPixel;
@@ -226,9 +235,9 @@ namespace igor
 
         iaConvert::convert(c, c2);
 
-        c4.lerp(c2, c1, dx);
+        c4 = iaMath::lerp(c2, c1, dx);
 
-        color.lerp(c4, c3, dy);
+        color = iaMath::lerp(c4, c3, dy);
     }
 
     void iPixmap::getPixel(float64 x, float64 y, iaColor4c &color) const

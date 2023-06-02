@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TIMER_H__
-#define __IGOR_TIMER_H__
+#ifndef __IGOR_TIMER__
+#define __IGOR_TIMER__
 
 #include <igor/system/iTimerHandle.h>
 #include <igor/resources/module/iModule.h>
@@ -42,8 +42,8 @@ namespace igor
 {
     /*! Handles Application time and intervals.
 
-    Meshures time of application cycles based on render frames.
-    Can also just meashure current time see getTime()
+    Measures time of application cycles based on render frames.
+    Can also just measure current time see getTime()
     */
     class IGOR_API iTimer : public iModule<iTimer>
     {
@@ -54,11 +54,11 @@ namespace igor
     public:
         /*! \returns time at beginning of current frame
          */
-        iaTime getTime() const;
+        const iaTime& getTime() const;
 
         /*! \returns delta time since last frame
          */
-        iaTime getTimeDelta() const;
+        const iaTime& getTimeDelta() const;
 
         /*! \returns average delta time over TIME_DELTAS frames
          */
@@ -98,7 +98,7 @@ namespace igor
          */
         uint32 _timeDeltaIndex = 0;
 
-        /*! time since application start accounding for start/stop
+        /*! time since application start accounting for start/stop
          */
         iaTime _currentTime;
 
@@ -145,4 +145,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_TIMER_H__
+#endif // __IGOR_TIMER__

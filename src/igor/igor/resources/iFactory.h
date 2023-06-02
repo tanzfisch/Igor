@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __FACTORY_H__
-#define __FACTORY_H__
+#ifndef __FACTORY__
+#define __FACTORY__
 
 #include <igor/resources/iResource.h>
 
@@ -37,22 +37,22 @@ namespace igor
 {
 
     /*! represents a factory that can process resources
-    */
+     */
     class IGOR_API iFactory
     {
         friend class iResourceManager;
 
     public:
         /*! does nothing
-        */
+         */
         iFactory() = default;
 
         /*! does nothing
-        */
+         */
         virtual ~iFactory() = default;
 
     protected:
-        /*! \returns the fatory type
+        /*! \returns the factory type
 
         this type is used to register with the resource manager
         */
@@ -60,39 +60,49 @@ namespace igor
 
         /*! \returns true if resource parameters are supported by this factory
 
+        \param name the name of the resource
         \param parameters the given resource parameters
         */
-        virtual bool matchingType(const iResourceParameters &parameters) const = 0;
+        virtual bool matchingType(const iParameters &parameters) const = 0;
 
         /*! \returns resource type specific hash data
-        */
-        virtual iaString getHashData(const iResourceParameters &parameters) const = 0;
+         */
+        virtual iaString getHashData(const iParameters &parameters) const { return ""; };
 
         /*! creates a resource object
 
+        \param name the name of the resource
         \param parameters the resource parameters
         \returns loaded or created new resource
         */
-        virtual iResourcePtr createResource(const iResourceParameters &parameters) const = 0;
+        virtual iResourcePtr createResource(const iParameters &parameters) = 0;
 
         /*! loads the resource
 
         \param resource the resource to load
         \returns true if loading the resource was successful
         */
-        virtual bool loadResource(iResourcePtr resource) const = 0;
+        virtual bool loadResource(iResourcePtr resource) = 0;
 
         /*! unloads the resource
 
         \param resource the resource to unload
         */
-        virtual void unloadResource(iResourcePtr resource) const = 0;
+        virtual void unloadResource(iResourcePtr resource) = 0;
+
+        /*! called once after registration to resource manager
+         */
+        virtual void init(){};
+
+        /*! called once before unregistration from resource manager
+         */
+        virtual void deinit(){};
     };
 
     /*! definition of texture shared pointer
-    */
+     */
     typedef std::shared_ptr<iFactory> iFactoryPtr;
 
 }; // namespace igor
 
-#endif // __SOUND_H__
+#endif // __SOUND__

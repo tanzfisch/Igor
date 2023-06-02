@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLMATERIALVIEW_H__
-#define __USERCONTROLMATERIALVIEW_H__
+#ifndef __USERCONTROLMATERIALVIEW__
+#define __USERCONTROLMATERIALVIEW__
 
 #include <igor/igor.h>
 using namespace iaux;
@@ -75,4 +75,4 @@ private:
     void onLoadMaterial(const iWidgetPtr source);
 };
 
-#endif // __USERCONTROLMATERIALVIEW_H__
+#endif // __USERCONTROLMATERIALVIEW__

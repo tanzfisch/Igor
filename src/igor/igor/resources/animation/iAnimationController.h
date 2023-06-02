@@ -1,3 +1,4 @@
+
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -26,44 +27,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TASKFLUSHTEXTURES_H__
-#define __IGOR_TASKFLUSHTEXTURES_H__
+#ifndef __IGOR_ANIMATION_CONTROLLER__
+#define __IGOR_ANIMATION_CONTROLLER__
 
-#include <igor/threading/tasks/iTask.h>
+#include <igor/resources/animation/iClip.h>
+
+#include <iaux/statemachine/iaStateMachine.h>
+
+#include <unordered_map>
 
 namespace igor
 {
 
-    /*! this task triggers the texture resource manager flush function repedatly
+    class iEntity;
 
-    when ever there was a texture requested this task get's it actually loaded from disk
-
-    \see iTextureResourceFactory
-    */
-    class IGOR_API iTaskFlushTextures : public iTask
+    /*! animation controller
+     */
+    class IGOR_API iAnimationController
     {
+        friend class iAnimationSystem;
 
     public:
-        /*! initializes member variables
 
-        \param window window connected to render context
-        */
-        iTaskFlushTextures(iWindowPtr window);
+        iAnimationController();
 
-        /*! does nothing
-        */
-        virtual ~iTaskFlushTextures() = default;
+        void addClip(iClipPtr clip);
 
-        /*! aborts the task
-        */
-        void abort();
+    private:
 
-    protected:
-        /*! runs the task
+        /*! state machine
         */
-        void run();
+        iaStateMachine _stateMachine;
+
+        /*! begin state
+        */
+        iaStateID _begin = IGOR_INVALID_ID;
+
+        iaTime _startTime;
+        iaTime _offsetTime;
+
+        /*! state animation map
+        */
+        std::unordered_map<iaStateID, iClipPtr> _clips;
+
+        void update(const iaTime &time, iEntity &entity);
+
+        void onEnterState(iaStateID stateID);
     };
 
-}; // namespace igor
+    /*! animation controller pointer definition
+     */
+    typedef std::shared_ptr<iAnimationController> iAnimationControllerPtr;
 
-#endif // __IGOR_TASKFLUSHTEXTURES_H__
+} // namespace igor
+
+#endif // __IGOR_ANIMATION_CONTROLLER__

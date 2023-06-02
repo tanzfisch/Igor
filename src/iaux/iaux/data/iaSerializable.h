@@ -34,7 +34,7 @@
 
 #include <iaux/data/iaColor3.h>
 #include <iaux/math/iaVector4.h>
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 
 #include <iostream>
 
@@ -380,7 +380,7 @@ namespace iaux
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(std::ofstream &stream, const iaGradientf &value);
+        static bool write(std::ofstream &stream, const iaKeyFrameGraphf &value);
 
         /*! reads a float32 gradient from stream
 
@@ -388,14 +388,14 @@ namespace iaux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(std::ifstream &stream, iaGradientf &value);
+        static bool read(std::ifstream &stream, iaKeyFrameGraphf &value);
 
         /*! write uint32 gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(std::ofstream &stream, const iaGradientui &value);
+        static bool write(std::ofstream &stream, const iaKeyFrameGraphui &value);
 
         /*! reads a uint32 gradient from stream
 
@@ -403,14 +403,14 @@ namespace iaux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(std::ifstream &stream, iaGradientui &value);
+        static bool read(std::ifstream &stream, iaKeyFrameGraphui &value);
 
         /*! write float32 3d vector gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(std::ofstream &stream, const iaGradientVector3f &value);
+        static bool write(std::ofstream &stream, const iaKeyFrameGraphVector3f &value);
 
         /*! reads a float32 3d vector gradient from stream
 
@@ -418,14 +418,14 @@ namespace iaux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(std::ifstream &stream, iaGradientVector3f &value);
+        static bool read(std::ifstream &stream, iaKeyFrameGraphVector3f &value);
 
         /*! write float32 2d vector gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(std::ofstream &stream, const iaGradientVector2f &value);
+        static bool write(std::ofstream &stream, const iaKeyFrameGraphVector2f &value);
 
         /*! reads a float32 2d vector gradient from stream
 
@@ -433,14 +433,14 @@ namespace iaux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(std::ifstream &stream, iaGradientVector2f &value);
+        static bool read(std::ifstream &stream, iaKeyFrameGraphVector2f &value);
 
         /*! write float32 color gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(std::ofstream &stream, const iaGradientColor4f &value);
+        static bool write(std::ofstream &stream, const iaKeyFrameGraphColor4f &value);
 
         /*! reads a float32 color gradient from stream
 
@@ -448,7 +448,7 @@ namespace iaux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(std::ifstream &stream, iaGradientColor4f &value);
+        static bool read(std::ifstream &stream, iaKeyFrameGraphColor4f &value);
     };
 
 #include <iaux/data/iaSerializable.inl>

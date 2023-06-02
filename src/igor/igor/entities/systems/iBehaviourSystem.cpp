@@ -11,7 +11,7 @@
 
 namespace igor
 {
-	void iBehaviourSystem::update(iEntityScenePtr scene)
+	void iBehaviourSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
 		auto *registry = static_cast<entt::registry *>(scene->getRegistry());
 		auto view = registry->view<iBehaviourComponent, iActiveComponent>();

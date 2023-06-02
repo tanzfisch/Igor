@@ -26,11 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_NODEWATER_H__
-#define __IGOR_NODEWATER_H__
+#ifndef __IGOR_NODEWATER__
+#define __IGOR_NODEWATER__
 
 #include <igor/scene/nodes/iNodeRender.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 
 namespace igor
 {
@@ -93,4 +93,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_NODEWATER_H__
+#endif // __IGOR_NODEWATER__

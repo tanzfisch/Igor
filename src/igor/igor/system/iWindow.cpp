@@ -14,7 +14,7 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/entities/iEntitySystemModule.h>
 
 #include <algorithm>
@@ -147,7 +147,7 @@ namespace igor
         iWindowPtr _window = nullptr;
     };
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 
     /*! windows implementation of a window
      */
@@ -714,7 +714,7 @@ namespace igor
         return (DefWindowProc(_hWnd, uMsg, wParam, lParam));
     }
 
-#endif // __IGOR_WINDOWS__
+#endif // IGOR_WINDOWS
 
 #ifdef __IGOR_LINUX__
     class iWindowImplLinux : public iWindowImpl
@@ -1212,7 +1212,7 @@ namespace igor
     {
         _windowID = iWindow::_idGenerator.getNextID();
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         _impl = new iWindowImplWindows(this);
 #endif
 #ifdef __IGOR_LINUX__
@@ -1298,7 +1298,6 @@ namespace igor
 
             iRenderer::getInstance().init();
             iMaterialResourceFactory::getInstance().init();
-            iTextureResourceFactory::getInstance().init();
             _impl->swapBuffers();
 
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));
@@ -1314,7 +1313,6 @@ namespace igor
             con_warn("window was not opened");
         }
 
-        iTextureResourceFactory::getInstance().deinit();
         iRenderer::getInstance().deinit();
         iMaterialResourceFactory::getInstance().deinit();
 

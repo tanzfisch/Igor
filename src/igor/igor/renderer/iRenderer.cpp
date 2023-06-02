@@ -10,6 +10,7 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <deque>
 #include <sstream>
@@ -510,7 +511,7 @@ namespace igor
         texQuads._nextTextureIndex = 0;
 
         /////////// OGL //////////
-#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH) // TODO can we drop this now? GL_DEBUG_SEVERITY_HIGH
+#if defined(IGOR_DEBUG) && defined(GL_DEBUG_SEVERITY_HIGH) // TODO can we drop this now? GL_DEBUG_SEVERITY_HIGH
         glEnable(GL_DEBUG_OUTPUT);
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         glDebugMessageCallback(onOGLDebugOutput, nullptr);
@@ -539,6 +540,30 @@ namespace igor
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
+
+        ////////////// generate textures //////////
+        iParameters paramFallback({{"name", iaString("fallback_texture")},
+                                   {"type", iaString("texture")},
+                                   {"cacheMode", iResourceCacheMode::Keep},
+                                   {"generate", true},
+                                   {"pattern", iTexturePattern::CheckerBoard},
+                                   {"primary", iaColor4f::black},
+                                   {"secondary", iaColor4f::magenta},
+                                   {"width", 128},
+                                   {"height", 128}});
+
+        _data->_fallbackTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(paramFallback));
+
+        iParameters paramWhite({{"name", iaString("white_texture")},
+                                {"type", iaString("texture")},
+                                {"cacheMode", iResourceCacheMode::Keep},
+                                {"generate", true},
+                                {"pattern", iTexturePattern::SolidColor},
+                                {"primary", iaColor4f::white},
+                                {"width", 1},
+                                {"height", 1}});
+
+        iResourceManager::getInstance().loadResource(paramWhite);
     }
 
     void iRenderer::deinit()
@@ -695,37 +720,44 @@ namespace igor
         endTexturedQuad();
     }
 
-    void iRenderer::drawFrameInternal(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+    void iRenderer::drawSpriteInternal(const iaMatrixf &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2f &size, const iaColor4f &color, bool blend)
     {
+        if(!sprite->isValid())
+        {
+            return;
+        }
+
         (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
 
-        const int32 textureIndex = beginTexturedQuad(atlas->getTexture());
+        const int32 textureIndex = beginTexturedQuad(sprite->getTexture());
 
-        const iAtlas::iFrame &frame = atlas->getFrame(frameIndex);
+        const iSprite::iFrame &frame = sprite->getFrame(frameIndex);
 
-        // TODO offset origin
-        const iaVector3f offset; // (frame._origin._x, frame._origin._y, 0.0);
+        iaMatrixf scaledMatrix = matrix;
+        scaledMatrix.scale(size._x, size._y, 1.0);
+
+        // TODO use pivot
 
         auto &texQuads = _data->_texQuads;
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
+        texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[0];
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord0 = frame._rect.getTopLeft();
         texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[1];
+        texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[1];
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord0 = frame._rect.getBottomLeft();
         texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[2];
+        texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[2];
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord0 = frame._rect.getBottomRight();
         texQuads._vertexDataPtr->_texIndex0 = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[3];
+        texQuads._vertexDataPtr->_pos = scaledMatrix * QUAD_VERTEX_POSITIONS[3];
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord0 = frame._rect.getTopRight();
         texQuads._vertexDataPtr->_texIndex0 = textureIndex;
@@ -798,9 +830,9 @@ namespace igor
     }
 
     template <>
-    void iRenderer::drawFrame(const iaMatrix<float32> &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color, bool blend)
+    void iRenderer::drawSprite(const iaMatrix<float32> &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2<float32> &size, const iaColor4f &color, bool blend)
     {
-        drawFrameInternal(matrix, atlas, frameIndex, color, blend);
+        drawSpriteInternal(matrix, sprite, frameIndex, size, color, blend);
     }
 
     template <>

@@ -7,9 +7,29 @@
 namespace igor
 {
 
-	iSound::iSound(const iResourceParameters& parameters)
-		: iResource(parameters)
+	iSound::iSound(const iParameters &parameters)
+		: iResource("sound", parameters)
 	{
+	}
+
+	int16 iSound::getNumberOfChannels() const
+	{
+		return _numChannels;
+	}
+
+	int32 iSound::getSampleRate() const
+	{
+		return _sampleRate;
+	}
+
+	int32 iSound::getByteRate() const
+	{
+		return _byteRate;
+	}
+
+	int16 iSound::getBitsPerSample() const
+	{
+		return _bitsPerSample;
 	}
 
 }; // namespace igor

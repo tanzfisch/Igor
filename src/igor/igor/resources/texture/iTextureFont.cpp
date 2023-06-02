@@ -4,7 +4,8 @@
 
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iPixmap.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
+#include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/iResourceManager.h>
 
 namespace igor
@@ -24,13 +25,15 @@ namespace igor
 
         const iaString resolved = iResourceManager::getInstance().getPath(filename);
 
-        _texture = iTextureResourceFactory::getInstance().loadFile(resolved, iResourceCacheMode::Free, iTextureBuildMode::Normal);
+        iParameters param({{"name", resolved},
+                           {"buildMode", iTextureBuildMode::Normal}});
+        _texture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
 
         if (!_texture->isValid())
         {
             return;
         }
-        _pixmap = iTextureResourceFactory::getInstance().loadPixmap(resolved);
+        _pixmap = iTextureFactory::loadPixmap(resolved);
 
         if (_pixmap == nullptr)
         {
@@ -134,8 +137,6 @@ namespace igor
             }
         }
 
-        // no need to old on to this
-        delete _pixmap;
         _pixmap = nullptr;
 
         switch (type)

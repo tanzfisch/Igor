@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PROFILER_H__
-#define __IGOR_PROFILER_H__
+#ifndef __IGOR_PROFILER__
+#define __IGOR_PROFILER__
 
 #include <igor/resources/module/iModule.h>
 #include <iaux/data/iaString.h>
@@ -145,4 +145,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_PROFILER_H__
+#endif // __IGOR_PROFILER__

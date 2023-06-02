@@ -29,24 +29,24 @@ EnemyDestroyed::EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix)
     setDamage(0.0);
     setShieldDamage(0.0);
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0, 0);
     emission.setValue(0.2, 0);
     emission.setValue(0.3, 80);
     emission.setValue(0.4, 0);
 
-    iaGradientColor4f colorGradient;
+    iaKeyFrameGraphColor4f colorGradient;
     colorGradient.setValue(0.0, iaColor4f(1.0, 1.0, 0.1, 1));
     colorGradient.setValue(0.5, iaColor4f(0.9, 0.5, 0.1, 0.7));
     colorGradient.setValue(1.0, iaColor4f(0.3, 0.3, 0.3, 0));
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0, iaVector2f(0.1, 0.2));
 
-    iaGradientVector2f visibility;
+    iaKeyFrameGraphVector2f visibility;
     visibility.setValue(0.0, iaVector2f(0.6, 1.0));
 
-    iaGradientVector2f size;
+    iaKeyFrameGraphVector2f size;
     size.setValue(0.0, iaVector2f(0.3, 0.5));
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
@@ -63,33 +63,33 @@ EnemyDestroyed::EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix)
     particleSystem->setPeriodTime(3.0);
     particleSystem->start();
 
-    iaGradientf emission2;
+    iaKeyFrameGraphf emission2;
     emission2.setValue(0.0, 0);
     emission2.setValue(0.2, 50);
     emission2.setValue(0.3, 0);
 
-    iaGradientColor4f colorGradient2;
+    iaKeyFrameGraphColor4f colorGradient2;
     colorGradient2.setValue(0.0, iaColor4f(0.25, 0.25, 0.25, 0));
     colorGradient2.setValue(0.1, iaColor4f(0.25, 0.25, 0.25, 0.25));
     colorGradient2.setValue(1.0, iaColor4f(0.25, 0.25, 0.25, 0));
 
-    iaGradientVector2f velocity2;
+    iaKeyFrameGraphVector2f velocity2;
     velocity2.setValue(0.0, iaVector2f(0.01, 0.8));
 
-    iaGradientVector2f visibility2;
+    iaKeyFrameGraphVector2f visibility2;
     visibility2.setValue(0.0, iaVector2f(3.0, 5.0));
 
-    iaGradientVector2f size2;
+    iaKeyFrameGraphVector2f size2;
     size2.setValue(0.0, iaVector2f(1.0, 2.0));
 
-    iaGradientf sizeScale2;
+    iaKeyFrameGraphf sizeScale2;
     sizeScale2.setValue(0.0, 1.0);
     sizeScale2.setValue(5.0, 5.0);
 
-    iaGradientVector2f startOrientation2;
+    iaKeyFrameGraphVector2f startOrientation2;
     startOrientation2.setValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
 
-    iaGradientVector2f startOrientationRate2;
+    iaKeyFrameGraphVector2f startOrientationRate2;
     startOrientationRate2.setValue(0.0, iaVector2f(-0.04, 0.04));
 
     iNodeParticleSystem *particleSystem2 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
@@ -111,29 +111,29 @@ EnemyDestroyed::EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix)
     particleSystem2->setPeriodTime(5.0);
     particleSystem2->start();
 
-    iaGradientf emission3;
+    iaKeyFrameGraphf emission3;
     emission3.setValue(0.0, 50);
     emission3.setValue(0.1, 0);
 
-    iaGradientColor4f colorGradient3;
+    iaKeyFrameGraphColor4f colorGradient3;
     colorGradient3.setValue(0.0, iaColor4f(1.0, 1.0, 1.0, 0));
     colorGradient3.setValue(0.1, iaColor4f(1.0, 1.0, 1.0, 1));
     colorGradient3.setValue(0.7, iaColor4f(1.0, 1.0, 1.0, 1));
     colorGradient3.setValue(1.0, iaColor4f(1.0, 1.0, 1.0, 0));
 
-    iaGradientVector2f velocity3;
+    iaKeyFrameGraphVector2f velocity3;
     velocity3.setValue(0.0, iaVector2f(0.3, 0.5));
 
-    iaGradientVector2f visibility3;
+    iaKeyFrameGraphVector2f visibility3;
     visibility3.setValue(0.0, iaVector2f(0.2, 0.4));
 
-    iaGradientVector2f size3;
+    iaKeyFrameGraphVector2f size3;
     size3.setValue(0.0, iaVector2f(1.0, 2.0));
 
-    iaGradientVector2f startOrientation3;
+    iaKeyFrameGraphVector2f startOrientation3;
     startOrientation3.setValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
 
-    iaGradientVector2f startOrientationRate3;
+    iaKeyFrameGraphVector2f startOrientationRate3;
     startOrientationRate3.setValue(0.0, iaVector2f(-0.1, 0.1));
 
     iNodeParticleSystem *particleSystem3 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();

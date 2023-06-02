@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_THREAD_H__
-#define __IAUX_THREAD_H__
+#ifndef __IAUX_THREAD__
+#define __IAUX_THREAD__
 
 #include <iaux/iaDefines.h>
 #include <iaux/system/iaEvent.h>

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_H__
-#define __IGOR_WIDGET_H__
+#ifndef __IGOR_WIDGET__
+#define __IGOR_WIDGET__
 
 #include <igor/iDefines.h>
 #include <igor/system/iMouse.h>
@@ -975,4 +975,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET_H__
+#endif // __IGOR_WIDGET__

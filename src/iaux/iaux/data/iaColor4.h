@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_COLOR4_H__
-#define __IAUX_COLOR4_H__
+#ifndef __IAUX_COLOR4__
+#define __IAUX_COLOR4__
 
 #include <iaux/iaDefines.h>
 
@@ -112,13 +112,11 @@ namespace iaux
         */
         void operator*=(float32 factor);
 
-        /*! linear interpolation between two colors with a factor and stor the result in this color
+        /*! scale operator
 
-        \param color1 first color
-        \param color2 second color
-        \param w factor to interpolate with
+        \param factor the value to scale with
         */
-        void lerp(const iaColor4<T> &color1, const iaColor4<T> &color2, float32 w);
+        void operator*(float32 factor);
 
         static IAUX_API_IMPORT_ONLY const iaColor4<T> white;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> gray;
@@ -144,4 +142,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_COLOR4_H__
+#endif // __IAUX_COLOR4__

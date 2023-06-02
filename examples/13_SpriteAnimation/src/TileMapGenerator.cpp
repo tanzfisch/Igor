@@ -6,12 +6,12 @@
 
 #include <map>
 
-void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::iFrame &frame)
+void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iSprite::iFrame &frame)
 {
 	const uint32 offsetIndex = meshBuilder.getVertexCount();
 
-	float32 x = pos._x - frame._origin._x;
-	float32 y = pos._y - frame._origin._y;
+	float32 x = pos._x - frame._pivot._x;
+	float32 y = pos._y - frame._pivot._y;
 
 	meshBuilder.addVertex(iaVector3f(x, y, 0));
 	meshBuilder.setTexCoord(iaVector2f(frame._rect._x, frame._rect._y), 0);
@@ -29,9 +29,9 @@ void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos,
 	meshBuilder.addTriangle(2, 3, 0, offsetIndex);
 }
 
-void TileMapGenerator::setAtlas(iAtlasPtr atlas)
+void TileMapGenerator::setSprite(iSpritePtr sprite)
 {
-	_atlas = atlas;
+	_sprite = sprite;
 }
 
 // pixel
@@ -49,7 +49,7 @@ iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i
 
 	int wy, wx;
 
-	iTexturePtr texture = _atlas->getTexture();
+	iTexturePtr texture = _sprite->getTexture();
 	iaVector2i textureSize(texture->getWidth(), texture->getHeight());
 
 	for (int y = pos._y, wy = 0; y < pos._y + size._y; ++y, ++wy)
@@ -58,9 +58,9 @@ iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i
 		{
 			uint32 tileType = from + (_random.getNext() % (to - from));
 
-			if (tileType < _atlas->getFrameCount())
+			if (tileType < _sprite->getFrameCount())
 			{
-				const iAtlas::iFrame &frame = _atlas->getFrame(tileType);
+				const iSprite::iFrame &frame = _sprite->getFrame(tileType);
 				iaVector2i tilePos = xdir * wx + ydir * wy;
 				tilePos._y *= -1;
 				iaVector2i tileSize(frame._rect._width * static_cast<float32>(textureSize._x), frame._rect._height * static_cast<float32>(textureSize._y));
@@ -74,10 +74,10 @@ iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i
 
 iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i &size, uint32 from, uint32 to)
 {
-	con_assert(_atlas != nullptr, "zero pointer");
+	con_assert(_sprite != nullptr, "zero pointer");
 	con_assert(from < to, "invalid parameters");
 
-	if (_atlas == nullptr)
+	if (_sprite == nullptr)
 	{
 		return nullptr;
 	}
@@ -102,7 +102,7 @@ iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i &size, uint32 fro
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
 			iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
-			targetMaterial->setTexture(_atlas->getTexture(), 0);
+			targetMaterial->setTexture(_sprite->getTexture(), 0);
 
 			transformNode->insertNode(meshNode);
 			result->insertNode(transformNode);
@@ -160,7 +160,7 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 
 	int wy, wx;
 
-	iTexturePtr texture = _atlas->getTexture();
+	iTexturePtr texture = _sprite->getTexture();
 	iaVector2i textureSize(texture->getWidth(), texture->getHeight());
 
 	for (int y = pos._y, wy = 0; y < pos._y + size._y; ++y, ++wy)
@@ -174,9 +174,9 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 				tileType = iter->second;
 			}
 
-			if (tileType < _atlas->getFrameCount())
+			if (tileType < _sprite->getFrameCount())
 			{
-				const iAtlas::iFrame &frame = _atlas->getFrame(tileType);
+				const iSprite::iFrame &frame = _sprite->getFrame(tileType);
 				iaVector2i tilePos = xdir * wx + ydir * wy;
 				tilePos._y *= -1;
 				iaVector2i tileSize(frame._rect._width * static_cast<float32>(textureSize._x), frame._rect._height * static_cast<float32>(textureSize._y));
@@ -190,14 +190,14 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 
 iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 {
-	con_assert(_atlas != nullptr, "zero pointer");
+	con_assert(_sprite != nullptr, "zero pointer");
 
-	if (_atlas == nullptr)
+	if (_sprite == nullptr)
 	{
 		return nullptr;
 	}
 
-	iPixmapPtr pixmap = iTextureResourceFactory::getInstance().loadPixmap(filename);
+	iPixmapPtr pixmap = iTextureFactory::loadPixmap(filename);
 
 	iNode *result = iNodeManager::getInstance().createNode<iNode>();
 
@@ -219,14 +219,12 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
 			iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
-			targetMaterial->setTexture(_atlas->getTexture(), 0);
+			targetMaterial->setTexture(_sprite->getTexture(), 0);
 
 			transformNode->insertNode(meshNode);
 			result->insertNode(transformNode);
 		}
 	}
-
-	delete pixmap;
 
 	return result;
 }

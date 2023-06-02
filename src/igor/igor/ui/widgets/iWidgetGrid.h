@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETGRID_H__
-#define __IGOR_WIDGETGRID_H__
+#ifndef __IGOR_WIDGETGRID__
+#define __IGOR_WIDGETGRID__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <vector>
@@ -399,4 +399,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETGRID_H__
+#endif // __IGOR_WIDGETGRID__

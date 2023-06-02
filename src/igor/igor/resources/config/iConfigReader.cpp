@@ -90,26 +90,29 @@ namespace igor
         filename.getData(temp, 2048);
 
         TiXmlDocument document(temp);
-        if (document.LoadFile())
+        if (!document.LoadFile())
         {
-            TiXmlElement *root = document.FirstChildElement("Igor");
-            if (!root)
-            {
-                con_err("not an igor xml file");
-                return;
-            }
+            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
+            return;
+        }
 
-            TiXmlElement *logging = root->FirstChildElement("Logging");
-            if (logging)
-            {
-                readLoggingConfig(logging);
-            }
+        TiXmlElement *root = document.FirstChildElement("Igor");
+        if (!root)
+        {
+            con_err("not an igor xml file");
+            return;
+        }
 
-            TiXmlElement *resourceManager = root->FirstChildElement("ResourceManager");
-            if (resourceManager)
-            {
-                readResourceManagerConfig(resourceManager);
-            }
+        TiXmlElement *logging = root->FirstChildElement("Logging");
+        if (logging)
+        {
+            readLoggingConfig(logging);
+        }
+
+        TiXmlElement *resourceManager = root->FirstChildElement("ResourceManager");
+        if (resourceManager)
+        {
+            readResourceManagerConfig(resourceManager);
         }
     }
 } // namespace igor

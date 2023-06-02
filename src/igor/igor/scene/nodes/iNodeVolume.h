@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_NODEVOLUME_H__
-#define __IGOR_NODEVOLUME_H__
+#ifndef __IGOR_NODEVOLUME__
+#define __IGOR_NODEVOLUME__
 
 #include <igor/scene/nodes/iNodeRender.h>
 
@@ -121,4 +121,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_NODEVOLUME_H__
+#endif // __IGOR_NODEVOLUME__

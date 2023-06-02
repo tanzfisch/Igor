@@ -27,8 +27,8 @@
 // contact: igorgameengine@protonmail.com
 
 // https://wiki.lspace.org/Igor ;-)
-#ifndef __IGOR_H__
-#define __IGOR_H__
+#ifndef __IGOR__
+#define __IGOR__
 
 // igor includes
 #include <igor/audio/iAudio.h>
@@ -65,10 +65,10 @@
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/resources/texture/iAtlas.h>
+#include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/texture/iTextureFactory.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
@@ -119,7 +119,7 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/threading/tasks/iTaskFlushResources.h>
 
 #include <igor/simulation/iParticleSystem2D.h>
 
@@ -164,7 +164,7 @@
 #include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaConvert.h>
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaSphere.h>
 #include <iaux/data/iaRectangle.h>
@@ -175,6 +175,7 @@
 #include <iaux/math/iaRandom.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
+#include <iaux/math/iaMath.h>
 
 #include <iaux/system/iaFile.h>
 #include <iaux/system/iaConsole.h>
@@ -215,4 +216,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_H__
+#endif // __IGOR__

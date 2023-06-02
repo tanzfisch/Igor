@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLPARTICLESYSTEM_H__
-#define __USERCONTROLPARTICLESYSTEM_H__
+#ifndef __USERCONTROLPARTICLESYSTEM__
+#define __USERCONTROLPARTICLESYSTEM__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -371,4 +371,4 @@ private:
     void initGUI();
 };
 
-#endif // __USERCONTROLPARTICLESYSTEM_H__
+#endif // __USERCONTROLPARTICLESYSTEM__

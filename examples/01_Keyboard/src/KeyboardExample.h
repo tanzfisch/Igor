@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __KEYBOARDEXAMPLE_H__
-#define __KEYBOARDEXAMPLE_H__
+#ifndef __KEYBOARDEXAMPLE__
+#define __KEYBOARDEXAMPLE__
 
 #include <ExampleBase.h>
 
@@ -79,4 +79,4 @@ private:
     void onEvent(iEvent &event) override;
 };
 
-#endif // __KEYBOARDEXAMPLE_H__
+#endif // __KEYBOARDEXAMPLE__
