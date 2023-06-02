@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_NODEVOLUME_H__
-#define __IGOR_NODEVOLUME_H__
+#ifndef __IGOR_NODEVOLUME__
+#define __IGOR_NODEVOLUME__
 
 #include <igor/scene/nodes/iNodeRender.h>
 
@@ -56,7 +56,7 @@ namespace igor
 
         /*! \returns bounding sphere
         */
-        const IGOR_API iSphered &getBoundingSphere() const;
+        const IGOR_API iaSphered &getBoundingSphere() const;
 
         /*! sets bounding box
 
@@ -108,7 +108,7 @@ namespace igor
 
         /*! bounding sphere
         */
-        iSphered _sphere;
+        iaSphered _sphere;
 
         /*! bbox of content
         */
@@ -121,4 +121,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_NODEVOLUME_H__
+#endif // __IGOR_NODEVOLUME__

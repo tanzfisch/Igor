@@ -154,33 +154,6 @@ IAUX_TEST(Color4Tests, Scale2)
 	IAUX_EXPECT_EQUAL(color._a, 60);
 }
 
-IAUX_TEST(Color4Tests, LERP1)
-{
-	iaColor4f color1(0.1, 0.12, 1.0, 0.2);
-	iaColor4f color2(0.8, 0.7, 1.0, 0.6);
-
-	iaColor4f color;
-	color.lerp(color1, color2, 0.5);
-
-	IAUX_EXPECT_NEAR(color._r, 0.45, 0.0001);
-	IAUX_EXPECT_NEAR(color._g, 0.41, 0.0001);
-	IAUX_EXPECT_NEAR(color._b, 1.0, 0.0001);
-	IAUX_EXPECT_NEAR(color._a, 0.4, 0.0001);
-}
-
-IAUX_TEST(Color4Tests, LERP2)
-{
-	iaColor4c color1(0, 128, 200, 50);
-	iaColor4c color2(84, 128, 180, 70);
-
-	iaColor4c color;
-	color.lerp(color1, color2, 0.5);
-
-	IAUX_EXPECT_EQUAL(color._r, 42);
-	IAUX_EXPECT_EQUAL(color._g, 128);
-	IAUX_EXPECT_EQUAL(color._b, 190);
-	IAUX_EXPECT_EQUAL(color._a, 60);
-}
 /*
 IAUX_TEST(Color4Tests, RGBtoHSV1)
 {

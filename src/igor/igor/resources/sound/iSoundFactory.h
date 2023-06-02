@@ -26,62 +26,66 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SOUND_FACTORY_H__
-#define __SOUND_FACTORY_H__
+#ifndef __SOUND_FACTORY__
+#define __SOUND_FACTORY__
 
 #include <igor/resources/iFactory.h>
 
-#include <memory>
+#include <igor/resources/sound/iSound.h>
 
 namespace igor
 {
 
-    /*! this factory creates and destroyes sound resources
-    */
+    /*! this factory creates and destroys sound resources
+     */
     class iSoundFactory : public iFactory
     {
 
     private:
-
-        /*! \returns the fatory type
+        /*! \returns the factory type
 
         this type is used to register with the resource manager
         */
-        const iaString& getType() const override;
+        const iaString &getType() const override;
 
         /*! \returns true if resource parameters are supported by this factory
 
         \param parameters the given resource parameters
         */
-        bool matchingType(const iResourceParameters& parameters) const override;    
+        bool matchingType(const iParameters &parameters) const override;
 
         /*! \returns resource type specific hash data
-        */
-        iaString getHashData(const iResourceParameters& parameters) const override;
+         */
+        iaString getHashData(const iParameters &parameters) const override;
 
         /*! creates a resource object
 
         \param parameters the resource parameters
         \returns loaded or created new resource
         */
-        iResourcePtr createResource(const iResourceParameters& parameters) const override;
+        iResourcePtr createResource(const iParameters &parameters) override;
 
         /*! loads the resource
 
         \param resource the resource to load
         \returns true if loading the resource was successful
         */
-        bool loadResource(iResourcePtr resource) const override;
+        bool loadResource(iResourcePtr resource) override;
 
         /*! unloads the resource
 
         \param resource the resource to unload
         */
-        void unloadResource(iResourcePtr resource) const override;
+        void unloadResource(iResourcePtr resource) override;
 
+        /*! loads sound from given file
+
+        \param filename the given filename
+        \param sound the sound resource
+        */
+        bool loadSound(const iaString &filename, iSoundPtr sound);
     };
-
 
 }; // namespace igor
 
-#endif // __SOUND_FACTORY_H__
+#endif // __SOUND_FACTORY__

@@ -19,7 +19,7 @@ namespace igor
     iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
         : _type(type), _kind(kind) // TODO _parent(parent) why not?
     {
-        _id = _idGenerator.createID();
+        _id = _idGenerator.getNextID();
 
         iWidgetManager::getInstance().registerWidget(this);
 

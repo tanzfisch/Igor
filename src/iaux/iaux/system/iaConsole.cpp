@@ -6,7 +6,7 @@
 #include <iaux/system/iaDirectory.h>
 #include <iaux/system/iaSystem.h>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 #include <windows.h>
 #include <DbgHelp.h>
 #endif
@@ -19,7 +19,7 @@
 namespace iaux
 {
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
     // mapping der winapi farben auf die Igor Konsolen Farben
     WORD winapi_colors[] = {FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
                             FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
@@ -66,7 +66,7 @@ namespace iaux
         size_t hashValue = hashFunc(std::this_thread::get_id());
         _threadIDs[hashValue] = 1;
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
         if (console_handle)
         {
@@ -118,7 +118,7 @@ namespace iaux
     {
         if (!_file.is_open())
         {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 #ifdef __IGOR_MSCOMPILER__
             wchar_t result[MAX_PATH];
             GetModuleFileName(NULL, result, MAX_PATH);
@@ -147,7 +147,7 @@ namespace iaux
         *this << iaForegroundColor::DarkRed << "me the error log so I can improve Igor for you!" << endlTab;
         *this << iaForegroundColor::White << "Martin Loga (igorgameengine@protonmail.com)" << endl;
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         __debugbreak();
 #endif
 
@@ -285,7 +285,7 @@ namespace iaux
     {
         if (_useColors && _useColorsSupported)
         {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
             if (console_handle)
             {
                 if (color != iaForegroundColor::Gray)

@@ -338,3 +338,14 @@ bool LSystems::onKeyDown(iEventKeyDown &event)
 
 	return false;
 }
+
+iaString LSystems::getHelpString()
+{
+    static const iaString help = "\n"
+                                 "[Space] generate new set of plants\n";
+
+    iaString result = ExampleBase::getHelpString();
+    result += help;
+
+    return result;
+}

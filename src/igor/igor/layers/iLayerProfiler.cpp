@@ -4,7 +4,7 @@
 
 #include <igor/layers/iLayerProfiler.h>
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 
 namespace igor
 {
@@ -28,7 +28,7 @@ namespace igor
         getWindow()->addView(&_view, getZIndex());
 
         // init font for render profiler
-        _font = std::make_shared<iTextureFont>("igor/textures/StandardFontOutlined.png");
+        _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
     }
 
     void iLayerProfiler::onDeinit()

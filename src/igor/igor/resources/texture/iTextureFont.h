@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_FONT_H__
-#define __IGOR_FONT_H__
+#ifndef __IGOR_TEXTURE_FONT__
+#define __IGOR_TEXTURE_FONT__
 
 #include <igor/resources/texture/iTexture.h>
 
@@ -83,19 +83,12 @@ namespace igor
     public:
         /*! \returns a newly created font
 
-        \param cound index count
-        \param indices the index data
-        */
-        static iTextureFontPtr create(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreashold = 0.5f);
-
-        /*! ctor
-
         \param filename filename of font texture
         \param type font type
         \param colorMask use this color channel to detect the size of characters
-        \param colorMaskThreashold this threashold dertermines what texel belongs to the character and wich not
+        \param colorMaskThreshold this threshold determines  what texel belongs to the character and wich not
         */
-        iTextureFont(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreashold = 0.0f);
+        static iTextureFontPtr create(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreshold = 0.5f);
 
         /*! cleans up
          */
@@ -106,26 +99,26 @@ namespace igor
         \param text the text to calculate the width
         \param size size of the font
         */
-        float32 measureWidth(iaString text, float32 size);
+        float32 measureWidth(const iaString &text, float32 size);
 
         /*! calculates the height of a iaString with line breaks
 
         \param text the text to calculate with
         \param size font size
-        \param max_width with to make line break
-        \param line_height factor for the line height (default value is 1.15)
+        \param maxWidth with to make line break
+        \param lineHeight factor for the line height (default value is 1.15)
         */
-        float32 measureHeight(iaString text, float32 size, float32 max_width, float32 line_height = 1.15f);
+        float32 measureHeight(const iaString &text, float32 size, float32 maxWidth, float32 lineHeight = 1.15f);
 
         /*! returns true if the font was loading correctly
          */
-        bool isValid();
+        bool isValid() const;
 
         /*! returns pointer to the font texture
 
         \return pointer to font texture
         */
-        iTexturePtr getTexture();
+        iTexturePtr getTexture() const;
 
         /*! returns character set
 
@@ -144,11 +137,20 @@ namespace igor
 
         /*! pixmap of the the texture
          */
-        iPixmap *_pixmap;
+        iPixmapPtr _pixmap;
 
         /*! character set of the font
          */
         std::vector<iCharacterDimensions> _characters;
+
+        /*! ctor
+
+        \param filename filename of font texture
+        \param type font type
+        \param colorMask use this color channel to detect the size of characters
+        \param colorMaskThreshold this threshold determines  what texel belongs to the character and wich not
+        */
+        iTextureFont(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreshold = 0.0f);
 
         /*!
          */
@@ -165,4 +167,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_FONT_H__
+#endif // __IGOR_TEXTURE_FONT__

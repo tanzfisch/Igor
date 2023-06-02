@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __CHARACTERCONTROLLER_H__
-#define __CHARACTERCONTROLLER_H__
+#ifndef __CHARACTERCONTROLLER__
+#define __CHARACTERCONTROLLER__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -102,4 +102,4 @@ private:
     void onSubmitConstraints(iPhysicsJoint *joint, float64 timestep);
 };
 
-#endif // __CHARACTERCONTROLLER_H__
+#endif // __CHARACTERCONTROLLER__

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MICA_H__
-#define __MICA_H__
+#ifndef __MICA__
+#define __MICA__
 
 #include "Workspace.h"
 
@@ -68,4 +68,4 @@ private:
 	iTaskID _taskFlushModels = iTask::INVALID_TASK_ID;
 };
 
-#endif // __MICA_H__
+#endif // __MICA__

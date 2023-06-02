@@ -73,7 +73,7 @@ namespace igor
         }
     }
 
-    /*! helper macro to map density values from 0&1-255 to lenght 0.0-1.0
+    /*! helper macro to map density values from 0&1-255 to length 0.0-1.0
 
     0 -> density is zero therefore it is outside the object
     1 -> is also integpreted als density zero (1-255 -> 0.0-1.0)

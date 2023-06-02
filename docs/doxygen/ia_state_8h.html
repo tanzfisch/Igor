@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.37.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.40.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,13 +87,14 @@ $(document).ready(function(){initNavTree('ia_state_8h.html',''); initResizable()
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">iaState.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="ia_defines_8h.html">iaux/iaDefines.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_signal_8h.html">iaux/system/iaSignal.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="ia_event_8h.html">iaux/system/iaEvent.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_i_d_generator_8h.html">iaux/data/iaIDGenerator.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_string_8h.html">iaux/data/iaString.h</a>&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -106,18 +107,12 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceiaux"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html">iaux</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a5a02c39ba91f45f977bcd6e99e7d081d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a5a02c39ba91f45f977bcd6e99e7d081d">iaux::iaSIGNAL</a> (EnterStateEvent, EnterStateDelegate,(),())</td></tr>
-<tr class="separator:a5a02c39ba91f45f977bcd6e99e7d081d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a048863bd6af5007b0bf6dbd306353e2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a048863bd6af5007b0bf6dbd306353e2b">iaux::iaSIGNAL</a> (ReEnterStateEvent, ReEnterStateDelegate,(),())</td></tr>
-<tr class="separator:a048863bd6af5007b0bf6dbd306353e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a420e3bcdc1da5b32de71b37d749d9a04"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a420e3bcdc1da5b32de71b37d749d9a04">iaux::iaSIGNAL</a> (LeaveStateEvent, LeaveStateDelegate,(),())</td></tr>
-<tr class="separator:a420e3bcdc1da5b32de71b37d749d9a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebc0d3e09a63eb5167dbbfe141be1264"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#aebc0d3e09a63eb5167dbbfe141be1264">iaux::iaSIGNAL</a> (HandleStateEvent, HandleStateDelegate,(),())</td></tr>
-<tr class="separator:aebc0d3e09a63eb5167dbbfe141be1264"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d689dfdac8b5fd6ea837b0193e578ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a2d689dfdac8b5fd6ea837b0193e578ab">iaux::iaSIGNAL</a> (RenderStateEvent, RenderStateDelegate,(),())</td></tr>
-<tr class="separator:a2d689dfdac8b5fd6ea837b0193e578ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aaaa3f005c17a246f680f77e1db854bad"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="ia_defines_8h.html#ad9b656f66a1778d91ca6765a34d485d0">iaID32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#aaaa3f005c17a246f680f77e1db854bad">iaux::iaStateID</a></td></tr>
+<tr class="separator:aaaa3f005c17a246f680f77e1db854bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58c2f21fc8c16d9495ea56f3e35d9f6c"><td class="memItemLeft" align="right" valign="top">typedef iaState *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a58c2f21fc8c16d9495ea56f3e35d9f6c">iaux::iaStatePtr</a></td></tr>
+<tr class="separator:a58c2f21fc8c16d9495ea56f3e35d9f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

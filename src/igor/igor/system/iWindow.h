@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WINDOW_H__
-#define __IGOR_WINDOW_H__
+#ifndef __IGOR_WINDOW__
+#define __IGOR_WINDOW__
 
 #include <igor/resources/profiler/iProfiler.h>
 
@@ -311,4 +311,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_WINDOW_H__
+#endif // __IGOR_WINDOW__

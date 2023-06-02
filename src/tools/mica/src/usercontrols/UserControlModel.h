@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLMODEL_H__
-#define __USERCONTROLMODEL_H__
+#ifndef __USERCONTROLMODEL__
+#define __USERCONTROLMODEL__
 
 #include <igor/igor.h>
 using namespace igor;

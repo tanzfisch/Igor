@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLMATERIAL_H__
-#define __USERCONTROLMATERIAL_H__
+#ifndef __USERCONTROLMATERIAL__
+#define __USERCONTROLMATERIAL__
 
 #include <igor/igor.h>
 using namespace iaux;
@@ -107,4 +107,4 @@ private:
     void reloadShader(iMaterialPtr material);
 };
 
-#endif // __USERCONTROLMATERIAL_H__
+#endif // __USERCONTROLMATERIAL__

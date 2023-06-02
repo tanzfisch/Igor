@@ -14,7 +14,7 @@ using namespace iaux;
 
 namespace igor
 {
-	void iQuadtreeSystem::update(iEntityScenePtr scene)
+	void iQuadtreeSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
 		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
 		auto &quadtree = scene->getQuadtree();

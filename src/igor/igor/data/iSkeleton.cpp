@@ -61,7 +61,7 @@ namespace igor
         }
     }
 
-    void iSkeleton::addBone(const iaMatrixf &matrix, float64 lenght)
+    void iSkeleton::addBone(const iaMatrixf &matrix, float64 length)
     {
         iJoint *currentJoint = nullptr;
 
@@ -87,7 +87,7 @@ namespace igor
 
         _lastBone = createBone();
         _lastBone->setMatrix(matrix);
-        _lastBone->setLenght(lenght);
+        _lastBone->setLenght(length);
 
         currentJoint->addChildBone(_lastBone);
 

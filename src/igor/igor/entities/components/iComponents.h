@@ -30,6 +30,8 @@
 #define __IGOR_COMPONENTS__
 
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/sprite/iSprite.h>
+#include <igor/resources/animation/iAnimationController.h>
 #include <igor/data/iQuadtree.h>
 
 #include <iaux/data/iaString.h>
@@ -93,9 +95,9 @@ namespace igor
      */
     struct iSpriteRendererComponent
     {
-        /*! texture to render as sprite
+        /*! sprite to render
          */
-        iTexturePtr _texture; // TODO need sprite not just texture
+        iSpritePtr _sprite;
 
         /*! render size
          */
@@ -112,6 +114,10 @@ namespace igor
         /*! sprite render mode
          */
         iSpriteRenderMode _renderMode = iSpriteRenderMode::Simple;
+
+        /*! index of the sprite frame to render
+        */
+        uint32 _frameIndex = 0;
     };
 
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
@@ -350,6 +356,13 @@ namespace igor
     struct iPartyComponent
     {
         uint32 _partyID = 0;
+    };
+
+    /*! animation component
+    */
+    struct iAnimationComponent
+    {
+        iAnimationControllerPtr _animationController;
     };
 
     // iTextComponent

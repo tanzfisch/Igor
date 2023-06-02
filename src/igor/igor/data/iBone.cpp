@@ -24,12 +24,12 @@ namespace igor
         matrix = _matrix;
     }
 
-    void iBone::setLenght(float64 lenght)
+    void iBone::setLenght(float64 length)
     {
-        con_assert(lenght >= 0, "lenght can not be negative");
-        if (lenght >= 0)
+        con_assert(length >= 0, "length can not be negative");
+        if (length >= 0)
         {
-            _lenght = lenght;
+            _lenght = length;
         }
     }
 

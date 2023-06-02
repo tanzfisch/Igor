@@ -32,78 +32,73 @@
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#include <igor/iDefines.h>
+#include <igor/resources/iResource.h>
+#include <igor/resources/texture/iPixmap.h>
 
 #include <memory>
 
 namespace igor
 {
 
-    /*! definition of texture shared pointer
-	*/
-    class iTexture;
-    typedef std::shared_ptr<iTexture> iTexturePtr;    
-
     /*! represents a texture resource
-    */
-    class IGOR_API iTexture
+
+    available parameters:
+
+    - inherits all parameters from iResource
+    - generate: leads to generating a texture procedurally (type: bool)
+      + pattern: type of pattern to use for procedurally generation (type: iTexturePattern)
+      + primary: primary color to use (type: iaColor4f)
+      + secondary: secondary color to use (type: iaColor4f)
+      + width: width of texture (type: uint32)
+      + height: height of texture (type: uint32)
+    - pixmap: use data from given pixmap for texture (type: iPixmapPtr)
+    - wrapMode: texture wrap mode (type: iTextureWrapMode, default: Repeat)
+    - buildMode: texture wrap mode (type: iTextureBuildMode, default: Mipmapped)
+    
+
+     */
+    class IGOR_API iTexture : public iResource
     {
 
-        friend class iTextureResourceFactory;
+        friend class iTextureFactory;
 
     public:
-    
-        /*! \returns true if there is actually a texture present
-        */
-        bool isValid() const;
-
-        /*! \returns true if the texture was processed
-        */
-        bool isProcessed() const;
 
         /*! \returns true if it is unprocessed or invalid. Then the renderer will use a fallback texture
-        */
+         */
         bool useFallback() const;
 
-        /*! \returns the width
-        */
+        /*! \returns the width in texels
+         */
         int32 getWidth() const;
 
-        /*! \returns the height
-        */
+        /*! \returns the height in texels
+         */
         int32 getHeight() const;
 
-        /*! \returns the bits per pixel
-        */
+        /*! \returns the bits per pixel (texel)
+         */
         int32 getBpp() const;
 
-        /*! \returns the mip map levels
-        */
+        /*! \returns the mip map level count
+         */
         uint32 getMipMapLevels() const;
 
         /*! \returns the color format
-        */
+         */
         iColorFormat getColorFormat() const;
 
         /*! \returns true if data contains alpha channel and values != 1.0
-        */
+         */
         bool hasTransparency() const;
 
-        /*! \returns cache mode
-        */
-        iResourceCacheMode getCacheMode() const;
-
         /*! \returns the texture build mode
-        */
+         */
         iTextureBuildMode getBuildMode() const;
 
         /*! \returns texture wrap mode
-        */
+         */
         iTextureWrapMode getWrapMode() const;
-
-        /*! returns the filename
-        */
-        const iaString &getFilename() const;
 
         /*! binds and activates texture to given texture unit
 
@@ -112,80 +107,56 @@ namespace igor
         void bind(uint32 textureUnit);
 
         /*! \returns texture id
-        */
+         */
         uint32 getTextureID() const;
 
     private:
-        /*! true if there was actually a texture loaded
-		*/
-        bool _valid = false;
-
-        /*! if true the texture is considered loaded regardless if it was a success or not
-        */
-        bool _processed = false;
 
         /*! true if it is a dummy texture
-		*/
+         */
         bool _useFallback = true;
 
-        /*! the file name. initialized in ctor
-		*/
-        iaString _filename;
-
-        /*! cache mode. initialized in ctor
-        */
-        iResourceCacheMode _cacheMode;
-
         /*! build mode. initialized in ctor
-		*/
+         */
         iTextureBuildMode _buildMode;
 
         /*! wrap mode. initialized in ctor
-        */
+         */
         iTextureWrapMode _wrapMode;
 
         /*! the width
-		*/
+         */
         int32 _width = 256;
 
         /*! the height
-		*/
+         */
         int32 _height = 256;
 
         /*! bits per pixel
-		*/
+         */
         int32 _bpp = 0;
 
         /*! color format
-		*/
+         */
         iColorFormat _colorFormat = iColorFormat::Undefined;
 
         /*! mip map levels
-        */
+         */
         uint32 _mipMapLevels = 1;
 
         /*! renderer specific texture handle
-		*/
+         */
         uint32 _textureID = 0;
 
         /*! if true data has alpha channel with values != 1.0
-        */
+         */
         bool _hasTrans = false;
 
-        /*! ctor
+        /*! initializes member variables
 
-		initializes member variables
-		*/
-        iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
-
-        /*! \returns a newly created texture
-
-        \param name name of the texture (usually the filename)
-        \param cacheMode caching mode
-        \param buildMode build mode 
-        \param wrapMode texture coordinates wrapping mode
-         */
-        static iTexturePtr create(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
+        \param parameters the parameters of this texture
+        */
+        iTexture(const iParameters &parameters);
 
         /*! sets data on texture
 
@@ -197,10 +168,13 @@ namespace igor
         \param buildMode generation mode of texture like mimapping or not
         \param wrapMode wrap mode of texture
         */
-        void setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);        
-
+        void setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
     };
+
+    /*! definition of texture shared pointer
+     */
+    typedef std::shared_ptr<iTexture> iTexturePtr;
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_TEXTURE__

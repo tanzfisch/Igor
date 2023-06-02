@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLEBASE_H__
-#define __EXAMPLEBASE_H__
+#ifndef __EXAMPLEBASE__
+#define __EXAMPLEBASE__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -166,4 +166,4 @@ private:
     bool onWindowResize(iEventWindowResize &event);
 };
 
-#endif // __EXAMPLEBASE_H__
+#endif // __EXAMPLEBASE__

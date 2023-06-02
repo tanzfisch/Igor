@@ -29,23 +29,23 @@ DigEffect::DigEffect(iScenePtr scene, const iaMatrixd &matrix)
     setDamage(0.0);
     setShieldDamage(0.0);
 
-    iaGradientf emission;
+    iaKeyFrameGraphf emission;
     emission.setValue(0.0, 5);
     emission.setValue(0.1, 0);
 
-    iaGradientColor4f colorGradient;
+    iaKeyFrameGraphColor4f colorGradient;
     colorGradient.setValue(0.0, iaColor4f(0.6, 0.6, 0.6, 0));
     colorGradient.setValue(0.0, iaColor4f(0.6, 0.6, 0.6, 0.5));
     colorGradient.setValue(0.5, iaColor4f(0.6, 0.6, 0.6, 0.5));
     colorGradient.setValue(1.0, iaColor4f(0.6, 0.6, 0.6, 0));
 
-    iaGradientVector2f velocity;
+    iaKeyFrameGraphVector2f velocity;
     velocity.setValue(0.0, iaVector2f(0.01, 0.02));
 
-    iaGradientVector2f visibility;
+    iaKeyFrameGraphVector2f visibility;
     visibility.setValue(0.0, iaVector2f(0.5, 1.5));
 
-    iaGradientVector2f size;
+    iaKeyFrameGraphVector2f size;
     size.setValue(0.0, iaVector2f(3.0, 4.0));
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();

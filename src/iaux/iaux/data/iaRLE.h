@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RLE_H__
-#define __IAUX_RLE_H__
+#ifndef __IAUX_RLE__
+#define __IAUX_RLE__
 
 #include <iaux/system/iaConsole.h>
 
@@ -45,7 +45,7 @@ namespace iaux
         TValue _value = static_cast<TValue>(0);
     };
 
-    /*! run lenght encoded buffer
+    /*! run length encoded buffer
     */
     template <typename TValue, typename TIndex>
     class IAUX_API_EXPORT_ONLY iaRLE
@@ -118,4 +118,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif // __IAUX_RLE_H__
+#endif // __IAUX_RLE__

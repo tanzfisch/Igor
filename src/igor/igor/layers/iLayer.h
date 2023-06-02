@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_LAYER_H__
-#define __IGOR_LAYER_H__
+#ifndef __IGOR_LAYER__
+#define __IGOR_LAYER__
 
 #include <igor/events/iEvent.h>
 #include <igor/system/iWindow.h>
@@ -104,4 +104,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_LAYER_H__ 
+#endif // __IGOR_LAYER__ 

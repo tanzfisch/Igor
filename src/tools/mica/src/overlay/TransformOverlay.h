@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __TRANSFORM_OVERLAY_H__
-#define __TRANSFORM_OVERLAY_H__
+#ifndef __TRANSFORM_OVERLAY__
+#define __TRANSFORM_OVERLAY__
 
 #include "NodeOverlay.h"
 
@@ -260,4 +260,4 @@ private:
     void renderHighlight();
 };
 
-#endif // __TRANSFORM_OVERLAY_H__
+#endif // __TRANSFORM_OVERLAY__

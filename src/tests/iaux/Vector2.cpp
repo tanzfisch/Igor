@@ -33,25 +33,25 @@ IAUX_TEST(Vector2Tests, Vector2dParamCtor)
 IAUX_TEST(Vector2Tests, Vector2dLenghtZero)
 {
 	iaVector2d vec;
-	float64 lenght = vec.length();
+	float64 length = vec.length();
 
-	IAUX_EXPECT_EQUAL(lenght, 0.0);
+	IAUX_EXPECT_EQUAL(length, 0.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dLenght)
 {
 	iaVector2d vec(3.0, 4.0);
-	float64 lenght = vec.length();
+	float64 length = vec.length();
 
-	IAUX_EXPECT_EQUAL(lenght, 5.0);
+	IAUX_EXPECT_EQUAL(length, 5.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dLenght2)
 {
 	iaVector2d vec(3.0, 4.0);
-	float64 lenght = vec.length2();
+	float64 length = vec.length2();
 
-	IAUX_EXPECT_EQUAL(lenght, 25.0);
+	IAUX_EXPECT_EQUAL(length, 25.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dDistance)

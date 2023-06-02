@@ -5,7 +5,8 @@
 #include <igor/simulation/iParticleSystem2D.h>
 
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
+
 #include <igor/renderer/iRenderer.h>
 
 namespace igor
@@ -22,9 +23,9 @@ namespace igor
         _particleSystem.start();
 
         _particleTargetMaterial = iTargetMaterial::create();
-        _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 0);
-        _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 1);
-        _particleTargetMaterial->setTexture(iTextureResourceFactory::getInstance().getWhiteTexture(), 2);
+        _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("white_texture"), 0);
+        _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("white_texture"), 1);
+        _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("white_texture"), 2);
         _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/particles_ortho_projection.mat");
     }
 

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __LSYSTEMSEXAMPLE_H__
-#define __LSYSTEMSEXAMPLE_H__
+#ifndef __LSYSTEMSEXAMPLE__
+#define __LSYSTEMSEXAMPLE__
 
 #include <ExampleBase.h>
 
@@ -76,7 +76,7 @@ private:
     */
     iLSystem _lSystem;
 
-    /*! segment lenght
+    /*! segment length
     */
     float32 _segmentLength = 0;
 
@@ -175,6 +175,10 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iEventKeyDown &event);
+
+    /*! \returns help screen string
+    */
+    iaString getHelpString() override;    
 };
 
-#endif // __LSYSTEMSEXAMPLE_H__
+#endif // __LSYSTEMSEXAMPLE__

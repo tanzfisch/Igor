@@ -54,7 +54,7 @@ namespace igor
 
 		\param scene the scene used for this update
 		 */
-		void update(iEntityScenePtr scene) override;
+		void update(const iaTime &time, iEntityScenePtr scene) override;
 	};
 
 } // igor

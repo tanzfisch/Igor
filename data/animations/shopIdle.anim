@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Igor>
+    <!-- keyframe types = int, double, Vector3, Vector2, Color4 -->
+    <!-- interpolation modes = None, Linear -->
+    <!-- target = FrameIndex, Translate, Rotate, Scale -->
+    <Animation keyFrameType="int" interpolationMode="None" target="FrameIndex">
+        <!-- time in seconds -->
+        <Frame time="0.0" value="0"/>
+        <Frame time="0.15" value="1"/>
+        <Frame time="0.3" value="2"/>
+        <Frame time="0.45" value="3"/>
+        <Frame time="0.6" value="4"/>
+        <Frame time="0.75" value="5"/>
+        <Frame time="0.9" value="6"/>
+        <Frame time="1.05" value="7"/>
+        <Frame time="1.2" value="0"/>
+    </Animation>
+</Igor>

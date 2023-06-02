@@ -30,7 +30,7 @@
 
 #include <iLoader.h>
 #include <iModelManager.h>
-#include <iTexture.h>
+#include <iTextureOld.h>
 
 #include <vector>
 

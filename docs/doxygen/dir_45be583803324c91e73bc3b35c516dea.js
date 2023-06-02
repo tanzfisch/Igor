@@ -1,5 +1,9 @@
 var dir_45be583803324c91e73bc3b35c516dea =
 [
+    [ "iAnimationSystem.cpp", "i_animation_system_8cpp.html", null ],
+    [ "iAnimationSystem.h", "i_animation_system_8h.html", [
+      [ "iAnimationSystem", "classigor_1_1i_animation_system.html", "classigor_1_1i_animation_system" ]
+    ] ],
     [ "iBehaviourSystem.cpp", "i_behaviour_system_8cpp.html", null ],
     [ "iBehaviourSystem.h", "i_behaviour_system_8h.html", [
       [ "iBehaviourSystem", "classigor_1_1i_behaviour_system.html", "classigor_1_1i_behaviour_system" ]

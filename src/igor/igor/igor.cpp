@@ -10,17 +10,20 @@
 #include <iaux/system/iaDate.h>
 using namespace iaux;
 
-#ifdef __IGOR_DEBUG__
-extern const iaString __IGOR_CONFIGURATION__ = "debug";
+extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {L"sprite"};
+extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {L"png", L"jpg"};
+
+#ifdef IGOR_DEBUG
+extern const iaString IGOR_BUILD_CONFIGURATION = "debug";
 #else
 #ifdef RELWITHDEBINFO
-extern const iaString __IGOR_CONFIGURATION__ = "release with debug info";
+extern const iaString IGOR_BUILD_CONFIGURATION = "release with debug info";
 #else
-extern const iaString __IGOR_CONFIGURATION__ = "release";
+extern const iaString IGOR_BUILD_CONFIGURATION = "release";
 #endif
 #endif
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 #include <windows.h>
 
 //! gets called when the dll is loaded into memory
@@ -50,7 +53,7 @@ namespace igor
 
     void printInfo()
     {
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
 #define G iaForegroundColor::Gray
 #define W iaForegroundColor::DarkBlue
 #define C1 iaForegroundColor::Gray
@@ -83,11 +86,12 @@ namespace igor
 
         iaConsole::getInstance() << T << "    (c) Copyright 2012-2023 by Martin Loga" << endl
                                  << endl;
-        iaConsole::getInstance() << T << "    version " << __IGOR_VERSION__ << " (" << __IGOR_CONFIGURATION__ << ") LGPL v3.0" << endl
+        iaConsole::getInstance() << T << "    version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
         iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek" << endl
                                  << endl;
-        iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image, TinyXML, EnTT" << endl
+        iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image, TinyXML" << endl;
+        iaConsole::getInstance() << T << "               EnTT, R. Penner Easing" << endl
                                  << endl;
         iaConsole::getInstance() << T << "    get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
@@ -121,7 +125,6 @@ namespace igor
         iPhysics::create();
         iRenderer::create();
         iMaterialResourceFactory::create();
-        iTextureResourceFactory::create();
         iWidgetManager::create();
         iSceneFactory::create();
         iNodeManager::create();
@@ -173,11 +176,6 @@ namespace igor
             iMaterialResourceFactory::destroy();
         }
 
-        if (iTextureResourceFactory::isInstantiated())
-        {
-            iTextureResourceFactory::destroy();
-        }
-
         if (iRenderer::isInstantiated())
         {
             iRenderer::destroy();
@@ -226,7 +224,7 @@ namespace igor
         iTimer::create();
         printInfo();
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         static const std::vector<iaString> configLocations = {
             L"config",
             L"..\\config",

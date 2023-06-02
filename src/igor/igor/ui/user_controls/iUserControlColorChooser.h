@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROLCOLORCHOOSER_H__
-#define __IGOR_USERCONTROLCOLORCHOOSER_H__
+#ifndef __IGOR_USERCONTROLCOLORCHOOSER__
+#define __IGOR_USERCONTROLCOLORCHOOSER__
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/widgets/iWidget.h>
@@ -519,4 +519,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROLCOLORCHOOSER_H__
+#endif // __IGOR_USERCONTROLCOLORCHOOSER__

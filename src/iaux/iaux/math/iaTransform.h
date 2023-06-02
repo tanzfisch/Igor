@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_TRANSFORM_H__
-#define __IAUX_TRANSFORM_H__
+#ifndef __IAUX_TRANSFORM__
+#define __IAUX_TRANSFORM__
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaQuaternion.h>
@@ -126,4 +126,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_TRANSFORM_H__
+#endif // __IAUX_TRANSFORM__

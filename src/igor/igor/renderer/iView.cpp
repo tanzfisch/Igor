@@ -6,7 +6,7 @@
 
 #include <igor/system/iWindow.h>
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
 

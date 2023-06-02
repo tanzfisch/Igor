@@ -27,11 +27,11 @@
 #include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/threading/tasks/iTaskFlushResources.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/terrain/data/iVoxelData.h>
 
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
@@ -105,7 +105,7 @@ void Ascent::initScene()
 
     // reate a sky box and add it to scene
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skybox_default.jpg"));
+    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skybox_default.jpg"));
     skyBoxNode->setTextureScale(1);
     // create a sky box material
     _materialSkyBox = iMaterialResourceFactory_old::getInstance().createMaterial("Sky Box");
@@ -179,10 +179,10 @@ void Ascent::initVoxelData()
     oulineLevelStructure();
 
     iTargetMaterialPtr targetMaterial = _voxelTerrain->getTargetMaterial();
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 2);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("detail.png"), 3);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 0);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 1);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 2);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("detail.png"), 3);
     targetMaterial->setAmbient(iaColor3f(0.1f, 0.1f, 0.1f));
     targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
     targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
@@ -214,15 +214,15 @@ void Ascent::oulineLevelStructure()
         iaVector3d bossPosition = boss->getCurrentPos();
 
         // covering the boss
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x - 20, bossPosition._y, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y + 20, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y - 20, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z + 20), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z - 20), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x - 20, bossPosition._y, bossPosition._z), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y + 20, bossPosition._z), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y - 20, bossPosition._z), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z + 20), 1.7));
+        _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z - 20), 1.7));
 
         // hole where the boss sits
-        _holes.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z), 1.7));
+        _holes.push_back(iaSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z), 1.7));
 
         // body
         for (int i = 0; i < 15; ++i)
@@ -232,7 +232,7 @@ void Ascent::oulineLevelStructure()
             pos *= 20 + (rand.getNext() % 40);
             pos += bossPosition;
 
-            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 4.0));
+            _metaballs.push_back(iaSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 4.0));
         }
     }
 }
@@ -440,7 +440,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
         {
             iaVector3d creationPos = pos + offset;
 
-            iSphered sphere(creationPos, 5);
+            iaSphered sphere(creationPos, 5);
             std::vector<uint64> result;
             iEntityManager::getInstance().getEntities(sphere, result);
             if (result.empty())
@@ -503,7 +503,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
 
             if (_voxelTerrain->castRay(iaVector3I(from._x, from._y, from._z), iaVector3I(to._x, to._y, to._z), outside, inside))
             {
-                iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
+                iaSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
                 std::vector<uint64> result;
                 iEntityManager::getInstance().getEntities(sphere, result);
                 if (result.empty())
@@ -558,7 +558,7 @@ void Ascent::onInit()
 
     // launch resource handlers
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(getWindow()));
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(getWindow()));
 }
 
 void Ascent::onDeinit()
@@ -626,7 +626,7 @@ void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
     box._halfWidths.set(toolSize, toolSize, toolSize);
     _voxelTerrain->modify(box, density);*/
 
-    iSphereI sphere;
+    iaSphereI sphere;
     sphere._center = position;
     sphere._radius = toolSize;
     _voxelTerrain->modify(sphere, density);

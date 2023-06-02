@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.40.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -101,8 +101,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3761e3c3cebfd213d45a6cde6f9a5363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dee369a872343ca70ff90040cac4049"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#a9dee369a872343ca70ff90040cac4049">iaCircle</a> (T x, T y, T radius=1.0)</td></tr>
 <tr class="separator:a9dee369a872343ca70ff90040cac4049"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a49538a549f32518a3c3be792e831d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#a0a49538a549f32518a3c3be792e831d9">iaCircle</a> (const <a class="el" href="structiaux_1_1ia_vector2.html">iaVector2</a>&lt; T &gt; &amp;center, T radius=1.0)</td></tr>
-<tr class="separator:a0a49538a549f32518a3c3be792e831d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8f9ab418142382b0b6df059f30ff3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#a3c8f9ab418142382b0b6df059f30ff3f">iaCircle</a> (const <a class="el" href="structiaux_1_1ia_vector2.html">iaVector2</a>&lt; T &gt; &amp;center, T radius=static_cast&lt; T &gt;(1.0))</td></tr>
+<tr class="separator:a3c8f9ab418142382b0b6df059f30ff3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09c397bd38d2c4c904e9e8a1b1c68391"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#a09c397bd38d2c4c904e9e8a1b1c68391">iaCircle</a> (const <a class="el" href="classiaux_1_1ia_circle.html">iaCircle</a>&lt; T &gt; &amp;circle)</td></tr>
 <tr class="separator:a09c397bd38d2c4c904e9e8a1b1c68391"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a579a4c214ad96d3fa183548822050af0"><td class="memItemLeft" align="right" valign="top">const T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#a579a4c214ad96d3fa183548822050af0">getX</a> () const</td></tr>
@@ -132,7 +132,7 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:af49703be782853e67b42fcf05d99cb51"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structiaux_1_1ia_vector2.html">iaVector2</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#af49703be782853e67b42fcf05d99cb51">_center</a></td></tr>
 <tr class="separator:af49703be782853e67b42fcf05d99cb51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa051f5672afa0885e8467372b02e6ccc"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#aa051f5672afa0885e8467372b02e6ccc">_radius</a> = (T)1.0</td></tr>
+<tr class="memitem:aa051f5672afa0885e8467372b02e6ccc"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#aa051f5672afa0885e8467372b02e6ccc">_radius</a> = static_cast&lt;T&gt;(1.0)</td></tr>
 <tr class="separator:aa051f5672afa0885e8467372b02e6ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -213,7 +213,7 @@ template&lt;class T &gt; </div>
 <p>ctor with parameters</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>horrizontal center position </td></tr>
+    <tr><td class="paramname">x</td><td>horizontal center position </td></tr>
     <tr><td class="paramname">y</td><td>vertical center position </td></tr>
     <tr><td class="paramname">radius</td><td>radius </td></tr>
   </table>
@@ -222,8 +222,8 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a0a49538a549f32518a3c3be792e831d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a49538a549f32518a3c3be792e831d9">&#9670;&nbsp;</a></span>iaCircle() <span class="overload">[3/4]</span></h2>
+<a id="a3c8f9ab418142382b0b6df059f30ff3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c8f9ab418142382b0b6df059f30ff3f">&#9670;&nbsp;</a></span>iaCircle() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +243,7 @@ template&lt;class T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>radius</em> = <code>1.0</code>&#160;</td>
+          <td class="paramname"><em>radius</em> = <code>static_cast&lt;T&gt;(1.0)</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -360,7 +360,7 @@ template&lt;class T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>horrizonal position </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>horizontal position </dd></dl>
 
 </div>
 </div>
@@ -486,7 +486,7 @@ template&lt;class T &gt; </div>
 <p>set with parameters</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>horrizontal center position </td></tr>
+    <tr><td class="paramname">x</td><td>horizontal center position </td></tr>
     <tr><td class="paramname">y</td><td>vertical center position </td></tr>
     <tr><td class="paramname">radius</td><td>radius </td></tr>
   </table>
@@ -566,10 +566,10 @@ template&lt;class T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>sets horrizontal position</p>
+<p>sets horizontal position</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>horrizontal position </td></tr>
+    <tr><td class="paramname">x</td><td>horizontal position </td></tr>
   </table>
   </dd>
 </dl>
@@ -630,7 +630,7 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">T <a class="el" href="classiaux_1_1ia_circle.html">iaux::iaCircle</a>&lt; T &gt;::_radius = (T)1.0</td>
+          <td class="memname">T <a class="el" href="classiaux_1_1ia_circle.html">iaux::iaCircle</a>&lt; T &gt;::_radius = static_cast&lt;T&gt;(1.0)</td>
         </tr>
       </table>
 </div><div class="memdoc">

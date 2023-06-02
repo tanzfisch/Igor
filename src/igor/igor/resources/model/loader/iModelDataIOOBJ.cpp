@@ -4,7 +4,7 @@
 
 #include <igor/resources/model/loader/iModelDataIOOBJ.h>
 
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaConsole.h>
 #include <igor/resources/model/iModel.h>
@@ -105,7 +105,10 @@ namespace igor
 
 			if (material->_texture != "")
 			{
-				meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(material->_texture.getData()), 0);
+				
+
+				meshNode->getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(material->_texture), 0);
+				
 			}
 		}
 

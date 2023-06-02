@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGCOLORGRADIENT_H__
-#define __IGOR_DIALOGCOLORGRADIENT_H__
+#ifndef __IGOR_DIALOGCOLORGRADIENT__
+#define __IGOR_DIALOGCOLORGRADIENT__
 
 #include <igor/ui/dialogs/iDialog.h>
 
-#include <iaux/data/iaGradient.h>
+#include <iaux/data/iaKeyFrameGraph.h>
 using namespace iaux;
 
 namespace igor
@@ -67,7 +67,7 @@ namespace igor
 
 		\param gradient the gradient to set
 		*/
-        void setColorGradient(const iaGradientColor4f &gradient);
+        void setColorGradient(const iaKeyFrameGraphColor4f &gradient);
 
         /*! sets weather or not alpha channel is used
 
@@ -81,20 +81,20 @@ namespace igor
 
         /*! \returns color gradient from dialog
         */
-        const iaGradientColor4f &getColorGradient() const;
+        const iaKeyFrameGraphColor4f &getColorGradient() const;
 
         /*! \returns previsou color gradient
         */
-        const iaGradientColor4f &getResetColorGradient() const;
+        const iaKeyFrameGraphColor4f &getResetColorGradient() const;
 
     private:
         /*! the old gradient
 		*/
-        iaGradientColor4f _oldGradient;
+        iaKeyFrameGraphColor4f _oldGradient;
 
         /*! the current gradient
 		*/
-        iaGradientColor4f _gradient;
+        iaKeyFrameGraphColor4f _gradient;
 
         /*! current selected color index
 		*/
@@ -178,4 +178,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGCOLORGRADIENT_H__
+#endif // __IGOR_DIALOGCOLORGRADIENT__

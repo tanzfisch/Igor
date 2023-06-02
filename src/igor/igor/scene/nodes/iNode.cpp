@@ -19,14 +19,14 @@ namespace igor
 
     iNode::iNode()
     {
-        _nodeID = iNode::_idGenerator.createID();
+        _nodeID = iNode::_idGenerator.getNextID();
     }
 
     iNode::iNode(iNodePtr node)
     {
         con_assert(node != nullptr, "zero pointer");
 
-        _nodeID = iNode::_idGenerator.createID();
+        _nodeID = iNode::_idGenerator.getNextID();
         setName(node->getName());
     }
 

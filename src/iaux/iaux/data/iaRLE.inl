@@ -272,7 +272,7 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TValue value)
         blockIter++;
     }
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
     TIndex totalLength = static_cast<TIndex>(0);
     for (auto block : _blocks)
     {

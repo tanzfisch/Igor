@@ -14,11 +14,11 @@ using namespace iaux;
 
 namespace igor
 {
-	void iSpriteRenderSystem::update(iEntityScenePtr scene)
+	void iSpriteRenderSystem::render(iEntityScenePtr scene)
 	{
-		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
+		auto *registry = static_cast<entt::registry *>(scene->getRegistry());
 		registry->sort<iSpriteRendererComponent>([registry](const entt::entity lhs, const entt::entity rhs)
-												{
+												 {
 			const auto &clhs = registry->get<iSpriteRendererComponent>(lhs);
 			const auto &crhs = registry->get<iSpriteRendererComponent>(rhs);
 			return clhs._zIndex < crhs._zIndex; });
@@ -35,15 +35,14 @@ namespace igor
 				iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix._pos,
 														  transform._worldMatrix._right * spriteRender._size._x * 0.5,
 														  transform._worldMatrix._top * -spriteRender._size._y * 0.5,
-														  spriteRender._texture, spriteRender._color, true, spriteRender._size);
+														  spriteRender._sprite->getTexture(), spriteRender._color, true, spriteRender._size);
 				break;
 
 			case iSpriteRenderMode::Simple:
 			default:
-				iRenderer::getInstance().drawTexturedQuad(transform._worldMatrix._pos,
-														  transform._worldMatrix._right * spriteRender._size._x * 0.5,
-														  transform._worldMatrix._top * -spriteRender._size._y * 0.5,
-														  spriteRender._texture, spriteRender._color, true);
+				iRenderer::getInstance().drawSprite(transform._worldMatrix,
+													spriteRender._sprite, spriteRender._frameIndex, spriteRender._size,
+													spriteRender._color, true);
 				break;
 			}
 		}

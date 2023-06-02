@@ -38,7 +38,7 @@ namespace igor
 
 /*! checks for openGL errors and prints them in the console
  */
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
 #define GL_CHECK_ERROR()                                        \
     do                                                          \
     {                                                           \
@@ -85,7 +85,7 @@ namespace igor
 #define GL_CHECK_ERROR()
 #endif
 
-#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH)
+#if defined(IGOR_DEBUG) && defined(GL_DEBUG_SEVERITY_HIGH)
     // print out openGL debug messages
     static void onOGLDebugOutput(
         GLenum source,

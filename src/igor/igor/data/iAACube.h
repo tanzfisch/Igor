@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_AACUBE_H__
-#define __IGOR_AACUBE_H__
+#ifndef __IGOR_AACUBE__
+#define __IGOR_AACUBE__
 
 #include <igor/iDefines.h>
 
@@ -50,7 +50,7 @@ namespace igor
         /*! init members constructor
 
         \param center center position of cube
-        \param halfEdgeLenght half of the edge lenght of the cube
+        \param halfEdgeLenght half of the edge length of the cube
         */
         iAACube(const iaVector3<T> &center, T halfEdgeLenght);
 
@@ -58,7 +58,7 @@ namespace igor
         */
         iaVector3<T> _center;
 
-        /*! half of the edge lenght
+        /*! half of the edge length
         */
         T _halfEdgeLength = static_cast<T>(0);
     };
@@ -75,4 +75,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_AACUBE_H__
+#endif // __IGOR_AACUBE__

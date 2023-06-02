@@ -51,7 +51,7 @@ namespace igor
 
         void drawRectangle(const iaRectanglef &rect);
         void drawFilledRectangle(const iaRectanglef &rect);
-        void drawGradient(const iaRectanglef &rect, const iaGradientColor4f &gradient);
+        void drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient);
 
         void drawTiledRectangle(const iaRectanglef &rect, iTexturePtr texture);
 

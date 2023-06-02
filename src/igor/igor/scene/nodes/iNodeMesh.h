@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MESHNODE_H__
-#define __IGOR_MESHNODE_H__
+#ifndef __IGOR_MESHNODE__
+#define __IGOR_MESHNODE__
 
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/mesh/iMesh.h>
@@ -130,4 +130,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_MESHNODE_H__
+#endif // __IGOR_MESHNODE__

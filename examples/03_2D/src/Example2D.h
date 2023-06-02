@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE2D_H__
-#define __EXAMPLE2D_H__
+#ifndef __EXAMPLE2D__
+#define __EXAMPLE2D__
 
 #include <ExampleBase.h>
 
@@ -59,9 +59,9 @@ private:
     */
     iaVector2f _lastMousePos;
 
-    /*! opengl logo
+    /*! doughnuts
     */
-    iAtlasPtr _doughnuts = nullptr;
+    iSpritePtr _doughnuts = nullptr;
 
     /*! current transform of doughnuts
     */
@@ -77,11 +77,15 @@ private:
 
     /*! background tileable texture
     */
-    iTexturePtr _backgroundTexture = nullptr;
+    iTexturePtr _backgroundTexture;
 
     /*! a dummy texture
     */
-    iTexturePtr _dummyTexture = nullptr;
+    iTexturePtr _dummyTexture;
+
+    /*! a mandelbrot texture
+    */
+    iTexturePtr _mandelbrotTexture;    
 
     /*! a B-Spline
     */
@@ -133,6 +137,10 @@ private:
     */
     void initParticleSystem();
 
+    /*! initialize a generated texture
+    */
+    void initMandelbrotTexture();
+
     /*! handles mouse move event
 
     \param event the mouse move event
@@ -141,4 +149,4 @@ private:
     bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
-#endif // __EXAMPLE2D_H__
+#endif // __EXAMPLE2D__

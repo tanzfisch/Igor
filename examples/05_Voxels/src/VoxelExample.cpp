@@ -65,14 +65,14 @@ void VoxelExample::initScene()
     lightTranslate->insertNode(lightNode);
 
     // set up voxel mesh material
-    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().loadMaterial("examples/voxel_terrain_directional_light.mat");
+    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().loadMaterial("voxel_terrain_directional_light.mat");
 
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
-    skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skyboxes/stars.png"));
+    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/stars.png"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    iMaterialPtr materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("examples/skybox.mat");
+    iMaterialPtr materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
     materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
     // set that material
     skyBoxNode->setMaterial(materialSkyBox);

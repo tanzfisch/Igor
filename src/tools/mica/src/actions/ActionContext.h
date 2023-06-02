@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __ACTIONCONTEXT_H__
-#define __ACTIONCONTEXT_H__
+#ifndef __ACTIONCONTEXT__
+#define __ACTIONCONTEXT__
 
 #include "../Outliner.h"
 
@@ -68,4 +68,4 @@ private:
     Outliner *_outliner = nullptr;
 };
 
-#endif // __ACTIONS_H__
+#endif // __ACTIONS__

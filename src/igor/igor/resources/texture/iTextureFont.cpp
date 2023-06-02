@@ -4,7 +4,8 @@
 
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iPixmap.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
+#include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/iResourceManager.h>
 
 namespace igor
@@ -13,24 +14,26 @@ namespace igor
 #define CHARACTERINTEXWIDTH 16
 #define CHARACTERINTEXHEIGHT 8
 
-    iTextureFontPtr iTextureFont::create(const iaString &filename, iFontType type, iColorMask colorMask, float32 colorMaskThreashold)
+    iTextureFontPtr iTextureFont::create(const iaString &filename, iFontType type, iColorMask colorMask, float32 colorMaskThreshold)
     {
-        return std::make_shared<iTextureFont>(filename, type, colorMask, colorMaskThreashold);
+        return iTextureFontPtr(new iTextureFont(filename, type, colorMask, colorMaskThreshold));
     }
 
-    iTextureFont::iTextureFont(const iaString &filename, iFontType type, iColorMask colorMask, float32 colorMaskThreashold)
+    iTextureFont::iTextureFont(const iaString &filename, iFontType type, iColorMask colorMask, float32 colorMaskThreshold)
     {
         valid = false;
 
         const iaString resolved = iResourceManager::getInstance().getPath(filename);
 
-        _texture = iTextureResourceFactory::getInstance().loadFile(resolved, iResourceCacheMode::Free, iTextureBuildMode::Normal);
+        iParameters param({{"name", resolved},
+                           {"buildMode", iTextureBuildMode::Normal}});
+        _texture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
 
         if (!_texture->isValid())
         {
             return;
         }
-        _pixmap = iTextureResourceFactory::getInstance().loadPixmap(resolved);
+        _pixmap = iTextureFactory::loadPixmap(resolved);
 
         if (_pixmap == nullptr)
         {
@@ -87,7 +90,7 @@ namespace igor
                     {
                         for (long pos_y = tex_y * offy; pos_y < tex_y * offy + offy; pos_y++)
                         {
-                            if (_pixmap->getPixel(pos_x, pos_y, borderchannel) > colorMaskThreashold)
+                            if (_pixmap->getPixel(pos_x, pos_y, borderchannel) > colorMaskThreshold)
                             {
                                 if (!firstfound)
                                 {
@@ -104,7 +107,7 @@ namespace igor
                 if (!fixed_width)
                 {
                     float32 reducedWidth = _characters[character]._characterRect.getWidth() / 3.0f;
-                    _characters[character]._characterRect.setWidth(reducedWidth); // damit freizeichen nicht �bertrieben breit sind
+                    _characters[character]._characterRect.setWidth(reducedWidth);
 
                     firstfound = false;
                     for (long pos_x = tex_x * offx + offx - 1; pos_x >= tex_x * offx; pos_x--)
@@ -134,9 +137,7 @@ namespace igor
             }
         }
 
-        // no need to old on to this
-        delete _pixmap;
-        _pixmap = nullptr;        
+        _pixmap = nullptr;
 
         switch (type)
         {
@@ -161,7 +162,7 @@ namespace igor
         _characters.clear();
     }
 
-    iTexturePtr iTextureFont::getTexture()
+    iTexturePtr iTextureFont::getTexture() const
     {
         return _texture;
     }
@@ -229,52 +230,81 @@ namespace igor
         character._characterOffset = newCharacterOffset;
     }
 
-    bool iTextureFont::isValid()
+    bool iTextureFont::isValid() const
     {
         return valid;
     }
 
-    float32 iTextureFont::measureWidth(iaString text, float32 size)
+    float32 iTextureFont::measureWidth(const iaString &text, float32 size)
     {
-        if (valid)
+        if (!valid)
         {
-            float32 lenght = 0;
-            for (uint32 i = 0; i < text.getLength(); i++)
-            {
-                uint32 index = (uint32)text[i] - 32;
+            return 0;
+        }
 
-                if(index < 0 || 
-                index > _characters.size())
+        const float32 spaceWidth = _characters[0]._characterOffset * size;
+        float32 maxLength = 0;
+        float32 length = 0;
+        for (uint32 i = 0; i < text.getLength(); i++)
+        {
+            const wchar_t &character = text[i];
+
+            if (character == L'\n')
+            {
+                if (length > maxLength)
                 {
-                    continue;
+                    maxLength = length;
                 }
 
-                lenght += _characters[index]._characterOffset * size;
+                length = 0;
+                continue;
             }
-            return lenght;
+
+            if (character == L'\t')
+            {
+                length += spaceWidth * 4;
+                continue;
+            }
+
+            const uint32 index = (uint32)text[i] - 32;
+
+            if (index < 0 ||
+                index > _characters.size())
+            {
+                continue;
+            }
+
+            length += _characters[index]._characterOffset * size;
         }
 
-        return 0;
+        if (length > maxLength)
+        {
+            maxLength = length;
+        }
+
+        return maxLength;
     }
 
-    float32 iTextureFont::measureHeight(iaString text, float32 size, float32 maxWidth, float32 lineHeight)
+    float32 iTextureFont::measureHeight(const iaString &text, float32 size, float32 maxWidth, float32 lineHeight)
     {
-        float32 height = 0;
-
-        if (maxWidth == 0.0f)
+        if (!valid)
         {
-            return size;
+            return lineHeight * size;
         }
 
-        if (valid && text != L"")
-        {
-            float32 length = 0;
-            float32 lastlength = 0;
+        float32 height = 0;
+        float32 length = 0;
+        float32 lastlength = 0;
 
-            for (uint32 i = 0; i < text.getLength(); i++)
+        for (uint32 i = 0; i < text.getLength(); i++)
+        {
+            const wchar_t &character = text[i];
+
+            length += _characters[character - 32]._characterOffset * size;
+
+            if (maxWidth != 0.0)
             {
-                length += _characters[((unsigned char)text[i]) - 32]._characterOffset * size;
-                if ((unsigned char)text[i] == ' ')
+                if (character == L' ' || character == L'\t')
                 {
                     if (length > maxWidth)
                     {
@@ -285,16 +315,17 @@ namespace igor
                     lastlength = length;
                 }
             }
-
-            if (length > maxWidth)
+            else if (character == L'\n')
             {
                 height += lineHeight * size;
             }
+        }
 
+        if (length > maxWidth)
+        {
             height += lineHeight * size;
         }
 
         return height;
     }
-
 }; // namespace igor

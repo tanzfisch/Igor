@@ -10,7 +10,7 @@ var classigor_1_1i_widget_default_theme =
     [ "drawFilledRectangle", "classigor_1_1i_widget_default_theme.html#a2319ba53384ad14ef73a454ffa4d0a10", null ],
     [ "drawFilledRectangle", "classigor_1_1i_widget_default_theme.html#ae43a6c2034b4f9d2915808ab51faeec6", null ],
     [ "drawFrame", "classigor_1_1i_widget_default_theme.html#a470e2803f927aaa9c5e819c29d61dd26", null ],
-    [ "drawGradient", "classigor_1_1i_widget_default_theme.html#a22ef9beee6542183e0b37025a0522eed", null ],
+    [ "drawGradient", "classigor_1_1i_widget_default_theme.html#a79d110ef8fcfaa4bb3290e0d86b887bf", null ],
     [ "drawGraph", "classigor_1_1i_widget_default_theme.html#a07ce8912e11325b8457ab65f8467952e", null ],
     [ "drawGraphFrame", "classigor_1_1i_widget_default_theme.html#a8520d317ca6f0f5a869938b673918fe6", null ],
     [ "drawGraphGridlines", "classigor_1_1i_widget_default_theme.html#aedf9cd96def69f989b06001b8bb265fa", null ],

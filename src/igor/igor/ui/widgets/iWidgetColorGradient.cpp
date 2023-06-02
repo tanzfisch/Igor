@@ -7,7 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 #include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
@@ -26,7 +26,7 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
 
-        _texture = iTextureResourceFactory::getInstance().loadFile("igor/textures/checker.png");
+        _texture = iResourceManager::getInstance().loadResource<iTexture>("igor/textures/checker.png");
         _gradient.setValue(0.0, iaColor4f(1, 1, 1, 1));
     }
 
@@ -62,7 +62,7 @@ namespace igor
             gradientRect._width -= 10;
             gradientRect._height /= 2;
 
-            const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
+            const auto &gradient = _gradient.getValues();
 
             iaRectanglef buttonRect(0, 0, 0, 0);
             buttonRect._height = getActualHeight() - gradientRect._height - 1;
@@ -88,7 +88,7 @@ namespace igor
             {
                 float32 value = (static_cast<float32>(mousePos._x - gradientRect._x) / static_cast<float32>(gradientRect._width));
                 iaColor4f color;
-                _gradient.getValue(value, color);
+                color = _gradient.getValue(value);
                 _colorCreated(value, color);
             }
         }
@@ -121,12 +121,12 @@ namespace igor
         setMinSize(0, 0);
     }
 
-    void iWidgetColorGradient::setGradient(const iaGradientColor4f &gradient)
+    void iWidgetColorGradient::setGradient(const iaKeyFrameGraphColor4f &gradient)
     {
         _gradient = gradient;
     }
 
-    const iaGradientColor4f &iWidgetColorGradient::getGradient() const
+    const iaKeyFrameGraphColor4f &iWidgetColorGradient::getGradient() const
     {
         return _gradient;
     }
@@ -162,7 +162,7 @@ namespace igor
 
             if (_interactive)
             {
-                const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
+                const auto &gradient = _gradient.getValues();
 
                 iaRectanglef buttonRect(0, 0, 0, 0);
                 buttonRect._height = buttonHeight;
@@ -173,7 +173,7 @@ namespace igor
 
                 for (auto entry : gradient)
                 {
-                    _gradient.getValue(entry.first, color);
+                    color = _gradient.getValue(entry.first);
                     color._a = 1.0f;
                     buttonRect._x = static_cast<int32>(entry.first * gradientRect._width) + gradientRect._x - 4;
                     iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, color, iWidgetState::Standby, isEnabled());

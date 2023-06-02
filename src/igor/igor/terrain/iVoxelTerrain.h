@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VOXELTERRAINGENERATOR_H__
-#define __IGOR_VOXELTERRAINGENERATOR_H__
+#ifndef __IGOR_VOXELTERRAINGENERATOR__
+#define __IGOR_VOXELTERRAINGENERATOR__
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeManager.h>
@@ -161,7 +161,7 @@ namespace igor
         \param sphere the defined area to manipulate
         \param density the density to set within the box area
         */
-        void modify(const iSphereI &sphere, uint8 density);
+        void modify(const iaSphereI &sphere, uint8 density);
 
         /*! casts ray to voxels to detect intersection
 
@@ -330,4 +330,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_VOXELTERRAINGENERATOR_H__
+#endif // __IGOR_VOXELTERRAINGENERATOR__

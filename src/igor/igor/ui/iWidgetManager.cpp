@@ -55,7 +55,7 @@ namespace igor
         {
             con_warn("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
             for (auto pair : _widgets)
             {
                 auto widget = pair.second;

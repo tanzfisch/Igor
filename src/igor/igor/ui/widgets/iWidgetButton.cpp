@@ -7,7 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -42,7 +42,7 @@ namespace igor
         if (_texturePath != texturePath)
         {
             _texturePath = texturePath;
-            _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
+            _texture = iResourceManager::getInstance().loadResource<iTexture>(_texturePath);
         }
     }
 

@@ -9,7 +9,7 @@
 
 #include <filesystem>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 #include <io.h>
 #endif
 
@@ -39,7 +39,7 @@ namespace iaux
         fseek(fileHandle, 0, SEEK_END);
         fpos_t pos;
         fgetpos(fileHandle, &pos);
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         size = pos;
 #endif
 #ifdef __IGOR_LINUX__
@@ -234,7 +234,7 @@ namespace iaux
 
     bool iaFile::setFilePointer(int64 position)
     {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         fpos_t pos = position;
 #endif
 #ifdef __IGOR_LINUX__
@@ -316,7 +316,7 @@ namespace iaux
 
     bool iaFile::setSize(int64 size)
     {
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
         if (_chsize(fileno(_fileHandle), size) != 0)
         {
             con_err("cant change size of file: " << getFullFileName() << " to " << size);

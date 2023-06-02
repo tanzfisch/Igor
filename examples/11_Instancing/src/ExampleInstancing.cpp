@@ -68,8 +68,8 @@ void ExampleInstancing::onInit()
 
     // we have to override the material which is stored within the model
     // to do that we load a new material that is using instancing
-    _materialWithInstancingA = iMaterialResourceFactory::getInstance().loadMaterial("examples/instancing_textured.mat");
-    _materialWithInstancingB = iMaterialResourceFactory::getInstance().loadMaterial("examples/instancing_flat_shaded.mat");
+    _materialWithInstancingA = iMaterialResourceFactory::getInstance().loadMaterial("instancing_textured.mat");
+    _materialWithInstancingB = iMaterialResourceFactory::getInstance().loadMaterial("instancing_flat_shaded.mat");
 
     // now we can just put copies of that model in the scene
     iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PERLINNOISE_H__
-#define __IGOR_PERLINNOISE_H__
+#ifndef __IGOR_PERLINNOISE__
+#define __IGOR_PERLINNOISE__
 
 #include <igor/iDefines.h>
 
@@ -147,4 +147,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_PERLINNOISE3D_H__
+#endif // __IGOR_PERLINNOISE3D__

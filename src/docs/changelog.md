@@ -1,6 +1,20 @@
 Changelog                           {#changelog}
 =========
 
+0.40.0
+------
+
+- improved renderer interface and fleshed out the docs
+- fixed issue around texture fonts rendering and measuring size
+- fixed more typos
+- added more tests in iaux
+- remove iTextureResourceFactory and have textures now handled by the iResourceManager
+- new resources iAnimation, iSprite and iTexture (replaced previous iTexture)
+- added state machine back in
+- added pixmap to texture back in
+- added new animation system running on top of the entity system
+- replaced iAtlas with iSprite
+
 0.39.0
 ------
 
@@ -10,7 +24,7 @@ Changelog                           {#changelog}
 - implemented a whole bunch of components and systems
 - added simple and probably slow home brewed components interface for custom user components (see iComponentMap)
 - removed old entity system completely
-- used Sipremacy to make use of changed in ECS interfaces
+- used Supremacy to make use of changed in ECS interfaces
 - introduced application wide simulation pause/continue
 - fixed lots of typos
 - removed multi window support since it never worked anyway

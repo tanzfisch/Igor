@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_NODEFACTORY_H__
-#define __IGOR_NODEFACTORY_H__
+#ifndef __IGOR_NODEFACTORY__
+#define __IGOR_NODEFACTORY__
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/module/iModule.h>
@@ -233,4 +233,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_NODEFACTORY_H__
+#endif // __IGOR_NODEFACTORY__

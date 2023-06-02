@@ -65,8 +65,8 @@ namespace igor
         Disc -> radius
         Circle -> radius
         Sphere -> radius
-        Square -> half edge lenght
-        Cube -> half edge lenght
+        Square -> half edge length
+        Cube -> half edge length
 
         \param size size of emitter
         */

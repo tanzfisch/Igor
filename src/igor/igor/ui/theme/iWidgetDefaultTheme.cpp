@@ -3,9 +3,9 @@
 // see copyright notice in corresponding header file
 
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
-
+#include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
+
 #include <igor/resources/material/iMaterial.h>
 #include <igor/renderer/iRenderer.h>
 
@@ -68,7 +68,7 @@ namespace igor
     iWidgetDefaultTheme::iWidgetDefaultTheme(const iaString &fontTexture, const iaString &backgroundTexture)
     {
         _font = iTextureFont::create(fontTexture);
-        _backgroundTexture = iTextureResourceFactory::getInstance().loadFile(backgroundTexture);
+        _backgroundTexture = iResourceManager::getInstance().loadResource<iTexture>(backgroundTexture);
     }
 
     iWidgetDefaultTheme::~iWidgetDefaultTheme()
@@ -100,7 +100,7 @@ namespace igor
         drawFilledRectangle(rect, COLOR_DIFFUSE);
     }
 
-    void iWidgetDefaultTheme::drawGradient(const iaRectanglef &rect, const iaGradientColor4f &gradient)
+    void iWidgetDefaultTheme::drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient)
     {
         iRenderer::getInstance().setLineWidth(1);
 
@@ -111,7 +111,7 @@ namespace igor
             float32 indexPosX = static_cast<float32>(rect._x + i) + 0.5f;
             float32 halfHeight = static_cast<float32>(rect._height) * 0.5f;
 
-            gradient.getValue(static_cast<float32>(i) / static_cast<float32>(rect._width), color);
+            color = gradient.getValue(static_cast<float32>(i) / static_cast<float32>(rect._width));
             // TODO iRenderer::getInstance().setMaterial TODO(true);
             iRenderer::getInstance().drawLine(indexPosX, static_cast<float32>(rect._y) + halfHeight + 0.5f, indexPosX, static_cast<float32>(rect._y + rect._height) + 0.5f, color);
             // TODO iRenderer::getInstance().setMaterial TODO(false);
@@ -363,7 +363,7 @@ namespace igor
 
             relativeTextPosX += scrollOffset;
 
-            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2, _fontSize, COLOR_TEXT_DARK);
+            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2.0f, _fontSize, COLOR_TEXT_DARK);
         }
 
         // render text
@@ -602,7 +602,7 @@ namespace igor
 
                 if (i > 0)
                 {
-                    iRenderer::getInstance().drawLine(lastPoint._x, lastPoint._y, currentPoint._x, currentPoint._y, lineColor);
+                    iRenderer::getInstance().drawLine(lastPoint, currentPoint, lineColor);
                 }
 
                 lastPoint = currentPoint;
@@ -618,7 +618,7 @@ namespace igor
                 currentPoint._x = points[i]._x + rect._x;
                 currentPoint._y = points[i]._y + rect._y;
 
-                iRenderer::getInstance().drawPoint(currentPoint._x, currentPoint._y, pointColor);
+                iRenderer::getInstance().drawPoint(currentPoint, pointColor);
             }
         }
 

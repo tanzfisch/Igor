@@ -23,15 +23,15 @@ void SpriteAnimation::onInit()
     getView().setClearColor(0.0, 1.0, 1.0, 1.0);
     getViewOrtho().setScene(getScene());
 
-    _materialTerrain = iMaterialResourceFactory::getInstance().loadMaterial("examples/sprite_animation_textured.mat");
+    _materialTerrain = iMaterialResourceFactory::getInstance().loadMaterial("sprite_animation_textured.mat");
 
     // load atlantes
-    _walk = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "misc/SpriteAnimationWalk.atlant");
-    _tiles = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "misc/SpriteAnimationTiles.atlant");
+    _walk = iResourceManager::getInstance().loadResource<iSprite>("spriteAnimationWalk.sprite");
+    _tiles = iResourceManager::getInstance().loadResource<iSprite>("spriteAnimationTiles.sprite");
 
     // generate ground map
     TileMapGenerator tileMapGenerator;
-    tileMapGenerator.setAtlas(_tiles);
+    tileMapGenerator.setSprite(_tiles);
     tileMapGenerator.setMaterial(_materialTerrain);
     iNodePtr terrainNodeGround = tileMapGenerator.generateFromRandom(iaVector2i(32, 32), 0, 18);
     terrainNodeGround->setName("Ground");
@@ -41,7 +41,7 @@ void SpriteAnimation::onInit()
     getScene()->getRoot()->insertNode(terrainGroundTransform);
 
     // generate dressing and trees map
-    iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("SpriteAnimationTerrain.png");
+    iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("spriteAnimationTerrain.png");
     terrainNodeDressing->setName("Dressing");
     iNodeTransform *terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     terrainDressingTransform->translate(0, 0, 0);
@@ -62,9 +62,6 @@ void SpriteAnimation::onInit()
     {
         _flags[i] = false;
     }
-
-    // load requested textures right now
-    iTextureResourceFactory::getInstance().flush();
 
     // initialize animation timer
     _animationTimer.setIntervall(iaTime::fromMilliseconds(200));
@@ -336,7 +333,7 @@ void SpriteAnimation::onRenderOrtho()
     walkMatrix.translate(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, 0.0);
     walkMatrix.scale(70.0,70.0,1.0);
 
-    iRenderer::getInstance().drawFrame(walkMatrix, _walk, _animationOffset + _animationIndex, iaColor4f::white, true);
+    iRenderer::getInstance().drawSprite(walkMatrix, _walk, _animationOffset + _animationIndex, iaVector2f(1.0,1.0), iaColor4f::white, true);
 
     ExampleBase::onRenderOrtho();
 }

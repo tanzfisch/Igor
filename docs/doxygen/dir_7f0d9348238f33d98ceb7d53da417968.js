@@ -1,7 +1,5 @@
 var dir_7f0d9348238f33d98ceb7d53da417968 =
 [
-    [ "iaBits.h", "ia_bits_8h.html", "ia_bits_8h" ],
-    [ "iaBits.inl", "ia_bits_8inl.html", null ],
     [ "iaCircle.h", "ia_circle_8h.html", "ia_circle_8h" ],
     [ "iaCircle.inl", "ia_circle_8inl.html", "ia_circle_8inl" ],
     [ "iaColor3.h", "ia_color3_8h.html", "ia_color3_8h" ],
@@ -12,9 +10,10 @@ var dir_7f0d9348238f33d98ceb7d53da417968 =
     [ "iaConvert.h", "ia_convert_8h.html", [
       [ "iaConvert", "classiaux_1_1ia_convert.html", "classiaux_1_1ia_convert" ]
     ] ],
-    [ "iaGradient.h", "ia_gradient_8h.html", "ia_gradient_8h" ],
-    [ "iaGradient.inl", "ia_gradient_8inl.html", null ],
     [ "iaIDGenerator.h", "ia_i_d_generator_8h.html", "ia_i_d_generator_8h" ],
+    [ "iaIDGenerator.inl", "ia_i_d_generator_8inl.html", null ],
+    [ "iaKeyFrameGraph.h", "ia_key_frame_graph_8h.html", "ia_key_frame_graph_8h" ],
+    [ "iaKeyFrameGraph.inl", "ia_key_frame_graph_8inl.html", null ],
     [ "iaRectangle.h", "ia_rectangle_8h.html", "ia_rectangle_8h" ],
     [ "iaRectangle.inl", "ia_rectangle_8inl.html", "ia_rectangle_8inl" ],
     [ "iaRLE.h", "ia_r_l_e_8h.html", [

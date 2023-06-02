@@ -26,8 +26,8 @@
 //
 // contact: martinloga@gmx.de
 
-#ifndef __EXAMPLEINSTANCING_H__
-#define __EXAMPLEINSTANCING_H__
+#ifndef __EXAMPLEINSTANCING__
+#define __EXAMPLEINSTANCING__
 
 #include <ExampleBase.h>
 
@@ -117,4 +117,4 @@ private:
     bool onMouseWheelEvent(iEventMouseWheel &event);
 };
 
-#endif // __EXAMPLEINSTANCING_H__
+#endif // __EXAMPLEINSTANCING__

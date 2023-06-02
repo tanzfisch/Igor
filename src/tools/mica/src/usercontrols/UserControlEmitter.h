@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLEMITTER_H__
-#define __USERCONTROLEMITTER_H__
+#ifndef __USERCONTROLEMITTER__
+#define __USERCONTROLEMITTER__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -95,4 +95,4 @@ private:
     void initGUI();
 };
 
-#endif // __USERCONTROL_EMITTER_H__
+#endif // __USERCONTROL_EMITTER__

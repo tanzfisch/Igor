@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_CHECKBOXWIDGET_H__
-#define __IGOR_CHECKBOXWIDGET_H__
+#ifndef __IGOR_CHECKBOXWIDGET__
+#define __IGOR_CHECKBOXWIDGET__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -124,4 +124,4 @@ namespace igor
     typedef iWidgetCheckBox *iWidgetCheckBoxPtr;
 } // namespace igor
 
-#endif // __IGOR_CHECKBOXWIDGET_H__
+#endif // __IGOR_CHECKBOXWIDGET__

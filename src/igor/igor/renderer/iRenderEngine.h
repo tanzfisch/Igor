@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERENGINE_H__
-#define __IGOR_RENDERENGINE_H__
+#ifndef __IGOR_RENDERENGINE__
+#define __IGOR_RENDERENGINE__
 
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -201,4 +201,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif // __IGOR_RENDERENGINE_H__
+#endif // __IGOR_RENDERENGINE__

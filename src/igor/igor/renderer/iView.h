@@ -262,7 +262,7 @@ namespace igor
 
         top left is origin
 
-        \param posx horrizontal position of point in pixel
+        \param posx horizontal position of point in pixel
         \param posy vertical position of point in pixel
         \returns color id at given point (results are only valid for IDs <= 0xFFFFFF in use)
         */

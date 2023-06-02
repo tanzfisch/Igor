@@ -22,7 +22,7 @@ namespace igor
 
         _newtonBody = newtonBody;
 
-        _id = _idGenerator.createID();
+        _id = _idGenerator.getNextID();
     }
 
     iPhysicsBody::~iPhysicsBody()

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_OCTREE_H__
-#define __IGOR_OCTREE_H__
+#ifndef __IGOR_OCTREE__
+#define __IGOR_OCTREE__
 
 #include <igor/data/iAACube.h>
 #include <igor/data/iFrustum.h>
@@ -56,7 +56,7 @@ namespace igor
 
         \param userData pointer to user data
         */
-        void insert(void* userData, const iSphered &sphere);
+        void insert(void* userData, const iaSphered &sphere);
 
         /*! remove user data from octree
 
@@ -70,7 +70,7 @@ namespace igor
 
         \param userData pointer to user data
         */
-        void update(void* userData, const iSphered &sphere);
+        void update(void* userData, const iaSphered &sphere);
 
         /*! adds frustum to filter set
 
@@ -88,7 +88,7 @@ namespace igor
 
         \param sphere the sphere to filter with
         */
-        void addFilter(const iSphered &sphere);
+        void addFilter(const iaSphered &sphere);
 
         /*! clears filter set
          */
@@ -146,7 +146,7 @@ namespace igor
 
             /*! sphere of object
              */
-            iSphered _sphere;
+            iaSphered _sphere;
         };
 
         /*! octree node of certain size
@@ -223,7 +223,7 @@ namespace igor
 
         /*! spheres filter list
          */
-        std::vector<iSphered> _spheresFilter;
+        std::vector<iaSphered> _spheresFilter;
 
         /*! planes filter list
          */
@@ -241,7 +241,7 @@ namespace igor
         \param userData the id of the scene node to bind to the octree object
         \param position position of scene node volume
         */
-        void insert(uint64 nodeID, void* userData, const iSphered &sphere);
+        void insert(uint64 nodeID, void* userData, const iaSphered &sphere);
 
         /*! check if node has to be split and than split
 
@@ -272,7 +272,7 @@ namespace igor
         \param sphere the sphere to filter
         \returns true if inside filter definition
         */
-        bool testFilter(const iSphered &sphere);
+        bool testFilter(const iaSphered &sphere);
 
         /*! text cube against filter
 
@@ -298,7 +298,7 @@ namespace igor
         \param userData scene node to associate the octree object with
         \returns pointer to new octree object
         */
-        OctreeObject *createObject(void* userData, const iSphered &sphere);
+        OctreeObject *createObject(void* userData, const iaSphered &sphere);
 
         /*! deletes an octree object by scene node id
 
@@ -321,4 +321,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_OCTREE_H__
+#endif // __IGOR_OCTREE__

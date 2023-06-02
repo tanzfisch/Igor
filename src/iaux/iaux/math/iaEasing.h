@@ -3,12 +3,12 @@
 // Disclaimer for Robert Penner's Easing Equations license:
 // TERMS OF USE - EASING EQUATIONS
 // Open source under the BSD License.
-// Copyright © 2001 Robert Penner
+// Copyright ï¿½ 2001 Robert Penner
 // All rights reserved.
 // Redistribution and use in source and binary forms, with or without modification, are permitted provided 
 // that the following conditions are met :
-// * Redistributions of source code must retain the above copyright notice, this list of conditionsand the following disclaimer.
-// * Redistributions in binary form must reproduce the above copyright notice, this list of conditionsand the following disclaimer 
+// * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer 
 //   in the documentation and /or other materials provided with the distribution.
 // * Neither the name of the author nor the names of contributors may be used to endorse or promote products derived from this 
 //   software without specific prior written permission.
@@ -19,8 +19,8 @@
 // INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING 
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __ROBERTS_EASING_FUNCTIONS_H__
-#define __ROBERTS_EASING_FUNCTIONS_H__
+#ifndef __ROBERTS_EASING_FUNCTIONS__
+#define __ROBERTS_EASING_FUNCTIONS__
 
 #include <iaux/iaDefines.h>
 
@@ -29,12 +29,12 @@
 namespace iaux
 {
 
-    namespace Easing
+    namespace iaEasing
     {
 
         /*! interpolation function type definitions
         */
-        enum class EasingFunction
+        enum class iaEasingFunction
         {
             Linear,
 
@@ -73,7 +73,7 @@ namespace iaux
             InOutCirc,
             OutInCirc,
 
-            InBack,
+            /*InBack,
             OutBack,
             InOutBack,
             OutInBack,
@@ -81,7 +81,7 @@ namespace iaux
             InElastic,
             OutElastic,
             InOutElastic,
-            OutInElastic,
+            OutInElastic,*/
 
             InBounce,
             OutBounce,
@@ -326,7 +326,7 @@ namespace iaux
             }
         }
 
-        __IGOR_INLINE__ float64 inBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
+        /*__IGOR_INLINE__ float64 inBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
         {
             t = t / d;
             return c * t * t * ((s + 1.0) * t - s) + b;
@@ -472,7 +472,7 @@ namespace iaux
             {
                 return inElastic((t * 2.0) - d, b + c * 0.5, c * 0.5, d, a, p);
             }
-        }
+        }*/
 
         __IGOR_INLINE__ float64 outBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
@@ -529,4 +529,4 @@ namespace iaux
     }
 }
 
-#endif // __ROBERTS_EASING_FUNCTIONS_H__
+#endif // __ROBERTS_EASING_FUNCTIONS__

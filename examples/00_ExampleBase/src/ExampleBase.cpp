@@ -40,16 +40,16 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
 
             // start resource tasks
             _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(window));
-            _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(window));
+            _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(window));
 
             if (createSkyBox)
             {
                 // create a skybox
                 iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
                 // set it up with the default skybox texture
-                skyBoxNode->setTexture(iTextureResourceFactory::getInstance().requestFile("skyboxes/debug.png"));
+                skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/debug.png"));
                 // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-                _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("examples/skybox.mat");
+                _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
                 _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
                 // set that material
                 skyBoxNode->setMaterial(_materialSkyBox);
@@ -62,7 +62,9 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             _standardFont = iTextureFont::create("igor/textures/StandardFont.png");
 
             // prepare igor logo
-            _igorLogo = iTextureResourceFactory::getInstance().loadFile("igor/textures/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
+            iParameters param({{"name", iaString("igor/textures/splash.png")},
+                               {"buildMode", iTextureBuildMode::Normal}});
+            _igorLogo = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
         }
     }
 }
@@ -235,16 +237,13 @@ iaString ExampleBase::getHelpString()
 
 void ExampleBase::drawHelpScreen()
 {
-    const iaString& help = getHelpString();
+    const iaString &help = getHelpString();
+
+    iaColor4f backgroundColor(0.0, 0.0, 0.0, 0.8);
+    iRenderer::getInstance().drawFilledCircle(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, getWindow()->getClientHeight() * 0.4, 64, backgroundColor);
+    iRenderer::getInstance().drawCircle(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, getWindow()->getClientHeight() * 0.4, 64);
 
     iRenderer::getInstance().setFont(getOutlineFont());
-    iRenderer::getInstance().setFontSize(30.0f);
-
-    // fake an outline
-    iRenderer::getInstance().drawString(100 - 2, 100 - 2, help, iaColor4f::black);
-    iRenderer::getInstance().drawString(100 - 2, 100 + 2, help, iaColor4f::black);
-    iRenderer::getInstance().drawString(100 + 2, 100 - 2, help, iaColor4f::black);
-    iRenderer::getInstance().drawString(100 + 2, 100 + 2, help, iaColor4f::black);
-
-    iRenderer::getInstance().drawString(100, 100, help, iaColor4f::white);
+    iRenderer::getInstance().setFontSize(15.0f);
+    iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, help, iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::white);
 }

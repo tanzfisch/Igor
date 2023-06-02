@@ -22,7 +22,7 @@ namespace igor
     bool iNodeVisitorBoundings::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
         bool hasSphere = false;
-        iSphered nodeSphere;
+        iaSphered nodeSphere;
 
         if (node->getKind() == iNodeKind::Volume)
         {
@@ -71,7 +71,7 @@ namespace igor
     {
     }
 
-    void iNodeVisitorBoundings::getSphere(iSphered &sphere)
+    void iNodeVisitorBoundings::getSphere(iaSphered &sphere)
     {
         sphere = _sphere;
     }

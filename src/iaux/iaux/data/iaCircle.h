@@ -47,7 +47,7 @@ namespace iaux
 
         /*! ctor with parameters
 
-        \param x horrizontal center position
+        \param x horizontal center position
         \param y vertical center position
         \param radius radius
         */
@@ -62,7 +62,7 @@ namespace iaux
         \param center center position
         \param radius radius
         */
-        iaCircle(const iaVector2<T> &center, T radius = 1.0)
+        iaCircle(const iaVector2<T> &center, T radius = static_cast<T>(1.0))
         {
             _center = center;
             _radius = radius;
@@ -78,7 +78,7 @@ namespace iaux
             _radius = circle._radius;
         }
 
-        /*! \returns horrizonal position
+        /*! \returns horizontal position
          */
         const T getX() const;
 
@@ -94,9 +94,9 @@ namespace iaux
          */
         const iaVector2<T> &getCenter() const;
 
-        /*! sets horrizontal position
+        /*! sets horizontal position
 
-        \param x horrizontal position
+        \param x horizontal position
         */
         void setX(T x);
 
@@ -120,7 +120,7 @@ namespace iaux
 
         /*! set with parameters
 
-        \param x horrizontal center position
+        \param x horizontal center position
         \param y vertical center position
         \param radius radius
         */
@@ -146,7 +146,7 @@ namespace iaux
 
         /*! radius of circle
          */
-        T _radius = (T)1.0;
+        T _radius = static_cast<T>(1.0);
     };
 
 #include <iaux/data/iaCircle.inl>
@@ -166,6 +166,7 @@ namespace iaux
     /*! int64 precision of rectangle
      */
     typedef iaCircle<int64> iaCircleI;
+    
 }; // namespace igor
 
 #endif // __IAUX_RECTANGLE__

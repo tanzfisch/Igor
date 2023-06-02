@@ -156,7 +156,7 @@ namespace OMPF
             return false;
         }
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
         printInfo();
 #endif
 
@@ -208,7 +208,7 @@ namespace OMPF
             return false;
         }
 
-#ifdef __IGOR_DEBUG__
+#ifdef IGOR_DEBUG
         printInfo();
 #endif
 

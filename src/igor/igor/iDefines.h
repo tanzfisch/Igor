@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DEFINES_H__
-#define __IGOR_DEFINES_H__
+#ifndef __IGOR_DEFINES__
+#define __IGOR_DEFINES__
 
 #include <ostream>
 
@@ -52,7 +52,13 @@ using namespace iaux;
 #endif
 
 //! Igor configuration short
-extern const iaString __IGOR_CONFIGURATION__;
+extern const iaString IGOR_BUILD_CONFIGURATION;
+
+//! supported file extensions for sprites
+extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS;
+
+//! supported file extensions for textures
+extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS;
 
 namespace igor
 {
@@ -124,11 +130,20 @@ namespace igor
         MirrorRepeat
     };
 
+    /*! texture patterns
+     */
+    enum class iTexturePattern
+    {
+        SolidColor,
+        CheckerBoard
+    };
+
+
     /*! cache mode for resources
      */
     enum class iResourceCacheMode
     {
-        Free = 0,  //! free immidiatly after not in use
+        Free = 0,  //! free immediately after not in use
         Cache = 1, //! free when cache is flushed
         Keep = 2   //! keep until corresponding resource manager was destroyed
     };
@@ -271,4 +286,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_DEFINES_H__
+#endif // __IGOR_DEFINES__

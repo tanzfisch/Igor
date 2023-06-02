@@ -9,7 +9,7 @@
 #include <iaux/system/iaConsole.h>
 #include <iaux/math/iaRandom.h>
 
-#ifdef __IGOR_WINDOWS__
+#ifdef IGOR_WINDOWS
 
 #include <windows.h>
 
@@ -37,7 +37,7 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
     return true;
 }
 #pragma warning(default : 4100)
-#endif // __IGOR_WINDOWS__
+#endif // IGOR_WINDOWS
 
 namespace iaux
 {

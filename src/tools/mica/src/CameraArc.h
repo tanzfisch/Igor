@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __CAMERAARC_H__
-#define __CAMERAARC_H__
+#ifndef __CAMERAARC__
+#define __CAMERAARC__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -135,4 +135,4 @@ private:
 */
 typedef CameraArc *CameraArcPtr;
 
-#endif // __CAMERAARC_H__
+#endif // __CAMERAARC__

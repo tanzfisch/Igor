@@ -5,6 +5,9 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <igor/resources/sound/iSoundFactory.h>
+#include <igor/resources/texture/iTextureFactory.h>
+#include <igor/resources/animation/iAnimationFactory.h>
+#include <igor/resources/sprite/iSpriteFactory.h>
 #include <igor/threading/iTaskManager.h>
 
 #include <iaux/system/iaFile.h>
@@ -15,6 +18,9 @@ namespace igor
 {
     iResourceManager::iResourceManager()
     {
+        registerFactory(iFactoryPtr(new iTextureFactory()));
+        registerFactory(iFactoryPtr(new iSpriteFactory()));
+        registerFactory(iFactoryPtr(new iAnimationFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
     }
 
@@ -36,7 +42,8 @@ namespace igor
             iter++;
         }
 
-        // than run a flush to clear all released data
+        // run flush twice so resources which hold on to other resources release them too
+        flush(iResourceCacheMode::Keep);
         flush(iResourceCacheMode::Keep);
 
         // now check if it was actually released
@@ -55,26 +62,12 @@ namespace igor
         _factories.clear();
     }
 
-    int64 iResourceManager::calcHashValue(const iResourceParameters &parameters, iFactoryPtr factory)
+    int64 iResourceManager::calcHashValue(const iParameters &parameters, iFactoryPtr factory)
     {
         std::hash<std::wstring> hashFunc;
 
-        iaString hashData = parameters._type;
-        hashData += parameters._name;
-
-        switch (parameters._cacheMode)
-        {
-        case iResourceCacheMode::Free:
-            hashData += "F";
-            break;
-        case iResourceCacheMode::Cache:
-            hashData += "C";
-            break;
-        case iResourceCacheMode::Keep:
-            hashData += "K";
-            break;
-        }
-
+        iaString hashData = parameters.getParameter<iaString>("type");
+        hashData += parameters.getParameter<iaString>("name");
         hashData += factory->getHashData(parameters);
 
         return hashFunc(hashData.getData());
@@ -90,6 +83,7 @@ namespace igor
         }
 
         _factories[factory->getType()] = factory;
+        factory->init();
     }
 
     void iResourceManager::unregisterFactory(iFactoryPtr factory)
@@ -101,16 +95,19 @@ namespace igor
             return;
         }
 
+        factory->deinit();
         _factories.erase(iter);
     }
 
-    iFactoryPtr iResourceManager::getFactory(const iResourceParameters &parameters)
+    iFactoryPtr iResourceManager::getFactory(const iParameters &parameters)
     {
         iFactoryPtr result;
 
-        if (!parameters._type.isEmpty())
+        const iaString type = parameters.getParameter<iaString>("type");
+
+        if (!type.isEmpty())
         {
-            auto iter = _factories.find(parameters._type);
+            auto iter = _factories.find(type);
             if (iter != _factories.end())
             {
                 result = iter->second;
@@ -131,13 +128,14 @@ namespace igor
 
         if (result == nullptr)
         {
-            con_err("No compatible factory registered for resource \"" << parameters._name << "\"");
+            const iaString name = parameters.getParameter<iaString>("name");
+            con_err("No compatible factory registered for resource \"" << name << "\"");
         }
 
         return result;
     }
 
-    iResourcePtr iResourceManager::getResource(const iResourceParameters &parameters, iFactoryPtr factory)
+    iResourcePtr iResourceManager::getResource(const iParameters &parameters, iFactoryPtr factory)
     {
         iResourcePtr result;
 
@@ -163,21 +161,86 @@ namespace igor
         return result;
     }
 
-    iResourcePtr iResourceManager::requestResource(const iResourceParameters &parameters)
+    template <>
+    iTexturePtr iResourceManager::requestResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("texture")}});
+        return std::dynamic_pointer_cast<iTexture>(requestResource(param));
+    }
+
+    template <>
+    iTexturePtr iResourceManager::loadResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("texture")}});
+        return std::dynamic_pointer_cast<iTexture>(loadResource(param));
+    }
+
+    template <>
+    iSoundPtr iResourceManager::requestResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("sound")}});
+        return std::dynamic_pointer_cast<iSound>(requestResource(param));
+    }
+
+    template <>
+    iSoundPtr iResourceManager::loadResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("sound")}});
+        return std::dynamic_pointer_cast<iSound>(loadResource(param));
+    }
+
+    template <>
+    iSpritePtr iResourceManager::requestResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("sprite")}});
+        return std::dynamic_pointer_cast<iSprite>(requestResource(param));
+    }
+
+    template <>
+    iSpritePtr iResourceManager::loadResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("sprite")}});
+        return std::dynamic_pointer_cast<iSprite>(loadResource(param));
+    }
+
+    template <>
+    iAnimationPtr iResourceManager::requestResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("animation")}});
+        return std::dynamic_pointer_cast<iAnimation>(requestResource(param));
+    }
+
+    template <>
+    iAnimationPtr iResourceManager::loadResource(const iaString &name)
+    {
+        iParameters param({{"name", name}, {"type", iaString("animation")}});
+        return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
+    }
+
+
+    iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
     {
         iResourcePtr result;
         iFactoryPtr factory;
-
         if ((factory = getFactory(parameters)) == nullptr)
         {
             return result;
         }
 
         result = getResource(parameters, factory);
+
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+
+        if (currentCacheMode < cacheMode)
+        {
+            result->_parameters.setParameter("cacheMode", cacheMode);
+        }
+
         return result;
     }
 
-    iResourcePtr iResourceManager::loadResource(const iResourceParameters &parameters)
+    iResourcePtr iResourceManager::loadResource(const iParameters &parameters)
     {
         iResourcePtr result;
         iFactoryPtr factory;
@@ -187,7 +250,19 @@ namespace igor
         }
 
         result = getResource(parameters, factory);
-        factory->loadResource(result);
+        if (!result->isProcessed())
+        {
+            result->setValid(factory->loadResource(result));
+            result->setProcessed(true);
+        }
+
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+
+        if (currentCacheMode < cacheMode)
+        {
+            result->_parameters.setParameter("cacheMode", cacheMode);
+        }
 
         return result;
     }
@@ -365,7 +440,7 @@ namespace igor
             iaDirectory dir(path);
 
             con_endl("dir " << dir.getFullDirectoryName());
-            
+
             std::vector<iaString> matches;
             iaString::searchRegex(filename, dir.getFullDirectoryName(), matches);
             if (!matches.empty())
