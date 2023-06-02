@@ -235,14 +235,14 @@ void iRenderer::drawTexturedQuad(const iaVector3<T> &v1, const iaVector3<T> &v2,
 }
 
 template <typename T>
-void iRenderer::drawSprite(const iaMatrix<T> &matrix, const iSpritePtr &atlas, uint32 frameIndex, const iaVector2<T> &size, const iaColor4f &color, bool blend)
+void iRenderer::drawSprite(const iaMatrix<T> &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2<T> &size, const iaColor4f &color, bool blend)
 {
     iaMatrixf matrixf;
     for (int i = 0; i < 16; ++i)
     {
         matrixf[i] = static_cast<float32>(matrix[i]);
     }
-    drawSpriteInternal(matrixf, atlas, frameIndex, iaVector2f(size._x, size._y), color, blend);
+    drawSpriteInternal(matrixf, sprite, frameIndex, iaVector2f(size._x, size._y), color, blend);
 }
 
 template <typename T>

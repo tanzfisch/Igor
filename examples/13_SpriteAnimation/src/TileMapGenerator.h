@@ -14,11 +14,11 @@ public:
 	*/
 	TileMapGenerator() = default;
 
-	/*! sets the atlas to use for generation
+	/*! sets the sprite to use for generation
 
-	\param atlas the atlas to use
+	\param sprite the sprite to use
 	*/
-	void setAtlas(iSpritePtr atlas);
+	void setSprite(iSpritePtr sprite);
 
 	/*! generates map based on a texture
 
@@ -49,7 +49,7 @@ private:
 	*/
 	iMaterialPtr _material;
 
-	/*! the atlas to use
+	/*! the sprite to use
 	*/
 	iSpritePtr _sprite = nullptr;
 
@@ -62,7 +62,7 @@ private:
 	\param meshBuilder the mesh builder to add the tile to
 	\param pos the positio of the tile in world space
 	\param size the size of the tile in world space
-	\param frame the frame to use within the atlas
+	\param frame the frame to use within the sprite
 	*/
 	void addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iSprite::iFrame &frame);
 

@@ -29,7 +29,7 @@ void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos,
 	meshBuilder.addTriangle(2, 3, 0, offsetIndex);
 }
 
-void TileMapGenerator::setAtlas(iSpritePtr sprite)
+void TileMapGenerator::setSprite(iSpritePtr sprite)
 {
 	_sprite = sprite;
 }

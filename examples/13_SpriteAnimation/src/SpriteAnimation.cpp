@@ -31,7 +31,7 @@ void SpriteAnimation::onInit()
 
     // generate ground map
     TileMapGenerator tileMapGenerator;
-    tileMapGenerator.setAtlas(_tiles);
+    tileMapGenerator.setSprite(_tiles);
     tileMapGenerator.setMaterial(_materialTerrain);
     iNodePtr terrainNodeGround = tileMapGenerator.generateFromRandom(iaVector2i(32, 32), 0, 18);
     terrainNodeGround->setName("Ground");
