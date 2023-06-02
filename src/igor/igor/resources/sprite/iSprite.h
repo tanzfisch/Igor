@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ATLAS__
-#define __IGOR_ATLAS__
+#ifndef __IGOR_SPRITE__
+#define __IGOR_SPRITE__
 
 #include <igor/resources/texture/iTexture.h>
 
@@ -46,7 +46,7 @@ namespace igor
 
     class iSprite;
 
-    /*! atlas pointer definition
+    /*! sprite pointer definition
      */
     typedef std::shared_ptr<iSprite> iSpritePtr;
 
@@ -92,7 +92,7 @@ namespace igor
         const iTexturePtr &getTexture() const;        
 
     private:
-        /*! the atlas frames
+        /*! the sprite frames
          */
         std::vector<iFrame> _frames;
 
@@ -106,7 +106,7 @@ namespace igor
         */
         iSprite(const iParameters &parameters);        
 
-        /*! adds a frame to the atlas
+        /*! adds a frame to the sprite
 
         \returns index of the added frame
         \param rect the frame dimensions
@@ -115,7 +115,7 @@ namespace igor
         */
         uint32 addFrame(const iaRectanglef &rect, const iaVector2f &pivot, bool pixel = true);
 
-        /*! adds a frame to the atlas
+        /*! adds a frame to the sprite
 
         \returns index of the added frame
         \param pos top left corner of frame
@@ -129,4 +129,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_ATLAS__
+#endif // __IGOR_SPRITE__

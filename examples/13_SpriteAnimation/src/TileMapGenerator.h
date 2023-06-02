@@ -51,7 +51,7 @@ private:
 
 	/*! the atlas to use
 	*/
-	iSpritePtr _atlas = nullptr;
+	iSpritePtr _sprite = nullptr;
 
 	/*! random number generator
 	*/

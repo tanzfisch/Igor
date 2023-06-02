@@ -73,11 +73,11 @@ public:
 	~SpriteAnimation() = default;
 
 private:
-	/*! walk animation atlas
+	/*! walk animation sprite
     */
 	iSpritePtr _walk = nullptr;
 
-	/*! tiles atlas
+	/*! tiles sprite
 	*/
 	iSpritePtr _tiles = nullptr;
 

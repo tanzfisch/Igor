@@ -13,7 +13,7 @@ Changelog                           {#changelog}
 - added state machine back in
 - added pixmap to texture back in
 - added new animation system running on top of the entity system
-- removed iAtlas
+- replaced iAtlas with iSprite
 
 0.39.0
 ------

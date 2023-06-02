@@ -10,7 +10,7 @@
 #include <iaux/system/iaDate.h>
 using namespace iaux;
 
-extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {L"atlas", L"sprite"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {L"sprite"};
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {L"png", L"jpg"};
 
 #ifdef IGOR_DEBUG
