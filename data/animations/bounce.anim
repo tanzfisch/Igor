@@ -10,4 +10,12 @@
         <Frame time="0.66" value="0.9, 1.2, 1.0"/>
         <Frame time="1.0" value="1.0, 1.0, 1.0"/>
     </Animation>
+
+    <Animation keyFrameType="Vector3" interpolationMode="Linear" target="Rotate">
+        <!-- time in seconds -->
+        <Frame time="0.0" value="0.0, 0.0, 0.0"/>
+        <Frame time="0.33" value="0.0, 0.0, 0.1"/>
+        <Frame time="0.66" value="0.0, 0.0, -0.1"/>
+        <Frame time="1.0" value="0.0, 0.0, 0.0"/>
+    </Animation>    
 </Igor>

@@ -460,6 +460,7 @@ iEntity GameLayer::createPlayer()
     entity.addComponent<iPartyComponent>({FRIEND});
     entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
     entity.addComponent<iBody2DComponent>({});
+    
     iAnimationControllerPtr animationController(new iAnimationController());
     animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
     entity.addComponent<iAnimationComponent>({animationController});

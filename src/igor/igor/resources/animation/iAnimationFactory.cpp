@@ -69,7 +69,7 @@ namespace igor
         return loadAnimation(filename, animation);
     }
 
-    iaKeyFrameGraphui iAnimationFactory::readIndexAnimation(TiXmlElement *animationElement, iAnimationPtr animation)
+    iaKeyFrameGraphui iAnimationFactory::readIndexAnimation(TiXmlElement *animationElement)
     {
         iaKeyFrameGraphui result;
         TiXmlElement *frame = animationElement->FirstChildElement("Frame");
@@ -88,7 +88,7 @@ namespace igor
         return result;
     }
 
-    iaKeyFrameGraphVector3d iAnimationFactory::readVector3Animation(TiXmlElement *animationElement, iAnimationPtr animation)
+    iaKeyFrameGraphVector3d iAnimationFactory::readVector3Animation(TiXmlElement *animationElement)
     {
         iaKeyFrameGraphVector3d result;
         TiXmlElement *frame = animationElement->FirstChildElement("Frame");
@@ -128,7 +128,7 @@ namespace igor
         if (keyFrameType == "int" &&
             target == "FrameIndex")
         {
-            iaKeyFrameGraphui result = readIndexAnimation(animationElement, animation);
+            iaKeyFrameGraphui result = readIndexAnimation(animationElement);
             result.setInterpolationMode(interpolationMode);
             animation->setFrameIndexAnimation(result);
             return;
@@ -136,7 +136,7 @@ namespace igor
 
         if (keyFrameType == "Vector3")
         {
-            iaKeyFrameGraphVector3d result = readVector3Animation(animationElement, animation);
+            iaKeyFrameGraphVector3d result = readVector3Animation(animationElement);
             result.setInterpolationMode(interpolationMode);
 
             if (target == "Translate")
@@ -172,10 +172,11 @@ namespace igor
         if (root != nullptr)
         {
             TiXmlElement *animationElement = root->FirstChildElement("Animation");
-            if (animationElement != nullptr)
+            do
             {
                 readAnimationElement(animationElement, animation);
-            }
+
+            } while ((animationElement = animationElement->NextSiblingElement("Animation")) != nullptr);
         }
 
         con_info("loaded animation \"" << animation->getName());

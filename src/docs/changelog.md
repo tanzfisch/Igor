@@ -12,7 +12,7 @@ Changelog                           {#changelog}
 - new resources iAnimation, iSprite and iTexture (replaced previous iTexture)
 - added state machine back in
 - added pixmap to texture back in
-- added new animation system
+- added new animation system running on top of the entity system
 - removed iAtlas
 
 0.39.0
