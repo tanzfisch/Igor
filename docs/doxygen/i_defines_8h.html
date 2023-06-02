@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.40.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -151,6 +151,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceigor.html#a61ce2c4b325487a849b9c636141a1f6ba39a681a9d5ccc902bebd16a343dd7b74">igor::MirrorRepeat</a>
  }</td></tr>
 <tr class="separator:a61ce2c4b325487a849b9c636141a1f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ba78b0fc0b3565e0b13e60d9a5ad06"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ad2ba78b0fc0b3565e0b13e60d9a5ad06">igor::iTexturePattern</a> { <a class="el" href="namespaceigor.html#ad2ba78b0fc0b3565e0b13e60d9a5ad06a63af9903673bdc27b881a7444b1f9854">igor::SolidColor</a>
+, <a class="el" href="namespaceigor.html#ad2ba78b0fc0b3565e0b13e60d9a5ad06aded665c40aa8d11a7ab9cea42ab7161c">igor::CheckerBoard</a>
+ }</td></tr>
+<tr class="separator:ad2ba78b0fc0b3565e0b13e60d9a5ad06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a424b008e648b912ad459f21479742743"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">igor::iResourceCacheMode</a> { <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743ab24ce0cd392a5b0b8dedc66c25213594">igor::Free</a> = 0
 , <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">igor::Cache</a> = 1
 , <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743a02bce93bff905887ad2233110bf9c49e">igor::Keep</a> = 2
@@ -325,13 +329,19 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a62512b4a7f0d4a97d7c4a7ccd8388c3f"><td class="memItemLeft" align="right" valign="top">const iaString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a62512b4a7f0d4a97d7c4a7ccd8388c3f">__IGOR_CONFIGURATION__</a></td></tr>
-<tr class="memdesc:a62512b4a7f0d4a97d7c4a7ccd8388c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Igor configuration short.  <a href="i_defines_8h.html#a62512b4a7f0d4a97d7c4a7ccd8388c3f">More...</a><br /></td></tr>
-<tr class="separator:a62512b4a7f0d4a97d7c4a7ccd8388c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18e993b347b706a6ba5d7b262078623f"><td class="memItemLeft" align="right" valign="top">const iaString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a18e993b347b706a6ba5d7b262078623f">IGOR_BUILD_CONFIGURATION</a></td></tr>
+<tr class="memdesc:a18e993b347b706a6ba5d7b262078623f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Igor configuration short.  <a href="i_defines_8h.html#a18e993b347b706a6ba5d7b262078623f">More...</a><br /></td></tr>
+<tr class="separator:a18e993b347b706a6ba5d7b262078623f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d64eba77ac6416e65eaa16a3fc7c73b"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; iaString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a6d64eba77ac6416e65eaa16a3fc7c73b">IGOR_SUPPORTED_SPRITE_EXTENSIONS</a></td></tr>
+<tr class="memdesc:a6d64eba77ac6416e65eaa16a3fc7c73b"><td class="mdescLeft">&#160;</td><td class="mdescRight">supported file extensions for sprites  <a href="i_defines_8h.html#a6d64eba77ac6416e65eaa16a3fc7c73b">More...</a><br /></td></tr>
+<tr class="separator:a6d64eba77ac6416e65eaa16a3fc7c73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3df9f6653ed6317f6c2d117f9019e204"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; iaString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a3df9f6653ed6317f6c2d117f9019e204">IGOR_SUPPORTED_TEXTURE_EXTENSIONS</a></td></tr>
+<tr class="memdesc:a3df9f6653ed6317f6c2d117f9019e204"><td class="mdescLeft">&#160;</td><td class="mdescRight">supported file extensions for textures  <a href="i_defines_8h.html#a3df9f6653ed6317f6c2d117f9019e204">More...</a><br /></td></tr>
+<tr class="separator:a3df9f6653ed6317f6c2d117f9019e204"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a62512b4a7f0d4a97d7c4a7ccd8388c3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62512b4a7f0d4a97d7c4a7ccd8388c3f">&#9670;&nbsp;</a></span>__IGOR_CONFIGURATION__</h2>
+<a id="a18e993b347b706a6ba5d7b262078623f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18e993b347b706a6ba5d7b262078623f">&#9670;&nbsp;</a></span>IGOR_BUILD_CONFIGURATION</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,7 +350,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const iaString __IGOR_CONFIGURATION__</td>
+          <td class="memname">const iaString IGOR_BUILD_CONFIGURATION</td>
         </tr>
       </table>
   </td>
@@ -351,6 +361,54 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Igor configuration short. </p>
+
+</div>
+</div>
+<a id="a6d64eba77ac6416e65eaa16a3fc7c73b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d64eba77ac6416e65eaa16a3fc7c73b">&#9670;&nbsp;</a></span>IGOR_SUPPORTED_SPRITE_EXTENSIONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;iaString&gt; IGOR_SUPPORTED_SPRITE_EXTENSIONS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>supported file extensions for sprites </p>
+
+</div>
+</div>
+<a id="a3df9f6653ed6317f6c2d117f9019e204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3df9f6653ed6317f6c2d117f9019e204">&#9670;&nbsp;</a></span>IGOR_SUPPORTED_TEXTURE_EXTENSIONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;iaString&gt; IGOR_SUPPORTED_TEXTURE_EXTENSIONS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>supported file extensions for textures </p>
 
 </div>
 </div>

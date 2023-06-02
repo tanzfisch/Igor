@@ -1,7 +1,6 @@
 var structigor_1_1i_renderer_data =
 [
     [ "_camMatrix", "structigor_1_1i_renderer_data.html#a4768ec972f0d637abddade2a3a9920f6", null ],
-    [ "_colorID", "structigor_1_1i_renderer_data.html#a8f936d0d62872c6581e127ac21078b0d", null ],
     [ "_currentMaterial", "structigor_1_1i_renderer_data.html#a678253e53351a4f9a64ad4f3967ad5fb", null ],
     [ "_currentRenderTarget", "structigor_1_1i_renderer_data.html#afbc1581b3de15e3e8b2358d854e7fe52", null ],
     [ "_extensions", "structigor_1_1i_renderer_data.html#a0a93774310c795466b2bfc6d5acac84b", null ],
@@ -28,6 +27,7 @@ var structigor_1_1i_renderer_data =
     [ "_requestedBuffers", "structigor_1_1i_renderer_data.html#a5b8ace0e1c4b050b7e6ec0c38f09391f", null ],
     [ "_requestedBuffersMutex", "structigor_1_1i_renderer_data.html#a0531d24bf9e70bf0cea2be466f98c6fc", null ],
     [ "_sharedQuadIndexBuffer", "structigor_1_1i_renderer_data.html#ac2f7da448bfa4919dec43734ce86229e", null ],
+    [ "_solidColor", "structigor_1_1i_renderer_data.html#a0a0dc4ddb5108bbfcfba51b30113593f", null ],
     [ "_stats", "structigor_1_1i_renderer_data.html#a01e3f419737aefbb825261607a2609be", null ],
     [ "_texQuads", "structigor_1_1i_renderer_data.html#ae54978e2464073e6a7c680f0c6819bf9", null ],
     [ "_textureShader", "structigor_1_1i_renderer_data.html#a2900869f375c75fce09cf5853d2eeec7", null ],

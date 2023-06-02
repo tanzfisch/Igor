@@ -1,12 +1,12 @@
 var classigor_1_1i_resource =
 [
     [ "~iResource", "classigor_1_1i_resource.html#ac41c64c13602369d47be738e55ea25c2", null ],
-    [ "iResource", "classigor_1_1i_resource.html#ae7e890657f099f388c30b6dd3e317354", null ],
-    [ "getCacheMode", "classigor_1_1i_resource.html#af80b2beef610add07d453488ac5e433a", null ],
-    [ "getName", "classigor_1_1i_resource.html#af006960e7ec67fb112f9ae87481a51ce", null ],
-    [ "getParameters", "classigor_1_1i_resource.html#aa7f32734d368b416f1b49c5d0ed53a3a", null ],
-    [ "getType", "classigor_1_1i_resource.html#a99fcaf321fe686929d80aae9b38adff5", null ],
-    [ "isProcessed", "classigor_1_1i_resource.html#acec4d54fefb905cbcdb7197ccede645d", null ],
-    [ "isValid", "classigor_1_1i_resource.html#a0249aa26f5e7124a429c074ed1bf8190", null ],
+    [ "iResource", "classigor_1_1i_resource.html#aa0341ab1e952e89d97bb861b5d37335d", null ],
+    [ "getCacheMode", "classigor_1_1i_resource.html#a1c2b4789dc511d13437c38d7e86c9f35", null ],
+    [ "getName", "classigor_1_1i_resource.html#af2fe45041511bc80719966fd5a555ec8", null ],
+    [ "getParameters", "classigor_1_1i_resource.html#ab37f31e3ffeb408b83eb2feaefb89948", null ],
+    [ "getType", "classigor_1_1i_resource.html#ab58117a528b75779f1fe80e2448af206", null ],
+    [ "isProcessed", "classigor_1_1i_resource.html#a078f4eeab65a0ccb2d3aad067a59d673", null ],
+    [ "isValid", "classigor_1_1i_resource.html#ac43963f25d38391bbbb1a7adf58b5f39", null ],
     [ "iResourceManager", "classigor_1_1i_resource.html#a3d7f73050de28471f180641b509bbfde", null ]
 ];

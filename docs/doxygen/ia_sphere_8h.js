@@ -1,7 +1,7 @@
 var ia_sphere_8h =
 [
-    [ "iaSphere", "classigor_1_1ia_sphere.html", "classigor_1_1ia_sphere" ],
-    [ "iSphered", "ia_sphere_8h.html#a764da0cfff0fca48fa3901b943bf529c", null ],
-    [ "iSpheref", "ia_sphere_8h.html#a8260937c6c9f8d1c900fa770242ae783", null ],
-    [ "iSphereI", "ia_sphere_8h.html#a765464176e7b0a83016ac67ec1a49d44", null ]
+    [ "iaSphere", "classiaux_1_1ia_sphere.html", "classiaux_1_1ia_sphere" ],
+    [ "iaSphered", "ia_sphere_8h.html#a30c6f089e0484801f04239845bc002d1", null ],
+    [ "iaSpheref", "ia_sphere_8h.html#a48ab23eadec79c9e37c47f4aed23a4b7", null ],
+    [ "iaSphereI", "ia_sphere_8h.html#a8a35c5160aa8a9bda627ae79fab6eded", null ]
 ];

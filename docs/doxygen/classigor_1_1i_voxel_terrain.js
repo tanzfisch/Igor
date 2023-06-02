@@ -8,7 +8,7 @@ var classigor_1_1i_voxel_terrain =
     [ "getTargetMaterial", "classigor_1_1i_voxel_terrain.html#a9a61492b225afa01d0ff2808ed76546e", null ],
     [ "getVoxelDensity", "classigor_1_1i_voxel_terrain.html#af624573f6ab7988f3a6b5b3059da76dd", null ],
     [ "modify", "classigor_1_1i_voxel_terrain.html#a747b1f83abefe465e4ebd2be7393fa4c", null ],
-    [ "modify", "classigor_1_1i_voxel_terrain.html#ada617747b8fd4dda34265525eb1527a0", null ],
+    [ "modify", "classigor_1_1i_voxel_terrain.html#a4b5129679c206f9861766cdcb2d15b0d", null ],
     [ "setLODTrigger", "classigor_1_1i_voxel_terrain.html#ae18d5287b83ec3d6f402315955c302e1", null ],
     [ "setMaterial", "classigor_1_1i_voxel_terrain.html#a1f3aae291645a522f4139ec81d9c433e", null ],
     [ "setPhysicsMaterialID", "classigor_1_1i_voxel_terrain.html#a94a0c8b4d9fed269cafd2eedac898581", null ],

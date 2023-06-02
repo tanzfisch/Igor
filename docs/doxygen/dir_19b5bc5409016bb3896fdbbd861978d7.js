@@ -3,6 +3,10 @@ var dir_19b5bc5409016bb3896fdbbd861978d7 =
     [ "iaBSpline.h", "ia_b_spline_8h.html", "ia_b_spline_8h" ],
     [ "iaBSpline.inl", "ia_b_spline_8inl.html", null ],
     [ "iaEasing.h", "ia_easing_8h.html", "ia_easing_8h" ],
+    [ "iaMath.cpp", "ia_math_8cpp.html", null ],
+    [ "iaMath.h", "ia_math_8h.html", [
+      [ "iaMath", "classiaux_1_1ia_math.html", "classiaux_1_1ia_math" ]
+    ] ],
     [ "iaMatrix.h", "ia_matrix_8h.html", "ia_matrix_8h" ],
     [ "iaMatrix.inl", "ia_matrix_8inl.html", "ia_matrix_8inl" ],
     [ "iaMatrix2D.h", "ia_matrix2_d_8h.html", "ia_matrix2_d_8h" ],

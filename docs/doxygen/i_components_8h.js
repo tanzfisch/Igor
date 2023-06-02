@@ -16,6 +16,7 @@ var i_components_8h =
     [ "iCameraComponent", "structigor_1_1i_camera_component.html", "structigor_1_1i_camera_component" ],
     [ "iRenderDebugComponent", "structigor_1_1i_render_debug_component.html", "structigor_1_1i_render_debug_component" ],
     [ "iPartyComponent", "structigor_1_1i_party_component.html", "structigor_1_1i_party_component" ],
+    [ "iAnimationComponent", "structigor_1_1i_animation_component.html", "structigor_1_1i_animation_component" ],
     [ "iBehaviourDelegate", "i_components_8h.html#ac0c574aeea68c194bab856c908c1af0f", null ],
     [ "iEntityID", "i_components_8h.html#a4470582744b1e2d0933fb12ddead0555", null ],
     [ "iGlobalBoundaryType", "i_components_8h.html#a8f64a6510998360ede2092eb63e3ca96", [

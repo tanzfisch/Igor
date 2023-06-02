@@ -18,6 +18,7 @@ var structiaux_1_1ia_rectangle =
     [ "getWidth", "structiaux_1_1ia_rectangle.html#afd73cb3c3825421b53444b97fc0ab61f", null ],
     [ "getX", "structiaux_1_1ia_rectangle.html#a50b16478d79f68ea6c83fd33e62ef228", null ],
     [ "getY", "structiaux_1_1ia_rectangle.html#aa0cc522a6c79cd961b695788daccfa61", null ],
+    [ "operator!=", "structiaux_1_1ia_rectangle.html#ac0a3d37529dd259c693f2991a9ff01ce", null ],
     [ "operator=", "structiaux_1_1ia_rectangle.html#abb1d356377ec342720f25cdd6e826a00", null ],
     [ "operator==", "structiaux_1_1ia_rectangle.html#a377218822d269efe4f2b80922c4a19b4", null ],
     [ "set", "structiaux_1_1ia_rectangle.html#a0e64ec62ff693a6408486056dea93eb6", null ],

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.40.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -94,13 +94,11 @@ $(document).ready(function(){initNavTree('classigor_1_1i_texture.html',''); init
 <div class="contents">
 
 <p><code>#include &lt;iTexture.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="classigor_1_1i_resource.html">igor::iResource</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3513c5c3a7fd6c2869150c45eed02313"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a3513c5c3a7fd6c2869150c45eed02313">isValid</a> () const</td></tr>
-<tr class="separator:a3513c5c3a7fd6c2869150c45eed02313"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9122c00ef6ecc356f11a4525a3a44667"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a9122c00ef6ecc356f11a4525a3a44667">isProcessed</a> () const</td></tr>
-<tr class="separator:a9122c00ef6ecc356f11a4525a3a44667"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b8141e2bda80a47a7bf9e981efb62f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a4b8141e2bda80a47a7bf9e981efb62f5">useFallback</a> () const</td></tr>
 <tr class="separator:a4b8141e2bda80a47a7bf9e981efb62f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae05bb8cbdf695c0f8fdfdb27241ac177"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#ae05bb8cbdf695c0f8fdfdb27241ac177">getWidth</a> () const</td></tr>
@@ -115,26 +113,58 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1d68f82960a5836f23b6a5f7d5def7d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aada24ae2facd44dfbd5dc11716eb6344"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#aada24ae2facd44dfbd5dc11716eb6344">hasTransparency</a> () const</td></tr>
 <tr class="separator:aada24ae2facd44dfbd5dc11716eb6344"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6119b5a2d53e5763075b36e02b434007"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a6119b5a2d53e5763075b36e02b434007">getCacheMode</a> () const</td></tr>
-<tr class="separator:a6119b5a2d53e5763075b36e02b434007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1bb76ef887aa8923f1f227d691b24ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ace7988c80527d8744c218d3f70209f9a">iTextureBuildMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#ae1bb76ef887aa8923f1f227d691b24ec">getBuildMode</a> () const</td></tr>
 <tr class="separator:ae1bb76ef887aa8923f1f227d691b24ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ae909303bbb7b184ddd69d427fe5ca5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a61ce2c4b325487a849b9c636141a1f6b">iTextureWrapMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a5ae909303bbb7b184ddd69d427fe5ca5">getWrapMode</a> () const</td></tr>
 <tr class="separator:a5ae909303bbb7b184ddd69d427fe5ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9f18ca8484b120031a9330cc9977451"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#ac9f18ca8484b120031a9330cc9977451">getFilename</a> () const</td></tr>
-<tr class="separator:ac9f18ca8484b120031a9330cc9977451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a053ce8b6a34836d6512706997ac32f0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a053ce8b6a34836d6512706997ac32f0f">bind</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> textureUnit)</td></tr>
 <tr class="separator:a053ce8b6a34836d6512706997ac32f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c5c0c93bf79b698368759baacb092b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a0c5c0c93bf79b698368759baacb092b5">getTextureID</a> () const</td></tr>
 <tr class="separator:a0c5c0c93bf79b698368759baacb092b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classigor_1_1i_resource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classigor_1_1i_resource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classigor_1_1i_resource.html">igor::iResource</a></td></tr>
+<tr class="memitem:ac41c64c13602369d47be738e55ea25c2 inherit pub_methods_classigor_1_1i_resource"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#ac41c64c13602369d47be738e55ea25c2">~iResource</a> ()=default</td></tr>
+<tr class="separator:ac41c64c13602369d47be738e55ea25c2 inherit pub_methods_classigor_1_1i_resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac43963f25d38391bbbb1a7adf58b5f39 inherit pub_methods_classigor_1_1i_resource"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#ac43963f25d38391bbbb1a7adf58b5f39">isValid</a> () const</td></tr>
+<tr class="separator:ac43963f25d38391bbbb1a7adf58b5f39 inherit pub_methods_classigor_1_1i_resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a078f4eeab65a0ccb2d3aad067a59d673 inherit pub_methods_classigor_1_1i_resource"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#a078f4eeab65a0ccb2d3aad067a59d673">isProcessed</a> () const</td></tr>
+<tr class="separator:a078f4eeab65a0ccb2d3aad067a59d673 inherit pub_methods_classigor_1_1i_resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2fe45041511bc80719966fd5a555ec8 inherit pub_methods_classigor_1_1i_resource"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#af2fe45041511bc80719966fd5a555ec8">getName</a> () const</td></tr>
+<tr class="separator:af2fe45041511bc80719966fd5a555ec8 inherit pub_methods_classigor_1_1i_resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c2b4789dc511d13437c38d7e86c9f35 inherit pub_methods_classigor_1_1i_resource"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#a1c2b4789dc511d13437c38d7e86c9f35">getCacheMode</a> () const</td></tr>
+<tr class="separator:a1c2b4789dc511d13437c38d7e86c9f35 inherit pub_methods_classigor_1_1i_resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab37f31e3ffeb408b83eb2feaefb89948 inherit pub_methods_classigor_1_1i_resource"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#ab37f31e3ffeb408b83eb2feaefb89948">getParameters</a> () const</td></tr>
+<tr class="separator:ab37f31e3ffeb408b83eb2feaefb89948 inherit pub_methods_classigor_1_1i_resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab58117a528b75779f1fe80e2448af206 inherit pub_methods_classigor_1_1i_resource"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#ab58117a528b75779f1fe80e2448af206">getType</a> () const</td></tr>
+<tr class="separator:ab58117a528b75779f1fe80e2448af206 inherit pub_methods_classigor_1_1i_resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a3113ca65444ca12c4b6bf97848a91cf1"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a3113ca65444ca12c4b6bf97848a91cf1">iTextureResourceFactory</a></td></tr>
-<tr class="separator:a3113ca65444ca12c4b6bf97848a91cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3226694dcc847c42b068448091edf75a"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture.html#a3226694dcc847c42b068448091edf75a">iTextureFactory</a></td></tr>
+<tr class="separator:a3226694dcc847c42b068448091edf75a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classigor_1_1i_resource"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classigor_1_1i_resource')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classigor_1_1i_resource.html">igor::iResource</a></td></tr>
+<tr class="memitem:aa0341ab1e952e89d97bb861b5d37335d inherit pro_methods_classigor_1_1i_resource"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#aa0341ab1e952e89d97bb861b5d37335d">iResource</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;type, const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
+<tr class="separator:aa0341ab1e952e89d97bb861b5d37335d inherit pro_methods_classigor_1_1i_resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>represents a texture resource </p>
+<div class="textblock"><p>represents a texture resource</p>
+<p>available parameters:</p>
+<ul>
+<li>inherits all parameters from <a class="el" href="classigor_1_1i_resource.html">iResource</a></li>
+<li>generate: leads to generating a texture procedurally (type: bool)<ul>
+<li>pattern: type of pattern to use for procedurally generation (type: iTexturePattern)</li>
+<li>primary: primary color to use (type: iaColor4f)</li>
+<li>secondary: secondary color to use (type: iaColor4f)</li>
+<li>width: width of texture (type: uint32)</li>
+<li>height: height of texture (type: uint32)</li>
+</ul>
+</li>
+<li>pixmap: use data from given pixmap for texture (type: iPixmapPtr)</li>
+<li>wrapMode: texture wrap mode (type: iTextureWrapMode, default: Repeat)</li>
+<li>buildMode: texture wrap mode (type: iTextureBuildMode, default: Mipmapped) </li>
+</ul>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a053ce8b6a34836d6512706997ac32f0f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a053ce8b6a34836d6512706997ac32f0f">&#9670;&nbsp;</a></span>bind()</h2>
@@ -175,7 +205,7 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the bits per pixel </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the bits per pixel (texel) </dd></dl>
 
 </div>
 </div>
@@ -197,24 +227,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a6119b5a2d53e5763075b36e02b434007"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6119b5a2d53e5763075b36e02b434007">&#9670;&nbsp;</a></span>getCacheMode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> igor::iTexture::getCacheMode </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>cache mode </dd></dl>
-
-</div>
-</div>
 <a id="a1d68f82960a5836f23b6a5f7d5def7d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d68f82960a5836f23b6a5f7d5def7d7">&#9670;&nbsp;</a></span>getColorFormat()</h2>
 
@@ -233,24 +245,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="ac9f18ca8484b120031a9330cc9977451"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9f18ca8484b120031a9330cc9977451">&#9670;&nbsp;</a></span>getFilename()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp; igor::iTexture::getFilename </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>returns the filename </p>
-
-</div>
-</div>
 <a id="a195042c0f8ff22dbb16dd9c5bd4a36e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a195042c0f8ff22dbb16dd9c5bd4a36e5">&#9670;&nbsp;</a></span>getHeight()</h2>
 
@@ -265,7 +259,7 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the height </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the height in texels </dd></dl>
 
 </div>
 </div>
@@ -283,7 +277,7 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the mip map levels </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the mip map level count </dd></dl>
 
 </div>
 </div>
@@ -319,7 +313,7 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the width </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the width in texels </dd></dl>
 
 </div>
 </div>
@@ -359,42 +353,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a9122c00ef6ecc356f11a4525a3a44667"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9122c00ef6ecc356f11a4525a3a44667">&#9670;&nbsp;</a></span>isProcessed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool igor::iTexture::isProcessed </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if the texture was processed </dd></dl>
-
-</div>
-</div>
-<a id="a3513c5c3a7fd6c2869150c45eed02313"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3513c5c3a7fd6c2869150c45eed02313">&#9670;&nbsp;</a></span>isValid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool igor::iTexture::isValid </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if there is actually a texture present </dd></dl>
-
-</div>
-</div>
 <a id="a4b8141e2bda80a47a7bf9e981efb62f5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4b8141e2bda80a47a7bf9e981efb62f5">&#9670;&nbsp;</a></span>useFallback()</h2>
 
@@ -414,8 +372,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a3113ca65444ca12c4b6bf97848a91cf1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3113ca65444ca12c4b6bf97848a91cf1">&#9670;&nbsp;</a></span>iTextureResourceFactory</h2>
+<a id="a3226694dcc847c42b068448091edf75a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3226694dcc847c42b068448091edf75a">&#9670;&nbsp;</a></span>iTextureFactory</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -424,7 +382,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="classigor_1_1i_texture_resource_factory.html">iTextureResourceFactory</a></td>
+          <td class="memname">friend class <a class="el" href="classigor_1_1i_texture_factory.html">iTextureFactory</a></td>
         </tr>
       </table>
   </td>

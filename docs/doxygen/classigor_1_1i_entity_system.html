@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.40.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_entity_system.html','')
 
 <p><code>#include &lt;iEntitySystem.h&gt;</code></p>
 
-<p>Inherited by <a class="el" href="classigor_1_1i_behaviour_system.html">igor::iBehaviourSystem</a>, <a class="el" href="classigor_1_1i_quadtree_system.html">igor::iQuadtreeSystem</a>, <a class="el" href="classigor_1_1i_sprite_render_system.html">igor::iSpriteRenderSystem</a>, <a class="el" href="classigor_1_1i_transform_hierarchy_system.html">igor::iTransformHierarchySystem</a>, and <a class="el" href="classigor_1_1i_velocity_system.html">igor::iVelocitySystem</a>.</p>
+<p>Inherited by <a class="el" href="classigor_1_1i_animation_system.html">igor::iAnimationSystem</a>, <a class="el" href="classigor_1_1i_behaviour_system.html">igor::iBehaviourSystem</a>, <a class="el" href="classigor_1_1i_quadtree_system.html">igor::iQuadtreeSystem</a>, <a class="el" href="classigor_1_1i_transform_hierarchy_system.html">igor::iTransformHierarchySystem</a>, and <a class="el" href="classigor_1_1i_velocity_system.html">igor::iVelocitySystem</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -102,8 +102,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9e71b4722ad24c1812f9db2605da5906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80597626c79d8a61e128477dceaa46af"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a80597626c79d8a61e128477dceaa46af">~iEntitySystem</a> ()=default</td></tr>
 <tr class="separator:a80597626c79d8a61e128477dceaa46af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5842fdec385dcaeffce6bfdeb33f525"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#ac5842fdec385dcaeffce6bfdeb33f525">update</a> (<a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a> scene)=0</td></tr>
-<tr class="separator:ac5842fdec385dcaeffce6bfdeb33f525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c7563744ab1ae9927dc2dfe55289b3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a55c7563744ab1ae9927dc2dfe55289b3">update</a> (const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;time, <a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a> scene)=0</td></tr>
+<tr class="separator:a55c7563744ab1ae9927dc2dfe55289b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9e71b4722ad24c1812f9db2605da5906"></a>
@@ -159,8 +159,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac5842fdec385dcaeffce6bfdeb33f525"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5842fdec385dcaeffce6bfdeb33f525">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a55c7563744ab1ae9927dc2dfe55289b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55c7563744ab1ae9927dc2dfe55289b3">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,9 +171,19 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void igor::iEntitySystem::update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a>&#160;</td>
-          <td class="paramname"><em>scene</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a>&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -184,7 +194,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>updates system </p>
 
-<p>Implemented in <a class="el" href="classigor_1_1i_velocity_system.html#ac2b1d2ee3138ece15dca0274d7eea6b6">igor::iVelocitySystem</a>, <a class="el" href="classigor_1_1i_transform_hierarchy_system.html#a4d116ac78d8d7cffe58c33fa59cc1dbb">igor::iTransformHierarchySystem</a>, <a class="el" href="classigor_1_1i_sprite_render_system.html#af1367208f5e08f7208b3e63297adf0f4">igor::iSpriteRenderSystem</a>, <a class="el" href="classigor_1_1i_quadtree_system.html#aa4cc1e576861694bab415535487a3864">igor::iQuadtreeSystem</a>, and <a class="el" href="classigor_1_1i_behaviour_system.html#a5fac37894672f5fc82e93900504ee318">igor::iBehaviourSystem</a>.</p>
+<p>Implemented in <a class="el" href="classigor_1_1i_velocity_system.html#a429492b5bab60f487168774fd3967bd7">igor::iVelocitySystem</a>, <a class="el" href="classigor_1_1i_transform_hierarchy_system.html#a065d2595d20617ccd0395a2ea5a6946c">igor::iTransformHierarchySystem</a>, <a class="el" href="classigor_1_1i_quadtree_system.html#a1e70003072dab7c839569ec01c4a542b">igor::iQuadtreeSystem</a>, <a class="el" href="classigor_1_1i_behaviour_system.html#ad64c27b8fd20f4cec1b909f3ad40010f">igor::iBehaviourSystem</a>, and <a class="el" href="classigor_1_1i_animation_system.html#abb0500d3aa7ba9901c81da91316611a7">igor::iAnimationSystem</a>.</p>
 
 </div>
 </div>

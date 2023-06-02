@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.40.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -114,8 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac57689fb72ee841aaa1f20b4377b65d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab47d3e722645a0b49646b97f7bb2e8e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structiaux_1_1ia_color4.html#ab47d3e722645a0b49646b97f7bb2e8e9">operator*=</a> (<a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> factor)</td></tr>
 <tr class="separator:ab47d3e722645a0b49646b97f7bb2e8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a2182ba21593731647215deb44aa6c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structiaux_1_1ia_color4.html#a7a2182ba21593731647215deb44aa6c5">lerp</a> (const <a class="el" href="structiaux_1_1ia_color4.html">iaColor4</a>&lt; T &gt; &amp;color1, const <a class="el" href="structiaux_1_1ia_color4.html">iaColor4</a>&lt; T &gt; &amp;color2, <a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> w)</td></tr>
-<tr class="separator:a7a2182ba21593731647215deb44aa6c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e1fb2677eb8d0d7d838e937f9354f74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structiaux_1_1ia_color4.html#a5e1fb2677eb8d0d7d838e937f9354f74">operator*</a> (<a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> factor)</td></tr>
+<tr class="separator:a5e1fb2677eb8d0d7d838e937f9354f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac465ceb9f4fad44ee0c748f4fb72a147"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structiaux_1_1ia_color4.html#ac465ceb9f4fad44ee0c748f4fb72a147">iaColor4</a> ()</td></tr>
 <tr class="separator:ac465ceb9f4fad44ee0c748f4fb72a147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abda9f690ebbf869f67b2be6ec33faaf3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structiaux_1_1ia_color4.html#abda9f690ebbf869f67b2be6ec33faaf3">iaColor4</a> ()</td></tr>
@@ -729,51 +729,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a7a2182ba21593731647215deb44aa6c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a2182ba21593731647215deb44aa6c5">&#9670;&nbsp;</a></span>lerp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void iaColor4::lerp </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_color4.html">iaColor4</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>color1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_color4.html">iaColor4</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>color2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td>
-          <td class="paramname"><em>w</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>linear interpolation between two colors with a factor and stor the result in this color</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">color1</td><td>first color </td></tr>
-    <tr><td class="paramname">color2</td><td>second color </td></tr>
-    <tr><td class="paramname">w</td><td>factor to interpolate with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a108205eb1b922fa9788a6cedfddf0699"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a108205eb1b922fa9788a6cedfddf0699">&#9670;&nbsp;</a></span>magenta() <span class="overload">[1/2]</span></h2>
 
@@ -851,6 +806,33 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e1fb2677eb8d0d7d838e937f9354f74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e1fb2677eb8d0d7d838e937f9354f74">&#9670;&nbsp;</a></span>operator*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void iaColor4::operator* </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td>
+          <td class="paramname"><em>factor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>scale operator</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">factor</td><td>the value to scale with </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

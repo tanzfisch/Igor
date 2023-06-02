@@ -157,6 +157,10 @@ var i_defines_8h =
       [ "Normal", "i_defines_8h.html#ace7988c80527d8744c218d3f70209f9aa960b44c579bc2f6818d2daaf9e4c16f0", null ],
       [ "Mipmapped", "i_defines_8h.html#ace7988c80527d8744c218d3f70209f9aafde5603b6965d5a8c0da74784fab8395", null ]
     ] ],
+    [ "iTexturePattern", "i_defines_8h.html#ad2ba78b0fc0b3565e0b13e60d9a5ad06", [
+      [ "SolidColor", "i_defines_8h.html#ad2ba78b0fc0b3565e0b13e60d9a5ad06a63af9903673bdc27b881a7444b1f9854", null ],
+      [ "CheckerBoard", "i_defines_8h.html#ad2ba78b0fc0b3565e0b13e60d9a5ad06aded665c40aa8d11a7ab9cea42ab7161c", null ]
+    ] ],
     [ "iTextureWrapMode", "i_defines_8h.html#a61ce2c4b325487a849b9c636141a1f6b", [
       [ "Repeat", "i_defines_8h.html#a61ce2c4b325487a849b9c636141a1f6ba7020426cfb0a204051be4b3053d2acc8", null ],
       [ "Clamp", "i_defines_8h.html#a61ce2c4b325487a849b9c636141a1f6ba08825280e3f8137556325061ba67ff8c", null ],
@@ -171,5 +175,7 @@ var i_defines_8h =
       [ "Undefined", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "operator<<", "i_defines_8h.html#a728632759bccb048d7e6082f2400dd20", null ],
-    [ "__IGOR_CONFIGURATION__", "i_defines_8h.html#a62512b4a7f0d4a97d7c4a7ccd8388c3f", null ]
+    [ "IGOR_BUILD_CONFIGURATION", "i_defines_8h.html#a18e993b347b706a6ba5d7b262078623f", null ],
+    [ "IGOR_SUPPORTED_SPRITE_EXTENSIONS", "i_defines_8h.html#a6d64eba77ac6416e65eaa16a3fc7c73b", null ],
+    [ "IGOR_SUPPORTED_TEXTURE_EXTENSIONS", "i_defines_8h.html#a3df9f6653ed6317f6c2d117f9019e204", null ]
 ];
