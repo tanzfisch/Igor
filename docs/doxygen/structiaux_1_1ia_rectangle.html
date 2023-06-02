@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.40.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -157,6 +157,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abb1d356377ec342720f25cdd6e826a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a377218822d269efe4f2b80922c4a19b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structiaux_1_1ia_rectangle.html#a377218822d269efe4f2b80922c4a19b4">operator==</a> (const <a class="el" href="structiaux_1_1ia_rectangle.html">iaRectangle</a>&lt; T &gt; &amp;other) const</td></tr>
 <tr class="separator:a377218822d269efe4f2b80922c4a19b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0a3d37529dd259c693f2991a9ff01ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structiaux_1_1ia_rectangle.html#ac0a3d37529dd259c693f2991a9ff01ce">operator!=</a> (const <a class="el" href="structiaux_1_1ia_rectangle.html">iaRectangle</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:ac0a3d37529dd259c693f2991a9ff01ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -245,7 +247,7 @@ template&lt;typename T &gt; </div>
 <p>ctor with parameters</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>horrizontal position </td></tr>
+    <tr><td class="paramname">x</td><td>horizontal position </td></tr>
     <tr><td class="paramname">y</td><td>vertical position </td></tr>
     <tr><td class="paramname">width</td><td>width </td></tr>
     <tr><td class="paramname">height</td><td>height </td></tr>
@@ -633,6 +635,34 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ac0a3d37529dd259c693f2991a9ff01ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0a3d37529dd259c693f2991a9ff01ce">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaRectangle::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_rectangle.html">iaRectangle</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>compares two rectangles</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other rectangle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if rectangles are not equal </dd></dl>
+
+</div>
+</div>
 <a id="abb1d356377ec342720f25cdd6e826a00"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb1d356377ec342720f25cdd6e826a00">&#9670;&nbsp;</a></span>operator=()</h2>
 
@@ -685,7 +715,7 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if both vectors are equal </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if both rectangles are equal </dd></dl>
 
 </div>
 </div>
@@ -980,10 +1010,10 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>sets horrizontal position</p>
+<p>sets horizontal position</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>horrizontal position </td></tr>
+    <tr><td class="paramname">x</td><td>horizontal position </td></tr>
   </table>
   </dd>
 </dl>
@@ -1065,7 +1095,7 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>horrizontal position </p>
+<p>horizontal position </p>
 
 </div>
 </div>

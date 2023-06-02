@@ -20,6 +20,9 @@ var dir_b9bc800c5eeb123b0cfb1fef5c168ecc =
     ] ],
     [ "iOctree.cpp", "i_octree_8cpp.html", null ],
     [ "iOctree.h", "i_octree_8h.html", "i_octree_8h" ],
+    [ "iParameters.h", "i_parameters_8h.html", [
+      [ "iParameters", "classigor_1_1i_parameters.html", "classigor_1_1i_parameters" ]
+    ] ],
     [ "iPlane.h", "i_plane_8h.html", "i_plane_8h" ],
     [ "iPlane.inl", "i_plane_8inl.html", null ],
     [ "iQuadtree.h", "i_quadtree_8h.html", "i_quadtree_8h" ],

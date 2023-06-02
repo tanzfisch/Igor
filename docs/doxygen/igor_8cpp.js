@@ -12,5 +12,7 @@ var igor_8cpp =
     [ "printInfo", "igor_8cpp.html#af68f95c2759782213759d6aadf327ad7", null ],
     [ "shutdown", "igor_8cpp.html#a10b2ddc4c372b6753c6e09e7a3299abf", null ],
     [ "startup", "igor_8cpp.html#ab8b34c22ef39bf85e86c87b304b3baa7", null ],
-    [ "__IGOR_CONFIGURATION__", "igor_8cpp.html#a62512b4a7f0d4a97d7c4a7ccd8388c3f", null ]
+    [ "IGOR_BUILD_CONFIGURATION", "igor_8cpp.html#a18e993b347b706a6ba5d7b262078623f", null ],
+    [ "IGOR_SUPPORTED_SPRITE_EXTENSIONS", "igor_8cpp.html#a6d64eba77ac6416e65eaa16a3fc7c73b", null ],
+    [ "IGOR_SUPPORTED_TEXTURE_EXTENSIONS", "igor_8cpp.html#a3df9f6653ed6317f6c2d117f9019e204", null ]
 ];

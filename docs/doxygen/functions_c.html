@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.39.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.40.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -159,7 +159,7 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 <li>clear()
 : <a class="el" href="classiaux_1_1ia_b_spline.html#aca0e662062cc71adc6552a49487b0019">iaux::iaBSpline&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_event.html#a90f0075c1a5a0037cd8738715ba7befa">iaux::iaEvent&lt; R, Args &gt;</a>
-, <a class="el" href="classiaux_1_1ia_gradient.html#ac6ee99ed39724107dbfda770acb8219d">iaux::iaGradient&lt; T &gt;</a>
+, <a class="el" href="classiaux_1_1ia_key_frame_graph.html#ac74f83fb5b4b04ae95066c8b4c42be90">iaux::iaKeyFrameGraph&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_r_l_e.html#aa111d2396406eb871ee6c110cd85b08a">iaux::iaRLE&lt; TValue, TIndex &gt;</a>
 , <a class="el" href="classiaux_1_1ia_string.html#a86450b6e32ec24593165641f64402da7">iaux::iaString</a>
 , <a class="el" href="classigor_1_1i_component_map.html#acfebaa35132bab0fe9e761eb85be27ba">igor::iComponentMap&lt; T &gt;</a>
@@ -217,6 +217,9 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 <li>closeEvent()
 : <a class="el" href="classigor_1_1i_window_impl.html#ab154b23afe53165056fc10126453c1ab">igor::iWindowImpl</a>
 </li>
+<li>closeGate()
+: <a class="el" href="classiaux_1_1ia_state_machine.html#ae57bef4e5a879da142b608ff5795f0ea">iaux::iaStateMachine</a>
+</li>
 <li>closeLogfile()
 : <a class="el" href="classiaux_1_1ia_console.html#ad0bbf4dd21b76a8c53838ff655b7a494">iaux::iaConsole</a>
 </li>
@@ -243,18 +246,18 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 : <a class="el" href="classigor_1_1i_intersection.html#a381b56fb5672060c4aeffc1a973dd454">igor::iIntersection</a>
 </li>
 <li>convert()
-: <a class="el" href="classiaux_1_1ia_convert.html#a734abab2644419cfa806e84e5b876f5c">iaux::iaConvert</a>
+: <a class="el" href="classiaux_1_1ia_convert.html#a113e4b6229d6ed33879815d99548dbad">iaux::iaConvert</a>
 , <a class="el" href="classiaux_1_1ia_matrix2_d.html#aa029d0f31bc3eee7702a2b4ba10093ed">iaux::iaMatrix2D&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_matrix.html#a31ef8cf3c46dc52b9670d69d973d51a8">iaux::iaMatrix&lt; T &gt;</a>
-, <a class="el" href="structiaux_1_1ia_vector2.html#acf1cbe1ff77f90df6785340243378625">iaux::iaVector2&lt; T &gt;</a>
+, <a class="el" href="structiaux_1_1ia_vector2.html#a28d968d5d27a20ac5b66e9c1841026c0">iaux::iaVector2&lt; T &gt;</a>
 , <a class="el" href="structiaux_1_1ia_vector3.html#a9cbeb673fcb50f12c3b0be15faff6798">iaux::iaVector3&lt; T &gt;</a>
 , <a class="el" href="structiaux_1_1ia_vector4.html#abee3997897867ada83fc3e67be0c6f71">iaux::iaVector4&lt; T &gt;</a>
 </li>
 <li>convertHSVtoRGB()
-: <a class="el" href="classiaux_1_1ia_convert.html#a9e53a35ead218c7dd2e2c0de8ffc1fb7">iaux::iaConvert</a>
+: <a class="el" href="classiaux_1_1ia_convert.html#a18680a8fbd6188e26687fb74f5d2f37b">iaux::iaConvert</a>
 </li>
 <li>convertRGBtoHSV()
-: <a class="el" href="classiaux_1_1ia_convert.html#a26ccc52e732eae0c7541bda88623ee2c">iaux::iaConvert</a>
+: <a class="el" href="classiaux_1_1ia_convert.html#afbf1a795b126b6a620b6489ea5403f6c">iaux::iaConvert</a>
 </li>
 <li>convertType()
 : <a class="el" href="classigor_1_1i_renderer_utils.html#ab1fe5deae2954e77b7d000f49bb476ff">igor::iRendererUtils</a>
@@ -270,14 +273,13 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 </li>
 <li>create()
 : <a class="el" href="classiaux_1_1ia_u_u_i_d.html#ab006d547ce5ceda3ab0981f4a1a3351d">iaux::iaUUID</a>
-, <a class="el" href="classigor_1_1i_atlas.html#ac65c7813b03a93570fee13c2334db166">igor::iAtlas</a>
 , <a class="el" href="classigor_1_1i_index_buffer.html#a6d9128f0fb849a01f9e4ae48124b3aaa">igor::iIndexBuffer</a>
 , <a class="el" href="classigor_1_1i_instancing_buffer.html#afc0213bc575990f53a6180692846c347">igor::iInstancingBuffer</a>
 , <a class="el" href="classigor_1_1i_mesh.html#a33a2441e0abbdeea5a0b9a195a32900e">igor::iMesh</a>
 , <a class="el" href="classigor_1_1i_module.html#a9b88b62396bea01d733bb955d460ce98">igor::iModule&lt; T &gt;</a>
 , <a class="el" href="classigor_1_1i_shader_program.html#a5a16d2350282bb7bd94c2d48e5cc5ec4">igor::iShaderProgram</a>
 , <a class="el" href="classigor_1_1i_target_material.html#aadd492824453a2e65cd723452084fe6b">igor::iTargetMaterial</a>
-, <a class="el" href="classigor_1_1i_texture_font.html#ab7af2c769530dac73c69c2cd56df1c3d">igor::iTextureFont</a>
+, <a class="el" href="classigor_1_1i_texture_font.html#a429f07b4abccd2bcf983095bc53a1dd9">igor::iTextureFont</a>
 , <a class="el" href="classigor_1_1i_vertex_array.html#a77d486b7824feaf5198ae10734a67b84">igor::iVertexArray</a>
 , <a class="el" href="classigor_1_1i_vertex_buffer.html#a3aff20a7c5b705bbd083318be22fd6f0">igor::iVertexBuffer</a>
 </li>
@@ -293,6 +295,9 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 </li>
 <li>createCapsule()
 : <a class="el" href="classigor_1_1i_physics.html#a4b3f791fd62b78b7c6766c860d8dc37b">igor::iPhysics</a>
+</li>
+<li>createClip()
+: <a class="el" href="classigor_1_1i_clip.html#ae36b54834d6705b954b4850a18fb2407">igor::iClip</a>
 </li>
 <li>createCollisionConfig()
 : <a class="el" href="classigor_1_1i_physics.html#afcf31d70d6fd26a15d74830d52d408e2">igor::iPhysics</a>
@@ -320,9 +325,6 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 </li>
 <li>createGroupChunk()
 : <a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a6901856f7e376c3ff059eac965a78b00">OMPF::OMPF</a>
-</li>
-<li>createID()
-: <a class="el" href="classiaux_1_1ia_i_d_generator.html#adef544ade1a2c169b3e668315a096b03">iaux::iaIDGenerator&lt; T &gt;</a>
 </li>
 <li>createInstance()
 : <a class="el" href="classigor_1_1i_model_data_i_o_o_b_j.html#a64b6febb3143effa92b67307594b81f6">igor::iModelDataIOOBJ</a>
@@ -355,6 +357,9 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 <li>createParticleSystemChunk()
 : <a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#aa23fd9a6ed1a9e990bc4f7898cd386aa">OMPF::OMPF</a>
 </li>
+<li>createPixmap()
+: <a class="el" href="classigor_1_1i_pixmap.html#afd84689f2048ce6d5515797ace7dda6e">igor::iPixmap</a>
+</li>
 <li>createRenderContext()
 : <a class="el" href="classigor_1_1i_window_impl.html#aadaffb6d24d09b934b173efb75868e26">igor::iWindowImpl</a>
 </li>
@@ -362,7 +367,7 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 : <a class="el" href="classigor_1_1i_renderer.html#aadbdcd6026eda603b2ab7695f7350e19">igor::iRenderer</a>
 </li>
 <li>createResource()
-: <a class="el" href="classigor_1_1i_factory.html#a23f360be3b103359293822a9f972c978">igor::iFactory</a>
+: <a class="el" href="classigor_1_1i_factory.html#ac6112879fe2fc5d7729bba476f342e01">igor::iFactory</a>
 </li>
 <li>createScene()
 : <a class="el" href="classigor_1_1i_entity_system_module.html#aacd73128e2cd5bba2740911ba9557b20">igor::iEntitySystemModule</a>

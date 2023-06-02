@@ -6,9 +6,9 @@ var dir_6af3909bf246418c556ab146cc535420 =
     [ "iTaskFlushModels.h", "i_task_flush_models_8h.html", [
       [ "iTaskFlushModels", "classigor_1_1i_task_flush_models.html", "classigor_1_1i_task_flush_models" ]
     ] ],
-    [ "iTaskFlushTextures.cpp", "i_task_flush_textures_8cpp.html", null ],
-    [ "iTaskFlushTextures.h", "i_task_flush_textures_8h.html", [
-      [ "iTaskFlushTextures", "classigor_1_1i_task_flush_textures.html", "classigor_1_1i_task_flush_textures" ]
+    [ "iTaskFlushResources.cpp", "i_task_flush_resources_8cpp.html", null ],
+    [ "iTaskFlushResources.h", "i_task_flush_resources_8h.html", [
+      [ "iTaskFlushResources", "classigor_1_1i_task_flush_resources.html", "classigor_1_1i_task_flush_resources" ]
     ] ],
     [ "iTaskLoadModel.cpp", "i_task_load_model_8cpp.html", null ],
     [ "iTaskLoadModel.h", "i_task_load_model_8h.html", [

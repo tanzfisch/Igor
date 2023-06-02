@@ -12,7 +12,6 @@ var hierarchy =
     [ "igor::iAABox< int64 >", "classigor_1_1i_a_a_box.html", null ],
     [ "igor::iAACube< T >", "classigor_1_1i_a_a_cube.html", null ],
     [ "igor::iAACube< float64 >", "classigor_1_1i_a_a_cube.html", null ],
-    [ "iaux::iaBits< T >", "classiaux_1_1ia_bits.html", null ],
     [ "iaux::iaBSpline< T >", "classiaux_1_1ia_b_spline.html", null ],
     [ "iaux::iaCircle< T >", "classiaux_1_1ia_circle.html", null ],
     [ "iaux::iaCircle< F >", "classiaux_1_1ia_circle.html", null ],
@@ -40,11 +39,14 @@ var hierarchy =
     [ "iaux::iaEventReturnHandler< R, Args >", "classiaux_1_1ia_event_return_handler.html", null ],
     [ "iaux::iaEventReturnHandler< void, Args... >", "classiaux_1_1ia_event_return_handler_3_01void_00_01_args_8_8_8_01_4.html", null ],
     [ "iaux::iaFile", "classiaux_1_1ia_file.html", null ],
-    [ "iaux::iaGradient< T >", "classiaux_1_1ia_gradient.html", null ],
     [ "iaux::iaIDGenerator< T >", "classiaux_1_1ia_i_d_generator.html", null ],
+    [ "iaux::iaKeyFrameGraph< T >", "classiaux_1_1ia_key_frame_graph.html", null ],
+    [ "iaux::iaMath", "classiaux_1_1ia_math.html", null ],
     [ "iaux::iaMatrix< T >", "classiaux_1_1ia_matrix.html", null ],
     [ "iaux::iaMatrix2D< T >", "classiaux_1_1ia_matrix2_d.html", null ],
     [ "iaux::iaMutex", "classiaux_1_1ia_mutex.html", null ],
+    [ "igor::iAnimationComponent", "structigor_1_1i_animation_component.html", null ],
+    [ "igor::iAnimationController", "classigor_1_1i_animation_controller.html", null ],
     [ "iaux::iaQuaternion< T >", "classiaux_1_1ia_quaternion.html", null ],
     [ "iaux::iaRandom", "classiaux_1_1ia_random.html", null ],
     [ "iaux::iaRandomNumberGenerator", "classiaux_1_1ia_random_number_generator.html", null ],
@@ -54,9 +56,9 @@ var hierarchy =
     [ "iaux::iaRLE< uint8, uint8 >", "classiaux_1_1ia_r_l_e.html", null ],
     [ "iaux::iaRLEBlock< TValue, TIndex >", "structiaux_1_1ia_r_l_e_block.html", null ],
     [ "iaux::iaSerializable", "classiaux_1_1ia_serializable.html", null ],
-    [ "igor::iaSphere< T >", "classigor_1_1ia_sphere.html", null ],
-    [ "igor::iaSphere< float64 >", "classigor_1_1ia_sphere.html", null ],
-    [ "igor::iaSphere< int64 >", "classigor_1_1ia_sphere.html", null ],
+    [ "iaux::iaSphere< T >", "classiaux_1_1ia_sphere.html", null ],
+    [ "iaux::iaState", "classiaux_1_1ia_state.html", null ],
+    [ "iaux::iaStateMachine", "classiaux_1_1ia_state_machine.html", null ],
     [ "iaux::iaString", "classiaux_1_1ia_string.html", null ],
     [ "iaux::iaTest", "classiaux_1_1ia_test.html", null ],
     [ "iaux::iaThread", "classiaux_1_1ia_thread.html", [
@@ -65,8 +67,8 @@ var hierarchy =
       ] ]
     ] ],
     [ "iaux::iaTime", "classiaux_1_1ia_time.html", null ],
-    [ "igor::iAtlas", "classigor_1_1i_atlas.html", null ],
     [ "iaux::iaTransform< T >", "classiaux_1_1ia_transform.html", null ],
+    [ "iaux::iaTransition", "classiaux_1_1ia_transition.html", null ],
     [ "igor::iAudioBuffer", "structigor_1_1i_audio_buffer.html", null ],
     [ "igor::iAudioImpl", "classigor_1_1i_audio_impl.html", null ],
     [ "igor::iAudioSource", "structigor_1_1i_audio_source.html", null ],
@@ -85,17 +87,21 @@ var hierarchy =
     [ "igor::iCameraComponent", "structigor_1_1i_camera_component.html", null ],
     [ "igor::iCharacterDimensions", "structigor_1_1i_character_dimensions.html", null ],
     [ "igor::iCircleCollision2DComponent", "structigor_1_1i_circle_collision2_d_component.html", null ],
+    [ "igor::iClip", "classigor_1_1i_clip.html", null ],
     [ "igor::iComponentMap< T >", "classigor_1_1i_component_map.html", null ],
     [ "igor::iConfigReader", "classigor_1_1i_config_reader.html", null ],
     [ "igor::iContouringCubes", "classigor_1_1i_contouring_cubes.html", null ],
     [ "igor::iDeleteComponent", "structigor_1_1i_delete_component.html", null ],
     [ "igor::iEmitterTriangle", "classigor_1_1i_emitter_triangle.html", null ],
     [ "igor::iEntity", "classigor_1_1i_entity.html", null ],
+    [ "igor::iEntityRenderSystem", "classigor_1_1i_entity_render_system.html", [
+      [ "igor::iSpriteRenderSystem", "classigor_1_1i_sprite_render_system.html", null ]
+    ] ],
     [ "igor::iEntitySceneDeleter", "classigor_1_1i_entity_scene_deleter.html", null ],
     [ "igor::iEntitySystem", "classigor_1_1i_entity_system.html", [
+      [ "igor::iAnimationSystem", "classigor_1_1i_animation_system.html", null ],
       [ "igor::iBehaviourSystem", "classigor_1_1i_behaviour_system.html", null ],
       [ "igor::iQuadtreeSystem", "classigor_1_1i_quadtree_system.html", null ],
-      [ "igor::iSpriteRenderSystem", "classigor_1_1i_sprite_render_system.html", null ],
       [ "igor::iTransformHierarchySystem", "classigor_1_1i_transform_hierarchy_system.html", null ],
       [ "igor::iVelocitySystem", "classigor_1_1i_velocity_system.html", null ]
     ] ],
@@ -116,10 +122,13 @@ var hierarchy =
       [ "igor::iEventWindowResize", "classigor_1_1i_event_window_resize.html", null ]
     ] ],
     [ "igor::iFactory", "classigor_1_1i_factory.html", [
-      [ "igor::iSoundFactory", "classigor_1_1i_sound_factory.html", null ]
+      [ "igor::iAnimationFactory", "classigor_1_1i_animation_factory.html", null ],
+      [ "igor::iSoundFactory", "classigor_1_1i_sound_factory.html", null ],
+      [ "igor::iSpriteFactory", "classigor_1_1i_sprite_factory.html", null ],
+      [ "igor::iTextureFactory", "classigor_1_1i_texture_factory.html", null ]
     ] ],
     [ "igor::iFlatVertex", "structigor_1_1i_flat_vertex.html", null ],
-    [ "igor::iAtlas::iFrame", "structigor_1_1i_atlas_1_1i_frame.html", null ],
+    [ "igor::iSprite::iFrame", "structigor_1_1i_sprite_1_1i_frame.html", null ],
     [ "igor::iFrustum< T >", "classigor_1_1i_frustum.html", null ],
     [ "igor::iGlobalBoundaryComponent", "structigor_1_1i_global_boundary_component.html", null ],
     [ "igor::iHierarchyComponent", "structigor_1_1i_hierarchy_component.html", null ],
@@ -194,9 +203,6 @@ var hierarchy =
     [ "igor::iModule< iTaskManager >", "classigor_1_1i_module.html", [
       [ "igor::iTaskManager", "classigor_1_1i_task_manager.html", null ]
     ] ],
-    [ "igor::iModule< iTextureResourceFactory >", "classigor_1_1i_module.html", [
-      [ "igor::iTextureResourceFactory", "classigor_1_1i_texture_resource_factory.html", null ]
-    ] ],
     [ "igor::iModule< iTimer >", "classigor_1_1i_module.html", [
       [ "igor::iTimer", "classigor_1_1i_timer.html", null ]
     ] ],
@@ -239,6 +245,7 @@ var hierarchy =
       [ "igor::iKeyboard", "classigor_1_1i_keyboard.html", null ],
       [ "igor::iMouse", "classigor_1_1i_mouse.html", null ]
     ] ],
+    [ "igor::iParameters", "classigor_1_1i_parameters.html", null ],
     [ "igor::iParticle", "structigor_1_1i_particle.html", null ],
     [ "igor::iParticleEmitter", "classigor_1_1i_particle_emitter.html", null ],
     [ "igor::iParticleSystem", "classigor_1_1i_particle_system.html", null ],
@@ -282,9 +289,11 @@ var hierarchy =
     [ "igor::iRendererUtils", "classigor_1_1i_renderer_utils.html", null ],
     [ "igor::iRenderStateSet", "classigor_1_1i_render_state_set.html", null ],
     [ "igor::iResource", "classigor_1_1i_resource.html", [
-      [ "igor::iSound", "classigor_1_1i_sound.html", null ]
+      [ "igor::iAnimation", "classigor_1_1i_animation.html", null ],
+      [ "igor::iSound", "classigor_1_1i_sound.html", null ],
+      [ "igor::iSprite", "classigor_1_1i_sprite.html", null ],
+      [ "igor::iTexture", "classigor_1_1i_texture.html", null ]
     ] ],
-    [ "igor::iResourceParameters", "structigor_1_1i_resource_parameters.html", null ],
     [ "igor::iScene", "classigor_1_1i_scene.html", null ],
     [ "igor::iShaderProgram", "classigor_1_1i_shader_program.html", null ],
     [ "igor::iShaderSource", "structigor_1_1i_shader_source.html", null ],
@@ -295,14 +304,13 @@ var hierarchy =
     [ "igor::iTargetMaterialDeleter", "classigor_1_1i_target_material_deleter.html", null ],
     [ "igor::iTask", "classigor_1_1i_task.html", [
       [ "igor::iTaskFlushModels", "classigor_1_1i_task_flush_models.html", null ],
-      [ "igor::iTaskFlushTextures", "classigor_1_1i_task_flush_textures.html", null ],
+      [ "igor::iTaskFlushResources", "classigor_1_1i_task_flush_resources.html", null ],
       [ "igor::iTaskGenerateVoxels", "classigor_1_1i_task_generate_voxels.html", null ],
       [ "igor::iTaskLoadModel", "classigor_1_1i_task_load_model.html", null ],
       [ "igor::iTaskPrepareCollision", "classigor_1_1i_task_prepare_collision.html", null ],
       [ "igor::iTaskPropsOnVoxels", "classigor_1_1i_task_props_on_voxels.html", null ],
       [ "igor::iTaskVoxelTerrain", "classigor_1_1i_task_voxel_terrain.html", null ]
     ] ],
-    [ "igor::iTexture", "classigor_1_1i_texture.html", null ],
     [ "igor::iTexturedVertex", "structigor_1_1i_textured_vertex.html", null ],
     [ "igor::iTextureFont", "classigor_1_1i_texture_font.html", null ],
     [ "igor::iTimerHandle", "classigor_1_1i_timer_handle.html", null ],

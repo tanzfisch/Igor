@@ -12,6 +12,7 @@ var dir_785af6e17744cfc8ec5bccd5a7762feb =
       [ "iRenderer", "classigor_1_1i_renderer.html", "classigor_1_1i_renderer" ],
       [ "iRendererStats", "structigor_1_1i_renderer_1_1i_renderer_stats.html", "structigor_1_1i_renderer_1_1i_renderer_stats" ]
     ] ],
+    [ "iRenderer.inl", "i_renderer_8inl.html", null ],
     [ "iRenderStateSet.cpp", "i_render_state_set_8cpp.html", null ],
     [ "iRenderStateSet.h", "i_render_state_set_8h.html", [
       [ "iRenderStateSet", "classigor_1_1i_render_state_set.html", "classigor_1_1i_render_state_set" ]
