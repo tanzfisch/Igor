@@ -81,6 +81,47 @@ void ExampleInstancing::onInit()
 
     iaRandomNumberGenerator random;
 
+    // todo need to be able to load a mesh from file without all of this
+    iMeshPtr catMesh;
+    iTargetMaterialPtr catTargetMaterial;
+    iModelPtr modelCat = iModelResourceFactory::getInstance().loadModelData("cat.ompf");
+    if(modelCat->getNode()->getType() == iNodeType::iNodeMesh)
+    {
+        iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCat->getNode());
+        catTargetMaterial = meshNode->getTargetMaterial();
+        catMesh = meshNode->getMesh();
+    }
+
+    iMeshPtr createMesh;
+    iTargetMaterialPtr crateTargetMaterial;
+    iModelPtr modelCrate = iModelResourceFactory::getInstance().loadModelData("crate.ompf");
+    if(modelCrate->getNode()->getType() == iNodeType::iNodeMesh)
+    {
+        iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCrate->getNode());
+        crateTargetMaterial = meshNode->getTargetMaterial();
+        createMesh = meshNode->getMesh();
+    }    
+
+    iMeshPtr cubeMesh;
+    iTargetMaterialPtr cubeTargetMaterial;
+    iModelPtr modelCube = iModelResourceFactory::getInstance().loadModelData("cube_green.ompf");
+    if(modelCube->getNode()->getType() == iNodeType::iNodeMesh)
+    {
+        iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCube->getNode());
+        cubeTargetMaterial = meshNode->getTargetMaterial();
+        cubeMesh = meshNode->getMesh();
+    }    
+
+    iMeshPtr teapotMesh;
+    iTargetMaterialPtr teapotTargetMaterial;
+    iModelPtr modelTeapot = iModelResourceFactory::getInstance().loadModelData("teapot.ompf");
+    if(modelTeapot->getNode()->getType() == iNodeType::iNodeMesh)
+    {
+        iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelTeapot->getNode());
+        teapotTargetMaterial = meshNode->getTargetMaterial();
+        teapotMesh = meshNode->getMesh();
+    }    
+
     // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)
     {
@@ -103,33 +144,39 @@ void ExampleInstancing::onInit()
                 transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Y);
                 transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Z);
 
-                iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
+                iNodeMeshPtr meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+                
+                
                 switch (count % 4)
                 {
                 case 0:
-                    modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
-                    modelNode->setMaterial(_materialWithInstancingA);
+                    meshNode->setMesh(catMesh);
+                    meshNode->setTargetMaterial(catTargetMaterial);
+                    meshNode->setMaterial(_materialWithInstancingA);
                     break;
 
                 case 1:
-                    modelNode->setModel("crate.ompf", iResourceCacheMode::Keep);
-                    modelNode->setMaterial(_materialWithInstancingA);
+                    meshNode->setMesh(createMesh);
+                    meshNode->setTargetMaterial(crateTargetMaterial);
+                    meshNode->setMaterial(_materialWithInstancingA);
                     break;
 
                 case 2:
-                    modelNode->setModel("tree.ompf", iResourceCacheMode::Keep);
-                    modelNode->setMaterial(_materialWithInstancingB);
+                    meshNode->setMesh(cubeMesh);
+                    meshNode->setTargetMaterial(cubeTargetMaterial);
+                    meshNode->setMaterial(_materialWithInstancingB);
                     break;
 
                 case 3:
-                    modelNode->setModel("teapot.ompf", iResourceCacheMode::Keep);
-                    modelNode->setMaterial(_materialWithInstancingB);
+                    meshNode->setMesh(teapotMesh);
+                    meshNode->setTargetMaterial(teapotTargetMaterial);
+                    meshNode->setMaterial(_materialWithInstancingB);
                     break;
                 }
 
                 // building the created nodes together and insert them in the scene
                 transformGroup->insertNode(transform);
-                transform->insertNode(modelNode);
+                transform->insertNode(meshNode);
 
                 count++;
             }

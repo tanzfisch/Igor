@@ -796,6 +796,11 @@ namespace igor
                         continue;
                     }
 
+                    if(pair.second->getName().isEmpty())
+                    {
+                        continue;
+                    }
+
                     result->setTexture(iResourceManager::getInstance().getRelativePath(pair.second->getName()), pair.first);
                 }
             }
