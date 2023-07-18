@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.41.0
+------
+
+- improved iNodeTransform info string
+
 0.40.0
 ------
 
