@@ -202,6 +202,10 @@ namespace igor
         */
         bool _abortUpdateData = false;
 
+        /*! if true blocks any signals from scene
+        */
+        bool _blockSignals = false;
+
         /*! sets frustum on octree
 
         \param frustum the frustum to cull the scene with

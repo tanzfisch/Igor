@@ -195,7 +195,7 @@ namespace igor
 
     void iVoxelTerrain::deinit()
     {
-        con_endl("shutdown iVoxelTerrain ...");
+        con_info("shutdown iVoxelTerrain ...");
 
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
         _targetMaterial = nullptr;

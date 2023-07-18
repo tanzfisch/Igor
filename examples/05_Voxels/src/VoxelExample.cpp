@@ -57,15 +57,12 @@ void VoxelExample::initScene()
     lightTranslate->translate(100, 100, 100);
     // and light node
     iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor3f(0.6f, 0.6f, 0.6f));
-    lightNode->setDiffuse(iaColor3f(0.9f, 0.7f, 0.6f));
-    lightNode->setSpecular(iaColor3f(1.0f, 0.9f, 0.87f));
+    lightNode->setAmbient(0.6f, 0.6f, 0.6f);
+    lightNode->setDiffuse(0.9f, 0.7f, 0.6f);
+    lightNode->setSpecular(1.0f, 0.9f, 0.87f);
     // and add it to the scene
     getScene()->getRoot()->insertNode(lightTranslate);
     lightTranslate->insertNode(lightNode);
-
-    // set up voxel mesh material
-    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().loadMaterial("voxel_terrain_directional_light.mat");
 
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
@@ -78,6 +75,9 @@ void VoxelExample::initScene()
     skyBoxNode->setMaterial(materialSkyBox);
     // and add it to the scene
     getScene()->getRoot()->insertNode(skyBoxNode);
+
+    // set up voxel mesh material
+    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().loadMaterial("voxel_terrain_directional_light.mat");
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)

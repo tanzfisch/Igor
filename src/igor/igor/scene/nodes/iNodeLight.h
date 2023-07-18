@@ -74,6 +74,14 @@ namespace igor
         */
         void setAmbient(const iaColor3f &color);
 
+        /*! set ambient material color
+
+        \param r red
+        \param g green
+        \param b blue
+        */
+        void setAmbient(float32 r, float32 g, float32 b);
+
         /*! returns diffuse material color
         */
         iaColor3f &getDiffuse();
@@ -84,15 +92,31 @@ namespace igor
         */
         void setDiffuse(const iaColor3f &color);
 
+        /*! set diffuse material color
+
+        \param r red
+        \param g green
+        \param b blue
+        */
+        void setDiffuse(float32 r, float32 g, float32 b);        
+
         /*! returns specular material color
         */
         iaColor3f &getSpecular();
 
-        /*! set speculer material color
+        /*! set specular material color
 
-        \param color speculer color
+        \param color specular color
         */
         void setSpecular(const iaColor3f &color);
+
+        /*! set specular material color
+
+        \param r red
+        \param g green
+        \param b blue
+        */
+        void setSpecular(float32 r, float32 g, float32 b);          
 
         /*! set type of light
 

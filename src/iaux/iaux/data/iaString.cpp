@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string>
+#include <cstring>
 #include <memory>
 #include <regex>
 

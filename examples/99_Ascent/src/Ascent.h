@@ -1,111 +1,103 @@
+//
+//   ______                                |\___/|  /\___/\
+//  /\__  _\                               )     (  )     (
+//  \/_/\ \/       __      ___    _ __    =\     /==\     /=
+//     \ \ \     /'_ `\   / __`\ /\`'__\    )   (    )   (
+//      \_\ \__ /\ \L\ \ /\ \L\ \\ \ \/    /     \   /   \
+//      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
+//  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
+//                 /\____/                   ( (       ))
+//                 \_/__/                     ) )     ((
+//                                           (_(       \)
+//    (c) Copyright 2014-2020 by Martin Loga
+//
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.If not, see <http://www.gnu.org/licenses/>.
+//
+// contact: igorgameengine@protonmail.com
+
 #ifndef __ASCENT__
 #define __ASCENT__
 
-#include <igor/igor.h>
+#include <ExampleBase.h>
 
-class Enemy;
-
-class Ascent : public iLayer
+class Ascent : public ExampleBase
 {
 
 public:
-    // TODO replace later with data from loaded model
-    static uint64 _terrainMaterialID;
-    static uint64 _entityMaterialID;
-    static uint64 _bulletMaterialID;
-
-    /*! init members
+    /*! initializes the example
 
     \param window the given window
     */
     Ascent(iWindowPtr window);
+
+    /*! nothing to do
+     */
     ~Ascent() = default;
 
 private:
-    bool _captureMouse = true;
+    /*! voxel mesh material
+     */
+    iMaterialPtr _voxelMeshMaterial;
 
-    iaRandomNumberGenerator rand;
+    /*! voxel terrain
+     */
+    std::unique_ptr<iVoxelTerrain> _voxelTerrain;
 
-    bool _loading = true;
-    bool _activeControls = false;
-
-    iView _view;
-    iView _viewOrtho;
-
-    uint64 _playerID = 0;
-    uint64 _bossID = 0;
-
+    /*! makes noise
+     */
     iPerlinNoise _perlinNoise;
-
-    iTextureFont *_font = nullptr;
-
-    iScenePtr _scene = nullptr;
-
-    uint64 _toolSize = 3;
-    uint8 _toolDensity = 0;
-
-    iaVector2f _mouseDelta;
-    iaVector3f _weaponPos;
-
-    iNodeTransform *_lightTranslate = nullptr;
-    iNodeTransform *_lightRotate = nullptr;
-    iNodeLight *_lightNode = nullptr;
-
-    float64 _startTime;
-
-    uint32 _materialWithTextureAndBlending = 0;
-    uint32 _octreeMaterial = 0;
-    int32 _materialSkyBox = 0;
-
-    uint64 _taskFlushModels = 0;
-    uint64 _taskFlushTextures = 0;
-
-    iaMutex _hitListMutex;
-    std::vector<std::pair<uint64, uint64>> _hitList;
 
     std::vector<iaSphered> _metaballs;
     std::vector<iaSphered> _holes;
-    iVoxelTerrain *_voxelTerrain = nullptr;
 
-    int _enemyCount = 0;
+    /*! init voxel data
+     */
+    void initVoxelData(uint32 lodTriggerID);
 
     void oulineLevelStructure();
-    void deinitVoxelData();
-    void initVoxelData();
+
     void onGenerateVoxelData(iVoxelBlockInfo *voxelBlockInfo);
     void onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockInfo);
 
     bool getTerrainIntersectionPoint(iaVector3I &intersection);
     void dig(iaVector3I position, uint64 toolSize, uint8 toolDensity);
 
-    void handleMouse();
     void handleHitList();
 
     void onRender();
     void onRenderOrtho();
 
-    void initViews();
     void initScene();
-    void initPlayer();
 
     void initPhysics();
     void onContactTerrainBullet(iPhysicsBody *body0, iPhysicsBody *body1);
     void onContact(iPhysicsBody *body0, iPhysicsBody *body1);
 
     /*! called when added to layer stack
-        */
+     */
     void onInit() override;
 
     /*! called when removed from layer stack
-        */
+     */
     void onDeinit() override;
 
     /*! called on application pre draw event
-        */
+     */
     void onUpdate() override;
 
     /*! called on any other event
-        */
+     */
     void onEvent(iEvent &event) override;
 
     /*! handles mouse key down event
@@ -140,13 +132,6 @@ private:
     \param event the event to handle
     */
     bool onKeyUp(iEventKeyUp &event);
-
-    /*! handle window resize event
-
-    \param event the window resize event
-    \returns true if consumed
-    */
-    bool onWindowResize(iEventWindowResize &event);
 };
 
-#endif
+#endif // __ASCENT__
