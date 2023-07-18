@@ -61,6 +61,10 @@ private:
     std::vector<iaSphered> _metaballs;
     std::vector<iaSphered> _holes;
 
+    uint64 _terrainMaterialID;
+    uint64 _entityMaterialID;
+    uint64 _bulletMaterialID;    
+
     /*! init voxel data
      */
     void initVoxelData(uint32 lodTriggerID);

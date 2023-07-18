@@ -13,10 +13,10 @@
 #include <igor/scene/nodes/iNodePhysics.h>
 
 // uncomment next line for voxel terrain debug coloring
-// #define DEBUG_VOXEL_TERRAIN_COLORING
+#define DEBUG_VOXEL_TERRAIN_COLORING
 
 // uncomment next line for voxel terrain debug using no physics
-// #define DEBUG_VOXEL_TERRAIN_NO_PHYSICS
+#define DEBUG_VOXEL_TERRAIN_NO_PHYSICS
 
 namespace igor
 {
@@ -65,7 +65,7 @@ namespace igor
 
 #ifdef DEBUG_VOXEL_TERRAIN_COLORING
             iaRandomNumberGenerator rand;
-            rand.setSeed(reinterpret_cast<uint32>(voxelData));
+            rand.setSeed(reinterpret_cast<std::uintptr_t>(voxelData));
             float32 r = ((rand.getNext() % 30) + 35.0f) / 100.0f;
             float32 g = ((rand.getNext() % 30) + 35.0f) / 100.0f;
             float32 b = ((rand.getNext() % 30) + 35.0f) / 100.0f;

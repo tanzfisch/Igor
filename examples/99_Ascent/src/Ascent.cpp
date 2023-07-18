@@ -54,6 +54,7 @@ void Ascent::initScene()
 
     // create cam with LOD trigger
     iNodeTransform *cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    cameraTransform->translate(100000, 100000, 100300);
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     iNodeLODTrigger *lodtrigger = iNodeManager::getInstance().createNode<iNodeLODTrigger>();
     cameraTransform->insertNode(camera);
@@ -66,7 +67,7 @@ void Ascent::initScene()
 
 void Ascent::initPhysics()
 {
-    /*iPhysicsMaterial *materialTerrain = iPhysics::getInstance().createMaterial("terrain");
+    iPhysicsMaterial *materialTerrain = iPhysics::getInstance().createMaterial("terrain");
     _terrainMaterialID = materialTerrain->getID();
 
     iPhysicsMaterial *materialEntity = iPhysics::getInstance().createMaterial("entity");
@@ -97,7 +98,7 @@ void Ascent::initPhysics()
     bulletBullet->setName("bullet-bullet");
     bulletBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
 
-    iPhysics::getInstance().start();*/
+    iPhysics::getInstance().start();
 }
 
 void Ascent::initVoxelData(uint32 lodTriggerID)
@@ -124,7 +125,7 @@ void Ascent::initVoxelData(uint32 lodTriggerID)
 
     oulineLevelStructure();
 
-    // TODO _voxelTerrain->setPhysicsMaterialID(_terrainMaterialID);
+    _voxelTerrain->setPhysicsMaterialID(_terrainMaterialID);
 
     // add to scene
     _voxelTerrain->setScene(getScene());
@@ -133,7 +134,7 @@ void Ascent::initVoxelData(uint32 lodTriggerID)
 
 void Ascent::oulineLevelStructure()
 {
-    iaVector3d bossPosition; // 0,0,0
+    iaVector3d bossPosition(100000, 100000, 100000);
 
     // covering the boss
     _metaballs.push_back(iaSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));

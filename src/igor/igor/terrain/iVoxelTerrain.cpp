@@ -225,7 +225,7 @@ namespace igor
         if (lodTrigger != nullptr)
         {
             iaVector3d pos = lodTrigger->getWorldPosition();
-            if (pos.length2() < 1.0f)
+            if (pos.length2() < 1.0f) // TODO why?
             {
                 return;
             }
