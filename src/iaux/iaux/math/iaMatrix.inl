@@ -658,6 +658,14 @@ __IGOR_INLINE__ void iaMatrix<T>::move(T distance, iaAxis axis)
 }
 
 template <class T>
+__IGOR_INLINE__ void iaMatrix<T>::move(const iaVector3<T> &v)
+{
+    _pos += _right * v._x;
+    _pos += _top * v._y;
+    _pos += _depth * v._z;
+}
+
+template <class T>
 __IGOR_INLINE__ void iaMatrix<T>::shear(const iaVector3<T> &vec)
 {
     iaMatrix<T> matrix;

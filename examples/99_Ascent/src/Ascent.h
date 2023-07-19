@@ -31,6 +31,19 @@
 
 #include <ExampleBase.h>
 
+// replace with entity later
+struct TempKey
+{
+    bool _left = false;
+    bool _right = false;
+    bool _front = false;
+    bool _back = false;
+    bool _up = false;
+    bool _down = false;
+    bool _rollLeft = false;
+    bool _rollRight = false;
+};
+
 class Ascent : public ExampleBase
 {
 
@@ -64,6 +77,9 @@ private:
     uint64 _terrainMaterialID;
     uint64 _entityMaterialID;
     uint64 _bulletMaterialID;    
+
+    TempKey _keyInput;
+    iNodeTransformPtr _cameraTransform;
 
     /*! init voxel data
      */

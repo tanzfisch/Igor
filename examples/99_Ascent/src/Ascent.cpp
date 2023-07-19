@@ -17,7 +17,65 @@ void Ascent::onInit()
 
 void Ascent::onUpdate()
 {
-    // TODO
+    // runs 100 times per second so we don't need to care about timing here
+
+    iaMatrixd matrix;
+    _cameraTransform->getMatrix(matrix);
+
+    const float64 speed = 0.5;
+    const float64 rollSpeed = 0.01;
+
+    iaVector3d translate;
+    if (_keyInput._front)
+    {
+        translate._z -= 1;
+    }
+
+    if (_keyInput._back)
+    {
+        translate._z += 1;
+    }
+
+    if (_keyInput._left)
+    {
+        translate._x -= 1;
+    }
+    
+    if (_keyInput._right)
+    {
+        translate._x += 1;
+    }
+
+    if (_keyInput._up)
+    {
+        translate._y += 1;
+    }
+    
+    if (_keyInput._down)
+    {
+        translate._y -= 1;
+    }
+
+    translate.normalize();
+    translate *= speed;
+
+    matrix.move(translate);
+
+    float64 roll = 0.0;
+
+    if (_keyInput._rollLeft)
+    {
+        roll += rollSpeed;
+    }
+
+    if (_keyInput._rollRight)
+    {
+        roll -= rollSpeed;
+    }
+
+    matrix.rotate(roll, iaAxis::Z);
+
+    _cameraTransform->setMatrix(matrix);
 }
 
 void Ascent::onDeinit()
@@ -53,13 +111,13 @@ void Ascent::initScene()
     getScene()->getRoot()->insertNode(skyBoxNode);
 
     // create cam with LOD trigger
-    iNodeTransform *cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    cameraTransform->translate(100000, 100000, 100300);
+    _cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    _cameraTransform->translate(100000, 100000, 100300);
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     iNodeLODTrigger *lodtrigger = iNodeManager::getInstance().createNode<iNodeLODTrigger>();
-    cameraTransform->insertNode(camera);
+    _cameraTransform->insertNode(camera);
     camera->insertNode(lodtrigger);
-    getScene()->getRoot()->insertNode(cameraTransform);
+    getScene()->getRoot()->insertNode(_cameraTransform);
     getView().setCurrentCamera(camera->getID());
 
     initVoxelData(lodtrigger->getID());
@@ -613,117 +671,84 @@ bool Ascent::onMouseWheelEvent(iEventMouseWheel &event)
 
 bool Ascent::onKeyDown(iEventKeyDown &event)
 {
-    /*if (_activeControls)
-    {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
-
-        if (player != nullptr)
-        {
-            switch (event.getKey())
-            {
-            case iKeyCode::A:
-                player->startLeft();
-                return true;
-
-            case iKeyCode::D:
-                player->startRight();
-                return true;
-
-            case iKeyCode::W:
-                player->startForward();
-                return true;
-
-            case iKeyCode::S:
-                player->startBackward();
-                return true;
-
-            case iKeyCode::Q:
-                player->startUp();
-                return true;
-
-            case iKeyCode::E:
-                player->startDown();
-                return true;
-
-            case iKeyCode::LShift:
-                player->startFastTurn();
-                return true;
-
-            case iKeyCode::One:
-                player->startRollLeft();
-                return true;
-
-            case iKeyCode::Three:
-                player->startRollRight();
-                return true;
-
-            case iKeyCode::Space:
-                iaVector3I intersection;
-                if (getTerrainIntersectionPoint(intersection))
-                {
-                    dig(intersection, _toolSize, _toolDensity);
-                }
-                return true;
-            }
-        }
-    }
-
     switch (event.getKey())
     {
-    case iKeyCode::ESC:
-        iApplication::getInstance().exit();
+    case iKeyCode::A:
+        _keyInput._left = true;
+        return true;
+
+    case iKeyCode::D:
+        _keyInput._right = true;
+        return true;
+
+    case iKeyCode::W:
+        _keyInput._front = true;
+        return true;
+
+    case iKeyCode::S:
+        _keyInput._back = true;
+        return true;
+
+    case iKeyCode::Q:
+        _keyInput._up = true;
+        return true;
+
+    case iKeyCode::E:
+        _keyInput._down = true;
+        return true;
+
+    case iKeyCode::One:
+        _keyInput._rollLeft = true;
+        return true;
+
+    case iKeyCode::Three:
+        _keyInput._rollRight = true;
+        return true;
+
+    case iKeyCode::Space:
+        // TODO
         return true;
     }
-*/
+
     return false;
 }
 
 bool Ascent::onKeyUp(iEventKeyUp &event)
 {
-    /*if (_activeControls)
+    switch (event.getKey())
     {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
-        if (player != nullptr)
-        {
-            switch (event.getKey())
-            {
-            case iKeyCode::A:
-                player->stopLeft();
-                return true;
+    case iKeyCode::A:
+        _keyInput._left = false;
+        return true;
 
-            case iKeyCode::D:
-                player->stopRight();
-                return true;
+    case iKeyCode::D:
+        _keyInput._right = false;
+        return true;
 
-            case iKeyCode::W:
-                player->stopForward();
-                return true;
+    case iKeyCode::W:
+        _keyInput._front = false;
+        return true;
 
-            case iKeyCode::S:
-                player->stopBackward();
-                return true;
+    case iKeyCode::S:
+        _keyInput._back = false;
+        return true;
 
-            case iKeyCode::Q:
-                player->stopUp();
-                return true;
+    case iKeyCode::Q:
+        _keyInput._up = false;
+        return true;
 
-            case iKeyCode::E:
-                player->stopDown();
-                return true;
+    case iKeyCode::E:
+        _keyInput._down = false;
+        return true;
 
-            case iKeyCode::LShift:
-                player->stopFastTurn();
-                return true;
+    case iKeyCode::One:
+        _keyInput._rollLeft = false;
+        return true;
 
-            case iKeyCode::One:
-                player->stopRollLeft();
-                return true;
+    case iKeyCode::Three:
+        _keyInput._rollRight = false;
+        return true;
+    }
 
-            case iKeyCode::Three:
-                player->stopRollRight();
-                return true;
-            }
-        }
-    }*/
     return ExampleBase::onKeyUp(event);
 }
