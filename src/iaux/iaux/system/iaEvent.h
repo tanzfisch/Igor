@@ -53,6 +53,8 @@ namespace iaux
         {
             _internal = (InternalDefaultCall *)malloc(sizeof(InternalDefaultCall));
             new (_internal) InternalDefaultCall(function);
+
+            con_endl("ctor 1 " << std::hex << _internal << " this " << this << std::dec);
         }
 
         /*! initializes with a method and instance
@@ -62,6 +64,38 @@ namespace iaux
         {
             _internal = (InternalThisCall<T> *)malloc(sizeof(InternalThisCall<T>));
             new (_internal) InternalThisCall<T>(instance, method);
+
+            con_endl("ctor 2 " << std::hex << _internal << " this " << this << std::dec);
+        }
+
+        /*! copy ctor
+         */
+        iaDelegate(const iaDelegate *other)
+        {
+            _internal = other._internal->clone();
+            con_endl("copy ctor " << std::hex << _internal << " this " << this << std::dec);
+        }
+
+        /*! cleanup
+         */
+        ~iaDelegate()
+        {
+            con_endl("dtor " << std::hex << _internal << " this " << this << std::dec);
+            clear();
+        }
+
+        /*! clears delegate and makes it invalid
+         */
+        void clear()
+        {
+            con_endl("clear " << std::hex << _internal << " this " << this << std::dec);
+
+            if (_internal != nullptr)
+            {
+                _internal->~InternalBase();
+                free(_internal);
+                _internal = nullptr;
+            }
         }
 
         /*! executes the bound function or method
@@ -70,7 +104,21 @@ namespace iaux
         {
             con_assert_sticky(_internal != nullptr, "invalid state");
 
+            con_endl("run " << std::hex << _internal << " this " << this << std::dec);
+
             return _internal->execute(std::forward<Args>(args)...);
+        }
+
+        /*! assignment operator
+
+        \param other the other delegate
+        */
+        const iaDelegate &operator=(const iaDelegate &other)
+        {
+            clear();
+            _internal = other._internal->clone();
+            con_endl("assignment " << std::hex << _internal << " this " << this << std::dec);
+            return *this;
         }
 
         /*! tests whether or not two delegates are equal
@@ -135,7 +183,7 @@ namespace iaux
                     return false;
                 }
 
-                R (*function)
+                R(*function)
                 (Args...) = ((InternalDefaultCall *)delegate)->_function;
                 return (_function == function);
             }
@@ -156,7 +204,8 @@ namespace iaux
             }
 
         protected:
-            R (*_function)(Args...);
+            R(*_function)
+            (Args...);
         };
 
         template <typename T>
@@ -192,7 +241,7 @@ namespace iaux
                     return false;
                 }
 
-                R (T::*method)
+                R(T::*method)
                 (Args...) = ((InternalThisCall<T> *)delegate)->_method;
                 return (_method == method);
             }
@@ -214,7 +263,8 @@ namespace iaux
 
         protected:
             T *_instance = nullptr;
-            R (T::*_method)(Args...);
+            R(T::*_method)
+            (Args...);
         };
 
         InternalBase *_internal = nullptr;
