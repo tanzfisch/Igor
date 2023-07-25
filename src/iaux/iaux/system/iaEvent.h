@@ -53,8 +53,6 @@ namespace iaux
         {
             _internal = (InternalDefaultCall *)malloc(sizeof(InternalDefaultCall));
             new (_internal) InternalDefaultCall(function);
-
-            con_endl("ctor 1 " << std::hex << _internal << " this " << this << std::dec);
         }
 
         /*! initializes with a method and instance
@@ -64,8 +62,6 @@ namespace iaux
         {
             _internal = (InternalThisCall<T> *)malloc(sizeof(InternalThisCall<T>));
             new (_internal) InternalThisCall<T>(instance, method);
-
-            con_endl("ctor 2 " << std::hex << _internal << " this " << this << std::dec);
         }
 
         /*! copy ctor
@@ -73,14 +69,12 @@ namespace iaux
         iaDelegate(const iaDelegate *other)
         {
             _internal = other._internal->clone();
-            con_endl("copy ctor " << std::hex << _internal << " this " << this << std::dec);
         }
 
         /*! cleanup
          */
         ~iaDelegate()
         {
-            con_endl("dtor " << std::hex << _internal << " this " << this << std::dec);
             clear();
         }
 
@@ -88,8 +82,6 @@ namespace iaux
          */
         void clear()
         {
-            con_endl("clear " << std::hex << _internal << " this " << this << std::dec);
-
             if (_internal != nullptr)
             {
                 _internal->~InternalBase();
@@ -98,13 +90,20 @@ namespace iaux
             }
         }
 
+        /*! get info in to stream
+
+        \param[out] stream the stream to put the infor in
+        */ 
+        void getInfo(std::wostream &stream) const
+        {
+            stream << std::hex << this << " " << _internal << std::dec;
+        }
+
         /*! executes the bound function or method
          */
         R operator()(Args... args) const
         {
             con_assert_sticky(_internal != nullptr, "invalid state");
-
-            con_endl("run " << std::hex << _internal << " this " << this << std::dec);
 
             return _internal->execute(std::forward<Args>(args)...);
         }
@@ -115,24 +114,39 @@ namespace iaux
         */
         const iaDelegate &operator=(const iaDelegate &other)
         {
+            con_assert(other.isValid(), "delegate invalid");
+
             clear();
             _internal = other._internal->clone();
-            con_endl("assignment " << std::hex << _internal << " this " << this << std::dec);
             return *this;
         }
 
-        /*! tests whether or not two delegates are equal
+        /*! tests if two delegates are equal
 
         \param delegate the other delegate to test against
         */
         bool operator==(const iaDelegate<R, Args...> &delegate) const
         {
-            if (_internal == nullptr)
+            if (_internal == nullptr || delegate._internal == nullptr)
             {
-                return (delegate._internal == nullptr);
+                return false;
             }
 
             return (_internal->compare(delegate._internal));
+        }
+
+        /*! tests if two delegates are not equal
+
+        \param delegate the other delegate to test against
+        */
+        bool operator!=(const iaDelegate<R, Args...> &delegate) const
+        {
+            if (_internal == nullptr || delegate._internal == nullptr)
+            {
+                return true;
+            }
+
+            return !(_internal->compare(delegate._internal));
         }
 
         bool isValid() const
@@ -269,6 +283,20 @@ namespace iaux
 
         InternalBase *_internal = nullptr;
     };
+
+    /*! stream operator
+
+    \param stream the destination
+    \param text the string to stream
+    \returns the resulting stream
+    */
+    template <typename T>
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaDelegate<T> &delegate)
+    {
+        delegate.getInfo(stream);
+
+        return stream;
+    }
 
     /*! helper class to determine return type
      */

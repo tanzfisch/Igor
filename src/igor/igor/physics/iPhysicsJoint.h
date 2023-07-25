@@ -33,7 +33,6 @@
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/system/iaMutex.h>
-#include <iaux/system/iaEvent.h>
 using namespace iaux;
 
 namespace igor
