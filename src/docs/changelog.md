@@ -5,6 +5,8 @@ Changelog                           {#changelog}
 ------
 
 - improved iNodeTransform info string
+- improved load time of instancing example
+- lazy load audio device
 
 0.40.0
 ------
