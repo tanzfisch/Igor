@@ -75,18 +75,31 @@ namespace igor
         }                                             \
         else                                          \
             break;                                    \
-    } while (0)    
+    } while (0)
 #else
 #define AL_CHECK_ERROR()
 #define ALC_CHECK_ERROR(device)
 #endif
-
 
     class iAudioImpl
     {
     public:
         iAudioImpl()
         {
+        }
+
+        ~iAudioImpl()
+        {
+            deinit();
+        }
+
+        void init()
+        {
+            if(_initiallized)
+            {
+                return;
+            }
+
             con_info("initialize audio");
 
             _device = alcOpenDevice(nullptr);
@@ -119,10 +132,17 @@ namespace igor
             con_info("OpenAL Version : " << alGetString(AL_VERSION) << endlTab
                                          << "OpenAL Vendor  : " << alGetString(AL_VENDOR) << endlTab
                                          << "OpenAL Renderer: " << alGetString(AL_RENDERER));
+
+            _initiallized = true;
         }
 
-        ~iAudioImpl()
+        void deinit()
         {
+            if(!_initiallized)
+            {
+                return;
+            }
+
             con_info("shutdown audio");
 
             if (_context != nullptr &&
@@ -136,8 +156,15 @@ namespace igor
             }
         }
 
+        bool isInitialized() const
+        {
+            return _initiallized;
+        }
+
         bool createBuffer(iAudioBuffer &audioBuffer, int16 numChannels, int16 bitsPerSample, int32 sampleRate, const char *buffer, int32 bufferSize)
         {
+            init();
+
             ALenum format = 0;
 
             if (bitsPerSample == 8)
@@ -188,11 +215,15 @@ namespace igor
 
         void destroyBuffer(const iAudioBuffer &buffer)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alDeleteBuffers(1, (ALuint *)&buffer._id);
         }
 
         void updateListener(const iaMatrixd &matrix, const iaVector3d velocity)
         {
+            init();
+
             const ALfloat listenerOri[] = {
                 (ALfloat)matrix._depth._x, (ALfloat)matrix._depth._y, (ALfloat)matrix._depth._z,
                 (ALfloat)matrix._top._x, (ALfloat)matrix._top._y, (ALfloat)matrix._top._z};
@@ -207,6 +238,8 @@ namespace igor
 
         bool createSource(iAudioSource &audioSource)
         {
+            init();
+
             alGenSources((ALuint)1, (ALuint *)&audioSource._id);
             if (!alIsSource(audioSource._id))
             {
@@ -218,36 +251,48 @@ namespace igor
 
         void destroySource(const iAudioSource &source)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alDeleteSources(1, (ALuint *)&source._id);
             AL_CHECK_ERROR();
         }
 
         void setSourcePitch(const iAudioSource &source, float32 pitch)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alSourcef(source._id, AL_PITCH, pitch);
             AL_CHECK_ERROR();
         }
 
         void setSourceDirectChannel(const iAudioSource &source, bool on)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alSourcei(source._id, AL_DIRECT_CHANNELS_SOFT, on ? AL_TRUE : AL_FALSE);
             AL_CHECK_ERROR();
         }
 
         void setSourceGain(const iAudioSource &source, float32 gain)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alSourcef(source._id, AL_GAIN, gain);
             AL_CHECK_ERROR();
         }
 
         void setSourceLoop(const iAudioSource &source, bool loop)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alSourcei(source._id, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
             AL_CHECK_ERROR();
         }
 
         void updateSource(const iAudioSource &source, const iaVector3d &position, const iaVector3d velocity)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alSource3f(source._id, AL_POSITION, position._x, position._y, position._z);
             AL_CHECK_ERROR();
             alSource3f(source._id, AL_VELOCITY, velocity._x, velocity._y, velocity._z);
@@ -256,29 +301,39 @@ namespace igor
 
         void playSource(const iAudioSource &source)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alSourcePlay(source._id);
             AL_CHECK_ERROR();
         }
 
         void stopSource(const iAudioSource &source)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alSourceStop(source._id);
             AL_CHECK_ERROR();
         }
 
         void bindSource(const iAudioSource &source, iAudioBuffer &buffer)
         {
+            con_assert(_initiallized, "audio not initialized");
+
             alSourcei(source._id, AL_BUFFER, buffer._id);
             AL_CHECK_ERROR();
         }
 
     private:
+        /*! if true device should be initialized
+         */
+        bool _initiallized = false;
+
         /*! audio device
-        */
+         */
         ALCdevice *_device = nullptr;
 
         /*! audio context
-        */
+         */
         ALCcontext *_context = nullptr;
     };
 
