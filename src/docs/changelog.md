@@ -1,6 +1,12 @@
 Changelog                           {#changelog}
 =========
 
+0.41.0
+------
+
+- improved load time of instancing example
+- lazy load audio device
+
 0.40.0
 ------
 
