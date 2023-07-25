@@ -33,13 +33,18 @@ __IGOR_INLINE__ bool iNodeManager::isNode(iNodeID id) const
 }
 
 template <class T>
-T *iNodeManager::createNode()
+T *iNodeManager::createNode(const iaString &name)
 {
     T *result = new T();
 
     _mutexNodes.lock();
     _nodes[static_cast<iNodePtr>(result)->getID()] = static_cast<iNodePtr>(result);
     _mutexNodes.unlock();
+
+    if (!name.isEmpty())
+    {
+        result->setName(name);
+    }
 
     return result;
 }

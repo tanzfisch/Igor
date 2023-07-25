@@ -359,17 +359,17 @@ namespace igor
         return _data ? true : false;
     }
 
-    int64 iVoxelData::getWidth()
+    int64 iVoxelData::getWidth() const
     {
         return _width;
     }
 
-    int64 iVoxelData::getDepth()
+    int64 iVoxelData::getDepth() const
     {
         return _depth;
     }
 
-    int64 iVoxelData::getHeight()
+    int64 iVoxelData::getHeight() const 
     {
         return _height;
     }

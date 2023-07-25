@@ -28,7 +28,6 @@
 #include <igor/terrain/operations/iVoxelOperationBox.h>
 #include <igor/terrain/operations/iVoxelOperationSphere.h>
 
-
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -183,9 +182,6 @@ namespace igor
 
         // set up terrain target material
         _targetMaterial = iTargetMaterial::create();
-        /*_targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);*/
         _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -1092,9 +1088,10 @@ namespace igor
                 iNodePtr group = static_cast<iNodeMesh *>(modelNode->getChild("group"));
                 if (group != nullptr)
                 {
-                    iNodeMesh *meshNode = static_cast<iNodeMesh *>(group->getChild("mesh"));
-                    if (meshNode != nullptr)
+                    const auto &children = group->getChildren();
+                    if (!children.empty())
                     {
+                        iNodeMesh *meshNode = static_cast<iNodeMesh *>(children[0]);
                         meshNode->setVisible(meshVisible);
                     }
                 }
@@ -1226,7 +1223,7 @@ namespace igor
                 {
                     iVoxelTerrainTileInformation tileInformation;
 
-                    tileInformation._materialID = _terrainMaterial;
+                    tileInformation._material = _terrainMaterial;
                     tileInformation._voxelOffsetToNextLOD = childOffsetPosition[voxelBlock->_childAdress];
                     tileInformation._voxelOffsetToNextLOD *= 16;
                     tileInformation._voxelData = new iVoxelData();

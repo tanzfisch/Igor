@@ -22,7 +22,7 @@ void Ascent::onUpdate()
     iaMatrixd matrix;
     _cameraTransform->getMatrix(matrix);
 
-    const float64 speed = 0.5;
+    const float64 speed = 2.0;
     const float64 rollSpeed = 0.01;
 
     iaVector3d translate;
@@ -112,7 +112,7 @@ void Ascent::initScene()
 
     // create cam with LOD trigger
     _cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _cameraTransform->translate(100000, 100000, 100300);
+    _cameraTransform->translate(100000, 100000, 101000);
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     iNodeLODTrigger *lodtrigger = iNodeManager::getInstance().createNode<iNodeLODTrigger>();
     _cameraTransform->insertNode(camera);
@@ -174,12 +174,11 @@ void Ascent::initVoxelData(uint32 lodTriggerID)
     targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 0);
     targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 1);
     targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 2);
-    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("detail.png"), 3);
     targetMaterial->setAmbient(iaColor3f(0.1f, 0.1f, 0.1f));
     targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
     targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
     targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
-    targetMaterial->setShininess(1000.0f);
+    targetMaterial->setShininess(100.0f);
 
     oulineLevelStructure();
 

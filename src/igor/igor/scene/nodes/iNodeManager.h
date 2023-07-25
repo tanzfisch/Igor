@@ -138,7 +138,7 @@ namespace igor
 		\returns pointer to new node
 		*/
         template <class T>
-        T *createNode();
+        T *createNode(const iaString &name = "");
 
         /*! inserts one node as child to an other (asynchronously)
 

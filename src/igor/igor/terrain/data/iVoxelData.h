@@ -84,15 +84,15 @@ namespace igor
 
         /*! \returns width of voxel data
         */
-        int64 getWidth();
+        int64 getWidth() const;
 
         /*! \returns depth of voxel data
         */
-        int64 getDepth();
+        int64 getDepth() const;
 
         /*! \returns height of voxel data
         */
-        int64 getHeight();
+        int64 getHeight() const;
 
         /*! sets density of specified voxel
 
