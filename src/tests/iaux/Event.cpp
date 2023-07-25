@@ -81,11 +81,22 @@ IAUX_TEST(EventTests, FunctionDelegateOverride2)
     IAUX_EXPECT_EQUAL(delegate2(), 2);
 }
 
-
-
 IAUX_TEST(EventTests, EmptyEvent)
 {
     SimpleVoidEvent event;
     IAUX_EXPECT_FALSE(event.hasDelegates());
     IAUX_EXPECT_FALSE(event.isBlocked());
+
+    SimpleClass foo;
+
+    event.add(SimpleVoidDelegate(simpleFunction1));
+    event.add(SimpleVoidDelegate(simpleFunction2));
+    event.add(SimpleVoidDelegate(&foo, &SimpleClass::simpleMethod));
+
+    IAUX_EXPECT_TRUE(event.hasDelegates());
+    auto values = event();
+
+    IAUX_EXPECT_EQUAL(values[0], 1);
+    IAUX_EXPECT_EQUAL(values[1], 2);
+    IAUX_EXPECT_EQUAL(values[2], 100);
 }

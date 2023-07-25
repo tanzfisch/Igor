@@ -65,9 +65,17 @@ namespace iaux
         }
 
         /*! copy ctor
+
+        \param other the other delegate
          */
-        iaDelegate(const iaDelegate *other)
+        iaDelegate(const iaDelegate &other)
         {
+            if (other._internal == nullptr)
+            {
+                _internal = nullptr;
+                return;
+            }
+
             _internal = other._internal->clone();
         }
 
@@ -93,7 +101,7 @@ namespace iaux
         /*! get info in to stream
 
         \param[out] stream the stream to put the infor in
-        */ 
+        */
         void getInfo(std::wostream &stream) const
         {
             stream << std::hex << this << " " << _internal << std::dec;
@@ -114,10 +122,13 @@ namespace iaux
         */
         const iaDelegate &operator=(const iaDelegate &other)
         {
-            con_assert(other.isValid(), "delegate invalid");
-
             clear();
-            _internal = other._internal->clone();
+
+            if (other._internal != nullptr)
+            {
+                _internal = other._internal->clone();
+            }
+
             return *this;
         }
 
