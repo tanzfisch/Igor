@@ -64,6 +64,49 @@ namespace iaux
             new (_internal) InternalThisCall<T>(instance, method);
         }
 
+        /*! copy ctor
+
+        \param other the other delegate
+         */
+        iaDelegate(const iaDelegate &other)
+        {
+            if (other._internal == nullptr)
+            {
+                _internal = nullptr;
+                return;
+            }
+
+            _internal = other._internal->clone();
+        }
+
+        /*! cleanup
+         */
+        ~iaDelegate()
+        {
+            clear();
+        }
+
+        /*! clears delegate and makes it invalid
+         */
+        void clear()
+        {
+            if (_internal != nullptr)
+            {
+                _internal->~InternalBase();
+                free(_internal);
+                _internal = nullptr;
+            }
+        }
+
+        /*! get info in to stream
+
+        \param[out] stream the stream to put the infor in
+        */
+        void getInfo(std::wostream &stream) const
+        {
+            stream << std::hex << this << " " << _internal << std::dec;
+        }
+
         /*! executes the bound function or method
          */
         R operator()(Args... args) const
@@ -73,18 +116,48 @@ namespace iaux
             return _internal->execute(std::forward<Args>(args)...);
         }
 
-        /*! tests whether or not two delegates are equal
+        /*! assignment operator
+
+        \param other the other delegate
+        */
+        const iaDelegate &operator=(const iaDelegate &other)
+        {
+            clear();
+
+            if (other._internal != nullptr)
+            {
+                _internal = other._internal->clone();
+            }
+
+            return *this;
+        }
+
+        /*! tests if two delegates are equal
 
         \param delegate the other delegate to test against
         */
         bool operator==(const iaDelegate<R, Args...> &delegate) const
         {
-            if (_internal == nullptr)
+            if (_internal == nullptr || delegate._internal == nullptr)
             {
-                return (delegate._internal == nullptr);
+                return false;
             }
 
             return (_internal->compare(delegate._internal));
+        }
+
+        /*! tests if two delegates are not equal
+
+        \param delegate the other delegate to test against
+        */
+        bool operator!=(const iaDelegate<R, Args...> &delegate) const
+        {
+            if (_internal == nullptr || delegate._internal == nullptr)
+            {
+                return true;
+            }
+
+            return !(_internal->compare(delegate._internal));
         }
 
         bool isValid() const
@@ -135,7 +208,7 @@ namespace iaux
                     return false;
                 }
 
-                R (*function)
+                R(*function)
                 (Args...) = ((InternalDefaultCall *)delegate)->_function;
                 return (_function == function);
             }
@@ -156,7 +229,8 @@ namespace iaux
             }
 
         protected:
-            R (*_function)(Args...);
+            R(*_function)
+            (Args...);
         };
 
         template <typename T>
@@ -192,7 +266,7 @@ namespace iaux
                     return false;
                 }
 
-                R (T::*method)
+                R(T::*method)
                 (Args...) = ((InternalThisCall<T> *)delegate)->_method;
                 return (_method == method);
             }
@@ -214,11 +288,26 @@ namespace iaux
 
         protected:
             T *_instance = nullptr;
-            R (T::*_method)(Args...);
+            R(T::*_method)
+            (Args...);
         };
 
         InternalBase *_internal = nullptr;
     };
+
+    /*! stream operator
+
+    \param stream the destination
+    \param text the string to stream
+    \returns the resulting stream
+    */
+    template <typename T>
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaDelegate<T> &delegate)
+    {
+        delegate.getInfo(stream);
+
+        return stream;
+    }
 
     /*! helper class to determine return type
      */
