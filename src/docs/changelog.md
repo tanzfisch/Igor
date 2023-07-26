@@ -6,6 +6,7 @@ Changelog                           {#changelog}
 
 - improved load time of instancing example
 - lazy load audio device
+- fixed mem leack in iaDelegate
 
 0.40.0
 ------
