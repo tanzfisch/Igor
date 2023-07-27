@@ -581,11 +581,6 @@ void Ascent::handleHitList()
     }*/
 }
 
-void Ascent::onRenderOrtho()
-{
-    // TODO
-}
-
 void Ascent::onEvent(iEvent &event)
 {
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseKeyDownEvent));

@@ -31,28 +31,23 @@
 
 #include "Defines.h"
 
+/*! controls start and stop of the game
+ */
 class Supremacy
 {
 
 public:
-
+    /*! init
+     */
     Supremacy();
 
+    /*! cleanup
+     */
     ~Supremacy();
 
+    /* run
+     */
     void run();
-
-private:
-
-    iWindowPtr _window;
-
-    void onInit();
-
-    void onRun();
-
-    void onDeInit();
-
-
 };
 
 #endif // __SUPREMACY__

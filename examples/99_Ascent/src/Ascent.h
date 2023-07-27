@@ -71,13 +71,20 @@ private:
      */
     iPerlinNoise _perlinNoise;
 
+    /*! list of balls to generate base shape of terrain
+    */
     std::vector<iaSphered> _metaballs;
+
+    /*! list of inverted balls to generate base shape of terrain
+    */
     std::vector<iaSphered> _holes;
 
+    // TODO
     uint64 _terrainMaterialID;
     uint64 _entityMaterialID;
     uint64 _bulletMaterialID;    
 
+    // TODO 
     TempKey _keyInput;
     iNodeTransformPtr _cameraTransform;
 
@@ -96,7 +103,6 @@ private:
     void handleHitList();
 
     void onRender();
-    void onRenderOrtho();
 
     void initScene();
 
