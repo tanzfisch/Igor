@@ -249,7 +249,7 @@ namespace igor
     void iVoxelTerrain::applyVoxelOperations()
     {
         _operationsQueueMutex.lock();
-        auto operations = _operationsQueue;
+        const auto operations = std::move(_operationsQueue);
         _operationsQueue.clear();
         _operationsQueueMutex.unlock();
 

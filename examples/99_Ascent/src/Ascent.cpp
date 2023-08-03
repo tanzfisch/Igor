@@ -180,7 +180,7 @@ void Ascent::initVoxelData(uint32 lodTriggerID)
     targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
     targetMaterial->setShininess(100.0f);
 
-    oulineLevelStructure();
+    outlineLevelStructure();
 
     _voxelTerrain->setPhysicsMaterialID(_terrainMaterialID);
 
@@ -189,7 +189,7 @@ void Ascent::initVoxelData(uint32 lodTriggerID)
     _voxelTerrain->setLODTrigger(lodTriggerID);
 }
 
-void Ascent::oulineLevelStructure()
+void Ascent::outlineLevelStructure()
 {
     iaVector3d bossPosition(100000, 100000, 100000);
 

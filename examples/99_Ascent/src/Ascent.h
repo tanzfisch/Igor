@@ -92,7 +92,7 @@ private:
      */
     void initVoxelData(uint32 lodTriggerID);
 
-    void oulineLevelStructure();
+    void outlineLevelStructure();
 
     void onGenerateVoxelData(iVoxelBlockInfo *voxelBlockInfo);
     void onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockInfo);

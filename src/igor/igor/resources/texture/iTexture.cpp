@@ -130,23 +130,23 @@ namespace igor
 
         if (_buildMode == iTextureBuildMode::Mipmapped)
         {
-            _mipMapLevels = floor(log2(std::max(width,height)))+1;
+            _mipMapLevels = std::max(1u, static_cast<uint32>(std::ceil(std::log2(std::max(width,height)))));
             glTextureParameteri(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             GL_CHECK_ERROR();
             glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             GL_CHECK_ERROR();            
 
-            /* TODO use DSA here. something like this but make it work
+            // TODO use DSA here. something like this but make it work
+            con_trace("MipMap: levels=" << _mipMapLevels << " glformatSized=" << glformatSized << " width=" << _width << " height=" << _height <<  " glformat=" << glformat << " textureID=" << _textureID);
             glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
-            glTexImage2D(GL_TEXTURE_2D, 0, glformatSized, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, data);
+            glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
             glGenerateTextureMipmap(_textureID);
-            */
 
-            glBindTexture(GL_TEXTURE_2D, _textureID);
+            /*glBindTexture(GL_TEXTURE_2D, _textureID);
             GL_CHECK_ERROR();         
             gluBuild2DMipmaps(GL_TEXTURE_2D, glformatSized, width, height, glformat, GL_UNSIGNED_BYTE, data);
             glFinish();
-            GL_CHECK_ERROR();
+            GL_CHECK_ERROR();*/
         }
         else
         {
