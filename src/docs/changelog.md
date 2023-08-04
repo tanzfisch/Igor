@@ -10,7 +10,7 @@ Changelog                           {#changelog}
 - fixed mem leack in iaDelegate
 - going full DSA in iTexture
 - refactored iTextureFactory
-- added exit code to IApplication
+- added exit code to iApplication
 
 0.40.0
 ------
