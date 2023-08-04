@@ -235,8 +235,8 @@ namespace igor
             return sized ? GL_RGBA8 : GL_RGBA;
         };
 
-        con_err("unsupported color format " << format);
-        return -1;
+        con_crit("unsupported color format " << format);
+        return -1; // never reached
     }
 
     std::wostream &operator<<(std::wostream &stream, const iColorFormat &colorFormat)

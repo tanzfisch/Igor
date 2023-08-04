@@ -15,10 +15,10 @@ int main(void)
     igor::iApplication::getInstance().addLayer(new FirstSteps());
 
     // run example
-    igor::iApplication::getInstance().run();
+    const auto exitCode = igor::iApplication::getInstance().run();
 
     // call this after you are done using Igor
     igor::shutdown();
 
-    return 0;
+    return exitCode;
 }

@@ -18,10 +18,10 @@ int main(void)
 
     // create example and add it as layer to the application
     igor::iApplication::getInstance().addLayer(new KeyboardExample(window));
-    igor::iApplication::getInstance().run();
+    const auto exitCode = igor::iApplication::getInstance().run();
 
     // call this after you are done with using Igor
     igor::shutdown();
 
-    return 0;
+    return exitCode;
 }

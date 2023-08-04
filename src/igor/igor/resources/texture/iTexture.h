@@ -110,6 +110,14 @@ namespace igor
          */
         uint32 getTextureID() const;
 
+        /*! calculates mip map levels
+
+        \param width the width of the texture
+        \param height the height of the texture
+        \returns the mip map levels
+        */
+        static uint32 calcMipMapLevels(int32 width, int32 height);
+
     private:
 
         /*! true if it is a dummy texture

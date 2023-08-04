@@ -8,6 +8,9 @@ Changelog                           {#changelog}
 - improved load time of instancing example
 - lazy load audio device
 - fixed mem leack in iaDelegate
+- going full DSA in iTexture
+- refactored iTextureFactory
+- added exit code to IApplication
 
 0.40.0
 ------
