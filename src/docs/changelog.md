@@ -11,6 +11,7 @@ Changelog                           {#changelog}
 - going full DSA in iTexture
 - refactored iTextureFactory
 - added exit code to iApplication
+- introduced load mode for resource manager
 
 0.40.0
 ------
