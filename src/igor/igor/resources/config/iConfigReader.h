@@ -70,7 +70,7 @@ namespace igor
 
 		/*! read logging xml elements
 
-		\param logging root element
+		\param logging logging element
 		*/
 		void readLoggingConfig(TiXmlElement *logging);
 	};

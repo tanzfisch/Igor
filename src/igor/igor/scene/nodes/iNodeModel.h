@@ -62,7 +62,7 @@ namespace igor
         \param modelName can be a filename or any unique identity name
         \param cacheMode hint for how the resource manager is handling to cache this resource
         \param parameters optional loading parameters (must be allocated on heap and will be consumed by library)
-        \param loadSynchronously load model immediately ohtherwise model loads asynchonously
+        \param loadSynchronously load model immediately otherwise model loads asynchronously
         */
         void setModel(const iaString &modelName, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter *parameters = nullptr, bool loadSynchronously = false);
 

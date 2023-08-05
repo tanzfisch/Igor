@@ -12,6 +12,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -92,7 +93,7 @@ namespace igor
         }
     }
 
-    void iNodeModel::setMaterial(const iMaterialPtr& material)
+    void iNodeModel::setMaterial(const iMaterialPtr &material)
     {
         _material = material;
 
@@ -104,7 +105,7 @@ namespace igor
         setMaterial(this, material);
     }
 
-    void iNodeModel::setMaterial(iNodePtr node, const iMaterialPtr& material)
+    void iNodeModel::setMaterial(iNodePtr node, const iMaterialPtr &material)
     {
         if (node->getType() == iNodeType::iNodeMesh)
         {
@@ -126,7 +127,8 @@ namespace igor
         _cacheMode = cacheMode;
         _parameters = parameters;
 
-        if (loadSynchronously)
+        if (loadSynchronously ||
+            iResourceManager::getInstance().getLoadMode() == iResourceManagerLoadMode::Synchronized)
         {
             _model = iModelResourceFactory::getInstance().loadModelData(_filename, _cacheMode, _parameters);
             _parameters = nullptr; // passing ownership to iModel
@@ -160,7 +162,7 @@ namespace igor
                 _loaded = true;
                 _ready = true;
 
-                if(_material != nullptr)
+                if (_material != nullptr)
                 {
                     setMaterial(_material);
                 }

@@ -217,9 +217,13 @@ namespace igor
         return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
     }
 
-
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
     {
+        if(_loadMode == iResourceManagerLoadMode::Synchronized)
+        {
+            return iResourceManager::loadResource(parameters);
+        }
+
         iResourcePtr result;
         iFactoryPtr factory;
         if ((factory = getFactory(parameters)) == nullptr)
@@ -480,5 +484,28 @@ namespace igor
 
         return result;
     }
+
+    void iResourceManager::setLoadMode(iResourceManagerLoadMode loadMode)
+    {
+        _loadMode = loadMode;
+
+        con_info("Resource Manager Load Mode: " << loadMode);
+    }
+
+    iResourceManagerLoadMode iResourceManager::getLoadMode() const
+    {
+        return _loadMode;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iResourceManagerLoadMode &mode)
+    {   
+        const static std::wstring text[] = {
+            L"Application",
+            L"Synchronized"};
+
+        stream << text[static_cast<int>(mode)];
+
+        return stream;
+    }    
 
 } // namespace igor

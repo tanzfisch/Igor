@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <Igor>
-    <!-- all paths have to be relative to current directory when igor is executed -->
-    <ResourceManager>
+    <!-- loadMode: loade mode of resource manager App (application decides), Sync (all synchronous) -->
+    <ResourceManager loadMode="Sync"> 
+
+        <!-- all paths have to be relative to current directory when igor is executed -->
         <SearchPaths>
             <SearchPath>../../data/textures</SearchPath>
             <SearchPath>../../data/sprites</SearchPath>

@@ -22,6 +22,12 @@ namespace igor
 
     void iConfigReader::readResourceManagerConfig(TiXmlElement *resourceManager)
     {
+        iaString loadMode(resourceManager->Attribute("loadMode"));
+        if(loadMode == "Sync")
+        {
+            iResourceManager::getInstance().setLoadMode(iResourceManagerLoadMode::Synchronized);
+        }
+
         TiXmlElement *paths = resourceManager->FirstChildElement("SearchPaths");
         if (paths != nullptr)
         {
