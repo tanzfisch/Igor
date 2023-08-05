@@ -7,7 +7,7 @@ Changelog                           {#changelog}
 - improved iNodeTransform info string
 - improved load time of instancing example
 - lazy load audio device
-- fixed mem leack in iaDelegate
+- fixed mem leaks in iaDelegate, iWindow, iOctree
 - going full DSA in iTexture
 - refactored iTextureFactory
 - added exit code to iApplication

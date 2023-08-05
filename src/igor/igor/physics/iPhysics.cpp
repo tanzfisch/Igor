@@ -211,7 +211,7 @@ namespace igor
         }
     }
 
-    void iPhysics::convexCast(const iaMatrixd &matrix, const iaVector3d &target, iPhysicsCollision *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, std::vector<ConvexCastReturnInfo> &result, int32 maxContactCount)
+    void iPhysics::convexCast(const iaMatrixd &matrix, const iaVector3d &target, iPhysicsCollision *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, std::vector<iConvexCastReturnInfo> &result, int32 maxContactCount)
     {
         con_assert(maxContactCount <= 16, "param out of range");
 
@@ -227,7 +227,7 @@ namespace igor
 
         for (int i = 0; i < numberOfContacts; ++i)
         {
-            ConvexCastReturnInfo returnInfo;
+            iConvexCastReturnInfo returnInfo;
             returnInfo._contactID = info[i].m_contactID;
             returnInfo._hitBody = static_cast<iPhysicsBody *>(NewtonBodyGetUserData(info[i].m_hitBody));
             returnInfo._normal.set(info[i].m_normal[0], info[i].m_normal[1], info[i].m_normal[2], info[i].m_normal[3]);

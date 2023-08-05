@@ -999,6 +999,9 @@ namespace igor
 
         void close() override
         {
+            unregisterOSListener(&iMouse::getInstance());
+            unregisterOSListener(&iKeyboard::getInstance());
+
             if (_renderContext != nullptr)
             {
                 if (!makeCurrent(nullptr))
@@ -1019,11 +1022,10 @@ namespace igor
 #endif
             }
             XCloseDisplay(_display);
-
-            unregisterOSListener(&iMouse::getInstance());
-            unregisterOSListener(&iKeyboard::getInstance());
-
             _display = nullptr;
+
+            XFree(_visual);
+            
             _isOpen = false;
         }
 
@@ -1141,7 +1143,7 @@ namespace igor
         void setVSync(bool vsync) override
         {
             _vsync = vsync;
-            // glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
+            // TODO glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
         }
 
         bool getVSync() const override
@@ -1151,19 +1153,20 @@ namespace igor
 
         void getDesktopSize(int32 &width, int32 &height) override
         {
-            Display *display = nullptr;
             if (_display != nullptr)
             {
-                display = _display;
+                Screen *screen = DefaultScreenOfDisplay(_display);
+                width = screen->width;
+                height = screen->height;
             }
             else
             {
-                display = XOpenDisplay(nullptr);
+                Display *display = XOpenDisplay(nullptr);
+                Screen *screen = DefaultScreenOfDisplay(display);
+                width = screen->width;
+                height = screen->height;
+                XCloseDisplay(display);
             }
-
-            Screen *screen = DefaultScreenOfDisplay(display);
-            width = screen->width;
-            height = screen->height;
         }
 
     private:
