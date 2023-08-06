@@ -19,7 +19,7 @@ Changelog                           {#changelog}
 - improved renderer interface and fleshed out the docs
 - fixed issue around texture fonts rendering and measuring size
 - fixed more typos
-- added more tests in iaux
+- added more tests for iaux
 - remove iTextureResourceFactory and have textures now handled by the iResourceManager
 - new resources iAnimation, iSprite and iTexture (replaced previous iTexture)
 - added state machine back in
