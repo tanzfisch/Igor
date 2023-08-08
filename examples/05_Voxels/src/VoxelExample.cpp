@@ -26,6 +26,14 @@ void VoxelExample::onDeinit()
 {
     // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("example_vtg");
+
+    if(_voxelData != nullptr)
+    {
+        delete _voxelData;
+        _voxelData = nullptr;
+    }
+
+    _voxelMeshMaterial = nullptr;
 }
 
 void VoxelExample::initScene()
@@ -225,7 +233,7 @@ void VoxelExample::prepareMeshGeneration()
     tileInformation._material = _voxelMeshMaterial;
     tileInformation._voxelData = _voxelData;
     // define the input parameter so Igor knows which iModelDataIO implementation to use and how
-    iModelDataInputParameter *inputParam = new iModelDataInputParameter();
+    iModelDataInputParameterPtr inputParam = std::make_shared<iModelDataInputParameter>();
     inputParam->_identifier = "example_vtg";
     inputParam->_joinVertexes = true;
     inputParam->_needsRenderContext = false;
@@ -238,7 +246,7 @@ void VoxelExample::prepareMeshGeneration()
     voxelMeshModel->setName("VoxelMeshModel");
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
-    // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
+    // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a previous generated mesh
     voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), iResourceCacheMode::Keep, inputParam);
     // create a transform node to center the mesh to the origin
     iNodeTransform *voxelMeshTransform = iNodeManager::getInstance().createNode<iNodeTransform>();

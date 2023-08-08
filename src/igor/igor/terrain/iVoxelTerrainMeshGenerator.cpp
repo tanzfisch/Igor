@@ -31,7 +31,7 @@ namespace igor
     }
 
     __IGOR_DISABLE_WARNING__(4100)
-    iNodePtr iVoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameter *parameter)
+    iNodePtr iVoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameterPtr parameter)
     {
         const iVoxelTerrainTileInformation &tileInformation = std::any_cast<iVoxelTerrainTileInformation>(parameter->_parameters);
 

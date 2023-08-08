@@ -40,7 +40,7 @@ void Ascent::onUpdate()
     {
         translate._x -= 1;
     }
-    
+
     if (_keyInput._right)
     {
         translate._x += 1;
@@ -50,7 +50,7 @@ void Ascent::onUpdate()
     {
         translate._y += 1;
     }
-    
+
     if (_keyInput._down)
     {
         translate._y -= 1;
@@ -80,7 +80,6 @@ void Ascent::onUpdate()
 
 void Ascent::onDeinit()
 {
-    // TODO
 }
 
 void Ascent::initScene()

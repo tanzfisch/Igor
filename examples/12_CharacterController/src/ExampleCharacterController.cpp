@@ -66,7 +66,7 @@ void ExampleCharacterController::onInit()
 
     // setup floor model
     iNodeModel *levelModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    iModelDataInputParameter *param = new iModelDataInputParameter();
+    iModelDataInputParameterPtr param = std::make_shared<iModelDataInputParameter>();
     param->_keepMesh = true;
     param->_modelSourceType = iModelSourceType::File;
     levelModel->setModel("level.ompf", iResourceCacheMode::Keep, param);

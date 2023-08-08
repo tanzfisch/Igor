@@ -118,7 +118,7 @@ namespace igor
         }
     }
 
-    iNodePtr iModelResourceFactory::loadData(iaString filename, iModelDataInputParameter *parameter)
+    iNodePtr iModelResourceFactory::loadData(iaString filename, iModelDataInputParameterPtr parameter)
     {
         iNodePtr result = nullptr;
         iModelDataIO *modelDataIO = getModelDataIO(filename);
@@ -218,7 +218,7 @@ namespace igor
         return static_cast<int64>(hashFunc(keyValue));
     }
 
-    iModelPtr iModelResourceFactory::requestModelData(const iaString &filename, iResourceCacheMode cacheMode, iModelDataInputParameter *parameter)
+    iModelPtr iModelResourceFactory::requestModelData(const iaString &filename, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter)
     {
         iModelPtr result;
         iaString hashKey;
@@ -266,7 +266,7 @@ namespace igor
         return result;
     }
 
-    iModelPtr iModelResourceFactory::loadModelData(const iaString &filename, iResourceCacheMode cacheMode, iModelDataInputParameter *parameter)
+    iModelPtr iModelResourceFactory::loadModelData(const iaString &filename, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter)
     {
         iModelPtr result;
         iaString hashKey;

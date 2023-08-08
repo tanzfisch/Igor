@@ -109,7 +109,8 @@ namespace igor
             scene->getRoot()->insertNode(_rootNode);
 
             iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
-            iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
+
+            _voxelTerrainTask = iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
         }
     }
 
@@ -193,9 +194,14 @@ namespace igor
     {
         con_info("shutdown iVoxelTerrain ...");
 
+        auto voxelTerrainTask = iTaskManager::getInstance().getTask(_voxelTerrainTask);
+        if(voxelTerrainTask != nullptr)
+        {
+            voxelTerrainTask->abort();
+        }
+
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
         _targetMaterial = nullptr;
-        // TODO cleanup
     }
 
     void iVoxelTerrain::setLODTrigger(uint32 lodTriggerID)
@@ -460,7 +466,7 @@ namespace igor
 
         result->_lod = lod;
         result->_size = static_cast<uint16>(_voxelBlockSize * pow(2, lod));
-        result->_childAdress = childAdress;
+        result->_childAddress = childAdress;
 
         for (int i = 0; i < 8; ++i)
         {
@@ -1224,7 +1230,7 @@ namespace igor
                     iVoxelTerrainTileInformation tileInformation;
 
                     tileInformation._material = _terrainMaterial;
-                    tileInformation._voxelOffsetToNextLOD = childOffsetPosition[voxelBlock->_childAdress];
+                    tileInformation._voxelOffsetToNextLOD = childOffsetPosition[voxelBlock->_childAddress];
                     tileInformation._voxelOffsetToNextLOD *= 16;
                     tileInformation._voxelData = new iVoxelData();
                     voxelBlock->_voxelData->getCopy(*(tileInformation._voxelData));
@@ -1236,7 +1242,7 @@ namespace igor
                     tileInformation._physicsMaterialID = _physicsMaterialID;
 
                     // will be deleted by iModel
-                    iModelDataInputParameter *inputParam = new iModelDataInputParameter();
+                    iModelDataInputParameterPtr inputParam = std::make_shared<iModelDataInputParameter>();
                     inputParam->_identifier = "vtg";
                     inputParam->_joinVertexes = true;
                     inputParam->_needsRenderContext = false;

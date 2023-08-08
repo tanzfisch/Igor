@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
     <!-- loadMode: loade mode of resource manager App (application decides), Sync (all synchronous) -->
-    <ResourceManager loadMode="Sync"> 
+    <ResourceManager loadMode="App"> 
 
         <!-- all paths have to be relative to current directory when igor is executed -->
         <SearchPaths>

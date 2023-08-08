@@ -77,7 +77,7 @@ ExampleBase::~ExampleBase()
         // release material
         _materialSkyBox = nullptr;
 
-        // clear scene by destoying it
+        // clear scene by destroying it
         iSceneFactory::getInstance().destroyScene(_scene);
         _scene = nullptr;
 
