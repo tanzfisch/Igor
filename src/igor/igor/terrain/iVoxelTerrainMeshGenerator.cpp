@@ -13,7 +13,7 @@
 #include <igor/scene/nodes/iNodePhysics.h>
 
 // uncomment next line for voxel terrain debug using no physics
-#define DEBUG_VOXEL_TERRAIN_NO_PHYSICS
+// #define DEBUG_VOXEL_TERRAIN_NO_PHYSICS
 
 namespace igor
 {

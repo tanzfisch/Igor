@@ -175,7 +175,7 @@ namespace igor
         */
         void insertNode(iNodePtr node);
 
-        /*! inserts a node as child asynchronosly
+        /*! inserts a node as child asynchronously
 
         \param node pointer to node to be inserted
         */
@@ -187,7 +187,7 @@ namespace igor
         */
         void setActive(bool active = true);
 
-        /*! sets node active or inactive asynchronosly
+        /*! sets node active or inactive asynchronously
 
         \param active the active flag
         */
@@ -199,7 +199,7 @@ namespace igor
         */
         void removeNode(iNodePtr node);
 
-        /*! removes node that was a child before asynchronosly
+        /*! removes node that was a child before asynchronously
 
         \param node pointer to node to be removed
         */

@@ -223,7 +223,8 @@ namespace igor
 
         int numberOfContacts = NewtonWorldConvexCast(static_cast<const NewtonWorld *>(_defaultWorld), matrix.getData(), target.getData(),
                                                      static_cast<const NewtonCollision *>(collisionVolume->_collision), &param, &preFilterUserData,
-                                                     reinterpret_cast<NewtonWorldRayPrefilterCallback>(CommonRayPrefilterCallback), &info[0], maxContactCount, 0);
+                                                     reinterpret_cast<NewtonWorldRayPrefilterCallback>(CommonRayPrefilterCallback), &info[0], maxContactCount, 
+                                                     iaThread::getThisThreadID());
 
         for (int i = 0; i < numberOfContacts; ++i)
         {
@@ -1182,64 +1183,56 @@ namespace igor
     {
         con_assert(mesh != nullptr, "zero pointer");
 
-        iPhysicsCollision *result = nullptr;
-        if (mesh != nullptr)
+        const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "zero pointer");
+
+        NewtonWorldCriticalSectionLock(world, iaThread::getThisThreadID());
+        NewtonCollision *collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld *>(world), 0);
+        NewtonTreeCollisionBeginBuild(collision);
+
+        float64 temp[9];
+
+        void *indexData;
+        uint32 indexDataSize;
+        void *vertexData;
+        uint32 vertexDataSize;
+        mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
+
+        uint32 vertexFloatCount = mesh->getLayout().getStride() / 4;
+        uint32 vertexPos = 0;
+        uint32 indexCount = indexDataSize / 4;
+
+        for (int i = 0; i < indexCount; i += 3)
         {
-            const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+            vertexPos = (static_cast<uint32 *>(indexData)[i + 0] * vertexFloatCount);
+            temp[0] = static_cast<float32 *>(vertexData)[vertexPos++];
+            temp[1] = static_cast<float32 *>(vertexData)[vertexPos++];
+            temp[2] = static_cast<float32 *>(vertexData)[vertexPos++];
 
-            if (world != nullptr)
-            {
-                NewtonCollision *collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld *>(world), 0);
+            vertexPos = (static_cast<uint32 *>(indexData)[i + 1] * vertexFloatCount);
+            temp[3] = static_cast<float32 *>(vertexData)[vertexPos++];
+            temp[4] = static_cast<float32 *>(vertexData)[vertexPos++];
+            temp[5] = static_cast<float32 *>(vertexData)[vertexPos++];
 
-                NewtonTreeCollisionBeginBuild(collision);
+            vertexPos = (static_cast<uint32 *>(indexData)[i + 2] * vertexFloatCount);
+            temp[6] = static_cast<float32 *>(vertexData)[vertexPos++];
+            temp[7] = static_cast<float32 *>(vertexData)[vertexPos++];
+            temp[8] = static_cast<float32 *>(vertexData)[vertexPos++];
 
-                float64 temp[9];
-
-                void *indexData;
-                uint32 indexDataSize;
-                void *vertexData;
-                uint32 vertexDataSize;
-                mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
-
-                uint32 vertexFloatCount = mesh->getLayout().getStride() / 4;
-                uint32 vertexPos = 0;
-                uint32 indexCount = indexDataSize / 4;
-
-                for (int i = 0; i < indexCount; i += 3)
-                {
-                    vertexPos = (static_cast<uint32 *>(indexData)[i + 0] * vertexFloatCount);
-                    temp[0] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[1] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[2] = static_cast<float32 *>(vertexData)[vertexPos++];
-
-                    vertexPos = (static_cast<uint32 *>(indexData)[i + 1] * vertexFloatCount);
-                    temp[3] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[4] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[5] = static_cast<float32 *>(vertexData)[vertexPos++];
-
-                    vertexPos = (static_cast<uint32 *>(indexData)[i + 2] * vertexFloatCount);
-                    temp[6] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[7] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[8] = static_cast<float32 *>(vertexData)[vertexPos++];
-
-                    NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float64) * 3, faceAttribute);
-                }
-
-                NewtonTreeCollisionEndBuild(collision, 0);
-
-                result = new iPhysicsCollision(collision, worldID);
-                NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
-                NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
-
-                _collisionsListMutex.lock();
-                _collisions[result->getID()] = result;
-                _collisionsListMutex.unlock();
-            }
+            NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float64) * 3, faceAttribute);
         }
-        else
-        {
-            con_err("invalid parameters");
-        }
+
+        NewtonTreeCollisionEndBuild(collision, 1);
+
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
+        NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
+
+        NewtonWorldCriticalSectionUnlock(world);
+
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
 
         return result;
     }

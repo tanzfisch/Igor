@@ -141,63 +141,63 @@ namespace igor
     void iPhysicsCollisionConfig::finalize(uint64 worldID)
     {
         con_assert(!_finalized, "already finalized");
-        if (!_finalized)
+        if (_finalized)
         {
-            int32 count = 0;
+            return;
+        }
 
-            iPhysicsCollision *resultingCollision = nullptr;
-            std::vector<iPhysicsCollision *> collisions;
+        iPhysicsCollision *resultingCollision = nullptr;
+        std::vector<iPhysicsCollision *> collisions;
 
-            for (auto box : _boxes)
+        for (auto box : _boxes)
+        {
+            collisions.push_back(iPhysics::getInstance().createBox(box._width, box._height, box._depth, box._offset, worldID));
+        }
+
+        for (auto sphere : _spheres)
+        {
+            collisions.push_back(iPhysics::getInstance().createSphere(sphere._radius, sphere._offset, worldID));
+        }
+
+        for (auto cone : _cones)
+        {
+            collisions.push_back(iPhysics::getInstance().createCone(cone._radius, cone._height, cone._offset, worldID));
+        }
+
+        for (auto capsule : _capsules)
+        {
+            collisions.push_back(iPhysics::getInstance().createCapsule(capsule._radius0, capsule._radius1, capsule._height, capsule._offset, worldID));
+        }
+
+        for (auto cylinder : _cylinders)
+        {
+            collisions.push_back(iPhysics::getInstance().createCylinder(cylinder._radius0, cylinder._radius1, cylinder._height, cylinder._offset, worldID));
+        }
+
+        for (auto mesh : _meshs)
+        {
+            collisions.push_back(iPhysics::getInstance().createMesh(mesh._mesh, mesh._faceAttribute, mesh._offset, worldID));
+        }
+
+        if (collisions.size() > 0)
+        {
+            if (collisions.size() > 1)
             {
-                collisions.push_back(iPhysics::getInstance().createBox(box._width, box._height, box._depth, box._offset, worldID));
-            }
-
-            for (auto sphere : _spheres)
-            {
-                collisions.push_back(iPhysics::getInstance().createSphere(sphere._radius, sphere._offset, worldID));
-            }
-
-            for (auto cone : _cones)
-            {
-                collisions.push_back(iPhysics::getInstance().createCone(cone._radius, cone._height, cone._offset, worldID));
-            }
-
-            for (auto capsule : _capsules)
-            {
-                collisions.push_back(iPhysics::getInstance().createCapsule(capsule._radius0, capsule._radius1, capsule._height, capsule._offset, worldID));
-            }
-
-            for (auto cylinder : _cylinders)
-            {
-                collisions.push_back(iPhysics::getInstance().createCylinder(cylinder._radius0, cylinder._radius1, cylinder._height, cylinder._offset, worldID));
-            }
-
-            for (auto mesh : _meshs)
-            {
-                collisions.push_back(iPhysics::getInstance().createMesh(mesh._mesh, mesh._faceAttribute, mesh._offset, worldID));
-            }
-
-            if (collisions.size() > 0)
-            {
-                if (collisions.size() > 1)
-                {
-                    resultingCollision = iPhysics::getInstance().createCompound(collisions, worldID);
-                }
-                else
-                {
-                    resultingCollision = collisions[0];
-                }
-
-                _collisionID = resultingCollision->getID();
+                resultingCollision = iPhysics::getInstance().createCompound(collisions, worldID);
             }
             else
             {
-                con_err("no collision objects defined");
+                resultingCollision = collisions[0];
             }
 
-            _finalized = true;
+            _collisionID = resultingCollision->getID();
         }
+        else
+        {
+            con_err("no collision objects defined");
+        }
+
+        _finalized = true;
     }
 
     uint64 iPhysicsCollisionConfig::getCollisionID()
