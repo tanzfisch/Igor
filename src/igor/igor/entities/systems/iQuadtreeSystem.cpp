@@ -16,6 +16,11 @@ namespace igor
 {
 	void iQuadtreeSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
+		if(!scene->hasQuadtree())
+		{
+			return;
+		}
+
 		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
 		auto &quadtree = scene->getQuadtree();
 

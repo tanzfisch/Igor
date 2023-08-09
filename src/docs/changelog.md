@@ -12,6 +12,7 @@ Changelog                           {#changelog}
 - refactored iTextureFactory
 - added exit code to iApplication
 - introduced load mode for resource manager
+- fixed shutdown of voxel terrain
 
 0.40.0
 ------

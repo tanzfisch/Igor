@@ -159,6 +159,10 @@ namespace igor
 		 */
 		iQuadtreed &getQuadtree() const;
 
+		/*! \returns true if quadtree present
+		*/
+		bool hasQuadtree() const;
+
 		/*! \returns entt registry
 		 */
 		void *getRegistry() const;
