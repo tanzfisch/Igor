@@ -31,7 +31,7 @@ iModelDataIO *PlantMeshGenerator::createInstance()
     return static_cast<iModelDataIO *>(result);
 }
 
-iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameter *parameter)
+iNodePtr PlantMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameterPtr parameter)
 {
     const PlantInformation &plantInformation = std::any_cast<PlantInformation>(parameter->_parameters);
     iLSystem *lSystem = plantInformation._lSystem;

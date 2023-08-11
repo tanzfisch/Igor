@@ -5,6 +5,7 @@
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaDirectory.h>
 #include <iaux/system/iaSystem.h>
+#include <iaux/system/iaThread.h>
 
 #ifdef IGOR_WINDOWS
 #include <windows.h>
@@ -61,11 +62,6 @@ namespace iaux
 
     iaConsole::iaConsole()
     {
-        // assuming this is the main thread
-        std::hash<std::thread::id> hashFunc;
-        size_t hashValue = hashFunc(std::this_thread::get_id());
-        _threadIDs[hashValue] = 1;
-
 #ifdef IGOR_WINDOWS
         console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
         if (console_handle)
@@ -332,6 +328,13 @@ namespace iaux
     void iaConsole::activateLogfile(bool activate)
     {
         _streamToLogfile = activate;
+    }
+
+    iaConsole &printIgorThreadID(iaConsole &console)
+    {
+        const iaID32 id = iaThread::getThisThreadID();
+        console << std::setfill(L'0') << std::setw(2) << std::hex << id << std::dec;
+        return console;
     }
 
 }; // namespace iaux

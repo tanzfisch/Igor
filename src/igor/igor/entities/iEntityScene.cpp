@@ -100,6 +100,11 @@ namespace igor
         return *_quadtree;
     }
 
+    bool iEntityScene::hasQuadtree() const
+    {
+        return _quadtree != nullptr;
+    }
+
     void iEntityScene::onUpdate(const iaTime &time)
     {
         destroyEntities();

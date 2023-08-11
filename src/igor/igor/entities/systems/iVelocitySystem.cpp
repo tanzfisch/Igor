@@ -13,58 +13,62 @@ namespace igor
 {
 	void iVelocitySystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
-		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
-		auto &quadtree = scene->getQuadtree();
+		auto *registry = static_cast<entt::registry *>(scene->getRegistry());
 
-		auto viewInteractionResolver = registry->view<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
-
-		for (auto entityID : viewInteractionResolver)
+		if (scene->hasQuadtree())
 		{
-			auto [velocity, quadComp, motionResolver] = viewInteractionResolver.get<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>(entityID);
+			auto &quadtree = scene->getQuadtree();
 
-			switch (motionResolver._type)
+			auto viewInteractionResolver = registry->view<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
+
+			for (auto entityID : viewInteractionResolver)
 			{
-			case iMotionInteractionType::Divert:
-			{
-				iaCircled circle = quadComp._object->_circle;
-				circle._radius *= 1.1;
-				iQuadtreed::Objects objects;
-				quadtree.query(circle, objects);
+				auto [velocity, quadComp, motionResolver] = viewInteractionResolver.get<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>(entityID);
 
-				float64 speed = velocity._velocity.length();
-				iaVector2d diversion;
-
-				for (const auto &object : objects)
+				switch (motionResolver._type)
 				{
-					const entt::entity otherEntityID = static_cast<entt::entity>(std::any_cast<iEntityID>(object->_userData));
+				case iMotionInteractionType::Divert:
+				{
+					iaCircled circle = quadComp._object->_circle;
+					circle._radius *= 1.1;
+					iQuadtreed::Objects objects;
+					quadtree.query(circle, objects);
 
-					// skip self
-					if (otherEntityID == entityID)
+					float64 speed = velocity._velocity.length();
+					iaVector2d diversion;
+
+					for (const auto &object : objects)
 					{
-						continue;
+						const entt::entity otherEntityID = static_cast<entt::entity>(std::any_cast<iEntityID>(object->_userData));
+
+						// skip self
+						if (otherEntityID == entityID)
+						{
+							continue;
+						}
+
+						auto *hasMotionInteraction = registry->try_get<iMotionInteractionResolverComponent>(otherEntityID);
+						if (hasMotionInteraction == nullptr)
+						{
+							continue;
+						}
+
+						// calc diversion
+						diversion += circle._center - object->_circle._center;
 					}
 
-					auto *hasMotionInteraction = registry->try_get<iMotionInteractionResolverComponent>(otherEntityID);
-					if(hasMotionInteraction == nullptr)
-					{
-						continue;
-					}
+					diversion.normalize();
+					diversion *= speed;
 
-					// calc diversion
-					diversion += circle._center - object->_circle._center;
+					velocity._velocity._x += diversion._x;
+					velocity._velocity._y += diversion._y;
 				}
-
-				diversion.normalize();
-				diversion *= speed;
-
-				velocity._velocity._x += diversion._x;
-				velocity._velocity._y += diversion._y;
-			}
-			break;
-
-			case iMotionInteractionType::None:
-			default:
 				break;
+
+				case iMotionInteractionType::None:
+				default:
+					break;
+				}
 			}
 		}
 

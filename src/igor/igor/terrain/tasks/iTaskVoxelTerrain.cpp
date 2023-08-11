@@ -27,6 +27,11 @@ namespace igor
         }
     }
 
+    void iTaskVoxelTerrain::abort()
+    {
+        iTask::abort();
+    }
+
     void iTaskVoxelTerrain::run()
     {
         if (_voxelTerrain != nullptr)

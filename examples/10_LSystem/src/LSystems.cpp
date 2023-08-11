@@ -188,7 +188,7 @@ uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, u
 	plantInformation._leafColor = _leafColor;
 	plantInformation._flowerColor = _flowerColor;
 
-	iModelDataInputParameter *inputParam = new iModelDataInputParameter();
+	iModelDataInputParameterPtr inputParam = std::make_shared<iModelDataInputParameter>();
 	inputParam->_identifier = "pg";
 	inputParam->_joinVertexes = true;
 	inputParam->_needsRenderContext = false;

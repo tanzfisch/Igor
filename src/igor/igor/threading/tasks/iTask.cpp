@@ -85,11 +85,7 @@ namespace igor
     void iTask::abort()
     {
         _isRepeating = false;
-
-        while (isRunning())
-        {
-            std::this_thread::yield();
-        }
+        std::this_thread::yield();
     }
 
     void iTask::setPriority(uint32 priority)

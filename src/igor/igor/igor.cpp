@@ -117,6 +117,7 @@ namespace igor
 
     void createModules()
     {
+        iResourceManager::create();
         iApplication::create();
         iAudio::create();
         iActionManager::create();
@@ -253,18 +254,46 @@ namespace igor
             }
         }
 
-        // need the resource manager befor we read the config
-        iResourceManager::create();
-
-        if (!configurationFilepath.isEmpty())
-        {
-            iConfigReader configReader;
-            configReader.readConfiguration(configurationFilepath);
-            con_info("loaded configuration \"" << configurationFilepath << "\"");
-        }
-        else
+        if (configurationFilepath.isEmpty())
         {
             con_crit("can't find config file for \"" << configname << "\". Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
+        }
+
+        iConfigReader::create();
+        iConfigReader::getInstance().readConfiguration(configurationFilepath);
+
+        if (iConfigReader::getInstance().hasSetting("logLevel"))
+        {
+            const iaString level = iConfigReader::getInstance().getValue("logLevel");
+
+            if (level == "Assert")
+            {
+                iaConsole::getInstance().setLogLevel(iaLogLevel::Fatal);
+            }
+            else if (level == "Error")
+            {
+                iaConsole::getInstance().setLogLevel(iaLogLevel::Error);
+            }
+            else if (level == "Warning")
+            {
+                iaConsole::getInstance().setLogLevel(iaLogLevel::Warning);
+            }
+            else if (level == "Info")
+            {
+                iaConsole::getInstance().setLogLevel(iaLogLevel::Info);
+            }
+            else if (level == "User")
+            {
+                iaConsole::getInstance().setLogLevel(iaLogLevel::User);
+            }
+            else if (level == "Debug")
+            {
+                iaConsole::getInstance().setLogLevel(iaLogLevel::Debug);
+            }
+            else if (level == "Trace")
+            {
+                iaConsole::getInstance().setLogLevel(iaLogLevel::Trace);
+            }
         }
 
         createModules();

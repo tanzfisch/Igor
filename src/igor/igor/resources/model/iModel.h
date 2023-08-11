@@ -94,6 +94,10 @@ namespace igor
         bool _keepMesh = false;
     };
 
+    /*! model data input parameter pointer definition
+    */
+    typedef std::shared_ptr<iModelDataInputParameter> iModelDataInputParameterPtr;
+
     /*! represents model data loaded or generated
 
     \todo maybe we should replace pointers to nodes with IDs here
@@ -109,9 +113,11 @@ namespace igor
         */
         const iaString &getName() const;
 
-        /*! \returns optional loading or generation parameters. returns zero if non present
+        /*! \returns optional loading or generation parameters
+
+        There might not be any parameters then it will return nullptr
         */
-        iModelDataInputParameter *getParameters();
+        iModelDataInputParameterPtr getParameters() const;
 
         /*! \returns copy to node tree data
         */
@@ -142,7 +148,7 @@ namespace igor
 
         /*! optional load or generate parameter
         */
-        iModelDataInputParameter *_parameter = nullptr;
+        iModelDataInputParameterPtr _parameter;
 
         /*! cache mode. initialized in ctor
         */
@@ -170,7 +176,7 @@ namespace igor
 
         \param 
 		*/
-        iModel(const iaString &name, iResourceCacheMode cacheMode, iModelDataInputParameter *_parameter = nullptr);
+        iModel(const iaString &name, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter = iModelDataInputParameterPtr());
     };
 
     /*! definition of model pointer

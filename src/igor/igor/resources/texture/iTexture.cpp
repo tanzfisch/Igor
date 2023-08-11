@@ -26,6 +26,7 @@ namespace igor
     void iTexture::bind(uint32 textureUnit)
     {
         con_assert(glIsTexture(_textureID), "invalid texture id " << _textureID);
+
         glBindTextureUnit(textureUnit, _textureID);
         GL_CHECK_ERROR();
     }
@@ -75,6 +76,31 @@ namespace igor
         return _useFallback;
     }
 
+    uint32 iTexture::calcMipMapLevels(int32 width, int32 height)
+    {
+        return 1 + std::floor(std::log2(std::max(width, height)));
+    }
+
+    static bool detectTransparency(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data)
+    {
+        if (format != iColorFormat::RGBA)
+        {
+            return false;
+        }
+
+        const int32 dataSize = width * height * bytepp;
+
+        for (int i = 3; i < dataSize; i += 4)
+        {
+            if (data[i] != 0xff)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void iTexture::setData(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         const int32 glformat = iRendererUtils::convertType(format, false);
@@ -86,20 +112,7 @@ namespace igor
         _height = height;
         _colorFormat = format;
         _bpp = bytepp;
-
-        if (format == iColorFormat::RGBA)
-        {
-            const uint32 dataSize = _width * _height * _bpp;
-
-            for(int i=3;i<dataSize;i+=4)
-            {
-                if(data[i] != 0xff)
-                {
-                    _hasTrans = true;
-                    break;
-                }
-            }
-        }
+        _hasTrans = detectTransparency(width, height, bytepp, format, data);
 
         glCreateTextures(GL_TEXTURE_2D, 1, &_textureID);
         GL_CHECK_ERROR();
@@ -130,22 +143,18 @@ namespace igor
 
         if (_buildMode == iTextureBuildMode::Mipmapped)
         {
-            _mipMapLevels = floor(log2(std::max(width,height)))+1;
+            _mipMapLevels = calcMipMapLevels(width, height);
             glTextureParameteri(_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             GL_CHECK_ERROR();
             glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            GL_CHECK_ERROR();            
+            GL_CHECK_ERROR();
 
-            /* TODO use DSA here. something like this but make it work
+            con_trace("create mipmap for:" << getName() << " id:" << _textureID << " levels:" << _mipMapLevels << " width:" << _width << " height:" << _height << " format:" << format);
             glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
-            glTexImage2D(GL_TEXTURE_2D, 0, glformatSized, _width, _height, 0, glformat, GL_UNSIGNED_BYTE, data);
+            GL_CHECK_ERROR();
+            glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
+            GL_CHECK_ERROR();
             glGenerateTextureMipmap(_textureID);
-            */
-
-            glBindTexture(GL_TEXTURE_2D, _textureID);
-            GL_CHECK_ERROR();         
-            gluBuild2DMipmaps(GL_TEXTURE_2D, glformatSized, width, height, glformat, GL_UNSIGNED_BYTE, data);
-            glFinish();
             GL_CHECK_ERROR();
         }
         else
@@ -160,13 +169,11 @@ namespace igor
             glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
             GL_CHECK_ERROR();
         }
-            
     }
 
     uint32 iTexture::getMipMapLevels() const
     {
         return _mipMapLevels;
     }
-
 
 }; // namespace igor

@@ -8,6 +8,7 @@
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
+#include <igor/resources/config/iConfigReader.h>
 #include <igor/threading/iTaskManager.h>
 
 #include <iaux/system/iaFile.h>
@@ -18,6 +19,8 @@ namespace igor
 {
     iResourceManager::iResourceManager()
     {
+        configure();
+
         registerFactory(iFactoryPtr(new iTextureFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
@@ -60,6 +63,29 @@ namespace igor
 
         _resources.clear();
         _factories.clear();
+    }
+
+    void iResourceManager::configure()
+    {
+        if (iConfigReader::getInstance().hasSetting("loadMode"))
+        {
+            const iaString loadMode = iConfigReader::getInstance().getValue("loadMode");
+
+            if (loadMode == "Sync")
+            {
+                setLoadMode(iResourceManagerLoadMode::Synchronized);
+            }
+        }
+
+        if (iConfigReader::getInstance().hasSetting("searchPaths"))
+        {
+            const std::vector<iaString> searchPaths = iConfigReader::getInstance().getValueAsArray("searchPaths");
+
+            for (const auto &path : searchPaths)
+            {
+                addSearchPath(path);
+            }
+        }
     }
 
     int64 iResourceManager::calcHashValue(const iParameters &parameters, iFactoryPtr factory)
@@ -217,9 +243,13 @@ namespace igor
         return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
     }
 
-
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
     {
+        if (_loadMode == iResourceManagerLoadMode::Synchronized)
+        {
+            return iResourceManager::loadResource(parameters);
+        }
+
         iResourcePtr result;
         iFactoryPtr factory;
         if ((factory = getFactory(parameters)) == nullptr)
@@ -430,16 +460,10 @@ namespace igor
 
     iaString iResourceManager::getRelativePath(const iaString &filename)
     {
-        con_endl("getRelativePath for " << filename);
-
         iaString result = filename;
         for (auto path : _searchPaths)
         {
-            con_endl("path " << path);
-
             iaDirectory dir(path);
-
-            con_endl("dir " << dir.getFullDirectoryName());
 
             std::vector<iaString> matches;
             iaString::searchRegex(filename, dir.getFullDirectoryName(), matches);
@@ -449,8 +473,6 @@ namespace igor
                 break;
             }
         }
-
-        con_endl("result " << result);
 
         return result;
     }
@@ -479,6 +501,29 @@ namespace igor
         _mutex.unlock();
 
         return result;
+    }
+
+    void iResourceManager::setLoadMode(iResourceManagerLoadMode loadMode)
+    {
+        _loadMode = loadMode;
+
+        con_info("Resource Manager Load Mode: " << loadMode);
+    }
+
+    iResourceManagerLoadMode iResourceManager::getLoadMode() const
+    {
+        return _loadMode;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iResourceManagerLoadMode &mode)
+    {
+        const static std::wstring text[] = {
+            L"Application",
+            L"Synchronized"};
+
+        stream << text[static_cast<int>(mode)];
+
+        return stream;
     }
 
 } // namespace igor

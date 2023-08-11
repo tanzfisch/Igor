@@ -48,12 +48,12 @@ namespace igor
         return _type;
     }
 
-    const iaVector3d& iNodeLight::getPosition() const
+    const iaVector3d &iNodeLight::getPosition() const
     {
         return _worldMatrix._pos;
     }
 
-    const iaVector3d& iNodeLight::getDirection() const
+    const iaVector3d &iNodeLight::getDirection() const
     {
         return _worldMatrix._pos;
     }
@@ -71,6 +71,21 @@ namespace igor
     iaColor3f &iNodeLight::getAmbient()
     {
         return _ambient;
+    }
+
+    void iNodeLight::setDiffuse(float32 r, float32 g, float32 b)
+    {
+        setDiffuse(iaColor3f(r, g, b));
+    }
+
+    void iNodeLight::setAmbient(float32 r, float32 g, float32 b)
+    {
+        setAmbient(iaColor3f(r, g, b));
+    }
+
+    void iNodeLight::setSpecular(float32 r, float32 g, float32 b)
+    {
+        setSpecular(iaColor3f(r, g, b));
     }
 
     void iNodeLight::setAmbient(const iaColor3f &color)

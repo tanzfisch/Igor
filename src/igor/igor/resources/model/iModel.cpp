@@ -14,7 +14,7 @@ using namespace iaux;
 namespace igor
 {
 
-    iModel::iModel(const iaString &name, iResourceCacheMode cacheMode, iModelDataInputParameter *parameter)
+    iModel::iModel(const iaString &name, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter)
         : _name(name), _parameter(parameter), _cacheMode(cacheMode)
     {
     }
@@ -25,12 +25,6 @@ namespace igor
         {
             iNodeManager::getInstance().destroyNodeAsync(_node);
         }
-
-        if (_parameter != nullptr)
-        {
-            delete _parameter;
-            _parameter = nullptr;
-        }
     }
 
     iResourceCacheMode iModel::getCacheMode() const
@@ -38,7 +32,7 @@ namespace igor
         return _cacheMode;
     }
 
-    iModelDataInputParameter *iModel::getParameters()
+    iModelDataInputParameterPtr iModel::getParameters() const
     {
         return _parameter;
     }

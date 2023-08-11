@@ -290,6 +290,12 @@ namespace iaux
 		*/
         void move(T distance, iaAxis axis);
 
+        /*! translate the matrix along it's own orientation vectors by given vector
+
+		\param v the given vector
+		*/
+		void move(const iaVector3<T> &v);
+
         /*! rotates the matrix around a specified orientation vector of the matrix
 
 		\param angle angle to rotate in radians

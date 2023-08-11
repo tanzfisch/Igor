@@ -165,61 +165,60 @@ namespace igor
         if (textureData == nullptr)
         {
             texture->_useFallback = true;
-            con_err("can't load \"" << texture->getName() << "\"");
+            con_err("can't load \"" << texture->getName() << "\" reason:" << stbi_failure_reason());
+
             return false;
         }
-        else
+
+        long bpp = 0;
+        iColorFormat colorFormat = iColorFormat::Undefined;
+
+        switch (components)
         {
-            long bpp = 0;
-            iColorFormat colorFormat = iColorFormat::Undefined;
+        case 3:
+            colorFormat = iColorFormat::RGB;
+            bpp = 3;
+            break;
 
-            switch (components)
-            {
-            case 3:
-                colorFormat = iColorFormat::RGB;
-                bpp = 3;
-                break;
+        case 4:
+            colorFormat = iColorFormat::RGBA;
+            bpp = 4;
+            break;
 
-            case 4:
-                colorFormat = iColorFormat::RGBA;
-                bpp = 4;
-                break;
+        default:
+            con_assert(false, "unsupported color format");
+        };
 
-            default:
-                con_assert(false, "unsupported color format");
-            };
+        texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
+        texture->_useFallback = false;
 
-            texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-            texture->_useFallback = false;
-
-            iaString build = ".not mipmapped";
-            if (texture->_buildMode == iTextureBuildMode::Mipmapped)
-            {
-                build = ".mipmapped";
-            }
-
-            iaString wrap;
-            switch (texture->_wrapMode)
-            {
-            case iTextureWrapMode::Repeat:
-                wrap = ".repeat";
-                break;
-
-            case iTextureWrapMode::Clamp:
-                wrap = ".clamp";
-                break;
-
-            case iTextureWrapMode::MirrorRepeat:
-                wrap = ".mirror repeat";
-                break;
-            }
-
-            con_info("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
-
-            _mutexImageLibrary.lock();
-            stbi_image_free(textureData);
-            _mutexImageLibrary.unlock();
+        iaString build = ".not mipmapped";
+        if (texture->_buildMode == iTextureBuildMode::Mipmapped)
+        {
+            build = ".mipmapped";
         }
+
+        iaString wrap;
+        switch (texture->_wrapMode)
+        {
+        case iTextureWrapMode::Repeat:
+            wrap = ".repeat";
+            break;
+
+        case iTextureWrapMode::Clamp:
+            wrap = ".clamp";
+            break;
+
+        case iTextureWrapMode::MirrorRepeat:
+            wrap = ".mirror repeat";
+            break;
+        }
+
+        con_info("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
+
+        _mutexImageLibrary.lock();
+        stbi_image_free(textureData);
+        _mutexImageLibrary.unlock();
 
         return true;
     }
@@ -302,31 +301,30 @@ namespace igor
 
         if (textureData == nullptr)
         {
-            con_err("can't load \"" << fullPath << "\"");
+            con_err("can't load \"" << fullPath << "\" reason:" << stbi_failure_reason());
+            return pixmap;
         }
-        else
+
+        iColorFormat colorFormat = iColorFormat::Undefined;
+
+        switch (components)
         {
-            iColorFormat colorFormat = iColorFormat::Undefined;
+        case 3:
+            colorFormat = iColorFormat::RGB;
+            break;
 
-            switch (components)
-            {
-            case 3:
-                colorFormat = iColorFormat::RGB;
-                break;
+        case 4:
+            colorFormat = iColorFormat::RGBA;
+            break;
 
-            case 4:
-                colorFormat = iColorFormat::RGBA;
-                break;
+        default:
+            con_warn("unsupported color format");
+        };
 
-            default:
-                con_warn("unsupported color format");
-            };
+        pixmap = iPixmap::createPixmap(width, height, colorFormat);
+        pixmap->setData(textureData);
 
-            pixmap = iPixmap::createPixmap(width, height, colorFormat);
-            pixmap->setData(textureData);
-
-            con_info("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
-        }
+        con_info("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
 
         _mutexImageLibrary.lock();
         stbi_image_free(textureData);

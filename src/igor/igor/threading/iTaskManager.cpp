@@ -8,6 +8,7 @@
 #include <igor/threading/iRenderContextThread.h>
 #include <igor/threading/tasks/iTask.h>
 #include <igor/system/iWindow.h>
+#include <igor/resources/config/iConfigReader.h>
 
 #include <iaux/system/iaConsole.h>
 
@@ -18,11 +19,34 @@ namespace igor
 {
     bool iTaskManager::_running = false;
 
+    static int64 getThreadCountFromConfig()
+    {
+        int64 minThreads = 1;
+        int64 maxThreads = std::thread::hardware_concurrency();
+
+        if (iConfigReader::getInstance().hasSetting("maxThreads"))
+        {
+            const iaString max = iConfigReader::getInstance().getValue("maxThreads");
+
+            if (max != "Max")
+            {
+                maxThreads = iaString::toInt(max);
+            }
+        }
+
+        if (iConfigReader::getInstance().hasSetting("minThreads"))
+        {
+            minThreads = iConfigReader::getInstance().getValueAsInt("minThreads");
+        }
+
+        return std::max(minThreads, maxThreads);
+    }
+
     iTaskManager::iTaskManager()
     {
         iTaskManager::_running = true;
 
-        int32 numThreads = std::max(4u, std::thread::hardware_concurrency());
+        int32 numThreads = getThreadCountFromConfig();
         for (int i = 0; i < numThreads; ++i)
         {
             createThread();
@@ -35,7 +59,7 @@ namespace igor
     {
         iTaskManager::_running = false;
 
-        flushIncommingTasks();
+        flushIncomingTasks();
 
         // clear all tasks left in render context queue
         _mutexRenderContextTasks.lock();
@@ -132,32 +156,32 @@ namespace igor
         }
     }
 
-    uint32 iTaskManager::getRegularThreadCount()
+    uint32 iTaskManager::getRegularThreadCount() const
     {
         return static_cast<uint32>(_regularThreads.size());
     }
 
-    uint32 iTaskManager::getRenderContextThreadCount()
+    uint32 iTaskManager::getRenderContextThreadCount() const
     {
         return static_cast<uint32>(_renderContextThreads.size());
     }
 
-    uint32 iTaskManager::getQueuedRegularTaskCount()
+    uint32 iTaskManager::getQueuedRegularTaskCount() const
     {
         return static_cast<uint32>(_regularTasksQueued.size());
     }
 
-    uint32 iTaskManager::getRunningRegularTaskCount()
+    uint32 iTaskManager::getRunningRegularTaskCount() const
     {
         return static_cast<uint32>(_regularTasksRunning.size());
     }
 
-    uint32 iTaskManager::getQueuedRenderContextTaskCount()
+    uint32 iTaskManager::getQueuedRenderContextTaskCount() const
     {
         return static_cast<uint32>(_renderContextTasksQueued.size());
     }
 
-    uint32 iTaskManager::getRunningRenderContextTaskCount()
+    uint32 iTaskManager::getRunningRenderContextTaskCount() const
     {
         return static_cast<uint32>(_renderContextTasksRunning.size());
     }
@@ -167,13 +191,32 @@ namespace igor
         return _running;
     }
 
+    static int64 getRenderContextThreadCountFromConfig()
+    {
+        int64 minThreads = 1;
+        int64 maxThreads = std::thread::hardware_concurrency();
+
+        if (iConfigReader::getInstance().hasSetting("maxRenderContextThreads"))
+        {
+            const iaString max = iConfigReader::getInstance().getValue("maxRenderContextThreads");
+
+            if (max != "Max")
+            {
+                maxThreads = iaString::toInt(max);
+            }
+        }
+
+        if (iConfigReader::getInstance().hasSetting("minRenderContextThreads"))
+        {
+            minThreads = iConfigReader::getInstance().getValueAsInt("minRenderContextThreads");
+        }
+
+        return std::max(minThreads, maxThreads);
+    }    
+
     void iTaskManager::createRenderContextThreads(iWindowPtr window)
     {
-        // SYSTEM_INFO sysinfo;
-        // GetSystemInfo(&sysinfo);
-        // sysinfo.dwNumberOfProcessors;
-        // TODO
-        int32 numThreads = 1;
+        int32 numThreads = getRenderContextThreadCountFromConfig();
 
         for (uint32 i = 0; i < numThreads; ++i)
         {
@@ -313,7 +356,7 @@ namespace igor
         {
             taskTodo = nullptr;
 
-            flushIncommingTasks();
+            flushIncomingTasks();
 
             _mutexRenderContextTasks.lock();
             if (_renderContextTasksQueued.size())
@@ -389,7 +432,7 @@ namespace igor
         {
             taskTodo = nullptr;
 
-            flushIncommingTasks();
+            flushIncomingTasks();
 
             _mutexRegularTasks.lock();
             if (_regularTasksQueued.size())
@@ -457,26 +500,26 @@ namespace igor
         }
     }
 
-    void iTaskManager::flushIncommingTasks()
+    void iTaskManager::flushIncomingTasks()
     {
-        _mutexIncommingTasks.lock();
-        std::list<iTask *> incomming = _tasksIncomming;
-        _tasksIncomming.clear();
-        _mutexIncommingTasks.unlock();
+        _mutexIncomingTasks.lock();
+        std::list<iTask *> incoming = _tasksIncoming;
+        _tasksIncoming.clear();
+        _mutexIncomingTasks.unlock();
 
-        for (auto incommingTask : incomming)
+        for (auto incomingTask : incoming)
         {
-            switch (incommingTask->getContext())
+            switch (incomingTask->getContext())
             {
             case iTaskContext::Default:
                 _mutexRegularTasks.lock();
-                _regularTasksQueued.push_back(incommingTask);
+                _regularTasksQueued.push_back(incomingTask);
                 _mutexRegularTasks.unlock();
                 break;
 
             case iTaskContext::RenderContext:
                 _mutexRenderContextTasks.lock();
-                _renderContextTasksQueued.push_back(incommingTask);
+                _renderContextTasksQueued.push_back(incomingTask);
                 _mutexRenderContextTasks.unlock();
                 break;
             }
@@ -536,9 +579,9 @@ namespace igor
             }
             else
             {
-                _mutexIncommingTasks.lock();
-                _tasksIncomming.push_back(task);
-                _mutexIncommingTasks.unlock();
+                _mutexIncomingTasks.lock();
+                _tasksIncoming.push_back(task);
+                _mutexIncomingTasks.unlock();
             }
         }
         else
@@ -558,5 +601,4 @@ namespace igor
     {
         _taskFinished.remove(taskFinishedDelegate);
     }
-
 }; // namespace igor

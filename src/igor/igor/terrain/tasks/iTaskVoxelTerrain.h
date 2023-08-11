@@ -52,10 +52,14 @@ namespace igor
         */
         virtual ~iTaskVoxelTerrain() = default;
 
+        /*! aborts the task
+        */
+        void abort() override;
+
     protected:
         /*! runs the task
         */
-        void run();
+        void run() override;
 
     private:
         /*! the data to work with

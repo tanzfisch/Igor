@@ -249,9 +249,9 @@ namespace igor
         }
     }
 
-    void iNodePhysics::finalizeCollision(bool asynchronos)
+    void iNodePhysics::finalizeCollision(bool asynchronous)
     {
-        if (asynchronos)
+        if (asynchronous)
         {
             iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
             _prepareCollisionTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID));
@@ -269,13 +269,15 @@ namespace igor
 
     void iNodePhysics::onTaskFinished(uint64 taskID)
     {
-        if (_prepareCollisionTask == taskID)
+        if (_prepareCollisionTask != taskID)
         {
-            setDataDirty();
-            iTaskManager::getInstance().unregisterTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
-
-            _prepareCollisionTask = iTask::INVALID_TASK_ID;
+            return;
         }
+
+        setDataDirty();
+        iTaskManager::getInstance().unregisterTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
+
+        _prepareCollisionTask = iTask::INVALID_TASK_ID;
     }
 
     void iNodePhysics::setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate applyForceAndTorqueDelegate)
@@ -444,7 +446,7 @@ namespace igor
         else
         {
             // error do not try again
-            con_err("need a transform node as ancester");
+            con_err("need a transform node as ancestor");
             return true;
         }
 

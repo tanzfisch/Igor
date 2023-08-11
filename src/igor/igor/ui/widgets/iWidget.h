@@ -714,21 +714,21 @@ namespace igor
          */
         virtual ~iWidget();
 
-        /*! handles incomming mouse wheel event
+        /*! handles incoming mouse wheel event
 
         \param d mouse wheel delta
         \returns true: if event was consumed and therefore ignored by the parent
         */
         virtual bool handleMouseWheel(int32 d);
 
-        /*! handles incomming mouse key down events
+        /*! handles incoming mouse key down events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
         virtual bool handleMouseKeyDown(iKeyCode key);
 
-        /*! handles incomming double click
+        /*! handles incoming double click
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
@@ -742,15 +742,15 @@ namespace igor
         */
         virtual bool handleMouseKeyUp(iKeyCode key);
 
-        /*! handles incomming mouse move events
+        /*! handles incoming mouse move events
 
         \param pos mouse position
         */
         virtual void handleMouseMove(const iaVector2f &pos);
 
-        /*! handles incomming acsii codes from keyboard
+        /*! handles incoming acsii codes from keyboard
 
-        \param c the incomming character from keyboard
+        \param c the incoming character from keyboard
         */
         virtual bool handleASCII(uint8 c);
 

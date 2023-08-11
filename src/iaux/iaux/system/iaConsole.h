@@ -290,10 +290,6 @@ namespace iaux
          */
         bool _useColorsSupported = false;
 
-        /*! maps thread IDs to thread names
-         */
-        std::map<size_t, iaID32> _threadIDs;
-
         /*! changes foreground color of the console text
 
         \param color foreground color
@@ -581,21 +577,7 @@ namespace iaux
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &printIgorThreadID(iaConsole &console)
-    {
-        uint32 id = 0;
-        std::hash<std::thread::id> hashFunc;
-        size_t threadID = hashFunc(std::this_thread::get_id());
-
-        auto iter = console._threadIDs.find(threadID);
-        if (iter != console._threadIDs.end())
-        {
-            id = iter->second;
-        }
-
-        console << std::setfill(L'0') << std::setw(2) << std::hex << id << std::dec;
-        return console;
-    }
+    iaConsole &printIgorThreadID(iaConsole &console);
 
     /*! prints application time in the console
 

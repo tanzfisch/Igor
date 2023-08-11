@@ -77,7 +77,7 @@ namespace igor
 		\param filename filename of file to load
 		\return parameter optional import or generate parameters
 		*/
-        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameter *parameter = nullptr);
+        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter = nullptr);
 
         /*! saved node and underlying tree to filesystem
 

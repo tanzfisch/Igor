@@ -28,7 +28,6 @@
 #include <igor/terrain/operations/iVoxelOperationBox.h>
 #include <igor/terrain/operations/iVoxelOperationSphere.h>
 
-
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -110,7 +109,8 @@ namespace igor
             scene->getRoot()->insertNode(_rootNode);
 
             iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
-            iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
+
+            _voxelTerrainTask = iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
         }
     }
 
@@ -183,9 +183,6 @@ namespace igor
 
         // set up terrain target material
         _targetMaterial = iTargetMaterial::create();
-        /*_targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
-        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);*/
         _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -195,11 +192,16 @@ namespace igor
 
     void iVoxelTerrain::deinit()
     {
-        con_endl("shutdown iVoxelTerrain ...");
+        con_info("shutdown iVoxelTerrain ...");
+
+        auto voxelTerrainTask = iTaskManager::getInstance().getTask(_voxelTerrainTask);
+        if(voxelTerrainTask != nullptr)
+        {
+            voxelTerrainTask->abort();
+        }
 
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
         _targetMaterial = nullptr;
-        // TODO cleanup
     }
 
     void iVoxelTerrain::setLODTrigger(uint32 lodTriggerID)
@@ -225,7 +227,7 @@ namespace igor
         if (lodTrigger != nullptr)
         {
             iaVector3d pos = lodTrigger->getWorldPosition();
-            if (pos.length2() < 1.0f)
+            if (pos.length2() < 1.0f) // TODO why?
             {
                 return;
             }
@@ -253,7 +255,7 @@ namespace igor
     void iVoxelTerrain::applyVoxelOperations()
     {
         _operationsQueueMutex.lock();
-        auto operations = _operationsQueue;
+        const auto operations = std::move(_operationsQueue);
         _operationsQueue.clear();
         _operationsQueueMutex.unlock();
 
@@ -464,7 +466,7 @@ namespace igor
 
         result->_lod = lod;
         result->_size = static_cast<uint16>(_voxelBlockSize * pow(2, lod));
-        result->_childAdress = childAdress;
+        result->_childAddress = childAdress;
 
         for (int i = 0; i < 8; ++i)
         {
@@ -1092,9 +1094,10 @@ namespace igor
                 iNodePtr group = static_cast<iNodeMesh *>(modelNode->getChild("group"));
                 if (group != nullptr)
                 {
-                    iNodeMesh *meshNode = static_cast<iNodeMesh *>(group->getChild("mesh"));
-                    if (meshNode != nullptr)
+                    const auto &children = group->getChildren();
+                    if (!children.empty())
                     {
+                        iNodeMesh *meshNode = static_cast<iNodeMesh *>(children[0]);
                         meshNode->setVisible(meshVisible);
                     }
                 }
@@ -1226,8 +1229,8 @@ namespace igor
                 {
                     iVoxelTerrainTileInformation tileInformation;
 
-                    tileInformation._materialID = _terrainMaterial;
-                    tileInformation._voxelOffsetToNextLOD = childOffsetPosition[voxelBlock->_childAdress];
+                    tileInformation._material = _terrainMaterial;
+                    tileInformation._voxelOffsetToNextLOD = childOffsetPosition[voxelBlock->_childAddress];
                     tileInformation._voxelOffsetToNextLOD *= 16;
                     tileInformation._voxelData = new iVoxelData();
                     voxelBlock->_voxelData->getCopy(*(tileInformation._voxelData));
@@ -1239,7 +1242,7 @@ namespace igor
                     tileInformation._physicsMaterialID = _physicsMaterialID;
 
                     // will be deleted by iModel
-                    iModelDataInputParameter *inputParam = new iModelDataInputParameter();
+                    iModelDataInputParameterPtr inputParam = std::make_shared<iModelDataInputParameter>();
                     inputParam->_identifier = "vtg";
                     inputParam->_joinVertexes = true;
                     inputParam->_needsRenderContext = false;

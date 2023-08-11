@@ -34,6 +34,7 @@
 #include <iaux/data/iaIDGenerator.h>
 
 #include <thread>
+#include <map>
 
 namespace iaux
 {
@@ -41,11 +42,11 @@ namespace iaux
     class iaThread;
 
     /*! thread delegate calls the actual function run by this thread
-    */
-    typedef iaDelegate<void, iaThread*> iThreadCallbackDelegate;
+     */
+    typedef iaDelegate<void, iaThread *> iThreadCallbackDelegate;
 
     /*! the state a thread is currently in
-    */
+     */
     enum class iaThreadState
     {
         Init,
@@ -55,7 +56,7 @@ namespace iaux
     };
 
     /*! basic thread
-    */
+     */
     class IAUX_API iaThread
     {
 
@@ -63,15 +64,15 @@ namespace iaux
 
     public:
         /*! does nothing
-        */
+         */
         iaThread();
 
         /*! delete thread handle
-        */
+         */
         virtual ~iaThread();
 
         /*! \returns true: if thread is initialized; false: if not
-        */
+         */
         iaThreadState getState() const;
 
         /*! start thread with a specified delegate
@@ -81,41 +82,45 @@ namespace iaux
         void run(iThreadCallbackDelegate threadDelegate);
 
         /*! waits for the thread to finish
-        */
+         */
         void join();
 
         /*! \returns igor aux thread id
-        */
+         */
         iaID32 getID() const;
+
+        /*! \returns id of the thread this is running in
+         */
+        static iaID32 getThisThreadID();
 
     protected:
         /*! init function will be called as first by the thread
-        */
+         */
         virtual void init();
 
         /*! deinit function is called last by the thread. right before join
-        */
+         */
         virtual void deinit();
 
     private:
         /*! thread id
-        */
+         */
         iaID32 _id = 0;
 
         /*! the next node id
-        */
+         */
         static iaIDGenerator32 _idGenerator;
 
         /*! current state of this thread
-        */
+         */
         iaThreadState _currentState = iaThreadState::Init;
 
         /*! thread handle
-        */
+         */
         std::thread *_thread = nullptr;
 
         /*! the delegate to be called by the thread
-        */
+         */
         iThreadCallbackDelegate _threadDelegate;
     };
 

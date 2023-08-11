@@ -91,7 +91,7 @@ namespace igor
 		*/
         bool _checked = false;
 
-        /*! handles incomming mouse up event
+        /*! handles incoming mouse up event
 
 		\parma key released mouse key
 		\returns true: if event was consumed and therefore ignored by the parent

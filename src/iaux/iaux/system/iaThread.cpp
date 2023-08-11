@@ -8,11 +8,19 @@
 
 namespace iaux
 {
+    /*! maps thread IDs to thread names
+        */
+    static std::map<size_t, iaID32> _threadIDs;
+
+    /*! mutex to protect thread ids
+    */
+    static iaMutex _mutex;
 
     iaIDGenerator32 iaThread::_idGenerator;
 
     iaThread::iaThread()
     {
+        // starting with 1
         _id = _idGenerator.getNextID() + 1;
     }
 
@@ -44,16 +52,30 @@ namespace iaux
         return _id;
     }
 
+    iaID32 iaThread::getThisThreadID()
+    {
+        std::hash<std::thread::id> hashFunc;
+        size_t hashValue = hashFunc(std::this_thread::get_id());
+
+        auto iter = _threadIDs.find(hashValue);
+        if (iter != _threadIDs.end())
+        {
+            return iter->second;
+        }
+
+        // this must be the main thread
+        return 1;
+    }
+
     void* threadFunc(void* data)
     {
         iaThread* thread = (iaThread*)data;
         std::hash<std::thread::id> hashFunc;
         size_t hashValue = hashFunc(std::this_thread::get_id());
 
-        iaConsole::getInstance().lock();
-        iaConsole::getInstance()._threadIDs[hashValue] = thread->getID();
-        iaConsole::getInstance().unlock();
-        
+        _mutex.lock();
+        _threadIDs[hashValue] = thread->getID();
+        _mutex.unlock();
 
         thread->_currentState = iaThreadState::Init;
         thread->init();
@@ -63,9 +85,9 @@ namespace iaux
         thread->deinit();
         thread->_currentState = iaThreadState::Done;
 
-        iaConsole::getInstance().lock();
-        iaConsole::getInstance()._threadIDs.erase(hashValue);
-        iaConsole::getInstance().unlock();
+        _mutex.lock();
+        _threadIDs.erase(hashValue);
+        _mutex.unlock();
         return 0;
     }
 

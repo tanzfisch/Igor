@@ -4,8 +4,16 @@ Changelog                           {#changelog}
 0.41.0
 ------
 
+- improved iNodeTransform info string
 - improved load time of instancing example
 - lazy load audio device
+- fixed mem leaks in iaDelegate, iWindow, iOctree
+- going full DSA in iTexture
+- refactored iTextureFactory
+- added exit code to iApplication
+- introduced load mode for resource manager
+- fixed shutdown of voxel terrain
+- added more settings to config file (min max threads and synchronous loading for resource manager)
 
 0.40.0
 ------
@@ -13,7 +21,7 @@ Changelog                           {#changelog}
 - improved renderer interface and fleshed out the docs
 - fixed issue around texture fonts rendering and measuring size
 - fixed more typos
-- added more tests in iaux
+- added more tests for iaux
 - remove iTextureResourceFactory and have textures now handled by the iResourceManager
 - new resources iAnimation, iSprite and iTexture (replaced previous iTexture)
 - added state machine back in

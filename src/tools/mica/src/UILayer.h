@@ -111,7 +111,7 @@ private:
     void onFileSaveDialogClosed(iDialogPtr dialog);
     void onLoadMaterialFileDialogClosed(iDialogPtr dialog);
 
-    iModelDataInputParameter *createDataInputParameter();
+    iModelDataInputParameterPtr createDataInputParameter();
 
     /*! init ui
 	*/

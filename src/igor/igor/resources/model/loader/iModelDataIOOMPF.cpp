@@ -361,7 +361,7 @@ namespace igor
         return particleSystemNode;
     }
 
-    iNodePtr iModelDataIOOMPF::importData(const iaString &filename, iModelDataInputParameter *parameter)
+    iNodePtr iModelDataIOOMPF::importData(const iaString &filename, iModelDataInputParameterPtr parameter)
     {
         _parameter = parameter;
 

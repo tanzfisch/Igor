@@ -77,7 +77,7 @@ ExampleBase::~ExampleBase()
         // release material
         _materialSkyBox = nullptr;
 
-        // clear scene by destoying it
+        // clear scene by destroying it
         iSceneFactory::getInstance().destroyScene(_scene);
         _scene = nullptr;
 
@@ -91,9 +91,6 @@ ExampleBase::~ExampleBase()
         iTaskManager::getInstance().abortTask(_taskFlushTextures);
 
         _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
-
-        // closes the window if it was not closed already
-        getWindow()->close();
     }
 
     con_info("stopped example \"" << getName() << "\"");
@@ -190,6 +187,7 @@ void ExampleBase::onDeinit()
 
 void ExampleBase::onUpdate()
 {
+    // nothing to do
 }
 
 void ExampleBase::onRenderOrtho()

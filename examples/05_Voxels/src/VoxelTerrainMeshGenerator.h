@@ -50,7 +50,7 @@ public:
     \param sectionname name of tile section
     \return parameter tile parameters
     */
-    iNodePtr importData(const iaString &sectionName, iModelDataInputParameter *parameter);
+    iNodePtr importData(const iaString &sectionName, iModelDataInputParameterPtr parameter);
 
     /*! initialize members
     */

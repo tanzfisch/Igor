@@ -12,6 +12,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -42,13 +43,6 @@ namespace igor
     iNodeModel::~iNodeModel()
     {
         setScene(nullptr);
-
-        if (_parameters != nullptr)
-        {
-            // if arrived here it was never given to iModel so we need to delete it now
-            delete _parameters;
-            _parameters = nullptr;
-        }
 
         _model = nullptr;
     }
@@ -92,7 +86,7 @@ namespace igor
         }
     }
 
-    void iNodeModel::setMaterial(const iMaterialPtr& material)
+    void iNodeModel::setMaterial(const iMaterialPtr &material)
     {
         _material = material;
 
@@ -104,7 +98,7 @@ namespace igor
         setMaterial(this, material);
     }
 
-    void iNodeModel::setMaterial(iNodePtr node, const iMaterialPtr& material)
+    void iNodeModel::setMaterial(iNodePtr node, const iMaterialPtr &material)
     {
         if (node->getType() == iNodeType::iNodeMesh)
         {
@@ -120,16 +114,17 @@ namespace igor
         }
     }
 
-    void iNodeModel::setModel(const iaString &modelFileName, iResourceCacheMode cacheMode, iModelDataInputParameter *parameters, bool loadSynchronously)
+    void iNodeModel::setModel(const iaString &modelFileName, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameters, bool loadSynchronously)
     {
         _filename = modelFileName;
         _cacheMode = cacheMode;
         _parameters = parameters;
 
-        if (loadSynchronously)
+        if (loadSynchronously ||
+            iResourceManager::getInstance().getLoadMode() == iResourceManagerLoadMode::Synchronized)
         {
             _model = iModelResourceFactory::getInstance().loadModelData(_filename, _cacheMode, _parameters);
-            _parameters = nullptr; // passing ownership to iModel
+            _parameters = nullptr; // no need to hang on to this
 
             onUpdateData();
         }
@@ -145,7 +140,7 @@ namespace igor
             _model == nullptr)
         {
             _model = iModelResourceFactory::getInstance().requestModelData(_filename, _cacheMode, _parameters);
-            _parameters = nullptr; // passing ownership to iModel
+            _parameters = nullptr; // no need to hang on to this
         }
     }
 
@@ -160,7 +155,7 @@ namespace igor
                 _loaded = true;
                 _ready = true;
 
-                if(_material != nullptr)
+                if (_material != nullptr)
                 {
                     setMaterial(_material);
                 }

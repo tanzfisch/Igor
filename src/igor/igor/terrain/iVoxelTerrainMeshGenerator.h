@@ -65,15 +65,15 @@ namespace igor
 
         /*! material of tile
         */
-        iMaterialPtr _materialID;
-
-        /*! physics material of terrain tile
-        */
-        uint64 _physicsMaterialID = 0;
+        iMaterialPtr _material;
 
         /*! target material for given tile
         */
         iTargetMaterialPtr _targetMaterial;
+
+        /*! physics material of terrain tile
+        */
+        uint64 _physicsMaterialID = 0;
 
         /*! neighbors LOD flags
         */
@@ -93,7 +93,7 @@ namespace igor
         \param filename usually the file name but we are not using it here because wedon't load but generate data
         \return parameter tile parameters
         */
-        iNodePtr importData(const iaString &filename, iModelDataInputParameter *parameter);
+        iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter);
 
         /*! initialize members
         */

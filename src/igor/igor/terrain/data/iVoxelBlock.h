@@ -104,7 +104,7 @@ namespace igor
         */
         uint64 _modelNodeIDCurrent = iNode::INVALID_NODE_ID;
 
-        /*! tempoary transform node id to control where we have to regenerate a new tile or not
+        /*! temporary transform node id to control where we have to regenerate a new tile or not
         */
         uint64 _transformNodeIDQueued = iNode::INVALID_NODE_ID;
 
@@ -112,13 +112,13 @@ namespace igor
         */
         uint64 _modelNodeIDQueued = iNode::INVALID_NODE_ID;
 
-        /*! everytime the tile changes this counter goes up so Igor can tell the difference between the models before and after
+        /*! every time the tile changes this counter goes up so Igor can tell the difference between the models before and after
         */
         uint16 _mutationCounter = 0;
 
         /*! index position of block relative to parent
         */
-        uint8 _childAdress;
+        uint8 _childAddress;
 
         /*! blocks position as index in corresponding LOD
         */
@@ -156,6 +156,8 @@ namespace igor
         */
         uint64 _neighbours[6];
 
+        /*! voxel operation on this block
+        */
         std::vector<std::shared_ptr<iVoxelOperation>> _voxelOperations;
     };
 

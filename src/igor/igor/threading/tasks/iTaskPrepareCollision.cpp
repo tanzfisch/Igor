@@ -19,17 +19,12 @@ namespace igor
 
     void iTaskPrepareCollision::run()
     {
-        if (getWorldID() != iPhysicsWorld::INVALID_WORLD_ID)
+        con_assert(getWorldID() != iPhysicsWorld::INVALID_WORLD_ID, "invalid world id");
+        
+        iPhysicsCollisionConfig *collisionConfig = iPhysics::getInstance().getCollisionConfig(_collisionConfigID);
+        if (collisionConfig != nullptr)
         {
-            iPhysicsCollisionConfig *collisionConfig = iPhysics::getInstance().getCollisionConfig(_collisionConfigID);
-            if (collisionConfig != nullptr)
-            {
-                collisionConfig->finalize(getWorldID());
-            }
-        }
-        else
-        {
-            con_err("invalid world id");
+            collisionConfig->finalize(getWorldID());
         }
     }
 

@@ -170,20 +170,20 @@ namespace igor
          */
         iTexturePtr _rightTexture;
 
-        /*! handles incomming mouse wheel event
+        /*! handles incoming mouse wheel event
 
         \param d mouse wheel delta
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool handleMouseWheel(int32 d) override;
 
-        /*! handles incomming mouse move events
+        /*! handles incoming mouse move events
 
         \param pos mouse position
         */
         void handleMouseMove(const iaVector2f &pos) override;
 
-        /*! handles incomming mouse key down events
+        /*! handles incoming mouse key down events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
@@ -202,7 +202,7 @@ namespace igor
         */
         bool handleMouseKeyUp(iKeyCode key) override;
 
-        /*! handles incomming double click
+        /*! handles incoming double click
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent

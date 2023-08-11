@@ -359,7 +359,7 @@ foreach(
       13_SpriteAnimation
       15_Sound
       98_Supremacy
-      #99_Ascent # does not work at the moment
+      99_Ascent
       )
 
     message(STATUS "${EXAMPLE}")

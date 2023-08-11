@@ -232,7 +232,7 @@ namespace igor
 
         /*! dtor
 
-        unregisteres os event listeners
+        unregisters os event listeners
         */
         virtual ~iWindow();
 
