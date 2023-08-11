@@ -460,16 +460,10 @@ namespace igor
 
     iaString iResourceManager::getRelativePath(const iaString &filename)
     {
-        con_endl("getRelativePath for " << filename);
-
         iaString result = filename;
         for (auto path : _searchPaths)
         {
-            con_endl("path " << path);
-
             iaDirectory dir(path);
-
-            con_endl("dir " << dir.getFullDirectoryName());
 
             std::vector<iaString> matches;
             iaString::searchRegex(filename, dir.getFullDirectoryName(), matches);
@@ -479,8 +473,6 @@ namespace igor
                 break;
             }
         }
-
-        con_endl("result " << result);
 
         return result;
     }
