@@ -13,6 +13,7 @@ Changelog                           {#changelog}
 - added exit code to iApplication
 - introduced load mode for resource manager
 - fixed shutdown of voxel terrain
+- added more settings to config file (min max threads and synchronous loading for resource manager)
 
 0.40.0
 ------

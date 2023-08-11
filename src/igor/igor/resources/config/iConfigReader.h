@@ -29,29 +29,28 @@
 #ifndef __IGOR_CONFIGREADER__
 #define __IGOR_CONFIGREADER__
 
+#include <igor/resources/module/iModule.h>
+
 #include <iaux/data/iaString.h>
 using namespace iaux;
+
+#include <unordered_map>
 
 class TiXmlElement;
 
 namespace igor
 {
 
-	/*! reader for generall Igor configuration file.
+	/*! reader for general Igor configuration file.
 
 	usually located at config/Igor.xml
 	*/
-	class iConfigReader
+	class iConfigReader : public iModule<iConfigReader>
 	{
 
-	public:
-		/*! does nothing
-		*/
-		iConfigReader();
+		friend class iModule<iConfigReader>;
 
-		/*! does nothing
-		*/
-		virtual ~iConfigReader();
+	public:
 
 		/*! opens and reads configuration file from filesystem.
 
@@ -61,18 +60,75 @@ namespace igor
 		*/
 		void readConfiguration(const iaString &filename);
 
+		/*! \returns value for given setting as string
+		
+		\param key the given setting
+		*/
+		const iaString getValue(const iaString &setting) const;
+
+		/*! \returns value for given setting as int
+
+		\param key the given setting
+		*/
+		int64 getValueAsInt(const iaString &setting) const;
+
+		/*! \returns value for given setting as float
+
+		\param key the given setting
+		*/
+		float64 getValueAsFloat(const iaString &setting) const;
+
+		/*! \returns value for given setting array of string
+
+		\param key the given setting
+		*/
+		const std::vector<iaString> getValueAsArray(const iaString &setting) const;
+
+		/*! \returns true if given setting is set
+
+		\param setting the given setting
+		*/
+		bool hasSetting(const iaString &setting) const;
+
 	private:
-		/*! analyses the xml elements
 
-		\param resourceManager root element
+		/*! the key value data
 		*/
-		void readResourceManagerConfig(TiXmlElement *resourceManager);
+		std::unordered_map<iaString, std::vector<iaString>> _settings;
 
-		/*! read logging xml elements
+		/*! read configuration
 
-		\param logging logging element
+		\param config config xml element
 		*/
-		void readLoggingConfig(TiXmlElement *logging);
+		void readConfigElement(TiXmlElement *config);
+
+		/*! sets value on setting and overrides all values that been there before
+
+		\param setting the setting to set
+		\param value the value to set
+		*/
+		void set(const iaString &setting, const iaString &value);
+
+		/*! sets multiple values on setting and overrides all values that been there before
+
+		\param setting the setting to set
+		\param values the values to set
+		*/
+		void set(const iaString &setting, const std::vector<iaString> &values);
+
+		/*! removes given setting
+
+		\param setting the setting to remove
+		*/
+		void reset(const iaString &setting);
+
+		/*! does nothing
+		 */
+		iConfigReader();
+
+		/*! does nothing
+		 */
+		virtual ~iConfigReader();		
 	};
 
 } // namespace igor

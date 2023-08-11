@@ -8,6 +8,7 @@
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
+#include <igor/resources/config/iConfigReader.h>
 #include <igor/threading/iTaskManager.h>
 
 #include <iaux/system/iaFile.h>
@@ -18,6 +19,8 @@ namespace igor
 {
     iResourceManager::iResourceManager()
     {
+        configure();
+
         registerFactory(iFactoryPtr(new iTextureFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
@@ -60,6 +63,29 @@ namespace igor
 
         _resources.clear();
         _factories.clear();
+    }
+
+    void iResourceManager::configure()
+    {
+        if (iConfigReader::getInstance().hasSetting("loadMode"))
+        {
+            const iaString loadMode = iConfigReader::getInstance().getValue("loadMode");
+
+            if (loadMode == "Sync")
+            {
+                setLoadMode(iResourceManagerLoadMode::Synchronized);
+            }
+        }
+
+        if (iConfigReader::getInstance().hasSetting("searchPaths"))
+        {
+            const std::vector<iaString> searchPaths = iConfigReader::getInstance().getValueAsArray("searchPaths");
+
+            for (const auto &path : searchPaths)
+            {
+                addSearchPath(path);
+            }
+        }
     }
 
     int64 iResourceManager::calcHashValue(const iParameters &parameters, iFactoryPtr factory)
@@ -219,7 +245,7 @@ namespace igor
 
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
     {
-        if(_loadMode == iResourceManagerLoadMode::Synchronized)
+        if (_loadMode == iResourceManagerLoadMode::Synchronized)
         {
             return iResourceManager::loadResource(parameters);
         }
@@ -498,7 +524,7 @@ namespace igor
     }
 
     std::wostream &operator<<(std::wostream &stream, const iResourceManagerLoadMode &mode)
-    {   
+    {
         const static std::wstring text[] = {
             L"Application",
             L"Synchronized"};
@@ -506,6 +532,6 @@ namespace igor
         stream << text[static_cast<int>(mode)];
 
         return stream;
-    }    
+    }
 
 } // namespace igor

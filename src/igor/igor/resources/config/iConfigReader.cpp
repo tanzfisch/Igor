@@ -3,7 +3,6 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/config/iConfigReader.h>
-#include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -20,74 +19,62 @@ namespace igor
     {
     }
 
-    void iConfigReader::readResourceManagerConfig(TiXmlElement *resourceManager)
+    /*void iConfigReader::readThreadingConfig(TiXmlElement *threading)
     {
-        iaString loadMode(resourceManager->Attribute("loadMode"));
-        if(loadMode == "Sync")
+        TiXmlElement *threads = threading->FirstChildElement("Threads");
+        iaString minThreads(threads->Attribute("min"));
+        iaString maxThreads(threads->Attribute("max"));
+
+        TiXmlElement *renderContextThreads = threading->FirstChildElement("RenderContextThreads");
+        iaString minRenderContextThreads(renderContextThreads->Attribute("min"));
+        iaString maxRenderContextThreads(renderContextThreads->Attribute("max"));
+
+        TiXmlElement *physicsThreads = threading->FirstChildElement("PhysicsThreads");
+        iaString minPhysicsThreads(physicsThreads->Attribute("min"));
+        iaString maxPhysicsThreads(physicsThreads->Attribute("max"));
+    }*/
+
+    void iConfigReader::readConfigElement(TiXmlElement *config)
+    {
+        TiXmlElement *setting = config->FirstChildElement("Setting");
+        if (setting == nullptr)
         {
-            iResourceManager::getInstance().setLoadMode(iResourceManagerLoadMode::Synchronized);
+            con_info("configuration has no settings");
+            return;
         }
 
-        TiXmlElement *paths = resourceManager->FirstChildElement("SearchPaths");
-        if (paths != nullptr)
+        do
         {
-            TiXmlElement *element = paths->FirstChildElement("SearchPath");
-            if (element != nullptr)
+            // get name and value
+            iaString name(setting->Attribute("name"));
+            std::vector<iaString> values;
+
+            iaString value(setting->Attribute("value"));
+            if (!value.isEmpty())
+            {
+                values.push_back(value);
+            }
+
+            // check if there is more values
+            TiXmlElement *valueElement = setting->FirstChildElement("Value");
+            if (valueElement != nullptr)
             {
                 do
                 {
-                    TiXmlNode *text = element->FirstChild();
+                    TiXmlNode *text = valueElement->FirstChild();
                     if (text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
                     {
-                        iResourceManager::getInstance().addSearchPath(text->ValueStr().data());
+                        values.push_back(text->ValueStr().data());
                     }
 
-                    element = element->NextSiblingElement("SearchPath");
-                } while (element != nullptr);
+                    valueElement = valueElement->NextSiblingElement("Value");
+                } while (valueElement != nullptr);
             }
-        }
-    }
 
-    void iConfigReader::readLoggingConfig(TiXmlElement *logging)
-    {
-        TiXmlElement *logLevel = logging->FirstChildElement("LogLevel");
-        if (logLevel != nullptr)
-        {
-            TiXmlNode *text = logLevel->FirstChild();
-            if (text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
-            {
-                iaString level(text->ValueStr().data());
+            set(name, values);
 
-                if (level == "Assert")
-                {
-                    iaConsole::getInstance().setLogLevel(iaLogLevel::Fatal);
-                }
-                else if (level == "Error")
-                {
-                    iaConsole::getInstance().setLogLevel(iaLogLevel::Error);
-                }
-                else if (level == "Warning")
-                {
-                    iaConsole::getInstance().setLogLevel(iaLogLevel::Warning);
-                }
-                else if (level == "Info")
-                {
-                    iaConsole::getInstance().setLogLevel(iaLogLevel::Info);
-                }
-                else if (level == "User")
-                {
-                    iaConsole::getInstance().setLogLevel(iaLogLevel::User);
-                }
-                else if (level == "Debug")
-                {
-                    iaConsole::getInstance().setLogLevel(iaLogLevel::Debug);
-                }
-                else if (level == "Trace")
-                {
-                    iaConsole::getInstance().setLogLevel(iaLogLevel::Trace);
-                }
-            }
-        }
+            setting = setting->NextSiblingElement("Setting");
+        } while (setting != nullptr);
     }
 
     void iConfigReader::readConfiguration(const iaString &filename)
@@ -109,16 +96,94 @@ namespace igor
             return;
         }
 
-        TiXmlElement *logging = root->FirstChildElement("Logging");
-        if (logging)
+        TiXmlElement *config = root->FirstChildElement("Config");
+        if (config)
         {
-            readLoggingConfig(logging);
+            readConfigElement(config);
         }
 
-        TiXmlElement *resourceManager = root->FirstChildElement("ResourceManager");
-        if (resourceManager)
+        con_info("loaded configuration \"" << filename << "\"");
+    }
+
+    const iaString iConfigReader::getValue(const iaString &setting) const
+    {
+        auto iter = _settings.find(setting);
+        if (iter == _settings.end())
         {
-            readResourceManagerConfig(resourceManager);
+            con_err("setting \"" << setting << "\" not found ");
+            return "";
+        }
+
+        con_assert(!iter->second.empty(), "invalid data");
+
+        return iter->second[0];
+    }
+
+    int64 iConfigReader::getValueAsInt(const iaString &setting) const
+    {
+        auto iter = _settings.find(setting);
+        if (iter == _settings.end())
+        {
+            con_err("setting \"" << setting << "\" not found ");
+            return 0;
+        }
+
+        con_assert(!iter->second.empty(), "invalid data");
+
+        return iaString::toInt(iter->second[0]);
+    }
+
+    float64 iConfigReader::getValueAsFloat(const iaString &setting) const
+    {
+        auto iter = _settings.find(setting);
+        if (iter == _settings.end())
+        {
+            con_err("setting \"" << setting << "\" not found ");
+            return 0.0;
+        }
+
+        con_assert(!iter->second.empty(), "invalid data");
+
+        return iaString::toFloat(iter->second[0]);
+    }
+
+    const std::vector<iaString> iConfigReader::getValueAsArray(const iaString &setting) const
+    {
+        auto iter = _settings.find(setting);
+        if (iter == _settings.end())
+        {
+            con_err("setting \"" << setting << "\" not found ");
+            return std::vector<iaString>();
+        }
+
+        con_assert(!iter->second.empty(), "invalid data");
+
+        return iter->second;
+    }
+
+    bool iConfigReader::hasSetting(const iaString &setting) const
+    {
+        return (_settings.find(setting) != _settings.end());
+    }
+
+    void iConfigReader::set(const iaString &setting, const iaString &value)
+    {
+        std::vector<iaString> values = {value};
+        set(setting, values);
+    }
+
+    void iConfigReader::set(const iaString &setting, const std::vector<iaString> &values)
+    {
+        _settings[setting] = values;
+    }
+
+    void iConfigReader::reset(const iaString &setting)
+    {
+        auto iter = _settings.find(setting);
+        if (iter != _settings.end())
+        {
+            _settings.erase(iter);
         }
     }
+
 } // namespace igor

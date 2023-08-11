@@ -176,7 +176,11 @@ namespace igor
 
         for (auto mesh : _meshs)
         {
-            collisions.push_back(iPhysics::getInstance().createMesh(mesh._mesh, mesh._faceAttribute, mesh._offset, worldID));
+            iPhysicsCollision *collision = iPhysics::getInstance().createMesh(mesh._mesh, mesh._faceAttribute, mesh._offset, worldID);
+            if (collision != nullptr)
+            {
+                collisions.push_back(collision);
+            }
         }
 
         if (collisions.size() > 0)

@@ -102,27 +102,27 @@ namespace igor
 
         /*! \returns regular thread count
         */
-        uint32 getRegularThreadCount();
+        uint32 getRegularThreadCount() const;
 
         /*! \returns render context thread count
         */
-        uint32 getRenderContextThreadCount();
+        uint32 getRenderContextThreadCount() const;
 
         /*! \returns tasks in queue count
         */
-        uint32 getQueuedRegularTaskCount();
+        uint32 getQueuedRegularTaskCount() const;
 
         /*! \returns running tasks count
         */
-        uint32 getRunningRegularTaskCount();
+        uint32 getRunningRegularTaskCount() const;
 
         /*! \returns render context tasks in queue count
         */
-        uint32 getQueuedRenderContextTaskCount();
+        uint32 getQueuedRenderContextTaskCount() const;
 
         /*! \returns running render context tasks count
         */
-        uint32 getRunningRenderContextTaskCount();
+        uint32 getRunningRenderContextTaskCount() const;
 
         /*! \returns true if the task manager is running
         */
@@ -157,13 +157,13 @@ namespace igor
         */
         static bool _running;
 
-        /*! incomming tasks
+        /*! incoming tasks
         */
-        std::list<iTask *> _tasksIncomming;
+        std::list<iTask *> _tasksIncoming;
 
-        /*! mutex for incomming tasks
+        /*! mutex for incoming tasks
         */
-        iaMutex _mutexIncommingTasks;
+        iaMutex _mutexIncomingTasks;
 
         /*! list of all tasks
         */
@@ -250,9 +250,9 @@ namespace igor
         */
         void createThread();
 
-        /*! flush incomming tasks queue to task list
+        /*! flush incoming tasks queue to task list
 		*/
-        void flushIncommingTasks();
+        void flushIncomingTasks();
 
         /*! creates some regular threads and starts them
         */

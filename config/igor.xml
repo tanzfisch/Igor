@@ -1,22 +1,33 @@
 <?xml version="1.0"?>
 <Igor>
-    <!-- loadMode: loade mode of resource manager App (application decides), Sync (all synchronous) -->
-    <ResourceManager loadMode="App"> 
+    <Config>
+        <!-- loglevel: Assert, Error, Warning, Info, User (default), Debug, Trace -->
+        <Setting name="logLevel" value="User" />
 
-        <!-- all paths have to be relative to current directory when igor is executed -->
-        <SearchPaths>
-            <SearchPath>../../data/textures</SearchPath>
-            <SearchPath>../../data/sprites</SearchPath>
-            <SearchPath>../../data/models</SearchPath>
-            <SearchPath>../../data/materials</SearchPath>
-            <SearchPath>../../data/animations</SearchPath>
-            <SearchPath>../../data/sounds</SearchPath>
-            <SearchPath>../../data</SearchPath>
-        </SearchPaths>
-    </ResourceManager>
+        <!-- min max threads default is min=1 max=Max -->
+        <Setting name="minThreads" value="1" />
+        <Setting name="maxThreads" value="Max" />
+        
+        <!-- min max for render context threads threads default is min=1 max=Max -->
+        <Setting name="minRenderContextThreads" value="1" />
+        <Setting name="maxRenderContextThreads" value="Max" />
 
-    <!-- available log levels: Assert, Error, Warning, Info, User (default), Debug, Trace -->
-    <Logging>
-        <LogLevel>User</LogLevel> 
-    </Logging>
+        <!-- min max for physics threads threads default is min=1 max=Max -->
+        <Setting name="minPhysicsThreads" value="1" />
+        <Setting name="maxPhysicsThreads" value="Max" />
+
+        <!-- loadMode: loade mode of resource manager App (application decides), Sync (all synchronous) -->
+        <Setting name="loadMode" value="App" />
+
+        <!-- searchPaths: search paths for resources relative to current directory. In this example relative to the bin folder -->
+        <Setting name="searchPaths">
+            <Value>../../data/textures</Value>
+            <Value>../../data/sprites</Value>
+            <Value>../../data/models</Value>
+            <Value>../../data/materials</Value>
+            <Value>../../data/animations</Value>
+            <Value>../../data/sounds</Value>
+            <Value>../../data</Value>
+        </Setting>
+    </Config>
 </Igor>

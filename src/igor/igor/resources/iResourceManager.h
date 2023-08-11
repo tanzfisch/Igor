@@ -219,6 +219,10 @@ namespace igor
         */
         int64 calcHashValue(const iParameters &parameters, iFactoryPtr factory);
 
+        /*! applies config settings on resource manager
+        */
+        void configure();
+
         /*! does nothing
          */
         iResourceManager();

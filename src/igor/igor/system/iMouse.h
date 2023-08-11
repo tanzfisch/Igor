@@ -118,7 +118,7 @@ namespace igor
         */
         iMouseImpl *_impl = nullptr;
 
-        /*! handles incomming OS messages
+        /*! handles incoming OS messages
         */
         bool onOSEvent(const void *data) override;
 
