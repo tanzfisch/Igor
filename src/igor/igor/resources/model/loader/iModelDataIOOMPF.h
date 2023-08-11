@@ -88,7 +88,7 @@ namespace igor
         \param filename filename of file to load
         \return pointer to node tree
         */
-        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameter *parameter = nullptr);
+        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter = nullptr);
 
         /*! saved node and underlying tree to filesystem
 
@@ -140,7 +140,7 @@ namespace igor
 
         do not delete. it does not belong to you
         */
-        iModelDataInputParameter *_parameter = nullptr;
+        iModelDataInputParameterPtr _parameter = nullptr;
 
         /*! handles start of traversal
         */

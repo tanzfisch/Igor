@@ -55,14 +55,18 @@ namespace igor
         /*! starts the application
 
         starts the main loop of the application and continues until stop() is called
+
+        \returns exit code
         */
-        void run();
+        int32 run();
 
         /*! stops the application
 
         quits the main application loop. works only in combination with iApplication::run
+
+        \param exitCode optional exit code
         */
-        void exit();
+        void exit(int32 exitCode = 0);
 
         /*! stops/pauses the engine
 
@@ -181,6 +185,10 @@ namespace igor
         /*! the layer stack
         */
         iLayerStack _layerStack;
+
+        /*! the exit code
+        */
+        int32 _exitCode = 0;
 
         /*! handles events in the event queue
         */

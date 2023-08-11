@@ -20,7 +20,7 @@ namespace igor
         return _identifier;
     }
 
-    iNodePtr iModelDataIO::importData(const iaString &filename, iModelDataInputParameter *_parameter)
+    iNodePtr iModelDataIO::importData(const iaString &filename, iModelDataInputParameterPtr _parameter)
     {
         con_err("import functionality is not supported by \"" << _name << "\"");
         return nullptr;

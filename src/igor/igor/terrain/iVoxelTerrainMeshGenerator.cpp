@@ -12,9 +12,6 @@
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodePhysics.h>
 
-// uncomment next line for voxel terrain debug coloring
-// #define DEBUG_VOXEL_TERRAIN_COLORING
-
 // uncomment next line for voxel terrain debug using no physics
 // #define DEBUG_VOXEL_TERRAIN_NO_PHYSICS
 
@@ -34,19 +31,18 @@ namespace igor
     }
 
     __IGOR_DISABLE_WARNING__(4100)
-    iNodePtr iVoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameter *parameter)
+    iNodePtr iVoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameterPtr parameter)
     {
         const iVoxelTerrainTileInformation &tileInformation = std::any_cast<iVoxelTerrainTileInformation>(parameter->_parameters);
-    
+
         iVoxelData *voxelData = tileInformation._voxelData;
         iVoxelData *voxelDataNextLOD = tileInformation._voxelDataNextLOD;
 
-        int64 width = voxelData->getWidth();
-        int64 height = voxelData->getHeight();
-        int64 depth = voxelData->getDepth();
+        const int64 width = voxelData->getWidth();
+        const int64 height = voxelData->getHeight();
+        const int64 depth = voxelData->getDepth();
 
-        iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
-        result->setName("group");
+        iNodePtr result = iNodeManager::getInstance().createNode<iNode>("group");
 
         iContouringCubes contouringCubes;
         contouringCubes.setVoxelData(voxelData);
@@ -59,52 +55,9 @@ namespace igor
         {
             iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
             meshNode->setMesh(mesh);
-            // TODO meshNode->setMaterial(tileInformation._materialID);
-            meshNode->setName("mesh");
+            meshNode->setMaterial(tileInformation._material);
+            meshNode->setName(iaString("voxel_mesh_") + sectionName);
             meshNode->setVisible(false);
-
-#ifdef DEBUG_VOXEL_TERRAIN_COLORING
-            iaRandomNumberGenerator rand;
-            rand.setSeed(reinterpret_cast<uint32>(voxelData));
-            float32 r = ((rand.getNext() % 30) + 35.0f) / 100.0f;
-            float32 g = ((rand.getNext() % 30) + 35.0f) / 100.0f;
-            float32 b = ((rand.getNext() % 30) + 35.0f) / 100.0f;
-            tileInformation._targetMaterial->setAmbient(iaColor3f(r * 0.8f, g * 0.8f, b * 0.8f));
-
-            switch (tileInformation._lod)
-            {
-            case 0:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.7f, 0.7f, 0.7f));
-                break;
-            case 1:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.7f, 0.0f, 0.0f));
-                break;
-            case 2:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.0f, 0.7f, 0.0f));
-                break;
-            case 3:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.0f, 0.0f, 0.7f));
-                break;
-            case 4:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.7f, 0.0f, 0.7f));
-                break;
-            case 5:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.7f, 0.7f, 0.0f));
-                break;
-            case 6:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.0f, 0.7f, 0.7f));
-                break;
-            case 7:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.7f, 0.0f, 0.0f));
-                break;
-            case 8:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.0f, 0.7f, 0.f));
-                break;
-            case 9:
-                tileInformation._targetMaterial->setDiffuse(iaColor3f(0.0f, 0.0f, 0.7f));
-                break;
-            }
-#endif
 
             meshNode->setTargetMaterial(tileInformation._targetMaterial);
             result->insertNode(meshNode);

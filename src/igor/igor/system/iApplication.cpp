@@ -117,9 +117,10 @@ namespace igor
         return false;
     }
 
-    void iApplication::exit()
+    void iApplication::exit(int32 exitCode)
     {
         _running = false;
+        _exitCode = exitCode;
     }
 
     void iApplication::iterate()
@@ -177,7 +178,7 @@ namespace igor
         return _paused;
     }
 
-    void iApplication::run()
+    int32 iApplication::run()
     {
         _running = true;
 
@@ -188,6 +189,8 @@ namespace igor
 
         clearLayers();
         destroyWindow();
+
+        return _exitCode;
     }
 
     bool iApplication::isRunning()

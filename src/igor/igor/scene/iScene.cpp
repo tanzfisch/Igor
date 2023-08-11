@@ -38,6 +38,8 @@ namespace igor
 
     iScene::~iScene()
     {
+        _blockSignals = true;
+
         if (_root != nullptr)
         {
             iNodeManager::getInstance().destroyNode(_root);
@@ -304,7 +306,7 @@ namespace igor
 
         // stop after 50ms to keep the front end responsive
         iaTime endTime = iaTime::getNow();
-        endTime += iaTime::fromMilliseconds(50);        
+        endTime += iaTime::fromMilliseconds(50);
 
         auto iterP = _processingQueue.begin();
         while (!_abortUpdateData && iterP != _processingQueue.end())
@@ -330,7 +332,7 @@ namespace igor
             if (iaTime::getNow() > endTime)
             {
                 break;
-            }            
+            }
         }
     }
 
@@ -357,11 +359,21 @@ namespace igor
 
     void iScene::signalNodeAdded(iNodePtr node)
     {
+        if (_blockSignals)
+        {
+            return;
+        }
+
         iApplication::getInstance().onEvent(iEventPtr(new iEventNodeAddedToScene(this, node->getID())));
     }
 
     void iScene::signalNodeRemoved(iNodePtr node)
     {
+        if (_blockSignals)
+        {
+            return;
+        }
+
         iApplication::getInstance().onEvent(iEventPtr(new iEventNodeRemovedFromScene(this, node->getID())));
     }
 

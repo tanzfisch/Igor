@@ -40,6 +40,24 @@ namespace igor
     iOctree::~iOctree()
     {
         clearFilter();
+
+        for(auto object : _objects)
+        {
+            if(object.second != nullptr)
+            {
+                delete object.second;
+            }
+        }
+        _objects.clear();
+
+        for(auto node : _nodes)
+        {
+            if(node.second != nullptr)
+            {
+                delete node.second;
+            }
+        }
+        _nodes.clear();
     }
 
     void iOctree::clearFilter()

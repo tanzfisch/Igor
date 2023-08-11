@@ -1,8 +1,8 @@
 #include "Workspace.h"
 
-static iModelDataInputParameter *createDataInputParameter()
+static iModelDataInputParameterPtr createDataInputParameter()
 {
-    iModelDataInputParameter *parameter = new iModelDataInputParameter();
+    iModelDataInputParameterPtr parameter = std::make_shared<iModelDataInputParameter>();
     parameter->_identifier = "";
     parameter->_modelSourceType = iModelSourceType::File;
     parameter->_needsRenderContext = true;
@@ -166,7 +166,7 @@ void Workspace::importFile(const iaString &filename)
     }
 
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-    iModelDataInputParameter *parameter = createDataInputParameter();
+    iModelDataInputParameterPtr parameter = createDataInputParameter();
     model->setModel(filename, iResourceCacheMode::Free, parameter, true);
 
     if (model->isValid())
@@ -232,7 +232,7 @@ void Workspace::importFileReference(const iaString &filename)
     }
 
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-    iModelDataInputParameter *parameter = createDataInputParameter();
+    iModelDataInputParameterPtr parameter = createDataInputParameter();
     model->setModel(filename, iResourceCacheMode::Free, parameter, true);
 
     if (model->isValid())
@@ -263,7 +263,7 @@ void Workspace::loadFile(const iaString &filename)
     }
 
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-    iModelDataInputParameter *parameter = createDataInputParameter();
+    iModelDataInputParameterPtr parameter = createDataInputParameter();
     model->setModel(filename, iResourceCacheMode::Free, parameter, true);
 
     if (model->isValid())

@@ -16,7 +16,7 @@ iModelDataIO *VoxelTerrainMeshGenerator::createInstance()
     return static_cast<iModelDataIO *>(result);
 }
 
-iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameter *parameter)
+iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameterPtr parameter)
 {
     const TileInformation &tileInformation = std::any_cast<TileInformation>(parameter->_parameters);
     iVoxelData *voxelData = tileInformation._voxelData;

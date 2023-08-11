@@ -49,7 +49,7 @@ namespace igor
 		return static_cast<iModelDataIO *>(result);
 	}
 
-	iNodePtr iModelDataIOOBJ::importData(const iaString &filename, iModelDataInputParameter *parameter)
+	iNodePtr iModelDataIOOBJ::importData(const iaString &filename, iModelDataInputParameterPtr parameter)
 	{
 		iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 		result->setName("obj_root");

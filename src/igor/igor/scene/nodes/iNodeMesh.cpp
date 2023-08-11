@@ -103,7 +103,6 @@ namespace igor
         {
             return;
         }
-
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
         iRenderer::getInstance().drawMesh(_mesh, _targetMaterial);
     }

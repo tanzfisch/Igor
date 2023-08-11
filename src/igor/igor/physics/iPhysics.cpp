@@ -20,6 +20,7 @@
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/physics/iPhysicsUserMeshCollisionHandler.h>
 #include <iaux/data/iaConvert.h>
+#include <igor/resources/config/iConfigReader.h>
 
 #include <newton/Newton.h>
 
@@ -211,7 +212,7 @@ namespace igor
         }
     }
 
-    void iPhysics::convexCast(const iaMatrixd &matrix, const iaVector3d &target, iPhysicsCollision *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, std::vector<ConvexCastReturnInfo> &result, int32 maxContactCount)
+    void iPhysics::convexCast(const iaMatrixd &matrix, const iaVector3d &target, iPhysicsCollision *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, std::vector<iConvexCastReturnInfo> &result, int32 maxContactCount)
     {
         con_assert(maxContactCount <= 16, "param out of range");
 
@@ -223,11 +224,12 @@ namespace igor
 
         int numberOfContacts = NewtonWorldConvexCast(static_cast<const NewtonWorld *>(_defaultWorld), matrix.getData(), target.getData(),
                                                      static_cast<const NewtonCollision *>(collisionVolume->_collision), &param, &preFilterUserData,
-                                                     reinterpret_cast<NewtonWorldRayPrefilterCallback>(CommonRayPrefilterCallback), &info[0], maxContactCount, 0);
+                                                     reinterpret_cast<NewtonWorldRayPrefilterCallback>(CommonRayPrefilterCallback), &info[0], maxContactCount,
+                                                     iaThread::getThisThreadID());
 
         for (int i = 0; i < numberOfContacts; ++i)
         {
-            ConvexCastReturnInfo returnInfo;
+            iConvexCastReturnInfo returnInfo;
             returnInfo._contactID = info[i].m_contactID;
             returnInfo._hitBody = static_cast<iPhysicsBody *>(NewtonBodyGetUserData(info[i].m_hitBody));
             returnInfo._normal.set(info[i].m_normal[0], info[i].m_normal[1], info[i].m_normal[2], info[i].m_normal[3]);
@@ -882,30 +884,50 @@ namespace igor
 
     iPhysicsCollision *iPhysics::createCompound(std::vector<iPhysicsCollision *> &collisions, uint64 worldID)
     {
-        iPhysicsCollision *result = nullptr;
         const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "invalid world");
 
-        if (world != nullptr)
+        NewtonCollision *collision = NewtonCreateCompoundCollision(static_cast<const NewtonWorld *>(world), 0);
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
+
+        NewtonCompoundCollisionBeginAddRemove(collision);
+
+        for (auto subcollision : collisions)
         {
-            NewtonCollision *collision = NewtonCreateCompoundCollision(static_cast<const NewtonWorld *>(world), 0);
-            result = new iPhysicsCollision(collision, worldID);
-
-            _collisionsListMutex.lock();
-            _collisions[result->getID()] = result;
-            _collisionsListMutex.unlock();
-
-            NewtonCompoundCollisionBeginAddRemove(collision);
-
-            for (auto subcollision : collisions)
-            {
-                NewtonCompoundCollisionAddSubCollision(static_cast<NewtonCollision *>(collision), static_cast<NewtonCollision *>(subcollision->_collision));
-            }
-
-            NewtonCompoundCollisionEndAddRemove(collision);
+            NewtonCompoundCollisionAddSubCollision(static_cast<NewtonCollision *>(collision), static_cast<NewtonCollision *>(subcollision->_collision));
         }
+
+        NewtonCompoundCollisionEndAddRemove(collision);
 
         return result;
     }
+
+    static int64 getPhysicsThreadCountFromConfig()
+    {
+        int64 minThreads = 1;
+        int64 maxThreads = std::thread::hardware_concurrency();
+
+        if (iConfigReader::getInstance().hasSetting("maxPhysicsThreads"))
+        {
+            const iaString max = iConfigReader::getInstance().getValue("maxPhysicsThreads");
+
+            if (max != "Max")
+            {
+                maxThreads = iaString::toInt(max);
+            }
+        }
+
+        if (iConfigReader::getInstance().hasSetting("minPhysicsThreads"))
+        {
+            minThreads = iConfigReader::getInstance().getValueAsInt("minPhysicsThreads");
+        }
+
+        return std::max(minThreads, maxThreads);
+    }    
 
     iPhysicsWorld *iPhysics::createWorld()
     {
@@ -915,7 +937,9 @@ namespace igor
 
         NewtonWorld *world = NewtonCreate();
         NewtonSetSolverModel(static_cast<const NewtonWorld *>(world), 1);
-        NewtonSetThreadsCount(static_cast<const NewtonWorld *>(world), 4);
+
+        int32 numThreads = getPhysicsThreadCountFromConfig();
+        NewtonSetThreadsCount(static_cast<const NewtonWorld *>(world), numThreads);
 
         result = new iPhysicsWorld(world);
         _worlds[result->getID()] = result;
@@ -985,20 +1009,17 @@ namespace igor
 
     iPhysicsCollision *iPhysics::createBox(float64 width, float64 height, float64 depth, const iaMatrixd &offset, uint64 worldID)
     {
-        iPhysicsCollision *result = nullptr;
         const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "invalid world");
 
-        if (world != nullptr)
-        {
-            NewtonCollision *collision = NewtonCreateBox(static_cast<const NewtonWorld *>(world), width, height, depth, 0, offset.getData());
-            result = new iPhysicsCollision(collision, worldID);
-            NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
-            NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
+        NewtonCollision *collision = NewtonCreateBox(static_cast<const NewtonWorld *>(world), width, height, depth, 0, offset.getData());
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
+        NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
 
-            _collisionsListMutex.lock();
-            _collisions[result->getID()] = result;
-            _collisionsListMutex.unlock();
-        }
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
 
         return result;
     }
@@ -1041,103 +1062,88 @@ namespace igor
 
     iPhysicsCollision *iPhysics::createUserMeshCollision(const iaVector3d &minBox, const iaVector3d &maxBox, iPhysicsUserMeshCollisionHandler *handler, uint64 worldID)
     {
-        iPhysicsCollision *result = nullptr;
         const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "invalid world");
 
-        if (world != nullptr)
-        {
-            NewtonCollision *collision = NewtonCreateUserMeshCollision(static_cast<const NewtonWorld *>(world), minBox.getData(), maxBox.getData(), handler,
-                                                                       CollideCallback, reinterpret_cast<NewtonUserMeshCollisionRayHitCallback>(RayHitCallback), DestroyCallback,
-                                                                       GetCollisionInfo, reinterpret_cast<NewtonUserMeshCollisionAABBTest>(AABBOverlapTest), GetFacesInAABB, nullptr, 0);
+        NewtonCollision *collision = NewtonCreateUserMeshCollision(static_cast<const NewtonWorld *>(world), minBox.getData(), maxBox.getData(), handler,
+                                                                   CollideCallback, reinterpret_cast<NewtonUserMeshCollisionRayHitCallback>(RayHitCallback), DestroyCallback,
+                                                                   GetCollisionInfo, reinterpret_cast<NewtonUserMeshCollisionAABBTest>(AABBOverlapTest), GetFacesInAABB, nullptr, 0);
 
-            result = new iPhysicsCollision(collision, worldID);
-            NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
-            NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
+        NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
 
-            _collisionsListMutex.lock();
-            _collisions[result->getID()] = result;
-            _collisionsListMutex.unlock();
-        }
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
 
         return result;
     }
 
     iPhysicsCollision *iPhysics::createSphere(float64 radius, const iaMatrixd &offset, uint64 worldID)
     {
-        iPhysicsCollision *result = nullptr;
         const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "invalid world");
 
-        if (world != nullptr)
-        {
-            NewtonCollision *collision = NewtonCreateSphere(static_cast<const NewtonWorld *>(world), radius, 0, offset.getData());
-            result = new iPhysicsCollision(collision, worldID);
-            NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
-            NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
+        NewtonCollision *collision = NewtonCreateSphere(static_cast<const NewtonWorld *>(world), radius, 0, offset.getData());
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
+        NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
 
-            _collisionsListMutex.lock();
-            _collisions[result->getID()] = result;
-            _collisionsListMutex.unlock();
-        }
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
 
         return result;
     }
 
     iPhysicsCollision *iPhysics::createCone(float64 radius, float64 height, const iaMatrixd &offset, uint64 worldID)
     {
-        iPhysicsCollision *result = nullptr;
         const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "invalid world");
 
-        if (world != nullptr)
-        {
-            NewtonCollision *collision = NewtonCreateCone(static_cast<const NewtonWorld *>(world), radius, height, 0, offset.getData());
-            result = new iPhysicsCollision(collision, worldID);
-            NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
-            NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
+        NewtonCollision *collision = NewtonCreateCone(static_cast<const NewtonWorld *>(world), radius, height, 0, offset.getData());
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
+        NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
 
-            _collisionsListMutex.lock();
-            _collisions[result->getID()] = result;
-            _collisionsListMutex.unlock();
-        }
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
 
         return result;
     }
 
     iPhysicsCollision *iPhysics::createCapsule(float64 radius0, float64 radius1, float64 height, const iaMatrixd &offset, uint64 worldID)
     {
-        iPhysicsCollision *result = nullptr;
         const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "invalid world");
 
-        if (world != nullptr)
-        {
-            NewtonCollision *collision = NewtonCreateCapsule(static_cast<const NewtonWorld *>(world), radius0, radius1, height, 0, offset.getData());
-            result = new iPhysicsCollision(collision, worldID);
-            NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
-            NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
+        NewtonCollision *collision = NewtonCreateCapsule(static_cast<const NewtonWorld *>(world), radius0, radius1, height, 0, offset.getData());
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
+        NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
 
-            _collisionsListMutex.lock();
-            _collisions[result->getID()] = result;
-            _collisionsListMutex.unlock();
-        }
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
 
         return result;
     }
 
     iPhysicsCollision *iPhysics::createCylinder(float64 radius0, float64 radius1, float64 height, const iaMatrixd &offset, uint64 worldID)
     {
-        iPhysicsCollision *result = nullptr;
         const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "invalid world");
 
-        if (world != nullptr)
-        {
-            NewtonCollision *collision = NewtonCreateCylinder(static_cast<const NewtonWorld *>(world), radius1, radius0, height, 0, offset.getData());
-            result = new iPhysicsCollision(collision, worldID);
-            NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
-            NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
+        NewtonCollision *collision = NewtonCreateCylinder(static_cast<const NewtonWorld *>(world), radius1, radius0, height, 0, offset.getData());
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
+        NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
 
-            _collisionsListMutex.lock();
-            _collisions[result->getID()] = result;
-            _collisionsListMutex.unlock();
-        }
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
 
         return result;
     }
@@ -1182,64 +1188,59 @@ namespace igor
     {
         con_assert(mesh != nullptr, "zero pointer");
 
-        iPhysicsCollision *result = nullptr;
-        if (mesh != nullptr)
+        const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+        con_assert(world != nullptr, "zero pointer");
+
+        con_assert(mesh->getIndexCount() != 0, "empty mesh");
+
+        NewtonWorldCriticalSectionLock(world, iaThread::getThisThreadID());
+        NewtonCollision *collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld *>(world), 0);
+        NewtonTreeCollisionBeginBuild(collision);
+
+        float64 temp[9];
+
+        void *indexData;
+        uint32 indexDataSize;
+        void *vertexData;
+        uint32 vertexDataSize;
+
+        mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
+
+        const uint32 indexCount = mesh->getIndexCount();
+        const uint32 vertexFloatCount = mesh->getLayout().getStride() / sizeof(float32); // TODO this relies on only float32 types being used which is fine for now but maybe become an issue in the future
+        uint32 vertexIndex = 0;
+
+        for (int i = 0; i < indexCount; i += 3)
         {
-            const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
+            vertexIndex = (static_cast<uint32 *>(indexData)[i + 0] * vertexFloatCount);
+            temp[0] = static_cast<float32 *>(vertexData)[vertexIndex++];
+            temp[1] = static_cast<float32 *>(vertexData)[vertexIndex++];
+            temp[2] = static_cast<float32 *>(vertexData)[vertexIndex++];
 
-            if (world != nullptr)
-            {
-                NewtonCollision *collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld *>(world), 0);
+            vertexIndex = (static_cast<uint32 *>(indexData)[i + 1] * vertexFloatCount);
+            temp[3] = static_cast<float32 *>(vertexData)[vertexIndex++];
+            temp[4] = static_cast<float32 *>(vertexData)[vertexIndex++];
+            temp[5] = static_cast<float32 *>(vertexData)[vertexIndex++];
 
-                NewtonTreeCollisionBeginBuild(collision);
+            vertexIndex = (static_cast<uint32 *>(indexData)[i + 2] * vertexFloatCount);
+            temp[6] = static_cast<float32 *>(vertexData)[vertexIndex++];
+            temp[7] = static_cast<float32 *>(vertexData)[vertexIndex++];
+            temp[8] = static_cast<float32 *>(vertexData)[vertexIndex++];
 
-                float64 temp[9];
-
-                void *indexData;
-                uint32 indexDataSize;
-                void *vertexData;
-                uint32 vertexDataSize;
-                mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
-
-                uint32 vertexFloatCount = mesh->getLayout().getStride() / 4;
-                uint32 vertexPos = 0;
-                uint32 indexCount = indexDataSize / 4;
-
-                for (int i = 0; i < indexCount; i += 3)
-                {
-                    vertexPos = (static_cast<uint32 *>(indexData)[i + 0] * vertexFloatCount);
-                    temp[0] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[1] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[2] = static_cast<float32 *>(vertexData)[vertexPos++];
-
-                    vertexPos = (static_cast<uint32 *>(indexData)[i + 1] * vertexFloatCount);
-                    temp[3] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[4] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[5] = static_cast<float32 *>(vertexData)[vertexPos++];
-
-                    vertexPos = (static_cast<uint32 *>(indexData)[i + 2] * vertexFloatCount);
-                    temp[6] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[7] = static_cast<float32 *>(vertexData)[vertexPos++];
-                    temp[8] = static_cast<float32 *>(vertexData)[vertexPos++];
-
-                    NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float64) * 3, faceAttribute);
-                }
-
-                NewtonTreeCollisionEndBuild(collision, 0);
-
-                result = new iPhysicsCollision(collision, worldID);
-                NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
-                NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
-
-                _collisionsListMutex.lock();
-                _collisions[result->getID()] = result;
-                _collisionsListMutex.unlock();
-            }
+            NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float64) * 3, faceAttribute);
         }
-        else
-        {
-            con_err("invalid parameters");
-        }
+
+        NewtonTreeCollisionEndBuild(collision, 1);
+
+        iPhysicsCollision *result = new iPhysicsCollision(collision, worldID);
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision *>(collision), result->getID());
+        NewtonCollisionSetUserData(static_cast<const NewtonCollision *>(collision), static_cast<void *const>(result));
+
+        NewtonWorldCriticalSectionUnlock(world);
+
+        _collisionsListMutex.lock();
+        _collisions[result->getID()] = result;
+        _collisionsListMutex.unlock();
 
         return result;
     }

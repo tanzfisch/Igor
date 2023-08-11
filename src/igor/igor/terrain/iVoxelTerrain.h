@@ -61,7 +61,7 @@ namespace igor
 
         friend class iTaskVoxelTerrain;
 
-        /*! voxel block adress hasher
+        /*! voxel block address hasher
         */
         class iVectorHasher
         {
@@ -72,7 +72,7 @@ namespace igor
             }
         };
 
-        /*! voxel block position comparsion
+        /*! voxel block position comparison
         */
         class iVectorEqualFn
         {
@@ -84,7 +84,7 @@ namespace igor
         };
 
     public:
-        /*! block quibic size
+        /*! block qubic size
 
         \bug can't be changed right now
         */
@@ -195,7 +195,7 @@ namespace igor
         */
         int64 _voxelBlockSetupDistance = 0;
 
-        /*! phyics material ID
+        /*! physics material ID
         */
         uint64 _physicsMaterialID = 0;
 
@@ -262,6 +262,10 @@ namespace igor
         /*! lod trigger node id
         */
         uint32 _lodTrigger = iNode::INVALID_NODE_ID;
+
+        /*! voxel terrain task id
+        */
+        iTaskID _voxelTerrainTask = iTask::INVALID_TASK_ID;
 
         void collectBlocksToDelete(iVoxelBlock *currentBlock, std::vector<iVoxelBlock *> &dst);
 

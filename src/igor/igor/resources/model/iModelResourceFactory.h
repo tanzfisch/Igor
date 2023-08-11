@@ -65,7 +65,7 @@ namespace igor
         \param parameter optional generator parameters
         \returns shared pointer to model
         */
-        iModelPtr requestModelData(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter *parameter = nullptr);
+        iModelPtr requestModelData(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameterPtr parameter = nullptr);
 
         /*! loads a model synchronously
 
@@ -75,7 +75,7 @@ namespace igor
         \param instancing true: instancing will be used; false: instancing will only be used if already configured by the model to be loaded
         \returns shared pointer to model
         */
-        iModelPtr loadModelData(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter *parameter = nullptr);
+        iModelPtr loadModelData(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameterPtr parameter = nullptr);
 
         /*! loads unloads models depending on theirs request status ans reference count
 
@@ -161,7 +161,7 @@ namespace igor
         \param filename file name of model to load
         \param parameter optional parameters
         */
-        iNodePtr loadData(iaString filename, iModelDataInputParameter *parameter);
+        iNodePtr loadData(iaString filename, iModelDataInputParameterPtr parameter);
 
         /*! calculates hash value for model data io string
 

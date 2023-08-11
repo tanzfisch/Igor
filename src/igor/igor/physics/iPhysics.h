@@ -56,7 +56,9 @@ namespace igor
 
     typedef iaDelegate<unsigned, iPhysicsBody *, iPhysicsCollision *, const void *> iRayPreFilterDelegate;
 
-    struct IGOR_API ConvexCastReturnInfo
+    /*! convex cast return info
+    */
+    struct IGOR_API iConvexCastReturnInfo
     {
         iaVector4d _point;
         iaVector4d _normal;
@@ -66,9 +68,6 @@ namespace igor
     };
 
     /*! wrapper for newton game dynamics
-
-    \todo way to many friends
-    \todo update Omega of bodys ???
     */
     class IGOR_API iPhysics : public iModule<iPhysics>
     {
@@ -162,7 +161,7 @@ namespace igor
         */
         bool isWorld(uint64 id);
 
-        void convexCast(const iaMatrixd &matrix, const iaVector3d &target, iPhysicsCollision *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, std::vector<ConvexCastReturnInfo> &result, int32 maxContactCount = 10);
+        void convexCast(const iaMatrixd &matrix, const iaVector3d &target, iPhysicsCollision *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, std::vector<iConvexCastReturnInfo> &result, int32 maxContactCount = 10);
 
         /*! creates a collision configuration
 

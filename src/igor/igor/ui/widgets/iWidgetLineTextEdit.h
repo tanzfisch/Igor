@@ -149,19 +149,19 @@ namespace igor
 		*/
         iaString _textBackup;
 
-        /*! handles incomming acsii codes from keyboard
+        /*! handles incoming acsii codes from keyboard
 
-		\param c the incomming character from keyboard
+		\param c the incoming character from keyboard
 		*/
         virtual bool handleASCII(uint8 c) override;
 
-        /*! handles incomming released key events
+        /*! handles incoming released key events
 
 		\param key the released key
 		*/
         virtual bool handleKeyDown(iKeyCode key) override;
 
-        /*! handles incomming released key events
+        /*! handles incoming released key events
 
 		\param key the released key
 		*/

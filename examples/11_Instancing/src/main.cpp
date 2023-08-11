@@ -19,10 +19,10 @@ int main()
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new ExampleInstancing(window));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(window));
-	igor::iApplication::getInstance().run();
+	const auto exitCode = igor::iApplication::getInstance().run();
 
 	// call this after you are done with using Igor
 	igor::shutdown();
 
-	return 0;
+	return exitCode;
 }

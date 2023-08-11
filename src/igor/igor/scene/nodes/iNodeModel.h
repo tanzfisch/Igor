@@ -61,10 +61,10 @@ namespace igor
 
         \param modelName can be a filename or any unique identity name
         \param cacheMode hint for how the resource manager is handling to cache this resource
-        \param parameters optional loading parameters (must be allocated on heap and will be consumed by library)
-        \param loadSynchronously load model immediately ohtherwise model loads asynchonously
+        \param parameters optional loading parameters
+        \param loadSynchronously load model immediately otherwise model loads asynchronously
         */
-        void setModel(const iaString &modelName, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter *parameters = nullptr, bool loadSynchronously = false);
+        void setModel(const iaString &modelName, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameterPtr parameters = iModelDataInputParameterPtr(), bool loadSynchronously = false);
 
         /*! \returns filename of model
          */
@@ -115,13 +115,13 @@ namespace igor
 
         can't delete them they belong (usually) to application
         */
-        iModelDataInputParameter *_parameters;
+        iModelDataInputParameterPtr _parameters;
 
         /*! cache mode for model to load
          */
         iResourceCacheMode _cacheMode;
 
-        /*! shared poitner to requested model
+        /*! shared pointer to requested model
          */
         iModelPtr _model;
 

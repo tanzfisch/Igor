@@ -130,7 +130,7 @@ namespace igor
          */
         iColorGradientColorCreatedEvent _colorCreated;
 
-        /*! handles incomming mouse key down events
+        /*! handles incoming mouse key down events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent

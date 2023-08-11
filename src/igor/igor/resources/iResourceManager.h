@@ -44,6 +44,22 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! resource manager load mode
+    */
+    enum class iResourceManagerLoadMode
+    {
+        Application,
+        Synchronized
+    };
+
+    /*! prints the resource manager load mode in the console
+
+    \param stream the stream to log to
+    \param mode the resource manager load mode mode
+    \returns the stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iResourceManagerLoadMode &mode);
+
     /*! manages resources and their factories
      */
     class IGOR_API iResourceManager : public iModule<iResourceManager>
@@ -146,6 +162,18 @@ namespace igor
         */
         void unregisterFactory(iFactoryPtr factory);
 
+        /*! sets the load mode
+
+        Does not effect load requests that are already in queue
+
+        \param loadMode the load mode to set
+        */
+        void setLoadMode(iResourceManagerLoadMode loadMode);
+
+        /*! \returns the load mode
+        */
+        iResourceManagerLoadMode getLoadMode() const;
+
     private:
         /*! mutex to manage access to internal data
          */
@@ -167,6 +195,10 @@ namespace igor
          */
         std::unordered_map<int64, iResourcePtr> _resources;
 
+        /*! load mode
+        */
+        iResourceManagerLoadMode _loadMode = iResourceManagerLoadMode::Application;
+
         /*! \returns resource for given parameters
 
         \param parameters the resource parameters
@@ -186,6 +218,10 @@ namespace igor
         \param factory the factory that will be used to load this resource
         */
         int64 calcHashValue(const iParameters &parameters, iFactoryPtr factory);
+
+        /*! applies config settings on resource manager
+        */
+        void configure();
 
         /*! does nothing
          */
