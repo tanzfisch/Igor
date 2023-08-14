@@ -44,12 +44,6 @@ class TiXmlElement;
 namespace igor
 {
 
-    class iSprite;
-
-    /*! sprite pointer definition
-     */
-    typedef std::shared_ptr<iSprite> iSpritePtr;
-
     /*! used to have 2d sprites
      */
     class IGOR_API iSprite : public iResource
@@ -126,6 +120,10 @@ namespace igor
         uint32 addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &pivot, bool pixel = true);
      
     };
+
+    /*! sprite pointer definition
+     */
+    typedef std::shared_ptr<iSprite> iSpritePtr;
 
 }; // namespace igor
 

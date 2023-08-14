@@ -225,6 +225,8 @@ namespace igor
         iTimer::create();
         printInfo();
 
+        con_info("Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
+
 #ifdef IGOR_WINDOWS
         static const std::vector<iaString> configLocations = {
             L"config",
@@ -256,7 +258,7 @@ namespace igor
 
         if (configurationFilepath.isEmpty())
         {
-            con_crit("can't find config file for \"" << configname << "\". Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
+            con_crit("can't find config file for \"" << configname << "\"");
         }
 
         iConfigReader::create();

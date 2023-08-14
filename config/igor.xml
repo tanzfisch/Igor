@@ -28,6 +28,15 @@
             <Value>../../data/animations</Value>
             <Value>../../data/sounds</Value>
             <Value>../../data</Value>
+
+            <!-- because I have no time to fix linux vs windows paths yet -->
+            <Value>data/textures</Value>
+            <Value>data/sprites</Value>
+            <Value>data/models</Value>
+            <Value>data/materials</Value>
+            <Value>data/animations</Value>
+            <Value>data/sounds</Value>
+            <Value>data</Value>            
         </Setting>
     </Config>
 </Igor>

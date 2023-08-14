@@ -69,7 +69,7 @@ private:
 
     /*! frame index of doughnuts
     */
-    uint32 _doughnutsFrameIndex;
+    uint32 _doughnutsFrameIndex = 0;
 
     /*! timer to control frame switching
     */
