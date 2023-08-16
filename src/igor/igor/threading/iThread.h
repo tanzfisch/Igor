@@ -39,17 +39,19 @@ namespace igor
 {
 
     /*! igor thread
-    */
+     */
     class iThread : public iaThread
     {
 
     public:
-        /*! does nothing
-        */
-        iThread() = default;
+        /*! init members
+
+        \param type optional type for debugging
+         */
+        iThread(const iaString &type = "iThread");
 
         /*! does nothing
-        */
+         */
         ~iThread() = default;
 
         /*! \returns world id
@@ -60,16 +62,16 @@ namespace igor
 
     protected:
         /*! init function will be called as first by the thread
-        */
+         */
         void init() override;
 
         /*! deinit function is called last by the thread. right before join
-        */
+         */
         void deinit() override;
 
     private:
         /*! the world id
-        */
+         */
         uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
 
     };

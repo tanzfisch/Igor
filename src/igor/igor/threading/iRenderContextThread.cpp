@@ -11,6 +11,7 @@ namespace igor
 {
 
     iRenderContextThread::iRenderContextThread(iWindowPtr window)
+    : iThread("iRenderContextThread")
     {
         con_assert(nullptr != window, "zero pointer");
 
@@ -38,6 +39,8 @@ namespace igor
     {
         con_assert(nullptr != _window, "zero pointer");
 
+        iThread::init();
+
         if (_window->makeCurrent(_renderContext))
         {
             _isValid = true;
@@ -61,6 +64,8 @@ namespace igor
 
         _renderContext = nullptr;
         _isValid = false;
+
+        iThread::deinit();
     }
 
 }; // namespace igor

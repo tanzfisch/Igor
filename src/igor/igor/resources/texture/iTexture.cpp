@@ -11,6 +11,7 @@
 // glu needs this under windows
 #include <windows.h>
 #endif
+
 #include <GL/glu.h>
 
 namespace igor
@@ -150,12 +151,19 @@ namespace igor
             GL_CHECK_ERROR();
 
             con_trace("create mipmap for:" << getName() << " id:" << _textureID << " levels:" << _mipMapLevels << " width:" << _width << " height:" << _height << " format:" << format);
+#if 0        
             glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
             GL_CHECK_ERROR();
             glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
             GL_CHECK_ERROR();
             glGenerateTextureMipmap(_textureID);
             GL_CHECK_ERROR();
+#else
+            glBindTexture(GL_TEXTURE_2D, _textureID);
+            GL_CHECK_ERROR();
+            gluBuild2DMipmaps(GL_TEXTURE_2D, (format == iColorFormat::RGB ? 3 : 4), _width, _height, glformat, GL_UNSIGNED_BYTE, data);
+            GL_CHECK_ERROR();
+#endif
         }
         else
         {

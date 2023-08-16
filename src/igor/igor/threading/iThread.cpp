@@ -10,6 +10,11 @@
 namespace igor
 {
 
+    iThread::iThread(const iaString &type)
+    : iaThread(type)
+    {
+    }
+
     uint64 iThread::getWorld() const
     {
         return _worldID;
@@ -17,12 +22,14 @@ namespace igor
 
     void iThread::init()
     {
+        iaThread::init();
         _worldID = iPhysics::getInstance().createWorld()->getID();
     }
 
     void iThread::deinit()
     {
         iPhysics::getInstance().destroyWorld(_worldID);
+        iaThread::deinit();
     }
 
 }; // namespace igor

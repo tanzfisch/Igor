@@ -32,7 +32,7 @@ namespace igor
         _window = window;
     }
 
-    void iTask::setWorld(uint64 worldID)
+    void iTask::setWorldID(uint64 worldID)
     {
         _worldID = worldID;
     }

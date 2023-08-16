@@ -4,17 +4,16 @@
         <!-- loglevel: Assert, Error, Warning, Info, User (default), Debug, Trace -->
         <Setting name="logLevel" value="User" />
 
-        <!-- min max threads default is min=1 max=Max -->
-        <Setting name="minThreads" value="1" />
-        <Setting name="maxThreads" value="Max" />
-        
-        <!-- min max for render context threads threads default is min=1 max=Max -->
+        <!-- min max for threads
+            Options are a numbers or "Max" which represents the host's max thread count
+        -->        
         <Setting name="minRenderContextThreads" value="1" />
-        <Setting name="maxRenderContextThreads" value="Max" />
-
-        <!-- min max for physics threads threads default is min=1 max=Max -->
-        <Setting name="minPhysicsThreads" value="1" />
-        <Setting name="maxPhysicsThreads" value="Max" />
+        <Setting name="maxRenderContextThreads" value="1" />
+        <Setting name="minPhysicsThreads" value="0" />
+        <Setting name="maxPhysicsThreads" value="0" />
+        <!-- only usefull if there is no render context -->
+        <Setting name="minThreads" value="0" />
+        <Setting name="maxThreads" value="0" />
 
         <!-- loadMode: loade mode of resource manager App (application decides), Sync (all synchronous) -->
         <Setting name="loadMode" value="App" />
