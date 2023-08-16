@@ -150,8 +150,7 @@ namespace igor
             glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             GL_CHECK_ERROR();
 
-            con_trace("create mipmap for:" << getName() << " id:" << _textureID << " levels:" << _mipMapLevels << " width:" << _width << " height:" << _height << " format:" << format);
-#if 0        
+#if 1
             glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
             GL_CHECK_ERROR();
             glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
