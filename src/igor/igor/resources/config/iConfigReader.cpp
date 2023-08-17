@@ -19,21 +19,6 @@ namespace igor
     {
     }
 
-    /*void iConfigReader::readThreadingConfig(TiXmlElement *threading)
-    {
-        TiXmlElement *threads = threading->FirstChildElement("Threads");
-        iaString minThreads(threads->Attribute("min"));
-        iaString maxThreads(threads->Attribute("max"));
-
-        TiXmlElement *renderContextThreads = threading->FirstChildElement("RenderContextThreads");
-        iaString minRenderContextThreads(renderContextThreads->Attribute("min"));
-        iaString maxRenderContextThreads(renderContextThreads->Attribute("max"));
-
-        TiXmlElement *physicsThreads = threading->FirstChildElement("PhysicsThreads");
-        iaString minPhysicsThreads(physicsThreads->Attribute("min"));
-        iaString maxPhysicsThreads(physicsThreads->Attribute("max"));
-    }*/
-
     void iConfigReader::readConfigElement(TiXmlElement *config)
     {
         TiXmlElement *setting = config->FirstChildElement("Setting");
