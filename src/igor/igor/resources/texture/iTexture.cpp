@@ -150,19 +150,14 @@ namespace igor
             glTextureParameteri(_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             GL_CHECK_ERROR();
 
-#if 1
             glTextureStorage2D(_textureID, _mipMapLevels, glformatSized, _width, _height);
             GL_CHECK_ERROR();
             glTextureSubImage2D(_textureID, 0, 0, 0, _width, _height, glformat, GL_UNSIGNED_BYTE, data);
             GL_CHECK_ERROR();
             glGenerateTextureMipmap(_textureID);
             GL_CHECK_ERROR();
-#else
-            glBindTexture(GL_TEXTURE_2D, _textureID);
-            GL_CHECK_ERROR();
-            gluBuild2DMipmaps(GL_TEXTURE_2D, (format == iColorFormat::RGB ? 3 : 4), _width, _height, glformat, GL_UNSIGNED_BYTE, data);
-            GL_CHECK_ERROR();
-#endif
+            // making sure mip map is generated before we delete the source pixel data
+            glFlush();
         }
         else
         {
