@@ -32,6 +32,7 @@
 #include <iaux/iaDefines.h>
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaIDGenerator.h>
+#include <iaux/data/iaString.h>
 
 #include <thread>
 #include <map>
@@ -65,7 +66,7 @@ namespace iaux
     public:
         /*! does nothing
          */
-        iaThread();
+        iaThread(const iaString &type = "");
 
         /*! delete thread handle
          */
@@ -93,6 +94,10 @@ namespace iaux
          */
         static iaID32 getThisThreadID();
 
+        /*! \returns type of thread
+         */
+        const iaString &getType() const;        
+
     protected:
         /*! init function will be called as first by the thread
          */
@@ -106,6 +111,10 @@ namespace iaux
         /*! thread id
          */
         iaID32 _id = 0;
+
+        /*! type
+         */
+        iaString _type;        
 
         /*! the next node id
          */

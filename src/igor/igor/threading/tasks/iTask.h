@@ -129,7 +129,7 @@ namespace igor
         \param worldID the world id
         \todo broken design?
         */
-        void setWorld(uint64 worldID);
+        void setWorldID(uint64 worldID);
 
         /*! \returns pointer to window if present
 

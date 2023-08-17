@@ -58,16 +58,16 @@ namespace igor
         uint32 bpp = pixmap->getBytesPerPixel();
 
         uint8 *data = pixmap->getData();
-        iColorFormat colorformat = iColorFormat::Undefined;
+        iColorFormat colorFormat = iColorFormat::Undefined;
 
         switch (bpp)
         {
         case 3:
-            colorformat = iColorFormat::RGB;
+            colorFormat = iColorFormat::RGB;
             break;
 
         case 4:
-            colorformat = iColorFormat::RGBA;
+            colorFormat = iColorFormat::RGBA;
             break;
 
         default:
@@ -75,7 +75,7 @@ namespace igor
             return false;
         };
 
-        texture->setData(width, height, bpp, colorformat, data, texture->_buildMode, texture->_wrapMode);
+        texture->setData(width, height, bpp, colorFormat, data, texture->_buildMode, texture->_wrapMode);
 
         return true;
     }
@@ -141,7 +141,7 @@ namespace igor
         }
 
         texture->setData(width, height, bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
-        con_info("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] "); // TODO << texture->_buildMode << " " << texture->_wrapMode);
+        con_info("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         delete[] data;
@@ -165,7 +165,9 @@ namespace igor
         if (textureData == nullptr)
         {
             texture->_useFallback = true;
+            _mutexImageLibrary.lock();
             con_err("can't load \"" << texture->getName() << "\" reason:" << stbi_failure_reason());
+            _mutexImageLibrary.unlock();
 
             return false;
         }
@@ -190,31 +192,8 @@ namespace igor
         };
 
         texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
+        con_info("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
-
-        iaString build = ".not mipmapped";
-        if (texture->_buildMode == iTextureBuildMode::Mipmapped)
-        {
-            build = ".mipmapped";
-        }
-
-        iaString wrap;
-        switch (texture->_wrapMode)
-        {
-        case iTextureWrapMode::Repeat:
-            wrap = ".repeat";
-            break;
-
-        case iTextureWrapMode::Clamp:
-            wrap = ".clamp";
-            break;
-
-        case iTextureWrapMode::MirrorRepeat:
-            wrap = ".mirror repeat";
-            break;
-        }
-
-        con_info("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
 
         _mutexImageLibrary.lock();
         stbi_image_free(textureData);

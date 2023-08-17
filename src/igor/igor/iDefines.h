@@ -105,13 +105,13 @@ namespace igor
         RGBA
     };
 
-    /*! prints the color format in the console
+    /*! prints the color format to the console
 
     \param stream the stream to log to
     \param colorFormat the color format
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iColorFormat &colorFormat);    
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iColorFormat &colorFormat);
 
     /*! how to generate a texture
      */
@@ -120,6 +120,14 @@ namespace igor
         Normal,
         Mipmapped
     };
+
+    /*! prints the texture build mode to the console
+
+    \param stream the stream to log to
+    \param buildMode the texture build mode
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iTextureBuildMode &buildMode);
 
     /*! texture wrap mode
      */
@@ -130,6 +138,14 @@ namespace igor
         MirrorRepeat
     };
 
+    /*! prints the texture wrap mode to the console
+
+    \param stream the stream to log to
+    \param wrapMode the texture wrap mode
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iTextureWrapMode &wrapMode);    
+
     /*! texture patterns
      */
     enum class iTexturePattern
@@ -137,7 +153,6 @@ namespace igor
         SolidColor,
         CheckerBoard
     };
-
 
     /*! cache mode for resources
      */
@@ -279,7 +294,7 @@ namespace igor
         MouseWheelDown,
         KeyCodeCount
     };
-    
+
     /*! user data type
      */
     typedef void *iUserData;

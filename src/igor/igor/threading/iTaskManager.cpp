@@ -52,7 +52,10 @@ namespace igor
             createThread();
         }
 
-        con_info("created " << numThreads << " regular thread" << (numThreads > 1 ? "s" : ""));
+        if (numThreads != 0)
+        {
+            con_info("created " << numThreads << " non render context thread" << (numThreads > 1 ? "s" : ""));
+        }
     }
 
     iTaskManager::~iTaskManager()
@@ -212,7 +215,7 @@ namespace igor
         }
 
         return std::max(minThreads, maxThreads);
-    }    
+    }
 
     void iTaskManager::createRenderContextThreads(iWindowPtr window)
     {
@@ -223,7 +226,10 @@ namespace igor
             createRenderContextThread(window);
         }
 
-        con_info("created " << numThreads << " render context thread" << (numThreads > 1 ? "s" : ""));
+        if (numThreads != 0)
+        {
+            con_info("created " << numThreads << " render context thread" << (numThreads > 1 ? "s" : ""));
+        }
     }
 
     bool iTaskManager::createRenderContextThread(iWindowPtr window)
@@ -369,6 +375,7 @@ namespace igor
 
             if (taskTodo)
             {
+                taskTodo->setWorldID(static_cast<iThread *>(thread)->getWorld());
                 taskTodo->run();
                 taskTodo->finishTask();
 
@@ -414,7 +421,7 @@ namespace igor
             }
             else
             {
-                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                std::this_thread::yield();
             }
         }
     }
@@ -445,7 +452,7 @@ namespace igor
 
             if (taskTodo != nullptr)
             {
-                taskTodo->setWorld(static_cast<iThread *>(thread)->getWorld());
+                taskTodo->setWorldID(static_cast<iThread *>(thread)->getWorld());
                 taskTodo->run();
                 taskTodo->finishTask();
 
@@ -495,7 +502,7 @@ namespace igor
             }
             else
             {
-                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                std::this_thread::yield();
             }
         }
     }
@@ -507,21 +514,24 @@ namespace igor
         _tasksIncoming.clear();
         _mutexIncomingTasks.unlock();
 
+        _mutexRegularThreads.lock();
+        const bool hasRegularThreads = !_regularThreads.empty();
+        _mutexRegularThreads.unlock();
+
         for (auto incomingTask : incoming)
         {
-            switch (incomingTask->getContext())
+            if (hasRegularThreads &&
+                incomingTask->getContext() == iTaskContext::Default)
             {
-            case iTaskContext::Default:
                 _mutexRegularTasks.lock();
                 _regularTasksQueued.push_back(incomingTask);
                 _mutexRegularTasks.unlock();
-                break;
-
-            case iTaskContext::RenderContext:
+            }
+            else
+            {
                 _mutexRenderContextTasks.lock();
                 _renderContextTasksQueued.push_back(incomingTask);
                 _mutexRenderContextTasks.unlock();
-                break;
             }
         }
 

@@ -251,6 +251,29 @@ namespace igor
         return stream;
     }
 
+    std::wostream &operator<<(std::wostream &stream, const iTextureBuildMode &buildMode)
+    {
+        const static std::wstring text[] = {
+            L"Normal",
+            L"Mipmapped"};
+
+        stream << text[static_cast<int>(buildMode)];
+
+        return stream;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iTextureWrapMode &wrapMode)
+    {
+        const static std::wstring text[] = {
+            L"Repeat",
+            L"Clamp",
+            L"MirrorRepeat"};
+
+        stream << text[static_cast<int>(wrapMode)];
+
+        return stream;
+    }
+
     std::wostream &operator<<(std::wostream &stream, const iRenderPrimitive &type)
     {
         const static std::wstring text[] = {

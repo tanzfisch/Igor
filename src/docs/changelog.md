@@ -14,6 +14,7 @@ Changelog                           {#changelog}
 - introduced load mode for resource manager
 - fixed shutdown of voxel terrain
 - added more settings to config file (min max threads and synchronous loading for resource manager)
+- fixed black textures using mipmaps
 
 0.40.0
 ------

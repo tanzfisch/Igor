@@ -9,19 +9,20 @@
 namespace iaux
 {
     /*! maps thread IDs to thread names
-        */
+     */
     static std::map<size_t, iaID32> _threadIDs;
 
     /*! mutex to protect thread ids
-    */
+     */
     static iaMutex _mutex;
 
     iaIDGenerator32 iaThread::_idGenerator;
 
-    iaThread::iaThread()
+    iaThread::iaThread(const iaString &type)
     {
         // starting with 1
         _id = _idGenerator.getNextID() + 1;
+        _type = type;
     }
 
     iaThread::~iaThread()
@@ -32,14 +33,19 @@ namespace iaux
         }
     }
 
+    const iaString &iaThread::getType() const
+    {
+        return _type;
+    }
+
     void iaThread::init()
     {
-        // nothing to do
+        con_trace("start thread id:" << std::hex << getID() << std::dec << " type:" << getType());
     }
 
     void iaThread::deinit()
     {
-        // nothing to do
+        con_trace("stop thread id:" << std::hex << getID() << std::dec << " type:" << getType());
     }
 
     iaThreadState iaThread::getState() const
@@ -67,9 +73,9 @@ namespace iaux
         return 1;
     }
 
-    void* threadFunc(void* data)
+    void *threadFunc(void *data)
     {
-        iaThread* thread = (iaThread*)data;
+        iaThread *thread = (iaThread *)data;
         std::hash<std::thread::id> hashFunc;
         size_t hashValue = hashFunc(std::this_thread::get_id());
 
@@ -95,7 +101,7 @@ namespace iaux
     {
         _threadDelegate = threadDelegate;
 
-        _thread = new std::thread(threadFunc, (void*)this);
+        _thread = new std::thread(threadFunc, (void *)this);
     }
 
     void iaThread::join()
