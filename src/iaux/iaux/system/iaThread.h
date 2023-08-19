@@ -110,15 +110,11 @@ namespace iaux
     private:
         /*! thread id
          */
-        iaID32 _id = 0;
+        iaID32 _id = IGOR_INVALID_ID;
 
         /*! type
          */
         iaString _type;        
-
-        /*! the next node id
-         */
-        static iaIDGenerator32 _idGenerator;
 
         /*! current state of this thread
          */
@@ -131,6 +127,18 @@ namespace iaux
         /*! the delegate to be called by the thread
          */
         iThreadCallbackDelegate _threadDelegate;
+
+        /*! id generator
+         */
+        static iaIDGenerator32 _idGenerator;        
+
+        /*! maps thread IDs to thread names
+        */
+        static std::map<size_t, iaID32> _threadIDs;
+
+        /*! mutex to protect thread ids
+        */
+        static iaMutex _mutex;        
     };
 
 }; // namespace iaux

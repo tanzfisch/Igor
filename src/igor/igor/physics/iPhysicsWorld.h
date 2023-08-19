@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/system/iaMutex.h>
+#include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 
 namespace igor
@@ -44,32 +44,28 @@ namespace igor
 
     public:
         /*! defines the invalid world id
-        */
-        static const uint64 INVALID_WORLD_ID = 0;
+         */
+        static const iaID64 INVALID_WORLD_ID = IGOR_INVALID_ID;
 
         /*! \returns body ID
-        */
-        uint64 getID();
+         */
+        iaID64 getID() const;
 
         /*! \returns pointer to newton world
-        */
-        void *getNewtonWorld();
+         */
+        void *getNewtonWorld() const;
 
     private:
         /*! world id
-        */
-        uint64 _id = INVALID_WORLD_ID;
+         */
+        iaID64 _id = INVALID_WORLD_ID;
 
-        /*! next world id
-        */
-        static uint64 _nextID;
-
-        /*! mutex to save the id generation
-        */
-        iaMutex _mutex;
+        /*! id generator
+         */
+        static iaIDGenerator64 _idGenerator;
 
         /*! handle to newton world
-        */
+         */
         void *_newtonWorld = nullptr;
 
         /*! initializes members
@@ -79,7 +75,7 @@ namespace igor
         iPhysicsWorld(void *newtonWorld);
 
         /*! does nothing
-        */
+         */
         virtual ~iPhysicsWorld() = default;
     };
 
