@@ -235,3 +235,14 @@ bool PhysicsExample::onMouseWheelEvent(iEventMouseWheel &event)
 
     return true;
 }
+
+iaString PhysicsExample::getHelpString()
+{
+    iaString help = "\n"
+                    "[Space] Toggle physics on/off\n";
+
+    iaString result = ExampleBase::getHelpString();
+    result += help;
+
+    return result;
+}

@@ -549,3 +549,15 @@ void Particles::onUpdate(const iaTime &time)
         transform->rotate(0.06, iaAxis::Y);
     }
 }
+
+iaString Particles::getHelpString()
+{
+    iaString help = "\n"
+                    "[Space] Toggle main loop\n"
+                    "[R] reset particle systems\n";
+
+    iaString result = ExampleBase::getHelpString();
+    result += help;
+
+    return result;
+}

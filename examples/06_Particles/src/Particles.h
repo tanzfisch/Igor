@@ -143,6 +143,10 @@ private:
     /*! deinit example
     */
     void onDeinit() override;
+
+    /*! \returns help screen string
+    */
+    iaString getHelpString() override;      
 };
 
 #endif
