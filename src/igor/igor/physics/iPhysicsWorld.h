@@ -37,6 +37,10 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! world id definition
+    */
+    typedef iaID64 iWorldID;
+
     class IGOR_API iPhysicsWorld
     {
 
@@ -45,11 +49,11 @@ namespace igor
     public:
         /*! defines the invalid world id
          */
-        static const iaID64 INVALID_WORLD_ID = IGOR_INVALID_ID;
+        static const iWorldID INVALID_WORLD_ID = IGOR_INVALID_ID;
 
         /*! \returns body ID
          */
-        iaID64 getID() const;
+        iWorldID getID() const;
 
         /*! \returns pointer to newton world
          */
@@ -58,7 +62,7 @@ namespace igor
     private:
         /*! world id
          */
-        iaID64 _id = INVALID_WORLD_ID;
+        iWorldID _id = INVALID_WORLD_ID;
 
         /*! id generator
          */
