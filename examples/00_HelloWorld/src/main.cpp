@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "FirstSteps.h"
+#include "HelloWorld.h"
 
 int main(void)
 {
@@ -12,7 +12,7 @@ int main(void)
     // we are not creating a window here just to show that we don't need one
 
     // create example and add it to the layer stack
-    igor::iApplication::getInstance().addLayer(new FirstSteps());
+    igor::iApplication::getInstance().addLayer(new HelloWorld());
 
     // run example
     const auto exitCode = igor::iApplication::getInstance().run();

@@ -26,31 +26,27 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __FIRSTSTEPS__
-#define __FIRSTSTEPS__
+#ifndef __HELLO_WORLD__
+#define __HELLO_WORLD__
 
-#include <ExampleBase.h>
+#include <igor/igor.h>
+using namespace igor;
 
-/*! the first steps example class
-
-it shows how to register to the application handle event.
+/*! hello world example layer
 */
-class FirstSteps : public ExampleBase
+class HelloWorld : public iLayer
 {
 
 public:
-    /*! init example
+    /*! init layer
     */
-    FirstSteps();
+    HelloWorld();
 
     /*! does nothing
     */
-    ~FirstSteps() = default;
+    ~HelloWorld() = default;
 
 private:
-    /*! let's count something
-    */
-    uint32 _counter = 0;
 
     /*! called every frame
     */
@@ -65,4 +61,4 @@ private:
     virtual void onDeinit() override;
 };
 
-#endif // __FIRSTSTEPS__
+#endif // __HELLO_WORLD__
