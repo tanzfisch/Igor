@@ -15,6 +15,7 @@ Changelog                           {#changelog}
 - fixed shutdown of voxel terrain
 - added more settings to config file (min max threads and synchronous loading for resource manager)
 - fixed black textures using mipmaps
+- fixed physics integration
 
 0.40.0
 ------
