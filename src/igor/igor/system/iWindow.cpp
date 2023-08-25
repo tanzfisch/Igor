@@ -1025,7 +1025,7 @@ namespace igor
             _display = nullptr;
 
             XFree(_visual);
-            
+
             _isOpen = false;
         }
 
@@ -1062,8 +1062,7 @@ namespace igor
             }
         }
 
-        void
-        setPosition(int32 xPos, int32 yPos) override
+        void setPosition(int32 xPos, int32 yPos) override
         {
             _x = xPos;
             _y = yPos;
@@ -1143,7 +1142,17 @@ namespace igor
         void setVSync(bool vsync) override
         {
             _vsync = vsync;
-            // TODO glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
+
+            typedef int (*GLXSWAPINTERVALMESAPROC)(unsigned int interval);
+            GLXSWAPINTERVALMESAPROC glXSwapIntervalSGI = (GLXSWAPINTERVALMESAPROC)glXGetProcAddress((const GLubyte *)"glXSwapIntervalSGI");
+
+            if (glXSwapIntervalSGI == nullptr)
+            {
+                con_err("changing vsync is not supported");
+                return;
+            }
+
+            glXSwapIntervalSGI(_vsync ? 1 : 0);
         }
 
         bool getVSync() const override
@@ -1304,6 +1313,9 @@ namespace igor
             _impl->swapBuffers();
 
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));
+
+            // by default we run with vsync on
+            setVSync(true);
         }
 
         return result;
