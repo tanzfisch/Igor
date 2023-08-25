@@ -16,6 +16,7 @@ Changelog                           {#changelog}
 - added more settings to config file (min max threads and synchronous loading for resource manager)
 - fixed black textures using mipmaps
 - fixed physics integration
+- added missing vsync control (Linux)
 
 0.40.0
 ------
