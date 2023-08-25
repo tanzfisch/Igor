@@ -32,6 +32,7 @@
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/physics/iPhysicsCollision.h>
 
+#include <iaux/data/iaIDGenerator.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaMutex.h>
@@ -54,7 +55,7 @@ namespace igor
     public:
         /*! definition of invalid collision config id
         */
-        static const uint64 INVALID_COLLISIONCONFIG_ID = 0;
+        static const iaID64 INVALID_COLLISIONCONFIG_ID = IGOR_INVALID_ID;
 
         /*! \returns collision config id
         */
@@ -187,13 +188,13 @@ namespace igor
             iaMatrixd _offset;
         };
 
-        /*! next config id
-        */
-        static uint64 _nextID;
+        /*! id generator
+         */
+        static iaIDGenerator64 _idGenerator;
 
         /*! collision config ID
         */
-        uint64 _id = INVALID_COLLISIONCONFIG_ID;
+        iaID64 _id = INVALID_COLLISIONCONFIG_ID;
 
         /*! saves next id
         */

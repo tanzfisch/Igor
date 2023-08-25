@@ -15,6 +15,7 @@
 #ifdef __IGOR_LINUX__
 #include <unistd.h>
 #include <wchar.h>
+#include <signal.h>
 #endif
 
 namespace iaux
@@ -148,7 +149,7 @@ namespace iaux
 #endif
 
 #ifdef __IGOR_LINUX__
-        __builtin_trap();
+        raise(SIGTRAP);
 #endif
 
         std::exit(EXIT_FAILURE);

@@ -89,6 +89,13 @@ set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER})
 
+set(NEWTON_DOUBLE_PRECISION ON CACHE BOOL "Newton: generate double precision" FORCE)
+set(NEWTON_BUILD_CORE_ONLY ON CACHE BOOL "Newton: build core only" FORCE)
+set(NEWTON_BUILD_SANDBOX_DEMOS OFF CACHE BOOL "Newton: build sandbox demos" FORCE)
+add_subdirectory(vendor/newton-dynamics/newton-3.14)
+set(NEWTON_HEADERS_DIR "vendor/newton-dynamics/newton-3.14/sdk")
+# todo visual studio set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER})
+
 add_subdirectory(vendor/Glad)
 set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER})
 
@@ -110,116 +117,6 @@ set(ENTT_HEADERS_DIR ${ENTT_SRC_DIR})
 set(ENTT_HEADERS "${ENTT_HEADERS_DIR}entt.h")
 list(APPEND ENTT_SOURCES ${ENTT_HEADERS})
 source_group_special("${ENTT_SOURCES}" ${ENTT_SRC_DIR} "\\vendor\\EnTT\\")
-
-# newton core
-message(STATUS "newton core")
-set(TIME_TRACKER_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/packages/thirdParty/timeTracker/")
-set(NEWTON_CORE_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/core/")
-file(GLOB NEWTON_CORE_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/core/*.c*") #TODO
-file(GLOB NEWTON_CORE_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/core/*.h*") #TODO
-add_library(core STATIC ${NEWTON_CORE_SOURCES} ${NEWTON_CORE_HEADERS})
-if(IS_GNU)
-    target_compile_definitions(core PRIVATE -D_POSIX_VER_64 PUBLIC -D_NEWTON_USE_DOUBLE)
-    target_compile_options(
-        core
-        PRIVATE -fpic
-                -msse
-                -msse3
-                -msse4
-                -mfpmath=sse
-                -ffloat-store
-                -ffast-math
-                -freciprocal-math
-                -funsafe-math-optimizations
-                -fsingle-precision-constant)
-elseif(IS_MSVC)
-    target_compile_definitions(core PUBLIC -D_NEWTON_USE_DOUBLE)
-endif()
-
-target_include_directories(core PRIVATE ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR})
-set_property(TARGET core PROPERTY FOLDER ${VENDOR_FOLDER})
-
-# newton physics
-message(STATUS "newton physics")
-set(NEWTON_PHYSICS_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/physics/")
-set(NEWTON_MESH_UTIL_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/meshUtil/")
-file(GLOB NEWTON_PHYSICS_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/physics/*.c*") #TODO
-file(GLOB NEWTON_PHYSICS_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/physics/*.h*") #TODO
-add_library(physics STATIC ${NEWTON_PHYSICS_SOURCES} ${NEWTON_PHYSICS_HEADERS})
-if(IS_GNU)
-  target_compile_definitions(physics PRIVATE -D_POSIX_VER_64 PUBLIC -D_NEWTON_USE_DOUBLE)
-  target_compile_options(
-    physics
-    PRIVATE -fpic
-            -msse
-            -msse3
-            -msse4
-            -mfpmath=sse
-            -ffloat-store
-            -ffast-math
-            -freciprocal-math
-            -funsafe-math-optimizations
-            -fsingle-precision-constant)
-elseif(IS_MSVC)
-    target_compile_definitions(physics PUBLIC -D_NEWTON_USE_DOUBLE)
-endif()
-
-target_include_directories(physics PRIVATE ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR})
-set_property(TARGET physics PROPERTY FOLDER ${VENDOR_FOLDER})
-
-# newton meshUtil
-message(STATUS "newton meshUtil")
-file(GLOB NEWTON_MESH_UTIL_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/meshUtil/*.c*") #TODO
-file(GLOB NEWTON_MESH_UTIL_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/meshUtil/*.h*") #TODO
-add_library(meshUtil STATIC ${NEWTON_MESH_UTIL_SOURCES} ${NEWTON_MESH_UTIL_HEADERS})
-if(IS_GNU)
-  target_compile_definitions(meshUtil PRIVATE -D_POSIX_VER_64 PUBLIC -D_NEWTON_USE_DOUBLE)
-  target_compile_options(
-    meshUtil
-    PRIVATE -fpic
-            -msse
-            -msse3
-            -msse4
-            -mfpmath=sse
-            -ffloat-store
-            -ffast-math
-            -freciprocal-math
-            -funsafe-math-optimizations
-            -fsingle-precision-constant)
-elseif(IS_MSVC)
-    target_compile_definitions(meshUtil PUBLIC -D_NEWTON_USE_DOUBLE)
-endif()
-
-target_include_directories(meshUtil PRIVATE ${NEWTON_MESH_UTIL_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR})
-set_property(TARGET meshUtil PROPERTY FOLDER ${VENDOR_FOLDER})
-
-# newton
-message(STATUS "newton")
-set(NEWTON_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/")
-file(GLOB NEWTON_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/newton/*.c*") #TODO
-file(GLOB NEWTON_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/newton/*.h*") #TODO
-add_library(newton SHARED ${NEWTON_SOURCES} ${NEWTON_HEADERS})
-if(IS_GNU)
-  target_compile_definitions(newton PRIVATE -D_POSIX_VER_64 PUBLIC -D_NEWTON_USE_DOUBLE)
-  target_compile_options(
-    newton
-    PRIVATE -fpic
-            -msse
-            -msse3
-            -msse4
-            -mfpmath=sse
-            -ffloat-store
-            -ffast-math
-            -freciprocal-math
-            -funsafe-math-optimizations
-            -fsingle-precision-constant)
-elseif(IS_MSVC)
-    target_compile_definitions(newton PRIVATE -D_NEWTON_BUILD_DLL PUBLIC -D_NEWTON_USE_DOUBLE)
-endif()
-
-target_include_directories(newton PRIVATE ${NEWTON_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR})
-target_link_libraries(newton PUBLIC core physics meshUtil)
-set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER})
 
 add_subdirectory(src/iaux)
 set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})           
@@ -272,22 +169,32 @@ target_include_directories(igor
     PRIVATE 
     ${TINYXML_HEADERS_DIR}
     ${STB_IMAGE_HEADERS_DIR}
-    ${NEWTON_PHYSICS_HEADERS_DIR}
-    ${NEWTON_CORE_HEADERS_DIR}
-    ${NEWTON_HEADERS_DIR}
     ${ALSOFT_HEADERS_DIR}
+    #"vendor/newton-dynamics/newton-4.00/sdk/dBrain"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dCollision"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dCore"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dFileFormat"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dModel"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dExtensions"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dIkSolver"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dJoints"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dModels"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dModels/dVehicle"
+    #"vendor/newton-dynamics/newton-4.00/sdk/dProfiler"
+    ${NEWTON_HEADERS_DIR}
     PUBLIC 
     ${IGOR_HEADERS_DIR}
     ${ENTT_HEADERS_DIR})
     
 if(IS_GNU)
-    target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} PUBLIC -DENTT_USE_ATOMIC)
+    target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} -DENTT_USE_ATOMIC -D_NEWTON_USE_DOUBLE)
     target_compile_options(igor PRIVATE -std=c++17)
-    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
+    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL newton)
 elseif(IS_MSVC)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ PUBLIC -DENTT_USE_ATOMIC)
     target_compile_options(igor PRIVATE "/std:c++17" "/MP" "/FS")
-    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf OpenGL32 glu32 newton OpenAL)
+    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf OpenGL32 glu32 OpenAL newton)
 endif()
 
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})

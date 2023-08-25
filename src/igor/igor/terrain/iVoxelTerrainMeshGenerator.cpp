@@ -49,10 +49,12 @@ namespace igor
         contouringCubes.setVoxelDataNextLOD(voxelDataNextLOD);
         contouringCubes.setNextLODVoxelOffset(tileInformation._voxelOffsetToNextLOD);
 
-        iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth), tileInformation._lod, tileInformation._neighboursLOD);
+        iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth), tileInformation._lod, tileInformation._neighboursLOD);        
 
         if (mesh.get() != nullptr)
         {
+            mesh->setKeepRawData(true);
+            
             iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
             meshNode->setMesh(mesh);
             meshNode->setMaterial(tileInformation._material);
