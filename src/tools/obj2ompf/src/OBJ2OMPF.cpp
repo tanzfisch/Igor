@@ -67,7 +67,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
     {
         iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/texture_shaded.mat");
 
-        iModelDataInputParameterPtr parameters = new iModelDataInputParameter();
+        iModelDataInputParameterPtr parameters = std::make_shared<iModelDataInputParameter>();
         parameters->_joinVertexes = _joinVertexes;
         parameters->_identifier = "obj";
         parameters->_modelSourceType = iModelSourceType::File;
