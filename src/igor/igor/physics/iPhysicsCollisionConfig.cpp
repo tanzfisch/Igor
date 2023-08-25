@@ -11,22 +11,16 @@ using namespace iaux;
 
 namespace igor
 {
-
-    uint64 iPhysicsCollisionConfig::_nextID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID + 1;
+    iaIDGenerator64 iPhysicsCollisionConfig::_idGenerator;
 
     iPhysicsCollisionConfig::iPhysicsCollisionConfig()
     {
-        _mutex.lock();
-        _id = _nextID++;
-        _mutex.unlock();
+        _id = _idGenerator.getNextID();
     }
 
     iPhysicsCollisionConfig::iPhysicsCollisionConfig(const iPhysicsCollisionConfig *physicsCollisionConfig)
     {
-        _mutex.lock();
-        _id = _nextID++;
-        _mutex.unlock();
-
+        _id = _idGenerator.getNextID();
         set(physicsCollisionConfig);
     }
 
@@ -54,95 +48,107 @@ namespace igor
 
     void iPhysicsCollisionConfig::addBox(float32 width, float32 height, float32 depth, const iaMatrixd &offset)
     {
-        con_assert(!_finalized, "already finalized");
-
-        if (!_finalized)
+        if (_finalized)
         {
-            Box box;
-            box._depth = depth;
-            box._height = height;
-            box._offset = offset;
-            box._width = width;
-            _boxes.push_back(box);
+            con_err("finalized already");
+            return;
         }
+
+        Box box;
+        box._depth = depth;
+        box._height = height;
+        box._offset = offset;
+        box._width = width;
+        _boxes.push_back(box);
     }
 
     void iPhysicsCollisionConfig::addSphere(float32 radius, const iaMatrixd &offset)
     {
-        con_assert(!_finalized, "already finalized");
-
-        if (!_finalized)
+        if (_finalized)
         {
-            Sphere sphere;
-            sphere._offset = offset;
-            sphere._radius = radius;
-            _spheres.push_back(sphere);
+            con_err("finalized already");
+            return;
         }
+
+        Sphere sphere;
+        sphere._offset = offset;
+        sphere._radius = radius;
+        _spheres.push_back(sphere);
     }
 
     void iPhysicsCollisionConfig::addCone(float32 radius, float32 height, const iaMatrixd &offset)
     {
-        con_assert(!_finalized, "already finalized");
-
-        if (!_finalized)
+        if (_finalized)
         {
-            Cone cone;
-            cone._height = height;
-            cone._offset = offset;
-            cone._radius = radius;
-            _cones.push_back(cone);
+            con_err("finalized already");
+            return;
         }
+
+        Cone cone;
+        cone._height = height;
+        cone._offset = offset;
+        cone._radius = radius;
+        _cones.push_back(cone);
     }
 
     void iPhysicsCollisionConfig::addCapsule(float32 radius0, float32 radius1, float32 height, const iaMatrixd &offset)
     {
-        con_assert(!_finalized, "already finalized");
-
-        if (!_finalized)
+        if (_finalized)
         {
-            Capsule capsule;
-            capsule._height = height;
-            capsule._offset = offset;
-            capsule._radius0 = radius0;
-            capsule._radius1 = radius1;
-            _capsules.push_back(capsule);
+            con_err("finalized already");
+            return;
         }
+
+        Capsule capsule;
+        capsule._height = height;
+        capsule._offset = offset;
+        capsule._radius0 = radius0;
+        capsule._radius1 = radius1;
+        _capsules.push_back(capsule);
     }
 
     void iPhysicsCollisionConfig::addCylinder(float32 radius0, float32 radius1, float32 height, const iaMatrixd &offset)
     {
-        con_assert(!_finalized, "already finalized");
-
-        if (!_finalized)
+        if (_finalized)
         {
-            Cylinder cylinder;
-            cylinder._height = height;
-            cylinder._offset = offset;
-            cylinder._radius0 = radius0;
-            cylinder._radius1 = radius1;
-            _cylinders.push_back(cylinder);
+            con_err("finalized already");
+            return;
         }
+
+        Cylinder cylinder;
+        cylinder._height = height;
+        cylinder._offset = offset;
+        cylinder._radius0 = radius0;
+        cylinder._radius1 = radius1;
+        _cylinders.push_back(cylinder);
     }
 
     void iPhysicsCollisionConfig::addMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd &offset)
     {
-        con_assert(!_finalized, "already finalized");
-
-        if (!_finalized)
+        if (_finalized)
         {
-            Mesh newMesh;
-            newMesh._offset = offset;
-            newMesh._faceAttribute = faceAttribute;
-            newMesh._mesh = mesh;
-            _meshs.push_back(newMesh);
+            con_err("finalized already");
+            return;
         }
+
+        if (!mesh->hasRawData())
+        {
+            con_err("no mesh data");
+            return;
+        }
+
+        Mesh newMesh;
+        newMesh._offset = offset;
+        newMesh._faceAttribute = faceAttribute;
+        newMesh._mesh = mesh;
+        _meshs.push_back(newMesh);
     }
 
     void iPhysicsCollisionConfig::finalize(uint64 worldID)
     {
-        con_assert(!_finalized, "already finalized");
         if (_finalized)
         {
+            con_err("finalized already");
             return;
         }
 

@@ -98,7 +98,7 @@ namespace igor
         */
         void setMass(float64 mass);
 
-        /*! \retruns mass of body
+        /*! \returns mass of body
         */
         float64 getMass();
 
@@ -138,7 +138,7 @@ namespace igor
         */
         void setUserData(const std::any &userData);
 
-        /*! \retruns pointer to user data
+        /*! \returns pointer to user data
         */
         std::any getUserData() const;
 
@@ -229,7 +229,7 @@ namespace igor
         */
         iaVector3d _force;
 
-        /*! current tourque
+        /*! current torque
         */
         iaVector3d _torque;
 
@@ -271,9 +271,9 @@ namespace igor
         
         called by iPhysics
 
-        \param timestep delta of time since last update
+        \param timeStep delta of time since last update
         */
-        void applyForceAndTorque(float64 timestep);
+        void applyForceAndTorque(float64 timeStep);
 
         /*! initializes newton body handle
 

@@ -12,22 +12,20 @@ using namespace iaux;
 namespace igor
 {
 
-    uint64 iPhysicsWorld::_nextID = iPhysicsWorld::INVALID_WORLD_ID + 1;
+    iaIDGenerator64 iPhysicsWorld::_idGenerator;
 
     iPhysicsWorld::iPhysicsWorld(void *newtonWorld)
         : _newtonWorld(newtonWorld)
     {
-        _mutex.lock();
-        _id = _nextID++;
-        _mutex.unlock();
+        _id = _idGenerator.getNextID();
     }
 
-    void *iPhysicsWorld::getNewtonWorld()
+    void *iPhysicsWorld::getNewtonWorld() const
     {
         return _newtonWorld;
     }
 
-    uint64 iPhysicsWorld::getID()
+    iaID64 iPhysicsWorld::getID() const
     {
         return _id;
     }

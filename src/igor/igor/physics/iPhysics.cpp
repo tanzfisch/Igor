@@ -22,7 +22,7 @@
 #include <iaux/data/iaConvert.h>
 #include <igor/resources/config/iConfigReader.h>
 
-#include <newton/Newton.h>
+#include <dgNewton/Newton.h>
 
 namespace igor
 {
@@ -698,7 +698,7 @@ namespace igor
             NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld *>(_defaultWorld));
 
             NewtonJoint *joint = NewtonConstraintCreateUserJoint(static_cast<NewtonWorld *>(_defaultWorld), maxDOF,
-                                                                 reinterpret_cast<NewtonUserBilateralCallback>(SubmitConstraints), nullptr,
+                                                                 reinterpret_cast<NewtonUserBilateralCallback>(SubmitConstraints), 
                                                                  static_cast<NewtonBody *>(body0->getNewtonBody()),
                                                                  body1 != nullptr ? static_cast<NewtonBody *>(body1->getNewtonBody()) : nullptr);
 
@@ -936,7 +936,7 @@ namespace igor
         _worldListMutex.lock();
 
         NewtonWorld *world = NewtonCreate();
-        NewtonSetSolverModel(static_cast<const NewtonWorld *>(world), 1);
+        //NewtonSetSolverModel(static_cast<const NewtonWorld *>(world), 1);
 
         int32 numThreads = getPhysicsThreadCountFromConfig();
         NewtonSetThreadsCount(static_cast<const NewtonWorld *>(world), numThreads);
@@ -1191,7 +1191,7 @@ namespace igor
         const NewtonWorld *world = static_cast<const NewtonWorld *>(getWorld(worldID)->getNewtonWorld());
         con_assert(world != nullptr, "zero pointer");
 
-        con_assert(mesh->getIndexCount() != 0, "empty mesh");
+        con_assert(mesh->hasRawData() != 0, "empty mesh");
 
         NewtonWorldCriticalSectionLock(world, iaThread::getThisThreadID());
         NewtonCollision *collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld *>(world), 0);

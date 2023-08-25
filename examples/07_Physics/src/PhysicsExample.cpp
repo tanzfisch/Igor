@@ -45,30 +45,36 @@ void PhysicsExample::onInit()
     iaRandomNumberGenerator rand;
     rand.setSeed(1337);
 
-    for (int i = 0; i < 30; ++i)
+    for (int x = -6; x < 7; x += 3)
     {
-        // create the box body and giv him mass
-        iPhysicsBody *boxBody = iPhysics::getInstance().createBody(boxCollision);
-        boxBody->setMass(1000);
-        // register force ans torque callback
-        boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
-        // store body id
-        _bodyIDs.push_back(boxBody->getID());
+        for (int z = -6; z < 7; z += 3)
+        {
+            for (int y = 20; y < 30; y += 3)
+            {
+                // create the box body and giv him mass
+                iPhysicsBody *boxBody = iPhysics::getInstance().createBody(boxCollision);
+                boxBody->setMass(1000);
+                // register force ans torque callback
+                boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
+                // store body id
+                _bodyIDs.push_back(boxBody->getID());
 
-        // generate random position and orientation
-        iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
-        transformNode->translate((rand.getNext() % 10) - 5.0f, (rand.getNext() % 10) + 20.0f, (rand.getNext() % 10) - 5.0f);
-        transformNode->rotate(rand.getNext(), iaAxis::X);
-        transformNode->rotate(rand.getNext(), iaAxis::Y);
-        transformNode->rotate(rand.getNext(), iaAxis::Z);
-        // load the crate model
-        iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
-        crate->setModel("crate.ompf");
-        transformNode->insertNode(crate);
-        // bind the scene model to the physics body
-        iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
-        // add the scene model to the scene
-        getScene()->getRoot()->insertNode(transformNode);
+                // generate random position and orientation
+                iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+                transformNode->translate(x, y, z);
+                transformNode->rotate(rand.getNext(), iaAxis::X);
+                transformNode->rotate(rand.getNext(), iaAxis::Y);
+                transformNode->rotate(rand.getNext(), iaAxis::Z);
+                // load the crate model
+                iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
+                crate->setModel("crate.ompf");
+                transformNode->insertNode(crate);
+                // bind the scene model to the physics body
+                iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
+                // add the scene model to the scene
+                getScene()->getRoot()->insertNode(transformNode);
+            }
+        }
     }
 
     // and some more boxes
