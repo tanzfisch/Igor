@@ -105,6 +105,10 @@ private:
     \returns true if consumed
     */
     bool onMouseWheelEvent(iEventMouseWheel &event);
+
+    /*! \returns help screen string
+    */
+    iaString getHelpString() override;    
 };
 
 #endif // __PHYSICSEXAMPLE__

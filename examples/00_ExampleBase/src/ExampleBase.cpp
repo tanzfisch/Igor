@@ -220,15 +220,15 @@ void ExampleBase::drawLogo()
 
 iaString ExampleBase::getHelpString()
 {
-    static const iaString help = "Help Screen\n"
-                                 "----------\n\n"
-                                 "[ESC] Exit\n"
-                                 "[F1]  Display this screen\n"
-                                 "[F3]  Cycle profiler verbosity\n"
-                                 "[F6]  Print scene graph to console\n"
-                                 "[F10] Toggle wireframe\n"
-                                 "[F11] Toggle octree debug display\n"
-                                 "[F12] Toggle bounding box display\n";
+    iaString help = "Help Screen\n"
+                    "----------\n\n"
+                    "[ESC] Exit\n"
+                    "[F1] Display this screen\n"
+                    "[F3] Cycle profiler verbosity\n"
+                    "[F6] Print scene graph to console\n"
+                    "[F10] Toggle wireframe\n"
+                    "[F11] Toggle octree debug display\n"
+                    "[F12] Toggle bounding box display\n";
 
     return help;
 }
