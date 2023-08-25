@@ -50,6 +50,7 @@ namespace igor
         virtual void onUpdate() = 0;
         virtual bool open() = 0;
         virtual void close() = 0;
+        virtual void getExtensions() = 0;
         virtual void setSizeByDesktop() = 0;
         virtual void setClientSize(int32 width, int32 height) = 0;
         virtual void setSize(int32 width, int32 height) = 0;
@@ -65,6 +66,12 @@ namespace igor
         virtual void registerOSListener(iOSEventListener *listener) = 0;
         virtual void unregisterOSListener(iOSEventListener *listener) = 0;
         virtual void getDesktopSize(int32 &width, int32 &height) = 0;
+
+        bool hasExtension(const iaString &extension) const
+        {
+            auto iter = std::find(_wglxExtensions.begin(), _wglxExtensions.end(), extension);
+            return iter != _wglxExtensions.end();
+        }
 
         __IGOR_INLINE__ void closeEvent()
         {
@@ -141,6 +148,10 @@ namespace igor
         /*! flag if the window gets double click events from windows
          */
         bool _doubleClick = false;
+
+        /*! gl extensions
+        */
+        std::vector<iaString> _wglxExtensions;
 
         /*! window pointer
          */
@@ -298,6 +309,11 @@ namespace igor
 
                 RegisterClass(&_windowClass);
             }
+        }
+
+        void getExtensions() override
+        {
+            // TODO
         }
 
         bool open() override
@@ -841,6 +857,12 @@ namespace igor
             }
         }
 
+        void getExtensions() override
+        {
+            iaString glxExtensions(glXQueryExtensionsString(_display, DefaultScreen(_display)));
+            glxExtensions.split(' ', _wglxExtensions);
+        }
+
         bool open() override
         {
             _display = XOpenDisplay(nullptr);
@@ -1143,16 +1165,31 @@ namespace igor
         {
             _vsync = vsync;
 
-            typedef int (*GLXSWAPINTERVALMESAPROC)(unsigned int interval);
-            GLXSWAPINTERVALMESAPROC glXSwapIntervalSGI = (GLXSWAPINTERVALMESAPROC)glXGetProcAddress((const GLubyte *)"glXSwapIntervalSGI");
-
-            if (glXSwapIntervalSGI == nullptr)
+            if (hasExtension("GLX_MESA_swap_control"))
             {
-                con_err("changing vsync is not supported");
-                return;
+                typedef int (*GLXSWAPINTERVALMESAPROC)(unsigned int interval);
+                GLXSWAPINTERVALMESAPROC glXSwapIntervalMESA = (GLXSWAPINTERVALMESAPROC)glXGetProcAddress((const GLubyte *)"glXSwapIntervalMESA");
+
+                if (glXSwapIntervalMESA != nullptr)
+                {
+                    glXSwapIntervalMESA(_vsync ? 1 : 0);
+                    return;
+                }
             }
 
-            glXSwapIntervalSGI(_vsync ? 1 : 0);
+            if (hasExtension("GLX_SGI_swap_control"))
+            {
+                typedef int (*GLXSWAPINTERVALSGIPROC)(unsigned int interval);
+                GLXSWAPINTERVALSGIPROC glXSwapIntervalSGI = (GLXSWAPINTERVALSGIPROC)glXGetProcAddress((const GLubyte *)"glXSwapIntervalSGI");
+
+                if (glXSwapIntervalSGI != nullptr)
+                {
+                    glXSwapIntervalSGI(_vsync ? 1 : 0);
+                    return;
+                }
+            }
+
+            con_warn("no support for swap control (aka vsync)");
         }
 
         bool getVSync() const override
@@ -1306,6 +1343,8 @@ namespace igor
 
         if (result)
         {
+            _impl->getExtensions();
+
             iTaskManager::getInstance().createRenderContextThreads(this);
 
             iRenderer::getInstance().init();
