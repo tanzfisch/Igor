@@ -56,12 +56,12 @@ namespace igor
 
         _systems.push_back(std::make_shared<iAnimationSystem>());
         _systems.push_back(std::make_shared<iBehaviourSystem>());
-        
+
         _velocitySystem = std::make_shared<iVelocitySystem>();
         _systems.push_back(_velocitySystem);
         _systems.push_back(std::make_shared<iTransformHierarchySystem>());
         _systems.push_back(std::make_shared<iQuadtreeSystem>());
-        
+
         _renderingSystems.push_back(std::make_shared<iSpriteRenderSystem>());
     }
 
@@ -237,154 +237,372 @@ namespace igor
         return &_registry->_registry;
     }
 
-    template <typename... Components>
-    std::type_index getTypeIndex()
+    void *iEntityScene::addComponent(iEntityID entityID, const void *component, const std::type_info &typeInfo)
     {
-        return std::type_index(typeid(std::tuple<Components...>));
-    }
-
-    template <typename T>
-    T &iEntityScene::addComponent(iEntityID entityID, const T &component)
-    {
-        T &result = _registry->_registry.emplace_or_replace<T>(static_cast<entt::entity>(entityID));
-        result = component;
-
-        return result;
-    }
-
-    template <>
-    iBody2DComponent &iEntityScene::addComponent<iBody2DComponent>(iEntityID entityID, const iBody2DComponent &component)
-    {
-        iTransformComponent *transform = _registry->_registry.try_get<iTransformComponent>(static_cast<entt::entity>(entityID));
-        if (transform == nullptr)
+        if (typeInfo == typeid(iDeleteComponent))
         {
-            const iaVector2d center = getQuadtree().getRootBox().getCenter();
-            transform = &(_registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID), iaVector3d(center._x, center._y, 0.0)));
+            const iDeleteComponent &typedComponent = *static_cast<const iDeleteComponent *>(component);
+            iDeleteComponent &result = _registry->_registry.emplace_or_replace<iDeleteComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iSpriteRendererComponent))
+        {
+            const iSpriteRendererComponent &typedComponent = *static_cast<const iSpriteRendererComponent *>(component);
+            iSpriteRendererComponent &result = _registry->_registry.emplace_or_replace<iSpriteRendererComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iTransformComponent))
+        {
+            const iTransformComponent &typedComponent = *static_cast<const iTransformComponent *>(component);
+            iTransformComponent &result = _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iHierarchyComponent))
+        {
+            const iHierarchyComponent &typedComponent = *static_cast<const iHierarchyComponent *>(component);
+            iHierarchyComponent &result = _registry->_registry.emplace_or_replace<iHierarchyComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iBody2DComponent))
+        {
+            iTransformComponent *transform = _registry->_registry.try_get<iTransformComponent>(static_cast<entt::entity>(entityID));
+            if (transform == nullptr)
+            {
+                const iaVector2d center = getQuadtree().getRootBox().getCenter();
+                transform = &(_registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID), iaVector3d(center._x, center._y, 0.0)));
+            }
+
+            const iBody2DComponent &typedComponent = *static_cast<const iBody2DComponent *>(component);
+            iBody2DComponent &result = _registry->_registry.emplace_or_replace<iBody2DComponent>(static_cast<entt::entity>(entityID));
+            result._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, 1.0), entityID);
+            getQuadtree().insert(result._object);
+
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iCircleCollision2DComponent))
+        {
+            const iCircleCollision2DComponent &typedComponent = *static_cast<const iCircleCollision2DComponent *>(component);
+            iCircleCollision2DComponent &result = _registry->_registry.emplace_or_replace<iCircleCollision2DComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iVelocityComponent))
+        {
+            const iVelocityComponent &typedComponent = *static_cast<const iVelocityComponent *>(component);
+            iVelocityComponent &result = _registry->_registry.emplace_or_replace<iVelocityComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iBehaviourComponent))
+        {
+            const iBehaviourComponent &typedComponent = *static_cast<const iBehaviourComponent *>(component);
+            iBehaviourComponent &result = _registry->_registry.emplace_or_replace<iBehaviourComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iGlobalBoundaryComponent))
+        {
+            const iGlobalBoundaryComponent &typedComponent = *static_cast<const iGlobalBoundaryComponent *>(component);
+            iGlobalBoundaryComponent &result = _registry->_registry.emplace_or_replace<iGlobalBoundaryComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
+        {
+            const iMotionInteractionResolverComponent &typedComponent = *static_cast<const iMotionInteractionResolverComponent *>(component);
+            iMotionInteractionResolverComponent &result = _registry->_registry.emplace_or_replace<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iCameraComponent))
+        {
+            iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
+            if (transform == nullptr)
+            {
+                _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
+            }
+
+            const iCameraComponent &typedComponent = *static_cast<const iCameraComponent *>(component);
+            iCameraComponent &result = _registry->_registry.emplace_or_replace<iCameraComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
+        {
+            const iMotionInteractionResolverComponent &typedComponent = *static_cast<const iMotionInteractionResolverComponent *>(component);
+            iMotionInteractionResolverComponent &result = _registry->_registry.emplace_or_replace<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iRenderDebugComponent))
+        {
+            const iRenderDebugComponent &typedComponent = *static_cast<const iRenderDebugComponent *>(component);
+            iRenderDebugComponent &result = _registry->_registry.emplace_or_replace<iRenderDebugComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iPartyComponent))
+        {
+            const iPartyComponent &typedComponent = *static_cast<const iPartyComponent *>(component);
+            iPartyComponent &result = _registry->_registry.emplace_or_replace<iPartyComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iAnimationComponent))
+        {
+            iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
+            if (transform == nullptr)
+            {
+                _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
+            }
+
+            const iAnimationComponent &typedComponent = *static_cast<const iAnimationComponent *>(component);
+            iAnimationComponent &result = _registry->_registry.emplace_or_replace<iAnimationComponent>(static_cast<entt::entity>(entityID));
+            result = typedComponent;
+            return static_cast<void *>(&result);
         }
 
-        iBody2DComponent &result = _registry->_registry.emplace_or_replace<iBody2DComponent>(static_cast<entt::entity>(entityID));
-
-        result._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, 1.0), entityID);
-        getQuadtree().insert(result._object);
-
-        return result;
+        con_crit("unsupported type " << typeInfo.name());
+        return nullptr;
     }
 
-    template <>
-    iCameraComponent &iEntityScene::addComponent<iCameraComponent>(iEntityID entityID, const iCameraComponent &component)
+    void *iEntityScene::getComponent(iEntityID entityID, const std::type_info &typeInfo)
     {
-        iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
-        if (transform == nullptr)
+        if (typeInfo == typeid(iDeleteComponent))
         {
-            _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
+            iDeleteComponent &result = _registry->_registry.get<iDeleteComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iSpriteRendererComponent))
+        {
+            iSpriteRendererComponent &result = _registry->_registry.get<iSpriteRendererComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iTransformComponent))
+        {
+            iTransformComponent &result = _registry->_registry.get<iTransformComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iHierarchyComponent))
+        {
+            iHierarchyComponent &result = _registry->_registry.get<iHierarchyComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iBody2DComponent))
+        {
+            iBody2DComponent &result = _registry->_registry.get<iBody2DComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iCircleCollision2DComponent))
+        {
+            iCircleCollision2DComponent &result = _registry->_registry.get<iCircleCollision2DComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iVelocityComponent))
+        {
+            iVelocityComponent &result = _registry->_registry.get<iVelocityComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iBehaviourComponent))
+        {
+            iBehaviourComponent &result = _registry->_registry.get<iBehaviourComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iGlobalBoundaryComponent))
+        {
+            iGlobalBoundaryComponent &result = _registry->_registry.get<iGlobalBoundaryComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
+        {
+            iMotionInteractionResolverComponent &result = _registry->_registry.get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iCameraComponent))
+        {
+            iCameraComponent &result = _registry->_registry.get<iCameraComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
+        {
+            iMotionInteractionResolverComponent &result = _registry->_registry.get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iRenderDebugComponent))
+        {
+            iRenderDebugComponent &result = _registry->_registry.get<iRenderDebugComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iPartyComponent))
+        {
+            iPartyComponent &result = _registry->_registry.get<iPartyComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
+        }
+        else if (typeInfo == typeid(iAnimationComponent))
+        {
+            iAnimationComponent &result = _registry->_registry.get<iAnimationComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(&result);
         }
 
-        iCameraComponent &result = _registry->_registry.emplace_or_replace<iCameraComponent>(static_cast<entt::entity>(entityID));
-        result = component;
-
-        return result;
+        con_crit("unsupported type " << typeInfo.name());
+        return nullptr;
     }
 
-    template <>
-    iAnimationComponent &iEntityScene::addComponent<iAnimationComponent>(iEntityID entityID, const iAnimationComponent &component)
+    void *iEntityScene::tryGetComponent(iEntityID entityID, const std::type_info &typeInfo)
     {
-        iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
-        if (transform == nullptr)
+        if (typeInfo == typeid(iDeleteComponent))
         {
-            _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
+            iDeleteComponent *result = _registry->_registry.try_get<iDeleteComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iSpriteRendererComponent))
+        {
+            iSpriteRendererComponent *result = _registry->_registry.try_get<iSpriteRendererComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iTransformComponent))
+        {
+            iTransformComponent *result = _registry->_registry.try_get<iTransformComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iHierarchyComponent))
+        {
+            iHierarchyComponent *result = _registry->_registry.try_get<iHierarchyComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iBody2DComponent))
+        {
+            iBody2DComponent *result = _registry->_registry.try_get<iBody2DComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iCircleCollision2DComponent))
+        {
+            iCircleCollision2DComponent *result = _registry->_registry.try_get<iCircleCollision2DComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iVelocityComponent))
+        {
+            iVelocityComponent *result = _registry->_registry.try_get<iVelocityComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iBehaviourComponent))
+        {
+            iBehaviourComponent *result = _registry->_registry.try_get<iBehaviourComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iGlobalBoundaryComponent))
+        {
+            iGlobalBoundaryComponent *result = _registry->_registry.try_get<iGlobalBoundaryComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
+        {
+            iMotionInteractionResolverComponent *result = _registry->_registry.try_get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iCameraComponent))
+        {
+            iCameraComponent *result = _registry->_registry.try_get<iCameraComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
+        {
+            iMotionInteractionResolverComponent *result = _registry->_registry.try_get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iRenderDebugComponent))
+        {
+            iRenderDebugComponent *result = _registry->_registry.try_get<iRenderDebugComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iPartyComponent))
+        {
+            iPartyComponent *result = _registry->_registry.try_get<iPartyComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
+        }
+        else if (typeInfo == typeid(iAnimationComponent))
+        {
+            iAnimationComponent *result = _registry->_registry.try_get<iAnimationComponent>(static_cast<entt::entity>(entityID));
+            return static_cast<void *>(result);
         }
 
-        iAnimationComponent &result = _registry->_registry.emplace_or_replace<iAnimationComponent>(static_cast<entt::entity>(entityID));
-        result = component;
-
-        return result;
-    }    
-
-    // the following types are left out on purpose
-    // iBaseEntityComponent, iActiveComponent
-    template iCircleCollision2DComponent &iEntityScene::addComponent<iCircleCollision2DComponent>(iEntityID entityID, const iCircleCollision2DComponent &component);
-    template iBehaviourComponent &iEntityScene::addComponent<iBehaviourComponent>(iEntityID entityID, const iBehaviourComponent &component);
-    template iSpriteRendererComponent &iEntityScene::addComponent<iSpriteRendererComponent>(iEntityID entityID, const iSpriteRendererComponent &component);
-    template iTransformComponent &iEntityScene::addComponent<iTransformComponent>(iEntityID entityID, const iTransformComponent &component);
-    template iVelocityComponent &iEntityScene::addComponent<iVelocityComponent>(iEntityID entityID, const iVelocityComponent &component);
-    template iCameraComponent &iEntityScene::addComponent<iCameraComponent>(iEntityID entityID, const iCameraComponent &component);
-    template iRenderDebugComponent &iEntityScene::addComponent<iRenderDebugComponent>(iEntityID entityID, const iRenderDebugComponent &component);
-    template iPartyComponent &iEntityScene::addComponent<iPartyComponent>(iEntityID entityID, const iPartyComponent &component);
-    template iGlobalBoundaryComponent &iEntityScene::addComponent<iGlobalBoundaryComponent>(iEntityID entityID, const iGlobalBoundaryComponent &component);
-    template iAnimationComponent &iEntityScene::addComponent<iAnimationComponent>(iEntityID entityID, const iAnimationComponent &component);
-
-    template <typename T>
-    T &iEntityScene::getComponent(iEntityID entityID)
-    {
-        return _registry->_registry.get<T>(static_cast<entt::entity>(entityID));
+        con_crit("unsupported type " << typeInfo.name());
+        return nullptr;
     }
 
-    template iCircleCollision2DComponent &iEntityScene::getComponent<iCircleCollision2DComponent>(iEntityID entityID);
-    template iBaseEntityComponent &iEntityScene::getComponent<iBaseEntityComponent>(iEntityID entityID);
-    template iBehaviourComponent &iEntityScene::getComponent<iBehaviourComponent>(iEntityID entityID);
-    template iActiveComponent &iEntityScene::getComponent<iActiveComponent>(iEntityID entityID);
-    template iSpriteRendererComponent &iEntityScene::getComponent<iSpriteRendererComponent>(iEntityID entityID);
-    template iTransformComponent &iEntityScene::getComponent<iTransformComponent>(iEntityID entityID);
-    template iVelocityComponent &iEntityScene::getComponent<iVelocityComponent>(iEntityID entityID);
-    template iCameraComponent &iEntityScene::getComponent<iCameraComponent>(iEntityID entityID);
-    template iRenderDebugComponent &iEntityScene::getComponent<iRenderDebugComponent>(iEntityID entityID);
-    template iPartyComponent &iEntityScene::getComponent<iPartyComponent>(iEntityID entityID);
-    template iBody2DComponent &iEntityScene::getComponent<iBody2DComponent>(iEntityID entityID);
-    template iGlobalBoundaryComponent &iEntityScene::getComponent<iGlobalBoundaryComponent>(iEntityID entityID);
-    template iAnimationComponent &iEntityScene::getComponent<iAnimationComponent>(iEntityID entityID);
-
-    template <typename T>
-    T *iEntityScene::tryGetComponent(iEntityID entityID)
+    void iEntityScene::removeComponent(iEntityID entityID, const std::type_info &typeInfo)
     {
-        return _registry->_registry.try_get<T>(static_cast<entt::entity>(entityID));
-    }
-
-    template iCircleCollision2DComponent *iEntityScene::tryGetComponent<iCircleCollision2DComponent>(iEntityID entityID);
-    template iBaseEntityComponent *iEntityScene::tryGetComponent<iBaseEntityComponent>(iEntityID entityID);
-    template iBehaviourComponent *iEntityScene::tryGetComponent<iBehaviourComponent>(iEntityID entityID);
-    template iActiveComponent *iEntityScene::tryGetComponent<iActiveComponent>(iEntityID entityID);
-    template iSpriteRendererComponent *iEntityScene::tryGetComponent<iSpriteRendererComponent>(iEntityID entityID);
-    template iTransformComponent *iEntityScene::tryGetComponent<iTransformComponent>(iEntityID entityID);
-    template iVelocityComponent *iEntityScene::tryGetComponent<iVelocityComponent>(iEntityID entityID);
-    template iCameraComponent *iEntityScene::tryGetComponent<iCameraComponent>(iEntityID entityID);
-    template iRenderDebugComponent *iEntityScene::tryGetComponent<iRenderDebugComponent>(iEntityID entityID);
-    template iPartyComponent *iEntityScene::tryGetComponent<iPartyComponent>(iEntityID entityID);
-    template iBody2DComponent *iEntityScene::tryGetComponent<iBody2DComponent>(iEntityID entityID);
-    template iGlobalBoundaryComponent *iEntityScene::tryGetComponent<iGlobalBoundaryComponent>(iEntityID entityID);
-    template iAnimationComponent *iEntityScene::tryGetComponent<iAnimationComponent>(iEntityID entityID);
-
-    template <typename T>
-    void iEntityScene::removeComponent(iEntityID entityID)
-    {
-        _registry->_registry.remove<T>(static_cast<entt::entity>(entityID));
-    }
-
-    template <>
-    void iEntityScene::removeComponent<iBody2DComponent>(iEntityID entityID)
-    {
-        iBody2DComponent *component = tryGetComponent<iBody2DComponent>(entityID);
-        if (component == nullptr)
+        if (typeInfo == typeid(iDeleteComponent))
         {
-            return;
+            _registry->_registry.remove<iDeleteComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iSpriteRendererComponent))
+        {
+            _registry->_registry.remove<iSpriteRendererComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iTransformComponent))
+        {
+            _registry->_registry.remove<iTransformComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iHierarchyComponent))
+        {
+            _registry->_registry.remove<iHierarchyComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iBody2DComponent))
+        {
+            iBody2DComponent *component = _registry->_registry.try_get<iBody2DComponent>(static_cast<entt::entity>(entityID));
+            if (component != nullptr)
+            {
+                getQuadtree().remove(component->_object);
+                _registry->_registry.remove<iBody2DComponent>(static_cast<entt::entity>(entityID));
+            }
+        }
+        else if (typeInfo == typeid(iCircleCollision2DComponent))
+        {
+            _registry->_registry.remove<iCircleCollision2DComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iVelocityComponent))
+        {
+            _registry->_registry.remove<iVelocityComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iBehaviourComponent))
+        {
+            _registry->_registry.remove<iBehaviourComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iGlobalBoundaryComponent))
+        {
+            _registry->_registry.remove<iGlobalBoundaryComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
+        {
+            _registry->_registry.remove<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iCameraComponent))
+        {
+            _registry->_registry.remove<iCameraComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
+        {
+            _registry->_registry.remove<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iRenderDebugComponent))
+        {
+            _registry->_registry.remove<iRenderDebugComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iPartyComponent))
+        {
+            _registry->_registry.remove<iPartyComponent>(static_cast<entt::entity>(entityID));
+        }
+        else if (typeInfo == typeid(iAnimationComponent))
+        {
+            _registry->_registry.remove<iAnimationComponent>(static_cast<entt::entity>(entityID));
         }
 
-        getQuadtree().remove(component->_object);
-        _registry->_registry.remove<iBody2DComponent>(static_cast<entt::entity>(entityID));
+        return;
     }
-
-    // the following types are left out on purpose
-    // iBaseEntityComponent
-    template void iEntityScene::removeComponent<iCircleCollision2DComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iBehaviourComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iActiveComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iSpriteRendererComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iTransformComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iVelocityComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iCameraComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iRenderDebugComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iPartyComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iGlobalBoundaryComponent>(iEntityID entityID);
-    template void iEntityScene::removeComponent<iAnimationComponent>(iEntityID entityID);
-    
 
 } // igor
