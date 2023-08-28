@@ -62,7 +62,7 @@ namespace igor
         virtual bool makeCurrent(iRenderContextPtr renderContext) = 0;
         virtual bool deleteRenderContext(iRenderContextPtr renderContext) = 0;
         virtual void setVSync(bool vsync) = 0;
-        virtual bool getVSync() const = 0;
+        virtual bool getVSync() = 0;
         virtual void registerOSListener(iOSEventListener *listener) = 0;
         virtual void unregisterOSListener(iOSEventListener *listener) = 0;
         virtual void getDesktopSize(int32 &width, int32 &height) = 0;
@@ -250,15 +250,37 @@ namespace igor
 
         void setVSync(bool vsync) override
         {
-            /*PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC) wglGetProcAddress(“wglSwapIntervalEXT”);
-            wglSwapIntervalEXT(vsync ? 1 : 0);*/
+            typedef BOOL(WINAPI* wglSwapIntervalProc)(int);
+
+            _wglMutex.lock();
+            wglSwapIntervalProc wglSwapIntervalEXT = (wglSwapIntervalProc)wglGetProcAddress("wglSwapIntervalEXT");
+            _wglMutex.unlock();
+
+            if (wglSwapIntervalEXT != nullptr)
+            {
+                _wglMutex.lock();
+                wglSwapIntervalEXT(vsync ? 1 : 0);
+                _wglMutex.unlock();
+            }
         }
 
-        bool getVSync() const override
+        bool getVSync() override
         {
-            /*PFNWGLSWAPINTERVALEXTPROC wglGetSwapIntervalEXT = (PFNWGLGETSWAPINTERVALEXTPROC) wglGetProcAddress(“wglGetSwapIntervalEXT”);
-            return wglGetSwapInter() > 0 ? true : false;*/
-            return false;
+            typedef BOOL(WINAPI* wglGetSwapIntervalProc)();
+
+            _wglMutex.lock();
+            wglGetSwapIntervalProc wglGetSwapIntervalEXT = (wglGetSwapIntervalProc)wglGetProcAddress("wglGetSwapIntervalEXT");
+            _wglMutex.unlock();
+            if (wglGetSwapIntervalEXT == nullptr)
+            {
+                return false;
+            }
+
+            _wglMutex.lock();
+            bool result = wglGetSwapIntervalEXT() > 0 ? true : false;
+            _wglMutex.unlock();
+
+            return result;
         }
 
         void swapBuffers() override
@@ -1192,7 +1214,7 @@ namespace igor
             con_warn("no support for swap control (aka vsync)");
         }
 
-        bool getVSync() const override
+        bool getVSync() override
         {
             return _vsync;
         }

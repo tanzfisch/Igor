@@ -302,7 +302,7 @@ namespace iaux
     \returns the resulting stream
     */
     template <typename T>
-    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaDelegate<T> &delegate)
+    std::wostream &operator<<(std::wostream &stream, const iaDelegate<T> &delegate)
     {
         delegate.getInfo(stream);
 

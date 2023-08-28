@@ -30,9 +30,6 @@ namespace igor
     static const uint32 MAX_TRIANGLE_VERTICES = MAX_TRIANGLES * 3;
     static const uint32 MAX_TRIANGLE_INDICES = MAX_TRIANGLES * 3;
 
-    static const iaVector2f QUAD_TEXTURE_COORDS[] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}};
-    static const iaVector3f QUAD_VERTEX_POSITIONS[] = {{-0.5f, -0.5f, 0.0f}, {-0.5f, 0.5f, 0.0f}, {0.5f, 0.5f, 0.0f}, {0.5f, -0.5f, 0.0f}};
-
     // flat vertex definition
     struct iFlatVertex
     {
@@ -827,90 +824,6 @@ namespace igor
         quads._indexCount += 6;
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::Quads;
-    }
-
-    template <>
-    void iRenderer::drawSprite(const iaMatrix<float32> &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2<float32> &size, const iaColor4f &color, bool blend)
-    {
-        drawSpriteInternal(matrix, sprite, frameIndex, size, color, blend);
-    }
-
-    template <>
-    void iRenderer::drawTexturedQuad(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaVector3<float32> &v3, const iaVector3<float32> &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
-    {
-        drawTexturedQuadInternal(v1, v2, v3, v4, texture, color, blend, tiling);
-    }
-
-    template <>
-    void iRenderer::drawTexturedQuad(const iaMatrix<float32> &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
-    {
-        drawTexturedQuadInternal(matrix * QUAD_VERTEX_POSITIONS[0],
-                                 matrix * QUAD_VERTEX_POSITIONS[1],
-                                 matrix * QUAD_VERTEX_POSITIONS[2],
-                                 matrix * QUAD_VERTEX_POSITIONS[3],
-                                 texture, color, blend, tiling);
-    }
-
-    template <>
-    void iRenderer::drawTexturedQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
-    {
-        drawTexturedQuadInternal(o + v - u,
-                                 o - v - u,
-                                 o - v + u,
-                                 o + v + u,
-                                 texture, color, blend, tiling);
-    }
-
-    template <>
-    void iRenderer::drawQuad(const iaMatrix<float32> &matrix, const iaColor4f &color)
-    {
-        drawQuadInternal(matrix * QUAD_VERTEX_POSITIONS[0],
-                         matrix * QUAD_VERTEX_POSITIONS[1],
-                         matrix * QUAD_VERTEX_POSITIONS[2],
-                         matrix * QUAD_VERTEX_POSITIONS[3],
-                         color);
-    }
-
-    template <>
-    void iRenderer::drawQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, const iaColor4f &color)
-    {
-        drawQuadInternal(o + v - u,
-                         o - v - u,
-                         o - v + u,
-                         o + v + u,
-                         color);
-    }
-
-    template <>
-    void iRenderer::drawLineStrip(const std::vector<iaVector3<float32>> &points, const iaColor4f &color)
-    {
-        con_assert(points.size() > 1, "too few points");
-
-        for (int i = 1; i < points.size(); ++i)
-        {
-            const auto &start = points[i - 1];
-            const auto &stop = points[i];
-
-            drawLineInternal(start, stop, color);
-        }
-    }
-
-    template <>
-    void iRenderer::drawLine(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaColor4f &color)
-    {
-        drawLineInternal(v1, v2, color);
-    }
-
-    template <>
-    void iRenderer::drawPoint(const iaVector3<float32> &v, const iaColor4f &color)
-    {
-        drawPointInternal(v, color);
-    }
-
-    template <>
-    void iRenderer::drawBox(const iAABox<float32> &box, const iaColor4f &color)
-    {
-        drawBoxInternal(box, color);
     }
 
     void iRenderer::drawLineInternal(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color)
