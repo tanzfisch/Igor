@@ -1,7 +1,12 @@
 Changelog                           {#changelog}
 =========
 
-0.42.1
+0.42.0
+------
+
+- todo
+
+0.41.1
 ------
 
 - added missing vsync control (Windows)
