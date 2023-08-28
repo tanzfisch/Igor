@@ -41,15 +41,7 @@ namespace igor
      */
     class iTextureFactory : public iFactory
     {
-
-    public:
-        /*! loads pixmap from texture
-
-        \param filename the file to load
-        \returns pixmap
-        \todo need a better place for this
-        */
-        static IGOR_API iPixmapPtr loadPixmap(const iaString &filename);
+        friend class iPixmap;
 
     private:
         /*! \returns the factory type
@@ -112,6 +104,13 @@ namespace igor
         \param texture the texture resource
         */
         bool pixmapToTexture(iPixmapPtr pixmap, iTexturePtr texture);
+
+        /*! loads pixmap from file
+
+        \param filename the file to load
+        \returns pixmap
+        */
+        static iPixmapPtr loadPixmap(const iaString &filename);        
     };
 
 }; // namespace igor

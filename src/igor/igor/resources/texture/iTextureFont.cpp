@@ -33,7 +33,7 @@ namespace igor
         {
             return;
         }
-        _pixmap = iTextureFactory::loadPixmap(resolved);
+        _pixmap = iPixmap::loadPixmap(resolved);
 
         if (_pixmap == nullptr)
         {
