@@ -37,7 +37,7 @@ namespace igor
 {
     /*! reader for Igor material files
      */
-    class iMaterialIO
+    class IGOR_API iMaterialIO
     {
     public:
         /*! reads material file and configures given material with it

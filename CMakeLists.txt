@@ -81,26 +81,30 @@ if(LINUX)
 endif()
 
 add_subdirectory(vendor/openal-soft)
-set_property(TARGET alrecord PROPERTY FOLDER ${VENDOR_FOLDER})
-set_property(TARGET altonegen PROPERTY FOLDER ${VENDOR_FOLDER})
-set_property(TARGET build_version PROPERTY FOLDER ${VENDOR_FOLDER})
-set_property(TARGET common PROPERTY FOLDER ${VENDOR_FOLDER})
-set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER})
-set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER})
-set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET alrecord PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
+set_property(TARGET altonegen PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
+set_property(TARGET build_version PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
+set_property(TARGET common PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
+set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
+set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
+set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 
 set(NEWTON_DOUBLE_PRECISION ON CACHE BOOL "Newton: generate double precision" FORCE)
 set(NEWTON_BUILD_CORE_ONLY ON CACHE BOOL "Newton: build core only" FORCE)
 set(NEWTON_BUILD_SANDBOX_DEMOS OFF CACHE BOOL "Newton: build sandbox demos" FORCE)
 add_subdirectory(vendor/newton-dynamics/newton-3.14)
 set(NEWTON_HEADERS_DIR "vendor/newton-dynamics/newton-3.14/sdk")
-# todo visual studio set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
+set_property(TARGET dgCore PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
+set_property(TARGET dgNewtonAvx PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
+set_property(TARGET dgNewtonReferenceGPU PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
+set_property(TARGET dgPhysics PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 
 add_subdirectory(vendor/Glad)
-set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER}/Glad)
 
 add_subdirectory(vendor/TinyXML)
-set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER})           
+set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER}/TinyXML)
 
 # stb_image
 message(STATUS "stb_image")
@@ -170,18 +174,6 @@ target_include_directories(igor
     ${TINYXML_HEADERS_DIR}
     ${STB_IMAGE_HEADERS_DIR}
     ${ALSOFT_HEADERS_DIR}
-    #"vendor/newton-dynamics/newton-4.00/sdk/dBrain"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dCollision"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dCore"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dFileFormat"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dModel"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dExtensions"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dIkSolver"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dJoints"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dModels"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dNewton/dModels/dVehicle"
-    #"vendor/newton-dynamics/newton-4.00/sdk/dProfiler"
     ${NEWTON_HEADERS_DIR}
     PUBLIC 
     ${IGOR_HEADERS_DIR}
