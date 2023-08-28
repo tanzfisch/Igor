@@ -87,16 +87,7 @@ namespace igor
 		\param component the component to add
 		*/
 		template <typename T>
-		T &addUserComponent(iEntityID entityID, const T &component)
-		{
-			auto iter = _customComponents.find(typeid(T));
-			if (iter == _customComponents.end())
-			{
-				_customComponents[typeid(T)] = std::make_shared<iComponentMap<T>>();
-			}
-
-			return std::static_pointer_cast<iComponentMap<T>>(_customComponents[typeid(T)])->add(entityID, component);
-		}
+		T &addUserComponent(iEntityID entityID, const T &component);
 
 		/*! \returns reference to component for given entity
 
@@ -110,14 +101,7 @@ namespace igor
 		\param component the component to add
 		*/
 		template <typename T>
-		T &getUserComponent(iEntityID entityID)
-		{
-			auto iter = _customComponents.find(typeid(T));
-			con_assert(iter != _customComponents.end(), "component does not exist")
-
-				return std::static_pointer_cast<iComponentMap<T>>(iter->second)
-					->get(entityID);
-		}
+		T &getUserComponent(iEntityID entityID);
 
 		/*! \returns pointer to component for given entity. nullptr if component does not exist
 
@@ -131,16 +115,7 @@ namespace igor
 		\param entityID the given entity
 		*/
 		template <typename T>
-		T *tryGetUserComponent(iEntityID entityID)
-		{
-			auto iter = _customComponents.find(typeid(T));
-			if (iter == _customComponents.end())
-			{
-				return nullptr;
-			}
-
-			return std::static_pointer_cast<iComponentMap<T>>(iter->second)->tryGet(entityID);
-		}
+		T *tryGetUserComponent(iEntityID entityID);
 
 		/*! removes component of given entity with given type
 		 */
@@ -160,7 +135,7 @@ namespace igor
 		iQuadtreed &getQuadtree() const;
 
 		/*! \returns true if quadtree present
-		*/
+		 */
 		bool hasQuadtree() const;
 
 		/*! \returns entt registry
@@ -218,6 +193,35 @@ namespace igor
 		 */
 		void onRender(float32 clientWidth, float32 clientHeight);
 
+		/*! internal add component function
+
+		\param entityID id of entity to add component to
+		\param component the component data to add
+		\param typeInfo the type info of the component to add
+		*/
+		void *addComponent(iEntityID entityID, const void *component, const std::type_info &typeInfo);
+
+		/*! \returns component for given entity
+
+		\param entityID the given entity
+		\param typeInfo type of requested component
+		*/
+		void *getComponent(iEntityID entityID, const std::type_info &typeInfo);
+
+		/*! \returns pointer to component for given entity. nullptr if component does not exist
+
+		\param entityID the given entity
+		\param typeInfo type of requested component
+		*/
+		void *tryGetComponent(iEntityID entityID, const std::type_info &typeInfo);
+
+		/*! removes specified component type from given entity
+
+		\param entityID id of given entity
+		\param typeInfo type of component to remove
+		*/
+		void removeComponent(iEntityID entityID, const std::type_info &typeInfo);
+
 		/*! init systems
 		 */
 		iEntityScene();
@@ -226,6 +230,8 @@ namespace igor
 		 */
 		~iEntityScene();
 	};
+
+#include <igor/entities/iEntityScene.inl>
 
 } // igor
 

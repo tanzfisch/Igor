@@ -29,8 +29,12 @@
 #ifndef __IAUX_MATH__
 #define __IAUX_MATH__
 
+#include <iaux/math/iaVector2.h>
+#include <iaux/math/iaVector3.h>
 #include <iaux/math/iaVector4.h>
-#include <iaux/math/iaQuaternion.h>
+#include <iaux/data/iaColor4.h>
+#include <iaux/data/iaColor3.h>
+
 #include <iaux/system/iaConsole.h>
 
 #include <fstream>
@@ -52,6 +56,8 @@ namespace iaux
         template <typename T>
         static const T lerp(const T &value1, const T &value2, float64 w);
     };
+
+#include <iaux/math/iaMath.inl>
 
 }
 

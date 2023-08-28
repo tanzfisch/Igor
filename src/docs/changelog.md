@@ -1,6 +1,12 @@
 Changelog                           {#changelog}
 =========
 
+0.42.0
+------
+
+- added missing vsync control (Windows)
+- fixed MSVC template specialization build issues
+
 0.41.0
 ------
 

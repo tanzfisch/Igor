@@ -49,7 +49,7 @@ namespace igor
         \returns pixmap
         \todo need a better place for this
         */
-        static iPixmapPtr loadPixmap(const iaString &filename);
+        static IGOR_API iPixmapPtr loadPixmap(const iaString &filename);
 
     private:
         /*! \returns the factory type

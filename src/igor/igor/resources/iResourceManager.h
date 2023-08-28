@@ -31,6 +31,10 @@
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/module/iModule.h>
+#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/sound/iSound.h>
+#include <igor/resources/sprite/iSprite.h>
+#include <igor/resources/animation/iAnimation.h>
 
 #include <iaux/system/iaDirectory.h>
 #include <iaux/data/iaString.h>
@@ -231,6 +235,8 @@ namespace igor
          */
         ~iResourceManager();
     };
+
+#include <igor/resources/iResourceManager.inl>
 
 } // namespace igor
 

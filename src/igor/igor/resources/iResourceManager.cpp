@@ -85,7 +85,7 @@ namespace igor
             {
                 addSearchPath(path);
             }
-        }
+        }        
     }
 
     int64 iResourceManager::calcHashValue(const iParameters &parameters, iFactoryPtr factory)
@@ -185,62 +185,6 @@ namespace igor
         }
 
         return result;
-    }
-
-    template <>
-    iTexturePtr iResourceManager::requestResource(const iaString &name)
-    {
-        iParameters param({{"name", name}, {"type", iaString("texture")}});
-        return std::dynamic_pointer_cast<iTexture>(requestResource(param));
-    }
-
-    template <>
-    iTexturePtr iResourceManager::loadResource(const iaString &name)
-    {
-        iParameters param({{"name", name}, {"type", iaString("texture")}});
-        return std::dynamic_pointer_cast<iTexture>(loadResource(param));
-    }
-
-    template <>
-    iSoundPtr iResourceManager::requestResource(const iaString &name)
-    {
-        iParameters param({{"name", name}, {"type", iaString("sound")}});
-        return std::dynamic_pointer_cast<iSound>(requestResource(param));
-    }
-
-    template <>
-    iSoundPtr iResourceManager::loadResource(const iaString &name)
-    {
-        iParameters param({{"name", name}, {"type", iaString("sound")}});
-        return std::dynamic_pointer_cast<iSound>(loadResource(param));
-    }
-
-    template <>
-    iSpritePtr iResourceManager::requestResource(const iaString &name)
-    {
-        iParameters param({{"name", name}, {"type", iaString("sprite")}});
-        return std::dynamic_pointer_cast<iSprite>(requestResource(param));
-    }
-
-    template <>
-    iSpritePtr iResourceManager::loadResource(const iaString &name)
-    {
-        iParameters param({{"name", name}, {"type", iaString("sprite")}});
-        return std::dynamic_pointer_cast<iSprite>(loadResource(param));
-    }
-
-    template <>
-    iAnimationPtr iResourceManager::requestResource(const iaString &name)
-    {
-        iParameters param({{"name", name}, {"type", iaString("animation")}});
-        return std::dynamic_pointer_cast<iAnimation>(requestResource(param));
-    }
-
-    template <>
-    iAnimationPtr iResourceManager::loadResource(const iaString &name)
-    {
-        iParameters param({{"name", name}, {"type", iaString("animation")}});
-        return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
     }
 
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
