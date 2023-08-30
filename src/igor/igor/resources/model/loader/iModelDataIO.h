@@ -33,7 +33,7 @@
 using namespace iaux;
 
 #include <igor/scene/nodes/iNode.h>
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 
 namespace igor
 {

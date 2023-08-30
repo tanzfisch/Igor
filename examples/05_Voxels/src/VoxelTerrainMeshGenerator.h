@@ -43,15 +43,6 @@ class VoxelTerrainMeshGenerator : public iModelDataIO
 {
 
 public:
-    /*! generates terrain tiles 
-
-    !!! ATTENTION consumes and deletes "parameter"
-
-    \param sectionname name of tile section
-    \return parameter tile parameters
-    */
-    iNodePtr importData(const iaString &sectionName, iModelDataInputParameterPtr parameter);
-
     /*! initialize members
     */
     VoxelTerrainMeshGenerator();
@@ -59,6 +50,16 @@ public:
     /*! does nothing
     */
     virtual ~VoxelTerrainMeshGenerator() = default;
+
+    /*! generates terrain tiles 
+
+    !!! ATTENTION consumes and deletes "parameter"
+
+    \param sectionname name of tile section
+    \param parameter tile parameters
+    \returns root node of generated scene graph
+    */
+    iNodePtr importData(const iaString &sectionName, iModelDataInputParameterPtr parameter) override;
 
     /*! creates an instance of this class
 

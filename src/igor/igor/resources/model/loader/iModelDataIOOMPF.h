@@ -88,14 +88,14 @@ namespace igor
         \param filename filename of file to load
         \return pointer to node tree
         */
-        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter = nullptr);
+        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter = nullptr) override;
 
         /*! saved node and underlying tree to filesystem
 
         \param filename destination filename
         \param node root node of tree to save
         */
-        virtual void exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals);
+        virtual void exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals) override;
 
     private:
         /*! the ompf loader it self

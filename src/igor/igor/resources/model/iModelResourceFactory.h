@@ -29,7 +29,7 @@
 #ifndef __IGOR_MODELRESOURCEFACTORY__
 #define __IGOR_MODELRESOURCEFACTORY__
 
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 #include <igor/resources/model/loader/iModelDataIOOMPF.h>
 #include <igor/resources/model/loader/iModelDataIOOBJ.h>
 #include <igor/resources/module/iModule.h>
@@ -65,7 +65,7 @@ namespace igor
         \param parameter optional generator parameters
         \returns shared pointer to model
         */
-        iModelPtr requestModelData(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameterPtr parameter = nullptr);
+        iModel_OldPtr requestModelData(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameterPtr parameter = nullptr);
 
         /*! loads a model synchronously
 
@@ -75,7 +75,7 @@ namespace igor
         \param instancing true: instancing will be used; false: instancing will only be used if already configured by the model to be loaded
         \returns shared pointer to model
         */
-        iModelPtr loadModelData(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameterPtr parameter = nullptr);
+        iModel_OldPtr loadModelData(const iaString &filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameterPtr parameter = nullptr);
 
         /*! loads unloads models depending on theirs request status ans reference count
 
@@ -122,11 +122,11 @@ namespace igor
 
         /*! map of models
         */
-        std::map<int64, iModelPtr> _models;
+        std::map<int64, iModel_OldPtr> _models;
 
         /*! contains models that habe to be loaded asynchronously
         */
-        std::vector<iModelPtr> _loadingQueue;
+        std::vector<iModel_OldPtr> _loadingQueue;
 
         /*! list of running tasks triggered by resource factory
         */

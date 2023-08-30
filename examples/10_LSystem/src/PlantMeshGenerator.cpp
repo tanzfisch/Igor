@@ -8,7 +8,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <igor/resources/material/iTargetMaterial.h>

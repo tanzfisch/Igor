@@ -119,6 +119,8 @@ namespace igor
         iResourceCacheMode _cacheMode;
 
         /*! sets processed flag on resource
+
+        \param processed the flag to set
         */
         void setProcessed(bool processed);
 

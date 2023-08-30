@@ -154,6 +154,22 @@ namespace igor
         CheckerBoard
     };
 
+    /*! resource manager load mode
+    */
+    enum class iResourceManagerLoadMode
+    {
+        Application,
+        Synchronized
+    };
+
+    /*! prints the resource manager load mode in the console
+
+    \param stream the stream to log to
+    \param mode the resource manager load mode mode
+    \returns the stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, iResourceManagerLoadMode mode);    
+
     /*! cache mode for resources
      */
     enum class iResourceCacheMode
@@ -162,6 +178,14 @@ namespace igor
         Cache = 1, //! free when cache is flushed
         Keep = 2   //! keep until corresponding resource manager was destroyed
     };
+
+    /*! prints the resource cache mode to the console
+
+    \param stream the stream to log to
+    \param cacheMode the resource cache mode
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, iResourceCacheMode cacheMode);
 
     /*! Igor key codes
      */

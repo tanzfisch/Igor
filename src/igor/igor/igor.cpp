@@ -152,6 +152,11 @@ namespace igor
             iTaskManager::destroy();
         }
 
+        if (iResourceManager::isInstantiated())
+        {
+            iResourceManager::destroy();
+        }
+
         if (iNodeManager::isInstantiated())
         {
             iNodeManager::destroy();
@@ -165,11 +170,6 @@ namespace igor
         if (iWidgetManager::isInstantiated())
         {
             iWidgetManager::destroy();
-        }
-
-        if (iResourceManager::isInstantiated())
-        {
-            iResourceManager::destroy();
         }
 
         if (iMaterialResourceFactory::isInstantiated())

@@ -30,7 +30,7 @@
 #define __IGOR_MODELNODE__
 
 #include <igor/scene/nodes/iNode.h>
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 #include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaString.h>
@@ -123,7 +123,7 @@ namespace igor
 
         /*! shared pointer to requested model
          */
-        iModelPtr _model;
+        iModel_OldPtr _model;
 
         /*! material to override 
         */

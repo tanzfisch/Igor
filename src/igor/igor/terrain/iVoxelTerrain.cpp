@@ -1241,7 +1241,7 @@ namespace igor
                     tileInformation._targetMaterial = _targetMaterial;
                     tileInformation._physicsMaterialID = _physicsMaterialID;
 
-                    // will be deleted by iModel
+                    // will be deleted by iModel_Old
                     iModelDataInputParameterPtr inputParam = std::make_shared<iModelDataInputParameter>();
                     inputParam->_identifier = "vtg";
                     inputParam->_joinVertexes = true;
@@ -1249,7 +1249,7 @@ namespace igor
                     inputParam->_modelSourceType = iModelSourceType::Generated;
                     inputParam->_loadPriority = 0;
 
-                    // makes a copy of tileInformation so it will also be deleted by iModel
+                    // makes a copy of tileInformation so it will also be deleted by iModel_Old
                     inputParam->_parameters = tileInformation;
 
                     iaString tileName = iaString::toString(voxelBlock->_positionInLOD._x);

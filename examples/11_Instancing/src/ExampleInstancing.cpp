@@ -84,7 +84,7 @@ void ExampleInstancing::onInit()
     // todo need to be able to load a mesh from file without all of this
     iMeshPtr catMesh;
     iTargetMaterialPtr catTargetMaterial;
-    iModelPtr modelCat = iModelResourceFactory::getInstance().loadModelData("cat.ompf");
+    iModel_OldPtr modelCat = iModelResourceFactory::getInstance().loadModelData("cat.ompf");
     if(modelCat->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCat->getNode());
@@ -94,7 +94,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr createMesh;
     iTargetMaterialPtr crateTargetMaterial;
-    iModelPtr modelCrate = iModelResourceFactory::getInstance().loadModelData("crate.ompf");
+    iModel_OldPtr modelCrate = iModelResourceFactory::getInstance().loadModelData("crate.ompf");
     if(modelCrate->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCrate->getNode());
@@ -104,7 +104,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr cubeMesh;
     iTargetMaterialPtr cubeTargetMaterial;
-    iModelPtr modelCube = iModelResourceFactory::getInstance().loadModelData("cube_green.ompf");
+    iModel_OldPtr modelCube = iModelResourceFactory::getInstance().loadModelData("cube_green.ompf");
     if(modelCube->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCube->getNode());
@@ -114,7 +114,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr teapotMesh;
     iTargetMaterialPtr teapotTargetMaterial;
-    iModelPtr modelTeapot = iModelResourceFactory::getInstance().loadModelData("teapot.ompf");
+    iModel_OldPtr modelTeapot = iModelResourceFactory::getInstance().loadModelData("teapot.ompf");
     if(modelTeapot->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelTeapot->getNode());

@@ -4,7 +4,7 @@ Changelog                           {#changelog}
 0.42.0
 ------
 
-- todo
+- fixed threading sync in iResourceManager preventing resource being loaded multiple times
 
 0.41.1
 ------

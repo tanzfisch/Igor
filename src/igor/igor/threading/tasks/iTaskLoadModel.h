@@ -30,7 +30,7 @@
 #define __IGOR_TASKLOADMODEL__
 
 #include <igor/threading/tasks/iTask.h>
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 
 #include <memory>
 
@@ -45,7 +45,7 @@ namespace igor
 
         \param model the model to load
         */
-        iTaskLoadModel(iWindowPtr window, iModelPtr model, iTaskContext taskContext, uint32 priority);
+        iTaskLoadModel(iWindowPtr window, iModel_OldPtr model, iTaskContext taskContext, uint32 priority);
 
         /*! does nothing
         */
@@ -54,7 +54,7 @@ namespace igor
     private:
         /*! the model to load
         */
-        iModelPtr _model;
+        iModel_OldPtr _model;
 
         /*! runs the task
         */

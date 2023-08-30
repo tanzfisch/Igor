@@ -4,10 +4,9 @@
 
 #include <igor/resources/model/loader/iModelDataIOOBJ.h>
 
-
 #include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaConsole.h>
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNode.h>
@@ -105,16 +104,8 @@ namespace igor
 
 			if (material->_texture != "")
 			{
-				
-
 				meshNode->getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(material->_texture), 0);
-				
 			}
-		}
-
-		if (result != nullptr)
-		{
-			con_info("loaded model \"" << filename << "\"");
 		}
 
 		return result;

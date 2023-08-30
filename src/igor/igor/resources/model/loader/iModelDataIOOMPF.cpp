@@ -4,7 +4,7 @@
 
 #include <igor/resources/model/loader/iModelDataIOOMPF.h>
 
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeMesh.h>
@@ -373,15 +373,8 @@ namespace igor
         }
 
         createMaterials();
-
         iNodePtr result = createNodeTree(nullptr, _ompf->getRoot()->getChildren()[0]);
-
         linkNodes(_ompf->getRoot()->getChildren()[0]);
-
-        if (result != nullptr)
-        {
-            con_info("loaded ompf \"" << filename << "\"");
-        }
 
         return result;
     }

@@ -35,6 +35,7 @@
 #include <igor/resources/sound/iSound.h>
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimation.h>
+#include <igor/resources/model/iModel.h>
 
 #include <iaux/system/iaDirectory.h>
 #include <iaux/data/iaString.h>
@@ -44,25 +45,10 @@ using namespace iaux;
 #include <unordered_map>
 #include <map>
 #include <vector>
+#include <deque>
 
 namespace igor
 {
-
-    /*! resource manager load mode
-    */
-    enum class iResourceManagerLoadMode
-    {
-        Application,
-        Synchronized
-    };
-
-    /*! prints the resource manager load mode in the console
-
-    \param stream the stream to log to
-    \param mode the resource manager load mode mode
-    \returns the stream
-    */
-    IAUX_API std::wostream &operator<<(std::wostream &stream, const iResourceManagerLoadMode &mode);
 
     /*! manages resources and their factories
      */
@@ -110,21 +96,25 @@ namespace igor
         */
         bool fileExists(const iaString &filename);
 
-        /*! requests a resource to be loaded asynchronously.
+        /*! requests a resource to be loaded asynchronously
+
+        typed version for more convenience
 
         \param name the name of the resource
         \returns shared pointer to resource
         */
         template <typename T>
-        std::shared_ptr<T> requestResource(const iaString &name);
+        std::shared_ptr<T> requestResource(const iaString &name, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
 
-        /*! loads a resource synchronously.
+        /*! loads a resource synchronously
+
+        typed version for more convenience
 
         \param name the name of the resource
         \returns shared pointer to resource
         */
         template <typename T>
-        std::shared_ptr<T> loadResource(const iaString &name);
+        std::shared_ptr<T> loadResource(const iaString &name, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
 
         /*! requests a resource to be loaded asynchronously.
 
@@ -198,6 +188,10 @@ namespace igor
         /*! map of resources
          */
         std::unordered_map<int64, iResourcePtr> _resources;
+
+        /*! loading queue
+        */
+        std::deque<iResourcePtr> _loadingQueue;
 
         /*! load mode
         */

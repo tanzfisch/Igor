@@ -4,7 +4,7 @@
 
 #include <igor/resources/model/iModelResourceFactory.h>
 
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/threading/tasks/iTaskLoadModel.h>
 #include <igor/threading/iTaskManager.h>
@@ -218,9 +218,9 @@ namespace igor
         return static_cast<int64>(hashFunc(keyValue));
     }
 
-    iModelPtr iModelResourceFactory::requestModelData(const iaString &filename, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter)
+    iModel_OldPtr iModelResourceFactory::requestModelData(const iaString &filename, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter)
     {
-        iModelPtr result;
+        iModel_OldPtr result;
         iaString hashKey;
 
         con_assert_sticky(filename != "", "invalid parameter");
@@ -253,7 +253,7 @@ namespace igor
 
         if (nullptr == result.get())
         {
-            result = iModelPtr(new iModel(hashKey, cacheMode, parameter));
+            result = iModel_OldPtr(new iModel_Old(hashKey, cacheMode, parameter));
             _mutexModels.lock();
             _models[hashValue] = result;
             _mutexModels.unlock();
@@ -266,9 +266,9 @@ namespace igor
         return result;
     }
 
-    iModelPtr iModelResourceFactory::loadModelData(const iaString &filename, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter)
+    iModel_OldPtr iModelResourceFactory::loadModelData(const iaString &filename, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter)
     {
-        iModelPtr result;
+        iModel_OldPtr result;
         iaString hashKey;
 
         con_assert_sticky(filename != "", "invalid parameter");
@@ -304,7 +304,7 @@ namespace igor
             iNodePtr node = loadData(hashKey, parameter);
             if (node != nullptr)
             {
-                result = iModelPtr(new iModel(hashKey, cacheMode, parameter));
+                result = iModel_OldPtr(new iModel_Old(hashKey, cacheMode, parameter));
                 result->setNode(node);
                 result->setState(iModelState::Loaded);
 
@@ -314,7 +314,7 @@ namespace igor
             }
             else
             {
-                result = iModelPtr(new iModel(hashKey, cacheMode, parameter));
+                result = iModel_OldPtr(new iModel_Old(hashKey, cacheMode, parameter));
                 result->setState(iModelState::LoadFailed);
 
                 _mutexModels.lock();
@@ -358,7 +358,7 @@ namespace igor
         }
         _mutexModels.unlock();
 
-        std::vector<iModelPtr> modelsToProcess;
+        std::vector<iModel_OldPtr> modelsToProcess;
 
         _mutexModelQueue.lock();
         modelsToProcess = std::move(_loadingQueue);

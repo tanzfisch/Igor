@@ -93,7 +93,7 @@ namespace igor
         \param filename usually the file name but we are not using it here because wedon't load but generate data
         \return parameter tile parameters
         */
-        iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter);
+        iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter) override;
 
         /*! initialize members
         */

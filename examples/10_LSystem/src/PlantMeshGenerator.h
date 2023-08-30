@@ -124,7 +124,7 @@ public:
     \param sectionname name of tile section
     \return parameter tile parameters
     */
-    iNodePtr importData(const iaString &sectionName, iModelDataInputParameterPtr parameter);
+    iNodePtr importData(const iaString &sectionName, iModelDataInputParameterPtr parameter) override;
 
     /*! initialize members
      */
