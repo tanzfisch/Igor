@@ -13,7 +13,7 @@ void Example3D::onInit()
 {
     // setup camera
     // we want a camera which can be rotated around the origin
-    // we will achive that with 3 transform nodes
+    // we will achieve that with 3 transform nodes
     // one is for the heading
     iNodeTransform *cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
     // give the transform node a name. naming is optional and ist jus for helping to debug.

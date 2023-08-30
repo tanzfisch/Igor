@@ -654,7 +654,7 @@ namespace igor
     OMPF::ompfExternalReferenceChunk *iModelDataIOOMPF::createExternalReferenceChunk(iNodeModel *node)
     {
         OMPF::ompfExternalReferenceChunk *result = _ompf->createExternalReferenceChunk();
-        result->setFilename(iResourceManager::getInstance().getRelativePath(node->getFilename()));
+        result->setFilename(iResourceManager::getInstance().getRelativePath(node->getModelName()));
         return result;
     }
 

@@ -1268,7 +1268,8 @@ namespace igor
                     transformNode->translate(transform);
 
                     iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
-                    modelNode->setModel(tileName, iResourceCacheMode::Free, inputParam);
+                    // modelNode->setModel(tileName, iResourceCacheMode::Free, inputParam);
+                    modelNode->setModel(tileName); // TODO
 
                     transformNode->insertNode(modelNode);
                     insertNodeAsync(_rootNode, transformNode);
