@@ -46,6 +46,7 @@ namespace igor
     - type: the type of resource (type: iaString)
     - name: the name of the resource (type: iaString)
     - cacheMode: the cache mode of this resource (type: iResourceCacheMode)
+    - quiet: if true this resource will cause less verbose output in logging. Helpful when generating stuff
 
     Cache mode of a resource can be increased by requesting the same resource with a higher level of cache mode.
 
@@ -69,6 +70,10 @@ namespace igor
         it can also mean that we are done trying to loading it
         */
         bool isProcessed() const;
+
+        /*! \returns true if this resource will not be logged
+        */
+        bool isQuiet() const;
 
         /*! \returns the resource name
         */
@@ -102,6 +107,10 @@ namespace igor
         */
         bool _processed = false;
 
+        /*! if true resource will not be logged
+        */
+        bool _quiet = true;
+
         /*! parameters of this resource
         */
         iParameters _parameters;
@@ -125,6 +134,8 @@ namespace igor
         void setProcessed(bool processed);
 
         /*! sets valid flag on resource
+
+        \param valid the flag to set
         */
         void setValid(bool valid);
 

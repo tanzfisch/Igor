@@ -98,7 +98,7 @@ namespace igor
             _mutexMaterial.unlock();
         }
 
-        con_info("created material [" << result->getID() << "] \"" << result->getName() << "\"");
+        con_debug("created material [" << result->getID() << "] \"" << result->getName() << "\"");
 
         return result;
     }
@@ -154,7 +154,7 @@ namespace igor
             _mutexMaterial.unlock();
         }
 
-        con_info("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " shaders:" << result->getShaderProgram()->getShaderSources().size() << " (" << (cache ? "cached" : "not cached") << ")");
+        con_debug("loaded material [" << result->getID() << "] \"" << result->getName() << "\" - " << keyPath << " shaders:" << result->getShaderProgram()->getShaderSources().size() << " (" << (cache ? "cached" : "not cached") << ")");
 
         return result;
     }
@@ -196,7 +196,7 @@ namespace igor
         {
             if (materialIter->second.use_count() == 1)
             {
-                con_info("released material \"" << materialIter->second->getName() << "\"");
+                con_debug("released material \"" << materialIter->second->getName() << "\"");
                 materialIter = _materials.erase(materialIter);
                 continue;
             }

@@ -179,13 +179,12 @@ namespace igor
             } while ((animationElement = animationElement->NextSiblingElement("Animation")) != nullptr);
         }
 
-        con_info("loaded animation \"" << animation->getName());
         return true;
     }
 
     void iAnimationFactory::unloadResource(iResourcePtr resource)
     {
-        con_info("released animation \"" << resource->getName() << "\"");
+        // nothing to do here
     }
 
     iaString iAnimationFactory::getHashData(const iParameters &parameters) const

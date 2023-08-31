@@ -65,13 +65,7 @@ void ExampleCharacterController::onInit()
     // bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
     // load level
-    iParameters parameters({
-        {"name", iaString("level.ompf")},
-        {"type", iaString("model")},
-        {"cacheMode", iResourceCacheMode::Keep},
-        {"keepMesh", true},
-    });
-    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>(parameters);   
+    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>("level.ompf");   
 
     // put it in scene
     iNodeModel *levelModel = iNodeManager::getInstance().createNode<iNodeModel>();

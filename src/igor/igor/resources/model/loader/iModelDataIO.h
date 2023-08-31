@@ -42,7 +42,6 @@ namespace igor
 	*/
     class IGOR_API iModelDataIO
     {
-
     public:
         /*! \returns name of loader
         */

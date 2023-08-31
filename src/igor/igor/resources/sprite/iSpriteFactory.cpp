@@ -131,14 +131,13 @@ namespace igor
             return false;
         }
 
-        con_info("loaded sprite \"" << sprite->getName() << "\" with " << sprite->getFrameCount() << " frames.");
+        con_debug("loaded sprite \"" << sprite->getName() << "\" with " << sprite->getFrameCount() << " frames.");
         return true;
     }
 
     void iSpriteFactory::unloadResource(iResourcePtr resource)
     {
         // nothing else to do here
-        con_info("released sprite \"" << resource->getName() << "\"");
     }
 
     bool iSpriteFactory::matchingType(const iParameters &parameters) const

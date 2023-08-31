@@ -141,7 +141,7 @@ namespace igor
         }
 
         texture->setData(width, height, bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
-        con_info("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         delete[] data;
@@ -192,7 +192,7 @@ namespace igor
         };
 
         texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-        con_info("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         _mutexImageLibrary.lock();
@@ -205,7 +205,6 @@ namespace igor
     void iTextureFactory::unloadResource(iResourcePtr resource)
     {
         // nothing else to do here
-        con_info("released texture \"" << resource->getName() << "\"");
     }
 
     iaString iTextureFactory::getHashData(const iParameters &parameters) const
@@ -303,7 +302,7 @@ namespace igor
         pixmap = iPixmap::createPixmap(width, height, colorFormat);
         pixmap->setData(textureData);
 
-        con_info("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
+        con_debug("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
 
         _mutexImageLibrary.lock();
         stbi_image_free(textureData);

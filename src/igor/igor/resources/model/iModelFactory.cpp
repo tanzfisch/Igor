@@ -78,10 +78,6 @@ namespace igor
             con_err("failed to load \"" << filename << "\"");
             return false;
         }
-        else
-        {
-            con_info("loaded model \"" << filename << "\"");
-        }
 
         model->setNode(node);
         return true;
@@ -89,7 +85,7 @@ namespace igor
 
     void iModelFactory::unloadResource(iResourcePtr resource)
     {
-        con_info("released model \"" << resource->getName() << "\"");
+        // nothing to do
     }
 
     iaString iModelFactory::getHashData(const iParameters &parameters) const

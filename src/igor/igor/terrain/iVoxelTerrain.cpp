@@ -1257,6 +1257,7 @@ namespace igor
                         {"type", iaString("model")},
                         {"subType", iaString("igor.vtg")},
                         {"cacheMode", iResourceCacheMode::Free},
+                        {"quiet", true},
                         {"joinVertices", true},
                         {"material", _terrainMaterial},
                         {"voxelOffsetToNextLOD", voxelOffsetToNextLOD},

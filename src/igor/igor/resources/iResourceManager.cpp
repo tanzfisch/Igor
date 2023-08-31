@@ -279,13 +279,16 @@ namespace igor
             result->_parameters.setParameter("cacheMode", cacheMode);
         }
 
+        if (!result->isQuiet() && result->isValid())
+        {
+            con_info("loaded " << result->getType() << " \"" << result->getName() << "\"");
+        }
+
         return result;
     }
 
     void iResourceManager::flush(iResourceCacheMode cacheModeLevel)
     {
-        con_endl("iResourceManager::flush");
-
         std::vector<iResourcePtr> toUnload;
 
         _mutex.lock();
@@ -321,14 +324,16 @@ namespace igor
             if ((factory = getFactory(resource->getParameters())) != nullptr)
             {
                 factory->unloadResource(resource);
+                if (!resource->isQuiet())
+                {
+                    con_info("released " << resource->getType() << " \"" << resource->getName() << "\"");
+                }
             }
         }
 
         _mutex.lock();
         std::deque<iResourcePtr> toLoad = std::move(_loadingQueue);
         _mutex.unlock();
-
-        con_endl("toLoad " << toLoad.size());
 
         for (auto resource : toLoad)
         {
@@ -339,8 +344,6 @@ namespace igor
 
             // should never fail
             iFactoryPtr factory = getFactory(resource->getParameters());
-
-            con_endl("load " << resource->getName());
 
             resource->setValid(factory->loadResource(resource));
             resource->setProcessed(true);
@@ -526,6 +529,6 @@ namespace igor
         stream << text[static_cast<int>(cacheMode)];
 
         return stream;
-    }    
+    }
 
 } // namespace igor

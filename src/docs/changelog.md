@@ -9,6 +9,7 @@ Changelog                           {#changelog}
 - replaced iModelResourceFactory with iModelFactory which is now integrated in the iResourceManager
 - removed iTaskFlushModels and iTaskLoadModel since this is now handled in iResourceManager
 - auto start iTaskFlushResources after window is opened so the application does not need to do it anymore
+- added quiet flag to resources
 
 0.41.1
 ------
