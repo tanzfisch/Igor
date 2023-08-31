@@ -58,10 +58,6 @@ private:
 	/*! the workspace we are working with
 	*/
 	WorkspacePtr _workspace;
-
-	/*! id of resources flush task
-	*/
-	iTaskID _taskFlushResources = iTask::INVALID_TASK_ID;
 };
 
 #endif // __MICA__

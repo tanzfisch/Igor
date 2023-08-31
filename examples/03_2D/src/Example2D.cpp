@@ -19,7 +19,7 @@ void Example2D::onInit()
     _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("fallback_texture");
 
     // load a texture as sprite
-    _doughnuts = iResourceManager::getInstance().loadResource<iSprite>("doughnuts.sprite");
+    _doughnuts = iResourceManager::getInstance().requestResource<iSprite>("doughnuts.sprite");
     // setup matrix
     _doughnutsTime = iaTime::getNow();   
 

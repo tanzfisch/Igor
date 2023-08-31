@@ -118,7 +118,6 @@
 
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
-#include <igor/threading/tasks/iTaskFlushResources.h>
 
 #include <igor/simulation/iParticleSystem2D.h>
 

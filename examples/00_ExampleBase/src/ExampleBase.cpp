@@ -9,62 +9,62 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
 {
     con_info("starting example \"" << getName() << "\"");
 
-    if (getWindow() != nullptr)
+    if (getWindow() == nullptr)
     {
-        // set window title with example name
-        getWindow()->setTitle(getName());
+        return;
+    }
 
-        if (createBaseSetup)
+    // set window title with example name
+    getWindow()->setTitle(getName());
+
+    if (createBaseSetup)
+    {
+        // setup perspective view
+        _view.setName("Example Base View");
+        // set up a gray background for examples that do not set up a camera
+        _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1));
+        _view.setPerspective(45);
+        _view.setClipPlanes(0.1f, 10000.f);
+        getWindow()->addView(&_view, getZIndex());
+
+        // init scene
+        _scene = iSceneFactory::getInstance().createScene();
+        // bind scene to perspective view
+        _view.setScene(_scene);
+
+        // setup orthogonal view
+        _viewOrtho.setName("Logo View");
+        _viewOrtho.setClearColorActive(false);
+        _viewOrtho.setClearDepthActive(false);
+        _viewOrtho.setClipPlanes(0.1f, 10000.0f);
+        _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
+        _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
+        getWindow()->addView(&_viewOrtho, getZIndex() + 1);
+
+        if (createSkyBox)
         {
-            // setup perspective view
-            _view.setName("Example Base View");
-            // set up a gray background for examples that do not set up a camera
-            _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1));
-            _view.setPerspective(45);
-            _view.setClipPlanes(0.1f, 10000.f);
-            getWindow()->addView(&_view, getZIndex());
-
-            // init scene
-            _scene = iSceneFactory::getInstance().createScene();
-            // bind scene to perspective view
-            _view.setScene(_scene);
-
-            // setup orthogonal view
-            _viewOrtho.setName("Logo View");
-            _viewOrtho.setClearColorActive(false);
-            _viewOrtho.setClearDepthActive(false);
-            _viewOrtho.setClipPlanes(0.1f, 10000.0f);
-            _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-            _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
-            getWindow()->addView(&_viewOrtho, getZIndex() + 1);
-
-            _taskFlushResources = iTaskManager::getInstance().addTask(new iTaskFlushResources(window));
-
-            if (createSkyBox)
-            {
-                // create a skybox
-                iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-                // set it up with the default skybox texture
-                skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/debug.png"));
-                // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-                _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
-                _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
-                // set that material
-                skyBoxNode->setMaterial(_materialSkyBox);
-                // and add it to the scene
-                getScene()->getRoot()->insertNode(skyBoxNode);
-            }
-
-            // init fonts
-            _outlineFont = iTextureFont::create("igor/textures/StandardFontOutlined.png");
-            _standardFont = iTextureFont::create("igor/textures/StandardFont.png");
-
-            // prepare igor logo
-            iParameters param({{"name", iaString("igor/textures/splash.png")},
-                               {"type", iaString("texture")},
-                               {"buildMode", iTextureBuildMode::Normal}});
-            _igorLogo = iResourceManager::getInstance().loadResource<iTexture>(param);
+            // create a skybox
+            iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+            // set it up with the default skybox texture
+            skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/debug.png"));
+            // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
+            _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
+            _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
+            // set that material
+            skyBoxNode->setMaterial(_materialSkyBox);
+            // and add it to the scene
+            getScene()->getRoot()->insertNode(skyBoxNode);
         }
+
+        // init fonts
+        _outlineFont = iTextureFont::create("igor/textures/StandardFontOutlined.png");
+        _standardFont = iTextureFont::create("igor/textures/StandardFont.png");
+
+        // prepare igor logo
+        iParameters param({{"name", iaString("igor/textures/splash.png")},
+                           {"type", iaString("texture")},
+                           {"buildMode", iTextureBuildMode::Normal}});
+        _igorLogo = iResourceManager::getInstance().loadResource<iTexture>(param);
     }
 }
 

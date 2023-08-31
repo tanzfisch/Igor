@@ -284,6 +284,8 @@ namespace igor
 
     void iResourceManager::flush(iResourceCacheMode cacheModeLevel)
     {
+        con_endl("iResourceManager::flush");
+
         std::vector<iResourcePtr> toUnload;
 
         _mutex.lock();
@@ -326,6 +328,8 @@ namespace igor
         std::deque<iResourcePtr> toLoad = std::move(_loadingQueue);
         _mutex.unlock();
 
+        con_endl("toLoad " << toLoad.size());
+
         for (auto resource : toLoad)
         {
             if (_interruptLoading)
@@ -335,6 +339,8 @@ namespace igor
 
             // should never fail
             iFactoryPtr factory = getFactory(resource->getParameters());
+
+            con_endl("load " << resource->getName());
 
             resource->setValid(factory->loadResource(resource));
             resource->setProcessed(true);
