@@ -6,7 +6,7 @@
 
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()
 {
-    _identifier = "vtg";
+    _identifier = "example.vtg";
     _name = "Voxel Terrain Generator";
 }
 
@@ -16,13 +16,16 @@ iModelDataIO *VoxelTerrainMeshGenerator::createInstance()
     return static_cast<iModelDataIO *>(result);
 }
 
-iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameterPtr parameter)
+iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
 {
-    const TileInformation &tileInformation = std::any_cast<TileInformation>(parameter->_parameters);
-    iVoxelData *voxelData = tileInformation._voxelData;
-    int64 width = voxelData->getWidth() - 1;
-    int64 depth = voxelData->getDepth() - 1;
-    int64 height = voxelData->getHeight() - 1;
+    const iaString &sectionName = parameters.getParameter<iaString>("name", "");
+    iVoxelData *voxelData = parameters.getParameter<iVoxelData*>("voxelData", nullptr);
+    const bool keepMesh = parameters.getParameter<bool>("keepMesh", false);
+    iMaterialPtr material = parameters.getParameter<iMaterialPtr>("material", nullptr);
+
+    const int64 width = voxelData->getWidth() - 1;
+    const int64 depth = voxelData->getDepth() - 1;
+    const int64 height = voxelData->getHeight() - 1;
 
     iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 
@@ -33,9 +36,9 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iMod
     if (mesh.get() != nullptr)
     {
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-        mesh->setKeepRawData(parameter->_keepMesh);
+        mesh->setKeepRawData(keepMesh);
         meshNode->setMesh(mesh);
-        meshNode->setMaterial(tileInformation._material);
+        meshNode->setMaterial(material);
 
         iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
         targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("grass.png"), 0);

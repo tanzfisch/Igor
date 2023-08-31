@@ -122,14 +122,6 @@ private:
     */
     iScenePtr _scene = nullptr;
 
-    /*! async loading of models
-    */
-    iTaskID _taskFlushModels = iTask::INVALID_TASK_ID;
-
-    /*! async loading of textures
-    */
-    iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
-
     /*! igor logo
     */
     iTexturePtr _igorLogo;

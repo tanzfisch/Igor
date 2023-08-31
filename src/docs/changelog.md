@@ -1,7 +1,17 @@
 Changelog                           {#changelog}
 =========
 
-0.42.1
+0.42.0
+------
+
+- fixed threading sync in iResourceManager preventing resource being loaded multiple times
+- reimplemented iModel and make it a iResource
+- replaced iModelResourceFactory with iModelFactory which is now integrated in the iResourceManager
+- removed iTaskFlushModels and iTaskLoadModel since this is now handled in iResourceManager
+- auto start iTaskFlushResources after window is opened so the application does not need to do it anymore
+- added quiet flag to resources
+
+0.41.1
 ------
 
 - added missing vsync control (Windows)

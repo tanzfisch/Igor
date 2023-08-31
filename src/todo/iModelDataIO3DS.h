@@ -100,7 +100,7 @@ namespace Igor
 	public:
 
 		iModelData* loadFile(string filename);
-		void saveFile(string filename, iModel* model);
+		void saveFile(string filename, iModel_Old* model);
 
 		iLoader3DS();
 		~iLoader3DS();

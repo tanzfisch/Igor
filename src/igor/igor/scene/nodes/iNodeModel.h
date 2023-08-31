@@ -57,26 +57,37 @@ namespace igor
         friend class iNodeVisitorUpdateTransform;
 
     public:
-        /*! sets model by filename and or generator parameters
+        /*! sets model by name
 
-        \param modelName can be a filename or any unique identity name
-        \param cacheMode hint for how the resource manager is handling to cache this resource
-        \param parameters optional loading parameters
-        \param loadSynchronously load model immediately otherwise model loads asynchronously
+        \param name name of the model
         */
-        void setModel(const iaString &modelName, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameterPtr parameters = iModelDataInputParameterPtr(), bool loadSynchronously = false);
+        void setModel(const iaString &name);
+
+        /*! sets model by model reference
+
+        \param model the model reference
+        */
+        void setModel(iModelPtr model);
+
+        /*! \returns the model reference
+        */
+        iModelPtr getModel() const;
+
+        /*! \returns name of model
+        */
+        const iaString getModelName() const;
 
         /*! \returns filename of model
          */
-        iaString getFilename() const;
+        // iaString getFilename() const;
 
         /*! \returns true if model data is ready to render
          */
-        bool isValid();
+        bool isValid() const;
 
         /*! \returns true if model was loaded or attempted to be loaded
          */
-        bool isLoaded();
+        bool isLoaded() const;
 
         /*! register delegate to model loaded event
 
@@ -107,20 +118,6 @@ namespace igor
          */
         iModelReadyEvent _modelReadyEvent;
 
-        /*! filename of model
-         */
-        iaString _filename;
-
-        /*! loading parameters
-
-        can't delete them they belong (usually) to application
-        */
-        iModelDataInputParameterPtr _parameters;
-
-        /*! cache mode for model to load
-         */
-        iResourceCacheMode _cacheMode;
-
         /*! shared pointer to requested model
          */
         iModelPtr _model;
@@ -128,14 +125,6 @@ namespace igor
         /*! material to override 
         */
         iMaterialPtr _material;
-
-        /*! true if requested model was actually loaded and subtree created
-         */
-        bool _loaded = false;
-
-        /*! true if loaded and buffers are generated
-         */
-        bool _ready = false;
 
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
          */

@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iTASKFLUSHRESOURCES__
-#define __iTASKFLUSHRESOURCES__
+#ifndef __IGOR_TASKUPDATELOD__
+#define __IGOR_TASKUPDATELOD__
 
 #include <iTask.h>
 
@@ -81,4 +81,4 @@ namespace Igor
 
 };
 
-#endif
+#endif // __IGOR_TASKUPDATELOD__

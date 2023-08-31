@@ -12,6 +12,7 @@
 #include <igor/renderer/iView.h>
 #include <igor/renderer/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
+#include <igor/threading/tasks/iTaskFlushResources.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
@@ -1368,6 +1369,7 @@ namespace igor
             _impl->getExtensions();
 
             iTaskManager::getInstance().createRenderContextThreads(this);
+            iTaskManager::getInstance().addTask(new iTaskFlushResources(this));
 
             iRenderer::getInstance().init();
             iMaterialResourceFactory::getInstance().init();

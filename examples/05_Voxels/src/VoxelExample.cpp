@@ -16,7 +16,7 @@ void VoxelExample::onInit()
     initScene();
 
     // register model data io
-    iModelResourceFactory::getInstance().registerModelDataIO("example_vtg", &VoxelTerrainMeshGenerator::createInstance);
+    iModelFactory::registerModelDataIO("example.vtg", &VoxelTerrainMeshGenerator::createInstance);
 
     // generating voxels
     generateVoxelData();
@@ -25,7 +25,7 @@ void VoxelExample::onInit()
 void VoxelExample::onDeinit()
 {
     // unregister vertex mesh generator
-    iModelResourceFactory::getInstance().unregisterModelDataIO("example_vtg");
+    iModelFactory::unregisterModelDataIO("example.vtg");
 
     if(_voxelData != nullptr)
     {
@@ -228,26 +228,24 @@ void VoxelExample::generateVoxelData()
 
 void VoxelExample::prepareMeshGeneration()
 {
-    // prepar special tile information for the VoxelTerrainMeshGenerator
-    TileInformation tileInformation;
-    tileInformation._material = _voxelMeshMaterial;
-    tileInformation._voxelData = _voxelData;
-    // define the input parameter so Igor knows which iModelDataIO implementation to use and how
-    iModelDataInputParameterPtr inputParam = std::make_shared<iModelDataInputParameter>();
-    inputParam->_identifier = "example_vtg";
-    inputParam->_joinVertexes = true;
-    inputParam->_needsRenderContext = false;
-    inputParam->_modelSourceType = iModelSourceType::Generated;
-    inputParam->_loadPriority = 0;
-    inputParam->_keepMesh = true;
-    inputParam->_parameters = tileInformation;
     // create a model node
     iNodeModel *voxelMeshModel = iNodeManager::getInstance().createNode<iNodeModel>();
     voxelMeshModel->setName("VoxelMeshModel");
     _voxelMeshModel = voxelMeshModel->getID();
-    // tell the model node to load data with specified identifier ans the above defined parameter
-    // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a previous generated mesh
-    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), iResourceCacheMode::Keep, inputParam);
+    
+    // tell the model node to load data with specified parameters
+    iParameters parameters({
+        {"name", iaString("VoxelMesh") + iaString::toString(_incarnation++)},
+        {"type", iaString("model")},
+        {"subType", iaString("example.vtg")},
+        {"cacheMode", iResourceCacheMode::Keep},
+        {"joinVertexes", true},
+        {"keepMesh", true},
+        {"material", _voxelMeshMaterial},
+        {"voxelData", _voxelData}
+    });
+    voxelMeshModel->setModel(iResourceManager::getInstance().requestResource<iModel>(parameters));
+
     // create a transform node to center the mesh to the origin
     iNodeTransform *voxelMeshTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     voxelMeshTransform->setName("VoxelMeshTransform");
@@ -317,7 +315,7 @@ bool VoxelExample::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::F4:
-        iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
+        iModelFactory::exportToFile("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"));
         return true;
     }
 

@@ -43,45 +43,8 @@ namespace igor
     class iVoxelData;
     class iMeshBuilder;
 
-    /*! tile information package to be able to generate a cetain tile
-    */
-    struct iVoxelTerrainTileInformation
-    {
-        /*! level of details
-        */
-        uint32 _lod = 0;
-
-        /*! voxel data of current tile
-        */
-        iVoxelData *_voxelData = nullptr;
-
-        /*! voxel data of current tile but from next lower LOD
-        */
-        iVoxelData *_voxelDataNextLOD = nullptr;
-
-        /*! offset to next LOD in real world coordinates
-        */
-        iaVector3I _voxelOffsetToNextLOD;
-
-        /*! material of tile
-        */
-        iMaterialPtr _material;
-
-        /*! target material for given tile
-        */
-        iTargetMaterialPtr _targetMaterial;
-
-        /*! physics material of terrain tile
-        */
-        uint64 _physicsMaterialID = 0;
-
-        /*! neighbors LOD flags
-        */
-        uint32 _neighboursLOD = 0;
-    };
-
     /*! voxel terrain mesh generator
-    */
+     */
     class iVoxelTerrainMeshGenerator : public iModelDataIO
     {
 
@@ -93,14 +56,14 @@ namespace igor
         \param filename usually the file name but we are not using it here because wedon't load but generate data
         \return parameter tile parameters
         */
-        iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter);
+        iNodePtr importData(const iParameters &parameters) override;
 
         /*! initialize members
-        */
+         */
         iVoxelTerrainMeshGenerator();
 
         /*! does nothing
-        */
+         */
         virtual ~iVoxelTerrainMeshGenerator() = default;
 
         /*! creates an instance of this class

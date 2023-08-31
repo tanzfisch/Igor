@@ -56,6 +56,8 @@ if(IS_GNU)
     endif()
 endif()
 
+message(STATUS "build type '${CMAKE_BUILD_TYPE}'")
+
 # threading
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)

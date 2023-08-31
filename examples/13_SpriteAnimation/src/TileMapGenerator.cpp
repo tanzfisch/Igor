@@ -197,7 +197,7 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 		return nullptr;
 	}
 
-	iPixmapPtr pixmap = iTextureFactory::loadPixmap(filename);
+	iPixmapPtr pixmap = iPixmap::loadPixmap(filename);
 
 	iNode *result = iNodeManager::getInstance().createNode<iNode>();
 

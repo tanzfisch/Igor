@@ -45,7 +45,7 @@ namespace igor
     public:
         /*! sets sound that will be played by this source
         */
-        void setSound(iResourcePtr sound);
+        void setSound(iSoundPtr sound);
 
         /*! play back sound
         */

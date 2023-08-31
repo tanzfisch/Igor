@@ -9,7 +9,7 @@ GameLayer::GameLayer(iWindowPtr window)
 {
     _entityScene = iEntitySystemModule::getInstance().createScene();
     _entityScene->initializeQuadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT));
-    _entityScene->setBounds(iAABoxd::fromMinMax(iaVector3d(), iaVector3d(PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT, 0)));
+    _entityScene->setBounds(iAABoxd::fromMinMax(iaVector3d(), iaVector3d(PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT, 0)));    
 }
 
 void GameLayer::onInit()
@@ -25,8 +25,6 @@ void GameLayer::onInit()
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
     _viewOrtho.registerRenderDelegate({this, &GameLayer::onRenderOrtho});
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
-
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(getWindow()));
 
     // init font for render profiler
     _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
@@ -193,7 +191,7 @@ void GameLayer::readShopItems(TiXmlElement *shopItems)
                     iTimer::getInstance().getTime(),
                 };
 
-            con_endl(name << " " << projectileDamage / attackIntervall);
+            // con_endl(name << " " << projectileDamage / attackIntervall);
 
             _weapons[name] = weaponComponent;
         }
@@ -745,7 +743,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
 
     uint32 enemiesToCreate = 3 + (playerLevel * 0.2);
 
-    con_endl("enemiesToCreate " << enemiesToCreate);
+    // con_endl("enemiesToCreate " << enemiesToCreate);
 
     for (int i = 0; i < enemiesToCreate; ++i)
     {
@@ -775,12 +773,12 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         }
 
         uint32 enemyLevel = iaRandom::getNextRangeExponentialDecrease(minEnemyLevel, maxEnemyLevel, 0.6);
-        con_endl("create enemy level: " << enemyLevel);
+        // con_endl("create enemy level: " << enemyLevel);
         createUnit(pos, FOE, _player.getID(), _enemies[enemyLevel - 1]);
     }
 
-    con_endl("minEnemyLevel " << minEnemyLevel);
-    con_endl("maxEnemyLevel " << maxEnemyLevel);
+    // con_endl("minEnemyLevel " << minEnemyLevel);
+    // con_endl("maxEnemyLevel " << maxEnemyLevel);
 }
 
 void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)

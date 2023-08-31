@@ -9,7 +9,6 @@
 #include <igor/system/iApplication.h>
 #include <igor/terrain/data/iVoxelBlock.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/scene/nodes/iNodeModel.h>
@@ -17,9 +16,11 @@
 #include <igor/scene/iScene.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/iResourceManager.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/resources/model/iModelFactory.h>
 #include <igor/generation/iContouringCubes.h>
 #include <igor/generation/iPerlinNoise.h>
 #include <igor/data/iIntersection.h>
@@ -108,7 +109,7 @@ namespace igor
             _rootNode = iNodeManager::getInstance().createNode<iNode>();
             scene->getRoot()->insertNode(_rootNode);
 
-            iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
+            iModelFactory::registerModelDataIO("igor.vtg", &iVoxelTerrainMeshGenerator::createInstance);
 
             _voxelTerrainTask = iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
         }
@@ -195,12 +196,12 @@ namespace igor
         con_info("shutdown iVoxelTerrain ...");
 
         auto voxelTerrainTask = iTaskManager::getInstance().getTask(_voxelTerrainTask);
-        if(voxelTerrainTask != nullptr)
+        if (voxelTerrainTask != nullptr)
         {
             voxelTerrainTask->abort();
         }
 
-        iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
+        iModelFactory::unregisterModelDataIO("igor.vtg");
         _targetMaterial = nullptr;
     }
 
@@ -1227,31 +1228,6 @@ namespace igor
                 auto parent = _voxelBlocksMap.find(voxelBlock->_parent);
                 if (parent != _voxelBlocksMap.end())
                 {
-                    iVoxelTerrainTileInformation tileInformation;
-
-                    tileInformation._material = _terrainMaterial;
-                    tileInformation._voxelOffsetToNextLOD = childOffsetPosition[voxelBlock->_childAddress];
-                    tileInformation._voxelOffsetToNextLOD *= 16;
-                    tileInformation._voxelData = new iVoxelData();
-                    voxelBlock->_voxelData->getCopy(*(tileInformation._voxelData));
-                    tileInformation._voxelDataNextLOD = new iVoxelData();
-                    (*parent).second->_voxelData->getCopy(*(tileInformation._voxelDataNextLOD));
-                    tileInformation._lod = voxelBlock->_lod;
-                    tileInformation._neighboursLOD = voxelBlock->_neighboursLOD;
-                    tileInformation._targetMaterial = _targetMaterial;
-                    tileInformation._physicsMaterialID = _physicsMaterialID;
-
-                    // will be deleted by iModel
-                    iModelDataInputParameterPtr inputParam = std::make_shared<iModelDataInputParameter>();
-                    inputParam->_identifier = "vtg";
-                    inputParam->_joinVertexes = true;
-                    inputParam->_needsRenderContext = false;
-                    inputParam->_modelSourceType = iModelSourceType::Generated;
-                    inputParam->_loadPriority = 0;
-
-                    // makes a copy of tileInformation so it will also be deleted by iModel
-                    inputParam->_parameters = tileInformation;
-
                     iaString tileName = iaString::toString(voxelBlock->_positionInLOD._x);
                     tileName += ":";
                     tileName += iaString::toString(voxelBlock->_positionInLOD._y);
@@ -1267,8 +1243,35 @@ namespace igor
                     transform *= voxelBlock->_size;
                     transformNode->translate(transform);
 
+                    iaVector3I voxelOffsetToNextLOD(childOffsetPosition[voxelBlock->_childAddress]);
+                    voxelOffsetToNextLOD *= 16;
+
+                    iVoxelData* voxelData = new iVoxelData();
+                    voxelBlock->_voxelData->getCopy(*voxelData);
+
+                    iVoxelData* voxelDataNextLOD = new iVoxelData();
+                    (*parent).second->_voxelData->getCopy(*voxelDataNextLOD);
+
+                    iParameters parameters({
+                        {"name", tileName},
+                        {"type", iaString("model")},
+                        {"subType", iaString("igor.vtg")},
+                        {"cacheMode", iResourceCacheMode::Free},
+                        {"quiet", true},
+                        {"joinVertices", true},
+                        {"material", _terrainMaterial},
+                        {"voxelOffsetToNextLOD", voxelOffsetToNextLOD},
+                        {"voxelData", voxelData},
+                        {"voxelDataNextLOD", voxelDataNextLOD},
+                        {"lod", voxelBlock->_lod},
+                        {"neighboursLOD", voxelBlock->_neighboursLOD},
+                        {"targetMaterial", _targetMaterial},
+                        {"physicsMaterialID", _physicsMaterialID}
+                    });
+                    iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);
+
                     iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
-                    modelNode->setModel(tileName, iResourceCacheMode::Free, inputParam);
+                    modelNode->setModel(model);
 
                     transformNode->insertNode(modelNode);
                     insertNodeAsync(_rootNode, transformNode);

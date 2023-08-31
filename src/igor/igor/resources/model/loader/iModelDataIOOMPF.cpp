@@ -4,7 +4,6 @@
 
 #include <igor/resources/model/loader/iModelDataIOOMPF.h>
 
-#include <igor/resources/model/iModel.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeMesh.h>
@@ -221,10 +220,11 @@ namespace igor
         con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
         con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
 
+        const bool keepMesh = _parameters.getParameter<bool>("keepMesh", false);
+
         // create mesh node
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-        bool keepData = (_parameter != nullptr && _parameter->_keepMesh);
-
+        
         // set material properties
         iaColor3f ambient;
         iaColor3f diffuse;
@@ -267,7 +267,7 @@ namespace igor
             layout.addElement({iShaderDataType::Float2});
         }
 
-        mesh->setData(meshChunk->getIndexData(), meshChunk->getIndexDataSize(), meshChunk->getVertexData(), meshChunk->getVertexDataSize(), layout, keepData);
+        mesh->setData(meshChunk->getIndexData(), meshChunk->getIndexDataSize(), meshChunk->getVertexData(), meshChunk->getVertexDataSize(), layout, keepMesh);
 
         mesh->setVertexCount(meshChunk->getVertexCount());
         mesh->setIndexCount(meshChunk->getIndexCount());
@@ -361,10 +361,11 @@ namespace igor
         return particleSystemNode;
     }
 
-    iNodePtr iModelDataIOOMPF::importData(const iaString &filename, iModelDataInputParameterPtr parameter)
+    iNodePtr iModelDataIOOMPF::importData(const iParameters &parameters)
     {
-        _parameter = parameter;
+        _parameters = parameters;
 
+        const iaString filename = _parameters.getParameter<iaString>("filename", "");
         _ompf->loadFile(filename);
 
         if (_ompf->getRoot()->getChildren().size() == 0)
@@ -373,15 +374,8 @@ namespace igor
         }
 
         createMaterials();
-
         iNodePtr result = createNodeTree(nullptr, _ompf->getRoot()->getChildren()[0]);
-
         linkNodes(_ompf->getRoot()->getChildren()[0]);
-
-        if (result != nullptr)
-        {
-            con_info("loaded ompf \"" << filename << "\"");
-        }
 
         return result;
     }
@@ -517,8 +511,12 @@ namespace igor
         material->setRenderState(iRenderState::InstancedFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::InstancedFunc)));
     }
 
-    void iModelDataIOOMPF::exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode)
+    void iModelDataIOOMPF::exportData(const iParameters &parameters)
     {
+        iNodePtr node = parameters.getParameter<iNodePtr>("node", nullptr);
+        const iaString filename = parameters.getParameter<iaString>("filename", "");
+        const iSaveMode saveMode= parameters.getParameter<iSaveMode>("saveMode", iSaveMode::KeepExternals);
+
         con_assert(node != nullptr, "zero pointer");
         con_assert(!filename.isEmpty(), "empty string");
 
@@ -661,7 +659,7 @@ namespace igor
     OMPF::ompfExternalReferenceChunk *iModelDataIOOMPF::createExternalReferenceChunk(iNodeModel *node)
     {
         OMPF::ompfExternalReferenceChunk *result = _ompf->createExternalReferenceChunk();
-        result->setFilename(iResourceManager::getInstance().getRelativePath(node->getFilename()));
+        result->setFilename(iResourceManager::getInstance().getRelativePath(node->getModelName()));
         return result;
     }
 

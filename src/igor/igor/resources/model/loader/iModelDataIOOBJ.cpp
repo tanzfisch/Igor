@@ -4,10 +4,8 @@
 
 #include <igor/resources/model/loader/iModelDataIOOBJ.h>
 
-
 #include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaConsole.h>
-#include <igor/resources/model/iModel.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNode.h>
@@ -49,12 +47,12 @@ namespace igor
 		return static_cast<iModelDataIO *>(result);
 	}
 
-	iNodePtr iModelDataIOOBJ::importData(const iaString &filename, iModelDataInputParameterPtr parameter)
+	iNodePtr iModelDataIOOBJ::importData(const iParameters& parameters)
 	{
 		iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 		result->setName("obj_root");
 
-		if (!readFile(filename))
+		if (!readFile(parameters.getParameter<iaString>("filename", "")))
 		{
 			return 0;
 		}
@@ -64,11 +62,7 @@ namespace igor
 		for (auto section : _sections)
 		{
 			auto &meshBuilder = section.second._meshBuilder;
-
-			if (parameter != nullptr)
-			{
-				meshBuilder.setJoinVertexes(parameter->_joinVertexes);
-			}
+			meshBuilder.setJoinVertexes(parameters.getParameter<bool>("joinVertices", false));
 
 			// transfer polygons to mesh builder
 			transferToMeshBuilder(section.second);
@@ -105,16 +99,8 @@ namespace igor
 
 			if (material->_texture != "")
 			{
-				
-
 				meshNode->getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(material->_texture), 0);
-				
 			}
-		}
-
-		if (result != nullptr)
-		{
-			con_info("loaded model \"" << filename << "\"");
 		}
 
 		return result;

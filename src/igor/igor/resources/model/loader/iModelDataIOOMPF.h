@@ -70,11 +70,11 @@ namespace igor
 
     public:
         /*! does nothing
-        */
+         */
         iModelDataIOOMPF();
 
         /*! does nothing
-        */
+         */
         virtual ~iModelDataIOOMPF();
 
         /*! creates instance of this class
@@ -83,31 +83,29 @@ namespace igor
         */
         static iModelDataIO *createInstance();
 
-        /*! loades the data from filesystem and returns the result
+        /*! loads or generates data based on given parameters
 
-        \param filename filename of file to load
-        \return pointer to node tree
+        \param parameters key values pairs determine what to load or generate
         */
-        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter = nullptr);
+        iNodePtr importData(const iParameters &parameters) override;
 
-        /*! saved node and underlying tree to filesystem
+        /*! save node and underlying tree to filesystem
 
-        \param filename destination filename
-        \param node root node of tree to save
+        \param parameters export parameters
         */
-        virtual void exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals);
+        void exportData(const iParameters &parameters) override;
 
     private:
         /*! the ompf loader it self
-        */
+         */
         OMPF::OMPF *_ompf = nullptr;
 
         /*! chunk stack used while traversing the node tree
-        */
+         */
         std::vector<OMPF::ompfBaseChunk *> _chunkStack;
 
         /*! mode to use while exporting model data
-        */
+         */
         iSaveMode _saveMode;
 
         /*! file name in use while exporting
@@ -117,37 +115,35 @@ namespace igor
         iaString _filename;
 
         /*! maps chunk material id to materil id
-        */
+         */
         std::unordered_map<uint32, iMaterialID> _materialMapping;
 
         /*! maps chunk id to node id
-        */
+         */
         std::map<uint32, uint32> _chunkToNode;
 
         /*! maps node id to chunk id
-        */
+         */
         std::map<uint32, uint32> _nodeToChunk;
 
         /*! map of materials currently in use
-        */
+         */
         std::unordered_map<iMaterialID, OMPF::ompfMaterialChunk *> _materialsInUse;
 
         /*! map of reference materials in use
-        */
+         */
         std::unordered_map<iMaterialID, OMPF::ompfMaterialReferenceChunk *> _materialReferencesInUse;
 
         /*! additional input parameter
-
-        do not delete. it does not belong to you
         */
-        iModelDataInputParameterPtr _parameter = nullptr;
+        iParameters _parameters;
 
         /*! handles start of traversal
-        */
+         */
         virtual void preTraverse();
 
         /*! creates materials based on what ompf delivered
-        */
+         */
         void createMaterials();
 
         /*! creates one material
@@ -156,7 +152,7 @@ namespace igor
         */
         void createMaterial(OMPF::ompfMaterialChunk *materialChunk);
 
-        /*! creates material 
+        /*! creates material
 
         \param materialReferenceChunk the data to create the material with
         */
@@ -171,11 +167,11 @@ namespace igor
         bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
         /*! handles node stack
-        */
+         */
         void postOrderVisit(iNodePtr node) override;
 
         /*! handles end of traversal
-        */
+         */
         void postTraverse() override;
 
         /*! creates a model data tree out of ompf chunks
@@ -278,7 +274,7 @@ namespace igor
         void linkNodes(OMPF::ompfBaseChunk *currentChunk);
 
         /*! clears internal material list
-        */
+         */
         void clearMaterials();
     };
 

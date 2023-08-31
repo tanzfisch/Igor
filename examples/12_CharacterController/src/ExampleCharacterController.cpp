@@ -64,12 +64,13 @@ void ExampleCharacterController::onInit()
     bulletBullet->setName("bullet-bullet");
     // bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
-    // setup floor model
+    // load level
+    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>("level.ompf");   
+
+    // put it in scene
     iNodeModel *levelModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    iModelDataInputParameterPtr param = std::make_shared<iModelDataInputParameter>();
-    param->_keepMesh = true;
-    param->_modelSourceType = iModelSourceType::File;
-    levelModel->setModel("level.ompf", iResourceCacheMode::Keep, param);
+    levelModel->setModel(level); // "level.ompf", iResourceCacheMode::Keep, param);
+
     levelModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
     iNodeTransform *levelTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     levelTransform->insertNode(levelModel);

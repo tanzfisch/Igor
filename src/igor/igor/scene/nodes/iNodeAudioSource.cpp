@@ -42,7 +42,7 @@ namespace igor
 		iAudio::getInstance().destroySource(_source);
 	}
 
-	void iNodeAudioSource::setSound(iResourcePtr sound)
+	void iNodeAudioSource::setSound(iSoundPtr sound)
 	{
 		iAudio::getInstance().bindSource(_source, sound);
 	}

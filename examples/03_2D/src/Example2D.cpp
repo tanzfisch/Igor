@@ -19,7 +19,7 @@ void Example2D::onInit()
     _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("fallback_texture");
 
     // load a texture as sprite
-    _doughnuts = iResourceManager::getInstance().loadResource<iSprite>("doughnuts.sprite");
+    _doughnuts = iResourceManager::getInstance().requestResource<iSprite>("doughnuts.sprite");
     // setup matrix
     _doughnutsTime = iaTime::getNow();   
 
@@ -93,7 +93,7 @@ void Example2D::initMandelbrotTexture()
                        {"cacheMode", iResourceCacheMode::Keep},
                        {"pixmap", pixmap}});
 
-    _mandelbrotTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
+    _mandelbrotTexture = iResourceManager::getInstance().loadResource<iTexture>(param);
 }
 
 void Example2D::initParticleSystem()

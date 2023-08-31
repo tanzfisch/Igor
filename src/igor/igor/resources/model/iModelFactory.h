@@ -26,24 +26,54 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TEXTURE_FACTORY__
-#define __IGOR_TEXTURE_FACTORY__
+#ifndef __IGOR_MODEL_FACTORY__
+#define __IGOR_MODEL_FACTORY__
 
 #include <igor/resources/iFactory.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/model/iModel.h>
 
 namespace igor
 {
 
-    class iPixmap;
+    class iModelDataIO;
 
-    /*! this factory creates texture resources
+    __IGOR_FUNCTION_POINTER__(iCreateModelDataIOInstance, iModelDataIO *, ());
+
+    /*! this factory creates model resources
      */
-    class iTextureFactory : public iFactory
+    class iModelFactory : public iFactory
     {
-        friend class iPixmap;
+
+    public:
+        /*! registers generator
+
+        \param generator generator to register
+        */
+        static void registerModelDataIO(const iaString &identifier, iCreateModelDataIOInstance functionPointer);
+
+        /*! unregisters generator
+
+        \param generator generator to unregister
+        */
+        static void unregisterModelDataIO(const iaString &identifier);
+
+        /*! export node graph to file
+        \param filename the file to export to
+        \param node the root node of the node graph to export
+        \param saveMode the mode to handle external references
+        \param formatIdentifier name of type to export with (if not specified the file extension will be used)
+         */
+        // TODO not sure if this should stay here. Maybe we need some interface for exports in iResourceManager
+        static void exportToFile(const iaString &filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals, const iaString &formatIdentifier = "");
 
     private:
+        /*! figures out what format we are dealing with and creates a loader for it
+
+        \param filename file name of model to be loaded
+        \returns format identifier
+        */
+        static std::unique_ptr<iModelDataIO> getModelDataIO(const iaString &identifier);
+
         /*! \returns the factory type
 
         this type is used to register with the resource manager
@@ -79,40 +109,8 @@ namespace igor
         \param resource the resource to unload
         */
         void unloadResource(iResourcePtr resource) override;
-
-        /*! mutex to protect the image lib interface
-         */
-        static iaMutex _mutexImageLibrary;
-
-        /*! loads texture from given file
-
-        \param filename the given filename
-        \param texture the texture resource
-        */
-        bool loadTexture(const iaString &filename, iTexturePtr texture);
-
-        /*! generates some simple textures
-
-        \param texture the texture resource
-        \param parameters parameters to generate a texture
-        */
-        bool generateTexture(iTexturePtr texture, const iParameters &parameters);
-
-        /*! use pixmap as textures
-
-        \param pixmap the pixmap to load in to the texture
-        \param texture the texture resource
-        */
-        bool pixmapToTexture(iPixmapPtr pixmap, iTexturePtr texture);
-
-        /*! loads pixmap from file
-
-        \param filename the file to load
-        \returns pixmap
-        */
-        static iPixmapPtr loadPixmap(const iaString &filename);        
     };
 
 }; // namespace igor
 
-#endif // __IGOR_TEXTURE_FACTORY__
+#endif // __IGOR_MODEL_FACTORY__

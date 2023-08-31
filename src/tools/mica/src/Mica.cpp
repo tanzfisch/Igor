@@ -27,9 +27,6 @@ Mica::Mica()
 	iApplication::getInstance().addLayer(new OverlayLayer(_window, 10, _workspace));
 	iApplication::getInstance().addLayer(new UILayer(_window, 20, _workspace));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(_window, "Profiler", 100, iProfilerVerbosity::None));
-
-	_taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(_window));
-	_taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(_window));
 }
 
 void Mica::run(const iaString &filename)
