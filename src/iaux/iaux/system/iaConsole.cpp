@@ -320,10 +320,20 @@ namespace iaux
 
     void iaConsole::printStats()
     {
-        *this << LOCK << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
-              << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [STATS] "
-              << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl
-              << UNLOCK;
+        if (_errors != 0 || _warnings != 0)
+        {
+            *this << LOCK << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
+                  << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [-----] "
+                  << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl
+                  << UNLOCK;
+        }
+        else
+        {
+            *this << LOCK << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
+                  << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [-----] "
+                  << iaForegroundColor::Green << "OK" << endl
+                  << UNLOCK;
+        }
     }
 
     void iaConsole::activateLogfile(bool activate)
