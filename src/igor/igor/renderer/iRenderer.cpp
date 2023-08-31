@@ -549,7 +549,7 @@ namespace igor
                                    {"width", 128},
                                    {"height", 128}});
 
-        _data->_fallbackTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(paramFallback));
+        _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
 
         iParameters paramWhite({{"name", iaString("white_texture")},
                                 {"type", iaString("texture")},

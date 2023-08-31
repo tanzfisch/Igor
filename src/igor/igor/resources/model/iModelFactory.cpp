@@ -48,29 +48,31 @@ namespace igor
         const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
         iModelPtr model = std::dynamic_pointer_cast<iModel>(resource);
 
-        const auto &parameters = resource->getParameters();
+        // copy parameters to add filename
+        auto parameters = resource->getParameters();
+        parameters.setParameter("filename", filename);
 
-        iaString iotype = parameters.getParameter<iaString>("iotype", "");
-        if (iotype == "")
+        iaString subType = parameters.getParameter<iaString>("subType", "");
+        if (subType == "")
         {
             iaFile file(filename);
-            iotype = file.getExtension();
+            subType = file.getExtension();
         }
 
-        if (iotype == "")
+        if (subType == "")
         {
-            con_err("no iotype specified to load \"" << filename << "\"");
+            con_err("no subType specified to load \"" << filename << "\"");
             return false;
         }
 
-        auto modelDataIO = getModelDataIO(iotype);
+        auto modelDataIO = getModelDataIO(subType);
         if (modelDataIO == nullptr)
         {
-            con_err("unknown model data io type \"" << iotype << "\" for \"" << filename << "\"");
+            con_err("unknown model data io type \"" << subType << "\" for \"" << filename << "\"");
             return false;
         }
 
-        iNodePtr node = modelDataIO->importData(filename);
+        iNodePtr node = modelDataIO->importData(parameters);
         if (node == nullptr)
         {
             con_err("failed to load \"" << filename << "\"");
@@ -78,7 +80,7 @@ namespace igor
         }
         else
         {
-            con_info("loaded " << iotype << " \"" << filename << "\"");
+            con_info("loaded model \"" << filename << "\"");
         }
 
         model->setNode(node);
@@ -164,6 +166,25 @@ namespace igor
         _mutexDataIOs.unlock();
 
         return std::unique_ptr<iModelDataIO>(result);
+    }
+
+    void iModelFactory::exportToFile(const iaString &filename, iNodePtr node, iSaveMode saveMode, const iaString &formatIdentifier)
+    {
+        con_assert_sticky(node != nullptr, "zero pointer");
+
+        iaFile file(filename);
+        const iaString format = formatIdentifier != "" ? formatIdentifier : file.getExtension();
+
+        auto modelDataIO = getModelDataIO(format);
+        if (modelDataIO != nullptr)
+        {
+            modelDataIO->exportData(filename, node, saveMode);
+            con_info("exported " << format << " \"" << filename << "\"");
+        }
+        else
+        {
+            con_err("format \"" << format << "\" not supported");
+        }
     }
 
 }; // namespace igor

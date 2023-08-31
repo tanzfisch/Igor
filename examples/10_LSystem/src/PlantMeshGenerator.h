@@ -46,59 +46,6 @@ namespace igor
     class iTargetMaterial;
 }
 
-/*! struct to store generation information
- */
-struct PlantInformation
-{
-    /*! pointer to L-System to use
-     */
-    iLSystem *_lSystem = nullptr;
-
-    /*! starting sentence for L-System
-     */
-    wchar_t _axiom[10];
-
-    /*! iteration count
-     */
-    uint32 _iterations = 0;
-
-    /*! random seed
-     */
-    uint64 _seed = 0;
-
-    /*! segemnt length
-     */
-    float64 _segmentLenght = 0;
-
-    /*! segment rotation angle
-     */
-    float64 _segmentAngle = 0;
-
-    /*! trunk color
-     */
-    iaColor3f _trunkColor;
-
-    /*! branch color
-     */
-    iaColor3f _branchColor;
-
-    /*! bud color
-     */
-    iaColor3f _budColor;
-
-    /*! flower color
-     */
-    iaColor3f _flowerColor;
-
-    /*! leaf color
-     */
-    iaColor3f _leafColor;
-
-    /*! material
-     */
-    iMaterialPtr _material;
-};
-
 /*! plant mesh generator
  */
 class PlantMeshGenerator : public iModelDataIO
@@ -124,7 +71,7 @@ public:
     \param sectionname name of tile section
     \return parameter tile parameters
     */
-    iNodePtr importData(const iaString &sectionName, iModelDataInputParameterPtr parameter) override;
+    iNodePtr importData(const iParameters &parameters) override;
 
     /*! initialize members
      */
@@ -219,4 +166,4 @@ private:
     void generateSkeleton(const iaString &sentence);
 };
 
-#endif
+#endif // __PLANTMESHGENERATOR__

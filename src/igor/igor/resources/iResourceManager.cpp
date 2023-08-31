@@ -138,7 +138,7 @@ namespace igor
     {
         iFactoryPtr result;
 
-        const iaString type = parameters.getParameter<iaString>("type");
+        const iaString type = parameters.getParameter<iaString>("type", "");
 
         if (!type.isEmpty())
         {

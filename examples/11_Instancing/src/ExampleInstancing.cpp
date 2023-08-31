@@ -12,7 +12,6 @@
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/system/iMouse.h>
 using namespace igor;
@@ -84,7 +83,7 @@ void ExampleInstancing::onInit()
     // todo need to be able to load a mesh from file without all of this
     iMeshPtr catMesh;
     iTargetMaterialPtr catTargetMaterial;
-    iModel_OldPtr modelCat = iModelResourceFactory::getInstance().loadModelData("cat.ompf");
+    iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("cat.ompf");
     if(modelCat->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCat->getNode());
@@ -94,7 +93,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr createMesh;
     iTargetMaterialPtr crateTargetMaterial;
-    iModel_OldPtr modelCrate = iModelResourceFactory::getInstance().loadModelData("crate.ompf");
+    iModelPtr modelCrate = iResourceManager::getInstance().loadResource<iModel>("crate.ompf");
     if(modelCrate->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCrate->getNode());
@@ -104,7 +103,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr cubeMesh;
     iTargetMaterialPtr cubeTargetMaterial;
-    iModel_OldPtr modelCube = iModelResourceFactory::getInstance().loadModelData("cube_green.ompf");
+    iModelPtr modelCube = iResourceManager::getInstance().loadResource<iModel>("cube_green.ompf");
     if(modelCube->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCube->getNode());
@@ -114,7 +113,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr teapotMesh;
     iTargetMaterialPtr teapotTargetMaterial;
-    iModel_OldPtr modelTeapot = iModelResourceFactory::getInstance().loadModelData("teapot.ompf");
+    iModelPtr modelTeapot = iResourceManager::getInstance().loadResource<iModel>("teapot.ompf");
     if(modelTeapot->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelTeapot->getNode());

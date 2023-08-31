@@ -91,10 +91,6 @@ private:
     iTimerHandlePtr _spawnUnitsTimerHandle;
     iTimerHandlePtr _spawnShopTimerHandle;
 
-    /*! async loading of textures
-     */
-    iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
-
     /*! floor shadow
      */
     iSpritePtr _shadow;

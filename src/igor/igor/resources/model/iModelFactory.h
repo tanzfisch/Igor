@@ -56,9 +56,17 @@ namespace igor
         \param generator generator to unregister
         */
         static void unregisterModelDataIO(const iaString &identifier);
-      
-    private:
 
+        /*! export node graph to file
+        \param filename the file to export to
+        \param node the root node of the node graph to export
+        \param saveMode the mode to handle external references
+        \param formatIdentifier name of type to export with (if not specified the file extension will be used)
+         */
+        // TODO not sure if this should stay here. Maybe we need some interface for exports in iResourceManager
+        static void exportToFile(const iaString &filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals, const iaString &formatIdentifier = "");
+
+    private:
         /*! figures out what format we are dealing with and creates a loader for it
 
         \param filename file name of model to be loaded
@@ -101,7 +109,6 @@ namespace igor
         \param resource the resource to unload
         */
         void unloadResource(iResourcePtr resource) override;
-        
     };
 
 }; // namespace igor

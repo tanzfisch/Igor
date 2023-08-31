@@ -1,18 +1,5 @@
 #include "Workspace.h"
 
-static iModelDataInputParameterPtr createDataInputParameter()
-{
-    iModelDataInputParameterPtr parameter = std::make_shared<iModelDataInputParameter>();
-    parameter->_identifier = "";
-    parameter->_modelSourceType = iModelSourceType::File;
-    parameter->_needsRenderContext = true;
-    parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-    parameter->_joinVertexes = false;
-    parameter->_keepMesh = true;
-
-    return parameter;
-}
-
 Workspace::Workspace()
 {
     _rootMica = iNodeManager::getInstance().createNode<iNode>();
@@ -164,10 +151,16 @@ void Workspace::importFile(const iaString &filename)
     {
         return;
     }
-
+    
+    iParameters parameters({
+        {"name", filename},
+        {"type", iaString("model")},
+        {"cacheMode", iResourceCacheMode::Free},
+        {"joinVertexes", false},
+        {"keepMesh", true}
+    });
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-    iModelDataInputParameterPtr parameter = createDataInputParameter();
-    model->setModel(filename, iResourceCacheMode::Free, parameter, true);
+    model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
     if (model->isValid())
     {
@@ -231,9 +224,15 @@ void Workspace::importFileReference(const iaString &filename)
         return;
     }
 
+    iParameters parameters({
+        {"name", filename},
+        {"type", iaString("model")},
+        {"cacheMode", iResourceCacheMode::Free},
+        {"joinVertexes", false},
+        {"keepMesh", true}
+    });
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-    iModelDataInputParameterPtr parameter = createDataInputParameter();
-    model->setModel(filename, iResourceCacheMode::Free, parameter, true);
+    model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
     if (model->isValid())
     {
@@ -262,9 +261,15 @@ void Workspace::loadFile(const iaString &filename)
         return;
     }
 
+    iParameters parameters({
+        {"name", filename},
+        {"type", iaString("model")},
+        {"cacheMode", iResourceCacheMode::Free},
+        {"joinVertexes", false},
+        {"keepMesh", true}
+    });
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-    iModelDataInputParameterPtr parameter = createDataInputParameter();
-    model->setModel(filename, iResourceCacheMode::Free, parameter, true);
+    model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
     if (model->isValid())
     {

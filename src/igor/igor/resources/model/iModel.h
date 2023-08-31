@@ -42,7 +42,7 @@ namespace igor
     available parameters:
 
     - inherits all parameters from iResource    
-    - iotype: type of loader/generator used to load/generate model
+    - subType: type of loader/generator used to load/generate model
     */
     class IGOR_API iModel : public iResource
     {

@@ -96,26 +96,6 @@ namespace igor
         */
         bool fileExists(const iaString &filename);
 
-        /*! requests a resource to be loaded asynchronously
-
-        typed version for more convenience
-
-        \param name the name of the resource
-        \returns shared pointer to resource
-        */
-        template <typename T>
-        std::shared_ptr<T> requestResource(const iaString &name, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
-
-        /*! loads a resource synchronously
-
-        typed version for more convenience
-
-        \param name the name of the resource
-        \returns shared pointer to resource
-        */
-        template <typename T>
-        std::shared_ptr<T> loadResource(const iaString &name, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
-
         /*! requests a resource to be loaded asynchronously.
 
         \param param parameters for loading resource
@@ -129,6 +109,46 @@ namespace igor
         \returns shared pointer to resource
         */
         iResourcePtr loadResource(const iParameters &parameters);
+
+        /*! requests a resource to be loaded asynchronously.
+
+        template version for more convenience
+
+        \param param parameters for loading resource
+        \returns shared pointer to resource
+        */
+        template <typename T>
+        std::shared_ptr<T> requestResource(const iParameters &parameters);
+
+        /*! loads a resource synchronously.
+
+        template version for more convenience
+
+        \param param parameters for loading resource
+        \returns shared pointer to resource
+        */
+        template <typename T>
+        std::shared_ptr<T> loadResource(const iParameters &parameters);
+
+        /*! requests a resource to be loaded asynchronously
+
+        template version for more convenience
+
+        \param name the name of the resource
+        \returns shared pointer to resource
+        */
+        template <typename T>
+        std::shared_ptr<T> requestResource(const iaString &name, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
+
+        /*! loads a resource synchronously
+
+        template version for more convenience
+
+        \param name the name of the resource
+        \returns shared pointer to resource
+        */
+        template <typename T>
+        std::shared_ptr<T> loadResource(const iaString &name, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
 
         /*! works like a garbage collector.
 

@@ -402,14 +402,10 @@ namespace igor
         _impl->stopSource(source);
     }
 
-    void iAudio::bindSource(const iAudioSource &source, iResourcePtr resource)
+    void iAudio::bindSource(const iAudioSource &source, iSoundPtr sound)
     {
-        auto sound = std::dynamic_pointer_cast<iSound>(resource);
-        if (sound != nullptr)
-        {
-            _impl->setSourceDirectChannel(source, sound->getNumberOfChannels() > 1);
-            _impl->bindSource(source, sound->_buffer);
-        }
+        _impl->setSourceDirectChannel(source, sound->getNumberOfChannels() > 1);
+        _impl->bindSource(source, sound->_buffer);
     }
 
 } // namespace igor

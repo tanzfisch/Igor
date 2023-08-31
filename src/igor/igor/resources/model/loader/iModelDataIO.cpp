@@ -20,15 +20,29 @@ namespace igor
         return _identifier;
     }
 
-    iNodePtr iModelDataIO::importData(const iaString &filename, iModelDataInputParameterPtr _parameter)
+    iNodePtr iModelDataIO::importData(const iaString &filename)
     {
-        con_err("import functionality is not supported by \"" << _name << "\"");
+        iParameters parameters({{"filename", filename}});
+        return importData(parameters);
+    }
+
+    iNodePtr iModelDataIO::importData(const iParameters &parameters)
+    {
+        con_err("import functionality is not supported by \"" << _name << "\" [" << _identifier << "]");
         return nullptr;
     }
 
     void iModelDataIO::exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode)
     {
-        con_err("export functionality is not supported by \"" << _name << "\"");
+        iParameters parameters({{"filename", filename},
+                                {"node", node},
+                                {"saveMode", saveMode}});
+        exportData(parameters);
+    }
+
+    void iModelDataIO::exportData(const iParameters &parameters)
+    {
+        con_err("export functionality is not supported by \"" << _name << "\" [" << _identifier << "]");
     }
 
 } // namespace igor

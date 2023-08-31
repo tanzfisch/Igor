@@ -93,7 +93,7 @@ void Example2D::initMandelbrotTexture()
                        {"cacheMode", iResourceCacheMode::Keep},
                        {"pixmap", pixmap}});
 
-    _mandelbrotTexture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
+    _mandelbrotTexture = iResourceManager::getInstance().loadResource<iTexture>(param);
 }
 
 void Example2D::initParticleSystem()

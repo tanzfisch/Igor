@@ -33,6 +33,7 @@
 
 #include <map>
 #include <any>
+#include <memory>
 
 namespace igor
 {
@@ -111,6 +112,10 @@ namespace igor
         */
         std::map<iaString, std::any> _parameters;
     };
+
+    /*! parameters pointer definition
+    */
+    typedef std::shared_ptr<iParameters> iParametersPtr;
 
 }
 

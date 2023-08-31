@@ -5,6 +5,9 @@ Changelog                           {#changelog}
 ------
 
 - fixed threading sync in iResourceManager preventing resource being loaded multiple times
+- reimplemented iModel and make it a iResource
+- replaced iModelResourceFactory with iModelFactory which is now integrated in the iResourceManager
+- removed iTaskFlushModels and iTaskLoadModel since this is now handled in iResourceManager
 
 0.41.1
 ------

@@ -62,6 +62,25 @@ extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS;
 
 namespace igor
 {
+
+    /*! save mode for exporting node graphs
+    */
+    enum class iSaveMode
+    {
+        /*! keeps external references unchanged
+        */
+        KeepExternals,
+
+        /*! converts external reference data but keeps it in separate files
+        \todo not implemented
+        */
+        // KeepAndConvertExternals,
+
+        /*! converts external data and embeds it in to one file
+        */
+        EmbedExternals
+    };
+
     /*! horizontal alignment relative to parent widget
      */
     enum class iHorizontalAlignment

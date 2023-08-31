@@ -33,12 +33,6 @@
 using namespace igor;
 using namespace iaux;
 
-struct TileInformation
-{
-    iVoxelData *_voxelData = nullptr;
-    iMaterialPtr _material;
-};
-
 class VoxelTerrainMeshGenerator : public iModelDataIO
 {
 
@@ -59,7 +53,7 @@ public:
     \param parameter tile parameters
     \returns root node of generated scene graph
     */
-    iNodePtr importData(const iaString &sectionName, iModelDataInputParameterPtr parameter) override;
+    iNodePtr importData(const iParameters &parameters) override;
 
     /*! creates an instance of this class
 

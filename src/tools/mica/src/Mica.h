@@ -55,17 +55,13 @@ private:
 	*/
 	iWindowPtr _window = nullptr;
 
-	/*! the worspace we are working with
+	/*! the workspace we are working with
 	*/
 	WorkspacePtr _workspace;
 
-	/*! id of textures flush task
+	/*! id of resources flush task
 	*/
-	iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
-
-	/*! id of models flush task
-	*/
-	iTaskID _taskFlushModels = iTask::INVALID_TASK_ID;
+	iTaskID _taskFlushResources = iTask::INVALID_TASK_ID;
 };
 
 #endif // __MICA__

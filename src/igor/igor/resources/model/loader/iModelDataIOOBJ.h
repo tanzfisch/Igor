@@ -133,7 +133,7 @@ namespace igor
         \param filename filename of file to load
         \return pointer to node tree
         */
-        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter) override;
+        iNodePtr importData(const iParameters &parameters) override;
 
         /*! creates an instance of this class
 

@@ -26,8 +26,6 @@ void GameLayer::onInit()
     _viewOrtho.registerRenderDelegate({this, &GameLayer::onRenderOrtho});
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(getWindow()));
-
     // init font for render profiler
     _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
 

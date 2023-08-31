@@ -38,9 +38,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
             getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-            // start resource tasks
-            _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(window));
-            _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushResources(window));
+            _taskFlushResources = iTaskManager::getInstance().addTask(new iTaskFlushResources(window));
 
             if (createSkyBox)
             {
@@ -63,8 +61,9 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
 
             // prepare igor logo
             iParameters param({{"name", iaString("igor/textures/splash.png")},
+                               {"type", iaString("texture")},
                                {"buildMode", iTextureBuildMode::Normal}});
-            _igorLogo = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
+            _igorLogo = iResourceManager::getInstance().loadResource<iTexture>(param);
         }
     }
 }
@@ -85,10 +84,6 @@ ExampleBase::~ExampleBase()
         _standardFont = nullptr;
         _outlineFont = nullptr;
         _igorLogo = nullptr;
-
-        // abort resource tasks
-        iTaskManager::getInstance().abortTask(_taskFlushModels);
-        iTaskManager::getInstance().abortTask(_taskFlushTextures);
 
         _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
     }
