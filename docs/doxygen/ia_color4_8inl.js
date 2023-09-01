@@ -1,4 +1,4 @@
 var ia_color4_8inl =
 [
-    [ "operator<<", "ia_color4_8inl.html#a1da94c541a107d0b1de229e23115e164", null ]
+    [ "operator<<", "ia_color4_8inl.html#a92f943f9cbd9b8746836a63ad76ca5f4", null ]
 ];

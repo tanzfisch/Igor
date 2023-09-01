@@ -13,8 +13,8 @@ var classigor_1_1i_quadtree =
     [ "getRoot", "classigor_1_1i_quadtree.html#a951f55a41b7de3bb46e8b6b28def4e6c", null ],
     [ "getRootBox", "classigor_1_1i_quadtree.html#afa0da17523c203367c2857ecce5c6466", null ],
     [ "insert", "classigor_1_1i_quadtree.html#ab45538b5d4197a4b1c7e8fb4e513c6ef", null ],
-    [ "query", "classigor_1_1i_quadtree.html#a74a6468830a1289420f428e3458cec73", null ],
-    [ "query", "classigor_1_1i_quadtree.html#aadb9427996d556d31651d8c915fe70b1", null ],
+    [ "query", "classigor_1_1i_quadtree.html#af675ba31629c2d6a9ee26f145c102635", null ],
+    [ "query", "classigor_1_1i_quadtree.html#a0a997f8c856a4f7c3cb96e7c2c6dd968", null ],
     [ "remove", "classigor_1_1i_quadtree.html#a29acb5c8f99b8451e4da43ce5d8f1784", null ],
     [ "update", "classigor_1_1i_quadtree.html#a669fb8c2ea20232592594a840410b052", null ],
     [ "update", "classigor_1_1i_quadtree.html#a784f92ac0c202f05d35510b38a710693", null ]

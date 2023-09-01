@@ -13,7 +13,7 @@ var classigor_1_1i_task =
     [ "run", "classigor_1_1i_task.html#a534d8c554d3b391dd8d8d5b0fff0ed74", null ],
     [ "setPriority", "classigor_1_1i_task.html#a163a6b97bf654e156a039e86b400d1ab", null ],
     [ "setRepeating", "classigor_1_1i_task.html#a2fe15afa74096ff01019d5b772dd87ac", null ],
-    [ "setWorld", "classigor_1_1i_task.html#abcf689fd094a46017867b3ffc494c5ab", null ],
+    [ "setWorldID", "classigor_1_1i_task.html#a1026b9e72f2a70812938406e66575a33", null ],
     [ "iTaskManager", "classigor_1_1i_task.html#aa7c6d28227948db9e4be591864eda3a5", null ],
     [ "DEFAULT_PRIORITY", "classigor_1_1i_task.html#ab8f4a3c30b35f372959f49fae55bb966", null ],
     [ "HIGH_PRIORITY", "classigor_1_1i_task.html#abe3b2b80166e2187b1b6bc195eee195f", null ],

@@ -5,7 +5,5 @@ var dir_08e2b4362e917696118971b0583bf0bc =
     [ "iScene.cpp", "i_scene_8cpp.html", null ],
     [ "iScene.h", "i_scene_8h.html", "i_scene_8h" ],
     [ "iSceneFactory.cpp", "i_scene_factory_8cpp.html", null ],
-    [ "iSceneFactory.h", "i_scene_factory_8h.html", [
-      [ "iSceneFactory", "classigor_1_1i_scene_factory.html", "classigor_1_1i_scene_factory" ]
-    ] ]
+    [ "iSceneFactory.h", "i_scene_factory_8h.html", "i_scene_factory_8h" ]
 ];

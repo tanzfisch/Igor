@@ -2,7 +2,7 @@ var classigor_1_1i_physics_body =
 [
     [ "iPhysicsBody", "classigor_1_1i_physics_body.html#a00fd46e297452a1604764d2a8a116b0e", null ],
     [ "~iPhysicsBody", "classigor_1_1i_physics_body.html#a83ad03b0acfd68626ab17dd5cd4feceb", null ],
-    [ "applyForceAndTorque", "classigor_1_1i_physics_body.html#aafe77c4b2e71b4c41530c4a70f6218f4", null ],
+    [ "applyForceAndTorque", "classigor_1_1i_physics_body.html#ae472a8c3ba8ca6ba0e60cb978c32af50", null ],
     [ "getAngularDamping", "classigor_1_1i_physics_body.html#a302a3c1bf10a46240b19729cd1225b33", null ],
     [ "getForce", "classigor_1_1i_physics_body.html#a944926781229464caaaf66020623606d", null ],
     [ "getID", "classigor_1_1i_physics_body.html#a4ebd76af5f016f496f619adb8fdc00e7", null ],

@@ -1,6 +1,6 @@
 var i_profiler_visualizer_8h =
 [
-    [ "iProfilerVisualizer", "classigor_1_1i_profiler_visualizer.html", "classigor_1_1i_profiler_visualizer" ],
+    [ "igor::iProfilerVisualizer", "classigor_1_1i_profiler_visualizer.html", "classigor_1_1i_profiler_visualizer" ],
     [ "iProfilerVerbosity", "i_profiler_visualizer_8h.html#a193be8f841d4c6f25dd9e11711ebeb2d", [
       [ "None", "i_profiler_visualizer_8h.html#a193be8f841d4c6f25dd9e11711ebeb2da6adf97f83acf6453d4a6a4b1070f3754", null ],
       [ "FPSOnly", "i_profiler_visualizer_8h.html#a193be8f841d4c6f25dd9e11711ebeb2da21ff57bb8b0ed51910e4d1d624ef00c1", null ],

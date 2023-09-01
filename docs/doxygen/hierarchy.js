@@ -1,6 +1,5 @@
 var hierarchy =
 [
-    [ "igor::ConvexCastReturnInfo", "structigor_1_1_convex_cast_return_info.html", null ],
     [ "std::enable_shared_from_this", null, [
       [ "igor::iEntityScene", "classigor_1_1i_entity_scene.html", null ]
     ] ],
@@ -74,7 +73,11 @@ var hierarchy =
     [ "igor::iAudioSource", "structigor_1_1i_audio_source.html", null ],
     [ "iaux::iaUUID", "classiaux_1_1ia_u_u_i_d.html", null ],
     [ "iaux::iaVector2< T >", "structiaux_1_1ia_vector2.html", null ],
+    [ "iaux::iaVector2< F >", "structiaux_1_1ia_vector2.html", null ],
     [ "iaux::iaVector3< T >", "structiaux_1_1ia_vector3.html", null ],
+    [ "iaux::iaVector3< float32 >", "structiaux_1_1ia_vector3.html", null ],
+    [ "iaux::iaVector3< float64 >", "structiaux_1_1ia_vector3.html", null ],
+    [ "iaux::iaVector3< int64 >", "structiaux_1_1ia_vector3.html", null ],
     [ "iaux::iaVector4< T >", "structiaux_1_1ia_vector4.html", null ],
     [ "igor::iBaseEntityComponent", "structigor_1_1i_base_entity_component.html", null ],
     [ "igor::iBehaviourComponent", "structigor_1_1i_behaviour_component.html", null ],
@@ -89,8 +92,8 @@ var hierarchy =
     [ "igor::iCircleCollision2DComponent", "structigor_1_1i_circle_collision2_d_component.html", null ],
     [ "igor::iClip", "classigor_1_1i_clip.html", null ],
     [ "igor::iComponentMap< T >", "classigor_1_1i_component_map.html", null ],
-    [ "igor::iConfigReader", "classigor_1_1i_config_reader.html", null ],
     [ "igor::iContouringCubes", "classigor_1_1i_contouring_cubes.html", null ],
+    [ "igor::iConvexCastReturnInfo", "structigor_1_1i_convex_cast_return_info.html", null ],
     [ "igor::iDeleteComponent", "structigor_1_1i_delete_component.html", null ],
     [ "igor::iEmitterTriangle", "classigor_1_1i_emitter_triangle.html", null ],
     [ "igor::iEntity", "classigor_1_1i_entity.html", null ],
@@ -123,6 +126,7 @@ var hierarchy =
     ] ],
     [ "igor::iFactory", "classigor_1_1i_factory.html", [
       [ "igor::iAnimationFactory", "classigor_1_1i_animation_factory.html", null ],
+      [ "igor::iModelFactory", "classigor_1_1i_model_factory.html", null ],
       [ "igor::iSoundFactory", "classigor_1_1i_sound_factory.html", null ],
       [ "igor::iSpriteFactory", "classigor_1_1i_sprite_factory.html", null ],
       [ "igor::iTextureFactory", "classigor_1_1i_texture_factory.html", null ]
@@ -153,13 +157,12 @@ var hierarchy =
     [ "igor::iMeshBuffers", "classigor_1_1i_mesh_buffers.html", null ],
     [ "igor::iMeshBuilder", "classigor_1_1i_mesh_builder.html", null ],
     [ "igor::iMeshDeleter", "classigor_1_1i_mesh_deleter.html", null ],
-    [ "igor::iModel", "classigor_1_1i_model.html", null ],
-    [ "igor::iModelDataInputParameter", "structigor_1_1i_model_data_input_parameter.html", null ],
     [ "igor::iModelDataIO", "classigor_1_1i_model_data_i_o.html", [
       [ "igor::iModelDataIOOBJ", "classigor_1_1i_model_data_i_o_o_b_j.html", null ],
       [ "igor::iModelDataIOOMPF", "classigor_1_1i_model_data_i_o_o_m_p_f.html", null ],
       [ "igor::iVoxelTerrainMeshGenerator", "classigor_1_1i_voxel_terrain_mesh_generator.html", null ]
     ] ],
+    [ "igor::iModelDeleter", "classigor_1_1i_model_deleter.html", null ],
     [ "igor::iModule< T >", "classigor_1_1i_module.html", null ],
     [ "igor::iModule< iActionManager >", "classigor_1_1i_module.html", [
       [ "igor::iActionManager", "classigor_1_1i_action_manager.html", null ]
@@ -170,6 +173,9 @@ var hierarchy =
     [ "igor::iModule< iAudio >", "classigor_1_1i_module.html", [
       [ "igor::iAudio", "classigor_1_1i_audio.html", null ]
     ] ],
+    [ "igor::iModule< iConfigReader >", "classigor_1_1i_module.html", [
+      [ "igor::iConfigReader", "classigor_1_1i_config_reader.html", null ]
+    ] ],
     [ "igor::iModule< iEntitySystemModule >", "classigor_1_1i_module.html", [
       [ "igor::iEntitySystemModule", "classigor_1_1i_entity_system_module.html", null ]
     ] ],
@@ -178,9 +184,6 @@ var hierarchy =
     ] ],
     [ "igor::iModule< iMaterialResourceFactory >", "classigor_1_1i_module.html", [
       [ "igor::iMaterialResourceFactory", "classigor_1_1i_material_resource_factory.html", null ]
-    ] ],
-    [ "igor::iModule< iModelResourceFactory >", "classigor_1_1i_module.html", [
-      [ "igor::iModelResourceFactory", "classigor_1_1i_model_resource_factory.html", null ]
     ] ],
     [ "igor::iModule< iMouse >", "classigor_1_1i_module.html", [
       [ "igor::iMouse", "classigor_1_1i_mouse.html", null ]
@@ -290,6 +293,7 @@ var hierarchy =
     [ "igor::iRenderStateSet", "classigor_1_1i_render_state_set.html", null ],
     [ "igor::iResource", "classigor_1_1i_resource.html", [
       [ "igor::iAnimation", "classigor_1_1i_animation.html", null ],
+      [ "igor::iModel", "classigor_1_1i_model.html", null ],
       [ "igor::iSound", "classigor_1_1i_sound.html", null ],
       [ "igor::iSprite", "classigor_1_1i_sprite.html", null ],
       [ "igor::iTexture", "classigor_1_1i_texture.html", null ]
@@ -303,10 +307,8 @@ var hierarchy =
     [ "igor::iTargetMaterial", "classigor_1_1i_target_material.html", null ],
     [ "igor::iTargetMaterialDeleter", "classigor_1_1i_target_material_deleter.html", null ],
     [ "igor::iTask", "classigor_1_1i_task.html", [
-      [ "igor::iTaskFlushModels", "classigor_1_1i_task_flush_models.html", null ],
       [ "igor::iTaskFlushResources", "classigor_1_1i_task_flush_resources.html", null ],
       [ "igor::iTaskGenerateVoxels", "classigor_1_1i_task_generate_voxels.html", null ],
-      [ "igor::iTaskLoadModel", "classigor_1_1i_task_load_model.html", null ],
       [ "igor::iTaskPrepareCollision", "classigor_1_1i_task_prepare_collision.html", null ],
       [ "igor::iTaskPropsOnVoxels", "classigor_1_1i_task_props_on_voxels.html", null ],
       [ "igor::iTaskVoxelTerrain", "classigor_1_1i_task_voxel_terrain.html", null ]
@@ -331,7 +333,6 @@ var hierarchy =
     ] ],
     [ "igor::iVoxelPole", "structigor_1_1i_voxel_pole.html", null ],
     [ "igor::iVoxelTerrain", "classigor_1_1i_voxel_terrain.html", null ],
-    [ "igor::iVoxelTerrainTileInformation", "structigor_1_1i_voxel_terrain_tile_information.html", null ],
     [ "igor::iWAVHeader", "structigor_1_1i_w_a_v_header.html", null ],
     [ "igor::iWidget", "classigor_1_1i_widget.html", [
       [ "igor::iDialog", "classigor_1_1i_dialog.html", [

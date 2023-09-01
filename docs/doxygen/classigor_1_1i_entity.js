@@ -4,14 +4,14 @@ var classigor_1_1i_entity =
     [ "iEntity", "classigor_1_1i_entity.html#a034d48657bcfee9784621e7dead413a9", null ],
     [ "iEntity", "classigor_1_1i_entity.html#a8154c12297de2c3314c8ec53aeee14fc", null ],
     [ "addBehaviour", "classigor_1_1i_entity.html#a2b502dbc389ffc42e66e4f64be20244c", null ],
-    [ "addComponent", "classigor_1_1i_entity.html#a5662f4d8cc571d478d65e2d8b54a4620", null ],
-    [ "addUserComponent", "classigor_1_1i_entity.html#a91be8c4a2aac9fbc62c92b243c72f9f1", null ],
-    [ "getComponent", "classigor_1_1i_entity.html#ad91b834d9240d465d9681462dfff3c14", null ],
+    [ "addComponent", "classigor_1_1i_entity.html#addc632da10b136d5f3f4de07ea2bca98", null ],
+    [ "addUserComponent", "classigor_1_1i_entity.html#a74a1575c5bff3c87a5f951a552b0fec5", null ],
+    [ "getComponent", "classigor_1_1i_entity.html#a876c0b6fa9a78b769b97b272e9c904d1", null ],
     [ "getID", "classigor_1_1i_entity.html#a9ea46b1989d4770694f09446b37a383f", null ],
     [ "getMotionInteractionType", "classigor_1_1i_entity.html#a9aedac0202184d7857439a6adbaf1ab0", null ],
     [ "getName", "classigor_1_1i_entity.html#ae0618808376366fc784f7cf24ce3df6f", null ],
     [ "getParent", "classigor_1_1i_entity.html#aef5872f9faf5eb682e76aa935815e1ce", null ],
-    [ "getUserComponent", "classigor_1_1i_entity.html#aa906493fbb93ad017b69b6441b232891", null ],
+    [ "getUserComponent", "classigor_1_1i_entity.html#adeec6c0cdb784d7080fa91330579843d", null ],
     [ "isActive", "classigor_1_1i_entity.html#a5665c607fbf857d87cad88672b3c8eb0", null ],
     [ "isValid", "classigor_1_1i_entity.html#a5ab4ce39ad5b05b6d3d9366da24f06d9", null ],
     [ "removeBehaviour", "classigor_1_1i_entity.html#a46acdc86303f200d180e808bcdb5db51", null ],
@@ -20,6 +20,6 @@ var classigor_1_1i_entity =
     [ "setMotionInteractionType", "classigor_1_1i_entity.html#a6bc6b8e4a209b03816cce963fd44e0ce", null ],
     [ "setName", "classigor_1_1i_entity.html#a68ad0bce53808ed00f534b722c705685", null ],
     [ "setParent", "classigor_1_1i_entity.html#a12522c0b5885b344a9f1c2afbe2fd441", null ],
-    [ "tryGetComponent", "classigor_1_1i_entity.html#a260228e3bd3d7f5aeba7d7a8860dc7b3", null ],
-    [ "tryGetUserComponent", "classigor_1_1i_entity.html#aebbe4f2c061d643581c56273d28bc32f", null ]
+    [ "tryGetComponent", "classigor_1_1i_entity.html#a9b373d0d5e85e069c6321d324d19b4d6", null ],
+    [ "tryGetUserComponent", "classigor_1_1i_entity.html#a37b3fa57f75552f5cea27343f05cfdb8", null ]
 ];

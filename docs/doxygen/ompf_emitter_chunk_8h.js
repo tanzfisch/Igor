@@ -1,6 +1,6 @@
 var ompf_emitter_chunk_8h =
 [
-    [ "ompfEmitterChunk", "class_o_m_p_f_1_1ompf_emitter_chunk.html", "class_o_m_p_f_1_1ompf_emitter_chunk" ],
+    [ "OMPF::ompfEmitterChunk", "class_o_m_p_f_1_1ompf_emitter_chunk.html", "class_o_m_p_f_1_1ompf_emitter_chunk" ],
     [ "Circle", "ompf_emitter_chunk_8h.html#a4347e07a7e65ba8b2203de8cf50a3655", null ],
     [ "Disc", "ompf_emitter_chunk_8h.html#a085efb676da5d303461a88b02ea134aa", null ],
     [ "Mesh", "ompf_emitter_chunk_8h.html#ac9b3996998332cf8a503b4fbcaa6b200", null ],

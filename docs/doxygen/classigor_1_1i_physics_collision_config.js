@@ -13,5 +13,5 @@ var classigor_1_1i_physics_collision_config =
     [ "set", "classigor_1_1i_physics_collision_config.html#a79af3ce0bea02aada14fb53ed6648824", null ],
     [ "iPhysics", "classigor_1_1i_physics_collision_config.html#a68f9306b9fe2369173dfd12456aa5d41", null ],
     [ "iTaskPrepareCollision", "classigor_1_1i_physics_collision_config.html#a991e320c12c9be652b879e91da5eda19", null ],
-    [ "INVALID_COLLISIONCONFIG_ID", "classigor_1_1i_physics_collision_config.html#a93bbe5f38154facfd05a3078679f2786", null ]
+    [ "INVALID_COLLISIONCONFIG_ID", "classigor_1_1i_physics_collision_config.html#ae4a570f52efa16b1fa90a019f8682f88", null ]
 ];

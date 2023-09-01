@@ -1,7 +1,7 @@
 var i_particle_emitter_8h =
 [
-    [ "iEmitterTriangle", "classigor_1_1i_emitter_triangle.html", "classigor_1_1i_emitter_triangle" ],
-    [ "iParticleEmitter", "classigor_1_1i_particle_emitter.html", "classigor_1_1i_particle_emitter" ],
+    [ "igor::iEmitterTriangle", "classigor_1_1i_emitter_triangle.html", "classigor_1_1i_emitter_triangle" ],
+    [ "igor::iParticleEmitter", "classigor_1_1i_particle_emitter.html", "classigor_1_1i_particle_emitter" ],
     [ "Circle", "i_particle_emitter_8h.html#a4347e07a7e65ba8b2203de8cf50a3655", null ],
     [ "Disc", "i_particle_emitter_8h.html#a085efb676da5d303461a88b02ea134aa", null ],
     [ "Mesh", "i_particle_emitter_8h.html#ac9b3996998332cf8a503b4fbcaa6b200", null ],

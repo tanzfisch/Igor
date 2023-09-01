@@ -1,8 +1,8 @@
 var classiaux_1_1ia_test =
 [
-    [ "getGroupName", "classiaux_1_1ia_test.html#a09d560195c86d7974442457821227b18", null ],
-    [ "getLocation", "classiaux_1_1ia_test.html#a695531900cfbb70839018e8ed15353fa", null ],
-    [ "getName", "classiaux_1_1ia_test.html#ae3555e5a0642270218e1a3bf4b864bd4", null ],
+    [ "getGroupName", "classiaux_1_1ia_test.html#a4f219a87c06f20f2d0f0efec3a971ee0", null ],
+    [ "getLocation", "classiaux_1_1ia_test.html#a5fac6f7f32de0eb5484080f5307f94d6", null ],
+    [ "getName", "classiaux_1_1ia_test.html#a5fa4abca61ed2825ea6c1a803d311883", null ],
     [ "initTests", "classiaux_1_1ia_test.html#ad395fb4e298a48b689563783b9d16851", null ],
     [ "registerTest", "classiaux_1_1ia_test.html#a2172e092a6f674f89610f1545b77d3fa", null ],
     [ "run", "classiaux_1_1ia_test.html#a7719f538e6d314b005aa799dd920c714", null ],

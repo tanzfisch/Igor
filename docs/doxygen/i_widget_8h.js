@@ -1,6 +1,6 @@
 var i_widget_8h =
 [
-    [ "iWidget", "classigor_1_1i_widget.html", "classigor_1_1i_widget" ],
+    [ "igor::iWidget", "classigor_1_1i_widget.html", "classigor_1_1i_widget" ],
     [ "iWidgetID", "i_widget_8h.html#a6dec690b4a7acd298de5f80518354286", null ],
     [ "iWidgetPtr", "i_widget_8h.html#a5e7f4b33adda456ed69993cc2eda4784", null ],
     [ "iWidgetKind", "i_widget_8h.html#a884bc0e021cdad71883e36d0f800cb1f", [

@@ -1,6 +1,6 @@
 var i_voxel_block_8h =
 [
-    [ "iVoxelBlock", "structigor_1_1i_voxel_block.html", "structigor_1_1i_voxel_block" ],
+    [ "igor::iVoxelBlock", "structigor_1_1i_voxel_block.html", "structigor_1_1i_voxel_block" ],
     [ "iVoxelBlockState", "i_voxel_block_8h.html#a03f04fe27cf12ba6fd1ea3765951324e", [
       [ "Initial", "i_voxel_block_8h.html#a03f04fe27cf12ba6fd1ea3765951324ea4f2a91e15af2631ff9424564b8a45fb2", null ],
       [ "Setup", "i_voxel_block_8h.html#a03f04fe27cf12ba6fd1ea3765951324eaad2376beebecdcf7846ba973fa1a005b", null ],

@@ -1,6 +1,7 @@
 var classigor_1_1i_texture =
 [
     [ "bind", "classigor_1_1i_texture.html#a053ce8b6a34836d6512706997ac32f0f", null ],
+    [ "calcMipMapLevels", "classigor_1_1i_texture.html#ad9da4f1dd45c8ba483e8223c30184b02", null ],
     [ "getBpp", "classigor_1_1i_texture.html#a68031705549e971411454673cb9a9ff4", null ],
     [ "getBuildMode", "classigor_1_1i_texture.html#ae1bb76ef887aa8923f1f227d691b24ec", null ],
     [ "getColorFormat", "classigor_1_1i_texture.html#a1d68f82960a5836f23b6a5f7d5def7d7", null ],

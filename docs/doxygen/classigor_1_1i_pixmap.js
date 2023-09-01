@@ -14,6 +14,7 @@ var classigor_1_1i_pixmap =
     [ "getPixel", "classigor_1_1i_pixmap.html#af852e5f4ba337ed48bff612208492d49", null ],
     [ "getPixelBiLinear", "classigor_1_1i_pixmap.html#aa7f0cf5247f1daae656c262222c586b7", null ],
     [ "getWidth", "classigor_1_1i_pixmap.html#abf2569fb85119900af682bef7423cf35", null ],
+    [ "loadPixmap", "classigor_1_1i_pixmap.html#aa644c7f3c8dbc477cb6787a01f9ef5ed", null ],
     [ "setData", "classigor_1_1i_pixmap.html#a8f944340ec4f4e4f2c7947208bc0df78", null ],
     [ "setPixel", "classigor_1_1i_pixmap.html#a0c0dc5c18d1608f215f4f7a82cef5dcc", null ],
     [ "setPixel", "classigor_1_1i_pixmap.html#a917d5129678f9b782c8f7d6b5371d519", null ],

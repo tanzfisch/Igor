@@ -5,14 +5,9 @@ var dir_8014f3091252cd9f35a6575fa90615ff =
     [ "iEntity.cpp", "i_entity_8cpp.html", null ],
     [ "iEntity.h", "i_entity_8h.html", "i_entity_8h" ],
     [ "iEntityScene.cpp", "i_entity_scene_8cpp.html", "i_entity_scene_8cpp" ],
-    [ "iEntityScene.h", "i_entity_scene_8h.html", [
-      [ "iEntityScene", "classigor_1_1i_entity_scene.html", "classigor_1_1i_entity_scene" ]
-    ] ],
+    [ "iEntityScene.h", "i_entity_scene_8h.html", "i_entity_scene_8h" ],
+    [ "iEntityScene.inl", "i_entity_scene_8inl.html", null ],
     [ "iEntitySystem.h", "i_entity_system_8h.html", "i_entity_system_8h" ],
-    [ "iEntitySystemModule.cpp", "i_entity_system_module_8cpp.html", [
-      [ "iEntitySceneDeleter", "classigor_1_1i_entity_scene_deleter.html", "classigor_1_1i_entity_scene_deleter" ]
-    ] ],
-    [ "iEntitySystemModule.h", "i_entity_system_module_8h.html", [
-      [ "iEntitySystemModule", "classigor_1_1i_entity_system_module.html", "classigor_1_1i_entity_system_module" ]
-    ] ]
+    [ "iEntitySystemModule.cpp", "i_entity_system_module_8cpp.html", "i_entity_system_module_8cpp" ],
+    [ "iEntitySystemModule.h", "i_entity_system_module_8h.html", "i_entity_system_module_8h" ]
 ];
