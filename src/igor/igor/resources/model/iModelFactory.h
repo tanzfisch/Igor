@@ -41,7 +41,7 @@ namespace igor
 
     /*! this factory creates model resources
      */
-    class iModelFactory : public iFactory
+    class IGOR_API iModelFactory : public iFactory
     {
 
     public:
