@@ -130,7 +130,6 @@ namespace igor
         iSceneFactory::create();
         iNodeManager::create();
         iTaskManager::create();
-        iModelResourceFactory::create();
         iEntitySystemModule::create();
     }
 
@@ -142,14 +141,14 @@ namespace igor
             iEntitySystemModule::destroy();
         }
 
-        if (iModelResourceFactory::isInstantiated())
-        {
-            iModelResourceFactory::destroy();
-        }
-
         if (iTaskManager::isInstantiated())
         {
             iTaskManager::destroy();
+        }
+
+        if (iResourceManager::isInstantiated())
+        {
+            iResourceManager::destroy();
         }
 
         if (iNodeManager::isInstantiated())
@@ -165,11 +164,6 @@ namespace igor
         if (iWidgetManager::isInstantiated())
         {
             iWidgetManager::destroy();
-        }
-
-        if (iResourceManager::isInstantiated())
-        {
-            iResourceManager::destroy();
         }
 
         if (iMaterialResourceFactory::isInstantiated())

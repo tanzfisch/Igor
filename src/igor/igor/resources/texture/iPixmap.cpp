@@ -5,6 +5,7 @@
 #include <igor/resources/texture/iPixmap.h>
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/resources/texture/iTextureFactory.h>
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
@@ -19,6 +20,11 @@ namespace igor
     iPixmapPtr iPixmap::createPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
     {
         return iPixmapPtr(new iPixmap(width, height, colorFormat));
+    }
+
+    iPixmapPtr iPixmap::loadPixmap(const iaString &filename)
+    {
+        return iTextureFactory::loadPixmap(filename);
     }
 
     iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat colorFormat)

@@ -63,7 +63,7 @@ namespace igor
                 break;
             }
 
-            con_info("loaded sound \"" << sound->getName() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
+            con_debug("loaded sound \"" << sound->getName() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
         }
 
         delete[] buffer;
@@ -76,8 +76,6 @@ namespace igor
         con_assert(sound != nullptr, "zero pointer");
 
         iAudio::getInstance().destroyBuffer(sound->_buffer);
-
-        con_info("released sound \"" << resource->getName() << "\"");
     }
 
     iaString iSoundFactory::getHashData(const iParameters &parameters) const

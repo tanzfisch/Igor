@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['quad_5ftexture_5fcoords_6602',['QUAD_TEXTURE_COORDS',['../namespaceigor.html#abb274253c15d7b0ae396c1046f1c5778',1,'igor']]],
-  ['quad_5fvertex_5fpositions_6603',['QUAD_VERTEX_POSITIONS',['../namespaceigor.html#a81faf6fe0c245ab777cf7be76f367855',1,'igor']]]
+  ['quad_5ftexture_5fcoords_0',['QUAD_TEXTURE_COORDS',['../i_renderer_8inl.html#a2270546ec21ae39f6fdfd60389f186e3',1,'iRenderer.inl']]],
+  ['quad_5fvertex_5fpositions_1',['QUAD_VERTEX_POSITIONS',['../i_renderer_8inl.html#ad0add63bde4a3f87f9eab26fadc58623',1,'iRenderer.inl']]]
 ];

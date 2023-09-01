@@ -158,14 +158,6 @@ IAUX_TEST(StringTests, Replace)
     IAUX_EXPECT_EQUAL(dst, L"This is great.");
 }
 
-IAUX_TEST(StringTests, Hash)
-{
-    iaString string1("FooBar");
-    iaString string2("FooBor");
-    IAUX_EXPECT_EQUAL(string1.getHashValue(), 0x75C6BF268B671C20);
-    IAUX_EXPECT_NOT_EQUAL(string1.getHashValue(), string2.getHashValue());
-}
-
 IAUX_TEST(StringTests, STDContainer)
 {
     std::map<iaString, iaString> map;

@@ -37,8 +37,10 @@ namespace igor
     /*! this task triggers the resource manager flush function repeatedly
 
     when ever there was a resource requested this task get's it actually loaded from disk
+
+    will be added to the task manager after window was opened
     */
-    class IGOR_API iTaskFlushResources : public iTask
+    class iTaskFlushResources : public iTask
     {
 
     public:

@@ -1,6 +1,6 @@
 var ia_file_8h =
 [
-    [ "iaFile", "classiaux_1_1ia_file.html", "classiaux_1_1ia_file" ],
+    [ "iaux::iaFile", "classiaux_1_1ia_file.html", "classiaux_1_1ia_file" ],
     [ "iFileOpenMode", "ia_file_8h.html#af9b0e0101196becafc1d8de41c5a85bc", [
       [ "ReadBinary", "ia_file_8h.html#af9b0e0101196becafc1d8de41c5a85bca087df96b394ba2f8b205fa9452fe2473", null ],
       [ "WriteBinary", "ia_file_8h.html#af9b0e0101196becafc1d8de41c5a85bcaf3de1e6f327fc28e955c698773c74045", null ],

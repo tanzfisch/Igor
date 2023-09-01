@@ -7,5 +7,7 @@ var i_renderer_utils_8cpp =
     [ "operator<<", "i_renderer_utils_8cpp.html#a6335918dfc420002da79572d7e31d949", null ],
     [ "operator<<", "i_renderer_utils_8cpp.html#ac92230d80889f8be6b2b790b446f0af3", null ],
     [ "operator<<", "i_renderer_utils_8cpp.html#a7de607f349317d2b9db440afae3aa8ef", null ],
-    [ "operator<<", "i_renderer_utils_8cpp.html#a661a283e2f7b9de377a82fbffcf74456", null ]
+    [ "operator<<", "i_renderer_utils_8cpp.html#a661a283e2f7b9de377a82fbffcf74456", null ],
+    [ "operator<<", "i_renderer_utils_8cpp.html#aae042d933b0aee8d52ce7082bb61e40c", null ],
+    [ "operator<<", "i_renderer_utils_8cpp.html#aa509d274f8a5a4a3720552820a0b6c11", null ]
 ];

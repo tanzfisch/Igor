@@ -29,38 +29,19 @@
 #ifndef __IGOR_MODELDATAIO__
 #define __IGOR_MODELDATAIO__
 
+#include <igor/scene/nodes/iNode.h>
+#include <igor/data/iParameters.h>
+
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#include <igor/scene/nodes/iNode.h>
-#include <igor/resources/model/iModel.h>
-
 namespace igor
 {
-
-    /*! save mode
-    */
-    enum class iSaveMode
-    {
-        /*! keeps external references unchanged
-        */
-        KeepExternals,
-
-        /*! converts external reference data but keeps it in seperate files
-        \todo not implemented
-        */
-        // KeepAndConvertExternals,
-
-        /*! converts external data and embeds it in to one file
-        */
-        EmbedExternals
-    };
 
     /*! pure abstract interface for node tree loaders
 	*/
     class IGOR_API iModelDataIO
     {
-
     public:
         /*! \returns name of loader
         */
@@ -70,21 +51,31 @@ namespace igor
         */
         const iaString &getIdentifier();
 
-        /*! loades the data from filesystem and returns the result 
-        
-        (in some cases the data might not be loaded but generated)
+        /*! loads or generates data based on given parameters
 
-		\param filename filename of file to load
-		\return parameter optional import or generate parameters
+        \param parameters key values pairs determine what to load or generate
+        */
+        virtual iNodePtr importData(const iParameters &parameters);
+
+        /*! save node and underlying tree to filesystem
+
+		\param parameters export parameters
 		*/
-        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter = nullptr);
+        virtual void exportData(const iParameters &parameters);
 
-        /*! saved node and underlying tree to filesystem
+        /*! specialized version of importData
 
-		\param filename destination filename
-		\param node root node of tree to save
-		*/
-        virtual void exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals);
+        \param filename the filename to load
+        */
+        iNodePtr importData(const iaString &filename);
+
+        /*! specialized version of exportData
+
+        \param filename the output file name
+        \param node the source node to export
+        \param saveMode how to handle external references during export
+        */
+        void exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals);
 
         /*! does nothing
 		*/

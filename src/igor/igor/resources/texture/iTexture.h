@@ -59,7 +59,6 @@ namespace igor
      */
     class IGOR_API iTexture : public iResource
     {
-
         friend class iTextureFactory;
 
     public:

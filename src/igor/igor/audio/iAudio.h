@@ -122,9 +122,9 @@ namespace igor
         /*! binds source to sound
 
         \param source the given source
-        \param resource the given sound resource
+        \param sound the given sound resource
         */
-        void bindSource(const iAudioSource &source, iResourcePtr resource);
+        void bindSource(const iAudioSource &source, iSoundPtr sound);
 
         /*! updates the listeners position, orientation and velocity
 

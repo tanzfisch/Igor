@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['endl_7308',['endl',['../classiaux_1_1ia_console.html#a9eb46d159959ba928c7cb960b5723ab8',1,'iaux::iaConsole']]],
-  ['endltab_7309',['endlTab',['../classiaux_1_1ia_console.html#a5e799c0a5ab63f42d48bd45128c87ebb',1,'iaux::iaConsole']]]
+  ['endl_0',['endl',['../classiaux_1_1ia_console.html#a3ca00492b3a841b38d8821eaa90cacd7',1,'iaux::iaConsole']]],
+  ['endltab_1',['endlTab',['../classiaux_1_1ia_console.html#a48f1e0ec414190a9c8eb88e1f2f49f18',1,'iaux::iaConsole']]]
 ];

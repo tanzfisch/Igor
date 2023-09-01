@@ -153,7 +153,7 @@ namespace igor
 
         /*! \returns name of the node
         */
-        iaString getName() const;
+        const iaString& getName() const;
 
         /*! returns multiple lines of information about this node
 
@@ -167,7 +167,7 @@ namespace igor
 
         \param name new name of the node
         */
-        void setName(iaString name);
+        void setName(const iaString &name);
 
         /*! inserts node as child
 

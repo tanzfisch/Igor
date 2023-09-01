@@ -1,6 +1,6 @@
 var i_renderer_utils_8h =
 [
-    [ "iRendererUtils", "classigor_1_1i_renderer_utils.html", "classigor_1_1i_renderer_utils" ],
+    [ "igor::iRendererUtils", "classigor_1_1i_renderer_utils.html", "classigor_1_1i_renderer_utils" ],
     [ "GL_CHECK_ERROR", "i_renderer_utils_8h.html#abc9f35edf8218f4662573e4662d8c6bd", null ],
     [ "SAMPLER_TEXTURE", "i_renderer_utils_8h.html#aa66dd6b5ec21946919a3a680084701fb", null ],
     [ "SAMPLER_TEXTURE0", "i_renderer_utils_8h.html#a67e1e892a49d57bc82831ad8bc2fe921", null ],

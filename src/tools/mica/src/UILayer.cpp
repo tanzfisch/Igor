@@ -156,11 +156,11 @@ void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
         }
         else if (children.size() == 1)
         {
-            iModelResourceFactory::getInstance().exportModelData(filename, children[0]);
+            iModelFactory::exportToFile(filename, children[0]);
         }
         else
         {
-            iModelResourceFactory::getInstance().exportModelData(filename, rootNode);
+            iModelFactory::exportToFile(filename, rootNode);
         }
     }
 

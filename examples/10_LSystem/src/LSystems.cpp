@@ -65,7 +65,7 @@ void LSystems::onInit()
 	lightTranslate->insertNode(lightNode);
 
 	// register plant mesh generator
-	iModelResourceFactory::getInstance().registerModelDataIO("pg", &PlantMeshGenerator::createInstance);
+	iModelFactory::registerModelDataIO("pmg", &PlantMeshGenerator::createInstance);
 
 	// generate the L-System
 	generateLSystems();
@@ -74,7 +74,7 @@ void LSystems::onInit()
 void LSystems::onDeinit()
 {
 	// unregister plant mesh generator
-	iModelResourceFactory::getInstance().unregisterModelDataIO("pg");
+	iModelFactory::unregisterModelDataIO("pmg");
 }
 
 void LSystems::initStyle1()
@@ -170,34 +170,29 @@ void LSystems::initStyle3()
 
 uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, uint32 iterations, uint64 seed)
 {
-	PlantInformation plantInformation;
-	plantInformation._lSystem = &_lSystem;
-	for (int64 i = 0; i < 10, i < axiom.getLength(); ++i)
-	{
-		plantInformation._axiom[i] = axiom[i];
-	}
+	iParameters parameters({{"name", iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++)},
+							{"type", iaString("model")},
+							{"cacheMode", iResourceCacheMode::Free},
+							{"subType", iaString("pmg")},
+							{"quiet", true},
+							{"lsystem", &_lSystem},
+							{"material", iMaterialResourceFactory::getInstance().getDefaultMaterial()},
+							{"joinVertices", true},
+							{"axiom", axiom},
+							{"iterations", iterations},
+							{"seed", seed},
+							{"segmentLength", _segmentLength},
+							{"segmentAngle", _angle},
+							{"trunkColor", _trunkColor},
+							{"branchColor", _branchColor},
+							{"budColor", _budColor},
+							{"flowerColor", _flowerColor},
+							{"leafColor", _leafColor}});
 
-	plantInformation._iterations = iterations;
-	plantInformation._material = iMaterialResourceFactory::getInstance().getDefaultMaterial();
-	plantInformation._seed = seed;
-	plantInformation._segmentAngle = _angle;
-	plantInformation._segmentLenght = _segmentLength;
-	plantInformation._branchColor = _branchColor;
-	plantInformation._trunkColor = _trunkColor;
-	plantInformation._budColor = _budColor;
-	plantInformation._leafColor = _leafColor;
-	plantInformation._flowerColor = _flowerColor;
-
-	iModelDataInputParameterPtr inputParam = std::make_shared<iModelDataInputParameter>();
-	inputParam->_identifier = "pg";
-	inputParam->_joinVertexes = true;
-	inputParam->_needsRenderContext = false;
-	inputParam->_modelSourceType = iModelSourceType::Generated;
-	inputParam->_loadPriority = 0;
-	inputParam->_parameters = plantInformation;
+	iModelPtr plant = iResourceManager::getInstance().loadResource<iModel>(parameters);
 
 	iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
-	modelNode->setModel(iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++), iResourceCacheMode::Free, inputParam);
+	modelNode->setModel(plant);
 
 	iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 	transformNode->setMatrix(matrix);
@@ -341,11 +336,11 @@ bool LSystems::onKeyDown(iEventKeyDown &event)
 
 iaString LSystems::getHelpString()
 {
-    static const iaString help = "\n"
-                                 "[Space] generate new set of plants\n";
+	static const iaString help = "\n"
+								 "[Space] generate new set of plants\n";
 
-    iaString result = ExampleBase::getHelpString();
-    result += help;
+	iaString result = ExampleBase::getHelpString();
+	result += help;
 
-    return result;
+	return result;
 }

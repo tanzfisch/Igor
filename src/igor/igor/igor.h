@@ -63,12 +63,12 @@
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
-#include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureFactory.h>
+#include <igor/resources/model/iModelFactory.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
@@ -118,8 +118,6 @@
 
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushResources.h>
 
 #include <igor/simulation/iParticleSystem2D.h>
 

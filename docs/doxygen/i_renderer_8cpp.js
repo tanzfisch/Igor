@@ -1,15 +1,15 @@
 var i_renderer_8cpp =
 [
-    [ "iFlatVertex", "structigor_1_1i_flat_vertex.html", "structigor_1_1i_flat_vertex" ],
-    [ "iTexturedVertex", "structigor_1_1i_textured_vertex.html", "structigor_1_1i_textured_vertex" ],
-    [ "iRenderDataPoints", "structigor_1_1i_render_data_points.html", "structigor_1_1i_render_data_points" ],
-    [ "iRenderDataLines", "structigor_1_1i_render_data_lines.html", "structigor_1_1i_render_data_lines" ],
-    [ "iRendererDataQuads", "structigor_1_1i_renderer_data_quads.html", "structigor_1_1i_renderer_data_quads" ],
-    [ "iRendererDataTriangles", "structigor_1_1i_renderer_data_triangles.html", "structigor_1_1i_renderer_data_triangles" ],
-    [ "iRendererDataTexturedQuads", "structigor_1_1i_renderer_data_textured_quads.html", "structigor_1_1i_renderer_data_textured_quads" ],
-    [ "iRendererTarget", "structigor_1_1i_renderer_target.html", "structigor_1_1i_renderer_target" ],
-    [ "iRendererLight", "structigor_1_1i_renderer_light.html", "structigor_1_1i_renderer_light" ],
-    [ "iRendererData", "structigor_1_1i_renderer_data.html", "structigor_1_1i_renderer_data" ],
+    [ "igor::iFlatVertex", "structigor_1_1i_flat_vertex.html", "structigor_1_1i_flat_vertex" ],
+    [ "igor::iTexturedVertex", "structigor_1_1i_textured_vertex.html", "structigor_1_1i_textured_vertex" ],
+    [ "igor::iRenderDataPoints", "structigor_1_1i_render_data_points.html", "structigor_1_1i_render_data_points" ],
+    [ "igor::iRenderDataLines", "structigor_1_1i_render_data_lines.html", "structigor_1_1i_render_data_lines" ],
+    [ "igor::iRendererDataQuads", "structigor_1_1i_renderer_data_quads.html", "structigor_1_1i_renderer_data_quads" ],
+    [ "igor::iRendererDataTriangles", "structigor_1_1i_renderer_data_triangles.html", "structigor_1_1i_renderer_data_triangles" ],
+    [ "igor::iRendererDataTexturedQuads", "structigor_1_1i_renderer_data_textured_quads.html", "structigor_1_1i_renderer_data_textured_quads" ],
+    [ "igor::iRendererTarget", "structigor_1_1i_renderer_target.html", "structigor_1_1i_renderer_target" ],
+    [ "igor::iRendererLight", "structigor_1_1i_renderer_light.html", "structigor_1_1i_renderer_light" ],
+    [ "igor::iRendererData", "structigor_1_1i_renderer_data.html", "structigor_1_1i_renderer_data" ],
     [ "iRenderDataSet", "i_renderer_8cpp.html#aaf2363a31b0b7f61ecff2da4314d07a1", [
       [ "NoDataSet", "i_renderer_8cpp.html#aaf2363a31b0b7f61ecff2da4314d07a1aff043d0825d4bb12bac740468194d234", null ],
       [ "Points", "i_renderer_8cpp.html#aaf2363a31b0b7f61ecff2da4314d07a1a75dd5f1160a3f02b6fae89c54361a1b3", null ],
@@ -28,7 +28,5 @@ var i_renderer_8cpp =
     [ "MAX_QUADS", "i_renderer_8cpp.html#a8ed6387376b7882fbb1ebf999107ec94", null ],
     [ "MAX_TRIANGLE_INDICES", "i_renderer_8cpp.html#afe6e15974907fd978362612018ad1388", null ],
     [ "MAX_TRIANGLE_VERTICES", "i_renderer_8cpp.html#a33087ebdacdfec7c556c8e94a3e27159", null ],
-    [ "MAX_TRIANGLES", "i_renderer_8cpp.html#a11962986c7155c8ba903baf29c53f069", null ],
-    [ "QUAD_TEXTURE_COORDS", "i_renderer_8cpp.html#abb274253c15d7b0ae396c1046f1c5778", null ],
-    [ "QUAD_VERTEX_POSITIONS", "i_renderer_8cpp.html#a81faf6fe0c245ab777cf7be76f367855", null ]
+    [ "MAX_TRIANGLES", "i_renderer_8cpp.html#a11962986c7155c8ba903baf29c53f069", null ]
 ];

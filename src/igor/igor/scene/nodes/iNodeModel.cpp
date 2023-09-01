@@ -5,7 +5,6 @@
 #include <igor/scene/nodes/iNodeModel.h>
 
 #include <igor/scene/nodes/iNode.h>
-#include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/nodes/iNodeRender.h>
@@ -37,7 +36,7 @@ namespace igor
         _nodeType = node->_nodeType;
         _nodeKind = node->_nodeKind;
 
-        setModel(node->getFilename(), node->_cacheMode);
+        setModel(node->_model);
     }
 
     iNodeModel::~iNodeModel()
@@ -57,19 +56,14 @@ namespace igor
         _modelReadyEvent.remove(delegate);
     }
 
-    bool iNodeModel::isValid()
+    bool iNodeModel::isValid() const
     {
-        return _ready;
+        return _model != nullptr ? _model->isValid() : false;
     }
 
-    bool iNodeModel::isLoaded()
+    bool iNodeModel::isLoaded() const 
     {
-        return _loaded;
-    }
-
-    iaString iNodeModel::getFilename() const
-    {
-        return _filename;
+        return _model != nullptr ? _model->isProcessed() : false;
     }
 
     void iNodeModel::onPreSetScene()
@@ -114,62 +108,74 @@ namespace igor
         }
     }
 
-    void iNodeModel::setModel(const iaString &modelFileName, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameters, bool loadSynchronously)
+    void iNodeModel::setModel(iModelPtr model)
     {
-        _filename = modelFileName;
-        _cacheMode = cacheMode;
-        _parameters = parameters;
+        _model = model;
 
-        if (loadSynchronously ||
-            iResourceManager::getInstance().getLoadMode() == iResourceManagerLoadMode::Synchronized)
+        if(_model == nullptr)
         {
-            _model = iModelResourceFactory::getInstance().loadModelData(_filename, _cacheMode, _parameters);
-            _parameters = nullptr; // no need to hang on to this
+            return;
+        }
 
+        if(_model->isValid())
+        {
+            onUpdateData();
+        }
+        else if(!_model->isProcessed())
+        {
+            setDataDirty();
+        }
+    }
+
+    void iNodeModel::setModel(const iaString &name)
+    {
+        if (iResourceManager::getInstance().getLoadMode() == iResourceManagerLoadMode::Synchronized)
+        {
+            _model = iResourceManager::getInstance().loadResource<iModel>(name);
             onUpdateData();
         }
         else
         {
+            _model = iResourceManager::getInstance().requestResource<iModel>(name);
             setDataDirty();
         }
     }
 
     void iNodeModel::onUpdateTransform(iaMatrixd &matrix)
     {
-        if (!_loaded &&
-            _model == nullptr)
-        {
-            _model = iModelResourceFactory::getInstance().requestModelData(_filename, _cacheMode, _parameters);
-            _parameters = nullptr; // no need to hang on to this
-        }
+        // nothing to do
     }
 
     bool iNodeModel::onUpdateData()
     {
-        if (!_loaded &&
-            _model != nullptr)
+        if (_model == nullptr)
         {
-            if (_model->getState() == iModelState::Loaded)
-            {
-                insertNode(_model->getNodeCopy());
-                _loaded = true;
-                _ready = true;
-
-                if (_material != nullptr)
-                {
-                    setMaterial(_material);
-                }
-
-                _modelReadyEvent(getID());
-            }
-            else if (_model->getState() == iModelState::LoadFailed)
-            {
-                _loaded = true;
-                _ready = false;
-            }
+            return false;
         }
 
-        return _loaded;
+        if (_model->isValid())
+        {
+            insertNode(_model->getNodeCopy());
+
+            if (_material != nullptr)
+            {
+                setMaterial(_material);
+            }
+
+            _modelReadyEvent(getID());
+        }
+
+        return _model->isValid();
+    }
+
+    iModelPtr iNodeModel::getModel() const
+    {
+        return _model;
+    }
+
+    const iaString iNodeModel::getModelName() const
+    {
+        return _model != nullptr ? _model->getName() : "";
     }
 
     void iNodeModel::getInfo(std::vector<iaString> &info) const
@@ -179,12 +185,12 @@ namespace igor
 
         if (_model != nullptr)
         {
-            customInfo += _filename;
+            customInfo += getModelName();
             customInfo += L" loaded:";
-            if (_loaded)
+            if (isValid())
             {
                 customInfo += L"true ready:";
-                if (_ready)
+                if (isLoaded())
                 {
                     customInfo += L"true";
                     customInfo += L" nodeID:";

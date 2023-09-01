@@ -26,14 +26,15 @@ namespace igor
         const iaString resolved = iResourceManager::getInstance().getPath(filename);
 
         iParameters param({{"name", resolved},
+                           {"type", iaString("texture")},
                            {"buildMode", iTextureBuildMode::Normal}});
-        _texture = std::dynamic_pointer_cast<iTexture>(iResourceManager::getInstance().loadResource(param));
+        _texture = iResourceManager::getInstance().loadResource<iTexture>(param);
 
         if (!_texture->isValid())
         {
             return;
         }
-        _pixmap = iTextureFactory::loadPixmap(resolved);
+        _pixmap = iPixmap::loadPixmap(resolved);
 
         if (_pixmap == nullptr)
         {
@@ -300,6 +301,12 @@ namespace igor
         {
             const wchar_t &character = text[i];
 
+            if (character == L'\n')
+            {
+                height += lineHeight * size;
+                continue;
+            }            
+
             length += _characters[character - 32]._characterOffset * size;
 
             if (maxWidth != 0.0)
@@ -314,10 +321,6 @@ namespace igor
 
                     lastlength = length;
                 }
-            }
-            else if (character == L'\n')
-            {
-                height += lineHeight * size;
             }
         }
 

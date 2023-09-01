@@ -1,7 +1,7 @@
 #include <iLoader3DS.h>
 #include <iTextureManager.h>
 #include <iModelManager.h>
-#include <igor/resources/model/iModel.h>
+#include <igor/resources/model/iModel_Old.h>
 
 #include <string.h>
 
@@ -69,7 +69,7 @@ namespace Igor
 		con_err("not implemented" << endl;
 	}
 
-	iModel *iLoader3DS::loadFile(string filename)
+	iModel_Old *iLoader3DS::loadFile(string filename)
 	{
 		FILE *File;
 		vertexcount = 0;
@@ -178,7 +178,7 @@ namespace Igor
 			return 0;
 		}
 
-		iModel *model = createModel(filename);
+		iModel_Old *model = createModel(filename);
 		for (int i = 0; i < meshes.size(); ++i)
 		{
 			model->addMesh(meshes[i]);

@@ -13,8 +13,7 @@ var dir_a414ea95b6e6a3b71ee83d64cb1e1f03 =
     [ "iFactory.h", "i_factory_8h.html", "i_factory_8h" ],
     [ "iResource.cpp", "i_resource_8cpp.html", null ],
     [ "iResource.h", "i_resource_8h.html", "i_resource_8h" ],
-    [ "iResourceManager.cpp", "i_resource_manager_8cpp.html", null ],
-    [ "iResourceManager.h", "i_resource_manager_8h.html", [
-      [ "iResourceManager", "classigor_1_1i_resource_manager.html", "classigor_1_1i_resource_manager" ]
-    ] ]
+    [ "iResourceManager.cpp", "i_resource_manager_8cpp.html", "i_resource_manager_8cpp" ],
+    [ "iResourceManager.h", "i_resource_manager_8h.html", "i_resource_manager_8h" ],
+    [ "iResourceManager.inl", "i_resource_manager_8inl.html", null ]
 ];

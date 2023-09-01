@@ -1,6 +1,6 @@
 var structigor_1_1i_voxel_block =
 [
-    [ "_childAdress", "structigor_1_1i_voxel_block.html#ad322343cd59eace37894d4ca50e559ec", null ],
+    [ "_childAddress", "structigor_1_1i_voxel_block.html#a01388808d416eb290c577ee80d111811", null ],
     [ "_children", "structigor_1_1i_voxel_block.html#a6b08574cd908c412fd6dac73c75c073b", null ],
     [ "_dirty", "structigor_1_1i_voxel_block.html#a787e7ff0ed1ab921bed5ad6fbcc77055", null ],
     [ "_dirtyNeighbours", "structigor_1_1i_voxel_block.html#af1d00635a6b185999c3cf925ab3008fe", null ],

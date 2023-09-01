@@ -46,59 +46,59 @@ namespace igor
 
     /*! model data loader for the OBJ aka Wavefront format
 
-	source: http://de.wikipedia.org/wiki/Wavefront_OBJ
-	*/
+    source: http://de.wikipedia.org/wiki/Wavefront_OBJ
+    */
     class iModelDataIOOBJ : public iModelDataIO
     {
 
         /*! obj vertex
-        */
+         */
         struct OBJVertex
         {
             /*! vertex index
-            */
+             */
             int32 _v;
 
             /*! vertex normal index
-            */
+             */
             int32 _vn;
 
             /*! vertex texture index
-            */
+             */
             int32 _t;
         };
 
         /*! obj polygon
-        */
+         */
         struct OBJPolygon
         {
             /*! list of vertices of this polygon
-            */
+             */
             std::vector<OBJVertex> _vertexes;
         };
 
         /*! obj materil
-        */
+         */
         struct OBJMaterial
         {
             /*! target ambient
-            */
+             */
             iaColor3f _ambient;
 
             /*! target diffuse
-            */
+             */
             iaColor3f _diffuse;
 
             /*! target specular
-            */
+             */
             iaColor3f _specular;
 
             /*! target shininess
-            */
+             */
             float32 _shininess;
 
             /*! texture
-            */
+             */
             iaString _texture;
 
             OBJMaterial()
@@ -111,19 +111,19 @@ namespace igor
         };
 
         /*! section describes part of the data framed by a combination of a group and material
-		*/
+         */
         struct Section
         {
             /*! name of material in use
-			*/
+             */
             iaString _materialName;
 
             /*! list of polygons in this group
-			*/
+             */
             std::vector<OBJPolygon> _polygons;
 
             /*! mesh builder
-			*/
+             */
             iMeshBuilder _meshBuilder;
         };
 
@@ -133,7 +133,7 @@ namespace igor
         \param filename filename of file to load
         \return pointer to node tree
         */
-        virtual iNodePtr importData(const iaString &filename, iModelDataInputParameterPtr parameter);
+        iNodePtr importData(const iParameters &parameters) override;
 
         /*! creates an instance of this class
 
@@ -142,52 +142,52 @@ namespace igor
         static iModelDataIO *createInstance();
 
         /*!  initializes members
-        */
+         */
         iModelDataIOOBJ();
 
         /*! does nothing
-        */
+         */
         ~iModelDataIOOBJ() = default;
 
     private:
         /*! list of vertexes
-        */
+         */
         std::vector<iaVector3f> _vertexes;
 
         /*! list of normals
-        */
+         */
         std::vector<iaVector3f> _normals;
 
         /*! list of texture coordinates
-        */
+         */
         std::vector<iaVector2f> _texcoord;
 
         /*! list of materials
-        */
+         */
         std::map<iaString, iModelDataIOOBJ::OBJMaterial> _materials;
 
         /*! current groups
-        */
+         */
         std::vector<iaString> _currentGroups;
 
         /*! current materials
-		*/
+         */
         iaString _currentMaterial;
 
         /*! generated mesh name id
-		*/
+         */
         uint32 _nextID = 1;
 
         /*! map of sections
-		*/
+         */
         std::map<iaString, iModelDataIOOBJ::Section> _sections;
 
         /*! list of current sections
-		*/
+         */
         std::vector<iaString> _currentSections;
 
         /*! source path of model
-        */
+         */
         iaString _pathOfModel;
 
         /*! transfers data in to a mesh builder per section
@@ -293,23 +293,23 @@ namespace igor
         bool readUseMaterial(std::vector<iaString> &attributes);
 
         /*! \returns material count
-        */
+         */
         uint32 getMaterialCount();
 
         /*! \returns vertex count
-        */
+         */
         uint32 getVertexCount();
 
         /*! \returns normals count
-        */
+         */
         uint32 getNormalCount();
 
         /*! \returns tex coordinates count
-        */
+         */
         uint32 getTexCoordCount();
 
         /*! \returns material by name
-        
+
         \param materialName the material name
         */
         iModelDataIOOBJ::OBJMaterial *getMaterial(const iaString &materialName);

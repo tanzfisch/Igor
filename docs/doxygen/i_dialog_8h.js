@@ -1,6 +1,6 @@
 var i_dialog_8h =
 [
-    [ "iDialog", "classigor_1_1i_dialog.html", "classigor_1_1i_dialog" ],
+    [ "igor::iDialog", "classigor_1_1i_dialog.html", "classigor_1_1i_dialog" ],
     [ "iDialogCloseDelegate", "i_dialog_8h.html#a21f1f480a5c4a515de004dc44a1d137e", null ],
     [ "iDialogPtr", "i_dialog_8h.html#a8ddbd92d767f89943094e7482f9afa4f", null ],
     [ "iDialogReturnState", "i_dialog_8h.html#a122478c90d48716251aee24739420db4", [

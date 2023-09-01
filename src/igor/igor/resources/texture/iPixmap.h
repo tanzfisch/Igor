@@ -55,6 +55,10 @@ namespace igor
     {
 
     public:
+        /*! releases resources
+         */
+        ~iPixmap();
+
         /*! creates new pixmap with given parameters
 
         \param width width of pixmap in pixel
@@ -63,9 +67,12 @@ namespace igor
         */
         static iPixmapPtr createPixmap(uint32 width, uint32 height, iColorFormat colorFormat);
 
-        /*! releases resources
-         */
-        ~iPixmap();
+        /*! loads pixmap from file
+
+        \param filename the file to load
+        \returns pixmap
+        */
+        static iPixmapPtr loadPixmap(const iaString &filename);
 
         /*! \returns width of pixmap
          */

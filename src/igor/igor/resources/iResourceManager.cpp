@@ -8,6 +8,7 @@
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
+#include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/config/iConfigReader.h>
 #include <igor/threading/iTaskManager.h>
 
@@ -22,6 +23,7 @@ namespace igor
         configure();
 
         registerFactory(iFactoryPtr(new iTextureFactory()));
+        registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
@@ -30,6 +32,9 @@ namespace igor
     iResourceManager::~iResourceManager()
     {
         // first remove all resources that where not loaded until now
+        _mutex.lock();
+        _loadingQueue.clear();
+
         auto iter = _resources.begin();
         while (iter != _resources.end())
         {
@@ -44,11 +49,13 @@ namespace igor
 
             iter++;
         }
+        _mutex.unlock();
 
         // run flush twice so resources which hold on to other resources release them too
         flush(iResourceCacheMode::Keep);
         flush(iResourceCacheMode::Keep);
 
+        _mutex.lock();
         // now check if it was actually released
         if (!_resources.empty())
         {
@@ -62,6 +69,8 @@ namespace igor
         }
 
         _resources.clear();
+        _mutex.unlock();
+
         _factories.clear();
     }
 
@@ -85,7 +94,7 @@ namespace igor
             {
                 addSearchPath(path);
             }
-        }        
+        }
     }
 
     int64 iResourceManager::calcHashValue(const iParameters &parameters, iFactoryPtr factory)
@@ -129,7 +138,7 @@ namespace igor
     {
         iFactoryPtr result;
 
-        const iaString type = parameters.getParameter<iaString>("type");
+        const iaString type = parameters.getParameter<iaString>("type", "");
 
         if (!type.isEmpty())
         {
@@ -175,15 +184,6 @@ namespace igor
         }
         _mutex.unlock();
 
-        if (result == nullptr)
-        {
-            result = factory->createResource(parameters);
-
-            _mutex.lock();
-            _resources[hashValue] = result;
-            _mutex.unlock();
-        }
-
         return result;
     }
 
@@ -196,12 +196,27 @@ namespace igor
 
         iResourcePtr result;
         iFactoryPtr factory;
+
         if ((factory = getFactory(parameters)) == nullptr)
         {
             return result;
         }
 
-        result = getResource(parameters, factory);
+        const int64 hashValue = calcHashValue(parameters, factory);
+
+        _mutex.lock();
+        auto resourceIter = _resources.find(hashValue);
+        if (resourceIter != _resources.end())
+        {
+            result = resourceIter->second;
+        }
+        else
+        {
+            result = factory->createResource(parameters);
+            _resources[hashValue] = result;
+            _loadingQueue.push_back(result);
+        }
+        _mutex.unlock();
 
         const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
         const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
@@ -218,13 +233,39 @@ namespace igor
     {
         iResourcePtr result;
         iFactoryPtr factory;
+
         if ((factory = getFactory(parameters)) == nullptr)
         {
             return result;
         }
 
-        result = getResource(parameters, factory);
-        if (!result->isProcessed())
+        const int64 hashValue = calcHashValue(parameters, factory);
+
+        bool loadNow = false;
+
+        _mutex.lock();
+        auto resourceIter = _resources.find(hashValue);
+        if (resourceIter != _resources.end())
+        {
+            result = resourceIter->second;
+
+            // remove from load queue because we will load it right away
+            auto iter = std::find(_loadingQueue.begin(), _loadingQueue.end(), result);
+            if (iter != _loadingQueue.end())
+            {
+                _loadingQueue.erase(iter);
+                loadNow = true;
+            }
+        }
+        else
+        {
+            result = factory->createResource(parameters);
+            _resources[hashValue] = result;
+            loadNow = true;
+        }
+        _mutex.unlock();
+
+        if (loadNow)
         {
             result->setValid(factory->loadResource(result));
             result->setProcessed(true);
@@ -238,12 +279,16 @@ namespace igor
             result->_parameters.setParameter("cacheMode", cacheMode);
         }
 
+        if (!result->isQuiet() && result->isValid())
+        {
+            con_info("loaded " << result->getType() << " \"" << result->getName() << "\"");
+        }
+
         return result;
     }
 
     void iResourceManager::flush(iResourceCacheMode cacheModeLevel)
     {
-        std::vector<iResourcePtr> toLoad;
         std::vector<iResourcePtr> toUnload;
 
         _mutex.lock();
@@ -252,52 +297,56 @@ namespace igor
         while (iter != _resources.end())
         {
             iResourcePtr resource = iter->second;
-            if (resource->isProcessed())
+
+            if (resource.use_count() == 2 &&
+                resource->getCacheMode() <= cacheModeLevel)
             {
-                if (resource->isValid() &&
-                    iter->second.use_count() == 2 &&
-                    resource->getCacheMode() <= cacheModeLevel)
+                toUnload.push_back(resource);
+                iter = _resources.erase(iter);
+
+                // remove from loading queue as well
+                auto iterLoad = std::find(_loadingQueue.begin(), _loadingQueue.end(), resource);
+                if (iterLoad != _loadingQueue.end())
                 {
-                    toUnload.push_back(resource);
-                    iter = _resources.erase(iter);
-                    continue;
+                    _loadingQueue.erase(iterLoad);
                 }
-            }
-            else
-            {
-                toLoad.push_back(resource);
+                continue;
             }
 
             iter++;
         }
-
         _mutex.unlock();
 
+        // telling the factories about it
         for (auto resource : toUnload)
         {
             iFactoryPtr factory;
             if ((factory = getFactory(resource->getParameters())) != nullptr)
             {
                 factory->unloadResource(resource);
+                if (!resource->isQuiet())
+                {
+                    con_info("released " << resource->getType() << " \"" << resource->getName() << "\"");
+                }
             }
         }
 
+        _mutex.lock();
+        std::deque<iResourcePtr> toLoad = std::move(_loadingQueue);
+        _mutex.unlock();
+
         for (auto resource : toLoad)
         {
-            iFactoryPtr factory;
-            if ((factory = getFactory(resource->getParameters())) != nullptr)
-            {
-                if (factory->loadResource(resource))
-                {
-                    resource->_valid = true;
-                }
-                resource->_processed = true;
-            }
-
             if (_interruptLoading)
             {
                 break;
             }
+
+            // should never fail
+            iFactoryPtr factory = getFactory(resource->getParameters());
+
+            resource->setValid(factory->loadResource(resource));
+            resource->setProcessed(true);
         }
 
         _interruptLoading = false;
@@ -459,13 +508,25 @@ namespace igor
         return _loadMode;
     }
 
-    std::wostream &operator<<(std::wostream &stream, const iResourceManagerLoadMode &mode)
+    std::wostream &operator<<(std::wostream &stream, iResourceManagerLoadMode mode)
     {
         const static std::wstring text[] = {
             L"Application",
             L"Synchronized"};
 
         stream << text[static_cast<int>(mode)];
+
+        return stream;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, iResourceCacheMode cacheMode)
+    {
+        const static std::wstring text[] = {
+            L"Free",
+            L"Cache",
+            L"Keep"};
+
+        stream << text[static_cast<int>(cacheMode)];
 
         return stream;
     }

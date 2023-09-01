@@ -147,6 +147,14 @@ var i_defines_8h =
       [ "Cache", "i_defines_8h.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba", null ],
       [ "Keep", "i_defines_8h.html#a424b008e648b912ad459f21479742743a02bce93bff905887ad2233110bf9c49e", null ]
     ] ],
+    [ "iResourceManagerLoadMode", "i_defines_8h.html#a40695af62201c48096a15d36a6b40a06", [
+      [ "Application", "i_defines_8h.html#a40695af62201c48096a15d36a6b40a06ae498749f3c42246d50b15c81c101d988", null ],
+      [ "Synchronized", "i_defines_8h.html#a40695af62201c48096a15d36a6b40a06afda39cc5b167799979a72d7ebb73171e", null ]
+    ] ],
+    [ "iSaveMode", "i_defines_8h.html#afff40a867ba63c16063db64d393a436a", [
+      [ "KeepExternals", "i_defines_8h.html#afff40a867ba63c16063db64d393a436aa41ee1226da7962355f25cb673bf3d124", null ],
+      [ "EmbedExternals", "i_defines_8h.html#afff40a867ba63c16063db64d393a436aa114f8d30e191c412be0f5753637d2b1e", null ]
+    ] ],
     [ "iSelectionMode", "i_defines_8h.html#ae2ddd5b36b3c376f7ae18b12a15427f8", [
       [ "Cell", "i_defines_8h.html#ae2ddd5b36b3c376f7ae18b12a15427f8a1a66ab62bfc858b7bcf9e01aa9cd1841", null ],
       [ "Row", "i_defines_8h.html#ae2ddd5b36b3c376f7ae18b12a15427f8aa70367aa7cb74e510f4f9413ccf059d3", null ],
@@ -175,6 +183,10 @@ var i_defines_8h =
       [ "Undefined", "i_defines_8h.html#aaad3f3a7c1829b5eab5873bac6948aa2aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "operator<<", "i_defines_8h.html#a728632759bccb048d7e6082f2400dd20", null ],
+    [ "operator<<", "i_defines_8h.html#aae042d933b0aee8d52ce7082bb61e40c", null ],
+    [ "operator<<", "i_defines_8h.html#aa509d274f8a5a4a3720552820a0b6c11", null ],
+    [ "operator<<", "i_defines_8h.html#abc5723519c4d06858e20f122458ee4d5", null ],
+    [ "operator<<", "i_defines_8h.html#a491343606a7926c828be9f2e58a8e213", null ],
     [ "IGOR_BUILD_CONFIGURATION", "i_defines_8h.html#a18e993b347b706a6ba5d7b262078623f", null ],
     [ "IGOR_SUPPORTED_SPRITE_EXTENSIONS", "i_defines_8h.html#a6d64eba77ac6416e65eaa16a3fc7c73b", null ],
     [ "IGOR_SUPPORTED_TEXTURE_EXTENSIONS", "i_defines_8h.html#a3df9f6653ed6317f6c2d117f9019e204", null ]

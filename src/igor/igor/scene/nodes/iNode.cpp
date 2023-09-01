@@ -299,7 +299,7 @@ namespace igor
         return iaString(stream.str().data());
     }
 
-    iaString iNode::getName() const
+    const iaString& iNode::getName() const
     {
         return _name;
     }
@@ -320,7 +320,7 @@ namespace igor
         info.push_back(typeInfo);
     }
 
-    void iNode::setName(iaString name)
+    void iNode::setName(const iaString &name)
     {
         _name = name;
     }

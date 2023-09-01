@@ -1,6 +1,6 @@
 var ia_key_frame_graph_8h =
 [
-    [ "iaKeyFrameGraph", "classiaux_1_1ia_key_frame_graph.html", "classiaux_1_1ia_key_frame_graph" ],
+    [ "iaux::iaKeyFrameGraph< T >", "classiaux_1_1ia_key_frame_graph.html", "classiaux_1_1ia_key_frame_graph" ],
     [ "iaKeyFrameGraphColor4f", "ia_key_frame_graph_8h.html#a63289f2729744dc4cc7b3460f755f264", null ],
     [ "iaKeyFrameGraphd", "ia_key_frame_graph_8h.html#a92919abf31e499ecc07beb21b93a6d00", null ],
     [ "iaKeyFrameGraphf", "ia_key_frame_graph_8h.html#a4a3d1ec9a619783138d5ad8e277127ca", null ],

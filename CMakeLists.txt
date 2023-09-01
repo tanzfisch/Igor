@@ -56,6 +56,8 @@ if(IS_GNU)
     endif()
 endif()
 
+message(STATUS "build type '${CMAKE_BUILD_TYPE}'")
+
 # threading
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
@@ -244,8 +246,6 @@ file(GLOB_RECURSE EXAMPLE_BASE_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "exa
 foreach(
       EXAMPLE
       00_HelloWorld
-      01_Keyboard
-      02_Mouse
       03_2D
       04_3D
       05_Voxels

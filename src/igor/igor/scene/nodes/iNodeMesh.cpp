@@ -5,8 +5,6 @@
 #include <igor/scene/nodes/iNodeMesh.h>
 
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/model/iModel.h>
-#include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>

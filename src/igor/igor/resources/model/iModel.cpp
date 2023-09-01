@@ -12,10 +12,10 @@ using namespace iaux;
 #include <fstream>
 
 namespace igor
-{
+{   
 
-    iModel::iModel(const iaString &name, iResourceCacheMode cacheMode, iModelDataInputParameterPtr parameter)
-        : _name(name), _parameter(parameter), _cacheMode(cacheMode)
+    iModel::iModel(const iParameters &parameters)
+        : iResource("model", parameters)
     {
     }
 
@@ -25,31 +25,6 @@ namespace igor
         {
             iNodeManager::getInstance().destroyNodeAsync(_node);
         }
-    }
-
-    iResourceCacheMode iModel::getCacheMode() const
-    {
-        return _cacheMode;
-    }
-
-    iModelDataInputParameterPtr iModel::getParameters() const
-    {
-        return _parameter;
-    }
-
-    const iaString &iModel::getName() const
-    {
-        return _name;
-    }
-
-    iModelState iModel::getState()
-    {
-        return _state;
-    }
-
-    void iModel::setState(iModelState state)
-    {
-        _state = state;
     }
 
     void iModel::setNode(iNodePtr node)

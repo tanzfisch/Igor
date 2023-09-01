@@ -12,6 +12,12 @@ namespace igor
         _type = type;
         _name = parameters.getParameter<iaString>("name", "");
         _cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
+        _quiet = parameters.getParameter<bool>("quiet", false);
+    }
+
+    bool iResource::isQuiet() const
+    {
+        return _quiet;
     }
 
     bool iResource::isValid() const

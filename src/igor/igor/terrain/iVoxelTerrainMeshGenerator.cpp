@@ -5,7 +5,6 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/resources/model/iModel.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
@@ -20,7 +19,7 @@ namespace igor
 
     iVoxelTerrainMeshGenerator::iVoxelTerrainMeshGenerator()
     {
-        _identifier = "vtg";
+        _identifier = "igor.vtg";
         _name = "Voxel Terrain Mesh Generator";
     }
 
@@ -31,12 +30,18 @@ namespace igor
     }
 
     __IGOR_DISABLE_WARNING__(4100)
-    iNodePtr iVoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameterPtr parameter)
+    iNodePtr iVoxelTerrainMeshGenerator::importData(const iParameters &parameters)
     {
-        const iVoxelTerrainTileInformation &tileInformation = std::any_cast<iVoxelTerrainTileInformation>(parameter->_parameters);
-
-        iVoxelData *voxelData = tileInformation._voxelData;
-        iVoxelData *voxelDataNextLOD = tileInformation._voxelDataNextLOD;
+        iVoxelData* voxelData = parameters.getParameter<iVoxelData*>("voxelData", nullptr);
+        iVoxelData* voxelDataNextLOD = parameters.getParameter<iVoxelData*>("voxelDataNextLOD", nullptr);
+        
+        iMaterialPtr material = parameters.getParameter<iMaterialPtr>("material", nullptr);
+        iTargetMaterialPtr targetMaterial = parameters.getParameter<iTargetMaterialPtr>("targetMaterial", nullptr);
+        const uint32 lod = parameters.getParameter<uint32>("lod", 0);
+        const uint8 neighboursLOD = parameters.getParameter<uint8>("neighboursLOD", 0);
+        const iaVector3I voxelOffsetToNextLOD = parameters.getParameter<iaVector3I>("voxelOffsetToNextLOD", iaVector3I());
+        const iaString sectionName = parameters.getParameter<iaString>("name", "");
+        const uint64 physicsMaterialID = parameters.getParameter<uint64>("physicsMaterialID", 0);
 
         const int64 width = voxelData->getWidth();
         const int64 height = voxelData->getHeight();
@@ -47,9 +52,9 @@ namespace igor
         iContouringCubes contouringCubes;
         contouringCubes.setVoxelData(voxelData);
         contouringCubes.setVoxelDataNextLOD(voxelDataNextLOD);
-        contouringCubes.setNextLODVoxelOffset(tileInformation._voxelOffsetToNextLOD);
+        contouringCubes.setNextLODVoxelOffset(voxelOffsetToNextLOD);
 
-        iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth), tileInformation._lod, tileInformation._neighboursLOD);        
+        iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth), lod, neighboursLOD);        
 
         if (mesh.get() != nullptr)
         {
@@ -57,21 +62,21 @@ namespace igor
             
             iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
             meshNode->setMesh(mesh);
-            meshNode->setMaterial(tileInformation._material);
+            meshNode->setMaterial(material);
             meshNode->setName(iaString("voxel_mesh_") + sectionName);
             meshNode->setVisible(false);
 
-            meshNode->setTargetMaterial(tileInformation._targetMaterial);
+            meshNode->setTargetMaterial(targetMaterial);
             result->insertNode(meshNode);
 
 #ifndef DEBUG_VOXEL_TERRAIN_NO_PHYSICS
-            if (tileInformation._lod == 0)
+            if (lod == 0)
             {
                 iNodePhysics *physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
                 iaMatrixd offset;
                 physicsNode->addMesh(mesh, 1, offset);
                 physicsNode->finalizeCollision(true);
-                physicsNode->setMaterial(tileInformation._physicsMaterialID);
+                physicsNode->setMaterial(physicsMaterialID);
 
                 result->insertNode(physicsNode);
             }

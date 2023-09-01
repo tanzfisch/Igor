@@ -67,22 +67,23 @@ void OBJ2OMPF::convert(int argc, char *argv[])
     {
         iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/texture_shaded.mat");
 
-        iModelDataInputParameterPtr parameters = std::make_shared<iModelDataInputParameter>();
-        parameters->_joinVertexes = _joinVertexes;
-        parameters->_identifier = "obj";
-        parameters->_modelSourceType = iModelSourceType::File;
-        parameters->_needsRenderContext = false;
-        parameters->_keepMesh = true;
-
+        iParameters parameters({
+            {"name", _src},
+            {"type", iaString("model")},
+            {"joinVertices", true},
+            {"keepMesh", true},
+            {"cacheMode", iResourceCacheMode::Keep}
+        });
+        iModelPtr model = iResourceManager::getInstance().loadResource<iModel>(parameters);
         iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
-        modelNode->setModel(_src, iResourceCacheMode::Keep, parameters);
+        modelNode->setModel(model);
 
         iScenePtr scene = iSceneFactory::getInstance().createScene();
         scene->getRoot()->insertNode(modelNode);
 
         while (modelNode->getChild("obj_root") == nullptr)
         {
-            iModelResourceFactory::getInstance().flush(nullptr);
+            iResourceManager::getInstance().flush();
             scene->handle();
         }
 
@@ -99,11 +100,11 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         iNodePtr objRoot = modelNode->getChild("obj_root");
         if (objRoot && objRoot->getChildren().size() == 1)
         {
-            iModelResourceFactory::getInstance().exportModelData(_dst, (*objRoot->getChildren().begin()), "ompf", iSaveMode::EmbedExternals);
+            iModelFactory::exportToFile(_dst, (*objRoot->getChildren().begin()), iSaveMode::EmbedExternals, "ompf");
         }
         else
         {
-            iModelResourceFactory::getInstance().exportModelData(_dst, objRoot, "ompf", iSaveMode::EmbedExternals);
+            iModelFactory::exportToFile(_dst, objRoot, iSaveMode::EmbedExternals, "ompf");
         }
 
         iSceneFactory::getInstance().destroyScene(scene);

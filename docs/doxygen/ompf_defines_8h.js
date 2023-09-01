@@ -1,6 +1,6 @@
 var ompf_defines_8h =
 [
-    [ "OMPFDefaultConfiguration", "struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html", "struct_o_m_p_f_1_1_o_m_p_f_default_configuration" ],
+    [ "OMPF::OMPFDefaultConfiguration", "struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html", "struct_o_m_p_f_1_1_o_m_p_f_default_configuration" ],
     [ "OMPFChunkType", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3", [
       [ "Invalid", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3a4bbb8f967da6d1a610596d7257179c2b", null ],
       [ "Header", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3abf50d5e661106d0abe925af3c2e6f7e7", null ],

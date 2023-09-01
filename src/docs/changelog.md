@@ -4,6 +4,16 @@ Changelog                           {#changelog}
 0.42.1
 ------
 
+- fixed threading sync in iResourceManager preventing resource being loaded multiple times
+- reimplemented iModel and make it a iResource
+- replaced iModelResourceFactory with iModelFactory which is now integrated in the iResourceManager
+- removed iTaskFlushModels and iTaskLoadModel since this is now handled in iResourceManager
+- auto start iTaskFlushResources after window is opened so the application does not need to do it anymore
+- added quiet flag to resources
+
+0.41.1
+------
+
 - added missing vsync control (Windows)
 - fixed MSVC template specialization build issues
 
@@ -240,7 +250,6 @@ I really needed to get this out before it get's even bigger.
 - fixed how menus behave
 - improved console output
 - made instancing and the instancing example work again
-  ![instancing](/images/Instancing.png)
 - supressing auto key repeat under Linux
 - created an example base class for quicker prototyping
 - iaBSpline is a template now
@@ -271,7 +280,6 @@ I really needed to get this out before it get's even bigger.
 ------
 
 - added basic evaluation functionality to control animations on transform nodes
-  ![basic evaluation](/images/basicEvaluation.gif)
 - added iaFile::getStem
 
 0.24.1
@@ -286,7 +294,6 @@ I really needed to get this out before it get's even bigger.
 ------
 
 - Basic iWidgetMenuBar and iWidgetMenu implementation
-  ![menu demonstration](/images/menu.gif)
 - Added z value order for widgets. For now only used for dialog order
 - Introduced event blocking (used in widgets)
 - Introduced Actions
@@ -300,7 +307,6 @@ I really needed to get this out before it get's even bigger.
 ------
 
 - Scroll bars are now fully functional
-  ![Scroll bars](/images/scrollbars.gif)
 - New interface to create and destroy widgets. Basically we can use new and delete on widgets now but the engine will keep track of them to prevent mem leaks.
 - Added colored axis indication to orientation grid in ModelViewer
 - Made iaMatrix2D more useful
@@ -311,7 +317,6 @@ I really needed to get this out before it get's even bigger.
 
 - iSprite is now iAtlas and can read frames from file
 - Created sprite animation example
-  ![sprite animation](/images/SpriteAnimation.gif)
 - Ownership of widgets transfers to the engine the moment they are children of a dialog
 - added mesh to world bake functionality
 - Removed all using namespace std;
@@ -337,7 +342,6 @@ I really needed to get this out before it get's even bigger.
 - Improved mouse handling in all examples
 - Added interface to control vsync setting
 - Improved pretty printing for scene graph
-  ![pretty tree printing](/images/pretty_tree_print.png)
 - Added vsync setting on window
 - Fixed another bug regarding texture units in ompf
 
@@ -356,7 +360,6 @@ I really needed to get this out before it get's even bigger.
 ------
 
 - ModelViewer: UserControlTransform now handles components instead of a matrix and improved Manipulator
-  ![New transform UI and improved scale modifier](/images/TransformUI.png)
 - Implemented matrix decomposition
 - Fixed iRenderer::project
 - Added some google tests for matrix functions
@@ -366,7 +369,6 @@ I really needed to get this out before it get's even bigger.
 ------
 
 - Improved OBJ loader. Now meshs get generated based on combinations of groups/objects and materials.
-  ![Improved mesh nodes structure from obj files](/images/OBJLoaderImprovements.png)
 - ModelViewer: pan camera around like in Maya (LeftAlt + middle mouse button)
 - ModelViewer: fixed problem when loading unknown file format
 - Improved iaString to be able to be used as key in std maps
@@ -378,7 +380,6 @@ I really needed to get this out before it get's even bigger.
 
 - Introduced tooltips to widgets
 - Used tooltips in ModelViewer
-  ![Introduction of tooltips](/images/Tooltips.png)
 
 0.16.1
 ------
@@ -396,7 +397,6 @@ I really needed to get this out before it get's even bigger.
 ------
 
 - Visualizing emitters in ModelViewer when selected
-  ![Visualized emitter sphere](/images/ModelViewer_Emitter_Visible.png)
 - Added sphere to iMeshBuilderUtils
 - Added alpha to target material
 - Support alpha in target material in OMPF
