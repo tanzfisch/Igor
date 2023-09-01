@@ -1,6 +1,6 @@
 var i_dialog_message_box_8h =
 [
-    [ "iDialogMessageBox", "classigor_1_1i_dialog_message_box.html", "classigor_1_1i_dialog_message_box" ],
+    [ "igor::iDialogMessageBox", "classigor_1_1i_dialog_message_box.html", "classigor_1_1i_dialog_message_box" ],
     [ "iMessageBoxButtons", "i_dialog_message_box_8h.html#ac9a241f289e04683e63e4a3e8db917a5", [
       [ "Ok", "i_dialog_message_box_8h.html#ac9a241f289e04683e63e4a3e8db917a5aa60852f204ed8028c1c58808b746d115", null ],
       [ "CancelOk", "i_dialog_message_box_8h.html#ac9a241f289e04683e63e4a3e8db917a5aa03a3accf224b8ba5d4089c8333a4697", null ],

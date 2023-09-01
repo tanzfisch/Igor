@@ -1,6 +1,6 @@
 var i_event_8h =
 [
-    [ "iEvent", "classigor_1_1i_event.html", "classigor_1_1i_event" ],
+    [ "igor::iEvent", "classigor_1_1i_event.html", "classigor_1_1i_event" ],
     [ "IGOR_BIND_EVENT_FUNCTION", "i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8", null ],
     [ "IGOR_EVENT_CLASS_TYPE", "i_event_8h.html#a2b903f0ee268b73cf1116cb74ab0fcdb", null ],
     [ "IGOR_EVENT_KIND_MASK", "i_event_8h.html#aae7605c3a64e7f37671c9d0a9dedec8f", null ],

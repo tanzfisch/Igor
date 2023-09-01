@@ -1,6 +1,6 @@
 var i_l_system_8h =
 [
-    [ "iLSystem", "classigor_1_1i_l_system.html", "classigor_1_1i_l_system" ],
+    [ "igor::iLSystem", "classigor_1_1i_l_system.html", "classigor_1_1i_l_system" ],
     [ "iLSystemAgeFunction", "i_l_system_8h.html#a19f6a5933e8801a314ed880e56666b8d", [
       [ "Less", "i_l_system_8h.html#a19f6a5933e8801a314ed880e56666b8da1cfdf0e8d0c87a228c1f40d9bee7888b", null ],
       [ "LessOrEqual", "i_l_system_8h.html#a19f6a5933e8801a314ed880e56666b8daa4cbdbb6070a5abb35fc95ecf1e22c14", null ],

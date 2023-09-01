@@ -1,6 +1,6 @@
 var classigor_1_1i_audio =
 [
-    [ "bindSource", "classigor_1_1i_audio.html#ad68473a040fb72d00d621ec9fe36718d", null ],
+    [ "bindSource", "classigor_1_1i_audio.html#aade843af93e1cfd2035b396987a5ac80", null ],
     [ "createBuffer", "classigor_1_1i_audio.html#a6a5d7cf5ba919dfcc3a938c026e5ca40", null ],
     [ "createSource", "classigor_1_1i_audio.html#aefb519e61bdad60279658387977578fc", null ],
     [ "destroyBuffer", "classigor_1_1i_audio.html#a482f2c1301d50d663d51843aff5b38eb", null ],

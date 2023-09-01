@@ -1,6 +1,6 @@
 var ia_test_8h =
 [
-    [ "iaTest", "classiaux_1_1ia_test.html", "classiaux_1_1ia_test" ],
+    [ "iaux::iaTest", "classiaux_1_1ia_test.html", "classiaux_1_1ia_test" ],
     [ "IAUX_EXPECT_EQUAL", "ia_test_8h.html#ace96699a171eb12d7e830d85a47ac55a", null ],
     [ "IAUX_EXPECT_FALSE", "ia_test_8h.html#af306a299ba75beee9724bf36b792fd30", null ],
     [ "IAUX_EXPECT_GREATER_THEN", "ia_test_8h.html#a0e42650a9329c7f12f8a3cd98b16989b", null ],

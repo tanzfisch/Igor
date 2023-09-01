@@ -1,6 +1,6 @@
 var i_node_8h =
 [
-    [ "iNode", "classigor_1_1i_node.html", "classigor_1_1i_node" ],
+    [ "igor::iNode", "classigor_1_1i_node.html", "classigor_1_1i_node" ],
     [ "iNodeID", "i_node_8h.html#aff2fffd1422a5fc43611410dec9af090", null ],
     [ "iNodePtr", "i_node_8h.html#a1420d8c8d3b036cdbd5f8665ec1bbeb1", null ],
     [ "iNodeKind", "i_node_8h.html#a2bf7c6414a6bc8549c4402ca0e1236e8", [

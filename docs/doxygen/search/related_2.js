@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['flush_7310',['flush',['../classiaux_1_1ia_console.html#aff4ef28f1a4410d6a29f043b6975c3c2',1,'iaux::iaConsole']]]
+  ['flush_0',['flush',['../classiaux_1_1ia_console.html#a5297f0ce47d8eaed917fbba9202d06dc',1,'iaux::iaConsole']]]
 ];

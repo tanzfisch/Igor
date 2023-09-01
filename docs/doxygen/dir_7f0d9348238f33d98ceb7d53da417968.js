@@ -7,24 +7,17 @@ var dir_7f0d9348238f33d98ceb7d53da417968 =
     [ "iaColor4.h", "ia_color4_8h.html", "ia_color4_8h" ],
     [ "iaColor4.inl", "ia_color4_8inl.html", "ia_color4_8inl" ],
     [ "iaConvert.cpp", "ia_convert_8cpp.html", null ],
-    [ "iaConvert.h", "ia_convert_8h.html", [
-      [ "iaConvert", "classiaux_1_1ia_convert.html", "classiaux_1_1ia_convert" ]
-    ] ],
+    [ "iaConvert.h", "ia_convert_8h.html", "ia_convert_8h" ],
     [ "iaIDGenerator.h", "ia_i_d_generator_8h.html", "ia_i_d_generator_8h" ],
     [ "iaIDGenerator.inl", "ia_i_d_generator_8inl.html", null ],
     [ "iaKeyFrameGraph.h", "ia_key_frame_graph_8h.html", "ia_key_frame_graph_8h" ],
     [ "iaKeyFrameGraph.inl", "ia_key_frame_graph_8inl.html", null ],
     [ "iaRectangle.h", "ia_rectangle_8h.html", "ia_rectangle_8h" ],
     [ "iaRectangle.inl", "ia_rectangle_8inl.html", "ia_rectangle_8inl" ],
-    [ "iaRLE.h", "ia_r_l_e_8h.html", [
-      [ "iaRLEBlock", "structiaux_1_1ia_r_l_e_block.html", "structiaux_1_1ia_r_l_e_block" ],
-      [ "iaRLE", "classiaux_1_1ia_r_l_e.html", "classiaux_1_1ia_r_l_e" ]
-    ] ],
+    [ "iaRLE.h", "ia_r_l_e_8h.html", "ia_r_l_e_8h" ],
     [ "iaRLE.inl", "ia_r_l_e_8inl.html", null ],
     [ "iaSerializable.cpp", "ia_serializable_8cpp.html", null ],
-    [ "iaSerializable.h", "ia_serializable_8h.html", [
-      [ "iaSerializable", "classiaux_1_1ia_serializable.html", "classiaux_1_1ia_serializable" ]
-    ] ],
+    [ "iaSerializable.h", "ia_serializable_8h.html", "ia_serializable_8h" ],
     [ "iaSerializable.inl", "ia_serializable_8inl.html", null ],
     [ "iaSphere.h", "ia_sphere_8h.html", "ia_sphere_8h" ],
     [ "iaSphere.inl", "ia_sphere_8inl.html", null ],

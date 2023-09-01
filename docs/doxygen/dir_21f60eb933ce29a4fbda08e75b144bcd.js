@@ -8,51 +8,35 @@ var dir_21f60eb933ce29a4fbda08e75b144bcd =
     [ "iWidgetCheckBox.cpp", "i_widget_check_box_8cpp.html", null ],
     [ "iWidgetCheckBox.h", "i_widget_check_box_8h.html", "i_widget_check_box_8h" ],
     [ "iWidgetColor.cpp", "i_widget_color_8cpp.html", null ],
-    [ "iWidgetColor.h", "i_widget_color_8h.html", [
-      [ "iWidgetColor", "classigor_1_1i_widget_color.html", "classigor_1_1i_widget_color" ]
-    ] ],
+    [ "iWidgetColor.h", "i_widget_color_8h.html", "i_widget_color_8h" ],
     [ "iWidgetColorGradient.cpp", "i_widget_color_gradient_8cpp.html", null ],
     [ "iWidgetColorGradient.h", "i_widget_color_gradient_8h.html", "i_widget_color_gradient_8h" ],
     [ "iWidgetGraph.cpp", "i_widget_graph_8cpp.html", null ],
-    [ "iWidgetGraph.h", "i_widget_graph_8h.html", [
-      [ "iWidgetGraph", "classigor_1_1i_widget_graph.html", "classigor_1_1i_widget_graph" ]
-    ] ],
+    [ "iWidgetGraph.h", "i_widget_graph_8h.html", "i_widget_graph_8h" ],
     [ "iWidgetGrid.cpp", "i_widget_grid_8cpp.html", null ],
     [ "iWidgetGrid.h", "i_widget_grid_8h.html", "i_widget_grid_8h" ],
     [ "iWidgetGroupBox.cpp", "i_widget_group_box_8cpp.html", null ],
     [ "iWidgetGroupBox.h", "i_widget_group_box_8h.html", "i_widget_group_box_8h" ],
     [ "iWidgetLabel.cpp", "i_widget_label_8cpp.html", null ],
-    [ "iWidgetLabel.h", "i_widget_label_8h.html", [
-      [ "iWidgetLabel", "classigor_1_1i_widget_label.html", "classigor_1_1i_widget_label" ]
-    ] ],
+    [ "iWidgetLabel.h", "i_widget_label_8h.html", "i_widget_label_8h" ],
     [ "iWidgetLineTextEdit.cpp", "i_widget_line_text_edit_8cpp.html", null ],
-    [ "iWidgetLineTextEdit.h", "i_widget_line_text_edit_8h.html", [
-      [ "iWidgetLineTextEdit", "classigor_1_1i_widget_line_text_edit.html", "classigor_1_1i_widget_line_text_edit" ]
-    ] ],
+    [ "iWidgetLineTextEdit.h", "i_widget_line_text_edit_8h.html", "i_widget_line_text_edit_8h" ],
     [ "iWidgetMenu.cpp", "i_widget_menu_8cpp.html", null ],
     [ "iWidgetMenu.h", "i_widget_menu_8h.html", "i_widget_menu_8h" ],
     [ "iWidgetMenuBar.cpp", "i_widget_menu_bar_8cpp.html", null ],
     [ "iWidgetMenuBar.h", "i_widget_menu_bar_8h.html", "i_widget_menu_bar_8h" ],
     [ "iWidgetNumberChooser.cpp", "i_widget_number_chooser_8cpp.html", null ],
-    [ "iWidgetNumberChooser.h", "i_widget_number_chooser_8h.html", [
-      [ "iWidgetNumberChooser", "classigor_1_1i_widget_number_chooser.html", "classigor_1_1i_widget_number_chooser" ]
-    ] ],
+    [ "iWidgetNumberChooser.h", "i_widget_number_chooser_8h.html", "i_widget_number_chooser_8h" ],
     [ "iWidgetPicture.cpp", "i_widget_picture_8cpp.html", null ],
-    [ "iWidgetPicture.h", "i_widget_picture_8h.html", [
-      [ "iWidgetPicture", "classigor_1_1i_widget_picture.html", "classigor_1_1i_widget_picture" ]
-    ] ],
+    [ "iWidgetPicture.h", "i_widget_picture_8h.html", "i_widget_picture_8h" ],
     [ "iWidgetScroll.cpp", "i_widget_scroll_8cpp.html", "i_widget_scroll_8cpp" ],
     [ "iWidgetScroll.h", "i_widget_scroll_8h.html", "i_widget_scroll_8h" ],
     [ "iWidgetSelectBox.cpp", "i_widget_select_box_8cpp.html", null ],
     [ "iWidgetSelectBox.h", "i_widget_select_box_8h.html", "i_widget_select_box_8h" ],
     [ "iWidgetSlider.cpp", "i_widget_slider_8cpp.html", "i_widget_slider_8cpp" ],
-    [ "iWidgetSlider.h", "i_widget_slider_8h.html", [
-      [ "iWidgetSlider", "classigor_1_1i_widget_slider.html", "classigor_1_1i_widget_slider" ]
-    ] ],
+    [ "iWidgetSlider.h", "i_widget_slider_8h.html", "i_widget_slider_8h" ],
     [ "iWidgetSpacer.cpp", "i_widget_spacer_8cpp.html", null ],
-    [ "iWidgetSpacer.h", "i_widget_spacer_8h.html", [
-      [ "iWidgetSpacer", "classigor_1_1i_widget_spacer.html", "classigor_1_1i_widget_spacer" ]
-    ] ],
+    [ "iWidgetSpacer.h", "i_widget_spacer_8h.html", "i_widget_spacer_8h" ],
     [ "iWidgetTextEdit.cpp", "i_widget_text_edit_8cpp.html", null ],
     [ "iWidgetTextEdit.h", "i_widget_text_edit_8h.html", "i_widget_text_edit_8h" ]
 ];

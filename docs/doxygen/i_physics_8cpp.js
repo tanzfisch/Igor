@@ -1,6 +1,6 @@
 var i_physics_8cpp =
 [
-    [ "PreFilterUserData", "structigor_1_1_pre_filter_user_data.html", "structigor_1_1_pre_filter_user_data" ],
+    [ "igor::PreFilterUserData", "structigor_1_1_pre_filter_user_data.html", "structigor_1_1_pre_filter_user_data" ],
     [ "AABBOverlapTest", "i_physics_8cpp.html#ac01cd7e628ea9406cff0df45aabd902d", null ],
     [ "CollideCallback", "i_physics_8cpp.html#abd4db97a0f9cfdf60172d5695ff7cc5b", null ],
     [ "CommonRayPrefilterCallback", "i_physics_8cpp.html#a48768cd182c4b74fd3a238b31ca8f626", null ],
@@ -9,6 +9,7 @@ var i_physics_8cpp =
     [ "GenericContactProcessCompatible", "i_physics_8cpp.html#a1fb34f9daadd9596dd6bece1826ded7b", null ],
     [ "GetCollisionInfo", "i_physics_8cpp.html#a58cdcc77a989674c944f4d0a104acb30", null ],
     [ "GetFacesInAABB", "i_physics_8cpp.html#a1f6ad9a41bfb74ca13d8ceda294ac94c", null ],
+    [ "getPhysicsThreadCountFromConfig", "i_physics_8cpp.html#aa6a775ad95c53ef2c3edd3309a4dcec3", null ],
     [ "PhysicsApplyForceAndTorque", "i_physics_8cpp.html#a0b13dbb85e205f0d5c0dc791c06e5eb9", null ],
     [ "PhysicsNodeDestructor", "i_physics_8cpp.html#ad94a741a29dd3b5aef0fad37ee323b7e", null ],
     [ "PhysicsNodeSetTransform", "i_physics_8cpp.html#a41daf24f66e21439e9267a7b961e94c1", null ],

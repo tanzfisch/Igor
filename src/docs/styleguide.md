@@ -3,8 +3,8 @@ Igor Code Style Guide                       {#styleguide}
 
 Variables
 ---------
-All variables start with a lower case letter.
-If the Variable Name contain more than one word from the second word on every first letter of every word must be in upper case. Every other letter can be written in upper or lower case.
+
+Use lower camel case for variables.
 
 Examples:
 - i
@@ -22,10 +22,11 @@ Examples:
 - _fooBar
 
 Yes this might be a bad idea but the autor realized that years of work too late. It seemed cool back in the day. :-D
+(Today m_ would be the preffered prefix for member variables and s_ for static ones. Maybe one day I will replace all of that... probably not.)
 
 Functions and Methods
 ---------------------
-All functions and methods start with a lower case letter. From the second word on every first letter of a word must be written in upper case. Every other letter can be in upper case too.
+All functions and methods are written in lower camel case.
 The first word is preferably a verb.
 
 Examples:
