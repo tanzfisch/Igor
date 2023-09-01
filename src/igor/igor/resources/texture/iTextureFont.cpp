@@ -301,6 +301,12 @@ namespace igor
         {
             const wchar_t &character = text[i];
 
+            if (character == L'\n')
+            {
+                height += lineHeight * size;
+                continue;
+            }            
+
             length += _characters[character - 32]._characterOffset * size;
 
             if (maxWidth != 0.0)
@@ -315,10 +321,6 @@ namespace igor
 
                     lastlength = length;
                 }
-            }
-            else if (character == L'\n')
-            {
-                height += lineHeight * size;
             }
         }
 
