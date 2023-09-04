@@ -92,13 +92,6 @@ struct CoinGainComponent
     float32 _coins = 0.0;
 };
 
-struct VisualComponent
-{
-    bool _castShadow;
-    bool _scaleAnimation;
-    iaTime _timerOffset;
-};
-
 struct TargetComponent
 {
     iEntityID _targetID;

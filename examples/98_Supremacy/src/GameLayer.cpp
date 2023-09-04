@@ -474,7 +474,6 @@ iEntity GameLayer::createPlayer()
     entity.addUserComponent<ExperienceComponent>({0.0f, 1.0f});
     entity.addUserComponent<CoinsComponent>({0.0f});
     entity.addUserComponent<ModifierComponent>({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f});
-    entity.addUserComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
     entity.addUserComponent<WeaponComponent>({_weapons["Knife"]});
 
     // add shadow
@@ -565,7 +564,6 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
     iEntity entity = _entityScene->createEntity("object");
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
     entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("coin.sprite"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
-    entity.addUserComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
     entity.addComponent<iPartyComponent>({party});
     entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
     entity.addComponent<iBody2DComponent>({});
@@ -615,7 +613,6 @@ void GameLayer::createShop()
     _shop.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("shop.sprite")});
     _shop.addComponent<iPartyComponent>({FRIEND});
     _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});
-    _shop.addUserComponent<VisualComponent>({true, false, iaTime::fromSeconds(iaRandom::getNextFloat())});
     _shop.addUserComponent<BuildingComponent>({BuildingType::Shop});
     _shop.addUserComponent<ModifierComponent>({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f});
     _shop.addUserComponent<WeaponComponent>({_weapons["Minigun"]});
@@ -704,7 +701,6 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit.addUserComponent<TargetComponent>({target});
     unit.addUserComponent<ExperienceGainComponent>({enemyClass._xpDrop});
     unit.addUserComponent<DamageComponent>({enemyClass._damage});
-    unit.addUserComponent<VisualComponent>({true, true, iaTime::fromSeconds(iaRandom::getNextFloat())});
     unit.addBehaviour({this, &GameLayer::onCheckCollision});
     unit.addBehaviour({this, &GameLayer::onFollowTarget});
     unit.setMotionInteractionType(iMotionInteractionType::Divert);
@@ -1140,7 +1136,6 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<iBody2DComponent>({});
         bullet.addUserComponent<DamageComponent>({weapon._damage * modifier._damageFactor});
         bullet.addUserComponent<HealthComponent>({100.0f, true});
-        bullet.addUserComponent<VisualComponent>({false, false, iaTime::fromSeconds(iaRandom::getNextFloat())});
         bullet.addBehaviour({this, &GameLayer::onUpdateProjectileOrientation});
         bullet.addBehaviour({this, &GameLayer::onCheckCollision});
     }

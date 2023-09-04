@@ -57,23 +57,8 @@ namespace igor
         */
         T &add(iEntityID entityID, const T &component)
         {
-            uint32 index;
-
-            if (!_freeIndices.empty())
-            {
-                index = _freeIndices.front();
-                _freeIndices.pop_front();
-                _components[index] = component;
-            }
-            else
-            {
-                index = _components.size();
-                _components.push_back(component);
-            }
-
-            _entityToIndex[entityID] = index;
-
-            return _components[index];
+            _components[entityID] = component;
+            return _components[entityID];
         }
 
         /*! removes component for given entity id
@@ -82,14 +67,13 @@ namespace igor
         */
         void remove(iEntityID entityID)
         {
-            auto iter = _entityToIndex.find(entityID);
-            if(iter == _entityToIndex.end())
+            auto iter = _components.find(entityID);
+            if(iter == _components.end())
             {
                 return;
             }
             
-            _freeIndices.push_back((*iter).second);
-            _entityToIndex.erase(entityID);
+            _components.erase(iter);
         }
 
         /*! \returns a pointer to a component if available of given entity
@@ -98,13 +82,13 @@ namespace igor
         */
         T *tryGet(iEntityID entityID)
         {
-            auto iter = _entityToIndex.find(entityID);
-            if(iter == _entityToIndex.end())
+            auto iter = _components.find(entityID);
+            if(iter == _components.end())
             {
                 return nullptr;
             }
 
-            return &(_components[iter->second]);
+            return &iter->second;
         }
 
         /*! \returns a reference to a component of given entity
@@ -115,10 +99,10 @@ namespace igor
         */
         T &get(iEntityID entityID)
         {
-            auto iter = _entityToIndex.find(entityID);
-            con_assert(iter != _entityToIndex.end(), "component does not exist");
+            auto iter = _components.find(entityID);
+            con_assert(iter != _components.end(), "component does not exist for entity: " << entityID);
 
-            return _components[iter->second];
+            return iter->second;
         }
 
         /*! \returns a const reference to a component of given entity
@@ -129,36 +113,22 @@ namespace igor
         */
         const T &get(iEntityID entityID) const
         {
-            auto iter = _entityToIndex.find(entityID);
-            if(iter == _entityToIndex.end())
-            {
-                con_crit("accessed non existing entity");
-                return T();
-            }
+            auto iter = _components.find(entityID);
+            con_assert(iter != _components.end(), "component does not exist for entity: " << entityID);
 
-            return _components[iter->second];
+            return iter->second;
         }
 
         void clear()
         {
             _components.clear();
-            _entityToIndex.clear();
-            _freeIndices.clear();
         }
 
     private:
 
-        /*! list of component data
-        */
-        std::vector<T> _components;
-
         /*! lookup table to map entity IDs to indices
         */
-        std::unordered_map<iEntityID, uint32> _entityToIndex;
-
-        /*! queue of free indices
-        */
-        std::deque<uint32> _freeIndices;
+        std::unordered_map<iEntityID, T> _components;
     };
 
 }
