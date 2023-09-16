@@ -15,11 +15,16 @@ Example2D::Example2D(iWindowPtr window)
 void Example2D::onInit()
 {
     // load the background tile texture
-    _backgroundTexture = iResourceManager::getInstance().requestResource<iTexture>("ice.png");
-    _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("fallback_texture");
+    _backgroundTexture = iResourceManager::getInstance().requestResource<iTexture>("example_texture_ice");
+
+    // ignore the upcoming error
+    iaLogLevel logLevel = iaConsole::getInstance().getLogLevel();
+    iaConsole::getInstance().setLogLevel(iaLogLevel::Fatal);
+    _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("does not exist texture");
+    iaConsole::getInstance().setLogLevel(logLevel);
 
     // load a texture as sprite
-    _doughnuts = iResourceManager::getInstance().requestResource<iSprite>("doughnuts.sprite");
+    _doughnuts = iResourceManager::getInstance().requestResource<iSprite>("example_sprite_doughnuts");
     // setup matrix
     _doughnutsTime = iaTime::getNow();   
 
@@ -88,7 +93,7 @@ void Example2D::initMandelbrotTexture()
         }
     }
 
-    iParameters param({{"name", iaString("mandelbrot_texture")},
+    iParameters param({{"id", iaUUID()},
                        {"type", iaString("texture")},
                        {"cacheMode", iResourceCacheMode::Keep},
                        {"pixmap", pixmap}});
@@ -142,8 +147,8 @@ void Example2D::initParticleSystem()
     matrix.rotate(-130.0 / 180.0 * M_PI, iaAxis::Z);
     _particleSystem.getEmitter().setWorldMatrix(matrix);
 
-    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("particleDot.png"), 0);
-    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("octave1.png"), 1);
+    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_particle_dot"), 0);
+    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_octave_1"), 1);
 }
 
 void Example2D::onDeinit()

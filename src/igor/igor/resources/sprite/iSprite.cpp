@@ -10,7 +10,7 @@ namespace igor
 {
 
     iSprite::iSprite(const iParameters &parameters)
-        : iResource("sprite", parameters)
+        : iResource(parameters)
     {
         addFrame(iaVector2f(), iaVector2f(1.0f, 1.0f), iaVector2f(0.5f, 0.5f), false);
     }

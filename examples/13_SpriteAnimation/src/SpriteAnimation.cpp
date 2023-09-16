@@ -23,11 +23,11 @@ void SpriteAnimation::onInit()
     getView().setClearColor(0.0, 1.0, 1.0, 1.0);
     getViewOrtho().setScene(getScene());
 
-    _materialTerrain = iMaterialResourceFactory::getInstance().loadMaterial("sprite_animation_textured.mat");
+    _materialTerrain = iResourceManager::getInstance().loadResource<iMaterial>("example_material_sprite_animation_textured");
 
     // load atlantes
-    _walk = iResourceManager::getInstance().loadResource<iSprite>("spriteAnimationWalk.sprite");
-    _tiles = iResourceManager::getInstance().loadResource<iSprite>("spriteAnimationTiles.sprite");
+    _walk = iResourceManager::getInstance().loadResource<iSprite>("example_sprite_animation_walk");
+    _tiles = iResourceManager::getInstance().loadResource<iSprite>("example_sprite_animation_tiles");
 
     // generate ground map
     TileMapGenerator tileMapGenerator;
@@ -41,7 +41,7 @@ void SpriteAnimation::onInit()
     getScene()->getRoot()->insertNode(terrainGroundTransform);
 
     // generate dressing and trees map
-    iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("spriteAnimationTerrain.png");
+    iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("example_texture_sprite_animation_terrain");
     terrainNodeDressing->setName("Dressing");
     iNodeTransform *terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     terrainDressingTransform->translate(0, 0, 0);

@@ -31,6 +31,7 @@
 
 #include <igor/renderer/iRenderStateSet.h>
 #include <igor/renderer/shaders/iShaderProgram.h>
+#include <igor/resources/iResource.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaColor3.h>
@@ -41,43 +42,17 @@
 namespace igor
 {
 
-    /*! material pointer definition
-     */
-    class iMaterial;
-    typedef std::shared_ptr<iMaterial> iMaterialPtr;
-
     /*! material ID definition
      */
     typedef iaUUID iMaterialID;
 
-    /*! A flag specifiying the character of the material
-
-    The application is free to interpret it any way it likes.
-
-    In Mica for example we only display public materials in the material list
-    */
-    enum class iMaterialVisibility
-    {
-        Private,
-        Public
-    };
-
-    /*! prints the material visibility to a stream
-
-    \param stream the stream to log to
-    \param visibility the value to log
-    \returns the stream
-    */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iMaterialVisibility &visibility);
-
     /*! material definition
      */
-    class IGOR_API iMaterial
+    class IGOR_API iMaterial : public iResource
     {
-        friend class iRenderer;
-        friend class iMaterialDeleter;
-        friend class iMaterialResourceFactory;
+        friend class iMaterialFactory;
         friend class iMaterialIO;
+        friend class iRenderer;
 
     public:
         /*! default render order value
@@ -111,10 +86,6 @@ namespace igor
         /*! \returns name of material
          */
         const iaString &getName() const;
-
-        /*! \returns material id
-         */
-        const iMaterialID &getID() const;
 
         /*! defines the value of a specific render state
 
@@ -219,10 +190,6 @@ namespace igor
          */
         iRenderStateSet _renderStateSet;
 
-        /*! material id
-         */
-        iMaterialID _materialID;
-
         /*! oder that material groups get sorted by
 
         default value is iMaterial_old::RENDER_ORDER_DEFAULT
@@ -277,27 +244,11 @@ namespace igor
          */
         iMaterialVisibility _visibility = iMaterialVisibility::Public;
 
-        /*! does nothing
+        /*! init material
+
+        \param parameters parameters specifying the material
          */
-        iMaterial() = default;
-
-        /*! does nothing
-         */
-        ~iMaterial();
-
-        /*! \returns a newly created material
-         */
-        static iMaterialPtr create();
-
-        /*! \returns a newly created material from file
-         */
-        static iMaterialPtr create(const iaString &filename);
-
-        /*! sets material id
-
-        \param materialID the material id
-        */
-        void setID(const iMaterialID &materialID);
+        iMaterial(const iParameters &parameters);
 
         /*! bind this material
          */
@@ -363,6 +314,11 @@ namespace igor
         */
         void setMatrix(const iaString &uniform, const iaMatrixf &value);
     };
+
+    /*! material pointer definition
+     */
+    typedef std::shared_ptr<iMaterial> iMaterialPtr;
 }
 
 #endif // __IGOR_MATERIAL__
+

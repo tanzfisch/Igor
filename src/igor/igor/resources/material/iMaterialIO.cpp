@@ -91,10 +91,8 @@ namespace igor
             return iRenderStateValue::Invert;
         if (value == "Invalid")
             return iRenderStateValue::Invalid;
-        if (value == "PositionOrientation")
-            return iRenderStateValue::PositionOrientation;
-        if (value == "Position")
-            return iRenderStateValue::Position;
+        if (value == "PositionOrientationInstancing")
+            return iRenderStateValue::PositionOrientationInstancing;
 
         return defaultValue;
     }
@@ -109,7 +107,7 @@ namespace igor
         material->setRenderState(iRenderState::DepthFunc, getRenderStateValue(states, "DepthFunc", iRenderStateValue::Less));
         material->setRenderState(iRenderState::CullFaceFunc, getRenderStateValue(states, "CullFaceFunc", iRenderStateValue::Back));
         material->setRenderState(iRenderState::Instanced, getRenderStateValue(states, "Instanced", iRenderStateValue::Off));
-        material->setRenderState(iRenderState::InstancedFunc, getRenderStateValue(states, "InstancedFunc", iRenderStateValue::PositionOrientation));
+        material->setRenderState(iRenderState::InstancedFunc, getRenderStateValue(states, "InstancedFunc", iRenderStateValue::PositionOrientationInstancing));
         material->setRenderState(iRenderState::DepthTest, getRenderStateValue(states, "DepthTest", iRenderStateValue::On));
     }
 
@@ -180,7 +178,7 @@ namespace igor
         material->setShaderProgram(shaderProgram);
     }
 
-    void iMaterialIO::readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
+    bool iMaterialIO::readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
     {
         TiXmlAttribute *attrib = materialXML->FirstAttribute();
         while (attrib)
@@ -188,10 +186,6 @@ namespace igor
             if (attrib->NameTStr() == "name")
             {
                 material->setName(attrib->Value());
-            }
-            else if (attrib->NameTStr() == "uuid")
-            {
-                material->setID(iMaterialID(attrib->Value()));
             }
             else if (attrib->NameTStr() == "zIndex" ||
                      attrib->NameTStr() == "order")
@@ -242,9 +236,11 @@ namespace igor
         {
             readProgram(program, material);
         }
+
+        return true;
     }
 
-    void iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
+    bool iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -253,30 +249,40 @@ namespace igor
         if (!document.LoadFile())
         {
             con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
-            return;
+            return false;
         }
 
         TiXmlElement *root = document.FirstChildElement("Igor");
         if (!root)
         {
             con_err("not an igor xml file");
-            return;
+            return false;
         }
 
         TiXmlElement *materialXML = root->FirstChildElement("Material");
-        if (materialXML)
+        if (materialXML == nullptr)
         {
-            readMaterial(materialXML, material);
+            con_err("missing Material element");
+            return false;
         }
+
+        material->_filename = filename;
+        return readMaterial(materialXML, material);
     }
 
-    void iMaterialIO::write(const iaString &filename, const iMaterialPtr &material)
+    bool iMaterialIO::write(const iaString &filename, const iMaterialPtr &material)
     {
         char temp[2048];
         filename.getData(temp, 2048);
 
         std::wofstream file;
         file.open(temp);
+
+        if(!file.is_open())
+        {
+            con_err("can't open to write \"" << temp << "\"");
+            return false;
+        }
 
         file << "<?xml version=\"1.0\"?>\n";
         file << "<Igor>\n";
@@ -319,6 +325,8 @@ namespace igor
 
         file << "\t</Material>\n";
         file << "</Igor>\n";
+
+        return true;
     }
 
 } // namespace igor

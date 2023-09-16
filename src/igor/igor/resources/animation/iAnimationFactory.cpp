@@ -65,7 +65,8 @@ namespace igor
             return true;
         }
 
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         return loadAnimation(filename, animation);
     }
 

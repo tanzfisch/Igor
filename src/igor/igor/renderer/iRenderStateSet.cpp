@@ -18,7 +18,7 @@ namespace igor
         _renderStates[static_cast<unsigned int>(iRenderState::DepthFunc)] = iRenderStateValue::Less;
         _renderStates[static_cast<unsigned int>(iRenderState::CullFaceFunc)] = iRenderStateValue::Back;
         _renderStates[static_cast<unsigned int>(iRenderState::Instanced)] = iRenderStateValue::Off;
-        _renderStates[static_cast<unsigned int>(iRenderState::InstancedFunc)] = iRenderStateValue::PositionOrientation;
+        _renderStates[static_cast<unsigned int>(iRenderState::InstancedFunc)] = iRenderStateValue::PositionOrientationInstancing;
     }
 
     void iRenderStateSet::setRenderState(const iRenderState state, const iRenderStateValue value)

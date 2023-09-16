@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-    <Sprite texture="spriteAnimationWalk.png" pixelPerUnit="1">
+    <Sprite texture="example_sprite_animation_walk" pixelPerUnit="1">
         <!-- walk south -->
         <Frame pos="50, 0" size="50, 85" pivot="25, 80" pixel="true"/>
         <Frame pos="100, 0" size="50, 85" pivot="25, 80" pixel="true"/>

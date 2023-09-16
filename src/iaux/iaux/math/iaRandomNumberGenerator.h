@@ -31,6 +31,8 @@
 
 #include <iaux/system/iaConsole.h>
 
+#include <random>
+
 namespace iaux
 {
 
@@ -46,7 +48,7 @@ namespace iaux
 
         /*! does nothing
          */
-        ~iaRandomNumberGenerator();
+        ~iaRandomNumberGenerator() = default;
 
         /*! sets the seed
 
@@ -103,9 +105,15 @@ namespace iaux
         float64 getNextFloatRange(float64 min, float64 max);
 
     private:
-        /*! the seed
-         */
-        uint64 _seed = 1337;
+
+        /*! random number engine
+        */
+        std::mt19937_64 _engine;
+
+        /*! random number distribution
+        */
+        std::uniform_int_distribution<uint64> _distribution;
+
     };
 
 } // namespace iaux

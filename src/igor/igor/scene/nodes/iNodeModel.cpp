@@ -10,7 +10,6 @@
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/iScene.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
@@ -175,7 +174,7 @@ namespace igor
 
     const iaString iNodeModel::getModelName() const
     {
-        return _model != nullptr ? _model->getName() : "";
+        return _model != nullptr ? _model->getAlias() : "";
     }
 
     void iNodeModel::getInfo(std::vector<iaString> &info) const

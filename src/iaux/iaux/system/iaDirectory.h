@@ -78,7 +78,7 @@ namespace iaux
         */
         static iaString getRelativePath(const iaString &from, const iaString &to);
 
-        /*! \returns all subdirectorys
+        /*! \returns all sub directories
 
         \param recursive true: search recursively; false: search only in current directory
         \param orderAlphabetically true: returns directories in alphabetical order

@@ -5,7 +5,6 @@
 #include <igor/simulation/iParticleSystem.h>
 #include <iaux/system/iaConsole.h>
 
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <iaux/data/iaKeyFrameGraph.h>
 #include <igor/system/iTimer.h>
 #include <igor/simulation/iParticleEmitter.h>

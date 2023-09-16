@@ -37,109 +37,107 @@
 namespace iaux
 {
 
-    /*! BSpline implementation
-
-	\todo make it a template
-	*/
+    /*! \brief Non uniform B-Spline
+     */
     template <class T>
-    class IAUX_API_EXPORT_ONLY iaBSpline // non uniform B-Spline
+    class IAUX_API_EXPORT_ONLY iaBSpline
     {
 
     public:
         /*! add support point to spline
 
-		\param point new point to add
-		*/
+        \param point new point to add
+        */
         void addSupportPoint(const iaVector3<T> &point);
 
         /*! clears list of support points
-		*/
+         */
         void clear();
 
         /*! configure the rank of the spline
 
-		\param rank the rank of the spline (default = 3)
-		*/
+        \param rank the rank of the spline (default = 3)
+        */
         void setRank(const uint32 rank);
 
         /*! \returns rank of this spline
-		*/
+         */
         const uint32 getRank() const;
 
         /*! \returns vertex position on specified position on spline
 
-		\param t position on spline 0.0-1.0
-		*/
+        \param t position on spline 0.0-1.0
+        */
         iaVector3<T> getPointOnSpline(T t);
 
         /*! retruns points on the spline
 
-		\param[out] points the resulting points 
-		\param pointCount the amount of points to generate on the spline (min 2)
-		*/
+        \param[out] points the resulting points
+        \param pointCount the amount of points to generate on the spline (min 2)
+        */
         void getPoints(std::vector<iaVector3<T>> &points, int32 pointCount);
 
         /*! \returns list of support points
-		*/
+         */
         const std::vector<iaVector3<T>> &getSupportPoints() const;
 
         /*! overwrites value od specified support point.
-		No range check!
+        No range check!
 
-		\param point new position of support point
-		\param index index of support point to change
-		*/
+        \param point new position of support point
+        \param index index of support point to change
+        */
         void setSupportPoint(const iaVector3<T> &point, uint32 index);
 
         /*! \returns specified support point
-		No range check!
+        No range check!
 
-		\param index index of support point to return
-		*/
+        \param index index of support point to return
+        */
         const iaVector3<T> &getSupportPoint(uint32 index) const;
 
         /*! does nothing
-		*/
+         */
         iaBSpline() = default;
 
         /*! does nothing
-		*/
+         */
         ~iaBSpline() = default;
 
     private:
         /*! dirty flag if true recalculate lookup table
-		*/
+         */
         bool _recalc = true;
 
         /*! rank configuration
-		*/
+         */
         uint32 _rank = 3;
 
         /*! lookup table
-		*/
+         */
         std::vector<int32> _U;
 
         /*! list of support points
-		*/
+         */
         std::vector<iaVector3<T>> _supportpoints;
 
         /*! calculates the actual point on the spline
-		*/
+         */
         T calc(int32 k, T t, int32 i);
 
         /*! internal calculation of look up table
-		*/
+         */
         void prepareU();
     };
 
 #include <iaux/math/iaBSpline.inl>
 
     /*! float32 BSpline
-	*/
+     */
     typedef iaBSpline<float32> iaBSplinef;
 
     /*! float64 BSpline
-	*/
+     */
     typedef iaBSpline<float64> iaBSplined;
 
 }; // namespace iaux

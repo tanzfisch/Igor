@@ -24,9 +24,9 @@ namespace igor
 
         _targetMaterial = iTargetMaterial::create();
 
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("white_texture"), 0);
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("white_texture"), 1);
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("white_texture"), 2);
+        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 0);
+        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 1);
+        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 2);
     }
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem *node)

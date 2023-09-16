@@ -451,8 +451,6 @@ namespace iaux
         static bool read(std::ifstream &stream, iaKeyFrameGraphColor4f &value);
     };
 
-#include <iaux/data/iaSerializable.inl>
-
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_SERIALIZABLE__

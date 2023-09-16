@@ -31,10 +31,10 @@ void OverlayLayer::onInit()
     // set default camera as current
     _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
 
-    _materialOrientationPlane = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/orientation_plane.mat");
+    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_orientation_plane");
 
     // font for
-    _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
+    _font = iTextureFont::create("igor_font_default_outline");
 
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_view, _scene, _workspace));
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_view, _scene, _workspace));

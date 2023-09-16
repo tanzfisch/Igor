@@ -6,7 +6,6 @@
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/renderer/iRenderer.h>
@@ -31,10 +30,10 @@ namespace igor
         setGrowingByContent(false);
 
         // get some resources
-        _upTexture = iResourceManager::getInstance().loadResource<iTexture>("igor/icons/up.png");
-        _downTexture = iResourceManager::getInstance().loadResource<iTexture>("igor/icons/down.png");
-        _leftTexture = iResourceManager::getInstance().loadResource<iTexture>("igor/icons/left.png");
-        _rightTexture = iResourceManager::getInstance().loadResource<iTexture>("igor/icons/right.png");
+        _upTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_up");
+        _downTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_down");
+        _leftTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_left");
+        _rightTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_right");
     }
 
     bool iWidgetScroll::handleMouseKeyUp(iKeyCode key)

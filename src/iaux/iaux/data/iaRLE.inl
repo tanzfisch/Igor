@@ -17,7 +17,7 @@ void iaRLE<TValue, TIndex>::setSize(TIndex size, TValue clearValue)
 }
 
 template <typename TValue, typename TIndex>
-__IGOR_INLINE__ TIndex iaRLE<TValue, TIndex>::getSize() const
+TIndex iaRLE<TValue, TIndex>::getSize() const
 {
     return _size;
 }
@@ -33,7 +33,7 @@ void iaRLE<TValue, TIndex>::clear(TValue clearValue)
 }
 
 template <typename TValue, typename TIndex>
-__IGOR_INLINE__ iaRLE<TValue, TIndex> iaRLE<TValue, TIndex>::operator=(const iaRLE<TValue, TIndex> &data)
+iaRLE<TValue, TIndex> iaRLE<TValue, TIndex>::operator=(const iaRLE<TValue, TIndex> &data)
 {
     iaRLE<TValue, TIndex> result;
     result._blocks = _blocks = data._blocks;
@@ -43,7 +43,7 @@ __IGOR_INLINE__ iaRLE<TValue, TIndex> iaRLE<TValue, TIndex>::operator=(const iaR
 }
 
 template <typename TValue, typename TIndex>
-__IGOR_INLINE__ TValue iaRLE<TValue, TIndex>::getValue(TIndex index) const
+TValue iaRLE<TValue, TIndex>::getValue(TIndex index) const
 {
     con_assert(index < _size, "out of bounds");
 
@@ -74,7 +74,7 @@ __IGOR_INLINE__ TValue iaRLE<TValue, TIndex>::getValue(TIndex index) const
 }
 
 template <typename TValue, typename TIndex>
-__IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length, TValue value)
+void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length, TValue value)
 {
     con_assert(index < _size, "out of bounds");
     con_assert(index + length <= _size, "out of bounds");
@@ -168,7 +168,7 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length
 }
 
 template <typename TValue, typename TIndex>
-__IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TValue value)
+void iaRLE<TValue, TIndex>::setValue(TIndex index, TValue value)
 {
     con_assert(index < _size, "out of bounds");
 

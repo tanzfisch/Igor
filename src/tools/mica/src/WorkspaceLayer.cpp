@@ -42,11 +42,11 @@ void WorkspaceLayer::onInit()
     _directionalLightTranslate->insertNode(_lightNode);
 
     // load materials
-    _materialCelShading = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/cellshading_yellow.mat");    
-    _materialBoundingBox = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/bounding_box.mat");
+    _materialCelShading = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_cellshading_yellow");    
+    _materialBoundingBox = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_bounding_box");
 
     // load particle material just so we have one available in the UI
-    iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/particles.mat");
+    iResourceManager::getInstance().loadResource<iMaterial>("igor_material_particles");
 }
 
 void WorkspaceLayer::onDeinit()

@@ -107,7 +107,7 @@ namespace igor
             if (behaviourData._delegate == behaviour)
             {
                 nonZero++;
-                behaviourData._delegate.clear(); // TODO not sure if this works
+                behaviourData._delegate.clear();
             }
         }
 

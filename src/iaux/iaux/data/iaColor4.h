@@ -132,6 +132,14 @@ namespace iaux
 
 #include <iaux/data/iaColor4.inl>
 
+    /*! stream operator e.g. for cosole output
+
+    \param ostr the out stream handle
+    \param color the color to print in stream
+    */
+    template <class T>
+    std::wostream &operator<<(std::wostream &ostr, const iaColor4<T> &color);
+
     /*! float32 color
      */
     typedef iaColor4<float32> iaColor4f;

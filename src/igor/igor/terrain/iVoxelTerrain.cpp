@@ -14,7 +14,6 @@
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/iScene.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/physics/iPhysics.h>
@@ -28,6 +27,7 @@
 #include <igor/terrain/tasks/iTaskVoxelTerrain.h>
 #include <igor/terrain/operations/iVoxelOperationBox.h>
 #include <igor/terrain/operations/iVoxelOperationSphere.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
@@ -180,7 +180,7 @@ namespace igor
         }
 
         // set up terrain material
-        _terrainMaterial = iMaterialResourceFactory::getInstance().getDefaultMaterial();
+        _terrainMaterial = iRenderer::getInstance().getDefaultMaterial();
 
         // set up terrain target material
         _targetMaterial = iTargetMaterial::create();

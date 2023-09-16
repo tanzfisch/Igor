@@ -6,7 +6,6 @@
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodePhysics.h>

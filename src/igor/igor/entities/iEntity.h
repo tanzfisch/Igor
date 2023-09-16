@@ -52,8 +52,6 @@ namespace igor
 
         \param entity the entity handle
         \param scene the scene this entity belongs to
-
-        \todo maybe scene could be a module and globally accessible
         */
         iEntity(iEntityID entity, iEntityScenePtr scene);
 

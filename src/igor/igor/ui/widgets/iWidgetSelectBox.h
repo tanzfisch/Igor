@@ -92,7 +92,7 @@ namespace igor
         const std::any getSelectedUserData() const;
 
     private:
-        /*! list of selct box entries
+        /*! list of select box entries
 		*/
         std::vector<std::pair<iaString, std::any>> _entries;
 

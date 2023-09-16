@@ -125,7 +125,6 @@ namespace igor
         iKeyboard::create();
         iPhysics::create();
         iRenderer::create();
-        iMaterialResourceFactory::create();
         iWidgetManager::create();
         iSceneFactory::create();
         iNodeManager::create();
@@ -164,11 +163,6 @@ namespace igor
         if (iWidgetManager::isInstantiated())
         {
             iWidgetManager::destroy();
-        }
-
-        if (iMaterialResourceFactory::isInstantiated())
-        {
-            iMaterialResourceFactory::destroy();
         }
 
         if (iRenderer::isInstantiated())
@@ -212,7 +206,7 @@ namespace igor
         }
     }
 
-    void startup(const iaString &configname)
+    void startup()
     {
         // first things first
         iaux::startup();
@@ -241,7 +235,7 @@ namespace igor
 
         for (const auto &location : configLocations)
         {
-            iaFile file(location + __IGOR_PATHSEPARATOR__ + configname + ".xml");
+            iaFile file(location + __IGOR_PATHSEPARATOR__ + "igor.xml");
 
             if (file.exist())
             {
@@ -252,7 +246,7 @@ namespace igor
 
         if (configurationFilepath.isEmpty())
         {
-            con_crit("can't find config file for \"" << configname << "\"");
+            con_crit("can't find config file");
         }
 
         iConfigReader::create();

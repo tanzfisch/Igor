@@ -50,7 +50,7 @@ void UserControlParticleSystem::updateNode()
             {
                 std::any userData = _materialSelection->getSelectedUserData();
                 iMaterialID materialID = std::any_cast<iMaterialID>(userData);
-                node->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
+                node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
             }
 
             node->setTextureA(_textureChooser0->getFileName());
@@ -163,7 +163,7 @@ void UserControlParticleSystem::updateGUI()
         _materialSelection->clear();
 
         std::vector<iMaterialPtr> materials;
-        iMaterialResourceFactory::getInstance().getMaterials(materials);
+        iResourceManager::getInstance().getMaterials(materials);
         for (auto material : materials)
         {
             const iMaterialID &materialID = material->getID();

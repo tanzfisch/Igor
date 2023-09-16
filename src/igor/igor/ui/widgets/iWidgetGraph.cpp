@@ -8,7 +8,6 @@
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>

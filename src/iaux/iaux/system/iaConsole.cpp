@@ -77,7 +77,6 @@ namespace iaux
             isatty(1) &&
             isatty(2))
         {
-            // TODO add some code to actually figure out if it is supported
             _useColorsSupported = true;
         }
 #endif
@@ -108,31 +107,41 @@ namespace iaux
     }
 
     /*! Note: can't use classes iaDirectory or iaFile here because of possible deadlock in logging
-
-    \todo error handling
-    */
+     */
     void iaConsole::openLogfile()
     {
-        if (!_file.is_open())
+        if (_file.is_open())
         {
+            return;
+        }
+
+        iaString logfilePath;
+
 #ifdef IGOR_WINDOWS
 #ifdef __IGOR_MSCOMPILER__
-            wchar_t result[MAX_PATH];
-            GetModuleFileName(NULL, result, MAX_PATH);
-            std::wstring path = result;
-            path = path.substr(0, path.find_last_of(__IGOR_PATHSEPARATOR__) + 1);
-            path.append(L"\\igor.log");
-            _file.open(path, std::fstream::out);
+        wchar_t result[MAX_PATH];
+        GetModuleFileName(NULL, result, MAX_PATH);
+        std::wstring path = result;
+        path = path.substr(0, path.find_last_of(__IGOR_PATHSEPARATOR__) + 1);
+        path.append(L"\\igor.log");
+        logfilePath = iaString(path.c_str());
+        _file.open(path, std::fstream::out);
 #endif
 
 #ifdef __IGOR_GCC__
-            _file.open("igor.log", std::fstream::out);
+        logfilePath = L"igor.log";
+        _file.open("igor.log", std::fstream::out);
 #endif
 #endif
 
 #ifdef __IGOR_LINUX__
-            _file.open("/tmp/igor.log", std::fstream::out);
+        logfilePath = L"/tmp/igor.log";
+        _file.open("/tmp/igor.log", std::fstream::out);
 #endif
+
+        if (!_file.is_open())
+        {
+            con_err("can't open log file \"" << logfilePath << "\"");
         }
     }
 

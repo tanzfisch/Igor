@@ -81,8 +81,8 @@ void UserControlMesh::updateNode()
             if (_selectMaterial->getSelectedUserData().has_value())
             {
                 std::any userData = _selectMaterial->getSelectedUserData();
-                iMaterialID materialID(std::any_cast<iaString>(userData));
-                node->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
+                iMaterialID materialID(std::any_cast<iMaterialID>(userData));
+                node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
             }
         }
     }
@@ -125,7 +125,7 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(0))
         {
-            iaString filename = node->getTargetMaterial()->getTexture(0)->getName();
+            iaString filename = node->getTargetMaterial()->getTexture(0)->getAlias();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
             if (!shortName.isEmpty())
             {
@@ -137,7 +137,7 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(1))
         {
-            iaString filename = node->getTargetMaterial()->getTexture(1)->getName();
+            iaString filename = node->getTargetMaterial()->getTexture(1)->getAlias();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
             if (!shortName.isEmpty())
             {
@@ -149,7 +149,7 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(2))
         {
-            iaString filename = node->getTargetMaterial()->getTexture(2)->getName();
+            iaString filename = node->getTargetMaterial()->getTexture(2)->getAlias();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
             if (!shortName.isEmpty())
             {
@@ -161,7 +161,7 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(3))
         {
-            iaString filename = node->getTargetMaterial()->getTexture(3)->getName();
+            iaString filename = node->getTargetMaterial()->getTexture(3)->getAlias();
             iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
             if (!shortName.isEmpty())
             {
@@ -174,7 +174,7 @@ void UserControlMesh::updateGUI()
         _selectMaterial->clear();
 
         std::vector<iMaterialPtr> materials;
-        iMaterialResourceFactory::getInstance().getMaterials(materials);
+        iResourceManager::getInstance().getMaterials(materials);
         for (auto material : materials)
         {
             if (material->isValid())
@@ -182,7 +182,7 @@ void UserControlMesh::updateGUI()
                 const iMaterialID &materialID = material->getID();
                 const iaString &materialName = material->getName();
 
-                _selectMaterial->addSelectionEntry(materialName, materialID.getValue());
+                _selectMaterial->addSelectionEntry(materialName, materialID);
 
                 if (materialID == node->getMaterial()->getID())
                 {

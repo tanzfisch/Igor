@@ -161,12 +161,6 @@ namespace iaux
 		*/
         iaMatrix2D();
 
-        /*! initializes matrix with a data set
-
-		\param data matrix
-		*/
-        iaMatrix2D(const T data[9]);
-
         /*! does nothing
 		*/
         ~iaMatrix2D();

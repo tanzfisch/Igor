@@ -20,7 +20,7 @@ Supremacy::Supremacy()
 
     // create example and add it as layer to the application
     igor::iApplication::getInstance().addLayer(new GameLayer(window));
-    igor::iApplication::getInstance().addLayer(new iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor/textures/StandardFont.png", "WidgetThemePattern.png")), window, "Widgets", 100));
+    igor::iApplication::getInstance().addLayer(new iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor_font_default", "example_texture_widget_theme_pattern")), window, "Widgets", 100));
     igor::iApplication::getInstance().addLayer(new iLayerProfiler(window, "Profiler", 1000, iProfilerVerbosity::FPSAndMetrics));
 }
 

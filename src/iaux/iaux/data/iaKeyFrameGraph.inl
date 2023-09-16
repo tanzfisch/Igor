@@ -9,7 +9,7 @@ void iaKeyFrameGraph<T>::clear()
 }
 
 template <typename T>
-__IGOR_INLINE__ bool iaKeyFrameGraph<T>::isEmpty() const
+bool iaKeyFrameGraph<T>::isEmpty() const
 {
     return _values.empty();
 }

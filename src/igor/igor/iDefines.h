@@ -64,20 +64,15 @@ namespace igor
 {
 
     /*! save mode for exporting node graphs
-    */
+     */
     enum class iSaveMode
     {
         /*! keeps external references unchanged
-        */
+         */
         KeepExternals,
 
-        /*! converts external reference data but keeps it in separate files
-        \todo not implemented
-        */
-        // KeepAndConvertExternals,
-
         /*! converts external data and embeds it in to one file
-        */
+         */
         EmbedExternals
     };
 
@@ -114,6 +109,26 @@ namespace igor
         Column,
         NoSelection
     };
+
+    /*! A flag specifiying the character of the material
+
+    The application is free to interpret it any way it likes.
+
+    In Mica for example we only display public materials in the material list
+    */
+    enum class iMaterialVisibility
+    {
+        Private,
+        Public
+    };
+
+    /*! prints the material visibility to a stream
+
+    \param stream the stream to log to
+    \param visibility the value to log
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iMaterialVisibility &visibility);
 
     /*! color format of textures pixmaps etc.
      */
@@ -163,7 +178,7 @@ namespace igor
     \param wrapMode the texture wrap mode
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iTextureWrapMode &wrapMode);    
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iTextureWrapMode &wrapMode);
 
     /*! texture patterns
      */
@@ -174,7 +189,7 @@ namespace igor
     };
 
     /*! resource manager load mode
-    */
+     */
     enum class iResourceManagerLoadMode
     {
         Application,
@@ -187,15 +202,16 @@ namespace igor
     \param mode the resource manager load mode mode
     \returns the stream
     */
-    IAUX_API std::wostream &operator<<(std::wostream &stream, iResourceManagerLoadMode mode);    
+    IAUX_API std::wostream &operator<<(std::wostream &stream, iResourceManagerLoadMode mode);
 
     /*! cache mode for resources
      */
     enum class iResourceCacheMode
     {
-        Free = 0,  //! free immediately after not in use
-        Cache = 1, //! free when cache is flushed
-        Keep = 2   //! keep until corresponding resource manager was destroyed
+        DontCache, //! don't put in cache and forget about it
+        Free,      //! free immediately after not in use
+        Cache,     //! free when cache is flushed
+        Keep,      //! keep until corresponding resource manager was destroyed
     };
 
     /*! prints the resource cache mode to the console

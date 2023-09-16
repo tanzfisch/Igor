@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="igor.particles_ortho_projection" uuid="6b2fddea-c7cc-11ed-91d2-ffe9c8c3ff69">
+	<Material name="igor.particles_ortho_projection">
 		<States>
 			<DepthTest>On</DepthTest>
             <DepthMask>Off</DepthMask>

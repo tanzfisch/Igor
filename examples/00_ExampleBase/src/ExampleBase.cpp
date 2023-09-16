@@ -46,9 +46,9 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             // create a skybox
             iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
             // set it up with the default skybox texture
-            skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/debug.png"));
+            skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_skybox_debug"));
             // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-            _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
+            _materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>("example_material_skybox");
             _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
             // set that material
             skyBoxNode->setMaterial(_materialSkyBox);
@@ -57,11 +57,11 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         }
 
         // init fonts
-        _outlineFont = iTextureFont::create("igor/textures/StandardFontOutlined.png");
-        _standardFont = iTextureFont::create("igor/textures/StandardFont.png");
+        _outlineFont = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default_outline"));
+        _standardFont = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"));
 
         // prepare igor logo
-        iParameters param({{"name", iaString("igor/textures/splash.png")},
+        iParameters param({{"alias", iaString("igor_logo_splash")},
                            {"type", iaString("texture")},
                            {"buildMode", iTextureBuildMode::Normal}});
         _igorLogo = iResourceManager::getInstance().loadResource<iTexture>(param);

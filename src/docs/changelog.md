@@ -1,6 +1,17 @@
 Changelog                           {#changelog}
 =========
 
+0.43.0
+------
+
+- reimplemented iMaterial and make it a iResource
+- replaced iMaterialResourceFactory with iMaterialFactory which is now integrated in the iResourceManager
+- improved UUID validation
+- some spring cleaning around plenty of TODOs
+- improved random number generator using STL
+- introducing resource dictionaries
+- introducing projects
+
 0.42.0
 ------
 

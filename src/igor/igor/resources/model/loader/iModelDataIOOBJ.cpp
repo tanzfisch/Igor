@@ -79,7 +79,6 @@ namespace igor
 				continue;
 			}
 
-			// create mesh node
 			iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setName(section.first);
 
@@ -298,7 +297,7 @@ namespace igor
 		std::ifstream file;
 		if (iaFile::exist(filename))
 		{
-			iaString path = iResourceManager::getInstance().getPath(filename);
+			iaString path = iResourceManager::getInstance().resolvePath(filename);
 			char temp[1024];
 			path.getData(temp, 1024);
 			file.open(temp, std::ifstream::in);

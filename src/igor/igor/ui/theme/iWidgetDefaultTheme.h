@@ -85,7 +85,7 @@ namespace igor
         float32 getFontSize();
         iTextureFontPtr getFont();
 
-        iWidgetDefaultTheme(const iaString &fontTexture, const iaString &backgroundTexture);
+        iWidgetDefaultTheme(iTexturePtr fontTexture, iTexturePtr backgroundTexture);
         virtual ~iWidgetDefaultTheme();
 
     private:

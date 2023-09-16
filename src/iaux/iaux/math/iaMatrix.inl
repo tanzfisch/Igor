@@ -188,20 +188,6 @@ iaMatrix<T>::iaMatrix()
     identity();
 }
 
-/*!
-\todo replace with memcpy
-*/
-template <class T>
-iaMatrix<T>::iaMatrix(const T data[16])
-{
-    T *localData = getData();
-
-    for (int i = 0; i < 16; i++)
-    {
-        localData[i] = data[i];
-    }
-}
-
 template <class T>
 iaMatrix<T>::~iaMatrix()
 {

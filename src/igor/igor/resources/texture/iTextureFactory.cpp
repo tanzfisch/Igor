@@ -31,7 +31,8 @@ namespace igor
 
     bool iTextureFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         iTexturePtr texture = std::dynamic_pointer_cast<iTexture>(resource);
 
         const auto &parameters = resource->getParameters();
@@ -141,7 +142,7 @@ namespace igor
         }
 
         texture->setData(width, height, bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
-        con_debug("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("generated texture \"" << texture->getAlias() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         delete[] data;
@@ -166,7 +167,7 @@ namespace igor
         {
             texture->_useFallback = true;
             _mutexImageLibrary.lock();
-            con_err("can't load \"" << texture->getName() << "\" reason:" << stbi_failure_reason());
+            con_err("can't load \"" << texture->getAlias() << "\" reason:" << stbi_failure_reason());
             _mutexImageLibrary.unlock();
 
             return false;
@@ -192,7 +193,7 @@ namespace igor
         };
 
         texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-        con_debug("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("loaded texture \"" << texture->getAlias() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         _mutexImageLibrary.lock();
@@ -262,7 +263,7 @@ namespace igor
 
     iPixmapPtr iTextureFactory::loadPixmap(const iaString &filename)
     {
-        iaString fullPath = iResourceManager::getInstance().getPath(filename);
+        iaString fullPath = iResourceManager::getInstance().resolvePath(filename);
 
         iPixmapPtr pixmap;
 

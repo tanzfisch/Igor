@@ -31,7 +31,7 @@ void UserControlMaterialView::initGUI()
     addMaterialButton->setTooltip("Create new material.");
     addMaterialButton->setWidth(30);
     addMaterialButton->setHeight(30);
-    addMaterialButton->setTexture("igor/icons/addMaterial.png");
+    addMaterialButton->setTexture("igor_icon_add_material");
     addMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onAddMaterial));
 
     iWidgetButton *loadMaterialButton = new iWidgetButton();
@@ -39,7 +39,7 @@ void UserControlMaterialView::initGUI()
     loadMaterialButton->setTooltip("Load material.");
     loadMaterialButton->setWidth(30);
     loadMaterialButton->setHeight(30);
-    loadMaterialButton->setTexture("igor/icons/loadMaterial.png");
+    loadMaterialButton->setTexture("igor_icon_load_material");
     loadMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onLoadMaterial));
 
     iWidgetGroupBox *groupBox = new iWidgetGroupBox();
@@ -104,7 +104,7 @@ void UserControlMaterialView::refresh()
 
     uint32 currentRowIndex = 0;
     std::vector<iMaterialPtr> materials;
-    iMaterialResourceFactory::getInstance().getMaterials(materials);
+    iResourceManager::getInstance().getMaterials(materials);
 
     for (auto material : materials)
     {

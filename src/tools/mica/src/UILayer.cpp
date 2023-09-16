@@ -23,7 +23,7 @@
 static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"../../data/models";
 
 UILayer::UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
-    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor/textures/StandardFont.png", "WidgetThemePattern.png")), window, "Widgets", zIndex), _workspace(workspace)
+    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor_font_default", "example_texture_widget_theme_pattern")), window, "Widgets", zIndex), _workspace(workspace)
 {
 }
 
@@ -90,7 +90,10 @@ void UILayer::onDeinit()
 
 void UILayer::onAddMaterial()
 {
-    iMaterialResourceFactory::getInstance().createMaterial("new Material");
+    iaUUID id;
+    iParameters param({{"id", id},
+                       {"type", iaString("material")}});
+    iResourceManager::getInstance().loadResource(param);
     _outliner->refresh();
 }
 
@@ -172,7 +175,7 @@ void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
 {
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial(_fileDialog->getFullPath());
+        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_fileDialog->getFullPath());
         material->setVisibility(iMaterialVisibility::Public);
         _outliner->refresh();
     }

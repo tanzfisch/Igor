@@ -19,6 +19,10 @@
 namespace iaux
 {
 
+    /*! specifies what are numbers
+    */
+    const static iaString s_numbers = "0123456789abcdef";
+
 // this was already very helpful let's keep this!
 #ifdef IGOR_DEBUG
 #define CHECK_CONSISTENCY()                                               \
@@ -1043,9 +1047,7 @@ namespace iaux
             i++;
             j--;
         }
-    }
-
-    const static iaString s_numbers = "0123456789abcdef";
+    }    
 
     // Converts a given integer x to string str[].  d is the number
     // of digits required in output. If d is more than the number
@@ -1249,6 +1251,44 @@ namespace iaux
 
         return integer * sign;
     }
+
+    uint64 iaString::toUInt(const iaString &text, int base)
+    {
+        uint64 result = 0;
+        wchar_t character;
+        uint64 characterValue = 0;
+
+        for (int i = 0; i < text.getLength(); ++i)
+        {
+            character = text[i];
+
+            if(character >= '0' && character <= '9')
+            {
+                characterValue = character - '0';
+            }
+            else if(character >= 'a' && character <= 'f')
+            {
+                characterValue = character - 'a' + 10;
+            }
+            else if(character >= 'A' && character <= 'F')
+            {
+                characterValue = character - 'A' + 10;
+            }
+
+            if (characterValue < base)
+            {
+                result *= base;
+                result += characterValue;
+            }
+            else
+            {
+                con_err("invalid integer format " << text << " for base " << base);
+                return 0;
+            }
+        }
+
+        return result;
+    }    
 
     float64 iaString::toFloat(const iaString &text)
     {

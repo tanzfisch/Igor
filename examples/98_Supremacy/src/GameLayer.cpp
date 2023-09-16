@@ -27,19 +27,19 @@ void GameLayer::onInit()
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
     // init font for render profiler
-    _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
+    _font = iTextureFont::create("igor_font_default_outline");
 
-    _coin = iResourceManager::getInstance().requestResource<iSprite>("supremacy/coin.png");
-    _damage = iResourceManager::getInstance().requestResource<iSprite>("supremacy/fist.png");
-    _attackSpeed = iResourceManager::getInstance().requestResource<iSprite>("supremacy/bullets.png");
-    _walkSpeed = iResourceManager::getInstance().requestResource<iSprite>("supremacy/run.png");
-    _shadow = iResourceManager::getInstance().requestResource<iSprite>("supremacy/shadow.png");
-    _shield = iResourceManager::getInstance().requestResource<iSprite>("supremacy/shield.png");
-    _rage = iResourceManager::getInstance().requestResource<iSprite>("supremacy/rage.png");
+    _coin = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_coin");
+    _damage = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_fist");
+    _attackSpeed = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_bullets");
+    _walkSpeed = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_run");
+    _shadow = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_shadow");
+    _shield = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_shield");
+    _rage = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_rage");
 
-    _bounceAnimation = iResourceManager::getInstance().requestResource<iAnimation>("bounce.anim");
-    _shopIdleAnimation = iResourceManager::getInstance().requestResource<iAnimation>("shopIdle.anim");
-    _coinSpinAnimation = iResourceManager::getInstance().requestResource<iAnimation>("coin.anim");
+    _bounceAnimation = iResourceManager::getInstance().requestResource<iAnimation>("example_animation_bounce");
+    _shopIdleAnimation = iResourceManager::getInstance().requestResource<iAnimation>("example_animation_shop_idle");
+    _coinSpinAnimation = iResourceManager::getInstance().requestResource<iAnimation>("example_animation_coin");
 
     _player = createPlayer();
     _camera = createCamera();
@@ -453,7 +453,7 @@ iEntity GameLayer::createPlayer()
 
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0)});
     entity.addComponent<iVelocityComponent>({iaVector3d(1, 0, 0)});
-    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("supremacy/wagiuA5.png"), iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)});
+    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_wagiu_a5"), iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)});
     entity.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
     entity.addComponent<iPartyComponent>({FRIEND});
     entity.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 1.5 * 0.5});
@@ -556,14 +556,14 @@ void GameLayer::createBackground()
     iEntity entity = _entityScene->createEntity("background");
 
     entity.addComponent<iTransformComponent>({iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d{200.0, 150.0, 1.0}});
-    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("supremacy/background.png"), iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderMode::Tiled});
+    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_background"), iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderMode::Tiled});
 }
 
 void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType)
 {
     iEntity entity = _entityScene->createEntity("object");
     const auto &transform = entity.addComponent<iTransformComponent>({iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)});
-    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("coin.sprite"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
+    entity.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("example_sprite_coin"), iaVector2d(1.0, 1.0), iaColor4f::white, -10});
     entity.addComponent<iPartyComponent>({party});
     entity.addComponent<iCircleCollision2DComponent>({COIN_SIZE * 0.5});
     entity.addComponent<iBody2DComponent>({});
@@ -610,7 +610,7 @@ void GameLayer::createShop()
     _shop.addComponent<iTransformComponent>({iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)});
     _shop.addComponent<iVelocityComponent>({});
     _shop.addComponent<iGlobalBoundaryComponent>({iGlobalBoundaryType::Repeat});
-    _shop.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("shop.sprite")});
+    _shop.addComponent<iSpriteRendererComponent>({iResourceManager::getInstance().requestResource<iSprite>("example_sprite_shop")});
     _shop.addComponent<iPartyComponent>({FRIEND});
     _shop.addComponent<iCircleCollision2DComponent>({STANDARD_UNIT_SIZE * 4 * 0.5});
     _shop.addUserComponent<BuildingComponent>({BuildingType::Shop});

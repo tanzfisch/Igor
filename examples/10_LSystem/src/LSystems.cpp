@@ -176,7 +176,7 @@ uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, u
 							{"subType", iaString("pmg")},
 							{"quiet", true},
 							{"lsystem", &_lSystem},
-							{"material", iMaterialResourceFactory::getInstance().getDefaultMaterial()},
+							{"material", iRenderer::getInstance().getDefaultMaterial()},
 							{"joinVertices", true},
 							{"axiom", axiom},
 							{"iterations", iterations},

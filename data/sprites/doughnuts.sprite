@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-    <Sprite texture="doughnuts.png" pixelPerUnit="1">
+    <Sprite texture="0x58d6f182417c259f" pixelPerUnit="1">
         <Frame pos="0, 0" size="0.5, 0.5" pivot="0.5, 0.5"/>
         <Frame pos="0.5, 0" size="0.5, 0.5" pivot="0.5, 0.5"/>
         <Frame pos="0, 0.5" size="0.5, 0.5" pivot="0.5, 0.5"/>

@@ -29,22 +29,28 @@
 #ifndef __RESOURCE__
 #define __RESOURCE__
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
 #include <igor/data/iParameters.h>
+
+#include <iaux/data/iaString.h>
+#include <iaux/data/iaUUID.h>
+using namespace iaux;
 
 #include <memory>
 #include <any>
 
 namespace igor
 {
+    /*! resource id definition
+     */
+    typedef iaUUID iResourceID;
+
     /*! represents a resource
 
     available parameters for loading data:
 
+    - id: the unique id of the resource (type: iResourceID)
+    - alias: the alias of the resource (type: iaString) can be used as alternative to the id
     - type: the type of resource (type: iaString)
-    - name: the name of the resource (type: iaString)
     - cacheMode: the cache mode of this resource (type: iResourceCacheMode)
     - quiet: if true this resource will cause less verbose output in logging. Helpful when generating stuff
 
@@ -57,74 +63,88 @@ namespace igor
 
     public:
         /*! does nothing
-        */
+         */
         virtual ~iResource() = default;
 
         /*! \returns true if there is valid data present
-        */
+         */
         bool isValid() const;
 
         /*! \returns true if the resource was processed
 
-        processed does not mean that it was loaded correctly 
+        processed does not mean that it was loaded correctly
         it can also mean that we are done trying to loading it
         */
         bool isProcessed() const;
 
         /*! \returns true if this resource will not be logged
-        */
+         */
         bool isQuiet() const;
 
-        /*! \returns the resource name
-        */
-        const iaString &getName() const;
+        /*! \returns the resource alias
+         */
+        const iaString &getAlias() const;
+
+        /*! \returns resource id
+         */
+        const iResourceID &getID() const;
 
         /*! \returns cache mode
-        */
+         */
         iResourceCacheMode getCacheMode() const;
 
         /*! \returns resource parameters
-        */
+         */
         const iParameters &getParameters() const;
 
         /*! \returns the resource type
-        */
+         */
         const iaString &getType() const;
+
+        /*! \returns extracted resource id from parameters
+
+        \param parameters the given parameters
+        */
+        static bool extractID(const iParameters &parameters, iResourceID &id, bool quiet = false);
 
     protected:
         /*! initializes members
 
-		\param parameters the parameters which define the resource
-		*/
-        iResource(const iaString &type, const iParameters &parameters);
+        \param parameters the parameters which define the resource
+        */
+        iResource(const iParameters &parameters);
 
     private:
         /*! true if there was actually a resource loaded
-		*/
+         */
         bool _valid = false;
 
         /*! if true the resource is considered loaded regardless if it was a success or not
-        */
+         */
         bool _processed = false;
 
         /*! if true resource will not be logged
-        */
+         */
         bool _quiet = true;
 
         /*! parameters of this resource
-        */
+         */
         iParameters _parameters;
 
         /*! name of resource
-        */
-        iaString _name;
+         */
+        iaString _alias;
 
         /*! type of the resource
-        */
+         */
         iaString _type;
 
+        /*! id of this resource
+         */
+        iResourceID _id;
+
         /*! the resources cache mode
-        */
+         */
         iResourceCacheMode _cacheMode;
 
         /*! sets processed flag on resource
@@ -140,12 +160,12 @@ namespace igor
         void setValid(bool valid);
 
         /*! does nothing
-        */
+         */
         iResource() = default;
     };
 
     /*! definition of resource pointer
-	*/
+     */
     typedef std::shared_ptr<iResource> iResourcePtr;
 
 }; // namespace igor

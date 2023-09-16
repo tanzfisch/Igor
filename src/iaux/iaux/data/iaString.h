@@ -50,8 +50,6 @@ namespace iaux
     };
 
     /*! wide char (unicode) character string with trailing zero and length
-
-    \todo should eventually store data UTF-8 encoded internally instead of wstring
     */
     class IAUX_API iaString
     {
@@ -468,6 +466,14 @@ namespace iaux
         \returns value
         */
         static int64 toInt(const iaString &text);
+
+        /*! transforms a iaString to a uint64
+
+        \param text the string
+        \param base the number base 
+        \returns value
+        */
+        static uint64 toUInt(const iaString &text, int base = 10);
 
         /*! converts string in to bool value
 

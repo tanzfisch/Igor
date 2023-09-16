@@ -59,7 +59,8 @@ namespace igor
 
     bool iSpriteFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         iSpritePtr sprite = std::dynamic_pointer_cast<iSprite>(resource);
 
         if(isTexture(filename))
@@ -74,12 +75,12 @@ namespace igor
     void iSpriteFactory::readSpriteElement(TiXmlElement *spriteElement, iSpritePtr sprite)
     {
         TiXmlElement *frame = spriteElement->FirstChildElement("Frame");
-        const iaString textureFileName(spriteElement->Attribute("texture"));
+        const iaString texture(spriteElement->Attribute("texture"));
 
         //int32 pixelPerUnit = 1;        
         //spriteElement->Attribute("pixelPerUnit", &pixelPerUnit);
 
-        sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(textureFileName);
+        sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
 
         do
         {
@@ -127,11 +128,11 @@ namespace igor
 
         if(sprite->getFrameCount() == 0)
         {
-            con_err("no frames defined in \"" << sprite->getName() << "\"");
+            con_err("no frames defined in \"" << sprite->getAlias() << "\"");
             return false;
         }
 
-        con_debug("loaded sprite \"" << sprite->getName() << "\" with " << sprite->getFrameCount() << " frames.");
+        con_debug("loaded sprite \"" << sprite->getAlias() << "\" with " << sprite->getFrameCount() << " frames.");
         return true;
     }
 

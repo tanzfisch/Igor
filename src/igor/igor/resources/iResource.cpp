@@ -4,15 +4,61 @@
 
 #include <igor/resources/iResource.h>
 
+#include <igor/resources/iResourceManager.h>
+
 namespace igor
 {
-    iResource::iResource(const iaString &type, const iParameters &parameters)
+    iResource::iResource(const iParameters &parameters)
         : _parameters(parameters)
     {
-        _type = type;
-        _name = parameters.getParameter<iaString>("name", "");
+        extractID(parameters, _id, true);
+
+        // if there is no id specified we need a new one
+        if (!_id.isValid())
+        {
+            _id = iaUUID();
+        }
+
+        // TODO get rid of alias
+        _alias = parameters.getParameter<iaString>("alias", "");
+
+        _type = parameters.getParameter<iaString>("type");
         _cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
         _quiet = parameters.getParameter<bool>("quiet", false);
+    }
+
+    bool iResource::extractID(const iParameters &parameters, iResourceID &id, bool quiet)
+    {
+        id = parameters.getParameter<iResourceID>("id", IGOR_INVALID_ID);
+        if (id.isValid())
+        {
+            return true;
+        }
+
+        const iaString alias = parameters.getParameter<iaString>("alias", "");
+        id = iResourceManager::getInstance().getResourceID(alias);
+        if (id.isValid())
+        {
+            return true;
+        }
+
+        const bool generate = parameters.getParameter<bool>("generate", false);
+        if (generate)
+        {
+            return true;
+        }
+
+        const iaString filename = parameters.getParameter<iaString>("filename", "");
+        if (!filename.isEmpty())
+        {
+            return true;
+        }
+
+        if (!quiet)
+        {
+            con_err("iResourceManager::getInstance().resolvePath \"" << alias << "\" failed");
+        }
+        return false;
     }
 
     bool iResource::isQuiet() const
@@ -40,9 +86,9 @@ namespace igor
         _valid = valid;
     }
 
-    const iaString &iResource::getName() const
+    const iaString &iResource::getAlias() const
     {
-        return _name;
+        return _alias;
     }
 
     iResourceCacheMode iResource::getCacheMode() const
@@ -58,5 +104,10 @@ namespace igor
     const iaString &iResource::getType() const
     {
         return _type;
+    }
+
+    const iResourceID &iResource::getID() const
+    {
+        return _id;
     }
 }

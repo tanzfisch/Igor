@@ -19,10 +19,10 @@ void PhysicsExample::onInit()
     // create some collision boxes and combine them in one to represent the floor
     iaMatrixd offsetFloor;
     std::vector<iPhysicsCollision *> collisions;
-    collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));
-    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.getData()));
+    collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor));
+    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor));
     offsetFloor.translate(0, -5, 0);
-    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor.getData()));
+    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor));
     iPhysicsCollision *floorCollision = iPhysics::getInstance().createCompound(collisions);
     // make a body from the floor collision
     iPhysicsBody *floorBody = iPhysics::getInstance().createBody(floorCollision);
@@ -37,7 +37,7 @@ void PhysicsExample::onInit()
 
     // create a box collision used by all boxes we create
     iaMatrixd offsetBox;
-    iPhysicsCollision *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());
+    iPhysicsCollision *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox);
 
     // now create boxes in various patterns
     // some random positioned boxes

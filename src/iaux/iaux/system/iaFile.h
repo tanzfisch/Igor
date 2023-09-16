@@ -55,12 +55,7 @@ namespace iaux
     */
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iFileOpenMode &mode);
 
-    /*! handles files
-
-    \todo nice to have getCreationTime
-    \todo nice to have getModifyTime
-    \todo nice to have getAccessTime
-    \todo nice to have getDriveLetter for windows
+    /*! \brief File handle
     */
     class IAUX_API iaFile
     {

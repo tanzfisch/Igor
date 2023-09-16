@@ -75,9 +75,9 @@ void VoxelExample::initScene()
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
-    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/stars.png"));
+    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    iMaterialPtr materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
+    iMaterialPtr materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>("example_material_skybox");
     materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
     // set that material
     skyBoxNode->setMaterial(materialSkyBox);
@@ -85,7 +85,7 @@ void VoxelExample::initScene()
     getScene()->getRoot()->insertNode(skyBoxNode);
 
     // set up voxel mesh material
-    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().loadMaterial("voxel_terrain_directional_light.mat");
+    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iMaterial>("example_material_voxel_terrain_directional_light");
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)

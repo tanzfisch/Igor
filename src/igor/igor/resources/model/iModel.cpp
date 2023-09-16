@@ -15,7 +15,7 @@ namespace igor
 {   
 
     iModel::iModel(const iParameters &parameters)
-        : iResource("model", parameters)
+        : iResource(parameters)
     {
     }
 

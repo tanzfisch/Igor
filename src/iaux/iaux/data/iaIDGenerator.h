@@ -56,8 +56,6 @@ namespace iaux
 
     typedef iaIDGenerator<iaID64> iaIDGenerator64;
     typedef iaIDGenerator<iaID32> iaIDGenerator32;
-    typedef iaIDGenerator<iaID16> iaIDGenerator16;
-    typedef iaIDGenerator<iaID8> iaIDGenerator8;
 
 }; // namespace iaux
 

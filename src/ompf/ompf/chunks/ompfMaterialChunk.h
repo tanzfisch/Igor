@@ -76,7 +76,7 @@ namespace OMPF
         Front = 0x14,
         Back = 0x015,
         Invalid = 0x16,
-        PositionOrientation = 0x17,
+        PositionOrientationInstancing = 0x17,
         Position = 0x18
     };
 

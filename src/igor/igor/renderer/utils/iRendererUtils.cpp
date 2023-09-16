@@ -319,7 +319,7 @@ namespace igor
             L"DecrementWrap",
             L"Invert",
             L"Invalid",
-            L"PositionOrientation",
+            L"PositionOrientationInstancing",
             L"Position"};
 
         stream << text[static_cast<int>(value)];

@@ -14,34 +14,34 @@ namespace igor
 #define CHARACTERINTEXWIDTH 16
 #define CHARACTERINTEXHEIGHT 8
 
-    iTextureFontPtr iTextureFont::create(const iaString &filename, iFontType type, iColorMask colorMask, float32 colorMaskThreshold)
+    iTextureFontPtr iTextureFont::create(iTexturePtr texture, iFontType type, iColorMask colorMask, float32 colorMaskThreshold)
     {
-        return iTextureFontPtr(new iTextureFont(filename, type, colorMask, colorMaskThreshold));
+        return iTextureFontPtr(new iTextureFont(texture, type, colorMask, colorMaskThreshold));
     }
 
-    iTextureFont::iTextureFont(const iaString &filename, iFontType type, iColorMask colorMask, float32 colorMaskThreshold)
+    iTextureFont::iTextureFont(iTexturePtr texture, iFontType type, iColorMask colorMask, float32 colorMaskThreshold)
     {
+        con_assert(texture->isValid(), "needs to be loaded already");
+
+        _texture = texture;
         valid = false;
 
-        const iaString resolved = iResourceManager::getInstance().getPath(filename);
-
-        iParameters param({{"name", resolved},
-                           {"type", iaString("texture")},
-                           {"buildMode", iTextureBuildMode::Normal}});
-        _texture = iResourceManager::getInstance().loadResource<iTexture>(param);
-
-        if (!_texture->isValid())
+        if (_texture == nullptr ||
+            !_texture->isValid())
         {
             return;
         }
-        _pixmap = iPixmap::loadPixmap(resolved);
+        
+        const iaString filePath = iResourceManager::getInstance().getFilePath(_texture->getID());
+        const iaString resolvedPath = iResourceManager::getInstance().resolvePath(filePath);
+        _pixmap = iPixmap::loadPixmap(resolvedPath);
 
         if (_pixmap == nullptr)
         {
             return;
         }
 
-        //! \todo this depends on the _texture color format
+        //! \todo this depends on the texture color format
         uint8 borderchannel = 0;
         switch (colorMask)
         {
@@ -221,14 +221,14 @@ namespace igor
         modifyWidth(_characters[0], maxdigitwidth, temp_render_width_relative); // Freizeichen
     }
 
-    void iTextureFont::modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 newCharacterOffset)
+    void iTextureFont::modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 newOffset)
     {
         float32 tempwidth = character._characterRect.getWidth();
         character._characterRect.setWidth(newWidth);
         tempwidth -= newWidth;
         tempwidth *= 0.5f;
         character._characterRect.setX(character._characterRect.getX() + tempwidth);
-        character._characterOffset = newCharacterOffset;
+        character._characterOffset = newOffset;
     }
 
     bool iTextureFont::isValid() const
@@ -305,7 +305,7 @@ namespace igor
             {
                 height += lineHeight * size;
                 continue;
-            }            
+            }
 
             length += _characters[character - 32]._characterOffset * size;
 

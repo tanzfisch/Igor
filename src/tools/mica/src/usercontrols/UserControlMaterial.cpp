@@ -18,7 +18,7 @@ UserControlMaterial::~UserControlMaterial()
 
 void UserControlMaterial::updateMaterial()
 {
-    iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(_materialID);
 
     if (!_ignoreMaterialUpdate &&
         material != nullptr)
@@ -40,7 +40,7 @@ void UserControlMaterial::updateMaterial()
 
 void UserControlMaterial::updateGUI()
 {
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    auto material = iResourceManager::getInstance().getResource<iMaterial>(_materialID);
 
     if (material == nullptr)
     {
@@ -50,7 +50,7 @@ void UserControlMaterial::updateGUI()
     _ignoreMaterialUpdate = true;
 
     _textName->setText(material->getName());
-    _textID->setText(material->getID().getValue());
+    _textID->setText(material->getID().toString());
     _checkBoxCullFace->setChecked(material->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
     _checkBoxDepthTest->setChecked(material->getRenderState(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
     _checkBoxDepthMask->setChecked(material->getRenderState(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
@@ -493,7 +493,7 @@ void UserControlMaterial::onExportMaterialDialogClosed(iDialogPtr dialog)
 
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+        iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(_materialID);
         if (material != nullptr)
         {
             iMaterialIO::write(_fileDialog->getFullPath(), material);
@@ -550,7 +550,7 @@ void UserControlMaterial::onExportMaterial(const iWidgetPtr source)
 
 void UserControlMaterial::onReloadShader(const iWidgetPtr source)
 {
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    auto material = iResourceManager::getInstance().getResource<iMaterial>(_materialID);
 
     if (!_ignoreMaterialUpdate &&
         material != nullptr)
