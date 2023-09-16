@@ -68,11 +68,15 @@ namespace igor
         */
         const iaString &getFilePath(iResourceID id) const;
 
-        /*! \returns resource id for given alias
+        /*! \returns resource id for given alias of filepath
 
-        \param alias the given alias
+        \param text the given alias or filepath
         */
-        const iResourceID getResource(const iaString &alias) const;
+        const iResourceID getResource(const iaString &text) const;
+
+        /*! adds a resource to the dictionary
+        */
+        const iResourceID addResource(const iaString &filename, const iaString &alias = "", bool internal = false);
 
     private:
         /*! for faster access aliases and resource ids are all resource ids
@@ -95,6 +99,15 @@ namespace igor
         \returns true if successful
         */
         bool readResourceDictionaryElement(TiXmlElement *element);
+
+        /*! internal add resource implementation
+
+        \param uuid the uuid to add
+        \param filename the filename to add
+        \param alias the alias to add
+        \param internal if true it will be added to the lookup but not to the export data 
+        */
+        bool addResource(const iResourceID &uuid, const iaString &filename, const iaString &alias, bool internal);
     };
 
 } // namespace igor

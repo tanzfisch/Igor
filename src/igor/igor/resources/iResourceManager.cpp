@@ -617,7 +617,26 @@ namespace igor
         }
         else
         {
-            param.setParameter("alias", alias);
+            const iaString filename = resolvePath(alias);
+            if (iaFile::exist(filename))
+            {
+                param.setParameter("filename", alias);
+                const iaUUID id = _resourceDictionary.getResource(alias);
+
+                if (id.isValid())
+                {
+                    param.setParameter("id", id);
+                }
+                else
+                {
+                    // if it does not exist import it
+                    param.setParameter("id", _resourceDictionary.addResource(alias));
+                }
+            }
+            else
+            {
+                param.setParameter("alias", alias);
+            }
         }
 
         return param;

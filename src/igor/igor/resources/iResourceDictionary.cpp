@@ -5,6 +5,11 @@
 
 #include <igor/resources/iResourceDictionary.h>
 
+#include <igor/resources/iResourceManager.h>
+
+#include <iaux/system/iaFile.h>
+using namespace iaux;
+
 #include <tinyxml.h>
 
 namespace igor
@@ -34,7 +39,7 @@ namespace igor
 
         for (auto &pair : _data)
         {
-            stream << "        <Resource id=\"" << pair.first << "\""; 
+            stream << "        <Resource id=\"" << pair.first << "\"";
 
             if (!pair.second.second.isEmpty())
             {
@@ -50,6 +55,41 @@ namespace igor
         stream << "</Igor>\n";
 
         con_info("written resource dictionary " << filename);
+        return true;
+    }
+
+    bool iResourceDictionary::addResource(const iResourceID &uuid, const iaString &source, const iaString &alias, bool internal)
+    {
+        auto iter = _resourceDictionaryLookup.find(uuid);
+        if (iter != _resourceDictionaryLookup.end())
+        {
+            con_err("resource id collision " << uuid);
+            return false;
+        }
+
+        _resourceDictionaryLookup[uuid] = source;
+
+        // store alias to resource lookup
+        if (!alias.isEmpty())
+        {
+            iaUUID uuidAlias(alias);
+
+            auto iter = _aliasLookup.find(uuidAlias);
+            if (iter != _aliasLookup.end())
+            {
+                con_err("alias collision " << alias);
+                return false;
+            }
+
+            _aliasLookup[uuidAlias] = uuid;
+        }
+
+        // skip certain internal so they don't get mixed up when exporting resources
+        if (!internal)
+        {
+            _data[uuid] = {source, alias};
+        }
+
         return true;
     }
 
@@ -69,37 +109,11 @@ namespace igor
             iaString source(resource->Attribute("source"));
             iaString alias(resource->Attribute("alias"));
             iaString internal(resource->Attribute("internal"));
-
             iaUUID uuid(id);
 
-            auto iter = _resourceDictionaryLookup.find(uuid);
-            if (iter != _resourceDictionaryLookup.end())
+            if(!addResource(uuid, source, alias, (!internal.isEmpty() && internal == "true")))
             {
-                con_err("resource id collision " << uuid);
                 return false;
-            }
-
-            _resourceDictionaryLookup[uuid] = source;
-
-            // store alias to resource lookup
-            if (!alias.isEmpty())
-            {
-                iaUUID uuidAlias(alias);
-
-                auto iter = _aliasLookup.find(uuidAlias);
-                if (iter != _aliasLookup.end())
-                {
-                    con_err("alias collision " << alias);
-                    return false;
-                }
-
-                _aliasLookup[uuidAlias] = uuid;
-            }
-
-            // skip certain internal so they don't get mixed up when exporting resources
-            if (internal.isEmpty() || internal == "false")
-            {
-                _data[uuid] = {source, alias};
             }
 
             resource = resource->NextSiblingElement("Resource");
@@ -159,23 +173,45 @@ namespace igor
         return notFound;
     }
 
-    const iResourceID iResourceDictionary::getResource(const iaString &alias) const
+    const iResourceID iResourceDictionary::addResource(const iaString &filename, const iaString &alias, bool internal)
     {
-        if(alias.isEmpty())
+        iaUUID uuid;
+        if(!addResource(uuid, filename, alias, internal))
+        {
+            con_crit("internal error");
+        }
+
+        return uuid;
+    }
+
+    const iResourceID iResourceDictionary::getResource(const iaString &text) const
+    {
+        if (text.isEmpty())
         {
             return iResourceID(IGOR_INVALID_ID);
         }
 
+        // check if this is a known alias
         std::hash<std::wstring> hashFunc;
-        std::size_t hash = hashFunc(alias.getData());
+        std::size_t hash = hashFunc(text.getData());
         iResourceID aliasid(hash);
 
         auto iter = _aliasLookup.find(aliasid);
-        if (iter == _aliasLookup.end())
+        if (iter != _aliasLookup.end())
         {
-            return iResourceID(IGOR_INVALID_ID);
+            return iter->second;
         }
 
-        return iter->second;
+        // check if this is a file path within the dictionary
+        // (just take the first hit and ignore others)
+        for (const auto &pair : _data)
+        {
+            if (pair.second.first == text)
+            {
+                return pair.first;
+            }
+        }
+
+        return iResourceID(IGOR_INVALID_ID);
     }
 }

@@ -82,7 +82,9 @@ namespace igor
 
         /*! \returns full path to a file
 
-        if the file does not exist it returns an empty string
+        If the file does not exist it returns an empty string
+
+        It only resolves for files that are within one of the given search paths
 
         \param filepath relative or absolute path to file
         */
@@ -238,9 +240,11 @@ namespace igor
         */
         void loadResourceDictionary(const iaString &filename);
 
-        /*! \returns resource id for given alias
+        /*! \returns resource id for given alias or filepath
 
-        \param alias the given alias
+        If it does not exist yet but it represents a valid file path within one of the search path. We add a new resource.
+
+        \param alias the given alias or filepath
         */
         const iResourceID getResourceID(const iaString &alias) const;
 

@@ -309,7 +309,7 @@ namespace igor
 
         /*! the colorID material
          */
-        iMaterialPtr _colorIDMaterial;      
+        iMaterialPtr _colorIDMaterial;
 
         //////////// SHARED DATA ///////////
         /*! quad index buffer
@@ -550,7 +550,8 @@ namespace igor
         _data->_currentMaterial.reset();
 
         ////////////// generate textures //////////
-        iParameters paramFallback({{"alias", iaString("igor_fallback_texture")},
+        iParameters paramFallback({// {"id", iaUUID()},
+                                   {"alias", iaString("igor_fallback_texture")},
                                    {"type", iaString("texture")},
                                    {"cacheMode", iResourceCacheMode::Keep},
                                    {"generate", true},
@@ -562,7 +563,8 @@ namespace igor
 
         _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
 
-        iParameters paramWhite({{"alias", iaString("igor_texture_white")},
+        iParameters paramWhite({{"id", iaUUID()},
+                                {"alias", iaString("igor_texture_white")},
                                 {"type", iaString("texture")},
                                 {"cacheMode", iResourceCacheMode::Keep},
                                 {"generate", true},
@@ -732,7 +734,7 @@ namespace igor
 
     void iRenderer::drawSpriteInternal(const iaMatrixf &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2f &size, const iaColor4f &color, bool blend)
     {
-        if(!sprite->isValid())
+        if (!sprite->isValid())
         {
             return;
         }
@@ -2156,6 +2158,6 @@ namespace igor
     const iMaterialPtr &iRenderer::getColorIDMaterial() const
     {
         return _data->_colorIDMaterial;
-    }      
+    }
 
 }

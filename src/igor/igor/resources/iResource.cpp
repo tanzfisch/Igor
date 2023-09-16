@@ -63,7 +63,11 @@ namespace igor
 
     bool iResource::isQuiet() const
     {
+#ifdef IGOR_DEBUG
+        return false;
+#else
         return _quiet;
+#endif
     }
 
     bool iResource::isValid() const
