@@ -197,14 +197,14 @@ void UserControlMaterial::initGUI()
     labelDepthFunction->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _selectBoxDepthFunc = new iWidgetSelectBox();
-    _selectBoxDepthFunc->addSelectionEntry("Never");
-    _selectBoxDepthFunc->addSelectionEntry("Less");
-    _selectBoxDepthFunc->addSelectionEntry("Equal");
-    _selectBoxDepthFunc->addSelectionEntry("LessOrEqual");
-    _selectBoxDepthFunc->addSelectionEntry("Greater");
-    _selectBoxDepthFunc->addSelectionEntry("NotEqual");
-    _selectBoxDepthFunc->addSelectionEntry("GreaterOrEqual");
-    _selectBoxDepthFunc->addSelectionEntry("Always");
+    _selectBoxDepthFunc->addItem("Never");
+    _selectBoxDepthFunc->addItem("Less");
+    _selectBoxDepthFunc->addItem("Equal");
+    _selectBoxDepthFunc->addItem("LessOrEqual");
+    _selectBoxDepthFunc->addItem("Greater");
+    _selectBoxDepthFunc->addItem("NotEqual");
+    _selectBoxDepthFunc->addItem("GreaterOrEqual");
+    _selectBoxDepthFunc->addItem("Always");
     _selectBoxDepthFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxDepthFunc->setWidth(200);
 
@@ -237,8 +237,8 @@ void UserControlMaterial::initGUI()
     labelCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _selectBoxCullFaceFunc = new iWidgetSelectBox();
-    _selectBoxCullFaceFunc->addSelectionEntry("Front");
-    _selectBoxCullFaceFunc->addSelectionEntry("Back");
+    _selectBoxCullFaceFunc->addItem("Front");
+    _selectBoxCullFaceFunc->addItem("Back");
     _selectBoxCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxCullFaceFunc->setWidth(200);
 

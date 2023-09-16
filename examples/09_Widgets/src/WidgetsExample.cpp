@@ -260,11 +260,11 @@ void WidgetsExample::onInit()
     gridControls->addWidget(labelProfiler, 0, 0);
 
     iWidgetSelectBoxPtr selectBox = new iWidgetSelectBox();
-    selectBox->addSelectionEntry("None");
-    selectBox->addSelectionEntry("FPSOnly");
-    selectBox->addSelectionEntry("FPSAndMetrics");
-    selectBox->addSelectionEntry("FPSMetricsAndTasks");
-    selectBox->addSelectionEntry("Sections");
+    selectBox->addItem("None");
+    selectBox->addItem("FPSOnly");
+    selectBox->addItem("FPSAndMetrics");
+    selectBox->addItem("FPSMetricsAndTasks");
+    selectBox->addItem("Sections");
     selectBox->setSelection((int)_layerProfiler->getVerbosity());
     selectBox->setHorizontalAlignment(iHorizontalAlignment::Right);
     selectBox->registerOnChangeEvent(iChangeDelegate(this, &WidgetsExample::onProfilerVerbosityChange));

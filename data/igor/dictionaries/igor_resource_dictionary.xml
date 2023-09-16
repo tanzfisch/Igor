@@ -47,7 +47,7 @@
                 <Resource id="0x0eaae08bd8de91a9" alias="igor_icon_delete" source="igor/icons/delete.png" />
                 <Resource id="0x966efbd2c040fb48" alias="igor_icon_minus" source="igor/icons/minus.png" />
                 <Resource id="0x87d1694ec56b6bdc" alias="igor_icon_particle_system" source="igor/icons/particleSystem.png" />
-                <Resource id="0x623f0a3b251a55bb" alias="igor_icon_cur" source="igor/icons/cut.png" />
+                <Resource id="0x623f0a3b251a55bb" alias="igor_icon_cut" source="igor/icons/cut.png" />
                 <Resource id="0x76e8ff2bd790b946" alias="igor_icon_emitter" source="igor/icons/emitter.png" />
                 <Resource id="0xaf9365f759d0c4c6" alias="igor_icon_add_light" source="igor/icons/addLight.png" />
                 <Resource id="0x5dd98e8408918295" alias="igor_icon_group" source="igor/icons/group.png" />

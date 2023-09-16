@@ -847,7 +847,7 @@ namespace igor
                               source._source, static_cast<OMPF::OMPFShaderType>(source._type));
         }
 
-        result->setMaterialName(material->getName());
+        result->setMaterialName(material->getID().toString());
 
         for (int i = 0; i < RENDER_STATE_COUNT; ++i)
         {

@@ -52,7 +52,12 @@ namespace iaux
 
     bool iaUUID::isUUID(const iaString &text)
     {
-        std::wregex hexPattern(L"(0[xX][0-9a-fA-F]{1,16})|([0-9a-fA-F]{1,16})");
+        if(text.isEmpty())
+        {
+            return false;
+        }
+
+        std::wregex hexPattern(L"(0[xX][0-9a-fA-F]{1,16})|([0-9a-fA-F]{1,16})");        
         return std::regex_match(text.getData(), hexPattern);
     }
 

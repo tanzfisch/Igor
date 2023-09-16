@@ -23,7 +23,10 @@
 static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"../../data/models";
 
 UILayer::UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
-    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor_font_default", "example_texture_widget_theme_pattern")), window, "Widgets", zIndex), _workspace(workspace)
+    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"),
+                                                            iResourceManager::getInstance().loadResource<iTexture>("example_texture_widget_theme_pattern"))),
+                    window, "Widgets", zIndex),
+      _workspace(workspace)
 {
 }
 

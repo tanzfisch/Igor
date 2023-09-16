@@ -63,7 +63,7 @@ namespace igor
 		\param entryText the entry text
 		\param userData optional user data
 		*/
-        void addSelectionEntry(const iaString &entryText, const std::any &userData = std::any());
+        void addItem(const iaString &entryText, const std::any &userData = std::any());
 
         /*! clears all entries
 
@@ -75,9 +75,9 @@ namespace igor
 		*/
         void setSelection(uint32 index);
 
-        /*! \returns ammount of select box entries
+        /*! \returns amount of select box entries
 		*/
-        uint32 getSelectionEntryCount() const;
+        uint32 getItemCount() const;
 
         /*! \returns index of selected entry
 		*/

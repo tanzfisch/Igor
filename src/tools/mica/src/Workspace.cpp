@@ -151,14 +151,12 @@ void Workspace::importFile(const iaString &filename)
     {
         return;
     }
-    
-    iParameters parameters({
-        {"name", filename},
-        {"type", iaString("model")},
-        {"cacheMode", iResourceCacheMode::Free},
-        {"joinVertexes", false},
-        {"keepMesh", true}
-    });
+
+    iParameters parameters({{"name", filename},
+                            {"type", iaString("model")},
+                            {"cacheMode", iResourceCacheMode::Free},
+                            {"joinVertexes", false},
+                            {"keepMesh", true}});
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
@@ -224,13 +222,11 @@ void Workspace::importFileReference(const iaString &filename)
         return;
     }
 
-    iParameters parameters({
-        {"name", filename},
-        {"type", iaString("model")},
-        {"cacheMode", iResourceCacheMode::Free},
-        {"joinVertexes", false},
-        {"keepMesh", true}
-    });
+    iParameters parameters({{"name", filename},
+                            {"type", iaString("model")},
+                            {"cacheMode", iResourceCacheMode::Free},
+                            {"joinVertexes", false},
+                            {"keepMesh", true}});
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
@@ -261,14 +257,13 @@ void Workspace::loadFile(const iaString &filename)
         return;
     }
 
-    iParameters parameters({
-        {"name", filename},
-        {"type", iaString("model")},
-        {"cacheMode", iResourceCacheMode::Free},
-        {"joinVertexes", false},
-        {"keepMesh", true}
-    });
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
+    iParameters parameters({{"id", iaUUID()},
+                            {"filename", filename},
+                            {"type", iaString("model")},
+                            {"cacheMode", iResourceCacheMode::Free},
+                            {"joinVertexes", false},
+                            {"keepMesh", true}});
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
     if (model->isValid())

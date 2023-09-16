@@ -161,7 +161,7 @@ namespace igor
         _titleLabel->setVerticalAlignment(iVerticalAlignment::Top);
 
         _expandButton = new iWidgetButton();
-        _expandButton->setTexture("igor_icons_plus");
+        _expandButton->setTexture("igor_icon_plus");
         _expandButton->setText("");
         _expandButton->setWidth(12);
         _expandButton->setHeight(12);

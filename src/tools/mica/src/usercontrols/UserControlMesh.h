@@ -73,7 +73,7 @@ private:
     iUserControlColorChooser *_diffuseColorChooser = nullptr;
     iUserControlColorChooser *_specularColorChooser = nullptr;
 
-    iWidgetSelectBox *_selectMaterial = nullptr;
+    iWidgetSelectBox *_materialSelector = nullptr;
 
     uint32 _nodeId = 0;
     bool _ignoreNodeUpdate = false;

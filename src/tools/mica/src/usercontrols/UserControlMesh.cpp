@@ -78,9 +78,9 @@ void UserControlMesh::updateNode()
             node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser2->getFileName()), 2);
             node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser3->getFileName()), 3);
 
-            if (_selectMaterial->getSelectedUserData().has_value())
+            if (_materialSelector->getSelectedUserData().has_value())
             {
-                std::any userData = _selectMaterial->getSelectedUserData();
+                std::any userData = _materialSelector->getSelectedUserData();
                 iMaterialID materialID(std::any_cast<iMaterialID>(userData));
                 node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
             }
@@ -171,7 +171,7 @@ void UserControlMesh::updateGUI()
             _textureChooser3->setFileName(filename);
         }
 
-        _selectMaterial->clear();
+        _materialSelector->clear();
 
         std::vector<iMaterialPtr> materials;
         iResourceManager::getInstance().getMaterials(materials);
@@ -182,11 +182,12 @@ void UserControlMesh::updateGUI()
                 const iMaterialID &materialID = material->getID();
                 const iaString &materialName = material->getName();
 
-                _selectMaterial->addSelectionEntry(materialName, materialID);
+                _materialSelector->addItem(materialName, materialID);
 
-                if (materialID == node->getMaterial()->getID())
+                if (node->getMaterial() != nullptr &&
+                    materialID == node->getMaterial()->getID())
                 {
-                    _selectMaterial->setSelection(_selectMaterial->getSelectionEntryCount() - 1);
+                    _materialSelector->setSelection(_materialSelector->getItemCount() - 1);
                 }
             }
         }
@@ -233,7 +234,7 @@ void UserControlMesh::deinitGUI()
     _textureChooser1 = nullptr;
     _textureChooser2 = nullptr;
     _textureChooser3 = nullptr;
-    _selectMaterial = nullptr;
+    _materialSelector = nullptr;
 
     _initialized = false;
 }
@@ -395,9 +396,9 @@ void UserControlMesh::initGUI()
     labelMaterial->setText("Material");
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _selectMaterial = new iWidgetSelectBox();
-    _selectMaterial->setHorizontalAlignment(iHorizontalAlignment::Right);
-    _selectMaterial->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
+    _materialSelector = new iWidgetSelectBox();
+    _materialSelector->setHorizontalAlignment(iHorizontalAlignment::Right);
+    _materialSelector->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
 
     gridShininess->addWidget(labelShininess, 1, 0);
     gridShininess->addWidget(labelShininessShort, 0, 1);
@@ -422,7 +423,7 @@ void UserControlMesh::initGUI()
     gridTextures->addWidget(_textureChooser3, 1, 3);
 
     gridMaterial->addWidget(labelMaterial, 0, 0);
-    gridMaterial->addWidget(_selectMaterial, 1, 0);
+    gridMaterial->addWidget(_materialSelector, 1, 0);
 
     grid->addWidget(detailsGrid, 0, 0);
     grid->addWidget(_ambientColorChooser, 0, 1);

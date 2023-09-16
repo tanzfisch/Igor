@@ -86,11 +86,11 @@ namespace igor
 		*/
         void unregisterOnChangedDelegate(iChangeDelegate changeDelegate);
 
-        /*! sets where the path comming from the file dialog will be optimized or not
+        /*! sets where the path coming from the file dialog will be optimized or not
 
 		optimized means in this case to make it a relative path to one of the search paths defined in iResourceManager
 
-		\param optimizePath if true path will be optmimized
+		\param optimizePath if true path will be optimized
 		*/
         void setOptimizePath(bool optimizePath = true);
 

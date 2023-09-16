@@ -161,6 +161,11 @@ namespace igor
 
     const iResourceID iResourceDictionary::getResource(const iaString &alias) const
     {
+        if(alias.isEmpty())
+        {
+            return iResourceID(IGOR_INVALID_ID);
+        }
+
         std::hash<std::wstring> hashFunc;
         std::size_t hash = hashFunc(alias.getData());
         iResourceID aliasid(hash);

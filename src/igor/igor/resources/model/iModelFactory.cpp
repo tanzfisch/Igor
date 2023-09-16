@@ -45,12 +45,18 @@ namespace igor
 
     bool iModelFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
-        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
-        iModelPtr model = std::dynamic_pointer_cast<iModel>(resource);
-
         // copy parameters to add filename
         auto parameters = resource->getParameters();
+
+        iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        if(filepath.isEmpty())
+        {
+            filepath = parameters.getParameter<iaString>("filename", "");
+        }
+        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
+        
+        iModelPtr model = std::dynamic_pointer_cast<iModel>(resource);
+
         parameters.setParameter("filename", filename);
 
         iaString subType = parameters.getParameter<iaString>("subType", "");

@@ -34,7 +34,7 @@ void OverlayLayer::onInit()
     _materialOrientationPlane = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_orientation_plane");
 
     // font for
-    _font = iTextureFont::create("igor_font_default_outline");
+    _font = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default_outline"));
 
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_view, _scene, _workspace));
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_view, _scene, _workspace));
@@ -47,7 +47,7 @@ void OverlayLayer::setOverlayMode(OverlayMode overlayMode)
 
     for (auto overlay : _nodeOverlays)
     {
-        if(!overlay->isActive())
+        if (!overlay->isActive())
         {
             continue;
         }
@@ -87,20 +87,20 @@ bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
 
     updateAcceptance();
 
-    if(_selectedNode == nullptr)
+    if (_selectedNode == nullptr)
     {
         return false;
     }
 
     for (auto overlay : _nodeOverlays)
     {
-        if(!overlay->isActive())
+        if (!overlay->isActive())
         {
             continue;
         }
-        
+
         overlay->setNodeID(_selectedNode->getID());
-    }    
+    }
 
     return false;
 }
@@ -167,7 +167,7 @@ bool OverlayLayer::onMouseMoveEvent(iEventMouseMove &event)
             continue;
         }
 
-        if(overlay->onMouseMoveEvent(event))
+        if (overlay->onMouseMoveEvent(event))
         {
             result = true;
         }
@@ -186,7 +186,7 @@ bool OverlayLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
             continue;
         }
 
-        if(overlay->onMouseKeyUpEvent(event))
+        if (overlay->onMouseKeyUpEvent(event))
         {
             result = true;
         }
@@ -205,7 +205,7 @@ bool OverlayLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
             continue;
         }
 
-        if(overlay->onMouseKeyDownEvent(event))
+        if (overlay->onMouseKeyDownEvent(event))
         {
             result = true;
         }
