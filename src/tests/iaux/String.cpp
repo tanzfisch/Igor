@@ -127,7 +127,7 @@ IAUX_TEST(StringTests, ToUInt)
 
     IAUX_EXPECT_EQUAL(iaString::toUInt(L"9E78", 16), 40568);
     IAUX_EXPECT_EQUAL(iaString::toUInt(L"00FFff", 16), 65535);
-    IAUX_EXPECT_EQUAL(iaString::toUInt(L"e75297ed09818a4c", 16), 65535);
+    IAUX_EXPECT_EQUAL(iaString::toUInt(L"e75297ed09818a4c", 16), 16668552215174154828ULL);
     
 }
 

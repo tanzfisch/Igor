@@ -72,7 +72,7 @@ namespace igor
             con_endl("Unreleased resources: ");
             for (auto resource : _resources)
             {
-                con_endl(resource.second->getID() << " ref:" << resource.second.use_count());
+                con_endl(resource.second->getID() << " " << resource.second->getInfo() << " " << resource.second->getType() << " ref:" << resource.second.use_count());
             }
         }
 

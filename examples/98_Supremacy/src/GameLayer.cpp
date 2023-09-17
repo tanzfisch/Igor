@@ -27,7 +27,7 @@ void GameLayer::onInit()
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
     // init font for render profiler
-    _font = iTextureFont::create("igor_font_default_outline");
+    _font = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default_outline"));
 
     _coin = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_coin");
     _damage = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_fist");
@@ -205,7 +205,7 @@ void GameLayer::loadSpecs(const iaString &filename)
 {
     con_assert_sticky(!filename.isEmpty(), "empty filename");
 
-    iaString path = iResourceManager::getInstance().getPath(filename);
+    iaString path = iResourceManager::getInstance().resolvePath(filename);
 
     char temp[2048];
     path.getData(temp, 2048);

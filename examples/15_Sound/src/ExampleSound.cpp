@@ -46,7 +46,7 @@ void ExampleSound::onInit()
 
     // load a model to visualize the audio source
     iNodeModel *catModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    catModel->setModel("cat.ompf");
+    catModel->setModel("example_model_cat");
 
     // add the source
     iNodeAudioSource *audioSource = iNodeManager::getInstance().createNode<iNodeAudioSource>();
