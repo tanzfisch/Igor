@@ -17,6 +17,9 @@ int main()
 	window->setCentered();
 	window->open();
 
+	// before we can load any resources make sure the resource dictionary is loaded
+    iResourceManager::getInstance().loadResourceDictionary("dictionaries/example_resource_dictionary.xml");	
+
 	Background3D* backGround = new Background3D(window);
 	iLayerProfilerPtr layerProfiler = new iLayerProfiler(window);
 

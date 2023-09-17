@@ -37,6 +37,7 @@ namespace igor
         stream << "<Igor>\n";
         stream << "    <ResourceDictionary>\n";
 
+        // just ordering it to reduce the diff we potentially have to commit
         std::sort(_data.begin(), _data.end(), [](std::tuple<iResourceID, iaString, iaString> const &a, std::tuple<iResourceID, iaString, iaString> const &b)
                   { return std::get<0>(a) < std::get<0>(b); });
 
@@ -80,7 +81,7 @@ namespace igor
             auto iter = _aliasLookup.find(uuidAlias);
             if (iter != _aliasLookup.end())
             {
-                con_err("alias collision " << alias);
+                con_err("alias collision " << alias << " -> " << uuidAlias.toString());
                 return false;
             }
 
@@ -162,6 +163,8 @@ namespace igor
     void iResourceDictionary::clear()
     {
         _resourceDictionaryLookup.clear();
+        _aliasLookup.clear();
+        _data.clear();
     }
 
     const iaString &iResourceDictionary::getFilePath(iResourceID id) const

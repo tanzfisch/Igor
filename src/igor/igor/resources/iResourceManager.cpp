@@ -33,8 +33,8 @@ namespace igor
         registerFactory(iFactoryPtr(new iMaterialFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
 
-        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));
-        _resourceDictionary.read(resolvePath("dictionaries/example_resource_dictionary.xml"));
+        // read igor internal resource dictionary
+        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));        
     }
 
     iResourceManager::~iResourceManager()
@@ -79,14 +79,22 @@ namespace igor
         _resources.clear();
         _mutex.unlock();
 
-        _factories.clear();
-
-        _resourceDictionary.write(resolvePath("dictionaries/example_resource_dictionary.xml"));
+        _factories.clear();        
     }
 
     void iResourceManager::loadResourceDictionary(const iaString &filename)
     {
-        _resourceDictionary.read(filename);
+        // make sure igor resources are always in the dictionary
+        _resourceDictionary.clear();        
+        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));        
+
+        // now load app specifics
+        _resourceDictionary.read(resolvePath(filename));
+    }
+
+    void iResourceManager::writeResourceDictionary(const iaString &filename)
+    {
+        _resourceDictionary.write(resolvePath(filename));        
     }
 
     void iResourceManager::configure()

@@ -240,6 +240,12 @@ namespace igor
         */
         void loadResourceDictionary(const iaString &filename);
 
+        /*! write resource dictionary to given filename
+
+        \param filename the file to write the dictionary to
+        */
+        void writeResourceDictionary(const iaString &filename);
+
         /*! \returns resource id for given alias or filepath
 
         If it does not exist yet but it represents a valid file path within one of the search path. We add a new resource.

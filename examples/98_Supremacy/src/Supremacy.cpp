@@ -18,6 +18,9 @@ Supremacy::Supremacy()
     window->setCentered();
     window->open();
 
+	// before we can load any resources make sure the resource dictionary is loaded
+    iResourceManager::getInstance().loadResourceDictionary("dictionaries/example_resource_dictionary.xml");	    
+
     // create example and add it as layer to the application
     igor::iApplication::getInstance().addLayer(new GameLayer(window));
     igor::iApplication::getInstance().addLayer(new iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor_font_default", "example_texture_widget_theme_pattern")), window, "Widgets", 100));
