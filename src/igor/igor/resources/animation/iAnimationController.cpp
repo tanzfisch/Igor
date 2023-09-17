@@ -43,7 +43,7 @@ namespace igor
 
     void iAnimationController::addClip(iClipPtr clip)
     {
-        const iaString stateName = clip->getAnimations().empty() ? "no name" : clip->getAnimations().front()->getAlias();
+        const iaString stateName = clip->getAnimations().empty() ? "no name" : clip->getAnimations().front()->getInfo();
         iaStateID state = _stateMachine.addState(stateName);
         _clips[state] = clip;
 

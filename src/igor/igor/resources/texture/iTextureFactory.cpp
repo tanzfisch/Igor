@@ -142,7 +142,7 @@ namespace igor
         }
 
         texture->setData(width, height, bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
-        con_debug("generated texture \"" << texture->getAlias() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("generated texture \"" << texture->getInfo() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         delete[] data;
@@ -167,7 +167,7 @@ namespace igor
         {
             texture->_useFallback = true;
             _mutexImageLibrary.lock();
-            con_err("can't load \"" << texture->getAlias() << "\" reason:" << stbi_failure_reason());
+            con_err("can't load \"" << texture->getInfo() << "\" reason:" << stbi_failure_reason());
             _mutexImageLibrary.unlock();
 
             return false;
@@ -193,7 +193,7 @@ namespace igor
         };
 
         texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-        con_debug("loaded texture \"" << texture->getAlias() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("loaded texture \"" << texture->getInfo() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         _mutexImageLibrary.lock();

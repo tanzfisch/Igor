@@ -19,8 +19,8 @@ namespace igor
             _id = iaUUID();
         }
 
-        // TODO get rid of alias
         _alias = parameters.getParameter<iaString>("alias", "");
+        _source = parameters.getParameter<iaString>("filename", "");
 
         _type = parameters.getParameter<iaString>("type");
         _cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
@@ -54,10 +54,6 @@ namespace igor
             return true;
         }
 
-        if (!quiet)
-        {
-            con_err("iResourceManager::getInstance().resolvePath \"" << alias << "\" failed");
-        }
         return false;
     }
 
@@ -90,9 +86,9 @@ namespace igor
         _valid = valid;
     }
 
-    const iaString &iResource::getAlias() const
+    const iaString &iResource::getSource() const
     {
-        return _alias;
+        return _source;
     }
 
     iResourceCacheMode iResource::getCacheMode() const
@@ -114,4 +110,25 @@ namespace igor
     {
         return _id;
     }
+
+    const iaString iResource::getInfo() const
+    {
+        iaString result;
+
+        if(!_alias.isEmpty())
+        {
+            result += _alias;
+        }
+        else if(!_source.isEmpty())
+        {
+            result += _source;
+        }
+        else
+        {
+            result += _id.toString();
+        }
+
+        return result;
+    }
 }
+

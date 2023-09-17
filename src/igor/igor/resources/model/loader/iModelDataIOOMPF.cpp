@@ -794,12 +794,12 @@ namespace igor
                         continue;
                     }
 
-                    if (pair.second->getAlias().isEmpty())
+                    if (pair.second->getInfo().isEmpty())
                     {
                         continue;
                     }
 
-                    result->setTexture(iResourceManager::getInstance().getRelativePath(pair.second->getAlias()), pair.first);
+                    result->setTexture(iResourceManager::getInstance().getRelativePath(pair.second->getInfo()), pair.first);
                 }
             }
             else

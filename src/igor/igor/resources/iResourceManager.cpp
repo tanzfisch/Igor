@@ -238,6 +238,10 @@ namespace igor
         iResourceID id;
         if (!iResource::extractID(parameters, id))
         {
+            const iaString id = parameters.getParameter<iaString>("id", "");
+            const iaString alias = parameters.getParameter<iaString>("alias", "");
+            const iaString filename = parameters.getParameter<iaString>("filename", "");
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");
             return nullptr;
         }
 
@@ -326,7 +330,7 @@ namespace igor
             !result->isQuiet() &&
             result->isValid())
         {
-            con_info("loaded " << result->getType() << "\" id:" << result->getID() << " \"" << result->getAlias() << "\"");
+            con_info("loaded " << result->getType() << "\" id:" << result->getID() << " \"" << result->getInfo() << "\"");
         }
 
         return result;
@@ -371,7 +375,7 @@ namespace igor
                 factory->unloadResource(resource);
                 if (!resource->isQuiet())
                 {
-                    con_info("released " << resource->getType() << " \"" << resource->getAlias() << "\"");
+                    con_info("released " << resource->getType() << " \"" << resource->getInfo() << "\"");
                 }
             }
         }
@@ -635,7 +639,10 @@ namespace igor
             }
             else
             {
-                param.setParameter("alias", alias);
+                if (!alias.isEmpty())
+                {
+                    param.setParameter("alias", alias);
+                }
             }
         }
 

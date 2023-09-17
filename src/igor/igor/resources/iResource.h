@@ -81,9 +81,15 @@ namespace igor
          */
         bool isQuiet() const;
 
-        /*! \returns the resource alias
-         */
-        const iaString &getAlias() const;
+        /*! \returns the source of this resource
+
+        ie filename
+        */
+        const iaString &getSource() const;
+
+        /*! \returns info string
+        */
+        const iaString getInfo() const;
 
         /*! \returns resource id
          */
@@ -138,6 +144,10 @@ namespace igor
         /*! type of the resource
          */
         iaString _type;
+
+        /*! source name (ie filename)
+        */
+        iaString _source;
 
         /*! id of this resource
          */

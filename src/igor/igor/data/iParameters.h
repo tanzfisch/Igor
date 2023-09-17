@@ -39,14 +39,13 @@ namespace igor
 {
 
     /*! a key value list of parameters
-    */
+     */
     class IGOR_API iParameters
     {
 
     public:
-
         /*! does nothing
-        */
+         */
         iParameters() = default;
 
         /*! init members
@@ -107,14 +106,14 @@ namespace igor
         }
 
     private:
-
-        /*! parameters 
-        */
+        /*! parameters
+         */
         std::map<iaString, std::any> _parameters;
     };
 
+
     /*! parameters pointer definition
-    */
+     */
     typedef std::shared_ptr<iParameters> iParametersPtr;
 
 }
