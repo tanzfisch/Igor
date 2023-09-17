@@ -93,7 +93,7 @@ namespace igor
         return true;
     }
 
-    bool iResourceDictionary::readResourceDictionaryElement(TiXmlElement *element)
+    bool iResourceDictionary::readResourceDictionaryElement(TiXmlElement *element, bool internal)
     {
         TiXmlElement *resource = element->FirstChildElement("Resource");
         if (resource == nullptr)
@@ -108,10 +108,9 @@ namespace igor
             iaString id(resource->Attribute("id"));
             iaString source(resource->Attribute("source"));
             iaString alias(resource->Attribute("alias"));
-            iaString internal(resource->Attribute("internal"));
             iaUUID uuid(id);
 
-            if(!addResource(uuid, source, alias, (!internal.isEmpty() && internal == "true")))
+            if(!addResource(uuid, source, alias, internal))
             {
                 return false;
             }
@@ -144,7 +143,9 @@ namespace igor
         TiXmlElement *resourceDictionary = root->FirstChildElement("ResourceDictionary");
         if (resourceDictionary != nullptr)
         {
-            if (!readResourceDictionaryElement(resourceDictionary))
+            iaString internal(resourceDictionary->Attribute("internal"));
+
+            if (!readResourceDictionaryElement(resourceDictionary, (!internal.isEmpty() && internal == "true")))
             {
                 con_err("can't read all resource dictionary entries from \"" << filename << "\"");
                 return false;

@@ -54,6 +54,7 @@ namespace igor
         /*! imports resource dictionary
 
         \param filename filename of resource dictionary to import
+        \param internal marks all these entries to not be exported during write
         \returns true if successful
         */
         bool read(const iaString &filename);
@@ -98,7 +99,7 @@ namespace igor
         \param element the element to read
         \returns true if successful
         */
-        bool readResourceDictionaryElement(TiXmlElement *element);
+        bool readResourceDictionaryElement(TiXmlElement *element, bool internal);
 
         /*! internal add resource implementation
 

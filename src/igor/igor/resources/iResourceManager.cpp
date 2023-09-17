@@ -80,6 +80,8 @@ namespace igor
         _mutex.unlock();
 
         _factories.clear();
+
+      //   _resourceDictionary.write(resolvePath("dictionaries/example_resource_dictionary.xml"));
     }
 
     void iResourceManager::loadResourceDictionary(const iaString &filename)

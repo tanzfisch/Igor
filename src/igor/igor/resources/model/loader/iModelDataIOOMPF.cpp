@@ -799,7 +799,7 @@ namespace igor
                         continue;
                     }
 
-                    result->setTexture(iResourceManager::getInstance().getRelativePath(pair.second->getInfo()), pair.first);
+                    result->setTexture(pair.second->getID().toString(), pair.first);
                 }
             }
             else
@@ -832,7 +832,7 @@ namespace igor
     OMPF::ompfMaterialReferenceChunk *iModelDataIOOMPF::createMaterialReferenceChunk(iMaterialPtr material)
     {
         OMPF::ompfMaterialReferenceChunk *result = _ompf->createMaterialReferenceChunk();
-        result->setFilename(iResourceManager::getInstance().getRelativePath(material->getFilename()));
+        result->setFilename(material->getID().toString());
         return result;
     }
 
