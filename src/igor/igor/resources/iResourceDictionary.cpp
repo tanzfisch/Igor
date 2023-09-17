@@ -37,16 +37,19 @@ namespace igor
         stream << "<Igor>\n";
         stream << "    <ResourceDictionary>\n";
 
-        for (auto &pair : _data)
-        {
-            stream << "        <Resource id=\"" << pair.first << "\"";
+        std::sort(_data.begin(), _data.end(), [](std::tuple<iResourceID, iaString, iaString> const &a, std::tuple<iResourceID, iaString, iaString> const &b)
+                  { return std::get<0>(a) < std::get<0>(b); });
 
-            if (!pair.second.second.isEmpty())
+        for (auto &tuple : _data)
+        {
+            stream << "        <Resource id=\"" << std::get<0>(tuple) << "\"";
+
+            if (!std::get<2>(tuple).isEmpty())
             {
-                stream << " alias=\"" << pair.second.second << "\"";
+                stream << " alias=\"" << std::get<2>(tuple) << "\"";
             }
 
-            stream << " source=\"" << pair.second.first << "\"";
+            stream << " source=\"" << std::get<1>(tuple) << "\"";
 
             stream << " />\n";
         }
@@ -87,7 +90,7 @@ namespace igor
         // skip certain internal so they don't get mixed up when exporting resources
         if (!internal)
         {
-            _data[uuid] = {source, alias};
+            _data.emplace_back(uuid, source, alias);
         }
 
         return true;
@@ -110,7 +113,7 @@ namespace igor
             iaString alias(resource->Attribute("alias"));
             iaUUID uuid(id);
 
-            if(!addResource(uuid, source, alias, internal))
+            if (!addResource(uuid, source, alias, internal))
             {
                 return false;
             }
@@ -177,7 +180,7 @@ namespace igor
     const iResourceID iResourceDictionary::addResource(const iaString &filename, const iaString &alias, bool internal)
     {
         iaUUID uuid;
-        if(!addResource(uuid, filename, alias, internal))
+        if (!addResource(uuid, filename, alias, internal))
         {
             con_crit("internal error");
         }
@@ -205,11 +208,11 @@ namespace igor
 
         // check if this is a file path within the dictionary
         // (just take the first hit and ignore others)
-        for (const auto &pair : _data)
+        for (const auto &tuple : _data)
         {
-            if (pair.second.first == text)
+            if (std::get<1>(tuple) == text)
             {
-                return pair.first;
+                return std::get<0>(tuple);
             }
         }
 

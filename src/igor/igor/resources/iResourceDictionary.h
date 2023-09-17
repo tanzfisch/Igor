@@ -92,7 +92,7 @@ namespace igor
 
         resource id, filename, alias
         */
-        std::unordered_map<iResourceID, std::pair<iaString, iaString>> _data;
+        std::vector<std::tuple<iResourceID, iaString, iaString>> _data;
 
         /*! reads resource dictionary element
 

@@ -81,7 +81,7 @@ namespace igor
 
         _factories.clear();
 
-      //   _resourceDictionary.write(resolvePath("dictionaries/example_resource_dictionary.xml"));
+        _resourceDictionary.write(resolvePath("dictionaries/example_resource_dictionary.xml"));
     }
 
     void iResourceManager::loadResourceDictionary(const iaString &filename)
