@@ -13,6 +13,22 @@ using namespace iaux;
 namespace igor
 {
 
+    static bool isMaterial(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }    
+
     const iaString &iMaterialFactory::getType() const
     {
         const static iaString typeName(L"material");
@@ -36,7 +52,13 @@ namespace igor
             // or what ever you have in mind
         }*/
 
-        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        const iaString filepath = iResourceManager::getInstance().getFilePath(material->getID());
+        if(filepath.isEmpty())        
+        {
+            con_err("not a valid material " << material->getID());
+            return false;
+        }
+
         return iMaterialIO::read(iResourceManager::getInstance().resolvePath(filepath), material);
     }
 
@@ -60,17 +82,11 @@ namespace igor
         {
             return true;
         }
-
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &fileExtension = file.getExtension();
-        static const std::vector<iaString> supportedExtensions = {L"mat"};
-
-        for (const auto &extension : supportedExtensions)
+        
+        if (isMaterial(parameters.getParameter<iaString>("filename")) ||
+            isMaterial(parameters.getParameter<iaString>("alias")))
         {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
+            return true;
         }
 
         return false;

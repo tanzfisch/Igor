@@ -15,6 +15,22 @@ using namespace iaux;
 namespace igor
 {
 
+    static bool isModel(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_MODEL_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }    
+
     class iModelDeleter
     {
     public:
@@ -111,16 +127,10 @@ namespace igor
             return true;
         }
 
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &fileExtension = file.getExtension();
-        static const std::vector<iaString> supportedExtensions = {L"ompf", L"obj"};
-
-        for (const auto &extension : supportedExtensions)
+        if (isModel(parameters.getParameter<iaString>("filename")) ||
+            isModel(parameters.getParameter<iaString>("alias")))
         {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
+            return true;
         }
 
         return false;

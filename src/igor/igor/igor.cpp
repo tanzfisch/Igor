@@ -12,6 +12,10 @@ using namespace iaux;
 
 extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {L"sprite"};
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {L"png", L"jpg"};
+extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {L"mat"};
+extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {L"anim"};
+extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {L"ompf", L"obj"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {L"wav"};
 
 #ifdef IGOR_DEBUG
 extern const iaString IGOR_BUILD_CONFIGURATION = "debug";

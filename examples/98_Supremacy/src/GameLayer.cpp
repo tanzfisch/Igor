@@ -29,7 +29,8 @@ void GameLayer::onInit()
     // init font for render profiler
     _font = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default_outline"));
 
-    _coin = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_coin");
+    _coin = iResourceManager::getInstance().requestResource<iSprite>("example_sprite_coin");
+    // TODO need something like createResource<iSprite>(param {{texture, "example_texture_supremacy_fist"}}); etc.
     _damage = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_fist");
     _attackSpeed = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_bullets");
     _walkSpeed = iResourceManager::getInstance().requestResource<iSprite>("example_texture_supremacy_run");

@@ -34,7 +34,7 @@ namespace igor
         registerFactory(iFactoryPtr(new iSoundFactory()));
 
         // read igor internal resource dictionary
-        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));        
+        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));
     }
 
     iResourceManager::~iResourceManager()
@@ -79,14 +79,14 @@ namespace igor
         _resources.clear();
         _mutex.unlock();
 
-        _factories.clear();        
+        _factories.clear();
     }
 
     void iResourceManager::loadResourceDictionary(const iaString &filename)
     {
         // make sure igor resources are always in the dictionary
-        _resourceDictionary.clear();        
-        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));        
+        _resourceDictionary.clear();
+        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));
 
         // now load app specifics
         _resourceDictionary.read(resolvePath(filename));
@@ -94,7 +94,7 @@ namespace igor
 
     void iResourceManager::writeResourceDictionary(const iaString &filename)
     {
-        _resourceDictionary.write(resolvePath(filename));        
+        _resourceDictionary.write(resolvePath(filename));
     }
 
     void iResourceManager::configure()
@@ -158,44 +158,34 @@ namespace igor
 
     iFactoryPtr iResourceManager::getFactory(const iParameters &parameters)
     {
-        iFactoryPtr result;
-
         const iaString type = parameters.getParameter<iaString>("type", "");
 
-        if (!type.isEmpty())
+        if (type.isEmpty())
         {
-            auto iter = _factories.find(type);
-            if (iter != _factories.end())
-            {
-                result = iter->second;
-            }
+            con_err("empty type parameter");
+            return nullptr;
         }
 
-        if (result == nullptr)
+        auto iter = _factories.find(type);
+        if (iter == _factories.end())
         {
-            for (auto pair : _factories)
-            {
-                if (pair.second->matchingType(parameters))
-                {
-                    result = pair.second;
-                    break;
-                }
-            }
+            con_err("No factory registered for given type \"" << type << "\"");
+            return nullptr;
         }
 
-        if (result == nullptr)
+        if (!iter->second->matchingType(parameters))
         {
-            const iaString name = parameters.getParameter<iaString>("name");
-            con_err("No compatible factory registered for resource \"" << name << "\"");
+            con_err("Factory incompatible with given parameters");
+            return nullptr;
         }
 
-        return result;
+        return iter->second;
     }
 
     iResourcePtr iResourceManager::getResource(const iParameters &parameters)
     {
-        iFactoryPtr factory;
-        if ((factory = getFactory(parameters)) == nullptr)
+        iFactoryPtr factory = getFactory(parameters);
+        if (factory == nullptr)
         {
             return nullptr;
         }
@@ -283,7 +273,6 @@ namespace igor
     iResourcePtr iResourceManager::loadResource(const iParameters &parameters)
     {
         iFactoryPtr factory = getFactory(parameters);
-
         if (factory == nullptr)
         {
             return nullptr;
@@ -625,35 +614,29 @@ namespace igor
         iParameters param({{"type", type},
                            {"cacheMode", cacheMode}});
 
+        if (!alias.isEmpty())
+        {
+            param.setParameter("alias", alias);
+        }
+
+        const iaUUID id = _resourceDictionary.getResource(alias);
+        if (id.isValid())
+        {
+            param.setParameter("id", id);
+            return param;
+        }
+
         if (iaUUID::isUUID(alias))
         {
             param.setParameter("id", iaUUID(alias));
+            return param;
         }
-        else
-        {
-            const iaString filename = resolvePath(alias);
-            if (iaFile::exist(filename))
-            {
-                param.setParameter("filename", alias);
-                const iaUUID id = _resourceDictionary.getResource(alias);
 
-                if (id.isValid())
-                {
-                    param.setParameter("id", id);
-                }
-                else
-                {
-                    // if it does not exist import it
-                    param.setParameter("id", _resourceDictionary.addResource(alias));
-                }
-            }
-            else
-            {
-                if (!alias.isEmpty())
-                {
-                    param.setParameter("alias", alias);
-                }
-            }
+        const iaString filename = resolvePath(alias);
+        if (iaFile::exist(filename))
+        {
+            param.setParameter("filename", filename);            
+            param.setParameter("id", _resourceDictionary.addResource(alias));
         }
 
         return param;

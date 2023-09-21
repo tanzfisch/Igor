@@ -14,6 +14,22 @@ using namespace iaux;
 namespace igor
 {
 
+    static bool isSound(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }      
+
     const iaString &iSoundFactory::getType() const
     {
         const static iaString typeName(L"sound");
@@ -91,10 +107,9 @@ namespace igor
         {
             return true;
         }
-
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &extension = file.getExtension();
-        if (extension == "wav")
+        
+        if (isSound(parameters.getParameter<iaString>("filename")) ||
+            isSound(parameters.getParameter<iaString>("alias")))
         {
             return true;
         }

@@ -60,6 +60,18 @@ extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS;
 //! supported file extensions for textures
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS;
 
+//! supported file extensions for materials
+extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS;
+
+//! supported file extensions for animations
+extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS;
+
+//! supported file extensions for models
+extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS;
+
+//! supported file extensions for sounds
+extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS;
+
 namespace igor
 {
 

@@ -30,22 +30,6 @@ namespace igor
         return false;
     }
 
-    static bool isTexture(const iaString &filename)
-    {
-        iaFile file(filename);
-        const iaString &fileExtension = file.getExtension();
-
-        for (const auto &extension : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }        
-
-        return false;
-    }    
-
     const iaString &iSpriteFactory::getType() const
     {
         const static iaString typeName(L"sprite");
@@ -63,12 +47,6 @@ namespace igor
         const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         iSpritePtr sprite = std::dynamic_pointer_cast<iSprite>(resource);
 
-        if(isTexture(filename))
-        {
-            sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(filename);
-            return true;
-        }
-
         return loadSprite(filename, sprite);
     }
 
@@ -77,8 +55,8 @@ namespace igor
         TiXmlElement *frame = spriteElement->FirstChildElement("Frame");
         const iaString texture(spriteElement->Attribute("texture"));
 
-        //int32 pixelPerUnit = 1;        
-        //spriteElement->Attribute("pixelPerUnit", &pixelPerUnit);
+        // int32 pixelPerUnit = 1;
+        // spriteElement->Attribute("pixelPerUnit", &pixelPerUnit);
 
         sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
 
@@ -104,6 +82,12 @@ namespace igor
 
     bool iSpriteFactory::loadSprite(const iaString &filename, iSpritePtr sprite)
     {
+        if(!isSprite(filename))
+        {
+            con_err("not a sprite \"" << filename << "\"");
+            return false;
+        }
+
         sprite->_frames.clear();
 
         char temp[2048];
@@ -126,7 +110,7 @@ namespace igor
             }
         }
 
-        if(sprite->getFrameCount() == 0)
+        if (sprite->getFrameCount() == 0)
         {
             con_err("no frames defined in \"" << sprite->getInfo() << "\"");
             return false;
@@ -148,7 +132,13 @@ namespace igor
             return true;
         }
 
-        return isSprite(parameters.getParameter<iaString>("name"));
+        if (isSprite(parameters.getParameter<iaString>("filename")) ||
+            isSprite(parameters.getParameter<iaString>("alias")))
+        {
+            return true;
+        }
+
+        return false;
     }
 
 }; // namespace igor

@@ -20,6 +20,7 @@
         <Resource id="0x2322b33bdc7d8c61" alias="example_texture_cyan" source="textures/cyan.png" />
         <Resource id="0x2544d6491ebcda4c" alias="example_texture_particle_dot" source="textures/particleDot.png" />
         <Resource id="0x297dd0e1b6a2ec99" alias="example_material_instancing_textured" source="materials/instancing_textured.mat" />
+        <Resource id="0x2bf655d89b8d9b00" source="igor/materials/default.mat" />
         <Resource id="0x2cc341be664b3dfb" alias="example_texture_ice" source="textures/ice.png" />
         <Resource id="0x2df1156870f403e1" alias="example_texture_supremacy_bullets_3" source="textures/supremacy/bullets_3.png" />
         <Resource id="0x2e6c049b977b9326" alias="example_texture_supremacy_capsicum" source="textures/supremacy/capsicum.png" />
@@ -47,6 +48,7 @@
         <Resource id="0x56cc64459515e646" alias="example_model_level2" source="models/level2.ompf" />
         <Resource id="0x57339e8d03b3da6e" alias="example_texture_widget_theme_pattern" source="textures/WidgetThemePattern.png" />
         <Resource id="0x58d6f182417c259f" alias="example_texture_doughnuts" source="textures/doughnuts.png" />
+        <Resource id="0x5c3207645ba2d4c2" source="igor/materials/textured.mat" />
         <Resource id="0x5c3f82b6e43b7455" alias="example_texture_particleFlame" source="textures/particleFlame.png" />
         <Resource id="0x5d7585c9679b5aea" alias="example_texture_supremacy_projectile_speed_1" source="textures/supremacy/projectile_speed_1.png" />
         <Resource id="0x5ef20cbc90092529" alias="example_material_skybox" source="materials/skybox.mat" />

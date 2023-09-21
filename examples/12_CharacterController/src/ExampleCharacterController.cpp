@@ -22,7 +22,7 @@ void ExampleCharacterController::createBox(const iaVector3d &pos)
     transformNode->translate(pos);
 
     iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
-    crate->setModel("cube.ompf");
+    crate->setModel("example_model_cube");
     transformNode->insertNode(crate);
     transformNode->insertNode(physicsBox);
 
@@ -65,11 +65,11 @@ void ExampleCharacterController::onInit()
     // bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
     // load level
-    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>("level.ompf");   
+    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>("example_model_level");
 
     // put it in scene
     iNodeModel *levelModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    levelModel->setModel(level); // "level.ompf", iResourceCacheMode::Keep, param);
+    levelModel->setModel(level);
 
     levelModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
     iNodeTransform *levelTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -100,7 +100,7 @@ void ExampleCharacterController::onInit()
     gunTransform->rotate(M_PI, iaAxis::Y);
     gunTransform->scale(0.04, 0.04, 0.04);
     iNodeModel *gun = iNodeManager::getInstance().createNode<iNodeModel>();
-    gun->setModel("M4A1-S.ompf");
+    gun->setModel("example_model_M4A1-S");
     _characterController->getRightSholderTransform()->insertNode(gunTransform);
     gunTransform->insertNode(gun);
 

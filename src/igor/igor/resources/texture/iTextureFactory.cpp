@@ -18,6 +18,22 @@ namespace igor
 
     iaMutex iTextureFactory::_mutexImageLibrary;
 
+    static bool isTexture(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }    
+
     const iaString &iTextureFactory::getType() const
     {
         const static iaString typeName(L"texture");
@@ -245,17 +261,11 @@ namespace igor
         {
             return true;
         }
-
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &fileExtension = file.getExtension();
-        static const std::vector<iaString> supportedExtensions = {L"png", L"jpg"};
-
-        for (const auto &extension : supportedExtensions)
+        
+        if (isTexture(parameters.getParameter<iaString>("filename")) ||
+            isTexture(parameters.getParameter<iaString>("alias")))
         {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
+            return true;
         }
 
         return false;

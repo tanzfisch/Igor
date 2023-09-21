@@ -54,7 +54,7 @@ void Background3D::onInit()
     // create a cat model
     iNodeModel *justCatModel = iNodeManager::getInstance().createNode<iNodeModel>();
     // Node model names can be altered but they also are generated based on the file name
-    justCatModel->setModel("cat.ompf");
+    justCatModel->setModel("example_model_cat");
     // building the created nodes together and insert them in the scene
     getScene()->getRoot()->insertNode(justCatTransform);
     justCatTransform->insertNode(justCatModel);
@@ -78,7 +78,7 @@ void Background3D::onInit()
     catTransform->setName("cat transform");
     catTransform->translate(1, -1, 0);
     iNodeModel *catModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    catModel->setModel("cat.ompf");
+    catModel->setModel("example_model_cat");
     // add the cat to the cat transform
     catTransform->insertNode(catModel);
     // repead for the teapot
@@ -87,14 +87,14 @@ void Background3D::onInit()
     teapotTransform->translate(1, -1, 0);
     teapotTransform->scale(0.33, 0.33, 0.33);
     iNodeModel *teapotModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    teapotModel->setModel("teapot.ompf");
+    teapotModel->setModel("example_model_teapot");
     teapotTransform->insertNode(teapotModel);
     // repeat for a crate
     iNodeTransform *crateTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     crateTransform->setName("crate transform");
     crateTransform->translate(1, -0.5, 0);
     iNodeModel *crateModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    crateModel->setModel("crate.ompf");
+    crateModel->setModel("example_model_crate");
     crateTransform->insertNode(crateModel);
     // creating the switch node
     iNodeSwitch *switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
@@ -115,21 +115,21 @@ void Background3D::onInit()
     lod0Transform->translate(-1, -1, 0);
     lod0Transform->scale(0.33, 0.33, 0.33);
     iNodeModel *lod0Model = iNodeManager::getInstance().createNode<iNodeModel>();
-    lod0Model->setModel("teapot.ompf");
+    lod0Model->setModel("example_model_teapot");
     lod0Transform->insertNode(lod0Model);
     // the cat as LOD1
     iNodeTransform *lod1Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     lod1Transform->setName("lod1 transform");
     lod1Transform->translate(-1, -1, 0);
     iNodeModel *lod1Model = iNodeManager::getInstance().createNode<iNodeModel>();
-    lod1Model->setModel("cat.ompf");
+    lod1Model->setModel("example_model_cat");
     lod1Transform->insertNode(lod1Model);
     // the create as LOD2
     iNodeTransform *lod2Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     lod2Transform->setName("lod0 transform");
     lod2Transform->translate(-1, -0.5, 0);
     iNodeModel *lod2Model = iNodeManager::getInstance().createNode<iNodeModel>();
-    lod2Model->setModel("crate.ompf");
+    lod2Model->setModel("example_model_crate");
     lod2Transform->insertNode(lod2Model);
     // creating the LOD switch node
     iNodeLODSwitch *lodswitch = iNodeManager::getInstance().createNode<iNodeLODSwitch>();

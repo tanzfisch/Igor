@@ -67,7 +67,7 @@ void PhysicsExample::onInit()
                 transformNode->rotate(rand.getNext(), iaAxis::Z);
                 // load the crate model
                 iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
-                crate->setModel("crate.ompf");
+                crate->setModel("example_model_crate");
                 transformNode->insertNode(crate);
                 // bind the scene model to the physics body
                 iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
@@ -95,7 +95,7 @@ void PhysicsExample::onInit()
                 transformNode->translate(x, i, z);
 
                 iNodeModel *cube = iNodeManager::getInstance().createNode<iNodeModel>();
-                cube->setModel("crate.ompf");
+                cube->setModel("example_model_crate");
 
                 // binds physics node and transform node implicitly
                 transformNode->insertNode(cube);

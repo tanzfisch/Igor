@@ -126,10 +126,11 @@ public:
 };
 
 // set an increase z index of 1 to make sure the ui is rendered above the background
-WidgetsExample::WidgetsExample(iWindowPtr window, iLayerProfilerPtr layerProfiler, Background3D* backGround)
-    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme("igor_font_default", "example_texture_widget_theme_pattern")), window, "Widgets", 10)
-    , _layerProfiler(layerProfiler)
-    , _backGround(backGround)
+WidgetsExample::WidgetsExample(iWindowPtr window, iLayerProfilerPtr layerProfiler, Background3D *backGround)
+    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"),
+                                                            iResourceManager::getInstance().loadResource<iTexture>("example_texture_widget_theme_pattern"))),
+                    window, "Widgets", 10),
+      _layerProfiler(layerProfiler), _backGround(backGround)
 {
     // register the actions to make them globally available
     iActionManager::getInstance().registerAction(new Action1());
@@ -272,19 +273,19 @@ void WidgetsExample::onInit()
 
     iWidgetCheckBox *radioWireframe = new iWidgetCheckBox();
     radioWireframe->setText("Wireframe");
-    radioWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);    
+    radioWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
     radioWireframe->registerOnChangeEvent(iChangeDelegate(this, &WidgetsExample::onWireframeChange));
     gridControls->addWidget(radioWireframe, 1, 1);
 
     iWidgetCheckBox *radioOctree = new iWidgetCheckBox();
     radioOctree->setText("Octree");
-    radioOctree->setHorizontalAlignment(iHorizontalAlignment::Left);    
+    radioOctree->setHorizontalAlignment(iHorizontalAlignment::Left);
     radioOctree->registerOnChangeEvent(iChangeDelegate(this, &WidgetsExample::onOctreeChange));
     gridControls->addWidget(radioOctree, 1, 2);
 
     iWidgetCheckBox *radioBoundings = new iWidgetCheckBox();
     radioBoundings->setText("Boundings");
-    radioBoundings->setHorizontalAlignment(iHorizontalAlignment::Left);    
+    radioBoundings->setHorizontalAlignment(iHorizontalAlignment::Left);
     radioBoundings->registerOnChangeEvent(iChangeDelegate(this, &WidgetsExample::onBoundsChange));
     gridControls->addWidget(radioBoundings, 1, 3);
 
