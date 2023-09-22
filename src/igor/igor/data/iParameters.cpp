@@ -6,6 +6,7 @@
 
 #include <igor/data/iFrustum.h>
 #include <igor/renderer/utils/iRendererDefines.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaColor3.h>
@@ -241,6 +242,10 @@ namespace igor
         else if (any.type() == typeid(iResourceManagerLoadMode))
         {
             stream << (iResourceManagerLoadMode)std::any_cast<iResourceManagerLoadMode>(any);
+        }                              
+        else if (any.type() == typeid(iMaterialPtr))
+        {
+            stream << *std::any_cast<iMaterialPtr>(any);
         }                              
         else
         {

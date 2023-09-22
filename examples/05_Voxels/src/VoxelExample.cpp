@@ -239,12 +239,15 @@ void VoxelExample::prepareMeshGeneration()
         {"type", iaString("model")},
         {"cacheMode", iResourceCacheMode::Keep},
         {"subType", iaString("example.vtg")},
-        {"generated", true},
+        {"generate", true},
         {"joinVertexes", true},
         {"keepMesh", true},
         {"material", _voxelMeshMaterial},
         {"voxelData", _voxelData}
     });
+
+    con_endl(parameters);
+
     voxelMeshModel->setModel(iResourceManager::getInstance().requestResource<iModel>(parameters));
 
     // create a transform node to center the mesh to the origin

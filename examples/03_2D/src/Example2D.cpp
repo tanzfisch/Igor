@@ -26,7 +26,7 @@ void Example2D::onInit()
     // load a texture as sprite
     _doughnuts = iResourceManager::getInstance().requestResource<iSprite>("example_sprite_doughnuts");
     // setup matrix
-    _doughnutsTime = iaTime::getNow();   
+    _doughnutsTime = iaTime::getNow();
 
     // initalize a spline loop
     _spline.addSupportPoint(iaVector3f(100, 100, 0));
@@ -250,7 +250,7 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().drawTexturedRectangle(10, 170, 200, 200, _dummyTexture, iaColor4f::white, true);
 
     // draw with mandelbrot texture
-    iRenderer::getInstance().drawTexturedRectangle(static_cast<float32>(getWindow()->getClientWidth() - 200), 180.0f, 
+    iRenderer::getInstance().drawTexturedRectangle(static_cast<float32>(getWindow()->getClientWidth() - 200), 180.0f,
                                                    256.0f, 256.0f, _mandelbrotTexture, iaColor4f::black, true);
 
     // draw some text from wikipedia
