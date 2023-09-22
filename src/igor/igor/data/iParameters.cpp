@@ -243,10 +243,6 @@ namespace igor
         {
             stream << (iResourceManagerLoadMode)std::any_cast<iResourceManagerLoadMode>(any);
         }                              
-        else if (any.type() == typeid(iMaterialPtr))
-        {
-            stream << *std::any_cast<iMaterialPtr>(any);
-        }                              
         else
         {
             stream << "duh";

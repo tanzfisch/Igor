@@ -222,14 +222,6 @@ namespace igor
 
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
     {
-        con_endl("parameters:" << parameters);
-
-        const iaString alias = parameters.getParameter<iaString>("alias", "");
-        if(alias == "VoxelMesh1")
-        {
-            int x = 0;
-        }
-
         if (_loadMode == iResourceManagerLoadMode::Synchronized)
         {
             return loadResource(parameters);
