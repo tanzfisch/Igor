@@ -52,10 +52,7 @@ namespace igor
 
         \param parameters the parameters
         */
-        iParameters(const std::map<iaString, std::any> &parameters)
-        {
-            _parameters = parameters;
-        }
+        iParameters(const std::map<iaString, std::any> &parameters);
 
         /*! \returns value for given parameter name
 
@@ -90,20 +87,18 @@ namespace igor
 
         \param name name of parameter
         */
-        bool hasParameter(const iaString &name) const
-        {
-            return _parameters.find(name) != _parameters.end();
-        }
+        bool hasParameter(const iaString &name) const;
 
         /*! sets value for given parameter
 
         \param name name of parameter
         \param value the value to set
         */
-        void setParameter(const iaString &name, const std::any value)
-        {
-            _parameters[name] = value;
-        }
+        void setParameter(const iaString &name, const std::any value);
+
+        /*! \returns all parameters
+        */
+        const std::map<iaString, std::any>& getParameters() const;
 
     private:
         /*! parameters
@@ -111,6 +106,21 @@ namespace igor
         std::map<iaString, std::any> _parameters;
     };
 
+    /*! stream parameters
+
+    \param stream the destination
+    \param parameters the parameters to stream
+    \returns the resulting stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iParameters &parameters);    
+
+    /*! stream std::any (well as long it's a type that we know about)
+
+    \param stream the stream
+    \param any the std::any data to stream
+    \return the resulting stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const std::any &any);
 
     /*! parameters pointer definition
      */

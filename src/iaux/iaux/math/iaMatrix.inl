@@ -5,10 +5,10 @@
 template <class T>
 __IGOR_INLINE__ std::wostream &operator<<(std::wostream &stream, const iaMatrix<T> &m)
 {
-    stream << "/" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._x << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._top._x << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._depth._x << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._pos._x << "\\" << iaux::endlTab;
-    stream << "|" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._y << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._top._y << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._depth._y << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._pos._y << "|" << iaux::endlTab;
-    stream << "|" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._z << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._top._z << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._depth._z << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._pos._z << "|" << iaux::endlTab;
-    stream << "\\" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._w0 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w1 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w2 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w3 << "/";
+    stream << "(" << std::setprecision(2) << m._right._x << ", " << m._top._x << ", " << m._depth._x << ", " << m._pos._x << " | ";
+    stream << m._right._y << ", " << m._top._y << ", " << m._depth._y << ", " << m._pos._y << " | ";
+    stream << m._right._z << ", " << m._top._z << ", " << m._depth._z << ", " << m._pos._z << " | ";
+    stream << m._w0 << ", " << m._w1 << ", " << m._w2 << ", " << m._w3 << ")";
     return stream;
 }
 

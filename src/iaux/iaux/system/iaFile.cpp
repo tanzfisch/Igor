@@ -48,7 +48,7 @@ namespace iaux
         return size;
     }
 
-    static const char *getOpenFlags(const iFileOpenMode &mode)
+    static const char *getOpenFlags(const iaFileOpenMode &mode)
     {
         const static std::string text[] = {
             "rb",
@@ -58,12 +58,12 @@ namespace iaux
         return text[static_cast<int>(mode)].c_str();
     }
 
-    static bool isWriteable(const iFileOpenMode &mode)
+    static bool isWriteable(const iaFileOpenMode &mode)
     {
-        return mode == iFileOpenMode::WriteBinary || mode == iFileOpenMode::ReadWriteBinary;
+        return mode == iaFileOpenMode::WriteBinary || mode == iaFileOpenMode::ReadWriteBinary;
     }
 
-    bool iaFile::open(const iFileOpenMode &mode)
+    bool iaFile::open(const iaFileOpenMode &mode)
     {
         if (_fileHandle != nullptr)
         {
@@ -225,7 +225,7 @@ namespace iaux
         return (nullptr != _fileHandle) ? true : false;
     }
 
-    const iFileOpenMode &iaFile::getFileOpenMode() const
+    const iaFileOpenMode &iaFile::getFileOpenMode() const
     {
         con_assert_sticky(isOpen(), "file is not open");
 
@@ -335,7 +335,7 @@ namespace iaux
         return true;
     }
 
-    std::wostream &operator<<(std::wostream &stream, const iFileOpenMode &mode)
+    std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode)
     {
         const static std::wstring text[] = {
             L"read",

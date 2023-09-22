@@ -49,10 +49,11 @@ namespace igor
     available parameters for loading data:
 
     - id: the unique id of the resource (type: iResourceID)
-    - alias: the alias of the resource (type: iaString) can be used as alternative to the id
+    - alias: the alias of the resource (type: iaString) Internally this doubles as filename and id in string form.
     - type: the type of resource (type: iaString)
     - cacheMode: the cache mode of this resource (type: iResourceCacheMode)
     - quiet: if true this resource will cause less verbose output in logging. Helpful when generating stuff
+    - generate: if true the data is assumed to be generated and not loaded. This implies that there is no uuid for it and therefore will also be generated
 
     Cache mode of a resource can be increased by requesting the same resource with a higher level of cache mode.
 

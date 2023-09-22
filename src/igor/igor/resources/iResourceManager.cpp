@@ -222,6 +222,14 @@ namespace igor
 
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
     {
+        con_endl("parameters:" << parameters);
+
+        const iaString alias = parameters.getParameter<iaString>("alias", "");
+        if(alias == "VoxelMesh1")
+        {
+            int x = 0;
+        }
+
         if (_loadMode == iResourceManagerLoadMode::Synchronized)
         {
             return loadResource(parameters);
@@ -281,6 +289,10 @@ namespace igor
         iResourceID id;
         if (!iResource::extractID(parameters, id))
         {
+            const iaString id = parameters.getParameter<iaString>("id", "");
+            const iaString alias = parameters.getParameter<iaString>("alias", "");
+            const iaString filename = parameters.getParameter<iaString>("filename", "");
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");            
             return nullptr;
         }
 

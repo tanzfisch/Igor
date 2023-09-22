@@ -237,8 +237,9 @@ void VoxelExample::prepareMeshGeneration()
     iParameters parameters({
         {"alias", iaString("VoxelMesh") + iaString::toString(_incarnation++)},
         {"type", iaString("model")},
-        {"subType", iaString("example.vtg")},
         {"cacheMode", iResourceCacheMode::Keep},
+        {"subType", iaString("example.vtg")},
+        {"generated", true},
         {"joinVertexes", true},
         {"keepMesh", true},
         {"material", _voxelMeshMaterial},

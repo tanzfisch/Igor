@@ -40,7 +40,7 @@ namespace iaux
 
     /*! file open modes
      */
-    enum class iFileOpenMode
+    enum class iaFileOpenMode
     {
         ReadBinary,
         WriteBinary,
@@ -53,7 +53,7 @@ namespace iaux
     \param mode the file open mode
     \returns the stream
     */
-    IAUX_API std::wostream &operator<<(std::wostream &stream, const iFileOpenMode &mode);
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode);
 
     /*! \brief File handle
     */
@@ -74,7 +74,7 @@ namespace iaux
 
         \param mode file open mode
         */
-        bool open(const iFileOpenMode &mode = iFileOpenMode::ReadBinary);
+        bool open(const iaFileOpenMode &mode = iaFileOpenMode::ReadBinary);
 
         /*! closes the file
          */
@@ -86,7 +86,7 @@ namespace iaux
 
         /*! \returns the file open mode if open
          */
-        const iFileOpenMode &getFileOpenMode() const;
+        const iaFileOpenMode &getFileOpenMode() const;
 
         /*! renames the file to a new name
 
@@ -175,7 +175,7 @@ namespace iaux
 
         /*! file open mode
          */
-        iFileOpenMode _mode;
+        iaFileOpenMode _mode;
 
         /*! size of file
          */
