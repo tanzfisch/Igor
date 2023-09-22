@@ -152,7 +152,7 @@ void Workspace::importFile(const iaString &filename)
         return;
     }
 
-    iParameters parameters({{"name", filename},
+    iParameters parameters({{"filename", filename},
                             {"type", iaString("model")},
                             {"cacheMode", iResourceCacheMode::Free},
                             {"joinVertexes", false},
@@ -222,7 +222,7 @@ void Workspace::importFileReference(const iaString &filename)
         return;
     }
 
-    iParameters parameters({{"name", filename},
+    iParameters parameters({{"filename", filename},
                             {"type", iaString("model")},
                             {"cacheMode", iResourceCacheMode::Free},
                             {"joinVertexes", false},

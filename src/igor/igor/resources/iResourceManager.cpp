@@ -329,7 +329,7 @@ namespace igor
             !result->isQuiet() &&
             result->isValid())
         {
-            con_info("loaded " << result->getType() << "\" id:" << result->getID() << " \"" << result->getInfo() << "\"");
+            con_info("loaded " << result->getType() << " id:" << result->getID() << " \"" << result->getInfo() << "\"");
         }
 
         return result;

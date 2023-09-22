@@ -235,7 +235,7 @@ void VoxelExample::prepareMeshGeneration()
     
     // tell the model node to load data with specified parameters
     iParameters parameters({
-        {"name", iaString("VoxelMesh") + iaString::toString(_incarnation++)},
+        {"alias", iaString("VoxelMesh") + iaString::toString(_incarnation++)},
         {"type", iaString("model")},
         {"subType", iaString("example.vtg")},
         {"cacheMode", iResourceCacheMode::Keep},

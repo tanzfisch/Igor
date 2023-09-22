@@ -60,7 +60,14 @@ namespace igor
     bool iResource::isQuiet() const
     {
 #ifdef IGOR_DEBUG
-        return false;
+        if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Debug)
+        {
+            return false;
+        }
+        else
+        {
+            return _quiet;
+        }
 #else
         return _quiet;
 #endif
@@ -115,11 +122,11 @@ namespace igor
     {
         iaString result;
 
-        if(!_alias.isEmpty())
+        if (!_alias.isEmpty())
         {
             result += _alias;
         }
-        else if(!_source.isEmpty())
+        else if (!_source.isEmpty())
         {
             result += _source;
         }
@@ -131,4 +138,3 @@ namespace igor
         return result;
     }
 }
-

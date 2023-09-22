@@ -1253,7 +1253,7 @@ namespace igor
                     (*parent).second->_voxelData->getCopy(*voxelDataNextLOD);
 
                     iParameters parameters({
-                        {"name", tileName},
+                        {"alias", tileName},
                         {"type", iaString("model")},
                         {"subType", iaString("igor.vtg")},
                         {"cacheMode", iResourceCacheMode::Free},

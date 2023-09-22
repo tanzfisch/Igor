@@ -48,7 +48,7 @@ void LSystems::onInit()
 	// and than we add the camera to the translation
 	cameraTranslation->insertNode(camera);
 	// and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
-	// scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
+	// scene associated with the view which we achieved by adding all those nodes on to an other starting with the root node
 	getView().setCurrentCamera(camera->getID());
 
 	// create a directional light
@@ -170,10 +170,11 @@ void LSystems::initStyle3()
 
 uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, uint32 iterations, uint64 seed)
 {
-	iParameters parameters({{"name", iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++)},
+	iParameters parameters({{"alias", iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++)},
 							{"type", iaString("model")},
 							{"cacheMode", iResourceCacheMode::Free},
 							{"subType", iaString("pmg")},
+							{"generate", true},
 							{"quiet", true},
 							{"lsystem", &_lSystem},
 							{"material", iRenderer::getInstance().getDefaultMaterial()},
