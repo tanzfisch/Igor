@@ -35,7 +35,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
     iLSystem *lSystem = parameters.getParameter<iLSystem*>("lsystem", nullptr);
     const iaString &axiom = parameters.getParameter<iaString>("axiom", "");
     const uint32 iterations = parameters.getParameter<uint32>("iterations", 0);
-    iMaterialPtr material = parameters.getParameter<iMaterialPtr>("material", nullptr);
+    iMaterialPtr material = parameters.getParameter<iMaterialPtr>(IGOR_RESOURCE_MATERIAL, nullptr);
     const iaColor3f trunkColor = parameters.getParameter<iaColor3f>("trunkColor", iaColor3f());
     const iaColor3f branchColor = parameters.getParameter<iaColor3f>("branchColor", iaColor3f());
     const iaColor3f budColor = parameters.getParameter<iaColor3f>("budColor", iaColor3f());
@@ -46,7 +46,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
    
     iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 
-    _rand.setSeed(parameters.getParameter<uint64>("seed", 1234));
+    _rand.setSeed(parameters.getParameter<uint64>(IGOR_RESOURCE_PARAM_SEED, 1234));
     iaString sentence = lSystem->generate(axiom, iterations, _rand.getNext());
 
     generateSkeleton(sentence);

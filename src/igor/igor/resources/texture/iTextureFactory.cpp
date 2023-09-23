@@ -36,8 +36,7 @@ namespace igor
 
     const iaString &iTextureFactory::getType() const
     {
-        const static iaString typeName(L"texture");
-        return typeName;
+        return IGOR_RESOURCE_TEXTURE;
     }
 
     iResourcePtr iTextureFactory::createResource(const iParameters &parameters)
@@ -53,7 +52,7 @@ namespace igor
 
         const auto &parameters = resource->getParameters();
 
-        const bool generate = parameters.getParameter<bool>("generate", false);
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             return generateTexture(texture, parameters);
@@ -242,7 +241,7 @@ namespace igor
             break;
         }
 
-        iTextureBuildMode buildMode = parameters.getParameter<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
+        iTextureBuildMode buildMode = parameters.getParameter<iTextureBuildMode>("textureBuildMode", iTextureBuildMode::Mipmapped);
         if (buildMode == iTextureBuildMode::Mipmapped)
         {
             hashData += "M";

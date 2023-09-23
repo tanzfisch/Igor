@@ -597,7 +597,7 @@ namespace igor
         _mutex.lock();
         for (const auto &pair : _resources)
         {
-            if (pair.second->getType() != "material")
+            if (pair.second->getType() != IGOR_RESOURCE_MATERIAL)
             {
                 continue;
             }
@@ -615,8 +615,8 @@ namespace igor
 
     iParameters iResourceManager::buildParam(const iaString &type, const iaString &alias, iResourceCacheMode cacheMode)
     {
-        iParameters param({{"type", type},
-                           {"cacheMode", cacheMode}});
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, type},
+                           {IGOR_RESOURCE_PARAM_CACHE_MODE, cacheMode}});
 
         if (!alias.isEmpty())
         {

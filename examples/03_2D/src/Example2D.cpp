@@ -93,10 +93,10 @@ void Example2D::initMandelbrotTexture()
         }
     }
 
-    iParameters param({{"id", iaUUID()},
-                       {"type", iaString("texture")},
-                       {"cacheMode", iResourceCacheMode::Keep},
-                       {"pixmap", pixmap}});
+    iParameters param({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                       {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                       {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
+                       {IGOR_RESOURCE_PARAM_PIXMAP, pixmap}});
 
     _mandelbrotTexture = iResourceManager::getInstance().loadResource<iTexture>(param);
 }

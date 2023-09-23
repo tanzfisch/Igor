@@ -550,11 +550,11 @@ namespace igor
         _data->_currentMaterial.reset();
 
         ////////////// generate textures //////////
-        iParameters paramFallback({// {"id", iaUUID()},
-                                   {"alias", iaString("igor_fallback_texture")},
-                                   {"type", iaString("texture")},
-                                   {"cacheMode", iResourceCacheMode::Keep},
-                                   {"generate", true},
+        iParameters paramFallback({// {IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                                   {IGOR_RESOURCE_PARAM_ALIAS, iaString("igor_fallback_texture")},
+                                   {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                                   {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
+                                   {IGOR_RESOURCE_PARAM_GENERATE, true},
                                    {"pattern", iTexturePattern::CheckerBoard},
                                    {"primary", iaColor4f::black},
                                    {"secondary", iaColor4f::magenta},
@@ -563,11 +563,11 @@ namespace igor
 
         _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
 
-        iParameters paramWhite({{"id", iaUUID()},
-                                {"alias", iaString("igor_texture_white")},
-                                {"type", iaString("texture")},
-                                {"cacheMode", iResourceCacheMode::Keep},
-                                {"generate", true},
+        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                                {IGOR_RESOURCE_PARAM_ALIAS, iaString("igor_texture_white")},
+                                {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                                {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
+                                {IGOR_RESOURCE_PARAM_GENERATE, true},
                                 {"pattern", iTexturePattern::SolidColor},
                                 {"primary", iaColor4f::white},
                                 {"width", 1},

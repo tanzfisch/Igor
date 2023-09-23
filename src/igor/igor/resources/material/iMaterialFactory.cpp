@@ -31,8 +31,7 @@ namespace igor
 
     const iaString &iMaterialFactory::getType() const
     {
-        const static iaString typeName(L"material");
-        return typeName;
+        return IGOR_RESOURCE_MATERIAL;
     }
 
     iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)
@@ -45,7 +44,7 @@ namespace igor
         iMaterialPtr material = std::dynamic_pointer_cast<iMaterial>(resource);
 
         /*const auto &parameters = resource->getParameters();
-        const bool generate = parameters.getParameter<bool>("generate", false);
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             // TODO make copy of default and return

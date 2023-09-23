@@ -16,8 +16,7 @@ namespace igor
 
     const iaString &iAnimationFactory::getType() const
     {
-        const static iaString typeName(L"animation");
-        return typeName;
+        return IGOR_RESOURCE_ANIMATION;
     }
 
     iResourcePtr iAnimationFactory::createResource(const iParameters &parameters)

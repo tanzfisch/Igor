@@ -24,7 +24,7 @@ namespace igor
 
         _type = parameters.getParameter<iaString>("type");
         _cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
-        _quiet = parameters.getParameter<bool>("quiet", false);
+        _quiet = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_QUIET, false);
     }
 
     bool iResource::extractID(const iParameters &parameters, iResourceID &id, bool quiet)
@@ -42,7 +42,7 @@ namespace igor
             return true;
         }
 
-        const bool generate = parameters.getParameter<bool>("generate", false);
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             return true;

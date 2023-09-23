@@ -62,7 +62,7 @@ namespace igor
 		for (auto section : _sections)
 		{
 			auto &meshBuilder = section.second._meshBuilder;
-			meshBuilder.setJoinVertexes(parameters.getParameter<bool>("joinVertices", false));
+			meshBuilder.setJoinVertexes(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_JOIN_VERTICES, false));
 
 			// transfer polygons to mesh builder
 			transferToMeshBuilder(section.second);

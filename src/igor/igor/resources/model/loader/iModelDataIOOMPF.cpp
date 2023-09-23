@@ -219,7 +219,7 @@ namespace igor
         con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
         con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
 
-        const bool keepMesh = _parameters.getParameter<bool>("keepMesh", false);
+        const bool keepMesh = _parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
 
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 
@@ -513,9 +513,9 @@ namespace igor
 
     void iModelDataIOOMPF::exportData(const iParameters &parameters)
     {
-        iNodePtr node = parameters.getParameter<iNodePtr>("node", nullptr);
-        const iaString filename = parameters.getParameter<iaString>("filename", "");
-        const iSaveMode saveMode = parameters.getParameter<iSaveMode>("saveMode", iSaveMode::KeepExternals);
+        iNodePtr node = parameters.getParameter<iNodePtr>(IGOR_RESOURCE_PARAM_NODE, nullptr);
+        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_FILENAME, "");
+        const iSaveMode saveMode = parameters.getParameter<iSaveMode>(IGOR_RESOURCE_PARAM_EXPORT_MODE, iSaveMode::KeepExternals);
 
         con_assert(node != nullptr, "zero pointer");
         con_assert(!filename.isEmpty(), "empty string");

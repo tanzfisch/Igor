@@ -1253,20 +1253,20 @@ namespace igor
                     (*parent).second->_voxelData->getCopy(*voxelDataNextLOD);
 
                     iParameters parameters({
-                        {"alias", tileName},
-                        {"type", iaString("model")},
-                        {"subType", iaString("igor.vtg")},
-                        {"cacheMode", iResourceCacheMode::Free},
-                        {"quiet", true},
-                        {"joinVertices", true},
-                        {"material", _terrainMaterial},
+                        {IGOR_RESOURCE_PARAM_ALIAS, tileName},
+                        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                        {IGOR_RESOURCE_PARAM_SUB_TYPE, iaString("igor.vtg")},
+                        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                        {IGOR_RESOURCE_PARAM_QUIET, true},
+                        {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
+                        {IGOR_RESOURCE_PARAM_MATERIAL, _terrainMaterial},
                         {"voxelOffsetToNextLOD", voxelOffsetToNextLOD},
                         {"voxelData", voxelData},
                         {"voxelDataNextLOD", voxelDataNextLOD},
-                        {"lod", voxelBlock->_lod},
+                        {IGOR_RESOURCE_PARAM_LOD, voxelBlock->_lod},
                         {"neighboursLOD", voxelBlock->_neighboursLOD},
-                        {"targetMaterial", _targetMaterial},
-                        {"physicsMaterialID", _physicsMaterialID}
+                        {IGOR_RESOURCE_PARAM_TARGET_MATERIAL, _targetMaterial},
+                        {IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL, _physicsMaterialID}
                     });
                     iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);
 

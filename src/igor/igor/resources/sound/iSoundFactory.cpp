@@ -32,8 +32,7 @@ namespace igor
 
     const iaString &iSoundFactory::getType() const
     {
-        const static iaString typeName(L"sound");
-        return typeName;
+        return IGOR_RESOURCE_SOUND;
     }
 
     iResourcePtr iSoundFactory::createResource(const iParameters &parameters)

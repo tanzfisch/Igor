@@ -51,26 +51,42 @@ using namespace iaux;
 #define IGOR_API_EXPORT_ONLY
 #endif
 
-//! Igor configuration short
-extern const iaString IGOR_BUILD_CONFIGURATION;
+extern const iaString IGOR_BUILD_CONFIGURATION; //! Igor build configuration short
+extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS; //! supported file extensions for sprites
+extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS; //! supported file extensions for textures
+extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS; //! supported file extensions for materials
+extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS; //! supported file extensions for animations
+extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS; //! supported file extensions for models
+extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS; //! supported file extensions for sounds
 
-//! supported file extensions for sprites
-extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS;
+// resources
+extern const iaString IGOR_RESOURCE_MATERIAL; //! material resource name
+extern const iaString IGOR_RESOURCE_ANIMATION; //! animation resource name
+extern const iaString IGOR_RESOURCE_TEXTURE; //! texture resource name
+extern const iaString IGOR_RESOURCE_SOUND; //! sound resource name
+extern const iaString IGOR_RESOURCE_SPRITE; //! sprite resource name
+extern const iaString IGOR_RESOURCE_MODEL; //! model resource name
 
-//! supported file extensions for textures
-extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS;
-
-//! supported file extensions for materials
-extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS;
-
-//! supported file extensions for animations
-extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS;
-
-//! supported file extensions for models
-extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS;
-
-//! supported file extensions for sounds
-extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS;
+// resource parameters
+extern const iaString IGOR_RESOURCE_PARAM_ID; //! resource parameters id
+extern const iaString IGOR_RESOURCE_PARAM_ALIAS; //! resource parameters alias
+extern const iaString IGOR_RESOURCE_PARAM_TYPE; //! resource parameters type
+extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE; //! resource parameters cache mode
+extern const iaString IGOR_RESOURCE_PARAM_FILENAME; //! resource parameters filename
+extern const iaString IGOR_RESOURCE_PARAM_PIXMAP; //! resource parameters pixmap
+extern const iaString IGOR_RESOURCE_PARAM_NODE; //! resource parameters node
+extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE; //! resource parameters export mode
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE; //! resource parameters texture build mode
+extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES; //! resource parameters join vertices
+extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE; //! resource parameters sub type
+extern const iaString IGOR_RESOURCE_PARAM_QUIET; //! resource parameters quiet
+extern const iaString IGOR_RESOURCE_PARAM_MATERIAL; //! resource parameters material
+extern const iaString IGOR_RESOURCE_PARAM_TARGET_MATERIAL; //! resource parameters target material
+extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL; //! resource parameters physics material
+extern const iaString IGOR_RESOURCE_PARAM_LOD; //! resource parameters level of detail
+extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH; //! resource parameters keep mesh
+extern const iaString IGOR_RESOURCE_PARAM_GENERATE; //! resource parameters generate
+extern const iaString IGOR_RESOURCE_PARAM_SEED; //! resource parameters seed
 
 namespace igor
 {

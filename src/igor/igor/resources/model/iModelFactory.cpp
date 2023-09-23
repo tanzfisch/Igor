@@ -50,8 +50,7 @@ namespace igor
 
     const iaString &iModelFactory::getType() const
     {
-        const static iaString typeName(L"model");
-        return typeName;
+        return IGOR_RESOURCE_MODEL;
     }
 
     iResourcePtr iModelFactory::createResource(const iParameters &parameters)
@@ -75,7 +74,7 @@ namespace igor
 
         parameters.setParameter("filename", filename);
 
-        iaString subType = parameters.getParameter<iaString>("subType", "");
+        iaString subType = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SUB_TYPE, "");
         if (subType == "")
         {
             iaFile file(filename);

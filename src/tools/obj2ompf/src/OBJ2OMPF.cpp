@@ -68,11 +68,11 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_texture_shaded");
 
         iParameters parameters({
-            {"filename", _src},
-            {"type", iaString("model")},
-            {"joinVertices", true},
-            {"keepMesh", true},
-            {"cacheMode", iResourceCacheMode::Keep}
+            {IGOR_RESOURCE_PARAM_FILENAME, _src},
+            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
+            {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
+            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep}
         });
         iModelPtr model = iResourceManager::getInstance().loadResource<iModel>(parameters);
         iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();

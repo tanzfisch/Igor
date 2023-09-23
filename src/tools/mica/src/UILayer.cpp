@@ -94,8 +94,8 @@ void UILayer::onDeinit()
 void UILayer::onAddMaterial()
 {
     iaUUID id;
-    iParameters param({{"id", id},
-                       {"type", iaString("material")}});
+    iParameters param({{IGOR_RESOURCE_PARAM_ID, id},
+                       {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL}});
     iResourceManager::getInstance().loadResource(param);
     _outliner->refresh();
 }

@@ -32,8 +32,7 @@ namespace igor
 
     const iaString &iSpriteFactory::getType() const
     {
-        const static iaString typeName(L"sprite");
-        return typeName;
+        return IGOR_RESOURCE_SPRITE;
     }
 
     iResourcePtr iSpriteFactory::createResource(const iParameters &parameters)

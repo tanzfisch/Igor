@@ -235,14 +235,14 @@ void VoxelExample::prepareMeshGeneration()
     
     // tell the model node to load data with specified parameters
     iParameters parameters({
-        {"alias", iaString("VoxelMesh") + iaString::toString(_incarnation++)},
-        {"type", iaString("model")},
-        {"cacheMode", iResourceCacheMode::Keep},
-        {"subType", iaString("example.vtg")},
-        {"generate", true},
-        {"joinVertexes", true},
-        {"keepMesh", true},
-        {"material", _voxelMeshMaterial},
+        {IGOR_RESOURCE_PARAM_ALIAS, iaString("VoxelMesh") + iaString::toString(_incarnation++)},
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
+        {IGOR_RESOURCE_PARAM_SUB_TYPE, iaString("example.vtg")},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
+        {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
+        {IGOR_RESOURCE_PARAM_MATERIAL, _voxelMeshMaterial},
         {"voxelData", _voxelData}
     });
 

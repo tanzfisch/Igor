@@ -152,11 +152,11 @@ void Workspace::importFile(const iaString &filename)
         return;
     }
 
-    iParameters parameters({{"filename", filename},
-                            {"type", iaString("model")},
-                            {"cacheMode", iResourceCacheMode::Free},
-                            {"joinVertexes", false},
-                            {"keepMesh", true}});
+    iParameters parameters({{IGOR_RESOURCE_PARAM_FILENAME, filename},
+                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
+                            {IGOR_RESOURCE_PARAM_KEEP_MESH, true}});
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
@@ -222,11 +222,11 @@ void Workspace::importFileReference(const iaString &filename)
         return;
     }
 
-    iParameters parameters({{"filename", filename},
-                            {"type", iaString("model")},
-                            {"cacheMode", iResourceCacheMode::Free},
-                            {"joinVertexes", false},
-                            {"keepMesh", true}});
+    iParameters parameters({{IGOR_RESOURCE_PARAM_FILENAME, filename},
+                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
+                            {IGOR_RESOURCE_PARAM_KEEP_MESH, true}});
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
@@ -258,12 +258,12 @@ void Workspace::loadFile(const iaString &filename)
     }
 
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-    iParameters parameters({{"id", iaUUID()},
-                            {"filename", filename},
-                            {"type", iaString("model")},
-                            {"cacheMode", iResourceCacheMode::Free},
-                            {"joinVertexes", false},
-                            {"keepMesh", true}});
+    iParameters parameters({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                            {IGOR_RESOURCE_PARAM_FILENAME, filename},
+                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
+                            {IGOR_RESOURCE_PARAM_KEEP_MESH, true}});
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
     if (model->isValid())
