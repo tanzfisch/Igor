@@ -39,12 +39,12 @@ namespace igor
      */
     class iMaterialFactory : public iFactory
     {
-    private:
-        /*! \returns the factory type
+        friend class iResourceManager;
 
-        this type is used to register with the resource manager
-        */
-        const iaString &getType() const override;
+    private:
+        /*! init members
+         */
+        iMaterialFactory();
 
         /*! \returns true if resource parameters are supported by this factory
 
@@ -74,7 +74,7 @@ namespace igor
 
         \param resource the resource to unload
         */
-        void unloadResource(iResourcePtr resource) override;  
+        void unloadResource(iResourcePtr resource) override;
     };
 
 }; // namespace igor

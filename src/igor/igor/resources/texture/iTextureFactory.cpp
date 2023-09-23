@@ -18,6 +18,11 @@ namespace igor
 
     iaMutex iTextureFactory::_mutexImageLibrary;
 
+    iTextureFactory::iTextureFactory()
+        : iFactory(IGOR_RESOURCE_TEXTURE)
+    {
+    }
+
     static bool isTexture(const iaString &filename)
     {
         iaFile file(filename);
@@ -32,11 +37,6 @@ namespace igor
         }
 
         return false;
-    }    
-
-    const iaString &iTextureFactory::getType() const
-    {
-        return IGOR_RESOURCE_TEXTURE;
     }
 
     iResourcePtr iTextureFactory::createResource(const iParameters &parameters)
@@ -260,7 +260,7 @@ namespace igor
         {
             return true;
         }
-        
+
         if (isTexture(parameters.getParameter<iaString>("filename")) ||
             isTexture(parameters.getParameter<iaString>("alias")))
         {

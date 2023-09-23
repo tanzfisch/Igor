@@ -14,6 +14,11 @@ using namespace iaux;
 namespace igor
 {
 
+    iSpriteFactory::iSpriteFactory()
+        : iFactory(IGOR_RESOURCE_SPRITE)
+    {
+    }
+
     static bool isSprite(const iaString &filename)
     {
         iaFile file(filename);
@@ -28,11 +33,6 @@ namespace igor
         }
 
         return false;
-    }
-
-    const iaString &iSpriteFactory::getType() const
-    {
-        return IGOR_RESOURCE_SPRITE;
     }
 
     iResourcePtr iSpriteFactory::createResource(const iParameters &parameters)
@@ -81,7 +81,7 @@ namespace igor
 
     bool iSpriteFactory::loadSprite(const iaString &filename, iSpritePtr sprite)
     {
-        if(!isSprite(filename))
+        if (!isSprite(filename))
         {
             con_err("not a sprite \"" << filename << "\"");
             return false;

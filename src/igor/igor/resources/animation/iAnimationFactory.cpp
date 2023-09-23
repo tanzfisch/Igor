@@ -14,9 +14,9 @@ using namespace iaux;
 namespace igor
 {
 
-    const iaString &iAnimationFactory::getType() const
+    iAnimationFactory::iAnimationFactory()
+    : iFactory(IGOR_RESOURCE_ANIMATION)
     {
-        return IGOR_RESOURCE_ANIMATION;
     }
 
     iResourcePtr iAnimationFactory::createResource(const iParameters &parameters)

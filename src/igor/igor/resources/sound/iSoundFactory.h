@@ -40,13 +40,12 @@ namespace igor
      */
     class iSoundFactory : public iFactory
     {
+        friend class iResourceManager;
 
     private:
-        /*! \returns the factory type
-
-        this type is used to register with the resource manager
-        */
-        const iaString &getType() const override;
+        /*! init members
+         */
+        iSoundFactory();
 
         /*! \returns true if resource parameters are supported by this factory
 

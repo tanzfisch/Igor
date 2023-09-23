@@ -41,14 +41,13 @@ namespace igor
      */
     class iTextureFactory : public iFactory
     {
+        friend class iResourceManager;
         friend class iPixmap;
 
     private:
-        /*! \returns the factory type
-
-        this type is used to register with the resource manager
-        */
-        const iaString &getType() const override;
+        /*! init members
+         */
+        iTextureFactory();
 
         /*! \returns true if resource parameters are supported by this factory
 
@@ -110,7 +109,7 @@ namespace igor
         \param filename the file to load
         \returns pixmap
         */
-        static iPixmapPtr loadPixmap(const iaString &filename);        
+        static iPixmapPtr loadPixmap(const iaString &filename);
     };
 
 }; // namespace igor

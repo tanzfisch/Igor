@@ -14,6 +14,11 @@ using namespace iaux;
 namespace igor
 {
 
+    iSoundFactory::iSoundFactory()
+        : iFactory(IGOR_RESOURCE_SOUND)
+    {
+    }
+
     static bool isSound(const iaString &filename)
     {
         iaFile file(filename);
@@ -28,11 +33,6 @@ namespace igor
         }
 
         return false;
-    }      
-
-    const iaString &iSoundFactory::getType() const
-    {
-        return IGOR_RESOURCE_SOUND;
     }
 
     iResourcePtr iSoundFactory::createResource(const iParameters &parameters)
@@ -106,7 +106,7 @@ namespace igor
         {
             return true;
         }
-        
+
         if (isSound(parameters.getParameter<iaString>("filename")) ||
             isSound(parameters.getParameter<iaString>("alias")))
         {

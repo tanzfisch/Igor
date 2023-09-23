@@ -13,6 +13,11 @@ using namespace iaux;
 namespace igor
 {
 
+    iMaterialFactory::iMaterialFactory()
+        : iFactory(IGOR_RESOURCE_MATERIAL)
+    {
+    }
+
     static bool isMaterial(const iaString &filename)
     {
         iaFile file(filename);
@@ -27,11 +32,6 @@ namespace igor
         }
 
         return false;
-    }    
-
-    const iaString &iMaterialFactory::getType() const
-    {
-        return IGOR_RESOURCE_MATERIAL;
     }
 
     iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)
@@ -52,7 +52,7 @@ namespace igor
         }*/
 
         const iaString filepath = iResourceManager::getInstance().getFilePath(material->getID());
-        if(filepath.isEmpty())        
+        if (filepath.isEmpty())
         {
             con_err("not a valid material " << material->getID());
             return false;
@@ -81,7 +81,7 @@ namespace igor
         {
             return true;
         }
-        
+
         if (isMaterial(parameters.getParameter<iaString>("filename")) ||
             isMaterial(parameters.getParameter<iaString>("alias")))
         {

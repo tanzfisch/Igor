@@ -61,8 +61,7 @@
         <Resource id="0x684e531dae036647" alias="example_texture_supremacy_projectile_boomerang" source="textures/supremacy/projectile_boomerang.png" />
         <Resource id="0x6a35f62940be98a1" alias="example_texture_supremacy_shop_item_laser_pistol" source="textures/supremacy/shop_item_laser_pistol.png" />
         <Resource id="0x6b31b9635934bd51" alias="example_texture_supremacy_projectile_rocket" source="textures/supremacy/projectile_rocket.png" />
-        <Resource id="0x6ba42395865dbad1" alias="example_texture_supremacy_bullets_2" source="textures/supremacy/bullets_2.png" />
-        <Resource id="0x6d2e5fd80a118937" alias="example_texture_sprite_animation_terrain" source="textures/spriteAnimationTerrain.png" />
+        <Resource id="0x6ba42395865dbad1" alias="example_texture_supremacy_bullets_2" source="textures/supremacy/bullets_2.png" />        
         <Resource id="0x6d6a287c10eba23c" alias="example_texture_supremacy_bullets" source="textures/supremacy/bullets.png" />
         <Resource id="0x6e041c0c532a893e" alias="example_texture_supremacy_run_faster_2" source="textures/supremacy/run_faster_2.png" />
         <Resource id="0x6ef62fb670062b97" alias="example_texture_supremacy_damage_2" source="textures/supremacy/damage_2.png" />
@@ -85,8 +84,10 @@
         <Resource id="0x956317a042e23fbf" alias="example_texture_particleTrail" source="textures/particleTrail.png" />
         <Resource id="0x98861236315ccdf1" alias="example_model_crate" source="models/crate.ompf" />
         <Resource id="0x9a9c80439e25a7d2" alias="example_texture_skybox_stars" source="textures/skyboxes/stars.png" />
-        <Resource id="0x9d85bb17f5cdb2f0" alias="example_sprite_animation_tiles" source="sprites/spriteAnimationTiles.sprite" />
-        <Resource id="0x9e6e6abec17f52c1" alias="example_texture_spriteAnimationWalk" source="textures/spriteAnimationWalk.png" />
+        <Resource id="0x9e656abe317452c1" alias="example_texture_animation_tiles" source="textures/spriteAnimationTiles.png" />
+        <Resource id="0x9e6e6abec17f52c1" alias="example_texture_animation_walk" source="textures/spriteAnimationWalk.png" />
+        <Resource id="0x9d85bb17f5cdb2f0" alias="example_sprite_animation_tiles" source="sprites/spriteAnimationTiles.sprite" />        
+        <Resource id="0xbc7f8eb3168b41d1" alias="example_sprite_animation_walk" source="sprites/spriteAnimationWalk.sprite" />
         <Resource id="0x9ea386c48e40ad14" alias="example_texture_snow" source="textures/snow.png" />
         <Resource id="0x9ebab7b0c80e0ab3" alias="example_texture_supremacy_wagiu_a5" source="textures/supremacy/wagiuA5.png" />
         <Resource id="0xa09a7ff97db27e36" alias="example_sprite_doughnuts" source="sprites/doughnuts.sprite" />
@@ -108,7 +109,7 @@
         <Resource id="0xb746d441483db22b" alias="example_texture_red" source="textures/red.png" />
         <Resource id="0xb7711697ee99e42b" alias="example_texture_supremacy_beet" source="textures/supremacy/beet.png" />
         <Resource id="0xb7a3d5aeb42ae650" alias="example_material_instancing_flat_shaded" source="materials/instancing_flat_shaded.mat" />
-        <Resource id="0xbc7f8eb3168b41d1" alias="example_sprite_animation_walk" source="sprites/spriteAnimationWalk.sprite" />
+        
         <Resource id="0xbf6b73cf73d17688" alias="example_texture_particleGem" source="textures/particleGem.png" />
         <Resource id="0xbfc89de6be8523ac" alias="example_model_MuzzleSmoke" source="models/MuzzleSmoke.ompf" />
         <Resource id="0xc0d61db1887ecb85" alias="example_texture_supremacy_projectile_pellets" source="textures/supremacy/projectile_pellets.png" />

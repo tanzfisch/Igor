@@ -15,6 +15,11 @@ using namespace iaux;
 namespace igor
 {
 
+    iModelFactory::iModelFactory()
+        : iFactory(IGOR_RESOURCE_MODEL)
+    {
+    }
+
     static bool isModel(const iaString &filename)
     {
         iaFile file(filename);
@@ -47,11 +52,6 @@ namespace igor
     /*! mutex to lock model data IO list
      */
     static iaMutex _mutexDataIOs;
-
-    const iaString &iModelFactory::getType() const
-    {
-        return IGOR_RESOURCE_MODEL;
-    }
 
     iResourcePtr iModelFactory::createResource(const iParameters &parameters)
     {

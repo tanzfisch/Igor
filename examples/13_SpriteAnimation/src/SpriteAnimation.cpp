@@ -41,7 +41,7 @@ void SpriteAnimation::onInit()
     getScene()->getRoot()->insertNode(terrainGroundTransform);
 
     // generate dressing and trees map
-    iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("example_texture_sprite_animation_terrain");
+    iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("textures/spriteAnimationTerrain.png");
     terrainNodeDressing->setName("Dressing");
     iNodeTransform *terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     terrainDressingTransform->translate(0, 0, 0);
@@ -248,43 +248,51 @@ void SpriteAnimation::onUpdate()
         if ((0 <= dir && dir < step * 1.0) ||
             (step * 15.0 <= dir && dir <= step * 16.0))
         {
-            _characterState = run ? CharacterState::RunN : CharacterState::WalkN;
-            _animationOffset = run ? 21 : 6;
-        }
-        else if (step * 1 <= dir && dir < step * 3)
-        {
-            _characterState = run ? CharacterState::RunNW : CharacterState::WalkNW;
-            _animationOffset = run ? 21 : 6;
-        }
-        else if (step * 3 <= dir && dir < step * 5)
-        {
+            // west
             _characterState = run ? CharacterState::RunW : CharacterState::WalkW;
             _animationOffset = run ? 13 : 2;
         }
+        else if (step * 1 <= dir && dir < step * 3)
+        {
+            // north west
+            _characterState = run ? CharacterState::RunNW : CharacterState::WalkNW;
+            _animationOffset = run ? 13 : 2;
+        }
+        else if (step * 3 <= dir && dir < step * 5)
+        {
+            // north
+            _characterState = run ? CharacterState::RunN : CharacterState::WalkN;
+            _animationOffset = run ? 21 : 6;
+        }
         else if (step * 5 <= dir && dir < step * 7)
         {
-            _characterState = run ? CharacterState::RunSW : CharacterState::WalkSW;
-            _animationOffset = run ? 9 : 0;
+            // north east
+            _characterState = run ? CharacterState::RunNE : CharacterState::WalkNE;
+            _animationOffset = run ? 21 : 6;
         }
         else if (step * 7 <= dir && dir < step * 9)
         {
-            _characterState = run ? CharacterState::RunS : CharacterState::WalkS;
-            _animationOffset = run ? 9 : 0;
-        }
-        else if (step * 9 <= dir && dir < step * 11)
-        {
-            _characterState = run ? CharacterState::RunSE : CharacterState::WalkSE;
-            _animationOffset = run ? 9 : 0;
-        }
-        else if (step * 11 <= dir && dir < step * 13)
-        {
+            // east
             _characterState = run ? CharacterState::RunE : CharacterState::WalkE;
             _animationOffset = run ? 17 : 4;
         }
+        else if (step * 9 <= dir && dir < step * 11)
+        {
+            // south east
+            _characterState = run ? CharacterState::RunSE : CharacterState::WalkSE;
+            _animationOffset = run ? 17 : 4;
+        }
+        else if (step * 11 <= dir && dir < step * 13)
+        {
+            // south
+            _characterState = run ? CharacterState::RunS : CharacterState::WalkS;
+            _animationOffset = run ? 9 : 0;
+        }
         else if (step * 13 <= dir && dir < step * 15)
         {
-            _characterState = run ? CharacterState::RunNE : CharacterState::WalkNE;
-            _animationOffset = run ? 21 : 6;
+            // south west
+            _characterState = run ? CharacterState::RunSW : CharacterState::WalkSW;
+            _animationOffset = run ? 9 : 0;
         }
     }
 
@@ -292,8 +300,6 @@ void SpriteAnimation::onUpdate()
     {
         _animationIndex = 0;
     }
-
-    // con_endl(getCharacterStateName(_characterState));
 }
 
 void SpriteAnimation::onUpdate(const iaTime &time)

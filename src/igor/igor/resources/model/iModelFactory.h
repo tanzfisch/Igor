@@ -43,8 +43,13 @@ namespace igor
      */
     class IGOR_API iModelFactory : public iFactory
     {
+        friend class iResourceManager;
 
     public:
+        /*! init members
+        */
+        iModelFactory();
+
         /*! registers generator
 
         \param generator generator to register
@@ -73,12 +78,6 @@ namespace igor
         \returns format identifier
         */
         static std::unique_ptr<iModelDataIO> getModelDataIO(const iaString &identifier);
-
-        /*! \returns the factory type
-
-        this type is used to register with the resource manager
-        */
-        const iaString &getType() const override;
 
         /*! \returns true if resource parameters are supported by this factory
 
