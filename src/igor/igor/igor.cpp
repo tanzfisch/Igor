@@ -43,6 +43,7 @@ extern const iaString IGOR_RESOURCE_PARAM_LOD = "lod";
 extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH = "keepMesh";
 extern const iaString IGOR_RESOURCE_PARAM_GENERATE = "generate";
 extern const iaString IGOR_RESOURCE_PARAM_SEED = "seed";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE = "texture";
 
 #ifdef IGOR_DEBUG
 extern const iaString IGOR_BUILD_CONFIGURATION = "debug";

@@ -46,6 +46,11 @@ namespace igor
         return _texture;
     }
 
+    void iSprite::setTexture(iTexturePtr texture)
+    {
+        _texture = texture;
+    }
+
     uint32 iSprite::getFrameCount() const
     {
         return static_cast<uint32>(_frames.size());

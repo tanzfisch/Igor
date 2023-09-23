@@ -87,6 +87,7 @@ extern const iaString IGOR_RESOURCE_PARAM_LOD; //! resource parameters level of 
 extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH; //! resource parameters keep mesh
 extern const iaString IGOR_RESOURCE_PARAM_GENERATE; //! resource parameters generate
 extern const iaString IGOR_RESOURCE_PARAM_SEED; //! resource parameters seed
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE; //! resource parameters texture
 
 namespace igor
 {
