@@ -794,11 +794,6 @@ namespace igor
                         continue;
                     }
 
-                    if (pair.second->getInfo().isEmpty())
-                    {
-                        continue;
-                    }
-
                     result->setTexture(pair.second->getID().toString(), pair.first);
                 }
             }

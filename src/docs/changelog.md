@@ -11,6 +11,7 @@ Changelog                           {#changelog}
 - improved random number generator using STL
 - introducing resource dictionaries
 - introducing projects
+- introducing interface to create empty/default resources (depends on what the factories do with it)
 
 0.42.0
 ------

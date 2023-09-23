@@ -111,7 +111,7 @@ namespace igor
 
         if (sprite->getFrameCount() == 0)
         {
-            con_err("no frames defined in \"" << sprite->getInfo() << "\"");
+            con_err("no frames defined for \"" << sprite->getInfo() << "\"");
             return false;
         }
 

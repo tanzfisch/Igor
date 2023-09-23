@@ -72,7 +72,7 @@ namespace igor
             con_endl("Unreleased resources: ");
             for (auto resource : _resources)
             {
-                con_endl(resource.second->getID() << " " << resource.second->getInfo() << " " << resource.second->getType() << " ref:" << resource.second.use_count());
+                con_endl(resource.second->getInfo() << " " << resource.second->getType() << " ref:" << resource.second.use_count());
             }
         }
 
@@ -217,7 +217,11 @@ namespace igor
 
     iResourcePtr iResourceManager::createResource(iFactoryPtr factory, const iParameters &parameters)
     {
-        return factory->createResource(parameters);
+        iResourcePtr resource = factory->createResource(parameters);
+        resource->setProcessed(true);
+        resource->setValid(true);
+        con_debug("created resource " << resource->getType() << " " << resource->getInfo());
+        return resource;
     }
 
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
@@ -265,6 +269,25 @@ namespace igor
         if (currentCacheMode < cacheMode)
         {
             result->_parameters.setParameter("cacheMode", cacheMode);
+        }
+
+        return result;
+    }
+
+    iResourcePtr iResourceManager::createResource(const iParameters &parameters)
+    {
+        iFactoryPtr factory = getFactory(parameters);
+        if (factory == nullptr)
+        {
+            return nullptr;
+        }
+
+        iResourcePtr result = createResource(factory, parameters);
+
+        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
+        if (requestedCacheMode > iResourceCacheMode::DontCache)
+        {
+            _resources[result->getID()] = result;
         }
 
         return result;
@@ -333,7 +356,7 @@ namespace igor
             !result->isQuiet() &&
             result->isValid())
         {
-            con_info("loaded " << result->getType() << " id:" << result->getID() << " \"" << result->getInfo() << "\"");
+            con_info("loaded " << result->getType() << " " << result->getInfo());
         }
 
         return result;
@@ -378,7 +401,7 @@ namespace igor
                 factory->unloadResource(resource);
                 if (!resource->isQuiet())
                 {
-                    con_info("released " << resource->getType() << " \"" << resource->getInfo() << "\"");
+                    con_debug("released " << resource->getType() << " " << resource->getInfo());
                 }
             }
         }

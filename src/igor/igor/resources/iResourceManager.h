@@ -122,6 +122,13 @@ namespace igor
         */
         iResourcePtr loadResource(const iParameters &parameters);
 
+        /*! creates a new resource
+
+        \param param parameters for loading resource
+        \returns shared pointer to resource
+        */
+        iResourcePtr createResource(const iParameters &parameters);
+
         /*! requests a resource to be loaded asynchronously.
 
         template version for more convenience
@@ -141,6 +148,15 @@ namespace igor
         */
         template <typename T>
         std::shared_ptr<T> loadResource(const iParameters &parameters);
+
+        /*! creates a new resource of given type
+
+        template version for more convenience
+
+        \returns shared pointer to resource
+        */
+        template <typename T>
+        std::shared_ptr<T> createResource();
 
         /*! requests a resource to be loaded asynchronously
 

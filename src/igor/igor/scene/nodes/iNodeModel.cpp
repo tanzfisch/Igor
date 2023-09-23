@@ -174,7 +174,7 @@ namespace igor
 
     const iaString iNodeModel::getModelName() const
     {
-        return _model != nullptr ? _model->getInfo() : "";
+        return _model != nullptr ? _model->getInfo() : ""; // TODO !!!!!!!!!!!!!
     }
 
     void iNodeModel::getInfo(std::vector<iaString> &info) const

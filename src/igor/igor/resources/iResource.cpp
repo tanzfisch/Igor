@@ -122,17 +122,20 @@ namespace igor
     {
         iaString result;
 
+        result += _id.toString();
+
         if (!_alias.isEmpty())
         {
+            result += ", \"";
             result += _alias;
+            result += "\"";
         }
+
         else if (!_source.isEmpty())
         {
+            result += ", \"";
             result += _source;
-        }
-        else
-        {
-            result += _id.toString();
+            result += "\"";
         }
 
         return result;

@@ -31,12 +31,16 @@
 
 #include <igor/iDefines.h>
 
-#include <map>
+#include <unordered_map>
 #include <any>
 #include <memory>
 
 namespace igor
 {
+
+    /*! parameters map definition
+    */
+    typedef std::unordered_map<iaString, std::any> iParametersMap;
 
     /*! a key value list of parameters
      */
@@ -52,7 +56,7 @@ namespace igor
 
         \param parameters the parameters
         */
-        iParameters(const std::map<iaString, std::any> &parameters);
+        explicit iParameters(const iParametersMap &parameters);
 
         /*! \returns value for given parameter name
 
@@ -98,12 +102,12 @@ namespace igor
 
         /*! \returns all parameters
         */
-        const std::map<iaString, std::any>& getParameters() const;
+        const iParametersMap& getParameters() const;
 
     private:
         /*! parameters
          */
-        std::map<iaString, std::any> _parameters;
+        iParametersMap _parameters;
     };
 
     /*! stream parameters

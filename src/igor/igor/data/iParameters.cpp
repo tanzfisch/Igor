@@ -21,7 +21,7 @@
 namespace igor
 {
 
-    iParameters::iParameters(const std::map<iaString, std::any> &parameters)
+    iParameters::iParameters(const std::unordered_map<iaString, std::any> &parameters)
     {
         _parameters = parameters;
     }
@@ -36,7 +36,7 @@ namespace igor
         _parameters[name] = value;
     }
 
-    const std::map<iaString, std::any> &iParameters::getParameters() const
+    const std::unordered_map<iaString, std::any> &iParameters::getParameters() const
     {
         return _parameters;
     }
