@@ -6,10 +6,10 @@ Changelog                           {#changelog}
 
 - reimplemented iMaterial and make it a iResource
 - replaced iMaterialResourceFactory with iMaterialFactory which is now integrated in the iResourceManager
-- improved UUID validation
 - some spring cleaning around plenty of TODOs
 - improved random number generator using STL
-- introducing resource dictionaries
+- introducing resource dictionaries and using 64bit ids to primarily identify resources
+  (resource ids are not generated from the resource name or filename anymore)s
 - introducing projects
 - introducing interface to create empty/default resources (depends on what the factories do with it)
 
