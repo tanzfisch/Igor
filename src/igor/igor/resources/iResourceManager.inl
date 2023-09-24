@@ -6,58 +6,35 @@ template <>
 inline iTexturePtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_TEXTURE ,alias, cacheMode);
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iTexture>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iTexture>(resource);
+    return std::dynamic_pointer_cast<iTexture>(requestResource(param));
 }
 
 template <>
 inline iTexturePtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_TEXTURE ,alias, cacheMode);
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iTexture>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iTexture>(resource);
+    return std::dynamic_pointer_cast<iTexture>(loadResource(param));
 }
 
 template <>
 inline iTexturePtr iResourceManager::requestResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_TEXTURE, "incorrect parameter");
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iTexture>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iTexture>(resource);
+    return std::dynamic_pointer_cast<iTexture>(requestResource(param));
 }
 
 template <>
 inline iTexturePtr iResourceManager::loadResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_TEXTURE, "incorrect parameter");
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iTexture>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iTexture>(resource);
+    return std::dynamic_pointer_cast<iTexture>(loadResource(param));
 }
 
 template <>
 inline iTexturePtr iResourceManager::createResource()
 {
     iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE}}));
-    iResourcePtr resource = createResource(param);
-    con_assert(resource != nullptr, "failed to create resource");
-    con_assert(std::dynamic_pointer_cast<iTexture>(resource) != nullptr, "wrong type " << resource->getInfo());
-    return std::dynamic_pointer_cast<iTexture>(resource);
+    return std::dynamic_pointer_cast<iTexture>(createResource(param));
 }
 
 template <>
@@ -77,58 +54,35 @@ template <>
 inline iSoundPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_SOUND ,alias, cacheMode);
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iSound>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iSound>(resource);
+    return std::dynamic_pointer_cast<iSound>(requestResource(param));
 }
 
 template <>
 inline iSoundPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_SOUND ,alias, cacheMode);
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iSound>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iSound>(resource);
+    return std::dynamic_pointer_cast<iSound>(loadResource(param));
 }
 
 template <>
 inline iSoundPtr iResourceManager::requestResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SOUND, "incorrect parameter");
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iSound>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iSound>(resource);
+    return std::dynamic_pointer_cast<iSound>(requestResource(param));
 }
 
 template <>
 inline iSoundPtr iResourceManager::loadResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SOUND, "incorrect parameter");
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iSound>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iSound>(resource);
+    return std::dynamic_pointer_cast<iSound>(loadResource(param));
 }
 
 template <>
 inline iSoundPtr iResourceManager::createResource()
 {
     iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SOUND}}));
-    iResourcePtr resource = createResource(param);
-    con_assert(resource != nullptr, "failed to create resource");
-    con_assert(std::dynamic_pointer_cast<iSound>(resource) != nullptr, "wrong type " << resource->getInfo());
-    return std::dynamic_pointer_cast<iSound>(resource);
+    return std::dynamic_pointer_cast<iSound>(createResource(param));
 }
 
 template <>
@@ -148,58 +102,35 @@ template <>
 inline iSpritePtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_SPRITE ,alias, cacheMode);
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iSprite>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iSprite>(resource);
+    return std::dynamic_pointer_cast<iSprite>(requestResource(param));
 }
 
 template <>
 inline iSpritePtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_SPRITE ,alias, cacheMode);
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iSprite>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iSprite>(resource);
+    return std::dynamic_pointer_cast<iSprite>(loadResource(param));
 }
 
 template <>
 inline iSpritePtr iResourceManager::requestResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SPRITE, "incorrect parameter");
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iSprite>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iSprite>(resource);
+    return std::dynamic_pointer_cast<iSprite>(requestResource(param));
 }
 
 template <>
 inline iSpritePtr iResourceManager::loadResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SPRITE, "incorrect parameter");
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iSprite>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iSprite>(resource);
+    return std::dynamic_pointer_cast<iSprite>(loadResource(param));
 }
 
 template <>
 inline iSpritePtr iResourceManager::createResource()
 {
     iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SPRITE}}));
-    iResourcePtr resource = createResource(param);
-    con_assert(resource != nullptr, "failed to create resource");
-    con_assert(std::dynamic_pointer_cast<iSprite>(resource) != nullptr, "wrong type " << resource->getInfo());
-    return std::dynamic_pointer_cast<iSprite>(resource);
+    return std::dynamic_pointer_cast<iSprite>(createResource(param));
 }
 
 template <>
@@ -219,58 +150,35 @@ template <>
 inline iAnimationPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_ANIMATION ,alias, cacheMode);
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iAnimation>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iAnimation>(resource);
+    return std::dynamic_pointer_cast<iAnimation>(requestResource(param));
 }
 
 template <>
 inline iAnimationPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_ANIMATION ,alias, cacheMode);
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iAnimation>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iAnimation>(resource);
+    return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
 }
 
 template <>
 inline iAnimationPtr iResourceManager::requestResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_ANIMATION, "incorrect parameter");
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iAnimation>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iAnimation>(resource);
+    return std::dynamic_pointer_cast<iAnimation>(requestResource(param));
 }
 
 template <>
 inline iAnimationPtr iResourceManager::loadResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_ANIMATION, "incorrect parameter");
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iAnimation>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iAnimation>(resource);
+    return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
 }
 
 template <>
 inline iAnimationPtr iResourceManager::createResource()
 {
     iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_ANIMATION}}));
-    iResourcePtr resource = createResource(param);
-    con_assert(resource != nullptr, "failed to create resource");
-    con_assert(std::dynamic_pointer_cast<iAnimation>(resource) != nullptr, "wrong type " << resource->getInfo());
-    return std::dynamic_pointer_cast<iAnimation>(resource);
+    return std::dynamic_pointer_cast<iAnimation>(createResource(param));
 }
 
 template <>
@@ -290,58 +198,35 @@ template <>
 inline iModelPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_MODEL ,alias, cacheMode);
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iModel>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iModel>(resource);
+    return std::dynamic_pointer_cast<iModel>(requestResource(param));
 }
 
 template <>
 inline iModelPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_MODEL ,alias, cacheMode);
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iModel>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iModel>(resource);
+    return std::dynamic_pointer_cast<iModel>(loadResource(param));
 }
 
 template <>
 inline iModelPtr iResourceManager::requestResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MODEL, "incorrect parameter");
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iModel>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iModel>(resource);
+    return std::dynamic_pointer_cast<iModel>(requestResource(param));
 }
 
 template <>
 inline iModelPtr iResourceManager::loadResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MODEL, "incorrect parameter");
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iModel>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iModel>(resource);
+    return std::dynamic_pointer_cast<iModel>(loadResource(param));
 }
 
 template <>
 inline iModelPtr iResourceManager::createResource()
 {
     iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL}}));
-    iResourcePtr resource = createResource(param);
-    con_assert(resource != nullptr, "failed to create resource");
-    con_assert(std::dynamic_pointer_cast<iModel>(resource) != nullptr, "wrong type " << resource->getInfo());
-    return std::dynamic_pointer_cast<iModel>(resource);
+    return std::dynamic_pointer_cast<iModel>(createResource(param));
 }
 
 template <>
@@ -361,58 +246,35 @@ template <>
 inline iMaterialPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_MATERIAL ,alias, cacheMode);
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iMaterial>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iMaterial>(resource);
+    return std::dynamic_pointer_cast<iMaterial>(requestResource(param));
 }
 
 template <>
 inline iMaterialPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_MATERIAL ,alias, cacheMode);
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iMaterial>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iMaterial>(resource);
+    return std::dynamic_pointer_cast<iMaterial>(loadResource(param));
 }
 
 template <>
 inline iMaterialPtr iResourceManager::requestResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MATERIAL, "incorrect parameter");
-
-    iResourcePtr resource = requestResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iMaterial>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iMaterial>(resource);
+    return std::dynamic_pointer_cast<iMaterial>(requestResource(param));
 }
 
 template <>
 inline iMaterialPtr iResourceManager::loadResource(const iParameters &param)
 {
     con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MATERIAL, "incorrect parameter");
-
-    iResourcePtr resource = loadResource(param);
-    con_assert(resource != nullptr, "failed resource request");
-    con_assert(std::dynamic_pointer_cast<iMaterial>(resource) != nullptr, "wrong type " << resource->getInfo());
-
-    return std::dynamic_pointer_cast<iMaterial>(resource);
+    return std::dynamic_pointer_cast<iMaterial>(loadResource(param));
 }
 
 template <>
 inline iMaterialPtr iResourceManager::createResource()
 {
     iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL}}));
-    iResourcePtr resource = createResource(param);
-    con_assert(resource != nullptr, "failed to create resource");
-    con_assert(std::dynamic_pointer_cast<iMaterial>(resource) != nullptr, "wrong type " << resource->getInfo());
-    return std::dynamic_pointer_cast<iMaterial>(resource);
+    return std::dynamic_pointer_cast<iMaterial>(createResource(param));
 }
 
 template <>

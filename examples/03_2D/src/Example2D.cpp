@@ -20,7 +20,7 @@ void Example2D::onInit()
     // ignore the upcoming error
     iaLogLevel logLevel = iaConsole::getInstance().getLogLevel();
     iaConsole::getInstance().setLogLevel(iaLogLevel::Fatal);
-    _dummyTexture = iResourceManager::getInstance().requestResource<iTexture>("does not exist texture");
+    _dummyTexture = iResourceManager::getInstance().loadResource<iTexture>("does not exist texture");
     iaConsole::getInstance().setLogLevel(logLevel);
 
     // load a texture as sprite
