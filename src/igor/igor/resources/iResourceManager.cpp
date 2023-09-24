@@ -218,8 +218,6 @@ namespace igor
     iResourcePtr iResourceManager::createResource(iFactoryPtr factory, const iParameters &parameters)
     {
         iResourcePtr resource = factory->createResource(parameters);
-        resource->setProcessed(true);
-        resource->setValid(true);
         con_debug("created resource " << resource->getType() << " " << resource->getInfo());
         return resource;
     }
@@ -261,7 +259,6 @@ namespace igor
             _resources[result->getID()] = result;
             _loadingQueue.push_back(result);
         }
-        _mutex.unlock();
 
         const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
         const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
@@ -270,6 +267,7 @@ namespace igor
         {
             result->_parameters.setParameter("cacheMode", cacheMode);
         }
+        _mutex.unlock();
 
         return result;
     }
@@ -289,6 +287,9 @@ namespace igor
         {
             _resources[result->getID()] = result;
         }
+
+        result->setProcessed(true);
+        result->setValid(true);
 
         return result;
     }

@@ -342,18 +342,23 @@ namespace igor
 
     void iNode::insertNode(iNodePtr node)
     {
-        if (!node->isChild())
+        if(node == nullptr)
         {
-            node->_active = true;
-            node->setParent(this);
-            node->setScene(_scene);
-            node->setTransformationDirty();
-            _children.push_back(node);
+            con_err("zero pointer");
+            return;
         }
-        else
+
+        if (node->isChild())
         {
             con_err("node is already a child");
+            return;
         }
+
+        node->_active = true;
+        node->setParent(this);
+        node->setScene(_scene);
+        node->setTransformationDirty();
+        _children.push_back(node);
     }
 
     bool iNode::isChild()

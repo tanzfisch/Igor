@@ -34,7 +34,7 @@ namespace igor
         }
 
         return false;
-    }    
+    }
 
     class iModelDeleter
     {
@@ -64,15 +64,16 @@ namespace igor
         auto parameters = resource->getParameters();
 
         iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
-        if(filepath.isEmpty())
+        if (filepath.isEmpty())
         {
             filepath = parameters.getParameter<iaString>("filename", "");
         }
-        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         
-        iModelPtr model = std::dynamic_pointer_cast<iModel>(resource);
-
-        parameters.setParameter("filename", filename);
+        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
+        if (!filename.isEmpty())
+        {
+            parameters.setParameter("filename", filename);
+        }
 
         iaString subType = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SUB_TYPE, "");
         if (subType == "")
@@ -101,6 +102,7 @@ namespace igor
             return false;
         }
 
+        iModelPtr model = std::dynamic_pointer_cast<iModel>(resource);
         model->setNode(node);
         return true;
     }

@@ -246,9 +246,8 @@ void VoxelExample::prepareMeshGeneration()
         {"voxelData", _voxelData}
     });
 
-    con_endl(parameters);
-
-    voxelMeshModel->setModel(iResourceManager::getInstance().requestResource<iModel>(parameters));
+    iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);
+    voxelMeshModel->setModel(model);
 
     // create a transform node to center the mesh to the origin
     iNodeTransform *voxelMeshTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
