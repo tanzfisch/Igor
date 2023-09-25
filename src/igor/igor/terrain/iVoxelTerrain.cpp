@@ -1246,28 +1246,27 @@ namespace igor
                     iaVector3I voxelOffsetToNextLOD(childOffsetPosition[voxelBlock->_childAddress]);
                     voxelOffsetToNextLOD *= 16;
 
-                    iVoxelData* voxelData = new iVoxelData();
+                    iVoxelData *voxelData = new iVoxelData();
                     voxelBlock->_voxelData->getCopy(*voxelData);
 
-                    iVoxelData* voxelDataNextLOD = new iVoxelData();
+                    iVoxelData *voxelDataNextLOD = new iVoxelData();
                     (*parent).second->_voxelData->getCopy(*voxelDataNextLOD);
 
-                    iParameters parameters({
-                        {IGOR_RESOURCE_PARAM_ALIAS, tileName},
-                        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
-                        {IGOR_RESOURCE_PARAM_SUB_TYPE, iaString("igor.vtg")},
-                        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
-                        {IGOR_RESOURCE_PARAM_QUIET, true},
-                        {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
-                        {IGOR_RESOURCE_PARAM_MATERIAL, _terrainMaterial},
-                        {"voxelOffsetToNextLOD", voxelOffsetToNextLOD},
-                        {"voxelData", voxelData},
-                        {"voxelDataNextLOD", voxelDataNextLOD},
-                        {IGOR_RESOURCE_PARAM_LOD, voxelBlock->_lod},
-                        {"neighboursLOD", voxelBlock->_neighboursLOD},
-                        {IGOR_RESOURCE_PARAM_TARGET_MATERIAL, _targetMaterial},
-                        {IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL, _physicsMaterialID}
-                    });
+                    iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, tileName},
+                                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                                            {IGOR_RESOURCE_PARAM_SUB_TYPE, iaString("igor.vtg")},
+                                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                                            {IGOR_RESOURCE_PARAM_QUIET, true},
+                                            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
+                                            {IGOR_RESOURCE_PARAM_MATERIAL, _terrainMaterial},
+                                            {IGOR_RESOURCE_PARAM_GENERATE, true},
+                                            {"voxelOffsetToNextLOD", voxelOffsetToNextLOD},
+                                            {"voxelData", voxelData},
+                                            {"voxelDataNextLOD", voxelDataNextLOD},
+                                            {IGOR_RESOURCE_PARAM_LOD, voxelBlock->_lod},
+                                            {"neighboursLOD", voxelBlock->_neighboursLOD},
+                                            {IGOR_RESOURCE_PARAM_TARGET_MATERIAL, _targetMaterial},
+                                            {IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL, _physicsMaterialID}});
                     iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);
 
                     iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
