@@ -58,7 +58,6 @@ bool iIntersection::intersects(const iaSphere<T> &sphere, const iFrustum<T> &fru
 template <typename T>
 bool iIntersection::inFrontOf(const iAACube<T> &cube, const iPlane<T> &plane)
 {
-    //! \todo this calculations are crap. basically pretending the cube is a sphere
     const T distancePlanePoint = (plane._normal * cube._center) - plane._distance;
     return distancePlanePoint > (-cube._halfEdgeLength * 3);
 }
@@ -307,19 +306,3 @@ bool iIntersection::intersects(const iPlane<T> &plane, const iRay<T> &ray, iaVec
 
     return true;
 }
-
-/* todo maybe we can use this later
-
-bool intersection(Point<T> point, Shape<T> shape)
-{
-int i, j;
-bool result = false;
-for (i = 0, j = shape.positions.size()-1; i < shape.positions.size(); j = i++)
-{
-if ((((shape.positions[i].y <= point.pos.y) && (point.pos.y < shape.positions[j].y)) ||
-((shape.positions[j].y <= point.pos.y) && (point.pos.y < shape.positions[i].y))) &&
-(point.pos.x < (shape.positions[j].x - shape.positions[i].x) * (point.pos.y - shape.positions[i].y) / (shape.positions[j].y - shape.positions[i].y) + shape.positions[i].x))
-result = !result;
-}
-return result;
-}*/

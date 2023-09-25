@@ -13,7 +13,7 @@
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/system/iTimer.h>
 #include <igor/scene/traversal/iNodeVisitorRenderBoundings.h>
@@ -201,7 +201,7 @@ namespace igor
 
     void iRenderEngine::drawColorIDs()
     {
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
+        iRenderer::getInstance().setMaterial(iRenderer::getInstance().getColorIDMaterial());
 
         for (const auto &materialGroup : _materialGroups)
         {

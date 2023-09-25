@@ -4,20 +4,73 @@
 
 #include <igor/resources/iResource.h>
 
+#include <igor/resources/iResourceManager.h>
+
 namespace igor
 {
-    iResource::iResource(const iaString &type, const iParameters &parameters)
+    iResource::iResource(const iParameters &parameters)
         : _parameters(parameters)
     {
-        _type = type;
-        _name = parameters.getParameter<iaString>("name", "");
+        extractID(parameters, _id, true);
+
+        // if there is no id specified we need a new one
+        if (!_id.isValid())
+        {
+            _id = iaUUID();
+        }
+
+        _alias = parameters.getParameter<iaString>("alias", "");
+        _source = parameters.getParameter<iaString>("filename", "");
+
+        _type = parameters.getParameter<iaString>("type");
         _cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
-        _quiet = parameters.getParameter<bool>("quiet", false);
+        _quiet = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_QUIET, false);
+    }
+
+    bool iResource::extractID(const iParameters &parameters, iResourceID &id, bool quiet)
+    {
+        id = parameters.getParameter<iResourceID>("id", IGOR_INVALID_ID);
+        if (id.isValid())
+        {
+            return true;
+        }
+
+        const iaString alias = parameters.getParameter<iaString>("alias", "");
+        id = iResourceManager::getInstance().getResourceID(alias);
+        if (id.isValid())
+        {
+            return true;
+        }
+
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        if (generate)
+        {
+            return true;
+        }
+
+        const iaString filename = parameters.getParameter<iaString>("filename", "");
+        if (!filename.isEmpty())
+        {
+            return true;
+        }
+
+        return false;
     }
 
     bool iResource::isQuiet() const
     {
+#ifdef IGOR_DEBUG
+        if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Debug)
+        {
+            return false;
+        }
+        else
+        {
+            return _quiet;
+        }
+#else
         return _quiet;
+#endif
     }
 
     bool iResource::isValid() const
@@ -40,9 +93,9 @@ namespace igor
         _valid = valid;
     }
 
-    const iaString &iResource::getName() const
+    const iaString &iResource::getSource() const
     {
-        return _name;
+        return _source;
     }
 
     iResourceCacheMode iResource::getCacheMode() const
@@ -58,5 +111,33 @@ namespace igor
     const iaString &iResource::getType() const
     {
         return _type;
+    }
+
+    const iResourceID &iResource::getID() const
+    {
+        return _id;
+    }
+
+    const iaString iResource::getInfo() const
+    {
+        iaString result;
+
+        result += _id.toString();
+
+        if (!_alias.isEmpty())
+        {
+            result += ", \"";
+            result += _alias;
+            result += "\"";
+        }
+
+        else if (!_source.isEmpty())
+        {
+            result += ", \"";
+            result += _source;
+            result += "\"";
+        }
+
+        return result;
     }
 }

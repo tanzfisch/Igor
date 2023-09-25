@@ -59,8 +59,8 @@
 #include <igor/physics/iPhysicsMaterialCombo.h>
 
 #include <igor/resources/iResourceManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterialFactory.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -191,19 +191,19 @@ namespace igor
     config file will be searched for in this order
 
     Windows: 
-        config\[configname].xml
-        ..\config\[configname].xml
-        ..\..\config\[configname].xml
+        config\igor.xml
+        ..\config\igor.xml
+        ..\..\config\igor.xml
     Linux:
-        ~/.[configname]/[configname].xml
-        /etc/[configname]/[configname].xml
-        config/[configname].xml
-        ../config/[configname].xml
-        ../../config/[configname].xml
+        ~/.igor/igor.xml
+        /etc/igor/igor.xml
+        config/igor.xml
+        ../config/igor.xml
+        ../../config/igor.xml
 
     in that order
 	*/
-    void IGOR_API startup(const iaString &configname = "igor");
+    void IGOR_API startup();
 
     /*! should be called last in your application. do not use any Igor interface after that
 	

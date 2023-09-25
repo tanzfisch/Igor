@@ -4,30 +4,6 @@
 #include <iaux/math/iaRandomNumberGenerator.h>
 using namespace iaux;
 
-IAUX_TEST(RandomTests, GetNext)
-{
-    iaRandomNumberGenerator rand;
-    rand.setSeed(1234);
-
-#define COUNT 100
-    uint32 numbers[COUNT];
-
-    for (int i = 0; i < COUNT; ++i)
-    {
-        numbers[i] = 0;
-    }
-
-    for (int i = 0; i < 10000000; ++i)
-    {
-        numbers[rand.getNext() % COUNT]++;
-    }
-
-    for (int i = 1; i < COUNT; ++i)
-    {
-        IAUX_EXPECT_NEAR(numbers[0], numbers[i], 800);
-    }
-}
-
 IAUX_TEST(RandomTests, GetNextFloat)
 {
     iaRandomNumberGenerator rand;

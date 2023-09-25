@@ -11,7 +11,6 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/system/iMouse.h>
 using namespace igor;
@@ -67,8 +66,8 @@ void ExampleInstancing::onInit()
 
     // we have to override the material which is stored within the model
     // to do that we load a new material that is using instancing
-    _materialWithInstancingA = iMaterialResourceFactory::getInstance().loadMaterial("instancing_textured.mat");
-    _materialWithInstancingB = iMaterialResourceFactory::getInstance().loadMaterial("instancing_flat_shaded.mat");
+    _materialWithInstancingA = iResourceManager::getInstance().loadResource<iMaterial>("example_material_instancing_textured");
+    _materialWithInstancingB = iResourceManager::getInstance().loadResource<iMaterial>("example_material_instancing_flat_shaded");
 
     // now we can just put copies of that model in the scene
     iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -83,7 +82,7 @@ void ExampleInstancing::onInit()
     // todo need to be able to load a mesh from file without all of this
     iMeshPtr catMesh;
     iTargetMaterialPtr catTargetMaterial;
-    iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("cat.ompf");
+    iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
     if(modelCat->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCat->getNode());
@@ -93,7 +92,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr createMesh;
     iTargetMaterialPtr crateTargetMaterial;
-    iModelPtr modelCrate = iResourceManager::getInstance().loadResource<iModel>("crate.ompf");
+    iModelPtr modelCrate = iResourceManager::getInstance().loadResource<iModel>("example_model_crate");
     if(modelCrate->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCrate->getNode());
@@ -103,7 +102,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr cubeMesh;
     iTargetMaterialPtr cubeTargetMaterial;
-    iModelPtr modelCube = iResourceManager::getInstance().loadResource<iModel>("cube_green.ompf");
+    iModelPtr modelCube = iResourceManager::getInstance().loadResource<iModel>("example_model_cube_green");
     if(modelCube->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCube->getNode());
@@ -113,7 +112,7 @@ void ExampleInstancing::onInit()
 
     iMeshPtr teapotMesh;
     iTargetMaterialPtr teapotTargetMaterial;
-    iModelPtr modelTeapot = iResourceManager::getInstance().loadResource<iModel>("teapot.ompf");
+    iModelPtr modelTeapot = iResourceManager::getInstance().loadResource<iModel>("example_model_teapot");
     if(modelTeapot->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelTeapot->getNode());

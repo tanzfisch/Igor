@@ -3,7 +3,6 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/renderer/iRenderer.h>

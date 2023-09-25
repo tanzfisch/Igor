@@ -38,8 +38,6 @@ namespace igor
 {
 
     /*! frustum defined by 8 planes
-
-    \todo ther is something wrong with the planes
     */
     template <class T>
     class IGOR_API_EXPORT_ONLY iFrustum

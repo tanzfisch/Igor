@@ -2,11 +2,6 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-/*! stream operator e.g. for cosole output
-
-\param ostr the out stream handle
-\param color the color to print in stream
-*/
 template <class T>
 std::wostream &operator<<(std::wostream &ostr, const iaColor4<T> &color)
 {
@@ -48,13 +43,13 @@ void iaColor4<T>::set(T r, T g, T b, T a)
 }
 
 template <typename T>
-__IGOR_INLINE__ T *iaColor4<T>::getData()
+T *iaColor4<T>::getData()
 {
     return &_r;
 }
 
 template <typename T>
-__IGOR_INLINE__ iaColor4<T> iaColor4<T>::operator=(const iaColor4<T> &color)
+iaColor4<T> iaColor4<T>::operator=(const iaColor4<T> &color)
 {
     iaColor4<T> result;
     result._r = _r = color._r;
@@ -66,7 +61,7 @@ __IGOR_INLINE__ iaColor4<T> iaColor4<T>::operator=(const iaColor4<T> &color)
 }
 
 template <typename T>
-__IGOR_INLINE__ void iaColor4<T>::operator+=(const iaColor4<T> &color)
+void iaColor4<T>::operator+=(const iaColor4<T> &color)
 {
     _r += color._r;
     _g += color._g;
@@ -75,7 +70,7 @@ __IGOR_INLINE__ void iaColor4<T>::operator+=(const iaColor4<T> &color)
 }
 
 template <typename T>
-__IGOR_INLINE__ void iaColor4<T>::operator-=(const iaColor4<T> &color)
+void iaColor4<T>::operator-=(const iaColor4<T> &color)
 {
     _r -= color._r;
     _g -= color._g;

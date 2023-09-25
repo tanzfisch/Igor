@@ -24,7 +24,7 @@ void iaBSpline<T>::setSupportPoint(const iaVector3<T> &point, uint32 index)
 }
 
 template <class T>
-__IGOR_INLINE__ const iaVector3<T> &iaBSpline<T>::getSupportPoint(uint32 index) const
+const iaVector3<T> &iaBSpline<T>::getSupportPoint(uint32 index) const
 {
 	return _supportpoints[index];
 }
@@ -45,9 +45,10 @@ void iaBSpline<T>::setRank(const uint32 rank)
 template <class T>
 void iaBSpline<T>::prepareU()
 {
-	_U.clear(); // TODO do not reallocate every time here
+	const uint32 pointCount = _rank + _supportpoints.size() + 1;
+	_U.reserve(pointCount);
 
-	for (uint32 i = 0; i < _rank + _supportpoints.size() + 1; ++i)
+	for (uint32 i = 0; i < pointCount; ++i)
 	{
 		if (i < _rank)
 		{

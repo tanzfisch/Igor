@@ -14,10 +14,25 @@ using namespace iaux;
 namespace igor
 {
 
-    const iaString &iSoundFactory::getType() const
+    iSoundFactory::iSoundFactory()
+        : iFactory(IGOR_RESOURCE_SOUND)
     {
-        const static iaString typeName(L"sound");
-        return typeName;
+    }
+
+    static bool isSound(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     iResourcePtr iSoundFactory::createResource(const iParameters &parameters)
@@ -27,7 +42,8 @@ namespace igor
 
     bool iSoundFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         iSoundPtr sound = std::dynamic_pointer_cast<iSound>(resource);
         return loadSound(filename, sound);
     }
@@ -63,7 +79,7 @@ namespace igor
                 break;
             }
 
-            con_debug("loaded sound \"" << sound->getName() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
+            con_debug("loaded sound \"" << sound->getInfo() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
         }
 
         delete[] buffer;
@@ -91,9 +107,8 @@ namespace igor
             return true;
         }
 
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &extension = file.getExtension();
-        if (extension == "wav")
+        if (isSound(parameters.getParameter<iaString>("filename")) ||
+            isSound(parameters.getParameter<iaString>("alias")))
         {
             return true;
         }

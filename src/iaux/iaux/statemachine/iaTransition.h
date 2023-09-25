@@ -42,11 +42,9 @@ namespace iaux
      */
     typedef iaID32 iaTransitionID;
 
-    /*! transition between two states
+    /*! \brief Transition between two states
 
     both states are allowed to be the same. than reEnter() will be triggered
-
-    \todo this is a bit over engineered. Maybe turn it in to a struct and move it to iaStateMachine
     */
     class IAUX_API iaTransition
     {

@@ -10,7 +10,6 @@
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/renderer/iRenderStateSet.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeManager.h>
@@ -20,6 +19,7 @@
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaDirectory.h>
+#include <iaux/math/iaRandom.h>
 using namespace iaux;
 
 #include <ompf/ompf.h>
@@ -122,8 +122,7 @@ namespace igor
             break;
 
         case OMPF::OMPFChunkType::ResourceSearchPath:
-            // OMPF::ompfResourceSearchPathChunk* resourceSearchPathChunk = static_cast<OMPF::ompfResourceSearchPathChunk*>(currentChunk);
-            // TODO
+            // TODO OMPF::ompfResourceSearchPathChunk* resourceSearchPathChunk = static_cast<OMPF::ompfResourceSearchPathChunk*>(currentChunk);
             break;
 
         case OMPF::OMPFChunkType::Mesh:
@@ -220,11 +219,10 @@ namespace igor
         con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
         con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
 
-        const bool keepMesh = _parameters.getParameter<bool>("keepMesh", false);
+        const bool keepMesh = _parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
 
-        // create mesh node
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-        
+
         // set material properties
         iaColor3f ambient;
         iaColor3f diffuse;
@@ -277,7 +275,7 @@ namespace igor
         mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
         mesh->setTextureCoordinatesCount(meshChunk->getTexCoordPerVertex());
 
-        // calculate boundings
+        // calculate bounding
         iaVector3d minPos;
         iaVector3d maxPos;
 
@@ -291,7 +289,7 @@ namespace igor
         meshNode->setMesh(mesh);
 
         iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
-        meshNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
+        meshNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
 
         return meshNode;
     }
@@ -356,7 +354,7 @@ namespace igor
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
         iMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
-        particleSystemNode->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
+        particleSystemNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
 
         return particleSystemNode;
     }
@@ -395,7 +393,12 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialReferenceChunk *materialReferenceChunk)
     {
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().loadMaterial(materialReferenceChunk->getFilename());
+        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(materialReferenceChunk->getFilename());
+        if(material == nullptr)
+        {
+            return;
+        }
+
         _materialMapping[materialReferenceChunk->getID()] = material->getID();
     }
 
@@ -449,10 +452,8 @@ namespace igor
             return iRenderStateValue::Back;
         case OMPF::OMPFRenderStateValue::Invalid:
             return iRenderStateValue::Invalid;
-        case OMPF::OMPFRenderStateValue::PositionOrientation:
-            return iRenderStateValue::PositionOrientation;
-        case OMPF::OMPFRenderStateValue::Position:
-            return iRenderStateValue::Position;
+        case OMPF::OMPFRenderStateValue::PositionOrientationInstancing:
+            return iRenderStateValue::PositionOrientationInstancing;
         };
 
         return iRenderStateValue::Off;
@@ -463,18 +464,17 @@ namespace igor
         con_assert_sticky(materialChunk != nullptr, "zero pointer");
 
         iaString materialName = materialChunk->getMaterialName();
-
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialName);
+        iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(materialName);
         if (material != nullptr)
         {
             con_warn("material name dublicate \"" << materialName << "\". Generating new name.");
 
             // this is a workaround until ompf understands UUIDs to identify materials
             materialName += "_";
-            materialName += iaUUID::create().getValue();
+            materialName += iaString::toString(iaRandom::getNext());
         }
 
-        material = iMaterialResourceFactory::getInstance().createMaterial(materialName);
+        // TODO material = iMaterialResourceFactory::getInstance().createMaterial(materialName);
         _materialMapping[materialChunk->getID()] = material->getID();
         material->setOrder(materialChunk->getOrder());
 
@@ -513,9 +513,9 @@ namespace igor
 
     void iModelDataIOOMPF::exportData(const iParameters &parameters)
     {
-        iNodePtr node = parameters.getParameter<iNodePtr>("node", nullptr);
-        const iaString filename = parameters.getParameter<iaString>("filename", "");
-        const iSaveMode saveMode= parameters.getParameter<iSaveMode>("saveMode", iSaveMode::KeepExternals);
+        iNodePtr node = parameters.getParameter<iNodePtr>(IGOR_RESOURCE_PARAM_NODE, nullptr);
+        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_FILENAME, "");
+        const iSaveMode saveMode = parameters.getParameter<iSaveMode>(IGOR_RESOURCE_PARAM_EXPORT_MODE, iSaveMode::KeepExternals);
 
         con_assert(node != nullptr, "zero pointer");
         con_assert(!filename.isEmpty(), "empty string");
@@ -794,12 +794,7 @@ namespace igor
                         continue;
                     }
 
-                    if(pair.second->getName().isEmpty())
-                    {
-                        continue;
-                    }
-
-                    result->setTexture(iResourceManager::getInstance().getRelativePath(pair.second->getName()), pair.first);
+                    result->setTexture(pair.second->getID().toString(), pair.first);
                 }
             }
             else
@@ -832,7 +827,7 @@ namespace igor
     OMPF::ompfMaterialReferenceChunk *iModelDataIOOMPF::createMaterialReferenceChunk(iMaterialPtr material)
     {
         OMPF::ompfMaterialReferenceChunk *result = _ompf->createMaterialReferenceChunk();
-        result->setFilename(iResourceManager::getInstance().getRelativePath(material->getFilename()));
+        result->setFilename(material->getID().toString());
         return result;
     }
 
@@ -847,7 +842,7 @@ namespace igor
                               source._source, static_cast<OMPF::OMPFShaderType>(source._type));
         }
 
-        result->setMaterialName(material->getName());
+        result->setMaterialName(material->getID().toString());
 
         for (int i = 0; i < RENDER_STATE_COUNT; ++i)
         {
@@ -861,7 +856,7 @@ namespace igor
 
     uint32 iModelDataIOOMPF::getMaterialChunkID(const iMaterialID &materialID)
     {
-        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+        iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(materialID);
 
         if (material == nullptr)
         {

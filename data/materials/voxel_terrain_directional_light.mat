@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="example.voxel.terrain_directional_light" uuid="095d02dc-7b46-11ed-8093-e3b420dd3214" visibility="Public">
+	<Material name="example.voxel.terrain_directional_light" visibility="Public">
 		<States>
 			<DepthTest>On</DepthTest>
             <Blend>Off</Blend>

@@ -37,7 +37,7 @@ namespace igor
 
     void iShaderProgram::addShader(const iaString& filename, iShaderObjectType type)
     {
-        iaFile file(iResourceManager::getInstance().getPath(filename));
+        iaFile file(iResourceManager::getInstance().resolvePath(filename));
 
         if (file.open())
         {

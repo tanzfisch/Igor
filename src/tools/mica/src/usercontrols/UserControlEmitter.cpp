@@ -73,13 +73,13 @@ void UserControlEmitter::initGUI()
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _selectType = new iWidgetSelectBox();
-    _selectType->addSelectionEntry("Mesh");
-    _selectType->addSelectionEntry("Point");
-    _selectType->addSelectionEntry("Disc");
-    _selectType->addSelectionEntry("Circle");
-    _selectType->addSelectionEntry("Sphere");
-    _selectType->addSelectionEntry("Square");
-    _selectType->addSelectionEntry("Cube");
+    _selectType->addItem("Mesh");
+    _selectType->addItem("Point");
+    _selectType->addItem("Disc");
+    _selectType->addItem("Circle");
+    _selectType->addItem("Sphere");
+    _selectType->addItem("Square");
+    _selectType->addItem("Cube");
     _selectType->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 

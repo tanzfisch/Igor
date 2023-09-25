@@ -18,10 +18,25 @@ namespace igor
 
     iaMutex iTextureFactory::_mutexImageLibrary;
 
-    const iaString &iTextureFactory::getType() const
+    iTextureFactory::iTextureFactory()
+        : iFactory(IGOR_RESOURCE_TEXTURE)
     {
-        const static iaString typeName(L"texture");
-        return typeName;
+    }
+
+    static bool isTexture(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     iResourcePtr iTextureFactory::createResource(const iParameters &parameters)
@@ -31,12 +46,13 @@ namespace igor
 
     bool iTextureFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         iTexturePtr texture = std::dynamic_pointer_cast<iTexture>(resource);
 
         const auto &parameters = resource->getParameters();
 
-        const bool generate = parameters.getParameter<bool>("generate", false);
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             return generateTexture(texture, parameters);
@@ -141,7 +157,7 @@ namespace igor
         }
 
         texture->setData(width, height, bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
-        con_debug("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("generated texture \"" << texture->getInfo() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         delete[] data;
@@ -166,7 +182,7 @@ namespace igor
         {
             texture->_useFallback = true;
             _mutexImageLibrary.lock();
-            con_err("can't load \"" << texture->getName() << "\" reason:" << stbi_failure_reason());
+            con_err("can't load \"" << texture->getInfo() << "\" reason:" << stbi_failure_reason());
             _mutexImageLibrary.unlock();
 
             return false;
@@ -192,7 +208,7 @@ namespace igor
         };
 
         texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-        con_debug("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("loaded texture \"" << texture->getInfo() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         _mutexImageLibrary.lock();
@@ -225,7 +241,7 @@ namespace igor
             break;
         }
 
-        iTextureBuildMode buildMode = parameters.getParameter<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
+        iTextureBuildMode buildMode = parameters.getParameter<iTextureBuildMode>("textureBuildMode", iTextureBuildMode::Mipmapped);
         if (buildMode == iTextureBuildMode::Mipmapped)
         {
             hashData += "M";
@@ -245,16 +261,10 @@ namespace igor
             return true;
         }
 
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &fileExtension = file.getExtension();
-        static const std::vector<iaString> supportedExtensions = {L"png", L"jpg"};
-
-        for (const auto &extension : supportedExtensions)
+        if (isTexture(parameters.getParameter<iaString>("filename")) ||
+            isTexture(parameters.getParameter<iaString>("alias")))
         {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
+            return true;
         }
 
         return false;
@@ -262,7 +272,7 @@ namespace igor
 
     iPixmapPtr iTextureFactory::loadPixmap(const iaString &filename)
     {
-        iaString fullPath = iResourceManager::getInstance().getPath(filename);
+        iaString fullPath = iResourceManager::getInstance().resolvePath(filename);
 
         iPixmapPtr pixmap;
 

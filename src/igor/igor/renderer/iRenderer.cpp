@@ -7,7 +7,6 @@
 #include <igor/renderer/utils/iRendererUtils.h>
 
 #include <igor/simulation/iParticleSystem.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/iResourceManager.h>
@@ -304,6 +303,14 @@ namespace igor
          */
         iMaterialPtr _currentMaterial;
 
+        /*! the default material
+         */
+        iMaterialPtr _defaultMaterial;
+
+        /*! the colorID material
+         */
+        iMaterialPtr _colorIDMaterial;
+
         //////////// SHARED DATA ///////////
         /*! quad index buffer
          */
@@ -530,19 +537,24 @@ namespace igor
         setStencilTestActive(false);
 
         ///////////// MATERIALS ////////////
-        _data->_flatShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/flat_shaded.mat", false);
-        _data->_flatShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/flat_shaded_blend.mat", false);
-        _data->_textureShader = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/texture_shaded.mat", false);
-        _data->_textureShaderBlend = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/texture_shaded_blend.mat", false);
+        _data->_defaultMaterial = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_default_textured");
+        _data->_colorIDMaterial = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_color_id");
+
+        // don't cache the following so they stay invisible to the application
+        _data->_flatShader = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_flat_shaded", iResourceCacheMode::DontCache);
+        _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_flat_shaded_blend", iResourceCacheMode::DontCache);
+        _data->_textureShader = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_texture_shaded", iResourceCacheMode::DontCache);
+        _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_texture_shaded_blend", iResourceCacheMode::DontCache);
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
 
         ////////////// generate textures //////////
-        iParameters paramFallback({{"name", iaString("fallback_texture")},
-                                   {"type", iaString("texture")},
-                                   {"cacheMode", iResourceCacheMode::Keep},
-                                   {"generate", true},
+        iParameters paramFallback({// {IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                                   {IGOR_RESOURCE_PARAM_ALIAS, iaString("igor_fallback_texture")},
+                                   {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                                   {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
+                                   {IGOR_RESOURCE_PARAM_GENERATE, true},
                                    {"pattern", iTexturePattern::CheckerBoard},
                                    {"primary", iaColor4f::black},
                                    {"secondary", iaColor4f::magenta},
@@ -551,10 +563,11 @@ namespace igor
 
         _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
 
-        iParameters paramWhite({{"name", iaString("white_texture")},
-                                {"type", iaString("texture")},
-                                {"cacheMode", iResourceCacheMode::Keep},
-                                {"generate", true},
+        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                                {IGOR_RESOURCE_PARAM_ALIAS, iaString("igor_texture_white")},
+                                {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                                {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
+                                {IGOR_RESOURCE_PARAM_GENERATE, true},
                                 {"pattern", iTexturePattern::SolidColor},
                                 {"primary", iaColor4f::white},
                                 {"width", 1},
@@ -566,6 +579,8 @@ namespace igor
     void iRenderer::deinit()
     {
         /////////// MATERIALS ////////
+        _data->_defaultMaterial = nullptr;
+        _data->_colorIDMaterial = nullptr;
         _data->_flatShader = nullptr;
         _data->_flatShaderBlend = nullptr;
         _data->_textureShader = nullptr;
@@ -719,7 +734,7 @@ namespace igor
 
     void iRenderer::drawSpriteInternal(const iaMatrixf &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2f &size, const iaColor4f &color, bool blend)
     {
-        if(!sprite->isValid())
+        if (!sprite->isValid())
         {
             return;
         }
@@ -2133,6 +2148,16 @@ namespace igor
     bool iRenderer::isWireframeEnabled() const
     {
         return _data->_wireframeEnabled;
+    }
+
+    const iMaterialPtr &iRenderer::getDefaultMaterial() const
+    {
+        return _data->_defaultMaterial;
+    }
+
+    const iMaterialPtr &iRenderer::getColorIDMaterial() const
+    {
+        return _data->_colorIDMaterial;
     }
 
 }

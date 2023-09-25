@@ -50,7 +50,7 @@ void UserControlParticleSystem::updateNode()
             {
                 std::any userData = _materialSelection->getSelectedUserData();
                 iMaterialID materialID = std::any_cast<iMaterialID>(userData);
-                node->setMaterial(iMaterialResourceFactory::getInstance().getMaterial(materialID));
+                node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
             }
 
             node->setTextureA(_textureChooser0->getFileName());
@@ -142,7 +142,7 @@ void UserControlParticleSystem::updateGUI()
     for (auto emitterID : _emitters)
     {
         iNodeEmitter *emitter = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(emitterID));
-        _emitterSelection->addSelectionEntry(emitter->getName());
+        _emitterSelection->addItem(emitter->getName());
     }
 
     iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
@@ -163,15 +163,15 @@ void UserControlParticleSystem::updateGUI()
         _materialSelection->clear();
 
         std::vector<iMaterialPtr> materials;
-        iMaterialResourceFactory::getInstance().getMaterials(materials);
+        iResourceManager::getInstance().getMaterials(materials);
         for (auto material : materials)
         {
             const iMaterialID &materialID = material->getID();
-            _materialSelection->addSelectionEntry(material->getName(), materialID);
+            _materialSelection->addItem(material->getName(), materialID);
 
             if (materialID == node->getMaterial()->getID())
             {
-                _materialSelection->setSelection(_materialSelection->getSelectionEntryCount() - 1);
+                _materialSelection->setSelection(_materialSelection->getItemCount() - 1);
             }
         }
 

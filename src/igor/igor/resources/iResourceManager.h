@@ -36,6 +36,8 @@
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimation.h>
 #include <igor/resources/model/iModel.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/iResourceDictionary.h>
 
 #include <iaux/system/iaDirectory.h>
 #include <iaux/data/iaString.h>
@@ -78,11 +80,21 @@ namespace igor
          */
         void clearSearchPaths();
 
-        /*! \returns full path to a file if it exists
+        /*! \returns full path to a file
 
-        \param filename file name to search for in search paths
+        If the file does not exist it returns an empty string
+
+        It only resolves for files that are within one of the given search paths
+
+        \param filepath relative or absolute path to file
         */
-        iaString getPath(const iaString &filename);
+        const iaString resolvePath(const iaString &filepath);
+
+        /*! \returns filepath for given resource id
+
+        \param id the given resource id
+        */
+        const iaString getFilePath(const iResourceID &id);
 
         /*! \returns relative path to search path. returns full path if no matching search path found
 
@@ -110,6 +122,13 @@ namespace igor
         */
         iResourcePtr loadResource(const iParameters &parameters);
 
+        /*! creates a new resource
+
+        \param param parameters for loading resource
+        \returns shared pointer to resource
+        */
+        iResourcePtr createResource(const iParameters &parameters);
+
         /*! requests a resource to be loaded asynchronously.
 
         template version for more convenience
@@ -130,25 +149,66 @@ namespace igor
         template <typename T>
         std::shared_ptr<T> loadResource(const iParameters &parameters);
 
+        /*! creates a new resource of given type
+
+        template version for more convenience
+
+        \returns shared pointer to resource
+        */
+        template <typename T>
+        std::shared_ptr<T> createResource();
+
         /*! requests a resource to be loaded asynchronously
 
         template version for more convenience
 
-        \param name the name of the resource
+        \param name the name of the resource (this can also be a filename)
         \returns shared pointer to resource
         */
         template <typename T>
-        std::shared_ptr<T> requestResource(const iaString &name, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
+        std::shared_ptr<T> requestResource(const iaString &alias, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
 
         /*! loads a resource synchronously
 
         template version for more convenience
 
-        \param name the name of the resource
+        \param name the name of the resource (this can also be a filename)
         \returns shared pointer to resource
         */
         template <typename T>
-        std::shared_ptr<T> loadResource(const iaString &name, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
+        std::shared_ptr<T> loadResource(const iaString &alias, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
+
+        /*! \returns resource by id
+
+        \param id the id of the resource
+        */
+        iResourcePtr getResource(const iResourceID &id);
+
+        /*! \returns resource by id
+
+        typed version
+
+        \param id the id of the resource
+        */
+        template <typename T>
+        std::shared_ptr<T> getResource(const iResourceID &id);
+
+        /*! \returns resource by name
+
+        typed version
+
+        \param name the name of the resource
+        */
+        template <typename T>
+        std::shared_ptr<T> getResource(const iaString &alias);        
+
+        /*! returns all materials
+
+        \param[out] materials the materials
+
+        TODO how about a more general interface?
+        */
+        void getMaterials(std::vector<iMaterialPtr> &materials);
 
         /*! works like a garbage collector.
 
@@ -185,8 +245,30 @@ namespace igor
         void setLoadMode(iResourceManagerLoadMode loadMode);
 
         /*! \returns the load mode
-        */
+         */
         iResourceManagerLoadMode getLoadMode() const;
+
+        /*! loads resource dictionary
+
+        this will append resources to existing dictionary
+
+        \param filename filename to resource dictionary
+        */
+        void loadResourceDictionary(const iaString &filename);
+
+        /*! write resource dictionary to given filename
+
+        \param filename the file to write the dictionary to
+        */
+        void writeResourceDictionary(const iaString &filename);
+
+        /*! \returns resource id for given alias or filepath
+
+        If it does not exist yet but it represents a valid file path within one of the search path. We add a new resource.
+
+        \param alias the given alias or filepath
+        */
+        const iResourceID getResourceID(const iaString &alias) const;
 
     private:
         /*! mutex to manage access to internal data
@@ -207,22 +289,19 @@ namespace igor
 
         /*! map of resources
          */
-        std::unordered_map<int64, iResourcePtr> _resources;
+        std::unordered_map<iResourceID, iResourcePtr> _resources;
 
         /*! loading queue
-        */
+         */
         std::deque<iResourcePtr> _loadingQueue;
-
+        
         /*! load mode
-        */
+         */
         iResourceManagerLoadMode _loadMode = iResourceManagerLoadMode::Application;
 
-        /*! \returns resource for given parameters
-
-        \param parameters the resource parameters
-        \param factory the factory used to create the resource if not found
-        */
-        iResourcePtr getResource(const iParameters &parameters, iFactoryPtr factory);
+        /*! resource dictionary
+        */ 
+        iResourceDictionary _resourceDictionary;
 
         /*! \returns factory for given resource parameters
 
@@ -230,16 +309,30 @@ namespace igor
         */
         iFactoryPtr getFactory(const igor::iParameters &parameters);
 
-        /*! calculates hash value based on resource parameters
+        /*! \returns a resource matching the given parameters. If none is matching it will return nullptr
 
-        \param parameters the resource parameters
-        \param factory the factory that will be used to load this resource
+        \param parameters the given parameters
         */
-        int64 calcHashValue(const iParameters &parameters, iFactoryPtr factory);
+        iResourcePtr getResource(const iParameters &parameters);
+
+        /*! creates a resource
+
+        \param factory the factory to ask for the resource
+        \param parameters the parameters to create the resource with
+        */
+        iResourcePtr createResource(iFactoryPtr factory, const iParameters &parameters);
 
         /*! applies config settings on resource manager
-        */
+         */
         void configure();
+
+        /*! helper function to construct parameters
+
+        \param type the resource type
+        \param alias the alias or resource id
+        \param cacheMode the cache mode to load the resource with
+        */
+        iParameters buildParam(const iaString &type, const iaString &alias, iResourceCacheMode cacheMode = iResourceCacheMode::DontCache);
 
         /*! does nothing
          */

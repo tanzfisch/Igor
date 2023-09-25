@@ -189,7 +189,7 @@ namespace igor
         }
     }
 
-    uint32 iWidgetSelectBox::getSelectionEntryCount() const
+    uint32 iWidgetSelectBox::getItemCount() const
     {
         return static_cast<uint32>(_entries.size());
     }
@@ -200,7 +200,7 @@ namespace igor
         _currentSelection = -1;
     }
 
-    void iWidgetSelectBox::addSelectionEntry(const iaString &entryText, const std::any &userData)
+    void iWidgetSelectBox::addItem(const iaString &entryText, const std::any &userData)
     {
         _entries.push_back({entryText, userData});
     }

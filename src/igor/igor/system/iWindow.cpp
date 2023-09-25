@@ -14,7 +14,6 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTaskFlushResources.h>
 #include <igor/events/iEventWindow.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <igor/entities/iEntitySystemModule.h>
 
@@ -1372,7 +1371,6 @@ namespace igor
             iTaskManager::getInstance().addTask(new iTaskFlushResources(this));
 
             iRenderer::getInstance().init();
-            iMaterialResourceFactory::getInstance().init();
             _impl->swapBuffers();
 
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));
@@ -1392,7 +1390,6 @@ namespace igor
         }
 
         iRenderer::getInstance().deinit();
-        iMaterialResourceFactory::getInstance().deinit();
 
         iTaskManager::getInstance().killRenderContextThreads(this);
 

@@ -7,7 +7,6 @@
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;

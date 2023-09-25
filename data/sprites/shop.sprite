@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-    <Sprite texture="supremacy/drone.png" pixelPerUnit="1">
+    <Sprite texture="example_texture_supremacy_drone" pixelPerUnit="1">
         <Frame pos="0, 0" size="256, 256" pivot="128, 128" pixel="true"/>
         <Frame pos="256, 0" size="256, 256" pivot="128, 128" pixel="true"/>
         <Frame pos="512, 0" size="256, 256" pivot="128, 128" pixel="true"/>

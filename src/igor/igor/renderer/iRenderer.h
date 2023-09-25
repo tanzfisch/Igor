@@ -774,6 +774,14 @@ namespace igor
          */
         bool isWireframeEnabled() const;
 
+        /*! \returns default material
+         */
+        const iMaterialPtr &getDefaultMaterial() const;
+
+        /*! \returns colorID material
+         */
+        const iMaterialPtr &getColorIDMaterial() const;
+
         /*! draws everything that is still in the queue
          */
         void flush();

@@ -45,18 +45,28 @@ namespace igor
     public:
         /*! does nothing
          */
-        iFactory() = default;
+        iFactory(const iaString &type)
+            : _type(type)
+        {
+        }
 
         /*! does nothing
          */
         virtual ~iFactory() = default;
 
-    protected:
         /*! \returns the factory type
 
         this type is used to register with the resource manager
         */
-        virtual const iaString &getType() const = 0;
+        const iaString &getType() const
+        {
+            return _type;
+        }
+
+    protected:
+        /*! the factory type
+         */
+        iaString _type;
 
         /*! \returns true if resource parameters are supported by this factory
 

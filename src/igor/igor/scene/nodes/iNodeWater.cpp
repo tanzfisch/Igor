@@ -10,7 +10,6 @@
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 
 namespace igor
 {

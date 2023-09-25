@@ -25,7 +25,7 @@ namespace OMPF
         _renderStates[static_cast<unsigned int>(OMPFRenderState::DepthFunc)] = static_cast<uint8>(OMPFRenderStateValue::Less);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::CullFaceFunc)] = static_cast<uint8>(OMPFRenderStateValue::Back);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Instanced)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::InstancedFunc)] = static_cast<uint8>(OMPFRenderStateValue::PositionOrientation);
+        _renderStates[static_cast<unsigned int>(OMPFRenderState::InstancedFunc)] = static_cast<uint8>(OMPFRenderStateValue::PositionOrientationInstancing);
     }
 
     void ompfMaterialChunk::setMaterialName(const iaString &material)

@@ -6,15 +6,17 @@
 
 #include <igor/resources/iResourceManager.h>
 
+#include <iaux/system/iaFile.h>
+using namespace iaux;
+
 #include <tinyxml.h>
 
 namespace igor
 {
 
-    const iaString &iAnimationFactory::getType() const
+    iAnimationFactory::iAnimationFactory()
+    : iFactory(IGOR_RESOURCE_ANIMATION)
     {
-        const static iaString typeName(L"animation");
-        return typeName;
     }
 
     iResourcePtr iAnimationFactory::createResource(const iParameters &parameters)
@@ -65,7 +67,8 @@ namespace igor
             return true;
         }
 
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         return loadAnimation(filename, animation);
     }
 
@@ -192,9 +195,31 @@ namespace igor
         return "";
     }
 
+    static bool isAnimation(const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : IGOR_SUPPORTED_ANIMATION_EXTENSIONS)
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }    
+
     bool iAnimationFactory::matchingType(const iParameters &parameters) const
     {
         if (parameters.getParameter<iaString>("type") == getType())
+        {
+            return true;
+        }
+
+        if (isAnimation(parameters.getParameter<iaString>("filename")) ||
+            isAnimation(parameters.getParameter<iaString>("alias")))
         {
             return true;
         }

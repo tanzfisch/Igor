@@ -54,8 +54,8 @@ void EmitterOverlay::onInit()
 {
     getView()->registerRenderDelegate(iDrawDelegate(this, &EmitterOverlay::onRender));
 
-    _materialFlat = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/emitter_overlay_flat.mat");
-    _materialVolume = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/emitter_overlay_volume.mat");
+    _materialFlat = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_emitter_overlay_flat");
+    _materialVolume = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_emitter_overlay_volume");
 
     _targetMaterial = iTargetMaterial::create();
     _targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));

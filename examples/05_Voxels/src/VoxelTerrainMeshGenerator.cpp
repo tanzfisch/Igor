@@ -18,10 +18,10 @@ iModelDataIO *VoxelTerrainMeshGenerator::createInstance()
 
 iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
 {
-    const iaString &sectionName = parameters.getParameter<iaString>("name", "");
+    const iaString &sectionName = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
     iVoxelData *voxelData = parameters.getParameter<iVoxelData*>("voxelData", nullptr);
-    const bool keepMesh = parameters.getParameter<bool>("keepMesh", false);
-    iMaterialPtr material = parameters.getParameter<iMaterialPtr>("material", nullptr);
+    const bool keepMesh = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
+    iMaterialPtr material = parameters.getParameter<iMaterialPtr>(IGOR_RESOURCE_MATERIAL, nullptr);
 
     const int64 width = voxelData->getWidth() - 1;
     const int64 depth = voxelData->getDepth() - 1;
@@ -41,9 +41,9 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
         meshNode->setMaterial(material);
 
         iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
-        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("grass.png"), 0);
-        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("dirt.png"), 1);
-        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("rock.png"), 2);
+        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_grass"), 0);
+        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_dirt"), 1);
+        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_rock"), 2);
         targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));

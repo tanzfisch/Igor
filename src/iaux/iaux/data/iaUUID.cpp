@@ -4,24 +4,67 @@
 
 #include <iaux/data/iaUUID.h>
 
-#include <random>
+#include <iaux/math/iaRandom.h>
+
 #include <sstream>
+#include <regex>
 
 namespace iaux
 {
+    iaUUID::iaUUID()
+    {
+        // prevent zero
+        while (_value == IGOR_INVALID_ID)
+        {
+            _value = iaRandom::getNext();
+        }
+    }
+
     iaUUID::iaUUID(const iaUUID &other)
         : _value(other._value)
     {
     }
 
-    iaUUID::iaUUID(const iaString &value)
-        : _value(value)
+    iaUUID::iaUUID(uint64 value)
     {
+        _value = value;
     }
 
-    iaUUID::iaUUID(const char *value)
-        : _value(value)
+    iaUUID::iaUUID(const iaString &text)
     {
+        if (isUUID(text))
+        {
+            if (text.getLength() == 18)
+            {
+                iaString number = text.getSubString(2, 16);
+                _value = iaString::toUInt(number, 16);
+            }
+            else
+            {
+                _value = iaString::toUInt(text, 16);
+            }
+        }
+        else
+        {
+            _value = text.getHashValue();
+        }
+    }
+
+    bool iaUUID::isUUID(const iaString &text)
+    {
+        if(text.isEmpty())
+        {
+            return false;
+        }
+
+        std::wregex hexPattern(L"(0[xX][0-9a-fA-F]{1,16})|([0-9a-fA-F]{1,16})");        
+        return std::regex_match(text.getData(), hexPattern);
+    }
+
+
+    void iaUUID::reset()
+    {
+        _value = IGOR_INVALID_ID;
     }
 
     bool iaUUID::operator==(const iaUUID &other) const
@@ -32,7 +75,7 @@ namespace iaux
     bool iaUUID::operator!=(const iaUUID &other)
     {
         return _value != other._value;
-    }    
+    }
 
     iaUUID iaUUID::operator=(const iaUUID &other)
     {
@@ -40,65 +83,26 @@ namespace iaux
         return *this;
     }
 
-    bool iaUUID::isValid() const
+    const iaString iaUUID::toString() const
     {
-        return !_value.isEmpty() || _value.getLength() != 36;
+        std::wstringstream stream;
+        stream << "0x" << std::setfill(L'0') << std::setw(16) << std::hex << _value << std::dec;
+        return iaString(stream.str().c_str());
     }
 
-    iaUUID iaUUID::create()
-    {
-        // source https://stackoverflow.com/questions/24365331/how-can-i-generate-uuid-in-c-without-using-boost-library
-        static std::random_device rd;
-        static std::mt19937_64 gen(rd());
-        static std::uniform_int_distribution<> dis(0, 15);
-        static std::uniform_int_distribution<> dis2(8, 11);
-        static iaMutex mutex;
-
-        mutex.lock();
-        std::stringstream ss;
-        int i;
-        ss << std::hex;
-        for (i = 0; i < 8; i++)
-        {
-            ss << dis(gen);
-        }
-        ss << "-";
-        for (i = 0; i < 4; i++)
-        {
-            ss << dis(gen);
-        }
-        ss << "-4";
-        for (i = 0; i < 3; i++)
-        {
-            ss << dis(gen);
-        }
-        ss << "-";
-        ss << dis2(gen);
-        for (i = 0; i < 3; i++)
-        {
-            ss << dis(gen);
-        }
-        ss << "-";
-        for (i = 0; i < 12; i++)
-        {
-            ss << dis(gen);
-        }
-
-        iaUUID uuid;
-        uuid._value = iaString(ss.str().c_str());
-        mutex.unlock();
-
-        return uuid;
-    }
-
-    const iaString &iaUUID::getValue() const
+    iaUUID::operator uint64() const
     {
         return _value;
     }
 
     std::wostream &operator<<(std::wostream &stream, const iaUUID &uuid)
     {
-        stream << uuid.getValue();
+        stream << uuid.toString();
         return stream;
+    }
+
+    bool iaUUID::isValid() const
+    {
+        return _value != IGOR_INVALID_ID;
     }
 }

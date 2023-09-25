@@ -7,7 +7,6 @@
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -52,7 +51,7 @@ namespace igor
     void iNodeVisitorRenderColorID::preTraverse()
     {
         _currentMatrix.identity();
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
+        iRenderer::getInstance().setMaterial(iRenderer::getInstance().getColorIDMaterial());
     }
 
     void iNodeVisitorRenderColorID::postTraverse()

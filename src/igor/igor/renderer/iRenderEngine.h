@@ -164,7 +164,7 @@ namespace igor
 
         /*! render nodes
          */
-        std::vector<iMaterialGroup> _materialGroups;
+        std::vector<iMaterialGroup> _materialGroups;    
 
         /*! cull scene relative to specified camera
 

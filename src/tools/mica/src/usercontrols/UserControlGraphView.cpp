@@ -67,7 +67,7 @@ void UserControlGraphView::initGUI()
     addTransformationButton->setWidth(30);
     addTransformationButton->setHeight(30);
     addTransformationButton->setTooltip("Add transformation node. You need to move something you need a transform node.");
-    addTransformationButton->setTexture("igor/icons/addTransformation.png");
+    addTransformationButton->setTexture("igor_icon_add_transformation");
     addTransformationButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddTransformation));
 
     iWidgetButton *addModelButton = new iWidgetButton();
@@ -75,7 +75,7 @@ void UserControlGraphView::initGUI()
     addModelButton->setWidth(30);
     addModelButton->setHeight(30);
     addModelButton->setTooltip("Add model node. Adds a model embedded or referenced to the scene.");
-    addModelButton->setTexture("igor/icons/addModel.png");
+    addModelButton->setTexture("igor_icon_add_model");
     addModelButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddModel));
 
     iWidgetButton *addGroupButton = new iWidgetButton();
@@ -83,7 +83,7 @@ void UserControlGraphView::initGUI()
     addGroupButton->setWidth(30);
     addGroupButton->setHeight(30);
     addGroupButton->setTooltip("Add group node. Used to create node hierarchies in the scene.");
-    addGroupButton->setTexture("igor/icons/addGroup.png");
+    addGroupButton->setTexture("igor_icon_add_group");
     addGroupButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddGroup));
 
     iWidgetButton *addEmitterButton = new iWidgetButton();
@@ -91,7 +91,7 @@ void UserControlGraphView::initGUI()
     addEmitterButton->setWidth(30);
     addEmitterButton->setHeight(30);
     addEmitterButton->setTooltip("Add emitter node. To emit particles from.");
-    addEmitterButton->setTexture("igor/icons/addEmitter.png");
+    addEmitterButton->setTexture("igor_icon_add_emitter");
     addEmitterButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddEmitter));
 
     iWidgetButton *addParticleSystemButton = new iWidgetButton();
@@ -99,7 +99,7 @@ void UserControlGraphView::initGUI()
     addParticleSystemButton->setWidth(30);
     addParticleSystemButton->setHeight(30);
     addParticleSystemButton->setTooltip("Add particle system node. Needs emitter node to function");
-    addParticleSystemButton->setTexture("igor/icons/addParticleSystem.png");
+    addParticleSystemButton->setTexture("igor_icon_add_particle_system");
     addParticleSystemButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddParticleSystem));
 
     iWidgetButton *addSwitchButton = new iWidgetButton();
@@ -107,7 +107,7 @@ void UserControlGraphView::initGUI()
     addSwitchButton->setWidth(30);
     addSwitchButton->setHeight(30);
     addSwitchButton->setTooltip("Add switch node. This node can switch the active state of it's child nodes. Only the active node will be visible.");
-    addSwitchButton->setTexture("igor/icons/addSwitch.png");
+    addSwitchButton->setTexture("igor_icon_add_switch");
     addSwitchButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddSwitch));
 
     iWidgetGroupBox *groupBox = new iWidgetGroupBox();
@@ -148,25 +148,25 @@ iaString UserControlGraphView::getIconTexture(iNodeType type)
     switch (type)
     {
     case iNodeType::iNodeCamera:
-        return "igor/icons/camera.png";
+        return "igor_icon_camera";
     case iNodeType::iNodeLight:
-        return "igor/icons/light.png";
+        return "igor_icon_light";
     case iNodeType::iNodeMesh:
-        return "igor/icons/mesh.png";
+        return "igor_icon_mesh";
     case iNodeType::iNodeModel:
-        return "igor/icons/model.png";
+        return "igor_icon_model";
     case iNodeType::iNodeSkyBox:
-        return "igor/icons/skybox.png";
+        return "igor_icon_skybox";
     case iNodeType::iNode:
-        return "igor/icons/group.png";
+        return "igor_icon_group";
     case iNodeType::iNodeSwitch:
-        return "igor/icons/switch.png";
+        return "igor_icon_switch";
     case iNodeType::iNodeTransform:
-        return "igor/icons/transformation.png";
+        return "igor_icon_transformation";
     case iNodeType::iNodeEmitter:
-        return "igor/icons/emitter.png";
+        return "igor_icon_emitter";
     case iNodeType::iNodeParticleSystem:
-        return "igor/icons/particleSystem.png";
+        return "igor_icon_particleSystem";
 
     case iNodeType::iNodeRender:
     case iNodeType::Undefined:
@@ -346,7 +346,7 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
         }
         else
         {
-            icon->setTexture("igor/icons/root.png");
+            icon->setTexture("igor_icon_root");
             label->setText(node->getName());
         }
 

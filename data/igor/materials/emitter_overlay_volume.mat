@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="mica.emitterOverlay.volume" uuid="62617fbc-ced3-11ed-9dc0-cb282687853e" zIndex="MAX" visibility="Private">
+	<Material name="mica.emitterOverlay.volume" zIndex="MAX" visibility="Private">
 		<States>
             <DepthMask>Off</DepthMask>
             <Blend>On</Blend>

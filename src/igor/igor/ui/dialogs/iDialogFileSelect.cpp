@@ -283,11 +283,11 @@ namespace igor
         icon->setMaxSize(24, 24);
         if (isFolder)
         {
-            icon->setTexture("igor/icons/folder.png");
+            icon->setTexture("igor_icon_folder");
         }
         else
         {
-            icon->setTexture("igor/icons/file.png");
+            icon->setTexture("igor_icon_file");
         }
         entry->addWidget(icon, 0, 0);
 

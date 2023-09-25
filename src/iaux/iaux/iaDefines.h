@@ -70,7 +70,7 @@
 #define __IGOR_CDECL__ cdecl
 #define __IGOR_DEFAULTCALL__ __IGOR_CDECL__
 
-// configure windows environment
+// configure MSVC environment
 #ifdef _MSC_VER
 
     #define __IGOR_MSCOMPILER__
@@ -106,7 +106,7 @@
 
 #endif // IGOR_WINDOWS
 
-// configure linux environment
+// configure GCC environment
 #ifdef __GNUG__
 
     #define __IGOR_GCC__
@@ -120,8 +120,8 @@
         #define __IGOR_INLINE__ inline
     #endif
 
-    #define __IGOR_DISABLE_WARNING__(num) // TODO
-    #define __IGOR_ENABLE_WARNING__(num)  // TODO
+    #define __IGOR_DISABLE_WARNING__(num)
+    #define __IGOR_ENABLE_WARNING__(num)
 
     #define IAUX_API
     #define IAUX_API_EXPORT_ONLY
@@ -312,7 +312,5 @@ namespace iaux
 // id types
 typedef uint64 iaID64;
 typedef uint32 iaID32;
-typedef uint16 iaID16;
-typedef uint8 iaID8;
 
 #endif // __IAUX_DEFINES__

@@ -31,32 +31,32 @@
 
 #include <igor/iDefines.h>
 
-#include <map>
+#include <unordered_map>
 #include <any>
 #include <memory>
 
 namespace igor
 {
 
-    /*! a key value list of parameters
+    /*! parameters map definition
     */
+    typedef std::unordered_map<iaString, std::any> iParametersMap;
+
+    /*! a key value list of parameters
+     */
     class IGOR_API iParameters
     {
 
     public:
-
         /*! does nothing
-        */
+         */
         iParameters() = default;
 
         /*! init members
 
         \param parameters the parameters
         */
-        iParameters(const std::map<iaString, std::any> &parameters)
-        {
-            _parameters = parameters;
-        }
+        explicit iParameters(const iParametersMap &parameters);
 
         /*! \returns value for given parameter name
 
@@ -91,30 +91,43 @@ namespace igor
 
         \param name name of parameter
         */
-        bool hasParameter(const iaString &name) const
-        {
-            return _parameters.find(name) != _parameters.end();
-        }
+        bool hasParameter(const iaString &name) const;
 
         /*! sets value for given parameter
 
         \param name name of parameter
         \param value the value to set
         */
-        void setParameter(const iaString &name, const std::any value)
-        {
-            _parameters[name] = value;
-        }
+        void setParameter(const iaString &name, const std::any value);
+
+        /*! \returns all parameters
+        */
+        const iParametersMap& getParameters() const;
 
     private:
-
-        /*! parameters 
-        */
-        std::map<iaString, std::any> _parameters;
+        /*! parameters
+         */
+        iParametersMap _parameters;
     };
 
-    /*! parameters pointer definition
+    /*! stream parameters
+
+    \param stream the destination
+    \param parameters the parameters to stream
+    \returns the resulting stream
     */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iParameters &parameters);    
+
+    /*! stream std::any (well as long it's a type that we know about)
+
+    \param stream the stream
+    \param any the std::any data to stream
+    \return the resulting stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const std::any &any);
+
+    /*! parameters pointer definition
+     */
     typedef std::shared_ptr<iParameters> iParametersPtr;
 
 }

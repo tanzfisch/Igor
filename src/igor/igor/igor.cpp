@@ -10,8 +10,40 @@
 #include <iaux/system/iaDate.h>
 using namespace iaux;
 
-extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {L"sprite"};
-extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {L"png", L"jpg"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite"};
+extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
+extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat"};
+extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim"};
+extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
+
+extern const iaString IGOR_RESOURCE_MATERIAL = "material";
+extern const iaString IGOR_RESOURCE_ANIMATION = "animation";
+extern const iaString IGOR_RESOURCE_TEXTURE = "texture";
+extern const iaString IGOR_RESOURCE_SOUND = "sound";
+extern const iaString IGOR_RESOURCE_SPRITE = "sprite";
+extern const iaString IGOR_RESOURCE_MODEL = "model";
+
+extern const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
+extern const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode";
+extern const iaString IGOR_RESOURCE_PARAM_ID = "id";
+extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
+extern const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
+extern const iaString IGOR_RESOURCE_PARAM_FILENAME = "filename";
+extern const iaString IGOR_RESOURCE_PARAM_NODE = "node";
+extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
+extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
+extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE = "subType";
+extern const iaString IGOR_RESOURCE_PARAM_QUIET = "quiet";
+extern const iaString IGOR_RESOURCE_PARAM_MATERIAL = "material";
+extern const iaString IGOR_RESOURCE_PARAM_TARGET_MATERIAL = "targetMaterial";
+extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL = "physicsMaterial";
+extern const iaString IGOR_RESOURCE_PARAM_LOD = "lod";
+extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH = "keepMesh";
+extern const iaString IGOR_RESOURCE_PARAM_GENERATE = "generate";
+extern const iaString IGOR_RESOURCE_PARAM_SEED = "seed";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE = "texture";
 
 #ifdef IGOR_DEBUG
 extern const iaString IGOR_BUILD_CONFIGURATION = "debug";
@@ -125,7 +157,6 @@ namespace igor
         iKeyboard::create();
         iPhysics::create();
         iRenderer::create();
-        iMaterialResourceFactory::create();
         iWidgetManager::create();
         iSceneFactory::create();
         iNodeManager::create();
@@ -164,11 +195,6 @@ namespace igor
         if (iWidgetManager::isInstantiated())
         {
             iWidgetManager::destroy();
-        }
-
-        if (iMaterialResourceFactory::isInstantiated())
-        {
-            iMaterialResourceFactory::destroy();
         }
 
         if (iRenderer::isInstantiated())
@@ -212,7 +238,7 @@ namespace igor
         }
     }
 
-    void startup(const iaString &configname)
+    void startup()
     {
         // first things first
         iaux::startup();
@@ -241,7 +267,7 @@ namespace igor
 
         for (const auto &location : configLocations)
         {
-            iaFile file(location + __IGOR_PATHSEPARATOR__ + configname + ".xml");
+            iaFile file(location + __IGOR_PATHSEPARATOR__ + "igor.xml");
 
             if (file.exist())
             {
@@ -252,7 +278,7 @@ namespace igor
 
         if (configurationFilepath.isEmpty())
         {
-            con_crit("can't find config file for \"" << configname << "\"");
+            con_crit("can't find config file");
         }
 
         iConfigReader::create();

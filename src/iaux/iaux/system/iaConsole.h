@@ -105,7 +105,7 @@ namespace iaux
 
         con_endl
         */
-        User, // TODO need better name for this... or we can put it together with Info
+        User,
 
         /*! debug output
 
@@ -309,13 +309,14 @@ namespace iaux
     };
 
 #ifdef IGOR_DEBUG
-    /*! works like the original assert
 
-    will be fully removed in release build
+/*! works like the original assert
 
-    \param Condition a condition that returns false in case of an error
-    \param Message additional message output
-    */
+will be fully removed in release build
+
+\param Condition a condition that returns false in case of an error
+\param Message additional message output
+*/
 #define con_assert(Condition, Message)                                                                                    \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal && !(Condition))                                      \
     {                                                                                                                     \
@@ -362,10 +363,10 @@ including line feed
 
 /*! only called in debug mode
 
-    including line feed
+including line feed
 
-    \param Message message output
-    */
+\param Message message output
+*/
 #define con_trace_call()                                                                                                     \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Trace)                                                         \
     {                                                                                                                        \
@@ -375,15 +376,14 @@ including line feed
                                  << UNLOCK;                                                                                  \
     }
 
-#else // IGOR_DEBUG
-    // RELEASE BUILD
+#else // IGOR_DEBUG -> RELEASE BUILD
 
 #define con_assert(Condition, Message)
 #define con_debug(Message)
 #define con_trace(Message)
 #define con_trace_call()
 
-#endif
+#endif // RELEASE BUILD
 
 #define con_crit(Message)                                                                                                 \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal)                                                      \
@@ -437,8 +437,8 @@ including line feed
 
 /*! prints an warning message to console and optionally to the log file
 
-    \param Message message to be printed
-    */
+\param Message message to be printed
+*/
 #define con_warn(Message)                                                                           \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Warning)                              \
     {                                                                                               \
@@ -453,9 +453,8 @@ including line feed
 
 /*! prints an info message to console and optionally to the log file
 
-        \param Message message to be printed
-        \todo would be nice to have a fixed size of info type column
-        */
+\param Message message to be printed
+*/
 #define con_info(Message)                                                          \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Info)                \
     {                                                                              \
@@ -466,10 +465,10 @@ including line feed
     }
 
 /*! prints an message to console and optionally to the log file.
-        In addition it prints an end line at the end.
+    In addition it prints an end line at the end.
 
-        \param Message message to be printed
-        */
+    \param Message message to be printed
+    */
 #define con_endl(Message)                                                      \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::User)            \
     {                                                                          \

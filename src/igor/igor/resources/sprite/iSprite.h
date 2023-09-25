@@ -52,7 +52,6 @@ namespace igor
         friend class iSpriteFactory;
 
     public:
-
         /*! a frame defines an area within the texture that later can be rendered
          */
         struct iFrame
@@ -66,11 +65,11 @@ namespace igor
             can be used to position on screen
             */
             iaVector2f _pivot;
-        };   
+        };
 
         /*! \returns the amount of frames
          */
-        uint32 getFrameCount() const;     
+        uint32 getFrameCount() const;
 
         /*! returns frame for given index
 
@@ -83,7 +82,11 @@ namespace igor
 
         /*! \returns texture
          */
-        const iTexturePtr &getTexture() const;        
+        const iTexturePtr &getTexture() const;
+
+        /*! sets the texture of this sprite
+        */
+        void setTexture(iTexturePtr texture);
 
     private:
         /*! the sprite frames
@@ -98,7 +101,7 @@ namespace igor
 
         \param parameters the parameters of this sprite
         */
-        iSprite(const iParameters &parameters);        
+        iSprite(const iParameters &parameters);
 
         /*! adds a frame to the sprite
 
@@ -118,7 +121,6 @@ namespace igor
         \param pixel if true values are in pixel coordinates if false than 0.0-1.0
         */
         uint32 addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &pivot, bool pixel = true);
-     
     };
 
     /*! sprite pointer definition

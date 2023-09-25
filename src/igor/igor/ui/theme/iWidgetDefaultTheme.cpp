@@ -4,7 +4,6 @@
 
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/resources/iResourceManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <igor/resources/material/iMaterial.h>
 #include <igor/renderer/iRenderer.h>
@@ -65,10 +64,10 @@ namespace igor
 {
     __IGOR_DISABLE_WARNING__(4100)
 
-    iWidgetDefaultTheme::iWidgetDefaultTheme(const iaString &fontTexture, const iaString &backgroundTexture)
+    iWidgetDefaultTheme::iWidgetDefaultTheme(iTexturePtr fontTexture, iTexturePtr backgroundTexture)
     {
         _font = iTextureFont::create(fontTexture);
-        _backgroundTexture = iResourceManager::getInstance().loadResource<iTexture>(backgroundTexture);
+        _backgroundTexture = backgroundTexture;
     }
 
     iWidgetDefaultTheme::~iWidgetDefaultTheme()

@@ -26,7 +26,7 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
 
-        _texture = iResourceManager::getInstance().loadResource<iTexture>("igor/textures/checker.png");
+        _texture = iResourceManager::getInstance().loadResource<iTexture>("igor_texture_checker");
         _gradient.setValue(0.0, iaColor4f(1, 1, 1, 1));
     }
 

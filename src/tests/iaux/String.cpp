@@ -113,8 +113,22 @@ IAUX_TEST(StringTests, ToFloat)
 
 IAUX_TEST(StringTests, ToInt)
 {
-    IAUX_EXPECT_EQUAL(iaString::toInt(iaString(L"100")), 100);
-    IAUX_EXPECT_EQUAL(iaString::toInt(iaString(L"-344")), -344);
+    IAUX_EXPECT_EQUAL(iaString::toInt(L"100"), 100);
+    IAUX_EXPECT_EQUAL(iaString::toInt(L"-344"), -344);
+}
+
+IAUX_TEST(StringTests, ToUInt)
+{
+    IAUX_EXPECT_EQUAL(iaString::toUInt(iaString(L"100")), 100);
+    IAUX_EXPECT_EQUAL(iaString::toUInt(iaString(L"00344")), 344);
+
+    IAUX_EXPECT_EQUAL(iaString::toUInt(L"0110", 2), 6);
+    IAUX_EXPECT_EQUAL(iaString::toUInt(L"0144", 8), 100);
+
+    IAUX_EXPECT_EQUAL(iaString::toUInt(L"9E78", 16), 40568);
+    IAUX_EXPECT_EQUAL(iaString::toUInt(L"00FFff", 16), 65535);
+    IAUX_EXPECT_EQUAL(iaString::toUInt(L"e75297ed09818a4c", 16), 16668552215174154828ULL);
+    
 }
 
 IAUX_TEST(StringTests, ToString)

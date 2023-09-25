@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="igor.particles" uuid="0ab14d4a-7c0a-11ed-a986-27d5f6cc5c6e">
+	<Material name="igor.particles">
 		<States>
 			<DepthTest>On</DepthTest>
             <DepthMask>Off</DepthMask>
