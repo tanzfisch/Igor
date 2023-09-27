@@ -156,6 +156,39 @@ namespace igor
         _factories.erase(iter);
     }
 
+    static bool matchingFilename(iFactoryPtr factory, const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : factory->getSupportedExtensions())
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    static bool matchingType(iFactoryPtr factory, const iParameters &parameters)
+    {
+        if (parameters.getParameter<iaString>("type") == factory->getType())
+        {
+            return true;
+        }
+
+        if (matchingFilename(factory, parameters.getParameter<iaString>("filename")) ||
+            matchingFilename(factory, parameters.getParameter<iaString>("alias")))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     iFactoryPtr iResourceManager::getFactory(const iParameters &parameters)
     {
         const iaString type = parameters.getParameter<iaString>("type", "");
@@ -173,7 +206,7 @@ namespace igor
             return nullptr;
         }
 
-        if (!iter->second->matchingType(parameters))
+        if(!matchingType(iter->second, parameters))
         {
             con_err("Factory incompatible with given parameters");
             return nullptr;
@@ -308,7 +341,7 @@ namespace igor
             const iaString id = parameters.getParameter<iaString>("id", "");
             const iaString alias = parameters.getParameter<iaString>("alias", "");
             const iaString filename = parameters.getParameter<iaString>("filename", "");
-            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");            
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");
             return nullptr;
         }
 
@@ -663,7 +696,7 @@ namespace igor
         const iaString filename = resolvePath(alias);
         if (iaFile::exist(filename))
         {
-            param.setParameter("filename", filename);            
+            param.setParameter("filename", filename);
             param.setParameter("id", _resourceDictionary.addResource(alias));
         }
 

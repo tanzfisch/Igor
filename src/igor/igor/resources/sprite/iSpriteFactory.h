@@ -46,12 +46,6 @@ namespace igor
          */
         iSpriteFactory();
 
-        /*! \returns true if resource parameters are supported by this factory
-
-        \param parameters the given resource parameters
-        */
-        bool matchingType(const iParameters &parameters) const override;
-
         /*! creates a resource object
 
         \param parameters the resource parameters

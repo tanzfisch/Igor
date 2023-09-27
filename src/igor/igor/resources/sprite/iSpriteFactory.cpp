@@ -15,7 +15,7 @@ namespace igor
 {
 
     iSpriteFactory::iSpriteFactory()
-        : iFactory(IGOR_RESOURCE_SPRITE)
+        : iFactory(IGOR_RESOURCE_SPRITE, IGOR_SUPPORTED_SPRITE_EXTENSIONS)
     {
     }
 
@@ -122,22 +122,6 @@ namespace igor
     void iSpriteFactory::unloadResource(iResourcePtr resource)
     {
         // nothing else to do here
-    }
-
-    bool iSpriteFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        if (isSprite(parameters.getParameter<iaString>("filename")) ||
-            isSprite(parameters.getParameter<iaString>("alias")))
-        {
-            return true;
-        }
-
-        return false;
     }
 
 }; // namespace igor

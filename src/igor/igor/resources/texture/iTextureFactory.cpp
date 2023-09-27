@@ -19,24 +19,8 @@ namespace igor
     iaMutex iTextureFactory::_mutexImageLibrary;
 
     iTextureFactory::iTextureFactory()
-        : iFactory(IGOR_RESOURCE_TEXTURE)
+        : iFactory(IGOR_RESOURCE_TEXTURE, IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
     {
-    }
-
-    static bool isTexture(const iaString &filename)
-    {
-        iaFile file(filename);
-        const iaString &fileExtension = file.getExtension();
-
-        for (const auto &extension : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     iResourcePtr iTextureFactory::createResource(const iParameters &parameters)
@@ -252,22 +236,6 @@ namespace igor
         }
 
         return hashData;
-    }
-
-    bool iTextureFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        if (isTexture(parameters.getParameter<iaString>("filename")) ||
-            isTexture(parameters.getParameter<iaString>("alias")))
-        {
-            return true;
-        }
-
-        return false;
     }
 
     iPixmapPtr iTextureFactory::loadPixmap(const iaString &filename)

@@ -15,7 +15,7 @@ namespace igor
 {
 
     iAnimationFactory::iAnimationFactory()
-    : iFactory(IGOR_RESOURCE_ANIMATION)
+    : iFactory(IGOR_RESOURCE_ANIMATION, IGOR_SUPPORTED_ANIMATION_EXTENSIONS)
     {
     }
 
@@ -193,38 +193,6 @@ namespace igor
     iaString iAnimationFactory::getHashData(const iParameters &parameters) const
     {
         return "";
-    }
-
-    static bool isAnimation(const iaString &filename)
-    {
-        iaFile file(filename);
-        const iaString &fileExtension = file.getExtension();
-
-        for (const auto &extension : IGOR_SUPPORTED_ANIMATION_EXTENSIONS)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }    
-
-    bool iAnimationFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        if (isAnimation(parameters.getParameter<iaString>("filename")) ||
-            isAnimation(parameters.getParameter<iaString>("alias")))
-        {
-            return true;
-        }
-
-        return false;
     }
 
 }; // namespace igor
