@@ -16,24 +16,8 @@ namespace igor
 {
 
     iModelFactory::iModelFactory()
-        : iFactory(IGOR_RESOURCE_MODEL)
+        : iFactory(IGOR_RESOURCE_MODEL, IGOR_SUPPORTED_MODEL_EXTENSIONS)
     {
-    }
-
-    static bool isModel(const iaString &filename)
-    {
-        iaFile file(filename);
-        const iaString &fileExtension = file.getExtension();
-
-        for (const auto &extension : IGOR_SUPPORTED_MODEL_EXTENSIONS)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     class iModelDeleter
@@ -119,22 +103,6 @@ namespace igor
         // TODO
 
         return hashData;
-    }
-
-    bool iModelFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        if (isModel(parameters.getParameter<iaString>("filename")) ||
-            isModel(parameters.getParameter<iaString>("alias")))
-        {
-            return true;
-        }
-
-        return false;
     }
 
     void iModelFactory::registerModelDataIO(const iaString &identifier, iCreateModelDataIOInstance functionPointer)

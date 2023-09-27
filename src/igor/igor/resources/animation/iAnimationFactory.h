@@ -48,12 +48,6 @@ namespace igor
          */
         iAnimationFactory();
 
-        /*! \returns true if resource parameters are supported by this factory
-
-        \param parameters the given resource parameters
-        */
-        bool matchingType(const iParameters &parameters) const override;
-
         /*! \returns resource type specific hash data
          */
         iaString getHashData(const iParameters &parameters) const override;

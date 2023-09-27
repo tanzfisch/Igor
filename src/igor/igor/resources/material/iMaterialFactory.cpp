@@ -14,24 +14,8 @@ namespace igor
 {
 
     iMaterialFactory::iMaterialFactory()
-        : iFactory(IGOR_RESOURCE_MATERIAL)
+        : iFactory(IGOR_RESOURCE_MATERIAL, IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
     {
-    }
-
-    static bool isMaterial(const iaString &filename)
-    {
-        iaFile file(filename);
-        const iaString &fileExtension = file.getExtension();
-
-        for (const auto &extension : IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)
@@ -73,22 +57,6 @@ namespace igor
         // TODO if anything
 
         return hashData;
-    }
-
-    bool iMaterialFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        if (isMaterial(parameters.getParameter<iaString>("filename")) ||
-            isMaterial(parameters.getParameter<iaString>("alias")))
-        {
-            return true;
-        }
-
-        return false;
     }
 
 }; // namespace igor

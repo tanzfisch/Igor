@@ -45,8 +45,8 @@ namespace igor
     public:
         /*! does nothing
          */
-        iFactory(const iaString &type)
-            : _type(type)
+        iFactory(const iaString &type, const std::vector<iaString> &supportedExtensions)
+            : _type(type), _supportedExtensions(supportedExtensions)
         {
         }
 
@@ -63,17 +63,21 @@ namespace igor
             return _type;
         }
 
+        /*! \returns supported file extensions or subtypes
+         */
+        const std::vector<iaString> &getSupportedExtensions() const
+        {
+            return _supportedExtensions;
+        }
+
     protected:
         /*! the factory type
          */
         iaString _type;
 
-        /*! \returns true if resource parameters are supported by this factory
-
-        \param name the name of the resource
-        \param parameters the given resource parameters
-        */
-        virtual bool matchingType(const iParameters &parameters) const = 0;
+        /*! supported file extensions or subtypes
+         */
+        std::vector<iaString> _supportedExtensions;
 
         /*! \returns resource type specific hash data
          */

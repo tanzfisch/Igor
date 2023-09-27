@@ -15,24 +15,8 @@ namespace igor
 {
 
     iSoundFactory::iSoundFactory()
-        : iFactory(IGOR_RESOURCE_SOUND)
+        : iFactory(IGOR_RESOURCE_SOUND, IGOR_SUPPORTED_SOUND_EXTENSIONS)
     {
-    }
-
-    static bool isSound(const iaString &filename)
-    {
-        iaFile file(filename);
-        const iaString &fileExtension = file.getExtension();
-
-        for (const auto &extension : IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     iResourcePtr iSoundFactory::createResource(const iParameters &parameters)
@@ -98,22 +82,6 @@ namespace igor
     {
         // there is no type specific data for sounds at this point
         return L"";
-    }
-
-    bool iSoundFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        if (isSound(parameters.getParameter<iaString>("filename")) ||
-            isSound(parameters.getParameter<iaString>("alias")))
-        {
-            return true;
-        }
-
-        return false;
     }
 
 }; // namespace igor
