@@ -238,7 +238,7 @@ void VoxelExample::prepareMeshGeneration()
         {IGOR_RESOURCE_PARAM_ALIAS, iaString("VoxelMesh") + iaString::toString(_incarnation++)},
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
         {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
-        {IGOR_RESOURCE_PARAM_SUB_TYPE, iaString("example.vtg")},
+        {IGOR_RESOURCE_PARAM_SUB_TYPE, "example.vtg"},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
         {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
         {IGOR_RESOURCE_PARAM_KEEP_MESH, true},

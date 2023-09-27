@@ -23,7 +23,10 @@ namespace igor
 
     iParameters::iParameters(const std::unordered_map<iaString, std::any> &parameters)
     {
-        _parameters = parameters;
+        for (const auto &pair : parameters)
+        {
+            setParameter(pair.first, pair.second);
+        }
     }
 
     bool iParameters::hasParameter(const iaString &name) const
@@ -33,7 +36,26 @@ namespace igor
 
     void iParameters::setParameter(const iaString &name, const std::any value)
     {
-        _parameters[name] = value;
+        if (value.type() == typeid(const char *))
+        {
+            _parameters[name] = iaString(std::any_cast<const char *>(value));
+        }
+        else if (value.type() == typeid(const wchar_t *))
+        {
+            _parameters[name] = iaString(std::any_cast<const wchar_t *>(value));
+        }
+        else if (value.type() == typeid(std::string))
+        {
+            _parameters[name] = iaString(std::any_cast<std::string>(value).c_str());
+        }
+        else if (value.type() == typeid(std::wstring))
+        {
+            _parameters[name] = iaString(std::any_cast<std::wstring>(value).c_str());
+        }
+        else
+        {
+            _parameters[name] = value;
+        }
     }
 
     const std::unordered_map<iaString, std::any> &iParameters::getParameters() const
@@ -238,11 +260,11 @@ namespace igor
         else if (any.type() == typeid(iTextureWrapMode))
         {
             stream << (iTextureWrapMode)std::any_cast<iTextureWrapMode>(any);
-        }     
+        }
         else if (any.type() == typeid(iResourceManagerLoadMode))
         {
             stream << (iResourceManagerLoadMode)std::any_cast<iResourceManagerLoadMode>(any);
-        }                              
+        }
         else
         {
             stream << "duh";

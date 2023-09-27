@@ -550,8 +550,8 @@ namespace igor
         _data->_currentMaterial.reset();
 
         ////////////// generate textures //////////
-        iParameters paramFallback({// {IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                                   {IGOR_RESOURCE_PARAM_ALIAS, iaString("igor_fallback_texture")},
+        iParameters paramFallback({{IGOR_RESOURCE_PARAM_ID, iaUUID(0x1337000001)},
+                                   {IGOR_RESOURCE_PARAM_ALIAS, "igor_fallback_texture"},
                                    {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                    {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                    {IGOR_RESOURCE_PARAM_GENERATE, true},
@@ -563,8 +563,8 @@ namespace igor
 
         _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
 
-        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                                {IGOR_RESOURCE_PARAM_ALIAS, iaString("igor_texture_white")},
+        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID(0x1337000002)},
+                                {IGOR_RESOURCE_PARAM_ALIAS, "igor_texture_white"},
                                 {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                 {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                 {IGOR_RESOURCE_PARAM_GENERATE, true},

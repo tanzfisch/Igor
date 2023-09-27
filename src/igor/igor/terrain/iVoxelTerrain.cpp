@@ -1254,7 +1254,7 @@ namespace igor
 
                     iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, tileName},
                                             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
-                                            {IGOR_RESOURCE_PARAM_SUB_TYPE, iaString("igor.vtg")},
+                                            {IGOR_RESOURCE_PARAM_SUB_TYPE, "igor.vtg"},
                                             {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
                                             {IGOR_RESOURCE_PARAM_QUIET, true},
                                             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
