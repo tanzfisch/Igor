@@ -61,7 +61,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         _standardFont = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"));
 
         // prepare igor logo
-        iParameters param({{IGOR_RESOURCE_PARAM_ALIAS, iaString("igor_logo_splash")},
+        iParameters param({{IGOR_RESOURCE_PARAM_ALIAS, "igor_logo_splash"},
                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                            {IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Normal}});
         _igorLogo = iResourceManager::getInstance().loadResource<iTexture>(param);

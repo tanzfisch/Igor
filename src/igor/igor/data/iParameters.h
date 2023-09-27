@@ -66,26 +66,7 @@ namespace igor
         \param defaultValue the given default value
         */
         template <typename T>
-        T getParameter(const iaString &name, const T &defaultValue = T()) const
-        {
-            auto iter = _parameters.find(name);
-            if (iter == _parameters.end())
-            {
-                return defaultValue;
-            }
-
-            try
-            {
-                return std::any_cast<T>(iter->second);
-            }
-            catch (const std::exception &e)
-            {
-                // common mistake is to use a string but not make it an iaString
-                con_crit("invalid any cast");
-            }
-
-            return T();
-        }
+        T getParameter(const iaString &name, const T &defaultValue = T()) const;
 
         /*! \returns true if given key exists
 
@@ -109,6 +90,8 @@ namespace igor
          */
         iParametersMap _parameters;
     };
+
+#include <igor/data/iParameters.inl>
 
     /*! stream parameters
 

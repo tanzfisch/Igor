@@ -173,7 +173,7 @@ uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, u
 	iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++)},
 							{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
 							{IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
-							{IGOR_RESOURCE_PARAM_SUB_TYPE, iaString("pmg")},
+							{IGOR_RESOURCE_PARAM_SUB_TYPE, "pmg"},
 							{IGOR_RESOURCE_PARAM_GENERATE, true},
 							{IGOR_RESOURCE_PARAM_QUIET, true},
 							{"lsystem", &_lSystem},
