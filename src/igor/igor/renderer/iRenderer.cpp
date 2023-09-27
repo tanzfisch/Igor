@@ -1869,9 +1869,7 @@ namespace igor
 
                 if (_data->_currentMaterial->hasTextureUnit(texUnit))
                 {
-                    std::stringstream shaderProperty;
-                    shaderProperty << SAMPLER_TEXTURE << texUnit;
-                    _data->_currentMaterial->setInt(shaderProperty.str().c_str(), texUnit);
+                    _data->_currentMaterial->setInt(iRendererUtils::getTextureSamplerName(texUnit), texUnit);
 
                     if (texture == nullptr ||
                         texture->useFallback())

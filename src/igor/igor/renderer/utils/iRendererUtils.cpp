@@ -376,4 +376,12 @@ namespace igor
 
         return stream;
     }
+
+    iaString iRendererUtils::getTextureSamplerName(uint32 texUnit)
+    {
+        iaString result = SAMPLER_TEXTURE;
+        result += iaString::toString(texUnit);
+        return result;
+    }
+
 }
