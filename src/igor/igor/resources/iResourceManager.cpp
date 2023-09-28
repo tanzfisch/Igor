@@ -67,7 +67,7 @@ namespace igor
         // now check if it was actually released
         if (!_resources.empty())
         {
-            con_err("Possible memory leak. Not all resources were released.");
+            con_warn("Possible memory leak. Not all resources were released.");
 
             con_endl("Unreleased resources: ");
             for (auto resource : _resources)
@@ -172,7 +172,6 @@ namespace igor
         return false;
     }
 
-
     static bool matchingType(iFactoryPtr factory, const iParameters &parameters)
     {
         if (parameters.getParameter<iaString>("type") == factory->getType())
@@ -206,7 +205,7 @@ namespace igor
             return nullptr;
         }
 
-        if(!matchingType(iter->second, parameters))
+        if (!matchingType(iter->second, parameters))
         {
             con_err("Factory incompatible with given parameters");
             return nullptr;
@@ -242,6 +241,8 @@ namespace igor
         if (resourceIter != _resources.end())
         {
             result = resourceIter->second;
+
+            con_debug("cache hit " << result->getType() << " " << result->getInfo());
         }
         _mutex.unlock();
 
@@ -250,9 +251,10 @@ namespace igor
 
     iResourcePtr iResourceManager::createResource(iFactoryPtr factory, const iParameters &parameters)
     {
-        iResourcePtr resource = factory->createResource(parameters);
-        con_debug("created resource " << resource->getType() << " " << resource->getInfo());
-        return resource;
+        iResourcePtr result = factory->createResource(parameters);
+
+        con_debug("created resource " << result->getType() << " " << result->getInfo());
+        return result;
     }
 
     iResourcePtr iResourceManager::requestResource(const iParameters &parameters)
@@ -285,6 +287,8 @@ namespace igor
         if (resourceIter != _resources.end())
         {
             result = resourceIter->second;
+
+            con_debug("cache hit " << result->getType() << " " << result->getInfo());
         }
         else
         {
@@ -354,6 +358,8 @@ namespace igor
         if (resourceIter != _resources.end())
         {
             result = resourceIter->second;
+
+            con_debug("cache hit " << result->getType() << " " << result->getInfo());
 
             // remove from load queue because we will load it right away
             auto iter = std::find(_loadingQueue.begin(), _loadingQueue.end(), result);

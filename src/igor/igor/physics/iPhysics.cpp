@@ -149,7 +149,7 @@ namespace igor
 
         if (!_bodies.empty())
         {
-            con_warn("possible mem leak! " << iaString::toString(_bodies.size()) << " physics bodys left");
+            con_warn("possible memory leak! " << iaString::toString(_bodies.size()) << " physics bodys left");
             auto bodies = _bodies;
 
             for (auto pair : bodies)
@@ -160,7 +160,7 @@ namespace igor
 
         if (!_collisions.empty())
         {
-            con_warn("possible mem leak! " << iaString::toString(_collisions.size()) << " physics collisions left");
+            con_warn("possible memory leak! " << iaString::toString(_collisions.size()) << " physics collisions left");
             auto collisions = _collisions;
 
             for (auto pair : collisions)
