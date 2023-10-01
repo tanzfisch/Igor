@@ -153,7 +153,7 @@ namespace igor
             */
             iMaterialPtr _material;
 
-            /*! the nodes rendered with this materal
+            /*! the nodes rendered with this material
             */
             std::vector<iNodeRenderPtr> _renderNodes;
 

@@ -22,7 +22,7 @@ namespace igor
     {
         if (_timerHandles.size())
         {
-            con_warn("possible mem leak. Unregister all timer handles");
+            con_warn("possible memory leak. Unregister all timer handles");
         }
     }
 

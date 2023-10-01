@@ -38,7 +38,7 @@
 namespace igor
 {
 
-    /*! Node that is a renderable and has a volume therefore relevant for the octree structure
+    /*! Node that is a render-able and has a volume therefore relevant for the octree structure
 	*/
     class iNodeVolume : public iNodeRender
     {

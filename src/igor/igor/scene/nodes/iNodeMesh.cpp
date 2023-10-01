@@ -49,7 +49,7 @@ namespace igor
     {
         iNode::getInfo(info);
 
-        iaString customInfo(L"vtx:");
+        iaString topologyInfo(L"vtx:");
 
         uint32 vertexCount = 0;
         uint32 trianglesCount = 0;
@@ -62,21 +62,27 @@ namespace igor
             indexesCount = _mesh->getIndexCount();
         }
 
-        customInfo += iaString::toString(vertexCount);
-        customInfo += L" tri:";
-        customInfo += iaString::toString(trianglesCount);
-        customInfo += L" idx:";
-        customInfo += iaString::toString(indexesCount);
+        topologyInfo += iaString::toString(vertexCount);
+        topologyInfo += L" tri:";
+        topologyInfo += iaString::toString(trianglesCount);
+        topologyInfo += L" idx:";
+        topologyInfo += iaString::toString(indexesCount);
 
         if (_mesh != nullptr)
         {
-            customInfo += L" texUni:";
-            customInfo += iaString::toString(_mesh->getTextureUnitCount());
-            customInfo += L" texCrd:";
-            customInfo += iaString::toString(_mesh->getTextureCoordinatesCount());
+            topologyInfo += L" texUni:";
+            topologyInfo += iaString::toString(_mesh->getTextureUnitCount());
+            topologyInfo += L" texCrd:";
+            topologyInfo += iaString::toString(_mesh->getTextureCoordinatesCount());
         }
 
-        info.push_back(customInfo);
+        info.push_back(topologyInfo);
+
+        iaString materialInfo("material:");
+        iMaterialPtr material = getMaterial();
+        materialInfo += ((material == nullptr) ? iaString("none") : material->getInfo());
+
+        info.push_back(materialInfo);
     }
 
     void iNodeMesh::setTargetMaterial(const iTargetMaterialPtr &targetMaterial)
