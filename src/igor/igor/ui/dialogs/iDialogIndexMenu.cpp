@@ -9,9 +9,7 @@
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
+#include <igor/resources/iResourceManager.h>
 
 namespace igor
 {
@@ -98,7 +96,7 @@ namespace igor
 			if (!pictures[i].isEmpty())
 			{
 				iWidgetPicture *picture = new iWidgetPicture();
-				picture->setTexture(pictures[i]);
+				picture->setTexture(iResourceManager::getInstance().loadResource<iTexture>(pictures[i]));
 				picture->setMaxSize(20, 20);
 				grid->addWidget(picture, 0, i);
 			}

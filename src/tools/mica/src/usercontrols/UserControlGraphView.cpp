@@ -341,12 +341,12 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
 
         if (node->getParent() != nullptr)
         {
-            icon->setTexture(getIconTexture(node->getType()));
+            icon->setTexture(iResourceManager::getInstance().loadResource<iTexture>(getIconTexture(node->getType())));
             label->setText(node->getName());
         }
         else
         {
-            icon->setTexture("igor_icon_root");
+            icon->setTexture(iResourceManager::getInstance().loadResource<iTexture>("igor_icon_root"));
             label->setText(node->getName());
         }
 

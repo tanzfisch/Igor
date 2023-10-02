@@ -8,9 +8,7 @@
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/iResourceManager.h>
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
+#include <igor/ui/actions/iActionManager.h>
 
 namespace igor
 {
@@ -25,6 +23,54 @@ namespace igor
     iWidgetButton::~iWidgetButton()
     {
         _texture = nullptr;
+    }
+
+    void iWidgetButton::setAction(const iActionPtr action, const iActionContextPtr context)
+    {
+        if (!iActionManager::getInstance().isRegistered(action))
+        {
+            con_err("can't use unregistered action");
+            return;
+        }
+
+        if(_action != nullptr)
+        {
+            unregisterOnClickEvent(iClickDelegate(this, &iWidgetButton::onInternalClick));
+        }
+
+        _action = action;
+        _actionContext = context;
+
+        if (_action == nullptr)
+        {
+            return;
+        }
+
+        registerOnClickEvent(iClickDelegate(this, &iWidgetButton::onInternalClick));
+
+        setText(_action->getBrief());
+        setTooltip(_action->getDescription());
+        setTexture(_action->getIcon());
+    }
+
+    void iWidgetButton::onInternalClick(const iWidgetPtr source)
+    {
+        if(_action == nullptr)
+        {
+            return;
+        }
+        
+        _action->execute(*_actionContext);
+    }
+
+    iActionContextPtr iWidgetButton::getActionContext() const
+    {
+        return _actionContext;
+    }
+
+    iActionPtr iWidgetButton::getAction() const
+    {
+        return _action;
     }
 
     void iWidgetButton::setText(const iaString &text)
@@ -56,14 +102,22 @@ namespace igor
         int32 minWidth = 0;
         int32 minHeight = 0;
 
-        if (isGrowingByContent() &&
-            !_text.isEmpty())
+        if (isGrowingByContent())
         {
-            float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-            int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
+            if (!_text.isEmpty())
+            {
+                float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+                int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
 
-            minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
-            minHeight = static_cast<int32>(fontSize * 1.5f);
+                minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
+                minHeight = static_cast<int32>(fontSize * 1.5f);
+            }
+            else if(_texture != nullptr)
+            {
+                // we don't actually want it to scale with the texture size since the texture is considered a background
+                minWidth = 16;
+                minHeight = 16;
+            }
         }
 
         setMinSize(minWidth, minHeight);

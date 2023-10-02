@@ -6,7 +6,7 @@
 ActionDeleteNode::ActionDeleteNode()
     : iAction("mica:deleteNodes")
 {
-    setPicturePath("igor_icon_delete");
+    setIcon("igor_icon_delete");
     setDescription("delete");
 }
 
@@ -39,7 +39,7 @@ bool ActionDeleteNode::isCompatible(const iActionContext &context)
 ActionCopyNode::ActionCopyNode()
     : iAction("mica:copyNodes")
 {
-    setPicturePath("igor_icon_copy");
+    setIcon("igor_icon_copy");
     setDescription("copy");
 }
 
@@ -68,7 +68,7 @@ bool ActionCopyNode::isCompatible(const iActionContext &context)
 ActionPasteNode::ActionPasteNode()
     : iAction("mica:pasteNodes")
 {
-    setPicturePath("igor_icon_paste");
+    setIcon("igor_icon_paste");
     setDescription("paste");
 }
 
@@ -92,7 +92,7 @@ bool ActionPasteNode::isCompatible(const iActionContext &context)
 ActionCutNode::ActionCutNode()
     : iAction("mica:cutNodes")
 {
-    setPicturePath("igor_icon_cut");
+    setIcon("igor_icon_cut");
     setDescription("cut");
 }
 
@@ -121,7 +121,7 @@ bool ActionCutNode::isCompatible(const iActionContext &context)
 ActionAddTransform::ActionAddTransform()
     : iAction("mica:addTransform")
 {
-    setPicturePath("igor_icon_add_transformation");
+    setIcon("igor_icon_add_transformation");
     setDescription("add transformation");
 }
 
@@ -159,7 +159,7 @@ bool ActionAddTransform::isCompatible(const iActionContext &context)
 ActionAddGroup::ActionAddGroup()
     : iAction("mica:addGroup")
 {
-    setPicturePath("igor_icon_add_group");
+    setIcon("igor_icon_add_group");
     setDescription("add group");
 }
 
@@ -197,7 +197,7 @@ bool ActionAddGroup::isCompatible(const iActionContext &context)
 ActionAddSwitch::ActionAddSwitch()
     : iAction("mica:addSwitch")
 {
-    setPicturePath("igor_icon_add_switch");
+    setIcon("igor_icon_add_switch");
     setDescription("add switch");
 }
 
@@ -235,7 +235,7 @@ bool ActionAddSwitch::isCompatible(const iActionContext &context)
 ActionAddEmitter::ActionAddEmitter()
     : iAction("mica:addEmitter")
 {
-    setPicturePath("igor_icon_add_emitter");
+    setIcon("igor_icon_add_emitter");
     setDescription("add emitter");
 }
 
@@ -273,7 +273,7 @@ bool ActionAddEmitter::isCompatible(const iActionContext &context)
 ActionAddParticleSystem::ActionAddParticleSystem()
     : iAction("mica:addParticleSystem")
 {
-    setPicturePath("igor_icon_add_particle_system");
+    setIcon("igor_icon_add_particle_system");
     setDescription("add particle system");
 }
 
@@ -311,7 +311,7 @@ bool ActionAddParticleSystem::isCompatible(const iActionContext &context)
 ActionAddModel::ActionAddModel()
     : iAction("mica:addModel")
 {
-    setPicturePath("igor_icon_add_model");
+    setIcon("igor_icon_add_model");
     setDescription("add model");
 }
 
@@ -335,7 +335,7 @@ bool ActionAddModel::isCompatible(const iActionContext &context)
 ActionBakeMeshToWorld::ActionBakeMeshToWorld()
     : iAction("mica:bakeMeshToWorld")
 {
-    // TODO setPicturePath("igor_icon_add_model");
+    // TODO setIcon("igor_icon_add_model");
     setDescription("bake mesh to world");
 }
 
