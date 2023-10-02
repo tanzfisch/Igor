@@ -95,7 +95,7 @@ namespace igor
 
         /*! font size
 		*/
-        float32 _fontSize = 12;
+        float32 _fontSize = 14;
 
         /*! font line height
 		*/

@@ -37,7 +37,8 @@ namespace igor
 
         _grid = new iWidgetGrid(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
-        _grid->setHighlightMode(iSelectionMode::Row);
+        _grid->setHighlightMode(iSelectionMode::NoSelection);
+        _grid->setCellSpacing(0);
     }
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
@@ -81,7 +82,10 @@ namespace igor
 
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        button->setHeight(25);
         button->setAction(action, context);
+        button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+        
         button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
 
         _grid->addWidget(button, 0, _grid->getRowCount() - 1);
@@ -92,9 +96,11 @@ namespace igor
     {
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        button->setHeight(25);
         button->setText(title);
         button->setTooltip(description);
         button->setIcon(iconAlias);
+        button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
         button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
         button->registerOnClickEvent(delegate);
 

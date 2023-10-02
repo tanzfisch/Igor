@@ -196,7 +196,7 @@ namespace igor
 
     void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool active)
     {
-        const int32 reduction = 2;
+        const int32 reduction = 0;
         int32 offset = 0;
         if (state == iWidgetState::Pressed)
         {
@@ -264,7 +264,7 @@ namespace igor
             {
             case iHorizontalAlignment::Left:
             {
-                iaRectanglef picRect(rect.getLeft() - (offset + reduction / 2) - rect._height, rect._y + offset + reduction / 2, rect._height - reduction, rect._height - reduction);
+                iaRectanglef picRect(rect.getRight() - (offset + reduction / 2) - rect._height, rect._y + offset + reduction / 2, rect._height - reduction, rect._height - reduction);
                 drawPicture(picRect, icon, state, active);
             }
             break;

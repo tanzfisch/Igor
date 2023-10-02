@@ -41,20 +41,23 @@ iWidgetMenuBarPtr Outliner::createMenu()
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
 
     iWidgetMenuPtr fileMenu = new iWidgetMenu("File");
-    fileMenu->addCallback(iClickDelegate(this, &Outliner::onLoadFile), "Load File", "", "igor_icon_load");
+    /*fileMenu->addCallback(iClickDelegate(this, &Outliner::onLoadFile), "Create Project", "Loading file", "igor_icon_load");
+    fileMenu->addCallback(iClickDelegate(this, &Outliner::onLoadFile), "Load Project", "Loading file", "igor_icon_load");
+    fileMenu->addCallback(iClickDelegate(this, &Outliner::onLoadFile), "Save File", "Saving file", "igor_icon_save");
+    fileMenu->addSeparator();*/
+    fileMenu->addCallback(iClickDelegate(this, &Outliner::onLoadFile), "Load File", "Loading file", "igor_icon_load");
+    fileMenu->addCallback(iClickDelegate(this, &Outliner::onSaveFile), "Save File", "Saving file", "igor_icon_save");
     fileMenu->addSeparator();
     fileMenu->addAction("igor:exit");
     menuBar->addMenu(fileMenu);
 
-    /*gridButtons->addWidget(loadButton, 0, 0);
-    gridButtons->addWidget(saveButton, 1, 0);
-    gridButtons->addWidget(exitButton, 2, 0);
-    gridButtons->addWidget(new iWidgetSpacer(2, 20), 3, 0);
-    gridButtons->addWidget(cutButton, 4, 0);
-    gridButtons->addWidget(copyButton, 5, 0);
-    gridButtons->addWidget(pasteButton, 6, 0);
-    gridButtons->addWidget(new iWidgetSpacer(2, 20), 7, 0);
-    gridButtons->addWidget(deleteButton, 8, 0);*/
+    iWidgetMenuPtr editMenu = new iWidgetMenu("Edit");
+    editMenu->addCallback(iClickDelegate(this, &Outliner::onCut), "Cut", "Cut selection", "igor_icon_cut");
+    editMenu->addCallback(iClickDelegate(this, &Outliner::onCopy), "Copy", "Copy selection", "igor_icon_copy");
+    editMenu->addCallback(iClickDelegate(this, &Outliner::onPaste), "Paste", "Paste from clipboard", "igor_icon_paste");
+    editMenu->addSeparator();
+    editMenu->addCallback(iClickDelegate(this, &Outliner::onDelete), "Delete", "Delete selection", "igor_icon_delete");
+    menuBar->addMenu(editMenu);    
 
     return menuBar;
 }
@@ -100,59 +103,11 @@ void Outliner::initGUI()
     iWidgetCheckBox::endRadioButtonGroup();
     checkBoxGraph->setChecked();
 
-    iWidgetButtonPtr loadButton = new iWidgetButton();
-    loadButton->setText("");
-    loadButton->setWidth(30);
-    loadButton->setHeight(30);
-    loadButton->setTooltip("Load file");
-    loadButton->setTexture("igor_icon_load");
-    loadButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onLoadFile));
-
-    iWidgetButtonPtr saveButton = new iWidgetButton();
-    saveButton->setText("");
-    saveButton->setWidth(30);
-    saveButton->setHeight(30);
-    saveButton->setTooltip("Save file");
-    saveButton->setTexture("igor_icon_save");
-    saveButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
-
     iWidgetButtonPtr exitButton = new iWidgetButton();
     exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
     exitButton->setText("");
     exitButton->setWidth(30);
     exitButton->setHeight(30);
-
-    iWidgetButtonPtr cutButton = new iWidgetButton();
-    cutButton->setText("");
-    cutButton->setWidth(30);
-    cutButton->setHeight(30);
-    cutButton->setTooltip("Cut selection");
-    cutButton->setTexture("igor_icon_cut");
-    cutButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCut));
-
-    iWidgetButtonPtr copyButton = new iWidgetButton();
-    copyButton->setText("");
-    copyButton->setWidth(30);
-    copyButton->setHeight(30);
-    copyButton->setTooltip("Copy selection");
-    copyButton->setTexture("igor_icon_copy");
-    copyButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
-
-    iWidgetButtonPtr pasteButton = new iWidgetButton();
-    pasteButton->setText("");
-    pasteButton->setWidth(30);
-    pasteButton->setHeight(30);
-    pasteButton->setTooltip("paste from clipboard");
-    pasteButton->setTexture("igor_icon_paste");
-    pasteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
-
-    iWidgetButtonPtr deleteButton = new iWidgetButton();
-    deleteButton->setText("");
-    deleteButton->setWidth(30);
-    deleteButton->setHeight(30);
-    deleteButton->setTooltip("delete selection");
-    deleteButton->setTexture("igor_icon_delete");
-    deleteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
 
     iWidgetMenuBarPtr menuBar = createMenu();
     _grid->addWidget(menuBar, 0, 0);
