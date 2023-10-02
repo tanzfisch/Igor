@@ -94,12 +94,10 @@ void Outliner::initGUI()
     saveButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
 
     iWidgetButtonPtr exitButton = new iWidgetButton();
+    exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
     exitButton->setText("");
     exitButton->setWidth(30);
     exitButton->setHeight(30);
-    exitButton->setTooltip("Exit Mica");
-    exitButton->setTexture("igor_icon_exit");
-    exitButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onExitMica));
 
     iWidgetButtonPtr cutButton = new iWidgetButton();
     cutButton->setText("");

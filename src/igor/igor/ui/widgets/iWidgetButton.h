@@ -30,10 +30,8 @@
 #define __IGOR_WIDGETBUTTON__
 
 #include <igor/ui/widgets/iWidget.h>
+#include <igor/ui/actions/iAction.h>
 #include <igor/resources/texture/iTexture.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
 
 #include <memory>
 
@@ -56,6 +54,21 @@ namespace igor
 		*/
         virtual ~iWidgetButton();
 
+        /*! sets the action this widget is associated with
+
+        \param action the action to be set
+        */
+        void setAction(const iActionPtr action, const iActionContextPtr context = nullptr);
+
+        /*! \returns action that is associated with this widget
+        */
+        iActionPtr getAction() const;
+
+
+        /*! \returns action context
+        */
+        iActionContextPtr getActionContext() const;
+
         /*! sets text of the widget
 
         \param text new text to set
@@ -66,9 +79,9 @@ namespace igor
         */
         const iaString &getText() const;
 
-        /*! sets horrizotnal text aligment
+        /*! sets horizontal text alignment
 
-        \param align the horizontal allignment of the text
+        \param align the horizontal alignment of the text
         */
         void setHorizontalTextAlignment(iHorizontalAlignment align);
 
@@ -76,9 +89,9 @@ namespace igor
         */
         iHorizontalAlignment getHorizontalTextAlignment() const;
 
-        /*! sets vertical text aligment
+        /*! sets vertical text alignment
 
-        \param valign the vertical allignment of the text
+        \param valign the vertical alignment of the text
         */
         void setVerticalTextAlignment(iVerticalAlignment valign);
 
@@ -116,6 +129,18 @@ namespace igor
         /*! texture path
         */
         iaString _texturePath;
+
+        /*! the action
+        */
+        iActionPtr _action;
+
+        /*! the action context
+        */
+        iActionContextPtr _actionContext;        
+
+        /*! internal click handler
+        */
+        void onInternalClick(const iWidgetPtr source);
 
         /*! updates size based on it's content
         */

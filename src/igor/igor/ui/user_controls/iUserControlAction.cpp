@@ -8,9 +8,7 @@
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
+#include <igor/resources/iResourceManager.h>
 
 namespace igor
 {
@@ -71,14 +69,14 @@ namespace igor
         if (_action == nullptr)
         {
             _textLabel->setText("");
-            _picture->setTexture("");
+            _picture->setTexture(nullptr);
             _picture->setSize(_fixPictureSize ? 16 : 0, 16);
             _picture->setMaxSize(_fixPictureSize ? 16 : 0, 16);
         }
         else
         {
-            _textLabel->setText(_action->getDescription());
-            _picture->setTexture(_action->getPicturePath());
+            _textLabel->setText(_action->getBrief());
+            _picture->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_action->getIcon()));
             if (_picture->hasTexture())
             {
                 _picture->setSize(16, 16);

@@ -13,6 +13,7 @@
 #include <igor/ui/widgets/iWidgetMenuBar.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
+#include <igor/resources/iResourceManager.h>
 
 namespace igor
 {
@@ -51,7 +52,7 @@ namespace igor
         _picture = new iWidgetPicture();
         _picture->setMaxSize(8, 8);
         _picture->setKeepAspectRatio(false);
-        _picture->setTexture("igor_icon_right");
+        _picture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("igor_icon_right"));
 
         grid->addWidget(_picture, 2, 0);
 

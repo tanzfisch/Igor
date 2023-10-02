@@ -13,6 +13,7 @@
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaFile.h>
@@ -283,11 +284,11 @@ namespace igor
         icon->setMaxSize(24, 24);
         if (isFolder)
         {
-            icon->setTexture("igor_icon_folder");
+            icon->setTexture(iResourceManager::getInstance().loadResource<iTexture>("igor_icon_folder"));
         }
         else
         {
-            icon->setTexture("igor_icon_file");
+            icon->setTexture(iResourceManager::getInstance().loadResource<iTexture>("igor_icon_file"));
         }
         entry->addWidget(icon, 0, 0);
 

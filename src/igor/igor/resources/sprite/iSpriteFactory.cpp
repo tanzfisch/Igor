@@ -115,7 +115,7 @@ namespace igor
             return false;
         }
 
-        con_debug("loaded sprite \"" << sprite->getInfo() << "\" with " << sprite->getFrameCount() << " frames.");
+        con_trace("loaded sprite \"" << sprite->getInfo() << "\" with " << sprite->getFrameCount() << " frames.");
         return true;
     }
 

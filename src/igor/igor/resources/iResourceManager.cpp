@@ -242,7 +242,7 @@ namespace igor
         {
             result = resourceIter->second;
 
-            con_debug("cache hit " << result->getType() << " " << result->getInfo());
+            con_trace("cache hit " << result->getType() << " " << result->getInfo());
         }
         _mutex.unlock();
 
@@ -253,7 +253,7 @@ namespace igor
     {
         iResourcePtr result = factory->createResource(parameters);
 
-        con_debug("created resource " << result->getType() << " " << result->getInfo());
+        con_trace("created resource " << result->getType() << " " << result->getInfo());
         return result;
     }
 
@@ -288,7 +288,7 @@ namespace igor
         {
             result = resourceIter->second;
 
-            con_debug("cache hit " << result->getType() << " " << result->getInfo());
+            con_trace("cache hit " << result->getType() << " " << result->getInfo());
         }
         else
         {
@@ -359,7 +359,7 @@ namespace igor
         {
             result = resourceIter->second;
 
-            con_debug("cache hit " << result->getType() << " " << result->getInfo());
+            con_trace("cache hit " << result->getType() << " " << result->getInfo());
 
             // remove from load queue because we will load it right away
             auto iter = std::find(_loadingQueue.begin(), _loadingQueue.end(), result);

@@ -107,18 +107,14 @@ namespace igor
 		}
 	}
 
-	const iaString &iWidgetPicture::getTexture() const
+	iTexturePtr iWidgetPicture::getTexture() const
 	{
-		return _texturePath;
+		return _texture;
 	}
 
-	void iWidgetPicture::setTexture(const iaString &texturePath)
+	void iWidgetPicture::setTexture(iTexturePtr texture)
 	{
-		if (_texturePath != texturePath)
-		{
-			_texturePath = texturePath;
-			_texture = iResourceManager::getInstance().loadResource<iTexture>(_texturePath);
-		}
+		_texture = texture;
 	}
 
 } // namespace igor

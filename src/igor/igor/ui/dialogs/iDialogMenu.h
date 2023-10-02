@@ -53,7 +53,7 @@ namespace igor
 		*/
         iDialogMenu(const iWidgetPtr parent = nullptr);
 
-        /*! deinitializes gui
+        /*! de initializes gui
 		*/
         virtual ~iDialogMenu() = default;
 
@@ -68,7 +68,7 @@ namespace igor
 
         /*! same as add actions just by action name
 
-        requires that the action we are searchign for was already registered to the action manager
+        requires that the action we are searching for was already registered to the action manager
 
         \param actionName name of the action to be added
         */

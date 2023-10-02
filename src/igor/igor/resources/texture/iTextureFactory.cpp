@@ -192,7 +192,7 @@ namespace igor
         };
 
         texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-        con_debug("loaded texture \"" << texture->getInfo() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_trace("loaded texture \"" << texture->getInfo() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         _mutexImageLibrary.lock();
@@ -280,7 +280,7 @@ namespace igor
         pixmap = iPixmap::createPixmap(width, height, colorFormat);
         pixmap->setData(textureData);
 
-        con_debug("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
+        con_trace("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
 
         _mutexImageLibrary.lock();
         stbi_image_free(textureData);

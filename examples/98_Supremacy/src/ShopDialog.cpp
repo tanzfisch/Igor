@@ -48,9 +48,10 @@ void ShopDialog::updateGUI(int coins)
 	_labelDescription2->setText(shopItem2._description);
 	_labelDescription3->setText(shopItem3._description);
 
-	_picture1->setTexture(shopItem1._icon);
-	_picture2->setTexture(shopItem2._icon);
-	_picture3->setTexture(shopItem3._icon);
+	
+	_picture1->setTexture(iResourceManager::getInstance().loadResource<iTexture>(shopItem1._icon));
+	_picture2->setTexture(iResourceManager::getInstance().loadResource<iTexture>(shopItem2._icon));
+	_picture3->setTexture(iResourceManager::getInstance().loadResource<iTexture>(shopItem3._icon));
 
 	_labelPrice1->setText(iaString("$") + iaString::toString(shopItem1._price));
 	_labelPrice2->setText(iaString("$") + iaString::toString(shopItem2._price));
@@ -176,7 +177,7 @@ void ShopDialog::initGUI()
 
 	_labelCoins = new iWidgetLabel();
 	iWidgetPicturePtr coinPicture = new iWidgetPicture();
-	coinPicture->setTexture("example_texture_supremacy_coin");
+	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("example_texture_supremacy_coin"));
 
 	iWidgetButton *buyButton = new iWidgetButton();
 	buyButton->setSize(50, 20);

@@ -13,7 +13,7 @@ public:
         : iAction("example:one")
     {
         setDescription("Action One");
-        setPicturePath("igor_icon_camera");
+        setIcon("igor_icon_camera");
     }
 
     /*! executed when action gets triggered
@@ -73,7 +73,7 @@ public:
     Action3()
         : iAction("example:three")
     {
-        setPicturePath("igor_icon_delete");
+        setIcon("igor_icon_delete");
     }
 
     /*! executed when action gets triggered
@@ -103,7 +103,7 @@ public:
     Action4()
         : iAction("example:four")
     {
-        setPicturePath("igor_icon_delete");
+        setIcon("igor_icon_delete");
     }
 
     /*! executed when action gets triggered
@@ -237,14 +237,12 @@ void WidgetsExample::onInit()
     gridMain->addWidget(gridButtons, 0, 1);
 
     iWidgetButton *exitButton = new iWidgetButton();
+    exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
     exitButton->setText("");
-    exitButton->setTooltip("Exists the application.");
-    exitButton->setTexture("igor_icon_exit");
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);
     exitButton->setHorizontalAlignment(iHorizontalAlignment::Center);
     exitButton->setSize(24, 24);
-    exitButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onExitClick));
     gridButtons->addWidget(exitButton, 0, 0);
 
     // controls on the left

@@ -63,7 +63,7 @@ namespace igor
                 break;
             }
 
-            con_debug("loaded sound \"" << sound->getInfo() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
+            con_trace("loaded sound \"" << sound->getInfo() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
         }
 
         delete[] buffer;

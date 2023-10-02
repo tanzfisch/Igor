@@ -30,9 +30,7 @@
 #define __IGOR_ACTION__
 
 #include <igor/ui/actions/iActionContext.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/resources/texture/iTexture.h>
 
 namespace igor
 {
@@ -45,7 +43,9 @@ namespace igor
     public:
         /*! init members
 
-		\param name the unique name of this action
+		\param name the identifier of this action
+
+        must be a unique name so it can be registered with the action manager
 		*/
         iAction(const iaString &name);
 
@@ -71,36 +71,45 @@ namespace igor
 
         /*! sets text of action
 
-		\param text the new text
+		\param brief the brief description
+        \param description the full description
 		*/
-        void setDescription(const iaString &description);
+        void setDescription(const iaString &brief, const iaString &description = "");
 
-        /*! \returns the action text
+        /*! \returns the brief description
+		*/
+        const iaString &getBrief() const;
+
+        /*! \returns the full description
 		*/
         const iaString &getDescription() const;
 
-        /*! sets path to a picture for the action
+        /*! sets icon of the action
 
-		\param filename the new text
+		\param alias alias or id of icon
 		*/
-        void setPicturePath(const iaString &filename);
+        void setIcon(const iaString &alias);
 
-        /*! \returns the action picture file path
+        /*! \returns the icon texture of this action
 		*/
-        const iaString &getPicturePath() const;
+        const iaString &getIcon() const;
 
     private:
         /*! name of the action
 		*/
         iaString _name;
 
+        /*! brief description of the action
+		*/
+        iaString _brief;
+
         /*! description of the action
 		*/
         iaString _description;
 
-        /*! path to picture of action
+        /*! icon of action
 		*/
-        iaString _picture;
+        iaString _alias;
     };
 
     /*! action pointer definition
