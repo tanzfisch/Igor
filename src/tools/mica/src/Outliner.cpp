@@ -36,6 +36,29 @@ Outliner::~Outliner()
     deinitGUI();
 }
 
+iWidgetMenuBarPtr Outliner::createMenu()
+{
+    iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
+
+    iWidgetMenuPtr fileMenu = new iWidgetMenu("File");
+    fileMenu->addCallback(iClickDelegate(this, &Outliner::onLoadFile), "Load File", "", "igor_icon_load");
+    fileMenu->addSeparator();
+    fileMenu->addAction("igor:exit");
+    menuBar->addMenu(fileMenu);
+
+    /*gridButtons->addWidget(loadButton, 0, 0);
+    gridButtons->addWidget(saveButton, 1, 0);
+    gridButtons->addWidget(exitButton, 2, 0);
+    gridButtons->addWidget(new iWidgetSpacer(2, 20), 3, 0);
+    gridButtons->addWidget(cutButton, 4, 0);
+    gridButtons->addWidget(copyButton, 5, 0);
+    gridButtons->addWidget(pasteButton, 6, 0);
+    gridButtons->addWidget(new iWidgetSpacer(2, 20), 7, 0);
+    gridButtons->addWidget(deleteButton, 8, 0);*/
+
+    return menuBar;
+}
+
 void Outliner::initGUI()
 {
     _messageBox = new iDialogMessageBox();
@@ -131,16 +154,8 @@ void Outliner::initGUI()
     deleteButton->setTexture("igor_icon_delete");
     deleteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
 
-    _grid->addWidget(gridButtons, 0, 0);
-    gridButtons->addWidget(loadButton, 0, 0);
-    gridButtons->addWidget(saveButton, 1, 0);
-    gridButtons->addWidget(exitButton, 2, 0);
-    gridButtons->addWidget(new iWidgetSpacer(2, 20), 3, 0);
-    gridButtons->addWidget(cutButton, 4, 0);
-    gridButtons->addWidget(copyButton, 5, 0);
-    gridButtons->addWidget(pasteButton, 6, 0);
-    gridButtons->addWidget(new iWidgetSpacer(2, 20), 7, 0);
-    gridButtons->addWidget(deleteButton, 8, 0);
+    iWidgetMenuBarPtr menuBar = createMenu();
+    _grid->addWidget(menuBar, 0, 0);
 
     _grid->addWidget(gridRadioButtons, 0, 1);
     gridRadioButtons->addWidget(checkBoxGraph, 0, 0);

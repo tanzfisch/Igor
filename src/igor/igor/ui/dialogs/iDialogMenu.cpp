@@ -4,13 +4,13 @@
 
 #include <igor/ui/dialogs/iDialogMenu.h>
 
-#include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/widgets/iWidgetMenu.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
+#include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/actions/iActionManager.h>
-#include <igor/ui/user_controls/iUserControlAction.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -52,7 +52,7 @@ namespace igor
         close();
     }
 
-    void iDialogMenu::addSpacer()
+    void iDialogMenu::addSeparator()
     {
         iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 2, true);
         spacer->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -79,13 +79,26 @@ namespace igor
             return;
         }
 
-        iUserControlActionPtr userControlAction = new iUserControlAction();
-        userControlAction->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        userControlAction->setAction(action, context);
-        userControlAction->setFixedPictureSize();
-        userControlAction->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+        iWidgetButtonPtr button = new iWidgetButton();
+        button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        button->setAction(action, context);
+        button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
 
-        _grid->addWidget(userControlAction, 0, _grid->getRowCount() - 1);
+        _grid->addWidget(button, 0, _grid->getRowCount() - 1);
+        _grid->appendRows(1);
+    }
+
+    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
+    {
+        iWidgetButtonPtr button = new iWidgetButton();
+        button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        button->setText(title);
+        button->setTooltip(description);
+        button->setTexture(iconAlias);
+        button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->registerOnClickEvent(delegate);
+
+        _grid->addWidget(button, 0, _grid->getRowCount() - 1);
         _grid->appendRows(1);
     }
 

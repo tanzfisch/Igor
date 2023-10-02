@@ -12,6 +12,7 @@ Changelog                           {#changelog}
   (resource ids are not generated from the resource name or filename anymore)s
 - introducing projects
 - introducing interface to create empty/default resources (depends on what the factories do with it)
+- replaced iUserControlAction with iWidgetButton
 
 0.42.0
 ------

@@ -961,7 +961,6 @@ namespace igor
             "iWidgetSpacer",
             "iWidgetLineTextEdit",
             "iUserControl",
-            "iUserControlAction",
             "iUserControlColorChooser",
             "iUserControlFileChooser",
             "iDialog",

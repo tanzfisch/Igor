@@ -53,7 +53,7 @@ namespace igor
     public:
         /*! set mouse to center of currently focused window
 
-        \param supressMoveEvent if true supress next mouse event
+        \param suppressMoveEvent if true suppress next mouse event
 		*/
         void setCenter();
 
@@ -61,14 +61,14 @@ namespace igor
 
 		\param x horizontal position of the mouse cursor in pixel
 		\param y vertical position of the mouse cursor in pixel
-        \param supressMoveEvent if true supress next mouse event
+        \param suppressMoveEvent if true suppress next mouse event
 		*/
         void setPosition(int32 x, int32);
 
         /*! set mouse to a position relative to currently focussed window
 
         \param pos horizontal and vertical position of the mouse cursor in pixel
-        \param supressMoveEvent if true supress next mouse event
+        \param suppressMoveEvent if true suppress next mouse event
         */
         void setPosition(const iaVector2i &pos);
 

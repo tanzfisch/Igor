@@ -25,6 +25,11 @@ namespace igor
         _texture = nullptr;
     }
 
+    void iWidgetButton::setAction(const iaString &actionName, const iActionContextPtr context)
+    {
+        setAction(iActionManager::getInstance().getAction(actionName), context);
+    }
+
     void iWidgetButton::setAction(const iActionPtr action, const iActionContextPtr context)
     {
         if (!iActionManager::getInstance().isRegistered(action))

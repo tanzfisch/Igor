@@ -57,8 +57,16 @@ namespace igor
         /*! sets the action this widget is associated with
 
         \param action the action to be set
+        \param context the optional action context
         */
         void setAction(const iActionPtr action, const iActionContextPtr context = nullptr);
+
+        /*! sets the action this widget is associated with by action name
+
+        \param actionName the action to be set
+        \param context the optional action context
+        */
+        void setAction(const iaString &actionName, const iActionContextPtr context);
 
         /*! \returns action that is associated with this widget
         */

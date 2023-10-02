@@ -4,7 +4,7 @@
 
 #include "UserControlGraphView.h"
 
-#include "../actions/ActionContext.h"
+#include "../actions/MicaActionContext.h"
 
 UserControlGraphView::UserControlGraphView(WorkspacePtr workspace, Outliner *outliner) // TODO UserControlGraphView should not know the Outliner
     : _outliner(outliner), _workspace(workspace)
@@ -192,7 +192,7 @@ void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
 
 iActionContextPtr UserControlGraphView::getContext()
 {
-    return iActionContextPtr(new ActionContext(_workspace, _outliner));
+    return iActionContextPtr(new MicaActionContext(_workspace, _outliner));
 }
 
 void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
@@ -210,7 +210,7 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
     _graphContextMenu->setX(pos._x);
     _graphContextMenu->setY(pos._y);
 
-    ActionContext *actionContext = new ActionContext(_workspace, _outliner);
+    MicaActionContext *actionContext = new MicaActionContext(_workspace, _outliner);
     iActionContextPtr ac(actionContext);
 
     if (!actionContext->getWorkspace()->getSelection().empty())
@@ -227,14 +227,14 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
         _graphContextMenu->addMenu(addMenu);
     }
 
-    _graphContextMenu->addSpacer();
+    _graphContextMenu->addSeparator();
 
     _graphContextMenu->addAction("mica:cutNodes", ac);
     _graphContextMenu->addAction("mica:copyNodes", ac);
     _graphContextMenu->addAction("mica:pasteNodes", ac);
     _graphContextMenu->addAction("mica:deleteNodes", ac);
 
-    _graphContextMenu->addSpacer();
+    _graphContextMenu->addSeparator();
 
     iWidgetMenuPtr actionsMenu = new iWidgetMenu();
     actionsMenu->setTitle("Actions");

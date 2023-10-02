@@ -150,7 +150,6 @@ namespace igor
         iWidgetTextEdit,
 
         iUserControl,
-        iUserControlAction,
         iUserControlColorChooser,
         iUserControlFileChooser,
 

@@ -32,10 +32,12 @@
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetMenu.h>
 
 namespace igor
 {
+
+    class iWidgetMenu;
+    typedef iWidgetMenu *iWidgetMenuPtr;
 
     /*! menu dialog
 
@@ -74,6 +76,15 @@ namespace igor
         */
         void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
 
+        /*! add callback entry to menu
+
+        \param delegate the delegate that will be called on click
+        \param title the title or brief description
+        \param description the full description (used as tooltip)
+        \param iconAlias an alias or id for texture resource
+        */
+        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "");
+
         /*! adds a menu to the menu
 
         \param menu the menu to add
@@ -82,7 +93,7 @@ namespace igor
 
         /*! adds a spacer
         */
-        void addSpacer();
+        void addSeparator();
 
         /*! shows the dialog on screen
 

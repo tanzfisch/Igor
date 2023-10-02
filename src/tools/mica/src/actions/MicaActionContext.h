@@ -33,13 +33,13 @@
 
 /*! mica action context
 */
-class ActionContext : public iActionContext
+class MicaActionContext : public iActionContext
 {
 
 public:
     /*! init members
     */
-    ActionContext(WorkspacePtr workspace, Outliner *outliner)
+    MicaActionContext(WorkspacePtr workspace, Outliner *outliner)
         : _workspace(workspace), _outliner(outliner)
     {
     }

@@ -4,23 +4,21 @@
 
 #include <igor/ui/widgets/iWidgetMenu.h>
 
-#include <igor/ui/widgets/iWidgetLabel.h>
+
 #include <igor/ui/widgets/iWidgetGrid.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/dialogs/iDialogMenu.h>
 #include <igor/ui/widgets/iWidgetMenuBar.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/resources/iResourceManager.h>
 
 namespace igor
 {
-    iWidgetMenu::iWidgetMenu(const iWidgetPtr parent)
+    iWidgetMenu::iWidgetMenu(const iaString &title, const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetMenu, iWidgetKind::Widget, parent)
     {
         init();
+        setTitle(title);
     }
 
     iWidgetMenu::~iWidgetMenu()
@@ -80,6 +78,11 @@ namespace igor
             _spacer->setSize(16, 16);
             _picture->setMaxSize(8, 8);
         }
+    }
+
+    void iWidgetMenu::addSeparator()
+    {
+        _dialogMenu->addSeparator();
     }
 
     void iWidgetMenu::onParentChanged()
@@ -153,7 +156,12 @@ namespace igor
 
     void iWidgetMenu::addAction(const iActionPtr action, const iActionContextPtr context)
     {
-        _dialogMenu->addAction(action, context);
+        _dialogMenu->addAction(action, context);        
+    }
+
+    void iWidgetMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
+    {
+        _dialogMenu->addCallback(delegate, title, description, iconAlias);
     }
 
     void iWidgetMenu::addAction(const iaString &actionName, const iActionContextPtr context)

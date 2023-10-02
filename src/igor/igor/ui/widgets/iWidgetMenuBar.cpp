@@ -8,8 +8,8 @@
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/user_controls/iUserControlAction.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetButton.h>
 
 namespace igor
 {
@@ -49,9 +49,10 @@ namespace igor
             return;
         }
 
-        iUserControlActionPtr userControlAction = new iUserControlAction();
-        userControlAction->setAction(action, context);
-        _grid->addWidget(userControlAction, _grid->getColumnCount() - 1, 0);
+        iWidgetButtonPtr button = new iWidgetButton();
+        button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        button->setAction(action, context);
+        _grid->addWidget(button, _grid->getColumnCount() - 1, 0);
 
         _grid->appendColumns(1);
         _grid->setStretchColumn(_grid->getColumnCount() - 1);

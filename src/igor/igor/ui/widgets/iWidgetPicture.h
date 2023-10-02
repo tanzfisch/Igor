@@ -121,6 +121,11 @@ namespace igor
          */
         void draw();
     };
+
+    /*! widget picture pointer definition
+    */
+    typedef iWidgetPicture *iWidgetPicturePtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETPICTURE__

@@ -139,6 +139,8 @@ private:
     void initGUI();
     void deinitGUI();
 
+    iWidgetMenuBarPtr createMenu();
+
     void deinitGraphView();
     void initGraphView();
 
