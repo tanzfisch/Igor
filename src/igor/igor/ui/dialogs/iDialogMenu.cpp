@@ -94,7 +94,7 @@ namespace igor
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         button->setText(title);
         button->setTooltip(description);
-        button->setTexture(iconAlias);
+        button->setIcon(iconAlias);
         button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
         button->registerOnClickEvent(delegate);
 

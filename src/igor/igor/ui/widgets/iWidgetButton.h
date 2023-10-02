@@ -72,7 +72,6 @@ namespace igor
         */
         iActionPtr getAction() const;
 
-
         /*! \returns action context
         */
         iActionContextPtr getActionContext() const;
@@ -107,15 +106,37 @@ namespace igor
         */
         iVerticalAlignment getVerticalTextAlignment() const;
 
-        /*! sets the texture to use for the button
+        /*! sets the background texture to use for the whole button by name
 
-        \param texturePath path to texture
+        \param textureAlias alias or id to texture
         */
-        void setTexture(const iaString &texturePath);
+        void setTexture(const iaString &textureAlias);
 
-        /*! \returns texture path
+        /*! sets the background texture to use for the whole button
+
+        \param texture the texture
         */
-        const iaString &getTexture() const;
+        void setTexture(iTexturePtr texture);
+
+        /*! sets the icon texture by name
+
+        the icon is rendered in the foreground.
+        if there is no text then centred
+        if there is text then on the opposite side of the text        
+
+        \param iconAlias alias or id to icon texture
+        */
+        void setIcon(const iaString &iconAlias);
+
+        /*! sets the icon texture
+
+        the icon is rendered in the foreground.
+        if there is no text then centred
+        if there is text then on the opposite side of the text        
+
+        \param texture the texture to use
+        */
+        void setIcon(iTexturePtr texture);
 
     protected:
         /*! the horizontal alignment
@@ -130,13 +151,13 @@ namespace igor
         */
         iaString _text;
 
-        /*! the buttons texture
+        /*! the background texture
         */
         iTexturePtr _texture;
 
-        /*! texture path
+        /*! the icon texture
         */
-        iaString _texturePath;
+        iTexturePtr _iconTexture;
 
         /*! the action
         */

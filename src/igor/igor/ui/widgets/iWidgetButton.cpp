@@ -38,7 +38,7 @@ namespace igor
             return;
         }
 
-        if(_action != nullptr)
+        if (_action != nullptr)
         {
             unregisterOnClickEvent(iClickDelegate(this, &iWidgetButton::onInternalClick));
         }
@@ -55,16 +55,16 @@ namespace igor
 
         setText(_action->getBrief());
         setTooltip(_action->getDescription());
-        setTexture(_action->getIcon());
+        setIcon(_action->getIcon());
     }
 
     void iWidgetButton::onInternalClick(const iWidgetPtr source)
     {
-        if(_action == nullptr)
+        if (_action == nullptr)
         {
             return;
         }
-        
+
         _action->execute(*_actionContext);
     }
 
@@ -88,18 +88,24 @@ namespace igor
         return _text;
     }
 
-    void iWidgetButton::setTexture(const iaString &texturePath)
+    void iWidgetButton::setIcon(const iaString &iconAlias)
     {
-        if (_texturePath != texturePath)
-        {
-            _texturePath = texturePath;
-            _texture = iResourceManager::getInstance().loadResource<iTexture>(_texturePath);
-        }
+        setIcon(iResourceManager::getInstance().loadResource<iTexture>(iconAlias));
     }
 
-    const iaString &iWidgetButton::getTexture() const
+    void iWidgetButton::setIcon(iTexturePtr texture)
     {
-        return _texturePath;
+        _iconTexture = texture;
+    }    
+
+    void iWidgetButton::setTexture(const iaString &textureAlias)
+    {
+        setTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+    }
+
+    void iWidgetButton::setTexture(iTexturePtr texture)
+    {
+        _texture = texture;
     }
 
     void iWidgetButton::calcMinSize()
@@ -117,7 +123,7 @@ namespace igor
                 minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
                 minHeight = static_cast<int32>(fontSize * 1.5f);
             }
-            else if(_texture != nullptr)
+            else if (_texture != nullptr)
             {
                 // we don't actually want it to scale with the texture size since the texture is considered a background
                 minWidth = 16;
@@ -152,7 +158,7 @@ namespace igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getState(), isEnabled());
+            iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled());
         }
     }
 

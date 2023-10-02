@@ -293,7 +293,7 @@ namespace igor
             _sliderButton._rectangle.setY(getActualPosY());
             _sliderButton._rectangle.setX(getActualPosX() + static_cast<int32>(offset));
 
-            iWidgetManager::getInstance().getTheme()->drawButton(_sliderButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _sliderButton._appearanceState, isEnabled());
+            iWidgetManager::getInstance().getTheme()->drawButton(_sliderButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, _sliderButton._appearanceState, isEnabled());
         }
     }
 

@@ -60,6 +60,8 @@ static const iaColor4f COLOR_BLACK = {0.0f, 0.0f, 0.0f, 1.0f};
 static const iaColor4f COLOR_TEXT = {0.2f, 0.2f, 0.2f, 1.0f};
 static const iaColor4f COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f};
 
+static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
+
 namespace igor
 {
     __IGOR_DISABLE_WARNING__(4100)
@@ -192,7 +194,7 @@ namespace igor
         DRAW_DEBUG_OUTPUT(rect, state);
     }
 
-    void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetState state, bool active)
+    void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool active)
     {
         const int32 reduction = 2;
         int32 offset = 0;
@@ -255,6 +257,34 @@ namespace igor
 
         iaRectanglef textRect(textX + offset, textY + offset, 0, 0);
         drawButtonText(textRect, text);
+
+        if (icon != nullptr)
+        {
+            switch (align)
+            {
+            case iHorizontalAlignment::Left:
+            {
+                iaRectanglef picRect(rect.getLeft() - (offset + reduction / 2) - rect._height, rect._y + offset + reduction / 2, rect._height - reduction, rect._height - reduction);
+                drawPicture(picRect, icon, state, active);
+            }
+            break;
+
+            case iHorizontalAlignment::Center:
+                if (text.isEmpty())
+                {
+                    iaRectanglef picRect(rect._x + offset + reduction / 2 + rect._width * 0.5, rect._y + offset + reduction / 2, rect._height - reduction, rect._height - reduction);
+                    drawPicture(picRect, icon, state, active);
+                }
+                break;
+
+            case iHorizontalAlignment::Right:
+            {
+                iaRectanglef picRect(rect._x + offset + reduction / 2, rect._y + offset + reduction / 2, rect._height - reduction, rect._height - reduction);
+                drawPicture(picRect, icon, state, active);
+            }
+            break;
+            };
+        }
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }
@@ -382,7 +412,7 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
 
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);        
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }
@@ -408,8 +438,8 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
 
-        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + 1, rect._height, rect._height / 2 - 1), "+", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_up, active);
-        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + rect._height / 2, rect._height, rect._height / 2 - 1), "-", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_down, active);
+        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + 1, rect._height, rect._height / 2 - 1), "+", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, state_button_up, active);
+        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + rect._height / 2, rect._height, rect._height / 2 - 1), "-", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, state_button_down, active);
     }
 
     void iWidgetDefaultTheme::drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool active)
@@ -434,7 +464,7 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
 
         iaRectanglef buttonRect(rect._x + rect._width - rect._height, rect._y + 1, rect._height - 1, rect._height - 2);
-        drawButton(buttonRect, "V", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, buttonState, active);
+        drawButton(buttonRect, "V", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, buttonState, active);
     }
 
     void iWidgetDefaultTheme::drawSelectBoxDropDown(const iaRectanglef &rect, std::vector<iaString> &text, int highlightIndex, bool active)
@@ -686,19 +716,19 @@ namespace igor
 
     void iWidgetDefaultTheme::drawButtonFrame(const iaRectanglef &rect, iWidgetState state, bool active)
     {
-        const iaColor4f &diffuse = active ? COLOR_DIFFUSE : COLOR_DIFFUSE_DARK;
+        const iaColor4f &diffuse = active ? COLOR_BUTTON_DEFAULT : COLOR_DIFFUSE_DARK;
 
         switch (state)
         {
         case iWidgetState::Pressed:
             iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
 
-            iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+            /*iRenderer::getInstance().setLineWidth(_defaultLineWidth);
             iRenderer::getInstance().drawLine(rect._x, rect._y, rect._width + rect._x, rect._y, COLOR_AMBIENT);
             iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._height + rect._y, COLOR_AMBIENT);
 
             iRenderer::getInstance().drawLine(rect._width + rect._x, rect._y, rect._width + rect._x, rect._height + rect._y, COLOR_SPECULAR);
-            iRenderer::getInstance().drawLine(rect._x, rect._height + rect._y, rect._width + rect._x, rect._height + rect._y, COLOR_SPECULAR);
+            iRenderer::getInstance().drawLine(rect._x, rect._height + rect._y, rect._width + rect._x, rect._height + rect._y, COLOR_SPECULAR);*/
             break;
 
         case iWidgetState::Highlighted:
@@ -708,12 +738,12 @@ namespace igor
         default:
             iRenderer::getInstance().drawFilledRectangle(rect, diffuse);
 
-            iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+            /*iRenderer::getInstance().setLineWidth(_defaultLineWidth);
             iRenderer::getInstance().drawLine(rect._x, rect._y, rect._width + rect._x, rect._y, COLOR_SPECULAR);
             iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._height + rect._y, COLOR_SPECULAR);
 
             iRenderer::getInstance().drawLine(rect._x, rect._height + rect._y, rect._width + rect._x, rect._height + rect._y, COLOR_AMBIENT);
-            iRenderer::getInstance().drawLine(rect._width + rect._x, rect._y, rect._width + rect._x, rect._height + rect._y, COLOR_AMBIENT);
+            iRenderer::getInstance().drawLine(rect._width + rect._x, rect._y, rect._width + rect._x, rect._height + rect._y, COLOR_AMBIENT);*/
             break;
         };
     }
