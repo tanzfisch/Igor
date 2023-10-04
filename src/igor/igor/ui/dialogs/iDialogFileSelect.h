@@ -45,12 +45,13 @@ namespace igor
     class iWidgetLineTextEdit;
     class iWidgetScroll;
 
-    /*! file dialog porpose definition
+    /*! file dialog purpose definition
 	*/
     enum class iFileDialogPurpose
     {
         Load,
-        Save
+        Save,
+        SelectFolder
     };
 
     /*! file select dialog
@@ -67,7 +68,7 @@ namespace igor
 		*/
         iDialogFileSelect(const iWidgetPtr parent = nullptr);
 
-        /*! deinitializes gui elements
+        /*! de-initializes gui elements
 		*/
         ~iDialogFileSelect() = default;
 

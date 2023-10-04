@@ -36,6 +36,11 @@ namespace iaux
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaDirectory> result;
 
+        if(!isDirectory(fullPath))
+        {
+            return result;
+        }
+
         if (recursive)
         {
             for (const auto &entry : std::filesystem::recursive_directory_iterator(fullPath.getData()))
@@ -104,6 +109,11 @@ namespace iaux
     {
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaFile> result;
+
+        if(!isDirectory(fullPath))
+        {
+            return result;
+        }
 
         if (recursive)
         {

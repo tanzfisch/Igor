@@ -92,18 +92,20 @@ private:
 	*/
     void onSaveFile();
 
+    void onCreateProject();
+    void onLoadProject();
+    void onSaveProject();
+
     /*! called when model was done loading
 
     \param modelNodeID the node id of the model done loading
     */
     void onFileLoadModelReady(uint64 modelNodeID);
 
-    /*! hanlde for exist mica event
-	*/
-    void onExitMica();
-
     void onAddMaterial();
     void onLoadMaterial();
+
+    void onFolderSelectionDialogClosed(iDialogPtr dialog);
 
     void onFileLoadDialogClosed(iDialogPtr dialog);
     void onImportFileDialogClosed(iDialogPtr dialog);

@@ -45,7 +45,10 @@ void UILayer::onInit()
     _propertiesDialog = new PropertiesEditor();
     _outliner = new Outliner(_workspace);
 
-    _outliner->registerOnExitMica(ExitMicaDelegate(this, &UILayer::onExitMica));
+    _outliner->registerOnCreateProject(CreateProjectDelegate(this, &UILayer::onCreateProject));
+    _outliner->registerOnLoadProject(LoadProjectDelegate(this, &UILayer::onLoadProject));
+    _outliner->registerOnSaveProject(SaveProjectDelegate(this, &UILayer::onSaveProject));
+
     _outliner->registerOnLoadFile(LoadFileDelegate(this, &UILayer::onLoadFile));
     _outliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
     _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
@@ -125,6 +128,37 @@ void UILayer::onImportFileReference()
         _fileDialog = new iDialogFileSelect();
         _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onImportFileReferenceDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
     }
+}
+
+void UILayer::onCreateProject()
+{
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onFolderSelectionDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
+    }
+}
+
+void UILayer::onFolderSelectionDialogClosed(iDialogPtr dialog)
+{
+    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        con_endl("create project in " << _fileDialog->getFullPath());
+    }
+
+    delete _fileDialog;
+    _fileDialog = nullptr;
+}
+
+
+void UILayer::onLoadProject()
+{
+
+}
+
+void UILayer::onSaveProject()
+{
+
 }
 
 void UILayer::onLoadFile()
@@ -230,11 +264,6 @@ void UILayer::onGraphViewSelectionChanged(uint64 nodeID)
     {
         _workspace->setSelection(std::vector<iNodeID>() = {nodeID});
     }
-}
-
-void UILayer::onExitMica()
-{
-    iApplication::getInstance().exit();
 }
 
 void UILayer::onUpdate()

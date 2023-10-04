@@ -33,6 +33,9 @@
 #include "usercontrols/UserControlGraphView.h"
 #include "usercontrols/UserControlMaterialView.h"
 
+IGOR_EVENT_DEFINITION(CreateProject, void);
+IGOR_EVENT_DEFINITION(LoadProject, void);
+IGOR_EVENT_DEFINITION(SaveProject, void);
 IGOR_EVENT_DEFINITION(LoadFile, void);
 IGOR_EVENT_DEFINITION(ImportFile, void);
 IGOR_EVENT_DEFINITION(ImportFileReference, void);
@@ -62,6 +65,15 @@ public:
 
     void refresh();
 
+    void registerOnCreateProject(CreateProjectDelegate delegate);
+    void unregisterOnCreateProject(CreateProjectDelegate delegate);
+
+    void registerOnLoadProject(LoadProjectDelegate delegate);
+    void unregisterOnLoadProject(LoadProjectDelegate delegate);
+
+    void registerOnSaveProject(SaveProjectDelegate delegate);
+    void unregisterOnSaveProject(SaveProjectDelegate delegate);
+
     void registerOnLoadFile(LoadFileDelegate loadFileDelegate);
     void unregisterOnLoadFile(LoadFileDelegate loadFileDelegate);
 
@@ -73,9 +85,6 @@ public:
 
     void registerOnSaveFile(SaveFileDelegate saveFileDelegate);
     void unregisterOnSaveFile(SaveFileDelegate saveFileDelegate);
-
-    void registerOnExitMica(ExitMicaDelegate exitMicaDelegate);
-    void unregisterOnExitMica(ExitMicaDelegate exitMicaDelegate);
 
     void registerOnCopyNode(CopyNodeDelegate copyNodeDelegate);
     void unregisterOnCopyNode(CopyNodeDelegate copyNodeDelegate);
@@ -104,6 +113,10 @@ private:
     /*! the mica workspace
     */
     WorkspacePtr _workspace;
+
+    CreateProjectEvent _createProject;
+    LoadProjectEvent _loadProject;
+    SaveProjectEvent _saveProject;
 
     LoadFileEvent _loadFile;
     ImportFileEvent _importFile;
@@ -147,9 +160,12 @@ private:
     void deinitMaterialView();
     void initMaterialView();
 
+    void onCreateProject(const iWidgetPtr source);
+    void onLoadProject(const iWidgetPtr source);
+    void onSaveProject(const iWidgetPtr source);
+
     void onLoadFile(const iWidgetPtr source);
     void onSaveFile(const iWidgetPtr source);
-    void onExitMica(const iWidgetPtr source);
 
     void onDelete(const iWidgetPtr source);
 

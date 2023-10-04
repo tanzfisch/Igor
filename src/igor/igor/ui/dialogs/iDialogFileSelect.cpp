@@ -111,27 +111,30 @@ namespace igor
         _fileGrid->setSelectMode(iSelectionMode::Cell);
         _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
 
-        iWidgetGridPtr filenameGrid = new iWidgetGrid();
-        filenameGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
-        filenameGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
-        filenameGrid->appendColumns(1);
-        filenameGrid->setCellSpacing(4);
-        grid->addWidget(filenameGrid, 0, 3);
+        if (_purpose != iFileDialogPurpose::SelectFolder)
+        {
+            iWidgetGridPtr filenameGrid = new iWidgetGrid();
+            filenameGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
+            filenameGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
+            filenameGrid->appendColumns(1);
+            filenameGrid->setCellSpacing(4);
+            grid->addWidget(filenameGrid, 0, 3);
 
-        iWidgetLabelPtr filenameLabel = new iWidgetLabel();
-        filenameLabel->setHorizontalAlignment(iHorizontalAlignment::Right);
-        filenameLabel->setText("File name:");
-        filenameGrid->addWidget(filenameLabel, 0, 0);
+            iWidgetLabelPtr filenameLabel = new iWidgetLabel();
+            filenameLabel->setHorizontalAlignment(iHorizontalAlignment::Right);
+            filenameLabel->setText("File name:");
+            filenameGrid->addWidget(filenameLabel, 0, 0);
 
-        _filenameEdit = new iWidgetLineTextEdit();
-        _filenameEdit->setWidth(300);
-        _filenameEdit->setWriteProtected(false);
-        _filenameEdit->setChangeEventOnEnterAndLostFocus();
-        _filenameEdit->setMaxTextLength(256);
-        _filenameEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-        _filenameEdit->setVerticalAlignment(iVerticalAlignment::Top);
-        _filenameEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
-        filenameGrid->addWidget(_filenameEdit, 1, 0);
+            _filenameEdit = new iWidgetLineTextEdit();
+            _filenameEdit->setWidth(300);
+            _filenameEdit->setWriteProtected(false);
+            _filenameEdit->setChangeEventOnEnterAndLostFocus();
+            _filenameEdit->setMaxTextLength(256);
+            _filenameEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
+            _filenameEdit->setVerticalAlignment(iVerticalAlignment::Top);
+            _filenameEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
+            filenameGrid->addWidget(_filenameEdit, 1, 0);
+        }
 
         iWidgetGridPtr buttonGrid = new iWidgetGrid();
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -149,15 +152,22 @@ namespace igor
         cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
         buttonGrid->addWidget(cancelButton, 1, 0);
 
-        if (_purpose == iFileDialogPurpose::Load)
+        switch (_purpose)
         {
+        case iFileDialogPurpose::Load:
             headerLabel->setText("Load File");
             okButton->setText("Load");
-        }
-        else
-        {
+            break;
+
+        case iFileDialogPurpose::Save:
             headerLabel->setText("Save File");
             okButton->setText("Save");
+            break;
+
+        case iFileDialogPurpose::SelectFolder:
+            headerLabel->setText("Select Folder");
+            okButton->setText("Select");
+            break;
         }
     }
 
@@ -203,7 +213,11 @@ namespace igor
         }
 
         _pathEdit->setText(_directory);
-        _filenameEdit->setText(_filename);
+
+        if (_filenameEdit != nullptr)
+        {
+            _filenameEdit->setText(_filename);
+        }
     }
 
     void iDialogFileSelect::updateFileGrid()
@@ -241,6 +255,11 @@ namespace igor
 
     void iDialogFileSelect::onFilenameEditChange(const iWidgetPtr source)
     {
+        if(_filenameEdit == nullptr)
+        {
+            return;
+        }
+
         _filename = _filenameEdit->getText();
 
         updateFileDir();
