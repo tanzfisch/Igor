@@ -40,9 +40,9 @@ namespace igor
     class iResourceDictionary
     {
     public:
-        /*! loads default igor resources
+        /*! does nothing
          */
-        iResourceDictionary();
+        iResourceDictionary() = default;
 
         /*! write the current resources in to a dictionary
 
@@ -76,6 +76,10 @@ namespace igor
         const iResourceID getResource(const iaString &text) const;
 
         /*! adds a resource to the dictionary
+
+        \param filename the file name of the resource
+        \param alias the alias to use for this resource
+        \param internal if true it is marked for internal use in engine only
         */
         const iResourceID addResource(const iaString &filename, const iaString &alias = "", bool internal = false);
 

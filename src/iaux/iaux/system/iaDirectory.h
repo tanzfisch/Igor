@@ -112,6 +112,28 @@ namespace iaux
         */
         static bool isDirectory(const iaString &directoryname);
 
+        /*! creates directory at given path
+
+        \param path given path
+        */
+        static void makeDirectory(const iaString &path);
+
+        /*! \returns true if given directory exists
+
+        \param path the given directory
+        */
+        static bool exists(const iaString &path);
+
+        /*! \returns true if given directory exists
+        */
+        bool exists() const;
+
+        /*! \returns true if given directory is empty
+
+        \param path the given directory
+        */
+        static bool isEmpty(const iaString &path);
+
         /*! \returns true: if root folder 
         
         eg c:, d: (windows)

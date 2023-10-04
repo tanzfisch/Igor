@@ -4,6 +4,7 @@
         <Resource id="0x0154aaf0cfcda350" alias="example_texture_supremacy_leek" source="textures/supremacy/leek.png" />
         <Resource id="0x01df458f75478c07" alias="example_texture_dirt" source="textures/dirt.png" />
         <Resource id="0x047a5a8eefed887e" alias="example_texture_supremacy_zucchini" source="textures/supremacy/zucchini.png" />
+        <Resource id="0x066ca5e75dc2820c" source="textures/cat/cat_diff2.png" />
         <Resource id="0x08082c0db20ff90f" alias="example_texture_supremacy_fist" source="textures/supremacy/fist.png" />
         <Resource id="0x09d99e0b1e334108" alias="example_texture_supremacy_shop_item_rocketlauncher" source="textures/supremacy/shop_item_rocketlauncher.png" />
         <Resource id="0x0aec31faf75d2b80" alias="example_texture_openGL_Logo" source="textures/OpenGL-Logo.jpg" />

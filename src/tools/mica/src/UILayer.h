@@ -105,7 +105,7 @@ private:
     void onAddMaterial();
     void onLoadMaterial();
 
-    void onFolderSelectionDialogClosed(iDialogPtr dialog);
+    void onCreateProjectDialogClosed(iDialogPtr dialog);
 
     void onFileLoadDialogClosed(iDialogPtr dialog);
     void onImportFileDialogClosed(iDialogPtr dialog);

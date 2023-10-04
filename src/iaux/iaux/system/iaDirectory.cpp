@@ -76,15 +76,56 @@ namespace iaux
         return result;
     }
 
-    bool iaDirectory::isDirectory(const iaString &directoryname)
+    bool iaDirectory::isDirectory(const iaString &path)
     {
-        std::filesystem::directory_entry entry(directoryname.getData());
+        if(path.isEmpty())
+        {
+            return false;
+        }
+
+        std::filesystem::directory_entry entry(path.getData());
         if (entry.is_directory())
         {
             return true;
         }
 
         return false;
+    }
+
+    bool iaDirectory::exists() const
+    {
+        return iaDirectory::exists(getFullDirectoryName());
+    }
+
+    bool iaDirectory::exists(const iaString &path)
+    {
+        if(path.isEmpty())
+        {
+            return false;
+        }
+
+        std::filesystem::path fspath(path.getData());
+        return std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath);
+    }
+
+    bool iaDirectory::isEmpty(const iaString &path)
+    {
+        con_assert(!path.isEmpty(), "invalid parameter");
+
+        std::filesystem::path fspath(path.getData());
+        return std::filesystem::is_directory(fspath) && std::filesystem::is_empty(fspath);
+    }
+
+    void iaDirectory::makeDirectory(const iaString &path)
+    {
+        if(iaDirectory::exists(path))
+        {
+            con_warn("directory already exists " << path);
+            return;
+        }
+
+        std::filesystem::path directory(path.getData());
+        std::filesystem::create_directories(directory);
     }
 
     /*! \returns true if it's a file that matches given search pattern
@@ -247,7 +288,7 @@ namespace iaux
         }
 
         // if this is a folder get rid of the last path seperator
-        if (iaFile::exist(temp) && !file)
+        if (iaFile::exists(temp) && !file)
         {
             temp = temp.getSubString(0, temp.findLastOf(pathSeperator));
         }
@@ -263,7 +304,7 @@ namespace iaux
         }
 #endif
 
-        // does some relative to absolue path thinngys
+        // does some relative to absolute path magic
         if (!directoryIsAbsolute(temp))
         {
             temp = iaDirectory::getCurrentDirectory() + pathSeperator + temp;
@@ -277,7 +318,7 @@ namespace iaux
     {
         iaString tempFrom;
 
-        if (iaFile::exist(from))
+        if (iaFile::exists(from))
         {
             iaFile file(from);
             tempFrom = file.getPath();

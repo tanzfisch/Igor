@@ -35,7 +35,7 @@ namespace igor
         _purpose = purpose;
         initGUI();
 
-        if (iaFile::exist(path))
+        if (iaFile::exists(path))
         {
             iaFile file(path);
             _filename = file.getFileName();
@@ -199,13 +199,13 @@ namespace igor
 
     void iDialogFileSelect::updateFileDir()
     {
-        if (iaFile::exist(_filename))
+        if (iaFile::exists(_filename))
         {
             iaFile file(_filename);
             _directory = file.getPath();
             _filename = file.getFileName();
         }
-        else if (iaFile::exist(_directory))
+        else if (iaFile::exists(_directory))
         {
             iaFile file(_directory);
             _directory = file.getPath();
@@ -368,7 +368,7 @@ namespace igor
         if (_purpose == iFileDialogPurpose::Load)
         {
             iaFile file(getFullPath());
-            if (!file.exist())
+            if (!file.exists())
             {
                 setReturnState(iDialogReturnState::Error);
             }

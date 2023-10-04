@@ -105,14 +105,14 @@ namespace iaux
 
         \returns true: if file exists; false: if not
         */
-        bool exist() const;
+        bool exists() const;
 
         /*! checks if some file exist
 
         \param filename the file to be checked for
         \returns true: if file exists; false: if not
         */
-        static bool exist(const iaString &filename);
+        static bool exists(const iaString &filename);
 
         /*! \returns only the parent path
          */

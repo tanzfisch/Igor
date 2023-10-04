@@ -81,7 +81,7 @@ void UserControlMaterial::updateGUI()
             switch (source._type)
             {
             case iShaderObjectType::Vertex:
-                if (iaFile::exist(source._filename))
+                if (iaFile::exists(source._filename))
                 {
                     _textShaderVertex->setText(iResourceManager::getInstance().getRelativePath(source._filename));
                     _textShaderVertex->setEnabled(true);
@@ -94,7 +94,7 @@ void UserControlMaterial::updateGUI()
                 break;
 
             case iShaderObjectType::Geometry:
-                if (iaFile::exist(source._filename))
+                if (iaFile::exists(source._filename))
                 {
                     _textShaderGeometry->setText(iResourceManager::getInstance().getRelativePath(source._filename));
                     _textShaderGeometry->setEnabled(true);
@@ -107,7 +107,7 @@ void UserControlMaterial::updateGUI()
                 break;
 
             case iShaderObjectType::Fragment:
-                if (iaFile::exist(source._filename))
+                if (iaFile::exists(source._filename))
                 {
                     _textShaderFragment->setText(iResourceManager::getInstance().getRelativePath(source._filename));
                     _textShaderFragment->setEnabled(true);

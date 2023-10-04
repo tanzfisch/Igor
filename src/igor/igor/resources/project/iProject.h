@@ -45,21 +45,45 @@ namespace igor
     typedef std::shared_ptr<iProject> iProjectPtr;
 
     /*! project definition
-    */
+     */
     class IGOR_API iProject
     {
     public:
-        /*! create project object from project folder
+        /*! opens project from project folder
 
         \param projectFolder the given project folder
-        \returns project object
+        \returns project
         */
         static iProjectPtr loadProject(const iaString &projectFolder);
+
+        /*! creates new project in given project folder
+
+        \param projectFolder given project folder
+        \param projectName given project name
+        \returns project
+        */
+        static iProjectPtr createProject(const iaString &projectFolder);
+
+        /*! \returns project folder
+         */
+        const iaString &getProjectFolder() const;
+
+        /*! \returns project name
+         */
+        const iaString &getProjectName() const;
+
+        /*! sets project name
+         */
+        void getProjectName(const iaString &projectName);
 
     private:
         /*! project folder
          */
         iaString _projectFolder;
+
+        /*! project name
+         */
+        iaString _projectName;
 
         /*! initialize a project based on it's project folder
 

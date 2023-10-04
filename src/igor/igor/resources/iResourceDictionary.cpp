@@ -15,10 +15,6 @@ using namespace iaux;
 namespace igor
 {
 
-    iResourceDictionary::iResourceDictionary()
-    {
-    }
-
     bool iResourceDictionary::write(const iaString &filename)
     {
         char temp[2048];
@@ -88,7 +84,7 @@ namespace igor
             _aliasLookup[uuidAlias] = uuid;
         }
 
-        // skip certain internal so they don't get mixed up when exporting resources
+        // skip marked internal so they are excluded from export
         if (!internal)
         {
             _data.emplace_back(uuid, source, alias);

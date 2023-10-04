@@ -69,6 +69,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/model/iModelFactory.h>
+#include <igor/resources/project/iProject.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>

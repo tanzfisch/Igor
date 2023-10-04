@@ -269,7 +269,7 @@ namespace igor
         {
             iaFile file(location + __IGOR_PATHSEPARATOR__ + "igor.xml");
 
-            if (file.exist())
+            if (file.exists())
             {
                 configurationFilepath = file.getFullFileName();
                 break;

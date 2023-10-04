@@ -74,7 +74,7 @@ namespace iaux
         _mode = mode;
 
         // if it does not exist and we don't want to write it abort
-        if (!exist() && !isWriteable(_mode))
+        if (!exists() && !isWriteable(_mode))
         {
             return false;
         }
@@ -123,12 +123,12 @@ namespace iaux
         return iaFile(newName);
     }
 
-    bool iaFile::exist() const
+    bool iaFile::exists() const
     {
-        return iaFile::exist(getFullFileName());
+        return iaFile::exists(getFullFileName());
     }
 
-    bool iaFile::exist(const iaString &filename)
+    bool iaFile::exists(const iaString &filename)
     {
         if(filename.isEmpty())
         {

@@ -545,23 +545,27 @@ namespace igor
 
     const iaString iResourceManager::resolvePath(const iaString &filepath)
     {
-        iaFile file(filepath);
-
-        if (file.exist())
-        {
-            return file.getFullFileName();
-        }
-
         iaString result = filepath;
+
+        const iaString currentDir = iaDirectory::getCurrentDirectory();
 
         _mutex.lock();
 
         for (auto path : _searchPaths)
         {
-            iaFile composed(path + __IGOR_PATHSEPARATOR__ + filepath);
-            if (composed.exist())
+            const iaString build = currentDir + __IGOR_PATHSEPARATOR__ + path + __IGOR_PATHSEPARATOR__ + filepath;
+
+            iaFile file(build);
+            if (file.exists())
             {
-                result = composed.getFullFileName();
+                result = file.getFullFileName();
+                break;
+            }
+
+            iaDirectory dir(build);
+            if (dir.exists())
+            {
+                result = dir.getFullDirectoryName();
                 break;
             }
         }
@@ -594,7 +598,7 @@ namespace igor
     {
         iaFile file(filename);
 
-        if (file.exist())
+        if (file.exists())
         {
             return true;
         }
@@ -605,7 +609,7 @@ namespace igor
         for (auto path : _searchPaths)
         {
             iaFile composed(path + __IGOR_PATHSEPARATOR__ + filename);
-            if (composed.exist())
+            if (composed.exists())
             {
                 result = true;
             }
@@ -700,7 +704,7 @@ namespace igor
         }
 
         const iaString filename = resolvePath(alias);
-        if (iaFile::exist(filename))
+        if (iaFile::exists(filename))
         {
             param.setParameter("filename", filename);
             param.setParameter("id", _resourceDictionary.addResource(alias));

@@ -308,7 +308,7 @@ namespace igor
             {
                 file << "\t\t\t<" << source._type;
 
-                if (iaFile::exist(source._filename))
+                if (iaFile::exists(source._filename))
                 {
                     file << " filename=\"" << iResourceManager::getInstance().getRelativePath(source._filename) << "\" />\n";
                 }
