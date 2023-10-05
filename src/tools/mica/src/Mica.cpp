@@ -25,7 +25,7 @@ Mica::Mica()
     iResourceManager::getInstance().loadResourceDictionary("dictionaries/example_resource_dictionary.xml");	
 
 	// TODO so here we need to in future be able to create projects and have a dictionary per project. For convenience we simply use the example dict for now
-	// see below writeResourceDictionary
+	// see below saveResourceDictionary
 
 	_workspace = WorkspacePtr(new Workspace());
 
@@ -45,5 +45,5 @@ void Mica::run(const iaString &filename)
 	iApplication::getInstance().run();
 
 	// TODO in future only when saving a project
-	iResourceManager::getInstance().writeResourceDictionary("dictionaries/example_resource_dictionary.xml");	
+	iResourceManager::getInstance().saveResourceDictionary("dictionaries/example_resource_dictionary.xml");	
 }

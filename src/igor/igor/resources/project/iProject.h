@@ -64,17 +64,23 @@ namespace igor
         */
         static iProjectPtr createProject(const iaString &projectFolder);
 
+        /*! saves existing project
+
+        \param project the project to save
+        */
+        static void saveProject(iProjectPtr project);
+
         /*! \returns project folder
          */
-        const iaString &getProjectFolder() const;
+        const iaString &getWorkdir() const;
 
         /*! \returns project name
          */
-        const iaString &getProjectName() const;
+        const iaString &getName() const;
 
         /*! sets project name
          */
-        void getProjectName(const iaString &projectName);
+        void getName(const iaString &projectName);
 
     private:
         /*! project folder
@@ -84,6 +90,26 @@ namespace igor
         /*! project name
          */
         iaString _projectName;
+
+        /*! loads project
+        */
+        bool load();
+
+        /*! saves project
+        */
+        bool save();
+
+        /*! reads project configuration
+
+        \param filename the project configuration file
+        */
+        bool readConfiguration(const iaString &filename);
+
+        /*! write project configuration
+
+        \param filename the project configuration file
+        */
+        bool writeConfiguration(const iaString &filename);
 
         /*! initialize a project based on it's project folder
 

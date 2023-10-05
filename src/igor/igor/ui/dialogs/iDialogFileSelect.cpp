@@ -255,7 +255,7 @@ namespace igor
 
     void iDialogFileSelect::onFilenameEditChange(const iWidgetPtr source)
     {
-        if(_filenameEdit == nullptr)
+        if (_filenameEdit == nullptr)
         {
             return;
         }

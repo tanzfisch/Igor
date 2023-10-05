@@ -260,7 +260,7 @@ namespace igor
 
         \param filename the file to write the dictionary to
         */
-        void writeResourceDictionary(const iaString &filename);
+        void saveResourceDictionary(const iaString &filename);
 
         /*! \returns resource id for given alias or filepath
 

@@ -143,7 +143,7 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
 {
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
-        iProject::createProject(_fileDialog->getFullPath());
+        _activeProject = iProject::createProject(_fileDialog->getFullPath());
     }
 
     delete _fileDialog;
@@ -152,12 +152,27 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
 
 void UILayer::onLoadProject()
 {
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
+    }
+}
 
+void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
+{
+    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        _activeProject = iProject::loadProject(_fileDialog->getFullPath());
+    }
+
+    delete _fileDialog;
+    _fileDialog = nullptr;
 }
 
 void UILayer::onSaveProject()
 {
-
+    iProject::saveProject(_activeProject);
 }
 
 void UILayer::onLoadFile()

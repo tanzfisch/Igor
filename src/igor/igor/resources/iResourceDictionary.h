@@ -37,6 +37,9 @@ class TiXmlElement;
 
 namespace igor
 {
+
+    /*! resource dictionary
+    */
     class iResourceDictionary
     {
     public:

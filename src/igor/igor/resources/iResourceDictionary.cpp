@@ -136,20 +136,23 @@ namespace igor
         TiXmlElement *root = document.FirstChildElement("Igor");
         if (root == nullptr)
         {
-            con_err("not an igor xml file");
+            con_err("not an igor xml file \"" << temp << "\"");
             return false;
         }
 
         TiXmlElement *resourceDictionary = root->FirstChildElement("ResourceDictionary");
-        if (resourceDictionary != nullptr)
+        if (resourceDictionary == nullptr)
         {
-            iaString internal(resourceDictionary->Attribute("internal"));
+            con_err("invalid file \"" << temp << "\"");
+            return false;
+        }
 
-            if (!readResourceDictionaryElement(resourceDictionary, (!internal.isEmpty() && internal == "true")))
-            {
-                con_err("can't read all resource dictionary entries from \"" << filename << "\"");
-                return false;
-            }
+        iaString internal(resourceDictionary->Attribute("internal"));
+
+        if (!readResourceDictionaryElement(resourceDictionary, (!internal.isEmpty() && internal == "true")))
+        {
+            con_err("can't read all resource dictionary entries from \"" << filename << "\"");
+            return false;
         }
 
         con_info("loaded resource dictionary \"" << filename << "\"");

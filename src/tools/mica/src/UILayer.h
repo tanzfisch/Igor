@@ -66,6 +66,10 @@ private:
     */
     bool _refresh = false;
 
+    /*! active project
+    */
+    iProjectPtr _activeProject;
+
     /*! empties the workspace
 	*/
     void clearWorkspace();
@@ -84,7 +88,7 @@ private:
 	*/
     void onImportFile();
 
-    /*! hande for import file by reference to existing scene event
+    /*! handle for import file by reference to existing scene event
 	*/
     void onImportFileReference();
 
@@ -106,6 +110,7 @@ private:
     void onLoadMaterial();
 
     void onCreateProjectDialogClosed(iDialogPtr dialog);
+    void onLoadProjectDialogClosed(iDialogPtr dialog);
 
     void onFileLoadDialogClosed(iDialogPtr dialog);
     void onImportFileDialogClosed(iDialogPtr dialog);

@@ -92,7 +92,7 @@ namespace igor
         _resourceDictionary.read(resolvePath(filename));
     }
 
-    void iResourceManager::writeResourceDictionary(const iaString &filename)
+    void iResourceManager::saveResourceDictionary(const iaString &filename)
     {
         _resourceDictionary.write(resolvePath(filename));
     }
