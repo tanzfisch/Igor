@@ -129,7 +129,7 @@ namespace igor
     private:
         /*! true if the font is a valid font
          */
-        bool valid;
+        bool _valid;
 
         /*! texture
          */

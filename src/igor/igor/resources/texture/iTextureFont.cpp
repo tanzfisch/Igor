@@ -24,7 +24,7 @@ namespace igor
         con_assert(texture->isValid(), "needs to be loaded already");
 
         _texture = texture;
-        valid = false;
+        _valid = false;
 
         if (_texture == nullptr ||
             !_texture->isValid())
@@ -154,7 +154,7 @@ namespace igor
             break;
         }
 
-        valid = true;
+        _valid = true;
     }
 
     iTextureFont::~iTextureFont()
@@ -233,12 +233,12 @@ namespace igor
 
     bool iTextureFont::isValid() const
     {
-        return valid;
+        return _valid;
     }
 
     float32 iTextureFont::measureWidth(const iaString &text, float32 size)
     {
-        if (!valid)
+        if (!_valid)
         {
             return 0;
         }
@@ -288,12 +288,13 @@ namespace igor
 
     float32 iTextureFont::measureHeight(const iaString &text, float32 size, float32 maxWidth, float32 lineHeight)
     {
-        if (!valid)
-        {
-            return lineHeight * size;
-        }
+        float32 height = lineHeight * size;
 
-        float32 height = 0;
+        if (!_valid)
+        {
+            return height;
+        }
+        
         float32 length = 0;
         float32 lastlength = 0;
 
