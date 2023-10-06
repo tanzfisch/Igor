@@ -296,7 +296,7 @@ namespace igor
         }
         
         float32 length = 0;
-        float32 lastlength = 0;
+        float32 lastLength = 0;
 
         for (uint32 i = 0; i < text.getLength(); i++)
         {
@@ -316,11 +316,11 @@ namespace igor
                 {
                     if (length > maxWidth)
                     {
-                        length = length - lastlength;
+                        length = length - lastLength;
                         height += lineHeight * size;
                     }
 
-                    lastlength = length;
+                    lastLength = length;
                 }
             }
         }
