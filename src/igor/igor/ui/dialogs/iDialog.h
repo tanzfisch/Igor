@@ -34,18 +34,17 @@
 namespace igor
 {
 
-    class iDialog;
-
     /*! dialog pointer definition
-	*/
+     */
+    class iDialog;
     typedef iDialog *iDialogPtr;
 
     /*! dialog close event
-	*/
+     */
     typedef iaDelegate<void, iDialogPtr> iDialogCloseDelegate;
 
     /*! dialog return states
-    */
+     */
     enum class iDialogReturnState
     {
         No = 0,
@@ -56,7 +55,7 @@ namespace igor
     };
 
     /*! dialog widget
-    */
+     */
     class IGOR_API iDialog : public iWidget
     {
 
@@ -64,20 +63,24 @@ namespace igor
 
     public:
         /*! ctor initializes member variables and registers mouse events
-		*/
+         */
         iDialog(iWidgetType type = iWidgetType::iDialog, const iWidgetPtr parent = nullptr);
 
         /*! dtor unregisters mouse events
-		*/
+         */
         virtual ~iDialog();
 
-        /*! sets horizontal position of dialog and horizontal alignment to absolute
+        /*! sets horizontal position of dialog 
+        
+        implicitly sets horizontal alignment to absolute
 
         \param x horizontal position
         */
         void setX(int32 x);
 
-        /*! sets vertical position of dialog and vertical alignment to absolute
+        /*! sets vertical position of dialog 
+        
+        implicitly sets vertical alignment to absolute
 
         \param y vertical position
         */
@@ -98,59 +101,61 @@ namespace igor
         */
         void setBorder(int32 border);
 
-        /*! \retruns border size
-        */
+        /*! \returns border size
+         */
         int32 getBorder();
 
         /*! shows the dialog on screen
 
-		\param dialogCloseDelegate the delegate to call after the dialog was closed
-		*/
+        \param dialogCloseDelegate the delegate to call after the dialog was closed
+        */
         virtual void open(iDialogCloseDelegate dialogCloseDelegate);
 
         /*! closes the dialog
-		*/
+         */
         virtual void close();
 
         /*! \returns true if dialog is open
-        */
+         */
         bool isOpen() const;
 
-        /*! \returns the return state of this dialog
-        */
+        /*! \returns the return state of this dialog if one was set
+         */
         iDialogReturnState getReturnState() const;
 
         /*! sets the return state of this dialog
+
+        \param returnState the return state to be set
         */
         void setReturnState(iDialogReturnState returnState);
 
     private:
         /*! if true dialog is open
-        */
+         */
         bool _isOpen = false;
 
         /*! the return state of the this dialog
-        */
+         */
         iDialogReturnState _returnState = iDialogReturnState::Ok;
 
         /*! horizontal position relative to parent if horizontal alignment is absolute
-        */
+         */
         int32 _offsetX = 0;
 
         /*! vertical position relative to parent if horizontal alignment is absolute
-        */
+         */
         int32 _offsetY = 0;
 
         /*! size of border
-        */
+         */
         int32 _border = 1;
 
         /*! the delegate to call after the dialog was closed
-		*/
+         */
         iDialogCloseDelegate _dialogCloseDelegate;
 
         /*! updates size based on it's content
-        */
+         */
         void calcMinSize() override;
 
         /*! updates dialog's alignment
@@ -161,7 +166,7 @@ namespace igor
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 
         /*! draws the children
-		*/
+         */
         void draw();
     };
 } // namespace igor

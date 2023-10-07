@@ -196,7 +196,6 @@ namespace igor
 
     void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool active)
     {
-        const int32 reduction = 0;
         int32 offset = 0;
         if (state == iWidgetState::Pressed)
         {
@@ -218,53 +217,58 @@ namespace igor
 
         if (texture != nullptr)
         {
-            iaRectanglef picRect(rect._x + offset + reduction / 2, rect._y + offset + reduction / 2, rect._width - reduction, rect._height - reduction);
+            iaRectanglef picRect(rect._x + offset, rect._y + offset, rect._width, rect._height);
             drawPicture(picRect, texture, state, active);
         }
 
-        float32 textwidth = _font->measureWidth(text, _fontSize);
-        int32 textX = rect._x;
-        int32 textY = rect._y;
-        switch (align)
+        if (!text.isEmpty())
         {
-        case iHorizontalAlignment::Left:
-            textX += 2;
-            break;
+            float32 textwidth = _font->measureWidth(text, _fontSize);
+            int32 textX = rect._x;
+            int32 textY = rect._y;
+            switch (align)
+            {
+            case iHorizontalAlignment::Left:
+                textX += 2;
+                break;
 
-        case iHorizontalAlignment::Center:
-            textX += (rect._width - textwidth) * 0.5f;
-            break;
+            case iHorizontalAlignment::Center:
+                textX += (rect._width - textwidth) * 0.5f;
+                break;
 
-        case iHorizontalAlignment::Right:
-            textX += rect._width - 2 - textwidth;
-            break;
-        };
+            case iHorizontalAlignment::Right:
+                textX += rect._width - 2 - textwidth;
+                break;
+            };
 
-        switch (valign)
-        {
-        case iVerticalAlignment::Top:
-            textY += 2;
-            break;
+            switch (valign)
+            {
+            case iVerticalAlignment::Top:
+                textY += 2;
+                break;
 
-        case iVerticalAlignment::Center:
-            textY += static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f);
-            break;
+            case iVerticalAlignment::Center:
+                textY += static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f);
+                break;
 
-        case iVerticalAlignment::Bottom:
-            textY += rect._height - 2 - static_cast<int32>(_fontSize);
-            break;
-        };
+            case iVerticalAlignment::Bottom:
+                textY += rect._height - 2 - static_cast<int32>(_fontSize);
+                break;
+            };
 
-        iaRectanglef textRect(textX + offset, textY + offset, 0, 0);
-        drawButtonText(textRect, text);
+            iaRectanglef textRect(textX + offset, textY + offset, 0, 0);
+            drawButtonText(textRect, text);
+        }
 
         if (icon != nullptr)
         {
+            float32 maxIconSize = std::min(rect._width, rect._height);
+
             switch (align)
             {
             case iHorizontalAlignment::Left:
             {
-                iaRectanglef picRect(rect.getRight() - (offset + reduction / 2) - rect._height, rect._y + offset + reduction / 2, rect._height - reduction, rect._height - reduction);
+                iaRectanglef picRect(rect.getRight() - offset - rect._height, rect._y + offset, rect._height, rect._height);
                 drawPicture(picRect, icon, state, active);
             }
             break;
@@ -272,14 +276,14 @@ namespace igor
             case iHorizontalAlignment::Center:
                 if (text.isEmpty())
                 {
-                    iaRectanglef picRect(rect._x + offset + reduction / 2 + rect._width * 0.5, rect._y + offset + reduction / 2, rect._height - reduction, rect._height - reduction);
+                    iaRectanglef picRect(rect._x + offset + rect._width * 0.5 - maxIconSize * 0.5, rect._y + offset, rect._height, rect._height);
                     drawPicture(picRect, icon, state, active);
                 }
                 break;
 
             case iHorizontalAlignment::Right:
             {
-                iaRectanglef picRect(rect._x + offset + reduction / 2, rect._y + offset + reduction / 2, rect._height - reduction, rect._height - reduction);
+                iaRectanglef picRect(rect._x + offset, rect._y + offset, rect._height, rect._height);
                 drawPicture(picRect, icon, state, active);
             }
             break;
