@@ -90,13 +90,20 @@ namespace igor
 
     void iWidgetButton::setIcon(const iaString &iconAlias)
     {
-        setIcon(iResourceManager::getInstance().loadResource<iTexture>(iconAlias));
+        if (iconAlias.isEmpty())
+        {
+            _iconTexture = nullptr;
+        }
+        else
+        {
+            setIcon(iResourceManager::getInstance().loadResource<iTexture>(iconAlias));
+        }
     }
 
     void iWidgetButton::setIcon(iTexturePtr texture)
     {
         _iconTexture = texture;
-    }    
+    }
 
     void iWidgetButton::setTexture(const iaString &textureAlias)
     {
