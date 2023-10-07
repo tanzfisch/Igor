@@ -87,11 +87,17 @@ namespace igor
 
         \param name the name of the resource
         \param parameters the resource parameters
-        \returns loaded or created new resource
+        \returns new resource
         */
         virtual iResourcePtr createResource(const iParameters &parameters) = 0;
 
-        /*! loads the resource
+        /*! creates an empty resource
+
+        \returns new resource
+        */
+        virtual iResourcePtr createResource() { return nullptr; };
+
+        /*! loads the resource based on it's parameters
 
         \param resource the resource to load
         \returns true if loading the resource was successful

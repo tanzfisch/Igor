@@ -6,6 +6,7 @@
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iMaterialIO.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaFile.h>
 using namespace iaux;
@@ -16,6 +17,22 @@ namespace igor
     iMaterialFactory::iMaterialFactory()
         : iFactory(IGOR_RESOURCE_MATERIAL, IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
     {
+    }
+
+    iResourcePtr iMaterialFactory::createResource()
+    {
+        iMaterialPtr defaultMaterial = iRenderer::getInstance().getDefaultMaterial();
+        iaString filename = defaultMaterial->getFilename();       
+
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                           {IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                           {IGOR_RESOURCE_PARAM_FILENAME, filename}});
+
+        iMaterialPtr material(new iMaterial(param));
+        iMaterialIO::read(iResourceManager::getInstance().resolvePath(filename), material);
+        material->setName("New Material");
+
+        return material;
     }
 
     iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)

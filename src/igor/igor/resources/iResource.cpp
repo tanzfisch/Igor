@@ -140,4 +140,14 @@ namespace igor
 
         return result;
     }
+
+    void iResource::setName(const iaString &name)
+    {
+        _name = name;
+    }
+
+    const iaString &iResource::getName() const
+    {
+        return _name;
+    }    
 }

@@ -317,7 +317,8 @@ namespace igor
             return nullptr;
         }
 
-        iResourcePtr result = createResource(factory, parameters);
+        // ignoring other parameters and just create an empty resource (of what ever the factory decides this will be)
+        iResourcePtr result = factory->createResource();
 
         const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
         if (requestedCacheMode > iResourceCacheMode::DontCache)
