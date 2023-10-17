@@ -210,6 +210,7 @@ void WidgetsExample::onInit()
     iLayerWidgets::onInit();
 
     _dialog = new iDialog();
+    _dialog->setBorder(5);
     _dialog->setPos(40, getWindow()->getClientHeight() - 420);
 
     iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _dialog);
@@ -219,25 +220,25 @@ void WidgetsExample::onInit()
     mainLayout->addWidget(menuBar);
 
     // add some buttons
-    iWidgetBoxLayoutPtr hBoxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
-    mainLayout->addWidget(hBoxLayout);
+    iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
+    mainLayout->addWidget(buttonLayout);
 
     iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
     exitButton->setText(""); // clear text
     exitButton->setSize(24, 24);
-    hBoxLayout->addWidget(exitButton);
+    buttonLayout->addWidget(exitButton);
 
     iWidgetButton *button2 = new iWidgetButton();
     button2->setAction(iActionManager::getInstance().getAction("exampleAction:one"));
     button2->setText(""); // clear text
     button2->setSize(24, 24);
-    hBoxLayout->addWidget(button2);
+    buttonLayout->addWidget(button2);
 
     iWidgetButton *button3 = new iWidgetButton();
     button3->setAction(iActionManager::getInstance().getAction("exampleAction:two"));
     button3->setSize(24, 24);
-    hBoxLayout->addWidget(button3);
+    buttonLayout->addWidget(button3);
 
     // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();

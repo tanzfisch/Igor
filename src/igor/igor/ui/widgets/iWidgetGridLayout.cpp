@@ -476,7 +476,7 @@ namespace igor
             }
             else
             {
-                con_warn("vertical strech is configured but an invalid strech row index was defined");
+                con_warn("vertical stretch is configured but an invalid stretch row index was defined");
             }
         }
 
@@ -504,7 +504,7 @@ namespace igor
             }
             else
             {
-                con_warn("horizontal strech is configured but an invalid strech column index was defined");
+                con_warn("horizontal stretch is configured but an invalid stretch column index was defined");
             }
         }
     }
