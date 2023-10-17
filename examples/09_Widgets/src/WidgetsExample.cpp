@@ -10,7 +10,7 @@ class Action1 : public iAction
 
 public:
     Action1()
-        : iAction("example:one")
+        : iAction("exampleAction:one")
     {
         setDescription("Action One");
         setIcon("igor_icon_camera");
@@ -41,7 +41,7 @@ class Action2 : public iAction
 
 public:
     Action2()
-        : iAction("example:two")
+        : iAction("exampleAction:two")
     {
         setDescription("Action Two");
     }
@@ -71,7 +71,7 @@ class Action3 : public iAction
 
 public:
     Action3()
-        : iAction("example:three")
+        : iAction("exampleAction:three")
     {
         setIcon("igor_icon_delete");
     }
@@ -101,7 +101,7 @@ class Action4 : public iAction
 
 public:
     Action4()
-        : iAction("example:four")
+        : iAction("exampleAction:four")
     {
         setIcon("igor_icon_delete");
     }
@@ -155,10 +155,10 @@ iWidgetMenuBarPtr WidgetsExample::createMenu()
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
 
     // get some actions to add to the menu
-    iActionPtr action1 = iActionManager::getInstance().getAction("example:one");
-    iActionPtr action2 = iActionManager::getInstance().getAction("example:two");
-    iActionPtr action3 = iActionManager::getInstance().getAction("example:three");
-    iActionPtr action4 = iActionManager::getInstance().getAction("example:four");
+    iActionPtr action1 = iActionManager::getInstance().getAction("exampleAction:one");
+    iActionPtr action2 = iActionManager::getInstance().getAction("exampleAction:two");
+    iActionPtr action3 = iActionManager::getInstance().getAction("exampleAction:three");
+    iActionPtr action4 = iActionManager::getInstance().getAction("exampleAction:four");
 
     // build up menu and submenus
     iWidgetMenuPtr menu1 = new iWidgetMenu();
@@ -224,16 +224,18 @@ void WidgetsExample::onInit()
 
     iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
+    exitButton->setText(""); // clear text
     exitButton->setSize(24, 24);
     hBoxLayout->addWidget(exitButton);
 
     iWidgetButton *button2 = new iWidgetButton();
-    button2->setAction(iActionManager::getInstance().getAction("igor:exit"));
+    button2->setAction(iActionManager::getInstance().getAction("exampleAction:one"));
+    button2->setText(""); // clear text
     button2->setSize(24, 24);
     hBoxLayout->addWidget(button2);
 
     iWidgetButton *button3 = new iWidgetButton();
-    button3->setAction(iActionManager::getInstance().getAction("igor:exit"));
+    button3->setAction(iActionManager::getInstance().getAction("exampleAction:two"));
     button3->setSize(24, 24);
     hBoxLayout->addWidget(button3);
 

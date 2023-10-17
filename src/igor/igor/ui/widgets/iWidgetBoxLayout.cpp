@@ -40,13 +40,9 @@ namespace igor
 
         if (_layoutType == iWidgetBoxLayoutType::Vertical)
         {
-            for (const auto &child : getChildren())
+            for (const auto child : getChildren())
             {
-                if (child->getMinWidth() > minWidth)
-                {
-                    minWidth = child->getMinWidth();
-                }
-
+                minWidth = std::max(minWidth, child->getMinWidth());
                 minHeight += child->getMinHeight();
             }
         }
@@ -54,29 +50,16 @@ namespace igor
         {
             for (const auto &child : getChildren())
             {
-                if (child->getMinHeight() > minHeight)
-                {
-                    minHeight = child->getMinHeight();
-                }
-
+                minHeight = std::max(minHeight, child->getMinHeight());
                 minWidth += child->getMinWidth();
             }
         }
 
-        if (getConfiguredWidth() > minWidth)
-        {
-            minWidth = getConfiguredWidth();
-        }
-
-        if (getConfiguredHeight() > minHeight)
-        {
-            minHeight = getConfiguredHeight();
-        }
+        minWidth = std::max(minWidth, getConfiguredWidth());
+        minHeight = std::max(minHeight, getConfiguredHeight());
 
         setClientArea(0, 0, 0, 0);
         setMinSize(minWidth, minHeight);
-
-        con_endl("iWidgetBoxLayout::calcMinSize " << getID() << " " << _layoutType << " " << minWidth << " " << minHeight);
     }
 
     void iWidgetBoxLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
@@ -90,27 +73,26 @@ namespace igor
         float32 offsetPos = 0;
         uint32 index = 0;
 
-        con_endl("iWidgetBoxLayout::calcChildOffsets " << getID() << " " << _layoutType);
-
         for (const auto child : getChildren())
         {
             if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 clientRect.setX(0);
                 clientRect.setY(offsetPos);
+                clientRect.setWidth(getMinWidth());
+                clientRect.setHeight(child->getMinHeight());
+
                 offsetPos += child->getMinHeight();
             }
             else
             {
                 clientRect.setX(offsetPos);
                 clientRect.setY(0);
+                clientRect.setWidth(child->getMinWidth());
+                clientRect.setHeight(getMinHeight());
+
                 offsetPos += child->getMinWidth();
             }
-
-            clientRect.setWidth(child->getMinWidth());
-            clientRect.setHeight(child->getMinHeight());
-
-            con_endl(clientRect);
 
             offsets.push_back(clientRect);
         }

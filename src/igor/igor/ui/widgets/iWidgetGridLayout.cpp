@@ -401,7 +401,7 @@ namespace igor
             minHeight = getConfiguredHeight();
         }
 
-        // no client area definition needed becasue every child has it's individual field
+        // no client area definition needed because every child has it's individual field
         setClientArea(0, 0, 0, 0);
 
         setMinSize(minWidth, minHeight);
@@ -409,7 +409,6 @@ namespace igor
 
     void iWidgetGridLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
     {
-        offsets.clear();
         offsets.resize(_children.size());
 
         iaRectanglef clientRect;
