@@ -111,7 +111,7 @@ namespace igor
         void addSeparator();
 
     private:
-        /*! menu titleconst iaString &alias
+        /*! menu title
         */
         iWidgetLabelPtr _title = nullptr;
 

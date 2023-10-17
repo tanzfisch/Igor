@@ -4,11 +4,11 @@
 
 #include <igor/ui/widgets/iWidgetMenuBar.h>
 
-#include <igor/ui/widgets/iWidgetMenu.h>
+
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/user_controls/iUserControlAction.h>
+#include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetGridLayout.h>
 
 namespace igor
