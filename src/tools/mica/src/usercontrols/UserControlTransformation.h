@@ -45,7 +45,7 @@ public:
     uint32 getNode();
 
 private:
-    iWidgetGrid *_grid = nullptr;
+    iWidgetGridLayout *_grid = nullptr;
 
     std::vector<iWidgetLineTextEdit *> _matrixText;
 

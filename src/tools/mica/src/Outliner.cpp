@@ -9,7 +9,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 
 #include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 
@@ -44,7 +44,7 @@ void Outliner::initGUI()
     setHorizontalAlignment(iHorizontalAlignment::Left);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
-    _grid = new iWidgetGrid(this);
+    _grid = new iWidgetGridLayout(this);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -53,14 +53,14 @@ void Outliner::initGUI()
     _grid->setStretchRow(2);
     _grid->setStretchColumn(0);
 
-    iWidgetGridPtr gridButtons = new iWidgetGrid();
+    iWidgetGridLayoutPtr gridButtons = new iWidgetGridLayout();
     gridButtons->setBorder(0);
     gridButtons->setCellSpacing(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
     gridButtons->appendColumns(8);
 
-    iWidgetGridPtr gridRadioButtons = new iWidgetGrid();
+    iWidgetGridLayoutPtr gridRadioButtons = new iWidgetGridLayout();
     gridRadioButtons->setBorder(0);
     gridRadioButtons->setCellSpacing(2);
     gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);

@@ -36,7 +36,7 @@ void UserControlNode::updateGUI()
 
 void UserControlNode::initGUI()
 {
-    _grid = new iWidgetGrid();
+    _grid = new iWidgetGridLayout();
     _grid->appendColumns(1);
     _grid->appendRows(1);
     _grid->setCellSpacing(2);

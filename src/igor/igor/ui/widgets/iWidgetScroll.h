@@ -242,11 +242,11 @@ namespace igor
         */
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 
-        /*! calculates childrens ofsets relative to thair parent
+        /*! calculates childrens offsets relative to their parent
 
         \param offsets vector to be filled with childrens offsets
         */
-        void calcChildOffsets(std::vector<iaRectanglef> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglef> &offsets) override;
     };
 
     /*! widget scroll pointer definition

@@ -5,7 +5,7 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
@@ -144,12 +144,12 @@ namespace igor
 
     void iUserControlColorChooser::initGUI()
     {
-        _grid = new iWidgetGrid(this);
+        _grid = new iWidgetGridLayout(this);
         _grid->appendRows(1);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _headlineGrid = new iWidgetGrid();
+        _headlineGrid = new iWidgetGridLayout();
         _headlineGrid->appendColumns(2);
         _headlineGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _headlineGrid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -482,14 +482,14 @@ namespace igor
 
     void iUserControlColorChooser::initExpanded()
     {
-        _expandedGrid = new iWidgetGrid();
+        _expandedGrid = new iWidgetGridLayout();
         _expandedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _expandedGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _expandedGrid->setBorder(0);
         _expandedGrid->setCellSpacing(4);
         _expandedGrid->appendRows(1);
 
-        _expandedSliderGrid = new iWidgetGrid();
+        _expandedSliderGrid = new iWidgetGridLayout();
         _expandedSliderGrid->appendColumns(2);
         _expandedSliderGrid->appendRows(7);
         _expandedSliderGrid->setBorder(0);
@@ -540,7 +540,7 @@ namespace igor
 
     void iUserControlColorChooser::initCollapsed()
     {
-        _collapsedGrid = new iWidgetGrid();
+        _collapsedGrid = new iWidgetGridLayout();
         _collapsedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _collapsedGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _collapsedGrid->appendColumns(8);

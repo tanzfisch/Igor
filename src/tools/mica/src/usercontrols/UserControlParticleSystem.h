@@ -58,7 +58,7 @@ public:
 private:
     /*! root grid
     */
-    iWidgetGrid *_grid = nullptr;
+    iWidgetGridLayout *_grid = nullptr;
 
     /*! button to start or continue the particle system
     */

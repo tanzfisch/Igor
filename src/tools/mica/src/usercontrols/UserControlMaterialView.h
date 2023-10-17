@@ -59,7 +59,7 @@ private:
     AddMaterialEvent _addMaterial;
     LoadMaterialEvent _loadMaterial;
 
-    iWidgetGrid *_gridGraph = nullptr;
+    iWidgetGridLayout *_gridGraph = nullptr;
 
     /*! id of current selected material
     */

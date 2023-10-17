@@ -135,7 +135,6 @@ namespace igor
         iWidgetColor,
         iWidgetColorGradient,
         iWidgetGraph,
-        iWidgetGrid,
         iWidgetGroupBox,
         iWidgetLabel,
         iWidgetMenu,
@@ -148,6 +147,9 @@ namespace igor
         iWidgetSpacer,
         iWidgetLineTextEdit,
         iWidgetTextEdit,
+
+        iWidgetGridLayout,
+        iWidgetBoxLayout,
 
         iUserControl,
         iUserControlAction,
@@ -191,7 +193,7 @@ namespace igor
         // iWidget has sooo many friends <3
         friend class iWidgetManager;
         friend class iDialog;
-        friend class iWidgetGrid;
+        friend class iWidgetGridLayout;
         friend class iWidgetScroll;
         friend class iWidgetGroupBox;
         friend class iWidgetCheckBox;
@@ -545,7 +547,7 @@ namespace igor
         */
         virtual void addWidget(iWidgetPtr widget);
 
-        /*! removes a child widget frmo this widget
+        /*! removes a child widget from this widget
 
         \param widget the child widget to be removed
         */
@@ -583,11 +585,9 @@ namespace igor
          */
         iaString getTooltip() const;
 
-        /*! returns a list with children
-
-        \param children[out] list with children
+        /*! \returns children of this widget
         */
-        void getChildren(std::vector<iWidgetPtr> &children);
+        const std::vector<iWidgetPtr> &getChildren() const;
 
         /*! removes and deletes all children
 
@@ -766,11 +766,11 @@ namespace igor
         */
         virtual bool handleKeyUp(iKeyCode key);
 
-        /*! handles lost keayboard focus
+        /*! handles lost keyboard focus
          */
         virtual void handleLostKeyboardFocus();
 
-        /*! handles gained keayboard focus
+        /*! handles gained keyboard focus
          */
         virtual void handleGainedKeyboardFocus();
 
@@ -780,7 +780,7 @@ namespace igor
 
         /*! set parent of widget
 
-        \parem parent pointer to parent
+        \param parent pointer to parent
         */
         void setParent(iWidgetPtr parent);
 
@@ -956,9 +956,11 @@ namespace igor
         */
         void updatePosition(int32 offsetX, int32 offsetY);
 
-        /*! calculates childrens ofsets relative to thair parent
+        /*! calculates childrens offsets relative to their parent
 
-        \param offsets vector to be filled with childrens offsets
+        Needs to be implemented for widgets with multiple children
+
+        \param[out] offsets vector to be filled with childrens offsets
         */
         virtual void calcChildOffsets(std::vector<iaRectanglef> &offsets);
     };

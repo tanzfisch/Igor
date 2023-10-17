@@ -11,7 +11,7 @@ UserControlMaterialView::UserControlMaterialView()
 
 void UserControlMaterialView::initGUI()
 {
-    iWidgetGrid *grid = new iWidgetGrid(this);
+    iWidgetGridLayout *grid = new iWidgetGridLayout(this);
     grid->appendRows(1);
     grid->setBorder(2);
     grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -19,7 +19,7 @@ void UserControlMaterialView::initGUI()
     grid->setStretchColumn(0);
     grid->setStretchRow(1);
 
-    iWidgetGrid *gridButtons = new iWidgetGrid();
+    iWidgetGridLayout *gridButtons = new iWidgetGridLayout();
     gridButtons->setBorder(0);
     gridButtons->appendColumns(10);
     gridButtons->setCellSpacing(2);
@@ -51,7 +51,7 @@ void UserControlMaterialView::initGUI()
     scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
 
-    _gridGraph = new iWidgetGrid();
+    _gridGraph = new iWidgetGridLayout();
     _gridGraph->setBorder(0);
     _gridGraph->setSelectMode(iSelectionMode::Row);
     _gridGraph->setCellSpacing(0);
@@ -113,7 +113,7 @@ void UserControlMaterialView::refresh()
             continue;
         }
 
-        iWidgetGrid *entry = new iWidgetGrid();
+        iWidgetGridLayout *entry = new iWidgetGridLayout();
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
         entry->setCellSpacing(2);

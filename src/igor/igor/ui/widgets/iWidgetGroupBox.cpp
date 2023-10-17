@@ -43,6 +43,8 @@ namespace igor
 
 	void iWidgetGroupBox::calcMinSize()
 	{
+		con_assert(iWidgetManager::getInstance().getTheme() != nullptr, "no theme");
+
 		int32 minWidth = 0;
 		int32 minHeight = 0;
 
@@ -50,32 +52,22 @@ namespace igor
 			!_children.empty())
 		{
 			iWidgetPtr widget = _children.front();
-
-			if (widget->getMinWidth() > minWidth)
-			{
-				minWidth = widget->getMinWidth();
-			}
-
-			if (widget->getMinHeight() > minHeight)
-			{
-				minHeight = widget->getMinHeight();
-			}
+			minHeight = std::max(minHeight, widget->getMinHeight());
+			minWidth = std::max(minWidth, widget->getMinWidth());
 
 			if (!_text.isEmpty())
 			{
-				con_assert(iWidgetManager::getInstance().getTheme() != nullptr, "zero pointer");
-				if (iWidgetManager::getInstance().getTheme() != nullptr)
-				{
-					float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+				const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+				iTextureFontPtr font = iWidgetManager::getInstance().getTheme()->getFont();
+				minWidth = std::max(minWidth, static_cast<int32>(font->measureWidth(_text, fontSize) + _border * 2.0f + fontSize * 2.0f));
 
-					if (_headerOnly)
-					{
-						setClientArea(0, 0, static_cast<int32>(static_cast<float32>(_border) + fontSize * 0.75f), 0);
-					}
-					else
-					{
-						setClientArea(_border, _border, static_cast<int32>(static_cast<float32>(_border) + fontSize * 0.75), _border);
-					}
+				if (_headerOnly)
+				{
+					setClientArea(0, 0, static_cast<int32>(static_cast<float32>(_border) + fontSize * 0.75f), 0);
+				}
+				else
+				{
+					setClientArea(_border, _border, static_cast<int32>(static_cast<float32>(_border) + fontSize * 0.75), _border);
 				}
 			}
 			else

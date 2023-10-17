@@ -92,7 +92,7 @@ private:
 
     uint64 _selectedNode = iNode::INVALID_NODE_ID;
 
-    iWidgetGrid *_gridGraph = nullptr;
+    iWidgetGridLayout *_gridGraph = nullptr;
 
     /*! the scene graphs context menu
     */

@@ -124,9 +124,9 @@ namespace igor
         _children.clear();
     }
 
-    void iWidget::getChildren(std::vector<iWidgetPtr> &children)
+    const std::vector<iWidgetPtr> &iWidget::getChildren() const
     {
-        children = _children;
+        return _children;
     }
 
     void iWidget::setTooltip(const iaString &text)
@@ -203,7 +203,8 @@ namespace igor
         _children.push_back(widget);
 
         std::sort(_children.begin(), _children.end(),
-                  [](iWidgetPtr const a, iWidgetPtr const b) { return a->getZValue() < b->getZValue(); });
+                  [](iWidgetPtr const a, iWidgetPtr const b)
+                  { return a->getZValue() < b->getZValue(); });
 
         widget->setParent(this);
     }
@@ -348,13 +349,14 @@ namespace igor
 
     void iWidget::draw()
     {
-        if (isVisible())
+        if (!isVisible())
         {
-            iWidgetManager &wm = iWidgetManager::getInstance();
-            for (const auto child : _children)
-            {
-                child->draw();
-            }
+            return;
+        }
+        
+        for (const auto child : _children)
+        {
+            child->draw();
         }
     }
 
@@ -400,8 +402,7 @@ namespace igor
             if (_isMouseOver)
             {
                 // get copy of children
-                std::vector<iWidgetPtr> widgets;
-                getChildren(widgets);
+                std::vector<iWidgetPtr> widgets = getChildren();
                 bool result = false;
 
                 for (auto widget : widgets)
@@ -442,8 +443,7 @@ namespace igor
             if (_isMouseOver)
             {
                 // get copy of children
-                std::vector<iWidgetPtr> widgets;
-                getChildren(widgets);
+                std::vector<iWidgetPtr> widgets = getChildren();
                 bool result = false;
 
                 for (auto widget : widgets)
@@ -480,8 +480,7 @@ namespace igor
             if (_isMouseOver)
             {
                 // get copy of children
-                std::vector<iWidgetPtr> children;
-                getChildren(children);
+                std::vector<iWidgetPtr> children = getChildren();
                 bool result = false;
 
                 for (auto child : children)
@@ -574,8 +573,7 @@ namespace igor
             if (_isMouseOver)
             {
                 // get copy of children
-                std::vector<iWidgetPtr> widgets;
-                getChildren(widgets);
+                std::vector<iWidgetPtr> widgets = getChildren();
                 bool result = false;
 
                 for (auto widget : widgets)
@@ -609,8 +607,7 @@ namespace igor
         if (isEnabled())
         {
             // get copy of children
-            std::vector<iWidgetPtr> widgets;
-            getChildren(widgets);
+            std::vector<iWidgetPtr> widgets = getChildren();
 
             for (auto widget : widgets)
             {
@@ -630,8 +627,7 @@ namespace igor
         if (isEnabled())
         {
             // get copy of children
-            std::vector<iWidgetPtr> widgets;
-            getChildren(widgets);
+            std::vector<iWidgetPtr> widgets = getChildren();
 
             for (auto widget : widgets)
             {
@@ -651,8 +647,7 @@ namespace igor
         if (isEnabled())
         {
             // get copy of children
-            std::vector<iWidgetPtr> widgets;
-            getChildren(widgets);
+            std::vector<iWidgetPtr> widgets = getChildren();
 
             for (auto widget : widgets)
             {
@@ -672,8 +667,7 @@ namespace igor
         if (isEnabled())
         {
             // get copy of children
-            std::vector<iWidgetPtr> widgets;
-            getChildren(widgets);
+            std::vector<iWidgetPtr> widgets = getChildren();
 
             for (auto widget : widgets)
             {
@@ -948,7 +942,7 @@ namespace igor
             "iWidgetColor",
             "iWidgetColorGradient",
             "iWidgetGraph",
-            "iWidgetGrid",
+            "iWidgetGridLayout",
             "iWidgetGroupBox",
             "iWidgetLabel",
             "iWidgetMenu",

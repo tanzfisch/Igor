@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
@@ -13,8 +13,8 @@ using namespace iaux;
 
 namespace igor
 {
-    iWidgetGrid::iWidgetGrid(const iWidgetPtr parent)
-        : iWidget(iWidgetType::iWidgetGrid, iWidgetKind::Widget, parent)
+    iWidgetGridLayout::iWidgetGridLayout(const iWidgetPtr parent)
+        : iWidget(iWidgetType::iWidgetGridLayout, iWidgetKind::Widget, parent)
     {
         _configuredWidth = 0;
         _configuredHeight = 0;
@@ -22,7 +22,7 @@ namespace igor
         initGrid();
     }
 
-    void iWidgetGrid::clear()
+    void iWidgetGridLayout::clear()
     {
         clearChildren();
         _widgetRows.clear();
@@ -30,27 +30,27 @@ namespace igor
         initGrid();
     }
 
-    void iWidgetGrid::setHighlightMode(iSelectionMode highlightMode)
+    void iWidgetGridLayout::setHighlightMode(iSelectionMode highlightMode)
     {
         _highlightMode = highlightMode;
     }
 
-    void iWidgetGrid::setSelectMode(iSelectionMode selectMode)
+    void iWidgetGridLayout::setSelectMode(iSelectionMode selectMode)
     {
         _selectMode = selectMode;
     }
 
-    iSelectionMode iWidgetGrid::getSelectMode() const
+    iSelectionMode iWidgetGridLayout::getSelectMode() const
     {
         return _selectMode;
     }
 
-    iSelectionMode iWidgetGrid::getHighlightMode() const
+    iSelectionMode iWidgetGridLayout::getHighlightMode() const
     {
         return _highlightMode;
     }
 
-    const std::any iWidgetGrid::getSelectedUserData()
+    const std::any iWidgetGridLayout::getSelectedUserData()
     {
         if (!isSelected())
         {
@@ -62,7 +62,7 @@ namespace igor
         }
     }
 
-    std::any iWidgetGrid::getUserData(int32 col, int32 row)
+    std::any iWidgetGridLayout::getUserData(int32 col, int32 row)
     {
         con_assert(_widgetRows.size() > row, "out of range");
         con_assert(_widgetRows[row]._widgetColumn.size() > col, "out of range");
@@ -80,17 +80,17 @@ namespace igor
         return std::any();
     }
 
-    int32 iWidgetGrid::getSelectedRow() const
+    int32 iWidgetGridLayout::getSelectedRow() const
     {
         return _selectedRow;
     }
 
-    bool iWidgetGrid::isSelected()
+    bool iWidgetGridLayout::isSelected()
     {
         return ((_selectedColumn != -1) && (_selectedRow != -1)) ? true : false;
     }
 
-    void iWidgetGrid::unselect()
+    void iWidgetGridLayout::unselect()
     {
         if (_selectedColumn != -1 ||
             _selectedRow != -1)
@@ -102,7 +102,7 @@ namespace igor
         }
     }
 
-    void iWidgetGrid::select(int32 column, int32 row)
+    void iWidgetGridLayout::select(int32 column, int32 row)
     {
         if (row >= 0 &&
             row < getRowCount() &&
@@ -120,12 +120,12 @@ namespace igor
         }
     }
 
-    int32 iWidgetGrid::getSelectedColumn() const
+    int32 iWidgetGridLayout::getSelectedColumn() const
     {
         return _selectedColumn;
     }
 
-    void iWidgetGrid::initGrid()
+    void iWidgetGridLayout::initGrid()
     {
         GridColumn gridColumn;
         gridColumn._widgetColumn.resize(1);
@@ -133,7 +133,7 @@ namespace igor
         unselect();
     }
 
-    void iWidgetGrid::appendRows(uint32 count)
+    void iWidgetGridLayout::appendRows(uint32 count)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -152,7 +152,7 @@ namespace igor
         }
     }
 
-    void iWidgetGrid::removeRow(uint32 at)
+    void iWidgetGridLayout::removeRow(uint32 at)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
         con_assert(at < _widgetRows.size(), "out of range");
@@ -186,7 +186,7 @@ namespace igor
         }
     }
 
-    void iWidgetGrid::removeColumn(uint32 at)
+    void iWidgetGridLayout::removeColumn(uint32 at)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
         uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetColumn.size());
@@ -222,7 +222,7 @@ namespace igor
         }
     }
 
-    void iWidgetGrid::insertRow(uint32 at)
+    void iWidgetGridLayout::insertRow(uint32 at)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
         con_assert(at <= _widgetRows.size(), "out of range");
@@ -248,7 +248,7 @@ namespace igor
         }
     }
 
-    void iWidgetGrid::insertColumn(uint32 at)
+    void iWidgetGridLayout::insertColumn(uint32 at)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
         uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetColumn.size());
@@ -278,7 +278,7 @@ namespace igor
         }
     }
 
-    void iWidgetGrid::appendColumns(uint32 count)
+    void iWidgetGridLayout::appendColumns(uint32 count)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -297,7 +297,7 @@ namespace igor
         }
     }
 
-    void iWidgetGrid::calcMinSize()
+    void iWidgetGridLayout::calcMinSize()
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -407,7 +407,7 @@ namespace igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetGrid::calcChildOffsets(std::vector<iaRectanglef> &offsets)
+    void iWidgetGridLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
     {
         offsets.clear();
         offsets.resize(_children.size());
@@ -444,7 +444,7 @@ namespace igor
         }
     }
 
-    void iWidgetGrid::updateAlignment(int32 clientWidth, int32 clientHeight)
+    void iWidgetGridLayout::updateAlignment(int32 clientWidth, int32 clientHeight)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -510,47 +510,47 @@ namespace igor
         }
     }
 
-    int32 iWidgetGrid::getBorder()
+    int32 iWidgetGridLayout::getBorder()
     {
         return _border;
     }
 
-    void iWidgetGrid::setBorder(int32 border)
+    void iWidgetGridLayout::setBorder(int32 border)
     {
         _border = border;
     }
 
-    void iWidgetGrid::setStretchRow(int32 row)
+    void iWidgetGridLayout::setStretchRow(int32 row)
     {
         _stretchRow = row;
     }
 
-    int32 iWidgetGrid::getStretchRow() const
+    int32 iWidgetGridLayout::getStretchRow() const
     {
         return _stretchRow;
     }
 
-    void iWidgetGrid::setStretchColumn(int32 col)
+    void iWidgetGridLayout::setStretchColumn(int32 col)
     {
         _stretchCol = col;
     }
 
-    int32 iWidgetGrid::getStretchColumn() const
+    int32 iWidgetGridLayout::getStretchColumn() const
     {
         return _stretchCol;
     }
 
-    int32 iWidgetGrid::getMouseOverRow() const
+    int32 iWidgetGridLayout::getMouseOverRow() const
     {
         return _mouseOverRow;
     }
 
-    int32 iWidgetGrid::getMouseOverColumn() const
+    int32 iWidgetGridLayout::getMouseOverColumn() const
     {
         return _mouseOverColumn;
     }
 
-    bool iWidgetGrid::handleMouseDoubleClick(iKeyCode key)
+    bool iWidgetGridLayout::handleMouseDoubleClick(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -560,8 +560,7 @@ namespace igor
         }
 
         // get copy of children
-        std::vector<iWidgetPtr> widgets;
-        getChildren(widgets);
+        std::vector<iWidgetPtr> widgets = getChildren();
         bool result = false;
 
         for (auto widget : widgets)
@@ -601,7 +600,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetGrid::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetGridLayout::handleMouseKeyDown(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -620,17 +619,17 @@ namespace igor
         return false;
     }
 
-    void iWidgetGrid::setEmptyCellsSelectable(bool emptyCellsSelectable)
+    void iWidgetGridLayout::setEmptyCellsSelectable(bool emptyCellsSelectable)
     {
         _emptyCellsSelectable = emptyCellsSelectable;
     }
 
-    bool iWidgetGrid::getEmptyCellsSelectable() const
+    bool iWidgetGridLayout::getEmptyCellsSelectable() const
     {
         return _emptyCellsSelectable;
     }
 
-    bool iWidgetGrid::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetGridLayout::handleMouseKeyUp(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -639,8 +638,7 @@ namespace igor
             if (_isMouseOver || _acceptOutOfBoundsClicks)
             {
                 // get copy of children
-                std::vector<iWidgetPtr> widgets;
-                getChildren(widgets);
+                std::vector<iWidgetPtr> widgets = getChildren();
                 bool result = false;
 
                 for (auto widget : widgets)
@@ -696,7 +694,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetGrid::handleMouseMove(const iaVector2f &pos)
+    void iWidgetGridLayout::handleMouseMove(const iaVector2f &pos)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -767,7 +765,7 @@ namespace igor
         }
     }
 
-    bool iWidgetGrid::handleMouseWheel(int32 d)
+    bool iWidgetGridLayout::handleMouseWheel(int32 d)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -804,114 +802,116 @@ namespace igor
         return false;
     }
 
-    int32 iWidgetGrid::getCellSpacing()
+    int32 iWidgetGridLayout::getCellSpacing()
     {
         return _cellspacing;
     }
 
-    void iWidgetGrid::setCellSpacing(int32 cellSpacing)
+    void iWidgetGridLayout::setCellSpacing(int32 cellSpacing)
     {
         _cellspacing = cellSpacing;
     }
 
-    void iWidgetGrid::draw()
+    void iWidgetGridLayout::draw()
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (isVisible())
+        if (!isVisible())
         {
-            int32 rowIndex = 0;
-            int32 colIndex = 0;
+            return;
+        }
 
-            iWidgetManager::getInstance().getTheme()->drawGridCell(getActualRect(), getState());
+        int32 rowIndex = 0;
+        int32 colIndex = 0;
 
-            for (auto row : _widgetRows)
+        iWidgetManager::getInstance().getTheme()->drawGridCell(getActualRect(), getState());
+
+        for (auto row : _widgetRows)
+        {
+            colIndex = 0;
+
+            for (auto col : row._widgetColumn)
             {
-                colIndex = 0;
+                int32 colPosX = col._x + getActualPosX();
+                int32 colPosY = col._y + getActualPosY();
 
-                for (auto col : row._widgetColumn)
+                iWidgetManager::getInstance().getTheme()->drawGridCell(iaRectanglef(colPosX, colPosY, col._actualWidth, col._actualHeight), getState());
+
+                bool drawSelected = false;
+                bool drawHighlight = false;
+
+                if (_selectMode != iSelectionMode::NoSelection)
                 {
-                    int32 colPosX = col._x + getActualPosX();
-                    int32 colPosY = col._y + getActualPosY();
-
-                    iWidgetManager::getInstance().getTheme()->drawGridCell(iaRectanglef(colPosX, colPosY, col._actualWidth, col._actualHeight), getState());
-
-                    bool drawSelected = false;
-                    bool drawHighlight = false;
-
-                    if (_selectMode != iSelectionMode::NoSelection)
+                    switch (_selectMode)
                     {
-                        switch (_selectMode)
+                    case iSelectionMode::Column:
+                        drawSelected = _selectedColumn == colIndex;
+                        break;
+
+                    case iSelectionMode::Row:
+                        drawSelected = _selectedRow == rowIndex;
+                        break;
+
+                    case iSelectionMode::Cell:
+                        drawSelected = _selectedColumn == colIndex &&
+                                       _selectedRow == rowIndex;
+                        break;
+                    }
+                }
+
+                if (drawSelected)
+                {
+                    iWidgetManager::getInstance().getTheme()->drawGridSelection(
+                        iaRectanglef(colPosX, colPosY, col._actualWidth, col._actualHeight));
+                }
+                else
+                {
+                    if (_highlightMode != iSelectionMode::NoSelection)
+                    {
+                        switch (_highlightMode)
                         {
                         case iSelectionMode::Column:
-                            drawSelected = _selectedColumn == colIndex;
+                            drawHighlight = _mouseOverColumn == colIndex;
                             break;
 
                         case iSelectionMode::Row:
-                            drawSelected = _selectedRow == rowIndex;
+                            drawHighlight = _mouseOverRow == rowIndex;
                             break;
 
                         case iSelectionMode::Cell:
-                            drawSelected = _selectedColumn == colIndex &&
-                                           _selectedRow == rowIndex;
+                            drawHighlight = _mouseOverColumn == colIndex &&
+                                            _mouseOverRow == rowIndex;
                             break;
                         }
                     }
 
-                    if (drawSelected)
+                    if (drawHighlight)
                     {
-                        iWidgetManager::getInstance().getTheme()->drawGridSelection(
+                        iWidgetManager::getInstance().getTheme()->drawGridHighlight(
                             iaRectanglef(colPosX, colPosY, col._actualWidth, col._actualHeight));
                     }
-                    else
-                    {
-                        if (_highlightMode != iSelectionMode::NoSelection)
-                        {
-                            switch (_highlightMode)
-                            {
-                            case iSelectionMode::Column:
-                                drawHighlight = _mouseOverColumn == colIndex;
-                                break;
-
-                            case iSelectionMode::Row:
-                                drawHighlight = _mouseOverRow == rowIndex;
-                                break;
-
-                            case iSelectionMode::Cell:
-                                drawHighlight = _mouseOverColumn == colIndex &&
-                                                _mouseOverRow == rowIndex;
-                                break;
-                            }
-                        }
-
-                        if (drawHighlight)
-                        {
-                            iWidgetManager::getInstance().getTheme()->drawGridHighlight(
-                                iaRectanglef(colPosX, colPosY, col._actualWidth, col._actualHeight));
-                        }
-                    }
-
-                    iWidgetPtr widget = iWidgetManager::getInstance().getWidget(col._widgetID);
-
-                    if (widget != nullptr)
-                    {
-                        widget->draw();
-                    }
-
-                    colIndex++;
                 }
 
-                rowIndex++;
+                iWidgetPtr widget = iWidgetManager::getInstance().getWidget(col._widgetID);
+
+                if (widget != nullptr)
+                {
+                    widget->draw();
+                }
+
+                colIndex++;
             }
+
+            rowIndex++;
         }
     }
 
-    uint32 iWidgetGrid::getRowCount()
+    uint32 iWidgetGridLayout::getRowCount()
     {
         return static_cast<uint32>(_widgetRows.size());
     }
 
-    uint32 iWidgetGrid::getColumnCount()
+    uint32 iWidgetGridLayout::getColumnCount()
     {
         if (_widgetRows.empty())
         {
@@ -921,14 +921,14 @@ namespace igor
         return static_cast<uint32>(_widgetRows[0]._widgetColumn.size());
     }
 
-    void iWidgetGrid::addWidget(iWidgetPtr widget)
+    void iWidgetGridLayout::addWidget(iWidgetPtr widget)
     {
         addWidget(widget, 0, 0, nullptr);
     }
 
-    bool iWidgetGrid::isCellEmpty(int32 col, int32 row)
+    bool iWidgetGridLayout::isCellEmpty(int32 col, int32 row)
     {
-        if(_widgetRows.size() < row || _widgetRows[row]._widgetColumn.size() < col)
+        if (_widgetRows.size() < row || _widgetRows[row]._widgetColumn.size() < col)
         {
             return false;
         }
@@ -937,7 +937,7 @@ namespace igor
                (!_widgetRows[row]._widgetColumn[col]._userData.has_value());
     }
 
-    void iWidgetGrid::removeWidget(iWidgetPtr widget)
+    void iWidgetGridLayout::removeWidget(iWidgetPtr widget)
     {
         uint32 rowCount = static_cast<uint32>(_widgetRows.size());
         uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetColumn.size());
@@ -961,7 +961,7 @@ namespace igor
         iWidget::removeWidget(widget);
     }
 
-    void iWidgetGrid::addWidget(iWidgetPtr widget, int32 col, int32 row, const std::any &userData)
+    void iWidgetGridLayout::addWidget(iWidgetPtr widget, int32 col, int32 row, const std::any &userData)
     {
         con_assert(_widgetRows.size() > row && _widgetRows[row]._widgetColumn.size() > col, "out of range " << col << "," << row);
 
@@ -976,7 +976,7 @@ namespace igor
 
         if (widgetID == iWidget::INVALID_WIDGET_ID)
         {
-            con_err("can't add invalid widget id. use iWidgetGrid::removeWidget");
+            con_err("can't add invalid widget id. use iWidgetGridLayout::removeWidget");
             return;
         }
 

@@ -41,7 +41,7 @@ using namespace iaux;
 namespace igor
 {
 
-    class iWidgetGrid;
+    class iWidgetGridLayout;
     class iWidgetLabel;
     class iWidgetLineTextEdit;
     class iWidgetButton;
@@ -189,11 +189,11 @@ namespace igor
 
         /*! root widget
          */
-        iWidgetGrid *_grid = nullptr;
+        iWidgetGridLayout *_grid = nullptr;
 
         /*! head line grid
          */
-        iWidgetGrid *_headlineGrid = nullptr;
+        iWidgetGridLayout *_headlineGrid = nullptr;
 
         /*! label that holds the title
          */
@@ -205,15 +205,15 @@ namespace igor
 
         /*! collapsed grid
          */
-        iWidgetGrid *_collapsedGrid = nullptr;
+        iWidgetGridLayout *_collapsedGrid = nullptr;
 
         /*! expanded grid
          */
-        iWidgetGrid *_expandedGrid = nullptr;
+        iWidgetGridLayout *_expandedGrid = nullptr;
 
         /*! expanded slider grid
          */
-        iWidgetGrid *_expandedSliderGrid = nullptr;
+        iWidgetGridLayout *_expandedSliderGrid = nullptr;
 
         /*! number chooser for hue component
          */

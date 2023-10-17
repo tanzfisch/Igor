@@ -112,7 +112,7 @@ private:
     PropertyType _propertyType = PropertyType::Undefined;
 
     // iDialog* _dialog = nullptr;
-    iWidgetGrid *_grid = nullptr;
+    iWidgetGridLayout *_grid = nullptr;
 
     UserControlTransformation *_userControlTransformation = nullptr;
     UserControlLight *_userControlLight = nullptr;

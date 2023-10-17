@@ -68,7 +68,7 @@ uint32 UserControlLight::getNode()
 
 void UserControlLight::initGUI()
 {
-    _grid = new iWidgetGrid();
+    _grid = new iWidgetGridLayout();
     _grid->appendRows(2);
     _grid->setBorder(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
