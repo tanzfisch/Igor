@@ -8,7 +8,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/resources/iResourceManager.h>
 
 namespace igor
@@ -49,7 +49,7 @@ namespace igor
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
 
-		iWidgetGridPtr grid = new iWidgetGrid();
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -80,7 +80,7 @@ namespace igor
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
 
-		iWidgetGridPtr grid = new iWidgetGrid();
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendColumns(1);
 		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -120,7 +120,7 @@ namespace igor
 
 	void iDialogIndexMenu::onChange(const iWidgetPtr source)
 	{
-		_returnValue = static_cast<iWidgetGridPtr>(source)->getSelectedRow();
+		_returnValue = static_cast<iWidgetGridLayoutPtr>(source)->getSelectedRow();
 		close();
 	}
 

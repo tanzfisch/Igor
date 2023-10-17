@@ -41,7 +41,7 @@ uint32 UserControlModel::getNode()
 
 void UserControlModel::initGUI()
 {
-    _grid = new iWidgetGrid();
+    _grid = new iWidgetGridLayout();
     _grid->appendColumns(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);

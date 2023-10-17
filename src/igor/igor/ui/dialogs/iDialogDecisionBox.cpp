@@ -6,7 +6,7 @@
 
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/iWidgetManager.h>
@@ -49,7 +49,7 @@ namespace igor
 		setWidth(20);
 		setHeight(20);
 
-		iWidgetGridPtr grid = new iWidgetGrid();
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendRows(4);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 		grid->setVerticalAlignment(iVerticalAlignment::Center);
@@ -60,7 +60,7 @@ namespace igor
 		messageLabel->setText(message);
 		messageLabel->setMaxTextWidth(280);
 
-		iWidgetGridPtr buttonGrid = new iWidgetGrid();
+		iWidgetGridLayoutPtr buttonGrid = new iWidgetGridLayout();
 		buttonGrid->appendColumns(3);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
@@ -74,7 +74,7 @@ namespace igor
 		cancelButton->setText("Cancel");
 		cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
-		iWidgetGridPtr radioGrid = new iWidgetGrid();
+		iWidgetGridLayoutPtr radioGrid = new iWidgetGridLayout();
 		radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);
 		radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		radioGrid->setVerticalAlignment(iVerticalAlignment::Top);

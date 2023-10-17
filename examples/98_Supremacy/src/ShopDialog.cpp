@@ -71,27 +71,27 @@ void ShopDialog::initGUI()
 	setHorizontalAlignment(iHorizontalAlignment::Center);
 	setVerticalAlignment(iVerticalAlignment::Center);
 
-	iWidgetGrid *grid = new iWidgetGrid(this);
+	iWidgetGridLayout *grid = new iWidgetGridLayout(this);
 	grid->appendRows(1);
 	grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 	grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	grid->setBorder(10);
 	grid->setCellSpacing(20);
 
-	iWidgetGrid *coinsGrid = new iWidgetGrid();
+	iWidgetGridLayout *coinsGrid = new iWidgetGridLayout();
 	coinsGrid->appendColumns(1);
 	coinsGrid->setStretchColumn(1);
 	coinsGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 	coinsGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 
-	iWidgetGrid *headerGrid = new iWidgetGrid();
+	iWidgetGridLayout *headerGrid = new iWidgetGridLayout();
 	headerGrid->appendColumns(3);
 	headerGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 	headerGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	headerGrid->setCellSpacing(20);
 	headerGrid->setStretchColumn(1);
 
-	_itemGrid = new iWidgetGrid();
+	_itemGrid = new iWidgetGridLayout();
 	_itemGrid->appendColumns(2);
 	_itemGrid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_itemGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
@@ -102,19 +102,19 @@ void ShopDialog::initGUI()
 	_itemGrid->setEmptyCellsSelectable();
 	_itemGrid->registerOnChangeEvent(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
 
-	iWidgetGrid *item1Grid = new iWidgetGrid();
+	iWidgetGridLayout *item1Grid = new iWidgetGridLayout();
 	item1Grid->appendRows(4);
 	item1Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item1Grid->setVerticalAlignment(iVerticalAlignment::Top);
 	item1Grid->setStretchRow(3);
 
-	iWidgetGrid *item2Grid = new iWidgetGrid();
+	iWidgetGridLayout *item2Grid = new iWidgetGridLayout();
 	item2Grid->appendRows(4);
 	item2Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item2Grid->setVerticalAlignment(iVerticalAlignment::Top);
 	item1Grid->setStretchRow(3);
 
-	iWidgetGrid *item3Grid = new iWidgetGrid();
+	iWidgetGridLayout *item3Grid = new iWidgetGridLayout();
 	item3Grid->appendRows(4);
 	item3Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item3Grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -206,7 +206,7 @@ void ShopDialog::initGUI()
 
 void ShopDialog::onSelectionChanged(const iWidgetPtr source)
 {
-	iWidgetGridPtr grid = static_cast<iWidgetGridPtr>(source);
+	iWidgetGridLayoutPtr grid = static_cast<iWidgetGridLayoutPtr>(source);
 
 	switch (grid->getSelectedColumn())
 	{

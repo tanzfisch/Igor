@@ -37,7 +37,7 @@ using namespace iaux;
 namespace igor
 {
 
-    class iWidgetGrid;
+    class iWidgetGridLayout;
     class iWidgetLabel;
     class iWidget;
     class iDialog;
@@ -113,7 +113,7 @@ namespace igor
 
         /*! file and folder grid
 		*/
-        iWidgetGrid *_fileGrid = nullptr;
+        iWidgetGridLayout *_fileGrid = nullptr;
 
         /*! path edit text field
 		*/

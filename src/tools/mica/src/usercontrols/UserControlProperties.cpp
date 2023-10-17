@@ -25,7 +25,7 @@ void UserControlProperties::initGUI()
     scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
 
-    _grid = new iWidgetGrid();
+    _grid = new iWidgetGridLayout();
     _grid->setBorder(5);
     _grid->appendRows(1);
     _grid->setCellSpacing(2);

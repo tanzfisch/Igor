@@ -95,7 +95,7 @@ iWidgetLineTextEdit *UserControlTransformation::createTextEdit()
 
 void UserControlTransformation::initGUI()
 {
-	_grid = new iWidgetGrid();
+	_grid = new iWidgetGridLayout();
 	_grid->setHorizontalAlignment(iHorizontalAlignment::Right);
 	_grid->setVerticalAlignment(iVerticalAlignment::Top);
 	_grid->appendColumns(3);

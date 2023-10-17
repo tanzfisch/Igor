@@ -59,7 +59,7 @@ void UpgradeDialog::initGUI()
 	setHorizontalAlignment(iHorizontalAlignment::Center);
 	setVerticalAlignment(iVerticalAlignment::Center);
 
-	iWidgetGrid *grid = new iWidgetGrid(this);
+	iWidgetGridLayout *grid = new iWidgetGridLayout(this);
 	grid->appendColumns(2);
 	grid->appendRows(2);
 	grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);

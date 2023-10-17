@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETGRID__
-#define __IGOR_WIDGETGRID__
+#ifndef __IGOR_WIDGET_GRID_LAYOUT__
+#define __IGOR_WIDGET_GRID_LAYOUT__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <vector>
@@ -36,20 +36,20 @@
 namespace igor
 {
 
-    /*! grid widget
+    /*! grid layout widget
      */
-    class IGOR_API iWidgetGrid : public iWidget
+    class IGOR_API iWidgetGridLayout : public iWidget
     {
     public:
         /*! ctor initializes member variables
 
         \param parent optional parent
         */
-        iWidgetGrid(const iWidgetPtr parent = nullptr);
+        iWidgetGridLayout(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
          */
-        ~iWidgetGrid() = default;
+        ~iWidgetGridLayout() = default;
 
         /*! appends rows at the bottom of the grid
 
@@ -388,15 +388,15 @@ namespace igor
 
         /*! calculates childrens offsets relative to their parent
 
-        \param offsets vector to be filled with childrens offsets
+        \param[out] offsets vector to be filled with childrens offsets
         */
-        void calcChildOffsets(std::vector<iaRectanglef> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglef> &offsets) override;
     };
 
     /*! widget grid pointer definition
      */
-    typedef iWidgetGrid *iWidgetGridPtr;
+    typedef iWidgetGridLayout *iWidgetGridLayoutPtr;
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETGRID__
+#endif // __IGOR_WIDGET_GRID_LAYOUT__

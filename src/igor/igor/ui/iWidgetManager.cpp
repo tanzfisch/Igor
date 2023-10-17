@@ -5,41 +5,6 @@
 #include <igor/ui/iWidgetManager.h>
 
 #include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/ui/widgets/iWidgetLineTextEdit.h>
-#include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetColor.h>
-#include <igor/ui/widgets/iWidgetColorGradient.h>
-#include <igor/ui/widgets/iWidgetSlider.h>
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/widgets/iWidgetGraph.h>
-
-#include <igor/ui/dialogs/iDialogColorChooser.h>
-#include <igor/ui/dialogs/iDialogDecisionBox.h>
-#include <igor/ui/dialogs/iDialogIndexMenu.h>
-#include <igor/ui/dialogs/iDialogMessageBox.h>
-#include <igor/ui/dialogs/iDialogColorGradient.h>
-#include <igor/ui/dialogs/iDialogGraph.h>
-
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
-#include <igor/ui/user_controls/iUserControlFileChooser.h>
-
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iApplication.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/renderer/iRenderer.h>
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
-#include <algorithm>
 
 namespace igor
 {
@@ -61,9 +26,7 @@ namespace igor
                 con_debug(widget->getInfo());
 
                 // to get a better idea which widget this is we also print it's children
-                std::vector<iWidgetPtr> children;
-                widget->getChildren(children);
-                for (auto child : children)
+                for (const auto &child : widget->getChildren())
                 {
                     con_debug(" +-- " << widget->getInfo());
                 }

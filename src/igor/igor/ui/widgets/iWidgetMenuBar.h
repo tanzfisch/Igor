@@ -31,7 +31,7 @@
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/ui/actions/iAction.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetMenu.h>
 
 #include <iaux/data/iaString.h>
@@ -84,7 +84,7 @@ namespace igor
     private:
         /*! menu grid
         */
-        iWidgetGridPtr _grid;
+        iWidgetGridLayoutPtr _grid;
 
         /*! initializes ui elements
         */

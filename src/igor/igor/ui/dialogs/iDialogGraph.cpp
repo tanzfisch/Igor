@@ -7,7 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/iWidgetManager.h>
@@ -69,7 +69,7 @@ namespace igor
         setWidth(450);
         setHeight(20);
 
-        iWidgetGridPtr grid = new iWidgetGrid(this);
+        iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->appendRows(4);
         grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         grid->setVerticalAlignment(iVerticalAlignment::Stretch);
@@ -100,7 +100,7 @@ namespace igor
         groupBoxSelection->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         groupBoxSelection->setVerticalAlignment(iVerticalAlignment::Stretch);
 
-        iWidgetGrid *axisGrid = new iWidgetGrid();
+        iWidgetGridLayout *axisGrid = new iWidgetGridLayout();
         axisGrid->appendRows(static_cast<uint32>(_graphs.size() + 2));
         axisGrid->appendColumns(1);
         axisGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -189,7 +189,7 @@ namespace igor
         delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
         axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
-        iWidgetGrid *buttonGrid = new iWidgetGrid();
+        iWidgetGridLayout *buttonGrid = new iWidgetGridLayout();
         buttonGrid->appendColumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 

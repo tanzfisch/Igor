@@ -7,7 +7,7 @@
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/resources/iResourceManager.h>
 
 namespace igor
@@ -23,7 +23,7 @@ namespace igor
     {
         setIgnoreChildEventHandling();
 
-        iWidgetGridPtr actionGrid = new iWidgetGrid(this);
+        iWidgetGridLayoutPtr actionGrid = new iWidgetGridLayout(this);
         actionGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         actionGrid->appendColumns(1);
         actionGrid->setStretchColumn(1);

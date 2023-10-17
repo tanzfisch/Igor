@@ -31,7 +31,7 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/actions/iAction.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetMenu.h>
 
 namespace igor
@@ -93,7 +93,7 @@ namespace igor
     private:
         /*! main grid
         */
-        iWidgetGridPtr _grid = nullptr;
+        iWidgetGridLayoutPtr _grid = nullptr;
 
         /*! handle mouse off click event
 

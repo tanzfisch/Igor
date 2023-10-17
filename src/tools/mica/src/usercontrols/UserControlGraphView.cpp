@@ -45,7 +45,7 @@ iNodeID UserControlGraphView::getRootNode()
 
 void UserControlGraphView::initGUI()
 {
-    iWidgetGrid *grid = new iWidgetGrid();
+    iWidgetGridLayout *grid = new iWidgetGridLayout();
     grid->setBorder(0);
     grid->appendRows(1);
     grid->setCellSpacing(2);
@@ -55,7 +55,7 @@ void UserControlGraphView::initGUI()
     grid->setVerticalAlignment(iVerticalAlignment::Stretch);
     addWidget(grid);
 
-    iWidgetGrid *gridButtons = new iWidgetGrid();
+    iWidgetGridLayout *gridButtons = new iWidgetGridLayout();
     gridButtons->setBorder(0);
     gridButtons->appendColumns(10);
     gridButtons->setCellSpacing(2);
@@ -119,7 +119,7 @@ void UserControlGraphView::initGUI()
     scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
     scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    _gridGraph = new iWidgetGrid();
+    _gridGraph = new iWidgetGridLayout();
     _gridGraph->setAcceptOutOfBoundsClicks();
     _gridGraph->setBorder(0);
     _gridGraph->setWidth(300);
@@ -318,7 +318,7 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
         uint32 currentRowIndex = _gridGraph->getRowCount() - 1;
         uint32 currentColumnIndex = _indentation++;
 
-        iWidgetGrid *entry = new iWidgetGrid();
+        iWidgetGridLayout *entry = new iWidgetGridLayout();
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
         entry->setCellSpacing(2);

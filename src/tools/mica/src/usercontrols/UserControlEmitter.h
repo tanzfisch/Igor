@@ -56,7 +56,7 @@ public:
 private:
     /*! base grid and root widget
     */
-    iWidgetGrid *_grid = nullptr;
+    iWidgetGridLayout *_grid = nullptr;
 
     /*! select box for emitter type
     */

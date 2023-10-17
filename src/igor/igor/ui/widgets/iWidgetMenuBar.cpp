@@ -9,7 +9,7 @@
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/user_controls/iUserControlAction.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 
 namespace igor
 {
@@ -19,7 +19,7 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Left);
         setVerticalAlignment(iVerticalAlignment::Top);
 
-        _grid = new iWidgetGrid(this);
+        _grid = new iWidgetGridLayout(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
         _grid->setHighlightMode(iSelectionMode::Column);
     }

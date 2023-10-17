@@ -5,7 +5,7 @@
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
@@ -88,7 +88,7 @@ namespace igor
 
     void iUserControlFileChooser::initGUI()
     {
-        iWidgetGridPtr grid = new iWidgetGrid(this);
+        iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->appendColumns(1);
         grid->setStretchColumn(0);
         grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);

@@ -8,7 +8,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
@@ -81,7 +81,7 @@ namespace igor
 
     void iDialogFileSelect::initGUI()
     {
-        iWidgetGridPtr grid = new iWidgetGrid(this);
+        iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->setBorder(4);
         grid->setCellSpacing(4);
         grid->appendRows(4);
@@ -105,13 +105,13 @@ namespace igor
         _scroll->setHeight(300);
         grid->addWidget(_scroll, 0, 2);
 
-        _fileGrid = new iWidgetGrid(_scroll);
+        _fileGrid = new iWidgetGridLayout(_scroll);
         _fileGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _fileGrid->setSelectMode(iSelectionMode::Cell);
         _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
 
-        iWidgetGridPtr filenameGrid = new iWidgetGrid();
+        iWidgetGridLayoutPtr filenameGrid = new iWidgetGridLayout();
         filenameGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         filenameGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
         filenameGrid->appendColumns(1);
@@ -133,7 +133,7 @@ namespace igor
         _filenameEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
         filenameGrid->addWidget(_filenameEdit, 1, 0);
 
-        iWidgetGridPtr buttonGrid = new iWidgetGrid();
+        iWidgetGridLayoutPtr buttonGrid = new iWidgetGridLayout();
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
         buttonGrid->appendColumns(1);
@@ -276,7 +276,7 @@ namespace igor
             _fileGrid->appendColumns(1);
         }
 
-        iWidgetGrid *entry = new iWidgetGrid();
+        iWidgetGridLayout *entry = new iWidgetGridLayout();
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->appendColumns(1);
 
