@@ -7,7 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetColor.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
@@ -86,7 +86,7 @@ namespace igor
 		setWidth(350);
 		setHeight(100);
 
-		iWidgetGridPtr grid = new iWidgetGrid(this);
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
 		grid->appendRows(4);
 		grid->setStretchRow(2);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -105,7 +105,7 @@ namespace igor
 		groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Stretch);
 		grid->addWidget(groupBoxGradient, 0, 1);
 
-		iWidgetGrid *buttonGrid = new iWidgetGrid();
+		iWidgetGridLayout *buttonGrid = new iWidgetGridLayout();
 		buttonGrid->appendColumns(2);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		grid->addWidget(buttonGrid, 0, 3);
@@ -125,7 +125,7 @@ namespace igor
 		groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
 		grid->addWidget(groupBox, 0, 2);
 
-		iWidgetGrid *controlGrid = new iWidgetGrid();
+		iWidgetGridLayout *controlGrid = new iWidgetGridLayout();
 		controlGrid->appendRows(3);
 		controlGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		groupBox->addWidget(controlGrid);
@@ -137,7 +137,7 @@ namespace igor
 		_colorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &iDialogColorGradient::onColorChanged));
 		controlGrid->addWidget(_colorChooser, 0, 0);
 
-		iWidgetGrid *positionGrid = new iWidgetGrid();
+		iWidgetGridLayout *positionGrid = new iWidgetGridLayout();
 		positionGrid->appendColumns(1);
 		positionGrid->setStretchColumn(1);
 		positionGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);

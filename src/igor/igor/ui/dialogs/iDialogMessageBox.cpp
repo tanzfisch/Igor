@@ -8,7 +8,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 
 #include <iaux/system/iaConsole.h>
@@ -29,7 +29,7 @@ namespace igor
 		setWidth(20);
 		setHeight(20);
 
-		iWidgetGridPtr grid = new iWidgetGrid(this);
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
 		grid->appendRows(2);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 		grid->setVerticalAlignment(iVerticalAlignment::Center);
@@ -43,7 +43,7 @@ namespace igor
 
 		grid->addWidget(new iWidgetSpacer(280, 1, true), 0, 1);
 
-		iWidgetGridPtr buttonGrid = new iWidgetGrid();
+		iWidgetGridLayoutPtr buttonGrid = new iWidgetGridLayout();
 		buttonGrid->appendColumns(3);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);

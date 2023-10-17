@@ -4,8 +4,8 @@
 
 #include <igor/ui/widgets/iWidgetMenu.h>
 
-
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetLabel.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/iWidgetManager.h>
@@ -34,7 +34,7 @@ namespace igor
     {
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-        iWidgetGridPtr grid = new iWidgetGrid(this);
+        iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         grid->appendColumns(2);
         grid->setStretchColumn(1);

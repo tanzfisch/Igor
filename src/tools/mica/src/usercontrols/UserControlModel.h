@@ -42,7 +42,7 @@ public:
     uint32 getNode();
 
 private:
-    iWidgetGrid *_grid = nullptr;
+    iWidgetGridLayout *_grid = nullptr;
 
     iWidgetLabel *_labelFilename = nullptr;
     iWidgetLineTextEdit *_textFilename = nullptr;

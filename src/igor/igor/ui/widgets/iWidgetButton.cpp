@@ -122,7 +122,13 @@ namespace igor
 
         if (isGrowingByContent())
         {
-            if (!_text.isEmpty())
+            if (_texture != nullptr)
+            {
+                // we don't actually want it to scale with the texture size since the texture is considered a background
+                minWidth = 16;
+                minHeight = 16;
+            }
+            else if (!_text.isEmpty())
             {
                 float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
                 int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
@@ -130,12 +136,9 @@ namespace igor
                 minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
                 minHeight = static_cast<int32>(fontSize * 1.5f);
             }
-            else if (_texture != nullptr)
-            {
-                // we don't actually want it to scale with the texture size since the texture is considered a background
-                minWidth = 16;
-                minHeight = 16;
-            }
+
+            minWidth = std::max(minWidth, _configuredWidth);
+            minHeight = std::max(minHeight, _configuredHeight);
         }
 
         setMinSize(minWidth, minHeight);

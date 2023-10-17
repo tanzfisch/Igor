@@ -346,20 +346,20 @@ uint64 UserControlParticleSystem::getNode()
 
 void UserControlParticleSystem::initGUI()
 {
-    _grid = new iWidgetGrid();
+    _grid = new iWidgetGridLayout();
     _grid->appendRows(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     addWidget(_grid);
 
-    iWidgetGrid *gridProperties = new iWidgetGrid();
+    iWidgetGridLayout *gridProperties = new iWidgetGridLayout();
     gridProperties->appendColumns(0);
     gridProperties->appendRows(2);
     gridProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     gridProperties->setStretchColumn(0);
     gridProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid *detailsGrid = new iWidgetGrid();
+    iWidgetGridLayout *detailsGrid = new iWidgetGridLayout();
     detailsGrid->appendColumns(1);
     detailsGrid->appendRows(2);
     detailsGrid->setStretchColumn(1);
@@ -391,7 +391,7 @@ void UserControlParticleSystem::initGUI()
     frequency += " Hz";
     _textFrequency->setText(frequency);
 
-    iWidgetGrid *gridButtons = new iWidgetGrid();
+    iWidgetGridLayout *gridButtons = new iWidgetGridLayout();
     gridButtons->appendColumns(2);
     gridButtons->setBorder(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -422,7 +422,7 @@ void UserControlParticleSystem::initGUI()
     simulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     simulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid *gridSimulationProperties = new iWidgetGrid();
+    iWidgetGridLayout *gridSimulationProperties = new iWidgetGridLayout();
     gridSimulationProperties->appendColumns(1);
     gridSimulationProperties->appendRows(7);
     gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -509,7 +509,7 @@ void UserControlParticleSystem::initGUI()
     vortexSimulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     vortexSimulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid *gridVortexSimulationProperties = new iWidgetGrid();
+    iWidgetGridLayout *gridVortexSimulationProperties = new iWidgetGridLayout();
     gridVortexSimulationProperties->appendColumns(1);
     gridVortexSimulationProperties->appendRows(6);
     gridVortexSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -665,7 +665,7 @@ void UserControlParticleSystem::initGUI()
     appearanceGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     appearanceGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid *gridAppearanceProperties = new iWidgetGrid();
+    iWidgetGridLayout *gridAppearanceProperties = new iWidgetGridLayout();
     gridAppearanceProperties->appendColumns(1);
     gridAppearanceProperties->appendRows(15);
     gridAppearanceProperties->setHorizontalAlignment(iHorizontalAlignment::Stretch);

@@ -258,7 +258,7 @@ void UserControlMesh::initGUI()
         return;
     }
 
-    iWidgetGridPtr grid = new iWidgetGrid(this);
+    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
     grid->appendRows(9);
     grid->setStretchRow(8);
     grid->setStretchColumn(0);
@@ -285,7 +285,7 @@ void UserControlMesh::initGUI()
     _emissiveColorChooser->setText("Emissive");
     _emissiveColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onEmissiveChange));
 
-    iWidgetGrid *detailsGrid = new iWidgetGrid();
+    iWidgetGridLayout *detailsGrid = new iWidgetGridLayout();
     detailsGrid->appendColumns(1);
     detailsGrid->appendRows(2);
     detailsGrid->setStretchColumn(1);
@@ -324,7 +324,7 @@ void UserControlMesh::initGUI()
     _textIndexes->setEnabled(false);
     _textIndexes->setText("0");
 
-    iWidgetGrid *gridShininess = new iWidgetGrid();
+    iWidgetGridLayout *gridShininess = new iWidgetGridLayout();
     gridShininess->appendColumns(2);
     gridShininess->appendRows(1);
     gridShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -356,7 +356,7 @@ void UserControlMesh::initGUI()
     _textShininess->setStepping(0.01f, 0.01f);
     _textShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
 
-    iWidgetGrid *gridTextures = new iWidgetGrid();
+    iWidgetGridLayout *gridTextures = new iWidgetGridLayout();
     gridTextures->appendRows(3);
     gridTextures->appendColumns(1);
     gridTextures->setStretchColumn(1);
@@ -399,7 +399,7 @@ void UserControlMesh::initGUI()
     _textureChooser3->setPreselectedPath("..\\data\\textures");
     _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    iWidgetGrid *gridMaterial = new iWidgetGrid();
+    iWidgetGridLayout *gridMaterial = new iWidgetGridLayout();
     gridMaterial->appendColumns(1);
     gridMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);

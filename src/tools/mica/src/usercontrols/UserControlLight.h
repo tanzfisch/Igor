@@ -43,7 +43,7 @@ public:
     uint32 getNode();
 
 private:
-    iWidgetGrid *_grid = nullptr;
+    iWidgetGridLayout *_grid = nullptr;
 
     iUserControlColorChooser *_ambientColorChooser = nullptr;
     iUserControlColorChooser *_specularColorChooser = nullptr;

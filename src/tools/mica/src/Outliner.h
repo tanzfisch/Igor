@@ -134,7 +134,7 @@ private:
     CutNodeEvent _cutNode;
     PasteNodeEvent _pasteNode;
 
-    iWidgetGrid *_grid = nullptr;
+    iWidgetGridLayout *_grid = nullptr;
 
     UserControlGraphView *_userControlGraphView = nullptr;
     UserControlMaterialView *_userControlMaterialView = nullptr;

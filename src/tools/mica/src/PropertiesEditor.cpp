@@ -12,7 +12,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 
 #include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
@@ -34,7 +34,7 @@ void PropertiesEditor::initGUI()
     setHorizontalAlignment(iHorizontalAlignment::Right);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
-    iWidgetGridPtr grid = new iWidgetGrid(this);
+    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
     grid->setBorder(2);
     grid->setCellSpacing(8);
     grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);

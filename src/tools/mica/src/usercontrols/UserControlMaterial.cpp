@@ -138,14 +138,14 @@ const iMaterialID &UserControlMaterial::getMaterialID() const
 
 void UserControlMaterial::initGUI()
 {
-    iWidgetGridPtr grid = new iWidgetGrid(this);
+    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
     grid->appendRows(2);
     grid->setBorder(2);
     grid->setStretchColumn(0);
     grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid *gridHeader = new iWidgetGrid();
+    iWidgetGridLayout *gridHeader = new iWidgetGridLayout();
     gridHeader->appendRows(2);
     gridHeader->appendColumns(1);
     gridHeader->setBorder(2);
@@ -177,7 +177,7 @@ void UserControlMaterial::initGUI()
     paramGroupBox->setText("Render States");
     paramGroupBox->setHeaderOnly();
 
-    iWidgetGrid *gridParam = new iWidgetGrid();
+    iWidgetGridLayout *gridParam = new iWidgetGridLayout();
     gridParam->appendRows(8);
     gridParam->appendColumns(1);
     gridParam->setBorder(2);
@@ -280,14 +280,14 @@ void UserControlMaterial::initGUI()
     shaderGroupBox->setText("Shader Settings");
     shaderGroupBox->setHeaderOnly();
 
-    iWidgetGrid *gridShadersGroup = new iWidgetGrid();
+    iWidgetGridLayout *gridShadersGroup = new iWidgetGridLayout();
     gridShadersGroup->appendRows(2);
     gridShadersGroup->setBorder(2);
     gridShadersGroup->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     gridShadersGroup->setVerticalAlignment(iVerticalAlignment::Top);
     gridShadersGroup->setStretchColumn(0);
 
-    iWidgetGrid *gridShaders = new iWidgetGrid();
+    iWidgetGridLayout *gridShaders = new iWidgetGridLayout();
     gridShaders->appendRows(2);
     gridShaders->appendColumns(2);
     gridShaders->setBorder(2);

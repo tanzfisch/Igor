@@ -50,7 +50,7 @@ public:
 private:
     NameChangedEvent _nameChangedEvent;
 
-    iWidgetGrid *_grid = nullptr;
+    iWidgetGridLayout *_grid = nullptr;
     iWidgetLabel *_labelName = nullptr;
     iWidgetLabel *_labelActive = nullptr;
     iWidgetCheckBox *_checkBoxActive = nullptr;

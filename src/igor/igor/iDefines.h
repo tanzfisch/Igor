@@ -139,7 +139,7 @@ namespace igor
         NoSelection
     };
 
-    /*! A flag specifiying the character of the material
+    /*! A flag specifying the character of the material
 
     The application is free to interpret it any way it likes.
 

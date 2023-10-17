@@ -79,7 +79,7 @@ private:
     iWidgetPicture *_picture1;
     iWidgetPicture *_picture2;
     iWidgetPicture *_picture3;
-    iWidgetGrid *_itemGrid;
+    iWidgetGridLayout *_itemGrid;
 
     void onSelectionChanged(const iWidgetPtr source);
 
