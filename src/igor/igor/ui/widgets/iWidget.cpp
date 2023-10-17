@@ -942,8 +942,7 @@ namespace igor
             "iWidgetColor",
             "iWidgetColorGradient",
             "iWidgetGraph",
-            "iWidgetGridLayout",
-            "iWidgetGroupBox",
+            "iWidgetGroupBox",                    
             "iWidgetLabel",
             "iWidgetMenu",
             "iWidgetMenuBar",
@@ -954,9 +953,15 @@ namespace igor
             "iWidgetSlider",
             "iWidgetSpacer",
             "iWidgetLineTextEdit",
+            "iWidgetTextEdit",
+
+            "iWidgetGridLayout",
+            "iWidgetBoxLayout",
+
             "iUserControl",
             "iUserControlColorChooser",
             "iUserControlFileChooser",
+
             "iDialog",
             "iDialogColorChooser",
             "iDialogColorGradient",
@@ -965,8 +970,7 @@ namespace igor
             "iDialogGraph",
             "iDialogIndexMenu",
             "iDialogMenu",
-            "iDialogMessageBox",
-            "Undefined"};
+            "iDialogMessageBox"};
 
         stream << text[static_cast<int>(widgetType)].getData();
         return stream;

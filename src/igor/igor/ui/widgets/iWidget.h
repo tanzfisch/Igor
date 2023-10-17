@@ -163,11 +163,16 @@ namespace igor
         iDialogGraph,
         iDialogIndexMenu,
         iDialogMenu,
-        iDialogMessageBox,
-
-        iUserType = 100,
-        iUndefinedType = 100
+        iDialogMessageBox
     };
+
+    /*! stream operator
+
+    \param stream the destination
+    \param widgetType the widget type to stream
+    \returns the resulting stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iWidgetType &widgetType);
 
     /*! defines the kind of widget
      */
@@ -180,11 +185,11 @@ namespace igor
 
     /*! GUI widget base class
 
-    coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
+    coordinate systems origin within widgets is the upper left corner with x positive to the right and y positive down
 
     \todo to many friends
     \todo fix one click and double click handling
-    \todo maybe we should have a widget base class on top so we can treat widgets usercontrols and dialogs more equaly
+    \todo maybe we should have a widget base class on top so we can treat widgets user controls and dialogs more equally
     \todo replace relative and actual pos variables with two rectangles
     */
     class IGOR_API iWidget
@@ -965,14 +970,6 @@ namespace igor
     };
 
 #include <igor/ui/widgets/iWidget.inl>
-
-    /*! stream operator
-
-    \param stream the destination
-    \param widgetType the widget type to stream
-    \returns the resulting stream
-    */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iWidgetType &widgetType);
 
 } // namespace igor
 
