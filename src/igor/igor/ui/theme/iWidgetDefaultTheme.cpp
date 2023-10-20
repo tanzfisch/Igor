@@ -808,7 +808,7 @@ namespace igor
         iRenderer::getInstance().drawFilledRectangle(rect, active ? COLOR_DIFFUSE_DARK : COLOR_DIFFUSE_LIGHT);
     }
 
-    void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, iWidgetState state, bool active)
+    void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, bool headerEnabled, iWidgetState state, bool active)
     {
         iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE);
 
@@ -817,6 +817,11 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
         iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_AMBIENT);
         iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_AMBIENT);
+
+        if (headerEnabled)
+        {
+            iRenderer::getInstance().drawFilledRectangle(rect._x + 1, rect._y + 1, rect._width - 2, 20.0f, COLOR_DIFFUSE_DARK);
+        }
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }

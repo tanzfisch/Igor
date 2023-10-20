@@ -58,6 +58,16 @@ namespace igor
         iWidgetManager::getInstance().unregisterDialog(this);
     }
 
+    void iDialog::enableHeader(bool enable)
+    {
+        _headerEnabled = enable;
+    }
+
+    bool iDialog::isHeaderEnabled() const
+    {
+        return _headerEnabled;
+    }
+
     void iDialog::setReturnState(iDialogReturnState returnState)
     {
         _returnState = returnState;
@@ -105,7 +115,16 @@ namespace igor
             minHeight = widget->getMinHeight();
         }
 
-        setClientArea(_border, _border, _border, _border);
+        if (_headerEnabled)
+        {
+            minHeight += 20; // TODO comes from theme
+            setClientArea(_border, _border, _border + 20, _border);
+        }
+        else
+        {
+            setClientArea(_border, _border, _border, _border);
+        }
+
         setMinSize(minWidth, minHeight);
     }
 
@@ -184,9 +203,7 @@ namespace igor
     {
         if (isVisible())
         {
-            iWidgetManager &wm = iWidgetManager::getInstance();
-
-            wm.getTheme()->drawDialog(getActualRect(), getState(), isEnabled());
+            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), _headerEnabled, getState(), isEnabled());
 
             for (const auto child : _children)
             {

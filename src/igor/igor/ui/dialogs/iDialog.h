@@ -70,16 +70,26 @@ namespace igor
          */
         virtual ~iDialog();
 
-        /*! sets horizontal position of dialog 
-        
+        /*! enables/disables header
+
+        \param enable if true header will be enabled
+        */
+        void enableHeader(bool enable);
+
+        /*! \returns true if header is enabled
+        */
+        bool isHeaderEnabled() const;
+
+        /*! sets horizontal position of dialog
+
         implicitly sets horizontal alignment to absolute
 
         \param x horizontal position
         */
         void setX(int32 x);
 
-        /*! sets vertical position of dialog 
-        
+        /*! sets vertical position of dialog
+
         implicitly sets vertical alignment to absolute
 
         \param y vertical position
@@ -149,6 +159,10 @@ namespace igor
         /*! size of border
          */
         int32 _border = 1;
+
+        /*! if true header is enabled
+        */
+        bool _headerEnabled = true;
 
         /*! the delegate to call after the dialog was closed
          */
