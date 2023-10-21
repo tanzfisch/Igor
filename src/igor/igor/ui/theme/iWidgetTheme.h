@@ -43,7 +43,7 @@ namespace igor
 {
 
     /*! base widget theme
-	*/
+     */
     class IGOR_API iWidgetTheme
     {
 
@@ -83,16 +83,18 @@ namespace igor
 
         virtual void drawTooltip(const iaVector2f &pos, const iaString &text) = 0;
 
-        virtual void setFontMetrics(const float32 fontSize, const float32 lineHeight) = 0;
-        virtual float32 getFontSize() = 0;
-        virtual iTextureFontPtr getFont() = 0;
+        virtual float32 getFontSize() const = 0;
+        virtual iTextureFontPtr getFont() const = 0;
+
+        virtual float32 getDialogTitleWidth() const = 0;
+        virtual float32 getDialogFrameWidth() const = 0;
 
         iWidgetTheme() = default;
         virtual ~iWidgetTheme() = default;
     };
 
     /*! widget theme pointer definition
-    */
+     */
     typedef std::shared_ptr<iWidgetTheme> iWidgetThemePtr;
 
 } // namespace igor

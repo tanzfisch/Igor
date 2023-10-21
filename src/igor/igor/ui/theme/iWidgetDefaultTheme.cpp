@@ -72,12 +72,6 @@ namespace igor
         _backgroundTexture = backgroundTexture;
     }
 
-    iWidgetDefaultTheme::~iWidgetDefaultTheme()
-    {
-        // release resources
-        _font = nullptr;
-    }
-
     void iWidgetDefaultTheme::drawTooltip(const iaVector2f &pos, const iaString &text)
     {
         float32 textWidth = std::min(300.0f, _font->measureWidth(text, _fontSize));
@@ -481,20 +475,24 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * (static_cast<int32>(text.size()) + 1), rect._x + rect._width - rect._height, rect._y + rect._height * (static_cast<int32>(text.size()) + 1), COLOR_AMBIENT);
     }
 
-    float32 iWidgetDefaultTheme::getFontSize()
+    float32 iWidgetDefaultTheme::getDialogTitleWidth() const
+    {
+        return _titleWidth;
+    }
+
+    float32 iWidgetDefaultTheme::getDialogFrameWidth() const
+    {
+        return _frameWidth;
+    }
+
+    float32 iWidgetDefaultTheme::getFontSize() const
     {
         return _fontSize;
     }
 
-    iTextureFontPtr iWidgetDefaultTheme::getFont()
+    iTextureFontPtr iWidgetDefaultTheme::getFont() const
     {
         return _font;
-    }
-
-    void iWidgetDefaultTheme::setFontMetrics(const float32 fontSize, const float32 lineHeight)
-    {
-        _fontSize = fontSize;
-        _fontLineHeight = lineHeight;
     }
 
     void iWidgetDefaultTheme::drawCheckBoxFrame(const iaRectanglef &rect, iWidgetState state, bool active)
@@ -814,7 +812,7 @@ namespace igor
 
         if (headerEnabled)
         {
-            iRenderer::getInstance().drawFilledRectangle(rect._x + 5, rect._y + 5, rect._width - 5 * 2, 25.0f, COLOR_DIFFUSE_DARK);
+            iRenderer::getInstance().drawFilledRectangle(rect._x + _frameWidth, rect._y + _frameWidth, rect._width - _frameWidth * 2.0f, _titleWidth, COLOR_DIFFUSE_DARK);
         }
 
         iRenderer::getInstance().drawFilledRectangle(clientRect, COLOR_DIFFUSE);
