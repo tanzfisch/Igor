@@ -15,6 +15,7 @@ Changelog                           {#changelog}
 - introducing iWidgetBoxLayout
 - renamed iWidgetGrid to iWidgetGridLayout
 - replaced iUserControlAction with iWidgetButton
+- dialogs can be moved now
 
 0.42.0
 ------
