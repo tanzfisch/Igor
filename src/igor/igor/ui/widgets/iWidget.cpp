@@ -5,6 +5,7 @@
 #include <igor/ui/widgets/iWidget.h>
 
 #include <igor/ui/iWidgetManager.h>
+#include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -353,7 +354,7 @@ namespace igor
         {
             return;
         }
-        
+
         for (const auto child : _children)
         {
             child->draw();
@@ -473,59 +474,6 @@ namespace igor
         return false;
     }
 
-    bool iWidget::handleMouseKeyUp(iKeyCode key)
-    {
-        if (isEnabled())
-        {
-            if (_isMouseOver)
-            {
-                // get copy of children
-                std::vector<iWidgetPtr> children = getChildren();
-                bool result = false;
-
-                for (auto child : children)
-                {
-                    if (child->handleMouseKeyUp(key))
-                    {
-                        result = true;
-                    }
-                }
-
-                if (!_ignoreChildEventHandling && result)
-                {
-                    return true;
-                }
-                else
-                {
-                    if (key == iKeyCode::MouseLeft ||
-                        key == iKeyCode::MouseRight)
-                    {
-                        if (_widgetState == iWidgetState::Pressed)
-                        {
-                            _widgetState = iWidgetState::Clicked;
-                            setKeyboardFocus();
-
-                            _click(this);
-
-                            if (key == iKeyCode::MouseRight)
-                            {
-                                _contextMenu(this);
-                            }
-
-                            return true;
-                        }
-                    }
-                }
-            }
-            else if (_acceptOutOfBoundsClicks)
-            {
-                _mouseOffClick(this);
-                return true;
-            }
-        }
-        return false;
-    }
-
     void iWidget::setZValue(int32 zValue)
     {
         _zValue = zValue;
@@ -568,152 +516,220 @@ namespace igor
 
     bool iWidget::handleMouseKeyDown(iKeyCode key)
     {
-        if (isEnabled())
+        if (!isEnabled())
         {
-            if (_isMouseOver)
+            return false;
+        }
+
+        if (_isMouseOver)
+        {
+            // get copy of children
+            std::vector<iWidgetPtr> widgets = getChildren();
+            bool result = false;
+
+            for (auto widget : widgets)
             {
-                // get copy of children
-                std::vector<iWidgetPtr> widgets = getChildren();
-                bool result = false;
-
-                for (auto widget : widgets)
+                if (widget->handleMouseKeyDown(key))
                 {
-                    if (widget->handleMouseKeyDown(key))
-                    {
-                        result = true;
-                    }
+                    result = true;
                 }
+            }
 
-                if (!_ignoreChildEventHandling && result)
+            if (!_ignoreChildEventHandling && result)
+            {
+                return true;
+            }
+            else
+            {
+                if (key == iKeyCode::MouseLeft ||
+                    key == iKeyCode::MouseRight)
                 {
+                    _widgetState = iWidgetState::Pressed;
                     return true;
                 }
-                else
+            }
+        }
+
+        return true;
+    }
+
+    bool iWidget::handleMouseKeyUp(iKeyCode key)
+    {
+        if (!isEnabled())
+        {
+            return false;
+        }
+
+        if (_isMouseOver)
+        {
+            // get copy of children
+            std::vector<iWidgetPtr> children = getChildren();
+            bool result = false;
+
+            for (auto child : children)
+            {
+                if (child->handleMouseKeyUp(key))
                 {
-                    if (key == iKeyCode::MouseLeft ||
-                        key == iKeyCode::MouseRight)
+                    result = true;
+                }
+            }
+
+            if (!_ignoreChildEventHandling && result)
+            {
+                return true;
+            }
+            else
+            {
+                if (key == iKeyCode::MouseLeft ||
+                    key == iKeyCode::MouseRight)
+                {
+                    if (_widgetState == iWidgetState::Pressed)
                     {
-                        _widgetState = iWidgetState::Pressed;
+                        _widgetState = iWidgetState::Clicked;
+                        setKeyboardFocus();
+
+                        _click(this);
+
+                        if (key == iKeyCode::MouseRight)
+                        {
+                            _contextMenu(this);
+                        }
+
                         return true;
                     }
                 }
             }
         }
-        return false;
+        else if (_acceptOutOfBoundsClicks)
+        {
+            _mouseOffClick(this);
+            return true;
+        }
+
+        return true;
     }
 
     bool iWidget::handleASCII(uint8 c)
     {
-        if (isEnabled())
+        if (!isEnabled())
         {
-            // get copy of children
-            std::vector<iWidgetPtr> widgets = getChildren();
-
-            for (auto widget : widgets)
-            {
-                if (widget->handleASCII(c))
-                {
-                    return true;
-                }
-            }
-
-            // TODO ? if (!_ignoreChildEventHandling && result)
+            return false;
         }
-        return false;
+
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
+
+        for (auto widget : widgets)
+        {
+            if (widget->handleASCII(c))
+            {
+                return true;
+            }
+        }
+
+        // TODO ? if (!_ignoreChildEventHandling && result)
+
+        return true;
     }
 
     bool iWidget::handleKeyDown(iKeyCode key)
     {
-        if (isEnabled())
+        if (!isEnabled())
         {
-            // get copy of children
-            std::vector<iWidgetPtr> widgets = getChildren();
-
-            for (auto widget : widgets)
-            {
-                if (widget->handleKeyDown(key))
-                {
-                    return true;
-                }
-            }
-
-            // TODO ? if (!_ignoreChildEventHandling && result)
+            return false;
         }
-        return false;
+
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
+
+        for (auto widget : widgets)
+        {
+            if (widget->handleKeyDown(key))
+            {
+                return true;
+            }
+        }
+
+        // TODO ? if (!_ignoreChildEventHandling && result)
+
+        return true;
     }
 
     bool iWidget::handleKeyUp(iKeyCode key)
     {
-        if (isEnabled())
+        if (!isEnabled())
         {
-            // get copy of children
-            std::vector<iWidgetPtr> widgets = getChildren();
-
-            for (auto widget : widgets)
-            {
-                if (widget->handleKeyUp(key))
-                {
-                    return true;
-                }
-            }
-
-            // TODO ? if (!_ignoreChildEventHandling && result)
+            return false;
         }
-        return false;
+
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
+
+        for (auto widget : widgets)
+        {
+            if (widget->handleKeyUp(key))
+            {
+                return true;
+            }
+        }
+
+        // TODO ? if (!_ignoreChildEventHandling && result)
+
+        return true;
     }
 
     void iWidget::handleMouseMove(const iaVector2f &pos)
     {
-        if (isEnabled())
+        if (!isEnabled())
         {
-            // get copy of children
-            std::vector<iWidgetPtr> widgets = getChildren();
+            return;
+        }
 
-            for (auto widget : widgets)
-            {
-                widget->handleMouseMove(pos);
-            }
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
 
-            if (pos._x >= _absoluteX &&
-                pos._x < _absoluteX + _actualWidth &&
-                pos._y >= _absoluteY &&
-                pos._y < _absoluteY + _actualHeight)
+        for (auto widget : widgets)
+        {
+            widget->handleMouseMove(pos);
+        }
+
+        auto rect = getActualRect();
+        if (iIntersection::intersects(pos, rect))
+        {
+            if (!_isMouseOver)
             {
-                if (!_isMouseOver)
+                _widgetState = iWidgetState::Highlighted;
+                _mouseOver(this);
+
+                if (!_tooltip.isEmpty())
                 {
-                    _widgetState = iWidgetState::Highlighted;
-                    _mouseOver(this);
-
-                    if (!_tooltip.isEmpty())
+                    if (_timerTooltip == nullptr)
                     {
-                        if (_timerTooltip == nullptr)
-                        {
-                            _timerTooltip = new iTimerHandle(iTimerTickDelegate(this, &iWidget::onToolTipTimer), iaTime::fromMilliseconds(1000), true);
-                        }
-
-                        _tooltipPos._x = pos._x + 15;
-                        _tooltipPos._y = pos._y + 15;
-
-                        _timerTooltip->restart();
+                        _timerTooltip = new iTimerHandle(iTimerTickDelegate(this, &iWidget::onToolTipTimer), iaTime::fromMilliseconds(1000), true);
                     }
-                }
 
-                _isMouseOver = true;
+                    _tooltipPos._x = pos._x + 15;
+                    _tooltipPos._y = pos._y + 15;
+
+                    _timerTooltip->restart();
+                }
             }
-            else
+
+            _isMouseOver = true;
+        }
+        else
+        {
+            if (_isMouseOver)
             {
-                if (_isMouseOver)
-                {
-                    _widgetState = iWidgetState::Standby;
-                    _mouseOff(this);
+                _widgetState = iWidgetState::Standby;
+                _mouseOff(this);
 
-                    iWidgetManager::getInstance().hideTooltip();
-                }
-
-                destroyTooltipTimer();
-
-                _isMouseOver = false;
+                iWidgetManager::getInstance().hideTooltip();
             }
+
+            destroyTooltipTimer();
+
+            _isMouseOver = false;
         }
 
         _posLast = pos;
@@ -735,7 +751,7 @@ namespace igor
         }
     }
 
-    iaVector2f iWidget::getLastMousePos() const
+    const iaVector2f &iWidget::getLastMousePos() const
     {
         return _posLast;
     }
@@ -942,7 +958,7 @@ namespace igor
             "iWidgetColor",
             "iWidgetColorGradient",
             "iWidgetGraph",
-            "iWidgetGroupBox",                    
+            "iWidgetGroupBox",
             "iWidgetLabel",
             "iWidgetMenu",
             "iWidgetMenuBar",

@@ -267,7 +267,7 @@ namespace igor
         }
         else
         {
-            stream << "duh";
+            stream << "unknown type";
         }
 
         return stream;

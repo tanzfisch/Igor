@@ -590,7 +590,7 @@ namespace igor
         iaString getTooltip() const;
 
         /*! \returns children of this widget
-        */
+         */
         const std::vector<iWidgetPtr> &getChildren() const;
 
         /*! removes and deletes all children
@@ -807,7 +807,7 @@ namespace igor
 
         /*! \returns last mouse position
          */
-        iaVector2f getLastMousePos() const;
+        const iaVector2f &getLastMousePos() const;
 
     private:
         /*! the widgets type

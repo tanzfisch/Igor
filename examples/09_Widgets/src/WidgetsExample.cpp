@@ -211,7 +211,7 @@ void WidgetsExample::onInit()
 
     _dialog = new iDialog();
     _dialog->setBorder(5);
-    _dialog->setPos(40, getWindow()->getClientHeight() - 420);
+    _dialog->setPos(iaVector2f(40, getWindow()->getClientHeight() - 420));
 
     iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _dialog);
 

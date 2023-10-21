@@ -77,7 +77,7 @@ namespace igor
         void enableHeader(bool enable);
 
         /*! \returns true if header is enabled
-        */
+         */
         bool isHeaderEnabled() const;
 
         /*! sets horizontal position of dialog
@@ -100,10 +100,13 @@ namespace igor
 
         implicitly sets alignment to absolute
 
-        \param x horizontal position
-        \param y vertical position
+        \param pos position of dialog
         */
-        void setPos(int32 x, int32 y);
+        void setPos(const iaVector2f &pos);
+
+        /*! \returns position of dialog
+         */
+        const iaVector2f &getPos() const;
 
         /*! set size of border
 
@@ -148,25 +151,49 @@ namespace igor
          */
         iDialogReturnState _returnState = iDialogReturnState::Ok;
 
-        /*! horizontal position relative to parent if horizontal alignment is absolute
+        /*! position relative to parent in axis where alignment is absolute
          */
-        int32 _offsetX = 0;
-
-        /*! vertical position relative to parent if horizontal alignment is absolute
-         */
-        int32 _offsetY = 0;
+        iaVector2f _offset;
 
         /*! size of border
          */
         int32 _border = 1;
 
         /*! if true header is enabled
-        */
+         */
         bool _headerEnabled = true;
+
+        /*! true: if currently mouse is over dialog header
+         */
+        bool _isMouseOverHeader = false;
+
+        /*! if true the dialog is currently moved
+         */
+        bool _isInMotion = false;
 
         /*! the delegate to call after the dialog was closed
          */
         iDialogCloseDelegate _dialogCloseDelegate;
+
+        /*! handles incoming mouse key down events
+
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool handleMouseKeyDown(iKeyCode key) override;
+
+        /*! handles mouse key up events
+
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool handleMouseKeyUp(iKeyCode key) override;
+
+        /*! handles incoming mouse move events
+
+        \param pos mouse position
+        */
+        void handleMouseMove(const iaVector2f &pos) override;
 
         /*! updates size based on it's content
          */

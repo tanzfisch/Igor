@@ -7,6 +7,7 @@
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/user_controls/iUserControl.h>
+#include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -25,6 +26,9 @@ namespace igor
         setHeight(100);
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
+
+        setAcceptOutOfBoundsClicks(true);
+        setIgnoreChildEventHandling(true);
 
         if (parent != nullptr)
         {
@@ -153,7 +157,7 @@ namespace igor
             break;
 
         case iHorizontalAlignment::Absolute:
-            _relativeX = _offsetX;
+            _relativeX = _offset._x;
             break;
 
         default:;
@@ -179,7 +183,7 @@ namespace igor
             break;
 
         case iVerticalAlignment::Absolute:
-            _relativeY = _offsetY;
+            _relativeY = _offset._y;
             break;
 
         default:;
@@ -214,22 +218,179 @@ namespace igor
 
     void iDialog::setX(int32 x)
     {
-        _offsetX = x;
+        _offset._x = x;
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
     }
 
     void iDialog::setY(int32 y)
     {
-        _offsetY = y;
+        _offset._y = y;
         setVerticalAlignment(iVerticalAlignment::Absolute);
     }
 
-    void iDialog::setPos(int32 x, int32 y)
+    const iaVector2f &iDialog::getPos() const
     {
-        _offsetX = x;
-        _offsetY = y;
+        return _offset;
+    }
+
+    void iDialog::setPos(const iaVector2f &pos)
+    {
+        _offset = pos;
         setVerticalAlignment(iVerticalAlignment::Absolute);
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
+    }
+
+    bool iDialog::handleMouseKeyDown(iKeyCode key)
+    {
+        if (!isEnabled())
+        {
+            return false;
+        }
+
+        if (_isMouseOver)
+        {
+            // get copy of children
+            std::vector<iWidgetPtr> widgets = getChildren();
+            bool result = false;
+
+            for (auto widget : widgets)
+            {
+                if (widget->handleMouseKeyDown(key))
+                {
+                    result = true;
+                }
+            }
+
+            if (!_ignoreChildEventHandling && result)
+            {
+                return true;
+            }
+
+            if (key == iKeyCode::MouseLeft ||
+                key == iKeyCode::MouseRight)
+            {
+                _widgetState = iWidgetState::Pressed;
+            }
+
+            if (_isMouseOverHeader && _widgetState == iWidgetState::Pressed)
+            {
+                _isInMotion = true;
+            }
+        }
+
+        return true;
+    }
+
+    bool iDialog::handleMouseKeyUp(iKeyCode key)
+    {
+        if (!isEnabled())
+        {
+            return false;
+        }
+
+        if(_isInMotion && key == iKeyCode::MouseLeft)
+        {
+            _isInMotion = false;
+        }
+
+        if (_isMouseOver)
+        {
+            // get copy of children
+            std::vector<iWidgetPtr> children = getChildren();
+            bool result = false;
+
+            for (auto child : children)
+            {
+                if (child->handleMouseKeyUp(key))
+                {
+                    result = true;
+                }
+            }
+
+            if (!_ignoreChildEventHandling && result)
+            {
+                return true;
+            }
+
+            if (key == iKeyCode::MouseLeft ||
+                key == iKeyCode::MouseRight)
+            {
+                if (_widgetState == iWidgetState::Pressed)
+                {
+                    _widgetState = iWidgetState::Clicked;
+                    setKeyboardFocus();
+
+                    _click(this);
+
+                    if (key == iKeyCode::MouseRight)
+                    {
+                        _contextMenu(this);
+                    }
+
+                    return true;
+                }
+            }
+        }
+
+        if (_acceptOutOfBoundsClicks)
+        {
+            _mouseOffClick(this);
+            return true;
+        }
+
+        return true;
+    }
+
+    void iDialog::handleMouseMove(const iaVector2f &pos)
+    {
+        if (!isEnabled())
+        {
+            return;
+        }
+
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
+
+        for (auto widget : widgets)
+        {
+            widget->handleMouseMove(pos);
+        }
+
+        auto rect = getActualRect();
+        if (iIntersection::intersects(pos, rect))
+        {
+            if (!_isMouseOver)
+            {
+                _widgetState = iWidgetState::Highlighted;
+                _mouseOver(this);
+            }
+
+            _isMouseOver = true;
+        }
+        else
+        {
+            if (_isMouseOver)
+            {
+                _widgetState = iWidgetState::Standby;
+                _mouseOff(this);
+            }
+
+            _isMouseOver = false;
+        }
+
+        iaRectanglef header(_absoluteX + _border,
+                            _absoluteY + _border,
+                            _actualWidth - _border,
+                            20);
+        _isMouseOverHeader = iIntersection::intersects(pos, header);
+
+        if (_isInMotion)
+        {
+            const iaVector2f diff = pos - _posLast;
+            setPos(getPos() + diff);
+        }
+
+        _posLast = pos;
     }
 
 } // namespace igor
