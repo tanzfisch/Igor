@@ -54,6 +54,22 @@ namespace igor
         Error = 3
     };
 
+    /*! motion state of dialog
+     */
+    enum class iDialogMotionState
+    {
+        Moving,
+        ResizeLeft,
+        ResizeRight,
+        ResizeTop,
+        ResizeBottom,
+        ResizeLeftTop,
+        ResizeRightTop,
+        ResizeLeftBottom,
+        ResizeRightBottom,
+        Static
+    };
+
     /*! dialog widget
      */
     class IGOR_API iDialog : public iWidget
@@ -79,6 +95,16 @@ namespace igor
         /*! \returns true if header is enabled
          */
         bool isHeaderEnabled() const;
+
+        /*! sets wether or not the dialog is resize-able
+
+        \param enable if true dialog is becoming resize-able
+        */
+        void enableResizeable(bool enable);
+
+        /*! \returns true if dialog is resize-able
+        */
+        bool isResizeable() const;
 
         /*! sets horizontal position of dialog
 
@@ -107,16 +133,6 @@ namespace igor
         /*! \returns position of dialog
          */
         const iaVector2f &getPos() const;
-
-        /*! set size of border
-
-        \param border border size
-        */
-        void setBorder(int32 border);
-
-        /*! \returns border size
-         */
-        int32 getBorder();
 
         /*! shows the dialog on screen
 
@@ -155,21 +171,17 @@ namespace igor
          */
         iaVector2f _offset;
 
-        /*! size of border
-         */
-        int32 _border = 1;
-
         /*! if true header is enabled
          */
         bool _headerEnabled = true;
 
-        /*! true: if currently mouse is over dialog header
-         */
-        bool _isMouseOverHeader = false;
+        /*! if true dialog is resize-able
+        */
+        bool _resizeEnabled = true;
 
-        /*! if true the dialog is currently moved
+        /*! motion state of dialog
          */
-        bool _isInMotion = false;
+        iDialogMotionState _motionState = iDialogMotionState::Static;
 
         /*! the delegate to call after the dialog was closed
          */
@@ -204,7 +216,13 @@ namespace igor
         \param clientWidth maximum width this widget can align to
         \param clientHeight maximum height this widget can align to
         */
-        void updateAlignment(int32 clientWidth, int32 clientHeight);
+        void updateAlignment(int32 clientWidth, int32 clientHeight) override;
+
+        /*! \returns motion state based on mouse position
+
+        \param pos the mouse position
+        */
+        iDialogMotionState calcMotionState(const iaVector2f &pos);
 
         /*! draws the children
          */

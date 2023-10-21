@@ -67,7 +67,7 @@ namespace igor
 		*/
         const iaString &getText() const;
 
-        /*! sets boder size (something like a margin)
+        /*! sets border size
 
 		\param border size of border
 		*/

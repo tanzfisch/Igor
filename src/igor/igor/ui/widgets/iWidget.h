@@ -796,7 +796,7 @@ namespace igor
          */
         void resetKeyboardFocus();
 
-        /*! sets client area. it's something like a margin but the parent defines it
+        /*! sets client area. it's something like a padding but the parent defines it
 
         \param left left client area border
         \param right right client area border
@@ -854,19 +854,19 @@ namespace igor
          */
         int32 _actualHeight = 0;
 
-        /*! margin left for internal user only
+        /*! padding left for internal user only
          */
         int32 _clientAreaLeft = 0;
 
-        /*! margin right for internal user only
+        /*! padding right for internal user only
          */
         int32 _clientAreaRight = 0;
 
-        /*! margin top for internal user only
+        /*! padding top for internal user only
          */
         int32 _clientAreaTop = 0;
 
-        /*! margin bottom for internal user only
+        /*! padding bottom for internal user only
          */
         int32 _clientAreaBottom = 0;
 
