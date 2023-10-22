@@ -105,11 +105,11 @@ namespace igor
 
         /*! title width
          */
-        float32 _titleWidth = 25;
+        float32 _titleWidth = 28;
 
         /*! frame width
         */
-        float32 _frameWidth = 10;
+        float32 _frameWidth = 5;
 
         /*! background texture
         */

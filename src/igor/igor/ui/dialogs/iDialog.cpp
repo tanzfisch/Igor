@@ -8,6 +8,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/data/iIntersection.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -22,13 +23,14 @@ namespace igor
 
         setEnabled(false);
         setVisible(false);
-        setWidth(100);
-        setHeight(100);
+        setWidth(400);
+        setHeight(300);
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
         setVerticalAlignment(iVerticalAlignment::Absolute);
 
         setAcceptOutOfBoundsClicks(true);
         setIgnoreChildEventHandling(true);
+        setGrowingByContent(false);
 
         if (parent != nullptr)
         {
@@ -62,12 +64,12 @@ namespace igor
         iWidgetManager::getInstance().unregisterDialog(this);
     }
 
-    void iDialog::enableHeader(bool enable)
+    void iDialog::setHeader(bool enable)
     {
         _headerEnabled = enable;
     }
 
-    bool iDialog::isHeaderEnabled() const
+    bool iDialog::hasHeader() const
     {
         return _headerEnabled;
     }
@@ -112,7 +114,7 @@ namespace igor
         int32 minHeight = 0;
 
         const auto titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
-        const auto frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
+        const auto frameWidth = _resizeEnabled ? iWidgetManager::getInstance().getTheme()->getDialogFrameWidth() : 0.0f;
 
         if (isGrowingByContent() &&
             !_children.empty())
@@ -205,10 +207,23 @@ namespace igor
 
             iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _resizeEnabled, getState(), isEnabled());
 
+            // store current render states
+            const iaRectanglei viewport = iRenderer::getInstance().getViewport();
+            const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
+            const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
+
+            iRenderer::getInstance().setViewport(clientRect._x, iWidgetManager::getInstance().getDesktopHeight() - clientRect._y - clientRect._height, clientRect._width, clientRect._height);
+            iRenderer::getInstance().setOrtho(clientRect._x, clientRect._x + clientRect._width, clientRect._y + clientRect._height, clientRect._y, 0.1f, 10.0f);
+
             for (const auto child : _children)
             {
                 child->draw();
             }
+
+            // restore everything
+            iRenderer::getInstance().setModelMatrix(modelMatrix);
+            iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
+            iRenderer::getInstance().setViewport(viewport);
         }
     }
 
@@ -342,13 +357,26 @@ namespace igor
         const auto titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
         const auto frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
 
-        iaRectanglef header(_absoluteX + frameWidth,
-                            _absoluteY + frameWidth,
-                            _actualWidth - frameWidth * 2.0f,
-                            titleWidth);
-        if (iIntersection::intersects(pos, header))
+        if (!_isMoveable)
         {
-            return iDialogMotionState::Moving;
+            return iDialogMotionState::Static;
+        }
+
+        if (_headerEnabled)
+        {
+            iaRectanglef header(_absoluteX + frameWidth,
+                                _absoluteY + frameWidth,
+                                _actualWidth - frameWidth * 2.0f,
+                                titleWidth);
+            if (iIntersection::intersects(pos, header))
+            {
+                return iDialogMotionState::Moving;
+            }
+        }
+
+        if (!_resizeEnabled)
+        {
+            return iDialogMotionState::Static;
         }
 
         iaRectanglef leftEdge(_absoluteX, _absoluteY, frameWidth, _actualHeight);
@@ -431,9 +459,6 @@ namespace igor
             }
 
             _isMouseOver = true;
-
-            auto foo = calcMotionState(pos);
-            con_endl((int)foo);
         }
         else
         {
@@ -455,25 +480,32 @@ namespace igor
             }
             else if (_motionState == iDialogMotionState::ResizeRight)
             {
-                setWidth(getActualWidth() + diff._x);
+                setWidth(getConfiguredWidth() + diff._x);
             }
             else if (_motionState == iDialogMotionState::ResizeLeft)
             {
                 iaVector2f dialogPos = getPos();
                 dialogPos._x += diff._x;
                 setPos(dialogPos);
-                setWidth(getActualWidth() - diff._x);
+                setWidth(getConfiguredWidth() - diff._x);
             }
-            else if (_motionState == iDialogMotionState::ResizeRight)
+            else if (_motionState == iDialogMotionState::ResizeBottom)
             {
-                setWidth(getActualWidth() + diff._x);
+                setHeight(getConfiguredHeight() + diff._y);
+            }
+            else if (_motionState == iDialogMotionState::ResizeTop)
+            {
+                iaVector2f dialogPos = getPos();
+                dialogPos._y += diff._y;
+                setPos(dialogPos);
+                setHeight(getConfiguredHeight() - diff._y);
             }
         }
 
         _posLast = pos;
     }
 
-    void iDialog::enableResizeable(bool enable)
+    void iDialog::setResizeable(bool enable)
     {
         _resizeEnabled = enable;
     }
@@ -481,6 +513,16 @@ namespace igor
     bool iDialog::isResizeable() const
     {
         return _resizeEnabled;
+    }
+
+    void iDialog::setMoveable(bool enable)
+    {
+        _isMoveable = enable;
+    }
+
+    bool iDialog::isMoveable() const
+    {
+        return _isMoveable;
     }
 
 } // namespace igor

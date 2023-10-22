@@ -211,8 +211,12 @@ void WidgetsExample::onInit()
 
     _dialog = new iDialog();
     _dialog->setPos(iaVector2f(40, getWindow()->getClientHeight() - 420));
+    _dialog->setSize(290,230);
+    _dialog->setResizeable(false);
 
     iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _dialog);
+    mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    mainLayout->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     // create a menu and add to layout
     iWidgetMenuBarPtr menuBar = createMenu();
@@ -241,7 +245,7 @@ void WidgetsExample::onInit()
 
     // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
-    groupBox1->setText("Hello World. This is a group box!");
+    groupBox1->setText("Group Box");
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     mainLayout->addWidget(groupBox1);
 

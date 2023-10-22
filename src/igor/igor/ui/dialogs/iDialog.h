@@ -90,21 +90,31 @@ namespace igor
 
         \param enable if true header will be enabled
         */
-        void enableHeader(bool enable);
+        void setHeader(bool enable);
 
         /*! \returns true if header is enabled
          */
-        bool isHeaderEnabled() const;
+        bool hasHeader() const;
 
         /*! sets wether or not the dialog is resize-able
 
         \param enable if true dialog is becoming resize-able
         */
-        void enableResizeable(bool enable);
+        void setResizeable(bool enable);
 
         /*! \returns true if dialog is resize-able
         */
         bool isResizeable() const;
+
+        /*! sets wether or not the dialog is moveable
+
+        \param enable if true dialog is becoming moveable
+        */
+        void setMoveable(bool enable);
+
+        /*! \returns true if dialog is moveable
+        */
+        bool isMoveable() const;
 
         /*! sets horizontal position of dialog
 
@@ -178,6 +188,10 @@ namespace igor
         /*! if true dialog is resize-able
         */
         bool _resizeEnabled = true;
+        
+        /*! if true dialog is moveable
+        */
+        bool _isMoveable = true;
 
         /*! motion state of dialog
          */

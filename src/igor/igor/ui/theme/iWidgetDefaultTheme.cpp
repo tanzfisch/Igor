@@ -810,9 +810,11 @@ namespace igor
     {
         iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
 
+        auto frameWidth = resizeEnabled ? _frameWidth : 0.0f;
+
         if (headerEnabled)
         {
-            iRenderer::getInstance().drawFilledRectangle(rect._x + _frameWidth, rect._y + _frameWidth, rect._width - _frameWidth * 2.0f, _titleWidth, COLOR_DIFFUSE_DARK);
+            iRenderer::getInstance().drawFilledRectangle(rect._x + frameWidth, rect._y + frameWidth, rect._width - frameWidth * 2.0f, _titleWidth, COLOR_DIFFUSE_DARK);
         }
 
         iRenderer::getInstance().drawFilledRectangle(clientRect, COLOR_DIFFUSE);

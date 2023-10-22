@@ -669,7 +669,7 @@ namespace igor
 
         // do some clipping using the viewport
 
-        // store current situation
+        // store current render states
         const iaRectanglei viewport = iRenderer::getInstance().getViewport();
         const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
         const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();

@@ -35,6 +35,11 @@ namespace igor
         setAcceptOutOfBoundsClicks();
         registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
+        setIgnoreChildEventHandling(false);
+        setGrowingByContent(true);
+        setHeader(false);
+        setResizeable(false);
+
         _grid = new iWidgetGridLayout(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
         _grid->setHighlightMode(iSelectionMode::NoSelection);
