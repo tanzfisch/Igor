@@ -199,7 +199,7 @@ iWidgetMenuBarPtr WidgetsExample::createMenu()
     menu2->addMenu(menu2c);
 
     menu2->addAction(action1);
-    menuBar->addMenu(menu2);
+    menuBar->addMenu(menu2); 
 
     return menuBar;
 }

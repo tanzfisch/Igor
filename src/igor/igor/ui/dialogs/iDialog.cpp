@@ -258,35 +258,37 @@ namespace igor
             return false;
         }
 
-        if (_isMouseOver)
+        if (!_isMouseOver)
         {
-            // get copy of children
-            std::vector<iWidgetPtr> widgets = getChildren();
-            bool result = false;
+            return false;
+        }
 
-            for (auto widget : widgets)
-            {
-                if (widget->handleMouseKeyDown(key))
-                {
-                    result = true;
-                }
-            }
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
+        bool result = false;
 
-            if (!_ignoreChildEventHandling && result)
+        for (auto widget : widgets)
+        {
+            if (widget->handleMouseKeyDown(key))
             {
-                return true;
+                result = true;
             }
+        }
 
-            if (key == iKeyCode::MouseLeft ||
-                key == iKeyCode::MouseRight)
-            {
-                _widgetState = iWidgetState::Pressed;
-            }
+        if (!_ignoreChildEventHandling && result)
+        {
+            return true;
+        }
 
-            if (_motionState == iDialogMotionState::Static && _widgetState == iWidgetState::Pressed)
-            {
-                _motionState = calcMotionState(_posLast);
-            }
+        if (key == iKeyCode::MouseLeft ||
+            key == iKeyCode::MouseRight)
+        {
+            _widgetState = iWidgetState::Pressed;
+        }
+
+        if (_motionState == iDialogMotionState::Static && _widgetState == iWidgetState::Pressed)
+        {
+            _motionState = calcMotionState(_posLast);
         }
 
         return true;
