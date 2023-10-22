@@ -505,6 +505,8 @@ namespace igor
             {
                 _widgetState = iWidgetState::Standby;
                 _mouseOff(this);
+
+                iMouse::getInstance().resetCursorType();
             }
 
             _isMouseOver = false;
@@ -517,22 +519,34 @@ namespace igor
             {
                 setPos(getPos() + diff);
             }
-            else if (_motionState == iDialogMotionState::ResizeRight)
+            
+            if (_motionState == iDialogMotionState::ResizeRight ||
+                     _motionState == iDialogMotionState::ResizeRightBottom ||
+                     _motionState == iDialogMotionState::ResizeRightTop)
             {
                 setWidth(getConfiguredWidth() + diff._x);
             }
-            else if (_motionState == iDialogMotionState::ResizeLeft)
+            
+            if (_motionState == iDialogMotionState::ResizeLeft ||
+                     _motionState == iDialogMotionState::ResizeLeftBottom ||
+                     _motionState == iDialogMotionState::ResizeLeftTop)
             {
                 iaVector2f dialogPos = getPos();
                 dialogPos._x += diff._x;
                 setPos(dialogPos);
                 setWidth(getConfiguredWidth() - diff._x);
             }
-            else if (_motionState == iDialogMotionState::ResizeBottom)
+            
+            if (_motionState == iDialogMotionState::ResizeBottom ||
+                     _motionState == iDialogMotionState::ResizeRightBottom ||
+                     _motionState == iDialogMotionState::ResizeLeftBottom)
             {
                 setHeight(getConfiguredHeight() + diff._y);
             }
-            else if (_motionState == iDialogMotionState::ResizeTop)
+            
+            if (_motionState == iDialogMotionState::ResizeTop ||
+                     _motionState == iDialogMotionState::ResizeRightTop ||
+                     _motionState == iDialogMotionState::ResizeLeftTop)
             {
                 iaVector2f dialogPos = getPos();
                 dialogPos._y += diff._y;

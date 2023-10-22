@@ -15,7 +15,8 @@ Changelog                           {#changelog}
 - introducing iWidgetBoxLayout
 - renamed iWidgetGrid to iWidgetGridLayout
 - replaced iUserControlAction with iWidgetButton
-- dialogs can be moved now
+- dialogs can be moved and resized now
+- added interface to change mouse cursor see iMouseCursorType for supported types
 
 0.42.0
 ------
