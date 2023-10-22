@@ -370,7 +370,7 @@ bool ExampleCharacterController::onKeyDown(iEventKeyDown &event)
     {
     case iKeyCode::Alt:
         _captureMouse = !_captureMouse;
-        iMouse::getInstance().showCursor(!_captureMouse);
+        iMouse::getInstance().hideCursor(_captureMouse);
         return true;
 
     case iKeyCode::A:

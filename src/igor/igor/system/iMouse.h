@@ -39,11 +39,22 @@ using namespace iaux;
 namespace igor
 {
 
+    enum class iMouseCursorType
+    {
+        Arrow,
+        ArrowLeftEdge,
+        ArrowRightEdge,
+        ArrowTopEdge,
+        ArrowBottomEdge,
+        ArrowTopLeftCorner,
+        ArrowTopRightCorner,
+        ArrowBottomLeftCorner,
+        ArrowBottomRightCorner
+    };
+
     class iMouseImpl;
 
     /*! Mouse (Singleton)
-
-    \todo use ClipCursor to kleep the cursor inside the window
 	*/
     class IGOR_API iMouse : public iOSEventListener, public iModule<iMouse>
     {
@@ -61,22 +72,30 @@ namespace igor
 
 		\param x horizontal position of the mouse cursor in pixel
 		\param y vertical position of the mouse cursor in pixel
-        \param suppressMoveEvent if true suppress next mouse event
 		*/
-        void setPosition(int32 x, int32);
+        void setPosition(int32 x, int32 y);
 
         /*! set mouse to a position relative to currently focussed window
 
         \param pos horizontal and vertical position of the mouse cursor in pixel
-        \param suppressMoveEvent if true suppress next mouse event
         */
-        void setPosition(const iaVector2i &pos);
+        void setPosition(const iaVector2i &pos);        
 
-        /*! switches the cursor on or of
+        /*! switches the cursor on or off
 
 		\param show true: cursor is visible; false: cursor is invisible
 		*/
-        virtual void showCursor(bool show);
+        void hideCursor(bool hide);
+
+        /*! sets cursor type
+
+        \param cursorType the cursor type to set
+        */
+        void setCursorType(iMouseCursorType cursorType);
+
+        /*! resets cursor type to default
+        */
+        void resetCursorType();
 
         /*! \returns the current mouse position relative to the parent window in pixel.
 
@@ -108,8 +127,9 @@ namespace igor
         */
         bool getButton5();
 
-        /*! \retruns pointer to corresponding window
-		if it returns nullptr the listener was not registred to a window yet
+        /*! \returns pointer to corresponding window
+		
+        If it returns nullptr the listener was not registered to a window yet
 		*/
         iWindowPtr getWindow() const override;
 

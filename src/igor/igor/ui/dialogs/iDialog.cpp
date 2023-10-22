@@ -461,6 +461,43 @@ namespace igor
             }
 
             _isMouseOver = true;
+
+            iDialogMotionState motionState = calcMotionState(pos);
+            iMouseCursorType cursorType;
+
+            switch (motionState)
+            {
+            case iDialogMotionState::Moving:
+            case iDialogMotionState::Static:
+                cursorType = iMouseCursorType::Arrow;
+                break;
+            case iDialogMotionState::ResizeLeft:
+                cursorType = iMouseCursorType::ArrowLeftEdge;
+                break;
+            case iDialogMotionState::ResizeRight:
+                cursorType = iMouseCursorType::ArrowRightEdge;
+                break;
+            case iDialogMotionState::ResizeTop:
+                cursorType = iMouseCursorType::ArrowTopEdge;
+                break;
+            case iDialogMotionState::ResizeBottom:
+                cursorType = iMouseCursorType::ArrowBottomEdge;
+                break;
+            case iDialogMotionState::ResizeLeftTop:
+                cursorType = iMouseCursorType::ArrowTopLeftCorner;
+                break;
+            case iDialogMotionState::ResizeRightTop:
+                cursorType = iMouseCursorType::ArrowTopRightCorner;
+                break;
+            case iDialogMotionState::ResizeLeftBottom:
+                cursorType = iMouseCursorType::ArrowBottomLeftCorner;
+                break;
+            case iDialogMotionState::ResizeRightBottom:
+                cursorType = iMouseCursorType::ArrowBottomRightCorner;
+                break;
+            }
+
+            iMouse::getInstance().setCursorType(cursorType);
         }
         else
         {

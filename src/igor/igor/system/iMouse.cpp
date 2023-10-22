@@ -40,7 +40,9 @@ namespace igor
         virtual void deinitDevice() = 0;
         virtual bool onOSEvent(const void *data) = 0;
         virtual void setPosition(int32 x, int32 y) = 0;
-        virtual void showCursor(bool show) = 0;
+        virtual void hideCursor(bool hide) = 0;
+        virtual void setCursorType(iMouseCursorType cursorType) = 0;
+        virtual void resetCursorType() = 0;
         virtual void setCenter() = 0;
 
     protected:
@@ -95,9 +97,21 @@ namespace igor
             _window = nullptr;
         }
 
-        void showCursor(bool show) override
+        void hideCursor(bool hide) override
         {
-            ShowCursor(show);
+            ShowCursor(!hide);
+        }
+
+        void setCursorType(iMouseCursorType cursorType) override
+        {
+            // not implemented
+            con_err("setCursorType not implemented");
+        }
+
+        void resetCursorType() override
+        {
+            // not implemented
+            con_err("resetCursorType not implemented");
         }
 
         bool onOSEvent(const void *data)
@@ -236,15 +250,15 @@ namespace igor
 
     private:
         /*! size of buffer needed to receive raw input messages
-        */
+         */
         uint32 _rawInputBufferSize = 0;
 
         /*! pointer to the buffer to receive raw input messages
-        */
+         */
         uint8 *_rawInputBuffer = nullptr;
 
         /*! configuration of raw input device
-        */
+         */
         RAWINPUTDEVICE _rawInputDevice;
     };
 
@@ -260,7 +274,14 @@ namespace igor
         {
         }
 
-        ~iMouseImplLinux() = default;
+        ~iMouseImplLinux()
+        {
+            if (_blankCursor != None)
+            {
+                XFreeCursor(_display, _blankCursor);
+                _blankCursor = None;
+            }
+        }
 
         bool initDevice(const void *data) override
         {
@@ -405,43 +426,84 @@ namespace igor
             _pos.set(x, y);
         }
 
-        void showCursor(bool show) override
+        void resetCursorType() override
         {
-            if (!_cursorinitialised)
+            XUndefineCursor(_display, _xWindow);
+        }
+
+        void setCursorType(iMouseCursorType cursorType) override
+        {            
+            int xcursorType = 0;
+
+            switch (cursorType)
             {
-                Pixmap blank;
-                XColor dummy;
-                char data[1] = {0};
-
-                blank = XCreateBitmapFromData(_display, _xWindow, data, 1, 1);
-                _cursor = XCreatePixmapCursor(_display, blank, blank, &dummy, &dummy, 0, 0);
-                XFreePixmap(_display, blank);
-
-                _cursorinitialised = true;
+            case iMouseCursorType::Arrow:
+                xcursorType = XC_left_ptr;
+                break;
+            case iMouseCursorType::ArrowLeftEdge:
+                xcursorType = XC_left_side;
+                break;
+            case iMouseCursorType::ArrowRightEdge:
+                xcursorType = XC_right_side;
+                break;
+            case iMouseCursorType::ArrowTopEdge:
+                xcursorType = XC_top_side;
+                break;
+            case iMouseCursorType::ArrowBottomEdge:
+                xcursorType = XC_bottom_side;
+                break;
+            case iMouseCursorType::ArrowTopLeftCorner:
+                xcursorType = XC_top_left_corner;
+                break;
+            case iMouseCursorType::ArrowTopRightCorner:
+                xcursorType = XC_top_right_corner;
+                break;
+            case iMouseCursorType::ArrowBottomLeftCorner:
+                xcursorType = XC_bottom_left_corner;
+                break;
+            case iMouseCursorType::ArrowBottomRightCorner:
+                xcursorType = XC_bottom_right_corner;
+                break;
             }
 
-            if (show)
+            Cursor cursor = XCreateFontCursor(_display, xcursorType);
+            XDefineCursor(_display, _xWindow, cursor);
+        }
+
+        void hideCursor(bool hide) override
+        {
+            if (hide)
             {
-                if (None != _cursor)
+                if (_blankCursor == None)
                 {
-                    XFreeCursor(_display, _cursor);
-                    _cursor = None;
+                    XColor dummy;
+                    char data[1] = {0};
+
+                    Pixmap blank = XCreateBitmapFromData(_display, _xWindow, data, 1, 1);
+                    _blankCursor = XCreatePixmapCursor(_display, blank, blank, &dummy, &dummy, 0, 0);
+                    XFreePixmap(_display, blank);
                 }
 
-                XUndefineCursor(_display, _xWindow);
+                XDefineCursor(_display, _xWindow, _blankCursor);
             }
             else
             {
-                XDefineCursor(_display, _xWindow, _cursor);
+                XUndefineCursor(_display, _xWindow);
             }
         }
 
     private:
-        bool _cursorinitialised = false;
-        Cursor _cursor = None;
+        /*! blank cursor definition
+         */
+        Cursor _blankCursor = None;
 
+        /*! display handle
+         */
         Display *_display = nullptr;
-        Window _xWindow = 0;
+
+        /*! window handle
+         */
+        Window _xWindow = None;
     };
 
 #endif
@@ -491,12 +553,22 @@ namespace igor
         _impl->setPosition(x, y);
     }
 
-    void iMouse::showCursor(bool show)
+    void iMouse::resetCursorType()
     {
-        _impl->showCursor(show);
+        _impl->resetCursorType();
     }
 
-    const iaVector2i& iMouse::getPos() const
+    void iMouse::setCursorType(iMouseCursorType cursorType)
+    {
+        _impl->setCursorType(cursorType);
+    }
+
+    void iMouse::hideCursor(bool hide)
+    {
+        _impl->hideCursor(hide);
+    }
+
+    const iaVector2i &iMouse::getPos() const
     {
         return _impl->_pos;
     }

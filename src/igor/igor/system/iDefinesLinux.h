@@ -43,6 +43,7 @@
 #ifdef XF86VMODE_FOUND
 #include <X11/extensions/xf86vmode.h>
 #endif
+#include <X11/cursorfont.h>
 
 namespace igor
 {
