@@ -28,9 +28,6 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
         setVerticalAlignment(iVerticalAlignment::Absolute);
 
-        setAcceptOutOfBoundsClicks(true);
-        setIgnoreChildEventHandling(true);
-
         if (parent != nullptr)
         {
             iWidgetPtr parentDialog = nullptr;
@@ -267,35 +264,37 @@ namespace igor
             return false;
         }
 
+        if (_motionState == iDialogMotionState::Static &&
+            (key == iKeyCode::MouseLeft ||
+             key == iKeyCode::MouseRight))
+        {
+            _widgetState = iWidgetState::Pressed;
+            _motionState = calcMotionState(_posLast);
+
+            if (_motionState != iDialogMotionState::Static)
+            {
+                return true;
+            }
+        }
+
         // get copy of children
         std::vector<iWidgetPtr> widgets = getChildren();
-        bool result = false;
+        bool childResult = false;
 
         for (auto widget : widgets)
         {
             if (widget->handleMouseKeyDown(key))
             {
-                result = true;
+                childResult = true;
             }
         }
 
-        if (!_ignoreChildEventHandling && result)
+        if (!_ignoreChildEventHandling && childResult)
         {
             return true;
         }
 
-        if (key == iKeyCode::MouseLeft ||
-            key == iKeyCode::MouseRight)
-        {
-            _widgetState = iWidgetState::Pressed;
-        }
-
-        if (_motionState == iDialogMotionState::Static && _widgetState == iWidgetState::Pressed)
-        {
-            _motionState = calcMotionState(_posLast);
-        }
-
-        return true;
+        return false;
     }
 
     bool iDialog::handleMouseKeyUp(iKeyCode key)
@@ -310,42 +309,44 @@ namespace igor
             _motionState = iDialogMotionState::Static;
         }
 
-        if (_isMouseOver)
+        if (!_isMouseOver)
         {
-            // get copy of children
-            std::vector<iWidgetPtr> children = getChildren();
-            bool result = false;
+            return false;
+        }
 
-            for (auto child : children)
+        // get copy of children
+        std::vector<iWidgetPtr> children = getChildren();
+        bool result = false;
+
+        for (auto child : children)
+        {
+            if (child->handleMouseKeyUp(key))
             {
-                if (child->handleMouseKeyUp(key))
-                {
-                    result = true;
-                }
+                result = true;
             }
+        }
 
-            if (!_ignoreChildEventHandling && result)
+        if (!_ignoreChildEventHandling && result)
+        {
+            return true;
+        }
+
+        if (key == iKeyCode::MouseLeft ||
+            key == iKeyCode::MouseRight)
+        {
+            if (_widgetState == iWidgetState::Pressed)
             {
+                _widgetState = iWidgetState::Clicked;
+                setKeyboardFocus();
+
+                _click(this);
+
+                if (key == iKeyCode::MouseRight)
+                {
+                    _contextMenu(this);
+                }
+
                 return true;
-            }
-
-            if (key == iKeyCode::MouseLeft ||
-                key == iKeyCode::MouseRight)
-            {
-                if (_widgetState == iWidgetState::Pressed)
-                {
-                    _widgetState = iWidgetState::Clicked;
-                    setKeyboardFocus();
-
-                    _click(this);
-
-                    if (key == iKeyCode::MouseRight)
-                    {
-                        _contextMenu(this);
-                    }
-
-                    return true;
-                }
             }
         }
 
@@ -355,7 +356,7 @@ namespace igor
             return true;
         }
 
-        return true;
+        return false;
     }
 
     iDialogMotionState iDialog::calcMotionState(const iaVector2f &pos)

@@ -139,8 +139,6 @@ namespace igor
 
     void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAccending)
     {
-        dialogs.clear();
-
         for (auto dialog : _dialogs)
         {
             if (dialog.second->isEnabled())

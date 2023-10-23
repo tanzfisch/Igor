@@ -216,7 +216,7 @@ namespace igor
          */
         iWidgetKind getWidgetKind() const;
 
-        /*! sets the z value which determines the render order of siglings
+        /*! sets the z value which determines the render order of siblings
 
         \param zvalue the z value to set
         */
