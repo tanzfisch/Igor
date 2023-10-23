@@ -550,7 +550,7 @@ namespace igor
             }
         }
 
-        return true;
+        return false;
     }
 
     bool iWidget::handleMouseKeyUp(iKeyCode key)
@@ -606,7 +606,7 @@ namespace igor
             return true;
         }
 
-        return true;
+        return false;
     }
 
     bool iWidget::handleASCII(uint8 c)
@@ -629,7 +629,7 @@ namespace igor
 
         // TODO ? if (!_ignoreChildEventHandling && result)
 
-        return true;
+        return false;
     }
 
     bool iWidget::handleKeyDown(iKeyCode key)
@@ -652,7 +652,7 @@ namespace igor
 
         // TODO ? if (!_ignoreChildEventHandling && result)
 
-        return true;
+        return false;
     }
 
     bool iWidget::handleKeyUp(iKeyCode key)
@@ -675,7 +675,7 @@ namespace igor
 
         // TODO ? if (!_ignoreChildEventHandling && result)
 
-        return true;
+        return false;
     }
 
     void iWidget::handleMouseMove(const iaVector2f &pos)

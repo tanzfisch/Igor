@@ -16,12 +16,7 @@ UserControlProperties::UserControlProperties()
 
 void UserControlProperties::initGUI()
 {
-    iWidgetGroupBoxPtr groupBox = new iWidgetGroupBox(this);
-    groupBox->setText("Properties");
-    groupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
-
-    iWidgetScrollPtr scroll = new iWidgetScroll(groupBox);
+    iWidgetScrollPtr scroll = new iWidgetScroll(this);
     scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
 

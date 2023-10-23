@@ -67,6 +67,7 @@ void Outliner::initGUI()
 {
     _messageBox = new iDialogMessageBox();
 
+    setTitle("Outliner");
     setWidth(350);
     setHorizontalAlignment(iHorizontalAlignment::Left);
     setVerticalAlignment(iVerticalAlignment::Stretch);

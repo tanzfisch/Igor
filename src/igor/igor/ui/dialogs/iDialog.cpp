@@ -257,6 +257,16 @@ namespace igor
         iWidgetManager::getInstance().putDialogInFront(this);
     }
 
+    bool iDialog::handleASCII(uint8 c)
+    {
+        if(iWidget::handleASCII(c))
+        {
+            return true;
+        }
+
+        return true;
+    }
+
     bool iDialog::handleMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())

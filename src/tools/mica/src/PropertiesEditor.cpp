@@ -30,6 +30,8 @@ PropertiesEditor::PropertiesEditor()
 
 void PropertiesEditor::initGUI()
 {
+    setTitle("Properties Editor");
+
     setWidth(370);
     setHorizontalAlignment(iHorizontalAlignment::Right);
     setVerticalAlignment(iVerticalAlignment::Stretch);

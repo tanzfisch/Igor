@@ -219,6 +219,12 @@ namespace igor
          */
         iDialogCloseDelegate _dialogCloseDelegate;
 
+        /*! handles incoming acsii codes from keyboard
+
+        \param c the incoming character from keyboard
+        */
+        bool handleASCII(uint8 c) override;
+
         /*! handles incoming mouse key down events
 
         \param key the key that was pressed
