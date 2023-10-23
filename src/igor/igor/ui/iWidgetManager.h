@@ -104,11 +104,11 @@ namespace igor
         */
         void setDesktopDimensions(uint32 width, uint32 height);
 
-        /*! \returns dektop width
+        /*! \returns desktop width
         */
         uint32 getDesktopWidth() const;
 
-        /*! \returns dektop height
+        /*! \returns desktop height
         */
         uint32 getDesktopHeight() const;
 
@@ -220,9 +220,9 @@ namespace igor
         /*! returns the active dialogs
 
         \param[out] dialogs resulting list of active dialogs
-        \param sortedAccending if true the output list is sorted z index accending if false the opposite
+        \param sortedAscending if true the output list is sorted z index ascending if false the opposite
         */
-        void getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAccending = true);
+        void getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAscending = true);
 
         /*! actual implementation that handles a moved mouse
 

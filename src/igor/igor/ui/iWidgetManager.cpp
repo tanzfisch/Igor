@@ -137,7 +137,7 @@ namespace igor
         }
     }
 
-    void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAccending)
+    void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAscending)
     {
         for (auto dialog : _dialogs)
         {
@@ -147,7 +147,7 @@ namespace igor
             }
         }
 
-        if (sortedAccending)
+        if (sortedAscending)
         {
             std::sort(dialogs.begin(), dialogs.end(), [](iDialogPtr const a, iDialogPtr const b) { return a->getZValue() < b->getZValue(); });
         }
