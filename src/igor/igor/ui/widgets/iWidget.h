@@ -218,13 +218,17 @@ namespace igor
 
         /*! sets the z value which determines the render order of siblings
 
+        0 is furthest in the front
+
         \param zvalue the z value to set
         */
-        void setZValue(int32 zvalue);
+        void setZValue(uint32 zvalue);
 
         /*! \returns the z value of this widget
+
+        0 is furthest in the front
          */
-        int32 getZValue() const;
+        uint32 getZValue() const;
 
         /*! sets background color
 
@@ -682,7 +686,7 @@ namespace igor
 
         /*! z value of this widget
          */
-        int32 _zValue = 0;
+        uint32 _zValue = 0;
 
         /*! if true widget will react on mouse wheel
          */

@@ -166,7 +166,7 @@ iaString UserControlGraphView::getIconTexture(iNodeType type)
     case iNodeType::iNodeEmitter:
         return "igor_icon_emitter";
     case iNodeType::iNodeParticleSystem:
-        return "igor_icon_particleSystem";
+        return "igor_icon_particle_system";
 
     case iNodeType::iNodeRender:
     case iNodeType::Undefined:

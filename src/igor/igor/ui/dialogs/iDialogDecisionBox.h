@@ -49,18 +49,19 @@ namespace igor
 		*/
         iDialogDecisionBox(const iWidgetPtr parent = nullptr);
 
-        /*! deinitializes gui
+        /*! does nothing
 		*/
         ~iDialogDecisionBox() = default;
 
         /*! show/open the decision box
 
-        \param dialogCloseDelegate delegate to handle the close desicion box event
+        \param dialogCloseDelegate delegate to handle the close decision box event
+        \param title the dialog title
 		\param message the message
 		\param radioButtonTexts besides the message you can add a selection of radio buttons
 		\param preSelection optional preselection of radio buttons
 		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
+        void open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
 
         /*! \returns selection index
 
@@ -87,7 +88,7 @@ namespace igor
 
         /*! initializes the gui elements
 		*/
-        void initGUI(const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
+        void initGUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
     };
 
     /*! dialog decision box pointer definition

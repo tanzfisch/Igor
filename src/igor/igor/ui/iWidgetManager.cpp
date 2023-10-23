@@ -53,9 +53,25 @@ namespace igor
         }
     }
 
+    void iWidgetManager::putDialogInFront(iDialogPtr dialog)
+    {
+        for (auto pair : _dialogs)
+        {
+            if (dialog == pair.second)
+            {
+                continue;
+            }
+
+            pair.second->setZValue(pair.second->getZValue() + 1);
+        }
+
+        dialog->setZValue(0);
+    }
+
     void iWidgetManager::registerDialog(iDialogPtr dialog)
     {
         _dialogs[dialog->getID()] = dialog;
+        putDialogInFront(dialog);
     }
 
     void iWidgetManager::unregisterDialog(iDialogPtr dialog)
@@ -149,11 +165,13 @@ namespace igor
 
         if (sortedAscending)
         {
-            std::sort(dialogs.begin(), dialogs.end(), [](iDialogPtr const a, iDialogPtr const b) { return a->getZValue() < b->getZValue(); });
+            std::sort(dialogs.begin(), dialogs.end(), [](iDialogPtr const a, iDialogPtr const b)
+                      { return a->getZValue() < b->getZValue(); });
         }
         else
         {
-            std::sort(dialogs.begin(), dialogs.end(), [](iDialogPtr const a, iDialogPtr const b) { return a->getZValue() > b->getZValue(); });
+            std::sort(dialogs.begin(), dialogs.end(), [](iDialogPtr const a, iDialogPtr const b)
+                      { return a->getZValue() > b->getZValue(); });
         }
     }
 
@@ -290,7 +308,7 @@ namespace igor
         con_assert(_currentTheme != nullptr, "no theme defined");
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         for (const auto dialog : dialogs)
         {
@@ -352,7 +370,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
+        getActiveDialogs(dialogs, true);
 
         for (auto dialog : dialogs)
         {
@@ -375,7 +393,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
+        getActiveDialogs(dialogs, true);
 
         for (auto dialog : dialogs)
         {
@@ -398,7 +416,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
+        getActiveDialogs(dialogs, true);
 
         for (auto dialog : dialogs)
         {
@@ -421,7 +439,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
+        getActiveDialogs(dialogs, true);
 
         // let the dialogs handle the event
         for (auto dialog : dialogs)
@@ -445,7 +463,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
+        getActiveDialogs(dialogs, true);
 
         bool consumed = false;
 
@@ -477,7 +495,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
+        getActiveDialogs(dialogs, true);
 
         // let the dialogs handle the event
         for (auto dialog : dialogs)
@@ -493,7 +511,7 @@ namespace igor
 
     bool iWidgetManager::onMouseMoveEvent(iEventMouseMove &event)
     {
-        const iaVector2i& pos = event.getPosition();
+        const iaVector2i &pos = event.getPosition();
 
         if (handleMouseMove(iaVector2f(pos._x, pos._y)))
         {
@@ -513,7 +531,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
+        getActiveDialogs(dialogs, true);
 
         for (auto dialog : dialogs)
         {

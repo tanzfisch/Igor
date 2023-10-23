@@ -82,16 +82,6 @@ namespace igor
         */
         void open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>> &graphs);
 
-        /*! sets dialog title
-
-        \param title the new title
-        */
-        void setTitle(const iaString &title);
-
-        /*! \returns dialog title
-        */
-        iaString getTitle() const;
-
         /*! set name of axis
 
         \param index axis index
@@ -118,10 +108,6 @@ namespace igor
         */
         int32 _afterPoint = 2;
 
-        /*! dialog title
-        */
-        iaString _title;
-
         /*! axis names
         */
         std::map<uint32, iaString> _axisNames;
@@ -130,17 +116,13 @@ namespace igor
         */
         std::map<uint32, iWidgetNumberChooser *> _axisNumberChooser;
 
-        /*! copy of initialy set graphs
+        /*! copy of initially set graphs
         */
         std::vector<std::vector<iaVector2f>> _oldGraphs;
 
         /*! current graphs
         */
         std::vector<std::vector<iaVector2f>> _graphs;
-
-        /*! title label
-        */
-        iWidgetLabel *_titleLabel = nullptr;
 
         /*! min value on x axis
         */

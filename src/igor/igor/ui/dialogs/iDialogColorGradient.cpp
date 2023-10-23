@@ -83,32 +83,31 @@ namespace igor
 
 	void iDialogColorGradient::initUI()
 	{
+		setTitle("Edit Color Gradient");
+		setVerticalAlignment(iVerticalAlignment::Center);
+		setHorizontalAlignment(iHorizontalAlignment::Center);
+
 		setWidth(350);
 		setHeight(100);
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
-		grid->appendRows(4);
+		grid->appendRows(3);
 		grid->setStretchRow(2);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 		grid->setCellSpacing(4);
 		grid->setBorder(4);
 
-		iWidgetLabel *headerLabel = new iWidgetLabel();
-		headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-		headerLabel->setText("Edit Gradient");
-		grid->addWidget(headerLabel, 0, 0);
-
 		iWidgetGroupBox *groupBoxGradient = new iWidgetGroupBox();
 		groupBoxGradient->setText("Gradient");
 		groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Stretch);
-		grid->addWidget(groupBoxGradient, 0, 1);
+		grid->addWidget(groupBoxGradient, 0, 0);
 
 		iWidgetGridLayout *buttonGrid = new iWidgetGridLayout();
 		buttonGrid->appendColumns(2);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
-		grid->addWidget(buttonGrid, 0, 3);
+		grid->addWidget(buttonGrid, 0, 2);
 
 		_gradientWidget = new iWidgetColorGradient();
 		_gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -123,7 +122,7 @@ namespace igor
 		groupBox->setText("Selected Color");
 		groupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
-		grid->addWidget(groupBox, 0, 2);
+		grid->addWidget(groupBox, 0, 1);
 
 		iWidgetGridLayout *controlGrid = new iWidgetGridLayout();
 		controlGrid->appendRows(3);

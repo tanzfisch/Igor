@@ -23,6 +23,10 @@ namespace igor
 
 	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
 	{
+        setHorizontalAlignment(iHorizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
+		setResizeable(false);
+
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();

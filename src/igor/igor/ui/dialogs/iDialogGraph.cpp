@@ -63,6 +63,9 @@ namespace igor
 
     void iDialogGraph::initGUI()
     {
+        setHorizontalAlignment(iHorizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
+
         iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
@@ -70,15 +73,11 @@ namespace igor
         setHeight(20);
 
         iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
-        grid->appendRows(4);
+        grid->appendRows(3);
         grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         grid->setVerticalAlignment(iVerticalAlignment::Stretch);
         grid->setCellSpacing(4);
         grid->setBorder(4);
-
-        _titleLabel = new iWidgetLabel();
-        _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-        _titleLabel->setText(_title);
 
         iWidgetGroupBox *groupBoxGradient = new iWidgetGroupBox();
         groupBoxGradient->setText("Gradient");
@@ -205,10 +204,9 @@ namespace igor
         resetButton->setText("Reset");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onReset));
 
-        grid->addWidget(_titleLabel, 0, 0);
-        grid->addWidget(groupBoxGradient, 0, 1);
-        grid->addWidget(groupBoxSelection, 0, 2);
-        grid->addWidget(buttonGrid, 0, 3);
+        grid->addWidget(groupBoxGradient, 0, 0);
+        grid->addWidget(groupBoxSelection, 0, 1);
+        grid->addWidget(buttonGrid, 0, 2);
 
         groupBoxGradient->addWidget(_graph);
         groupBoxSelection->addWidget(axisGrid);
@@ -280,20 +278,6 @@ namespace igor
     void iDialogGraph::setAxisName(uint32 index, const iaString &name)
     {
         _axisNames[index] = name;
-    }
-
-    void iDialogGraph::setTitle(const iaString &title)
-    {
-        _title = title;
-        if (_titleLabel != nullptr)
-        {
-            _titleLabel->setText(_title);
-        }
-    }
-
-    iaString iDialogGraph::getTitle() const
-    {
-        return _title;
     }
 
     void iDialogGraph::updateGraph()

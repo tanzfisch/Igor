@@ -178,6 +178,10 @@ namespace igor
         */
         void setReturnState(iDialogReturnState returnState);
 
+        /*! puts dialog in front of others
+        */
+        void putInFront();
+
     private:
         /*! if true dialog is open
          */

@@ -27,6 +27,7 @@ namespace igor
     void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate)
     {
         iDialog::open(dialogCloseDelegate);
+        putInFront();
     }
 
     void iDialogMenu::init()

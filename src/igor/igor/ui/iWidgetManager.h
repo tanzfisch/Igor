@@ -207,6 +207,12 @@ namespace igor
 		*/
         void unregisterDialog(iDialogPtr dialog);
 
+        /*! puts dialog in front by manipulating it's z index and the index of other dialogs
+
+        \param dialog the dialog to put in front
+        */
+        void putDialogInFront(iDialogPtr dialog);
+
         /*! traverse widget tree and updates positions and sizes
 
         \param widget current widget to update

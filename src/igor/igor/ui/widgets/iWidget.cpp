@@ -474,12 +474,12 @@ namespace igor
         return false;
     }
 
-    void iWidget::setZValue(int32 zValue)
+    void iWidget::setZValue(uint32 zValue)
     {
         _zValue = zValue;
     }
 
-    int32 iWidget::getZValue() const
+    uint32 iWidget::getZValue() const
     {
         return _zValue;
     }

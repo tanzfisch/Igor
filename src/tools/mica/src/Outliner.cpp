@@ -446,7 +446,7 @@ void Outliner::addModel()
     if (_decisionBoxModelRef == nullptr)
     {
         _decisionBoxModelRef = new iDialogDecisionBox();
-        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &Outliner::onAddModelDecision), "Import model ...", {"embedded", "as reference"}, 0);
+        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &Outliner::onAddModelDecision), "Import model", "Select type:", {"embedded", "as reference"}, 0);
     }
 }
 

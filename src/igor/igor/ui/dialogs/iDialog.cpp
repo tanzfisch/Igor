@@ -252,6 +252,11 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
     }
 
+    void iDialog::putInFront()
+    {
+        iWidgetManager::getInstance().putDialogInFront(this);
+    }
+
     bool iDialog::handleMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())
@@ -270,6 +275,8 @@ namespace igor
         {
             _widgetState = iWidgetState::Pressed;
             _motionState = calcMotionState(_posLast);
+
+            putInFront();
 
             if (_motionState != iDialogMotionState::Static)
             {
@@ -523,6 +530,15 @@ namespace igor
 
         if (_motionState != iDialogMotionState::Static)
         {
+            // convert to absolute positioning to prevent a pop during first move
+            if (getVerticalAlignment() != iVerticalAlignment::Absolute ||
+                getHorizontalAlignment() != iHorizontalAlignment::Absolute)
+            {
+                setPos(getActualPos());
+                setWidth(getActualWidth());
+                setHeight(getActualHeight());
+            }
+
             const iaVector2f diff = pos - _posLast;
             if (_motionState == iDialogMotionState::Moving)
             {

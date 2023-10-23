@@ -84,6 +84,9 @@ namespace igor
         setWidth(700);
         setHeight(500);
 
+        setHorizontalAlignment(iHorizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
+
         iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->setVerticalAlignment(iVerticalAlignment::Stretch);
         grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
