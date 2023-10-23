@@ -170,6 +170,11 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
 
 void UILayer::onSaveProject()
 {
+    if(_activeProject == nullptr)
+    {
+        con_err("no project to save");
+        return;
+    }
     iProject::saveProject(_activeProject);
 }
 

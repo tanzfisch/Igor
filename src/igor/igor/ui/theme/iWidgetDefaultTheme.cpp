@@ -806,15 +806,20 @@ namespace igor
         iRenderer::getInstance().drawFilledRectangle(rect, active ? COLOR_DIFFUSE_DARK : COLOR_DIFFUSE_LIGHT);
     }
 
-    void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, bool resizeEnabled, iWidgetState state, bool active)
+    void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool active)
     {
         iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
 
-        auto frameWidth = resizeEnabled ? _frameWidth : 0.0f;
-
         if (headerEnabled)
         {
-            iRenderer::getInstance().drawFilledRectangle(rect._x + frameWidth, rect._y + frameWidth, rect._width - frameWidth * 2.0f, _titleWidth, COLOR_DIFFUSE_DARK);
+            iRenderer::getInstance().drawFilledRectangle(rect._x, rect._y, rect._width, _titleWidth, COLOR_DIFFUSE_DARK);
+
+            if (!title.isEmpty())
+            {
+                iaRectanglef titleRect = rect;
+                titleRect.adjust(5, 8, 0, 0);
+                drawText(titleRect, title, 0.0f);
+            }
         }
 
         iRenderer::getInstance().drawFilledRectangle(clientRect, COLOR_DIFFUSE);

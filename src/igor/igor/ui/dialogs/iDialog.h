@@ -96,6 +96,16 @@ namespace igor
          */
         bool hasHeader() const;
 
+        /*! sets title displayed in header
+
+        \param title the title to set
+        */
+        void setTitle(const iaString &title);
+
+        /*! \returns title of dialog
+        */
+        const iaString& getTitle() const;
+
         /*! sets wether or not the dialog is resize-able
 
         \param enable if true dialog is becoming resize-able
@@ -192,6 +202,10 @@ namespace igor
         /*! if true dialog is moveable
         */
         bool _isMoveable = true;
+
+        /*! title of dialog
+        */
+        iaString _title;
 
         /*! motion state of dialog
          */

@@ -23,14 +23,13 @@ namespace igor
 
         setEnabled(false);
         setVisible(false);
-        setWidth(400);
-        setHeight(300);
+        setWidth(100);
+        setHeight(100);
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
         setVerticalAlignment(iVerticalAlignment::Absolute);
 
         setAcceptOutOfBoundsClicks(true);
         setIgnoreChildEventHandling(true);
-        setGrowingByContent(false);
 
         if (parent != nullptr)
         {
@@ -114,7 +113,6 @@ namespace igor
         int32 minHeight = 0;
 
         const auto titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
-        const auto frameWidth = _resizeEnabled ? iWidgetManager::getInstance().getTheme()->getDialogFrameWidth() : 0.0f;
 
         if (isGrowingByContent() &&
             !_children.empty())
@@ -126,15 +124,21 @@ namespace igor
 
         if (_headerEnabled)
         {
-            minHeight += 20; // TODO comes from theme
-            setClientArea(frameWidth, frameWidth, frameWidth + titleWidth, frameWidth);
+            minHeight += titleWidth;
+            setClientArea(0, 0, titleWidth, 0);
         }
         else
         {
-            setClientArea(frameWidth, frameWidth, frameWidth, frameWidth);
+            setClientArea(0, 0, 0, 0);
         }
 
         setMinSize(minWidth, minHeight);
+
+        if (isGrowingByContent())
+        {
+            setWidth(std::max(getConfiguredWidth(), minWidth));
+            setHeight(std::max(getConfiguredHeight(), minHeight));
+        }
     }
 
     void iDialog::updateAlignment(int32 clientWidth, int32 clientHeight)
@@ -205,7 +209,7 @@ namespace igor
             iaRectanglef clientRect = getActualRect();
             clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
 
-            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _resizeEnabled, getState(), isEnabled());
+            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _title, _resizeEnabled, getState(), isEnabled());
 
             // store current render states
             const iaRectanglei viewport = iRenderer::getInstance().getViewport();
@@ -356,8 +360,8 @@ namespace igor
 
     iDialogMotionState iDialog::calcMotionState(const iaVector2f &pos)
     {
-        const auto titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
-        const auto frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
+        const float32 titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
+        const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
 
         if (!_isMoveable)
         {
@@ -366,10 +370,7 @@ namespace igor
 
         if (_headerEnabled)
         {
-            iaRectanglef header(_absoluteX + frameWidth,
-                                _absoluteY + frameWidth,
-                                _actualWidth - frameWidth * 2.0f,
-                                titleWidth);
+            iaRectanglef header(_absoluteX, _absoluteY, _actualWidth, titleWidth);
             if (iIntersection::intersects(pos, header))
             {
                 return iDialogMotionState::Moving;
@@ -381,10 +382,10 @@ namespace igor
             return iDialogMotionState::Static;
         }
 
-        iaRectanglef leftEdge(_absoluteX, _absoluteY, frameWidth, _actualHeight);
+        iaRectanglef leftEdge(_absoluteX - frameWidth, _absoluteY - frameWidth, frameWidth, _actualHeight + frameWidth * 2.0f);
         bool left = iIntersection::intersects(pos, leftEdge);
 
-        iaRectanglef topEdge(_absoluteX, _absoluteY, _actualWidth, frameWidth);
+        iaRectanglef topEdge(_absoluteX - frameWidth, _absoluteY - frameWidth, _actualWidth + frameWidth * 2.0f, frameWidth);
         bool top = iIntersection::intersects(pos, topEdge);
 
         if (left && top)
@@ -392,7 +393,7 @@ namespace igor
             return iDialogMotionState::ResizeLeftTop;
         }
 
-        iaRectanglef rightEdge(_absoluteX + _actualWidth - frameWidth, _absoluteY, frameWidth, _actualHeight);
+        iaRectanglef rightEdge(_absoluteX + _actualWidth, _absoluteY - frameWidth, frameWidth, _actualHeight + frameWidth * 2.0);
         bool right = iIntersection::intersects(pos, rightEdge);
 
         if (right && top)
@@ -405,7 +406,7 @@ namespace igor
             return iDialogMotionState::ResizeTop;
         }
 
-        iaRectanglef bottomEdge(_absoluteX, _absoluteY + _actualHeight - frameWidth, _actualWidth, frameWidth);
+        iaRectanglef bottomEdge(_absoluteX - frameWidth, _absoluteY + _actualHeight, _actualWidth + frameWidth * 2.0f, frameWidth);
         bool bottom = iIntersection::intersects(pos, bottomEdge);
 
         if (left && bottom)
@@ -443,15 +444,22 @@ namespace igor
             return;
         }
 
-        // get copy of children
-        std::vector<iWidgetPtr> widgets = getChildren();
-
-        for (auto widget : widgets)
+        iaRectanglef clientRect = getActualRect();
+        clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
+        if (iIntersection::intersects(pos, clientRect))
         {
-            widget->handleMouseMove(pos);
+            // get copy of children
+            std::vector<iWidgetPtr> widgets = getChildren();
+
+            for (auto widget : widgets)
+            {
+                widget->handleMouseMove(pos);
+            }
         }
 
+        const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
         auto rect = getActualRect();
+        rect.adjust(-frameWidth, -frameWidth, frameWidth * 2.0f, frameWidth * 2.0f);
         if (iIntersection::intersects(pos, rect))
         {
             if (!_isMouseOver)
@@ -519,34 +527,34 @@ namespace igor
             {
                 setPos(getPos() + diff);
             }
-            
+
             if (_motionState == iDialogMotionState::ResizeRight ||
-                     _motionState == iDialogMotionState::ResizeRightBottom ||
-                     _motionState == iDialogMotionState::ResizeRightTop)
+                _motionState == iDialogMotionState::ResizeRightBottom ||
+                _motionState == iDialogMotionState::ResizeRightTop)
             {
                 setWidth(getConfiguredWidth() + diff._x);
             }
-            
+
             if (_motionState == iDialogMotionState::ResizeLeft ||
-                     _motionState == iDialogMotionState::ResizeLeftBottom ||
-                     _motionState == iDialogMotionState::ResizeLeftTop)
+                _motionState == iDialogMotionState::ResizeLeftBottom ||
+                _motionState == iDialogMotionState::ResizeLeftTop)
             {
                 iaVector2f dialogPos = getPos();
                 dialogPos._x += diff._x;
                 setPos(dialogPos);
                 setWidth(getConfiguredWidth() - diff._x);
             }
-            
+
             if (_motionState == iDialogMotionState::ResizeBottom ||
-                     _motionState == iDialogMotionState::ResizeRightBottom ||
-                     _motionState == iDialogMotionState::ResizeLeftBottom)
+                _motionState == iDialogMotionState::ResizeRightBottom ||
+                _motionState == iDialogMotionState::ResizeLeftBottom)
             {
                 setHeight(getConfiguredHeight() + diff._y);
             }
-            
+
             if (_motionState == iDialogMotionState::ResizeTop ||
-                     _motionState == iDialogMotionState::ResizeRightTop ||
-                     _motionState == iDialogMotionState::ResizeLeftTop)
+                _motionState == iDialogMotionState::ResizeRightTop ||
+                _motionState == iDialogMotionState::ResizeLeftTop)
             {
                 iaVector2f dialogPos = getPos();
                 dialogPos._y += diff._y;
@@ -576,6 +584,16 @@ namespace igor
     bool iDialog::isMoveable() const
     {
         return _isMoveable;
+    }
+
+    void iDialog::setTitle(const iaString &title)
+    {
+        _title = title;
+    }
+
+    const iaString &iDialog::getTitle() const
+    {
+        return _title;
     }
 
 } // namespace igor

@@ -61,7 +61,7 @@ namespace igor
         void drawFrame(const iaRectanglef &rect, iWidgetState state, bool active) override;
         void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool active) override;
         void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active) override;
-        void drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, bool resizeEnabled, iWidgetState state, bool active) override;
+        void drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool active) override;
         void drawSpacer(const iaRectanglef &rect, iWidgetState state, bool active) override;
         void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool active) override;
         void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool active) override;

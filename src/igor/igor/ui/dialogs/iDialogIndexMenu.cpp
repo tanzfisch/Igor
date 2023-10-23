@@ -17,6 +17,9 @@ namespace igor
 	iDialogIndexMenu::iDialogIndexMenu(const iWidgetPtr parent)
 		: iDialog(iWidgetType::iDialogIndexMenu, parent)
 	{
+		setGrowingByContent(true);
+		setHeader(false);
+        setResizeable(false);		
 	}
 
 	void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts)
