@@ -808,6 +808,17 @@ namespace igor
 
     void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool active)
     {
+        // draw shadow
+        iaRectanglef shadowRect = rect;
+        iaColor4f color(0.0, 0.0, 0.0, 0.09);
+
+        for (int i = 0; i < 10; ++i)
+        {
+            shadowRect.adjust(-1, -1, 2, 2);
+            iRenderer::getInstance().drawRectangle(shadowRect, color);
+            color._a -= 0.009;
+        }
+
         iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
 
         if (headerEnabled)
