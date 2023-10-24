@@ -206,7 +206,7 @@ namespace igor
             iaRectanglef clientRect = getActualRect();
             clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
 
-            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _title, _resizeEnabled, getState(), isEnabled());
+            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _title, _isResizeable, getState(), isEnabled());
 
             // store current render states
             const iaRectanglei viewport = iRenderer::getInstance().getViewport();
@@ -259,7 +259,7 @@ namespace igor
 
     bool iDialog::handleASCII(uint8 c)
     {
-        if(iWidget::handleASCII(c))
+        if (iWidget::handleASCII(c))
         {
             return true;
         }
@@ -395,7 +395,7 @@ namespace igor
             }
         }
 
-        if (!_resizeEnabled)
+        if (!_isResizeable)
         {
             return iDialogMotionState::Static;
         }
@@ -595,12 +595,12 @@ namespace igor
 
     void iDialog::setResizeable(bool enable)
     {
-        _resizeEnabled = enable;
+        _isResizeable = enable;
     }
 
     bool iDialog::isResizeable() const
     {
-        return _resizeEnabled;
+        return _isResizeable;
     }
 
     void iDialog::setMoveable(bool enable)
@@ -621,6 +621,16 @@ namespace igor
     const iaString &iDialog::getTitle() const
     {
         return _title;
+    }
+
+    void iDialog::setDockable(bool enable)
+    {
+        _isDockable = enable;
+    }
+
+    bool iDialog::isDockable() const
+    {
+        return _isDockable;
     }
 
 } // namespace igor

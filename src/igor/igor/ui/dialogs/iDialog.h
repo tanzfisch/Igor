@@ -116,6 +116,16 @@ namespace igor
         */
         bool isResizeable() const;
 
+        /*! sets wether or not the dialog is dock-able
+
+        \param enable if true dialog is becoming dock-able
+        */
+        void setDockable(bool enable);
+
+        /*! \returns true if dialog is dock-able
+        */
+        bool isDockable() const;
+
         /*! sets wether or not the dialog is moveable
 
         \param enable if true dialog is becoming moveable
@@ -201,11 +211,15 @@ namespace igor
 
         /*! if true dialog is resize-able
         */
-        bool _resizeEnabled = true;
+        bool _isResizeable = true;
         
         /*! if true dialog is moveable
         */
         bool _isMoveable = true;
+
+        /*! if true dialog is dock-able
+        */
+        bool _isDockable = false;
 
         /*! title of dialog
         */

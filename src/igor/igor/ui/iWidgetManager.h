@@ -37,6 +37,7 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/ui/theme/iWidgetTheme.h>
+#include <igor/ui/iDocker.h>
 
 #include <vector>
 #include <unordered_map>
@@ -77,13 +78,13 @@ namespace igor
 
         \param id id of widget
         */
-        iWidgetPtr getWidget(uint64 id) const;
+        iWidgetPtr getWidget(iWidgetID id) const;
 
         /*! \returns dialog by id
 
         \param id id of dialog
         */
-        iDialogPtr getDialog(uint64 id);
+        iDialogPtr getDialog(iWidgetID id);
 
         /*! \returns the theme in use
         */
@@ -153,11 +154,11 @@ namespace igor
 
         /*! list of all widgets
         */
-        std::unordered_map<uint64, iWidgetPtr> _widgets;
+        std::unordered_map<iWidgetID, iWidgetPtr> _widgets;
 
         /*! list of all dialogs
         */
-        std::unordered_map<uint64, iDialogPtr> _dialogs;
+        std::unordered_map<iWidgetID, iDialogPtr> _dialogs;
 
         /*! current desktop width
         */
@@ -177,7 +178,11 @@ namespace igor
 
         /*! list of dialogs to close
 		*/
-        std::set<uint64> _dialogsToClose;
+        std::set<iWidgetID> _dialogsToClose;
+
+        /*! dialog docker
+        */
+        iDocker _docker;
 
         /*! closes the dialog and queues a close event in to be called after the update handle
 		*/

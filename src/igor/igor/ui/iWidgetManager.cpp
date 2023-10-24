@@ -189,16 +189,13 @@ namespace igor
 
         bool consumed = false;
 
-        if (!dialogs.empty())
+        for (auto dialog : dialogs)
         {
-            for (auto dialog : dialogs)
-            {
-                dialog->handleMouseMove(pos);
+            dialog->handleMouseMove(pos);
 
-                if (dialog->_isMouseOver)
-                {
-                    consumed = true;
-                }
+            if (dialog->_isMouseOver)
+            {
+                consumed = true;
             }
         }
 
@@ -281,6 +278,8 @@ namespace igor
     {
         _desktopWidth = width;
         _desktopHeight = height;
+
+        _docker.update(_desktopWidth, _desktopHeight);
     }
 
     uint32 iWidgetManager::getDesktopWidth() const
@@ -312,24 +311,22 @@ namespace igor
 
         for (const auto dialog : dialogs)
         {
-            if (!isModal(dialog))
-            {
-                dialog->draw();
-            }
-        }
-
-        if (_modal != nullptr)
-        {
-            _modal->draw();
+            dialog->draw();
         }
 
         if (!_tooltipText.isEmpty())
         {
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
+
+        if (dialogs.front()->_motionState == iDialogMotionState::Moving &&
+            dialogs.front()->isDockable())
+        {
+
+        }
     }
 
-    iDialogPtr iWidgetManager::getDialog(uint64 id)
+    iDialogPtr iWidgetManager::getDialog(iWidgetID id)
     {
         auto iter = _dialogs.find(id);
 
@@ -356,7 +353,8 @@ namespace igor
     bool iWidgetManager::onWindowResize(iEventWindowResize &event)
     {
         // update the widget managers desktop dimensions
-        setDesktopDimensions(event.getWindow()->getClientWidth(), event.getWindow()->getClientHeight());
+        setDesktopDimensions(event.getWindow()->getClientWidth(), event.getWindow()->getClientHeight());        
+        
         return false;
     }
 
