@@ -283,6 +283,7 @@ namespace igor
             {
                 area->_areaA = nullptr;
                 area->_areaB = nullptr;
+                return true;
             }
         }
 
