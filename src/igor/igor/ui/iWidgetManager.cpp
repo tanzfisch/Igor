@@ -225,14 +225,37 @@ namespace igor
             handleMouseMove(iaVector2f(mousePos._x, mousePos._y));
         }
 
-        for (auto dialog : _dialogs)
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, false);
+
+        for (auto dialog : dialogs)
         {
-            if (dialog.second->isEnabled())
+            if (dialog->isEnabled())
             {
-                traverseContentSize(dialog.second);
-                traverseAlignment(dialog.second, 0, 0, getDesktopWidth(), getDesktopHeight());
+                traverseContentSize(dialog);
+                traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
             }
         }
+
+        if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
+            dialogs.back()->isDockable())
+        {
+            _docker.update(iaVector2i(_desktopWidth, _desktopHeight), iMouse::getInstance().getPos());
+        }
+    }
+
+    void iWidgetManager::undockDialog(iWidgetID dialogID)
+    {
+        con_assert(getDialog(dialogID) != nullptr, "invalid id");
+
+        _docker.undock(dialogID);
+    }
+
+    void iWidgetManager::dockDialog(iWidgetID dialogID)
+    {
+        con_assert(getDialog(dialogID) != nullptr, "invalid id");
+
+        _docker.dock(dialogID, iaVector2i(_desktopWidth, _desktopHeight), iMouse::getInstance().getPos());
     }
 
     void iWidgetManager::traverseContentSize(iWidgetPtr widget)
@@ -278,8 +301,6 @@ namespace igor
     {
         _desktopWidth = width;
         _desktopHeight = height;
-
-        _docker.update(_desktopWidth, _desktopHeight);
     }
 
     uint32 iWidgetManager::getDesktopWidth() const
@@ -319,10 +340,10 @@ namespace igor
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
 
-        if (dialogs.front()->_motionState == iDialogMotionState::Moving &&
-            dialogs.front()->isDockable())
+        if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
+            dialogs.back()->isDockable())
         {
-
+            _docker.draw();
         }
     }
 
@@ -353,8 +374,10 @@ namespace igor
     bool iWidgetManager::onWindowResize(iEventWindowResize &event)
     {
         // update the widget managers desktop dimensions
-        setDesktopDimensions(event.getWindow()->getClientWidth(), event.getWindow()->getClientHeight());        
-        
+        setDesktopDimensions(event.getWindow()->getClientWidth(), event.getWindow()->getClientHeight());
+
+        _docker.update(iaVector2i(_desktopWidth, _desktopHeight), iMouse::getInstance().getPos());
+
         return false;
     }
 

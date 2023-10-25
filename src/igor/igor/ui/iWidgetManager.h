@@ -143,6 +143,18 @@ namespace igor
         */
         void onUpdate();
 
+        /*! docks a given dialog if possible at current mouse position
+
+        \param dialogID the given dialog id
+        */
+        void dockDialog(iWidgetID dialogID);
+
+        /*! undock a dialog
+
+        \param dialogID the given dialog id
+        */
+        void undockDialog(iWidgetID dialogID);
+
     private:
         /*! modal marker
         */

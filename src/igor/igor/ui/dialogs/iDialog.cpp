@@ -323,6 +323,12 @@ namespace igor
 
         if (_motionState != iDialogMotionState::Static && key == iKeyCode::MouseLeft)
         {
+            if (_motionState == iDialogMotionState::Moving &&
+                isDockable())
+            {
+                iWidgetManager::getInstance().dockDialog(getID());
+            }
+
             _motionState = iDialogMotionState::Static;
         }
 
@@ -524,6 +530,12 @@ namespace igor
             }
 
             iMouse::getInstance().setCursorType(cursorType);
+
+            if (_motionState == iDialogMotionState::Moving &&
+                isDockable())
+            {
+                iWidgetManager::getInstance().undockDialog(getID());
+            }
         }
         else
         {
