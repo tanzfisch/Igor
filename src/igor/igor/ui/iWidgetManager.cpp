@@ -345,6 +345,8 @@ namespace igor
         {
             _docker.draw();
         }
+
+        _docker.drawDebug();
     }
 
     iDialogPtr iWidgetManager::getDialog(iWidgetID id)

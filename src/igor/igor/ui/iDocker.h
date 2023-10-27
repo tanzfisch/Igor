@@ -63,6 +63,8 @@ namespace igor
          */
         void draw();
 
+        void drawDebug();
+
         /*! dock a dialog
 
         \param dialogID the dialog ID to dock
@@ -76,9 +78,6 @@ namespace igor
         void undock(iWidgetID dialogID);
 
     private:
-        struct iDockArea;
-
-        typedef std::shared_ptr<iDockArea> iDockAreaPtr;
 
         struct iDockArea
         {
@@ -88,17 +87,17 @@ namespace igor
 
             /*! sub area A
              */
-            iDockAreaPtr _areaA;
+            std::shared_ptr<iDockArea> _areaA;
 
             /*! sub area B
              */
-            iDockAreaPtr _areaB;
+            std::shared_ptr<iDockArea> _areaB;
 
             /*! parent area
 
             nullptr in case this is the root area
             */
-            iDockAreaPtr _parent;
+            std::weak_ptr<iDockArea> _parent;
 
             /*! if true the split is vertical. Means areaA is on the left and areaB is on the right. Only applies if there is sub areas
              */
@@ -108,7 +107,7 @@ namespace igor
              */
             float32 _ratio = 0.5f;
 
-            iDockArea(iDockAreaPtr parent)
+            iDockArea(std::shared_ptr<iDockArea> parent)
                 : _parent(parent)
             {
             }
@@ -116,11 +115,11 @@ namespace igor
 
         /*! root area
          */
-        iDockAreaPtr _root;
+        std::shared_ptr<iDockArea> _root;
 
         /*! marks the target area
          */
-        iDockAreaPtr _targetArea;
+        std::shared_ptr<iDockArea> _targetArea;
 
         iaRectanglei _selectorCenter;
         iaRectanglei _selectorRight;
@@ -171,21 +170,21 @@ namespace igor
         \param area the current area processed
         \param rect rect of area
         */
-        void update(iDockAreaPtr area, const iaRectanglei &rect);
+        void update(std::shared_ptr<iDockArea> area, const iaRectanglei &rect);
 
-        void updateTargets(iDockAreaPtr area, const iaRectanglei &rect, const iaVector2i &pos);
+        void updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglei &rect, const iaVector2i &pos);
 
-        void dock(iDockAreaPtr area, iWidgetID dialogID, const iaRectanglei &rect);
+        void dock(std::shared_ptr<iDockArea> area, iWidgetID dialogID, const iaRectanglei &rect);
 
-        bool undock(iDockAreaPtr area, iWidgetID dialogID);
+        bool undock(std::shared_ptr<iDockArea> area, iWidgetID dialogID);
 
-        bool isEmpty(iDockAreaPtr area);
+        bool isEmpty(std::shared_ptr<iDockArea> area);
 
         void loadResources();
 
         void update();
 
-        void drawDebug(iDockAreaPtr area, const iaRectanglei &rect, int nesting);
+        void drawDebug(std::shared_ptr<iDockArea> area, const iaRectanglei &rect, int nesting);
     };
 
 }

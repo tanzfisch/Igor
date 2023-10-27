@@ -27,7 +27,7 @@ namespace igor
         _root = std::make_shared<iDockArea>(nullptr);
     }
 
-    void iDocker::updateTargets(iDockAreaPtr area, const iaRectanglei &rect, const iaVector2i &pos)
+    void iDocker::updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglei &rect, const iaVector2i &pos)
     {
         if (area == nullptr)
         {
@@ -139,14 +139,29 @@ namespace igor
         _selectorQuarterBottomTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_bottom_quarter");
     }
 
-    void iDocker::drawDebug(iDockAreaPtr area, const iaRectanglei &rect, int nesting)
+    void iDocker::drawDebug(std::shared_ptr<iDockArea> area, const iaRectanglei &rect, int nesting)
     {
+        static const int nestingStep = 10;
+
         if (area == nullptr)
         {
             return;
         }
 
-        static const int nestingStep = 10;
+        iDialogPtr dialog = iWidgetManager::getInstance().getDialog(area->_dialog);
+        if(dialog)
+        {
+            iaRectanglei drawRect = rect;
+            drawRect.adjust(nesting * nestingStep, nesting * nestingStep, -(nesting * 2 * nestingStep), -(nesting * 2 * nestingStep));
+            iRenderer::getInstance().drawRectangle(drawRect, iaColor4f::green);
+            iRenderer::getInstance().drawString(drawRect._x, drawRect._y, dialog->getTitle() + "_" + iaString::toString(dialog->getID()));
+        }
+
+        if (area->_areaA == nullptr ||
+            area->_areaB == nullptr)
+        {
+            return;
+        }        
 
         iaRectanglei drawRect = rect;
         drawRect.adjust(nesting * nestingStep, nesting * nestingStep, -(nesting * 2 * nestingStep), -(nesting * 2 * nestingStep));
@@ -156,6 +171,8 @@ namespace igor
 
         if (area->_verticalSplit)
         {
+            iRenderer::getInstance().drawLine(drawRect._x + drawRect._width * area->_ratio, (float32)drawRect._y, drawRect._x + drawRect._width * area->_ratio, (float32)drawRect._y + (float32)drawRect._height);
+
             iaRectanglei rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
             iaRectanglei rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
             drawDebug(area->_areaA, rectA, nesting);
@@ -163,6 +180,8 @@ namespace igor
         }
         else
         {
+            iRenderer::getInstance().drawLine((float32)drawRect._x, drawRect._y + drawRect._height * area->_ratio, (float32)drawRect._x + drawRect._width, drawRect._y + drawRect._height * area->_ratio);
+
             iaRectanglei rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
             iaRectanglei rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
             drawDebug(area->_areaA, rectA, nesting);
@@ -190,12 +209,15 @@ namespace igor
         iRenderer::getInstance().drawTexturedRectangle(_selectorRightEdge, _selectorQuarterRightTexture, _subdivideRightEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
         iRenderer::getInstance().drawTexturedRectangle(_selectorTopEdge, _selectorQuarterTopTexture, _subdivideTopEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
         iRenderer::getInstance().drawTexturedRectangle(_selectorBottomEdge, _selectorQuarterBottomTexture, _subdivideBottomEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+    }
 
+    void iDocker::drawDebug()
+    {
         iaRectanglei rect(0, 0, _desktopSize._x, _desktopSize._y);
         drawDebug(_root, rect, 0);
     }
 
-    void iDocker::update(iDockAreaPtr area, const iaRectanglei &rect)
+    void iDocker::update(std::shared_ptr<iDockArea> area, const iaRectanglei &rect)
     {
         if (area == nullptr)
         {
@@ -336,18 +358,24 @@ namespace igor
                 if (_root->_areaA != nullptr &&
                     _root->_areaB != nullptr)
                 {
-                    iDockAreaPtr tempA = _root->_areaA;
-                    iDockAreaPtr tempB = _root->_areaB;
+                    std::shared_ptr<iDockArea> childA = _root->_areaA;
+                    std::shared_ptr<iDockArea> childB = _root->_areaB;
+                    bool verticalSplit = _root->_verticalSplit;
+                    float32 ratio = _root->_ratio;
 
                     _root->_areaA = std::make_shared<iDockArea>(_root);
-                    _root->_areaB = std::make_shared<iDockArea>(_root);
-                    tempA->_parent = _root->_areaB;
-                    _root->_areaB->_areaA = tempA;
-                    tempB->_parent = _root->_areaB;
-                    _root->_areaB->_areaB = tempB;
-                    _root->_ratio = s_edgeSubdivideRatio;
                     _root->_areaA->_dialog = dialogID;
                     _root->_verticalSplit = true;
+                    _root->_ratio = s_edgeSubdivideRatio;
+
+                    _root->_areaB = std::make_shared<iDockArea>(_root);                    
+                    _root->_areaB->_areaA = childA;
+                    childA->_parent = _root->_areaB;
+                    _root->_areaB->_areaB = childB;
+                    childB->_parent = _root->_areaB;
+
+                    _root->_areaB->_verticalSplit = verticalSplit;
+                    _root->_areaB->_ratio = ratio;
                 }
                 else
                 {
@@ -356,6 +384,39 @@ namespace igor
                     _root->_ratio = s_edgeSubdivideRatio;
                     _root->_areaA->_dialog = dialogID;
                     _root->_verticalSplit = true;
+                }
+            }
+            else if (_subdivideTopEdge)
+            {
+                if (_root->_areaA != nullptr &&
+                    _root->_areaB != nullptr)
+                {
+                    std::shared_ptr<iDockArea> childA = _root->_areaA;
+                    std::shared_ptr<iDockArea> childB = _root->_areaB;
+                    bool verticalSplit = _root->_verticalSplit;
+                    float32 ratio = _root->_ratio;
+
+                    _root->_areaA = std::make_shared<iDockArea>(_root);
+                    _root->_areaA->_dialog = dialogID;
+                    _root->_verticalSplit = false;
+                    _root->_ratio = s_edgeSubdivideRatio;
+
+                    _root->_areaB = std::make_shared<iDockArea>(_root);                    
+                    _root->_areaB->_areaA = childA;
+                    childA->_parent = _root->_areaB;
+                    _root->_areaB->_areaB = childB;
+                    childB->_parent = _root->_areaB;
+
+                    _root->_areaB->_verticalSplit = verticalSplit;
+                    _root->_areaB->_ratio = ratio;
+                }
+                else
+                {
+                    _root->_areaA = std::make_shared<iDockArea>(_root);
+                    _root->_areaB = std::make_shared<iDockArea>(_root);
+                    _root->_ratio = s_edgeSubdivideRatio;
+                    _root->_areaA->_dialog = dialogID;
+                    _root->_verticalSplit = false;
                 }
             }
             else
@@ -380,7 +441,7 @@ namespace igor
         update(_root, rect);
     }
 
-    bool iDocker::isEmpty(iDockAreaPtr area)
+    bool iDocker::isEmpty(std::shared_ptr<iDockArea> area)
     {
         if (area == nullptr)
         {
@@ -405,7 +466,7 @@ namespace igor
         return true;
     }
 
-    bool iDocker::undock(iDockAreaPtr area, iWidgetID dialogID)
+    bool iDocker::undock(std::shared_ptr<iDockArea> area, iWidgetID dialogID)
     {
         if (area == nullptr)
         {
@@ -423,21 +484,21 @@ namespace igor
             if (isEmpty(area->_areaA))
             {
                 // move areaB in place of area
-                iDockAreaPtr areaB = area->_areaB;
+                std::shared_ptr<iDockArea> areaB = area->_areaB;
 
-                area->_areaA->_parent = nullptr;
+                area->_areaA->_parent.reset();
                 area->_areaA = nullptr;
-                area->_areaB->_parent = nullptr;
+                area->_areaB->_parent.reset();
                 area->_areaB = nullptr;
 
                 // area == root
-                if (area->_parent == nullptr)
+                if (area->_parent.lock() == nullptr)
                 {
                     _root = areaB;
                 }
                 /*else
                 {
-                    iDockAreaPtr parent = area->_parent;
+                    std::shared_ptr<iDockArea> parent = area->_parent;
 
                     if (parent->_areaA == area)
                     {
@@ -458,21 +519,21 @@ namespace igor
             if (isEmpty(area->_areaB))
             {
                 // move areaB in place of area
-                iDockAreaPtr areaA = area->_areaA;
+                std::shared_ptr<iDockArea> areaA = area->_areaA;
 
-                area->_areaA->_parent = nullptr;
+                area->_areaA->_parent.reset();
                 area->_areaA = nullptr;
-                area->_areaB->_parent = nullptr;
+                area->_areaB->_parent.reset();
                 area->_areaB = nullptr;
 
                 // area == root
-                if (area->_parent == nullptr)
+                if (area->_parent.lock() == nullptr)
                 {
                     _root = areaA;
                 }
                 /*else
                 {
-                    iDockAreaPtr parent = area->_parent;
+                    std::shared_ptr<iDockArea> parent = area->_parent;
 
                     if (parent->_areaA == area)
                     {
