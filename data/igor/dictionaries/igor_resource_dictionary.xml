@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<ResourceDictionary internal="true">
+    <!-- https://www.browserling.com/tools/random-hex -->
                 <Resource id="0x26a31adfc7eb0e6d" alias="igor_material_default" source="igor/materials/default.mat" />
                 <Resource id="0xa90e770c3809190b" alias="igor_material_default_textured" source="igor/materials/textured.mat" />
                 <Resource id="0x058225918ed11dab" alias="igor_material_color_id" source="igor/materials/colorID.mat" />
@@ -59,6 +60,16 @@
                 <Resource id="0x1982af32f4ea1ee3" alias="igor_icon_add_emitter" source="igor/icons/addEmitter.png" />
                 <Resource id="0x90e38d14cf57e4f3" alias="igor_icon_camera" source="igor/icons/camera.png" />
                 <Resource id="0x3365de4f0a00ad80" alias="igor_icon_add_skybox" source="igor/icons/addSkyBox.png" />
+
+                <Resource id="0x02b48a88012c1205" alias="igor_icon_dock_center" source="igor/icons/dockCenter.png" />
+                <Resource id="0x9b6c77bf20a38fed" alias="igor_icon_dock_left_half" source="igor/icons/dockLeftHalf.png" />
+                <Resource id="0xf23301c59d099ee5" alias="igor_icon_dock_left_quarter" source="igor/icons/dockLeftQuarter.png" />
+                <Resource id="0xb4909694a32289bc" alias="igor_icon_dock_right_half" source="igor/icons/dockRightHalf.png" />
+                <Resource id="0x83294a75b97eb172" alias="igor_icon_dock_right_quarter" source="igor/icons/dockRightQuarter.png" />
+                <Resource id="0x1a919694567889bc" alias="igor_icon_dock_top_half" source="igor/icons/dockTopHalf.png" />
+                <Resource id="0xddbaf9ef4f80676a" alias="igor_icon_dock_top_quarter" source="igor/icons/dockTopQuarter.png" />
+                <Resource id="0x2a030048fa3174a5" alias="igor_icon_dock_bottom_half" source="igor/icons/dockBottomHalf.png" />
+                <Resource id="0xda848a98d88e825a" alias="igor_icon_dock_bottom_quarter" source="igor/icons/dockBottomQuarter.png" />
 
                 <Resource id="0xb9610a7a2e4d939e" alias="igor_texture_white" source="igor/textures/white.png" />
                 <Resource id="0x2e27bc73032ee353" alias="igor_texture_gradient_a" source="igor/textures/gradientA.png" />

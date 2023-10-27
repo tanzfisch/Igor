@@ -346,7 +346,7 @@ namespace igor
             const iaString id = parameters.getParameter<iaString>("id", "");
             const iaString alias = parameters.getParameter<iaString>("alias", "");
             const iaString filename = parameters.getParameter<iaString>("filename", "");
-            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << filename << "\"");
             return nullptr;
         }
 

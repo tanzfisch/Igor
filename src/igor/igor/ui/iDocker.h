@@ -30,6 +30,7 @@
 #define __IGOR_DOCKER__
 
 #include <igor/ui/dialogs/iDialog.h>
+#include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaRectangle.h>
 using namespace iaux;
@@ -65,10 +66,8 @@ namespace igor
         /*! dock a dialog
 
         \param dialogID the dialog ID to dock
-        \param desktopSize size of the desktop in pixel
-        \param pos the position to dock in pixel
         */
-        void dock(iWidgetID dialogID, const iaVector2i &desktopSize, const iaVector2i &pos);
+        void dock(iWidgetID dialogID);
 
         /*! undock given dialog
 
@@ -77,6 +76,10 @@ namespace igor
         void undock(iWidgetID dialogID);
 
     private:
+        struct iDockArea;
+
+        typedef std::shared_ptr<iDockArea> iDockAreaPtr;
+
         struct iDockArea
         {
             /*! id of dialog in this dock area. An area can be empty
@@ -85,11 +88,17 @@ namespace igor
 
             /*! sub area A
              */
-            std::unique_ptr<iDockArea> _areaA = nullptr;
+            iDockAreaPtr _areaA;
 
             /*! sub area B
              */
-            std::unique_ptr<iDockArea> _areaB = nullptr;
+            iDockAreaPtr _areaB;
+
+            /*! parent area
+
+            nullptr in case this is the root area
+            */
+            iDockAreaPtr _parent;
 
             /*! if true the split is vertical. Means areaA is on the left and areaB is on the right. Only applies if there is sub areas
              */
@@ -98,15 +107,20 @@ namespace igor
             /*! the ratio of the split 0.0-1.0. Only applies if there is sub areas
              */
             float32 _ratio = 0.5f;
+
+            iDockArea(iDockAreaPtr parent)
+                : _parent(parent)
+            {
+            }
         };
 
         /*! root area
          */
-        iDockArea _root;
+        iDockAreaPtr _root;
 
         /*! marks the target area
-        */
-        iDockArea* _targetArea = nullptr;
+         */
+        iDockAreaPtr _targetArea;
 
         iaRectanglei _selectorCenter;
         iaRectanglei _selectorRight;
@@ -114,34 +128,64 @@ namespace igor
         iaRectanglei _selectorBottom;
         iaRectanglei _selectorTop;
 
+        iaRectanglei _selectorRightEdge;
+        iaRectanglei _selectorLeftEdge;
+        iaRectanglei _selectorBottomEdge;
+        iaRectanglei _selectorTopEdge;
+
+        iTexturePtr _selectorCenterTexture;
+        iTexturePtr _selectorRightTexture;
+        iTexturePtr _selectorLeftTexture;
+        iTexturePtr _selectorBottomTexture;
+        iTexturePtr _selectorTopTexture;
+        iTexturePtr _selectorQuarterRightTexture;
+        iTexturePtr _selectorQuarterLeftTexture;
+        iTexturePtr _selectorQuarterBottomTexture;
+        iTexturePtr _selectorQuarterTopTexture;
+
         bool _subdivideCenter;
-        bool _subdivideRightHalf;
         bool _subdivideLeftHalf;
-        bool _subdivideBottomHalf;
+        bool _subdivideRightHalf;
         bool _subdivideTopHalf;
+        bool _subdivideBottomHalf;
+
+        bool _subdivideLeftEdge;
+        bool _subdivideRightEdge;
+        bool _subdivideTopEdge;
+        bool _subdivideBottomEdge;
 
         /*! the target rectangle for the moving dialog to dock
-        */
+         */
         iaRectanglei _targetRect;
 
         /*! if true area can be or will be subdivided
-        */
+         */
         bool _subdivide = false;
+
+        /*! store last desktop size
+         */
+        iaVector2i _desktopSize;
 
         /*! updates position of all dialogs based on desktop size
 
         \param area the current area processed
         \param rect rect of area
         */
-        void update(iDockArea *area, const iaRectanglei &rect);
+        void update(iDockAreaPtr area, const iaRectanglei &rect);
 
-        void updateTargets(iDockArea *area, const iaRectanglei &rect, const iaVector2i &pos);
+        void updateTargets(iDockAreaPtr area, const iaRectanglei &rect, const iaVector2i &pos);
 
-        void dock(iDockArea *area, iWidgetID dialogID, const iaRectanglei &rect, const iaVector2i &pos);
+        void dock(iDockAreaPtr area, iWidgetID dialogID, const iaRectanglei &rect);
 
-        bool undock(iDockArea *area, iWidgetID dialogID);
+        bool undock(iDockAreaPtr area, iWidgetID dialogID);
 
-        bool isEmpty(iDockArea *area);
+        bool isEmpty(iDockAreaPtr area);
+
+        void loadResources();
+
+        void update();
+
+        void drawDebug(iDockAreaPtr area, const iaRectanglei &rect, int nesting);
     };
 
 }

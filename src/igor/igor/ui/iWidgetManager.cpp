@@ -255,7 +255,7 @@ namespace igor
     {
         con_assert(getDialog(dialogID) != nullptr, "invalid id");
 
-        _docker.dock(dialogID, iaVector2i(_desktopWidth, _desktopHeight), iMouse::getInstance().getPos());
+        _docker.dock(dialogID);
     }
 
     void iWidgetManager::traverseContentSize(iWidgetPtr widget)
