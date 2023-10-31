@@ -32,23 +32,20 @@ namespace igor
         int32 minHeight = 0;
 
         if (!isGrowingByContent() ||
-            _children.empty())
+            getChildren().empty())
         {
             setMinSize(minWidth, minHeight);
             return;
         }
 
-        if (_layoutType == iWidgetBoxLayoutType::Vertical)
+        for (const auto child : getChildren())
         {
-            for (const auto child : getChildren())
+            if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 minWidth = std::max(minWidth, child->getMinWidth());
                 minHeight += child->getMinHeight();
             }
-        }
-        else
-        {
-            for (const auto &child : getChildren())
+            else
             {
                 minHeight = std::max(minHeight, child->getMinHeight());
                 minWidth += child->getMinWidth();

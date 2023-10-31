@@ -17,6 +17,7 @@ Changelog                           {#changelog}
 - replaced iUserControlAction with iWidgetButton
 - dialogs can now be moved, resized and docked
 - added interface to change mouse cursor see iMouseCursorType for supported types
+- added iWidgetSplitter
 
 0.42.0
 ------

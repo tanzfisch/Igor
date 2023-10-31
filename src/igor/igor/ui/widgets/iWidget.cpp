@@ -970,6 +970,7 @@ namespace igor
             "iWidgetSpacer",
             "iWidgetLineTextEdit",
             "iWidgetTextEdit",
+            "iWidgetSplitter",
 
             "iWidgetGridLayout",
             "iWidgetBoxLayout",

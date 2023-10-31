@@ -147,6 +147,7 @@ namespace igor
         iWidgetSpacer,
         iWidgetLineTextEdit,
         iWidgetTextEdit,
+        iWidgetSplitter,
 
         iWidgetGridLayout,
         iWidgetBoxLayout,
@@ -206,6 +207,7 @@ namespace igor
         friend class iWidgetLineTextEdit;
         friend class iWidgetTextEdit;
         friend class iWidgetSlider;
+        friend class iWidgetSplitter;
 
     public:
         /*! \returns the widgets type
@@ -648,7 +650,7 @@ namespace igor
          */
         iDoubleClickEvent _doubleClick;
 
-        /*! moouse over event
+        /*! mouse over event
          */
         iMouseOverEvent _mouseOver;
 
