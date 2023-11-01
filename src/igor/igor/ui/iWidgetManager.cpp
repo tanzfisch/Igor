@@ -240,7 +240,8 @@ namespace igor
         if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
             dialogs.back()->isDockable())
         {
-            _docker.update(iaVector2i(_desktopWidth, _desktopHeight), iMouse::getInstance().getPos());
+            iaRectanglei rect(0, 0, _desktopWidth, _desktopHeight);
+            _docker.update(rect, iMouse::getInstance().getPos());
         }
     }
 
@@ -346,7 +347,7 @@ namespace igor
             _docker.draw();
         }
 
-        _docker.drawDebug();
+        // _docker.drawDebug();
     }
 
     iDialogPtr iWidgetManager::getDialog(iWidgetID id)
@@ -378,7 +379,8 @@ namespace igor
         // update the widget managers desktop dimensions
         setDesktopDimensions(event.getWindow()->getClientWidth(), event.getWindow()->getClientHeight());
 
-        _docker.update(iaVector2i(_desktopWidth, _desktopHeight), iMouse::getInstance().getPos());
+        iaRectanglei rect(0, 0, _desktopWidth, _desktopHeight);
+        _docker.update(rect, iMouse::getInstance().getPos());
 
         return false;
     }

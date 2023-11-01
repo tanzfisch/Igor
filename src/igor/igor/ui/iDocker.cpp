@@ -213,8 +213,7 @@ namespace igor
 
     void iDocker::drawDebug()
     {
-        iaRectanglei rect(0, 0, _desktopSize._x, _desktopSize._y);
-        drawDebug(_root, rect, 0);
+        drawDebug(_root, _desktopRect, 0);
     }
 
     void iDocker::update(std::shared_ptr<iDockArea> area, const iaRectanglei &rect)
@@ -259,20 +258,19 @@ namespace igor
         }
     }
 
-    void iDocker::update(const iaVector2i &desktopSize, const iaVector2i &mousePos)
+    void iDocker::update(const iaRectanglei &desktopRect, const iaVector2i &mousePos)
     {
-        _desktopSize = desktopSize;
-        iaRectanglei rect(0, 0, _desktopSize._x, _desktopSize._y);
-        update(_root, rect);
+        _desktopRect = desktopRect;
+        update(_root, _desktopRect);
 
         _subdivide = false;
         _targetArea = nullptr;
-        updateTargets(_root, rect, mousePos);
+        updateTargets(_root, _desktopRect, mousePos);
 
-        _selectorLeftEdge.set(s_selectorSize, (_desktopSize._y >> 1) - (s_selectorSize >> 1), s_selectorSize, s_selectorSize);
-        _selectorRightEdge.set(_desktopSize._x - (s_selectorSize << 1), (_desktopSize._y >> 1) - (s_selectorSize >> 1), s_selectorSize, s_selectorSize);
-        _selectorTopEdge.set((_desktopSize._x >> 1) - (s_selectorSize >> 1), s_selectorSize, s_selectorSize, s_selectorSize);
-        _selectorBottomEdge.set((_desktopSize._x >> 1) - (s_selectorSize >> 1), _desktopSize._y - (s_selectorSize << 1), s_selectorSize, s_selectorSize);
+        _selectorLeftEdge.set(_desktopRect._x + s_selectorSize, _desktopRect._y + (_desktopRect._height >> 1) - (s_selectorSize >> 1), s_selectorSize, s_selectorSize);
+        _selectorRightEdge.set(_desktopRect.getRight() - (s_selectorSize << 1), _desktopRect._y + (_desktopRect._height >> 1) - (s_selectorSize >> 1), s_selectorSize, s_selectorSize);
+        _selectorTopEdge.set(_desktopRect._x + (_desktopRect._width >> 1) - (s_selectorSize >> 1), _desktopRect._y + s_selectorSize, s_selectorSize, s_selectorSize);
+        _selectorBottomEdge.set(_desktopRect._x + (_desktopRect._width >> 1) - (s_selectorSize >> 1), _desktopRect.getBottom() - (s_selectorSize << 1), s_selectorSize, s_selectorSize);
 
         _subdivideLeftEdge = iIntersection::intersects(mousePos, _selectorLeftEdge);
         _subdivideRightEdge = iIntersection::intersects(mousePos, _selectorRightEdge);
@@ -281,13 +279,13 @@ namespace igor
 
         if (_subdivideLeftEdge)
         {
-            _targetRect = rect;
+            _targetRect = _desktopRect;
             _targetRect._width *= s_edgeSubdivideRatio;
         }
 
         if (_subdivideRightEdge)
         {
-            _targetRect = rect;
+            _targetRect = _desktopRect;
             int32 width = _targetRect._width * s_edgeSubdivideRatio;
             _targetRect._x = _targetRect._width - width;
             _targetRect._width = width;
@@ -295,13 +293,13 @@ namespace igor
 
         if (_subdivideTopEdge)
         {
-            _targetRect = rect;
+            _targetRect = _desktopRect;
             _targetRect._height *= s_edgeSubdivideRatio;
         }
 
         if (_subdivideBottomEdge)
         {
-            _targetRect = rect;
+            _targetRect = _desktopRect;
             int32 height = _targetRect._height * s_edgeSubdivideRatio;
             _targetRect._y = _targetRect._height - height;
             _targetRect._height = height;
@@ -437,8 +435,7 @@ namespace igor
 
     void iDocker::update()
     {
-        iaRectanglei rect(0, 0, _desktopSize._x, _desktopSize._y);
-        update(_root, rect);
+        update(_root, _desktopRect);
     }
 
     bool iDocker::isEmpty(std::shared_ptr<iDockArea> area)

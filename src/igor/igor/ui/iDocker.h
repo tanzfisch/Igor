@@ -54,16 +54,16 @@ namespace igor
 
         /*! updates position of all dialogs based on desktop size
 
-        \param desktopSize size of the desktop in pixel
+        \param desktopRect rect of the desktop
         \param mousePos the mouse position
         */
-        void update(const iaVector2i &desktopSize, const iaVector2i &mousePos);
+        void update(const iaRectanglei &desktopRect, const iaVector2i &mousePos);
 
         /*! draw docker overlay
          */
         void draw();
 
-        void drawDebug();
+        void drawDebug(); // TODO remove later
 
         /*! dock a dialog
 
@@ -78,7 +78,6 @@ namespace igor
         void undock(iWidgetID dialogID);
 
     private:
-
         struct iDockArea
         {
             /*! id of dialog in this dock area. An area can be empty
@@ -161,9 +160,9 @@ namespace igor
          */
         bool _subdivide = false;
 
-        /*! store last desktop size
+        /*! store last desktop rect
          */
-        iaVector2i _desktopSize;
+        iaRectanglei _desktopRect;
 
         /*! updates position of all dialogs based on desktop size
 
