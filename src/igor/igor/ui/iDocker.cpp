@@ -476,71 +476,14 @@ namespace igor
             return true;
         }
 
-        if (undock(area->_areaA, dialogID))
+        if (undock(area->_areaA, dialogID) || undock(area->_areaB, dialogID))
         {
-            if (isEmpty(area->_areaA))
+            if (isEmpty(area) && area != _root)
             {
-                // move areaB in place of area
-                std::shared_ptr<iDockArea> areaB = area->_areaB;
-
                 area->_areaA->_parent.reset();
                 area->_areaA = nullptr;
                 area->_areaB->_parent.reset();
                 area->_areaB = nullptr;
-
-                // area == root
-                if (area->_parent.lock() == nullptr)
-                {
-                    _root = areaB;
-                }
-                /*else
-                {
-                    std::shared_ptr<iDockArea> parent = area->_parent;
-
-                    if (parent->_areaA == area)
-                    {
-                        parent->_areaA = areaB;
-                    }
-                    else if (parent->_areaB == area)
-                    {
-                        parent->_areaB = areaB;
-                    }
-                }*/
-            }
-
-            return true;
-        }
-
-        if (undock(area->_areaB, dialogID))
-        {
-            if (isEmpty(area->_areaB))
-            {
-                // move areaB in place of area
-                std::shared_ptr<iDockArea> areaA = area->_areaA;
-
-                area->_areaA->_parent.reset();
-                area->_areaA = nullptr;
-                area->_areaB->_parent.reset();
-                area->_areaB = nullptr;
-
-                // area == root
-                if (area->_parent.lock() == nullptr)
-                {
-                    _root = areaA;
-                }
-                /*else
-                {
-                    std::shared_ptr<iDockArea> parent = area->_parent;
-
-                    if (parent->_areaA == area)
-                    {
-                        parent->_areaA = areaA;
-                    }
-                    else if (parent->_areaB == area)
-                    {
-                        parent->_areaB = areaA;
-                    }
-                }*/
             }
 
             return true;
