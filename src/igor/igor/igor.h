@@ -139,8 +139,6 @@
 #include <igor/ui/widgets/iWidgetColor.h>
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
-#include <igor/ui/widgets/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetMenu.h>
@@ -155,6 +153,10 @@
 #include <igor/ui/widgets/iWidgetTextEdit.h>
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
+
+#include <igor/ui/widgets/iWidgetBoxLayout.h>
+#include <igor/ui/widgets/iWidgetDockingLayout.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 
 // version
 #include <igor/iVersion.h>

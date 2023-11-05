@@ -31,6 +31,7 @@
 
 #include "Workspace.h"
 #include "Outliner.h"
+#include "MainDialog.h"
 #include "PropertiesEditor.h"
 
 class UILayer : public iLayerWidgets
@@ -49,6 +50,10 @@ private:
     /*! the mica workspace
 	*/
     WorkspacePtr _workspace;
+
+    /*! the main dialog
+    */
+    MainDialog *_mainDialog = nullptr;
 
     /*! the outliner
 	*/

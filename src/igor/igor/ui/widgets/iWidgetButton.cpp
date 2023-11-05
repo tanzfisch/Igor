@@ -130,8 +130,8 @@ namespace igor
             }
             else if (!_text.isEmpty())
             {
-                float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-                int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
+                const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+                const int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
 
                 minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
                 minHeight = static_cast<int32>(fontSize * 1.5f);

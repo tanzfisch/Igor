@@ -27,7 +27,7 @@ namespace igor
         _root = std::make_shared<iDockArea>(nullptr);
     }
 
-    void iDocker::updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglei &rect, const iaVector2i &pos)
+    void iDocker::updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, const iaVector2f &pos)
     {
         if (area == nullptr)
         {
@@ -89,14 +89,14 @@ namespace igor
         // find match
         if (area->_verticalSplit)
         {
-            iaRectanglei rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
+            iaRectanglef rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
             if (iIntersection::intersects(pos, rectA))
             {
                 updateTargets(area->_areaA, rectA, pos);
                 return;
             }
 
-            iaRectanglei rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
+            iaRectanglef rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
             if (iIntersection::intersects(pos, rectB))
             {
                 updateTargets(area->_areaB, rectB, pos);
@@ -105,14 +105,14 @@ namespace igor
         }
         else
         {
-            iaRectanglei rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
+            iaRectanglef rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
             if (iIntersection::intersects(pos, rectA))
             {
                 updateTargets(area->_areaA, rectA, pos);
                 return;
             }
 
-            iaRectanglei rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
+            iaRectanglef rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
             if (iIntersection::intersects(pos, rectB))
             {
                 updateTargets(area->_areaB, rectB, pos);
@@ -139,7 +139,7 @@ namespace igor
         _selectorQuarterBottomTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_bottom_quarter");
     }
 
-    void iDocker::drawDebug(std::shared_ptr<iDockArea> area, const iaRectanglei &rect, int nesting)
+    void iDocker::drawDebug(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, int nesting)
     {
         static const int nestingStep = 10;
 
@@ -151,7 +151,7 @@ namespace igor
         iDialogPtr dialog = iWidgetManager::getInstance().getDialog(area->_dialog);
         if(dialog)
         {
-            iaRectanglei drawRect = rect;
+            iaRectanglef drawRect = rect;
             drawRect.adjust(nesting * nestingStep, nesting * nestingStep, -(nesting * 2 * nestingStep), -(nesting * 2 * nestingStep));
             iRenderer::getInstance().drawRectangle(drawRect, iaColor4f::green);
             iRenderer::getInstance().drawString(drawRect._x, drawRect._y, dialog->getTitle() + "_" + iaString::toString(dialog->getID()));
@@ -163,7 +163,7 @@ namespace igor
             return;
         }        
 
-        iaRectanglei drawRect = rect;
+        iaRectanglef drawRect = rect;
         drawRect.adjust(nesting * nestingStep, nesting * nestingStep, -(nesting * 2 * nestingStep), -(nesting * 2 * nestingStep));
         iRenderer::getInstance().drawRectangle(drawRect, iaColor4f::magenta);
 
@@ -173,8 +173,8 @@ namespace igor
         {
             iRenderer::getInstance().drawLine(drawRect._x + drawRect._width * area->_ratio, (float32)drawRect._y, drawRect._x + drawRect._width * area->_ratio, (float32)drawRect._y + (float32)drawRect._height);
 
-            iaRectanglei rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
-            iaRectanglei rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
+            iaRectanglef rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
+            iaRectanglef rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
             drawDebug(area->_areaA, rectA, nesting);
             drawDebug(area->_areaB, rectB, nesting);
         }
@@ -182,8 +182,8 @@ namespace igor
         {
             iRenderer::getInstance().drawLine((float32)drawRect._x, drawRect._y + drawRect._height * area->_ratio, (float32)drawRect._x + drawRect._width, drawRect._y + drawRect._height * area->_ratio);
 
-            iaRectanglei rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
-            iaRectanglei rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
+            iaRectanglef rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
+            iaRectanglef rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
             drawDebug(area->_areaA, rectA, nesting);
             drawDebug(area->_areaB, rectB, nesting);
         }
@@ -216,7 +216,7 @@ namespace igor
         drawDebug(_root, _desktopRect, 0);
     }
 
-    void iDocker::update(std::shared_ptr<iDockArea> area, const iaRectanglei &rect)
+    void iDocker::update(std::shared_ptr<iDockArea> area, const iaRectanglef &rect)
     {
         if (area == nullptr)
         {
@@ -242,23 +242,23 @@ namespace igor
 
         if (area->_verticalSplit)
         {
-            iaRectanglei rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
-            iaRectanglei rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
+            iaRectanglef rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
+            iaRectanglef rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
 
             update(area->_areaA, rectA);
             update(area->_areaB, rectB);
         }
         else
         {
-            iaRectanglei rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
-            iaRectanglei rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
+            iaRectanglef rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
+            iaRectanglef rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
 
             update(area->_areaA, rectA);
             update(area->_areaB, rectB);
         }
     }
 
-    void iDocker::update(const iaRectanglei &desktopRect, const iaVector2i &mousePos)
+    void iDocker::update(const iaRectanglef &desktopRect, const iaVector2f &mousePos)
     {
         _desktopRect = desktopRect;
         update(_root, _desktopRect);
@@ -267,10 +267,10 @@ namespace igor
         _targetArea = nullptr;
         updateTargets(_root, _desktopRect, mousePos);
 
-        _selectorLeftEdge.set(_desktopRect._x + s_selectorSize, _desktopRect._y + (_desktopRect._height >> 1) - (s_selectorSize >> 1), s_selectorSize, s_selectorSize);
-        _selectorRightEdge.set(_desktopRect.getRight() - (s_selectorSize << 1), _desktopRect._y + (_desktopRect._height >> 1) - (s_selectorSize >> 1), s_selectorSize, s_selectorSize);
-        _selectorTopEdge.set(_desktopRect._x + (_desktopRect._width >> 1) - (s_selectorSize >> 1), _desktopRect._y + s_selectorSize, s_selectorSize, s_selectorSize);
-        _selectorBottomEdge.set(_desktopRect._x + (_desktopRect._width >> 1) - (s_selectorSize >> 1), _desktopRect.getBottom() - (s_selectorSize << 1), s_selectorSize, s_selectorSize);
+        _selectorLeftEdge.set(_desktopRect._x + s_selectorSize, _desktopRect._y + _desktopRect._height * 0.5 - s_selectorSize *0.5, s_selectorSize, s_selectorSize);
+        _selectorRightEdge.set(_desktopRect.getRight() - s_selectorSize * 2.0, _desktopRect._y + _desktopRect._height * 0.5 - s_selectorSize * 0.5, s_selectorSize, s_selectorSize);
+        _selectorTopEdge.set(_desktopRect._x + _desktopRect._width * 0.5 - s_selectorSize * 0.5, _desktopRect._y + s_selectorSize, s_selectorSize, s_selectorSize);
+        _selectorBottomEdge.set(_desktopRect._x + _desktopRect._width * 0.5 - s_selectorSize * 0.5, _desktopRect.getBottom() - s_selectorSize * 2.0, s_selectorSize, s_selectorSize);
 
         _subdivideLeftEdge = iIntersection::intersects(mousePos, _selectorLeftEdge);
         _subdivideRightEdge = iIntersection::intersects(mousePos, _selectorRightEdge);
@@ -306,11 +306,15 @@ namespace igor
         }
     }
 
-    void iDocker::dock(iWidgetID dialogID)
+    bool iDocker::dock(iWidgetID dialogID)
     {
         iDialogPtr dialog = iWidgetManager::getInstance().getDialog(dialogID);
         con_assert(dialog != nullptr, "invalid id");
-        con_assert(_targetArea != nullptr, "internal error");
+        
+        if(_targetArea == nullptr)
+        {
+            return false;
+        }
 
         if (!_subdivide || _subdivideCenter)
         {
@@ -419,7 +423,7 @@ namespace igor
             }
             else
             {
-                return;
+                return false;
             }
         }
 
@@ -431,6 +435,7 @@ namespace igor
         _targetArea = nullptr;
 
         update();
+        return true;
     }
 
     void iDocker::update()
@@ -492,11 +497,13 @@ namespace igor
         return false;
     }
 
-    void iDocker::undock(iWidgetID dialogID)
+    bool iDocker::undock(iWidgetID dialogID)
     {
-        undock(_root, dialogID);
+        bool result = undock(_root, dialogID);
 
         update();
+
+        return result;
     }
 
 }

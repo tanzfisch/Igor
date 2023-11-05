@@ -11,7 +11,7 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#define DEBUG_OUTPUT 0
+#define DEBUG_OUTPUT 1
 
 #if DEBUG_OUTPUT == 1
 iaColor4f MOUSEOVER(1, 1, 1, 0.5f);

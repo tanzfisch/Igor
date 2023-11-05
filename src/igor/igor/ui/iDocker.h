@@ -57,7 +57,7 @@ namespace igor
         \param desktopRect rect of the desktop
         \param mousePos the mouse position
         */
-        void update(const iaRectanglei &desktopRect, const iaVector2i &mousePos);
+        void update(const iaRectanglef &desktopRect, const iaVector2f &mousePos);
 
         /*! draw docker overlay
          */
@@ -68,14 +68,16 @@ namespace igor
         /*! dock a dialog
 
         \param dialogID the dialog ID to dock
+        \returns true if successfully docked
         */
-        void dock(iWidgetID dialogID);
+        bool dock(iWidgetID dialogID);
 
-        /*! undock given dialog
+        /*! un-dock given dialog
 
         \param dialogID the given dialog id
+        \returns true if successfully un-docked
         */
-        void undock(iWidgetID dialogID);
+        bool undock(iWidgetID dialogID);
 
     private:
         struct iDockArea
@@ -120,16 +122,16 @@ namespace igor
          */
         std::shared_ptr<iDockArea> _targetArea;
 
-        iaRectanglei _selectorCenter;
-        iaRectanglei _selectorRight;
-        iaRectanglei _selectorLeft;
-        iaRectanglei _selectorBottom;
-        iaRectanglei _selectorTop;
+        iaRectanglef _selectorCenter;
+        iaRectanglef _selectorRight;
+        iaRectanglef _selectorLeft;
+        iaRectanglef _selectorBottom;
+        iaRectanglef _selectorTop;
 
-        iaRectanglei _selectorRightEdge;
-        iaRectanglei _selectorLeftEdge;
-        iaRectanglei _selectorBottomEdge;
-        iaRectanglei _selectorTopEdge;
+        iaRectanglef _selectorRightEdge;
+        iaRectanglef _selectorLeftEdge;
+        iaRectanglef _selectorBottomEdge;
+        iaRectanglef _selectorTopEdge;
 
         iTexturePtr _selectorCenterTexture;
         iTexturePtr _selectorRightTexture;
@@ -154,7 +156,7 @@ namespace igor
 
         /*! the target rectangle for the moving dialog to dock
          */
-        iaRectanglei _targetRect;
+        iaRectanglef _targetRect;
 
         /*! if true area can be or will be subdivided
          */
@@ -162,18 +164,18 @@ namespace igor
 
         /*! store last desktop rect
          */
-        iaRectanglei _desktopRect;
+        iaRectanglef _desktopRect;
 
         /*! updates position of all dialogs based on desktop size
 
         \param area the current area processed
         \param rect rect of area
         */
-        void update(std::shared_ptr<iDockArea> area, const iaRectanglei &rect);
+        void update(std::shared_ptr<iDockArea> area, const iaRectanglef &rect);
 
-        void updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglei &rect, const iaVector2i &pos);
+        void updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, const iaVector2f &pos);
 
-        void dock(std::shared_ptr<iDockArea> area, iWidgetID dialogID, const iaRectanglei &rect);
+        void dock(std::shared_ptr<iDockArea> area, iWidgetID dialogID, const iaRectanglef &rect);
 
         bool undock(std::shared_ptr<iDockArea> area, iWidgetID dialogID);
 
@@ -183,7 +185,7 @@ namespace igor
 
         void update();
 
-        void drawDebug(std::shared_ptr<iDockArea> area, const iaRectanglei &rect, int nesting);
+        void drawDebug(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, int nesting);
     };
 
 }

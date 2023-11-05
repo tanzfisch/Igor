@@ -217,7 +217,7 @@ namespace igor
 		\param clientWidth maximum width this widget can align to
 		\param clientHeight maximum height this widget can align to
 		*/
-        void updateAlignment(int32 clientWidth, int32 clientHeight);
+        void updateAlignment(int32 clientWidth, int32 clientHeight) override;
 
         /*! draws the button
 		*/

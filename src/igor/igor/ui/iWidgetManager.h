@@ -37,7 +37,6 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/ui/theme/iWidgetTheme.h>
-#include <igor/ui/iDocker.h>
 
 #include <vector>
 #include <unordered_map>
@@ -48,9 +47,11 @@ namespace igor
 
     class iDialog;
     typedef iDialog *iDialogPtr;
+    class iWidgetDockingLayout;
+    typedef iWidgetDockingLayout *iWidgetDockingLayoutPtr;
 
     /*! manages the widgets
-    */
+     */
     class IGOR_API iWidgetManager : public iModule<iWidgetManager>
     {
 
@@ -60,18 +61,18 @@ namespace igor
 
     public:
         /*! called on any other event
-        */
+         */
         void onEvent(iEvent &event);
 
         /*! shows tooltip at given position
 
-		\param pos the position to show the tooltip
-		\param text the text of the tooltip
-		*/
+        \param pos the position to show the tooltip
+        \param text the text of the tooltip
+        */
         void showTooltip(const iaVector2f &pos, const iaString &text);
 
         /*! hides the tooltip
-		*/
+         */
         void hideTooltip();
 
         /*! \returns widget by id
@@ -87,7 +88,7 @@ namespace igor
         iDialogPtr getDialog(iWidgetID id);
 
         /*! \returns the theme in use
-        */
+         */
         iWidgetThemePtr getTheme() const;
 
         /*! sets the theme to use
@@ -106,11 +107,11 @@ namespace igor
         void setDesktopDimensions(uint32 width, uint32 height);
 
         /*! \returns desktop width
-        */
+         */
         uint32 getDesktopWidth() const;
 
         /*! \returns desktop height
-        */
+         */
         uint32 getDesktopHeight() const;
 
         /*! draws the widgets if theme is defined
@@ -122,11 +123,11 @@ namespace igor
         void draw();
 
         /*! set this widget exclusively modal
-        */
+         */
         void setModal(iDialogPtr dialog);
 
         /*! \returns current modal widget
-        */
+         */
         iDialogPtr getModal() const;
 
         /*! \returns true: if widget is modal
@@ -136,18 +137,18 @@ namespace igor
         bool isModal(iDialogPtr dialog);
 
         /*! reset modal flag
-        */
+         */
         void resetModal();
 
         /*! updates recursively all widgets before rendering
-        */
+         */
         void onUpdate();
 
         /*! docks a given dialog if possible at current mouse position
 
         \param dialogID the given dialog id
         */
-        void dockDialog(iWidgetID dialogID);
+        iWidgetID dockDialog(iWidgetID dialogID);
 
         /*! undock a dialog
 
@@ -157,72 +158,84 @@ namespace igor
 
     private:
         /*! modal marker
-        */
+         */
         iDialogPtr _modal = nullptr;
 
         /*! pointer to current theme
-        */
+         */
         iWidgetThemePtr _currentTheme;
 
         /*! list of all widgets
-        */
+         */
         std::unordered_map<iWidgetID, iWidgetPtr> _widgets;
 
         /*! list of all dialogs
-        */
+         */
         std::unordered_map<iWidgetID, iDialogPtr> _dialogs;
 
+        /*! docker layouts
+         */
+        std::unordered_map<iWidgetID, iWidgetDockingLayoutPtr> _dockerLayouts;
+
         /*! current desktop width
-        */
+         */
         uint32 _desktopWidth = 0;
 
         /*! current desktop height
-        */
+         */
         uint32 _desktopHeight = 0;
 
         /*! tooltip position
-		*/
+         */
         iaVector2f _tooltipPos;
 
         /*! tooltip text
-		*/
+         */
         iaString _tooltipText;
 
         /*! list of dialogs to close
-		*/
+         */
         std::set<iWidgetID> _dialogsToClose;
 
-        /*! dialog docker
-        */
-        iDocker _docker;
-
         /*! closes the dialog and queues a close event in to be called after the update handle
-		*/
+         */
         void closeDialog(iDialogPtr dialog);
 
         /*! registers widget to WidgetManager so we can track if all widgets got destroyed at shutdown
 
-		\param widget the widget to track
-		*/
+        \param widget the widget to track
+        */
         void registerWidget(iWidgetPtr widget);
 
         /*! unregister widget from WidgetManager so we don't track this one anymore
 
-		\param widget the widget to not track anymore
-		*/
+        \param widget the widget to not track anymore
+        */
         void unregisterWidget(iWidgetPtr widget);
 
         /*! registers dialog to WidgetManager so we can track if all dialogs got destroyed at shutdown
 
-		\param dialog the dialog to track
-		*/
+        \param dialog the dialog to track
+        */
         void registerDialog(iDialogPtr dialog);
 
         /*! unregister dialog from WidgetManager so we don't track this one anymore
 
-		\param dialog the dialog to not track anymore
-		*/
+        \param dialog the dialog to not track anymore
+        */
         void unregisterDialog(iDialogPtr dialog);
+
+        /*! registers docker layout
+
+        \param dialog the docker to track
+        */
+        void registerDockerLayout(iWidgetDockingLayoutPtr dockerLayout);
+
+        /*! unregister docker layout
+
+        \param dialog the docker to not track anymore
+        */
+        void unregisterDockerLayout(iWidgetDockingLayoutPtr dockerLayout);
 
         /*! puts dialog in front by manipulating it's z index and the index of other dialogs
 
@@ -237,7 +250,7 @@ namespace igor
         void traverseContentSize(iWidgetPtr widget);
 
         /*! traverse widget tree and updates alignment
-        */
+         */
         void traverseAlignment(iWidgetPtr widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
 
         /*! returns the active dialogs
@@ -314,11 +327,11 @@ namespace igor
         bool onWindowResize(iEventWindowResize &event);
 
         /*! init
-        */
+         */
         iWidgetManager();
 
         /*! checks for mem leaks and releases all left over widgets
-        */
+         */
         virtual ~iWidgetManager();
     };
 

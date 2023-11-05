@@ -26,78 +26,52 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_BOX_LAYOUT__
-#define __IGOR_WIDGET_BOX_LAYOUT__
+#ifndef __IGOR_WIDGET_DOCKING_LAYOUT__
+#define __IGOR_WIDGET_DOCKING_LAYOUT__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <vector>
-#include <any>
+#include <igor/ui/iDocker.h>
 
 namespace igor
 {
 
-    /*! box layout type
+    /*! docking layout widget
      */
-    enum class iWidgetBoxLayoutType
-    {
-        Vertical,
-        Horizontal
-    };
-
-    /*! prints the box layout type to a stream
-
-    \param stream the stream to log to
-    \param type the type to print
-    \returns the stream
-    */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iWidgetBoxLayoutType &type);
-
-    /*! grid layout widget
-     */
-    class IGOR_API iWidgetBoxLayout : public iWidget
+    class IGOR_API iWidgetDockingLayout : public iWidget
     {
     public:
         /*! ctor initializes member variables
 
-        \param layoutType the layout type vertical or horizontal
         \param parent optional parent
         */
-        iWidgetBoxLayout(iWidgetBoxLayoutType layoutType, const iWidgetPtr parent = nullptr);
+        iWidgetDockingLayout(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
          */
-        ~iWidgetBoxLayout() = default;
+        ~iWidgetDockingLayout() = default;
 
-        /*! adds a widget to this widget at the end of the layout
-
-        \param widget the child widget to be added
+        /*! called once per frame
         */
-        void addWidget(iWidgetPtr widget) override;
+        void onUpdate() override;
 
-        /*! removes a child widget from this widget
+        /*! dock a dialog
 
-        \param widget the child widget to be removed
+        \param dialogID the dialog ID to dock
+        \returns true if successfully docked
         */
-        void removeWidget(iWidgetPtr widget) override;
+        bool dock(iWidgetID dialogID);
 
-        /*! sets stretch index
+        /*! undock given dialog
 
-        \param index the stretch index. <0 for no stretch
+        \param dialogID the given dialog id
+        \returns true if successfully un-docked
         */
-        void setStretchIndex(int32 index);
-
-        /*! \returns the stretch index
-        */
-        int32 getStretchIndex() const;
+        bool undock(iWidgetID dialogID);
 
     private:
-        /*! layout type
+        /*! dialog docker
          */
-        iWidgetBoxLayoutType _layoutType;
-
-        /*! the stretch index
-        */
-        int32 _stretchIndex = -1;
+        iDocker _docker;
 
         /*! draws the widget
          */
@@ -106,17 +80,11 @@ namespace igor
         /*! updates size based on it's content
          */
         void calcMinSize() override;
-
-        /*! calculates childrens offsets relative to their parent
-
-        \param[out] offsets vector to be filled with childrens offsets
-        */
-        void calcChildOffsets(std::vector<iaRectanglef> &offsets) override;
     };
 
     /*! widget grid pointer definition
      */
-    typedef iWidgetBoxLayout *iWidgetBoxLayoutPtr;
+    typedef iWidgetDockingLayout *iWidgetDockingLayoutPtr;
 
 } // namespace igor
 

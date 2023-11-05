@@ -10,7 +10,7 @@
 namespace igor
 {
     iWidgetBoxLayout::iWidgetBoxLayout(iWidgetBoxLayoutType layoutType, const iWidgetPtr parent)
-        : iWidget(iWidgetType::iWidgetBoxLayout, iWidgetKind::Widget, parent), _layoutType(layoutType)
+        : iWidget(iWidgetType::iWidgetBoxLayout, iWidgetKind::Layout, parent), _layoutType(layoutType)
     {
         setVerticalAlignment(iVerticalAlignment::Top);
         setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -61,6 +61,11 @@ namespace igor
 
     void iWidgetBoxLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
     {
+        if (getID() == 2)
+        {
+            int x = 0;
+        }
+
         if (_children.empty())
         {
             return;
@@ -70,13 +75,15 @@ namespace igor
         float32 offsetPos = 0;
         uint32 index = 0;
 
-        for (const auto child : getChildren())
+        auto &children = getChildren();
+
+        for (auto child : children)
         {
             if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 clientRect.setX(0);
                 clientRect.setY(offsetPos);
-                clientRect.setWidth(getMinWidth());
+                clientRect.setWidth(getActualWidth());
                 clientRect.setHeight(child->getMinHeight());
 
                 offsetPos += child->getMinHeight();
@@ -86,13 +93,37 @@ namespace igor
                 clientRect.setX(offsetPos);
                 clientRect.setY(0);
                 clientRect.setWidth(child->getMinWidth());
-                clientRect.setHeight(getMinHeight());
+                clientRect.setHeight(getActualHeight());
 
                 offsetPos += child->getMinWidth();
             }
 
             offsets.push_back(clientRect);
         }
+
+        if (getVerticalAlignment() == iVerticalAlignment::Stretch &&
+            _layoutType == iWidgetBoxLayoutType::Vertical &&
+            _stretchIndex >= 0 && _stretchIndex < children.size())
+        {
+            offsets[_stretchIndex].adjust(0, 0, 0, getActualHeight() - offsetPos);
+        }
+
+        if (getHorizontalAlignment() == iHorizontalAlignment::Stretch &&
+            _layoutType == iWidgetBoxLayoutType::Horizontal &&
+            _stretchIndex >= 0 && _stretchIndex < children.size())
+        {
+            offsets[_stretchIndex].adjust(0, 0, getActualWidth() - offsetPos, 0);
+        }
+    }
+
+    void iWidgetBoxLayout::setStretchIndex(int32 index)
+    {
+        _stretchIndex = index;
+    }
+
+    int32 iWidgetBoxLayout::getStretchIndex() const
+    {
+        return _stretchIndex;
     }
 
     void iWidgetBoxLayout::draw()

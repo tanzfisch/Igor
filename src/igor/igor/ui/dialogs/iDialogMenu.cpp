@@ -38,7 +38,7 @@ namespace igor
 
         setIgnoreChildEventHandling(false);
         setGrowingByContent(true);
-        setHeader(false);
+        setHeaderEnabled(false);
         setResizeable(false);
 
         _grid = new iWidgetGridLayout(this);

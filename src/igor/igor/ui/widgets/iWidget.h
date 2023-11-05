@@ -151,6 +151,7 @@ namespace igor
 
         iWidgetGridLayout,
         iWidgetBoxLayout,
+        iWidgetDockingLayout,
 
         iUserControl,
         iUserControlColorChooser,
@@ -181,6 +182,7 @@ namespace igor
     {
         Widget,
         UserControl,
+        Layout,
         Dialog
     };
 
@@ -942,7 +944,7 @@ namespace igor
 
         /*! called once per frame so a widget can update it's content if needed
          */
-        virtual void onHandle();
+        virtual void onUpdate();
 
         /*! background color
          */

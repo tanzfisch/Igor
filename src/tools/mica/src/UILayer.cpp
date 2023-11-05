@@ -42,6 +42,10 @@ void UILayer::onInit()
 
     registerMicaActions();
 
+    _mainDialog = new MainDialog();
+    _mainDialog->setEnabled();
+    _mainDialog->setVisible();
+
     _propertiesDialog = new PropertiesEditor();
     _outliner = new Outliner(_workspace);
 

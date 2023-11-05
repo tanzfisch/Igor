@@ -18,7 +18,7 @@ namespace igor
 		: iDialog(iWidgetType::iDialogIndexMenu, parent)
 	{
 		setGrowingByContent(true);
-		setHeader(false);
+		setHeaderEnabled(false);
         setResizeable(false);		
 	}
 

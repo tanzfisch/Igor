@@ -911,7 +911,7 @@ namespace igor
         }
     }
 
-    void iWidget::onHandle()
+    void iWidget::onUpdate()
     {
     }
 
@@ -974,6 +974,7 @@ namespace igor
 
             "iWidgetGridLayout",
             "iWidgetBoxLayout",
+            "iWidgetDockingLayout",
 
             "iUserControl",
             "iUserControlColorChooser",

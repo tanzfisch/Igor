@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2023 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "WorkspaceLayer.h"
 
 WorkspaceLayer::WorkspaceLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)

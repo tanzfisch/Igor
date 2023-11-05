@@ -19,8 +19,6 @@ namespace igor
     iDialog::iDialog(iWidgetType type, const iWidgetPtr parent)
         : iWidget(type, iWidgetKind::Dialog, nullptr)
     {
-        iWidgetManager::getInstance().registerDialog(this);
-
         setEnabled(false);
         setVisible(false);
         setWidth(100);
@@ -56,11 +54,9 @@ namespace igor
         {
             iWidgetManager::getInstance().resetModal();
         }
-
-        iWidgetManager::getInstance().unregisterDialog(this);
     }
 
-    void iDialog::setHeader(bool enable)
+    void iDialog::setHeaderEnabled(bool enable)
     {
         _headerEnabled = enable;
     }
@@ -109,8 +105,6 @@ namespace igor
         int32 minWidth = 0;
         int32 minHeight = 0;
 
-        const auto titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
-
         if (isGrowingByContent() &&
             !_children.empty())
         {
@@ -121,8 +115,13 @@ namespace igor
 
         if (_headerEnabled)
         {
+            const int32 titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
             minHeight += titleWidth;
             setClientArea(0, 0, titleWidth, 0);
+
+            const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+            const int32 titleTextWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_title, fontSize));
+            minWidth = std::max(minWidth, titleTextWidth + (int32)fontSize * 2);
         }
         else
         {
@@ -201,31 +200,33 @@ namespace igor
 
     void iDialog::draw()
     {
-        if (isVisible())
+        if (!isVisible())
         {
-            iaRectanglef clientRect = getActualRect();
-            clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
-
-            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _title, _isResizeable, getState(), isEnabled());
-
-            // store current render states
-            const iaRectanglei viewport = iRenderer::getInstance().getViewport();
-            const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
-            const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
-
-            iRenderer::getInstance().setViewport(clientRect._x, iWidgetManager::getInstance().getDesktopHeight() - clientRect._y - clientRect._height, clientRect._width, clientRect._height);
-            iRenderer::getInstance().setOrtho(clientRect._x, clientRect._x + clientRect._width, clientRect._y + clientRect._height, clientRect._y, 0.1f, 10.0f);
-
-            for (const auto child : _children)
-            {
-                child->draw();
-            }
-
-            // restore everything
-            iRenderer::getInstance().setModelMatrix(modelMatrix);
-            iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
-            iRenderer::getInstance().setViewport(viewport);
+            return;
         }
+
+        iaRectanglef clientRect = getActualRect();
+        clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
+
+        iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _title + " " + iaString::toString(getZValue()), isResizeable(), getState(), isEnabled());
+
+        // store current render states
+        const iaRectanglei viewport = iRenderer::getInstance().getViewport();
+        const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
+        const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
+
+        iRenderer::getInstance().setViewport(clientRect._x, iWidgetManager::getInstance().getDesktopHeight() - clientRect._y - clientRect._height, clientRect._width, clientRect._height);
+        iRenderer::getInstance().setOrtho(clientRect._x, clientRect._x + clientRect._width, clientRect._y + clientRect._height, clientRect._y, 0.1f, 10.0f);
+
+        for (const auto child : _children)
+        {
+            child->draw();
+        }
+
+        // restore everything
+        iRenderer::getInstance().setModelMatrix(modelMatrix);
+        iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
+        iRenderer::getInstance().setViewport(viewport);
     }
 
     void iDialog::setX(int32 x)
@@ -314,6 +315,16 @@ namespace igor
         return false;
     }
 
+    iWidgetID iDialog::getDockingParent() const
+    {
+        return _dockingParentID;
+    }
+
+    bool iDialog::isDocked() const
+    {
+        return _dockingParentID != iWidget::INVALID_WIDGET_ID;
+    }
+
     bool iDialog::handleMouseKeyUp(iKeyCode key)
     {
         if (!isEnabled())
@@ -326,7 +337,7 @@ namespace igor
             if (_motionState == iDialogMotionState::Moving &&
                 isDockable())
             {
-                iWidgetManager::getInstance().dockDialog(getID());
+                _dockingParentID = iWidgetManager::getInstance().dockDialog(getID());
             }
 
             _motionState = iDialogMotionState::Static;
@@ -387,7 +398,7 @@ namespace igor
         const float32 titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
         const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
 
-        if (!_isMoveable)
+        if (!isMoveable())
         {
             return iDialogMotionState::Static;
         }
@@ -401,7 +412,8 @@ namespace igor
             }
         }
 
-        if (!_isResizeable)
+        if (!isResizeable() ||
+            isDocked())
         {
             return iDialogMotionState::Static;
         }
@@ -535,6 +547,7 @@ namespace igor
                 isDockable())
             {
                 iWidgetManager::getInstance().undockDialog(getID());
+                _dockingParentID = iWidget::INVALID_WIDGET_ID;
             }
         }
         else

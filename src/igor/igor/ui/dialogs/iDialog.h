@@ -90,7 +90,7 @@ namespace igor
 
         \param enable if true header will be enabled
         */
-        void setHeader(bool enable);
+        void setHeaderEnabled(bool enable);
 
         /*! \returns true if header is enabled
          */
@@ -125,6 +125,14 @@ namespace igor
         /*! \returns true if dialog is dock-able
         */
         bool isDockable() const;
+
+        /*! \returns true if dialog is docked
+        */
+        bool isDocked() const;
+
+        /*! \returns docking parent id
+        */
+        iWidgetID getDockingParent() const;
 
         /*! sets wether or not the dialog is moveable
 
@@ -232,6 +240,10 @@ namespace igor
         /*! the delegate to call after the dialog was closed
          */
         iDialogCloseDelegate _dialogCloseDelegate;
+
+        /*! docking parent id
+        */
+        iWidgetID _dockingParentID = iWidget::INVALID_WIDGET_ID;
 
         /*! handles incoming acsii codes from keyboard
 

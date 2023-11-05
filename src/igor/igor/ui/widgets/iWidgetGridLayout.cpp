@@ -14,7 +14,7 @@ using namespace iaux;
 namespace igor
 {
     iWidgetGridLayout::iWidgetGridLayout(const iWidgetPtr parent)
-        : iWidget(iWidgetType::iWidgetGridLayout, iWidgetKind::Widget, parent)
+        : iWidget(iWidgetType::iWidgetGridLayout, iWidgetKind::Layout, parent)
     {
         _configuredWidth = 0;
         _configuredHeight = 0;

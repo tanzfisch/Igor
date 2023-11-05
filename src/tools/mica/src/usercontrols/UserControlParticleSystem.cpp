@@ -15,7 +15,7 @@ UserControlParticleSystem::~UserControlParticleSystem()
 {
 }
 
-void UserControlParticleSystem::onHandle()
+void UserControlParticleSystem::onUpdate()
 {
     iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
 

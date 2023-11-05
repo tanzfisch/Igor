@@ -5,6 +5,9 @@
 #include <igor/ui/iWidgetManager.h>
 
 #include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/widgets/iWidgetDockingLayout.h>
+
+#include <cstdlib>
 
 namespace igor
 {
@@ -42,10 +45,28 @@ namespace igor
     void iWidgetManager::registerWidget(iWidgetPtr widget)
     {
         _widgets[widget->getID()] = widget;
+
+        if (widget->getWidgetKind() == iWidgetKind::Dialog)
+        {
+            registerDialog(static_cast<iDialogPtr>(widget));
+        }
+        else if (widget->getWidgetType() == iWidgetType::iWidgetDockingLayout)
+        {
+            registerDockerLayout(static_cast<iWidgetDockingLayoutPtr>(widget));
+        }
     }
 
     void iWidgetManager::unregisterWidget(iWidgetPtr widget)
     {
+        if (widget->getWidgetKind() == iWidgetKind::Dialog)
+        {
+            unregisterDialog(static_cast<iDialogPtr>(widget));
+        }
+        else if (widget->getWidgetType() == iWidgetType::iWidgetDockingLayout)
+        {
+            unregisterDockerLayout(static_cast<iWidgetDockingLayoutPtr>(widget));
+        }
+
         auto iter = _widgets.find(widget->getID());
         if (iter != _widgets.end())
         {
@@ -55,6 +76,11 @@ namespace igor
 
     void iWidgetManager::putDialogInFront(iDialogPtr dialog)
     {
+        if (!dialog->isMoveable())
+        {
+            return;
+        }
+
         for (auto pair : _dialogs)
         {
             if (dialog == pair.second)
@@ -62,10 +88,20 @@ namespace igor
                 continue;
             }
 
-            pair.second->setZValue(pair.second->getZValue() + 1);
+            iWidgetPtr parent = getWidget(pair.second->getDockingParent());
+            if(parent != nullptr)
+            {
+                if(parent->getRoot() == dialog)
+                {
+                    pair.second->setZValue(0);
+                    continue;
+                }
+            }
+
+            pair.second->setZValue(200);
         }
 
-        dialog->setZValue(0);
+        dialog->setZValue(100);
     }
 
     void iWidgetManager::registerDialog(iDialogPtr dialog)
@@ -80,6 +116,20 @@ namespace igor
         if (iter != _dialogs.end())
         {
             _dialogs.erase(iter);
+        }
+    }
+
+    void iWidgetManager::registerDockerLayout(iWidgetDockingLayoutPtr dockerLayout)
+    {
+        _dockerLayouts[dockerLayout->getID()] = dockerLayout;
+    }
+
+    void iWidgetManager::unregisterDockerLayout(iWidgetDockingLayoutPtr dockerLayout)
+    {
+        auto iter = _dockerLayouts.find(dockerLayout->getID());
+        if (iter != _dockerLayouts.end())
+        {
+            _dockerLayouts.erase(iter);
         }
     }
 
@@ -230,18 +280,13 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->isEnabled())
+            if (!dialog->isEnabled())
             {
-                traverseContentSize(dialog);
-                traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
+                continue;
             }
-        }
 
-        if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
-            dialogs.back()->isDockable())
-        {
-            iaRectanglei rect(0, 0, _desktopWidth, _desktopHeight);
-            _docker.update(rect, iMouse::getInstance().getPos());
+            traverseContentSize(dialog);
+            traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
         }
     }
 
@@ -249,53 +294,70 @@ namespace igor
     {
         con_assert(getDialog(dialogID) != nullptr, "invalid id");
 
-        _docker.undock(dialogID);
+        for (auto &pair : _dockerLayouts)
+        {
+            if (pair.second->undock(dialogID))
+            {
+                break;
+            }
+        }
     }
 
-    void iWidgetManager::dockDialog(iWidgetID dialogID)
+    iWidgetID iWidgetManager::dockDialog(iWidgetID dialogID)
     {
         con_assert(getDialog(dialogID) != nullptr, "invalid id");
 
-        _docker.dock(dialogID);
+        for (auto &pair : _dockerLayouts)
+        {
+            if (pair.second->dock(dialogID))
+            {
+                return pair.second->getID();
+            }
+        }
+
+        return iWidget::INVALID_WIDGET_ID;
     }
 
     void iWidgetManager::traverseContentSize(iWidgetPtr widget)
     {
-        if (widget != nullptr)
+        if (widget == nullptr)
         {
-            iWidgetManager &wm = iWidgetManager::getInstance();
-
-            for (const auto child : widget->_children)
-            {
-                traverseContentSize(child);
-            }
-
-            widget->onHandle();
-            widget->calcMinSize();
+            return;
         }
+
+        for (const auto child : widget->_children)
+        {
+            traverseContentSize(child);
+        }
+
+        widget->calcMinSize();
     }
 
     void iWidgetManager::traverseAlignment(iWidgetPtr widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight)
     {
-        if (widget != nullptr)
+        if (widget == nullptr)
         {
-            widget->updateAlignment(clientRectWidth, clientRectHeight);
-            widget->updatePosition(offsetX, offsetY);
-
-            std::vector<iaRectanglef> offsets;
-            widget->calcChildOffsets(offsets);
-
-            con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
-
-            iWidgetManager &wm = iWidgetManager::getInstance();
-            uint32 index = 0;
-
-            for (const auto child : widget->_children)
-            {
-                traverseAlignment(child, widget->getActualPosX() + offsets[index].getX(), widget->getActualPosY() + offsets[index].getY(), offsets[index].getWidth(), offsets[index].getHeight());
-                index++;
-            }
+            return;
         }
+
+        widget->updateAlignment(clientRectWidth, clientRectHeight);
+        widget->updatePosition(offsetX, offsetY);
+
+        std::vector<iaRectanglef> offsets;
+        widget->calcChildOffsets(offsets);
+
+        con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
+
+        iWidgetManager &wm = iWidgetManager::getInstance();
+        uint32 index = 0;
+
+        for (const auto child : widget->_children)
+        {
+            traverseAlignment(child, widget->getActualPosX() + offsets[index].getX(), widget->getActualPosY() + offsets[index].getY(), offsets[index].getWidth(), offsets[index].getHeight());
+            index++;
+        }
+
+        widget->onUpdate();
     }
 
     void iWidgetManager::setDesktopDimensions(uint32 width, uint32 height)
@@ -340,14 +402,6 @@ namespace igor
         {
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
-
-        if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
-            dialogs.back()->isDockable())
-        {
-            _docker.draw();
-        }
-
-        // _docker.drawDebug();
     }
 
     iDialogPtr iWidgetManager::getDialog(iWidgetID id)
@@ -359,7 +413,7 @@ namespace igor
             return (*iter).second;
         }
         return nullptr;
-    }
+    } // see copyright notice in corresponding header file
 
     void iWidgetManager::onEvent(iEvent &event)
     {
@@ -378,9 +432,6 @@ namespace igor
     {
         // update the widget managers desktop dimensions
         setDesktopDimensions(event.getWindow()->getClientWidth(), event.getWindow()->getClientHeight());
-
-        iaRectanglei rect(0, 0, _desktopWidth, _desktopHeight);
-        _docker.update(rect, iMouse::getInstance().getPos());
 
         return false;
     }
