@@ -68,6 +68,10 @@ namespace igor
         */
         bool undock(iWidgetID dialogID);
 
+        /*! draws overlay
+        */
+        void drawOverlay();
+
     private:
         /*! dialog docker
          */

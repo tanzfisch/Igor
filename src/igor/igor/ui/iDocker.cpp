@@ -27,7 +27,7 @@ namespace igor
         _root = std::make_shared<iDockArea>(nullptr);
     }
 
-    void iDocker::updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, const iaVector2f &relaticeMousePos)
+    void iDocker::updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, const iaVector2f &relativeMousePos)
     {
         if (area == nullptr)
         {
@@ -54,11 +54,11 @@ namespace igor
                 _selectorTop = _selectorCenter;
                 _selectorTop.adjust(0, -s_selectorSize - s_selectorSpacing, 0, 0);
 
-                _subdivideCenter = iIntersection::intersects(relaticeMousePos, _selectorCenter);
-                _subdivideRightHalf = iIntersection::intersects(relaticeMousePos, _selectorRight);
-                _subdivideLeftHalf = iIntersection::intersects(relaticeMousePos, _selectorLeft);
-                _subdivideBottomHalf = iIntersection::intersects(relaticeMousePos, _selectorBottom);
-                _subdivideTopHalf = iIntersection::intersects(relaticeMousePos, _selectorTop);
+                _subdivideCenter = iIntersection::intersects(relativeMousePos, _selectorCenter);
+                _subdivideRightHalf = iIntersection::intersects(relativeMousePos, _selectorRight);
+                _subdivideLeftHalf = iIntersection::intersects(relativeMousePos, _selectorLeft);
+                _subdivideBottomHalf = iIntersection::intersects(relativeMousePos, _selectorBottom);
+                _subdivideTopHalf = iIntersection::intersects(relativeMousePos, _selectorTop);
 
                 if (_subdivideLeftHalf)
                 {
@@ -90,32 +90,32 @@ namespace igor
         if (area->_verticalSplit)
         {
             iaRectanglef rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
-            if (iIntersection::intersects(relaticeMousePos, rectA))
+            if (iIntersection::intersects(relativeMousePos, rectA))
             {
-                updateTargets(area->_areaA, rectA, relaticeMousePos);
+                updateTargets(area->_areaA, rectA, relativeMousePos);
                 return;
             }
 
             iaRectanglef rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
-            if (iIntersection::intersects(relaticeMousePos, rectB))
+            if (iIntersection::intersects(relativeMousePos, rectB))
             {
-                updateTargets(area->_areaB, rectB, relaticeMousePos);
+                updateTargets(area->_areaB, rectB, relativeMousePos);
                 return;
             }
         }
         else
         {
             iaRectanglef rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
-            if (iIntersection::intersects(relaticeMousePos, rectA))
+            if (iIntersection::intersects(relativeMousePos, rectA))
             {
-                updateTargets(area->_areaA, rectA, relaticeMousePos);
+                updateTargets(area->_areaA, rectA, relativeMousePos);
                 return;
             }
 
             iaRectanglef rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
-            if (iIntersection::intersects(relaticeMousePos, rectB))
+            if (iIntersection::intersects(relativeMousePos, rectB))
             {
-                updateTargets(area->_areaB, rectB, relaticeMousePos);
+                updateTargets(area->_areaB, rectB, relativeMousePos);
                 return;
             }
         }
@@ -149,7 +149,7 @@ namespace igor
         }
 
         iDialogPtr dialog = iWidgetManager::getInstance().getDialog(area->_dialog);
-        if(dialog)
+        if (dialog)
         {
             iaRectanglef drawRect = rect;
             drawRect.adjust(nesting * nestingStep, nesting * nestingStep, -(nesting * 2 * nestingStep), -(nesting * 2 * nestingStep));
@@ -161,7 +161,7 @@ namespace igor
             area->_areaB == nullptr)
         {
             return;
-        }        
+        }
 
         iaRectanglef drawRect = rect;
         drawRect.adjust(nesting * nestingStep, nesting * nestingStep, -(nesting * 2 * nestingStep), -(nesting * 2 * nestingStep));
@@ -189,7 +189,46 @@ namespace igor
         }
     }
 
-    void iDocker::draw()
+    const iaVector2f iDocker::calcMinSize(std::shared_ptr<iDockArea> area) const
+    {
+        if (area == nullptr)
+        {
+            return iaVector2f();
+        }
+
+        iDialogPtr dialog = iWidgetManager::getInstance().getDialog(area->_dialog);
+        if (dialog != nullptr)
+        {
+            return iaVector2f(dialog->getMinWidth(), dialog->getMinHeight());
+        }
+
+        if (area->_areaA == nullptr &&
+            area->_areaB == nullptr)
+        {
+            return iaVector2f();
+        }
+
+        // find match
+        if (area->_verticalSplit)
+        {
+            const iaVector2f left = calcMinSize(area->_areaA);
+            const iaVector2f right = calcMinSize(area->_areaB);
+            return iaVector2f(left._x + right._x, std::max(left._y, right._y));
+        }
+        else
+        {
+            const iaVector2f top = calcMinSize(area->_areaA);
+            const iaVector2f bottom = calcMinSize(area->_areaB);
+            return iaVector2f(std::max(top._x, bottom._x), top._y + bottom._y);
+        }
+    }
+
+    const iaVector2f iDocker::calcMinSize() const
+    {
+        return calcMinSize(_root);
+    }
+
+    void iDocker::draw(bool debugDraw)
     {
         loadResources();
 
@@ -216,11 +255,16 @@ namespace igor
         iRenderer::getInstance().drawTexturedRectangle(_selectorTopEdge, _selectorQuarterTopTexture, _subdivideTopEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
         iRenderer::getInstance().drawTexturedRectangle(_selectorBottomEdge, _selectorQuarterBottomTexture, _subdivideBottomEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
 
+        if (debugDraw)
+        {
+            drawDebug();
+        }
+
         iRenderer::getInstance().setModelMatrix(modelMatrix);
     }
 
     void iDocker::drawDebug()
-    { 
+    {
         const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
         drawDebug(_root, relativeRect, 0);
     }
@@ -273,13 +317,13 @@ namespace igor
         const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
         const iaVector2f relativeMousePos(mousePos._x - _parentRect._x, mousePos._y - _parentRect._y);
 
-        update(_root, relativeRect);
+        // update(_root, relativeRect);
 
         _subdivide = false;
         _targetArea = nullptr;
         updateTargets(_root, relativeRect, relativeMousePos);
 
-        _selectorLeftEdge.set(relativeRect._x + s_selectorSize, relativeRect._y + relativeRect._height * 0.5 - s_selectorSize *0.5, s_selectorSize, s_selectorSize);
+        _selectorLeftEdge.set(relativeRect._x + s_selectorSize, relativeRect._y + relativeRect._height * 0.5 - s_selectorSize * 0.5, s_selectorSize, s_selectorSize);
         _selectorRightEdge.set(relativeRect.getRight() - s_selectorSize * 2.0, relativeRect._y + relativeRect._height * 0.5 - s_selectorSize * 0.5, s_selectorSize, s_selectorSize);
         _selectorTopEdge.set(relativeRect._x + relativeRect._width * 0.5 - s_selectorSize * 0.5, relativeRect._y + s_selectorSize, s_selectorSize, s_selectorSize);
         _selectorBottomEdge.set(relativeRect._x + relativeRect._width * 0.5 - s_selectorSize * 0.5, relativeRect.getBottom() - s_selectorSize * 2.0, s_selectorSize, s_selectorSize);
@@ -322,8 +366,8 @@ namespace igor
     {
         iDialogPtr dialog = iWidgetManager::getInstance().getDialog(dialogID);
         con_assert(dialog != nullptr, "invalid id");
-        
-        if(_targetArea == nullptr)
+
+        if (_targetArea == nullptr)
         {
             return false;
         }
@@ -369,8 +413,15 @@ namespace igor
             }
             else if (_subdivideLeftEdge)
             {
-                if (_root->_areaA != nullptr &&
-                    _root->_areaB != nullptr)
+                if (isEmpty(_root))
+                {
+                    _root->_areaA = std::make_shared<iDockArea>(_root);
+                    _root->_areaB = std::make_shared<iDockArea>(_root);
+                    _root->_ratio = s_edgeSubdivideRatio;
+                    _root->_areaA->_dialog = dialogID;
+                    _root->_verticalSplit = true;
+                }
+                else
                 {
                     std::shared_ptr<iDockArea> childA = _root->_areaA;
                     std::shared_ptr<iDockArea> childB = _root->_areaB;
@@ -382,7 +433,7 @@ namespace igor
                     _root->_verticalSplit = true;
                     _root->_ratio = s_edgeSubdivideRatio;
 
-                    _root->_areaB = std::make_shared<iDockArea>(_root);                    
+                    _root->_areaB = std::make_shared<iDockArea>(_root);
                     _root->_areaB->_areaA = childA;
                     childA->_parent = _root->_areaB;
                     _root->_areaB->_areaB = childB;
@@ -391,19 +442,50 @@ namespace igor
                     _root->_areaB->_verticalSplit = verticalSplit;
                     _root->_areaB->_ratio = ratio;
                 }
-                else
+            }
+            else if (_subdivideRightEdge)
+            {
+                if (isEmpty(_root))
                 {
                     _root->_areaA = std::make_shared<iDockArea>(_root);
                     _root->_areaB = std::make_shared<iDockArea>(_root);
                     _root->_ratio = s_edgeSubdivideRatio;
-                    _root->_areaA->_dialog = dialogID;
+                    _root->_areaB->_dialog = dialogID;
                     _root->_verticalSplit = true;
+                }
+                else
+                {
+                    std::shared_ptr<iDockArea> childA = _root->_areaA;
+                    std::shared_ptr<iDockArea> childB = _root->_areaB;
+                    bool verticalSplit = _root->_verticalSplit;
+                    float32 ratio = _root->_ratio;
+
+                    _root->_areaA = std::make_shared<iDockArea>(_root);
+                    _root->_areaA->_areaA = childA;
+                    childA->_parent = _root->_areaA;
+                    _root->_areaA->_areaB = childB;
+                    childB->_parent = _root->_areaA;
+
+                    _root->_areaB = std::make_shared<iDockArea>(_root);
+                    _root->_areaB->_dialog = dialogID;
+                    _root->_verticalSplit = true;
+                    _root->_ratio = 1.0f - s_edgeSubdivideRatio;
+
+                    _root->_areaA->_verticalSplit = verticalSplit;
+                    _root->_areaA->_ratio = ratio;
                 }
             }
             else if (_subdivideTopEdge)
             {
-                if (_root->_areaA != nullptr &&
-                    _root->_areaB != nullptr)
+                if (isEmpty(_root))
+                {
+                    _root->_areaA = std::make_shared<iDockArea>(_root);
+                    _root->_areaB = std::make_shared<iDockArea>(_root);
+                    _root->_ratio = s_edgeSubdivideRatio;
+                    _root->_areaA->_dialog = dialogID;
+                    _root->_verticalSplit = false;
+                }
+                else
                 {
                     std::shared_ptr<iDockArea> childA = _root->_areaA;
                     std::shared_ptr<iDockArea> childB = _root->_areaB;
@@ -415,7 +497,7 @@ namespace igor
                     _root->_verticalSplit = false;
                     _root->_ratio = s_edgeSubdivideRatio;
 
-                    _root->_areaB = std::make_shared<iDockArea>(_root);                    
+                    _root->_areaB = std::make_shared<iDockArea>(_root);
                     _root->_areaB->_areaA = childA;
                     childA->_parent = _root->_areaB;
                     _root->_areaB->_areaB = childB;
@@ -423,14 +505,6 @@ namespace igor
 
                     _root->_areaB->_verticalSplit = verticalSplit;
                     _root->_areaB->_ratio = ratio;
-                }
-                else
-                {
-                    _root->_areaA = std::make_shared<iDockArea>(_root);
-                    _root->_areaB = std::make_shared<iDockArea>(_root);
-                    _root->_ratio = s_edgeSubdivideRatio;
-                    _root->_areaA->_dialog = dialogID;
-                    _root->_verticalSplit = false;
                 }
             }
             else
@@ -496,7 +570,7 @@ namespace igor
 
         if (undock(area->_areaA, dialogID) || undock(area->_areaB, dialogID))
         {
-            if (isEmpty(area) && area != _root)
+            if (isEmpty(area))
             {
                 area->_areaA->_parent.reset();
                 area->_areaA = nullptr;

@@ -270,11 +270,6 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (!dialog->isEnabled())
-            {
-                continue;
-            }
-
             traverseContentSize(dialog);
             traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
         }
@@ -391,6 +386,15 @@ namespace igor
         if (!_tooltipText.isEmpty())
         {
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
+        }
+
+        if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
+            dialogs.back()->isDockable())
+        {
+            for (auto &pair : _dockerLayouts)
+            {
+                pair.second->drawOverlay();
+            }
         }
     }
 

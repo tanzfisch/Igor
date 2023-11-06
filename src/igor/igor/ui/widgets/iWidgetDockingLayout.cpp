@@ -42,26 +42,16 @@ namespace igor
 
     void iWidgetDockingLayout::onUpdate()
     {
-        /*        if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
-                    dialogs.back()->isDockable())
-                {
-                    iaRectanglei rect(0, 0, _desktopWidth, _desktopHeight);
-                    _docker.update(rect, iMouse::getInstance().getPos());
-                }*/
-
         const iaVector2i &mousePos = iMouse::getInstance().getPos();
         _docker.update(getActualRect(), iaVector2f(mousePos._x, mousePos._y));
     }
 
     void iWidgetDockingLayout::calcMinSize()
     {
-        int32 minWidth = 0;
-        int32 minHeight = 0;
-
-        // TODO docker
+        iaVector2f size = _docker.calcMinSize();
 
         setClientArea(0, 0, 0, 0);
-        setMinSize(minWidth, minHeight);
+        setMinSize(size._x, size._y);
     }
 
     void iWidgetDockingLayout::draw()
@@ -77,14 +67,11 @@ namespace igor
         {
             child->draw();
         }
+    }
 
-        // if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
-        //   dialogs.back()->isDockable())
-        {
-            _docker.draw();
-        }
-
-        // _docker.drawDebug();
+    void iWidgetDockingLayout::drawOverlay()
+    {
+        _docker.draw(true);
     }
 
 } // namespace igor

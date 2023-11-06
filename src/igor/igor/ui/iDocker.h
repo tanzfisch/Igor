@@ -60,10 +60,14 @@ namespace igor
         void update(const iaRectanglef &parentRect, const iaVector2f &mousePos);
 
         /*! draw docker overlay
-         */
-        void draw();
 
-        void drawDebug(); // TODO remove later
+        \param drawDebug draw some debug info
+         */
+        void draw(bool drawDebug = false);        
+
+        /*! \returns min size calculation
+        */
+        const iaVector2f calcMinSize() const;
 
         /*! dock a dialog
 
@@ -185,7 +189,10 @@ namespace igor
 
         void update();
 
+        void drawDebug();
         void drawDebug(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, int nesting);
+
+        const iaVector2f calcMinSize(std::shared_ptr<iDockArea> area) const;
     };
 
 }

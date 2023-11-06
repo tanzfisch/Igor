@@ -483,17 +483,11 @@ namespace igor
             return;
         }
 
-        iaRectanglef clientRect = getActualRect();
-        clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
-        if (iIntersection::intersects(pos, clientRect))
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
+        for (auto widget : widgets)
         {
-            // get copy of children
-            std::vector<iWidgetPtr> widgets = getChildren();
-
-            for (auto widget : widgets)
-            {
-                widget->handleMouseMove(pos);
-            }
+            widget->handleMouseMove(pos);
         }
 
         const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
