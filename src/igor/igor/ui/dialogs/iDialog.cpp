@@ -546,7 +546,7 @@ namespace igor
 
             iMouse::getInstance().setCursorType(cursorType);
 
-            if (_motionState != iDialogMotionState::Static &&
+            if (_motionState == iDialogMotionState::Moving &&
                 _lastMousePos.distance(pos) > 3.0)
             {
                 _moving = true;
@@ -571,8 +571,7 @@ namespace igor
             _dockingParentID = iWidget::INVALID_WIDGET_ID;
         }
 
-        if (_motionState != iDialogMotionState::Static &&
-            _moving)
+        if (_motionState != iDialogMotionState::Static)
         {
             // convert to absolute positioning to prevent a pop during first move
             if (getVerticalAlignment() != iVerticalAlignment::Absolute ||
@@ -584,7 +583,8 @@ namespace igor
             }
 
             const iaVector2f diff = pos - _posLast;
-            if (_motionState == iDialogMotionState::Moving)
+            if (_motionState == iDialogMotionState::Moving &&
+                _moving)
             {
                 setPos(getPos() + diff);
             }

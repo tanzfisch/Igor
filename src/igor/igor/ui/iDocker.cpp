@@ -513,7 +513,6 @@ namespace igor
     bool iDocker::undock(iWidgetID dialogID)
     {
         bool result = undock(_root, dialogID);
-
         update();
 
         return result;

@@ -32,7 +32,9 @@ namespace igor
         bool result = _docker.undock(dialogID);
         if (result)
         {
-            removeWidget(iWidgetManager::getInstance().getWidget(dialogID));
+            iDialogPtr dialog = iWidgetManager::getInstance().getDialog(dialogID);
+            removeWidget(dialog);
+            dialog->setPos(dialog->getActualPos());
         }
 
         return result;

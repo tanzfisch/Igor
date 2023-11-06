@@ -109,7 +109,7 @@ namespace igor
 
         /*! frame width
         */
-        float32 _frameWidth = 5;
+        float32 _frameWidth = 7;
 
         /*! background texture
         */
