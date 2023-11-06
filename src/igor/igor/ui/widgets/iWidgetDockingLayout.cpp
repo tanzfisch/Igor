@@ -18,12 +18,24 @@ namespace igor
 
     bool iWidgetDockingLayout::dock(iWidgetID dialogID)
     {
-        return _docker.dock(dialogID);
+        bool result = _docker.dock(dialogID);
+        if (result)
+        {
+            addWidget(iWidgetManager::getInstance().getWidget(dialogID));
+        }
+
+        return result;
     }
 
     bool iWidgetDockingLayout::undock(iWidgetID dialogID)
     {
-        return _docker.undock(dialogID);
+        bool result = _docker.undock(dialogID);
+        if (result)
+        {
+            removeWidget(iWidgetManager::getInstance().getWidget(dialogID));
+        }
+
+        return result;
     }
 
     void iWidgetDockingLayout::onUpdate()
@@ -36,7 +48,6 @@ namespace igor
                 }*/
 
         const iaVector2i &mousePos = iMouse::getInstance().getPos();
-
         _docker.update(getActualRect(), iaVector2f(mousePos._x, mousePos._y));
     }
 
@@ -65,13 +76,13 @@ namespace igor
             child->draw();
         }
 
-        //if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
-          //  dialogs.back()->isDockable())
+        // if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
+        //   dialogs.back()->isDockable())
         {
             _docker.draw();
         }
 
-        // _docker.drawDebug();        
+        // _docker.drawDebug();
     }
 
 } // namespace igor

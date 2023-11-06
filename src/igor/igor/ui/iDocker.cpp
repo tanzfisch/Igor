@@ -27,7 +27,7 @@ namespace igor
         _root = std::make_shared<iDockArea>(nullptr);
     }
 
-    void iDocker::updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, const iaVector2f &pos)
+    void iDocker::updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, const iaVector2f &relaticeMousePos)
     {
         if (area == nullptr)
         {
@@ -54,11 +54,11 @@ namespace igor
                 _selectorTop = _selectorCenter;
                 _selectorTop.adjust(0, -s_selectorSize - s_selectorSpacing, 0, 0);
 
-                _subdivideCenter = iIntersection::intersects(pos, _selectorCenter);
-                _subdivideRightHalf = iIntersection::intersects(pos, _selectorRight);
-                _subdivideLeftHalf = iIntersection::intersects(pos, _selectorLeft);
-                _subdivideBottomHalf = iIntersection::intersects(pos, _selectorBottom);
-                _subdivideTopHalf = iIntersection::intersects(pos, _selectorTop);
+                _subdivideCenter = iIntersection::intersects(relaticeMousePos, _selectorCenter);
+                _subdivideRightHalf = iIntersection::intersects(relaticeMousePos, _selectorRight);
+                _subdivideLeftHalf = iIntersection::intersects(relaticeMousePos, _selectorLeft);
+                _subdivideBottomHalf = iIntersection::intersects(relaticeMousePos, _selectorBottom);
+                _subdivideTopHalf = iIntersection::intersects(relaticeMousePos, _selectorTop);
 
                 if (_subdivideLeftHalf)
                 {
@@ -90,32 +90,32 @@ namespace igor
         if (area->_verticalSplit)
         {
             iaRectanglef rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
-            if (iIntersection::intersects(pos, rectA))
+            if (iIntersection::intersects(relaticeMousePos, rectA))
             {
-                updateTargets(area->_areaA, rectA, pos);
+                updateTargets(area->_areaA, rectA, relaticeMousePos);
                 return;
             }
 
             iaRectanglef rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
-            if (iIntersection::intersects(pos, rectB))
+            if (iIntersection::intersects(relaticeMousePos, rectB))
             {
-                updateTargets(area->_areaB, rectB, pos);
+                updateTargets(area->_areaB, rectB, relaticeMousePos);
                 return;
             }
         }
         else
         {
             iaRectanglef rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
-            if (iIntersection::intersects(pos, rectA))
+            if (iIntersection::intersects(relaticeMousePos, rectA))
             {
-                updateTargets(area->_areaA, rectA, pos);
+                updateTargets(area->_areaA, rectA, relaticeMousePos);
                 return;
             }
 
             iaRectanglef rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
-            if (iIntersection::intersects(pos, rectB))
+            if (iIntersection::intersects(relaticeMousePos, rectB))
             {
-                updateTargets(area->_areaB, rectB, pos);
+                updateTargets(area->_areaB, rectB, relaticeMousePos);
                 return;
             }
         }
@@ -193,6 +193,12 @@ namespace igor
     {
         loadResources();
 
+        iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
+
+        iaMatrixd matrix;
+        matrix.translate(_parentRect._x, _parentRect._y, -1);
+        iRenderer::getInstance().setModelMatrix(matrix);
+
         iRenderer::getInstance().drawFilledRectangle(_targetRect, s_areaColor);
         iRenderer::getInstance().drawRectangle(_targetRect, s_areaBorderColor);
 
@@ -209,11 +215,14 @@ namespace igor
         iRenderer::getInstance().drawTexturedRectangle(_selectorRightEdge, _selectorQuarterRightTexture, _subdivideRightEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
         iRenderer::getInstance().drawTexturedRectangle(_selectorTopEdge, _selectorQuarterTopTexture, _subdivideTopEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
         iRenderer::getInstance().drawTexturedRectangle(_selectorBottomEdge, _selectorQuarterBottomTexture, _subdivideBottomEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+
+        iRenderer::getInstance().setModelMatrix(modelMatrix);
     }
 
     void iDocker::drawDebug()
-    {
-        drawDebug(_root, _desktopRect, 0);
+    { 
+        const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
+        drawDebug(_root, relativeRect, 0);
     }
 
     void iDocker::update(std::shared_ptr<iDockArea> area, const iaRectanglef &rect)
@@ -258,34 +267,37 @@ namespace igor
         }
     }
 
-    void iDocker::update(const iaRectanglef &desktopRect, const iaVector2f &mousePos)
+    void iDocker::update(const iaRectanglef &parentRect, const iaVector2f &mousePos)
     {
-        _desktopRect = desktopRect;
-        update(_root, _desktopRect);
+        _parentRect = parentRect;
+        const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
+        const iaVector2f relativeMousePos(mousePos._x - _parentRect._x, mousePos._y - _parentRect._y);
+
+        update(_root, relativeRect);
 
         _subdivide = false;
         _targetArea = nullptr;
-        updateTargets(_root, _desktopRect, mousePos);
+        updateTargets(_root, relativeRect, relativeMousePos);
 
-        _selectorLeftEdge.set(_desktopRect._x + s_selectorSize, _desktopRect._y + _desktopRect._height * 0.5 - s_selectorSize *0.5, s_selectorSize, s_selectorSize);
-        _selectorRightEdge.set(_desktopRect.getRight() - s_selectorSize * 2.0, _desktopRect._y + _desktopRect._height * 0.5 - s_selectorSize * 0.5, s_selectorSize, s_selectorSize);
-        _selectorTopEdge.set(_desktopRect._x + _desktopRect._width * 0.5 - s_selectorSize * 0.5, _desktopRect._y + s_selectorSize, s_selectorSize, s_selectorSize);
-        _selectorBottomEdge.set(_desktopRect._x + _desktopRect._width * 0.5 - s_selectorSize * 0.5, _desktopRect.getBottom() - s_selectorSize * 2.0, s_selectorSize, s_selectorSize);
+        _selectorLeftEdge.set(relativeRect._x + s_selectorSize, relativeRect._y + relativeRect._height * 0.5 - s_selectorSize *0.5, s_selectorSize, s_selectorSize);
+        _selectorRightEdge.set(relativeRect.getRight() - s_selectorSize * 2.0, relativeRect._y + relativeRect._height * 0.5 - s_selectorSize * 0.5, s_selectorSize, s_selectorSize);
+        _selectorTopEdge.set(relativeRect._x + relativeRect._width * 0.5 - s_selectorSize * 0.5, relativeRect._y + s_selectorSize, s_selectorSize, s_selectorSize);
+        _selectorBottomEdge.set(relativeRect._x + relativeRect._width * 0.5 - s_selectorSize * 0.5, relativeRect.getBottom() - s_selectorSize * 2.0, s_selectorSize, s_selectorSize);
 
-        _subdivideLeftEdge = iIntersection::intersects(mousePos, _selectorLeftEdge);
-        _subdivideRightEdge = iIntersection::intersects(mousePos, _selectorRightEdge);
-        _subdivideTopEdge = iIntersection::intersects(mousePos, _selectorTopEdge);
-        _subdivideBottomEdge = iIntersection::intersects(mousePos, _selectorBottomEdge);
+        _subdivideLeftEdge = iIntersection::intersects(relativeMousePos, _selectorLeftEdge);
+        _subdivideRightEdge = iIntersection::intersects(relativeMousePos, _selectorRightEdge);
+        _subdivideTopEdge = iIntersection::intersects(relativeMousePos, _selectorTopEdge);
+        _subdivideBottomEdge = iIntersection::intersects(relativeMousePos, _selectorBottomEdge);
 
         if (_subdivideLeftEdge)
         {
-            _targetRect = _desktopRect;
+            _targetRect = relativeRect;
             _targetRect._width *= s_edgeSubdivideRatio;
         }
 
         if (_subdivideRightEdge)
         {
-            _targetRect = _desktopRect;
+            _targetRect = relativeRect;
             int32 width = _targetRect._width * s_edgeSubdivideRatio;
             _targetRect._x = _targetRect._width - width;
             _targetRect._width = width;
@@ -293,13 +305,13 @@ namespace igor
 
         if (_subdivideTopEdge)
         {
-            _targetRect = _desktopRect;
+            _targetRect = relativeRect;
             _targetRect._height *= s_edgeSubdivideRatio;
         }
 
         if (_subdivideBottomEdge)
         {
-            _targetRect = _desktopRect;
+            _targetRect = relativeRect;
             int32 height = _targetRect._height * s_edgeSubdivideRatio;
             _targetRect._y = _targetRect._height - height;
             _targetRect._height = height;
@@ -440,7 +452,8 @@ namespace igor
 
     void iDocker::update()
     {
-        update(_root, _desktopRect);
+        const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
+        update(_root, relativeRect);
     }
 
     bool iDocker::isEmpty(std::shared_ptr<iDockArea> area)

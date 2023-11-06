@@ -54,10 +54,10 @@ namespace igor
 
         /*! updates position of all dialogs based on desktop size
 
-        \param desktopRect rect of the desktop
-        \param mousePos the mouse position
+        \param parentRect parent rect absolute in pixel
+        \param mousePos the mouse position absolute in pixel
         */
-        void update(const iaRectanglef &desktopRect, const iaVector2f &mousePos);
+        void update(const iaRectanglef &parentRect, const iaVector2f &mousePos);
 
         /*! draw docker overlay
          */
@@ -164,7 +164,7 @@ namespace igor
 
         /*! store last desktop rect
          */
-        iaRectanglef _desktopRect;
+        iaRectanglef _parentRect;
 
         /*! updates position of all dialogs based on desktop size
 

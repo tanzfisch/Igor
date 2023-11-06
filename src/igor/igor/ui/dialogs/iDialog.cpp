@@ -286,6 +286,7 @@ namespace igor
         {
             _widgetState = iWidgetState::Pressed;
             _motionState = calcMotionState(_posLast);
+            _lastMousePos.set(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 
             putInFront();
 
@@ -327,6 +328,8 @@ namespace igor
 
     bool iDialog::handleMouseKeyUp(iKeyCode key)
     {
+        _moving = false;
+
         if (!isEnabled())
         {
             return false;
@@ -543,11 +546,10 @@ namespace igor
 
             iMouse::getInstance().setCursorType(cursorType);
 
-            if (_motionState == iDialogMotionState::Moving &&
-                isDockable())
+            if (_motionState != iDialogMotionState::Static &&
+                _lastMousePos.distance(pos) > 3.0)
             {
-                iWidgetManager::getInstance().undockDialog(getID());
-                _dockingParentID = iWidget::INVALID_WIDGET_ID;
+                _moving = true;
             }
         }
         else
@@ -563,7 +565,14 @@ namespace igor
             _isMouseOver = false;
         }
 
-        if (_motionState != iDialogMotionState::Static)
+        if (isDocked() && _moving)
+        {
+            iWidgetManager::getInstance().undockDialog(getID());
+            _dockingParentID = iWidget::INVALID_WIDGET_ID;
+        }
+
+        if (_motionState != iDialogMotionState::Static &&
+            _moving)
         {
             // convert to absolute positioning to prevent a pop during first move
             if (getVerticalAlignment() != iVerticalAlignment::Absolute ||

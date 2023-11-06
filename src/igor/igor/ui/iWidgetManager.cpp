@@ -85,23 +85,12 @@ namespace igor
         {
             if (dialog == pair.second)
             {
+                pair.second->setZValue(0);
                 continue;
             }
 
-            iWidgetPtr parent = getWidget(pair.second->getDockingParent());
-            if(parent != nullptr)
-            {
-                if(parent->getRoot() == dialog)
-                {
-                    pair.second->setZValue(0);
-                    continue;
-                }
-            }
-
-            pair.second->setZValue(200);
+            pair.second->setZValue(pair.second->getZValue() + 1);
         }
-
-        dialog->setZValue(100);
     }
 
     void iWidgetManager::registerDialog(iDialogPtr dialog)
@@ -207,7 +196,8 @@ namespace igor
     {
         for (auto dialog : _dialogs)
         {
-            if (dialog.second->isEnabled())
+            if (dialog.second->isEnabled() &&
+                !dialog.second->isDocked())
             {
                 dialogs.push_back(dialog.second);
             }

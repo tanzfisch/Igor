@@ -229,6 +229,14 @@ namespace igor
         */
         bool _isDockable = false;
 
+        /*! true if actually moving
+        */
+        bool _moving = false;
+
+        /*! saving mouse pos when last time pressed a button
+        */
+        iaVector2f _lastMousePos;
+
         /*! title of dialog
         */
         iaString _title;
