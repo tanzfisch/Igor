@@ -817,6 +817,27 @@ namespace igor
          */
         const iaVector2f &getLastMousePos() const;
 
+        /*! updates size based on widgets content
+
+        all widgets have to derive from this
+        */
+        virtual void calcMinSize();        
+
+        /*! updates widget alignment
+
+        \param clientWidth maximum width this widget can align to
+        \param clientHeight maximum height this widget can align to
+        */
+        virtual void updateAlignment(int32 clientWidth, int32 clientHeight);
+
+        /*! calculates childrens offsets relative to their parent
+
+        Needs to be implemented for widgets with multiple children
+
+        \param[out] offsets vector to be filled with childrens offsets
+        */
+        virtual void calcChildOffsets(std::vector<iaRectanglef> &offsets);        
+
     private:
         /*! the widgets type
          */
@@ -936,12 +957,6 @@ namespace igor
          */
         void destroyTooltipTimer();
 
-        /*! updates size based on widgets content
-
-        all widgets have to derive from this
-        */
-        virtual void calcMinSize();
-
         /*! called once per frame so a widget can update it's content if needed
          */
         virtual void onUpdate();
@@ -954,13 +969,6 @@ namespace igor
          */
         iaColor4f _foreground;
 
-        /*! updates widget alignment
-
-        \param clientWidth maximum width this widget can align to
-        \param clientHeight maximum height this widget can align to
-        */
-        virtual void updateAlignment(int32 clientWidth, int32 clientHeight);
-
         /*! updates the absolute position
 
         \param offsetX absolute horizontal offset based on parents positions
@@ -968,13 +976,7 @@ namespace igor
         */
         void updatePosition(int32 offsetX, int32 offsetY);
 
-        /*! calculates childrens offsets relative to their parent
 
-        Needs to be implemented for widgets with multiple children
-
-        \param[out] offsets vector to be filled with childrens offsets
-        */
-        virtual void calcChildOffsets(std::vector<iaRectanglef> &offsets);
     };
 
 #include <igor/ui/widgets/iWidget.inl>
