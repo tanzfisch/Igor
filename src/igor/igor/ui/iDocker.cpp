@@ -283,7 +283,6 @@ namespace igor
             dialog->setY(rect._y);
             dialog->setWidth(rect._width);
             dialog->setHeight(rect._height);
-
             return;
         }
 
@@ -317,7 +316,7 @@ namespace igor
         const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
         const iaVector2f relativeMousePos(mousePos._x - _parentRect._x, mousePos._y - _parentRect._y);
 
-        // update(_root, relativeRect);
+        update(_root, relativeRect);
 
         _subdivide = false;
         _targetArea = nullptr;
@@ -507,6 +506,38 @@ namespace igor
                     _root->_areaB->_ratio = ratio;
                 }
             }
+            else if (_subdivideBottomEdge)
+            {
+                if (isEmpty(_root))
+                {
+                    _root->_areaA = std::make_shared<iDockArea>(_root);
+                    _root->_areaB = std::make_shared<iDockArea>(_root);
+                    _root->_ratio = s_edgeSubdivideRatio;
+                    _root->_areaB->_dialog = dialogID;
+                    _root->_verticalSplit = false;
+                }
+                else
+                {
+                    std::shared_ptr<iDockArea> childA = _root->_areaA;
+                    std::shared_ptr<iDockArea> childB = _root->_areaB;
+                    bool verticalSplit = _root->_verticalSplit;
+                    float32 ratio = _root->_ratio;
+
+                    _root->_areaA = std::make_shared<iDockArea>(_root);
+                    _root->_areaA->_areaA = childA;
+                    childA->_parent = _root->_areaA;
+                    _root->_areaA->_areaB = childB;
+                    childB->_parent = _root->_areaA;
+
+                    _root->_areaB = std::make_shared<iDockArea>(_root);
+                    _root->_areaB->_dialog = dialogID;
+                    _root->_verticalSplit = false;
+                    _root->_ratio = 1.0f - s_edgeSubdivideRatio;
+
+                    _root->_areaA->_verticalSplit = verticalSplit;
+                    _root->_areaA->_ratio = ratio;
+                }
+            }            
             else
             {
                 return false;
