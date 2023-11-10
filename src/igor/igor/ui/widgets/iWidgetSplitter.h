@@ -52,9 +52,10 @@ namespace igor
     public:
         /*! ctor initializes member variables
 
+        \param dockingSplitter if true (and it allows to grow by content) dialogs can dynamically be docked to this splitter
 		\param parent the optional parent
 		*/
-        iWidgetSplitter(const iWidgetPtr parent = nullptr);
+        iWidgetSplitter(bool dockingSplitter = false, const iWidgetPtr parent = nullptr);
 
         /*! does nothing
 		*/

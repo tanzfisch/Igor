@@ -14,7 +14,7 @@
 
 namespace igor
 {
-    iWidgetSplitter::iWidgetSplitter(const iWidgetPtr parent)
+    iWidgetSplitter::iWidgetSplitter(bool dockingSplitter, const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetSplitter, iWidgetKind::Widget, parent)
     {
     }

@@ -338,34 +338,34 @@ namespace igor
         \param d mouse wheel delta
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseWheel(int32 d);
+        bool handleMouseWheel(int32 d) override;
 
         /*! handles incoming mouse key down events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key);
-
+        bool handleMouseKeyDown(iKeyCode key) override;
+ 
         /*! handles incoming double click
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseDoubleClick(iKeyCode key);
+        bool handleMouseDoubleClick(iKeyCode key) override;
 
         /*! handles mouse key up events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyUp(iKeyCode key);
+        bool handleMouseKeyUp(iKeyCode key) override;
 
         /*! handles incoming mouse move events
 
         \param position mouse position
         */
-        void handleMouseMove(const iaVector2f &pos);
+        void handleMouseMove(const iaVector2f &pos) override;
 
         /*! updates size based on it's content
          */
@@ -373,7 +373,7 @@ namespace igor
 
         /*! draws the widget
          */
-        void draw();
+        void draw() override;
 
         /*! initializes an empty grid with default size of one row and column
          */
