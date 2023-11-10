@@ -206,12 +206,12 @@ iWidgetMenuBarPtr WidgetsExample::createMenu()
 
 void WidgetsExample::onInit()
 {
-    // call base class
+    // call base class to initialize widget view
     iLayerWidgets::onInit();
 
     _dialog = new iDialog();
     _dialog->setPos(iaVector2f(40, getWindow()->getClientHeight() - 420));
-    _dialog->setResizeable(false);
+    _dialog->setResizeable(true);
 
     iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _dialog);
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -244,7 +244,7 @@ void WidgetsExample::onInit()
 
     // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
-    groupBox1->setText("Group Box");
+    groupBox1->setText("Group Box");    
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     mainLayout->addWidget(groupBox1);
 

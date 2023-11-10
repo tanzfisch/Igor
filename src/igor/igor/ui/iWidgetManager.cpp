@@ -330,10 +330,8 @@ namespace igor
 
         std::vector<iaRectanglef> offsets;
         widget->calcChildOffsets(offsets);
-
         con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
 
-        iWidgetManager &wm = iWidgetManager::getInstance();
         uint32 index = 0;
 
         for (const auto child : widget->_children)
@@ -388,8 +386,8 @@ namespace igor
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
 
-        if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
-            dialogs.back()->isDockable())
+   //     if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
+     //       dialogs.back()->isDockable())
         {
             for (auto &pair : _dockerLayouts)
             {

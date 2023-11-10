@@ -888,6 +888,11 @@ namespace igor
         default:;
         }
 
+        if(getID() == 21 && height != 352)
+        {
+            int x = 0;
+        }
+
         _actualWidth = width;
         _actualHeight = height;
     }

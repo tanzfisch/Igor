@@ -116,7 +116,6 @@ namespace igor
         if (_headerEnabled)
         {
             const int32 titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
-            minHeight += titleWidth;
             setClientArea(0, 0, titleWidth, 0);
 
             const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
@@ -128,13 +127,10 @@ namespace igor
             setClientArea(0, 0, 0, 0);
         }
 
-        setMinSize(minWidth, minHeight);
+        minWidth = std::max(getConfiguredWidth(), minWidth);
+        minHeight = std::max(getConfiguredHeight(), minHeight);
 
-        if (isGrowingByContent())
-        {
-            setWidth(std::max(getConfiguredWidth(), minWidth));
-            setHeight(std::max(getConfiguredHeight(), minHeight));
-        }
+        setMinSize(minWidth, minHeight);
     }
 
     void iDialog::updateAlignment(int32 clientWidth, int32 clientHeight)

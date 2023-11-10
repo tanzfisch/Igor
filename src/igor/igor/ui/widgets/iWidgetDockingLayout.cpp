@@ -6,9 +6,9 @@
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
+#include <igor/ui/dialogs/iDialog.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/data/iIntersection.h>
-#include <igor/ui/dialogs/iDialog.h>
 #include <igor/renderer/iRenderer.h>
 
 namespace igor
@@ -29,6 +29,7 @@ namespace igor
     {
         setVerticalAlignment(iVerticalAlignment::Stretch);
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        setGrowingByContent(false);
 
         _root = std::make_shared<iDockArea>(nullptr);
     }
@@ -232,7 +233,7 @@ namespace igor
                 {
                     _root->_areaA = std::make_shared<iDockArea>(_root);
                     _root->_areaB = std::make_shared<iDockArea>(_root);
-                    _root->_ratio = s_edgeSubdivideRatio;
+                    _root->_ratio = 1.0f - s_edgeSubdivideRatio;
                     _root->_areaB->_dialog = dialogID;
                     _root->_verticalSplit = true;
                 }
@@ -296,7 +297,7 @@ namespace igor
                 {
                     _root->_areaA = std::make_shared<iDockArea>(_root);
                     _root->_areaB = std::make_shared<iDockArea>(_root);
-                    _root->_ratio = s_edgeSubdivideRatio;
+                    _root->_ratio = 1.0f - s_edgeSubdivideRatio;
                     _root->_areaB->_dialog = dialogID;
                     _root->_verticalSplit = false;
                 }
@@ -328,15 +329,15 @@ namespace igor
             }
         }
 
-        dialog->setX(_targetRect._x);
-        dialog->setY(_targetRect._y);
-        dialog->setWidth(_targetRect._width);
-        dialog->setHeight(_targetRect._height);
-
         _targetArea = nullptr;
 
         addWidget(iWidgetManager::getInstance().getWidget(dialogID));
-        updateDialogs();
+
+        dialog->setX(0);
+        dialog->setY(0);
+        dialog->setWidth(_targetRect._width);
+        dialog->setHeight(_targetRect._height);
+
         return true;
     }
 
@@ -372,7 +373,6 @@ namespace igor
     bool iWidgetDockingLayout::undock(iWidgetID dialogID)
     {
         bool result = undock(_root, dialogID);
-        updateDialogs();
 
         if (result)
         {
@@ -384,30 +384,10 @@ namespace igor
         return result;
     }
 
-    void iWidgetDockingLayout::updateAlignment(int32 clientWidth, int32 clientHeight)
-    {
-        const auto actualWidth = getActualWidth();
-        const auto actualHeight = getActualHeight();
-
-        iWidget::updateAlignment(clientWidth, clientHeight);
-
-        if (actualWidth != getActualWidth() ||
-            actualHeight != getActualHeight())
-        {
-            updateDialogs();
-        }
-    }
-
     void iWidgetDockingLayout::onUpdate()
     {
         const iaVector2i &mousePos = iMouse::getInstance().getPos();
         update(getActualRect(), iaVector2f(mousePos._x, mousePos._y));
-    }
-
-    void iWidgetDockingLayout::updateDialogs()
-    {
-        const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
-        updateDialogs(_root, relativeRect);
     }
 
     const iaVector2f iWidgetDockingLayout::calcMinSize(std::shared_ptr<iDockArea> area) const
@@ -459,6 +439,8 @@ namespace igor
             return;
         }
 
+        iRenderer::getInstance().drawRectangle(getActualRect(), iaColor4f::green);
+
         for (const auto child : _children)
         {
             child->draw();
@@ -495,6 +477,15 @@ namespace igor
         const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
         drawDebug(_root, relativeRect, 0);
 
+        std::vector<iaRectanglef> offsets;
+        calcChildOffsets(offsets);
+
+        for (auto offset : offsets)
+        {
+            offset.adjust(5.0f, 5.0f, -10.0f, -10.0f);
+            iRenderer::getInstance().drawRectangle(offset);
+        }
+
         iRenderer::getInstance().setModelMatrix(modelMatrix);
     }
 
@@ -507,13 +498,16 @@ namespace igor
             return;
         }
 
-        iDialogPtr dialog = iWidgetManager::getInstance().getDialog(area->_dialog);
-        if (dialog)
+        if (area->_dialog != iWidget::INVALID_WIDGET_ID)
         {
-            iaRectanglef drawRect = rect;
-            drawRect.adjust(nesting * nestingStep, nesting * nestingStep, -(nesting * 2 * nestingStep), -(nesting * 2 * nestingStep));
-            iRenderer::getInstance().drawRectangle(drawRect, iaColor4f::green);
-            iRenderer::getInstance().drawString(drawRect._x, drawRect._y, dialog->getTitle() + "_" + iaString::toString(dialog->getID()));
+            iDialogPtr dialog = iWidgetManager::getInstance().getDialog(area->_dialog);
+            if (dialog)
+            {
+                iaRectanglef drawRect = rect;
+                drawRect.adjust(nesting * nestingStep, nesting * nestingStep, -(nesting * 2 * nestingStep), -(nesting * 2 * nestingStep));
+                iRenderer::getInstance().drawRectangle(drawRect, iaColor4f::green);
+                iRenderer::getInstance().drawString(drawRect._x, drawRect._y, dialog->getTitle() + "_" + iaString::toString(dialog->getID()));
+            }
         }
 
         if (area->_areaA == nullptr ||
@@ -548,7 +542,25 @@ namespace igor
         }
     }
 
-    void iWidgetDockingLayout::updateDialogs(std::shared_ptr<iDockArea> area, const iaRectanglef &rect)
+    void iWidgetDockingLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
+    {
+        std::map<iWidgetPtr, iaRectanglef> offsetMap;
+
+        for (auto child : getChildren())
+        {
+            offsetMap[child] = iaRectanglef();
+        }
+
+        const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
+        updateDialogs(_root, relativeRect, offsetMap);
+
+        for (auto child : getChildren())
+        {
+            offsets.push_back(offsetMap[child]);
+        }
+    }
+
+    void iWidgetDockingLayout::updateDialogs(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, std::map<iWidgetPtr, iaRectanglef> &offsetMap)
     {
         if (area == nullptr)
         {
@@ -556,12 +568,10 @@ namespace igor
         }
 
         iDialogPtr dialog = iWidgetManager::getInstance().getDialog(area->_dialog);
-        if (dialog != nullptr)
+        auto iter = offsetMap.find(dialog);
+        if (iter != offsetMap.end())
         {
-            dialog->setX(rect._x);
-            dialog->setY(rect._y);
-            dialog->setWidth(rect._width);
-            dialog->setHeight(rect._height);
+            iter->second = rect;
             return;
         }
 
@@ -576,16 +586,16 @@ namespace igor
             iaRectanglef rectA(rect._x, rect._y, rect._width * area->_ratio, rect._height);
             iaRectanglef rectB(rect._x + rectA._width, rect._y, rect._width - rectA._width, rect._height);
 
-            updateDialogs(area->_areaA, rectA);
-            updateDialogs(area->_areaB, rectB);
+            updateDialogs(area->_areaA, rectA, offsetMap);
+            updateDialogs(area->_areaB, rectB, offsetMap);
         }
         else
         {
             iaRectanglef rectA(rect._x, rect._y, rect._width, rect._height * area->_ratio);
             iaRectanglef rectB(rect._x, rect._y + rectA._height, rect._width, rect._height - rectA._height);
 
-            updateDialogs(area->_areaA, rectA);
-            updateDialogs(area->_areaB, rectB);
+            updateDialogs(area->_areaA, rectA, offsetMap);
+            updateDialogs(area->_areaB, rectB, offsetMap);
         }
     }
 
@@ -594,8 +604,6 @@ namespace igor
         _parentRect = parentRect;
         const iaRectanglef relativeRect(0, 0, _parentRect._width, _parentRect._height);
         const iaVector2f relativeMousePos(mousePos._x - _parentRect._x, mousePos._y - _parentRect._y);
-
-        // updateDialogs(_root, relativeRect);
 
         _subdivide = false;
         _targetArea = nullptr;

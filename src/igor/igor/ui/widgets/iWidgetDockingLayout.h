@@ -33,6 +33,7 @@
 #include <igor/resources/texture/iTexture.h>
 
 #include <memory>
+#include <map>
 
 namespace igor
 {
@@ -169,26 +170,18 @@ namespace igor
         */
         void updateTargets(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, const iaVector2f &mousePos);
 
-        /*! calls recursive functions updateDialogs
-        */
-        void updateDialogs();
-
         /*! updates position of all dialogs based on desktop size
 
         \param area the current area processed
         \param rect rect of area
         */
-        void updateDialogs(std::shared_ptr<iDockArea> area, const iaRectanglef &rect);
+        void updateDialogs(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, std::map<iWidgetPtr, iaRectanglef> &offsetMap);
 
         void dock(std::shared_ptr<iDockArea> area, iWidgetID dialogID, const iaRectanglef &rect);
 
         bool undock(std::shared_ptr<iDockArea> area, iWidgetID dialogID);
 
         bool isEmpty(std::shared_ptr<iDockArea> area);
-
-        void loadResources();
-
-        
 
         void drawDebug(std::shared_ptr<iDockArea> area, const iaRectanglef &rect, int nesting);
 
@@ -201,6 +194,10 @@ namespace igor
 
         const iaVector2f calcMinSize(std::shared_ptr<iDockArea> area) const;
 
+        /*! load some resources
+        */
+        void loadResources();
+
         /*! draws the widget
          */
         void draw() override;
@@ -209,12 +206,11 @@ namespace igor
          */
         void calcMinSize() override;
 
-        /*! updates widget alignment
+        /*! calculates childrens offsets relative to their parent
 
-        \param clientWidth maximum width this widget can align to
-        \param clientHeight maximum height this widget can align to
+        \param[out] offsets vector to be filled with childrens offsets
         */
-        void updateAlignment(int32 clientWidth, int32 clientHeight) override;
+        void calcChildOffsets(std::vector<iaRectanglef> &offsets) override;        
     };
 
     /*! widget grid pointer definition

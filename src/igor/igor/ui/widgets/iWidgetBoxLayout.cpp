@@ -55,7 +55,7 @@ namespace igor
         minWidth = std::max(minWidth, getConfiguredWidth());
         minHeight = std::max(minHeight, getConfiguredHeight());
 
-        setClientArea(0, 0, 0, 0);
+        setClientArea(0, 0, 0, 0);        
         setMinSize(minWidth, minHeight);
     }
 
