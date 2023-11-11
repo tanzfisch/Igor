@@ -46,6 +46,7 @@ namespace igor
 
     class iWidgetManager;
     class iWidget;
+    class iDrag;
 
     /*! define pointer to widget
      */
@@ -622,6 +623,30 @@ namespace igor
         returns nullptr if there is no parent
         */
         iWidgetPtr getRoot();
+
+        /*! drag enter handle
+
+        \param drag the drag data
+        */
+        virtual void dragEnter(const iDrag& drag);
+
+        /*! drag move handle
+
+        \param drag the drag data
+        */
+        virtual void dragMove(const iDrag& drag, const iaVector2f& mousePos);
+
+        /*! drag leave handle
+
+        \param drag the drag data
+        */
+        virtual void dragLeave(const iDrag& drag);
+
+        /*! drop handle
+
+        \param drag the drag data
+        */
+        virtual void drop(const iDrag& drag);
 
     protected:
         /*! list of children

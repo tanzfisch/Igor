@@ -341,9 +341,21 @@ namespace igor
         _currentTheme = theme;
     }
 
-    void iWidgetManager::beginDrag(const iDrag& drag)
+    void iWidgetManager::endDrag()
+    {
+        _drag.reset();
+    }
+
+    void iWidgetManager::beginDrag(const iDrag &drag)
     {
         _drag = std::make_unique<iDrag>(drag);
+    }
+
+    const iDrag& iWidgetManager::getDrag() const
+    {
+        con_assert_sticky(_drag != nullptr, "test with inDrag before using getDrag");
+
+        return *_drag.get();
     }
 
     bool iWidgetManager::inDrag() const
@@ -509,6 +521,7 @@ namespace igor
         if (getModal() != nullptr)
         {
             getModal()->handleMouseKeyUp(event.getKey());
+            endDrag();
             return true;
         }
 
@@ -532,6 +545,7 @@ namespace igor
             }
         }
 
+        endDrag();
         return consumed;
     }
 

@@ -35,6 +35,8 @@
 namespace igor
 {
 
+    /*! drag data for drag & drop
+    */
     class IGOR_API iDrag
     {
         public:
@@ -73,6 +75,10 @@ namespace igor
             */
             iWidgetID _source = iWidget::INVALID_WIDGET_ID;
     };
+
+    /*! drag pointer definition
+    */
+    typedef iDrag* iDragPtr;
 }
 
 #endif // __IGOR_DRAG__

@@ -588,11 +588,19 @@ namespace igor
                         _widgetState = iWidgetState::Clicked;
                         setKeyboardFocus();
 
-                        _click(this);
-
-                        if (key == iKeyCode::MouseRight)
+                        if (_acceptDrop &&
+                            iWidgetManager::getInstance().inDrag())
                         {
-                            _contextMenu(this);
+                            drop(iWidgetManager::getInstance().getDrag());
+                        }
+                        else
+                        {
+                            _click(this);
+
+                            if (key == iKeyCode::MouseRight)
+                            {
+                                _contextMenu(this);
+                            }
                         }
 
                         return true;
@@ -704,7 +712,7 @@ namespace igor
                 if (_acceptDrop &&
                     iWidgetManager::getInstance().inDrag())
                 {
-                    // TODO
+                    dragEnter(iWidgetManager::getInstance().getDrag());
                 }
                 else
                 {
@@ -722,6 +730,14 @@ namespace igor
                     }
                 }
             }
+            else
+            {
+                if (_acceptDrop &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    dragMove(iWidgetManager::getInstance().getDrag(), pos);
+                }
+            }
 
             _isMouseOver = true;
         }
@@ -731,6 +747,12 @@ namespace igor
             {
                 _widgetState = iWidgetState::Standby;
                 _mouseOff(this);
+
+                if (_acceptDrop &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    dragLeave(iWidgetManager::getInstance().getDrag());
+                }
 
                 iWidgetManager::getInstance().hideTooltip();
             }
@@ -1005,6 +1027,30 @@ namespace igor
 
         stream << text[static_cast<int>(widgetType)].getData();
         return stream;
+    }
+
+    void iWidget::dragEnter(const iDrag &drag)
+    {
+        // TODO signal?
+        con_endl("enter " << getID());
+    }
+
+    void iWidget::dragMove(const iDrag &drag, const iaVector2f &mousePos)
+    {
+        // TODO signal?
+        con_endl("move " << getID());
+    }
+
+    void iWidget::dragLeave(const iDrag &drag)
+    {
+        // TODO signal?
+        con_endl("leave " << getID());
+    }
+
+    void iWidget::drop(const iDrag &drag)
+    {
+        // TODO signal?
+        con_endl("drop " << getID());
     }
 
 } // namespace igor
