@@ -27,6 +27,7 @@ namespace igor
     {
         setVerticalAlignment(iVerticalAlignment::Stretch);
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        setAcceptDrop(true);
 
         iWidget::addWidget(new iWidgetSplitter(true));
     }

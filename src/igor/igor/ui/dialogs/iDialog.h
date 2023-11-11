@@ -249,10 +249,6 @@ namespace igor
          */
         iDialogCloseDelegate _dialogCloseDelegate;
 
-        /*! docking parent id
-        */
-        iWidgetID _dockingParentID = iWidget::INVALID_WIDGET_ID;
-
         /*! handles incoming acsii codes from keyboard
 
         \param c the incoming character from keyboard

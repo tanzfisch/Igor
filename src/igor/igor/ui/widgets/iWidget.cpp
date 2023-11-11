@@ -701,17 +701,25 @@ namespace igor
                 _widgetState = iWidgetState::Highlighted;
                 _mouseOver(this);
 
-                if (!_tooltip.isEmpty())
+                if (_acceptDrop &&
+                    iWidgetManager::getInstance().inDrag())
                 {
-                    if (_timerTooltip == nullptr)
+                    // TODO
+                }
+                else
+                {
+                    if (!_tooltip.isEmpty())
                     {
-                        _timerTooltip = new iTimerHandle(iTimerTickDelegate(this, &iWidget::onToolTipTimer), iaTime::fromMilliseconds(1000), true);
+                        if (_timerTooltip == nullptr)
+                        {
+                            _timerTooltip = new iTimerHandle(iTimerTickDelegate(this, &iWidget::onToolTipTimer), iaTime::fromMilliseconds(1000), true);
+                        }
+
+                        _tooltipPos._x = pos._x + 15;
+                        _tooltipPos._y = pos._y + 15;
+
+                        _timerTooltip->restart();
                     }
-
-                    _tooltipPos._x = pos._x + 15;
-                    _tooltipPos._y = pos._y + 15;
-
-                    _timerTooltip->restart();
                 }
             }
 
@@ -888,7 +896,7 @@ namespace igor
         default:;
         }
 
-        if(getID() == 21 && height != 352)
+        if (getID() == 21 && height != 352)
         {
             int x = 0;
         }

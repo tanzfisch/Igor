@@ -302,7 +302,7 @@ namespace igor
         */
         void registerOnMouseOverEvent(iMouseOverDelegate mouseOverDelegate);
 
-        /*! registers delegate to mouse off event (oposite of mouse over)
+        /*! registers delegate to mouse off event (opposite of mouse over)
 
         \param mouseOffDelegate the delegate to register
         */

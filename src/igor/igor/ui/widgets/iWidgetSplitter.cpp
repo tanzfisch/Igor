@@ -30,6 +30,7 @@ namespace igor
     {
         setVerticalAlignment(iVerticalAlignment::Stretch);
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        setAcceptDrop(dockingSplitter);
     }
 
     void iWidgetSplitter::setRatio(float32 ratio)

@@ -9,6 +9,7 @@
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/data/iIntersection.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/ui/iDrag.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -312,14 +313,9 @@ namespace igor
         return false;
     }
 
-    iWidgetID iDialog::getDockingParent() const
-    {
-        return _dockingParentID;
-    }
-
     bool iDialog::isDocked() const
     {
-        return _dockingParentID != iWidget::INVALID_WIDGET_ID;
+        return hasParent();
     }
 
     bool iDialog::handleMouseKeyUp(iKeyCode key)
@@ -333,12 +329,6 @@ namespace igor
 
         if (_motionState != iDialogMotionState::Static && key == iKeyCode::MouseLeft)
         {
-            if (_motionState == iDialogMotionState::Moving &&
-                isDockable())
-            {
-                _dockingParentID = iWidgetManager::getInstance().dockDialog(getID());
-            }
-
             _motionState = iDialogMotionState::Static;
         }
 
@@ -540,6 +530,12 @@ namespace igor
                 _lastMousePos.distance(pos) > 3.0)
             {
                 _moving = true;
+
+                iDrag drag(this);
+                iMimeData mimeData;
+                mimeData.setWidgetID(getID());
+                drag.setMimeData(mimeData);
+                drag.execute();
             }
         }
         else
@@ -557,8 +553,7 @@ namespace igor
 
         if (isDocked() && _moving)
         {
-            iWidgetManager::getInstance().undockDialog(getID());
-            _dockingParentID = iWidget::INVALID_WIDGET_ID;
+            // TODO undock? remove from parent?
         }
 
         if (_motionState != iDialogMotionState::Static)

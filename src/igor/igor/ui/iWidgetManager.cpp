@@ -275,34 +275,6 @@ namespace igor
         }
     }
 
-    void iWidgetManager::undockDialog(iWidgetID dialogID)
-    {
-        con_assert(getDialog(dialogID) != nullptr, "invalid id");
-
-        for (auto &pair : _dockerLayouts)
-        {
-            if (pair.second->undock(dialogID))
-            {
-                break;
-            }
-        }
-    }
-
-    iWidgetID iWidgetManager::dockDialog(iWidgetID dialogID)
-    {
-        con_assert(getDialog(dialogID) != nullptr, "invalid id");
-
-        for (auto &pair : _dockerLayouts)
-        {
-            if (pair.second->dock(dialogID))
-            {
-                return pair.second->getID();
-            }
-        }
-
-        return iWidget::INVALID_WIDGET_ID;
-    }
-
     void iWidgetManager::traverseContentSize(iWidgetPtr widget)
     {
         if (widget == nullptr)
@@ -367,6 +339,16 @@ namespace igor
     void iWidgetManager::setTheme(const iWidgetThemePtr &theme)
     {
         _currentTheme = theme;
+    }
+
+    void iWidgetManager::beginDrag(const iDrag& drag)
+    {
+        _drag = std::make_unique<iDrag>(drag);
+    }
+
+    bool iWidgetManager::inDrag() const
+    {
+        return _drag != nullptr;
     }
 
     void iWidgetManager::draw()

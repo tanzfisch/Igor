@@ -37,6 +37,7 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/ui/theme/iWidgetTheme.h>
+#include <igor/ui/iDrag.h>
 
 #include <vector>
 #include <unordered_map>
@@ -58,6 +59,7 @@ namespace igor
         friend class iModule<iWidgetManager>;
         friend class iWidget;
         friend class iDialog;
+        friend class iDrag;
 
     public:
         /*! called on any other event
@@ -144,18 +146,6 @@ namespace igor
          */
         void onUpdate();
 
-        /*! docks a given dialog if possible at current mouse position
-
-        \param dialogID the given dialog id
-        */
-        iWidgetID dockDialog(iWidgetID dialogID);
-
-        /*! undock a dialog
-
-        \param dialogID the given dialog id
-        */
-        void undockDialog(iWidgetID dialogID);
-
     private:
         /*! modal marker
          */
@@ -196,6 +186,10 @@ namespace igor
         /*! list of dialogs to close
          */
         std::set<iWidgetID> _dialogsToClose;
+
+        /*! current drag
+        */
+        std::unique_ptr<iDrag> _drag;
 
         /*! closes the dialog and queues a close event in to be called after the update handle
          */
@@ -325,6 +319,18 @@ namespace igor
         \returns true if consumed
         */
         bool onWindowResize(iEventWindowResize &event);
+
+        /*! begin drag
+
+        makes copy and keeps ownership
+
+        \param drag the drag to drag 
+        */
+        void beginDrag(const iDrag& drag);
+
+        /*! \returns true if in drag
+        */
+        bool inDrag() const;
 
         /*! init
          */
