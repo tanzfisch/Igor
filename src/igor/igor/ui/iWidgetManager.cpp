@@ -385,6 +385,15 @@ namespace igor
         {
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
+
+        //     if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
+        //       dialogs.back()->isDockable())
+        {
+            for (auto &pair : _dockerLayouts)
+            {
+                pair.second->drawOverlay();
+            }
+        }
     }
 
     iDialogPtr iWidgetManager::getDialog(iWidgetID id)

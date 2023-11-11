@@ -85,24 +85,19 @@ namespace igor
 
         This will add max two widgets. The first one will be left/top and the second one will be right/bottom
 
-        Better to use the index version of addWidget to be more explicit
-
         \param widget the child widget to be added
         */
         void addWidget(iWidgetPtr widget) override;
-
-        /*! adds a child widget to this widget using index for location
-
-        \param widget the child widget to be added
-        \param index 0 == left/top; 1 == right/bottom
-        */
-        void addWidget(iWidgetPtr widget, uint32 index);
 
         /*! removes a child widget from this widget
 
         \param widget the child widget to be removed
         */
         void removeWidget(iWidgetPtr widget) override;
+
+        /*! draws overlay
+         */
+        void drawOverlay();
 
     private:
         /*! splitter ration
@@ -120,6 +115,78 @@ namespace igor
         /*! child B
         */
         iWidgetPtr _childB = nullptr;
+
+        /*! if true this is a docking splitter which allows dialogs to dock on it
+        */
+        bool _dockingSplitter;
+
+        /*! left section button
+         */
+        iaRectanglef _centerSectionButton;
+
+        /*! left section button
+         */
+        iaRectanglef _leftSectionButton;
+
+        /*! right section button
+         */
+        iaRectanglef _rightSectionButton;
+
+        /*! top section button
+         */
+        iaRectanglef _topSectionButton;
+
+        /*! bottom section button
+         */
+        iaRectanglef _bottomSectionButton;
+
+        /*! the section to highlight
+         */
+        iaRectanglef _highlightSection;
+
+        /*! highlight section flag
+         */
+        bool _highlightSectionVisible = false;        
+
+        /*! if true we dock in the center
+        */
+        bool _dockSectionCenter = false;
+
+        /*! if true we dock on the left
+        */
+        bool _dockSectionLeft = false;
+
+        /*! if true we dock on the right
+        */
+        bool _dockSectionRight = false;
+
+        /*! if true we dock on the top
+        */
+        bool _dockSectionTop = false;
+
+        /*! if true we dock on the bottom
+        */
+        bool _dockSectionBottom = false;
+
+        /*! center button texture
+        */
+        iTexturePtr _selectorCenterTexture;
+
+        /*! left button texture
+        */
+        iTexturePtr _selectorLeftTexture;
+
+        /*! right button texture
+        */
+        iTexturePtr _selectorRightTexture;
+        
+        /*! top button texture
+        */
+        iTexturePtr _selectorTopTexture;
+
+        /*! bottom button texture
+        */
+        iTexturePtr _selectorBottomTexture;
 
         /*! updates size based on it's content
         */
@@ -153,7 +220,16 @@ namespace igor
 
         /*! draws the button
         */
-        void draw();
+        void draw() override;
+
+        /*! called once per frame
+         */
+        void onUpdate() override;
+
+        /*! loads some resources
+        */
+        void loadResources();
+
     };
 
     /*! widget button pointer definition

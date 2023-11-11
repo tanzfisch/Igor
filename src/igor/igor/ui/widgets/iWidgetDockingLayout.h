@@ -71,6 +71,14 @@ namespace igor
          */
         void drawOverlay();
 
+        /*! does nothing
+        */
+        void addWidget(iWidgetPtr widget) override;
+
+        /*! does nothing
+        */
+        void removeWidget(iWidgetPtr widget) override;        
+
     private:
         /*! left section texture
          */
@@ -112,21 +120,21 @@ namespace igor
          */
         iaRectanglef _bottomSectionButton;
 
-        /*! if true we subdivide on the left
+        /*! if true we dock on the left
         */
-        bool _subdivideLeftEdge = false;
+        bool _dockLeftEdge = false;
 
-        /*! if true we subdivide on the right
+        /*! if true we dock on the right
         */
-        bool _subdivideRightEdge = false;
+        bool _dockRightEdge = false;
 
-        /*! if true we subdivide on the top
+        /*! if true we dock on the top
         */
-        bool _subdivideTopEdge = false;
+        bool _dockTopEdge = false;
 
-        /*! if true we subdivide on the bottom
+        /*! if true we dock on the bottom
         */
-        bool _subdivideBottomEdge = false;
+        bool _dockBottomEdge = false;
 
         /*! load some resources
          */

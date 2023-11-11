@@ -10,9 +10,11 @@
 #include <igor/resources/iResourceManager.h>
 #include <igor/data/iIntersection.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/ui/widgets/iWidgetSplitter.h>
 
 namespace igor
 {
+    // TODO move to theme
     static const iaColor4f s_areaColor(0.1, 0.1, 0.7, 0.1);
     static const iaColor4f s_areaBorderColor(0.6, 0.6, 0.8, 0.8);
     static const iaColor4f s_areaButtonColor(0.7, 0.7, 0.7, 0.7);
@@ -25,6 +27,18 @@ namespace igor
     {
         setVerticalAlignment(iVerticalAlignment::Stretch);
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
+
+        iWidget::addWidget(new iWidgetSplitter(true));
+    }
+
+    void iWidgetDockingLayout::addWidget(iWidgetPtr widget)
+    {
+        con_warn("can't add or remove widgets from docking layout");
+    }
+
+    void iWidgetDockingLayout::removeWidget(iWidgetPtr widget)
+    {
+        con_warn("can't add or remove widgets from docking layout");
     }
 
     void iWidgetDockingLayout::loadResources()
@@ -58,14 +72,14 @@ namespace igor
             return;
         }
 
-        _subdivideLeftEdge = false;
-        _subdivideRightEdge = false;
-        _subdivideTopEdge = false;
-        _subdivideBottomEdge = false;
+        _dockLeftEdge = false;
+        _dockRightEdge = false;
+        _dockTopEdge = false;
+        _dockBottomEdge = false;
 
         if (iIntersection::intersects(pos, _leftSectionButton))
         {
-            _subdivideLeftEdge = true;
+            _dockLeftEdge = true;
             _highlightSectionVisible = true;
 
             iaRectanglef leftSection = getActualRect();
@@ -75,7 +89,7 @@ namespace igor
         }
         else if (iIntersection::intersects(pos, _rightSectionButton))
         {
-            _subdivideRightEdge = true;
+            _dockRightEdge = true;
             _highlightSectionVisible = true;
 
             iaRectanglef rightSection = getActualRect();
@@ -86,7 +100,7 @@ namespace igor
         }
         else if (iIntersection::intersects(pos, _topSectionButton))
         {
-            _subdivideTopEdge = true;
+            _dockTopEdge = true;
             _highlightSectionVisible = true;
 
             iaRectanglef topSection = getActualRect();
@@ -96,7 +110,7 @@ namespace igor
         }
         else if (iIntersection::intersects(pos, _bottomSectionButton))
         {
-            _subdivideBottomEdge = true;
+            _dockBottomEdge = true;
             _highlightSectionVisible = true;
 
             iaRectanglef bottomSection = getActualRect();
@@ -125,6 +139,34 @@ namespace igor
         setMinSize(0, 0);
     }
 
+    void iWidgetDockingLayout::drawOverlay()
+    {
+        if (_isMouseOver) // TODO only on drag
+        {
+            iRenderer::getInstance().drawTexturedRectangle(_leftSectionButton, _sectionLeftTexture, _dockLeftEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+            iRenderer::getInstance().drawTexturedRectangle(_rightSectionButton, _sectionRightTexture, _dockRightEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+            iRenderer::getInstance().drawTexturedRectangle(_topSectionButton, _sectionTopTexture, _dockTopEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+            iRenderer::getInstance().drawTexturedRectangle(_bottomSectionButton, _sectionBottomTexture, _dockBottomEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+        }
+
+        if (_highlightSectionVisible)
+        {
+            iRenderer::getInstance().drawFilledRectangle(_highlightSection, s_areaColor);
+            iRenderer::getInstance().drawRectangle(_highlightSection, s_areaBorderColor);
+        }
+
+        for (const auto child : getChildren())
+        {
+            if(child->getWidgetType() != iWidgetType::iWidgetSplitter)
+            {
+                continue;
+            }
+
+            iWidgetSplitterPtr splitter = static_cast<iWidgetSplitterPtr>(child);
+            splitter->drawOverlay();
+        }
+    }
+
     void iWidgetDockingLayout::draw()
     {
         loadResources();
@@ -137,21 +179,7 @@ namespace igor
         // debug
         iRenderer::getInstance().drawRectangle(getActualRect(), iaColor4f::green);
 
-        if (_isMouseOver)
-        {
-            iRenderer::getInstance().drawTexturedRectangle(_leftSectionButton, _sectionLeftTexture, _subdivideLeftEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
-            iRenderer::getInstance().drawTexturedRectangle(_rightSectionButton, _sectionRightTexture, _subdivideRightEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
-            iRenderer::getInstance().drawTexturedRectangle(_topSectionButton, _sectionTopTexture, _subdivideTopEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
-            iRenderer::getInstance().drawTexturedRectangle(_bottomSectionButton, _sectionBottomTexture, _subdivideBottomEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
-        }
-
-        if (_highlightSectionVisible)
-        {
-            iRenderer::getInstance().drawFilledRectangle(_highlightSection, s_areaColor);
-            iRenderer::getInstance().drawRectangle(_highlightSection, s_areaBorderColor);
-        }
-
-        for (const auto child : _children)
+        for (const auto child : getChildren())
         {
             child->draw();
         }

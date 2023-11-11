@@ -49,7 +49,9 @@ namespace igor
         ArrowTopLeftCorner,
         ArrowTopRightCorner,
         ArrowBottomLeftCorner,
-        ArrowBottomRightCorner
+        ArrowBottomRightCorner,
+        VeticalSplit,
+        HorizontalSplit
     };
 
     class iMouseImpl;
