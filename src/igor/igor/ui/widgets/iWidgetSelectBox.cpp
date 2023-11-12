@@ -59,7 +59,7 @@ namespace igor
         setMinSize(minWidth, minHeight);
     }
 
-    bool iWidgetSelectBox::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetSelectBox::onMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -71,17 +71,17 @@ namespace igor
             _buttonAppearanceState = iWidgetState::Pressed;
         }
 
-        return iWidget::handleMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(key);
     }
 
-    void iWidgetSelectBox::handleMouseMove(const iaVector2f &pos)
+    void iWidgetSelectBox::onMouseMove(const iaVector2f &pos)
     {
         if (!isEnabled())
         {
             return;
         }
 
-        iWidget::handleMouseMove(pos);
+        iWidget::onMouseMove(pos);
 
         int32 mx = pos._x - getActualPosX() - 2; // TODO where does that offset of 2 come from?
         int32 my = pos._y - getActualPosY() - 2;
@@ -99,7 +99,7 @@ namespace igor
         }
     }
 
-    bool iWidgetSelectBox::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetSelectBox::onMouseKeyUp(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -134,7 +134,7 @@ namespace igor
             return true;
         }
 
-        return iWidget::handleMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(key);
     }
 
     void iWidgetSelectBox::onSelectBoxClosed(iDialogPtr dialog)
@@ -153,14 +153,14 @@ namespace igor
         _selectBox = nullptr;
     }
 
-    bool iWidgetSelectBox::handleMouseWheel(int32 d)
+    bool iWidgetSelectBox::onMouseWheel(int32 d)
     {
         if (!isEnabled())
         {
             return false;
         }
 
-        iWidget::handleMouseWheel(d);
+        iWidget::onMouseWheel(d);
 
         if (isMouseOver())
         {

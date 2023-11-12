@@ -330,11 +330,11 @@ namespace igor
         {
             if (_keyboardFocus != nullptr)
             {
-                _keyboardFocus->handleLostKeyboardFocus();
+                _keyboardFocus->onLostKeyboardFocus();
             }
 
             _keyboardFocus = this;
-            _keyboardFocus->handleGainedKeyboardFocus();
+            _keyboardFocus->onGainedKeyboardFocus();
         }
     }
 
@@ -342,7 +342,7 @@ namespace igor
     {
         if (_keyboardFocus != nullptr)
         {
-            _keyboardFocus->handleLostKeyboardFocus();
+            _keyboardFocus->onLostKeyboardFocus();
         }
 
         _keyboardFocus = nullptr;
@@ -386,17 +386,17 @@ namespace igor
         _wheelDown.remove(wheelDownDelegate);
     }
 
-    void iWidget::handleLostKeyboardFocus()
+    void iWidget::onLostKeyboardFocus()
     {
         // implement in derived class if needed
     }
 
-    void iWidget::handleGainedKeyboardFocus()
+    void iWidget::onGainedKeyboardFocus()
     {
         // implement in derived class if needed
     }
 
-    bool iWidget::handleMouseWheel(int32 d)
+    bool iWidget::onMouseWheel(int32 d)
     {
         if (isEnabled() && _reactOnMouseWheel)
         {
@@ -408,7 +408,7 @@ namespace igor
 
                 for (auto widget : widgets)
                 {
-                    if (widget->handleMouseWheel(d))
+                    if (widget->onMouseWheel(d))
                     {
                         result = true;
                     }
@@ -437,7 +437,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::handleMouseDoubleClick(iKeyCode key)
+    bool iWidget::onMouseDoubleClick(iKeyCode key)
     {
         if (isEnabled())
         {
@@ -449,7 +449,7 @@ namespace igor
 
                 for (auto widget : widgets)
                 {
-                    if (widget->handleMouseDoubleClick(key))
+                    if (widget->onMouseDoubleClick(key))
                     {
                         result = true;
                     }
@@ -514,7 +514,7 @@ namespace igor
         _selectionChanged.remove(delegate);
     }
 
-    bool iWidget::handleMouseKeyDown(iKeyCode key)
+    bool iWidget::onMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -529,7 +529,7 @@ namespace igor
 
             for (auto widget : widgets)
             {
-                if (widget->handleMouseKeyDown(key))
+                if (widget->onMouseKeyDown(key))
                 {
                     result = true;
                 }
@@ -553,7 +553,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::handleMouseKeyUp(iKeyCode key)
+    bool iWidget::onMouseKeyUp(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -568,7 +568,7 @@ namespace igor
 
             for (auto child : children)
             {
-                if (child->handleMouseKeyUp(key))
+                if (child->onMouseKeyUp(key))
                 {
                     result = true;
                 }
@@ -588,23 +588,21 @@ namespace igor
                         _widgetState = iWidgetState::Clicked;
                         setKeyboardFocus();
 
-                        if (_acceptDrop &&
-                            iWidgetManager::getInstance().inDrag())
-                        {
-                            drop(iWidgetManager::getInstance().getDrag());
-                        }
-                        else
-                        {
-                            _click(this);
+                        _click(this);
 
-                            if (key == iKeyCode::MouseRight)
-                            {
-                                _contextMenu(this);
-                            }
+                        if (key == iKeyCode::MouseRight)
+                        {
+                            _contextMenu(this);
                         }
 
                         return true;
                     }
+                }
+
+                if (_acceptDrop &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    onDrop(iWidgetManager::getInstance().getDrag());
                 }
             }
         }
@@ -617,7 +615,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::handleASCII(uint8 c)
+    bool iWidget::onASCII(uint8 c)
     {
         if (!isEnabled())
         {
@@ -629,7 +627,7 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->handleASCII(c))
+            if (widget->onASCII(c))
             {
                 return true;
             }
@@ -640,7 +638,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::handleKeyDown(iKeyCode key)
+    bool iWidget::onKeyDown(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -652,7 +650,7 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->handleKeyDown(key))
+            if (widget->onKeyDown(key))
             {
                 return true;
             }
@@ -663,7 +661,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::handleKeyUp(iKeyCode key)
+    bool iWidget::onKeyUp(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -675,7 +673,7 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->handleKeyUp(key))
+            if (widget->onKeyUp(key))
             {
                 return true;
             }
@@ -686,7 +684,7 @@ namespace igor
         return false;
     }
 
-    void iWidget::handleMouseMove(const iaVector2f &pos)
+    void iWidget::onMouseMove(const iaVector2f &pos)
     {
         if (!isEnabled())
         {
@@ -698,7 +696,7 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            widget->handleMouseMove(pos);
+            widget->onMouseMove(pos);
         }
 
         auto rect = getActualRect();
@@ -712,7 +710,7 @@ namespace igor
                 if (_acceptDrop &&
                     iWidgetManager::getInstance().inDrag())
                 {
-                    dragEnter(iWidgetManager::getInstance().getDrag());
+                    onDragEnter(iWidgetManager::getInstance().getDrag());
                 }
                 else
                 {
@@ -735,7 +733,7 @@ namespace igor
                 if (_acceptDrop &&
                     iWidgetManager::getInstance().inDrag())
                 {
-                    dragMove(iWidgetManager::getInstance().getDrag(), pos);
+                    onDragMove(iWidgetManager::getInstance().getDrag(), pos);
                 }
             }
 
@@ -751,7 +749,7 @@ namespace igor
                 if (_acceptDrop &&
                     iWidgetManager::getInstance().inDrag())
                 {
-                    dragLeave(iWidgetManager::getInstance().getDrag());
+                    onDragLeave(iWidgetManager::getInstance().getDrag());
                 }
 
                 iWidgetManager::getInstance().hideTooltip();
@@ -1029,28 +1027,29 @@ namespace igor
         return stream;
     }
 
-    void iWidget::dragEnter(const iDrag &drag)
+    void iWidget::onDragEnter(const iDrag &drag)
     {
         // TODO signal?
         con_endl("enter " << getID());
     }
 
-    void iWidget::dragMove(const iDrag &drag, const iaVector2f &mousePos)
+    void iWidget::onDragMove(const iDrag &drag, const iaVector2f &mousePos)
     {
         // TODO signal?
-        con_endl("move " << getID());
+
+        const iMimeData &mimeData = drag.getMimeData();
+        con_endl("move " << getID() << " " << mimeData.getWidgetID());
     }
 
-    void iWidget::dragLeave(const iDrag &drag)
+    void iWidget::onDragLeave(const iDrag &drag)
     {
         // TODO signal?
         con_endl("leave " << getID());
     }
 
-    void iWidget::drop(const iDrag &drag)
+    void iWidget::onDrop(const iDrag &drag)
     {
         // TODO signal?
-        con_endl("drop " << getID());
     }
 
 } // namespace igor

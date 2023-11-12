@@ -81,7 +81,7 @@ namespace igor
 		_change(this);
 	}
 
-	bool iWidgetNumberChooser::handleMouseKeyDown(iKeyCode key)
+	bool iWidgetNumberChooser::onMouseKeyDown(iKeyCode key)
 	{
 		if (!isEnabled())
 		{
@@ -98,17 +98,17 @@ namespace igor
 			_buttonDownAppearanceState = iWidgetState::Pressed;
 		}
 
-		return iWidget::handleMouseKeyDown(key);
+		return iWidget::onMouseKeyDown(key);
 	}
 
-	void iWidgetNumberChooser::handleMouseMove(const iaVector2f &pos)
+	void iWidgetNumberChooser::onMouseMove(const iaVector2f &pos)
 	{
 		if (!isEnabled())
 		{
 			return;
 		}
 
-		iWidget::handleMouseMove(pos);
+		iWidget::onMouseMove(pos);
 
 		int32 mx = pos._x - getActualPosX();
 		int32 my = pos._y - getActualPosY();
@@ -143,7 +143,7 @@ namespace igor
 		}
 	}
 
-	bool iWidgetNumberChooser::handleMouseKeyUp(iKeyCode key)
+	bool iWidgetNumberChooser::onMouseKeyUp(iKeyCode key)
 	{
 		if (!isEnabled())
 		{
@@ -174,17 +174,17 @@ namespace igor
 			return true;
 		}
 
-		return iWidget::handleMouseKeyUp(key);
+		return iWidget::onMouseKeyUp(key);
 	}
 
-	bool iWidgetNumberChooser::handleMouseWheel(int32 d)
+	bool iWidgetNumberChooser::onMouseWheel(int32 d)
 	{
 		if (!isEnabled())
 		{
 			return false;
 		}
 
-		iWidget::handleMouseWheel(d);
+		iWidget::onMouseWheel(d);
 
 		if (isMouseOver())
 		{

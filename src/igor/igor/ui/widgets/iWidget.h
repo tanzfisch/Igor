@@ -628,25 +628,25 @@ namespace igor
 
         \param drag the drag data
         */
-        virtual void dragEnter(const iDrag& drag);
+        virtual void onDragEnter(const iDrag& drag);
 
         /*! drag move handle
 
         \param drag the drag data
         */
-        virtual void dragMove(const iDrag& drag, const iaVector2f& mousePos);
+        virtual void onDragMove(const iDrag& drag, const iaVector2f& mousePos);
 
         /*! drag leave handle
 
         \param drag the drag data
         */
-        virtual void dragLeave(const iDrag& drag);
+        virtual void onDragLeave(const iDrag& drag);
 
         /*! drop handle
 
         \param drag the drag data
         */
-        virtual void drop(const iDrag& drag);
+        virtual void onDrop(const iDrag& drag);
 
     protected:
         /*! list of children
@@ -756,60 +756,60 @@ namespace igor
         \param d mouse wheel delta
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool handleMouseWheel(int32 d);
+        virtual bool onMouseWheel(int32 d);
 
         /*! handles incoming mouse key down events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool handleMouseKeyDown(iKeyCode key);
+        virtual bool onMouseKeyDown(iKeyCode key);
 
         /*! handles incoming double click
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool handleMouseDoubleClick(iKeyCode key);
+        virtual bool onMouseDoubleClick(iKeyCode key);
 
         /*! handles mouse key up events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool handleMouseKeyUp(iKeyCode key);
+        virtual bool onMouseKeyUp(iKeyCode key);
 
         /*! handles incoming mouse move events
 
         \param pos mouse position
         */
-        virtual void handleMouseMove(const iaVector2f &pos);
+        virtual void onMouseMove(const iaVector2f &pos);
 
         /*! handles incoming acsii codes from keyboard
 
         \param c the incoming character from keyboard
         */
-        virtual bool handleASCII(uint8 c);
+        virtual bool onASCII(uint8 c);
 
         /*! handles pressed key event
 
         \param key the pressed key
         */
-        virtual bool handleKeyDown(iKeyCode key);
+        virtual bool onKeyDown(iKeyCode key);
 
         /*! handles released key event
 
         \param key the released key
         */
-        virtual bool handleKeyUp(iKeyCode key);
+        virtual bool onKeyUp(iKeyCode key);
 
         /*! handles lost keyboard focus
          */
-        virtual void handleLostKeyboardFocus();
+        virtual void onLostKeyboardFocus();
 
         /*! handles gained keyboard focus
          */
-        virtual void handleGainedKeyboardFocus();
+        virtual void onGainedKeyboardFocus();
 
         /*! sets the widget's min size
          */
@@ -999,7 +999,7 @@ namespace igor
         \param offsetX absolute horizontal offset based on parents positions
         \param offsetY absolute vertical offset based on parents positions
         */
-        void updatePosition(int32 offsetX, int32 offsetY);
+        virtual void updatePosition(int32 offsetX, int32 offsetY);
 
 
     };

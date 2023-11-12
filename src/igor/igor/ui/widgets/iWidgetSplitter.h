@@ -108,14 +108,6 @@ namespace igor
         */
         iSplitterOrientation _orientation = iSplitterOrientation::Vertical;
 
-        /*! child a
-        */
-        iWidgetPtr _childA = nullptr;
-
-        /*! child B
-        */
-        iWidgetPtr _childB = nullptr;
-
         /*! if true this is a docking splitter which allows dialogs to dock on it
         */
         bool _dockingSplitter;
@@ -146,7 +138,7 @@ namespace igor
 
         /*! highlight section flag
          */
-        bool _highlightSectionVisible = false;        
+        bool _validDockSection = false;        
 
         /*! if true we dock in the center
         */
@@ -203,20 +195,19 @@ namespace igor
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key) override;
-
-        /*! handles mouse key up events
-
-        \param key the key that was pressed
-        \returns true: if event was consumed and therefore ignored by the parent
-        */
-        bool handleMouseKeyUp(iKeyCode key) override;
+        bool onMouseKeyDown(iKeyCode key) override;
 
         /*! handles incoming mouse move events
 
         \param pos mouse position
         */
-        void handleMouseMove(const iaVector2f &pos) override;        
+        void onMouseMove(const iaVector2f &pos) override;        
+
+        /*! drop handle
+
+        \param drag the drag data
+        */
+        void onDrop(const iDrag &drag) override;
 
         /*! draws the button
         */

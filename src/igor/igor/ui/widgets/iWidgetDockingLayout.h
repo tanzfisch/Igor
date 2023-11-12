@@ -102,7 +102,7 @@ namespace igor
 
         /*! highlight section flag
          */
-        bool _highlightSectionVisible = false;
+        bool _validDockSection = false;
 
         /*! left section button
          */
@@ -156,7 +156,7 @@ namespace igor
 
         \param position mouse position
         */
-        void handleMouseMove(const iaVector2f &pos) override;
+        void onMouseMove(const iaVector2f &pos) override;
     };
 
     /*! widget grid pointer definition

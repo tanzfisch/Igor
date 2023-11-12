@@ -258,7 +258,7 @@ namespace igor
 
         \param to the mouse postion to use
         */
-        bool handleMouseMove(const iaux::iaVector2f &pos);
+        bool onMouseMove(const iaux::iaVector2f &pos);
 
         /*! called when key was pressed
 

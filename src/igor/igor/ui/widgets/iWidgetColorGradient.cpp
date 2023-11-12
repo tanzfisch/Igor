@@ -51,7 +51,7 @@ namespace igor
         _colorCreated.block(false);
     }
 
-    bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetColorGradient::onMouseKeyDown(iKeyCode key)
     {
         const iaVector2f &mousePos = getLastMousePos();
 
@@ -93,7 +93,7 @@ namespace igor
             }
         }
 
-        return iWidget::handleMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(key);
     }
 
     void iWidgetColorGradient::registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate)

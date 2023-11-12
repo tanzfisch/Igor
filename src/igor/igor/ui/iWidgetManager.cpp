@@ -188,7 +188,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            dialog->handleMouseMove(pos);
+            dialog->onMouseMove(pos);
         }
     }
 
@@ -215,12 +215,12 @@ namespace igor
         }
     }
 
-    bool iWidgetManager::handleMouseMove(const iaux::iaVector2f &pos)
+    bool iWidgetManager::onMouseMove(const iaux::iaVector2f &pos)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleMouseMove(pos);
+            getModal()->onMouseMove(pos);
             return true;
         }
 
@@ -231,7 +231,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            dialog->handleMouseMove(pos);
+            dialog->onMouseMove(pos);
 
             if (dialog->_isMouseOver)
             {
@@ -262,7 +262,7 @@ namespace igor
         if (refreshMousePos)
         {
             const iaVector2i &mousePos = iMouse::getInstance().getPos();
-            handleMouseMove(iaVector2f(mousePos._x, mousePos._y));
+            onMouseMove(iaVector2f(mousePos._x, mousePos._y));
         }
 
         std::vector<iDialogPtr> dialogs;
@@ -348,10 +348,15 @@ namespace igor
 
     void iWidgetManager::beginDrag(const iDrag &drag)
     {
+        if (_drag != nullptr)
+        {
+            con_warn("last drag wasn't clean");
+        }
+
         _drag = std::make_unique<iDrag>(drag);
     }
 
-    const iDrag& iWidgetManager::getDrag() const
+    const iDrag &iWidgetManager::getDrag() const
     {
         con_assert_sticky(_drag != nullptr, "test with inDrag before using getDrag");
 
@@ -380,12 +385,15 @@ namespace igor
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
 
-        //     if (dialogs.back()->_motionState == iDialogMotionState::Moving &&
-        //       dialogs.back()->isDockable())
+        if (inDrag())
         {
-            for (auto &pair : _dockerLayouts)
+            const iMimeData &mimeData = getDrag().getMimeData();
+            if (mimeData.hasWidgetID())
             {
-                pair.second->drawOverlay();
+                for (auto &pair : _dockerLayouts)
+                {
+                    pair.second->drawOverlay();
+                }
             }
         }
     }
@@ -427,7 +435,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleKeyDown(event.getKey());
+            getModal()->onKeyDown(event.getKey());
             return true;
         }
 
@@ -436,7 +444,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->handleKeyDown(event.getKey()))
+            if (dialog->onKeyDown(event.getKey()))
             {
                 return true;
             }
@@ -450,7 +458,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleKeyUp(event.getKey());
+            getModal()->onKeyUp(event.getKey());
             return true;
         }
 
@@ -459,7 +467,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->handleKeyUp(event.getKey()))
+            if (dialog->onKeyUp(event.getKey()))
             {
                 return true;
             }
@@ -473,7 +481,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleASCII(event.getChar());
+            getModal()->onASCII(event.getChar());
             return true;
         }
 
@@ -482,7 +490,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->handleASCII(event.getChar()))
+            if (dialog->onASCII(event.getChar()))
             {
                 return true;
             }
@@ -496,7 +504,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleMouseKeyDown(event.getKey());
+            getModal()->onMouseKeyDown(event.getKey());
             return true;
         }
 
@@ -506,7 +514,7 @@ namespace igor
         // let the dialogs handle the event
         for (auto dialog : dialogs)
         {
-            if (dialog->handleMouseKeyDown(event.getKey()))
+            if (dialog->onMouseKeyDown(event.getKey()))
             {
                 return true;
             }
@@ -520,7 +528,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleMouseKeyUp(event.getKey());
+            getModal()->onMouseKeyUp(event.getKey());
             endDrag();
             return true;
         }
@@ -539,7 +547,7 @@ namespace igor
                 continue;
             }
 
-            if (dialog->handleMouseKeyUp(event.getKey()))
+            if (dialog->onMouseKeyUp(event.getKey()))
             {
                 consumed = true;
             }
@@ -554,7 +562,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleMouseDoubleClick(event.getKey());
+            getModal()->onMouseDoubleClick(event.getKey());
             return true;
         }
 
@@ -564,7 +572,7 @@ namespace igor
         // let the dialogs handle the event
         for (auto dialog : dialogs)
         {
-            if (dialog->handleMouseDoubleClick(event.getKey()))
+            if (dialog->onMouseDoubleClick(event.getKey()))
             {
                 return true;
             }
@@ -577,7 +585,7 @@ namespace igor
     {
         const iaVector2i &pos = event.getPosition();
 
-        if (handleMouseMove(iaVector2f(pos._x, pos._y)))
+        if (onMouseMove(iaVector2f(pos._x, pos._y)))
         {
             return true;
         }
@@ -590,7 +598,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleMouseWheel(event.getWheelDelta());
+            getModal()->onMouseWheel(event.getWheelDelta());
             return true;
         }
 
@@ -599,7 +607,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->handleMouseWheel(event.getWheelDelta()))
+            if (dialog->onMouseWheel(event.getWheelDelta()))
             {
                 return true;
             }

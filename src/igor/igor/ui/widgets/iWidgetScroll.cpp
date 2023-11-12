@@ -36,7 +36,7 @@ namespace igor
         _rightTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_right");
     }
 
-    bool iWidgetScroll::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetScroll::onMouseKeyUp(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -88,10 +88,10 @@ namespace igor
             }
         }
 
-        return iWidget::handleMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(key);
     }
 
-    bool iWidgetScroll::handleMouseDoubleClick(iKeyCode key)
+    bool iWidgetScroll::onMouseDoubleClick(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -106,10 +106,10 @@ namespace igor
             }
         }
 
-        return iWidget::handleMouseDoubleClick(key);
+        return iWidget::onMouseDoubleClick(key);
     }
 
-    bool iWidgetScroll::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetScroll::onMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -138,7 +138,7 @@ namespace igor
             }
         }
 
-        return iWidget::handleMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(key);
     }
 
     bool iWidgetScroll::handleButtonClicks()
@@ -201,7 +201,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetScroll::handleMouseMove(const iaVector2f &pos)
+    void iWidgetScroll::onMouseMove(const iaVector2f &pos)
     {
         if (!isEnabled() || _children.empty())
         {
@@ -214,7 +214,7 @@ namespace igor
             return;
         }
 
-        child->handleMouseMove(pos);
+        child->onMouseMove(pos);
 
         if (_hscrollButton._mouseDown)
         {
@@ -351,7 +351,7 @@ namespace igor
         _vscroll = std::max(0.0f, std::min(1.0f, value));
     }
 
-    bool iWidgetScroll::handleMouseWheel(int32 d)
+    bool iWidgetScroll::onMouseWheel(int32 d)
     {
         if (!isEnabled() || _children.empty())
         {
@@ -364,7 +364,7 @@ namespace igor
             return false;
         }
 
-        if (child->handleMouseWheel(d))
+        if (child->onMouseWheel(d))
         {
             return true;
         }

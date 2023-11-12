@@ -29,7 +29,7 @@ namespace igor
         _mimeData = mimeData;
     }
 
-    const iMimeData &iDrag::getMimeData()
+    const iMimeData &iDrag::getMimeData() const
     {
         return _mimeData;
     }

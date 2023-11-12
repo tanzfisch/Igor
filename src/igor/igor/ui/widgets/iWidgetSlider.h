@@ -190,27 +190,27 @@ namespace igor
 		\param d mouse wheel delta
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-        bool handleMouseWheel(int32 d);
+        bool onMouseWheel(int32 d);
 
         /*! handles incoming mouse key down events
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-        bool handleMouseKeyDown(iKeyCode key);
+        bool onMouseKeyDown(iKeyCode key);
 
         /*! handles mouse key up events
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-        bool handleMouseKeyUp(iKeyCode key) override;
+        bool onMouseKeyUp(iKeyCode key) override;
 
         /*! handles incoming mouse move events
 
 		\param pos mouse position
 		*/
-        void handleMouseMove(const iaVector2f &pos);
+        void onMouseMove(const iaVector2f &pos);
 
         /*! translates the horizontal mouse position in the a value
 		*/

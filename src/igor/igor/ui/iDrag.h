@@ -36,49 +36,47 @@ namespace igor
 {
 
     /*! drag data for drag & drop
-    */
+     */
     class IGOR_API iDrag
     {
-        public:
+    public:
+        /*! store source id
 
-            /*! store source id
+        \param source source widget
+        */
+        iDrag(iWidgetPtr source = nullptr);
 
-            \param source source widget
-            */
-            iDrag(iWidgetPtr source = nullptr);
+        /*! sets mime data
 
-            /*! sets mime data
+        \param mimeData the mime data to set
+        */
+        void setMimeData(const iMimeData &mimeData);
 
-            \param mimeData the mime data to set
-            */
-            void setMimeData(const iMimeData &mimeData);
+        /*! \returns the mime data
+         */
+        const iMimeData &getMimeData() const;
 
-            /*! \returns the mime data
-            */
-            const iMimeData& getMimeData();
+        /*! \returns id of source widget (only if the source was an igor widget)
+         */
+        iWidgetID getSource() const;
 
-            /*! \returns id of source widget (only if the source was an igor widget)
-            */
-            iWidgetID getSource() const;
+        /*! execute the drag
+         */
+        void execute();
 
-            /*! execute the drag
-            */
-            void execute();
+    private:
+        /*! the mime data
+         */
+        iMimeData _mimeData;
 
-        private:
-
-            /*! the mime data
-            */
-            iMimeData _mimeData;
-
-            /*! source widget id
-            */
-            iWidgetID _source = iWidget::INVALID_WIDGET_ID;
+        /*! source widget id
+         */
+        iWidgetID _source = iWidget::INVALID_WIDGET_ID;
     };
 
     /*! drag pointer definition
-    */
-    typedef iDrag* iDragPtr;
+     */
+    typedef iDrag *iDragPtr;
 }
 
 #endif // __IGOR_DRAG__

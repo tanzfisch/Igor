@@ -64,9 +64,9 @@ namespace igor
         _bottomSectionButton.set(rect._x + rect._width * 0.5 - s_sectionSelectorSize * 0.5, rect.getBottom() - s_sectionSelectorSize * 2.0, s_sectionSelectorSize, s_sectionSelectorSize);
     }
 
-    void iWidgetDockingLayout::handleMouseMove(const iaVector2f &pos)
+    void iWidgetDockingLayout::onMouseMove(const iaVector2f &pos)
     {
-        iWidget::handleMouseMove(pos);
+        iWidget::onMouseMove(pos);
 
         if (!_isMouseOver)
         {
@@ -81,7 +81,7 @@ namespace igor
         if (iIntersection::intersects(pos, _leftSectionButton))
         {
             _dockLeftEdge = true;
-            _highlightSectionVisible = true;
+            _validDockSection = true;
 
             iaRectanglef leftSection = getActualRect();
             leftSection.setWidth(leftSection._width * s_edgeSubdivideRatio);
@@ -91,7 +91,7 @@ namespace igor
         else if (iIntersection::intersects(pos, _rightSectionButton))
         {
             _dockRightEdge = true;
-            _highlightSectionVisible = true;
+            _validDockSection = true;
 
             iaRectanglef rightSection = getActualRect();
             rightSection.setX(rightSection.getRight() - rightSection._width * s_edgeSubdivideRatio);
@@ -102,7 +102,7 @@ namespace igor
         else if (iIntersection::intersects(pos, _topSectionButton))
         {
             _dockTopEdge = true;
-            _highlightSectionVisible = true;
+            _validDockSection = true;
 
             iaRectanglef topSection = getActualRect();
             topSection.setHeight(topSection._height * s_edgeSubdivideRatio);
@@ -112,7 +112,7 @@ namespace igor
         else if (iIntersection::intersects(pos, _bottomSectionButton))
         {
             _dockBottomEdge = true;
-            _highlightSectionVisible = true;
+            _validDockSection = true;
 
             iaRectanglef bottomSection = getActualRect();
             bottomSection.setY(bottomSection.getBottom() - bottomSection._height * s_edgeSubdivideRatio);
@@ -121,7 +121,7 @@ namespace igor
             return;
         }
 
-        _highlightSectionVisible = false;
+        _validDockSection = false;
     }
 
     bool iWidgetDockingLayout::dock(iWidgetID dialogID)
@@ -150,7 +150,7 @@ namespace igor
             iRenderer::getInstance().drawTexturedRectangle(_bottomSectionButton, _sectionBottomTexture, _dockBottomEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
         }
 
-        if (_highlightSectionVisible)
+        if (_validDockSection)
         {
             iRenderer::getInstance().drawFilledRectangle(_highlightSection, s_areaColor);
             iRenderer::getInstance().drawRectangle(_highlightSection, s_areaBorderColor);

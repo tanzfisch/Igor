@@ -549,7 +549,7 @@ namespace igor
         return _mouseOverColumn;
     }
 
-    bool iWidgetGridLayout::handleMouseDoubleClick(iKeyCode key)
+    bool iWidgetGridLayout::onMouseDoubleClick(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -564,7 +564,7 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->handleMouseDoubleClick(key))
+            if (widget->onMouseDoubleClick(key))
             {
                 result = true;
             }
@@ -599,7 +599,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetGridLayout::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetGridLayout::onMouseKeyDown(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -608,7 +608,7 @@ namespace igor
             return false;
         }
 
-        bool result = iWidget::handleMouseKeyDown(key);
+        bool result = iWidget::onMouseKeyDown(key);
 
         if (_selectMode == iSelectionMode::NoSelection)
         {
@@ -628,7 +628,7 @@ namespace igor
         return _emptyCellsSelectable;
     }
 
-    bool iWidgetGridLayout::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetGridLayout::onMouseKeyUp(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -642,7 +642,7 @@ namespace igor
 
                 for (auto widget : widgets)
                 {
-                    if (widget->handleMouseKeyUp(key))
+                    if (widget->onMouseKeyUp(key))
                     {
                         result = true;
                     }
@@ -693,7 +693,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetGridLayout::handleMouseMove(const iaVector2f &pos)
+    void iWidgetGridLayout::onMouseMove(const iaVector2f &pos)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -714,7 +714,7 @@ namespace igor
 
                     if (widget != nullptr)
                     {
-                        widget->handleMouseMove(pos);
+                        widget->onMouseMove(pos);
                     }
                 }
 
@@ -764,7 +764,7 @@ namespace igor
         }
     }
 
-    bool iWidgetGridLayout::handleMouseWheel(int32 d)
+    bool iWidgetGridLayout::onMouseWheel(int32 d)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -786,7 +786,7 @@ namespace igor
                         iWidgetPtr widget = iWidgetManager::getInstance().getWidget((*iterColumn)._widgetID);
 
                         if (widget != nullptr &&
-                            widget->handleMouseWheel(d))
+                            widget->onMouseWheel(d))
                         {
                             return true;
                         }

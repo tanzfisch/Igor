@@ -202,15 +202,17 @@ namespace igor
             return;
         }
 
-        iaRectanglef clientRect = getActualRect();
+        iaRectanglef rect = getActualRect();
+
+        iaRectanglef clientRect = rect;
         clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
 
-        iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _title + " " + iaString::toString(getZValue()), isResizeable(), getState(), isEnabled());
+        iWidgetManager::getInstance().getTheme()->drawDialog(rect, clientRect, _headerEnabled, _title + " " + iaString::toString(getZValue()), isResizeable(), getState(), isEnabled());
 
         // store current render states
         const iaRectanglei viewport = iRenderer::getInstance().getViewport();
         const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
-        const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
+        // const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
 
         iRenderer::getInstance().setViewport(clientRect._x, iWidgetManager::getInstance().getDesktopHeight() - clientRect._y - clientRect._height, clientRect._width, clientRect._height);
         iRenderer::getInstance().setOrtho(clientRect._x, clientRect._x + clientRect._width, clientRect._y + clientRect._height, clientRect._y, 0.1f, 10.0f);
@@ -221,7 +223,7 @@ namespace igor
         }
 
         // restore everything
-        iRenderer::getInstance().setModelMatrix(modelMatrix);
+        // iRenderer::getInstance().setModelMatrix(modelMatrix);
         iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
         iRenderer::getInstance().setViewport(viewport);
     }
@@ -255,9 +257,9 @@ namespace igor
         iWidgetManager::getInstance().putDialogInFront(this);
     }
 
-    bool iDialog::handleASCII(uint8 c)
+    bool iDialog::onASCII(uint8 c)
     {
-        if (iWidget::handleASCII(c))
+        if (iWidget::onASCII(c))
         {
             return true;
         }
@@ -265,7 +267,7 @@ namespace igor
         return true;
     }
 
-    bool iDialog::handleMouseKeyDown(iKeyCode key)
+    bool iDialog::onMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -299,7 +301,7 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->handleMouseKeyDown(key))
+            if (widget->onMouseKeyDown(key))
             {
                 childResult = true;
             }
@@ -318,12 +320,14 @@ namespace igor
         return hasParent();
     }
 
-    bool iDialog::handleMouseKeyUp(iKeyCode key)
+    bool iDialog::onMouseKeyUp(iKeyCode key)
     {
+        bool wasMoving = _moving;
         _moving = false;
 
         if (!isEnabled())
         {
+
             return false;
         }
 
@@ -341,42 +345,45 @@ namespace igor
         std::vector<iWidgetPtr> children = getChildren();
         bool result = false;
 
-        for (auto child : children)
+        if (!wasMoving)
         {
-            if (child->handleMouseKeyUp(key))
+            for (auto child : children)
             {
-                result = true;
-            }
-        }
-
-        if (!_ignoreChildEventHandling && result)
-        {
-            return true;
-        }
-
-        if (key == iKeyCode::MouseLeft ||
-            key == iKeyCode::MouseRight)
-        {
-            if (_widgetState == iWidgetState::Pressed)
-            {
-                _widgetState = iWidgetState::Clicked;
-                setKeyboardFocus();
-
-                _click(this);
-
-                if (key == iKeyCode::MouseRight)
+                if (child->onMouseKeyUp(key))
                 {
-                    _contextMenu(this);
+                    result = true;
                 }
+            }
 
+            if (!_ignoreChildEventHandling && result)
+            {
                 return true;
             }
-        }
 
-        if (_acceptOutOfBoundsClicks)
-        {
-            _mouseOffClick(this);
-            return true;
+            if (key == iKeyCode::MouseLeft ||
+                key == iKeyCode::MouseRight)
+            {
+                if (_widgetState == iWidgetState::Pressed)
+                {
+                    _widgetState = iWidgetState::Clicked;
+                    setKeyboardFocus();
+
+                    _click(this);
+
+                    if (key == iKeyCode::MouseRight)
+                    {
+                        _contextMenu(this);
+                    }
+
+                    return true;
+                }
+            }
+
+            if (_acceptOutOfBoundsClicks)
+            {
+                _mouseOffClick(this);
+                return true;
+            }
         }
 
         return false;
@@ -462,7 +469,7 @@ namespace igor
         return iDialogMotionState::Static;
     }
 
-    void iDialog::handleMouseMove(const iaVector2f &pos)
+    void iDialog::onMouseMove(const iaVector2f &pos)
     {
         if (!isEnabled())
         {
@@ -473,7 +480,7 @@ namespace igor
         std::vector<iWidgetPtr> widgets = getChildren();
         for (auto widget : widgets)
         {
-            widget->handleMouseMove(pos);
+            widget->onMouseMove(pos);
         }
 
         const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
@@ -527,15 +534,24 @@ namespace igor
             iMouse::getInstance().setCursorType(cursorType);
 
             if (_motionState == iDialogMotionState::Moving &&
-                _lastMousePos.distance(pos) > 3.0)
+                _lastMousePos.distance(pos) > 3.0 &&
+                !_moving)
             {
                 _moving = true;
 
-                iDrag drag(this);
-                iMimeData mimeData;
-                mimeData.setWidgetID(getID());
-                drag.setMimeData(mimeData);
-                drag.execute();
+                if (hasParent())
+                {
+                    _parent->removeWidget(this);
+                }
+
+                if (isDockable())
+                {
+                    iDrag drag(this);
+                    iMimeData mimeData;
+                    mimeData.setWidgetID(getID());
+                    drag.setMimeData(mimeData);
+                    drag.execute();
+                }
             }
         }
         else
@@ -551,16 +567,12 @@ namespace igor
             _isMouseOver = false;
         }
 
-        if (isDocked() && _moving)
-        {
-            // TODO undock? remove from parent?
-        }
-
         if (_motionState != iDialogMotionState::Static)
         {
             // convert to absolute positioning to prevent a pop during first move
-            if (getVerticalAlignment() != iVerticalAlignment::Absolute ||
-                getHorizontalAlignment() != iHorizontalAlignment::Absolute)
+            if (_moving &&
+                (getVerticalAlignment() != iVerticalAlignment::Absolute ||
+                 getHorizontalAlignment() != iHorizontalAlignment::Absolute))
             {
                 setPos(getActualPos());
                 setWidth(getActualWidth());

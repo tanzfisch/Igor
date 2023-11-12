@@ -311,7 +311,7 @@ namespace igor
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key);
+        bool onMouseKeyDown(iKeyCode key);
     };
 } // namespace igor
 
