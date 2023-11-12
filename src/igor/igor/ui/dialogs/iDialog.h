@@ -127,6 +127,8 @@ namespace igor
         bool isDockable() const;
 
         /*! \returns true if dialog is docked
+
+        This is currently just an alias for hasParent
          */
         bool isDocked() const;
 

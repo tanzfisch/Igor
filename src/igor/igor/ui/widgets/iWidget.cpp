@@ -203,10 +203,6 @@ namespace igor
 
         _children.push_back(widget);
 
-        std::sort(_children.begin(), _children.end(),
-                  [](iWidgetPtr const a, iWidgetPtr const b)
-                  { return a->getZValue() < b->getZValue(); });
-
         widget->setParent(this);
     }
 
@@ -914,11 +910,6 @@ namespace igor
             break;
 
         default:;
-        }
-
-        if (getID() == 21 && height != 352)
-        {
-            int x = 0;
         }
 
         _actualWidth = width;

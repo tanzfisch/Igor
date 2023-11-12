@@ -61,11 +61,6 @@ namespace igor
 
     void iWidgetBoxLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
     {
-        if (getID() == 2)
-        {
-            int x = 0;
-        }
-
         if (_children.empty())
         {
             return;

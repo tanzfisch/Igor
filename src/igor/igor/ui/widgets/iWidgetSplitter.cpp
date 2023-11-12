@@ -32,6 +32,7 @@ namespace igor
         setVerticalAlignment(iVerticalAlignment::Stretch);
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
         setAcceptDrop(dockingSplitter);
+        setIgnoreChildEventHandling(true);
     }
 
     void iWidgetSplitter::setRatio(float32 ratio)
@@ -95,43 +96,35 @@ namespace igor
             return;
         }
 
-        iaRectanglef clientRect;
-        const float32 parentWidth = getActualWidth();
-        const float32 parentHeight = getActualHeight();        
+        const iaRectanglef rect(0, 0, getActualWidth(), getActualHeight());
 
         if (childCount == 1)
         {
-            clientRect._width = parentWidth;
-            clientRect._height = parentHeight;
-            offsets.push_back(clientRect);
+            offsets.push_back(rect);
             return;
         }
 
         if (_orientation == iSplitterOrientation::Vertical)
         {
-            clientRect._width = parentWidth;
-            clientRect._height = parentHeight;
-            clientRect._width *= _ratio;
-            offsets.push_back(clientRect);
+            iaRectanglef left = rect;
+            left._width *= _ratio;
+            offsets.push_back(left);
 
-            clientRect._width = parentWidth;
-            clientRect._height = parentHeight;
-            clientRect._x += clientRect._width * _ratio;
-            clientRect._width *= (1.0f - _ratio);
-            offsets.push_back(clientRect);
+            iaRectanglef right = rect;
+            right._x += rect._width * _ratio;
+            right._width *= (1.0f - _ratio);
+            offsets.push_back(right);
         }
         else
         {
-            clientRect._width = parentWidth;
-            clientRect._height = parentHeight;
-            clientRect._height *= _ratio;
-            offsets.push_back(clientRect);
+            iaRectanglef top = rect;
+            top._height *= _ratio;
+            offsets.push_back(top);
 
-            clientRect._width = parentWidth;
-            clientRect._height = parentHeight;
-            clientRect._y += clientRect._height * _ratio;
-            clientRect._height *= (1.0f - _ratio);
-            offsets.push_back(clientRect);
+            iaRectanglef bottom = rect;
+            bottom._y += rect._height * _ratio;
+            bottom._height *= (1.0f - _ratio);
+            offsets.push_back(bottom);
         }
     }
 
@@ -190,25 +183,23 @@ namespace igor
             return;
         }
 
-        if (_dockSectionCenter)
+        addWidget(widget);
+
+        if (getChildren().size() == 2 &&
+            (_dockSectionLeft ||
+             _dockSectionTop))
         {
-            addWidget(widget);
+            std::reverse(_children.begin(), _children.end());
         }
-        else if (_dockSectionLeft)
+
+        if(_dockSectionLeft || _dockSectionRight)
         {
-            // TODO
+            setOrientation(iSplitterOrientation::Vertical);
         }
-        else if (_dockSectionRight)
+
+        if(_dockSectionTop || _dockSectionBottom)
         {
-            // TODO
-        }
-        else if (_dockSectionTop)
-        {
-            // TODO
-        }
-        else if (_dockSectionBottom)
-        {
-            // TODO
+            setOrientation(iSplitterOrientation::Horizontal);
         }
     }
 

@@ -327,7 +327,6 @@ namespace igor
 
         if (!isEnabled())
         {
-
             return false;
         }
 
@@ -539,9 +538,19 @@ namespace igor
             {
                 _moving = true;
 
-                if (hasParent())
+                // detach from parent if it was docked
+                if (isDocked())
                 {
                     _parent->removeWidget(this);
+                }
+
+                // convert to absolute positioning to prevent a pop during first move
+                if (getVerticalAlignment() != iVerticalAlignment::Absolute ||
+                    getHorizontalAlignment() != iHorizontalAlignment::Absolute)
+                {
+                    setPos(getActualPos());
+                    setWidth(getActualWidth());
+                    setHeight(getActualHeight());
                 }
 
                 if (isDockable())
@@ -569,16 +578,6 @@ namespace igor
 
         if (_motionState != iDialogMotionState::Static)
         {
-            // convert to absolute positioning to prevent a pop during first move
-            if (_moving &&
-                (getVerticalAlignment() != iVerticalAlignment::Absolute ||
-                 getHorizontalAlignment() != iHorizontalAlignment::Absolute))
-            {
-                setPos(getActualPos());
-                setWidth(getActualWidth());
-                setHeight(getActualHeight());
-            }
-
             const iaVector2f diff = pos - _posLast;
             if (_motionState == iDialogMotionState::Moving &&
                 _moving)
