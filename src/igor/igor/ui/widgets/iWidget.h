@@ -494,11 +494,11 @@ namespace igor
 
         /*! \returns horizontal alignment relative to parent widget
          */
-        iHorizontalAlignment getHorizontalAlignment();
+        iHorizontalAlignment getHorizontalAlignment() const;
 
         /*! \returns vertical alignment relative to parent widget
          */
-        iVerticalAlignment getVerticalAlignment();
+        iVerticalAlignment getVerticalAlignment() const;
 
         /*! set horizontal alignment relative to parent widget
 

@@ -21,6 +21,7 @@ namespace igor
     static const iaColor4f s_areaBorderColor(0.6, 0.6, 0.8, 0.8);
     static const iaColor4f s_areaButtonColor(0.7, 0.7, 0.7, 0.7);
     static const iaColor4f s_areaButtonColorHighlight(1.0, 1.0, 1.0, 1.0);
+    static const iaColor4f s_splitterColor(0.3, 0.3, 1.0, 1.0);
     static const int32 s_sectionSelectorSize = 32;
     static const int32 s_sectionSelectorSpacing = 4;
     static const float32 s_splitterWidth = 6;
@@ -146,21 +147,79 @@ namespace igor
         // TODO _dockingSplitter ???
     }
 
+    iSplitterState iWidgetSplitter::calcSplitterState(const iaVector2f &pos)
+    {
+        if (!iWidgetManager::getInstance().inDrag() &&
+            getChildren().size() == 2)
+        {
+            iaRectanglef splitterRect = getActualRect();
+            if (_orientation == iSplitterOrientation::Vertical)
+            {
+                splitterRect._x += (splitterRect._width * _ratio) - s_splitterWidth * 0.5f;
+                splitterRect._width = s_splitterWidth;
+
+                if (iIntersection::intersects(pos, splitterRect))
+                {
+                    return iSplitterState::Vertical;
+                }
+            }
+            else
+            {
+                splitterRect._y += (splitterRect._height * _ratio) - s_splitterWidth * 0.5f;
+                splitterRect._height = s_splitterWidth;
+
+                if (iIntersection::intersects(pos, splitterRect))
+                {
+                    return iSplitterState::Horizontal;
+                }
+            }
+        }
+
+        return iSplitterState::Inactive;
+    }
+
+    bool iWidgetSplitter::onMouseKeyUp(iKeyCode key)
+    {
+        _splitterMoving = false;
+        return iWidget::onMouseKeyUp(key);
+    }
+
     bool iWidgetSplitter::onMouseKeyDown(iKeyCode key)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !_isMouseOver)
         {
             return false;
         }
 
-        if (!_isMouseOver)
+        if (key == iKeyCode::MouseLeft ||
+            key == iKeyCode::MouseRight)
         {
-            return false;
+            _widgetState = iWidgetState::Pressed;
+            _splitterState = calcSplitterState(_posLast);
+            _lastMousePos.set(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+
+            return true;
         }
 
-        // TODO?
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
+        bool result = false;
 
-        return iWidget::onMouseKeyDown(key);
+        for (auto widget : widgets)
+        {
+            if (widget->onMouseKeyDown(key))
+            {
+                result = true;
+            }
+        }
+
+        if (!_ignoreChildEventHandling && result)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     void iWidgetSplitter::onDrop(const iDrag &drag)
@@ -192,12 +251,12 @@ namespace igor
             std::reverse(_children.begin(), _children.end());
         }
 
-        if(_dockSectionLeft || _dockSectionRight)
+        if (_dockSectionLeft || _dockSectionRight)
         {
             setOrientation(iSplitterOrientation::Vertical);
         }
 
-        if(_dockSectionTop || _dockSectionBottom)
+        if (_dockSectionTop || _dockSectionBottom)
         {
             setOrientation(iSplitterOrientation::Horizontal);
         }
@@ -210,10 +269,46 @@ namespace igor
             return;
         }
 
+        iaVector2f lastPos = _posLast;
         iWidget::onMouseMove(pos);
 
-        if (!_isMouseOver ||
-            !_dockingSplitter)
+        if (!_isMouseOver)
+        {
+            return;
+        }
+
+        if (_splitterState != iSplitterState::Inactive &&
+            _lastMousePos.distance(pos) > 3.0 &&
+            !_splitterMoving)
+        {
+            _splitterMoving = true;
+        }
+
+        if (_splitterMoving)
+        {
+            iaVector2f diff = pos - lastPos;
+
+            float32 minRatio;
+            float32 maxRatio;
+            float32 newRatio = _ratio;
+            const auto &children = getChildren();
+
+            if (getOrientation() == iSplitterOrientation::Vertical)
+            {
+                newRatio += diff._x / (float32)getActualWidth();
+                minRatio = (float32)children[0]->getMinWidth() / (float32)getActualWidth();
+                maxRatio = 1.0f - ((float32)children[1]->getMinWidth() / (float32)getActualWidth());
+            }
+            else
+            {
+                newRatio += diff._y / (float32)getActualHeight();
+                minRatio = (float32)children[0]->getMinHeight() / (float32)getActualHeight();
+                maxRatio = 1.0f - ((float32)children[1]->getMinHeight() / (float32)getActualHeight());
+            }
+            _ratio = std::clamp(newRatio, minRatio, maxRatio);
+        }
+
+        if (!_dockingSplitter)
         {
             return;
         }
@@ -223,6 +318,12 @@ namespace igor
         _dockSectionRight = false;
         _dockSectionTop = false;
         _dockSectionBottom = false;
+        _validDockSection = false;
+
+        if (!iWidgetManager::getInstance().inDrag())
+        {
+            return;
+        }
 
         // TODO would be nice to be able to stack dialogs
         int32 childCount = getChildren().size();
@@ -282,8 +383,6 @@ namespace igor
                 return;
             }
         }
-
-        _validDockSection = false;
     }
 
     void iWidgetSplitter::drawOverlay()
@@ -329,7 +428,16 @@ namespace igor
     {
         iWidget::draw();
 
-        // TODO
+        if (_splitterMoving)
+        {
+            const auto &rect = getActualRect();
+            if (getOrientation() == iSplitterOrientation::Vertical)
+            {
+                iRenderer::getInstance().setLineWidth(3);
+                iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, s_splitterColor);
+                iRenderer::getInstance().setLineWidth(1);
+            }
+        }
     }
 
     void iWidgetSplitter::onUpdate()

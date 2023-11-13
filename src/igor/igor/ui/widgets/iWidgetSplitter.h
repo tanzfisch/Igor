@@ -44,6 +44,13 @@ namespace igor
         Horizontal
     };
 
+    enum class iSplitterState
+    {
+        Vertical,
+        Horizontal,
+        Inactive
+    };    
+
     /*! splitter widget
     */
     class IGOR_API iWidgetSplitter : public iWidget
@@ -180,6 +187,16 @@ namespace igor
         */
         iTexturePtr _selectorBottomTexture;
 
+        /*! current splitter state
+        */
+        iSplitterState _splitterState = iSplitterState::Inactive;
+
+        /*! saving mouse pos when last time pressed a button
+         */
+        iaVector2f _lastMousePos;        
+
+        bool _splitterMoving = false;
+
         /*! updates size based on it's content
         */
         void calcMinSize() override;
@@ -196,6 +213,13 @@ namespace igor
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool onMouseKeyDown(iKeyCode key) override;
+
+        /*! handles mouse key up events
+
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyUp(iKeyCode key) override;        
 
         /*! handles incoming mouse move events
 
@@ -220,6 +244,12 @@ namespace igor
         /*! loads some resources
         */
         void loadResources();
+
+        /*! \returns splitter state based on mouse pos
+
+        \param pos the mouse pos
+        */
+        iSplitterState calcSplitterState(const iaVector2f &pos);
 
     };
 

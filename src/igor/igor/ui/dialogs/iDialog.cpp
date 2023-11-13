@@ -207,7 +207,7 @@ namespace igor
         iaRectanglef clientRect = rect;
         clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
 
-        iWidgetManager::getInstance().getTheme()->drawDialog(rect, clientRect, _headerEnabled, _title + " " + iaString::toString(getZValue()), isResizeable(), getState(), isEnabled());
+        iWidgetManager::getInstance().getTheme()->drawDialog(rect, clientRect, _headerEnabled, _title, isResizeable(), getState(), isEnabled());
 
         // store current render states
         const iaRectanglei viewport = iRenderer::getInstance().getViewport();
@@ -468,11 +468,56 @@ namespace igor
         return iDialogMotionState::Static;
     }
 
+    static void updateCursor(iDialogMotionState motionState)
+    {
+        iMouseCursorType cursorType;
+
+        switch (motionState)
+        {
+        case iDialogMotionState::Moving:
+        case iDialogMotionState::Static:
+            cursorType = iMouseCursorType::Arrow;
+            break;
+        case iDialogMotionState::ResizeLeft:
+            cursorType = iMouseCursorType::ArrowLeftEdge;
+            break;
+        case iDialogMotionState::ResizeRight:
+            cursorType = iMouseCursorType::ArrowRightEdge;
+            break;
+        case iDialogMotionState::ResizeTop:
+            cursorType = iMouseCursorType::ArrowTopEdge;
+            break;
+        case iDialogMotionState::ResizeBottom:
+            cursorType = iMouseCursorType::ArrowBottomEdge;
+            break;
+        case iDialogMotionState::ResizeLeftTop:
+            cursorType = iMouseCursorType::ArrowTopLeftCorner;
+            break;
+        case iDialogMotionState::ResizeRightTop:
+            cursorType = iMouseCursorType::ArrowTopRightCorner;
+            break;
+        case iDialogMotionState::ResizeLeftBottom:
+            cursorType = iMouseCursorType::ArrowBottomLeftCorner;
+            break;
+        case iDialogMotionState::ResizeRightBottom:
+            cursorType = iMouseCursorType::ArrowBottomRightCorner;
+            break;
+        }
+
+        iMouse::getInstance().setCursorType(cursorType);
+    }
+
     void iDialog::onMouseMove(const iaVector2f &pos)
     {
         if (!isEnabled())
         {
             return;
+        }
+
+        if (!isDocked())
+        {
+            iDialogMotionState motionState = calcMotionState(pos);
+            updateCursor(motionState);
         }
 
         // get copy of children
@@ -494,43 +539,6 @@ namespace igor
             }
 
             _isMouseOver = true;
-
-            iDialogMotionState motionState = calcMotionState(pos);
-            iMouseCursorType cursorType;
-
-            switch (motionState)
-            {
-            case iDialogMotionState::Moving:
-            case iDialogMotionState::Static:
-                cursorType = iMouseCursorType::Arrow;
-                break;
-            case iDialogMotionState::ResizeLeft:
-                cursorType = iMouseCursorType::ArrowLeftEdge;
-                break;
-            case iDialogMotionState::ResizeRight:
-                cursorType = iMouseCursorType::ArrowRightEdge;
-                break;
-            case iDialogMotionState::ResizeTop:
-                cursorType = iMouseCursorType::ArrowTopEdge;
-                break;
-            case iDialogMotionState::ResizeBottom:
-                cursorType = iMouseCursorType::ArrowBottomEdge;
-                break;
-            case iDialogMotionState::ResizeLeftTop:
-                cursorType = iMouseCursorType::ArrowTopLeftCorner;
-                break;
-            case iDialogMotionState::ResizeRightTop:
-                cursorType = iMouseCursorType::ArrowTopRightCorner;
-                break;
-            case iDialogMotionState::ResizeLeftBottom:
-                cursorType = iMouseCursorType::ArrowBottomLeftCorner;
-                break;
-            case iDialogMotionState::ResizeRightBottom:
-                cursorType = iMouseCursorType::ArrowBottomRightCorner;
-                break;
-            }
-
-            iMouse::getInstance().setCursorType(cursorType);
 
             if (_motionState == iDialogMotionState::Moving &&
                 _lastMousePos.distance(pos) > 3.0 &&

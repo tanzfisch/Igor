@@ -146,6 +146,16 @@ namespace igor
          */
         void onUpdate();
 
+        /*! \returns true if in drag
+        */
+        bool inDrag() const;
+
+        /*! \returns current drag if exists
+
+        test with inDrag if it exists first
+        */
+        const iDrag& getDrag() const;        
+
     private:
         /*! modal marker
          */
@@ -331,16 +341,6 @@ namespace igor
         /*! resets the drag object
         */
         void endDrag();
-
-        /*! \returns true if in drag
-        */
-        bool inDrag() const;
-
-        /*! \returns current drag if exists
-
-        test with inDrag if it exists first
-        */
-        const iDrag& getDrag() const;
 
         /*! init
          */

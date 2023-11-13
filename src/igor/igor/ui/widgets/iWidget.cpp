@@ -512,37 +512,35 @@ namespace igor
 
     bool iWidget::onMouseKeyDown(iKeyCode key)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !_isMouseOver)
         {
             return false;
         }
 
-        if (_isMouseOver)
+        // get copy of children
+        std::vector<iWidgetPtr> widgets = getChildren();
+        bool result = false;
+
+        for (auto widget : widgets)
         {
-            // get copy of children
-            std::vector<iWidgetPtr> widgets = getChildren();
-            bool result = false;
-
-            for (auto widget : widgets)
+            if (widget->onMouseKeyDown(key))
             {
-                if (widget->onMouseKeyDown(key))
-                {
-                    result = true;
-                }
+                result = true;
             }
+        }
 
-            if (!_ignoreChildEventHandling && result)
+        if (!_ignoreChildEventHandling && result)
+        {
+            return true;
+        }
+        else
+        {
+            if (key == iKeyCode::MouseLeft ||
+                key == iKeyCode::MouseRight)
             {
+                _widgetState = iWidgetState::Pressed;
                 return true;
-            }
-            else
-            {
-                if (key == iKeyCode::MouseLeft ||
-                    key == iKeyCode::MouseRight)
-                {
-                    _widgetState = iWidgetState::Pressed;
-                    return true;
-                }
             }
         }
 
@@ -780,7 +778,7 @@ namespace igor
         return _posLast;
     }
 
-    iHorizontalAlignment iWidget::getHorizontalAlignment()
+    iHorizontalAlignment iWidget::getHorizontalAlignment() const
     {
         return _horizontalAlignment;
     }
@@ -790,7 +788,7 @@ namespace igor
         _horizontalAlignment = horizontalAlignment;
     }
 
-    iVerticalAlignment iWidget::getVerticalAlignment()
+    iVerticalAlignment iWidget::getVerticalAlignment() const
     {
         return _verticalAlignment;
     }
@@ -1020,27 +1018,22 @@ namespace igor
 
     void iWidget::onDragEnter(const iDrag &drag)
     {
-        // TODO signal?
-        con_endl("enter " << getID());
+        // nothing to do
     }
 
     void iWidget::onDragMove(const iDrag &drag, const iaVector2f &mousePos)
     {
-        // TODO signal?
-
-        const iMimeData &mimeData = drag.getMimeData();
-        con_endl("move " << getID() << " " << mimeData.getWidgetID());
+        // nothing to do
     }
 
     void iWidget::onDragLeave(const iDrag &drag)
     {
-        // TODO signal?
-        con_endl("leave " << getID());
+        // nothing to do
     }
 
     void iWidget::onDrop(const iDrag &drag)
     {
-        // TODO signal?
+        // nothing to do
     }
 
 } // namespace igor
