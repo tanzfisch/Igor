@@ -32,7 +32,7 @@ namespace igor
 
     void iDialogMenu::init()
     {
-        setSize(0, 0);
+        setMinSize(0, 0);
         setAcceptOutOfBoundsClicks();
         registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
@@ -88,7 +88,7 @@ namespace igor
 
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        button->setHeight(25);
+        button->setMinHeight(25);
         button->setAction(action, context);
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
         
@@ -102,7 +102,7 @@ namespace igor
     {
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        button->setHeight(25);
+        button->setMinHeight(25);
         button->setText(title);
         button->setTooltip(description);
         button->setIcon(iconAlias);

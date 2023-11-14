@@ -56,7 +56,7 @@ namespace igor
             minWidth = maxTextWidth;
         }
 
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     bool iWidgetSelectBox::onMouseKeyDown(iKeyCode key)
@@ -117,7 +117,7 @@ namespace igor
                     _selectBox = new iDialogIndexMenu();
                 }
 
-                _selectBox->setWidth(getActualWidth());
+                _selectBox->setMinWidth(getActualWidth());
                 _selectBox->setX(getActualPosX() + 2);
                 _selectBox->setY(getActualPosY() + getActualHeight() + 2);
 

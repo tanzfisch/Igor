@@ -17,8 +17,8 @@ namespace igor
 	iWidgetLabel::iWidgetLabel(const iWidgetPtr parent)
 		: iWidget(iWidgetType::iWidgetLabel, iWidgetKind::Widget, parent)
 	{
-		_configuredHeight = 0;
-		_configuredWidth = 0;
+		_configuredMinHeight = 0;
+		_configuredMinWidth = 0;
 		_reactOnMouseWheel = false;
 
 		setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -48,7 +48,7 @@ namespace igor
 			}
 		}
 
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 	}
 
 	void iWidgetLabel::draw()

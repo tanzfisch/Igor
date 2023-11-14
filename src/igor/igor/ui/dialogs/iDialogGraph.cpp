@@ -69,8 +69,8 @@ namespace igor
         iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
-        setWidth(450);
-        setHeight(20);
+        setMinWidth(450);
+        setMinHeight(20);
 
         iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->appendRows(3);
@@ -86,7 +86,7 @@ namespace igor
 
         _graph = new iWidgetGraph();
         _graph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        _graph->setHeight(120);
+        _graph->setMinHeight(120);
         _graph->setInteractive();
         _graph->setExtrapolateData();
         _graph->setViewGrid();
@@ -111,7 +111,7 @@ namespace igor
         iWidgetLabel *labelX = new iWidgetLabel();
         labelX->setHorizontalAlignment(iHorizontalAlignment::Left);
         labelX->setText(_axisNames[0]);
-        labelX->setWidth(100);
+        labelX->setMinWidth(100);
 
         _axisNumberChooser[0] = new iWidgetNumberChooser();
         _axisNumberChooser[0]->setMinMaxNumber(_xMin, _xMax);
@@ -128,7 +128,7 @@ namespace igor
         iWidgetLabel *labelY1 = new iWidgetLabel();
         labelY1->setHorizontalAlignment(iHorizontalAlignment::Left);
         labelY1->setText(_axisNames[1]);
-        labelY1->setWidth(100);
+        labelY1->setMinWidth(100);
 
         _axisNumberChooser[1] = new iWidgetNumberChooser();
         _axisNumberChooser[1]->setMinMaxNumber(_yMin, _yMax);
@@ -147,7 +147,7 @@ namespace igor
             iWidgetLabel *labelY2 = new iWidgetLabel();
             labelY2->setHorizontalAlignment(iHorizontalAlignment::Left);
             labelY2->setText(_axisNames[2]);
-            labelY2->setWidth(100);
+            labelY2->setMinWidth(100);
 
             _axisNumberChooser[2] = new iWidgetNumberChooser();
             _axisNumberChooser[2]->setMinMaxNumber(_yMin, _yMax);
@@ -167,7 +167,7 @@ namespace igor
             iWidgetLabel *labelY3 = new iWidgetLabel();
             labelY3->setHorizontalAlignment(iHorizontalAlignment::Left);
             labelY3->setText(_axisNames[3]);
-            labelY3->setWidth(100);
+            labelY3->setMinWidth(100);
 
             _axisNumberChooser[3] = new iWidgetNumberChooser();
             _axisNumberChooser[3]->setMinMaxNumber(_yMin, _yMax);

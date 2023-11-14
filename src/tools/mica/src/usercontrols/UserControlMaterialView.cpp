@@ -29,16 +29,16 @@ void UserControlMaterialView::initGUI()
     iWidgetButton *addMaterialButton = new iWidgetButton();
     addMaterialButton->setText("");
     addMaterialButton->setTooltip("Create new material.");
-    addMaterialButton->setWidth(30);
-    addMaterialButton->setHeight(30);
+    addMaterialButton->setMinWidth(30);
+    addMaterialButton->setMinHeight(30);
     addMaterialButton->setTexture("igor_icon_add_material");
     addMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onAddMaterial));
 
     iWidgetButton *loadMaterialButton = new iWidgetButton();
     loadMaterialButton->setText("");
     loadMaterialButton->setTooltip("Load material.");
-    loadMaterialButton->setWidth(30);
-    loadMaterialButton->setHeight(30);
+    loadMaterialButton->setMinWidth(30);
+    loadMaterialButton->setMinHeight(30);
     loadMaterialButton->setTexture("igor_icon_load_material");
     loadMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onLoadMaterial));
 

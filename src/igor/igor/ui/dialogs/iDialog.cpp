@@ -22,8 +22,8 @@ namespace igor
     {
         setEnabled(false);
         setVisible(false);
-        setWidth(100);
-        setHeight(100);
+        setMinWidth(100);
+        setMinHeight(100);
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
         setVerticalAlignment(iVerticalAlignment::Absolute);
 
@@ -128,10 +128,7 @@ namespace igor
             setClientArea(0, 0, 0, 0);
         }
 
-        minWidth = std::max(getConfiguredWidth(), minWidth);
-        minHeight = std::max(getConfiguredHeight(), minHeight);
-
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     void iDialog::updateAlignment(int32 clientWidth, int32 clientHeight)
@@ -557,8 +554,6 @@ namespace igor
                     getHorizontalAlignment() != iHorizontalAlignment::Absolute)
                 {
                     setPos(getActualPos());
-                    setWidth(getActualWidth());
-                    setHeight(getActualHeight());
                 }
 
                 if (isDockable())
@@ -597,7 +592,7 @@ namespace igor
                 _motionState == iDialogMotionState::ResizeRightBottom ||
                 _motionState == iDialogMotionState::ResizeRightTop)
             {
-                setWidth(getConfiguredWidth() + diff._x);
+                setMinWidth(getConfiguredMinWidth() + diff._x);
             }
 
             if (_motionState == iDialogMotionState::ResizeLeft ||
@@ -607,14 +602,14 @@ namespace igor
                 iaVector2f dialogPos = getPos();
                 dialogPos._x += diff._x;
                 setPos(dialogPos);
-                setWidth(getConfiguredWidth() - diff._x);
+                setMinWidth(getConfiguredMinWidth() - diff._x);
             }
 
             if (_motionState == iDialogMotionState::ResizeBottom ||
                 _motionState == iDialogMotionState::ResizeRightBottom ||
                 _motionState == iDialogMotionState::ResizeLeftBottom)
             {
-                setHeight(getConfiguredHeight() + diff._y);
+                setMinHeight(getConfiguredMinHeight() + diff._y);
             }
 
             if (_motionState == iDialogMotionState::ResizeTop ||
@@ -624,7 +619,7 @@ namespace igor
                 iaVector2f dialogPos = getPos();
                 dialogPos._y += diff._y;
                 setPos(dialogPos);
-                setHeight(getConfiguredHeight() - diff._y);
+                setMinHeight(getConfiguredMinHeight() - diff._y);
             }
         }
 

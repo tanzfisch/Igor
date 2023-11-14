@@ -132,7 +132,7 @@ namespace igor
 
     void iWidgetSlider::calcMinSize()
     {
-        setMinSize(0, 0);
+        updateMinSize(0, 0);
     }
 
     void iWidgetSlider::onMouseMove(const iaVector2f &pos)

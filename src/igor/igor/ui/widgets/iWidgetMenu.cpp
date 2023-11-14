@@ -70,12 +70,12 @@ namespace igor
 
         if (parent->getWidgetType() == iWidgetType::iWidgetMenuBar)
         {
-            _spacer->setSize(0, 16);
+            _spacer->setMinSize(0, 16);
             _picture->setMaxSize(0, 8);
         }
         else
         {
-            _spacer->setSize(16, 16);
+            _spacer->setMinSize(16, 16);
             _picture->setMaxSize(8, 8);
         }
     }

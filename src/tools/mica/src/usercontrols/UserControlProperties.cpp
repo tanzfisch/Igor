@@ -24,8 +24,8 @@ void UserControlProperties::initGUI()
     _grid->setBorder(5);
     _grid->appendRows(1);
     _grid->setCellSpacing(2);
-    _grid->setWidth(340);
-    _grid->setHeight(0);
+    _grid->setMinWidth(340);
+    _grid->setMinHeight(0);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     scroll->addWidget(_grid);

@@ -22,7 +22,7 @@ namespace igor
 
 	void iWidgetLineTextEdit::calcMinSize()
 	{
-		setMinSize(0, 0);
+		updateMinSize(0, 0);
 	}
 
 	void iWidgetLineTextEdit::setWriteProtected(bool writeProtected)

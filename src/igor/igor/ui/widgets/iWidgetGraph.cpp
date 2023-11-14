@@ -19,8 +19,8 @@ namespace igor
     iWidgetGraph::iWidgetGraph(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetGraph, iWidgetKind::Widget, parent)
     {
-        _configuredWidth = 100;
-        _configuredHeight = 40;
+        _configuredMinWidth = 100;
+        _configuredMinHeight = 40;
         _reactOnMouseWheel = false;
 
         setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -99,7 +99,7 @@ namespace igor
 
     void iWidgetGraph::calcMinSize()
     {
-        setMinSize(0, 0);
+        updateMinSize(0, 0);
     }
 
     void iWidgetGraph::prepareDraw()

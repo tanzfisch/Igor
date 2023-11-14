@@ -17,8 +17,8 @@ namespace igor
 	iWidgetCheckBox::iWidgetCheckBox(const iWidgetPtr parent)
 		: iWidget(iWidgetType::iWidgetCheckBox, iWidgetKind::Widget, parent)
 	{
-		_configuredHeight = 20;
-		_configuredWidth = 60;
+		_configuredMinHeight = 20;
+		_configuredMinWidth = 60;
 		_reactOnMouseWheel = false;
 
 		if (_generatingRadioButtonGroup)
@@ -111,7 +111,7 @@ namespace igor
 			minWidth = textWidth;
 		}
 
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 	}
 
 	const iaString &iWidgetCheckBox::getText() const

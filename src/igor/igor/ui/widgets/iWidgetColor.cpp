@@ -18,8 +18,8 @@ namespace igor
 	iWidgetColor::iWidgetColor(const iWidgetPtr parent)
 		: iWidget(iWidgetType::iWidgetColor, iWidgetKind::Widget, parent)
 	{
-		_configuredWidth = 60;
-		_configuredHeight = 20;
+		_configuredMinWidth = 60;
+		_configuredMinHeight = 20;
 		_reactOnMouseWheel = false;
 
 		setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -46,7 +46,7 @@ namespace igor
 
 	void iWidgetColor::calcMinSize()
 	{
-		setMinSize(0, 0);
+		updateMinSize(0, 0);
 	}
 
 	void iWidgetColor::draw()

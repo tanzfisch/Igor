@@ -34,7 +34,7 @@ namespace igor
         if (!isGrowingByContent() ||
             getChildren().empty())
         {
-            setMinSize(minWidth, minHeight);
+            updateMinSize(minWidth, minHeight);
             return;
         }
 
@@ -52,11 +52,11 @@ namespace igor
             }
         }
 
-        minWidth = std::max(minWidth, getConfiguredWidth());
-        minHeight = std::max(minHeight, getConfiguredHeight());
+        minWidth = std::max(minWidth, getConfiguredMinWidth());
+        minHeight = std::max(minHeight, getConfiguredMinHeight());
 
         setClientArea(0, 0, 0, 0);        
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     void iWidgetBoxLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)

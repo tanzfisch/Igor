@@ -24,7 +24,9 @@ namespace igor
     static const iaColor4f s_splitterColor(0.3, 0.3, 1.0, 1.0);
     static const int32 s_sectionSelectorSize = 32;
     static const int32 s_sectionSelectorSpacing = 4;
-    static const float32 s_splitterWidth = 6;
+    static const float32 s_splitterAccessWidth = 10;
+    static const float32 s_splitterWidth = 3;
+    static const float32 s_splitterMoveWidth = 6;
     static const float32 s_halfSubdivideRatio = 0.5;
 
     iWidgetSplitter::iWidgetSplitter(bool dockingSplitter, const iWidgetPtr parent)
@@ -64,7 +66,7 @@ namespace igor
         if (!isGrowingByContent() ||
             getChildren().empty())
         {
-            setMinSize(minWidth, minHeight);
+            updateMinSize(minWidth, minHeight);
             return;
         }
 
@@ -84,7 +86,17 @@ namespace igor
             }
         }
 
-        setMinSize(minWidth, minHeight);
+        if (_orientation == iSplitterOrientation::Vertical)
+        {
+            minWidth += s_splitterWidth;
+        }
+        else
+        {
+            minHeight += s_splitterWidth;
+        }
+
+        setClientArea(0, 0, 0, 0);
+        updateMinSize(minWidth, minHeight);
     }
 
     void iWidgetSplitter::calcChildOffsets(std::vector<iaRectanglef> &offsets)
@@ -107,25 +119,33 @@ namespace igor
 
         if (_orientation == iSplitterOrientation::Vertical)
         {
-            iaRectanglef left = rect;
-            left._width *= _ratio;
-            offsets.push_back(left);
+            iaRectanglef leftRect = rect;
+            int32 left = rect._width * _ratio;
+            left -= s_splitterWidth / 2;
+            leftRect._width = (float32)left;
+            offsets.push_back(leftRect);
 
-            iaRectanglef right = rect;
-            right._x += rect._width * _ratio;
-            right._width *= (1.0f - _ratio);
-            offsets.push_back(right);
+            int32 right = rect._width - left - s_splitterWidth;
+
+            iaRectanglef rightRect = rect;
+            rightRect._width = right;
+            rightRect._x = rect._width - right;
+            offsets.push_back(rightRect);
         }
         else
         {
-            iaRectanglef top = rect;
-            top._height *= _ratio;
-            offsets.push_back(top);
+            iaRectanglef topRect = rect;
+            int32 top = rect._height * _ratio;
+            top -= s_splitterWidth / 2;
+            topRect._height = (float32)top;
+            offsets.push_back(topRect);
 
-            iaRectanglef bottom = rect;
-            bottom._y += rect._height * _ratio;
-            bottom._height *= (1.0f - _ratio);
-            offsets.push_back(bottom);
+            int32 bottom = rect._height - top - s_splitterWidth;
+
+            iaRectanglef bottomRect = rect;
+            bottomRect._height = bottom;
+            bottomRect._y = rect._height - bottom;
+            offsets.push_back(bottomRect);
         }
     }
 
@@ -155,8 +175,8 @@ namespace igor
             iaRectanglef splitterRect = getActualRect();
             if (_orientation == iSplitterOrientation::Vertical)
             {
-                splitterRect._x += (splitterRect._width * _ratio) - s_splitterWidth * 0.5f;
-                splitterRect._width = s_splitterWidth;
+                splitterRect._x += (splitterRect._width * _ratio) - s_splitterAccessWidth * 0.5f;
+                splitterRect._width = s_splitterAccessWidth;
 
                 if (iIntersection::intersects(pos, splitterRect))
                 {
@@ -165,8 +185,8 @@ namespace igor
             }
             else
             {
-                splitterRect._y += (splitterRect._height * _ratio) - s_splitterWidth * 0.5f;
-                splitterRect._height = s_splitterWidth;
+                splitterRect._y += (splitterRect._height * _ratio) - s_splitterAccessWidth * 0.5f;
+                splitterRect._height = s_splitterAccessWidth;
 
                 if (iIntersection::intersects(pos, splitterRect))
                 {
@@ -428,15 +448,38 @@ namespace igor
     {
         iWidget::draw();
 
-        if (_splitterMoving)
+        
+
+        if (getChildren().size() == 2)
         {
             const auto &rect = getActualRect();
+
+            iRenderer::getInstance().setLineWidth(s_splitterWidth);
+
             if (getOrientation() == iSplitterOrientation::Vertical)
             {
-                iRenderer::getInstance().setLineWidth(3);
-                iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, s_splitterColor);
-                iRenderer::getInstance().setLineWidth(1);
+                iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, iaColor4f::black);
             }
+            else
+            {
+                iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * _ratio, rect._x + rect._width, rect._y + rect._height * _ratio, iaColor4f::black);
+            }
+
+            if (_splitterMoving)
+            {
+                iRenderer::getInstance().setLineWidth(s_splitterMoveWidth);
+
+                if (getOrientation() == iSplitterOrientation::Vertical)
+                {
+                    iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, s_splitterColor);
+                }
+                else
+                {
+                    iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * _ratio, rect._x + rect._width, rect._y + rect._height * _ratio, s_splitterColor);
+                }
+            }
+
+            iRenderer::getInstance().setLineWidth(1);
         }
     }
 

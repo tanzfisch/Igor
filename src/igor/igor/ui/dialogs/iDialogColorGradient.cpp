@@ -87,8 +87,8 @@ namespace igor
 		setVerticalAlignment(iVerticalAlignment::Center);
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 
-		setWidth(350);
-		setHeight(100);
+		setMinWidth(350);
+		setMinHeight(100);
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
 		grid->appendRows(3);
@@ -113,7 +113,7 @@ namespace igor
 		_gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		_gradientWidget->setVerticalAlignment(iVerticalAlignment::Stretch);
 		_gradientWidget->setInteractive();
-		_gradientWidget->setHeight(60);
+		_gradientWidget->setMinHeight(60);
 		_gradientWidget->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
 		_gradientWidget->registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate(this, &iDialogColorGradient::onColorCreated));
 		groupBoxGradient->addWidget(_gradientWidget);
@@ -151,7 +151,7 @@ namespace igor
 
 		iWidgetLabel *labelPosition = new iWidgetLabel();
 		labelPosition->setText("Position");
-		labelPosition->setWidth(100);
+		labelPosition->setMinWidth(100);
 		positionGrid->addWidget(labelPosition, 0, 0);
 
 		_position = new iWidgetNumberChooser();

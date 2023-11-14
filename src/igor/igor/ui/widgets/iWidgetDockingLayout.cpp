@@ -136,8 +136,8 @@ namespace igor
 
     void iWidgetDockingLayout::calcMinSize()
     {
+        iWidget::calcMinSize();
         setClientArea(0, 0, 0, 0);
-        setMinSize(0, 0);
     }
 
     void iWidgetDockingLayout::drawOverlay()

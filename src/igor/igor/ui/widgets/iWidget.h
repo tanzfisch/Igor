@@ -443,40 +443,44 @@ namespace igor
          */
         int32 getRelativePosY() const;
 
-        /*! \returns minimum width
+        /*! \returns actual minimum width
+
+        this can vary based on min size of it's children
          */
         int32 getMinWidth() const;
 
-        /*! \returns minimum height
+        /*! \returns actual minimum height
+
+        this can vary based on min size of it's children
          */
         int32 getMinHeight() const;
 
-        /*! \returns actual width
+        /*! \returns configured minimum width
          */
-        int32 getConfiguredWidth() const;
+        int32 getConfiguredMinWidth() const;
 
-        /*! \returns actual height
+        /*! \returns configured minimum height
          */
-        int32 getConfiguredHeight() const;
+        int32 getConfiguredMinHeight() const;
 
-        /*! sets the configured width
+        /*! sets the configured minimum width
 
-        \param width the width defined
+        \param width the minimum width defined
         */
-        void setWidth(int32 width);
+        void setMinWidth(int32 width);
 
-        /*! sets the configured height
+        /*! sets the configured minimum height
 
-        \param height the height defined
+        \param height the minimum height defined
         */
-        void setHeight(int32 height);
+        void setMinHeight(int32 height);
 
-        /*! sets width and height of the widget
+        /*! sets minimum width and height of the widget
 
-        \param width the width defined
-        \param height the height defined
+        \param width the minimum width defined
+        \param height the minimum height defined
         */
-        void setSize(int32 width, int32 height);
+        void setMinSize(int32 width, int32 height);
 
         /*! sets if the widget accepts mouse clicks outside of the widget's area
 
@@ -628,25 +632,25 @@ namespace igor
 
         \param drag the drag data
         */
-        virtual void onDragEnter(const iDrag& drag);
+        virtual void onDragEnter(const iDrag &drag);
 
         /*! drag move handle
 
         \param drag the drag data
         */
-        virtual void onDragMove(const iDrag& drag, const iaVector2f& mousePos);
+        virtual void onDragMove(const iDrag &drag, const iaVector2f &mousePos);
 
         /*! drag leave handle
 
         \param drag the drag data
         */
-        virtual void onDragLeave(const iDrag& drag);
+        virtual void onDragLeave(const iDrag &drag);
 
         /*! drop handle
 
         \param drag the drag data
         */
-        virtual void onDrop(const iDrag& drag);
+        virtual void onDrop(const iDrag &drag);
 
     protected:
         /*! list of children
@@ -655,11 +659,11 @@ namespace igor
 
         /*! configured width of the widget
          */
-        int32 _configuredWidth = 0;
+        int32 _configuredMinWidth = 0;
 
         /*! configured height of the widget
          */
-        int32 _configuredHeight = 20;
+        int32 _configuredMinHeight = 20;
 
         /*! click event
          */
@@ -813,7 +817,7 @@ namespace igor
 
         /*! sets the widget's min size
          */
-        void setMinSize(int32 width, int32 height);
+        void updateMinSize(int32 width, int32 height);
 
         /*! set parent of widget
 
@@ -846,7 +850,7 @@ namespace igor
 
         all widgets have to derive from this
         */
-        virtual void calcMinSize();        
+        virtual void calcMinSize();
 
         /*! updates widget alignment
 
@@ -861,7 +865,7 @@ namespace igor
 
         \param[out] offsets vector to be filled with childrens offsets
         */
-        virtual void calcChildOffsets(std::vector<iaRectanglef> &offsets);        
+        virtual void calcChildOffsets(std::vector<iaRectanglef> &offsets);
 
     private:
         /*! the widgets type
@@ -1000,8 +1004,6 @@ namespace igor
         \param offsetY absolute vertical offset based on parents positions
         */
         virtual void updatePosition(int32 offsetX, int32 offsetY);
-
-
     };
 
 #include <igor/ui/widgets/iWidget.inl>

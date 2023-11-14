@@ -399,7 +399,7 @@ namespace igor
 
     void iWidgetScroll::calcMinSize()
     {
-        setMinSize(0, 0);
+        updateMinSize(0, 0);
     }
 
     void iWidgetScroll::calcButtons()
@@ -504,12 +504,12 @@ namespace igor
 
         if (_hscrollActive)
         {
-            offsetX = _hscroll * (child->getConfiguredWidth() - getActualWidth() + 4);
+            offsetX = _hscroll * (child->getConfiguredMinWidth() - getActualWidth() + 4);
         }
 
         if (_vscrollActive)
         {
-            offsetY = _vscroll * (child->getConfiguredHeight() - getActualHeight() + 4);
+            offsetY = _vscroll * (child->getConfiguredMinHeight() - getActualHeight() + 4);
         }
 
         clientRect.setX(offsetX);

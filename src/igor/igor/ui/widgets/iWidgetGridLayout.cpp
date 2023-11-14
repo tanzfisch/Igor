@@ -16,8 +16,8 @@ namespace igor
     iWidgetGridLayout::iWidgetGridLayout(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetGridLayout, iWidgetKind::Layout, parent)
     {
-        _configuredWidth = 0;
-        _configuredHeight = 0;
+        _configuredMinWidth = 0;
+        _configuredMinHeight = 0;
         _ignoreChildEventHandling = true;
         initGrid();
     }
@@ -328,7 +328,7 @@ namespace igor
 
             for (uint32 y = 0; y < rowCount; ++y)
             {
-                _widgetRows[y]._widgetColumn[x]._configuredWidth = biggestsize;
+                _widgetRows[y]._widgetColumn[x]._configuredMinWidth = biggestsize;
                 _widgetRows[y]._widgetColumn[x]._actualWidth = biggestsize;
             }
 
@@ -354,7 +354,7 @@ namespace igor
 
             for (uint32 x = 0; x < columnCount; ++x)
             {
-                _widgetRows[y]._widgetColumn[x]._configuredHeight = biggestsize;
+                _widgetRows[y]._widgetColumn[x]._configuredMinHeight = biggestsize;
                 _widgetRows[y]._widgetColumn[x]._actualHeight = biggestsize;
             }
 
@@ -372,7 +372,7 @@ namespace igor
             {
                 _widgetRows[y]._widgetColumn[x]._y = posy;
 
-                posy += _widgetRows[y]._widgetColumn[x]._configuredHeight + _cellspacing;
+                posy += _widgetRows[y]._widgetColumn[x]._configuredMinHeight + _cellspacing;
             }
         }
 
@@ -384,27 +384,27 @@ namespace igor
             {
                 _widgetRows[y]._widgetColumn[x]._x = posx;
 
-                posx += _widgetRows[y]._widgetColumn[x]._configuredWidth + _cellspacing;
+                posx += _widgetRows[y]._widgetColumn[x]._configuredMinWidth + _cellspacing;
             }
         }
 
         minWidth += columnCount * _cellspacing - _cellspacing + _border * 2;
         minHeight += rowCount * _cellspacing - _cellspacing + _border * 2;
 
-        if (getConfiguredWidth() > minWidth)
+        if (getConfiguredMinWidth() > minWidth)
         {
-            minWidth = getConfiguredWidth();
+            minWidth = getConfiguredMinWidth();
         }
 
-        if (getConfiguredHeight() > minHeight)
+        if (getConfiguredMinHeight() > minHeight)
         {
-            minHeight = getConfiguredHeight();
+            minHeight = getConfiguredMinHeight();
         }
 
         // no client area definition needed because every child has it's individual field
         setClientArea(0, 0, 0, 0);
 
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     void iWidgetGridLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
@@ -460,7 +460,7 @@ namespace igor
 
                 for (int32 x = 0; x < columnCount; ++x)
                 {
-                    _widgetRows[_stretchRow]._widgetColumn[x]._actualHeight = _widgetRows[_stretchRow]._widgetColumn[x]._configuredHeight + diff;
+                    _widgetRows[_stretchRow]._widgetColumn[x]._actualHeight = _widgetRows[_stretchRow]._widgetColumn[x]._configuredMinHeight + diff;
                 }
 
                 if (_stretchRow + 1 < rowCount)
@@ -488,7 +488,7 @@ namespace igor
 
                 for (int32 y = 0; y < rowCount; ++y)
                 {
-                    _widgetRows[y]._widgetColumn[_stretchCol]._actualWidth = _widgetRows[y]._widgetColumn[_stretchCol]._configuredWidth + diff;
+                    _widgetRows[y]._widgetColumn[_stretchCol]._actualWidth = _widgetRows[y]._widgetColumn[_stretchCol]._configuredMinWidth + diff;
                 }
 
                 if (_stretchCol + 1 < columnCount)

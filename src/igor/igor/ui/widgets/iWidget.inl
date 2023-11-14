@@ -52,14 +52,14 @@ __IGOR_INLINE__ bool iWidget::isVisible() const
     return _visible;
 }
 
-__IGOR_INLINE__ int32 iWidget::getConfiguredWidth() const
+__IGOR_INLINE__ int32 iWidget::getConfiguredMinWidth() const
 {
-	return _configuredWidth;
+	return _configuredMinWidth;
 }
 
-__IGOR_INLINE__ int32 iWidget::getConfiguredHeight() const
+__IGOR_INLINE__ int32 iWidget::getConfiguredMinHeight() const
 {
-	return _configuredHeight;
+	return _configuredMinHeight;
 }
 
 __IGOR_INLINE__ int32 iWidget::getActualWidth() const

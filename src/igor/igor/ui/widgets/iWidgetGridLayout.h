@@ -269,11 +269,11 @@ namespace igor
 
             /*! configured width of child
              */
-            int32 _configuredWidth = 10;
+            int32 _configuredMinWidth = 10;
 
             /*! configured height of child
              */
-            int32 _configuredHeight = 10;
+            int32 _configuredMinHeight = 10;
 
             /*! horizontal position of child
              */

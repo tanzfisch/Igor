@@ -51,8 +51,8 @@ namespace igor
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setWidth(20);
-		setHeight(20);
+		setMinWidth(20);
+		setMinHeight(20);
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendRows(4);

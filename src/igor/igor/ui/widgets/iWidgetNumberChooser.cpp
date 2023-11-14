@@ -36,7 +36,7 @@ namespace igor
 			minWidth = textWidth + minHeight + static_cast<int32>(fontSize);
 		}
 
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 	}
 
 	void iWidgetNumberChooser::updateAlignment(int32 clientWidth, int32 clientHeight)

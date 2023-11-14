@@ -65,8 +65,8 @@ const ShopItem &ShopDialog::getSelection() const
 
 void ShopDialog::initGUI()
 {
-	setWidth(500);
-	setHeight(200);
+	setMinWidth(500);
+	setMinHeight(200);
 
 	setHorizontalAlignment(iHorizontalAlignment::Center);
 	setVerticalAlignment(iVerticalAlignment::Center);

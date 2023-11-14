@@ -819,20 +819,20 @@ namespace igor
         }
     }
 
-    void iWidget::setSize(int32 width, int32 height)
+    void iWidget::setMinSize(int32 width, int32 height)
     {
-        _configuredWidth = width;
-        _configuredHeight = height;
+        _configuredMinWidth = width;
+        _configuredMinHeight = height;
     }
 
-    void iWidget::setWidth(int32 width)
+    void iWidget::setMinWidth(int32 width)
     {
-        _configuredWidth = width;
+        _configuredMinWidth = width;
     }
 
-    void iWidget::setHeight(int32 height)
+    void iWidget::setMinHeight(int32 height)
     {
-        _configuredHeight = height;
+        _configuredMinHeight = height;
     }
 
     void iWidget::setClientArea(int32 left, int32 right, int32 top, int32 bottom)
@@ -950,22 +950,22 @@ namespace igor
             minHeight = widget->getMinHeight();
         }
 
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
-    void iWidget::setMinSize(int32 width, int32 height)
+    void iWidget::updateMinSize(int32 width, int32 height)
     {
         int32 minWidth = width + _clientAreaLeft + _clientAreaRight;
         int32 minHeight = height + _clientAreaTop + _clientAreaBottom;
 
-        if (minWidth < _configuredWidth)
+        if (minWidth < _configuredMinWidth)
         {
-            minWidth = _configuredWidth;
+            minWidth = _configuredMinWidth;
         }
 
-        if (minHeight < _configuredHeight)
+        if (minHeight < _configuredMinHeight)
         {
-            minHeight = _configuredHeight;
+            minHeight = _configuredMinHeight;
         }
 
         _minWidth = minWidth;
