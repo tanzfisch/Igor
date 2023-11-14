@@ -198,7 +198,7 @@ namespace igor
 
             iaRectanglef bottomRect = rect;
             bottomRect._height = bottom;
-            bottomRect._x = rect._height - bottom;
+            bottomRect._y = rect._height - bottom;
             offsets.push_back(bottomRect);
 
             if (updateRatio)
