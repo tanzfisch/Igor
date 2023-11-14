@@ -46,8 +46,9 @@ namespace igor
 
     enum class iSplitterState
     {
-        Vertical,
-        Horizontal,
+        MouseOverVertical,
+        MouseOverHorizontal,
+        Moving,
         Inactive
     };    
 
@@ -194,8 +195,6 @@ namespace igor
         /*! saving mouse pos when last time pressed a button
          */
         iaVector2f _lastMousePos;        
-
-        bool _splitterMoving = false;
 
         /*! updates size based on it's content
         */

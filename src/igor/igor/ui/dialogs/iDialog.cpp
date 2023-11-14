@@ -209,7 +209,6 @@ namespace igor
         // store current render states
         const iaRectanglei viewport = iRenderer::getInstance().getViewport();
         const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
-        // const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
 
         iRenderer::getInstance().setViewport(clientRect._x, iWidgetManager::getInstance().getDesktopHeight() - clientRect._y - clientRect._height, clientRect._width, clientRect._height);
         iRenderer::getInstance().setOrtho(clientRect._x, clientRect._x + clientRect._width, clientRect._y + clientRect._height, clientRect._y, 0.1f, 10.0f);
@@ -220,7 +219,6 @@ namespace igor
         }
 
         // restore everything
-        // iRenderer::getInstance().setModelMatrix(modelMatrix);
         iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
         iRenderer::getInstance().setViewport(viewport);
     }
@@ -524,9 +522,13 @@ namespace igor
             widget->onMouseMove(pos);
         }
 
-        const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
         auto rect = getActualRect();
-        rect.adjust(-frameWidth, -frameWidth, frameWidth * 2.0f, frameWidth * 2.0f);
+        if (!isDocked())
+        {
+            const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
+            rect.adjust(-frameWidth, -frameWidth, frameWidth * 2.0f, frameWidth * 2.0f);
+        }
+
         if (iIntersection::intersects(pos, rect))
         {
             if (!_isMouseOver)

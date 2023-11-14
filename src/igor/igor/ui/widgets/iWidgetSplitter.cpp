@@ -103,7 +103,8 @@ namespace igor
     {
         con_assert(getChildren().size() <= 2, "internal error");
 
-        uint32 childCount = getChildren().size();
+        const auto &children = getChildren();
+        uint32 childCount = children.size();
         if (childCount == 0)
         {
             return;
@@ -119,33 +120,91 @@ namespace igor
 
         if (_orientation == iSplitterOrientation::Vertical)
         {
-            iaRectanglef leftRect = rect;
+            bool updateRatio = false;
+
             int32 left = rect._width * _ratio;
             left -= s_splitterWidth / 2;
-            leftRect._width = (float32)left;
-            offsets.push_back(leftRect);
 
-            int32 right = rect._width - left - s_splitterWidth;
+            int32 right = rect._width * (1.0f - _ratio);
+            right -= s_splitterWidth / 2;
+
+            if (left < children[0]->getMinWidth())
+            {
+                left = children[0]->getMinWidth();
+                right = rect._width - left - s_splitterWidth;
+                updateRatio = true;
+            }
+            else
+            {
+                if (right < children[1]->getMinWidth())
+                {
+                    right = children[1]->getMinWidth();
+                    left = rect._width - right - s_splitterWidth;
+                    updateRatio = true;
+                }
+                else
+                {
+                    right = rect._width - left - s_splitterWidth;
+                }
+            }
+
+            iaRectanglef leftRect = rect;
+            leftRect._width = left;
+            offsets.push_back(leftRect);
 
             iaRectanglef rightRect = rect;
             rightRect._width = right;
             rightRect._x = rect._width - right;
             offsets.push_back(rightRect);
+
+            if (updateRatio)
+            {
+                _ratio = (float32)left / (rect._width - s_splitterWidth);
+            }
         }
         else
         {
-            iaRectanglef topRect = rect;
+            bool updateRatio = false;
+
             int32 top = rect._height * _ratio;
             top -= s_splitterWidth / 2;
-            topRect._height = (float32)top;
-            offsets.push_back(topRect);
 
-            int32 bottom = rect._height - top - s_splitterWidth;
+            int32 bottom = rect._height * (1.0f - _ratio);
+            bottom -= s_splitterWidth / 2;
+
+            if (top < children[0]->getMinHeight())
+            {
+                top = children[0]->getMinHeight();
+                bottom = rect._height - top - s_splitterWidth;
+                updateRatio = true;
+            }
+            else
+            {
+                if (bottom < children[1]->getMinHeight())
+                {
+                    bottom = children[1]->getMinHeight();
+                    top = rect._height - bottom - s_splitterWidth;
+                    updateRatio = true;
+                }
+                else
+                {
+                    bottom = rect._height - top - s_splitterWidth;
+                }
+            }
+
+            iaRectanglef topRect = rect;
+            topRect._height = top;
+            offsets.push_back(topRect);
 
             iaRectanglef bottomRect = rect;
             bottomRect._height = bottom;
-            bottomRect._y = rect._height - bottom;
+            bottomRect._x = rect._height - bottom;
             offsets.push_back(bottomRect);
+
+            if (updateRatio)
+            {
+                _ratio = (float32)top / (rect._height - s_splitterWidth);
+            }
         }
     }
 
@@ -180,7 +239,7 @@ namespace igor
 
                 if (iIntersection::intersects(pos, splitterRect))
                 {
-                    return iSplitterState::Vertical;
+                    return iSplitterState::MouseOverVertical;
                 }
             }
             else
@@ -190,7 +249,7 @@ namespace igor
 
                 if (iIntersection::intersects(pos, splitterRect))
                 {
-                    return iSplitterState::Horizontal;
+                    return iSplitterState::MouseOverVertical;
                 }
             }
         }
@@ -200,7 +259,7 @@ namespace igor
 
     bool iWidgetSplitter::onMouseKeyUp(iKeyCode key)
     {
-        _splitterMoving = false;
+        _splitterState = iSplitterState::Inactive;
         return iWidget::onMouseKeyUp(key);
     }
 
@@ -298,13 +357,13 @@ namespace igor
         }
 
         if (_splitterState != iSplitterState::Inactive &&
-            _lastMousePos.distance(pos) > 3.0 &&
-            !_splitterMoving)
+            _splitterState != iSplitterState::Moving &&
+            _lastMousePos.distance(pos) > 3.0)
         {
-            _splitterMoving = true;
+            _splitterState = iSplitterState::Moving;
         }
 
-        if (_splitterMoving)
+        if (_splitterState == iSplitterState::Moving)
         {
             iaVector2f diff = pos - lastPos;
 
@@ -448,8 +507,6 @@ namespace igor
     {
         iWidget::draw();
 
-        
-
         if (getChildren().size() == 2)
         {
             const auto &rect = getActualRect();
@@ -465,7 +522,7 @@ namespace igor
                 iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * _ratio, rect._x + rect._width, rect._y + rect._height * _ratio, iaColor4f::black);
             }
 
-            if (_splitterMoving)
+            if (_splitterState == iSplitterState::Moving)
             {
                 iRenderer::getInstance().setLineWidth(s_splitterMoveWidth);
 
