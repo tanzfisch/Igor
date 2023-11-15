@@ -31,6 +31,7 @@
 
 #include "Workspace.h"
 #include "Outliner.h"
+#include "AssetBrowser.h"
 #include "MainDialog.h"
 #include "PropertiesEditor.h"
 
@@ -58,6 +59,10 @@ private:
     /*! the outliner
 	*/
     Outliner *_outliner = nullptr;
+
+    /*! the asset browser
+	*/
+    AssetBrowser *_assetBrowser = nullptr;
 
     /*! the properties dialog or editor
 	*/

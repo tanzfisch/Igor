@@ -50,10 +50,10 @@ namespace igor
         MouseOverHorizontal,
         Moving,
         Inactive
-    };    
+    };
 
     /*! splitter widget
-    */
+     */
     class IGOR_API iWidgetSplitter : public iWidget
     {
 
@@ -61,12 +61,12 @@ namespace igor
         /*! ctor initializes member variables
 
         \param dockingSplitter if true (and it allows to grow by content) dialogs can dynamically be docked to this splitter
-		\param parent the optional parent
-		*/
+        \param parent the optional parent
+        */
         iWidgetSplitter(bool dockingSplitter = false, const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         ~iWidgetSplitter() = default;
 
         /*! sets the split ratio
@@ -76,7 +76,7 @@ namespace igor
         void setRatio(float32 ratio);
 
         /*! \returns ratio of this splitter
-        */
+         */
         float32 getRatio() const;
 
         /*! sets splitter orientation
@@ -86,7 +86,7 @@ namespace igor
         void setOrientation(iSplitterOrientation orientation);
 
         /*! \returns splitter orientation
-        */
+         */
         iSplitterOrientation getOrientation() const;
 
         /*! adds a child widget to this widget
@@ -109,15 +109,15 @@ namespace igor
 
     private:
         /*! splitter ration
-        */
+         */
         float32 _ratio = 0.5f;
 
         /*! splitter orientation
-        */
+         */
         iSplitterOrientation _orientation = iSplitterOrientation::Vertical;
 
         /*! if true this is a docking splitter which allows dialogs to dock on it
-        */
+         */
         bool _dockingSplitter;
 
         /*! left section button
@@ -140,64 +140,116 @@ namespace igor
          */
         iaRectanglef _bottomSectionButton;
 
+        /*! left edge section button
+         */
+        iaRectanglef _leftEdgeSectionButton;
+
+        /*! right edge section button
+         */
+        iaRectanglef _rightEdgeSectionButton;
+
+        /*! top edge section button
+         */
+        iaRectanglef _topEdgeSectionButton;
+
+        /*! bottom edge section button
+         */
+        iaRectanglef _bottomEdgeSectionButton;
+
         /*! the section to highlight
          */
         iaRectanglef _highlightSection;
 
         /*! highlight section flag
          */
-        bool _validDockSection = false;        
+        bool _validDockSection = false;
 
         /*! if true we dock in the center
-        */
+         */
         bool _dockSectionCenter = false;
 
         /*! if true we dock on the left
-        */
+         */
         bool _dockSectionLeft = false;
 
         /*! if true we dock on the right
-        */
+         */
         bool _dockSectionRight = false;
 
         /*! if true we dock on the top
-        */
+         */
         bool _dockSectionTop = false;
 
         /*! if true we dock on the bottom
-        */
+         */
         bool _dockSectionBottom = false;
 
+        /*! if true we dock on the left
+         */
+        bool _dockSectionLeftEdge = false;
+
+        /*! if true we dock on the right
+         */
+        bool _dockSectionRightEdge = false;
+
+        /*! if true we dock on the top
+         */
+        bool _dockSectionTopEdge = false;
+
+        /*! if true we dock on the bottom
+         */
+        bool _dockSectionBottomEdge = false;
+
         /*! center button texture
-        */
+         */
         iTexturePtr _selectorCenterTexture;
 
         /*! left button texture
-        */
+         */
         iTexturePtr _selectorLeftTexture;
 
         /*! right button texture
-        */
+         */
         iTexturePtr _selectorRightTexture;
-        
+
         /*! top button texture
-        */
+         */
         iTexturePtr _selectorTopTexture;
 
         /*! bottom button texture
-        */
+         */
         iTexturePtr _selectorBottomTexture;
 
+        /*! left edge section texture
+         */
+        iTexturePtr _selectorLeftEdgeTexture;
+
+        /*! right edge section texture
+         */
+        iTexturePtr _selectorRightEdgeTexture;
+
+        /*! top edge section texture
+         */
+        iTexturePtr _selectorTopEdgeTexture;
+
+        /*! bottom edge section texture
+         */
+        iTexturePtr _selectorBottomEdgeTexture;
+
         /*! current splitter state
-        */
+         */
         iSplitterState _splitterState = iSplitterState::Inactive;
 
         /*! saving mouse pos when last time pressed a button
          */
-        iaVector2f _lastMousePos;        
+        iaVector2f _lastMousePos;
+
+        /*! list of widgets to delete later
+        */
+        std::vector<iWidgetPtr> _deleteLater;
 
         /*! updates size based on it's content
-        */
+         */
         void calcMinSize() override;
 
         /*! calculates childrens offsets relative to their parent
@@ -218,13 +270,13 @@ namespace igor
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iKeyCode key) override;        
+        bool onMouseKeyUp(iKeyCode key) override;
 
         /*! handles incoming mouse move events
 
         \param pos mouse position
         */
-        void onMouseMove(const iaVector2f &pos) override;        
+        void onMouseMove(const iaVector2f &pos) override;
 
         /*! drop handle
 
@@ -233,7 +285,7 @@ namespace igor
         void onDrop(const iDrag &drag) override;
 
         /*! draws the button
-        */
+         */
         void draw() override;
 
         /*! called once per frame
@@ -241,7 +293,7 @@ namespace igor
         void onUpdate() override;
 
         /*! loads some resources
-        */
+         */
         void loadResources();
 
         /*! \returns splitter state based on mouse pos
@@ -249,11 +301,10 @@ namespace igor
         \param pos the mouse pos
         */
         iSplitterState calcSplitterState(const iaVector2f &pos);
-
     };
 
     /*! widget button pointer definition
-	*/
+     */
     typedef iWidgetSplitter *iWidgetSplitterPtr;
 } // namespace igor
 

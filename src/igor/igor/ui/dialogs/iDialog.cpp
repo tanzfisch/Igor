@@ -204,6 +204,11 @@ namespace igor
         iaRectanglef clientRect = rect;
         clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
 
+        if (!isDocked())
+        {
+            iWidgetManager::getInstance().getTheme()->drawShadowRect(rect);
+        }
+
         iWidgetManager::getInstance().getTheme()->drawDialog(rect, clientRect, _headerEnabled, _title, isResizeable(), getState(), isEnabled());
 
         // store current render states
@@ -302,7 +307,7 @@ namespace igor
             }
         }
 
-        if (!_ignoreChildEventHandling && childResult)
+        if (!_ignoreChildEventConsumption && childResult)
         {
             return true;
         }
@@ -349,7 +354,7 @@ namespace igor
                 }
             }
 
-            if (!_ignoreChildEventHandling && result)
+            if (!_ignoreChildEventConsumption && result)
             {
                 return true;
             }

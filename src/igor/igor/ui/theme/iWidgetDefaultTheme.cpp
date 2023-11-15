@@ -806,7 +806,7 @@ namespace igor
         iRenderer::getInstance().drawFilledRectangle(rect, active ? COLOR_DIFFUSE_DARK : COLOR_DIFFUSE_LIGHT);
     }
 
-    void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool active)
+    void iWidgetDefaultTheme::drawShadowRect(const iaRectanglef &rect)
     {
         // draw shadow
         iaRectanglef shadowRect = rect;
@@ -818,7 +818,10 @@ namespace igor
             iRenderer::getInstance().drawRectangle(shadowRect, color);
             color._a -= 0.009;
         }
+    }
 
+    void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool active)
+    {
         iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
 
         if (headerEnabled)

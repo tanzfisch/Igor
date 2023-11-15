@@ -21,13 +21,14 @@ namespace igor
     static const iaColor4f s_areaBorderColor(0.6, 0.6, 0.8, 0.8);
     static const iaColor4f s_areaButtonColor(0.7, 0.7, 0.7, 0.7);
     static const iaColor4f s_areaButtonColorHighlight(1.0, 1.0, 1.0, 1.0);
-    static const iaColor4f s_splitterColor(0.3, 0.3, 1.0, 1.0);
+    static const iaColor4f s_splitterColor(0.7, 0.7, 0.7, 1.0);
     static const int32 s_sectionSelectorSize = 32;
     static const int32 s_sectionSelectorSpacing = 4;
     static const float32 s_splitterAccessWidth = 10;
-    static const float32 s_splitterWidth = 3;
-    static const float32 s_splitterMoveWidth = 6;
+    static const float32 s_splitterWidth = 1;
+    static const float32 s_splitterMoveWidth = 3;
     static const float32 s_halfSubdivideRatio = 0.5;
+    static const float32 s_edgeSubdivideRatio = 0.2;
 
     iWidgetSplitter::iWidgetSplitter(bool dockingSplitter, const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetSplitter, iWidgetKind::Widget, parent), _dockingSplitter(dockingSplitter)
@@ -35,7 +36,7 @@ namespace igor
         setVerticalAlignment(iVerticalAlignment::Stretch);
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
         setAcceptDrop(dockingSplitter);
-        setIgnoreChildEventHandling(true);
+        setIgnoreChildEventConsumption(true);
     }
 
     void iWidgetSplitter::setRatio(float32 ratio)
@@ -210,8 +211,11 @@ namespace igor
 
     void iWidgetSplitter::addWidget(iWidgetPtr widget)
     {
-        con_assert(getChildren().size() <= 2, "can't add more then two");
-        // TODO _dockingSplitter ?
+        if(getChildren().size() == 2)
+        {
+            con_err("can't add more then two");
+            return;
+        }
 
         iWidget::addWidget(widget);
 
@@ -223,7 +227,36 @@ namespace igor
     {
         iWidget::removeWidget(widget);
 
-        // TODO _dockingSplitter ???
+        // handle remaining child
+        auto children = getChildren();
+        if(!children.empty())
+        {
+            auto child = children[0];
+            if(child->getWidgetType() != iWidgetType::iWidgetSplitter)
+            {
+                // if last child is non splitter we are done
+                return;
+            }
+            else
+            {
+                iWidgetSplitterPtr childSplitter = static_cast<iWidgetSplitterPtr>(child);
+                iWidget::removeWidget(childSplitter);
+
+                auto grandChildren = childSplitter->getChildren();
+                childSplitter->_children.clear();
+                for(auto grandchild : grandChildren)
+                {
+                    grandchild->setParent(nullptr);
+                    addWidget(grandchild);
+                }
+
+                setOrientation(childSplitter->getOrientation());
+                setRatio(childSplitter->getRatio());
+
+                _deleteLater.push_back(childSplitter);
+                return;
+            }
+        }
     }
 
     iSplitterState iWidgetSplitter::calcSplitterState(const iaVector2f &pos)
@@ -249,7 +282,7 @@ namespace igor
 
                 if (iIntersection::intersects(pos, splitterRect))
                 {
-                    return iSplitterState::MouseOverVertical;
+                    return iSplitterState::MouseOverHorizontal;
                 }
             }
         }
@@ -278,7 +311,10 @@ namespace igor
             _splitterState = calcSplitterState(_posLast);
             _lastMousePos.set(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 
-            return true;
+            if (_splitterState != iSplitterState::Inactive)
+            {
+                return true;
+            }
         }
 
         // get copy of children
@@ -293,7 +329,7 @@ namespace igor
             }
         }
 
-        if (!_ignoreChildEventHandling && result)
+        if (!_ignoreChildEventConsumption && result)
         {
             return true;
         }
@@ -321,11 +357,71 @@ namespace igor
             return;
         }
 
+        auto children = getChildren(); // make copy
+        const uint32 childCount = children.size();
+
+        // subdivide
+        if (childCount == 2)
+        {
+            if (!_validDockSection)
+            {
+                return;
+            }
+
+            iWidgetSplitterPtr splitter = new iWidgetSplitter();
+            for (auto child : children)
+            {
+                iWidget::removeWidget(child);
+                splitter->addWidget(child);
+                splitter->setOrientation(getOrientation());
+                splitter->setRatio(getRatio());
+            }
+
+            if (_dockSectionLeftEdge)
+            {
+                addWidget(widget);
+                addWidget(splitter);
+                setOrientation(iSplitterOrientation::Vertical);
+                setRatio(s_edgeSubdivideRatio);
+            }
+            else if (_dockSectionRightEdge)
+            {
+                addWidget(splitter);
+                addWidget(widget);
+                setOrientation(iSplitterOrientation::Vertical);
+                setRatio(1.0f - s_edgeSubdivideRatio);
+            }
+
+            else if (_dockSectionTopEdge)
+            {
+                addWidget(widget);
+                addWidget(splitter);
+                setOrientation(iSplitterOrientation::Horizontal);
+                setRatio(s_edgeSubdivideRatio);
+            }
+
+            else if (_dockSectionBottomEdge)
+            {
+                addWidget(splitter);
+                addWidget(widget);
+                setOrientation(iSplitterOrientation::Horizontal);
+                setRatio(1.0f - s_edgeSubdivideRatio);
+            }
+
+            return;
+        }
+
         addWidget(widget);
 
-        if (getChildren().size() == 2 &&
-            (_dockSectionLeft ||
-             _dockSectionTop))
+        // added first
+        if (childCount == 0)
+        {
+            return;
+        }
+
+        // added second
+        if (_dockSectionLeft ||
+            _dockSectionTop)
         {
             std::reverse(_children.begin(), _children.end());
         }
@@ -339,6 +435,27 @@ namespace igor
         {
             setOrientation(iSplitterOrientation::Horizontal);
         }
+    }
+
+    static void updateCursor(iSplitterState splitterState)
+    {
+        iMouseCursorType cursorType;
+
+        switch (splitterState)
+        {
+        case iSplitterState::MouseOverVertical:
+            cursorType = iMouseCursorType::HorizontalSplit;
+            break;
+        case iSplitterState::MouseOverHorizontal:
+            cursorType = iMouseCursorType::VeticalSplit;
+            break;
+        case iSplitterState::Moving:
+        case iSplitterState::Inactive:
+        default:
+            cursorType = iMouseCursorType::Arrow;
+        }
+
+        iMouse::getInstance().setCursorType(cursorType);
     }
 
     void iWidgetSplitter::onMouseMove(const iaVector2f &pos)
@@ -356,6 +473,13 @@ namespace igor
             return;
         }
 
+        const auto &children = getChildren();
+
+        if (children.size() == 2)
+        {
+            updateCursor(calcSplitterState(pos));
+        }
+
         if (_splitterState != iSplitterState::Inactive &&
             _splitterState != iSplitterState::Moving &&
             _lastMousePos.distance(pos) > 3.0)
@@ -370,7 +494,6 @@ namespace igor
             float32 minRatio;
             float32 maxRatio;
             float32 newRatio = _ratio;
-            const auto &children = getChildren();
 
             if (getOrientation() == iSplitterOrientation::Vertical)
             {
@@ -397,6 +520,10 @@ namespace igor
         _dockSectionRight = false;
         _dockSectionTop = false;
         _dockSectionBottom = false;
+        _dockSectionLeftEdge = false;
+        _dockSectionRightEdge = false;
+        _dockSectionTopEdge = false;
+        _dockSectionBottomEdge = false;
         _validDockSection = false;
 
         if (!iWidgetManager::getInstance().inDrag())
@@ -462,13 +589,57 @@ namespace igor
                 return;
             }
         }
+
+        if (iIntersection::intersects(pos, _leftEdgeSectionButton))
+        {
+            _dockSectionLeftEdge = true;
+            _validDockSection = true;
+
+            iaRectanglef leftSection = getActualRect();
+            leftSection.setWidth(leftSection._width * s_edgeSubdivideRatio);
+            _highlightSection = leftSection;
+            return;
+        }
+        else if (iIntersection::intersects(pos, _rightEdgeSectionButton))
+        {
+            _dockSectionRightEdge = true;
+            _validDockSection = true;
+
+            iaRectanglef rightSection = getActualRect();
+            rightSection.setX(rightSection.getRight() - rightSection._width * s_edgeSubdivideRatio);
+            rightSection.setWidth(rightSection._width * s_edgeSubdivideRatio);
+            _highlightSection = rightSection;
+            return;
+        }
+        else if (iIntersection::intersects(pos, _topEdgeSectionButton))
+        {
+            _dockSectionTopEdge = true;
+            _validDockSection = true;
+
+            iaRectanglef topSection = getActualRect();
+            topSection.setHeight(topSection._height * s_edgeSubdivideRatio);
+            _highlightSection = topSection;
+            return;
+        }
+        else if (iIntersection::intersects(pos, _bottomEdgeSectionButton))
+        {
+            _dockSectionBottomEdge = true;
+            _validDockSection = true;
+
+            iaRectanglef bottomSection = getActualRect();
+            bottomSection.setY(bottomSection.getBottom() - bottomSection._height * s_edgeSubdivideRatio);
+            bottomSection.setHeight(bottomSection._height * s_edgeSubdivideRatio);
+            _highlightSection = bottomSection;
+            return;
+        }
     }
 
     void iWidgetSplitter::drawOverlay()
     {
         loadResources();
 
-        if (_isMouseOver) // TODO only on drag
+        if (_isMouseOver &&
+            iWidgetManager::getInstance().inDrag())
         {
             int32 childCount = getChildren().size();
 
@@ -482,6 +653,13 @@ namespace igor
                 iRenderer::getInstance().drawTexturedRectangle(_rightSectionButton, _selectorRightTexture, _dockSectionRight ? s_areaButtonColorHighlight : s_areaButtonColor, true);
                 iRenderer::getInstance().drawTexturedRectangle(_topSectionButton, _selectorTopTexture, _dockSectionTop ? s_areaButtonColorHighlight : s_areaButtonColor, true);
                 iRenderer::getInstance().drawTexturedRectangle(_bottomSectionButton, _selectorBottomTexture, _dockSectionBottom ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+            }
+            else if (childCount == 2)
+            {
+                iRenderer::getInstance().drawTexturedRectangle(_leftEdgeSectionButton, _selectorLeftEdgeTexture, _dockSectionLeftEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+                iRenderer::getInstance().drawTexturedRectangle(_rightEdgeSectionButton, _selectorRightEdgeTexture, _dockSectionRightEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+                iRenderer::getInstance().drawTexturedRectangle(_topEdgeSectionButton, _selectorTopEdgeTexture, _dockSectionTopEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
+                iRenderer::getInstance().drawTexturedRectangle(_bottomEdgeSectionButton, _selectorBottomEdgeTexture, _dockSectionBottomEdge ? s_areaButtonColorHighlight : s_areaButtonColor, true);
             }
         }
 
@@ -515,11 +693,11 @@ namespace igor
 
             if (getOrientation() == iSplitterOrientation::Vertical)
             {
-                iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, iaColor4f::black);
+                iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, iaColor4f::gray);
             }
             else
             {
-                iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * _ratio, rect._x + rect._width, rect._y + rect._height * _ratio, iaColor4f::black);
+                iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * _ratio, rect._x + rect._width, rect._y + rect._height * _ratio, iaColor4f::gray);
             }
 
             if (_splitterState == iSplitterState::Moving)
@@ -554,6 +732,17 @@ namespace igor
         _topSectionButton.adjust(0, -s_sectionSelectorSize - s_sectionSelectorSpacing, 0, 0);
         _bottomSectionButton = _centerSectionButton;
         _bottomSectionButton.adjust(0, s_sectionSelectorSize + s_sectionSelectorSpacing, 0, 0);
+
+        _leftEdgeSectionButton.set(rect._x + s_sectionSelectorSize, rect._y + rect._height * 0.5 - s_sectionSelectorSize * 0.5, s_sectionSelectorSize, s_sectionSelectorSize);
+        _rightEdgeSectionButton.set(rect.getRight() - s_sectionSelectorSize * 2.0, rect._y + rect._height * 0.5 - s_sectionSelectorSize * 0.5, s_sectionSelectorSize, s_sectionSelectorSize);
+        _topEdgeSectionButton.set(rect._x + rect._width * 0.5 - s_sectionSelectorSize * 0.5, rect._y + s_sectionSelectorSize, s_sectionSelectorSize, s_sectionSelectorSize);
+        _bottomEdgeSectionButton.set(rect._x + rect._width * 0.5 - s_sectionSelectorSize * 0.5, rect.getBottom() - s_sectionSelectorSize * 2.0, s_sectionSelectorSize, s_sectionSelectorSize);
+
+        for(auto widget : _deleteLater)
+        {
+            delete widget;
+        }
+        _deleteLater.clear();
     }
 
     void iWidgetSplitter::loadResources()
@@ -568,6 +757,11 @@ namespace igor
         _selectorRightTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_right_half");
         _selectorTopTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_top_half");
         _selectorBottomTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_bottom_half");
+
+        _selectorLeftEdgeTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_left_edge");
+        _selectorRightEdgeTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_right_edge");
+        _selectorTopEdgeTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_top_edge");
+        _selectorBottomEdgeTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_dock_bottom_edge");
     }
 
 } // namespace igor

@@ -18,7 +18,7 @@ namespace igor
     {
         _configuredMinWidth = 0;
         _configuredMinHeight = 0;
-        _ignoreChildEventHandling = true;
+        _ignoreChildEventConsumption = true;
         initGrid();
     }
 
@@ -570,7 +570,7 @@ namespace igor
             }
         }
 
-        if (!_ignoreChildEventHandling && result)
+        if (!_ignoreChildEventConsumption && result)
         {
             return true;
         }
@@ -648,7 +648,7 @@ namespace igor
                     }
                 }
 
-                if (!_ignoreChildEventHandling && result)
+                if (!_ignoreChildEventConsumption && result)
                 {
                     return true;
                 }

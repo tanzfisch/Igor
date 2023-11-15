@@ -612,15 +612,15 @@ namespace igor
         */
         void clearChildren();
 
-        /*! sets id this widget handles all events regardles whether or not its child already has handled the events
+        /*! sets wether or not this widget ignores if a child already consumed an event
 
-        \param value if true this widget handles all events
+        \param value if true this widget ignores if a child already has consumed an event
         */
-        void setIgnoreChildEventHandling(bool value = true);
+        void setIgnoreChildEventConsumption(bool value = true);
 
-        /*! \returns true if event handling is done an any case
+        /*! \returns true if this widget ignores if a child already has consumed an event
          */
-        bool isIgnoringChildEventHandling() const;
+        bool isIgnoringChildEventConsumption() const;
 
         /*! \returns the root widget which owns this widget
 
@@ -741,9 +741,9 @@ namespace igor
          */
         bool _isMouseOver = false;
 
-        /*! if true this widget handles all events regardles whether or not its child already has handled the events
+        /*! if true this widget ignores if a child already has consumed an event
          */
-        bool _ignoreChildEventHandling = false;
+        bool _ignoreChildEventConsumption = false;
 
         /*! initializes members
 

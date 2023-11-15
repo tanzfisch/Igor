@@ -83,6 +83,8 @@ namespace igor
 
         virtual void drawTooltip(const iaVector2f &pos, const iaString &text) = 0;
 
+        virtual void drawShadowRect(const iaRectanglef &rect) = 0;
+
         virtual float32 getFontSize() const = 0;
         virtual iTextureFontPtr getFont() const = 0;
 

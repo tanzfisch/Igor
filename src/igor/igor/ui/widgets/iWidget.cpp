@@ -410,7 +410,7 @@ namespace igor
                     }
                 }
 
-                if (!_ignoreChildEventHandling && result)
+                if (!_ignoreChildEventConsumption && result)
                 {
                     return true;
                 }
@@ -451,7 +451,7 @@ namespace igor
                     }
                 }
 
-                if (!_ignoreChildEventHandling && result)
+                if (!_ignoreChildEventConsumption && result)
                 {
                     return true;
                 }
@@ -480,14 +480,14 @@ namespace igor
         return _zValue;
     }
 
-    void iWidget::setIgnoreChildEventHandling(bool value)
+    void iWidget::setIgnoreChildEventConsumption(bool value)
     {
-        _ignoreChildEventHandling = value;
+        _ignoreChildEventConsumption = value;
     }
 
-    bool iWidget::isIgnoringChildEventHandling() const
+    bool iWidget::isIgnoringChildEventConsumption() const
     {
-        return _ignoreChildEventHandling;
+        return _ignoreChildEventConsumption;
     }
 
     void iWidget::setAcceptOutOfBoundsClicks(bool acceptOutOfBoundsClick)
@@ -530,7 +530,7 @@ namespace igor
             }
         }
 
-        if (!_ignoreChildEventHandling && result)
+        if (!_ignoreChildEventConsumption && result)
         {
             return true;
         }
@@ -568,12 +568,19 @@ namespace igor
                 }
             }
 
-            if (!_ignoreChildEventHandling && result)
+            if (!_ignoreChildEventConsumption && result)
             {
                 return true;
             }
             else
             {
+                if (_acceptDrop &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    onDrop(iWidgetManager::getInstance().getDrag());
+                    return true;
+                }
+
                 if (key == iKeyCode::MouseLeft ||
                     key == iKeyCode::MouseRight)
                 {
@@ -591,12 +598,6 @@ namespace igor
 
                         return true;
                     }
-                }
-
-                if (_acceptDrop &&
-                    iWidgetManager::getInstance().inDrag())
-                {
-                    onDrop(iWidgetManager::getInstance().getDrag());
                 }
             }
         }
@@ -627,7 +628,7 @@ namespace igor
             }
         }
 
-        // TODO ? if (!_ignoreChildEventHandling && result)
+        // TODO ? if (!_ignoreChildEventConsumption && result)
 
         return false;
     }
@@ -650,7 +651,7 @@ namespace igor
             }
         }
 
-        // TODO ? if (!_ignoreChildEventHandling && result)
+        // TODO ? if (!_ignoreChildEventConsumption && result)
 
         return false;
     }
@@ -673,7 +674,7 @@ namespace igor
             }
         }
 
-        // TODO ? if (!_ignoreChildEventHandling && result)
+        // TODO ? if (!_ignoreChildEventConsumption && result)
 
         return false;
     }
