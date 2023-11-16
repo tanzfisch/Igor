@@ -291,8 +291,8 @@ namespace igor
         void calcMinSize() override;
 
         /*! draws the widget
-		*/
-        void draw();
+         */
+        void draw() override;
 
         /*! calculates the render area of the graph
 

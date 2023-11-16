@@ -24,10 +24,12 @@ namespace igor
 
 	void iWidgetTextEdit::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-	 		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
 	}
 
 	const iaString &iWidgetTextEdit::getText() const

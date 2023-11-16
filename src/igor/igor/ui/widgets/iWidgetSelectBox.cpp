@@ -229,17 +229,19 @@ namespace igor
 
     void iWidgetSelectBox::draw()
     {
-        if (isVisible())
+        if (!isVisible())
         {
-            iaString displayString;
-
-            if (_currentSelection >= 0 && _currentSelection < _entries.size())
-            {
-                displayString = _entries[_currentSelection].first;
-            }
-
-            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isEnabled());
+            return;
         }
+
+        iaString displayString;
+
+        if (_currentSelection >= 0 && _currentSelection < _entries.size())
+        {
+            displayString = _entries[_currentSelection].first;
+        }
+
+        iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isEnabled());
     }
 
 } // namespace igor

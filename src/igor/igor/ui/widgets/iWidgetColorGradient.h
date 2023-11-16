@@ -143,7 +143,7 @@ namespace igor
 
         /*! draws the widget
          */
-        void draw();
+        void draw() override;
     };
 
 } // namespace igor

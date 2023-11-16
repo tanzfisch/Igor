@@ -294,9 +294,9 @@ namespace igor
         */
         iDialogMotionState calcMotionState(const iaVector2f &pos);
 
-        /*! draws the children
+        /*! draws the widget
          */
-        void draw();
+        void draw() override;
     };
 } // namespace igor
 

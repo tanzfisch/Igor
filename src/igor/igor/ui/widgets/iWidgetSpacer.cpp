@@ -32,10 +32,12 @@ namespace igor
 
 	void iWidgetSpacer::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getState(), isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getState(), isEnabled());
 	}
 
 } // namespace igor

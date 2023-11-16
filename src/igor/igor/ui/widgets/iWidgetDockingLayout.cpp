@@ -34,18 +34,4 @@ namespace igor
         con_warn("can't add or remove widgets from docking layout");
     }
 
-    void iWidgetDockingLayout::drawOverlay()
-    {
-        for (const auto child : getChildren())
-        {
-            if (child->getWidgetType() != iWidgetType::iWidgetSplitter)
-            {
-                continue;
-            }
-
-            iWidgetSplitterPtr splitter = static_cast<iWidgetSplitterPtr>(child);
-            splitter->drawOverlay();
-        }
-    }
-
 } // namespace igor

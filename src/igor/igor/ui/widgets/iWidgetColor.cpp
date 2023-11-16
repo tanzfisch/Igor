@@ -51,19 +51,21 @@ namespace igor
 
 	void iWidgetColor::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualRect(), _texture);
-
-			int32 halfWidth = static_cast<int32>((static_cast<float64>(getActualWidth()) / 2.0) + 0.5);
-
-			iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY(), halfWidth, getActualHeight()), _color);
-			iaColor4f colorNoAlpha = _color;
-			colorNoAlpha._a = 1.0f;
-			iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight()), colorNoAlpha);
-
-			iWidgetManager::getInstance().getTheme()->drawRectangle(getActualRect());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualRect(), _texture);
+
+		int32 halfWidth = static_cast<int32>((static_cast<float64>(getActualWidth()) / 2.0) + 0.5);
+
+		iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY(), halfWidth, getActualHeight()), _color);
+		iaColor4f colorNoAlpha = _color;
+		colorNoAlpha._a = 1.0f;
+		iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight()), colorNoAlpha);
+
+		iWidgetManager::getInstance().getTheme()->drawRectangle(getActualRect());
 	}
 
 } // namespace igor

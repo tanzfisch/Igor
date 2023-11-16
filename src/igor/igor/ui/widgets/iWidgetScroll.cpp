@@ -143,7 +143,7 @@ namespace igor
 
     bool iWidgetScroll::handleButtonClicks()
     {
-        if(_children.empty())
+        if (_children.empty())
         {
             return false;
         }
@@ -404,7 +404,7 @@ namespace igor
 
     void iWidgetScroll::calcButtons()
     {
-        if(_children.empty())
+        if (_children.empty())
         {
             return;
         }
@@ -561,7 +561,7 @@ namespace igor
     {
         iWidget::addWidget(widget);
 
-        if(widget->getVerticalAlignment() != iVerticalAlignment::Top || widget->getHorizontalAlignment() != iHorizontalAlignment::Left)
+        if (widget->getVerticalAlignment() != iVerticalAlignment::Top || widget->getHorizontalAlignment() != iHorizontalAlignment::Left)
         {
             con_debug("only top left alignment is supported for children of iWidgetScroll. Changing it for you");
             widget->setVerticalAlignment(iVerticalAlignment::Top);
@@ -571,7 +571,8 @@ namespace igor
 
     void iWidgetScroll::draw()
     {
-        if (!isVisible() || _children.empty())
+        if (!isVisible() ||
+            _children.empty())
         {
             return;
         }

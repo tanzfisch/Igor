@@ -71,10 +71,9 @@ namespace igor
 		*/
         void calcMinSize() override;
 
-        /*! draws the text edit widget
-		*/
+        /*! draws the widget
+         */
         void draw() override;
-
     };
 
     /*! text widget pointer definition

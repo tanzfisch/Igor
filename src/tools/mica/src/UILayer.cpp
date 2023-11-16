@@ -46,10 +46,11 @@ void UILayer::onInit()
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
-    _propertiesDialog = new PropertiesEditor();
+    _propertiesDialog = new PropertiesEditor();    
+    _outliner = new Outliner(_workspace);
+
     _assetBrowser = new AssetBrowser();
     _assetBrowser->setPos(iaVector2f(100, 100));
-    _outliner = new Outliner(_workspace);
 
     _outliner->registerOnCreateProject(CreateProjectDelegate(this, &UILayer::onCreateProject));
     _outliner->registerOnLoadProject(LoadProjectDelegate(this, &UILayer::onLoadProject));

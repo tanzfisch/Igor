@@ -204,9 +204,9 @@ namespace igor
 		*/
         void calcMinSize() override;
 
-        /*! draws the text edit widget
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
 
         /*! updates the cursor position and scroll offset
 		*/

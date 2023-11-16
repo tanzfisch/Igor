@@ -166,10 +166,12 @@ namespace igor
 
     void iWidgetButton::draw()
     {
-        if (isVisible())
+        if (!isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled());
+            return;
         }
+
+        iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled());
     }
 
 } // namespace igor

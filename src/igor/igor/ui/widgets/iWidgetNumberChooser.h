@@ -219,9 +219,9 @@ namespace igor
 		*/
         void updateAlignment(int32 clientWidth, int32 clientHeight) override;
 
-        /*! draws the button
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
     };
 } // namespace igor
 

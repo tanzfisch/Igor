@@ -53,9 +53,7 @@ namespace igor
          */
         ~iWidgetDockingLayout() = default;
 
-        /*! draws overlay
-         */
-        void drawOverlay();
+        // TODO add load and save layout. Maybe use callbacks so the application can add their dialogs/widgets 
 
         /*! does nothing
         */
@@ -64,8 +62,6 @@ namespace igor
         /*! does nothing
         */
         void removeWidget(iWidgetPtr widget) override;        
-
-    private:
 
     };
 

@@ -121,10 +121,12 @@ namespace igor
 
 	void iWidgetCheckBox::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getState(), isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getState(), isEnabled());
 	}
 
 } // namespace igor

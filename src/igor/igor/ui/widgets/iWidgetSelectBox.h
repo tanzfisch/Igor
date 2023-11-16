@@ -155,9 +155,9 @@ namespace igor
 		*/
         void calcMinSize() override;
 
-        /*! renders widget
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
     };
 
     /*! select box pointer definition

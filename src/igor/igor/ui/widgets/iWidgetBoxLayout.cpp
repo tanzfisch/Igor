@@ -55,7 +55,7 @@ namespace igor
         minWidth = std::max(minWidth, getConfiguredMinWidth());
         minHeight = std::max(minHeight, getConfiguredMinHeight());
 
-        setClientArea(0, 0, 0, 0);        
+        setClientArea(0, 0, 0, 0);
         updateMinSize(minWidth, minHeight);
     }
 
@@ -119,23 +119,6 @@ namespace igor
     int32 iWidgetBoxLayout::getStretchIndex() const
     {
         return _stretchIndex;
-    }
-
-    void iWidgetBoxLayout::draw()
-    {
-        if (!isVisible())
-        {
-            return;
-        }
-
-        iWidgetManager::getInstance().getTheme()->drawGridCell(getActualRect(), getState());
-
-        // TODO?
-
-        for (const auto child : _children)
-        {
-            child->draw();
-        }
     }
 
     std::wostream &operator<<(std::wostream &stream, const iWidgetBoxLayoutType &type)

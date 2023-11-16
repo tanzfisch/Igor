@@ -213,9 +213,9 @@ namespace igor
          */
         void calcMinSize() override;
 
-        /*! draws the button
+        /*! draws the widget
          */
-        void draw();
+        void draw() override;
 
         /*! calculate position and size of scroll buttons
          */

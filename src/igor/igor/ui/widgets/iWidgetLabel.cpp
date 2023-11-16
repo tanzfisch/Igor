@@ -53,10 +53,12 @@ namespace igor
 
 	void iWidgetLabel::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isEnabled());
 	}
 
 	const iaString &iWidgetLabel::getText() const

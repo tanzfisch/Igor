@@ -99,10 +99,6 @@ namespace igor
         */
         int32 _stretchIndex = -1;
 
-        /*! draws the widget
-         */
-        void draw() override;
-
         /*! updates size based on it's content
          */
         void calcMinSize() override;

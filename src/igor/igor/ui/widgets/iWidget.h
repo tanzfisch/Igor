@@ -213,6 +213,10 @@ namespace igor
         friend class iWidgetSplitter;
 
     public:
+        /*! invalid widget ID
+         */
+        static const iWidgetID INVALID_WIDGET_ID = 0;
+
         /*! \returns the widgets type
          */
         iWidgetType getWidgetType() const;
@@ -255,21 +259,9 @@ namespace igor
          */
         iaColor4f getForeground() const;
 
-        /*! blocks all outgoing events from this widget
-         */
-        virtual void blockEvents();
-
-        /*! unblocks all outgoing events from this widget
-         */
-        virtual void unblockEvents();
-
         /*! @returns true if events on this widget are blocked
          */
         bool isBlocked() const;
-
-        /*! invalid widget ID
-         */
-        static const iWidgetID INVALID_WIDGET_ID = 0;
 
         /*! \returns true if widget has keyboard focus
          */
@@ -492,10 +484,6 @@ namespace igor
          */
         bool getAcceptOutOfBoundsClicks() const;
 
-        /*! draws the widget
-         */
-        virtual void draw();
-
         /*! \returns horizontal alignment relative to parent widget
          */
         iHorizontalAlignment getHorizontalAlignment() const;
@@ -558,18 +546,6 @@ namespace igor
          */
         bool isAcceptingDrop();
 
-        /*! adds a child widget to this widget
-
-        \param widget the child widget to be added
-        */
-        virtual void addWidget(iWidgetPtr widget);
-
-        /*! removes a child widget from this widget
-
-        \param widget the child widget to be removed
-        */
-        virtual void removeWidget(iWidgetPtr widget);
-
         /*! \returns true if has parent
          */
         bool hasParent() const;
@@ -627,6 +603,50 @@ namespace igor
         returns nullptr if there is no parent
         */
         iWidgetPtr getRoot();
+
+        /*! blocks all outgoing events from this widget
+         */
+        virtual void blockEvents();
+
+        /*! unblocks all outgoing events from this widget
+         */
+        virtual void unblockEvents();
+
+        /*! if true this widget will additionally be called during overlay processing
+
+        Overlay means that after all widgets are processed/drawn there is a second round of processing/drawing.
+        This can be used to handle mouse inputs when the widget is not visible. Or to draw on top of widgets that are in front of this widget.
+
+        \param overlay if true widget is part of overlay
+        */
+        void setOverlayEnabled(bool overlay);
+
+        /*! \returns true if overlay is enabled for this widget
+        */
+        bool isOverlayEnabled() const;
+
+        /*! draws the widget
+         */
+        virtual void draw();
+
+        /*! draws overlay of the widget
+
+        Called after all widgets are drawn
+        Only called if widget has overlay enabled
+         */
+        virtual void drawOverlay();
+
+        /*! adds a child widget to this widget
+
+        \param widget the child widget to be added
+        */
+        virtual void addWidget(iWidgetPtr widget);
+
+        /*! removes a child widget from this widget
+
+        \param widget the child widget to be removed
+        */
+        virtual void removeWidget(iWidgetPtr widget);
 
         /*! drag enter handle
 
@@ -745,10 +765,41 @@ namespace igor
          */
         bool _ignoreChildEventConsumption = false;
 
+        /*! sets the widget's min size
+         */
+        void updateMinSize(int32 width, int32 height);
+
+        /*! set parent of widget
+
+        \param parent pointer to parent
+        */
+        void setParent(iWidgetPtr parent);
+
+        /*! sets the keyboard focus to this widget
+         */
+        void setKeyboardFocus();
+
+        /*! resets the keyboard focus
+         */
+        void resetKeyboardFocus();
+
+        /*! sets client area. it's something like a padding but the parent defines it
+
+        \param left left client area border
+        \param right right client area border
+        \param top top client area border
+        \param bottom bottom client area border
+        */
+        void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
+
+        /*! \returns last mouse position
+         */
+        const iaVector2f &getLastMousePos() const;
+
         /*! initializes members
 
-        \param parent the optional parent
-        */
+                \param parent the optional parent
+                */
         iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent = nullptr);
 
         /*! clean up
@@ -758,7 +809,7 @@ namespace igor
         /*! handles incoming mouse wheel event
 
         \param d mouse wheel delta
-        \returns true: if event was consumed and therefore ignored by the parent
+        \returns true: if event was consumed and therefore ignored by the parent        
         */
         virtual bool onMouseWheel(int32 d);
 
@@ -815,37 +866,6 @@ namespace igor
          */
         virtual void onGainedKeyboardFocus();
 
-        /*! sets the widget's min size
-         */
-        void updateMinSize(int32 width, int32 height);
-
-        /*! set parent of widget
-
-        \param parent pointer to parent
-        */
-        void setParent(iWidgetPtr parent);
-
-        /*! sets the keyboard focus to this widget
-         */
-        void setKeyboardFocus();
-
-        /*! resets the keyboard focus
-         */
-        void resetKeyboardFocus();
-
-        /*! sets client area. it's something like a padding but the parent defines it
-
-        \param left left client area border
-        \param right right client area border
-        \param top top client area border
-        \param bottom bottom client area border
-        */
-        void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
-
-        /*! \returns last mouse position
-         */
-        const iaVector2f &getLastMousePos() const;
-
         /*! updates size based on widgets content
 
         all widgets have to derive from this
@@ -868,6 +888,14 @@ namespace igor
         virtual void calcChildOffsets(std::vector<iaRectanglef> &offsets);
 
     private:
+        /*! the next node id
+         */
+        static iaIDGenerator64 _idGenerator;
+
+        /*! pointer to widget that owns the keyboard focus
+         */
+        static iWidgetPtr _keyboardFocus;
+
         /*! the widgets type
          */
         iWidgetType _type;
@@ -964,32 +992,6 @@ namespace igor
          */
         bool _visible = true;
 
-        /*! the next node id
-         */
-        static iaIDGenerator64 _idGenerator;
-
-        /*! pointer to widget that owns the keyboard focus
-         */
-        static iWidgetPtr _keyboardFocus;
-
-        /*! handles tooltip timer
-
-        \param time the time
-        */
-        void onToolTipTimer(const iaTime &time);
-
-        /*! called when parent of this widget changes
-         */
-        virtual void onParentChanged();
-
-        /*! destroy tooltip timer
-         */
-        void destroyTooltipTimer();
-
-        /*! called once per frame so a widget can update it's content if needed
-         */
-        virtual void onUpdate();
-
         /*! background color
          */
         iaColor4f _background;
@@ -997,6 +999,28 @@ namespace igor
         /*! foreground color
          */
         iaColor4f _foreground;
+
+        /*! true if overlay is enabled
+        */
+        bool _overlay = false;
+
+        /*! handles tooltip timer
+
+        \param time the time
+        */
+        void onToolTipTimer(const iaTime &time);
+
+        /*! destroy tooltip timer
+         */
+        void destroyTooltipTimer();
+
+        /*! called when parent of this widget changes
+         */
+        virtual void onParentChanged();
+
+        /*! called once per frame so a widget can update it's content if needed
+         */
+        virtual void onUpdate(); 
 
         /*! updates the absolute position
 

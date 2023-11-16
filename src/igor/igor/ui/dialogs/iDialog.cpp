@@ -27,6 +27,7 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
         setVerticalAlignment(iVerticalAlignment::Absolute);
 
+        // TODO weird hack for menus and sub menus
         if (parent != nullptr)
         {
             iWidgetPtr parentDialog = nullptr;
@@ -46,6 +47,10 @@ namespace igor
             {
                 setZValue(parentDialog->getZValue() + 1);
             }
+        }
+        else
+        {
+            putInFront();
         }
     }
 
@@ -82,6 +87,7 @@ namespace igor
         _dialogCloseDelegate = dialogCloseDelegate;
         setEnabled();
         setVisible();
+        putInFront();
 
         _isOpen = true;
     }
@@ -269,12 +275,8 @@ namespace igor
 
     bool iDialog::onMouseKeyDown(iKeyCode key)
     {
-        if (!isEnabled())
-        {
-            return false;
-        }
-
-        if (!_isMouseOver)
+        if (!isEnabled() ||
+            !_isMouseOver)
         {
             return false;
         }

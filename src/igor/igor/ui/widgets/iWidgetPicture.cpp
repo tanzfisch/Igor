@@ -100,11 +100,13 @@ namespace igor
 
 	void iWidgetPicture::draw()
 	{
-		if (isVisible() &&
-			_texture != nullptr)
+		if (!isVisible() ||
+			_texture == nullptr)
 		{
-			iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetState, isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetState, isEnabled());
 	}
 
 	iTexturePtr iWidgetPicture::getTexture() const

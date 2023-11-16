@@ -208,11 +208,6 @@ void UserControlMesh::updateGUI()
     }
 }
 
-void UserControlMesh::draw()
-{
-    iWidget::draw();
-}
-
 void UserControlMesh::setNode(uint32 id)
 {
     _nodeId = id;

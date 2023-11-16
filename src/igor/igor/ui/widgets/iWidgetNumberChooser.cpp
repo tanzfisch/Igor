@@ -257,13 +257,15 @@ namespace igor
 
 	void iWidgetNumberChooser::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iaString displayString = iaString::toString(_value, _afterPoint);
-			displayString += _postFix;
-
-			iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isEnabled());
+			return;
 		}
+
+		iaString displayString = iaString::toString(_value, _afterPoint);
+		displayString += _postFix;
+
+		iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isEnabled());
 	}
 
 } // namespace igor

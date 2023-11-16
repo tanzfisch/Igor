@@ -48,8 +48,6 @@ namespace igor
 
     class iDialog;
     typedef iDialog *iDialogPtr;
-    class iWidgetDockingLayout;
-    typedef iWidgetDockingLayout *iWidgetDockingLayoutPtr;
 
     /*! manages the widgets
      */
@@ -173,9 +171,9 @@ namespace igor
          */
         std::unordered_map<iWidgetID, iDialogPtr> _dialogs;
 
-        /*! docker layouts
+        /*! overlay widgets
          */
-        std::unordered_map<iWidgetID, iWidgetDockingLayoutPtr> _dockerLayouts;
+        std::vector<iWidgetID> _overlayWidgets;
 
         /*! current desktop width
          */
@@ -229,17 +227,17 @@ namespace igor
         */
         void unregisterDialog(iDialogPtr dialog);
 
-        /*! registers docker layout
+        /*! registers overlay widget
 
-        \param dialog the docker to track
+        \param overlayWidget the overlay widget
         */
-        void registerDockerLayout(iWidgetDockingLayoutPtr dockerLayout);
+        void registerOverlayWidget(iWidgetPtr overlayWidget);
 
-        /*! unregister docker layout
+        /*! unregister overlay widget
 
-        \param dialog the docker to not track anymore
+        \param overlayWidget the overlay widget
         */
-        void unregisterDockerLayout(iWidgetDockingLayoutPtr dockerLayout);
+        void unregisterOverlayWidget(iWidgetPtr overlayWidget);
 
         /*! puts dialog in front by manipulating it's z index and the index of other dialogs
 
@@ -350,8 +348,6 @@ namespace igor
          */
         virtual ~iWidgetManager();
     };
-
-#include <igor/ui/iWidgetManager.inl>
 
 } // namespace igor
 

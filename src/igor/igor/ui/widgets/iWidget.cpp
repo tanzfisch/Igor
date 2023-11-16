@@ -344,6 +344,11 @@ namespace igor
         _keyboardFocus = nullptr;
     }
 
+    void iWidget::drawOverlay()
+    {
+        // implement in overlay capable widgets
+    }
+
     void iWidget::draw()
     {
         if (!isVisible())
@@ -394,79 +399,86 @@ namespace igor
 
     bool iWidget::onMouseWheel(int32 d)
     {
-        if (isEnabled() && _reactOnMouseWheel)
+        if (!isEnabled() ||
+            _reactOnMouseWheel)
         {
-            if (_isMouseOver)
+            return false;
+        }
+
+        if (_isMouseOver)
+        {
+            // get copy of children
+            std::vector<iWidgetPtr> widgets = getChildren();
+            bool result = false;
+
+            for (auto widget : widgets)
             {
-                // get copy of children
-                std::vector<iWidgetPtr> widgets = getChildren();
-                bool result = false;
-
-                for (auto widget : widgets)
+                if (widget->onMouseWheel(d))
                 {
-                    if (widget->onMouseWheel(d))
-                    {
-                        result = true;
-                    }
+                    result = true;
                 }
+            }
 
-                if (!_ignoreChildEventConsumption && result)
+            if (!_ignoreChildEventConsumption && result)
+            {
+                return true;
+            }
+            else
+            {
+                bool handeled = false;
+                if (d > 0)
                 {
-                    return true;
+                    _wheelUp(this);
                 }
                 else
                 {
-                    bool handeled = false;
-                    if (d > 0)
-                    {
-                        _wheelUp(this);
-                    }
-                    else
-                    {
-                        _wheelDown(this);
-                    }
-
-                    return handeled;
+                    _wheelDown(this);
                 }
+
+                return handeled;
             }
         }
+
         return false;
     }
 
     bool iWidget::onMouseDoubleClick(iKeyCode key)
     {
-        if (isEnabled())
+        if (!isEnabled())
         {
-            if (_isMouseOver)
+            return false;
+        }
+
+        if (_isMouseOver)
+        {
+            // get copy of children
+            std::vector<iWidgetPtr> widgets = getChildren();
+            bool result = false;
+
+            for (auto widget : widgets)
             {
-                // get copy of children
-                std::vector<iWidgetPtr> widgets = getChildren();
-                bool result = false;
-
-                for (auto widget : widgets)
+                if (widget->onMouseDoubleClick(key))
                 {
-                    if (widget->onMouseDoubleClick(key))
-                    {
-                        result = true;
-                    }
+                    result = true;
                 }
+            }
 
-                if (!_ignoreChildEventConsumption && result)
+            if (!_ignoreChildEventConsumption && result)
+            {
+                return true;
+            }
+            else
+            {
+                if (key == iKeyCode::MouseLeft)
                 {
+                    _widgetState = iWidgetState::DoubleClicked;
+                    setKeyboardFocus();
+                    _doubleClick(this);
                     return true;
-                }
-                else
-                {
-                    if (key == iKeyCode::MouseLeft)
-                    {
-                        _widgetState = iWidgetState::DoubleClicked;
-                        setKeyboardFocus();
-                        _doubleClick(this);
-                        return true;
-                    }
                 }
             }
         }
+
         return false;
     }
 
@@ -1035,6 +1047,30 @@ namespace igor
     void iWidget::onDrop(const iDrag &drag)
     {
         // nothing to do
+    }
+
+    void iWidget::setOverlayEnabled(bool overlay)
+    {
+        if (_overlay == overlay)
+        {
+            return;
+        }
+
+        _overlay = overlay;
+
+        if (_overlay)
+        {
+            iWidgetManager::getInstance().registerOverlayWidget(this);
+        }
+        else
+        {
+            iWidgetManager::getInstance().unregisterOverlayWidget(this);
+        }
+    }
+
+    bool iWidget::isOverlayEnabled() const
+    {
+        return _overlay;
     }
 
 } // namespace igor

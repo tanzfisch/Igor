@@ -50,10 +50,6 @@ namespace igor
         {
             registerDialog(static_cast<iDialogPtr>(widget));
         }
-        else if (widget->getWidgetType() == iWidgetType::iWidgetDockingLayout)
-        {
-            registerDockerLayout(static_cast<iWidgetDockingLayoutPtr>(widget));
-        }
     }
 
     void iWidgetManager::unregisterWidget(iWidgetPtr widget)
@@ -62,16 +58,28 @@ namespace igor
         {
             unregisterDialog(static_cast<iDialogPtr>(widget));
         }
-        else if (widget->getWidgetType() == iWidgetType::iWidgetDockingLayout)
-        {
-            unregisterDockerLayout(static_cast<iWidgetDockingLayoutPtr>(widget));
-        }
 
         auto iter = _widgets.find(widget->getID());
         if (iter != _widgets.end())
         {
             _widgets.erase(iter);
         }
+    }
+
+    iWidgetPtr iWidgetManager::getWidget(iWidgetID id) const
+    {
+        auto iter = _widgets.find(id);
+
+        if (iter != _widgets.end())
+        {
+            return (*iter).second;
+        }
+        return nullptr;
+    }
+
+    iDialogPtr iWidgetManager::getModal() const
+    {
+        return _modal;
     }
 
     void iWidgetManager::putDialogInFront(iDialogPtr dialog)
@@ -108,17 +116,18 @@ namespace igor
         }
     }
 
-    void iWidgetManager::registerDockerLayout(iWidgetDockingLayoutPtr dockerLayout)
+    void iWidgetManager::registerOverlayWidget(iWidgetPtr overlayWidget)
     {
-        _dockerLayouts[dockerLayout->getID()] = dockerLayout;
+        con_assert(std::find(_overlayWidgets.begin(), _overlayWidgets.end(), overlayWidget->getID()) == _overlayWidgets.end(), "can't add a second time");
+        _overlayWidgets.push_back(overlayWidget->getID());
     }
 
-    void iWidgetManager::unregisterDockerLayout(iWidgetDockingLayoutPtr dockerLayout)
+    void iWidgetManager::unregisterOverlayWidget(iWidgetPtr overlayWidget)
     {
-        auto iter = _dockerLayouts.find(dockerLayout->getID());
-        if (iter != _dockerLayouts.end())
+        auto iter = std::find(_overlayWidgets.begin(), _overlayWidgets.end(), overlayWidget->getID());
+        if (iter != _overlayWidgets.end())
         {
-            _dockerLayouts.erase(iter);
+            _overlayWidgets.erase(iter);
         }
     }
 
@@ -225,9 +234,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
-
-        bool consumed = false;
+        getActiveDialogs(dialogs, true);
 
         for (auto dialog : dialogs)
         {
@@ -235,11 +242,11 @@ namespace igor
 
             if (dialog->_isMouseOver)
             {
-                consumed = true;
+                return true;
             }
         }
 
-        return consumed;
+        return false;
     }
 
     void iWidgetManager::onUpdate()
@@ -269,9 +276,17 @@ namespace igor
         getActiveDialogs(dialogs, false);
 
         for (auto dialog : dialogs)
-        {
-            traverseContentSize(dialog);
+        {            
+            // figure out all sizes of things bottom up
+            traverseContentSize(dialog);            
+
+            // align children with their parents top down
             traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
+        }
+
+        for (auto pair : _widgets)
+        {
+            pair.second->onUpdate();
         }
     }
 
@@ -311,8 +326,6 @@ namespace igor
             traverseAlignment(child, widget->getActualPosX() + offsets[index].getX(), widget->getActualPosY() + offsets[index].getY(), offsets[index].getWidth(), offsets[index].getHeight());
             index++;
         }
-
-        widget->onUpdate();
     }
 
     void iWidgetManager::setDesktopDimensions(uint32 width, uint32 height)
@@ -385,16 +398,15 @@ namespace igor
             _currentTheme->drawTooltip(_tooltipPos, _tooltipText);
         }
 
-        if (inDrag())
+        for (const auto widgetID : _overlayWidgets)
         {
-            const iMimeData &mimeData = getDrag().getMimeData();
-            if (mimeData.hasWidgetID())
+            iWidgetPtr widget = getWidget(widgetID);
+            if (widget == nullptr)
             {
-                for (auto &pair : _dockerLayouts)
-                {
-                    pair.second->drawOverlay();
-                }
+                continue;
             }
+
+            widget->drawOverlay();
         }
     }
 
