@@ -569,17 +569,6 @@ namespace igor
 
             iRenderer::getInstance().setLineWidth(1);
         }
-
-        auto rect = getActualRect();
-        rect.adjust(5, 5, -10, -10);
-        iRenderer::getInstance().drawRectangle(rect, iaColor4f::cyan);
-
-        for (const auto child : _children)
-        {
-            auto rect = child->getActualRect();
-            rect.adjust(10, 10, -20, -20);
-            iRenderer::getInstance().drawRectangle(rect, iaColor4f::magenta);
-        }
     }
 
     void iWidgetSplitter::tryMerge(iWidgetSplitter *splitter)
