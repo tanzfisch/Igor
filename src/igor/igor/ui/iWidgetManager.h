@@ -200,6 +200,10 @@ namespace igor
         */
         std::unique_ptr<iDrag> _drag;
 
+        /*! list of widgets to be deleted
+        */
+        std::set<iWidgetPtr> _forDeletion;
+
         /*! closes the dialog and queues a close event in to be called after the update handle
          */
         void closeDialog(iDialogPtr dialog);
@@ -340,6 +344,12 @@ namespace igor
         /*! resets the drag object
         */
         void endDrag();
+
+        /*! queues widget for deletion
+
+        \param widget the widget to be deleted
+        */
+        void deleteWidget(iWidgetPtr widget);
 
         /*! init
          */

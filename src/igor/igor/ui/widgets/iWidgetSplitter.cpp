@@ -334,7 +334,7 @@ namespace igor
                 return;
             }
 
-            iWidgetSplitterPtr splitter = new iWidgetSplitter();
+            iWidgetSplitterPtr splitter = new iWidgetSplitter(true);
             for (auto child : children)
             {
                 iWidget::removeWidget(child);
@@ -410,9 +410,7 @@ namespace igor
         _dockSectionLeft = false;
         _dockSectionRight = false;
         _dockSectionTop = false;
-        _dockSectionBottom = false;
-
-        iWidgetManager::getInstance().endDrag();
+        _dockSectionBottom = false;        
     }
 
     static void updateCursor(iSplitterState splitterState)
@@ -571,11 +569,82 @@ namespace igor
 
             iRenderer::getInstance().setLineWidth(1);
         }
+
+        auto rect = getActualRect();
+        rect.adjust(5, 5, -10, -10);
+        iRenderer::getInstance().drawRectangle(rect, iaColor4f::cyan);
+
+        for (const auto child : _children)
+        {
+            auto rect = child->getActualRect();
+            rect.adjust(10, 10, -20, -20);
+            iRenderer::getInstance().drawRectangle(rect, iaColor4f::magenta);
+        }
+    }
+
+    void iWidgetSplitter::tryMerge(iWidgetSplitter *splitter)
+    {
+        const auto children = splitter->getChildren();
+
+        if (children.size() == 1 &&
+            children[0]->getWidgetType() == iWidgetType::iWidgetSplitter)
+        {
+            iWidgetSplitterPtr child = static_cast<iWidgetSplitterPtr>(children[0]);
+            const auto grandChildren = child->getChildren();
+
+            splitter->removeWidget(child);
+
+            for (auto grandchild : grandChildren)
+            {
+                child->removeWidget(grandchild);
+                splitter->addWidget(grandchild);
+            }
+
+            splitter->setOrientation(child->getOrientation());
+            splitter->setRatio(child->getRatio());
+
+            iWidgetManager::getInstance().deleteWidget(child);
+            return;
+        }
+
+        for (auto child : children)
+        {
+            if (child->getWidgetType() != iWidgetType::iWidgetSplitter)
+            {
+                continue;
+            }
+
+            const auto grandChildren = child->getChildren();
+            if (grandChildren.size() == 2)
+            {
+                tryMerge(static_cast<iWidgetSplitterPtr>(child));
+                continue;
+            }
+
+            splitter->removeWidget(child);
+
+            if (grandChildren.size() == 1)
+            {
+                child->removeWidget(grandChildren[0]);
+
+                // todo revert
+                splitter->addWidget(grandChildren[0]);
+            }
+
+            iWidgetManager::getInstance().deleteWidget(child);
+        }
     }
 
     void iWidgetSplitter::onUpdate()
     {
         iWidget::onUpdate();
+
+        // detect root splitter widget
+        if (!hasParent() ||
+            (_parent->getWidgetType() != iWidgetType::iWidgetSplitter))
+        {
+            tryMerge(this);
+        }
 
         _dockSectionCenter = false;
         _dockSectionLeft = false;
@@ -593,6 +662,7 @@ namespace igor
         if (!iIntersection::intersects(pos, getActualRect()))
         {
             _activeOverlay = false;
+            _draggedWidgetID = iWidget::INVALID_WIDGET_ID;
             return;
         }
 
@@ -627,108 +697,108 @@ namespace igor
             _rightEdgeSectionButton.set(rect.getRight() - s_sectionSelectorSize * 2.0, rect._y + rect._height * 0.5 - s_sectionSelectorSize * 0.5, s_sectionSelectorSize, s_sectionSelectorSize);
             _topEdgeSectionButton.set(rect._x + rect._width * 0.5 - s_sectionSelectorSize * 0.5, rect._y + s_sectionSelectorSize, s_sectionSelectorSize, s_sectionSelectorSize);
             _bottomEdgeSectionButton.set(rect._x + rect._width * 0.5 - s_sectionSelectorSize * 0.5, rect.getBottom() - s_sectionSelectorSize * 2.0, s_sectionSelectorSize, s_sectionSelectorSize);
+        }
 
-            // TODO would be nice to be able to stack dialogs
-            int32 childCount = getChildren().size();
-            if (childCount == 0)
+        // TODO would be nice to be able to stack dialogs
+        int32 childCount = getChildren().size();
+        if (childCount == 0)
+        {
+            if (iIntersection::intersects(pos, _centerSectionButton))
             {
-                if (iIntersection::intersects(pos, _centerSectionButton))
-                {
-                    _dockSectionCenter = true;
-                    _validDockSection = true;
+                _dockSectionCenter = true;
+                _validDockSection = true;
 
-                    _highlightSection = getActualRect();
-                }
+                _highlightSection = getActualRect();
             }
-            else if (childCount == 1)
+        }
+        else if (childCount == 1)
+        {
+            if (iIntersection::intersects(pos, _leftSectionButton))
             {
-                if (iIntersection::intersects(pos, _leftSectionButton))
-                {
-                    _dockSectionLeft = true;
-                    _validDockSection = true;
-
-                    iaRectanglef leftSection = getActualRect();
-                    leftSection.setWidth(leftSection._width * s_halfSubdivideRatio);
-                    _highlightSection = leftSection;
-                }
-                else if (iIntersection::intersects(pos, _rightSectionButton))
-                {
-                    _dockSectionRight = true;
-                    _validDockSection = true;
-
-                    iaRectanglef rightSection = getActualRect();
-                    rightSection.setX(rightSection.getRight() - rightSection._width * s_halfSubdivideRatio);
-                    rightSection.setWidth(rightSection._width * s_halfSubdivideRatio);
-                    _highlightSection = rightSection;
-                }
-                else if (iIntersection::intersects(pos, _topSectionButton))
-                {
-                    _dockSectionTop = true;
-                    _validDockSection = true;
-
-                    iaRectanglef topSection = getActualRect();
-                    topSection.setHeight(topSection._height * s_halfSubdivideRatio);
-                    _highlightSection = topSection;
-                }
-                else if (iIntersection::intersects(pos, _bottomSectionButton))
-                {
-                    _dockSectionBottom = true;
-                    _validDockSection = true;
-
-                    iaRectanglef bottomSection = getActualRect();
-                    bottomSection.setY(bottomSection.getBottom() - bottomSection._height * s_halfSubdivideRatio);
-                    bottomSection.setHeight(bottomSection._height * s_halfSubdivideRatio);
-                    _highlightSection = bottomSection;
-                }
-            }
-
-            if (iIntersection::intersects(pos, _leftEdgeSectionButton))
-            {
-                _dockSectionLeftEdge = true;
+                _dockSectionLeft = true;
                 _validDockSection = true;
 
                 iaRectanglef leftSection = getActualRect();
-                leftSection.setWidth(leftSection._width * s_edgeSubdivideRatio);
+                leftSection.setWidth(leftSection._width * s_halfSubdivideRatio);
                 _highlightSection = leftSection;
             }
-            else if (iIntersection::intersects(pos, _rightEdgeSectionButton))
+            else if (iIntersection::intersects(pos, _rightSectionButton))
             {
-                _dockSectionRightEdge = true;
+                _dockSectionRight = true;
                 _validDockSection = true;
 
                 iaRectanglef rightSection = getActualRect();
-                rightSection.setX(rightSection.getRight() - rightSection._width * s_edgeSubdivideRatio);
-                rightSection.setWidth(rightSection._width * s_edgeSubdivideRatio);
+                rightSection.setX(rightSection.getRight() - rightSection._width * s_halfSubdivideRatio);
+                rightSection.setWidth(rightSection._width * s_halfSubdivideRatio);
                 _highlightSection = rightSection;
             }
-            else if (iIntersection::intersects(pos, _topEdgeSectionButton))
+            else if (iIntersection::intersects(pos, _topSectionButton))
             {
-                _dockSectionTopEdge = true;
+                _dockSectionTop = true;
                 _validDockSection = true;
 
                 iaRectanglef topSection = getActualRect();
-                topSection.setHeight(topSection._height * s_edgeSubdivideRatio);
+                topSection.setHeight(topSection._height * s_halfSubdivideRatio);
                 _highlightSection = topSection;
             }
-            else if (iIntersection::intersects(pos, _bottomEdgeSectionButton))
+            else if (iIntersection::intersects(pos, _bottomSectionButton))
             {
-                _dockSectionBottomEdge = true;
+                _dockSectionBottom = true;
                 _validDockSection = true;
 
                 iaRectanglef bottomSection = getActualRect();
-                bottomSection.setY(bottomSection.getBottom() - bottomSection._height * s_edgeSubdivideRatio);
-                bottomSection.setHeight(bottomSection._height * s_edgeSubdivideRatio);
+                bottomSection.setY(bottomSection.getBottom() - bottomSection._height * s_halfSubdivideRatio);
+                bottomSection.setHeight(bottomSection._height * s_halfSubdivideRatio);
                 _highlightSection = bottomSection;
             }
         }
 
+        if (iIntersection::intersects(pos, _leftEdgeSectionButton))
+        {
+            _dockSectionLeftEdge = true;
+            _validDockSection = true;
+
+            iaRectanglef leftSection = getActualRect();
+            leftSection.setWidth(leftSection._width * s_edgeSubdivideRatio);
+            _highlightSection = leftSection;
+        }
+        else if (iIntersection::intersects(pos, _rightEdgeSectionButton))
+        {
+            _dockSectionRightEdge = true;
+            _validDockSection = true;
+
+            iaRectanglef rightSection = getActualRect();
+            rightSection.setX(rightSection.getRight() - rightSection._width * s_edgeSubdivideRatio);
+            rightSection.setWidth(rightSection._width * s_edgeSubdivideRatio);
+            _highlightSection = rightSection;
+        }
+        else if (iIntersection::intersects(pos, _topEdgeSectionButton))
+        {
+            _dockSectionTopEdge = true;
+            _validDockSection = true;
+
+            iaRectanglef topSection = getActualRect();
+            topSection.setHeight(topSection._height * s_edgeSubdivideRatio);
+            _highlightSection = topSection;
+        }
+        else if (iIntersection::intersects(pos, _bottomEdgeSectionButton))
+        {
+            _dockSectionBottomEdge = true;
+            _validDockSection = true;
+
+            iaRectanglef bottomSection = getActualRect();
+            bottomSection.setY(bottomSection.getBottom() - bottomSection._height * s_edgeSubdivideRatio);
+            bottomSection.setHeight(bottomSection._height * s_edgeSubdivideRatio);
+            _highlightSection = bottomSection;
+        }
+
         // detect mouse release
-        if (_activeOverlay &&
-            _validDockSection &&
+        if (_draggedWidgetID != iWidget::INVALID_WIDGET_ID &&
             !iMouse::getInstance().getLeftButton())
         {
             // simulate drop
             simulateDrop(_draggedWidgetID);
+            iWidgetManager::getInstance().endDrag();
 
             _validDockSection = false;
             _draggedWidgetID = iWidget::INVALID_WIDGET_ID;

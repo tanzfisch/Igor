@@ -281,6 +281,20 @@ namespace igor
         {
             pair.second->onUpdate();
         }
+
+        for(auto widget : _forDeletion)
+        {
+            delete widget;
+        }
+
+        _forDeletion.clear();
+    }
+
+    void iWidgetManager::deleteWidget(iWidgetPtr widget)
+    {
+        con_assert(!widget->hasParent(), "can't have parent");
+
+        _forDeletion.insert(widget);
     }
 
     void iWidgetManager::traverseContentSize(iWidgetPtr widget)

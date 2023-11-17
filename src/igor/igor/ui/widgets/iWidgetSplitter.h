@@ -300,6 +300,12 @@ namespace igor
         */
         iSplitterState calcSplitterState(const iaVector2f &pos);
 
+        /*! trying to merge splitter widgets
+
+        \param splitter the curent splitter
+        */
+        void tryMerge(iWidgetSplitter* splitter);
+
     };
 
     /*! widget button pointer definition
