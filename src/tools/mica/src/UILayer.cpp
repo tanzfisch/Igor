@@ -46,8 +46,11 @@ void UILayer::onInit()
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
-    _propertiesDialog = new PropertiesEditor();
+    _propertiesDialog = new PropertiesEditor();    
     _outliner = new Outliner(_workspace);
+
+    _assetBrowser = new AssetBrowser();
+    _assetBrowser->setPos(iaVector2f(100, 100));
 
     _outliner->registerOnCreateProject(CreateProjectDelegate(this, &UILayer::onCreateProject));
     _outliner->registerOnLoadProject(LoadProjectDelegate(this, &UILayer::onLoadProject));
@@ -72,6 +75,9 @@ void UILayer::onInit()
 
     _propertiesDialog->setEnabled();
     _propertiesDialog->setVisible();
+
+    _assetBrowser->setEnabled();
+    _assetBrowser->setVisible();
 }
 
 void UILayer::onDeinit()
@@ -174,7 +180,7 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
 
 void UILayer::onSaveProject()
 {
-    if(_activeProject == nullptr)
+    if (_activeProject == nullptr)
     {
         con_err("no project to save");
         return;

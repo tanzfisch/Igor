@@ -34,7 +34,7 @@ namespace igor
         if (!isGrowingByContent() ||
             getChildren().empty())
         {
-            setMinSize(minWidth, minHeight);
+            updateMinSize(minWidth, minHeight);
             return;
         }
 
@@ -52,20 +52,15 @@ namespace igor
             }
         }
 
-        minWidth = std::max(minWidth, getConfiguredWidth());
-        minHeight = std::max(minHeight, getConfiguredHeight());
+        minWidth = std::max(minWidth, getConfiguredMinWidth());
+        minHeight = std::max(minHeight, getConfiguredMinHeight());
 
-        setClientArea(0, 0, 0, 0);        
-        setMinSize(minWidth, minHeight);
+        setClientArea(0, 0, 0, 0);
+        updateMinSize(minWidth, minHeight);
     }
 
     void iWidgetBoxLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
     {
-        if (getID() == 2)
-        {
-            int x = 0;
-        }
-
         if (_children.empty())
         {
             return;
@@ -124,23 +119,6 @@ namespace igor
     int32 iWidgetBoxLayout::getStretchIndex() const
     {
         return _stretchIndex;
-    }
-
-    void iWidgetBoxLayout::draw()
-    {
-        if (!isVisible())
-        {
-            return;
-        }
-
-        iWidgetManager::getInstance().getTheme()->drawGridCell(getActualRect(), getState());
-
-        // TODO?
-
-        for (const auto child : _children)
-        {
-            child->draw();
-        }
     }
 
     std::wostream &operator<<(std::wostream &stream, const iWidgetBoxLayoutType &type)

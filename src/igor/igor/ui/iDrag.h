@@ -26,49 +26,57 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_DOCKING_LAYOUT__
-#define __IGOR_WIDGET_DOCKING_LAYOUT__
+#ifndef __IGOR_DRAG__
+#define __IGOR_DRAG__
 
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTexture.h>
-
-#include <memory>
-#include <map>
+#include <igor/data/iMimeData.h>
 
 namespace igor
 {
 
-    /*! docking layout widget
+    /*! drag data for drag & drop
      */
-    class IGOR_API iWidgetDockingLayout : public iWidget
+    class IGOR_API iDrag
     {
     public:
-        /*! ctor initializes member variables
+        /*! store source id
 
-        \param parent optional parent
+        \param source source widget
         */
-        iWidgetDockingLayout(const iWidgetPtr parent = nullptr);
+        iDrag(iWidgetPtr source = nullptr);
 
-        /*! does nothing
+        /*! sets mime data
+
+        \param mimeData the mime data to set
+        */
+        void setMimeData(const iMimeData &mimeData);
+
+        /*! \returns the mime data
          */
-        ~iWidgetDockingLayout() = default;
+        const iMimeData &getMimeData() const;
 
-        // TODO add load and save layout. Maybe use callbacks so the application can add their dialogs/widgets 
+        /*! \returns id of source widget (only if the source was an igor widget)
+         */
+        iWidgetID getSource() const;
 
-        /*! does nothing
-        */
-        void addWidget(iWidgetPtr widget) override;
+        /*! execute the drag
+         */
+        void execute();
 
-        /*! does nothing
-        */
-        void removeWidget(iWidgetPtr widget) override;        
+    private:
+        /*! the mime data
+         */
+        iMimeData _mimeData;
 
+        /*! source widget id
+         */
+        iWidgetID _source = iWidget::INVALID_WIDGET_ID;
     };
 
-    /*! widget grid pointer definition
+    /*! drag pointer definition
      */
-    typedef iWidgetDockingLayout *iWidgetDockingLayoutPtr;
+    typedef iDrag *iDragPtr;
+}
 
-} // namespace igor
-
-#endif // __IGOR_WIDGET_BOX_LAYOUT__
+#endif // __IGOR_DRAG__

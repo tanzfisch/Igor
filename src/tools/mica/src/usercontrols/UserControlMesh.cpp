@@ -208,11 +208,6 @@ void UserControlMesh::updateGUI()
     }
 }
 
-void UserControlMesh::draw()
-{
-    iWidget::draw();
-}
-
 void UserControlMesh::setNode(uint32 id)
 {
     _nodeId = id;
@@ -293,17 +288,17 @@ void UserControlMesh::initGUI()
 
     iWidgetLabel *labelVertexes = new iWidgetLabel();
     labelVertexes->setText("Vertexes");
-    labelVertexes->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVertexes->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVertexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelTriangles = new iWidgetLabel();
     labelTriangles->setText("Triangles");
-    labelTriangles->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTriangles->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTriangles->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelIndexes = new iWidgetLabel();
     labelIndexes->setText("Indexes");
-    labelIndexes->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelIndexes->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelIndexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textVertices = new iWidgetLineTextEdit();
@@ -343,7 +338,7 @@ void UserControlMesh::initGUI()
     _sliderShininess->setMaxValue(1000.0f);
     _sliderShininess->setSteppingWheel(0.1f, 0.1f);
     _sliderShininess->setValue(0.0f);
-    _sliderShininess->setWidth(220);
+    _sliderShininess->setMinWidth(220);
     _sliderShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
     _sliderShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onSliderChangedShininess));
 
@@ -351,7 +346,7 @@ void UserControlMesh::initGUI()
     _textShininess->setMinMaxNumber(0.0f, 1000.0f);
     _textShininess->setAfterPoint(2);
     _textShininess->setValue(0.0f);
-    _textShininess->setWidth(80);
+    _textShininess->setMinWidth(80);
     _textShininess->setSteppingWheel(0.1f, 0.1f);
     _textShininess->setStepping(0.01f, 0.01f);
     _textShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
@@ -365,22 +360,22 @@ void UserControlMesh::initGUI()
 
     iWidgetLabel *labelTextureUnit0 = new iWidgetLabel();
     labelTextureUnit0->setText("Texture 0");
-    labelTextureUnit0->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTextureUnit0->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelTextureUnit1 = new iWidgetLabel();
     labelTextureUnit1->setText("Texture 1");
-    labelTextureUnit1->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTextureUnit1->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelTextureUnit2 = new iWidgetLabel();
     labelTextureUnit2->setText("Texture 2");
-    labelTextureUnit2->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTextureUnit2->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelTextureUnit3 = new iWidgetLabel();
     labelTextureUnit3->setText("Texture 3");
-    labelTextureUnit3->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTextureUnit3->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textureChooser0 = new iUserControlFileChooser();

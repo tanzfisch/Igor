@@ -103,8 +103,8 @@ namespace igor
         void setTitle(const iaString &title);
 
         /*! \returns title of dialog
-        */
-        const iaString& getTitle() const;
+         */
+        const iaString &getTitle() const;
 
         /*! sets wether or not the dialog is resize-able
 
@@ -113,7 +113,7 @@ namespace igor
         void setResizeable(bool enable);
 
         /*! \returns true if dialog is resize-able
-        */
+         */
         bool isResizeable() const;
 
         /*! sets wether or not the dialog is dock-able
@@ -123,15 +123,17 @@ namespace igor
         void setDockable(bool enable);
 
         /*! \returns true if dialog is dock-able
-        */
+         */
         bool isDockable() const;
 
         /*! \returns true if dialog is docked
-        */
+
+        This is currently just an alias for hasParent
+         */
         bool isDocked() const;
 
         /*! \returns docking parent id
-        */
+         */
         iWidgetID getDockingParent() const;
 
         /*! sets wether or not the dialog is moveable
@@ -141,7 +143,7 @@ namespace igor
         void setMoveable(bool enable);
 
         /*! \returns true if dialog is moveable
-        */
+         */
         bool isMoveable() const;
 
         /*! sets horizontal position of dialog
@@ -197,7 +199,7 @@ namespace igor
         void setReturnState(iDialogReturnState returnState);
 
         /*! puts dialog in front of others
-        */
+         */
         void putInFront();
 
     private:
@@ -218,27 +220,27 @@ namespace igor
         bool _headerEnabled = true;
 
         /*! if true dialog is resize-able
-        */
+         */
         bool _isResizeable = true;
-        
+
         /*! if true dialog is moveable
-        */
+         */
         bool _isMoveable = true;
 
         /*! if true dialog is dock-able
-        */
+         */
         bool _isDockable = false;
 
-        /*! true if actually moving
-        */
+        /*! true if actually moving (or being dragged)
+         */
         bool _moving = false;
 
         /*! saving mouse pos when last time pressed a button
-        */
+         */
         iaVector2f _lastMousePos;
 
         /*! title of dialog
-        */
+         */
         iaString _title;
 
         /*! motion state of dialog
@@ -249,35 +251,31 @@ namespace igor
          */
         iDialogCloseDelegate _dialogCloseDelegate;
 
-        /*! docking parent id
-        */
-        iWidgetID _dockingParentID = iWidget::INVALID_WIDGET_ID;
-
         /*! handles incoming acsii codes from keyboard
 
         \param c the incoming character from keyboard
         */
-        bool handleASCII(uint8 c) override;
+        bool onASCII(uint8 c) override;
 
         /*! handles incoming mouse key down events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key) override;
+        bool onMouseKeyDown(iKeyCode key) override;
 
         /*! handles mouse key up events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyUp(iKeyCode key) override;
+        bool onMouseKeyUp(iKeyCode key) override;
 
         /*! handles incoming mouse move events
 
         \param pos mouse position
         */
-        void handleMouseMove(const iaVector2f &pos) override;
+        void onMouseMove(const iaVector2f &pos, bool consumed) override;
 
         /*! updates size based on it's content
          */
@@ -296,9 +294,9 @@ namespace igor
         */
         iDialogMotionState calcMotionState(const iaVector2f &pos);
 
-        /*! draws the children
+        /*! draws the widget
          */
-        void draw();
+        void draw() override;
     };
 } // namespace igor
 

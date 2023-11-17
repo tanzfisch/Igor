@@ -73,7 +73,7 @@ void Outliner::initGUI()
 
     setDockable(true);
     setTitle("Outliner");
-    setWidth(350);
+    setMinWidth(350);
     setHorizontalAlignment(iHorizontalAlignment::Left);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
@@ -113,8 +113,8 @@ void Outliner::initGUI()
     iWidgetButtonPtr exitButton = new iWidgetButton();
     exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
     exitButton->setText("");
-    exitButton->setWidth(30);
-    exitButton->setHeight(30);
+    exitButton->setMinWidth(30);
+    exitButton->setMinHeight(30);
 
     iWidgetMenuBarPtr menuBar = createMenu();
     _grid->addWidget(menuBar, 0, 0);

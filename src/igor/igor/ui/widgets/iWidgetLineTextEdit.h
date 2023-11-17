@@ -153,27 +153,27 @@ namespace igor
 
 		\param c the incoming character from keyboard
 		*/
-        virtual bool handleASCII(uint8 c) override;
+        virtual bool onASCII(uint8 c) override;
 
         /*! handles incoming released key events
 
 		\param key the released key
 		*/
-        virtual bool handleKeyDown(iKeyCode key) override;
+        virtual bool onKeyDown(iKeyCode key) override;
 
         /*! handles incoming released key events
 
 		\param key the released key
 		*/
-        virtual bool handleKeyUp(iKeyCode key) override;
+        virtual bool onKeyUp(iKeyCode key) override;
 
         /*! handles gained kayboard focus
 		*/
-        virtual void handleGainedKeyboardFocus() override;
+        virtual void onGainedKeyboardFocus() override;
 
         /*! handles lost keyboard focus
 		*/
-        virtual void handleLostKeyboardFocus() override;
+        virtual void onLostKeyboardFocus() override;
 
         /*! triggers a change event if the content has changed
 		*/
@@ -204,9 +204,9 @@ namespace igor
 		*/
         void calcMinSize() override;
 
-        /*! draws the text edit widget
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
 
         /*! updates the cursor position and scroll offset
 		*/

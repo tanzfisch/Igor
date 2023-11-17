@@ -22,7 +22,7 @@ namespace igor
 
 	void iWidgetLineTextEdit::calcMinSize()
 	{
-		setMinSize(0, 0);
+		updateMinSize(0, 0);
 	}
 
 	void iWidgetLineTextEdit::setWriteProtected(bool writeProtected)
@@ -35,7 +35,7 @@ namespace igor
 		return _writeProtected;
 	}
 
-	bool iWidgetLineTextEdit::handleASCII(uint8 c)
+	bool iWidgetLineTextEdit::onASCII(uint8 c)
 	{
 		if (!isEnabled() || isWriteProtected() || !hasKeyboardFocus())
 		{
@@ -62,7 +62,7 @@ namespace igor
 		return true;
 	}
 
-	bool iWidgetLineTextEdit::handleKeyUp(iKeyCode key)
+	bool iWidgetLineTextEdit::onKeyUp(iKeyCode key)
 	{
 		if (!isEnabled() || isWriteProtected() || !hasKeyboardFocus())
 		{
@@ -73,7 +73,7 @@ namespace igor
 		return true;
 	}
 
-	bool iWidgetLineTextEdit::handleKeyDown(iKeyCode key)
+	bool iWidgetLineTextEdit::onKeyDown(iKeyCode key)
 	{
 		if (!isEnabled() || isWriteProtected() || !hasKeyboardFocus())
 		{
@@ -184,10 +184,12 @@ namespace igor
 
 	void iWidgetLineTextEdit::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawLineTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetState, isEnabled() && !_writeProtected);
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawLineTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetState, isEnabled() && !_writeProtected);
 	}
 
 	const iaString &iWidgetLineTextEdit::getText() const
@@ -215,7 +217,7 @@ namespace igor
 		_triggerChangeAtOnce = false;
 	}
 
-	void iWidgetLineTextEdit::handleGainedKeyboardFocus()
+	void iWidgetLineTextEdit::onGainedKeyboardFocus()
 	{
 		setCursorPos(_text.getLength());
 		_textBackup = _text;
@@ -229,7 +231,7 @@ namespace igor
 		}
 	}
 
-	void iWidgetLineTextEdit::handleLostKeyboardFocus()
+	void iWidgetLineTextEdit::onLostKeyboardFocus()
 	{
 		handleChanges();
 	}

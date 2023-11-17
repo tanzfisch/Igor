@@ -19,15 +19,17 @@ namespace igor
 
 	void iWidgetTextEdit::calcMinSize()
 	{
-		setMinSize(0, 0);
+		updateMinSize(0, 0);
 	}
 
 	void iWidgetTextEdit::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-	 		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
 	}
 
 	const iaString &iWidgetTextEdit::getText() const

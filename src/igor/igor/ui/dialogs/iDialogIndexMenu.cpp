@@ -47,7 +47,7 @@ namespace igor
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setHeight(0);
+		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
@@ -78,7 +78,7 @@ namespace igor
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setHeight(0);
+		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));

@@ -11,13 +11,14 @@ Changelog                           {#changelog}
 - introducing resource dictionaries and using 64bit ids to primarily identify resources
   (resource ids are not generated from the resource name or filename anymore)s
 - introducing projects
-- introducing interface to create empty/default resources (depends on what the factories do with it)
-- introducing iWidgetBoxLayout
+- added interface to create empty/default resources (depends on what the factories do with it)
+- added iWidgetBoxLayout
 - renamed iWidgetGrid to iWidgetGridLayout
 - replaced iUserControlAction with iWidgetButton
 - dialogs can now be moved, resized and docked
 - added interface to change mouse cursor see iMouseCursorType for supported types
-- added iWidgetSplitter
+- added iWidgetSplitter, iMimeData
+- added drag&drop
 
 0.42.0
 ------

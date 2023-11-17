@@ -9,6 +9,7 @@
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/data/iIntersection.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/ui/iDrag.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -21,11 +22,12 @@ namespace igor
     {
         setEnabled(false);
         setVisible(false);
-        setWidth(100);
-        setHeight(100);
+        setMinWidth(100);
+        setMinHeight(100);
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
         setVerticalAlignment(iVerticalAlignment::Absolute);
 
+        // TODO weird hack for menus and sub menus
         if (parent != nullptr)
         {
             iWidgetPtr parentDialog = nullptr;
@@ -45,6 +47,10 @@ namespace igor
             {
                 setZValue(parentDialog->getZValue() + 1);
             }
+        }
+        else
+        {
+            putInFront();
         }
     }
 
@@ -81,6 +87,7 @@ namespace igor
         _dialogCloseDelegate = dialogCloseDelegate;
         setEnabled();
         setVisible();
+        putInFront();
 
         _isOpen = true;
     }
@@ -127,10 +134,7 @@ namespace igor
             setClientArea(0, 0, 0, 0);
         }
 
-        minWidth = std::max(getConfiguredWidth(), minWidth);
-        minHeight = std::max(getConfiguredHeight(), minHeight);
-
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     void iDialog::updateAlignment(int32 clientWidth, int32 clientHeight)
@@ -201,15 +205,21 @@ namespace igor
             return;
         }
 
-        iaRectanglef clientRect = getActualRect();
+        iaRectanglef rect = getActualRect();
+
+        iaRectanglef clientRect = rect;
         clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
 
-        iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), clientRect, _headerEnabled, _title + " " + iaString::toString(getZValue()), isResizeable(), getState(), isEnabled());
+        if (!isDocked())
+        {
+            iWidgetManager::getInstance().getTheme()->drawShadowRect(rect);
+        }
+
+        iWidgetManager::getInstance().getTheme()->drawDialog(rect, clientRect, _headerEnabled, _title, isResizeable(), getState(), isEnabled());
 
         // store current render states
         const iaRectanglei viewport = iRenderer::getInstance().getViewport();
         const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
-        const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
 
         iRenderer::getInstance().setViewport(clientRect._x, iWidgetManager::getInstance().getDesktopHeight() - clientRect._y - clientRect._height, clientRect._width, clientRect._height);
         iRenderer::getInstance().setOrtho(clientRect._x, clientRect._x + clientRect._width, clientRect._y + clientRect._height, clientRect._y, 0.1f, 10.0f);
@@ -220,7 +230,6 @@ namespace igor
         }
 
         // restore everything
-        iRenderer::getInstance().setModelMatrix(modelMatrix);
         iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
         iRenderer::getInstance().setViewport(viewport);
     }
@@ -254,9 +263,9 @@ namespace igor
         iWidgetManager::getInstance().putDialogInFront(this);
     }
 
-    bool iDialog::handleASCII(uint8 c)
+    bool iDialog::onASCII(uint8 c)
     {
-        if (iWidget::handleASCII(c))
+        if (iWidget::onASCII(c))
         {
             return true;
         }
@@ -264,14 +273,10 @@ namespace igor
         return true;
     }
 
-    bool iDialog::handleMouseKeyDown(iKeyCode key)
+    bool iDialog::onMouseKeyDown(iKeyCode key)
     {
-        if (!isEnabled())
-        {
-            return false;
-        }
-
-        if (!_isMouseOver)
+        if (!isEnabled() ||
+            !_isMouseOver)
         {
             return false;
         }
@@ -298,13 +303,13 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->handleMouseKeyDown(key))
+            if (widget->onMouseKeyDown(key))
             {
                 childResult = true;
             }
         }
 
-        if (!_ignoreChildEventHandling && childResult)
+        if (!_ignoreChildEventConsumption && childResult)
         {
             return true;
         }
@@ -312,18 +317,14 @@ namespace igor
         return false;
     }
 
-    iWidgetID iDialog::getDockingParent() const
-    {
-        return _dockingParentID;
-    }
-
     bool iDialog::isDocked() const
     {
-        return _dockingParentID != iWidget::INVALID_WIDGET_ID;
+        return hasParent();
     }
 
-    bool iDialog::handleMouseKeyUp(iKeyCode key)
+    bool iDialog::onMouseKeyUp(iKeyCode key)
     {
+        bool wasMoving = _moving;
         _moving = false;
 
         if (!isEnabled())
@@ -333,12 +334,6 @@ namespace igor
 
         if (_motionState != iDialogMotionState::Static && key == iKeyCode::MouseLeft)
         {
-            if (_motionState == iDialogMotionState::Moving &&
-                isDockable())
-            {
-                _dockingParentID = iWidgetManager::getInstance().dockDialog(getID());
-            }
-
             _motionState = iDialogMotionState::Static;
         }
 
@@ -351,42 +346,45 @@ namespace igor
         std::vector<iWidgetPtr> children = getChildren();
         bool result = false;
 
-        for (auto child : children)
+        if (!wasMoving)
         {
-            if (child->handleMouseKeyUp(key))
+            for (auto child : children)
             {
-                result = true;
-            }
-        }
-
-        if (!_ignoreChildEventHandling && result)
-        {
-            return true;
-        }
-
-        if (key == iKeyCode::MouseLeft ||
-            key == iKeyCode::MouseRight)
-        {
-            if (_widgetState == iWidgetState::Pressed)
-            {
-                _widgetState = iWidgetState::Clicked;
-                setKeyboardFocus();
-
-                _click(this);
-
-                if (key == iKeyCode::MouseRight)
+                if (child->onMouseKeyUp(key))
                 {
-                    _contextMenu(this);
+                    result = true;
                 }
+            }
 
+            if (!_ignoreChildEventConsumption && result)
+            {
                 return true;
             }
-        }
 
-        if (_acceptOutOfBoundsClicks)
-        {
-            _mouseOffClick(this);
-            return true;
+            if (key == iKeyCode::MouseLeft ||
+                key == iKeyCode::MouseRight)
+            {
+                if (_widgetState == iWidgetState::Pressed)
+                {
+                    _widgetState = iWidgetState::Clicked;
+                    setKeyboardFocus();
+
+                    _click(this);
+
+                    if (key == iKeyCode::MouseRight)
+                    {
+                        _contextMenu(this);
+                    }
+
+                    return true;
+                }
+            }
+
+            if (_acceptOutOfBoundsClicks)
+            {
+                _mouseOffClick(this);
+                return true;
+            }
         }
 
         return false;
@@ -412,7 +410,9 @@ namespace igor
         }
 
         if (!isResizeable() ||
-            isDocked())
+            isDocked() ||
+            (getVerticalAlignment() != iVerticalAlignment::Absolute &&
+             getHorizontalAlignment() != iHorizontalAlignment::Absolute))
         {
             return iDialogMotionState::Static;
         }
@@ -472,24 +472,74 @@ namespace igor
         return iDialogMotionState::Static;
     }
 
-    void iDialog::handleMouseMove(const iaVector2f &pos)
+    static void updateCursor(iDialogMotionState motionState)
+    {
+        iMouseCursorType cursorType;
+
+        switch (motionState)
+        {
+        case iDialogMotionState::Moving:
+        case iDialogMotionState::Static:
+            cursorType = iMouseCursorType::Arrow;
+            break;
+        case iDialogMotionState::ResizeLeft:
+            cursorType = iMouseCursorType::ArrowLeftEdge;
+            break;
+        case iDialogMotionState::ResizeRight:
+            cursorType = iMouseCursorType::ArrowRightEdge;
+            break;
+        case iDialogMotionState::ResizeTop:
+            cursorType = iMouseCursorType::ArrowTopEdge;
+            break;
+        case iDialogMotionState::ResizeBottom:
+            cursorType = iMouseCursorType::ArrowBottomEdge;
+            break;
+        case iDialogMotionState::ResizeLeftTop:
+            cursorType = iMouseCursorType::ArrowTopLeftCorner;
+            break;
+        case iDialogMotionState::ResizeRightTop:
+            cursorType = iMouseCursorType::ArrowTopRightCorner;
+            break;
+        case iDialogMotionState::ResizeLeftBottom:
+            cursorType = iMouseCursorType::ArrowBottomLeftCorner;
+            break;
+        case iDialogMotionState::ResizeRightBottom:
+            cursorType = iMouseCursorType::ArrowBottomRightCorner;
+            break;
+        }
+
+        iMouse::getInstance().setCursorType(cursorType);
+    }
+
+    void iDialog::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled())
         {
             return;
         }
 
+        if (!isDocked())
+        {
+            iDialogMotionState motionState = calcMotionState(pos);
+            updateCursor(motionState);
+        }
+
         // get copy of children
         std::vector<iWidgetPtr> widgets = getChildren();
         for (auto widget : widgets)
         {
-            widget->handleMouseMove(pos);
+            widget->onMouseMove(pos, consumed);
         }
 
-        const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
         auto rect = getActualRect();
-        rect.adjust(-frameWidth, -frameWidth, frameWidth * 2.0f, frameWidth * 2.0f);
-        if (iIntersection::intersects(pos, rect))
+        if (!isDocked())
+        {
+            const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
+            rect.adjust(-frameWidth, -frameWidth, frameWidth * 2.0f, frameWidth * 2.0f);
+        }
+
+        if (iIntersection::intersects(pos, rect) &&
+            !consumed)
         {
             if (!_isMouseOver)
             {
@@ -499,47 +549,33 @@ namespace igor
 
             _isMouseOver = true;
 
-            iDialogMotionState motionState = calcMotionState(pos);
-            iMouseCursorType cursorType;
-
-            switch (motionState)
-            {
-            case iDialogMotionState::Moving:
-            case iDialogMotionState::Static:
-                cursorType = iMouseCursorType::Arrow;
-                break;
-            case iDialogMotionState::ResizeLeft:
-                cursorType = iMouseCursorType::ArrowLeftEdge;
-                break;
-            case iDialogMotionState::ResizeRight:
-                cursorType = iMouseCursorType::ArrowRightEdge;
-                break;
-            case iDialogMotionState::ResizeTop:
-                cursorType = iMouseCursorType::ArrowTopEdge;
-                break;
-            case iDialogMotionState::ResizeBottom:
-                cursorType = iMouseCursorType::ArrowBottomEdge;
-                break;
-            case iDialogMotionState::ResizeLeftTop:
-                cursorType = iMouseCursorType::ArrowTopLeftCorner;
-                break;
-            case iDialogMotionState::ResizeRightTop:
-                cursorType = iMouseCursorType::ArrowTopRightCorner;
-                break;
-            case iDialogMotionState::ResizeLeftBottom:
-                cursorType = iMouseCursorType::ArrowBottomLeftCorner;
-                break;
-            case iDialogMotionState::ResizeRightBottom:
-                cursorType = iMouseCursorType::ArrowBottomRightCorner;
-                break;
-            }
-
-            iMouse::getInstance().setCursorType(cursorType);
-
             if (_motionState == iDialogMotionState::Moving &&
-                _lastMousePos.distance(pos) > 3.0)
+                _lastMousePos.distance(pos) > 3.0 &&
+                !_moving)
             {
                 _moving = true;
+
+                // detach from parent if it was docked
+                if (isDocked())
+                {
+                    _parent->removeWidget(this);
+                }
+
+                // convert to absolute positioning to prevent a pop during first move
+                if (getVerticalAlignment() != iVerticalAlignment::Absolute ||
+                    getHorizontalAlignment() != iHorizontalAlignment::Absolute)
+                {
+                    setPos(getActualPos());
+                }
+
+                if (isDockable())
+                {
+                    iDrag drag(this);
+                    iMimeData mimeData;
+                    mimeData.setWidgetID(getID());
+                    drag.setMimeData(mimeData);
+                    drag.execute();
+                }
             }
         }
         else
@@ -555,23 +591,8 @@ namespace igor
             _isMouseOver = false;
         }
 
-        if (isDocked() && _moving)
-        {
-            iWidgetManager::getInstance().undockDialog(getID());
-            _dockingParentID = iWidget::INVALID_WIDGET_ID;
-        }
-
         if (_motionState != iDialogMotionState::Static)
         {
-            // convert to absolute positioning to prevent a pop during first move
-            if (getVerticalAlignment() != iVerticalAlignment::Absolute ||
-                getHorizontalAlignment() != iHorizontalAlignment::Absolute)
-            {
-                setPos(getActualPos());
-                setWidth(getActualWidth());
-                setHeight(getActualHeight());
-            }
-
             const iaVector2f diff = pos - _posLast;
             if (_motionState == iDialogMotionState::Moving &&
                 _moving)
@@ -583,7 +604,7 @@ namespace igor
                 _motionState == iDialogMotionState::ResizeRightBottom ||
                 _motionState == iDialogMotionState::ResizeRightTop)
             {
-                setWidth(getConfiguredWidth() + diff._x);
+                setMinWidth(getConfiguredMinWidth() + diff._x);
             }
 
             if (_motionState == iDialogMotionState::ResizeLeft ||
@@ -593,14 +614,14 @@ namespace igor
                 iaVector2f dialogPos = getPos();
                 dialogPos._x += diff._x;
                 setPos(dialogPos);
-                setWidth(getConfiguredWidth() - diff._x);
+                setMinWidth(getConfiguredMinWidth() - diff._x);
             }
 
             if (_motionState == iDialogMotionState::ResizeBottom ||
                 _motionState == iDialogMotionState::ResizeRightBottom ||
                 _motionState == iDialogMotionState::ResizeLeftBottom)
             {
-                setHeight(getConfiguredHeight() + diff._y);
+                setMinHeight(getConfiguredMinHeight() + diff._y);
             }
 
             if (_motionState == iDialogMotionState::ResizeTop ||
@@ -610,7 +631,7 @@ namespace igor
                 iaVector2f dialogPos = getPos();
                 dialogPos._y += diff._y;
                 setPos(dialogPos);
-                setHeight(getConfiguredHeight() - diff._y);
+                setMinHeight(getConfiguredMinHeight() - diff._y);
             }
         }
 

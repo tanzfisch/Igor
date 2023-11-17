@@ -96,7 +96,7 @@ namespace igor
 
         _fileNameTextEdit = new iWidgetLineTextEdit();
         _fileNameTextEdit->setMaxTextLength(256);
-        _fileNameTextEdit->setWidth(180); // todo why does strech not work here?
+        _fileNameTextEdit->setMinWidth(180); // todo why does strech not work here?
         _fileNameTextEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileNameTextEdit->registerOnChangeEvent(iChangeDelegate(this, &iUserControlFileChooser::onTextChanged));
 

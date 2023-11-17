@@ -63,13 +63,13 @@
 
                 <Resource id="0x02b48a88012c1205" alias="igor_icon_dock_center" source="igor/icons/dockCenter.png" />
                 <Resource id="0x9b6c77bf20a38fed" alias="igor_icon_dock_left_half" source="igor/icons/dockLeftHalf.png" />
-                <Resource id="0xf23301c59d099ee5" alias="igor_icon_dock_left_quarter" source="igor/icons/dockLeftQuarter.png" />
+                <Resource id="0xf23301c59d099ee5" alias="igor_icon_dock_left_edge" source="igor/icons/dockLeftQuarter.png" />
                 <Resource id="0xb4909694a32289bc" alias="igor_icon_dock_right_half" source="igor/icons/dockRightHalf.png" />
-                <Resource id="0x83294a75b97eb172" alias="igor_icon_dock_right_quarter" source="igor/icons/dockRightQuarter.png" />
+                <Resource id="0x83294a75b97eb172" alias="igor_icon_dock_right_edge" source="igor/icons/dockRightQuarter.png" />
                 <Resource id="0x1a919694567889bc" alias="igor_icon_dock_top_half" source="igor/icons/dockTopHalf.png" />
-                <Resource id="0xddbaf9ef4f80676a" alias="igor_icon_dock_top_quarter" source="igor/icons/dockTopQuarter.png" />
+                <Resource id="0xddbaf9ef4f80676a" alias="igor_icon_dock_top_edge" source="igor/icons/dockTopQuarter.png" />
                 <Resource id="0x2a030048fa3174a5" alias="igor_icon_dock_bottom_half" source="igor/icons/dockBottomHalf.png" />
-                <Resource id="0xda848a98d88e825a" alias="igor_icon_dock_bottom_quarter" source="igor/icons/dockBottomQuarter.png" />
+                <Resource id="0xda848a98d88e825a" alias="igor_icon_dock_bottom_edge" source="igor/icons/dockBottomQuarter.png" />
 
                 <Resource id="0xb9610a7a2e4d939e" alias="igor_texture_white" source="igor/textures/white.png" />
                 <Resource id="0x2e27bc73032ee353" alias="igor_texture_gradient_a" source="igor/textures/gradientA.png" />

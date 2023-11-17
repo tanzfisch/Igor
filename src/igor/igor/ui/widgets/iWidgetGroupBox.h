@@ -101,8 +101,8 @@ namespace igor
         iaString _text;
 
         /*! draws the widget
-		*/
-        void draw();
+         */
+        void draw() override;
 
         /*! updates size based on it's content
 		*/

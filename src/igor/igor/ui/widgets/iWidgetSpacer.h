@@ -58,9 +58,9 @@ namespace igor
 		*/
         void calcMinSize() override;
 
-        /*! draws the button
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
     };
 
     /*! widget spacer pointer definition

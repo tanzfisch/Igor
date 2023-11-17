@@ -15,8 +15,8 @@ namespace igor
     iWidgetButton::iWidgetButton(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetButton, iWidgetKind::Widget, parent)
     {
-        _configuredHeight = 10;
-        _configuredWidth = 20;
+        _configuredMinHeight = 10;
+        _configuredMinWidth = 20;
         _reactOnMouseWheel = false;
     }
 
@@ -137,11 +137,11 @@ namespace igor
                 minHeight = static_cast<int32>(fontSize * 1.5f);
             }
 
-            minWidth = std::max(minWidth, _configuredWidth);
-            minHeight = std::max(minHeight, _configuredHeight);
+            minWidth = std::max(minWidth, _configuredMinWidth);
+            minHeight = std::max(minHeight, _configuredMinHeight);
         }
 
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     iHorizontalAlignment iWidgetButton::getHorizontalTextAlignment() const
@@ -166,10 +166,12 @@ namespace igor
 
     void iWidgetButton::draw()
     {
-        if (isVisible())
+        if (!isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled());
+            return;
         }
+
+        iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled());
     }
 
 } // namespace igor

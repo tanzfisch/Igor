@@ -7,6 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/ui/user_controls/iUserControl.h>
+#include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -16,9 +17,9 @@ namespace igor
     iWidgetGridLayout::iWidgetGridLayout(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetGridLayout, iWidgetKind::Layout, parent)
     {
-        _configuredWidth = 0;
-        _configuredHeight = 0;
-        _ignoreChildEventHandling = true;
+        _configuredMinWidth = 0;
+        _configuredMinHeight = 0;
+        _ignoreChildEventConsumption = true;
         initGrid();
     }
 
@@ -328,7 +329,7 @@ namespace igor
 
             for (uint32 y = 0; y < rowCount; ++y)
             {
-                _widgetRows[y]._widgetColumn[x]._configuredWidth = biggestsize;
+                _widgetRows[y]._widgetColumn[x]._configuredMinWidth = biggestsize;
                 _widgetRows[y]._widgetColumn[x]._actualWidth = biggestsize;
             }
 
@@ -354,7 +355,7 @@ namespace igor
 
             for (uint32 x = 0; x < columnCount; ++x)
             {
-                _widgetRows[y]._widgetColumn[x]._configuredHeight = biggestsize;
+                _widgetRows[y]._widgetColumn[x]._configuredMinHeight = biggestsize;
                 _widgetRows[y]._widgetColumn[x]._actualHeight = biggestsize;
             }
 
@@ -372,7 +373,7 @@ namespace igor
             {
                 _widgetRows[y]._widgetColumn[x]._y = posy;
 
-                posy += _widgetRows[y]._widgetColumn[x]._configuredHeight + _cellspacing;
+                posy += _widgetRows[y]._widgetColumn[x]._configuredMinHeight + _cellspacing;
             }
         }
 
@@ -384,27 +385,27 @@ namespace igor
             {
                 _widgetRows[y]._widgetColumn[x]._x = posx;
 
-                posx += _widgetRows[y]._widgetColumn[x]._configuredWidth + _cellspacing;
+                posx += _widgetRows[y]._widgetColumn[x]._configuredMinWidth + _cellspacing;
             }
         }
 
         minWidth += columnCount * _cellspacing - _cellspacing + _border * 2;
         minHeight += rowCount * _cellspacing - _cellspacing + _border * 2;
 
-        if (getConfiguredWidth() > minWidth)
+        if (getConfiguredMinWidth() > minWidth)
         {
-            minWidth = getConfiguredWidth();
+            minWidth = getConfiguredMinWidth();
         }
 
-        if (getConfiguredHeight() > minHeight)
+        if (getConfiguredMinHeight() > minHeight)
         {
-            minHeight = getConfiguredHeight();
+            minHeight = getConfiguredMinHeight();
         }
 
         // no client area definition needed because every child has it's individual field
         setClientArea(0, 0, 0, 0);
 
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     void iWidgetGridLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
@@ -460,7 +461,7 @@ namespace igor
 
                 for (int32 x = 0; x < columnCount; ++x)
                 {
-                    _widgetRows[_stretchRow]._widgetColumn[x]._actualHeight = _widgetRows[_stretchRow]._widgetColumn[x]._configuredHeight + diff;
+                    _widgetRows[_stretchRow]._widgetColumn[x]._actualHeight = _widgetRows[_stretchRow]._widgetColumn[x]._configuredMinHeight + diff;
                 }
 
                 if (_stretchRow + 1 < rowCount)
@@ -488,7 +489,7 @@ namespace igor
 
                 for (int32 y = 0; y < rowCount; ++y)
                 {
-                    _widgetRows[y]._widgetColumn[_stretchCol]._actualWidth = _widgetRows[y]._widgetColumn[_stretchCol]._configuredWidth + diff;
+                    _widgetRows[y]._widgetColumn[_stretchCol]._actualWidth = _widgetRows[y]._widgetColumn[_stretchCol]._configuredMinWidth + diff;
                 }
 
                 if (_stretchCol + 1 < columnCount)
@@ -549,7 +550,7 @@ namespace igor
         return _mouseOverColumn;
     }
 
-    bool iWidgetGridLayout::handleMouseDoubleClick(iKeyCode key)
+    bool iWidgetGridLayout::onMouseDoubleClick(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -564,13 +565,13 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->handleMouseDoubleClick(key))
+            if (widget->onMouseDoubleClick(key))
             {
                 result = true;
             }
         }
 
-        if (!_ignoreChildEventHandling && result)
+        if (!_ignoreChildEventConsumption && result)
         {
             return true;
         }
@@ -599,7 +600,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetGridLayout::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetGridLayout::onMouseKeyDown(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -608,7 +609,7 @@ namespace igor
             return false;
         }
 
-        bool result = iWidget::handleMouseKeyDown(key);
+        bool result = iWidget::onMouseKeyDown(key);
 
         if (_selectMode == iSelectionMode::NoSelection)
         {
@@ -628,7 +629,7 @@ namespace igor
         return _emptyCellsSelectable;
     }
 
-    bool iWidgetGridLayout::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetGridLayout::onMouseKeyUp(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -642,13 +643,13 @@ namespace igor
 
                 for (auto widget : widgets)
                 {
-                    if (widget->handleMouseKeyUp(key))
+                    if (widget->onMouseKeyUp(key))
                     {
                         result = true;
                     }
                 }
 
-                if (!_ignoreChildEventHandling && result)
+                if (!_ignoreChildEventConsumption && result)
                 {
                     return true;
                 }
@@ -693,7 +694,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetGridLayout::handleMouseMove(const iaVector2f &pos)
+    void iWidgetGridLayout::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -714,7 +715,7 @@ namespace igor
 
                     if (widget != nullptr)
                     {
-                        widget->handleMouseMove(pos);
+                        widget->onMouseMove(pos, consumed);
                     }
                 }
 
@@ -738,10 +739,9 @@ namespace igor
 
         if (isEnabled())
         {
-            if (pos._x >= getActualPosX() &&
-                pos._x < getActualPosX() + getActualWidth() &&
-                pos._y >= getActualPosY() &&
-                pos._y < getActualPosY() + getActualHeight())
+            auto rect = getActualRect();
+            if (iIntersection::intersects(pos, rect) &&
+                !consumed)
             {
                 if (!_isMouseOver)
                 {
@@ -764,7 +764,7 @@ namespace igor
         }
     }
 
-    bool iWidgetGridLayout::handleMouseWheel(int32 d)
+    bool iWidgetGridLayout::onMouseWheel(int32 d)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -786,7 +786,7 @@ namespace igor
                         iWidgetPtr widget = iWidgetManager::getInstance().getWidget((*iterColumn)._widgetID);
 
                         if (widget != nullptr &&
-                            widget->handleMouseWheel(d))
+                            widget->onMouseWheel(d))
                         {
                             return true;
                         }

@@ -158,7 +158,7 @@ void UserControlMaterial::initGUI()
 
     _textName = new iWidgetLineTextEdit();
     _textName->setMaxTextLength(100);
-    _textName->setWidth(200);
+    _textName->setMinWidth(200);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setText("...");
@@ -206,7 +206,7 @@ void UserControlMaterial::initGUI()
     _selectBoxDepthFunc->addItem("GreaterOrEqual");
     _selectBoxDepthFunc->addItem("Always");
     _selectBoxDepthFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _selectBoxDepthFunc->setWidth(200);
+    _selectBoxDepthFunc->setMinWidth(200);
 
     iWidgetLabel *labelDepthMask = new iWidgetLabel();
     labelDepthMask->setText("Depth Mask");
@@ -240,7 +240,7 @@ void UserControlMaterial::initGUI()
     _selectBoxCullFaceFunc->addItem("Front");
     _selectBoxCullFaceFunc->addItem("Back");
     _selectBoxCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _selectBoxCullFaceFunc->setWidth(200);
+    _selectBoxCullFaceFunc->setMinWidth(200);
 
     iWidgetLabel *labelWireframe = new iWidgetLabel();
     labelWireframe->setText("Wireframe");
@@ -269,7 +269,7 @@ void UserControlMaterial::initGUI()
     _renderingOrder->setMinMaxNumber(iMaterial::RENDER_ORDER_MIN, iMaterial::RENDER_ORDER_MAX);
     _renderingOrder->setAfterPoint(0);
     _renderingOrder->setValue(iMaterial::RENDER_ORDER_DEFAULT);
-    _renderingOrder->setWidth(80);
+    _renderingOrder->setMinWidth(80);
     _renderingOrder->setSteppingWheel(10.0f, 10.0f);
     _renderingOrder->setStepping(1.0f, 1.0f);
     _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
@@ -308,7 +308,7 @@ void UserControlMaterial::initGUI()
 
     _textShaderVertex = new iWidgetLineTextEdit();
     _textShaderVertex->setEnabled(false);
-    _textShaderVertex->setWidth(200);
+    _textShaderVertex->setMinWidth(200);
     _textShaderVertex->setMaxTextLength(200);
     _textShaderVertex->setHorizontalAlignment(iHorizontalAlignment::Right);
     _textShaderVertex->setHorizontalTextAlignment(iHorizontalAlignment::Left);
@@ -317,7 +317,7 @@ void UserControlMaterial::initGUI()
 
     _textShaderGeometry = new iWidgetLineTextEdit();
     _textShaderGeometry->setEnabled(false);
-    _textShaderGeometry->setWidth(200);
+    _textShaderGeometry->setMinWidth(200);
     _textShaderGeometry->setMaxTextLength(200);
     _textShaderGeometry->setHorizontalAlignment(iHorizontalAlignment::Right);
     _textShaderGeometry->setHorizontalTextAlignment(iHorizontalAlignment::Left);
@@ -326,7 +326,7 @@ void UserControlMaterial::initGUI()
 
     _textShaderFragment = new iWidgetLineTextEdit();
     _textShaderFragment->setEnabled(false);
-    _textShaderFragment->setWidth(200);
+    _textShaderFragment->setMinWidth(200);
     _textShaderFragment->setMaxTextLength(200);
     _textShaderFragment->setHorizontalAlignment(iHorizontalAlignment::Right);
     _textShaderFragment->setHorizontalTextAlignment(iHorizontalAlignment::Left);
@@ -334,37 +334,37 @@ void UserControlMaterial::initGUI()
     _textShaderFragment->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _shader0Button = new iWidgetButton();
-    _shader0Button->setWidth(20);
-    _shader0Button->setHeight(20);
+    _shader0Button->setMinWidth(20);
+    _shader0Button->setMinHeight(20);
     _shader0Button->setText("...");
     _shader0Button->setTooltip("Browse for geometry shader");
     _shader0Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader0Button));
 
     _shader1Button = new iWidgetButton();
-    _shader1Button->setWidth(20);
-    _shader1Button->setHeight(20);
+    _shader1Button->setMinWidth(20);
+    _shader1Button->setMinHeight(20);
     _shader1Button->setText("...");
     _shader1Button->setTooltip("Browse for vertex shader");
     _shader1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader1Button));
 
     _shader2Button = new iWidgetButton();
-    _shader2Button->setWidth(20);
-    _shader2Button->setHeight(20);
+    _shader2Button->setMinWidth(20);
+    _shader2Button->setMinHeight(20);
     _shader2Button->setText("...");
     _shader2Button->setTooltip("Browse for fragment shader");
     _shader2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader2Button));
 
     _shaderReload = new iWidgetButton();
-    _shaderReload->setWidth(20);
-    _shaderReload->setHeight(20);
+    _shaderReload->setMinWidth(20);
+    _shaderReload->setMinHeight(20);
     _shaderReload->setText("Reload");
     _shaderReload->setTooltip("Reload shaders");
     _shaderReload->setHorizontalAlignment(iHorizontalAlignment::Right);
     _shaderReload->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onReloadShader));
 
     _exportMaterial = new iWidgetButton();
-    _exportMaterial->setWidth(20);
-    _exportMaterial->setHeight(20);
+    _exportMaterial->setMinWidth(20);
+    _exportMaterial->setMinHeight(20);
     _exportMaterial->setText("Export");
     _exportMaterial->setTooltip("Export Material to file");
     _exportMaterial->setHorizontalAlignment(iHorizontalAlignment::Right);

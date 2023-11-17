@@ -51,8 +51,8 @@ namespace igor
 
 	void iWidgetPicture::calcMinSize()
 	{
-		int32 minWidth = _configuredWidth;
-		int32 minHeight = _configuredHeight;
+		int32 minWidth = _configuredMinWidth;
+		int32 minHeight = _configuredMinHeight;
 
 		if (isGrowingByContent())
 		{
@@ -63,7 +63,7 @@ namespace igor
 			}
 		}
 
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 
 		float32 aspect = static_cast<float32>(minHeight) / static_cast<float32>(minWidth);
 
@@ -100,11 +100,13 @@ namespace igor
 
 	void iWidgetPicture::draw()
 	{
-		if (isVisible() &&
-			_texture != nullptr)
+		if (!isVisible() ||
+			_texture == nullptr)
 		{
-			iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetState, isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetState, isEnabled());
 	}
 
 	iTexturePtr iWidgetPicture::getTexture() const

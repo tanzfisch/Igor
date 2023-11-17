@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,49 +26,30 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_DOCKING_LAYOUT__
-#define __IGOR_WIDGET_DOCKING_LAYOUT__
+#ifndef __ASSET_BROWSER__
+#define __ASSET_BROWSER__
 
-#include <igor/ui/widgets/iWidget.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/ui/dialogs/iDialog.h>
+using namespace igor;
 
-#include <memory>
-#include <map>
-
-namespace igor
+class AssetBrowser : public iDialog
 {
 
-    /*! docking layout widget
+    friend class iWidgetManager;
+
+public:
+    /*! init UI
      */
-    class IGOR_API iWidgetDockingLayout : public iWidget
-    {
-    public:
-        /*! ctor initializes member variables
+    AssetBrowser();
 
-        \param parent optional parent
-        */
-        iWidgetDockingLayout(const iWidgetPtr parent = nullptr);
-
-        /*! does nothing
-         */
-        ~iWidgetDockingLayout() = default;
-
-        // TODO add load and save layout. Maybe use callbacks so the application can add their dialogs/widgets 
-
-        /*! does nothing
-        */
-        void addWidget(iWidgetPtr widget) override;
-
-        /*! does nothing
-        */
-        void removeWidget(iWidgetPtr widget) override;        
-
-    };
-
-    /*! widget grid pointer definition
+    /*! does nothing
      */
-    typedef iWidgetDockingLayout *iWidgetDockingLayoutPtr;
+    ~AssetBrowser() = default;
 
-} // namespace igor
+private:
+    /*! init UI
+     */
+    void initGUI();
+};
 
-#endif // __IGOR_WIDGET_BOX_LAYOUT__
+#endif // __ASSET_BROWSER__

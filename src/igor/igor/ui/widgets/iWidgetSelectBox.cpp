@@ -8,6 +8,7 @@
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
+#include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -56,10 +57,10 @@ namespace igor
             minWidth = maxTextWidth;
         }
 
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
-    bool iWidgetSelectBox::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetSelectBox::onMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -71,23 +72,21 @@ namespace igor
             _buttonAppearanceState = iWidgetState::Pressed;
         }
 
-        return iWidget::handleMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(key);
     }
 
-    void iWidgetSelectBox::handleMouseMove(const iaVector2f &pos)
+    void iWidgetSelectBox::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled())
         {
             return;
         }
 
-        iWidget::handleMouseMove(pos);
+        iWidget::onMouseMove(pos, consumed);
 
-        int32 mx = pos._x - getActualPosX() - 2; // TODO where does that offset of 2 come from?
-        int32 my = pos._y - getActualPosY() - 2;
-
-        if (mx >= 0 && mx < getActualWidth() &&
-            my >= 0 && my < getActualHeight())
+        auto rect = getActualRect();
+        if (iIntersection::intersects(pos, rect) &&
+            !consumed)
         {
             _mouseOver = true;
             _buttonAppearanceState = iWidgetState::Highlighted;
@@ -99,7 +98,7 @@ namespace igor
         }
     }
 
-    bool iWidgetSelectBox::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetSelectBox::onMouseKeyUp(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -117,7 +116,7 @@ namespace igor
                     _selectBox = new iDialogIndexMenu();
                 }
 
-                _selectBox->setWidth(getActualWidth());
+                _selectBox->setMinWidth(getActualWidth());
                 _selectBox->setX(getActualPosX() + 2);
                 _selectBox->setY(getActualPosY() + getActualHeight() + 2);
 
@@ -134,7 +133,7 @@ namespace igor
             return true;
         }
 
-        return iWidget::handleMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(key);
     }
 
     void iWidgetSelectBox::onSelectBoxClosed(iDialogPtr dialog)
@@ -153,14 +152,14 @@ namespace igor
         _selectBox = nullptr;
     }
 
-    bool iWidgetSelectBox::handleMouseWheel(int32 d)
+    bool iWidgetSelectBox::onMouseWheel(int32 d)
     {
         if (!isEnabled())
         {
             return false;
         }
 
-        iWidget::handleMouseWheel(d);
+        iWidget::onMouseWheel(d);
 
         if (isMouseOver())
         {
@@ -229,17 +228,19 @@ namespace igor
 
     void iWidgetSelectBox::draw()
     {
-        if (isVisible())
+        if (!isVisible())
         {
-            iaString displayString;
-
-            if (_currentSelection >= 0 && _currentSelection < _entries.size())
-            {
-                displayString = _entries[_currentSelection].first;
-            }
-
-            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isEnabled());
+            return;
         }
+
+        iaString displayString;
+
+        if (_currentSelection >= 0 && _currentSelection < _entries.size())
+        {
+            displayString = _entries[_currentSelection].first;
+        }
+
+        iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isEnabled());
     }
 
 } // namespace igor

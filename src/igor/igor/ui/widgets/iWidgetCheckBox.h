@@ -96,7 +96,7 @@ namespace igor
 		\parma key released mouse key
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-        virtual bool handleMouseKeyUp(iKeyCode key);
+        virtual bool onMouseKeyUp(iKeyCode key);
 
         /*! if check box is part of a radio button group. this is the group
 		*/
@@ -115,8 +115,8 @@ namespace igor
         void calcMinSize() override;
 
         /*! draws the widget
-		*/
-        void draw();
+         */
+        void draw() override;
     };
 
     /*! checkbox pointer definition

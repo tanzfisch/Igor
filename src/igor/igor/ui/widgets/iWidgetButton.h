@@ -175,9 +175,9 @@ namespace igor
         */
         void calcMinSize() override;
 
-        /*! draws the button
-        */
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
     };
 
     /*! widget button pointer definition

@@ -36,7 +36,7 @@ namespace igor
         _rightTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_right");
     }
 
-    bool iWidgetScroll::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetScroll::onMouseKeyUp(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -88,10 +88,10 @@ namespace igor
             }
         }
 
-        return iWidget::handleMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(key);
     }
 
-    bool iWidgetScroll::handleMouseDoubleClick(iKeyCode key)
+    bool iWidgetScroll::onMouseDoubleClick(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -106,10 +106,10 @@ namespace igor
             }
         }
 
-        return iWidget::handleMouseDoubleClick(key);
+        return iWidget::onMouseDoubleClick(key);
     }
 
-    bool iWidgetScroll::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetScroll::onMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -138,12 +138,12 @@ namespace igor
             }
         }
 
-        return iWidget::handleMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(key);
     }
 
     bool iWidgetScroll::handleButtonClicks()
     {
-        if(_children.empty())
+        if (_children.empty())
         {
             return false;
         }
@@ -201,7 +201,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetScroll::handleMouseMove(const iaVector2f &pos)
+    void iWidgetScroll::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled() || _children.empty())
         {
@@ -214,7 +214,7 @@ namespace igor
             return;
         }
 
-        child->handleMouseMove(pos);
+        child->onMouseMove(pos, consumed);
 
         if (_hscrollButton._mouseDown)
         {
@@ -234,10 +234,9 @@ namespace igor
             }
         }
 
-        if (pos._x >= _absoluteX &&
-            pos._x < _absoluteX + _actualWidth &&
-            pos._y >= _absoluteY &&
-            pos._y < _absoluteY + _actualHeight)
+        auto rect = getActualRect();
+        if (iIntersection::intersects(pos, rect) &&
+            !consumed)
         {
             if (!_isMouseOver)
             {
@@ -351,7 +350,7 @@ namespace igor
         _vscroll = std::max(0.0f, std::min(1.0f, value));
     }
 
-    bool iWidgetScroll::handleMouseWheel(int32 d)
+    bool iWidgetScroll::onMouseWheel(int32 d)
     {
         if (!isEnabled() || _children.empty())
         {
@@ -364,7 +363,7 @@ namespace igor
             return false;
         }
 
-        if (child->handleMouseWheel(d))
+        if (child->onMouseWheel(d))
         {
             return true;
         }
@@ -399,12 +398,12 @@ namespace igor
 
     void iWidgetScroll::calcMinSize()
     {
-        setMinSize(0, 0);
+        updateMinSize(0, 0);
     }
 
     void iWidgetScroll::calcButtons()
     {
-        if(_children.empty())
+        if (_children.empty())
         {
             return;
         }
@@ -504,12 +503,12 @@ namespace igor
 
         if (_hscrollActive)
         {
-            offsetX = _hscroll * (child->getConfiguredWidth() - getActualWidth() + 4);
+            offsetX = _hscroll * (child->getConfiguredMinWidth() - getActualWidth() + 4);
         }
 
         if (_vscrollActive)
         {
-            offsetY = _vscroll * (child->getConfiguredHeight() - getActualHeight() + 4);
+            offsetY = _vscroll * (child->getConfiguredMinHeight() - getActualHeight() + 4);
         }
 
         clientRect.setX(offsetX);
@@ -561,7 +560,7 @@ namespace igor
     {
         iWidget::addWidget(widget);
 
-        if(widget->getVerticalAlignment() != iVerticalAlignment::Top || widget->getHorizontalAlignment() != iHorizontalAlignment::Left)
+        if (widget->getVerticalAlignment() != iVerticalAlignment::Top || widget->getHorizontalAlignment() != iHorizontalAlignment::Left)
         {
             con_debug("only top left alignment is supported for children of iWidgetScroll. Changing it for you");
             widget->setVerticalAlignment(iVerticalAlignment::Top);
@@ -571,7 +570,8 @@ namespace igor
 
     void iWidgetScroll::draw()
     {
-        if (!isVisible() || _children.empty())
+        if (!isVisible() ||
+            _children.empty())
         {
             return;
         }

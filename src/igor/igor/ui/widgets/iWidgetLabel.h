@@ -90,8 +90,8 @@ namespace igor
         void calcMinSize() override;
 
         /*! draws the widget
-		*/
-        void draw();
+         */
+        void draw() override;
     };
 
     /*! widget label pointer definition

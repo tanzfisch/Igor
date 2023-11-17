@@ -51,8 +51,8 @@ void UpgradeDialog::updateGUI()
 
 void UpgradeDialog::initGUI()
 {
-	setWidth(500);
-	setHeight(100);
+	setMinWidth(500);
+	setMinHeight(100);
 
 	setBackground(iaColor4f::transparent);
 

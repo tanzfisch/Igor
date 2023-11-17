@@ -23,8 +23,8 @@ namespace igor
 
     iWidgetSlider::iWidgetSlider(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetSlider, iWidgetKind::Widget, parent)
-	{
-	}
+    {
+    }
 
     iWidgetSlider::~iWidgetSlider()
     {
@@ -99,14 +99,14 @@ namespace igor
         }
     }
 
-    bool iWidgetSlider::handleMouseWheel(int32 d)
+    bool iWidgetSlider::onMouseWheel(int32 d)
     {
         if (!isEnabled())
         {
             return false;
         }
 
-        iWidget::handleMouseWheel(d);
+        iWidget::onMouseWheel(d);
 
         if (isMouseOver())
         {
@@ -132,10 +132,10 @@ namespace igor
 
     void iWidgetSlider::calcMinSize()
     {
-        setMinSize(0, 0);
+        updateMinSize(0, 0);
     }
 
-    void iWidgetSlider::handleMouseMove(const iaVector2f &pos)
+    void iWidgetSlider::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled())
         {
@@ -156,10 +156,9 @@ namespace igor
             }
         }
 
-        if (pos._x >= _absoluteX &&
-            pos._x < _absoluteX + _actualWidth &&
-            pos._y >= _absoluteY &&
-            pos._y < _absoluteY + _actualHeight)
+        auto rect = getActualRect();
+        if (iIntersection::intersects(pos, rect) &&
+            !consumed)
         {
             if (!_isMouseOver)
             {
@@ -200,7 +199,7 @@ namespace igor
         }
     }
 
-    bool iWidgetSlider::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetSlider::onMouseKeyUp(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -215,10 +214,10 @@ namespace igor
             return true;
         }
 
-        return iWidget::handleMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(key);
     }
 
-    bool iWidgetSlider::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetSlider::onMouseKeyDown(iKeyCode key)
     {
         if (!isEnabled())
         {
@@ -235,7 +234,7 @@ namespace igor
             }
         }
 
-        return iWidget::handleMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(key);
     }
 
     void iWidgetSlider::handleMouseInput(int32 mouseX)
@@ -266,35 +265,37 @@ namespace igor
     {
         con_assert(_min < _max, "invalid configuration");
 
-        if (isVisible())
+        if (!isVisible())
         {
-            if (_backgroundTexture != nullptr)
-            {
-                iWidgetManager::getInstance().getTheme()->drawTiledRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _backgroundTexture);
-            }
-
-            if (_texture != nullptr)
-            {
-                iWidgetManager::getInstance().getTheme()->drawPicture(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isEnabled());
-            }
-
-            if (_backgroundTexture == nullptr &&
-                _texture == nullptr)
-            {
-                iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
-                iWidgetManager::getInstance().getTheme()->drawRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
-            }
-
-            const float32 factor = _value / (_max - _min);
-            const float32 offset = (getActualWidth() - 9) * factor;
-
-            _sliderButton._rectangle.setHeight(getActualHeight());
-            _sliderButton._rectangle.setWidth(9);
-            _sliderButton._rectangle.setY(getActualPosY());
-            _sliderButton._rectangle.setX(getActualPosX() + static_cast<int32>(offset));
-
-            iWidgetManager::getInstance().getTheme()->drawButton(_sliderButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, _sliderButton._appearanceState, isEnabled());
+            return;
         }
+
+        if (_backgroundTexture != nullptr)
+        {
+            iWidgetManager::getInstance().getTheme()->drawTiledRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _backgroundTexture);
+        }
+
+        if (_texture != nullptr)
+        {
+            iWidgetManager::getInstance().getTheme()->drawPicture(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isEnabled());
+        }
+
+        if (_backgroundTexture == nullptr &&
+            _texture == nullptr)
+        {
+            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
+            iWidgetManager::getInstance().getTheme()->drawRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
+        }
+
+        const float32 factor = _value / (_max - _min);
+        const float32 offset = (getActualWidth() - 9) * factor;
+
+        _sliderButton._rectangle.setHeight(getActualHeight());
+        _sliderButton._rectangle.setWidth(9);
+        _sliderButton._rectangle.setY(getActualPosY());
+        _sliderButton._rectangle.setX(getActualPosX() + static_cast<int32>(offset));
+
+        iWidgetManager::getInstance().getTheme()->drawButton(_sliderButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, _sliderButton._appearanceState, isEnabled());
     }
 
     void iWidgetSlider::setBackgroundTexture(const iaString &texturePath)

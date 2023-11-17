@@ -81,8 +81,8 @@ namespace igor
 
     void iDialogFileSelect::initGUI()
     {
-        setWidth(700);
-        setHeight(500);
+        setMinWidth(700);
+        setMinHeight(500);
 
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
@@ -130,7 +130,7 @@ namespace igor
             filenameGrid->addWidget(filenameLabel, 0, 0);
 
             _filenameEdit = new iWidgetLineTextEdit();
-            _filenameEdit->setWidth(300);
+            _filenameEdit->setMinWidth(300);
             _filenameEdit->setWriteProtected(false);
             _filenameEdit->setChangeEventOnEnterAndLostFocus();
             _filenameEdit->setMaxTextLength(256);

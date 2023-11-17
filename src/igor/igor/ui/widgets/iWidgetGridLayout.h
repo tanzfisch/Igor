@@ -269,11 +269,11 @@ namespace igor
 
             /*! configured width of child
              */
-            int32 _configuredWidth = 10;
+            int32 _configuredMinWidth = 10;
 
             /*! configured height of child
              */
-            int32 _configuredHeight = 10;
+            int32 _configuredMinHeight = 10;
 
             /*! horizontal position of child
              */
@@ -338,34 +338,34 @@ namespace igor
         \param d mouse wheel delta
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseWheel(int32 d);
+        bool onMouseWheel(int32 d) override;
 
         /*! handles incoming mouse key down events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key);
-
+        bool onMouseKeyDown(iKeyCode key) override;
+ 
         /*! handles incoming double click
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseDoubleClick(iKeyCode key);
+        bool onMouseDoubleClick(iKeyCode key) override;
 
         /*! handles mouse key up events
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyUp(iKeyCode key);
+        bool onMouseKeyUp(iKeyCode key) override;
 
         /*! handles incoming mouse move events
 
         \param position mouse position
         */
-        void handleMouseMove(const iaVector2f &pos);
+        void onMouseMove(const iaVector2f &pos, bool consumed) override;
 
         /*! updates size based on it's content
          */
@@ -373,7 +373,7 @@ namespace igor
 
         /*! draws the widget
          */
-        void draw();
+        void draw() override;
 
         /*! initializes an empty grid with default size of one row and column
          */

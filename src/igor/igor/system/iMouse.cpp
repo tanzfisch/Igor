@@ -432,7 +432,7 @@ namespace igor
         }
 
         void setCursorType(iMouseCursorType cursorType) override
-        {            
+        {
             int xcursorType = 0;
 
             switch (cursorType)
@@ -463,6 +463,12 @@ namespace igor
                 break;
             case iMouseCursorType::ArrowBottomRightCorner:
                 xcursorType = XC_bottom_right_corner;
+                break;
+            case iMouseCursorType::VeticalSplit:
+                xcursorType = XC_sb_v_double_arrow;
+                break;
+            case iMouseCursorType::HorizontalSplit:
+                xcursorType = XC_sb_h_double_arrow;
                 break;
             }
 

@@ -105,6 +105,10 @@ namespace iaux
          */
         int64 getLength() const;
 
+        /*! \returns size of data in bytes
+         */
+        int64 getSize() const;
+        
         /*! \returns hash value for current text
          */
         int64 getHashValue() const;
@@ -581,10 +585,6 @@ namespace iaux
         /*! pointer to actual data
          */
         wchar_t *_data = nullptr;
-
-        /*! \returns size of data in bytes
-         */
-        int64 getSize() const;
 
         /*! internal set data
 

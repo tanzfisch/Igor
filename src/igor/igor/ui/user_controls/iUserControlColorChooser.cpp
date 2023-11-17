@@ -156,15 +156,15 @@ namespace igor
 
         _titleLabel = new iWidgetLabel();
         _titleLabel->setText(_text);
-        _titleLabel->setHeight(0);
+        _titleLabel->setMinHeight(0);
         _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         _titleLabel->setVerticalAlignment(iVerticalAlignment::Top);
 
         _expandButton = new iWidgetButton();
         _expandButton->setTexture("igor_icon_plus");
         _expandButton->setText("");
-        _expandButton->setWidth(12);
-        _expandButton->setHeight(12);
+        _expandButton->setMinWidth(12);
+        _expandButton->setMinHeight(12);
         _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColorChooser::onExpandButtonPressed));
         _expandButton->setVisible(_showHeadline);
         _expandButton->setEnabled(_showHeadline);
@@ -459,7 +459,7 @@ namespace igor
         iWidgetNumberChooser *result = new iWidgetNumberChooser();
         result->setMinMaxNumber(0, 255);
         result->setValue(123);
-        result->setWidth(35);
+        result->setMinWidth(35);
         result->setSteppingWheel(5.0f, 5.0f);
         result->setStepping(1.0f, 1.0f);
         result->registerOnChangeEvent(changeDelegate);
@@ -469,12 +469,12 @@ namespace igor
     iWidgetSlider *iUserControlColorChooser::createSlider(iaString textureFileName, iChangeDelegate changeDelegate)
     {
         iWidgetSlider *result = new iWidgetSlider();
-        result->setWidth(260);
+        result->setMinWidth(260);
         result->setMinValue(0.0f);
         result->setMaxValue(255.0f);
         result->setSteppingWheel(5.0f, 5.0f);
         result->setValue(128.0f);
-        result->setHeight(21);
+        result->setMinHeight(21);
         result->setTexture(textureFileName);
         result->registerOnChangeEvent(changeDelegate);
         return result;
@@ -506,9 +506,9 @@ namespace igor
         _sliderA->setBackgroundTexture("igor_texture_checker");
 
         _colorViewExpanded = new iWidgetColor();
-        _colorViewExpanded->setWidth(54);
+        _colorViewExpanded->setMinWidth(54);
         _colorViewExpanded->setHorizontalAlignment(iHorizontalAlignment::Right);
-        _colorViewExpanded->setHeight(21);
+        _colorViewExpanded->setMinHeight(21);
 
         _expandedSliderGrid->addWidget(_labelH, 0, 0);
         _expandedSliderGrid->addWidget(_labelS, 0, 1);
@@ -547,8 +547,8 @@ namespace igor
         _collapsedGrid->setCellSpacing(4);
 
         _colorViewCollapsed = new iWidgetColor();
-        _colorViewCollapsed->setWidth(54);
-        _colorViewCollapsed->setHeight(21);
+        _colorViewCollapsed->setMinWidth(54);
+        _colorViewCollapsed->setMinHeight(21);
 
         _collapsedGrid->addWidget(_labelR, 0, 0);
         _collapsedGrid->addWidget(_valueChooserR, 1, 0);

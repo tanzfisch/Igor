@@ -37,6 +37,7 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/ui/theme/iWidgetTheme.h>
+#include <igor/ui/iDrag.h>
 
 #include <vector>
 #include <unordered_map>
@@ -47,8 +48,6 @@ namespace igor
 
     class iDialog;
     typedef iDialog *iDialogPtr;
-    class iWidgetDockingLayout;
-    typedef iWidgetDockingLayout *iWidgetDockingLayoutPtr;
 
     /*! manages the widgets
      */
@@ -58,6 +57,8 @@ namespace igor
         friend class iModule<iWidgetManager>;
         friend class iWidget;
         friend class iDialog;
+        friend class iDrag;
+        friend class iWidgetSplitter;
 
     public:
         /*! called on any other event
@@ -144,17 +145,15 @@ namespace igor
          */
         void onUpdate();
 
-        /*! docks a given dialog if possible at current mouse position
-
-        \param dialogID the given dialog id
+        /*! \returns true if in drag
         */
-        iWidgetID dockDialog(iWidgetID dialogID);
+        bool inDrag() const;
 
-        /*! undock a dialog
+        /*! \returns current drag if exists
 
-        \param dialogID the given dialog id
+        test with inDrag if it exists first
         */
-        void undockDialog(iWidgetID dialogID);
+        const iDrag& getDrag() const;        
 
     private:
         /*! modal marker
@@ -173,9 +172,9 @@ namespace igor
          */
         std::unordered_map<iWidgetID, iDialogPtr> _dialogs;
 
-        /*! docker layouts
+        /*! overlay widgets
          */
-        std::unordered_map<iWidgetID, iWidgetDockingLayoutPtr> _dockerLayouts;
+        std::vector<iWidgetID> _overlayWidgets;
 
         /*! current desktop width
          */
@@ -196,6 +195,14 @@ namespace igor
         /*! list of dialogs to close
          */
         std::set<iWidgetID> _dialogsToClose;
+
+        /*! current drag
+        */
+        std::unique_ptr<iDrag> _drag;
+
+        /*! list of widgets to be deleted
+        */
+        std::set<iWidgetPtr> _forDeletion;
 
         /*! closes the dialog and queues a close event in to be called after the update handle
          */
@@ -225,17 +232,17 @@ namespace igor
         */
         void unregisterDialog(iDialogPtr dialog);
 
-        /*! registers docker layout
+        /*! registers overlay widget
 
-        \param dialog the docker to track
+        \param overlayWidget the overlay widget
         */
-        void registerDockerLayout(iWidgetDockingLayoutPtr dockerLayout);
+        void registerOverlayWidget(iWidgetPtr overlayWidget);
 
-        /*! unregister docker layout
+        /*! unregister overlay widget
 
-        \param dialog the docker to not track anymore
+        \param overlayWidget the overlay widget
         */
-        void unregisterDockerLayout(iWidgetDockingLayoutPtr dockerLayout);
+        void unregisterOverlayWidget(iWidgetPtr overlayWidget);
 
         /*! puts dialog in front by manipulating it's z index and the index of other dialogs
 
@@ -264,7 +271,7 @@ namespace igor
 
         \param to the mouse postion to use
         */
-        bool handleMouseMove(const iaux::iaVector2f &pos);
+        bool onMouseMove(const iaux::iaVector2f &pos);
 
         /*! called when key was pressed
 
@@ -326,6 +333,24 @@ namespace igor
         */
         bool onWindowResize(iEventWindowResize &event);
 
+        /*! begin drag
+
+        makes copy and keeps ownership
+
+        \param drag the drag to drag 
+        */
+        void beginDrag(const iDrag& drag);
+
+        /*! resets the drag object
+        */
+        void endDrag();
+
+        /*! queues widget for deletion
+
+        \param widget the widget to be deleted
+        */
+        void deleteWidget(iWidgetPtr widget);
+
         /*! init
          */
         iWidgetManager();
@@ -334,8 +359,6 @@ namespace igor
          */
         virtual ~iWidgetManager();
     };
-
-#include <igor/ui/iWidgetManager.inl>
 
 } // namespace igor
 

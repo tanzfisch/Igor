@@ -258,7 +258,7 @@ void WidgetsExample::onInit()
     labelProfiler->setText("Profiler:");
     labelProfiler->setHorizontalAlignment(iHorizontalAlignment::Right);
     labelProfiler->setVerticalAlignment(iVerticalAlignment::Top);
-    labelProfiler->setWidth(80);
+    labelProfiler->setMinWidth(80);
     profileLayout->addWidget(labelProfiler);
 
     iWidgetSelectBoxPtr selectBox = new iWidgetSelectBox();
@@ -279,7 +279,7 @@ void WidgetsExample::onInit()
     labelOptions->setText("Options:");
     labelOptions->setHorizontalAlignment(iHorizontalAlignment::Right);
     labelOptions->setVerticalAlignment(iVerticalAlignment::Top);
-    labelOptions->setWidth(80);
+    labelOptions->setMinWidth(80);
     optionsLayout->addWidget(labelOptions);    
 
     iWidgetBoxLayoutPtr radioLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);

@@ -81,6 +81,8 @@ namespace igor
 
         void drawTooltip(const iaVector2f &pos, const iaString &text) override;
 
+        void drawShadowRect(const iaRectanglef &rect) override;
+
         float32 getFontSize() const override;
         iTextureFontPtr getFont() const override;
 
@@ -109,7 +111,7 @@ namespace igor
 
         /*! frame width
         */
-        float32 _frameWidth = 7;
+        float32 _frameWidth = 10;
 
         /*! background texture
         */
