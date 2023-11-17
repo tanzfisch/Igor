@@ -691,7 +691,7 @@ namespace igor
         return false;
     }
 
-    void iWidget::onMouseMove(const iaVector2f &pos)
+    void iWidget::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled())
         {
@@ -703,11 +703,12 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            widget->onMouseMove(pos);
+            widget->onMouseMove(pos, consumed);
         }
 
         auto rect = getActualRect();
-        if (iIntersection::intersects(pos, rect))
+        if (iIntersection::intersects(pos, rect) &&
+            !consumed)
         {
             if (!_isMouseOver)
             {

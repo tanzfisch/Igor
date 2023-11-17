@@ -8,6 +8,7 @@
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
+#include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -74,20 +75,18 @@ namespace igor
         return iWidget::onMouseKeyDown(key);
     }
 
-    void iWidgetSelectBox::onMouseMove(const iaVector2f &pos)
+    void iWidgetSelectBox::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled())
         {
             return;
         }
 
-        iWidget::onMouseMove(pos);
+        iWidget::onMouseMove(pos, consumed);
 
-        int32 mx = pos._x - getActualPosX() - 2; // TODO where does that offset of 2 come from?
-        int32 my = pos._y - getActualPosY() - 2;
-
-        if (mx >= 0 && mx < getActualWidth() &&
-            my >= 0 && my < getActualHeight())
+        auto rect = getActualRect();
+        if (iIntersection::intersects(pos, rect) &&
+            !consumed)
         {
             _mouseOver = true;
             _buttonAppearanceState = iWidgetState::Highlighted;

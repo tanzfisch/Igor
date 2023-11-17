@@ -7,6 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/ui/user_controls/iUserControl.h>
+#include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -693,7 +694,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetGridLayout::onMouseMove(const iaVector2f &pos)
+    void iWidgetGridLayout::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -714,7 +715,7 @@ namespace igor
 
                     if (widget != nullptr)
                     {
-                        widget->onMouseMove(pos);
+                        widget->onMouseMove(pos, consumed);
                     }
                 }
 
@@ -738,10 +739,9 @@ namespace igor
 
         if (isEnabled())
         {
-            if (pos._x >= getActualPosX() &&
-                pos._x < getActualPosX() + getActualWidth() &&
-                pos._y >= getActualPosY() &&
-                pos._y < getActualPosY() + getActualHeight())
+            auto rect = getActualRect();
+            if (iIntersection::intersects(pos, rect) &&
+                !consumed)
             {
                 if (!_isMouseOver)
                 {

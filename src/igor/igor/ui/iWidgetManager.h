@@ -58,6 +58,7 @@ namespace igor
         friend class iWidget;
         friend class iDialog;
         friend class iDrag;
+        friend class iWidgetSplitter;
 
     public:
         /*! called on any other event

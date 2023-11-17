@@ -190,15 +190,6 @@ namespace igor
 
         auto pos = _modal->getLastMousePos();
         _modal = nullptr;
-
-        // refresh mouse cursor for the other dialogs
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
-
-        for (auto dialog : dialogs)
-        {
-            dialog->onMouseMove(pos);
-        }
     }
 
     void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAscending)
@@ -226,27 +217,29 @@ namespace igor
 
     bool iWidgetManager::onMouseMove(const iaux::iaVector2f &pos)
     {
+        bool consumed = false;
+
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onMouseMove(pos);
-            return true;
+            getModal()->onMouseMove(pos, consumed);
+            consumed = true;
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, true);
+        getActiveDialogs(dialogs, true);        
 
         for (auto dialog : dialogs)
         {
-            dialog->onMouseMove(pos);
+            dialog->onMouseMove(pos, consumed);
 
             if (dialog->_isMouseOver)
             {
-                return true;
+                consumed = true;
             }
         }
 
-        return false;
+        return consumed;
     }
 
     void iWidgetManager::onUpdate()

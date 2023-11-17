@@ -101,14 +101,14 @@ namespace igor
 		return iWidget::onMouseKeyDown(key);
 	}
 
-	void iWidgetNumberChooser::onMouseMove(const iaVector2f &pos)
+	void iWidgetNumberChooser::onMouseMove(const iaVector2f &pos, bool consumed)
 	{
 		if (!isEnabled())
 		{
 			return;
 		}
 
-		iWidget::onMouseMove(pos);
+		iWidget::onMouseMove(pos, consumed);
 
 		int32 mx = pos._x - getActualPosX();
 		int32 my = pos._y - getActualPosY();
@@ -116,7 +116,8 @@ namespace igor
 		if (mx >= _buttonUpRectangle.getX() &&
 			mx < _buttonUpRectangle.getX() + _buttonUpRectangle.getWidth() &&
 			my >= _buttonUpRectangle.getY() &&
-			my < _buttonUpRectangle.getY() + _buttonUpRectangle.getHeight())
+			my < _buttonUpRectangle.getY() + _buttonUpRectangle.getHeight() &&
+			!consumed)
 		{
 
 			_mouseOverButtonUp = true;
@@ -131,7 +132,8 @@ namespace igor
 		if (mx >= _buttonDownRectangle.getX() &&
 			mx < _buttonDownRectangle.getX() + _buttonDownRectangle.getWidth() &&
 			my >= _buttonDownRectangle.getY() &&
-			my < _buttonDownRectangle.getY() + _buttonDownRectangle.getHeight())
+			my < _buttonDownRectangle.getY() + _buttonDownRectangle.getHeight() &&
+			!consumed)
 		{
 			_mouseOverButtonDown = true;
 			_buttonDownAppearanceState = iWidgetState::Highlighted;

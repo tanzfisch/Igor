@@ -97,12 +97,6 @@ namespace igor
         */
         void addWidget(iWidgetPtr widget) override;
 
-        /*! removes a child widget from this widget
-
-        \param widget the child widget to be removed
-        */
-        void removeWidget(iWidgetPtr widget) override;
-
     private:
         /*! splitter ration
          */
@@ -244,10 +238,6 @@ namespace igor
         */
         iWidgetID _draggedWidgetID = iWidget::INVALID_WIDGET_ID;
 
-        /*! list of widgets to delete later
-        */
-        std::vector<iWidgetPtr> _deleteLater; // TODO handle this differently
-
         /*! if true draw/handle the overlay
         */
         bool _activeOverlay = false;
@@ -280,7 +270,7 @@ namespace igor
 
         \param pos mouse position
         */
-        void onMouseMove(const iaVector2f &pos) override;
+        void onMouseMove(const iaVector2f &pos, bool consumed) override;
 
         /*! simulates drop of widget id
 
@@ -309,6 +299,7 @@ namespace igor
         \param pos the mouse pos
         */
         iSplitterState calcSplitterState(const iaVector2f &pos);
+
     };
 
     /*! widget button pointer definition

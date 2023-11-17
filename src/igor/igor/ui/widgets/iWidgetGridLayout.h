@@ -365,7 +365,7 @@ namespace igor
 
         \param position mouse position
         */
-        void onMouseMove(const iaVector2f &pos) override;
+        void onMouseMove(const iaVector2f &pos, bool consumed) override;
 
         /*! updates size based on it's content
          */

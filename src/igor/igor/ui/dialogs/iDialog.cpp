@@ -410,7 +410,9 @@ namespace igor
         }
 
         if (!isResizeable() ||
-            isDocked())
+            isDocked() ||
+            (getVerticalAlignment() != iVerticalAlignment::Absolute &&
+             getHorizontalAlignment() != iHorizontalAlignment::Absolute))
         {
             return iDialogMotionState::Static;
         }
@@ -509,7 +511,7 @@ namespace igor
         iMouse::getInstance().setCursorType(cursorType);
     }
 
-    void iDialog::onMouseMove(const iaVector2f &pos)
+    void iDialog::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled())
         {
@@ -526,7 +528,7 @@ namespace igor
         std::vector<iWidgetPtr> widgets = getChildren();
         for (auto widget : widgets)
         {
-            widget->onMouseMove(pos);
+            widget->onMouseMove(pos, consumed);
         }
 
         auto rect = getActualRect();
@@ -536,7 +538,8 @@ namespace igor
             rect.adjust(-frameWidth, -frameWidth, frameWidth * 2.0f, frameWidth * 2.0f);
         }
 
-        if (iIntersection::intersects(pos, rect))
+        if (iIntersection::intersects(pos, rect) &&
+            !consumed)
         {
             if (!_isMouseOver)
             {

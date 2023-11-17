@@ -194,7 +194,7 @@ namespace igor
 
 		\param pos mouse position
 		*/
-        void onMouseMove(const iaVector2f &pos);
+        void onMouseMove(const iaVector2f &pos, bool consumed);
 
         /*! increase number by value
 

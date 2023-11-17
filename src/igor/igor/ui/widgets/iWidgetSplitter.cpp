@@ -223,42 +223,6 @@ namespace igor
         widget->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     }
 
-    void iWidgetSplitter::removeWidget(iWidgetPtr widget)
-    {
-        iWidget::removeWidget(widget);
-
-        // handle remaining child
-        auto children = getChildren();
-        if (!children.empty())
-        {
-            auto child = children[0];
-            if (child->getWidgetType() != iWidgetType::iWidgetSplitter)
-            {
-                // if last child is non splitter we are done
-                return;
-            }
-            else
-            {
-                iWidgetSplitterPtr childSplitter = static_cast<iWidgetSplitterPtr>(child);
-                iWidget::removeWidget(childSplitter);
-
-                auto grandChildren = childSplitter->getChildren();
-                childSplitter->_children.clear();
-                for (auto grandchild : grandChildren)
-                {
-                    grandchild->setParent(nullptr);
-                    addWidget(grandchild);
-                }
-
-                setOrientation(childSplitter->getOrientation());
-                setRatio(childSplitter->getRatio());
-
-                _deleteLater.push_back(childSplitter);
-                return;
-            }
-        }
-    }
-
     iSplitterState iWidgetSplitter::calcSplitterState(const iaVector2f &pos)
     {
         if (_activeOverlay ||
@@ -296,6 +260,17 @@ namespace igor
     {
         _splitterState = iSplitterState::Inactive;
         _activeOverlay = false;
+        _dockSectionCenter = false;
+        _dockSectionLeft = false;
+        _dockSectionRight = false;
+        _dockSectionTop = false;
+        _dockSectionBottom = false;
+        _dockSectionLeftEdge = false;
+        _dockSectionRightEdge = false;
+        _dockSectionTopEdge = false;
+        _dockSectionBottomEdge = false;
+        _validDockSection = false;
+
         return iWidget::onMouseKeyUp(key);
     }
 
@@ -399,33 +374,45 @@ namespace igor
                 setRatio(1.0f - s_edgeSubdivideRatio);
             }
 
+            _dockSectionLeftEdge = false;
+            _dockSectionRightEdge = false;
+            _dockSectionTopEdge = false;
+            _dockSectionBottomEdge = false;
+            _validDockSection = false;
+
             return;
         }
 
         addWidget(widget);
 
-        // added first
-        if (childCount == 0)
-        {
-            return;
-        }
-
         // added second
-        if (_dockSectionLeft ||
-            _dockSectionTop)
+        if (childCount == 1)
         {
-            std::reverse(_children.begin(), _children.end());
+            if (_dockSectionLeft ||
+                _dockSectionTop)
+            {
+                std::reverse(_children.begin(), _children.end());
+            }
+
+            if (_dockSectionLeft || _dockSectionRight)
+            {
+                setOrientation(iSplitterOrientation::Vertical);
+            }
+
+            if (_dockSectionTop || _dockSectionBottom)
+            {
+                setOrientation(iSplitterOrientation::Horizontal);
+            }
         }
 
-        if (_dockSectionLeft || _dockSectionRight)
-        {
-            setOrientation(iSplitterOrientation::Vertical);
-        }
+        _activeOverlay = false;
+        _dockSectionCenter = false;
+        _dockSectionLeft = false;
+        _dockSectionRight = false;
+        _dockSectionTop = false;
+        _dockSectionBottom = false;
 
-        if (_dockSectionTop || _dockSectionBottom)
-        {
-            setOrientation(iSplitterOrientation::Horizontal);
-        }
+        iWidgetManager::getInstance().endDrag();
     }
 
     static void updateCursor(iSplitterState splitterState)
@@ -449,7 +436,7 @@ namespace igor
         iMouse::getInstance().setCursorType(cursorType);
     }
 
-    void iWidgetSplitter::onMouseMove(const iaVector2f &pos)
+    void iWidgetSplitter::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled())
         {
@@ -457,9 +444,9 @@ namespace igor
         }
 
         iaVector2f lastPos = _posLast;
-        iWidget::onMouseMove(pos);
+        iWidget::onMouseMove(pos, consumed);
 
-        if (!_isMouseOver)
+        if (!_isMouseOver || consumed)
         {
             return;
         }
@@ -588,12 +575,7 @@ namespace igor
 
     void iWidgetSplitter::onUpdate()
     {
-        // TODO handle this better
-        for (auto widget : _deleteLater)
-        {
-            delete widget;
-        }
-        _deleteLater.clear();
+        iWidget::onUpdate();
 
         _dockSectionCenter = false;
         _dockSectionLeft = false;
@@ -605,6 +587,14 @@ namespace igor
         _dockSectionTopEdge = false;
         _dockSectionBottomEdge = false;
         _validDockSection = false;
+
+        iaVector2f pos(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+
+        if (!iIntersection::intersects(pos, getActualRect()))
+        {
+            _activeOverlay = false;
+            return;
+        }
 
         if (iWidgetManager::getInstance().inDrag())
         {
@@ -620,8 +610,6 @@ namespace igor
 
         if (_activeOverlay)
         {
-            iaVector2f pos(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
-
             // update geometries
             const iaRectanglef rect = getActualRect();
             _centerSectionButton.set(rect.getCenter()._x - (s_sectionSelectorSize >> 1),

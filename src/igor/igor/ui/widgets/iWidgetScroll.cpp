@@ -201,7 +201,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetScroll::onMouseMove(const iaVector2f &pos)
+    void iWidgetScroll::onMouseMove(const iaVector2f &pos, bool consumed)
     {
         if (!isEnabled() || _children.empty())
         {
@@ -214,7 +214,7 @@ namespace igor
             return;
         }
 
-        child->onMouseMove(pos);
+        child->onMouseMove(pos, consumed);
 
         if (_hscrollButton._mouseDown)
         {
@@ -234,10 +234,9 @@ namespace igor
             }
         }
 
-        if (pos._x >= _absoluteX &&
-            pos._x < _absoluteX + _actualWidth &&
-            pos._y >= _absoluteY &&
-            pos._y < _absoluteY + _actualHeight)
+        auto rect = getActualRect();
+        if (iIntersection::intersects(pos, rect) &&
+            !consumed)
         {
             if (!_isMouseOver)
             {

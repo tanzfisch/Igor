@@ -837,8 +837,9 @@ namespace igor
         /*! handles incoming mouse move events
 
         \param pos mouse position
+        \param consumed if true mouse move was already consumed
         */
-        virtual void onMouseMove(const iaVector2f &pos);
+        virtual void onMouseMove(const iaVector2f &pos, bool consumed);
 
         /*! handles incoming acsii codes from keyboard
 
