@@ -36,7 +36,7 @@ namespace igor
         setVerticalAlignment(iVerticalAlignment::Stretch);
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
         setIgnoreChildEventConsumption(true);
-        setOverlayEnabled(true);
+        setOverlayEnabled(_dockingSplitter);
     }
 
     void iWidgetSplitter::setRatio(float32 ratio)
@@ -637,7 +637,10 @@ namespace igor
 
     void iWidgetSplitter::onUpdate()
     {
-        iWidget::onUpdate();
+        if(!_dockingSplitter)
+        {
+            return;
+        }
 
         // detect root splitter widget
         if (!hasParent() ||
