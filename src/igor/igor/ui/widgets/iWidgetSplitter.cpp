@@ -21,7 +21,8 @@ namespace igor
     static const iaColor4f s_areaBorderColor(0.6, 0.6, 0.8, 0.8);
     static const iaColor4f s_areaButtonColor(0.7, 0.7, 0.7, 0.7);
     static const iaColor4f s_areaButtonColorHighlight(1.0, 1.0, 1.0, 1.0);
-    static const iaColor4f s_splitterColor(0.7, 0.7, 0.7, 1.0);
+    static const iaColor4f s_splitterColor(0.4, 0.4, 0.4, 1.0);
+    static const iaColor4f s_splitterColorMoving(0.7, 0.7, 0.7, 1.0); // (0.0, 0.5, 0.85, 1.0);
     static const int32 s_sectionSelectorSize = 32;
     static const int32 s_sectionSelectorSpacing = 4;
     static const float32 s_splitterAccessWidth = 10;
@@ -124,10 +125,10 @@ namespace igor
             bool updateRatio = false;
 
             int32 left = rect._width * _ratio;
-            left -= s_splitterWidth / 2;
+            left -= std::ceil(s_splitterWidth * 0.5f);
 
             int32 right = rect._width * (1.0f - _ratio);
-            right -= s_splitterWidth / 2;
+            right -= std::floor(s_splitterWidth * 0.5f);
 
             if (left < children[0]->getMinWidth())
             {
@@ -168,10 +169,10 @@ namespace igor
             bool updateRatio = false;
 
             int32 top = rect._height * _ratio;
-            top -= s_splitterWidth / 2;
+            top -= std::ceil(s_splitterWidth * 0.5f);
 
             int32 bottom = rect._height * (1.0f - _ratio);
-            bottom -= s_splitterWidth / 2;
+            bottom -= std::floor(s_splitterWidth * 0.5f);
 
             if (top < children[0]->getMinHeight())
             {
@@ -438,7 +439,7 @@ namespace igor
         _dockSectionLeft = false;
         _dockSectionRight = false;
         _dockSectionTop = false;
-        _dockSectionBottom = false;        
+        _dockSectionBottom = false;
     }
 
     void iWidgetSplitter::reverseChildren()
@@ -576,6 +577,9 @@ namespace igor
             return;
         }
 
+        const auto &rect = getActualRect();
+        iRenderer::getInstance().drawFilledRectangle(rect, s_splitterColor);
+
         for (const auto child : _children)
         {
             child->draw();
@@ -583,30 +587,17 @@ namespace igor
 
         if (getChildren().size() == 2)
         {
-            const auto &rect = getActualRect();
-
-            iRenderer::getInstance().setLineWidth(s_splitterWidth);
-
-            if (getOrientation() == iSplitterOrientation::Vertical)
-            {
-                iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, iaColor4f::gray);
-            }
-            else
-            {
-                iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * _ratio, rect._x + rect._width, rect._y + rect._height * _ratio, iaColor4f::gray);
-            }
-
             if (_splitterState == iSplitterState::Moving)
             {
                 iRenderer::getInstance().setLineWidth(s_splitterMoveWidth);
 
                 if (getOrientation() == iSplitterOrientation::Vertical)
                 {
-                    iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, s_splitterColor);
+                    iRenderer::getInstance().drawLine(rect._x + rect._width * _ratio, rect._y, rect._x + rect._width * _ratio, rect._y + rect._height, s_splitterColorMoving);
                 }
                 else
                 {
-                    iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * _ratio, rect._x + rect._width, rect._y + rect._height * _ratio, s_splitterColor);
+                    iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * _ratio, rect._x + rect._width, rect._y + rect._height * _ratio, s_splitterColorMoving);
                 }
             }
 
@@ -693,7 +684,7 @@ namespace igor
         _validDockSection = false;
         _displayCross = false;
         _displayCenter = false;
-        _displayEdges = false;        
+        _displayEdges = false;
 
         iaVector2f pos(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 
@@ -777,7 +768,7 @@ namespace igor
                 if (iIntersection::intersects(pos, _centerSectionButton))
                 {
                     _dockSectionCenter = true;
-                    _validDockSection = true;                    
+                    _validDockSection = true;
 
                     _highlightSection = childRect;
                 }

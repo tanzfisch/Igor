@@ -518,12 +518,6 @@ namespace igor
             return;
         }
 
-        if (!isDocked())
-        {
-            iDialogMotionState motionState = calcMotionState(pos);
-            updateCursor(motionState);
-        }
-
         // get copy of children
         std::vector<iWidgetPtr> widgets = getChildren();
         for (auto widget : widgets)
@@ -541,6 +535,12 @@ namespace igor
         if (iIntersection::intersects(pos, rect) &&
             !consumed)
         {
+            if (!isDocked())
+            {
+                iDialogMotionState motionState = calcMotionState(pos);
+                updateCursor(motionState);
+            }
+
             if (!_isMouseOver)
             {
                 _widgetState = iWidgetState::Highlighted;
