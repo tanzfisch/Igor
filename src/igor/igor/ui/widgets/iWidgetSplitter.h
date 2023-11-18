@@ -250,6 +250,14 @@ namespace igor
         */
         bool _displayCross = false;
 
+        /*! if true center button is displayed
+        */
+        bool _displayCenter = false;
+
+        /*! if true display edges
+        */
+        bool _displayEdges = false;
+
         /*! updates size based on it's content
          */
         void calcMinSize() override;

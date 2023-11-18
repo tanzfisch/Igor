@@ -51,6 +51,21 @@ void UILayer::onInit()
 
     _assetBrowser = new AssetBrowser();
     _assetBrowser->setPos(iaVector2f(100, 100));
+        _assetBrowser->setEnabled();
+    _assetBrowser->setVisible();
+
+
+    _assetBrowser = new AssetBrowser();
+    _assetBrowser->setPos(iaVector2f(100, 300));
+        _assetBrowser->setEnabled();
+    _assetBrowser->setVisible();
+
+
+    _assetBrowser = new AssetBrowser();
+    _assetBrowser->setPos(iaVector2f(100, 500));    
+        _assetBrowser->setEnabled();
+    _assetBrowser->setVisible();
+
 
     _outliner->registerOnCreateProject(CreateProjectDelegate(this, &UILayer::onCreateProject));
     _outliner->registerOnLoadProject(LoadProjectDelegate(this, &UILayer::onLoadProject));
@@ -76,8 +91,6 @@ void UILayer::onInit()
     _propertiesDialog->setEnabled();
     _propertiesDialog->setVisible();
 
-    _assetBrowser->setEnabled();
-    _assetBrowser->setVisible();
 }
 
 void UILayer::onDeinit()
