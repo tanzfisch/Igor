@@ -190,6 +190,10 @@ namespace igor
          */
         bool _dockSectionBottomEdge = false;
 
+        /*! dock on sub section (-1 for not subsection)
+         */
+        int32 _dockSubSectionIndex = -1;
+
         /*! center button texture
          */
         iTexturePtr _selectorCenterTexture;
@@ -241,6 +245,10 @@ namespace igor
         /*! if true draw/handle the overlay
         */
         bool _activeOverlay = false;
+
+        /*! if true display cross
+        */
+        bool _displayCross = false;
 
         /*! updates size based on it's content
          */
@@ -305,6 +313,10 @@ namespace igor
         \param splitter the curent splitter
         */
         void tryMerge(iWidgetSplitter* splitter);
+
+        /*! reverses order of children 
+        */
+        void reverseChildren();
 
     };
 
