@@ -41,7 +41,7 @@ namespace igor
 
     enum class iMouseCursorType
     {
-        Arrow,
+        Arrow,  // default
         ArrowLeftEdge,
         ArrowRightEdge,
         ArrowTopEdge,
@@ -93,11 +93,11 @@ namespace igor
 
         \param cursorType the cursor type to set
         */
-        void setCursorType(iMouseCursorType cursorType);
+        void setCursor(iMouseCursorType cursorType);
 
         /*! resets cursor type to default
         */
-        void resetCursorType();
+        void resetCursor();
 
         /*! \returns the current mouse position relative to the parent window in pixel.
 

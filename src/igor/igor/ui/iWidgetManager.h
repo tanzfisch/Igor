@@ -146,14 +146,14 @@ namespace igor
         void onUpdate();
 
         /*! \returns true if in drag
-        */
+         */
         bool inDrag() const;
 
         /*! \returns current drag if exists
 
         test with inDrag if it exists first
         */
-        const iDrag& getDrag() const;        
+        const iDrag &getDrag() const;
 
     private:
         /*! modal marker
@@ -197,12 +197,24 @@ namespace igor
         std::set<iWidgetID> _dialogsToClose;
 
         /*! current drag
-        */
+         */
         std::unique_ptr<iDrag> _drag;
 
         /*! list of widgets to be deleted
-        */
+         */
         std::set<iWidgetPtr> _forDeletion;
+
+        /*! holds the cursor type that is the current one
+        */
+        iMouseCursorType _cursorType = iMouseCursorType::Arrow;
+
+        /*! the last cursor that was applied
+        */
+        iMouseCursorType _lastCursorType = iMouseCursorType::Arrow;
+
+        /*! if true there was no cursor set this frame yet
+        */
+        bool _firstCursor = true;
 
         /*! closes the dialog and queues a close event in to be called after the update handle
          */
@@ -337,12 +349,12 @@ namespace igor
 
         makes copy and keeps ownership
 
-        \param drag the drag to drag 
+        \param drag the drag to drag
         */
-        void beginDrag(const iDrag& drag);
+        void beginDrag(const iDrag &drag);
 
         /*! resets the drag object
-        */
+         */
         void endDrag();
 
         /*! queues widget for deletion
@@ -350,6 +362,16 @@ namespace igor
         \param widget the widget to be deleted
         */
         void deleteWidget(iWidgetPtr widget);
+
+        /*! sets cursor type
+
+        \param cursorType the cursor type to set
+        */
+        void setCursor(iMouseCursorType cursorType);
+
+        /*! applies cursor that was set before
+        */
+        void applyCursor();
 
         /*! init
          */

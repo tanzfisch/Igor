@@ -447,7 +447,7 @@ namespace igor
         std::reverse(_children.begin(), _children.end());
     }
 
-    static void updateCursor(iSplitterState splitterState)
+    void iWidgetSplitter::updateCursor(iSplitterState splitterState)
     {
         iMouseCursorType cursorType;
 
@@ -465,7 +465,7 @@ namespace igor
             cursorType = iMouseCursorType::Arrow;
         }
 
-        iMouse::getInstance().setCursorType(cursorType);
+        setCursor(cursorType);
     }
 
     void iWidgetSplitter::onMouseMove(const iaVector2f &pos, bool consumed)

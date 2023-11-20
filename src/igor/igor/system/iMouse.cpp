@@ -41,8 +41,8 @@ namespace igor
         virtual bool onOSEvent(const void *data) = 0;
         virtual void setPosition(int32 x, int32 y) = 0;
         virtual void hideCursor(bool hide) = 0;
-        virtual void setCursorType(iMouseCursorType cursorType) = 0;
-        virtual void resetCursorType() = 0;
+        virtual void setCursor(iMouseCursorType cursorType) = 0;
+        virtual void resetCursor() = 0;
         virtual void setCenter() = 0;
 
     protected:
@@ -102,16 +102,16 @@ namespace igor
             ShowCursor(!hide);
         }
 
-        void setCursorType(iMouseCursorType cursorType) override
+        void setCursor(iMouseCursorType cursorType) override
         {
             // not implemented
-            con_err("setCursorType not implemented");
+            con_err("setCursor not implemented");
         }
 
-        void resetCursorType() override
+        void resetCursor() override
         {
             // not implemented
-            con_err("resetCursorType not implemented");
+            con_err("resetCursor not implemented");
         }
 
         bool onOSEvent(const void *data)
@@ -426,12 +426,12 @@ namespace igor
             _pos.set(x, y);
         }
 
-        void resetCursorType() override
+        void resetCursor() override
         {
             XUndefineCursor(_display, _xWindow);
         }
 
-        void setCursorType(iMouseCursorType cursorType) override
+        void setCursor(iMouseCursorType cursorType) override
         {
             int xcursorType = 0;
 
@@ -559,14 +559,14 @@ namespace igor
         _impl->setPosition(x, y);
     }
 
-    void iMouse::resetCursorType()
+    void iMouse::resetCursor()
     {
-        _impl->resetCursorType();
+        _impl->resetCursor();
     }
 
-    void iMouse::setCursorType(iMouseCursorType cursorType)
+    void iMouse::setCursor(iMouseCursorType cursorType)
     {
-        _impl->setCursorType(cursorType);
+        _impl->setCursor(cursorType);
     }
 
     void iMouse::hideCursor(bool hide)

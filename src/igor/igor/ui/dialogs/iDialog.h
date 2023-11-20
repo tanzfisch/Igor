@@ -297,6 +297,12 @@ namespace igor
         /*! draws the widget
          */
         void draw() override;
+
+        /*! updates cursor based on motion state
+
+        \param motionState the given motion state
+        */
+        void updateCursor(iDialogMotionState motionState);
     };
 } // namespace igor
 

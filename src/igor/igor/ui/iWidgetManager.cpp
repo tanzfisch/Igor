@@ -227,7 +227,7 @@ namespace igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, true);        
+        getActiveDialogs(dialogs, true);
 
         for (auto dialog : dialogs)
         {
@@ -269,9 +269,9 @@ namespace igor
         getActiveDialogs(dialogs, false);
 
         for (auto dialog : dialogs)
-        {            
+        {
             // figure out all sizes of things bottom up
-            traverseContentSize(dialog);            
+            traverseContentSize(dialog);
 
             // align children with their parents top down
             traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
@@ -282,12 +282,14 @@ namespace igor
             pair.second->onUpdate();
         }
 
-        for(auto widget : _forDeletion)
+        for (auto widget : _forDeletion)
         {
             delete widget;
         }
 
         _forDeletion.clear();
+
+        applyCursor();
     }
 
     void iWidgetManager::deleteWidget(iWidgetPtr widget)
@@ -633,6 +635,30 @@ namespace igor
         }
 
         return false;
+    }
+
+    void iWidgetManager::setCursor(iMouseCursorType cursorType)
+    {
+        if(!_firstCursor)
+        {
+            return;
+        }
+
+        _firstCursor = false;
+        _cursorType = cursorType;
+    }
+
+    void iWidgetManager::applyCursor()
+    {
+        _firstCursor = true;
+
+        if(_lastCursorType == _cursorType)
+        {
+            return;
+        }
+
+        _lastCursorType = _cursorType;
+        iMouse::getInstance().setCursor(_lastCursorType);
     }
 
 } // namespace igor

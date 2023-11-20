@@ -646,31 +646,13 @@ namespace igor
 
         \param widget the child widget to be removed
         */
-        virtual void removeWidget(iWidgetPtr widget);
+        virtual void removeWidget(iWidgetPtr widget);        
 
-        /*! drag enter handle
+        /*! sets cursor type
 
-        \param drag the drag data
+        \param cursorType the cursor type to set
         */
-        virtual void onDragEnter(const iDrag &drag);
-
-        /*! drag move handle
-
-        \param drag the drag data
-        */
-        virtual void onDragMove(const iDrag &drag, const iaVector2f &mousePos);
-
-        /*! drag leave handle
-
-        \param drag the drag data
-        */
-        virtual void onDragLeave(const iDrag &drag);
-
-        /*! drop handle
-
-        \param drag the drag data
-        */
-        virtual void onDrop(const iDrag &drag);
+        void setCursor(iMouseCursorType cursorType);
 
     protected:
         /*! list of children
@@ -887,6 +869,30 @@ namespace igor
         \param[out] offsets vector to be filled with childrens offsets
         */
         virtual void calcChildOffsets(std::vector<iaRectanglef> &offsets);
+
+        /*! drag enter handle
+
+        \param drag the drag data
+        */
+        virtual void onDragEnter(const iDrag &drag);
+
+        /*! drag move handle
+
+        \param drag the drag data
+        */
+        virtual void onDragMove(const iDrag &drag, const iaVector2f &mousePos);
+
+        /*! drag leave handle
+
+        \param drag the drag data
+        */
+        virtual void onDragLeave(const iDrag &drag);
+
+        /*! drop handle
+
+        \param drag the drag data
+        */
+        virtual void onDrop(const iDrag &drag);        
 
     private:
         /*! the next node id

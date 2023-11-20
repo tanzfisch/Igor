@@ -326,6 +326,12 @@ namespace igor
         */
         void reverseChildren();
 
+        /*! updates cursor based on splitter state
+
+        \param splitterState the given splitter state
+        */
+        void updateCursor(iSplitterState splitterState);
+
     };
 
     /*! widget button pointer definition

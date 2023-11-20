@@ -1074,4 +1074,9 @@ namespace igor
         return _overlay;
     }
 
+    void iWidget::setCursor(iMouseCursorType cursorType)
+    {
+        iWidgetManager::getInstance().setCursor(cursorType);
+    }
+
 } // namespace igor

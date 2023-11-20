@@ -472,7 +472,7 @@ namespace igor
         return iDialogMotionState::Static;
     }
 
-    static void updateCursor(iDialogMotionState motionState)
+    void iDialog::updateCursor(iDialogMotionState motionState)
     {
         iMouseCursorType cursorType;
 
@@ -508,7 +508,7 @@ namespace igor
             break;
         }
 
-        iMouse::getInstance().setCursorType(cursorType);
+        setCursor(cursorType);
     }
 
     void iDialog::onMouseMove(const iaVector2f &pos, bool consumed)
@@ -584,8 +584,6 @@ namespace igor
             {
                 _widgetState = iWidgetState::Standby;
                 _mouseOff(this);
-
-                iMouse::getInstance().resetCursorType();
             }
 
             _isMouseOver = false;
