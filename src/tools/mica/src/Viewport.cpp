@@ -2,31 +2,39 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "WorkspaceLayer.h"
+#include "Viewport.h"
 
-WorkspaceLayer::WorkspaceLayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
-    : iLayer(window, "Workspace", zIndex), _workspace(workspace)
+Viewport::Viewport(WorkspacePtr workspace)
+    : _workspace(workspace)
 {
+    setHeaderEnabled(false);
+    setDockable(true);
+    setMoveable(false);
+    setIgnoreChildEventConsumption(true);
+
+    _viewportScene = new iWidgetViewport();
+    _viewportScene->setVerticalAlignment(iVerticalAlignment::Stretch);
+    _viewportScene->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    _viewportScene->getView().setScene(_workspace->getScene());
+    _viewportScene->getView().setCamera(_workspace->getCameraArc()->getCameraNode());
+    _viewportScene->getView().registerRenderDelegate(iDrawDelegate(this, &Viewport::renderSelection));
+    addWidget(_viewportScene);
+
+    _viewportOverlay = new iWidgetViewport();
+    _viewportOverlay->setVerticalAlignment(iVerticalAlignment::Stretch);
+    _viewportOverlay->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    addWidget(_viewportOverlay);
+
+    initScene();
 }
 
-WorkspaceLayer::~WorkspaceLayer()
+Viewport::~Viewport()
 {
+    _viewportScene->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderSelection));
 }
 
-void WorkspaceLayer::onInit()
+void Viewport::initScene()
 {
-    _view.setName("Workspace");
-    _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
-    _view.setPerspective(45.0f);
-    _view.setClipPlanes(1.0f, 10000.f);
-    _view.setScene(_workspace->getScene());
-    _view.registerRenderDelegate(iDrawDelegate(this, &WorkspaceLayer::renderSelection));
-
-    getWindow()->addView(&_view, getZIndex());
-
-    // set default camera as current
-    _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
-
     // light
     _directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
     _directionalLightRotate->setName("directional light rotate");
@@ -46,29 +54,46 @@ void WorkspaceLayer::onInit()
     _directionalLightTranslate->insertNode(_lightNode);
 
     // load materials
-    _materialCelShading = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_cellshading_yellow");    
+    _materialCelShading = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_cellshading_yellow");
     _materialBoundingBox = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_bounding_box");
 
     // load particle material just so we have one available in the UI
+    // TODO this needs a better solution
     iResourceManager::getInstance().loadResource<iMaterial>("igor_material_particles");
 }
 
-void WorkspaceLayer::onDeinit()
+void Viewport::frameOnSelection()
 {
-    _view.unregisterRenderDelegate(iDrawDelegate(this, &WorkspaceLayer::renderSelection));
+    auto selection = _workspace->getSelection();
+
+    iNodeVisitorBoundings visitorBoundings;
+    iaSphered sphere;
+    iaSphered selectionSphere;
+
+    for (auto nodeID : selection)
+    {
+        auto node = iNodeManager::getInstance().getNode(nodeID);
+        if (node != nullptr)
+        {
+            visitorBoundings.traverseTree(node);
+            visitorBoundings.getSphere(sphere);
+            selectionSphere.merge(sphere);
+        }
+    }
+
+    _workspace->getCameraArc()->setCenterOfInterest(sphere._center);
+
+    if (sphere._radius > 0.0f)
+    {
+        _workspace->getCameraArc()->setDistance(sphere._radius * 4.0f);
+    }
+    else
+    {
+        _workspace->getCameraArc()->setDistance(10.0);
+    }
 }
 
-iNodePtr WorkspaceLayer::getNodeAt(int32 x, int32 y)
-{
-    // TODO if there is a sky box it needs to be invisible now
-
-    uint64 nodeID = _view.pickcolorID(x, y);
-    iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-
-    return node;
-}
-
-void WorkspaceLayer::renderSelection()
+void Viewport::renderSelection()
 {
     for (auto nodeID : _workspace->getSelection())
     {
@@ -110,49 +135,14 @@ void WorkspaceLayer::renderSelection()
     }
 }
 
-void WorkspaceLayer::frameOnSelection()
+bool Viewport::onKeyDown(iKeyCode key)
 {
-    auto selection = _workspace->getSelection();
-
-    iNodeVisitorBoundings visitorBoundings;
-    iaSphered sphere;
-    iaSphered selectionSphere;
-
-    for (auto nodeID : selection)
+    if (iWidget::onKeyDown(key))
     {
-        auto node = iNodeManager::getInstance().getNode(nodeID);
-        if (node != nullptr)
-        {
-            visitorBoundings.traverseTree(node);
-            visitorBoundings.getSphere(sphere);
-            selectionSphere.merge(sphere);
-        }
+        return true;
     }
 
-    _workspace->getCameraArc()->setCenterOfInterest(sphere._center);
-
-    if (sphere._radius > 0.0f)
-    {
-        _workspace->getCameraArc()->setDistance(sphere._radius * 4.0f);
-    }
-    else
-    {
-        _workspace->getCameraArc()->setDistance(10.0);
-    }
-}
-
-void WorkspaceLayer::onEvent(iEvent &event)
-{
-    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyDownEvent));
-    event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyUpEvent));
-    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseMoveEvent));
-    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseWheelEvent));
-    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onKeyDown));
-}
-
-bool WorkspaceLayer::onKeyDown(iEventKeyDown &event)
-{
-    switch (event.getKey())
+    switch (key)
     {
     case iKeyCode::F:
         frameOnSelection();
@@ -171,29 +161,26 @@ bool WorkspaceLayer::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::F10:
-        _view.setWireframeVisible(!_view.isWireframeVisible()); // TODO does not work in mica
+        _viewportScene->getView().setWireframeVisible(!_viewportScene->getView().isWireframeVisible());
         return true;
 
     case iKeyCode::F11:
-        _view.setOctreeVisible(!_view.isOctreeVisible()); // TODO does not work in mica
+        _viewportScene->getView().setOctreeVisible(!_viewportScene->getView().isOctreeVisible());
         return true;
 
     case iKeyCode::F12:
-        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible()); // TODO does not work in mica
+        _viewportScene->getView().setBoundingBoxVisible(!_viewportScene->getView().isBoundingBoxVisible());
         return true;
     }
 
     return false;
 }
 
-bool WorkspaceLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
+bool Viewport::onMouseKeyUp(iKeyCode key)
 {
-    return false;
-}
+    iWidget::onMouseKeyUp(key);
 
-bool WorkspaceLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
-{
-    switch (event.getKey())
+    switch (key)
     {
     case iKeyCode::MouseLeft:
         if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
@@ -214,12 +201,14 @@ bool WorkspaceLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
     return false;
 }
 
-bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
+void Viewport::onMouseMove(const iaVector2f &pos, bool consumed)
 {
+    iWidget::onMouseMove(pos, consumed);
+
     const float64 rotateSensitivity = 0.0075;
     const float64 translateSensitivity = 1.0;
-    const auto from = event.getLastPosition();
-    const auto to = event.getPosition();
+    const auto from = _lastMousePos;
+    const auto to = pos;
 
     if (iMouse::getInstance().getLeftButton())
     {
@@ -227,8 +216,6 @@ bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
         {
             _workspace->getCameraArc()->setPitch(_workspace->getCameraArc()->getPitch() + (from._y - to._y) * rotateSensitivity);
             _workspace->getCameraArc()->setHeading(_workspace->getCameraArc()->getHeading() + (from._x - to._x) * rotateSensitivity);
-
-            return true;
         }
     }
 
@@ -243,8 +230,8 @@ bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
             {
                 iaMatrixd camWorldMatrix;
                 camera->calcWorldTransformation(camWorldMatrix);
-                iaVector3d fromWorld = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
-                iaVector3d toWorld = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
+                iaVector3d fromWorld = camWorldMatrix * _viewportScene->getView().unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
+                iaVector3d toWorld = camWorldMatrix * _viewportScene->getView().unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
 
                 iaMatrixd camTranslateMatrix;
                 cameraDistance->getMatrix(camTranslateMatrix);
@@ -254,19 +241,22 @@ bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
                 coi += (fromWorld - toWorld) * translateFactor;
                 _workspace->getCameraArc()->setCenterOfInterest(coi);
             }
-
-            return true;
         }
     }
 
-    return false;
+    _lastMousePos = pos;
 }
 
-bool WorkspaceLayer::onMouseWheelEvent(iEventMouseWheel &event)
+bool Viewport::onMouseWheel(int32 d)
 {
+    if(iWidget::onMouseWheel(d))
+    {
+        return true;
+    }
+
     const float64 wheelSensitivity = 1.2;
 
-    if (event.getWheelDelta() < 0)
+    if (d < 0)
     {
         _workspace->getCameraArc()->setDistance(_workspace->getCameraArc()->getDistance() * wheelSensitivity);
     }
@@ -276,4 +266,36 @@ bool WorkspaceLayer::onMouseWheelEvent(iEventMouseWheel &event)
     }
 
     return true;
+}
+
+iNodePtr Viewport::getNodeAt(int32 x, int32 y)
+{
+    iView &view = _viewportScene->getView();
+    const auto &rect = getActualRect();
+    return iNodeManager::getInstance().getNode(view.pickcolorID(x - rect._x, y - rect._y));
+}
+
+void Viewport::setCamera(iNodeID cameraID)
+{
+    _viewportScene->getView().setCamera(cameraID);
+}
+
+iNodeID Viewport::getCamera() const
+{
+    return _viewportScene->getView().getCamera();
+}
+
+void Viewport::draw() 
+{
+    if (!isVisible())
+    {
+        return;
+    }
+
+    iRenderer::getInstance().drawFilledRectangleColored(getActualRect(), iaColor4f::black, iaColor4f::gray, iaColor4f::gray, iaColor4f::black);
+
+    for (const auto child : _children)
+    {
+        child->draw();
+    }    
 }

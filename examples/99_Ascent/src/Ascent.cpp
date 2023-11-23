@@ -117,7 +117,7 @@ void Ascent::initScene()
     _cameraTransform->insertNode(camera);
     camera->insertNode(lodtrigger);
     getScene()->getRoot()->insertNode(_cameraTransform);
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     initVoxelData(lodtrigger->getID());
 }
@@ -504,7 +504,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
 
 bool Ascent::getTerrainIntersectionPoint(iaVector3I &intersection)
 {
-    iNodeCamera *camera = static_cast<iNodeCamera *>(iNodeManager::getInstance().getNode(getView().getCurrentCamera()));
+    iNodeCamera *camera = static_cast<iNodeCamera *>(iNodeManager::getInstance().getNode(getView().getCamera()));
     if (camera != nullptr)
     {
         iaMatrixd modelMatrix;

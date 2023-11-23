@@ -159,6 +159,8 @@
 #include <igor/ui/widgets/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetDockingLayout.h>
 #include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/widgets/iWidgetSplitter.h>
+#include <igor/ui/widgets/iWidgetViewport.h>
 
 // version
 #include <igor/iVersion.h>

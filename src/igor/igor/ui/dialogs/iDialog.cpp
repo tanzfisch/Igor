@@ -20,7 +20,7 @@ namespace igor
     iDialog::iDialog(iWidgetType type, const iWidgetPtr parent)
         : iWidget(type, iWidgetKind::Dialog, nullptr)
     {
-        setEnabled(false);
+        setEnabled(false); // TODO dialogs should be enabled and visible by default
         setVisible(false);
         setMinWidth(100);
         setMinHeight(100);

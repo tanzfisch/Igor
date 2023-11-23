@@ -25,7 +25,7 @@ void ExampleSound::onInit()
     camera->setName("camera");
     getScene()->getRoot()->insertNode(camTransform);
     camTransform->insertNode(camera);
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // attach audio listener to camera
     iNodeAudioListener *audioListener = iNodeManager::getInstance().createNode<iNodeAudioListener>();

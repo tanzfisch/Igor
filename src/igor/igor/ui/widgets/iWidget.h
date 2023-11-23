@@ -149,6 +149,7 @@ namespace igor
         iWidgetLineTextEdit,
         iWidgetTextEdit,
         iWidgetSplitter,
+        iWidgetViewport,
 
         iWidgetGridLayout,
         iWidgetBoxLayout,
@@ -622,7 +623,7 @@ namespace igor
         void setOverlayEnabled(bool overlay);
 
         /*! \returns true if overlay is enabled for this widget
-        */
+         */
         bool isOverlayEnabled() const;
 
         /*! draws the widget
@@ -646,7 +647,7 @@ namespace igor
 
         \param widget the child widget to be removed
         */
-        virtual void removeWidget(iWidgetPtr widget);        
+        virtual void removeWidget(iWidgetPtr widget);
 
         /*! sets cursor type
 
@@ -791,7 +792,7 @@ namespace igor
         /*! handles incoming mouse wheel event
 
         \param d mouse wheel delta
-        \returns true: if event was consumed and therefore ignored by the parent        
+        \returns true: if event was consumed and therefore ignored by the parent
         */
         virtual bool onMouseWheel(int32 d);
 
@@ -892,7 +893,7 @@ namespace igor
 
         \param drag the drag data
         */
-        virtual void onDrop(const iDrag &drag);        
+        virtual void onDrop(const iDrag &drag);
 
     private:
         /*! the next node id
@@ -1008,7 +1009,7 @@ namespace igor
         iaColor4f _foreground;
 
         /*! true if overlay is enabled
-        */
+         */
         bool _overlay = false;
 
         /*! handles tooltip timer
@@ -1027,7 +1028,7 @@ namespace igor
 
         /*! called once per frame so a widget can update it's content if needed
          */
-        virtual void onUpdate(); 
+        virtual void onUpdate();
 
         /*! updates the absolute position
 

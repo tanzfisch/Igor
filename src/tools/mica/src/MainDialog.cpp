@@ -45,12 +45,10 @@ void MainDialog::initGUI()
 {
     setZValue(10000);
     setDockable(false);
-    setMoveable(true);
-    setHeaderEnabled(true);
-    setHorizontalAlignment(iHorizontalAlignment::Center);
-    setVerticalAlignment(iVerticalAlignment::Center);
-    setMinWidth(400);
-    setMinHeight(400);
+    setMoveable(false);
+    setHeaderEnabled(false);
+    setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetBoxLayoutPtr vbox = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     vbox->setStretchIndex(1);

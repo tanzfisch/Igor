@@ -4,7 +4,6 @@
 
 #include "Mica.h"
 
-#include "WorkspaceLayer.h"
 #include "overlay/OverlayLayer.h"
 #include "UILayer.h"
 
@@ -29,9 +28,9 @@ Mica::Mica()
 
 	_workspace = WorkspacePtr(new Workspace());
 
-	iApplication::getInstance().addLayer(new WorkspaceLayer(_window, 0, _workspace));
-	iApplication::getInstance().addLayer(new OverlayLayer(_window, 10, _workspace));
 	iApplication::getInstance().addLayer(new UILayer(_window, 20, _workspace));
+	
+	// iApplication::getInstance().addLayer(new OverlayLayer(_window, 40, _workspace));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(_window, "Profiler", 100, iProfilerVerbosity::None));
 }
 

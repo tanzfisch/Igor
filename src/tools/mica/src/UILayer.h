@@ -34,6 +34,7 @@
 #include "AssetBrowser.h"
 #include "MainDialog.h"
 #include "PropertiesEditor.h"
+#include "Viewport.h"
 
 class UILayer : public iLayerWidgets
 {
@@ -63,6 +64,10 @@ private:
     /*! the asset browser
 	*/
     AssetBrowser *_assetBrowser = nullptr;
+
+    /*! view port dialog
+    */
+    Viewport *_viewport = nullptr;
 
     /*! the properties dialog or editor
 	*/

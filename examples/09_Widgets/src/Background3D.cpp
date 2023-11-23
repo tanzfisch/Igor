@@ -17,7 +17,7 @@ void Background3D::onInit()
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>("camera");
     getScene()->getRoot()->insertNode(cameraTransform);
     cameraTransform->insertNode(camera);
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // create a cat
     iNodeTransform *catTransform = iNodeManager::getInstance().createNode<iNodeTransform>("cat_transform");

@@ -217,17 +217,16 @@ namespace igor
 
     bool iWidgetManager::onMouseMove(const iaux::iaVector2f &pos)
     {
-        bool consumed = false;
-
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onMouseMove(pos, consumed);
-            consumed = true;
+            getModal()->onMouseMove(pos, false);
+            return true;
         }
 
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, true);
+        bool consumed = false;
 
         for (auto dialog : dialogs)
         {

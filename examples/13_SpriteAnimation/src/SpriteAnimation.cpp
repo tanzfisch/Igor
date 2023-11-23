@@ -55,7 +55,7 @@ void SpriteAnimation::onInit()
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     _cameraTransform->insertNode(camera);
     getScene()->getRoot()->insertNode(_cameraTransform);
-    getViewOrtho().setCurrentCamera(camera->getID());
+    getViewOrtho().setCamera(camera->getID());
 
     // some flags to handle the character movement TODO
     for (int i = 0; i < 5; ++i)

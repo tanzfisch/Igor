@@ -18,7 +18,8 @@ Changelog                           {#changelog}
 - dialogs can now be moved, resized and docked
 - added interface to change mouse cursor see iMouseCursorType for supported types
 - added iWidgetSplitter, iMimeData
-- added drag&drop
+- added drag&drop (not fully functional)
+- added iWidgetViewport
 
 0.42.0
 ------

@@ -29,7 +29,7 @@ void OverlayLayer::onInit()
     getWindow()->addView(&_view, getZIndex());
 
     // set default camera as current
-    _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
+    _view.setCamera(_workspace->getCameraArc()->getCameraNode());
 
     _materialOrientationPlane = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_orientation_plane");
 

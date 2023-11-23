@@ -92,7 +92,7 @@ void ExampleCharacterController::onInit()
     _characterController->getHeadTransform()->insertNode(camera);
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene associated with the view which we achieved by adding all those nodes on to an other starting with the root node
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // setup gun
     iNodeTransform *gunTransform = iNodeManager::getInstance().createNode<iNodeTransform>();

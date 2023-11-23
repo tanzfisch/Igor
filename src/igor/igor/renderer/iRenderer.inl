@@ -127,7 +127,7 @@ void iRenderer::drawQuad(const iaVector3<T> &o, const iaVector3<T> &u, const iaV
                      of - vf - uf,
                      of - vf + uf,
                      of + vf + uf,
-                     color);
+                     color, color, color, color);
 }
 
 template <typename T>
@@ -143,13 +143,13 @@ void iRenderer::drawQuad(const iaMatrix<T> &matrix, const iaColor4f &color)
                      matrixf * QUAD_VERTEX_POSITIONS[1],
                      matrixf * QUAD_VERTEX_POSITIONS[2],
                      matrixf * QUAD_VERTEX_POSITIONS[3],
-                     color);
+                     color, color, color, color);
 }
 
 template <typename T>
 void iRenderer::drawQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iaColor4f &color)
 {
-    drawQuadInternal(v1, v2, v3, v4, color);
+    drawQuadInternal(v1, v2, v3, v4, color, color, color, color);
 }
 
 template <typename T>
@@ -159,7 +159,17 @@ void iRenderer::drawFilledRectangle(const iaRectangle<T> &rect, const iaColor4f 
                      iaVector3f(static_cast<float32>(rect._x), static_cast<float32>(rect._y + rect._height), 0.0),
                      iaVector3f(static_cast<float32>(rect._x + rect._width), static_cast<float32>(rect._y + rect._height), 0.0),
                      iaVector3f(static_cast<float32>(rect._x + rect._width), static_cast<float32>(rect._y), 0.0),
-                     color);
+                     color, color, color, color);
+}
+
+template <typename T>
+void iRenderer::drawFilledRectangleColored(const iaRectangle<T> &rect, const iaColor4f &color1, const iaColor4f &color2, const iaColor4f &color3, const iaColor4f &color4)
+{
+    drawQuadInternal(iaVector3f(static_cast<float32>(rect._x), static_cast<float32>(rect._y), 0.0),
+                     iaVector3f(static_cast<float32>(rect._x), static_cast<float32>(rect._y + rect._height), 0.0),
+                     iaVector3f(static_cast<float32>(rect._x + rect._width), static_cast<float32>(rect._y + rect._height), 0.0),
+                     iaVector3f(static_cast<float32>(rect._x + rect._width), static_cast<float32>(rect._y), 0.0),
+                     color1, color2, color3, color4);
 }
 
 template <typename T>
@@ -168,7 +178,8 @@ void iRenderer::drawFilledRectangle(T x, T y, T width, T height, const iaColor4f
     drawQuadInternal(iaVector3f(static_cast<float32>(x), static_cast<float32>(y), 0.0),
                      iaVector3f(static_cast<float32>(x), static_cast<float32>(y + height), 0.0),
                      iaVector3f(static_cast<float32>(x + width), static_cast<float32>(y + height), 0.0),
-                     iaVector3f(static_cast<float32>(x + width), static_cast<float32>(y), 0.0), color);
+                     iaVector3f(static_cast<float32>(x + width), static_cast<float32>(y), 0.0), 
+                     color, color, color, color);
 }
 
 template <typename T>
@@ -346,7 +357,7 @@ void iRenderer::drawQuad(const iaMatrix<float32> &matrix, const iaColor4f &color
                         matrix * QUAD_VERTEX_POSITIONS[1],
                         matrix * QUAD_VERTEX_POSITIONS[2],
                         matrix * QUAD_VERTEX_POSITIONS[3],
-                        color);
+                        color, color, color, color);
 }
 
 template <> inline
@@ -388,5 +399,5 @@ void iRenderer::drawQuad(const iaVector3<float32> &o, const iaVector3<float32> &
                         o - v - u,
                         o - v + u,
                         o + v + u,
-                        color);
+                        color, color, color, color);
 }

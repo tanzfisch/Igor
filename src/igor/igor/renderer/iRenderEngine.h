@@ -100,11 +100,11 @@ namespace igor
 
         \param cameraID the camery id
         */
-        void setCurrentCamera(iNodeID cameraID);
+        void setCamera(iNodeID cameraID);
 
         /*! \returns current camera id
          */
-        iNodeID getCurrentCamera() const;
+        iNodeID getCamera() const;
 
         /*! culls and renders
          */

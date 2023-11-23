@@ -803,7 +803,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Points;
     }
 
-    void iRenderer::drawQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color)
+    void iRenderer::drawQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color1, const iaColor4f &color2, const iaColor4f &color3, const iaColor4f &color4)
     {
         auto &quads = _data->_quads;
 
@@ -817,22 +817,22 @@ namespace igor
             flushQuads();
         }
 
-        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+        (color1._a == 1.0 && color2._a == 1.0 && color3._a == 1.0 && color4._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
 
         quads._vertexDataPtr->_pos = v1;
-        quads._vertexDataPtr->_color = color;
+        quads._vertexDataPtr->_color = color1;
         quads._vertexDataPtr++;
 
         quads._vertexDataPtr->_pos = v2;
-        quads._vertexDataPtr->_color = color;
+        quads._vertexDataPtr->_color = color2;
         quads._vertexDataPtr++;
 
         quads._vertexDataPtr->_pos = v3;
-        quads._vertexDataPtr->_color = color;
+        quads._vertexDataPtr->_color = color3;
         quads._vertexDataPtr++;
 
         quads._vertexDataPtr->_pos = v4;
-        quads._vertexDataPtr->_color = color;
+        quads._vertexDataPtr->_color = color4;
         quads._vertexDataPtr++;
 
         quads._vertexCount += 4;

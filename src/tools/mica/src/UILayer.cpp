@@ -46,26 +46,22 @@ void UILayer::onInit()
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
-    _propertiesDialog = new PropertiesEditor();    
     _outliner = new Outliner(_workspace);
+    _outliner->setEnabled();
+    _outliner->setVisible();
+    _outliner->refresh(); // TODO ?
+
+    _propertiesDialog = new PropertiesEditor();
+    _propertiesDialog->setEnabled();
+    _propertiesDialog->setVisible();
 
     _assetBrowser = new AssetBrowser();
-    _assetBrowser->setPos(iaVector2f(100, 100));
-        _assetBrowser->setEnabled();
+    _assetBrowser->setEnabled();
     _assetBrowser->setVisible();
 
-
-    _assetBrowser = new AssetBrowser();
-    _assetBrowser->setPos(iaVector2f(100, 300));
-        _assetBrowser->setEnabled();
-    _assetBrowser->setVisible();
-
-
-    _assetBrowser = new AssetBrowser();
-    _assetBrowser->setPos(iaVector2f(100, 500));    
-        _assetBrowser->setEnabled();
-    _assetBrowser->setVisible();
-
+    _viewport = new Viewport(_workspace);
+    _viewport->setEnabled();
+    _viewport->setVisible();
 
     _outliner->registerOnCreateProject(CreateProjectDelegate(this, &UILayer::onCreateProject));
     _outliner->registerOnLoadProject(LoadProjectDelegate(this, &UILayer::onLoadProject));
@@ -84,13 +80,26 @@ void UILayer::onInit()
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
     _outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::onMaterialSelectionChanged));
 
-    _outliner->setEnabled();
-    _outliner->setVisible();
-    _outliner->refresh();
+    // load layout configuration here instead of this hack
+    iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
 
-    _propertiesDialog->setEnabled();
-    _propertiesDialog->setVisible();
+    iWidgetSplitterPtr splitter0 = new iWidgetSplitter(true);
+    iWidgetSplitterPtr splitter1 = new iWidgetSplitter(true);
 
+    rootSplitter->setOrientation(iSplitterOrientation::Vertical);
+    rootSplitter->setRatio(0.1f);
+    rootSplitter->addWidget(_outliner);
+    rootSplitter->addWidget(splitter0);
+
+    splitter0->setOrientation(iSplitterOrientation::Vertical);
+    splitter0->setRatio(0.8f);
+    splitter0->addWidget(splitter1);
+    splitter0->addWidget(_propertiesDialog);
+
+    splitter1->setOrientation(iSplitterOrientation::Horizontal);
+    splitter1->setRatio(0.9f);
+    splitter1->addWidget(_viewport);
+    splitter1->addWidget(_assetBrowser);
 }
 
 void UILayer::onDeinit()

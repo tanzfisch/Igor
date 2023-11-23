@@ -400,7 +400,7 @@ namespace igor
     bool iWidget::onMouseWheel(int32 d)
     {
         if (!isEnabled() ||
-            _reactOnMouseWheel)
+            !_reactOnMouseWheel)
         {
             return false;
         }
@@ -663,8 +663,6 @@ namespace igor
             }
         }
 
-        // TODO ? if (!_ignoreChildEventConsumption && result)
-
         return false;
     }
 
@@ -677,16 +675,21 @@ namespace igor
 
         // get copy of children
         std::vector<iWidgetPtr> widgets = getChildren();
+        bool result = false;
 
         for (auto widget : widgets)
         {
             if (widget->onKeyUp(key))
             {
-                return true;
+                result = true;
+                break;
             }
         }
-
-        // TODO ? if (!_ignoreChildEventConsumption && result)
+        
+        if (!_ignoreChildEventConsumption && result)
+        {
+            return true;
+        }
 
         return false;
     }
@@ -1007,6 +1010,7 @@ namespace igor
             "iWidgetLineTextEdit",
             "iWidgetTextEdit",
             "iWidgetSplitter",
+            "iWidgetViewport",
 
             "iWidgetGridLayout",
             "iWidgetBoxLayout",
