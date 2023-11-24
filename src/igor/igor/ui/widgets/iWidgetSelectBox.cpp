@@ -60,80 +60,75 @@ namespace igor
         updateMinSize(minWidth, minHeight);
     }
 
-    bool iWidgetSelectBox::onMouseKeyDown(iKeyCode key)
+    bool iWidgetSelectBox::onMouseKeyDown(iEventMouseKeyDown &event)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !isMouseOver())
         {
             return false;
         }
 
-        if (_mouseOver)
-        {
-            _buttonAppearanceState = iWidgetState::Pressed;
-        }
+        _buttonAppearanceState = iWidgetState::Pressed;
 
-        return iWidget::onMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(event);
     }
 
-    void iWidgetSelectBox::onMouseMove(const iaVector2f &pos, bool consumed)
+    void iWidgetSelectBox::onMouseMove(iEventMouseMove &event)
     {
         if (!isEnabled())
         {
             return;
         }
 
-        iWidget::onMouseMove(pos, consumed);
+        iWidget::onMouseMove(event);
 
-        auto rect = getActualRect();
-        if (iIntersection::intersects(pos, rect) &&
-            !consumed)
+        if (!isMouseOver())
         {
-            _mouseOver = true;
+            return;
+        }
+
+        if (!event.isConsumed())
+        {
             _buttonAppearanceState = iWidgetState::Highlighted;
         }
         else
         {
-            _mouseOver = false;
             _buttonAppearanceState = iWidgetState::Standby;
         }
     }
 
-    bool iWidgetSelectBox::onMouseKeyUp(iKeyCode key)
+    bool iWidgetSelectBox::onMouseKeyUp(iEventMouseKeyUp &event)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !isMouseOver())
         {
             return false;
         }
 
-        if (_mouseOver)
+        if (event.getKey() == iKeyCode::MouseLeft)
         {
-            if (key == iKeyCode::MouseLeft)
+            _buttonAppearanceState = iWidgetState::Standby;
+
+            if (_selectBox == nullptr)
             {
-                _buttonAppearanceState = iWidgetState::Standby;
-
-                if (_selectBox == nullptr)
-                {
-                    _selectBox = new iDialogIndexMenu();
-                }
-
-                _selectBox->setMinWidth(getActualWidth());
-                _selectBox->setX(getActualPosX() + 2);
-                _selectBox->setY(getActualPosY() + getActualHeight() + 2);
-
-                std::vector<iaString> entries;
-                for (auto entry : _entries)
-                {
-                    entries.push_back(entry.first);
-                }
-
-                _selectBox->open(iDialogCloseDelegate(this, &iWidgetSelectBox::onSelectBoxClosed), entries);
+                _selectBox = new iDialogIndexMenu();
             }
 
-            setKeyboardFocus();
-            return true;
+            _selectBox->setMinWidth(getActualWidth());
+            _selectBox->setX(getActualPosX() + 2);
+            _selectBox->setY(getActualPosY() + getActualHeight() + 2);
+
+            std::vector<iaString> entries;
+            for (auto entry : _entries)
+            {
+                entries.push_back(entry.first);
+            }
+
+            _selectBox->open(iDialogCloseDelegate(this, &iWidgetSelectBox::onSelectBoxClosed), entries);
         }
 
-        return iWidget::onMouseKeyUp(key);
+        setKeyboardFocus();
+        return true;
     }
 
     void iWidgetSelectBox::onSelectBoxClosed(iDialogPtr dialog)
@@ -150,32 +145,6 @@ namespace igor
 
         delete _selectBox;
         _selectBox = nullptr;
-    }
-
-    bool iWidgetSelectBox::onMouseWheel(int32 d)
-    {
-        if (!isEnabled())
-        {
-            return false;
-        }
-
-        iWidget::onMouseWheel(d);
-
-        if (isMouseOver())
-        {
-            if (d < 0)
-            {
-                // TODO go to next lower entry
-            }
-            else
-            {
-                // TODO go to next higher entry
-            }
-
-            return true;
-        }
-
-        return false;
     }
 
     void iWidgetSelectBox::setSelection(uint32 key)

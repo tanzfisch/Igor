@@ -151,21 +151,21 @@ namespace igor
 
         /*! handles incoming acsii codes from keyboard
 
-		\param c the incoming character from keyboard
-		*/
-        virtual bool onASCII(uint8 c) override;
+        \param event the key ascii event
+        */
+        bool onASCII(iEventKeyASCII &event) override;
 
         /*! handles incoming released key events
 
-		\param key the released key
+		\param event the key down event
 		*/
-        virtual bool onKeyDown(iKeyCode key) override;
+        virtual bool onKeyDown(iEventKeyDown &event) override;
 
         /*! handles incoming released key events
 
-		\param key the released key
+		\param event the key up event
 		*/
-        virtual bool onKeyUp(iKeyCode key) override;
+        virtual bool onKeyUp(iEventKeyUp &event) override;
 
         /*! handles gained kayboard focus
 		*/

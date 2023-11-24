@@ -36,14 +36,14 @@ namespace igor
         _rightTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_right");
     }
 
-    bool iWidgetScroll::onMouseKeyUp(iKeyCode key)
+    bool iWidgetScroll::onMouseKeyUp(iEventMouseKeyUp &event)
     {
         if (!isEnabled())
         {
             return false;
         }
 
-        if (key == iKeyCode::MouseLeft)
+        if (event.getKey() == iKeyCode::MouseLeft)
         {
             if (_hscrollButton._mouseOver)
             {
@@ -88,17 +88,18 @@ namespace igor
             }
         }
 
-        return iWidget::onMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetScroll::onMouseDoubleClick(iKeyCode key)
+    bool iWidgetScroll::onMouseDoubleClick(iEventMouseKeyDoubleClick &event)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !isMouseOver())
         {
             return false;
         }
 
-        if (key == iKeyCode::MouseLeft)
+        if (event.getKey() == iKeyCode::MouseLeft)
         {
             if (handleButtonClicks())
             {
@@ -106,17 +107,17 @@ namespace igor
             }
         }
 
-        return iWidget::onMouseDoubleClick(key);
+        return iWidget::onMouseDoubleClick(event);
     }
 
-    bool iWidgetScroll::onMouseKeyDown(iKeyCode key)
+    bool iWidgetScroll::onMouseKeyDown(iEventMouseKeyDown &event)
     {
         if (!isEnabled())
         {
             return false;
         }
 
-        if (key == iKeyCode::MouseLeft)
+        if (event.getKey() == iKeyCode::MouseLeft)
         {
             if (_hscrollButton._mouseOver)
             {
@@ -138,7 +139,7 @@ namespace igor
             }
         }
 
-        return iWidget::onMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(event);
     }
 
     bool iWidgetScroll::handleButtonClicks()
@@ -201,7 +202,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetScroll::onMouseMove(const iaVector2f &pos, bool consumed)
+    void iWidgetScroll::onMouseMove(iEventMouseMove &event)
     {
         if (!isEnabled() || _children.empty())
         {
@@ -214,7 +215,8 @@ namespace igor
             return;
         }
 
-        child->onMouseMove(pos, consumed);
+        const auto &pos = event.getPosition();
+        child->onMouseMove(event);
 
         if (_hscrollButton._mouseDown)
         {
@@ -236,7 +238,7 @@ namespace igor
 
         auto rect = getActualRect();
         if (iIntersection::intersects(pos, rect) &&
-            !consumed)
+            !event.isConsumed())
         {
             if (!_isMouseOver)
             {
@@ -350,34 +352,34 @@ namespace igor
         _vscroll = std::max(0.0f, std::min(1.0f, value));
     }
 
-    bool iWidgetScroll::onMouseWheel(int32 d)
+    bool iWidgetScroll::onMouseWheel(iEventMouseWheel &event)
     {
-        if (!isEnabled() || _children.empty())
+        if (!isEnabled() ||
+            !isMouseOver() ||
+            getChildren().empty())
         {
             return false;
         }
 
-        const auto child = _children.front();
-        if (child == nullptr)
-        {
-            return false;
-        }
-
-        if (child->onMouseWheel(d))
+        if (iWidget::onMouseWheel(event) &&
+            !_ignoreChildEventConsumption)
         {
             return true;
         }
 
+        auto child = getChildren().front();
+        con_assert(child != nullptr, "internal error");
+
         if (_vscrollActive)
         {
-            _vscroll -= d * (1.0f / (child->getActualHeight() / SCROLL_STEPPING));
+            _vscroll -= event.getWheelDelta() * (1.0f / (child->getActualHeight() / SCROLL_STEPPING));
             _vscroll = std::max(0.0f, std::min(1.0f, _vscroll));
 
             return true;
         }
         else if (_hscrollActive)
         {
-            _hscroll -= d * (1.0f / (child->getActualWidth() / SCROLL_STEPPING));
+            _hscroll -= event.getWheelDelta() * (1.0f / (child->getActualWidth() / SCROLL_STEPPING));
             _hscroll = std::max(0.0f, std::min(1.0f, _hscroll));
 
             return true;
@@ -558,6 +560,11 @@ namespace igor
 
     void iWidgetScroll::addWidget(iWidgetPtr widget)
     {
+        if (!getChildren().empty())
+        {
+            con_warn("undefined behaviour if adding more then one widget");
+        }
+
         iWidget::addWidget(widget);
 
         if (widget->getVerticalAlignment() != iVerticalAlignment::Top || widget->getHorizontalAlignment() != iHorizontalAlignment::Left)

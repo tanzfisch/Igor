@@ -308,10 +308,10 @@ namespace igor
 
         /*! handles incoming mouse key down events
 
-        \param key the key that was pressed
+        \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iKeyCode key);
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
     };
 } // namespace igor
 

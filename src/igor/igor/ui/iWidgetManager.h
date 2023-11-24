@@ -35,6 +35,7 @@
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
+#include <igor/events/iEventScene.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/ui/iDrag.h>
@@ -278,12 +279,6 @@ namespace igor
         \param sortedAscending if true the output list is sorted z index ascending if false the opposite
         */
         void getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAscending = true);
-
-        /*! actual implementation that handles a moved mouse
-
-        \param to the mouse postion to use
-        */
-        bool onMouseMove(const iaux::iaVector2f &pos);
 
         /*! called when key was pressed
 

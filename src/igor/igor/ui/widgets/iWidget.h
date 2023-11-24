@@ -32,6 +32,8 @@
 #include <igor/iDefines.h>
 #include <igor/system/iMouse.h>
 #include <igor/system/iTimerHandle.h>
+#include <igor/events/iEventMouse.h>
+#include <igor/events/iEventKeyboard.h>
 
 #include <iaux/math/iaVector4.h>
 #include <iaux/data/iaColor4.h>
@@ -398,7 +400,7 @@ namespace igor
         */
         void registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
 
-        /*! unregisters delegate from seleciton changed event
+        /*! unregisters delegate from selection changed event
 
         \param delegate the delegate to unregister
         */
@@ -424,15 +426,15 @@ namespace igor
          */
         int32 getActualHeight() const;
 
-        /*! \returns actual rectangle
+        /*! \returns actual rectangle (absolute and in pixel)
          */
         iaRectanglef getActualRect() const;
 
-        /*! \returns actual relative horizontal position
+        /*! \returns actual relative to it's parent horizontal position
          */
         int32 getRelativePosX() const;
 
-        /*! \returns actual relative vertical position
+        /*! \returns actual relative to it's parent vertical position
          */
         int32 getRelativePosY() const;
 
@@ -789,58 +791,64 @@ namespace igor
          */
         virtual ~iWidget();
 
+        /*! handles incoming generic event
+
+        \param event the event
+        */
+        virtual bool onEvent(iEvent &event);
+
         /*! handles incoming mouse wheel event
 
-        \param d mouse wheel delta
+        \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseWheel(int32 d);
+        virtual bool onMouseWheel(iEventMouseWheel &event);
 
         /*! handles incoming mouse key down events
 
-        \param key the key that was pressed
+        \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseKeyDown(iKeyCode key);
+        virtual bool onMouseKeyDown(iEventMouseKeyDown &event);
 
         /*! handles incoming double click
 
-        \param key the key that was pressed
+        \param event the mouse double click event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseDoubleClick(iKeyCode key);
+        virtual bool onMouseDoubleClick(iEventMouseKeyDoubleClick &event);
 
         /*! handles mouse key up events
 
-        \param key the key that was pressed
+        \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseKeyUp(iKeyCode key);
+        virtual bool onMouseKeyUp(iEventMouseKeyUp &event);
 
         /*! handles incoming mouse move events
 
-        \param pos mouse position
+        \param event mouse move event
         \param consumed if true mouse move was already consumed
         */
-        virtual void onMouseMove(const iaVector2f &pos, bool consumed);
+        virtual void onMouseMove(iEventMouseMove &event);
 
         /*! handles incoming acsii codes from keyboard
 
-        \param c the incoming character from keyboard
+        \param event the key ascii event
         */
-        virtual bool onASCII(uint8 c);
+        virtual bool onASCII(iEventKeyASCII &event);
 
         /*! handles pressed key event
 
-        \param key the pressed key
+        \param event the key down event
         */
-        virtual bool onKeyDown(iKeyCode key);
+        virtual bool onKeyDown(iEventKeyDown &event);
 
         /*! handles released key event
 
-        \param key the released key
+        \param event the key up event
         */
-        virtual bool onKeyUp(iKeyCode key);
+        virtual bool onKeyUp(iEventKeyUp &event);
 
         /*! handles lost keyboard focus
          */
@@ -1011,6 +1019,10 @@ namespace igor
         /*! true if overlay is enabled
          */
         bool _overlay = false;
+
+        /*! if true this widget can't take keyboard focus
+        */
+        bool _doNotTakeKeyboard = false;
 
         /*! handles tooltip timer
 

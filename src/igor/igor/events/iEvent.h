@@ -64,7 +64,7 @@ namespace igor
         iEventEntityCreated,
         iEventEntityDestroyed,
 
-        // has be stay last
+        // has to be last
         iEventTypeCount
     };
 

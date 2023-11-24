@@ -335,37 +335,37 @@ namespace igor
 
         /*! handles incoming mouse wheel event
 
-        \param d mouse wheel delta
+        \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseWheel(int32 d) override;
+        bool onMouseWheel(iEventMouseWheel &event) override;
 
         /*! handles incoming mouse key down events
 
-        \param key the key that was pressed
+        \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iKeyCode key) override;
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
  
         /*! handles incoming double click
 
-        \param key the key that was pressed
+        \param event the mouse double click event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseDoubleClick(iKeyCode key) override;
+        bool onMouseDoubleClick(iEventMouseKeyDoubleClick &event) override;
 
         /*! handles mouse key up events
 
-        \param key the key that was pressed
+        \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iKeyCode key) override;
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
-        \param position mouse position
+        \param event mouse move event
         */
-        void onMouseMove(const iaVector2f &pos, bool consumed) override;
+        void onMouseMove(iEventMouseMove &event) override;
 
         /*! updates size based on it's content
          */

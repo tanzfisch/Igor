@@ -6,12 +6,12 @@
 
 #include <igor/system/iKeyboard.h>
 #include <igor/system/iApplication.h>
-
 #include <igor/system/iWindow.h>
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
 #include <igor/events/iEventMouse.h>
 
+#include <iaux/data/iaConvert.h>
 #include <iaux/system/iaTime.h>
 #include <iaux/system/iaConsole.h>
 
@@ -165,7 +165,10 @@ namespace igor
             case WM_MOUSEMOVE:
                 _posLast = _pos;
                 _pos.set(GET_X_LPARAM(event->_lParam), GET_Y_LPARAM(event->_lParam));
-                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, _posLast, _pos)));
+
+                iaVector2f posLast(_posLast._x, _posLast._y);
+                iaVector2f pos(_pos._x, _pos._y);
+                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, posLast, pos)));
                 break;
 
             case WM_RBUTTONDOWN:
@@ -405,7 +408,9 @@ namespace igor
                     _posLast = _pos;
                     _pos = pos;
 
-                    iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, _posLast, _pos)));
+                    iaVector2f posLast(_posLast._x, _posLast._y);
+                    iaVector2f pos(_pos._x, _pos._y);
+                    iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, posLast, pos)));
                 }
             }
             break;

@@ -44,14 +44,14 @@ namespace igor
 		_currentRadioButtons.clear();
 	}
 
-	bool iWidgetCheckBox::onMouseKeyUp(iKeyCode key)
+	bool iWidgetCheckBox::onMouseKeyUp(iEventMouseKeyUp &event)
 	{
 		if (!isEnabled())
 		{
 			return false;
 		}
 
-		iWidget::onMouseKeyUp(key);
+		iWidget::onMouseKeyUp(event);
 
 		if (_widgetState == iWidgetState::Clicked)
 		{

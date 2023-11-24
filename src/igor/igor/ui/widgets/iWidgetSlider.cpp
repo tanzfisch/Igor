@@ -99,30 +99,30 @@ namespace igor
         }
     }
 
-    bool iWidgetSlider::onMouseWheel(int32 d)
+    bool iWidgetSlider::onMouseWheel(iEventMouseWheel &event)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !isMouseOver())
         {
             return false;
         }
 
-        iWidget::onMouseWheel(d);
-
-        if (isMouseOver())
+        if (iWidget::onMouseWheel(event) &&
+            !_ignoreChildEventConsumption)
         {
-            if (d < 0)
-            {
-                decreaseNumber(_wheelStepDown);
-            }
-            else
-            {
-                increaseNumber(_wheelStepUp);
-            }
-
             return true;
         }
 
-        return false;
+        if (event.getWheelDelta() < 0)
+        {
+            decreaseNumber(_wheelStepDown);
+        }
+        else
+        {
+            increaseNumber(_wheelStepUp);
+        }
+
+        return true;
     }
 
     const iaString &iWidgetSlider::getTexture() const
@@ -135,12 +135,14 @@ namespace igor
         updateMinSize(0, 0);
     }
 
-    void iWidgetSlider::onMouseMove(const iaVector2f &pos, bool consumed)
+    void iWidgetSlider::onMouseMove(iEventMouseMove &event)
     {
         if (!isEnabled())
         {
             return;
         }
+
+        const auto &pos = event.getPosition();
 
         if (_sliderButton._mouseDown)
         {
@@ -158,7 +160,7 @@ namespace igor
 
         auto rect = getActualRect();
         if (iIntersection::intersects(pos, rect) &&
-            !consumed)
+            !event.isConsumed())
         {
             if (!_isMouseOver)
             {
@@ -199,14 +201,14 @@ namespace igor
         }
     }
 
-    bool iWidgetSlider::onMouseKeyUp(iKeyCode key)
+    bool iWidgetSlider::onMouseKeyUp(iEventMouseKeyUp &event)
     {
         if (!isEnabled())
         {
             return false;
         }
 
-        if (key == iKeyCode::MouseLeft)
+        if (event.getKey() == iKeyCode::MouseLeft)
         {
             _sliderButton._appearanceState = iWidgetState::Standby;
             _sliderButton._mouseOver = false;
@@ -214,27 +216,26 @@ namespace igor
             return true;
         }
 
-        return iWidget::onMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetSlider::onMouseKeyDown(iKeyCode key)
+    bool iWidgetSlider::onMouseKeyDown(iEventMouseKeyDown &event)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !isMouseOver())
         {
             return false;
         }
 
-        if (key == iKeyCode::MouseLeft)
+        if (event.getKey() == iKeyCode::MouseLeft &&
+            _sliderButton._mouseOver)
         {
-            if (_sliderButton._mouseOver)
-            {
-                _sliderButton._appearanceState = iWidgetState::Pressed;
-                _sliderButton._mouseDown = true;
-                return true;
-            }
+            _sliderButton._appearanceState = iWidgetState::Pressed;
+            _sliderButton._mouseDown = true;
+            return true;
         }
 
-        return iWidget::onMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(event);
     }
 
     void iWidgetSlider::handleMouseInput(int32 mouseX)

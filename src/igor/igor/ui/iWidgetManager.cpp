@@ -215,32 +215,6 @@ namespace igor
         }
     }
 
-    bool iWidgetManager::onMouseMove(const iaux::iaVector2f &pos)
-    {
-        // if there is a modal dialog handle only that one
-        if (getModal() != nullptr)
-        {
-            getModal()->onMouseMove(pos, false);
-            return true;
-        }
-
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, true);
-        bool consumed = false;
-
-        for (auto dialog : dialogs)
-        {
-            dialog->onMouseMove(pos, consumed);
-
-            if (dialog->_isMouseOver)
-            {
-                consumed = true;
-            }
-        }
-
-        return consumed;
-    }
-
     void iWidgetManager::onUpdate()
     {
         bool refreshMousePos = false;
@@ -258,11 +232,11 @@ namespace igor
         _dialogsToClose.clear();
 
         // refresh mouse pos on other dialogs because they have been blocked so far
-        if (refreshMousePos)
+        /* TODO if (refreshMousePos)
         {
             const iaVector2i &mousePos = iMouse::getInstance().getPos();
             onMouseMove(iaVector2f(mousePos._x, mousePos._y));
-        }
+        }*/
 
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, false);
@@ -440,6 +414,21 @@ namespace igor
         event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyDown));
         event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyUp));
         event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onWindowResize));
+
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
+        {
+            getModal()->onEvent(event);
+            return;
+        }
+
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, true);
+
+        for (auto dialog : dialogs)
+        {
+            dialog->onEvent(event);
+        }
     }
 
     bool iWidgetManager::onWindowResize(iEventWindowResize &event)
@@ -455,7 +444,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onKeyDown(event.getKey());
+            getModal()->onKeyDown(event);
             return true;
         }
 
@@ -464,7 +453,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->onKeyDown(event.getKey()))
+            if (dialog->onKeyDown(event))
             {
                 return true;
             }
@@ -478,7 +467,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onKeyUp(event.getKey());
+            getModal()->onKeyUp(event);
             return true;
         }
 
@@ -487,7 +476,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->onKeyUp(event.getKey()))
+            if (dialog->onKeyUp(event))
             {
                 return true;
             }
@@ -501,7 +490,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onASCII(event.getChar());
+            getModal()->onASCII(event);
             return true;
         }
 
@@ -510,7 +499,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->onASCII(event.getChar()))
+            if (dialog->onASCII(event))
             {
                 return true;
             }
@@ -524,7 +513,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onMouseKeyDown(event.getKey());
+            getModal()->onMouseKeyDown(event);
             return true;
         }
 
@@ -534,7 +523,7 @@ namespace igor
         // let the dialogs handle the event
         for (auto dialog : dialogs)
         {
-            if (dialog->onMouseKeyDown(event.getKey()))
+            if (dialog->onMouseKeyDown(event))
             {
                 return true;
             }
@@ -548,7 +537,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onMouseKeyUp(event.getKey());
+            getModal()->onMouseKeyUp(event);
             endDrag();
             return true;
         }
@@ -567,7 +556,7 @@ namespace igor
                 continue;
             }
 
-            if (dialog->onMouseKeyUp(event.getKey()))
+            if (dialog->onMouseKeyUp(event))
             {
                 consumed = true;
             }
@@ -582,7 +571,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onMouseDoubleClick(event.getKey());
+            getModal()->onMouseDoubleClick(event);
             return true;
         }
 
@@ -592,7 +581,7 @@ namespace igor
         // let the dialogs handle the event
         for (auto dialog : dialogs)
         {
-            if (dialog->onMouseDoubleClick(event.getKey()))
+            if (dialog->onMouseDoubleClick(event))
             {
                 return true;
             }
@@ -603,14 +592,28 @@ namespace igor
 
     bool iWidgetManager::onMouseMoveEvent(iEventMouseMove &event)
     {
-        const iaVector2i &pos = event.getPosition();
-
-        if (onMouseMove(iaVector2f(pos._x, pos._y)))
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
         {
+            getModal()->onMouseMove(event);
             return true;
         }
 
-        return false;
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, true);
+        bool consumed = false;
+
+        for (auto dialog : dialogs)
+        {
+            dialog->onMouseMove(event);
+
+            if (dialog->_isMouseOver)
+            {
+                consumed = true;
+            }
+        }
+
+        return consumed;
     }
 
     bool iWidgetManager::onMouseWheelEvent(iEventMouseWheel &event)
@@ -618,7 +621,7 @@ namespace igor
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->onMouseWheel(event.getWheelDelta());
+            getModal()->onMouseWheel(event);
             return true;
         }
 
@@ -627,7 +630,7 @@ namespace igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->onMouseWheel(event.getWheelDelta()))
+            if (dialog->onMouseWheel(event))
             {
                 return true;
             }

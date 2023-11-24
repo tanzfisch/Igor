@@ -251,31 +251,25 @@ namespace igor
          */
         iDialogCloseDelegate _dialogCloseDelegate;
 
-        /*! handles incoming acsii codes from keyboard
-
-        \param c the incoming character from keyboard
-        */
-        bool onASCII(uint8 c) override;
-
         /*! handles incoming mouse key down events
 
-        \param key the key that was pressed
+        \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iKeyCode key) override;
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
-        \param key the key that was pressed
+        \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iKeyCode key) override;
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
-        \param pos mouse position
+        \param event mouse move event
         */
-        void onMouseMove(const iaVector2f &pos, bool consumed) override;
+        void onMouseMove(iEventMouseMove &event) override;
 
         /*! updates size based on it's content
          */

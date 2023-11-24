@@ -228,18 +228,18 @@ void WidgetsExample::onInit()
     iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
     exitButton->setText(""); // clear text
-    exitButton->setSize(24, 24);
+    exitButton->setMinSize(24, 24);
     buttonLayout->addWidget(exitButton);
 
     iWidgetButton *button2 = new iWidgetButton();
     button2->setAction(iActionManager::getInstance().getAction("exampleAction:one"));
     button2->setText(""); // clear text
-    button2->setSize(24, 24);
+    button2->setMinSize(24, 24);
     buttonLayout->addWidget(button2);
 
     iWidgetButton *button3 = new iWidgetButton();
     button3->setAction(iActionManager::getInstance().getAction("exampleAction:two"));
-    button3->setSize(24, 24);
+    button3->setMinSize(24, 24);
     buttonLayout->addWidget(button3);
 
     // adding a group box

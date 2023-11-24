@@ -23,7 +23,6 @@ namespace igor
 		setMinWidth(50);
 		setMinHeight(50);
 
-		_view.setName("Perspective");
 		_view.setClearColorActive(false);
 		_view.setPerspective(45.0f);
 		_view.setClipPlanes(1.0f, 10000.f);

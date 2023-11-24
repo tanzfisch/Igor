@@ -38,6 +38,7 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
         setIgnoreChildEventConsumption(true);
         setOverlayEnabled(_dockingSplitter);
+        _doNotTakeKeyboard = true;
     }
 
     void iWidgetSplitter::setRatio(float32 ratio)
@@ -257,7 +258,7 @@ namespace igor
         return iSplitterState::Inactive;
     }
 
-    bool iWidgetSplitter::onMouseKeyUp(iKeyCode key)
+    bool iWidgetSplitter::onMouseKeyUp(iEventMouseKeyUp &event)
     {
         _splitterState = iSplitterState::Inactive;
         _activeOverlay = false;
@@ -272,19 +273,19 @@ namespace igor
         _dockSectionBottomEdge = false;
         _validDockSection = false;
 
-        return iWidget::onMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetSplitter::onMouseKeyDown(iKeyCode key)
+    bool iWidgetSplitter::onMouseKeyDown(iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
-            !_isMouseOver)
+            !isMouseOver())
         {
             return false;
         }
 
-        if (key == iKeyCode::MouseLeft ||
-            key == iKeyCode::MouseRight)
+        if (event.getKey() == iKeyCode::MouseLeft ||
+            event.getKey() == iKeyCode::MouseRight)
         {
             _widgetState = iWidgetState::Pressed;
             _splitterState = calcSplitterState(_posLast);
@@ -302,7 +303,7 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->onMouseKeyDown(key))
+            if (widget->onMouseKeyDown(event))
             {
                 result = true;
             }
@@ -468,7 +469,7 @@ namespace igor
         setCursor(cursorType);
     }
 
-    void iWidgetSplitter::onMouseMove(const iaVector2f &pos, bool consumed)
+    void iWidgetSplitter::onMouseMove(iEventMouseMove &event)
     {
         if (!isEnabled())
         {
@@ -476,14 +477,16 @@ namespace igor
         }
 
         iaVector2f lastPos = _posLast;
-        iWidget::onMouseMove(pos, consumed);
+        iWidget::onMouseMove(event);
 
-        if (!_isMouseOver || consumed)
+        if (!isMouseOver() ||
+            event.isConsumed())
         {
             return;
         }
 
         const auto &children = getChildren();
+        const auto &pos = event.getPosition();
 
         if (children.size() == 2)
         {

@@ -263,27 +263,17 @@ namespace igor
         iWidgetManager::getInstance().putDialogInFront(this);
     }
 
-    bool iDialog::onASCII(uint8 c)
-    {
-        if (iWidget::onASCII(c))
-        {
-            return true;
-        }
-
-        return true;
-    }
-
-    bool iDialog::onMouseKeyDown(iKeyCode key)
+    bool iDialog::onMouseKeyDown(iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
-            !_isMouseOver)
+            !isMouseOver())
         {
             return false;
         }
 
         if (_motionState == iDialogMotionState::Static &&
-            (key == iKeyCode::MouseLeft ||
-             key == iKeyCode::MouseRight))
+            (event.getKey() == iKeyCode::MouseLeft ||
+             event.getKey() == iKeyCode::MouseRight))
         {
             _widgetState = iWidgetState::Pressed;
             _motionState = calcMotionState(_posLast);
@@ -303,7 +293,7 @@ namespace igor
 
         for (auto widget : widgets)
         {
-            if (widget->onMouseKeyDown(key))
+            if (widget->onMouseKeyDown(event))
             {
                 childResult = true;
             }
@@ -322,7 +312,7 @@ namespace igor
         return hasParent();
     }
 
-    bool iDialog::onMouseKeyUp(iKeyCode key)
+    bool iDialog::onMouseKeyUp(iEventMouseKeyUp &event)
     {
         bool wasMoving = _moving;
         _moving = false;
@@ -332,7 +322,8 @@ namespace igor
             return false;
         }
 
-        if (_motionState != iDialogMotionState::Static && key == iKeyCode::MouseLeft)
+        if (_motionState != iDialogMotionState::Static && 
+        event.getKey() == iKeyCode::MouseLeft)
         {
             _motionState = iDialogMotionState::Static;
         }
@@ -350,7 +341,7 @@ namespace igor
         {
             for (auto child : children)
             {
-                if (child->onMouseKeyUp(key))
+                if (child->onMouseKeyUp(event))
                 {
                     result = true;
                 }
@@ -361,8 +352,8 @@ namespace igor
                 return true;
             }
 
-            if (key == iKeyCode::MouseLeft ||
-                key == iKeyCode::MouseRight)
+            if (event.getKey() == iKeyCode::MouseLeft ||
+                event.getKey() == iKeyCode::MouseRight)
             {
                 if (_widgetState == iWidgetState::Pressed)
                 {
@@ -371,7 +362,7 @@ namespace igor
 
                     _click(this);
 
-                    if (key == iKeyCode::MouseRight)
+                    if (event.getKey() == iKeyCode::MouseRight)
                     {
                         _contextMenu(this);
                     }
@@ -511,7 +502,7 @@ namespace igor
         setCursor(cursorType);
     }
 
-    void iDialog::onMouseMove(const iaVector2f &pos, bool consumed)
+    void iDialog::onMouseMove(iEventMouseMove &event)
     {
         if (!isEnabled())
         {
@@ -522,7 +513,7 @@ namespace igor
         std::vector<iWidgetPtr> widgets = getChildren();
         for (auto widget : widgets)
         {
-            widget->onMouseMove(pos, consumed);
+            widget->onMouseMove(event);
         }
 
         auto rect = getActualRect();
@@ -532,12 +523,12 @@ namespace igor
             rect.adjust(-frameWidth, -frameWidth, frameWidth * 2.0f, frameWidth * 2.0f);
         }
 
-        if (iIntersection::intersects(pos, rect) &&
-            !consumed)
+        if (iIntersection::intersects(event.getPosition(), rect) &&
+            !event.isConsumed())
         {
             if (!isDocked())
             {
-                iDialogMotionState motionState = calcMotionState(pos);
+                iDialogMotionState motionState = calcMotionState(event.getPosition());
                 updateCursor(motionState);
             }
 
@@ -550,7 +541,7 @@ namespace igor
             _isMouseOver = true;
 
             if (_motionState == iDialogMotionState::Moving &&
-                _lastMousePos.distance(pos) > 3.0 &&
+                _lastMousePos.distance(event.getPosition()) > 3.0 &&
                 !_moving)
             {
                 _moving = true;
@@ -591,7 +582,7 @@ namespace igor
 
         if (_motionState != iDialogMotionState::Static)
         {
-            const iaVector2f diff = pos - _posLast;
+            const iaVector2f diff = event.getPosition() - _posLast;
             if (_motionState == iDialogMotionState::Moving &&
                 _moving)
             {
@@ -633,7 +624,7 @@ namespace igor
             }
         }
 
-        _posLast = pos;
+        _posLast = event.getPosition();
     }
 
     void iDialog::setResizeable(bool enable)

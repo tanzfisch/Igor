@@ -316,7 +316,7 @@ namespace igor
         }
     }
 
-    bool iWidgetGraph::onMouseKeyDown(iKeyCode key)
+    bool iWidgetGraph::onMouseKeyDown(iEventMouseKeyDown &event)
     {
         iaVector2f mousePos(static_cast<float32>(getLastMousePos()._x), static_cast<float32>(getLastMousePos()._y));
 
@@ -388,7 +388,7 @@ namespace igor
             }
         }
 
-        return iWidget::onMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(event);
     }
 
     int32 iWidgetGraph::getGraphCount() const

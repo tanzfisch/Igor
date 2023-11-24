@@ -73,22 +73,10 @@ void UserControlMesh::updateNode()
             node->getTargetMaterial()->setEmissive(emissive);
             node->getTargetMaterial()->setShininess(_shininess);
 
-            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser0->getFileName()), 0);
-            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser1->getFileName()), 1);
-            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser2->getFileName()), 2);
-            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser3->getFileName()), 3);
-
-/*
-            const iaString filename0 = _textureChooser0->getFileName();
-            if(filename0.isEmpty())
-            {
-                node->getTargetMaterial()->setTexture(nullptr, 0);
-            }
-            else
-            {
-                node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(filename0), 0);
-            }
-*/
+            node->getTargetMaterial()->setTexture(_textureChooser0->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser0->getFileName()), 0);
+            node->getTargetMaterial()->setTexture(_textureChooser1->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser1->getFileName()), 1);
+            node->getTargetMaterial()->setTexture(_textureChooser2->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser2->getFileName()), 2);
+            node->getTargetMaterial()->setTexture(_textureChooser3->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser3->getFileName()), 3);
 
             if (_materialSelector->getSelectedUserData().has_value())
             {

@@ -328,16 +328,34 @@ namespace igor
 
     void iNodeParticleSystem::setTextureA(const iaString &texture)
     {
+        if(texture.isEmpty())
+        {
+            _targetMaterial->setTexture(nullptr, 0);
+            return;
+        }
+
         _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 0);
     }
 
     void iNodeParticleSystem::setTextureB(const iaString &texture)
     {
+        if(texture.isEmpty())
+        {
+            _targetMaterial->setTexture(nullptr, 1);
+            return;
+        }
+
         _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 1);
     }
 
     void iNodeParticleSystem::setTextureC(const iaString &texture)
     {
+        if(texture.isEmpty())
+        {
+            _targetMaterial->setTexture(nullptr, 2);
+            return;
+        }
+
         _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 2);
     }
 
