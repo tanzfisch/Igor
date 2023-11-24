@@ -20,6 +20,7 @@ Changelog                           {#changelog}
 - added iWidgetSplitter, iMimeData
 - added drag&drop (not fully functional)
 - added iWidgetViewport
+- widget event handling now uses iEvent
 
 0.42.0
 ------
