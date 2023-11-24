@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROLFILECHOOSER__
-#define __IGOR_USERCONTROLFILECHOOSER__
+#ifndef __IGOR_USERCONTROL_FILECHOOSER__
+#define __IGOR_USERCONTROL_FILECHOOSER__
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
@@ -40,6 +40,8 @@ namespace igor
 
     class iWidgetLineTextEdit;
 
+    /*! User control file chooser
+    */
     class IGOR_API iUserControlFileChooser : public iUserControl
     {
 
@@ -148,4 +150,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROLFILECHOOSER__
+#endif // __IGOR_USERCONTROL_FILECHOOSER__

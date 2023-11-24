@@ -36,7 +36,7 @@ namespace igor
 
     /*! use control base class
 
-	mostly used as a container to combine some of the standard widgets to apear as one
+	mostly used as a container to combine some of the standard widgets to appear as one
 
 	this class is only a base class for other user controls and not supposed to be used directly
 	*/

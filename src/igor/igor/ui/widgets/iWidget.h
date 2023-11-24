@@ -152,6 +152,7 @@ namespace igor
         iWidgetTextEdit,
         iWidgetSplitter,
         iWidgetViewport,
+        iUserControlTreeView,
 
         iWidgetGridLayout,
         iWidgetBoxLayout,

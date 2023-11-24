@@ -153,8 +153,10 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetTextEdit.h>
+
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
+#include <igor/ui/user_controls/iUserControlTreeView.h>
 
 #include <igor/ui/widgets/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetDockingLayout.h>

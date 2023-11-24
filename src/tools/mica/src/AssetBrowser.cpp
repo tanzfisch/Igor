@@ -16,4 +16,7 @@ void AssetBrowser::initGUI()
     setDockable(true);
     setMinWidth(100);
     setMinHeight(100);
+
+    auto boxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
+    boxLayout->addWidget(new iUserControlTreeView());
 }

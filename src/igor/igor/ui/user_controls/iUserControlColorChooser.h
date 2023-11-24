@@ -30,7 +30,6 @@
 #define __IGOR_USERCONTROLCOLORCHOOSER__
 
 #include <igor/ui/user_controls/iUserControl.h>
-#include <igor/ui/widgets/iWidget.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaColor3.h>
@@ -64,8 +63,8 @@ namespace igor
 
     /*! color chooser user control
 
-    \bug color chooser disapperas when unfolded and folded again
-    \todo use drawGradient instead of textures for the color componenbt sliders than we could manipulate them dynamically
+    \bug color chooser disappears when unfolded and folded again
+    \todo use drawGradient instead of textures for the color component sliders than we could manipulate them dynamically
     */
     class IGOR_API iUserControlColorChooser : public iUserControl
     {
