@@ -26,26 +26,23 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROL_TREEVIEW__
-#define __IGOR_USERCONTROL_TREEVIEW__
+#ifndef __IGOR_USERCONTROL_GRIDVIEW__
+#define __IGOR_USERCONTROL_GRIDVIEW__
 
 #include <igor/ui/user_controls/iUserControl.h>
-
-#include <igor/data/iItem.h>
 #include <igor/ui/widgets/iWidgetBoxLayout.h>
-
-#include <any>
+#include <igor/data/iItem.h>
 
 namespace igor
 {
 
     /*! widget click event
      */
-    IGOR_EVENT_DEFINITION(iClickTreeView, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iClickGridView, void, const iWidgetPtr);
 
     /*! tree view widget
      */
-    class IGOR_API iUserControlTreeView : public iUserControl
+    class IGOR_API iUserControlGridView : public iUserControl
     {
 
     public:
@@ -53,11 +50,7 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlTreeView(const iWidgetPtr parent = nullptr);
-
-        /*! clean up
-         */
-        virtual ~iUserControlTreeView();
+        iUserControlGridView(const iWidgetPtr parent = nullptr);
 
         /*! sets tree items
 
@@ -69,20 +62,18 @@ namespace igor
 
         /*! \returns the click event
         */
-        iClickTreeViewEvent& getClickEvent();
+        iClickGridViewEvent& getClickEvent();
 
     protected:
-        /*! root of tree items
+        /*! items
          */
-        iItem *_root = nullptr;
+        iItem *_items = nullptr;
 
-        /*! box layout
-         */
+        /*! the click event
+        */
+        iClickGridViewEvent _clickEvent;
+
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
-
-        /*! context menu event
-         */
-        iClickTreeViewEvent _clickEvent;        
 
         /*! handle click events from our buttons
 
@@ -93,16 +84,12 @@ namespace igor
         /*! initializes ui
          */
         void initUI();
-
-        /*! updates ui from tree items
-         */
-        void updateUI(iItem *item, int indentation);
     };
 
     /*! widget tree view pointer definition
      */
-    typedef iUserControlTreeView *iUserControlTreeViewPtr;
+    typedef iUserControlGridView *iUserControlGridViewPtr;
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROL_TREEVIEW__
+#endif // __IGOR_USERCONTROL_GRIDVIEW__

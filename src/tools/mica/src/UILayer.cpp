@@ -56,6 +56,7 @@ void UILayer::onInit()
     _propertiesDialog->setVisible();
 
     _assetBrowser = new AssetBrowser();
+    _assetBrowser->setProjectDir("/home/maddin/dev/Igor/data"); // TODO from project
     _assetBrowser->setEnabled();
     _assetBrowser->setVisible();
 

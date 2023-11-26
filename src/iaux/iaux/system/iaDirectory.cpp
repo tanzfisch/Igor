@@ -19,6 +19,10 @@
 
 namespace iaux
 {
+    iaDirectory::iaDirectory()
+    {
+
+    }
 
     iaDirectory::iaDirectory(const iaString &directoryName)
     {
@@ -31,7 +35,7 @@ namespace iaux
         return *this;
     }
 
-    std::vector<iaDirectory> iaDirectory::getDirectorys(bool recursive, bool orderAlphabetically)
+    std::vector<iaDirectory> iaDirectory::getDirectories(bool recursive, bool orderAlphabetically) const
     {
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaDirectory> result;
@@ -132,7 +136,7 @@ namespace iaux
     \param entry the file entry
     \param searchPattern the given pattern
     */
-    static bool fileMatch(const std::filesystem::directory_entry &entry, iaux::iaString &searchPattern)
+    static bool fileMatch(const std::filesystem::directory_entry &entry, const iaString &searchPattern)
     {
         if (entry.is_regular_file())
         {
@@ -146,7 +150,7 @@ namespace iaux
         return false;
     }
 
-    std::vector<iaFile> iaDirectory::getFiles(iaString searchPattern, bool recursive, bool orderAlphabetically)
+    std::vector<iaFile> iaDirectory::getFiles(const iaString &searchPattern, bool recursive, bool orderAlphabetically) const
     {
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaFile> result;

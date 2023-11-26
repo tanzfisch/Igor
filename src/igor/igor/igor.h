@@ -157,6 +157,7 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 #include <igor/ui/user_controls/iUserControlTreeView.h>
+#include <igor/ui/user_controls/iUserControlGridView.h>
 
 #include <igor/ui/widgets/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetDockingLayout.h>

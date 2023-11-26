@@ -42,6 +42,7 @@ using namespace iaux;
 
 #include <set>
 #include <vector>
+#include <any>
 
 namespace igor
 {
@@ -152,7 +153,6 @@ namespace igor
         iWidgetTextEdit,
         iWidgetSplitter,
         iWidgetViewport,
-        iUserControlTreeView,
 
         iWidgetGridLayout,
         iWidgetBoxLayout,
@@ -161,6 +161,8 @@ namespace igor
         iUserControl,
         iUserControlColorChooser,
         iUserControlFileChooser,
+        iUserControlTreeView,
+        iUserControlGridView,
 
         iDialog,
         iDialogColorChooser,
@@ -658,6 +660,16 @@ namespace igor
         */
         void setCursor(iMouseCursorType cursorType);
 
+        /*! sets user data
+
+        \param userData pointer to user data
+        */
+        void setUserData(const std::any &userData);
+
+        /*! \returns pointer to user data
+        */
+        std::any getUserData() const;
+
     protected:
         /*! list of children
          */
@@ -1024,6 +1036,10 @@ namespace igor
         /*! if true this widget can't take keyboard focus
         */
         bool _doNotTakeKeyboard = false;
+
+        /*! user data
+        */
+        std::any _userData;
 
         /*! handles tooltip timer
 

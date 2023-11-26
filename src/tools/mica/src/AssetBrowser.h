@@ -46,10 +46,43 @@ public:
      */
     ~AssetBrowser() = default;
 
+    /*! sets project directory
+
+    \param projectDir the project directory to set
+    */
+    void setProjectDir(const iaString& projectDir);
+
+    /*! \returns project directory
+    */
+    const iaString getProjectDir() const;
+
 private:
+
+    /*! tree view
+    */
+    iUserControlTreeViewPtr _treeView = nullptr;
+
+    /*! grid view
+    */
+    iUserControlGridViewPtr _gridView = nullptr;
+
+    /*! tree view data
+    */
+    iItem _root;
+
+    /*! the project directory
+    */
+    iaDirectory _projectDir;
+
     /*! init UI
      */
-    void initGUI();
+    void initUI();
+
+    void update();
+
+    void update(const iaDirectory& dir, iItemPtr item);
+
+    void onClickTreeView(const iWidgetPtr source);
 };
 
 #endif // __ASSET_BROWSER__

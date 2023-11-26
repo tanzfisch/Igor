@@ -266,9 +266,9 @@ namespace igor
 
         If it does not exist yet but it represents a valid file path within one of the search path. We add a new resource.
 
-        \param alias the given alias or filepath
+        \param aliasOrFilename the given alias or filename
         */
-        const iResourceID getResourceID(const iaString &alias) const;
+        const iResourceID getResourceID(const iaString &aliasOrFilename) const;
 
     private:
         /*! mutex to manage access to internal data

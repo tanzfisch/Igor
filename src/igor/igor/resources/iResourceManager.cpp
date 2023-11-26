@@ -227,9 +227,9 @@ namespace igor
         return getResource(id);
     }
 
-    const iResourceID iResourceManager::getResourceID(const iaString &alias) const
+    const iResourceID iResourceManager::getResourceID(const iaString &aliasOrFilename) const
     {
-        return _resourceDictionary.getResource(alias);
+        return _resourceDictionary.getResource(aliasOrFilename);
     }
 
     iResourcePtr iResourceManager::getResource(const iResourceID &id)
@@ -688,27 +688,27 @@ namespace igor
 
         if (!alias.isEmpty())
         {
-            param.setParameter("alias", alias);
+            param.setParameter(IGOR_RESOURCE_PARAM_ALIAS, alias);
         }
 
         const iaUUID id = _resourceDictionary.getResource(alias);
         if (id.isValid())
         {
-            param.setParameter("id", id);
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, id);
             return param;
         }
 
         if (iaUUID::isUUID(alias))
         {
-            param.setParameter("id", iaUUID(alias));
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, iaUUID(alias));
             return param;
         }
 
         const iaString filename = resolvePath(alias);
         if (iaFile::exists(filename))
         {
-            param.setParameter("filename", filename);
-            param.setParameter("id", _resourceDictionary.addResource(alias));
+            param.setParameter(IGOR_RESOURCE_PARAM_FILENAME, filename);
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, _resourceDictionary.addResource(alias));
         }
 
         return param;

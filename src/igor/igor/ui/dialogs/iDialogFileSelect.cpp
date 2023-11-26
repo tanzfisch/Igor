@@ -232,7 +232,7 @@ namespace igor
 
         int32 index = 0;
         iaDirectory directory(_directory);
-        auto directories = directory.getDirectorys();
+        auto directories = directory.getDirectories();
         auto files = directory.getFiles();
 
         if (!directory.isRoot())

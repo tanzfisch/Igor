@@ -28,6 +28,12 @@ namespace igor
         dataSize = iter->second._dataSize;
     }
 
+    bool iMimeData::hasType(const iaString &mimeType) const
+    {
+        auto iter = _data.find(mimeType);
+        return iter != _data.end();
+    }
+
     void iMimeData::setText(const iaString &text)
     {
         const uint8 *data = reinterpret_cast<const uint8*>(text.getData());
@@ -45,9 +51,7 @@ namespace igor
             return iaString();
         }
 
-        iaString result(reinterpret_cast<wchar_t *>(data));
-
-        return result;
+        return iaString(reinterpret_cast<wchar_t *>(data));
     }
 
     bool iMimeData::hasText() const

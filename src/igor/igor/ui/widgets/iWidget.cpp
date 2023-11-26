@@ -224,6 +224,16 @@ namespace igor
         }
     }
 
+    void iWidget::setUserData(const std::any &userData)
+    {
+        _userData = userData;
+    }
+
+    std::any iWidget::getUserData() const
+    {
+        return _userData;
+    }
+
     void iWidget::setAcceptDrop(bool acceptDrop)
     {
         _acceptDrop = acceptDrop;
@@ -1023,8 +1033,7 @@ namespace igor
             "iWidgetLineTextEdit",
             "iWidgetTextEdit",
             "iWidgetSplitter",
-            "iWidgetViewport",
-            "iUserControlTreeView",
+            "iWidgetViewport",            
 
             "iWidgetGridLayout",
             "iWidgetBoxLayout",
@@ -1033,6 +1042,8 @@ namespace igor
             "iUserControl",
             "iUserControlColorChooser",
             "iUserControlFileChooser",
+            "iUserControlTreeView",
+            "iUserControlGridView",
 
             "iDialog",
             "iDialogColorChooser",

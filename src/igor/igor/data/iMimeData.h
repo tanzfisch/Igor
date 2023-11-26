@@ -40,9 +40,16 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! mime data container
+    */
     class IGOR_API iMimeData
     {
     public:
+
+        /*! default dtor
+        */
+        virtual ~iMimeData() = default;
+
         /*! sets mime data
 
         \param mimeType the type to use
@@ -58,6 +65,10 @@ namespace igor
         \param[out] dataSize size of data
         */
         void getData(const iaString &mimeType, uint8 **data, uint32 &dataSize) const;
+
+        /*! \returns true if mime data contains given mime type
+        */
+        bool hasType(const iaString &mimeType) const;
 
         /*! sets text for mime type "text/plain"
 

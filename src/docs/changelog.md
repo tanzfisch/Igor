@@ -21,7 +21,7 @@ Changelog                           {#changelog}
 - added drag&drop (not fully functional)
 - added iWidgetViewport
 - widget event handling now uses iEvent
-- added iUserControlTreeView
+- added iUserControlTreeView and iUserControlGridView and iItem for generic data
 - added AssetBrowser to Mica
 
 0.42.0
