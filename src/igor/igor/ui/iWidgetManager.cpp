@@ -601,7 +601,6 @@ namespace igor
 
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, true);
-        bool consumed = false;
 
         for (auto dialog : dialogs)
         {
@@ -609,11 +608,11 @@ namespace igor
 
             if (dialog->_isMouseOver)
             {
-                consumed = true;
+                event.consume();
             }
         }
 
-        return consumed;
+        return event.isConsumed();
     }
 
     bool iWidgetManager::onMouseWheelEvent(iEventMouseWheel &event)

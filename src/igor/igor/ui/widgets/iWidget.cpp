@@ -447,7 +447,7 @@ namespace igor
             _wheelDown(this);
         }
 
-        return true;
+        return false;
     }
 
     bool iWidget::onMouseDoubleClick(iEventMouseKeyDoubleClick &event)
@@ -1036,6 +1036,7 @@ namespace igor
             "iWidgetViewport",            
 
             "iWidgetGridLayout",
+            "iWidgetFixedGridLayout",
             "iWidgetBoxLayout",
             "iWidgetDockingLayout",
 
@@ -1043,7 +1044,6 @@ namespace igor
             "iUserControlColorChooser",
             "iUserControlFileChooser",
             "iUserControlTreeView",
-            "iUserControlGridView",
 
             "iDialog",
             "iDialogColorChooser",

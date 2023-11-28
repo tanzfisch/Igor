@@ -155,6 +155,7 @@ namespace igor
         iWidgetViewport,
 
         iWidgetGridLayout,
+        iWidgetFixedGridLayout,
         iWidgetBoxLayout,
         iWidgetDockingLayout,
 
@@ -162,7 +163,6 @@ namespace igor
         iUserControlColorChooser,
         iUserControlFileChooser,
         iUserControlTreeView,
-        iUserControlGridView,
 
         iDialog,
         iDialogColorChooser,

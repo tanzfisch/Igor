@@ -26,70 +26,55 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROL_GRIDVIEW__
-#define __IGOR_USERCONTROL_GRIDVIEW__
+#ifndef __IGOR_WIDGET_FIXED_GRID_LAYOUT__
+#define __IGOR_WIDGET_FIXED_GRID_LAYOUT__
 
-#include <igor/ui/user_controls/iUserControl.h>
-#include <igor/ui/widgets/iWidgetBoxLayout.h>
-#include <igor/data/iItem.h>
+#include <igor/ui/widgets/iWidget.h>
 
 namespace igor
 {
 
-    /*! widget click event
+    /*! fixed grid layout widget
      */
-    IGOR_EVENT_DEFINITION(iClickGridView, void, const iWidgetPtr);
-
-    /*! tree view widget
-     */
-    class IGOR_API iUserControlGridView : public iUserControl
+    class IGOR_API iWidgetFixedGridLayout : public iWidget
     {
-
     public:
         /*! ctor initializes member variables
 
-        \param parent the optional parent
+        \param parent optional parent
         */
-        iUserControlGridView(const iWidgetPtr parent = nullptr);
+        iWidgetFixedGridLayout(const iWidgetPtr parent = nullptr);
 
-        /*! sets tree items
-
-        caller keeps ownership of items
-
-        \param items the root item of the tree items
-        */
-        void setItems(iItem *items);
-
-        /*! \returns the click event
-        */
-        iClickGridViewEvent& getClickEvent();
-
-    protected:
-        /*! items
+        /*! does nothing
          */
-        iItem *_items = nullptr;
+        ~iWidgetFixedGridLayout() = default;
 
-        /*! the click event
+        /*! sets the cell size
+
+        \param cellSize the cell size
         */
-        iClickGridViewEvent _clickEvent;
+        void setCellSize(const iaVector2f &cellSize);
 
-        iWidgetBoxLayoutPtr _vboxLayout = nullptr;
-
-        /*! handle click events from our buttons
-
-        \param source the widget that was clicked
-        */
-        void onClick(const iWidgetPtr source);
-
-        /*! initializes ui
+        /*! \returns the cell size
          */
-        void initUI();
+        const iaVector2f &getCellSize() const;
+
+    private:
+        /*! cell size
+         */
+        iaVector2f _cellSize = {100.0f, 100.0f};
+
+        /*! calculates childrens offsets relative to their parent
+
+        \param[out] offsets vector to be filled with childrens offsets
+        */
+        void calcChildOffsets(std::vector<iaRectanglef> &offsets) override;
     };
 
-    /*! widget tree view pointer definition
+    /*! widget fixed grid pointer definition
      */
-    typedef iUserControlGridView *iUserControlGridViewPtr;
+    typedef iWidgetFixedGridLayout *iWidgetFixedGridLayoutPtr;
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROL_GRIDVIEW__
+#endif // __IGOR_WIDGET_FIXED_GRID_LAYOUT__

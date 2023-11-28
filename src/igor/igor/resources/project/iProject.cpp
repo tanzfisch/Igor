@@ -62,31 +62,41 @@ namespace igor
         project->save();
     }
 
+    void iProject::unloadProject(iProjectPtr project)
+    {
+        con_assert(project != nullptr, "zero pointer");
+        project->unload();       
+    }
+
+
     iProject::iProject(const iaString &projectFolder)
         : _projectFolder(projectFolder)
     {
     }
 
-    bool iProject::load()
+    void iProject::load()
     {
         const iaString filenameConfig = _projectFolder + __IGOR_PATHSEPARATOR__ + "project_config.xml";
         const iaString filenameDictionary = _projectFolder + __IGOR_PATHSEPARATOR__ + "resource_dictionary.xml";
 
         readConfiguration(filenameConfig);
+        iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
-
-        return true;
     }
 
-    bool iProject::save()
+    void iProject::unload()
+    {
+        iResourceManager::getInstance().removeSearchPath(_projectFolder);
+        iResourceManager::getInstance().clearResourceDictionary();
+    }    
+
+    void iProject::save()
     {
         const iaString filenameConfig = _projectFolder + __IGOR_PATHSEPARATOR__ + "project_config.xml";
         const iaString filenameDictionary = _projectFolder + __IGOR_PATHSEPARATOR__ + "resource_dictionary.xml";
 
         writeConfiguration(filenameConfig);
         iResourceManager::getInstance().saveResourceDictionary(filenameDictionary);
-
-        return true;
     }
 
     bool iProject::readConfiguration(const iaString &filename)
@@ -146,7 +156,7 @@ namespace igor
         return true;
     }
 
-    const iaString &iProject::getWorkdir() const
+    const iaString &iProject::getProjectFolder() const
     {
         return _projectFolder;
     }
@@ -156,7 +166,7 @@ namespace igor
         return _projectName;
     }
 
-    void iProject::getName(const iaString &projectName)
+    void iProject::setName(const iaString &projectName)
     {
         _projectName = projectName;
     }

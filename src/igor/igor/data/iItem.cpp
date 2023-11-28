@@ -44,4 +44,10 @@ namespace igor
         return result;
     }
 
+    void iItem::clear()
+    {
+        _data.clear();
+        _items.clear();
+    }
+
 }

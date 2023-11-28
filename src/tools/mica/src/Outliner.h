@@ -33,17 +33,9 @@
 #include "usercontrols/UserControlGraphView.h"
 #include "usercontrols/UserControlMaterialView.h"
 
-IGOR_EVENT_DEFINITION(CreateProject, void);
-IGOR_EVENT_DEFINITION(LoadProject, void);
-IGOR_EVENT_DEFINITION(SaveProject, void);
-IGOR_EVENT_DEFINITION(LoadFile, void);
 IGOR_EVENT_DEFINITION(ImportFile, void);
 IGOR_EVENT_DEFINITION(ImportFileReference, void);
-IGOR_EVENT_DEFINITION(SaveFile, void);
 IGOR_EVENT_DEFINITION(ExitMica, void);
-IGOR_EVENT_DEFINITION(CopyNode, void, uint64);
-IGOR_EVENT_DEFINITION(PasteNode, void, uint64);
-IGOR_EVENT_DEFINITION(CutNode, void, uint64);
 
 // replace later with iWidgetTab once implemented
 enum class ViewType
@@ -65,35 +57,11 @@ public:
 
     void refresh();
 
-    void registerOnCreateProject(CreateProjectDelegate delegate);
-    void unregisterOnCreateProject(CreateProjectDelegate delegate);
-
-    void registerOnLoadProject(LoadProjectDelegate delegate);
-    void unregisterOnLoadProject(LoadProjectDelegate delegate);
-
-    void registerOnSaveProject(SaveProjectDelegate delegate);
-    void unregisterOnSaveProject(SaveProjectDelegate delegate);
-
-    void registerOnLoadFile(LoadFileDelegate loadFileDelegate);
-    void unregisterOnLoadFile(LoadFileDelegate loadFileDelegate);
-
     void registerOnImportFile(ImportFileDelegate importFileDelegate);
     void unregisterOnImportFile(ImportFileDelegate importFileDelegate);
 
     void registerOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate);
     void unregisterOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate);
-
-    void registerOnSaveFile(SaveFileDelegate saveFileDelegate);
-    void unregisterOnSaveFile(SaveFileDelegate saveFileDelegate);
-
-    void registerOnCopyNode(CopyNodeDelegate copyNodeDelegate);
-    void unregisterOnCopyNode(CopyNodeDelegate copyNodeDelegate);
-
-    void registerOnPasteNode(PasteNodeDelegate pasteNodeDelegate);
-    void unregisterOnPasteNode(PasteNodeDelegate pasteNodeDelegate);
-
-    void registerOnCutNode(CutNodeDelegate cutNodeDelegate);
-    void unregisterOnCutNode(CutNodeDelegate cutNodeDelegate);
 
     void registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
     void unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
@@ -114,14 +82,8 @@ private:
     */
     WorkspacePtr _workspace;
 
-    CreateProjectEvent _createProject;
-    LoadProjectEvent _loadProject;
-    SaveProjectEvent _saveProject;
-
-    LoadFileEvent _loadFile;
     ImportFileEvent _importFile;
     ImportFileReferenceEvent _importFileReference;
-    SaveFileEvent _saveFile;
     ExitMicaEvent _exitMica;
 
     GraphSelectionChangedEvent _graphSelectionChanged;
@@ -129,10 +91,6 @@ private:
     AddMaterialEvent _addMaterial;
     LoadMaterialEvent _loadMaterial;
     MaterialSelectionChangedEvent _materialSelectionChanged;
-
-    CopyNodeEvent _copyNode;
-    CutNodeEvent _cutNode;
-    PasteNodeEvent _pasteNode;
 
     iWidgetGridLayout *_grid = nullptr;
 
@@ -151,8 +109,6 @@ private:
 
     void initGUI();
     void deinitGUI();
-
-    iWidgetMenuBarPtr createMenu();
 
     void deinitGraphView();
     void initGraphView();

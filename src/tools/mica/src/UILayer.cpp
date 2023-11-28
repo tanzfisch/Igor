@@ -42,7 +42,7 @@ void UILayer::onInit()
 
     registerMicaActions();
 
-    _mainDialog = new MainDialog();
+    _mainDialog = new MainDialog(_workspace);
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
@@ -55,8 +55,7 @@ void UILayer::onInit()
     _propertiesDialog->setEnabled();
     _propertiesDialog->setVisible();
 
-    _assetBrowser = new AssetBrowser();
-    _assetBrowser->setProjectDir("/home/maddin/dev/Igor/data"); // TODO from project
+    _assetBrowser = new AssetBrowser();    
     _assetBrowser->setEnabled();
     _assetBrowser->setVisible();
 
@@ -64,14 +63,15 @@ void UILayer::onInit()
     _viewport->setEnabled();
     _viewport->setVisible();
 
-    _outliner->registerOnCreateProject(CreateProjectDelegate(this, &UILayer::onCreateProject));
-    _outliner->registerOnLoadProject(LoadProjectDelegate(this, &UILayer::onLoadProject));
-    _outliner->registerOnSaveProject(SaveProjectDelegate(this, &UILayer::onSaveProject));
+    _mainDialog->getEventCreateProject().add(CreateProjectDelegate(this, &UILayer::onCreateProject));
+    _mainDialog->getEventLoadProject().add(LoadProjectDelegate(this, &UILayer::onLoadProject));
+    _mainDialog->getEventSaveProject().add(SaveProjectDelegate(this, &UILayer::onSaveProject));
+    _mainDialog->getEventLoadFile().add(LoadFileDelegate(this, &UILayer::onLoadFile));
+    _mainDialog->getEventSaveFile().add(SaveFileDelegate(this, &UILayer::onSaveFile));
 
-    _outliner->registerOnLoadFile(LoadFileDelegate(this, &UILayer::onLoadFile));
     _outliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
     _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
-    _outliner->registerOnSaveFile(SaveFileDelegate(this, &UILayer::onSaveFile));
+    
     _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &UILayer::onAddMaterial));
     _outliner->registerOnLoadMaterial(LoadMaterialDelegate(this, &UILayer::onLoadMaterial));
 
@@ -175,6 +175,7 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
         _activeProject = iProject::createProject(_fileDialog->getFullPath());
+        _assetBrowser->setProjectFolder(_activeProject->getProjectFolder());
     }
 
     delete _fileDialog;
@@ -195,6 +196,7 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
         _activeProject = iProject::loadProject(_fileDialog->getFullPath());
+        _assetBrowser->setProjectFolder(_activeProject->getProjectFolder());
     }
 
     delete _fileDialog;

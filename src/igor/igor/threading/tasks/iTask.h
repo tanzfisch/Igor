@@ -66,15 +66,19 @@ namespace igor
 
         /*! max priority for a task to run
         */
-        static const uint32 MAX_PRIORITY = 0;
+        static const uint32 TASK_PRIORITY_MAX = 0;
 
         /*! high priority for a task to run
         */
-        static const uint32 HIGH_PRIORITY = 5;
+        static const uint32 TASK_PRIORITY_HIGH = 5;
 
         /*! default priority for a task to run
         */
-        static const uint32 DEFAULT_PRIORITY = 10;
+        static const uint32 TASK_PRIORITY_DEFAULT = 10;
+
+        /*! low priority for a task to run
+        */
+        static const uint32 TASK_PRIORITY_LOW = 20;
 
         /*! sets member variables
 
@@ -83,7 +87,7 @@ namespace igor
         \param isRepeating if true the task will be triggered repeadetly
         \param needsRenderContext if true the task needs the render context e.g. to create a texture using the renderer
         */
-        iTask(iWindowPtr window = nullptr, uint32 priority = iTask::DEFAULT_PRIORITY, bool isRepeating = false, iTaskContext taskContext = iTaskContext::Default);
+        iTask(iWindowPtr window = nullptr, uint32 priority = iTask::TASK_PRIORITY_DEFAULT, bool isRepeating = false, iTaskContext taskContext = iTaskContext::Default);
 
         /*! does nothing
         */
@@ -157,7 +161,7 @@ namespace igor
 
         zero is highest priority
         */
-        uint32 _priority = DEFAULT_PRIORITY;
+        uint32 _priority = TASK_PRIORITY_DEFAULT;
 
         /*! true: task is a repeating task; false: task will only be run once
         */

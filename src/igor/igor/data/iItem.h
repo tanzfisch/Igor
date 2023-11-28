@@ -82,6 +82,10 @@ namespace igor
         */
         const std::vector<iItemPtr> getItems() const;
 
+        /*! clear item and it's children
+        */
+        void clear();
+
     private:
         /*! using mime data for implementation
          */

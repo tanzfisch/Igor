@@ -98,6 +98,10 @@ namespace igor
          */
         bool hasWidgetID() const;
 
+        /*! clear all data
+        */
+        void clear();
+
     private:
         /*! data buffer
          */

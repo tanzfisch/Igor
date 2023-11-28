@@ -322,15 +322,23 @@ namespace igor
             return false;
         }
 
-        if (_motionState != iDialogMotionState::Static && 
-        event.getKey() == iKeyCode::MouseLeft)
+        if (_motionState != iDialogMotionState::Static &&
+            event.getKey() == iKeyCode::MouseLeft)
         {
             _motionState = iDialogMotionState::Static;
         }
 
         if (!_isMouseOver)
         {
-            return false;
+            if (_acceptOutOfBoundsClicks)
+            {
+                _mouseOffClick(this);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // get copy of children
@@ -369,12 +377,6 @@ namespace igor
 
                     return true;
                 }
-            }
-
-            if (_acceptOutOfBoundsClicks)
-            {
-                _mouseOffClick(this);
-                return true;
             }
         }
 

@@ -70,9 +70,15 @@ namespace igor
         */
         static void saveProject(iProjectPtr project);
 
+        /*! unloads project
+
+        \param project the project to unload
+        */
+        static void unloadProject(iProjectPtr project);
+
         /*! \returns project folder
          */
-        const iaString &getWorkdir() const;
+        const iaString &getProjectFolder() const;
 
         /*! \returns project name
          */
@@ -80,7 +86,7 @@ namespace igor
 
         /*! sets project name
          */
-        void getName(const iaString &projectName);
+        void setName(const iaString &projectName);
 
     private:
         /*! project folder
@@ -93,11 +99,15 @@ namespace igor
 
         /*! loads project
         */
-        bool load();
+        void load();
+
+        /*! loads project
+        */
+        void unload();
 
         /*! saves project
         */
-        bool save();
+        void save();
 
         /*! reads project configuration
 

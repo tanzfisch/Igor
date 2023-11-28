@@ -60,6 +60,7 @@
                 <Resource id="0x1982af32f4ea1ee3" alias="igor_icon_add_emitter" source="igor/icons/addEmitter.png" />
                 <Resource id="0x90e38d14cf57e4f3" alias="igor_icon_camera" source="igor/icons/camera.png" />
                 <Resource id="0x3365de4f0a00ad80" alias="igor_icon_add_skybox" source="igor/icons/addSkyBox.png" />
+                <Resource id="0x1365deaf06009dde" alias="igor_icon_gears" source="igor/icons/gears.png" />
 
                 <Resource id="0x02b48a88012c1205" alias="igor_icon_dock_center" source="igor/icons/dockCenter.png" />
                 <Resource id="0x9b6c77bf20a38fed" alias="igor_icon_dock_left_half" source="igor/icons/dockLeftHalf.png" />

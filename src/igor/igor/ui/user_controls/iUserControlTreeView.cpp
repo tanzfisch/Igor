@@ -14,7 +14,7 @@ namespace igor
     iUserControlTreeView::iUserControlTreeView(const iWidgetPtr parent)
         : iUserControl(iWidgetType::iUserControlTreeView, parent)
     {
-        setMinSize(30,30);
+        setMinSize(30,30);        
 
         initUI();
     }

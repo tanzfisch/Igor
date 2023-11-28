@@ -29,20 +29,68 @@
 #ifndef __MAIN_LAYOUT__
 #define __MAIN_LAYOUT__
 
+#include "Workspace.h"
+
 #include <igor/igor.h>
 using namespace igor;
+
+IGOR_EVENT_DEFINITION(CreateProject, void);
+IGOR_EVENT_DEFINITION(LoadProject, void);
+IGOR_EVENT_DEFINITION(SaveProject, void);
+IGOR_EVENT_DEFINITION(LoadFile, void);
+IGOR_EVENT_DEFINITION(SaveFile, void);
+
+IGOR_EVENT_DEFINITION(CopyNode, void, uint64);
+IGOR_EVENT_DEFINITION(PasteNode, void, uint64);
+IGOR_EVENT_DEFINITION(CutNode, void, uint64);
 
 /*! main dialog
  */
 class MainDialog : public iDialog
 {
 public:
-    MainDialog();
+    MainDialog(WorkspacePtr workspace);
     ~MainDialog();
 
+    CreateProjectEvent& getEventCreateProject();
+    LoadProjectEvent& getEventLoadProject();
+    SaveProjectEvent& getEventSaveProject();
+    LoadFileEvent& getEventLoadFile();
+    SaveFileEvent& getEventSaveFile();
+    CopyNodeEvent& getEventCopyNode();
+    CutNodeEvent& getEventCutNode();
+    PasteNodeEvent& getEventPasteNode();
+
 private:
+    /*! the mica workspace
+    */
+    WorkspacePtr _workspace;
+
+    CreateProjectEvent _createProject;
+    LoadProjectEvent _loadProject;
+    SaveProjectEvent _saveProject;
+
+    LoadFileEvent _loadFile;
+    SaveFileEvent _saveFile;
+
+    CopyNodeEvent _copyNode;
+    CutNodeEvent _cutNode;
+    PasteNodeEvent _pasteNode;
+
     void initGUI();
     void deinitGUI();
+
+    void onCreateProject(const iWidgetPtr source);
+    void onLoadProject(const iWidgetPtr source);
+    void onSaveProject(const iWidgetPtr source);
+
+    void onLoadFile(const iWidgetPtr source);
+    void onSaveFile(const iWidgetPtr source);
+
+    void onCopy(const iWidgetPtr source);
+    void onPaste(const iWidgetPtr source);
+    void onCut(const iWidgetPtr source);    
+    void onDelete(const iWidgetPtr source);
 
     iWidgetMenuBarPtr createMenu();
 };

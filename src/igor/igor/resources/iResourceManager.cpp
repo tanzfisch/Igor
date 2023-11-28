@@ -84,10 +84,8 @@ namespace igor
 
     void iResourceManager::loadResourceDictionary(const iaString &filename)
     {
-        // make sure igor resources are always in the dictionary
-        _resourceDictionary.clear();
-        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));
-
+        clearResourceDictionary();
+        
         // now load app specifics
         _resourceDictionary.read(resolvePath(filename));
     }
@@ -95,6 +93,13 @@ namespace igor
     void iResourceManager::saveResourceDictionary(const iaString &filename)
     {
         _resourceDictionary.write(resolvePath(filename));
+    }
+
+    void iResourceManager::clearResourceDictionary()
+    {
+        // make sure igor resources are always in the dictionary
+        _resourceDictionary.clear();
+        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));
     }
 
     void iResourceManager::configure()
@@ -704,14 +709,17 @@ namespace igor
             return param;
         }
 
-        const iaString filename = resolvePath(alias);
-        if (iaFile::exists(filename))
+        return param;
+    }
+
+    void iResourceManager::addResource(const iaString &filename, const iaString &alias)
+    {
+        if (!iaFile::exists(filename))
         {
-            param.setParameter(IGOR_RESOURCE_PARAM_FILENAME, filename);
-            param.setParameter(IGOR_RESOURCE_PARAM_ID, _resourceDictionary.addResource(alias));
+            return;
         }
 
-        return param;
+        _resourceDictionary.addResource(alias);
     }
 
 } // namespace igor

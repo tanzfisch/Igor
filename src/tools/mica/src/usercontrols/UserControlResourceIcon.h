@@ -26,66 +26,37 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __ASSET_BROWSER__
-#define __ASSET_BROWSER__
+#ifndef __USERCONTROL_RESOURCEICON__
+#define __USERCONTROL_RESOURCEICON__
 
 #include <igor/igor.h>
 using namespace igor;
 
-class AssetBrowser : public iDialog
+/*! an icon that represents a resource
+
+adding information about the resources
+*/
+class UserControlResourceIcon : public iUserControl
 {
-    friend class iWidgetManager;
-
 public:
-    /*! init UI
-     */
-    AssetBrowser();
 
-    /*! does nothing
-     */
-    ~AssetBrowser() = default;
+    UserControlResourceIcon(const iWidgetPtr parent = nullptr);
 
-    /*! sets project directory
+    /*! sets the resource filename
 
-    \param projectDir the project directory to set
+    \param filename the filename of the resource
     */
-    void setProjectFolder(const iaString& projectDir);
-
-    /*! \returns project directory
-    */
-    const iaString getProjectFolder() const;
+    void setFilename(const iaString &filename);
 
 private:
 
-    /*! tree view
+    iWidgetPicturePtr _picture;
+    iWidgetLabelPtr _label;
+
+    /*! init ui
     */
-    iUserControlTreeViewPtr _treeView = nullptr;
+    void initGUI();
 
-    /*! grid view
-    */
-    iWidgetFixedGridLayoutPtr _gridView = nullptr;
-
-    /*! tree view data
-    */
-    iItem _root;
-
-    /*! the project directory
-    */
-    iaDirectory _projectDir;
-
-    /*! update handle for filesystem updates
-    */
-    iTimerHandlePtr _updateHandle;
-
-    /*! init UI
-     */
-    void initUI();
-
-    void update(const iaTime &time);
-
-    void update(const iaDirectory& dir, iItemPtr item);
-
-    void onClickTreeView(const iWidgetPtr source);
 };
 
-#endif // __ASSET_BROWSER__
+#endif // __USERCONTROL_RESOURCEICON__

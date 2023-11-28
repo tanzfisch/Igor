@@ -4,6 +4,8 @@
 
 #include "AssetBrowser.h"
 
+#include "usercontrols/UserControlResourceIcon.h"
+
 AssetBrowser::AssetBrowser()
 {
     initUI();
@@ -30,14 +32,42 @@ void AssetBrowser::initUI()
     _treeView->getClickEvent().add(iClickDelegate(this, &AssetBrowser::onClickTreeView));
     splitter->addWidget(_treeView);
 
-    _gridView = new iUserControlGridView();
+    _gridView = new iWidgetFixedGridLayout();
     splitter->addWidget(_gridView);
+
+    _updateHandle = new iTimerHandle(iTimerTickDelegate(this, &AssetBrowser::update), iaTime::fromMilliseconds(10000));
+    _updateHandle->start();
 }
 
 void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 {
     iItemPtr item = std::any_cast<iItemPtr>(source->getUserData());
-    _gridView->setItems(item);
+
+    _gridView->clearChildren(); 
+
+    for (const auto child : item->getItems())
+    {
+        if (!child->hasValue("isDirectory"))
+        {
+            continue;
+        }
+
+        bool isDirectory = child->getValue<bool>("isDirectory");
+        if (isDirectory)
+        {
+            continue;
+        }
+
+        if (!child->hasValue("relativePath"))
+        {
+            continue;
+        }
+
+        const iaString relativePath = child->getValue<iaString>("relativePath");
+
+        UserControlResourceIcon* icon = new UserControlResourceIcon(_gridView);
+        icon->setFilename(relativePath);
+    }
 }
 
 void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
@@ -53,7 +83,7 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
         iaString relativePath = iaDirectory::getRelativePath(_projectDir.getFullDirectoryName(), subDir.getFullDirectoryName());
         child->setValue<iaString>("relativePath", relativePath);
 
-        update(subDir, child);        
+        update(subDir, child);
     }
 
     auto files = dir.getFiles();
@@ -63,7 +93,6 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
         iItemPtr child = item->addItem();
         child->setValue<iaString>("displayName", file.getFileName());
         child->setValue<bool>("isDirectory", false);
-        
 
         iaString relativePath = iaDirectory::getRelativePath(_projectDir.getFullDirectoryName(), file.getFullFileName());
         child->setValue<iaString>("relativePath", relativePath);
@@ -71,23 +100,35 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
         // expecting everything to be already inside the dictionary
         iaUUID uuid = iResourceManager::getInstance().getResourceID(relativePath);
         child->setValue<uint64>("uuid", (uint64)uuid);
-    }    
+    }
 }
 
-void AssetBrowser::update()
+void AssetBrowser::update(const iaTime &time)
 {
-    update(_projectDir, &_root);
+    _root.clear();
+
+    if (_projectDir.exists())
+    {
+        iItemPtr root = _root.addItem();
+        root->setValue<iaString>("displayName", _projectDir.getDirectoryName());
+        root->setValue<iaString>("icon", "igor_icon_folder");
+        root->setValue<bool>("isDirectory", true);
+        root->setValue<iaString>("relativePath", "");
+
+        update(_projectDir, root);
+    }
+
     _treeView->setItems(&_root);
 }
 
-void AssetBrowser::setProjectDir(const iaString &projectDir)
+void AssetBrowser::setProjectFolder(const iaString &projectDir)
 {
     _projectDir = projectDir;
 
-    update();
+    _updateHandle->triggerNow();
 }
 
-const iaString AssetBrowser::getProjectDir() const
+const iaString AssetBrowser::getProjectFolder() const
 {
     return _projectDir.getFullDirectoryName();
 }

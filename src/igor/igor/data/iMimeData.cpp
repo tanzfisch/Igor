@@ -83,4 +83,9 @@ namespace igor
     {
         return _data.find(s_mimeTypeIgorWidgetID) != _data.end();
     }
+
+    void iMimeData::clear()
+    {
+        _data.clear();
+    }
 }
