@@ -20,27 +20,41 @@ void UserControlResourceIcon::initGUI()
 
     _picture = new iWidgetPicture();
     _picture->setHorizontalAlignment(iHorizontalAlignment::Center);
-    _picture->setMinSize(90, 90);
+    _picture->setMinSize(128, 128);
     vBoxLayout->addWidget(_picture);
 
     _label = new iWidgetLabel();
     _label->setHorizontalAlignment(iHorizontalAlignment::Center);
     vBoxLayout->addWidget(_label);
+
+    _addToDictionary = new iWidgetButton(this);
+    _addToDictionary->setVerticalAlignment(iVerticalAlignment::Top);
+    _addToDictionary->setHorizontalAlignment(iHorizontalAlignment::Right);
+    _addToDictionary->setMinSize(50, 50);
+    _addToDictionary->setTexture("igor_icon_add_to_dictionary");
+    _addToDictionary->setTooltip("Add to resource dictionary. To make it available within this project.");
+    _addToDictionary->registerOnClickEvent(iClickDelegate(this, &UserControlResourceIcon::onAddDictionary));
+    _picture->addWidget(_addToDictionary);
+}
+
+void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
+{
+    iResourceManager::getInstance().addResource(_filename);
 }
 
 void UserControlResourceIcon::setFilename(const iaString &filename)
 {
     const iResourceID id = iResourceManager::getInstance().getResourceID(filename);
-    const bool notInDictionary = id == iResourceID(IGOR_INVALID_ID);
+    const bool inDictionary = id != iResourceID(IGOR_INVALID_ID);
     const iaString type = iResourceManager::getInstance().getType(filename);
+
+    if (inDictionary)
+    {
+        _addToDictionary->setVisible(false);
+    }
+
     iaFile file(filename);
-
-    iaString toolTip;
-    toolTip += filename;
-    toolTip += "\n";
-    toolTip += id.toString();
-    setTooltip(toolTip);
-
+    setTooltip(file.getFullFileName());
     _label->setText(file.getFileName());
     _label->setMaxTextWidth(128);
 

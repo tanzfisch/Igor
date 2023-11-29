@@ -49,6 +49,10 @@ public:
 
 private:
 
+    /*! the file name
+    */
+    iaString _filename;
+
     /*! picture (thumbnail)
     */
     iWidgetPicturePtr _picture;
@@ -57,9 +61,19 @@ private:
     */
     iWidgetLabelPtr _label;
 
+    /*! add to dictionary button
+    */
+    iWidgetButtonPtr _addToDictionary;
+
     /*! init ui
      */
     void initGUI();
+
+    /*! adds given resource to dictionary
+
+    \param source the source widget of this event
+    */
+    void onAddDictionary(iWidgetPtr source);
 };
 
 #endif // __USERCONTROL_RESOURCEICON__
