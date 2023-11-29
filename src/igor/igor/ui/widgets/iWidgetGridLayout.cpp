@@ -373,7 +373,7 @@ namespace igor
             {
                 _widgetRows[y]._widgetColumn[x]._y = posy;
 
-                posy += _widgetRows[y]._widgetColumn[x]._configuredMinHeight + _cellspacing;
+                posy += _widgetRows[y]._widgetColumn[x]._configuredMinHeight + _cellSpacing;
             }
         }
 
@@ -385,12 +385,12 @@ namespace igor
             {
                 _widgetRows[y]._widgetColumn[x]._x = posx;
 
-                posx += _widgetRows[y]._widgetColumn[x]._configuredMinWidth + _cellspacing;
+                posx += _widgetRows[y]._widgetColumn[x]._configuredMinWidth + _cellSpacing;
             }
         }
 
-        minWidth += columnCount * _cellspacing - _cellspacing + _border * 2;
-        minHeight += rowCount * _cellspacing - _cellspacing + _border * 2;
+        minWidth += columnCount * _cellSpacing - _cellSpacing + _border * 2;
+        minHeight += rowCount * _cellSpacing - _cellSpacing + _border * 2;
 
         if (getConfiguredMinWidth() > minWidth)
         {
@@ -805,12 +805,12 @@ namespace igor
 
     int32 iWidgetGridLayout::getCellSpacing()
     {
-        return _cellspacing;
+        return _cellSpacing;
     }
 
     void iWidgetGridLayout::setCellSpacing(int32 cellSpacing)
     {
-        _cellspacing = cellSpacing;
+        _cellSpacing = cellSpacing;
     }
 
     void iWidgetGridLayout::draw()

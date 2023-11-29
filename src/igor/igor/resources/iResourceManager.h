@@ -283,6 +283,12 @@ namespace igor
         */
         void addResource(const iaString &filename, const iaString &alias = "");
 
+        /*! \returns resource type based on file extension
+
+        \param filename the file name to guess the type of
+        */
+        const iaString getType(const iaString &filename) const;
+
     private:
         /*! mutex to manage access to internal data
          */

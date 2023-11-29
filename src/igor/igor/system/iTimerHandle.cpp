@@ -15,7 +15,7 @@ namespace igor
 	iTimerHandle::iTimerHandle(iTimerTickDelegate timerDelegate, const iaTime &interval, bool oneShot)
 	{
 		_timerEvent.add(timerDelegate);
-		setIntervall(interval);
+		setInterval(interval);
 		_oneShot = oneShot;
 	}
 
@@ -37,7 +37,7 @@ namespace igor
 			return;
 		}
 
-		_intervall = _configuredIntervall;
+		_interval = _configuredInterval;
 
 		iTimer::getInstance().insertTimerHandle(this);
 		_time = iTimer::getInstance().getTime();
@@ -55,21 +55,21 @@ namespace igor
 		iTimer::getInstance().removeTimerHandle(this);
 	}
 
-	void iTimerHandle::setIntervall(iaTime interval)
+	void iTimerHandle::setInterval(iaTime interval)
 	{
 		if (interval <= iaTime(0))
 		{
-			con_err("invalid value for _intervall");
+			con_err("invalid value for _interval");
 			return;
 		}
 
-		_configuredIntervall = _intervall = interval;
+		_configuredInterval = _interval = interval;
 		restart();
 	}
 
-	iaTime iTimerHandle::getIntervall() const
+	iaTime iTimerHandle::getInterval() const
 	{
-		return _configuredIntervall;
+		return _configuredInterval;
 	}
 
 	void iTimerHandle::registerTimerDelegate(iTimerTickDelegate timerDelegate)
@@ -89,7 +89,7 @@ namespace igor
 
 	void iTimerHandle::handle(iaTime time)
 	{
-		while (time - _time >= _intervall)
+		while (time - _time >= _interval)
 		{
 			_timerEvent(time);
 			if (_oneShot)
@@ -98,7 +98,7 @@ namespace igor
 				break;
 			}
 
-			_time += _intervall;
+			_time += _interval;
 		}
 	}
 

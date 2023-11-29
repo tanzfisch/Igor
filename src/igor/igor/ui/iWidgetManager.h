@@ -368,6 +368,8 @@ namespace igor
         */
         void applyCursor();
 
+        void startTooltip(const iaString &tooltip, const iaVector2f &position, iWidgetID sourceID);
+
         /*! init
          */
         iWidgetManager();

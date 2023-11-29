@@ -37,8 +37,6 @@ namespace igor
             _keyboardFocus = nullptr;
         }
 
-        destroyTooltipTimer();
-
         clearChildren();
 
         iWidgetManager::getInstance().unregisterWidget(this);
@@ -332,7 +330,7 @@ namespace igor
 
     void iWidget::setKeyboardFocus()
     {
-        if(_doNotTakeKeyboard)
+        if (_doNotTakeKeyboard)
         {
             return;
         }
@@ -665,8 +663,8 @@ namespace igor
             }
         }
 
-        return false;        
-    }    
+        return false;
+    }
 
     bool iWidget::onKeyDown(iEventKeyDown &event)
     {
@@ -750,15 +748,13 @@ namespace igor
                 {
                     if (!_tooltip.isEmpty())
                     {
-                        if (_timerTooltip == nullptr)
+                        if (!_initTooltip)
                         {
-                            _timerTooltip = new iTimerHandle(iTimerTickDelegate(this, &iWidget::onToolTipTimer), iaTime::fromMilliseconds(1000), true);
+                            _tooltipTime = iaTime::getNow() + iaTime::fromMilliseconds(1000);
+                            _initTooltip = true;
+                            _tooltipPos._x = event.getPosition()._x + 15.0f;
+                            _tooltipPos._y = event.getPosition()._y + 15.0f;
                         }
-
-                        _tooltipPos._x = event.getPosition()._x + 15.0f;
-                        _tooltipPos._y = event.getPosition()._y + 15.0f;
-
-                        _timerTooltip->restart();
                     }
                 }
             }
@@ -785,32 +781,15 @@ namespace igor
                 {
                     onDragLeave(iWidgetManager::getInstance().getDrag());
                 }
-
-                iWidgetManager::getInstance().hideTooltip();
             }
 
-            destroyTooltipTimer();
+            _initTooltip = false;
+            iWidgetManager::getInstance().hideTooltip();
 
             _isMouseOver = false;
         }
 
         _posLast = event.getPosition();
-    }
-
-    void iWidget::onToolTipTimer(const iaTime &time)
-    {
-        iWidgetManager::getInstance().showTooltip(_tooltipPos, _tooltip);
-
-        destroyTooltipTimer();
-    }
-
-    void iWidget::destroyTooltipTimer()
-    {
-        if (_timerTooltip != nullptr)
-        {
-            delete _timerTooltip;
-            _timerTooltip = nullptr;
-        }
     }
 
     const iaVector2f &iWidget::getLastMousePos() const
@@ -975,6 +954,14 @@ namespace igor
 
     void iWidget::onUpdate()
     {
+        if (isMouseOver() &&
+            _initTooltip &&
+            _tooltipTime <= iaTime::getNow())
+        {
+            _tooltipTime = iaTime(0);
+            _initTooltip = false;
+            iWidgetManager::getInstance().showTooltip(_tooltipPos, _tooltip);
+        }
     }
 
     void iWidget::calcMinSize()
@@ -1033,7 +1020,7 @@ namespace igor
             "iWidgetLineTextEdit",
             "iWidgetTextEdit",
             "iWidgetSplitter",
-            "iWidgetViewport",            
+            "iWidgetViewport",
 
             "iWidgetGridLayout",
             "iWidgetFixedGridLayout",
@@ -1106,6 +1093,131 @@ namespace igor
     void iWidget::setCursor(iMouseCursorType cursorType)
     {
         iWidgetManager::getInstance().setCursor(cursorType);
+    }
+
+    bool iWidget::isVisible() const
+    {
+        if (_parent == nullptr)
+        {
+            return _visible;
+        }
+
+        return _parent->isVisible();
+    }
+
+    uint64 iWidget::getID() const
+    {
+        return _id;
+    }
+
+    bool iWidget::isBlocked() const
+    {
+        return _blockedEvents;
+    }
+
+    iWidgetPtr iWidget::getParent() const
+    {
+        return _parent;
+    }
+
+    iWidgetID iWidget::getParentID() const
+    {
+        if (_parent != nullptr)
+        {
+            return _parent->_id;
+        }
+        else
+        {
+            return iWidget::INVALID_WIDGET_ID;
+        }
+    }
+
+    bool iWidget::hasKeyboardFocus() const
+    {
+        return (_keyboardFocus == this) ? true : false;
+    }
+
+    iWidgetState iWidget::getState() const
+    {
+        return _widgetState;
+    }
+
+    bool iWidget::hasParent() const
+    {
+        return (_parent != nullptr) ? true : false;
+    }
+
+    int32 iWidget::getConfiguredMinWidth() const
+    {
+        return _configuredMinWidth;
+    }
+
+    int32 iWidget::getConfiguredMinHeight() const
+    {
+        return _configuredMinHeight;
+    }
+
+    int32 iWidget::getActualWidth() const
+    {
+        return _actualWidth;
+    }
+
+    int32 iWidget::getActualHeight() const
+    {
+        return _actualHeight;
+    }
+
+    int32 iWidget::getMinWidth() const
+    {
+        return _minWidth;
+    }
+
+    int32 iWidget::getMinHeight() const
+    {
+        return _minHeight;
+    }
+
+    iaVector2f iWidget::getActualPos() const
+    {
+        return iaVector2f(_absoluteX, _absoluteY);
+    }
+
+    int32 iWidget::getActualPosX() const
+    {
+        return _absoluteX;
+    }
+
+    int32 iWidget::getActualPosY() const
+    {
+        return _absoluteY;
+    }
+
+    iaRectanglef iWidget::getActualRect() const
+    {
+        return iaRectanglef(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
+    }
+
+    int32 iWidget::getRelativePosX() const
+    {
+        return _relativeX;
+    }
+
+    int32 iWidget::getRelativePosY() const
+    {
+        return _relativeY;
+    }
+
+    bool iWidget::isEnabled() const
+    {
+        if (_parent != nullptr)
+        {
+            if (!_parent->isEnabled())
+            {
+                return false;
+            }
+        }
+
+        return _enabled;
     }
 
 } // namespace igor

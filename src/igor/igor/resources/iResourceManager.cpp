@@ -22,6 +22,22 @@ using namespace iaux;
 
 namespace igor
 {
+    static bool matchingFilename(iFactoryPtr factory, const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : factory->getSupportedExtensions())
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     iResourceManager::iResourceManager()
     {
         configure();
@@ -80,6 +96,19 @@ namespace igor
         _mutex.unlock();
 
         _factories.clear();
+    }
+
+    const iaString iResourceManager::getType(const iaString &filename) const
+    {
+        for(auto factory : _factories)
+        {
+            if(matchingFilename(factory.second, filename))
+            {
+                return factory.second->getType();
+            }
+        }
+
+        return iaString();
     }
 
     void iResourceManager::loadResourceDictionary(const iaString &filename)
@@ -159,22 +188,6 @@ namespace igor
 
         factory->deinit();
         _factories.erase(iter);
-    }
-
-    static bool matchingFilename(iFactoryPtr factory, const iaString &filename)
-    {
-        iaFile file(filename);
-        const iaString &fileExtension = file.getExtension();
-
-        for (const auto &extension : factory->getSupportedExtensions())
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     static bool matchingType(iFactoryPtr factory, const iParameters &parameters)

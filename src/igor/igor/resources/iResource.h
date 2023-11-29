@@ -63,6 +63,7 @@ namespace igor
         friend class iResourceManager;
 
     public:
+
         /*! does nothing
          */
         virtual ~iResource() = default;

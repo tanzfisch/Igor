@@ -538,6 +538,10 @@ namespace igor
          */
         iWidgetID getParentID() const;
 
+        /*! \returns parenting widget
+         */
+        iWidgetPtr getParent() const;
+
         /*! \returns true if mouse over widget
          */
         bool isMouseOver();
@@ -681,7 +685,7 @@ namespace igor
 
         /*! configured height of the widget
          */
-        int32 _configuredMinHeight = 20;
+        int32 _configuredMinHeight = 0;
 
         /*! click event
          */
@@ -734,6 +738,14 @@ namespace igor
         /*! position for the tooltip to appear
          */
         iaVector2f _tooltipPos;
+
+        /*! tooltip timer
+         */
+        iaTime _tooltipTime = iaTime(0);
+
+        /*! trigger tooltip
+        */
+        bool _initTooltip = false;        
 
         /*! z value of this widget
          */
@@ -796,8 +808,8 @@ namespace igor
 
         /*! initializes members
 
-                \param parent the optional parent
-                */
+        \param parent the optional parent
+        */
         iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent = nullptr);
 
         /*! clean up
@@ -933,10 +945,6 @@ namespace igor
          */
         iWidgetKind _kind;
 
-        /*! tooltip timer
-         */
-        iTimerHandle *_timerTooltip = nullptr;
-
         /*! horizontal position of the widget relative to parent
          */
         int32 _relativeX = 0;
@@ -1040,16 +1048,6 @@ namespace igor
         /*! user data
         */
         std::any _userData;
-
-        /*! handles tooltip timer
-
-        \param time the time
-        */
-        void onToolTipTimer(const iaTime &time);
-
-        /*! destroy tooltip timer
-         */
-        void destroyTooltipTimer();
 
         /*! called when parent of this widget changes
          */

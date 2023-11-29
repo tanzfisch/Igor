@@ -231,13 +231,6 @@ namespace igor
 
         _dialogsToClose.clear();
 
-        // refresh mouse pos on other dialogs because they have been blocked so far
-        /* TODO if (refreshMousePos)
-        {
-            const iaVector2i &mousePos = iMouse::getInstance().getPos();
-            onMouseMove(iaVector2f(mousePos._x, mousePos._y));
-        }*/
-
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, false);
 
@@ -510,6 +503,8 @@ namespace igor
 
     bool iWidgetManager::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     {
+        hideTooltip();
+
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {

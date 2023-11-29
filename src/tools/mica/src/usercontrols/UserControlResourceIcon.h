@@ -39,7 +39,6 @@ adding information about the resources
 class UserControlResourceIcon : public iUserControl
 {
 public:
-
     UserControlResourceIcon(const iWidgetPtr parent = nullptr);
 
     /*! sets the resource filename
@@ -50,13 +49,17 @@ public:
 
 private:
 
+    /*! picture (thumbnail)
+    */
     iWidgetPicturePtr _picture;
+
+    /*! label with filename
+    */
     iWidgetLabelPtr _label;
 
     /*! init ui
-    */
+     */
     void initGUI();
-
 };
 
 #endif // __USERCONTROL_RESOURCEICON__

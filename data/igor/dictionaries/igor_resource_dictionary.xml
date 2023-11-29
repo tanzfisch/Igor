@@ -26,7 +26,10 @@
                 <Resource id="0xc8ee789748c5cb98" alias="igor_icon_paste" source="igor/icons/paste.png" />
                 <Resource id="0x5ba5b17839b27fb3" alias="igor_icon_load" source="igor/icons/load.png" />
                 <Resource id="0x77d44d1b4788b8f9" alias="igor_icon_file_texture" source="igor/icons/file_texture.png" />
-                <Resource id="0xfb28e609992b9186" alias="igor_icon_load_material" source="igor/icons/loadMaterial.png" />
+                <Resource id="0xfb28e609992b9186" alias="igor_icon_file_material" source="igor/icons/file_material.png" />
+                <Resource id="0xf12646ab992b9d9f" alias="igor_icon_file_animation" source="igor/icons/file_animation.png" />
+                <Resource id="0xa1264689bdefad9d" alias="igor_icon_file_sprite" source="igor/icons/file_sprite.png" />
+                <Resource id="0xdf2146ab990badbc" alias="igor_icon_file_sound" source="igor/icons/file_sound.png" />
                 <Resource id="0x2cf4fc2aa53775cc" alias="igor_icon_left" source="igor/icons/left.png" />
                 <Resource id="0xa7721cdcbc394f26" alias="igor_icon_add_material" source="igor/icons/addMaterial.png" />
                 <Resource id="0xae4911c55bcae0fb" alias="igor_icon_model" source="igor/icons/model.png" />

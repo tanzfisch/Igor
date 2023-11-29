@@ -15,6 +15,8 @@ namespace igor
 		: iWidget(iWidgetType::iWidgetTextEdit, iWidgetKind::Widget, parent)
 	{
 		_reactOnMouseWheel = false;
+		_configuredMinWidth = 20;
+		_configuredMinHeight = 20;
 	}
 
 	void iWidgetTextEdit::calcMinSize()

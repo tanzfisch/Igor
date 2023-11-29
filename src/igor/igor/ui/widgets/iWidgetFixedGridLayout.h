@@ -59,16 +59,34 @@ namespace igor
          */
         const iaVector2f &getCellSize() const;
 
+        /*! sets the cell spacing
+
+        \param minCellSpacing the cell spacing
+        */
+        void setMinCellSpacing(float32 minCellSpacing);
+
+        /*! \returns the cell spacing
+         */
+        float32 getMinCellSpacing() const;        
+
     private:
         /*! cell size
          */
         iaVector2f _cellSize = {100.0f, 100.0f};
+
+        /*! min cell spacing
+        */
+        float32 _minCellSpacing = 5;
 
         /*! calculates childrens offsets relative to their parent
 
         \param[out] offsets vector to be filled with childrens offsets
         */
         void calcChildOffsets(std::vector<iaRectanglef> &offsets) override;
+
+        /*! updates size based on it's content
+        */
+        void calcMinSize() override;        
     };
 
     /*! widget fixed grid pointer definition

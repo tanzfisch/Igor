@@ -94,6 +94,13 @@ namespace iaux
         */
         iaUUID operator=(const iaUUID &other);
 
+        /*! = operator overwrites current value with new value
+
+        \param value the new value
+        \returns the new uuid
+        */
+        iaUUID operator=(uint64 value);        
+
         /*! \returns true if uuid is valid/initialized
          */
         bool isValid() const;

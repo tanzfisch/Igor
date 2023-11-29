@@ -83,6 +83,12 @@ namespace iaux
         return *this;
     }
 
+    iaUUID iaUUID::operator=(uint64 value)
+    {
+        _value = value;
+        return *this;
+    }
+
     const iaString iaUUID::toString() const
     {
         std::wstringstream stream;

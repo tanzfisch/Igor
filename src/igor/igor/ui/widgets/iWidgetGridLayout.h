@@ -303,7 +303,7 @@ namespace igor
 
         /*! cellspacing within the grid
          */
-        int32 _cellspacing = 4;
+        int32 _cellSpacing = 4;
 
         /*! border size
          */

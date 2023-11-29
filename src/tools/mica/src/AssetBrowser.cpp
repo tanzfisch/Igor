@@ -32,8 +32,12 @@ void AssetBrowser::initUI()
     _treeView->getClickEvent().add(iClickDelegate(this, &AssetBrowser::onClickTreeView));
     splitter->addWidget(_treeView);
 
+    iWidgetScrollPtr scroll = new iWidgetScroll();
     _gridView = new iWidgetFixedGridLayout();
-    splitter->addWidget(_gridView);
+    _gridView->setCellSize(iaVector2f(150, 150));
+
+    scroll->addWidget(_gridView);
+    splitter->addWidget(scroll);
 
     _updateHandle = new iTimerHandle(iTimerTickDelegate(this, &AssetBrowser::update), iaTime::fromMilliseconds(10000));
     _updateHandle->start();
@@ -43,7 +47,7 @@ void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 {
     iItemPtr item = std::any_cast<iItemPtr>(source->getUserData());
 
-    _gridView->clearChildren(); 
+    _gridView->clearChildren();
 
     for (const auto child : item->getItems())
     {
@@ -65,7 +69,7 @@ void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 
         const iaString relativePath = child->getValue<iaString>("relativePath");
 
-        UserControlResourceIcon* icon = new UserControlResourceIcon(_gridView);
+        UserControlResourceIcon *icon = new UserControlResourceIcon(_gridView);
         icon->setFilename(relativePath);
     }
 }

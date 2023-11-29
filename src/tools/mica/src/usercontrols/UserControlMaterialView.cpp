@@ -39,7 +39,7 @@ void UserControlMaterialView::initGUI()
     loadMaterialButton->setTooltip("Load material.");
     loadMaterialButton->setMinWidth(30);
     loadMaterialButton->setMinHeight(30);
-    loadMaterialButton->setTexture("igor_icon_load_material");
+    loadMaterialButton->setTexture("igor_icon_file_material");
     loadMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onLoadMaterial));
 
     iWidgetGroupBox *groupBox = new iWidgetGroupBox();
