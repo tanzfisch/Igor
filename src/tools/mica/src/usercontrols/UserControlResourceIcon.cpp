@@ -44,6 +44,7 @@ void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
 
 void UserControlResourceIcon::setFilename(const iaString &filename)
 {
+    _filename = filename;
     const iResourceID id = iResourceManager::getInstance().getResourceID(filename);
     const bool inDictionary = id != iResourceID(IGOR_INVALID_ID);
     const iaString type = iResourceManager::getInstance().getType(filename);

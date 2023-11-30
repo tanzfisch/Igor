@@ -727,12 +727,7 @@ namespace igor
 
     void iResourceManager::addResource(const iaString &filename, const iaString &alias)
     {
-        if (!iaFile::exists(filename))
-        {
-            return;
-        }
-
-        _resourceDictionary.addResource(alias);
+        _resourceDictionary.addResource(filename, alias);
     }
 
 } // namespace igor

@@ -60,9 +60,9 @@ namespace igor
         */
         iWidgetMenu(const iaString &title = "", const iWidgetPtr parent = nullptr);
 
-        /*! clean up
+        /*! nothing to do
         */
-        virtual ~iWidgetMenu();
+        virtual ~iWidgetMenu() = default;
 
         /*! sets the menu title
 

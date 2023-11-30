@@ -22,24 +22,12 @@ namespace igor
         {
             con_warn("possible memory leak! did not release all widgets. " << _widgets.size() << " left");
 
-#ifdef IGOR_DEBUG
             for (auto pair : _widgets)
             {
                 auto widget = pair.second;
                 con_debug(widget->getInfo());
-
-                // to get a better idea which widget this is we also print it's children
-                for (const auto &child : widget->getChildren())
-                {
-                    con_debug(" +-- " << widget->getInfo());
-                }
             }
-#endif
         }
-
-        // we can not delete widgets here anymore because
-        // they might call iWidgetManager::getInstance in the process
-        _widgets.clear();
     }
 
     void iWidgetManager::registerWidget(iWidgetPtr widget)
@@ -248,21 +236,7 @@ namespace igor
             pair.second->onUpdate();
         }
 
-        for (auto widget : _forDeletion)
-        {
-            delete widget;
-        }
-
-        _forDeletion.clear();
-
         applyCursor();
-    }
-
-    void iWidgetManager::deleteWidget(iWidgetPtr widget)
-    {
-        con_assert(!widget->hasParent(), "can't have parent");
-
-        _forDeletion.insert(widget);
     }
 
     void iWidgetManager::traverseContentSize(iWidgetPtr widget)
@@ -635,7 +609,7 @@ namespace igor
 
     void iWidgetManager::setCursor(iMouseCursorType cursorType)
     {
-        if(!_firstCursor)
+        if (!_firstCursor)
         {
             return;
         }
@@ -648,7 +622,7 @@ namespace igor
     {
         _firstCursor = true;
 
-        if(_lastCursorType == _cursorType)
+        if (_lastCursorType == _cursorType)
         {
             return;
         }

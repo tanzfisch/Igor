@@ -37,8 +37,6 @@ namespace igor
             _keyboardFocus = nullptr;
         }
 
-        clearChildren();
-
         iWidgetManager::getInstance().unregisterWidget(this);
     }
 
@@ -113,13 +111,6 @@ namespace igor
 
     void iWidget::clearChildren()
     {
-        std::vector<iWidgetPtr> children = _children;
-
-        for (const auto child : children)
-        {
-            delete child;
-        }
-
         _children.clear();
     }
 

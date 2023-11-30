@@ -47,7 +47,7 @@ void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 {
     iItemPtr item = std::any_cast<iItemPtr>(source->getUserData());
 
-    _gridView->clearChildren(); // TODO bad idea!!!
+    _gridView->clearChildren();
 
     for (const auto child : item->getItems())
     {

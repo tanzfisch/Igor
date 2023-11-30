@@ -182,9 +182,9 @@ namespace igor
             iResourceManager::destroy();
         }
 
-        if (iNodeManager::isInstantiated())
+        if (iWidgetManager::isInstantiated())
         {
-            iNodeManager::destroy();
+            iWidgetManager::destroy();
         }
 
         if (iSceneFactory::isInstantiated())
@@ -192,9 +192,9 @@ namespace igor
             iSceneFactory::destroy();
         }
 
-        if (iWidgetManager::isInstantiated())
+        if (iNodeManager::isInstantiated())
         {
-            iWidgetManager::destroy();
+            iNodeManager::destroy();
         }
 
         if (iRenderer::isInstantiated())

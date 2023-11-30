@@ -21,15 +21,6 @@ namespace igor
         setTitle(title);
     }
 
-    iWidgetMenu::~iWidgetMenu()
-    {
-        if (_dialogMenu != nullptr)
-        {
-            delete _dialogMenu;
-            _dialogMenu = nullptr;
-        }
-    }
-
     void iWidgetMenu::init()
     {
         setHorizontalAlignment(iHorizontalAlignment::Stretch);

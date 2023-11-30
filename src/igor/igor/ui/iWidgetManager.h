@@ -60,6 +60,7 @@ namespace igor
         friend class iDialog;
         friend class iDrag;
         friend class iWidgetSplitter;
+        friend class iWidgetMenu;
 
     public:
         /*! called on any other event
@@ -351,12 +352,6 @@ namespace igor
         /*! resets the drag object
          */
         void endDrag();
-
-        /*! queues widget for deletion
-
-        \param widget the widget to be deleted
-        */
-        void deleteWidget(iWidgetPtr widget);
 
         /*! sets cursor type
 
