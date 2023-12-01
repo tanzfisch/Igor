@@ -67,7 +67,9 @@ private:
 
     void initGUI();
 
-    void clear();
+    /*! clears the widget back to default
+    */
+    void clear() override;
 
     void OnSelectionChange(iWidgetPtr widget);
 

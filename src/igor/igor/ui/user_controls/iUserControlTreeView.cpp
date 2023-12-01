@@ -92,7 +92,7 @@ namespace igor
 
     void iUserControlTreeView::setItems(iItem* items)
     {
-        _vboxLayout->clearChildren();
+        _vboxLayout->clear();
         _root = items;
 
         if(_root == nullptr)

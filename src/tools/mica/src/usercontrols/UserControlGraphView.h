@@ -96,7 +96,7 @@ private:
 
     /*! the scene graphs context menu
     */
-    iDialogMenuPtr _graphContextMenu = nullptr;
+    iDialogMenu _graphContextMenu;
 
     /*! \returns a new action context
     */

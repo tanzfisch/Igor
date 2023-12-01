@@ -95,7 +95,7 @@ void UserControlMaterialView::OnSelectionChange(iWidgetPtr widget)
 
 void UserControlMaterialView::clear()
 {
-    _gridGraph->clearChildren();
+    _gridGraph->clear();
 }
 
 void UserControlMaterialView::refresh()

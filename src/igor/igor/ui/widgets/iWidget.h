@@ -592,11 +592,9 @@ namespace igor
          */
         const std::vector<iWidgetPtr> &getChildren() const;
 
-        /*! removes and deletes all children
-
-        this will also cause all children deleting their children and so on
+        /*! clears the widget back to default
         */
-        void clearChildren();
+        virtual void clear();
 
         /*! sets wether or not this widget ignores if a child already consumed an event
 
@@ -774,6 +772,12 @@ namespace igor
         /*! if true this widget ignores if a child already has consumed an event
          */
         bool _ignoreChildEventConsumption = false;
+
+        /*! removes and deletes all children
+
+        this will also cause all children deleting their children and so on
+        */
+        void clearChildren();
 
         /*! sets the widget's min size
          */

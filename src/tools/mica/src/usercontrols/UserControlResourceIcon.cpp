@@ -65,8 +65,6 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
 
     iTexturePtr texture;
 
-    con_endl(type);
-
     if (type == "texture")
     {
         texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_texture");
@@ -97,7 +95,6 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
     }
     else
     {
-        // TODO thumbnail
         texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file");
     }
 
