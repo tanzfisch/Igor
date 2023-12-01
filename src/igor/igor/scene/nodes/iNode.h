@@ -159,9 +159,10 @@ namespace igor
 
 		each entry in vector is one line of information
 
-		\param[out] info the returned information
+		\returns strings with the nodes information
+        \param brief if true only one brief line of information will be returned
         */
-        virtual void getInfo(std::vector<iaString> &info) const;
+        virtual std::vector<iaString> getInfo(bool brief = false) const;
 
         /*! sets name of the node
 

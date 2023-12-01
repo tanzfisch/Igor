@@ -14,7 +14,7 @@ Mica::Mica()
 {
 	_window = iApplication::getInstance().getWindow();
 	_window->setTitle(MICA_TITLE_PREFIX);
-	_window->setSize(1280, 720);
+	_window->setSize(1920, 1080);
 	_window->setCentered();
 	_window->setDoubleClick(true);
 	_window->open();

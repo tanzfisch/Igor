@@ -299,25 +299,25 @@ namespace igor
         return iaString(stream.str().data());
     }
 
-    const iaString& iNode::getName() const
+    const iaString &iNode::getName() const
     {
         return _name;
     }
 
-    void iNode::getInfo(std::vector<iaString> &info) const
+    std::vector<iaString> iNode::getInfo(bool brief) const
     {
+        std::vector<iaString> info;
+
         iaString header = "\"";
         header += getName();
         header += "\" id:";
         header += iaString::toString(getID());
-        header += (isActive() ? " (active)" : " (inactive)");
+        header += " type:";
+        header += iNode::getTypeName(getType());
+
         info.push_back(header);
 
-        iaString typeInfo = "type:";
-        typeInfo += iNode::getTypeName(getType());
-        typeInfo += " kind:";
-        typeInfo += iNode::getKindName(getKind());
-        info.push_back(typeInfo);
+        return info;
     }
 
     void iNode::setName(const iaString &name)
@@ -342,7 +342,7 @@ namespace igor
 
     void iNode::insertNode(iNodePtr node)
     {
-        if(node == nullptr)
+        if (node == nullptr)
         {
             con_err("zero pointer");
             return;

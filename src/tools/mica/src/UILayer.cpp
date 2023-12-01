@@ -98,7 +98,7 @@ void UILayer::onInit()
     splitter0->addWidget(_propertiesDialog);
 
     splitter1->setOrientation(iSplitterOrientation::Horizontal);
-    splitter1->setRatio(0.9f);
+    splitter1->setRatio(0.7f);
     splitter1->addWidget(_viewport);
     splitter1->addWidget(_assetBrowser);
 }

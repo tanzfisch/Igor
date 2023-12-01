@@ -53,15 +53,21 @@ namespace igor
         */
         iWidgetPicture(const iWidgetPtr parent = nullptr);
 
-        /*! release texture
+        /*! does nothing
          */
-        virtual ~iWidgetPicture();
+        virtual ~iWidgetPicture() = default;
 
         /*! sets the texture to use for the picture
 
         \param texture the texture to use
         */
         void setTexture(iTexturePtr texture);
+
+        /*! sets the background texture to use for the whole button by name
+
+        \param textureAlias alias or id to texture
+        */
+        void setTexture(const iaString &textureAlias);
 
         /*! \returns texture path
          */

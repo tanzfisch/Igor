@@ -178,7 +178,7 @@ namespace igor
 
         \param dialogCloseDelegate the delegate to call after the dialog was closed
         */
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate);
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate());
 
         /*! closes the dialog
          */
@@ -200,7 +200,7 @@ namespace igor
 
         /*! puts dialog in front of others
          */
-        void putInFront();
+        void putInFront();        
 
     private:
         /*! if true dialog is open

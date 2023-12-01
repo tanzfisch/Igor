@@ -32,7 +32,9 @@
                 <Resource id="0xdf2146ab990badbc" alias="igor_icon_file_sound" source="igor/icons/file_sound.png" />
                 <Resource id="0x157af69b990bdaaa" alias="igor_icon_file_dictionary" source="igor/icons/file_dictionary.png" />
                 <Resource id="0x15daf69b990b1234" alias="igor_icon_add_to_dictionary" source="igor/icons/add_to_dictionary.png" />
+                <Resource id="0xe5d1234af90dca31" alias="igor_icon_remove_from_dictionary" source="igor/icons/remove_from_dictionary.png" />
                 <Resource id="0x1d679abc990789aa" alias="igor_icon_dictionary" source="igor/icons/dictionary.png" />
+                <Resource id="0x1d679aba99d78caf" alias="igor_icon_no_dictionary" source="igor/icons/no_dictionary.png" />
                 <Resource id="0x2cf4fc2aa53775cc" alias="igor_icon_left" source="igor/icons/left.png" />
                 <Resource id="0xa7721cdcbc394f26" alias="igor_icon_add_material" source="igor/icons/addMaterial.png" />
                 <Resource id="0xae4911c55bcae0fb" alias="igor_icon_model" source="igor/icons/model.png" />

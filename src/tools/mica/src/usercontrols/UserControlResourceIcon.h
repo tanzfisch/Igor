@@ -61,9 +61,9 @@ private:
     */
     iWidgetLabelPtr _label;
 
-    /*! add to dictionary button
+    /*! picture that displays if a resource is in the dictionary or not
     */
-    iWidgetButtonPtr _addToDictionary;
+    iWidgetPicturePtr _inDictionary;
 
     /*! init ui
      */

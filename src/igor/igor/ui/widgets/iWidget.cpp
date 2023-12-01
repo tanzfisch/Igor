@@ -73,7 +73,7 @@ namespace igor
         _background = color;
     }
 
-    iaColor4f iWidget::getBackground() const
+    const iaColor4f& iWidget::getBackground() const
     {
         return _background;
     }
@@ -83,7 +83,7 @@ namespace igor
         _foreground = color;
     }
 
-    iaColor4f iWidget::getForeground() const
+    const iaColor4f& iWidget::getForeground() const
     {
         return _foreground;
     }

@@ -253,7 +253,7 @@ namespace igor
 
         /*! \returns the background color
          */
-        iaColor4f getBackground() const;
+        const iaColor4f& getBackground() const;
 
         /*! sets foreground color
 
@@ -263,7 +263,7 @@ namespace igor
 
         /*! \returns the foreground color
          */
-        iaColor4f getForeground() const;
+        const iaColor4f& getForeground() const;
 
         /*! @returns true if events on this widget are blocked
          */
@@ -1031,11 +1031,11 @@ namespace igor
 
         /*! background color
          */
-        iaColor4f _background;
+        iaColor4f _background = iaColor4f::transparent;
 
         /*! foreground color
          */
-        iaColor4f _foreground;
+        iaColor4f _foreground = iaColor4f::black;
 
         /*! true if overlay is enabled
          */

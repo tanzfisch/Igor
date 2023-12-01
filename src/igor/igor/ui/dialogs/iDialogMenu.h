@@ -31,7 +31,7 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/actions/iAction.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/widgets/iWidgetBoxLayout.h>
 
 namespace igor
 {
@@ -99,12 +99,12 @@ namespace igor
 
         \param dialogCloseDelegate the delegate to call after the dialog was closed
         */
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate) override;
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate()) override;
 
     private:
-        /*! main grid
+        /*! main layout
         */
-        iWidgetGridLayoutPtr _grid = nullptr;
+        iWidgetBoxLayoutPtr _vboxLayout = nullptr;
 
         /*! handle mouse off click event
 

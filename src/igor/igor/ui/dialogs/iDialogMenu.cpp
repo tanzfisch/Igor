@@ -32,7 +32,7 @@ namespace igor
 
     void iDialogMenu::init()
     {
-        setMinSize(0, 0);
+        setMinSize(100, 0);
         setAcceptOutOfBoundsClicks();
         registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
@@ -41,10 +41,7 @@ namespace igor
         setHeaderEnabled(false);
         setResizeable(false);
 
-        _grid = new iWidgetGridLayout(this);
-        _grid->setSelectMode(iSelectionMode::NoSelection);
-        _grid->setHighlightMode(iSelectionMode::NoSelection);
-        _grid->setCellSpacing(0);
+        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     }
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
@@ -63,14 +60,12 @@ namespace igor
     {
         iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 2, true);
         spacer->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        _grid->addWidget(spacer, 0, _grid->getRowCount() - 1);
-        _grid->appendRows(1);
+        _vboxLayout->addWidget(spacer);
     }
 
     void iDialogMenu::addMenu(const iWidgetMenuPtr menu)
     {
-        _grid->addWidget(menu, 0, _grid->getRowCount() - 1);
-        _grid->appendRows(1);
+        _vboxLayout->addWidget(menu);
     }
 
     void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context)
@@ -91,11 +86,10 @@ namespace igor
         button->setMinHeight(25);
         button->setAction(action, context);
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-        
+
         button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
 
-        _grid->addWidget(button, 0, _grid->getRowCount() - 1);
-        _grid->appendRows(1);
+        _vboxLayout->addWidget(button);
     }
 
     void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
@@ -110,8 +104,7 @@ namespace igor
         button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
         button->registerOnClickEvent(delegate);
 
-        _grid->addWidget(button, 0, _grid->getRowCount() - 1);
-        _grid->appendRows(1);
+        _vboxLayout->addWidget(button);
     }
 
     void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context)

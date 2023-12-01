@@ -18,13 +18,6 @@ namespace igor
 
     iWidgetManager::~iWidgetManager()
     {
-        for (auto pair : _dialogs)
-        {
-            auto dialog = pair.second;
-            dialog->_parent = nullptr;
-            deleteWidget(pair.second);
-        }
-
         while (!_forDeletion.empty())
         {
             flushDeleteQueue();
@@ -222,7 +215,8 @@ namespace igor
         for (auto id : _dialogsToClose)
         {
             auto dialog = getDialog(id);
-            if (dialog != nullptr)
+            if (dialog != nullptr &&
+                dialog->_dialogCloseDelegate.isValid()) // TODO this is ugly!
             {
                 dialog->_dialogCloseDelegate(dialog);
                 refreshMousePos = true;

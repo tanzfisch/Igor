@@ -21,20 +21,20 @@ void UserControlResourceIcon::initGUI()
     _picture = new iWidgetPicture();
     _picture->setHorizontalAlignment(iHorizontalAlignment::Center);
     _picture->setMinSize(128, 128);
+    _picture->setMaxSize(128, 128);
     vBoxLayout->addWidget(_picture);
 
     _label = new iWidgetLabel();
     _label->setHorizontalAlignment(iHorizontalAlignment::Center);
     vBoxLayout->addWidget(_label);
 
-    _addToDictionary = new iWidgetButton(this);
-    _addToDictionary->setVerticalAlignment(iVerticalAlignment::Top);
-    _addToDictionary->setHorizontalAlignment(iHorizontalAlignment::Right);
-    _addToDictionary->setMinSize(50, 50);
-    _addToDictionary->setTexture("igor_icon_add_to_dictionary");
-    _addToDictionary->setTooltip("Add to resource dictionary. To make it available within this project.");
-    _addToDictionary->registerOnClickEvent(iClickDelegate(this, &UserControlResourceIcon::onAddDictionary));
-    _picture->addWidget(_addToDictionary);
+    _inDictionary = new iWidgetPicture();
+    _inDictionary->setVerticalAlignment(iVerticalAlignment::Top);
+    _inDictionary->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _inDictionary->setBackground(iaColor4f::gray);
+    _inDictionary->setMinSize(32, 32);
+    _inDictionary->setMaxSize(32, 32);
+    _picture->addWidget(_inDictionary);
 }
 
 void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
@@ -51,7 +51,11 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
 
     if (inDictionary)
     {
-        _addToDictionary->setVisible(false);
+        _inDictionary->setTexture("igor_icon_dictionary");
+    }
+    else
+    {
+        _inDictionary->setTexture("igor_icon_no_dictionary");
     }
 
     iaFile file(filename);
