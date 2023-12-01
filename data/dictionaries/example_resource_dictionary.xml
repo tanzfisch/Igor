@@ -46,8 +46,7 @@
         <Resource id="0x47909cc5e7428ec5" alias="example_texture_lineGradient" source="textures/lineGradient.png" />
         <Resource id="0x50046a04d0ac5090" alias="example_texture_M4A1-S" source="textures/M4A1-S.png" />
         <Resource id="0x5004e1a98f37951e" alias="example_model_MuzzleFlash" source="models/MuzzleFlash.ompf" />
-        <Resource id="0x56cc64459515e646" alias="example_model_level2" source="models/level2.ompf" />
-        <Resource id="0x57339e8d03b3da6e" alias="example_texture_widget_theme_pattern" source="textures/WidgetThemePattern.png" />
+        <Resource id="0x56cc64459515e646" alias="example_model_level2" source="models/level2.ompf" />        
         <Resource id="0x58d6f182417c259f" alias="example_texture_doughnuts" source="textures/doughnuts.png" />
         <Resource id="0x5c3207645ba2d4c2" source="igor/materials/textured.mat" />
         <Resource id="0x5c3f82b6e43b7455" alias="example_texture_particleFlame" source="textures/particleFlame.png" />

@@ -81,6 +81,8 @@ namespace igor
 
     void iDialogFileSelect::initGUI()
     {
+        clearChildren();
+
         setMinWidth(700);
         setMinHeight(500);
 

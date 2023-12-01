@@ -68,17 +68,9 @@ namespace igor
 		*/
         virtual ~iTimerHandle();
 
-        /*! register timer delegate to timer event
-
-		\param timer_delegate timer delegate to register
-		*/
-        void registerTimerDelegate(iTimerTickDelegate timerDelegate);
-
-        /*! unregister timer delegate from timer event
-
-		\param timer_delegate timer delegate to unregister
-		*/
-        void unregisterTimerDelegate(iTimerTickDelegate timerDelegate);
+        /*! \returns timer tick event
+        */
+        iTimerTickEvent& getEventTimerTick();
 
         /*! changes timer interval
 

@@ -400,7 +400,31 @@ namespace igor
 
     void iWidgetScroll::calcMinSize()
     {
-        updateMinSize(0, 0);
+        int32 minWidth = 0;
+        int32 minHeight = 0;
+
+        if (_vscrollActive && _hscrollActive) // hv scrollbars
+        {
+            minWidth = BORDER_WIDTH2 + _scrollbarWidth;
+            minHeight = BORDER_WIDTH2 + _scrollbarWidth;
+        }
+        else if (_hscrollActive)
+        {
+            minWidth = BORDER_WIDTH2;
+            minHeight = BORDER_WIDTH2 + _scrollbarWidth;
+        }
+        else if (_vscrollActive)
+        {
+            minWidth = BORDER_WIDTH2 + _scrollbarWidth;
+            minHeight = BORDER_WIDTH2;
+        }
+        else // no scrollbars
+        {
+            minWidth = BORDER_WIDTH2;
+            minHeight = BORDER_WIDTH2;
+        }
+
+        updateMinSize(minWidth, minHeight);
     }
 
     void iWidgetScroll::calcButtons()
@@ -672,7 +696,10 @@ namespace igor
         }
 
         // render child
-        iaRectanglei absoluteFramePos(getActualPosX() + _childFrame.getX(), getActualPosY() + _childFrame.getY(), _childFrame.getWidth(), _childFrame.getHeight());
+        iaRectanglei absoluteFramePos(getActualPosX() + _childFrame.getX(),
+                                      getActualPosY() + _childFrame.getY(),
+                                      _childFrame.getWidth(),
+                                      _childFrame.getHeight());
 
         // do some clipping using the viewport
 

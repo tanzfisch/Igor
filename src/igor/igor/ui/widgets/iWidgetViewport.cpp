@@ -28,12 +28,6 @@ namespace igor
 		_view.setClipPlanes(1.0f, 10000.f);
 	}
 
-	iWidgetViewport::~iWidgetViewport()
-	{
-		iWindowPtr window = iApplication::getInstance().getWindow();
-		window->removeView(&_view);
-	}
-
 	void iWidgetViewport::onUpdate()
 	{
 		iWindowPtr window = iApplication::getInstance().getWindow();

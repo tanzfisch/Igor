@@ -24,7 +24,7 @@ static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"../../data/models";
 
 UILayer::UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
     : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"),
-                                                            iResourceManager::getInstance().loadResource<iTexture>("example_texture_widget_theme_pattern"))),
+                                                            iResourceManager::getInstance().loadResource<iTexture>("igor_widget_theme_pattern"))),
                     window, "Widgets", zIndex),
       _workspace(workspace)
 {
@@ -55,7 +55,7 @@ void UILayer::onInit()
     _propertiesDialog->setEnabled();
     _propertiesDialog->setVisible();
 
-    _assetBrowser = new AssetBrowser();    
+    _assetBrowser = new AssetBrowser();
     _assetBrowser->setEnabled();
     _assetBrowser->setVisible();
 
@@ -71,7 +71,7 @@ void UILayer::onInit()
 
     _outliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
     _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
-    
+
     _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &UILayer::onAddMaterial));
     _outliner->registerOnLoadMaterial(LoadMaterialDelegate(this, &UILayer::onLoadMaterial));
 
@@ -117,12 +117,6 @@ void UILayer::onDeinit()
         _outliner = nullptr;
     }
 
-    if (_fileDialog != nullptr)
-    {
-        delete _fileDialog;
-        _fileDialog = nullptr;
-    }
-
     // call base class
     iLayerWidgets::onDeinit();
 }
@@ -136,71 +130,49 @@ void UILayer::onAddMaterial()
 
 void UILayer::onLoadMaterial()
 {
-    if (_fileDialog == nullptr)
-    {
-        _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onLoadMaterialFileDialogClosed), iFileDialogPurpose::Load);
-    }
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadMaterialFileDialogClosed), iFileDialogPurpose::Load);
 }
 
 void UILayer::onImportFile()
 {
-    if (_fileDialog == nullptr)
-    {
-        _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onImportFileDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
-    }
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onImportFileDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
 }
 
 void UILayer::onImportFileReference()
 {
-    if (_fileDialog == nullptr)
-    {
-        _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onImportFileReferenceDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
-    }
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onImportFileReferenceDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
 }
 
 void UILayer::onCreateProject()
 {
-    if (_fileDialog == nullptr)
-    {
-        _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onCreateProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
-    }
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onCreateProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
 }
 
 void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
     {
-        _activeProject = iProject::createProject(_fileDialog->getFullPath());
-        _assetBrowser->setProjectFolder(_activeProject->getProjectFolder());
+        return;
     }
 
-    delete _fileDialog;
-    _fileDialog = nullptr;
+    _activeProject = iProject::createProject(_fileDialog.getFullPath());
+    _assetBrowser->setProjectFolder(_activeProject->getProjectFolder());
 }
 
 void UILayer::onLoadProject()
 {
-    if (_fileDialog == nullptr)
-    {
-        _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
-    }
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
 }
 
 void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
     {
-        _activeProject = iProject::loadProject(_fileDialog->getFullPath());
-        _assetBrowser->setProjectFolder(_activeProject->getProjectFolder());
+        return;
     }
 
-    delete _fileDialog;
-    _fileDialog = nullptr;
+    _activeProject = iProject::loadProject(_fileDialog.getFullPath());
+    _assetBrowser->setProjectFolder(_activeProject->getProjectFolder());
 }
 
 void UILayer::onSaveProject()
@@ -215,95 +187,82 @@ void UILayer::onSaveProject()
 
 void UILayer::onLoadFile()
 {
-    if (_fileDialog == nullptr)
-    {
-        _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onFileLoadDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
-    }
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onFileLoadDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
 }
 
 void UILayer::onSaveFile()
 {
-    if (_fileDialog == nullptr)
-    {
-        _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onFileSaveDialogClosed), iFileDialogPurpose::Save, DEFAULT_LOAD_SAVE_DIR);
-    }
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onFileSaveDialogClosed), iFileDialogPurpose::Save, DEFAULT_LOAD_SAVE_DIR);
 }
 
 void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
     {
-        iaString filename = _fileDialog->getFullPath();
-
-        auto rootNode = _workspace->getRootUser();
-
-        std::vector<iNodePtr> children = rootNode->getChildren();
-        children.insert(children.end(), rootNode->getInactiveChildren().begin(), rootNode->getInactiveChildren().end());
-
-        if (children.empty())
-        {
-            con_warn("nothing to save");
-        }
-        else if (children.size() == 1)
-        {
-            iModelFactory::exportToFile(filename, children[0]);
-        }
-        else
-        {
-            iModelFactory::exportToFile(filename, rootNode);
-        }
+        return;
     }
 
-    delete _fileDialog;
-    _fileDialog = nullptr;
+    iaString filename = _fileDialog.getFullPath();
+
+    auto rootNode = _workspace->getRootUser();
+
+    std::vector<iNodePtr> children = rootNode->getChildren();
+    children.insert(children.end(), rootNode->getInactiveChildren().begin(), rootNode->getInactiveChildren().end());
+
+    if (children.empty())
+    {
+        con_warn("nothing to save");
+    }
+    else if (children.size() == 1)
+    {
+        iModelFactory::exportToFile(filename, children[0]);
+    }
+    else
+    {
+        iModelFactory::exportToFile(filename, rootNode);
+    }
 }
 
 void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
     {
-        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_fileDialog->getFullPath());
-        material->setVisibility(iMaterialVisibility::Public);
-        _outliner->refresh();
+        return;
     }
 
-    delete _fileDialog;
-    _fileDialog = nullptr;
+    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_fileDialog.getFullPath());
+    material->setVisibility(iMaterialVisibility::Public);
+    _outliner->refresh();
 }
 
 void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
     {
-        _workspace->importFile(_fileDialog->getFullPath());
+        return;
     }
 
-    delete _fileDialog;
-    _fileDialog = nullptr;
+    _workspace->importFile(_fileDialog.getFullPath());
 }
 
 void UILayer::onImportFileReferenceDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
     {
-        _workspace->importFileReference(_fileDialog->getFullPath());
+        return;
     }
 
-    delete _fileDialog;
-    _fileDialog = nullptr;
+    _workspace->importFileReference(_fileDialog.getFullPath());
 }
 
 void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
+    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
     {
-        _workspace->loadFile(_fileDialog->getFullPath());
+        return;
     }
 
-    delete _fileDialog;
-    _fileDialog = nullptr;
+    _workspace->loadFile(_fileDialog.getFullPath());
 }
 
 void UILayer::onGraphViewSelectionChanged(uint64 nodeID)

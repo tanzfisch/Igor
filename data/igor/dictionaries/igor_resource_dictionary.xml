@@ -92,5 +92,7 @@
 
                 <Resource id="0xc98d3c11833c572a" alias="igor_font_default" source="igor/textures/StandardFont.png" />
                 <Resource id="0x8b4357bb05a22be1" alias="igor_font_default_outline" source="igor/textures/StandardFontOutlined.png" />
+
+                <Resource id="0x57339e8d03b3da6e" alias="igor_widget_theme_pattern" source="igor/textures/WidgetThemePattern.png" />
 	</ResourceDictionary>
 </Igor>

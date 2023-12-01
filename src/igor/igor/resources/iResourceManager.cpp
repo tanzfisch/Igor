@@ -75,7 +75,7 @@ namespace igor
         }
         _mutex.unlock();
 
-        // run flush twice so resources which hold on to other resources release them too
+        // run flush twice so resources which hold on to other resources release them too (ie sprites holding on to textures)
         flush(iResourceCacheMode::Keep);
         flush(iResourceCacheMode::Keep);
 
@@ -85,7 +85,7 @@ namespace igor
         {
             con_warn("Possible memory leak. Not all resources were released.");
 
-            con_endl("Unreleased resources: ");
+            con_endl("Unreleased resources [" << _resources.size() << "]:");
             for (auto resource : _resources)
             {
                 con_endl(resource.second->getInfo() << " " << resource.second->getType() << " ref:" << resource.second.use_count());

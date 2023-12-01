@@ -1486,6 +1486,14 @@ namespace igor
 
     void iRenderer::setViewport(int32 x, int32 y, int32 width, int32 height)
     {
+        con_assert(width >= 0 && height >= 0, "invalid view port");
+
+        if(width < 0 || height < 0)
+        {
+            con_err("invalid view port");
+            return;
+        }
+
         setViewport(iaRectanglei(x, y, width, height));
     }
 

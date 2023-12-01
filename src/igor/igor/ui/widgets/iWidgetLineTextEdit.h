@@ -213,6 +213,10 @@ namespace igor
         void updateMetrics();
     };
 
+    /*! widget line text edit pointer definition
+    */
+    typedef iWidgetLineTextEdit* iWidgetLineTextEditPtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETLINETEXTEDIT__

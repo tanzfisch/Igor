@@ -72,14 +72,9 @@ namespace igor
 		return _configuredInterval;
 	}
 
-	void iTimerHandle::registerTimerDelegate(iTimerTickDelegate timerDelegate)
+	iTimerTickEvent &iTimerHandle::getEventTimerTick()
 	{
-		_timerEvent.add(timerDelegate);
-	}
-
-	void iTimerHandle::unregisterTimerDelegate(iTimerTickDelegate timerDelegate)
-	{
-		_timerEvent.remove(timerDelegate);
+		return _timerEvent;
 	}
 
 	void iTimerHandle::triggerNow()

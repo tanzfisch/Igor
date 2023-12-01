@@ -75,7 +75,7 @@ private:
 
     /*! file open/close dialog 
 	*/
-    iDialogFileSelectPtr _fileDialog = nullptr;
+    iDialogFileSelect _fileDialog;
 
     /*! if true refresh ui next frame
     */

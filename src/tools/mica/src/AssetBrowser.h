@@ -75,7 +75,7 @@ private:
 
     /*! update handle for filesystem updates
     */
-    iTimerHandlePtr _updateHandle;
+    iTimerHandle _updateHandle;
 
     /*! init UI
      */

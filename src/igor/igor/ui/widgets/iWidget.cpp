@@ -34,10 +34,23 @@ namespace igor
     {
         if (hasKeyboardFocus())
         {
-            _keyboardFocus = nullptr;
+            resetKeyboardFocus();
         }
 
+        clearChildren();
+
         iWidgetManager::getInstance().unregisterWidget(this);
+    }
+
+    void iWidget::clearChildren()
+    {
+        for (const auto child : _children)
+        {
+            child->_parent = nullptr;
+            iWidgetManager::getInstance().deleteWidget(child);
+        }
+
+        _children.clear();
     }
 
     void iWidget::onParentChanged()
@@ -109,11 +122,6 @@ namespace igor
         _selectionChanged.block(_blockedEvents);
     }
 
-    void iWidget::clearChildren()
-    {
-        _children.clear();
-    }
-
     const std::vector<iWidgetPtr> &iWidget::getChildren() const
     {
         return _children;
@@ -136,29 +144,16 @@ namespace igor
 
     iaString iWidget::getInfo() const
     {
-        iaString result;
+        std::wstringstream stream;
 
-        iaString type(typeid(*this).name());
-        type = type.getSubString(type.findLastOf(':') + 1, type.getLength() - 1);
+        stream << getWidgetType() << " [" << _id << "] (" << _absoluteX << ", " << _absoluteY << ", " << _actualWidth << ", " << _actualHeight << ") ";
 
-        result = type;
-        result += " [";
-        result += iaString::toString(_id);
-        result += "] (";
-        result += iaString::toString(_absoluteX);
-        result += ", ";
-        result += iaString::toString(_absoluteY);
-        result += ", ";
-        result += iaString::toString(_actualWidth);
-        result += ", ";
-        result += iaString::toString(_actualHeight);
-        result += ")";
         if (!hasParent())
         {
-            result += ", no parent";
+            stream << ", no parent";
         }
 
-        return result;
+        return iaString(stream.str().c_str());
     }
 
     iWidgetPtr iWidget::getRoot()
@@ -1088,12 +1083,14 @@ namespace igor
 
     bool iWidget::isVisible() const
     {
-        if (_parent == nullptr)
+        // parent overrides local visibility if invisible
+        if (hasParent() &&
+            !getParent()->isVisible())
         {
-            return _visible;
+            return false;
         }
 
-        return _parent->isVisible();
+        return _visible;
     }
 
     uint64 iWidget::getID() const

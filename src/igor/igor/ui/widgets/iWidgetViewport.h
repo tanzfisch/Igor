@@ -47,9 +47,9 @@ namespace igor
 		*/
         iWidgetViewport(const iWidgetPtr parent = nullptr);
 
-        /*! cleanup
+        /*! does nothing
 		*/
-        virtual ~iWidgetViewport();
+        virtual ~iWidgetViewport() = default;
 
         /*! update view
         */

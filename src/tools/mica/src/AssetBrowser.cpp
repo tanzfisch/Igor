@@ -39,8 +39,9 @@ void AssetBrowser::initUI()
     scroll->addWidget(_gridView);
     splitter->addWidget(scroll);
 
-    _updateHandle = new iTimerHandle(iTimerTickDelegate(this, &AssetBrowser::update), iaTime::fromMilliseconds(10000));
-    _updateHandle->start();
+    _updateHandle.getEventTimerTick().add(iTimerTickDelegate(this, &AssetBrowser::update));
+    _updateHandle.setInterval(iaTime::fromMilliseconds(10000));
+    _updateHandle.start();
 }
 
 void AssetBrowser::onClickTreeView(const iWidgetPtr source)
@@ -129,7 +130,7 @@ void AssetBrowser::setProjectFolder(const iaString &projectDir)
 {
     _projectDir = projectDir;
 
-    _updateHandle->triggerNow();
+    _updateHandle.triggerNow();
 }
 
 const iaString AssetBrowser::getProjectFolder() const

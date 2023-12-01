@@ -353,6 +353,16 @@ namespace igor
          */
         void endDrag();
 
+        /*! queues widget for deletion
+
+        \param widget the widget to be deleted
+        */
+        void deleteWidget(iWidgetPtr widget);        
+
+        /*! delete widgets in delete queue
+        */ 
+        void flushDeleteQueue();
+
         /*! sets cursor type
 
         \param cursorType the cursor type to set

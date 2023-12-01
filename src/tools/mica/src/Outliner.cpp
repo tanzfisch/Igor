@@ -59,13 +59,6 @@ void Outliner::initGUI()
     _grid->setStretchRow(1);
     _grid->setStretchColumn(0);
 
-    iWidgetGridLayoutPtr gridButtons = new iWidgetGridLayout();
-    gridButtons->setBorder(0);
-    gridButtons->setCellSpacing(2);
-    gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
-    gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
-    gridButtons->appendColumns(8);
-
     iWidgetGridLayoutPtr gridRadioButtons = new iWidgetGridLayout();
     gridRadioButtons->setBorder(0);
     gridRadioButtons->setCellSpacing(2);
@@ -82,12 +75,6 @@ void Outliner::initGUI()
     checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &Outliner::onMaterialViewSelected));
     iWidgetCheckBox::endRadioButtonGroup();
     checkBoxGraph->setChecked();
-
-    iWidgetButtonPtr exitButton = new iWidgetButton();
-    exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
-    exitButton->setText("");
-    exitButton->setMinWidth(30);
-    exitButton->setMinHeight(30);
 
     _grid->addWidget(gridRadioButtons, 0, 0);
     gridRadioButtons->addWidget(checkBoxGraph, 0, 0);

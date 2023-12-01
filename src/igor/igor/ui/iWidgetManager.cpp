@@ -18,6 +18,18 @@ namespace igor
 
     iWidgetManager::~iWidgetManager()
     {
+        for (auto pair : _dialogs)
+        {
+            auto dialog = pair.second;
+            dialog->_parent = nullptr;
+            deleteWidget(pair.second);
+        }
+
+        while (!_forDeletion.empty())
+        {
+            flushDeleteQueue();
+        }
+
         if (!_widgets.empty())
         {
             con_warn("possible memory leak! did not release all widgets. " << _widgets.size() << " left");
@@ -237,6 +249,30 @@ namespace igor
         }
 
         applyCursor();
+
+        flushDeleteQueue();
+    }
+
+    void iWidgetManager::flushDeleteQueue()
+    {
+        std::set<iWidgetPtr> forDeletion = std::move(_forDeletion);
+
+        for (auto widget : forDeletion)
+        {
+            if (_widgets.find(widget->getID()) == _widgets.end())
+            {
+                continue;
+            }
+
+            delete widget;
+        }
+    }
+
+    void iWidgetManager::deleteWidget(iWidgetPtr widget)
+    {
+        con_assert(!widget->hasParent(), "can't have parent");
+
+        _forDeletion.insert(widget);
     }
 
     void iWidgetManager::traverseContentSize(iWidgetPtr widget)
