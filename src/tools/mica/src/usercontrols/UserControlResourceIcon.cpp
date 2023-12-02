@@ -4,16 +4,21 @@
 
 #include "UserControlResourceIcon.h"
 
+#include "../actions/MicaActionContext.h"
+
 UserControlResourceIcon::UserControlResourceIcon(const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
 {
     setGrowingByContent(false);
+    setIgnoreChildEventConsumption(true);
 
     initGUI();
 }
 
 void UserControlResourceIcon::initGUI()
 {
+    registerOnContextMenuEvent(iContextMenuDelegate(this, &UserControlResourceIcon::OnContextMenu));
+
     iWidgetBoxLayoutPtr vBoxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     vBoxLayout->setHorizontalAlignment(iHorizontalAlignment::Center);
     vBoxLayout->setVerticalAlignment(iVerticalAlignment::Top);
@@ -40,6 +45,34 @@ void UserControlResourceIcon::initGUI()
 void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
 {
     iResourceManager::getInstance().addResource(_filename);
+    _inDictionary->setTexture("igor_icon_dictionary");
+}
+
+void UserControlResourceIcon::onRemoveDictionary(iWidgetPtr source)
+{
+    const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
+    iResourceManager::getInstance().removeResource(id);
+    _inDictionary->setTexture("igor_icon_no_dictionary");
+}
+
+void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
+{
+    _contextMenu.clear();
+
+    iaVector2i pos = iMouse::getInstance().getPos();
+    _contextMenu.setPos(iaVector2f(pos._x, pos._y));
+
+    const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
+    if(id != iResourceID(IGOR_INVALID_ID))
+    {
+        _contextMenu.addCallback(iClickDelegate(this, &UserControlResourceIcon::onRemoveDictionary), "Unregister Asset", "Remove asset from resource dictionary");
+    }
+    else
+    {
+        _contextMenu.addCallback(iClickDelegate(this, &UserControlResourceIcon::onAddDictionary), "Register Asset", "Add asset to resource dictionary");
+    }
+
+    _contextMenu.open();
 }
 
 void UserControlResourceIcon::setFilename(const iaString &filename)

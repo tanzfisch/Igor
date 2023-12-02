@@ -283,6 +283,12 @@ namespace igor
         */
         void addResource(const iaString &filename, const iaString &alias = "");
 
+        /*! removes given resource from dictionary
+
+        \param resourceID the given resource id
+        */
+        void removeResource(const iResourceID &resourceID);
+
         /*! \returns resource type based on file extension
 
         \param filename the file name to guess the type of

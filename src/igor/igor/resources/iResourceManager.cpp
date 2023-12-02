@@ -725,6 +725,11 @@ namespace igor
         return param;
     }
 
+    void iResourceManager::removeResource(const iResourceID &resourceID)
+    {
+        _resourceDictionary.removeResource(resourceID);
+    }
+
     void iResourceManager::addResource(const iaString &filename, const iaString &alias)
     {
         _resourceDictionary.addResource(filename, alias);

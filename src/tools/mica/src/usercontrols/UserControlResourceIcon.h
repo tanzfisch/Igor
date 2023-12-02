@@ -48,32 +48,47 @@ public:
     void setFilename(const iaString &filename);
 
 private:
-
     /*! the file name
-    */
+     */
     iaString _filename;
 
     /*! picture (thumbnail)
-    */
+     */
     iWidgetPicturePtr _picture;
 
     /*! label with filename
-    */
+     */
     iWidgetLabelPtr _label;
 
     /*! picture that displays if a resource is in the dictionary or not
-    */
+     */
     iWidgetPicturePtr _inDictionary;
+
+    /*! the context menu
+     */
+    iDialogMenu _contextMenu;
 
     /*! init ui
      */
     void initGUI();
+
+    /*! create menu based on context menu event
+
+    \param source the calling withget
+    */
+    void OnContextMenu(iWidgetPtr source);
 
     /*! adds given resource to dictionary
 
     \param source the source widget of this event
     */
     void onAddDictionary(iWidgetPtr source);
+
+    /*! unregister asset from dictionary
+
+    \param source the source widget of this event
+    */
+    void onRemoveDictionary(iWidgetPtr source);
 };
 
 #endif // __USERCONTROL_RESOURCEICON__

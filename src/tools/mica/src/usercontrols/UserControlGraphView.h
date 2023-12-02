@@ -112,7 +112,6 @@ private:
 
     void OnSelectionChange(iWidgetPtr widget);
     void OnContextMenu(iWidgetPtr widget);
-    void OnContextMenuClose(iDialogPtr dialog);
 
     void onAddModel(const iWidgetPtr source);
     void onAddTransformation(const iWidgetPtr source);

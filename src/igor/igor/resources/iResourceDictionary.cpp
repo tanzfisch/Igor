@@ -93,6 +93,36 @@ namespace igor
         return true;
     }
 
+    void iResourceDictionary::removeResource(iResourceID resourceID)
+    {
+        if(!resourceID.isValid())
+        {
+            return;
+        }
+
+        auto iterSource = _resourceDictionaryLookup.find(resourceID);
+        if (iterSource != _resourceDictionaryLookup.end())
+        {
+            _resourceDictionaryLookup.erase(iterSource);
+        }
+
+        auto iterAlias = std::find_if(_aliasLookup.begin(), _aliasLookup.end(), [&resourceID](const auto &pair)
+                                      { return pair.second == resourceID; });
+
+        if (iterAlias != _aliasLookup.end())
+        {
+            _aliasLookup.erase(iterAlias);
+        }
+
+        auto iterData = std::find_if(_data.begin(), _data.end(), [&resourceID](const auto &tuple)
+                                      { return std::get<0>(tuple) == resourceID; });
+
+        if (iterData != _data.end())
+        {
+            _data.erase(iterData);
+        }        
+    }
+
     bool iResourceDictionary::readResourceDictionaryElement(TiXmlElement *element, bool internal)
     {
         TiXmlElement *resource = element->FirstChildElement("Resource");

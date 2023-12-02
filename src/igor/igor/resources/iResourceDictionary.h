@@ -86,6 +86,12 @@ namespace igor
         */
         const iResourceID addResource(const iaString &filename, const iaString &alias = "", bool internal = false);
 
+        /*! removes resource with given id
+
+        \param resourceID the given resource id
+        */
+        void removeResource(iResourceID resourceID);
+
     private:
         /*! for faster access aliases and resource ids are all resource ids
          */
