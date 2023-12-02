@@ -22,6 +22,8 @@ using namespace iaux;
 
 namespace igor
 {
+    static const iaString s_igorResourceDictionaryPath = "igor/igor_resource_dictionary.xml";
+
     static bool matchingFilename(iFactoryPtr factory, const iaString &filename)
     {
         iaFile file(filename);
@@ -50,7 +52,7 @@ namespace igor
         registerFactory(iFactoryPtr(new iSoundFactory()));
 
         // read igor internal resource dictionary
-        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));
+        _resourceDictionary.read(resolvePath(s_igorResourceDictionaryPath));
     }
 
     iResourceManager::~iResourceManager()
@@ -128,7 +130,7 @@ namespace igor
     {
         // make sure igor resources are always in the dictionary
         _resourceDictionary.clear();
-        _resourceDictionary.read(resolvePath("igor/dictionaries/igor_resource_dictionary.xml"));
+        _resourceDictionary.read(resolvePath(s_igorResourceDictionaryPath));
     }
 
     void iResourceManager::configure()
