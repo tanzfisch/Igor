@@ -7,14 +7,25 @@
 namespace igor
 {
 
+    iItem::iItem(const iaString &name)
+    {
+        setValue<iaString>("name", name);
+    }
+
     bool iItem::hasValue(const iaString &key) const
     {
         return _data.hasType(key);
     }
 
-    iItemPtr iItem::addItem()
+    const iaString iItem::getName() const
     {
-        _items.emplace_back(std::make_unique<iItem>());
+        return getValue<iaString>("name");
+    }
+
+    iItemPtr iItem::addItem(const iaString &name)
+    {
+        _items.emplace_back(std::make_unique<iItem>(name));
+        _items.back().get()->_parent = this;
         return _items.back().get();
     }
 
@@ -36,7 +47,7 @@ namespace igor
         std::vector<iItemPtr> result;
         result.reserve(_items.size());
 
-        for(auto &item : _items)
+        for (auto &item : _items)
         {
             result.push_back(item.get());
         }
@@ -50,4 +61,31 @@ namespace igor
         _items.clear();
     }
 
+    iItemPtr iItem::getParent() const
+    {
+        return _parent;
+    }
+
+    bool iItem::operator==(const iItem &other) const
+    {
+        if (_items.size() != other._items.size())
+        {
+            return false;
+        }
+
+        for (int i = 0; i < _items.size(); ++i)
+        {
+            if(*_items[i] != *other._items[i])
+            {
+                return false;
+            }
+        }
+
+        return _data == other._data;
+    }
+
+    bool iItem::operator!=(const iItem &other) const
+    {
+        return !(*this == other);
+    }
 }

@@ -63,8 +63,8 @@ namespace igor
         void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active) override;
         void drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool active) override;
         void drawSpacer(const iaRectanglef &rect, iWidgetState state, bool active) override;
-        void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool active) override;
-        void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool active) override;
+        void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool active, bool checked) override;
+        void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool active, bool checked) override;
         void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool active) override;
         void drawCheckBox(const iaRectanglef &rect, const iaString &text, bool checked, iWidgetState state, bool active) override;
         void drawLabel(const iaRectanglef &rect, const iaString &text, int32 textWidth, iWidgetState state, bool active) override;
@@ -110,11 +110,11 @@ namespace igor
         float32 _titleWidth = 28;
 
         /*! frame width
-        */
+         */
         float32 _frameWidth = 10;
 
         /*! background texture
-        */
+         */
         iTexturePtr _backgroundTexture = nullptr;
 
         /*! texture based font

@@ -32,27 +32,17 @@ void UserControlResourceIcon::initGUI()
     _label = new iWidgetLabel();
     _label->setHorizontalAlignment(iHorizontalAlignment::Center);
     vBoxLayout->addWidget(_label);
-
-    _inDictionary = new iWidgetPicture();
-    _inDictionary->setVerticalAlignment(iVerticalAlignment::Top);
-    _inDictionary->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _inDictionary->setBackground(iaColor4f::gray);
-    _inDictionary->setMinSize(32, 32);
-    _inDictionary->setMaxSize(32, 32);
-    _picture->addWidget(_inDictionary);
 }
 
 void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
 {
     iResourceManager::getInstance().addResource(_filename);
-    _inDictionary->setTexture("igor_icon_dictionary");
 }
 
 void UserControlResourceIcon::onRemoveDictionary(iWidgetPtr source)
 {
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
     iResourceManager::getInstance().removeResource(id);
-    _inDictionary->setTexture("igor_icon_no_dictionary");
 }
 
 void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
@@ -81,15 +71,6 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
     const iResourceID id = iResourceManager::getInstance().getResourceID(filename);
     const bool inDictionary = id != iResourceID(IGOR_INVALID_ID);
     const iaString type = iResourceManager::getInstance().getType(filename);
-
-    if (inDictionary)
-    {
-        _inDictionary->setTexture("igor_icon_dictionary");
-    }
-    else
-    {
-        _inDictionary->setTexture("igor_icon_no_dictionary");
-    }
 
     iaFile file(filename);
     setTooltip(file.getFullFileName());

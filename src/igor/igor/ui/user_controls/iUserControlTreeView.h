@@ -33,8 +33,10 @@
 
 #include <igor/data/iItem.h>
 #include <igor/ui/widgets/iWidgetBoxLayout.h>
+#include <igor/ui/widgets/iWidgetButton.h>
 
 #include <any>
+#include <vector>
 
 namespace igor
 {
@@ -67,6 +69,10 @@ namespace igor
         */
         void setItems(iItem *items);
 
+        /*! \returns selected item path
+        */
+        const iaString& getSelectedItemPath() const;
+
         /*! \returns the click event
         */
         iClickTreeViewEvent& getClickEvent();
@@ -84,6 +90,14 @@ namespace igor
          */
         iClickTreeViewEvent _clickEvent;        
 
+        /*! selected item path
+        */
+        iaString _selectedItemPath;
+
+        /*! hold on to all buttons so we can control if they are checked or not
+        */
+        std::vector<iWidgetButtonPtr> _allButtons;
+
         /*! handle click events from our buttons
 
         \param source the widget that was clicked
@@ -96,7 +110,7 @@ namespace igor
 
         /*! updates ui from tree items
          */
-        void updateUI(iItem *item, int indentation);
+        void updateUI(iItem *item, const iaString &itemPath, int indentation);
     };
 
     /*! widget tree view pointer definition

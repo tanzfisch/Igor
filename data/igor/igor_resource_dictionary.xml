@@ -40,6 +40,7 @@
                 <Resource id="0xae4911c55bcae0fb" alias="igor_icon_model" source="igor/icons/model.png" />
                 <Resource id="0x397b7f175266f459" alias="igor_icon_add_camera" source="igor/icons/addCamera.png" />
                 <Resource id="0xc6cd609bc6548319" alias="igor_icon_file" source="igor/icons/file.png" />
+                <Resource id="0xeecd609bc6adc47f" alias="igor_icon_files" source="igor/icons/files.png" />
                 <Resource id="0xfe39aed63ae85ba6" alias="igor_icon_plus" source="igor/icons/plus.png" />
                 <Resource id="0x6fe1dfbeeef66555" alias="igor_icon_exit" source="igor/icons/exit.png" />
                 <Resource id="0x604951bc70ebed4f" alias="igor_icon_mesh" source="igor/icons/mesh.png" />

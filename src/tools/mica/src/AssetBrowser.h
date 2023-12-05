@@ -45,37 +45,52 @@ public:
      */
     ~AssetBrowser() = default;
 
-    /*! sets project directory
+    /*! sets project
 
-    \param projectDir the project directory to set
+    \param project the project to use
     */
-    void setProjectFolder(const iaString& projectDir);
+    void setProject(iProjectPtr project);
 
-    /*! \returns project directory
-    */
-    const iaString getProjectFolder() const;
+    /*! \returns current project
+     */
+    iProjectPtr getProject() const;
 
 private:
-
     /*! tree view
-    */
+     */
     iUserControlTreeViewPtr _treeView = nullptr;
 
     /*! grid view
-    */
+     */
     iWidgetFixedGridLayoutPtr _gridView = nullptr;
 
-    /*! tree view data
+    /*! button to toggle content mode
     */
-    iItem _root;
+    iWidgetButtonPtr _showFilesButton = nullptr;
 
-    /*! the project directory
-    */
-    iaDirectory _projectDir;
+    /*! tree view data
+     */
+    std::unique_ptr<iItemData> _itemData;
+
+    /*! the current project
+     */
+    iProjectPtr _project;
 
     /*! update handle for filesystem updates
-    */
+     */
     iTimerHandle _updateHandle;
+
+    /*! what data to show in the asset browser
+    */
+    enum class ContentMode
+    {
+        Files,
+        Assets
+    };
+
+    /*! what data to show
+    */
+    ContentMode _contentMode = ContentMode::Assets;
 
     /*! init UI
      */
@@ -83,9 +98,18 @@ private:
 
     void update(const iaTime &time);
 
-    void update(const iaDirectory& dir, iItemPtr item);
+    void update(const iaDirectory &dir, iItemPtr item);
+
+    void updateContentModeButton();
+    void onClickShowAssetsButton(iWidgetPtr source);
 
     void onClickTreeView(const iWidgetPtr source);
+
+    /*! updates grid view with given item data
+
+    \param item the given item
+    */
+    void updateGridView(iItemPtr item);
 };
 
 #endif // __ASSET_BROWSER__

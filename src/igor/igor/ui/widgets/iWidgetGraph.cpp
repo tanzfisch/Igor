@@ -269,7 +269,7 @@ namespace igor
             for (auto point : points)
             {
                 buttonRect._x = static_cast<int32>((((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4.0f);
-                iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, iWidgetState::Standby, isEnabled());
+                iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, iWidgetState::Standby, isEnabled(), false);
             }
         }
     }

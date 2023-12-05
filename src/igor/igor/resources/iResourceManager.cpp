@@ -413,6 +413,11 @@ namespace igor
             result->_parameters.setParameter("cacheMode", requestedCacheMode);
         }
 
+        if(result->getID().toString() =="0x2bf655d89b8d9b00")
+        {
+            int x = 0;
+        }
+
         if (loadNow &&
             !result->isQuiet() &&
             result->isValid())

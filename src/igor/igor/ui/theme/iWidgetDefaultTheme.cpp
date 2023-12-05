@@ -60,6 +60,9 @@ static const iaColor4f COLOR_BLACK = {0.0f, 0.0f, 0.0f, 1.0f};
 static const iaColor4f COLOR_TEXT = {0.2f, 0.2f, 0.2f, 1.0f};
 static const iaColor4f COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f};
 
+static const iaColor4f COLOR_CHECKED_BORDER = {0.3f, 0.3f, 0.3f, 0.7f};
+static const iaColor4f COLOR_CHECKED_FILL = {0.2f, 0.2f, 0.2f, 0.2f};
+
 static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
 
 namespace igor
@@ -181,14 +184,25 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x + rect._width - 1, rect._y + 1, rect._x + rect._width - 1, rect._y + rect._height - 1, COLOR_SPECULAR);
     }
 
-    void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool active)
+    static void drawChecked(const iaRectanglef &rect)
+    {
+        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_CHECKED_FILL);
+        iRenderer::getInstance().drawRectangle(rect, COLOR_CHECKED_BORDER);
+    }
+
+    void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool active, bool checked)
     {
         drawButtonFrame(rect, color, state, active);
+
+        if (checked)
+        {
+            drawChecked(rect);
+        }
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }
 
-    void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool active)
+    void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool active, bool checked)
     {
         int32 offset = 0;
         if (state == iWidgetState::Pressed)
@@ -282,6 +296,11 @@ namespace igor
             }
             break;
             };
+        }
+
+        if (checked)
+        {
+            drawChecked(rect);
         }
 
         DRAW_DEBUG_OUTPUT(rect, state);
@@ -436,8 +455,8 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
 
-        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + 1, rect._height, rect._height / 2 - 1), "+", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, state_button_up, active);
-        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + rect._height / 2, rect._height, rect._height / 2 - 1), "-", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, state_button_down, active);
+        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + 1, rect._height, rect._height / 2 - 1), "+", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, state_button_up, active, false);
+        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + rect._height / 2, rect._height, rect._height / 2 - 1), "-", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, state_button_down, active, false);
     }
 
     void iWidgetDefaultTheme::drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool active)
@@ -462,7 +481,7 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
 
         iaRectanglef buttonRect(rect._x + rect._width - rect._height, rect._y + 1, rect._height - 1, rect._height - 2);
-        drawButton(buttonRect, "V", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, buttonState, active);
+        drawButton(buttonRect, "V", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, buttonState, active, false);
     }
 
     void iWidgetDefaultTheme::drawSelectBoxDropDown(const iaRectanglef &rect, std::vector<iaString> &text, int highlightIndex, bool active)

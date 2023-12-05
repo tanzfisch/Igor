@@ -39,7 +39,7 @@
 #include <igor/data/iFrustum.h>
 #include <igor/data/iIntersection.h>
 #include <igor/data/iJoint.h>
-#include <igor/data/iMimeData.h>
+#include <igor/data/iItemData.h>
 #include <igor/data/iPlane.h>
 #include <igor/data/iRay.h>
 #include <igor/data/iSkeleton.h>

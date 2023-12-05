@@ -245,7 +245,6 @@ file(GLOB_RECURSE EXAMPLE_BASE_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "exa
 
 foreach(
       EXAMPLE
-      00_HelloWorld
       03_2D
       04_3D
       05_Voxels

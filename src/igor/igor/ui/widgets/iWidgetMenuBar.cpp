@@ -4,7 +4,6 @@
 
 #include <igor/ui/widgets/iWidgetMenuBar.h>
 
-
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/iWidgetManager.h>
@@ -18,6 +17,7 @@ namespace igor
     {
         setHorizontalAlignment(iHorizontalAlignment::Left);
         setVerticalAlignment(iVerticalAlignment::Top);
+        setMinHeight(20);
 
         _grid = new iWidgetGridLayout(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);

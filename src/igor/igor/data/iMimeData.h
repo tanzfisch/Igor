@@ -102,6 +102,20 @@ namespace igor
         */
         void clear();
 
+        /*! compare two mime data sets
+
+        \returns true if equal
+        \param other the other item
+        */
+        bool operator==(const iMimeData &other) const;
+
+        /*! compare two mime data sets for being not equal
+
+        \returns true if not equal
+        \param other the other item
+        */
+        bool operator!=(const iMimeData &other) const;
+
     private:
         /*! data buffer
          */
@@ -135,6 +149,26 @@ namespace igor
                 _data = new uint8[_dataSize];
                 std::memcpy(_data, other._data, _dataSize);
             }
+
+            bool operator==(const iMimeDataBuffer &other) const
+            {
+                if(_dataSize != other._dataSize)
+                {
+                    return false;
+                }
+
+                return std::memcmp(_data, other._data, _dataSize) == 0;
+            }
+
+            bool operator!=(const iMimeDataBuffer &other) const
+            {
+                if(_dataSize != other._dataSize)
+                {
+                    return true;
+                }
+
+                return std::memcmp(_data, other._data, _dataSize) != 0;
+            }            
 
             ~iMimeDataBuffer()
             {

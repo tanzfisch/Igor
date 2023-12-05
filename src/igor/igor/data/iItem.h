@@ -1,4 +1,3 @@
-
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -36,7 +35,7 @@ namespace igor
 {
 
     class iItem;
-    typedef iItem* iItemPtr;
+    typedef iItem *iItemPtr;
 
     /*! \brief Item holding generic data and other items
 
@@ -45,7 +44,15 @@ namespace igor
     class IGOR_API iItem
     {
     public:
+        /*! ctor
+
+        \param name name of the item (must be unique between siblings)
+        */
+        iItem(const iaString &name = "root");
+
         /*! set value for given key
+
+        key "name" is a reserved key. Every item has a name
 
         \param key to set
         \param value to set
@@ -54,6 +61,8 @@ namespace igor
         void setValue(const iaString &key, const T &value);
 
         /*! \returns value for given key
+
+        key "name" is a reserved key. Every item has a name
 
         \param key the given key
         */
@@ -64,13 +73,18 @@ namespace igor
          */
         bool hasValue(const iaString &key) const;
 
+        /*! \returns name of item
+         */
+        const iaString getName() const;
+
         /*! adds item to this item
 
         this item retains ownership
 
         \returns newly added item
+        \param name name of the item (must be unique between siblings)
         */
-        iItemPtr addItem();
+        iItemPtr addItem(const iaString &name);
 
         /*! removes given item from this item
 
@@ -79,20 +93,42 @@ namespace igor
         void removeItem(iItemPtr item);
 
         /*! \returns items of this item
-        */
+         */
         const std::vector<iItemPtr> getItems() const;
 
+        /*! \returns parent item. nullptr if root
+         */
+        iItemPtr getParent() const;
+
         /*! clear item and it's children
-        */
+         */
         void clear();
+
+        /*! compare two items recursively for being equal
+
+        \returns true if equal
+        \param other the other item
+        */
+        bool operator==(const iItem &other) const;
+
+        /*! compare two items recursively for being not equal
+
+        \returns true if not equal
+        \param other the other item
+        */
+        bool operator!=(const iItem &other) const;
 
     private:
         /*! using mime data for implementation
          */
         iMimeData _data;
 
+        /*! pointer to parent item
+         */
+        iItem *_parent = nullptr;
+
         /*! sub items of this item
-        */
+         */
         std::vector<std::unique_ptr<iItem>> _items;
     };
 

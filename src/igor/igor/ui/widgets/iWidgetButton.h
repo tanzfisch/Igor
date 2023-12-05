@@ -138,6 +138,26 @@ namespace igor
         */
         void setIcon(iTexturePtr texture);
 
+        /*! sets the button checkable
+
+        \param checkable if true button is checkable
+        */
+        void setCheckable(bool checkable);
+
+        /*! \returns true if button is checkable
+        */
+        bool isCheckable() const;
+
+        /*! sets button checked
+
+        \param check if true button is checked
+        */
+        void setChecked(bool check);
+
+        /*! \returns true if button is checked
+        */
+        bool isChecked() const;
+
     protected:
         /*! the horizontal alignment
         */
@@ -166,6 +186,14 @@ namespace igor
         /*! the action context
         */
         iActionContextPtr _actionContext;        
+
+        /*! if true button is checkable
+        */
+        bool _checkable = false;
+
+        /*! if true button is checked
+        */
+        bool _checked = false;
 
         /*! internal click handler
         */

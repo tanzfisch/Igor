@@ -171,7 +171,27 @@ namespace igor
             return;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled());
+        iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled(), _checkable && _checked);
+    }
+
+    void iWidgetButton::setCheckable(bool checkable)
+    {
+        _checkable = checkable;
+    }
+
+    bool iWidgetButton::isCheckable() const
+    {
+        return _checkable;
+    }
+
+    void iWidgetButton::setChecked(bool check)
+    {
+        _checked = check;
+    }
+
+    bool iWidgetButton::isChecked() const
+    {
+        return _checked;
     }
 
 } // namespace igor

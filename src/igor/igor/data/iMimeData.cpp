@@ -88,4 +88,34 @@ namespace igor
     {
         _data.clear();
     }
+
+    bool iMimeData::operator!=(const iMimeData &other) const
+    {
+        return !(*this == other);
+    }
+
+    bool iMimeData::operator==(const iMimeData &other) const
+    {
+        if(_data.size() != other._data.size())
+        {
+            return false;
+        }
+
+        for(auto &pair : _data)
+        {
+            auto iter = other._data.find(pair.first);
+            if(iter == other._data.end())
+            {
+                return false;
+            }
+
+            if(pair.second != iter->second)
+            {
+                return false;
+            }
+        }
+
+
+        return true;
+    }
 }

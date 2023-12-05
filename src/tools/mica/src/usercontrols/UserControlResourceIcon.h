@@ -60,10 +60,6 @@ private:
      */
     iWidgetLabelPtr _label;
 
-    /*! picture that displays if a resource is in the dictionary or not
-     */
-    iWidgetPicturePtr _inDictionary;
-
     /*! the context menu
      */
     iDialogMenu _contextMenu;
