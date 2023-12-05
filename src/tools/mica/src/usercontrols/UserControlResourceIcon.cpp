@@ -5,6 +5,7 @@
 #include "UserControlResourceIcon.h"
 
 #include "../actions/MicaActionContext.h"
+#include "../ThumbnailCache.h"
 
 UserControlResourceIcon::UserControlResourceIcon(const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
@@ -67,17 +68,19 @@ void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
 
 void UserControlResourceIcon::setFilename(const iaString &filename)
 {
-    _filename = filename;
-    const iResourceID id = iResourceManager::getInstance().getResourceID(filename);
+    _filename = iResourceManager::getInstance().resolvePath(filename);
+    const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
     const bool inDictionary = id != iResourceID(IGOR_INVALID_ID);
-    const iaString type = iResourceManager::getInstance().getType(filename);
+    const iaString type = iResourceManager::getInstance().getType(_filename);
 
-    iaFile file(filename);
+    iaFile file(_filename);
     setTooltip(file.getFullFileName());
     _label->setText(file.getFileName());
     _label->setMaxTextWidth(128);
 
     iTexturePtr texture;
+
+    ThumbnailCache::getThumbnail(file.getFullFileName());
 
     if (type == "texture")
     {

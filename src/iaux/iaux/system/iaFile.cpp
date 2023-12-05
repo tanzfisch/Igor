@@ -139,6 +139,20 @@ namespace iaux
         return !std::filesystem::is_directory(path) && std::filesystem::exists(path);
     }
 
+    iaTime iaFile::getLastModifiedTime() const
+    {
+        return getLastModifiedTime(getFullFileName());
+    }
+
+    iaTime iaFile::getLastModifiedTime(const iaString &filename)
+    {
+        const auto lastModifiedTime = std::filesystem::last_write_time(filename.getData());
+        const auto duration = lastModifiedTime.time_since_epoch();
+        const int64 ms = std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
+
+        return iaTime::fromMicroseconds(ms);
+    }
+
     iaString iaFile::getPath() const
     {
         int64 pos = _filename.findLastOf(__IGOR_PATHSEPARATOR__);

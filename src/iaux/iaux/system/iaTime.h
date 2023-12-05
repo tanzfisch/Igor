@@ -69,6 +69,12 @@ namespace iaux
         */
         static iaTime fromMilliseconds(float64 time);
 
+        /*! \returns time object based on given micro seconds seconds
+
+        \param time time in micro seconds
+        */
+        static iaTime fromMicroseconds(int64 time);
+
         /*! adds time given time to this time
 
         \param time given time
@@ -119,7 +125,7 @@ namespace iaux
         \param scalar the value to divide the time with
         \returns the new time
         */
-        iaTime operator/(float64 scalar) const;        
+        iaTime operator/(float64 scalar) const;
 
         /*! \returns true if both times are equal
          */

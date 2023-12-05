@@ -579,7 +579,18 @@ namespace igor
 
         for (auto path : _searchPaths)
         {
-            const iaString build = currentDir + __IGOR_PATHSEPARATOR__ + path + __IGOR_PATHSEPARATOR__ + filepath;
+            iaString build;
+
+            iaDirectory searchDir(path);
+            if(searchDir.exists())
+            {
+                build = path + __IGOR_PATHSEPARATOR__ + filepath;
+            }
+            else
+            {
+                // TODO assuming it's a relative path to executable. Maybe here we better refer to project path
+                build = currentDir + __IGOR_PATHSEPARATOR__ + path + __IGOR_PATHSEPARATOR__ + filepath;
+            }
 
             iaFile file(build);
             if (file.exists())
