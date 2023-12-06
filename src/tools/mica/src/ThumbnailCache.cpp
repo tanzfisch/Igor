@@ -4,7 +4,32 @@
 
 #include "ThumbnailCache.h"
 
-iTexturePtr ThumbnailCache::getThumbnail(const iaString& filename)
+ThumbnailCache &ThumbnailCache::getInstance()
+{
+    static ThumbnailCache instance;
+    return instance;
+}
+
+ThumbnailCache::ThumbnailCache()
+{
+#ifdef IGOR_LINUX
+    _thumbnailCachePath = iaString(std::getenv("HOME")) + "/.cache/Mica/ThumbnailCache";
+#endif
+
+#ifdef IGOR_WINDOWS
+    // TODO _thumbnailCachePath = "%LOCALAPPDATA%/Mica/ThumbnailCache";
+#endif
+
+    if (!iaDirectory::exists(_thumbnailCachePath))
+    {
+        iaDirectory::makeDirectory(_thumbnailCachePath);
+    }
+
+    iWindowPtr window = iApplication::getInstance().getWindow();
+    iTaskManager::getInstance().addTask(new TaskGenerateThumbnails(window));
+}
+
+iTexturePtr ThumbnailCache::getThumbnail(const iaString &filename)
 {
     iaFile file(filename);
     con_assert(file.exists(), "file does not exist \"" << filename << "\"");
@@ -14,10 +39,65 @@ iTexturePtr ThumbnailCache::getThumbnail(const iaString& filename)
     const iaString hashName = iaString::toString((uint64)filename.getHashValue(), 16);
     const iaString hashTime = iaString::toString((uint64)time.getMicroseconds(), 16);
 
-    const iaString thumbnailPath = hashName + "-" + hashTime + ".png";
+    const iaString thumbnailFilename = hashName + "-" + hashTime + ".png";
+    const iaString thumbnailFilepath = _thumbnailCachePath + "/" + thumbnailFilename;
 
-    con_endl(filename << " -> " << thumbnailPath);
+    if (!iaFile::exists(thumbnailFilepath))
+    {
+        // look for older files with same hashName and delete them
+        iaDirectory dir(_thumbnailCachePath);
+        const iaString searchPattern = hashName + "*.png";
+        auto files = dir.getFiles(searchPattern);
+        for (auto file : files)
+        {
+            iaFile::remove(file.getFullFileName());
+        }
 
-// TODOOOOOOOO
-    return iTexturePtr();
+        // put in queue to create new thumbnail later
+        _queueMutex.lock();
+        _thumbnailProcessQueue.push_back(std::pair<iaString, iaString>(filename, thumbnailFilepath));
+        _queueMutex.unlock();
+        return nullptr;
+    }
+
+    iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                       {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                       {IGOR_RESOURCE_PARAM_SOURCE, thumbnailFilepath}});
+    // TODO add quiet flag here
+
+    return iResourceManager::getInstance().loadResource<iTexture>(param);
+}
+
+void ThumbnailCache::generateThumbnails()
+{
+    std::pair<iaString, iaString> info;
+    bool skip = false;
+    _queueMutex.lock();
+    skip = _thumbnailProcessQueue.empty();
+    if (!skip)
+    {
+        info = _thumbnailProcessQueue.front();
+        _thumbnailProcessQueue.pop_front();
+    }
+    _queueMutex.unlock();
+
+    if (skip)
+    {
+        return;
+    }
+
+    iaFile file(info.first);
+    
+    iaString extension = file.getExtension();
+
+    for(auto ex : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
+    {
+        if(ex == extension)
+        {
+            iTextureFactory::createThumbnail(info.first, info.second);
+            return;
+        }
+    }
+
+    // TODO handle other formats
 }

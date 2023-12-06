@@ -56,7 +56,7 @@ namespace igor
 
         /*! normalizes the normal and calculates new distance value
         */
-        __IGOR_INLINE__ void normalize();
+        IGOR_INLINE void normalize();
 
         /*! sets member variables
 

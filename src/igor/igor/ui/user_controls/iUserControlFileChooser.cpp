@@ -49,7 +49,7 @@ namespace igor
         return _preselectedPath;
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     void iUserControlFileChooser::onTextChanged(const iWidgetPtr source)
     {
         _fileNameChanged(_fileNameTextEdit);
@@ -84,7 +84,7 @@ namespace igor
             }
         }
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
     void iUserControlFileChooser::initGUI()
     {

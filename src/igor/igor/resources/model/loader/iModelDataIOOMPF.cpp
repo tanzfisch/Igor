@@ -363,7 +363,7 @@ namespace igor
     {
         _parameters = parameters;
 
-        const iaString filename = _parameters.getParameter<iaString>("filename", "");
+        const iaString filename = _parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         _ompf->loadFile(filename);
 
         if (_ompf->getRoot()->getChildren().size() == 0)
@@ -514,7 +514,7 @@ namespace igor
     void iModelDataIOOMPF::exportData(const iParameters &parameters)
     {
         iNodePtr node = parameters.getParameter<iNodePtr>(IGOR_RESOURCE_PARAM_NODE, nullptr);
-        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_FILENAME, "");
+        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         const iSaveMode saveMode = parameters.getParameter<iSaveMode>(IGOR_RESOURCE_PARAM_EXPORT_MODE, iSaveMode::KeepExternals);
 
         con_assert(node != nullptr, "zero pointer");

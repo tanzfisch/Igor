@@ -52,7 +52,7 @@ namespace igor
 		iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 		result->setName("obj_root");
 
-		if (!readFile(parameters.getParameter<iaString>("filename", "")))
+		if (!readFile(parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "")))
 		{
 			return 0;
 		}

@@ -12,6 +12,10 @@ using namespace iaux;
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include "stb_image_resize2.h"
 
 namespace igor
 {
@@ -30,7 +34,12 @@ namespace igor
 
     bool iTextureFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }
+
         const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         iTexturePtr texture = std::dynamic_pointer_cast<iTexture>(resource);
 
@@ -288,4 +297,55 @@ namespace igor
 
         return pixmap;
     }
+
+    bool iTextureFactory::createThumbnail(const iaString &source, const iaString &destination, uint32 newWidth, uint32 newHeight)
+    {
+        int width, height, components;
+
+        char temp[1024];
+        source.getData(temp, 1024);
+
+        _mutexImageLibrary.lock();
+        unsigned char *textureData = stbi_load(temp, &width, &height, &components, 0);
+        _mutexImageLibrary.unlock();
+
+        if (textureData == nullptr)
+        {
+            _mutexImageLibrary.lock();
+            con_err("can't load \"" << source << "\" reason:" << stbi_failure_reason());
+            _mutexImageLibrary.unlock();
+
+            return false;
+        }
+
+        // Create a buffer for the resized image
+        std::vector<unsigned char> resizedImage(newWidth * newHeight * components);
+
+        // Resize the image using stb_image.h
+        unsigned char *result = stbir_resize_uint8_linear(textureData, width, height, 0, resizedImage.data(), newWidth, newHeight, 0, (stbir_pixel_layout)components);
+        if ( !result)
+        {
+            con_err("Failed to resize image \"" << source << "\"");
+            stbi_image_free(textureData);
+            return false;
+        }
+
+        char temp2[1024];
+        destination.getData(temp2, 1024);
+
+        // Write the resized image to a PNG file using stb_image_write.h
+        if (!stbi_write_png(temp2, newWidth, newHeight, components, resizedImage.data(), newWidth * components))
+        {
+            con_err("Failed to write PNG file \"" << destination << "\"");
+            stbi_image_free(textureData);
+            return false;
+        }
+
+        // Free the loaded image
+        stbi_image_free(textureData);
+
+        con_trace("generated thumbnail \"" << source << "\" -> \"" << destination << "\"");
+        return true;
+    }
+
 }; // namespace igor

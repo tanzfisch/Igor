@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-__IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iaQuaternion<T> &q)
+IGOR_INLINE std::wostream &operator<<(std::wostream &ostr, const iaQuaternion<T> &q)
 {
     ostr << "(" << q._x << ", " << q._y << ", " << q._z << ", " << q._w << ")";
     return ostr;
@@ -335,19 +335,19 @@ void iaQuaternion<T>::getEuler(iaVector3<T> &vec) const
 }
 
 template <class T>
-__IGOR_INLINE__ const T *iaQuaternion<T>::getData() const
+IGOR_INLINE const T *iaQuaternion<T>::getData() const
 {
     return (T *)&_x;
 }
 
 template <class T>
-__IGOR_INLINE__ T *iaQuaternion<T>::getData()
+IGOR_INLINE T *iaQuaternion<T>::getData()
 {
     return (T *)&_x;
 }
 
 template <class T>
-__IGOR_INLINE__ void iaQuaternion<T>::normalize()
+IGOR_INLINE void iaQuaternion<T>::normalize()
 {
     float64 d = sqrt(_x * _x + _y + _y + _z * _z + _w * _w);
     _x /= d;

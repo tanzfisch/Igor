@@ -36,7 +36,7 @@ namespace igor
 
     /*! module class
 
-    make sure if you derrive from this class that your module will be created during
+    make sure if you derive from this class that your module will be created during
     igor::startup() and destroyed during igor::shutdown()
     */
     template <typename T>
@@ -45,7 +45,7 @@ namespace igor
     public:
         /*! \returns the instance of this module
          */
-        __IGOR_INLINE__ static T &getInstance()
+        IGOR_INLINE static T &getInstance()
         {
             con_assert(iModule<T>::_instance != nullptr, "module not instantiated");
             return *iModule<T>::_instance;
@@ -53,7 +53,7 @@ namespace igor
 
         /*! returns true if the instance of this is currently instantiated
          */
-        __IGOR_INLINE__ static bool isInstantiated()
+        IGOR_INLINE static bool isInstantiated()
         {
             return iModule<T>::_instance ? true : false;
         }

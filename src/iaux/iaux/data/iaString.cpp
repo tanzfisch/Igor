@@ -4,7 +4,7 @@
 #include <windows.h>
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 #include <iconv.h>
 #include <errno.h>
 #endif
@@ -20,7 +20,7 @@ namespace iaux
 {
 
     /*! specifies what are numbers
-    */
+     */
     const static iaString s_numbers = "0123456789abcdef";
 
 // this was already very helpful let's keep this!
@@ -48,17 +48,8 @@ namespace iaux
 
     bool iaString::matchRegex(const iaString &text, const iaString &regex)
     {
-        std::basic_string<wchar_t> searchString(text.getData());
-        std::basic_regex<wchar_t> exp;
-
-        try
-        {
-            exp = std::basic_regex<wchar_t>(regex.getData(), std::regex::extended);
-        }
-        catch (...)
-        {
-            return false;
-        }
+        std::wstring searchString(text.getData());
+        std::wregex exp(regex.getData());
 
         return std::regex_match(searchString, exp);
     }
@@ -271,7 +262,7 @@ namespace iaux
         result = static_cast<int64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getLength()), nullptr, 0, nullptr, nullptr));
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 
         iconv_t conv = iconv_open("UTF-8", "WCHAR_T");
         if (conv == (iconv_t)-1)
@@ -341,7 +332,7 @@ namespace iaux
 
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 
         iconv_t conv = iconv_open("UTF-8", "WCHAR_T");
         if (conv == (iconv_t)-1)
@@ -389,7 +380,7 @@ namespace iaux
         _data[_charCount] = 0;
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         iconv_t conv = iconv_open("WCHAR_T", "UTF-8");
         if (conv == (iconv_t)-1)
         {
@@ -1047,7 +1038,7 @@ namespace iaux
             i++;
             j--;
         }
-    }    
+    }
 
     // Converts a given integer x to string str[].  d is the number
     // of digits required in output. If d is more than the number
@@ -1262,15 +1253,15 @@ namespace iaux
         {
             character = text[i];
 
-            if(character >= '0' && character <= '9')
+            if (character >= '0' && character <= '9')
             {
                 characterValue = character - '0';
             }
-            else if(character >= 'a' && character <= 'f')
+            else if (character >= 'a' && character <= 'f')
             {
                 characterValue = character - 'a' + 10;
             }
-            else if(character >= 'A' && character <= 'F')
+            else if (character >= 'A' && character <= 'F')
             {
                 characterValue = character - 'A' + 10;
             }
@@ -1288,7 +1279,7 @@ namespace iaux
         }
 
         return result;
-    }    
+    }
 
     float64 iaString::toFloat(const iaString &text)
     {
@@ -1340,7 +1331,7 @@ namespace iaux
 
     iaString iaString::trimLeft(const iaString &text)
     {
-        if(text.isEmpty())
+        if (text.isEmpty())
         {
             return text;
         }
@@ -1351,7 +1342,7 @@ namespace iaux
 
     iaString iaString::trimRight(const iaString &text)
     {
-        if(text.isEmpty())
+        if (text.isEmpty())
         {
             return text;
         }
@@ -1396,6 +1387,15 @@ namespace iaux
         }
 
         return result;
+    }
+
+    iaString iaString::wildcardToRegex(const iaString &pattern)
+    {
+        std::wstring regexStr = pattern.getData();
+
+        std::wregex star_replace(L"\\*");
+        std::wregex questionmark_replace(L"\\?");
+        return iaString(std::regex_replace(std::regex_replace(regexStr, star_replace, L".*"), questionmark_replace, L".").c_str());
     }
 
 } // namespace iaux

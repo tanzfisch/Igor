@@ -42,7 +42,25 @@ namespace igor
     class iTextureFactory : public iFactory
     {
         friend class iResourceManager;
-        friend class iPixmap;
+
+    public:
+
+        /*! loads pixmap from file
+
+        \param filename the file to load
+        \returns pixmap
+        */
+        static iPixmapPtr loadPixmap(const iaString &filename);
+
+        /*! generate a thumbnail for given texture
+
+        \param source the source texture
+        \param destination the thumbnail
+        \param width the new width
+        \param height the new height
+        \returns true if successful 
+        */
+        static bool createThumbnail(const iaString &source, const iaString &destination, uint32 width = 128, uint32 height = 128);
 
     private:
         /*! init members
@@ -97,13 +115,6 @@ namespace igor
         \param texture the texture resource
         */
         bool pixmapToTexture(iPixmapPtr pixmap, iTexturePtr texture);
-
-        /*! loads pixmap from file
-
-        \param filename the file to load
-        \returns pixmap
-        */
-        static iPixmapPtr loadPixmap(const iaString &filename);
     };
 
 }; // namespace igor

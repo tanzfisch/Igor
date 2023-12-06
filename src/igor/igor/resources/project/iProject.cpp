@@ -76,8 +76,8 @@ namespace igor
 
     void iProject::load()
     {
-        const iaString filenameConfig = _projectFolder + __IGOR_PATHSEPARATOR__ + "project_config.xml";
-        const iaString filenameDictionary = _projectFolder + __IGOR_PATHSEPARATOR__ + "resource_dictionary.xml";
+        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
+        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.xml";
 
         readConfiguration(filenameConfig);
         iResourceManager::getInstance().addSearchPath(_projectFolder);
@@ -92,8 +92,8 @@ namespace igor
 
     void iProject::save()
     {
-        const iaString filenameConfig = _projectFolder + __IGOR_PATHSEPARATOR__ + "project_config.xml";
-        const iaString filenameDictionary = _projectFolder + __IGOR_PATHSEPARATOR__ + "resource_dictionary.xml";
+        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
+        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.xml";
 
         writeConfiguration(filenameConfig);
         iResourceManager::getInstance().saveResourceDictionary(filenameDictionary);

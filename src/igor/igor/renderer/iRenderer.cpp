@@ -647,7 +647,7 @@ namespace igor
         setWireframeEnabled(false);
     }
 
-    __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
+    IGOR_INLINE int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
     {
         auto &texQuads = _data->_texQuads;
 
@@ -686,7 +686,7 @@ namespace igor
         return textureIndex;
     }
 
-    __IGOR_INLINE__ void iRenderer::endTexturedQuad()
+    IGOR_INLINE void iRenderer::endTexturedQuad()
     {
         auto &texQuads = _data->_texQuads;
         texQuads._vertexCount += 4;
@@ -1705,7 +1705,7 @@ namespace igor
         endTriangles();
     }
 
-    __IGOR_INLINE__ void iRenderer::beginTriangles()
+    IGOR_INLINE void iRenderer::beginTriangles()
     {
         auto &triangles = _data->_triangles;
 
@@ -1720,7 +1720,7 @@ namespace igor
         }
     }
 
-    __IGOR_INLINE__ void iRenderer::endTriangles()
+    IGOR_INLINE void iRenderer::endTriangles()
     {
         _data->_lastRenderDataSetUsed = iRenderDataSet::Triangles;
     }

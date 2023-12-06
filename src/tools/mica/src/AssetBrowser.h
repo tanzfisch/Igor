@@ -110,6 +110,8 @@ private:
     \param item the given item
     */
     void updateGridView(iItemPtr item);
+
+    void refreshGridView();
 };
 
 #endif // __ASSET_BROWSER__

@@ -156,7 +156,7 @@ void Workspace::importFile(const iaString &filename)
         return;
     }
 
-    iParameters parameters({{IGOR_RESOURCE_PARAM_FILENAME, filename},
+    iParameters parameters({{IGOR_RESOURCE_PARAM_SOURCE, filename},
                             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
                             {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
                             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
@@ -226,7 +226,7 @@ void Workspace::importFileReference(const iaString &filename)
         return;
     }
 
-    iParameters parameters({{IGOR_RESOURCE_PARAM_FILENAME, filename},
+    iParameters parameters({{IGOR_RESOURCE_PARAM_SOURCE, filename},
                             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
                             {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
                             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
@@ -263,7 +263,7 @@ void Workspace::loadFile(const iaString &filename)
 
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
     iParameters parameters({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                            {IGOR_RESOURCE_PARAM_FILENAME, filename},
+                            {IGOR_RESOURCE_PARAM_SOURCE, filename},
                             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
                             {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
                             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},

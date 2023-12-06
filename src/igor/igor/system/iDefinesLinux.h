@@ -29,7 +29,7 @@
 #ifndef __IGOR_DEFINES_LINUX__
 #define __IGOR_DEFINES_LINUX__
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 
 #include <igor/iDefines.h>
 
@@ -85,6 +85,6 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_LINUX__
+#endif // IGOR_LINUX
 
 #endif // __IGOR_DEFINES_LINUX__

@@ -181,7 +181,7 @@ namespace iaux
     \param ostr the out stream handle
     \param time the time to print in stream
     */
-    __IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iaTime &time)
+    IGOR_INLINE std::wostream &operator<<(std::wostream &ostr, const iaTime &time)
     {
         if (time.getSeconds() > 1.0)
         {

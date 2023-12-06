@@ -50,13 +50,13 @@ namespace igor
         iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
         if (filepath.isEmpty())
         {
-            filepath = parameters.getParameter<iaString>("filename", "");
+            filepath = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         }
         
         const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         if (!filename.isEmpty())
         {
-            parameters.setParameter("filename", filename);
+            parameters.setParameter(IGOR_RESOURCE_PARAM_SOURCE, filename);
         }
 
         iaString subType = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SUB_TYPE, "");

@@ -73,25 +73,25 @@ namespace igor
             return iter != _wglxExtensions.end();
         }
 
-        __IGOR_INLINE__ void closeEvent()
+        IGOR_INLINE void closeEvent()
         {
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowClose(_window)));
         }
 
-        __IGOR_INLINE__ void sizeChanged(int32 width, int32 height)
+        IGOR_INLINE void sizeChanged(int32 width, int32 height)
         {
             _window->onSizeChanged(width, height);
 
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowResize(_window, width, height)));
         }
 
-        __IGOR_INLINE__ static iWindowImpl *getImpl(iWindowPtr window)
+        IGOR_INLINE static iWindowImpl *getImpl(iWindowPtr window)
         {
             return window->_impl;
         }
 
     protected:
-        /*! list of registeres os event listeners
+        /*! list of registers os event listeners
 
         currently all devices are singletons so all listeners will be added automatically
         */
@@ -754,7 +754,7 @@ namespace igor
 
 #endif // IGOR_WINDOWS
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
     class iWindowImplLinux : public iWindowImpl
     {
         friend class iWindow;
@@ -1277,7 +1277,7 @@ namespace igor
         bool _vsync = true;
     };
 
-#endif // __IGOR_LINUX__
+#endif // IGOR_LINUX
 
     iWindow::iWindow(const iaString &title)
     {
@@ -1286,7 +1286,7 @@ namespace igor
 #ifdef IGOR_WINDOWS
         _impl = new iWindowImplWindows(this);
 #endif
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         _impl = new iWindowImplLinux(this);
 #endif
 

@@ -169,7 +169,7 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float64 timestep)
 
     // apply gravity on this body
     iPhysics::getInstance().getMassMatrix(body->getNewtonBody(), mass, Ixx, Iyy, Izz);
-    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+    force.set(0.0f, -mass * static_cast<float32>(IGOR_EARTH_GRAVITY), 0.0f);
     body->setForce(force);
 }
 

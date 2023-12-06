@@ -99,22 +99,22 @@ namespace iaux
         p = period (0-1)
         */
 
-        __IGOR_INLINE__ float64 inSine(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inSine(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             return -c * std::cos(t / d * (M_PI_2)) + c + b;
         }
 
-        __IGOR_INLINE__ float64 outSine(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outSine(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             return c * std::sin(t / d * (M_PI_2)) + b;
         }
 
-        __IGOR_INLINE__ float64 inOutSine(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inOutSine(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             return -c * 0.5 * (std::cos(M_PI * t / d) - 1.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outInSine(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outInSine(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d / 2)
                 return outSine(t * 2.0, b, c * 0.5, d);
@@ -122,19 +122,19 @@ namespace iaux
                 return inSine((t * 2.0) - d, b + c * 0.5, c * 0.5, d);
         }
 
-        __IGOR_INLINE__ float64 inQuad(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inQuad(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d;
             return c * std::pow(t, 2.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outQuad(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outQuad(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d;
             return -c * t * (t - 2.0) + b;
         }
 
-        __IGOR_INLINE__ float64 inOutQuad(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inOutQuad(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d * 2.0;
             if (t < 1)
@@ -143,7 +143,7 @@ namespace iaux
                 return -c * 0.5 * ((t - 1.0) * (t - 3.0) - 1.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outInQuad(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outInQuad(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d * 0.5)
                 return outQuad(t * 2.0, b, c * 0.5, d);
@@ -151,19 +151,19 @@ namespace iaux
                 return inQuad((t * 2.0) - d, b + c * 0.5, c * 0.5, d);
         }
 
-        __IGOR_INLINE__ float64 inCubic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inCubic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d;
             return c * std::pow(t, 3.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outCubic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outCubic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d - 1.0;
             return c * (std::pow(t, 3.0) + 1.0) + b;
         }
 
-        __IGOR_INLINE__ float64 inOutCubic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inOutCubic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d * 2.0;
             if (t < 1)
@@ -174,7 +174,7 @@ namespace iaux
             return c * 0.5 * (t * t * t + 2.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outInCubic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outInCubic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d * 0.5)
                 return outCubic(t * 2.0, b, c * 0.5, d);
@@ -182,19 +182,19 @@ namespace iaux
                 return inCubic((t * 2.0) - d, b + c * 0.5, c * 0.5, d);
         }
 
-        __IGOR_INLINE__ float64 inQuart(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inQuart(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d;
             return c * std::pow(t, 4.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outQuart(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outQuart(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d - 1.0;
             return -c * (std::pow(t, 4.0) - 1.0) + b;
         }
 
-        __IGOR_INLINE__ float64 inOutQuart(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inOutQuart(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d * 2.0;
             if (t < 1)
@@ -205,7 +205,7 @@ namespace iaux
             return -c * 0.5 * (std::pow(t, 4.0) - 2.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outInQuart(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outInQuart(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d * 0.5)
                 return outQuart(t * 2.0, b, c * 0.5, d);
@@ -213,19 +213,19 @@ namespace iaux
                 return inQuart((t * 2.0) - d, b + c * 0.5, c * 0.5, d);
         }
 
-        __IGOR_INLINE__ float64 inQuint(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inQuint(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d;
             return c * std::pow(t, 5.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outQuint(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outQuint(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d - 1.0;
             return c * (std::pow(t, 5.0) + 1.0) + b;
         }
 
-        __IGOR_INLINE__ float64 inOutQuint(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inOutQuint(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d * 2.0;
             if (t < 1)
@@ -236,7 +236,7 @@ namespace iaux
             return c * 0.5 * (std::pow(t, 5.0) + 2.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outInQuint(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outInQuint(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d / 2)
                 return outQuint(t * 2.0, b, c * 0.5, d);
@@ -244,7 +244,7 @@ namespace iaux
                 return inQuint((t * 2.0) - d, b + c * 0.5, c * 0.5, d);
         }
 
-        __IGOR_INLINE__ float64 inExpo(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inExpo(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t == 0)
                 return b;
@@ -252,7 +252,7 @@ namespace iaux
                 return c * std::pow(2.0, 10.0 * (t / d - 1.0)) + b - c * 0.001;
         }
 
-        __IGOR_INLINE__ float64 outExpo(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outExpo(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t == d)
                 return b + c;
@@ -260,7 +260,7 @@ namespace iaux
                 return c * 1.001 * (-std::pow(2.0, -10.0 * t / d) + 1.0) + b;
         }
 
-        __IGOR_INLINE__ float64 inOutExpo(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inOutExpo(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t == 0)
                 return b;
@@ -278,7 +278,7 @@ namespace iaux
             return c * 0.5 * 1.0005 * (-std::pow(2.0, -10.0 * t) + 2.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outInExpo(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outInExpo(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d * 0.5)
                 return outExpo(t * 2.0, b, c * 0.5, d);
@@ -286,19 +286,19 @@ namespace iaux
                 return inExpo((t * 2.0) - d, b + c * 0.5, c * 0.5, d);
         }
 
-        __IGOR_INLINE__ float64 inCirc(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inCirc(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d;
             return(-c * (std::sqrt(1.0 - std::pow(t, 2.0)) - 1.0) + b);
         }
 
-        __IGOR_INLINE__ float64 outCirc(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outCirc(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d - 1.0;
             return(c * std::sqrt(1.0 - std::pow(t, 2.0)) + b);
         }
 
-        __IGOR_INLINE__ float64 inOutCirc(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inOutCirc(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d * 2.0;
 
@@ -314,7 +314,7 @@ namespace iaux
             return c * 0.5 * (std::sqrt(1.0 - t * t) + 1.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outInCirc(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outInCirc(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d * 0.5)
             {
@@ -326,19 +326,19 @@ namespace iaux
             }
         }
 
-        /*__IGOR_INLINE__ float64 inBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
+        /*IGOR_INLINE float64 inBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
         {
             t = t / d;
             return c * t * t * ((s + 1.0) * t - s) + b;
         }
 
-        __IGOR_INLINE__ float64 outBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
+        IGOR_INLINE float64 outBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
         {
             t = t / d - 1.0;
             return c * (t * t * ((s + 1.0) * t + s) + 1.0) + b;
         }
 
-        __IGOR_INLINE__ float64 inOutBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
+        IGOR_INLINE float64 inOutBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
         {
             s = s * 1.525;
             t = t / d * 2.0;
@@ -355,7 +355,7 @@ namespace iaux
             return c * 0.5 * (t * t * ((s + 1.0) * t + s) + 2.0) + b;
         }
 
-        __IGOR_INLINE__ float64 outInBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
+        IGOR_INLINE float64 outInBack(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 s = 1.70158)
         {
             if (t < d * 0.5)
             {
@@ -367,7 +367,7 @@ namespace iaux
             }
         }
 
-        __IGOR_INLINE__ float64 inElastic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 a = 0.5, float64 p = 0.25)
+        IGOR_INLINE float64 inElastic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 a = 0.5, float64 p = 0.25)
         {
             if (t == 0)
                 return b;
@@ -397,7 +397,7 @@ namespace iaux
             return -(a * std::pow(2.0, 10.0 * t) * std::sin((t * d - s) * (2.0 * M_PI) / p)) + b;
         }
 
-        __IGOR_INLINE__ float64 outElastic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 a = 0.5, float64 p = 0.25)
+        IGOR_INLINE float64 outElastic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 a = 0.5, float64 p = 0.25)
         {
             if (t == 0)
                 return b;
@@ -425,7 +425,7 @@ namespace iaux
             return a * std::pow(2.0, -10.0 * t) * std::sin((t * d - s) * (2.0 * M_PI) / p) + c + b;
         }
 
-        __IGOR_INLINE__ float64 inOutElastic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 a = 0.5, float64 p = 0.25)
+        IGOR_INLINE float64 inOutElastic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 a = 0.5, float64 p = 0.25)
         {
             if (t == 0)
                 return b;
@@ -462,7 +462,7 @@ namespace iaux
             }
         }
 
-        __IGOR_INLINE__ float64 outInElastic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 a = 0.5, float64 p = 0.25)
+        IGOR_INLINE float64 outInElastic(float64 t, float64 b = 0, float64 c = 1, float64 d = 1, float64 a = 0.5, float64 p = 0.25)
         {
             if (t < d * 0.5)
             {
@@ -474,7 +474,7 @@ namespace iaux
             }
         }*/
 
-        __IGOR_INLINE__ float64 outBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             t = t / d;
             if (t < 1 / 2.75)
@@ -498,12 +498,12 @@ namespace iaux
             }
         }
 
-        __IGOR_INLINE__ float64 inBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             return c - outBounce(d - t, 0.0, c, d) + b;
         }
 
-        __IGOR_INLINE__ float64 inOutBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 inOutBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d * 0.5)
             {
@@ -515,7 +515,7 @@ namespace iaux
             }
         }
 
-        __IGOR_INLINE__ float64 outInBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
+        IGOR_INLINE float64 outInBounce(float64 t, float64 b = 0, float64 c = 1, float64 d = 1)
         {
             if (t < d * 0.5)
             {

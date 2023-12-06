@@ -284,7 +284,7 @@ namespace OMPF
         return _emitterID;
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     uint32 ompfParticleSystemChunk::getSize(const ompfSettings &settings)
     {
         uint32 result = 0;
@@ -315,7 +315,7 @@ namespace OMPF
         result += 4;   // emitter chunk id
         return result; // 24
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
     bool ompfParticleSystemChunk::write(std::ofstream &stream, const ompfSettings &settings)
     {

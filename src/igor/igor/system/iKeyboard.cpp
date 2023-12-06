@@ -546,7 +546,7 @@ namespace igor
     };
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
     class iKeyboardImplLinux : public iKeyboardImpl
     {
     public:
@@ -901,7 +901,7 @@ namespace igor
         _impl = new iKeyboardImplWindows();
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         _impl = new iKeyboardImplLinux();
 #endif
     }

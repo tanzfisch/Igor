@@ -199,8 +199,8 @@ namespace igor
             return true;
         }
 
-        if (matchingFilename(factory, parameters.getParameter<iaString>("filename")) ||
-            matchingFilename(factory, parameters.getParameter<iaString>("alias")))
+        if (matchingFilename(factory, parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE)) ||
+            matchingFilename(factory, parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS)))
         {
             return true;
         }
@@ -242,7 +242,7 @@ namespace igor
             return nullptr;
         }
 
-        const iResourceID id = parameters.getParameter<iResourceID>("id", IGOR_INVALID_ID);
+        const iResourceID id = parameters.getParameter<iResourceID>(IGOR_RESOURCE_PARAM_ID, IGOR_INVALID_ID);
 
         return getResource(id);
     }
@@ -295,9 +295,9 @@ namespace igor
         iResourceID id;
         if (!iResource::extractID(parameters, id))
         {
-            const iaString id = parameters.getParameter<iaString>("id", "");
-            const iaString alias = parameters.getParameter<iaString>("alias", "");
-            const iaString filename = parameters.getParameter<iaString>("filename", "");
+            const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
+            const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
             con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");
             return nullptr;
         }
@@ -363,9 +363,9 @@ namespace igor
         iResourceID id;
         if (!iResource::extractID(parameters, id))
         {
-            const iaString id = parameters.getParameter<iaString>("id", "");
-            const iaString alias = parameters.getParameter<iaString>("alias", "");
-            const iaString filename = parameters.getParameter<iaString>("filename", "");
+            const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
+            const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
             con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << filename << "\"");
             return nullptr;
         }
@@ -584,12 +584,12 @@ namespace igor
             iaDirectory searchDir(path);
             if(searchDir.exists())
             {
-                build = path + __IGOR_PATHSEPARATOR__ + filepath;
+                build = path + IGOR_PATHSEPARATOR + filepath;
             }
             else
             {
                 // TODO assuming it's a relative path to executable. Maybe here we better refer to project path
-                build = currentDir + __IGOR_PATHSEPARATOR__ + path + __IGOR_PATHSEPARATOR__ + filepath;
+                build = currentDir + IGOR_PATHSEPARATOR + path + IGOR_PATHSEPARATOR + filepath;
             }
 
             iaFile file(build);
@@ -645,7 +645,7 @@ namespace igor
 
         for (auto path : _searchPaths)
         {
-            iaFile composed(path + __IGOR_PATHSEPARATOR__ + filename);
+            iaFile composed(path + IGOR_PATHSEPARATOR + filename);
             if (composed.exists())
             {
                 result = true;

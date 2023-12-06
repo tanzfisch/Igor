@@ -50,7 +50,7 @@ namespace iaux
     /*!
     \todo forgot what this is good for
     */
-    __IGOR_FUNCTION_POINTER__(superspecialfuncptrtype, iaConsole &, (iaConsole &));
+    IGOR_FUNCTION_POINTER(superspecialfuncptrtype, iaConsole &, (iaConsole &));
 
     /*! used as foreground colors for console output
      */
@@ -324,7 +324,7 @@ will be fully removed in release build
         iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endlTab;              \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
-        iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
+        iaConsole::getInstance() << IGOR_FUNCTION << endlTab;                                                         \
         iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
         iaConsole::getInstance().printCallStack();                                                                        \
         iaConsole::getInstance().exit();                                                                                  \
@@ -372,7 +372,7 @@ including line feed
     {                                                                                                                        \
         iaConsole::getInstance() << LOCK;                                                                                    \
         iaConsole::getInstance().printHead(iaLogLevel::Trace);                                                               \
-        iaConsole::getInstance() << iaForegroundColor::DarkMagenta << __IGOR_FUNCTION__ << " " << __IGOR_FILE_LINE__ << endl \
+        iaConsole::getInstance() << iaForegroundColor::DarkMagenta << IGOR_FUNCTION << " " << __IGOR_FILE_LINE__ << endl \
                                  << UNLOCK;                                                                                  \
     }
 
@@ -392,7 +392,7 @@ including line feed
         iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << endlTab;                                     \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
-        iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
+        iaConsole::getInstance() << IGOR_FUNCTION << endlTab;                                                         \
         iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
         iaConsole::getInstance().printCallStack(10);                                                                      \
         iaConsole::getInstance().exit();                                                                                  \
@@ -411,7 +411,7 @@ including line feed
         iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endlTab;              \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
-        iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
+        iaConsole::getInstance() << IGOR_FUNCTION << endlTab;                                                         \
         iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
         iaConsole::getInstance().printCallStack();                                                                        \
         iaConsole::getInstance().exit();                                                                                  \
@@ -429,7 +429,7 @@ including line feed
         iaConsole::getInstance().printHead(iaLogLevel::Error);                                  \
         iaConsole::getInstance() << incerr << iaForegroundColor::DarkRed << Message << endlTab; \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                              \
-        iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                               \
+        iaConsole::getInstance() << IGOR_FUNCTION << endlTab;                               \
         iaConsole::getInstance() << endl                                                        \
                                  << UNLOCK;                                                     \
         con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors");       \
@@ -446,7 +446,7 @@ including line feed
         iaConsole::getInstance().printHead(iaLogLevel::Warning);                                    \
         iaConsole::getInstance() << incwarn << iaForegroundColor::DarkYellow << Message << endlTab; \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                  \
-        iaConsole::getInstance() << __IGOR_FUNCTION__ << endl;                                      \
+        iaConsole::getInstance() << IGOR_FUNCTION << endl;                                      \
         iaConsole::getInstance() << UNLOCK;                                                         \
         con_assert_sticky(iaConsole::getInstance().getWarnings() < 200, "too many warnings");       \
     }
@@ -483,7 +483,7 @@ including line feed
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &endl(iaConsole &console)
+    IGOR_INLINE iaConsole &endl(iaConsole &console)
     {
         iaConsole::getInstance().setTextColor(iaForegroundColor::Gray);
         std::wcout << std::endl;
@@ -499,7 +499,7 @@ including line feed
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &endlTab(iaConsole &console)
+    IGOR_INLINE iaConsole &endlTab(iaConsole &console)
     {
         std::wcout << std::endl
                    << __IGOR_LOGGING_TAB__;
@@ -516,7 +516,7 @@ including line feed
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &flush(iaConsole &console)
+    IGOR_INLINE iaConsole &flush(iaConsole &console)
     {
         iaConsole::getInstance().setTextColor(iaForegroundColor::Gray);
         std::wcout << std::flush;
@@ -532,7 +532,7 @@ including line feed
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &incerr(iaConsole &console)
+    IGOR_INLINE iaConsole &incerr(iaConsole &console)
     {
         console._errors++;
         return console;
@@ -543,7 +543,7 @@ including line feed
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &incwarn(iaConsole &console)
+    IGOR_INLINE iaConsole &incwarn(iaConsole &console)
     {
         console._warnings++;
         return console;
@@ -554,7 +554,7 @@ including line feed
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &LOCK(iaConsole &console)
+    IGOR_INLINE iaConsole &LOCK(iaConsole &console)
     {
         console.lock();
         return console;
@@ -565,7 +565,7 @@ including line feed
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &UNLOCK(iaConsole &console)
+    IGOR_INLINE iaConsole &UNLOCK(iaConsole &console)
     {
         console.unlock();
         return console;
@@ -583,7 +583,7 @@ including line feed
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &applicationTime(iaConsole &console)
+    IGOR_INLINE iaConsole &applicationTime(iaConsole &console)
     {
         uint64 time = static_cast<uint64>(iaClock::getTimeMilliseconds());
         uint64 seconds = (time / 1000) % 60;

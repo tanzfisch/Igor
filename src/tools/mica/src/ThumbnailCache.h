@@ -29,22 +29,47 @@
 #ifndef __THUMBNAIL_CACHE__
 #define __THUMBNAIL_CACHE__
 
-#include <igor/igor.h>
-using namespace igor;
+#include "TaskGenerateThumbnails.h"
 
 /*! the thumbnail cache
  */
 class ThumbnailCache
 {
 
+    friend class TaskGenerateThumbnails;
+
 public:
+
+    /*! \returns singleton instance of thumbnail cache
+    */
+    static ThumbnailCache &getInstance();
 
     /*! \returns thumbnail for given filename
 
     \param filename full path of existing filename
     */
-    static iTexturePtr getThumbnail(const iaString& filename);
+    iTexturePtr getThumbnail(const iaString &filename);
 
+private:
+    /*! path to thumbnail cache
+     */
+    iaString _thumbnailCachePath;
+
+    /*! queue to process thumbnails
+    */
+    std::deque<std::pair<iaString, iaString>> _thumbnailProcessQueue;
+
+    /*! mutex for processing queue
+    */
+    iaMutex _queueMutex;
+
+    /*! generates thumbnails
+    */
+    void generateThumbnails();
+
+    /*! init cache
+     */
+    ThumbnailCache();
 };
 
 #endif // __THUMBNAIL_CACHE__

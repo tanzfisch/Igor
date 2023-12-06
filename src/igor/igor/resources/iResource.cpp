@@ -19,11 +19,11 @@ namespace igor
             _id = iaUUID();
         }
 
-        _alias = parameters.getParameter<iaString>("alias", "");
-        _source = parameters.getParameter<iaString>("filename", "");
+        _alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+        _source = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
 
-        _type = parameters.getParameter<iaString>("type");
-        _cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
+        _type = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE);
+        _cacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
         _quiet = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_QUIET, false);
     }
 
@@ -48,7 +48,7 @@ namespace igor
             return true;
         }
 
-        const iaString filename = parameters.getParameter<iaString>("filename", "");
+        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         if (!filename.isEmpty())
         {
             return true;

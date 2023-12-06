@@ -3,26 +3,26 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-__IGOR_INLINE__ std::wostream& operator<<(std::wostream &ostr, const iaVector2<T> &vec)
+IGOR_INLINE std::wostream& operator<<(std::wostream &ostr, const iaVector2<T> &vec)
 {
     ostr << "(" << vec._x << ", " << vec._y << ")";
     return ostr;
 }
 
 template <class T>
-__IGOR_INLINE__ T& iaVector2<T>::operator[](int index)
+IGOR_INLINE T& iaVector2<T>::operator[](int index)
 {
     return (&_x)[index];
 }
 
 template <class T>
-__IGOR_INLINE__ const T& iaVector2<T>::operator[](int index) const
+IGOR_INLINE const T& iaVector2<T>::operator[](int index) const
 {
     return (&_x)[index];
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator+(const iaVector2<T> &vec) const
+IGOR_INLINE iaVector2<T> iaVector2<T>::operator+(const iaVector2<T> &vec) const
 {
     iaVector2<T> result;
     result._x = _x + vec._x;
@@ -32,26 +32,26 @@ __IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator+(const iaVector2<T> &vec) co
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaVector2<T>::operator==(const iaVector2<T> &vec) const
+IGOR_INLINE bool iaVector2<T>::operator==(const iaVector2<T> &vec) const
 {
     return ((_x == vec._x) && (_y == vec._y)) ? true : false;
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaVector2<T>::operator!=(const iaVector2<T> &vec) const
+IGOR_INLINE bool iaVector2<T>::operator!=(const iaVector2<T> &vec) const
 {
     return ((_x != vec._x) || (_y != vec._y)) ? true : false;
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::operator+=(const iaVector2<T> &vec)
+IGOR_INLINE void iaVector2<T>::operator+=(const iaVector2<T> &vec)
 {
     _x += vec._x;
     _y += vec._y;
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator-(const iaVector2<T> &vec) const
+IGOR_INLINE iaVector2<T> iaVector2<T>::operator-(const iaVector2<T> &vec) const
 {
     iaVector2<T> result;
     result._x = _x - vec._x;
@@ -61,14 +61,14 @@ __IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator-(const iaVector2<T> &vec) co
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::operator-=(const iaVector2<T> &vec)
+IGOR_INLINE void iaVector2<T>::operator-=(const iaVector2<T> &vec)
 {
     _x -= vec._x;
     _y -= vec._y;
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator=(const iaVector2<T> &vec)
+IGOR_INLINE iaVector2<T> iaVector2<T>::operator=(const iaVector2<T> &vec)
 {
     iaVector2<T> result;
     result._x = _x = vec._x;
@@ -78,7 +78,7 @@ __IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator=(const iaVector2<T> &vec)
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator*(T scalar) const
+IGOR_INLINE iaVector2<T> iaVector2<T>::operator*(T scalar) const
 {
     iaVector2<T> result;
     result._x = _x * scalar;
@@ -88,14 +88,14 @@ __IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator*(T scalar) const
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::operator*=(T scalar)
+IGOR_INLINE void iaVector2<T>::operator*=(T scalar)
 {
     _x *= scalar;
     _y *= scalar;
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator/(T scalar) const
+IGOR_INLINE iaVector2<T> iaVector2<T>::operator/(T scalar) const
 {
     iaVector2<T> result;
     result._x = _x / scalar;
@@ -105,58 +105,58 @@ __IGOR_INLINE__ iaVector2<T> iaVector2<T>::operator/(T scalar) const
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::operator/=(T scalar)
+IGOR_INLINE void iaVector2<T>::operator/=(T scalar)
 {
     _x /= scalar;
     _y /= scalar;
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::operator*(const iaVector2<T> &vec) const
+IGOR_INLINE T iaVector2<T>::operator*(const iaVector2<T> &vec) const
 {
     return _x*vec._x + _y*vec._y;
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector2<T>::iaVector2(T x, T y)
+IGOR_INLINE iaVector2<T>::iaVector2(T x, T y)
 {
     _x = x;
     _y = y;
 }
 
 template <class T>
-__IGOR_INLINE__ T* iaVector2<T>::getData()
+IGOR_INLINE T* iaVector2<T>::getData()
 {
     return &_x;
 }
 
 template <class T>
-__IGOR_INLINE__ const T* iaVector2<T>::getData() const
+IGOR_INLINE const T* iaVector2<T>::getData() const
 {
     return &_x;
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::set(T x, T y)
+IGOR_INLINE void iaVector2<T>::set(T x, T y)
 {
     _x = x;
     _y = y;
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::length() const
+IGOR_INLINE T iaVector2<T>::length() const
 {
     return (T)sqrt(_x*_x + _y*_y);
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::length2() const
+IGOR_INLINE T iaVector2<T>::length2() const
 {
     return (_x*_x + _y*_y);
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::distance(const iaVector2<T> &vec) const
+IGOR_INLINE T iaVector2<T>::distance(const iaVector2<T> &vec) const
 {
     T dx = _x - vec._x;
     T dy = _y - vec._y;
@@ -164,7 +164,7 @@ __IGOR_INLINE__ T iaVector2<T>::distance(const iaVector2<T> &vec) const
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::distance2(const iaVector2<T> &vec) const
+IGOR_INLINE T iaVector2<T>::distance2(const iaVector2<T> &vec) const
 {
     T dx = _x - vec._x;
     T dy = _y - vec._y;
@@ -172,19 +172,19 @@ __IGOR_INLINE__ T iaVector2<T>::distance2(const iaVector2<T> &vec) const
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::angle(iaVector2<T> &vec) const
+IGOR_INLINE T iaVector2<T>::angle(iaVector2<T> &vec) const
 {
     return (T)(acos(((*this)*vec) / (length()*vec.length())));
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::angle() const
+IGOR_INLINE T iaVector2<T>::angle() const
 {
     return (T)std::atan2(_y ,_x);
 }
 
 template <class T>
-__IGOR_INLINE__ void  iaVector2<T>::rotateXY(T angle)
+IGOR_INLINE void  iaVector2<T>::rotateXY(T angle)
 {
     T c = (T)cos(angle);
     T s = (T)sin(angle);
@@ -195,7 +195,7 @@ __IGOR_INLINE__ void  iaVector2<T>::rotateXY(T angle)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::normalize()
+IGOR_INLINE void iaVector2<T>::normalize()
 {
     if(_x == 0 && _y == 0)
     {
@@ -208,7 +208,7 @@ __IGOR_INLINE__ void iaVector2<T>::normalize()
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector2<T>::negate()
+IGOR_INLINE void iaVector2<T>::negate()
 {
     _x *= -1;
     _y *= -1;
@@ -216,7 +216,7 @@ __IGOR_INLINE__ void iaVector2<T>::negate()
 
 template <class T>
 template <class T2>
-__IGOR_INLINE__ iaVector2<T2> iaVector2<T>::convert() const
+IGOR_INLINE iaVector2<T2> iaVector2<T>::convert() const
 {
 	iaVector2<T2> result(static_cast<T2>(_x), static_cast<T2>(_y));
 	return result;

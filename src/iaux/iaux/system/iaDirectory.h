@@ -102,7 +102,7 @@ namespace iaux
         \param recursive true: search recursively; false: search only in current directory
         \param orderAlphabetically true: returns files in alphabetical order
         */
-        std::vector<iaFile> getFiles(const iaString &searchPattern = L"(.*)", bool recursive = false, bool orderAlphabetically = true) const;
+        std::vector<iaFile> getFiles(const iaString &searchPattern = L"*", bool recursive = false, bool orderAlphabetically = true) const;
 
         /*! set's the current or working directory
 

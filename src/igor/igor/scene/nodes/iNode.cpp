@@ -57,11 +57,11 @@ namespace igor
         return _transformationChangeEvent;
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     void iNode::onPostCopyLink(std::map<iNodeID, iNodeID> &nodeIDMap)
     {
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
     bool iNode::isDataDirty()
     {
@@ -366,11 +366,11 @@ namespace igor
         return _parent ? true : false;
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     void iNode::onUpdateTransform(iaMatrixd &matrix)
     {
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
     void iNode::removeNode(iNodePtr node)
     {

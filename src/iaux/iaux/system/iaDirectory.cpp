@@ -10,8 +10,9 @@
 #include <sstream>
 #include <filesystem>
 #include <algorithm>
+#include <regex>
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
@@ -21,7 +22,6 @@ namespace iaux
 {
     iaDirectory::iaDirectory()
     {
-
     }
 
     iaDirectory::iaDirectory(const iaString &directoryName)
@@ -40,7 +40,7 @@ namespace iaux
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaDirectory> result;
 
-        if(!isDirectory(fullPath))
+        if (!isDirectory(fullPath))
         {
             return result;
         }
@@ -82,7 +82,7 @@ namespace iaux
 
     bool iaDirectory::isDirectory(const iaString &path)
     {
-        if(path.isEmpty())
+        if (path.isEmpty())
         {
             return false;
         }
@@ -103,7 +103,7 @@ namespace iaux
 
     bool iaDirectory::exists(const iaString &path)
     {
-        if(path.isEmpty())
+        if (path.isEmpty())
         {
             return false;
         }
@@ -122,14 +122,17 @@ namespace iaux
 
     void iaDirectory::makeDirectory(const iaString &path)
     {
-        if(iaDirectory::exists(path))
+        if (iaDirectory::exists(path))
         {
             con_warn("directory already exists " << path);
             return;
         }
 
         std::filesystem::path directory(path.getData());
-        std::filesystem::create_directories(directory);
+        if (!std::filesystem::create_directories(directory))
+        {
+            con_err("can't create directory \"" << path << "\"");
+        }
     }
 
     /*! \returns true if it's a file that matches given search pattern
@@ -140,8 +143,8 @@ namespace iaux
     {
         if (entry.is_regular_file())
         {
-            iaString filename(entry.path().c_str());
-            if (iaString::matchRegex(filename, searchPattern))
+            iaString filename(entry.path().filename().c_str());
+            if (iaString::matchRegex(filename, iaString::wildcardToRegex(searchPattern)))
             {
                 return true;
             }
@@ -155,7 +158,7 @@ namespace iaux
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaFile> result;
 
-        if(!isDirectory(fullPath))
+        if (!isDirectory(fullPath))
         {
             return result;
         }
@@ -203,13 +206,13 @@ namespace iaux
     iaString iaDirectory::getDirectoryName() const
     {
         iaString fullPath = fixPath(_directoryName, false);
-        return fullPath.getSubString(fullPath.findLastOf(__IGOR_PATHSEPARATOR__) + 1);
+        return fullPath.getSubString(fullPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
     }
 
     iaString iaDirectory::getFullParentDirectoryName() const
     {
         iaString fullPath = fixPath(_directoryName, false);
-        return fullPath.getSubString(0, fullPath.findLastOf(__IGOR_PATHSEPARATOR__));
+        return fullPath.getSubString(0, fullPath.findLastOf(IGOR_PATHSEPARATOR));
     }
 
     bool iaDirectory::isRoot()
@@ -231,9 +234,9 @@ namespace iaux
         }
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         if (_directoryName.getLength() == 1 &&
-            _directoryName[1] == __IGOR_PATHSEPARATOR__)
+            _directoryName[1] == IGOR_PATHSEPARATOR)
         {
             return true;
         }
@@ -261,8 +264,8 @@ namespace iaux
         }
 #endif
 
-#ifdef __IGOR_LINUX__
-        if (directoryname[0] == __IGOR_PATHSEPARATOR__)
+#ifdef IGOR_LINUX
+        if (directoryname[0] == IGOR_PATHSEPARATOR)
         {
             return true;
         }
@@ -279,8 +282,8 @@ namespace iaux
         }
 
         iaString temp = directoryName;
-        const wchar_t pathSeperator = __IGOR_PATHSEPARATOR__;
-        const wchar_t notPathSeperator = __IGOR_NOT_PATHSEPARATOR__;
+        const wchar_t pathSeperator = IGOR_PATHSEPARATOR;
+        const wchar_t notPathSeperator = IGOR_NOT_PATHSEPARATOR;
 
         // converts to OS specific path seperator
         for (int i = 0; i < temp.getLength(); ++i)
@@ -297,7 +300,7 @@ namespace iaux
             temp = temp.getSubString(0, temp.findLastOf(pathSeperator));
         }
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         // check if this is the user home folder
         if (temp[0] == '~')
         {

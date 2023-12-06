@@ -26,44 +26,34 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TASKFLUSHRESOURCES__
-#define __IGOR_TASKFLUSHRESOURCES__
+#ifndef TASK_GENERATE_THUMBNAILS
+#define TASK_GENERATE_THUMBNAILS
 
-#include <igor/threading/tasks/iTask.h>
+#include <igor/igor.h>
+using namespace igor;
 
-namespace igor
+/*! task that generates thumbnails
+ */
+class TaskGenerateThumbnails : public iTask
 {
 
-    /*! this task triggers the resource manager flush function repeatedly
+public:
+    /*! init
+     */
+    TaskGenerateThumbnails(iWindowPtr window);
 
-    when ever there was a resource requested this task get's it actually loaded from disk
+    /*! does nothing
+     */
+    virtual ~TaskGenerateThumbnails() = default;
 
-    will be added to the task manager after window was opened
-    */
-    class iTaskFlushResources : public iTask
-    {
+    /*! aborts the task
+     */
+    void abort() override;
 
-    public:
-        /*! initializes member variables
+protected:
+    /*! runs the task
+     */
+    void run() override;
+};
 
-        \param window window connected to render context
-        */
-        iTaskFlushResources(iWindowPtr window);
-
-        /*! does nothing
-         */
-        virtual ~iTaskFlushResources() = default;
-
-        /*! aborts the task
-         */
-        void abort() override;
-
-    protected:
-        /*! runs the task
-         */
-        void run() override;
-    };
-
-}; // namespace igor
-
-#endif // __IGOR_TASKFLUSHRESOURCES__
+#endif // TASK_GENERATE_THUMBNAILS

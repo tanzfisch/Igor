@@ -30,7 +30,7 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode
 extern const iaString IGOR_RESOURCE_PARAM_ID = "id";
 extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
 extern const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
-extern const iaString IGOR_RESOURCE_PARAM_FILENAME = "filename";
+extern const iaString IGOR_RESOURCE_PARAM_SOURCE = "source";
 extern const iaString IGOR_RESOURCE_PARAM_NODE = "node";
 extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
 extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
@@ -254,7 +254,7 @@ namespace igor
             L"..\\..\\config"};
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         static const std::vector<iaString> configLocations = {
             L"~/.igor",
             L"/etc/igor",
@@ -267,7 +267,7 @@ namespace igor
 
         for (const auto &location : configLocations)
         {
-            iaFile file(location + __IGOR_PATHSEPARATOR__ + "igor.xml");
+            iaFile file(location + IGOR_PATHSEPARATOR + "igor.xml");
 
             if (file.exists())
             {

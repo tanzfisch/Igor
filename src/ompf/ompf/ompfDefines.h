@@ -28,7 +28,7 @@
 #include <iaux/iaDefines.h>
 using namespace iaux;
 
-#ifdef __IGOR_MSCOMPILER__
+#ifdef IGOR_MSCOMPILER
 	#ifdef __OMPF_BUILDING_DLL__
 		#define OMPF_API __declspec(dllexport)
 		#define OMPF_API_Template __declspec(dllexport)
@@ -38,7 +38,7 @@ using namespace iaux;
 	#endif
 #endif
 
-#ifdef __IGOR_GCC__
+#ifdef IGOR_GCC
 	#define OMPF_API
 	#define OMPF_API_Template
 #endif

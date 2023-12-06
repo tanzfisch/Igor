@@ -12,7 +12,7 @@
 #include <DbgHelp.h>
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 #include <unistd.h>
 #include <wchar.h>
 #include <signal.h>
@@ -42,7 +42,7 @@ namespace iaux
     CONSOLE_SCREEN_BUFFER_INFO console_info;
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
     std::vector<std::wstring> linux_console_colors = {
         L"\x1B[97m", // White,
         L"\x1B[90m", // Gray
@@ -72,7 +72,7 @@ namespace iaux
         }
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         if (isatty(0) &&
             isatty(1) &&
             isatty(2))
@@ -118,23 +118,23 @@ namespace iaux
         iaString logfilePath;
 
 #ifdef IGOR_WINDOWS
-#ifdef __IGOR_MSCOMPILER__
+#ifdef IGOR_MSCOMPILER
         wchar_t result[MAX_PATH];
         GetModuleFileName(NULL, result, MAX_PATH);
         std::wstring path = result;
-        path = path.substr(0, path.find_last_of(__IGOR_PATHSEPARATOR__) + 1);
+        path = path.substr(0, path.find_last_of(IGOR_PATHSEPARATOR) + 1);
         path.append(L"\\igor.log");
         logfilePath = iaString(path.c_str());
         _file.open(path, std::fstream::out);
 #endif
 
-#ifdef __IGOR_GCC__
+#ifdef IGOR_GCC
         logfilePath = L"igor.log";
         _file.open("igor.log", std::fstream::out);
 #endif
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         logfilePath = L"/tmp/igor.log";
         _file.open("/tmp/igor.log", std::fstream::out);
 #endif
@@ -157,7 +157,7 @@ namespace iaux
         __debugbreak();
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         raise(SIGTRAP);
 #endif
 
@@ -305,7 +305,7 @@ namespace iaux
             }
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
             std::wcout << linux_console_colors[static_cast<int>(color)];
 #endif
         }

@@ -47,6 +47,10 @@ public:
     */
     void setFilename(const iaString &filename);
 
+    /*! refresh thumbnail
+    */
+    void refresh();
+
 private:
     /*! the file name
      */

@@ -97,7 +97,7 @@ namespace igor
 		open(message, buttons);
 	}
 
-	__IGOR_DISABLE_WARNING__(4100)
+	IGOR_DISABLE_WARNING(4100)
 	void iDialogMessageBox::onOK(const iWidgetPtr source)
 	{
 		setReturnState(iDialogReturnState::Ok);
@@ -121,6 +121,6 @@ namespace igor
 		setReturnState(iDialogReturnState::No);
 		close();
 	}
-	__IGOR_ENABLE_WARNING__(4100);
+	IGOR_ENABLE_WARNING(4100);
 
 } // namespace igor

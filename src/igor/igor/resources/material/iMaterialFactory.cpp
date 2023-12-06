@@ -26,7 +26,7 @@ namespace igor
 
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                           {IGOR_RESOURCE_PARAM_FILENAME, filename}});
+                           {IGOR_RESOURCE_PARAM_SOURCE, filename}});
 
         iMaterialPtr material(new iMaterial(param));
         iMaterialIO::read(iResourceManager::getInstance().resolvePath(filename), material);

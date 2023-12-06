@@ -235,3 +235,10 @@ IAUX_TEST(StringTests, UTF8Trivial)
     IAUX_EXPECT_EQUAL(std::wstring(string.getData()), std::wstring(string2.getData()));
     IAUX_EXPECT_EQUAL(string.getLength(), 12);
 }*/
+
+IAUX_TEST(StringTests, WildcardsToRegEx)
+{
+    iaString string = "*";
+
+    IAUX_EXPECT_EQUAL(iaString::wildcardToRegex(string), "foo");
+}

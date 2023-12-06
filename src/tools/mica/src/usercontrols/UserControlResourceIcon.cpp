@@ -54,7 +54,7 @@ void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
     _contextMenu.setPos(iaVector2f(pos._x, pos._y));
 
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
-    if(id != iResourceID(IGOR_INVALID_ID))
+    if (id != iResourceID(IGOR_INVALID_ID))
     {
         _contextMenu.addCallback(iClickDelegate(this, &UserControlResourceIcon::onRemoveDictionary), "Unregister Asset", "Remove asset from resource dictionary");
     }
@@ -64,6 +64,19 @@ void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
     }
 
     _contextMenu.open();
+}
+
+void UserControlResourceIcon::refresh()
+{
+    iaFile file(_filename);
+    iTexturePtr texture = ThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
+
+    if (texture == nullptr)
+    {
+        return;
+    }
+
+    _picture->setTexture(texture);
 }
 
 void UserControlResourceIcon::setFilename(const iaString &filename)
@@ -78,41 +91,38 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
     _label->setText(file.getFileName());
     _label->setMaxTextWidth(128);
 
-    iTexturePtr texture;
+    iTexturePtr texture = ThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
 
-    ThumbnailCache::getThumbnail(file.getFullFileName());
-
-    if (type == "texture")
+    if (texture == nullptr)
     {
-        texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_texture");
-        // TODO thumbnail
-    }
-    else if (type == "material")
-    {
-        texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_material");
-        // TODO thumbnail
-    }
-    else if (type == "animation")
-    {
-        texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_animation");
-    }
-    else if (type == "sound")
-    {
-        texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_sound");
-    }
-    else if (type == "sprite")
-    {
-        texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_sprite");
-        // TODO thumbnail
-    }
-    else if (type == "model")
-    {
-        // TODO thumbnail
-        texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_model");
-    }
-    else
-    {
-        texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file");
+        if (type == "texture")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_texture");
+        }
+        else if (type == "material")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_material");
+        }
+        else if (type == "animation")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_animation");
+        }
+        else if (type == "sound")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_sound");
+        }
+        else if (type == "sprite")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_sprite");
+        }
+        else if (type == "model")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_model");
+        }
+        else
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file");
+        }
     }
 
     _picture->setTexture(texture);

@@ -13,7 +13,7 @@
 #include <io.h>
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 #include <unistd.h>
 #endif
 
@@ -22,6 +22,7 @@ namespace iaux
 
     iaFile::iaFile(const iaString &filename)
     {
+        con_assert(!filename.isEmpty(), "can't use empty filename");
         _filename = iaDirectory::fixPath(filename, true);
     }
 
@@ -42,7 +43,7 @@ namespace iaux
 #ifdef IGOR_WINDOWS
         size = pos;
 #endif
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         size = (int64)pos.__pos;
 #endif
         return size;
@@ -130,13 +131,23 @@ namespace iaux
 
     bool iaFile::exists(const iaString &filename)
     {
-        if(filename.isEmpty())
+        if (filename.isEmpty())
         {
             return false;
         }
 
         std::filesystem::path path(filename.getData());
         return !std::filesystem::is_directory(path) && std::filesystem::exists(path);
+    }
+
+    bool iaFile::remove(const iaString &filename)
+    {
+        if (!exists(filename))
+        {
+            return false;
+        }
+
+        return std::filesystem::remove(filename.getData());
     }
 
     iaTime iaFile::getLastModifiedTime() const
@@ -155,7 +166,7 @@ namespace iaux
 
     iaString iaFile::getPath() const
     {
-        int64 pos = _filename.findLastOf(__IGOR_PATHSEPARATOR__);
+        int64 pos = _filename.findLastOf(IGOR_PATHSEPARATOR);
 
         if (pos != iaString::INVALID_POSITION)
         {
@@ -169,7 +180,7 @@ namespace iaux
 
     iaString iaFile::getFileName() const
     {
-        int64 pos = _filename.findLastOf(__IGOR_PATHSEPARATOR__);
+        int64 pos = _filename.findLastOf(IGOR_PATHSEPARATOR);
 
         if (pos != iaString::INVALID_POSITION)
         {
@@ -251,7 +262,7 @@ namespace iaux
 #ifdef IGOR_WINDOWS
         fpos_t pos = position;
 #endif
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         fpos_t pos;
         pos.__pos = position;
 #endif
@@ -338,7 +349,7 @@ namespace iaux
         }
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         if (ftruncate(fileno(_fileHandle), size) != 0)
         {
             con_err("cant change size of file: " << getFullFileName() << " to " << size);

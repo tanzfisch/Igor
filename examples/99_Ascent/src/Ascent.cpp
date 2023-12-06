@@ -217,7 +217,7 @@ void Ascent::outlineLevelStructure()
     }
 }
 
-__IGOR_INLINE__ float64 metaballFunction(const iaVector3d &metaballPos, const iaVector3d &checkPos)
+IGOR_INLINE float64 metaballFunction(const iaVector3d &metaballPos, const iaVector3d &checkPos)
 {
     return 1.0 / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
 }

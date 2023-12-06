@@ -115,6 +115,12 @@ namespace iaux
         */
         static bool exists(const iaString &filename);
 
+        /*! deletes/removes file from filesystem
+
+        \param filename the file to remove
+        */
+        static bool remove(const iaString &filename);
+
         /*! \returns only the parent path
          */
         iaString getPath() const;

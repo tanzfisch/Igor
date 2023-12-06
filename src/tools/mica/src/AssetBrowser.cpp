@@ -59,7 +59,7 @@ void AssetBrowser::initUI()
     splitter->addWidget(scroll);
 
     _updateHandle.getEventTimerTick().add(iTimerTickDelegate(this, &AssetBrowser::update));
-    _updateHandle.setInterval(iaTime::fromMilliseconds(3000));
+    _updateHandle.setInterval(iaTime::fromMilliseconds(5000));
     _updateHandle.start();
 }
 
@@ -112,6 +112,15 @@ void AssetBrowser::updateGridView(iItemPtr item)
     }
 }
 
+void AssetBrowser::refreshGridView()
+{
+    for (auto child : _gridView->getChildren())
+    {
+        UserControlResourceIcon *icon = static_cast<UserControlResourceIcon *>(child);
+        icon->refresh();
+    }
+}
+
 void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 {
     iItemPtr item = std::any_cast<iItemPtr>(source->getUserData());
@@ -149,10 +158,13 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
             }
         }
 
-        iItemPtr child = item->addItem(file.getFileName());
-        child->setValue<iaString>("displayName", file.getFileName());
+        const iaString filename = file.getFileName();
+
+        iItemPtr child = item->addItem(filename);
+        child->setValue<iaString>("displayName", filename);
         child->setValue<bool>("isDirectory", false);
         child->setValue<iaString>("relativePath", relativePath);
+        child->setValue<uint64>("timeStamp", iaFile::getLastModifiedTime(file.getFullFileName()).getMicroseconds());
 
         // expecting everything to be already inside the dictionary
         iaUUID uuid = iResourceManager::getInstance().getResourceID(relativePath);
@@ -183,6 +195,10 @@ void AssetBrowser::update(const iaTime &time)
 
         _treeView->setItems(_itemData->getRoot());
         updateGridView(_itemData->getItem(_treeView->getSelectedItemPath()));
+    }
+    else
+    {
+        refreshGridView();
     }
 }
 

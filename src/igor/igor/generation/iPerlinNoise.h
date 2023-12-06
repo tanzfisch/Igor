@@ -116,21 +116,21 @@ namespace igor
         \param b second value
         \param x interpolation factor
         */
-        __IGOR_INLINE__ float64 lerp(float64 a, float64 b, float64 x);
+        IGOR_INLINE float64 lerp(float64 a, float64 b, float64 x);
 
         /*! increments value by one inclusive wrapping at random number buffer boundaries
 
         \param num number to increment
         \returns increased number
         */
-        __IGOR_INLINE__ int64 inc(int64 num);
+        IGOR_INLINE int64 inc(int64 num);
 
         /*! smooth fading function
 
         \returns fading value used for linear interpolation
         \param t value between 0.0 - 1.0
         */
-        __IGOR_INLINE__ float64 fade(float64 t);
+        IGOR_INLINE float64 fade(float64 t);
 
         /*! lookup gradient for specified hash number (comes from pseudo random number buffer)
 
@@ -140,7 +140,7 @@ namespace igor
         \param z z position within unit cube
         \returns gradient
         */
-        __IGOR_INLINE__ float64 grad(int64 hash, float64 x, float64 y, float64 z);
+        IGOR_INLINE float64 grad(int64 hash, float64 x, float64 y, float64 z);
     };
 
 #include <igor/generation/iPerlinNoise.inl>

@@ -518,6 +518,13 @@ namespace iaux
         template <class T>
         static void toVector(const iaString &text, iaVector4<T> &vector);
 
+        /*! turn wildcard expression in to regex expression
+
+        \param pattern the wildcard expression
+        \returns regular expression
+        */
+        static iaString wildcardToRegex(const iaString &pattern);
+
         /*! insert text at given position
 
         \param text the text to insert

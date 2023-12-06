@@ -197,7 +197,7 @@ namespace igor
         }
         else
         {
-            temp = iaDirectory::fixPath(_directory + __IGOR_PATHSEPARATOR__ + _filename, true);
+            temp = iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename, true);
         }
 
         return temp;

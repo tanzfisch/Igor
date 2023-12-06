@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-__IGOR_INLINE__ std::wostream& operator<<(std::wostream& ostr, const iaTransform<T>& t)
+IGOR_INLINE std::wostream& operator<<(std::wostream& ostr, const iaTransform<T>& t)
 {
     iaVector3d rotate;
     t._orientation.getEuler(rotate);
@@ -61,36 +61,36 @@ iaTransform<T>::iaTransform(const iaMatrix<T>& matrix)
 }
 
 template <class T>
-__IGOR_INLINE__ iaTransform<T>::~iaTransform()
+IGOR_INLINE iaTransform<T>::~iaTransform()
 {
 }
 
 template <class T>
-__IGOR_INLINE__ void iaTransform<T>::getMatrix(iaMatrix<T>& matrix) const
+IGOR_INLINE void iaTransform<T>::getMatrix(iaMatrix<T>& matrix) const
 {
     matrix.recompose(_scale, _orientation, _translate, _shear, iaVector4<T>(0, 0, 0, 1));
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaTransform<T>::hasShear() const
+IGOR_INLINE bool iaTransform<T>::hasShear() const
 {
     return _shear != iaVector3d();
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaTransform<T>::hasScale() const
+IGOR_INLINE bool iaTransform<T>::hasScale() const
 {
     return _scale != iaVector3d(1, 1, 1);
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaTransform<T>::hasTranslation() const
+IGOR_INLINE bool iaTransform<T>::hasTranslation() const
 {
     return _translate != iaVector3d();
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaTransform<T>::hasRotation() const
+IGOR_INLINE bool iaTransform<T>::hasRotation() const
 {
     return _orientation != iaQuaterniond();
 }

@@ -267,7 +267,7 @@ namespace igor
 
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 
     class iMouseImplLinux : public iMouseImpl
     {
@@ -524,7 +524,7 @@ namespace igor
 #ifdef IGOR_WINDOWS
         _impl = new iMouseImplWindows(this);
 #endif
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         _impl = new iMouseImplLinux(this);
 #endif
     }

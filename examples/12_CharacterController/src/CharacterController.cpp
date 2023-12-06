@@ -258,7 +258,7 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody *body, float64 time
 	else
 	{
 		// apply gravity when not on floor
-		iaVector3d gravityForce(0.0f, -_mass * static_cast<float64>(__IGOR_GRAVITY__), 0.0f);
+		iaVector3d gravityForce(0.0f, -_mass * static_cast<float64>(IGOR_EARTH_GRAVITY), 0.0f);
 		force += gravityForce;
 	}
 

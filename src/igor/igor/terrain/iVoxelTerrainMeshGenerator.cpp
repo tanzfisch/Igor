@@ -28,7 +28,7 @@ namespace igor
         return static_cast<iModelDataIO *>(result);
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     iNodePtr iVoxelTerrainMeshGenerator::importData(const iParameters &parameters)
     {
         iVoxelData* voxelData = parameters.getParameter<iVoxelData*>("voxelData", nullptr);
@@ -88,6 +88,6 @@ namespace igor
 
         return result;
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
 } // namespace igor

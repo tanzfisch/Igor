@@ -112,7 +112,7 @@ set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER}/TinyXML)
 message(STATUS "stb_image")
 set(STB_IMAGE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb_image/")
 set(STB_IMAGE_HEADERS_DIR ${STB_IMAGE_SRC_DIR})
-set(STB_IMAGE_HEADERS "${STB_IMAGE_HEADERS_DIR}stb_image.h")
+set(STB_IMAGE_HEADERS "${STB_IMAGE_HEADERS_DIR}stb_image.h" "${STB_IMAGE_HEADERS_DIR}stb_image_write.h" "${STB_IMAGE_HEADERS_DIR}stb_image_resize2.h")
 list(APPEND STB_IMAGE_SOURCES ${STB_IMAGE_HEADERS})
 source_group_special("${STB_IMAGE_SOURCES}" ${STB_IMAGE_SRC_DIR} "\\vendor\\stb_image\\")
 
