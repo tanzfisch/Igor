@@ -48,7 +48,7 @@ public:
     void setFilename(const iaString &filename);
 
     /*! refresh thumbnail
-    */
+     */
     void refresh();
 
 private:
@@ -59,6 +59,10 @@ private:
     /*! picture (thumbnail)
      */
     iWidgetPicturePtr _picture;
+
+    /*! indicator picture if asset is in dictionary
+     */
+    iWidgetSpacerPtr _spacer;
 
     /*! label with filename
      */

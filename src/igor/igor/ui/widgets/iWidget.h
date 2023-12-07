@@ -263,7 +263,7 @@ namespace igor
 
         /*! \returns the foreground color
          */
-        const iaColor4f& getForeground() const;
+        const iaColor4f& getForeground() const;        
 
         /*! @returns true if events on this widget are blocked
          */

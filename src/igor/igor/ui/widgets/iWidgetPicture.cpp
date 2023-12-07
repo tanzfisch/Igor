@@ -21,6 +21,7 @@ namespace igor
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
+		setForeground(iaColor4f::white);
 		_reactOnMouseWheel = false;
 	}
 
@@ -102,12 +103,7 @@ namespace igor
 			return;
 		}
 
-		if(getBackground()._a == 1.0f)
-		{
-			iRenderer::getInstance().drawFilledRectangle(getActualRect(), getBackground());
-		}
-
-		iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetState, isEnabled());
+		iWidgetManager::getInstance().getTheme()->drawWidgetPicture(this);
 
         for (const auto child : _children)
         {

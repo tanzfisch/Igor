@@ -25,11 +25,6 @@ namespace igor
 		setVisible(visible);
 	}
 
-	void iWidgetSpacer::calcMinSize()
-	{
-		updateMinSize(0, 0);
-	}
-
 	void iWidgetSpacer::draw()
 	{
 		if (!isVisible())
@@ -37,7 +32,12 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getState(), isEnabled());
+		iWidgetManager::getInstance().getTheme()->drawWidgetSpacer(this);
+
+        for (const auto child : _children)
+        {
+            child->draw();
+        }				
 	}
 
 } // namespace igor

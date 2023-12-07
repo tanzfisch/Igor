@@ -30,6 +30,18 @@ void UserControlResourceIcon::initGUI()
     _picture->setMaxSize(128, 128);
     vBoxLayout->addWidget(_picture);
 
+    _spacer = new iWidgetSpacer(128,128, true);
+    _spacer->setBackground(iaColor4f(0.0,0.0,0.0,0.2));
+    _picture->addWidget(_spacer);
+
+    iWidgetPicturePtr dictPicture = new iWidgetPicture();
+    dictPicture->setVerticalAlignment(iVerticalAlignment::Center);
+    dictPicture->setHorizontalAlignment(iHorizontalAlignment::Center);
+    dictPicture->setMinSize(90, 90);
+    dictPicture->setMaxSize(90, 90);
+    dictPicture->setTexture("igor_icon_no_dictionary");
+    _spacer->addWidget(dictPicture);
+
     _label = new iWidgetLabel();
     _label->setHorizontalAlignment(iHorizontalAlignment::Center);
     vBoxLayout->addWidget(_label);
@@ -38,12 +50,14 @@ void UserControlResourceIcon::initGUI()
 void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
 {
     iResourceManager::getInstance().addResource(_filename);
+    _spacer->setVisible(false);
 }
 
 void UserControlResourceIcon::onRemoveDictionary(iWidgetPtr source)
 {
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
     iResourceManager::getInstance().removeResource(id);
+    _spacer->setVisible(true);
 }
 
 void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
@@ -56,11 +70,11 @@ void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
     if (id != iResourceID(IGOR_INVALID_ID))
     {
-        _contextMenu.addCallback(iClickDelegate(this, &UserControlResourceIcon::onRemoveDictionary), "Unregister Asset", "Remove asset from resource dictionary");
+        _contextMenu.addCallback(iClickDelegate(this, &UserControlResourceIcon::onRemoveDictionary), "Unregister Asset", "Remove asset from resource dictionary", "igor_icon_no_dictionary");
     }
     else
     {
-        _contextMenu.addCallback(iClickDelegate(this, &UserControlResourceIcon::onAddDictionary), "Register Asset", "Add asset to resource dictionary");
+        _contextMenu.addCallback(iClickDelegate(this, &UserControlResourceIcon::onAddDictionary), "Register Asset", "Add asset to resource dictionary", "igor_icon_dictionary");
     }
 
     _contextMenu.open();
@@ -68,7 +82,7 @@ void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
 
 void UserControlResourceIcon::refresh()
 {
-    iaFile file(_filename);
+    iaFile file(iResourceManager::getInstance().resolvePath(_filename));
     iTexturePtr texture = ThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
 
     if (texture == nullptr)
@@ -81,12 +95,13 @@ void UserControlResourceIcon::refresh()
 
 void UserControlResourceIcon::setFilename(const iaString &filename)
 {
-    _filename = iResourceManager::getInstance().resolvePath(filename);
+    _filename = filename;
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
-    const bool inDictionary = id != iResourceID(IGOR_INVALID_ID);
     const iaString type = iResourceManager::getInstance().getType(_filename);
 
-    iaFile file(_filename);
+    _spacer->setVisible(id == iResourceID(IGOR_INVALID_ID));
+
+    iaFile file(iResourceManager::getInstance().resolvePath(_filename));
     setTooltip(file.getFullFileName());
     _label->setText(file.getFileName());
     _label->setMaxTextWidth(128);
