@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-__IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iFrustum<T> &frustum)
+IGOR_INLINE std::wostream &operator<<(std::wostream &ostr, const iFrustum<T> &frustum)
 {
     ostr << "near  :" << frustum._nearPlane._normal << " - " << frustum._nearPlane._distance << "\n";
     ostr << "far   :" << frustum._farPlane._normal << " - " << frustum._farPlane._distance << "\n";
@@ -49,7 +49,7 @@ void iFrustum<T>::set(const iaMatrix<T> &matrix)
 }
 
 template <class T>
-__IGOR_INLINE__ bool iFrustum<T>::operator==(const iFrustum<T> &frustum) const
+IGOR_INLINE bool iFrustum<T>::operator==(const iFrustum<T> &frustum) const
 {
     if (_rightPlane._normal != frustum._rightPlane._normal || _rightPlane._distance != frustum._rightPlane._distance ||
         _leftPlane._normal != frustum._leftPlane._normal || _leftPlane._distance != frustum._leftPlane._distance ||
@@ -65,7 +65,7 @@ __IGOR_INLINE__ bool iFrustum<T>::operator==(const iFrustum<T> &frustum) const
 }
 
 template <class T>
-__IGOR_INLINE__ bool iFrustum<T>::operator!=(const iFrustum<T> &frustum) const
+IGOR_INLINE bool iFrustum<T>::operator!=(const iFrustum<T> &frustum) const
 {
     if (_rightPlane._normal == frustum._rightPlane._normal && _rightPlane._distance == frustum._rightPlane._distance &&
         _leftPlane._normal == frustum._leftPlane._normal && _leftPlane._distance == frustum._leftPlane._distance &&

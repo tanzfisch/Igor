@@ -15,7 +15,7 @@ UserControlParticleSystem::~UserControlParticleSystem()
 {
 }
 
-void UserControlParticleSystem::onHandle()
+void UserControlParticleSystem::onUpdate()
 {
     iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
 
@@ -367,13 +367,13 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelParticleCount = new iWidgetLabel();
     labelParticleCount->setText("Particles");
-    labelParticleCount->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelParticleCount->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelParticleCount->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
     labelParticleCount->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelFrequency = new iWidgetLabel();
     labelFrequency->setText("Frequency");
-    labelFrequency->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelFrequency->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelFrequency->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
     labelFrequency->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -400,19 +400,19 @@ void UserControlParticleSystem::initGUI()
     _buttonStart = new iWidgetButton();
     _buttonStart->setText("Start");
     _buttonStart->setTooltip("Start/Continue particle system playback");
-    _buttonStart->setWidth(MICA_REGULARBUTTON_SIZE);
+    _buttonStart->setMinWidth(MICA_REGULARBUTTON_SIZE);
     _buttonStart->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStart));
 
     _buttonStop = new iWidgetButton();
     _buttonStop->setText("Stop");
     _buttonStop->setTooltip("Stop/Pause particle system playback");
-    _buttonStop->setWidth(MICA_REGULARBUTTON_SIZE);
+    _buttonStop->setMinWidth(MICA_REGULARBUTTON_SIZE);
     _buttonStop->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStop));
 
     _buttonReset = new iWidgetButton();
     _buttonReset->setText("Reset");
     _buttonReset->setTooltip("Reset/Restart particle system playback");
-    _buttonReset->setWidth(MICA_REGULARBUTTON_SIZE);
+    _buttonReset->setMinWidth(MICA_REGULARBUTTON_SIZE);
     _buttonReset->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
 
     ///////////////
@@ -431,7 +431,7 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelMaxParticles = new iWidgetLabel();
     labelMaxParticles->setText("Max Part.");
-    labelMaxParticles->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelMaxParticles->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelMaxParticles->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
     labelMaxParticles->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -447,7 +447,7 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelLoop = new iWidgetLabel();
     labelLoop->setText("Loop");
-    labelLoop->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelLoop->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelLoop->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
     labelLoop->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -458,7 +458,7 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelPeriod = new iWidgetLabel();
     labelPeriod->setText("Period");
-    labelPeriod->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelPeriod->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelPeriod->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
     labelPeriod->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -475,7 +475,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelEmission = new iWidgetLabel();
     labelEmission->setText("Emission Rate");
     labelEmission->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelEmission->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelEmission->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelEmission->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _emissionGraph = new iWidgetGraph();
@@ -488,7 +488,7 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelAirDrag = new iWidgetLabel();
     labelAirDrag->setText("Air Drag");
-    labelAirDrag->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelAirDrag->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelAirDrag->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
     labelAirDrag->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -519,7 +519,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVortexRate = new iWidgetLabel();
     labelVortexRate->setText("Vortex Particle Rate");
     labelVortexRate->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVortexRate->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVortexRate->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVortexRate->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _vortexToParticleRateChooser = new iWidgetNumberChooser();
@@ -535,7 +535,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVortexMinTorque = new iWidgetLabel();
     labelVortexMinTorque->setText("Min Tourque");
     labelVortexMinTorque->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVortexMinTorque->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVortexMinTorque->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVortexMinTorque->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _vortexTorqueMinChooser = new iWidgetNumberChooser();
@@ -551,7 +551,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVortexMaxTorque = new iWidgetLabel();
     labelVortexMaxTorque->setText("Max Tourque");
     labelVortexMaxTorque->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVortexMaxTorque->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVortexMaxTorque->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVortexMaxTorque->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _vortexTorqueMaxChooser = new iWidgetNumberChooser();
@@ -567,7 +567,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVortexMinRange = new iWidgetLabel();
     labelVortexMinRange->setText("Min Range");
     labelVortexMinRange->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVortexMinRange->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVortexMinRange->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVortexMinRange->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _vortexRangeMinChooser = new iWidgetNumberChooser();
@@ -583,7 +583,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVortexMaxRange = new iWidgetLabel();
     labelVortexMaxRange->setText("Max Range");
     labelVortexMaxRange->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVortexMaxRange->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVortexMaxRange->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVortexMaxRange->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _vortexRangeMaxChooser = new iWidgetNumberChooser();
@@ -599,7 +599,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVorticityConfinement = new iWidgetLabel();
     labelVorticityConfinement->setText("Confinement");
     labelVorticityConfinement->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVorticityConfinement->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVorticityConfinement->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVorticityConfinement->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _vorticityConfinementChooser = new iWidgetNumberChooser();
@@ -615,7 +615,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVortexCheckRange = new iWidgetLabel();
     labelVortexCheckRange->setText("Quality");
     labelVortexCheckRange->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVortexCheckRange->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVortexCheckRange->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVortexCheckRange->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _vortexCheckRange = new iWidgetNumberChooser();
@@ -631,7 +631,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVelocityGradient = new iWidgetLabel();
     labelVelocityGradient->setText("Initial Velocity");
     labelVelocityGradient->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVelocityGradient->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVelocityGradient->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVelocityGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelVelocityGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -646,7 +646,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelLiftGradient = new iWidgetLabel();
     labelLiftGradient->setText("Initial Lift/Weight");
     labelLiftGradient->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelLiftGradient->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelLiftGradient->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelLiftGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelLiftGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -674,7 +674,7 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelVerticalTiling = new iWidgetLabel();
     labelVerticalTiling->setText("V Tiling");
-    labelVerticalTiling->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVerticalTiling->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVerticalTiling->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _tilingVerticalChooser = new iWidgetNumberChooser();
@@ -689,7 +689,7 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelHorizontalTiling = new iWidgetLabel();
     labelHorizontalTiling->setText("H Tiling");
-    labelHorizontalTiling->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelHorizontalTiling->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelHorizontalTiling->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _tilingHorizontalChooser = new iWidgetNumberChooser();
@@ -704,7 +704,7 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelVelocityOriented = new iWidgetLabel();
     labelVelocityOriented->setText("Vel. Ori.");
-    labelVelocityOriented->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVelocityOriented->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVelocityOriented->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _velocityOrientedCheckBox = new iWidgetCheckBox();
@@ -713,7 +713,7 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelColorGradient = new iWidgetLabel();
     labelColorGradient->setText("Color");
-    labelColorGradient->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelColorGradient->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _colorGradient = new iWidgetColorGradient();
@@ -723,7 +723,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelSizeGradient = new iWidgetLabel();
     labelSizeGradient->setText("Size");
     labelSizeGradient->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelSizeGradient->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelSizeGradient->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelSizeGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelSizeGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -738,7 +738,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelSizeScaleGradient = new iWidgetLabel();
     labelSizeScaleGradient->setText("Size Scale over Time");
     labelSizeScaleGradient->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelSizeScaleGradient->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelSizeScaleGradient->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelSizeScaleGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelSizeScaleGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -753,7 +753,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelVisibilityGradient = new iWidgetLabel();
     labelVisibilityGradient->setText("Visibility");
     labelVisibilityGradient->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelVisibilityGradient->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelVisibilityGradient->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelVisibilityGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelVisibilityGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -768,7 +768,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelOrientationGradient = new iWidgetLabel();
     labelOrientationGradient->setText("Orientation");
     labelOrientationGradient->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelOrientationGradient->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelOrientationGradient->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelOrientationGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelOrientationGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -783,7 +783,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel *labelOrientationRateGradient = new iWidgetLabel();
     labelOrientationRateGradient->setText("Orientation Rate");
     labelOrientationRateGradient->setMaxTextWidth(MICA_REGULARBUTTON_SIZE);
-    labelOrientationRateGradient->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelOrientationRateGradient->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelOrientationRateGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelOrientationRateGradient->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -797,43 +797,43 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel *labelEmitter = new iWidgetLabel();
     labelEmitter->setText("Emitter");
-    labelEmitter->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelEmitter->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelEmitter->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _emitterSelection = new iWidgetSelectBox();
     _emitterSelection->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _emitterSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-    _emitterSelection->setWidth(200);
+    _emitterSelection->setMinWidth(200);
 
     iWidgetLabel *labelMaterial = new iWidgetLabel();
     labelMaterial->setText("Material");
-    labelMaterial->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelMaterial->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _materialSelection = new iWidgetSelectBox();
     _materialSelection->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _materialSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _materialSelection->setGrowingByContent();
-    _materialSelection->setWidth(200);
+    _materialSelection->setMinWidth(200);
 
     iWidgetLabel *labelTextureUnit0 = new iWidgetLabel();
     labelTextureUnit0->setText("Texture");
-    labelTextureUnit0->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTextureUnit0->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelTextureUnit1 = new iWidgetLabel();
     labelTextureUnit1->setText("Noise 0");
-    labelTextureUnit1->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTextureUnit1->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelTextureUnit2 = new iWidgetLabel();
     labelTextureUnit2->setText("Noise 1");
-    labelTextureUnit2->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTextureUnit2->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelTextureUnit3 = new iWidgetLabel();
     labelTextureUnit3->setText("Noise 3");
-    labelTextureUnit3->setWidth(MICA_REGULARBUTTON_SIZE);
+    labelTextureUnit3->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textureChooser0 = new iUserControlFileChooser();

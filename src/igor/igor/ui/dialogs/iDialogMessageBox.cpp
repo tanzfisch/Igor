@@ -23,11 +23,15 @@ namespace igor
 
 	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
 	{
+        setHorizontalAlignment(iHorizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
+		setResizeable(false);
+
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setWidth(20);
-		setHeight(20);
+		setMinWidth(20);
+		setMinHeight(20);
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
 		grid->appendRows(2);
@@ -93,7 +97,7 @@ namespace igor
 		open(message, buttons);
 	}
 
-	__IGOR_DISABLE_WARNING__(4100)
+	IGOR_DISABLE_WARNING(4100)
 	void iDialogMessageBox::onOK(const iWidgetPtr source)
 	{
 		setReturnState(iDialogReturnState::Ok);
@@ -117,6 +121,6 @@ namespace igor
 		setReturnState(iDialogReturnState::No);
 		close();
 	}
-	__IGOR_ENABLE_WARNING__(4100);
+	IGOR_ENABLE_WARNING(4100);
 
 } // namespace igor

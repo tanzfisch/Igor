@@ -19,11 +19,11 @@ namespace igor
 	{
 	}
 
-	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
 		iDialog::open(dialogCloseDelegate);
 
-		initGUI(message, radioButtonTexts, preSelection);
+		initGUI(title, message, radioButtonTexts, preSelection);
 	}
 
 	int32 iDialogDecisionBox::getSelection() const
@@ -41,13 +41,18 @@ namespace igor
 		return -1;
 	}
 
-	void iDialogDecisionBox::initGUI(const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::initGUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
+		setTitle(title);
+		setVerticalAlignment(iVerticalAlignment::Center);
+		setHorizontalAlignment(iHorizontalAlignment::Center);		
+		setResizeable(false);
+
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setWidth(20);
-		setHeight(20);
+		setMinWidth(20);
+		setMinHeight(20);
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendRows(4);

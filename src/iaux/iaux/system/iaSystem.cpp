@@ -9,7 +9,7 @@
 #include <DbgHelp.h>
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 #include <execinfo.h>
 #endif
 
@@ -43,7 +43,7 @@ namespace iaux
 		free(symbol);
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 		const int buffSize = 100;
 
 		void *buffer[buffSize];

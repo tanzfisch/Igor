@@ -96,7 +96,7 @@ private:
 
     /*! the scene graphs context menu
     */
-    iDialogMenuPtr _graphContextMenu = nullptr;
+    iDialogMenu _graphContextMenu;
 
     /*! \returns a new action context
     */
@@ -112,7 +112,6 @@ private:
 
     void OnSelectionChange(iWidgetPtr widget);
     void OnContextMenu(iWidgetPtr widget);
-    void OnContextMenuClose(iDialogPtr dialog);
 
     void onAddModel(const iWidgetPtr source);
     void onAddTransformation(const iWidgetPtr source);

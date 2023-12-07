@@ -15,14 +15,19 @@ namespace igor
     iWidgetButton::iWidgetButton(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetButton, iWidgetKind::Widget, parent)
     {
-        _configuredHeight = 10;
-        _configuredWidth = 20;
+        _configuredMinHeight = 10;
+        _configuredMinWidth = 20;
         _reactOnMouseWheel = false;
     }
 
     iWidgetButton::~iWidgetButton()
     {
         _texture = nullptr;
+    }
+
+    void iWidgetButton::setAction(const iaString &actionName, const iActionContextPtr context)
+    {
+        setAction(iActionManager::getInstance().getAction(actionName), context);
     }
 
     void iWidgetButton::setAction(const iActionPtr action, const iActionContextPtr context)
@@ -50,7 +55,7 @@ namespace igor
 
         setText(_action->getBrief());
         setTooltip(_action->getDescription());
-        setTexture(_action->getIcon());
+        setIcon(_action->getIcon());
     }
 
     void iWidgetButton::onInternalClick(const iWidgetPtr source)
@@ -83,18 +88,31 @@ namespace igor
         return _text;
     }
 
-    void iWidgetButton::setTexture(const iaString &texturePath)
+    void iWidgetButton::setIcon(const iaString &iconAlias)
     {
-        if (_texturePath != texturePath)
+        if (iconAlias.isEmpty())
         {
-            _texturePath = texturePath;
-            _texture = iResourceManager::getInstance().loadResource<iTexture>(_texturePath);
+            _iconTexture = nullptr;
+        }
+        else
+        {
+            setIcon(iResourceManager::getInstance().loadResource<iTexture>(iconAlias));
         }
     }
 
-    const iaString &iWidgetButton::getTexture() const
+    void iWidgetButton::setIcon(iTexturePtr texture)
     {
-        return _texturePath;
+        _iconTexture = texture;
+    }
+
+    void iWidgetButton::setTexture(const iaString &textureAlias)
+    {
+        setTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+    }
+
+    void iWidgetButton::setTexture(iTexturePtr texture)
+    {
+        _texture = texture;
     }
 
     void iWidgetButton::calcMinSize()
@@ -112,18 +130,18 @@ namespace igor
             }
             else if (!_text.isEmpty())
             {
-                float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-                int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
+                const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+                const int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
 
                 minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
                 minHeight = static_cast<int32>(fontSize * 1.5f);
             }
 
-            minWidth = std::max(minWidth, _configuredWidth);
-            minHeight = std::max(minHeight, _configuredHeight);
+            minWidth = std::max(minWidth, _configuredMinWidth);
+            minHeight = std::max(minHeight, _configuredMinHeight);
         }
 
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     iHorizontalAlignment iWidgetButton::getHorizontalTextAlignment() const
@@ -148,10 +166,32 @@ namespace igor
 
     void iWidgetButton::draw()
     {
-        if (isVisible())
+        if (!isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getState(), isEnabled());
+            return;
         }
+
+        iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled(), _checkable && _checked);
+    }
+
+    void iWidgetButton::setCheckable(bool checkable)
+    {
+        _checkable = checkable;
+    }
+
+    bool iWidgetButton::isCheckable() const
+    {
+        return _checkable;
+    }
+
+    void iWidgetButton::setChecked(bool check)
+    {
+        _checked = check;
+    }
+
+    bool iWidgetButton::isChecked() const
+    {
+        return _checked;
     }
 
 } // namespace igor

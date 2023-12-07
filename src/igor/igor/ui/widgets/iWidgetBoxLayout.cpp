@@ -10,7 +10,7 @@
 namespace igor
 {
     iWidgetBoxLayout::iWidgetBoxLayout(iWidgetBoxLayoutType layoutType, const iWidgetPtr parent)
-        : iWidget(iWidgetType::iWidgetBoxLayout, iWidgetKind::Widget, parent), _layoutType(layoutType)
+        : iWidget(iWidgetType::iWidgetBoxLayout, iWidgetKind::Layout, parent), _layoutType(layoutType)
     {
         setVerticalAlignment(iVerticalAlignment::Top);
         setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -32,34 +32,31 @@ namespace igor
         int32 minHeight = 0;
 
         if (!isGrowingByContent() ||
-            _children.empty())
+            getChildren().empty())
         {
-            setMinSize(minWidth, minHeight);
+            updateMinSize(minWidth, minHeight);
             return;
         }
 
-        if (_layoutType == iWidgetBoxLayoutType::Vertical)
+        for (const auto child : getChildren())
         {
-            for (const auto child : getChildren())
+            if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 minWidth = std::max(minWidth, child->getMinWidth());
                 minHeight += child->getMinHeight();
             }
-        }
-        else
-        {
-            for (const auto &child : getChildren())
+            else
             {
                 minHeight = std::max(minHeight, child->getMinHeight());
                 minWidth += child->getMinWidth();
             }
         }
 
-        minWidth = std::max(minWidth, getConfiguredWidth());
-        minHeight = std::max(minHeight, getConfiguredHeight());
+        minWidth = std::max(minWidth, getConfiguredMinWidth());
+        minHeight = std::max(minHeight, getConfiguredMinHeight());
 
         setClientArea(0, 0, 0, 0);
-        setMinSize(minWidth, minHeight);
+        updateMinSize(minWidth, minHeight);
     }
 
     void iWidgetBoxLayout::calcChildOffsets(std::vector<iaRectanglef> &offsets)
@@ -73,13 +70,15 @@ namespace igor
         float32 offsetPos = 0;
         uint32 index = 0;
 
-        for (const auto child : getChildren())
+        auto &children = getChildren();
+
+        for (auto child : children)
         {
             if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 clientRect.setX(0);
                 clientRect.setY(offsetPos);
-                clientRect.setWidth(getMinWidth());
+                clientRect.setWidth(getActualWidth());
                 clientRect.setHeight(child->getMinHeight());
 
                 offsetPos += child->getMinHeight();
@@ -89,30 +88,37 @@ namespace igor
                 clientRect.setX(offsetPos);
                 clientRect.setY(0);
                 clientRect.setWidth(child->getMinWidth());
-                clientRect.setHeight(getMinHeight());
+                clientRect.setHeight(getActualHeight());
 
                 offsetPos += child->getMinWidth();
             }
 
             offsets.push_back(clientRect);
         }
+
+        if (getVerticalAlignment() == iVerticalAlignment::Stretch &&
+            _layoutType == iWidgetBoxLayoutType::Vertical &&
+            _stretchIndex >= 0 && _stretchIndex < children.size())
+        {
+            offsets[_stretchIndex].adjust(0, 0, 0, getActualHeight() - offsetPos);
+        }
+
+        if (getHorizontalAlignment() == iHorizontalAlignment::Stretch &&
+            _layoutType == iWidgetBoxLayoutType::Horizontal &&
+            _stretchIndex >= 0 && _stretchIndex < children.size())
+        {
+            offsets[_stretchIndex].adjust(0, 0, getActualWidth() - offsetPos, 0);
+        }
     }
 
-    void iWidgetBoxLayout::draw()
+    void iWidgetBoxLayout::setStretchIndex(int32 index)
     {
-        if (!isVisible())
-        {
-            return;
-        }
+        _stretchIndex = index;
+    }
 
-        iWidgetManager::getInstance().getTheme()->drawGridCell(getActualRect(), getState());
-
-        // TODO?
-
-        for (const auto child : _children)
-        {
-            child->draw();
-        }
+    int32 iWidgetBoxLayout::getStretchIndex() const
+    {
+        return _stretchIndex;
     }
 
     std::wostream &operator<<(std::wostream &stream, const iWidgetBoxLayoutType &type)

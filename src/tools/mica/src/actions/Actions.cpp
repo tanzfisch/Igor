@@ -12,7 +12,7 @@ ActionDeleteNode::ActionDeleteNode()
 
 void ActionDeleteNode::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
 
     for (auto nodeID : actionContext->getWorkspace()->getSelection())
     {
@@ -22,7 +22,7 @@ void ActionDeleteNode::execute(const iActionContext &context)
 
 bool ActionDeleteNode::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -45,13 +45,13 @@ ActionCopyNode::ActionCopyNode()
 
 void ActionCopyNode::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     actionContext->getWorkspace()->copySelected();
 }
 
 bool ActionCopyNode::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -74,13 +74,13 @@ ActionPasteNode::ActionPasteNode()
 
 void ActionPasteNode::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     actionContext->getWorkspace()->pasteSelected();
 }
 
 bool ActionPasteNode::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -98,13 +98,13 @@ ActionCutNode::ActionCutNode()
 
 void ActionCutNode::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     actionContext->getWorkspace()->cutSelected();
 }
 
 bool ActionCutNode::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -127,7 +127,7 @@ ActionAddTransform::ActionAddTransform()
 
 void ActionAddTransform::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     auto selection = actionContext->getWorkspace()->getSelection();
 
     if (selection.empty())
@@ -147,7 +147,7 @@ void ActionAddTransform::execute(const iActionContext &context)
 
 bool ActionAddTransform::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -165,7 +165,7 @@ ActionAddGroup::ActionAddGroup()
 
 void ActionAddGroup::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     auto selection = actionContext->getWorkspace()->getSelection();
 
     if (selection.empty())
@@ -185,7 +185,7 @@ void ActionAddGroup::execute(const iActionContext &context)
 
 bool ActionAddGroup::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -203,7 +203,7 @@ ActionAddSwitch::ActionAddSwitch()
 
 void ActionAddSwitch::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     auto selection = actionContext->getWorkspace()->getSelection();
 
     if (selection.empty())
@@ -223,7 +223,7 @@ void ActionAddSwitch::execute(const iActionContext &context)
 
 bool ActionAddSwitch::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -241,7 +241,7 @@ ActionAddEmitter::ActionAddEmitter()
 
 void ActionAddEmitter::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     auto selection = actionContext->getWorkspace()->getSelection();
 
     if (selection.empty())
@@ -261,7 +261,7 @@ void ActionAddEmitter::execute(const iActionContext &context)
 
 bool ActionAddEmitter::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -279,7 +279,7 @@ ActionAddParticleSystem::ActionAddParticleSystem()
 
 void ActionAddParticleSystem::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     auto selection = actionContext->getWorkspace()->getSelection();
 
     if (selection.empty())
@@ -299,7 +299,7 @@ void ActionAddParticleSystem::execute(const iActionContext &context)
 
 bool ActionAddParticleSystem::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -317,13 +317,13 @@ ActionAddModel::ActionAddModel()
 
 void ActionAddModel::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     actionContext->getOutliner()->addModel();
 }
 
 bool ActionAddModel::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;
@@ -341,7 +341,7 @@ ActionBakeMeshToWorld::ActionBakeMeshToWorld()
 
 void ActionBakeMeshToWorld::execute(const iActionContext &context)
 {
-    const ActionContext *actionContext = static_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
     for (auto nodeID : actionContext->getWorkspace()->getSelection())
     {
         iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
@@ -351,7 +351,7 @@ void ActionBakeMeshToWorld::execute(const iActionContext &context)
 
 bool ActionBakeMeshToWorld::isCompatible(const iActionContext &context)
 {
-    const ActionContext *actionContext = dynamic_cast<const ActionContext *>(&context);
+    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
     if (actionContext == nullptr)
     {
         return false;

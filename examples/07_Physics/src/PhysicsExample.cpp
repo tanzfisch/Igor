@@ -135,7 +135,7 @@ void PhysicsExample::onInit()
 
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // init light
     iNodeTransform *directionalLightTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -169,7 +169,7 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float64 timestep)
 
     // apply gravity on this body
     iPhysics::getInstance().getMassMatrix(body->getNewtonBody(), mass, Ixx, Iyy, Izz);
-    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+    force.set(0.0f, -mass * static_cast<float32>(IGOR_EARTH_GRAVITY), 0.0f);
     body->setForce(force);
 }
 

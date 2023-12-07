@@ -63,6 +63,7 @@ namespace igor
         friend class iResourceManager;
 
     public:
+
         /*! does nothing
          */
         virtual ~iResource() = default;
@@ -95,6 +96,16 @@ namespace igor
         /*! \returns resource id
          */
         const iResourceID &getID() const;
+
+        /*! sets name of material (not unique)
+
+        \param name name to be set
+        */
+        void setName(const iaString &name);
+
+        /*! \returns name of material (not unique)
+         */
+        const iaString &getName() const;        
 
         /*! \returns cache mode
          */
@@ -138,7 +149,7 @@ namespace igor
          */
         iParameters _parameters;
 
-        /*! name of resource
+        /*! alias of resource. Must be unique
          */
         iaString _alias;
 
@@ -150,13 +161,17 @@ namespace igor
         */
         iaString _source;
 
-        /*! id of this resource
+        /*! id of this resource (unique)
          */
         iResourceID _id;
 
         /*! the resources cache mode
          */
         iResourceCacheMode _cacheMode;
+
+        /*! name of the resource
+         */
+        iaString _name = L"Resource Name";
 
         /*! sets processed flag on resource
 

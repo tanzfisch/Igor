@@ -30,7 +30,7 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode
 extern const iaString IGOR_RESOURCE_PARAM_ID = "id";
 extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
 extern const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
-extern const iaString IGOR_RESOURCE_PARAM_FILENAME = "filename";
+extern const iaString IGOR_RESOURCE_PARAM_SOURCE = "source";
 extern const iaString IGOR_RESOURCE_PARAM_NODE = "node";
 extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
 extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
@@ -87,45 +87,42 @@ namespace igor
     {
 #ifdef IGOR_DEBUG
 #define G iaForegroundColor::Gray
-#define W iaForegroundColor::DarkBlue
+#define W iaForegroundColor::Gray
 #define C1 iaForegroundColor::Gray
 #define C2 iaForegroundColor::Gray
 #define M iaForegroundColor::Gray
 #define T iaForegroundColor::Gray
 #else
 #define G iaForegroundColor::Green
-#define W iaForegroundColor::DarkCyan
+#define W iaForegroundColor::Blue
 #define C1 iaForegroundColor::Green
 #define C2 iaForegroundColor::Green
 #define M iaForegroundColor::Green
-#define T iaForegroundColor::DarkMagenta
+#define T iaForegroundColor::White
 #endif
 #define R iaForegroundColor::Red
 
         // source of text http://patorjk.com/software/taag/#p=display&f=Larry%203D&t=powered%20by%20%0AIgor
 
         iaConsole::getInstance() << LOCK << endl;
-        iaConsole::getInstance() << G << "   ______                               " << C1 << " |\\___/|" << C2 << "  /\\___/\\            " << endl;
-        iaConsole::getInstance() << G << "  /\\__  _\\                              " << C1 << " )     ( " << C2 << " )     (" << endl;
-        iaConsole::getInstance() << G << "  \\/_/\\ \\/       __      ___    _ __    " << C1 << "=\\     /=" << C2 << "=\\     /=" << endl;
-        iaConsole::getInstance() << G << "     \\ \\ \\     /'_ `\\   / __`\\ /\\`'__\\  " << C1 << "  )   ( " << C2 << "   )   (" << endl;
-        iaConsole::getInstance() << G << "      \\_\\ \\__ /\\ \\L\\ \\ /\\ \\L\\ \\\\ \\ \\/   " << C1 << " /     \\  " << C2 << " /   \\" << endl;
-        iaConsole::getInstance() << G << "      /\\_____\\\\ \\____ \\\\ \\____/ \\ \\_\\   " << C1 << "|       |" << C2 << " /     \\          " << M << "QQ__" << endl;
-        iaConsole::getInstance() << W << "  ____" << G << "\\/_____/" << W << "_" << G << "\\/___L\\ \\\\/___/" << W << "___" << G << "\\/_/" << W << "____" << C1 << "\\__  _/" << W << "__" << C2 << "\\__ __/" << W << "_________" << M << "<\"_(_)" << W << "______" << endl;
-        iaConsole::getInstance() << G << "                 /\\____/                " << C1 << "   ( (   " << C2 << "    ))               " << M << "(_" << endl;
-        iaConsole::getInstance() << G << "                 \\_/__/  game engine     " << C1 << "   ) )  " << C2 << "   ((" << endl;
-        iaConsole::getInstance() << G << "                                        " << C1 << "   (_(    " << C2 << "   \\)" << endl;
+        iaConsole::getInstance() << G << "                                   ______                               " << endl;
+        iaConsole::getInstance() << G << "                                 /\\__  _\\                              " << endl;
+        iaConsole::getInstance() << G << "                                 \\/_/\\ \\/       __      ___    _ __    " << endl;
+        iaConsole::getInstance() << G << "                                    \\ \\ \\     /'_ `\\   / __`\\ /\\`'__\\  " << endl;
+        iaConsole::getInstance() << G << "                                     \\_\\ \\__ /\\ \\L\\ \\ /\\ \\L\\ \\\\ \\ \\/   " << endl;
+        iaConsole::getInstance() << G << "                                     /\\_____\\\\ \\____ \\\\ \\____/ \\ \\_\\   " << endl;
+        iaConsole::getInstance() << W << "  ___________________________________" << G << "\\/_____/" << W << "_" << G << "\\/___L\\ \\\\/___/" << W << "___" << G << "\\/_/" << W << "__________" << endl;
+        iaConsole::getInstance() << G << "                                                           /\\____/                " << endl;
+        iaConsole::getInstance() << T << "      (c) Copyright 2012-2023 by Martin Loga" << G << "               \\_/__/   " << endl;
 
-        iaConsole::getInstance() << T << "    (c) Copyright 2012-2023 by Martin Loga" << endl
+        iaConsole::getInstance() << endl << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
-        iaConsole::getInstance() << T << "    version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
+        iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
+        iaConsole::getInstance() << T << "                 EnTT, R.P. Easing, TinyXML and Fun" << endl
                                  << endl;
-        iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek" << endl
+        iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek" << endl
                                  << endl;
-        iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image, TinyXML" << endl;
-        iaConsole::getInstance() << T << "               EnTT, R. Penner Easing" << endl
-                                 << endl;
-        iaConsole::getInstance() << T << "    get sources from https://github.com/tanzfisch/Igor.git" << endl;
+        iaConsole::getInstance() << T << "      get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
                                  << endl;
         iaConsole::getInstance() << UNLOCK;
@@ -182,9 +179,9 @@ namespace igor
             iResourceManager::destroy();
         }
 
-        if (iNodeManager::isInstantiated())
+        if (iWidgetManager::isInstantiated())
         {
-            iNodeManager::destroy();
+            iWidgetManager::destroy();
         }
 
         if (iSceneFactory::isInstantiated())
@@ -192,9 +189,9 @@ namespace igor
             iSceneFactory::destroy();
         }
 
-        if (iWidgetManager::isInstantiated())
+        if (iNodeManager::isInstantiated())
         {
-            iWidgetManager::destroy();
+            iNodeManager::destroy();
         }
 
         if (iRenderer::isInstantiated())
@@ -254,7 +251,7 @@ namespace igor
             L"..\\..\\config"};
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         static const std::vector<iaString> configLocations = {
             L"~/.igor",
             L"/etc/igor",
@@ -267,9 +264,9 @@ namespace igor
 
         for (const auto &location : configLocations)
         {
-            iaFile file(location + __IGOR_PATHSEPARATOR__ + "igor.xml");
+            iaFile file(location + IGOR_PATHSEPARATOR + "igor.xml");
 
-            if (file.exist())
+            if (file.exists())
             {
                 configurationFilepath = file.getFullFileName();
                 break;

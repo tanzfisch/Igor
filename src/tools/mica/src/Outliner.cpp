@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2023 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "Outliner.h"
 
 #include <igor/ui/iWidgetManager.h>
@@ -40,7 +44,9 @@ void Outliner::initGUI()
 {
     _messageBox = new iDialogMessageBox();
 
-    setWidth(350);
+    setDockable(true);
+    setTitle("Outliner");
+    setMinWidth(350);
     setHorizontalAlignment(iHorizontalAlignment::Left);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
@@ -49,16 +55,9 @@ void Outliner::initGUI()
     _grid->setCellSpacing(8);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Stretch);
-    _grid->appendRows(2);
-    _grid->setStretchRow(2);
+    _grid->appendRows(1);
+    _grid->setStretchRow(1);
     _grid->setStretchColumn(0);
-
-    iWidgetGridLayoutPtr gridButtons = new iWidgetGridLayout();
-    gridButtons->setBorder(0);
-    gridButtons->setCellSpacing(2);
-    gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
-    gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
-    gridButtons->appendColumns(8);
 
     iWidgetGridLayoutPtr gridRadioButtons = new iWidgetGridLayout();
     gridRadioButtons->setBorder(0);
@@ -77,72 +76,7 @@ void Outliner::initGUI()
     iWidgetCheckBox::endRadioButtonGroup();
     checkBoxGraph->setChecked();
 
-    iWidgetButtonPtr loadButton = new iWidgetButton();
-    loadButton->setText("");
-    loadButton->setWidth(30);
-    loadButton->setHeight(30);
-    loadButton->setTooltip("Load file");
-    loadButton->setTexture("igor_icon_load");
-    loadButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onLoadFile));
-
-    iWidgetButtonPtr saveButton = new iWidgetButton();
-    saveButton->setText("");
-    saveButton->setWidth(30);
-    saveButton->setHeight(30);
-    saveButton->setTooltip("Save file");
-    saveButton->setTexture("igor_icon_save");
-    saveButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
-
-    iWidgetButtonPtr exitButton = new iWidgetButton();
-    exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
-    exitButton->setText("");
-    exitButton->setWidth(30);
-    exitButton->setHeight(30);
-
-    iWidgetButtonPtr cutButton = new iWidgetButton();
-    cutButton->setText("");
-    cutButton->setWidth(30);
-    cutButton->setHeight(30);
-    cutButton->setTooltip("Cut selection");
-    cutButton->setTexture("igor_icon_cut");
-    cutButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCut));
-
-    iWidgetButtonPtr copyButton = new iWidgetButton();
-    copyButton->setText("");
-    copyButton->setWidth(30);
-    copyButton->setHeight(30);
-    copyButton->setTooltip("Copy selection");
-    copyButton->setTexture("igor_icon_copy");
-    copyButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
-
-    iWidgetButtonPtr pasteButton = new iWidgetButton();
-    pasteButton->setText("");
-    pasteButton->setWidth(30);
-    pasteButton->setHeight(30);
-    pasteButton->setTooltip("paste from clipboard");
-    pasteButton->setTexture("igor_icon_paste");
-    pasteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
-
-    iWidgetButtonPtr deleteButton = new iWidgetButton();
-    deleteButton->setText("");
-    deleteButton->setWidth(30);
-    deleteButton->setHeight(30);
-    deleteButton->setTooltip("delete selection");
-    deleteButton->setTexture("igor_icon_delete");
-    deleteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
-
-    _grid->addWidget(gridButtons, 0, 0);
-    gridButtons->addWidget(loadButton, 0, 0);
-    gridButtons->addWidget(saveButton, 1, 0);
-    gridButtons->addWidget(exitButton, 2, 0);
-    gridButtons->addWidget(new iWidgetSpacer(2, 20), 3, 0);
-    gridButtons->addWidget(cutButton, 4, 0);
-    gridButtons->addWidget(copyButton, 5, 0);
-    gridButtons->addWidget(pasteButton, 6, 0);
-    gridButtons->addWidget(new iWidgetSpacer(2, 20), 7, 0);
-    gridButtons->addWidget(deleteButton, 8, 0);
-
-    _grid->addWidget(gridRadioButtons, 0, 1);
+    _grid->addWidget(gridRadioButtons, 0, 0);
     gridRadioButtons->addWidget(checkBoxGraph, 0, 0);
     gridRadioButtons->addWidget(checkBoxMaterial, 1, 0);
 
@@ -246,7 +180,7 @@ void Outliner::initMaterialView()
     _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
     _userControlMaterialView->registerOnLoadMaterial(LoadMaterialDelegate(this, &Outliner::onLoadMaterial));
 
-    _grid->addWidget(_userControlMaterialView, 0, 2);
+    _grid->addWidget(_userControlMaterialView, 0, 1);
     refresh();
 }
 
@@ -268,7 +202,7 @@ void Outliner::initGraphView()
 
     _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));
 
-    _grid->addWidget(_userControlGraphView, 0, 2);
+    _grid->addWidget(_userControlGraphView, 0, 1);
     refresh();
 }
 
@@ -335,41 +269,6 @@ void Outliner::refresh()
     }
 }
 
-void Outliner::onLoadFile(const iWidgetPtr source)
-{
-    _loadFile();
-}
-
-void Outliner::onSaveFile(const iWidgetPtr source)
-{
-    _saveFile();
-}
-
-void Outliner::onExitMica(const iWidgetPtr source)
-{
-    _exitMica();
-}
-
-void Outliner::registerOnCopyNode(CopyNodeDelegate copyNodeDelegate)
-{
-    _copyNode.add(copyNodeDelegate);
-}
-
-void Outliner::unregisterOnCopyNode(CopyNodeDelegate copyNodeDelegate)
-{
-    _copyNode.remove(copyNodeDelegate);
-}
-
-void Outliner::registerOnPasteNode(PasteNodeDelegate pasteNodeDelegate)
-{
-    _pasteNode.add(pasteNodeDelegate);
-}
-
-void Outliner::unregisterOnPasteNode(PasteNodeDelegate pasteNodeDelegate)
-{
-    _pasteNode.remove(pasteNodeDelegate);
-}
-
 void Outliner::registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
 {
     _graphSelectionChanged.add(graphSelectionChangedDelegate);
@@ -378,16 +277,6 @@ void Outliner::registerOnGraphSelectionChanged(GraphSelectionChangedDelegate gra
 void Outliner::unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
 {
     _graphSelectionChanged.remove(graphSelectionChangedDelegate);
-}
-
-void Outliner::registerOnCutNode(CutNodeDelegate cutNodeDelegate)
-{
-    _cutNode.add(cutNodeDelegate);
-}
-
-void Outliner::unregisterOnCutNode(CutNodeDelegate cutNodeDelegate)
-{
-    _cutNode.remove(cutNodeDelegate);
 }
 
 void Outliner::registerOnImportFile(ImportFileDelegate importFileDelegate)
@@ -410,42 +299,12 @@ void Outliner::unregisterOnImportFileReference(ImportFileReferenceDelegate impor
     _importFileReference.remove(importFileReferenceDelegate);
 }
 
-void Outliner::registerOnLoadFile(LoadFileDelegate loadFileDelegate)
-{
-    _loadFile.add(loadFileDelegate);
-}
-
-void Outliner::unregisterOnLoadFile(LoadFileDelegate loadFileDelegate)
-{
-    _loadFile.remove(loadFileDelegate);
-}
-
-void Outliner::registerOnSaveFile(SaveFileDelegate saveFileDelegate)
-{
-    _saveFile.add(saveFileDelegate);
-}
-
-void Outliner::unregisterOnSaveFile(SaveFileDelegate saveFileDelegate)
-{
-    _saveFile.remove(saveFileDelegate);
-}
-
-void Outliner::registerOnExitMica(ExitMicaDelegate exitMicaDelegate)
-{
-    _exitMica.add(exitMicaDelegate);
-}
-
-void Outliner::unregisterOnExitMica(ExitMicaDelegate exitMicaDelegate)
-{
-    _exitMica.remove(exitMicaDelegate);
-}
-
 void Outliner::addModel()
 {
     if (_decisionBoxModelRef == nullptr)
     {
         _decisionBoxModelRef = new iDialogDecisionBox();
-        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &Outliner::onAddModelDecision), "Import model ...", {"embedded", "as reference"}, 0);
+        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &Outliner::onAddModelDecision), "Import model", "Select type:", {"embedded", "as reference"}, 0);
     }
 }
 

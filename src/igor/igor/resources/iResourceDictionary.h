@@ -37,12 +37,15 @@ class TiXmlElement;
 
 namespace igor
 {
+
+    /*! resource dictionary
+    */
     class iResourceDictionary
     {
     public:
-        /*! loads default igor resources
+        /*! does nothing
          */
-        iResourceDictionary();
+        iResourceDictionary() = default;
 
         /*! write the current resources in to a dictionary
 
@@ -76,8 +79,18 @@ namespace igor
         const iResourceID getResource(const iaString &text) const;
 
         /*! adds a resource to the dictionary
+
+        \param filename the file name of the resource
+        \param alias the alias to use for this resource
+        \param internal if true it is marked for internal use in engine only
         */
         const iResourceID addResource(const iaString &filename, const iaString &alias = "", bool internal = false);
+
+        /*! removes resource with given id
+
+        \param resourceID the given resource id
+        */
+        void removeResource(iResourceID resourceID);
 
     private:
         /*! for faster access aliases and resource ids are all resource ids

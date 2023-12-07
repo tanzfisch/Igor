@@ -30,32 +30,27 @@
 #define __IGOR_DIALOGFILESELECT__
 
 #include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/widgets/iWidgetLineTextEdit.h>
+#include <igor/ui/widgets/iWidgetScroll.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
 namespace igor
 {
-
-    class iWidgetGridLayout;
-    class iWidgetLabel;
-    class iWidget;
-    class iDialog;
-    class iWidgetSpacer;
-    class iWidgetLineTextEdit;
-    class iWidgetScroll;
-
-    /*! file dialog porpose definition
+    /*! file dialog purpose definition
 	*/
     enum class iFileDialogPurpose
     {
         Load,
-        Save
+        Save,
+        SelectFolder
     };
 
     /*! file select dialog
 
-	\todo need some sort of UserDialogBaseClass with some convinient methods
+	\todo need some sort of UserDialogBaseClass with some convenient methods
 	*/
     class IGOR_API iDialogFileSelect : public iDialog
     {
@@ -67,7 +62,7 @@ namespace igor
 		*/
         iDialogFileSelect(const iWidgetPtr parent = nullptr);
 
-        /*! deinitializes gui elements
+        /*! de-initializes gui elements
 		*/
         ~iDialogFileSelect() = default;
 
@@ -109,19 +104,19 @@ namespace igor
 
         /*! scroll widget for file and folder grid
 		*/
-        iWidgetScroll *_scroll = nullptr;
+        iWidgetScrollPtr _scroll = nullptr;
 
         /*! file and folder grid
 		*/
-        iWidgetGridLayout *_fileGrid = nullptr;
+        iWidgetGridLayoutPtr _fileGrid = nullptr;
 
         /*! path edit text field
 		*/
-        iWidgetLineTextEdit *_pathEdit = nullptr;
+        iWidgetLineTextEditPtr _pathEdit = nullptr;
 
         /*! file name text field
 		*/
-        iWidgetLineTextEdit *_filenameEdit = nullptr;
+        iWidgetLineTextEditPtr _filenameEdit = nullptr;
 
         /*! handles ok button click
 
@@ -157,7 +152,7 @@ namespace igor
 		*/
         void updateFileDir();
 
-        /*! clears fiel grid
+        /*! clears file grid
 		*/
         void clearFileGrid();
 
@@ -166,8 +161,8 @@ namespace igor
 		\param col column in grid
 		\param row row in grid
 		\param path full path of entry
-		\param displayName representive name of entry
-		\param isFolder if true it is a folder; if fals it is a file
+		\param displayName display name of entry
+		\param isFolder if true it is a folder; if false it is a file
 		*/
         void addToFileGrid(int32 col, int32 row, const iaString &path, iaString displayName, bool isFolder);
 

@@ -647,7 +647,7 @@ namespace igor
         setWireframeEnabled(false);
     }
 
-    __IGOR_INLINE__ int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
+    IGOR_INLINE int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)
     {
         auto &texQuads = _data->_texQuads;
 
@@ -686,7 +686,7 @@ namespace igor
         return textureIndex;
     }
 
-    __IGOR_INLINE__ void iRenderer::endTexturedQuad()
+    IGOR_INLINE void iRenderer::endTexturedQuad()
     {
         auto &texQuads = _data->_texQuads;
         texQuads._vertexCount += 4;
@@ -803,7 +803,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Points;
     }
 
-    void iRenderer::drawQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color)
+    void iRenderer::drawQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color1, const iaColor4f &color2, const iaColor4f &color3, const iaColor4f &color4)
     {
         auto &quads = _data->_quads;
 
@@ -817,22 +817,22 @@ namespace igor
             flushQuads();
         }
 
-        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+        (color1._a == 1.0 && color2._a == 1.0 && color3._a == 1.0 && color4._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
 
         quads._vertexDataPtr->_pos = v1;
-        quads._vertexDataPtr->_color = color;
+        quads._vertexDataPtr->_color = color1;
         quads._vertexDataPtr++;
 
         quads._vertexDataPtr->_pos = v2;
-        quads._vertexDataPtr->_color = color;
+        quads._vertexDataPtr->_color = color2;
         quads._vertexDataPtr++;
 
         quads._vertexDataPtr->_pos = v3;
-        quads._vertexDataPtr->_color = color;
+        quads._vertexDataPtr->_color = color3;
         quads._vertexDataPtr++;
 
         quads._vertexDataPtr->_pos = v4;
-        quads._vertexDataPtr->_color = color;
+        quads._vertexDataPtr->_color = color4;
         quads._vertexDataPtr++;
 
         quads._vertexCount += 4;
@@ -1486,6 +1486,14 @@ namespace igor
 
     void iRenderer::setViewport(int32 x, int32 y, int32 width, int32 height)
     {
+        con_assert(width >= 0 && height >= 0, "invalid view port");
+
+        if(width < 0 || height < 0)
+        {
+            con_err("invalid view port");
+            return;
+        }
+
         setViewport(iaRectanglei(x, y, width, height));
     }
 
@@ -1697,7 +1705,7 @@ namespace igor
         endTriangles();
     }
 
-    __IGOR_INLINE__ void iRenderer::beginTriangles()
+    IGOR_INLINE void iRenderer::beginTriangles()
     {
         auto &triangles = _data->_triangles;
 
@@ -1712,7 +1720,7 @@ namespace igor
         }
     }
 
-    __IGOR_INLINE__ void iRenderer::endTriangles()
+    IGOR_INLINE void iRenderer::endTriangles()
     {
         _data->_lastRenderDataSetUsed = iRenderDataSet::Triangles;
     }

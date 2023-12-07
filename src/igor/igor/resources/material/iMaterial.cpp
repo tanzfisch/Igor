@@ -17,6 +17,7 @@ namespace igor
     iMaterial::iMaterial(const iParameters &parameters)
     : iResource(parameters)
     {
+        setName("Material Name");
     }
 
     bool iMaterial::isValid() const
@@ -277,16 +278,6 @@ namespace igor
         {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         }
-    }
-
-    void iMaterial::setName(const iaString &name)
-    {
-        _name = name;
-    }
-
-    const iaString &iMaterial::getName() const
-    {
-        return _name;
     }
 
     void iMaterial::setRenderState(const iRenderState state, const iRenderStateValue value)

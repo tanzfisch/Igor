@@ -77,16 +77,6 @@ namespace igor
          */
         iShaderProgramPtr getShaderProgram() const;
 
-        /*! sets name of material
-
-        \param name name to be set
-        */
-        void setName(const iaString &name);
-
-        /*! \returns name of material
-         */
-        const iaString &getName() const;
-
         /*! defines the value of a specific render state
 
         \param state render state
@@ -174,10 +164,6 @@ namespace igor
         const iaString &getFilename() const;
 
     private:
-        /*! name of the material.
-         */
-        iaString _name = L"iMaterial";
-
         /*! filename of material (optional)
          */
         iaString _filename;

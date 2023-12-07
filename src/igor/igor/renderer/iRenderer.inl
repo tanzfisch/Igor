@@ -127,7 +127,7 @@ void iRenderer::drawQuad(const iaVector3<T> &o, const iaVector3<T> &u, const iaV
                      of - vf - uf,
                      of - vf + uf,
                      of + vf + uf,
-                     color);
+                     color, color, color, color);
 }
 
 template <typename T>
@@ -143,13 +143,13 @@ void iRenderer::drawQuad(const iaMatrix<T> &matrix, const iaColor4f &color)
                      matrixf * QUAD_VERTEX_POSITIONS[1],
                      matrixf * QUAD_VERTEX_POSITIONS[2],
                      matrixf * QUAD_VERTEX_POSITIONS[3],
-                     color);
+                     color, color, color, color);
 }
 
 template <typename T>
 void iRenderer::drawQuad(const iaVector3<T> &v1, const iaVector3<T> &v2, const iaVector3<T> &v3, const iaVector3<T> &v4, const iaColor4f &color)
 {
-    drawQuadInternal(v1, v2, v3, v4, color);
+    drawQuadInternal(v1, v2, v3, v4, color, color, color, color);
 }
 
 template <typename T>
@@ -159,7 +159,17 @@ void iRenderer::drawFilledRectangle(const iaRectangle<T> &rect, const iaColor4f 
                      iaVector3f(static_cast<float32>(rect._x), static_cast<float32>(rect._y + rect._height), 0.0),
                      iaVector3f(static_cast<float32>(rect._x + rect._width), static_cast<float32>(rect._y + rect._height), 0.0),
                      iaVector3f(static_cast<float32>(rect._x + rect._width), static_cast<float32>(rect._y), 0.0),
-                     color);
+                     color, color, color, color);
+}
+
+template <typename T>
+void iRenderer::drawFilledRectangleColored(const iaRectangle<T> &rect, const iaColor4f &color1, const iaColor4f &color2, const iaColor4f &color3, const iaColor4f &color4)
+{
+    drawQuadInternal(iaVector3f(static_cast<float32>(rect._x), static_cast<float32>(rect._y), 0.0),
+                     iaVector3f(static_cast<float32>(rect._x), static_cast<float32>(rect._y + rect._height), 0.0),
+                     iaVector3f(static_cast<float32>(rect._x + rect._width), static_cast<float32>(rect._y + rect._height), 0.0),
+                     iaVector3f(static_cast<float32>(rect._x + rect._width), static_cast<float32>(rect._y), 0.0),
+                     color1, color2, color3, color4);
 }
 
 template <typename T>
@@ -168,7 +178,8 @@ void iRenderer::drawFilledRectangle(T x, T y, T width, T height, const iaColor4f
     drawQuadInternal(iaVector3f(static_cast<float32>(x), static_cast<float32>(y), 0.0),
                      iaVector3f(static_cast<float32>(x), static_cast<float32>(y + height), 0.0),
                      iaVector3f(static_cast<float32>(x + width), static_cast<float32>(y + height), 0.0),
-                     iaVector3f(static_cast<float32>(x + width), static_cast<float32>(y), 0.0), color);
+                     iaVector3f(static_cast<float32>(x + width), static_cast<float32>(y), 0.0),
+                     color, color, color, color);
 }
 
 template <typename T>
@@ -295,62 +306,62 @@ template <typename T>
 void iRenderer::drawBox(const iAACube<T> &cube, const iaColor4f &color)
 {
     drawBoxInternal(iAABoxf(iaVector3f(cube._center._x, cube._center._y, cube._center._z),
-                    iaVector3f(cube._halfEdgeLength, cube._halfEdgeLength, cube._halfEdgeLength)),
-            color);
+                            iaVector3f(cube._halfEdgeLength, cube._halfEdgeLength, cube._halfEdgeLength)),
+                    color);
 }
 
 template <typename T>
 void iRenderer::drawBox(const iAABox<T> &box, const iaColor4f &color)
 {
     drawBoxInternal(iAABoxf(iaVector3f(box._center._x, box._center._y, box._center._z),
-                    iaVector3f(box._halfWidths._x, box._halfWidths._y, box._halfWidths._z)),
-            color);
+                            iaVector3f(box._halfWidths._x, box._halfWidths._y, box._halfWidths._z)),
+                    color);
 }
 
-template <> inline
-void iRenderer::drawSprite(const iaMatrix<float32> &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2<float32> &size, const iaColor4f &color, bool blend)
+template <>
+inline void iRenderer::drawSprite(const iaMatrix<float32> &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2<float32> &size, const iaColor4f &color, bool blend)
 {
     drawSpriteInternal(matrix, sprite, frameIndex, size, color, blend);
 }
 
-template <> inline
-void iRenderer::drawTexturedQuad(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaVector3<float32> &v3, const iaVector3<float32> &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
+template <>
+inline void iRenderer::drawTexturedQuad(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaVector3<float32> &v3, const iaVector3<float32> &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
 {
     drawTexturedQuadInternal(v1, v2, v3, v4, texture, color, blend, tiling);
 }
 
-template <> inline
-void iRenderer::drawTexturedQuad(const iaMatrix<float32> &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
+template <>
+inline void iRenderer::drawTexturedQuad(const iaMatrix<float32> &matrix, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
 {
     drawTexturedQuadInternal(matrix * QUAD_VERTEX_POSITIONS[0],
-                                matrix * QUAD_VERTEX_POSITIONS[1],
-                                matrix * QUAD_VERTEX_POSITIONS[2],
-                                matrix * QUAD_VERTEX_POSITIONS[3],
-                                texture, color, blend, tiling);
+                             matrix * QUAD_VERTEX_POSITIONS[1],
+                             matrix * QUAD_VERTEX_POSITIONS[2],
+                             matrix * QUAD_VERTEX_POSITIONS[3],
+                             texture, color, blend, tiling);
 }
 
-template <> inline
-void iRenderer::drawTexturedQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
+template <>
+inline void iRenderer::drawTexturedQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, iTexturePtr texture, const iaColor4f &color, bool blend, const iaVector2<float32> &tiling)
 {
     drawTexturedQuadInternal(o + v - u,
-                                o - v - u,
-                                o - v + u,
-                                o + v + u,
-                                texture, color, blend, tiling);
+                             o - v - u,
+                             o - v + u,
+                             o + v + u,
+                             texture, color, blend, tiling);
 }
 
-template <> inline
-void iRenderer::drawQuad(const iaMatrix<float32> &matrix, const iaColor4f &color)
+template <>
+inline void iRenderer::drawQuad(const iaMatrix<float32> &matrix, const iaColor4f &color)
 {
     drawQuadInternal(matrix * QUAD_VERTEX_POSITIONS[0],
-                        matrix * QUAD_VERTEX_POSITIONS[1],
-                        matrix * QUAD_VERTEX_POSITIONS[2],
-                        matrix * QUAD_VERTEX_POSITIONS[3],
-                        color);
+                     matrix * QUAD_VERTEX_POSITIONS[1],
+                     matrix * QUAD_VERTEX_POSITIONS[2],
+                     matrix * QUAD_VERTEX_POSITIONS[3],
+                     color, color, color, color);
 }
 
-template <> inline
-void iRenderer::drawLineStrip(const std::vector<iaVector3<float32>> &points, const iaColor4f &color)
+template <>
+inline void iRenderer::drawLineStrip(const std::vector<iaVector3<float32>> &points, const iaColor4f &color)
 {
     con_assert(points.size() > 1, "too few points");
 
@@ -363,30 +374,30 @@ void iRenderer::drawLineStrip(const std::vector<iaVector3<float32>> &points, con
     }
 }
 
-template <> inline
-void iRenderer::drawLine(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaColor4f &color)
+template <>
+inline void iRenderer::drawLine(const iaVector3<float32> &v1, const iaVector3<float32> &v2, const iaColor4f &color)
 {
     drawLineInternal(v1, v2, color);
 }
 
-template <> inline
-void iRenderer::drawPoint(const iaVector3<float32> &v, const iaColor4f &color)
+template <>
+inline void iRenderer::drawPoint(const iaVector3<float32> &v, const iaColor4f &color)
 {
     drawPointInternal(v, color);
 }
 
-template <> inline
-void iRenderer::drawBox(const iAABox<float32> &box, const iaColor4f &color)
+template <>
+inline void iRenderer::drawBox(const iAABox<float32> &box, const iaColor4f &color)
 {
     drawBoxInternal(box, color);
 }
 
-template <> inline
-void iRenderer::drawQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, const iaColor4f &color)
+template <>
+inline void iRenderer::drawQuad(const iaVector3<float32> &o, const iaVector3<float32> &u, const iaVector3<float32> &v, const iaColor4f &color)
 {
     drawQuadInternal(o + v - u,
-                        o - v - u,
-                        o - v + u,
-                        o + v + u,
-                        color);
+                     o - v - u,
+                     o - v + u,
+                     o + v + u,
+                     color, color, color, color);
 }

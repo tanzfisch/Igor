@@ -45,7 +45,7 @@ void Example3D::onInit()
     cameraTranslation->insertNode(camera);
     // and finally we set the camera active. for this to work a camera must be part of a scene
     // wich we achived by adding all those nodes on to an other starting with the root node
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // create a single cat model
     iNodeTransform *justCatTransform = iNodeManager::getInstance().createNode<iNodeTransform>();

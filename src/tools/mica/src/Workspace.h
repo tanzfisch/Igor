@@ -34,33 +34,33 @@
 #include <memory>
 
 /*! the mica workspace
-*/
+ */
 class Workspace
 {
 
 public:
     /*! init members
-	*/
+     */
     Workspace();
 
     /*! deinit resources
-	*/
+     */
     virtual ~Workspace();
 
     /*! \returns the user root
-    */
+     */
     iNodePtr getRootUser() const;
 
     /*! \returns the mica root
-    */
+     */
     iNodePtr getRootMica() const;
 
     /*! \returns scene
-    */
+     */
     iScenePtr getScene() const;
 
     /*! empties the workspace
-	*/
+     */
     void clear();
 
     /*! clear workspace and loads a new one
@@ -82,69 +82,69 @@ public:
     void importFile(const iaString &filename);
 
     /*! \returns list of selected nodes
-    */
+     */
     const std::vector<iNodeID> &getSelection() const;
 
     /*! sets the current selection
-    */
+     */
     void setSelection(const std::vector<iNodeID> &selection);
 
     /*! clear current selection
-    */
+     */
     void clearSelection();
 
     /*! duplicates selected nodes
-    */
+     */
     void duplicateSelected();
 
     /*! cut selected nodes
-    */
+     */
     void cutSelected();
 
     /*! copy selected nodes
-    */
+     */
     void copySelected();
 
     /*! copy selected nodes
-    */
+     */
     void pasteSelected();
 
     /*! delete selected nodes
-    */
+     */
     void deleteSelected();
 
     /*! \returns the default camera
-    */
+     */
     CameraArcPtr getCameraArc() const;
 
 private:
     /*! the default camera
-    */
+     */
     CameraArcPtr _cameraArc = nullptr;
 
     /*! main scene
-	*/
+     */
     iScenePtr _scene = nullptr;
 
     /*! root node of user scene
-    */
+     */
     iNodePtr _rootUser = nullptr;
 
     /*! root node of mica scene
-    */
+     */
     iNodePtr _rootMica = nullptr;
 
     /*! nodes that have been marked to be cut so they can be pasted later
-    */
+     */
     std::vector<iNodeID> _cutNodes;
 
     /*! nodes that have been marked to be copied onces they are pasted later
-    */
+     */
     std::vector<iNodeID> _copiedNodes;
 };
 
 /*! workspace pointer definition
-*/
+ */
 typedef std::shared_ptr<Workspace> WorkspacePtr;
 
 #endif // __WORKSPACE__

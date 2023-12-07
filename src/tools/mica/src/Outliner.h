@@ -33,14 +33,9 @@
 #include "usercontrols/UserControlGraphView.h"
 #include "usercontrols/UserControlMaterialView.h"
 
-IGOR_EVENT_DEFINITION(LoadFile, void);
 IGOR_EVENT_DEFINITION(ImportFile, void);
 IGOR_EVENT_DEFINITION(ImportFileReference, void);
-IGOR_EVENT_DEFINITION(SaveFile, void);
 IGOR_EVENT_DEFINITION(ExitMica, void);
-IGOR_EVENT_DEFINITION(CopyNode, void, uint64);
-IGOR_EVENT_DEFINITION(PasteNode, void, uint64);
-IGOR_EVENT_DEFINITION(CutNode, void, uint64);
 
 // replace later with iWidgetTab once implemented
 enum class ViewType
@@ -62,29 +57,11 @@ public:
 
     void refresh();
 
-    void registerOnLoadFile(LoadFileDelegate loadFileDelegate);
-    void unregisterOnLoadFile(LoadFileDelegate loadFileDelegate);
-
     void registerOnImportFile(ImportFileDelegate importFileDelegate);
     void unregisterOnImportFile(ImportFileDelegate importFileDelegate);
 
     void registerOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate);
     void unregisterOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate);
-
-    void registerOnSaveFile(SaveFileDelegate saveFileDelegate);
-    void unregisterOnSaveFile(SaveFileDelegate saveFileDelegate);
-
-    void registerOnExitMica(ExitMicaDelegate exitMicaDelegate);
-    void unregisterOnExitMica(ExitMicaDelegate exitMicaDelegate);
-
-    void registerOnCopyNode(CopyNodeDelegate copyNodeDelegate);
-    void unregisterOnCopyNode(CopyNodeDelegate copyNodeDelegate);
-
-    void registerOnPasteNode(PasteNodeDelegate pasteNodeDelegate);
-    void unregisterOnPasteNode(PasteNodeDelegate pasteNodeDelegate);
-
-    void registerOnCutNode(CutNodeDelegate cutNodeDelegate);
-    void unregisterOnCutNode(CutNodeDelegate cutNodeDelegate);
 
     void registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
     void unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
@@ -105,10 +82,8 @@ private:
     */
     WorkspacePtr _workspace;
 
-    LoadFileEvent _loadFile;
     ImportFileEvent _importFile;
     ImportFileReferenceEvent _importFileReference;
-    SaveFileEvent _saveFile;
     ExitMicaEvent _exitMica;
 
     GraphSelectionChangedEvent _graphSelectionChanged;
@@ -116,10 +91,6 @@ private:
     AddMaterialEvent _addMaterial;
     LoadMaterialEvent _loadMaterial;
     MaterialSelectionChangedEvent _materialSelectionChanged;
-
-    CopyNodeEvent _copyNode;
-    CutNodeEvent _cutNode;
-    PasteNodeEvent _pasteNode;
 
     iWidgetGridLayout *_grid = nullptr;
 
@@ -145,9 +116,12 @@ private:
     void deinitMaterialView();
     void initMaterialView();
 
+    void onCreateProject(const iWidgetPtr source);
+    void onLoadProject(const iWidgetPtr source);
+    void onSaveProject(const iWidgetPtr source);
+
     void onLoadFile(const iWidgetPtr source);
     void onSaveFile(const iWidgetPtr source);
-    void onExitMica(const iWidgetPtr source);
 
     void onDelete(const iWidgetPtr source);
 

@@ -39,6 +39,7 @@
 #include <igor/data/iFrustum.h>
 #include <igor/data/iIntersection.h>
 #include <igor/data/iJoint.h>
+#include <igor/data/iItemData.h>
 #include <igor/data/iPlane.h>
 #include <igor/data/iRay.h>
 #include <igor/data/iSkeleton.h>
@@ -69,6 +70,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/model/iModelFactory.h>
+#include <igor/resources/project/iProject.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
@@ -121,6 +123,7 @@
 
 #include <igor/simulation/iParticleSystem2D.h>
 
+#include <igor/ui/iDrag.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
@@ -138,8 +141,6 @@
 #include <igor/ui/widgets/iWidgetColor.h>
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
-#include <igor/ui/widgets/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetMenu.h>
@@ -152,9 +153,17 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/user_controls/iUserControlAction.h>
+
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
+#include <igor/ui/user_controls/iUserControlTreeView.h>
+
+#include <igor/ui/widgets/iWidgetBoxLayout.h>
+#include <igor/ui/widgets/iWidgetDockingLayout.h>
+#include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/widgets/iWidgetFixedGridLayout.h>
+#include <igor/ui/widgets/iWidgetSplitter.h>
+#include <igor/ui/widgets/iWidgetViewport.h>
 
 // version
 #include <igor/iVersion.h>

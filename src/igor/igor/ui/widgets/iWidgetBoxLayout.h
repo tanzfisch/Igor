@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_VBOX_LAYOUT__
-#define __IGOR_WIDGET_VBOX_LAYOUT__
+#ifndef __IGOR_WIDGET_BOX_LAYOUT__
+#define __IGOR_WIDGET_BOX_LAYOUT__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <vector>
@@ -80,14 +80,24 @@ namespace igor
         */
         void removeWidget(iWidgetPtr widget) override;
 
+        /*! sets stretch index
+
+        \param index the stretch index. <0 for no stretch
+        */
+        void setStretchIndex(int32 index);
+
+        /*! \returns the stretch index
+        */
+        int32 getStretchIndex() const;
+
     private:
         /*! layout type
          */
         iWidgetBoxLayoutType _layoutType;
 
-        /*! draws the widget
-         */
-        void draw() override;
+        /*! the stretch index
+        */
+        int32 _stretchIndex = -1;
 
         /*! updates size based on it's content
          */
@@ -106,4 +116,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETGRID__
+#endif // __IGOR_WIDGET_BOX_LAYOUT__

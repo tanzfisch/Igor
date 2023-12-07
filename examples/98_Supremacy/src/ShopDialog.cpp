@@ -65,8 +65,8 @@ const ShopItem &ShopDialog::getSelection() const
 
 void ShopDialog::initGUI()
 {
-	setWidth(500);
-	setHeight(200);
+	setMinWidth(500);
+	setMinHeight(200);
 
 	setHorizontalAlignment(iHorizontalAlignment::Center);
 	setVerticalAlignment(iVerticalAlignment::Center);
@@ -142,17 +142,17 @@ void ShopDialog::initGUI()
 	_labelDescription3->setHorizontalAlignment(iHorizontalAlignment::Center);
 
 	_picture1 = new iWidgetPicture();
-	_picture1->setSize(128, 128);
+	_picture1->setMinSize(128, 128);
 	_picture1->setVerticalAlignment(iVerticalAlignment::Center);
 	_picture1->setHorizontalAlignment(iHorizontalAlignment::Center);
 
 	_picture2 = new iWidgetPicture();
-	_picture2->setSize(128, 128);
+	_picture2->setMinSize(128, 128);
 	_picture2->setVerticalAlignment(iVerticalAlignment::Center);
 	_picture2->setHorizontalAlignment(iHorizontalAlignment::Center);
 
 	_picture3 = new iWidgetPicture();
-	_picture3->setSize(128, 128);
+	_picture3->setMinSize(128, 128);
 	_picture3->setVerticalAlignment(iVerticalAlignment::Center);
 	_picture3->setHorizontalAlignment(iHorizontalAlignment::Center);
 
@@ -180,14 +180,14 @@ void ShopDialog::initGUI()
 	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("example_texture_supremacy_coin"));
 
 	iWidgetButton *buyButton = new iWidgetButton();
-	buyButton->setSize(50, 20);
+	buyButton->setMinSize(50, 20);
 	buyButton->setVerticalAlignment(iVerticalAlignment::Center);
 	buyButton->setHorizontalAlignment(iHorizontalAlignment::Center);
 	buyButton->setText("buy");
 	buyButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onBuy));
 
 	iWidgetButton *cancelButton = new iWidgetButton();
-	cancelButton->setSize(50, 20);
+	cancelButton->setMinSize(50, 20);
 	cancelButton->setVerticalAlignment(iVerticalAlignment::Center);
 	cancelButton->setHorizontalAlignment(iHorizontalAlignment::Center);
 	cancelButton->setText("cancel");

@@ -20,22 +20,24 @@ namespace igor
 		setVerticalAlignment(iVerticalAlignment::Center);
 		_reactOnMouseWheel = false;
 
-		setWidth(width);
-		setHeight(height);
+		setMinWidth(width);
+		setMinHeight(height);
 		setVisible(visible);
-	}
-
-	void iWidgetSpacer::calcMinSize()
-	{
-		setMinSize(0, 0);
 	}
 
 	void iWidgetSpacer::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getState(), isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawWidgetSpacer(this);
+
+        for (const auto child : _children)
+        {
+            child->draw();
+        }				
 	}
 
 } // namespace igor

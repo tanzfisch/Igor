@@ -13,7 +13,7 @@
 #include <io.h>
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 #include <unistd.h>
 #endif
 
@@ -22,6 +22,7 @@ namespace iaux
 
     iaFile::iaFile(const iaString &filename)
     {
+        con_assert(!filename.isEmpty(), "can't use empty filename");
         _filename = iaDirectory::fixPath(filename, true);
     }
 
@@ -42,7 +43,7 @@ namespace iaux
 #ifdef IGOR_WINDOWS
         size = pos;
 #endif
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         size = (int64)pos.__pos;
 #endif
         return size;
@@ -74,7 +75,7 @@ namespace iaux
         _mode = mode;
 
         // if it does not exist and we don't want to write it abort
-        if (!exist() && !isWriteable(_mode))
+        if (!exists() && !isWriteable(_mode))
         {
             return false;
         }
@@ -123,14 +124,14 @@ namespace iaux
         return iaFile(newName);
     }
 
-    bool iaFile::exist() const
+    bool iaFile::exists() const
     {
-        return iaFile::exist(getFullFileName());
+        return iaFile::exists(getFullFileName());
     }
 
-    bool iaFile::exist(const iaString &filename)
+    bool iaFile::exists(const iaString &filename)
     {
-        if(filename.isEmpty())
+        if (filename.isEmpty())
         {
             return false;
         }
@@ -139,9 +140,33 @@ namespace iaux
         return !std::filesystem::is_directory(path) && std::filesystem::exists(path);
     }
 
+    bool iaFile::remove(const iaString &filename)
+    {
+        if (!exists(filename))
+        {
+            return false;
+        }
+
+        return std::filesystem::remove(filename.getData());
+    }
+
+    iaTime iaFile::getLastModifiedTime() const
+    {
+        return getLastModifiedTime(getFullFileName());
+    }
+
+    iaTime iaFile::getLastModifiedTime(const iaString &filename)
+    {
+        const auto lastModifiedTime = std::filesystem::last_write_time(filename.getData());
+        const auto duration = lastModifiedTime.time_since_epoch();
+        const int64 ms = std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
+
+        return iaTime::fromMicroseconds(ms);
+    }
+
     iaString iaFile::getPath() const
     {
-        int64 pos = _filename.findLastOf(__IGOR_PATHSEPARATOR__);
+        int64 pos = _filename.findLastOf(IGOR_PATHSEPARATOR);
 
         if (pos != iaString::INVALID_POSITION)
         {
@@ -155,7 +180,7 @@ namespace iaux
 
     iaString iaFile::getFileName() const
     {
-        int64 pos = _filename.findLastOf(__IGOR_PATHSEPARATOR__);
+        int64 pos = _filename.findLastOf(IGOR_PATHSEPARATOR);
 
         if (pos != iaString::INVALID_POSITION)
         {
@@ -237,7 +262,7 @@ namespace iaux
 #ifdef IGOR_WINDOWS
         fpos_t pos = position;
 #endif
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         fpos_t pos;
         pos.__pos = position;
 #endif
@@ -324,7 +349,7 @@ namespace iaux
         }
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         if (ftruncate(fileno(_fileHandle), size) != 0)
         {
             con_err("cant change size of file: " << getFullFileName() << " to " << size);

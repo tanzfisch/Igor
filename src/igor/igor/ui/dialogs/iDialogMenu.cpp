@@ -4,13 +4,13 @@
 
 #include <igor/ui/dialogs/iDialogMenu.h>
 
-#include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/widgets/iWidgetMenu.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
+#include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/actions/iActionManager.h>
-#include <igor/ui/user_controls/iUserControlAction.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -27,18 +27,28 @@ namespace igor
     void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate)
     {
         iDialog::open(dialogCloseDelegate);
+        putInFront();
     }
 
     void iDialogMenu::init()
     {
-        setSize(0, 0);
+        setMinSize(100, 0);
         setAcceptOutOfBoundsClicks();
         registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
-        _grid = new iWidgetGridLayout(this);
-        _grid->setSelectMode(iSelectionMode::NoSelection);
-        _grid->setHighlightMode(iSelectionMode::Row);
+        setIgnoreChildEventConsumption(false);
+        setGrowingByContent(true);
+        setHeaderEnabled(false);
+        setResizeable(false);
+
+        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     }
+
+    void iDialogMenu::clear()
+    {
+        iWidget::clear();
+        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);        
+    }    
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
     {
@@ -52,18 +62,16 @@ namespace igor
         close();
     }
 
-    void iDialogMenu::addSpacer()
+    void iDialogMenu::addSeparator()
     {
         iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 2, true);
         spacer->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        _grid->addWidget(spacer, 0, _grid->getRowCount() - 1);
-        _grid->appendRows(1);
+        _vboxLayout->addWidget(spacer);
     }
 
     void iDialogMenu::addMenu(const iWidgetMenuPtr menu)
     {
-        _grid->addWidget(menu, 0, _grid->getRowCount() - 1);
-        _grid->appendRows(1);
+        _vboxLayout->addWidget(menu);
     }
 
     void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context)
@@ -79,14 +87,30 @@ namespace igor
             return;
         }
 
-        iUserControlActionPtr userControlAction = new iUserControlAction();
-        userControlAction->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        userControlAction->setAction(action, context);
-        userControlAction->setFixedPictureSize();
-        userControlAction->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+        iWidgetButtonPtr button = new iWidgetButton();
+        button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        button->setMinHeight(25);
+        button->setAction(action, context);
+        button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
 
-        _grid->addWidget(userControlAction, 0, _grid->getRowCount() - 1);
-        _grid->appendRows(1);
+        button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+
+        _vboxLayout->addWidget(button);
+    }
+
+    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
+    {
+        iWidgetButtonPtr button = new iWidgetButton();
+        button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        button->setMinHeight(25);
+        button->setText(title);
+        button->setTooltip(description);
+        button->setIcon(iconAlias);
+        button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+        button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->registerOnClickEvent(delegate);
+
+        _vboxLayout->addWidget(button);
     }
 
     void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context)

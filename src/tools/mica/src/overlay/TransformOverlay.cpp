@@ -603,7 +603,12 @@ bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 
 bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
-    iNodeID nodeID = getView()->pickcolorID(event.getPosition()._x, event.getPosition()._y);
+    auto rect = getView()->getViewport();
+    auto window = iApplication::getInstance().getWindow();
+
+    auto top = window->getClientHeight() - rect._height - rect._y;
+
+    iNodeID nodeID = getView()->pickcolorID(event.getPosition()._x - rect._x, event.getPosition()._y - top);
 
     _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
 

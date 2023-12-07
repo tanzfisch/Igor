@@ -14,7 +14,7 @@ IAUX_TEST(FileDirTests, Initial)
     IAUX_EXPECT_EQUAL(dir.getFullDirectoryName().isEmpty(), true);
 }
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 IAUX_TEST(FileDirTests, FixPathLinux)
 {
     IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"/foo/bar", false), "/foo/bar");

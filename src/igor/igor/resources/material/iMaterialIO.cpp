@@ -248,7 +248,7 @@ namespace igor
         TiXmlDocument document(temp);
         if (!document.LoadFile())
         {
-            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
+            con_err("can't read \"" << filename << "\". TinyXML:" << document.ErrorDesc());
             return false;
         }
 
@@ -308,7 +308,7 @@ namespace igor
             {
                 file << "\t\t\t<" << source._type;
 
-                if (iaFile::exist(source._filename))
+                if (iaFile::exists(source._filename))
                 {
                     file << " filename=\"" << iResourceManager::getInstance().getRelativePath(source._filename) << "\" />\n";
                 }

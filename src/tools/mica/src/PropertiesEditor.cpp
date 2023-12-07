@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2023 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "PropertiesEditor.h"
 
 #include "usercontrols/UserControlTransformation.h"
@@ -30,7 +34,10 @@ PropertiesEditor::PropertiesEditor()
 
 void PropertiesEditor::initGUI()
 {
-    setWidth(370);
+    setTitle("Properties Editor");
+
+    setDockable(true);
+    setMinWidth(380);
     setHorizontalAlignment(iHorizontalAlignment::Right);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 

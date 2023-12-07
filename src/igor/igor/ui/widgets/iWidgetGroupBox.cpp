@@ -17,8 +17,8 @@ namespace igor
 	iWidgetGroupBox::iWidgetGroupBox(const iWidgetPtr parent)
 		: iWidget(iWidgetType::iWidgetGroupBox, iWidgetKind::Widget, parent)
 	{
-		_configuredWidth = 60;
-		_configuredHeight = 20;
+		_configuredMinWidth = 60;
+		_configuredMinHeight = 20;
 	}
 
 	void iWidgetGroupBox::setBorder(int32 border)
@@ -95,7 +95,7 @@ namespace igor
 			}
 		}
 
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 	}
 
 	void iWidgetGroupBox::setText(const iaString &text)

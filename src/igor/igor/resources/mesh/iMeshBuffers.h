@@ -56,7 +56,7 @@ namespace igor
 
         /*! \returns vertex array object id
         */
-        __IGOR_INLINE__ uint32 getVertexArrayObject() const;
+        IGOR_INLINE uint32 getVertexArrayObject() const;
 
         /*! sets index buffer object
 
@@ -66,7 +66,7 @@ namespace igor
 
         /*! \returns index buffer object id
         */
-        __IGOR_INLINE__ uint32 getIndexBufferObject() const;
+        IGOR_INLINE uint32 getIndexBufferObject() const;
 
         /*! sets vertex buffer object
 
@@ -76,11 +76,11 @@ namespace igor
 
         /*! \returns vertex buffer object id
         */
-        __IGOR_INLINE__ uint32 getVertexBufferObject() const;
+        IGOR_INLINE uint32 getVertexBufferObject() const;
 
         /*! \returns indexes count
         */
-        __IGOR_INLINE__ uint32 getIndexesCount() const;
+        IGOR_INLINE uint32 getIndexesCount() const;
 
         /*! sets index count
 
@@ -90,7 +90,7 @@ namespace igor
 
         /*! \returns vertex count
         */
-        __IGOR_INLINE__ uint32 getVertexCount() const;
+        IGOR_INLINE uint32 getVertexCount() const;
 
         /*! sets vertex count
 
@@ -100,7 +100,7 @@ namespace igor
 
         /*! \returns triangles count
         */
-        __IGOR_INLINE__ uint32 getTrianglesCount() const;
+        IGOR_INLINE uint32 getTrianglesCount() const;
 
         /*! set triangles count
 

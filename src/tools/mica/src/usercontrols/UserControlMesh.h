@@ -44,10 +44,9 @@ public:
     uint32 getNode();
 
 private:
-    void draw() override;
 
     /*! if true ui is initialized
-	*/
+     */
     bool _initialized = false;
 
     iUserControlFileChooser *_textureChooser0 = nullptr;

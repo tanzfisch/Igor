@@ -35,6 +35,14 @@ namespace igor
         return false;
     }
 
+    iResourcePtr iSpriteFactory::createResource()
+    {
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SPRITE},
+                           {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
+
+        return createResource(param);
+    }
+
     iResourcePtr iSpriteFactory::createResource(const iParameters &parameters)
     {
         return iResourcePtr(new iSprite(parameters));
@@ -42,11 +50,15 @@ namespace igor
 
     bool iSpriteFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
-        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
+        iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }
+        
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
         iSpritePtr sprite = std::dynamic_pointer_cast<iSprite>(resource);
-
-        return loadSprite(filename, sprite);
+        return loadSprite(fullFilepath, sprite);
     }
 
     void iSpriteFactory::readSpriteElement(TiXmlElement *spriteElement, iSpritePtr sprite)

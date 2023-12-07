@@ -15,10 +15,6 @@ using namespace iaux;
 namespace igor
 {
 
-    iResourceDictionary::iResourceDictionary()
-    {
-    }
-
     bool iResourceDictionary::write(const iaString &filename)
     {
         char temp[2048];
@@ -88,13 +84,43 @@ namespace igor
             _aliasLookup[uuidAlias] = uuid;
         }
 
-        // skip certain internal so they don't get mixed up when exporting resources
+        // skip marked internal so they are excluded from export
         if (!internal)
         {
             _data.emplace_back(uuid, source, alias);
         }
 
         return true;
+    }
+
+    void iResourceDictionary::removeResource(iResourceID resourceID)
+    {
+        if(!resourceID.isValid())
+        {
+            return;
+        }
+
+        auto iterSource = _resourceDictionaryLookup.find(resourceID);
+        if (iterSource != _resourceDictionaryLookup.end())
+        {
+            _resourceDictionaryLookup.erase(iterSource);
+        }
+
+        auto iterAlias = std::find_if(_aliasLookup.begin(), _aliasLookup.end(), [&resourceID](const auto &pair)
+                                      { return pair.second == resourceID; });
+
+        if (iterAlias != _aliasLookup.end())
+        {
+            _aliasLookup.erase(iterAlias);
+        }
+
+        auto iterData = std::find_if(_data.begin(), _data.end(), [&resourceID](const auto &tuple)
+                                      { return std::get<0>(tuple) == resourceID; });
+
+        if (iterData != _data.end())
+        {
+            _data.erase(iterData);
+        }        
     }
 
     bool iResourceDictionary::readResourceDictionaryElement(TiXmlElement *element, bool internal)
@@ -140,20 +166,23 @@ namespace igor
         TiXmlElement *root = document.FirstChildElement("Igor");
         if (root == nullptr)
         {
-            con_err("not an igor xml file");
+            con_err("not an igor xml file \"" << temp << "\"");
             return false;
         }
 
         TiXmlElement *resourceDictionary = root->FirstChildElement("ResourceDictionary");
-        if (resourceDictionary != nullptr)
+        if (resourceDictionary == nullptr)
         {
-            iaString internal(resourceDictionary->Attribute("internal"));
+            con_err("invalid file \"" << temp << "\"");
+            return false;
+        }
 
-            if (!readResourceDictionaryElement(resourceDictionary, (!internal.isEmpty() && internal == "true")))
-            {
-                con_err("can't read all resource dictionary entries from \"" << filename << "\"");
-                return false;
-            }
+        iaString internal(resourceDictionary->Attribute("internal"));
+
+        if (!readResourceDictionaryElement(resourceDictionary, (!internal.isEmpty() && internal == "true")))
+        {
+            con_err("can't read all resource dictionary entries from \"" << filename << "\"");
+            return false;
         }
 
         con_info("loaded resource dictionary \"" << filename << "\"");

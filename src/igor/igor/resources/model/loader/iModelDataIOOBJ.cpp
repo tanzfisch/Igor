@@ -52,7 +52,7 @@ namespace igor
 		iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 		result->setName("obj_root");
 
-		if (!readFile(parameters.getParameter<iaString>("filename", "")))
+		if (!readFile(parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "")))
 		{
 			return 0;
 		}
@@ -295,7 +295,7 @@ namespace igor
 	bool iModelDataIOOBJ::readMaterialFile(iaString filename)
 	{
 		std::ifstream file;
-		if (iaFile::exist(filename))
+		if (iaFile::exists(filename))
 		{
 			iaString path = iResourceManager::getInstance().resolvePath(filename);
 			char temp[1024];

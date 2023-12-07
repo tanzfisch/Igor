@@ -91,12 +91,12 @@ namespace igor
 		*/
         bool _checked = false;
 
-        /*! handles incoming mouse up event
+        /*! handles mouse key up events
 
-		\parma key released mouse key
-		\returns true: if event was consumed and therefore ignored by the parent
-		*/
-        virtual bool handleMouseKeyUp(iKeyCode key);
+        \param event the mouse key up event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! if check box is part of a radio button group. this is the group
 		*/
@@ -115,8 +115,8 @@ namespace igor
         void calcMinSize() override;
 
         /*! draws the widget
-		*/
-        void draw();
+         */
+        void draw() override;
     };
 
     /*! checkbox pointer definition

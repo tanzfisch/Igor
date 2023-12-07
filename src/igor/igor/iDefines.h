@@ -34,7 +34,7 @@
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#ifdef __IGOR_MSCOMPILER__
+#ifdef IGOR_MSCOMPILER
 #ifdef __IGOR_BUILDING_DLL__
 #define IGOR_API __declspec(dllexport)
 #define IGOR_API_EXPORT_ONLY __declspec(dllexport)
@@ -46,7 +46,7 @@ using namespace iaux;
 #endif
 #endif
 
-#ifdef __IGOR_GCC__
+#ifdef IGOR_GCC
 #define IGOR_API
 #define IGOR_API_EXPORT_ONLY
 #endif
@@ -72,7 +72,7 @@ extern const iaString IGOR_RESOURCE_PARAM_ID; //! resource parameters id
 extern const iaString IGOR_RESOURCE_PARAM_ALIAS; //! resource parameters alias
 extern const iaString IGOR_RESOURCE_PARAM_TYPE; //! resource parameters type
 extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE; //! resource parameters cache mode
-extern const iaString IGOR_RESOURCE_PARAM_FILENAME; //! resource parameters filename
+extern const iaString IGOR_RESOURCE_PARAM_SOURCE; //! resource parameters filename
 extern const iaString IGOR_RESOURCE_PARAM_PIXMAP; //! resource parameters pixmap
 extern const iaString IGOR_RESOURCE_PARAM_NODE; //! resource parameters node
 extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE; //! resource parameters export mode

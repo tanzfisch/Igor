@@ -35,22 +35,23 @@ namespace igor
 
     void iDialogColorChooser::initGUI(const iaColor4f &color, bool useAlpha)
     {
+        setTitle("Choose Color");
+		setVerticalAlignment(iVerticalAlignment::Center);
+		setHorizontalAlignment(iHorizontalAlignment::Center);
+        setResizeable(false);
+
         iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
-        setWidth(20);
-        setHeight(20);
+        setMinWidth(20);
+        setMinHeight(20);
 
         iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
-        grid->appendRows(2);
+        grid->appendRows(1);
         grid->setHorizontalAlignment(iHorizontalAlignment::Center);
         grid->setVerticalAlignment(iVerticalAlignment::Center);
         grid->setCellSpacing(4);
         grid->setBorder(4);
-
-        iWidgetLabel *headerLabel = new iWidgetLabel();
-        headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-        headerLabel->setText("Choose Color");
 
         _userControlColorChooser = new iUserControlColorChooser();
         _userControlColorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
@@ -77,9 +78,8 @@ namespace igor
         resetButton->setTooltip("Resets dialog to previous color.");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onReset));
 
-        grid->addWidget(headerLabel, 0, 0);
-        grid->addWidget(_userControlColorChooser, 0, 1);
-        grid->addWidget(buttonGrid, 0, 2);
+        grid->addWidget(_userControlColorChooser, 0, 0);
+        grid->addWidget(buttonGrid, 0, 1);
 
         buttonGrid->addWidget(resetButton, 0, 0);
         buttonGrid->addWidget(cancelButton, 1, 0);

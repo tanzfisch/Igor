@@ -28,7 +28,7 @@ namespace igor
 		}
 
 		setClientArea(0, 0, 0, 0);
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 	}
 
 } // namespace igor

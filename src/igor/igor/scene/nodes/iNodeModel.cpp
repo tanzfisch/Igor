@@ -177,9 +177,15 @@ namespace igor
         return _model != nullptr ? _model->getInfo() : ""; // TODO !!!!!!!!!!!!!
     }
 
-    void iNodeModel::getInfo(std::vector<iaString> &info) const
+    std::vector<iaString> iNodeModel::getInfo(bool brief) const
     {
-        iNode::getInfo(info);
+        std::vector<iaString> info = iNode::getInfo(brief);
+
+        if(brief)
+        {
+            return info;
+        }
+
         iaString customInfo(L"model:");
 
         if (_model != nullptr)
@@ -211,5 +217,7 @@ namespace igor
         }
 
         info.push_back(customInfo);
+
+        return info;
     }
 } // namespace igor

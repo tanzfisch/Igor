@@ -53,15 +53,21 @@ namespace igor
         */
         iWidgetPicture(const iWidgetPtr parent = nullptr);
 
-        /*! release texture
+        /*! does nothing
          */
-        virtual ~iWidgetPicture();
+        virtual ~iWidgetPicture() = default;
 
         /*! sets the texture to use for the picture
 
         \param texture the texture to use
         */
         void setTexture(iTexturePtr texture);
+
+        /*! sets the background texture to use for the whole button by name
+
+        \param textureAlias alias or id to texture
+        */
+        void setTexture(const iaString &textureAlias);
 
         /*! \returns texture path
          */
@@ -116,11 +122,16 @@ namespace igor
         /*! updates size based on it's content
          */
         void calcMinSize() override;
-
+        
         /*! draws the widget
          */
-        void draw();
+        void draw() override;
     };
+
+    /*! widget picture pointer definition
+    */
+    typedef iWidgetPicture *iWidgetPicturePtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETPICTURE__

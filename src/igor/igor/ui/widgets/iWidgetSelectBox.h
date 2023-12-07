@@ -102,10 +102,6 @@ namespace igor
 		*/
         int32 _currentSelection = -1;
 
-        /*! true: if the mouse cursor is over the button
-		*/
-        bool _mouseOver = false;
-
         /*! true: if the select box is unfoldet
 		*/
         bool _openSelectBox = false;
@@ -124,40 +120,33 @@ namespace igor
 		*/
         void onSelectBoxClosed(iDialogPtr dialog);
 
-        /*! handles incoming mouse wheel event
-
-		\param d mouse wheel delta
-		\returns true: if event was consumed and therefore ignored by the parent
-		*/
-        bool handleMouseWheel(int32 d);
-
         /*! handles incoming mouse key down events
 
-		\param key the key that was pressed
-		\returns true: if event was consumed and therefore will be ignored by the parent
-		*/
-        bool handleMouseKeyDown(iKeyCode key);
+        \param event mouse key down event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
-		\param key the key that was pressed
-		\returns true: if event was consumed and therefore will be ignored by the parent
-		*/
-        bool handleMouseKeyUp(iKeyCode key);
+        \param event the mouse key up event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
-		\param pos mouse position
-		*/
-        void handleMouseMove(const iaVector2f &pos);
+        \param event mouse move event
+        */
+        void onMouseMove(iEventMouseMove &event) override;
 
         /*! updates size based on it's content
 		*/
         void calcMinSize() override;
 
-        /*! renders widget
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
     };
 
     /*! select box pointer definition

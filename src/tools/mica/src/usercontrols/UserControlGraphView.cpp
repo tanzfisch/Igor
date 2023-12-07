@@ -4,7 +4,7 @@
 
 #include "UserControlGraphView.h"
 
-#include "../actions/ActionContext.h"
+#include "../actions/MicaActionContext.h"
 
 UserControlGraphView::UserControlGraphView(WorkspacePtr workspace, Outliner *outliner) // TODO UserControlGraphView should not know the Outliner
     : _outliner(outliner), _workspace(workspace)
@@ -14,10 +14,6 @@ UserControlGraphView::UserControlGraphView(WorkspacePtr workspace, Outliner *out
 
 UserControlGraphView::~UserControlGraphView()
 {
-    if (_graphContextMenu != nullptr)
-    {
-        delete _graphContextMenu;
-    }
 }
 
 void UserControlGraphView::setRootNode(uint64 root)
@@ -64,48 +60,48 @@ void UserControlGraphView::initGUI()
 
     iWidgetButton *addTransformationButton = new iWidgetButton();
     addTransformationButton->setText("");
-    addTransformationButton->setWidth(30);
-    addTransformationButton->setHeight(30);
+    addTransformationButton->setMinWidth(30);
+    addTransformationButton->setMinHeight(30);
     addTransformationButton->setTooltip("Add transformation node. You need to move something you need a transform node.");
     addTransformationButton->setTexture("igor_icon_add_transformation");
     addTransformationButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddTransformation));
 
     iWidgetButton *addModelButton = new iWidgetButton();
     addModelButton->setText("");
-    addModelButton->setWidth(30);
-    addModelButton->setHeight(30);
+    addModelButton->setMinWidth(30);
+    addModelButton->setMinHeight(30);
     addModelButton->setTooltip("Add model node. Adds a model embedded or referenced to the scene.");
     addModelButton->setTexture("igor_icon_add_model");
     addModelButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddModel));
 
     iWidgetButton *addGroupButton = new iWidgetButton();
     addGroupButton->setText("");
-    addGroupButton->setWidth(30);
-    addGroupButton->setHeight(30);
+    addGroupButton->setMinWidth(30);
+    addGroupButton->setMinHeight(30);
     addGroupButton->setTooltip("Add group node. Used to create node hierarchies in the scene.");
     addGroupButton->setTexture("igor_icon_add_group");
     addGroupButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddGroup));
 
     iWidgetButton *addEmitterButton = new iWidgetButton();
     addEmitterButton->setText("");
-    addEmitterButton->setWidth(30);
-    addEmitterButton->setHeight(30);
+    addEmitterButton->setMinWidth(30);
+    addEmitterButton->setMinHeight(30);
     addEmitterButton->setTooltip("Add emitter node. To emit particles from.");
     addEmitterButton->setTexture("igor_icon_add_emitter");
     addEmitterButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddEmitter));
 
     iWidgetButton *addParticleSystemButton = new iWidgetButton();
     addParticleSystemButton->setText("");
-    addParticleSystemButton->setWidth(30);
-    addParticleSystemButton->setHeight(30);
+    addParticleSystemButton->setMinWidth(30);
+    addParticleSystemButton->setMinHeight(30);
     addParticleSystemButton->setTooltip("Add particle system node. Needs emitter node to function");
     addParticleSystemButton->setTexture("igor_icon_add_particle_system");
     addParticleSystemButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddParticleSystem));
 
     iWidgetButton *addSwitchButton = new iWidgetButton();
     addSwitchButton->setText("");
-    addSwitchButton->setWidth(30);
-    addSwitchButton->setHeight(30);
+    addSwitchButton->setMinWidth(30);
+    addSwitchButton->setMinHeight(30);
     addSwitchButton->setTooltip("Add switch node. This node can switch the active state of it's child nodes. Only the active node will be visible.");
     addSwitchButton->setTexture("igor_icon_add_switch");
     addSwitchButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddSwitch));
@@ -122,7 +118,7 @@ void UserControlGraphView::initGUI()
     _gridGraph = new iWidgetGridLayout();
     _gridGraph->setAcceptOutOfBoundsClicks();
     _gridGraph->setBorder(0);
-    _gridGraph->setWidth(300);
+    _gridGraph->setMinWidth(300);
     _gridGraph->setSelectMode(iSelectionMode::Row);
     _gridGraph->setCellSpacing(0);
     _gridGraph->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -166,7 +162,7 @@ iaString UserControlGraphView::getIconTexture(iNodeType type)
     case iNodeType::iNodeEmitter:
         return "igor_icon_emitter";
     case iNodeType::iNodeParticleSystem:
-        return "igor_icon_particleSystem";
+        return "igor_icon_particle_system";
 
     case iNodeType::iNodeRender:
     case iNodeType::Undefined:
@@ -192,30 +188,20 @@ void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
 
 iActionContextPtr UserControlGraphView::getContext()
 {
-    return iActionContextPtr(new ActionContext(_workspace, _outliner));
+    return iActionContextPtr(new MicaActionContext(_workspace, _outliner));
 }
 
 void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 {
-    if (_graphContextMenu != nullptr)
-    {
-        delete _graphContextMenu;
-        _graphContextMenu = nullptr;
-    }
-
-    _graphContextMenu = new iDialogMenu(this);
-    _graphContextMenu->setWidth(100);
+    _graphContextMenu.clear();
 
     iaVector2i pos = iMouse::getInstance().getPos();
-    _graphContextMenu->setX(pos._x);
-    _graphContextMenu->setY(pos._y);
+    _graphContextMenu.setPos(iaVector2f(pos._x, pos._y));
 
-    ActionContext *actionContext = new ActionContext(_workspace, _outliner);
-    iActionContextPtr ac(actionContext);
+    iActionContextPtr ac = getContext();
 
-    if (!actionContext->getWorkspace()->getSelection().empty())
+    if (!_workspace->getSelection().empty())
     {
-
         iWidgetMenuPtr addMenu = new iWidgetMenu();
         addMenu->setTitle("Add");
         addMenu->addAction("mica:addTransform", ac);
@@ -224,30 +210,23 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
         addMenu->addAction("mica:addModel", ac);
         addMenu->addAction("mica:addEmitter", ac);
         addMenu->addAction("mica:addParticleSystem", ac);
-        _graphContextMenu->addMenu(addMenu);
+        _graphContextMenu.addMenu(addMenu);
+        _graphContextMenu.addSeparator();
     }
 
-    _graphContextMenu->addSpacer();
+    _graphContextMenu.addAction("mica:cutNodes", ac);
+    _graphContextMenu.addAction("mica:copyNodes", ac);
+    _graphContextMenu.addAction("mica:pasteNodes", ac);
+    _graphContextMenu.addAction("mica:deleteNodes", ac);
 
-    _graphContextMenu->addAction("mica:cutNodes", ac);
-    _graphContextMenu->addAction("mica:copyNodes", ac);
-    _graphContextMenu->addAction("mica:pasteNodes", ac);
-    _graphContextMenu->addAction("mica:deleteNodes", ac);
-
-    _graphContextMenu->addSpacer();
+    _graphContextMenu.addSeparator();
 
     iWidgetMenuPtr actionsMenu = new iWidgetMenu();
     actionsMenu->setTitle("Actions");
     actionsMenu->addAction("mica:bakeMeshToWorld", ac);
-    _graphContextMenu->addMenu(actionsMenu);
+    _graphContextMenu.addMenu(actionsMenu);
 
-    _graphContextMenu->open(iDialogCloseDelegate(this, &UserControlGraphView::OnContextMenuClose));
-}
-
-void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
-{
-    delete _graphContextMenu;
-    _graphContextMenu = nullptr;
+    _graphContextMenu.open();
 }
 
 void UserControlGraphView::setSelectedNode(uint64 nodeID)
@@ -324,7 +303,7 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
         entry->setCellSpacing(2);
         entry->appendColumns(2);
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
-        entry->setWidth(330);
+        entry->setMinWidth(330);
         _gridGraph->addWidget(entry, 0, currentRowIndex, node->getID());
 
         iWidgetLabel *indentLabel = new iWidgetLabel();

@@ -200,7 +200,7 @@ namespace igor
         \param name the name of the resource
         */
         template <typename T>
-        std::shared_ptr<T> getResource(const iaString &alias);        
+        std::shared_ptr<T> getResource(const iaString &alias);
 
         /*! returns all materials
 
@@ -260,15 +260,40 @@ namespace igor
 
         \param filename the file to write the dictionary to
         */
-        void writeResourceDictionary(const iaString &filename);
+        void saveResourceDictionary(const iaString &filename);
+
+        /*! clear resource dictionary
+
+        (means it will only contain igor internal resources)
+        */
+        void clearResourceDictionary();
 
         /*! \returns resource id for given alias or filepath
 
         If it does not exist yet but it represents a valid file path within one of the search path. We add a new resource.
 
-        \param alias the given alias or filepath
+        \param aliasOrFilename the given alias or filename
         */
-        const iResourceID getResourceID(const iaString &alias) const;
+        const iResourceID getResourceID(const iaString &aliasOrFilename) const;
+
+        /*! adds new resource to dictionary
+
+        \param filename path to resource (must be relative to search paths)
+        \param alias optional alias
+        */
+        void addResource(const iaString &filename, const iaString &alias = "");
+
+        /*! removes given resource from dictionary
+
+        \param resourceID the given resource id
+        */
+        void removeResource(const iResourceID &resourceID);
+
+        /*! \returns resource type based on file extension
+
+        \param filename the file name to guess the type of
+        */
+        const iaString getType(const iaString &filename) const;
 
     private:
         /*! mutex to manage access to internal data
@@ -294,13 +319,13 @@ namespace igor
         /*! loading queue
          */
         std::deque<iResourcePtr> _loadingQueue;
-        
+
         /*! load mode
          */
         iResourceManagerLoadMode _loadMode = iResourceManagerLoadMode::Application;
 
         /*! resource dictionary
-        */ 
+         */
         iResourceDictionary _resourceDictionary;
 
         /*! \returns factory for given resource parameters

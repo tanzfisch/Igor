@@ -269,11 +269,11 @@ namespace igor
 
             /*! configured width of child
              */
-            int32 _configuredWidth = 10;
+            int32 _configuredMinWidth = 10;
 
             /*! configured height of child
              */
-            int32 _configuredHeight = 10;
+            int32 _configuredMinHeight = 10;
 
             /*! horizontal position of child
              */
@@ -303,7 +303,7 @@ namespace igor
 
         /*! cellspacing within the grid
          */
-        int32 _cellspacing = 4;
+        int32 _cellSpacing = 4;
 
         /*! border size
          */
@@ -335,37 +335,37 @@ namespace igor
 
         /*! handles incoming mouse wheel event
 
-        \param d mouse wheel delta
+        \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseWheel(int32 d);
+        bool onMouseWheel(iEventMouseWheel &event) override;
 
         /*! handles incoming mouse key down events
 
-        \param key the key that was pressed
+        \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key);
-
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+ 
         /*! handles incoming double click
 
-        \param key the key that was pressed
+        \param event the mouse double click event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseDoubleClick(iKeyCode key);
+        bool onMouseDoubleClick(iEventMouseKeyDoubleClick &event) override;
 
         /*! handles mouse key up events
 
-        \param key the key that was pressed
+        \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyUp(iKeyCode key);
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
-        \param position mouse position
+        \param event mouse move event
         */
-        void handleMouseMove(const iaVector2f &pos);
+        void onMouseMove(iEventMouseMove &event) override;
 
         /*! updates size based on it's content
          */
@@ -373,7 +373,7 @@ namespace igor
 
         /*! draws the widget
          */
-        void draw();
+        void draw() override;
 
         /*! initializes an empty grid with default size of one row and column
          */
@@ -384,7 +384,7 @@ namespace igor
         \param clientWidth maximum width this widget can align to
         \param clientHeight maximum height this widget can align to
         */
-        void updateAlignment(int32 clientWidth, int32 clientHeight);
+        void updateAlignment(int32 clientWidth, int32 clientHeight) override;
 
         /*! calculates childrens offsets relative to their parent
 

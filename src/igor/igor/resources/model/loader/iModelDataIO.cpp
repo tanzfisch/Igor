@@ -23,7 +23,7 @@ namespace igor
     iNodePtr iModelDataIO::importData(const iaString &filename)
     {
         iParameters parameters({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
-                                {IGOR_RESOURCE_PARAM_FILENAME, filename}});
+                                {IGOR_RESOURCE_PARAM_SOURCE, filename}});
         return importData(parameters);
     }
 
@@ -35,7 +35,7 @@ namespace igor
 
     void iModelDataIO::exportData(const iaString &filename, iNodePtr node, iSaveMode saveMode)
     {
-        iParameters parameters({{IGOR_RESOURCE_PARAM_FILENAME, filename},
+        iParameters parameters({{IGOR_RESOURCE_PARAM_SOURCE, filename},
                                 {IGOR_RESOURCE_PARAM_NODE, node},
                                 {IGOR_RESOURCE_PARAM_EXPORT_MODE, saveMode}});
         exportData(parameters);

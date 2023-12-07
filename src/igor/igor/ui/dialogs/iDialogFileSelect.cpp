@@ -35,7 +35,7 @@ namespace igor
         _purpose = purpose;
         initGUI();
 
-        if (iaFile::exist(path))
+        if (iaFile::exists(path))
         {
             iaFile file(path);
             _filename = file.getFileName();
@@ -81,29 +81,35 @@ namespace igor
 
     void iDialogFileSelect::initGUI()
     {
+        clearChildren();
+
+        setMinWidth(700);
+        setMinHeight(500);
+
+        setHorizontalAlignment(iHorizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
+
         iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
+        grid->setVerticalAlignment(iVerticalAlignment::Stretch);
+        grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         grid->setBorder(4);
         grid->setCellSpacing(4);
-        grid->appendRows(4);
-
-        iWidgetLabelPtr headerLabel = new iWidgetLabel();
-        headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-        grid->addWidget(headerLabel, 0, 0);
+        grid->appendRows(3);
+        grid->setStretchRow(1);
 
         _pathEdit = new iWidgetLineTextEdit();
-        _pathEdit->setWidth(600);
         _pathEdit->setWriteProtected(false);
         _pathEdit->setChangeEventOnEnterAndLostFocus();
         _pathEdit->setMaxTextLength(1024);
-        _pathEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
+        _pathEdit->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _pathEdit->setVerticalAlignment(iVerticalAlignment::Top);
         _pathEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
-        grid->addWidget(_pathEdit, 0, 1);
+        grid->addWidget(_pathEdit, 0, 0);
 
         _scroll = new iWidgetScroll();
-        _scroll->setWidth(600);
-        _scroll->setHeight(300);
-        grid->addWidget(_scroll, 0, 2);
+        _scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        _scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
+        grid->addWidget(_scroll, 0, 1);
 
         _fileGrid = new iWidgetGridLayout(_scroll);
         _fileGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -111,34 +117,37 @@ namespace igor
         _fileGrid->setSelectMode(iSelectionMode::Cell);
         _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
 
-        iWidgetGridLayoutPtr filenameGrid = new iWidgetGridLayout();
-        filenameGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
-        filenameGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
-        filenameGrid->appendColumns(1);
-        filenameGrid->setCellSpacing(4);
-        grid->addWidget(filenameGrid, 0, 3);
+        if (_purpose != iFileDialogPurpose::SelectFolder)
+        {
+            iWidgetGridLayoutPtr filenameGrid = new iWidgetGridLayout();
+            filenameGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
+            filenameGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
+            filenameGrid->appendColumns(1);
+            filenameGrid->setCellSpacing(4);
+            grid->addWidget(filenameGrid, 0, 2);
 
-        iWidgetLabelPtr filenameLabel = new iWidgetLabel();
-        filenameLabel->setHorizontalAlignment(iHorizontalAlignment::Right);
-        filenameLabel->setText("File name:");
-        filenameGrid->addWidget(filenameLabel, 0, 0);
+            iWidgetLabelPtr filenameLabel = new iWidgetLabel();
+            filenameLabel->setHorizontalAlignment(iHorizontalAlignment::Right);
+            filenameLabel->setText("File name:");
+            filenameGrid->addWidget(filenameLabel, 0, 0);
 
-        _filenameEdit = new iWidgetLineTextEdit();
-        _filenameEdit->setWidth(300);
-        _filenameEdit->setWriteProtected(false);
-        _filenameEdit->setChangeEventOnEnterAndLostFocus();
-        _filenameEdit->setMaxTextLength(256);
-        _filenameEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-        _filenameEdit->setVerticalAlignment(iVerticalAlignment::Top);
-        _filenameEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
-        filenameGrid->addWidget(_filenameEdit, 1, 0);
+            _filenameEdit = new iWidgetLineTextEdit();
+            _filenameEdit->setMinWidth(300);
+            _filenameEdit->setWriteProtected(false);
+            _filenameEdit->setChangeEventOnEnterAndLostFocus();
+            _filenameEdit->setMaxTextLength(256);
+            _filenameEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
+            _filenameEdit->setVerticalAlignment(iVerticalAlignment::Top);
+            _filenameEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
+            filenameGrid->addWidget(_filenameEdit, 1, 0);
+        }
 
         iWidgetGridLayoutPtr buttonGrid = new iWidgetGridLayout();
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
         buttonGrid->appendColumns(1);
         buttonGrid->setCellSpacing(4);
-        grid->addWidget(buttonGrid, 0, 4);
+        grid->addWidget(buttonGrid, 0, 3);
 
         iWidgetButtonPtr okButton = new iWidgetButton();
         okButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
@@ -149,15 +158,22 @@ namespace igor
         cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
         buttonGrid->addWidget(cancelButton, 1, 0);
 
-        if (_purpose == iFileDialogPurpose::Load)
+        switch (_purpose)
         {
-            headerLabel->setText("Load File");
+        case iFileDialogPurpose::Load:
+            setTitle("Load File");
             okButton->setText("Load");
-        }
-        else
-        {
-            headerLabel->setText("Save File");
+            break;
+
+        case iFileDialogPurpose::Save:
+            setTitle("Save File");
             okButton->setText("Save");
+            break;
+
+        case iFileDialogPurpose::SelectFolder:
+            setTitle("Select Folder");
+            okButton->setText("Select");
+            break;
         }
     }
 
@@ -181,7 +197,7 @@ namespace igor
         }
         else
         {
-            temp = iaDirectory::fixPath(_directory + __IGOR_PATHSEPARATOR__ + _filename, true);
+            temp = iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename, true);
         }
 
         return temp;
@@ -189,13 +205,13 @@ namespace igor
 
     void iDialogFileSelect::updateFileDir()
     {
-        if (iaFile::exist(_filename))
+        if (iaFile::exists(_filename))
         {
             iaFile file(_filename);
             _directory = file.getPath();
             _filename = file.getFileName();
         }
-        else if (iaFile::exist(_directory))
+        else if (iaFile::exists(_directory))
         {
             iaFile file(_directory);
             _directory = file.getPath();
@@ -203,7 +219,11 @@ namespace igor
         }
 
         _pathEdit->setText(_directory);
-        _filenameEdit->setText(_filename);
+
+        if (_filenameEdit != nullptr)
+        {
+            _filenameEdit->setText(_filename);
+        }
     }
 
     void iDialogFileSelect::updateFileGrid()
@@ -214,7 +234,7 @@ namespace igor
 
         int32 index = 0;
         iaDirectory directory(_directory);
-        auto directories = directory.getDirectorys();
+        auto directories = directory.getDirectories();
         auto files = directory.getFiles();
 
         if (!directory.isRoot())
@@ -241,6 +261,11 @@ namespace igor
 
     void iDialogFileSelect::onFilenameEditChange(const iWidgetPtr source)
     {
+        if (_filenameEdit == nullptr)
+        {
+            return;
+        }
+
         _filename = _filenameEdit->getText();
 
         updateFileDir();
@@ -349,7 +374,7 @@ namespace igor
         if (_purpose == iFileDialogPurpose::Load)
         {
             iaFile file(getFullPath());
-            if (!file.exist())
+            if (!file.exists())
             {
                 setReturnState(iDialogReturnState::Error);
             }

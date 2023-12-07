@@ -128,7 +128,7 @@ public:
 // set an increase z index of 1 to make sure the ui is rendered above the background
 WidgetsExample::WidgetsExample(iWindowPtr window, iLayerProfilerPtr layerProfiler, Background3D *backGround)
     : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"),
-                                                            iResourceManager::getInstance().loadResource<iTexture>("example_texture_widget_theme_pattern"))),
+                                                            iResourceManager::getInstance().loadResource<iTexture>("igor_widget_theme_pattern"))),
                     window, "Widgets", 10),
       _layerProfiler(layerProfiler), _backGround(backGround)
 {
@@ -199,21 +199,23 @@ iWidgetMenuBarPtr WidgetsExample::createMenu()
     menu2->addMenu(menu2c);
 
     menu2->addAction(action1);
-    menuBar->addMenu(menu2);
+    menuBar->addMenu(menu2); 
 
     return menuBar;
 }
 
 void WidgetsExample::onInit()
 {
-    // call base class
+    // call base class to initialize widget view
     iLayerWidgets::onInit();
 
     _dialog = new iDialog();
-    _dialog->setBorder(5);
-    _dialog->setPos(40, getWindow()->getClientHeight() - 420);
+    _dialog->setPos(iaVector2f(40, getWindow()->getClientHeight() - 420));
+    _dialog->setResizeable(true);
 
     iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _dialog);
+    mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    mainLayout->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     // create a menu and add to layout
     iWidgetMenuBarPtr menuBar = createMenu();
@@ -226,23 +228,23 @@ void WidgetsExample::onInit()
     iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setAction(iActionManager::getInstance().getAction("igor:exit"));
     exitButton->setText(""); // clear text
-    exitButton->setSize(24, 24);
+    exitButton->setMinSize(24, 24);
     buttonLayout->addWidget(exitButton);
 
     iWidgetButton *button2 = new iWidgetButton();
     button2->setAction(iActionManager::getInstance().getAction("exampleAction:one"));
     button2->setText(""); // clear text
-    button2->setSize(24, 24);
+    button2->setMinSize(24, 24);
     buttonLayout->addWidget(button2);
 
     iWidgetButton *button3 = new iWidgetButton();
     button3->setAction(iActionManager::getInstance().getAction("exampleAction:two"));
-    button3->setSize(24, 24);
+    button3->setMinSize(24, 24);
     buttonLayout->addWidget(button3);
 
     // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
-    groupBox1->setText("Hello World. This is a group box!");
+    groupBox1->setText("Group Box");    
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     mainLayout->addWidget(groupBox1);
 
@@ -256,7 +258,7 @@ void WidgetsExample::onInit()
     labelProfiler->setText("Profiler:");
     labelProfiler->setHorizontalAlignment(iHorizontalAlignment::Right);
     labelProfiler->setVerticalAlignment(iVerticalAlignment::Top);
-    labelProfiler->setWidth(80);
+    labelProfiler->setMinWidth(80);
     profileLayout->addWidget(labelProfiler);
 
     iWidgetSelectBoxPtr selectBox = new iWidgetSelectBox();
@@ -277,7 +279,7 @@ void WidgetsExample::onInit()
     labelOptions->setText("Options:");
     labelOptions->setHorizontalAlignment(iHorizontalAlignment::Right);
     labelOptions->setVerticalAlignment(iVerticalAlignment::Top);
-    labelOptions->setWidth(80);
+    labelOptions->setMinWidth(80);
     optionsLayout->addWidget(labelOptions);    
 
     iWidgetBoxLayoutPtr radioLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);

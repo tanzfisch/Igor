@@ -45,9 +45,14 @@ namespace igor
     {
     }
 
-    void iNodeMesh::getInfo(std::vector<iaString> &info) const
+    std::vector<iaString> iNodeMesh::getInfo(bool brief) const
     {
-        iNode::getInfo(info);
+        std::vector<iaString> info = iNode::getInfo(brief);
+
+        if(brief)
+        {
+            return info;
+        }
 
         iaString topologyInfo(L"vtx:");
 
@@ -83,6 +88,8 @@ namespace igor
         materialInfo += ((material == nullptr) ? iaString("none") : material->getInfo());
 
         info.push_back(materialInfo);
+
+        return info;
     }
 
     void iNodeMesh::setTargetMaterial(const iTargetMaterialPtr &targetMaterial)

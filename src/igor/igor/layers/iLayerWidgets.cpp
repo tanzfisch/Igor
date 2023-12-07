@@ -20,6 +20,7 @@ namespace igor
     void iLayerWidgets::onInit()
     {
         // set up the view
+        _view.setName("UI Layer");
         _view.setClearColorActive(false);
         _view.setClearDepthActive(false);
         _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);

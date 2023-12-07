@@ -2,7 +2,7 @@
 <Igor>
     <Config>
         <!-- loglevel: Assert, Error, Warning, Info, User (default), Debug, Trace -->
-        <Setting name="logLevel" value="Debug" />
+        <Setting name="logLevel" value="Trace" />
 
         <!-- min max for threads
             Options are a numbers or "Max" which represents the host's max thread count

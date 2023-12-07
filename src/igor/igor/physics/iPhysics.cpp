@@ -1174,7 +1174,7 @@ namespace igor
 
     void iPhysics::setMassMatrix(void *newtonBody, float64 mass, float64 Ixx, float64 Iyy, float64 Izz)
     {
-        if (mass >= __IGOR_GRAMM__)
+        if (mass >= IGOR_GRAM)
         {
             NewtonBodySetMassMatrix(static_cast<const NewtonBody *>(newtonBody), mass, Ixx, Iyy, Izz);
         }

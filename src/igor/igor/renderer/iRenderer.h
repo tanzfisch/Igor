@@ -287,6 +287,17 @@ namespace igor
         template <typename T>
         void drawFilledRectangle(T x, T y, T width, T height, const iaColor4f &color = iaColor4f::white);
 
+        /*! draw filled rectangle (z = 0)
+
+        \param rect the rectangle to draw
+        \param color1 the color top left
+        \param color2 the color bottom left
+        \param color3 the color bottom right
+        \param color4 the color top right
+        */
+        template <typename T>
+        void drawFilledRectangleColored(const iaRectangle<T> &rect, const iaColor4f &color1, const iaColor4f &color2, const iaColor4f &color3, const iaColor4f &color4);
+
         /*! draw quad
 
         \param o center/origin position of quad
@@ -492,7 +503,7 @@ namespace igor
         template <typename T>
         void drawBox(const iAABox<T> &box, const iaColor4f &color = iaColor4f::white);
 
-        /*! draw mesh 
+        /*! draw mesh
 
         positioned based on current model view and projection matrices
 
@@ -654,7 +665,7 @@ namespace igor
         void setStencilTestActive(bool enable);
 
         /*! \returns true if stencil test is active
-        */
+         */
         bool isStencilTestActive() const;
 
         /*! sets the stencil function
@@ -688,7 +699,7 @@ namespace igor
         void setDepthTestActive(bool enable);
 
         /*! \returns true if depth test is enabled
-        */
+         */
         bool isDepthTestActive() const;
 
         /*! render statistics definition
@@ -892,9 +903,12 @@ namespace igor
         \param v2 second given point
         \param v3 third given point
         \param v4 fourth given point
-        \param color the color to draw with
+        \param color1 the color for the first vertex
+        \param color2 the color for the second vertex
+        \param color3 the color for the third vertex
+        \param color4 the color for the forth vertex
         */
-        void drawQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color);
+        void drawQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iaColor4f &color1, const iaColor4f &color2, const iaColor4f &color3, const iaColor4f &color4);
 
         /*! draw textured quad with four given points
 

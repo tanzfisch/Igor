@@ -51,17 +51,17 @@ namespace igor
         iTaskFlushResources(iWindowPtr window);
 
         /*! does nothing
-        */
+         */
         virtual ~iTaskFlushResources() = default;
 
         /*! aborts the task
-        */
-        void abort();
+         */
+        void abort() override;
 
     protected:
         /*! runs the task
-        */
-        void run();
+         */
+        void run() override;
     };
 
 }; // namespace igor

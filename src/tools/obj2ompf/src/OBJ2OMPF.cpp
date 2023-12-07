@@ -68,7 +68,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_texture_shaded");
 
         iParameters parameters({
-            {IGOR_RESOURCE_PARAM_FILENAME, _src},
+            {IGOR_RESOURCE_PARAM_SOURCE, _src},
             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
             {IGOR_RESOURCE_PARAM_KEEP_MESH, true},

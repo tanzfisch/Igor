@@ -17,6 +17,9 @@ namespace igor
 	iDialogIndexMenu::iDialogIndexMenu(const iWidgetPtr parent)
 		: iDialog(iWidgetType::iDialogIndexMenu, parent)
 	{
+		setGrowingByContent(true);
+		setHeaderEnabled(false);
+        setResizeable(false);		
 	}
 
 	void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts)
@@ -44,7 +47,7 @@ namespace igor
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setHeight(0);
+		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
@@ -75,7 +78,7 @@ namespace igor
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setHeight(0);
+		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));

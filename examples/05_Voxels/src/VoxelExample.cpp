@@ -57,7 +57,7 @@ void VoxelExample::initScene()
     cameraTranslation->insertNode(camera);
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // create a directional light
     // transform node

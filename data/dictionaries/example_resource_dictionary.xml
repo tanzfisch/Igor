@@ -4,6 +4,7 @@
         <Resource id="0x0154aaf0cfcda350" alias="example_texture_supremacy_leek" source="textures/supremacy/leek.png" />
         <Resource id="0x01df458f75478c07" alias="example_texture_dirt" source="textures/dirt.png" />
         <Resource id="0x047a5a8eefed887e" alias="example_texture_supremacy_zucchini" source="textures/supremacy/zucchini.png" />
+        <Resource id="0x066ca5e75dc2820c" source="textures/cat/cat_diff2.png" />
         <Resource id="0x08082c0db20ff90f" alias="example_texture_supremacy_fist" source="textures/supremacy/fist.png" />
         <Resource id="0x09d99e0b1e334108" alias="example_texture_supremacy_shop_item_rocketlauncher" source="textures/supremacy/shop_item_rocketlauncher.png" />
         <Resource id="0x0aec31faf75d2b80" alias="example_texture_openGL_Logo" source="textures/OpenGL-Logo.jpg" />
@@ -20,7 +21,6 @@
         <Resource id="0x2322b33bdc7d8c61" alias="example_texture_cyan" source="textures/cyan.png" />
         <Resource id="0x2544d6491ebcda4c" alias="example_texture_particle_dot" source="textures/particleDot.png" />
         <Resource id="0x297dd0e1b6a2ec99" alias="example_material_instancing_textured" source="materials/instancing_textured.mat" />
-        <Resource id="0x2bf655d89b8d9b00" source="igor/materials/default.mat" />
         <Resource id="0x2cc341be664b3dfb" alias="example_texture_ice" source="textures/ice.png" />
         <Resource id="0x2df1156870f403e1" alias="example_texture_supremacy_bullets_3" source="textures/supremacy/bullets_3.png" />
         <Resource id="0x2e6c049b977b9326" alias="example_texture_supremacy_capsicum" source="textures/supremacy/capsicum.png" />
@@ -45,8 +45,7 @@
         <Resource id="0x47909cc5e7428ec5" alias="example_texture_lineGradient" source="textures/lineGradient.png" />
         <Resource id="0x50046a04d0ac5090" alias="example_texture_M4A1-S" source="textures/M4A1-S.png" />
         <Resource id="0x5004e1a98f37951e" alias="example_model_MuzzleFlash" source="models/MuzzleFlash.ompf" />
-        <Resource id="0x56cc64459515e646" alias="example_model_level2" source="models/level2.ompf" />
-        <Resource id="0x57339e8d03b3da6e" alias="example_texture_widget_theme_pattern" source="textures/WidgetThemePattern.png" />
+        <Resource id="0x56cc64459515e646" alias="example_model_level2" source="models/level2.ompf" />        
         <Resource id="0x58d6f182417c259f" alias="example_texture_doughnuts" source="textures/doughnuts.png" />
         <Resource id="0x5c3207645ba2d4c2" source="igor/materials/textured.mat" />
         <Resource id="0x5c3f82b6e43b7455" alias="example_texture_particleFlame" source="textures/particleFlame.png" />

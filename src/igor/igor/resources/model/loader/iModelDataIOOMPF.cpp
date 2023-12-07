@@ -363,7 +363,7 @@ namespace igor
     {
         _parameters = parameters;
 
-        const iaString filename = _parameters.getParameter<iaString>("filename", "");
+        const iaString filename = _parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         _ompf->loadFile(filename);
 
         if (_ompf->getRoot()->getChildren().size() == 0)
@@ -393,8 +393,21 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialReferenceChunk *materialReferenceChunk)
     {
-        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(materialReferenceChunk->getFilename());
-        if(material == nullptr)
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                           {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache}});
+
+        if(iaUUID::isUUID(materialReferenceChunk->getFilename()))
+        {
+            iaUUID uuid(materialReferenceChunk->getFilename());
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, uuid);
+        }
+        else
+        {
+            param.setParameter(IGOR_RESOURCE_PARAM_SOURCE, materialReferenceChunk->getFilename());
+        }
+        
+        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
+        if (material == nullptr)
         {
             return;
         }
@@ -514,7 +527,7 @@ namespace igor
     void iModelDataIOOMPF::exportData(const iParameters &parameters)
     {
         iNodePtr node = parameters.getParameter<iNodePtr>(IGOR_RESOURCE_PARAM_NODE, nullptr);
-        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_FILENAME, "");
+        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         const iSaveMode saveMode = parameters.getParameter<iSaveMode>(IGOR_RESOURCE_PARAM_EXPORT_MODE, iSaveMode::KeepExternals);
 
         con_assert(node != nullptr, "zero pointer");

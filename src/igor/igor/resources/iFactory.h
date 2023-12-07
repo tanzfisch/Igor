@@ -79,19 +79,31 @@ namespace igor
          */
         std::vector<iaString> _supportedExtensions;
 
-        /*! \returns resource type specific hash data
-         */
+        /*! \returns resource type specific hash data based on given parameters
+
+        \param parameters the given parameters
+        */
         virtual iaString getHashData(const iParameters &parameters) const { return ""; };
 
         /*! creates a resource object
 
         \param name the name of the resource
         \param parameters the resource parameters
-        \returns loaded or created new resource
+        \returns new resource
         */
         virtual iResourcePtr createResource(const iParameters &parameters) = 0;
 
-        /*! loads the resource
+        /*! creates an empty resource
+
+        \returns new resource
+        */
+        virtual iResourcePtr createResource()
+        {
+            con_err("not implemented");
+            return nullptr;
+        }
+
+        /*! loads the resource based on it's parameters
 
         \param resource the resource to load
         \returns true if loading the resource was successful

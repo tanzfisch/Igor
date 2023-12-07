@@ -35,8 +35,10 @@
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
+#include <igor/events/iEventScene.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/ui/theme/iWidgetTheme.h>
+#include <igor/ui/iDrag.h>
 
 #include <vector>
 #include <unordered_map>
@@ -49,44 +51,47 @@ namespace igor
     typedef iDialog *iDialogPtr;
 
     /*! manages the widgets
-    */
+     */
     class IGOR_API iWidgetManager : public iModule<iWidgetManager>
     {
 
         friend class iModule<iWidgetManager>;
         friend class iWidget;
         friend class iDialog;
+        friend class iDrag;
+        friend class iWidgetSplitter;
+        friend class iWidgetMenu;
 
     public:
         /*! called on any other event
-        */
+         */
         void onEvent(iEvent &event);
 
         /*! shows tooltip at given position
 
-		\param pos the position to show the tooltip
-		\param text the text of the tooltip
-		*/
+        \param pos the position to show the tooltip
+        \param text the text of the tooltip
+        */
         void showTooltip(const iaVector2f &pos, const iaString &text);
 
         /*! hides the tooltip
-		*/
+         */
         void hideTooltip();
 
         /*! \returns widget by id
 
         \param id id of widget
         */
-        iWidgetPtr getWidget(uint64 id) const;
+        iWidgetPtr getWidget(iWidgetID id) const;
 
         /*! \returns dialog by id
 
         \param id id of dialog
         */
-        iDialogPtr getDialog(uint64 id);
+        iDialogPtr getDialog(iWidgetID id);
 
         /*! \returns the theme in use
-        */
+         */
         iWidgetThemePtr getTheme() const;
 
         /*! sets the theme to use
@@ -104,12 +109,12 @@ namespace igor
         */
         void setDesktopDimensions(uint32 width, uint32 height);
 
-        /*! \returns dektop width
-        */
+        /*! \returns desktop width
+         */
         uint32 getDesktopWidth() const;
 
-        /*! \returns dektop height
-        */
+        /*! \returns desktop height
+         */
         uint32 getDesktopHeight() const;
 
         /*! draws the widgets if theme is defined
@@ -121,11 +126,11 @@ namespace igor
         void draw();
 
         /*! set this widget exclusively modal
-        */
+         */
         void setModal(iDialogPtr dialog);
 
         /*! \returns current modal widget
-        */
+         */
         iDialogPtr getModal() const;
 
         /*! \returns true: if widget is modal
@@ -135,77 +140,129 @@ namespace igor
         bool isModal(iDialogPtr dialog);
 
         /*! reset modal flag
-        */
+         */
         void resetModal();
 
         /*! updates recursively all widgets before rendering
-        */
+         */
         void onUpdate();
+
+        /*! \returns true if in drag
+         */
+        bool inDrag() const;
+
+        /*! \returns current drag if exists
+
+        test with inDrag if it exists first
+        */
+        const iDrag &getDrag() const;
 
     private:
         /*! modal marker
-        */
+         */
         iDialogPtr _modal = nullptr;
 
         /*! pointer to current theme
-        */
+         */
         iWidgetThemePtr _currentTheme;
 
         /*! list of all widgets
-        */
-        std::unordered_map<uint64, iWidgetPtr> _widgets;
+         */
+        std::unordered_map<iWidgetID, iWidgetPtr> _widgets;
 
         /*! list of all dialogs
-        */
-        std::unordered_map<uint64, iDialogPtr> _dialogs;
+         */
+        std::unordered_map<iWidgetID, iDialogPtr> _dialogs;
+
+        /*! overlay widgets
+         */
+        std::vector<iWidgetID> _overlayWidgets;
 
         /*! current desktop width
-        */
+         */
         uint32 _desktopWidth = 0;
 
         /*! current desktop height
-        */
+         */
         uint32 _desktopHeight = 0;
 
         /*! tooltip position
-		*/
+         */
         iaVector2f _tooltipPos;
 
         /*! tooltip text
-		*/
+         */
         iaString _tooltipText;
 
         /*! list of dialogs to close
-		*/
-        std::set<uint64> _dialogsToClose;
+         */
+        std::set<iWidgetID> _dialogsToClose;
+
+        /*! current drag
+         */
+        std::unique_ptr<iDrag> _drag;
+
+        /*! list of widgets to be deleted
+         */
+        std::set<iWidgetPtr> _forDeletion;
+
+        /*! holds the cursor type that is the current one
+        */
+        iMouseCursorType _cursorType = iMouseCursorType::Arrow;
+
+        /*! the last cursor that was applied
+        */
+        iMouseCursorType _lastCursorType = iMouseCursorType::Arrow;
+
+        /*! if true there was no cursor set this frame yet
+        */
+        bool _firstCursor = true;
 
         /*! closes the dialog and queues a close event in to be called after the update handle
-		*/
+         */
         void closeDialog(iDialogPtr dialog);
 
         /*! registers widget to WidgetManager so we can track if all widgets got destroyed at shutdown
 
-		\param widget the widget to track
-		*/
+        \param widget the widget to track
+        */
         void registerWidget(iWidgetPtr widget);
 
         /*! unregister widget from WidgetManager so we don't track this one anymore
 
-		\param widget the widget to not track anymore
-		*/
+        \param widget the widget to not track anymore
+        */
         void unregisterWidget(iWidgetPtr widget);
 
         /*! registers dialog to WidgetManager so we can track if all dialogs got destroyed at shutdown
 
-		\param dialog the dialog to track
-		*/
+        \param dialog the dialog to track
+        */
         void registerDialog(iDialogPtr dialog);
 
         /*! unregister dialog from WidgetManager so we don't track this one anymore
 
-		\param dialog the dialog to not track anymore
-		*/
+        \param dialog the dialog to not track anymore
+        */
         void unregisterDialog(iDialogPtr dialog);
+
+        /*! registers overlay widget
+
+        \param overlayWidget the overlay widget
+        */
+        void registerOverlayWidget(iWidgetPtr overlayWidget);
+
+        /*! unregister overlay widget
+
+        \param overlayWidget the overlay widget
+        */
+        void unregisterOverlayWidget(iWidgetPtr overlayWidget);
+
+        /*! puts dialog in front by manipulating it's z index and the index of other dialogs
+
+        \param dialog the dialog to put in front
+        */
+        void putDialogInFront(iDialogPtr dialog);
 
         /*! traverse widget tree and updates positions and sizes
 
@@ -214,21 +271,15 @@ namespace igor
         void traverseContentSize(iWidgetPtr widget);
 
         /*! traverse widget tree and updates alignment
-        */
+         */
         void traverseAlignment(iWidgetPtr widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
 
         /*! returns the active dialogs
 
         \param[out] dialogs resulting list of active dialogs
-        \param sortedAccending if true the output list is sorted z index accending if false the opposite
+        \param sortedAscending if true the output list is sorted z index ascending if false the opposite
         */
-        void getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAccending = true);
-
-        /*! actual implementation that handles a moved mouse
-
-        \param to the mouse postion to use
-        */
-        bool handleMouseMove(const iaux::iaVector2f &pos);
+        void getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAscending = true);
 
         /*! called when key was pressed
 
@@ -290,16 +341,48 @@ namespace igor
         */
         bool onWindowResize(iEventWindowResize &event);
 
-        /*! init
+        /*! begin drag
+
+        makes copy and keeps ownership
+
+        \param drag the drag to drag
         */
+        void beginDrag(const iDrag &drag);
+
+        /*! resets the drag object
+         */
+        void endDrag();
+
+        /*! queues widget for deletion
+
+        \param widget the widget to be deleted
+        */
+        void deleteWidget(iWidgetPtr widget);        
+
+        /*! delete widgets in delete queue
+        */ 
+        void flushDeleteQueue();
+
+        /*! sets cursor type
+
+        \param cursorType the cursor type to set
+        */
+        void setCursor(iMouseCursorType cursorType);
+
+        /*! applies cursor that was set before
+        */
+        void applyCursor();
+
+        void startTooltip(const iaString &tooltip, const iaVector2f &position, iWidgetID sourceID);
+
+        /*! init
+         */
         iWidgetManager();
 
         /*! checks for mem leaks and releases all left over widgets
-        */
+         */
         virtual ~iWidgetManager();
     };
-
-#include <igor/ui/iWidgetManager.inl>
 
 } // namespace igor
 

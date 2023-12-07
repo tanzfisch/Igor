@@ -57,13 +57,20 @@ namespace igor
         /*! sets the action this widget is associated with
 
         \param action the action to be set
+        \param context the optional action context
         */
         void setAction(const iActionPtr action, const iActionContextPtr context = nullptr);
+
+        /*! sets the action this widget is associated with by action name
+
+        \param actionName the action to be set
+        \param context the optional action context
+        */
+        void setAction(const iaString &actionName, const iActionContextPtr context);
 
         /*! \returns action that is associated with this widget
         */
         iActionPtr getAction() const;
-
 
         /*! \returns action context
         */
@@ -99,15 +106,57 @@ namespace igor
         */
         iVerticalAlignment getVerticalTextAlignment() const;
 
-        /*! sets the texture to use for the button
+        /*! sets the background texture to use for the whole button by name
 
-        \param texturePath path to texture
+        \param textureAlias alias or id to texture
         */
-        void setTexture(const iaString &texturePath);
+        void setTexture(const iaString &textureAlias);
 
-        /*! \returns texture path
+        /*! sets the background texture to use for the whole button
+
+        \param texture the texture
         */
-        const iaString &getTexture() const;
+        void setTexture(iTexturePtr texture);
+
+        /*! sets the icon texture by name
+
+        the icon is rendered in the foreground.
+        if there is no text then centred
+        if there is text then on the opposite side of the text        
+
+        \param iconAlias alias or id to icon texture
+        */
+        void setIcon(const iaString &iconAlias);
+
+        /*! sets the icon texture
+
+        the icon is rendered in the foreground.
+        if there is no text then centred
+        if there is text then on the opposite side of the text        
+
+        \param texture the texture to use
+        */
+        void setIcon(iTexturePtr texture);
+
+        /*! sets the button checkable
+
+        \param checkable if true button is checkable
+        */
+        void setCheckable(bool checkable);
+
+        /*! \returns true if button is checkable
+        */
+        bool isCheckable() const;
+
+        /*! sets button checked
+
+        \param check if true button is checked
+        */
+        void setChecked(bool check);
+
+        /*! \returns true if button is checked
+        */
+        bool isChecked() const;
 
     protected:
         /*! the horizontal alignment
@@ -122,13 +171,13 @@ namespace igor
         */
         iaString _text;
 
-        /*! the buttons texture
+        /*! the background texture
         */
         iTexturePtr _texture;
 
-        /*! texture path
+        /*! the icon texture
         */
-        iaString _texturePath;
+        iTexturePtr _iconTexture;
 
         /*! the action
         */
@@ -138,6 +187,14 @@ namespace igor
         */
         iActionContextPtr _actionContext;        
 
+        /*! if true button is checkable
+        */
+        bool _checkable = false;
+
+        /*! if true button is checked
+        */
+        bool _checked = false;
+
         /*! internal click handler
         */
         void onInternalClick(const iWidgetPtr source);
@@ -146,9 +203,9 @@ namespace igor
         */
         void calcMinSize() override;
 
-        /*! draws the button
-        */
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
     };
 
     /*! widget button pointer definition

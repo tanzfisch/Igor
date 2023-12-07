@@ -18,8 +18,8 @@ namespace igor
 	iWidgetColor::iWidgetColor(const iWidgetPtr parent)
 		: iWidget(iWidgetType::iWidgetColor, iWidgetKind::Widget, parent)
 	{
-		_configuredWidth = 60;
-		_configuredHeight = 20;
+		_configuredMinWidth = 60;
+		_configuredMinHeight = 20;
 		_reactOnMouseWheel = false;
 
 		setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -46,24 +46,26 @@ namespace igor
 
 	void iWidgetColor::calcMinSize()
 	{
-		setMinSize(0, 0);
+		updateMinSize(0, 0);
 	}
 
 	void iWidgetColor::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualRect(), _texture);
-
-			int32 halfWidth = static_cast<int32>((static_cast<float64>(getActualWidth()) / 2.0) + 0.5);
-
-			iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY(), halfWidth, getActualHeight()), _color);
-			iaColor4f colorNoAlpha = _color;
-			colorNoAlpha._a = 1.0f;
-			iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight()), colorNoAlpha);
-
-			iWidgetManager::getInstance().getTheme()->drawRectangle(getActualRect());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualRect(), _texture);
+
+		int32 halfWidth = static_cast<int32>((static_cast<float64>(getActualWidth()) / 2.0) + 0.5);
+
+		iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY(), halfWidth, getActualHeight()), _color);
+		iaColor4f colorNoAlpha = _color;
+		colorNoAlpha._a = 1.0f;
+		iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight()), colorNoAlpha);
+
+		iWidgetManager::getInstance().getTheme()->drawRectangle(getActualRect());
 	}
 
 } // namespace igor

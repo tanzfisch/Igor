@@ -26,7 +26,7 @@ using namespace iaux;
 
 namespace igor
 {
-    void iRenderEngine::setCurrentCamera(iNodeID cameraID)
+    void iRenderEngine::setCamera(iNodeID cameraID)
     {
         if (cameraID == iNode::INVALID_NODE_ID)
         {
@@ -47,7 +47,7 @@ namespace igor
         }
     }
 
-    iNodeID iRenderEngine::getCurrentCamera() const
+    iNodeID iRenderEngine::getCamera() const
     {
         if (_currentCamera != nullptr)
         {
@@ -99,27 +99,29 @@ namespace igor
 
     void iRenderEngine::render()
     {
-        if (_scene != nullptr &&
-            _currentCamera != nullptr)
+        if (_scene == nullptr ||
+            _currentCamera == nullptr)
         {
-            cullScene(_currentCamera);
-            updateMaterialGroups();
-            
-            iaMatrixd camMatrix;
-            _currentCamera->getWorldMatrix(camMatrix);
-            iRenderer::getInstance().setViewMatrixFromCam(camMatrix);
-
-            if (_renderColorID)
-            {
-                drawColorIDs();
-            }
-            else
-            {
-                drawScene();
-            }
-
-            iRenderer::getInstance().flush();
+            return;
         }
+
+        cullScene(_currentCamera);
+        updateMaterialGroups();
+
+        iaMatrixd camMatrix;
+        _currentCamera->getWorldMatrix(camMatrix);
+        iRenderer::getInstance().setViewMatrixFromCam(camMatrix);
+
+        if (_renderColorID)
+        {
+            drawColorIDs();
+        }
+        else
+        {
+            drawScene();
+        }
+
+        iRenderer::getInstance().flush();
     }
 
     void iRenderEngine::cullScene(iNodeCamera *camera)
@@ -219,7 +221,7 @@ namespace igor
     }
 
     void iRenderEngine::drawScene()
-    {       
+    {
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
         auto lights = _scene->getLights();
 

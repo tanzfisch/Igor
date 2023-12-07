@@ -4,8 +4,6 @@
 
 #include "Mica.h"
 
-#include "WorkspaceLayer.h"
-#include "overlay/OverlayLayer.h"
 #include "UILayer.h"
 
 /*! window title definition
@@ -16,21 +14,13 @@ Mica::Mica()
 {
 	_window = iApplication::getInstance().getWindow();
 	_window->setTitle(MICA_TITLE_PREFIX);
-	_window->setSize(1280, 720);
+	_window->setSize(1920, 1080);
 	_window->setCentered();
 	_window->setDoubleClick(true);
 	_window->open();
 
-	// before we can load any resources make sure the resource dictionary is loaded
-    iResourceManager::getInstance().loadResourceDictionary("dictionaries/example_resource_dictionary.xml");	
-
-	// TODO so here we need to in future be able to create projects and have a dictionary per project. For convenience we simply use the example dict for now
-	// see below writeResourceDictionary
-
 	_workspace = WorkspacePtr(new Workspace());
 
-	iApplication::getInstance().addLayer(new WorkspaceLayer(_window, 0, _workspace));
-	iApplication::getInstance().addLayer(new OverlayLayer(_window, 10, _workspace));
 	iApplication::getInstance().addLayer(new UILayer(_window, 20, _workspace));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(_window, "Profiler", 100, iProfilerVerbosity::None));
 }
@@ -43,7 +33,4 @@ void Mica::run(const iaString &filename)
 	}
 
 	iApplication::getInstance().run();
-
-	// TODO in future only when saving a project
-	iResourceManager::getInstance().writeResourceDictionary("dictionaries/example_resource_dictionary.xml");	
 }

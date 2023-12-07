@@ -24,14 +24,14 @@ namespace igor
         con_assert(texture->isValid(), "needs to be loaded already");
 
         _texture = texture;
-        valid = false;
+        _valid = false;
 
         if (_texture == nullptr ||
             !_texture->isValid())
         {
             return;
         }
-        
+
         const iaString filePath = iResourceManager::getInstance().getFilePath(_texture->getID());
         const iaString resolvedPath = iResourceManager::getInstance().resolvePath(filePath);
         _pixmap = iPixmap::loadPixmap(resolvedPath);
@@ -154,7 +154,7 @@ namespace igor
             break;
         }
 
-        valid = true;
+        _valid = true;
     }
 
     iTextureFont::~iTextureFont()
@@ -233,12 +233,12 @@ namespace igor
 
     bool iTextureFont::isValid() const
     {
-        return valid;
+        return _valid;
     }
 
     float32 iTextureFont::measureWidth(const iaString &text, float32 size)
     {
-        if (!valid)
+        if (!_valid)
         {
             return 0;
         }
@@ -288,14 +288,15 @@ namespace igor
 
     float32 iTextureFont::measureHeight(const iaString &text, float32 size, float32 maxWidth, float32 lineHeight)
     {
-        if (!valid)
+        float32 height = lineHeight * size;
+
+        if (!_valid)
         {
-            return lineHeight * size;
+            return height;
         }
 
-        float32 height = 0;
         float32 length = 0;
-        float32 lastlength = 0;
+        float32 lastLength = 0;
 
         for (uint32 i = 0; i < text.getLength(); i++)
         {
@@ -309,24 +310,22 @@ namespace igor
 
             length += _characters[character - 32]._characterOffset * size;
 
-            if (maxWidth != 0.0)
+            if (maxWidth == 0.0)
             {
-                if (character == L' ' || character == L'\t')
-                {
-                    if (length > maxWidth)
-                    {
-                        length = length - lastlength;
-                        height += lineHeight * size;
-                    }
-
-                    lastlength = length;
-                }
+                continue;
             }
-        }
 
-        if (length > maxWidth)
-        {
-            height += lineHeight * size;
+            if (character == L' ' ||
+                character == L'\t')
+            {
+                if (length > maxWidth)
+                {
+                    length = length - lastLength;
+                    height += lineHeight * size;
+                }
+
+                lastLength = length;
+            }
         }
 
         return height;

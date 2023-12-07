@@ -37,7 +37,7 @@ namespace igor
 
     class iModelDataIO;
 
-    __IGOR_FUNCTION_POINTER__(iCreateModelDataIOInstance, iModelDataIO *, ());
+    IGOR_FUNCTION_POINTER(iCreateModelDataIOInstance, iModelDataIO *, ());
 
     /*! this factory creates model resources
      */

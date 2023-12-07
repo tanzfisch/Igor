@@ -104,6 +104,10 @@ namespace igor
         void onNo(const iWidgetPtr source);
     };
 
+    /*! pointer definition for message box
+    */
+    typedef iDialogMessageBox* iDialogMessageBoxPtr;
+
 } // namespace igor
 
 #endif // __IGOR_DIALOGMESSAGEBOX__

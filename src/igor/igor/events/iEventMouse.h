@@ -199,7 +199,7 @@ namespace igor
         \param from the old mouse position
         \param to the new mouse position
         */
-        iEventMouseMove(iWindowPtr window, const iaVector2i &from, const iaVector2i &to);
+        iEventMouseMove(iWindowPtr window, const iaVector2f &from, const iaVector2f &to);
 
         /*! \returns event kind mask
         */
@@ -211,22 +211,22 @@ namespace igor
 
         /*! \returns mouse position
         */
-        const iaVector2i &getPosition() const;
+        const iaVector2f &getPosition() const;
 
         /*! \returns last mouse position
         */
-        const iaVector2i &getLastPosition() const;
+        const iaVector2f &getLastPosition() const;
 
         IGOR_EVENT_CLASS_TYPE(iEventMouseMove)
 
     private:
         /*! last mouse position
         */
-        iaVector2i _from;
+        iaVector2f _from;
 
         /*! current mouse position
         */
-        iaVector2i _to;
+        iaVector2f _to;
     };
 
 }; // namespace igor
