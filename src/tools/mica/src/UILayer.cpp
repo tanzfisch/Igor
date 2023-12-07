@@ -6,15 +6,6 @@
 #include "UILayer.h"
 #include "actions/Actions.h"
 
-#include "usercontrols/UserControlMesh.h"
-#include "usercontrols/UserControlModel.h"
-#include "usercontrols/UserControlNode.h"
-#include "usercontrols/UserControlParticleSystem.h"
-#include "usercontrols/UserControlTransformation.h"
-#include "usercontrols/UserControlLight.h"
-#include "usercontrols/UserControlEmitter.h"
-#include "usercontrols/UserControlMaterial.h"
-#include "usercontrols/UserControlProperties.h"
 #include "usercontrols/UserControlMaterialView.h"
 #include "usercontrols/UserControlGraphView.h"
 

@@ -32,7 +32,7 @@
 #include <igor/ui/dialogs/iDialog.h>
 using namespace igor;
 
-#include "usercontrols/UserControlProperties.h"
+#include "UserControlProperties.h"
 
 /*! properties dialog
  */

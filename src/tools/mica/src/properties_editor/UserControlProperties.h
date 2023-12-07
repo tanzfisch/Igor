@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLPROPERTIES__
-#define __USERCONTROLPROPERTIES__
+#ifndef __USERCONTROL_PROPERTIES__
+#define __USERCONTROL_PROPERTIES__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -124,4 +124,4 @@ private:
     UserControlMaterial *_userControlMaterial = nullptr;
 };
 
-#endif // __USERCONTROLPROPERTIES__
+#endif // __USERCONTROL_PROPERTIES__

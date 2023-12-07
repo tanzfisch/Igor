@@ -33,7 +33,7 @@
 #include "Outliner.h"
 #include "AssetBrowser.h"
 #include "MainDialog.h"
-#include "PropertiesEditor.h"
+#include "properties_editor/PropertiesEditor.h"
 #include "Viewport.h"
 
 class UILayer : public iLayerWidgets

@@ -4,9 +4,6 @@
 
 #include "PropertiesEditor.h"
 
-#include "usercontrols/UserControlTransformation.h"
-#include "usercontrols/UserControlLight.h"
-
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/scene/nodes/iNode.h>

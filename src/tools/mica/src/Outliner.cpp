@@ -26,9 +26,6 @@ using namespace igor;
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include "usercontrols/UserControlTransformation.h"
-#include "usercontrols/UserControlLight.h"
-
 Outliner::Outliner(WorkspacePtr workspace)
     : _workspace(workspace)
 {
