@@ -22,7 +22,7 @@ namespace igor
     iResourcePtr iMaterialFactory::createResource()
     {
         iMaterialPtr defaultMaterial = iRenderer::getInstance().getDefaultMaterial();
-        iaString filename = defaultMaterial->getFilename();       
+        iaString filename = defaultMaterial->getFilename();
 
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()},
@@ -42,24 +42,21 @@ namespace igor
 
     bool iMaterialFactory::loadResource(iResourcePtr resource)
     {
-        iMaterialPtr material = std::dynamic_pointer_cast<iMaterial>(resource);
-
-        /*const auto &parameters = resource->getParameters();
-        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
-        if (generate)
-        {
-            // TODO make copy of default and return
-            // or what ever you have in mind
-        }*/
-
-        const iaString filepath = iResourceManager::getInstance().getFilePath(material->getID());
+        iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
         if (filepath.isEmpty())
         {
-            con_err("not a valid material " << material->getID());
+            filepath = resource->getSource();
+        }
+        
+        if (filepath.isEmpty())
+        {
+            con_err("not a valid material " << resource->getID());
             return false;
         }
 
-        return iMaterialIO::read(iResourceManager::getInstance().resolvePath(filepath), material);
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        iMaterialPtr material = std::dynamic_pointer_cast<iMaterial>(resource);
+        return iMaterialIO::read(iResourceManager::getInstance().resolvePath(fullFilepath), material);
     }
 
     void iMaterialFactory::unloadResource(iResourcePtr resource)

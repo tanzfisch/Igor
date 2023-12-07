@@ -26,10 +26,15 @@ namespace igor
 
     bool iSoundFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
-        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
+        iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }
+        
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
         iSoundPtr sound = std::dynamic_pointer_cast<iSound>(resource);
-        return loadSound(filename, sound);
+        return loadSound(fullFilepath, sound);
     }
 
     bool iSoundFactory::loadSound(const iaString &filename, iSoundPtr sound)

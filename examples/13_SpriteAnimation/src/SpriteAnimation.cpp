@@ -65,7 +65,7 @@ void SpriteAnimation::onInit()
 
     // initialize animation timer
     _animationTimer.setInterval(iaTime::fromMilliseconds(200));
-    _animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onUpdate));
+    _animationTimer.getEventTimerTick().add(iTimerTickDelegate(this, &SpriteAnimation::onUpdate));
     _animationTimer.start();
 }
 

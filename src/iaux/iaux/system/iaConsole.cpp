@@ -229,7 +229,7 @@ namespace iaux
         }
     }
 
-    void iaConsole::printHead(iaLogLevel logLevel)
+    void iaConsole::printHeader(iaLogLevel logLevel)
     {
         iaForegroundColor color;
         iaString tag;
@@ -238,37 +238,37 @@ namespace iaux
         {
         case iaLogLevel::Fatal:
             color = iaForegroundColor::Red;
-            tag = "FATAL";
+            tag = " FATAL ";
             break;
 
         case iaLogLevel::Error:
-            color = iaForegroundColor::Red;
-            tag = "ERROR";
+            color = iaForegroundColor::DarkRed;
+            tag = " ERROR ";
             break;
 
         case iaLogLevel::Warning:
             color = iaForegroundColor::Yellow;
-            tag = "WARN ";
+            tag = "WARNING";
             break;
 
         case iaLogLevel::Info:
-            color = iaForegroundColor::Cyan;
-            tag = "INFO ";
+            color = iaForegroundColor::DarkBlue;
+            tag = " INFO  ";
             break;
 
         case iaLogLevel::User:
             color = iaForegroundColor::Gray;
-            tag = "USER ";
+            tag = " USER  ";
             break;
 
         case iaLogLevel::Debug:
-            color = iaForegroundColor::White;
-            tag = "DEBUG";
+            color = iaForegroundColor::Gray;
+            tag = " DEBUG ";
             break;
 
         case iaLogLevel::Trace:
-            color = iaForegroundColor::Magenta;
-            tag = "TRACE";
+            color = iaForegroundColor::Gray;
+            tag = " TRACE ";
             break;
         }
 
@@ -332,14 +332,14 @@ namespace iaux
         if (_errors != 0 || _warnings != 0)
         {
             *this << LOCK << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
-                  << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [-----] "
+                  << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [ ----- ] "
                   << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl
                   << UNLOCK;
         }
         else
         {
             *this << LOCK << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
-                  << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [-----] "
+                  << applicationTime << "|" << printIgorThreadID << iaForegroundColor::White << " [ ----- ] "
                   << iaForegroundColor::Green << "OK" << endl
                   << UNLOCK;
         }

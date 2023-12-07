@@ -23,7 +23,7 @@ namespace igor
     {
         if (_renderEvent.hasDelegates())
         {
-            con_warn("not all delegates unregistered from " << getName());
+            con_warn("not all delegates unregistered from view \"" << getName() << "\"");
             _renderEvent.clear();
         }
     }

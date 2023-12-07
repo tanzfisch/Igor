@@ -67,9 +67,13 @@ namespace igor
             return true;
         }
 
-        const iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
-        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
-        return loadAnimation(filename, animation);
+        iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }        
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        return loadAnimation(fullFilepath, animation);
     }
 
     iaKeyFrameGraphui iAnimationFactory::readIndexAnimation(TiXmlElement *animationElement)

@@ -393,8 +393,21 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialReferenceChunk *materialReferenceChunk)
     {
-        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(materialReferenceChunk->getFilename());
-        if(material == nullptr)
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                           {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache}});
+
+        if(iaUUID::isUUID(materialReferenceChunk->getFilename()))
+        {
+            iaUUID uuid(materialReferenceChunk->getFilename());
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, uuid);
+        }
+        else
+        {
+            param.setParameter(IGOR_RESOURCE_PARAM_SOURCE, materialReferenceChunk->getFilename());
+        }
+        
+        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
+        if (material == nullptr)
         {
             return;
         }

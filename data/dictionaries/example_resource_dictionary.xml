@@ -21,7 +21,6 @@
         <Resource id="0x2322b33bdc7d8c61" alias="example_texture_cyan" source="textures/cyan.png" />
         <Resource id="0x2544d6491ebcda4c" alias="example_texture_particle_dot" source="textures/particleDot.png" />
         <Resource id="0x297dd0e1b6a2ec99" alias="example_material_instancing_textured" source="materials/instancing_textured.mat" />
-        <Resource id="0x2bf655d89b8d9b00" source="igor/materials/default.mat" />
         <Resource id="0x2cc341be664b3dfb" alias="example_texture_ice" source="textures/ice.png" />
         <Resource id="0x2df1156870f403e1" alias="example_texture_supremacy_bullets_3" source="textures/supremacy/bullets_3.png" />
         <Resource id="0x2e6c049b977b9326" alias="example_texture_supremacy_capsicum" source="textures/supremacy/capsicum.png" />

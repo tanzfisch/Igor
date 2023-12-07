@@ -317,12 +317,12 @@ namespace igor
             _loadingQueue.push_back(result);
         }
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
-        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
 
         if (currentCacheMode < cacheMode)
         {
-            result->_parameters.setParameter("cacheMode", cacheMode);
+            result->_parameters.setParameter(IGOR_RESOURCE_PARAM_CACHE_MODE, cacheMode);
         }
         _mutex.unlock();
 
@@ -339,8 +339,12 @@ namespace igor
 
         // ignoring other parameters and just create an empty resource (of what ever the factory decides this will be)
         iResourcePtr result = factory->createResource();
+        if(result == nullptr)
+        {
+            return nullptr;
+        }
 
-        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Cache);
+        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
         if (requestedCacheMode > iResourceCacheMode::DontCache)
         {
             _resources[result->getID()] = result;
@@ -370,7 +374,7 @@ namespace igor
             return nullptr;
         }
 
-        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
         bool loadNow = false;
         iResourcePtr result;
 
@@ -407,15 +411,10 @@ namespace igor
             result->setProcessed(true);
         }
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
         if (currentCacheMode < requestedCacheMode)
         {
-            result->_parameters.setParameter("cacheMode", requestedCacheMode);
-        }
-
-        if(result->getID().toString() =="0x2bf655d89b8d9b00")
-        {
-            int x = 0;
+            result->_parameters.setParameter(IGOR_RESOURCE_PARAM_CACHE_MODE, requestedCacheMode);
         }
 
         if (loadNow &&

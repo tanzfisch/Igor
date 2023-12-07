@@ -248,7 +248,7 @@ namespace igor
         TiXmlDocument document(temp);
         if (!document.LoadFile())
         {
-            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
+            con_err("can't read \"" << filename << "\". TinyXML:" << document.ErrorDesc());
             return false;
         }
 

@@ -47,26 +47,26 @@ namespace igor
         // copy parameters to add filename
         auto parameters = resource->getParameters();
 
-        iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
-        if (filepath.isEmpty())
+        iaString filename = iResourceManager::getInstance().getFilePath(resource->getID());
+        if (filename.isEmpty())
         {
-            filepath = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            filename = resource->getSource();
         }
-        
-        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
+
+        filename = iResourceManager::getInstance().resolvePath(filename);
         if (!filename.isEmpty())
         {
             parameters.setParameter(IGOR_RESOURCE_PARAM_SOURCE, filename);
         }
 
         iaString subType = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SUB_TYPE, "");
-        if (subType == "")
+        if (subType.isEmpty())
         {
             iaFile file(filename);
             subType = file.getExtension();
         }
 
-        if (subType == "")
+        if (subType.isEmpty())
         {
             con_err("no subType specified to load \"" << filename << "\"");
             return false;

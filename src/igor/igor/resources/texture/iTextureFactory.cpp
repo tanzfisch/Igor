@@ -40,11 +40,8 @@ namespace igor
             filepath = resource->getSource();
         }
 
-        const iaString filename = iResourceManager::getInstance().resolvePath(filepath);
         iTexturePtr texture = std::dynamic_pointer_cast<iTexture>(resource);
-
         const auto &parameters = resource->getParameters();
-
         const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
@@ -57,7 +54,8 @@ namespace igor
             return pixmapToTexture(pixmap, texture);
         }
 
-        return loadTexture(filename, texture);
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        return loadTexture(fullFilepath, texture);
     }
 
     bool iTextureFactory::pixmapToTexture(iPixmapPtr pixmap, iTexturePtr texture)
@@ -323,7 +321,7 @@ namespace igor
 
         // Resize the image using stb_image.h
         unsigned char *result = stbir_resize_uint8_linear(textureData, width, height, 0, resizedImage.data(), newWidth, newHeight, 0, (stbir_pixel_layout)components);
-        if ( !result)
+        if (!result)
         {
             con_err("Failed to resize image \"" << source << "\"");
             stbi_image_free(textureData);

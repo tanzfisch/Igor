@@ -53,6 +53,12 @@ namespace igor
         */
         iResourcePtr createResource(const iParameters &parameters) override;
 
+        /*! creates an empty resource
+
+        \returns new resource
+        */
+        iResourcePtr createResource() override;
+
         /*! loads the resource
 
         \param resource the resource to load

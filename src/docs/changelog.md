@@ -23,6 +23,7 @@ Changelog                           {#changelog}
 - widget event handling now uses iEvent
 - added iUserControlTreeView and iUserControlGridView and iItem for generic data
 - added AssetBrowser to Mica
+- fixed texture font vertical alignment
 
 0.42.0
 ------

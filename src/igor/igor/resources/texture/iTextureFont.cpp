@@ -31,7 +31,7 @@ namespace igor
         {
             return;
         }
-        
+
         const iaString filePath = iResourceManager::getInstance().getFilePath(_texture->getID());
         const iaString resolvedPath = iResourceManager::getInstance().resolvePath(filePath);
         _pixmap = iPixmap::loadPixmap(resolvedPath);
@@ -294,7 +294,7 @@ namespace igor
         {
             return height;
         }
-        
+
         float32 length = 0;
         float32 lastLength = 0;
 
@@ -310,24 +310,22 @@ namespace igor
 
             length += _characters[character - 32]._characterOffset * size;
 
-            if (maxWidth != 0.0)
+            if (maxWidth == 0.0)
             {
-                if (character == L' ' || character == L'\t')
-                {
-                    if (length > maxWidth)
-                    {
-                        length = length - lastLength;
-                        height += lineHeight * size;
-                    }
-
-                    lastLength = length;
-                }
+                continue;
             }
-        }
 
-        if (length > maxWidth)
-        {
-            height += lineHeight * size;
+            if (character == L' ' ||
+                character == L'\t')
+            {
+                if (length > maxWidth)
+                {
+                    length = length - lastLength;
+                    height += lineHeight * size;
+                }
+
+                lastLength = length;
+            }
         }
 
         return height;
