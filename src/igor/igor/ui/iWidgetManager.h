@@ -157,6 +157,16 @@ namespace igor
         */
         const iDrag &getDrag() const;
 
+        /*! queues widget for deletion
+
+        widget can not have a parent
+
+        caller gives up ownership
+
+        \param widget the widget to be deleted
+        */
+        void deleteWidget(iWidgetPtr widget);           
+
     private:
         /*! modal marker
          */
@@ -351,13 +361,7 @@ namespace igor
 
         /*! resets the drag object
          */
-        void endDrag();
-
-        /*! queues widget for deletion
-
-        \param widget the widget to be deleted
-        */
-        void deleteWidget(iWidgetPtr widget);        
+        void endDrag();     
 
         /*! delete widgets in delete queue
         */ 

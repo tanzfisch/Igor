@@ -96,9 +96,9 @@ namespace igor
 		*/
         const std::vector<iNodeLightPtr> &getLights() const;
 
-        /*! \returns list of renderables
+        /*! \returns list of render-ables
 
-		does only contain renderables that are not volumes
+		does only contain render-ables that are not volumes
 		*/
         const std::vector<iNodeRenderPtr> &getRenderables() const;
 
@@ -282,13 +282,13 @@ namespace igor
 		*/
         void unregisterLight(iNodeLight *light);
 
-        /*! register renderable to scene
+        /*! register render-able to scene
 
-		\param node node to be registered as renderable
+		\param node node to be registered as render-able
 		*/
         void registerRenderable(iNodeRender *node);
 
-        /*! unregister renderable from scene
+        /*! unregister render-able from scene
 
 		\param node node to be unregistered from scene
 		*/
@@ -296,13 +296,13 @@ namespace igor
 
         /*! register volume node to scene
 
-		\param volume node to be registerred to scene
+		\param volume node to be registered to scene
 		*/
         void registerVolume(iNodeVolume *volume);
 
         /*! unregister volume node from scene
 
-		\param volume node to be unregisterred from scene
+		\param volume node to be unregistered from scene
 		*/
         void unregisterVolume(iNodeVolume *volume);
 

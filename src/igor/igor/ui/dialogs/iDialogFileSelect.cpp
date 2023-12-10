@@ -107,8 +107,6 @@ namespace igor
         grid->addWidget(_pathEdit, 0, 0);
 
         _scroll = new iWidgetScroll();
-        _scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        _scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
         grid->addWidget(_scroll, 0, 1);
 
         _fileGrid = new iWidgetGridLayout(_scroll);

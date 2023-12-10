@@ -93,7 +93,7 @@ private:
 
 	\param nodeID the id of the selected node
 	*/
-    void onGraphViewSelectionChanged(uint64 nodeID);
+    void onGraphViewSelectionChanged(uint64 nodeID);    
 
     /*! handle for load file event
 	*/

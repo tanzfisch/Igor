@@ -4,26 +4,6 @@
 
 #include "PropertiesEditor.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/scene/nodes/iNode.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeManager.h>
-
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/dialogs/iDialogMessageBox.h>
-#include <igor/ui/dialogs/iDialogDecisionBox.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 PropertiesEditor::PropertiesEditor()
 {
     initGUI();
@@ -35,53 +15,42 @@ void PropertiesEditor::initGUI()
 
     setDockable(true);
     setMinWidth(380);
-    setHorizontalAlignment(iHorizontalAlignment::Right);
+    setHorizontalAlignment(iHorizontalAlignment::Stretch);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
-    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
-    grid->setBorder(2);
-    grid->setCellSpacing(8);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    grid->setVerticalAlignment(iVerticalAlignment::Stretch);
-    grid->setStretchRow(0);
-    grid->setStretchColumn(0);
-
-    _userControlProperties = new UserControlProperties();
-    _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesEditor::onStructureChanged));
-    grid->addWidget(_userControlProperties, 0, 0);
+    _scroll = new iWidgetScroll(this);
 }
 
-void PropertiesEditor::onStructureChanged()
+void PropertiesEditor::deinitProperties()
 {
-    _structureChangedEvent();
+    if (_userControlProperties != nullptr)
+    {
+        _scroll->removeWidget(_userControlProperties);
+        iWidgetManager::getInstance().deleteWidget(_userControlProperties);
+        _userControlProperties = nullptr;
+    }
 }
 
-void PropertiesEditor::onGraphViewSelectionChanged(uint64 nodeID)
+void PropertiesEditor::setSelection(iNodeID nodeID)
 {
-    _userControlProperties->setNode(nodeID);
+    deinitProperties();
+
+    if (nodeID == iNode::INVALID_NODE_ID)
+    {
+        return;
+    }
+
+    _userControlProperties = new UserControlProperties(nodeID, _scroll);
 }
 
-void PropertiesEditor::onMaterialSelectionChanged(const iMaterialID &materialID)
+void PropertiesEditor::setSelection(const iResourceID &resourceID)
 {
-    _userControlProperties->setMaterial(materialID);
-}
+    deinitProperties();
 
-void PropertiesEditor::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
-{
-    _propertiesChangedEvent.add(propertiesChangedDelegate);
-}
+    if(!resourceID.isValid())
+    {
+        return;
+    }
 
-void PropertiesEditor::unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
-{
-    _propertiesChangedEvent.remove(propertiesChangedDelegate);
-}
-
-void PropertiesEditor::registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
-{
-    _structureChangedEvent.add(structureChangedDelegate);
-}
-
-void PropertiesEditor::unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
-{
-    _structureChangedEvent.remove(structureChangedDelegate);
+    _userControlProperties = new UserControlProperties(resourceID, _scroll);
 }

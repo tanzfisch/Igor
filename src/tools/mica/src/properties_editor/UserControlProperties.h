@@ -31,97 +31,44 @@
 
 #include <igor/igor.h>
 using namespace igor;
-using namespace iaux;
 
-class UserControlLight;
-class UserControlMesh;
-class UserControlTransformation;
-class UserControlNode;
-class UserControlModel;
-class UserControlEmitter;
-class UserControlParticleSystem;
-class UserControlMaterial;
-
-IGOR_EVENT_DEFINITION(PropertiesChanged, void);
-IGOR_EVENT_DEFINITION(StructureChanged, void);
-
-enum class PropertyType
-{
-    Undefined,
-    Node,
-    Material
-};
-
+/*! user control properties
+*/
 class UserControlProperties : public iUserControl
 {
 public:
-    /*! init ui
+    /*! init ui for nodes
+
+    \param nodeID the node to represent
     */
-    UserControlProperties();
+    UserControlProperties(iNodeID nodeID, const iWidgetPtr parent);
+
+    /*! init ui for resource
+
+    \param resourceID the resource to represent
+    */
+    UserControlProperties(const iResourceID &resourceID, const iWidgetPtr parent);
 
     /*! does nothing
     */
-    ~UserControlProperties() = default;
-
-    void setNode(const iNodeID &id);
-    void setMaterial(const iMaterialID& materialID);
-
-    void clear();
-
-    void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
-    void unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
-
-    void registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
-    void unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
+    virtual ~UserControlProperties() = default;
 
 private:
-    PropertiesChangedEvent _propertiesChangedEvent;
-    StructureChangedEvent _structureChangedEvent;
+    /*! layout widget
+    */
+    iWidgetBoxLayoutPtr _layout = nullptr;
 
-    iNodeType _currentNodeType = iNodeType::Undefined;
+    /*! init common part of UI
+    */
+    void initUI();
 
-    void initGUI();
+    /*! initializes node UI
+    */
+    void initNodeUI(iNodeID nodeID);
 
-    void initTransformNode();
-    void deinitTransformNode();
-
-    void initLightNode();
-    void deinitLightNode();
-
-    void initMeshNode();
-    void deinitMeshNode();
-
-    void initModel();
-    void deinitModel();
-
-    void initEmitter();
-    void deinitEmitter();
-
-    void initParticleSystem();
-    void deinitParticleSystem();
-
-    void initMaterial();
-    void deinitMaterial();
-
-    void onNameChanged();
-
-    void cleanUpPropertyUI();
-
-    iNodeID _nodeID;
-    iMaterialID _materialID;
-    PropertyType _propertyType = PropertyType::Undefined;
-
-    // iDialog* _dialog = nullptr;
-    iWidgetGridLayout *_grid = nullptr;
-
-    UserControlTransformation *_userControlTransformation = nullptr;
-    UserControlLight *_userControlLight = nullptr;
-    UserControlMesh *_userControlMesh = nullptr;
-    UserControlModel *_userControlModel = nullptr;
-    UserControlEmitter *_userControlEmitter = nullptr;
-    UserControlParticleSystem *_userControlParticleSystem = nullptr;
-    UserControlNode *_userControlNode = nullptr;
-    UserControlMaterial *_userControlMaterial = nullptr;
+    /*! initializes material UI
+    */
+    void initResourceUI(const iResourceID &resourceID);
 };
 
 #endif // __USERCONTROL_PROPERTIES__

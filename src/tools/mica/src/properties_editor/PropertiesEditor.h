@@ -29,9 +29,6 @@
 #ifndef __PROPERTIES_EDITOR__
 #define __PROPERTIES_EDITOR__
 
-#include <igor/ui/dialogs/iDialog.h>
-using namespace igor;
-
 #include "UserControlProperties.h"
 
 /*! properties dialog
@@ -50,26 +47,35 @@ public:
      */
     ~PropertiesEditor() = default;
 
-    void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
-    void unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
+    /*! sets selection of a node id
 
-    void registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
-    void unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
+    \param nodeID the node id to be selected
+    */
+    void setSelection(iNodeID nodeID);
 
-    void onGraphViewSelectionChanged(uint64 nodeID);
-    void onMaterialSelectionChanged(const iMaterialID &materialID);
+    /*! sets selection of a resource id
+
+    \param resourceID the id to be selected
+    */
+    void setSelection(const iResourceID &resourceID);
 
 private:
-    PropertiesChangedEvent _propertiesChangedEvent;
-    StructureChangedEvent _structureChangedEvent;
 
+    /*! scroll widget
+    */
+    iWidgetScrollPtr _scroll = nullptr;
+
+    /*! user control properties
+    */
     UserControlProperties *_userControlProperties = nullptr;
 
     /*! init UI
      */
     void initGUI();
 
-    void onStructureChanged();
+    /*! delete current properties UI
+    */
+    void deinitProperties();
 };
 
 #endif // __PROPERTIES_EDITOR__

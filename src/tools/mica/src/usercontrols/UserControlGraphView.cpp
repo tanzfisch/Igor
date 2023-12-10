@@ -112,8 +112,6 @@ void UserControlGraphView::initGUI()
     groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetScroll *scroll = new iWidgetScroll();
-    scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
-    scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     _gridGraph = new iWidgetGridLayout();
     _gridGraph->setAcceptOutOfBoundsClicks();

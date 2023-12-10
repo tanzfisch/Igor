@@ -38,32 +38,64 @@ IGOR_EVENT_DEFINITION(NameChanged, void);
 class UserControlNode : public iUserControl
 {
 public:
-    UserControlNode();
-    ~UserControlNode() = default;
+    /*! init user control
 
-    void setNode(uint32 id);
-    uint32 getNode();
+    \param parent the optional parent widget
+    */
+    UserControlNode(iNodeID nodeID, const iWidgetPtr parent = nullptr);
 
-    void registerNameChangeDelegate(NameChangedDelegate nameChangedDelegate);
-    void unregisterNameChangeDelegate(NameChangedDelegate nameChangedDelegate);
+    /*! does nothing
+    */
+    virtual ~UserControlNode() = default;
+
+    /*! \returns name change event
+    */
+    NameChangedEvent& getNameChangedEvent();
+
+    /*! \returns node id the is represented by this widget
+    */
+    iNodeID getNodeID() const;
+
+    /*! init ui
+    */
+    virtual void init();
+
+    /*! update ui with node data
+    */
+    virtual void update();
+
+    /*! update node with ui data
+    */
+    virtual void updateNode();
+
+protected:
+    /*! main layout
+    */
+    iWidgetBoxLayoutPtr _layout = nullptr;
 
 private:
+    /*! name changed event
+    */
     NameChangedEvent _nameChangedEvent;
 
-    iWidgetGridLayout *_grid = nullptr;
-    iWidgetLabel *_labelName = nullptr;
-    iWidgetLabel *_labelActive = nullptr;
-    iWidgetCheckBox *_checkBoxActive = nullptr;
+    /*! text field name 
+    */
     iWidgetLineTextEdit *_textName = nullptr;
 
-    uint32 _nodeId = 0;
+    /*! active checkbox
+    */
+    iWidgetCheckBox *_checkBoxActive = nullptr;
 
+    /*! id of node this control is displaying
+    */
+    iNodeID _nodeID = iNode::INVALID_NODE_ID;
+
+    /*! handled name change
+
+    \param source the source widget that triggered this event
+    */
     void onNameChanged(const iWidgetPtr source);
 
-    void updateGUI();
-    void updateNode();
-
-    void initGUI();
 };
 
 #endif

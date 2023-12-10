@@ -4,7 +4,7 @@
 
 #include "UserControlParticleSystem.h"
 
-#include "../MicaDefines.h"
+#include "../../MicaDefines.h"
 
 UserControlParticleSystem::UserControlParticleSystem()
 {

@@ -25,8 +25,6 @@ namespace igor
     void iUserControlTreeView::initUI()
     {
         iWidgetScrollPtr scroll = new iWidgetScroll(this);
-        scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
-        scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
         scroll->addWidget(_vboxLayout);

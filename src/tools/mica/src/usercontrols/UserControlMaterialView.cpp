@@ -48,8 +48,6 @@ void UserControlMaterialView::initGUI()
     groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetScroll *scroll = new iWidgetScroll();
-    scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _gridGraph = new iWidgetGridLayout();
     _gridGraph->setBorder(0);

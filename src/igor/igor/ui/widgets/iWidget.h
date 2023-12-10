@@ -253,7 +253,7 @@ namespace igor
 
         /*! \returns the background color
          */
-        const iaColor4f& getBackground() const;
+        const iaColor4f &getBackground() const;
 
         /*! sets foreground color
 
@@ -263,7 +263,7 @@ namespace igor
 
         /*! \returns the foreground color
          */
-        const iaColor4f& getForeground() const;        
+        const iaColor4f &getForeground() const;
 
         /*! @returns true if events on this widget are blocked
          */
@@ -593,7 +593,7 @@ namespace igor
         const std::vector<iWidgetPtr> &getChildren() const;
 
         /*! clears the widget back to default
-        */
+         */
         virtual void clear();
 
         /*! sets wether or not this widget ignores if a child already consumed an event
@@ -669,7 +669,7 @@ namespace igor
         void setUserData(const std::any &userData);
 
         /*! \returns pointer to user data
-        */
+         */
         std::any getUserData() const;
 
     protected:
@@ -742,8 +742,8 @@ namespace igor
         iaTime _tooltipTime = iaTime(0);
 
         /*! trigger tooltip
-        */
-        bool _initTooltip = false;        
+         */
+        bool _initTooltip = false;
 
         /*! z value of this widget
          */
@@ -783,9 +783,9 @@ namespace igor
          */
         void updateMinSize(int32 width, int32 height);
 
-        /*! set parent of widget
+        /*! set/reset parent of widget
 
-        \param parent pointer to parent
+        \param parent pointer to parent. if set to nullptr caller must retain ownership
         */
         void setParent(iWidgetPtr parent);
 
@@ -1046,11 +1046,11 @@ namespace igor
         bool _overlay = false;
 
         /*! if true this widget can't take keyboard focus
-        */
+         */
         bool _doNotTakeKeyboard = false;
 
         /*! user data
-        */
+         */
         std::any _userData;
 
         /*! called when parent of this widget changes

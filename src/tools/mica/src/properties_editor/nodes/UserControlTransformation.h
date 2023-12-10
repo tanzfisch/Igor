@@ -29,27 +29,29 @@
 #ifndef __USERCONTROLTRANSFORMATION__
 #define __USERCONTROLTRANSFORMATION__
 
-#include <igor/igor.h>
-using namespace igor;
-using namespace iaux;
+#include "UserControlNode.h"
 
-#include <vector>
-
-class UserControlTransformation : public iUserControl
+class UserControlTransformation : public UserControlNode
 {
 public:
-    UserControlTransformation();
+
+    UserControlTransformation(iNodeID nodeID, const iWidgetPtr parent = nullptr);
     ~UserControlTransformation();
 
-    void setNode(uint32 id);
-    uint32 getNode();
+    /*! update ui with node data
+    */
+    void update() override;
+
+    /*! init ui
+    */
+    void init() override;    
 
 private:
     iWidgetGridLayout *_grid = nullptr;
 
     std::vector<iWidgetLineTextEdit *> _matrixText;
 
-    uint32 _nodeId = iNode::INVALID_NODE_ID;
+    iNodeID _nodeId = iNode::INVALID_NODE_ID;
 
     void onTransformationChanged(iNode *node);
 
@@ -57,10 +59,8 @@ private:
 
     void onChange(const iWidgetPtr source);
 
-    void updateGUI(iNodeTransform *transformNode);
+    void updateUI(iNodeTransform *transformNode);
 
-    void initGUI();
-    void deinitGUI();
 };
 
 #endif // __USERCONTROLTRANSFORMATION__
