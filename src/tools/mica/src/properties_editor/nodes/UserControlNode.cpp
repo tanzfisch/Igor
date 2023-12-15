@@ -9,6 +9,7 @@
 UserControlNode::UserControlNode(iNodeID nodeID, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent), _nodeID(nodeID)
 {
+    con_assert(iNodeManager::getInstance().getNode(_nodeID) != nullptr, "invalid node id");
 }
 
 void UserControlNode::init()
@@ -44,6 +45,11 @@ void UserControlNode::init()
     _checkBoxActive->setText("");
     _checkBoxActive->setEnabled(false);
     _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
+}
+
+iWidgetBoxLayoutPtr UserControlNode::getLayout()
+{
+    return _layout;
 }
 
 void UserControlNode::update()

@@ -4,44 +4,24 @@
 
 #include "UserControlModel.h"
 
-UserControlModel::UserControlModel()
-{
-    initGUI();
-}
-
-UserControlModel::~UserControlModel()
+UserControlModel::UserControlModel(iNodeID nodeID, const iWidgetPtr parent)
+    : UserControlNode(nodeID, parent)
 {
 }
 
-void UserControlModel::updateNode()
+void UserControlModel::update()
 {
-    // nothing to do
+    UserControlNode::update();
+
+    iNodeModel *node = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(getNodeID()));
+    _textFilename->setText(node->getModelName());
 }
 
-void UserControlModel::updateGUI()
+void UserControlModel::init()
 {
-    iNodeModel *node = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
-    {
-        _textFilename->setText(node->getModelName());
-    }
-}
-
-void UserControlModel::setNode(uint32 id)
-{
-    _nodeId = id;
-    updateGUI();
-}
-
-uint32 UserControlModel::getNode()
-{
-    return _nodeId;
-}
-
-void UserControlModel::initGUI()
-{
-    _grid = new iWidgetGridLayout();
+    UserControlNode::init();
+    
+    _grid = new iWidgetGridLayout(getLayout());
     _grid->appendColumns(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -59,6 +39,4 @@ void UserControlModel::initGUI()
 
     _grid->addWidget(_labelFilename, 0, 0);
     _grid->addWidget(_textFilename, 1, 0);
-
-    addWidget(_grid);
 }

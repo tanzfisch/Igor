@@ -29,195 +29,195 @@
 #ifndef __USERCONTROLPARTICLESYSTEM__
 #define __USERCONTROLPARTICLESYSTEM__
 
-#include <igor/igor.h>
-using namespace igor;
+#include "UserControlNode.h"
 
 /*! user control to manipulate a particle system
-*/
-class UserControlParticleSystem : public iUserControl
+ */
+class UserControlParticleSystem : public UserControlNode
 {
 public:
-    /*! init gui
-	*/
-    UserControlParticleSystem();
+    /*! user control
+
+    \param nodeID the node to init with
+    \param parent parent widget
+    */
+    UserControlParticleSystem(iNodeID nodeID, const iWidgetPtr parent = nullptr);
 
     /*! deinit gui
-	*/
+     */
     ~UserControlParticleSystem();
 
-    /*! sets the current scene node to work with
+    /*! update ui with node data
+     */
+    void update() override;
 
-    \param id id of node to work with
-    */
-    void setNode(uint64 id);
+    /*! update node with ui data
+     */
+    void updateNode() override;
 
-    /*! \returns the current node
-    */
-    uint64 getNode();
+    /*! init ui
+     */
+    void init() override;
 
 private:
     /*! root grid
-    */
+     */
     iWidgetGridLayout *_grid = nullptr;
 
     /*! button to start or continue the particle system
-    */
+     */
     iWidgetButton *_buttonStart = nullptr;
 
     /*! button to stop or pause the particle system
-    */
+     */
     iWidgetButton *_buttonStop = nullptr;
 
     /*! button to restart the particle system
-    */
+     */
     iWidgetButton *_buttonReset = nullptr;
 
     /*! texture chooser for primary texture
-    */
+     */
     iUserControlFileChooser *_textureChooser0 = nullptr;
 
     /*! texture chooser for first noise texture
-    */
+     */
     iUserControlFileChooser *_textureChooser1 = nullptr;
 
     /*! texture chooser for second noise texture
-    */
+     */
     iUserControlFileChooser *_textureChooser2 = nullptr;
 
     /*! \deprecated currently unused
-    */
+     */
     iUserControlFileChooser *_textureChooser3 = nullptr;
 
     /*! select box for selecting the emitter to connect the particle system to
-    */
+     */
     iWidgetSelectBox *_emitterSelection = nullptr;
 
     /*! select box for selecting the material to use with the particle system
-    */
+     */
     iWidgetSelectBox *_materialSelection = nullptr;
 
     /*! check box to switch on/off the particle system loop
-    */
+     */
     iWidgetCheckBox *_loopCheckBox = nullptr;
 
     /*! check box to switch on/off the particle to velocity orientation
-    */
+     */
     iWidgetCheckBox *_velocityOrientedCheckBox = nullptr;
 
     /*! number chooser for particle period time
-    */
+     */
     iWidgetNumberChooser *_periodChooser = nullptr;
 
     /*! number chooser for air drag effect on particle system
-    */
+     */
     iWidgetNumberChooser *_airDragChooser = nullptr;
 
     /*! number chooser for vorticity confinement value
-    */
+     */
     iWidgetNumberChooser *_vorticityConfinementChooser = nullptr;
 
     /*! number chooser for vortex to particle rate
-    */
+     */
     iWidgetNumberChooser *_vortexToParticleRateChooser = nullptr;
 
     /*! vortex minimum torque number chooser
-    */
+     */
     iWidgetNumberChooser *_vortexTorqueMinChooser = nullptr;
 
     /*! vortex maximum torque number chooser
-    */
+     */
     iWidgetNumberChooser *_vortexTorqueMaxChooser = nullptr;
 
     /*! vortex minimum range number chooser
-    */
+     */
     iWidgetNumberChooser *_vortexRangeMinChooser = nullptr;
 
     /*! vortex maximum range number chooser
-    */
+     */
     iWidgetNumberChooser *_vortexRangeMaxChooser = nullptr;
 
     /*! number chooser for vertical tiling of primary texture
-    */
+     */
     iWidgetNumberChooser *_tilingVerticalChooser = nullptr;
 
     /*! number chooser for horizontal tiling of primary texture
-    */
+     */
     iWidgetNumberChooser *_tilingHorizontalChooser = nullptr;
 
     /*! number chooser for vortex check range
-    */
+     */
     iWidgetNumberChooser *_vortexCheckRange = nullptr;
 
     /*! number chooser for max particle count
-    */
+     */
     iWidgetNumberChooser *_maxParticleCount = nullptr;
 
     /*! color gradient display
-    */
+     */
     iWidgetColorGradient *_colorGradient = nullptr;
 
     /*! color gradient dialog
-    */
+     */
     iDialogColorGradient *_colorGradientDialog = nullptr;
 
     /*! graph dialog. Reused for all the gradients we want to edit
-    */
+     */
     iDialogGraphPtr _dialogGraph = nullptr;
 
     /*! start size graph
-    */
+     */
     iWidgetGraph *_startSizeGraph = nullptr;
 
     /*! scale over time size scale graph
-    */
+     */
     iWidgetGraph *_scaleSizeGraph = nullptr;
 
     /*! visibility graph
-    */
+     */
     iWidgetGraph *_visibilityGraph = nullptr;
 
     /*! orientation graph
-    */
+     */
     iWidgetGraph *_orientationGraph = nullptr;
 
     /*! orientation rate graph
-    */
+     */
     iWidgetGraph *_orientationRateGraph = nullptr;
 
     /*! velocity graph
-    */
+     */
     iWidgetGraph *_startVelocityGraph = nullptr;
 
     /*! start lift / weight graph
-    */
+     */
     iWidgetGraph *_startLiftGraph = nullptr;
 
     /*! particle emission graph
-    */
+     */
     iWidgetGraph *_emissionGraph = nullptr;
 
     /*! text field to show the current particle count
-    */
+     */
     iWidgetLineTextEdit *_textParticleCount = nullptr;
 
     /*! text field to show the current particle simulation frequency
-    */
+     */
     iWidgetLineTextEdit *_textFrequency = nullptr;
 
     /*! list with all available emitters in all scenes
-    */
+     */
     std::vector<uint64> _emitters;
-
-    /*! current node
-    */
-    uint64 _nodeId = iNode::INVALID_NODE_ID;
 
     /*! prevents updating the node while we are updating the gui
     */
     bool _ignoreNodeUpdate = false;
 
     /*! triggered from various sources to update the node
-    
+
     \param source the source widget of this event
     */
     void onDoUpdateNode(const iWidgetPtr source);
@@ -228,8 +228,8 @@ private:
     */
     void onOpenColorGradientEditor(const iWidgetPtr source);
 
-    /*! triggered every frame
-    */
+    /*! triggered every frame to update current particle count
+     */
     void onUpdate() override;
 
     /*! triggered when color gradient editor was closed
@@ -358,17 +358,6 @@ private:
     */
     void onReset(const iWidgetPtr source);
 
-    /*! updates the gui from node data
-    */
-    void updateGUI();
-
-    /*! updates the node from gui data
-    */
-    void updateNode();
-
-    /*! initialize gui
-    */
-    void initGUI();
 };
 
 #endif // __USERCONTROLPARTICLESYSTEM__

@@ -6,351 +6,23 @@
 
 #include "../../MicaDefines.h"
 
-UserControlParticleSystem::UserControlParticleSystem()
+UserControlParticleSystem::UserControlParticleSystem(iNodeID nodeID, const iWidgetPtr parent)
+    : UserControlNode(nodeID, parent)
 {
-    initGUI();
 }
 
 UserControlParticleSystem::~UserControlParticleSystem()
 {
 }
 
-void UserControlParticleSystem::onUpdate()
+void UserControlParticleSystem::init()
 {
-    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
+    UserControlNode::init();
 
-    if (node != nullptr)
-    {
-        _textParticleCount->setText(iaString::toString(node->getParticleCount()));
-    }
-}
-
-void UserControlParticleSystem::updateNode()
-{
-    if (!_ignoreNodeUpdate)
-    {
-        iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
-
-        if (node != nullptr)
-        {
-            if (_emitterSelection->getSelectedIndex() != -1)
-            {
-                uint32 emitterID = _emitters[_emitterSelection->getSelectedIndex()];
-                if (emitterID != iNode::INVALID_NODE_ID)
-                {
-                    node->setEmitter(emitterID);
-                }
-                else
-                {
-                    con_err("invalid emitter id");
-                }
-            }
-
-            if (_materialSelection->getSelectedUserData().has_value())
-            {
-                std::any userData = _materialSelection->getSelectedUserData();
-                iMaterialID materialID = std::any_cast<iMaterialID>(userData);
-                node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
-            }
-
-            node->setTextureA(_textureChooser0->getFileName());
-            node->setTextureB(_textureChooser1->getFileName());
-            node->setTextureC(_textureChooser2->getFileName());
-
-            node->setLoop(_loopCheckBox->isChecked());
-            node->setPeriodTime(_periodChooser->getValue());
-            node->setMaxParticleCount(_maxParticleCount->getValue());
-            node->setAirDrag(1.0f - _airDragChooser->getValue());
-            node->setVelocityOriented(_velocityOrientedCheckBox->isChecked());
-            node->setVorticityConfinement(_vorticityConfinementChooser->getValue());
-            node->setVortexCheckRange(_vortexCheckRange->getValue());
-            node->setVortexToParticleRate(_vortexToParticleRateChooser->getValue() / 100.0f);
-            node->setVortexTorque(_vortexTorqueMinChooser->getValue(), _vortexTorqueMaxChooser->getValue());
-            node->setVortexRange(_vortexRangeMinChooser->getValue(), _vortexRangeMaxChooser->getValue());
-            node->setTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
-            node->setColorGradient(_colorGradient->getGradient());
-
-            iaKeyFrameGraphVector2f startSizeGradient;
-            for (int i = 0; i < _startSizeGraph->getPoints(0).size(); ++i)
-            {
-                startSizeGradient.setValue(_startSizeGraph->getPoints(0)[i]._x, iaVector2f(_startSizeGraph->getPoints(0)[i]._y, _startSizeGraph->getPoints(1)[i]._y));
-            }
-            node->setStartSizeGradient(startSizeGradient);
-
-            iaKeyFrameGraphf sizeScaleGradient;
-            auto scaleSizePoints = _scaleSizeGraph->getPoints(0);
-            for (auto point : scaleSizePoints)
-            {
-                sizeScaleGradient.setValue(point._x, point._y);
-            }
-            node->setSizeScaleGradient(sizeScaleGradient);
-
-            iaKeyFrameGraphVector2f startVisibilityGradient;
-            for (int i = 0; i < _visibilityGraph->getPoints(0).size(); ++i)
-            {
-                startVisibilityGradient.setValue(_visibilityGraph->getPoints(0)[i]._x, iaVector2f(_visibilityGraph->getPoints(0)[i]._y, _visibilityGraph->getPoints(1)[i]._y));
-            }
-            node->setStartAgeGradient(startVisibilityGradient);
-
-            iaKeyFrameGraphVector2f orientationGradient;
-            for (int i = 0; i < _orientationGraph->getPoints(0).size(); ++i)
-            {
-                orientationGradient.setValue(_orientationGraph->getPoints(0)[i]._x,
-                                             iaVector2f(_orientationGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationGraph->getPoints(1)[i]._y / 180.0f * M_PI));
-            }
-            node->setStartOrientationGradient(orientationGradient);
-
-            iaKeyFrameGraphVector2f orientationRateGradient;
-            for (int i = 0; i < _orientationRateGraph->getPoints(0).size(); ++i)
-            {
-                orientationRateGradient.setValue(_orientationRateGraph->getPoints(0)[i]._x,
-                                                 iaVector2f(_orientationRateGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationRateGraph->getPoints(1)[i]._y / 180.0f * M_PI));
-            }
-            node->setStartOrientationRateGradient(orientationRateGradient);
-
-            iaKeyFrameGraphVector2f startVelocityGradient;
-            for (int i = 0; i < _startVelocityGraph->getPoints(0).size(); ++i)
-            {
-                startVelocityGradient.setValue(_startVelocityGraph->getPoints(0)[i]._x, iaVector2f(_startVelocityGraph->getPoints(0)[i]._y, _startVelocityGraph->getPoints(1)[i]._y));
-            }
-            node->setStartVelocityGradient(startVelocityGradient);
-
-            iaKeyFrameGraphVector2f startLiftGradient;
-            for (int i = 0; i < _startLiftGraph->getPoints(0).size(); ++i)
-            {
-                startLiftGradient.setValue(_startLiftGraph->getPoints(0)[i]._x, iaVector2f(_startLiftGraph->getPoints(0)[i]._y, _startLiftGraph->getPoints(1)[i]._y));
-            }
-            node->setStartLiftGradient(startLiftGradient);
-
-            iaKeyFrameGraphf emissionGradient;
-            auto emissionPoints = _emissionGraph->getPoints(0);
-            for (auto point : emissionPoints)
-            {
-                emissionGradient.setValue(point._x, point._y);
-            }
-            node->setEmissionGradient(emissionGradient);
-        }
-    }
-}
-
-void UserControlParticleSystem::updateGUI()
-{
-    _ignoreNodeUpdate = true;
-
-    _emitterSelection->clear();
-    iNodeManager::getInstance().getNodes(_emitters, iNodeType::iNodeEmitter);
-    for (auto emitterID : _emitters)
-    {
-        iNodeEmitter *emitter = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(emitterID));
-        _emitterSelection->addItem(emitter->getName());
-    }
-
-    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
-    {
-        int i = 0;
-        for (auto emitterID : _emitters)
-        {
-            if (emitterID == node->getEmitter())
-            {
-                _emitterSelection->setSelection(i);
-                break;
-            }
-            i++;
-        }
-
-        _materialSelection->clear();
-
-        std::vector<iMaterialPtr> materials;
-        iResourceManager::getInstance().getMaterials(materials);
-        for (auto material : materials)
-        {
-            const iMaterialID &materialID = material->getID();
-            _materialSelection->addItem(material->getName(), materialID);
-
-            if (materialID == node->getMaterial()->getID())
-            {
-                _materialSelection->setSelection(_materialSelection->getItemCount() - 1);
-            }
-        }
-
-        _textureChooser0->setFileName(node->getTextureA());
-        _textureChooser1->setFileName(node->getTextureB());
-        _textureChooser2->setFileName(node->getTextureC());
-
-        _loopCheckBox->setChecked(node->isLooped());
-        _periodChooser->setValue(node->getPeriodTime());
-        _maxParticleCount->setValue(node->getMaxParticleCount());
-        _airDragChooser->setValue(1.0f - node->getAirDrag());
-        _velocityOrientedCheckBox->setChecked(node->getVelocityOriented());
-        _vorticityConfinementChooser->setValue(node->getVorticityConfinement());
-        _vortexCheckRange->setValue(node->getVortexCheckRange());
-        _vortexToParticleRateChooser->setValue(node->getVortexToParticleRate() * 100.0f);
-        _vortexTorqueMinChooser->setValue(node->getVortexTorqueMin());
-        _vortexTorqueMaxChooser->setValue(node->getVortexTorqueMax());
-        _vortexRangeMinChooser->setValue(node->getVortexRangeMin());
-        _vortexRangeMaxChooser->setValue(node->getVortexRangeMax());
-        _tilingHorizontalChooser->setValue(node->getTextureColumns());
-        _tilingVerticalChooser->setValue(node->getTextureRows());
-
-        iaKeyFrameGraphColor4f gradient;
-        node->getColorGradient(gradient);
-        _colorGradient->setGradient(gradient);
-
-        convertGradientsToUI(node);
-    }
-
-    _ignoreNodeUpdate = false;
-}
-
-void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
-{
-    // start size
-    iaKeyFrameGraphVector2f startSizeGradient;
-    node->getStartSizeGradient(startSizeGradient);
-
-    std::vector<iaVector2f> minStartSize;
-    std::vector<iaVector2f> maxStartSize;
-
-    const auto &startSizeValues = startSizeGradient.getValues();
-    for (auto value : startSizeValues)
-    {
-        minStartSize.push_back(iaVector2f(value.first, value.second._x));
-        maxStartSize.push_back(iaVector2f(value.first, value.second._y));
-    }
-
-    _startSizeGraph->setPoints(0, minStartSize);
-    _startSizeGraph->setPoints(1, maxStartSize);
-
-    // scale size
-    iaKeyFrameGraphf sizeScaleGradient;
-    node->getSizeScaleGradient(sizeScaleGradient);
-
-    std::vector<iaVector2f> scaleSize;
-    const auto &scaleSizeValues = sizeScaleGradient.getValues();
-    for (auto value : scaleSizeValues)
-    {
-        scaleSize.push_back(iaVector2f(value.first, value.second));
-    }
-    _scaleSizeGraph->setPoints(0, scaleSize);
-
-    // visibility
-    iaKeyFrameGraphVector2f visibilityGradient;
-    node->getStartAgeGradient(visibilityGradient);
-
-    std::vector<iaVector2f> minVisibility;
-    std::vector<iaVector2f> maxVisibility;
-
-    const auto &visibilityValues = visibilityGradient.getValues();
-    for (auto value : visibilityValues)
-    {
-        minVisibility.push_back(iaVector2f(value.first, value.second._x));
-        maxVisibility.push_back(iaVector2f(value.first, value.second._y));
-    }
-
-    _visibilityGraph->setPoints(0, minVisibility);
-    _visibilityGraph->setPoints(1, maxVisibility);
-
-    // start orientation
-    iaKeyFrameGraphVector2f startOrientationGradient;
-    node->getStartOrientationGradient(startOrientationGradient);
-
-    std::vector<iaVector2f> minStartOrientation;
-    std::vector<iaVector2f> maxStartOrientation;
-
-    const auto &startOrientationValues = startOrientationGradient.getValues();
-    for (auto value : startOrientationValues)
-    {
-        minStartOrientation.push_back(iaVector2f(value.first, value.second._x));
-        maxStartOrientation.push_back(iaVector2f(value.first, value.second._y * 180.0f / M_PI));
-    }
-
-    _orientationGraph->setPoints(0, minStartOrientation);
-    _orientationGraph->setPoints(1, maxStartOrientation);
-
-    // start orientation rate
-    iaKeyFrameGraphVector2f startOrientationRateGradient;
-    node->getStartOrientationRateGradient(startOrientationRateGradient);
-
-    std::vector<iaVector2f> minStartOrientationRate;
-    std::vector<iaVector2f> maxStartOrientationRate;
-
-    const auto &startOrientationRateValues = startOrientationRateGradient.getValues();
-    for (auto value : startOrientationRateValues)
-    {
-        minStartOrientationRate.push_back(iaVector2f(value.first, value.second._x));
-        maxStartOrientationRate.push_back(iaVector2f(value.first, value.second._y * 180.0f / M_PI));
-    }
-
-    _orientationRateGraph->setPoints(0, minStartOrientationRate);
-    _orientationRateGraph->setPoints(1, maxStartOrientationRate);
-
-    // start velocity
-    iaKeyFrameGraphVector2f startVelocityGradient;
-    node->getStartVelocityGradient(startVelocityGradient);
-
-    std::vector<iaVector2f> minStartVelocity;
-    std::vector<iaVector2f> maxStartVelocity;
-
-    const auto &startVelocityValues = startVelocityGradient.getValues();
-    for (auto value : startVelocityValues)
-    {
-        minStartVelocity.push_back(iaVector2f(value.first, value.second._x));
-        maxStartVelocity.push_back(iaVector2f(value.first, value.second._y));
-    }
-
-    _startVelocityGraph->setPoints(0, minStartVelocity);
-    _startVelocityGraph->setPoints(1, maxStartVelocity);
-
-    // start Lift
-    iaKeyFrameGraphVector2f startLiftGradient;
-    node->getStartLiftGradient(startLiftGradient);
-
-    std::vector<iaVector2f> minStartLift;
-    std::vector<iaVector2f> maxStartLift;
-
-    const auto &startLiftValues = startLiftGradient.getValues();
-    for (auto value : startLiftValues)
-    {
-        minStartLift.push_back(iaVector2f(value.first, value.second._x));
-        maxStartLift.push_back(iaVector2f(value.first, value.second._y));
-    }
-
-    _startLiftGraph->setPoints(0, minStartLift);
-    _startLiftGraph->setPoints(1, maxStartLift);
-
-    // emission
-    iaKeyFrameGraphf emissionGradient;
-    node->getEmissionGradient(emissionGradient);
-
-    std::vector<iaVector2f> emissionGraph;
-    const auto &emissionValues = emissionGradient.getValues();
-    for (auto value : emissionValues)
-    {
-        emissionGraph.push_back(iaVector2f(value.first, value.second));
-    }
-    _emissionGraph->setPoints(0, emissionGraph);
-}
-
-void UserControlParticleSystem::setNode(uint64 id)
-{
-    _nodeId = id;
-    updateGUI();
-}
-
-uint64 UserControlParticleSystem::getNode()
-{
-    return _nodeId;
-}
-
-void UserControlParticleSystem::initGUI()
-{
-    _grid = new iWidgetGridLayout();
+    _grid = new iWidgetGridLayout(getLayout());
     _grid->appendRows(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    addWidget(_grid);
 
     iWidgetGridLayout *gridProperties = new iWidgetGridLayout();
     gridProperties->appendColumns(0);
@@ -966,8 +638,328 @@ void UserControlParticleSystem::initGUI()
 
     gridAppearanceProperties->addWidget(labelOrientationRateGradient, 0, 13);
     gridAppearanceProperties->addWidget(_orientationRateGraph, 1, 13);
+}
 
-    updateNode();
+void UserControlParticleSystem::onUpdate()
+{
+    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(getNodeID()));
+
+    if (node != nullptr)
+    {
+        _textParticleCount->setText(iaString::toString(node->getParticleCount()));
+    }
+}
+
+void UserControlParticleSystem::updateNode()
+{
+    if (_ignoreNodeUpdate)
+    {
+        return;
+    }
+
+    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(getNodeID()));
+
+    if (node != nullptr)
+    {
+        if (_emitterSelection->getSelectedIndex() != -1)
+        {
+            uint32 emitterID = _emitters[_emitterSelection->getSelectedIndex()];
+            if (emitterID != iNode::INVALID_NODE_ID)
+            {
+                node->setEmitter(emitterID);
+            }
+            else
+            {
+                con_err("invalid emitter id");
+            }
+        }
+
+        if (_materialSelection->getSelectedUserData().has_value())
+        {
+            std::any userData = _materialSelection->getSelectedUserData();
+            iMaterialID materialID = std::any_cast<iMaterialID>(userData);
+            node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
+        }
+
+        node->setTextureA(_textureChooser0->getFileName());
+        node->setTextureB(_textureChooser1->getFileName());
+        node->setTextureC(_textureChooser2->getFileName());
+
+        node->setLoop(_loopCheckBox->isChecked());
+        node->setPeriodTime(_periodChooser->getValue());
+        node->setMaxParticleCount(_maxParticleCount->getValue());
+        node->setAirDrag(1.0f - _airDragChooser->getValue());
+        node->setVelocityOriented(_velocityOrientedCheckBox->isChecked());
+        node->setVorticityConfinement(_vorticityConfinementChooser->getValue());
+        node->setVortexCheckRange(_vortexCheckRange->getValue());
+        node->setVortexToParticleRate(_vortexToParticleRateChooser->getValue() / 100.0f);
+        node->setVortexTorque(_vortexTorqueMinChooser->getValue(), _vortexTorqueMaxChooser->getValue());
+        node->setVortexRange(_vortexRangeMinChooser->getValue(), _vortexRangeMaxChooser->getValue());
+        node->setTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
+        node->setColorGradient(_colorGradient->getGradient());
+
+        iaKeyFrameGraphVector2f startSizeGradient;
+        for (int i = 0; i < _startSizeGraph->getPoints(0).size(); ++i)
+        {
+            startSizeGradient.setValue(_startSizeGraph->getPoints(0)[i]._x, iaVector2f(_startSizeGraph->getPoints(0)[i]._y, _startSizeGraph->getPoints(1)[i]._y));
+        }
+        node->setStartSizeGradient(startSizeGradient);
+
+        iaKeyFrameGraphf sizeScaleGradient;
+        auto scaleSizePoints = _scaleSizeGraph->getPoints(0);
+        for (auto point : scaleSizePoints)
+        {
+            sizeScaleGradient.setValue(point._x, point._y);
+        }
+        node->setSizeScaleGradient(sizeScaleGradient);
+
+        iaKeyFrameGraphVector2f startVisibilityGradient;
+        for (int i = 0; i < _visibilityGraph->getPoints(0).size(); ++i)
+        {
+            startVisibilityGradient.setValue(_visibilityGraph->getPoints(0)[i]._x, iaVector2f(_visibilityGraph->getPoints(0)[i]._y, _visibilityGraph->getPoints(1)[i]._y));
+        }
+        node->setStartAgeGradient(startVisibilityGradient);
+
+        iaKeyFrameGraphVector2f orientationGradient;
+        for (int i = 0; i < _orientationGraph->getPoints(0).size(); ++i)
+        {
+            orientationGradient.setValue(_orientationGraph->getPoints(0)[i]._x,
+                                         iaVector2f(_orientationGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationGraph->getPoints(1)[i]._y / 180.0f * M_PI));
+        }
+        node->setStartOrientationGradient(orientationGradient);
+
+        iaKeyFrameGraphVector2f orientationRateGradient;
+        for (int i = 0; i < _orientationRateGraph->getPoints(0).size(); ++i)
+        {
+            orientationRateGradient.setValue(_orientationRateGraph->getPoints(0)[i]._x,
+                                             iaVector2f(_orientationRateGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationRateGraph->getPoints(1)[i]._y / 180.0f * M_PI));
+        }
+        node->setStartOrientationRateGradient(orientationRateGradient);
+
+        iaKeyFrameGraphVector2f startVelocityGradient;
+        for (int i = 0; i < _startVelocityGraph->getPoints(0).size(); ++i)
+        {
+            startVelocityGradient.setValue(_startVelocityGraph->getPoints(0)[i]._x, iaVector2f(_startVelocityGraph->getPoints(0)[i]._y, _startVelocityGraph->getPoints(1)[i]._y));
+        }
+        node->setStartVelocityGradient(startVelocityGradient);
+
+        iaKeyFrameGraphVector2f startLiftGradient;
+        for (int i = 0; i < _startLiftGraph->getPoints(0).size(); ++i)
+        {
+            startLiftGradient.setValue(_startLiftGraph->getPoints(0)[i]._x, iaVector2f(_startLiftGraph->getPoints(0)[i]._y, _startLiftGraph->getPoints(1)[i]._y));
+        }
+        node->setStartLiftGradient(startLiftGradient);
+
+        iaKeyFrameGraphf emissionGradient;
+        auto emissionPoints = _emissionGraph->getPoints(0);
+        for (auto point : emissionPoints)
+        {
+            emissionGradient.setValue(point._x, point._y);
+        }
+        node->setEmissionGradient(emissionGradient);
+    }
+}
+
+void UserControlParticleSystem::update()
+{
+    _ignoreNodeUpdate = true;
+
+    UserControlNode::update();
+
+    _emitterSelection->clear();
+    iNodeManager::getInstance().getNodes(_emitters, iNodeType::iNodeEmitter);
+    for (auto emitterID : _emitters)
+    {
+        iNodeEmitter *emitter = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(emitterID));
+        _emitterSelection->addItem(emitter->getName());
+    }
+
+    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(getNodeID()));
+
+    if (node != nullptr)
+    {
+        int i = 0;
+        for (auto emitterID : _emitters)
+        {
+            if (emitterID == node->getEmitter())
+            {
+                _emitterSelection->setSelection(i);
+                break;
+            }
+            i++;
+        }
+
+        _materialSelection->clear();
+
+        std::vector<iMaterialPtr> materials;
+        iResourceManager::getInstance().getMaterials(materials);
+        for (auto material : materials)
+        {
+            const iMaterialID &materialID = material->getID();
+            _materialSelection->addItem(material->getName(), materialID);
+
+            if (materialID == node->getMaterial()->getID())
+            {
+                _materialSelection->setSelection(_materialSelection->getItemCount() - 1);
+            }
+        }
+
+        _textureChooser0->setFileName(node->getTextureA());
+        _textureChooser1->setFileName(node->getTextureB());
+        _textureChooser2->setFileName(node->getTextureC());
+
+        _loopCheckBox->setChecked(node->isLooped());
+        _periodChooser->setValue(node->getPeriodTime());
+        _maxParticleCount->setValue(node->getMaxParticleCount());
+        _airDragChooser->setValue(1.0f - node->getAirDrag());
+        _velocityOrientedCheckBox->setChecked(node->getVelocityOriented());
+        _vorticityConfinementChooser->setValue(node->getVorticityConfinement());
+        _vortexCheckRange->setValue(node->getVortexCheckRange());
+        _vortexToParticleRateChooser->setValue(node->getVortexToParticleRate() * 100.0f);
+        _vortexTorqueMinChooser->setValue(node->getVortexTorqueMin());
+        _vortexTorqueMaxChooser->setValue(node->getVortexTorqueMax());
+        _vortexRangeMinChooser->setValue(node->getVortexRangeMin());
+        _vortexRangeMaxChooser->setValue(node->getVortexRangeMax());
+        _tilingHorizontalChooser->setValue(node->getTextureColumns());
+        _tilingVerticalChooser->setValue(node->getTextureRows());
+
+        iaKeyFrameGraphColor4f gradient;
+        node->getColorGradient(gradient);
+        _colorGradient->setGradient(gradient);
+
+        convertGradientsToUI(node);
+    }
+
+    _ignoreNodeUpdate = false;
+}
+
+void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem *node)
+{
+    // start size
+    iaKeyFrameGraphVector2f startSizeGradient;
+    node->getStartSizeGradient(startSizeGradient);
+
+    std::vector<iaVector2f> minStartSize;
+    std::vector<iaVector2f> maxStartSize;
+
+    const auto &startSizeValues = startSizeGradient.getValues();
+    for (auto value : startSizeValues)
+    {
+        minStartSize.push_back(iaVector2f(value.first, value.second._x));
+        maxStartSize.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startSizeGraph->setPoints(0, minStartSize);
+    _startSizeGraph->setPoints(1, maxStartSize);
+
+    // scale size
+    iaKeyFrameGraphf sizeScaleGradient;
+    node->getSizeScaleGradient(sizeScaleGradient);
+
+    std::vector<iaVector2f> scaleSize;
+    const auto &scaleSizeValues = sizeScaleGradient.getValues();
+    for (auto value : scaleSizeValues)
+    {
+        scaleSize.push_back(iaVector2f(value.first, value.second));
+    }
+    _scaleSizeGraph->setPoints(0, scaleSize);
+
+    // visibility
+    iaKeyFrameGraphVector2f visibilityGradient;
+    node->getStartAgeGradient(visibilityGradient);
+
+    std::vector<iaVector2f> minVisibility;
+    std::vector<iaVector2f> maxVisibility;
+
+    const auto &visibilityValues = visibilityGradient.getValues();
+    for (auto value : visibilityValues)
+    {
+        minVisibility.push_back(iaVector2f(value.first, value.second._x));
+        maxVisibility.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _visibilityGraph->setPoints(0, minVisibility);
+    _visibilityGraph->setPoints(1, maxVisibility);
+
+    // start orientation
+    iaKeyFrameGraphVector2f startOrientationGradient;
+    node->getStartOrientationGradient(startOrientationGradient);
+
+    std::vector<iaVector2f> minStartOrientation;
+    std::vector<iaVector2f> maxStartOrientation;
+
+    const auto &startOrientationValues = startOrientationGradient.getValues();
+    for (auto value : startOrientationValues)
+    {
+        minStartOrientation.push_back(iaVector2f(value.first, value.second._x));
+        maxStartOrientation.push_back(iaVector2f(value.first, value.second._y * 180.0f / M_PI));
+    }
+
+    _orientationGraph->setPoints(0, minStartOrientation);
+    _orientationGraph->setPoints(1, maxStartOrientation);
+
+    // start orientation rate
+    iaKeyFrameGraphVector2f startOrientationRateGradient;
+    node->getStartOrientationRateGradient(startOrientationRateGradient);
+
+    std::vector<iaVector2f> minStartOrientationRate;
+    std::vector<iaVector2f> maxStartOrientationRate;
+
+    const auto &startOrientationRateValues = startOrientationRateGradient.getValues();
+    for (auto value : startOrientationRateValues)
+    {
+        minStartOrientationRate.push_back(iaVector2f(value.first, value.second._x));
+        maxStartOrientationRate.push_back(iaVector2f(value.first, value.second._y * 180.0f / M_PI));
+    }
+
+    _orientationRateGraph->setPoints(0, minStartOrientationRate);
+    _orientationRateGraph->setPoints(1, maxStartOrientationRate);
+
+    // start velocity
+    iaKeyFrameGraphVector2f startVelocityGradient;
+    node->getStartVelocityGradient(startVelocityGradient);
+
+    std::vector<iaVector2f> minStartVelocity;
+    std::vector<iaVector2f> maxStartVelocity;
+
+    const auto &startVelocityValues = startVelocityGradient.getValues();
+    for (auto value : startVelocityValues)
+    {
+        minStartVelocity.push_back(iaVector2f(value.first, value.second._x));
+        maxStartVelocity.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startVelocityGraph->setPoints(0, minStartVelocity);
+    _startVelocityGraph->setPoints(1, maxStartVelocity);
+
+    // start Lift
+    iaKeyFrameGraphVector2f startLiftGradient;
+    node->getStartLiftGradient(startLiftGradient);
+
+    std::vector<iaVector2f> minStartLift;
+    std::vector<iaVector2f> maxStartLift;
+
+    const auto &startLiftValues = startLiftGradient.getValues();
+    for (auto value : startLiftValues)
+    {
+        minStartLift.push_back(iaVector2f(value.first, value.second._x));
+        maxStartLift.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startLiftGraph->setPoints(0, minStartLift);
+    _startLiftGraph->setPoints(1, maxStartLift);
+
+    // emission
+    iaKeyFrameGraphf emissionGradient;
+    node->getEmissionGradient(emissionGradient);
+
+    std::vector<iaVector2f> emissionGraph;
+    const auto &emissionValues = emissionGradient.getValues();
+    for (auto value : emissionValues)
+    {
+        emissionGraph.push_back(iaVector2f(value.first, value.second));
+    }
+    _emissionGraph->setPoints(0, emissionGraph);
 }
 
 void UserControlParticleSystem::onOpenStartLiftGradientEditor(const iWidgetPtr source)
@@ -1342,12 +1334,14 @@ void UserControlParticleSystem::onCloseVisibilityGradientEditor(iDialogPtr dialo
 
 void UserControlParticleSystem::onOpenColorGradientEditor(const iWidgetPtr source)
 {
-    if (_colorGradientDialog == nullptr)
+    if (_colorGradientDialog != nullptr)
     {
-        _colorGradientDialog = new iDialogColorGradient();
-        _colorGradientDialog->setColorGradient(_colorGradient->getGradient());
-        _colorGradientDialog->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor));
+        return;
     }
+
+    _colorGradientDialog = new iDialogColorGradient();
+    _colorGradientDialog->setColorGradient(_colorGradient->getGradient());
+    _colorGradientDialog->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor));
 }
 
 void UserControlParticleSystem::onCloseColorGradientEditor(iDialogPtr dialog)
@@ -1374,30 +1368,33 @@ void UserControlParticleSystem::onDoUpdateNode(const iWidgetPtr source)
 
 void UserControlParticleSystem::onStart(const iWidgetPtr source)
 {
-    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
+    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(getNodeID()));
+    if (node == nullptr)
     {
-        node->start();
+        return;
     }
+
+    node->start();
 }
 
 void UserControlParticleSystem::onStop(const iWidgetPtr source)
 {
-    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
+    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(getNodeID()));
+    if (node == nullptr)
     {
-        node->stop();
+        return;
     }
+
+    node->stop();
 }
 
 void UserControlParticleSystem::onReset(const iWidgetPtr source)
 {
-    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
+    iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(getNodeID()));
+    if (node == nullptr)
     {
-        node->reset();
+        return;
     }
+
+    node->reset();
 }

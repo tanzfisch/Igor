@@ -6,66 +6,39 @@
 
 #include "../../MicaDefines.h"
 
-UserControlEmitter::UserControlEmitter()
+UserControlEmitter::UserControlEmitter(iNodeID nodeID, const iWidgetPtr parent)
+    : UserControlNode(nodeID, parent)
 {
-    initGUI();
 }
 
 void UserControlEmitter::updateNode()
 {
-    iNodeEmitter *node = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(_nodeId));
+    iNodeEmitter *node = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(getNodeID()));
 
-    if (node != nullptr)
-    {
-        float32 size = iaString::toFloat(_textSize->getText());
-        node->setSize(size);
-
-        node->setEmitterType(static_cast<iEmitterType>(_selectType->getSelectedIndex()));
-    }
+    float32 size = iaString::toFloat(_textSize->getText());
+    node->setSize(size);
+    node->setEmitterType(static_cast<iEmitterType>(_selectType->getSelectedIndex()));
 }
 
-void UserControlEmitter::updateGUI()
+void UserControlEmitter::update()
 {
-    iNodeEmitter *node = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(_nodeId));
+    UserControlNode::update();
 
-    if (node != nullptr)
-    {
-        _textSize->setText(iaString::toString(node->getSize(), 4));
-        _selectType->setSelection(static_cast<uint32>(node->getEmitterType()));
-    }
+    iNodeEmitter *node = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(getNodeID()));
+    _textSize->setText(iaString::toString(node->getSize(), 4));
+    _selectType->setSelection(static_cast<uint32>(node->getEmitterType()));
 }
 
-void UserControlEmitter::setNode(uint32 id)
+void UserControlEmitter::init()
 {
-    iNodePtr node = iNodeManager::getInstance().getNode(id);
-    if (node != nullptr)
-    {
-        if (node->getType() == iNodeType::iNodeEmitter)
-        {
-            _nodeId = id;
-            updateGUI();
-        }
-        else
-        {
-            con_err("node type is not iNodeEmitter");
-        }
-    }
-}
+    UserControlNode::init();
 
-uint32 UserControlEmitter::getNode()
-{
-    return _nodeId;
-}
-
-void UserControlEmitter::initGUI()
-{
-    _grid = new iWidgetGridLayout();
+    _grid = new iWidgetGridLayout(getLayout());
     _grid->appendColumns(1);
     _grid->appendRows(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStretchColumn(1);
-    addWidget(_grid);
 
     iWidgetLabel *labelType = new iWidgetLabel();
     labelType->setText("Type");

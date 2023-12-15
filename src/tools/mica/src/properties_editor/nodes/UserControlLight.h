@@ -29,18 +29,33 @@
 #ifndef __USERCONTROLLIGHT__
 #define __USERCONTROLLIGHT__
 
-#include <igor/igor.h>
-using namespace iaux;
-using namespace igor;
+#include "UserControlNode.h"
 
-class UserControlLight : public iUserControl
+class UserControlLight : public UserControlNode
 {
 public:
-    UserControlLight();
+    /*! user control
+
+    \param nodeID the node to init with
+    \param parent parent widget
+    */
+    UserControlLight(iNodeID nodeID, const iWidgetPtr parent = nullptr);
+
+    /*! does nothing
+     */
     ~UserControlLight() = default;
 
-    void setNode(uint32 id);
-    uint32 getNode();
+    /*! update ui with node data
+     */
+    void update() override;
+
+    /*! update node with ui data
+     */
+    void updateNode() override;    
+
+    /*! init ui
+     */
+    void init() override;
 
 private:
     iWidgetGridLayout *_grid = nullptr;
@@ -53,16 +68,9 @@ private:
     iaColor3f _diffuse;
     iaColor3f _specular;
 
-    uint32 _lightNodeId = 0;
-
     void onAmbientChange(const iaColor4f &color);
     void onDiffuseChange(const iaColor4f &color);
     void onSpecularChange(const iaColor4f &color);
-
-    void updateGUI();
-    void updateNode();
-
-    void initGUI();
 };
 
 #endif // __USERCONTROLLIGHT__

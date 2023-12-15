@@ -6,6 +6,14 @@
 
 #include "nodes/UserControlNode.h"
 #include "nodes/UserControlTransformation.h"
+#include "nodes/UserControlParticleSystem.h"
+#include "nodes/UserControlLight.h"
+#include "nodes/UserControlEmitter.h"
+#include "nodes/UserControlMesh.h"
+#include "nodes/UserControlModel.h"
+
+#include "resources/UserControlResource.h"
+#include "resources/UserControlMaterial.h"
 
 UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
@@ -53,23 +61,23 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
         break;
 
     case iNodeType::iNodeLight:
-        // initLightNode();
+        userControl = new UserControlLight(nodeID, _layout);
         break;
 
     case iNodeType::iNodeMesh:
-        // initMeshNode();
+        userControl = new UserControlMesh(nodeID, _layout);
         break;
 
     case iNodeType::iNodeModel:
-        // initModel();
+        userControl = new UserControlModel(nodeID, _layout);
         break;
 
     case iNodeType::iNodeEmitter:
-        // initEmitter();
+        userControl = new UserControlEmitter(nodeID, _layout);
         break;
 
     case iNodeType::iNodeParticleSystem:
-        // initParticleSystem();
+        userControl = new UserControlParticleSystem(nodeID, _layout);
         break;
 
     default:
@@ -87,4 +95,26 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
 
 void UserControlProperties::initResourceUI(const iResourceID &resourceID)
 {
+    iResourcePtr resource = iResourceManager::getInstance().getResource(resourceID);
+    if (resource == nullptr)
+    {
+        return;
+    }
+
+    const iaString &resourceType = resource->getType();
+
+    UserControlResource *userControl = nullptr;
+
+    if (resourceType == "material")
+    {
+        userControl = new UserControlMaterial(resourceID, _layout);
+    }
+
+    if (userControl == nullptr)
+    {
+        return;
+    }
+
+    userControl->init();
+    userControl->update();
 }

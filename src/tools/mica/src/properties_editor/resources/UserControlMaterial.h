@@ -29,31 +29,41 @@
 #ifndef __USERCONTROLMATERIAL__
 #define __USERCONTROLMATERIAL__
 
-#include <igor/igor.h>
-using namespace iaux;
-using namespace igor;
+#include "UserControlResource.h"
 
 /*! material name change event
 */
 IGOR_EVENT_DEFINITION(MaterialNameChanged, void);
 
-class UserControlMaterial : public iUserControl
+class UserControlMaterial : public UserControlResource
 {
 public:
-	UserControlMaterial();
+    /*! init user control
+
+    \param resourceID the resource id to use
+    \param parent the optional parent widget
+    */
+	UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+
+	/*! cleanup
+	*/
 	~UserControlMaterial();
 
-	void setMaterial(const iMaterialID &materialID);
-	const iMaterialID& getMaterialID() const;
+    /*! init ui
+     */
+    virtual void init();
 
-	void registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
-	void unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
+    /*! update ui with node data
+     */
+    virtual void update();
+
+    /*! update node with ui data
+     */
+    virtual void updateResource();
 
 private:
 	MaterialNameChangedEvent _materialNameChangedEvent;
 
-	iWidgetLineTextEdit *_textName;
-    iWidgetLabel *_textID;
 	iWidgetNumberChooser *_renderingOrder;
 
 	iWidgetCheckBox *_checkBoxCullFace;
@@ -77,8 +87,6 @@ private:
     iWidgetButton *_shaderReload;
     iWidgetButton *_exportMaterial;
 
-	iMaterialID _materialID;
-
 	uint32 _loadShaderNumber = 0;
 
 	iDialogFileSelectPtr _fileDialog = nullptr;
@@ -97,12 +105,6 @@ private:
 
     void onReloadShader(const iWidgetPtr source);
     void onExportMaterial(const iWidgetPtr source);
-
-	void updateGUI();
-	void updateMaterial();
-
-	void initGUI();
-	void deinitGUI();
 
     void reloadShader(iMaterialPtr material);
 };

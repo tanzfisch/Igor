@@ -6,14 +6,12 @@
 
 #include "../../MicaDefines.h"
 
-UserControlMesh::UserControlMesh()
-{
-    initGUI();
-}
+#include <igor/igor.h>
+using namespace igor;
 
-UserControlMesh::~UserControlMesh()
+UserControlMesh::UserControlMesh(iNodeID nodeID, const iWidgetPtr parent)
+    : UserControlNode(nodeID, parent)
 {
-    deinitGUI();
 }
 
 void UserControlMesh::onAmbientChange(const iaColor4f &color)
@@ -56,192 +54,151 @@ void UserControlMesh::onSliderChangedShininess(const iWidgetPtr source)
 
 void UserControlMesh::updateNode()
 {
-    if (!_ignoreNodeUpdate)
+    if (_ignoreNodeUpdate)
     {
-        iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(_nodeId));
-
-        if (node != nullptr)
-        {
-            iaColor3f ambient(_ambient._r, _ambient._g, _ambient._b);
-            iaColor3f diffuse(_diffuse._r, _diffuse._g, _diffuse._b);
-            iaColor3f specular(_specular._r, _specular._g, _specular._b);
-            iaColor3f emissive(_emissive._r, _emissive._g, _emissive._b);
-
-            node->getTargetMaterial()->setAmbient(ambient);
-            node->getTargetMaterial()->setDiffuse(diffuse);
-            node->getTargetMaterial()->setSpecular(specular);
-            node->getTargetMaterial()->setEmissive(emissive);
-            node->getTargetMaterial()->setShininess(_shininess);
-
-            node->getTargetMaterial()->setTexture(_textureChooser0->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser0->getFileName()), 0);
-            node->getTargetMaterial()->setTexture(_textureChooser1->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser1->getFileName()), 1);
-            node->getTargetMaterial()->setTexture(_textureChooser2->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser2->getFileName()), 2);
-            node->getTargetMaterial()->setTexture(_textureChooser3->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser3->getFileName()), 3);
-
-            if (_materialSelector->getSelectedUserData().has_value())
-            {
-                std::any userData = _materialSelector->getSelectedUserData();
-                iMaterialID materialID(std::any_cast<iMaterialID>(userData));
-                node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
-            }
-        }
+        return;
     }
-}
 
-void UserControlMesh::updateGUI()
-{
-    iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(_nodeId));
+    iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(getNodeID()));
 
     if (node != nullptr)
     {
-        _ignoreNodeUpdate = true;
+        iaColor3f ambient(_ambient._r, _ambient._g, _ambient._b);
+        iaColor3f diffuse(_diffuse._r, _diffuse._g, _diffuse._b);
+        iaColor3f specular(_specular._r, _specular._g, _specular._b);
+        iaColor3f emissive(_emissive._r, _emissive._g, _emissive._b);
 
-        iaColor3f ambient = node->getAmbient();
-        _ambient.set(ambient._r, ambient._g, ambient._b, 1.0f);
+        node->getTargetMaterial()->setAmbient(ambient);
+        node->getTargetMaterial()->setDiffuse(diffuse);
+        node->getTargetMaterial()->setSpecular(specular);
+        node->getTargetMaterial()->setEmissive(emissive);
+        node->getTargetMaterial()->setShininess(_shininess);
 
-        iaColor3f diffuse = node->getDiffuse();
-        _diffuse.set(diffuse._r, diffuse._g, diffuse._b, 1.0f);
+        node->getTargetMaterial()->setTexture(_textureChooser0->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser0->getFileName()), 0);
+        node->getTargetMaterial()->setTexture(_textureChooser1->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser1->getFileName()), 1);
+        node->getTargetMaterial()->setTexture(_textureChooser2->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser2->getFileName()), 2);
+        node->getTargetMaterial()->setTexture(_textureChooser3->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser3->getFileName()), 3);
 
-        iaColor3f specular = node->getSpecular();
-        _specular.set(specular._r, specular._g, specular._b, 1.0f);
-
-        iaColor3f emissive = node->getEmissive();
-        _emissive.set(emissive._r, emissive._g, emissive._b, 1.0f);
-
-        _shininess = node->getShininess();
-
-        _ambientColorChooser->setColor(_ambient);
-        _diffuseColorChooser->setColor(_diffuse);
-        _specularColorChooser->setColor(_specular);
-        _emissiveColorChooser->setColor(_emissive);
-        _sliderShininess->setValue(_shininess);
-        _textShininess->setValue(_shininess);
-
-        iMeshPtr mesh = node->getMesh();
-
-        _textVertices->setText(iaString::toString(mesh->getVertexCount()));
-        _textTriangles->setText(iaString::toString(mesh->getTrianglesCount()));
-        _textIndexes->setText(iaString::toString(mesh->getIndexCount()));
-
-        if (node->getTargetMaterial()->hasTextureUnit(0))
+        if (_materialSelector->getSelectedUserData().has_value())
         {
-            iaString filename = node->getTargetMaterial()->getTexture(0)->getInfo();
-            iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-            if (!shortName.isEmpty())
-            {
-                filename = shortName;
-            }
-
-            _textureChooser0->setFileName(filename);
+            std::any userData = _materialSelector->getSelectedUserData();
+            iMaterialID materialID(std::any_cast<iMaterialID>(userData));
+            node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
         }
-
-        if (node->getTargetMaterial()->hasTextureUnit(1))
-        {
-            iaString filename = node->getTargetMaterial()->getTexture(1)->getInfo();
-            iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-            if (!shortName.isEmpty())
-            {
-                filename = shortName;
-            }
-
-            _textureChooser1->setFileName(filename);
-        }
-
-        if (node->getTargetMaterial()->hasTextureUnit(2))
-        {
-            iaString filename = node->getTargetMaterial()->getTexture(2)->getInfo();
-            iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-            if (!shortName.isEmpty())
-            {
-                filename = shortName;
-            }
-
-            _textureChooser2->setFileName(filename);
-        }
-
-        if (node->getTargetMaterial()->hasTextureUnit(3))
-        {
-            iaString filename = node->getTargetMaterial()->getTexture(3)->getInfo();
-            iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-            if (!shortName.isEmpty())
-            {
-                filename = shortName;
-            }
-
-            _textureChooser3->setFileName(filename);
-        }
-
-        _materialSelector->clear();
-
-        std::vector<iMaterialPtr> materials;
-        iResourceManager::getInstance().getMaterials(materials);
-        for (auto material : materials)
-        {
-            if (material->isValid())
-            {
-                const iMaterialID &materialID = material->getID();
-                const iaString &materialName = material->getName();
-
-                _materialSelector->addItem(materialName, materialID);
-
-                if (node->getMaterial() != nullptr &&
-                    materialID == node->getMaterial()->getID())
-                {
-                    _materialSelector->setSelection(_materialSelector->getItemCount() - 1);
-                }
-            }
-        }
-
-        _ignoreNodeUpdate = false;
     }
 }
 
-void UserControlMesh::setNode(uint32 id)
+void UserControlMesh::update()
 {
-    _nodeId = id;
-    updateGUI();
-}
+    UserControlNode::update();
 
-uint32 UserControlMesh::getNode()
-{
-    return _nodeId;
-}
+    iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(getNodeID()));
+    _ignoreNodeUpdate = true;
 
-void UserControlMesh::deinitGUI()
-{
-    if (!_initialized)
+    iaColor3f ambient = node->getAmbient();
+    _ambient.set(ambient._r, ambient._g, ambient._b, 1.0f);
+
+    iaColor3f diffuse = node->getDiffuse();
+    _diffuse.set(diffuse._r, diffuse._g, diffuse._b, 1.0f);
+
+    iaColor3f specular = node->getSpecular();
+    _specular.set(specular._r, specular._g, specular._b, 1.0f);
+
+    iaColor3f emissive = node->getEmissive();
+    _emissive.set(emissive._r, emissive._g, emissive._b, 1.0f);
+
+    _shininess = node->getShininess();
+
+    _ambientColorChooser->setColor(_ambient);
+    _diffuseColorChooser->setColor(_diffuse);
+    _specularColorChooser->setColor(_specular);
+    _emissiveColorChooser->setColor(_emissive);
+    _sliderShininess->setValue(_shininess);
+    _textShininess->setValue(_shininess);
+
+    iMeshPtr mesh = node->getMesh();
+
+    _textVertices->setText(iaString::toString(mesh->getVertexCount()));
+    _textTriangles->setText(iaString::toString(mesh->getTrianglesCount()));
+    _textIndexes->setText(iaString::toString(mesh->getIndexCount()));
+
+    if (node->getTargetMaterial()->hasTextureUnit(0))
     {
-        return;
+        iaString filename = node->getTargetMaterial()->getTexture(0)->getInfo();
+        iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
+        if (!shortName.isEmpty())
+        {
+            filename = shortName;
+        }
+
+        _textureChooser0->setFileName(filename);
     }
 
-    clearChildren();
+    if (node->getTargetMaterial()->hasTextureUnit(1))
+    {
+        iaString filename = node->getTargetMaterial()->getTexture(1)->getInfo();
+        iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
+        if (!shortName.isEmpty())
+        {
+            filename = shortName;
+        }
 
-    _ambientColorChooser = nullptr;
-    _diffuseColorChooser = nullptr;
-    _specularColorChooser = nullptr;
-    _emissiveColorChooser = nullptr;
-    _textVertices = nullptr;
-    _textTriangles = nullptr;
-    _textIndexes = nullptr;
-    _sliderShininess = nullptr;
-    _textShininess = nullptr;
-    _textureChooser0 = nullptr;
-    _textureChooser1 = nullptr;
-    _textureChooser2 = nullptr;
-    _textureChooser3 = nullptr;
-    _materialSelector = nullptr;
+        _textureChooser1->setFileName(filename);
+    }
 
-    _initialized = false;
+    if (node->getTargetMaterial()->hasTextureUnit(2))
+    {
+        iaString filename = node->getTargetMaterial()->getTexture(2)->getInfo();
+        iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
+        if (!shortName.isEmpty())
+        {
+            filename = shortName;
+        }
+
+        _textureChooser2->setFileName(filename);
+    }
+
+    if (node->getTargetMaterial()->hasTextureUnit(3))
+    {
+        iaString filename = node->getTargetMaterial()->getTexture(3)->getInfo();
+        iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
+        if (!shortName.isEmpty())
+        {
+            filename = shortName;
+        }
+
+        _textureChooser3->setFileName(filename);
+    }
+
+    _materialSelector->clear();
+
+    std::vector<iMaterialPtr> materials;
+    iResourceManager::getInstance().getMaterials(materials);
+    for (auto material : materials)
+    {
+        if (material->isValid())
+        {
+            const iMaterialID &materialID = material->getID();
+            const iaString &materialName = material->getName();
+
+            _materialSelector->addItem(materialName, materialID);
+
+            if (node->getMaterial() != nullptr &&
+                materialID == node->getMaterial()->getID())
+            {
+                _materialSelector->setSelection(_materialSelector->getItemCount() - 1);
+            }
+        }
+    }
+
+    _ignoreNodeUpdate = false;
 }
 
-void UserControlMesh::initGUI()
+void UserControlMesh::init()
 {
-    if (_initialized)
-    {
-        return;
-    }
+    UserControlNode::init();
 
-    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
+    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(getLayout());
     grid->appendRows(9);
     grid->setStretchRow(8);
     grid->setStretchColumn(0);
@@ -428,8 +385,6 @@ void UserControlMesh::initGUI()
     grid->addWidget(gridShininess, 0, 5);
     grid->addWidget(gridTextures, 0, 6);
     grid->addWidget(gridMaterial, 0, 7);
-
-    _initialized = true;
 }
 
 void UserControlMesh::onMaterialChanged(const iWidgetPtr source)

@@ -31,11 +31,21 @@
 
 #include "UserControlNode.h"
 
+/*! user control transform node
+*/
 class UserControlTransformation : public UserControlNode
 {
 public:
 
+    /*! user control
+
+    \param nodeID the node to init with
+    \param parent parent widget
+    */
     UserControlTransformation(iNodeID nodeID, const iWidgetPtr parent = nullptr);
+
+    /*! clean up
+    */
     ~UserControlTransformation();
 
     /*! update ui with node data
@@ -47,20 +57,20 @@ public:
     void init() override;    
 
 private:
+
+    /*! grid layout
+    */
     iWidgetGridLayout *_grid = nullptr;
 
+    /*! text fields for matrix data
+    */
     std::vector<iWidgetLineTextEdit *> _matrixText;
 
-    iNodeID _nodeId = iNode::INVALID_NODE_ID;
-
+    /*! handles transformation change event on given node
+    
+    \param node the given node
+    */
     void onTransformationChanged(iNode *node);
-
-    iWidgetLineTextEdit *createTextEdit();
-
-    void onChange(const iWidgetPtr source);
-
-    void updateUI(iNodeTransform *transformNode);
-
 };
 
 #endif // __USERCONTROLTRANSFORMATION__

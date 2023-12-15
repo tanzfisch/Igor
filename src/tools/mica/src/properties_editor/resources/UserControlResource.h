@@ -26,85 +26,74 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLNODE__
-#define __USERCONTROLNODE__
+#ifndef __USERCONTROLRESOURCE__
+#define __USERCONTROLRESOURCE__
 
 #include <igor/igor.h>
 using namespace iaux;
 using namespace igor;
 
-IGOR_EVENT_DEFINITION(NameChanged, void);
-
-class UserControlNode : public iUserControl
+class UserControlResource : public iUserControl
 {
 public:
-    /*! init node user control
+    /*! init user control
 
-    \param nodeID the node id
+    \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-    UserControlNode(iNodeID nodeID, const iWidgetPtr parent = nullptr);
+    UserControlResource(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
-    */
-    virtual ~UserControlNode() = default;
-
-    /*! \returns name change event
-    */
-    NameChangedEvent& getNameChangedEvent();
+     */
+    virtual ~UserControlResource() = default;
 
     /*! \returns id of node that is represented by this widget
-    */
-    iNodeID getNodeID() const;
+     */
+    iResourceID getResourceID() const;
 
     /*! init ui
-    */
+     */
     virtual void init();
 
     /*! update ui with node data
-    */
+     */
     virtual void update();
 
     /*! update node with ui data
-    */
-    virtual void updateNode();
+     */
+    virtual void updateResource();
 
 protected:
     /*! \returns main layout
-    */
+     */
     iWidgetBoxLayoutPtr getLayout();
 
 private:
+    /*! resource id
+     */
+    iResourceID _resourceID;
+
     /*! main layout
-    */
+     */
     iWidgetBoxLayoutPtr _layout = nullptr;
 
-    /*! name changed event
-    */
-    NameChangedEvent _nameChangedEvent;
-
-    /*! text field name 
-    */
+    /*! text field name
+     */
     iWidgetLineTextEdit *_textName = nullptr;
 
-    /*! active checkbox
-    */
-    iWidgetCheckBox *_checkBoxActive = nullptr;
-
-    /*! id of node this control is displaying
-    */
-    iNodeID _nodeID = iNode::INVALID_NODE_ID;
-
-    /*! prevents updating the node while we are updating the gui
+    /*! text field source
      */
-    bool _ignoreNodeUpdate = false;
+    iWidgetLineTextEdit *_textID = nullptr;
+
+    /*! text field source
+     */
+    iWidgetLineTextEdit *_textSource = nullptr;
 
     /*! handled name change
 
     \param source the source widget that triggered this event
     */
     void onNameChanged(const iWidgetPtr source);
-
 };
 
-#endif
+#endif // __USERCONTROLRESOURCE__

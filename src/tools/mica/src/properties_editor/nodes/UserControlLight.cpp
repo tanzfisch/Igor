@@ -4,14 +4,16 @@
 
 #include "UserControlLight.h"
 
-UserControlLight::UserControlLight()
+UserControlLight::UserControlLight(iNodeID nodeID, const iWidgetPtr parent)
+    : UserControlNode(nodeID, parent)
 {
-    initGUI();
 }
 
-void UserControlLight::updateGUI()
+void UserControlLight::update()
 {
-    iNodeLight *lightNode = static_cast<iNodeLight *>(iNodeManager::getInstance().getNode(_lightNodeId));
+    UserControlNode::update();
+
+    iNodeLight *lightNode = static_cast<iNodeLight *>(iNodeManager::getInstance().getNode(getNodeID()));
 
     if (lightNode != nullptr)
     {
@@ -27,7 +29,7 @@ void UserControlLight::updateGUI()
 
 void UserControlLight::updateNode()
 {
-    iNodeLight *lightNode = static_cast<iNodeLight *>(iNodeManager::getInstance().getNode(_lightNodeId));
+    iNodeLight *lightNode = static_cast<iNodeLight *>(iNodeManager::getInstance().getNode(getNodeID()));
 
     if (lightNode != nullptr)
     {
@@ -55,25 +57,15 @@ void UserControlLight::onSpecularChange(const iaColor4f &color)
     updateNode();
 }
 
-void UserControlLight::setNode(uint32 id)
+void UserControlLight::init()
 {
-    _lightNodeId = id;
-    updateGUI();
-}
+    UserControlNode::init();
 
-uint32 UserControlLight::getNode()
-{
-    return _lightNodeId;
-}
-
-void UserControlLight::initGUI()
-{
-    _grid = new iWidgetGridLayout();
+    _grid = new iWidgetGridLayout(getLayout());
     _grid->appendRows(2);
     _grid->setBorder(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    addWidget(_grid);
 
     _ambientColorChooser = new iUserControlColorChooser();
     _ambientColorChooser->setMode(iColorChooserMode::RGB);

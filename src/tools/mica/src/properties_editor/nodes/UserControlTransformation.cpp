@@ -6,6 +6,19 @@
 
 #include "../../MicaDefines.h"
 
+static iWidgetLineTextEdit *createTextEdit()
+{
+	iWidgetLineTextEdit *textEdit = new iWidgetLineTextEdit();
+	textEdit->setText("");
+	textEdit->setMinWidth(MICA_REGULARBUTTON_SIZE);
+	textEdit->setMaxTextLength(11);
+	textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
+	textEdit->setVerticalAlignment(iVerticalAlignment::Top);
+	textEdit->setEnabled(false);
+
+	return textEdit;
+}
+
 UserControlTransformation::UserControlTransformation(iNodeID nodeID, const iWidgetPtr parent)
 	: UserControlNode(nodeID, parent)
 {
@@ -15,7 +28,8 @@ void UserControlTransformation::init()
 {
 	UserControlNode::init();
 
-	iWidgetGroupBoxPtr group = new iWidgetGroupBox(_layout);
+	iWidgetGroupBoxPtr group = new iWidgetGroupBox(getLayout());
+	group->setHeaderOnly();
 	group->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 	group->setText("Matrix");
 
@@ -54,7 +68,7 @@ void UserControlTransformation::update()
 
 UserControlTransformation::~UserControlTransformation()
 {
-	iNode *node = iNodeManager::getInstance().getNode(_nodeId);
+	iNode *node = iNodeManager::getInstance().getNode(getNodeID());
 	if (node != nullptr)
 	{
 		node->getTransformationChangeEvent().remove(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
@@ -63,7 +77,7 @@ UserControlTransformation::~UserControlTransformation()
 
 void UserControlTransformation::onTransformationChanged(iNode *node)
 {
-	con_assert(node->getID() == _nodeId && node->getType() == iNodeType::iNodeTransform, "internal error");
+	con_assert(node->getID() == getNodeID() && node->getType() == iNodeType::iNodeTransform, "internal error");
 
 	iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(node);
 	iaMatrixd matrix;
@@ -75,15 +89,3 @@ void UserControlTransformation::onTransformationChanged(iNode *node)
 	}	
 }
 
-iWidgetLineTextEdit *UserControlTransformation::createTextEdit()
-{
-	iWidgetLineTextEdit *textEdit = new iWidgetLineTextEdit();
-	textEdit->setText("");
-	textEdit->setMinWidth(MICA_REGULARBUTTON_SIZE);
-	textEdit->setMaxTextLength(11);
-	textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-	textEdit->setVerticalAlignment(iVerticalAlignment::Top);
-	textEdit->setEnabled(false);
-
-	return textEdit;
-}

@@ -6,51 +6,51 @@
 
 #include <igor/resources/material/iMaterialIO.h>
 
-UserControlMaterial::UserControlMaterial()
+UserControlMaterial::UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent)
+    : UserControlResource(resourceID, parent)
 {
-    initGUI();
 }
 
 UserControlMaterial::~UserControlMaterial()
 {
-    deinitGUI();
-}
-
-void UserControlMaterial::updateMaterial()
-{
-    iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(_materialID);
-
-    if (!_ignoreMaterialUpdate &&
-        material != nullptr)
+    if (_fileDialog != nullptr)
     {
-        material->setName(_textName->getText());
-        material->setOrder(static_cast<int32>(_renderingOrder->getValue()));
-        material->setRenderState(iRenderState::CullFace, _checkBoxCullFace->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::DepthTest, _checkBoxDepthTest->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
-        material->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
-
-        // TODO material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        // TODO		_selectBoxInstancedFunc
+        delete _fileDialog;
+        _fileDialog = nullptr;
     }
 }
 
-void UserControlMaterial::updateGUI()
+void UserControlMaterial::updateResource()
 {
-    auto material = iResourceManager::getInstance().getResource<iMaterial>(_materialID);
+    iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
 
-    if (material == nullptr)
+    if (_ignoreMaterialUpdate ||
+        material == nullptr)
     {
         return;
     }
 
+    material->setOrder(static_cast<int32>(_renderingOrder->getValue()));
+    material->setRenderState(iRenderState::CullFace, _checkBoxCullFace->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    material->setRenderState(iRenderState::DepthTest, _checkBoxDepthTest->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    material->setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    material->setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    material->setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    material->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
+    material->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
+
+    // TODO material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    // TODO		_selectBoxInstancedFunc
+}
+
+void UserControlMaterial::update()
+{
+    UserControlResource::update();
+
+    iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
+
     _ignoreMaterialUpdate = true;
 
-    _textName->setText(material->getName());
-    _textID->setText(material->getID().toString());
     _checkBoxCullFace->setChecked(material->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
     _checkBoxDepthTest->setChecked(material->getRenderState(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
     _checkBoxDepthMask->setChecked(material->getRenderState(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
@@ -125,52 +125,16 @@ void UserControlMaterial::updateGUI()
     _ignoreMaterialUpdate = false;
 }
 
-void UserControlMaterial::setMaterial(const iMaterialID &materialID)
+void UserControlMaterial::init()
 {
-    _materialID = materialID;
-    updateGUI();
-}
+    UserControlResource::init();
 
-const iMaterialID &UserControlMaterial::getMaterialID() const
-{
-    return _materialID;
-}
-
-void UserControlMaterial::initGUI()
-{
-    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
-    grid->appendRows(2);
+    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(getLayout());
+    grid->appendRows(1);
     grid->setBorder(2);
     grid->setStretchColumn(0);
     grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     grid->setVerticalAlignment(iVerticalAlignment::Top);
-
-    iWidgetGridLayout *gridHeader = new iWidgetGridLayout();
-    gridHeader->appendRows(2);
-    gridHeader->appendColumns(1);
-    gridHeader->setBorder(2);
-    gridHeader->setHorizontalAlignment(iHorizontalAlignment::Left);
-    gridHeader->setVerticalAlignment(iVerticalAlignment::Top);
-
-    iWidgetLabel *labelName = new iWidgetLabel();
-    labelName->setText("Name");
-    labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _textName = new iWidgetLineTextEdit();
-    _textName->setMaxTextLength(100);
-    _textName->setMinWidth(200);
-    _textName->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-    _textName->setText("...");
-    _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
-
-    iWidgetLabel *labelID = new iWidgetLabel();
-    labelID->setText("ID");
-    labelID->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _textID = new iWidgetLabel();
-    _textID->setText("...");
-    _textID->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetGroupBox *paramGroupBox = new iWidgetGroupBox();
     paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -370,11 +334,6 @@ void UserControlMaterial::initGUI()
     _exportMaterial->setHorizontalAlignment(iHorizontalAlignment::Right);
     _exportMaterial->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onExportMaterial));
 
-    gridHeader->addWidget(labelName, 0, 0);
-    gridHeader->addWidget(_textName, 1, 0);
-    gridHeader->addWidget(labelID, 0, 1);
-    gridHeader->addWidget(_textID, 1, 1);
-
     shaderGroupBox->addWidget(gridShadersGroup);
 
     gridShadersGroup->addWidget(gridShaders, 0, 0);
@@ -413,39 +372,19 @@ void UserControlMaterial::initGUI()
 
     paramGroupBox->addWidget(gridParam);
 
-    grid->addWidget(gridHeader, 0, 0);
-    grid->addWidget(paramGroupBox, 0, 1);
-    grid->addWidget(shaderGroupBox, 0, 2);
+    grid->addWidget(paramGroupBox, 0, 0);
+    grid->addWidget(shaderGroupBox, 0, 1);
 }
 
 void UserControlMaterial::onDoUpdateMaterial(const iWidgetPtr source)
 {
-    updateMaterial();
+    updateResource();
 }
 
 void UserControlMaterial::onTextChangedName(const iWidgetPtr source)
 {
-    updateMaterial();
+    updateResource();
     _materialNameChangedEvent();
-}
-
-void UserControlMaterial::deinitGUI()
-{
-    if (_fileDialog != nullptr)
-    {
-        delete _fileDialog;
-        _fileDialog = nullptr;
-    }
-}
-
-void UserControlMaterial::registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate)
-{
-    _materialNameChangedEvent.add(nameChangedDelegate);
-}
-
-void UserControlMaterial::unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate)
-{
-    _materialNameChangedEvent.remove(nameChangedDelegate);
 }
 
 void UserControlMaterial::onShader0Button(const iWidgetPtr source)
@@ -493,7 +432,7 @@ void UserControlMaterial::onExportMaterialDialogClosed(iDialogPtr dialog)
 
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
-        iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(_materialID);
+        iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
         if (material != nullptr)
         {
             iMaterialIO::write(_fileDialog->getFullPath(), material);
@@ -531,7 +470,7 @@ void UserControlMaterial::onFileLoadDialogClosed(iDialogPtr dialog)
         default:
             con_err("out of range");
         }
-        updateMaterial();
+        updateResource();
     }
 
     delete _fileDialog;
@@ -550,7 +489,7 @@ void UserControlMaterial::onExportMaterial(const iWidgetPtr source)
 
 void UserControlMaterial::onReloadShader(const iWidgetPtr source)
 {
-    auto material = iResourceManager::getInstance().getResource<iMaterial>(_materialID);
+    auto material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
 
     if (!_ignoreMaterialUpdate &&
         material != nullptr)

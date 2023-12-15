@@ -29,46 +29,48 @@
 #ifndef __USERCONTROLEMITTER__
 #define __USERCONTROLEMITTER__
 
-#include <igor/igor.h>
-using namespace igor;
+#include "UserControlNode.h"
 
 /*! user control to configure an emitter node
-*/
-class UserControlEmitter : public iUserControl
+ */
+class UserControlEmitter : public UserControlNode
 {
 public:
-    /*! ctor initializes gui
-	*/
-    UserControlEmitter();
+    /*! user control
+
+    \param nodeID the node to init with
+    \param parent parent widget
+    */
+    UserControlEmitter(iNodeID nodeID, const iWidgetPtr parent = nullptr);
 
     /*! nothing todo
-	*/
+     */
     ~UserControlEmitter() = default;
 
-    /*! set node id of emitter to configure
-    */
-    void setNode(uint32 id);
+    /*! update ui with node data
+     */
+    void update() override;
 
-    /*! \returns node id
-    */
-    uint32 getNode();
+    /*! update node with ui data
+     */
+    void updateNode() override;
+
+    /*! init ui
+     */
+    void init() override;
 
 private:
     /*! base grid and root widget
-    */
+     */
     iWidgetGridLayout *_grid = nullptr;
 
     /*! select box for emitter type
-    */
+     */
     iWidgetSelectBox *_selectType = nullptr;
 
     /*! text box for emitter size
-    */
+     */
     iWidgetLineTextEdit *_textSize = nullptr;
-
-    /*! current selected node
-    */
-    uint32 _nodeId = 0;
 
     /*! triggered when type of emitter changes
 
@@ -81,18 +83,6 @@ private:
     \param source the source widget
     */
     void onSizeChanged(const iWidgetPtr source);
-
-    /*! updates gui based on settings from node
-    */
-    void updateGUI();
-
-    /*! updates node based on settings from gui
-    */
-    void updateNode();
-
-    /*! initialize gui elements
-    */
-    void initGUI();
 };
 
 #endif // __USERCONTROL_EMITTER__

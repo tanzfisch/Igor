@@ -29,17 +29,29 @@
 #ifndef __USERCONTROLMODEL__
 #define __USERCONTROLMODEL__
 
-#include <igor/igor.h>
-using namespace igor;
+#include "UserControlNode.h"
 
-class UserControlModel : public iUserControl
+class UserControlModel : public UserControlNode
 {
 public:
-    UserControlModel();
-    ~UserControlModel();
+    /*! user control
 
-    void setNode(uint32 id);
-    uint32 getNode();
+    \param nodeID the node to init with
+    \param parent parent widget
+    */
+    UserControlModel(iNodeID nodeID, const iWidgetPtr parent = nullptr);
+
+    /*! does nothing
+     */
+    ~UserControlModel() = default;
+
+    /*! update ui with node data
+     */
+    void update() override;
+
+    /*! init ui
+     */
+    void init() override;
 
 private:
     iWidgetGridLayout *_grid = nullptr;
@@ -47,12 +59,6 @@ private:
     iWidgetLabel *_labelFilename = nullptr;
     iWidgetLineTextEdit *_textFilename = nullptr;
 
-    uint32 _nodeId = 0;
-
-    void updateGUI();
-    void updateNode();
-
-    void initGUI();
 };
 
 #endif
