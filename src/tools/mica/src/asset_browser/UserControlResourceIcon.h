@@ -93,6 +93,10 @@ private:
     \param source the source widget of this event
     */
     void onRemoveDictionary(iWidgetPtr source);
+
+    /*! draws the widget
+        */
+    void draw() override;
 };
 
 #endif // __USERCONTROL_RESOURCEICON__

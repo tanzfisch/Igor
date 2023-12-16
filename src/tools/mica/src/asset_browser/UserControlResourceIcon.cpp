@@ -12,6 +12,7 @@ UserControlResourceIcon::UserControlResourceIcon(const iWidgetPtr parent)
 {
     setGrowingByContent(false);
     setIgnoreChildEventConsumption(true);
+    setSelectable(true);
 
     initGUI();
 }
@@ -30,8 +31,8 @@ void UserControlResourceIcon::initGUI()
     _picture->setMaxSize(128, 128);
     vBoxLayout->addWidget(_picture);
 
-    _spacer = new iWidgetSpacer(128,128, true);
-    _spacer->setBackground(iaColor4f(0.0,0.0,0.0,0.2));
+    _spacer = new iWidgetSpacer(128, 128, true);
+    _spacer->setBackground(iaColor4f(0.0, 0.0, 0.0, 0.2));
     _picture->addWidget(_spacer);
 
     iWidgetPicturePtr dictPicture = new iWidgetPicture();
@@ -141,4 +142,25 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
     }
 
     _picture->setTexture(texture);
+}
+
+void UserControlResourceIcon::draw()
+{
+    if (!isVisible())
+    {
+        return;
+    }
+
+    if(isSelected())
+    {
+        iaColor4f frame(0.0,0.0,0.0,0.8);
+        iaColor4f fill(0.0,0.0,0.0,0.2);
+        iRenderer::getInstance().drawFilledRectangle(getActualRect(), fill);
+        iRenderer::getInstance().drawRectangle(getActualRect(), frame);
+    }
+
+    for (const auto child : _children)
+    {
+        child->draw();
+    }
 }

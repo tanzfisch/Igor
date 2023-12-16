@@ -30,6 +30,7 @@
 #define __IGOR_WIDGET_GRID_LAYOUT__
 
 #include <igor/ui/widgets/iWidget.h>
+
 #include <vector>
 #include <any>
 

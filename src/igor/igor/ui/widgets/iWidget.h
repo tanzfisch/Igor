@@ -672,7 +672,68 @@ namespace igor
          */
         std::any getUserData() const;
 
+        /*! sets widget selectable
+
+        \param selectable if true widget is selectable
+        */
+        void setSelectable(bool selectable);
+
+        /*! \returns true if selectable
+        */
+        bool isSelectable() const;
+
+        /*! sets multi selection for children
+
+        \param enabled if true multiple children can be selected at the same time
+        */
+        void setMultiSelection(bool enabled);
+
+        /*! \returns true if multi selection of children is enabled
+        */
+        bool isMultiSelectionEnabled() const;
+
+        /*! selects widget
+
+        \param exclusive if true it unselects siblings
+        */        
+        void select();
+
+        /*! unselect widget
+        */
+        void unselect();
+
+        /*! \returns true if widget is selected
+        */
+        bool isSelected() const;
+
+        /*! clear selection of children
+        */
+        void clearSelection();
+
+        /*! \returns list of selected child widgets
+        */
+        const std::vector<iWidgetPtr> getSelection() const;
+
+        /*! sets selected children
+
+        \param selection list of children to select
+        */
+        void setSelection(const std::vector<iWidgetPtr>& selection);
+
     protected:
+
+        /*! if true widget is selected
+        */
+        bool _selected = false;
+
+        /*! if true widget is selectable
+        */
+        bool _isSelectable = false;
+
+        /*! if true multi selection is enabled
+        */
+        bool _isMultiSelectionEnabled = false;
+
         /*! list of children
          */
         std::vector<iWidgetPtr> _children;

@@ -78,7 +78,7 @@ namespace igor
         _background = color;
     }
 
-    const iaColor4f& iWidget::getBackground() const
+    const iaColor4f &iWidget::getBackground() const
     {
         return _background;
     }
@@ -88,7 +88,7 @@ namespace igor
         _foreground = color;
     }
 
-    const iaColor4f& iWidget::getForeground() const
+    const iaColor4f &iWidget::getForeground() const
     {
         return _foreground;
     }
@@ -595,6 +595,7 @@ namespace igor
                         setKeyboardFocus();
 
                         _click(this);
+                        select();
 
                         if (event.getKey() == iKeyCode::MouseRight)
                         {
@@ -1211,6 +1212,96 @@ namespace igor
         }
 
         return _enabled;
+    }
+
+    void iWidget::setMultiSelection(bool enabled)
+    {
+        _isMultiSelectionEnabled = enabled;
+    }
+
+    bool iWidget::isMultiSelectionEnabled() const
+    {
+        return _isMultiSelectionEnabled;
+    }
+
+    void iWidget::select()
+    {
+        if (!isSelectable())
+        {
+            return;
+        }
+
+        auto parent = getParent();
+
+        if (parent != nullptr &&
+            !parent->isMultiSelectionEnabled())
+        {
+            parent->clearSelection();
+        }
+
+        _selected = true;
+
+        /*if(parent != nullptr) // TODO #382 
+        {
+            parent->_selectionChanged();
+        }*/
+    }
+
+    void iWidget::unselect()
+    {
+        _selected = false;
+    }
+
+    bool iWidget::isSelected() const
+    {
+        return _selected;
+    }
+
+    void iWidget::clearSelection()
+    {
+        for (auto child : getChildren())
+        {
+            child->unselect();
+        }
+    }
+
+    const std::vector<iWidgetPtr> iWidget::getSelection() const
+    {
+        std::vector<iWidgetPtr> selection;
+
+        for (auto child : getChildren())
+        {
+            if (child->isSelected())
+            {
+                selection.push_back(child);
+            }
+        }
+
+        return selection;
+    }
+
+    void iWidget::setSelection(const std::vector<iWidgetPtr> &selection)
+    {
+        for (auto child : getChildren())
+        {
+            for (auto other : selection)
+            {
+                if (child == other)
+                {
+                    child->select();
+                }
+            }
+        }
+    }
+
+    void iWidget::setSelectable(bool selectable)
+    {
+        _isSelectable = selectable;
+    }
+
+    bool iWidget::isSelectable() const
+    {
+        return _isSelectable;
     }
 
 } // namespace igor
