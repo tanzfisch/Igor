@@ -4,7 +4,7 @@
 
 #include "AssetBrowser.h"
 
-#include "usercontrols/UserControlResourceIcon.h"
+#include "UserControlResourceIcon.h"
 
 AssetBrowser::AssetBrowser()
 {

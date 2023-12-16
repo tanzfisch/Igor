@@ -31,7 +31,7 @@
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/ui/actions/iAction.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetMenu.h>
 
 #include <iaux/data/iaString.h>

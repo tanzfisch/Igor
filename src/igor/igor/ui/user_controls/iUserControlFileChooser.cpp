@@ -5,7 +5,7 @@
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>

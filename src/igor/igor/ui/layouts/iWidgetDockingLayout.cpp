@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/ui/widgets/iWidgetDockingLayout.h>
+#include <igor/ui/layouts/iWidgetDockingLayout.h>
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>

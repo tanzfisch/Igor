@@ -4,28 +4,6 @@
 
 #include "Outliner.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/scene/nodes/iNode.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeManager.h>
-
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/ui/dialogs/iDialogMessageBox.h>
-#include <igor/ui/dialogs/iDialogDecisionBox.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 Outliner::Outliner(WorkspacePtr workspace)
     : _workspace(workspace)
 {

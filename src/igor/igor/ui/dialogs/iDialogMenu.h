@@ -31,7 +31,7 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/actions/iAction.h>
-#include <igor/ui/widgets/iWidgetBoxLayout.h>
+#include <igor/ui/layouts/iWidgetBoxLayout.h>
 
 namespace igor
 {

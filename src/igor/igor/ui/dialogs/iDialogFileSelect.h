@@ -32,7 +32,7 @@
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;

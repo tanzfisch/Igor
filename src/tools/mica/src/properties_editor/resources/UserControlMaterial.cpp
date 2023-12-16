@@ -4,8 +4,6 @@
 
 #include "UserControlMaterial.h"
 
-#include <igor/resources/material/iMaterialIO.h>
-
 UserControlMaterial::UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent)
     : UserControlResource(resourceID, parent)
 {

@@ -32,7 +32,7 @@
 #include <igor/ui/user_controls/iUserControl.h>
 
 #include <igor/data/iItem.h>
-#include <igor/ui/widgets/iWidgetBoxLayout.h>
+#include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 
 #include <any>

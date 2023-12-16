@@ -4,7 +4,7 @@
 
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 
-#include <igor/ui/widgets/iWidgetBoxLayout.h>
+#include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 
