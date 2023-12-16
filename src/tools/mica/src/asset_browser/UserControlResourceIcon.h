@@ -51,6 +51,10 @@ public:
      */
     void refresh();
 
+    /*! \returns resource id
+    */
+    iResourceID getResourceID() const;
+
 private:
     /*! the file name
      */

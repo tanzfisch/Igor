@@ -239,8 +239,12 @@ namespace igor
         updateSelection();
     }
 
-    void iDialogGraph::onSelectionChanged(int32 index)
-    {
+    void iDialogGraph::onSelectionChanged(const iWidgetPtr source)
+    {   
+        iWidgetGraphPtr graph = static_cast<iWidgetGraphPtr>(source);
+
+        int32 index = graph->getSelectedIndex();
+
         con_assert(index >= 0 && index < _graphs[0].size(), "out of range");
 
         if (index >= 0 && index < _graphs[0].size())

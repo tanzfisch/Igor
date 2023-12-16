@@ -103,7 +103,7 @@ namespace igor
 
     /*! selection changed event
      */
-    IGOR_EVENT_DEFINITION(iSelectionChanged, void, int32);
+    IGOR_EVENT_DEFINITION(iSelectionChanged, void, const iWidgetPtr);
 
     /*! interaction state of widget
      */

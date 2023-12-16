@@ -204,9 +204,9 @@ namespace igor
 
         /*! triggered when graph selection changed
 
-        \param index the index of selection
+        \param source the source widget
         */
-        void onSelectionChanged(int32 index);
+        void onSelectionChanged(const iWidgetPtr source);
 
         /*! triggered when graph content changed
 

@@ -222,8 +222,12 @@ namespace igor
 		_gradientWidget->setGradient(_gradient);
 	}
 
-	void iDialogColorGradient::onSelectionChanged(int32 index)
+	void iDialogColorGradient::onSelectionChanged(const iWidgetPtr source)
 	{
+		iWidgetColorGradientPtr gradient = static_cast<iWidgetColorGradientPtr>(source);
+
+		int32 index = gradient->getSelectedIndex();
+
 		con_assert(index < _gradient.getValues().size(), "out of range");
 
 		if (index < _gradient.getValues().size())

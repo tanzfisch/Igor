@@ -53,6 +53,17 @@ namespace igor
         _colorCreated.block(false);
     }
 
+    int32 iWidgetColorGradient::getSelectedIndex() const
+    {
+        return _selectedColorIndex;
+    }
+
+    bool iWidgetColorGradient::onMouseKeyUp(iEventMouseKeyUp &event)
+    {
+        _selectedColorIndex = -1;
+        return iWidget::onMouseKeyUp(event);
+    }
+
     bool iWidgetColorGradient::onMouseKeyDown(iEventMouseKeyDown &event)
     {
         const iaVector2f &mousePos = getLastMousePos();
@@ -79,8 +90,10 @@ namespace igor
 
                 if (iIntersection::intersects(mousePos, buttonRect))
                 {
-                    _selectionChanged(index);
+                    _selectedColorIndex = index;
+                    _selectionChanged(this);
                     _change(this);
+                    break;
                 }
 
                 index++;

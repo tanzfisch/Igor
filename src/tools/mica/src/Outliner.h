@@ -72,8 +72,8 @@ public:
     void registerOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
     void unregisterOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
 
-    void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
-    void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+    void registerOnResourceSelectionChanged(ResourceSelectionChangedDelegate materialSelectionChangedDelegate);
+    void unregisterOnResourceSelectionChanged(ResourceSelectionChangedDelegate materialSelectionChangedDelegate);
 
     void addModel();
 
@@ -90,7 +90,7 @@ private:
 
     AddMaterialEvent _addMaterial;
     LoadMaterialEvent _loadMaterial;
-    MaterialSelectionChangedEvent _materialSelectionChanged;
+    ResourceSelectionChangedEvent _materialSelectionChanged;
 
     iWidgetGridLayout *_grid = nullptr;
 
@@ -139,7 +139,7 @@ private:
     void onGraphSelectionChanged(uint64 nodeID);
     void onAddMaterial();
     void onLoadMaterial();
-    void onMaterialSelectionChanged(const iMaterialID &materialID);
+    void onResourceSelectionChanged(const iMaterialID &materialID);
 
     void onGraphViewSelected(const iWidgetPtr source);
     void onMaterialViewSelected(const iWidgetPtr source);

@@ -137,7 +137,7 @@ void Outliner::deinitMaterialView()
 {
     if (_userControlMaterialView != nullptr)
     {
-        _userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
+        _userControlMaterialView->unregisterOnResourceSelectionChanged(ResourceSelectionChangedDelegate(this, &Outliner::onResourceSelectionChanged));
         _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
         _grid->removeWidget(_userControlMaterialView);
@@ -151,7 +151,7 @@ void Outliner::initMaterialView()
         _userControlMaterialView = new UserControlMaterialView();
     }
 
-    _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
+    _userControlMaterialView->registerOnResourceSelectionChanged(ResourceSelectionChangedDelegate(this, &Outliner::onResourceSelectionChanged));
     _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
     _userControlMaterialView->registerOnLoadMaterial(LoadMaterialDelegate(this, &Outliner::onLoadMaterial));
 
@@ -186,7 +186,7 @@ void Outliner::onGraphSelectionChanged(uint64 nodeID)
     _graphSelectionChanged(nodeID);
 }
 
-void Outliner::onMaterialSelectionChanged(const iMaterialID &materialID)
+void Outliner::onResourceSelectionChanged(const iMaterialID &materialID)
 {
     _materialSelectionChanged(materialID);
 }
@@ -311,12 +311,12 @@ void Outliner::onAddModelDecision(iDialogPtr dialog)
     _decisionBoxModelRef = nullptr;
 }
 
-void Outliner::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+void Outliner::registerOnResourceSelectionChanged(ResourceSelectionChangedDelegate materialSelectionChangedDelegate)
 {
     _materialSelectionChanged.add(materialSelectionChangedDelegate);
 }
 
-void Outliner::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+void Outliner::unregisterOnResourceSelectionChanged(ResourceSelectionChangedDelegate materialSelectionChangedDelegate)
 {
     _materialSelectionChanged.remove(materialSelectionChangedDelegate);
 }

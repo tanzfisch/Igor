@@ -1241,15 +1241,26 @@ namespace igor
 
         _selected = true;
 
-        /*if(parent != nullptr) // TODO #382 
+        if (parent != nullptr)
         {
-            parent->_selectionChanged();
-        }*/
+            parent->_selectionChanged(parent);
+        }
     }
 
     void iWidget::unselect()
     {
+        if (!isSelectable())
+        {
+            return;
+        }
+
         _selected = false;
+
+        auto parent = getParent();
+        if (parent != nullptr)
+        {
+            parent->_selectionChanged(parent);
+        }
     }
 
     bool iWidget::isSelected() const
@@ -1261,8 +1272,10 @@ namespace igor
     {
         for (auto child : getChildren())
         {
-            child->unselect();
+            child->_selected = false;
         }
+
+        _selectionChanged(this);
     }
 
     const std::vector<iWidgetPtr> iWidget::getSelection() const
@@ -1288,10 +1301,12 @@ namespace igor
             {
                 if (child == other)
                 {
-                    child->select();
+                    child->_selected = true;
                 }
             }
         }
+
+        _selectionChanged(this);
     }
 
     void iWidget::setSelectable(bool selectable)

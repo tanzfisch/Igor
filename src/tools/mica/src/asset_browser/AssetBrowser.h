@@ -112,6 +112,12 @@ private:
     void updateGridView(iItemPtr item);
 
     void refreshGridView();
+
+    /*! triggered by selection changed event
+
+    \param source the source widget of this event
+    */
+    void onSelectionChanged(const iWidgetPtr source);    
 };
 
 #endif // __ASSET_BROWSER__

@@ -237,6 +237,10 @@ namespace igor
         */
         bool isInteractive();
 
+        /*! \returns selected value index
+         */
+        int32 getSelectedIndex() const;
+
     private:
         /*! flag if graph is interactive
         */
@@ -249,6 +253,10 @@ namespace igor
         /*! flag if labels are visible
         */
         bool _viewLabels = false;
+
+        /*! selected index
+         */
+        int32 _selectedIndex = -1;
 
         /*! calculated data boudings
         */
@@ -313,6 +321,11 @@ namespace igor
         */
         bool onMouseKeyDown(iEventMouseKeyDown &event) override;
     };
+
+    /*! widget graph pointer definition
+    */
+    typedef iWidgetGraph* iWidgetGraphPtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETGRAPH__

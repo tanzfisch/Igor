@@ -54,6 +54,7 @@ void AssetBrowser::initUI()
     iWidgetScrollPtr scroll = new iWidgetScroll();
     _gridView = new iWidgetFixedGridLayout();
     _gridView->setCellSize(iaVector2f(150, 150));
+    _gridView->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChanged));
 
     scroll->addWidget(_gridView);
     splitter->addWidget(scroll);
@@ -61,6 +62,19 @@ void AssetBrowser::initUI()
     _updateHandle.getEventTimerTick().add(iTimerTickDelegate(this, &AssetBrowser::update));
     _updateHandle.setInterval(iaTime::fromMilliseconds(5000));
     _updateHandle.start();
+}
+
+void AssetBrowser::onSelectionChanged(const iWidgetPtr source)
+{
+    auto selection = source->getSelection();
+    if(selection.empty())
+    {
+        return;
+    }
+
+    // only care about first for now
+    UserControlResourceIcon* icon = static_cast<UserControlResourceIcon*>(selection[0]);
+    iResourceID id = icon->getResourceID();
 }
 
 void AssetBrowser::onClickShowAssetsButton(iWidgetPtr source)

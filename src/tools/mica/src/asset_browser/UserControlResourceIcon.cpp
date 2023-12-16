@@ -44,6 +44,11 @@ void UserControlResourceIcon::initGUI()
     vBoxLayout->addWidget(_label);
 }
 
+iResourceID UserControlResourceIcon::getResourceID() const
+{
+    return _resourceID;
+}
+
 void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
 {
     iResourceManager::getInstance().addResource(_filename);

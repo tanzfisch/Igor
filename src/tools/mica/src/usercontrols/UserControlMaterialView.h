@@ -35,7 +35,7 @@ using namespace igor;
 
 IGOR_EVENT_DEFINITION(AddMaterial, void);
 IGOR_EVENT_DEFINITION(LoadMaterial, void);
-IGOR_EVENT_DEFINITION(MaterialSelectionChanged, void, const iMaterialID &);
+IGOR_EVENT_DEFINITION(ResourceSelectionChanged, void, const iResourceID &);
 
 class UserControlMaterialView : public iUserControl
 {
@@ -51,11 +51,11 @@ public:
     void registerOnLoadMaterial(LoadMaterialDelegate delegate);
     void unregisterOnLoadMaterial(LoadMaterialDelegate delegate);
 
-    void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
-    void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+    void registerOnResourceSelectionChanged(ResourceSelectionChangedDelegate materialSelectionChangedDelegate);
+    void unregisterOnResourceSelectionChanged(ResourceSelectionChangedDelegate materialSelectionChangedDelegate);
 
 private:
-    MaterialSelectionChangedEvent _materialSelectionChanged;
+    ResourceSelectionChangedEvent _materialSelectionChanged;
     AddMaterialEvent _addMaterial;
     LoadMaterialEvent _loadMaterial;
 
