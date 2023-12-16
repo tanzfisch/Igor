@@ -24,6 +24,7 @@ Changelog                           {#changelog}
 - added iUserControlTreeView and iUserControlGridView and iItem for generic data
 - added AssetBrowser to Mica
 - fixed texture font vertical alignment
+- added new widget selection interfaces
 
 0.42.0
 ------
