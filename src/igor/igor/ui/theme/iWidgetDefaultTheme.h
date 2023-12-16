@@ -48,6 +48,7 @@ namespace igor
     public:
         void drawWidgetPicture(iWidgetPicturePtr widget) override;
         void drawWidgetSpacer(iWidgetSpacerPtr widget) override;
+        void drawSelection(const iaRectanglef &rect) override;
 
         // TODO
 

@@ -31,17 +31,13 @@ void UserControlResourceIcon::initGUI()
     _picture->setMaxSize(128, 128);
     vBoxLayout->addWidget(_picture);
 
-    _spacer = new iWidgetSpacer(128, 128, true);
-    _spacer->setBackground(iaColor4f(0.0, 0.0, 0.0, 0.2));
-    _picture->addWidget(_spacer);
-
-    iWidgetPicturePtr dictPicture = new iWidgetPicture();
-    dictPicture->setVerticalAlignment(iVerticalAlignment::Center);
-    dictPicture->setHorizontalAlignment(iHorizontalAlignment::Center);
-    dictPicture->setMinSize(90, 90);
-    dictPicture->setMaxSize(90, 90);
-    dictPicture->setTexture("igor_icon_no_dictionary");
-    _spacer->addWidget(dictPicture);
+    _dictPicture = new iWidgetPicture();
+    _dictPicture->setVerticalAlignment(iVerticalAlignment::Center);
+    _dictPicture->setHorizontalAlignment(iHorizontalAlignment::Center);
+    _dictPicture->setMinSize(90, 90);
+    _dictPicture->setMaxSize(90, 90);
+    _dictPicture->setTexture("igor_icon_no_dictionary");
+    _picture->addWidget(_dictPicture);
 
     _label = new iWidgetLabel();
     _label->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -51,14 +47,14 @@ void UserControlResourceIcon::initGUI()
 void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
 {
     iResourceManager::getInstance().addResource(_filename);
-    _spacer->setVisible(false);
+    updateDictionaryState();
 }
 
 void UserControlResourceIcon::onRemoveDictionary(iWidgetPtr source)
 {
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
     iResourceManager::getInstance().removeResource(id);
-    _spacer->setVisible(true);
+    updateDictionaryState();
 }
 
 void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
@@ -94,13 +90,27 @@ void UserControlResourceIcon::refresh()
     _picture->setTexture(texture);
 }
 
+void UserControlResourceIcon::updateDictionaryState()
+{
+    if (_resourceID.isValid())
+    {
+        _picture->setForeground(iaColor4f::white);
+        _dictPicture->setVisible(false);
+    }
+    else
+    {
+        _dictPicture->setVisible(true);
+        _picture->setForeground(iaColor4f(1.0, 1.0, 1.0, 0.5));
+    }
+}
+
 void UserControlResourceIcon::setFilename(const iaString &filename)
 {
     _filename = filename;
-    const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
+    _resourceID = iResourceManager::getInstance().getResourceID(_filename);
     const iaString type = iResourceManager::getInstance().getType(_filename);
 
-    _spacer->setVisible(id == iResourceID(IGOR_INVALID_ID));
+    updateDictionaryState();
 
     iaFile file(iResourceManager::getInstance().resolvePath(_filename));
     setTooltip(file.getFullFileName());
@@ -151,12 +161,9 @@ void UserControlResourceIcon::draw()
         return;
     }
 
-    if(isSelected())
+    if (isSelected())
     {
-        iaColor4f frame(0.0,0.0,0.0,0.8);
-        iaColor4f fill(0.0,0.0,0.0,0.2);
-        iRenderer::getInstance().drawFilledRectangle(getActualRect(), fill);
-        iRenderer::getInstance().drawRectangle(getActualRect(), frame);
+        iWidgetManager::getInstance().getTheme()->drawSelection(getActualRect());
     }
 
     for (const auto child : _children)

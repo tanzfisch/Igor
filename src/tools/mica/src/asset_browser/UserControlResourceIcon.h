@@ -62,7 +62,7 @@ private:
 
     /*! indicator picture if asset is in dictionary
      */
-    iWidgetSpacerPtr _spacer;
+    iWidgetPicturePtr _dictPicture;
 
     /*! label with filename
      */
@@ -71,6 +71,10 @@ private:
     /*! the context menu
      */
     iDialogMenu _contextMenu;
+
+    /*! id of resource this icon represents
+    */
+    iResourceID _resourceID;
 
     /*! init ui
      */
@@ -93,6 +97,10 @@ private:
     \param source the source widget of this event
     */
     void onRemoveDictionary(iWidgetPtr source);
+
+    /*! updates the visual dictionary state
+    */
+    void updateDictionaryState();
 
     /*! draws the widget
         */
