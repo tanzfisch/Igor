@@ -67,7 +67,7 @@ namespace igor
 
         /*! \returns the cell spacing
          */
-        float32 getMinCellSpacing() const;        
+        float32 getMinCellSpacing() const;
 
     private:
         /*! cell size
@@ -75,7 +75,7 @@ namespace igor
         iaVector2f _cellSize = {100.0f, 100.0f};
 
         /*! min cell spacing
-        */
+         */
         float32 _minCellSpacing = 5;
 
         /*! calculates childrens offsets relative to their parent
@@ -85,8 +85,8 @@ namespace igor
         void calcChildOffsets(std::vector<iaRectanglef> &offsets) override;
 
         /*! updates size based on it's content
-        */
-        void calcMinSize() override;        
+         */
+        void calcMinSize() override;
     };
 
     /*! widget fixed grid pointer definition
