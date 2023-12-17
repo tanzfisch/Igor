@@ -75,6 +75,8 @@ void AssetBrowser::onSelectionChanged(const iWidgetPtr source)
     // only care about first for now
     UserControlResourceIcon* icon = static_cast<UserControlResourceIcon*>(selection[0]);
     iResourceID id = icon->getResourceID();
+    
+    _resourceSelectionChanged(id);
 }
 
 void AssetBrowser::onClickShowAssetsButton(iWidgetPtr source)
@@ -226,4 +228,9 @@ void AssetBrowser::setProject(iProjectPtr project)
 iProjectPtr AssetBrowser::getProject() const
 {
     return _project;
+}
+
+ResourceSelectionChangedEvent& AssetBrowser::getResourceSelectionChangedEvent()
+{
+    return _resourceSelectionChanged;
 }

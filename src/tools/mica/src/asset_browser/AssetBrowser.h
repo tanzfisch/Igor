@@ -32,6 +32,8 @@
 #include <igor/igor.h>
 using namespace igor;
 
+IGOR_EVENT_DEFINITION(ResourceSelectionChanged, void, const iResourceID &);
+
 class AssetBrowser : public iDialog
 {
     friend class iWidgetManager;
@@ -54,6 +56,10 @@ public:
     /*! \returns current project
      */
     iProjectPtr getProject() const;
+
+    /*! \returns resource selection changed event
+    */
+    ResourceSelectionChangedEvent& getResourceSelectionChangedEvent();
 
 private:
     /*! tree view
@@ -79,6 +85,10 @@ private:
     /*! update handle for filesystem updates
      */
     iTimerHandle _updateHandle;
+
+    /*! resource selection changed event
+    */
+    ResourceSelectionChangedEvent _resourceSelectionChanged;
 
     /*! what data to show in the asset browser
     */

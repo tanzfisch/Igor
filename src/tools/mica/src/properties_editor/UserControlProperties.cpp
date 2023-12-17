@@ -96,12 +96,11 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
 void UserControlProperties::initResourceUI(const iResourceID &resourceID)
 {
     iResourcePtr resource = iResourceManager::getInstance().getResource(resourceID);
-    if (resource == nullptr)
+    iaString resourceType;
+    if (resource != nullptr)
     {
-        return;
+        resourceType = resource->getType();
     }
-
-    const iaString &resourceType = resource->getType();
 
     UserControlResource *userControl = nullptr;
 
@@ -112,7 +111,7 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
 
     if (userControl == nullptr)
     {
-        return;
+        userControl = new UserControlResource(resourceID, _layout);
     }
 
     userControl->init();

@@ -32,7 +32,6 @@ void UserControlResource::init()
     _textName->setMaxTextLength(256);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textName->setText("1");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onNameChanged));
 
     iWidgetBoxLayoutPtr sourceLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
@@ -47,7 +46,7 @@ void UserControlResource::init()
     _textSource->setMaxTextLength(256);
     _textSource->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textSource->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textSource->setText("2");
+    _textSource->setEnabled(false);
     _textSource->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onNameChanged));
 
     iWidgetBoxLayoutPtr idLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
@@ -62,7 +61,7 @@ void UserControlResource::init()
     _textID->setMaxTextLength(256);
     _textID->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textID->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textID->setText("3");
+    _textID->setEnabled(false);
     _textID->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onNameChanged));
 }
 
@@ -73,20 +72,18 @@ iWidgetBoxLayoutPtr UserControlResource::getLayout()
 
 void UserControlResource::update()
 {
-    iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
-    _textName->setText(material->getName());
-    _textID->setText(material->getID().toString());
-    _textSource->setText(material->getSource());
+    _textName->setText(iResourceManager::getInstance().getAlias(getResourceID()));
+    _textID->setText(getResourceID().toString());
+    _textSource->setText(iResourceManager::getInstance().getFilePath(getResourceID()));
 }
 
 void UserControlResource::updateResource()
 {
-    iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
-    material->setName(_textName->getText());
 }
 
 void UserControlResource::onNameChanged(const iWidgetPtr source)
 {
+    iResourceManager::getInstance().setAlias(getResourceID(), _textName->getText());
 }
 
 iResourceID UserControlResource::getResourceID() const

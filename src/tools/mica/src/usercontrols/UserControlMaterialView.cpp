@@ -155,12 +155,12 @@ void UserControlMaterialView::unregisterOnLoadMaterial(LoadMaterialDelegate dele
     _loadMaterial.remove(delegate);
 }
 
-void UserControlMaterialView::registerOnResourceSelectionChanged(ResourceSelectionChangedDelegate materialSelectionChangedDelegate)
+void UserControlMaterialView::registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate)
 {
-    _materialSelectionChanged.add(materialSelectionChangedDelegate);
+    _materialSelectionChanged.add(resourceSelectionChangedDelegate);
 }
 
-void UserControlMaterialView::unregisterOnResourceSelectionChanged(ResourceSelectionChangedDelegate materialSelectionChangedDelegate)
+void UserControlMaterialView::unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate)
 {
-    _materialSelectionChanged.remove(materialSelectionChangedDelegate);
+    _materialSelectionChanged.remove(resourceSelectionChangedDelegate);
 }

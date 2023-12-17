@@ -96,6 +96,19 @@ namespace igor
         */
         const iaString getFilePath(const iResourceID &id);
 
+        /*! \returns alias for given resource id (if available)
+
+        \param id the given resource id
+        */
+        const iaString getAlias(const iResourceID &id);
+
+        /*! sets alias for given resource id
+
+        \param id the given resource id
+        \param alias the given alias
+        */
+        void setAlias(const iResourceID &id, const iaString& alias);
+
         /*! \returns relative path to search path. returns full path if no matching search path found
 
         \param filename full path to file

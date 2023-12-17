@@ -49,6 +49,7 @@ void UILayer::onInit()
     _assetBrowser = new AssetBrowser();
     _assetBrowser->setEnabled();
     _assetBrowser->setVisible();
+    _assetBrowser->getResourceSelectionChangedEvent().add(ResourceSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
 
     _viewport = new Viewport(_workspace);
     _viewport->setEnabled();
@@ -70,7 +71,7 @@ void UILayer::onInit()
 
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
-    _outliner->registerOnResourceSelectionChanged(ResourceSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
+    _outliner->registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
 
     // load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);

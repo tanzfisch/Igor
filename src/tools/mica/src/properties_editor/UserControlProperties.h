@@ -67,6 +67,8 @@ private:
     void initNodeUI(iNodeID nodeID);
 
     /*! initializes material UI
+
+    \param resourceID id of resource to display
     */
     void initResourceUI(const iResourceID &resourceID);
 };
