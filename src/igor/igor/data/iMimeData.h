@@ -30,6 +30,7 @@
 #define __IGOR_MIME_DATA__
 
 #include <igor/ui/widgets/iWidget.h>
+#include <igor/resources/iResource.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -86,7 +87,7 @@ namespace igor
 
         /*! sets mime type "application/vnd.igor.widget-id"
 
-        \param widgetID the widget id to add
+        \param widgetID the widget id to set
         */
         void setWidgetID(iWidgetID widgetID);
 
@@ -96,7 +97,21 @@ namespace igor
 
         /*! \returns true if mime type "application/vnd.igor.widget-id" is present
          */
-        bool hasWidgetID() const;
+        bool hasWidgetID() const;        
+
+        /*! sets mime type "application/vnd.igor.resource-id"
+
+        \param resourceID the resource id to set
+        */
+        void setResourceID(iResourceID resourceID);
+
+        /*! \returns resource id
+         */
+        iResourceID getResourceID() const;        
+
+        /*! \returns true if mime type "application/vnd.igor.resource-id" is present
+         */
+        bool hasResourceID() const;
 
         /*! clear all data
         */

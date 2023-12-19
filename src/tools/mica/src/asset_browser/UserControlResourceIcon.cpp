@@ -13,6 +13,7 @@ UserControlResourceIcon::UserControlResourceIcon(const iWidgetPtr parent)
     setGrowingByContent(false);
     setIgnoreChildEventConsumption(true);
     setSelectable(true);
+    setAcceptDrag(true);
 
     initGUI();
 }
@@ -175,4 +176,13 @@ void UserControlResourceIcon::draw()
     {
         child->draw();
     }
+}
+
+void UserControlResourceIcon::onDrag()
+{
+    iDrag drag(this);
+    iMimeData mimeData;
+    mimeData.setResourceID(getResourceID());
+    drag.setMimeData(mimeData);
+    drag.execute();
 }

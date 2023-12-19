@@ -850,7 +850,11 @@ namespace igor
 
         /*! last mouse position
          */
-        iaVector2f _posLast;
+        iaVector2f _lastMousePos;
+
+        /*! mouse position when last time pressed
+        */
+        iaVector2f _lastMousePressPos;
 
         /*! removes and deletes all children
 

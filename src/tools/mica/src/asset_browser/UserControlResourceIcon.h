@@ -109,6 +109,10 @@ private:
     /*! draws the widget
         */
     void draw() override;
+
+    /*! called when dragged
+    */
+    void onDrag() override;     
 };
 
 #endif // __USERCONTROL_RESOURCEICON__

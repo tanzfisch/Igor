@@ -593,9 +593,10 @@ namespace igor
 
         iWidget::addWidget(widget);
 
-        if (widget->getVerticalAlignment() != iVerticalAlignment::Top || widget->getHorizontalAlignment() != iHorizontalAlignment::Left)
+        if (widget->getVerticalAlignment() != iVerticalAlignment::Top ||
+            widget->getHorizontalAlignment() != iHorizontalAlignment::Left)
         {
-            con_debug("only top left alignment is supported for children of iWidgetScroll. Changing it for you");
+            // only top left alignment is supported for children of iWidgetScroll. Changing it for you
             widget->setVerticalAlignment(iVerticalAlignment::Top);
             widget->setHorizontalAlignment(iHorizontalAlignment::Left);
         }

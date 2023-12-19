@@ -556,6 +556,7 @@ namespace igor
             event.getKey() == iKeyCode::MouseRight)
         {
             _widgetState = iWidgetState::Pressed;
+            _lastMousePressPos.set(event.getPosition()._x, event.getPosition()._y);
             return true;
         }
 
@@ -768,12 +769,12 @@ namespace igor
                     onDragMove(iWidgetManager::getInstance().getDrag(), event.getPosition());
                 }
 
-             /*   if (isAcceptingDrag() &&
+                if (isAcceptingDrag() &&
                     iMouse::getInstance().getLeftButton() &&
                     _lastMousePressPos.distance(event.getPosition()) > 3.0)
                 {
                     onDrag();
-                }*/
+                }
             }
 
             _isMouseOver = true;
@@ -798,12 +799,12 @@ namespace igor
             _isMouseOver = false;
         }
 
-        _posLast = event.getPosition();
+        _lastMousePos = event.getPosition();
     }
 
     const iaVector2f &iWidget::getLastMousePos() const
     {
-        return _posLast;
+        return _lastMousePos;
     }
 
     iHorizontalAlignment iWidget::getHorizontalAlignment() const
