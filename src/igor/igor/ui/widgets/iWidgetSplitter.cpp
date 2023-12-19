@@ -288,7 +288,7 @@ namespace igor
             event.getKey() == iKeyCode::MouseRight)
         {
             _widgetState = iWidgetState::Pressed;
-            _splitterState = calcSplitterState(_posLast);
+            _splitterState = calcSplitterState(getLastMousePos());
             _lastMousePos.set(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 
             if (_splitterState != iSplitterState::Inactive)
@@ -476,7 +476,7 @@ namespace igor
             return;
         }
 
-        iaVector2f lastPos = _posLast;
+        const iaVector2f lastPos = getLastMousePos(); // make copy
         iWidget::onMouseMove(event);
 
         if (!isMouseOver() ||

@@ -233,6 +233,16 @@ namespace igor
         return _acceptDrop;
     }
 
+    void iWidget::setAcceptDrag(bool acceptDrag)
+    {
+        _acceptDrag = acceptDrag;
+    }
+
+    bool iWidget::isAcceptingDrag()
+    {
+        return _acceptDrag;
+    }
+
     void iWidget::setParent(iWidgetPtr parent)
     {
         _parent = parent;
@@ -579,7 +589,7 @@ namespace igor
             }
             else
             {
-                if (_acceptDrop &&
+                if (isAcceptingDrop() &&
                     iWidgetManager::getInstance().inDrag())
                 {
                     onDrop(iWidgetManager::getInstance().getDrag());
@@ -731,7 +741,7 @@ namespace igor
                 _widgetState = iWidgetState::Highlighted;
                 _mouseOver(this);
 
-                if (_acceptDrop &&
+                if (isAcceptingDrop() &&
                     iWidgetManager::getInstance().inDrag())
                 {
                     onDragEnter(iWidgetManager::getInstance().getDrag());
@@ -752,11 +762,18 @@ namespace igor
             }
             else
             {
-                if (_acceptDrop &&
+                if (isAcceptingDrop() &&
                     iWidgetManager::getInstance().inDrag())
                 {
                     onDragMove(iWidgetManager::getInstance().getDrag(), event.getPosition());
                 }
+
+             /*   if (isAcceptingDrag() &&
+                    iMouse::getInstance().getLeftButton() &&
+                    _lastMousePressPos.distance(event.getPosition()) > 3.0)
+                {
+                    onDrag();
+                }*/
             }
 
             _isMouseOver = true;
@@ -1056,6 +1073,11 @@ namespace igor
     void iWidget::onDrop(const iDrag &drag)
     {
         // nothing to do
+    }
+
+    void iWidget::onDrag()
+    {
+        // noting to do
     }
 
     void iWidget::setOverlayEnabled(bool overlay)
