@@ -91,6 +91,9 @@ static const iaColor4f COLOR_CHECKED_FILL = {0.2f, 0.2f, 0.2f, 0.2f};
 
 static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
 
+static const iaColor4f COLOR_SELECTION_FRAME(0.0,0.0,0.0,0.8);
+static const iaColor4f COLOR_SELECTION_FILL(0.0,0.0,0.0,0.2);
+
 namespace igor
 {
     IGOR_DISABLE_WARNING(4100)
@@ -121,12 +124,18 @@ namespace igor
         DRAW_DEBUG_OUTPUT(actualRect, widget->getID(), state);
     }
 
-   void iWidgetDefaultTheme::drawWidgetSpacer(iWidgetSpacerPtr widget)
+    void iWidgetDefaultTheme::drawWidgetSpacer(iWidgetSpacerPtr widget)
     {
         iRenderer::getInstance().drawFilledRectangle(widget->getActualRect(), widget->isEnabled() ? widget->getBackground() : COLOR_DIFFUSE_LIGHT);
-    }    
+    }
 
-    // TODO create new interfaces like the one above    
+    void iWidgetDefaultTheme::drawSelection(const iaRectanglef &rect)
+    {
+        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SELECTION_FILL);
+        iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTION_FRAME);        
+    }
+
+    // TODO create new interfaces like the one above
 
     void iWidgetDefaultTheme::drawTooltip(const iaVector2f &pos, const iaString &text)
     {

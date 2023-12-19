@@ -27,6 +27,8 @@ namespace igor
     iWidgetScroll::iWidgetScroll(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetScroll, iWidgetKind::Widget, parent)
     {
+        setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        setVerticalAlignment(iVerticalAlignment::Stretch);
         setGrowingByContent(false);
 
         // get some resources

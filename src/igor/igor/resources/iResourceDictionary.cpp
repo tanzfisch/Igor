@@ -95,7 +95,7 @@ namespace igor
 
     void iResourceDictionary::removeResource(iResourceID resourceID)
     {
-        if(!resourceID.isValid())
+        if (!resourceID.isValid())
         {
             return;
         }
@@ -115,12 +115,12 @@ namespace igor
         }
 
         auto iterData = std::find_if(_data.begin(), _data.end(), [&resourceID](const auto &tuple)
-                                      { return std::get<0>(tuple) == resourceID; });
+                                     { return std::get<0>(tuple) == resourceID; });
 
         if (iterData != _data.end())
         {
             _data.erase(iterData);
-        }        
+        }
     }
 
     bool iResourceDictionary::readResourceDictionaryElement(TiXmlElement *element, bool internal)
@@ -194,6 +194,66 @@ namespace igor
         _resourceDictionaryLookup.clear();
         _aliasLookup.clear();
         _data.clear();
+    }
+
+    void iResourceDictionary::setAlias(iResourceID id, const iaString &alias)
+    {
+        iResourceID resource = getResource(alias);
+        if (resource.isValid())
+        {
+            con_err("alias \"" << alias << "\" already defined for a resource " << resource);
+            return;
+        }
+
+        const iaString oldAlias = getAlias(id);
+        if (oldAlias == alias)
+        {
+            return;
+        }
+
+        // remove old alias
+        if (!oldAlias.isEmpty())
+        {
+            std::hash<std::wstring> hashFunc;
+            std::size_t hash = hashFunc(oldAlias.getData());
+            iResourceID aliasid(hash);
+
+            _aliasLookup.erase(aliasid);
+        }
+
+        for (auto &tuple : _data)
+        {
+            if (std::get<0>(tuple) == id)
+            {
+                std::get<2>(tuple) = alias;
+            }
+        }
+
+        if (alias.isEmpty())
+        {
+            return;
+        }
+
+        std::hash<std::wstring> hashFunc;
+        std::size_t hash = hashFunc(alias.getData());
+        iResourceID aliasid(hash);
+
+        _aliasLookup[aliasid] = id;
+    }
+
+    const iaString &iResourceDictionary::getAlias(iResourceID id) const
+    {
+        for (const auto &tuple : _data)
+        {
+            if (std::get<0>(tuple) == id)
+            {
+                return std::get<2>(tuple);
+            }
+        }
+
+        static iaString notFound;
+
+        return notFound;
     }
 
     const iaString &iResourceDictionary::getFilePath(iResourceID id) const

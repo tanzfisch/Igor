@@ -121,10 +121,12 @@ namespace igor
         void updateSelection();
 
         /*! triggered by selection changed event
-		*/
-        void onSelectionChanged(int32 index);
 
-        /*! triggred when position number chooser was changed
+        \param source the source widget of this event
+		*/
+        void onSelectionChanged(const iWidgetPtr source);
+
+        /*! triggered when position number chooser was changed
 
 		\param source source widget
 		*/

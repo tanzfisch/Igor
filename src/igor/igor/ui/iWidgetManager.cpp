@@ -5,7 +5,7 @@
 #include <igor/ui/iWidgetManager.h>
 
 #include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/widgets/iWidgetDockingLayout.h>
+#include <igor/ui/layouts/iWidgetDockingLayout.h>
 
 #include <cstdlib>
 

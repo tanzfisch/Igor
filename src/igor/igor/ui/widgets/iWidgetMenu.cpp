@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetMenu.h>
 
 #include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/iWidgetManager.h>

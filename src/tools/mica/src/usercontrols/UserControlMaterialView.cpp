@@ -48,8 +48,6 @@ void UserControlMaterialView::initGUI()
     groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     iWidgetScroll *scroll = new iWidgetScroll();
-    scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _gridGraph = new iWidgetGridLayout();
     _gridGraph->setBorder(0);
@@ -157,12 +155,12 @@ void UserControlMaterialView::unregisterOnLoadMaterial(LoadMaterialDelegate dele
     _loadMaterial.remove(delegate);
 }
 
-void UserControlMaterialView::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+void UserControlMaterialView::registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate)
 {
-    _materialSelectionChanged.add(materialSelectionChangedDelegate);
+    _materialSelectionChanged.add(resourceSelectionChangedDelegate);
 }
 
-void UserControlMaterialView::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+void UserControlMaterialView::unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate)
 {
-    _materialSelectionChanged.remove(materialSelectionChangedDelegate);
+    _materialSelectionChanged.remove(resourceSelectionChangedDelegate);
 }

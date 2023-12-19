@@ -8,7 +8,7 @@
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 
 namespace igor
 {

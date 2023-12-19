@@ -568,6 +568,16 @@ namespace igor
         return _resourceDictionary.getFilePath(id);
     }
 
+    const iaString iResourceManager::getAlias(const iResourceID &id)
+    {
+        return _resourceDictionary.getAlias(id);
+    }
+
+    void iResourceManager::setAlias(const iResourceID &id, const iaString& alias)
+    {
+        _resourceDictionary.setAlias(id, alias);
+    }
+
     const iaString iResourceManager::resolvePath(const iaString &filepath)
     {
         iaString result = filepath;

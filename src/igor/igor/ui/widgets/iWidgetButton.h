@@ -204,7 +204,7 @@ namespace igor
         void calcMinSize() override;
 
         /*! draws the widget
-         */
+         */ 
         void draw() override;
     };
 

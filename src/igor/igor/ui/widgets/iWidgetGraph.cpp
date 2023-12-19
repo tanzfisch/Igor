@@ -315,6 +315,11 @@ namespace igor
             graphRenderArea._height -= (_buttonHeight + 2);
         }
     }
+    
+    int32 iWidgetGraph::getSelectedIndex() const
+    {
+        return _selectedIndex;
+    }
 
     bool iWidgetGraph::onMouseKeyDown(iEventMouseKeyDown &event)
     {
@@ -342,8 +347,10 @@ namespace igor
 
                 if (iIntersection::intersects(mousePos, buttonRect))
                 {
-                    _selectionChanged(index);
+                    _selectedIndex = index;
+                    _selectionChanged(this);
                     _change(this);
+                    break;
                 }
 
                 index++;

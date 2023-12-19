@@ -4,31 +4,6 @@
 
 #include "Outliner.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/scene/nodes/iNode.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeManager.h>
-
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/ui/dialogs/iDialogMessageBox.h>
-#include <igor/ui/dialogs/iDialogDecisionBox.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
-#include "usercontrols/UserControlTransformation.h"
-#include "usercontrols/UserControlLight.h"
-
 Outliner::Outliner(WorkspacePtr workspace)
     : _workspace(workspace)
 {
@@ -162,7 +137,7 @@ void Outliner::deinitMaterialView()
 {
     if (_userControlMaterialView != nullptr)
     {
-        _userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
+        _userControlMaterialView->unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate(this, &Outliner::onResourceSelectionChanged_old));
         _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
         _grid->removeWidget(_userControlMaterialView);
@@ -176,7 +151,7 @@ void Outliner::initMaterialView()
         _userControlMaterialView = new UserControlMaterialView();
     }
 
-    _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
+    _userControlMaterialView->registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate(this, &Outliner::onResourceSelectionChanged_old));
     _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
     _userControlMaterialView->registerOnLoadMaterial(LoadMaterialDelegate(this, &Outliner::onLoadMaterial));
 
@@ -211,7 +186,7 @@ void Outliner::onGraphSelectionChanged(uint64 nodeID)
     _graphSelectionChanged(nodeID);
 }
 
-void Outliner::onMaterialSelectionChanged(const iMaterialID &materialID)
+void Outliner::onResourceSelectionChanged_old(const iMaterialID &materialID)
 {
     _materialSelectionChanged(materialID);
 }
@@ -336,14 +311,14 @@ void Outliner::onAddModelDecision(iDialogPtr dialog)
     _decisionBoxModelRef = nullptr;
 }
 
-void Outliner::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+void Outliner::registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate)
 {
-    _materialSelectionChanged.add(materialSelectionChangedDelegate);
+    _materialSelectionChanged.add(resourceSelectionChangedDelegate);
 }
 
-void Outliner::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+void Outliner::unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate)
 {
-    _materialSelectionChanged.remove(materialSelectionChangedDelegate);
+    _materialSelectionChanged.remove(resourceSelectionChangedDelegate);
 }
 
 void Outliner::registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate)

@@ -4,7 +4,7 @@
 
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 
-#include <igor/ui/widgets/iWidgetBoxLayout.h>
+#include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 
@@ -25,8 +25,6 @@ namespace igor
     void iUserControlTreeView::initUI()
     {
         iWidgetScrollPtr scroll = new iWidgetScroll(this);
-        scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
-        scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
         scroll->addWidget(_vboxLayout);

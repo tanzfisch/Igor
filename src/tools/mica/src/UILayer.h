@@ -31,9 +31,9 @@
 
 #include "Workspace.h"
 #include "Outliner.h"
-#include "AssetBrowser.h"
+#include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
-#include "PropertiesEditor.h"
+#include "properties_editor/PropertiesEditor.h"
 #include "Viewport.h"
 
 class UILayer : public iLayerWidgets
@@ -93,7 +93,7 @@ private:
 
 	\param nodeID the id of the selected node
 	*/
-    void onGraphViewSelectionChanged(uint64 nodeID);
+    void onGraphViewSelectionChanged(uint64 nodeID);    
 
     /*! handle for load file event
 	*/

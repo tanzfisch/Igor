@@ -61,6 +61,7 @@
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterialIO.h>
 #include <igor/resources/material/iMaterialFactory.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
@@ -153,17 +154,17 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetTextEdit.h>
+#include <igor/ui/widgets/iWidgetSplitter.h>
+#include <igor/ui/widgets/iWidgetViewport.h>
 
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 
-#include <igor/ui/widgets/iWidgetBoxLayout.h>
-#include <igor/ui/widgets/iWidgetDockingLayout.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
-#include <igor/ui/widgets/iWidgetFixedGridLayout.h>
-#include <igor/ui/widgets/iWidgetSplitter.h>
-#include <igor/ui/widgets/iWidgetViewport.h>
+#include <igor/ui/layouts/iWidgetBoxLayout.h>
+#include <igor/ui/layouts/iWidgetDockingLayout.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetFixedGridLayout.h>
 
 // version
 #include <igor/iVersion.h>

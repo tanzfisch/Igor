@@ -51,6 +51,7 @@ namespace igor
         // working on new interface using the widgets them selves as input
         virtual void drawWidgetPicture(iWidgetPicturePtr widget) = 0;
         virtual void drawWidgetSpacer(iWidgetSpacerPtr widget) = 0;
+        virtual void drawSelection(const iaRectanglef &rect) = 0;
 
         // TODO
 

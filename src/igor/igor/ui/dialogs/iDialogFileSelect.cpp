@@ -8,7 +8,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
@@ -107,8 +107,6 @@ namespace igor
         grid->addWidget(_pathEdit, 0, 0);
 
         _scroll = new iWidgetScroll();
-        _scroll->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        _scroll->setVerticalAlignment(iVerticalAlignment::Stretch);
         grid->addWidget(_scroll, 0, 1);
 
         _fileGrid = new iWidgetGridLayout(_scroll);

@@ -39,7 +39,7 @@ namespace igor
 {
 
     /*! resource dictionary
-    */
+     */
     class iResourceDictionary
     {
     public:
@@ -72,6 +72,19 @@ namespace igor
         */
         const iaString &getFilePath(iResourceID id) const;
 
+        /*! \returns alias for given resource id
+
+        \param id the given resource id
+        */
+        const iaString &getAlias(iResourceID id) const;
+
+        /*! set alias for given resource (only accept the alias if unique in current environment)
+
+        \param id the given id
+        \param alias the given alias
+        */
+        void setAlias(iResourceID id, const iaString &alias);
+
         /*! \returns resource id for given alias of filepath
 
         \param text the given alias or filepath
@@ -98,7 +111,7 @@ namespace igor
         std::unordered_map<iResourceID, iaString> _resourceDictionaryLookup;
 
         /*! alias hash to resource id
-        */
+         */
         std::unordered_map<iResourceID, iResourceID> _aliasLookup;
 
         /*! redundant data kept for export
@@ -119,7 +132,7 @@ namespace igor
         \param uuid the uuid to add
         \param filename the filename to add
         \param alias the alias to add
-        \param internal if true it will be added to the lookup but not to the export data 
+        \param internal if true it will be added to the lookup but not to the export data
         */
         bool addResource(const iResourceID &uuid, const iaString &filename, const iaString &alias, bool internal);
     };
