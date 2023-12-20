@@ -97,7 +97,12 @@ namespace igor
         _resources.clear();
         _mutex.unlock();
 
-        _factories.clear();
+        _factories.clear();        
+    }
+
+    const iaString iResourceManager::getType(const iResourceID &resourceID) const
+    {
+        return getType(_resourceDictionary.getFilePath(resourceID));
     }
 
     const iaString iResourceManager::getType(const iaString &filename) const

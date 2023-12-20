@@ -302,11 +302,21 @@ namespace igor
         */
         void removeResource(const iResourceID &resourceID);
 
-        /*! \returns resource type based on file extension
+        /*! \returns resource type for given filename
+        
+        this is purely based on file extension
 
         \param filename the file name to guess the type of
         */
         const iaString getType(const iaString &filename) const;
+
+        /*! \returns resource type for given resource id
+
+        this is purely based on file extension
+
+        \param resourceID the given resource id
+        */
+        const iaString getType(const iResourceID &resourceID) const;
 
     private:
         /*! mutex to manage access to internal data

@@ -771,6 +771,7 @@ namespace igor
 
                 if (isAcceptingDrag() &&
                     iMouse::getInstance().getLeftButton() &&
+                    !iWidgetManager::getInstance().inDrag() &&
                     _lastMousePressPos.distance(event.getPosition()) > 3.0)
                 {
                     onDrag();

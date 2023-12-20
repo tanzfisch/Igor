@@ -180,9 +180,15 @@ void UserControlResourceIcon::draw()
 
 void UserControlResourceIcon::onDrag()
 {
+    if(!getResourceID().isValid())
+    {
+        return;
+    }
+
     iDrag drag(this);
     iMimeData mimeData;
     mimeData.setResourceID(getResourceID());
     drag.setMimeData(mimeData);
+    drag.setTexture(_picture->getTexture());
     drag.execute();
 }

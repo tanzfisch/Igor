@@ -125,6 +125,10 @@ namespace igor
         */
         void draw();
 
+        /*! if in drag drag the drag pixmap
+        */ 
+        void drawDrag();
+
         /*! set this widget exclusively modal
          */
         void setModal(iDialogPtr dialog);

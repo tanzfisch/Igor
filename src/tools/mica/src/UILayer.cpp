@@ -6,9 +6,6 @@
 #include "UILayer.h"
 #include "actions/Actions.h"
 
-#include "usercontrols/UserControlMaterialView.h"
-#include "usercontrols/UserControlGraphView.h"
-
 /*! default file open folder definition
  */
 static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"../../data/models";

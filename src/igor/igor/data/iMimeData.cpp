@@ -9,6 +9,7 @@ namespace igor
 
     static const iaString s_mimeTypeTextPlain = "text/plain";
     static const iaString s_mimeTypeIgorWidgetID = "application/vnd.igor.widget-id";
+    static const iaString s_mimeTypeIgorResourceID = "application/vnd.igor.resource-id";
 
     void iMimeData::setData(const iaString &mimeType, const uint8 *data, uint32 dataSize)
     {
@@ -61,14 +62,28 @@ namespace igor
 
     void iMimeData::setResourceID(iResourceID resourceID)
     {
+        uint64 value = resourceID;
+        const uint8 *data = reinterpret_cast<const uint8 *>(&value);
+        setData(s_mimeTypeIgorResourceID, data, sizeof(uint64));        
     }
 
     iResourceID iMimeData::getResourceID() const
     {
+        uint8 *data = nullptr;
+        uint32 dataSize = 0;
+        getData(s_mimeTypeIgorResourceID, &data, dataSize);
+
+        if (data == nullptr)
+        {
+            return iWidget::INVALID_WIDGET_ID;
+        }
+
+        return iResourceID(*reinterpret_cast<uint64 *>(data));
     }
 
     bool iMimeData::hasResourceID() const
     {
+        return _data.find(s_mimeTypeIgorResourceID) != _data.end();
     }
 
     void iMimeData::setWidgetID(iWidgetID widgetID)

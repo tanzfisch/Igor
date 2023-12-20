@@ -31,6 +31,7 @@
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/data/iMimeData.h>
+#include <igor/resources/texture/iTexture.h>
 
 namespace igor
 {
@@ -60,6 +61,16 @@ namespace igor
          */
         iWidgetID getSource() const;
 
+        /*! sets texture displayed along the cursor during drag
+
+        \param texture the texture to display
+        */
+        void setTexture(iTexturePtr texture);
+
+        /*! \returns the texture set on the drag
+        */
+        iTexturePtr getTexture() const;
+
         /*! execute the drag
          */
         void execute();
@@ -72,6 +83,10 @@ namespace igor
         /*! source widget id
          */
         iWidgetID _source = iWidget::INVALID_WIDGET_ID;
+
+        /*! texture to display while drag
+        */
+        iTexturePtr _texture;
     };
 
     /*! drag pointer definition

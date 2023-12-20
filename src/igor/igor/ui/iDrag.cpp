@@ -38,4 +38,14 @@ namespace igor
     {
         iWidgetManager::getInstance().beginDrag(*this);
     }
+
+    void iDrag::setTexture(iTexturePtr texture)
+    {
+        _texture = texture;
+    }
+
+    iTexturePtr iDrag::getTexture() const
+    {
+        return _texture;
+    }
 }

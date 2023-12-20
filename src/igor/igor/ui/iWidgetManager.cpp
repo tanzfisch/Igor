@@ -4,6 +4,7 @@
 
 #include <igor/ui/iWidgetManager.h>
 
+#include <igor/renderer/iRenderer.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/layouts/iWidgetDockingLayout.h>
 
@@ -360,6 +361,19 @@ namespace igor
         return _drag != nullptr;
     }
 
+    void iWidgetManager::drawDrag()
+    {
+        iTexturePtr texture = getDrag().getTexture();
+        if (texture == nullptr)
+        {
+            return;
+        }
+
+        const auto pos = iMouse::getInstance().getPos();
+        const iaRectanglef rect(pos._x - 32, pos._y - 32, 128, 128);
+        iRenderer::getInstance().drawTexturedRectangle(rect, texture, iaColor4f::white, true);
+    }
+
     void iWidgetManager::draw()
     {
         con_assert(_currentTheme != nullptr, "no theme defined");
@@ -386,6 +400,11 @@ namespace igor
             }
 
             widget->drawOverlay();
+        }
+
+        if (inDrag())
+        {
+            drawDrag();
         }
     }
 

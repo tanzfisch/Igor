@@ -29,7 +29,7 @@
 #ifndef __VIEWPORT__
 #define __VIEWPORT__
 
-#include "Workspace.h"
+#include "../Workspace.h"
 #include "overlay/NodeOverlay.h"
 
 class Viewport : public iDialog
@@ -165,19 +165,45 @@ private:
     */
     iNodePtr getNodeAt(int32 x, int32 y);
 
+    /*! initialize basic scene
+     */
     void initScene();
 
+    /*! frame viewport on selected nodes
+     */
     void frameOnSelection();
 
+    /*! render the scene
+     */
     void renderScene();
+
+    /*! render the overlay
+     */
     void renderOverlay();
 
+    /*! render the selection outline
+     */
     void renderSelection();
+
+    /*! render the orientation plane
+     */
     void renderOrientationPlane();
 
     /*! checks overlays for candidates that accept current mode node combination
      */
     void updateAcceptance();
+
+    /*! drag move handle
+
+    \param drag the drag data
+    */
+    void onDragMove(const iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! drop handle
+
+    \param drag the drag data
+    */
+    void onDrop(const iDrag &drag) override;
 };
 
 #endif // __VIEWPORT__

@@ -30,11 +30,11 @@
 #define __UILAYER__
 
 #include "Workspace.h"
-#include "Outliner.h"
+#include "outliner/Outliner.h"
 #include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
 #include "properties_editor/PropertiesEditor.h"
-#include "Viewport.h"
+#include "viewport/Viewport.h"
 
 class UILayer : public iLayerWidgets
 {
