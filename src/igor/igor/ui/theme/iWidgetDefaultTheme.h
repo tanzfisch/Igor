@@ -31,6 +31,7 @@
 
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTexture.h>
+#include <igor/ui/iDrag.h>
 
 #include <iaux/data/iaColor4.h>
 using namespace iaux;
@@ -49,6 +50,7 @@ namespace igor
         void drawWidgetPicture(iWidgetPicturePtr widget) override;
         void drawWidgetSpacer(iWidgetSpacerPtr widget) override;
         void drawSelection(const iaRectanglef &rect) override;
+        void drawDrag(const iaVector2f &pos, const iDrag &drag) override;
 
         // TODO
 

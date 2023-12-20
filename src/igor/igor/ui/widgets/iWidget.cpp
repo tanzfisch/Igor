@@ -1057,17 +1057,17 @@ namespace igor
         return stream;
     }
 
-    void iWidget::onDragEnter(const iDrag &drag)
+    void iWidget::onDragEnter(iDrag &drag)
     {
         // nothing to do
     }
 
-    void iWidget::onDragMove(const iDrag &drag, const iaVector2f &mousePos)
+    void iWidget::onDragMove(iDrag &drag, const iaVector2f &mousePos)
     {
         // nothing to do
     }
 
-    void iWidget::onDragLeave(const iDrag &drag)
+    void iWidget::onDragLeave(iDrag &drag)
     {
         // nothing to do
     }

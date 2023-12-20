@@ -193,11 +193,23 @@ private:
      */
     void updateAcceptance();
 
+    /*! drag enter handle
+
+    \param drag the drag data
+    */
+    void onDragEnter(iDrag &drag) override;
+
     /*! drag move handle
 
     \param drag the drag data
     */
-    void onDragMove(const iDrag &drag, const iaVector2f &mousePos) override;
+    void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! drag leave handle
+
+    \param drag the drag data
+    */
+    void onDragLeave(iDrag &drag) override;
 
     /*! drop handle
 

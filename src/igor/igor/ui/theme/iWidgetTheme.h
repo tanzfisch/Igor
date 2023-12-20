@@ -52,6 +52,7 @@ namespace igor
         virtual void drawWidgetPicture(iWidgetPicturePtr widget) = 0;
         virtual void drawWidgetSpacer(iWidgetSpacerPtr widget) = 0;
         virtual void drawSelection(const iaRectanglef &rect) = 0;
+        virtual void drawDrag(const iaVector2f &pos, const iDrag &drag) = 0;
 
         // TODO
 

@@ -125,10 +125,6 @@ namespace igor
         */
         void draw();
 
-        /*! if in drag drag the drag pixmap
-        */ 
-        void drawDrag();
-
         /*! set this widget exclusively modal
          */
         void setModal(iDialogPtr dialog);
@@ -159,7 +155,7 @@ namespace igor
 
         test with inDrag if it exists first
         */
-        const iDrag &getDrag() const;
+        iDrag &getDrag() const;
 
         /*! queues widget for deletion
 

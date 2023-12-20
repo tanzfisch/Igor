@@ -995,19 +995,19 @@ namespace igor
 
         \param drag the drag data
         */
-        virtual void onDragEnter(const iDrag &drag);
+        virtual void onDragEnter(iDrag &drag);
 
         /*! drag move handle
 
         \param drag the drag data
         */
-        virtual void onDragMove(const iDrag &drag, const iaVector2f &mousePos);
+        virtual void onDragMove(iDrag &drag, const iaVector2f &mousePos);
 
         /*! drag leave handle
 
         \param drag the drag data
         */
-        virtual void onDragLeave(const iDrag &drag);
+        virtual void onDragLeave(iDrag &drag);
 
         /*! drop handle
 

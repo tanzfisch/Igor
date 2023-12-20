@@ -36,6 +36,15 @@
 namespace igor
 {
 
+    /*! drag states
+    */
+    enum class IGOR_API iDragState
+    {
+        Neutral,
+        Accepted,
+        Rejected
+    };
+
     /*! drag data for drag & drop
      */
     class IGOR_API iDrag
@@ -71,11 +80,32 @@ namespace igor
         */
         iTexturePtr getTexture() const;
 
+        /*! accept the drag as valid
+        */
+        void accept();
+
+        /*! reject the drag as invalid
+        */
+        void reject();
+
+        /*! reset the drag state to neutral
+        */
+        void clear();
+
+        /*! \returns drag state
+        */
+        iDragState getDragState() const;
+
         /*! execute the drag
          */
         void execute();
 
     private:
+
+        /*! state of drag
+        */
+        iDragState _dragState = iDragState::Neutral;
+
         /*! the mime data
          */
         iMimeData _mimeData;

@@ -349,7 +349,7 @@ namespace igor
         _drag = std::make_unique<iDrag>(drag);
     }
 
-    const iDrag &iWidgetManager::getDrag() const
+    iDrag &iWidgetManager::getDrag() const
     {
         con_assert_sticky(_drag != nullptr, "test with inDrag before using getDrag");
 
@@ -359,19 +359,6 @@ namespace igor
     bool iWidgetManager::inDrag() const
     {
         return _drag != nullptr;
-    }
-
-    void iWidgetManager::drawDrag()
-    {
-        iTexturePtr texture = getDrag().getTexture();
-        if (texture == nullptr)
-        {
-            return;
-        }
-
-        const auto pos = iMouse::getInstance().getPos();
-        const iaRectanglef rect(pos._x - 32, pos._y - 32, 128, 128);
-        iRenderer::getInstance().drawTexturedRectangle(rect, texture, iaColor4f::white, true);
     }
 
     void iWidgetManager::draw()
@@ -404,7 +391,8 @@ namespace igor
 
         if (inDrag())
         {
-            drawDrag();
+            const auto pos = iMouse::getInstance().getPos();
+            _currentTheme->drawDrag(iaVector2f(pos._x, pos._y), getDrag());
         }
     }
 

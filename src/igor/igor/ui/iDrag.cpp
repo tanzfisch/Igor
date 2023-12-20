@@ -48,4 +48,24 @@ namespace igor
     {
         return _texture;
     }
+
+    iDragState iDrag::getDragState() const
+    {
+        return _dragState;
+    }
+
+    void iDrag::accept()
+    {
+        _dragState = iDragState::Accepted;
+    }
+
+    void iDrag::reject()
+    {
+        _dragState = iDragState::Rejected;
+    }
+
+    void iDrag::clear()
+    {
+        _dragState = iDragState::Neutral;
+    }
 }

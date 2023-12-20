@@ -91,8 +91,8 @@ static const iaColor4f COLOR_CHECKED_FILL = {0.2f, 0.2f, 0.2f, 0.2f};
 
 static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
 
-static const iaColor4f COLOR_SELECTION_FRAME(0.0,0.0,0.0,0.8);
-static const iaColor4f COLOR_SELECTION_FILL(0.0,0.0,0.0,0.2);
+static const iaColor4f COLOR_SELECTION_FRAME(0.0, 0.0, 0.0, 0.8);
+static const iaColor4f COLOR_SELECTION_FILL(0.0, 0.0, 0.0, 0.2);
 
 namespace igor
 {
@@ -132,7 +132,33 @@ namespace igor
     void iWidgetDefaultTheme::drawSelection(const iaRectanglef &rect)
     {
         iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SELECTION_FILL);
-        iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTION_FRAME);        
+        iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTION_FRAME);
+    }
+
+    void iWidgetDefaultTheme::drawDrag(const iaVector2f &pos, const iDrag &drag)
+    {
+        iTexturePtr texture = drag.getTexture();
+        if (texture == nullptr)
+        {
+            return;
+        }
+
+        const iaRectanglef rect(pos._x - 16, pos._y - 16, 64, 64);
+        iRenderer::getInstance().drawTexturedRectangle(rect, texture, iaColor4f::white, true);
+
+        switch (drag.getDragState())
+        {
+        case iDragState::Accepted:
+            iRenderer::getInstance().drawRectangle(rect, iaColor4f::green);
+            break;
+        case iDragState::Rejected:
+            iRenderer::getInstance().drawLine(rect.getTopLeft(), rect.getBottomRight(), iaColor4f::red);
+            iRenderer::getInstance().drawLine(rect.getTopRight(), rect.getBottomLeft(), iaColor4f::red);
+            break;
+        case iDragState::Neutral:
+        default:
+            break;
+        }
     }
 
     // TODO create new interfaces like the one above
