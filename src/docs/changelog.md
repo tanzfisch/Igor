@@ -25,6 +25,7 @@ Changelog                           {#changelog}
 - added AssetBrowser to Mica
 - fixed texture font vertical alignment
 - added new widget selection interfaces
+- Mica drag drop assets in viewport (models and textures on models)
 
 0.42.0
 ------
