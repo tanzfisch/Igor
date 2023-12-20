@@ -45,12 +45,15 @@ namespace igor
         const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
+            // no id expected
             return true;
         }
 
         const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         if (!filename.isEmpty())
         {
+            // if there is no id but a file name make sure the id is based on the filename
+            id = static_cast<uint64>(filename.getHashValue());
             return true;
         }
 

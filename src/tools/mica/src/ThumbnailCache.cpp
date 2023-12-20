@@ -61,11 +61,11 @@ iTexturePtr ThumbnailCache::getThumbnail(const iaString &filename)
     }
 
     iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
-                       {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
-                       {IGOR_RESOURCE_PARAM_SOURCE, thumbnailFilepath}});
-    // TODO add quiet flag here
+                       {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
+                       {IGOR_RESOURCE_PARAM_SOURCE, thumbnailFilepath},
+                       {IGOR_RESOURCE_PARAM_QUIET, true}});
 
-    return iResourceManager::getInstance().loadResource<iTexture>(param);
+    return iResourceManager::getInstance().requestResource<iTexture>(param);
 }
 
 void ThumbnailCache::generateThumbnails()
