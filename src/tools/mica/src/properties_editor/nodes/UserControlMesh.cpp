@@ -324,7 +324,7 @@ void UserControlMesh::init()
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textureChooser0 = new iUserControlFileChooser();
-    _textureChooser0->setPreselectedPath("..\\data\\textures");
+    _textureChooser0->setPreselectedPath("..\\data\\textures"); // TODO root of current project
     _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     _textureChooser1 = new iUserControlFileChooser();
