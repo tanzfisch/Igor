@@ -12,7 +12,8 @@ using namespace iaux;
 namespace igor
 {
 
-    iNodeVisitorPrintTree::iNodeVisitorPrintTree()
+    iNodeVisitorPrintTree::iNodeVisitorPrintTree(bool brief)
+        : _brief(brief)
     {
         setTraverseInactiveChildren();
         setTraverseSiblings();
@@ -32,9 +33,9 @@ namespace igor
 
     bool iNodeVisitorPrintTree::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
-        std::vector<iaString> info = node->getInfo();
+        std::vector<iaString> info = node->getInfo(_brief);
 
-        if (info.size() < 2)
+        if (info.empty())
         {
             con_err("invalid info data");
             return false;
@@ -43,13 +44,15 @@ namespace igor
         if (_nodeCount == 0)
         {
             _stream << " * " << info[0] << "\n";
-            _stream << " | " << info[1] << "\n";
             _nodeCount++;
             return true;
         }
 
-        preLine();
-        _stream << " |\n";
+        if (!_brief)
+        {
+            preLine();
+            _stream << " |\n";
+        }
 
         // actual data
         preLine();
@@ -65,18 +68,11 @@ namespace igor
             _indenttation += L"  ";
         }
 
-        // second line actual data
-        preLine();
-        _stream << (node->hasChildren() ? " | " : "   ") << info[1] << "\n";
-
         // optional custom data
-        if (info.size() > 2)
+        for (int i = 1; i < info.size(); ++i)
         {
-            for (int i = 2; i < info.size(); ++i)
-            {
-                preLine();
-                _stream << (node->hasChildren() ? " | " : "   ") << info[i] << "\n";
-            }
+            preLine();
+            _stream << (node->hasChildren() ? " | " : "   ") << info[i] << "\n";
         }
 
         _nodeCount++;

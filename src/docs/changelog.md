@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.43.1
+------
+
+- #393 fixed invalid node info issue
+
 0.43.0
 ------
 
