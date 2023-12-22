@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['random_5fnumbers_5fcount_0',['RANDOM_NUMBERS_COUNT',['../classigor_1_1i_perlin_noise.html#ad16bc78ab7ee3f9c2368c2c6492d47a2',1,'igor::iPerlinNoise']]],
-  ['red_1',['red',['../structiaux_1_1ia_color4.html#ad791280434ca438d93dd9e87e93a6101',1,'iaux::iaColor4']]],
-  ['remove_2',['Remove',['../i_node_manager_8h.html#a78b07b41e11198a3694a9b21122bf59b',1,'iNodeManager.h']]],
-  ['render_5forder_5fdefault_3',['RENDER_ORDER_DEFAULT',['../classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a',1,'igor::iMaterial']]],
-  ['render_5forder_5fmax_4',['RENDER_ORDER_MAX',['../classigor_1_1i_material.html#a48fe1603d253de953a3f20413e102615',1,'igor::iMaterial']]],
-  ['render_5forder_5fmin_5',['RENDER_ORDER_MIN',['../classigor_1_1i_material.html#af88860fee92e64253045a188d8f699b3',1,'igor::iMaterial']]],
-  ['render_5fstate_5fcount_6',['RENDER_STATE_COUNT',['../namespaceigor.html#aa3c408347872cce2f01b4f608d43477c',1,'igor']]]
+  ['quad_5ftexture_5fcoords_0',['QUAD_TEXTURE_COORDS',['../i_renderer_8inl.html#a2270546ec21ae39f6fdfd60389f186e3',1,'iRenderer.inl']]],
+  ['quad_5fvertex_5fpositions_1',['QUAD_VERTEX_POSITIONS',['../i_renderer_8inl.html#ad0add63bde4a3f87f9eab26fadc58623',1,'iRenderer.inl']]]
 ];

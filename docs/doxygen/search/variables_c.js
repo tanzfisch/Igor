@@ -1,20 +1,10 @@
 var searchData=
 [
-  ['s_5fdefaultwindowtitle_0',['s_defaultWindowTitle',['../namespaceigor.html#a5633fc4590a5bea7803eb74347143710',1,'igor']]],
-  ['s_5feasingfunctiontable_1',['s_easingFunctionTable',['../namespaceigor.html#a7eaa63fc19acc81766384984076f0087',1,'igor']]],
-  ['s_5fkeynames_2',['s_keyNames',['../namespaceigor.html#a954769d987d8315b4652fa5f7b35f140',1,'igor']]],
-  ['s_5fnumbers_3',['s_numbers',['../namespaceiaux.html#a4c6eca84650e9863ba70aa97a9159f3d',1,'iaux']]],
-  ['sampler_5ftexture_4',['SAMPLER_TEXTURE',['../namespaceigor.html#aa66dd6b5ec21946919a3a680084701fb',1,'igor']]],
-  ['sampler_5ftexture0_5',['SAMPLER_TEXTURE0',['../namespaceigor.html#a67e1e892a49d57bc82831ad8bc2fe921',1,'igor']]],
-  ['sampler_5ftexture1_6',['SAMPLER_TEXTURE1',['../namespaceigor.html#ab6c316618b4364a1256c669813e43eb6',1,'igor']]],
-  ['sampler_5ftexture2_7',['SAMPLER_TEXTURE2',['../namespaceigor.html#a8b98f9adf1566c908349c59c642eb68d',1,'igor']]],
-  ['sampler_5ftexture3_8',['SAMPLER_TEXTURE3',['../namespaceigor.html#a982d691705737d30a8a806aa4acbd15a',1,'igor']]],
-  ['sampler_5ftexture4_9',['SAMPLER_TEXTURE4',['../namespaceigor.html#ad6dacd0bffd67274f59bb473c47a5599',1,'igor']]],
-  ['sampler_5ftexture5_10',['SAMPLER_TEXTURE5',['../namespaceigor.html#a9627cef8bae39d491b9265a8f799441c',1,'igor']]],
-  ['sampler_5ftexture6_11',['SAMPLER_TEXTURE6',['../namespaceigor.html#aa44baf82393e3eb2f60055955522e327',1,'igor']]],
-  ['sampler_5ftexture7_12',['SAMPLER_TEXTURE7',['../namespaceigor.html#af6868fcac0be1b6b10ff58df68fef597',1,'igor']]],
-  ['scroll_5fstepping_13',['SCROLL_STEPPING',['../namespaceigor.html#a6ba53cd7f0a4e79e816c28e650cb10ab',1,'igor']]],
-  ['sphere_14',['Sphere',['../i_particle_emitter_8h.html#ad42bc9bcc56d05e89f090a014916d97e',1,'Sphere():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#ad42bc9bcc56d05e89f090a014916d97e',1,'Sphere():&#160;ompfEmitterChunk.h']]],
-  ['square_15',['Square',['../i_particle_emitter_8h.html#a007191c36b035694a086d6f9c6c0462a',1,'Square():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#a007191c36b035694a086d6f9c6c0462a',1,'Square():&#160;ompfEmitterChunk.h']]],
-  ['stringsizesize_16',['StringSizeSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#ab29dc3d18a471f556d523a9351a2a798',1,'OMPF::OMPFDefaultConfiguration']]]
+  ['random_5fnumbers_5fcount_0',['RANDOM_NUMBERS_COUNT',['../classigor_1_1i_perlin_noise.html#ad16bc78ab7ee3f9c2368c2c6492d47a2',1,'igor::iPerlinNoise']]],
+  ['red_1',['red',['../classiaux_1_1ia_color3.html#a6c183dc1b73cb5682d784aff38ba50a4',1,'iaux::iaColor3::red()'],['../structiaux_1_1ia_color4.html#ad791280434ca438d93dd9e87e93a6101',1,'iaux::iaColor4::red()']]],
+  ['remove_2',['Remove',['../i_node_manager_8h.html#a78b07b41e11198a3694a9b21122bf59b',1,'iNodeManager.h']]],
+  ['render_5forder_5fdefault_3',['RENDER_ORDER_DEFAULT',['../classigor_1_1i_material.html#a8bc6e6f853cbe5113bc9a27f2adac82a',1,'igor::iMaterial']]],
+  ['render_5forder_5fmax_4',['RENDER_ORDER_MAX',['../classigor_1_1i_material.html#a48fe1603d253de953a3f20413e102615',1,'igor::iMaterial']]],
+  ['render_5forder_5fmin_5',['RENDER_ORDER_MIN',['../classigor_1_1i_material.html#af88860fee92e64253045a188d8f699b3',1,'igor::iMaterial']]],
+  ['render_5fstate_5fcount_6',['RENDER_STATE_COUNT',['../namespaceigor.html#aa3c408347872cce2f01b4f608d43477c',1,'igor']]]
 ];

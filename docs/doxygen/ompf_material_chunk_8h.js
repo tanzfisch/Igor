@@ -38,7 +38,7 @@ var ompf_material_chunk_8h =
       [ "Front", "ompf_material_chunk_8h.html#af9559df36c3cae8d0b073c8f04df1c72a5835bab1ade0060909e31a06af2e2cde", null ],
       [ "Back", "ompf_material_chunk_8h.html#af9559df36c3cae8d0b073c8f04df1c72a0557fa923dcee4d0f86b1409f5c2167f", null ],
       [ "Invalid", "ompf_material_chunk_8h.html#af9559df36c3cae8d0b073c8f04df1c72a4bbb8f967da6d1a610596d7257179c2b", null ],
-      [ "PositionOrientation", "ompf_material_chunk_8h.html#af9559df36c3cae8d0b073c8f04df1c72adb27a62351b3d0ab4c1e83ffaba33d1d", null ],
+      [ "PositionOrientationInstancing", "ompf_material_chunk_8h.html#af9559df36c3cae8d0b073c8f04df1c72a231dba074c034face5c0f9a37be349e5", null ],
       [ "Position", "ompf_material_chunk_8h.html#af9559df36c3cae8d0b073c8f04df1c72a52f5e0bc3859bc5f5e25130b6c7e8881", null ]
     ] ],
     [ "OMPFShaderType", "ompf_material_chunk_8h.html#a131201e055054ad7a37e5e7550a477c1", [

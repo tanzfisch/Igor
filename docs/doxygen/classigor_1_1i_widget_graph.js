@@ -13,6 +13,7 @@ var classigor_1_1i_widget_graph =
     [ "getPointColor", "classigor_1_1i_widget_graph.html#a81d68cbe104a0224a98fbf1359f20877", null ],
     [ "getPoints", "classigor_1_1i_widget_graph.html#a68184f23cd3aca1a3c767705e5a38c51", null ],
     [ "getPointSize", "classigor_1_1i_widget_graph.html#abcfabfc9f4103eb0d0071a9b14d64fd1", null ],
+    [ "getSelectedIndex", "classigor_1_1i_widget_graph.html#a1221b8230a60d40affeb7fa5528f4ac0", null ],
     [ "getViewGrid", "classigor_1_1i_widget_graph.html#a33a7cdd65f1b2f02f462ec7d3d33e338", null ],
     [ "getViewLabels", "classigor_1_1i_widget_graph.html#a15449182afcd3f219d797e7c0709ae2f", null ],
     [ "isInteractive", "classigor_1_1i_widget_graph.html#a359e9b85fa0e692654abb2e5b54123f8", null ],

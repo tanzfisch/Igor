@@ -7,5 +7,6 @@ var classigor_1_1i_renderer_utils =
     [ "convertType", "classigor_1_1i_renderer_utils.html#a99f8ae29b96909d68e8fb14aa912ddc9", null ],
     [ "convertType", "classigor_1_1i_renderer_utils.html#ab1fe5deae2954e77b7d000f49bb476ff", null ],
     [ "getComponentCount", "classigor_1_1i_renderer_utils.html#a9a9fa7fd8d59440e84580d6b30e1e33c", null ],
-    [ "getSize", "classigor_1_1i_renderer_utils.html#a295712aa59d7effc4647139fdeb5b94e", null ]
+    [ "getSize", "classigor_1_1i_renderer_utils.html#a295712aa59d7effc4647139fdeb5b94e", null ],
+    [ "getTextureSamplerName", "classigor_1_1i_renderer_utils.html#a2bcabfb249bbe63fd276c59b7b5d783f", null ]
 ];

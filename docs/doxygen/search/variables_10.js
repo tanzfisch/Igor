@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['white_0',['white',['../structiaux_1_1ia_color4.html#a2f886adf59adf2530233c6d1066833bb',1,'iaux::iaColor4']]]
+  ['vel_0',['vel',['../classigor_1_1i_emitter_triangle.html#afe9144778647d72d087d7ae0c8f770d9',1,'igor::iEmitterTriangle']]]
 ];

@@ -24,6 +24,7 @@ var namespacemembers_dup =
     [ "co", "namespacemembers_c.html", null ],
     [ "d", "namespacemembers_d.html", null ],
     [ "di", "namespacemembers_d.html", null ],
+    [ "dr", "namespacemembers_d.html", null ],
     [ "e", "namespacemembers_e.html", null ],
     [ "en", "namespacemembers_e.html", null ],
     [ "ev", "namespacemembers_e.html", null ],
@@ -37,6 +38,7 @@ var namespacemembers_dup =
     [ "ho", "namespacemembers_h.html", null ],
     [ "i", "namespacemembers_i.html", null ],
     [ "in", "namespacemembers_i.html", null ],
+    [ "it", "namespacemembers_i.html", null ],
     [ "ke", "namespacemembers_k.html", null ],
     [ "l", "namespacemembers_l.html", null ],
     [ "la", "namespacemembers_l.html", null ],
@@ -84,6 +86,7 @@ var namespacemembers_dup =
     [ "ve", "namespacemembers_v.html", null ],
     [ "vi", "namespacemembers_v.html", null ],
     [ "vo", "namespacemembers_v.html", null ],
+    [ "w", "namespacemembers_w.html", null ],
     [ "wi", "namespacemembers_w.html", null ],
     [ "wo", "namespacemembers_w.html", null ]
 ];

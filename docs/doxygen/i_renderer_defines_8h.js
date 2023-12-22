@@ -48,8 +48,7 @@ var i_renderer_defines_8h =
       [ "DecrementWrap", "i_renderer_defines_8h.html#a7367729bc285c208adcf486163a76f64a6ec565c329385c8d59333abc6a1003d1", null ],
       [ "Invert", "i_renderer_defines_8h.html#a7367729bc285c208adcf486163a76f64a9b8958acb7be504bb5f55f17c0eea366", null ],
       [ "Invalid", "i_renderer_defines_8h.html#a7367729bc285c208adcf486163a76f64a4bbb8f967da6d1a610596d7257179c2b", null ],
-      [ "PositionOrientation", "i_renderer_defines_8h.html#a7367729bc285c208adcf486163a76f64adb27a62351b3d0ab4c1e83ffaba33d1d", null ],
-      [ "Position", "i_renderer_defines_8h.html#a7367729bc285c208adcf486163a76f64a52f5e0bc3859bc5f5e25130b6c7e8881", null ]
+      [ "PositionOrientationInstancing", "i_renderer_defines_8h.html#a7367729bc285c208adcf486163a76f64a231dba074c034face5c0f9a37be349e5", null ]
     ] ],
     [ "iRenderTargetType", "i_renderer_defines_8h.html#af9d44cb3ea7ca354dcfbc9cc1ff16418", [
       [ "ToTexture", "i_renderer_defines_8h.html#af9d44cb3ea7ca354dcfbc9cc1ff16418afb55ad7d87f507a96a7d851e2366cecb", null ],

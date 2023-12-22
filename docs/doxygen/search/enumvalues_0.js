@@ -7,5 +7,14 @@ var searchData=
   ['altgr_4',['AltGr',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda571dc3ee993d6e9a33bdc851be52b995',1,'igor']]],
   ['always_5',['Always',['../namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa68eec46437c384d8dad18d5464ebc35c',1,'igor::Always()'],['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a68eec46437c384d8dad18d5464ebc35c',1,'igor::Always()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a68eec46437c384d8dad18d5464ebc35c',1,'OMPF::Always()']]],
   ['application_6',['Application',['../namespaceigor.html#a40695af62201c48096a15d36a6b40a06ae498749f3c42246d50b15c81c101d988',1,'igor']]],
-  ['audio_7',['Audio',['../namespaceigor.html#a2bf7c6414a6bc8549c4402ca0e1236e8ab22f0418e8ac915eb66f829d262d14a2',1,'igor']]]
+  ['arrow_7',['Arrow',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90ca0f4e1aaabd074689b7d3ead824d1ee8e',1,'igor']]],
+  ['arrowbottomedge_8',['ArrowBottomEdge',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90ca8d5387ca8e9a78ee222ffa8f248a4fa2',1,'igor']]],
+  ['arrowbottomleftcorner_9',['ArrowBottomLeftCorner',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90cac2cd5570fd872360692883044953fdf8',1,'igor']]],
+  ['arrowbottomrightcorner_10',['ArrowBottomRightCorner',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90ca705e73e7667657d45253c6af36a76e2a',1,'igor']]],
+  ['arrowleftedge_11',['ArrowLeftEdge',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90caa57c78267b5fdceea6b5ecbd1b5faf94',1,'igor']]],
+  ['arrowrightedge_12',['ArrowRightEdge',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90cab87442b1e749198c4ca61056471d9686',1,'igor']]],
+  ['arrowtopedge_13',['ArrowTopEdge',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90ca9ff0f5cd11ec1851119486ec6befae07',1,'igor']]],
+  ['arrowtopleftcorner_14',['ArrowTopLeftCorner',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90cae680e7cedf3bba21e23ec638371117bf',1,'igor']]],
+  ['arrowtoprightcorner_15',['ArrowTopRightCorner',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90cafe0a3ba0fc0ece9b90fcb1579b2f8101',1,'igor']]],
+  ['audio_16',['Audio',['../namespaceigor.html#a2bf7c6414a6bc8549c4402ca0e1236e8ab22f0418e8ac915eb66f829d262d14a2',1,'igor']]]
 ];

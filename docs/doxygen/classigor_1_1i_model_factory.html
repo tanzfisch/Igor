@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,7 +86,9 @@ $(document).ready(function(){initNavTree('classigor_1_1i_model_factory.html','')
 
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_model_factory-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">igor::iModelFactory Class Reference</div></div>
 </div><!--header-->
@@ -96,6 +98,20 @@ $(document).ready(function(){initNavTree('classigor_1_1i_model_factory.html','')
 
 <p>Inherits <a class="el" href="classigor_1_1i_factory.html">igor::iFactory</a>.</p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad58c0b4cdee3b89c5d6594e7ab8532de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_model_factory.html#ad58c0b4cdee3b89c5d6594e7ab8532de">iModelFactory</a> ()</td></tr>
+<tr class="separator:ad58c0b4cdee3b89c5d6594e7ab8532de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classigor_1_1i_factory"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classigor_1_1i_factory')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classigor_1_1i_factory.html">igor::iFactory</a></td></tr>
+<tr class="memitem:a38c4b858bade8c4799e4065bfe22b090 inherit pub_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a38c4b858bade8c4799e4065bfe22b090">iFactory</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;type, const std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt; &amp;supportedExtensions)</td></tr>
+<tr class="separator:a38c4b858bade8c4799e4065bfe22b090 inherit pub_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa06a8216efe5ca4b99ed3bbbc7eb219f inherit pub_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#aa06a8216efe5ca4b99ed3bbbc7eb219f">~iFactory</a> ()=default</td></tr>
+<tr class="separator:aa06a8216efe5ca4b99ed3bbbc7eb219f inherit pub_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05cd1242c1514a4a6d1d63aaf282efa8 inherit pub_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a05cd1242c1514a4a6d1d63aaf282efa8">getType</a> () const</td></tr>
+<tr class="separator:a05cd1242c1514a4a6d1d63aaf282efa8 inherit pub_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a767b7864aa22b459676b221ccd314e69 inherit pub_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a767b7864aa22b459676b221ccd314e69">getSupportedExtensions</a> () const</td></tr>
+<tr class="separator:a767b7864aa22b459676b221ccd314e69 inherit pub_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac7e518123b953a63757eda9609648267"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_model_factory.html#ac7e518123b953a63757eda9609648267">registerModelDataIO</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;identifier, iCreateModelDataIOInstance functionPointer)</td></tr>
@@ -105,22 +121,20 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aebbaff46cf727283203c2714e84afe34"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_model_factory.html#aebbaff46cf727283203c2714e84afe34">exportToFile</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename, <a class="el" href="namespaceigor.html#a1420d8c8d3b036cdbd5f8665ec1bbeb1">iNodePtr</a> node, <a class="el" href="namespaceigor.html#afff40a867ba63c16063db64d393a436a">iSaveMode</a> saveMode=<a class="el" href="namespaceigor.html#afff40a867ba63c16063db64d393a436aa41ee1226da7962355f25cb673bf3d124">iSaveMode::KeepExternals</a>, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;formatIdentifier=&quot;&quot;)</td></tr>
 <tr class="separator:aebbaff46cf727283203c2714e84afe34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a3d7f73050de28471f180641b509bbfde"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_model_factory.html#a3d7f73050de28471f180641b509bbfde">iResourceManager</a></td></tr>
+<tr class="separator:a3d7f73050de28471f180641b509bbfde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_methods_classigor_1_1i_factory"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classigor_1_1i_factory')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classigor_1_1i_factory.html">igor::iFactory</a></td></tr>
-<tr class="memitem:a2308bcd121df86159a10d0d483497a18 inherit pub_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a2308bcd121df86159a10d0d483497a18">iFactory</a> ()=default</td></tr>
-<tr class="separator:a2308bcd121df86159a10d0d483497a18 inherit pub_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa06a8216efe5ca4b99ed3bbbc7eb219f inherit pub_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#aa06a8216efe5ca4b99ed3bbbc7eb219f">~iFactory</a> ()=default</td></tr>
-<tr class="separator:aa06a8216efe5ca4b99ed3bbbc7eb219f inherit pub_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classigor_1_1i_factory"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classigor_1_1i_factory')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classigor_1_1i_factory.html">igor::iFactory</a></td></tr>
-<tr class="memitem:a2fb49c8bce64fe824b46936d6c62083b inherit pro_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a2fb49c8bce64fe824b46936d6c62083b">getType</a> () const =0</td></tr>
-<tr class="separator:a2fb49c8bce64fe824b46936d6c62083b inherit pro_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaf8abb0023adf16387b0626cbe17359 inherit pro_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#aaaf8abb0023adf16387b0626cbe17359">matchingType</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters) const =0</td></tr>
-<tr class="separator:aaaf8abb0023adf16387b0626cbe17359 inherit pro_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8454b2a39a070a6e8bcf688e743d6c6d inherit pro_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a8454b2a39a070a6e8bcf688e743d6c6d">getHashData</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters) const</td></tr>
 <tr class="separator:a8454b2a39a070a6e8bcf688e743d6c6d inherit pro_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6112879fe2fc5d7729bba476f342e01 inherit pro_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#ac6112879fe2fc5d7729bba476f342e01">createResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)=0</td></tr>
 <tr class="separator:ac6112879fe2fc5d7729bba476f342e01 inherit pro_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8414c0d82d575c3b9ef29ec27ba87e4 inherit pro_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#af8414c0d82d575c3b9ef29ec27ba87e4">createResource</a> ()</td></tr>
+<tr class="separator:af8414c0d82d575c3b9ef29ec27ba87e4 inherit pro_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0756f099bca1debeb118fe769013465e inherit pro_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a0756f099bca1debeb118fe769013465e">loadResource</a> (<a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> resource)=0</td></tr>
 <tr class="separator:a0756f099bca1debeb118fe769013465e inherit pro_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6145958fc92a16d6e767f5058ff9e460 inherit pro_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a6145958fc92a16d6e767f5058ff9e460">unloadResource</a> (<a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> resource)=0</td></tr>
@@ -129,10 +143,34 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a4ead6cdbac6b8d1e9fe9543d9c0b5bb1 inherit pro_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38f55fd9bdfa08c41fc30f05a83aa886 inherit pro_methods_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a38f55fd9bdfa08c41fc30f05a83aa886">deinit</a> ()</td></tr>
 <tr class="separator:a38f55fd9bdfa08c41fc30f05a83aa886 inherit pro_methods_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classigor_1_1i_factory"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classigor_1_1i_factory')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classigor_1_1i_factory.html">igor::iFactory</a></td></tr>
+<tr class="memitem:abf08da544e4d1f343af8a2772f301551 inherit pro_attribs_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#abf08da544e4d1f343af8a2772f301551">_type</a></td></tr>
+<tr class="separator:abf08da544e4d1f343af8a2772f301551 inherit pro_attribs_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26d75c52e783fbb3ef2a0df88b261c29 inherit pro_attribs_classigor_1_1i_factory"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a26d75c52e783fbb3ef2a0df88b261c29">_supportedExtensions</a></td></tr>
+<tr class="separator:a26d75c52e783fbb3ef2a0df88b261c29 inherit pro_attribs_classigor_1_1i_factory"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >this factory creates model resources </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad58c0b4cdee3b89c5d6594e7ab8532de" name="ad58c0b4cdee3b89c5d6594e7ab8532de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad58c0b4cdee3b89c5d6594e7ab8532de">&#9670;&nbsp;</a></span>iModelFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">igor::iModelFactory::iModelFactory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >init members </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="aebbaff46cf727283203c2714e84afe34" name="aebbaff46cf727283203c2714e84afe34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aebbaff46cf727283203c2714e84afe34">&#9670;&nbsp;</a></span>exportToFile()</h2>
 
@@ -263,6 +301,29 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a3d7f73050de28471f180641b509bbfde" name="a3d7f73050de28471f180641b509bbfde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d7f73050de28471f180641b509bbfde">&#9670;&nbsp;</a></span>iResourceManager</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classigor_1_1i_resource_manager.html">iResourceManager</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

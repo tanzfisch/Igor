@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -108,8 +108,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a438f05704983afd208a3c52ace079a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7fa4ee7023cce7d6eb20504cce8291c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#af7fa4ee7023cce7d6eb20504cce8291c">setPosition</a> (<a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> x, <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> y)=0</td></tr>
 <tr class="separator:af7fa4ee7023cce7d6eb20504cce8291c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a217878c086d74478d7f9e197b5779418"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#a217878c086d74478d7f9e197b5779418">showCursor</a> (bool show)=0</td></tr>
-<tr class="separator:a217878c086d74478d7f9e197b5779418"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0eb814136d6cb93ccf5355d70c895ae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#ad0eb814136d6cb93ccf5355d70c895ae">hideCursor</a> (bool hide)=0</td></tr>
+<tr class="separator:ad0eb814136d6cb93ccf5355d70c895ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad57c1fe517a4a6d5b725ef4b4e236047"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#ad57c1fe517a4a6d5b725ef4b4e236047">setCursor</a> (<a class="el" href="namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90c">iMouseCursorType</a> cursorType)=0</td></tr>
+<tr class="separator:ad57c1fe517a4a6d5b725ef4b4e236047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fcaf3e8f4a0ebfb801ba2f103aaba4d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#a5fcaf3e8f4a0ebfb801ba2f103aaba4d">resetCursor</a> ()=0</td></tr>
+<tr class="separator:a5fcaf3e8f4a0ebfb801ba2f103aaba4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac47bfd8b7bdbf3ac37f54b49e663e4c3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#ac47bfd8b7bdbf3ac37f54b49e663e4c3">setCenter</a> ()=0</td></tr>
 <tr class="separator:ac47bfd8b7bdbf3ac37f54b49e663e4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -119,8 +123,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:aa8c99a6fe25692154a3dc278e89f660d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3bc85ad733f934c5c663debff9e8504"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classigor_1_1i_mouse.html">iMouse</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#af3bc85ad733f934c5c663debff9e8504">_mouse</a></td></tr>
 <tr class="separator:af3bc85ad733f934c5c663debff9e8504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afeb2c5c6050b8ffce909aa26fc175407"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ac17f60719de126e24e9ec0aa5bccb00a">iaVector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#afeb2c5c6050b8ffce909aa26fc175407">_posLast</a></td></tr>
-<tr class="separator:afeb2c5c6050b8ffce909aa26fc175407"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e6afb365cd497444d30f5e54317d013"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ac17f60719de126e24e9ec0aa5bccb00a">iaVector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#a8e6afb365cd497444d30f5e54317d013">_lastMousePos</a></td></tr>
+<tr class="separator:a8e6afb365cd497444d30f5e54317d013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32796cbc0d1805e654353b07ad817ec6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ac17f60719de126e24e9ec0aa5bccb00a">iaVector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#a32796cbc0d1805e654353b07ad817ec6">_pos</a></td></tr>
 <tr class="separator:a32796cbc0d1805e654353b07ad817ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a331eee914245071421f9445973e6bb77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed">iWindowPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse_impl.html#a331eee914245071421f9445973e6bb77">_window</a> = nullptr</td></tr>
@@ -209,6 +213,32 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="ad0eb814136d6cb93ccf5355d70c895ae" name="ad0eb814136d6cb93ccf5355d70c895ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0eb814136d6cb93ccf5355d70c895ae">&#9670;&nbsp;</a></span>hideCursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void igor::iMouseImpl::hideCursor </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hide</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4651d58d968c3721652194eec6f3d1a1" name="a4651d58d968c3721652194eec6f3d1a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4651d58d968c3721652194eec6f3d1a1">&#9670;&nbsp;</a></span>initDevice()</h2>
 
@@ -261,6 +291,31 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a5fcaf3e8f4a0ebfb801ba2f103aaba4d" name="a5fcaf3e8f4a0ebfb801ba2f103aaba4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fcaf3e8f4a0ebfb801ba2f103aaba4d">&#9670;&nbsp;</a></span>resetCursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void igor::iMouseImpl::resetCursor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac47bfd8b7bdbf3ac37f54b49e663e4c3" name="ac47bfd8b7bdbf3ac37f54b49e663e4c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac47bfd8b7bdbf3ac37f54b49e663e4c3">&#9670;&nbsp;</a></span>setCenter()</h2>
 
@@ -274,6 +329,32 @@ Friends</h2></td></tr>
           <td class="memname">virtual void igor::iMouseImpl::setCenter </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad57c1fe517a4a6d5b725ef4b4e236047" name="ad57c1fe517a4a6d5b725ef4b4e236047"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad57c1fe517a4a6d5b725ef4b4e236047">&#9670;&nbsp;</a></span>setCursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void igor::iMouseImpl::setCursor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90c">iMouseCursorType</a>&#160;</td>
+          <td class="paramname"><em>cursorType</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -311,32 +392,6 @@ Friends</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a217878c086d74478d7f9e197b5779418" name="a217878c086d74478d7f9e197b5779418"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a217878c086d74478d7f9e197b5779418">&#9670;&nbsp;</a></span>showCursor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void igor::iMouseImpl::showCursor </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>show</em></td><td>)</td>
-          <td></td>
         </tr>
       </table>
   </td>
@@ -394,6 +449,28 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a8e6afb365cd497444d30f5e54317d013" name="a8e6afb365cd497444d30f5e54317d013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e6afb365cd497444d30f5e54317d013">&#9670;&nbsp;</a></span>_lastMousePos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceiaux.html#ac17f60719de126e24e9ec0aa5bccb00a">iaVector2i</a> igor::iMouseImpl::_lastMousePos</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af3bc85ad733f934c5c663debff9e8504" name="af3bc85ad733f934c5c663debff9e8504"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3bc85ad733f934c5c663debff9e8504">&#9670;&nbsp;</a></span>_mouse</h2>
 
@@ -427,28 +504,6 @@ Friends</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="namespaceiaux.html#ac17f60719de126e24e9ec0aa5bccb00a">iaVector2i</a> igor::iMouseImpl::_pos</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afeb2c5c6050b8ffce909aa26fc175407" name="afeb2c5c6050b8ffce909aa26fc175407"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afeb2c5c6050b8ffce909aa26fc175407">&#9670;&nbsp;</a></span>_posLast</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceiaux.html#ac17f60719de126e24e9ec0aa5bccb00a">iaVector2i</a> igor::iMouseImpl::_posLast</td>
         </tr>
       </table>
   </td>

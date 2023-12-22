@@ -1,13 +1,16 @@
 var classigor_1_1i_widget_manager =
 [
+    [ "deleteWidget", "classigor_1_1i_widget_manager.html#af88c79c214eefaf21d4039a53f486084", null ],
     [ "draw", "classigor_1_1i_widget_manager.html#a1664f7a3c9adf3a4168680ed6242ad65", null ],
     [ "getDesktopHeight", "classigor_1_1i_widget_manager.html#a5024d9efdf1f91962d32d948ad91cc05", null ],
     [ "getDesktopWidth", "classigor_1_1i_widget_manager.html#a25992c047bfbb6b2341e215582cbe2b0", null ],
-    [ "getDialog", "classigor_1_1i_widget_manager.html#a1232a0489af55abf25caf704b965d71b", null ],
-    [ "getModal", "classigor_1_1i_widget_manager.html#a6b1a768c90b6dce868f790d9e7fbca8d", null ],
+    [ "getDialog", "classigor_1_1i_widget_manager.html#a1ad00a2efb6b59c5602672a9ad4b6909", null ],
+    [ "getDrag", "classigor_1_1i_widget_manager.html#ac51785adbe4df3ce090226d6b909d337", null ],
+    [ "getModal", "classigor_1_1i_widget_manager.html#af3e9a96cb5ac4ebc0a1be1ed95ce18b4", null ],
     [ "getTheme", "classigor_1_1i_widget_manager.html#a77b468b436c2b7ac27f1e8a1473a7800", null ],
-    [ "getWidget", "classigor_1_1i_widget_manager.html#afa9f38c7a5918ab44f332640cc57cd49", null ],
+    [ "getWidget", "classigor_1_1i_widget_manager.html#a073d04ce0995115be2af355c8212fe28", null ],
     [ "hideTooltip", "classigor_1_1i_widget_manager.html#a8d66843c675aeeb51444d5328321808d", null ],
+    [ "inDrag", "classigor_1_1i_widget_manager.html#a9e2294a82f7bb9137672e266c68a3f7b", null ],
     [ "isModal", "classigor_1_1i_widget_manager.html#acac42873428e62d0687d2da0abe085bf", null ],
     [ "onEvent", "classigor_1_1i_widget_manager.html#ae463cc926d321cd5506cbf58522ce3c3", null ],
     [ "onUpdate", "classigor_1_1i_widget_manager.html#aaf6ff72921f7a4af5561f8403bac33d6", null ],
@@ -17,6 +20,9 @@ var classigor_1_1i_widget_manager =
     [ "setTheme", "classigor_1_1i_widget_manager.html#a218d3d524269cecc9d4e2e2685f2ef6e", null ],
     [ "showTooltip", "classigor_1_1i_widget_manager.html#a78b9d806c28ca4c08713d206792a9681", null ],
     [ "iDialog", "classigor_1_1i_widget_manager.html#af7f6f50efeae1e3310a0ba88374672f2", null ],
+    [ "iDrag", "classigor_1_1i_widget_manager.html#a6e6ad37c8bb36bb3899af28c060fedf5", null ],
     [ "iModule< iWidgetManager >", "classigor_1_1i_widget_manager.html#a33f293f0ad1af9e47ad082e39cba4c85", null ],
-    [ "iWidget", "classigor_1_1i_widget_manager.html#ae2aa33c5f391ceae8d0c3476619fb5cc", null ]
+    [ "iWidget", "classigor_1_1i_widget_manager.html#ae2aa33c5f391ceae8d0c3476619fb5cc", null ],
+    [ "iWidgetMenu", "classigor_1_1i_widget_manager.html#ab710690e7794a85cb004d5969e1ee0e0", null ],
+    [ "iWidgetSplitter", "classigor_1_1i_widget_manager.html#a2bfa86de7cf9d5f0f925c58425755298", null ]
 ];

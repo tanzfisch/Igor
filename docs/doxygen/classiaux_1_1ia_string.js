@@ -27,6 +27,7 @@ var classiaux_1_1ia_string =
     [ "getData", "classiaux_1_1ia_string.html#a25a9648f65f53639b6f4df95ace63d14", null ],
     [ "getHashValue", "classiaux_1_1ia_string.html#addafc244424a214bd75b808ad1214693", null ],
     [ "getLength", "classiaux_1_1ia_string.html#aeaa5fe6783ebb20fb01cd9737ae96fee", null ],
+    [ "getSize", "classiaux_1_1ia_string.html#af52be9cd2f62dc4663b67897b13e3533", null ],
     [ "getSubString", "classiaux_1_1ia_string.html#a06f8edef7d739eff9cf4e9f168f8834b", null ],
     [ "getUTF8", "classiaux_1_1ia_string.html#ace0cf5900e1c4734d6b948776d6b78bc", null ],
     [ "getUTF8Size", "classiaux_1_1ia_string.html#a176ff1586785f0c9754f5c4297f1c44b", null ],
@@ -69,6 +70,7 @@ var classiaux_1_1ia_string =
     [ "toString", "classiaux_1_1ia_string.html#a964d7ab5888b2bf3262cfb835bdc2c99", null ],
     [ "toString", "classiaux_1_1ia_string.html#abfbdf1a10b8d5456cb70d8696d16ed53", null ],
     [ "toStringUnits", "classiaux_1_1ia_string.html#a5c5e967f728827a837b05694c459ed66", null ],
+    [ "toUInt", "classiaux_1_1ia_string.html#a6e4d55d3a70af1c86bc4206add2e239c", null ],
     [ "toUpper", "classiaux_1_1ia_string.html#aff05f19dd6aea4a9e3683edb4d647d10", null ],
     [ "toVector", "classiaux_1_1ia_string.html#a11120e45615d08f300d001a55d19296b", null ],
     [ "toVector", "classiaux_1_1ia_string.html#ab8f4d04a85fdfef88577301659efb902", null ],
@@ -76,5 +78,6 @@ var classiaux_1_1ia_string =
     [ "trim", "classiaux_1_1ia_string.html#a117ea9f1a5f95b55e78fa19fed4e12bf", null ],
     [ "trimLeft", "classiaux_1_1ia_string.html#afcc3ba984dadf77a71accd72c173014f", null ],
     [ "trimRight", "classiaux_1_1ia_string.html#ae9529d356c4050185a222ace9e55f9f7", null ],
+    [ "wildcardToRegex", "classiaux_1_1ia_string.html#ab684e49b7f80c7f00695487fbe5c25c6", null ],
     [ "INVALID_POSITION", "classiaux_1_1ia_string.html#ab811cb303810c93017a9016b19702caf", null ]
 ];

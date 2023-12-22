@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,7 +87,8 @@ $(document).ready(function(){initNavTree('i_resource_manager_8cpp.html',''); ini
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">iResourceManager.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -97,22 +98,38 @@ $(document).ready(function(){initNavTree('i_resource_manager_8cpp.html',''); ini
 <code>#include &lt;<a class="el" href="i_animation_factory_8h.html">igor/resources/animation/iAnimationFactory.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_sprite_factory_8h.html">igor/resources/sprite/iSpriteFactory.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_model_factory_8h.html">igor/resources/model/iModelFactory.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_material_factory_8h.html">igor/resources/material/iMaterialFactory.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_config_reader_8h.html">igor/resources/config/iConfigReader.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_task_manager_8h.html">igor/threading/iTaskManager.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_resource_dictionary_8h.html">igor/resources/iResourceDictionary.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_file_8h.html">iaux/system/iaFile.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
+<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameters texture <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ad9bdad4a9b132a368dc87f89c2754023"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ad9bdad4a9b132a368dc87f89c2754023">igor::matchingFilename</a> (iFactoryPtr factory, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
+<tr class="separator:ad9bdad4a9b132a368dc87f89c2754023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afba127276c06f45ddb5ef4c1a18fa4de"><td class="memTemplParams" colspan="2">template&lt;typename ParameterType &gt; </td></tr>
+<tr class="memitem:afba127276c06f45ddb5ef4c1a18fa4de"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceigor.html#afba127276c06f45ddb5ef4c1a18fa4de">igor::writeParam</a> (const iParameters &amp;parameters, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;key, std::wofstream &amp;stream)</td></tr>
+<tr class="separator:afba127276c06f45ddb5ef4c1a18fa4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb3aab77c83fadf6328680d420fe63b3"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#acb3aab77c83fadf6328680d420fe63b3">igor::matchingType</a> (iFactoryPtr factory, const iParameters &amp;parameters)</td></tr>
+<tr class="separator:acb3aab77c83fadf6328680d420fe63b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a491343606a7926c828be9f2e58a8e213"><td class="memItemLeft" align="right" valign="top">IAUX_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a491343606a7926c828be9f2e58a8e213">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, iResourceManagerLoadMode mode)</td></tr>
 <tr class="separator:a491343606a7926c828be9f2e58a8e213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc5723519c4d06858e20f122458ee4d5"><td class="memItemLeft" align="right" valign="top">IGOR_API std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#abc5723519c4d06858e20f122458ee4d5">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, iResourceCacheMode cacheMode)</td></tr>
 <tr class="separator:abc5723519c4d06858e20f122458ee4d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae1d086fd6e7b7ad1f3a5b897d3472ee2"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae1d086fd6e7b7ad1f3a5b897d3472ee2">igor::s_igorResourceDictionaryPath</a> = &quot;igor/igor_resource_dictionary.xml&quot;</td></tr>
+<tr class="separator:ae1d086fd6e7b7ad1f3a5b897d3472ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

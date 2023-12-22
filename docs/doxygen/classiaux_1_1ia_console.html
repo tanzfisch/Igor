@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -108,8 +108,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a762b7e64215d9415ec9d0e3302424853"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad25b84bea579d56683c1616242b5f8e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_console.html#ad25b84bea579d56683c1616242b5f8e7">printCallStack</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> maxDepth=1000)</td></tr>
 <tr class="separator:ad25b84bea579d56683c1616242b5f8e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9599937d30751e76da316787dede49c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_console.html#a9599937d30751e76da316787dede49c4">printHead</a> (<a class="el" href="namespaceiaux.html#afd3b2f5259d1874dee17bd422cea56fc">iaLogLevel</a> logLevel)</td></tr>
-<tr class="separator:a9599937d30751e76da316787dede49c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32e95a8e3ac354a4f5089fb49aea2b7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a> (<a class="el" href="namespaceiaux.html#afd3b2f5259d1874dee17bd422cea56fc">iaLogLevel</a> logLevel)</td></tr>
+<tr class="separator:a32e95a8e3ac354a4f5089fb49aea2b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89117fafa072554a601b231e862ff011"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_console.html#a89117fafa072554a601b231e862ff011">activateLogfile</a> (bool activate)</td></tr>
 <tr class="separator:a89117fafa072554a601b231e862ff011"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00733a2ffd8bd614ec412aa95f27a122"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_console.html#a00733a2ffd8bd614ec412aa95f27a122">printStats</a> ()</td></tr>
@@ -365,7 +365,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >manually initializing the log file</p>
-<p >Note: can't use classes <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> or <a class="el" href="classiaux_1_1ia_file.html">iaFile</a> here because of possible deadlock in logging</p>
+<p >Note: can't use classes <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> or <a class="el" href="classiaux_1_1ia_file.html" title="File handle.">iaFile</a> here because of possible deadlock in logging </p>
 
 </div>
 </div>
@@ -500,14 +500,14 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a9599937d30751e76da316787dede49c4" name="a9599937d30751e76da316787dede49c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9599937d30751e76da316787dede49c4">&#9670;&nbsp;</a></span>printHead()</h2>
+<a id="a32e95a8e3ac354a4f5089fb49aea2b7b" name="a32e95a8e3ac354a4f5089fb49aea2b7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32e95a8e3ac354a4f5089fb49aea2b7b">&#9670;&nbsp;</a></span>printHeader()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void iaux::iaConsole::printHead </td>
+          <td class="memname">void iaux::iaConsole::printHeader </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceiaux.html#afd3b2f5259d1874dee17bd422cea56fc">iaLogLevel</a>&#160;</td>
           <td class="paramname"><em>logLevel</em></td><td>)</td>

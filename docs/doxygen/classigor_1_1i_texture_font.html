@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -112,8 +112,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a429f07b4abccd2bcf983095bc53a1dd9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceigor.html#aff74a717a3eb672b035bad5216c49e13">iTextureFontPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture_font.html#a429f07b4abccd2bcf983095bc53a1dd9">create</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename, <a class="el" href="namespaceigor.html#ac450821c5132fd6e9fbfc1b140f17c38">iFontType</a> type=<a class="el" href="namespaceigor.html#ac450821c5132fd6e9fbfc1b140f17c38a92886d9bd6da89da0f7488b9458bba5a">iFontType::FixedDigitWidth</a>, <a class="el" href="namespaceigor.html#ae0f348eb7fe6d7d0cfe54e5646709afd">iColorMask</a> colorMask=<a class="el" href="namespaceigor.html#ae0f348eb7fe6d7d0cfe54e5646709afda6132295fcf5570fb8b0a944ef322a598">iColorMask::Alpha</a>, <a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> colorMaskThreshold=0.5f)</td></tr>
-<tr class="separator:a429f07b4abccd2bcf983095bc53a1dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae76ec851efab50713352ba6cbaf8b583"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceigor.html#aff74a717a3eb672b035bad5216c49e13">iTextureFontPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_texture_font.html#ae76ec851efab50713352ba6cbaf8b583">create</a> (<a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> texture, <a class="el" href="namespaceigor.html#ac450821c5132fd6e9fbfc1b140f17c38">iFontType</a> type=<a class="el" href="namespaceigor.html#ac450821c5132fd6e9fbfc1b140f17c38a92886d9bd6da89da0f7488b9458bba5a">iFontType::FixedDigitWidth</a>, <a class="el" href="namespaceigor.html#ae0f348eb7fe6d7d0cfe54e5646709afd">iColorMask</a> colorMask=<a class="el" href="namespaceigor.html#ae0f348eb7fe6d7d0cfe54e5646709afda6132295fcf5570fb8b0a944ef322a598">iColorMask::Alpha</a>, <a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> colorMaskThreshold=0.5f)</td></tr>
+<tr class="separator:ae76ec851efab50713352ba6cbaf8b583"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >texture font </p>
@@ -137,8 +137,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a429f07b4abccd2bcf983095bc53a1dd9" name="a429f07b4abccd2bcf983095bc53a1dd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a429f07b4abccd2bcf983095bc53a1dd9">&#9670;&nbsp;</a></span>create()</h2>
+<a id="ae76ec851efab50713352ba6cbaf8b583" name="ae76ec851efab50713352ba6cbaf8b583"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae76ec851efab50713352ba6cbaf8b583">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,8 +149,8 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#aff74a717a3eb672b035bad5216c49e13">iTextureFontPtr</a> igor::iTextureFont::create </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -185,7 +185,7 @@ Static Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>a newly created font</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filename</td><td>filename of font texture </td></tr>
+    <tr><td class="paramname">texture</td><td>the texture to use (needs to be loaded already) </td></tr>
     <tr><td class="paramname">type</td><td>font type </td></tr>
     <tr><td class="paramname">colorMask</td><td>use this color channel to detect the size of characters </td></tr>
     <tr><td class="paramname">colorMaskThreshold</td><td>this threshold determines what texel belongs to the character and wich not </td></tr>
