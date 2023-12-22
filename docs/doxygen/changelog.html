@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -90,6 +90,38 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <div class="contents">
 <div class="textblock"><p ><a class="anchor" id="md_changelog"></a></p>
 <h1><a class="anchor" id="autotoc_md0"></a>
+0.43.0</h1>
+<p >!!! MSVC build fails. no time to fix !!!</p>
+<ul>
+<li>reimplemented iMaterial and make it a iResource</li>
+<li>replaced iMaterialResourceFactory with iMaterialFactory which is now integrated in the iResourceManager</li>
+<li>some spring cleaning around plenty of TODOs</li>
+<li>improved random number generator using STL</li>
+<li>introducing resource dictionaries and using 64bit ids to primarily identify resources (resource ids are not generated from the resource name or filename anymore)s</li>
+<li>introducing projects</li>
+<li>added interface to create empty/default resources (depends on what the factories do with it)</li>
+<li>added iWidgetBoxLayout</li>
+<li>renamed iWidgetGrid to iWidgetGridLayout</li>
+<li>replaced iUserControlAction with iWidgetButton</li>
+<li>dialogs can now be moved, resized and docked</li>
+<li>added interface to change mouse cursor see iMouseCursorType for supported types</li>
+<li>added iWidgetSplitter, iMimeData</li>
+<li>added drag&amp;drop</li>
+<li>added iWidgetViewport</li>
+<li>widget event handling now uses iEvent</li>
+<li>added iUserControlTreeView and iUserControlGridView and iItem for generic data</li>
+<li>added AssetBrowser to Mica</li>
+<li>fixed texture font vertical alignment</li>
+<li>added new widget selection interfaces</li>
+<li>Mica drag drop assets in viewport (models and textures on models)</li>
+<li>added iUserControlTextureChooser</li>
+<li>added background color and background checkerboard option to iWidgetPicture</li>
+</ul>
+<p >Known issues:</p>
+<ul>
+<li>data not updated -&gt; missing textures, invisible models -&gt; need to do some work on ompf to get this all working again</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1"></a>
 0.42.0</h1>
 <ul>
 <li>fixed threading sync in iResourceManager preventing resource being loaded multiple times</li>
@@ -99,13 +131,13 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>auto start iTaskFlushResources after window is opened so the application does not need to do it anymore</li>
 <li>added quiet flag to resources</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 0.41.1</h1>
 <ul>
 <li>added missing vsync control (Windows)</li>
 <li>fixed MSVC template specialization build issues</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 0.41.0</h1>
 <ul>
 <li>improved iNodeTransform info string</li>
@@ -122,7 +154,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>fixed physics integration</li>
 <li>added missing vsync control (Linux)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 0.40.0</h1>
 <ul>
 <li>improved renderer interface and fleshed out the docs</li>
@@ -136,7 +168,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>added new animation system running on top of the entity system</li>
 <li>replaced iAtlas with iSprite</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 0.39.0</h1>
 <p >!This release does not build with MSVC!</p>
 <ul>
@@ -155,7 +187,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>changed profiler sections</li>
 <li>improved profiler visualization</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 0.38.0</h1>
 <ul>
 <li>sorting files and directories alphabetically</li>
@@ -170,7 +202,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>improved profiler visualizer</li>
 <li>fixed selection sync issue in Mica</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 0.37.0</h1>
 <ul>
 <li>allowing custom config file names</li>
@@ -181,14 +213,14 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>added addPlane to iMeshBuilderUtils</li>
 <li>brought emitter node overlay back in mica</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 0.36.0</h1>
 <ul>
 <li>minor improvements to entt wrapper interfaces</li>
 <li>cleaned up logging verbose modes</li>
 <li>removed console tests10</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 0.35.0</h1>
 <ul>
 <li>worked on supremacy demo</li>
@@ -204,7 +236,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>added non linear random numbers</li>
 <li>added triggerNow to iTimerHandle to allow to run a timed handle outside of the configured interval</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 0.34.6</h1>
 <ul>
 <li>added missing texture tiling for particles</li>
@@ -212,39 +244,39 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>added missing multi texture support for particles</li>
 <li>fixed change of particle size over time</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 0.34.5</h1>
 <ul>
 <li>introduced a particle system wrapper for easy use of 2D particle systems</li>
 <li>fixed iMaterialIO relative path to shader</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 0.34.4</h1>
 <ul>
 <li>fixed text line edit clamping</li>
 <li>made iRenderer::flush public so we can force draw calls when needed for stencil testing</li>
 <li>activated 8bit stencil buffer for linux implementation</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 0.34.3</h1>
 <ul>
 <li>Mica now can load and safe .mat files (material files)</li>
 <li>Mica is only displaying materials with public visibility</li>
 <li>ompf has a new chunk type which stores a reference to a material file</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 0.34.2</h1>
 <ul>
 <li>Mica generally works again. But there is still a lot to do around materials ompf and mica</li>
 <li>fixed color id</li>
 <li>fixed selection highlighting</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 0.34.1</h1>
 <ul>
 <li>fixed instancing</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 0.34.0 (unstable/incomplete)</h1>
 <p >!This version is incomplete. See below!</p>
 <ul>
@@ -269,7 +301,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>missing world grid resolution feature</li>
 <li>missing color ID render mode feature used to select objects in the scene by Mica</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 0.33.0</h1>
 <ul>
 <li>brushed up examples base</li>
@@ -277,7 +309,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>using EnTT for the entity component system</li>
 <li>improved profiler interfaces</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 0.32.0</h1>
 <p >!Decided to drop MSVC support until I feel like it again!</p>
 <ul>
@@ -288,7 +320,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>textures are loaded cached by default now and do not get release immediately after nothing is referencing them anymore</li>
 <li>improved some debug output</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 0.31.0</h1>
 <p >!This release does not build with MSVC!</p>
 <ul>
@@ -296,14 +328,14 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>replaced gtest with igorTest including writing more unit tests</li>
 <li>fixed material initialization problem in Ascent</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md20"></a>
 0.30.0</h1>
 <p >!This release does not build with MSVC!</p>
 <ul>
 <li>introduced iModule and switched most singletons to modules</li>
 <li>removed iaSingleton class</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md21"></a>
 0.29.0</h1>
 <ul>
 <li>removed most of old event handling</li>
@@ -324,7 +356,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>fixed problem with showing zero instances</li>
 <li>added vsync control on linux side</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md21"></a>
+<h1><a class="anchor" id="autotoc_md22"></a>
 0.28.0 (unstable)</h1>
 <p >This is probably less stable than previous versions but I really needed to get this out before it get's even bigger.</p>
 <ul>
@@ -344,25 +376,25 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>killed the state machine example</li>
 <li>some improvements around mouse handling in widgets</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 0.27.0</h1>
 <ul>
 <li>sound support using OpenAL Soft (www.openal-soft.org/) including audio listener and audio source nodes (see usage in sound example)</li>
 <li>introduced ExampleBase class for prototyping</li>
 <li>changed namespaces from Igor and IgorAux to igor and iaux</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 0.26.0</h1>
 <ul>
 <li>Linux and Windows support using cmake</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 0.25.0</h1>
 <ul>
 <li>added basic evaluation functionality to control animations on transform nodes</li>
 <li>added iaFile::getStem</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 0.24.1</h1>
 <ul>
 <li>fixed iDialogColorGradient</li>
@@ -370,7 +402,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>fixed exception in Mica related to wrong type cast of std::any</li>
 <li>did some maintenance</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 0.24.0</h1>
 <ul>
 <li>Basic iWidgetMenuBar and iWidgetMenu implementation</li>
@@ -383,7 +415,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>Exposed iRenderStateSet interface in iMaterial to reduce writing effort when using it</li>
 <li>Renamed ModelViewer in to Mica</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 0.23.0</h1>
 <ul>
 <li>Scroll bars are now fully functional</li>
@@ -392,7 +424,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>Made iaMatrix2D more useful</li>
 <li>Made SpriteAnimation example more pretty (thank you opengameart.org)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 0.22.0</h1>
 <ul>
 <li>iSprite is now iAtlas and can read frames from file</li>
@@ -414,7 +446,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>Improved getInfo implementation and pretty print node tree</li>
 <li>Renamed iStatistic* to iProfiler*</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 0.21.0</h1>
 <ul>
 <li>Increased unit testing efforts</li>
@@ -427,18 +459,18 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>Added vsync setting on window</li>
 <li>Fixed another bug regarding texture units in ompf</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 0.20.0</h1>
 <ul>
 <li>Replaced vector and matrix conversions in iaConvert with conversion methods directly on the classes.</li>
 <li>Added log level to console. Controllable by config file and during runtime.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md32"></a>
 0.19.1</h1>
 <ul>
 <li>Fixed cursor position in text edit field when text was not aligned left</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 0.19.0</h1>
 <ul>
 <li>ModelViewer: UserControlTransform now handles components instead of a matrix and improved Manipulator</li>
@@ -447,7 +479,7 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>Added some google tests for matrix functions</li>
 <li>Introduced iaTransform that potentially will replace matrixes in scene graph</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md33"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
 0.18.0</h1>
 <ul>
 <li>Improved OBJ loader. Now meshs get generated based on combinations of groups/objects and materials.</li>
@@ -457,25 +489,25 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 <li>When loading models not to join vertices is now the default behavior</li>
 <li>Material "IgorTexture" always available. Same as "IgorDefault" just for textured materials.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md34"></a>
+<h1><a class="anchor" id="autotoc_md35"></a>
 0.17.0</h1>
 <ul>
 <li>Introduced tooltips to widgets</li>
 <li>Used tooltips in ModelViewer</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md35"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 0.16.1</h1>
 <ul>
 <li>Fixed problem with loading files over existing scene in ModelViewer</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md37"></a>
 0.16.0</h1>
 <ul>
 <li>Adding tutorials to doxygen documentation</li>
 <li>Changing doxygen style</li>
 <li>Generall update of docs</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<h1><a class="anchor" id="autotoc_md38"></a>
 0.15.0</h1>
 <ul>
 <li>Visualizing emitters in ModelViewer when selected</li>

@@ -1,6 +1,6 @@
 var classigor_1_1i_node_model =
 [
-    [ "getInfo", "classigor_1_1i_node_model.html#aa298f9710a57ee39e6937066cfed22b1", null ],
+    [ "getInfo", "classigor_1_1i_node_model.html#a60ef0027e2520349fcd521eb6f1e756a", null ],
     [ "getModel", "classigor_1_1i_node_model.html#ab511fa8ba1e4ae2dae7832db2985144d", null ],
     [ "getModelName", "classigor_1_1i_node_model.html#a811c2befa90aec3ed0d8be9338107a51", null ],
     [ "isLoaded", "classigor_1_1i_node_model.html#a79994865773b0fbfcf3689c86639841d", null ],

@@ -15,7 +15,7 @@ var classiaux_1_1ia_console =
     [ "operator<<", "classiaux_1_1ia_console.html#a6ab3b5081b32688f103975a633e3d305", null ],
     [ "printCake", "classiaux_1_1ia_console.html#a2b0af11d7ba889a0012339368153288d", null ],
     [ "printCallStack", "classiaux_1_1ia_console.html#ad25b84bea579d56683c1616242b5f8e7", null ],
-    [ "printHead", "classiaux_1_1ia_console.html#a9599937d30751e76da316787dede49c4", null ],
+    [ "printHeader", "classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b", null ],
     [ "printStats", "classiaux_1_1ia_console.html#a00733a2ffd8bd614ec412aa95f27a122", null ],
     [ "printTombstone", "classiaux_1_1ia_console.html#a36f8ccb5ee02413730219af6317b0981", null ],
     [ "resetStats", "classiaux_1_1ia_console.html#a541a1a226e5c35dcbefadb29116e922b", null ],

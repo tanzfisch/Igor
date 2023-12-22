@@ -10,7 +10,7 @@ var classigor_1_1i_node =
     [ "getChildren", "classigor_1_1i_node.html#a4229fe1989dd1dbbf0bad51f5ba165e0", null ],
     [ "getID", "classigor_1_1i_node.html#a1d1f849e7dc18747b68523d832385093", null ],
     [ "getInactiveChildren", "classigor_1_1i_node.html#a93fde4ec710166945311a0daaebc1e58", null ],
-    [ "getInfo", "classigor_1_1i_node.html#aef879d07582a5eb42d15805099857674", null ],
+    [ "getInfo", "classigor_1_1i_node.html#abbc54b4b7631ab3d0cacdf8e1e2706e6", null ],
     [ "getKind", "classigor_1_1i_node.html#a9b1ac02b0419f7c743b5fea03f427b95", null ],
     [ "getKindName", "classigor_1_1i_node.html#adbf8ba935b12322318b3aa6577aed700", null ],
     [ "getName", "classigor_1_1i_node.html#ae7f463bf884c423353a82c7ca34c9899", null ],

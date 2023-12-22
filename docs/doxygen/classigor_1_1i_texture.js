@@ -7,7 +7,6 @@ var classigor_1_1i_texture =
     [ "getColorFormat", "classigor_1_1i_texture.html#a1d68f82960a5836f23b6a5f7d5def7d7", null ],
     [ "getHeight", "classigor_1_1i_texture.html#a195042c0f8ff22dbb16dd9c5bd4a36e5", null ],
     [ "getMipMapLevels", "classigor_1_1i_texture.html#a79f8c17863fd6abcc5f7dff3280f903f", null ],
-    [ "getTextureID", "classigor_1_1i_texture.html#a0c5c0c93bf79b698368759baacb092b5", null ],
     [ "getWidth", "classigor_1_1i_texture.html#ae05bb8cbdf695c0f8fdfdb27241ac177", null ],
     [ "getWrapMode", "classigor_1_1i_texture.html#a5ae909303bbb7b184ddd69d427fe5ca5", null ],
     [ "hasTransparency", "classigor_1_1i_texture.html#aada24ae2facd44dfbd5dc11716eb6344", null ],

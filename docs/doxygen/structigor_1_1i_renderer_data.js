@@ -1,8 +1,10 @@
 var structigor_1_1i_renderer_data =
 [
     [ "_camMatrix", "structigor_1_1i_renderer_data.html#a4768ec972f0d637abddade2a3a9920f6", null ],
+    [ "_colorIDMaterial", "structigor_1_1i_renderer_data.html#a02a3a31d4cf90cdaabcf09b71d5fe47b", null ],
     [ "_currentMaterial", "structigor_1_1i_renderer_data.html#a678253e53351a4f9a64ad4f3967ad5fb", null ],
     [ "_currentRenderTarget", "structigor_1_1i_renderer_data.html#afbc1581b3de15e3e8b2358d854e7fe52", null ],
+    [ "_defaultMaterial", "structigor_1_1i_renderer_data.html#aff17e1054f4b8af4d684b418ba9235bb", null ],
     [ "_extensions", "structigor_1_1i_renderer_data.html#a0a93774310c795466b2bfc6d5acac84b", null ],
     [ "_fallbackTexture", "structigor_1_1i_renderer_data.html#aadfbd0954a2dc619e14c05fb4ef247e6", null ],
     [ "_flatShader", "structigor_1_1i_renderer_data.html#a7a0cd702c2ea85cc642a80aff3442468", null ],

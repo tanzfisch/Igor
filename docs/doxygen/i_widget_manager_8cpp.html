@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -91,41 +91,15 @@ $(document).ready(function(){initNavTree('i_widget_manager_8cpp.html',''); initR
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_widget_manager_8h.html">igor/ui/iWidgetManager.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_dialog_8h.html">igor/ui/dialogs/iDialog.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_label_8h.html">igor/ui/widgets/iWidgetLabel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_button_8h.html">igor/ui/widgets/iWidgetButton.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_group_box_8h.html">igor/ui/widgets/iWidgetGroupBox.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_grid_8h.html">igor/ui/widgets/iWidgetGrid.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_check_box_8h.html">igor/ui/widgets/iWidgetCheckBox.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_number_chooser_8h.html">igor/ui/widgets/iWidgetNumberChooser.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_line_text_edit_8h.html">igor/ui/widgets/iWidgetLineTextEdit.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_picture_8h.html">igor/ui/widgets/iWidgetPicture.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_scroll_8h.html">igor/ui/widgets/iWidgetScroll.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_spacer_8h.html">igor/ui/widgets/iWidgetSpacer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_color_8h.html">igor/ui/widgets/iWidgetColor.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_color_gradient_8h.html">igor/ui/widgets/iWidgetColorGradient.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_slider_8h.html">igor/ui/widgets/iWidgetSlider.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_select_box_8h.html">igor/ui/widgets/iWidgetSelectBox.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_graph_8h.html">igor/ui/widgets/iWidgetGraph.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_dialog_color_chooser_8h.html">igor/ui/dialogs/iDialogColorChooser.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_dialog_decision_box_8h.html">igor/ui/dialogs/iDialogDecisionBox.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_dialog_index_menu_8h.html">igor/ui/dialogs/iDialogIndexMenu.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_dialog_message_box_8h.html">igor/ui/dialogs/iDialogMessageBox.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_dialog_color_gradient_8h.html">igor/ui/dialogs/iDialogColorGradient.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_dialog_graph_8h.html">igor/ui/dialogs/iDialogGraph.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_user_control_color_chooser_8h.html">igor/ui/user_controls/iUserControlColorChooser.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_user_control_file_chooser_8h.html">igor/ui/user_controls/iUserControlFileChooser.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_keyboard_8h.html">igor/system/iKeyboard.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_application_8h.html">igor/system/iApplication.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_texture_font_8h.html">igor/resources/texture/iTextureFont.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/renderer/iRenderer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_dialog_8h.html">igor/ui/dialogs/iDialog.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_widget_docking_layout_8h.html">igor/ui/layouts/iWidgetDockingLayout.h</a>&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
+<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameters texture <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

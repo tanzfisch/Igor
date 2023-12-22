@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -107,8 +107,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0150271012bd6ca31085f9148d2071d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c0d7904006c040c220e7a4a899efb39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a4c0d7904006c040c220e7a4a899efb39">clearSearchPaths</a> ()</td></tr>
 <tr class="separator:a4c0d7904006c040c220e7a4a899efb39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71c13e545f53c395866b8c7cc1261b59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a71c13e545f53c395866b8c7cc1261b59">getPath</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
-<tr class="separator:a71c13e545f53c395866b8c7cc1261b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f6035d499f8e73e3f0fb0a7751c3484"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a9f6035d499f8e73e3f0fb0a7751c3484">resolvePath</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filepath)</td></tr>
+<tr class="separator:a9f6035d499f8e73e3f0fb0a7751c3484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b5493689ebd270d50346ecb5a7230c8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a3b5493689ebd270d50346ecb5a7230c8">getFilename</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:a3b5493689ebd270d50346ecb5a7230c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac97f55ba4a370657cc039e9b970bdb2a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ac97f55ba4a370657cc039e9b970bdb2a">getAlias</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:ac97f55ba4a370657cc039e9b970bdb2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eb1e8795aa9d61a61bec38b6b380b63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a8eb1e8795aa9d61a61bec38b6b380b63">setAlias</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;alias)</td></tr>
+<tr class="separator:a8eb1e8795aa9d61a61bec38b6b380b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e3271693953e0189bcda5b8cb8cf91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ae5e3271693953e0189bcda5b8cb8cf91">getRelativePath</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
 <tr class="separator:ae5e3271693953e0189bcda5b8cb8cf91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1edfa79ca3a67dd0bfd243dcad30ee5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ae1edfa79ca3a67dd0bfd243dcad30ee5">fileExists</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
@@ -117,18 +123,39 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abc8afa4a2b21c4564704776a3ff95834"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adac7b9bc0fb1cdcb187b4beb7b4e908f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#adac7b9bc0fb1cdcb187b4beb7b4e908f">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
 <tr class="separator:adac7b9bc0fb1cdcb187b4beb7b4e908f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2">createResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
+<tr class="separator:a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1abb2b2b5e2778b4ce6b50f50ae0eaeb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a1abb2b2b5e2778b4ce6b50f50ae0eaeb"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a1abb2b2b5e2778b4ce6b50f50ae0eaeb">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
 <tr class="separator:a1abb2b2b5e2778b4ce6b50f50ae0eaeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4d98e9603a46834b2894886ce2a1e43"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ac4d98e9603a46834b2894886ce2a1e43"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ac4d98e9603a46834b2894886ce2a1e43">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
 <tr class="separator:ac4d98e9603a46834b2894886ce2a1e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a05a3bb1c32d174fac107f3842d584e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a6a05a3bb1c32d174fac107f3842d584e"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a6a05a3bb1c32d174fac107f3842d584e">requestResource</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode=<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">iResourceCacheMode::Cache</a>)</td></tr>
-<tr class="separator:a6a05a3bb1c32d174fac107f3842d584e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab61c2a9017c105d8c7623680eb185226"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ab61c2a9017c105d8c7623680eb185226"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ab61c2a9017c105d8c7623680eb185226">loadResource</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode=<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">iResourceCacheMode::Cache</a>)</td></tr>
-<tr class="separator:ab61c2a9017c105d8c7623680eb185226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94b6409c2ab519b51dec37d09d0bd47e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a94b6409c2ab519b51dec37d09d0bd47e"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a94b6409c2ab519b51dec37d09d0bd47e">createResource</a> ()</td></tr>
+<tr class="separator:a94b6409c2ab519b51dec37d09d0bd47e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc2274ad1f08932325109d2d9dd097ec"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:afc2274ad1f08932325109d2d9dd097ec"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#afc2274ad1f08932325109d2d9dd097ec">requestResource</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode=<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">iResourceCacheMode::Cache</a>)</td></tr>
+<tr class="separator:afc2274ad1f08932325109d2d9dd097ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15bdff43f1fbc76ee1cb94e4d1ca2906"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a15bdff43f1fbc76ee1cb94e4d1ca2906"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a15bdff43f1fbc76ee1cb94e4d1ca2906">loadResource</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode=<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">iResourceCacheMode::Cache</a>)</td></tr>
+<tr class="separator:a15bdff43f1fbc76ee1cb94e4d1ca2906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ab8dabc7eadbfd9d2b9cbdf05002a80"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6ab8dabc7eadbfd9d2b9cbdf05002a80"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a6ab8dabc7eadbfd9d2b9cbdf05002a80">requestResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode=<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">iResourceCacheMode::Cache</a>)</td></tr>
+<tr class="separator:a6ab8dabc7eadbfd9d2b9cbdf05002a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54f0ce18398703a5f8ff25d00d8a7ca0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a54f0ce18398703a5f8ff25d00d8a7ca0"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a54f0ce18398703a5f8ff25d00d8a7ca0">loadResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode=<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">iResourceCacheMode::Cache</a>)</td></tr>
+<tr class="separator:a54f0ce18398703a5f8ff25d00d8a7ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0de6e32d5e3eedf0cacec9f2ea5dc3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#aa0de6e32d5e3eedf0cacec9f2ea5dc3d">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:aa0de6e32d5e3eedf0cacec9f2ea5dc3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661e6f5c84071bd81bde9d04e5d374b5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a661e6f5c84071bd81bde9d04e5d374b5"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a661e6f5c84071bd81bde9d04e5d374b5">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:a661e6f5c84071bd81bde9d04e5d374b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae61b5be6af472841bba1a0e3dcdaa9b7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae61b5be6af472841bba1a0e3dcdaa9b7"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ae61b5be6af472841bba1a0e3dcdaa9b7">getResource</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;alias)</td></tr>
+<tr class="separator:ae61b5be6af472841bba1a0e3dcdaa9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93c290f25ed7356156ea4255c1d96f92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a93c290f25ed7356156ea4255c1d96f92">getMaterials</a> (std::vector&lt; <a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> &gt; &amp;materials)</td></tr>
+<tr class="separator:a93c290f25ed7356156ea4255c1d96f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80c36ff9b17f621d4c62198aca0e4f52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a80c36ff9b17f621d4c62198aca0e4f52">flush</a> (<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheModeLevel=<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743ab24ce0cd392a5b0b8dedc66c25213594">iResourceCacheMode::Free</a>)</td></tr>
 <tr class="separator:a80c36ff9b17f621d4c62198aca0e4f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a426084d326277774eff2d43449bc898c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a426084d326277774eff2d43449bc898c">interruptFlush</a> ()</td></tr>
@@ -141,66 +168,184 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afb31b72eb9a09cd1f80a1c1ae11f1dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32d03401bb1446dbf5800f8bcce971f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a40695af62201c48096a15d36a6b40a06">iResourceManagerLoadMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a32d03401bb1446dbf5800f8bcce971f0">getLoadMode</a> () const</td></tr>
 <tr class="separator:a32d03401bb1446dbf5800f8bcce971f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72819b7c80dde82d83e29da0bcc6acb0"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a72819b7c80dde82d83e29da0bcc6acb0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a72819b7c80dde82d83e29da0bcc6acb0">requestResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a72819b7c80dde82d83e29da0bcc6acb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1734904c353e7f1872f72cfa868b9d62"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a1734904c353e7f1872f72cfa868b9d62"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a1734904c353e7f1872f72cfa868b9d62">loadResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a1734904c353e7f1872f72cfa868b9d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bf985a1dfc0ab34365753b35e19fb5d"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a8bf985a1dfc0ab34365753b35e19fb5d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a8bf985a1dfc0ab34365753b35e19fb5d">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:a8bf985a1dfc0ab34365753b35e19fb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a83534a1d1f6cfdb3b4ef97dcb31028"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a3a83534a1d1f6cfdb3b4ef97dcb31028"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a3a83534a1d1f6cfdb3b4ef97dcb31028">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:a3a83534a1d1f6cfdb3b4ef97dcb31028"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86e6f7b51bd74e6b6b5f5f84603506ba"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a86e6f7b51bd74e6b6b5f5f84603506ba"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a86e6f7b51bd74e6b6b5f5f84603506ba">requestResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a86e6f7b51bd74e6b6b5f5f84603506ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05d151367e1271121a59b275d3ddc15b"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a05d151367e1271121a59b275d3ddc15b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a05d151367e1271121a59b275d3ddc15b">loadResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a05d151367e1271121a59b275d3ddc15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1b705090a55572d8271418a279662f9"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:ac1b705090a55572d8271418a279662f9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ac1b705090a55572d8271418a279662f9">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:ac1b705090a55572d8271418a279662f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3fdd6f07ba7c0b50444ddb51c69b1f5"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:ad3fdd6f07ba7c0b50444ddb51c69b1f5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ad3fdd6f07ba7c0b50444ddb51c69b1f5">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:ad3fdd6f07ba7c0b50444ddb51c69b1f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a645194620ead4c9356e59bdec1306a32"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a645194620ead4c9356e59bdec1306a32"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a645194620ead4c9356e59bdec1306a32">requestResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a645194620ead4c9356e59bdec1306a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc296fb0ffd73c0bde445c3770000d4e"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:adc296fb0ffd73c0bde445c3770000d4e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#adc296fb0ffd73c0bde445c3770000d4e">loadResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:adc296fb0ffd73c0bde445c3770000d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab23c325c9f0d070700cba2b43e912609"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:ab23c325c9f0d070700cba2b43e912609"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ab23c325c9f0d070700cba2b43e912609">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:ab23c325c9f0d070700cba2b43e912609"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a250ec3fb9b641a20baac98b3918489ea"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a250ec3fb9b641a20baac98b3918489ea"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a250ec3fb9b641a20baac98b3918489ea">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:a250ec3fb9b641a20baac98b3918489ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2193a548292aa6b3b1f9105107df796d"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a2193a548292aa6b3b1f9105107df796d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a2193a548292aa6b3b1f9105107df796d">requestResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a2193a548292aa6b3b1f9105107df796d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2432b5be6f2d70795f54bd20226c36cd"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a2432b5be6f2d70795f54bd20226c36cd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a2432b5be6f2d70795f54bd20226c36cd">loadResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a2432b5be6f2d70795f54bd20226c36cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a880b52b7cca94afd7a13600ce617c848"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a880b52b7cca94afd7a13600ce617c848"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a880b52b7cca94afd7a13600ce617c848">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:a880b52b7cca94afd7a13600ce617c848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a798c002b2c218cf5a82ba38b2d773307"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a798c002b2c218cf5a82ba38b2d773307"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a798c002b2c218cf5a82ba38b2d773307">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:a798c002b2c218cf5a82ba38b2d773307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8efd12879a59fc88b981a5a9ab2a248e"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a8efd12879a59fc88b981a5a9ab2a248e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a8efd12879a59fc88b981a5a9ab2a248e">requestResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a8efd12879a59fc88b981a5a9ab2a248e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99b5ffd4ede18c0a38caee588a491f81"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a99b5ffd4ede18c0a38caee588a491f81"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a99b5ffd4ede18c0a38caee588a491f81">loadResource</a> (const iaString &amp;name, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a99b5ffd4ede18c0a38caee588a491f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab187a422d64a2fb80589670ce07d0e29"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:ab187a422d64a2fb80589670ce07d0e29"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ab187a422d64a2fb80589670ce07d0e29">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:ab187a422d64a2fb80589670ce07d0e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b2a6c7104c23f2db105f3c74b2adea3"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:a4b2a6c7104c23f2db105f3c74b2adea3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a4b2a6c7104c23f2db105f3c74b2adea3">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)</td></tr>
-<tr class="separator:a4b2a6c7104c23f2db105f3c74b2adea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26ffbf36e9aeccfa05b82e7d5e8f991a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a26ffbf36e9aeccfa05b82e7d5e8f991a">loadResourceDictionary</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
+<tr class="separator:a26ffbf36e9aeccfa05b82e7d5e8f991a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e5d0b6f670600448ad430827ff277bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a3e5d0b6f670600448ad430827ff277bf">saveResourceDictionary</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
+<tr class="separator:a3e5d0b6f670600448ad430827ff277bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fe7d647c2f715c7d6e750815478175f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a8fe7d647c2f715c7d6e750815478175f">clearResourceDictionary</a> ()</td></tr>
+<tr class="separator:a8fe7d647c2f715c7d6e750815478175f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a095b6b1e3b14692771d432e869d2b7a1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a095b6b1e3b14692771d432e869d2b7a1">getResourceID</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;aliasOrFilename) const</td></tr>
+<tr class="separator:a095b6b1e3b14692771d432e869d2b7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae17b32eb051b0ef34f69139a11098c66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ae17b32eb051b0ef34f69139a11098c66">addResource</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;alias=&quot;&quot;)</td></tr>
+<tr class="separator:ae17b32eb051b0ef34f69139a11098c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19cb908b00a53ff9bceeef6e7881769b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a19cb908b00a53ff9bceeef6e7881769b">removeResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID)</td></tr>
+<tr class="separator:a19cb908b00a53ff9bceeef6e7881769b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa79e2ec6cc87be524397f79f9aff25aa"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#aa79e2ec6cc87be524397f79f9aff25aa">getType</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename) const</td></tr>
+<tr class="separator:aa79e2ec6cc87be524397f79f9aff25aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15270c19df7c3193f7dea987af9ae2ab"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a15270c19df7c3193f7dea987af9ae2ab">getType</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID) const</td></tr>
+<tr class="separator:a15270c19df7c3193f7dea987af9ae2ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c814aa4309c9275e7f667b5f33dee2b"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a5c814aa4309c9275e7f667b5f33dee2b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a5c814aa4309c9275e7f667b5f33dee2b">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a5c814aa4309c9275e7f667b5f33dee2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4be3a7538cd479904528b06742cdf9a0"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a4be3a7538cd479904528b06742cdf9a0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a4be3a7538cd479904528b06742cdf9a0">loadResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a4be3a7538cd479904528b06742cdf9a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79125a83702c94caf1c06080824aad0e"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a79125a83702c94caf1c06080824aad0e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a79125a83702c94caf1c06080824aad0e">requestResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a79125a83702c94caf1c06080824aad0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f100ee91d79fbf96f160fb4910a2041"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a7f100ee91d79fbf96f160fb4910a2041"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a7f100ee91d79fbf96f160fb4910a2041">loadResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a7f100ee91d79fbf96f160fb4910a2041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd1513a452249102dabb86ed329825d6"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:afd1513a452249102dabb86ed329825d6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#afd1513a452249102dabb86ed329825d6">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:afd1513a452249102dabb86ed329825d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a65afe51745e75473c55b4904cfe237"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a4a65afe51745e75473c55b4904cfe237"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a4a65afe51745e75473c55b4904cfe237">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a4a65afe51745e75473c55b4904cfe237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab05d6e252f3d0c0b6496e7cebbd0564f"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ab05d6e252f3d0c0b6496e7cebbd0564f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ab05d6e252f3d0c0b6496e7cebbd0564f">createResource</a> ()</td></tr>
+<tr class="separator:ab05d6e252f3d0c0b6496e7cebbd0564f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cd8b6a86ddcedf54a7899cb4cf3645f"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a5cd8b6a86ddcedf54a7899cb4cf3645f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a5cd8b6a86ddcedf54a7899cb4cf3645f">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:a5cd8b6a86ddcedf54a7899cb4cf3645f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc40ee26802e793e53e5046579da3d13"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:adc40ee26802e793e53e5046579da3d13"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#adc40ee26802e793e53e5046579da3d13">getResource</a> (const iaString &amp;alias)</td></tr>
+<tr class="separator:adc40ee26802e793e53e5046579da3d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac37e26cbd4b5980501775ca3e4ff6380"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ac37e26cbd4b5980501775ca3e4ff6380"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ac37e26cbd4b5980501775ca3e4ff6380">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:ac37e26cbd4b5980501775ca3e4ff6380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2234c51469de1e6b5a9ba3d7d72c9edb"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a2234c51469de1e6b5a9ba3d7d72c9edb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a2234c51469de1e6b5a9ba3d7d72c9edb">loadResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a2234c51469de1e6b5a9ba3d7d72c9edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8111a1e0b0f795da8124d480c1c9b2bc"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a8111a1e0b0f795da8124d480c1c9b2bc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a8111a1e0b0f795da8124d480c1c9b2bc">requestResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a8111a1e0b0f795da8124d480c1c9b2bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86b873872c4bbeb69583234526409e36"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a86b873872c4bbeb69583234526409e36"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a86b873872c4bbeb69583234526409e36">loadResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a86b873872c4bbeb69583234526409e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48b4eacd691a07a67aac7d5a6874ef7b"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a48b4eacd691a07a67aac7d5a6874ef7b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a48b4eacd691a07a67aac7d5a6874ef7b">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a48b4eacd691a07a67aac7d5a6874ef7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a7761b643f965ff935589a6e4c2f86e"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a0a7761b643f965ff935589a6e4c2f86e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a0a7761b643f965ff935589a6e4c2f86e">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a0a7761b643f965ff935589a6e4c2f86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1250eb26144c11c4a6c984d4570b2d45"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a1250eb26144c11c4a6c984d4570b2d45"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a1250eb26144c11c4a6c984d4570b2d45">createResource</a> ()</td></tr>
+<tr class="separator:a1250eb26144c11c4a6c984d4570b2d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae16abb7f9145a5963b005dd0953fc818"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ae16abb7f9145a5963b005dd0953fc818"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ae16abb7f9145a5963b005dd0953fc818">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:ae16abb7f9145a5963b005dd0953fc818"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a507011904dc513e9971940f15ffe8a01"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a507011904dc513e9971940f15ffe8a01"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a507011904dc513e9971940f15ffe8a01">getResource</a> (const iaString &amp;alias)</td></tr>
+<tr class="separator:a507011904dc513e9971940f15ffe8a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a45909c470dae4fc7990e4b1e1aea7"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:aa4a45909c470dae4fc7990e4b1e1aea7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#aa4a45909c470dae4fc7990e4b1e1aea7">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:aa4a45909c470dae4fc7990e4b1e1aea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2d67e70ba71ce2dbbf1298e2bb47b12"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:af2d67e70ba71ce2dbbf1298e2bb47b12"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#af2d67e70ba71ce2dbbf1298e2bb47b12">loadResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:af2d67e70ba71ce2dbbf1298e2bb47b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a91b4c2a9365086a2b69fa31c30f4b5"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a2a91b4c2a9365086a2b69fa31c30f4b5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a2a91b4c2a9365086a2b69fa31c30f4b5">requestResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a2a91b4c2a9365086a2b69fa31c30f4b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a2cd178011c511e4dfd342ac06b1e0f"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a8a2cd178011c511e4dfd342ac06b1e0f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a8a2cd178011c511e4dfd342ac06b1e0f">loadResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a8a2cd178011c511e4dfd342ac06b1e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80837ff6a977a70d74ef771b21de074a"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a80837ff6a977a70d74ef771b21de074a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a80837ff6a977a70d74ef771b21de074a">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a80837ff6a977a70d74ef771b21de074a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a440f5eb94f7aaebfd8824dd3e041244b"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a440f5eb94f7aaebfd8824dd3e041244b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a440f5eb94f7aaebfd8824dd3e041244b">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a440f5eb94f7aaebfd8824dd3e041244b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cdf708e07a59863db46ae8cbdf17b77"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a9cdf708e07a59863db46ae8cbdf17b77"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a9cdf708e07a59863db46ae8cbdf17b77">createResource</a> ()</td></tr>
+<tr class="separator:a9cdf708e07a59863db46ae8cbdf17b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad01625e23308ffad18450a2b9b47f0e6"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ad01625e23308ffad18450a2b9b47f0e6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ad01625e23308ffad18450a2b9b47f0e6">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:ad01625e23308ffad18450a2b9b47f0e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a701fe6e3fe872ac268dae60cd797e7bc"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a701fe6e3fe872ac268dae60cd797e7bc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a701fe6e3fe872ac268dae60cd797e7bc">getResource</a> (const iaString &amp;alias)</td></tr>
+<tr class="separator:a701fe6e3fe872ac268dae60cd797e7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55edc813d61f28228c028740e8e647d"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ae55edc813d61f28228c028740e8e647d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ae55edc813d61f28228c028740e8e647d">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:ae55edc813d61f28228c028740e8e647d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfaa25bf1903288b8aef90a563aaacb3"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:acfaa25bf1903288b8aef90a563aaacb3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#acfaa25bf1903288b8aef90a563aaacb3">loadResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:acfaa25bf1903288b8aef90a563aaacb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83ef544c049b4d4570daff73b6e79dbc"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a83ef544c049b4d4570daff73b6e79dbc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a83ef544c049b4d4570daff73b6e79dbc">requestResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a83ef544c049b4d4570daff73b6e79dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf6127f1354039d0b99d96a649bf55d"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:abbf6127f1354039d0b99d96a649bf55d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#abbf6127f1354039d0b99d96a649bf55d">loadResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:abbf6127f1354039d0b99d96a649bf55d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad47761f14ae62b10635d3dbb25395505"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ad47761f14ae62b10635d3dbb25395505"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ad47761f14ae62b10635d3dbb25395505">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:ad47761f14ae62b10635d3dbb25395505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdefe37fab984778c0fb61dcfcb2cda8"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:acdefe37fab984778c0fb61dcfcb2cda8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#acdefe37fab984778c0fb61dcfcb2cda8">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:acdefe37fab984778c0fb61dcfcb2cda8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab14cab43a4c5909a164e3e0e9f861ec5"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ab14cab43a4c5909a164e3e0e9f861ec5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ab14cab43a4c5909a164e3e0e9f861ec5">createResource</a> ()</td></tr>
+<tr class="separator:ab14cab43a4c5909a164e3e0e9f861ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a46b652cd05e235e78a78a6f5fd380c"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a4a46b652cd05e235e78a78a6f5fd380c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a4a46b652cd05e235e78a78a6f5fd380c">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:a4a46b652cd05e235e78a78a6f5fd380c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c020f7a4ffc38be93da468fc8acde39"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a8c020f7a4ffc38be93da468fc8acde39"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a8c020f7a4ffc38be93da468fc8acde39">getResource</a> (const iaString &amp;alias)</td></tr>
+<tr class="separator:a8c020f7a4ffc38be93da468fc8acde39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa61a0f0e2675a46d9b52951b93162359"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:aa61a0f0e2675a46d9b52951b93162359"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#aa61a0f0e2675a46d9b52951b93162359">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:aa61a0f0e2675a46d9b52951b93162359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a604af4574a747ade1485b49c0d7feacc"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a604af4574a747ade1485b49c0d7feacc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a604af4574a747ade1485b49c0d7feacc">loadResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a604af4574a747ade1485b49c0d7feacc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3beb1ef4404eac2764c6f912514f581b"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a3beb1ef4404eac2764c6f912514f581b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a3beb1ef4404eac2764c6f912514f581b">requestResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a3beb1ef4404eac2764c6f912514f581b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a134595abefe48cb8cf2b01ea173b6bb4"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a134595abefe48cb8cf2b01ea173b6bb4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a134595abefe48cb8cf2b01ea173b6bb4">loadResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a134595abefe48cb8cf2b01ea173b6bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76bbcd8bac22b5480b672805b4d75bf6"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a76bbcd8bac22b5480b672805b4d75bf6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a76bbcd8bac22b5480b672805b4d75bf6">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a76bbcd8bac22b5480b672805b4d75bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae5c9364e6adff99dc318ca953819842"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:aae5c9364e6adff99dc318ca953819842"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#aae5c9364e6adff99dc318ca953819842">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:aae5c9364e6adff99dc318ca953819842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c1aa82978166cb1b0b225c191365efd"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a5c1aa82978166cb1b0b225c191365efd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a5c1aa82978166cb1b0b225c191365efd">createResource</a> ()</td></tr>
+<tr class="separator:a5c1aa82978166cb1b0b225c191365efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ba07d75db84181bea62d4f7a7e96679"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a7ba07d75db84181bea62d4f7a7e96679"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a7ba07d75db84181bea62d4f7a7e96679">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:a7ba07d75db84181bea62d4f7a7e96679"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24d22b125f7a0a3ab8fea129acff4ecc"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a24d22b125f7a0a3ab8fea129acff4ecc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a24d22b125f7a0a3ab8fea129acff4ecc">getResource</a> (const iaString &amp;alias)</td></tr>
+<tr class="separator:a24d22b125f7a0a3ab8fea129acff4ecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cc20caa9762466859d3db1ff62db3a3"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a3cc20caa9762466859d3db1ff62db3a3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a3cc20caa9762466859d3db1ff62db3a3">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a3cc20caa9762466859d3db1ff62db3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b167e8de8a2a0c9cfc74474f66a367"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ac7b167e8de8a2a0c9cfc74474f66a367"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ac7b167e8de8a2a0c9cfc74474f66a367">loadResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:ac7b167e8de8a2a0c9cfc74474f66a367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eed353afe8f8bef2b6fb98821ec822c"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a6eed353afe8f8bef2b6fb98821ec822c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a6eed353afe8f8bef2b6fb98821ec822c">requestResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a6eed353afe8f8bef2b6fb98821ec822c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa50e0f9a0cfa5bc19a8e44fef86c61d0"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:aa50e0f9a0cfa5bc19a8e44fef86c61d0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#aa50e0f9a0cfa5bc19a8e44fef86c61d0">loadResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:aa50e0f9a0cfa5bc19a8e44fef86c61d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d981255148b453056cde656f05086c0"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a7d981255148b453056cde656f05086c0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a7d981255148b453056cde656f05086c0">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a7d981255148b453056cde656f05086c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64077602700aab78687bf349b4d37291"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a64077602700aab78687bf349b4d37291"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a64077602700aab78687bf349b4d37291">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a64077602700aab78687bf349b4d37291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c6569e5b25b7f562966a129f016c8d"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a23c6569e5b25b7f562966a129f016c8d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a23c6569e5b25b7f562966a129f016c8d">createResource</a> ()</td></tr>
+<tr class="separator:a23c6569e5b25b7f562966a129f016c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42e750256277fde924c9d8792b32dc44"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a42e750256277fde924c9d8792b32dc44"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a42e750256277fde924c9d8792b32dc44">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:a42e750256277fde924c9d8792b32dc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac64000c4a7bdc941220633889372df17"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ac64000c4a7bdc941220633889372df17"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ac64000c4a7bdc941220633889372df17">getResource</a> (const iaString &amp;alias)</td></tr>
+<tr class="separator:ac64000c4a7bdc941220633889372df17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -210,10 +355,10 @@ Friends</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_methods_classigor_1_1i_module"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classigor_1_1i_module')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classigor_1_1i_module.html">igor::iModule&lt; iResourceManager &gt;</a></td></tr>
-<tr class="memitem:ae59e5e08632aa84e1ffb1d7fcb5d2974 inherit pub_static_methods_classigor_1_1i_module"><td class="memItemLeft" align="right" valign="top">static __IGOR_INLINE__ <a class="el" href="classigor_1_1i_resource_manager.html">iResourceManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#ae59e5e08632aa84e1ffb1d7fcb5d2974">getInstance</a> ()</td></tr>
-<tr class="separator:ae59e5e08632aa84e1ffb1d7fcb5d2974 inherit pub_static_methods_classigor_1_1i_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a982b761cbe8e92cc66c44ec2f5a6d092 inherit pub_static_methods_classigor_1_1i_module"><td class="memItemLeft" align="right" valign="top">static __IGOR_INLINE__ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a982b761cbe8e92cc66c44ec2f5a6d092">isInstantiated</a> ()</td></tr>
-<tr class="separator:a982b761cbe8e92cc66c44ec2f5a6d092 inherit pub_static_methods_classigor_1_1i_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae31ee943dee35af00b41bf8ef042f579 inherit pub_static_methods_classigor_1_1i_module"><td class="memItemLeft" align="right" valign="top">static IGOR_INLINE <a class="el" href="classigor_1_1i_resource_manager.html">iResourceManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#ae31ee943dee35af00b41bf8ef042f579">getInstance</a> ()</td></tr>
+<tr class="separator:ae31ee943dee35af00b41bf8ef042f579 inherit pub_static_methods_classigor_1_1i_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a859d4a0070384241b682e328f00d9b74 inherit pub_static_methods_classigor_1_1i_module"><td class="memItemLeft" align="right" valign="top">static IGOR_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a859d4a0070384241b682e328f00d9b74">isInstantiated</a> ()</td></tr>
+<tr class="separator:a859d4a0070384241b682e328f00d9b74 inherit pub_static_methods_classigor_1_1i_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b88b62396bea01d733bb955d460ce98 inherit pub_static_methods_classigor_1_1i_module"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a9b88b62396bea01d733bb955d460ce98">create</a> ()</td></tr>
 <tr class="separator:a9b88b62396bea01d733bb955d460ce98 inherit pub_static_methods_classigor_1_1i_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1cbc7cafc2b5c18ef4e05563eb4337d inherit pub_static_methods_classigor_1_1i_module"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#ab1cbc7cafc2b5c18ef4e05563eb4337d">destroy</a> ()</td></tr>
@@ -227,6 +372,42 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >manages resources and their factories </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae17b32eb051b0ef34f69139a11098c66" name="ae17b32eb051b0ef34f69139a11098c66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae17b32eb051b0ef34f69139a11098c66">&#9670;&nbsp;</a></span>addResource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iResourceManager::addResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>alias</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >adds new resource to dictionary</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>path to resource (must be relative to search paths) </td></tr>
+    <tr><td class="paramname">alias</td><td>optional alias </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="addbe8e6ac8befbbba020ce86f2268620" name="addbe8e6ac8befbbba020ce86f2268620"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#addbe8e6ac8befbbba020ce86f2268620">&#9670;&nbsp;</a></span>addSearchPath()</h2>
 
@@ -252,6 +433,25 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a8fe7d647c2f715c7d6e750815478175f" name="a8fe7d647c2f715c7d6e750815478175f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fe7d647c2f715c7d6e750815478175f">&#9670;&nbsp;</a></span>clearResourceDictionary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iResourceManager::clearResourceDictionary </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >clear resource dictionary</p>
+<p >(means it will only contain igor internal resources) </p>
+
+</div>
+</div>
 <a id="a4c0d7904006c040c220e7a4a899efb39" name="a4c0d7904006c040c220e7a4a899efb39"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4c0d7904006c040c220e7a4a899efb39">&#9670;&nbsp;</a></span>clearSearchPaths()</h2>
 
@@ -267,6 +467,216 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >clears search path list </p>
+
+</div>
+</div>
+<a id="a94b6409c2ab519b51dec37d09d0bd47e" name="a94b6409c2ab519b51dec37d09d0bd47e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94b6409c2ab519b51dec37d09d0bd47e">&#9670;&nbsp;</a></span>createResource() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; T &gt; igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >creates a new resource of given type</p>
+<p >template version for more convenience</p>
+<dl class="section return"><dt>Returns</dt><dd>shared pointer to resource </dd></dl>
+
+</div>
+</div>
+<a id="ab05d6e252f3d0c0b6496e7cebbd0564f" name="ab05d6e252f3d0c0b6496e7cebbd0564f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab05d6e252f3d0c0b6496e7cebbd0564f">&#9670;&nbsp;</a></span>createResource() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1250eb26144c11c4a6c984d4570b2d45" name="a1250eb26144c11c4a6c984d4570b2d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1250eb26144c11c4a6c984d4570b2d45">&#9670;&nbsp;</a></span>createResource() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9cdf708e07a59863db46ae8cbdf17b77" name="a9cdf708e07a59863db46ae8cbdf17b77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cdf708e07a59863db46ae8cbdf17b77">&#9670;&nbsp;</a></span>createResource() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab14cab43a4c5909a164e3e0e9f861ec5" name="ab14cab43a4c5909a164e3e0e9f861ec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab14cab43a4c5909a164e3e0e9f861ec5">&#9670;&nbsp;</a></span>createResource() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c1aa82978166cb1b0b225c191365efd" name="a5c1aa82978166cb1b0b225c191365efd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1aa82978166cb1b0b225c191365efd">&#9670;&nbsp;</a></span>createResource() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a23c6569e5b25b7f562966a129f016c8d" name="a23c6569e5b25b7f562966a129f016c8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c6569e5b25b7f562966a129f016c8d">&#9670;&nbsp;</a></span>createResource() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2" name="a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2">&#9670;&nbsp;</a></span>createResource() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >creates a new resource</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">param</td><td>parameters for loading resource </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>shared pointer to resource </dd></dl>
 
 </div>
 </div>
@@ -321,6 +731,56 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="ac97f55ba4a370657cc039e9b970bdb2a" name="ac97f55ba4a370657cc039e9b970bdb2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac97f55ba4a370657cc039e9b970bdb2a">&#9670;&nbsp;</a></span>getAlias()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iResourceManager::getAlias </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>alias for given resource id (if available)</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>the given resource id </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3b5493689ebd270d50346ecb5a7230c8" name="a3b5493689ebd270d50346ecb5a7230c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b5493689ebd270d50346ecb5a7230c8">&#9670;&nbsp;</a></span>getFilename()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iResourceManager::getFilename </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>filename for given resource id</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>the given resource id </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a32d03401bb1446dbf5800f8bcce971f0" name="a32d03401bb1446dbf5800f8bcce971f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a32d03401bb1446dbf5800f8bcce971f0">&#9670;&nbsp;</a></span>getLoadMode()</h2>
 
@@ -339,28 +799,29 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a71c13e545f53c395866b8c7cc1261b59" name="a71c13e545f53c395866b8c7cc1261b59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71c13e545f53c395866b8c7cc1261b59">&#9670;&nbsp;</a></span>getPath()</h2>
+<a id="a93c290f25ed7356156ea4255c1d96f92" name="a93c290f25ed7356156ea4255c1d96f92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c290f25ed7356156ea4255c1d96f92">&#9670;&nbsp;</a></span>getMaterials()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iResourceManager::getPath </td>
+          <td class="memname">void igor::iResourceManager::getMaterials </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>materials</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>full path to a file if it exists</dd></dl>
+<p >returns all materials</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filename</td><td>file name to search for in search paths </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">materials</td><td>the materials</td></tr>
   </table>
   </dd>
 </dl>
+<p>TODO how about a more general interface? </p>
 
 </div>
 </div>
@@ -389,6 +850,449 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="ae61b5be6af472841bba1a0e3dcdaa9b7" name="ae61b5be6af472841bba1a0e3dcdaa9b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae61b5be6af472841bba1a0e3dcdaa9b7">&#9670;&nbsp;</a></span>getResource() <span class="overload">[1/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; T &gt; igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>alias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>resource by name</dd></dl>
+<p>typed version</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the name of the resource </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adc40ee26802e793e53e5046579da3d13" name="adc40ee26802e793e53e5046579da3d13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc40ee26802e793e53e5046579da3d13">&#9670;&nbsp;</a></span>getResource() <span class="overload">[2/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a507011904dc513e9971940f15ffe8a01" name="a507011904dc513e9971940f15ffe8a01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a507011904dc513e9971940f15ffe8a01">&#9670;&nbsp;</a></span>getResource() <span class="overload">[3/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a701fe6e3fe872ac268dae60cd797e7bc" name="a701fe6e3fe872ac268dae60cd797e7bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a701fe6e3fe872ac268dae60cd797e7bc">&#9670;&nbsp;</a></span>getResource() <span class="overload">[4/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c020f7a4ffc38be93da468fc8acde39" name="a8c020f7a4ffc38be93da468fc8acde39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c020f7a4ffc38be93da468fc8acde39">&#9670;&nbsp;</a></span>getResource() <span class="overload">[5/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24d22b125f7a0a3ab8fea129acff4ecc" name="a24d22b125f7a0a3ab8fea129acff4ecc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24d22b125f7a0a3ab8fea129acff4ecc">&#9670;&nbsp;</a></span>getResource() <span class="overload">[6/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac64000c4a7bdc941220633889372df17" name="ac64000c4a7bdc941220633889372df17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac64000c4a7bdc941220633889372df17">&#9670;&nbsp;</a></span>getResource() <span class="overload">[7/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa0de6e32d5e3eedf0cacec9f2ea5dc3d" name="aa0de6e32d5e3eedf0cacec9f2ea5dc3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0de6e32d5e3eedf0cacec9f2ea5dc3d">&#9670;&nbsp;</a></span>getResource() <span class="overload">[8/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>resource by id</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>the id of the resource </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a661e6f5c84071bd81bde9d04e5d374b5" name="a661e6f5c84071bd81bde9d04e5d374b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a661e6f5c84071bd81bde9d04e5d374b5">&#9670;&nbsp;</a></span>getResource() <span class="overload">[9/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; T &gt; igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>resource by id</dd></dl>
+<p>typed version</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>the id of the resource </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5cd8b6a86ddcedf54a7899cb4cf3645f" name="a5cd8b6a86ddcedf54a7899cb4cf3645f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cd8b6a86ddcedf54a7899cb4cf3645f">&#9670;&nbsp;</a></span>getResource() <span class="overload">[10/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae16abb7f9145a5963b005dd0953fc818" name="ae16abb7f9145a5963b005dd0953fc818"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae16abb7f9145a5963b005dd0953fc818">&#9670;&nbsp;</a></span>getResource() <span class="overload">[11/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad01625e23308ffad18450a2b9b47f0e6" name="ad01625e23308ffad18450a2b9b47f0e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad01625e23308ffad18450a2b9b47f0e6">&#9670;&nbsp;</a></span>getResource() <span class="overload">[12/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a46b652cd05e235e78a78a6f5fd380c" name="a4a46b652cd05e235e78a78a6f5fd380c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a46b652cd05e235e78a78a6f5fd380c">&#9670;&nbsp;</a></span>getResource() <span class="overload">[13/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ba07d75db84181bea62d4f7a7e96679" name="a7ba07d75db84181bea62d4f7a7e96679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba07d75db84181bea62d4f7a7e96679">&#9670;&nbsp;</a></span>getResource() <span class="overload">[14/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a42e750256277fde924c9d8792b32dc44" name="a42e750256277fde924c9d8792b32dc44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42e750256277fde924c9d8792b32dc44">&#9670;&nbsp;</a></span>getResource() <span class="overload">[15/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a095b6b1e3b14692771d432e869d2b7a1" name="a095b6b1e3b14692771d432e869d2b7a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a095b6b1e3b14692771d432e869d2b7a1">&#9670;&nbsp;</a></span>getResourceID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> igor::iResourceManager::getResourceID </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>aliasOrFilename</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>resource id for given alias or filepath</dd></dl>
+<p>If it does not exist yet but it represents a valid file path within one of the search path. We add a new resource.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aliasOrFilename</td><td>the given alias or filename </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a0150271012bd6ca31085f9148d2071d5" name="a0150271012bd6ca31085f9148d2071d5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0150271012bd6ca31085f9148d2071d5">&#9670;&nbsp;</a></span>getSearchPaths()</h2>
 
@@ -404,6 +1308,58 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of search paths </dd></dl>
+
+</div>
+</div>
+<a id="aa79e2ec6cc87be524397f79f9aff25aa" name="aa79e2ec6cc87be524397f79f9aff25aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa79e2ec6cc87be524397f79f9aff25aa">&#9670;&nbsp;</a></span>getType() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iResourceManager::getType </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>resource type for given filename</dd></dl>
+<p>this is purely based on file extension</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>the file name to guess the type of </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a15270c19df7c3193f7dea987af9ae2ab" name="a15270c19df7c3193f7dea987af9ae2ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15270c19df7c3193f7dea987af9ae2ab">&#9670;&nbsp;</a></span>getType() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iResourceManager::getType </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>resource type for given resource id</dd></dl>
+<p>this is purely based on file extension</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resourceID</td><td>the given resource id </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -425,8 +1381,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1734904c353e7f1872f72cfa868b9d62" name="a1734904c353e7f1872f72cfa868b9d62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1734904c353e7f1872f72cfa868b9d62">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[1/13]</span></h2>
+<a id="a4be3a7538cd479904528b06742cdf9a0" name="a4be3a7538cd479904528b06742cdf9a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4be3a7538cd479904528b06742cdf9a0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[1/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -440,7 +1396,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -463,8 +1419,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a05d151367e1271121a59b275d3ddc15b" name="a05d151367e1271121a59b275d3ddc15b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05d151367e1271121a59b275d3ddc15b">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[2/13]</span></h2>
+<a id="a2234c51469de1e6b5a9ba3d7d72c9edb" name="a2234c51469de1e6b5a9ba3d7d72c9edb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2234c51469de1e6b5a9ba3d7d72c9edb">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[2/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -478,7 +1434,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -501,8 +1457,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="adc296fb0ffd73c0bde445c3770000d4e" name="adc296fb0ffd73c0bde445c3770000d4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc296fb0ffd73c0bde445c3770000d4e">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[3/13]</span></h2>
+<a id="af2d67e70ba71ce2dbbf1298e2bb47b12" name="af2d67e70ba71ce2dbbf1298e2bb47b12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2d67e70ba71ce2dbbf1298e2bb47b12">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[3/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -516,7 +1472,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -539,8 +1495,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a2432b5be6f2d70795f54bd20226c36cd" name="a2432b5be6f2d70795f54bd20226c36cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2432b5be6f2d70795f54bd20226c36cd">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[4/13]</span></h2>
+<a id="acfaa25bf1903288b8aef90a563aaacb3" name="acfaa25bf1903288b8aef90a563aaacb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfaa25bf1903288b8aef90a563aaacb3">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[4/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -554,7 +1510,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -577,8 +1533,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a99b5ffd4ede18c0a38caee588a491f81" name="a99b5ffd4ede18c0a38caee588a491f81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99b5ffd4ede18c0a38caee588a491f81">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[5/13]</span></h2>
+<a id="a604af4574a747ade1485b49c0d7feacc" name="a604af4574a747ade1485b49c0d7feacc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a604af4574a747ade1485b49c0d7feacc">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[5/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -592,7 +1548,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -615,8 +1571,46 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="ab61c2a9017c105d8c7623680eb185226" name="ab61c2a9017c105d8c7623680eb185226"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab61c2a9017c105d8c7623680eb185226">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[6/13]</span></h2>
+<a id="ac7b167e8de8a2a0c9cfc74474f66a367" name="ac7b167e8de8a2a0c9cfc74474f66a367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b167e8de8a2a0c9cfc74474f66a367">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[6/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15bdff43f1fbc76ee1cb94e4d1ca2906" name="a15bdff43f1fbc76ee1cb94e4d1ca2906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15bdff43f1fbc76ee1cb94e4d1ca2906">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[7/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -627,7 +1621,7 @@ template&lt;typename T &gt; </div>
           <td class="memname">std::shared_ptr&lt; T &gt; igor::iResourceManager::loadResource </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -646,7 +1640,7 @@ template&lt;typename T &gt; </div>
 <p >template version for more convenience</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>the name of the resource </td></tr>
+    <tr><td class="paramname">alias</td><td>the name of the resource (this can also be a filename) </td></tr>
   </table>
   </dd>
 </dl>
@@ -654,8 +1648,176 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a4a65afe51745e75473c55b4904cfe237" name="a4a65afe51745e75473c55b4904cfe237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a65afe51745e75473c55b4904cfe237">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[8/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a7761b643f965ff935589a6e4c2f86e" name="a0a7761b643f965ff935589a6e4c2f86e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a7761b643f965ff935589a6e4c2f86e">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[9/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a440f5eb94f7aaebfd8824dd3e041244b" name="a440f5eb94f7aaebfd8824dd3e041244b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a440f5eb94f7aaebfd8824dd3e041244b">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[10/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdefe37fab984778c0fb61dcfcb2cda8" name="acdefe37fab984778c0fb61dcfcb2cda8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdefe37fab984778c0fb61dcfcb2cda8">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[11/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aae5c9364e6adff99dc318ca953819842" name="aae5c9364e6adff99dc318ca953819842"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae5c9364e6adff99dc318ca953819842">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[12/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64077602700aab78687bf349b4d37291" name="a64077602700aab78687bf349b4d37291"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64077602700aab78687bf349b4d37291">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[13/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="adac7b9bc0fb1cdcb187b4beb7b4e908f" name="adac7b9bc0fb1cdcb187b4beb7b4e908f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adac7b9bc0fb1cdcb187b4beb7b4e908f">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[7/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adac7b9bc0fb1cdcb187b4beb7b4e908f">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[14/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -681,7 +1843,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ac4d98e9603a46834b2894886ce2a1e43" name="ac4d98e9603a46834b2894886ce2a1e43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4d98e9603a46834b2894886ce2a1e43">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[8/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4d98e9603a46834b2894886ce2a1e43">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[15/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -709,8 +1871,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a3a83534a1d1f6cfdb3b4ef97dcb31028" name="a3a83534a1d1f6cfdb3b4ef97dcb31028"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a83534a1d1f6cfdb3b4ef97dcb31028">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[9/13]</span></h2>
+<a id="a7f100ee91d79fbf96f160fb4910a2041" name="a7f100ee91d79fbf96f160fb4910a2041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f100ee91d79fbf96f160fb4910a2041">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[16/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -723,9 +1885,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -737,8 +1909,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="ad3fdd6f07ba7c0b50444ddb51c69b1f5" name="ad3fdd6f07ba7c0b50444ddb51c69b1f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3fdd6f07ba7c0b50444ddb51c69b1f5">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[10/13]</span></h2>
+<a id="a86b873872c4bbeb69583234526409e36" name="a86b873872c4bbeb69583234526409e36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86b873872c4bbeb69583234526409e36">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[17/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -751,9 +1923,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -765,8 +1947,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a250ec3fb9b641a20baac98b3918489ea" name="a250ec3fb9b641a20baac98b3918489ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a250ec3fb9b641a20baac98b3918489ea">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[11/13]</span></h2>
+<a id="a8a2cd178011c511e4dfd342ac06b1e0f" name="a8a2cd178011c511e4dfd342ac06b1e0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a2cd178011c511e4dfd342ac06b1e0f">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[18/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -779,9 +1961,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -793,8 +1985,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a798c002b2c218cf5a82ba38b2d773307" name="a798c002b2c218cf5a82ba38b2d773307"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a798c002b2c218cf5a82ba38b2d773307">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[12/13]</span></h2>
+<a id="abbf6127f1354039d0b99d96a649bf55d" name="abbf6127f1354039d0b99d96a649bf55d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf6127f1354039d0b99d96a649bf55d">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[19/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -807,9 +1999,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -821,8 +2023,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a4b2a6c7104c23f2db105f3c74b2adea3" name="a4b2a6c7104c23f2db105f3c74b2adea3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b2a6c7104c23f2db105f3c74b2adea3">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[13/13]</span></h2>
+<a id="a134595abefe48cb8cf2b01ea173b6bb4" name="a134595abefe48cb8cf2b01ea173b6bb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a134595abefe48cb8cf2b01ea173b6bb4">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[20/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -835,9 +2037,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::loadResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -846,6 +2058,109 @@ template&lt;&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa50e0f9a0cfa5bc19a8e44fef86c61d0" name="aa50e0f9a0cfa5bc19a8e44fef86c61d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa50e0f9a0cfa5bc19a8e44fef86c61d0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[21/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54f0ce18398703a5f8ff25d00d8a7ca0" name="a54f0ce18398703a5f8ff25d00d8a7ca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54f0ce18398703a5f8ff25d00d8a7ca0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[22/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; T &gt; igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em> = <code><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">iResourceCacheMode::Cache</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >loads a resource synchronously by id</p>
+<p >template version for more convenience</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resourceID</td><td>the id of the resource </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>shared pointer to resource </dd></dl>
+
+</div>
+</div>
+<a id="a26ffbf36e9aeccfa05b82e7d5e8f991a" name="a26ffbf36e9aeccfa05b82e7d5e8f991a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26ffbf36e9aeccfa05b82e7d5e8f991a">&#9670;&nbsp;</a></span>loadResourceDictionary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iResourceManager::loadResourceDictionary </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >loads resource dictionary</p>
+<p >this will append resources to existing dictionary</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>filename to resource dictionary </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -868,6 +2183,31 @@ template&lt;&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">factory</td><td>the given factory </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a19cb908b00a53ff9bceeef6e7881769b" name="a19cb908b00a53ff9bceeef6e7881769b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19cb908b00a53ff9bceeef6e7881769b">&#9670;&nbsp;</a></span>removeResource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iResourceManager::removeResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >removes given resource from dictionary</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resourceID</td><td>the given resource id </td></tr>
   </table>
   </dd>
 </dl>
@@ -899,8 +2239,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a72819b7c80dde82d83e29da0bcc6acb0" name="a72819b7c80dde82d83e29da0bcc6acb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72819b7c80dde82d83e29da0bcc6acb0">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[1/13]</span></h2>
+<a id="a5c814aa4309c9275e7f667b5f33dee2b" name="a5c814aa4309c9275e7f667b5f33dee2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c814aa4309c9275e7f667b5f33dee2b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[1/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -914,7 +2254,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -937,8 +2277,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a86e6f7b51bd74e6b6b5f5f84603506ba" name="a86e6f7b51bd74e6b6b5f5f84603506ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86e6f7b51bd74e6b6b5f5f84603506ba">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[2/13]</span></h2>
+<a id="ac37e26cbd4b5980501775ca3e4ff6380" name="ac37e26cbd4b5980501775ca3e4ff6380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac37e26cbd4b5980501775ca3e4ff6380">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[2/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -952,7 +2292,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -975,8 +2315,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a645194620ead4c9356e59bdec1306a32" name="a645194620ead4c9356e59bdec1306a32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a645194620ead4c9356e59bdec1306a32">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[3/13]</span></h2>
+<a id="aa4a45909c470dae4fc7990e4b1e1aea7" name="aa4a45909c470dae4fc7990e4b1e1aea7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a45909c470dae4fc7990e4b1e1aea7">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[3/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -990,7 +2330,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1013,8 +2353,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a2193a548292aa6b3b1f9105107df796d" name="a2193a548292aa6b3b1f9105107df796d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2193a548292aa6b3b1f9105107df796d">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[4/13]</span></h2>
+<a id="ae55edc813d61f28228c028740e8e647d" name="ae55edc813d61f28228c028740e8e647d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55edc813d61f28228c028740e8e647d">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[4/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1028,7 +2368,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1051,8 +2391,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a8efd12879a59fc88b981a5a9ab2a248e" name="a8efd12879a59fc88b981a5a9ab2a248e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8efd12879a59fc88b981a5a9ab2a248e">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[5/13]</span></h2>
+<a id="aa61a0f0e2675a46d9b52951b93162359" name="aa61a0f0e2675a46d9b52951b93162359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa61a0f0e2675a46d9b52951b93162359">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[5/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1066,7 +2406,7 @@ template&lt;&gt; </div>
           <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
           <td class="paramtype">const iaString &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1089,8 +2429,46 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a6a05a3bb1c32d174fac107f3842d584e" name="a6a05a3bb1c32d174fac107f3842d584e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a05a3bb1c32d174fac107f3842d584e">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[6/13]</span></h2>
+<a id="a3cc20caa9762466859d3db1ff62db3a3" name="a3cc20caa9762466859d3db1ff62db3a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc20caa9762466859d3db1ff62db3a3">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[6/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afc2274ad1f08932325109d2d9dd097ec" name="afc2274ad1f08932325109d2d9dd097ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc2274ad1f08932325109d2d9dd097ec">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[7/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1101,7 +2479,7 @@ template&lt;typename T &gt; </div>
           <td class="memname">std::shared_ptr&lt; T &gt; igor::iResourceManager::requestResource </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramname"><em>alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1120,7 +2498,7 @@ template&lt;typename T &gt; </div>
 <p >template version for more convenience</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>the name of the resource </td></tr>
+    <tr><td class="paramname">alias</td><td>the name of the resource (this can also be a filename) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1128,8 +2506,176 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="afd1513a452249102dabb86ed329825d6" name="afd1513a452249102dabb86ed329825d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd1513a452249102dabb86ed329825d6">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[8/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a48b4eacd691a07a67aac7d5a6874ef7b" name="a48b4eacd691a07a67aac7d5a6874ef7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48b4eacd691a07a67aac7d5a6874ef7b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[9/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a80837ff6a977a70d74ef771b21de074a" name="a80837ff6a977a70d74ef771b21de074a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80837ff6a977a70d74ef771b21de074a">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[10/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad47761f14ae62b10635d3dbb25395505" name="ad47761f14ae62b10635d3dbb25395505"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad47761f14ae62b10635d3dbb25395505">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[11/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76bbcd8bac22b5480b672805b4d75bf6" name="a76bbcd8bac22b5480b672805b4d75bf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76bbcd8bac22b5480b672805b4d75bf6">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[12/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d981255148b453056cde656f05086c0" name="a7d981255148b453056cde656f05086c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d981255148b453056cde656f05086c0">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[13/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abc8afa4a2b21c4564704776a3ff95834" name="abc8afa4a2b21c4564704776a3ff95834"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc8afa4a2b21c4564704776a3ff95834">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[7/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abc8afa4a2b21c4564704776a3ff95834">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[14/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1155,7 +2701,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a1abb2b2b5e2778b4ce6b50f50ae0eaeb" name="a1abb2b2b5e2778b4ce6b50f50ae0eaeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1abb2b2b5e2778b4ce6b50f50ae0eaeb">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[8/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1abb2b2b5e2778b4ce6b50f50ae0eaeb">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[15/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1183,8 +2729,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a8bf985a1dfc0ab34365753b35e19fb5d" name="a8bf985a1dfc0ab34365753b35e19fb5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bf985a1dfc0ab34365753b35e19fb5d">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[9/13]</span></h2>
+<a id="a79125a83702c94caf1c06080824aad0e" name="a79125a83702c94caf1c06080824aad0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79125a83702c94caf1c06080824aad0e">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[16/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1197,9 +2743,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1211,8 +2767,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="ac1b705090a55572d8271418a279662f9" name="ac1b705090a55572d8271418a279662f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1b705090a55572d8271418a279662f9">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[10/13]</span></h2>
+<a id="a8111a1e0b0f795da8124d480c1c9b2bc" name="a8111a1e0b0f795da8124d480c1c9b2bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8111a1e0b0f795da8124d480c1c9b2bc">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[17/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1225,9 +2781,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a9c7ff5f732511eb0e966f9dac922f962">iSoundPtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1239,8 +2805,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="ab23c325c9f0d070700cba2b43e912609" name="ab23c325c9f0d070700cba2b43e912609"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab23c325c9f0d070700cba2b43e912609">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[11/13]</span></h2>
+<a id="a2a91b4c2a9365086a2b69fa31c30f4b5" name="a2a91b4c2a9365086a2b69fa31c30f4b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a91b4c2a9365086a2b69fa31c30f4b5">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[18/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1253,9 +2819,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a2ae2970edea10f21e530a4bdf72312dc">iSpritePtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1267,8 +2843,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a880b52b7cca94afd7a13600ce617c848" name="a880b52b7cca94afd7a13600ce617c848"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a880b52b7cca94afd7a13600ce617c848">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[12/13]</span></h2>
+<a id="a83ef544c049b4d4570daff73b6e79dbc" name="a83ef544c049b4d4570daff73b6e79dbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83ef544c049b4d4570daff73b6e79dbc">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[19/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1281,9 +2857,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a346087d011d5ebacf149e171ac4ac897">iAnimationPtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1295,8 +2881,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="ab187a422d64a2fb80589670ce07d0e29" name="ab187a422d64a2fb80589670ce07d0e29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab187a422d64a2fb80589670ce07d0e29">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[13/13]</span></h2>
+<a id="a3beb1ef4404eac2764c6f912514f581b" name="a3beb1ef4404eac2764c6f912514f581b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3beb1ef4404eac2764c6f912514f581b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[20/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1309,9 +2895,19 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a> igor::iResourceManager::requestResource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1320,6 +2916,171 @@ template&lt;&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6eed353afe8f8bef2b6fb98821ec822c" name="a6eed353afe8f8bef2b6fb98821ec822c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eed353afe8f8bef2b6fb98821ec822c">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[21/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ab8dabc7eadbfd9d2b9cbdf05002a80" name="a6ab8dabc7eadbfd9d2b9cbdf05002a80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ab8dabc7eadbfd9d2b9cbdf05002a80">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[22/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; T &gt; igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em> = <code><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743aab0cf104f39708eabd07b8cb67e149ba">iResourceCacheMode::Cache</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >requests a resource to be loaded asynchronously by id</p>
+<p >template version for more convenience</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resourceID</td><td>the id of the resource </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>shared pointer to resource </dd></dl>
+
+</div>
+</div>
+<a id="a9f6035d499f8e73e3f0fb0a7751c3484" name="a9f6035d499f8e73e3f0fb0a7751c3484"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f6035d499f8e73e3f0fb0a7751c3484">&#9670;&nbsp;</a></span>resolvePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iResourceManager::resolvePath </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filepath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>full path to a file</dd></dl>
+<p>If the file does not exist it returns an empty string</p>
+<p >It only resolves for files that are within one of the given search paths</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filepath</td><td>relative or absolute path to file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3e5d0b6f670600448ad430827ff277bf" name="a3e5d0b6f670600448ad430827ff277bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e5d0b6f670600448ad430827ff277bf">&#9670;&nbsp;</a></span>saveResourceDictionary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iResourceManager::saveResourceDictionary </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >write resource dictionary to given filename</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>the file to write the dictionary to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8eb1e8795aa9d61a61bec38b6b380b63" name="a8eb1e8795aa9d61a61bec38b6b380b63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eb1e8795aa9d61a61bec38b6b380b63">&#9670;&nbsp;</a></span>setAlias()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iResourceManager::setAlias </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>alias</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >sets alias for given resource id</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>the given resource id </td></tr>
+    <tr><td class="paramname">alias</td><td>the given alias </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

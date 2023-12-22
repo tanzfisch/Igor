@@ -9,12 +9,10 @@ var dir_21f60eb933ce29a4fbda08e75b144bcd =
     [ "iWidgetCheckBox.h", "i_widget_check_box_8h.html", "i_widget_check_box_8h" ],
     [ "iWidgetColor.cpp", "i_widget_color_8cpp.html", null ],
     [ "iWidgetColor.h", "i_widget_color_8h.html", "i_widget_color_8h" ],
-    [ "iWidgetColorGradient.cpp", "i_widget_color_gradient_8cpp.html", null ],
+    [ "iWidgetColorGradient.cpp", "i_widget_color_gradient_8cpp.html", "i_widget_color_gradient_8cpp" ],
     [ "iWidgetColorGradient.h", "i_widget_color_gradient_8h.html", "i_widget_color_gradient_8h" ],
     [ "iWidgetGraph.cpp", "i_widget_graph_8cpp.html", null ],
     [ "iWidgetGraph.h", "i_widget_graph_8h.html", "i_widget_graph_8h" ],
-    [ "iWidgetGrid.cpp", "i_widget_grid_8cpp.html", null ],
-    [ "iWidgetGrid.h", "i_widget_grid_8h.html", "i_widget_grid_8h" ],
     [ "iWidgetGroupBox.cpp", "i_widget_group_box_8cpp.html", null ],
     [ "iWidgetGroupBox.h", "i_widget_group_box_8h.html", "i_widget_group_box_8h" ],
     [ "iWidgetLabel.cpp", "i_widget_label_8cpp.html", null ],
@@ -37,6 +35,10 @@ var dir_21f60eb933ce29a4fbda08e75b144bcd =
     [ "iWidgetSlider.h", "i_widget_slider_8h.html", "i_widget_slider_8h" ],
     [ "iWidgetSpacer.cpp", "i_widget_spacer_8cpp.html", null ],
     [ "iWidgetSpacer.h", "i_widget_spacer_8h.html", "i_widget_spacer_8h" ],
+    [ "iWidgetSplitter.cpp", "i_widget_splitter_8cpp.html", "i_widget_splitter_8cpp" ],
+    [ "iWidgetSplitter.h", "i_widget_splitter_8h.html", "i_widget_splitter_8h" ],
     [ "iWidgetTextEdit.cpp", "i_widget_text_edit_8cpp.html", null ],
-    [ "iWidgetTextEdit.h", "i_widget_text_edit_8h.html", "i_widget_text_edit_8h" ]
+    [ "iWidgetTextEdit.h", "i_widget_text_edit_8h.html", "i_widget_text_edit_8h" ],
+    [ "iWidgetViewport.cpp", "i_widget_viewport_8cpp.html", null ],
+    [ "iWidgetViewport.h", "i_widget_viewport_8h.html", "i_widget_viewport_8h" ]
 ];

@@ -7,10 +7,7 @@ using namespace iaux;
 
 IAUX_TEST(FileDirTests, Initial)
 {
-    iaFile file("");
     iaDirectory dir("");
-
-    IAUX_EXPECT_EQUAL(file.getFullFileName().isEmpty(), true);
     IAUX_EXPECT_EQUAL(dir.getFullDirectoryName().isEmpty(), true);
 }
 

@@ -238,7 +238,16 @@ IAUX_TEST(StringTests, UTF8Trivial)
 
 IAUX_TEST(StringTests, WildcardsToRegEx)
 {
-    iaString string = "*";
+    IAUX_EXPECT_EQUAL(iaString::wildcardToRegex("*"), ".*");
+    IAUX_EXPECT_EQUAL(iaString::wildcardToRegex("*.foo"), ".*.foo");
+    IAUX_EXPECT_EQUAL(iaString::wildcardToRegex("*bar.*"), ".*bar..*");
+}
 
-    IAUX_EXPECT_EQUAL(iaString::wildcardToRegex(string), "foo");
+IAUX_TEST(StringTests, WildcardsToRegExMatches)
+{
+    IAUX_EXPECT_TRUE(iaString::matchRegex("any", iaString::wildcardToRegex("*")));
+    IAUX_EXPECT_TRUE(iaString::matchRegex("any.bar.foo", iaString::wildcardToRegex("*.foo")));
+    IAUX_EXPECT_TRUE(iaString::matchRegex("anybar.foo", iaString::wildcardToRegex("*bar.*")));
+    IAUX_EXPECT_TRUE(iaString::matchRegex("any_.bar.foo", iaString::wildcardToRegex("*bar.*")));
+    IAUX_EXPECT_TRUE(iaString::matchRegex("lolNAbar.foo", iaString::wildcardToRegex("lol??bar.f*")));
 }

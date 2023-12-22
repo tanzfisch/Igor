@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['quad_5ftexture_5fcoords_0',['QUAD_TEXTURE_COORDS',['../i_renderer_8inl.html#a2270546ec21ae39f6fdfd60389f186e3',1,'iRenderer.inl']]],
-  ['quad_5fvertex_5fpositions_1',['QUAD_VERTEX_POSITIONS',['../i_renderer_8inl.html#ad0add63bde4a3f87f9eab26fadc58623',1,'iRenderer.inl']]]
+  ['point_0',['Point',['../i_particle_emitter_8h.html#a1de5e45af54f9f098e4ae388726e9677',1,'Point():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#a1de5e45af54f9f098e4ae388726e9677',1,'Point():&#160;ompfEmitterChunk.h']]],
+  ['pos_1',['pos',['../classigor_1_1i_emitter_triangle.html#abbf2bc3923de662142e857f57367e21e',1,'igor::iEmitterTriangle']]],
+  ['prefilterdelegate_2',['preFilterDelegate',['../structigor_1_1_pre_filter_user_data.html#a40cbf08888bac5828f10cd92367a468b',1,'igor::PreFilterUserData']]]
 ];

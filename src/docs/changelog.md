@@ -4,6 +4,8 @@ Changelog                           {#changelog}
 0.43.0
 ------
 
+!!! MSVC build fails. no time to fix !!!
+
 - reimplemented iMaterial and make it a iResource
 - replaced iMaterialResourceFactory with iMaterialFactory which is now integrated in the iResourceManager
 - some spring cleaning around plenty of TODOs
@@ -28,6 +30,10 @@ Changelog                           {#changelog}
 - Mica drag drop assets in viewport (models and textures on models)
 - added iUserControlTextureChooser
 - added background color and background checkerboard option to iWidgetPicture
+
+Known issues:
+
+- data not updated -> missing textures, invisible models -> need to do some work on ompf to get this all working again
 
 0.42.0
 ------
