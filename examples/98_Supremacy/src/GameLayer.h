@@ -87,15 +87,28 @@ private:
      */
     iTimerHandlePtr _updateTimerHandle;
 
+    /*! stats timer
+     */
     iTimerHandlePtr _statsTimerHandle;
+
+    /*! spawn timer
+     */
     iTimerHandlePtr _spawnUnitsTimerHandle;
+
+    /*! spawn shop timer
+     */
     iTimerHandlePtr _spawnShopTimerHandle;
 
     /*! floor shadow
      */
     iSpritePtr _shadow;
 
+    /*! shield sprite
+    */
     iSpritePtr _shield;
+
+    /*! rage sprite
+    */
     iSpritePtr _rage;
 
     /*! texture font we use to display texts
@@ -106,50 +119,121 @@ private:
      */
     iSpritePtr _coin;
 
+    /*! damage sprite
+    */
     iSpritePtr _damage;
 
+    /*! attack speed sprite
+    */
     iSpritePtr _attackSpeed;
 
+    /*! walk speed sprite
+    */
     iSpritePtr _walkSpeed;
 
+    /*! bounce animation
+    */
     iAnimationPtr _bounceAnimation;
 
+    /*! shop idle animation
+    */
     iAnimationPtr _shopIdleAnimation;
 
+    /*! coin spin animation
+    */
     iAnimationPtr _coinSpinAnimation;
 
+    /*! building type to spawn next
+    */
     BuildingType _currentBuilding = BuildingType::None;
 
+    /*! if true level up
+    */
     bool _levelUp = false;
 
+    /*! experience levels
+    */
     std::vector<uint32> _expLvl;
 
+    /*! all available upgrades to character
+    */
     std::vector<UpgradeConfiguration> _upgrades;
+
+    /*! all available shop items
+    */
     std::vector<ShopItem> _shopItems;
+
+    /*! all available weapons
+    */
     std::map<iaString, WeaponComponent> _weapons;
+
+    /*! all available enemies
+    */
     std::vector<EnemyClass> _enemies;
 
+    /*! level up dialog
+    */ 
     UpgradeDialog *_levelUpDialog = nullptr;
+
+    /*! shop dialog
+    */
     ShopDialog *_shopDialog = nullptr;
 
+    /*! upgrade a given entity
+
+    \param entity the entity to upgrade
+    \param upgradeConfiguration the upgrade definition
+    */
     void upgrade(iEntity entity, const UpgradeConfiguration &upgradeConfiguration);
 
+    /*! handle level dialog close event
+    */
     void onCloseLevelUpDialog(iDialogPtr dialog);
+
+    /*! handle shop dialog close event
+    */
     void onCloseShopDialog(iDialogPtr dialog);
 
+    /*! opens a building of given type
+
+    \param buildingType the given building type
+    */
     void onOpenBuilding(BuildingType buildingType);
 
+    /*! open a shop
+    */
     void openShop();
 
     /*! called when added to layer stack
      */
     void onInit() override;
 
+    /*! calculate experience levels
+    */
     void initExpLvlTable();
 
+    /*! load specs from config file
+
+    \param filename the given config file
+    */
     void loadSpecs(const iaString &filename);
+
+    /*! load upgrades from xml handle
+
+    \param upgrades the xml handle
+    */
     void readUpgrades(TiXmlElement *upgrades);
+
+    /*! load shop items from xml handle
+
+    \param shopItems the xml handle
+    */
     void readShopItems(TiXmlElement *shopItems);
+
+    /*! load enemies from xml handle
+
+    \param enemies the xml handle
+    */
     void readEnemies(TiXmlElement *enemies);
 
     /*! called when removed from layer stack
@@ -172,11 +256,15 @@ private:
      */
     void onRenderHUD();
 
+    /*! render player hud
+    */
     void onRenderPlayerHUD();
 
+    /*! render stats for debugging
+    */
     void onRenderStats();
 
-    /*! game logic intervall
+    /*! game logic interval
 
     \param time the time
      */
@@ -198,30 +286,107 @@ private:
      */
     iaVector3d getRandomDir();
 
+    /*! create the player
+
+    \returns the created player
+    */
     iEntity createPlayer();
+
+    /*! create the camera
+
+    \returns the created camera
+    */
     iEntity createCamera();
+
+    /*! crate the background
+    */
     void createBackground();
 
+    /*! creates a unit. usually enemies
+
+    \param pos the position to create at
+    \param party the party ie enemy, friend etc.
+    \param target giving the unit a target
+    \param enemyClass the class of the unit
+    */
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
+    /*! handles player movement
+    */
     void onPlayerMovementBehaviour(iEntity &entity, std::any &userData);
+
+    /*! handles camera movement
+    */
     void onCameraFollowPlayer(iEntity &entity, std::any &userData);
+
+    /*! aquire target
+    */
     void onAquireTarget(iEntity &entity, std::any &userData);
+
+    /*! update orientation of projectiles
+    */
     void onUpdateProjectileOrientation(iEntity &entity, std::any &userData);
+
+    /*! check for collisions
+    */
     void onCheckCollision(iEntity &entity, std::any &userData);
+
+    /*! aim/follow target
+    */
     void onFollowTarget(iEntity &entity, std::any &userData);
+
+    /*! check for collisions
+    */
     void onUpdateCollision(iEntity &entity, std::any &userData);
+
+    /*! fire weapon if possible
+    */
     void onUpdateWeapon(iEntity &entity, std::any &userData);
+
+    /*! collision check
+    */
     void onUpdateRange(iEntity &entity, std::any &userData);
 
+    /*! create the shop
+    */
     void createShop();
+
+    /*! lift the shop
+    */
     void liftShop();
+
+    /*! land the shop
+    */
     void landShop();
+
+    /*! create a coin
+
+    \param pos position to create the coin at
+    \param party friend or foe coin
+    \param objectType what kind of coins
+    */
     void createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType);
+
+    /*! fire
+
+    \param from origin to fire from
+    \param dir direction to fire at
+    \param party friend/foe projectile
+    \param weapon the weapon to use
+    \param modifier modifiers on the weapon to use
+    */
     void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
 
+    /*! spawns stuff
+    */
     void onSpawnStuff(const iaTime &time);
+
+    /*! handle shop landing
+    */
     void onShopLanded();
+
+    /*! land the shop
+    */
     void onLandShop(const iaTime &time);
 
     /*! query a circle on the quardtree while wrapping arround at the edges like a doughnut
@@ -231,16 +396,34 @@ private:
     */
     void doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits);
 
+    /*! rectangle collision detection in a doughnut world
+    */
     bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
+
+    /*! circle collision detection in a doughnut world
+    */
     bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
 
+    /*! calculate level based on experience
+
+    \param experience the given experience
+    \returns xp level
+    */
     float32 calcLevel(uint32 experience);
+
+    /*! add experience to given entity
+
+    \param entity the given entity
+    \param experience the experience to add
+    */
     void addExperience(iEntity &entity, float32 experience);
 
     /*! called on level up
      */
     void onLevelUp();
 
+    /*! some debugging stats
+    */
     struct GameStats
     {
         float32 _playerDamage = 0.0;

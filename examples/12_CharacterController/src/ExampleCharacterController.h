@@ -32,7 +32,9 @@
 #include <ExampleBase.h>
 
 #include "CharacterController.h"
-
+ 
+/*! character controller example
+*/
 class ExampleCharacterController : public ExampleBase
 {
 
