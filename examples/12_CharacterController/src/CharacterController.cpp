@@ -13,7 +13,7 @@
 #include <igor/system/iApplication.h>
 using namespace igor;
 
-CharacterController::CharacterController(iNodePtr node, int64 materiaID, const iaMatrixd &startMatrix)
+CharacterController::CharacterController(iNodePtr node, int64 materiaID, const iaMatrixd &matrix)
 {
 	// setup character and attach camera to it
 	iaMatrixd transformCollision;
@@ -31,7 +31,7 @@ CharacterController::CharacterController(iNodePtr node, int64 materiaID, const i
 	_collisionCast = iPhysics::getInstance().createCapsule(_characterRadius, _characterRadius, _characterHeight - _stepHeight, transformCollision);
 
 	iNodeTransform *physicsTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-	physicsTransform->setMatrix(startMatrix);
+	physicsTransform->setMatrix(matrix);
 	_physicsTransformNodeID = physicsTransform->getID();
 	node->insertNode(physicsTransform);
 
@@ -96,12 +96,12 @@ iNodeTransform *CharacterController::getHeadTransform() const
 	return static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_headTransformNodeID));
 }
 
-iNodeTransform *CharacterController::getLeftSholderTransform() const
+iNodeTransform *CharacterController::getLeftShoulderTransform() const
 {
 	return static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_leftShoulderTransformNodeID));
 }
 
-iNodeTransform *CharacterController::getRightSholderTransform() const
+iNodeTransform *CharacterController::getRightShoulderTransform() const
 {
 	return static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_rightShoulderTransformNodeID));
 }

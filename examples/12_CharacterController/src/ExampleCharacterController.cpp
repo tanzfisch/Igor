@@ -101,7 +101,7 @@ void ExampleCharacterController::onInit()
     gunTransform->scale(0.04, 0.04, 0.04);
     iNodeModel *gun = iNodeManager::getInstance().createNode<iNodeModel>();
     gun->setModel("example_model_M4A1-S");
-    _characterController->getRightSholderTransform()->insertNode(gunTransform);
+    _characterController->getRightShoulderTransform()->insertNode(gunTransform);
     gunTransform->insertNode(gun);
 
     // create a skybox
