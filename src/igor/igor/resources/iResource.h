@@ -63,7 +63,6 @@ namespace igor
         friend class iResourceManager;
 
     public:
-
         /*! does nothing
          */
         virtual ~iResource() = default;
@@ -90,7 +89,7 @@ namespace igor
         const iaString &getSource() const;
 
         /*! \returns info string
-        */
+         */
         const iaString getInfo() const;
 
         /*! \returns resource id
@@ -103,9 +102,13 @@ namespace igor
         */
         void setName(const iaString &name);
 
-        /*! \returns name of material (not unique)
+        /*! \returns name of resource (not unique)
          */
-        const iaString &getName() const;        
+        const iaString &getName() const;
+
+        /*! \returns alias of resource (not unique)
+         */
+        const iaString &getAlias() const;
 
         /*! \returns cache mode
          */
@@ -158,7 +161,7 @@ namespace igor
         iaString _type;
 
         /*! source name (ie filename)
-        */
+         */
         iaString _source;
 
         /*! id of this resource (unique)

@@ -276,7 +276,7 @@ namespace igor
              event.getKey() == iKeyCode::MouseRight))
         {
             _widgetState = iWidgetState::Pressed;
-            _motionState = calcMotionState(_posLast);
+            _motionState = calcMotionState(_lastMousePos);
             _lastMousePos.set(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 
             putInFront();
@@ -584,7 +584,7 @@ namespace igor
 
         if (_motionState != iDialogMotionState::Static)
         {
-            const iaVector2f diff = event.getPosition() - _posLast;
+            const iaVector2f diff = event.getPosition() - _lastMousePos;
             if (_motionState == iDialogMotionState::Moving &&
                 _moving)
             {
@@ -626,7 +626,7 @@ namespace igor
             }
         }
 
-        _posLast = event.getPosition();
+        _lastMousePos = event.getPosition();
     }
 
     void iDialog::setResizeable(bool enable)

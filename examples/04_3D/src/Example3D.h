@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE3D__
-#define __EXAMPLE3D__
+#ifndef IGOR_EXAMPLE3D_H
+#define IGOR_EXAMPLE3D_H
 
 #include <ExampleBase.h>
 
@@ -148,4 +148,4 @@ private:
 
 };
 
-#endif // __EXAMPLE3D__
+#endif // IGOR_EXAMPLE3D_H

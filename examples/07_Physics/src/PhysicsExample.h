@@ -26,13 +26,13 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PHYSICSEXAMPLE__
-#define __PHYSICSEXAMPLE__
+#ifndef IGOR_PHYSICSEXAMPLE_H
+#define IGOR_PHYSICSEXAMPLE_H
 
 #include <ExampleBase.h>
 
 /*! physics example
-*/
+ */
 class PhysicsExample : public ExampleBase
 {
 
@@ -44,25 +44,24 @@ public:
     PhysicsExample(iWindowPtr window);
 
     /*! does nothing
-    */
+     */
     ~PhysicsExample() = default;
 
 private:
-
     /*! camera heading transform
-    */
+     */
     iNodeTransform *_cameraHeading = nullptr;
 
     /*! camera pitch transform
-    */
+     */
     iNodeTransform *_cameraPitch = nullptr;
 
     /*! camera distance to origin transform
-    */
+     */
     iNodeTransform *_cameraTranslation = nullptr;
 
     /*! list of physics bodies create for later cleanup
-    */
+     */
     std::vector<uint64> _bodyIDs;
 
     /*! physics callback to apply force and torque to the physics bodies
@@ -73,11 +72,11 @@ private:
     void onApplyForceAndTorque(iPhysicsBody *body, float64 timestep);
 
     /*! initialize scene
-    */
+     */
     void onInit() override;
 
     /*! clean up scene
-    */
+     */
     void onDeinit() override;
 
     /*! called on any other event
@@ -107,8 +106,8 @@ private:
     bool onMouseWheelEvent(iEventMouseWheel &event);
 
     /*! \returns help screen string
-    */
-    iaString getHelpString() override;    
+     */
+    iaString getHelpString() override;
 };
 
-#endif // __PHYSICSEXAMPLE__
+#endif // IGOR_PHYSICSEXAMPLE_H

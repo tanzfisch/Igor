@@ -4,6 +4,7 @@
 
 #include <igor/ui/iWidgetManager.h>
 
+#include <igor/renderer/iRenderer.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/layouts/iWidgetDockingLayout.h>
 
@@ -348,7 +349,7 @@ namespace igor
         _drag = std::make_unique<iDrag>(drag);
     }
 
-    const iDrag &iWidgetManager::getDrag() const
+    iDrag &iWidgetManager::getDrag() const
     {
         con_assert_sticky(_drag != nullptr, "test with inDrag before using getDrag");
 
@@ -386,6 +387,12 @@ namespace igor
             }
 
             widget->drawOverlay();
+        }
+
+        if (inDrag())
+        {
+            const auto pos = iMouse::getInstance().getPos();
+            _currentTheme->drawDrag(iaVector2f(pos._x, pos._y), getDrag());
         }
     }
 

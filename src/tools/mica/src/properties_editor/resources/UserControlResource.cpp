@@ -74,7 +74,7 @@ void UserControlResource::update()
 {
     _textName->setText(iResourceManager::getInstance().getAlias(getResourceID()));
     _textID->setText(getResourceID().toString());
-    _textSource->setText(iResourceManager::getInstance().getFilePath(getResourceID()));
+    _textSource->setText(iResourceManager::getInstance().getFilename(getResourceID()));
 }
 
 void UserControlResource::updateResource()

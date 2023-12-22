@@ -162,6 +162,7 @@ namespace igor
         iUserControl,
         iUserControlColorChooser,
         iUserControlFileChooser,
+        iUserControlTextureChooser,
         iUserControlTreeView,
 
         iDialog,
@@ -546,6 +547,16 @@ namespace igor
          */
         bool isMouseOver();
 
+        /*! sets the drag accept flag
+
+        \param acceptDrag if true widget accepts drag
+        */
+        void setAcceptDrag(bool acceptDrag);
+
+        /*! \returns true if widget accepts to be dragged
+         */
+        bool isAcceptingDrag();
+
         /*! sets the drop accept flag
 
         \param acceptDrop if true widget accepts drop from drag
@@ -826,6 +837,10 @@ namespace igor
          */
         bool _acceptDrop = false;
 
+        /*! if true widget accepts to be dragged
+        */
+        bool _acceptDrag = false;
+
         /*! true: if currently mouse is over widget
          */
         bool _isMouseOver = false;
@@ -833,6 +848,14 @@ namespace igor
         /*! if true this widget ignores if a child already has consumed an event
          */
         bool _ignoreChildEventConsumption = false;
+
+        /*! last mouse position
+         */
+        iaVector2f _lastMousePos;
+
+        /*! mouse position when last time pressed
+        */
+        iaVector2f _lastMousePressPos;
 
         /*! removes and deletes all children
 
@@ -973,25 +996,29 @@ namespace igor
 
         \param drag the drag data
         */
-        virtual void onDragEnter(const iDrag &drag);
+        virtual void onDragEnter(iDrag &drag);
 
         /*! drag move handle
 
         \param drag the drag data
         */
-        virtual void onDragMove(const iDrag &drag, const iaVector2f &mousePos);
+        virtual void onDragMove(iDrag &drag, const iaVector2f &mousePos);
 
         /*! drag leave handle
 
         \param drag the drag data
         */
-        virtual void onDragLeave(const iDrag &drag);
+        virtual void onDragLeave(iDrag &drag);
 
         /*! drop handle
 
         \param drag the drag data
         */
         virtual void onDrop(const iDrag &drag);
+
+        /*! called when dragged
+        */
+        virtual void onDrag();
 
     private:
         /*! the next node id
@@ -1057,10 +1084,6 @@ namespace igor
         /*! padding bottom for internal user only
          */
         int32 _clientAreaBottom = 0;
-
-        /*! last mouse position
-         */
-        iaVector2f _posLast;
 
         /*! id of widget
          */

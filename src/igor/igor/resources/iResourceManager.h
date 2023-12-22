@@ -90,11 +90,11 @@ namespace igor
         */
         const iaString resolvePath(const iaString &filepath);
 
-        /*! \returns filepath for given resource id
+        /*! \returns filename for given resource id
 
         \param id the given resource id
         */
-        const iaString getFilePath(const iResourceID &id);
+        const iaString getFilename(const iResourceID &id);
 
         /*! \returns alias for given resource id (if available)
 
@@ -175,7 +175,7 @@ namespace igor
 
         template version for more convenience
 
-        \param name the name of the resource (this can also be a filename)
+        \param alias the name of the resource (this can also be a filename)
         \returns shared pointer to resource
         */
         template <typename T>
@@ -185,11 +185,31 @@ namespace igor
 
         template version for more convenience
 
-        \param name the name of the resource (this can also be a filename)
+        \param alias the name of the resource (this can also be a filename)
         \returns shared pointer to resource
         */
         template <typename T>
         std::shared_ptr<T> loadResource(const iaString &alias, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
+
+        /*! requests a resource to be loaded asynchronously by id
+
+        template version for more convenience
+
+        \param resourceID the id of the resource
+        \returns shared pointer to resource
+        */
+        template <typename T>
+        std::shared_ptr<T> requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
+
+        /*! loads a resource synchronously by id
+
+        template version for more convenience
+
+        \param resourceID the id of the resource
+        \returns shared pointer to resource
+        */
+        template <typename T>
+        std::shared_ptr<T> loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode = iResourceCacheMode::Cache);
 
         /*! \returns resource by id
 
@@ -302,11 +322,21 @@ namespace igor
         */
         void removeResource(const iResourceID &resourceID);
 
-        /*! \returns resource type based on file extension
+        /*! \returns resource type for given filename
+        
+        this is purely based on file extension
 
         \param filename the file name to guess the type of
         */
         const iaString getType(const iaString &filename) const;
+
+        /*! \returns resource type for given resource id
+
+        this is purely based on file extension
+
+        \param resourceID the given resource id
+        */
+        const iaString getType(const iResourceID &resourceID) const;
 
     private:
         /*! mutex to manage access to internal data
@@ -367,10 +397,18 @@ namespace igor
         /*! helper function to construct parameters
 
         \param type the resource type
-        \param alias the alias or resource id
+        \param alias the alias (or resource id as string)
         \param cacheMode the cache mode to load the resource with
         */
         iParameters buildParam(const iaString &type, const iaString &alias, iResourceCacheMode cacheMode = iResourceCacheMode::DontCache);
+
+        /*! helper function to construct parameters
+
+        \param type the resource type
+        \param resourceID the resource id
+        \param cacheMode the cache mode to load the resource with
+        */
+        iParameters buildParam(const iaString &type, const iResourceID &resourceID, iResourceCacheMode cacheMode = iResourceCacheMode::DontCache);
 
         /*! does nothing
          */

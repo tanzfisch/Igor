@@ -233,6 +233,16 @@ namespace igor
         return _acceptDrop;
     }
 
+    void iWidget::setAcceptDrag(bool acceptDrag)
+    {
+        _acceptDrag = acceptDrag;
+    }
+
+    bool iWidget::isAcceptingDrag()
+    {
+        return _acceptDrag;
+    }
+
     void iWidget::setParent(iWidgetPtr parent)
     {
         _parent = parent;
@@ -546,6 +556,7 @@ namespace igor
             event.getKey() == iKeyCode::MouseRight)
         {
             _widgetState = iWidgetState::Pressed;
+            _lastMousePressPos.set(event.getPosition()._x, event.getPosition()._y);
             return true;
         }
 
@@ -579,7 +590,7 @@ namespace igor
             }
             else
             {
-                if (_acceptDrop &&
+                if (isAcceptingDrop() &&
                     iWidgetManager::getInstance().inDrag())
                 {
                     onDrop(iWidgetManager::getInstance().getDrag());
@@ -731,7 +742,7 @@ namespace igor
                 _widgetState = iWidgetState::Highlighted;
                 _mouseOver(this);
 
-                if (_acceptDrop &&
+                if (isAcceptingDrop() &&
                     iWidgetManager::getInstance().inDrag())
                 {
                     onDragEnter(iWidgetManager::getInstance().getDrag());
@@ -752,10 +763,18 @@ namespace igor
             }
             else
             {
-                if (_acceptDrop &&
+                if (isAcceptingDrop() &&
                     iWidgetManager::getInstance().inDrag())
                 {
                     onDragMove(iWidgetManager::getInstance().getDrag(), event.getPosition());
+                }
+
+                if (isAcceptingDrag() &&
+                    iMouse::getInstance().getLeftButton() &&
+                    !iWidgetManager::getInstance().inDrag() &&
+                    _lastMousePressPos.distance(event.getPosition()) > 3.0)
+                {
+                    onDrag();
                 }
             }
 
@@ -781,12 +800,12 @@ namespace igor
             _isMouseOver = false;
         }
 
-        _posLast = event.getPosition();
+        _lastMousePos = event.getPosition();
     }
 
     const iaVector2f &iWidget::getLastMousePos() const
     {
-        return _posLast;
+        return _lastMousePos;
     }
 
     iHorizontalAlignment iWidget::getHorizontalAlignment() const
@@ -1022,6 +1041,7 @@ namespace igor
             "iUserControl",
             "iUserControlColorChooser",
             "iUserControlFileChooser",
+            "iUserControlTextureChooser",
             "iUserControlTreeView",
 
             "iDialog",
@@ -1038,24 +1058,29 @@ namespace igor
         return stream;
     }
 
-    void iWidget::onDragEnter(const iDrag &drag)
+    void iWidget::onDragEnter(iDrag &drag)
     {
         // nothing to do
     }
 
-    void iWidget::onDragMove(const iDrag &drag, const iaVector2f &mousePos)
+    void iWidget::onDragMove(iDrag &drag, const iaVector2f &mousePos)
     {
         // nothing to do
     }
 
-    void iWidget::onDragLeave(const iDrag &drag)
+    void iWidget::onDragLeave(iDrag &drag)
     {
-        // nothing to do
+        drag.clear();
     }
 
     void iWidget::onDrop(const iDrag &drag)
     {
         // nothing to do
+    }
+
+    void iWidget::onDrag()
+    {
+        // noting to do
     }
 
     void iWidget::setOverlayEnabled(bool overlay)

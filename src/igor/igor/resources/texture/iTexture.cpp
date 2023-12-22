@@ -32,11 +32,6 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    uint32 iTexture::getTextureID() const
-    {
-        return _textureID;
-    }
-
     int32 iTexture::getWidth() const
     {
         return _width;

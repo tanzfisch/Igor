@@ -256,7 +256,7 @@ namespace igor
         return notFound;
     }
 
-    const iaString &iResourceDictionary::getFilePath(iResourceID id) const
+    const iaString &iResourceDictionary::getFilename(iResourceID id) const
     {
         auto iter = _resourceDictionaryLookup.find(id);
         if (iter != _resourceDictionaryLookup.end())

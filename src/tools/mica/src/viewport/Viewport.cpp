@@ -16,6 +16,7 @@ Viewport::Viewport(WorkspacePtr workspace)
     setDockable(true);
     setMoveable(false);
     setIgnoreChildEventConsumption(true);
+    setAcceptDrop(true);
 
     _viewportScene = new iWidgetViewport();
     _viewportScene->setVerticalAlignment(iVerticalAlignment::Stretch);
@@ -533,4 +534,94 @@ bool Viewport::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
     }
 
     return false;
+}
+
+void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
+{
+    const iMimeData &mimeData = drag.getMimeData();
+    if (!mimeData.hasResourceID())
+    {
+        drag.reject();
+        return;
+    }
+
+    iResourceID id = mimeData.getResourceID();
+
+    const iaString resourceType = iResourceManager::getInstance().getType(id);
+    if (resourceType == IGOR_RESOURCE_MODEL)
+    {
+        drag.accept();
+        return;
+    }
+
+    if (resourceType == IGOR_RESOURCE_TEXTURE)
+    {
+        iNodeID nodeID = _viewportScene->getView().pickcolorID(iaVector2i(mousePos._x - getActualPosX(),
+                                                                          mousePos._y - getActualPosY()));
+        if (nodeID != iNode::INVALID_NODE_ID)
+        {
+            iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
+            if (node != nullptr &&
+                node->getType() == iNodeType::iNodeMesh)
+            {
+                drag.accept();
+                return;
+            }
+        }
+    }
+
+    drag.reject();
+}
+
+void Viewport::onDrop(const iDrag &drag)
+{
+    const iMimeData &mimeData = drag.getMimeData();
+    if (!mimeData.hasResourceID())
+    {
+        return;
+    }
+
+    iResourceID id = mimeData.getResourceID();
+
+    const iaString resourceType = iResourceManager::getInstance().getType(id);
+    if (resourceType == IGOR_RESOURCE_MODEL)
+    {
+        const iaString filename = iResourceManager::getInstance().getFilename(id);
+
+        iParameters parameters({{IGOR_RESOURCE_PARAM_ID, id},
+                                {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                                {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
+                                {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
+                                {IGOR_RESOURCE_PARAM_KEEP_MESH, true}});
+        iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
+        model->setModel(iResourceManager::getInstance().requestResource<iModel>(parameters));
+
+        // TODO open dialog and ask if this is to be added to root, cam etc.
+        // also add option to add by reference or not
+
+        _workspace->getRootUser()->insertNode(model);
+        return;
+    }
+
+    if (resourceType == IGOR_RESOURCE_TEXTURE)
+    {
+        const auto mousePos = iMouse::getInstance().getPos();
+        iNodeID nodeID = _viewportScene->getView().pickcolorID(iaVector2i(mousePos._x - getActualPosX(),
+                                                                          mousePos._y - getActualPosY()));
+        if (nodeID != iNode::INVALID_NODE_ID)
+        {
+            iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
+            if (node->getType() == iNodeType::iNodeMesh)
+            {
+                iNodeMeshPtr mesh = static_cast<iNodeMeshPtr>(node);
+
+                iParameters parameters({{IGOR_RESOURCE_PARAM_ID, id},
+                                        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                                        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache}});
+
+                mesh->getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(parameters), 0);
+                return;
+            }
+        }
+    }
 }

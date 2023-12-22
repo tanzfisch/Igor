@@ -53,6 +53,8 @@ void AssetBrowser::initUI()
 
     iWidgetScrollPtr scroll = new iWidgetScroll();
     _gridView = new iWidgetFixedGridLayout();
+    _gridView->setVerticalAlignment(iVerticalAlignment::Top);
+    _gridView->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridView->setCellSize(iaVector2f(150, 150));
     _gridView->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChanged));
 

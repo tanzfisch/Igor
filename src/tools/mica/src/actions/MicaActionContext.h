@@ -29,7 +29,7 @@
 #ifndef __ACTIONCONTEXT__
 #define __ACTIONCONTEXT__
 
-#include "../Outliner.h"
+#include "../outliner/Outliner.h"
 
 /*! mica action context
 */

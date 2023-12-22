@@ -26,34 +26,37 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef TASK_GENERATE_THUMBNAILS
-#define TASK_GENERATE_THUMBNAILS
+#ifndef IGOR_TASK_GENERATE_THUMBNAILS_H
+#define IGOR_TASK_GENERATE_THUMBNAILS_H
 
-#include <igor/igor.h>
-using namespace igor;
+#include <igor/threading/tasks/iTask.h>
 
-/*! task that generates thumbnails
- */
-class TaskGenerateThumbnails : public iTask
+namespace igor
 {
 
-public:
-    /*! init
+    /*! task that generates thumbnails
      */
-    TaskGenerateThumbnails(iWindowPtr window);
+    class iTaskGenerateThumbnails : public iTask
+    {
 
-    /*! does nothing
-     */
-    virtual ~TaskGenerateThumbnails() = default;
+    public:
+        /*! init
+         */
+        iTaskGenerateThumbnails(iWindowPtr window);
 
-    /*! aborts the task
-     */
-    void abort() override;
+        /*! does nothing
+         */
+        virtual ~iTaskGenerateThumbnails() = default;
 
-protected:
-    /*! runs the task
-     */
-    void run() override;
-};
+        /*! aborts the task
+         */
+        void abort() override;
 
-#endif // TASK_GENERATE_THUMBNAILS
+    protected:
+        /*! runs the task
+         */
+        void run() override;
+    };
+
+}
+#endif // IGOR_TASK_GENERATE_THUMBNAILS_H

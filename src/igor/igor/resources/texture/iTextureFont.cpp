@@ -32,7 +32,7 @@ namespace igor
             return;
         }
 
-        const iaString filePath = iResourceManager::getInstance().getFilePath(_texture->getID());
+        const iaString filePath = iResourceManager::getInstance().getFilename(_texture->getID());
         const iaString resolvedPath = iResourceManager::getInstance().resolvePath(filePath);
         _pixmap = iPixmap::loadPixmap(resolvedPath);
 

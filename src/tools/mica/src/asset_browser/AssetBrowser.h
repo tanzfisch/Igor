@@ -34,6 +34,8 @@ using namespace igor;
 
 IGOR_EVENT_DEFINITION(ResourceSelectionChanged, void, const iResourceID &);
 
+/*! the asset browser
+*/
 class AssetBrowser : public iDialog
 {
     friend class iWidgetManager;
@@ -58,8 +60,8 @@ public:
     iProjectPtr getProject() const;
 
     /*! \returns resource selection changed event
-    */
-    ResourceSelectionChangedEvent& getResourceSelectionChangedEvent();
+     */
+    ResourceSelectionChangedEvent &getResourceSelectionChangedEvent();
 
 private:
     /*! tree view
@@ -71,7 +73,7 @@ private:
     iWidgetFixedGridLayoutPtr _gridView = nullptr;
 
     /*! button to toggle content mode
-    */
+     */
     iWidgetButtonPtr _showFilesButton = nullptr;
 
     /*! tree view data
@@ -87,11 +89,11 @@ private:
     iTimerHandle _updateHandle;
 
     /*! resource selection changed event
-    */
+     */
     ResourceSelectionChangedEvent _resourceSelectionChanged;
 
     /*! what data to show in the asset browser
-    */
+     */
     enum class ContentMode
     {
         Files,
@@ -99,20 +101,40 @@ private:
     };
 
     /*! what data to show
-    */
+     */
     ContentMode _contentMode = ContentMode::Assets;
 
     /*! init UI
      */
     void initUI();
 
+    /*! polls filesystem changes in an intervall
+
+    \param time the current time
+    */
     void update(const iaTime &time);
 
+    /*! recursive update of folder structure data
+
+    \param dir the current directory
+    \param item the item to store information to
+    */
     void update(const iaDirectory &dir, iItemPtr item);
 
+    /*! update appearance of content mode button
+     */
     void updateContentModeButton();
+
+    /*! handles toggle content mode (assets/all files)
+
+    \param source the source widget of this event
+    */
     void onClickShowAssetsButton(iWidgetPtr source);
 
+    /*! handles click in tree view
+
+    \param source the source widget of this event
+    */
     void onClickTreeView(const iWidgetPtr source);
 
     /*! updates grid view with given item data
@@ -121,13 +143,15 @@ private:
     */
     void updateGridView(iItemPtr item);
 
+    /*! light weight refresh
+     */
     void refreshGridView();
 
     /*! triggered by selection changed event
 
     \param source the source widget of this event
     */
-    void onSelectionChanged(const iWidgetPtr source);    
+    void onSelectionChanged(const iWidgetPtr source);
 };
 
 #endif // __ASSET_BROWSER__

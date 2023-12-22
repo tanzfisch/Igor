@@ -18,13 +18,16 @@ Changelog                           {#changelog}
 - dialogs can now be moved, resized and docked
 - added interface to change mouse cursor see iMouseCursorType for supported types
 - added iWidgetSplitter, iMimeData
-- added drag&drop (not fully functional)
+- added drag&drop
 - added iWidgetViewport
 - widget event handling now uses iEvent
 - added iUserControlTreeView and iUserControlGridView and iItem for generic data
 - added AssetBrowser to Mica
 - fixed texture font vertical alignment
 - added new widget selection interfaces
+- Mica drag drop assets in viewport (models and textures on models)
+- added iUserControlTextureChooser
+- added background color and background checkerboard option to iWidgetPicture
 
 0.42.0
 ------

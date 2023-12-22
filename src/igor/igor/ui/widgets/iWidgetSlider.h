@@ -224,6 +224,11 @@ namespace igor
          */
         void draw() override;
     };
+
+    /*! widget slider pointer definition
+    */
+    typedef iWidgetSlider* iWidgetSliderPtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETSLIDER__

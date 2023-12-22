@@ -14,6 +14,7 @@
 
 #include "resources/UserControlResource.h"
 #include "resources/UserControlMaterial.h"
+#include "resources/UserControlTexture.h"
 
 UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
@@ -95,18 +96,16 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
 
 void UserControlProperties::initResourceUI(const iResourceID &resourceID)
 {
-    iResourcePtr resource = iResourceManager::getInstance().getResource(resourceID);
-    iaString resourceType;
-    if (resource != nullptr)
-    {
-        resourceType = resource->getType();
-    }
-
+    iaString resourceType = iResourceManager::getInstance().getType(resourceID);
     UserControlResource *userControl = nullptr;
 
     if (resourceType == "material")
     {
         userControl = new UserControlMaterial(resourceID, _layout);
+    }
+    else if (resourceType == "texture")
+    {
+        userControl = new UserControlTexture(resourceID, _layout);
     }
 
     if (userControl == nullptr)

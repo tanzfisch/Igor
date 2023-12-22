@@ -5,14 +5,28 @@
 template <>
 inline iTexturePtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_TEXTURE ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_TEXTURE, alias, cacheMode);
     return std::dynamic_pointer_cast<iTexture>(requestResource(param));
 }
 
 template <>
 inline iTexturePtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_TEXTURE ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_TEXTURE, alias, cacheMode);
+    return std::dynamic_pointer_cast<iTexture>(loadResource(param));
+}
+
+template <>
+inline iTexturePtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_TEXTURE, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iTexture>(requestResource(param));
+}
+
+template <>
+inline iTexturePtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_TEXTURE, resourceID, cacheMode);
     return std::dynamic_pointer_cast<iTexture>(loadResource(param));
 }
 
@@ -46,21 +60,35 @@ inline iTexturePtr iResourceManager::getResource(const iResourceID &id)
 template <>
 inline iTexturePtr iResourceManager::getResource(const iaString &alias)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_TEXTURE ,alias);
+    iParameters param = buildParam(IGOR_RESOURCE_TEXTURE, alias);
     return std::dynamic_pointer_cast<iTexture>(getResource(param));
 }
 
 template <>
 inline iSoundPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SOUND ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_SOUND, alias, cacheMode);
     return std::dynamic_pointer_cast<iSound>(requestResource(param));
 }
 
 template <>
 inline iSoundPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SOUND ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_SOUND, alias, cacheMode);
+    return std::dynamic_pointer_cast<iSound>(loadResource(param));
+}
+
+template <>
+inline iSoundPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SOUND, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iSound>(requestResource(param));
+}
+
+template <>
+inline iSoundPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SOUND, resourceID, cacheMode);
     return std::dynamic_pointer_cast<iSound>(loadResource(param));
 }
 
@@ -94,21 +122,35 @@ inline iSoundPtr iResourceManager::getResource(const iResourceID &id)
 template <>
 inline iSoundPtr iResourceManager::getResource(const iaString &alias)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SOUND ,alias);
+    iParameters param = buildParam(IGOR_RESOURCE_SOUND, alias);
     return std::dynamic_pointer_cast<iSound>(getResource(param));
 }
 
 template <>
 inline iSpritePtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SPRITE ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_SPRITE, alias, cacheMode);
     return std::dynamic_pointer_cast<iSprite>(requestResource(param));
 }
 
 template <>
 inline iSpritePtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SPRITE ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_SPRITE, alias, cacheMode);
+    return std::dynamic_pointer_cast<iSprite>(loadResource(param));
+}
+
+template <>
+inline iSpritePtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SPRITE, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iSprite>(requestResource(param));
+}
+
+template <>
+inline iSpritePtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SPRITE, resourceID, cacheMode);
     return std::dynamic_pointer_cast<iSprite>(loadResource(param));
 }
 
@@ -142,21 +184,35 @@ inline iSpritePtr iResourceManager::getResource(const iResourceID &id)
 template <>
 inline iSpritePtr iResourceManager::getResource(const iaString &alias)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SPRITE ,alias);
+    iParameters param = buildParam(IGOR_RESOURCE_SPRITE, alias);
     return std::dynamic_pointer_cast<iSprite>(getResource(param));
 }
 
 template <>
 inline iAnimationPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_ANIMATION ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_ANIMATION, alias, cacheMode);
     return std::dynamic_pointer_cast<iAnimation>(requestResource(param));
 }
 
 template <>
 inline iAnimationPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_ANIMATION ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_ANIMATION, alias, cacheMode);
+    return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
+}
+
+template <>
+inline iAnimationPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_ANIMATION, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iAnimation>(requestResource(param));
+}
+
+template <>
+inline iAnimationPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_ANIMATION, resourceID, cacheMode);
     return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
 }
 
@@ -190,21 +246,35 @@ inline iAnimationPtr iResourceManager::getResource(const iResourceID &id)
 template <>
 inline iAnimationPtr iResourceManager::getResource(const iaString &alias)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_ANIMATION ,alias);
+    iParameters param = buildParam(IGOR_RESOURCE_ANIMATION, alias);
     return std::dynamic_pointer_cast<iAnimation>(getResource(param));
 }
 
 template <>
 inline iModelPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_MODEL ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_MODEL, alias, cacheMode);
     return std::dynamic_pointer_cast<iModel>(requestResource(param));
 }
 
 template <>
 inline iModelPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_MODEL ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_MODEL, alias, cacheMode);
+    return std::dynamic_pointer_cast<iModel>(loadResource(param));
+}
+
+template <>
+inline iModelPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MODEL, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iModel>(requestResource(param));
+}
+
+template <>
+inline iModelPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MODEL, resourceID, cacheMode);
     return std::dynamic_pointer_cast<iModel>(loadResource(param));
 }
 
@@ -238,21 +308,35 @@ inline iModelPtr iResourceManager::getResource(const iResourceID &id)
 template <>
 inline iModelPtr iResourceManager::getResource(const iaString &alias)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_MODEL ,alias);
+    iParameters param = buildParam(IGOR_RESOURCE_MODEL, alias);
     return std::dynamic_pointer_cast<iModel>(getResource(param));
 }
 
 template <>
 inline iMaterialPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, alias, cacheMode);
     return std::dynamic_pointer_cast<iMaterial>(requestResource(param));
 }
 
 template <>
 inline iMaterialPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL ,alias, cacheMode);
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, alias, cacheMode);
+    return std::dynamic_pointer_cast<iMaterial>(loadResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iMaterial>(requestResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, resourceID, cacheMode);
     return std::dynamic_pointer_cast<iMaterial>(loadResource(param));
 }
 
@@ -286,6 +370,6 @@ inline iMaterialPtr iResourceManager::getResource(const iResourceID &id)
 template <>
 inline iMaterialPtr iResourceManager::getResource(const iaString &alias)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL ,alias);
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, alias);
     return std::dynamic_pointer_cast<iMaterial>(getResource(param));
 }

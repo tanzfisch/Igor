@@ -155,7 +155,7 @@ namespace igor
 
         test with inDrag if it exists first
         */
-        const iDrag &getDrag() const;
+        iDrag &getDrag() const;
 
         /*! queues widget for deletion
 

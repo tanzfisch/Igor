@@ -97,18 +97,17 @@ namespace igor
 
 	void iWidgetPicture::draw()
 	{
-		if (!isVisible() ||
-			_texture == nullptr)
+		if (!isVisible())
 		{
 			return;
 		}
 
 		iWidgetManager::getInstance().getTheme()->drawWidgetPicture(this);
 
-        for (const auto child : _children)
-        {
-            child->draw();
-        }		
+		for (const auto child : _children)
+		{
+			child->draw();
+		}
 	}
 
 	iTexturePtr iWidgetPicture::getTexture() const
@@ -121,9 +120,19 @@ namespace igor
 		_texture = texture;
 	}
 
-    void iWidgetPicture::setTexture(const iaString &textureAlias)
-    {
-        setTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
-    }
+	void iWidgetPicture::setTexture(const iaString &textureAlias)
+	{
+		setTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+	}
+
+	void iWidgetPicture::setCheckerBoard(bool enable)
+	{
+		_checkerBoard = enable;
+	}
+
+	bool iWidgetPicture::isCheckerBoardEnabled() const
+	{
+		return _checkerBoard;
+	}
 
 } // namespace igor

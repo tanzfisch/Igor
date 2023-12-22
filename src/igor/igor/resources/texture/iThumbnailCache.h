@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/                     ) )     ((
+//                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,40 +26,60 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_GENERATORTERRAIN_H
-#define IGOR_GENERATORTERRAIN_H
+#ifndef IGOR_THUMBNAIL_CACHE_H
+#define IGOR_THUMBNAIL_CACHE_H
 
-#include <igor/igor.h>
-using namespace igor;
+#include <igor/threading/tasks/iTaskGenerateThumbnails.h>
+#include <igor/resources/texture/iTexture.h>
+
+#include <iaux/data/iaString.h>
 using namespace iaux;
 
-class VoxelTerrainMeshGenerator : public iModelDataIO
+#include <deque>
+
+namespace igor
 {
 
-public:
-    /*! initialize members
+    /*! the thumbnail cache (singleton)    
      */
-    VoxelTerrainMeshGenerator();
+    class IGOR_API iThumbnailCache
+    {
 
-    /*! does nothing
-     */
-    virtual ~VoxelTerrainMeshGenerator() = default;
+        friend class iTaskGenerateThumbnails;
 
-    /*! generates terrain tiles
+    public:
+        /*! \returns singleton instance of thumbnail cache
+         */
+        static iThumbnailCache &getInstance();
 
-    !!! ATTENTION consumes and deletes "parameter"
+        /*! \returns thumbnail for given filename
 
-    \param sectionname name of tile section
-    \param parameter tile parameters
-    \returns root node of generated scene graph
-    */
-    iNodePtr importData(const iParameters &parameters) override;
+        \param filename full path of existing filename
+        */
+        iTexturePtr getThumbnail(const iaString &filename);
 
-    /*! creates an instance of this class
+    private:
+        /*! path to thumbnail cache
+         */
+        iaString _thumbnailCachePath;
 
-    \returns new instance
-    */
-    static iModelDataIO *createInstance();
-};
+        /*! queue to process thumbnails
+         */
+        std::deque<std::pair<iaString, iaString>> _thumbnailProcessQueue;
 
-#endif // IGOR_GENERATORTERRAIN_H
+        /*! mutex for processing queue
+         */
+        iaMutex _queueMutex;
+
+        /*! generates thumbnails
+         */
+        void generateThumbnails();
+
+        /*! init cache
+         */
+        iThumbnailCache();
+    };
+
+}
+
+#endif // IGOR_THUMBNAIL_CACHE_H

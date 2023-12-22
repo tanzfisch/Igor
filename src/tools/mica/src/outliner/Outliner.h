@@ -29,9 +29,9 @@
 #ifndef __OUTLINER__
 #define __OUTLINER__
 
-#include "Workspace.h"
-#include "usercontrols/UserControlGraphView.h"
-#include "usercontrols/UserControlMaterialView.h"
+#include "../Workspace.h"
+#include "UserControlGraphView.h"
+#include "UserControlMaterialView.h"
 
 IGOR_EVENT_DEFINITION(ImportFile, void);
 IGOR_EVENT_DEFINITION(ImportFileReference, void);

@@ -58,41 +58,29 @@ public:
     void init() override;
 
 private:
-    /*! texture chooser 0
+    /*! texture choosers
      */
-    iUserControlFileChooser *_textureChooser0 = nullptr;
-
-    /*! texture chooser 1
-     */
-    iUserControlFileChooser *_textureChooser1 = nullptr;
-
-    /*! texture chooser 2
-     */
-    iUserControlFileChooser *_textureChooser2 = nullptr;
-
-    /*! texture chooser 3
-     */
-    iUserControlFileChooser *_textureChooser3 = nullptr;
+    iUserControlTextureChooserPtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
 
     /*! vertex count text field
      */
-    iWidgetLineTextEdit *_textVertices = nullptr;
+    iWidgetLineTextEditPtr _textVertices = nullptr;
 
     /*! triangle count text field
      */
-    iWidgetLineTextEdit *_textTriangles = nullptr;
+    iWidgetLineTextEditPtr _textTriangles = nullptr;
 
     /*! indices count text field
      */
-    iWidgetLineTextEdit *_textIndexes = nullptr;
+    iWidgetLineTextEditPtr _textIndexes = nullptr;
 
     /*! shininess number chooser
      */
-    iWidgetNumberChooser *_textShininess = nullptr;
+    iWidgetNumberChooserPtr _textShininess = nullptr;
 
     /*! shininess slider
      */
-    iWidgetSlider *_sliderShininess = nullptr;
+    iWidgetSliderPtr _sliderShininess = nullptr;
 
     iaColor4f _ambient; // TODO remove these
     iaColor4f _emissive;

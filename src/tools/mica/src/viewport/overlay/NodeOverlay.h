@@ -29,7 +29,7 @@
 #ifndef __NODEOVERLAY__
 #define __NODEOVERLAY__
 
-#include "../Workspace.h"
+#include "../../Workspace.h"
 
 #include <memory>
 

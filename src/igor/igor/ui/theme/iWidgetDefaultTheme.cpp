@@ -91,8 +91,8 @@ static const iaColor4f COLOR_CHECKED_FILL = {0.2f, 0.2f, 0.2f, 0.2f};
 
 static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
 
-static const iaColor4f COLOR_SELECTION_FRAME(0.0,0.0,0.0,0.8);
-static const iaColor4f COLOR_SELECTION_FILL(0.0,0.0,0.0,0.2);
+static const iaColor4f COLOR_SELECTION_FRAME(0.0, 0.0, 0.0, 0.8);
+static const iaColor4f COLOR_SELECTION_FILL(0.0, 0.0, 0.0, 0.2);
 
 namespace igor
 {
@@ -102,26 +102,55 @@ namespace igor
     {
         _font = iTextureFont::create(fontTexture);
         _backgroundTexture = backgroundTexture;
+
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                           {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
+                           {IGOR_RESOURCE_PARAM_GENERATE, true},
+                           {"pattern", iTexturePattern::CheckerBoard},
+                           {"primary", iaColor4f::gray},
+                           {"secondary", iaColor4f::lightGray},
+                           {"width", 128},
+                           {"height", 128}});
+
+        _checkerBoardTexture = iResourceManager::getInstance().loadResource<iTexture>(param);
     }
 
     void iWidgetDefaultTheme::drawWidgetPicture(iWidgetPicturePtr widget)
     {
         const auto &background = widget->getBackground();
         const auto &foreground = widget->getForeground();
-        const auto actualRect = widget->getActualRect();
-        bool enabled = widget->isEnabled();
-        auto state = widget->getState();
-        auto texture = widget->getTexture();
+        const auto rect = widget->getActualRect();
+        const bool enabled = widget->isEnabled();
+        const auto state = widget->getState();
+        const auto texture = widget->getTexture();
+        const auto checkerBoard = widget->isCheckerBoardEnabled();
 
-        if (background._a != 0.0f)
+        if (!checkerBoard && background._a != 0.0f)
         {
-            iRenderer::getInstance().drawFilledRectangle(actualRect, background);
+            iRenderer::getInstance().drawFilledRectangle(rect, background);
         }
 
         const iaColor4f &color = enabled ? foreground : COLOR_AMBIENT;
-        iRenderer::getInstance().drawTexturedRectangle(actualRect, texture, color, texture->hasTransparency());
+        if (texture != nullptr)
+        {
+            if (texture->hasTransparency() &&
+                checkerBoard)
+            {
+                const float32 aspect = static_cast<float32>(texture->getHeight()) / static_cast<float32>(texture->getWidth());
+                iRenderer::getInstance().drawTexturedRectangle(rect, _checkerBoardTexture, background, true, iaVector2f(1.0f, aspect * 1.0f));
+            }
 
-        DRAW_DEBUG_OUTPUT(actualRect, widget->getID(), state);
+            iRenderer::getInstance().drawTexturedRectangle(rect, texture, color, texture->hasTransparency());
+        }
+        else
+        {
+            iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
+            iRenderer::getInstance().drawRectangle(rect, COLOR_DIFFUSE_DARK);
+            iRenderer::getInstance().drawLine(rect.getTopLeft(), rect.getBottomRight(), COLOR_DIFFUSE_DARK);
+            iRenderer::getInstance().drawLine(rect.getTopRight(), rect.getBottomLeft(), COLOR_DIFFUSE_DARK);
+        }
+
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
     }
 
     void iWidgetDefaultTheme::drawWidgetSpacer(iWidgetSpacerPtr widget)
@@ -132,7 +161,33 @@ namespace igor
     void iWidgetDefaultTheme::drawSelection(const iaRectanglef &rect)
     {
         iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SELECTION_FILL);
-        iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTION_FRAME);        
+        iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTION_FRAME);
+    }
+
+    void iWidgetDefaultTheme::drawDrag(const iaVector2f &pos, const iDrag &drag)
+    {
+        iTexturePtr texture = drag.getTexture();
+        if (texture == nullptr)
+        {
+            return;
+        }
+
+        const iaRectanglef rect(pos._x - 16, pos._y - 16, 64, 64);
+        iRenderer::getInstance().drawTexturedRectangle(rect, texture, iaColor4f::white, true);
+
+        switch (drag.getDragState())
+        {
+        case iDragState::Accepted:
+            iRenderer::getInstance().drawRectangle(rect, iaColor4f::green);
+            break;
+        case iDragState::Rejected:
+            iRenderer::getInstance().drawLine(rect.getTopLeft(), rect.getBottomRight(), iaColor4f::red);
+            iRenderer::getInstance().drawLine(rect.getTopRight(), rect.getBottomLeft(), iaColor4f::red);
+            break;
+        case iDragState::Neutral:
+        default:
+            break;
+        }
     }
 
     // TODO create new interfaces like the one above

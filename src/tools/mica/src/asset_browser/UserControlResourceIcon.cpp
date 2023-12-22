@@ -5,7 +5,8 @@
 #include "UserControlResourceIcon.h"
 
 #include "../actions/MicaActionContext.h"
-#include "../ThumbnailCache.h"
+
+#include <igor/resources/texture/iThumbnailCache.h>
 
 UserControlResourceIcon::UserControlResourceIcon(const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
@@ -13,6 +14,7 @@ UserControlResourceIcon::UserControlResourceIcon(const iWidgetPtr parent)
     setGrowingByContent(false);
     setIgnoreChildEventConsumption(true);
     setSelectable(true);
+    setAcceptDrag(true);
 
     initGUI();
 }
@@ -85,7 +87,7 @@ void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
 void UserControlResourceIcon::refresh()
 {
     iaFile file(iResourceManager::getInstance().resolvePath(_filename));
-    iTexturePtr texture = ThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
+    iTexturePtr texture = iThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
 
     if (texture == nullptr)
     {
@@ -122,7 +124,7 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
     _label->setText(file.getFileName());
     _label->setMaxTextWidth(128);
 
-    iTexturePtr texture = ThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
+    iTexturePtr texture = iThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
 
     if (texture == nullptr)
     {
@@ -155,6 +157,10 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
             texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file");
         }
     }
+    else
+    {
+        _picture->setCheckerBoard(true);
+    }
 
     _picture->setTexture(texture);
 }
@@ -175,4 +181,19 @@ void UserControlResourceIcon::draw()
     {
         child->draw();
     }
+}
+
+void UserControlResourceIcon::onDrag()
+{
+    if (!getResourceID().isValid())
+    {
+        return;
+    }
+
+    iDrag drag(this);
+    iMimeData mimeData;
+    mimeData.setResourceID(getResourceID());
+    drag.setMimeData(mimeData);
+    drag.setTexture(_picture->getTexture());
+    drag.execute();
 }

@@ -26,7 +26,7 @@ namespace igor
 
     bool iSoundFactory::loadResource(iResourcePtr resource)
     {
-        iaString filepath = iResourceManager::getInstance().getFilePath(resource->getID());
+        iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
         if (filepath.isEmpty())
         {
             filepath = resource->getSource();

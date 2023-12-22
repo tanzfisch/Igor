@@ -48,7 +48,7 @@ namespace igor
     protected:
         iButtonState _buttonStates[5];
         iMouse *_mouse;
-        iaVector2i _posLast;
+        iaVector2i _lastMousePos;
         iaVector2i _pos;
         iWindowPtr _window = nullptr;
     };
@@ -163,10 +163,10 @@ namespace igor
             break;
 
             case WM_MOUSEMOVE:
-                _posLast = _pos;
+                _lastMousePos = _pos;
                 _pos.set(GET_X_LPARAM(event->_lParam), GET_Y_LPARAM(event->_lParam));
 
-                iaVector2f posLast(_posLast._x, _posLast._y);
+                iaVector2f posLast(_lastMousePos._x, _lastMousePos._y);
                 iaVector2f pos(_pos._x, _pos._y);
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, posLast, pos)));
                 break;
@@ -247,7 +247,7 @@ namespace igor
                 SetCursorPos(client_rect_offset_pos_x + x, client_rect_offset_pos_y + y);
             }
 
-            _posLast = _pos;
+            _lastMousePos = _pos;
             _pos.set(x, y);
         }
 
@@ -405,10 +405,10 @@ namespace igor
                 iaVector2i pos(xevent.xmotion.x, xevent.xmotion.y);
                 if (_pos != pos)
                 {
-                    _posLast = _pos;
+                    _lastMousePos = _pos;
                     _pos = pos;
 
-                    iaVector2f posLast(_posLast._x, _posLast._y);
+                    iaVector2f posLast(_lastMousePos._x, _lastMousePos._y);
                     iaVector2f pos(_pos._x, _pos._y);
                     iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, posLast, pos)));
                 }
@@ -427,7 +427,7 @@ namespace igor
             XWarpPointer(_display, None, _xWindow, 0, 0, 0, 0, x, y);
             XSync(_display, false);
 
-            _posLast = _pos;
+            _lastMousePos = _pos;
             _pos.set(x, y);
         }
 
@@ -586,7 +586,7 @@ namespace igor
 
     iaVector2i iMouse::getPosDelta() const
     {
-        return _impl->_pos - _impl->_posLast;
+        return _impl->_pos - _impl->_lastMousePos;
     }
 
     bool iMouse::getLeftButton()

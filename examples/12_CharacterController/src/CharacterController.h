@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __CHARACTERCONTROLLER__
-#define __CHARACTERCONTROLLER__
+#ifndef IGOR_CHARACTERCONTROLLER_H
+#define IGOR_CHARACTERCONTROLLER_H
 
 #include <igor/igor.h>
 using namespace igor;
@@ -36,8 +36,8 @@ class CharacterController
 {
 
 public:
-    /*! character state 
-    */
+    /*! character state
+     */
     enum class State
     {
         Air,
@@ -102,4 +102,4 @@ private:
     void onSubmitConstraints(iPhysicsJoint *joint, float64 timestep);
 };
 
-#endif // __CHARACTERCONTROLLER__
+#endif // IGOR_CHARACTERCONTROLLER_H
