@@ -14,10 +14,9 @@ using namespace iaux;
 namespace igor
 {
 
-    const iaString &iSoundFactory::getType() const
+    iSoundFactory::iSoundFactory()
+        : iFactory(IGOR_RESOURCE_SOUND, IGOR_SUPPORTED_SOUND_EXTENSIONS)
     {
-        const static iaString typeName(L"sound");
-        return typeName;
     }
 
     iResourcePtr iSoundFactory::createResource(const iParameters &parameters)
@@ -27,9 +26,15 @@ namespace igor
 
     bool iSoundFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }
+        
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
         iSoundPtr sound = std::dynamic_pointer_cast<iSound>(resource);
-        return loadSound(filename, sound);
+        return loadSound(fullFilepath, sound);
     }
 
     bool iSoundFactory::loadSound(const iaString &filename, iSoundPtr sound)
@@ -63,7 +68,7 @@ namespace igor
                 break;
             }
 
-            con_debug("loaded sound \"" << sound->getName() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
+            con_trace("loaded sound \"" << sound->getInfo() << "\" [" << sound->_bitsPerSample << "bit " << header._sampleRate << "Hz " << channels << "]");
         }
 
         delete[] buffer;
@@ -82,23 +87,6 @@ namespace igor
     {
         // there is no type specific data for sounds at this point
         return L"";
-    }
-
-    bool iSoundFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &extension = file.getExtension();
-        if (extension == "wav")
-        {
-            return true;
-        }
-
-        return false;
     }
 
 }; // namespace igor

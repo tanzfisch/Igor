@@ -67,7 +67,7 @@ namespace igor
 		*/
         const iaString &getText() const;
 
-        /*! sets boder size (something like a margin)
+        /*! sets border size
 
 		\param border size of border
 		*/
@@ -101,8 +101,8 @@ namespace igor
         iaString _text;
 
         /*! draws the widget
-		*/
-        void draw();
+         */
+        void draw() override;
 
         /*! updates size based on it's content
 		*/

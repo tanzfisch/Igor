@@ -59,7 +59,7 @@ namespace igor
         /*! creates timer handle and registers it to the iTimer running with given interval
 
 		\param timer_delegate timer delegate to register
-		\param intervall the length of the intervall
+		\param interval the length of the interval
 		\param oneShot if true the timed even only occurs once
 		*/
         iTimerHandle(iTimerTickDelegate timerDelegate, const iaTime &interval, bool oneShot = false);
@@ -68,17 +68,9 @@ namespace igor
 		*/
         virtual ~iTimerHandle();
 
-        /*! register timer delegate to timer event
-
-		\param timer_delegate timer delegate to register
-		*/
-        void registerTimerDelegate(iTimerTickDelegate timerDelegate);
-
-        /*! unregister timer delegate from timer event
-
-		\param timer_delegate timer delegate to unregister
-		*/
-        void unregisterTimerDelegate(iTimerTickDelegate timerDelegate);
+        /*! \returns timer tick event
+        */
+        iTimerTickEvent& getEventTimerTick();
 
         /*! changes timer interval
 
@@ -86,11 +78,11 @@ namespace igor
 
 		triggers restart()
 		*/
-        void setIntervall(iaTime interval);
+        void setInterval(iaTime interval);
 
         /*! returns current intervall time
 		*/
-        iaTime getIntervall() const;
+        iaTime getInterval() const;
 
         /*! restarts timer by resetting to current time
 		*/
@@ -120,11 +112,11 @@ namespace igor
 
         /*! the intervall in ms in use
 		*/
-        iaTime _intervall = iaTime::fromMilliseconds(20);
+        iaTime _interval = iaTime::fromMilliseconds(20);
 
         /*! the configured intervall in ms
 		*/
-        iaTime _configuredIntervall = iaTime::fromMilliseconds(20);
+        iaTime _configuredInterval = iaTime::fromMilliseconds(20);
 
         /*! time the handle was triggered last time
 		*/

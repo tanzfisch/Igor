@@ -36,7 +36,7 @@ namespace igor
 			minWidth = textWidth + minHeight + static_cast<int32>(fontSize);
 		}
 
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 	}
 
 	void iWidgetNumberChooser::updateAlignment(int32 clientWidth, int32 clientHeight)
@@ -81,7 +81,7 @@ namespace igor
 		_change(this);
 	}
 
-	bool iWidgetNumberChooser::handleMouseKeyDown(iKeyCode key)
+	bool iWidgetNumberChooser::onMouseKeyDown(iEventMouseKeyDown &event)
 	{
 		if (!isEnabled())
 		{
@@ -98,25 +98,27 @@ namespace igor
 			_buttonDownAppearanceState = iWidgetState::Pressed;
 		}
 
-		return iWidget::handleMouseKeyDown(key);
+		return iWidget::onMouseKeyDown(event);
 	}
 
-	void iWidgetNumberChooser::handleMouseMove(const iaVector2f &pos)
+	void iWidgetNumberChooser::onMouseMove(iEventMouseMove &event)
 	{
 		if (!isEnabled())
 		{
 			return;
 		}
 
-		iWidget::handleMouseMove(pos);
+		iWidget::onMouseMove(event);
 
-		int32 mx = pos._x - getActualPosX();
-		int32 my = pos._y - getActualPosY();
+		const auto &pos = event.getPosition();
+		const int32 mx = pos._x - getActualPosX();
+		const int32 my = pos._y - getActualPosY();
 
 		if (mx >= _buttonUpRectangle.getX() &&
 			mx < _buttonUpRectangle.getX() + _buttonUpRectangle.getWidth() &&
 			my >= _buttonUpRectangle.getY() &&
-			my < _buttonUpRectangle.getY() + _buttonUpRectangle.getHeight())
+			my < _buttonUpRectangle.getY() + _buttonUpRectangle.getHeight() &&
+			!event.isConsumed())
 		{
 
 			_mouseOverButtonUp = true;
@@ -131,7 +133,8 @@ namespace igor
 		if (mx >= _buttonDownRectangle.getX() &&
 			mx < _buttonDownRectangle.getX() + _buttonDownRectangle.getWidth() &&
 			my >= _buttonDownRectangle.getY() &&
-			my < _buttonDownRectangle.getY() + _buttonDownRectangle.getHeight())
+			my < _buttonDownRectangle.getY() + _buttonDownRectangle.getHeight() &&
+			!event.isConsumed())
 		{
 			_mouseOverButtonDown = true;
 			_buttonDownAppearanceState = iWidgetState::Highlighted;
@@ -143,7 +146,7 @@ namespace igor
 		}
 	}
 
-	bool iWidgetNumberChooser::handleMouseKeyUp(iKeyCode key)
+	bool iWidgetNumberChooser::onMouseKeyUp(iEventMouseKeyUp &event)
 	{
 		if (!isEnabled())
 		{
@@ -152,7 +155,7 @@ namespace igor
 
 		if (_mouseOverButtonUp)
 		{
-			if (key == iKeyCode::MouseLeft)
+			if (event.getKey() == iKeyCode::MouseLeft)
 			{
 				_buttonUpAppearanceState = iWidgetState::Standby;
 				increaseNumber(_stepUp);
@@ -164,7 +167,7 @@ namespace igor
 
 		if (_mouseOverButtonDown)
 		{
-			if (key == iKeyCode::MouseLeft)
+			if (event.getKey() == iKeyCode::MouseLeft)
 			{
 				_buttonDownAppearanceState = iWidgetState::Standby;
 				decreaseNumber(_stepDown);
@@ -174,33 +177,33 @@ namespace igor
 			return true;
 		}
 
-		return iWidget::handleMouseKeyUp(key);
+		return iWidget::onMouseKeyUp(event);
 	}
 
-	bool iWidgetNumberChooser::handleMouseWheel(int32 d)
+	bool iWidgetNumberChooser::onMouseWheel(iEventMouseWheel &event)
 	{
-		if (!isEnabled())
+		if (!isEnabled() ||
+			!isMouseOver())
 		{
 			return false;
 		}
 
-		iWidget::handleMouseWheel(d);
+        if (iWidget::onMouseWheel(event) &&
+            !_ignoreChildEventConsumption)
+        {
+            return true;
+        }
 
-		if (isMouseOver())
+		if (event.getWheelDelta() < 0)
 		{
-			if (d < 0)
-			{
-				decreaseNumber(_stepDownWheel);
-			}
-			else
-			{
-				increaseNumber(_stepUpWheel);
-			}
-
-			return true;
+			decreaseNumber(_stepDownWheel);
+		}
+		else
+		{
+			increaseNumber(_stepUpWheel);
 		}
 
-		return false;
+		return true;
 	}
 
 	void iWidgetNumberChooser::setPostFix(const iaString &text)
@@ -257,13 +260,15 @@ namespace igor
 
 	void iWidgetNumberChooser::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iaString displayString = iaString::toString(_value, _afterPoint);
-			displayString += _postFix;
-
-			iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isEnabled());
+			return;
 		}
+
+		iaString displayString = iaString::toString(_value, _afterPoint);
+		displayString += _postFix;
+
+		iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isEnabled());
 	}
 
 } // namespace igor

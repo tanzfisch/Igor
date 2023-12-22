@@ -23,8 +23,8 @@ namespace igor
 
     iWidgetSlider::iWidgetSlider(const iWidgetPtr parent)
         : iWidget(iWidgetType::iWidgetSlider, iWidgetKind::Widget, parent)
-	{
-	}
+    {
+    }
 
     iWidgetSlider::~iWidgetSlider()
     {
@@ -99,30 +99,30 @@ namespace igor
         }
     }
 
-    bool iWidgetSlider::handleMouseWheel(int32 d)
+    bool iWidgetSlider::onMouseWheel(iEventMouseWheel &event)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !isMouseOver())
         {
             return false;
         }
 
-        iWidget::handleMouseWheel(d);
-
-        if (isMouseOver())
+        if (iWidget::onMouseWheel(event) &&
+            !_ignoreChildEventConsumption)
         {
-            if (d < 0)
-            {
-                decreaseNumber(_wheelStepDown);
-            }
-            else
-            {
-                increaseNumber(_wheelStepUp);
-            }
-
             return true;
         }
 
-        return false;
+        if (event.getWheelDelta() < 0)
+        {
+            decreaseNumber(_wheelStepDown);
+        }
+        else
+        {
+            increaseNumber(_wheelStepUp);
+        }
+
+        return true;
     }
 
     const iaString &iWidgetSlider::getTexture() const
@@ -132,15 +132,17 @@ namespace igor
 
     void iWidgetSlider::calcMinSize()
     {
-        setMinSize(0, 0);
+        updateMinSize(0, 0);
     }
 
-    void iWidgetSlider::handleMouseMove(const iaVector2f &pos)
+    void iWidgetSlider::onMouseMove(iEventMouseMove &event)
     {
         if (!isEnabled())
         {
             return;
         }
+
+        const auto &pos = event.getPosition();
 
         if (_sliderButton._mouseDown)
         {
@@ -156,10 +158,9 @@ namespace igor
             }
         }
 
-        if (pos._x >= _absoluteX &&
-            pos._x < _absoluteX + _actualWidth &&
-            pos._y >= _absoluteY &&
-            pos._y < _absoluteY + _actualHeight)
+        auto rect = getActualRect();
+        if (iIntersection::intersects(pos, rect) &&
+            !event.isConsumed())
         {
             if (!_isMouseOver)
             {
@@ -200,14 +201,14 @@ namespace igor
         }
     }
 
-    bool iWidgetSlider::handleMouseKeyUp(iKeyCode key)
+    bool iWidgetSlider::onMouseKeyUp(iEventMouseKeyUp &event)
     {
         if (!isEnabled())
         {
             return false;
         }
 
-        if (key == iKeyCode::MouseLeft)
+        if (event.getKey() == iKeyCode::MouseLeft)
         {
             _sliderButton._appearanceState = iWidgetState::Standby;
             _sliderButton._mouseOver = false;
@@ -215,27 +216,26 @@ namespace igor
             return true;
         }
 
-        return iWidget::handleMouseKeyUp(key);
+        return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetSlider::handleMouseKeyDown(iKeyCode key)
+    bool iWidgetSlider::onMouseKeyDown(iEventMouseKeyDown &event)
     {
-        if (!isEnabled())
+        if (!isEnabled() ||
+            !isMouseOver())
         {
             return false;
         }
 
-        if (key == iKeyCode::MouseLeft)
+        if (event.getKey() == iKeyCode::MouseLeft &&
+            _sliderButton._mouseOver)
         {
-            if (_sliderButton._mouseOver)
-            {
-                _sliderButton._appearanceState = iWidgetState::Pressed;
-                _sliderButton._mouseDown = true;
-                return true;
-            }
+            _sliderButton._appearanceState = iWidgetState::Pressed;
+            _sliderButton._mouseDown = true;
+            return true;
         }
 
-        return iWidget::handleMouseKeyDown(key);
+        return iWidget::onMouseKeyDown(event);
     }
 
     void iWidgetSlider::handleMouseInput(int32 mouseX)
@@ -266,35 +266,37 @@ namespace igor
     {
         con_assert(_min < _max, "invalid configuration");
 
-        if (isVisible())
+        if (!isVisible())
         {
-            if (_backgroundTexture != nullptr)
-            {
-                iWidgetManager::getInstance().getTheme()->drawTiledRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _backgroundTexture);
-            }
-
-            if (_texture != nullptr)
-            {
-                iWidgetManager::getInstance().getTheme()->drawPicture(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isEnabled());
-            }
-
-            if (_backgroundTexture == nullptr &&
-                _texture == nullptr)
-            {
-                iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
-                iWidgetManager::getInstance().getTheme()->drawRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
-            }
-
-            const float32 factor = _value / (_max - _min);
-            const float32 offset = (getActualWidth() - 9) * factor;
-
-            _sliderButton._rectangle.setHeight(getActualHeight());
-            _sliderButton._rectangle.setWidth(9);
-            _sliderButton._rectangle.setY(getActualPosY());
-            _sliderButton._rectangle.setX(getActualPosX() + static_cast<int32>(offset));
-
-            iWidgetManager::getInstance().getTheme()->drawButton(_sliderButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, _sliderButton._appearanceState, isEnabled());
+            return;
         }
+
+        if (_backgroundTexture != nullptr)
+        {
+            iWidgetManager::getInstance().getTheme()->drawTiledRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _backgroundTexture);
+        }
+
+        if (_texture != nullptr)
+        {
+            iWidgetManager::getInstance().getTheme()->drawPicture(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isEnabled());
+        }
+
+        if (_backgroundTexture == nullptr &&
+            _texture == nullptr)
+        {
+            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
+            iWidgetManager::getInstance().getTheme()->drawRectangle(iaRectanglef(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
+        }
+
+        const float32 factor = _value / (_max - _min);
+        const float32 offset = (getActualWidth() - 9) * factor;
+
+        _sliderButton._rectangle.setHeight(getActualHeight());
+        _sliderButton._rectangle.setWidth(9);
+        _sliderButton._rectangle.setY(getActualPosY());
+        _sliderButton._rectangle.setX(getActualPosX() + static_cast<int32>(offset));
+
+        iWidgetManager::getInstance().getTheme()->drawButton(_sliderButton._rectangle, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, _sliderButton._appearanceState, isEnabled(), false);
     }
 
     void iWidgetSlider::setBackgroundTexture(const iaString &texturePath)

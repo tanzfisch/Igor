@@ -15,6 +15,11 @@ using namespace iaux;
 namespace igor
 {
 
+    iModelFactory::iModelFactory()
+        : iFactory(IGOR_RESOURCE_MODEL, IGOR_SUPPORTED_MODEL_EXTENSIONS)
+    {
+    }
+
     class iModelDeleter
     {
     public:
@@ -32,12 +37,6 @@ namespace igor
      */
     static iaMutex _mutexDataIOs;
 
-    const iaString &iModelFactory::getType() const
-    {
-        const static iaString typeName(L"model");
-        return typeName;
-    }
-
     iResourcePtr iModelFactory::createResource(const iParameters &parameters)
     {
         return iResourcePtr(new iModel(parameters), iModelDeleter());
@@ -45,21 +44,29 @@ namespace igor
 
     bool iModelFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
-        iModelPtr model = std::dynamic_pointer_cast<iModel>(resource);
-
         // copy parameters to add filename
         auto parameters = resource->getParameters();
-        parameters.setParameter("filename", filename);
 
-        iaString subType = parameters.getParameter<iaString>("subType", "");
-        if (subType == "")
+        iaString filename = iResourceManager::getInstance().getFilename(resource->getID());
+        if (filename.isEmpty())
+        {
+            filename = resource->getSource();
+        }
+
+        filename = iResourceManager::getInstance().resolvePath(filename);
+        if (!filename.isEmpty())
+        {
+            parameters.setParameter(IGOR_RESOURCE_PARAM_SOURCE, filename);
+        }
+
+        iaString subType = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SUB_TYPE, "");
+        if (subType.isEmpty())
         {
             iaFile file(filename);
             subType = file.getExtension();
         }
 
-        if (subType == "")
+        if (subType.isEmpty())
         {
             con_err("no subType specified to load \"" << filename << "\"");
             return false;
@@ -79,6 +86,7 @@ namespace igor
             return false;
         }
 
+        iModelPtr model = std::dynamic_pointer_cast<iModel>(resource);
         model->setNode(node);
         return true;
     }
@@ -95,28 +103,6 @@ namespace igor
         // TODO
 
         return hashData;
-    }
-
-    bool iModelFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &fileExtension = file.getExtension();
-        static const std::vector<iaString> supportedExtensions = {L"ompf", L"obj"};
-
-        for (const auto &extension : supportedExtensions)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     void iModelFactory::registerModelDataIO(const iaString &identifier, iCreateModelDataIOInstance functionPointer)

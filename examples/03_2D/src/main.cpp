@@ -16,6 +16,9 @@ int main(void)
 	window->setCentered();
 	window->open();
 
+	// before we can load any resources make sure the resource dictionary is loaded
+    iResourceManager::getInstance().loadResourceDictionary("dictionaries/example_resource_dictionary.xml");
+
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new Example2D(window));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(window));

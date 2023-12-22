@@ -41,19 +41,12 @@ namespace igor
      */
     class iAnimationFactory : public iFactory
     {
+        friend class iResourceManager;
 
     private:
-        /*! \returns the factory type
-
-        this type is used to register with the resource manager
-        */
-        const iaString &getType() const override;
-
-        /*! \returns true if resource parameters are supported by this factory
-
-        \param parameters the given resource parameters
-        */
-        bool matchingType(const iParameters &parameters) const override;
+        /*! init members
+         */
+        iAnimationFactory();
 
         /*! \returns resource type specific hash data
          */
@@ -89,7 +82,7 @@ namespace igor
         /*! reads animation element from xml file
 
         \param animationElement the animation element to read
-        \param animation the target animation 
+        \param animation the target animation
         */
         void readAnimationElement(TiXmlElement *animationElement, iAnimationPtr animation);
 

@@ -3,6 +3,7 @@ var classiaux_1_1ia_time =
     [ "iaTime", "classiaux_1_1ia_time.html#ae9444122fb5e3d3c15c73fa615b61f0a", null ],
     [ "iaTime", "classiaux_1_1ia_time.html#a1a61d92c7d766b2ae0c6a32ef1fb1cba", null ],
     [ "iaTime", "classiaux_1_1ia_time.html#adc0fe640dfa4645ad0781613d608d1a4", null ],
+    [ "fromMicroseconds", "classiaux_1_1ia_time.html#aaf6357a1471378e7ed3d9485119a687d", null ],
     [ "fromMilliseconds", "classiaux_1_1ia_time.html#a62333c3d85273c956be2db3fc59ea954", null ],
     [ "fromSeconds", "classiaux_1_1ia_time.html#a7701a2dfa645f177de3f6b6baf009cf1", null ],
     [ "getMicroseconds", "classiaux_1_1ia_time.html#a17fc2073c566564ceb11580b262a9da6", null ],

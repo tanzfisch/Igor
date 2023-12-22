@@ -6,12 +6,12 @@
 
 #include <igor/system/iKeyboard.h>
 #include <igor/system/iApplication.h>
-
 #include <igor/system/iWindow.h>
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
 #include <igor/events/iEventMouse.h>
 
+#include <iaux/data/iaConvert.h>
 #include <iaux/system/iaTime.h>
 #include <iaux/system/iaConsole.h>
 
@@ -40,13 +40,15 @@ namespace igor
         virtual void deinitDevice() = 0;
         virtual bool onOSEvent(const void *data) = 0;
         virtual void setPosition(int32 x, int32 y) = 0;
-        virtual void showCursor(bool show) = 0;
+        virtual void hideCursor(bool hide) = 0;
+        virtual void setCursor(iMouseCursorType cursorType) = 0;
+        virtual void resetCursor() = 0;
         virtual void setCenter() = 0;
 
     protected:
         iButtonState _buttonStates[5];
         iMouse *_mouse;
-        iaVector2i _posLast;
+        iaVector2i _lastMousePos;
         iaVector2i _pos;
         iWindowPtr _window = nullptr;
     };
@@ -95,9 +97,21 @@ namespace igor
             _window = nullptr;
         }
 
-        void showCursor(bool show) override
+        void hideCursor(bool hide) override
         {
-            ShowCursor(show);
+            ShowCursor(!hide);
+        }
+
+        void setCursor(iMouseCursorType cursorType) override
+        {
+            // not implemented
+            con_err("setCursor not implemented");
+        }
+
+        void resetCursor() override
+        {
+            // not implemented
+            con_err("resetCursor not implemented");
         }
 
         bool onOSEvent(const void *data)
@@ -149,9 +163,12 @@ namespace igor
             break;
 
             case WM_MOUSEMOVE:
-                _posLast = _pos;
+                _lastMousePos = _pos;
                 _pos.set(GET_X_LPARAM(event->_lParam), GET_Y_LPARAM(event->_lParam));
-                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, _posLast, _pos)));
+
+                iaVector2f posLast(_lastMousePos._x, _lastMousePos._y);
+                iaVector2f pos(_pos._x, _pos._y);
+                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, posLast, pos)));
                 break;
 
             case WM_RBUTTONDOWN:
@@ -230,27 +247,27 @@ namespace igor
                 SetCursorPos(client_rect_offset_pos_x + x, client_rect_offset_pos_y + y);
             }
 
-            _posLast = _pos;
+            _lastMousePos = _pos;
             _pos.set(x, y);
         }
 
     private:
         /*! size of buffer needed to receive raw input messages
-        */
+         */
         uint32 _rawInputBufferSize = 0;
 
         /*! pointer to the buffer to receive raw input messages
-        */
+         */
         uint8 *_rawInputBuffer = nullptr;
 
         /*! configuration of raw input device
-        */
+         */
         RAWINPUTDEVICE _rawInputDevice;
     };
 
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 
     class iMouseImplLinux : public iMouseImpl
     {
@@ -260,7 +277,14 @@ namespace igor
         {
         }
 
-        ~iMouseImplLinux() = default;
+        ~iMouseImplLinux()
+        {
+            if (_blankCursor != None)
+            {
+                XFreeCursor(_display, _blankCursor);
+                _blankCursor = None;
+            }
+        }
 
         bool initDevice(const void *data) override
         {
@@ -381,10 +405,12 @@ namespace igor
                 iaVector2i pos(xevent.xmotion.x, xevent.xmotion.y);
                 if (_pos != pos)
                 {
-                    _posLast = _pos;
+                    _lastMousePos = _pos;
                     _pos = pos;
 
-                    iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, _posLast, _pos)));
+                    iaVector2f posLast(_lastMousePos._x, _lastMousePos._y);
+                    iaVector2f pos(_pos._x, _pos._y);
+                    iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, posLast, pos)));
                 }
             }
             break;
@@ -401,47 +427,94 @@ namespace igor
             XWarpPointer(_display, None, _xWindow, 0, 0, 0, 0, x, y);
             XSync(_display, false);
 
-            _posLast = _pos;
+            _lastMousePos = _pos;
             _pos.set(x, y);
         }
 
-        void showCursor(bool show) override
+        void resetCursor() override
         {
-            if (!_cursorinitialised)
+            XUndefineCursor(_display, _xWindow);
+        }
+
+        void setCursor(iMouseCursorType cursorType) override
+        {
+            int xcursorType = 0;
+
+            switch (cursorType)
             {
-                Pixmap blank;
-                XColor dummy;
-                char data[1] = {0};
-
-                blank = XCreateBitmapFromData(_display, _xWindow, data, 1, 1);
-                _cursor = XCreatePixmapCursor(_display, blank, blank, &dummy, &dummy, 0, 0);
-                XFreePixmap(_display, blank);
-
-                _cursorinitialised = true;
+            case iMouseCursorType::Arrow:
+                xcursorType = XC_left_ptr;
+                break;
+            case iMouseCursorType::ArrowLeftEdge:
+                xcursorType = XC_left_side;
+                break;
+            case iMouseCursorType::ArrowRightEdge:
+                xcursorType = XC_right_side;
+                break;
+            case iMouseCursorType::ArrowTopEdge:
+                xcursorType = XC_top_side;
+                break;
+            case iMouseCursorType::ArrowBottomEdge:
+                xcursorType = XC_bottom_side;
+                break;
+            case iMouseCursorType::ArrowTopLeftCorner:
+                xcursorType = XC_top_left_corner;
+                break;
+            case iMouseCursorType::ArrowTopRightCorner:
+                xcursorType = XC_top_right_corner;
+                break;
+            case iMouseCursorType::ArrowBottomLeftCorner:
+                xcursorType = XC_bottom_left_corner;
+                break;
+            case iMouseCursorType::ArrowBottomRightCorner:
+                xcursorType = XC_bottom_right_corner;
+                break;
+            case iMouseCursorType::VeticalSplit:
+                xcursorType = XC_sb_v_double_arrow;
+                break;
+            case iMouseCursorType::HorizontalSplit:
+                xcursorType = XC_sb_h_double_arrow;
+                break;
             }
 
-            if (show)
+            Cursor cursor = XCreateFontCursor(_display, xcursorType);
+            XDefineCursor(_display, _xWindow, cursor);
+        }
+
+        void hideCursor(bool hide) override
+        {
+            if (hide)
             {
-                if (None != _cursor)
+                if (_blankCursor == None)
                 {
-                    XFreeCursor(_display, _cursor);
-                    _cursor = None;
+                    XColor dummy;
+                    char data[1] = {0};
+
+                    Pixmap blank = XCreateBitmapFromData(_display, _xWindow, data, 1, 1);
+                    _blankCursor = XCreatePixmapCursor(_display, blank, blank, &dummy, &dummy, 0, 0);
+                    XFreePixmap(_display, blank);
                 }
 
-                XUndefineCursor(_display, _xWindow);
+                XDefineCursor(_display, _xWindow, _blankCursor);
             }
             else
             {
-                XDefineCursor(_display, _xWindow, _cursor);
+                XUndefineCursor(_display, _xWindow);
             }
         }
 
     private:
-        bool _cursorinitialised = false;
-        Cursor _cursor = None;
+        /*! blank cursor definition
+         */
+        Cursor _blankCursor = None;
 
+        /*! display handle
+         */
         Display *_display = nullptr;
-        Window _xWindow = 0;
+
+        /*! window handle
+         */
+        Window _xWindow = None;
     };
 
 #endif
@@ -451,7 +524,7 @@ namespace igor
 #ifdef IGOR_WINDOWS
         _impl = new iMouseImplWindows(this);
 #endif
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         _impl = new iMouseImplLinux(this);
 #endif
     }
@@ -491,19 +564,29 @@ namespace igor
         _impl->setPosition(x, y);
     }
 
-    void iMouse::showCursor(bool show)
+    void iMouse::resetCursor()
     {
-        _impl->showCursor(show);
+        _impl->resetCursor();
     }
 
-    const iaVector2i& iMouse::getPos() const
+    void iMouse::setCursor(iMouseCursorType cursorType)
+    {
+        _impl->setCursor(cursorType);
+    }
+
+    void iMouse::hideCursor(bool hide)
+    {
+        _impl->hideCursor(hide);
+    }
+
+    const iaVector2i &iMouse::getPos() const
     {
         return _impl->_pos;
     }
 
     iaVector2i iMouse::getPosDelta() const
     {
-        return _impl->_pos - _impl->_posLast;
+        return _impl->_pos - _impl->_lastMousePos;
     }
 
     bool iMouse::getLeftButton()

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="mica.emitterOverlay.flat" uuid="593c34f4-ced3-11ed-9d39-2f49abc7ea02" zIndex="MAX" visibility="Private">
+	<Material name="mica.emitterOverlay.flat" zIndex="MAX" visibility="Private">
 		<States>
             <DepthMask>Off</DepthMask>
             <Blend>On</Blend>

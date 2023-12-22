@@ -14,7 +14,10 @@ var searchData=
   ['mousebutton5_11',['MouseButton5',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda9ca4c02b5f565fa90f16f72a1601e917',1,'igor']]],
   ['mouseleft_12',['MouseLeft',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdabce0118bd8f5bf5e7f849dff486de57f',1,'igor']]],
   ['mousemiddle_13',['MouseMiddle',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda9d30e0a64a4f80ad2159949d3f316626',1,'igor']]],
-  ['mouseright_14',['MouseRight',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda64be76bfebee9b86f0963be88b3de177',1,'igor']]],
-  ['mousewheeldown_15',['MouseWheelDown',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda3efa0593f62dde3038d55a63ad4ad2c7',1,'igor']]],
-  ['mousewheelup_16',['MouseWheelUp',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda29a51a025f19449abf7daa4e9be49941',1,'igor']]]
+  ['mouseoverhorizontal_14',['MouseOverHorizontal',['../namespaceigor.html#a1f075b7d8a1f9a6447578d04bdeb4058af06886d768361103c7b9326b8aaac4c0',1,'igor']]],
+  ['mouseoververtical_15',['MouseOverVertical',['../namespaceigor.html#a1f075b7d8a1f9a6447578d04bdeb4058afe5e31857189a0fc1ca4b670c2a6dd7d',1,'igor']]],
+  ['mouseright_16',['MouseRight',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda64be76bfebee9b86f0963be88b3de177',1,'igor']]],
+  ['mousewheeldown_17',['MouseWheelDown',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda3efa0593f62dde3038d55a63ad4ad2c7',1,'igor']]],
+  ['mousewheelup_18',['MouseWheelUp',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda29a51a025f19449abf7daa4e9be49941',1,'igor']]],
+  ['moving_19',['Moving',['../namespaceigor.html#a699b02e285751837bf23a0d369c48c75adefe967ad0373b2274fc298f19125ca7',1,'igor::Moving()'],['../namespaceigor.html#a1f075b7d8a1f9a6447578d04bdeb4058adefe967ad0373b2274fc298f19125ca7',1,'igor::Moving()']]]
 ];

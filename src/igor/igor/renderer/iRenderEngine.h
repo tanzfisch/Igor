@@ -100,11 +100,11 @@ namespace igor
 
         \param cameraID the camery id
         */
-        void setCurrentCamera(iNodeID cameraID);
+        void setCamera(iNodeID cameraID);
 
         /*! \returns current camera id
          */
-        iNodeID getCurrentCamera() const;
+        iNodeID getCamera() const;
 
         /*! culls and renders
          */
@@ -153,7 +153,7 @@ namespace igor
             */
             iMaterialPtr _material;
 
-            /*! the nodes rendered with this materal
+            /*! the nodes rendered with this material
             */
             std::vector<iNodeRenderPtr> _renderNodes;
 
@@ -164,7 +164,7 @@ namespace igor
 
         /*! render nodes
          */
-        std::vector<iMaterialGroup> _materialGroups;
+        std::vector<iMaterialGroup> _materialGroups;    
 
         /*! cull scene relative to specified camera
 

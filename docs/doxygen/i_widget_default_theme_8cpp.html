@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -88,13 +88,13 @@ $(document).ready(function(){initNavTree('i_widget_default_theme_8cpp.html','');
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">iWidgetDefaultTheme.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_widget_default_theme_8h.html">igor/ui/theme/iWidgetDefaultTheme.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_resource_manager_8h.html">igor/resources/iResourceManager.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/renderer/iRenderer.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</code><br />
@@ -102,14 +102,22 @@ $(document).ready(function(){initNavTree('i_widget_default_theme_8cpp.html','');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
+<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameters texture <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a2b1da0cb514f35f2dad5f19754377274"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a2b1da0cb514f35f2dad5f19754377274">DEBUG_OUTPUT</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a2b1da0cb514f35f2dad5f19754377274"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab688796f45d39ffd5d0dd0d166e663b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#ab688796f45d39ffd5d0dd0d166e663b2">DRAW_DEBUG_OUTPUT_OLD</a></td></tr>
+<tr class="separator:ab688796f45d39ffd5d0dd0d166e663b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a773d25a22965642d7e383b35142bf53d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a773d25a22965642d7e383b35142bf53d">DRAW_DEBUG_OUTPUT</a></td></tr>
 <tr class="separator:a773d25a22965642d7e383b35142bf53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:afacdcc0a1e2b40175f24830a9839d996"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#afacdcc0a1e2b40175f24830a9839d996">igor::drawChecked</a> (const <a class="el" href="namespaceiaux.html#abbc91a75b9686202fb24625894ce02e8">iaRectanglef</a> &amp;rect)</td></tr>
+<tr class="separator:afacdcc0a1e2b40175f24830a9839d996"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -133,6 +141,16 @@ Variables</h2></td></tr>
 <tr class="separator:a6be58cf7521da7e17d025478ba2e1848"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa81158675a695aa64616d3d4be0eb2be"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#aa81158675a695aa64616d3d4be0eb2be">COLOR_TEXT_DARK</a> = {0.0f, 0.0f, 0.0f, 1.0f}</td></tr>
 <tr class="separator:aa81158675a695aa64616d3d4be0eb2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf12df5b7dc0834536941d3d0a3fc6d"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#acdf12df5b7dc0834536941d3d0a3fc6d">COLOR_CHECKED_BORDER</a> = {0.3f, 0.3f, 0.3f, 0.7f}</td></tr>
+<tr class="separator:acdf12df5b7dc0834536941d3d0a3fc6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87830500030f40f0718571f2e1de9f4"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#ad87830500030f40f0718571f2e1de9f4">COLOR_CHECKED_FILL</a> = {0.2f, 0.2f, 0.2f, 0.2f}</td></tr>
+<tr class="separator:ad87830500030f40f0718571f2e1de9f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a089cd0bcc4a5e3c86a71d4c54457f220"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a089cd0bcc4a5e3c86a71d4c54457f220">COLOR_BUTTON_DEFAULT</a> = {0.42f, 0.42f, 0.42f, 1.0f}</td></tr>
+<tr class="separator:a089cd0bcc4a5e3c86a71d4c54457f220"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf25eab10b8cace9635c4940bd1f28b1"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#abf25eab10b8cace9635c4940bd1f28b1">COLOR_SELECTION_FRAME</a> (0.0, 0.0, 0.0, 0.8)</td></tr>
+<tr class="separator:abf25eab10b8cace9635c4940bd1f28b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d907e530e7bc7f2c4a4cb6f58b37b97"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_widget_default_theme_8cpp.html#a9d907e530e7bc7f2c4a4cb6f58b37b97">COLOR_SELECTION_FILL</a> (0.0, 0.0, 0.0, 0.2)</td></tr>
+<tr class="separator:a9d907e530e7bc7f2c4a4cb6f58b37b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a2b1da0cb514f35f2dad5f19754377274" name="a2b1da0cb514f35f2dad5f19754377274"></a>
@@ -157,6 +175,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define DRAW_DEBUG_OUTPUT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab688796f45d39ffd5d0dd0d166e663b2" name="ab688796f45d39ffd5d0dd0d166e663b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab688796f45d39ffd5d0dd0d166e663b2">&#9670;&nbsp;</a></span>DRAW_DEBUG_OUTPUT_OLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DRAW_DEBUG_OUTPUT_OLD</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -197,6 +229,72 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_BLACK = {0.0f, 0.0f, 0.0f, 1.0f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a089cd0bcc4a5e3c86a71d4c54457f220" name="a089cd0bcc4a5e3c86a71d4c54457f220"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a089cd0bcc4a5e3c86a71d4c54457f220">&#9670;&nbsp;</a></span>COLOR_BUTTON_DEFAULT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdf12df5b7dc0834536941d3d0a3fc6d" name="acdf12df5b7dc0834536941d3d0a3fc6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf12df5b7dc0834536941d3d0a3fc6d">&#9670;&nbsp;</a></span>COLOR_CHECKED_BORDER</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_CHECKED_BORDER = {0.3f, 0.3f, 0.3f, 0.7f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad87830500030f40f0718571f2e1de9f4" name="ad87830500030f40f0718571f2e1de9f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87830500030f40f0718571f2e1de9f4">&#9670;&nbsp;</a></span>COLOR_CHECKED_FILL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_CHECKED_FILL = {0.2f, 0.2f, 0.2f, 0.2f}</td>
         </tr>
       </table>
   </td>
@@ -285,6 +383,102 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_DIFFUSE_TRANSPARENT = {0.5f, 0.5f, 0.5f, 0.75f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d907e530e7bc7f2c4a4cb6f58b37b97" name="a9d907e530e7bc7f2c4a4cb6f58b37b97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d907e530e7bc7f2c4a4cb6f58b37b97">&#9670;&nbsp;</a></span>COLOR_SELECTION_FILL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_SELECTION_FILL(0.0, 0.0, 0.0, 0.2) </td>
+          <td>(</td>
+          <td class="paramtype">0.&#160;</td>
+          <td class="paramname"><em>0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0.&#160;</td>
+          <td class="paramname"><em>0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0.&#160;</td>
+          <td class="paramname"><em>0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0.&#160;</td>
+          <td class="paramname"><em>2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf25eab10b8cace9635c4940bd1f28b1" name="abf25eab10b8cace9635c4940bd1f28b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf25eab10b8cace9635c4940bd1f28b1">&#9670;&nbsp;</a></span>COLOR_SELECTION_FRAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> COLOR_SELECTION_FRAME(0.0, 0.0, 0.0, 0.8) </td>
+          <td>(</td>
+          <td class="paramtype">0.&#160;</td>
+          <td class="paramname"><em>0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0.&#160;</td>
+          <td class="paramname"><em>0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0.&#160;</td>
+          <td class="paramname"><em>0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0.&#160;</td>
+          <td class="paramname"><em>8</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>

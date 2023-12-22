@@ -354,12 +354,6 @@ namespace iaux
 		*/
         iaMatrix();
 
-        /*! initializes matrix with a data set
-
-		\param data matrix
-		*/
-        iaMatrix(const T data[16]);
-
         /*! does nothing
 		*/
         ~iaMatrix();

@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-__IGOR_INLINE__ std::wostream& operator<<(std::wostream &ostr, const iaVector4<T> &v)
+IGOR_INLINE std::wostream& operator<<(std::wostream &ostr, const iaVector4<T> &v)
 {
     ostr << "(" << v._x << ", " << v._y << ", " << v._z << ", " << v._w << ")";
     return ostr;

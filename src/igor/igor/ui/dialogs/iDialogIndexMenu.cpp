@@ -8,10 +8,8 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
+#include <igor/ui/layouts/iWidgetGridLayout.h>
+#include <igor/resources/iResourceManager.h>
 
 namespace igor
 {
@@ -19,6 +17,9 @@ namespace igor
 	iDialogIndexMenu::iDialogIndexMenu(const iWidgetPtr parent)
 		: iDialog(iWidgetType::iDialogIndexMenu, parent)
 	{
+		setGrowingByContent(true);
+		setHeaderEnabled(false);
+        setResizeable(false);		
 	}
 
 	void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts)
@@ -46,12 +47,12 @@ namespace igor
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setHeight(0);
+		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
 
-		iWidgetGridPtr grid = new iWidgetGrid();
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -77,12 +78,12 @@ namespace igor
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setHeight(0);
+		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
 
-		iWidgetGridPtr grid = new iWidgetGrid();
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendColumns(1);
 		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -98,7 +99,7 @@ namespace igor
 			if (!pictures[i].isEmpty())
 			{
 				iWidgetPicture *picture = new iWidgetPicture();
-				picture->setTexture(pictures[i]);
+				picture->setTexture(iResourceManager::getInstance().loadResource<iTexture>(pictures[i]));
 				picture->setMaxSize(20, 20);
 				grid->addWidget(picture, 0, i);
 			}
@@ -122,7 +123,7 @@ namespace igor
 
 	void iDialogIndexMenu::onChange(const iWidgetPtr source)
 	{
-		_returnValue = static_cast<iWidgetGridPtr>(source)->getSelectedRow();
+		_returnValue = static_cast<iWidgetGridLayoutPtr>(source)->getSelectedRow();
 		close();
 	}
 

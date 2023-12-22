@@ -17,8 +17,8 @@ namespace igor
 	iWidgetLabel::iWidgetLabel(const iWidgetPtr parent)
 		: iWidget(iWidgetType::iWidgetLabel, iWidgetKind::Widget, parent)
 	{
-		_configuredHeight = 0;
-		_configuredWidth = 0;
+		_configuredMinHeight = 0;
+		_configuredMinWidth = 0;
 		_reactOnMouseWheel = false;
 
 		setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -34,29 +34,21 @@ namespace igor
 		{
 			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 
-			if (_maxTextWidth == 0)
-			{
-				int32 textWidth = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
-				minWidth = textWidth;
-				minHeight = static_cast<int32>(fontSize);
-			}
-			else
-			{
-				int32 textHeight = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureHeight(_text, fontSize, (float32)_maxTextWidth);
-				minHeight = textHeight;
-				minWidth = _maxTextWidth;
-			}
+			minWidth = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
+			minHeight = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureHeight(_text, fontSize, (float32)_maxTextWidth);
 		}
 
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 	}
 
 	void iWidgetLabel::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isEnabled());
 	}
 
 	const iaString &iWidgetLabel::getText() const

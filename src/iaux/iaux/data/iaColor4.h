@@ -119,7 +119,9 @@ namespace iaux
         void operator*(float32 factor);
 
         static IAUX_API_IMPORT_ONLY const iaColor4<T> white;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> lightGray;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> gray;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> darkGray;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> black;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> red;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> green;
@@ -131,6 +133,14 @@ namespace iaux
     };
 
 #include <iaux/data/iaColor4.inl>
+
+    /*! stream operator e.g. for cosole output
+
+    \param ostr the out stream handle
+    \param color the color to print in stream
+    */
+    template <class T>
+    std::wostream &operator<<(std::wostream &ostr, const iaColor4<T> &color);
 
     /*! float32 color
      */

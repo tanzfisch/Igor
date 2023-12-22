@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -97,10 +97,10 @@ $(document).ready(function(){initNavTree('classigor_1_1i_module.html',''); initR
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae59e5e08632aa84e1ffb1d7fcb5d2974"><td class="memItemLeft" align="right" valign="top">static __IGOR_INLINE__ T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#ae59e5e08632aa84e1ffb1d7fcb5d2974">getInstance</a> ()</td></tr>
-<tr class="separator:ae59e5e08632aa84e1ffb1d7fcb5d2974"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a982b761cbe8e92cc66c44ec2f5a6d092"><td class="memItemLeft" align="right" valign="top">static __IGOR_INLINE__ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a982b761cbe8e92cc66c44ec2f5a6d092">isInstantiated</a> ()</td></tr>
-<tr class="separator:a982b761cbe8e92cc66c44ec2f5a6d092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae31ee943dee35af00b41bf8ef042f579"><td class="memItemLeft" align="right" valign="top">static IGOR_INLINE T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#ae31ee943dee35af00b41bf8ef042f579">getInstance</a> ()</td></tr>
+<tr class="separator:ae31ee943dee35af00b41bf8ef042f579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a859d4a0070384241b682e328f00d9b74"><td class="memItemLeft" align="right" valign="top">static IGOR_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a859d4a0070384241b682e328f00d9b74">isInstantiated</a> ()</td></tr>
+<tr class="separator:a859d4a0070384241b682e328f00d9b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b88b62396bea01d733bb955d460ce98"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#a9b88b62396bea01d733bb955d460ce98">create</a> ()</td></tr>
 <tr class="separator:a9b88b62396bea01d733bb955d460ce98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1cbc7cafc2b5c18ef4e05563eb4337d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#ab1cbc7cafc2b5c18ef4e05563eb4337d">destroy</a> ()</td></tr>
@@ -116,7 +116,7 @@ Protected Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 class igor::iModule&lt; T &gt;</div><p >module class</p>
-<p >make sure if you derrive from this class that your module will be created during <a class="el" href="namespaceigor.html#ab8b34c22ef39bf85e86c87b304b3baa7">igor::startup()</a> and destroyed during <a class="el" href="namespaceigor.html#a10b2ddc4c372b6753c6e09e7a3299abf">igor::shutdown()</a> </p>
+<p >make sure if you derive from this class that your module will be created during <a class="el" href="namespaceigor.html#aac0acbe5b467c273c0b8a66c9d3ff788">igor::startup()</a> and destroyed during <a class="el" href="namespaceigor.html#a10b2ddc4c372b6753c6e09e7a3299abf">igor::shutdown()</a> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad35ed52833d75603c6c5527b1bfb66c7" name="ad35ed52833d75603c6c5527b1bfb66c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad35ed52833d75603c6c5527b1bfb66c7">&#9670;&nbsp;</a></span>iModule()</h2>
@@ -233,8 +233,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ae59e5e08632aa84e1ffb1d7fcb5d2974" name="ae59e5e08632aa84e1ffb1d7fcb5d2974"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae59e5e08632aa84e1ffb1d7fcb5d2974">&#9670;&nbsp;</a></span>getInstance()</h2>
+<a id="ae31ee943dee35af00b41bf8ef042f579" name="ae31ee943dee35af00b41bf8ef042f579"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae31ee943dee35af00b41bf8ef042f579">&#9670;&nbsp;</a></span>getInstance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +245,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static __IGOR_INLINE__ T &amp; <a class="el" href="classigor_1_1i_module.html">igor::iModule</a>&lt; T &gt;::getInstance </td>
+          <td class="memname">static IGOR_INLINE T &amp; <a class="el" href="classigor_1_1i_module.html">igor::iModule</a>&lt; T &gt;::getInstance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -261,8 +261,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a982b761cbe8e92cc66c44ec2f5a6d092" name="a982b761cbe8e92cc66c44ec2f5a6d092"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a982b761cbe8e92cc66c44ec2f5a6d092">&#9670;&nbsp;</a></span>isInstantiated()</h2>
+<a id="a859d4a0070384241b682e328f00d9b74" name="a859d4a0070384241b682e328f00d9b74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a859d4a0070384241b682e328f00d9b74">&#9670;&nbsp;</a></span>isInstantiated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,7 +273,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static __IGOR_INLINE__ bool <a class="el" href="classigor_1_1i_module.html">igor::iModule</a>&lt; T &gt;::isInstantiated </td>
+          <td class="memname">static IGOR_INLINE bool <a class="el" href="classigor_1_1i_module.html">igor::iModule</a>&lt; T &gt;::isInstantiated </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

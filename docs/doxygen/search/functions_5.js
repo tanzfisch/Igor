@@ -1,12 +1,21 @@
 var searchData=
 [
-  ['endl_0',['endl',['../namespaceiaux.html#a9788b4079a738c7fb709860254543744',1,'iaux']]],
-  ['endltab_1',['endlTab',['../namespaceiaux.html#ab6de73afd00bc0ed7e173ffa9f6620c7',1,'iaux']]],
-  ['endradiobuttongroup_2',['endRadioButtonGroup',['../classigor_1_1i_widget_check_box.html#a136796a81650f948bbe3ed9b9bc9b076',1,'igor::iWidgetCheckBox']]],
-  ['endsection_3',['endSection',['../classigor_1_1i_profiler.html#abed591e336cd4cdabbd8df82d3b17e22',1,'igor::iProfiler']]],
-  ['execute_4',['execute',['../classigor_1_1i_action.html#a24ffc8ca25de364762fdab8784a0a96e',1,'igor::iAction::execute()'],['../classigor_1_1i_action_application_stop.html#a509312e430eb57c86e03b0bfd97aece4',1,'igor::iActionApplicationStop::execute()']]],
-  ['exist_5',['exist',['../classiaux_1_1ia_file.html#aaf233aa19a9591bf7da546004a23c578',1,'iaux::iaFile::exist() const'],['../classiaux_1_1ia_file.html#ab8b936094da27727888236ffa78bc29f',1,'iaux::iaFile::exist(const iaString &amp;filename)']]],
-  ['exit_6',['exit',['../classiaux_1_1ia_console.html#aeb33b6c11df97c9bb24ff396578b4ceb',1,'iaux::iaConsole::exit()'],['../classigor_1_1i_application.html#a7f6dd0ea5c318d1c724ab22495e6c21e',1,'igor::iApplication::exit()']]],
-  ['exportdata_7',['exportData',['../classigor_1_1i_model_data_i_o.html#a6b62aff0aed43ebbb94ecd7191feb110',1,'igor::iModelDataIO::exportData(const iParameters &amp;parameters)'],['../classigor_1_1i_model_data_i_o.html#a87bec039eb75d6d4d663cd9dd3f18334',1,'igor::iModelDataIO::exportData(const iaString &amp;filename, iNodePtr node, iSaveMode saveMode=iSaveMode::KeepExternals)'],['../classigor_1_1i_model_data_i_o_o_m_p_f.html#a7f9b7e053182f7b4266d6786d96347b6',1,'igor::iModelDataIOOMPF::exportData()']]],
-  ['exporttofile_8',['exportToFile',['../classigor_1_1i_model_factory.html#aebbaff46cf727283203c2714e84afe34',1,'igor::iModelFactory']]]
+  ['fileexists_0',['fileExists',['../classigor_1_1i_resource_manager.html#ae1edfa79ca3a67dd0bfd243dcad30ee5',1,'igor::iResourceManager']]],
+  ['filematch_1',['fileMatch',['../namespaceiaux.html#aab5401c6611f093d074d6de62bad0b3e',1,'iaux']]],
+  ['filter_2',['filter',['../classigor_1_1i_octree.html#a6e80d48699b5677dd3298b84caa43007',1,'igor::iOctree::filter()'],['../classigor_1_1i_octree.html#ad977df55350d61ba499a239edca443b4',1,'igor::iOctree::filter(const iFrustumd &amp;frustum)']]],
+  ['filterchar_3',['filterChar',['../namespaceigor.html#a8395f54a2a47caf58c9b4e772768ea22',1,'igor']]],
+  ['finalize_4',['finalize',['../classigor_1_1i_physics_collision_config.html#a363ac9136e37189f43695a4390bd6beb',1,'igor::iPhysicsCollisionConfig']]],
+  ['finalizedata_5',['finalizeData',['../classigor_1_1i_instancing_buffer.html#ad4e76586387b9e009eb380f1da30fd6f',1,'igor::iInstancingBuffer']]],
+  ['find_6',['find',['../classigor_1_1i_node_visitor_search_name.html#a80e522977eca3ab15876c8c3af11e31f',1,'igor::iNodeVisitorSearchName']]],
+  ['findfirstnotof_7',['findFirstNotOf',['../classiaux_1_1ia_string.html#a19223446b7307ed503a51687c11a17cf',1,'iaux::iaString::findFirstNotOf(const wchar_t *characters, const int64 from=INVALID_POSITION) const'],['../classiaux_1_1ia_string.html#a618a047b8bf19f5d144d5594c66f1acb',1,'iaux::iaString::findFirstNotOf(const wchar_t character, const int64 from=INVALID_POSITION) const']]],
+  ['findfirstof_8',['findFirstOf',['../classiaux_1_1ia_string.html#a2b9c586480dd6cfbd4c15d8d1bab838e',1,'iaux::iaString::findFirstOf(const iaString &amp;characters, const int64 from=INVALID_POSITION) const'],['../classiaux_1_1ia_string.html#a1dd76b28791d4246aa13d3e61e9fbcf8',1,'iaux::iaString::findFirstOf(const wchar_t *characters, const int64 from=INVALID_POSITION) const'],['../classiaux_1_1ia_string.html#a91e852b80c2c552506f1254a758bc36b',1,'iaux::iaString::findFirstOf(const wchar_t character, const int64 from=INVALID_POSITION) const']]],
+  ['findlastnotof_9',['findLastNotOf',['../classiaux_1_1ia_string.html#a4371f695934e4f3a1348fd12b32daa10',1,'iaux::iaString::findLastNotOf(const wchar_t character) const'],['../classiaux_1_1ia_string.html#a37e43c2f2696d5d2662a3d8cabc8e9c7',1,'iaux::iaString::findLastNotOf(const wchar_t *characters) const']]],
+  ['findlastof_10',['findLastOf',['../classiaux_1_1ia_string.html#aa95661d1b6686a2b1eef378fed6ca926',1,'iaux::iaString::findLastOf(const wchar_t character) const'],['../classiaux_1_1ia_string.html#ad48c07061f718cb574914f5c0b4229ba',1,'iaux::iaString::findLastOf(const wchar_t *characters) const']]],
+  ['fixpath_11',['fixPath',['../classiaux_1_1ia_directory.html#aa2f5dc60ff037445d2527ce35a30c94d',1,'iaux::iaDirectory']]],
+  ['flush_12',['flush',['../classigor_1_1i_renderer.html#a0adc1d79e8f66ccab26cdbd360bd6aa3',1,'igor::iRenderer::flush()'],['../classigor_1_1i_resource_manager.html#a80c36ff9b17f621d4c62198aca0e4f52',1,'igor::iResourceManager::flush()'],['../classigor_1_1i_node_manager.html#afb12de2e35a5cbead287aa9a8ed463f7',1,'igor::iNodeManager::flush()'],['../namespaceiaux.html#af9a73ab35bceffcc695a2e9aba700b41',1,'iaux::flush()']]],
+  ['frommicroseconds_13',['fromMicroseconds',['../classiaux_1_1ia_time.html#aaf6357a1471378e7ed3d9485119a687d',1,'iaux::iaTime']]],
+  ['frommilliseconds_14',['fromMilliseconds',['../classiaux_1_1ia_time.html#a62333c3d85273c956be2db3fc59ea954',1,'iaux::iaTime']]],
+  ['fromminmax_15',['fromMinMax',['../classigor_1_1i_a_a_box.html#abd2f3458f11510cf0442de9cc469e73e',1,'igor::iAABox']]],
+  ['fromseconds_16',['fromSeconds',['../classiaux_1_1ia_time.html#a7701a2dfa645f177de3f6b6baf009cf1',1,'iaux::iaTime']]],
+  ['frustum_17',['frustum',['../classiaux_1_1ia_matrix.html#aa17892f9c01e3715f6c7d4b2f4bf1b15',1,'iaux::iaMatrix']]]
 ];

@@ -70,49 +70,49 @@ bool iaRectangle<T>::operator!=(const iaRectangle<T> &other) const
 
 
 template <typename T>
-__IGOR_INLINE__ const T iaRectangle<T>::getX() const
+const T iaRectangle<T>::getX() const
 {
     return _x;
 }
 
 template <typename T>
-__IGOR_INLINE__ const T iaRectangle<T>::getY() const
+const T iaRectangle<T>::getY() const
 {
     return _y;
 }
 
 template <typename T>
-__IGOR_INLINE__ const T iaRectangle<T>::getLeft() const
+const T iaRectangle<T>::getLeft() const
 {
     return _x;
 }
 
 template <typename T>
-__IGOR_INLINE__ const T iaRectangle<T>::getRight() const
+const T iaRectangle<T>::getRight() const
 {
     return _x + _width;
 }
 
 template <typename T>
-__IGOR_INLINE__ const T iaRectangle<T>::getTop() const
+const T iaRectangle<T>::getTop() const
 {
     return _y;
 }
 
 template <typename T>
-__IGOR_INLINE__ const T iaRectangle<T>::getBottom() const
+const T iaRectangle<T>::getBottom() const
 {
     return _y + _height;
 }
 
 template <typename T>
-__IGOR_INLINE__ const T iaRectangle<T>::getWidth() const
+const T iaRectangle<T>::getWidth() const
 {
     return _width;
 }
 
 template <typename T>
-__IGOR_INLINE__ const T iaRectangle<T>::getHeight() const
+const T iaRectangle<T>::getHeight() const
 {
     return _height;
 }

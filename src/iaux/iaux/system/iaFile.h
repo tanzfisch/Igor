@@ -31,6 +31,7 @@
 
 #include <iaux/iaDefines.h>
 #include <iaux/data/iaString.h>
+#include <iaux/system/iaTime.h>
 
 #include <vector>
 #include <stdio.h>
@@ -40,7 +41,7 @@ namespace iaux
 
     /*! file open modes
      */
-    enum class iFileOpenMode
+    enum class iaFileOpenMode
     {
         ReadBinary,
         WriteBinary,
@@ -53,14 +54,9 @@ namespace iaux
     \param mode the file open mode
     \returns the stream
     */
-    IAUX_API std::wostream &operator<<(std::wostream &stream, const iFileOpenMode &mode);
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode);
 
-    /*! handles files
-
-    \todo nice to have getCreationTime
-    \todo nice to have getModifyTime
-    \todo nice to have getAccessTime
-    \todo nice to have getDriveLetter for windows
+    /*! \brief File handle
     */
     class IAUX_API iaFile
     {
@@ -79,7 +75,7 @@ namespace iaux
 
         \param mode file open mode
         */
-        bool open(const iFileOpenMode &mode = iFileOpenMode::ReadBinary);
+        bool open(const iaFileOpenMode &mode = iaFileOpenMode::ReadBinary);
 
         /*! closes the file
          */
@@ -91,7 +87,7 @@ namespace iaux
 
         /*! \returns the file open mode if open
          */
-        const iFileOpenMode &getFileOpenMode() const;
+        const iaFileOpenMode &getFileOpenMode() const;
 
         /*! renames the file to a new name
 
@@ -110,14 +106,20 @@ namespace iaux
 
         \returns true: if file exists; false: if not
         */
-        bool exist() const;
+        bool exists() const;
 
         /*! checks if some file exist
 
         \param filename the file to be checked for
         \returns true: if file exists; false: if not
         */
-        static bool exist(const iaString &filename);
+        static bool exists(const iaString &filename);
+
+        /*! deletes/removes file from filesystem
+
+        \param filename the file to remove
+        */
+        static bool remove(const iaString &filename);
 
         /*! \returns only the parent path
          */
@@ -166,6 +168,16 @@ namespace iaux
         */
         bool write(int32 size, const char *source, int64 offset = -1);
 
+        /*! \returns last modified time of file
+        */
+        iaTime getLastModifiedTime() const;
+
+        /*! \returns last modified time of file
+
+        \param filename the given filename
+        */
+        static iaTime getLastModifiedTime(const iaString &filename);
+
     protected:
         /*! sets the file pointer to a destination
 
@@ -180,7 +192,7 @@ namespace iaux
 
         /*! file open mode
          */
-        iFileOpenMode _mode;
+        iaFileOpenMode _mode;
 
         /*! size of file
          */

@@ -174,7 +174,7 @@ namespace OMPF
         return _indexCount;
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     uint32 ompfMeshChunk::getSize(const ompfSettings &settings)
     {
         uint32 material = 3;   // ambient
@@ -201,7 +201,7 @@ namespace OMPF
 
         return material + attributes + _vertexDataSize + _indexDataSize + textures;
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
     void ompfMeshChunk::setIndexData(const char *data, uint32 size)
     {

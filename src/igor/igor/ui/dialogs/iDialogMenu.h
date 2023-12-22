@@ -31,11 +31,13 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/actions/iAction.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetMenu.h>
+#include <igor/ui/layouts/iWidgetBoxLayout.h>
 
 namespace igor
 {
+
+    class iWidgetMenu;
+    typedef iWidgetMenu *iWidgetMenuPtr;
 
     /*! menu dialog
 
@@ -53,7 +55,7 @@ namespace igor
 		*/
         iDialogMenu(const iWidgetPtr parent = nullptr);
 
-        /*! deinitializes gui
+        /*! de initializes gui
 		*/
         virtual ~iDialogMenu() = default;
 
@@ -68,11 +70,20 @@ namespace igor
 
         /*! same as add actions just by action name
 
-        requires that the action we are searchign for was already registered to the action manager
+        requires that the action we are searching for was already registered to the action manager
 
         \param actionName name of the action to be added
         */
         void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
+
+        /*! add callback entry to menu
+
+        \param delegate the delegate that will be called on click
+        \param title the title or brief description
+        \param description the full description (used as tooltip)
+        \param iconAlias an alias or id for texture resource
+        */
+        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "");
 
         /*! adds a menu to the menu
 
@@ -82,18 +93,22 @@ namespace igor
 
         /*! adds a spacer
         */
-        void addSpacer();
+        void addSeparator();
 
         /*! shows the dialog on screen
 
         \param dialogCloseDelegate the delegate to call after the dialog was closed
         */
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate) override;
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate()) override;
+
+        /*! clears the widget back to default
+        */
+        void clear() override;
 
     private:
-        /*! main grid
+        /*! main layout
         */
-        iWidgetGridPtr _grid = nullptr;
+        iWidgetBoxLayoutPtr _vboxLayout = nullptr;
 
         /*! handle mouse off click event
 

@@ -64,6 +64,7 @@ namespace igor
     class IGOR_API iView
     {
         friend class iWindow;
+        friend class iWidgetViewport;
 
     public:
     
@@ -115,9 +116,15 @@ namespace igor
 
         values have to be from 0.0 to 1.0 and represent a resolution independent unit.
 
-        \param rect rectangle with view port boundings usnig relative values 0.0 - 1.0
+        TODO need a pixel version of this
+
+        \param rect rectangle with view port boundings using relative values 0.0 - 1.0
         */
-        void setViewport(iaRectanglef rect);
+        void setViewportRelative(iaRectanglef rect);
+
+        /*! \returns viewport in pixels
+        */
+        iaRectanglei getViewport() const;
 
         /*! activates perspective mode and sets the view_angle
 
@@ -150,6 +157,16 @@ namespace igor
         /*! \returns true if color buffer will be cleared before render
         */
         bool isClearColorActive() const;
+
+        /*! sets if the viewport will be updated during draw call
+
+        \param enabled if true viewport will be updated before drawing (enabled is default)
+        */
+        void setUpdateViewport(bool enabled);
+
+        /*! \returns true if viewport will be updated before drawing
+        */
+        bool isUpdatingViewport() const;
 
         /*! specifies the the color the color buffer will be cleared with
 
@@ -236,11 +253,11 @@ namespace igor
 
         \param cameraID the camery id
         */
-        void setCurrentCamera(uint64 cameraID);
+        void setCamera(iNodeID cameraID);
 
         /*! \returns current camera id
         */
-        uint64 getCurrentCamera() const;
+        iNodeID getCamera() const;
 
         /*! unprojects screen position to object space
 
@@ -258,9 +275,9 @@ namespace igor
         */
         iaVector3d project(const iaVector3d &worldSpacePos, const iaMatrixd &cameraMatrix);
 
-        /*! renders view in an offscreen buffer using the colorID material and returns the color id at given point
+        /*! renders view in an offscreen buffer using the colorID material and returns the color id at given point.
 
-        top left is origin
+        Top left is origin.
 
         \param posx horizontal position of point in pixel
         \param posy vertical position of point in pixel
@@ -324,6 +341,10 @@ namespace igor
         /*! if true the color buffer will be cleared with _clearColor before every frame
         */
         bool _clearColorActive = true;
+
+        /*! if true viewport gets updated before drawing
+        */
+        bool _updateViewport = true;
 
         /*! the color definition of the clear color step
         */

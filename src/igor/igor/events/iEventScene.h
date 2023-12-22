@@ -112,6 +112,8 @@ namespace igor
     };
 
     /*! scene selection change event
+
+    \todo is this something that belong in to the engine or does it belong in to Mica?
     */
     class IGOR_API iEventSceneSelectionChanged : public iEvent
     {
@@ -135,7 +137,7 @@ namespace igor
         IGOR_EVENT_CLASS_TYPE(iEventSceneSelectionChanged)
 
     private:
-        /*! the scene the node was added to
+        /*! the scene the selection was changed of
         */
         iScenePtr _scene;
     };

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>	
-        <Sprite texture="spriteAnimationTiles.png" pixelPerUnit="1">
+        <Sprite texture="example_texture_animation_tiles" pixelPerUnit="1">
                 <!-- 0 ground -->
                 <Frame pos="0, 33" size="64, 31" pivot="32, 31" pixel="true"/>
                 <Frame pos="64, 33" size="64, 31" pivot="32, 31" pixel="true"/>

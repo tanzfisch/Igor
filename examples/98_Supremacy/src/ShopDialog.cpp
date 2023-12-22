@@ -48,9 +48,10 @@ void ShopDialog::updateGUI(int coins)
 	_labelDescription2->setText(shopItem2._description);
 	_labelDescription3->setText(shopItem3._description);
 
-	_picture1->setTexture(shopItem1._icon);
-	_picture2->setTexture(shopItem2._icon);
-	_picture3->setTexture(shopItem3._icon);
+	
+	_picture1->setTexture(iResourceManager::getInstance().loadResource<iTexture>(shopItem1._icon));
+	_picture2->setTexture(iResourceManager::getInstance().loadResource<iTexture>(shopItem2._icon));
+	_picture3->setTexture(iResourceManager::getInstance().loadResource<iTexture>(shopItem3._icon));
 
 	_labelPrice1->setText(iaString("$") + iaString::toString(shopItem1._price));
 	_labelPrice2->setText(iaString("$") + iaString::toString(shopItem2._price));
@@ -64,33 +65,33 @@ const ShopItem &ShopDialog::getSelection() const
 
 void ShopDialog::initGUI()
 {
-	setWidth(500);
-	setHeight(200);
+	setMinWidth(500);
+	setMinHeight(200);
 
 	setHorizontalAlignment(iHorizontalAlignment::Center);
 	setVerticalAlignment(iVerticalAlignment::Center);
 
-	iWidgetGrid *grid = new iWidgetGrid(this);
+	iWidgetGridLayout *grid = new iWidgetGridLayout(this);
 	grid->appendRows(1);
 	grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 	grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	grid->setBorder(10);
 	grid->setCellSpacing(20);
 
-	iWidgetGrid *coinsGrid = new iWidgetGrid();
+	iWidgetGridLayout *coinsGrid = new iWidgetGridLayout();
 	coinsGrid->appendColumns(1);
 	coinsGrid->setStretchColumn(1);
 	coinsGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 	coinsGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 
-	iWidgetGrid *headerGrid = new iWidgetGrid();
+	iWidgetGridLayout *headerGrid = new iWidgetGridLayout();
 	headerGrid->appendColumns(3);
 	headerGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 	headerGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
 	headerGrid->setCellSpacing(20);
 	headerGrid->setStretchColumn(1);
 
-	_itemGrid = new iWidgetGrid();
+	_itemGrid = new iWidgetGridLayout();
 	_itemGrid->appendColumns(2);
 	_itemGrid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_itemGrid->setVerticalAlignment(iVerticalAlignment::Stretch);
@@ -101,19 +102,19 @@ void ShopDialog::initGUI()
 	_itemGrid->setEmptyCellsSelectable();
 	_itemGrid->registerOnChangeEvent(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
 
-	iWidgetGrid *item1Grid = new iWidgetGrid();
+	iWidgetGridLayout *item1Grid = new iWidgetGridLayout();
 	item1Grid->appendRows(4);
 	item1Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item1Grid->setVerticalAlignment(iVerticalAlignment::Top);
 	item1Grid->setStretchRow(3);
 
-	iWidgetGrid *item2Grid = new iWidgetGrid();
+	iWidgetGridLayout *item2Grid = new iWidgetGridLayout();
 	item2Grid->appendRows(4);
 	item2Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item2Grid->setVerticalAlignment(iVerticalAlignment::Top);
 	item1Grid->setStretchRow(3);
 
-	iWidgetGrid *item3Grid = new iWidgetGrid();
+	iWidgetGridLayout *item3Grid = new iWidgetGridLayout();
 	item3Grid->appendRows(4);
 	item3Grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 	item3Grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -141,17 +142,17 @@ void ShopDialog::initGUI()
 	_labelDescription3->setHorizontalAlignment(iHorizontalAlignment::Center);
 
 	_picture1 = new iWidgetPicture();
-	_picture1->setSize(128, 128);
+	_picture1->setMinSize(128, 128);
 	_picture1->setVerticalAlignment(iVerticalAlignment::Center);
 	_picture1->setHorizontalAlignment(iHorizontalAlignment::Center);
 
 	_picture2 = new iWidgetPicture();
-	_picture2->setSize(128, 128);
+	_picture2->setMinSize(128, 128);
 	_picture2->setVerticalAlignment(iVerticalAlignment::Center);
 	_picture2->setHorizontalAlignment(iHorizontalAlignment::Center);
 
 	_picture3 = new iWidgetPicture();
-	_picture3->setSize(128, 128);
+	_picture3->setMinSize(128, 128);
 	_picture3->setVerticalAlignment(iVerticalAlignment::Center);
 	_picture3->setHorizontalAlignment(iHorizontalAlignment::Center);
 
@@ -176,17 +177,17 @@ void ShopDialog::initGUI()
 
 	_labelCoins = new iWidgetLabel();
 	iWidgetPicturePtr coinPicture = new iWidgetPicture();
-	coinPicture->setTexture("supremacy/coin.png");
+	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("example_texture_supremacy_coin"));
 
 	iWidgetButton *buyButton = new iWidgetButton();
-	buyButton->setSize(50, 20);
+	buyButton->setMinSize(50, 20);
 	buyButton->setVerticalAlignment(iVerticalAlignment::Center);
 	buyButton->setHorizontalAlignment(iHorizontalAlignment::Center);
 	buyButton->setText("buy");
 	buyButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onBuy));
 
 	iWidgetButton *cancelButton = new iWidgetButton();
-	cancelButton->setSize(50, 20);
+	cancelButton->setMinSize(50, 20);
 	cancelButton->setVerticalAlignment(iVerticalAlignment::Center);
 	cancelButton->setHorizontalAlignment(iHorizontalAlignment::Center);
 	cancelButton->setText("cancel");
@@ -205,7 +206,7 @@ void ShopDialog::initGUI()
 
 void ShopDialog::onSelectionChanged(const iWidgetPtr source)
 {
-	iWidgetGridPtr grid = static_cast<iWidgetGridPtr>(source);
+	iWidgetGridLayoutPtr grid = static_cast<iWidgetGridLayoutPtr>(source);
 
 	switch (grid->getSelectedColumn())
 	{

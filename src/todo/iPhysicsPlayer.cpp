@@ -25,7 +25,7 @@ namespace Igor
         iPhysics::getInstance().getMassMatrixFromBody(_newtonBody, mass, Ixx, Iyy, Izz);
 
         iaVector3<float32> force;
-        force.set(0.0f, -mass * static_cast<float32>(IGOR_GRAVITY), 0.0f);
+        force.set(0.0f, -mass * static_cast<float32>(IGOR_EARTH_GRAVITY), 0.0f);
 
         if (nullptr != _entity)
         {

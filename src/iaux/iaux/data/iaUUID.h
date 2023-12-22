@@ -40,13 +40,9 @@ namespace iaux
     {
     public:
 
-        /*! \returns new created uuid
+        /*! init value
          */
-        static iaUUID create();
-
-        /*! does nothing
-         */
-        iaUUID() = default;
+        iaUUID();
 
         /*! copy ctor
 
@@ -58,17 +54,26 @@ namespace iaux
 
         \param value the value to use as uuid
         */
-        iaUUID(const iaString &value);
+        iaUUID(uint64 value);
 
-        /*! ctor with value
+        /*! import from string
 
-        \param value the value to use as uuid
+        expected format "0xffffffffffffffff" to read it as is
+        every other type of string will be turned in the a hash value
+
+        \param uuid the id in string form
         */
-        iaUUID(const char * value);        
+        iaUUID(const iaString &text);
 
-        /*! \returns uuid value
-         */
-        const iaString &getValue() const;
+        /*! \returns true if given text is a uuid
+
+        \param text the given text
+        */
+        static bool isUUID(const iaString &text);
+
+        /*! makes id invalid
+        */
+        void reset();
 
         /*! \returns true if both uuids are equal
 
@@ -89,14 +94,29 @@ namespace iaux
         */
         iaUUID operator=(const iaUUID &other);
 
+        /*! = operator overwrites current value with new value
+
+        \param value the new value
+        \returns the new uuid
+        */
+        iaUUID operator=(uint64 value);        
+
         /*! \returns true if uuid is valid/initialized
          */
         bool isValid() const;
 
+        /*! \returns id as string
+        */
+        const iaString toString() const;
+
+        /*! \returns value
+        */
+        operator uint64() const;
+
     private:
         /*! uuid value
          */
-        iaString _value;
+        uint64 _value = IGOR_INVALID_ID;
     };
 
     /*! print uuid in console
@@ -116,7 +136,7 @@ struct std::hash<iaux::iaUUID>
 {
     std::size_t operator()(const iaux::iaUUID &uuid) const
     {
-        return static_cast<std::size_t>(uuid.getValue().getHashValue());
+        return static_cast<std::size_t>(uuid);
     }
 };
 

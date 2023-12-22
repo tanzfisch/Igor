@@ -5,7 +5,7 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
@@ -144,27 +144,27 @@ namespace igor
 
     void iUserControlColorChooser::initGUI()
     {
-        _grid = new iWidgetGrid(this);
+        _grid = new iWidgetGridLayout(this);
         _grid->appendRows(1);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _headlineGrid = new iWidgetGrid();
+        _headlineGrid = new iWidgetGridLayout();
         _headlineGrid->appendColumns(2);
         _headlineGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _headlineGrid->setVerticalAlignment(iVerticalAlignment::Top);
 
         _titleLabel = new iWidgetLabel();
         _titleLabel->setText(_text);
-        _titleLabel->setHeight(0);
+        _titleLabel->setMinHeight(0);
         _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         _titleLabel->setVerticalAlignment(iVerticalAlignment::Top);
 
         _expandButton = new iWidgetButton();
-        _expandButton->setTexture("igor/icons/plus.png");
+        _expandButton->setTexture("igor_icon_plus");
         _expandButton->setText("");
-        _expandButton->setWidth(12);
-        _expandButton->setHeight(12);
+        _expandButton->setMinWidth(12);
+        _expandButton->setMinHeight(12);
         _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColorChooser::onExpandButtonPressed));
         _expandButton->setVisible(_showHeadline);
         _expandButton->setEnabled(_showHeadline);
@@ -217,7 +217,7 @@ namespace igor
             _expandedGrid->setEnabled(true);
             _expandedGrid->setVisible(true);
             _grid->addWidget(_expandedGrid, 0, 1);
-            _expandButton->setTexture("igor/icons/minus.png");
+            _expandButton->setTexture("igor_icon_minus");
         }
         else
         {
@@ -225,11 +225,11 @@ namespace igor
             _collapsedGrid->setEnabled(true);
             _collapsedGrid->setVisible(true);
             _grid->addWidget(_collapsedGrid, 0, 1);
-            _expandButton->setTexture("igor/icons/plus.png");
+            _expandButton->setTexture("igor_icon_plus");
         }
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     void iUserControlColorChooser::onExpandButtonPressed(const iWidgetPtr source)
     {
         setExpanded(!_expanded);
@@ -372,7 +372,7 @@ namespace igor
         updateColorHSV();
         updateWidgets();
     }
-    __IGOR_ENABLE_WARNING__(4100);
+    IGOR_ENABLE_WARNING(4100);
 
     void iUserControlColorChooser::updateWidgets()
     {
@@ -459,7 +459,7 @@ namespace igor
         iWidgetNumberChooser *result = new iWidgetNumberChooser();
         result->setMinMaxNumber(0, 255);
         result->setValue(123);
-        result->setWidth(35);
+        result->setMinWidth(35);
         result->setSteppingWheel(5.0f, 5.0f);
         result->setStepping(1.0f, 1.0f);
         result->registerOnChangeEvent(changeDelegate);
@@ -469,12 +469,12 @@ namespace igor
     iWidgetSlider *iUserControlColorChooser::createSlider(iaString textureFileName, iChangeDelegate changeDelegate)
     {
         iWidgetSlider *result = new iWidgetSlider();
-        result->setWidth(260);
+        result->setMinWidth(260);
         result->setMinValue(0.0f);
         result->setMaxValue(255.0f);
         result->setSteppingWheel(5.0f, 5.0f);
         result->setValue(128.0f);
-        result->setHeight(21);
+        result->setMinHeight(21);
         result->setTexture(textureFileName);
         result->registerOnChangeEvent(changeDelegate);
         return result;
@@ -482,33 +482,33 @@ namespace igor
 
     void iUserControlColorChooser::initExpanded()
     {
-        _expandedGrid = new iWidgetGrid();
+        _expandedGrid = new iWidgetGridLayout();
         _expandedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _expandedGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _expandedGrid->setBorder(0);
         _expandedGrid->setCellSpacing(4);
         _expandedGrid->appendRows(1);
 
-        _expandedSliderGrid = new iWidgetGrid();
+        _expandedSliderGrid = new iWidgetGridLayout();
         _expandedSliderGrid->appendColumns(2);
         _expandedSliderGrid->appendRows(7);
         _expandedSliderGrid->setBorder(0);
         _expandedSliderGrid->setCellSpacing(4);
         _expandedSliderGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-        _sliderH = createSlider("igor/textures/gradientH.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedH));
-        _sliderS = createSlider("igor/textures/gradientS.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedS));
-        _sliderV = createSlider("igor/textures/gradientV.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedV));
-        _sliderR = createSlider("igor/textures/gradientR.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedR));
-        _sliderG = createSlider("igor/textures/gradientG.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedG));
-        _sliderB = createSlider("igor/textures/gradientB.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedB));
-        _sliderA = createSlider("igor/textures/gradientA.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedA));
-        _sliderA->setBackgroundTexture("igor/textures/checker.png");
+        _sliderH = createSlider("igor_texture_gradient_h", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedH));
+        _sliderS = createSlider("igor_texture_gradient_s", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedS));
+        _sliderV = createSlider("igor_texture_gradient_v", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedV));
+        _sliderR = createSlider("igor_texture_gradient_r", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedR));
+        _sliderG = createSlider("igor_texture_gradient_g", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedG));
+        _sliderB = createSlider("igor_texture_gradient_b", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedB));
+        _sliderA = createSlider("igor_texture_gradient_a", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedA));
+        _sliderA->setBackgroundTexture("igor_texture_checker");
 
         _colorViewExpanded = new iWidgetColor();
-        _colorViewExpanded->setWidth(54);
+        _colorViewExpanded->setMinWidth(54);
         _colorViewExpanded->setHorizontalAlignment(iHorizontalAlignment::Right);
-        _colorViewExpanded->setHeight(21);
+        _colorViewExpanded->setMinHeight(21);
 
         _expandedSliderGrid->addWidget(_labelH, 0, 0);
         _expandedSliderGrid->addWidget(_labelS, 0, 1);
@@ -540,15 +540,15 @@ namespace igor
 
     void iUserControlColorChooser::initCollapsed()
     {
-        _collapsedGrid = new iWidgetGrid();
+        _collapsedGrid = new iWidgetGridLayout();
         _collapsedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _collapsedGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _collapsedGrid->appendColumns(8);
         _collapsedGrid->setCellSpacing(4);
 
         _colorViewCollapsed = new iWidgetColor();
-        _colorViewCollapsed->setWidth(54);
-        _colorViewCollapsed->setHeight(21);
+        _colorViewCollapsed->setMinWidth(54);
+        _colorViewCollapsed->setMinHeight(21);
 
         _collapsedGrid->addWidget(_labelR, 0, 0);
         _collapsedGrid->addWidget(_valueChooserR, 1, 0);

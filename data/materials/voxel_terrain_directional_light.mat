@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="example.voxel.terrain_directional_light" uuid="095d02dc-7b46-11ed-8093-e3b420dd3214" visibility="Public">
+	<Material name="example.voxel.terrain_directional_light" visibility="Public">
 		<States>
 			<DepthTest>On</DepthTest>
             <Blend>Off</Blend>
@@ -61,8 +61,7 @@ void main()
 	vec3 N = normalize(VertexNormal);
 	vec3 P = VertexWorld;
 	
-	vec3 texSelector = vec3(N.x*N.x, N.y*N.y, N.z*N.z);
-		
+	vec3 blendSharpness = vec3(8,8,8);
 	float scale = 0.1;
 	
 	vec3 diffuseTextureColor0;
@@ -70,18 +69,21 @@ void main()
 	if(N.y > 0)
 	{
 		// top
-		diffuseTextureColor0 = texture2D(igor_matTexture0, P.xz * scale).rgb * texSelector.y;
+		diffuseTextureColor0 = texture2D(igor_matTexture0, P.xz * scale).rgb;
 	}
 	else 
 	{
 		// bottom
-		diffuseTextureColor0 = texture2D(igor_matTexture2, P.xz * scale).rgb * texSelector.y; 
+		diffuseTextureColor0 = texture2D(igor_matTexture2, P.xz * scale).rgb; 
 	}
 	
-	vec3 diffuseTextureColor1 = texture2D(igor_matTexture1, P.yz * scale).rgb * texSelector.x; 
-	vec3 diffuseTextureColor2 = texture2D(igor_matTexture1, P.xy * scale).rgb * texSelector.z;
+	vec3 diffuseTextureColor1 = texture2D(igor_matTexture1, P.zy * scale).rgb;
+	vec3 diffuseTextureColor2 = texture2D(igor_matTexture1, P.xy * scale).rgb;
+
+	vec3 blendWeight = pow(abs(N), blendSharpness);
+	blendWeight /= dot(blendWeight, vec3(1,1,1));
 	
-	vec3 diffuseTextureColor = diffuseTextureColor0 + diffuseTextureColor1 + diffuseTextureColor2;
+	vec3 diffuseTextureColor = diffuseTextureColor1 * blendWeight.x + diffuseTextureColor0 * blendWeight.y + diffuseTextureColor2 * blendWeight.z;
 	
 	vec3 emissive = igor_matEmissive;
 	

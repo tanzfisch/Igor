@@ -47,6 +47,17 @@ namespace iaux
         friend class iaFile;
 
     public:
+
+        /*! creates an object for some directory
+
+        \param directoryName path of directory
+        */
+        iaDirectory(const iaString &directoryName);
+
+        /*! empty directory ctor
+        */
+        iaDirectory();
+
         /*! copy operator
 
         \param directoryName path of directory
@@ -78,12 +89,12 @@ namespace iaux
         */
         static iaString getRelativePath(const iaString &from, const iaString &to);
 
-        /*! \returns all subdirectorys
+        /*! \returns all sub directories
 
         \param recursive true: search recursively; false: search only in current directory
         \param orderAlphabetically true: returns directories in alphabetical order
         */
-        std::vector<iaDirectory> getDirectorys(bool recursive = false, bool orderAlphabetically = true);
+        std::vector<iaDirectory> getDirectories(bool recursive = false, bool orderAlphabetically = true) const;
 
         /*! \returns all files
 
@@ -91,7 +102,7 @@ namespace iaux
         \param recursive true: search recursively; false: search only in current directory
         \param orderAlphabetically true: returns files in alphabetical order
         */
-        std::vector<iaFile> getFiles(iaString searchPattern = L"(.*)", bool recursive = false, bool orderAlphabetically = true);
+        std::vector<iaFile> getFiles(const iaString &searchPattern = L"*", bool recursive = false, bool orderAlphabetically = true) const;
 
         /*! set's the current or working directory
 
@@ -112,6 +123,28 @@ namespace iaux
         */
         static bool isDirectory(const iaString &directoryname);
 
+        /*! creates directory at given path
+
+        \param path given path
+        */
+        static void makeDirectory(const iaString &path);
+
+        /*! \returns true if given directory exists
+
+        \param path the given directory
+        */
+        static bool exists(const iaString &path);
+
+        /*! \returns true if given directory exists
+        */
+        bool exists() const;
+
+        /*! \returns true if given directory is empty
+
+        \param path the given directory
+        */
+        static bool isEmpty(const iaString &path);
+
         /*! \returns true: if root folder 
         
         eg c:, d: (windows)
@@ -126,12 +159,6 @@ namespace iaux
         \returns fixed path
         */
         static iaString fixPath(const iaString &directoryName, bool file);
-
-        /*! creates an object for some directory
-
-        \param directoryName path of directory
-        */
-        iaDirectory(const iaString &directoryName);
 
     private:
         /*! the path to the directory

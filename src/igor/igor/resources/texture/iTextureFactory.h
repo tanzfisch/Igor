@@ -41,20 +41,31 @@ namespace igor
      */
     class iTextureFactory : public iFactory
     {
-        friend class iPixmap;
+        friend class iResourceManager;
+
+    public:
+
+        /*! loads pixmap from file
+
+        \param filename the file to load
+        \returns pixmap
+        */
+        static iPixmapPtr loadPixmap(const iaString &filename);
+
+        /*! generate a thumbnail for given texture
+
+        \param source the source texture
+        \param destination the thumbnail
+        \param width the new width
+        \param height the new height
+        \returns true if successful 
+        */
+        static bool createThumbnail(const iaString &source, const iaString &destination, uint32 width = 128, uint32 height = 128);
 
     private:
-        /*! \returns the factory type
-
-        this type is used to register with the resource manager
-        */
-        const iaString &getType() const override;
-
-        /*! \returns true if resource parameters are supported by this factory
-
-        \param parameters the given resource parameters
-        */
-        bool matchingType(const iParameters &parameters) const override;
+        /*! init members
+         */
+        iTextureFactory();
 
         /*! \returns resource type specific hash data
          */
@@ -104,13 +115,6 @@ namespace igor
         \param texture the texture resource
         */
         bool pixmapToTexture(iPixmapPtr pixmap, iTexturePtr texture);
-
-        /*! loads pixmap from file
-
-        \param filename the file to load
-        \returns pixmap
-        */
-        static iPixmapPtr loadPixmap(const iaString &filename);        
     };
 
 }; // namespace igor

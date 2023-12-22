@@ -46,7 +46,7 @@ using namespace iaux;
 namespace igor
 {
 
-    __IGOR_DISABLE_WARNING__(4275) // the interface of iNodeVolume is not fully public on purpose
+    IGOR_DISABLE_WARNING(4275) // the interface of iNodeVolume is not fully public on purpose
 
     /*! node that handles physics collisions bound to one body
 
@@ -316,7 +316,7 @@ namespace igor
         virtual ~iNodePhysics();
     };
 
-    __IGOR_ENABLE_WARNING__(4275)
+    IGOR_ENABLE_WARNING(4275)
 
 }; // namespace igor
 

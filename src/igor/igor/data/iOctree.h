@@ -42,11 +42,7 @@
 namespace igor
 {
 
-    /*! octree implementation
-
-    \bug it does not work for bigger objects
-    \todo does not merge efficiently
-    \todo implement move functionality
+    /*! \brief Octree implementation
     */
     class IGOR_API iOctree
     {
@@ -120,7 +116,6 @@ namespace igor
         \param halfMinResolution half of the minimum size a octree nodes volume has
         \param objectCountMaxThreashold maximum amount of objects before splitting the parenting octree node
         \param objectCountMinThreashold minimum amount of objects in the child nodes of a node before merging them together
-        \todo it would be nice to have a octree with dynamic volume
         */
         iOctree(const iAACubed &box, float64 halfMinResolution = 1.0, uint64 objectCountMaxThreashold = 8, uint64 objectCountMinThreashold = 2);
 

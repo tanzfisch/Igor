@@ -30,7 +30,6 @@
 #define __IGOR_USERCONTROLCOLORCHOOSER__
 
 #include <igor/ui/user_controls/iUserControl.h>
-#include <igor/ui/widgets/iWidget.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaColor3.h>
@@ -41,7 +40,7 @@ using namespace iaux;
 namespace igor
 {
 
-    class iWidgetGrid;
+    class iWidgetGridLayout;
     class iWidgetLabel;
     class iWidgetLineTextEdit;
     class iWidgetButton;
@@ -64,8 +63,8 @@ namespace igor
 
     /*! color chooser user control
 
-    \bug color chooser disapperas when unfolded and folded again
-    \todo use drawGradient instead of textures for the color componenbt sliders than we could manipulate them dynamically
+    \bug color chooser disappears when unfolded and folded again
+    \todo use drawGradient instead of textures for the color component sliders than we could manipulate them dynamically
     */
     class IGOR_API iUserControlColorChooser : public iUserControl
     {
@@ -189,11 +188,11 @@ namespace igor
 
         /*! root widget
          */
-        iWidgetGrid *_grid = nullptr;
+        iWidgetGridLayout *_grid = nullptr;
 
         /*! head line grid
          */
-        iWidgetGrid *_headlineGrid = nullptr;
+        iWidgetGridLayout *_headlineGrid = nullptr;
 
         /*! label that holds the title
          */
@@ -205,15 +204,15 @@ namespace igor
 
         /*! collapsed grid
          */
-        iWidgetGrid *_collapsedGrid = nullptr;
+        iWidgetGridLayout *_collapsedGrid = nullptr;
 
         /*! expanded grid
          */
-        iWidgetGrid *_expandedGrid = nullptr;
+        iWidgetGridLayout *_expandedGrid = nullptr;
 
         /*! expanded slider grid
          */
-        iWidgetGrid *_expandedSliderGrid = nullptr;
+        iWidgetGridLayout *_expandedSliderGrid = nullptr;
 
         /*! number chooser for hue component
          */

@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2023 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "Workspace.h"
 
 Workspace::Workspace()
@@ -151,14 +155,12 @@ void Workspace::importFile(const iaString &filename)
     {
         return;
     }
-    
-    iParameters parameters({
-        {"name", filename},
-        {"type", iaString("model")},
-        {"cacheMode", iResourceCacheMode::Free},
-        {"joinVertexes", false},
-        {"keepMesh", true}
-    });
+
+    iParameters parameters({{IGOR_RESOURCE_PARAM_SOURCE, filename},
+                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
+                            {IGOR_RESOURCE_PARAM_KEEP_MESH, true}});
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
@@ -224,13 +226,11 @@ void Workspace::importFileReference(const iaString &filename)
         return;
     }
 
-    iParameters parameters({
-        {"name", filename},
-        {"type", iaString("model")},
-        {"cacheMode", iResourceCacheMode::Free},
-        {"joinVertexes", false},
-        {"keepMesh", true}
-    });
+    iParameters parameters({{IGOR_RESOURCE_PARAM_SOURCE, filename},
+                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
+                            {IGOR_RESOURCE_PARAM_KEEP_MESH, true}});
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
@@ -261,14 +261,13 @@ void Workspace::loadFile(const iaString &filename)
         return;
     }
 
-    iParameters parameters({
-        {"name", filename},
-        {"type", iaString("model")},
-        {"cacheMode", iResourceCacheMode::Free},
-        {"joinVertexes", false},
-        {"keepMesh", true}
-    });
     iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
+    iParameters parameters({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                            {IGOR_RESOURCE_PARAM_SOURCE, filename},
+                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+                            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
+                            {IGOR_RESOURCE_PARAM_KEEP_MESH, true}});
     model->setModel(iResourceManager::getInstance().loadResource<iModel>(parameters));
 
     if (model->isValid())

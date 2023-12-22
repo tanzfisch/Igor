@@ -10,8 +10,9 @@
 #include <sstream>
 #include <filesystem>
 #include <algorithm>
+#include <regex>
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
@@ -19,6 +20,9 @@
 
 namespace iaux
 {
+    iaDirectory::iaDirectory()
+    {
+    }
 
     iaDirectory::iaDirectory(const iaString &directoryName)
     {
@@ -31,10 +35,15 @@ namespace iaux
         return *this;
     }
 
-    std::vector<iaDirectory> iaDirectory::getDirectorys(bool recursive, bool orderAlphabetically)
+    std::vector<iaDirectory> iaDirectory::getDirectories(bool recursive, bool orderAlphabetically) const
     {
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaDirectory> result;
+
+        if (!isDirectory(fullPath))
+        {
+            return result;
+        }
 
         if (recursive)
         {
@@ -71,9 +80,14 @@ namespace iaux
         return result;
     }
 
-    bool iaDirectory::isDirectory(const iaString &directoryname)
+    bool iaDirectory::isDirectory(const iaString &path)
     {
-        std::filesystem::directory_entry entry(directoryname.getData());
+        if (path.isEmpty())
+        {
+            return false;
+        }
+
+        std::filesystem::directory_entry entry(path.getData());
         if (entry.is_directory())
         {
             return true;
@@ -82,16 +96,55 @@ namespace iaux
         return false;
     }
 
+    bool iaDirectory::exists() const
+    {
+        return iaDirectory::exists(getFullDirectoryName());
+    }
+
+    bool iaDirectory::exists(const iaString &path)
+    {
+        if (path.isEmpty())
+        {
+            return false;
+        }
+
+        std::filesystem::path fspath(path.getData());
+        return std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath);
+    }
+
+    bool iaDirectory::isEmpty(const iaString &path)
+    {
+        con_assert(!path.isEmpty(), "invalid parameter");
+
+        std::filesystem::path fspath(path.getData());
+        return std::filesystem::is_directory(fspath) && std::filesystem::is_empty(fspath);
+    }
+
+    void iaDirectory::makeDirectory(const iaString &path)
+    {
+        if (iaDirectory::exists(path))
+        {
+            con_warn("directory already exists " << path);
+            return;
+        }
+
+        std::filesystem::path directory(path.getData());
+        if (!std::filesystem::create_directories(directory))
+        {
+            con_err("can't create directory \"" << path << "\"");
+        }
+    }
+
     /*! \returns true if it's a file that matches given search pattern
     \param entry the file entry
     \param searchPattern the given pattern
     */
-    static bool fileMatch(const std::filesystem::directory_entry &entry, iaux::iaString &searchPattern)
+    static bool fileMatch(const std::filesystem::directory_entry &entry, const iaString &searchPattern)
     {
         if (entry.is_regular_file())
         {
-            iaString filename(entry.path().c_str());
-            if (iaString::matchRegex(filename, searchPattern))
+            iaString filename(entry.path().filename().c_str());
+            if (iaString::matchRegex(filename, iaString::wildcardToRegex(searchPattern)))
             {
                 return true;
             }
@@ -100,10 +153,15 @@ namespace iaux
         return false;
     }
 
-    std::vector<iaFile> iaDirectory::getFiles(iaString searchPattern, bool recursive, bool orderAlphabetically)
+    std::vector<iaFile> iaDirectory::getFiles(const iaString &searchPattern, bool recursive, bool orderAlphabetically) const
     {
         iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaFile> result;
+
+        if (!isDirectory(fullPath))
+        {
+            return result;
+        }
 
         if (recursive)
         {
@@ -148,13 +206,13 @@ namespace iaux
     iaString iaDirectory::getDirectoryName() const
     {
         iaString fullPath = fixPath(_directoryName, false);
-        return fullPath.getSubString(fullPath.findLastOf(__IGOR_PATHSEPARATOR__) + 1);
+        return fullPath.getSubString(fullPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
     }
 
     iaString iaDirectory::getFullParentDirectoryName() const
     {
         iaString fullPath = fixPath(_directoryName, false);
-        return fullPath.getSubString(0, fullPath.findLastOf(__IGOR_PATHSEPARATOR__));
+        return fullPath.getSubString(0, fullPath.findLastOf(IGOR_PATHSEPARATOR));
     }
 
     bool iaDirectory::isRoot()
@@ -176,9 +234,9 @@ namespace iaux
         }
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         if (_directoryName.getLength() == 1 &&
-            _directoryName[1] == __IGOR_PATHSEPARATOR__)
+            _directoryName[1] == IGOR_PATHSEPARATOR)
         {
             return true;
         }
@@ -206,8 +264,8 @@ namespace iaux
         }
 #endif
 
-#ifdef __IGOR_LINUX__
-        if (directoryname[0] == __IGOR_PATHSEPARATOR__)
+#ifdef IGOR_LINUX
+        if (directoryname[0] == IGOR_PATHSEPARATOR)
         {
             return true;
         }
@@ -224,8 +282,8 @@ namespace iaux
         }
 
         iaString temp = directoryName;
-        const wchar_t pathSeperator = __IGOR_PATHSEPARATOR__;
-        const wchar_t notPathSeperator = __IGOR_NOT_PATHSEPARATOR__;
+        const wchar_t pathSeperator = IGOR_PATHSEPARATOR;
+        const wchar_t notPathSeperator = IGOR_NOT_PATHSEPARATOR;
 
         // converts to OS specific path seperator
         for (int i = 0; i < temp.getLength(); ++i)
@@ -237,12 +295,12 @@ namespace iaux
         }
 
         // if this is a folder get rid of the last path seperator
-        if (iaFile::exist(temp) && !file)
+        if (iaFile::exists(temp) && !file)
         {
             temp = temp.getSubString(0, temp.findLastOf(pathSeperator));
         }
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         // check if this is the user home folder
         if (temp[0] == '~')
         {
@@ -253,7 +311,7 @@ namespace iaux
         }
 #endif
 
-        // does some relative to absolue path thinngys
+        // does some relative to absolute path magic
         if (!directoryIsAbsolute(temp))
         {
             temp = iaDirectory::getCurrentDirectory() + pathSeperator + temp;
@@ -267,7 +325,7 @@ namespace iaux
     {
         iaString tempFrom;
 
-        if (iaFile::exist(from))
+        if (iaFile::exists(from))
         {
             iaFile file(from);
             tempFrom = file.getPath();

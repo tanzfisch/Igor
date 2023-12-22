@@ -4,33 +4,24 @@
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 
-#include <cmath>
+#include <algorithm>
 
 namespace iaux
 {
 
     iaRandomNumberGenerator::iaRandomNumberGenerator(uint64 seed)
     {
-        _seed = seed;
-    }
-
-    iaRandomNumberGenerator::~iaRandomNumberGenerator()
-    {
+        _engine.seed(seed);
     }
 
     void iaRandomNumberGenerator::setSeed(uint64 seed)
     {
-        _seed = seed;
+        _engine.seed(seed);
     }
 
     uint64 iaRandomNumberGenerator::getNext()
     {
-        const uint64 _a = 48271;
-        const uint64 _c = 0;
-        const uint64 _m = 0x7FFFFFFF;
-
-        _seed = (static_cast<uint64>(_seed) * _a + _c) % _m;
-        return _seed;
+        return _distribution(_engine);
     }
 
     int64 iaRandomNumberGenerator::getNextRange(int64 min, int64 max)
@@ -46,7 +37,7 @@ namespace iaux
         const float64 x = -lambda * log(1.0 - u);
 
         const int64 result = min + ((float64)(max - min + 1) * (1.0 - exp(-lambda * x)));
-        return std::max(std::min(result, max), min);
+        return std::clamp(result, min, max);
     }
 
     int64 iaRandomNumberGenerator::getNextRangeExponentialIncrease(int64 min, int64 max, float64 lambda)
@@ -55,7 +46,7 @@ namespace iaux
         const float64 x = -lambda * log(1.0 - u);
 
         const int64 result = min + ((float64)(max - min + 1) * exp(-lambda * x));
-        return std::max(std::min(result, max), min);
+        return std::clamp(result, min, max);
     }
 
     int64 iaRandomNumberGenerator::getNextRange(int64 range)

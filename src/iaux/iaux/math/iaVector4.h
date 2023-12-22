@@ -35,8 +35,6 @@ namespace iaux
 {
 
     /*! 4d vector
-
-    \todo implement more operators
     */
     template <typename T>
     struct IAUX_API_EXPORT_ONLY iaVector4

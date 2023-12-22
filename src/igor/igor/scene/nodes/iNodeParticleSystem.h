@@ -47,7 +47,7 @@ namespace igor
      */
     IGOR_EVENT_DEFINITION(iParticleSystemFinished, void, iNodeID);
 
-    __IGOR_DISABLE_WARNING__(4275); // yes iNodeVolume is intentionally not a fully exported interface
+    IGOR_DISABLE_WARNING(4275); // yes iNodeVolume is intentionally not a fully exported interface
 
     /*! node to control a 3d particle system
      */
@@ -450,7 +450,7 @@ namespace igor
         virtual ~iNodeParticleSystem();
     };
 
-    __IGOR_ENABLE_WARNING__(4275);
+    IGOR_ENABLE_WARNING(4275);
 
 }; // namespace igor
 

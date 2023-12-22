@@ -44,20 +44,20 @@
     #endif
 
 #elif __linux__
-    #define __IGOR_LINUX__
+    #define IGOR_LINUX
 #else
     #error unsupported environment
 #endif
 
-#define __IGOR_PATHSEPARATOR_WINDOWS__ '\\'
-#define __IGOR_PATHSEPARATOR_LINUX__ '/'
+#define IGOR_PATHSEPARATOR_WINDOWS '\\'
+#define IGOR_PATHSEPARATOR_LINUX '/'
 
 #ifdef IGOR_WINDOWS
-    #define __IGOR_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_WINDOWS__
-    #define __IGOR_NOT_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_LINUX__
-#elif defined(__IGOR_LINUX__)
-    #define __IGOR_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_LINUX__
-    #define __IGOR_NOT_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_WINDOWS__
+    #define IGOR_PATHSEPARATOR IGOR_PATHSEPARATOR_WINDOWS
+    #define IGOR_NOT_PATHSEPARATOR IGOR_PATHSEPARATOR_LINUX
+#elif defined(IGOR_LINUX)
+    #define IGOR_PATHSEPARATOR IGOR_PATHSEPARATOR_LINUX
+    #define IGOR_NOT_PATHSEPARATOR IGOR_PATHSEPARATOR_WINDOWS
 #else
     #error unsupported environment
 #endif
@@ -66,32 +66,32 @@
 #define S2(x) S1(x)
 #define __IGOR_FILE_LINE__ __FILE__ ":" S2(__LINE__)
 
-#define __IGOR_STDCALL__ stdcall
-#define __IGOR_CDECL__ cdecl
-#define __IGOR_DEFAULTCALL__ __IGOR_CDECL__
+#define IGOR_STDCALL stdcall
+#define IGOR_CDECL cdecl
+#define IGOR_DEFAULTCALL IGOR_CDECL
 
-// configure windows environment
+// configure MSVC environment
 #ifdef _MSC_VER
 
-    #define __IGOR_MSCOMPILER__
+    #define IGOR_MSCOMPILER
 
     // Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
     // http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
-    #define __IGOR_FUNCTION__ __FUNCTION__
+    #define IGOR_FUNCTION __FUNCTION__
 
     #ifdef _DEBUG
         #define IGOR_DEBUG
-        #define __IGOR_INLINE__ __inline
+        #define IGOR_INLINE __inline
     #else
-        #define __IGOR_INLINE__ __inline
+        #define IGOR_INLINE __inline
     #endif
 
-    #define __IGOR_DISABLE_WARNING__(num) __pragma(warning(disable \
+    #define IGOR_DISABLE_WARNING(num) __pragma(warning(disable \
                                                         : num))
-    #define __IGOR_ENABLE_WARNING__(num) __pragma(warning(default \
+    #define IGOR_ENABLE_WARNING(num) __pragma(warning(default \
                                                         : num))
 
-    #ifdef __IAUX_BUILDING_DLL__
+    #ifdef IAUX_BUILDING_DLL
         #define IAUX_API __declspec(dllexport)
         #define IAUX_API_EXPORT_ONLY __declspec(dllexport)
         #define IAUX_API_IMPORT_ONLY
@@ -101,36 +101,36 @@
         #define IAUX_API_IMPORT_ONLY __declspec(dllimport)
     #endif
 
-    #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
-    #define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
+    #define IGOR_FUNCTION_POINTER(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
+    #define IGOR_MEMBERFUNCTION_POINTER(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
 
 #endif // IGOR_WINDOWS
 
-// configure linux environment
+// configure GCC environment
 #ifdef __GNUG__
 
-    #define __IGOR_GCC__
+    #define IGOR_GCC
 
-    #define __IGOR_FUNCTION__ __PRETTY_FUNCTION__
+    #define IGOR_FUNCTION __PRETTY_FUNCTION__
 
     #if defined(DEBUG) || defined(_DEBUG)
         #define IGOR_DEBUG
-        #define __IGOR_INLINE__ inline
+        #define IGOR_INLINE inline
     #else
-        #define __IGOR_INLINE__ inline
+        #define IGOR_INLINE inline
     #endif
 
-    #define __IGOR_DISABLE_WARNING__(num) // TODO
-    #define __IGOR_ENABLE_WARNING__(num)  // TODO
+    #define IGOR_DISABLE_WARNING(num)
+    #define IGOR_ENABLE_WARNING(num)
 
     #define IAUX_API
     #define IAUX_API_EXPORT_ONLY
     #define IAUX_API_IMPORT_ONLY
 
-    #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(*name) parameters
-    #define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
+    #define IGOR_FUNCTION_POINTER(name, returntype, parameters) typedef returntype(*name) parameters
+    #define IGOR_MEMBERFUNCTION_POINTER(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
 
-#endif // __IGOR_LINUX__
+#endif // IGOR_LINUX
 
 typedef int8_t int8;
 typedef int16_t int16;
@@ -193,80 +193,74 @@ namespace iaux
     };
 } // namespace iaux
 
-#ifdef IGOR_DEBUG
-#define __IAUX_CONFIG_STR__ debug
-#else
-#define __IAUX_CONFIG_STR__ release
-#endif
-
 /*! igor tab definition
 */
-#define __IGOR_TAB__ L"    "
+#define IGOR_TAB L"    "
 
-//! helper macro to handle scrings in macros
+//! helper macro to handle strings in macros
 #define STR2(x) #x
-//! an other helper macro to handle scrings in macros
+//! an other helper macro to handle strings in macros
 #define STR(x) STR2(x)
 
-/*! definitions of gramm
+/*! definitions of gram
 */
-#define __IGOR_GRAMM__ 0.001
+#define IGOR_GRAM 0.001
 
-/*! definitions of kilo gramm
+/*! definitions of kilogram
 */
-#define __IGOR_KILO__ 1.0
+#define IGOR_KILO 1.0
 
 /*! definitions of ton
 */
-#define __IGOR_TON__ 1000.0
+#define IGOR_TON 1000.0
 
 /*! base weight
 */
-#define __IGOR_BASE_WEIGHT__ __IGOR_KILO__
+#define IGOR_BASE_WEIGHT IGOR_KILO
 
-/*! definition of milimeter
+/*! definition of millimeter
 */
-#define __IGOR_MILIMETER__ 0.001
+#define IGOR_MILLIMETER 0.001
 
 /*! definition of centimeter
 */
-#define __IGOR_CENTIMETER__ 0.01
+#define IGOR_CENTIMETER 0.01
 
 /*! definition of decimeter
 */
-#define __IGOR_DECIMETER__ 0.1
+#define IGOR_DECIMETER 0.1
 
 /*! definition of one meter
 */
-#define __IGOR_METER__ 1.0
+#define IGOR_METER 1.0
 
 /*! definition of kilometer
 */
-#define __IGOR_KILOMETER__ 1000.0
+#define IGOR_KILOMETER 1000.0
 
 /*! base length
 */
-#define __IGOR_BASE_LENGHT__ __IGOR_METER__
+#define IGOR_BASE_LENGHT IGOR_METER
 
 /*! definition of millisecond
 */
-#define __IGOR_MILLISECOND__ 1.0
+#define IGOR_MILLISECOND 1.0
 
 /*! definition of second
 */
-#define __IGOR_SECOND__ 1000.0
+#define IGOR_SECOND 1000.0
 
 /*! definition of minute
 */
-#define __IGOR_MINUTE__ 60000.0
+#define IGOR_MINUTE 60000.0
 
 /*! base time
 */
-#define __IGOR_BASE_TIME__ __IGOR_MILLISECOND__
+#define IGOR_BASE_TIME IGOR_MILLISECOND
 
-/*! default gravity in m/s�
+/*! default gravity in m/s
 */
-#define __IGOR_GRAVITY__ 9.81
+#define IGOR_EARTH_GRAVITY 9.81
 
 #define __IGOR_BIT_0__ 0x00000001
 #define __IGOR_BIT_1__ 0x00000002
@@ -312,7 +306,5 @@ namespace iaux
 // id types
 typedef uint64 iaID64;
 typedef uint32 iaID32;
-typedef uint16 iaID16;
-typedef uint8 iaID8;
 
 #endif // __IAUX_DEFINES__

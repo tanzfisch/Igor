@@ -63,7 +63,7 @@ namespace igor
 		\param entryText the entry text
 		\param userData optional user data
 		*/
-        void addSelectionEntry(const iaString &entryText, const std::any &userData = std::any());
+        void addItem(const iaString &entryText, const std::any &userData = std::any());
 
         /*! clears all entries
 
@@ -75,9 +75,9 @@ namespace igor
 		*/
         void setSelection(uint32 index);
 
-        /*! \returns ammount of select box entries
+        /*! \returns amount of select box entries
 		*/
-        uint32 getSelectionEntryCount() const;
+        uint32 getItemCount() const;
 
         /*! \returns index of selected entry
 		*/
@@ -92,7 +92,7 @@ namespace igor
         const std::any getSelectedUserData() const;
 
     private:
-        /*! list of selct box entries
+        /*! list of select box entries
 		*/
         std::vector<std::pair<iaString, std::any>> _entries;
 
@@ -101,10 +101,6 @@ namespace igor
 		-1 stand for no selection
 		*/
         int32 _currentSelection = -1;
-
-        /*! true: if the mouse cursor is over the button
-		*/
-        bool _mouseOver = false;
 
         /*! true: if the select box is unfoldet
 		*/
@@ -124,40 +120,33 @@ namespace igor
 		*/
         void onSelectBoxClosed(iDialogPtr dialog);
 
-        /*! handles incoming mouse wheel event
-
-		\param d mouse wheel delta
-		\returns true: if event was consumed and therefore ignored by the parent
-		*/
-        bool handleMouseWheel(int32 d);
-
         /*! handles incoming mouse key down events
 
-		\param key the key that was pressed
-		\returns true: if event was consumed and therefore will be ignored by the parent
-		*/
-        bool handleMouseKeyDown(iKeyCode key);
+        \param event mouse key down event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
-		\param key the key that was pressed
-		\returns true: if event was consumed and therefore will be ignored by the parent
-		*/
-        bool handleMouseKeyUp(iKeyCode key);
+        \param event the mouse key up event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
-		\param pos mouse position
-		*/
-        void handleMouseMove(const iaVector2f &pos);
+        \param event mouse move event
+        */
+        void onMouseMove(iEventMouseMove &event) override;
 
         /*! updates size based on it's content
 		*/
         void calcMinSize() override;
 
-        /*! renders widget
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
     };
 
     /*! select box pointer definition

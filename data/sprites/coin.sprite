@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-    <Sprite texture="supremacy/coin.png" pixelPerUnit="1">
+    <Sprite texture="example_texture_supremacy_coin" pixelPerUnit="1">
         <Frame pos="0, 0" size="0.5, 0.5" pivot="0.5, 0.5"/>
         <Frame pos="0.5, 0" size="0.5, 0.5" pivot="0.5, 0.5"/>
         <Frame pos="0, 0.5" size="0.5, 0.5" pivot="0.5, 0.5"/>

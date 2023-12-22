@@ -843,7 +843,7 @@ namespace igor
         }
     }
 
-    __IGOR_INLINE__ void SphereMap(const iaVector3f &normal, float32 &u, float32 &v)
+    IGOR_INLINE void SphereMap(const iaVector3f &normal, float32 &u, float32 &v)
     {
         u = asin(normal._x) / M_PI + 0.5f;
         v = asin(normal._y) / M_PI + 0.5f;

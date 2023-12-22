@@ -46,7 +46,7 @@ namespace igor
 
     /*! collection of intersection functions
 
-    \todo read http://noonat.github.io/intersect/
+    good source of information http://noonat.github.io/intersect/
     */
     class IGOR_API iIntersection
     {

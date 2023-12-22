@@ -34,7 +34,7 @@
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#ifdef __IGOR_MSCOMPILER__
+#ifdef IGOR_MSCOMPILER
 #ifdef __IGOR_BUILDING_DLL__
 #define IGOR_API __declspec(dllexport)
 #define IGOR_API_EXPORT_ONLY __declspec(dllexport)
@@ -46,38 +46,62 @@ using namespace iaux;
 #endif
 #endif
 
-#ifdef __IGOR_GCC__
+#ifdef IGOR_GCC
 #define IGOR_API
 #define IGOR_API_EXPORT_ONLY
 #endif
 
-//! Igor configuration short
-extern const iaString IGOR_BUILD_CONFIGURATION;
+extern const iaString IGOR_BUILD_CONFIGURATION; //! Igor build configuration short
+extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS; //! supported file extensions for sprites
+extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS; //! supported file extensions for textures
+extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS; //! supported file extensions for materials
+extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS; //! supported file extensions for animations
+extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS; //! supported file extensions for models
+extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS; //! supported file extensions for sounds
 
-//! supported file extensions for sprites
-extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS;
+// resources
+extern const iaString IGOR_RESOURCE_MATERIAL; //! material resource name
+extern const iaString IGOR_RESOURCE_ANIMATION; //! animation resource name
+extern const iaString IGOR_RESOURCE_TEXTURE; //! texture resource name
+extern const iaString IGOR_RESOURCE_SOUND; //! sound resource name
+extern const iaString IGOR_RESOURCE_SPRITE; //! sprite resource name
+extern const iaString IGOR_RESOURCE_MODEL; //! model resource name
 
-//! supported file extensions for textures
-extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS;
+// resource parameters
+extern const iaString IGOR_RESOURCE_PARAM_ID; //! resource parameters id
+extern const iaString IGOR_RESOURCE_PARAM_ALIAS; //! resource parameters alias
+extern const iaString IGOR_RESOURCE_PARAM_TYPE; //! resource parameters type
+extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE; //! resource parameters cache mode
+extern const iaString IGOR_RESOURCE_PARAM_SOURCE; //! resource parameters filename
+extern const iaString IGOR_RESOURCE_PARAM_PIXMAP; //! resource parameters pixmap
+extern const iaString IGOR_RESOURCE_PARAM_NODE; //! resource parameters node
+extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE; //! resource parameters export mode
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE; //! resource parameters texture build mode
+extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES; //! resource parameters join vertices
+extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE; //! resource parameters sub type
+extern const iaString IGOR_RESOURCE_PARAM_QUIET; //! resource parameters quiet
+extern const iaString IGOR_RESOURCE_PARAM_MATERIAL; //! resource parameters material
+extern const iaString IGOR_RESOURCE_PARAM_TARGET_MATERIAL; //! resource parameters target material
+extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL; //! resource parameters physics material
+extern const iaString IGOR_RESOURCE_PARAM_LOD; //! resource parameters level of detail
+extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH; //! resource parameters keep mesh
+extern const iaString IGOR_RESOURCE_PARAM_GENERATE; //! resource parameters generate
+extern const iaString IGOR_RESOURCE_PARAM_SEED; //! resource parameters seed
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE; //! resource parameters texture
 
 namespace igor
 {
 
     /*! save mode for exporting node graphs
-    */
+     */
     enum class iSaveMode
     {
         /*! keeps external references unchanged
-        */
+         */
         KeepExternals,
 
-        /*! converts external reference data but keeps it in separate files
-        \todo not implemented
-        */
-        // KeepAndConvertExternals,
-
         /*! converts external data and embeds it in to one file
-        */
+         */
         EmbedExternals
     };
 
@@ -114,6 +138,26 @@ namespace igor
         Column,
         NoSelection
     };
+
+    /*! A flag specifying the character of the material
+
+    The application is free to interpret it any way it likes.
+
+    In Mica for example we only display public materials in the material list
+    */
+    enum class iMaterialVisibility
+    {
+        Private,
+        Public
+    };
+
+    /*! prints the material visibility to a stream
+
+    \param stream the stream to log to
+    \param visibility the value to log
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iMaterialVisibility &visibility);
 
     /*! color format of textures pixmaps etc.
      */
@@ -163,7 +207,7 @@ namespace igor
     \param wrapMode the texture wrap mode
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iTextureWrapMode &wrapMode);    
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iTextureWrapMode &wrapMode);
 
     /*! texture patterns
      */
@@ -174,7 +218,7 @@ namespace igor
     };
 
     /*! resource manager load mode
-    */
+     */
     enum class iResourceManagerLoadMode
     {
         Application,
@@ -187,15 +231,16 @@ namespace igor
     \param mode the resource manager load mode mode
     \returns the stream
     */
-    IAUX_API std::wostream &operator<<(std::wostream &stream, iResourceManagerLoadMode mode);    
+    IAUX_API std::wostream &operator<<(std::wostream &stream, iResourceManagerLoadMode mode);
 
     /*! cache mode for resources
      */
     enum class iResourceCacheMode
     {
-        Free = 0,  //! free immediately after not in use
-        Cache = 1, //! free when cache is flushed
-        Keep = 2   //! keep until corresponding resource manager was destroyed
+        DontCache, //! don't put in cache and forget about it
+        Free,      //! free immediately after not in use
+        Cache,     //! free when cache is flushed
+        Keep,      //! keep until corresponding resource manager was destroyed
     };
 
     /*! prints the resource cache mode to the console

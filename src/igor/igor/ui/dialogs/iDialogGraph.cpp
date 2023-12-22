@@ -7,7 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/iWidgetManager.h>
@@ -63,22 +63,21 @@ namespace igor
 
     void iDialogGraph::initGUI()
     {
+        setHorizontalAlignment(iHorizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
+
         iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
-        setWidth(450);
-        setHeight(20);
+        setMinWidth(450);
+        setMinHeight(20);
 
-        iWidgetGridPtr grid = new iWidgetGrid(this);
-        grid->appendRows(4);
+        iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
+        grid->appendRows(3);
         grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         grid->setVerticalAlignment(iVerticalAlignment::Stretch);
         grid->setCellSpacing(4);
         grid->setBorder(4);
-
-        _titleLabel = new iWidgetLabel();
-        _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-        _titleLabel->setText(_title);
 
         iWidgetGroupBox *groupBoxGradient = new iWidgetGroupBox();
         groupBoxGradient->setText("Gradient");
@@ -87,7 +86,7 @@ namespace igor
 
         _graph = new iWidgetGraph();
         _graph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        _graph->setHeight(120);
+        _graph->setMinHeight(120);
         _graph->setInteractive();
         _graph->setExtrapolateData();
         _graph->setViewGrid();
@@ -100,7 +99,7 @@ namespace igor
         groupBoxSelection->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         groupBoxSelection->setVerticalAlignment(iVerticalAlignment::Stretch);
 
-        iWidgetGrid *axisGrid = new iWidgetGrid();
+        iWidgetGridLayout *axisGrid = new iWidgetGridLayout();
         axisGrid->appendRows(static_cast<uint32>(_graphs.size() + 2));
         axisGrid->appendColumns(1);
         axisGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -112,7 +111,7 @@ namespace igor
         iWidgetLabel *labelX = new iWidgetLabel();
         labelX->setHorizontalAlignment(iHorizontalAlignment::Left);
         labelX->setText(_axisNames[0]);
-        labelX->setWidth(100);
+        labelX->setMinWidth(100);
 
         _axisNumberChooser[0] = new iWidgetNumberChooser();
         _axisNumberChooser[0]->setMinMaxNumber(_xMin, _xMax);
@@ -129,7 +128,7 @@ namespace igor
         iWidgetLabel *labelY1 = new iWidgetLabel();
         labelY1->setHorizontalAlignment(iHorizontalAlignment::Left);
         labelY1->setText(_axisNames[1]);
-        labelY1->setWidth(100);
+        labelY1->setMinWidth(100);
 
         _axisNumberChooser[1] = new iWidgetNumberChooser();
         _axisNumberChooser[1]->setMinMaxNumber(_yMin, _yMax);
@@ -148,7 +147,7 @@ namespace igor
             iWidgetLabel *labelY2 = new iWidgetLabel();
             labelY2->setHorizontalAlignment(iHorizontalAlignment::Left);
             labelY2->setText(_axisNames[2]);
-            labelY2->setWidth(100);
+            labelY2->setMinWidth(100);
 
             _axisNumberChooser[2] = new iWidgetNumberChooser();
             _axisNumberChooser[2]->setMinMaxNumber(_yMin, _yMax);
@@ -168,7 +167,7 @@ namespace igor
             iWidgetLabel *labelY3 = new iWidgetLabel();
             labelY3->setHorizontalAlignment(iHorizontalAlignment::Left);
             labelY3->setText(_axisNames[3]);
-            labelY3->setWidth(100);
+            labelY3->setMinWidth(100);
 
             _axisNumberChooser[3] = new iWidgetNumberChooser();
             _axisNumberChooser[3]->setMinMaxNumber(_yMin, _yMax);
@@ -189,7 +188,7 @@ namespace igor
         delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
         axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
-        iWidgetGrid *buttonGrid = new iWidgetGrid();
+        iWidgetGridLayout *buttonGrid = new iWidgetGridLayout();
         buttonGrid->appendColumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
@@ -205,10 +204,9 @@ namespace igor
         resetButton->setText("Reset");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onReset));
 
-        grid->addWidget(_titleLabel, 0, 0);
-        grid->addWidget(groupBoxGradient, 0, 1);
-        grid->addWidget(groupBoxSelection, 0, 2);
-        grid->addWidget(buttonGrid, 0, 3);
+        grid->addWidget(groupBoxGradient, 0, 0);
+        grid->addWidget(groupBoxSelection, 0, 1);
+        grid->addWidget(buttonGrid, 0, 2);
 
         groupBoxGradient->addWidget(_graph);
         groupBoxSelection->addWidget(axisGrid);
@@ -241,8 +239,12 @@ namespace igor
         updateSelection();
     }
 
-    void iDialogGraph::onSelectionChanged(int32 index)
-    {
+    void iDialogGraph::onSelectionChanged(const iWidgetPtr source)
+    {   
+        iWidgetGraphPtr graph = static_cast<iWidgetGraphPtr>(source);
+
+        int32 index = graph->getSelectedIndex();
+
         con_assert(index >= 0 && index < _graphs[0].size(), "out of range");
 
         if (index >= 0 && index < _graphs[0].size())
@@ -280,20 +282,6 @@ namespace igor
     void iDialogGraph::setAxisName(uint32 index, const iaString &name)
     {
         _axisNames[index] = name;
-    }
-
-    void iDialogGraph::setTitle(const iaString &title)
-    {
-        _title = title;
-        if (_titleLabel != nullptr)
-        {
-            _titleLabel->setText(_title);
-        }
-    }
-
-    iaString iDialogGraph::getTitle() const
-    {
-        return _title;
     }
 
     void iDialogGraph::updateGraph()

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-	<Material name="igor.textured" uuid="b1604b38-8a23-11ed-b61d-bb70ade3fdec" visibility="Public">
+	<Material name="igor.textured" visibility="Public">
 		<States>
 			<DepthTest>On</DepthTest>
             <DepthFunc>Less</DepthFunc>

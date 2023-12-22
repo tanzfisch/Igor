@@ -45,39 +45,65 @@ namespace igor
     public:
         /*! does nothing
          */
-        iFactory() = default;
+        iFactory(const iaString &type, const std::vector<iaString> &supportedExtensions)
+            : _type(type), _supportedExtensions(supportedExtensions)
+        {
+        }
 
         /*! does nothing
          */
         virtual ~iFactory() = default;
 
-    protected:
         /*! \returns the factory type
 
         this type is used to register with the resource manager
         */
-        virtual const iaString &getType() const = 0;
+        const iaString &getType() const
+        {
+            return _type;
+        }
 
-        /*! \returns true if resource parameters are supported by this factory
-
-        \param name the name of the resource
-        \param parameters the given resource parameters
-        */
-        virtual bool matchingType(const iParameters &parameters) const = 0;
-
-        /*! \returns resource type specific hash data
+        /*! \returns supported file extensions or subtypes
          */
+        const std::vector<iaString> &getSupportedExtensions() const
+        {
+            return _supportedExtensions;
+        }
+
+    protected:
+        /*! the factory type
+         */
+        iaString _type;
+
+        /*! supported file extensions or subtypes
+         */
+        std::vector<iaString> _supportedExtensions;
+
+        /*! \returns resource type specific hash data based on given parameters
+
+        \param parameters the given parameters
+        */
         virtual iaString getHashData(const iParameters &parameters) const { return ""; };
 
         /*! creates a resource object
 
         \param name the name of the resource
         \param parameters the resource parameters
-        \returns loaded or created new resource
+        \returns new resource
         */
         virtual iResourcePtr createResource(const iParameters &parameters) = 0;
 
-        /*! loads the resource
+        /*! creates an empty resource
+
+        \returns new resource
+        */
+        virtual iResourcePtr createResource()
+        {
+            con_err("not implemented");
+            return nullptr;
+        }
+
+        /*! loads the resource based on it's parameters
 
         \param resource the resource to load
         \returns true if loading the resource was successful

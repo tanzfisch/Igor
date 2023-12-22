@@ -4,13 +4,14 @@
 
 #include <igor/ui/widgets/iWidgetPicture.h>
 
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/iResourceManager.h>
+#include <igor/renderer/iRenderer.h>
+
+#include <iaux/system/iaConsole.h>
+using namespace iaux;
 
 namespace igor
 {
@@ -20,12 +21,8 @@ namespace igor
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
+		setForeground(iaColor4f::white);
 		_reactOnMouseWheel = false;
-	}
-
-	iWidgetPicture::~iWidgetPicture()
-	{
-		_texture = nullptr;
 	}
 
 	void iWidgetPicture::setMaxSize(int32 width, int32 height)
@@ -51,8 +48,8 @@ namespace igor
 
 	void iWidgetPicture::calcMinSize()
 	{
-		int32 minWidth = _configuredWidth;
-		int32 minHeight = _configuredHeight;
+		int32 minWidth = _configuredMinWidth;
+		int32 minHeight = _configuredMinHeight;
 
 		if (isGrowingByContent())
 		{
@@ -63,7 +60,7 @@ namespace igor
 			}
 		}
 
-		setMinSize(minWidth, minHeight);
+		updateMinSize(minWidth, minHeight);
 
 		float32 aspect = static_cast<float32>(minHeight) / static_cast<float32>(minWidth);
 
@@ -100,25 +97,42 @@ namespace igor
 
 	void iWidgetPicture::draw()
 	{
-		if (isVisible() &&
-			_texture != nullptr)
+		if (!isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetState, isEnabled());
+			return;
+		}
+
+		iWidgetManager::getInstance().getTheme()->drawWidgetPicture(this);
+
+		for (const auto child : _children)
+		{
+			child->draw();
 		}
 	}
 
-	const iaString &iWidgetPicture::getTexture() const
+	iTexturePtr iWidgetPicture::getTexture() const
 	{
-		return _texturePath;
+		return _texture;
 	}
 
-	void iWidgetPicture::setTexture(const iaString &texturePath)
+	void iWidgetPicture::setTexture(iTexturePtr texture)
 	{
-		if (_texturePath != texturePath)
-		{
-			_texturePath = texturePath;
-			_texture = iResourceManager::getInstance().loadResource<iTexture>(_texturePath);
-		}
+		_texture = texture;
+	}
+
+	void iWidgetPicture::setTexture(const iaString &textureAlias)
+	{
+		setTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+	}
+
+	void iWidgetPicture::setCheckerBoard(bool enable)
+	{
+		_checkerBoard = enable;
+	}
+
+	bool iWidgetPicture::isCheckerBoardEnabled() const
+	{
+		return _checkerBoard;
 	}
 
 } // namespace igor

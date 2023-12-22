@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="mica.orientation_plane" uuid="76a6ced6-8717-11ed-8b09-ef060ff635d9" visibility="Private">
+	<Material name="mica.orientation_plane" visibility="Private">
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>Off</Blend>

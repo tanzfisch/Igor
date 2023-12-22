@@ -13,7 +13,7 @@
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/system/iTimer.h>
 #include <igor/scene/traversal/iNodeVisitorRenderBoundings.h>
@@ -26,7 +26,7 @@ using namespace iaux;
 
 namespace igor
 {
-    void iRenderEngine::setCurrentCamera(iNodeID cameraID)
+    void iRenderEngine::setCamera(iNodeID cameraID)
     {
         if (cameraID == iNode::INVALID_NODE_ID)
         {
@@ -47,7 +47,7 @@ namespace igor
         }
     }
 
-    iNodeID iRenderEngine::getCurrentCamera() const
+    iNodeID iRenderEngine::getCamera() const
     {
         if (_currentCamera != nullptr)
         {
@@ -99,27 +99,29 @@ namespace igor
 
     void iRenderEngine::render()
     {
-        if (_scene != nullptr &&
-            _currentCamera != nullptr)
+        if (_scene == nullptr ||
+            _currentCamera == nullptr)
         {
-            cullScene(_currentCamera);
-            updateMaterialGroups();
-            
-            iaMatrixd camMatrix;
-            _currentCamera->getWorldMatrix(camMatrix);
-            iRenderer::getInstance().setViewMatrixFromCam(camMatrix);
-
-            if (_renderColorID)
-            {
-                drawColorIDs();
-            }
-            else
-            {
-                drawScene();
-            }
-
-            iRenderer::getInstance().flush();
+            return;
         }
+
+        cullScene(_currentCamera);
+        updateMaterialGroups();
+
+        iaMatrixd camMatrix;
+        _currentCamera->getWorldMatrix(camMatrix);
+        iRenderer::getInstance().setViewMatrixFromCam(camMatrix);
+
+        if (_renderColorID)
+        {
+            drawColorIDs();
+        }
+        else
+        {
+            drawScene();
+        }
+
+        iRenderer::getInstance().flush();
     }
 
     void iRenderEngine::cullScene(iNodeCamera *camera)
@@ -201,7 +203,7 @@ namespace igor
 
     void iRenderEngine::drawColorIDs()
     {
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterial());
+        iRenderer::getInstance().setMaterial(iRenderer::getInstance().getColorIDMaterial());
 
         for (const auto &materialGroup : _materialGroups)
         {
@@ -219,7 +221,7 @@ namespace igor
     }
 
     void iRenderEngine::drawScene()
-    {       
+    {
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
         auto lights = _scene->getLights();
 

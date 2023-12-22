@@ -40,9 +40,14 @@ namespace igor
         matrix *= _transform;
     }
 
-    void iNodeTransform::getInfo(std::vector<iaString> &info) const
+    std::vector<iaString> iNodeTransform::getInfo(bool brief) const
     {
-        iNode::getInfo(info);
+        std::vector<iaString> info = iNode::getInfo(brief);
+
+        if(brief)
+        {
+            return info;
+        }
 
         const auto &m = _transform;
 
@@ -61,6 +66,8 @@ namespace igor
         stream.str(std::wstring());
         stream << "\\" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._w0 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w1 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w2 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w3 << "/";
         info.push_back(iaString(stream.str().c_str()));
+
+        return info;
     }
 
     void iNodeTransform::getMatrix(iaMatrixd &matrix)

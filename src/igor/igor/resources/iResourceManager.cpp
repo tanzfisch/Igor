@@ -9,15 +9,37 @@
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
 #include <igor/resources/model/iModelFactory.h>
+#include <igor/resources/material/iMaterialFactory.h>
 #include <igor/resources/config/iConfigReader.h>
 #include <igor/threading/iTaskManager.h>
+#include <igor/resources/iResourceDictionary.h>
 
 #include <iaux/system/iaFile.h>
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
+#include <iomanip>
+
 namespace igor
 {
+    static const iaString s_igorResourceDictionaryPath = "igor/igor_resource_dictionary.xml";
+
+    static bool matchingFilename(iFactoryPtr factory, const iaString &filename)
+    {
+        iaFile file(filename);
+        const iaString &fileExtension = file.getExtension();
+
+        for (const auto &extension : factory->getSupportedExtensions())
+        {
+            if (fileExtension == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     iResourceManager::iResourceManager()
     {
         configure();
@@ -26,7 +48,11 @@ namespace igor
         registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
+        registerFactory(iFactoryPtr(new iMaterialFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
+
+        // read igor internal resource dictionary
+        _resourceDictionary.read(resolvePath(s_igorResourceDictionaryPath));
     }
 
     iResourceManager::~iResourceManager()
@@ -51,7 +77,7 @@ namespace igor
         }
         _mutex.unlock();
 
-        // run flush twice so resources which hold on to other resources release them too
+        // run flush twice so resources which hold on to other resources release them too (ie sprites holding on to textures)
         flush(iResourceCacheMode::Keep);
         flush(iResourceCacheMode::Keep);
 
@@ -59,19 +85,57 @@ namespace igor
         // now check if it was actually released
         if (!_resources.empty())
         {
-            con_err("Possible memory leak. Not all resources were released.");
+            con_warn("Possible memory leak. Not all resources were released.");
 
-            con_endl("Unreleased resources: ");
+            con_endl("Unreleased resources [" << _resources.size() << "]:");
             for (auto resource : _resources)
             {
-                con_endl(resource.second->getName() << " ref:" << resource.second.use_count());
+                con_endl(resource.second->getInfo() << " " << resource.second->getType() << " ref:" << resource.second.use_count());
             }
         }
 
         _resources.clear();
         _mutex.unlock();
 
-        _factories.clear();
+        _factories.clear();        
+    }
+
+    const iaString iResourceManager::getType(const iResourceID &resourceID) const
+    {
+        return getType(_resourceDictionary.getFilename(resourceID));
+    }
+
+    const iaString iResourceManager::getType(const iaString &filename) const
+    {
+        for(auto factory : _factories)
+        {
+            if(matchingFilename(factory.second, filename))
+            {
+                return factory.second->getType();
+            }
+        }
+
+        return iaString();
+    }
+
+    void iResourceManager::loadResourceDictionary(const iaString &filename)
+    {
+        clearResourceDictionary();
+        
+        // now load app specifics
+        _resourceDictionary.read(resolvePath(filename));
+    }
+
+    void iResourceManager::saveResourceDictionary(const iaString &filename)
+    {
+        _resourceDictionary.write(resolvePath(filename));
+    }
+
+    void iResourceManager::clearResourceDictionary()
+    {
+        // make sure igor resources are always in the dictionary
+        _resourceDictionary.clear();
+        _resourceDictionary.read(resolvePath(s_igorResourceDictionaryPath));
     }
 
     void iResourceManager::configure()
@@ -97,15 +161,14 @@ namespace igor
         }
     }
 
-    int64 iResourceManager::calcHashValue(const iParameters &parameters, iFactoryPtr factory)
+    template <typename ParameterType>
+    void writeParam(const iParameters &parameters, const iaString &key, std::wofstream &stream)
     {
-        std::hash<std::wstring> hashFunc;
-
-        iaString hashData = parameters.getParameter<iaString>("type");
-        hashData += parameters.getParameter<iaString>("name");
-        hashData += factory->getHashData(parameters);
-
-        return hashFunc(hashData.getData());
+        if (parameters.hasParameter(key))
+        {
+            stream << "\t\t\t\t<Parameter key=\"" << key << "\" value=\"";
+            stream << parameters.getParameter<ParameterType>(key) << "\"/>\n";
+        }
     }
 
     void iResourceManager::registerFactory(iFactoryPtr factory)
@@ -134,56 +197,88 @@ namespace igor
         _factories.erase(iter);
     }
 
+    static bool matchingType(iFactoryPtr factory, const iParameters &parameters)
+    {
+        if (parameters.getParameter<iaString>("type") == factory->getType())
+        {
+            return true;
+        }
+
+        if (matchingFilename(factory, parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE)) ||
+            matchingFilename(factory, parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS)))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     iFactoryPtr iResourceManager::getFactory(const iParameters &parameters)
     {
-        iFactoryPtr result;
-
         const iaString type = parameters.getParameter<iaString>("type", "");
 
-        if (!type.isEmpty())
+        if (type.isEmpty())
         {
-            auto iter = _factories.find(type);
-            if (iter != _factories.end())
-            {
-                result = iter->second;
-            }
+            con_err("empty type parameter");
+            return nullptr;
         }
 
-        if (result == nullptr)
+        auto iter = _factories.find(type);
+        if (iter == _factories.end())
         {
-            for (auto pair : _factories)
-            {
-                if (pair.second->matchingType(parameters))
-                {
-                    result = pair.second;
-                    break;
-                }
-            }
+            con_err("No factory registered for given type \"" << type << "\"");
+            return nullptr;
         }
 
-        if (result == nullptr)
+        if (!matchingType(iter->second, parameters))
         {
-            const iaString name = parameters.getParameter<iaString>("name");
-            con_err("No compatible factory registered for resource \"" << name << "\"");
+            con_err("Factory incompatible with given parameters");
+            return nullptr;
         }
+
+        return iter->second;
+    }
+
+    iResourcePtr iResourceManager::getResource(const iParameters &parameters)
+    {
+        iFactoryPtr factory = getFactory(parameters);
+        if (factory == nullptr)
+        {
+            return nullptr;
+        }
+
+        const iResourceID id = parameters.getParameter<iResourceID>(IGOR_RESOURCE_PARAM_ID, IGOR_INVALID_ID);
+
+        return getResource(id);
+    }
+
+    const iResourceID iResourceManager::getResourceID(const iaString &aliasOrFilename) const
+    {
+        return _resourceDictionary.getResource(aliasOrFilename);
+    }
+
+    iResourcePtr iResourceManager::getResource(const iResourceID &id)
+    {
+        iResourcePtr result;
+
+        _mutex.lock();
+        auto resourceIter = _resources.find(id);
+        if (resourceIter != _resources.end())
+        {
+            result = resourceIter->second;
+
+            con_trace("cache hit " << result->getType() << " " << result->getInfo());
+        }
+        _mutex.unlock();
 
         return result;
     }
 
-    iResourcePtr iResourceManager::getResource(const iParameters &parameters, iFactoryPtr factory)
+    iResourcePtr iResourceManager::createResource(iFactoryPtr factory, const iParameters &parameters)
     {
-        iResourcePtr result;
+        iResourcePtr result = factory->createResource(parameters);
 
-        int64 hashValue = calcHashValue(parameters, factory);
-
-        _mutex.lock();
-        auto resourceIter = _resources.find(hashValue);
-        if (resourceIter != _resources.end())
-        {
-            result = resourceIter->second;
-        }
-        _mutex.unlock();
-
+        con_trace("created resource " << result->getType() << " " << result->getInfo());
         return result;
     }
 
@@ -191,63 +286,110 @@ namespace igor
     {
         if (_loadMode == iResourceManagerLoadMode::Synchronized)
         {
-            return iResourceManager::loadResource(parameters);
+            return loadResource(parameters);
         }
 
         iResourcePtr result;
-        iFactoryPtr factory;
+        iFactoryPtr factory = getFactory(parameters);
 
-        if ((factory = getFactory(parameters)) == nullptr)
+        if (factory == nullptr)
         {
             return result;
         }
 
-        const int64 hashValue = calcHashValue(parameters, factory);
+        iResourceID id;
+        if (!iResource::extractID(parameters, id))
+        {
+            const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
+            const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");
+            return nullptr;
+        }
 
         _mutex.lock();
-        auto resourceIter = _resources.find(hashValue);
+        auto resourceIter = _resources.find(id);
         if (resourceIter != _resources.end())
         {
             result = resourceIter->second;
+
+            con_trace("cache hit " << result->getType() << " " << result->getInfo());
         }
         else
         {
-            result = factory->createResource(parameters);
-            _resources[hashValue] = result;
+            result = createResource(factory, parameters);
+            _resources[result->getID()] = result;
             _loadingQueue.push_back(result);
         }
-        _mutex.unlock();
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
-        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
 
         if (currentCacheMode < cacheMode)
         {
-            result->_parameters.setParameter("cacheMode", cacheMode);
+            result->_parameters.setParameter(IGOR_RESOURCE_PARAM_CACHE_MODE, cacheMode);
         }
+        _mutex.unlock();
+
+        return result;
+    }
+
+    iResourcePtr iResourceManager::createResource(const iParameters &parameters)
+    {
+        iFactoryPtr factory = getFactory(parameters);
+        if (factory == nullptr)
+        {
+            return nullptr;
+        }
+
+        // ignoring other parameters and just create an empty resource (of what ever the factory decides this will be)
+        iResourcePtr result = factory->createResource();
+        if(result == nullptr)
+        {
+            return nullptr;
+        }
+
+        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
+        if (requestedCacheMode > iResourceCacheMode::DontCache)
+        {
+            _resources[result->getID()] = result;
+        }
+
+        result->setProcessed(true);
+        result->setValid(true);
 
         return result;
     }
 
     iResourcePtr iResourceManager::loadResource(const iParameters &parameters)
     {
-        iResourcePtr result;
-        iFactoryPtr factory;
-
-        if ((factory = getFactory(parameters)) == nullptr)
+        iFactoryPtr factory = getFactory(parameters);
+        if (factory == nullptr)
         {
-            return result;
+            return nullptr;
         }
 
-        const int64 hashValue = calcHashValue(parameters, factory);
+        iResourceID id;
+        if (!iResource::extractID(parameters, id))
+        {
+            const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
+            const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << filename << "\"");
+            return nullptr;
+        }
 
+        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
         bool loadNow = false;
+        iResourcePtr result;
 
         _mutex.lock();
-        auto resourceIter = _resources.find(hashValue);
+        auto resourceIter = _resources.find(id);
         if (resourceIter != _resources.end())
         {
             result = resourceIter->second;
+
+            con_trace("cache hit " << result->getType() << " " << result->getInfo());
 
             // remove from load queue because we will load it right away
             auto iter = std::find(_loadingQueue.begin(), _loadingQueue.end(), result);
@@ -259,8 +401,11 @@ namespace igor
         }
         else
         {
-            result = factory->createResource(parameters);
-            _resources[hashValue] = result;
+            result = createResource(factory, parameters);
+            if (requestedCacheMode > iResourceCacheMode::DontCache)
+            {
+                _resources[result->getID()] = result;
+            }
             loadNow = true;
         }
         _mutex.unlock();
@@ -271,17 +416,17 @@ namespace igor
             result->setProcessed(true);
         }
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
-        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>("cacheMode", iResourceCacheMode::Free);
-
-        if (currentCacheMode < cacheMode)
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        if (currentCacheMode < requestedCacheMode)
         {
-            result->_parameters.setParameter("cacheMode", cacheMode);
+            result->_parameters.setParameter(IGOR_RESOURCE_PARAM_CACHE_MODE, requestedCacheMode);
         }
 
-        if (!result->isQuiet() && result->isValid())
+        if (loadNow &&
+            !result->isQuiet() &&
+            result->isValid())
         {
-            con_info("loaded " << result->getType() << " \"" << result->getName() << "\"");
+            con_info("loaded " << result->getType() << " " << result->getInfo());
         }
 
         return result;
@@ -326,7 +471,7 @@ namespace igor
                 factory->unloadResource(resource);
                 if (!resource->isQuiet())
                 {
-                    con_info("released " << resource->getType() << " \"" << resource->getName() << "\"");
+                    con_debug("released " << resource->getType() << " " << resource->getInfo());
                 }
             }
         }
@@ -423,25 +568,55 @@ namespace igor
         _mutex.unlock();
     }
 
-    iaString iResourceManager::getPath(const iaString &filename)
+    const iaString iResourceManager::getFilename(const iResourceID &id)
     {
-        iaFile file(filename);
+        return _resourceDictionary.getFilename(id);
+    }
 
-        if (file.exist())
-        {
-            return file.getFullFileName();
-        }
+    const iaString iResourceManager::getAlias(const iResourceID &id)
+    {
+        return _resourceDictionary.getAlias(id);
+    }
 
-        iaString result = filename;
+    void iResourceManager::setAlias(const iResourceID &id, const iaString& alias)
+    {
+        _resourceDictionary.setAlias(id, alias);
+    }
+
+    const iaString iResourceManager::resolvePath(const iaString &filepath)
+    {
+        iaString result = filepath;
+
+        const iaString currentDir = iaDirectory::getCurrentDirectory();
 
         _mutex.lock();
 
         for (auto path : _searchPaths)
         {
-            iaFile composed(path + __IGOR_PATHSEPARATOR__ + filename);
-            if (composed.exist())
+            iaString build;
+
+            iaDirectory searchDir(path);
+            if(searchDir.exists())
             {
-                result = composed.getFullFileName();
+                build = path + IGOR_PATHSEPARATOR + filepath;
+            }
+            else
+            {
+                // TODO assuming it's a relative path to executable. Maybe here we better refer to project path
+                build = currentDir + IGOR_PATHSEPARATOR + path + IGOR_PATHSEPARATOR + filepath;
+            }
+
+            iaFile file(build);
+            if (file.exists())
+            {
+                result = file.getFullFileName();
+                break;
+            }
+
+            iaDirectory dir(build);
+            if (dir.exists())
+            {
+                result = dir.getFullDirectoryName();
                 break;
             }
         }
@@ -474,7 +649,7 @@ namespace igor
     {
         iaFile file(filename);
 
-        if (file.exist())
+        if (file.exists())
         {
             return true;
         }
@@ -484,8 +659,8 @@ namespace igor
 
         for (auto path : _searchPaths)
         {
-            iaFile composed(path + __IGOR_PATHSEPARATOR__ + filename);
-            if (composed.exist())
+            iaFile composed(path + IGOR_PATHSEPARATOR + filename);
+            if (composed.exists())
             {
                 result = true;
             }
@@ -529,6 +704,81 @@ namespace igor
         stream << text[static_cast<int>(cacheMode)];
 
         return stream;
+    }
+
+    void iResourceManager::getMaterials(std::vector<iMaterialPtr> &materials)
+    {
+        materials.clear();
+
+        // TODO this is way too slow. need to cache materials
+
+        _mutex.lock();
+        for (const auto &pair : _resources)
+        {
+            if (pair.second->getType() != IGOR_RESOURCE_MATERIAL)
+            {
+                continue;
+            }
+
+            materials.push_back(std::dynamic_pointer_cast<iMaterial>(pair.second));
+        }
+        _mutex.unlock();
+
+        sort(materials.begin(), materials.end(),
+             [](const iMaterialPtr a, const iMaterialPtr b) -> bool
+             {
+                 return a->getOrder() < b->getOrder();
+             });
+    }
+
+    iParameters iResourceManager::buildParam(const iaString &type, const iaString &alias, iResourceCacheMode cacheMode)
+    {
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, type},
+                           {IGOR_RESOURCE_PARAM_CACHE_MODE, cacheMode}});
+
+        if (!alias.isEmpty())
+        {
+            param.setParameter(IGOR_RESOURCE_PARAM_ALIAS, alias);
+        }
+
+        const iaUUID id = _resourceDictionary.getResource(alias);
+        if (id.isValid())
+        {
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, id);
+            return param;
+        }
+
+        if (iaUUID::isUUID(alias))
+        {
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, iaUUID(alias));
+            return param;
+        }
+
+        return param;
+    }
+
+    iParameters iResourceManager::buildParam(const iaString &type, const iResourceID &id, iResourceCacheMode cacheMode)
+    {
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, type},
+                           {IGOR_RESOURCE_PARAM_CACHE_MODE, cacheMode}});
+
+        if (id.isValid())
+        {
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, id);
+            return param;
+        }
+
+        return param;
+    }
+
+    void iResourceManager::removeResource(const iResourceID &resourceID)
+    {
+        _resourceDictionary.removeResource(resourceID);
+    }
+
+    void iResourceManager::addResource(const iaString &filename, const iaString &alias)
+    {
+        _resourceDictionary.addResource(filename, alias);
     }
 
 } // namespace igor

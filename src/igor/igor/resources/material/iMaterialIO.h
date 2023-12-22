@@ -45,19 +45,19 @@ namespace igor
         \param filename path to material file
         \param material the material to configure with
         */
-        static void read(const iaString &filename, const iMaterialPtr &material);
+        static bool read(const iaString &filename, const iMaterialPtr &material);
 
         /*! writes material to file
 
         \param filename path to new material file
         \param material the material to use
         */
-        static void write(const iaString &filename, const iMaterialPtr &material);
+        static bool write(const iaString &filename, const iMaterialPtr &material);
 
     private:
 
         /// just made this a member so we don't have to specify it friend to iMaterial but instead iMaterial can be friends with iMaterialIO
-        static void readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material);
+        static bool readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material);
     };
 
 } // namespace igor

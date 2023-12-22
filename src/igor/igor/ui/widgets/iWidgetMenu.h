@@ -29,25 +29,20 @@
 #ifndef __IGOR_WIDGETMENU__
 #define __IGOR_WIDGETMENU__
 
-#include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/actions/iAction.h>
+#include <igor/ui/dialogs/iDialogMenu.h>
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/ui/widgets/iWidgetLabel.h>
+#include <igor/ui/widgets/iWidgetSpacer.h>
+#include <igor/ui/widgets/iWidgetPicture.h>
 
 namespace igor
 {
 
-    class iWidgetLabel;
-    typedef iWidgetLabel *iWidgetLabelPtr;
-    class iDialogMenu;
-    typedef iDialogMenu *iDialogMenuPtr;
+    /*! widget menu pointer definition
+    */
     class iWidgetMenu;
     typedef iWidgetMenu *iWidgetMenuPtr;
-    class iWidgetSpacer;
-    typedef iWidgetSpacer *iWidgetSpacerPtr;
-    class iWidgetPicture;
-    typedef iWidgetPicture *iWidgetPicturePtr;
 
     /*! menu widget
     */
@@ -59,12 +54,15 @@ namespace igor
 
     public:
         /*! initializes gui elements
-        */
-        iWidgetMenu(const iWidgetPtr parent = nullptr);
 
-        /*! clean up
+        \param title set the title of this menu
+        \param parent parent widget
         */
-        virtual ~iWidgetMenu();
+        iWidgetMenu(const iaString &title = "", const iWidgetPtr parent = nullptr);
+
+        /*! nothing to do
+        */
+        virtual ~iWidgetMenu() = default;
 
         /*! sets the menu title
 
@@ -87,17 +85,30 @@ namespace igor
 
         /*! same as add actions just by action name
 
-        requires that the action we are searchign for was already registered to the action manager
+        requires that the action we are searching for was already registered to the action manager
 
         \param actionName name of the action to be added
         */
         void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
+
+        /*! add callback entry to menu
+
+        \param delegate the delegate that will be called on click
+        \param title the title or brief description
+        \param description the full description (used as tooltip)
+        \param iconAlias an alias or id for texture resource
+        */
+        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "");
 
         /*! adds a menu to the menu
 
         \param menu the menu to add
         */
         void addMenu(const iWidgetMenuPtr menu);
+
+        /*! add separator to menu
+        */
+        void addSeparator();
 
     private:
         /*! menu title

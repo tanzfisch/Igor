@@ -50,8 +50,6 @@ namespace iaux
     };
 
     /*! wide char (unicode) character string with trailing zero and length
-
-    \todo should eventually store data UTF-8 encoded internally instead of wstring
     */
     class IAUX_API iaString
     {
@@ -107,6 +105,10 @@ namespace iaux
          */
         int64 getLength() const;
 
+        /*! \returns size of data in bytes
+         */
+        int64 getSize() const;
+        
         /*! \returns hash value for current text
          */
         int64 getHashValue() const;
@@ -469,6 +471,14 @@ namespace iaux
         */
         static int64 toInt(const iaString &text);
 
+        /*! transforms a iaString to a uint64
+
+        \param text the string
+        \param base the number base 
+        \returns value
+        */
+        static uint64 toUInt(const iaString &text, int base = 10);
+
         /*! converts string in to bool value
 
         on error it falls back to false
@@ -507,6 +517,13 @@ namespace iaux
         */
         template <class T>
         static void toVector(const iaString &text, iaVector4<T> &vector);
+
+        /*! turn wildcard expression in to regex expression
+
+        \param pattern the wildcard expression
+        \returns regular expression
+        */
+        static iaString wildcardToRegex(const iaString &pattern);
 
         /*! insert text at given position
 
@@ -575,10 +592,6 @@ namespace iaux
         /*! pointer to actual data
          */
         wchar_t *_data = nullptr;
-
-        /*! \returns size of data in bytes
-         */
-        int64 getSize() const;
 
         /*! internal set data
 

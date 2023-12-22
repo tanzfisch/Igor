@@ -3,8 +3,9 @@
 // see copyright notice in corresponding header file
 
 #include <igor/layers/iLayerProfiler.h>
-#include <igor/renderer/iRenderer.h>
 
+#include <igor/renderer/iRenderer.h>
+#include <igor/resources/iResourceManager.h>
 
 namespace igor
 {
@@ -28,7 +29,7 @@ namespace igor
         getWindow()->addView(&_view, getZIndex());
 
         // init font for render profiler
-        _font = iTextureFont::create("igor/textures/StandardFontOutlined.png");
+        _font = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default_outline"));
     }
 
     void iLayerProfiler::onDeinit()

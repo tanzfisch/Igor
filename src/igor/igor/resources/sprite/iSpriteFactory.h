@@ -39,19 +39,12 @@ namespace igor
      */
     class iSpriteFactory : public iFactory
     {
+        friend class iResourceManager;
 
     private:
-        /*! \returns the factory type
-
-        this type is used to register with the resource manager
-        */
-        const iaString &getType() const override;
-
-        /*! \returns true if resource parameters are supported by this factory
-
-        \param parameters the given resource parameters
-        */
-        bool matchingType(const iParameters &parameters) const override;
+        /*! init members
+         */
+        iSpriteFactory();
 
         /*! creates a resource object
 
@@ -59,6 +52,12 @@ namespace igor
         \returns loaded or created new resource
         */
         iResourcePtr createResource(const iParameters &parameters) override;
+
+        /*! creates an empty resource
+
+        \returns new resource
+        */
+        iResourcePtr createResource() override;
 
         /*! loads the resource
 
@@ -86,7 +85,6 @@ namespace igor
         \param sprite the target sprite
         */
         bool loadSprite(const iaString &filename, iSpritePtr sprite);
-
     };
 
 }; // namespace igor

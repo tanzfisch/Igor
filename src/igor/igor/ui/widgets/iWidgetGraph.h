@@ -237,6 +237,10 @@ namespace igor
         */
         bool isInteractive();
 
+        /*! \returns selected value index
+         */
+        int32 getSelectedIndex() const;
+
     private:
         /*! flag if graph is interactive
         */
@@ -249,6 +253,10 @@ namespace igor
         /*! flag if labels are visible
         */
         bool _viewLabels = false;
+
+        /*! selected index
+         */
+        int32 _selectedIndex = -1;
 
         /*! calculated data boudings
         */
@@ -291,8 +299,8 @@ namespace igor
         void calcMinSize() override;
 
         /*! draws the widget
-		*/
-        void draw();
+         */
+        void draw() override;
 
         /*! calculates the render area of the graph
 
@@ -308,11 +316,16 @@ namespace igor
 
         /*! handles incoming mouse key down events
 
-        \param key the key that was pressed
+        \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key);
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
     };
+
+    /*! widget graph pointer definition
+    */
+    typedef iWidgetGraph* iWidgetGraphPtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETGRAPH__

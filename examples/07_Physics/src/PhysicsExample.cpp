@@ -19,10 +19,10 @@ void PhysicsExample::onInit()
     // create some collision boxes and combine them in one to represent the floor
     iaMatrixd offsetFloor;
     std::vector<iPhysicsCollision *> collisions;
-    collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));
-    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.getData()));
+    collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor));
+    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor));
     offsetFloor.translate(0, -5, 0);
-    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor.getData()));
+    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor));
     iPhysicsCollision *floorCollision = iPhysics::getInstance().createCompound(collisions);
     // make a body from the floor collision
     iPhysicsBody *floorBody = iPhysics::getInstance().createBody(floorCollision);
@@ -37,7 +37,7 @@ void PhysicsExample::onInit()
 
     // create a box collision used by all boxes we create
     iaMatrixd offsetBox;
-    iPhysicsCollision *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());
+    iPhysicsCollision *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox);
 
     // now create boxes in various patterns
     // some random positioned boxes
@@ -67,7 +67,7 @@ void PhysicsExample::onInit()
                 transformNode->rotate(rand.getNext(), iaAxis::Z);
                 // load the crate model
                 iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
-                crate->setModel("crate.ompf");
+                crate->setModel("example_model_crate");
                 transformNode->insertNode(crate);
                 // bind the scene model to the physics body
                 iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
@@ -95,7 +95,7 @@ void PhysicsExample::onInit()
                 transformNode->translate(x, i, z);
 
                 iNodeModel *cube = iNodeManager::getInstance().createNode<iNodeModel>();
-                cube->setModel("crate.ompf");
+                cube->setModel("example_model_crate");
 
                 // binds physics node and transform node implicitly
                 transformNode->insertNode(cube);
@@ -135,7 +135,7 @@ void PhysicsExample::onInit()
 
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // init light
     iNodeTransform *directionalLightTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -169,7 +169,7 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float64 timestep)
 
     // apply gravity on this body
     iPhysics::getInstance().getMassMatrix(body->getNewtonBody(), mass, Ixx, Iyy, Izz);
-    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+    force.set(0.0f, -mass * static_cast<float32>(IGOR_EARTH_GRAVITY), 0.0f);
     body->setForce(force);
 }
 

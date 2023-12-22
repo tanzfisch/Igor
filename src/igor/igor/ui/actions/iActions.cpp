@@ -1,13 +1,16 @@
 #include <igor/ui/actions/iActions.h>
 
+#include <igor/resources/iResourceManager.h>
 #include <igor/system/iApplication.h>
 
 namespace igor
 {
 
     iActionApplicationStop::iActionApplicationStop()
-        : iAction("app:stop")
+        : iAction("igor:exit")
     {
+        setIcon("igor_icon_exit");
+        setDescription("exit", "Exits application.");
     }
 
     void iActionApplicationStop::execute(const iActionContext &context)

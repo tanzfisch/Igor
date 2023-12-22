@@ -12,7 +12,7 @@ iPlane<T>::iPlane(iaVector3<T> normal, T distance)
 /*! source https://graphics.stanford.edu/~mdfisher/Code/Engine/Plane.cpp.html
 */
 template <class T>
-__IGOR_INLINE__ void iPlane<T>::normalize()
+IGOR_INLINE void iPlane<T>::normalize()
 {
     T h = (T)sqrt(_normal._x*_normal._x + _normal._y*_normal._y + _normal._z*_normal._z);
     _normal._x /= h;

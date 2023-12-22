@@ -23,7 +23,7 @@ namespace igor
     {
         if (_renderEvent.hasDelegates())
         {
-            con_warn("not all delegates unregistered from " << getName());
+            con_warn("not all delegates unregistered from view \"" << getName() << "\"");
             _renderEvent.clear();
         }
     }
@@ -108,9 +108,14 @@ namespace igor
         return _clearDepth;
     }
 
-    void iView::setViewport(iaRectanglef rect)
+    void iView::setViewportRelative(iaRectanglef rect)
     {
         _viewportConfig = rect;
+    }
+
+    iaRectanglei iView::getViewport() const
+    {
+        return _viewport;
     }
 
     bool iView::isPerspective() const
@@ -171,14 +176,24 @@ namespace igor
         return _clearColor;
     }
 
-    void iView::setCurrentCamera(uint64 cameraID)
+    void iView::setCamera(iNodeID cameraID)
     {
-        _renderEngine.setCurrentCamera(cameraID);
+        _renderEngine.setCamera(cameraID);
     }
 
-    uint64 iView::getCurrentCamera() const
+    iNodeID iView::getCamera() const
     {
-        return _renderEngine.getCurrentCamera();
+        return _renderEngine.getCamera();
+    }
+
+    void iView::setUpdateViewport(bool enabled)
+    {
+        _updateViewport = enabled;
+    }
+
+    bool iView::isUpdatingViewport() const
+    {
+        return _updateViewport;
     }
 
     void iView::draw()
@@ -188,47 +203,52 @@ namespace igor
             _scene->handle();
         }
 
-        if (_visible)
-        {            
-            iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);                
+        if (!_visible)
+        {
+            return;
+        }
 
-            iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
+        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
-            if (_clearColorActive)
-            {
-                iRenderer::getInstance().clearColorBuffer(_clearColor);
-            }
+        if (_updateViewport)
+        {
+            iRenderer::getInstance().setViewport(_viewport);
+        }
 
-            if (_clearDepthActive)
-            {
-                iRenderer::getInstance().clearDepthBuffer(_clearDepth);
-            }
+        if (_clearColorActive)
+        {
+            iRenderer::getInstance().clearColorBuffer(_clearColor);
+        }
 
-            if (_perspective)
-            {
-                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
-            }
-            else
-            {
-                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
-            }
+        if (_clearDepthActive)
+        {
+            iRenderer::getInstance().clearDepthBuffer(_clearDepth);
+        }
 
-            if (_scene != nullptr)
-            {
-                _renderEngine.render();
-            }
+        if (_perspective)
+        {
+            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+        }
+        else
+        {
+            iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+        }
 
-            // workaround to not measure the profiler render
-            if (getName() == "Profiler View")
-            {
-                _renderEvent();
-                iRenderer::getInstance().flush();
-            }
-            else
-            {                
-                _renderEvent();
-                iRenderer::getInstance().flush();
-            }
+        if (_scene != nullptr)
+        {
+            _renderEngine.render();
+        }
+
+        // workaround to not measure the profiler render
+        if (getName() == "Profiler View")
+        {
+            _renderEvent();
+            iRenderer::getInstance().flush();
+        }
+        else
+        {
+            _renderEvent();
+            iRenderer::getInstance().flush();
         }
     }
 
@@ -249,7 +269,7 @@ namespace igor
     void iView::pickcolorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs)
     {
         if (_scene != nullptr &&
-            getCurrentCamera() != iNode::INVALID_NODE_ID)
+            getCamera() != iNode::INVALID_NODE_ID)
         {
             iRenderEngine renderEngine;
 
@@ -271,7 +291,7 @@ namespace igor
             }
 
             renderEngine.setScene(_scene);
-            renderEngine.setCurrentCamera(getCurrentCamera());
+            renderEngine.setCamera(getCamera());
             _scene->handle();
 
             renderEngine.setColorIDRendering();

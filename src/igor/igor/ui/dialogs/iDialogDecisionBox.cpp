@@ -6,7 +6,7 @@
 
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/iWidgetManager.h>
@@ -19,11 +19,11 @@ namespace igor
 	{
 	}
 
-	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
 		iDialog::open(dialogCloseDelegate);
 
-		initGUI(message, radioButtonTexts, preSelection);
+		initGUI(title, message, radioButtonTexts, preSelection);
 	}
 
 	int32 iDialogDecisionBox::getSelection() const
@@ -41,15 +41,20 @@ namespace igor
 		return -1;
 	}
 
-	void iDialogDecisionBox::initGUI(const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::initGUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
+		setTitle(title);
+		setVerticalAlignment(iVerticalAlignment::Center);
+		setHorizontalAlignment(iHorizontalAlignment::Center);		
+		setResizeable(false);
+
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setWidth(20);
-		setHeight(20);
+		setMinWidth(20);
+		setMinHeight(20);
 
-		iWidgetGridPtr grid = new iWidgetGrid();
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendRows(4);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 		grid->setVerticalAlignment(iVerticalAlignment::Center);
@@ -60,7 +65,7 @@ namespace igor
 		messageLabel->setText(message);
 		messageLabel->setMaxTextWidth(280);
 
-		iWidgetGridPtr buttonGrid = new iWidgetGrid();
+		iWidgetGridLayoutPtr buttonGrid = new iWidgetGridLayout();
 		buttonGrid->appendColumns(3);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
@@ -74,7 +79,7 @@ namespace igor
 		cancelButton->setText("Cancel");
 		cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
-		iWidgetGridPtr radioGrid = new iWidgetGrid();
+		iWidgetGridLayoutPtr radioGrid = new iWidgetGridLayout();
 		radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);
 		radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		radioGrid->setVerticalAlignment(iVerticalAlignment::Top);

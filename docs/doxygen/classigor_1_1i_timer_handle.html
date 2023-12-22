@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -104,14 +104,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4d0c0de793911abacd1cdccd24c06323"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c996e15b4558f97bf297d9277446ce4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#a8c996e15b4558f97bf297d9277446ce4">~iTimerHandle</a> ()</td></tr>
 <tr class="separator:a8c996e15b4558f97bf297d9277446ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95060a833223dcd62316d7d5683d0593"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#a95060a833223dcd62316d7d5683d0593">registerTimerDelegate</a> (iTimerTickDelegate timerDelegate)</td></tr>
-<tr class="separator:a95060a833223dcd62316d7d5683d0593"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa90892f60423441dc8e8a238c2a443ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#aa90892f60423441dc8e8a238c2a443ac">unregisterTimerDelegate</a> (iTimerTickDelegate timerDelegate)</td></tr>
-<tr class="separator:aa90892f60423441dc8e8a238c2a443ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa038468694dbba304319f2970b48f30c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#aa038468694dbba304319f2970b48f30c">setIntervall</a> (<a class="el" href="classiaux_1_1ia_time.html">iaTime</a> interval)</td></tr>
-<tr class="separator:aa038468694dbba304319f2970b48f30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad343465f2d92107f6dfb15e94d478888"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#ad343465f2d92107f6dfb15e94d478888">getIntervall</a> () const</td></tr>
-<tr class="separator:ad343465f2d92107f6dfb15e94d478888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1efdcdb634cb78137c9fd678bd105af9"><td class="memItemLeft" align="right" valign="top">iTimerTickEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#a1efdcdb634cb78137c9fd678bd105af9">getEventTimerTick</a> ()</td></tr>
+<tr class="separator:a1efdcdb634cb78137c9fd678bd105af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e4df46ceecbf241252f40a916c6d639"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#a1e4df46ceecbf241252f40a916c6d639">setInterval</a> (<a class="el" href="classiaux_1_1ia_time.html">iaTime</a> interval)</td></tr>
+<tr class="separator:a1e4df46ceecbf241252f40a916c6d639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9272d1ba74a1a7423b257ddb812642a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#a9272d1ba74a1a7423b257ddb812642a3">getInterval</a> () const</td></tr>
+<tr class="separator:a9272d1ba74a1a7423b257ddb812642a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5da86d228a0bd23c1e0fadc98b9f6b71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#a5da86d228a0bd23c1e0fadc98b9f6b71">restart</a> ()</td></tr>
 <tr class="separator:a5da86d228a0bd23c1e0fadc98b9f6b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe584a506683e05e438e28772958d1a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_timer_handle.html#afe584a506683e05e438e28772958d1a6">start</a> ()</td></tr>
@@ -195,7 +193,7 @@ Friends</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">timer_delegate</td><td>timer delegate to register </td></tr>
-    <tr><td class="paramname">intervall</td><td>the length of the intervall </td></tr>
+    <tr><td class="paramname">interval</td><td>the length of the interval </td></tr>
     <tr><td class="paramname">oneShot</td><td>if true the timed even only occurs once </td></tr>
   </table>
   </dd>
@@ -230,14 +228,32 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad343465f2d92107f6dfb15e94d478888" name="ad343465f2d92107f6dfb15e94d478888"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad343465f2d92107f6dfb15e94d478888">&#9670;&nbsp;</a></span>getIntervall()</h2>
+<a id="a1efdcdb634cb78137c9fd678bd105af9" name="a1efdcdb634cb78137c9fd678bd105af9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1efdcdb634cb78137c9fd678bd105af9">&#9670;&nbsp;</a></span>getEventTimerTick()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a> igor::iTimerHandle::getIntervall </td>
+          <td class="memname">iTimerTickEvent &amp; igor::iTimerHandle::getEventTimerTick </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>timer tick event </dd></dl>
+
+</div>
+</div>
+<a id="a9272d1ba74a1a7423b257ddb812642a3" name="a9272d1ba74a1a7423b257ddb812642a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9272d1ba74a1a7423b257ddb812642a3">&#9670;&nbsp;</a></span>getInterval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a> igor::iTimerHandle::getInterval </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -275,31 +291,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a95060a833223dcd62316d7d5683d0593" name="a95060a833223dcd62316d7d5683d0593"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95060a833223dcd62316d7d5683d0593">&#9670;&nbsp;</a></span>registerTimerDelegate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iTimerHandle::registerTimerDelegate </td>
-          <td>(</td>
-          <td class="paramtype">iTimerTickDelegate&#160;</td>
-          <td class="paramname"><em>timerDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >register timer delegate to timer event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">timer_delegate</td><td>timer delegate to register </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a5da86d228a0bd23c1e0fadc98b9f6b71" name="a5da86d228a0bd23c1e0fadc98b9f6b71"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5da86d228a0bd23c1e0fadc98b9f6b71">&#9670;&nbsp;</a></span>restart()</h2>
 
@@ -318,14 +309,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="aa038468694dbba304319f2970b48f30c" name="aa038468694dbba304319f2970b48f30c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa038468694dbba304319f2970b48f30c">&#9670;&nbsp;</a></span>setIntervall()</h2>
+<a id="a1e4df46ceecbf241252f40a916c6d639" name="a1e4df46ceecbf241252f40a916c6d639"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e4df46ceecbf241252f40a916c6d639">&#9670;&nbsp;</a></span>setInterval()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void igor::iTimerHandle::setIntervall </td>
+          <td class="memname">void igor::iTimerHandle::setInterval </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td>
           <td class="paramname"><em>interval</em></td><td>)</td>
@@ -395,31 +386,6 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >what ever the settings this will trigger the timer handle right now and will not interfear with the interval set </p>
-
-</div>
-</div>
-<a id="aa90892f60423441dc8e8a238c2a443ac" name="aa90892f60423441dc8e8a238c2a443ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa90892f60423441dc8e8a238c2a443ac">&#9670;&nbsp;</a></span>unregisterTimerDelegate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iTimerHandle::unregisterTimerDelegate </td>
-          <td>(</td>
-          <td class="paramtype">iTimerTickDelegate&#160;</td>
-          <td class="paramname"><em>timerDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >unregister timer delegate from timer event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">timer_delegate</td><td>timer delegate to unregister </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

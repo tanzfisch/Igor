@@ -8,9 +8,11 @@ var classigor_1_1i_mouse =
     [ "getPosDelta", "classigor_1_1i_mouse.html#ad68d27f569a0923de9e33887f4310689", null ],
     [ "getRightButton", "classigor_1_1i_mouse.html#abcfef33066b41914789b614beda92925", null ],
     [ "getWindow", "classigor_1_1i_mouse.html#a4321ae10737d4c3a454749defd18f553", null ],
+    [ "hideCursor", "classigor_1_1i_mouse.html#ae54081078edc7c97bb932f9afe0c6309", null ],
+    [ "resetCursor", "classigor_1_1i_mouse.html#a897c1e8827f560f5a1079ca14911755d", null ],
     [ "setCenter", "classigor_1_1i_mouse.html#a452c87eaf9aa7f2ac4afbfa13a9583a8", null ],
+    [ "setCursor", "classigor_1_1i_mouse.html#abd0f16fcafa109b3327f3ca1b9c2e120", null ],
     [ "setPosition", "classigor_1_1i_mouse.html#a535d3d36df9c68273b8531aca4c3feb1", null ],
-    [ "setPosition", "classigor_1_1i_mouse.html#a03d42871f1d5f7b26a8c4c56913b283e", null ],
-    [ "showCursor", "classigor_1_1i_mouse.html#a8a0f10bf5aa5db10399b42655d78fdc0", null ],
+    [ "setPosition", "classigor_1_1i_mouse.html#add2d164361e8149f94ec7d3af047ebba", null ],
     [ "iModule< iMouse >", "classigor_1_1i_mouse.html#a0dc3799277e451a7050dcbf5d504fd50", null ]
 ];

@@ -42,89 +42,108 @@ namespace igor
 {
 
     /*! picture widget
-	*/
+     */
     class IGOR_API iWidgetPicture : public iWidget
     {
 
     public:
         /*! ctor initializes member variables
 
-		\param parent optional parnt
-		*/
+        \param parent optional parnt
+        */
         iWidgetPicture(const iWidgetPtr parent = nullptr);
 
-        /*! release texture
-		*/
-        virtual ~iWidgetPicture();
+        /*! does nothing
+         */
+        virtual ~iWidgetPicture() = default;
 
         /*! sets the texture to use for the picture
 
-		\param texturePath path to texture
-		*/
-        void setTexture(const iaString &texturePath);
+        \param texture the texture to use
+        */
+        void setTexture(iTexturePtr texture);
+
+        /*! sets the background texture to use for the whole button by name
+
+        \param textureAlias alias or id to texture
+        */
+        void setTexture(const iaString &textureAlias);
 
         /*! \returns texture path
-		*/
-        const iaString &getTexture() const;
+         */
+        iTexturePtr getTexture() const;
 
         /*! \returns true if picture has a valid and loaded texture
-        */
+         */
         bool hasTexture() const;
 
         /*! sets maximum display size of picture
 
-		\param width max width
-		\param height max height
-		*/
+        \param width max width
+        \param height max height
+        */
         void setMaxSize(int32 width, int32 height);
 
         /*! \returns maximum width
-		*/
+         */
         int32 getMaxWidth();
 
         /*! \returns maximum height
-		*/
+         */
         int32 getMaxHeight();
 
         /*! sets if the aspect ratio of the picture must be kept
 
-		\paran keep if true the aspect ratio must be kept
-		*/
+        \param keep if true the aspect ratio must be kept
+        */
         void setKeepAspectRatio(bool keep = true);
 
         /*! \returns true if aspect ratio will be kept
-		*/
+         */
         bool getKeepAspectRatio() const;
 
-    private:
-        /*! texture path
-		*/
-        iaString _texturePath;
+        /*! enables/disables checker board
+        */
+        void setCheckerBoard(bool enable);
 
+        /*! \returns true if checker board is enabled
+        */
+        bool isCheckerBoardEnabled() const;
+
+    private:
         /*! flag if the aspect ratio must be kept when resized
-		*/
+         */
         bool _keepAspectRatio = true;
 
+        /*! if true draw checker board behind picture
+        */
+        bool _checkerBoard = false;
+
         /*! shared pointer to texture
-		*/
+         */
         iTexturePtr _texture;
 
-        /*! maximum dispaly width
-		*/
+        /*! maximum display width
+         */
         int32 _maxWidth = std::numeric_limits<int32>::max();
 
-        /*! maximum dispaly height
-		*/
+        /*! maximum display height
+         */
         int32 _maxHeight = std::numeric_limits<int32>::max();
 
         /*! updates size based on it's content
-		*/
+         */
         void calcMinSize() override;
-
+        
         /*! draws the widget
-		*/
-        void draw();
+         */
+        void draw() override;
     };
+
+    /*! widget picture pointer definition
+    */
+    typedef iWidgetPicture *iWidgetPicturePtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETPICTURE__

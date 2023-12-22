@@ -149,7 +149,7 @@ namespace igor
 
         if (!_bodies.empty())
         {
-            con_warn("possible mem leak! " << iaString::toString(_bodies.size()) << " physics bodys left");
+            con_warn("possible memory leak! " << iaString::toString(_bodies.size()) << " physics bodys left");
             auto bodies = _bodies;
 
             for (auto pair : bodies)
@@ -160,7 +160,7 @@ namespace igor
 
         if (!_collisions.empty())
         {
-            con_warn("possible mem leak! " << iaString::toString(_collisions.size()) << " physics collisions left");
+            con_warn("possible memory leak! " << iaString::toString(_collisions.size()) << " physics collisions left");
             auto collisions = _collisions;
 
             for (auto pair : collisions)
@@ -1174,7 +1174,7 @@ namespace igor
 
     void iPhysics::setMassMatrix(void *newtonBody, float64 mass, float64 Ixx, float64 Iyy, float64 Izz)
     {
-        if (mass >= __IGOR_GRAMM__)
+        if (mass >= IGOR_GRAM)
         {
             NewtonBodySetMassMatrix(static_cast<const NewtonBody *>(newtonBody), mass, Ixx, Iyy, Izz);
         }

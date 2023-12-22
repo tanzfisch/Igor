@@ -45,7 +45,7 @@ namespace igor
     enum class IGOR_API iEmitterType
     {
         Mesh,
-        Point,
+        Point, // size will be ignored
         Disc,
         Circle,
         Sphere,
@@ -146,7 +146,7 @@ namespace igor
 
         /*! size of emitter
         */
-        float32 _size = 0.0;
+        float32 _size = 1.0;
 
         /*! mesh used as emitter
         */

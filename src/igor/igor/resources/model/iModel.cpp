@@ -15,7 +15,7 @@ namespace igor
 {   
 
     iModel::iModel(const iParameters &parameters)
-        : iResource("model", parameters)
+        : iResource(parameters)
     {
     }
 
@@ -40,15 +40,14 @@ namespace igor
     }
 
     iNodePtr iModel::getNodeCopy()
-    {
-        con_assert(_node != nullptr, "zero pointer. data not ready");
-
+    {    
         if (_node != nullptr)
         {
             return iNodeManager::getInstance().createCopy(_node);
         }
         else
         {
+            con_err("zero pointer. data not ready");
             return nullptr;
         }
     }

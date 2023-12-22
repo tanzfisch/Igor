@@ -117,7 +117,7 @@ namespace igor
         return _wheelDelta;
     }
 
-    iEventMouseMove::iEventMouseMove(iWindowPtr window, const iaVector2i &from, const iaVector2i &to)
+    iEventMouseMove::iEventMouseMove(iWindowPtr window, const iaVector2f &from, const iaVector2f &to)
         : iEvent(window), _from(from), _to(to)
     {
     }
@@ -135,12 +135,12 @@ namespace igor
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    const iaVector2i &iEventMouseMove::getPosition() const
+    const iaVector2f &iEventMouseMove::getPosition() const
     {
         return _to;
     }
 
-    const iaVector2i &iEventMouseMove::getLastPosition() const
+    const iaVector2f &iEventMouseMove::getLastPosition() const
     {
         return _from;
     }

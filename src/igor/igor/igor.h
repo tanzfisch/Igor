@@ -39,6 +39,7 @@
 #include <igor/data/iFrustum.h>
 #include <igor/data/iIntersection.h>
 #include <igor/data/iJoint.h>
+#include <igor/data/iItemData.h>
 #include <igor/data/iPlane.h>
 #include <igor/data/iRay.h>
 #include <igor/data/iSkeleton.h>
@@ -59,8 +60,9 @@
 #include <igor/physics/iPhysicsMaterialCombo.h>
 
 #include <igor/resources/iResourceManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterialIO.h>
+#include <igor/resources/material/iMaterialFactory.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -69,6 +71,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/model/iModelFactory.h>
+#include <igor/resources/project/iProject.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
@@ -118,9 +121,11 @@
 
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
+#include <igor/threading/tasks/iTaskGenerateThumbnails.h>
 
 #include <igor/simulation/iParticleSystem2D.h>
 
+#include <igor/ui/iDrag.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
@@ -138,7 +143,6 @@
 #include <igor/ui/widgets/iWidgetColor.h>
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetMenu.h>
@@ -151,9 +155,20 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/user_controls/iUserControlAction.h>
+#include <igor/ui/widgets/iWidgetSplitter.h>
+#include <igor/ui/widgets/iWidgetViewport.h>
+
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
+#include <igor/ui/user_controls/iUserControlTreeView.h>
+#include <igor/ui/user_controls/iUserControlTextureChooser.h>
+
+#include <igor/ui/layouts/iWidgetBoxLayout.h>
+#include <igor/ui/layouts/iWidgetDockingLayout.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetFixedGridLayout.h>
+
+#include <igor/resources/texture/iThumbnailCache.h>
 
 // version
 #include <igor/iVersion.h>
@@ -191,19 +206,19 @@ namespace igor
     config file will be searched for in this order
 
     Windows: 
-        config\[configname].xml
-        ..\config\[configname].xml
-        ..\..\config\[configname].xml
+        config\igor.xml
+        ..\config\igor.xml
+        ..\..\config\igor.xml
     Linux:
-        ~/.[configname]/[configname].xml
-        /etc/[configname]/[configname].xml
-        config/[configname].xml
-        ../config/[configname].xml
-        ../../config/[configname].xml
+        ~/.igor/igor.xml
+        /etc/igor/igor.xml
+        config/igor.xml
+        ../config/igor.xml
+        ../../config/igor.xml
 
     in that order
 	*/
-    void IGOR_API startup(const iaString &configname = "igor");
+    void IGOR_API startup();
 
     /*! should be called last in your application. do not use any Igor interface after that
 	

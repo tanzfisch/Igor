@@ -151,29 +151,29 @@ namespace igor
 
         /*! handles incoming acsii codes from keyboard
 
-		\param c the incoming character from keyboard
-		*/
-        virtual bool handleASCII(uint8 c) override;
+        \param event the key ascii event
+        */
+        bool onASCII(iEventKeyASCII &event) override;
 
         /*! handles incoming released key events
 
-		\param key the released key
+		\param event the key down event
 		*/
-        virtual bool handleKeyDown(iKeyCode key) override;
+        virtual bool onKeyDown(iEventKeyDown &event) override;
 
         /*! handles incoming released key events
 
-		\param key the released key
+		\param event the key up event
 		*/
-        virtual bool handleKeyUp(iKeyCode key) override;
+        virtual bool onKeyUp(iEventKeyUp &event) override;
 
         /*! handles gained kayboard focus
 		*/
-        virtual void handleGainedKeyboardFocus() override;
+        virtual void onGainedKeyboardFocus() override;
 
         /*! handles lost keyboard focus
 		*/
-        virtual void handleLostKeyboardFocus() override;
+        virtual void onLostKeyboardFocus() override;
 
         /*! triggers a change event if the content has changed
 		*/
@@ -204,14 +204,18 @@ namespace igor
 		*/
         void calcMinSize() override;
 
-        /*! draws the text edit widget
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
 
         /*! updates the cursor position and scroll offset
 		*/
         void updateMetrics();
     };
+
+    /*! widget line text edit pointer definition
+    */
+    typedef iWidgetLineTextEdit* iWidgetLineTextEditPtr;
 
 } // namespace igor
 

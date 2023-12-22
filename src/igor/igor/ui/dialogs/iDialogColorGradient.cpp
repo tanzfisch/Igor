@@ -7,7 +7,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetColor.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
@@ -83,38 +83,37 @@ namespace igor
 
 	void iDialogColorGradient::initUI()
 	{
-		setWidth(350);
-		setHeight(100);
+		setTitle("Edit Color Gradient");
+		setVerticalAlignment(iVerticalAlignment::Center);
+		setHorizontalAlignment(iHorizontalAlignment::Center);
 
-		iWidgetGridPtr grid = new iWidgetGrid(this);
-		grid->appendRows(4);
+		setMinWidth(350);
+		setMinHeight(100);
+
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
+		grid->appendRows(3);
 		grid->setStretchRow(2);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		grid->setVerticalAlignment(iVerticalAlignment::Stretch);
 		grid->setCellSpacing(4);
 		grid->setBorder(4);
 
-		iWidgetLabel *headerLabel = new iWidgetLabel();
-		headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-		headerLabel->setText("Edit Gradient");
-		grid->addWidget(headerLabel, 0, 0);
-
 		iWidgetGroupBox *groupBoxGradient = new iWidgetGroupBox();
 		groupBoxGradient->setText("Gradient");
 		groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Stretch);
-		grid->addWidget(groupBoxGradient, 0, 1);
+		grid->addWidget(groupBoxGradient, 0, 0);
 
-		iWidgetGrid *buttonGrid = new iWidgetGrid();
+		iWidgetGridLayout *buttonGrid = new iWidgetGridLayout();
 		buttonGrid->appendColumns(2);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
-		grid->addWidget(buttonGrid, 0, 3);
+		grid->addWidget(buttonGrid, 0, 2);
 
 		_gradientWidget = new iWidgetColorGradient();
 		_gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		_gradientWidget->setVerticalAlignment(iVerticalAlignment::Stretch);
 		_gradientWidget->setInteractive();
-		_gradientWidget->setHeight(60);
+		_gradientWidget->setMinHeight(60);
 		_gradientWidget->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
 		_gradientWidget->registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate(this, &iDialogColorGradient::onColorCreated));
 		groupBoxGradient->addWidget(_gradientWidget);
@@ -123,9 +122,9 @@ namespace igor
 		groupBox->setText("Selected Color");
 		groupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 		groupBox->setVerticalAlignment(iVerticalAlignment::Stretch);
-		grid->addWidget(groupBox, 0, 2);
+		grid->addWidget(groupBox, 0, 1);
 
-		iWidgetGrid *controlGrid = new iWidgetGrid();
+		iWidgetGridLayout *controlGrid = new iWidgetGridLayout();
 		controlGrid->appendRows(3);
 		controlGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		groupBox->addWidget(controlGrid);
@@ -137,7 +136,7 @@ namespace igor
 		_colorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &iDialogColorGradient::onColorChanged));
 		controlGrid->addWidget(_colorChooser, 0, 0);
 
-		iWidgetGrid *positionGrid = new iWidgetGrid();
+		iWidgetGridLayout *positionGrid = new iWidgetGridLayout();
 		positionGrid->appendColumns(1);
 		positionGrid->setStretchColumn(1);
 		positionGrid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -152,7 +151,7 @@ namespace igor
 
 		iWidgetLabel *labelPosition = new iWidgetLabel();
 		labelPosition->setText("Position");
-		labelPosition->setWidth(100);
+		labelPosition->setMinWidth(100);
 		positionGrid->addWidget(labelPosition, 0, 0);
 
 		_position = new iWidgetNumberChooser();
@@ -223,8 +222,12 @@ namespace igor
 		_gradientWidget->setGradient(_gradient);
 	}
 
-	void iDialogColorGradient::onSelectionChanged(int32 index)
+	void iDialogColorGradient::onSelectionChanged(const iWidgetPtr source)
 	{
+		iWidgetColorGradientPtr gradient = static_cast<iWidgetColorGradientPtr>(source);
+
+		int32 index = gradient->getSelectedIndex();
+
 		con_assert(index < _gradient.getValues().size(), "out of range");
 
 		if (index < _gradient.getValues().size())

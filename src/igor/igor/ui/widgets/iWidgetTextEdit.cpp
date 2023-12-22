@@ -15,19 +15,23 @@ namespace igor
 		: iWidget(iWidgetType::iWidgetTextEdit, iWidgetKind::Widget, parent)
 	{
 		_reactOnMouseWheel = false;
+		_configuredMinWidth = 20;
+		_configuredMinHeight = 20;
 	}
 
 	void iWidgetTextEdit::calcMinSize()
 	{
-		setMinSize(0, 0);
+		updateMinSize(0, 0);
 	}
 
 	void iWidgetTextEdit::draw()
 	{
-		if (isVisible())
+		if (!isVisible())
 		{
-	 		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
+			return;
 		}
+
+		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
 	}
 
 	const iaString &iWidgetTextEdit::getText() const

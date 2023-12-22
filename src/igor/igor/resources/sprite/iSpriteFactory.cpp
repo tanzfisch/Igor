@@ -14,6 +14,11 @@ using namespace iaux;
 namespace igor
 {
 
+    iSpriteFactory::iSpriteFactory()
+        : iFactory(IGOR_RESOURCE_SPRITE, IGOR_SUPPORTED_SPRITE_EXTENSIONS)
+    {
+    }
+
     static bool isSprite(const iaString &filename)
     {
         iaFile file(filename);
@@ -30,26 +35,12 @@ namespace igor
         return false;
     }
 
-    static bool isTexture(const iaString &filename)
+    iResourcePtr iSpriteFactory::createResource()
     {
-        iaFile file(filename);
-        const iaString &fileExtension = file.getExtension();
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SPRITE},
+                           {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
 
-        for (const auto &extension : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }        
-
-        return false;
-    }    
-
-    const iaString &iSpriteFactory::getType() const
-    {
-        const static iaString typeName(L"sprite");
-        return typeName;
+        return createResource(param);
     }
 
     iResourcePtr iSpriteFactory::createResource(const iParameters &parameters)
@@ -59,27 +50,26 @@ namespace igor
 
     bool iSpriteFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
-        iSpritePtr sprite = std::dynamic_pointer_cast<iSprite>(resource);
-
-        if(isTexture(filename))
+        iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
+        if (filepath.isEmpty())
         {
-            sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(filename);
-            return true;
+            filepath = resource->getSource();
         }
-
-        return loadSprite(filename, sprite);
+        
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        iSpritePtr sprite = std::dynamic_pointer_cast<iSprite>(resource);
+        return loadSprite(fullFilepath, sprite);
     }
 
     void iSpriteFactory::readSpriteElement(TiXmlElement *spriteElement, iSpritePtr sprite)
     {
         TiXmlElement *frame = spriteElement->FirstChildElement("Frame");
-        const iaString textureFileName(spriteElement->Attribute("texture"));
+        const iaString texture(spriteElement->Attribute("texture"));
 
-        //int32 pixelPerUnit = 1;        
-        //spriteElement->Attribute("pixelPerUnit", &pixelPerUnit);
+        // int32 pixelPerUnit = 1;
+        // spriteElement->Attribute("pixelPerUnit", &pixelPerUnit);
 
-        sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(textureFileName);
+        sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
 
         do
         {
@@ -103,6 +93,12 @@ namespace igor
 
     bool iSpriteFactory::loadSprite(const iaString &filename, iSpritePtr sprite)
     {
+        if (!isSprite(filename))
+        {
+            con_err("not a sprite \"" << filename << "\"");
+            return false;
+        }
+
         sprite->_frames.clear();
 
         char temp[2048];
@@ -125,29 +121,19 @@ namespace igor
             }
         }
 
-        if(sprite->getFrameCount() == 0)
+        if (sprite->getFrameCount() == 0)
         {
-            con_err("no frames defined in \"" << sprite->getName() << "\"");
+            con_err("no frames defined for \"" << sprite->getInfo() << "\"");
             return false;
         }
 
-        con_debug("loaded sprite \"" << sprite->getName() << "\" with " << sprite->getFrameCount() << " frames.");
+        con_trace("loaded sprite \"" << sprite->getInfo() << "\" with " << sprite->getFrameCount() << " frames.");
         return true;
     }
 
     void iSpriteFactory::unloadResource(iResourcePtr resource)
     {
         // nothing else to do here
-    }
-
-    bool iSpriteFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        return isSprite(parameters.getParameter<iaString>("name"));
     }
 
 }; // namespace igor

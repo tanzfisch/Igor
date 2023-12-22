@@ -15,6 +15,9 @@ int main()
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->open();
+	
+	// before we can load any resources make sure the resource dictionary is loaded
+    iResourceManager::getInstance().loadResourceDictionary("dictionaries/example_resource_dictionary.xml");	
 
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new Ascent(window));

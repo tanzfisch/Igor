@@ -5,7 +5,6 @@
 #include <igor/simulation/iParticleSystem.h>
 #include <iaux/system/iaConsole.h>
 
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <iaux/data/iaKeyFrameGraph.h>
 #include <igor/system/iTimer.h>
 #include <igor/simulation/iParticleEmitter.h>
@@ -458,7 +457,7 @@ namespace igor
         if (_running)
         {
             const iaTime frameTime = iTimer::getInstance().getTime();
-            const iaTime frameTick = iaTime::fromMilliseconds(1000.0 / _simulationRate);
+            const iaTime frameTick = iaTime::fromMilliseconds(IGOR_SECOND / _simulationRate);
             
             // ignore hickups
             if (frameTime - _playbackTime > iaTime::fromMilliseconds(100))

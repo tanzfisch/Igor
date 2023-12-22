@@ -4,8 +4,8 @@
 
 #include <igor/scene/nodes/iNodeRender.h>
 
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/scene/iScene.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -16,7 +16,7 @@ namespace igor
     iNodeRender::iNodeRender()
         : iNode()
     {
-        _material = iMaterialResourceFactory::getInstance().getDefaultMaterial();
+        _material = iRenderer::getInstance().getDefaultMaterial();
 
         setName(L"iNodeRender");
         _nodeType = iNodeType::iNodeRender;

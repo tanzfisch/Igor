@@ -129,10 +129,10 @@ namespace igor
         iProfiler::nextFrame();
 
         IGOR_PROFILER_BEGIN(application);
+        iTimer::getInstance().onUpdate();
         updateWindow();
         dispatch();
         onUpdateLayerStack();
-        iTimer::getInstance().onUpdate();
         IGOR_PROFILER_END(application);
 
         IGOR_PROFILER_BEGIN(entities);

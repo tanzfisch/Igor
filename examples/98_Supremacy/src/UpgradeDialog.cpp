@@ -51,15 +51,15 @@ void UpgradeDialog::updateGUI()
 
 void UpgradeDialog::initGUI()
 {
-	setWidth(500);
-	setHeight(100);
+	setMinWidth(500);
+	setMinHeight(100);
 
 	setBackground(iaColor4f::transparent);
 
 	setHorizontalAlignment(iHorizontalAlignment::Center);
 	setVerticalAlignment(iVerticalAlignment::Center);
 
-	iWidgetGrid *grid = new iWidgetGrid(this);
+	iWidgetGridLayout *grid = new iWidgetGridLayout(this);
 	grid->appendColumns(2);
 	grid->appendRows(2);
 	grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -82,19 +82,19 @@ void UpgradeDialog::initGUI()
 	_labelDescription3->setMaxTextWidth(150);
 
 	_button1 = new iWidgetButton();
-	_button1->setSize(128, 128);
+	_button1->setMinSize(128, 128);
 	_button1->setVerticalAlignment(iVerticalAlignment::Center);
 	_button1->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_button1->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect1));
 
 	_button2 = new iWidgetButton();
-	_button2->setSize(128, 128);
+	_button2->setMinSize(128, 128);
 	_button2->setVerticalAlignment(iVerticalAlignment::Center);
 	_button2->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_button2->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect2));
 
 	_button3 = new iWidgetButton();
-	_button3->setSize(128, 128);
+	_button3->setMinSize(128, 128);
 	_button3->setVerticalAlignment(iVerticalAlignment::Center);
 	_button3->setHorizontalAlignment(iHorizontalAlignment::Center);
 	_button3->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect3));

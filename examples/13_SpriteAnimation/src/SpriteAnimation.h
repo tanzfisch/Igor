@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLESPRITEANIMATION__
-#define __EXAMPLESPRITEANIMATION__
+#ifndef IGOR_EXAMPLE_SPRITE_ANIMATION_H
+#define IGOR_EXAMPLE_SPRITE_ANIMATION_H
 
 #include <ExampleBase.h>
 
@@ -168,4 +168,4 @@ private:
 	bool onKeyUp(iEventKeyUp &event);
 };
 
-#endif // __EXAMPLESPRITEANIMATION__
+#endif // IGOR_EXAMPLE_SPRITE_ANIMATION_H

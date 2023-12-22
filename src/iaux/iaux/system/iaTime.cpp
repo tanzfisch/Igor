@@ -29,6 +29,11 @@ namespace iaux
         return iaTime(static_cast<int64>(time * 1000.0));
     }
 
+    iaTime iaTime::fromMicroseconds(int64 time)
+    {
+        return iaTime(time);
+    }
+
     void iaTime::operator+=(const iaTime &time)
     {
         _microSeconds += time._microSeconds;

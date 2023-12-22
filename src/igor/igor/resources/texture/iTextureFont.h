@@ -83,12 +83,12 @@ namespace igor
     public:
         /*! \returns a newly created font
 
-        \param filename filename of font texture
+        \param texture the texture to use (needs to be loaded already)
         \param type font type
         \param colorMask use this color channel to detect the size of characters
         \param colorMaskThreshold this threshold determines  what texel belongs to the character and wich not
         */
-        static iTextureFontPtr create(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreshold = 0.5f);
+        static iTextureFontPtr create(iTexturePtr texture, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreshold = 0.5f);
 
         /*! cleans up
          */
@@ -129,7 +129,7 @@ namespace igor
     private:
         /*! true if the font is a valid font
          */
-        bool valid;
+        bool _valid;
 
         /*! texture
          */
@@ -145,24 +145,28 @@ namespace igor
 
         /*! ctor
 
-        \param filename filename of font texture
+        \param texture the texture to use
         \param type font type
         \param colorMask use this color channel to detect the size of characters
         \param colorMaskThreshold this threshold determines  what texel belongs to the character and wich not
         */
-        iTextureFont(const iaString &filename, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreshold = 0.0f);
+        iTextureFont(iTexturePtr texture, iFontType type = iFontType::FixedDigitWidth, iColorMask colorMask = iColorMask::Alpha, float32 colorMaskThreshold = 0.0f);
 
-        /*!
+        /*! setup font type to fixed width
          */
         void makeFixedWidth();
 
-        /*!
+        /*! setup font type to fixed digit width
          */
         void makeFixedDigitWidth();
 
-        /*!
+        /*! modify width of given character
+
+        \param character the character to modify
+        \param newWidth the new newWidth
+        \param newOffset the new character offset
          */
-        void modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 new_characterOffset);
+        void modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 newOffset);
     };
 
 }; // namespace igor

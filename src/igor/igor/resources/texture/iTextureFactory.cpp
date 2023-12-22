@@ -12,16 +12,19 @@ using namespace iaux;
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include "stb_image_resize2.h"
 
 namespace igor
 {
 
     iaMutex iTextureFactory::_mutexImageLibrary;
 
-    const iaString &iTextureFactory::getType() const
+    iTextureFactory::iTextureFactory()
+        : iFactory(IGOR_RESOURCE_TEXTURE, IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
     {
-        const static iaString typeName(L"texture");
-        return typeName;
     }
 
     iResourcePtr iTextureFactory::createResource(const iParameters &parameters)
@@ -31,12 +34,15 @@ namespace igor
 
     bool iTextureFactory::loadResource(iResourcePtr resource)
     {
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
+        iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }
+
         iTexturePtr texture = std::dynamic_pointer_cast<iTexture>(resource);
-
         const auto &parameters = resource->getParameters();
-
-        const bool generate = parameters.getParameter<bool>("generate", false);
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             return generateTexture(texture, parameters);
@@ -48,7 +54,8 @@ namespace igor
             return pixmapToTexture(pixmap, texture);
         }
 
-        return loadTexture(filename, texture);
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        return loadTexture(fullFilepath, texture);
     }
 
     bool iTextureFactory::pixmapToTexture(iPixmapPtr pixmap, iTexturePtr texture)
@@ -141,7 +148,7 @@ namespace igor
         }
 
         texture->setData(width, height, bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
-        con_debug("generated texture \"" << texture->getName() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_debug("generated texture \"" << texture->getInfo() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         delete[] data;
@@ -166,7 +173,7 @@ namespace igor
         {
             texture->_useFallback = true;
             _mutexImageLibrary.lock();
-            con_err("can't load \"" << texture->getName() << "\" reason:" << stbi_failure_reason());
+            con_err("can't load \"" << texture->getInfo() << "\" reason:" << stbi_failure_reason());
             _mutexImageLibrary.unlock();
 
             return false;
@@ -192,7 +199,7 @@ namespace igor
         };
 
         texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-        con_debug("loaded texture \"" << texture->getName() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_trace("loaded texture \"" << texture->getInfo() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         _mutexImageLibrary.lock();
@@ -225,7 +232,7 @@ namespace igor
             break;
         }
 
-        iTextureBuildMode buildMode = parameters.getParameter<iTextureBuildMode>("buildMode", iTextureBuildMode::Mipmapped);
+        iTextureBuildMode buildMode = parameters.getParameter<iTextureBuildMode>("textureBuildMode", iTextureBuildMode::Mipmapped);
         if (buildMode == iTextureBuildMode::Mipmapped)
         {
             hashData += "M";
@@ -238,31 +245,9 @@ namespace igor
         return hashData;
     }
 
-    bool iTextureFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        iaFile file(parameters.getParameter<iaString>("name"));
-        const iaString &fileExtension = file.getExtension();
-        static const std::vector<iaString> supportedExtensions = {L"png", L"jpg"};
-
-        for (const auto &extension : supportedExtensions)
-        {
-            if (fileExtension == extension)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     iPixmapPtr iTextureFactory::loadPixmap(const iaString &filename)
     {
-        iaString fullPath = iResourceManager::getInstance().getPath(filename);
+        iaString fullPath = iResourceManager::getInstance().resolvePath(filename);
 
         iPixmapPtr pixmap;
 
@@ -302,7 +287,7 @@ namespace igor
         pixmap = iPixmap::createPixmap(width, height, colorFormat);
         pixmap->setData(textureData);
 
-        con_debug("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
+        con_trace("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
 
         _mutexImageLibrary.lock();
         stbi_image_free(textureData);
@@ -310,4 +295,55 @@ namespace igor
 
         return pixmap;
     }
+
+    bool iTextureFactory::createThumbnail(const iaString &source, const iaString &destination, uint32 newWidth, uint32 newHeight)
+    {
+        int width, height, components;
+
+        char temp[1024];
+        source.getData(temp, 1024);
+
+        _mutexImageLibrary.lock();
+        unsigned char *textureData = stbi_load(temp, &width, &height, &components, 0);
+        _mutexImageLibrary.unlock();
+
+        if (textureData == nullptr)
+        {
+            _mutexImageLibrary.lock();
+            con_err("can't load \"" << source << "\" reason:" << stbi_failure_reason());
+            _mutexImageLibrary.unlock();
+
+            return false;
+        }
+
+        // Create a buffer for the resized image
+        std::vector<unsigned char> resizedImage(newWidth * newHeight * components);
+
+        // Resize the image using stb_image.h
+        unsigned char *result = stbir_resize_uint8_linear(textureData, width, height, 0, resizedImage.data(), newWidth, newHeight, 0, (stbir_pixel_layout)components);
+        if (!result)
+        {
+            con_err("Failed to resize image \"" << source << "\"");
+            stbi_image_free(textureData);
+            return false;
+        }
+
+        char temp2[1024];
+        destination.getData(temp2, 1024);
+
+        // Write the resized image to a PNG file using stb_image_write.h
+        if (!stbi_write_png(temp2, newWidth, newHeight, components, resizedImage.data(), newWidth * components))
+        {
+            con_err("Failed to write PNG file \"" << destination << "\"");
+            stbi_image_free(textureData);
+            return false;
+        }
+
+        // Free the loaded image
+        stbi_image_free(textureData);
+
+        con_trace("generated thumbnail \"" << source << "\" -> \"" << destination << "\"");
+        return true;
+    }
+
 }; // namespace igor

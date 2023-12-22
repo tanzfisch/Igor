@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-	<Material name="igor.flat_shaded_blended" uuid="2da5bbe8-7b46-11ed-a3ae-bfd271ecc05e" visibility="Private">
+	<Material name="igor.flat_shaded_blended" visibility="Private">
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>On</Blend>

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2023 by Martin Loga
 
 #include "Mica.h"
 

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -97,11 +97,14 @@ $(document).ready(function(){initNavTree('i_widget_8h.html',''); initResizable()
 <div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_mouse_8h.html">igor/system/iMouse.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_timer_handle_8h.html">igor/system/iTimerHandle.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_event_mouse_8h.html">igor/events/iEventMouse.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_event_keyboard_8h.html">igor/events/iEventKeyboard.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_vector4_8h.html">iaux/math/iaVector4.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_color4_8h.html">iaux/data/iaColor4.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_i_d_generator_8h.html">iaux/data/iaIDGenerator.h</a>&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;any&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_widget_8inl.html">igor/ui/widgets/iWidget.inl</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -112,6 +115,7 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
+<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameters texture <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -140,46 +144,52 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a9a8dbe451a664e9a8feaa413ac0bbc93">igor::iWidgetColorGradient</a>
 , <br />
 &#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a39b660e2ae1b7c0a0af6c17d881124f9">igor::iWidgetGraph</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a2a1a414cf94185a930e02fe1648d54eb">igor::iWidgetGrid</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a0589fc44b2a1ebf2fd96f3de2536c246">igor::iWidgetGroupBox</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a97048bb3f09f9dde1e6fe30d1f949840">igor::iWidgetLabel</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a7fd4be4237cb1d08b4f120730d9fa5f9">igor::iWidgetMenu</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a7fd4be4237cb1d08b4f120730d9fa5f9">igor::iWidgetMenu</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a82dfcf282a29039616893b9c879336d4">igor::iWidgetMenuBar</a>
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a82dfcf282a29039616893b9c879336d4">igor::iWidgetMenuBar</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618acb289205f5eb1235e8569b0aed9472b6">igor::iWidgetNumberChooser</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a5f75a5941b951d11a829339fa94a274b">igor::iWidgetPicture</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a559ee5fed90cef4072e27b8f4813befc">igor::iWidgetScroll</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a559ee5fed90cef4072e27b8f4813befc">igor::iWidgetScroll</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618ab0f432169ef3b536861a449148c476b0">igor::iWidgetSelectBox</a>
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618ab0f432169ef3b536861a449148c476b0">igor::iWidgetSelectBox</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a3dfe01754ecafb95bcf360a103ede9e3">igor::iWidgetSlider</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a4abdc792da177a0bf85bb3a3912325de">igor::iWidgetSpacer</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a928ad8d211de579ba29c83fddc6e8b28">igor::iWidgetLineTextEdit</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a928ad8d211de579ba29c83fddc6e8b28">igor::iWidgetLineTextEdit</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a2e1dff6974d2d435d982ba2346407751">igor::iWidgetTextEdit</a>
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a2e1dff6974d2d435d982ba2346407751">igor::iWidgetTextEdit</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a8d7560915f828f5f9d91a6484d9d193a">igor::iWidgetSplitter</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a127aaa13a5d977d74f1f6f792da20962">igor::iWidgetViewport</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a669b27320a0ed1d320f13fbaace2b2b9">igor::iWidgetGridLayout</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a5220666291a208fe69d77e0afcc50264">igor::iWidgetFixedGridLayout</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618afb85e4673a977d9c27276d47cdea1a6c">igor::iWidgetBoxLayout</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a312f8fd7ed85358ac9f1e8305e91cc3e">igor::iWidgetDockingLayout</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a042972a0060cfe69011c6a982eca7c22">igor::iUserControl</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618ab45955d891e618b8843ccee323e45905">igor::iUserControlAction</a>
 , <br />
 &#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618af94ac2ab874b01585a45c9ea46e4152a">igor::iUserControlColorChooser</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a0be42edf3263e3ac34ae19d31269bc21">igor::iUserControlFileChooser</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618ae47738832438f1fe138c849f81f49ded">igor::iDialog</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618af3d236e85d678ff68093d66e75c77e4e">igor::iUserControlTextureChooser</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a9c1e14d7dfe0631c199642fee0f1c283">igor::iUserControlTreeView</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618ae47738832438f1fe138c849f81f49ded">igor::iDialog</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618adaeced69e6c5e4e9f9dc894ccb895f40">igor::iDialogColorChooser</a>
-, <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a0cff16f295b11668b706718753d65a1b">igor::iDialogColorGradient</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a0cff16f295b11668b706718753d65a1b">igor::iDialogColorGradient</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618abc08a30df29a5c8e36ca18b324177612">igor::iDialogDecisionBox</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618afc4d0d0177d525a00cc6ce85b676409c">igor::iDialogFileSelect</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618afc4d0d0177d525a00cc6ce85b676409c">igor::iDialogFileSelect</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618abfcd661f3150a8d0710e607816d31b72">igor::iDialogGraph</a>
-, <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a398669d5fcf5454dc3ab4dd30c82fb2a">igor::iDialogIndexMenu</a>
+, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a398669d5fcf5454dc3ab4dd30c82fb2a">igor::iDialogIndexMenu</a>
 , <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a656a677fa80bb418c05af87d664cd8d0">igor::iDialogMenu</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a6158e98bc06a07d65fde90fdb5a9939f">igor::iDialogMessageBox</a>
-, <a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a1ebfbf482ab458929ddc36d6c2aa062d">igor::iUserType</a> = 100
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618adb5b1a3beea7eb8499d465c616d438d1">igor::iUndefinedType</a> = 100
+&#160;&#160;<a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618a6158e98bc06a07d65fde90fdb5a9939f">igor::iDialogMessageBox</a>
 <br />
  }</td></tr>
 <tr class="separator:af0faed1be6138ddb4a7333d713b7a618"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a884bc0e021cdad71883e36d0f800cb1f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a884bc0e021cdad71883e36d0f800cb1f">igor::iWidgetKind</a> { <a class="el" href="namespaceigor.html#a884bc0e021cdad71883e36d0f800cb1fa6ed562a0d4381eef12d92c87520f3208">igor::Widget</a>
 , <a class="el" href="namespaceigor.html#a884bc0e021cdad71883e36d0f800cb1fa7cb4adbe4e9ec47f2ef30443f3de8e98">igor::UserControl</a>
+, <a class="el" href="namespaceigor.html#a884bc0e021cdad71883e36d0f800cb1faebd9bec4d70abc789d439c1f136b0538">igor::Layout</a>
 , <a class="el" href="namespaceigor.html#a884bc0e021cdad71883e36d0f800cb1fad2ab42830caa7a02b36d96a46dd44b8d">igor::Dialog</a>
  }</td></tr>
 <tr class="separator:a884bc0e021cdad71883e36d0f800cb1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,8 +216,8 @@ Functions</h2></td></tr>
 <tr class="separator:a1fcec1ec634c138761b5ea3c24c9a742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af40f74fd1c18232a78d0cc73184fe285"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#af40f74fd1c18232a78d0cc73184fe285">igor::IGOR_EVENT_DEFINITION</a> (iFocus, void, const iWidgetPtr)</td></tr>
 <tr class="separator:af40f74fd1c18232a78d0cc73184fe285"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa51e9f7e14c27c6ad9bc8f7afce012cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aa51e9f7e14c27c6ad9bc8f7afce012cc">igor::IGOR_EVENT_DEFINITION</a> (iSelectionChanged, void, <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>)</td></tr>
-<tr class="separator:aa51e9f7e14c27c6ad9bc8f7afce012cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a528f244b40d8a9f6cd340a5be75f4863"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a528f244b40d8a9f6cd340a5be75f4863">igor::IGOR_EVENT_DEFINITION</a> (iSelectionChanged, void, const iWidgetPtr)</td></tr>
+<tr class="separator:a528f244b40d8a9f6cd340a5be75f4863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3366d13de4c08e19f06774ae37fe7f59"><td class="memItemLeft" align="right" valign="top">std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a3366d13de4c08e19f06774ae37fe7f59">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iWidgetType &amp;widgetType)</td></tr>
 <tr class="separator:a3366d13de4c08e19f06774ae37fe7f59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

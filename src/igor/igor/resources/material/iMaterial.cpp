@@ -14,35 +14,11 @@
 namespace igor
 {
 
-    class iMaterialDeleter
+    iMaterial::iMaterial(const iParameters &parameters)
+    : iResource(parameters)
     {
-    public:
-        void operator()(iMaterial *p) { delete p; }
-    };
-
-    iMaterialPtr iMaterial::create()
-    {
-        iMaterialPtr result = std::shared_ptr<iMaterial>(new iMaterial(), iMaterialDeleter());
-        result->_materialID = iMaterialID::create();
-        return result;
+        setName("Material Name");
     }
-
-    iMaterialPtr iMaterial::create(const iaString &filename)
-    {        
-        std::shared_ptr<iMaterial> result(new iMaterial(), iMaterialDeleter());
-        iMaterialIO::read(iResourceManager::getInstance().getPath(filename), result);
-
-        if (!result->_materialID.isValid())
-        {
-            result->_materialID = iMaterialID::create();
-        }
-
-        result->_filename = filename;
-
-        return result;
-    }
-
-    iMaterial::~iMaterial() = default;
 
     bool iMaterial::isValid() const
     {
@@ -304,21 +280,6 @@ namespace igor
         }
     }
 
-    void iMaterial::setName(const iaString &name)
-    {
-        _name = name;
-    }
-
-    void iMaterial::setID(const iMaterialID &materialID)
-    {
-        _materialID = materialID;
-    }
-
-    const iaString &iMaterial::getName() const
-    {
-        return _name;
-    }
-
     void iMaterial::setRenderState(const iRenderState state, const iRenderStateValue value)
     {
         _renderStateSet.setRenderState(state, value);
@@ -367,11 +328,6 @@ namespace igor
     void iMaterial::setMatrix(const iaString &uniform, const iaMatrixf &value)
     {
         _shaderProgram->setMatrix(uniform, value);
-    }
-
-    const iMaterialID &iMaterial::getID() const
-    {
-        return _materialID;
     }
 
     int32 iMaterial::getOrder() const

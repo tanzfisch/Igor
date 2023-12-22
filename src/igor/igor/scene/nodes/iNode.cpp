@@ -57,11 +57,11 @@ namespace igor
         return _transformationChangeEvent;
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     void iNode::onPostCopyLink(std::map<iNodeID, iNodeID> &nodeIDMap)
     {
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
     bool iNode::isDataDirty()
     {
@@ -299,25 +299,25 @@ namespace igor
         return iaString(stream.str().data());
     }
 
-    const iaString& iNode::getName() const
+    const iaString &iNode::getName() const
     {
         return _name;
     }
 
-    void iNode::getInfo(std::vector<iaString> &info) const
+    std::vector<iaString> iNode::getInfo(bool brief) const
     {
+        std::vector<iaString> info;
+
         iaString header = "\"";
         header += getName();
         header += "\" id:";
         header += iaString::toString(getID());
-        header += (isActive() ? " (active)" : " (inactive)");
+        header += " type:";
+        header += iNode::getTypeName(getType());
+
         info.push_back(header);
 
-        iaString typeInfo = "type:";
-        typeInfo += iNode::getTypeName(getType());
-        typeInfo += " kind:";
-        typeInfo += iNode::getKindName(getKind());
-        info.push_back(typeInfo);
+        return info;
     }
 
     void iNode::setName(const iaString &name)
@@ -342,18 +342,23 @@ namespace igor
 
     void iNode::insertNode(iNodePtr node)
     {
-        if (!node->isChild())
+        if (node == nullptr)
         {
-            node->_active = true;
-            node->setParent(this);
-            node->setScene(_scene);
-            node->setTransformationDirty();
-            _children.push_back(node);
+            con_err("zero pointer");
+            return;
         }
-        else
+
+        if (node->isChild())
         {
             con_err("node is already a child");
+            return;
         }
+
+        node->_active = true;
+        node->setParent(this);
+        node->setScene(_scene);
+        node->setTransformationDirty();
+        _children.push_back(node);
     }
 
     bool iNode::isChild()
@@ -361,11 +366,11 @@ namespace igor
         return _parent ? true : false;
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     void iNode::onUpdateTransform(iaMatrixd &matrix)
     {
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
     void iNode::removeNode(iNodePtr node)
     {

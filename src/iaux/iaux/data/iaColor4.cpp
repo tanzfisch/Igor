@@ -32,10 +32,22 @@ template <>
 const iaColor4<uint8> iaColor4<uint8>::white(0xff, 0xff, 0xff, 0xff);
 
 template <>
+const iaColor4<float32> iaColor4<float32>::lightGray(0.75, 0.75, 0.75, 1.0);
+
+template <>
+const iaColor4<uint8> iaColor4<uint8>::lightGray(0xbf, 0xbf, 0xbf, 0xff);
+
+template <>
 const iaColor4<float32> iaColor4<float32>::gray(0.5, 0.5, 0.5, 1.0);
 
 template <>
 const iaColor4<uint8> iaColor4<uint8>::gray(0x80, 0x80, 0x80, 0xff);
+
+template <>
+const iaColor4<float32> iaColor4<float32>::darkGray(0.25, 0.25, 0.25, 1.0);
+
+template <>
+const iaColor4<uint8> iaColor4<uint8>::darkGray(0x40, 0x40, 0x40, 0xff);
 
 template <>
 const iaColor4<float32> iaColor4<float32>::black(0.0, 0.0, 0.0, 1.0);

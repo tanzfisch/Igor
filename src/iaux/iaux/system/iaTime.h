@@ -69,6 +69,12 @@ namespace iaux
         */
         static iaTime fromMilliseconds(float64 time);
 
+        /*! \returns time object based on given micro seconds seconds
+
+        \param time time in micro seconds
+        */
+        static iaTime fromMicroseconds(int64 time);
+
         /*! adds time given time to this time
 
         \param time given time
@@ -119,7 +125,7 @@ namespace iaux
         \param scalar the value to divide the time with
         \returns the new time
         */
-        iaTime operator/(float64 scalar) const;        
+        iaTime operator/(float64 scalar) const;
 
         /*! \returns true if both times are equal
          */
@@ -175,7 +181,7 @@ namespace iaux
     \param ostr the out stream handle
     \param time the time to print in stream
     */
-    __IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iaTime &time)
+    IGOR_INLINE std::wostream &operator<<(std::wostream &ostr, const iaTime &time)
     {
         if (time.getSeconds() > 1.0)
         {

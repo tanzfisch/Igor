@@ -7,5 +7,7 @@ var dir_7aa4603867f934fedef9d5e94bbf9165 =
     [ "iTextureFactory.cpp", "i_texture_factory_8cpp.html", "i_texture_factory_8cpp" ],
     [ "iTextureFactory.h", "i_texture_factory_8h.html", "i_texture_factory_8h" ],
     [ "iTextureFont.cpp", "i_texture_font_8cpp.html", "i_texture_font_8cpp" ],
-    [ "iTextureFont.h", "i_texture_font_8h.html", "i_texture_font_8h" ]
+    [ "iTextureFont.h", "i_texture_font_8h.html", "i_texture_font_8h" ],
+    [ "iThumbnailCache.cpp", "i_thumbnail_cache_8cpp.html", null ],
+    [ "iThumbnailCache.h", "i_thumbnail_cache_8h.html", "i_thumbnail_cache_8h" ]
 ];

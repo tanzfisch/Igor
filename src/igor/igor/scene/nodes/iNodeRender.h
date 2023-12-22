@@ -59,7 +59,7 @@ namespace igor
         */
         void setMaterial(const iMaterialPtr &material);
 
-        /*! \retruns the material in use
+        /*! \returns the material in use
         */
         iMaterialPtr getMaterial() const;
 

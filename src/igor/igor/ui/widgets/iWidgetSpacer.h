@@ -38,34 +38,31 @@ namespace igor
 {
 
     /*! spacer widget
-	*/
+     */
     class IGOR_API iWidgetSpacer : public iWidget
     {
 
     public:
         /*! ctor initializes member variables
 
-		\param parent optional parent
-		*/
+        \param parent optional parent
+        */
         iWidgetSpacer(int32 width, int32 height, bool visible = false, const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         virtual ~iWidgetSpacer() = default;
 
     protected:
-        /*! updates size based on it's content
-		*/
-        void calcMinSize() override;
-
-        /*! draws the button
-		*/
-        void draw();
+        /*! draws the widget
+         */
+        void draw() override;
     };
 
     /*! widget spacer pointer definition
-	*/
+     */
     typedef iWidgetSpacer *iWidgetSpacerPtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETSPACER__

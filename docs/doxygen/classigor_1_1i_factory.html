@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -88,6 +88,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_factory.html',''); init
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_factory-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">igor::iFactory Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
@@ -96,25 +97,27 @@ $(document).ready(function(){initNavTree('classigor_1_1i_factory.html',''); init
 
 <p><code>#include &lt;iFactory.h&gt;</code></p>
 
-<p>Inherited by <a class="el" href="classigor_1_1i_animation_factory.html">igor::iAnimationFactory</a>, <a class="el" href="classigor_1_1i_model_factory.html">igor::iModelFactory</a>, <a class="el" href="classigor_1_1i_sound_factory.html">igor::iSoundFactory</a>, <a class="el" href="classigor_1_1i_sprite_factory.html">igor::iSpriteFactory</a>, and <a class="el" href="classigor_1_1i_texture_factory.html">igor::iTextureFactory</a>.</p>
+<p>Inherited by <a class="el" href="classigor_1_1i_animation_factory.html">igor::iAnimationFactory</a>, <a class="el" href="classigor_1_1i_material_factory.html">igor::iMaterialFactory</a>, <a class="el" href="classigor_1_1i_model_factory.html">igor::iModelFactory</a>, <a class="el" href="classigor_1_1i_sound_factory.html">igor::iSoundFactory</a>, <a class="el" href="classigor_1_1i_sprite_factory.html">igor::iSpriteFactory</a>, and <a class="el" href="classigor_1_1i_texture_factory.html">igor::iTextureFactory</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2308bcd121df86159a10d0d483497a18"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a2308bcd121df86159a10d0d483497a18">iFactory</a> ()=default</td></tr>
-<tr class="separator:a2308bcd121df86159a10d0d483497a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c4b858bade8c4799e4065bfe22b090"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a38c4b858bade8c4799e4065bfe22b090">iFactory</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;type, const std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt; &amp;supportedExtensions)</td></tr>
+<tr class="separator:a38c4b858bade8c4799e4065bfe22b090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa06a8216efe5ca4b99ed3bbbc7eb219f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#aa06a8216efe5ca4b99ed3bbbc7eb219f">~iFactory</a> ()=default</td></tr>
 <tr class="separator:aa06a8216efe5ca4b99ed3bbbc7eb219f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05cd1242c1514a4a6d1d63aaf282efa8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a05cd1242c1514a4a6d1d63aaf282efa8">getType</a> () const</td></tr>
+<tr class="separator:a05cd1242c1514a4a6d1d63aaf282efa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a767b7864aa22b459676b221ccd314e69"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a767b7864aa22b459676b221ccd314e69">getSupportedExtensions</a> () const</td></tr>
+<tr class="separator:a767b7864aa22b459676b221ccd314e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a2fb49c8bce64fe824b46936d6c62083b"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a2fb49c8bce64fe824b46936d6c62083b">getType</a> () const =0</td></tr>
-<tr class="separator:a2fb49c8bce64fe824b46936d6c62083b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaf8abb0023adf16387b0626cbe17359"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#aaaf8abb0023adf16387b0626cbe17359">matchingType</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters) const =0</td></tr>
-<tr class="separator:aaaf8abb0023adf16387b0626cbe17359"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8454b2a39a070a6e8bcf688e743d6c6d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a8454b2a39a070a6e8bcf688e743d6c6d">getHashData</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters) const</td></tr>
 <tr class="separator:a8454b2a39a070a6e8bcf688e743d6c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6112879fe2fc5d7729bba476f342e01"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#ac6112879fe2fc5d7729bba476f342e01">createResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;parameters)=0</td></tr>
 <tr class="separator:ac6112879fe2fc5d7729bba476f342e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8414c0d82d575c3b9ef29ec27ba87e4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#af8414c0d82d575c3b9ef29ec27ba87e4">createResource</a> ()</td></tr>
+<tr class="separator:af8414c0d82d575c3b9ef29ec27ba87e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0756f099bca1debeb118fe769013465e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a0756f099bca1debeb118fe769013465e">loadResource</a> (<a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> resource)=0</td></tr>
 <tr class="separator:a0756f099bca1debeb118fe769013465e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6145958fc92a16d6e767f5058ff9e460"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a6145958fc92a16d6e767f5058ff9e460">unloadResource</a> (<a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> resource)=0</td></tr>
@@ -124,6 +127,13 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a38f55fd9bdfa08c41fc30f05a83aa886"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a38f55fd9bdfa08c41fc30f05a83aa886">deinit</a> ()</td></tr>
 <tr class="separator:a38f55fd9bdfa08c41fc30f05a83aa886"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:abf08da544e4d1f343af8a2772f301551"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#abf08da544e4d1f343af8a2772f301551">_type</a></td></tr>
+<tr class="separator:abf08da544e4d1f343af8a2772f301551"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26d75c52e783fbb3ef2a0df88b261c29"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a26d75c52e783fbb3ef2a0df88b261c29">_supportedExtensions</a></td></tr>
+<tr class="separator:a26d75c52e783fbb3ef2a0df88b261c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a3d7f73050de28471f180641b509bbfde"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a3d7f73050de28471f180641b509bbfde">iResourceManager</a></td></tr>
@@ -132,8 +142,8 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >represents a factory that can process resources </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2308bcd121df86159a10d0d483497a18" name="a2308bcd121df86159a10d0d483497a18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2308bcd121df86159a10d0d483497a18">&#9670;&nbsp;</a></span>iFactory()</h2>
+<a id="a38c4b858bade8c4799e4065bfe22b090" name="a38c4b858bade8c4799e4065bfe22b090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c4b858bade8c4799e4065bfe22b090">&#9670;&nbsp;</a></span>iFactory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,13 +154,24 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">igor::iFactory::iFactory </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>supportedExtensions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -185,8 +206,35 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="af8414c0d82d575c3b9ef29ec27ba87e4" name="af8414c0d82d575c3b9ef29ec27ba87e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8414c0d82d575c3b9ef29ec27ba87e4">&#9670;&nbsp;</a></span>createResource() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> igor::iFactory::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >creates an empty resource</p>
+<dl class="section return"><dt>Returns</dt><dd>new resource </dd></dl>
+
+</div>
+</div>
 <a id="ac6112879fe2fc5d7729bba476f342e01" name="ac6112879fe2fc5d7729bba476f342e01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6112879fe2fc5d7729bba476f342e01">&#9670;&nbsp;</a></span>createResource()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6112879fe2fc5d7729bba476f342e01">&#9670;&nbsp;</a></span>createResource() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,7 +264,7 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>loaded or created new resource </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>new resource </dd></dl>
 
 </div>
 </div>
@@ -269,12 +317,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>resource type specific hash data </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>resource type specific hash data based on given parameters</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parameters</td><td>the given parameters </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="a2fb49c8bce64fe824b46936d6c62083b" name="a2fb49c8bce64fe824b46936d6c62083b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fb49c8bce64fe824b46936d6c62083b">&#9670;&nbsp;</a></span>getType()</h2>
+<a id="a767b7864aa22b459676b221ccd314e69" name="a767b7864aa22b459676b221ccd314e69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a767b7864aa22b459676b221ccd314e69">&#9670;&nbsp;</a></span>getSupportedExtensions()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +337,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp; igor::iFactory::getType </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt; &amp; igor::iFactory::getSupportedExtensions </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -291,7 +345,33 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>supported file extensions or subtypes </dd></dl>
+
+</div>
+</div>
+<a id="a05cd1242c1514a4a6d1d63aaf282efa8" name="a05cd1242c1514a4a6d1d63aaf282efa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05cd1242c1514a4a6d1d63aaf282efa8">&#9670;&nbsp;</a></span>getType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp; igor::iFactory::getType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -349,7 +429,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p >loads the resource</p>
+<p >loads the resource based on it's parameters</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">resource</td><td>the resource to load </td></tr>
@@ -357,40 +437,6 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if loading the resource was successful </dd></dl>
-
-</div>
-</div>
-<a id="aaaf8abb0023adf16387b0626cbe17359" name="aaaf8abb0023adf16387b0626cbe17359"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaf8abb0023adf16387b0626cbe17359">&#9670;&nbsp;</a></span>matchingType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool igor::iFactory::matchingType </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if resource parameters are supported by this factory</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>the name of the resource </td></tr>
-    <tr><td class="paramname">parameters</td><td>the given resource parameters </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -447,6 +493,53 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a26d75c52e783fbb3ef2a0df88b261c29" name="a26d75c52e783fbb3ef2a0df88b261c29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26d75c52e783fbb3ef2a0df88b261c29">&#9670;&nbsp;</a></span>_supportedExtensions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="classiaux_1_1ia_string.html">iaString</a>&gt; igor::iFactory::_supportedExtensions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >supported file extensions or subtypes </p>
+
+</div>
+</div>
+<a id="abf08da544e4d1f343af8a2772f301551" name="abf08da544e4d1f343af8a2772f301551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf08da544e4d1f343af8a2772f301551">&#9670;&nbsp;</a></span>_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iFactory::_type</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >the factory type </p>
 
 </div>
 </div>

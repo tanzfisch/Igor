@@ -6,15 +6,17 @@
 
 #include <igor/resources/iResourceManager.h>
 
+#include <iaux/system/iaFile.h>
+using namespace iaux;
+
 #include <tinyxml.h>
 
 namespace igor
 {
 
-    const iaString &iAnimationFactory::getType() const
+    iAnimationFactory::iAnimationFactory()
+    : iFactory(IGOR_RESOURCE_ANIMATION, IGOR_SUPPORTED_ANIMATION_EXTENSIONS)
     {
-        const static iaString typeName(L"animation");
-        return typeName;
     }
 
     iResourcePtr iAnimationFactory::createResource(const iParameters &parameters)
@@ -65,8 +67,13 @@ namespace igor
             return true;
         }
 
-        const iaString filename = iResourceManager::getInstance().getPath(resource->getName());
-        return loadAnimation(filename, animation);
+        iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }        
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        return loadAnimation(fullFilepath, animation);
     }
 
     iaKeyFrameGraphui iAnimationFactory::readIndexAnimation(TiXmlElement *animationElement)
@@ -190,16 +197,6 @@ namespace igor
     iaString iAnimationFactory::getHashData(const iParameters &parameters) const
     {
         return "";
-    }
-
-    bool iAnimationFactory::matchingType(const iParameters &parameters) const
-    {
-        if (parameters.getParameter<iaString>("type") == getType())
-        {
-            return true;
-        }
-
-        return false;
     }
 
 }; // namespace igor

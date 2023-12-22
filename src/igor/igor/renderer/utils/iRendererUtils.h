@@ -210,6 +210,12 @@ namespace igor
         */
         static uint32 convertType(iStencilOperation type);
 
+        /*! \returns texture sampler name for given texture unit
+        
+        \param texUnit the given texture unit
+        */
+        static iaString getTextureSamplerName(uint32 texUnit);
+
     };
 
 }

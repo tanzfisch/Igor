@@ -174,8 +174,7 @@ namespace igor
         DecrementWrap,
         Invert,
         Invalid,
-        PositionOrientation, // this one does not map to ogl
-        Position             //! \todo not implemented
+        PositionOrientationInstancing
     };
 
     /*! prints given render state value in a stream

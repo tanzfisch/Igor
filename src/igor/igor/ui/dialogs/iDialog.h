@@ -34,18 +34,17 @@
 namespace igor
 {
 
-    class iDialog;
-
     /*! dialog pointer definition
-	*/
+     */
+    class iDialog;
     typedef iDialog *iDialogPtr;
 
     /*! dialog close event
-	*/
+     */
     typedef iaDelegate<void, iDialogPtr> iDialogCloseDelegate;
 
     /*! dialog return states
-    */
+     */
     enum class iDialogReturnState
     {
         No = 0,
@@ -55,8 +54,24 @@ namespace igor
         Error = 3
     };
 
+    /*! motion state of dialog
+     */
+    enum class iDialogMotionState
+    {
+        Moving,
+        ResizeLeft,
+        ResizeRight,
+        ResizeTop,
+        ResizeBottom,
+        ResizeLeftTop,
+        ResizeRightTop,
+        ResizeLeftBottom,
+        ResizeRightBottom,
+        Static
+    };
+
     /*! dialog widget
-    */
+     */
     class IGOR_API iDialog : public iWidget
     {
 
@@ -64,20 +79,84 @@ namespace igor
 
     public:
         /*! ctor initializes member variables and registers mouse events
-		*/
+         */
         iDialog(iWidgetType type = iWidgetType::iDialog, const iWidgetPtr parent = nullptr);
 
         /*! dtor unregisters mouse events
-		*/
+         */
         virtual ~iDialog();
 
-        /*! sets horizontal position of dialog and horizontal alignment to absolute
+        /*! enables/disables header
+
+        \param enable if true header will be enabled
+        */
+        void setHeaderEnabled(bool enable);
+
+        /*! \returns true if header is enabled
+         */
+        bool hasHeader() const;
+
+        /*! sets title displayed in header
+
+        \param title the title to set
+        */
+        void setTitle(const iaString &title);
+
+        /*! \returns title of dialog
+         */
+        const iaString &getTitle() const;
+
+        /*! sets wether or not the dialog is resize-able
+
+        \param enable if true dialog is becoming resize-able
+        */
+        void setResizeable(bool enable);
+
+        /*! \returns true if dialog is resize-able
+         */
+        bool isResizeable() const;
+
+        /*! sets wether or not the dialog is dock-able
+
+        \param enable if true dialog is becoming dock-able
+        */
+        void setDockable(bool enable);
+
+        /*! \returns true if dialog is dock-able
+         */
+        bool isDockable() const;
+
+        /*! \returns true if dialog is docked
+
+        This is currently just an alias for hasParent
+         */
+        bool isDocked() const;
+
+        /*! \returns docking parent id
+         */
+        iWidgetID getDockingParent() const;
+
+        /*! sets wether or not the dialog is moveable
+
+        \param enable if true dialog is becoming moveable
+        */
+        void setMoveable(bool enable);
+
+        /*! \returns true if dialog is moveable
+         */
+        bool isMoveable() const;
+
+        /*! sets horizontal position of dialog
+
+        implicitly sets horizontal alignment to absolute
 
         \param x horizontal position
         */
         void setX(int32 x);
 
-        /*! sets vertical position of dialog and vertical alignment to absolute
+        /*! sets vertical position of dialog
+
+        implicitly sets vertical alignment to absolute
 
         \param y vertical position
         */
@@ -87,70 +166,113 @@ namespace igor
 
         implicitly sets alignment to absolute
 
-        \param x horizontal position
-        \param y vertical position
+        \param pos position of dialog
         */
-        void setPos(int32 x, int32 y);
+        void setPos(const iaVector2f &pos);
 
-        /*! set size of border
-
-        \param border border size
-        */
-        void setBorder(int32 border);
-
-        /*! \retruns border size
-        */
-        int32 getBorder();
+        /*! \returns position of dialog
+         */
+        const iaVector2f &getPos() const;
 
         /*! shows the dialog on screen
 
-		\param dialogCloseDelegate the delegate to call after the dialog was closed
-		*/
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate);
+        \param dialogCloseDelegate the delegate to call after the dialog was closed
+        */
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate());
 
         /*! closes the dialog
-		*/
+         */
         virtual void close();
 
         /*! \returns true if dialog is open
-        */
+         */
         bool isOpen() const;
 
-        /*! \returns the return state of this dialog
-        */
+        /*! \returns the return state of this dialog if one was set
+         */
         iDialogReturnState getReturnState() const;
 
         /*! sets the return state of this dialog
+
+        \param returnState the return state to be set
         */
         void setReturnState(iDialogReturnState returnState);
 
+        /*! puts dialog in front of others
+         */
+        void putInFront();        
+
     private:
         /*! if true dialog is open
-        */
+         */
         bool _isOpen = false;
 
         /*! the return state of the this dialog
-        */
+         */
         iDialogReturnState _returnState = iDialogReturnState::Ok;
 
-        /*! horizontal position relative to parent if horizontal alignment is absolute
-        */
-        int32 _offsetX = 0;
+        /*! position relative to parent in axis where alignment is absolute
+         */
+        iaVector2f _offset;
 
-        /*! vertical position relative to parent if horizontal alignment is absolute
-        */
-        int32 _offsetY = 0;
+        /*! if true header is enabled
+         */
+        bool _headerEnabled = true;
 
-        /*! size of border
-        */
-        int32 _border = 1;
+        /*! if true dialog is resize-able
+         */
+        bool _isResizeable = true;
+
+        /*! if true dialog is moveable
+         */
+        bool _isMoveable = true;
+
+        /*! if true dialog is dock-able
+         */
+        bool _isDockable = false;
+
+        /*! true if actually moving (or being dragged)
+         */
+        bool _moving = false;
+
+        /*! saving mouse pos when last time pressed a button
+         */
+        iaVector2f _lastMousePos;
+
+        /*! title of dialog
+         */
+        iaString _title;
+
+        /*! motion state of dialog
+         */
+        iDialogMotionState _motionState = iDialogMotionState::Static;
 
         /*! the delegate to call after the dialog was closed
-		*/
+         */
         iDialogCloseDelegate _dialogCloseDelegate;
 
-        /*! updates size based on it's content
+        /*! handles incoming mouse key down events
+
+        \param event mouse key down event
+        \returns true: if event was consumed and therefore ignored by the parent
         */
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+
+        /*! handles mouse key up events
+
+        \param event the mouse key up event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+
+        /*! handles incoming mouse move events
+
+        \param event mouse move event
+        */
+        void onMouseMove(iEventMouseMove &event) override;
+
+        /*! updates size based on it's content
+         */
         void calcMinSize() override;
 
         /*! updates dialog's alignment
@@ -158,11 +280,23 @@ namespace igor
         \param clientWidth maximum width this widget can align to
         \param clientHeight maximum height this widget can align to
         */
-        void updateAlignment(int32 clientWidth, int32 clientHeight);
+        void updateAlignment(int32 clientWidth, int32 clientHeight) override;
 
-        /*! draws the children
-		*/
-        void draw();
+        /*! \returns motion state based on mouse position
+
+        \param pos the mouse position
+        */
+        iDialogMotionState calcMotionState(const iaVector2f &pos);
+
+        /*! draws the widget
+         */
+        void draw() override;
+
+        /*! updates cursor based on motion state
+
+        \param motionState the given motion state
+        */
+        void updateCursor(iDialogMotionState motionState);
     };
 } // namespace igor
 

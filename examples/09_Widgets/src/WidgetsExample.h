@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGETEXAMPLE__
-#define __WIDGETEXAMPLE__
+#ifndef IGOR_WIDGETEXAMPLE_H
+#define IGOR_WIDGETEXAMPLE_H
 
 #include <igor/igor.h>
 using namespace igor;
@@ -111,4 +111,4 @@ private:
     void onDeinit() override;
 };
 
-#endif // __WIDGETEXAMPLE__
+#endif // IGOR_WIDGETEXAMPLE_H

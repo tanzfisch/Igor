@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.42.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -97,12 +97,12 @@ $(document).ready(function(){initNavTree('classigor_1_1i_task.html',''); initRes
 
 <p><code>#include &lt;iTask.h&gt;</code></p>
 
-<p>Inherited by <a class="el" href="classigor_1_1i_task_flush_resources.html">igor::iTaskFlushResources</a>, <a class="el" href="classigor_1_1i_task_generate_voxels.html">igor::iTaskGenerateVoxels</a>, <a class="el" href="classigor_1_1i_task_prepare_collision.html">igor::iTaskPrepareCollision</a>, <a class="el" href="classigor_1_1i_task_props_on_voxels.html">igor::iTaskPropsOnVoxels</a>, and <a class="el" href="classigor_1_1i_task_voxel_terrain.html">igor::iTaskVoxelTerrain</a>.</p>
+<p>Inherited by <a class="el" href="classigor_1_1i_task_flush_resources.html">igor::iTaskFlushResources</a>, <a class="el" href="classigor_1_1i_task_generate_thumbnails.html">igor::iTaskGenerateThumbnails</a>, <a class="el" href="classigor_1_1i_task_generate_voxels.html">igor::iTaskGenerateVoxels</a>, <a class="el" href="classigor_1_1i_task_prepare_collision.html">igor::iTaskPrepareCollision</a>, <a class="el" href="classigor_1_1i_task_props_on_voxels.html">igor::iTaskPropsOnVoxels</a>, and <a class="el" href="classigor_1_1i_task_voxel_terrain.html">igor::iTaskVoxelTerrain</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad1dba8adf2dc432be3b1523f90d3a8fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#ad1dba8adf2dc432be3b1523f90d3a8fb">iTask</a> (<a class="el" href="namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed">iWindowPtr</a> window=nullptr, <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> priority=<a class="el" href="classigor_1_1i_task.html#ab8f4a3c30b35f372959f49fae55bb966">iTask::DEFAULT_PRIORITY</a>, bool <a class="el" href="classigor_1_1i_task.html#aa91f58d76afdfe4208a64376e3b94419">isRepeating</a>=false, <a class="el" href="namespaceigor.html#af1e94b87bc5ca7ea1317dd46295bea39">iTaskContext</a> taskContext=<a class="el" href="namespaceigor.html#af1e94b87bc5ca7ea1317dd46295bea39a7a1920d61156abc05a60135aefe8bc67">iTaskContext::Default</a>)</td></tr>
-<tr class="separator:ad1dba8adf2dc432be3b1523f90d3a8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac58d4c3ee9368af18c5238de398c642c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#ac58d4c3ee9368af18c5238de398c642c">iTask</a> (<a class="el" href="namespaceigor.html#aceb6e919b1456f47edac6b6788cfe5ed">iWindowPtr</a> window=nullptr, <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> priority=<a class="el" href="classigor_1_1i_task.html#af9808e2708f127c5ab7f8fecb2d80c8d">iTask::TASK_PRIORITY_DEFAULT</a>, bool <a class="el" href="classigor_1_1i_task.html#aa91f58d76afdfe4208a64376e3b94419">isRepeating</a>=false, <a class="el" href="namespaceigor.html#af1e94b87bc5ca7ea1317dd46295bea39">iTaskContext</a> taskContext=<a class="el" href="namespaceigor.html#af1e94b87bc5ca7ea1317dd46295bea39a7a1920d61156abc05a60135aefe8bc67">iTaskContext::Default</a>)</td></tr>
+<tr class="separator:ac58d4c3ee9368af18c5238de398c642c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3955f4b68c831e8599bbcf5862620b23"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#a3955f4b68c831e8599bbcf5862620b23">~iTask</a> ()=default</td></tr>
 <tr class="separator:a3955f4b68c831e8599bbcf5862620b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef6c3f52ecb20ba3a113816396b0e660"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#aef6c3f52ecb20ba3a113816396b0e660">abort</a> ()</td></tr>
@@ -130,12 +130,14 @@ Public Member Functions</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a2155b4972b25b1cfffc2e46fd3189439"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceigor.html#a78c21dec47e6bca7dab776f9d940bb40">iTaskID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#a2155b4972b25b1cfffc2e46fd3189439">INVALID_TASK_ID</a> = 0</td></tr>
 <tr class="separator:a2155b4972b25b1cfffc2e46fd3189439"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bcaa5bf389ebff626c7406cdfd8ee5e"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#a6bcaa5bf389ebff626c7406cdfd8ee5e">MAX_PRIORITY</a> = 0</td></tr>
-<tr class="separator:a6bcaa5bf389ebff626c7406cdfd8ee5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe3b2b80166e2187b1b6bc195eee195f"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#abe3b2b80166e2187b1b6bc195eee195f">HIGH_PRIORITY</a> = 5</td></tr>
-<tr class="separator:abe3b2b80166e2187b1b6bc195eee195f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8f4a3c30b35f372959f49fae55bb966"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#ab8f4a3c30b35f372959f49fae55bb966">DEFAULT_PRIORITY</a> = 10</td></tr>
-<tr class="separator:ab8f4a3c30b35f372959f49fae55bb966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84ffde71746ce8e04b19f1ef09514e59"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#a84ffde71746ce8e04b19f1ef09514e59">TASK_PRIORITY_MAX</a> = 0</td></tr>
+<tr class="separator:a84ffde71746ce8e04b19f1ef09514e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7a0f440bb8f44421bc16b1a737ba764"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#aa7a0f440bb8f44421bc16b1a737ba764">TASK_PRIORITY_HIGH</a> = 5</td></tr>
+<tr class="separator:aa7a0f440bb8f44421bc16b1a737ba764"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9808e2708f127c5ab7f8fecb2d80c8d"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#af9808e2708f127c5ab7f8fecb2d80c8d">TASK_PRIORITY_DEFAULT</a> = 10</td></tr>
+<tr class="separator:af9808e2708f127c5ab7f8fecb2d80c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af54d7ec5a5b892f06d575e584ae09c52"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#af54d7ec5a5b892f06d575e584ae09c52">TASK_PRIORITY_LOW</a> = 20</td></tr>
+<tr class="separator:af54d7ec5a5b892f06d575e584ae09c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -152,8 +154,8 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >need a task to be done in parallel? than derive from this base class </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad1dba8adf2dc432be3b1523f90d3a8fb" name="ad1dba8adf2dc432be3b1523f90d3a8fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1dba8adf2dc432be3b1523f90d3a8fb">&#9670;&nbsp;</a></span>iTask()</h2>
+<a id="ac58d4c3ee9368af18c5238de398c642c" name="ac58d4c3ee9368af18c5238de398c642c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac58d4c3ee9368af18c5238de398c642c">&#9670;&nbsp;</a></span>iTask()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,7 +170,7 @@ Friends</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
-          <td class="paramname"><em>priority</em> = <code><a class="el" href="classigor_1_1i_task.html#ab8f4a3c30b35f372959f49fae55bb966">iTask::DEFAULT_PRIORITY</a></code>, </td>
+          <td class="paramname"><em>priority</em> = <code><a class="el" href="classigor_1_1i_task.html#af9808e2708f127c5ab7f8fecb2d80c8d">iTask::TASK_PRIORITY_DEFAULT</a></code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -253,7 +255,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >aborts the task </p>
 
-<p>Reimplemented in <a class="el" href="classigor_1_1i_task_flush_resources.html#a846e6663b01495b1950493fa8216270c">igor::iTaskFlushResources</a>, and <a class="el" href="classigor_1_1i_task_voxel_terrain.html#a93283fe996f0fb39ad9cf6238b917e1b">igor::iTaskVoxelTerrain</a>.</p>
+<p>Reimplemented in <a class="el" href="classigor_1_1i_task_voxel_terrain.html#a93283fe996f0fb39ad9cf6238b917e1b">igor::iTaskVoxelTerrain</a>, <a class="el" href="classigor_1_1i_task_flush_resources.html#a565e398a0c57117556bef904a8edcbb7">igor::iTaskFlushResources</a>, and <a class="el" href="classigor_1_1i_task_generate_thumbnails.html#acdd13f50d1c6bf987163e8b7028fe1d0">igor::iTaskGenerateThumbnails</a>.</p>
 
 </div>
 </div>
@@ -407,7 +409,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >runs the actual task </p>
 
-<p>Implemented in <a class="el" href="classigor_1_1i_task_generate_voxels.html#ad74ae6fe8e5b5d45411af00e48310135">igor::iTaskGenerateVoxels</a>, <a class="el" href="classigor_1_1i_task_props_on_voxels.html#ad98696eb6449f7dc6311684dde5885d1">igor::iTaskPropsOnVoxels</a>, <a class="el" href="classigor_1_1i_task_flush_resources.html#a97b3a7f484cfee2999ee65900d253f03">igor::iTaskFlushResources</a>, and <a class="el" href="classigor_1_1i_task_voxel_terrain.html#add541f29b8a81f0f7cfd7ca85d80cf79">igor::iTaskVoxelTerrain</a>.</p>
+<p>Implemented in <a class="el" href="classigor_1_1i_task_generate_voxels.html#ad74ae6fe8e5b5d45411af00e48310135">igor::iTaskGenerateVoxels</a>, <a class="el" href="classigor_1_1i_task_props_on_voxels.html#ad98696eb6449f7dc6311684dde5885d1">igor::iTaskPropsOnVoxels</a>, <a class="el" href="classigor_1_1i_task_voxel_terrain.html#add541f29b8a81f0f7cfd7ca85d80cf79">igor::iTaskVoxelTerrain</a>, <a class="el" href="classigor_1_1i_task_flush_resources.html#a2f4bbb79c4824e71dcea6810c0d4719c">igor::iTaskFlushResources</a>, and <a class="el" href="classigor_1_1i_task_generate_thumbnails.html#aa0177c8b1b10bba15064ccc83b7707a9">igor::iTaskGenerateThumbnails</a>.</p>
 
 </div>
 </div>
@@ -518,52 +520,6 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab8f4a3c30b35f372959f49fae55bb966" name="ab8f4a3c30b35f372959f49fae55bb966"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8f4a3c30b35f372959f49fae55bb966">&#9670;&nbsp;</a></span>DEFAULT_PRIORITY</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> igor::iTask::DEFAULT_PRIORITY = 10</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >default priority for a task to run </p>
-
-</div>
-</div>
-<a id="abe3b2b80166e2187b1b6bc195eee195f" name="abe3b2b80166e2187b1b6bc195eee195f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe3b2b80166e2187b1b6bc195eee195f">&#9670;&nbsp;</a></span>HIGH_PRIORITY</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> igor::iTask::HIGH_PRIORITY = 5</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >high priority for a task to run </p>
-
-</div>
-</div>
 <a id="a2155b4972b25b1cfffc2e46fd3189439" name="a2155b4972b25b1cfffc2e46fd3189439"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2155b4972b25b1cfffc2e46fd3189439">&#9670;&nbsp;</a></span>INVALID_TASK_ID</h2>
 
@@ -587,8 +543,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a6bcaa5bf389ebff626c7406cdfd8ee5e" name="a6bcaa5bf389ebff626c7406cdfd8ee5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bcaa5bf389ebff626c7406cdfd8ee5e">&#9670;&nbsp;</a></span>MAX_PRIORITY</h2>
+<a id="af9808e2708f127c5ab7f8fecb2d80c8d" name="af9808e2708f127c5ab7f8fecb2d80c8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9808e2708f127c5ab7f8fecb2d80c8d">&#9670;&nbsp;</a></span>TASK_PRIORITY_DEFAULT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -597,7 +553,76 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> igor::iTask::MAX_PRIORITY = 0</td>
+          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> igor::iTask::TASK_PRIORITY_DEFAULT = 10</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >default priority for a task to run </p>
+
+</div>
+</div>
+<a id="aa7a0f440bb8f44421bc16b1a737ba764" name="aa7a0f440bb8f44421bc16b1a737ba764"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a0f440bb8f44421bc16b1a737ba764">&#9670;&nbsp;</a></span>TASK_PRIORITY_HIGH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> igor::iTask::TASK_PRIORITY_HIGH = 5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >high priority for a task to run </p>
+
+</div>
+</div>
+<a id="af54d7ec5a5b892f06d575e584ae09c52" name="af54d7ec5a5b892f06d575e584ae09c52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af54d7ec5a5b892f06d575e584ae09c52">&#9670;&nbsp;</a></span>TASK_PRIORITY_LOW</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> igor::iTask::TASK_PRIORITY_LOW = 20</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >low priority for a task to run </p>
+
+</div>
+</div>
+<a id="a84ffde71746ce8e04b19f1ef09514e59" name="a84ffde71746ce8e04b19f1ef09514e59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84ffde71746ce8e04b19f1ef09514e59">&#9670;&nbsp;</a></span>TASK_PRIORITY_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> igor::iTask::TASK_PRIORITY_MAX = 0</td>
         </tr>
       </table>
   </td>

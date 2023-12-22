@@ -32,8 +32,7 @@ namespace igor
 
     bool iNodeVisitorPrintTree::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
-        std::vector<iaString> info;
-        node->getInfo(info);
+        std::vector<iaString> info = node->getInfo();
 
         if (info.size() < 2)
         {

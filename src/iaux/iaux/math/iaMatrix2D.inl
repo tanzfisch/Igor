@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-__IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iaMatrix2D<T> &m)
+IGOR_INLINE std::wostream &operator<<(std::wostream &ostr, const iaMatrix2D<T> &m)
 {
 	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(8) << m._m[0] << " " << std::right << std::setprecision(2) << std::setw(8) << m._m[3] << " " << std::right << std::setprecision(2) << std::setw(8) << m._m[6] << "|" << std::endl;
 	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(8) << m._m[1] << " " << std::right << std::setprecision(2) << std::setw(8) << m._m[4] << " " << std::right << std::setprecision(2) << std::setw(8) << m._m[6] << "|" << std::endl;
@@ -12,13 +12,13 @@ __IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iaMatrix2D<
 }
 
 template <class T>
-__IGOR_INLINE__ T &iaMatrix2D<T>::operator[](const int i)
+IGOR_INLINE T &iaMatrix2D<T>::operator[](const int i)
 {
 	return _m[i];
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::operator+=(iaMatrix2D<T> &m)
+IGOR_INLINE void iaMatrix2D<T>::operator+=(iaMatrix2D<T> &m)
 {
 	for (long x = 0; x < 9; x++)
 	{
@@ -27,7 +27,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::operator+=(iaMatrix2D<T> &m)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::operator-=(iaMatrix2D<T> &m)
+IGOR_INLINE void iaMatrix2D<T>::operator-=(iaMatrix2D<T> &m)
 {
 	for (long x = 0; x < 9; x++)
 	{
@@ -36,7 +36,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::operator-=(iaMatrix2D<T> &m)
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaMatrix2D<T>::operator==(const iaMatrix2D<T> &m) const
+IGOR_INLINE bool iaMatrix2D<T>::operator==(const iaMatrix2D<T> &m) const
 {
 	for (long x = 0; x < 9; x++)
 	{
@@ -50,7 +50,7 @@ __IGOR_INLINE__ bool iaMatrix2D<T>::operator==(const iaMatrix2D<T> &m) const
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaMatrix2D<T>::operator!=(const iaMatrix2D<T> &m) const
+IGOR_INLINE bool iaMatrix2D<T>::operator!=(const iaMatrix2D<T> &m) const
 {
 	for (long x = 0; x < 9; x++)
 	{
@@ -64,7 +64,7 @@ __IGOR_INLINE__ bool iaMatrix2D<T>::operator!=(const iaMatrix2D<T> &m) const
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector2<T> iaMatrix2D<T>::operator*(iaVector2<T> &v)
+IGOR_INLINE iaVector2<T> iaMatrix2D<T>::operator*(iaVector2<T> &v)
 {
 	iaVector2<T> result;
 	result._x = _m[0] * v._x + _m[3] * v._y + _m[6];
@@ -74,7 +74,7 @@ __IGOR_INLINE__ iaVector2<T> iaMatrix2D<T>::operator*(iaVector2<T> &v)
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaMatrix2D<T>::operator*(iaVector3<T> &a)
+IGOR_INLINE iaVector3<T> iaMatrix2D<T>::operator*(iaVector3<T> &a)
 {
 	iaVector3<T> result;
 
@@ -86,7 +86,7 @@ __IGOR_INLINE__ iaVector3<T> iaMatrix2D<T>::operator*(iaVector3<T> &a)
 }
 
 template <class T>
-__IGOR_INLINE__ iaMatrix2D<T> iaMatrix2D<T>::operator*(iaMatrix2D<T> &m)
+IGOR_INLINE iaMatrix2D<T> iaMatrix2D<T>::operator*(iaMatrix2D<T> &m)
 {
 	iaMatrix2D<T> matrix;
 
@@ -106,7 +106,7 @@ __IGOR_INLINE__ iaMatrix2D<T> iaMatrix2D<T>::operator*(iaMatrix2D<T> &m)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::operator*=(iaMatrix2D<T> &m)
+IGOR_INLINE void iaMatrix2D<T>::operator*=(iaMatrix2D<T> &m)
 {
 	iaMatrix2D<T> matrix;
 
@@ -126,32 +126,18 @@ __IGOR_INLINE__ void iaMatrix2D<T>::operator*=(iaMatrix2D<T> &m)
 }
 
 template <class T>
-__IGOR_INLINE__ iaMatrix2D<T>::iaMatrix2D()
+IGOR_INLINE iaMatrix2D<T>::iaMatrix2D()
 {
 	identity();
 }
 
-/*!
-\todo replace with memcpy. test first what is fastest
-*/
 template <class T>
-__IGOR_INLINE__ iaMatrix2D<T>::iaMatrix2D(const T data[9])
-{
-	const T *localData = getData();
-
-	for (int i = 0; i < 9; i++)
-	{
-		localData[i] = data[i];
-	}
-}
-
-template <class T>
-__IGOR_INLINE__ iaMatrix2D<T>::~iaMatrix2D()
+IGOR_INLINE iaMatrix2D<T>::~iaMatrix2D()
 {
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::transpose()
+IGOR_INLINE void iaMatrix2D<T>::transpose()
 {
 	T temp;
 
@@ -167,7 +153,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::transpose()
 }
 
 template <class T>
-__IGOR_INLINE__ T iaMatrix2D<T>::determinant()
+IGOR_INLINE T iaMatrix2D<T>::determinant()
 {
 
 	T a;
@@ -181,19 +167,19 @@ __IGOR_INLINE__ T iaMatrix2D<T>::determinant()
 }
 
 template <class T>
-__IGOR_INLINE__ const T *iaMatrix2D<T>::getData() const
+IGOR_INLINE const T *iaMatrix2D<T>::getData() const
 {
 	return (T *)this;
 }
 
 template <class T>
-__IGOR_INLINE__ T *iaMatrix2D<T>::getData()
+IGOR_INLINE T *iaMatrix2D<T>::getData()
 {
 	return (T *)this;
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::setData(T *data)
+IGOR_INLINE void iaMatrix2D<T>::setData(T *data)
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -202,7 +188,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::setData(T *data)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::identity()
+IGOR_INLINE void iaMatrix2D<T>::identity()
 {
 	_m[0] = static_cast<T>(1);
 	_m[3] = static_cast<T>(0);
@@ -216,7 +202,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::identity()
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::scale(iaVector2<T> &s)
+IGOR_INLINE void iaMatrix2D<T>::scale(iaVector2<T> &s)
 {
 	iaMatrix2D<T> scaleMatrix;
 
@@ -227,7 +213,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::scale(iaVector2<T> &s)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::scale(T x, T y)
+IGOR_INLINE void iaMatrix2D<T>::scale(T x, T y)
 {
 	iaMatrix2D<T> scaleMatrix;
 
@@ -238,7 +224,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::scale(T x, T y)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::rotate(T angle)
+IGOR_INLINE void iaMatrix2D<T>::rotate(T angle)
 {
 	iaMatrix2D<T> rotation;
 
@@ -269,7 +255,7 @@ iaMatrix2D<T2> iaMatrix2D<T>::convert()
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::translate(T x, T y)
+IGOR_INLINE void iaMatrix2D<T>::translate(T x, T y)
 {
 	iaMatrix2D<T> translation;
 	translation._m[6] = x;
@@ -279,7 +265,7 @@ __IGOR_INLINE__ void iaMatrix2D<T>::translate(T x, T y)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix2D<T>::translate(const iaVector2<T> &v)
+IGOR_INLINE void iaMatrix2D<T>::translate(const iaVector2<T> &v)
 {
 	iaMatrix2D<T> translation;
 	translation._m[6] = v._x;

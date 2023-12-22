@@ -47,10 +47,10 @@ void Particles::onInit()
     cameraTranslation->insertNode(camera);
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // set up a meterial for the particles
-    _particlesMaterial = iMaterialResourceFactory::getInstance().loadMaterial("igor/materials/particles.mat");
+    _particlesMaterial = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_particles");
 
     // create the various particle systems
     createWaveParticleSystem();
@@ -91,7 +91,7 @@ void Particles::createWaveParticleSystem()
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
-    particleSystem->setTextureA("particleKreuzHerzPikKaro.png");
+    particleSystem->setTextureA("example_texture_particleKreuzHerzPikKaro");
     particleSystem->setMaxParticleCount(300);
     particleSystem->setTextureTiling(2, 2);
     particleSystem->setColorGradient(colorGradient);
@@ -162,7 +162,7 @@ void Particles::createFireParticleSystem()
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
-    particleSystem->setTextureA("particleFire.png");
+    particleSystem->setTextureA("example_texture_particleFire");
     particleSystem->setTileIncrement(0.8);
     particleSystem->setMaxParticleCount(200);
     particleSystem->setTextureTiling(4, 4);
@@ -219,7 +219,7 @@ void Particles::createFontainParticleSystem()
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
-    particleSystem->setTextureA("particleTrail.png");
+    particleSystem->setTextureA("example_texture_particleTrail");
     particleSystem->setMaxParticleCount(800);
     particleSystem->setColorGradient(colors);
     particleSystem->setEmissionGradient(emission);
@@ -272,8 +272,8 @@ void Particles::createRingParticleSystem()
     _particleSystemIDs.push_back(circleParticleSystem->getID());
     circleParticleSystem->setMaxParticleCount(500);
     circleParticleSystem->setMaterial(_particlesMaterial);
-    circleParticleSystem->setTextureA("particleGem.png");
-    circleParticleSystem->setTextureB("octave1.png");
+    circleParticleSystem->setTextureA("example_texture_particleGem");
+    circleParticleSystem->setTextureB("example_texture_octave_1");
     circleParticleSystem->setColorGradient(ringColors);
     circleParticleSystem->setEmissionGradient(emission);
     circleParticleSystem->setStartAgeGradient(maxAge);
@@ -328,9 +328,9 @@ void Particles::createSmokeParticleSystem()
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
-    particleSystem->setTextureA("particleDot.png");
-    particleSystem->setTextureB("octave1.png");
-    particleSystem->setTextureC("octave2.png");
+    particleSystem->setTextureA("example_texture_particle_dot");
+    particleSystem->setTextureB("example_texture_octave_1");
+    particleSystem->setTextureC("example_texture_octave_2");
     particleSystem->setMaxParticleCount(500);
     particleSystem->setVortexTorque(0.5f, 0.7f);
     particleSystem->setStartOrientationGradient(startOrientation);
@@ -382,7 +382,7 @@ void Particles::createDotParticleSystem()
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
-    particleSystem->setTextureA("particleTrail.png");
+    particleSystem->setTextureA("example_texture_particleTrail");
     particleSystem->setMaxParticleCount(500);
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
@@ -424,9 +424,9 @@ void Particles::createDotParticleSystem()
     iNodeParticleSystem *particleSystem2 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem2->getID());
     particleSystem2->setMaterial(_particlesMaterial);
-    particleSystem2->setTextureA("particleFlame.png");
-    particleSystem2->setTextureB("octave1.png");
-    particleSystem2->setTextureC("octave2.png");
+    particleSystem2->setTextureA("example_texture_particleFlame");
+    particleSystem2->setTextureB("example_texture_octave_1");
+    particleSystem2->setTextureC("example_texture_octave_2");
     particleSystem->setMaxParticleCount(500);
     particleSystem2->setColorGradient(colorGradient2);
     particleSystem2->setStartVelocityGradient(velocity2);

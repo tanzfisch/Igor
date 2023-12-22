@@ -22,7 +22,7 @@ namespace igor
     {
         if (_timerHandles.size())
         {
-            con_warn("possible mem leak. Unregister all timer handles");
+            con_warn("possible memory leak. Unregister all timer handles");
         }
     }
 
@@ -98,12 +98,14 @@ namespace igor
 
     float64 iTimer::getAverageFPS() const
     {
-        return 1.0 / getAverageTimeDelta().getSeconds();
+        const float64 seconds = getAverageTimeDelta().getSeconds();
+        return seconds != 0.0 ? 1.0 / seconds : 0.0;
     }
 
     float64 iTimer::getFPS() const
     {
-        return 1.0 / _timeDeltas[_timeDeltaIndex].getSeconds();
+        const float64 seconds = _timeDeltas[_timeDeltaIndex].getSeconds();
+        return seconds != 0.0 ? 1.0 / seconds : 0.0;
     }
 
     void iTimer::onUpdate()

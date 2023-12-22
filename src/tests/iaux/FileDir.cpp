@@ -7,14 +7,11 @@ using namespace iaux;
 
 IAUX_TEST(FileDirTests, Initial)
 {
-    iaFile file("");
     iaDirectory dir("");
-
-    IAUX_EXPECT_EQUAL(file.getFullFileName().isEmpty(), true);
     IAUX_EXPECT_EQUAL(dir.getFullDirectoryName().isEmpty(), true);
 }
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 IAUX_TEST(FileDirTests, FixPathLinux)
 {
     IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"/foo/bar", false), "/foo/bar");

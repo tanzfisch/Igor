@@ -95,6 +95,7 @@ var hierarchy =
     [ "igor::iContouringCubes", "classigor_1_1i_contouring_cubes.html", null ],
     [ "igor::iConvexCastReturnInfo", "structigor_1_1i_convex_cast_return_info.html", null ],
     [ "igor::iDeleteComponent", "structigor_1_1i_delete_component.html", null ],
+    [ "igor::iDrag", "classigor_1_1i_drag.html", null ],
     [ "igor::iEmitterTriangle", "classigor_1_1i_emitter_triangle.html", null ],
     [ "igor::iEntity", "classigor_1_1i_entity.html", null ],
     [ "igor::iEntityRenderSystem", "classigor_1_1i_entity_render_system.html", [
@@ -126,6 +127,7 @@ var hierarchy =
     ] ],
     [ "igor::iFactory", "classigor_1_1i_factory.html", [
       [ "igor::iAnimationFactory", "classigor_1_1i_animation_factory.html", null ],
+      [ "igor::iMaterialFactory", "classigor_1_1i_material_factory.html", null ],
       [ "igor::iModelFactory", "classigor_1_1i_model_factory.html", null ],
       [ "igor::iSoundFactory", "classigor_1_1i_sound_factory.html", null ],
       [ "igor::iSpriteFactory", "classigor_1_1i_sprite_factory.html", null ],
@@ -142,6 +144,8 @@ var hierarchy =
     [ "igor::iInstancingBuffer", "classigor_1_1i_instancing_buffer.html", null ],
     [ "igor::iInstancingBufferDeleter", "classigor_1_1i_instancing_buffer_deleter.html", null ],
     [ "igor::iIntersection", "classigor_1_1i_intersection.html", null ],
+    [ "igor::iItem", "classigor_1_1i_item.html", null ],
+    [ "igor::iItemData", "classigor_1_1i_item_data.html", null ],
     [ "igor::iJoint", "classigor_1_1i_joint.html", null ],
     [ "igor::iKeyboardImpl", "classigor_1_1i_keyboard_impl.html", null ],
     [ "igor::iLayer", "classigor_1_1i_layer.html", [
@@ -150,13 +154,12 @@ var hierarchy =
     ] ],
     [ "igor::iLayerStack", "classigor_1_1i_layer_stack.html", null ],
     [ "igor::iLSystem", "classigor_1_1i_l_system.html", null ],
-    [ "igor::iMaterial", "classigor_1_1i_material.html", null ],
-    [ "igor::iMaterialDeleter", "classigor_1_1i_material_deleter.html", null ],
     [ "igor::iMaterialIO", "classigor_1_1i_material_i_o.html", null ],
     [ "igor::iMesh", "classigor_1_1i_mesh.html", null ],
     [ "igor::iMeshBuffers", "classigor_1_1i_mesh_buffers.html", null ],
     [ "igor::iMeshBuilder", "classigor_1_1i_mesh_builder.html", null ],
     [ "igor::iMeshDeleter", "classigor_1_1i_mesh_deleter.html", null ],
+    [ "igor::iMimeData", "classigor_1_1i_mime_data.html", null ],
     [ "igor::iModelDataIO", "classigor_1_1i_model_data_i_o.html", [
       [ "igor::iModelDataIOOBJ", "classigor_1_1i_model_data_i_o_o_b_j.html", null ],
       [ "igor::iModelDataIOOMPF", "classigor_1_1i_model_data_i_o_o_m_p_f.html", null ],
@@ -181,9 +184,6 @@ var hierarchy =
     ] ],
     [ "igor::iModule< iKeyboard >", "classigor_1_1i_module.html", [
       [ "igor::iKeyboard", "classigor_1_1i_keyboard.html", null ]
-    ] ],
-    [ "igor::iModule< iMaterialResourceFactory >", "classigor_1_1i_module.html", [
-      [ "igor::iMaterialResourceFactory", "classigor_1_1i_material_resource_factory.html", null ]
     ] ],
     [ "igor::iModule< iMouse >", "classigor_1_1i_module.html", [
       [ "igor::iMouse", "classigor_1_1i_mouse.html", null ]
@@ -269,6 +269,7 @@ var hierarchy =
     [ "igor::iProfilerSectionData", "structigor_1_1i_profiler_section_data.html", null ],
     [ "igor::iProfilerSectionScoped", "structigor_1_1i_profiler_section_scoped.html", null ],
     [ "igor::iProfilerVisualizer", "classigor_1_1i_profiler_visualizer.html", null ],
+    [ "igor::iProject", "classigor_1_1i_project.html", null ],
     [ "igor::iQuadtree< F >", "classigor_1_1i_quadtree.html", null ],
     [ "igor::iQuadtree< F >::iQuadtreeNode", "structigor_1_1i_quadtree_1_1i_quadtree_node.html", null ],
     [ "igor::iQuadtree< F >::iQuadtreeObject", "structigor_1_1i_quadtree_1_1i_quadtree_object.html", null ],
@@ -293,11 +294,13 @@ var hierarchy =
     [ "igor::iRenderStateSet", "classigor_1_1i_render_state_set.html", null ],
     [ "igor::iResource", "classigor_1_1i_resource.html", [
       [ "igor::iAnimation", "classigor_1_1i_animation.html", null ],
+      [ "igor::iMaterial", "classigor_1_1i_material.html", null ],
       [ "igor::iModel", "classigor_1_1i_model.html", null ],
       [ "igor::iSound", "classigor_1_1i_sound.html", null ],
       [ "igor::iSprite", "classigor_1_1i_sprite.html", null ],
       [ "igor::iTexture", "classigor_1_1i_texture.html", null ]
     ] ],
+    [ "igor::iResourceDictionary", "classigor_1_1i_resource_dictionary.html", null ],
     [ "igor::iScene", "classigor_1_1i_scene.html", null ],
     [ "igor::iShaderProgram", "classigor_1_1i_shader_program.html", null ],
     [ "igor::iShaderSource", "structigor_1_1i_shader_source.html", null ],
@@ -308,6 +311,7 @@ var hierarchy =
     [ "igor::iTargetMaterialDeleter", "classigor_1_1i_target_material_deleter.html", null ],
     [ "igor::iTask", "classigor_1_1i_task.html", [
       [ "igor::iTaskFlushResources", "classigor_1_1i_task_flush_resources.html", null ],
+      [ "igor::iTaskGenerateThumbnails", "classigor_1_1i_task_generate_thumbnails.html", null ],
       [ "igor::iTaskGenerateVoxels", "classigor_1_1i_task_generate_voxels.html", null ],
       [ "igor::iTaskPrepareCollision", "classigor_1_1i_task_prepare_collision.html", null ],
       [ "igor::iTaskPropsOnVoxels", "classigor_1_1i_task_props_on_voxels.html", null ],
@@ -315,6 +319,7 @@ var hierarchy =
     ] ],
     [ "igor::iTexturedVertex", "structigor_1_1i_textured_vertex.html", null ],
     [ "igor::iTextureFont", "classigor_1_1i_texture_font.html", null ],
+    [ "igor::iThumbnailCache", "classigor_1_1i_thumbnail_cache.html", null ],
     [ "igor::iTimerHandle", "classigor_1_1i_timer_handle.html", null ],
     [ "igor::iTransformComponent", "structigor_1_1i_transform_component.html", null ],
     [ "igor::iVelocityComponent", "structigor_1_1i_velocity_component.html", null ],
@@ -346,16 +351,20 @@ var hierarchy =
         [ "igor::iDialogMessageBox", "classigor_1_1i_dialog_message_box.html", null ]
       ] ],
       [ "igor::iUserControl", "classigor_1_1i_user_control.html", [
-        [ "igor::iUserControlAction", "classigor_1_1i_user_control_action.html", null ],
         [ "igor::iUserControlColorChooser", "classigor_1_1i_user_control_color_chooser.html", null ],
-        [ "igor::iUserControlFileChooser", "classigor_1_1i_user_control_file_chooser.html", null ]
+        [ "igor::iUserControlFileChooser", "classigor_1_1i_user_control_file_chooser.html", null ],
+        [ "igor::iUserControlTextureChooser", "classigor_1_1i_user_control_texture_chooser.html", null ],
+        [ "igor::iUserControlTreeView", "classigor_1_1i_user_control_tree_view.html", null ]
       ] ],
+      [ "igor::iWidgetBoxLayout", "classigor_1_1i_widget_box_layout.html", null ],
       [ "igor::iWidgetButton", "classigor_1_1i_widget_button.html", null ],
       [ "igor::iWidgetCheckBox", "classigor_1_1i_widget_check_box.html", null ],
       [ "igor::iWidgetColor", "classigor_1_1i_widget_color.html", null ],
       [ "igor::iWidgetColorGradient", "classigor_1_1i_widget_color_gradient.html", null ],
+      [ "igor::iWidgetDockingLayout", "classigor_1_1i_widget_docking_layout.html", null ],
+      [ "igor::iWidgetFixedGridLayout", "classigor_1_1i_widget_fixed_grid_layout.html", null ],
       [ "igor::iWidgetGraph", "classigor_1_1i_widget_graph.html", null ],
-      [ "igor::iWidgetGrid", "classigor_1_1i_widget_grid.html", null ],
+      [ "igor::iWidgetGridLayout", "classigor_1_1i_widget_grid_layout.html", null ],
       [ "igor::iWidgetGroupBox", "classigor_1_1i_widget_group_box.html", null ],
       [ "igor::iWidgetLabel", "classigor_1_1i_widget_label.html", null ],
       [ "igor::iWidgetLineTextEdit", "classigor_1_1i_widget_line_text_edit.html", null ],
@@ -367,7 +376,9 @@ var hierarchy =
       [ "igor::iWidgetSelectBox", "classigor_1_1i_widget_select_box.html", null ],
       [ "igor::iWidgetSlider", "classigor_1_1i_widget_slider.html", null ],
       [ "igor::iWidgetSpacer", "classigor_1_1i_widget_spacer.html", null ],
-      [ "igor::iWidgetTextEdit", "classigor_1_1i_widget_text_edit.html", null ]
+      [ "igor::iWidgetSplitter", "classigor_1_1i_widget_splitter.html", null ],
+      [ "igor::iWidgetTextEdit", "classigor_1_1i_widget_text_edit.html", null ],
+      [ "igor::iWidgetViewport", "classigor_1_1i_widget_viewport.html", null ]
     ] ],
     [ "igor::iWidgetTheme", "classigor_1_1i_widget_theme.html", [
       [ "igor::iWidgetDefaultTheme", "classigor_1_1i_widget_default_theme.html", null ]

@@ -1,5 +1,5 @@
-#ifndef __TILEMAPGENERATOR__
-#define __TILEMAPGENERATOR__
+#ifndef IGOR_TILE_MAP_GENERATOR_H
+#define IGOR_TILE_MAP_GENERATOR_H
 
 #include <igor/igor.h>
 using namespace igor;
@@ -86,4 +86,4 @@ private:
 	iMeshPtr generateMesh(uint32 from, uint32 to, const iaVector2i &pos, const iaVector2i &size);
 };
 
-#endif
+#endif // IGOR_TILE_MAP_GENERATOR_H

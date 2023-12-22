@@ -109,10 +109,18 @@ namespace igor
         */
         void unregisterOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate);
 
+        /*! \returns selected color index
+         */
+        int32 getSelectedIndex() const;
+
     private:
         /*! color gradient
          */
         iaKeyFrameGraphColor4f _gradient;
+
+        /*! selected color index
+         */
+        int32 _selectedColorIndex = -1;
 
         /*! flag if alpha is displayed
          */
@@ -132,10 +140,17 @@ namespace igor
 
         /*! handles incoming mouse key down events
 
-        \param key the key that was pressed
+        \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key);
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+
+        /*! handles mouse key up events
+
+        \param event the mouse key up event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! updates size based on it's content
          */
@@ -143,8 +158,12 @@ namespace igor
 
         /*! draws the widget
          */
-        void draw();
+        void draw() override;
     };
+
+    /*! color gradient widget pointer definition
+     */
+    typedef iWidgetColorGradient *iWidgetColorGradientPtr;
 
 } // namespace igor
 

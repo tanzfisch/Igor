@@ -105,10 +105,6 @@ namespace igor
         */
         void bind(uint32 textureUnit);
 
-        /*! \returns texture id
-         */
-        uint32 getTextureID() const;
-
         /*! calculates mip map levels
 
         \param width the width of the texture

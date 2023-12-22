@@ -8,7 +8,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 
 #include <iaux/system/iaConsole.h>
@@ -23,13 +23,17 @@ namespace igor
 
 	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
 	{
+        setHorizontalAlignment(iHorizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
+		setResizeable(false);
+
 		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
-		setWidth(20);
-		setHeight(20);
+		setMinWidth(20);
+		setMinHeight(20);
 
-		iWidgetGridPtr grid = new iWidgetGrid(this);
+		iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
 		grid->appendRows(2);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 		grid->setVerticalAlignment(iVerticalAlignment::Center);
@@ -43,7 +47,7 @@ namespace igor
 
 		grid->addWidget(new iWidgetSpacer(280, 1, true), 0, 1);
 
-		iWidgetGridPtr buttonGrid = new iWidgetGrid();
+		iWidgetGridLayoutPtr buttonGrid = new iWidgetGridLayout();
 		buttonGrid->appendColumns(3);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
@@ -93,7 +97,7 @@ namespace igor
 		open(message, buttons);
 	}
 
-	__IGOR_DISABLE_WARNING__(4100)
+	IGOR_DISABLE_WARNING(4100)
 	void iDialogMessageBox::onOK(const iWidgetPtr source)
 	{
 		setReturnState(iDialogReturnState::Ok);
@@ -117,6 +121,6 @@ namespace igor
 		setReturnState(iDialogReturnState::No);
 		close();
 	}
-	__IGOR_ENABLE_WARNING__(4100);
+	IGOR_ENABLE_WARNING(4100);
 
 } // namespace igor

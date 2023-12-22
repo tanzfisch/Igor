@@ -17,9 +17,15 @@ namespace igor
 		return _name;
 	}
 
-	void iAction::setDescription(const iaString &description)
+	void iAction::setDescription(const iaString &brief, const iaString &description)
 	{
 		_description = description;
+		_brief = brief;
+	}
+
+	const iaString &iAction::getBrief() const
+	{
+		return _brief;
 	}
 
 	const iaString &iAction::getDescription() const
@@ -27,14 +33,14 @@ namespace igor
 		return _description;
 	}
 
-	void iAction::setPicturePath(const iaString &filename)
+	void iAction::setIcon(const iaString &alias)
 	{
-		_picture = filename;
+		_alias = alias;
 	}
 
-	const iaString &iAction::getPicturePath() const
+	const iaString &iAction::getIcon() const
 	{
-		return _picture;
+		return _alias;
 	}
 
 } // namespace igor

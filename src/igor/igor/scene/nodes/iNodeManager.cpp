@@ -37,18 +37,13 @@ namespace igor
 
         if (_nodes.size())
         {
-            con_warn("possible mem leak. nodes left: " << static_cast<int>(_nodes.size()));
+            con_warn("possible memory leak. nodes left: " << static_cast<int>(_nodes.size()));
 
             for (auto pair : _nodes)
             {
-                std::vector<iaString> info;
-                pair.second->getInfo(info);
-                bool first = true;
-                for (const auto &entry : info)
-                {
-                    con_debug((first ? "+-- " : "    ") << entry);
-                    first = false;
-                }
+                // info must return at least one line
+                std::vector<iaString> info = pair.second->getInfo(true);
+                con_debug(info[0]);
             }
         }
     }

@@ -48,8 +48,8 @@ void LSystems::onInit()
 	// and than we add the camera to the translation
 	cameraTranslation->insertNode(camera);
 	// and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
-	// scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-	getView().setCurrentCamera(camera->getID());
+	// scene associated with the view which we achieved by adding all those nodes on to an other starting with the root node
+	getView().setCamera(camera->getID());
 
 	// create a directional light
 	// transform node
@@ -170,17 +170,18 @@ void LSystems::initStyle3()
 
 uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, uint32 iterations, uint64 seed)
 {
-	iParameters parameters({{"name", iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++)},
-							{"type", iaString("model")},
-							{"cacheMode", iResourceCacheMode::Free},
-							{"subType", iaString("pmg")},
-							{"quiet", true},
+	iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++)},
+							{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+							{IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
+							{IGOR_RESOURCE_PARAM_SUB_TYPE, "pmg"},
+							{IGOR_RESOURCE_PARAM_GENERATE, true},
+							{IGOR_RESOURCE_PARAM_QUIET, true},
 							{"lsystem", &_lSystem},
-							{"material", iMaterialResourceFactory::getInstance().getDefaultMaterial()},
-							{"joinVertices", true},
+							{IGOR_RESOURCE_PARAM_MATERIAL, iRenderer::getInstance().getDefaultMaterial()},
+							{IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
 							{"axiom", axiom},
 							{"iterations", iterations},
-							{"seed", seed},
+							{IGOR_RESOURCE_PARAM_SEED, seed},
 							{"segmentLength", _segmentLength},
 							{"segmentAngle", _angle},
 							{"trunkColor", _trunkColor},

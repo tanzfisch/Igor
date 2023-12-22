@@ -5,7 +5,7 @@
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
@@ -49,7 +49,7 @@ namespace igor
         return _preselectedPath;
     }
 
-    __IGOR_DISABLE_WARNING__(4100)
+    IGOR_DISABLE_WARNING(4100)
     void iUserControlFileChooser::onTextChanged(const iWidgetPtr source)
     {
         _fileNameChanged(_fileNameTextEdit);
@@ -84,11 +84,11 @@ namespace igor
             }
         }
     }
-    __IGOR_ENABLE_WARNING__(4100)
+    IGOR_ENABLE_WARNING(4100)
 
     void iUserControlFileChooser::initGUI()
     {
-        iWidgetGridPtr grid = new iWidgetGrid(this);
+        iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->appendColumns(1);
         grid->setStretchColumn(0);
         grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -96,7 +96,7 @@ namespace igor
 
         _fileNameTextEdit = new iWidgetLineTextEdit();
         _fileNameTextEdit->setMaxTextLength(256);
-        _fileNameTextEdit->setWidth(180); // todo why does strech not work here?
+        _fileNameTextEdit->setMinWidth(180); // todo why does strech not work here?
         _fileNameTextEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileNameTextEdit->registerOnChangeEvent(iChangeDelegate(this, &iUserControlFileChooser::onTextChanged));
 

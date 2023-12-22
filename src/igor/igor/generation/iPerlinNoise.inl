@@ -3,12 +3,12 @@
 // see copyright notice in corresponding header file
 
 
-__IGOR_INLINE__ float64 iPerlinNoise::lerp(float64 a, float64 b, float64 x)
+IGOR_INLINE float64 iPerlinNoise::lerp(float64 a, float64 b, float64 x)
 {
     return a + x * (b - a);
 }
 
-__IGOR_INLINE__ int64 iPerlinNoise::inc(int64 num)
+IGOR_INLINE int64 iPerlinNoise::inc(int64 num)
 {
     num++;
     num %= iPerlinNoise::RANDOM_NUMBERS_COUNT;
@@ -16,7 +16,7 @@ __IGOR_INLINE__ int64 iPerlinNoise::inc(int64 num)
     return num;
 }
 
-__IGOR_INLINE__ float64 iPerlinNoise::fade(float64 t)
+IGOR_INLINE float64 iPerlinNoise::fade(float64 t)
 {
     // Fade function as defined by Ken Perlin.  This eases coordinate values
     // so that they will ease towards integral values.  This ends up smoothing
@@ -24,7 +24,7 @@ __IGOR_INLINE__ float64 iPerlinNoise::fade(float64 t)
     return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);         // 6t^5 - 15t^4 + 10t^3
 }
 
-__IGOR_INLINE__ float64 iPerlinNoise::grad(int64 hash, float64 x, float64 y, float64 z)
+IGOR_INLINE float64 iPerlinNoise::grad(int64 hash, float64 x, float64 y, float64 z)
 {
     int64 hashValue = hash & 0xF;
 

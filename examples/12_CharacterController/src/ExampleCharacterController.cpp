@@ -22,7 +22,7 @@ void ExampleCharacterController::createBox(const iaVector3d &pos)
     transformNode->translate(pos);
 
     iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
-    crate->setModel("cube.ompf");
+    crate->setModel("example_model_cube");
     transformNode->insertNode(crate);
     transformNode->insertNode(physicsBox);
 
@@ -65,11 +65,11 @@ void ExampleCharacterController::onInit()
     // bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
     // load level
-    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>("level.ompf");   
+    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>("example_model_level");
 
     // put it in scene
     iNodeModel *levelModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    levelModel->setModel(level); // "level.ompf", iResourceCacheMode::Keep, param);
+    levelModel->setModel(level);
 
     levelModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
     iNodeTransform *levelTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -92,7 +92,7 @@ void ExampleCharacterController::onInit()
     _characterController->getHeadTransform()->insertNode(camera);
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene associated with the view which we achieved by adding all those nodes on to an other starting with the root node
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     // setup gun
     iNodeTransform *gunTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -100,16 +100,16 @@ void ExampleCharacterController::onInit()
     gunTransform->rotate(M_PI, iaAxis::Y);
     gunTransform->scale(0.04, 0.04, 0.04);
     iNodeModel *gun = iNodeManager::getInstance().createNode<iNodeModel>();
-    gun->setModel("M4A1-S.ompf");
+    gun->setModel("example_model_M4A1-S");
     _characterController->getRightSholderTransform()->insertNode(gunTransform);
     gunTransform->insertNode(gun);
 
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
-    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/stars.png"));
+    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
+    _materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>("example_material_skybox");
     _materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
@@ -255,7 +255,7 @@ void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody *body, fl
     iaVector3d force;
 
     iPhysics::getInstance().getMassMatrix(body->getNewtonBody(), mass, Ixx, Iyy, Izz);
-    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+    force.set(0.0f, -mass * static_cast<float32>(IGOR_EARTH_GRAVITY), 0.0f);
 
     body->setForce(force);
 }
@@ -370,7 +370,7 @@ bool ExampleCharacterController::onKeyDown(iEventKeyDown &event)
     {
     case iKeyCode::Alt:
         _captureMouse = !_captureMouse;
-        iMouse::getInstance().showCursor(!_captureMouse);
+        iMouse::getInstance().hideCursor(_captureMouse);
         return true;
 
     case iKeyCode::A:

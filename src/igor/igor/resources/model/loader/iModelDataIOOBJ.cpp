@@ -52,7 +52,7 @@ namespace igor
 		iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 		result->setName("obj_root");
 
-		if (!readFile(parameters.getParameter<iaString>("filename", "")))
+		if (!readFile(parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "")))
 		{
 			return 0;
 		}
@@ -62,7 +62,7 @@ namespace igor
 		for (auto section : _sections)
 		{
 			auto &meshBuilder = section.second._meshBuilder;
-			meshBuilder.setJoinVertexes(parameters.getParameter<bool>("joinVertices", false));
+			meshBuilder.setJoinVertexes(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_JOIN_VERTICES, false));
 
 			// transfer polygons to mesh builder
 			transferToMeshBuilder(section.second);
@@ -79,7 +79,6 @@ namespace igor
 				continue;
 			}
 
-			// create mesh node
 			iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setName(section.first);
 
@@ -296,9 +295,9 @@ namespace igor
 	bool iModelDataIOOBJ::readMaterialFile(iaString filename)
 	{
 		std::ifstream file;
-		if (iaFile::exist(filename))
+		if (iaFile::exists(filename))
 		{
-			iaString path = iResourceManager::getInstance().getPath(filename);
+			iaString path = iResourceManager::getInstance().resolvePath(filename);
 			char temp[1024];
 			path.getData(temp, 1024);
 			file.open(temp, std::ifstream::in);

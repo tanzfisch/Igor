@@ -8,7 +8,7 @@
 #include <Windows.h>
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
 #include <time.h>
 #endif
 
@@ -21,7 +21,7 @@ namespace iaux
     static LARGE_INTEGER s_startTime;
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
     static int64 s_startTime;
 #endif
 
@@ -45,7 +45,7 @@ namespace iaux
         return ticks;
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         timespec ts;
         clock_gettime(CLOCK_REALTIME, &ts);
         return (int64(ts.tv_sec) * 1000000) + int64(ts.tv_nsec / 1000) - s_startTime;
@@ -68,7 +68,7 @@ namespace iaux
         }
 #endif
 
-#ifdef __IGOR_LINUX__
+#ifdef IGOR_LINUX
         timespec ts;
         clock_gettime(CLOCK_REALTIME, &ts); // Works on Linux
         s_startTime = uint64(ts.tv_sec) * 1000000 + ts.tv_nsec / 1000;

@@ -319,7 +319,7 @@ namespace igor
             L"DecrementWrap",
             L"Invert",
             L"Invalid",
-            L"PositionOrientation",
+            L"PositionOrientationInstancing",
             L"Position"};
 
         stream << text[static_cast<int>(value)];
@@ -376,4 +376,12 @@ namespace igor
 
         return stream;
     }
+
+    iaString iRendererUtils::getTextureSamplerName(uint32 texUnit)
+    {
+        iaString result = SAMPLER_TEXTURE;
+        result += iaString::toString(texUnit);
+        return result;
+    }
+
 }

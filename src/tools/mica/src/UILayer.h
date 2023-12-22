@@ -30,8 +30,11 @@
 #define __UILAYER__
 
 #include "Workspace.h"
-#include "Outliner.h"
-#include "PropertiesEditor.h"
+#include "outliner/Outliner.h"
+#include "asset_browser/AssetBrowser.h"
+#include "MainDialog.h"
+#include "properties_editor/PropertiesEditor.h"
+#include "viewport/Viewport.h"
 
 class UILayer : public iLayerWidgets
 {
@@ -50,9 +53,21 @@ private:
 	*/
     WorkspacePtr _workspace;
 
+    /*! the main dialog
+    */
+    MainDialog *_mainDialog = nullptr;
+
     /*! the outliner
 	*/
     Outliner *_outliner = nullptr;
+
+    /*! the asset browser
+	*/
+    AssetBrowser *_assetBrowser = nullptr;
+
+    /*! view port dialog
+    */
+    Viewport *_viewport = nullptr;
 
     /*! the properties dialog or editor
 	*/
@@ -60,11 +75,15 @@ private:
 
     /*! file open/close dialog 
 	*/
-    iDialogFileSelectPtr _fileDialog = nullptr;
+    iDialogFileSelect _fileDialog;
 
     /*! if true refresh ui next frame
     */
     bool _refresh = false;
+
+    /*! active project
+    */
+    iProjectPtr _activeProject;
 
     /*! empties the workspace
 	*/
@@ -74,7 +93,7 @@ private:
 
 	\param nodeID the id of the selected node
 	*/
-    void onGraphViewSelectionChanged(uint64 nodeID);
+    void onGraphViewSelectionChanged(uint64 nodeID);    
 
     /*! handle for load file event
 	*/
@@ -84,7 +103,7 @@ private:
 	*/
     void onImportFile();
 
-    /*! hande for import file by reference to existing scene event
+    /*! handle for import file by reference to existing scene event
 	*/
     void onImportFileReference();
 
@@ -92,18 +111,21 @@ private:
 	*/
     void onSaveFile();
 
+    void onCreateProject();
+    void onLoadProject();
+    void onSaveProject();
+
     /*! called when model was done loading
 
     \param modelNodeID the node id of the model done loading
     */
     void onFileLoadModelReady(uint64 modelNodeID);
 
-    /*! hanlde for exist mica event
-	*/
-    void onExitMica();
-
     void onAddMaterial();
     void onLoadMaterial();
+
+    void onCreateProjectDialogClosed(iDialogPtr dialog);
+    void onLoadProjectDialogClosed(iDialogPtr dialog);
 
     void onFileLoadDialogClosed(iDialogPtr dialog);
     void onImportFileDialogClosed(iDialogPtr dialog);

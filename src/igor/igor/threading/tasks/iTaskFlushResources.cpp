@@ -13,7 +13,7 @@ namespace igor
 {
 
     iTaskFlushResources::iTaskFlushResources(iWindowPtr window)
-        : iTask(window, iTask::DEFAULT_PRIORITY, true, iTaskContext::RenderContext)
+        : iTask(window, iTask::TASK_PRIORITY_DEFAULT, true, iTaskContext::RenderContext)
     {
     }
 
@@ -25,13 +25,12 @@ namespace igor
     void iTaskFlushResources::abort()
     {
         iResourceManager::getInstance().interruptFlush();
+        setRepeating(false);
 
         while (isRunning())
         {
             std::this_thread::yield();
         }
-
-        setRepeating(false);
     }
 
 }; // namespace igor

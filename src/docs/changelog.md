@@ -1,7 +1,41 @@
 Changelog                           {#changelog}
 =========
 
-0.42.1
+0.43.0
+------
+
+!!! MSVC build fails. no time to fix !!!
+
+- reimplemented iMaterial and make it a iResource
+- replaced iMaterialResourceFactory with iMaterialFactory which is now integrated in the iResourceManager
+- some spring cleaning around plenty of TODOs
+- improved random number generator using STL
+- introducing resource dictionaries and using 64bit ids to primarily identify resources
+  (resource ids are not generated from the resource name or filename anymore)s
+- introducing projects
+- added interface to create empty/default resources (depends on what the factories do with it)
+- added iWidgetBoxLayout
+- renamed iWidgetGrid to iWidgetGridLayout
+- replaced iUserControlAction with iWidgetButton
+- dialogs can now be moved, resized and docked
+- added interface to change mouse cursor see iMouseCursorType for supported types
+- added iWidgetSplitter, iMimeData
+- added drag&drop
+- added iWidgetViewport
+- widget event handling now uses iEvent
+- added iUserControlTreeView and iUserControlGridView and iItem for generic data
+- added AssetBrowser to Mica
+- fixed texture font vertical alignment
+- added new widget selection interfaces
+- Mica drag drop assets in viewport (models and textures on models)
+- added iUserControlTextureChooser
+- added background color and background checkerboard option to iWidgetPicture
+
+Known issues:
+
+- data not updated -> missing textures, invisible models -> need to do some work on ompf to get this all working again
+
+0.42.0
 ------
 
 - fixed threading sync in iResourceManager preventing resource being loaded multiple times

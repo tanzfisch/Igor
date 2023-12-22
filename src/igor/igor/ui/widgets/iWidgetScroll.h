@@ -172,23 +172,23 @@ namespace igor
 
         /*! handles incoming mouse wheel event
 
-        \param d mouse wheel delta
+        \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseWheel(int32 d) override;
+        bool onMouseWheel(iEventMouseWheel &event) override;
 
         /*! handles incoming mouse move events
 
-        \param pos mouse position
+        \param event mouse move event
         */
-        void handleMouseMove(const iaVector2f &pos) override;
+        void onMouseMove(iEventMouseMove &event) override;
 
         /*! handles incoming mouse key down events
 
-        \param key the key that was pressed
+        \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyDown(iKeyCode key) override;
+        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
 
         /*! handles internal button clicks
         \return true if click was consumed
@@ -197,25 +197,25 @@ namespace igor
 
         /*! handles mouse key up events
 
-        \param key the key that was pressed
+        \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseKeyUp(iKeyCode key) override;
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! handles incoming double click
 
-        \param key the key that was pressed
+        \param event the mouse double click event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool handleMouseDoubleClick(iKeyCode key) override;
+        bool onMouseDoubleClick(iEventMouseKeyDoubleClick &event) override;
 
         /*! updates size based on it's content
          */
         void calcMinSize() override;
 
-        /*! draws the button
+        /*! draws the widget
          */
-        void draw();
+        void draw() override;
 
         /*! calculate position and size of scroll buttons
          */
@@ -240,13 +240,13 @@ namespace igor
         \param clientWidth maximum width this widget can align to
         \param clientHeight maximum height this widget can align to
         */
-        void updateAlignment(int32 clientWidth, int32 clientHeight);
+        void updateAlignment(int32 clientWidth, int32 clientHeight) override;
 
-        /*! calculates childrens ofsets relative to thair parent
+        /*! calculates childrens offsets relative to their parent
 
         \param offsets vector to be filled with childrens offsets
         */
-        void calcChildOffsets(std::vector<iaRectanglef> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglef> &offsets) override;
     };
 
     /*! widget scroll pointer definition

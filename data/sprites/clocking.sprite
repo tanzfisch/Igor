@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-    <Sprite texture="clocking.png" pixelPerUnit="1">
+    <Sprite texture="example_texture_clocking" pixelPerUnit="1">
         <Frame size="64, 64" pivot="32, 32" pixel="true" pos="0, 0"/>
         <Frame size="64, 64" pivot="32, 32" pixel="true" pos="64, 0"/>
         <Frame size="64, 64" pivot="32, 32" pixel="true" pos="128, 0"/>

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __GENERATORTERRAIN__
-#define __GENERATORTERRAIN__
+#ifndef IGOR_GENERATORTERRAIN_H
+#define IGOR_GENERATORTERRAIN_H
 
 #include <igor/igor.h>
 using namespace igor;
@@ -38,14 +38,14 @@ class VoxelTerrainMeshGenerator : public iModelDataIO
 
 public:
     /*! initialize members
-    */
+     */
     VoxelTerrainMeshGenerator();
 
     /*! does nothing
-    */
+     */
     virtual ~VoxelTerrainMeshGenerator() = default;
 
-    /*! generates terrain tiles 
+    /*! generates terrain tiles
 
     !!! ATTENTION consumes and deletes "parameter"
 
@@ -62,4 +62,4 @@ public:
     static iModelDataIO *createInstance();
 };
 
-#endif
+#endif // IGOR_GENERATORTERRAIN_H

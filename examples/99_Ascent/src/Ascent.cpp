@@ -100,9 +100,9 @@ void Ascent::initScene()
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
-    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("skyboxes/stars.png"));
+    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    iMaterialPtr materialSkyBox = iMaterialResourceFactory::getInstance().loadMaterial("skybox.mat");
+    iMaterialPtr materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>("example_material_skybox");
     materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
     // set that material
     skyBoxNode->setMaterial(materialSkyBox);
@@ -117,7 +117,7 @@ void Ascent::initScene()
     _cameraTransform->insertNode(camera);
     camera->insertNode(lodtrigger);
     getScene()->getRoot()->insertNode(_cameraTransform);
-    getView().setCurrentCamera(camera->getID());
+    getView().setCamera(camera->getID());
 
     initVoxelData(lodtrigger->getID());
 }
@@ -165,14 +165,14 @@ void Ascent::initVoxelData(uint32 lodTriggerID)
                           iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7));
 
     // set up voxel mesh material
-    _voxelMeshMaterial = iMaterialResourceFactory::getInstance().loadMaterial("voxel_terrain_directional_light.mat");
+    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iMaterial>("example_material_voxel_terrain_directional_light");
     _voxelTerrain->setMaterial(_voxelMeshMaterial);
 
     // set up voxel mesh target material
     iTargetMaterialPtr targetMaterial = _voxelTerrain->getTargetMaterial();
-    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 0);
-    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 1);
-    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("crates2.png"), 2);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 0);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 1);
+    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 2);
     targetMaterial->setAmbient(iaColor3f(0.1f, 0.1f, 0.1f));
     targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
     targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
@@ -217,7 +217,7 @@ void Ascent::outlineLevelStructure()
     }
 }
 
-__IGOR_INLINE__ float64 metaballFunction(const iaVector3d &metaballPos, const iaVector3d &checkPos)
+IGOR_INLINE float64 metaballFunction(const iaVector3d &metaballPos, const iaVector3d &checkPos)
 {
     return 1.0 / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
 }
@@ -504,7 +504,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
 
 bool Ascent::getTerrainIntersectionPoint(iaVector3I &intersection)
 {
-    iNodeCamera *camera = static_cast<iNodeCamera *>(iNodeManager::getInstance().getNode(getView().getCurrentCamera()));
+    iNodeCamera *camera = static_cast<iNodeCamera *>(iNodeManager::getInstance().getNode(getView().getCamera()));
     if (camera != nullptr)
     {
         iaMatrixd modelMatrix;
