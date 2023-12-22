@@ -27,6 +27,7 @@ Changelog                           {#changelog}
 - added new widget selection interfaces
 - Mica drag drop assets in viewport (models and textures on models)
 - added iUserControlTextureChooser
+- added background color and background checkerboard option to iWidgetPicture
 
 0.42.0
 ------

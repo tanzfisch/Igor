@@ -26,50 +26,47 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __THUMBNAIL_CACHE__
-#define __THUMBNAIL_CACHE__
+#ifndef MICA_USERCONTROL_TEXTURE_H
+#define MICA_USERCONTROL_TEXTURE_H
 
-#include "TaskGenerateThumbnails.h"
+#include "UserControlResource.h"
 
-/*! the thumbnail cache
- */
-class ThumbnailCache
+class UserControlTexture : public UserControlResource
 {
-
-    friend class TaskGenerateThumbnails;
-
 public:
+    /*! init user control
 
-    /*! \returns singleton instance of thumbnail cache
+    \param resourceID the resource id to use
+    \param parent the optional parent widget
     */
-    static ThumbnailCache &getInstance();
+	UserControlTexture(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
-    /*! \returns thumbnail for given filename
+	/*! cleanup
+	*/
+	~UserControlTexture();
 
-    \param filename full path of existing filename
-    */
-    iTexturePtr getThumbnail(const iaString &filename);
+    /*! init ui
+     */
+    virtual void init();
+
+    /*! update ui with node data
+     */
+    virtual void update();
+
+    /*! update node with ui data
+     */
+    virtual void updateResource();
 
 private:
-    /*! path to thumbnail cache
-     */
-    iaString _thumbnailCachePath;
 
-    /*! queue to process thumbnails
-    */
-    std::deque<std::pair<iaString, iaString>> _thumbnailProcessQueue;
+	/*! display the texture
+	*/
+	iWidgetPicturePtr _picture;
 
-    /*! mutex for processing queue
-    */
-    iaMutex _queueMutex;
-
-    /*! generates thumbnails
-    */
-    void generateThumbnails();
-
-    /*! init cache
-     */
-    ThumbnailCache();
+	/*! label with texture information
+	*/
+	iWidgetLabelPtr _infoLabel;
+	
 };
 
-#endif // __THUMBNAIL_CACHE__
+#endif // MICA_USERCONTROL_TEXTURE_H

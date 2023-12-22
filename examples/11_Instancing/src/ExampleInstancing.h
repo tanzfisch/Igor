@@ -26,8 +26,8 @@
 //
 // contact: martinloga@gmx.de
 
-#ifndef __EXAMPLEINSTANCING__
-#define __EXAMPLEINSTANCING__
+#ifndef IGOR_EXAMPLEINSTANCING_H
+#define IGOR_EXAMPLEINSTANCING_H
 
 #include <ExampleBase.h>
 
@@ -42,44 +42,44 @@ public:
     ExampleInstancing(iWindowPtr window);
 
     /*! does nothing
-    */
+     */
     ~ExampleInstancing() = default;
 
 private:
     /*! id to transform node used for manipulating the heading of the camera
-    */
+     */
     uint64 _cameraHeading = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the pitch of the camera
-    */
+     */
     uint64 _cameraPitch = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the distance of the camera to the origin
-    */
+     */
     uint64 _cameraTranslation = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the direction of the light relative to the origin
-    */
+     */
     uint64 _directionalLightRotate = iNode::INVALID_NODE_ID;
 
     /*! id to cat model node
-    */
+     */
     uint64 _catModel = iNode::INVALID_NODE_ID;
 
     /*! timer handle to control the movement of the light source over time
-    */
+     */
     iTimerHandlePtr _animationTimingHandle = nullptr;
 
     /*! instancing material A
-    */
+     */
     iMaterialPtr _materialWithInstancingA;
 
     /*! instancing material B
-    */
+     */
     iMaterialPtr _materialWithInstancingB;
 
     /*! perlin noise generator
-    */
+     */
     iPerlinNoise _perlinNoise;
 
     /*! called by timer
@@ -89,11 +89,11 @@ private:
     void onUpdate(const iaTime &time);
 
     /*! deinit example
-    */
+     */
     void onDeinit() override;
 
     /*! init example
-    */
+     */
     void onInit() override;
 
     /*! called on any other event
@@ -117,4 +117,4 @@ private:
     bool onMouseWheelEvent(iEventMouseWheel &event);
 };
 
-#endif // __EXAMPLEINSTANCING__
+#endif // IGOR_EXAMPLEINSTANCING_H

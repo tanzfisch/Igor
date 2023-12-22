@@ -74,10 +74,10 @@ void UserControlMesh::updateNode()
         node->getTargetMaterial()->setEmissive(emissive);
         node->getTargetMaterial()->setShininess(_shininess);
 
-        node->getTargetMaterial()->setTexture(_textureChooser0->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser0->getFileName()), 0);
-        node->getTargetMaterial()->setTexture(_textureChooser1->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser1->getFileName()), 1);
-        node->getTargetMaterial()->setTexture(_textureChooser2->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser2->getFileName()), 2);
-        node->getTargetMaterial()->setTexture(_textureChooser3->getFileName().isEmpty() ? nullptr : iResourceManager::getInstance().loadResource<iTexture>(_textureChooser3->getFileName()), 3);
+        for (int i = 0; i < 4; ++i)
+        {
+            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser[i]->getTextureID()), i);
+        }
 
         if (_materialSelector->getSelectedUserData().has_value())
         {
@@ -122,52 +122,12 @@ void UserControlMesh::update()
     _textTriangles->setText(iaString::toString(mesh->getTrianglesCount()));
     _textIndexes->setText(iaString::toString(mesh->getIndexCount()));
 
-    if (node->getTargetMaterial()->hasTextureUnit(0))
+    for (int i = 0; i < 4; ++i)
     {
-        iaString filename = node->getTargetMaterial()->getTexture(0)->getInfo();
-        iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-        if (!shortName.isEmpty())
+        if (node->getTargetMaterial()->hasTextureUnit(i))
         {
-            filename = shortName;
+            _textureChooser[i]->setTextureID(node->getTargetMaterial()->getTexture(i)->getID());
         }
-
-        _textureChooser0->setFileName(filename);
-    }
-
-    if (node->getTargetMaterial()->hasTextureUnit(1))
-    {
-        iaString filename = node->getTargetMaterial()->getTexture(1)->getInfo();
-        iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-        if (!shortName.isEmpty())
-        {
-            filename = shortName;
-        }
-
-        _textureChooser1->setFileName(filename);
-    }
-
-    if (node->getTargetMaterial()->hasTextureUnit(2))
-    {
-        iaString filename = node->getTargetMaterial()->getTexture(2)->getInfo();
-        iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-        if (!shortName.isEmpty())
-        {
-            filename = shortName;
-        }
-
-        _textureChooser2->setFileName(filename);
-    }
-
-    if (node->getTargetMaterial()->hasTextureUnit(3))
-    {
-        iaString filename = node->getTargetMaterial()->getTexture(3)->getInfo();
-        iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
-        if (!shortName.isEmpty())
-        {
-            filename = shortName;
-        }
-
-        _textureChooser3->setFileName(filename);
     }
 
     _materialSelector->clear();
@@ -303,41 +263,18 @@ void UserControlMesh::init()
     gridTextures->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel *labelTextureUnit0 = new iWidgetLabel();
-    labelTextureUnit0->setText("Texture 0");
-    labelTextureUnit0->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetLabelPtr labelTextureUnit[4] = {nullptr, nullptr, nullptr, nullptr};
+    for (int i = 0; i < 4; ++i)
+    {
+        labelTextureUnit[i] = new iWidgetLabel();
+        labelTextureUnit[i]->setText(iaString("Texture ") + iaString::toString(i));
+        labelTextureUnit[i]->setMinWidth(MICA_REGULARBUTTON_SIZE);
+        labelTextureUnit[i]->setVerticalAlignment(iVerticalAlignment::Top);
+        labelTextureUnit[i]->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelTextureUnit1 = new iWidgetLabel();
-    labelTextureUnit1->setText("Texture 1");
-    labelTextureUnit1->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetLabel *labelTextureUnit2 = new iWidgetLabel();
-    labelTextureUnit2->setText("Texture 2");
-    labelTextureUnit2->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetLabel *labelTextureUnit3 = new iWidgetLabel();
-    labelTextureUnit3->setText("Texture 3");
-    labelTextureUnit3->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _textureChooser0 = new iUserControlFileChooser();
-    _textureChooser0->setPreselectedPath("..\\data\\textures"); // TODO root of current project
-    _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
-
-    _textureChooser1 = new iUserControlFileChooser();
-    _textureChooser1->setPreselectedPath("..\\data\\textures");
-    _textureChooser1->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
-
-    _textureChooser2 = new iUserControlFileChooser();
-    _textureChooser2->setPreselectedPath("..\\data\\textures");
-    _textureChooser2->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
-
-    _textureChooser3 = new iUserControlFileChooser();
-    _textureChooser3->setPreselectedPath("..\\data\\textures");
-    _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+        _textureChooser[i] = new iUserControlTextureChooser();
+        _textureChooser[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+    }
 
     iWidgetGridLayout *gridMaterial = new iWidgetGridLayout();
     gridMaterial->appendColumns(1);
@@ -365,14 +302,11 @@ void UserControlMesh::init()
     detailsGrid->addWidget(_textTriangles, 1, 1);
     detailsGrid->addWidget(_textIndexes, 1, 2);
 
-    gridTextures->addWidget(labelTextureUnit0, 0, 0);
-    gridTextures->addWidget(labelTextureUnit1, 0, 1);
-    gridTextures->addWidget(labelTextureUnit2, 0, 2);
-    gridTextures->addWidget(labelTextureUnit3, 0, 3);
-    gridTextures->addWidget(_textureChooser0, 1, 0);
-    gridTextures->addWidget(_textureChooser1, 1, 1);
-    gridTextures->addWidget(_textureChooser2, 1, 2);
-    gridTextures->addWidget(_textureChooser3, 1, 3);
+    for (int i = 0; i < 4; ++i)
+    {
+        gridTextures->addWidget(labelTextureUnit[i], 0, i);
+        gridTextures->addWidget(_textureChooser[i], 1, i);
+    }
 
     gridMaterial->addWidget(labelMaterial, 0, 0);
     gridMaterial->addWidget(_materialSelector, 1, 0);

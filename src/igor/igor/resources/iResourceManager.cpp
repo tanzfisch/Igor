@@ -102,7 +102,7 @@ namespace igor
 
     const iaString iResourceManager::getType(const iResourceID &resourceID) const
     {
-        return getType(_resourceDictionary.getFilePath(resourceID));
+        return getType(_resourceDictionary.getFilename(resourceID));
     }
 
     const iaString iResourceManager::getType(const iaString &filename) const
@@ -568,9 +568,9 @@ namespace igor
         _mutex.unlock();
     }
 
-    const iaString iResourceManager::getFilePath(const iResourceID &id)
+    const iaString iResourceManager::getFilename(const iResourceID &id)
     {
-        return _resourceDictionary.getFilePath(id);
+        return _resourceDictionary.getFilename(id);
     }
 
     const iaString iResourceManager::getAlias(const iResourceID &id)
@@ -751,6 +751,20 @@ namespace igor
         if (iaUUID::isUUID(alias))
         {
             param.setParameter(IGOR_RESOURCE_PARAM_ID, iaUUID(alias));
+            return param;
+        }
+
+        return param;
+    }
+
+    iParameters iResourceManager::buildParam(const iaString &type, const iResourceID &id, iResourceCacheMode cacheMode)
+    {
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, type},
+                           {IGOR_RESOURCE_PARAM_CACHE_MODE, cacheMode}});
+
+        if (id.isValid())
+        {
+            param.setParameter(IGOR_RESOURCE_PARAM_ID, id);
             return param;
         }
 

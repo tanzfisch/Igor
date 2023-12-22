@@ -1070,7 +1070,7 @@ namespace igor
 
     void iWidget::onDragLeave(iDrag &drag)
     {
-        // nothing to do
+        drag.clear();
     }
 
     void iWidget::onDrop(const iDrag &drag)

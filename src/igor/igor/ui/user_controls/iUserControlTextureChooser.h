@@ -31,6 +31,8 @@
 
 #include <igor/ui/user_controls/iUserControl.h>
 
+#include <igor/ui/widgets/iWidgetLabel.h>
+#include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/resources/texture/iTexture.h>
 
 namespace igor
@@ -52,21 +54,53 @@ namespace igor
          */
         ~iUserControlTextureChooser();
 
-        /*! sets the given texture
+        /*! sets the texture id
 
-        \param texture the given texture
+        \param textureID the given texture id
         */
-        void setTexture(iTexturePtr texture);
+        void setTextureID(iResourceID textureID);
 
-        /*! \returns texture
-        */
-        iTexturePtr getTexture() const;
+        /*! \returns texture id
+         */
+        iResourceID getTextureID() const;
 
     private:
-        /*! the selected texture
+        /*!
          */
-        iTexturePtr _texture;
+        iResourceID _textureID;
+
+        /*! texture id
+         */
+        iWidgetLabelPtr _labelID;
+
+        /*! texture alias
+         */
+        iWidgetLabelPtr _labelAlias;
+
+        /*! displays the selected texture
+         */
+        iWidgetPicturePtr _picture;
+
+        /*! initialize gui elements
+         */
+        void initGUI();
+
+        /*! drag move handle
+
+        \param drag the drag data
+        */
+        void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
+
+        /*! drop handle
+
+        \param drag the drag data
+        */
+        void onDrop(const iDrag &drag) override;
     };
+
+    /*! user control texture chooser pointer definition
+     */
+    typedef iUserControlTextureChooser *iUserControlTextureChooserPtr;
 
 } // namespace igor
 

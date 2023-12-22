@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PLANTMESHGENERATOR__
-#define __PLANTMESHGENERATOR__
+#ifndef IGOR_PLANTMESHGENERATOR_H
+#define IGOR_PLANTMESHGENERATOR_H
 
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
@@ -166,4 +166,4 @@ private:
     void generateSkeleton(const iaString &sentence);
 };
 
-#endif // __PLANTMESHGENERATOR__
+#endif // IGOR_PLANTMESHGENERATOR_H

@@ -102,10 +102,22 @@ namespace igor
          */
         bool getKeepAspectRatio() const;
 
+        /*! enables/disables checker board
+        */
+        void setCheckerBoard(bool enable);
+
+        /*! \returns true if checker board is enabled
+        */
+        bool isCheckerBoardEnabled() const;
+
     private:
         /*! flag if the aspect ratio must be kept when resized
          */
         bool _keepAspectRatio = true;
+
+        /*! if true draw checker board behind picture
+        */
+        bool _checkerBoard = false;
 
         /*! shared pointer to texture
          */

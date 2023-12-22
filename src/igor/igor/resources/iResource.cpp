@@ -153,4 +153,9 @@ namespace igor
     {
         return _name;
     }    
+
+    const iaString &iResource::getAlias() const
+    {
+        return _alias;
+    }
 }

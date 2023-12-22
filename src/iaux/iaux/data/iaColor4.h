@@ -119,7 +119,9 @@ namespace iaux
         void operator*(float32 factor);
 
         static IAUX_API_IMPORT_ONLY const iaColor4<T> white;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> lightGray;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> gray;
+        static IAUX_API_IMPORT_ONLY const iaColor4<T> darkGray;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> black;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> red;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> green;

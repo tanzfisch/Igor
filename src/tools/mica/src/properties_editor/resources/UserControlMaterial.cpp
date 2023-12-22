@@ -46,6 +46,13 @@ void UserControlMaterial::update()
     UserControlResource::update();
 
     iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
+    
+    if(material == nullptr )
+    {
+        setEnabled(material != nullptr);
+        // means this resource was not loaded
+        return;
+    }
 
     _ignoreMaterialUpdate = true;
 

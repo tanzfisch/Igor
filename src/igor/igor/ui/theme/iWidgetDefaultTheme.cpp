@@ -102,26 +102,55 @@ namespace igor
     {
         _font = iTextureFont::create(fontTexture);
         _backgroundTexture = backgroundTexture;
+
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                           {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
+                           {IGOR_RESOURCE_PARAM_GENERATE, true},
+                           {"pattern", iTexturePattern::CheckerBoard},
+                           {"primary", iaColor4f::gray},
+                           {"secondary", iaColor4f::lightGray},
+                           {"width", 128},
+                           {"height", 128}});
+
+        _checkerBoardTexture = iResourceManager::getInstance().loadResource<iTexture>(param);
     }
 
     void iWidgetDefaultTheme::drawWidgetPicture(iWidgetPicturePtr widget)
     {
         const auto &background = widget->getBackground();
         const auto &foreground = widget->getForeground();
-        const auto actualRect = widget->getActualRect();
-        bool enabled = widget->isEnabled();
-        auto state = widget->getState();
-        auto texture = widget->getTexture();
+        const auto rect = widget->getActualRect();
+        const bool enabled = widget->isEnabled();
+        const auto state = widget->getState();
+        const auto texture = widget->getTexture();
+        const auto checkerBoard = widget->isCheckerBoardEnabled();
 
-        if (background._a != 0.0f)
+        if (!checkerBoard && background._a != 0.0f)
         {
-            iRenderer::getInstance().drawFilledRectangle(actualRect, background);
+            iRenderer::getInstance().drawFilledRectangle(rect, background);
         }
 
         const iaColor4f &color = enabled ? foreground : COLOR_AMBIENT;
-        iRenderer::getInstance().drawTexturedRectangle(actualRect, texture, color, texture->hasTransparency());
+        if (texture != nullptr)
+        {
+            if (texture->hasTransparency() &&
+                checkerBoard)
+            {
+                const float32 aspect = static_cast<float32>(texture->getHeight()) / static_cast<float32>(texture->getWidth());
+                iRenderer::getInstance().drawTexturedRectangle(rect, _checkerBoardTexture, background, true, iaVector2f(1.0f, aspect * 1.0f));
+            }
 
-        DRAW_DEBUG_OUTPUT(actualRect, widget->getID(), state);
+            iRenderer::getInstance().drawTexturedRectangle(rect, texture, color, texture->hasTransparency());
+        }
+        else
+        {
+            iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
+            iRenderer::getInstance().drawRectangle(rect, COLOR_DIFFUSE_DARK);
+            iRenderer::getInstance().drawLine(rect.getTopLeft(), rect.getBottomRight(), COLOR_DIFFUSE_DARK);
+            iRenderer::getInstance().drawLine(rect.getTopRight(), rect.getBottomLeft(), COLOR_DIFFUSE_DARK);
+        }
+
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
     }
 
     void iWidgetDefaultTheme::drawWidgetSpacer(iWidgetSpacerPtr widget)

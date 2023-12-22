@@ -536,15 +536,6 @@ bool Viewport::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
     return false;
 }
 
-void Viewport::onDragEnter(iDrag &drag)
-{
-}
-
-void Viewport::onDragLeave(iDrag &drag)
-{
-    drag.clear();
-}
-
 void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
 {
     const iMimeData &mimeData = drag.getMimeData();
@@ -570,7 +561,8 @@ void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
         if (nodeID != iNode::INVALID_NODE_ID)
         {
             iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-            if (node->getType() == iNodeType::iNodeMesh)
+            if (node != nullptr &&
+                node->getType() == iNodeType::iNodeMesh)
             {
                 drag.accept();
                 return;
@@ -594,7 +586,7 @@ void Viewport::onDrop(const iDrag &drag)
     const iaString resourceType = iResourceManager::getInstance().getType(id);
     if (resourceType == IGOR_RESOURCE_MODEL)
     {
-        const iaString filename = iResourceManager::getInstance().getFilePath(id);
+        const iaString filename = iResourceManager::getInstance().getFilename(id);
 
         iParameters parameters({{IGOR_RESOURCE_PARAM_ID, id},
                                 {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},

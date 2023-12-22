@@ -38,135 +38,135 @@ namespace igor
     class iWidgetManager;
 
     /*! number chooser widget
-	*/
+     */
     class IGOR_API iWidgetNumberChooser : public iWidget
     {
 
     public:
         /*! ctro initializes member variables
 
-		\param parent optional parent
-		*/
+        \param parent optional parent
+        */
         iWidgetNumberChooser(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         virtual ~iWidgetNumberChooser() = default;
 
         /*! sets post fix that will be displayed right after the number
 
-		\param text the post fix
-		*/
+        \param text the post fix
+        */
         void setPostFix(const iaString &text);
 
         /*! \returns the post fix text
-		*/
+         */
         const iaString &getPostFix() const;
 
         /*! \returns the number
-		*/
+         */
         float32 getValue();
 
         /*! sets the value
 
-		\param value the value to set
-		*/
+        \param value the value to set
+        */
         void setValue(float32 value);
 
         /*! defines how many after points will be displayed
 
-		\param afterPoint amount of digits after point
-		*/
+        \param afterPoint amount of digits after point
+        */
         void setAfterPoint(int32 afterPoint);
 
         /*! \returns amount of after point
-		*/
+         */
         int32 getAfterPoint() const;
 
         /*! sets min max boundings for number
 
-		\param min minimum bounding for number
-		\param max maximum bounding for number
-		*/
+        \param min minimum bounding for number
+        \param max maximum bounding for number
+        */
         void setMinMaxNumber(float32 min, float32 max);
 
         /*! sets the stepping for mouse wheel
 
-		\param up the increase value when mouse wheel get's up
-		\param down the decrese value when mouse wheel get's down
-		*/
+        \param up the increase value when mouse wheel get's up
+        \param down the decrese value when mouse wheel get's down
+        */
         void setSteppingWheel(float32 up, float32 down);
 
         /*! sets the stepping for up and down button
 
-		\param up the increase value when up button get's clicked
-		\param down the decrese value when down button get's clicked
-		*/
+        \param up the increase value when up button get's clicked
+        \param down the decrese value when down button get's clicked
+        */
         void setStepping(float32 up, float32 down);
 
     private:
         /*! defines how many digits are displayed after the point
-		*/
+         */
         int32 _afterPoint = 0;
 
         /*! post fix that will be displayed right nixet to the number
-		*/
+         */
         iaString _postFix;
 
         /*! the NUMBER de dee deeee ;-)
-		*/
+         */
         float32 _value = 0;
 
         /*! min bounding for number
-		*/
+         */
         float32 _min = 0;
 
         /*! max bounding for number
-		*/
+         */
         float32 _max = 100;
 
         /*! button up stepping
-		*/
+         */
         float32 _stepUp = 1;
 
         /*! button down stepping
-		*/
+         */
         float32 _stepDown = 1;
 
         /*! mouse wheel up stepping
-		*/
+         */
         float32 _stepUpWheel = 5;
 
         /*! mouse wheel down stepping
-		*/
+         */
         float32 _stepDownWheel = 5;
 
         /*! flag is true if mouse is over the button down
-		*/
+         */
         bool _mouseOverButtonDown = false;
 
         /*! flag is true if mouse is over the button down
-		*/
+         */
         bool _mouseOverButtonUp = false;
 
         /*! appearance state of button up
-		*/
+         */
         iWidgetState _buttonUpAppearanceState = iWidgetState::Standby;
 
         /*! appearance state of button down
-		*/
+         */
         iWidgetState _buttonDownAppearanceState = iWidgetState::Standby;
 
         /*! button up rectangle
-		*/
+         */
         iaRectanglei _buttonUpRectangle;
 
         /*! button down rectangle
-		*/
+         */
         iaRectanglei _buttonDownRectangle;
 
         /*! culls number agains min max boundings
-		*/
+         */
         void cullBoundings();
 
         /*! handles incoming mouse wheel event
@@ -198,31 +198,36 @@ namespace igor
 
         /*! increase number by value
 
-		\param value the value to increase by
-		*/
+        \param value the value to increase by
+        */
         void increaseNumber(float32 value);
 
         /*! decrease number by value
 
-		\param value the value to decrease by
-		*/
+        \param value the value to decrease by
+        */
         void decreaseNumber(float32 value);
 
         /*! updates size based on it's content
-		*/
+         */
         void calcMinSize() override;
 
         /*! updates widget alignment
 
-		\param clientWidth maximum width this widget can align to
-		\param clientHeight maximum height this widget can align to
-		*/
+        \param clientWidth maximum width this widget can align to
+        \param clientHeight maximum height this widget can align to
+        */
         void updateAlignment(int32 clientWidth, int32 clientHeight) override;
 
         /*! draws the widget
          */
         void draw() override;
     };
+
+    /*! widget number chooser pointer definition
+     */
+    typedef iWidgetNumberChooser *iWidgetNumberChooserPtr;
+
 } // namespace igor
 
 #endif // __IGOR_WIDGETNUMBERCHOOSER__

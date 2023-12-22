@@ -121,6 +121,7 @@
 
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
+#include <igor/threading/tasks/iTaskGenerateThumbnails.h>
 
 #include <igor/simulation/iParticleSystem2D.h>
 
@@ -160,11 +161,14 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 #include <igor/ui/user_controls/iUserControlTreeView.h>
+#include <igor/ui/user_controls/iUserControlTextureChooser.h>
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/layouts/iWidgetDockingLayout.h>
 #include <igor/ui/layouts/iWidgetGridLayout.h>
 #include <igor/ui/layouts/iWidgetFixedGridLayout.h>
+
+#include <igor/resources/texture/iThumbnailCache.h>
 
 // version
 #include <igor/iVersion.h>

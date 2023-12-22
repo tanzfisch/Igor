@@ -26,13 +26,13 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __VOXELEXAMPLE__
-#define __VOXELEXAMPLE__
+#ifndef IGOR_VOXELEXAMPLE_H
+#define IGOR_VOXELEXAMPLE_H
 
 #include <ExampleBase.h>
 
 /*! the voxel example
-*/
+ */
 class VoxelExample : public ExampleBase
 {
 
@@ -44,88 +44,88 @@ public:
     VoxelExample(iWindowPtr window);
 
     /*! does nothing
-    */
+     */
     ~VoxelExample() = default;
 
 private:
     /*! heading of camera
-    */
+     */
     uint64 _cameraHeading = iNode::INVALID_NODE_ID;
 
     /*! pitch of camera
-    */
+     */
     uint64 _cameraPitch = iNode::INVALID_NODE_ID;
 
     /*! the model that represents our voxel mesh
-    */
+     */
     uint64 _voxelMeshModel = iNode::INVALID_NODE_ID;
 
     /*! transform node for voxel mesh
-    */
+     */
     uint64 _voxelMeshTransform = iNode::INVALID_NODE_ID;
 
     /*! voxel mesh material
-    */
+     */
     iMaterialPtr _voxelMeshMaterial;
 
     /*! the actual voxel data
-    */
+     */
     iVoxelData *_voxelData = nullptr;
 
     /*! perlin noise generator
-    */
+     */
     iPerlinNoise _perlinNoise;
 
     /*! flag to show loading text
-    */
+     */
     bool _loading = true;
 
     /*! measure some time
-    */
+     */
     iaTime _time;
 
     /*! random number generator
-    */
+     */
     iaRandomNumberGenerator _rand;
 
     /*! incarnation of mesh
-    */
+     */
     uint32 _incarnation = 1;
 
     /*! initialize scene
-    */
+     */
     void initScene();
 
     /*! register some callbacks
-    */
+     */
     void registerHandles();
 
     /*! unregister the callbacks
-    */
+     */
     void unregisterHandles();
 
     /*! generate some voxel data and meshs
-    */
+     */
     void generateVoxelData();
 
     /*! triggers mesh generation
-    */
+     */
     void prepareMeshGeneration();
 
     /*! called before every frame
-    */
+     */
     void onUpdate() override;
 
     /*! initialize everything
-    */
+     */
     void onInit() override;
 
     /*! deinitialize everything
-    */
+     */
     void onDeinit() override;
 
     /*! called by orthogonal view
-    */
+     */
     void onRenderOrtho() override;
 
     /*! called on any other event
@@ -148,4 +148,4 @@ private:
     bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
-#endif // __VOXELEXAMPLE__
+#endif // IGOR_VOXELEXAMPLE_H

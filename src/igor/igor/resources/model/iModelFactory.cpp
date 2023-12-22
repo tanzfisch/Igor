@@ -47,7 +47,7 @@ namespace igor
         // copy parameters to add filename
         auto parameters = resource->getParameters();
 
-        iaString filename = iResourceManager::getInstance().getFilePath(resource->getID());
+        iaString filename = iResourceManager::getInstance().getFilename(resource->getID());
         if (filename.isEmpty())
         {
             filename = resource->getSource();

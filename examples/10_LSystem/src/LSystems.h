@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __LSYSTEMSEXAMPLE__
-#define __LSYSTEMSEXAMPLE__
+#ifndef IGOR_LSYSTEMSEXAMPLE_H
+#define IGOR_LSYSTEMSEXAMPLE_H
 
 #include <ExampleBase.h>
 
@@ -181,4 +181,4 @@ private:
     iaString getHelpString() override;    
 };
 
-#endif // __LSYSTEMSEXAMPLE__
+#endif // IGOR_LSYSTEMSEXAMPLE_H

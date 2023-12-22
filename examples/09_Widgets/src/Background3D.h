@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __BACKGROUND3D__
-#define __BACKGROUND3D__
+#ifndef IGOR_BACKGROUND3D_H
+#define IGOR_BACKGROUND3D_H
 
 #include <ExampleBase.h>
 
@@ -43,16 +43,16 @@ public:
     Background3D(iWindowPtr window);
 
     /*! nothing to do
-    */
+     */
     ~Background3D() = default;
 
 private:
     /*! id to transform node of cat
-    */
+     */
     iNodeID _catTransformID = iNode::INVALID_NODE_ID;
 
     /*! timer handle to control the movement of the light source over time
-    */
+     */
     iTimerHandlePtr _animationTimingHandle = nullptr;
 
     /*! called by timer
@@ -62,13 +62,12 @@ private:
     void onUpdate(const iaTime &time);
 
     /*! deinit example
-    */
+     */
     void onDeinit() override;
 
     /*! init example
-    */
+     */
     void onInit() override;
-
 };
 
-#endif // __BACKGROUND3D__
+#endif // IGOR_BACKGROUND3D_H

@@ -70,7 +70,7 @@ namespace igor
 
         \param id the given resource id
         */
-        const iaString &getFilePath(iResourceID id) const;
+        const iaString &getFilename(iResourceID id) const;
 
         /*! \returns alias for given resource id
 

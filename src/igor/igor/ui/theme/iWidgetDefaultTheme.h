@@ -101,6 +101,11 @@ namespace igor
         ~iWidgetDefaultTheme() = default;
 
     private:
+        /*! background texture
+         */
+        iTexturePtr _checkerBoardTexture;
+
+
         /*! default line width definition
          */
         const float32 _defaultLineWidth = 1.0;
@@ -124,6 +129,8 @@ namespace igor
         /*! background texture
          */
         iTexturePtr _backgroundTexture = nullptr;
+
+
 
         /*! texture based font
          */

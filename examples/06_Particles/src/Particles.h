@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PARTICLES_EXAMPLE__
-#define __PARTICLES_EXAMPLE__
+#ifndef IGOR_PARTICLES_EXAMPLE_H
+#define IGOR_PARTICLES_EXAMPLE_H
 
 #include <ExampleBase.h>
 
@@ -149,4 +149,4 @@ private:
     iaString getHelpString() override;      
 };
 
-#endif
+#endif // IGOR_PARTICLES_EXAMPLE_H
