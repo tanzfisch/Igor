@@ -46,8 +46,10 @@ namespace igor
 
     public:
         /*! initializes traversal config
+
+        \param brief if true only a brief node info will be extracted
 		*/
-        iNodeVisitorPrintTree();
+        iNodeVisitorPrintTree(bool brief = true);
 
         /*! does nothing
 		*/
@@ -80,6 +82,11 @@ namespace igor
         void postTraverse() override;
 
     private:
+
+        /*! if true only brief node info will be printed
+        */
+        bool _brief = true;
+
         /*! counter for all nodes passed by
 		*/
         uint64 _nodeCount = 0;
