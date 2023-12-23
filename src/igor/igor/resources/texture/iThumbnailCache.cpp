@@ -24,11 +24,11 @@ namespace igor
     iThumbnailCache::iThumbnailCache()
     {
 #ifdef IGOR_LINUX
-        _thumbnailCachePath = iaString(std::getenv("HOME")) + "/.cache/Mica/iThumbnailCache";
+        _thumbnailCachePath = iaString(std::getenv("HOME")) + "/.cache/Igor/ThumbnailCache";
 #endif
 
 #ifdef IGOR_WINDOWS
-        // TODO _thumbnailCachePath = "%LOCALAPPDATA%/Mica/iThumbnailCache";
+        // TODO _thumbnailCachePath = "%LOCALAPPDATA%/Igor/ThumbnailCache";
 #endif
 
         if (!iaDirectory::exists(_thumbnailCachePath))
@@ -46,7 +46,7 @@ namespace igor
         if(!file.exists())
         {
             return nullptr;
-        }
+        }        
 
         iaTime time = file.getLastModifiedTime();
 

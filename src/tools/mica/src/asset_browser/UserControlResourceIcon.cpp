@@ -29,7 +29,6 @@ void UserControlResourceIcon::initGUI()
 
     _picture = new iWidgetPicture();
     _picture->setHorizontalAlignment(iHorizontalAlignment::Center);
-    _picture->setMinSize(128, 128);
     _picture->setMaxSize(128, 128);
     vBoxLayout->addWidget(_picture);
 

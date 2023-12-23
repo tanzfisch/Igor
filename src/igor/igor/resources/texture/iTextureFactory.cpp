@@ -296,16 +296,20 @@ namespace igor
         return pixmap;
     }
 
-    bool iTextureFactory::createThumbnail(const iaString &source, const iaString &destination, uint32 newWidth, uint32 newHeight)
+    bool iTextureFactory::createThumbnail(const iaString &source, const iaString &destination, uint32 newWidth, uint32 newHeight, bool keepAspectRatio)
     {
-        int width, height, components;
+        con_debug("create thumbnail \"" << source << "\" -> \"" << destination << "\" " << newWidth << "x" << newHeight);
+
+        int srcWidth;
+        int srcHeight;
+        int components;        
 
         char temp[1024];
         source.getData(temp, 1024);
 
         _mutexImageLibrary.lock();
-        unsigned char *textureData = stbi_load(temp, &width, &height, &components, 0);
-        _mutexImageLibrary.unlock();
+        unsigned char *textureData = stbi_load(temp, &srcWidth, &srcHeight, &components, 0);
+        _mutexImageLibrary.unlock();        
 
         if (textureData == nullptr)
         {
@@ -316,11 +320,25 @@ namespace igor
             return false;
         }
 
+        if(keepAspectRatio)
+        {
+            float32 aspect = static_cast<float32>(srcHeight) / static_cast<float32>(srcWidth);
+
+            if(srcWidth > srcHeight)
+            {
+                newHeight = newWidth * aspect;
+            }
+            else
+            {
+                newWidth = newHeight * (1.0 / aspect);
+            }
+        }
+
         // Create a buffer for the resized image
         std::vector<unsigned char> resizedImage(newWidth * newHeight * components);
 
         // Resize the image using stb_image.h
-        unsigned char *result = stbir_resize_uint8_linear(textureData, width, height, 0, resizedImage.data(), newWidth, newHeight, 0, (stbir_pixel_layout)components);
+        unsigned char *result = stbir_resize_uint8_linear(textureData, srcWidth, srcHeight, 0, resizedImage.data(), newWidth, newHeight, 0, (stbir_pixel_layout)components);
         if (!result)
         {
             con_err("Failed to resize image \"" << source << "\"");
