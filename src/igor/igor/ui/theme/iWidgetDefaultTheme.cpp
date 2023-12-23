@@ -172,22 +172,47 @@ namespace igor
             return;
         }
 
-        const iaRectanglef rect(pos._x - 16, pos._y - 16, 64, 64);
+        const float32 srcHeight = texture->getHeight();
+        const float32 srcWidth = texture->getWidth();
+        const float32 aspect = srcHeight / srcWidth;
+
+        float32 newHeight = 64;
+        float32 newWidth = 64;
+
+        if (srcWidth > srcHeight)
+        {
+            newHeight = newWidth * aspect;
+        }
+        else
+        {
+            newWidth = newHeight * (1.0 / aspect);
+        }
+
+        const iaRectanglef rect(pos._x, pos._y, newWidth, newHeight);
         iRenderer::getInstance().drawTexturedRectangle(rect, texture, iaColor4f::white, true);
+
+        iRenderer::getInstance().setLineWidth(3);
 
         switch (drag.getDragState())
         {
         case iDragState::Accepted:
-            iRenderer::getInstance().drawRectangle(rect, iaColor4f::green);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(5, 5), 
+                                                rect.getBottomRight() + iaVector2f(15, 5), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(10, 0), 
+                                                rect.getBottomRight() + iaVector2f(10, 10), iaColor4f::white);
             break;
         case iDragState::Rejected:
-            iRenderer::getInstance().drawLine(rect.getTopLeft(), rect.getBottomRight(), iaColor4f::red);
-            iRenderer::getInstance().drawLine(rect.getTopRight(), rect.getBottomLeft(), iaColor4f::red);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 1), 
+                                                rect.getBottomRight() + iaVector2f(14, 9), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 9), 
+                                                rect.getBottomRight() + iaVector2f(14, 1), iaColor4f::white);
             break;
         case iDragState::Neutral:
         default:
             break;
         }
+
+        iRenderer::getInstance().setLineWidth(1);
     }
 
     // TODO create new interfaces like the one above

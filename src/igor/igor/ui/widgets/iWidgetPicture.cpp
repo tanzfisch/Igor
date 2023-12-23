@@ -62,7 +62,7 @@ namespace igor
 
 		updateMinSize(minWidth, minHeight);
 
-		float32 aspect = static_cast<float32>(minHeight) / static_cast<float32>(minWidth);
+		const float32 aspect = static_cast<float32>(minHeight) / static_cast<float32>(minWidth);
 
 		if (_minWidth > _maxWidth)
 		{

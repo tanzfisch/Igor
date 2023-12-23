@@ -5,6 +5,7 @@ Changelog                           {#changelog}
 ------
 
 - #388 allow file select dialogs to be closed using ESC
+- #387 improved render of drag operation
 
 0.43.1
 ------
