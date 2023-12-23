@@ -1,12 +1,16 @@
 Changelog                           {#changelog}
 =========
 
+0.44.0
+------
+
+- #388 allow file select dialogs to be closed using ESC
+
 0.43.1
 ------
 
 - #393 fixed invalid node info issue
 - #391 adding more docs to examples
-- #388 allow file select dialogs to be closed using ESC
 
 0.43.0
 ------
