@@ -669,4 +669,32 @@ namespace igor
         return _isDockable;
     }
 
+    void iDialog::setAcceptESCToClose(bool acceptESC)
+    {
+        _acceptsESC = acceptESC;
+    }
+
+    bool iDialog::isAcceptingESCToClose() const
+    {
+        return _acceptsESC;
+    }
+
+    bool iDialog::onKeyDown(iEventKeyDown &event)
+    {
+        if (iWidget::onKeyDown(event))
+        {
+            return true;
+        }
+
+        if (_acceptsESC &&
+            event.getKey() == iKeyCode::ESC)
+        {
+            setReturnState(iDialogReturnState::Cancel);
+            close();
+            return true;
+        }
+
+        return false;
+    }
+
 } // namespace igor

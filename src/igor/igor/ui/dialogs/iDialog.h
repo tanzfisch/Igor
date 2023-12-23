@@ -200,12 +200,26 @@ namespace igor
 
         /*! puts dialog in front of others
          */
-        void putInFront();        
+        void putInFront();
+
+        /*! set wether or not dialog accepts ESC to close the dialog
+
+        \param acceptESC if true dialog accepts ESC to close
+        */
+        void setAcceptESCToClose(bool acceptESC);
+
+        /*! \returns true if dialog accepts ESC to close
+        */
+        bool isAcceptingESCToClose() const;
 
     private:
         /*! if true dialog is open
          */
         bool _isOpen = false;
+
+        /*! if true dialog accepts ESC to close
+        */
+        bool _acceptsESC = false;
 
         /*! the return state of the this dialog
          */
@@ -270,6 +284,12 @@ namespace igor
         \param event mouse move event
         */
         void onMouseMove(iEventMouseMove &event) override;
+
+        /*! handles pressed key event
+
+        \param event the key down event
+        */
+        virtual bool onKeyDown(iEventKeyDown &event) override;
 
         /*! updates size based on it's content
          */
