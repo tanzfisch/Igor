@@ -11,6 +11,7 @@ Changelog                           {#changelog}
 
 - #393 fixed invalid node info issue
 - #391 adding more docs to examples
+- #383 thumbnails now respect aspect ratio
 
 0.43.0
 ------
