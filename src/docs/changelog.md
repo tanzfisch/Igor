@@ -5,6 +5,8 @@ Changelog                           {#changelog}
 ------
 
 - #393 fixed invalid node info issue
+- #391 adding more docs to examples
+- #388 allow file select dialogs to be closed using ESC
 
 0.43.0
 ------

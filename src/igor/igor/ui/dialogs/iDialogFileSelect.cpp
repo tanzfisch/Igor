@@ -26,6 +26,7 @@ namespace igor
     iDialogFileSelect::iDialogFileSelect(const iWidgetPtr parent)
         : iDialog(iWidgetType::iDialogFileSelect, parent)
     {
+        setAcceptESCToClose(true);
     }
 
     void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path)
