@@ -58,9 +58,10 @@ namespace igor
         \param destination the thumbnail
         \param width the new width
         \param height the new height
+        \param keepAspectRatio if true thumbnail will keep aspect ratio
         \returns true if successful 
         */
-        static bool createThumbnail(const iaString &source, const iaString &destination, uint32 width = 128, uint32 height = 128);
+        static bool createThumbnail(const iaString &source, const iaString &destination, uint32 width = 128, uint32 height = 128, bool keepAspectRatio = true);
 
     private:
         /*! init members
