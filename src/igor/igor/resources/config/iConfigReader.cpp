@@ -13,6 +13,16 @@ namespace igor
 {
     iConfigReader::iConfigReader()
     {
+        // setting defaults
+        set("logLevel", "User");
+        set("minRenderContextThreads", "1");
+        set("maxRenderContextThreads", "Max");
+        set("minPhysicsThreads", "1");
+        set("maxPhysicsThreads", "Max");
+        set("minThreads", "0");
+        set("maxThreads", "0");
+        set("loadMode", "App");
+        set("searchPaths", {"../../../data", "../../data", "../data", "data"}); // TODO finish #396
     }
 
     iConfigReader::~iConfigReader()

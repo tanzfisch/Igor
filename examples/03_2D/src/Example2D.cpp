@@ -8,7 +8,7 @@
 #include <complex>
 
 Example2D::Example2D(iWindowPtr window)
-    : ExampleBase(window, "2D Interfaces")
+    : ExampleBase(window, "2D Interfaces", true, false)
 {
 }
 

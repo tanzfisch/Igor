@@ -276,7 +276,18 @@ foreach(
         target_compile_options(${EXAMPLE} PRIVATE "/std:c++17" "/MP" "/FS")
     endif()
 
-    set_property(TARGET ${EXAMPLE} PROPERTY FOLDER ${EXAMPLES_FOLDER})
+    set_target_properties(${EXAMPLE} PROPERTIES 
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${EXAMPLE}
+        FOLDER ${EXAMPLES_FOLDER})    
+
+    if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/examples/${EXAMPLE}/project")
+        add_custom_target(${EXAMPLE}_project ALL
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/examples/${EXAMPLE}/project
+            ${CMAKE_BINARY_DIR}/bin/${EXAMPLE}/project)
+
+        add_dependencies(${EXAMPLE} ${EXAMPLE}_project)
+    endif()
 endforeach()
 
 # iaux test

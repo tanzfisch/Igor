@@ -246,6 +246,7 @@ namespace igor
 
 #ifdef IGOR_WINDOWS
         static const std::vector<iaString> configLocations = {
+            L"project",
             L"config",
             L"..\\config",
             L"..\\..\\config"};
@@ -255,6 +256,7 @@ namespace igor
         static const std::vector<iaString> configLocations = {
             L"~/.igor",
             L"/etc/igor",
+            L"project",
             L"config",
             L"../config",
             L"../../config"};
@@ -273,13 +275,16 @@ namespace igor
             }
         }
 
+        iConfigReader::create();
+
         if (configurationFilepath.isEmpty())
         {
-            con_crit("can't find config file");
+            con_warn("can't find config file. Using defaults");
         }
-
-        iConfigReader::create();
-        iConfigReader::getInstance().readConfiguration(configurationFilepath);
+        else
+        {
+            iConfigReader::getInstance().readConfiguration(configurationFilepath);
+        }
 
         if (iConfigReader::getInstance().hasSetting("logLevel"))
         {
