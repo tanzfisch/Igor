@@ -33,6 +33,7 @@ void AssetBrowser::initUI()
     _showFilesButton->setCheckable(true);
     _showFilesButton->setMinSize(30, 30);
     _showFilesButton->setTexture("igor_icon_files");
+    _showFilesButton->setTooltip("Show/Hide non registered project files");
     _showFilesButton->registerOnClickEvent(iClickDelegate(this, &AssetBrowser::onClickShowAssetsButton));
     updateContentModeButton();
     buttonLayout->addWidget(_showFilesButton);
