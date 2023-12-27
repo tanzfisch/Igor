@@ -29,6 +29,55 @@ namespace igor
     {
     }
 
+    bool iConfigReader::writeConfiguration(const iaString &filename)
+    {
+                char temp[2048];
+        filename.getData(temp, 2048);
+
+        std::wofstream stream;
+        stream.open(temp);
+
+        if (!stream.is_open())
+        {
+            con_err("can't open to write \"" << temp << "\"");
+            return false;
+        }
+
+        stream << "<?xml version=\"1.0\"?>\n";
+        stream << "<Igor>\n";
+        stream << "    <Config>\n";
+
+        stream << "        <!-- loglevel: Assert, Error, Warning, Info, User (default), Debug, Trace -->\n";
+        stream << "        <Setting name=\"logLevel\" value=\"" << getValue("logLevel") << "\" />\n";
+
+        stream << "        <!-- min max for threads. Options are a numbers or \"Max\" which represents the host's max thread count -->\n";
+        stream << "        <Setting name=\"minRenderContextThreads\" value=\"" << getValue("minRenderContextThreads") << "\" />\n";
+        stream << "        <Setting name=\"maxRenderContextThreads\" value=\"" << getValue("maxRenderContextThreads") << "\" />\n";
+        stream << "        <Setting name=\"minPhysicsThreads\" value=\"" << getValue("minPhysicsThreads") << "\" />\n";
+        stream << "        <Setting name=\"maxPhysicsThreads\" value=\"" << getValue("maxPhysicsThreads") << "\" />\n";
+        stream << "        <!-- only useful if there is no render context -->\n";
+        stream << "        <Setting name=\"minThreads\" value=\"" << getValue("minThreads") << "\" />\n";
+        stream << "        <Setting name=\"maxThreads\" value=\"" << getValue("maxThreads") << "\" />\n";
+
+        stream << "        <!-- load mode of resource manager. loadMode: App (application decides), Sync (all synchronous) -->\n";
+        stream << "        <Setting name=\"loadMode\" value=\"" << getValue("loadMode") << "\" />\n";
+
+        stream << "        <!-- searchPaths: search paths for resources relative to current directory. In this example relative to the bin folder -->\n";
+        stream << "        <Setting name=\"searchPaths\">\n";
+        const auto searchPaths = getValueAsArray("searchPaths");
+        for(const auto &path : searchPaths)
+        {
+            stream << "            <Value>" << path << "</Value>\n";
+        }
+        stream << "        </Setting>\n";
+
+        stream << "    </Config>\n";
+        stream << "</Igor>\n";
+
+        con_info("written igor configuration " << filename);
+        return true;
+    }
+
     void iConfigReader::readConfigElement(TiXmlElement *config)
     {
         TiXmlElement *setting = config->FirstChildElement("Setting");

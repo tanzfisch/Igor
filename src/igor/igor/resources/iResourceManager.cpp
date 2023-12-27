@@ -22,7 +22,7 @@ using namespace iaux;
 
 namespace igor
 {
-    static const iaString s_igorResourceDictionaryPath = "igor/igor_resource_dictionary.xml";
+    static const iaString s_igorResourceDictionaryPath = "igor_resource_dictionary.xml";
 
     static bool matchingFilename(iFactoryPtr factory, const iaString &filename)
     {

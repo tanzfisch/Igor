@@ -18,7 +18,6 @@ int main(void)
 	window->setCentered();
 	window->open();
 
-
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new Example2D(window));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(window));
