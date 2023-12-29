@@ -15,9 +15,8 @@ namespace igor
 {
 
     iMaterial::iMaterial(const iParameters &parameters)
-    : iResource(parameters)
+        : iResource(parameters)
     {
-        setName("Material Name");
     }
 
     bool iMaterial::isValid() const
@@ -184,7 +183,7 @@ namespace igor
 
     void iMaterial::bind()
     {
-        con_assert(isValid(), "invalid material \"" << getName() << "\" [" << getID() << "]");
+        con_assert(isValid(), "invalid material " << getInfo());
 
         _shaderProgram->bind();
 
@@ -361,10 +360,5 @@ namespace igor
         stream << text[static_cast<int>(visibility)];
 
         return stream;
-    }
-
-    const iaString &iMaterial::getFilename() const
-    {
-        return _filename;
     }
 }

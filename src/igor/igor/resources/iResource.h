@@ -84,7 +84,7 @@ namespace igor
 
         /*! \returns the source of this resource
 
-        ie filename
+        usually the filename
         */
         const iaString &getSource() const;
 
@@ -95,16 +95,6 @@ namespace igor
         /*! \returns resource id
          */
         const iResourceID &getID() const;
-
-        /*! sets name of material (not unique)
-
-        \param name name to be set
-        */
-        void setName(const iaString &name);
-
-        /*! \returns name of resource (not unique)
-         */
-        const iaString &getName() const;
 
         /*! \returns alias of resource (not unique)
          */
@@ -160,7 +150,7 @@ namespace igor
          */
         iaString _type;
 
-        /*! source name (ie filename)
+        /*! source name (usually filename)
          */
         iaString _source;
 
@@ -172,9 +162,11 @@ namespace igor
          */
         iResourceCacheMode _cacheMode;
 
-        /*! name of the resource
-         */
-        iaString _name = L"Resource Name";
+        /*! allows factory to update source if it was not part of the given parameters
+
+        \param source the source of this resource
+        */
+        void setSource(const iaString &source);
 
         /*! sets processed flag on resource
 

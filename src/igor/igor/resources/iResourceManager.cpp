@@ -100,6 +100,31 @@ namespace igor
         _factories.clear();
     }
 
+    bool iResourceManager::saveResource(iResourcePtr resource, const iaString &filename)
+    {
+        if (!resource->isValid())
+        {
+            con_err("can't save invalid resource " << resource->getInfo());
+            return false;
+        }
+
+        iFactoryPtr factory = getFactory(resource->getParameters());
+        if (factory == nullptr)
+        {
+            con_err("no factory found for given resource " << resource->getInfo());
+            return false;
+        }
+
+        bool result = factory->saveResource(resource, filename);
+
+        if(result)
+        {
+            con_info("saved " << resource->getType() << " " << filename);
+        }
+
+        return result;
+    }
+
     const iaString iResourceManager::getType(const iResourceID &resourceID) const
     {
         return getType(_resourceDictionary.getFilename(resourceID));
@@ -418,6 +443,13 @@ namespace igor
         if (loadNow)
         {
             result->setValid(factory->loadResource(result));
+
+            if (result->isValid() &&
+                result->getSource().isEmpty())
+            {
+                result->setSource(iResourceManager::getInstance().getFilename(result->getID()));
+            }
+
             result->setProcessed(true);
         }
 

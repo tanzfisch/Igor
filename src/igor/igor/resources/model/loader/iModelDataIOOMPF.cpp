@@ -877,7 +877,7 @@ namespace igor
             return 0;
         }
 
-        if (material->getFilename().isEmpty())
+        if (material->getSource().isEmpty())
         {
             auto iter = _materialsInUse.find(materialID);
             if (iter == _materialsInUse.end())

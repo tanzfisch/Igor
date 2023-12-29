@@ -14,7 +14,7 @@ Workspace::Workspace()
     _scene->getRoot()->insertNode(_rootUser);
 
     // cam
-    _cameraArc = new CameraArc(getRootMica());
+    _cameraArc = new CameraArc(getMicaScene());
     _cameraArc->setHeading(M_PI * 0.25);
     _cameraArc->setPitch(-0.25);
 }
@@ -184,7 +184,7 @@ void Workspace::importFile(const iaString &filename)
 
             if (insertAt == nullptr)
             {
-                insertAt = getRootUser();
+                insertAt = getUserScene();
             }
 
             insertAt->insertNode(groupNode);
@@ -203,7 +203,7 @@ void Workspace::importFile(const iaString &filename)
             }
             else
             {
-                groupNode = getRootUser();
+                groupNode = getUserScene();
             }
         }
 
@@ -245,7 +245,7 @@ void Workspace::importFileReference(const iaString &filename)
 
         if (insertAt == nullptr)
         {
-            insertAt = getRootUser();
+            insertAt = getUserScene();
         }
 
         insertAt->insertNode(model);
@@ -282,11 +282,11 @@ void Workspace::loadFile(const iaString &filename)
             groupName += filename;
             insertAt->setName(groupName);
 
-            getRootUser()->insertNode(insertAt);
+            getUserScene()->insertNode(insertAt);
         }
         else
         {
-            insertAt = getRootUser();
+            insertAt = getUserScene();
         }
 
         auto child = children.begin();
@@ -301,12 +301,12 @@ void Workspace::loadFile(const iaString &filename)
     iNodeManager::getInstance().destroyNodeAsync(model);
 }
 
-iNodePtr Workspace::getRootMica() const
+iNodePtr Workspace::getMicaScene() const
 {
     return _rootMica;
 }
 
-iNodePtr Workspace::getRootUser() const
+iNodePtr Workspace::getUserScene() const
 {
     return _rootUser;
 }

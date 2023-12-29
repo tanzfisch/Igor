@@ -183,12 +183,8 @@ namespace igor
         TiXmlAttribute *attrib = materialXML->FirstAttribute();
         while (attrib)
         {
-            if (attrib->NameTStr() == "name")
-            {
-                material->setName(attrib->Value());
-            }
-            else if (attrib->NameTStr() == "zIndex" ||
-                     attrib->NameTStr() == "order")
+            if (attrib->NameTStr() == "zIndex" ||
+                attrib->NameTStr() == "order")
             {
                 if (attrib->ValueStr() == "RENDER_ORDER_DEFAULT" ||
                     attrib->ValueStr() == "DEFAULT")
@@ -266,7 +262,6 @@ namespace igor
             return false;
         }
 
-        material->_filename = filename;
         return readMaterial(materialXML, material);
     }
 
@@ -278,7 +273,7 @@ namespace igor
         std::wofstream file;
         file.open(temp);
 
-        if(!file.is_open())
+        if (!file.is_open())
         {
             con_err("can't open to write \"" << temp << "\"");
             return false;
@@ -286,7 +281,7 @@ namespace igor
 
         file << "<?xml version=\"1.0\"?>\n";
         file << "<Igor>\n";
-        file << "\t<Material name=\"" << material->getName() << "\" uuid=\"" << material->getID() << "\" order=\"" << material->getOrder() << "\" visibility=\"" << material->getVisibility() << "\">\n";
+        file << "\t<Material uuid=\"" << material->getID() << "\" order=\"" << material->getOrder() << "\" visibility=\"" << material->getVisibility() << "\">\n";
         file << "\t\t<States>\n";
         file << "\t\t\t<DepthTest>" << material->getRenderState(iRenderState::DepthTest) << "</DepthTest>\n";
         file << "\t\t\t<DepthFunc>" << material->getRenderState(iRenderState::DepthFunc) << "</DepthFunc>\n";

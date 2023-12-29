@@ -137,7 +137,7 @@ namespace igor
 
         /*! creates a new resource
 
-        \param param parameters for loading resource
+        \param param parameters for creating resource
         \returns shared pointer to resource
         */
         iResourcePtr createResource(const iParameters &parameters);
@@ -337,6 +337,14 @@ namespace igor
         \param resourceID the given resource id
         */
         const iaString getType(const iResourceID &resourceID) const;
+
+        /*! saves a resource to the filesystem        
+
+        \param resource the given resource to save (must be valid and have a valid source/filename)
+        \param filename optional filename if resource is to be saved in a new location
+        \returns true if successfully saved
+        */
+        bool saveResource(iResourcePtr resource, const iaString &filename = "");
 
     private:
         /*! mutex to manage access to internal data

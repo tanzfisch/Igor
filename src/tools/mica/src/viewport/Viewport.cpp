@@ -100,7 +100,7 @@ void Viewport::initScene()
     _lightNode->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
     _lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
 
-    _workspace->getRootMica()->insertNode(_directionalLightRotate);
+    _workspace->getMicaScene()->insertNode(_directionalLightRotate);
     _directionalLightRotate->insertNode(_directionalLightTranslate);
     _directionalLightTranslate->insertNode(_lightNode);
 
@@ -599,7 +599,7 @@ void Viewport::onDrop(const iDrag &drag)
         // TODO open dialog and ask if this is to be added to root, cam etc.
         // also add option to add by reference or not
 
-        _workspace->getRootUser()->insertNode(model);
+        _workspace->getUserScene()->insertNode(model);
         return;
     }
 

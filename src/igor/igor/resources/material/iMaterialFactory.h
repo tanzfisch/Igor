@@ -75,6 +75,16 @@ namespace igor
         \param resource the resource to unload
         */
         void unloadResource(iResourcePtr resource) override;
+
+        /*! exports the resource based on it's parameters
+
+        this needs to be a valid resource with a valid source parameter
+
+        \param resource the resource to save
+        \param filename optional filename if resource is to be saved in a new location
+        \returns true if saving the resource was successful
+        */
+        bool saveResource(iResourcePtr resource, const iaString &filename = "") override;
     };
 
 }; // namespace igor

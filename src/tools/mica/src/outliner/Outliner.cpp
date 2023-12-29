@@ -225,7 +225,7 @@ void Outliner::refresh()
 {
     if (_userControlGraphView != nullptr)
     {
-        _userControlGraphView->setRootNode(_workspace->getRootUser()->getID());
+        _userControlGraphView->setRootNode(_workspace->getUserScene()->getID());
 
         const auto &selection = _workspace->getSelection();
         if (!selection.empty())

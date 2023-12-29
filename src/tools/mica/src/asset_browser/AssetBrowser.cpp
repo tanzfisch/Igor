@@ -54,6 +54,7 @@ void AssetBrowser::initUI()
 
     iWidgetScrollPtr scroll = new iWidgetScroll();
     _gridView = new iWidgetFixedGridLayout();
+    _gridView->registerOnContextMenuEvent(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
     _gridView->setVerticalAlignment(iVerticalAlignment::Top);
     _gridView->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridView->setCellSize(iaVector2f(150, 150));
@@ -67,18 +68,39 @@ void AssetBrowser::initUI()
     _updateHandle.start();
 }
 
+void AssetBrowser::OnContextMenu(iWidgetPtr source)
+{
+    _contextMenu.clear();
+
+    iaVector2i pos = iMouse::getInstance().getPos();
+    _contextMenu.setPos(iaVector2f(pos._x, pos._y));
+
+    iWidgetMenuPtr createMenu = new iWidgetMenu("Create");
+    _contextMenu.addMenu(createMenu);
+
+    createMenu->addCallback(iClickDelegate(this, &AssetBrowser::onCreateMaterial), "Material", "Creates a default material", "");
+
+    _contextMenu.open();
+}
+
+void AssetBrowser::onCreateMaterial(iWidgetPtr source)
+{
+    iMaterialPtr resource = iResourceManager::getInstance().createResource<iMaterial>();
+    iResourceManager::getInstance().saveResource(resource, _currentPath + IGOR_PATHSEPARATOR + "new_material.mat");
+}
+
 void AssetBrowser::onSelectionChanged(const iWidgetPtr source)
 {
     auto selection = source->getSelection();
-    if(selection.empty())
+    if (selection.empty())
     {
         return;
     }
 
     // only care about first for now
-    UserControlResourceIcon* icon = static_cast<UserControlResourceIcon*>(selection[0]);
+    UserControlResourceIcon *icon = static_cast<UserControlResourceIcon *>(selection[0]);
     iResourceID id = icon->getResourceID();
-    
+
     _resourceSelectionChanged(id);
 }
 
@@ -105,6 +127,13 @@ void AssetBrowser::updateContentModeButton()
 void AssetBrowser::updateGridView(iItemPtr item)
 {
     _gridView->clear();
+
+    _currentPath = _project->getProjectFolder();
+
+    if(item->hasValue("relativePath"))
+    {
+        _currentPath = _currentPath + IGOR_PATHSEPARATOR + item->getValue<iaString>("relativePath");
+    }
 
     for (const auto child : item->getItems())
     {
@@ -233,7 +262,7 @@ iProjectPtr AssetBrowser::getProject() const
     return _project;
 }
 
-ResourceSelectionChangedEvent& AssetBrowser::getResourceSelectionChangedEvent()
+ResourceSelectionChangedEvent &AssetBrowser::getResourceSelectionChangedEvent()
 {
     return _resourceSelectionChanged;
 }

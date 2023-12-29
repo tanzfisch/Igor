@@ -51,7 +51,6 @@ namespace igor
     class IGOR_API iMaterial : public iResource
     {
         friend class iMaterialFactory;
-        friend class iMaterialIO;
         friend class iRenderer;
 
     public:
@@ -141,7 +140,7 @@ namespace igor
          */
         bool hasVelocityOrientedConfig() const;
 
-        /*! \returns true if gien texture unit is used
+        /*! \returns true if given texture unit is used
 
         \param texUnit the given texture unit
         */
@@ -159,15 +158,7 @@ namespace igor
          */
         void setVisibility(iMaterialVisibility visibility);
 
-        /*! \returns filename if material was create from a material file
-         */
-        const iaString &getFilename() const;
-
     private:
-        /*! filename of material (optional)
-         */
-        iaString _filename;
-
         /*! the shader program
          */
         iShaderProgramPtr _shaderProgram;
@@ -307,4 +298,3 @@ namespace igor
 }
 
 #endif // __IGOR_MATERIAL__
-

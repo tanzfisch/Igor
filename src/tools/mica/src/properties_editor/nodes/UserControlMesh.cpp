@@ -132,7 +132,7 @@ void UserControlMesh::update()
 
     _materialSelector->clear();
 
-    std::vector<iMaterialPtr> materials;
+/* TODO    std::vector<iMaterialPtr> materials;
     iResourceManager::getInstance().getMaterials(materials);
     for (auto material : materials)
     {
@@ -149,7 +149,7 @@ void UserControlMesh::update()
                 _materialSelector->setSelection(_materialSelector->getItemCount() - 1);
             }
         }
-    }
+    }*/
 
     _ignoreNodeUpdate = false;
 }

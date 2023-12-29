@@ -796,7 +796,7 @@ void UserControlParticleSystem::update()
         for (auto material : materials)
         {
             const iMaterialID &materialID = material->getID();
-            _materialSelection->addItem(material->getName(), materialID);
+            // TODO _materialSelection->addItem(material->getName(), materialID);
 
             if (materialID == node->getMaterial()->getID())
             {
