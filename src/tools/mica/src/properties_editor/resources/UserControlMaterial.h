@@ -45,9 +45,9 @@ public:
     */
 	UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
-	/*! cleanup
+	/*! does nothing
 	*/
-	~UserControlMaterial();
+	~UserControlMaterial() = default;
 
     /*! init ui
      */
@@ -62,27 +62,66 @@ public:
     virtual void updateResource();
 
 private:
-	MaterialNameChangedEvent _materialNameChangedEvent;
 
+	/*! number chooser representing render order
+	*/
 	iWidgetNumberChooser *_renderingOrder;
 
+	/*! checkbox representing cull face
+	*/
 	iWidgetCheckBox *_checkBoxCullFace;
+
+	/*! checkbox representing depth test
+	*/
 	iWidgetCheckBox *_checkBoxDepthTest;
+
+	/*! checkbox representing depth mask
+	*/
 	iWidgetCheckBox *_checkBoxDepthMask;
+
+	/*! checkbox representing blend
+	*/
 	iWidgetCheckBox *_checkBoxBlend;
+
+	/*! checkbox representing wireframe
+	*/
 	iWidgetCheckBox *_checkBoxWireframe;
+
+	/*! checkbox representing instancing
+	*/
 	iWidgetCheckBox *_checkBoxInstanced;
+
+	/*! select box representing depth function
+	*/
 	iWidgetSelectBox *_selectBoxDepthFunc;
+
+	/*! select box representing cull face function
+	*/
 	iWidgetSelectBox *_selectBoxCullFaceFunc;
+
+	/*! select box representing instancing function
+	*/
 	iWidgetSelectBox *_selectBoxInstancedFunc;
 
-	uint32 _loadShaderNumber = 0;
-
-	iDialogFileSelectPtr _fileDialog = nullptr;
-
+	/*! flag to prevent endless update loop
+	*/
 	bool _ignoreMaterialUpdate = false;
 
+	/*! widget to display the material texture
+	*/
+	iWidgetPicturePtr _materialPicture;
+
+	/*! triggers material update
+
+	\param source the source widget of this event
+	*/
 	void onDoUpdateMaterial(const iWidgetPtr source);
+
+	/*! updates material display render
+
+	\param material the material to use
+	*/
+	void updateMaterialDisplay(iMaterialPtr material);
 };
 
 #endif // __USERCONTROLMATERIAL__

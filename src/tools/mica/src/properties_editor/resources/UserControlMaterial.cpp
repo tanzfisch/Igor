@@ -9,13 +9,71 @@ UserControlMaterial::UserControlMaterial(iResourceID resourceID, const iWidgetPt
 {
 }
 
-UserControlMaterial::~UserControlMaterial()
+static iMeshPtr createSphere()
 {
-    if (_fileDialog != nullptr)
+    iMeshBuilder meshBuilder;
+
+    iMeshBuilderUtils::addSphere(meshBuilder, 0.5, 32);
+    meshBuilder.calcNormals(true);
+    return meshBuilder.createMesh();
+}
+
+void UserControlMaterial::updateMaterialDisplay(iMaterialPtr material)
+{
+    if (_ignoreMaterialUpdate)
     {
-        delete _fileDialog;
-        _fileDialog = nullptr;
+        return;
     }
+
+    // store current render states
+    iRenderer::getInstance().flush();
+    const iaRectanglei viewport = iRenderer::getInstance().getViewport();
+    const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
+    const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
+
+    const uint32 width = 128;
+    const uint32 height = 128;
+    uint32 renderTarget = iRenderer::getInstance().createRenderTarget(width, height, iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
+    iRenderer::getInstance().setRenderTarget(renderTarget);
+    iRenderer::getInstance().clearColorBuffer(iaColor4f::transparent);
+
+    iRenderer::getInstance().setViewport(0, 0, width, height);
+    iRenderer::getInstance().setPerspective(45.0, 1.0, 0.00001, 10.0);
+
+    iTargetMaterialPtr targetMaterial = iTargetMaterial::create();
+    targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
+    targetMaterial->setSpecular(iaColor3f(0.5f, 0.5f, 0.5f));
+    targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
+    targetMaterial->setAmbient(iaColor3f(0.5f, 0.5f, 0.5f));
+    targetMaterial->setAlpha(1.0);
+
+    iMeshPtr sphere = createSphere();
+
+    iaMatrixd matrix;
+    matrix.translate(0, 0, -1.5);
+    iRenderer::getInstance().setModelMatrix(matrix);
+    iRenderer::getInstance().setMaterial(material);
+    iRenderer::getInstance().drawMesh(sphere, targetMaterial);
+
+    iPixmapPtr pixmap = iPixmap::createPixmap(width, height, iColorFormat::RGBA);
+
+    iRenderer::getInstance().readPixels(0, 0, width, height, iColorFormat::RGBA, pixmap->getData());
+
+    iRenderer::getInstance().setRenderTarget();
+    iRenderer::getInstance().destroyRenderTarget(renderTarget);
+
+    // restore everything
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
+    iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
+    iRenderer::getInstance().setViewport(viewport);
+
+    iParameters param({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                       {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                       {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
+                       {IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Normal},
+                       {IGOR_RESOURCE_PARAM_PIXMAP, pixmap}});
+
+    _materialPicture->setTexture(iResourceManager::getInstance().requestResource<iTexture>(param));
 }
 
 void UserControlMaterial::updateResource()
@@ -41,6 +99,7 @@ void UserControlMaterial::updateResource()
     // TODO		_selectBoxInstancedFunc
 
     iResourceManager::getInstance().saveResource(getResourceID());
+    updateMaterialDisplay(material);
 }
 
 void UserControlMaterial::update()
@@ -48,7 +107,7 @@ void UserControlMaterial::update()
     UserControlResource::update();
 
     iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(getResourceID());
-    
+
     _ignoreMaterialUpdate = true;
 
     _checkBoxCullFace->setChecked(material->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
@@ -63,25 +122,24 @@ void UserControlMaterial::update()
     _renderingOrder->setValue(material->getOrder());
 
     _ignoreMaterialUpdate = false;
+
+    updateMaterialDisplay(material);
 }
 
 void UserControlMaterial::init()
 {
     UserControlResource::init();
 
-    iWidgetGridLayoutPtr grid = new iWidgetGridLayout(getLayout());
-    grid->appendRows(1);
-    grid->setBorder(2);
-    grid->setStretchColumn(0);
-    grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    grid->setVerticalAlignment(iVerticalAlignment::Top);
+    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, getLayout());
+    mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    mainLayout->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGroupBox *paramGroupBox = new iWidgetGroupBox();
+    iWidgetGroupBox *paramGroupBox = new iWidgetGroupBox(mainLayout);
     paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     paramGroupBox->setText("Render States");
     paramGroupBox->setHeaderOnly();
 
-    iWidgetGridLayout *gridParam = new iWidgetGridLayout();
+    iWidgetGridLayout *gridParam = new iWidgetGridLayout(paramGroupBox);
     gridParam->appendRows(8);
     gridParam->appendColumns(1);
     gridParam->setBorder(2);
@@ -197,9 +255,16 @@ void UserControlMaterial::init()
     gridParam->addWidget(_checkBoxWireframe, 1, 6);
     gridParam->addWidget(_renderingOrder, 1, 7);
 
-    paramGroupBox->addWidget(gridParam);
+    iWidgetGroupBox *materialGroupBox = new iWidgetGroupBox(mainLayout);
+    materialGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    materialGroupBox->setText("Preview");
+    materialGroupBox->setHeaderOnly();
 
-    grid->addWidget(paramGroupBox, 0, 0);
+    _materialPicture = new iWidgetPicture(materialGroupBox);
+    _materialPicture->setMaxSize(128, 128);
+    _materialPicture->setMinSize(128, 128);
+    _materialPicture->setCheckerBoard(true);
+    _materialPicture->setForeground(iaColor4f::white);
 }
 
 void UserControlMaterial::onDoUpdateMaterial(const iWidgetPtr source)
