@@ -40,7 +40,7 @@ namespace igor
 
         if (filename.isEmpty())
         {
-            iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
+            filepath = iResourceManager::getInstance().getFilename(resource->getID());
             if (filepath.isEmpty())
             {
                 filepath = resource->getSource();

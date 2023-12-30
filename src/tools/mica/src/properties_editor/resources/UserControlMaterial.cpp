@@ -39,21 +39,16 @@ void UserControlMaterial::updateResource()
 
     // TODO material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
     // TODO		_selectBoxInstancedFunc
+
+    iResourceManager::getInstance().saveResource(getResourceID());
 }
 
 void UserControlMaterial::update()
 {
     UserControlResource::update();
 
-    iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
+    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(getResourceID());
     
-    if(material == nullptr )
-    {
-        setEnabled(material != nullptr);
-        // means this resource was not loaded
-        return;
-    }
-
     _ignoreMaterialUpdate = true;
 
     _checkBoxCullFace->setChecked(material->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);

@@ -100,6 +100,11 @@ namespace igor
         _factories.clear();
     }
 
+    bool iResourceManager::saveResource(iResourceID resourceID, const iaString &filename)
+    {
+        return saveResource(getResource(resourceID), filename);
+    }
+
     bool iResourceManager::saveResource(iResourcePtr resource, const iaString &filename)
     {
         if (!resource->isValid())
@@ -117,9 +122,9 @@ namespace igor
 
         bool result = factory->saveResource(resource, filename);
 
-        if(result)
+        if (result)
         {
-            con_info("saved " << resource->getType() << " " << filename);
+            con_info("saved " << resource->getType() << " " << resource->getInfo());
         }
 
         return result;

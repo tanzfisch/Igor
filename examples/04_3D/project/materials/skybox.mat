@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- material definition -->
-	<Material name="igor.skybox" zIndex="MIN" visibility="Public">
+	<Material uuid="0x5ef20cbc90092529" order="0" visibility="Public">
 		<States>
 			<DepthTest>Off</DepthTest>
-            <DepthFunc>Less</DepthFunc>
-            <Blend>Off</Blend>
-            <CullFace>On</CullFace>
-            <CullFaceFunc>Back</CullFaceFunc>
+			<DepthFunc>Less</DepthFunc>
+			<DepthMask>On</DepthMask>
+			<Blend>Off</Blend>
+			<CullFace>On</CullFace>
+			<CullFaceFunc>Back</CullFaceFunc>
+			<Wireframe>Off</Wireframe>
+			<Instanced>Off</Instanced>
+			<InstancedFunc>PositionOrientationInstancing</InstancedFunc>
 		</States>
-        <Program>
-            <Vertex>
+		<Program>
+			<Vertex>
 <![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
@@ -26,8 +29,8 @@ void main()
 	
 	gl_Position = igor_modelViewProjection * vec4(in_position,1);
 }]]>
-            </Vertex>
-            <Fragment>
+			</Vertex>
+			<Fragment>
 <![CDATA[#version 450
 
 in vec2 VertexTexCoord;
@@ -41,7 +44,7 @@ void main()
     out_color.rgba = texture2D(igor_matTexture0, VertexTexCoord).rgba;
 }
 ]]>
-            </Fragment>
-        </Program>            
+			</Fragment>
+		</Program>
 	</Material>
 </Igor>

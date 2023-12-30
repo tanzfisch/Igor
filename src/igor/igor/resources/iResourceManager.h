@@ -346,6 +346,14 @@ namespace igor
         */
         bool saveResource(iResourcePtr resource, const iaString &filename = "");
 
+        /*! saves a resource to the filesystem        
+
+        \param resourceID the given resource ID to save (must be valid and have a valid source/filename)
+        \param filename optional filename if resource is to be saved in a new location
+        \returns true if successfully saved
+        */
+        bool saveResource(iResourceID resourceID, const iaString &filename = "");
+
     private:
         /*! mutex to manage access to internal data
          */
