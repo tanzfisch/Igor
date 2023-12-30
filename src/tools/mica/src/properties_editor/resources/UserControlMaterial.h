@@ -76,37 +76,13 @@ private:
 	iWidgetSelectBox *_selectBoxCullFaceFunc;
 	iWidgetSelectBox *_selectBoxInstancedFunc;
 
-	iWidgetLineTextEdit *_textShaderGeometry;
-	iWidgetLineTextEdit *_textShaderVertex;
-	iWidgetLineTextEdit *_textShaderFragment;
-
-	iWidgetButton *_shader0Button;
-	iWidgetButton *_shader1Button;
-	iWidgetButton *_shader2Button;
-
-    iWidgetButton *_shaderReload;
-    iWidgetButton *_exportMaterial;
-
 	uint32 _loadShaderNumber = 0;
 
 	iDialogFileSelectPtr _fileDialog = nullptr;
 
 	bool _ignoreMaterialUpdate = false;
 
-	void onShader0Button(const iWidgetPtr source);
-	void onShader1Button(const iWidgetPtr source);
-	void onShader2Button(const iWidgetPtr source);
-
-	void onTextChangedName(const iWidgetPtr source);
 	void onDoUpdateMaterial(const iWidgetPtr source);
-
-	void onFileLoadDialogClosed(iDialogPtr dialog);
-    void onExportMaterialDialogClosed(iDialogPtr dialog);
-
-    void onReloadShader(const iWidgetPtr source);
-    void onExportMaterial(const iWidgetPtr source);
-
-    void reloadShader(iMaterialPtr material);
 };
 
 #endif // __USERCONTROLMATERIAL__
