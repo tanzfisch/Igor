@@ -136,8 +136,9 @@ namespace igor
             if (texture->hasTransparency() &&
                 checkerBoard)
             {
+                const float32 scale = static_cast<float32>(texture->getWidth()) / 128.0f;
                 const float32 aspect = static_cast<float32>(texture->getHeight()) / static_cast<float32>(texture->getWidth());
-                iRenderer::getInstance().drawTexturedRectangle(rect, _checkerBoardTexture, background, true, iaVector2f(1.0f, aspect * 1.0f));
+                iRenderer::getInstance().drawTexturedRectangle(rect, _checkerBoardTexture, iaColor4f::white, false, iaVector2f(scale, aspect * scale));
             }
 
             iRenderer::getInstance().drawTexturedRectangle(rect, texture, color, texture->hasTransparency());

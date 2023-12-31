@@ -22,30 +22,18 @@ void UserControlTexture::update()
 {
     UserControlResource::update();
 
-    iTexturePtr texture = iResourceManager::getInstance().getResource<iTexture>(getResourceID());
+    iTexturePtr texture = iResourceManager::getInstance().loadResource<iTexture>(getResourceID());
 
-    if (texture != nullptr)
-    {
-        std::wstringstream stream;
+    std::wstringstream stream;
+    stream << "width: " << texture->getWidth() << "px\n";
+    stream << "height: " << texture->getHeight() << "px\n";
+    stream << "byte/pixel: " << texture->getBpp() << "\n";
+    stream << "color format: " << texture->getColorFormat() << "\n";
+    stream << "build mode: " << texture->getBuildMode() << "\n";
+    stream << "mip levels: " << texture->getMipMapLevels() << "\n";
+    stream << "wrap mode: " << texture->getWrapMode();
 
-        stream << "width: " << texture->getWidth() << "px\n";
-        stream << "height: " << texture->getHeight() << "px\n";
-        stream << "byte/pixel: " << texture->getBpp() << "\n";
-        stream << "color format: " << texture->getColorFormat() << "\n";
-        stream << "build mode: " << texture->getBuildMode() << "\n";
-        stream << "mip levels: " << texture->getMipMapLevels() << "\n";
-        stream << "wrap mode: " << texture->getWrapMode();
-
-        _infoLabel->setText(iaString(stream.str().c_str()));
-    }
-    else
-    {
-        _infoLabel->setText("Texture not loaded. Showing thumbnail instead");
-        const iaString filename = iResourceManager::getInstance().getFilename(getResourceID());
-        iaFile file(iResourceManager::getInstance().resolvePath(filename));
-        texture = iThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
-    }
-
+    _infoLabel->setText(iaString(stream.str().c_str()));
     _picture->setTexture(texture);
 }
 

@@ -46,7 +46,6 @@
         <Resource id="0x50046a04d0ac5090" alias="example_texture_M4A1-S" source="textures/M4A1-S.png" />
         <Resource id="0x5004e1a98f37951e" alias="example_model_MuzzleFlash" source="models/MuzzleFlash.ompf" />
         <Resource id="0x56cc64459515e646" alias="example_model_level2" source="models/level2.ompf" />        
-        <Resource id="0x58d6f182417c259f" alias="example_texture_doughnuts" source="textures/doughnuts.png" />
         <Resource id="0x5c3207645ba2d4c2" source="igor/materials/textured.mat" />
         <Resource id="0x5c3f82b6e43b7455" alias="example_texture_particleFlame" source="textures/particleFlame.png" />
         <Resource id="0x5d7585c9679b5aea" alias="example_texture_supremacy_projectile_speed_1" source="textures/supremacy/projectile_speed_1.png" />
@@ -87,8 +86,7 @@
         <Resource id="0x9e656abe317452c1" alias="example_texture_animation_tiles" source="textures/spriteAnimationTiles.png" />
         <Resource id="0x9e6e6abec17f52c1" alias="example_texture_animation_walk" source="textures/spriteAnimationWalk.png" />
         <Resource id="0x9ea386c48e40ad14" alias="example_texture_snow" source="textures/snow.png" />
-        <Resource id="0x9ebab7b0c80e0ab3" alias="example_texture_supremacy_wagiu_a5" source="textures/supremacy/wagiuA5.png" />
-        <Resource id="0xa09a7ff97db27e36" alias="example_sprite_doughnuts" source="sprites/doughnuts.sprite" />
+        <Resource id="0x9ebab7b0c80e0ab3" alias="example_texture_supremacy_wagiu_a5" source="textures/supremacy/wagiuA5.png" />        
         <Resource id="0xa1c4926201d7619e" alias="example_texture_blue" source="textures/blue.png" />
         <Resource id="0xa3d1d8ba6d78dec4" alias="example_texture_particleSmoke" source="textures/particleSmoke.png" />
         <Resource id="0xa7058a1207339228" alias="example_texture_cat_diff" source="textures/cat/cat_diff.png" />

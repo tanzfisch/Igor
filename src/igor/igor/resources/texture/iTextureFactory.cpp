@@ -48,7 +48,7 @@ namespace igor
             return generateTexture(texture, parameters);
         }
 
-        iPixmapPtr pixmap = parameters.getParameter<iPixmapPtr>("pixmap", nullptr);
+        iPixmapPtr pixmap = parameters.getParameter<iPixmapPtr>(IGOR_RESOURCE_PARAM_PIXMAP, nullptr);
         if (pixmap != nullptr)
         {
             return pixmapToTexture(pixmap, texture);

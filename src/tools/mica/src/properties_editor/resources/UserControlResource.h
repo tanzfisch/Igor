@@ -77,9 +77,13 @@ private:
      */
     iWidgetBoxLayoutPtr _layout = nullptr;
 
-    /*! text field name
+    /*! text field type
      */
-    iWidgetLineTextEdit *_textName = nullptr;
+    iWidgetLineTextEdit *_textType = nullptr;
+
+    /*! text field alias
+     */
+    iWidgetLineTextEdit *_textAlias = nullptr;
 
     /*! text field source
      */
@@ -89,11 +93,11 @@ private:
      */
     iWidgetLineTextEdit *_textSource = nullptr;
 
-    /*! handled name change
+    /*! handled alias change
 
     \param source the source widget that triggered this event
     */
-    void onNameChanged(const iWidgetPtr source);
+    void onAliasChanged(const iWidgetPtr source);
 };
 
 #endif // __USERCONTROLRESOURCE__

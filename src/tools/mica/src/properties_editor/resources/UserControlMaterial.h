@@ -45,9 +45,9 @@ public:
     */
 	UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
-	/*! cleanup
+	/*! does nothing
 	*/
-	~UserControlMaterial();
+	~UserControlMaterial() = default;
 
     /*! init ui
      */
@@ -62,51 +62,66 @@ public:
     virtual void updateResource();
 
 private:
-	MaterialNameChangedEvent _materialNameChangedEvent;
 
+	/*! number chooser representing render order
+	*/
 	iWidgetNumberChooser *_renderingOrder;
 
+	/*! checkbox representing cull face
+	*/
 	iWidgetCheckBox *_checkBoxCullFace;
+
+	/*! checkbox representing depth test
+	*/
 	iWidgetCheckBox *_checkBoxDepthTest;
+
+	/*! checkbox representing depth mask
+	*/
 	iWidgetCheckBox *_checkBoxDepthMask;
+
+	/*! checkbox representing blend
+	*/
 	iWidgetCheckBox *_checkBoxBlend;
+
+	/*! checkbox representing wireframe
+	*/
 	iWidgetCheckBox *_checkBoxWireframe;
+
+	/*! checkbox representing instancing
+	*/
 	iWidgetCheckBox *_checkBoxInstanced;
+
+	/*! select box representing depth function
+	*/
 	iWidgetSelectBox *_selectBoxDepthFunc;
+
+	/*! select box representing cull face function
+	*/
 	iWidgetSelectBox *_selectBoxCullFaceFunc;
+
+	/*! select box representing instancing function
+	*/
 	iWidgetSelectBox *_selectBoxInstancedFunc;
 
-	iWidgetLineTextEdit *_textShaderGeometry;
-	iWidgetLineTextEdit *_textShaderVertex;
-	iWidgetLineTextEdit *_textShaderFragment;
-
-	iWidgetButton *_shader0Button;
-	iWidgetButton *_shader1Button;
-	iWidgetButton *_shader2Button;
-
-    iWidgetButton *_shaderReload;
-    iWidgetButton *_exportMaterial;
-
-	uint32 _loadShaderNumber = 0;
-
-	iDialogFileSelectPtr _fileDialog = nullptr;
-
+	/*! flag to prevent endless update loop
+	*/
 	bool _ignoreMaterialUpdate = false;
 
-	void onShader0Button(const iWidgetPtr source);
-	void onShader1Button(const iWidgetPtr source);
-	void onShader2Button(const iWidgetPtr source);
+	/*! widget to display the material texture
+	*/
+	iWidgetPicturePtr _materialPicture;
 
-	void onTextChangedName(const iWidgetPtr source);
+	/*! triggers material update
+
+	\param source the source widget of this event
+	*/
 	void onDoUpdateMaterial(const iWidgetPtr source);
 
-	void onFileLoadDialogClosed(iDialogPtr dialog);
-    void onExportMaterialDialogClosed(iDialogPtr dialog);
+	/*! updates material display render
 
-    void onReloadShader(const iWidgetPtr source);
-    void onExportMaterial(const iWidgetPtr source);
-
-    void reloadShader(iMaterialPtr material);
+	\param material the material to use
+	*/
+	void updateMaterialDisplay(iMaterialPtr material);
 };
 
 #endif // __USERCONTROLMATERIAL__

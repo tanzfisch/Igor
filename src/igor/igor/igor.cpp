@@ -115,7 +115,8 @@ namespace igor
         iaConsole::getInstance() << G << "                                                /\\____/                " << endl;
         iaConsole::getInstance() << T << "      (c) Copyright 2012-2023 by Martin Loga" << G << "   \\_/__/   " << endl;
 
-        iaConsole::getInstance() << endl << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
+        iaConsole::getInstance() << endl
+                                 << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
         iaConsole::getInstance() << T << "                 EnTT, R.P. Easing, TinyXML and Fun" << endl
@@ -246,18 +247,14 @@ namespace igor
 
 #ifdef IGOR_WINDOWS
         static const std::vector<iaString> configLocations = {
-            L"config",
-            L"..\\config",
-            L"..\\..\\config"};
+            L"project"};
 #endif
 
 #ifdef IGOR_LINUX
         static const std::vector<iaString> configLocations = {
-            L"~/.igor",
+            iaString(std::getenv("HOME")) + "/.config/igor",
             L"/etc/igor",
-            L"config",
-            L"../config",
-            L"../../config"};
+            L"project"};
 #endif
 
         iaString configurationFilepath;
@@ -273,13 +270,31 @@ namespace igor
             }
         }
 
+        iConfigReader::create();
+
         if (configurationFilepath.isEmpty())
         {
-            con_crit("can't find config file");
-        }
+            con_warn("can't find config file. Using defaults");
 
-        iConfigReader::create();
-        iConfigReader::getInstance().readConfiguration(configurationFilepath);
+#ifdef IGOR_LINUX
+            iaString configFolder = iaString(std::getenv("HOME")) + "/.config/igor";
+#endif
+
+#ifdef IGOR_WINDOWS
+            // iaString configFolder = "%LOCALAPPDATA%/Igor ...// TODO
+#endif
+
+            if (!iaDirectory::exists(configFolder))
+            {
+                iaDirectory::makeDirectory(configFolder);
+            }
+
+            iConfigReader::getInstance().writeConfiguration(configFolder + "/igor.xml");
+        }
+        else
+        {
+            iConfigReader::getInstance().readConfiguration(configurationFilepath);
+        }
 
         if (iConfigReader::getInstance().hasSetting("logLevel"))
         {

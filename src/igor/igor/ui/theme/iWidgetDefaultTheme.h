@@ -105,7 +105,6 @@ namespace igor
          */
         iTexturePtr _checkerBoardTexture;
 
-
         /*! default line width definition
          */
         const float32 _defaultLineWidth = 1.0;

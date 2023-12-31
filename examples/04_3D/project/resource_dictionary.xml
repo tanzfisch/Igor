@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Igor>
+    <ResourceDictionary>
+        <Resource id="0x42000caa82a2e5e0" alias="example_model_cat" source="models/cat/cat.ompf" />
+        <Resource id="0xa7058a1207339228" alias="example_texture_cat_diff" source="models/cat/cat_diff.png" />
+
+        <Resource id="0x98861236315ccdf1" alias="example_model_crate" source="models/crate/crate.ompf" />
+        <Resource id="0xfb8ec7e44efcccc9" alias="example_texture_crate_diff" source="models/crate/crate_diff.png" />
+
+        <Resource id="0x0d930cfa6f049a1c" alias="example_model_teapot" source="models/teapot/teapot.ompf" />
+
+        <Resource id="0x5ef20cbc90092529" alias="example_material_skybox" source="materials/skybox.mat" />
+        <Resource id="0xd9414e77657b07c8" alias="example_skybox_debug" source="textures/skyboxes/debug.png" />
+    </ResourceDictionary>        
+</Igor>

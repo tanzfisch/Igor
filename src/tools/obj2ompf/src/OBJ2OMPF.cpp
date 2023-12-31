@@ -91,7 +91,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         setMaterialRecursive(modelNode, material);
 
         std::vector<iMaterialPtr> materials;
-        iMaterialResourceFactory::getInstance().getMaterials(materials);
+        iResourceManager::getInstance().getMaterials(materials);
         for (auto material : materials)
         {
             con_endl("material " << material->getName() << " with id " << material->getID());

@@ -120,14 +120,14 @@ void UserControlMaterialView::refresh()
         iWidgetLabel *label = new iWidgetLabel();
         label->setHorizontalAlignment(iHorizontalAlignment::Right);
         label->setVerticalAlignment(iVerticalAlignment::Center);
-        if (material->getName() != "")
+        /*if (material->getName() != "")
         {
             label->setText(material->getName());
         }
         else
         {
             label->setText("<internal>");
-        }
+        }*/
 
         entry->addWidget(label, 0, 0);
         _gridGraph->addWidget(entry, 0, currentRowIndex++, material->getID());

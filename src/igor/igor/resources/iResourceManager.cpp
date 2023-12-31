@@ -22,7 +22,7 @@ using namespace iaux;
 
 namespace igor
 {
-    static const iaString s_igorResourceDictionaryPath = "igor/igor_resource_dictionary.xml";
+    static const iaString s_igorResourceDictionaryPath = "igor_resource_dictionary.xml";
 
     static bool matchingFilename(iFactoryPtr factory, const iaString &filename)
     {
@@ -97,7 +97,37 @@ namespace igor
         _resources.clear();
         _mutex.unlock();
 
-        _factories.clear();        
+        _factories.clear();
+    }
+
+    bool iResourceManager::saveResource(iResourceID resourceID, const iaString &filename)
+    {
+        return saveResource(getResource(resourceID), filename);
+    }
+
+    bool iResourceManager::saveResource(iResourcePtr resource, const iaString &filename)
+    {
+        if (!resource->isValid())
+        {
+            con_err("can't save invalid resource " << resource->getInfo());
+            return false;
+        }
+
+        iFactoryPtr factory = getFactory(resource->getParameters());
+        if (factory == nullptr)
+        {
+            con_err("no factory found for given resource " << resource->getInfo());
+            return false;
+        }
+
+        bool result = factory->saveResource(resource, filename);
+
+        if (result)
+        {
+            con_info("saved " << resource->getType() << " " << resource->getInfo());
+        }
+
+        return result;
     }
 
     const iaString iResourceManager::getType(const iResourceID &resourceID) const
@@ -107,9 +137,14 @@ namespace igor
 
     const iaString iResourceManager::getType(const iaString &filename) const
     {
-        for(auto factory : _factories)
+        if (filename.isEmpty())
         {
-            if(matchingFilename(factory.second, filename))
+            return iaString();
+        }
+
+        for (auto factory : _factories)
+        {
+            if (matchingFilename(factory.second, filename))
             {
                 return factory.second->getType();
             }
@@ -121,7 +156,7 @@ namespace igor
     void iResourceManager::loadResourceDictionary(const iaString &filename)
     {
         clearResourceDictionary();
-        
+
         // now load app specifics
         _resourceDictionary.read(resolvePath(filename));
     }
@@ -344,7 +379,7 @@ namespace igor
 
         // ignoring other parameters and just create an empty resource (of what ever the factory decides this will be)
         iResourcePtr result = factory->createResource();
-        if(result == nullptr)
+        if (result == nullptr)
         {
             return nullptr;
         }
@@ -413,6 +448,13 @@ namespace igor
         if (loadNow)
         {
             result->setValid(factory->loadResource(result));
+
+            if (result->isValid() &&
+                result->getSource().isEmpty())
+            {
+                result->setSource(iResourceManager::getInstance().getFilename(result->getID()));
+            }
+
             result->setProcessed(true);
         }
 
@@ -578,7 +620,7 @@ namespace igor
         return _resourceDictionary.getAlias(id);
     }
 
-    void iResourceManager::setAlias(const iResourceID &id, const iaString& alias)
+    void iResourceManager::setAlias(const iResourceID &id, const iaString &alias)
     {
         _resourceDictionary.setAlias(id, alias);
     }
@@ -596,7 +638,7 @@ namespace igor
             iaString build;
 
             iaDirectory searchDir(path);
-            if(searchDir.exists())
+            if (searchDir.exists())
             {
                 build = path + IGOR_PATHSEPARATOR + filepath;
             }

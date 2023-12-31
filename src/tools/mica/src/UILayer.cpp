@@ -193,7 +193,7 @@ void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
 
     iaString filename = _fileDialog.getFullPath();
 
-    auto rootNode = _workspace->getRootUser();
+    auto rootNode = _workspace->getUserScene();
 
     std::vector<iNodePtr> children = rootNode->getChildren();
     children.insert(children.end(), rootNode->getInactiveChildren().begin(), rootNode->getInactiveChildren().end());

@@ -60,6 +60,13 @@ namespace igor
 		*/
 		void readConfiguration(const iaString &filename);
 
+		/*! writes current configuration to given file
+
+		\param filename the given filename
+		\returns true if successful
+		*/
+		bool writeConfiguration(const iaString &filename);
+
 		/*! \returns value for given setting as string
 		
 		\param key the given setting

@@ -22,17 +22,44 @@ namespace igor
     iResourcePtr iMaterialFactory::createResource()
     {
         iMaterialPtr defaultMaterial = iRenderer::getInstance().getDefaultMaterial();
-        iaString filename = defaultMaterial->getFilename();
+        const iaString source = defaultMaterial->getSource();
 
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                           {IGOR_RESOURCE_PARAM_SOURCE, filename}});
+                           {IGOR_RESOURCE_PARAM_SOURCE, source}});
 
         iMaterialPtr material(new iMaterial(param));
-        iMaterialIO::read(iResourceManager::getInstance().resolvePath(filename), material);
-        material->setName("New Material");
+        iMaterialIO::read(iResourceManager::getInstance().resolvePath(source), material);
 
         return material;
+    }
+
+    bool iMaterialFactory::saveResource(iResourcePtr resource, const iaString &filename)
+    {
+        iaString filepath;
+
+        if (filename.isEmpty())
+        {
+            filepath = iResourceManager::getInstance().getFilename(resource->getID());
+            if (filepath.isEmpty())
+            {
+                filepath = resource->getSource();
+            }
+
+            if (filepath.isEmpty())
+            {
+                con_err("not a valid source path " << resource->getID());
+                return false;
+            }
+        }
+        else
+        {
+            filepath = filename;
+        }
+
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        iMaterialPtr material = std::dynamic_pointer_cast<iMaterial>(resource);
+        return iMaterialIO::write(fullFilepath, material);
     }
 
     iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)
@@ -47,16 +74,16 @@ namespace igor
         {
             filepath = resource->getSource();
         }
-        
+
         if (filepath.isEmpty())
         {
-            con_err("not a valid material " << resource->getID());
+            con_err("not a valid source path " << resource->getID());
             return false;
         }
 
         const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
         iMaterialPtr material = std::dynamic_pointer_cast<iMaterial>(resource);
-        return iMaterialIO::read(iResourceManager::getInstance().resolvePath(fullFilepath), material);
+        return iMaterialIO::read(fullFilepath, material);
     }
 
     void iMaterialFactory::unloadResource(iResourcePtr resource)
