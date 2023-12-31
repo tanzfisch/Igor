@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_SHADER_MATERIAL_FACTORY_H
-#define IGOR_SHADER_MATERIAL_FACTORY_H
+#ifndef IGOR_MATERIAL_FACTORY_H
+#define IGOR_MATERIAL_FACTORY_H
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/shader_material/iShaderMaterial.h>
@@ -35,16 +35,16 @@
 namespace igor
 {
 
-    /*! this factory creates shader material resources
+    /*! this factory creates material resources
      */
-    class iShaderMaterialFactory : public iFactory
+    class iMaterialFactory : public iFactory
     {
         friend class iResourceManager;
 
     private:
         /*! init members
          */
-        iShaderMaterialFactory();
+        iMaterialFactory();
 
         /*! \returns resource type specific hash data
          */
@@ -89,4 +89,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // IGOR_SHADER_MATERIAL_FACTORY_H
+#endif // IGOR_MATERIAL_FACTORY_H

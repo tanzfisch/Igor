@@ -15,7 +15,7 @@ namespace igor
 {
 
     iShaderMaterialFactory::iShaderMaterialFactory()
-        : iFactory(IGOR_RESOURCE_SHADER_MATERIAL, IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
+        : iFactory(IGOR_RESOURCE_SHADER_MATERIAL, IGOR_SUPPORTED_SHADER_MATERIAL_EXTENSIONS)
     {
     }
 

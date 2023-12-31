@@ -12,12 +12,14 @@ using namespace iaux;
 
 extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite"};
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_MATERIAL_EXTENSIONS = {"smat"};
 extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat"};
 extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim"};
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
 
-extern const iaString IGOR_RESOURCE_SHADER_MATERIAL = "material";
+extern const iaString IGOR_RESOURCE_SHADER_MATERIAL = "shaderMaterial";
+extern const iaString IGOR_RESOURCE_MATERIAL = "material";
 extern const iaString IGOR_RESOURCE_ANIMATION = "animation";
 extern const iaString IGOR_RESOURCE_TEXTURE = "texture";
 extern const iaString IGOR_RESOURCE_SOUND = "sound";

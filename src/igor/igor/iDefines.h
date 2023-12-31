@@ -54,13 +54,15 @@ using namespace iaux;
 extern const iaString IGOR_BUILD_CONFIGURATION; //! Igor build configuration short
 extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS; //! supported file extensions for sprites
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS; //! supported file extensions for textures
+extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_MATERIAL_EXTENSIONS; //! supported file extensions for shader materials
 extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS; //! supported file extensions for materials
 extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS; //! supported file extensions for animations
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS; //! supported file extensions for models
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS; //! supported file extensions for sounds
 
 // resources
-extern const iaString IGOR_RESOURCE_SHADER_MATERIAL; //! material resource name
+extern const iaString IGOR_RESOURCE_SHADER_MATERIAL; //! shader material resource name
+extern const iaString IGOR_RESOURCE_MATERIAL; //! material resource name
 extern const iaString IGOR_RESOURCE_ANIMATION; //! animation resource name
 extern const iaString IGOR_RESOURCE_TEXTURE; //! texture resource name
 extern const iaString IGOR_RESOURCE_SOUND; //! sound resource name

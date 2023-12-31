@@ -2,21 +2,21 @@
 <Igor>
 	<ResourceDictionary internal="true">
     <!-- https://www.browserling.com/tools/random-hex -->
-                <Resource id="0x26a31adfc7eb0e6d" alias="igor_material_default" source="materials/default.mat" />
-                <Resource id="0xa90e770c3809190b" alias="igor_material_default_textured" source="materials/textured.mat" />
-                <Resource id="0x058225918ed11dab" alias="igor_material_color_id" source="materials/colorID.mat" />
-                <Resource id="0x640f1dd866a227a2" alias="igor_material_flat_shaded" source="materials/flat_shaded.mat" />
-                <Resource id="0x5326ec8d85279259" alias="igor_material_flat_shaded_blend" source="materials/flat_shaded_blend.mat" />
-                <Resource id="0x81a9bf88dbd3427a" alias="igor_material_texture_shaded" source="materials/texture_shaded.mat" />
-                <Resource id="0xd1a8f279d7780a78" alias="igor_material_texture_shaded_blend" source="materials/texture_shaded_blend.mat" />
-                <Resource id="0x2bb102ca8b49bcd9" alias="igor_material_textured_particles_ortho" source="materials/particles_ortho_projection.mat" />
-                <Resource id="0xcfadb42357736bf6" alias="igor_material_cellshading_yellow" source="materials/cellshading_yellow.mat" />
-                <Resource id="0x84950fb86bb8cd63" alias="igor_material_particles" source="materials/particles.mat" />
-                <Resource id="0xb8877fc807623372" alias="igor_material_emitter_overlay_flat" source="materials/emitter_overlay_flat.mat" />
-                <Resource id="0x154a6ddd0ad85d96" alias="igor_material_emitter_overlay_volume" source="materials/emitter_overlay_volume.mat" />
-                <Resource id="0xb753a8b15f43db94" alias="igor_material_transform_overlay_base" source="materials/transform_overlay_base.mat" />
-                <Resource id="0x2b48d6e3bf47df31" alias="igor_material_bounding_box" source="materials/bounding_box.mat" />
-                <Resource id="0x0ceb229ceabbc35e" alias="igor_material_orientation_plane" source="materials/orientation_plane.mat" />
+                <Resource id="0x26a31adfc7eb0e6d" alias="igor_material_default" source="materials/default.smat" />
+                <Resource id="0xa90e770c3809190b" alias="igor_material_default_textured" source="materials/textured.smat" />
+                <Resource id="0x058225918ed11dab" alias="igor_material_color_id" source="materials/colorID.smat" />
+                <Resource id="0x640f1dd866a227a2" alias="igor_material_flat_shaded" source="materials/flat_shaded.smat" />
+                <Resource id="0x5326ec8d85279259" alias="igor_material_flat_shaded_blend" source="materials/flat_shaded_blend.smat" />
+                <Resource id="0x81a9bf88dbd3427a" alias="igor_material_texture_shaded" source="materials/texture_shaded.smat" />
+                <Resource id="0xd1a8f279d7780a78" alias="igor_material_texture_shaded_blend" source="materials/texture_shaded_blend.smat" />
+                <Resource id="0x2bb102ca8b49bcd9" alias="igor_material_textured_particles_ortho" source="materials/particles_ortho_projection.smat" />
+                <Resource id="0xcfadb42357736bf6" alias="igor_material_cellshading_yellow" source="materials/cellshading_yellow.smat" />
+                <Resource id="0x84950fb86bb8cd63" alias="igor_material_particles" source="materials/particles.smat" />
+                <Resource id="0xb8877fc807623372" alias="igor_material_emitter_overlay_flat" source="materials/emitter_overlay_flat.smat" />
+                <Resource id="0x154a6ddd0ad85d96" alias="igor_material_emitter_overlay_volume" source="materials/emitter_overlay_volume.smat" />
+                <Resource id="0xb753a8b15f43db94" alias="igor_material_transform_overlay_base" source="materials/transform_overlay_base.smat" />
+                <Resource id="0x2b48d6e3bf47df31" alias="igor_material_bounding_box" source="materials/bounding_box.smat" />
+                <Resource id="0x0ceb229ceabbc35e" alias="igor_material_orientation_plane" source="materials/orientation_plane.smat" />
                 
                 <Resource id="0x22c969d4614ee3dd" alias="igor_icon_add" source="icons/add.png" />
                 <Resource id="0x6cf7bed3ab3e5d40" alias="igor_icon_light" source="icons/light.png" />

@@ -20,7 +20,7 @@
         <Resource id="0x200bd329a0bbe442" alias="example_texture_supremacy_carrot" source="textures/supremacy/carrot.png" />
         <Resource id="0x2322b33bdc7d8c61" alias="example_texture_cyan" source="textures/cyan.png" />
         <Resource id="0x2544d6491ebcda4c" alias="example_texture_particle_dot" source="textures/particleDot.png" />
-        <Resource id="0x297dd0e1b6a2ec99" alias="example_material_instancing_textured" source="materials/instancing_textured.mat" />
+        <Resource id="0x297dd0e1b6a2ec99" alias="example_material_instancing_textured" source="materials/instancing_textured.smat" />
         <Resource id="0x2cc341be664b3dfb" alias="example_texture_ice" source="textures/ice.png" />
         <Resource id="0x2df1156870f403e1" alias="example_texture_supremacy_bullets_3" source="textures/supremacy/bullets_3.png" />
         <Resource id="0x2e6c049b977b9326" alias="example_texture_supremacy_capsicum" source="textures/supremacy/capsicum.png" />
@@ -40,16 +40,16 @@
         <Resource id="0x3fb930f473b5dd96" alias="example_texture_supremacy_projectile_speed_2" source="textures/supremacy/projectile_speed_2.png" />
         <Resource id="0x40be4b66aaea7d9c" alias="example_animation_shop_idle" source="animations/shopIdle.anim" />
         <Resource id="0x42000caa82a2e5e0" alias="example_model_cat" source="models/cat.ompf" />
-        <Resource id="0x432855e2f70bcd70" alias="example_material_voxel_terrain_directional_light" source="materials/voxel_terrain_directional_light.mat" />
+        <Resource id="0x432855e2f70bcd70" alias="example_material_voxel_terrain_directional_light" source="materials/voxel_terrain_directional_light.smat" />
         <Resource id="0x44c6a8a0ee06609f" alias="example_texture_supremacy_shop_item_sniper" source="textures/supremacy/shop_item_sniper.png" />
         <Resource id="0x47909cc5e7428ec5" alias="example_texture_lineGradient" source="textures/lineGradient.png" />
         <Resource id="0x50046a04d0ac5090" alias="example_texture_M4A1-S" source="textures/M4A1-S.png" />
         <Resource id="0x5004e1a98f37951e" alias="example_model_MuzzleFlash" source="models/MuzzleFlash.ompf" />
         <Resource id="0x56cc64459515e646" alias="example_model_level2" source="models/level2.ompf" />        
-        <Resource id="0x5c3207645ba2d4c2" source="igor/materials/textured.mat" />
+        <Resource id="0x5c3207645ba2d4c2" source="igor/materials/textured.smat" />
         <Resource id="0x5c3f82b6e43b7455" alias="example_texture_particleFlame" source="textures/particleFlame.png" />
         <Resource id="0x5d7585c9679b5aea" alias="example_texture_supremacy_projectile_speed_1" source="textures/supremacy/projectile_speed_1.png" />
-        <Resource id="0x5ef20cbc90092529" alias="example_material_skybox" source="materials/skybox.mat" />
+        <Resource id="0x5ef20cbc90092529" alias="example_material_skybox" source="materials/skybox.smat" />
         <Resource id="0x600569673b98b647" alias="example_texture_particleFlash" source="textures/particleFlash.png" />
         <Resource id="0x600abd8d04b20760" alias="example_texture_supremacy_eggplant" source="textures/supremacy/eggplant.png" />
         <Resource id="0x601d73088954f7d5" alias="example_sprite_shop" source="sprites/shop.sprite" />
@@ -104,7 +104,7 @@
         <Resource id="0xb6ab30d9af192b74" alias="example_texture_rock" source="textures/rock.png" />
         <Resource id="0xb746d441483db22b" alias="example_texture_red" source="textures/red.png" />
         <Resource id="0xb7711697ee99e42b" alias="example_texture_supremacy_beet" source="textures/supremacy/beet.png" />
-        <Resource id="0xb7a3d5aeb42ae650" alias="example_material_instancing_flat_shaded" source="materials/instancing_flat_shaded.mat" />
+        <Resource id="0xb7a3d5aeb42ae650" alias="example_material_instancing_flat_shaded" source="materials/instancing_flat_shaded.smat" />
         <Resource id="0xbc7f8eb3168b41d1" alias="example_sprite_animation_walk" source="sprites/spriteAnimationWalk.sprite" />
         <Resource id="0xbf6b73cf73d17688" alias="example_texture_particleGem" source="textures/particleGem.png" />
         <Resource id="0xbfc89de6be8523ac" alias="example_model_MuzzleSmoke" source="models/MuzzleSmoke.ompf" />
@@ -132,7 +132,7 @@
         <Resource id="0xed306aa76f15e895" alias="example_texture_supremacy_run_faster_1" source="textures/supremacy/run_faster_1.png" />
         <Resource id="0xedfea7145d7e2222" alias="example_texture_yellow" source="textures/yellow.png" />
         <Resource id="0xee59b6f07b0c89a7" alias="example_texture_octave_2" source="textures/octave2.png" />
-        <Resource id="0xf02b7436f7c112aa" alias="example_material_sprite_animation_textured" source="materials/sprite_animation_textured.mat" />
+        <Resource id="0xf02b7436f7c112aa" alias="example_material_sprite_animation_textured" source="materials/sprite_animation_textured.smat" />
         <Resource id="0xf18f8b6f44cf1cd3" alias="example_texture_crate" source="textures/crates1.png" />
         <Resource id="0xf1fb3b465d836780" alias="example_texture_supremacy_shop" source="textures/supremacy/shop.png" />
         <Resource id="0xf710bb1a8dfc9d77" alias="example_model_M4A1-S" source="models/M4A1-S.ompf" />

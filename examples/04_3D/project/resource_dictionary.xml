@@ -9,7 +9,7 @@
 
         <Resource id="0x0d930cfa6f049a1c" alias="example_model_teapot" source="models/teapot/teapot.ompf" />
 
-        <Resource id="0x5ef20cbc90092529" alias="example_material_skybox" source="materials/skybox.mat" />
+        <Resource id="0x5ef20cbc90092529" alias="example_material_skybox" source="materials/skybox.smat" />
         <Resource id="0xd9414e77657b07c8" alias="example_skybox_debug" source="textures/skyboxes/debug.png" />
     </ResourceDictionary>        
 </Igor>
