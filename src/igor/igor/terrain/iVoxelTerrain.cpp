@@ -183,7 +183,7 @@ namespace igor
         _terrainMaterial = iRenderer::getInstance().getDefaultMaterial();
 
         // set up terrain target material
-        _targetMaterial = iTargetMaterial::create();
+        _targetMaterial = iMaterial::create();
         _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -1258,14 +1258,14 @@ namespace igor
                                             {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
                                             {IGOR_RESOURCE_PARAM_QUIET, true},
                                             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
-                                            {IGOR_RESOURCE_PARAM_MATERIAL, _terrainMaterial},
+                                            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, _terrainMaterial},
                                             {IGOR_RESOURCE_PARAM_GENERATE, true},
                                             {"voxelOffsetToNextLOD", voxelOffsetToNextLOD},
                                             {"voxelData", voxelData},
                                             {"voxelDataNextLOD", voxelDataNextLOD},
                                             {IGOR_RESOURCE_PARAM_LOD, voxelBlock->_lod},
                                             {"neighboursLOD", voxelBlock->_neighboursLOD},
-                                            {IGOR_RESOURCE_PARAM_TARGET_MATERIAL, _targetMaterial},
+                                            {IGOR_RESOURCE_PARAM_MATERIAL, _targetMaterial},
                                             {IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL, _physicsMaterialID}});
                     iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);
 

@@ -31,7 +31,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <igor/terrain/tasks/iTaskGenerateVoxels.h>
 #include <igor/terrain/tasks/iTaskPropsOnVoxels.h>

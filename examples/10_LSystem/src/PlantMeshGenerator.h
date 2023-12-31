@@ -43,7 +43,7 @@ namespace igor
 {
     class iLSystem;
     class iMeshBuilder;
-    class iTargetMaterial;
+    class iMaterial;
 }
 
 /*! plant mesh generator

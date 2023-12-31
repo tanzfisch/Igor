@@ -46,28 +46,28 @@ void TransformOverlay::onInit()
     _material = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_transform_overlay_base");
     _materialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_cellshading_yellow");
 
-    _red = iTargetMaterial::create();
+    _red = iMaterial::create();
     _red->setEmissive(iaColor3f(0.8f, 0.0f, 0.0f));
     _red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
     _red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
     _red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
     _red->setAlpha(0.8);
 
-    _green = iTargetMaterial::create();
+    _green = iMaterial::create();
     _green->setEmissive(iaColor3f(0.0f, 0.8f, 0.0f));
     _green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
     _green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
     _green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
     _green->setAlpha(0.8);
 
-    _blue = iTargetMaterial::create();
+    _blue = iMaterial::create();
     _blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.8f));
     _blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
     _blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
     _blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
     _blue->setAlpha(0.8);
 
-    _cyan = iTargetMaterial::create();
+    _cyan = iMaterial::create();
     _cyan->setEmissive(iaColor3f(0.0f, 0.8f, 0.8f));
     _cyan->setSpecular(iaColor3f(0.0f, 0.2f, 0.2f));
     _cyan->setDiffuse(iaColor3f(0.0f, 0.5f, 0.5f));

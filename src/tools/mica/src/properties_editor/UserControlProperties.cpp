@@ -99,7 +99,7 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
     iaString resourceType = iResourceManager::getInstance().getType(resourceID);
     UserControlResource *userControl = nullptr;
 
-    if (resourceType == "material")
+    if (resourceType == IGOR_RESOURCE_SHADER_MATERIAL)
     {
         userControl = new UserControlMaterial(resourceID, _layout);
     }

@@ -19,7 +19,7 @@ namespace igor
         setName(L"iNodeMesh");
         _nodeType = iNodeType::iNodeMesh;
 
-        _targetMaterial = iTargetMaterial::create();
+        _targetMaterial = iMaterial::create();
     }
 
     iNodeMesh::iNodeMesh(iNodeMesh *node)

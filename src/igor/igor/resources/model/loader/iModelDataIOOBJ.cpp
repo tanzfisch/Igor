@@ -7,7 +7,7 @@
 #include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaConsole.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/nodes/iNodeManager.h>

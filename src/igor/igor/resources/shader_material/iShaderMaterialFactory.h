@@ -37,14 +37,14 @@ namespace igor
 
     /*! this factory creates material resources
      */
-    class iMaterialFactory : public iFactory
+    class iShaderMaterialFactory : public iFactory
     {
         friend class iResourceManager;
 
     private:
         /*! init members
          */
-        iMaterialFactory();
+        iShaderMaterialFactory();
 
         /*! \returns resource type specific hash data
          */

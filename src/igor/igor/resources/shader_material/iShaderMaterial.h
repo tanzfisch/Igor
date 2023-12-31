@@ -50,7 +50,7 @@ namespace igor
      */
     class IGOR_API iShaderMaterial : public iResource
     {
-        friend class iMaterialFactory;
+        friend class iShaderMaterialFactory;
         friend class iRenderer;
 
     public:

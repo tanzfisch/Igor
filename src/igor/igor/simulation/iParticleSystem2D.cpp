@@ -21,7 +21,7 @@ namespace igor
         _particleSystem.setMaxParticleCount(100);
         _particleSystem.start();
 
-        _particleTargetMaterial = iTargetMaterial::create();
+        _particleTargetMaterial = iMaterial::create();
         _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 0);
         _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 1);
         _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 2);

@@ -9,7 +9,7 @@
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
 #include <igor/resources/model/iModelFactory.h>
-#include <igor/resources/shader_material/iMaterialFactory.h>
+#include <igor/resources/shader_material/iShaderMaterialFactory.h>
 #include <igor/resources/config/iConfigReader.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/iResourceDictionary.h>
@@ -48,7 +48,7 @@ namespace igor
         registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
-        registerFactory(iFactoryPtr(new iMaterialFactory()));
+        registerFactory(iFactoryPtr(new iShaderMaterialFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
 
         // read igor internal resource dictionary
@@ -757,7 +757,7 @@ namespace igor
         _mutex.lock();
         for (const auto &pair : _resources)
         {
-            if (pair.second->getType() != IGOR_RESOURCE_MATERIAL)
+            if (pair.second->getType() != IGOR_RESOURCE_SHADER_MATERIAL)
             {
                 continue;
             }

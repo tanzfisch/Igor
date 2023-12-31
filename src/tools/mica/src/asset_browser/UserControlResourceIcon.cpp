@@ -131,7 +131,7 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
         {
             texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_texture");
         }
-        else if (type == "material")
+        else if (type == IGOR_RESOURCE_SHADER_MATERIAL)
         {
             texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_material");
         }

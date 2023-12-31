@@ -242,7 +242,7 @@ void VoxelExample::prepareMeshGeneration()
         {IGOR_RESOURCE_PARAM_GENERATE, true},
         {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
         {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
-        {IGOR_RESOURCE_PARAM_MATERIAL, _voxelMeshMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, _voxelMeshMaterial},
         {"voxelData", _voxelData}
     });
 

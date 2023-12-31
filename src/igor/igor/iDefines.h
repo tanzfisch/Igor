@@ -60,7 +60,7 @@ extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS; //! supporte
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS; //! supported file extensions for sounds
 
 // resources
-extern const iaString IGOR_RESOURCE_MATERIAL; //! material resource name
+extern const iaString IGOR_RESOURCE_SHADER_MATERIAL; //! material resource name
 extern const iaString IGOR_RESOURCE_ANIMATION; //! animation resource name
 extern const iaString IGOR_RESOURCE_TEXTURE; //! texture resource name
 extern const iaString IGOR_RESOURCE_SOUND; //! sound resource name
@@ -80,8 +80,8 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE; //! resource param
 extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES; //! resource parameters join vertices
 extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE; //! resource parameters sub type
 extern const iaString IGOR_RESOURCE_PARAM_QUIET; //! resource parameters quiet
-extern const iaString IGOR_RESOURCE_PARAM_MATERIAL; //! resource parameters material
-extern const iaString IGOR_RESOURCE_PARAM_TARGET_MATERIAL; //! resource parameters target material
+extern const iaString IGOR_RESOURCE_PARAM_SHADER_MATERIAL; //! resource parameters material
+extern const iaString IGOR_RESOURCE_PARAM_MATERIAL; //! resource parameters target material
 extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL; //! resource parameters physics material
 extern const iaString IGOR_RESOURCE_PARAM_LOD; //! resource parameters level of detail
 extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH; //! resource parameters keep mesh

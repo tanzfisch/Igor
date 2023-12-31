@@ -57,7 +57,7 @@ void EmitterOverlay::onInit()
     _materialFlat = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_emitter_overlay_flat");
     _materialVolume = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_emitter_overlay_volume");
 
-    _targetMaterial = iTargetMaterial::create();
+    _targetMaterial = iMaterial::create();
     _targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
     _targetMaterial->setSpecular(iaColor3f(0.0f, 0.5f, 0.0f));
     _targetMaterial->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));

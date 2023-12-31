@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/shader_material/iMaterialFactory.h>
+#include <igor/resources/shader_material/iShaderMaterialFactory.h>
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/shader_material/loader/iShaderMaterialIO.h>
@@ -14,17 +14,17 @@ using namespace iaux;
 namespace igor
 {
 
-    iMaterialFactory::iMaterialFactory()
-        : iFactory(IGOR_RESOURCE_MATERIAL, IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
+    iShaderMaterialFactory::iShaderMaterialFactory()
+        : iFactory(IGOR_RESOURCE_SHADER_MATERIAL, IGOR_SUPPORTED_MATERIAL_EXTENSIONS)
     {
     }
 
-    iResourcePtr iMaterialFactory::createResource()
+    iResourcePtr iShaderMaterialFactory::createResource()
     {
         iShaderMaterialPtr defaultMaterial = iRenderer::getInstance().getDefaultMaterial();
         const iaString source = defaultMaterial->getSource();
 
-        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SHADER_MATERIAL},
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()},
                            {IGOR_RESOURCE_PARAM_SOURCE, source}});
 
@@ -34,7 +34,7 @@ namespace igor
         return material;
     }
 
-    bool iMaterialFactory::saveResource(iResourcePtr resource, const iaString &filename)
+    bool iShaderMaterialFactory::saveResource(iResourcePtr resource, const iaString &filename)
     {
         iaString filepath;
 
@@ -62,12 +62,12 @@ namespace igor
         return iShaderMaterialIO::write(fullFilepath, material);
     }
 
-    iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)
+    iResourcePtr iShaderMaterialFactory::createResource(const iParameters &parameters)
     {
         return iResourcePtr(new iShaderMaterial(parameters));
     }
 
-    bool iMaterialFactory::loadResource(iResourcePtr resource)
+    bool iShaderMaterialFactory::loadResource(iResourcePtr resource)
     {
         iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
         if (filepath.isEmpty())
@@ -86,12 +86,12 @@ namespace igor
         return iShaderMaterialIO::read(fullFilepath, material);
     }
 
-    void iMaterialFactory::unloadResource(iResourcePtr resource)
+    void iShaderMaterialFactory::unloadResource(iResourcePtr resource)
     {
         // nothing else to do here
     }
 
-    iaString iMaterialFactory::getHashData(const iParameters &parameters) const
+    iaString iShaderMaterialFactory::getHashData(const iParameters &parameters) const
     {
         iaString hashData;
 

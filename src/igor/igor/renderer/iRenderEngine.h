@@ -32,7 +32,7 @@
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/shader_material/iShaderMaterial.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/renderer/buffers/iInstancingBuffer.h>

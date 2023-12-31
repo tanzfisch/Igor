@@ -31,7 +31,7 @@
 
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/texture/iTexture.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/simulation/iParticleSystem.h>
 
 #include <iaux/system/iaEvent.h>

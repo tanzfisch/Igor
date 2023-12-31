@@ -38,7 +38,7 @@
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaRectangle.h>

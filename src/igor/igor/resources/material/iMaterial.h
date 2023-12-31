@@ -42,14 +42,14 @@ namespace igor
 {
     /*! target material pointer definition
      */
-    class iTargetMaterial;
-    typedef std::shared_ptr<iTargetMaterial> iTargetMaterialPtr;
+    class iMaterial;
+    typedef std::shared_ptr<iMaterial> iTargetMaterialPtr;
 
     /*! contains all material information that belong to the surface of an object
 
     Whereas iShaderMaterial contains all the information realted to shader and environment ie lights etc.
     */
-    class IGOR_API iTargetMaterial
+    class IGOR_API iMaterial
     {
 
         friend class iTargetMaterialDeleter;
@@ -204,11 +204,11 @@ namespace igor
 
         /*! initializes members
          */
-        iTargetMaterial();
+        iMaterial();
 
         /*! releases resources
          */
-        ~iTargetMaterial();
+        ~iMaterial();
     };
 
 } // namespace igor

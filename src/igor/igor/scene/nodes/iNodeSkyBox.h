@@ -30,7 +30,7 @@
 #define __IGOR_SKYBOXNODE__
 
 #include <igor/scene/nodes/iNodeRender.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 
 namespace igor

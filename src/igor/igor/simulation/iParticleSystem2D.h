@@ -31,7 +31,7 @@
 
 #include <igor/simulation/iParticleSystem.h>
 #include <igor/simulation/iParticleEmitter.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/resources/shader_material/iShaderMaterial.h>
 
 namespace igor

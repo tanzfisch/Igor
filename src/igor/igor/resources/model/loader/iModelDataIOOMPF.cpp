@@ -11,7 +11,7 @@
 #include <igor/resources/mesh/iMeshBuilder.h>
 
 #include <igor/renderer/iRenderStateSet.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeEmitter.h>
 #include <igor/scene/nodes/iNodeParticleSystem.h>
@@ -393,7 +393,7 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialReferenceChunk *materialReferenceChunk)
     {
-        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SHADER_MATERIAL},
                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache}});
 
         if(iaUUID::isUUID(materialReferenceChunk->getFilename()))

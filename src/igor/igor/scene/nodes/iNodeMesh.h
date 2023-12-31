@@ -31,7 +31,7 @@
 
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaColor3.h>
 using namespace iaux;
