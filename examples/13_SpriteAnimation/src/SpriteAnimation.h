@@ -111,7 +111,7 @@ private:
 
 	/*! terrain material
 	*/
-	iMaterialPtr _materialTerrain;
+	iShaderMaterialPtr _materialTerrain;
 
 	/*! transform of camera
 	*/

@@ -129,11 +129,11 @@ namespace igor
 
         \param material the material to use
         */
-        void setMaterial(const iMaterialPtr& material);
+        void setMaterial(const iShaderMaterialPtr& material);
 
         /*! \returns terrain material
         */
-        iMaterialPtr getMaterial() const;
+        iShaderMaterialPtr getMaterial() const;
 
         /*! sets physics material ID
 
@@ -257,7 +257,7 @@ namespace igor
 
         /*! terrain material id
         */
-        iMaterialPtr _terrainMaterial;
+        iShaderMaterialPtr _terrainMaterial;
 
         /*! lod trigger node id
         */

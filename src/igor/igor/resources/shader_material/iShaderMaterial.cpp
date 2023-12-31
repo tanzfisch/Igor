@@ -2,9 +2,9 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 
-#include <igor/resources/material/iMaterialIO.h>
+#include <igor/resources/shader_material/loader/iShaderMaterialIO.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
@@ -14,12 +14,12 @@
 namespace igor
 {
 
-    iMaterial::iMaterial(const iParameters &parameters)
+    iShaderMaterial::iShaderMaterial(const iParameters &parameters)
         : iResource(parameters)
     {
     }
 
-    bool iMaterial::isValid() const
+    bool iShaderMaterial::isValid() const
     {
         if (_shaderProgram == nullptr)
         {
@@ -29,7 +29,7 @@ namespace igor
         return true;
     }
 
-    void iMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
+    void iShaderMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
     {
         if (!shaderProgram->isValid())
         {
@@ -115,73 +115,73 @@ namespace igor
         }
     }
 
-    bool iMaterial::hasDirectionalLight() const
+    bool iShaderMaterial::hasDirectionalLight() const
     {
         return _hasDirectionalLight;
     }
 
-    bool iMaterial::hasEyePosition() const
+    bool iShaderMaterial::hasEyePosition() const
     {
         return _hasEyePosition;
     }
 
-    bool iMaterial::hasModelViewProjectionMatrix() const
+    bool iShaderMaterial::hasModelViewProjectionMatrix() const
     {
         return _hasModelViewProjectionMatrix;
     }
 
-    bool iMaterial::hasModelViewMatrix() const
+    bool iShaderMaterial::hasModelViewMatrix() const
     {
         return _hasModelViewMatrix;
     }
 
-    bool iMaterial::hasViewProjectionMatrix() const
+    bool iShaderMaterial::hasViewProjectionMatrix() const
     {
         return _hasViewProjectionMatrix;
     }
 
-    bool iMaterial::hasModelMatrix() const
+    bool iShaderMaterial::hasModelMatrix() const
     {
         return _hasModelMatrix;
     }
 
-    bool iMaterial::hasTargetMaterial() const
+    bool iShaderMaterial::hasTargetMaterial() const
     {
         return _hasTargetMaterial;
     }
 
-    bool iMaterial::hasSolidColor() const
+    bool iShaderMaterial::hasSolidColor() const
     {
         return _hasSolidColor;
     }
 
-    bool iMaterial::hasTilingConfig() const
+    bool iShaderMaterial::hasTilingConfig() const
     {
         return _hasConfigTiling;
     }
 
-    bool iMaterial::hasVelocityOrientedConfig() const
+    bool iShaderMaterial::hasVelocityOrientedConfig() const
     {
         return _hasConfigVelocityOriented;
     }
 
-    bool iMaterial::hasTextureUnit(uint32 texUnit) const
+    bool iShaderMaterial::hasTextureUnit(uint32 texUnit) const
     {
         con_assert(texUnit < MAX_TEXTURE_UNITS, "out of bounds");
         return _hasTexture[texUnit];
     }
 
-    iShaderProgramPtr iMaterial::getShaderProgram() const
+    iShaderProgramPtr iShaderMaterial::getShaderProgram() const
     {
         return _shaderProgram;
     }
 
-    void iMaterial::unbind()
+    void iShaderMaterial::unbind()
     {
         _shaderProgram->unbind();
     }
 
-    void iMaterial::bind()
+    void iShaderMaterial::bind()
     {
         con_assert(isValid(), "invalid material " << getInfo());
 
@@ -279,74 +279,74 @@ namespace igor
         }
     }
 
-    void iMaterial::setRenderState(const iRenderState state, const iRenderStateValue value)
+    void iShaderMaterial::setRenderState(const iRenderState state, const iRenderStateValue value)
     {
         _renderStateSet.setRenderState(state, value);
     }
 
-    iRenderStateValue iMaterial::getRenderState(const iRenderState state) const
+    iRenderStateValue iShaderMaterial::getRenderState(const iRenderState state) const
     {
         return _renderStateSet.getRenderState(state);
     }
 
-    void iMaterial::setInt(const iaString &uniform, int value)
+    void iShaderMaterial::setInt(const iaString &uniform, int value)
     {
         _shaderProgram->setInt(uniform, value);
     }
 
-    void iMaterial::setFloat(const iaString &uniform, float32 value)
+    void iShaderMaterial::setFloat(const iaString &uniform, float32 value)
     {
         _shaderProgram->setFloat(uniform, value);
     }
 
-    void iMaterial::setFloat2(const iaString &uniform, const iaVector2f &value)
+    void iShaderMaterial::setFloat2(const iaString &uniform, const iaVector2f &value)
     {
         _shaderProgram->setFloat2(uniform, value);
     }
 
-    void iMaterial::setFloat3(const iaString &uniform, const iaVector3f &value)
+    void iShaderMaterial::setFloat3(const iaString &uniform, const iaVector3f &value)
     {
         _shaderProgram->setFloat3(uniform, value);
     }
 
-    void iMaterial::setFloat4(const iaString &uniform, const iaVector4f &value)
+    void iShaderMaterial::setFloat4(const iaString &uniform, const iaVector4f &value)
     {
         _shaderProgram->setFloat4(uniform, value);
     }
 
-    void iMaterial::setFloat3(const iaString &uniform, const iaColor3f &value)
+    void iShaderMaterial::setFloat3(const iaString &uniform, const iaColor3f &value)
     {
         _shaderProgram->setFloat3(uniform, iaVector3f(value._r, value._g, value._b));
     }
 
-    void iMaterial::setFloat4(const iaString &uniform, const iaColor4f &value)
+    void iShaderMaterial::setFloat4(const iaString &uniform, const iaColor4f &value)
     {
         _shaderProgram->setFloat4(uniform, iaVector4f(value._r, value._g, value._b, value._a));
     }
 
-    void iMaterial::setMatrix(const iaString &uniform, const iaMatrixf &value)
+    void iShaderMaterial::setMatrix(const iaString &uniform, const iaMatrixf &value)
     {
         _shaderProgram->setMatrix(uniform, value);
     }
 
-    int32 iMaterial::getOrder() const
+    int32 iShaderMaterial::getOrder() const
     {
         return _order;
     }
 
-    void iMaterial::setOrder(int32 order)
+    void iShaderMaterial::setOrder(int32 order)
     {
         con_assert(order >= RENDER_ORDER_MIN && order <= RENDER_ORDER_MAX, "out of bounds");
 
         _order = order;
     }
 
-    iMaterialVisibility iMaterial::getVisibility() const
+    iMaterialVisibility iShaderMaterial::getVisibility() const
     {
         return _visibility;
     }
 
-    void iMaterial::setVisibility(iMaterialVisibility visibility)
+    void iShaderMaterial::setVisibility(iMaterialVisibility visibility)
     {
         _visibility = visibility;
     }

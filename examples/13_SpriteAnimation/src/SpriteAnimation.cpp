@@ -23,7 +23,7 @@ void SpriteAnimation::onInit()
     getView().setClearColor(0.0, 1.0, 1.0, 1.0);
     getViewOrtho().setScene(getScene());
 
-    _materialTerrain = iResourceManager::getInstance().loadResource<iMaterial>("example_material_sprite_animation_textured");
+    _materialTerrain = iResourceManager::getInstance().loadResource<iShaderMaterial>("example_material_sprite_animation_textured");
 
     // load atlantes
     _walk = iResourceManager::getInstance().loadResource<iSprite>("example_sprite_animation_walk");

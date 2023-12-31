@@ -137,7 +137,7 @@ namespace igor
 
     void iRenderEngine::addNodeToMaterialGroups(iNodeRenderPtr renderNode)
     {
-        iMaterialPtr material = renderNode->getMaterial();
+        iShaderMaterialPtr material = renderNode->getMaterial();
 
         if (!renderNode->isVisible() ||
             material == nullptr ||

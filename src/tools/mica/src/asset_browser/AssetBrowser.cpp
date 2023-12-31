@@ -85,7 +85,7 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
 
 void AssetBrowser::onCreateMaterial(iWidgetPtr source)
 {
-    iMaterialPtr resource = iResourceManager::getInstance().createResource<iMaterial>();
+    iShaderMaterialPtr resource = iResourceManager::getInstance().createResource<iShaderMaterial>();
     iResourceManager::getInstance().saveResource(resource, _currentPath + IGOR_PATHSEPARATOR + "new_material.mat");
 }
 

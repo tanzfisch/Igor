@@ -43,8 +43,8 @@ void TransformOverlay::onInit()
 {
     getView()->registerRenderDelegate(iDrawDelegate(this, &TransformOverlay::onRender));
 
-    _material = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_transform_overlay_base");
-    _materialCelShading = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_cellshading_yellow");
+    _material = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_transform_overlay_base");
+    _materialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_cellshading_yellow");
 
     _red = iTargetMaterial::create();
     _red->setEmissive(iaColor3f(0.8f, 0.0f, 0.0f));

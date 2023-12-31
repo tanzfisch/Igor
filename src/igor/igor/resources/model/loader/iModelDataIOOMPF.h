@@ -30,7 +30,7 @@
 #define __IGOR_LOADERIGOR__
 
 #include <igor/resources/model/loader/iModelDataIO.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/scene/traversal/iNodeVisitor.h>
 
 #include <iaux/data/iaString.h>
@@ -229,13 +229,13 @@ namespace igor
 
         \param material the igor material
         */
-        OMPF::ompfMaterialChunk *createMaterialChunk(iMaterialPtr material);
+        OMPF::ompfMaterialChunk *createMaterialChunk(iShaderMaterialPtr material);
 
         /*! creates material reference chunk from given igor material
 
         \param material the igor material
         */
-        OMPF::ompfMaterialReferenceChunk *createMaterialReferenceChunk(iMaterialPtr material);
+        OMPF::ompfMaterialReferenceChunk *createMaterialReferenceChunk(iShaderMaterialPtr material);
 
         /*! \returns material chunk id for given material id
 

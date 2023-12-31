@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TARGETMATERIAL__
-#define __IGOR_TARGETMATERIAL__
+#ifndef IGOR_MATERIAL_H
+#define IGOR_MATERIAL_H
 
 #include <igor/iDefines.h>
 #include <igor/resources/texture/iTexture.h>
@@ -47,7 +47,7 @@ namespace igor
 
     /*! contains all material information that belong to the surface of an object
 
-    Whereas iMaterial contains all the information realted to shader and environment ie lights etc.
+    Whereas iShaderMaterial contains all the information realted to shader and environment ie lights etc.
     */
     class IGOR_API iTargetMaterial
     {
@@ -213,4 +213,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // IGOR_MATERIAL_H

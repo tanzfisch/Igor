@@ -18,7 +18,7 @@ static iMeshPtr createSphere()
     return meshBuilder.createMesh();
 }
 
-void UserControlMaterial::updateMaterialDisplay(iMaterialPtr material)
+void UserControlMaterial::updateMaterialDisplay(iShaderMaterialPtr material)
 {
     if (_ignoreMaterialUpdate)
     {
@@ -78,7 +78,7 @@ void UserControlMaterial::updateMaterialDisplay(iMaterialPtr material)
 
 void UserControlMaterial::updateResource()
 {
-    iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
+    iShaderMaterialPtr material = iResourceManager::getInstance().getResource<iShaderMaterial>(getResourceID());
 
     if (_ignoreMaterialUpdate ||
         material == nullptr)
@@ -106,7 +106,7 @@ void UserControlMaterial::update()
 {
     UserControlResource::update();
 
-    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(getResourceID());
+    iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>(getResourceID());
 
     _ignoreMaterialUpdate = true;
 
@@ -228,9 +228,9 @@ void UserControlMaterial::init()
     labelRenderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _renderingOrder = new iWidgetNumberChooser();
-    _renderingOrder->setMinMaxNumber(iMaterial::RENDER_ORDER_MIN, iMaterial::RENDER_ORDER_MAX);
+    _renderingOrder->setMinMaxNumber(iShaderMaterial::RENDER_ORDER_MIN, iShaderMaterial::RENDER_ORDER_MAX);
     _renderingOrder->setAfterPoint(0);
-    _renderingOrder->setValue(iMaterial::RENDER_ORDER_DEFAULT);
+    _renderingOrder->setValue(iShaderMaterial::RENDER_ORDER_DEFAULT);
     _renderingOrder->setMinWidth(80);
     _renderingOrder->setSteppingWheel(10.0f, 10.0f);
     _renderingOrder->setStepping(1.0f, 1.0f);

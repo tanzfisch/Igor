@@ -7,7 +7,7 @@
 #include <igor/renderer/utils/iRendererUtils.h>
 
 #include <igor/simulation/iParticleSystem.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/iResourceManager.h>
 
@@ -285,31 +285,31 @@ namespace igor
         ////////// MATERIALS ////////////
         /*! material for flat shaded rendering
          */
-        iMaterialPtr _flatShader;
+        iShaderMaterialPtr _flatShader;
 
         /*! material for textured rendering
          */
-        iMaterialPtr _textureShader;
+        iShaderMaterialPtr _textureShader;
 
         /*! material for flat shaded rendering
          */
-        iMaterialPtr _flatShaderBlend;
+        iShaderMaterialPtr _flatShaderBlend;
 
         /*! material for textured rendering
          */
-        iMaterialPtr _textureShaderBlend;
+        iShaderMaterialPtr _textureShaderBlend;
 
         /*! the current material in use
          */
-        iMaterialPtr _currentMaterial;
+        iShaderMaterialPtr _currentMaterial;
 
         /*! the default material
          */
-        iMaterialPtr _defaultMaterial;
+        iShaderMaterialPtr _defaultMaterial;
 
         /*! the colorID material
          */
-        iMaterialPtr _colorIDMaterial;
+        iShaderMaterialPtr _colorIDMaterial;
 
         //////////// SHARED DATA ///////////
         /*! quad index buffer
@@ -537,14 +537,14 @@ namespace igor
         setStencilTestActive(false);
 
         ///////////// MATERIALS ////////////
-        _data->_defaultMaterial = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_default_textured");
-        _data->_colorIDMaterial = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_color_id");
+        _data->_defaultMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_default_textured");
+        _data->_colorIDMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_color_id");
 
         // don't cache the following so they stay invisible to the application
-        _data->_flatShader = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_flat_shaded", iResourceCacheMode::DontCache);
-        _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_flat_shaded_blend", iResourceCacheMode::DontCache);
-        _data->_textureShader = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_texture_shaded", iResourceCacheMode::DontCache);
-        _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_texture_shaded_blend", iResourceCacheMode::DontCache);
+        _data->_flatShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_flat_shaded", iResourceCacheMode::DontCache);
+        _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_flat_shaded_blend", iResourceCacheMode::DontCache);
+        _data->_textureShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_texture_shaded", iResourceCacheMode::DontCache);
+        _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_texture_shaded_blend", iResourceCacheMode::DontCache);
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentMaterial.reset();
@@ -1591,7 +1591,7 @@ namespace igor
         glStencilMask(mask);
     }
 
-    void iRenderer::setMaterial(const iMaterialPtr &material)
+    void iRenderer::setMaterial(const iShaderMaterialPtr &material)
     {
         con_assert(material != nullptr, "invalid material");
 
@@ -1604,7 +1604,7 @@ namespace igor
         _data->_currentMaterial = material;
     }
 
-    const iMaterialPtr &iRenderer::getMaterial() const
+    const iShaderMaterialPtr &iRenderer::getMaterial() const
     {
         return _data->_currentMaterial;
     }
@@ -2156,12 +2156,12 @@ namespace igor
         return _data->_wireframeEnabled;
     }
 
-    const iMaterialPtr &iRenderer::getDefaultMaterial() const
+    const iShaderMaterialPtr &iRenderer::getDefaultMaterial() const
     {
         return _data->_defaultMaterial;
     }
 
-    const iMaterialPtr &iRenderer::getColorIDMaterial() const
+    const iShaderMaterialPtr &iRenderer::getColorIDMaterial() const
     {
         return _data->_colorIDMaterial;
     }

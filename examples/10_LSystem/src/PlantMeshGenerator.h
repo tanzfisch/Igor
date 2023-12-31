@@ -35,7 +35,7 @@ using namespace iaux;
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/model/loader/iModelDataIO.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/data/iSkeleton.h>
 using namespace igor;
 

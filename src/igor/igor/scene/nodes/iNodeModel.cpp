@@ -79,7 +79,7 @@ namespace igor
         }
     }
 
-    void iNodeModel::setMaterial(const iMaterialPtr &material)
+    void iNodeModel::setMaterial(const iShaderMaterialPtr &material)
     {
         _material = material;
 
@@ -91,7 +91,7 @@ namespace igor
         setMaterial(this, material);
     }
 
-    void iNodeModel::setMaterial(iNodePtr node, const iMaterialPtr &material)
+    void iNodeModel::setMaterial(iNodePtr node, const iShaderMaterialPtr &material)
     {
         if (node->getType() == iNodeType::iNodeMesh)
         {

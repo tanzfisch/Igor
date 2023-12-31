@@ -94,11 +94,11 @@ private:
 
     /*! flat material
      */
-    iMaterialPtr _materialFlat;
+    iShaderMaterialPtr _materialFlat;
 
     /*! volume material
      */
-    iMaterialPtr _materialVolume;
+    iShaderMaterialPtr _materialVolume;
 
     /*! disc mesh node
     */

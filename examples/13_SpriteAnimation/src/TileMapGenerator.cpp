@@ -229,7 +229,7 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 	return result;
 }
 
-void TileMapGenerator::setMaterial(const iMaterialPtr& material)
+void TileMapGenerator::setMaterial(const iShaderMaterialPtr& material)
 {
 	_material = material;
 }

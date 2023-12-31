@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/material/iMaterialIO.h>
+#include <igor/resources/shader_material/loader/iShaderMaterialIO.h>
 
 #include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaFile.h>
@@ -97,7 +97,7 @@ namespace igor
         return defaultValue;
     }
 
-    static void readStates(TiXmlElement *states, const iMaterialPtr &material)
+    static void readStates(TiXmlElement *states, const iShaderMaterialPtr &material)
     {
         material->setRenderState(iRenderState::DepthTest, getRenderStateValue(states, "DepthTest", iRenderStateValue::On));
         material->setRenderState(iRenderState::DepthMask, getRenderStateValue(states, "DepthMask", iRenderStateValue::On));
@@ -144,7 +144,7 @@ namespace igor
         }
     }
 
-    static void readProgram(TiXmlElement *program, const iMaterialPtr &material)
+    static void readProgram(TiXmlElement *program, const iShaderMaterialPtr &material)
     {
         TiXmlElement *vertex = program->FirstChildElement("Vertex");
         TiXmlElement *fragment = program->FirstChildElement("Fragment");
@@ -178,7 +178,7 @@ namespace igor
         material->setShaderProgram(shaderProgram);
     }
 
-    bool iMaterialIO::readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
+    bool iShaderMaterialIO::readMaterial(TiXmlElement *materialXML, const iShaderMaterialPtr &material)
     {
         TiXmlAttribute *attrib = materialXML->FirstAttribute();
         while (attrib)
@@ -189,17 +189,17 @@ namespace igor
                 if (attrib->ValueStr() == "RENDER_ORDER_DEFAULT" ||
                     attrib->ValueStr() == "DEFAULT")
                 {
-                    material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+                    material->setOrder(iShaderMaterial::RENDER_ORDER_DEFAULT);
                 }
                 else if (attrib->ValueStr() == "RENDER_ORDER_MIN" ||
                          attrib->ValueStr() == "MIN")
                 {
-                    material->setOrder(iMaterial::RENDER_ORDER_MIN);
+                    material->setOrder(iShaderMaterial::RENDER_ORDER_MIN);
                 }
                 else if (attrib->ValueStr() == "RENDER_ORDER_MAX" ||
                          attrib->ValueStr() == "MAX")
                 {
-                    material->setOrder(iMaterial::RENDER_ORDER_MAX);
+                    material->setOrder(iShaderMaterial::RENDER_ORDER_MAX);
                 }
                 else
                 {
@@ -236,7 +236,7 @@ namespace igor
         return true;
     }
 
-    bool iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
+    bool iShaderMaterialIO::read(const iaString &filename, const iShaderMaterialPtr &material)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -265,7 +265,7 @@ namespace igor
         return readMaterial(materialXML, material);
     }
 
-    bool iMaterialIO::write(const iaString &filename, const iMaterialPtr &material)
+    bool iShaderMaterialIO::write(const iaString &filename, const iShaderMaterialPtr &material)
     {
         char temp[2048];
         filename.getData(temp, 2048);

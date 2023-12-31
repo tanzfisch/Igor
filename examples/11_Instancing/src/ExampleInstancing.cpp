@@ -4,7 +4,7 @@
 
 #include "ExampleInstancing.h"
 
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeTransform.h>
@@ -66,8 +66,8 @@ void ExampleInstancing::onInit()
 
     // we have to override the material which is stored within the model
     // to do that we load a new material that is using instancing
-    _materialWithInstancingA = iResourceManager::getInstance().loadResource<iMaterial>("example_material_instancing_textured");
-    _materialWithInstancingB = iResourceManager::getInstance().loadResource<iMaterial>("example_material_instancing_flat_shaded");
+    _materialWithInstancingA = iResourceManager::getInstance().loadResource<iShaderMaterial>("example_material_instancing_textured");
+    _materialWithInstancingB = iResourceManager::getInstance().loadResource<iShaderMaterial>("example_material_instancing_flat_shaded");
 
     // now we can just put copies of that model in the scene
     iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();

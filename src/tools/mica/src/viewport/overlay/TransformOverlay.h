@@ -141,11 +141,11 @@ private:
 
     /*! material to render manipulator
      */
-    iMaterialPtr _material;
+    iShaderMaterialPtr _material;
 
     /*! cel chader material for selection
      */
-    iMaterialPtr _materialCelShading;
+    iShaderMaterialPtr _materialCelShading;
 
     /*! translate given matrix by vector projected on selected axis
 

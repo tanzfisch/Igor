@@ -140,7 +140,7 @@ private:
 
     /*! material definition for the sky box
     */
-    iMaterialPtr _materialSkyBox;
+    iShaderMaterialPtr _materialSkyBox;
 
     /*! draw igor logo
     */

@@ -63,7 +63,7 @@ namespace igor
         _worldMatrix = matrix;
     }
 
-    void iNodeRender::setMaterial(const iMaterialPtr &material)
+    void iNodeRender::setMaterial(const iShaderMaterialPtr &material)
     {
         _material = material;
     }
@@ -73,7 +73,7 @@ namespace igor
         return _visible;
     }
 
-    iMaterialPtr iNodeRender::getMaterial() const
+    iShaderMaterialPtr iNodeRender::getMaterial() const
     {
         return _material;
     }

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MATERIAL__
-#define __IGOR_MATERIAL__
+#ifndef IGOR_SHADER_MATERIAL_H
+#define IGOR_SHADER_MATERIAL_H
 
 #include <igor/renderer/iRenderStateSet.h>
 #include <igor/renderer/shaders/iShaderProgram.h>
@@ -48,7 +48,7 @@ namespace igor
 
     /*! material definition
      */
-    class IGOR_API iMaterial : public iResource
+    class IGOR_API iShaderMaterial : public iResource
     {
         friend class iMaterialFactory;
         friend class iRenderer;
@@ -98,7 +98,7 @@ namespace igor
 
         \param order the higher the value the later it get's rendered (default is iMaterial_old::RENDER_ORDER_DEFAULT)
         */
-        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
+        void setOrder(int32 order = iShaderMaterial::RENDER_ORDER_DEFAULT);
 
         /*! \returns true if shader has directional light
          */
@@ -171,7 +171,7 @@ namespace igor
 
         default value is iMaterial_old::RENDER_ORDER_DEFAULT
         */
-        int32 _order = iMaterial::RENDER_ORDER_DEFAULT;
+        int32 _order = iShaderMaterial::RENDER_ORDER_DEFAULT;
 
         /*! if true shader has directional light
          */
@@ -225,7 +225,7 @@ namespace igor
 
         \param parameters parameters specifying the material
          */
-        iMaterial(const iParameters &parameters);
+        iShaderMaterial(const iParameters &parameters);
 
         /*! bind this material
          */
@@ -294,7 +294,7 @@ namespace igor
 
     /*! material pointer definition
      */
-    typedef std::shared_ptr<iMaterial> iMaterialPtr;
+    typedef std::shared_ptr<iShaderMaterial> iShaderMaterialPtr;
 }
 
-#endif // __IGOR_MATERIAL__
+#endif // IGOR_SHADER_MATERIAL_H

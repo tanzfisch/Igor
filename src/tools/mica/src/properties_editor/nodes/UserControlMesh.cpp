@@ -83,7 +83,7 @@ void UserControlMesh::updateNode()
         {
             std::any userData = _materialSelector->getSelectedUserData();
             iMaterialID materialID(std::any_cast<iMaterialID>(userData));
-            node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
+            node->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
         }
     }
 }
@@ -132,7 +132,7 @@ void UserControlMesh::update()
 
     _materialSelector->clear();
 
-/* TODO    std::vector<iMaterialPtr> materials;
+/* TODO    std::vector<iShaderMaterialPtr> materials;
     iResourceManager::getInstance().getMaterials(materials);
     for (auto material : materials)
     {

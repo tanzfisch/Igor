@@ -101,7 +101,7 @@ void UserControlMaterialView::refresh()
     clear();
 
     uint32 currentRowIndex = 0;
-    std::vector<iMaterialPtr> materials;
+    std::vector<iShaderMaterialPtr> materials;
     iResourceManager::getInstance().getMaterials(materials);
 
     for (auto material : materials)

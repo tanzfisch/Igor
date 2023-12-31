@@ -289,7 +289,7 @@ namespace igor
         meshNode->setMesh(mesh);
 
         iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
-        meshNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
+        meshNode->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
 
         return meshNode;
     }
@@ -354,7 +354,7 @@ namespace igor
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
         iMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
-        particleSystemNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
+        particleSystemNode->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
 
         return particleSystemNode;
     }
@@ -406,7 +406,7 @@ namespace igor
             param.setParameter(IGOR_RESOURCE_PARAM_SOURCE, materialReferenceChunk->getFilename());
         }
         
-        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
+        iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>(param);
         if (material == nullptr)
         {
             return;
@@ -477,7 +477,7 @@ namespace igor
         con_assert_sticky(materialChunk != nullptr, "zero pointer");
 
         iaString materialName = materialChunk->getMaterialName();
-        iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(materialName);
+        iShaderMaterialPtr material = iResourceManager::getInstance().getResource<iShaderMaterial>(materialName);
         if (material != nullptr)
         {
             con_warn("material name dublicate \"" << materialName << "\". Generating new name.");
@@ -837,14 +837,14 @@ namespace igor
         return result;
     }
 
-    OMPF::ompfMaterialReferenceChunk *iModelDataIOOMPF::createMaterialReferenceChunk(iMaterialPtr material)
+    OMPF::ompfMaterialReferenceChunk *iModelDataIOOMPF::createMaterialReferenceChunk(iShaderMaterialPtr material)
     {
         OMPF::ompfMaterialReferenceChunk *result = _ompf->createMaterialReferenceChunk();
         result->setFilename(material->getID().toString());
         return result;
     }
 
-    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(iMaterialPtr material)
+    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(iShaderMaterialPtr material)
     {
         OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
 
@@ -869,7 +869,7 @@ namespace igor
 
     uint32 iModelDataIOOMPF::getMaterialChunkID(const iMaterialID &materialID)
     {
-        iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(materialID);
+        iShaderMaterialPtr material = iResourceManager::getInstance().getResource<iShaderMaterial>(materialID);
 
         if (material == nullptr)
         {

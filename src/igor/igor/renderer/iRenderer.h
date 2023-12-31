@@ -32,7 +32,7 @@
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
 #include <igor/renderer/buffers/iInstancingBuffer.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/sprite/iSprite.h>
@@ -76,11 +76,11 @@ namespace igor
 
         \param material the material to render with
         */
-        void setMaterial(const iMaterialPtr &material);
+        void setMaterial(const iShaderMaterialPtr &material);
 
         /*! \returns currently active material
          */
-        const iMaterialPtr &getMaterial() const;
+        const iShaderMaterialPtr &getMaterial() const;
 
         /*! set projection matrix with perspective projection
 
@@ -787,11 +787,11 @@ namespace igor
 
         /*! \returns default material
          */
-        const iMaterialPtr &getDefaultMaterial() const;
+        const iShaderMaterialPtr &getDefaultMaterial() const;
 
         /*! \returns colorID material
          */
-        const iMaterialPtr &getColorIDMaterial() const;
+        const iShaderMaterialPtr &getColorIDMaterial() const;
 
         /*! draws everything that is still in the queue
          */

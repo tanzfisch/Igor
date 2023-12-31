@@ -49,7 +49,7 @@ Viewport::Viewport(WorkspacePtr workspace)
 
     initScene();
 
-    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_orientation_plane");
+    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_orientation_plane");
 
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
@@ -105,12 +105,12 @@ void Viewport::initScene()
     _directionalLightTranslate->insertNode(_lightNode);
 
     // load materials
-    _materialCelShading = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_cellshading_yellow");
-    _materialBoundingBox = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_bounding_box");
+    _materialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_cellshading_yellow");
+    _materialBoundingBox = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_bounding_box");
 
     // load particle material just so we have one available in the UI
     // TODO this needs a better solution
-    iResourceManager::getInstance().loadResource<iMaterial>("igor_material_particles");
+    iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_particles");
 }
 
 void Viewport::frameOnSelection()

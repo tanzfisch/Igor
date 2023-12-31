@@ -121,7 +121,7 @@ private:
 
 	\param material the material to use
 	*/
-	void updateMaterialDisplay(iMaterialPtr material);
+	void updateMaterialDisplay(iShaderMaterialPtr material);
 };
 
 #endif // __USERCONTROLMATERIAL__

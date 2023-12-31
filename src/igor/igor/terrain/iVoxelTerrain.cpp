@@ -14,7 +14,7 @@
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/iScene.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsBody.h>
@@ -210,12 +210,12 @@ namespace igor
         _lodTrigger = lodTriggerID;
     }
 
-    void iVoxelTerrain::setMaterial(const iMaterialPtr &material)
+    void iVoxelTerrain::setMaterial(const iShaderMaterialPtr &material)
     {
         _terrainMaterial = material;
     }
 
-    iMaterialPtr iVoxelTerrain::getMaterial() const
+    iShaderMaterialPtr iVoxelTerrain::getMaterial() const
     {
         return _terrainMaterial;
     }

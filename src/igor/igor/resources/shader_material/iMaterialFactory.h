@@ -30,7 +30,7 @@
 #define __IGOR_MATERIAL_FACTORY__
 
 #include <igor/resources/iFactory.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 
 namespace igor
 {

@@ -5,7 +5,7 @@
 #include <igor/scene/nodes/iNodeMesh.h>
 
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 
 #include <vector>
@@ -84,7 +84,7 @@ namespace igor
         info.push_back(topologyInfo);
 
         iaString materialInfo("material:");
-        iMaterialPtr material = getMaterial();
+        iShaderMaterialPtr material = getMaterial();
         materialInfo += ((material == nullptr) ? iaString("none") : material->getInfo());
 
         info.push_back(materialInfo);

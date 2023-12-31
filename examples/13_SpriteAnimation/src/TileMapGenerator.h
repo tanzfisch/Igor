@@ -42,12 +42,12 @@ public:
 
 	\param material the material id
 	*/
-	void setMaterial(const iMaterialPtr &material);
+	void setMaterial(const iShaderMaterialPtr &material);
 
 private:
 	/*! the material to use
 	*/
-	iMaterialPtr _material;
+	iShaderMaterialPtr _material;
 
 	/*! the sprite to use
 	*/

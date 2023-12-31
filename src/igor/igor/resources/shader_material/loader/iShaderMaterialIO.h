@@ -29,7 +29,7 @@
 #ifndef __IGOR_MATERIALIO__
 #define __IGOR_MATERIALIO__
 
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 
 class TiXmlElement;
 
@@ -37,7 +37,7 @@ namespace igor
 {
     /*! reader for Igor material files
      */
-    class IGOR_API iMaterialIO
+    class IGOR_API iShaderMaterialIO
     {
     public:
         /*! reads material file and configures given material with it
@@ -45,19 +45,19 @@ namespace igor
         \param filename path to material file
         \param material the material to configure with
         */
-        static bool read(const iaString &filename, const iMaterialPtr &material);
+        static bool read(const iaString &filename, const iShaderMaterialPtr &material);
 
         /*! writes material to file
 
         \param filename path to new material file
         \param material the material to use
         */
-        static bool write(const iaString &filename, const iMaterialPtr &material);
+        static bool write(const iaString &filename, const iShaderMaterialPtr &material);
 
     private:
 
-        /// just made this a member so we don't have to specify it friend to iMaterial but instead iMaterial can be friends with iMaterialIO
-        static bool readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material);
+        /// just made this a member so we don't have to specify it friend to iShaderMaterial but instead iShaderMaterial can be friends with iShaderMaterialIO
+        static bool readMaterial(TiXmlElement *materialXML, const iShaderMaterialPtr &material);
     };
 
 } // namespace igor

@@ -112,7 +112,7 @@ void UILayer::onDeinit()
 
 void UILayer::onAddMaterial()
 {
-    iResourceManager::getInstance().createResource<iMaterial>();
+    iResourceManager::getInstance().createResource<iShaderMaterial>();
 
     _outliner->refresh();
 }
@@ -219,7 +219,7 @@ void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
         return;
     }
 
-    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_fileDialog.getFullPath());
+    iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>(_fileDialog.getFullPath());
     material->setVisibility(iMaterialVisibility::Public);
     _outliner->refresh();
 }
