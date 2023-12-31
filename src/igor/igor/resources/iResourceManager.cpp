@@ -10,6 +10,7 @@
 #include <igor/resources/sprite/iSpriteFactory.h>
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/shader_material/iShaderMaterialFactory.h>
+#include <igor/resources/material/iMaterialFactory.h>
 #include <igor/resources/config/iConfigReader.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/iResourceDictionary.h>
@@ -48,6 +49,7 @@ namespace igor
         registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
+        registerFactory(iFactoryPtr(new iMaterialFactory()));
         registerFactory(iFactoryPtr(new iShaderMaterialFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
 
