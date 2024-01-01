@@ -78,7 +78,7 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
     iWidgetMenuPtr createMenu = new iWidgetMenu("Create");
     _contextMenu.addMenu(createMenu);
 
-    createMenu->addCallback(iClickDelegate(this, &AssetBrowser::onCreateMaterial), "Material", "Creates a default material", "");
+    createMenu->addCallback(iClickDelegate(this, &AssetBrowser::onCreateMaterial), "Shader Material", "Creates a default material", "");
 
     _contextMenu.open();
 }

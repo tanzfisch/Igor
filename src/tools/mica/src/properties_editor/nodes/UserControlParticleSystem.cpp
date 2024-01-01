@@ -478,7 +478,7 @@ void UserControlParticleSystem::init()
     _emitterSelection->setMinWidth(200);
 
     iWidgetLabel *labelMaterial = new iWidgetLabel();
-    labelMaterial->setText("Material");
+    labelMaterial->setText("shader Material");
     labelMaterial->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 

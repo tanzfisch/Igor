@@ -40,7 +40,7 @@ void UserControlMaterial::updateMaterialDisplay(iShaderMaterialPtr material)
     iRenderer::getInstance().setViewport(0, 0, width, height);
     iRenderer::getInstance().setPerspective(45.0, 1.0, 0.00001, 10.0);
 
-    iTargetMaterialPtr targetMaterial = iMaterial::create();
+    iMaterialPtr targetMaterial = iMaterial::create();
     targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
     targetMaterial->setSpecular(iaColor3f(0.5f, 0.5f, 0.5f));
     targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));

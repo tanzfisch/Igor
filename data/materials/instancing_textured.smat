@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="example.instancing.textured" visibility="Public">
+	<ShaderMaterial name="example.instancing.textured" visibility="Public">
 		<States>
             <Instanced>On</Instanced>
             <InstancedFunc>PositionOrientation</InstancedFunc>
@@ -90,5 +90,5 @@ void main()
 }]]>
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

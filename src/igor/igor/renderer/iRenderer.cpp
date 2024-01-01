@@ -1743,7 +1743,7 @@ namespace igor
         }
     }
 
-    void iRenderer::drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial)
+    void iRenderer::drawMesh(iMeshPtr mesh, iMaterialPtr targetMaterial)
     {
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
@@ -1767,7 +1767,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial)
+    void iRenderer::drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr targetMaterial)
     {
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
@@ -1801,7 +1801,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial)
+    void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr targetMaterial)
     {
         if (!mesh->isValid())
         {
@@ -1846,7 +1846,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::writeShaderParameters(iTargetMaterialPtr targetMaterial)
+    void iRenderer::writeShaderParameters(iMaterialPtr targetMaterial)
     {
         if (targetMaterial != nullptr)
         {

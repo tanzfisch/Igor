@@ -43,7 +43,7 @@ namespace igor
     /*! target material pointer definition
      */
     class iMaterial;
-    typedef std::shared_ptr<iMaterial> iTargetMaterialPtr;
+    typedef std::shared_ptr<iMaterial> iMaterialPtr;
 
     /*! contains all material information that belong to the surface of an object
 
@@ -57,7 +57,7 @@ namespace igor
     public:
         /*! \returns a newly created target material
          */
-        static iTargetMaterialPtr create();
+        static iMaterialPtr create();
 
         /*! set a texture for a given texture unit
 

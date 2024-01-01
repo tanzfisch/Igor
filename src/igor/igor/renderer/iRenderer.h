@@ -510,7 +510,7 @@ namespace igor
         \param mesh the given mesh to draw
         \param targetMaterial the target material to use
         */
-        void drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial);
+        void drawMesh(iMeshPtr mesh, iMaterialPtr targetMaterial);
 
         /*! draw mesh instanced
 
@@ -520,7 +520,7 @@ namespace igor
         \param instancingBuffer the instancing buffer
         \param targetMaterial the target material to use
         */
-        void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial = nullptr);
+        void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr targetMaterial = nullptr);
 
         /*! draws buffer with given target material and primitive type
 
@@ -528,7 +528,7 @@ namespace igor
         \param primitiveType the given primitive type
         \param targetMaterial the target material (optional)
         */
-        void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial = nullptr);
+        void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr targetMaterial = nullptr);
 
         /////////////// LIGHT TODO this might change a lot ///////////
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
@@ -876,7 +876,7 @@ namespace igor
 
         \param targetMaterial the target specifig material values. Ignored if nullptr
         */
-        void writeShaderParameters(iTargetMaterialPtr targetMaterial);
+        void writeShaderParameters(iMaterialPtr targetMaterial);
 
         /*! binds current material
          */

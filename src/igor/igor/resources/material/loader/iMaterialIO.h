@@ -26,18 +26,18 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_SHADER_MATERIALIO_H
-#define IGOR_SHADER_MATERIALIO_H
+#ifndef IGOR_MATERIALIO_H
+#define IGOR_MATERIALIO_H
 
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
 class TiXmlElement;
 
 namespace igor
 {
-    /*! reader for Igor shader material files
+    /*! reader for Igor material files
      */
-    class IGOR_API iShaderMaterialIO
+    class IGOR_API iMaterialIO
     {
     public:
         /*! reads material file and configures given material with it
@@ -45,25 +45,20 @@ namespace igor
         \param filename path to material file
         \param material the material to configure with
         */
-        static bool read(const iaString &filename, const iShaderMaterialPtr &material);
+        static bool read(const iaString &filename, const iMaterialPtr &material);
 
         /*! writes material to file
 
         \param filename path to new material file
         \param material the material to use
         */
-        static bool write(const iaString &filename, const iShaderMaterialPtr &material);
+        static bool write(const iaString &filename, const iMaterialPtr &material);
 
     private:
 
-        /*! read material info and put it in to shader material
-
-        \param materialXML the material element
-        \param material the shader material
-        */
-        static bool readMaterial(TiXmlElement *materialXML, const iShaderMaterialPtr &material);
+        static bool readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material);
     };
 
 } // namespace igor
 
-#endif // IGOR_SHADER_MATERIALIO_H
+#endif // IGOR_MATERIALIO_H

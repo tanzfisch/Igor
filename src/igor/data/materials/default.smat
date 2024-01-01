@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="igor.default" visibility="Public">
+	<ShaderMaterial name="igor.default" visibility="Public">
 		<States>
 			<DepthTest>On</DepthTest>
             <DepthFunc>Less</DepthFunc>
@@ -87,5 +87,5 @@ void main()
 }]]>
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

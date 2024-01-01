@@ -66,7 +66,7 @@ namespace igor
 
         /*! \returns target material
         */
-        iTargetMaterialPtr& getTargetMaterial();
+        iMaterialPtr& getTargetMaterial();
 
 
     private:
@@ -80,7 +80,7 @@ namespace igor
 
         /*! particle target material
          */
-        iTargetMaterialPtr _particleTargetMaterial;
+        iMaterialPtr _particleTargetMaterial;
 
         /*! particle material
          */

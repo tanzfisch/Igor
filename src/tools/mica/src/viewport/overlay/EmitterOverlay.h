@@ -86,7 +86,7 @@ private:
 
     /*! target material
      */
-    iTargetMaterialPtr _targetMaterial = nullptr;
+    iMaterialPtr _targetMaterial = nullptr;
 
     /*! switch node
     */

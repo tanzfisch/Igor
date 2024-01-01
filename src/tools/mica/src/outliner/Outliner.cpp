@@ -46,7 +46,7 @@ void Outliner::initGUI()
     checkBoxGraph->setText("Graph");
     checkBoxGraph->registerOnClickEvent(iClickDelegate(this, &Outliner::onGraphViewSelected));
     iWidgetCheckBoxPtr checkBoxMaterial = new iWidgetCheckBox();
-    checkBoxMaterial->setText("Material");
+    checkBoxMaterial->setText("Shader Material");
     checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &Outliner::onMaterialViewSelected));
     iWidgetCheckBox::endRadioButtonGroup();
     checkBoxGraph->setChecked();

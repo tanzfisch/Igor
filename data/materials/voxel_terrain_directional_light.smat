@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="example.voxel.terrain_directional_light" visibility="Public">
+	<ShaderMaterial name="example.voxel.terrain_directional_light" visibility="Public">
 		<States>
 			<DepthTest>On</DepthTest>
             <Blend>Off</Blend>
@@ -112,5 +112,5 @@ void main()
 }]]>
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

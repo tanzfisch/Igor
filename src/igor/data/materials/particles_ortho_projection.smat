@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="igor.particles_ortho_projection">
+	<ShaderMaterial name="igor.particles_ortho_projection">
 		<States>
 			<DepthTest>On</DepthTest>
             <DepthMask>Off</DepthMask>
@@ -170,5 +170,5 @@ void main()
 }]]>
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

@@ -40,7 +40,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
         meshNode->setMesh(mesh);
         meshNode->setMaterial(material);
 
-        iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNode->getTargetMaterial();
         targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_grass"), 0);
         targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_dirt"), 1);
         targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_rock"), 2);

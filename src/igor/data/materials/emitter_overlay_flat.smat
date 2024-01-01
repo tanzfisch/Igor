@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="mica.emitterOverlay.flat" zIndex="MAX" visibility="Private">
+	<ShaderMaterial name="mica.emitterOverlay.flat" zIndex="MAX" visibility="Private">
 		<States>
             <DepthMask>Off</DepthMask>
             <Blend>On</Blend>
@@ -84,5 +84,5 @@ void main()
 }]]>l
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

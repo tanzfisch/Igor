@@ -35,7 +35,7 @@ namespace igor
         iVoxelData* voxelDataNextLOD = parameters.getParameter<iVoxelData*>("voxelDataNextLOD", nullptr);
         
         iShaderMaterialPtr material = parameters.getParameter<iShaderMaterialPtr>(IGOR_RESOURCE_SHADER_MATERIAL, nullptr);
-        iTargetMaterialPtr targetMaterial = parameters.getParameter<iTargetMaterialPtr>(IGOR_RESOURCE_PARAM_MATERIAL, nullptr);
+        iMaterialPtr targetMaterial = parameters.getParameter<iMaterialPtr>(IGOR_RESOURCE_PARAM_MATERIAL, nullptr);
         const uint32 lod = parameters.getParameter<uint32>(IGOR_RESOURCE_PARAM_LOD
 , 0);
         const uint8 neighboursLOD = parameters.getParameter<uint8>("neighboursLOD", 0);

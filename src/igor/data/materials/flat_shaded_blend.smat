@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-	<Material name="igor.flat_shaded_blended" visibility="Private">
+	<ShaderMaterial name="igor.flat_shaded_blended" visibility="Private">
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>On</Blend>
@@ -36,5 +36,5 @@ void main()
 }]]>
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

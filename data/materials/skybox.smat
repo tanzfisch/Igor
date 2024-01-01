@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="igor.skybox" zIndex="MIN" visibility="Public">
+	<ShaderMaterial name="igor.skybox" zIndex="MIN" visibility="Public">
 		<States>
 			<DepthTest>Off</DepthTest>
             <DepthFunc>Less</DepthFunc>
@@ -43,5 +43,5 @@ void main()
 ]]>
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

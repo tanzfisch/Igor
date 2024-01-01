@@ -147,7 +147,7 @@ namespace igor
 
         /*! \returns target material
         */
-        iTargetMaterialPtr getTargetMaterial() const;
+        iMaterialPtr getTargetMaterial() const;
 
         /*! modifies voxel data by manipulating a box area
 
@@ -201,7 +201,7 @@ namespace igor
 
         /*! target material for given tile
         */
-        iTargetMaterialPtr _targetMaterial;
+        iMaterialPtr _targetMaterial;
 
         /*! voxel operations queue
         */

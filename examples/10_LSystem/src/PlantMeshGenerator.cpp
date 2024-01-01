@@ -60,7 +60,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
         meshNodeTrunk->setMesh(meshTrunk);
         meshNodeTrunk->setMaterial(material);
 
-        iTargetMaterialPtr targetMaterial = meshNodeTrunk->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNodeTrunk->getTargetMaterial();
         targetMaterial->setAmbient(trunkColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -78,7 +78,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
         meshNodeFlowers->setMesh(meshFlowers);
         meshNodeFlowers->setMaterial(material);
 
-        iTargetMaterialPtr targetMaterial = meshNodeFlowers->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNodeFlowers->getTargetMaterial();
         targetMaterial->setAmbient(flowerColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -96,7 +96,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
         meshNodeBuds->setMesh(meshBuds);
         meshNodeBuds->setMaterial(material);
 
-        iTargetMaterialPtr targetMaterial = meshNodeBuds->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNodeBuds->getTargetMaterial();
         targetMaterial->setAmbient(budColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -115,7 +115,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
         meshNodeLeafs->setMesh(meshLeafs);
         meshNodeLeafs->setMaterial(material);
 
-        iTargetMaterialPtr targetMaterial = meshNodeLeafs->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNodeLeafs->getTargetMaterial();
         targetMaterial->setAmbient(leafColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));

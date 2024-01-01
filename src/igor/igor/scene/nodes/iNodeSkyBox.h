@@ -67,7 +67,7 @@ namespace igor
 
         /*! target material to use
         */
-        iTargetMaterialPtr _targetMaterial;
+        iMaterialPtr _targetMaterial;
 
         /*! mesh for sky box
         */

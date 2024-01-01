@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition for 2d flat shading -->
-	<Material name="mica.orientation_plane" visibility="Private">
+	<ShaderMaterial name="mica.orientation_plane" visibility="Private">
 		<States>
 			<DepthTest>Off</DepthTest>
             <Blend>Off</Blend>
@@ -37,5 +37,5 @@ void main()
 }]]>
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

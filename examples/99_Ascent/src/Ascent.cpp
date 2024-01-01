@@ -169,7 +169,7 @@ void Ascent::initVoxelData(uint32 lodTriggerID)
     _voxelTerrain->setMaterial(_voxelMeshMaterial);
 
     // set up voxel mesh target material
-    iTargetMaterialPtr targetMaterial = _voxelTerrain->getTargetMaterial();
+    iMaterialPtr targetMaterial = _voxelTerrain->getTargetMaterial();
     targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 0);
     targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 1);
     targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 2);

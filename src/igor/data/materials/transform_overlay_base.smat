@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<!-- material definition -->
-	<Material name="mica.transformOverlay.base" zIndex="MAX" visibility="Private">
+	<ShaderMaterial name="mica.transformOverlay.base" zIndex="MAX" visibility="Private">
 		<States>
 			<DepthTest>On</DepthTest>
             <DepthFunc>Less</DepthFunc>
@@ -113,5 +113,5 @@ void main()
 }]]>
             </Fragment>
         </Program>            
-	</Material>
+	</ShaderMaterial>
 </Igor>

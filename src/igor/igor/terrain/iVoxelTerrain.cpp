@@ -134,7 +134,7 @@ namespace igor
         _actionQueue.push_back(action);
     }
 
-    iTargetMaterialPtr iVoxelTerrain::getTargetMaterial() const
+    iMaterialPtr iVoxelTerrain::getTargetMaterial() const
     {
         return _targetMaterial;
     }

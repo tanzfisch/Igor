@@ -92,12 +92,12 @@ namespace igor
         return info;
     }
 
-    void iNodeMesh::setTargetMaterial(const iTargetMaterialPtr &targetMaterial)
+    void iNodeMesh::setTargetMaterial(const iMaterialPtr &targetMaterial)
     {
         _targetMaterial = targetMaterial;
     }
 
-    iTargetMaterialPtr iNodeMesh::getTargetMaterial() const
+    iMaterialPtr iNodeMesh::getTargetMaterial() const
     {
         return _targetMaterial;
     }

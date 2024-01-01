@@ -282,7 +282,7 @@ void UserControlMesh::init()
     gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelMaterial = new iWidgetLabel();
-    labelMaterial->setText("Material");
+    labelMaterial->setText("Shader Material");
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _materialSelector = new iWidgetSelectBox();

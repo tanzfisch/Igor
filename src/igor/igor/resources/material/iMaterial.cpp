@@ -16,7 +16,7 @@ namespace igor
         void operator()(iMaterial *p) { delete p; }
     };
 
-    iTargetMaterialPtr iMaterial::create()
+    iMaterialPtr iMaterial::create()
     {
         return std::shared_ptr<iMaterial>(new iMaterial(), iTargetMaterialDeleter());
     }

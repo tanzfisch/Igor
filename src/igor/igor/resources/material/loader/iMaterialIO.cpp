@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/shader_material/loader/iShaderMaterialIO.h>
+#include <igor/resources/material/loader/iMaterialIO.h>
 
 #include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaFile.h>
@@ -178,65 +178,13 @@ namespace igor
         material->setShaderProgram(shaderProgram);
     }
 
-    bool iShaderMaterialIO::readMaterial(TiXmlElement *materialXML, const iShaderMaterialPtr &material)
+    bool iMaterialIO::readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
     {
-        TiXmlAttribute *attrib = materialXML->FirstAttribute();
-        while (attrib)
-        {
-            if (attrib->NameTStr() == "zIndex" ||
-                attrib->NameTStr() == "order")
-            {
-                if (attrib->ValueStr() == "RENDER_ORDER_DEFAULT" ||
-                    attrib->ValueStr() == "DEFAULT")
-                {
-                    material->setOrder(iShaderMaterial::RENDER_ORDER_DEFAULT);
-                }
-                else if (attrib->ValueStr() == "RENDER_ORDER_MIN" ||
-                         attrib->ValueStr() == "MIN")
-                {
-                    material->setOrder(iShaderMaterial::RENDER_ORDER_MIN);
-                }
-                else if (attrib->ValueStr() == "RENDER_ORDER_MAX" ||
-                         attrib->ValueStr() == "MAX")
-                {
-                    material->setOrder(iShaderMaterial::RENDER_ORDER_MAX);
-                }
-                else
-                {
-                    material->setOrder(iaString::toInt(attrib->Value()));
-                }
-            }
-            else if (attrib->NameTStr() == "visibility")
-            {
-                if (attrib->ValueStr() == "Public")
-                {
-                    material->setVisibility(iMaterialVisibility::Public);
-                }
-                else
-                {
-                    material->setVisibility(iMaterialVisibility::Private);
-                }
-            }
-
-            attrib = attrib->Next();
-        }
-
-        TiXmlElement *states = materialXML->FirstChildElement("States");
-        if (states)
-        {
-            readStates(states, material);
-        }
-
-        TiXmlElement *program = materialXML->FirstChildElement("Program");
-        if (program)
-        {
-            readProgram(program, material);
-        }
-
+     
         return true;
     }
 
-    bool iShaderMaterialIO::read(const iaString &filename, const iShaderMaterialPtr &material)
+    bool iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -255,7 +203,7 @@ namespace igor
             return false;
         }
 
-        TiXmlElement *materialXML = root->FirstChildElement("ShaderMaterial");
+        TiXmlElement *materialXML = root->FirstChildElement("Material");
         if (materialXML == nullptr)
         {
             con_err("missing Material element");
@@ -265,7 +213,7 @@ namespace igor
         return readMaterial(materialXML, material);
     }
 
-    bool iShaderMaterialIO::write(const iaString &filename, const iShaderMaterialPtr &material)
+    bool iMaterialIO::write(const iaString &filename, const iMaterialPtr &material)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -281,44 +229,11 @@ namespace igor
 
         file << "<?xml version=\"1.0\"?>\n";
         file << "<Igor>\n";
-        file << "\t<ShaderMaterial uuid=\"" << material->getID() << "\" order=\"" << material->getOrder() << "\" visibility=\"" << material->getVisibility() << "\">\n";
-        file << "\t\t<States>\n";
-        file << "\t\t\t<DepthTest>" << material->getRenderState(iRenderState::DepthTest) << "</DepthTest>\n";
-        file << "\t\t\t<DepthFunc>" << material->getRenderState(iRenderState::DepthFunc) << "</DepthFunc>\n";
-        file << "\t\t\t<DepthMask>" << material->getRenderState(iRenderState::DepthMask) << "</DepthMask>\n";
-        file << "\t\t\t<Blend>" << material->getRenderState(iRenderState::Blend) << "</Blend>\n";
-        file << "\t\t\t<CullFace>" << material->getRenderState(iRenderState::CullFace) << "</CullFace>\n";
-        file << "\t\t\t<CullFaceFunc>" << material->getRenderState(iRenderState::CullFaceFunc) << "</CullFaceFunc>\n";
-        file << "\t\t\t<Wireframe>" << material->getRenderState(iRenderState::Wireframe) << "</Wireframe>\n";
-        file << "\t\t\t<Instanced>" << material->getRenderState(iRenderState::Instanced) << "</Instanced>\n";
-        file << "\t\t\t<InstancedFunc>" << material->getRenderState(iRenderState::InstancedFunc) << "</InstancedFunc>\n";
-        file << "\t\t</States>\n";
+// TODO         file << "\t<Material uuid=\"" << material->getID() << "\">\n";
 
-        const auto &shaderSources = material->getShaderProgram()->getShaderSources();
-        if (!shaderSources.empty())
-        {
-            file << "\t\t<Program>\n";
+        // TODO
 
-            for (const auto &source : shaderSources)
-            {
-                file << "\t\t\t<" << source._type;
-
-                if (iaFile::exists(source._filename))
-                {
-                    file << " filename=\"" << iResourceManager::getInstance().getRelativePath(source._filename) << "\" />\n";
-                }
-                else
-                {
-                    file << ">\n";
-                    file << "<![CDATA[" << source._source << "]]>\n";
-                    file << "\t\t\t</" << source._type << ">\n";
-                }
-            }
-
-            file << "\t\t</Program>\n";
-        }
-
-        file << "\t</ShaderMaterial>\n";
+        file << "\t</Material>\n";
         file << "</Igor>\n";
 
         return true;

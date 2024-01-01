@@ -59,7 +59,7 @@ namespace igor
         return _particleEmitter;
     }
 
-    iTargetMaterialPtr &iParticleSystem2D::getTargetMaterial()
+    iMaterialPtr &iParticleSystem2D::getTargetMaterial()
     {
         return _particleTargetMaterial;
     }

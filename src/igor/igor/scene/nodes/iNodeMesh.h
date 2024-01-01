@@ -83,13 +83,13 @@ namespace igor
 
         /*! \returns target material
          */
-        iTargetMaterialPtr getTargetMaterial() const;
+        iMaterialPtr getTargetMaterial() const;
 
         /*! configures target material
 
         \param targetMaterial the target material configuration to copy
         */
-        void setTargetMaterial(const iTargetMaterialPtr &targetMaterial);
+        void setTargetMaterial(const iMaterialPtr &targetMaterial);
 
         /*! returns multiple lines of information about this node
 
@@ -104,7 +104,7 @@ namespace igor
 
         /*! target material
          */
-        iTargetMaterialPtr _targetMaterial;
+        iMaterialPtr _targetMaterial;
 
         /*! shared pointer to mesh
          */

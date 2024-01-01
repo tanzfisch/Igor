@@ -142,7 +142,7 @@ namespace igor
         struct iInstaningPackage
         {
             iInstancingBufferPtr _buffer;
-            iTargetMaterialPtr _targetMaterial;
+            iMaterialPtr _targetMaterial;
         };
 
         /*! bringing all nodes using the same material together for more efficient rendering

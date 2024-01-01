@@ -81,7 +81,7 @@ void ExampleInstancing::onInit()
 
     // todo need to be able to load a mesh from file without all of this
     iMeshPtr catMesh;
-    iTargetMaterialPtr catTargetMaterial;
+    iMaterialPtr catTargetMaterial;
     iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
     if(modelCat->getNode()->getType() == iNodeType::iNodeMesh)
     {
@@ -91,7 +91,7 @@ void ExampleInstancing::onInit()
     }
 
     iMeshPtr createMesh;
-    iTargetMaterialPtr crateTargetMaterial;
+    iMaterialPtr crateTargetMaterial;
     iModelPtr modelCrate = iResourceManager::getInstance().loadResource<iModel>("example_model_crate");
     if(modelCrate->getNode()->getType() == iNodeType::iNodeMesh)
     {
@@ -101,7 +101,7 @@ void ExampleInstancing::onInit()
     }    
 
     iMeshPtr cubeMesh;
-    iTargetMaterialPtr cubeTargetMaterial;
+    iMaterialPtr cubeTargetMaterial;
     iModelPtr modelCube = iResourceManager::getInstance().loadResource<iModel>("example_model_cube_green");
     if(modelCube->getNode()->getType() == iNodeType::iNodeMesh)
     {
@@ -111,7 +111,7 @@ void ExampleInstancing::onInit()
     }    
 
     iMeshPtr teapotMesh;
-    iTargetMaterialPtr teapotTargetMaterial;
+    iMaterialPtr teapotTargetMaterial;
     iModelPtr modelTeapot = iResourceManager::getInstance().loadResource<iModel>("example_model_teapot");
     if(modelTeapot->getNode()->getType() == iNodeType::iNodeMesh)
     {
