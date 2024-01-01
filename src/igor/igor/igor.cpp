@@ -29,6 +29,7 @@ extern const iaString IGOR_RESOURCE_MODEL = "model";
 extern const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
 extern const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE = "wrapMode";
 extern const iaString IGOR_RESOURCE_PARAM_ID = "id";
 extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
 extern const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
@@ -46,6 +47,18 @@ extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH = "keepMesh";
 extern const iaString IGOR_RESOURCE_PARAM_GENERATE = "generate";
 extern const iaString IGOR_RESOURCE_PARAM_SEED = "seed";
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE = "texture";
+extern const iaString IGOR_RESOURCE_PARAM_EMISSIVE = "emissive";
+extern const iaString IGOR_RESOURCE_PARAM_AMBIENT = "ambient";
+extern const iaString IGOR_RESOURCE_PARAM_DIFFUSE = "diffuse";
+extern const iaString IGOR_RESOURCE_PARAM_SPECULAR = "specular";
+extern const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
+extern const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
+extern const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
+
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2 = "texture2";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
 
 #ifdef IGOR_DEBUG
 extern const iaString IGOR_BUILD_CONFIGURATION = "debug";

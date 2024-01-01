@@ -79,6 +79,7 @@ extern const iaString IGOR_RESOURCE_PARAM_PIXMAP; //! resource parameters pixmap
 extern const iaString IGOR_RESOURCE_PARAM_NODE; //! resource parameters node
 extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE; //! resource parameters export mode
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE; //! resource parameters texture build mode
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE; //! resource parameters texture build mode
 extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES; //! resource parameters join vertices
 extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE; //! resource parameters sub type
 extern const iaString IGOR_RESOURCE_PARAM_QUIET; //! resource parameters quiet
@@ -90,6 +91,18 @@ extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH; //! resource parameters kee
 extern const iaString IGOR_RESOURCE_PARAM_GENERATE; //! resource parameters generate
 extern const iaString IGOR_RESOURCE_PARAM_SEED; //! resource parameters seed
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE; //! resource parameters texture
+extern const iaString IGOR_RESOURCE_PARAM_EMISSIVE; //! resource parameters emissive
+extern const iaString IGOR_RESOURCE_PARAM_AMBIENT; //! resource parameters ambient
+extern const iaString IGOR_RESOURCE_PARAM_DIFFUSE; //! resource parameters diffuse
+extern const iaString IGOR_RESOURCE_PARAM_SPECULAR; //! resource parameters specular
+extern const iaString IGOR_RESOURCE_PARAM_SHININESS; //! resource parameters shininess
+extern const iaString IGOR_RESOURCE_PARAM_ALPHA; //! resource parameters alpha
+extern const iaString IGOR_RESOURCE_PARAM_TILING; //! resource parameters tiling
+
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0; //! resource parameters texture unit 0
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameters texture unit 1
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2; //! resource parameters texture unit 2
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3; //! resource parameters texture unit 3
 
 namespace igor
 {

@@ -183,12 +183,16 @@ namespace igor
         _terrainMaterial = iRenderer::getInstance().getDefaultMaterial();
 
         // set up terrain target material
-        _targetMaterial = iMaterial::create();
-        _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
-        _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
-        _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
-        _targetMaterial->setEmissive(iaColor3f(0.05f, 0.05f, 0.05f));
-        _targetMaterial->setShininess(100.0f);
+        iParameters param({ 
+            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+            {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.7f, 0.7f, 0.7f)},
+            {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.9f, 0.9f, 0.9f)},
+            {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.1f, 0.1f, 0.1f)},
+            {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.05f, 0.05f, 0.05f)},
+            {IGOR_RESOURCE_PARAM_SHININESS, 100.0f},
+        });
+
+        _targetMaterial = iResourceManager::getInstance().loadResource<iMaterial>(param);        
     }
 
     void iVoxelTerrain::deinit()

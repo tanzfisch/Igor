@@ -21,11 +21,15 @@ namespace igor
         _particleSystem.setMaxParticleCount(100);
         _particleSystem.start();
 
-        _particleTargetMaterial = iMaterial::create();
-        _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 0);
-        _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 1);
-        _particleTargetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 2);
-        _particlesMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_textured_particles_ortho");
+        iParameters param({ 
+            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+            {IGOR_RESOURCE_PARAM_TEXTURE0, "igor_texture_white"},
+            {IGOR_RESOURCE_PARAM_TEXTURE1, "igor_texture_white"},
+            {IGOR_RESOURCE_PARAM_TEXTURE2, "igor_texture_white"},
+        });
+
+        _material = iResourceManager::getInstance().loadResource<iMaterial>(param);
+        _shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_textured_particles_ortho");
     }
 
     void iParticleSystem2D::update()
@@ -41,10 +45,10 @@ namespace igor
 
         iRenderer::getInstance().setModelMatrix(modelMatrix * matrix);
 
-        iRenderer::getInstance().setMaterial(_particlesMaterial);
-        _particleTargetMaterial->setVelocityOriented(_particleSystem.getVelocityOriented());
-        _particleTargetMaterial->setTilingConfig(iaVector2f(_particleSystem.getTextureColumns(), _particleSystem.getTextureRows()));
-        iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _particleTargetMaterial);
+        iRenderer::getInstance().setMaterial(_shaderMaterial);
+        _material->setVelocityOriented(_particleSystem.getVelocityOriented());
+        _material->setTiling(iaVector2f(_particleSystem.getTextureColumns(), _particleSystem.getTextureRows()));
+        iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _material);
 
         iRenderer::getInstance().setModelMatrix(modelMatrix);
     }
@@ -61,7 +65,7 @@ namespace igor
 
     iMaterialPtr &iParticleSystem2D::getTargetMaterial()
     {
-        return _particleTargetMaterial;
+        return _material;
     }
 
 }; // namespace igor

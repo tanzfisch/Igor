@@ -412,7 +412,7 @@ namespace igor
 
         /*! target material
          */
-        iMaterialPtr _targetMaterial;
+        iMaterialPtr _material;
 
         /*! called after a node was copied
 

@@ -218,7 +218,7 @@ namespace igor
     {
         iaString hashData;
 
-        iTextureWrapMode wrapMode = parameters.getParameter<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
+        iTextureWrapMode wrapMode = parameters.getParameter<iTextureWrapMode>(IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE, iTextureWrapMode::Repeat);
         switch (wrapMode)
         {
         case iTextureWrapMode::Repeat:

@@ -17,7 +17,7 @@ namespace igor
     iShaderMaterial::iShaderMaterial(const iParameters &parameters)
         : iResource(parameters)
     {
-    }
+    } 
 
     bool iShaderMaterial::isValid() const
     {

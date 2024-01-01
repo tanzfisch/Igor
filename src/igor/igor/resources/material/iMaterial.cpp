@@ -9,41 +9,31 @@ using namespace iaux;
 
 namespace igor
 {
-
-    class iTargetMaterialDeleter
+    iMaterial::iMaterial(const iParameters &parameters)
+        : iResource(parameters)
     {
-    public:
-        void operator()(iMaterial *p) { delete p; }
-    };
+        _emissive = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0,0,0));
+        _ambient = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.4f, 0.4f, 0.4f));
+        _diffuse = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f));
+        _specular = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.6f, 0.6f, 0.6f));
+        _shininess = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_SHININESS, 5.0f);
+        _alpha = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_ALPHA, 1.0f);
+        _tiling = parameters.getParameter<iaVector2f>(IGOR_RESOURCE_PARAM_TILING, iaVector2f(1.0f, 1.0f));
 
-    iMaterialPtr iMaterial::create()
-    {
-        return std::shared_ptr<iMaterial>(new iMaterial(), iTargetMaterialDeleter());
+        for(int i=0;i<4;++i)
+        {
+            parameters.hasParameter(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i));
+        }
     }
 
-    iMaterial::iMaterial()
+    void iMaterial::setTiling(const iaVector2f &tiling)
     {
-        _emissive.set(0, 0, 0);
-        _ambient.set(0.4f, 0.4f, 0.4f);
-        _diffuse.set(0.5f, 0.5f, 0.5f);
-        _specular.set(0.6f, 0.6f, 0.6f);
-        _shininess = 5.0f;
-        _alpha = 1.0f;
-        _tilingConfig.set(1.0, 1.0);
+        _tiling = tiling;
     }
 
-    iMaterial::~iMaterial()
+    const iaVector2f &iMaterial::getTiling() const
     {
-    }
-
-    void iMaterial::setTilingConfig(const iaVector2f &tiling)
-    {
-        _tilingConfig = tiling;
-    }
-
-    const iaVector2f &iMaterial::getTilingConfig() const
-    {
-        return _tilingConfig;
+        return _tiling;
     }
 
     void iMaterial::setVelocityOriented(bool enable)

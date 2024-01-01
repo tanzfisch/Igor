@@ -50,7 +50,7 @@ void Particles::onInit()
     getView().setCamera(camera->getID());
 
     // set up a meterial for the particles
-    _particlesMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_particles");
+    _shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_particles");
 
     // create the various particle systems
     createWaveParticleSystem();
@@ -90,7 +90,7 @@ void Particles::createWaveParticleSystem()
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
-    particleSystem->setMaterial(_particlesMaterial);
+    particleSystem->setMaterial(_shaderMaterial);
     particleSystem->setTextureA("example_texture_particleKreuzHerzPikKaro");
     particleSystem->setMaxParticleCount(300);
     particleSystem->setTextureTiling(2, 2);
@@ -161,7 +161,7 @@ void Particles::createFireParticleSystem()
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
-    particleSystem->setMaterial(_particlesMaterial);
+    particleSystem->setMaterial(_shaderMaterial);
     particleSystem->setTextureA("example_texture_particleFire");
     particleSystem->setTileIncrement(0.8);
     particleSystem->setMaxParticleCount(200);
@@ -218,7 +218,7 @@ void Particles::createFontainParticleSystem()
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
-    particleSystem->setMaterial(_particlesMaterial);
+    particleSystem->setMaterial(_shaderMaterial);
     particleSystem->setTextureA("example_texture_particleTrail");
     particleSystem->setMaxParticleCount(800);
     particleSystem->setColorGradient(colors);
@@ -271,7 +271,7 @@ void Particles::createRingParticleSystem()
     iNodeParticleSystem *circleParticleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(circleParticleSystem->getID());
     circleParticleSystem->setMaxParticleCount(500);
-    circleParticleSystem->setMaterial(_particlesMaterial);
+    circleParticleSystem->setMaterial(_shaderMaterial);
     circleParticleSystem->setTextureA("example_texture_particleGem");
     circleParticleSystem->setTextureB("example_texture_octave_1");
     circleParticleSystem->setColorGradient(ringColors);
@@ -327,7 +327,7 @@ void Particles::createSmokeParticleSystem()
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
-    particleSystem->setMaterial(_particlesMaterial);
+    particleSystem->setMaterial(_shaderMaterial);
     particleSystem->setTextureA("example_texture_particle_dot");
     particleSystem->setTextureB("example_texture_octave_1");
     particleSystem->setTextureC("example_texture_octave_2");
@@ -381,7 +381,7 @@ void Particles::createDotParticleSystem()
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
-    particleSystem->setMaterial(_particlesMaterial);
+    particleSystem->setMaterial(_shaderMaterial);
     particleSystem->setTextureA("example_texture_particleTrail");
     particleSystem->setMaxParticleCount(500);
     particleSystem->setColorGradient(colorGradient);
@@ -423,7 +423,7 @@ void Particles::createDotParticleSystem()
 
     iNodeParticleSystem *particleSystem2 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem2->getID());
-    particleSystem2->setMaterial(_particlesMaterial);
+    particleSystem2->setMaterial(_shaderMaterial);
     particleSystem2->setTextureA("example_texture_particleFlame");
     particleSystem2->setTextureB("example_texture_octave_1");
     particleSystem2->setTextureC("example_texture_octave_2");

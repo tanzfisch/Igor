@@ -42,7 +42,7 @@
 namespace igor
 {
 
-    /*! material ID definition
+    /*! shader material ID definition
      */
     typedef iaUUID iShaderMaterialID;
 

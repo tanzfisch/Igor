@@ -21,8 +21,6 @@ namespace igor
         setName(L"iNodeSkyBox");
         _nodeType = iNodeType::iNodeSkyBox;
         buildMesh();
-
-        _targetMaterial = iMaterial::create();
     }
 
     iNodeSkyBox::iNodeSkyBox(iNodeSkyBox *node)

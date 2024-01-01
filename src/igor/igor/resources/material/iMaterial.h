@@ -29,7 +29,6 @@
 #ifndef IGOR_MATERIAL_H
 #define IGOR_MATERIAL_H
 
-#include <igor/iDefines.h>
 #include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaColor3.h>
@@ -45,20 +44,20 @@ namespace igor
     class iMaterial;
     typedef std::shared_ptr<iMaterial> iMaterialPtr;
 
+    /*! material ID definition
+     */
+    typedef iaUUID iShaderMaterialID;
+
     /*! contains all material information that belong to the surface of an object
 
-    Whereas iShaderMaterial contains all the information realted to shader and environment ie lights etc.
+    Whereas iShaderMaterial contains all the information related to shader and environment ie lights etc.
     */
-    class IGOR_API iMaterial
+    class IGOR_API iMaterial : public iResource
     {
 
-        friend class iTargetMaterialDeleter;
+        friend class iMaterialFactory;
 
     public:
-        /*! \returns a newly created target material
-         */
-        static iMaterialPtr create();
-
         /*! set a texture for a given texture unit
 
         \param texture the texture to add
@@ -86,11 +85,11 @@ namespace igor
 
         \param tiling column and row count of tiles
         */
-        void setTilingConfig(const iaVector2f &tiling);
+        void setTiling(const iaVector2f &tiling);
 
         /*! \returns tiling config
          */
-        const iaVector2f &getTilingConfig() const;
+        const iaVector2f &getTiling() const;
 
         /*! \returns true if mesh has textures and texture coordinates
          */
@@ -165,7 +164,6 @@ namespace igor
         bool isVelocityOriented() const;
 
     private:
-
         /*! texture unit to texture map
          */
         std::map<uint32, iTexturePtr> _textures;
@@ -196,19 +194,17 @@ namespace igor
 
         /*! tiling config
          */
-        iaVector2f _tilingConfig;
+        iaVector2f _tiling;
 
         /*! if true target material will be displayed oriented along it's velocity axis
          */
         bool _velocityOriented;
 
-        /*! initializes members
-         */
-        iMaterial();
+        /*! init material
 
-        /*! releases resources
+        \param parameters parameters specifying the material
          */
-        ~iMaterial();
+        iMaterial(const iParameters &parameters);
     };
 
 } // namespace igor

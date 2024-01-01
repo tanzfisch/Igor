@@ -373,3 +373,66 @@ inline iShaderMaterialPtr iResourceManager::getResource(const iaString &alias)
     iParameters param = buildParam(IGOR_RESOURCE_SHADER_MATERIAL, alias);
     return std::dynamic_pointer_cast<iShaderMaterial>(getResource(param));
 }
+
+
+template <>
+inline iMaterialPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, alias, cacheMode);
+    return std::dynamic_pointer_cast<iMaterial>(requestResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, alias, cacheMode);
+    return std::dynamic_pointer_cast<iMaterial>(loadResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iMaterial>(requestResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iMaterial>(loadResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::requestResource(const iParameters &param)
+{
+    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MATERIAL, "incorrect parameter");
+    return std::dynamic_pointer_cast<iMaterial>(requestResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::loadResource(const iParameters &param)
+{
+    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MATERIAL, "incorrect parameter");
+    return std::dynamic_pointer_cast<iMaterial>(loadResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::createResource()
+{
+    iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL}}));
+    return std::dynamic_pointer_cast<iMaterial>(createResource(param));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::getResource(const iResourceID &id)
+{
+    return std::dynamic_pointer_cast<iMaterial>(getResource(id));
+}
+
+template <>
+inline iMaterialPtr iResourceManager::getResource(const iaString &alias)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, alias);
+    return std::dynamic_pointer_cast<iMaterial>(getResource(param));
+}

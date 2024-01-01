@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PARTICLESYSTEM2D__
-#define __IGOR_PARTICLESYSTEM2D__
+#ifndef IGOR_PARTICLESYSTEM2D_H
+#define IGOR_PARTICLESYSTEM2D_H
 
 #include <igor/simulation/iParticleSystem.h>
 #include <igor/simulation/iParticleEmitter.h>
@@ -43,31 +43,29 @@ namespace igor
     {
 
     public:
-
         /*! init particle system
-        */
+         */
         iParticleSystem2D();
 
         /*! does nothing
-        */
+         */
         ~iParticleSystem2D() = default;
 
         /*! draw particle system
-        */
+         */
         void draw(const iaMatrixd &matrix = iaMatrixd());
-        
+
         /*! \returns particle system
-        */
-        iParticleSystem& getSystem();
+         */
+        iParticleSystem &getSystem();
 
         /*! \returns particle emitter
-        */
-        iParticleEmitter& getEmitter();
+         */
+        iParticleEmitter &getEmitter();
 
         /*! \returns target material
-        */
-        iMaterialPtr& getTargetMaterial();
-
+         */
+        iMaterialPtr &getTargetMaterial();
 
     private:
         /*! particle system
@@ -80,22 +78,21 @@ namespace igor
 
         /*! particle target material
          */
-        iMaterialPtr _particleTargetMaterial;
+        iMaterialPtr _material;
 
         /*! particle material
          */
-        iShaderMaterialPtr _particlesMaterial;
+        iShaderMaterialPtr _shaderMaterial;
 
         /*! initialize particle system
-        */
+         */
         void init();
 
         /*! update particle system
-        */
+         */
         void update();
-
     };
 
 }; // namespace igor
 
-#endif // __IGOR_PARTICLESYSTEM2D__
+#endif // IGOR_PARTICLESYSTEM2D_H

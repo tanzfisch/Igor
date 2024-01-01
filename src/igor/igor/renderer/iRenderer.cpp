@@ -1862,7 +1862,7 @@ namespace igor
 
             if (_data->_currentMaterial->hasTilingConfig())
             {
-                _data->_currentMaterial->setFloat2(UNIFORM_CONFIG_TILING, targetMaterial->getTilingConfig());
+                _data->_currentMaterial->setFloat2(UNIFORM_CONFIG_TILING, targetMaterial->getTiling());
             }
 
             if (_data->_currentMaterial->hasVelocityOrientedConfig())

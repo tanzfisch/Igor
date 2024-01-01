@@ -16,8 +16,12 @@ namespace igor
 
     iResourcePtr iMaterialFactory::createResource()
     {
-        // TODO
-        return nullptr;
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                           {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
+
+        iMaterialPtr material(new iMaterial(param));
+
+        return material;
     }
 
     bool iMaterialFactory::saveResource(iResourcePtr resource, const iaString &filename)
