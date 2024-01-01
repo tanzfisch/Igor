@@ -288,7 +288,7 @@ namespace igor
         // push mesh to mesh node
         meshNode->setMesh(mesh);
 
-        iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
+        iShaderMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
         meshNode->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
 
         return meshNode;
@@ -353,7 +353,7 @@ namespace igor
         particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
-        iMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
+        iShaderMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
         particleSystemNode->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
 
         return particleSystemNode;
@@ -867,7 +867,7 @@ namespace igor
         return result;
     }
 
-    uint32 iModelDataIOOMPF::getMaterialChunkID(const iMaterialID &materialID)
+    uint32 iModelDataIOOMPF::getMaterialChunkID(const iShaderMaterialID &materialID)
     {
         iShaderMaterialPtr material = iResourceManager::getInstance().getResource<iShaderMaterial>(materialID);
 
@@ -937,9 +937,9 @@ namespace igor
         return result;
     }
 
-    iMaterialID iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
+    iShaderMaterialID iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
     {
-        iMaterialID result;
+        iShaderMaterialID result;
 
         if (materialChunkID != 0)
         {

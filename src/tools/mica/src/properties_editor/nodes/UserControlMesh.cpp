@@ -82,7 +82,7 @@ void UserControlMesh::updateNode()
         if (_materialSelector->getSelectedUserData().has_value())
         {
             std::any userData = _materialSelector->getSelectedUserData();
-            iMaterialID materialID(std::any_cast<iMaterialID>(userData));
+            iShaderMaterialID materialID(std::any_cast<iShaderMaterialID>(userData));
             node->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
         }
     }
@@ -138,7 +138,7 @@ void UserControlMesh::update()
     {
         if (material->isValid())
         {
-            const iMaterialID &materialID = material->getID();
+            const iShaderMaterialID &materialID = material->getID();
             const iaString &materialName = material->getName();
 
             _materialSelector->addItem(materialName, materialID);

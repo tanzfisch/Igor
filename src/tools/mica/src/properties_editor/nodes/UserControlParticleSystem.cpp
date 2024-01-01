@@ -677,7 +677,7 @@ void UserControlParticleSystem::updateNode()
         if (_materialSelection->getSelectedUserData().has_value())
         {
             std::any userData = _materialSelection->getSelectedUserData();
-            iMaterialID materialID = std::any_cast<iMaterialID>(userData);
+            iShaderMaterialID materialID = std::any_cast<iShaderMaterialID>(userData);
             node->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
         }
 
@@ -795,7 +795,7 @@ void UserControlParticleSystem::update()
         iResourceManager::getInstance().getMaterials(materials);
         for (auto material : materials)
         {
-            const iMaterialID &materialID = material->getID();
+            const iShaderMaterialID &materialID = material->getID();
             // TODO _materialSelection->addItem(material->getName(), materialID);
 
             if (materialID == node->getMaterial()->getID())

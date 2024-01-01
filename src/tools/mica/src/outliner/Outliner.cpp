@@ -186,7 +186,7 @@ void Outliner::onGraphSelectionChanged(uint64 nodeID)
     _graphSelectionChanged(nodeID);
 }
 
-void Outliner::onResourceSelectionChanged_old(const iMaterialID &materialID)
+void Outliner::onResourceSelectionChanged_old(const iShaderMaterialID &materialID)
 {
     _materialSelectionChanged(materialID);
 }

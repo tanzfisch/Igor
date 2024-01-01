@@ -79,12 +79,12 @@ void UserControlMaterialView::onAddMaterial(const iWidgetPtr source)
 
 void UserControlMaterialView::OnSelectionChange(iWidgetPtr widget)
 {
-    iMaterialID materialID;
+    iShaderMaterialID materialID;
     std::any userData = _gridGraph->getSelectedUserData();
 
     if (userData.has_value())
     {
-        materialID = std::any_cast<iMaterialID>(userData);
+        materialID = std::any_cast<iShaderMaterialID>(userData);
     }
 
     _selectedMaterial = materialID;

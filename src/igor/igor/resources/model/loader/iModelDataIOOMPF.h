@@ -116,7 +116,7 @@ namespace igor
 
         /*! maps chunk material id to materil id
          */
-        std::unordered_map<uint32, iMaterialID> _materialMapping;
+        std::unordered_map<uint32, iShaderMaterialID> _materialMapping;
 
         /*! maps chunk id to node id
          */
@@ -128,11 +128,11 @@ namespace igor
 
         /*! map of materials currently in use
          */
-        std::unordered_map<iMaterialID, OMPF::ompfMaterialChunk *> _materialsInUse;
+        std::unordered_map<iShaderMaterialID, OMPF::ompfMaterialChunk *> _materialsInUse;
 
         /*! map of reference materials in use
          */
-        std::unordered_map<iMaterialID, OMPF::ompfMaterialReferenceChunk *> _materialReferencesInUse;
+        std::unordered_map<iShaderMaterialID, OMPF::ompfMaterialReferenceChunk *> _materialReferencesInUse;
 
         /*! additional input parameter
         */
@@ -241,13 +241,13 @@ namespace igor
 
         \param materialID the igor material id
         */
-        uint32 getMaterialChunkID(const iMaterialID &materialID);
+        uint32 getMaterialChunkID(const iShaderMaterialID &materialID);
 
         /*! \returns igor material ID
 
         \param materialChunkID material chunk id
         */
-        iMaterialID getMaterialID(uint32 materialChunkID);
+        iShaderMaterialID getMaterialID(uint32 materialChunkID);
 
         /*! \returns node id based on chunk id
 
