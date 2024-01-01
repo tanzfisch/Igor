@@ -258,7 +258,7 @@ namespace igor
         TiXmlElement *materialXML = root->FirstChildElement("ShaderMaterial");
         if (materialXML == nullptr)
         {
-            con_err("missing Material element");
+            con_err("missing ShaderMaterial element");
             return false;
         }
 
