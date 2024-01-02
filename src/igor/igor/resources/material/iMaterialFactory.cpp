@@ -19,9 +19,7 @@ namespace igor
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
 
-        iMaterialPtr material(new iMaterial(param));
-
-        return material;
+        return iMaterialPtr(new iMaterial(param));
     }
 
     bool iMaterialFactory::saveResource(iResourcePtr resource, const iaString &filename)
@@ -32,8 +30,7 @@ namespace igor
 
     iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)
     {
-        // TODO
-        return nullptr;
+        return iMaterialPtr(new iMaterial(parameters));
     }
 
     bool iMaterialFactory::loadResource(iResourcePtr resource)

@@ -46,33 +46,49 @@ void TransformOverlay::onInit()
     _material = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_transform_overlay_base");
     _materialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_cellshading_yellow");
 
-    _red = iMaterial::create();
-    _red->setEmissive(iaColor3f(0.8f, 0.0f, 0.0f));
-    _red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
-    _red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
-    _red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
-    _red->setAlpha(0.8);
+    iParameters paramRed({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.3f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.2f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.8f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
+    });
 
-    _green = iMaterial::create();
-    _green->setEmissive(iaColor3f(0.0f, 0.8f, 0.0f));
-    _green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
-    _green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
-    _green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
-    _green->setAlpha(0.8);
+    _red = iResourceManager::getInstance().loadResource<iMaterial>(paramRed);    
 
-    _blue = iMaterial::create();
-    _blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.8f));
-    _blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
-    _blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
-    _blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
-    _blue->setAlpha(0.8);
+    iParameters paramGreen({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.8f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
+    });
 
-    _cyan = iMaterial::create();
-    _cyan->setEmissive(iaColor3f(0.0f, 0.8f, 0.8f));
-    _cyan->setSpecular(iaColor3f(0.0f, 0.2f, 0.2f));
-    _cyan->setDiffuse(iaColor3f(0.0f, 0.5f, 0.5f));
-    _cyan->setAmbient(iaColor3f(0.0f, 0.3f, 0.3f));
-    _cyan->setAlpha(0.8);
+    _green = iResourceManager::getInstance().loadResource<iMaterial>(paramGreen);    
+
+    iParameters paramBlue({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.0f, 0.3f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.0f, 0.5f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.0f, 0.2f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.8f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
+    });
+
+    _blue = iResourceManager::getInstance().loadResource<iMaterial>(paramBlue);    
+
+    iParameters paramCyan({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.3f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.5f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.2f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.8f, 0.8f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
+    });
+
+    _cyan = iResourceManager::getInstance().loadResource<iMaterial>(paramCyan);    
 
     iMeshPtr translateMesh = createTranslateMesh();
     iMeshPtr scaleMesh = createScaleMesh();

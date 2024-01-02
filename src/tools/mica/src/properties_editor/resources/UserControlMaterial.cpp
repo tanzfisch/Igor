@@ -40,12 +40,16 @@ void UserControlMaterial::updateMaterialDisplay(iShaderMaterialPtr material)
     iRenderer::getInstance().setViewport(0, 0, width, height);
     iRenderer::getInstance().setPerspective(45.0, 1.0, 0.00001, 10.0);
 
-    iMaterialPtr targetMaterial = iMaterial::create();
-    targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
-    targetMaterial->setSpecular(iaColor3f(0.5f, 0.5f, 0.5f));
-    targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
-    targetMaterial->setAmbient(iaColor3f(0.5f, 0.5f, 0.5f));
-    targetMaterial->setAlpha(1.0);
+    iParameters param({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.5f, 0.5f, 0.5f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.5f, 0.5f, 0.5f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, 1.0f},
+    });
+
+    iMaterialPtr targetMaterial = iResourceManager::getInstance().loadResource<iMaterial>(param);
 
     iMeshPtr sphere = createSphere();
 
@@ -67,13 +71,13 @@ void UserControlMaterial::updateMaterialDisplay(iShaderMaterialPtr material)
     iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
     iRenderer::getInstance().setViewport(viewport);
 
-    iParameters param({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+    iParameters paramTex({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
                        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
                        {IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Normal},
                        {IGOR_RESOURCE_PARAM_PIXMAP, pixmap}});
 
-    _materialPicture->setTexture(iResourceManager::getInstance().requestResource<iTexture>(param));
+    _materialPicture->setTexture(iResourceManager::getInstance().requestResource<iTexture>(paramTex));
 }
 
 void UserControlMaterial::updateResource()

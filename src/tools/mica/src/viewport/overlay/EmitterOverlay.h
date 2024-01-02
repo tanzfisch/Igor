@@ -86,7 +86,7 @@ private:
 
     /*! target material
      */
-    iMaterialPtr _targetMaterial = nullptr;
+    iMaterialPtr _material = nullptr;
 
     /*! switch node
     */
@@ -94,11 +94,11 @@ private:
 
     /*! flat material
      */
-    iShaderMaterialPtr _materialFlat;
+    iShaderMaterialPtr _shaderMaterialFlat;
 
     /*! volume material
      */
-    iShaderMaterialPtr _materialVolume;
+    iShaderMaterialPtr _shaderMaterialVolume;
 
     /*! disc mesh node
     */

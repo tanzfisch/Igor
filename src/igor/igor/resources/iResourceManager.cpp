@@ -315,6 +315,7 @@ namespace igor
     {
         iResourcePtr result = factory->createResource(parameters);
 
+        con_assert(result != nullptr, "failed to create resource");
         con_trace("created resource " << result->getType() << " " << result->getInfo());
         return result;
     }

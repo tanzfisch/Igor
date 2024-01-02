@@ -19,7 +19,7 @@ void EmitterOverlay::setNodeID(uint64 nodeID)
 {
     NodeOverlay::setNodeID(nodeID);
 
-    update();    
+    update();
 }
 
 void EmitterOverlay::setActive(bool active)
@@ -28,7 +28,7 @@ void EmitterOverlay::setActive(bool active)
 
     _rootTransform->setActive(active);
 
-    update();    
+    update();
 }
 
 bool EmitterOverlay::accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType)
@@ -45,24 +45,28 @@ void EmitterOverlay::onDeinit()
 {
     getView()->unregisterRenderDelegate(iDrawDelegate(this, &EmitterOverlay::onRender));
 
-    _targetMaterial = nullptr;
-    _materialFlat = nullptr;
-    _materialVolume = nullptr;
+    _material = nullptr;
+    _shaderMaterialFlat = nullptr;
+    _shaderMaterialVolume = nullptr;
 }
 
 void EmitterOverlay::onInit()
 {
     getView()->registerRenderDelegate(iDrawDelegate(this, &EmitterOverlay::onRender));
 
-    _materialFlat = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_emitter_overlay_flat");
-    _materialVolume = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_emitter_overlay_volume");
+    _shaderMaterialFlat = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_emitter_overlay_flat");
+    _shaderMaterialVolume = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_emitter_overlay_volume");
 
-    _targetMaterial = iMaterial::create();
-    _targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
-    _targetMaterial->setSpecular(iaColor3f(0.0f, 0.5f, 0.0f));
-    _targetMaterial->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
-    _targetMaterial->setAmbient(iaColor3f(0.0f, 0.5f, 0.0f));
-    _targetMaterial->setAlpha(0.5);
+    iParameters param({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.5f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.5f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, 0.6f},
+    });
+
+    _material = iResourceManager::getInstance().loadResource<iMaterial>(param);
 
     _rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     getScene()->getRoot()->insertNode(_rootTransform);
@@ -76,36 +80,36 @@ void EmitterOverlay::onInit()
     _discMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
     _discMeshNode->setName("disc mesh");
     _discMeshNode->setMesh(createDisc());
-    _discMeshNode->setMaterial(_materialFlat);
-    _discMeshNode->setTargetMaterial(_targetMaterial);
+    _discMeshNode->setMaterial(_shaderMaterialFlat);
+    _discMeshNode->setTargetMaterial(_material);
     _switchNode->insertNode(_discMeshNode);
 
     _circleMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
     _circleMeshNode->setName("circle mesh");
     _circleMeshNode->setMesh(createCircle());
-    _circleMeshNode->setMaterial(_materialFlat);
-    _circleMeshNode->setTargetMaterial(_targetMaterial);
+    _circleMeshNode->setMaterial(_shaderMaterialFlat);
+    _circleMeshNode->setTargetMaterial(_material);
     _switchNode->insertNode(_circleMeshNode);
 
     _sphereMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
     _sphereMeshNode->setName("sphere mesh");
     _sphereMeshNode->setMesh(createSphere());
-    _sphereMeshNode->setMaterial(_materialVolume);
-    _sphereMeshNode->setTargetMaterial(_targetMaterial);
+    _sphereMeshNode->setMaterial(_shaderMaterialVolume);
+    _sphereMeshNode->setTargetMaterial(_material);
     _switchNode->insertNode(_sphereMeshNode);
 
     _squareMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
     _squareMeshNode->setName("square mesh");
     _squareMeshNode->setMesh(createSquare());
-    _squareMeshNode->setMaterial(_materialFlat);
-    _squareMeshNode->setTargetMaterial(_targetMaterial);
+    _squareMeshNode->setMaterial(_shaderMaterialFlat);
+    _squareMeshNode->setTargetMaterial(_material);
     _switchNode->insertNode(_squareMeshNode);
 
     _cubeMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
     _cubeMeshNode->setName("cube mesh");
     _cubeMeshNode->setMesh(createCube());
-    _cubeMeshNode->setMaterial(_materialVolume);
-    _cubeMeshNode->setTargetMaterial(_targetMaterial);
+    _cubeMeshNode->setMaterial(_shaderMaterialVolume);
+    _cubeMeshNode->setTargetMaterial(_material);
     _switchNode->insertNode(_cubeMeshNode);
 
     _rootTransform->setActive(false);

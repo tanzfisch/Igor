@@ -234,11 +234,17 @@ namespace igor
         iaConvert::convert(meshChunk->getSpecular(), specular);
         iaConvert::convert(meshChunk->getEmissive(), emissive);
 
-        meshNode->getTargetMaterial()->setAmbient(ambient);
-        meshNode->getTargetMaterial()->setDiffuse(diffuse);
-        meshNode->getTargetMaterial()->setSpecular(specular);
-        meshNode->getTargetMaterial()->setEmissive(emissive);
-        meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
+        //  instead of getting this data from a mesh chunk we should have a material chunk
+
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                           {IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                           {IGOR_RESOURCE_PARAM_AMBIENT, ambient},
+                           {IGOR_RESOURCE_PARAM_DIFFUSE, diffuse},
+                           {IGOR_RESOURCE_PARAM_SPECULAR, specular},
+                           {IGOR_RESOURCE_PARAM_EMISSIVE, emissive},
+                           {IGOR_RESOURCE_PARAM_SHININESS, meshChunk->getShininess()}});
+
+        meshNode->setTargetMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
 
         iMeshPtr mesh = iMesh::create();
 
@@ -396,7 +402,7 @@ namespace igor
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SHADER_MATERIAL},
                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache}});
 
-        if(iaUUID::isUUID(materialReferenceChunk->getFilename()))
+        if (iaUUID::isUUID(materialReferenceChunk->getFilename()))
         {
             iaUUID uuid(materialReferenceChunk->getFilename());
             param.setParameter(IGOR_RESOURCE_PARAM_ID, uuid);
@@ -405,7 +411,7 @@ namespace igor
         {
             param.setParameter(IGOR_RESOURCE_PARAM_SOURCE, materialReferenceChunk->getFilename());
         }
-        
+
         iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>(param);
         if (material == nullptr)
         {
