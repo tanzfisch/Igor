@@ -198,7 +198,7 @@ namespace igor
 
         /*! if true target material will be displayed oriented along it's velocity axis
          */
-        bool _velocityOriented;
+        bool _velocityOriented; // TODO does this belong here?
 
         /*! init material
 

@@ -2,9 +2,9 @@
 // (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "UserControlMaterial.h"
+#include "UserControlShaderMaterial.h"
 
-UserControlMaterial::UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent)
+UserControlShaderMaterial::UserControlShaderMaterial(iResourceID resourceID, const iWidgetPtr parent)
     : UserControlResource(resourceID, parent)
 {
 }
@@ -18,7 +18,7 @@ static iMeshPtr createSphere()
     return meshBuilder.createMesh();
 }
 
-void UserControlMaterial::updateMaterialDisplay(iShaderMaterialPtr material)
+void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr material)
 {
     if (_ignoreMaterialUpdate)
     {
@@ -80,7 +80,7 @@ void UserControlMaterial::updateMaterialDisplay(iShaderMaterialPtr material)
     _materialPicture->setTexture(iResourceManager::getInstance().requestResource<iTexture>(paramTex));
 }
 
-void UserControlMaterial::updateResource()
+void UserControlShaderMaterial::updateResource()
 {
     iShaderMaterialPtr material = iResourceManager::getInstance().getResource<iShaderMaterial>(getResourceID());
 
@@ -106,7 +106,7 @@ void UserControlMaterial::updateResource()
     updateMaterialDisplay(material);
 }
 
-void UserControlMaterial::update()
+void UserControlShaderMaterial::update()
 {
     UserControlResource::update();
 
@@ -130,7 +130,7 @@ void UserControlMaterial::update()
     updateMaterialDisplay(material);
 }
 
-void UserControlMaterial::init()
+void UserControlShaderMaterial::init()
 {
     UserControlResource::init();
 
@@ -155,7 +155,7 @@ void UserControlMaterial::init()
     labelDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxDepthTest = new iWidgetCheckBox();
-    _checkBoxDepthTest->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _checkBoxDepthTest->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
     _checkBoxDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelDepthFunction = new iWidgetLabel();
@@ -179,7 +179,7 @@ void UserControlMaterial::init()
     labelDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxDepthMask = new iWidgetCheckBox();
-    _checkBoxDepthMask->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _checkBoxDepthMask->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
     _checkBoxDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelBlend = new iWidgetLabel();
@@ -187,7 +187,7 @@ void UserControlMaterial::init()
     labelBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxBlend = new iWidgetCheckBox();
-    _checkBoxBlend->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _checkBoxBlend->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
     _checkBoxBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelCullFace = new iWidgetLabel();
@@ -195,7 +195,7 @@ void UserControlMaterial::init()
     labelCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxCullFace = new iWidgetCheckBox();
-    _checkBoxCullFace->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _checkBoxCullFace->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
     _checkBoxCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelCullFaceFunc = new iWidgetLabel();
@@ -213,7 +213,7 @@ void UserControlMaterial::init()
     labelWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxWireframe = new iWidgetCheckBox();
-    _checkBoxWireframe->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _checkBoxWireframe->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
     _checkBoxWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     // TODO
@@ -223,7 +223,7 @@ void UserControlMaterial::init()
     labelInstanced->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxInstanced = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox));
-    _checkBoxInstanced->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _checkBoxInstanced->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
 
     iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;*/
 
@@ -238,7 +238,7 @@ void UserControlMaterial::init()
     _renderingOrder->setMinWidth(80);
     _renderingOrder->setSteppingWheel(10.0f, 10.0f);
     _renderingOrder->setStepping(1.0f, 1.0f);
-    _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
     _renderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     gridParam->addWidget(labelDepthTest, 0, 0);
@@ -271,7 +271,7 @@ void UserControlMaterial::init()
     _materialPicture->setForeground(iaColor4f::white);
 }
 
-void UserControlMaterial::onDoUpdateMaterial(const iWidgetPtr source)
+void UserControlShaderMaterial::onDoUpdateMaterial(const iWidgetPtr source)
 {
     updateResource();
 }

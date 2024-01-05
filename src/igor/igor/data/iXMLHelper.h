@@ -26,38 +26,48 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_MATERIALIO_H
-#define IGOR_MATERIALIO_H
+#ifndef IGOR_XML_HELPER_H
+#define IGOR_XML_HELPER_H
 
-#include <igor/resources/material/iMaterial.h>
+#include <igor/iDefines.h>
 
-class TiXmlElement;
+#include <iaux/data/iaColor3.h>
+#include <iaux/data/iaString.h>
+using namespace iaux;
+
+#include <tinyxml.h>
 
 namespace igor
 {
-    /*! reader for Igor material files
+
+    /*! helper class for tiny xml use
      */
-    class IGOR_API iMaterialIO
+    class IGOR_API iXMLHelper
     {
     public:
-        /*! reads material file and configures given material with it
-
-        \param filename path to material file
-        \param material the material to configure with
-        */
-        static bool read(const iaString &filename, const iMaterialPtr &material);
-
-        /*! writes material to file
-
-        \param filename path to new material file
-        \param material the material to use
-        */
-        static bool write(const iaString &filename, const iMaterialPtr &material);
+        template <typename T>
+        static const T getValue(TiXmlElement *element, const char *elementName, const T &defaultValue);
 
     private:
-        static bool readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material);
+        static const iaString getValue(TiXmlElement *element, const char *elementName)
+        {
+            TiXmlElement *subElement = element->FirstChildElement(elementName);
+            if (subElement != nullptr)
+            {
+                TiXmlNode *textNode = subElement->FirstChild();
+                if (textNode != nullptr &&
+                    textNode->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
+                {
+                    return iaString(textNode->ValueStr().c_str());
+                }
+            }
+
+            return "";
+        }
     };
+
+#include <igor/data/iXMLHelper.inl>
 
 } // namespace igor
 
-#endif // IGOR_MATERIALIO_H
+#endif // IGOR_XML_HELPER_H

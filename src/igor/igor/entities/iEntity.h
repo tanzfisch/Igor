@@ -126,8 +126,8 @@ namespace igor
             return _scene->addComponent<T>(_entity, component);
         }
 
-        template<typename T>
-        T &addUserComponent(const T &component)        
+        template <typename T>
+        T &addUserComponent(const T &component)
         {
             return _scene->addUserComponent<T>(_entity, component);
         }
@@ -140,11 +140,11 @@ namespace igor
             return _scene->getComponent<T>(_entity);
         }
 
-        template<typename T>
+        template <typename T>
         T &getUserComponent()
         {
             return _scene->getUserComponent<T>(_entity);
-        }        
+        }
 
         /*! \returns component of entity of given type
 
@@ -160,7 +160,7 @@ namespace igor
         T *tryGetUserComponent() const
         {
             return _scene->tryGetUserComponent<T>(_entity);
-        }        
+        }
 
         /*! removes component of given type
          */

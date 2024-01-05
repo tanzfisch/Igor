@@ -35,7 +35,7 @@
 */
 IGOR_EVENT_DEFINITION(MaterialNameChanged, void);
 
-class UserControlMaterial : public UserControlResource
+class UserControlShaderMaterial : public UserControlResource
 {
 public:
     /*! init user control
@@ -43,11 +43,11 @@ public:
     \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-	UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+	UserControlShaderMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
 	/*! does nothing
 	*/
-	~UserControlMaterial() = default;
+	~UserControlShaderMaterial() = default;
 
     /*! init ui
      */

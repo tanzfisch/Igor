@@ -5,6 +5,7 @@
 #include <igor/resources/material/iMaterialFactory.h>
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/resources/material/loader/iMaterialIO.h>
 
 namespace igor
 {
@@ -35,8 +36,21 @@ namespace igor
 
     bool iMaterialFactory::loadResource(iResourcePtr resource)
     {
-        // TODO
-        return false;
+        iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }
+
+        if (filepath.isEmpty())
+        {
+            con_err("not a valid source path " << resource->getID());
+            return false;
+        }
+
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        iMaterialPtr material = std::dynamic_pointer_cast<iMaterial>(resource);
+        return iMaterialIO::read(fullFilepath, material);
     }
 
     void iMaterialFactory::unloadResource(iResourcePtr resource)

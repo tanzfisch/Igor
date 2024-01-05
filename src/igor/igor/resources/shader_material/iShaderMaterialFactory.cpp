@@ -28,10 +28,10 @@ namespace igor
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()},
                            {IGOR_RESOURCE_PARAM_SOURCE, source}});
 
-        iShaderMaterialPtr material(new iShaderMaterial(param));
-        iShaderMaterialIO::read(iResourceManager::getInstance().resolvePath(source), material);
+        iShaderMaterialPtr shaderMaterial(new iShaderMaterial(param));
+        iShaderMaterialIO::read(iResourceManager::getInstance().resolvePath(source), shaderMaterial);
 
-        return material;
+        return shaderMaterial;
     }
 
     bool iShaderMaterialFactory::saveResource(iResourcePtr resource, const iaString &filename)
@@ -58,8 +58,8 @@ namespace igor
         }
 
         const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
-        iShaderMaterialPtr material = std::dynamic_pointer_cast<iShaderMaterial>(resource);
-        return iShaderMaterialIO::write(fullFilepath, material);
+        iShaderMaterialPtr shaderMaterial = std::dynamic_pointer_cast<iShaderMaterial>(resource);
+        return iShaderMaterialIO::write(fullFilepath, shaderMaterial);
     }
 
     iResourcePtr iShaderMaterialFactory::createResource(const iParameters &parameters)
@@ -82,8 +82,8 @@ namespace igor
         }
 
         const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
-        iShaderMaterialPtr material = std::dynamic_pointer_cast<iShaderMaterial>(resource);
-        return iShaderMaterialIO::read(fullFilepath, material);
+        iShaderMaterialPtr shaderMaterial = std::dynamic_pointer_cast<iShaderMaterial>(resource);
+        return iShaderMaterialIO::read(fullFilepath, shaderMaterial);
     }
 
     void iShaderMaterialFactory::unloadResource(iResourcePtr resource)
