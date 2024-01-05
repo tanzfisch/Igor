@@ -107,11 +107,11 @@ private:
 	*/
 	iWidgetPicturePtr _materialPicture;
 
-	/*! triggers material update
+	/*! triggers shader material update
 
 	\param source the source widget of this event
 	*/
-	void onDoUpdateMaterial(const iWidgetPtr source);
+	void onDoUpdateShaderMaterial(const iWidgetPtr source);
 
 	/*! updates material display render
 

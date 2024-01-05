@@ -76,15 +76,20 @@ void UserControlMesh::updateNode()
 
         for (int i = 0; i < 4; ++i)
         {
-            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser[i]->getTextureID()), i);
+            node->getTargetMaterial()->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser[i]->getID()), i);
         }
 
-        if (_materialSelector->getSelectedUserData().has_value())
+        /*if (_materialSelector->getSelectedUserData().has_value())
         {
             std::any userData = _materialSelector->getSelectedUserData();
             iShaderMaterialID materialID(std::any_cast<iShaderMaterialID>(userData));
             node->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
-        }
+        }*/
+
+
+        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_materialChooser->getID());
+        node->setTargetMaterial(material);
+        // TODO node->setMaterial();
     }
 }
 
@@ -126,30 +131,9 @@ void UserControlMesh::update()
     {
         if (node->getTargetMaterial()->hasTextureUnit(i))
         {
-            _textureChooser[i]->setTextureID(node->getTargetMaterial()->getTexture(i)->getID());
+            _textureChooser[i]->setID(node->getTargetMaterial()->getTexture(i)->getID());
         }
     }
-
-    _materialSelector->clear();
-
-/* TODO    std::vector<iShaderMaterialPtr> materials;
-    iResourceManager::getInstance().getMaterials(materials);
-    for (auto material : materials)
-    {
-        if (material->isValid())
-        {
-            const iShaderMaterialID &materialID = material->getID();
-            const iaString &materialName = material->getName();
-
-            _materialSelector->addItem(materialName, materialID);
-
-            if (node->getMaterial() != nullptr &&
-                materialID == node->getMaterial()->getID())
-            {
-                _materialSelector->setSelection(_materialSelector->getItemCount() - 1);
-            }
-        }
-    }*/
 
     _ignoreNodeUpdate = false;
 }
@@ -282,12 +266,9 @@ void UserControlMesh::init()
     gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel *labelMaterial = new iWidgetLabel();
-    labelMaterial->setText("Shader Material");
+    labelMaterial->setText("Material");
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _materialSelector = new iWidgetSelectBox();
-    _materialSelector->setHorizontalAlignment(iHorizontalAlignment::Right);
-    _materialSelector->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
+    _materialChooser = new iUserControlMaterialChooser();
 
     gridShininess->addWidget(labelShininess, 1, 0);
     gridShininess->addWidget(labelShininessShort, 0, 1);
@@ -309,7 +290,7 @@ void UserControlMesh::init()
     }
 
     gridMaterial->addWidget(labelMaterial, 0, 0);
-    gridMaterial->addWidget(_materialSelector, 1, 0);
+    gridMaterial->addWidget(_materialChooser, 1, 0);
 
     grid->addWidget(detailsGrid, 0, 0);
     grid->addWidget(_ambientColorChooser, 0, 1);

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROL_FILECHOOSER__
-#define __IGOR_USERCONTROL_FILECHOOSER__
+#ifndef IGOR_USERCONTROL_FILE_CHOOSER_H
+#define IGOR_USERCONTROL_FILE_CHOOSER_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
@@ -41,7 +41,7 @@ namespace igor
     class iWidgetLineTextEdit;
 
     /*! User control file chooser
-    */
+     */
     class IGOR_API iUserControlFileChooser : public iUserControl
     {
 
@@ -49,105 +49,105 @@ namespace igor
         /*! ctor initializes member variables
 
         \param parent the optional parent
-		*/
+        */
         iUserControlFileChooser(const iWidgetPtr parent = nullptr);
 
         /*! clean up
-		*/
+         */
         ~iUserControlFileChooser();
 
         /*! sets the filename
 
-		\param filename the filename
-		*/
+        \param filename the filename
+        */
         void setFileName(const iaString &filename);
 
         /*! \returns the filename
-		*/
+         */
         const iaString &getFileName() const;
 
         /*! sets path where the file dialog should start from
 
-		\param path the path to start the file dialog from
-		*/
+        \param path the path to start the file dialog from
+        */
         void setPreselectedPath(const iaString &path);
 
         /*! \returns the path where the file dialog starts from
-		*/
+         */
         const iaString &getPreselectedPath() const;
 
         /*! register on filename change event
 
-		\param changeDelegate the delegate to register
-		*/
+        \param changeDelegate the delegate to register
+        */
         void registerOnChangedDelegate(iChangeDelegate changeDelegate);
 
         /*! unregister from filename change event
 
-		\param changeDelegate the delegate to unregister
-		*/
+        \param changeDelegate the delegate to unregister
+        */
         void unregisterOnChangedDelegate(iChangeDelegate changeDelegate);
 
         /*! sets where the path coming from the file dialog will be optimized or not
 
-		optimized means in this case to make it a relative path to one of the search paths defined in iResourceManager
+        optimized means in this case to make it a relative path to one of the search paths defined in iResourceManager
 
-		\param optimizePath if true path will be optimized
-		*/
+        \param optimizePath if true path will be optimized
+        */
         void setOptimizePath(bool optimizePath = true);
 
         /*! \returns true if the path optimization is on
-		*/
+         */
         bool getOptimizePath() const;
 
     private:
         /*! the preselected path where the file dialog starts from
-		*/
+         */
         iaString _preselectedPath;
 
         /*! flag if selected path should be optimized
-		*/
+         */
         bool _optimizePath = true;
 
         /*! filename changed event
-		*/
+         */
         iChangeEvent _fileNameChanged;
 
         /*! text edit field for filename
-		*/
+         */
         iWidgetLineTextEdit *_fileNameTextEdit = nullptr;
 
         /*! file dialog used to select files
-		*/
+         */
         iDialogFileSelect *_fileDialog = nullptr;
 
         /*! called after file dialog is closed
 
-		\param dialog pointer of closed dialog
-		*/
+        \param dialog pointer of closed dialog
+        */
         void onFileLoadDialogClosed(iDialogPtr dialog);
 
         /*! called when text box's content changed
 
-		\param source the source of the event
-		*/
+        \param source the source of the event
+        */
         void onTextChanged(const iWidgetPtr source);
 
         /*! called when button was pressed
 
-		\param source the source of the event
-		*/
+        \param source the source of the event
+        */
         void onFileSelectButtonPressed(const iWidgetPtr source);
 
         /*! initialize gui elements
-		*/
+         */
         void initGUI();
 
         /*! release resources
-		*/
+         */
         void deinitGUI();
     };
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROL_FILECHOOSER__
+#endif // IGOR_USERCONTROL_FILE_CHOOSER_H

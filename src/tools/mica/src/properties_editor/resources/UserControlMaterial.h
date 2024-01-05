@@ -39,11 +39,11 @@ public:
     \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-	UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+    UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
-	/*! does nothing
-	*/
-	~UserControlMaterial() = default;
+    /*! does nothing
+     */
+    ~UserControlMaterial() = default;
 
     /*! init ui
      */
@@ -58,7 +58,6 @@ public:
     virtual void updateResource();
 
 private:
-
     /*! diffuse color chooser
      */
     iUserControlColorChooser *_diffuseColorChooser = nullptr;
@@ -75,9 +74,33 @@ private:
      */
     iUserControlColorChooser *_emissiveColorChooser = nullptr;
 
-	/*! flag to prevent endless update loop
-	*/
-	bool _ignoreUpdate = false;
+    /*! shininess number chooser
+     */
+    iWidgetNumberChooserPtr _numberChooserShininess = nullptr;
+
+    /*! texture choosers
+     */
+    iUserControlTextureChooserPtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
+
+    /*! shininess slider
+     */
+    iWidgetSliderPtr _sliderShininess = nullptr;
+
+    /*! flag to prevent endless update loop
+     */
+    bool _ignoreUpdate = false;
+
+    /*! triggers material update
+
+    \param source the source widget of this event
+    */
+    void onDoUpdateMaterial(const iWidgetPtr source);
+
+    /*! triggers material update
+
+    \param source the source widget of this event
+    */
+    void onDoUpdateShininess(const iWidgetPtr source);
 };
 
 #endif // MICA_USERCONTROL_MATERIAL_H

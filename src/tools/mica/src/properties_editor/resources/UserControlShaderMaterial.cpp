@@ -18,7 +18,7 @@ static iMeshPtr createSphere()
     return meshBuilder.createMesh();
 }
 
-void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr material)
+void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr shaderMaterial)
 {
     if (_ignoreMaterialUpdate)
     {
@@ -56,7 +56,7 @@ void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr materia
     iaMatrixd matrix;
     matrix.translate(0, 0, -1.5);
     iRenderer::getInstance().setModelMatrix(matrix);
-    iRenderer::getInstance().setMaterial(material);
+    iRenderer::getInstance().setMaterial(shaderMaterial);
     iRenderer::getInstance().drawMesh(sphere, targetMaterial);
 
     iPixmapPtr pixmap = iPixmap::createPixmap(width, height, iColorFormat::RGBA);
@@ -82,52 +82,52 @@ void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr materia
 
 void UserControlShaderMaterial::updateResource()
 {
-    iShaderMaterialPtr material = iResourceManager::getInstance().getResource<iShaderMaterial>(getResourceID());
+    iShaderMaterialPtr shaderMaterial = iResourceManager::getInstance().getResource<iShaderMaterial>(getResourceID());
 
     if (_ignoreMaterialUpdate ||
-        material == nullptr)
+        shaderMaterial == nullptr)
     {
         return;
     }
 
-    material->setOrder(static_cast<int32>(_renderingOrder->getValue()));
-    material->setRenderState(iRenderState::CullFace, _checkBoxCullFace->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::DepthTest, _checkBoxDepthTest->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
-    material->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
+    shaderMaterial->setOrder(static_cast<int32>(_renderingOrder->getValue()));
+    shaderMaterial->setRenderState(iRenderState::CullFace, _checkBoxCullFace->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    shaderMaterial->setRenderState(iRenderState::DepthTest, _checkBoxDepthTest->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    shaderMaterial->setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    shaderMaterial->setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    shaderMaterial->setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    shaderMaterial->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
+    shaderMaterial->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
 
-    // TODO material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+    // TODO shaderMaterial->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
     // TODO		_selectBoxInstancedFunc
 
     iResourceManager::getInstance().saveResource(getResourceID());
-    updateMaterialDisplay(material);
+    updateMaterialDisplay(shaderMaterial);
 }
 
 void UserControlShaderMaterial::update()
 {
     UserControlResource::update();
 
-    iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>(getResourceID());
+    iShaderMaterialPtr shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>(getResourceID());
 
     _ignoreMaterialUpdate = true;
 
-    _checkBoxCullFace->setChecked(material->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
-    _checkBoxDepthTest->setChecked(material->getRenderState(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
-    _checkBoxDepthMask->setChecked(material->getRenderState(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
-    _checkBoxBlend->setChecked(material->getRenderState(iRenderState::Blend) == iRenderStateValue::On ? true : false);
-    _checkBoxWireframe->setChecked(material->getRenderState(iRenderState::Wireframe) == iRenderStateValue::On ? true : false);
-    _selectBoxDepthFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::DepthFunc)) - static_cast<int>(iRenderStateValue::Never));
-    _selectBoxCullFaceFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::CullFaceFunc)) - static_cast<int>(iRenderStateValue::Front));
-    // TODO_checkBoxInstanced->setChecked(material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
+    _checkBoxCullFace->setChecked(shaderMaterial->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
+    _checkBoxDepthTest->setChecked(shaderMaterial->getRenderState(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
+    _checkBoxDepthMask->setChecked(shaderMaterial->getRenderState(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
+    _checkBoxBlend->setChecked(shaderMaterial->getRenderState(iRenderState::Blend) == iRenderStateValue::On ? true : false);
+    _checkBoxWireframe->setChecked(shaderMaterial->getRenderState(iRenderState::Wireframe) == iRenderStateValue::On ? true : false);
+    _selectBoxDepthFunc->setSelection(static_cast<int>(shaderMaterial->getRenderState(iRenderState::DepthFunc)) - static_cast<int>(iRenderStateValue::Never));
+    _selectBoxCullFaceFunc->setSelection(static_cast<int>(shaderMaterial->getRenderState(iRenderState::CullFaceFunc)) - static_cast<int>(iRenderStateValue::Front));
+    // TODO_checkBoxInstanced->setChecked(shaderMaterial->getRenderState(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
     // TODO _selectBoxInstancedFunc = nullptr;
-    _renderingOrder->setValue(material->getOrder());
+    _renderingOrder->setValue(shaderMaterial->getOrder());
 
     _ignoreMaterialUpdate = false;
 
-    updateMaterialDisplay(material);
+    updateMaterialDisplay(shaderMaterial);
 }
 
 void UserControlShaderMaterial::init()
@@ -155,7 +155,7 @@ void UserControlShaderMaterial::init()
     labelDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxDepthTest = new iWidgetCheckBox();
-    _checkBoxDepthTest->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
+    _checkBoxDepthTest->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
     _checkBoxDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelDepthFunction = new iWidgetLabel();
@@ -172,6 +172,7 @@ void UserControlShaderMaterial::init()
     _selectBoxDepthFunc->addItem("GreaterOrEqual");
     _selectBoxDepthFunc->addItem("Always");
     _selectBoxDepthFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _selectBoxDepthFunc->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
     _selectBoxDepthFunc->setMinWidth(200);
 
     iWidgetLabel *labelDepthMask = new iWidgetLabel();
@@ -179,7 +180,7 @@ void UserControlShaderMaterial::init()
     labelDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxDepthMask = new iWidgetCheckBox();
-    _checkBoxDepthMask->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
+    _checkBoxDepthMask->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
     _checkBoxDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelBlend = new iWidgetLabel();
@@ -187,7 +188,7 @@ void UserControlShaderMaterial::init()
     labelBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxBlend = new iWidgetCheckBox();
-    _checkBoxBlend->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
+    _checkBoxBlend->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
     _checkBoxBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelCullFace = new iWidgetLabel();
@@ -195,7 +196,7 @@ void UserControlShaderMaterial::init()
     labelCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxCullFace = new iWidgetCheckBox();
-    _checkBoxCullFace->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
+    _checkBoxCullFace->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
     _checkBoxCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelCullFaceFunc = new iWidgetLabel();
@@ -207,13 +208,14 @@ void UserControlShaderMaterial::init()
     _selectBoxCullFaceFunc->addItem("Back");
     _selectBoxCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxCullFaceFunc->setMinWidth(200);
+    _selectBoxCullFaceFunc->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
 
     iWidgetLabel *labelWireframe = new iWidgetLabel();
     labelWireframe->setText("Wireframe");
     labelWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxWireframe = new iWidgetCheckBox();
-    _checkBoxWireframe->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
+    _checkBoxWireframe->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
     _checkBoxWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     // TODO
@@ -223,7 +225,7 @@ void UserControlShaderMaterial::init()
     labelInstanced->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxInstanced = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox));
-    _checkBoxInstanced->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
+    _checkBoxInstanced->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
 
     iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;*/
 
@@ -238,7 +240,7 @@ void UserControlShaderMaterial::init()
     _renderingOrder->setMinWidth(80);
     _renderingOrder->setSteppingWheel(10.0f, 10.0f);
     _renderingOrder->setStepping(1.0f, 1.0f);
-    _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateMaterial));
+    _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlShaderMaterial::onDoUpdateShaderMaterial));
     _renderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     gridParam->addWidget(labelDepthTest, 0, 0);
@@ -271,7 +273,7 @@ void UserControlShaderMaterial::init()
     _materialPicture->setForeground(iaColor4f::white);
 }
 
-void UserControlShaderMaterial::onDoUpdateMaterial(const iWidgetPtr source)
+void UserControlShaderMaterial::onDoUpdateShaderMaterial(const iWidgetPtr source)
 {
     updateResource();
 }

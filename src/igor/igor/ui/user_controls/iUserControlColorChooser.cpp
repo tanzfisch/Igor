@@ -402,6 +402,7 @@ namespace igor
         updateColorViews();
 
         _colorChanged(_colorRGBA);
+        _change(this);
     }
 
     void iUserControlColorChooser::updateColorHSV()

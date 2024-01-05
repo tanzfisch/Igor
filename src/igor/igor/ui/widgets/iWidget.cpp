@@ -1042,6 +1042,7 @@ namespace igor
             "iUserControlColorChooser",
             "iUserControlFileChooser",
             "iUserControlTextureChooser",
+            "iUserControlMaterialChooser",
             "iUserControlTreeView",
 
             "iDialog",

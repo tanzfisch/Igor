@@ -162,6 +162,7 @@
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 #include <igor/ui/user_controls/iUserControlTextureChooser.h>
+#include <igor/ui/user_controls/iUserControlMaterialChooser.h>
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/layouts/iWidgetDockingLayout.h>

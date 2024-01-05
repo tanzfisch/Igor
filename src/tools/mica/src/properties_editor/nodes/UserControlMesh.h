@@ -62,6 +62,10 @@ private:
      */
     iUserControlTextureChooserPtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
 
+    /*! material chooser
+    */
+    iUserControlMaterialChooserPtr _materialChooser;
+
     /*! vertex count text field
      */
     iWidgetLineTextEditPtr _textVertices = nullptr;
@@ -82,7 +86,7 @@ private:
      */
     iWidgetSliderPtr _sliderShininess = nullptr;
 
-    iaColor4f _ambient; // TODO remove these
+    iaColor4f _ambient;
     iaColor4f _emissive;
     iaColor4f _diffuse;
     iaColor4f _specular;
@@ -103,10 +107,6 @@ private:
     /*! specular color chooser
      */
     iUserControlColorChooser *_specularColorChooser = nullptr;
-
-    /*! material selector
-     */
-    iWidgetSelectBox *_materialSelector = nullptr;
 
     /*! prevent endless update loop
      */
