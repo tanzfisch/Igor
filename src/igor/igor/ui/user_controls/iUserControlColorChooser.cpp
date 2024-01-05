@@ -458,7 +458,7 @@ namespace igor
     {
         iWidgetNumberChooser *result = new iWidgetNumberChooser();
         result->setMinMaxNumber(0, 255);
-        result->setValue(123);
+        result->setValue(0);
         result->setMinWidth(35);
         result->setSteppingWheel(5.0f, 5.0f);
         result->setStepping(1.0f, 1.0f);

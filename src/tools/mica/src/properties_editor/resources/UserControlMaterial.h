@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef MICA_USERCONTROL_SHADER_MATERIAL_H
-#define MICA_USERCONTROL_SHADER_MATERIAL_H
+#ifndef MICA_USERCONTROL_MATERIAL_H
+#define MICA_USERCONTROL_MATERIAL_H
 
 #include "UserControlResource.h"
 
-class UserControlShaderMaterial : public UserControlResource
+class UserControlMaterial : public UserControlResource
 {
 public:
     /*! init user control
@@ -39,11 +39,11 @@ public:
     \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-	UserControlShaderMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+	UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
 	/*! does nothing
 	*/
-	~UserControlShaderMaterial() = default;
+	~UserControlMaterial() = default;
 
     /*! init ui
      */
@@ -59,65 +59,25 @@ public:
 
 private:
 
-	/*! number chooser representing render order
-	*/
-	iWidgetNumberChooser *_renderingOrder;
+    /*! diffuse color chooser
+     */
+    iUserControlColorChooser *_diffuseColorChooser = nullptr;
 
-	/*! checkbox representing cull face
-	*/
-	iWidgetCheckBox *_checkBoxCullFace;
+    /*! ambient color chooser
+     */
+    iUserControlColorChooser *_ambientColorChooser = nullptr;
 
-	/*! checkbox representing depth test
-	*/
-	iWidgetCheckBox *_checkBoxDepthTest;
+    /*! specular color chooser
+     */
+    iUserControlColorChooser *_specularColorChooser = nullptr;
 
-	/*! checkbox representing depth mask
-	*/
-	iWidgetCheckBox *_checkBoxDepthMask;
-
-	/*! checkbox representing blend
-	*/
-	iWidgetCheckBox *_checkBoxBlend;
-
-	/*! checkbox representing wireframe
-	*/
-	iWidgetCheckBox *_checkBoxWireframe;
-
-	/*! checkbox representing instancing
-	*/
-	iWidgetCheckBox *_checkBoxInstanced;
-
-	/*! select box representing depth function
-	*/
-	iWidgetSelectBox *_selectBoxDepthFunc;
-
-	/*! select box representing cull face function
-	*/
-	iWidgetSelectBox *_selectBoxCullFaceFunc;
-
-	/*! select box representing instancing function
-	*/
-	iWidgetSelectBox *_selectBoxInstancedFunc;
+    /*! emissive color chooser
+     */
+    iUserControlColorChooser *_emissiveColorChooser = nullptr;
 
 	/*! flag to prevent endless update loop
 	*/
-	bool _ignoreMaterialUpdate = false;
-
-	/*! widget to display the material texture
-	*/
-	iWidgetPicturePtr _materialPicture;
-
-	/*! triggers material update
-
-	\param source the source widget of this event
-	*/
-	void onDoUpdateMaterial(const iWidgetPtr source);
-
-	/*! updates material display render
-
-	\param material the material to use
-	*/
-	void updateMaterialDisplay(iShaderMaterialPtr material);
+	bool _ignoreUpdate = false;
 };
 
-#endif // MICA_USERCONTROL_SHADER_MATERIAL_H
+#endif // MICA_USERCONTROL_MATERIAL_H

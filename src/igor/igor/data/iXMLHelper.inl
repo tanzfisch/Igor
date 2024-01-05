@@ -3,38 +3,40 @@
 // see copyright notice in corresponding header file
 
 template <>
-inline const iaColor3f iXMLHelper::getValue(TiXmlElement *element, const char *elementName, const iaColor3f &defaultValue)
+inline const iaColor3f iXMLHelper::getValue(TiXmlElement *element, const iaString &elementName, const iaColor3f &defaultValue)
 {
     const iaString value = getValue(element, elementName);
 
-    if(value.isEmpty())
+    if (value.isEmpty())
     {
         return defaultValue;
     }
 
     std::vector<iaString> tokens;
     value.split(",", tokens);
-    if(tokens.size() != 3)
+    if (tokens.size() != 3)
     {
         return defaultValue;
     }
 
-    return iaColor3f(iaString::toFloat(tokens[0]), iaString::toFloat(tokens[1]), iaString::toFloat(tokens[2]));
+    return iaColor3f(iaString::toFloat(iaString::trim(tokens[0])),
+                     iaString::toFloat(iaString::trim(tokens[1])),
+                     iaString::toFloat(iaString::trim(tokens[2])));
 }
 
 template <>
-inline const iaVector2f iXMLHelper::getValue(TiXmlElement *element, const char *elementName, const iaVector2f &defaultValue)
+inline const iaVector2f iXMLHelper::getValue(TiXmlElement *element, const iaString &elementName, const iaVector2f &defaultValue)
 {
     const iaString value = getValue(element, elementName);
 
-    if(value.isEmpty())
+    if (value.isEmpty())
     {
         return defaultValue;
     }
 
     std::vector<iaString> tokens;
     value.split(",", tokens);
-    if(tokens.size() != 2)
+    if (tokens.size() != 2)
     {
         return defaultValue;
     }
@@ -43,11 +45,11 @@ inline const iaVector2f iXMLHelper::getValue(TiXmlElement *element, const char *
 }
 
 template <>
-inline const float32 iXMLHelper::getValue(TiXmlElement *element, const char *elementName, const float32 &defaultValue)
+inline const float32 iXMLHelper::getValue(TiXmlElement *element, const iaString &elementName, const float32 &defaultValue)
 {
     const iaString value = getValue(element, elementName);
 
-    if(value.isEmpty())
+    if (value.isEmpty())
     {
         return defaultValue;
     }
@@ -56,11 +58,11 @@ inline const float32 iXMLHelper::getValue(TiXmlElement *element, const char *ele
 }
 
 template <>
-inline const iaString iXMLHelper::getValue(TiXmlElement *element, const char *elementName, const iaString &defaultValue)
+inline const iaString iXMLHelper::getValue(TiXmlElement *element, const iaString &elementName, const iaString &defaultValue)
 {
     const iaString value = getValue(element, elementName);
 
-    if(value.isEmpty())
+    if (value.isEmpty())
     {
         return defaultValue;
     }

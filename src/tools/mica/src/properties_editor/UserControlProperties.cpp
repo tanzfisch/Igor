@@ -14,6 +14,7 @@
 
 #include "resources/UserControlResource.h"
 #include "resources/UserControlShaderMaterial.h"
+#include "resources/UserControlMaterial.h"
 #include "resources/UserControlTexture.h"
 
 UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr parent)
@@ -105,7 +106,7 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
     }
     if (resourceType == IGOR_RESOURCE_MATERIAL)
     {
-        // userControl = new UserControlMaterial(resourceID, _layout);
+        userControl = new UserControlMaterial(resourceID, _layout);
     }
     else if (resourceType == "texture")
     {

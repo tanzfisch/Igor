@@ -28,6 +28,7 @@ namespace igor
         const iaVector2f tiling = iXMLHelper::getValue<iaVector2f>(materialXML, "Tiling", iaVector2f(1.0f, 1.0f));
         const iaString texture0 = iXMLHelper::getValue<iaString>(materialXML, "Texture0", "");
 
+        // TODO shader material
         material->setDiffuse(diffuse);
         material->setAmbient(ambient);
         material->setSpecular(specular);

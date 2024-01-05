@@ -46,12 +46,15 @@ namespace igor
     {
     public:
         template <typename T>
-        static const T getValue(TiXmlElement *element, const char *elementName, const T &defaultValue);
+        static const T getValue(TiXmlElement *element, const iaString &elementName, const T &defaultValue);
 
     private:
-        static const iaString getValue(TiXmlElement *element, const char *elementName)
+        static const iaString getValue(TiXmlElement *element, const iaString &elementName)
         {
-            TiXmlElement *subElement = element->FirstChildElement(elementName);
+            char temp[2048];
+            elementName.getData(temp, 2048);
+
+            TiXmlElement *subElement = element->FirstChildElement(temp);
             if (subElement != nullptr)
             {
                 TiXmlNode *textNode = subElement->FirstChild();
