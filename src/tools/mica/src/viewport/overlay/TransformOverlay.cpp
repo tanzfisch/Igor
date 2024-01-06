@@ -48,6 +48,7 @@ void TransformOverlay::onInit()
 
     iParameters paramRed({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.3f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.2f, 0.0f, 0.0f)},
@@ -59,6 +60,7 @@ void TransformOverlay::onInit()
 
     iParameters paramGreen({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.0f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.0f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.0f)},
@@ -70,6 +72,7 @@ void TransformOverlay::onInit()
 
     iParameters paramBlue({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.0f, 0.3f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.0f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.0f, 0.2f)},
@@ -81,6 +84,7 @@ void TransformOverlay::onInit()
 
     iParameters paramCyan({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.3f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.2f)},

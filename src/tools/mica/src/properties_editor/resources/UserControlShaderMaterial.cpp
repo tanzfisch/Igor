@@ -42,6 +42,8 @@ void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr shaderM
 
     iParameters param({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free}, // drop it right after this use
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.5f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.5f, 0.5f, 0.5f)},

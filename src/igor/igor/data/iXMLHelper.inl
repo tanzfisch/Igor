@@ -41,7 +41,8 @@ inline const iaVector2f iXMLHelper::getValue(TiXmlElement *element, const iaStri
         return defaultValue;
     }
 
-    return iaVector2f(iaString::toFloat(tokens[0]), iaString::toFloat(tokens[1]));
+    return iaVector2f(iaString::toFloat(iaString::trim(tokens[0])),
+                      iaString::toFloat(iaString::trim(tokens[1])));
 }
 
 template <>
@@ -54,7 +55,7 @@ inline const float32 iXMLHelper::getValue(TiXmlElement *element, const iaString 
         return defaultValue;
     }
 
-    return (float32)iaString::toFloat(value);
+    return (float32)iaString::toFloat(iaString::trim(value));
 }
 
 template <>

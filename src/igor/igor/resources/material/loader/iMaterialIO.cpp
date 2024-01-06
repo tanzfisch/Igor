@@ -37,7 +37,7 @@ namespace igor
         material->setAlpha(alpha);
         material->setTiling(tiling);
 
-        if(!texture0.isEmpty())
+        if (!texture0.isEmpty())
         {
             iTexturePtr texture = iResourceManager::getInstance().requestResource<iTexture>(texture0);
             material->setTexture(texture, 0);
@@ -91,9 +91,23 @@ namespace igor
 
         file << "<?xml version=\"1.0\"?>\n";
         file << "<Igor>\n";
-        // TODO         file << "\t<Material uuid=\"" << material->getID() << "\">\n";
+        file << "\t<Material>\n";
 
-        // TODO
+        const auto diffuse = material->getDiffuse();
+        const auto ambient = material->getAmbient();
+        const auto specular = material->getSpecular();
+        const auto emissive = material->getEmissive();
+        const auto tiling = material->getTiling();
+
+        // TODO getShaderMaterial file << "\t\t<ShaderMaterial>" << material->getShaderMaterial() << "</ShaderMaterial>\n";
+        file << "\t\t<Diffuse>" << diffuse._r << ", " << diffuse._g << ", " << diffuse._b << "</Diffuse>\n";
+        file << "\t\t<Ambient>" << ambient._r << ", " << ambient._g << ", " << ambient._b << "</Ambient>\n";
+        file << "\t\t<Specular>" << specular._r << ", " << specular._g << ", " << specular._b << "</Specular>\n";
+        file << "\t\t<Emissive>" << emissive._r << ", " << emissive._g << ", " << emissive._b << "</Emissive>\n";
+        file << "\t\t<Shininess>" << material->getShininess() << "</Shininess>\n";
+        file << "\t\t<Alpha>" << material->getAlpha() << "</Alpha>\n";
+        file << "\t\t<Tiling>" << tiling._x << ", " << tiling._y << "</Tiling>\n";
+        // TODO textures
 
         file << "\t</Material>\n";
         file << "</Igor>\n";

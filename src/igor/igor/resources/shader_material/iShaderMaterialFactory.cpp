@@ -48,7 +48,7 @@ namespace igor
 
             if (filepath.isEmpty())
             {
-                con_err("not a valid source path " << resource->getID());
+                con_err("not a valid source path \"" << filepath << "\" for ID " << resource->getID());
                 return false;
             }
         }

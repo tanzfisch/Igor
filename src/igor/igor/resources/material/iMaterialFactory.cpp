@@ -25,8 +25,30 @@ namespace igor
 
     bool iMaterialFactory::saveResource(iResourcePtr resource, const iaString &filename)
     {
-        // TODO
-        return false;
+        iaString filepath;
+
+        if (filename.isEmpty())
+        {
+            filepath = iResourceManager::getInstance().getFilename(resource->getID());
+            if (filepath.isEmpty())
+            {
+                filepath = resource->getSource();
+            }
+
+            if (filepath.isEmpty())
+            {
+                con_err("not a valid source path \"" << filepath << "\" for ID " << resource->getID());
+                return false;
+            }
+        }
+        else
+        {
+            filepath = filename;
+        }
+
+        const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
+        iMaterialPtr material = std::dynamic_pointer_cast<iMaterial>(resource);
+        return iMaterialIO::write(fullFilepath, material);
     }
 
     iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)
@@ -36,6 +58,14 @@ namespace igor
 
     bool iMaterialFactory::loadResource(iResourcePtr resource)
     {
+        const auto &parameters = resource->getParameters();
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        if(generate)
+        {
+            // already done during createResource
+            return true;
+        }
+
         iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
         if (filepath.isEmpty())
         {
@@ -44,7 +74,7 @@ namespace igor
 
         if (filepath.isEmpty())
         {
-            con_err("not a valid source path " << resource->getID());
+            con_err("not a valid source path \"" << filepath << "\" for ID " << resource->getID());
             return false;
         }
 

@@ -34,7 +34,15 @@ void UserControlMaterial::updateResource()
 
     for (int i = 0; i < 4; ++i)
     {
-        material->setTexture(iResourceManager::getInstance().loadResource<iTexture>(_textureChooser[i]->getID()), i);
+        auto id = _textureChooser[i]->getID();
+        if (id.isValid())
+        {
+            material->setTexture(iResourceManager::getInstance().loadResource<iTexture>(id), i);
+        }
+        else
+        {
+            material->setTexture(nullptr, i);
+        }
     }
 
     // TODO textures
@@ -144,12 +152,12 @@ void UserControlMaterial::init()
 
         _textureChooser[i] = new iUserControlTextureChooser(textureLayout);
         _textureChooser[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    }    
+    }
 }
 
 void UserControlMaterial::onDoUpdateShininess(const iWidgetPtr source)
 {
-    if(source == _sliderShininess)
+    if (source == _sliderShininess)
     {
         _numberChooserShininess->setValue(_sliderShininess->getValue());
     }
