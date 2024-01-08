@@ -56,6 +56,7 @@ namespace igor
 
     private:
         static bool readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material);
+        static bool readTextures(TiXmlElement *materialXML, const iMaterialPtr &material);
     };
 
 } // namespace igor

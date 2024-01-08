@@ -65,7 +65,7 @@ namespace igor
 
         /*! \returns target material
          */
-        iMaterialPtr &getTargetMaterial();
+        iMaterialPtr &getMaterial();
 
     private:
         /*! particle system
@@ -79,10 +79,6 @@ namespace igor
         /*! particle target material
          */
         iMaterialPtr _material;
-
-        /*! particle material
-         */
-        iShaderMaterialPtr _shaderMaterial;
 
         /*! initialize particle system
          */

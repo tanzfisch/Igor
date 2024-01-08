@@ -76,7 +76,7 @@ namespace igor
 
         \param material the material to render with
         */
-        void setMaterial(const iShaderMaterialPtr &material);
+        void setShaderMaterial(const iShaderMaterialPtr &material);
 
         /*! \returns currently active material
          */
@@ -508,9 +508,9 @@ namespace igor
         positioned based on current model view and projection matrices
 
         \param mesh the given mesh to draw
-        \param targetMaterial the target material to use
+        \param material the target material to use
         */
-        void drawMesh(iMeshPtr mesh, iMaterialPtr targetMaterial);
+        void drawMesh(iMeshPtr mesh, iMaterialPtr material);
 
         /*! draw mesh instanced
 
@@ -518,17 +518,17 @@ namespace igor
 
         \param mesh the given mesh to draw
         \param instancingBuffer the instancing buffer
-        \param targetMaterial the target material to use
+        \param material the target material to use
         */
-        void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr targetMaterial = nullptr);
+        void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material = nullptr);
 
         /*! draws buffer with given target material and primitive type
 
         \param vertexArray the buffer to draw
         \param primitiveType the given primitive type
-        \param targetMaterial the target material (optional)
+        \param material the target material (optional)
         */
-        void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr targetMaterial = nullptr);
+        void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr material = nullptr);
 
         /////////////// LIGHT TODO this might change a lot ///////////
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
@@ -787,7 +787,7 @@ namespace igor
 
         /*! \returns default material
          */
-        const iShaderMaterialPtr &getDefaultMaterial() const;
+        const iShaderMaterialPtr &getDefaultShader() const;
 
         /*! \returns colorID material
          */
@@ -874,9 +874,9 @@ namespace igor
 
         /*! write igor specific shader parameters to current material
 
-        \param targetMaterial the target specifig material values. Ignored if nullptr
+        \param material the target specifig material values. Ignored if nullptr
         */
-        void writeShaderParameters(iMaterialPtr targetMaterial);
+        void writeShaderParameters(iMaterialPtr material);
 
         /*! binds current material
          */

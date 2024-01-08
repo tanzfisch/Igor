@@ -65,7 +65,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
 {
     if (analyzeParam(argc, argv))
     {
-        iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_texture_shaded");
+        iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_texture_shaded");
 
         iParameters parameters({
             {IGOR_RESOURCE_PARAM_SOURCE, _src},

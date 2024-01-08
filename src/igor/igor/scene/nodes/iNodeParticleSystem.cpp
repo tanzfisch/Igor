@@ -24,11 +24,12 @@ namespace igor
 
         iParameters param({ 
             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+            {IGOR_RESOURCE_PARAM_GENERATE, true},
+            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iRenderer::getInstance().getDefaultShader()},
             {IGOR_RESOURCE_PARAM_TEXTURE0, "igor_texture_white"},
             {IGOR_RESOURCE_PARAM_TEXTURE1, "igor_texture_white"},
             {IGOR_RESOURCE_PARAM_TEXTURE2, "igor_texture_white"},
         });
-
         _material = iResourceManager::getInstance().loadResource<iMaterial>(param);
     }
 

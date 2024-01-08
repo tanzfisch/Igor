@@ -91,14 +91,14 @@ namespace igor
 				continue;
 			}
 
-			meshNode->getTargetMaterial()->setAmbient(material->_ambient);
-			meshNode->getTargetMaterial()->setDiffuse(material->_diffuse);
-			meshNode->getTargetMaterial()->setSpecular(material->_specular);
-			meshNode->getTargetMaterial()->setShininess(material->_shininess);
+			meshNode->getMaterial()->setAmbient(material->_ambient);
+			meshNode->getMaterial()->setDiffuse(material->_diffuse);
+			meshNode->getMaterial()->setSpecular(material->_specular);
+			meshNode->getMaterial()->setShininess(material->_shininess);
 
 			if (material->_texture != "")
 			{
-				meshNode->getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(material->_texture), 0);
+				meshNode->getMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(material->_texture), 0);
 			}
 		}
 

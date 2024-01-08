@@ -244,7 +244,7 @@ namespace igor
                            {IGOR_RESOURCE_PARAM_EMISSIVE, emissive},
                            {IGOR_RESOURCE_PARAM_SHININESS, meshChunk->getShininess()}});
 
-        meshNode->setTargetMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
+        meshNode->setMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
 
         iMeshPtr mesh = iMesh::create();
 
@@ -252,7 +252,7 @@ namespace igor
         uint32 textureCount = meshChunk->getTextureCount();
         for (uint32 i = 0; i < textureCount; ++i)
         {
-            meshNode->getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(meshChunk->getTexture(i)), i);
+            meshNode->getMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(meshChunk->getTexture(i)), i);
             mesh->setTexture(i, true);
         }
 
@@ -295,7 +295,7 @@ namespace igor
         meshNode->setMesh(mesh);
 
         iShaderMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
-        meshNode->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
+        meshNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
 
         return meshNode;
     }
@@ -360,7 +360,7 @@ namespace igor
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
         iShaderMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
-        particleSystemNode->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
+        particleSystemNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
 
         return particleSystemNode;
     }
@@ -806,7 +806,7 @@ namespace igor
                 result->setIndexCount(mesh->getIndexCount());
                 result->setIndexData(reinterpret_cast<char *>(indexData), indexDataSize);
 
-                for (const auto &pair : node->getTargetMaterial()->getTextures())
+                for (const auto &pair : node->getMaterial()->getTextures())
                 {
                     if (pair.second == nullptr)
                     {

@@ -60,7 +60,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
         meshNodeTrunk->setMesh(meshTrunk);
         meshNodeTrunk->setMaterial(material);
 
-        iMaterialPtr targetMaterial = meshNodeTrunk->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNodeTrunk->getMaterial();
         targetMaterial->setAmbient(trunkColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -78,7 +78,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
         meshNodeFlowers->setMesh(meshFlowers);
         meshNodeFlowers->setMaterial(material);
 
-        iMaterialPtr targetMaterial = meshNodeFlowers->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNodeFlowers->getMaterial();
         targetMaterial->setAmbient(flowerColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -96,7 +96,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
         meshNodeBuds->setMesh(meshBuds);
         meshNodeBuds->setMaterial(material);
 
-        iMaterialPtr targetMaterial = meshNodeBuds->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNodeBuds->getMaterial();
         targetMaterial->setAmbient(budColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -115,7 +115,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
         meshNodeLeafs->setMesh(meshLeafs);
         meshNodeLeafs->setMaterial(material);
 
-        iMaterialPtr targetMaterial = meshNodeLeafs->getTargetMaterial();
+        iMaterialPtr targetMaterial = meshNodeLeafs->getMaterial();
         targetMaterial->setAmbient(leafColor);
         targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));

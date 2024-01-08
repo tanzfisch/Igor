@@ -230,7 +230,7 @@ namespace igor
 
         /*! \returns the default material
         */
-        iPhysicsMaterial *getDefaultMaterial();
+        iPhysicsMaterial *getDefaultShader();
 
         /*! \returns the default material id
         */

@@ -134,9 +134,9 @@ namespace igor
         _actionQueue.push_back(action);
     }
 
-    iMaterialPtr iVoxelTerrain::getTargetMaterial() const
+    iMaterialPtr iVoxelTerrain::getMaterial() const
     {
-        return _targetMaterial;
+        return _material;
     }
 
     void iVoxelTerrain::setPhysicsMaterialID(uint64 materialID)
@@ -180,19 +180,17 @@ namespace igor
         }
 
         // set up terrain material
-        _terrainMaterial = iRenderer::getInstance().getDefaultMaterial();
-
-        // set up terrain target material
         iParameters param({ 
             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+            {IGOR_RESOURCE_PARAM_GENERATE, true},
+            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iRenderer::getInstance().getDefaultShader()},
             {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.7f, 0.7f, 0.7f)},
             {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.9f, 0.9f, 0.9f)},
             {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.1f, 0.1f, 0.1f)},
             {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.05f, 0.05f, 0.05f)},
             {IGOR_RESOURCE_PARAM_SHININESS, 100.0f},
         });
-
-        _targetMaterial = iResourceManager::getInstance().loadResource<iMaterial>(param);        
+        _material = iResourceManager::getInstance().loadResource<iMaterial>(param);        
     }
 
     void iVoxelTerrain::deinit()
@@ -206,22 +204,12 @@ namespace igor
         }
 
         iModelFactory::unregisterModelDataIO("igor.vtg");
-        _targetMaterial = nullptr;
+        _material = nullptr;
     }
 
     void iVoxelTerrain::setLODTrigger(uint32 lodTriggerID)
     {
         _lodTrigger = lodTriggerID;
-    }
-
-    void iVoxelTerrain::setMaterial(const iShaderMaterialPtr &material)
-    {
-        _terrainMaterial = material;
-    }
-
-    iShaderMaterialPtr iVoxelTerrain::getMaterial() const
-    {
-        return _terrainMaterial;
     }
 
     void iVoxelTerrain::update()
@@ -1262,14 +1250,14 @@ namespace igor
                                             {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free},
                                             {IGOR_RESOURCE_PARAM_QUIET, true},
                                             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
-                                            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, _terrainMaterial},
+                                            {IGOR_RESOURCE_PARAM_MATERIAL, _material},
                                             {IGOR_RESOURCE_PARAM_GENERATE, true},
                                             {"voxelOffsetToNextLOD", voxelOffsetToNextLOD},
                                             {"voxelData", voxelData},
                                             {"voxelDataNextLOD", voxelDataNextLOD},
                                             {IGOR_RESOURCE_PARAM_LOD, voxelBlock->_lod},
                                             {"neighboursLOD", voxelBlock->_neighboursLOD},
-                                            {IGOR_RESOURCE_PARAM_MATERIAL, _targetMaterial},
+                                            {IGOR_RESOURCE_PARAM_MATERIAL, _material},
                                             {IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL, _physicsMaterialID}});
                     iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);
 

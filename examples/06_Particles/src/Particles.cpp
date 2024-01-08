@@ -50,7 +50,7 @@ void Particles::onInit()
     getView().setCamera(camera->getID());
 
     // set up a meterial for the particles
-    _shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_particles");
+    _shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_particles");
 
     // create the various particle systems
     createWaveParticleSystem();

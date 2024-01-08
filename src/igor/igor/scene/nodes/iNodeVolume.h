@@ -89,7 +89,7 @@ namespace igor
         */
         void updateTree();
 
-        /*! initializes memeber variables
+        /*! initializes member variables
         */
         iNodeVolume();
 

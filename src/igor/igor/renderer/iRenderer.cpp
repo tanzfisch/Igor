@@ -301,15 +301,15 @@ namespace igor
 
         /*! the current material in use
          */
-        iShaderMaterialPtr _currentMaterial;
+        iShaderMaterialPtr _currentShader;
 
         /*! the default material
          */
-        iShaderMaterialPtr _defaultMaterial;
+        iShaderMaterialPtr _defaultShader;
 
         /*! the colorID material
          */
-        iShaderMaterialPtr _colorIDMaterial;
+        iShaderMaterialPtr _colorIDShader;
 
         //////////// SHARED DATA ///////////
         /*! quad index buffer
@@ -537,17 +537,17 @@ namespace igor
         setStencilTestActive(false);
 
         ///////////// MATERIALS ////////////
-        _data->_defaultMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_default_textured");
-        _data->_colorIDMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_color_id");
+        _data->_defaultShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_default_textured");
+        _data->_colorIDShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_color_id");
 
         // don't cache the following so they stay invisible to the application
-        _data->_flatShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_flat_shaded", iResourceCacheMode::DontCache);
-        _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_flat_shaded_blend", iResourceCacheMode::DontCache);
-        _data->_textureShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_texture_shaded", iResourceCacheMode::DontCache);
-        _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_texture_shaded_blend", iResourceCacheMode::DontCache);
+        _data->_flatShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_flat_shaded", iResourceCacheMode::DontCache);
+        _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_flat_shaded_blend", iResourceCacheMode::DontCache);
+        _data->_textureShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_texture_shaded", iResourceCacheMode::DontCache);
+        _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_texture_shaded_blend", iResourceCacheMode::DontCache);
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
-        _data->_currentMaterial.reset();
+        _data->_currentShader.reset();
 
         ////////////// generate textures //////////
         iParameters paramFallback({{IGOR_RESOURCE_PARAM_ID, iaUUID(0x1337000001)},
@@ -579,13 +579,13 @@ namespace igor
     void iRenderer::deinit()
     {
         /////////// MATERIALS ////////
-        _data->_defaultMaterial = nullptr;
-        _data->_colorIDMaterial = nullptr;
+        _data->_defaultShader = nullptr;
+        _data->_colorIDShader = nullptr;
         _data->_flatShader = nullptr;
         _data->_flatShaderBlend = nullptr;
         _data->_textureShader = nullptr;
         _data->_textureShaderBlend = nullptr;
-        _data->_currentMaterial = nullptr;
+        _data->_currentShader = nullptr;
 
         /////////// TEXTURES ////////
         _data->_fallbackTexture = nullptr;
@@ -697,7 +697,7 @@ namespace igor
 
     void iRenderer::drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
+        (color._a == 1.0 && !blend) ? setShaderMaterial(_data->_textureShader) : setShaderMaterial(_data->_textureShaderBlend);
 
         const int32 textureIndex = beginTexturedQuad(texture);
 
@@ -739,7 +739,7 @@ namespace igor
             return;
         }
 
-        (color._a == 1.0 && !blend) ? setMaterial(_data->_textureShader) : setMaterial(_data->_textureShaderBlend);
+        (color._a == 1.0 && !blend) ? setShaderMaterial(_data->_textureShader) : setShaderMaterial(_data->_textureShaderBlend);
 
         const int32 textureIndex = beginTexturedQuad(sprite->getTexture());
 
@@ -792,7 +792,7 @@ namespace igor
             flushPoints();
         }
 
-        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
 
         points._vertexDataPtr->_pos = v;
         points._vertexDataPtr->_color = color;
@@ -817,7 +817,7 @@ namespace igor
             flushQuads();
         }
 
-        (color1._a == 1.0 && color2._a == 1.0 && color3._a == 1.0 && color4._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+        (color1._a == 1.0 && color2._a == 1.0 && color3._a == 1.0 && color4._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
 
         quads._vertexDataPtr->_pos = v1;
         quads._vertexDataPtr->_color = color1;
@@ -855,7 +855,7 @@ namespace igor
             flushLines();
         }
 
-        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
 
         lines._vertexDataPtr->_pos = v1;
         lines._vertexDataPtr->_color = color;
@@ -896,7 +896,7 @@ namespace igor
             }
 
             bindCurrentMaterial();
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+            _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
             glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
             GL_CHECK_ERROR();
@@ -925,7 +925,7 @@ namespace igor
         }
 
         bindCurrentMaterial();
-        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
         uint32 vertexDataSize = (uint32)((uint8 *)triangles._vertexDataPtr - (uint8 *)triangles._vertexData);
         triangles._vertexBuffer->setData(vertexDataSize, triangles._vertexData);
@@ -959,7 +959,7 @@ namespace igor
         }
 
         bindCurrentMaterial();
-        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
         uint32 dataSize = (uint32)((uint8 *)quads._vertexDataPtr - (uint8 *)quads._vertexData);
         quads._vertexBuffer->setData(dataSize, quads._vertexData);
@@ -990,7 +990,7 @@ namespace igor
         }
 
         bindCurrentMaterial();
-        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
         uint32 dataSize = (uint32)((uint8 *)lines._vertexDataPtr - (uint8 *)lines._vertexData);
         lines._vertexBuffer->setData(dataSize, lines._vertexData);
@@ -1018,7 +1018,7 @@ namespace igor
         }
 
         bindCurrentMaterial();
-        _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+        _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
 
         uint32 dataSize = (uint32)((uint8 *)points._vertexDataPtr - (uint8 *)points._vertexData);
         points._vertexBuffer->setData(dataSize, points._vertexData);
@@ -1315,7 +1315,7 @@ namespace igor
             return;
         }
 
-        setMaterial(_data->_textureShaderBlend);
+        setShaderMaterial(_data->_textureShaderBlend);
 
         static wchar_t temptext[1024]; // TODO
 
@@ -1591,22 +1591,22 @@ namespace igor
         glStencilMask(mask);
     }
 
-    void iRenderer::setMaterial(const iShaderMaterialPtr &material)
+    void iRenderer::setShaderMaterial(const iShaderMaterialPtr &shaderMaterial)
     {
-        con_assert(material != nullptr, "invalid material");
+        con_assert(shaderMaterial != nullptr, "zero pointer");
 
-        if (_data->_currentMaterial == material)
+        if (_data->_currentShader == shaderMaterial)
         {
             return;
         }
 
         flush();
-        _data->_currentMaterial = material;
+        _data->_currentShader = shaderMaterial;
     }
 
     const iShaderMaterialPtr &iRenderer::getMaterial() const
     {
-        return _data->_currentMaterial;
+        return _data->_currentShader;
     }
 
     void iRenderer::drawBoxInternal(const iAABoxf &box, const iaColor4f &color)
@@ -1657,7 +1657,7 @@ namespace igor
     {
         beginTriangles();
 
-        (color._a == 1.0) ? setMaterial(_data->_flatShader) : setMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
 
         auto &triangles = _data->_triangles;
 
@@ -1733,9 +1733,9 @@ namespace igor
     // TODO only bind if it changed
     void iRenderer::bindCurrentMaterial()
     {
-        con_assert_sticky(_data->_currentMaterial != nullptr, "no material set");
+        con_assert_sticky(_data->_currentShader != nullptr, "no shader material set");
 
-        _data->_currentMaterial->bind();
+        _data->_currentShader->bind();
 
         if (_data->_wireframeEnabled)
         {
@@ -1743,15 +1743,17 @@ namespace igor
         }
     }
 
-    void iRenderer::drawMesh(iMeshPtr mesh, iMaterialPtr targetMaterial)
+    void iRenderer::drawMesh(iMeshPtr mesh, iMaterialPtr material)
     {
+        setShaderMaterial(material->getShaderMaterial());
+
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
             flushLastUsed();
         }
 
         bindCurrentMaterial();
-        writeShaderParameters(targetMaterial);
+        writeShaderParameters(material);
 
         mesh->bind();
 
@@ -1767,15 +1769,17 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr targetMaterial)
+    void iRenderer::drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr material)
     {
+        setShaderMaterial(material->getShaderMaterial());
+
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
             flushLastUsed();
         }
 
         bindCurrentMaterial();
-        writeShaderParameters(targetMaterial);
+        writeShaderParameters(material);
 
         vertexArray->bind();
 
@@ -1801,12 +1805,14 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr targetMaterial)
+    void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material)
     {
         if (!mesh->isValid())
         {
             return;
         }
+
+        setShaderMaterial(material->getShaderMaterial());        
 
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
@@ -1819,7 +1825,7 @@ namespace igor
         setModelMatrix(idMatrix);
 
         bindCurrentMaterial();
-        writeShaderParameters(targetMaterial);
+        writeShaderParameters(material);
 
         // re combine mesh data wich instancing data
         iVertexArrayPtr vertexArray = iVertexArray::create();
@@ -1846,38 +1852,38 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::Buffer;
     }
 
-    void iRenderer::writeShaderParameters(iMaterialPtr targetMaterial)
+    void iRenderer::writeShaderParameters(iMaterialPtr material)
     {
-        if (targetMaterial != nullptr)
+        if (material != nullptr)
         {
-            if (_data->_currentMaterial->hasTargetMaterial())
+            if (_data->_currentShader->hasTargetMaterial())
             {
-                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_AMBIENT, targetMaterial->getAmbient());
-                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_DIFFUSE, targetMaterial->getDiffuse());
-                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_SPECULAR, targetMaterial->getSpecular());
-                _data->_currentMaterial->setFloat3(UNIFORM_MATERIAL_EMISSIVE, targetMaterial->getEmissive());
-                _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_SHININESS, targetMaterial->getShininess());
-                _data->_currentMaterial->setFloat(UNIFORM_MATERIAL_ALPHA, targetMaterial->getAlpha());
+                _data->_currentShader->setFloat3(UNIFORM_MATERIAL_AMBIENT, material->getAmbient());
+                _data->_currentShader->setFloat3(UNIFORM_MATERIAL_DIFFUSE, material->getDiffuse());
+                _data->_currentShader->setFloat3(UNIFORM_MATERIAL_SPECULAR, material->getSpecular());
+                _data->_currentShader->setFloat3(UNIFORM_MATERIAL_EMISSIVE, material->getEmissive());
+                _data->_currentShader->setFloat(UNIFORM_MATERIAL_SHININESS, material->getShininess());
+                _data->_currentShader->setFloat(UNIFORM_MATERIAL_ALPHA, material->getAlpha());
             }
 
-            if (_data->_currentMaterial->hasTilingConfig())
+            if (_data->_currentShader->hasTilingConfig())
             {
-                _data->_currentMaterial->setFloat2(UNIFORM_CONFIG_TILING, targetMaterial->getTiling());
+                _data->_currentShader->setFloat2(UNIFORM_CONFIG_TILING, material->getTiling());
             }
 
-            if (_data->_currentMaterial->hasVelocityOrientedConfig())
+            if (_data->_currentShader->hasVelocityOrientedConfig())
             {
-                _data->_currentMaterial->setFloat(UNIFORM_CONFIG_VELOCITY_ORIENTED, targetMaterial->isVelocityOriented() ? 1.0 : 0.0);
+                _data->_currentShader->setFloat(UNIFORM_CONFIG_VELOCITY_ORIENTED, material->isVelocityOriented() ? 1.0 : 0.0);
             }
 
-            for (const auto &pair : targetMaterial->getTextures())
+            for (const auto &pair : material->getTextures())
             {
                 const auto &texture = pair.second;
                 const auto &texUnit = pair.first;
 
-                if (_data->_currentMaterial->hasTextureUnit(texUnit))
+                if (_data->_currentShader->hasTextureUnit(texUnit))
                 {
-                    _data->_currentMaterial->setInt(iRendererUtils::getTextureSamplerName(texUnit), texUnit);
+                    _data->_currentShader->setInt(iRendererUtils::getTextureSamplerName(texUnit), texUnit);
 
                     if (texture == nullptr ||
                         texture->useFallback())
@@ -1892,36 +1898,36 @@ namespace igor
             }
         }
 
-        if (_data->_currentMaterial->hasDirectionalLight())
+        if (_data->_currentShader->hasDirectionalLight())
         {
-            _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_ORIENTATION, _data->_lights[0]._position);
-            _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_AMBIENT, _data->_lights[0]._ambient);
-            _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_DIFFUSE, _data->_lights[0]._diffuse);
-            _data->_currentMaterial->setFloat3(UNIFORM_LIGHT_SPECULAR, _data->_lights[0]._specular);
+            _data->_currentShader->setFloat3(UNIFORM_LIGHT_ORIENTATION, _data->_lights[0]._position);
+            _data->_currentShader->setFloat3(UNIFORM_LIGHT_AMBIENT, _data->_lights[0]._ambient);
+            _data->_currentShader->setFloat3(UNIFORM_LIGHT_DIFFUSE, _data->_lights[0]._diffuse);
+            _data->_currentShader->setFloat3(UNIFORM_LIGHT_SPECULAR, _data->_lights[0]._specular);
         }
 
-        if (_data->_currentMaterial->hasEyePosition())
+        if (_data->_currentShader->hasEyePosition())
         {
             iaVector3f eyePosition(_data->_camMatrix._pos._x, _data->_camMatrix._pos._y, _data->_camMatrix._pos._z);
-            _data->_currentMaterial->setFloat3(UNIFORM_EYE_POSITION, eyePosition);
+            _data->_currentShader->setFloat3(UNIFORM_EYE_POSITION, eyePosition);
         }
 
-        if (_data->_currentMaterial->hasModelViewProjectionMatrix())
+        if (_data->_currentShader->hasModelViewProjectionMatrix())
         {
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
+            _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW_PROJECTION, getMVP());
         }
 
-        if (_data->_currentMaterial->hasModelViewMatrix())
+        if (_data->_currentShader->hasModelViewMatrix())
         {
             iaMatrixf modelView;
             for (int i = 0; i < 16; ++i)
             {
                 modelView[i] = _data->_modelViewMatrix[i];
             }
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL_VIEW, modelView);
+            _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW, modelView);
         }
 
-        if (_data->_currentMaterial->hasViewProjectionMatrix())
+        if (_data->_currentShader->hasViewProjectionMatrix())
         {
             iaMatrixd vpd = _data->_projectionMatrix * _data->_viewMatrix;
             iaMatrixf viewProjection;
@@ -1930,22 +1936,22 @@ namespace igor
             {
                 viewProjection[i] = vpd[i];
             }
-            _data->_currentMaterial->setMatrix(UNIFORM_VIEW_PROJECTION, viewProjection);
+            _data->_currentShader->setMatrix(UNIFORM_VIEW_PROJECTION, viewProjection);
         }
 
-        if (_data->_currentMaterial->hasModelMatrix())
+        if (_data->_currentShader->hasModelMatrix())
         {
             iaMatrixf model;
             for (int i = 0; i < 16; ++i)
             {
                 model[i] = _data->_modelMatrix[i];
             }
-            _data->_currentMaterial->setMatrix(UNIFORM_MODEL, model);
+            _data->_currentShader->setMatrix(UNIFORM_MODEL, model);
         }
 
-        if (_data->_currentMaterial->hasSolidColor())
+        if (_data->_currentShader->hasSolidColor())
         {
-            _data->_currentMaterial->setFloat4(UNIFORM_SOLIDCOLOR, _data->_solidColor);
+            _data->_currentShader->setFloat4(UNIFORM_SOLIDCOLOR, _data->_solidColor);
         }
     }
 
@@ -2156,14 +2162,14 @@ namespace igor
         return _data->_wireframeEnabled;
     }
 
-    const iShaderMaterialPtr &iRenderer::getDefaultMaterial() const
+    const iShaderMaterialPtr &iRenderer::getDefaultShader() const
     {
-        return _data->_defaultMaterial;
+        return _data->_defaultShader;
     }
 
     const iShaderMaterialPtr &iRenderer::getColorIDMaterial() const
     {
-        return _data->_colorIDMaterial;
+        return _data->_colorIDShader;
     }
 
 }

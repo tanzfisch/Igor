@@ -31,7 +31,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <iaux/math/iaMatrix.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <memory>
 
@@ -57,11 +57,11 @@ namespace igor
 
         \param material the material
         */
-        void setMaterial(const iShaderMaterialPtr &material);
+        void setMaterial(const iMaterialPtr &material);
 
         /*! \returns the material in use
         */
-        iShaderMaterialPtr getMaterial() const;
+        iMaterialPtr getMaterial() const;
 
         /*! sets visibility of this node
 
@@ -115,7 +115,7 @@ namespace igor
     private:
         /*! material to render with
         */
-        iShaderMaterialPtr _material;
+        iMaterialPtr _material;
     };
 
     /*! render node pointer definition

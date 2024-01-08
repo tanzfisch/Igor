@@ -81,31 +81,16 @@ namespace igor
          */
         float32 getShininess() const;
 
-        /*! \returns target material
-         */
-        iMaterialPtr getTargetMaterial() const;
-
-        /*! configures target material
-
-        \param targetMaterial the target material configuration to copy
-        */
-        void setTargetMaterial(const iMaterialPtr &targetMaterial);
-
         /*! returns multiple lines of information about this node
 
-		each entry in vector is one line of information
+        each entry in vector is one line of information
 
-		\returns strings with the nodes information
+        \returns strings with the nodes information
         \param brief if true only one brief line of information will be returned
         */
         std::vector<iaString> getInfo(bool brief = false) const override;
 
     private:
-
-        /*! target material
-         */
-        iMaterialPtr _targetMaterial;
-
         /*! shared pointer to mesh
          */
         iMeshPtr _mesh;

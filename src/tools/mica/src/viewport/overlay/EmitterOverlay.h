@@ -84,21 +84,17 @@ private:
      */
     iNodeTransformPtr _scaleTransform = nullptr;
 
-    /*! target material
-     */
-    iMaterialPtr _material = nullptr;
-
     /*! switch node
     */
     iNodeSwitchPtr _switchNode = nullptr;
 
     /*! flat material
      */
-    iShaderMaterialPtr _shaderMaterialFlat;
+    iMaterialPtr _materialFlat;
 
     /*! volume material
      */
-    iShaderMaterialPtr _shaderMaterialVolume;
+    iMaterialPtr _materialVolume;
 
     /*! disc mesh node
     */

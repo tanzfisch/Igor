@@ -26,7 +26,7 @@ void UserControlMesh::updateNode()
     if (node != nullptr)
     {
         iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_materialChooser->getID());
-        node->setTargetMaterial(material);
+        node->setMaterial(material);
     }
 }
 
@@ -37,7 +37,7 @@ void UserControlMesh::update()
     _ignoreNodeUpdate = true;
 
     iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(getNodeID()));
-    _materialChooser->setID(node->getTargetMaterial()->getID());
+    _materialChooser->setID(node->getMaterial()->getID());
 
     iMeshPtr mesh = node->getMesh();
     _textVertices->setText(iaString::toString(mesh->getVertexCount()));

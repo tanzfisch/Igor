@@ -30,6 +30,7 @@
 #define IGOR_MATERIAL_H
 
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 
 #include <iaux/data/iaColor3.h>
 using namespace iaux;
@@ -95,7 +96,7 @@ namespace igor
          */
         bool hasTextures() const;
 
-        /*! set emmisive color
+        /*! set emissive color
 
         \param e emissive color
         */
@@ -163,7 +164,22 @@ namespace igor
          */
         bool isVelocityOriented() const;
 
+        /*! sets shader material
+
+        \param shaderMaterial the shader material
+        */
+        void setShaderMaterial(const iShaderMaterialPtr &shaderMaterial);
+
+        /*! \returns the shader material in use
+        */
+        iShaderMaterialPtr getShaderMaterial() const;
+
     private:
+
+        /*! the shader material
+        */
+        iShaderMaterialPtr _shaderMaterial;
+
         /*! texture unit to texture map
          */
         std::map<uint32, iTexturePtr> _textures;

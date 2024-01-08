@@ -590,7 +590,7 @@ namespace igor
         return result;
     }
 
-    iPhysicsMaterial *iPhysics::getDefaultMaterial()
+    iPhysicsMaterial *iPhysics::getDefaultShader()
     {
         return getMaterial(_defaultMaterialID);
     }

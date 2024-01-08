@@ -12,7 +12,7 @@ namespace igor
     iMaterial::iMaterial(const iParameters &parameters)
         : iResource(parameters)
     {
-        _emissive = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0,0,0));
+        _emissive = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0, 0, 0));
         _ambient = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.4f, 0.4f, 0.4f));
         _diffuse = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f));
         _specular = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.6f, 0.6f, 0.6f));
@@ -20,7 +20,7 @@ namespace igor
         _alpha = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_ALPHA, 1.0f);
         _tiling = parameters.getParameter<iaVector2f>(IGOR_RESOURCE_PARAM_TILING, iaVector2f(1.0f, 1.0f));
 
-        for(int i=0;i<4;++i)
+        for (int i = 0; i < 4; ++i)
         {
             parameters.hasParameter(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i));
         }
@@ -142,6 +142,16 @@ namespace igor
     bool iMaterial::hasTextures() const
     {
         return !_textures.empty();
+    }
+
+    void iMaterial::setShaderMaterial(const iShaderMaterialPtr &shaderMaterial)
+    {
+        _shaderMaterial = shaderMaterial;
+    }
+
+    iShaderMaterialPtr iMaterial::getShaderMaterial() const
+    {
+        return _shaderMaterial;
     }
 
 } // namespace igor

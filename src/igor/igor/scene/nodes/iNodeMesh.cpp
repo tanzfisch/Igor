@@ -35,8 +35,6 @@ namespace igor
         {
             setBoundingBox(_mesh->getBoundingBox());
         }
-
-        _targetMaterial = node->getTargetMaterial();
     }
 
     iNodeMesh::~iNodeMesh()
@@ -82,22 +80,12 @@ namespace igor
         info.push_back(topologyInfo);
 
         iaString materialInfo("material:");
-        iShaderMaterialPtr material = getMaterial();
+        iMaterialPtr material = getMaterial();
         materialInfo += ((material == nullptr) ? iaString("none") : material->getInfo());
 
         info.push_back(materialInfo);
 
         return info;
-    }
-
-    void iNodeMesh::setTargetMaterial(const iMaterialPtr &targetMaterial)
-    {
-        _targetMaterial = targetMaterial;
-    }
-
-    iMaterialPtr iNodeMesh::getTargetMaterial() const
-    {
-        return _targetMaterial;
     }
 
     iMeshPtr iNodeMesh::getMesh()
@@ -112,7 +100,7 @@ namespace igor
             return;
         }
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
-        iRenderer::getInstance().drawMesh(_mesh, _targetMaterial);
+        iRenderer::getInstance().drawMesh(_mesh, getMaterial());
     }
 
     void iNodeMesh::setMesh(iMeshPtr mesh)
@@ -129,27 +117,27 @@ namespace igor
 
     iaColor3f iNodeMesh::getAmbient() const
     {
-        return _targetMaterial->getAmbient();
+        return getMaterial()->getAmbient();
     }
 
     iaColor3f iNodeMesh::getEmissive() const
     {
-        return _targetMaterial->getEmissive();
+        return getMaterial()->getEmissive();
     }
 
     iaColor3f iNodeMesh::getSpecular() const
     {
-        return _targetMaterial->getSpecular();
+        return getMaterial()->getSpecular();
     }
 
     iaColor3f iNodeMesh::getDiffuse() const
     {
-        return _targetMaterial->getDiffuse();
+        return getMaterial()->getDiffuse();
     }
 
     float32 iNodeMesh::getShininess() const
     {
-        return _targetMaterial->getShininess();
+        return getMaterial()->getShininess();
     }
 
 } // namespace igor

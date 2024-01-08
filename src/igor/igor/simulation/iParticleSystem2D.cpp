@@ -21,15 +21,16 @@ namespace igor
         _particleSystem.setMaxParticleCount(100);
         _particleSystem.start();
 
-        iParameters param({ 
+        iShaderMaterialPtr shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_textured_particles_ortho");
+        iParameters param({
             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+            {IGOR_RESOURCE_PARAM_GENERATE, true},
+            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
             {IGOR_RESOURCE_PARAM_TEXTURE0, "igor_texture_white"},
             {IGOR_RESOURCE_PARAM_TEXTURE1, "igor_texture_white"},
             {IGOR_RESOURCE_PARAM_TEXTURE2, "igor_texture_white"},
         });
-
         _material = iResourceManager::getInstance().loadResource<iMaterial>(param);
-        _shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_material_textured_particles_ortho");
     }
 
     void iParticleSystem2D::update()
@@ -45,7 +46,6 @@ namespace igor
 
         iRenderer::getInstance().setModelMatrix(modelMatrix * matrix);
 
-        iRenderer::getInstance().setMaterial(_shaderMaterial);
         _material->setVelocityOriented(_particleSystem.getVelocityOriented());
         _material->setTiling(iaVector2f(_particleSystem.getTextureColumns(), _particleSystem.getTextureRows()));
         iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _material);
@@ -63,7 +63,7 @@ namespace igor
         return _particleEmitter;
     }
 
-    iMaterialPtr &iParticleSystem2D::getTargetMaterial()
+    iMaterialPtr &iParticleSystem2D::getMaterial()
     {
         return _material;
     }

@@ -131,10 +131,6 @@ namespace igor
         */
         void setMaterial(const iShaderMaterialPtr& material);
 
-        /*! \returns terrain material
-        */
-        iShaderMaterialPtr getMaterial() const;
-
         /*! sets physics material ID
 
         \param materialID the material ID to use
@@ -147,7 +143,7 @@ namespace igor
 
         /*! \returns target material
         */
-        iMaterialPtr getTargetMaterial() const;
+        iMaterialPtr getMaterial() const;
 
         /*! modifies voxel data by manipulating a box area
 
@@ -201,7 +197,7 @@ namespace igor
 
         /*! target material for given tile
         */
-        iMaterialPtr _targetMaterial;
+        iMaterialPtr _material;
 
         /*! voxel operations queue
         */
@@ -254,10 +250,6 @@ namespace igor
         /*! root node of terrain
         */
         iNodePtr _rootNode = nullptr;
-
-        /*! terrain material id
-        */
-        iShaderMaterialPtr _terrainMaterial;
 
         /*! lod trigger node id
         */

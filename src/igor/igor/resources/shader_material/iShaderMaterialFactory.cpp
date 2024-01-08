@@ -21,7 +21,7 @@ namespace igor
 
     iResourcePtr iShaderMaterialFactory::createResource()
     {
-        iShaderMaterialPtr defaultMaterial = iRenderer::getInstance().getDefaultMaterial();
+        iShaderMaterialPtr defaultMaterial = iRenderer::getInstance().getDefaultShader();
         const iaString source = defaultMaterial->getSource();
 
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SHADER_MATERIAL},

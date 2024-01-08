@@ -17,6 +17,36 @@
 namespace igor
 {
 
+    bool iMaterialIO::readTextures(TiXmlElement *materialXML, const iMaterialPtr &material)
+    {
+        TiXmlElement *element = materialXML->FirstChildElement("Texture");
+        if (element == nullptr)
+        {
+            return true;
+        }
+
+        do
+        {
+            const uint32 texUnit = iaString::toInt(iaString(element->Attribute("unit")));
+
+            TiXmlNode *textNode = element->FirstChild();
+            if (textNode == nullptr ||
+                textNode->Type() != TiXmlNode::NodeType::TINYXML_TEXT)
+            {
+                continue;
+            }
+
+            iResourceID textureID(iaString(textNode->ValueStr().c_str()));
+
+            iTexturePtr texture = iResourceManager::getInstance().requestResource<iTexture>(textureID);
+            material->setTexture(texture, texUnit);
+
+            element = element->NextSiblingElement("Texture");
+        } while (element != nullptr);
+
+        return true;
+    }
+
     bool iMaterialIO::readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
     {
         const iaColor3f diffuse = iXMLHelper::getValue<iaColor3f>(materialXML, "Diffuse", iaColor3f(0.5f, 0.5f, 0.5f));
@@ -26,7 +56,6 @@ namespace igor
         const float32 shininess = iXMLHelper::getValue<float32>(materialXML, "Shininess", 5.0f);
         const float32 alpha = iXMLHelper::getValue<float32>(materialXML, "Alpha", 5.0f);
         const iaVector2f tiling = iXMLHelper::getValue<iaVector2f>(materialXML, "Tiling", iaVector2f(1.0f, 1.0f));
-        const iaString texture0 = iXMLHelper::getValue<iaString>(materialXML, "Texture0", "");
 
         // TODO shader material
         material->setDiffuse(diffuse);
@@ -37,13 +66,7 @@ namespace igor
         material->setAlpha(alpha);
         material->setTiling(tiling);
 
-        if (!texture0.isEmpty())
-        {
-            iTexturePtr texture = iResourceManager::getInstance().requestResource<iTexture>(texture0);
-            material->setTexture(texture, 0);
-        }
-
-        return true;
+        return readTextures(materialXML, material);
     }
 
     bool iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
@@ -107,7 +130,16 @@ namespace igor
         file << "\t\t<Shininess>" << material->getShininess() << "</Shininess>\n";
         file << "\t\t<Alpha>" << material->getAlpha() << "</Alpha>\n";
         file << "\t\t<Tiling>" << tiling._x << ", " << tiling._y << "</Tiling>\n";
-        // TODO textures
+
+        for (const auto &tex : material->getTextures())
+        {
+            if (tex.second == nullptr)
+            {
+                continue;
+            }
+
+            file << "\t\t<Texture unit=\"" << tex.first << "\">" << tex.second->getID().toString() << "</Texture>\n";
+        }
 
         file << "\t</Material>\n";
         file << "</Igor>\n";

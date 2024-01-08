@@ -43,6 +43,7 @@ void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr shaderM
     iParameters param({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
         {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free}, // drop it right after this use
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.5f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f)},
@@ -50,16 +51,14 @@ void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr shaderM
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_ALPHA, 1.0f},
     });
-
-    iMaterialPtr targetMaterial = iResourceManager::getInstance().loadResource<iMaterial>(param);
+    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
 
     iMeshPtr sphere = createSphere();
 
     iaMatrixd matrix;
     matrix.translate(0, 0, -1.5);
     iRenderer::getInstance().setModelMatrix(matrix);
-    iRenderer::getInstance().setMaterial(shaderMaterial);
-    iRenderer::getInstance().drawMesh(sphere, targetMaterial);
+    iRenderer::getInstance().drawMesh(sphere, material);
 
     iPixmapPtr pixmap = iPixmap::createPixmap(width, height, iColorFormat::RGBA);
 

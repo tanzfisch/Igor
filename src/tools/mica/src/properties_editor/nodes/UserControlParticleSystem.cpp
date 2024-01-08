@@ -674,11 +674,12 @@ void UserControlParticleSystem::updateNode()
             }
         }
 
-        if (_materialSelection->getSelectedUserData().has_value())
+        if (_materialSelection->getSelectedIndex() != -1 &&
+            _materialSelection->getSelectedUserData().has_value())
         {
             std::any userData = _materialSelection->getSelectedUserData();
             iShaderMaterialID materialID = std::any_cast<iShaderMaterialID>(userData);
-            node->setMaterial(iResourceManager::getInstance().getResource<iShaderMaterial>(materialID));
+            node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
         }
 
         node->setTextureA(_textureChooser0->getFileName());
@@ -794,11 +795,11 @@ void UserControlParticleSystem::update()
         std::vector<iShaderMaterialPtr> materials;
         iResourceManager::getInstance().getMaterials(materials);
         for (auto material : materials)
-        {
-            const iShaderMaterialID &materialID = material->getID();
-            // TODO _materialSelection->addItem(material->getName(), materialID);
+        {            
+            _materialSelection->addItem(material->getInfo(), material->getID());
 
-            if (materialID == node->getMaterial()->getID())
+            if (node->getMaterial()->getShaderMaterial() != nullptr &&
+                material->getID() == node->getMaterial()->getShaderMaterial()->getID())
             {
                 _materialSelection->setSelection(_materialSelection->getItemCount() - 1);
             }

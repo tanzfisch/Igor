@@ -31,7 +31,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/model/iModel.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaEvent.h>
@@ -105,7 +105,7 @@ namespace igor
 
         \param material the material to set
         */
-        void setMaterial(const iShaderMaterialPtr& material);
+        void setMaterial(const iMaterialPtr& material);
 
         /*! returns multiple lines of information about this node
 
@@ -127,7 +127,7 @@ namespace igor
 
         /*! material to override 
         */
-        iShaderMaterialPtr _material;
+        iMaterialPtr _material;
 
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
          */
@@ -154,9 +154,8 @@ namespace igor
         /*! recursively setting material on all mesh nodes
 
         \param node the current node
-        \param materialID the material to set
         */
-        void setMaterial(iNodePtr node, const iShaderMaterialPtr& material);
+        void updateMaterial(iNodePtr node);
 
         /*! initializes memeber variables
          */

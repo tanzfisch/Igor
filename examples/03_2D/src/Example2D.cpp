@@ -147,8 +147,8 @@ void Example2D::initParticleSystem()
     matrix.rotate(-130.0 / 180.0 * M_PI, iaAxis::Z);
     _particleSystem.getEmitter().setWorldMatrix(matrix);
 
-    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_particle_dot"), 0);
-    _particleSystem.getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_octave_1"), 1);
+    _particleSystem.getMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_particle_dot"), 0);
+    _particleSystem.getMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_octave_1"), 1);
 }
 
 void Example2D::onDeinit()

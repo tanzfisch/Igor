@@ -86,7 +86,7 @@ void ExampleInstancing::onInit()
     if(modelCat->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCat->getNode());
-        catTargetMaterial = meshNode->getTargetMaterial();
+        catTargetMaterial = meshNode->getMaterial();
         catMesh = meshNode->getMesh();
     }
 
@@ -96,7 +96,7 @@ void ExampleInstancing::onInit()
     if(modelCrate->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCrate->getNode());
-        crateTargetMaterial = meshNode->getTargetMaterial();
+        crateTargetMaterial = meshNode->getMaterial();
         createMesh = meshNode->getMesh();
     }    
 
@@ -106,7 +106,7 @@ void ExampleInstancing::onInit()
     if(modelCube->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCube->getNode());
-        cubeTargetMaterial = meshNode->getTargetMaterial();
+        cubeTargetMaterial = meshNode->getMaterial();
         cubeMesh = meshNode->getMesh();
     }    
 
@@ -116,7 +116,7 @@ void ExampleInstancing::onInit()
     if(modelTeapot->getNode()->getType() == iNodeType::iNodeMesh)
     {
         iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelTeapot->getNode());
-        teapotTargetMaterial = meshNode->getTargetMaterial();
+        teapotTargetMaterial = meshNode->getMaterial();
         teapotMesh = meshNode->getMesh();
     }    
 
@@ -149,25 +149,25 @@ void ExampleInstancing::onInit()
                 {
                 case 0:
                     meshNode->setMesh(catMesh);
-                    meshNode->setTargetMaterial(catTargetMaterial);
+                    meshNode->setMaterial(catTargetMaterial);
                     meshNode->setMaterial(_materialWithInstancingA);
                     break;
 
                 case 1:
                     meshNode->setMesh(createMesh);
-                    meshNode->setTargetMaterial(crateTargetMaterial);
+                    meshNode->setMaterial(crateTargetMaterial);
                     meshNode->setMaterial(_materialWithInstancingA);
                     break;
 
                 case 2:
                     meshNode->setMesh(cubeMesh);
-                    meshNode->setTargetMaterial(cubeTargetMaterial);
+                    meshNode->setMaterial(cubeTargetMaterial);
                     meshNode->setMaterial(_materialWithInstancingB);
                     break;
 
                 case 3:
                     meshNode->setMesh(teapotMesh);
-                    meshNode->setTargetMaterial(teapotTargetMaterial);
+                    meshNode->setMaterial(teapotTargetMaterial);
                     meshNode->setMaterial(_materialWithInstancingB);
                     break;
                 }

@@ -5,7 +5,8 @@
 #include <igor/scene/nodes/iNodeRender.h>
 
 #include <igor/scene/iScene.h>
-#include <igor/renderer/iRenderer.h>
+#include <igor/resources/iResourceManager.h>
+
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -16,7 +17,7 @@ namespace igor
     iNodeRender::iNodeRender()
         : iNode()
     {
-        _material = iRenderer::getInstance().getDefaultMaterial();
+        _material = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_default");
 
         setName(L"iNodeRender");
         _nodeType = iNodeType::iNodeRender;
@@ -63,7 +64,7 @@ namespace igor
         _worldMatrix = matrix;
     }
 
-    void iNodeRender::setMaterial(const iShaderMaterialPtr &material)
+    void iNodeRender::setMaterial(const iMaterialPtr &material)
     {
         _material = material;
     }
@@ -73,7 +74,7 @@ namespace igor
         return _visible;
     }
 
-    iShaderMaterialPtr iNodeRender::getMaterial() const
+    iMaterialPtr iNodeRender::getMaterial() const
     {
         return _material;
     }
