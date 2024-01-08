@@ -20,9 +20,15 @@ namespace igor
         _alpha = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_ALPHA, 1.0f);
         _tiling = parameters.getParameter<iaVector2f>(IGOR_RESOURCE_PARAM_TILING, iaVector2f(1.0f, 1.0f));
 
+        setShaderMaterial(parameters.getParameter<iShaderMaterialPtr>(IGOR_RESOURCE_PARAM_SHADER_MATERIAL, nullptr));
+
         for (int i = 0; i < 4; ++i)
         {
-            parameters.hasParameter(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i));
+            if(!parameters.hasParameter(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i)))
+            {
+                continue;
+            }
+            setTexture(parameters.getParameter<iTexturePtr>(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i), nullptr), i);
         }
     }
 

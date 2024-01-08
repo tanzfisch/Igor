@@ -35,7 +35,6 @@ void TransformOverlay::onDeinit()
     _green = nullptr;
     _blue = nullptr;
     _cyan = nullptr;
-    _material = nullptr;
     _materialCelShading = nullptr;
 }
 
@@ -47,9 +46,8 @@ void TransformOverlay::onInit()
     iParameters paramMaterial({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
+
     });
-    _material = iResourceManager::getInstance().loadResource<iMaterial>(paramMaterial);
 
     iShaderMaterialPtr shaderMaterialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_cellshading_yellow");
     iParameters paramMaterialCelshading({
@@ -62,42 +60,43 @@ void TransformOverlay::onInit()
     iParameters paramRed({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.3f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.2f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.8f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
     });
-
-    _red = iResourceManager::getInstance().loadResource<iMaterial>(paramRed);    
+    _red = iResourceManager::getInstance().loadResource<iMaterial>(paramRed);
 
     iParameters paramGreen({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.0f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.0f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.0f)},
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.8f, 0.0f)},
         {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
     });
-
-    _green = iResourceManager::getInstance().loadResource<iMaterial>(paramGreen);    
+    _green = iResourceManager::getInstance().loadResource<iMaterial>(paramGreen);
 
     iParameters paramBlue({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.0f, 0.3f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.0f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.0f, 0.2f)},
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.8f)},
         {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
     });
-
-    _blue = iResourceManager::getInstance().loadResource<iMaterial>(paramBlue);    
+    _blue = iResourceManager::getInstance().loadResource<iMaterial>(paramBlue);
 
     iParameters paramCyan({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.3f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.2f)},
@@ -105,7 +104,7 @@ void TransformOverlay::onInit()
         {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
     });
 
-    _cyan = iResourceManager::getInstance().loadResource<iMaterial>(paramCyan);    
+    _cyan = iResourceManager::getInstance().loadResource<iMaterial>(paramCyan);
 
     iMeshPtr translateMesh = createTranslateMesh();
     iMeshPtr scaleMesh = createScaleMesh();
@@ -283,21 +282,18 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     iNodeMesh *xRing = iNodeManager::getInstance().createNode<iNodeMesh>();
     xRing->setName("manipulator.ring.x");
     xRing->setMesh(ringMesh);
-    xRing->setMaterial(_material);
     xRing->setMaterial(_red);
     xRingTransform->insertNode(xRing);
 
     iNodeMesh *yRing = iNodeManager::getInstance().createNode<iNodeMesh>();
     yRing->setName("manipulator.ring.y");
     yRing->setMesh(ringMesh);
-    yRing->setMaterial(_material);
     yRing->setMaterial(_green);
     yRingTransform->insertNode(yRing);
 
     iNodeMesh *zRing = iNodeManager::getInstance().createNode<iNodeMesh>();
     zRing->setName("manipulator.ring.z");
     zRing->setMesh(ringMesh);
-    zRing->setMaterial(_material);
     zRing->setMaterial(_blue);
     zRingTransform->insertNode(zRing);
 
@@ -307,7 +303,6 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     iNodeMesh *ring = iNodeManager::getInstance().createNode<iNodeMesh>();
     ring->setName("manipulator.ring");
     ring->setMesh(ringMesh2D);
-    ring->setMaterial(_material);
     ring->setMaterial(_cyan);
     _rotateBillboardTransform->insertNode(ring);
 
@@ -330,21 +325,18 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
     xCylinder->setName("manipulator.cylinder.x");
     xCylinder->setMesh(cylinder);
-    xCylinder->setMaterial(_material);
     xCylinder->setMaterial(_red);
     xTransform->insertNode(xCylinder);
 
     iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
     yCylinder->setName("manipulator.cylinder.y");
     yCylinder->setMesh(cylinder);
-    yCylinder->setMaterial(_material);
     yCylinder->setMaterial(_green);
     yTransform->insertNode(yCylinder);
 
     iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
     zCylinder->setName("manipulator.cylinder.z");
     zCylinder->setMesh(cylinder);
-    zCylinder->setMaterial(_material);
     zCylinder->setMaterial(_blue);
     zTransform->insertNode(zCylinder);
 }
@@ -368,21 +360,18 @@ void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinder)
     iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
     xCylinder->setName("manipulator.cylinder.x");
     xCylinder->setMesh(cylinder);
-    xCylinder->setMaterial(_material);
     xCylinder->setMaterial(_red);
     xTransform->insertNode(xCylinder);
 
     iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
     yCylinder->setName("manipulator.cylinder.y");
     yCylinder->setMesh(cylinder);
-    yCylinder->setMaterial(_material);
     yCylinder->setMaterial(_green);
     yTransform->insertNode(yCylinder);
 
     iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
     zCylinder->setName("manipulator.cylinder.z");
     zCylinder->setMesh(cylinder);
-    zCylinder->setMaterial(_material);
     zCylinder->setMaterial(_blue);
     zTransform->insertNode(zCylinder);
 }
@@ -406,21 +395,18 @@ void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
     iNodeMesh *xUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
     xUmbrella->setName("manipulator.umbrella.x");
     xUmbrella->setMesh(translateMesh);
-    xUmbrella->setMaterial(_material);
     xUmbrella->setMaterial(_red);
     xTransform->insertNode(xUmbrella);
 
     iNodeMesh *yUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
     yUmbrella->setName("manipulator.umbrella.y");
     yUmbrella->setMesh(translateMesh);
-    yUmbrella->setMaterial(_material);
     yUmbrella->setMaterial(_green);
     yTransform->insertNode(yUmbrella);
 
     iNodeMesh *zUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
     zUmbrella->setName("manipulator.umbrella.z");
     zUmbrella->setMesh(translateMesh);
-    zUmbrella->setMaterial(_material);
     zUmbrella->setMaterial(_blue);
     zTransform->insertNode(zUmbrella);
 
@@ -448,21 +434,18 @@ void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
     iNodeMesh *xCube = iNodeManager::getInstance().createNode<iNodeMesh>();
     xCube->setName("manipulator.cube.x");
     xCube->setMesh(scaleMesh);
-    xCube->setMaterial(_material);
     xCube->setMaterial(_red);
     xTransform->insertNode(xCube);
 
     iNodeMesh *yCube = iNodeManager::getInstance().createNode<iNodeMesh>();
     yCube->setName("manipulator.cube.y");
     yCube->setMesh(scaleMesh);
-    yCube->setMaterial(_material);
     yCube->setMaterial(_green);
     yTransform->insertNode(yCube);
 
     iNodeMesh *zCube = iNodeManager::getInstance().createNode<iNodeMesh>();
     zCube->setName("manipulator.cube.z");
     zCube->setMesh(scaleMesh);
-    zCube->setMaterial(_material);
     zCube->setMaterial(_blue);
     zTransform->insertNode(zCube);
 
@@ -471,7 +454,6 @@ void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
     iNodeMesh *xyzCube = iNodeManager::getInstance().createNode<iNodeMesh>();
     xyzCube->setName("manipulator.cube.xyz");
     xyzCube->setMesh(cube);
-    xyzCube->setMaterial(_material);
     xyzCube->setMaterial(_cyan);
     _scaleModifier->insertNode(xyzCube);
 
@@ -606,19 +588,24 @@ void TransformOverlay::renderHighlight()
 
     const iNodePtr node = iNodeManager::getInstance().getNode(_selectedManipulatorNodeID);
 
-    if (node->getKind() == iNodeKind::Renderable ||
-        node->getKind() == iNodeKind::Volume)
+    if (node->getKind() != iNodeKind::Renderable &&
+        node->getKind() != iNodeKind::Volume)
     {
-        const iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(node);
-        iRenderer::getInstance().setModelMatrix(renderNode->getWorldMatrix());
-
-        if (node->getType() == iNodeType::iNodeMesh)
-        {
-            iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-            iRenderer::getInstance().setLineWidth(4);
-            iRenderer::getInstance().drawMesh(meshNode->getMesh(), _materialCelShading);
-        }
+        return;
     }
+
+    const iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(node);
+    iRenderer::getInstance().setModelMatrix(renderNode->getWorldMatrix());
+
+    if (node->getType() != iNodeType::iNodeMesh)
+    {
+        return;
+    }
+
+    iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
+    iRenderer::getInstance().setLineWidth(4);
+    iRenderer::getInstance().setShaderMaterial(_materialCelShading->getShaderMaterial());
+    iRenderer::getInstance().drawMesh(meshNode->getMesh(), _materialCelShading);
 }
 
 bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
@@ -639,7 +626,7 @@ bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 
     auto top = window->getClientHeight() - rect._height - rect._y;
 
-    iNodeID nodeID = getView()->pickcolorID(event.getPosition()._x - rect._x, event.getPosition()._y - top);
+    iNodeID nodeID = getView()->pickColorID(event.getPosition()._x - rect._x, event.getPosition()._y - top);
 
     _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
 

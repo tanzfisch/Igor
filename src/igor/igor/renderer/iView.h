@@ -283,17 +283,17 @@ namespace igor
         \param posy vertical position of point in pixel
         \returns color id at given point (results are only valid for IDs <= 0xFFFFFF in use)
         */
-        uint64 pickcolorID(uint32 posx, uint32 posy);
+        uint64 pickColorID(uint32 posx, uint32 posy);
 
-        /*! same as pickcolorID but with different parameters
+        /*! same as pickColorID but with different parameters
 
         \param pos the position to pick a color from
         */
-        uint64 pickcolorID(const iaVector2i& pos);
+        uint64 pickColorID(const iaVector2i& pos);
 
         /*! renders view in offscreen buffer using the colorID material and returns the color IDs from given rectangle
         */
-        void pickcolorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs);
+        void pickColorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs);
 
         /*! \returns the z index of this view
         */

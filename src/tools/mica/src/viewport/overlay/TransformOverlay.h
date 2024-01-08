@@ -139,10 +139,6 @@ private:
      */
     iMaterialPtr _cyan = nullptr;
 
-    /*! material to render manipulator
-     */
-    iMaterialPtr _material;
-
     /*! cel chader material for selection
      */
     iMaterialPtr _materialCelShading;

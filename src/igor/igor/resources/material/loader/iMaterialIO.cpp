@@ -57,6 +57,12 @@ namespace igor
         const float32 alpha = iXMLHelper::getValue<float32>(materialXML, "Alpha", 5.0f);
         const iaVector2f tiling = iXMLHelper::getValue<iaVector2f>(materialXML, "Tiling", iaVector2f(1.0f, 1.0f));
 
+        const iaString shaderMaterial = iXMLHelper::getValue<iaString>(materialXML, "ShaderMaterial", "");
+        if (!shaderMaterial.isEmpty())
+        {
+            material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShaderMaterial>(shaderMaterial));
+        }
+
         // TODO shader material
         material->setDiffuse(diffuse);
         material->setAmbient(ambient);
@@ -122,7 +128,10 @@ namespace igor
         const auto emissive = material->getEmissive();
         const auto tiling = material->getTiling();
 
-        // TODO getShaderMaterial file << "\t\t<ShaderMaterial>" << material->getShaderMaterial() << "</ShaderMaterial>\n";
+        if (material->getShaderMaterial())
+        {
+            file << "\t\t<ShaderMaterial>" << material->getShaderMaterial()->getID() << "</ShaderMaterial>\n";
+        }
         file << "\t\t<Diffuse>" << diffuse._r << ", " << diffuse._g << ", " << diffuse._b << "</Diffuse>\n";
         file << "\t\t<Ambient>" << ambient._r << ", " << ambient._g << ", " << ambient._b << "</Ambient>\n";
         file << "\t\t<Specular>" << specular._r << ", " << specular._g << ", " << specular._b << "</Specular>\n";

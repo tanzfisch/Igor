@@ -1745,8 +1745,6 @@ namespace igor
 
     void iRenderer::drawMesh(iMeshPtr mesh, iMaterialPtr material)
     {
-        setShaderMaterial(material->getShaderMaterial());
-
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
             flushLastUsed();
@@ -1771,8 +1769,6 @@ namespace igor
 
     void iRenderer::drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr material)
     {
-        setShaderMaterial(material->getShaderMaterial());
-
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {
             flushLastUsed();
@@ -1811,8 +1807,6 @@ namespace igor
         {
             return;
         }
-
-        setShaderMaterial(material->getShaderMaterial());        
 
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::Buffer)
         {

@@ -59,7 +59,7 @@ public:
 
 private:
     /*! material chooser
-    */
+     */
     iUserControlMaterialChooserPtr _materialChooser;
 
     /*! vertex count text field
@@ -77,17 +77,12 @@ private:
     /*! prevent endless update loop
      */
     bool _ignoreNodeUpdate = false;
+
     /*! time to update the node
 
     \param source the source widget for this update
     */
     void onDoUpdateNode(const iWidgetPtr source);
-
-    /*! handle change of material
-
-    \param source the source widget
-    */
-    void onMaterialChanged(const iWidgetPtr source);
 };
 
 #endif // __USERCONTROLMESH__

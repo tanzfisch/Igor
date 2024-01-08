@@ -874,7 +874,7 @@ namespace igor
 
         /*! write igor specific shader parameters to current material
 
-        \param material the target specifig material values. Ignored if nullptr
+        \param material the target specific material values. Ignored if nullptr
         */
         void writeShaderParameters(iMaterialPtr material);
 

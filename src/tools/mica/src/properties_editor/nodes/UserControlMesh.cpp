@@ -22,12 +22,13 @@ void UserControlMesh::updateNode()
     }
 
     iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(getNodeID()));
-
-    if (node != nullptr)
+    if (node == nullptr)
     {
-        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_materialChooser->getID());
-        node->setMaterial(material);
+        return;
     }
+
+    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_materialChooser->getID());
+    node->setMaterial(material);
 }
 
 void UserControlMesh::update()
@@ -37,7 +38,10 @@ void UserControlMesh::update()
     _ignoreNodeUpdate = true;
 
     iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(getNodeID()));
-    _materialChooser->setID(node->getMaterial()->getID());
+    if (node->getMaterial() != nullptr)
+    {
+        _materialChooser->setID(node->getMaterial()->getID());
+    }
 
     iMeshPtr mesh = node->getMesh();
     _textVertices->setText(iaString::toString(mesh->getVertexCount()));
@@ -53,12 +57,12 @@ void UserControlMesh::init()
 
     iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, getLayout());
     layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    
+
     iWidgetGroupBoxPtr materialGroup = new iWidgetGroupBox(layout);
     materialGroup->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     materialGroup->setVerticalAlignment(iVerticalAlignment::Top);
     materialGroup->setHeaderOnly();
-    materialGroup->setText("Material");    
+    materialGroup->setText("Material");
 
     iWidgetBoxLayoutPtr materialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialGroup);
 
@@ -66,6 +70,7 @@ void UserControlMesh::init()
     labelMaterial->setText("Material");
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
     _materialChooser = new iUserControlMaterialChooser(materialLayout);
+    _materialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     iWidgetGroupBoxPtr detailsGroup = new iWidgetGroupBox(layout);
     detailsGroup->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -103,7 +108,7 @@ void UserControlMesh::init()
     _textTriangles = new iWidgetLineTextEdit(layoutTriangles);
     _textTriangles->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textTriangles->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-    _textTriangles->setEnabled(false);    
+    _textTriangles->setEnabled(false);
     _textTriangles->setText("");
 
     iWidgetBoxLayoutPtr layoutIndices = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, detailsLayout);
@@ -120,11 +125,6 @@ void UserControlMesh::init()
     _textIndices->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textIndices->setEnabled(false);
     _textIndices->setText("");
-}
-
-void UserControlMesh::onMaterialChanged(const iWidgetPtr source)
-{
-    updateNode();
 }
 
 void UserControlMesh::onDoUpdateNode(const iWidgetPtr source)
