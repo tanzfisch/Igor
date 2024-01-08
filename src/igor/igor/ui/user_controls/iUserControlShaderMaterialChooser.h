@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_USERCONTROL_MATERIAL_CHOOSER_H
-#define IGOR_USERCONTROL_MATERIAL_CHOOSER_H
+#ifndef IGOR_USERCONTROL_SHADER_CHOOSER_H
+#define IGOR_USERCONTROL_SHADER_CHOOSER_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -38,9 +38,9 @@
 namespace igor
 {
 
-    /*! User control material chooser
+    /*! User control shader material chooser
      */
-    class IGOR_API iUserControlMaterialChooser : public iUserControl
+    class IGOR_API iUserControlShaderMaterialChooser : public iUserControl
     {
 
     public:
@@ -48,11 +48,11 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlMaterialChooser(const iWidgetPtr parent = nullptr);
+        iUserControlShaderMaterialChooser(const iWidgetPtr parent = nullptr);
 
         /*! clean up
          */
-        ~iUserControlMaterialChooser();
+        ~iUserControlShaderMaterialChooser();
 
         /*! sets the material id
 
@@ -98,10 +98,10 @@ namespace igor
         void onDrop(const iDrag &drag) override;
     };
 
-    /*! user control material chooser pointer definition
+    /*! user control shader material chooser pointer definition
      */
-    typedef iUserControlMaterialChooser *iUserControlMaterialChooserPtr;
+    typedef iUserControlShaderMaterialChooser *iUserControlShaderMaterialChooserPtr;
 
 } // namespace igor
 
-#endif // IGOR_USERCONTROL_MATERIAL_CHOOSER_H
+#endif // IGOR_USERCONTROL_SHADER_CHOOSER_H

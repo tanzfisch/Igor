@@ -82,6 +82,10 @@ private:
      */
     iUserControlTextureChooserPtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
 
+    /*! shader material chooser
+    */
+    iUserControlShaderMaterialChooserPtr _shaderMaterialChooser = nullptr;
+
     /*! shininess slider
      */
     iWidgetSliderPtr _sliderShininess = nullptr;

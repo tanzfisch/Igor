@@ -45,7 +45,7 @@ void UserControlMaterial::updateResource()
         }
     }
 
-    // TODO textures
+    material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShaderMaterial>(_shaderMaterialChooser->getID()));
 
     iResourceManager::getInstance().saveResource(getResourceID());
 }
@@ -153,6 +153,13 @@ void UserControlMaterial::init()
         _textureChooser[i] = new iUserControlTextureChooser(textureLayout);
         _textureChooser[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     }
+
+    iWidgetBoxLayoutPtr shaderMaterialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
+    iWidgetLabelPtr shaderMaterialLabel = new iWidgetLabel(shaderMaterialLayout);
+    shaderMaterialLabel->setText("Shader");
+    shaderMaterialLabel->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    _shaderMaterialChooser = new iUserControlShaderMaterialChooser(shaderMaterialLayout);
+    _shaderMaterialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 }
 
 void UserControlMaterial::onDoUpdateShininess(const iWidgetPtr source)
