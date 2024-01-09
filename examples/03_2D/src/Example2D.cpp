@@ -35,7 +35,7 @@ void Example2D::onInit()
     _spline.addSupportPoint(iaVector3f(700, 500, 0));
     _spline.addSupportPoint(iaVector3f(100, 700, 0));
     _spline.addSupportPoint(iaVector3f(900, 300, 0));
-    _spline.addSupportPoint(iaVector3f(50, 150, 0));
+    _spline.addSupportPoint(iaVector3f(300, 150, 0));
     // close the loop by having the end point at the same position as the start point
     _spline.addSupportPoint(iaVector3f(100, 100, 0));
 
@@ -242,9 +242,15 @@ void Example2D::onRenderOrtho()
         }
     }
 
-    iRenderer::getInstance().drawFilledCircle(500, 400, 250, 5, iaColor4f::red);
-    iRenderer::getInstance().drawFilledCircle(700, 500, 100, 8, iaColor4f(1.0, 1.0, 0.0, 0.5));
-    iRenderer::getInstance().drawFilledCircle(750, 600, 50, 16, iaColor4f::green);
+    iRenderer::getInstance().drawFilledCircle(width * 0.5, height * 0.5, 250.0, 5, iaColor4f::red);
+    iRenderer::getInstance().drawFilledCircle(width * 0.5 + 100, height * 0.5 + 100, 100.0, 8, iaColor4f(1.0, 1.0, 0.0, 0.5));
+    iRenderer::getInstance().drawFilledCircle(width * 0.5 + 150, height * 0.5 + 200, 50.0, 16, iaColor4f::green);
+
+    // draw spline
+    std::vector<iaVector3f> points;
+    _spline.getPoints(points, 200);
+    iRenderer::getInstance().setLineWidth(5);
+    iRenderer::getInstance().drawLineStrip(points, iaColor4f(1, 0, 0.5, 1));
 
     // draw with dummy texture
     iRenderer::getInstance().drawTexturedRectangle(10, 170, 200, 200, _dummyTexture, iaColor4f::white, true);
@@ -261,13 +267,7 @@ void Example2D::onRenderOrtho()
 
     iRenderer::getInstance().setFont(getFont());
     iRenderer::getInstance().setFontSize(19.0f);
-    iRenderer::getInstance().drawString(490, 240, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
-
-    // draw spline
-    std::vector<iaVector3f> points;
-    _spline.getPoints(points, 200);
-    iRenderer::getInstance().setLineWidth(5);
-    iRenderer::getInstance().drawLineStrip(points, iaColor4f(1, 0, 0.5, 1));
+    iRenderer::getInstance().drawString(width * 0.5 - 100.0, height * 0.5 - 100.0, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
 
     // draw perlin noise based graph in the upper right corner
     iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getWindow()->getClientWidth() - 260), 10.0f, 250.0f, 150.0f, iaColor4f(0, 0, 0, 1));

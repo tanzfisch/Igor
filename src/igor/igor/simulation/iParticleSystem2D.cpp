@@ -43,14 +43,17 @@ namespace igor
     {
         update();
 
+        // save model matrix
         iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
 
-        iRenderer::getInstance().setModelMatrix(modelMatrix * matrix);
+        iRenderer::getInstance().setShaderMaterial(_material->getShaderMaterial());
 
+        iRenderer::getInstance().setModelMatrix(modelMatrix * matrix);
         _material->setVelocityOriented(_particleSystem.getVelocityOriented());
         _material->setTiling(iaVector2f(_particleSystem.getTextureColumns(), _particleSystem.getTextureRows()));
         iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _material);
 
+        // restore model matrix
         iRenderer::getInstance().setModelMatrix(modelMatrix);
     }
 
