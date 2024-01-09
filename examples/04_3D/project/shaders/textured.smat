@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-	<ShaderMaterial uuid="0x0095753e94cc7273" order="200" visibility="Public">
+	<ShaderMaterial order="200" visibility="Public">
 		<States>
 			<DepthTest>On</DepthTest>
 			<DepthFunc>Less</DepthFunc>

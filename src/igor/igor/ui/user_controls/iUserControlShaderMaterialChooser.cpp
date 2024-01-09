@@ -30,22 +30,20 @@ namespace igor
 
     void iUserControlShaderMaterialChooser::initGUI()
     {
-        iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
-        iWidgetBoxLayoutPtr labelLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, layout);
+        iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);       
+        _picture = new iWidgetPicture(layout);
+        _picture->setKeepAspectRatio(false);
+        _picture->setMaxSize(64, 64);
+        _picture->setMinSize(64, 64);
 
+        iWidgetBoxLayoutPtr labelLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, layout);
         _labelID = new iWidgetLabel(labelLayout);
         _labelID->setHorizontalAlignment(iHorizontalAlignment::Left);
         _labelID->setVerticalAlignment(iVerticalAlignment::Top);
-        _labelID->setText("---");
 
         _labelAlias = new iWidgetLabel(labelLayout);
         _labelAlias->setHorizontalAlignment(iHorizontalAlignment::Left);
         _labelAlias->setVerticalAlignment(iVerticalAlignment::Top);
-        _labelAlias->setText("---");
-
-        _picture = new iWidgetPicture(layout);
-        _picture->setMaxSize(64, 64);
-        _picture->setMinSize(64, 64);
     }
 
     void iUserControlShaderMaterialChooser::setID(iResourceID materialID)
@@ -55,8 +53,8 @@ namespace igor
         if (!_materialID.isValid())
         {
             _picture->setTexture(iTexturePtr());
-            _labelID->setText("---");
-            _labelAlias->setText("---");
+            _labelID->setText("");
+            _labelAlias->setText("");
             return;
         }
 

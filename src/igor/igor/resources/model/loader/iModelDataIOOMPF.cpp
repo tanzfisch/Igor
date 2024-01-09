@@ -294,7 +294,7 @@ namespace igor
         // push mesh to mesh node
         meshNode->setMesh(mesh);
 
-        iShaderMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
+        iMaterialID materialID = getMaterialID(meshChunk->getMaterialChunkID());
         meshNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
 
         return meshNode;
@@ -359,7 +359,7 @@ namespace igor
         particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
         particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
 
-        iShaderMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
+        iMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
         particleSystemNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
 
         return particleSystemNode;
@@ -386,11 +386,6 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterials()
     {
-        for (const auto materialChunk : _ompf->getMaterialChunks())
-        {
-            createMaterial(materialChunk);
-        }
-
         for (const auto materialReferenceChunk : _ompf->getMaterialReferenceChunks())
         {
             createMaterial(materialReferenceChunk);
@@ -399,135 +394,26 @@ namespace igor
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialReferenceChunk *materialReferenceChunk)
     {
-        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SHADER_MATERIAL},
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache}});
 
-        if (iaUUID::isUUID(materialReferenceChunk->getFilename()))
+        if (iaUUID::isUUID(materialReferenceChunk->getReference()))
         {
-            iaUUID uuid(materialReferenceChunk->getFilename());
+            iaUUID uuid(materialReferenceChunk->getReference());
             param.setParameter(IGOR_RESOURCE_PARAM_ID, uuid);
         }
         else
         {
-            param.setParameter(IGOR_RESOURCE_PARAM_SOURCE, materialReferenceChunk->getFilename());
+            param.setParameter(IGOR_RESOURCE_PARAM_SOURCE, materialReferenceChunk->getReference());
         }
 
-        iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>(param);
+        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
         if (material == nullptr)
         {
             return;
         }
 
         _materialMapping[materialReferenceChunk->getID()] = material->getID();
-    }
-
-    iRenderStateValue convert(OMPF::OMPFRenderStateValue value)
-    {
-        switch (value)
-        {
-        case OMPF::OMPFRenderStateValue::Off:
-            return iRenderStateValue::Off;
-        case OMPF::OMPFRenderStateValue::On:
-            return iRenderStateValue::On;
-        case OMPF::OMPFRenderStateValue::One:
-            return iRenderStateValue::One;
-        case OMPF::OMPFRenderStateValue::Zero:
-            return iRenderStateValue::Zero;
-        case OMPF::OMPFRenderStateValue::DestinationColor:
-            return iRenderStateValue::DestinationColor;
-        case OMPF::OMPFRenderStateValue::OneMinusDestinationColor:
-            return iRenderStateValue::OneMinusDestinationColor;
-        case OMPF::OMPFRenderStateValue::SourceAlpha:
-            return iRenderStateValue::SourceAlpha;
-        case OMPF::OMPFRenderStateValue::OneMinusSourceAlpha:
-            return iRenderStateValue::OneMinusSourceAlpha;
-        case OMPF::OMPFRenderStateValue::DestinationAlpha:
-            return iRenderStateValue::DestinationAlpha;
-        case OMPF::OMPFRenderStateValue::OneMinusDestinationAlpha:
-            return iRenderStateValue::OneMinusDestinationAlpha;
-        case OMPF::OMPFRenderStateValue::SourceColor:
-            return iRenderStateValue::SourceColor;
-        case OMPF::OMPFRenderStateValue::OneMinusSourceColor:
-            return iRenderStateValue::OneMinusSourceColor;
-        case OMPF::OMPFRenderStateValue::Never:
-            return iRenderStateValue::Never;
-        case OMPF::OMPFRenderStateValue::Less:
-            return iRenderStateValue::Less;
-        case OMPF::OMPFRenderStateValue::Equal:
-            return iRenderStateValue::Equal;
-        case OMPF::OMPFRenderStateValue::LessOrEqual:
-            return iRenderStateValue::LessOrEqual;
-        case OMPF::OMPFRenderStateValue::Greater:
-            return iRenderStateValue::Greater;
-        case OMPF::OMPFRenderStateValue::NotEqual:
-            return iRenderStateValue::NotEqual;
-        case OMPF::OMPFRenderStateValue::GreaterOrEqual:
-            return iRenderStateValue::GreaterOrEqual;
-        case OMPF::OMPFRenderStateValue::Always:
-            return iRenderStateValue::Always;
-        case OMPF::OMPFRenderStateValue::Front:
-            return iRenderStateValue::Front;
-        case OMPF::OMPFRenderStateValue::Back:
-            return iRenderStateValue::Back;
-        case OMPF::OMPFRenderStateValue::Invalid:
-            return iRenderStateValue::Invalid;
-        case OMPF::OMPFRenderStateValue::PositionOrientationInstancing:
-            return iRenderStateValue::PositionOrientationInstancing;
-        };
-
-        return iRenderStateValue::Off;
-    }
-
-    void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialChunk *materialChunk)
-    {
-        con_assert_sticky(materialChunk != nullptr, "zero pointer");
-
-        iaString materialName = materialChunk->getMaterialName();
-        iShaderMaterialPtr material = iResourceManager::getInstance().getResource<iShaderMaterial>(materialName);
-        if (material != nullptr)
-        {
-            con_warn("material name dublicate \"" << materialName << "\". Generating new name.");
-
-            // this is a workaround until ompf understands UUIDs to identify materials
-            materialName += "_";
-            materialName += iaString::toString(iaRandom::getNext());
-        }
-
-        // TODO material = iMaterialResourceFactory::getInstance().createMaterial(materialName);
-        _materialMapping[materialChunk->getID()] = material->getID();
-        material->setOrder(materialChunk->getOrder());
-
-        uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
-        if (shaderObjectCount != 0)
-        {
-            iShaderProgramPtr program = iShaderProgram::create();
-            for (uint32 i = 0; i < shaderObjectCount; ++i)
-            {
-                if (iResourceManager::getInstance().fileExists(materialChunk->getShaderFilename(i)))
-                {
-                    program->addShader(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
-                }
-                else
-                {
-                    char temp[4000]; // TODO
-                    materialChunk->getShaderSource(i).getData(temp, 4000);
-                    program->addSource(temp, static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
-                }
-            }
-
-            program->compile();
-            material->setShaderProgram(program);
-        }
-
-        material->setRenderState(iRenderState::DepthTest, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthTest)));
-        material->setRenderState(iRenderState::DepthMask, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthMask)));
-        material->setRenderState(iRenderState::Blend, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Blend)));
-        material->setRenderState(iRenderState::CullFace, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::CullFace)));
-        material->setRenderState(iRenderState::Wireframe, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Wireframe)));
-        material->setRenderState(iRenderState::DepthFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::DepthFunc)));
-        material->setRenderState(iRenderState::CullFaceFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::CullFaceFunc)));
-        material->setRenderState(iRenderState::Instanced, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::Instanced)));
-        material->setRenderState(iRenderState::InstancedFunc, convert(materialChunk->getRenderState(OMPF::OMPFRenderState::InstancedFunc)));
     }
 
     void iModelDataIOOMPF::exportData(const iParameters &parameters)
@@ -843,39 +729,16 @@ namespace igor
         return result;
     }
 
-    OMPF::ompfMaterialReferenceChunk *iModelDataIOOMPF::createMaterialReferenceChunk(iShaderMaterialPtr material)
+    OMPF::ompfMaterialReferenceChunk *iModelDataIOOMPF::createMaterialReferenceChunk(iMaterialPtr material)
     {
         OMPF::ompfMaterialReferenceChunk *result = _ompf->createMaterialReferenceChunk();
-        result->setFilename(material->getID().toString());
+        result->setReference(material->getID().toString());
         return result;
     }
 
-    OMPF::ompfMaterialChunk *iModelDataIOOMPF::createMaterialChunk(iShaderMaterialPtr material)
+    uint32 iModelDataIOOMPF::getMaterialChunkID(const iMaterialID &materialID)
     {
-        OMPF::ompfMaterialChunk *result = _ompf->createMaterialChunk();
-
-        const auto &shaderSources = material->getShaderProgram()->getShaderSources();
-        for (const auto &source : shaderSources)
-        {
-            result->addShader(iResourceManager::getInstance().getRelativePath(source._filename),
-                              source._source, static_cast<OMPF::OMPFShaderType>(source._type));
-        }
-
-        result->setMaterialName(material->getID().toString());
-
-        for (int i = 0; i < RENDER_STATE_COUNT; ++i)
-        {
-            result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(material->getRenderState(static_cast<iRenderState>(i))));
-        }
-
-        result->setOrder(material->getOrder());
-
-        return result;
-    }
-
-    uint32 iModelDataIOOMPF::getMaterialChunkID(const iShaderMaterialID &materialID)
-    {
-        iShaderMaterialPtr material = iResourceManager::getInstance().getResource<iShaderMaterial>(materialID);
+        iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(materialID);
 
         if (material == nullptr)
         {
@@ -883,26 +746,13 @@ namespace igor
             return 0;
         }
 
-        if (material->getSource().isEmpty())
+        auto iter = _materialReferencesInUse.find(materialID);
+        if (iter == _materialReferencesInUse.end())
         {
-            auto iter = _materialsInUse.find(materialID);
-            if (iter == _materialsInUse.end())
-            {
-                _materialsInUse[materialID] = createMaterialChunk(material);
-            }
-
-            return _materialsInUse[materialID]->getID();
+            _materialReferencesInUse[materialID] = createMaterialReferenceChunk(material);
         }
-        else
-        {
-            auto iter = _materialReferencesInUse.find(materialID);
-            if (iter == _materialReferencesInUse.end())
-            {
-                _materialReferencesInUse[materialID] = createMaterialReferenceChunk(material);
-            }
 
-            return _materialReferencesInUse[materialID]->getID();
-        }
+        return _materialReferencesInUse[materialID]->getID();
     }
 
     uint32 iModelDataIOOMPF::getNodeID(uint32 chunkID)
@@ -943,9 +793,9 @@ namespace igor
         return result;
     }
 
-    iShaderMaterialID iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
+    iMaterialID iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
     {
-        iShaderMaterialID result;
+        iMaterialID result;
 
         if (materialChunkID != 0)
         {
@@ -965,7 +815,6 @@ namespace igor
 
     void iModelDataIOOMPF::clearMaterials()
     {
-        _materialsInUse.clear();
         _materialReferencesInUse.clear();
     }
 

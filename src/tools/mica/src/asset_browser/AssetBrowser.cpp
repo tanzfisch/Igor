@@ -130,6 +130,11 @@ void AssetBrowser::updateGridView(iItemPtr item)
 
     _currentPath = _project->getProjectFolder();
 
+    if(item == nullptr)
+    {
+        return;
+    }
+
     if(item->hasValue("relativePath"))
     {
         _currentPath = _currentPath + IGOR_PATHSEPARATOR + item->getValue<iaString>("relativePath");

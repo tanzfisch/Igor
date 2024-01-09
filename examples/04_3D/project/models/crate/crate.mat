@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Igor>
+	<Material>
+		<ShaderMaterial>0xe878f89df812dc45</ShaderMaterial>
+		<Diffuse>0.969231, 0.969231, 0.969231</Diffuse>
+		<Ambient>0.265384, 0.263373, 0.263374</Ambient>
+		<Specular>0.334616, 0.334615, 0.334616</Specular>
+		<Emissive>0, 0, 0</Emissive>
+		<Shininess>5.4</Shininess>
+		<Alpha>1</Alpha>
+		<Tiling>1, 1</Tiling>
+		<Texture unit="0">0xfb8ec7e44efcccc9</Texture>
+		<Texture unit="1">0xd8bb96f7d28a4995</Texture>
+	</Material>
+</Igor>

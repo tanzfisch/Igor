@@ -30,7 +30,7 @@
 #define __IGOR_LOADERIGOR__
 
 #include <igor/resources/model/loader/iModelDataIO.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/scene/traversal/iNodeVisitor.h>
 
 #include <iaux/data/iaString.h>
@@ -114,9 +114,9 @@ namespace igor
         */
         iaString _filename;
 
-        /*! maps chunk material id to materil id
+        /*! maps chunk material id to material id
          */
-        std::unordered_map<uint32, iShaderMaterialID> _materialMapping;
+        std::unordered_map<uint32, iMaterialID> _materialMapping;
 
         /*! maps chunk id to node id
          */
@@ -126,13 +126,9 @@ namespace igor
          */
         std::map<uint32, uint32> _nodeToChunk;
 
-        /*! map of materials currently in use
-         */
-        std::unordered_map<iShaderMaterialID, OMPF::ompfMaterialChunk *> _materialsInUse;
-
         /*! map of reference materials in use
          */
-        std::unordered_map<iShaderMaterialID, OMPF::ompfMaterialReferenceChunk *> _materialReferencesInUse;
+        std::unordered_map<iMaterialID, OMPF::ompfMaterialReferenceChunk *> _materialReferencesInUse;
 
         /*! additional input parameter
         */
@@ -145,12 +141,6 @@ namespace igor
         /*! creates materials based on what ompf delivered
          */
         void createMaterials();
-
-        /*! creates one material
-
-        \param materialChunk the data to create the material with
-        */
-        void createMaterial(OMPF::ompfMaterialChunk *materialChunk);
 
         /*! creates material
 
@@ -225,29 +215,23 @@ namespace igor
         */
         OMPF::ompfParticleSystemChunk *createParticleSystemChunk(iNodeParticleSystem *node);
 
-        /*! creates material chunk from given igor material
-
-        \param material the igor material
-        */
-        OMPF::ompfMaterialChunk *createMaterialChunk(iShaderMaterialPtr material);
-
         /*! creates material reference chunk from given igor material
 
         \param material the igor material
         */
-        OMPF::ompfMaterialReferenceChunk *createMaterialReferenceChunk(iShaderMaterialPtr material);
+        OMPF::ompfMaterialReferenceChunk *createMaterialReferenceChunk(iMaterialPtr material);
 
         /*! \returns material chunk id for given material id
 
         \param materialID the igor material id
         */
-        uint32 getMaterialChunkID(const iShaderMaterialID &materialID);
+        uint32 getMaterialChunkID(const iMaterialID &materialID);
 
         /*! \returns igor material ID
 
         \param materialChunkID material chunk id
         */
-        iShaderMaterialID getMaterialID(uint32 materialChunkID);
+        iMaterialID getMaterialID(uint32 materialChunkID);
 
         /*! \returns node id based on chunk id
 

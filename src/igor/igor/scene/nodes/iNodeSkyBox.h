@@ -65,10 +65,6 @@ namespace igor
         */
         float32 _boxSize = 10.0f;
 
-        /*! target material to use
-        */
-        iMaterialPtr _targetMaterial;
-
         /*! mesh for sky box
         */
         iMeshPtr _mesh;

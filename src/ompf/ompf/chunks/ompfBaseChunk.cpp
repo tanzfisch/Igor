@@ -17,7 +17,6 @@ namespace OMPF
 
     void ompfBaseChunk::insertChunk(ompfBaseChunk *chunk)
     {
-        con_assert(chunk->getType() != OMPFChunkType::Material, "can't add material chunk as child");
         con_assert(chunk != nullptr, "zero pointer");
 
         if (chunk != nullptr)

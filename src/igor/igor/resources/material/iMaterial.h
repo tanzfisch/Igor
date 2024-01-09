@@ -47,7 +47,7 @@ namespace igor
 
     /*! material ID definition
      */
-    typedef iaUUID iShaderMaterialID;
+    typedef iaUUID iMaterialID;
 
     /*! contains all material information that belong to the surface of an object
 

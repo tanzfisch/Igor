@@ -20,15 +20,16 @@ namespace igor
     {
         _particleSystem.setMaxParticleCount(100);
         _particleSystem.start();
-
+        
         iShaderMaterialPtr shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_textured_particles_ortho");
+        iTexturePtr white = iResourceManager::getInstance().loadResource<iTexture>("igor_texture_white");
         iParameters param({
             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
             {IGOR_RESOURCE_PARAM_GENERATE, true},
             {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
-            {IGOR_RESOURCE_PARAM_TEXTURE0, "igor_texture_white"},
-            {IGOR_RESOURCE_PARAM_TEXTURE1, "igor_texture_white"},
-            {IGOR_RESOURCE_PARAM_TEXTURE2, "igor_texture_white"},
+            {IGOR_RESOURCE_PARAM_TEXTURE0, white},
+            {IGOR_RESOURCE_PARAM_TEXTURE1, white},
+            {IGOR_RESOURCE_PARAM_TEXTURE2, white},
         });
         _material = iResourceManager::getInstance().loadResource<iMaterial>(param);
     }

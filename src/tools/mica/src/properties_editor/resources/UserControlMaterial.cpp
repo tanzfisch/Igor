@@ -45,7 +45,14 @@ void UserControlMaterial::updateResource()
         }
     }
 
-    material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShaderMaterial>(_shaderMaterialChooser->getID()));
+    if(_shaderMaterialChooser->getID().isValid())
+    {
+        material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShaderMaterial>(_shaderMaterialChooser->getID()));
+    }
+    else
+    {
+        material->setShaderMaterial(nullptr);
+    }
 
     iResourceManager::getInstance().saveResource(getResourceID());
 }
@@ -76,6 +83,15 @@ void UserControlMaterial::update()
         {
             _textureChooser[i]->setID(iResourceID::getInvalid());
         }
+    }
+
+    if (material->getShaderMaterial() != nullptr)
+    {
+        _shaderMaterialChooser->setID(material->getShaderMaterial()->getID());
+    }
+    else
+    {
+        _shaderMaterialChooser->setID(iResourceID::getInvalid());
     }
 
     _ignoreUpdate = false;
@@ -156,9 +172,12 @@ void UserControlMaterial::init()
 
     iWidgetBoxLayoutPtr shaderMaterialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
     iWidgetLabelPtr shaderMaterialLabel = new iWidgetLabel(shaderMaterialLayout);
+    shaderMaterialLabel->setVerticalAlignment(iVerticalAlignment::Top);
+    shaderMaterialLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
     shaderMaterialLabel->setText("Shader");
     shaderMaterialLabel->setMinWidth(MICA_REGULARBUTTON_SIZE);
     _shaderMaterialChooser = new iUserControlShaderMaterialChooser(shaderMaterialLayout);
+
     _shaderMaterialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 }
 

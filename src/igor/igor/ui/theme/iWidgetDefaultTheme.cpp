@@ -197,16 +197,16 @@ namespace igor
         switch (drag.getDragState())
         {
         case iDragState::Accepted:
-            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(5, 5), 
-                                                rect.getBottomRight() + iaVector2f(15, 5), iaColor4f::white);
-            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(10, 0), 
-                                                rect.getBottomRight() + iaVector2f(10, 10), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(5, 5),
+                                              rect.getBottomRight() + iaVector2f(15, 5), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(10, 0),
+                                              rect.getBottomRight() + iaVector2f(10, 10), iaColor4f::white);
             break;
         case iDragState::Rejected:
-            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 1), 
-                                                rect.getBottomRight() + iaVector2f(14, 9), iaColor4f::white);
-            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 9), 
-                                                rect.getBottomRight() + iaVector2f(14, 1), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 1),
+                                              rect.getBottomRight() + iaVector2f(14, 9), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 9),
+                                              rect.getBottomRight() + iaVector2f(14, 1), iaColor4f::white);
             break;
         case iDragState::Neutral:
         default:

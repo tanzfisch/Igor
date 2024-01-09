@@ -118,11 +118,6 @@ namespace igor
         _mesh = meshBuilder.createMesh();
     }
 
-    void iNodeSkyBox::setTexture(iTexturePtr texture)
-    {
-        _targetMaterial->setTexture(texture, 0);
-    }
-
     void iNodeSkyBox::setBoxSize(float32 boxSize)
     {
         _boxSize = boxSize;
@@ -142,7 +137,7 @@ namespace igor
         model.scale(_boxSize,_boxSize,_boxSize);
         iRenderer::getInstance().setModelMatrix(model);
 
-        iRenderer::getInstance().drawMesh(_mesh, _targetMaterial);
+        iRenderer::getInstance().drawMesh(_mesh, getMaterial());
     }
 
 } // namespace igor

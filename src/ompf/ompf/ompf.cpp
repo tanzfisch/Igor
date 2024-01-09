@@ -89,12 +89,6 @@ namespace OMPF
         }
         _chunks.clear();
 
-        for (const auto material : _materialChunks)
-        {
-            delete material;
-        }
-        _materialChunks.clear();
-
         for (const auto material : _materialReferenceChunks)
         {
             delete material;
@@ -115,14 +109,6 @@ namespace OMPF
         ompfTransformChunk *result = new ompfTransformChunk();
         result->setID(getNextChunkID());
         _chunks[result->getID()] = result;
-        return result;
-    }
-
-    ompfMaterialChunk *OMPF::createMaterialChunk()
-    {
-        ompfMaterialChunk *result = new ompfMaterialChunk();
-        result->setID(getNextChunkID());
-        _materialChunks.push_back(result);
         return result;
     }
 
@@ -263,14 +249,6 @@ namespace OMPF
                 result = chunk->read(file, _settings);
                 break;
 
-            case OMPFChunkType::Material:
-                chunk = new ompfMaterialChunk();
-                result = chunk->read(file, _settings);
-                _materialChunks.push_back(static_cast<ompfMaterialChunk *>(chunk));
-
-                chunk = nullptr;
-                break;
-
             case OMPFChunkType::MaterialReference:
                 chunk = new ompfMaterialReferenceChunk();
                 result = chunk->read(file, _settings);
@@ -359,11 +337,6 @@ namespace OMPF
         }
     }
 
-    const std::vector<ompfMaterialChunk *> &OMPF::getMaterialChunks() const
-    {
-        return _materialChunks;
-    }
-
     const std::vector<ompfMaterialReferenceChunk *> &OMPF::getMaterialReferenceChunks() const
     {
         return _materialReferenceChunks;
@@ -400,11 +373,6 @@ namespace OMPF
 
     void OMPF::writeMaterials(std::ofstream &outfile)
     {
-        for (const auto material : _materialChunks)
-        {
-            material->write(outfile, _settings);
-        }
-
         for (const auto material : _materialReferenceChunks)
         {
             material->write(outfile, _settings);
