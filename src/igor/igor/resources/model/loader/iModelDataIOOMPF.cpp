@@ -223,29 +223,6 @@ namespace igor
 
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 
-        // set material properties
-        iaColor3f ambient;
-        iaColor3f diffuse;
-        iaColor3f specular;
-        iaColor3f emissive;
-
-        iaConvert::convert(meshChunk->getAmbient(), ambient);
-        iaConvert::convert(meshChunk->getDiffuse(), diffuse);
-        iaConvert::convert(meshChunk->getSpecular(), specular);
-        iaConvert::convert(meshChunk->getEmissive(), emissive);
-
-        //  instead of getting this data from a mesh chunk we should have a material chunk
-
-        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
-                           {IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                           {IGOR_RESOURCE_PARAM_AMBIENT, ambient},
-                           {IGOR_RESOURCE_PARAM_DIFFUSE, diffuse},
-                           {IGOR_RESOURCE_PARAM_SPECULAR, specular},
-                           {IGOR_RESOURCE_PARAM_EMISSIVE, emissive},
-                           {IGOR_RESOURCE_PARAM_SHININESS, meshChunk->getShininess()}});
-
-        meshNode->setMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
-
         iMeshPtr mesh = iMesh::create();
 
         // set texture properties

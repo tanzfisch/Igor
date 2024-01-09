@@ -3,10 +3,10 @@
 	<Material>
 		<ShaderMaterial>0xe878f89df812dc45</ShaderMaterial>
 		<Diffuse>0.969231, 0.969231, 0.969231</Diffuse>
-		<Ambient>0.265384, 0.263373, 0.263374</Ambient>
-		<Specular>0.334616, 0.334615, 0.334616</Specular>
+		<Ambient>0.65384, 0.63373, 0.63374</Ambient>
+		<Specular>0.134616, 0.134615, 0.134616</Specular>
 		<Emissive>0, 0, 0</Emissive>
-		<Shininess>5.4</Shininess>
+		<Shininess>0.0</Shininess>
 		<Alpha>1</Alpha>
 		<Tiling>1, 1</Tiling>
 		<Texture unit="0">0xfb8ec7e44efcccc9</Texture>

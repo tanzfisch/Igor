@@ -49,7 +49,7 @@
         <Resource id="0x5c3207645ba2d4c2" source="igor/materials/textured.smat" />
         <Resource id="0x5c3f82b6e43b7455" alias="example_texture_particleFlame" source="textures/particleFlame.png" />
         <Resource id="0x5d7585c9679b5aea" alias="example_texture_supremacy_projectile_speed_1" source="textures/supremacy/projectile_speed_1.png" />
-        <Resource id="0x5ef20cbc90092529" alias="example_material_skybox" source="materials/skybox.smat" />
+        <Resource id="0x5ef20cbc90092529" alias="example_shader_material_skybox" source="materials/skybox.smat" />
         <Resource id="0x600569673b98b647" alias="example_texture_particleFlash" source="textures/particleFlash.png" />
         <Resource id="0x600abd8d04b20760" alias="example_texture_supremacy_eggplant" source="textures/supremacy/eggplant.png" />
         <Resource id="0x601d73088954f7d5" alias="example_sprite_shop" source="sprites/shop.sprite" />

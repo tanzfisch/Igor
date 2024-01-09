@@ -20,6 +20,7 @@
         <Resource id="0xb753a8b15f43db94" alias="igor_shader_material_transform_overlay_base" source="shader_materials/transform_overlay_base.smat" />
         <Resource id="0x2b48d6e3bf47df31" alias="igor_shader_material_bounding_box" source="shader_materials/bounding_box.smat" />
         <Resource id="0x0ceb229ceabbc35e" alias="igor_shader_material_orientation_plane" source="shader_materials/orientation_plane.smat" />
+        <Resource id="0xaf247acfda3bdefd" alias="igor_shader_material_skybox" source="shader_materials/skybox.smat" />
         
         <Resource id="0x22c969d4614ee3dd" alias="igor_icon_add" source="icons/add.png" />
         <Resource id="0x6cf7bed3ab3e5d40" alias="igor_icon_light" source="icons/light.png" />

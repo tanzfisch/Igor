@@ -44,11 +44,14 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         if (createSkyBox)
         {
             // create a skybox
-            iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-            // set it up with the default skybox texture
-            skyBoxNode->getMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_skybox_debug"), 0);
+            iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();            
             // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-            _materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>("example_material_skybox");
+            iShaderMaterialPtr skyboxShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_skybox");
+            iParameters paramSkybox({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                                     {IGOR_RESOURCE_PARAM_GENERATE, true},
+                                     {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, skyboxShader},
+                                     {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>("example_skybox_debug")}});
+            _materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>(paramSkybox);
             // set that material
             skyBoxNode->setMaterial(_materialSkyBox);
             // and add it to the scene
@@ -69,23 +72,19 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
 
 ExampleBase::~ExampleBase()
 {
-    if (getWindow() != nullptr &&
-        getWindow()->isOpen())
-    {
-        // release material
-        _materialSkyBox = nullptr;
+    // release material
+    _materialSkyBox = nullptr;
 
-        // clear scene by destroying it
-        iSceneFactory::getInstance().destroyScene(_scene);
-        _scene = nullptr;
+    // clear scene by destroying it
+    iSceneFactory::getInstance().destroyScene(_scene);
+    _scene = nullptr;
 
-        // release resources
-        _standardFont = nullptr;
-        _outlineFont = nullptr;
-        _igorLogo = nullptr;
+    // release resources
+    _standardFont = nullptr;
+    _outlineFont = nullptr;
+    _igorLogo = nullptr;
 
-        _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
-    }
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
 
     con_info("stopped example \"" << getName() << "\"");
 }
