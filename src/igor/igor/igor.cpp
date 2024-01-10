@@ -258,7 +258,7 @@ namespace igor
         iTimer::create();
         printInfo();
 
-        con_info("Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
+        con_info("current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
 
 #ifdef IGOR_WINDOWS
         static const std::vector<iaString> configLocations = {

@@ -5,7 +5,7 @@
 #include "Example3D.h"
 
 Example3D::Example3D(iWindowPtr window)
-    : ExampleBase(window, "3D Scene")
+    : ExampleBase(window, "3D Scene", true, "example_skybox_debug")
 {
 }
 

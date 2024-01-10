@@ -4,7 +4,7 @@
 
 #include "ExampleBase.h"
 
-ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBaseSetup, bool createSkyBox, int32 zIndex)
+ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBaseSetup, const iaString &skyBoxTexture, int32 zIndex)
     : iLayer(window, name, zIndex), m_displayHelpScreen(false)
 {
     con_info("starting example \"" << getName() << "\"");
@@ -41,7 +41,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
         getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-        if (createSkyBox)
+        if (!skyBoxTexture.isEmpty())
         {
             // create a skybox
             iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();            
@@ -50,7 +50,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             iParameters paramSkybox({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                                      {IGOR_RESOURCE_PARAM_GENERATE, true},
                                      {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, skyboxShader},
-                                     {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>("example_skybox_debug")}});
+                                     {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>(skyBoxTexture)}});
             _materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>(paramSkybox);
             // set that material
             skyBoxNode->setMaterial(_materialSkyBox);
