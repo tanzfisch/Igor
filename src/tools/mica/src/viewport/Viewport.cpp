@@ -107,10 +107,6 @@ void Viewport::initScene()
     // load materials
     _materialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_cellshading_yellow");
     _materialBoundingBox = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_bounding_box");
-
-    // load particle material just so we have one available in the UI
-    // TODO this needs a better solution
-    iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_particles");
 }
 
 void Viewport::frameOnSelection()

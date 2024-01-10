@@ -26,11 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_NODEPARTICLESYSTEM__
-#define __IGOR_NODEPARTICLESYSTEM__
+#ifndef IGOR_NODE_PARTICLE_SYSTEM_H
+#define IGOR_NODE_PARTICLE_SYSTEM_H
 
 #include <igor/scene/nodes/iNodeVolume.h>
-#include <igor/resources/texture/iTexture.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/simulation/iParticleSystem.h>
 
@@ -339,39 +338,9 @@ namespace igor
          */
         bool getVelocityOriented() const;
 
-        /*! sets first texture
-
-        \param filename file name of texture
-        */
-        void setTextureA(const iaString &filename);
-
-        /*! sets second texture
-
-        \param filename file name of texture
-        */
-        void setTextureB(const iaString &filename);
-
-        /*! sets third texture
-
-        \param filename file name of texture
-        */
-        void setTextureC(const iaString &filename);
-
-        /*! \returns file name of first texture
-         */
-        iaString getTextureA() const;
-
-        /*! \returns file name of second texture
-         */
-        iaString getTextureB() const;
-
-        /*! \returns file name of third texture
-         */
-        iaString getTextureC() const;
-
         /*! sets the increment the tile index is progressing per frame (default = 0.0)
 
-        franctional values are allowed
+        fractional values are allowed
 
         \param tileIncrement the tile increment to use
         */
@@ -409,10 +378,6 @@ namespace igor
         /*! the actual particle system implementation
          */
         iParticleSystem _particleSystem;
-
-        /*! target material
-         */
-        iMaterialPtr _material;
 
         /*! called after a node was copied
 
@@ -454,4 +419,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_NODEPARTICLESYSTEM__
+#endif // IGOR_NODE_PARTICLE_SYSTEM_H

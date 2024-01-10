@@ -332,10 +332,6 @@ namespace igor
         particleSystemNode->setPeriodTime(particleSystemChunk->getPeriodTime());
         particleSystemNode->setVelocityOriented(particleSystemChunk->getVelocityOriented());
 
-        particleSystemNode->setTextureA(particleSystemChunk->getTextureA());
-        particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
-        particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
-
         iMaterialID materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
         particleSystemNode->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
 
@@ -613,9 +609,9 @@ namespace igor
         result->setPeriodTime(node->getPeriodTime());
         result->setVelocityOriented(node->getVelocityOriented());
 
-        result->setTextureA(node->getTextureA());
-        result->setTextureB(node->getTextureB());
-        result->setTextureC(node->getTextureC());
+        result->setTextureA("deprecated");
+        result->setTextureB("deprecated");
+        result->setTextureC("deprecated");
 
         uint32 materialChunkID = getMaterialChunkID(node->getMaterial()->getID());
         result->setMaterialChunkID(materialChunkID);

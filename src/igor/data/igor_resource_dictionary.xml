@@ -12,7 +12,7 @@
         <Resource id="0x5326ec8d85279259" alias="igor_shader_material_flat_shaded_blend" source="shader_materials/flat_shaded_blend.smat" />
         <Resource id="0x81a9bf88dbd3427a" alias="igor_shader_material_texture_shaded" source="shader_materials/texture_shaded.smat" />
         <Resource id="0xd1a8f279d7780a78" alias="igor_shader_material_texture_shaded_blend" source="shader_materials/texture_shaded_blend.smat" />
-        <Resource id="0x2bb102ca8b49bcd9" alias="igor_shader_material_textured_particles_ortho" source="shader_materials/particles_ortho_projection.smat" />
+        <Resource id="0x2bb102ca8b49bcd9" alias="igor_shader_material_particles_ortho" source="shader_materials/particles_ortho_projection.smat" />
         <Resource id="0xcfadb42357736bf6" alias="igor_shader_material_cellshading_yellow" source="shader_materials/cellshading_yellow.smat" />
         <Resource id="0x84950fb86bb8cd63" alias="igor_shader_material_particles" source="shader_materials/particles.smat" />
         <Resource id="0xb8877fc807623372" alias="igor_shader_material_emitter_overlay_flat" source="shader_materials/emitter_overlay_flat.smat" />
