@@ -72,11 +72,11 @@ private:
 
     /*! instancing material A
      */
-    iShaderMaterialPtr _materialWithInstancingA;
+    iMaterialPtr _materialA;
 
     /*! instancing material B
      */
-    iShaderMaterialPtr _materialWithInstancingB;
+    iMaterialPtr _materialB;
 
     /*! perlin noise generator
      */

@@ -5,7 +5,7 @@
 #include "ExampleCharacterController.h"
 
 ExampleCharacterController::ExampleCharacterController(iWindowPtr window)
-    : ExampleBase(window, "Character Controller", true, false)
+    : ExampleBase(window, "Character Controller", true, "example_texture_skybox_stars")
 {
 }
 
@@ -65,7 +65,7 @@ void ExampleCharacterController::onInit()
     // bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
     // load level
-    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>("example_model_level");
+    iModelPtr level = iResourceManager::getInstance().requestResource<iModel>("model_terrain");
 
     // put it in scene
     iNodeModel *levelModel = iNodeManager::getInstance().createNode<iNodeModel>();
@@ -103,18 +103,6 @@ void ExampleCharacterController::onInit()
     gun->setModel("example_model_M4A1-S");
     _characterController->getRightShoulderTransform()->insertNode(gunTransform);
     gunTransform->insertNode(gun);
-
-    // create a skybox
-    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    // set it up with the default skybox texture
-    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars"));
-    // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iResourceManager::getInstance().loadResource<iShaderMaterial>("example_shader_material_skybox");
-    _materialSkyBox->setOrder(iShaderMaterial::RENDER_ORDER_MIN);
-    // set that material
-    skyBoxNode->setMaterial(_materialSkyBox);
-    // and add it to the scene
-    getScene()->getRoot()->insertNode(skyBoxNode);
 
     // setup light
     iNodeTransform *directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();

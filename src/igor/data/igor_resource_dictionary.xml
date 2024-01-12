@@ -5,22 +5,23 @@
 
         <Resource id="0x21a33adac7bb0d6a" alias="igor_material_default" source="materials/default.mat" />
 
-        <Resource id="0x26a31adfc7eb0e6d" alias="igor_shader_material_default" source="shader_materials/default.smat" />
-        <Resource id="0xa90e770c3809190b" alias="igor_shader_material_default_textured" source="shader_materials/textured.smat" />
-        <Resource id="0x058225918ed11dab" alias="igor_shader_material_color_id" source="shader_materials/colorID.smat" />
-        <Resource id="0x640f1dd866a227a2" alias="igor_shader_material_flat_shaded" source="shader_materials/flat_shaded.smat" />
-        <Resource id="0x5326ec8d85279259" alias="igor_shader_material_flat_shaded_blend" source="shader_materials/flat_shaded_blend.smat" />
-        <Resource id="0x81a9bf88dbd3427a" alias="igor_shader_material_texture_shaded" source="shader_materials/texture_shaded.smat" />
-        <Resource id="0xd1a8f279d7780a78" alias="igor_shader_material_texture_shaded_blend" source="shader_materials/texture_shaded_blend.smat" />
-        <Resource id="0x2bb102ca8b49bcd9" alias="igor_shader_material_particles_ortho" source="shader_materials/particles_ortho_projection.smat" />
-        <Resource id="0xcfadb42357736bf6" alias="igor_shader_material_cellshading_yellow" source="shader_materials/cellshading_yellow.smat" />
-        <Resource id="0x84950fb86bb8cd63" alias="igor_shader_material_particles" source="shader_materials/particles.smat" />
-        <Resource id="0xb8877fc807623372" alias="igor_shader_material_emitter_overlay_flat" source="shader_materials/emitter_overlay_flat.smat" />
-        <Resource id="0x154a6ddd0ad85d96" alias="igor_shader_material_emitter_overlay_volume" source="shader_materials/emitter_overlay_volume.smat" />
-        <Resource id="0xb753a8b15f43db94" alias="igor_shader_material_transform_overlay_base" source="shader_materials/transform_overlay_base.smat" />
-        <Resource id="0x2b48d6e3bf47df31" alias="igor_shader_material_bounding_box" source="shader_materials/bounding_box.smat" />
-        <Resource id="0x0ceb229ceabbc35e" alias="igor_shader_material_orientation_plane" source="shader_materials/orientation_plane.smat" />
-        <Resource id="0xaf247acfda3bdefd" alias="igor_shader_material_skybox" source="shader_materials/skybox.smat" />
+        <Resource id="0x26a31adfc7eb0e6d" alias="igor_shader_material_default" source="shaders/default.smat" />
+        <Resource id="0xa90e770c3809190b" alias="igor_shader_material_default_textured" source="shaders/textured.smat" />
+        <Resource id="0x058225918ed11dab" alias="igor_shader_material_color_id" source="shaders/colorID.smat" />
+        <Resource id="0x640f1dd866a227a2" alias="igor_shader_material_flat_shaded" source="shaders/flat_shaded.smat" />
+        <Resource id="0x5326ec8d85279259" alias="igor_shader_material_flat_shaded_blend" source="shaders/flat_shaded_blend.smat" />
+        <Resource id="0x81a9bf88dbd3427a" alias="igor_shader_material_texture_shaded" source="shaders/texture_shaded.smat" />
+        <Resource id="0xd1a8f279d7780a78" alias="igor_shader_material_texture_shaded_blend" source="shaders/texture_shaded_blend.smat" />
+        <Resource id="0x2bb102ca8b49bcd9" alias="igor_shader_material_particles_ortho" source="shaders/particles_ortho_projection.smat" />
+        <Resource id="0xcfadb42357736bf6" alias="igor_shader_material_cellshading_yellow" source="shaders/cellshading_yellow.smat" />
+        <Resource id="0x84950fb86bb8cd63" alias="igor_shader_material_particles" source="shaders/particles.smat" />
+        <Resource id="0xb8877fc807623372" alias="igor_shader_material_emitter_overlay_flat" source="shaders/emitter_overlay_flat.smat" />
+        <Resource id="0x154a6ddd0ad85d96" alias="igor_shader_material_emitter_overlay_volume" source="shaders/emitter_overlay_volume.smat" />
+        <Resource id="0xb753a8b15f43db94" alias="igor_shader_material_transform_overlay_base" source="shaders/transform_overlay_base.smat" />
+        <Resource id="0x2b48d6e3bf47df31" alias="igor_shader_material_bounding_box" source="shaders/bounding_box.smat" />
+        <Resource id="0x0ceb229ceabbc35e" alias="igor_shader_material_orientation_plane" source="shaders/orientation_plane.smat" />
+        <Resource id="0xaf247acfda3bdefd" alias="igor_shader_material_skybox" source="shaders/skybox.smat" />
+        <Resource id="0x1fcd4acfd132de45" alias="igor_voxel_terrain_directional_light" source="shaders/voxel_terrain_directional_light.smat" />
         
         <Resource id="0x22c969d4614ee3dd" alias="igor_icon_add" source="icons/add.png" />
         <Resource id="0x6cf7bed3ab3e5d40" alias="igor_icon_light" source="icons/light.png" />

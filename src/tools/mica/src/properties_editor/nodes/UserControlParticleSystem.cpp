@@ -482,11 +482,8 @@ void UserControlParticleSystem::init()
     labelMaterial->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _materialSelection = new iWidgetSelectBox();
-    _materialSelection->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _materialSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-    _materialSelection->setGrowingByContent();
-    _materialSelection->setMinWidth(200);
+    _materialChooser = new iUserControlMaterialChooser();
+    _materialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     iWidgetLabel *labelTextureUnit0 = new iWidgetLabel();
     labelTextureUnit0->setText("Texture");
@@ -507,22 +504,6 @@ void UserControlParticleSystem::init()
     labelTextureUnit3->setText("Noise 3");
     labelTextureUnit3->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _textureChooser0 = new iUserControlFileChooser();
-    _textureChooser0->setPreselectedPath("..\\data\\textures");
-    _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-
-    _textureChooser1 = new iUserControlFileChooser();
-    _textureChooser1->setPreselectedPath("..\\data\\textures");
-    _textureChooser1->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-
-    _textureChooser2 = new iUserControlFileChooser();
-    _textureChooser2->setPreselectedPath("..\\data\\textures");
-    _textureChooser2->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-
-    _textureChooser3 = new iUserControlFileChooser();
-    _textureChooser3->setPreselectedPath("..\\data\\textures");
-    _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     gridButtons->addWidget(_buttonStart, 0, 0);
     gridButtons->addWidget(_buttonStop, 1, 0);
@@ -598,25 +579,13 @@ void UserControlParticleSystem::init()
     appearanceGroupBox->addWidget(gridAppearanceProperties);
 
     gridAppearanceProperties->addWidget(labelMaterial, 0, 0);
-    gridAppearanceProperties->addWidget(_materialSelection, 1, 0);
-
-    gridAppearanceProperties->addWidget(labelTextureUnit0, 0, 1);
-    gridAppearanceProperties->addWidget(_textureChooser0, 1, 1);
+    gridAppearanceProperties->addWidget(_materialChooser, 1, 0);
 
     gridAppearanceProperties->addWidget(labelHorizontalTiling, 0, 2);
     gridAppearanceProperties->addWidget(_tilingHorizontalChooser, 1, 2);
 
     gridAppearanceProperties->addWidget(labelVerticalTiling, 0, 3);
     gridAppearanceProperties->addWidget(_tilingVerticalChooser, 1, 3);
-
-    gridAppearanceProperties->addWidget(labelTextureUnit1, 0, 4);
-    gridAppearanceProperties->addWidget(_textureChooser1, 1, 4);
-
-    gridAppearanceProperties->addWidget(labelTextureUnit2, 0, 5);
-    gridAppearanceProperties->addWidget(_textureChooser2, 1, 5);
-
-    gridAppearanceProperties->addWidget(labelTextureUnit3, 0, 6);
-    gridAppearanceProperties->addWidget(_textureChooser3, 1, 6);
 
     gridAppearanceProperties->addWidget(labelVelocityOriented, 0, 7);
     gridAppearanceProperties->addWidget(_velocityOrientedCheckBox, 1, 7);
@@ -674,18 +643,7 @@ void UserControlParticleSystem::updateNode()
             }
         }
 
-        if (_materialSelection->getSelectedIndex() != -1 &&
-            _materialSelection->getSelectedUserData().has_value())
-        {
-            std::any userData = _materialSelection->getSelectedUserData();
-            iShaderMaterialID materialID = std::any_cast<iShaderMaterialID>(userData);
-            node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(materialID));
-        }
-
-        node->setTextureA(_textureChooser0->getFileName());
-        node->setTextureB(_textureChooser1->getFileName());
-        node->setTextureC(_textureChooser2->getFileName());
-
+        node->setMaterial(iResourceManager::getInstance().getResource<iMaterial>(_materialChooser->getID()));
         node->setLoop(_loopCheckBox->isChecked());
         node->setPeriodTime(_periodChooser->getValue());
         node->setMaxParticleCount(_maxParticleCount->getValue());
@@ -789,25 +747,6 @@ void UserControlParticleSystem::update()
             }
             i++;
         }
-
-        _materialSelection->clear();
-
-        std::vector<iShaderMaterialPtr> materials;
-        iResourceManager::getInstance().getMaterials(materials);
-        for (auto material : materials)
-        {            
-            _materialSelection->addItem(material->getInfo(), material->getID());
-
-            if (node->getMaterial()->getShaderMaterial() != nullptr &&
-                material->getID() == node->getMaterial()->getShaderMaterial()->getID())
-            {
-                _materialSelection->setSelection(_materialSelection->getItemCount() - 1);
-            }
-        }
-
-        _textureChooser0->setFileName(node->getTextureA());
-        _textureChooser1->setFileName(node->getTextureB());
-        _textureChooser2->setFileName(node->getTextureC());
 
         _loopCheckBox->setChecked(node->isLooped());
         _periodChooser->setValue(node->getPeriodTime());

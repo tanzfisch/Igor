@@ -6,6 +6,7 @@
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/loader/iMaterialIO.h>
+#include <igor/renderer/iRenderer.h>
 
 namespace igor
 {
@@ -18,6 +19,7 @@ namespace igor
     iResourcePtr iMaterialFactory::createResource()
     {
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                           {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iRenderer::getInstance().getDefaultShader()},
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
 
         return iMaterialPtr(new iMaterial(param));
@@ -60,7 +62,7 @@ namespace igor
     {
         const auto &parameters = resource->getParameters();
         const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
-        if(generate)
+        if (generate)
         {
             // already done during createResource
             return true;
