@@ -183,7 +183,7 @@ namespace igor
         iParameters param({ 
             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
             {IGOR_RESOURCE_PARAM_GENERATE, true},
-            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iRenderer::getInstance().getDefaultShader()},
+            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_voxel_terrain_directional_light")},
             {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.7f, 0.7f, 0.7f)},
             {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.9f, 0.9f, 0.9f)},
             {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.1f, 0.1f, 0.1f)},

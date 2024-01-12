@@ -125,12 +125,6 @@ namespace igor
         */
         void setLODTrigger(uint32 lodTriggerID);
 
-        /*! sets material
-
-        \param material the material to use
-        */
-        void setMaterial(const iShaderMaterialPtr& material);
-
         /*! sets physics material ID
 
         \param materialID the material ID to use
