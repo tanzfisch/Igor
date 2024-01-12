@@ -44,6 +44,8 @@ namespace igor
 
 	void iNodeAudioSource::setSound(iSoundPtr sound)
 	{
+		con_assert(sound != nullptr, "zero pointer");
+		
 		iAudio::getInstance().bindSource(_source, sound);
 	}
 

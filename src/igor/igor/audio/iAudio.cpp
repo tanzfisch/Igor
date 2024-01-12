@@ -404,6 +404,8 @@ namespace igor
 
     void iAudio::bindSource(const iAudioSource &source, iSoundPtr sound)
     {
+        con_assert(sound != nullptr, "zero pointer");
+        
         _impl->setSourceDirectChannel(source, sound->getNumberOfChannels() > 1);
         _impl->bindSource(source, sound->_buffer);
     }
