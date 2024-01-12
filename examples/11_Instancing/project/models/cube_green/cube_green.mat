@@ -3,7 +3,7 @@
 	<Material>
 		<ShaderMaterial>example_material_instancing_flat_shaded</ShaderMaterial>
 		<Diffuse>0.188462, 1, 0.2</Diffuse>
-		<Ambient>0.441013, 0.434615, 0.438199</Ambient>
+		<Ambient>0.241013, 0.934615, 0.238199</Ambient>
 		<Specular>0.6, 0.6, 0.6</Specular>
 		<Emissive>0, 0, 0</Emissive>
 		<Shininess>5</Shininess>

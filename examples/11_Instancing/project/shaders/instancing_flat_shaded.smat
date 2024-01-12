@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- material definition for 2d flat shading -->
-	<ShaderMaterial name="example.instancing.flat_shaded" visibility="Public">
+	<ShaderMaterial visibility="Public">
 		<States>
             <Instanced>On</Instanced>
-            <InstancedFunc>PositionOrientation</InstancedFunc>
+            <InstancedFunc>PositionOrientationInstancing</InstancedFunc>
 		</States>
         <Program>
             <Vertex>

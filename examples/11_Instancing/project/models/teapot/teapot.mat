@@ -2,8 +2,8 @@
 <Igor>
 	<Material>
 		<ShaderMaterial>example_material_instancing_flat_shaded</ShaderMaterial>
-		<Diffuse>0.969231, 0.80769, 0.961531</Diffuse>
-		<Ambient>0.365384, 0.363373, 0.363374</Ambient>
+		<Diffuse>0.269231, 0.20769, 0.761531</Diffuse>
+		<Ambient>0.265384, 0.263373, 0.263374</Ambient>
 		<Specular>0.534616, 0.434615, 0.434616</Specular>
 		<Emissive>0, 0, 0</Emissive>
 		<Shininess>10.9</Shininess>
