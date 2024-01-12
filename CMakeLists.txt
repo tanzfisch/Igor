@@ -215,7 +215,6 @@ foreach(
       10_LSystem
       11_Instancing
       12_CharacterController
-      13_SpriteAnimation
       15_Sound
       98_Supremacy
       99_Ascent
