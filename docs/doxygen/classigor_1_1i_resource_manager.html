@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -154,8 +154,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae61b5be6af472841bba1a0e3dcdaa9b7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ae61b5be6af472841bba1a0e3dcdaa9b7"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ae61b5be6af472841bba1a0e3dcdaa9b7">getResource</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;alias)</td></tr>
 <tr class="separator:ae61b5be6af472841bba1a0e3dcdaa9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93c290f25ed7356156ea4255c1d96f92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a93c290f25ed7356156ea4255c1d96f92">getMaterials</a> (std::vector&lt; <a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> &gt; &amp;materials)</td></tr>
-<tr class="separator:a93c290f25ed7356156ea4255c1d96f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aba30cbb400594aa7869d10dcc0e4e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a3aba30cbb400594aa7869d10dcc0e4e6">getMaterials</a> (std::vector&lt; <a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> &gt; &amp;materials)</td></tr>
+<tr class="separator:a3aba30cbb400594aa7869d10dcc0e4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80c36ff9b17f621d4c62198aca0e4f52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a80c36ff9b17f621d4c62198aca0e4f52">flush</a> (<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheModeLevel=<a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743ab24ce0cd392a5b0b8dedc66c25213594">iResourceCacheMode::Free</a>)</td></tr>
 <tr class="separator:a80c36ff9b17f621d4c62198aca0e4f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a426084d326277774eff2d43449bc898c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a426084d326277774eff2d43449bc898c">interruptFlush</a> ()</td></tr>
@@ -184,6 +184,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa79e2ec6cc87be524397f79f9aff25aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15270c19df7c3193f7dea987af9ae2ab"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a15270c19df7c3193f7dea987af9ae2ab">getType</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID) const</td></tr>
 <tr class="separator:a15270c19df7c3193f7dea987af9ae2ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54a92109194ad57483bd8ca90b84cb09"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a54a92109194ad57483bd8ca90b84cb09">saveResource</a> (<a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> resource, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename=&quot;&quot;)</td></tr>
+<tr class="separator:a54a92109194ad57483bd8ca90b84cb09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afda608413c6a4da0aac504ae0e440468"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#afda608413c6a4da0aac504ae0e440468">saveResource</a> (<a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> resourceID, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename=&quot;&quot;)</td></tr>
+<tr class="separator:afda608413c6a4da0aac504ae0e440468"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c814aa4309c9275e7f667b5f33dee2b"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
 <tr class="memitem:a5c814aa4309c9275e7f667b5f33dee2b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a5c814aa4309c9275e7f667b5f33dee2b">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
 <tr class="separator:a5c814aa4309c9275e7f667b5f33dee2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -319,6 +323,33 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a24d22b125f7a0a3ab8fea129acff4ecc"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
 <tr class="memitem:a24d22b125f7a0a3ab8fea129acff4ecc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a0e7c7d1dc06b3ef78dae0ce8ad4e1d04">iModelPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a24d22b125f7a0a3ab8fea129acff4ecc">getResource</a> (const iaString &amp;alias)</td></tr>
 <tr class="separator:a24d22b125f7a0a3ab8fea129acff4ecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a918ecd30833ccd77426dc025cd6676fa"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a918ecd30833ccd77426dc025cd6676fa"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a918ecd30833ccd77426dc025cd6676fa">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a918ecd30833ccd77426dc025cd6676fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a0552126c73208a82643b66a6e5fec6"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a6a0552126c73208a82643b66a6e5fec6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a6a0552126c73208a82643b66a6e5fec6">loadResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:a6a0552126c73208a82643b66a6e5fec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d06ae5983e4949851978b55c225e8f"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:af7d06ae5983e4949851978b55c225e8f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#af7d06ae5983e4949851978b55c225e8f">requestResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:af7d06ae5983e4949851978b55c225e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2e96bb524ccac8562a059e95ae7d2db"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ad2e96bb524ccac8562a059e95ae7d2db"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ad2e96bb524ccac8562a059e95ae7d2db">loadResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;resourceID, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
+<tr class="separator:ad2e96bb524ccac8562a059e95ae7d2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae574559185463898633e991744814423"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ae574559185463898633e991744814423"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ae574559185463898633e991744814423">requestResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:ae574559185463898633e991744814423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3916656905ef04a9de6db72e2ba4c401"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a3916656905ef04a9de6db72e2ba4c401"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a3916656905ef04a9de6db72e2ba4c401">loadResource</a> (const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;param)</td></tr>
+<tr class="separator:a3916656905ef04a9de6db72e2ba4c401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee16944198e9d3d37803d8c3736bf768"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:aee16944198e9d3d37803d8c3736bf768"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#aee16944198e9d3d37803d8c3736bf768">createResource</a> ()</td></tr>
+<tr class="separator:aee16944198e9d3d37803d8c3736bf768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73f72bb015248c580acdff820b414adb"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a73f72bb015248c580acdff820b414adb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a73f72bb015248c580acdff820b414adb">getResource</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;id)</td></tr>
+<tr class="separator:a73f72bb015248c580acdff820b414adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2f15eab93694791a7e63b4c09d2137b"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ad2f15eab93694791a7e63b4c09d2137b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#ad2f15eab93694791a7e63b4c09d2137b">getResource</a> (const iaString &amp;alias)</td></tr>
+<tr class="separator:ad2f15eab93694791a7e63b4c09d2137b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cc20caa9762466859d3db1ff62db3a3"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
 <tr class="memitem:a3cc20caa9762466859d3db1ff62db3a3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource_manager.html#a3cc20caa9762466859d3db1ff62db3a3">requestResource</a> (const iaString &amp;alias, <a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a> cacheMode)</td></tr>
 <tr class="separator:a3cc20caa9762466859d3db1ff62db3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -471,7 +502,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a94b6409c2ab519b51dec37d09d0bd47e" name="a94b6409c2ab519b51dec37d09d0bd47e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94b6409c2ab519b51dec37d09d0bd47e">&#9670;&nbsp;</a></span>createResource() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a94b6409c2ab519b51dec37d09d0bd47e">&#9670;&nbsp;</a></span>createResource() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -493,7 +524,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ab05d6e252f3d0c0b6496e7cebbd0564f" name="ab05d6e252f3d0c0b6496e7cebbd0564f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab05d6e252f3d0c0b6496e7cebbd0564f">&#9670;&nbsp;</a></span>createResource() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab05d6e252f3d0c0b6496e7cebbd0564f">&#9670;&nbsp;</a></span>createResource() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -520,7 +551,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a1250eb26144c11c4a6c984d4570b2d45" name="a1250eb26144c11c4a6c984d4570b2d45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1250eb26144c11c4a6c984d4570b2d45">&#9670;&nbsp;</a></span>createResource() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1250eb26144c11c4a6c984d4570b2d45">&#9670;&nbsp;</a></span>createResource() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -547,7 +578,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a9cdf708e07a59863db46ae8cbdf17b77" name="a9cdf708e07a59863db46ae8cbdf17b77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cdf708e07a59863db46ae8cbdf17b77">&#9670;&nbsp;</a></span>createResource() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cdf708e07a59863db46ae8cbdf17b77">&#9670;&nbsp;</a></span>createResource() <span class="overload">[4/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -574,7 +605,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="ab14cab43a4c5909a164e3e0e9f861ec5" name="ab14cab43a4c5909a164e3e0e9f861ec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab14cab43a4c5909a164e3e0e9f861ec5">&#9670;&nbsp;</a></span>createResource() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab14cab43a4c5909a164e3e0e9f861ec5">&#9670;&nbsp;</a></span>createResource() <span class="overload">[5/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -601,7 +632,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a5c1aa82978166cb1b0b225c191365efd" name="a5c1aa82978166cb1b0b225c191365efd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c1aa82978166cb1b0b225c191365efd">&#9670;&nbsp;</a></span>createResource() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1aa82978166cb1b0b225c191365efd">&#9670;&nbsp;</a></span>createResource() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -627,8 +658,35 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="aee16944198e9d3d37803d8c3736bf768" name="aee16944198e9d3d37803d8c3736bf768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee16944198e9d3d37803d8c3736bf768">&#9670;&nbsp;</a></span>createResource() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::createResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a23c6569e5b25b7f562966a129f016c8d" name="a23c6569e5b25b7f562966a129f016c8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23c6569e5b25b7f562966a129f016c8d">&#9670;&nbsp;</a></span>createResource() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c6569e5b25b7f562966a129f016c8d">&#9670;&nbsp;</a></span>createResource() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -655,7 +713,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2" name="a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2">&#9670;&nbsp;</a></span>createResource() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c8f9f69bd2f90e65a4ac7a9dbc5e1f2">&#9670;&nbsp;</a></span>createResource() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -672,7 +730,7 @@ template&lt;&gt; </div>
 <p >creates a new resource</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">param</td><td>parameters for loading resource </td></tr>
+    <tr><td class="paramname">param</td><td>parameters for creating resource </td></tr>
   </table>
   </dd>
 </dl>
@@ -799,8 +857,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a93c290f25ed7356156ea4255c1d96f92" name="a93c290f25ed7356156ea4255c1d96f92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93c290f25ed7356156ea4255c1d96f92">&#9670;&nbsp;</a></span>getMaterials()</h2>
+<a id="a3aba30cbb400594aa7869d10dcc0e4e6" name="a3aba30cbb400594aa7869d10dcc0e4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aba30cbb400594aa7869d10dcc0e4e6">&#9670;&nbsp;</a></span>getMaterials()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -808,7 +866,7 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname">void igor::iResourceManager::getMaterials </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="namespaceigor.html#a41358a63f3a18dbf324fa5df53760e71">iMaterialPtr</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>materials</em></td><td>)</td>
           <td></td>
         </tr>
@@ -851,7 +909,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="ae61b5be6af472841bba1a0e3dcdaa9b7" name="ae61b5be6af472841bba1a0e3dcdaa9b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae61b5be6af472841bba1a0e3dcdaa9b7">&#9670;&nbsp;</a></span>getResource() <span class="overload">[1/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae61b5be6af472841bba1a0e3dcdaa9b7">&#9670;&nbsp;</a></span>getResource() <span class="overload">[1/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -879,7 +937,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="adc40ee26802e793e53e5046579da3d13" name="adc40ee26802e793e53e5046579da3d13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc40ee26802e793e53e5046579da3d13">&#9670;&nbsp;</a></span>getResource() <span class="overload">[2/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adc40ee26802e793e53e5046579da3d13">&#9670;&nbsp;</a></span>getResource() <span class="overload">[2/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -907,7 +965,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a507011904dc513e9971940f15ffe8a01" name="a507011904dc513e9971940f15ffe8a01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a507011904dc513e9971940f15ffe8a01">&#9670;&nbsp;</a></span>getResource() <span class="overload">[3/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a507011904dc513e9971940f15ffe8a01">&#9670;&nbsp;</a></span>getResource() <span class="overload">[3/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -935,7 +993,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a701fe6e3fe872ac268dae60cd797e7bc" name="a701fe6e3fe872ac268dae60cd797e7bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a701fe6e3fe872ac268dae60cd797e7bc">&#9670;&nbsp;</a></span>getResource() <span class="overload">[4/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a701fe6e3fe872ac268dae60cd797e7bc">&#9670;&nbsp;</a></span>getResource() <span class="overload">[4/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -963,7 +1021,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a8c020f7a4ffc38be93da468fc8acde39" name="a8c020f7a4ffc38be93da468fc8acde39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c020f7a4ffc38be93da468fc8acde39">&#9670;&nbsp;</a></span>getResource() <span class="overload">[5/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c020f7a4ffc38be93da468fc8acde39">&#9670;&nbsp;</a></span>getResource() <span class="overload">[5/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -991,7 +1049,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a24d22b125f7a0a3ab8fea129acff4ecc" name="a24d22b125f7a0a3ab8fea129acff4ecc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24d22b125f7a0a3ab8fea129acff4ecc">&#9670;&nbsp;</a></span>getResource() <span class="overload">[6/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a24d22b125f7a0a3ab8fea129acff4ecc">&#9670;&nbsp;</a></span>getResource() <span class="overload">[6/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1018,8 +1076,36 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="ad2f15eab93694791a7e63b4c09d2137b" name="ad2f15eab93694791a7e63b4c09d2137b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2f15eab93694791a7e63b4c09d2137b">&#9670;&nbsp;</a></span>getResource() <span class="overload">[7/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac64000c4a7bdc941220633889372df17" name="ac64000c4a7bdc941220633889372df17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac64000c4a7bdc941220633889372df17">&#9670;&nbsp;</a></span>getResource() <span class="overload">[7/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac64000c4a7bdc941220633889372df17">&#9670;&nbsp;</a></span>getResource() <span class="overload">[8/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1047,7 +1133,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="aa0de6e32d5e3eedf0cacec9f2ea5dc3d" name="aa0de6e32d5e3eedf0cacec9f2ea5dc3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0de6e32d5e3eedf0cacec9f2ea5dc3d">&#9670;&nbsp;</a></span>getResource() <span class="overload">[8/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0de6e32d5e3eedf0cacec9f2ea5dc3d">&#9670;&nbsp;</a></span>getResource() <span class="overload">[9/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1072,7 +1158,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a661e6f5c84071bd81bde9d04e5d374b5" name="a661e6f5c84071bd81bde9d04e5d374b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a661e6f5c84071bd81bde9d04e5d374b5">&#9670;&nbsp;</a></span>getResource() <span class="overload">[9/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a661e6f5c84071bd81bde9d04e5d374b5">&#9670;&nbsp;</a></span>getResource() <span class="overload">[10/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1100,7 +1186,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a5cd8b6a86ddcedf54a7899cb4cf3645f" name="a5cd8b6a86ddcedf54a7899cb4cf3645f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cd8b6a86ddcedf54a7899cb4cf3645f">&#9670;&nbsp;</a></span>getResource() <span class="overload">[10/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cd8b6a86ddcedf54a7899cb4cf3645f">&#9670;&nbsp;</a></span>getResource() <span class="overload">[11/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1128,7 +1214,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="ae16abb7f9145a5963b005dd0953fc818" name="ae16abb7f9145a5963b005dd0953fc818"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae16abb7f9145a5963b005dd0953fc818">&#9670;&nbsp;</a></span>getResource() <span class="overload">[11/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae16abb7f9145a5963b005dd0953fc818">&#9670;&nbsp;</a></span>getResource() <span class="overload">[12/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1156,7 +1242,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="ad01625e23308ffad18450a2b9b47f0e6" name="ad01625e23308ffad18450a2b9b47f0e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad01625e23308ffad18450a2b9b47f0e6">&#9670;&nbsp;</a></span>getResource() <span class="overload">[12/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad01625e23308ffad18450a2b9b47f0e6">&#9670;&nbsp;</a></span>getResource() <span class="overload">[13/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1184,7 +1270,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a4a46b652cd05e235e78a78a6f5fd380c" name="a4a46b652cd05e235e78a78a6f5fd380c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a46b652cd05e235e78a78a6f5fd380c">&#9670;&nbsp;</a></span>getResource() <span class="overload">[13/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a46b652cd05e235e78a78a6f5fd380c">&#9670;&nbsp;</a></span>getResource() <span class="overload">[14/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1212,7 +1298,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a7ba07d75db84181bea62d4f7a7e96679" name="a7ba07d75db84181bea62d4f7a7e96679"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ba07d75db84181bea62d4f7a7e96679">&#9670;&nbsp;</a></span>getResource() <span class="overload">[14/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba07d75db84181bea62d4f7a7e96679">&#9670;&nbsp;</a></span>getResource() <span class="overload">[15/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1239,8 +1325,36 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="a73f72bb015248c580acdff820b414adb" name="a73f72bb015248c580acdff820b414adb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73f72bb015248c580acdff820b414adb">&#9670;&nbsp;</a></span>getResource() <span class="overload">[16/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::getResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a42e750256277fde924c9d8792b32dc44" name="a42e750256277fde924c9d8792b32dc44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42e750256277fde924c9d8792b32dc44">&#9670;&nbsp;</a></span>getResource() <span class="overload">[15/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a42e750256277fde924c9d8792b32dc44">&#9670;&nbsp;</a></span>getResource() <span class="overload">[17/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1382,7 +1496,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a4be3a7538cd479904528b06742cdf9a0" name="a4be3a7538cd479904528b06742cdf9a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4be3a7538cd479904528b06742cdf9a0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[1/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4be3a7538cd479904528b06742cdf9a0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[1/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1420,7 +1534,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a2234c51469de1e6b5a9ba3d7d72c9edb" name="a2234c51469de1e6b5a9ba3d7d72c9edb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2234c51469de1e6b5a9ba3d7d72c9edb">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[2/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2234c51469de1e6b5a9ba3d7d72c9edb">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[2/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1458,7 +1572,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="af2d67e70ba71ce2dbbf1298e2bb47b12" name="af2d67e70ba71ce2dbbf1298e2bb47b12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2d67e70ba71ce2dbbf1298e2bb47b12">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[3/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af2d67e70ba71ce2dbbf1298e2bb47b12">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[3/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1496,7 +1610,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="acfaa25bf1903288b8aef90a563aaacb3" name="acfaa25bf1903288b8aef90a563aaacb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfaa25bf1903288b8aef90a563aaacb3">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[4/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acfaa25bf1903288b8aef90a563aaacb3">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[4/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1534,7 +1648,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a604af4574a747ade1485b49c0d7feacc" name="a604af4574a747ade1485b49c0d7feacc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a604af4574a747ade1485b49c0d7feacc">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[5/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a604af4574a747ade1485b49c0d7feacc">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[5/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1571,8 +1685,46 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="a6a0552126c73208a82643b66a6e5fec6" name="a6a0552126c73208a82643b66a6e5fec6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a0552126c73208a82643b66a6e5fec6">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[6/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac7b167e8de8a2a0c9cfc74474f66a367" name="ac7b167e8de8a2a0c9cfc74474f66a367"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7b167e8de8a2a0c9cfc74474f66a367">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[6/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b167e8de8a2a0c9cfc74474f66a367">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[7/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1610,7 +1762,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a15bdff43f1fbc76ee1cb94e4d1ca2906" name="a15bdff43f1fbc76ee1cb94e4d1ca2906"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15bdff43f1fbc76ee1cb94e4d1ca2906">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[7/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a15bdff43f1fbc76ee1cb94e4d1ca2906">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[8/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1649,7 +1801,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a4a65afe51745e75473c55b4904cfe237" name="a4a65afe51745e75473c55b4904cfe237"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a65afe51745e75473c55b4904cfe237">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[8/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a65afe51745e75473c55b4904cfe237">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[9/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1677,7 +1829,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a0a7761b643f965ff935589a6e4c2f86e" name="a0a7761b643f965ff935589a6e4c2f86e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a7761b643f965ff935589a6e4c2f86e">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[9/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a7761b643f965ff935589a6e4c2f86e">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[10/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1705,7 +1857,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a440f5eb94f7aaebfd8824dd3e041244b" name="a440f5eb94f7aaebfd8824dd3e041244b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a440f5eb94f7aaebfd8824dd3e041244b">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[10/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a440f5eb94f7aaebfd8824dd3e041244b">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[11/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1733,7 +1885,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="acdefe37fab984778c0fb61dcfcb2cda8" name="acdefe37fab984778c0fb61dcfcb2cda8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdefe37fab984778c0fb61dcfcb2cda8">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[11/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acdefe37fab984778c0fb61dcfcb2cda8">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[12/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1761,7 +1913,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="aae5c9364e6adff99dc318ca953819842" name="aae5c9364e6adff99dc318ca953819842"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae5c9364e6adff99dc318ca953819842">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[12/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aae5c9364e6adff99dc318ca953819842">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[13/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1788,8 +1940,36 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="a3916656905ef04a9de6db72e2ba4c401" name="a3916656905ef04a9de6db72e2ba4c401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3916656905ef04a9de6db72e2ba4c401">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[14/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a64077602700aab78687bf349b4d37291" name="a64077602700aab78687bf349b4d37291"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64077602700aab78687bf349b4d37291">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[13/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a64077602700aab78687bf349b4d37291">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[15/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1817,7 +1997,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="adac7b9bc0fb1cdcb187b4beb7b4e908f" name="adac7b9bc0fb1cdcb187b4beb7b4e908f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adac7b9bc0fb1cdcb187b4beb7b4e908f">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[14/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adac7b9bc0fb1cdcb187b4beb7b4e908f">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[16/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1843,7 +2023,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="ac4d98e9603a46834b2894886ce2a1e43" name="ac4d98e9603a46834b2894886ce2a1e43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4d98e9603a46834b2894886ce2a1e43">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[15/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4d98e9603a46834b2894886ce2a1e43">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[17/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1872,7 +2052,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a7f100ee91d79fbf96f160fb4910a2041" name="a7f100ee91d79fbf96f160fb4910a2041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f100ee91d79fbf96f160fb4910a2041">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[16/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f100ee91d79fbf96f160fb4910a2041">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[18/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1910,7 +2090,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a86b873872c4bbeb69583234526409e36" name="a86b873872c4bbeb69583234526409e36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86b873872c4bbeb69583234526409e36">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[17/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a86b873872c4bbeb69583234526409e36">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[19/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1948,7 +2128,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a8a2cd178011c511e4dfd342ac06b1e0f" name="a8a2cd178011c511e4dfd342ac06b1e0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a2cd178011c511e4dfd342ac06b1e0f">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[18/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a2cd178011c511e4dfd342ac06b1e0f">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[20/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1986,7 +2166,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="abbf6127f1354039d0b99d96a649bf55d" name="abbf6127f1354039d0b99d96a649bf55d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbf6127f1354039d0b99d96a649bf55d">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[19/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf6127f1354039d0b99d96a649bf55d">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[21/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2024,7 +2204,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a134595abefe48cb8cf2b01ea173b6bb4" name="a134595abefe48cb8cf2b01ea173b6bb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a134595abefe48cb8cf2b01ea173b6bb4">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[20/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a134595abefe48cb8cf2b01ea173b6bb4">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[22/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2061,8 +2241,46 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="ad2e96bb524ccac8562a059e95ae7d2db" name="ad2e96bb524ccac8562a059e95ae7d2db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2e96bb524ccac8562a059e95ae7d2db">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[23/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::loadResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa50e0f9a0cfa5bc19a8e44fef86c61d0" name="aa50e0f9a0cfa5bc19a8e44fef86c61d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa50e0f9a0cfa5bc19a8e44fef86c61d0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[21/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa50e0f9a0cfa5bc19a8e44fef86c61d0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[24/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2100,7 +2318,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a54f0ce18398703a5f8ff25d00d8a7ca0" name="a54f0ce18398703a5f8ff25d00d8a7ca0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54f0ce18398703a5f8ff25d00d8a7ca0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[22/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a54f0ce18398703a5f8ff25d00d8a7ca0">&#9670;&nbsp;</a></span>loadResource() <span class="overload">[25/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2240,7 +2458,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a5c814aa4309c9275e7f667b5f33dee2b" name="a5c814aa4309c9275e7f667b5f33dee2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c814aa4309c9275e7f667b5f33dee2b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[1/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c814aa4309c9275e7f667b5f33dee2b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[1/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2278,7 +2496,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="ac37e26cbd4b5980501775ca3e4ff6380" name="ac37e26cbd4b5980501775ca3e4ff6380"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac37e26cbd4b5980501775ca3e4ff6380">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[2/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac37e26cbd4b5980501775ca3e4ff6380">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[2/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2316,7 +2534,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="aa4a45909c470dae4fc7990e4b1e1aea7" name="aa4a45909c470dae4fc7990e4b1e1aea7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4a45909c470dae4fc7990e4b1e1aea7">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[3/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a45909c470dae4fc7990e4b1e1aea7">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[3/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2354,7 +2572,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="ae55edc813d61f28228c028740e8e647d" name="ae55edc813d61f28228c028740e8e647d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae55edc813d61f28228c028740e8e647d">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[4/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55edc813d61f28228c028740e8e647d">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[4/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2392,7 +2610,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="aa61a0f0e2675a46d9b52951b93162359" name="aa61a0f0e2675a46d9b52951b93162359"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa61a0f0e2675a46d9b52951b93162359">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[5/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa61a0f0e2675a46d9b52951b93162359">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[5/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2429,8 +2647,46 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="a918ecd30833ccd77426dc025cd6676fa" name="a918ecd30833ccd77426dc025cd6676fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a918ecd30833ccd77426dc025cd6676fa">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[6/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const iaString &amp;&#160;</td>
+          <td class="paramname"><em>alias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3cc20caa9762466859d3db1ff62db3a3" name="a3cc20caa9762466859d3db1ff62db3a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cc20caa9762466859d3db1ff62db3a3">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[6/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc20caa9762466859d3db1ff62db3a3">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[7/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2468,7 +2724,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="afc2274ad1f08932325109d2d9dd097ec" name="afc2274ad1f08932325109d2d9dd097ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc2274ad1f08932325109d2d9dd097ec">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[7/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afc2274ad1f08932325109d2d9dd097ec">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[8/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2507,7 +2763,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="afd1513a452249102dabb86ed329825d6" name="afd1513a452249102dabb86ed329825d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd1513a452249102dabb86ed329825d6">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[8/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afd1513a452249102dabb86ed329825d6">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[9/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2535,7 +2791,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a48b4eacd691a07a67aac7d5a6874ef7b" name="a48b4eacd691a07a67aac7d5a6874ef7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48b4eacd691a07a67aac7d5a6874ef7b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[9/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a48b4eacd691a07a67aac7d5a6874ef7b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[10/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2563,7 +2819,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a80837ff6a977a70d74ef771b21de074a" name="a80837ff6a977a70d74ef771b21de074a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80837ff6a977a70d74ef771b21de074a">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[10/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a80837ff6a977a70d74ef771b21de074a">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[11/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2591,7 +2847,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="ad47761f14ae62b10635d3dbb25395505" name="ad47761f14ae62b10635d3dbb25395505"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad47761f14ae62b10635d3dbb25395505">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[11/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad47761f14ae62b10635d3dbb25395505">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[12/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2619,7 +2875,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a76bbcd8bac22b5480b672805b4d75bf6" name="a76bbcd8bac22b5480b672805b4d75bf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76bbcd8bac22b5480b672805b4d75bf6">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[12/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a76bbcd8bac22b5480b672805b4d75bf6">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[13/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2646,8 +2902,36 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="ae574559185463898633e991744814423" name="ae574559185463898633e991744814423"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae574559185463898633e991744814423">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[14/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classigor_1_1i_parameters.html">iParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>param</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7d981255148b453056cde656f05086c0" name="a7d981255148b453056cde656f05086c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d981255148b453056cde656f05086c0">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[13/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d981255148b453056cde656f05086c0">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[15/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2675,7 +2959,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="abc8afa4a2b21c4564704776a3ff95834" name="abc8afa4a2b21c4564704776a3ff95834"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc8afa4a2b21c4564704776a3ff95834">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[14/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abc8afa4a2b21c4564704776a3ff95834">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[16/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2701,7 +2985,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a1abb2b2b5e2778b4ce6b50f50ae0eaeb" name="a1abb2b2b5e2778b4ce6b50f50ae0eaeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1abb2b2b5e2778b4ce6b50f50ae0eaeb">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[15/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1abb2b2b5e2778b4ce6b50f50ae0eaeb">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[17/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2730,7 +3014,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a79125a83702c94caf1c06080824aad0e" name="a79125a83702c94caf1c06080824aad0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79125a83702c94caf1c06080824aad0e">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[16/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a79125a83702c94caf1c06080824aad0e">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[18/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2768,7 +3052,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a8111a1e0b0f795da8124d480c1c9b2bc" name="a8111a1e0b0f795da8124d480c1c9b2bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8111a1e0b0f795da8124d480c1c9b2bc">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[17/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8111a1e0b0f795da8124d480c1c9b2bc">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[19/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2806,7 +3090,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a2a91b4c2a9365086a2b69fa31c30f4b5" name="a2a91b4c2a9365086a2b69fa31c30f4b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a91b4c2a9365086a2b69fa31c30f4b5">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[18/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a91b4c2a9365086a2b69fa31c30f4b5">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[20/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2844,7 +3128,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a83ef544c049b4d4570daff73b6e79dbc" name="a83ef544c049b4d4570daff73b6e79dbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83ef544c049b4d4570daff73b6e79dbc">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[19/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a83ef544c049b4d4570daff73b6e79dbc">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[21/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2882,7 +3166,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a3beb1ef4404eac2764c6f912514f581b" name="a3beb1ef4404eac2764c6f912514f581b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3beb1ef4404eac2764c6f912514f581b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[20/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3beb1ef4404eac2764c6f912514f581b">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[22/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2919,8 +3203,46 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a id="af7d06ae5983e4949851978b55c225e8f" name="af7d06ae5983e4949851978b55c225e8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7d06ae5983e4949851978b55c225e8f">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[23/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a51808377137fc13caba8dbebd5f6d77d">iShaderMaterialPtr</a> igor::iResourceManager::requestResource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td>
+          <td class="paramname"><em>cacheMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6eed353afe8f8bef2b6fb98821ec822c" name="a6eed353afe8f8bef2b6fb98821ec822c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6eed353afe8f8bef2b6fb98821ec822c">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[21/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eed353afe8f8bef2b6fb98821ec822c">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[24/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2958,7 +3280,7 @@ template&lt;&gt; </div>
 </div>
 </div>
 <a id="a6ab8dabc7eadbfd9d2b9cbdf05002a80" name="a6ab8dabc7eadbfd9d2b9cbdf05002a80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ab8dabc7eadbfd9d2b9cbdf05002a80">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[22/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ab8dabc7eadbfd9d2b9cbdf05002a80">&#9670;&nbsp;</a></span>requestResource() <span class="overload">[25/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3020,6 +3342,82 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="afda608413c6a4da0aac504ae0e440468" name="afda608413c6a4da0aac504ae0e440468"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afda608413c6a4da0aac504ae0e440468">&#9670;&nbsp;</a></span>saveResource() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iResourceManager::saveResource </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a>&#160;</td>
+          <td class="paramname"><em>resourceID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >saves a resource to the filesystem <br  />
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resourceID</td><td>the given resource ID to save (must be valid and have a valid source/filename) </td></tr>
+    <tr><td class="paramname">filename</td><td>optional filename if resource is to be saved in a new location </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if successfully saved </dd></dl>
+
+</div>
+</div>
+<a id="a54a92109194ad57483bd8ca90b84cb09" name="a54a92109194ad57483bd8ca90b84cb09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54a92109194ad57483bd8ca90b84cb09">&#9670;&nbsp;</a></span>saveResource() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iResourceManager::saveResource </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td>
+          <td class="paramname"><em>resource</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >saves a resource to the filesystem <br  />
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resource</td><td>the given resource to save (must be valid and have a valid source/filename) </td></tr>
+    <tr><td class="paramname">filename</td><td>optional filename if resource is to be saved in a new location </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if successfully saved </dd></dl>
 
 </div>
 </div>

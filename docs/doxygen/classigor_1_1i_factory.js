@@ -10,6 +10,7 @@ var classigor_1_1i_factory =
     [ "getType", "classigor_1_1i_factory.html#a05cd1242c1514a4a6d1d63aaf282efa8", null ],
     [ "init", "classigor_1_1i_factory.html#a4ead6cdbac6b8d1e9fe9543d9c0b5bb1", null ],
     [ "loadResource", "classigor_1_1i_factory.html#a0756f099bca1debeb118fe769013465e", null ],
+    [ "saveResource", "classigor_1_1i_factory.html#a1e3cd8022f922609cb0d29067da208e3", null ],
     [ "unloadResource", "classigor_1_1i_factory.html#a6145958fc92a16d6e767f5058ff9e460", null ],
     [ "iResourceManager", "classigor_1_1i_factory.html#a3d7f73050de28471f180641b509bbfde", null ],
     [ "_supportedExtensions", "classigor_1_1i_factory.html#a26d75c52e783fbb3ef2a0df88b261c29", null ],

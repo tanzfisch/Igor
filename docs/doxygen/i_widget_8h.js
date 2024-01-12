@@ -44,6 +44,8 @@ var i_widget_8h =
       [ "iUserControlColorChooser", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618af94ac2ab874b01585a45c9ea46e4152a", null ],
       [ "iUserControlFileChooser", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618a0be42edf3263e3ac34ae19d31269bc21", null ],
       [ "iUserControlTextureChooser", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618af3d236e85d678ff68093d66e75c77e4e", null ],
+      [ "iUserControlMaterialChooser", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618a14b8e921e493feb17ef5b6ca12be0834", null ],
+      [ "iUserControlShaderMaterialChooser", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618aa27028ea0c62b8c8a299899b72c2c274", null ],
       [ "iUserControlTreeView", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618a9c1e14d7dfe0631c199642fee0f1c283", null ],
       [ "iDialog", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618ae47738832438f1fe138c849f81f49ded", null ],
       [ "iDialogColorChooser", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618adaeced69e6c5e4e9f9dc894ccb895f40", null ],

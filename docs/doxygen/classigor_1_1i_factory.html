@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_factory.html',''); init
 
 <p><code>#include &lt;iFactory.h&gt;</code></p>
 
-<p>Inherited by <a class="el" href="classigor_1_1i_animation_factory.html">igor::iAnimationFactory</a>, <a class="el" href="classigor_1_1i_material_factory.html">igor::iMaterialFactory</a>, <a class="el" href="classigor_1_1i_model_factory.html">igor::iModelFactory</a>, <a class="el" href="classigor_1_1i_sound_factory.html">igor::iSoundFactory</a>, <a class="el" href="classigor_1_1i_sprite_factory.html">igor::iSpriteFactory</a>, and <a class="el" href="classigor_1_1i_texture_factory.html">igor::iTextureFactory</a>.</p>
+<p>Inherited by <a class="el" href="classigor_1_1i_animation_factory.html">igor::iAnimationFactory</a>, <a class="el" href="classigor_1_1i_material_factory.html">igor::iMaterialFactory</a>, <a class="el" href="classigor_1_1i_model_factory.html">igor::iModelFactory</a>, <a class="el" href="classigor_1_1i_shader_material_factory.html">igor::iShaderMaterialFactory</a>, <a class="el" href="classigor_1_1i_sound_factory.html">igor::iSoundFactory</a>, <a class="el" href="classigor_1_1i_sprite_factory.html">igor::iSpriteFactory</a>, and <a class="el" href="classigor_1_1i_texture_factory.html">igor::iTextureFactory</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -122,6 +122,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a0756f099bca1debeb118fe769013465e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6145958fc92a16d6e767f5058ff9e460"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a6145958fc92a16d6e767f5058ff9e460">unloadResource</a> (<a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> resource)=0</td></tr>
 <tr class="separator:a6145958fc92a16d6e767f5058ff9e460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e3cd8022f922609cb0d29067da208e3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a1e3cd8022f922609cb0d29067da208e3">saveResource</a> (<a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a> resource, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename=&quot;&quot;)</td></tr>
+<tr class="separator:a1e3cd8022f922609cb0d29067da208e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ead6cdbac6b8d1e9fe9543d9c0b5bb1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a4ead6cdbac6b8d1e9fe9543d9c0b5bb1">init</a> ()</td></tr>
 <tr class="separator:a4ead6cdbac6b8d1e9fe9543d9c0b5bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38f55fd9bdfa08c41fc30f05a83aa886"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_factory.html#a38f55fd9bdfa08c41fc30f05a83aa886">deinit</a> ()</td></tr>
@@ -437,6 +439,52 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if loading the resource was successful </dd></dl>
+
+</div>
+</div>
+<a id="a1e3cd8022f922609cb0d29067da208e3" name="a1e3cd8022f922609cb0d29067da208e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e3cd8022f922609cb0d29067da208e3">&#9670;&nbsp;</a></span>saveResource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool igor::iFactory::saveResource </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#ac002be23de46a70479db6c21907d9184">iResourcePtr</a>&#160;</td>
+          <td class="paramname"><em>resource</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >exports the resource based on it's parameters</p>
+<p >this needs to be a valid resource with a valid source parameter</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resource</td><td>the resource to save </td></tr>
+    <tr><td class="paramname">filename</td><td>optional filename if resource is to be saved in a new location </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if saving the resource was successful </dd></dl>
 
 </div>
 </div>

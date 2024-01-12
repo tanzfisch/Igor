@@ -1,0 +1,28 @@
+var classigor_1_1i_shader_material =
+[
+    [ "getOrder", "classigor_1_1i_shader_material.html#a38b30a4540dfc4158bb490024c184da0", null ],
+    [ "getRenderState", "classigor_1_1i_shader_material.html#a0fa0fd5c9d9c915d538aacffc847679c", null ],
+    [ "getShaderProgram", "classigor_1_1i_shader_material.html#a31c71c010dfbc77bcf5d4b7a89b9e714", null ],
+    [ "getVisibility", "classigor_1_1i_shader_material.html#a8b4cfa677a02cd015f4f162a5141b025", null ],
+    [ "hasDirectionalLight", "classigor_1_1i_shader_material.html#ac49391d2d52e068187090524ab7739a2", null ],
+    [ "hasEyePosition", "classigor_1_1i_shader_material.html#a5927237354e077331532ed07a7168182", null ],
+    [ "hasModelMatrix", "classigor_1_1i_shader_material.html#a6acd215c0c2c3f3910a9013257f2057c", null ],
+    [ "hasModelViewMatrix", "classigor_1_1i_shader_material.html#a33f83bb140539ddbfba87bc6d90e0645", null ],
+    [ "hasModelViewProjectionMatrix", "classigor_1_1i_shader_material.html#ae694f00715b84dad8f734c4dd1457ba3", null ],
+    [ "hasSolidColor", "classigor_1_1i_shader_material.html#a3187531327b43ef3a1cdfc208274f6cc", null ],
+    [ "hasTargetMaterial", "classigor_1_1i_shader_material.html#a0dab84e9258e5b576647806877106337", null ],
+    [ "hasTextureUnit", "classigor_1_1i_shader_material.html#a73d9611499001a201befb1e9b7719b32", null ],
+    [ "hasTilingConfig", "classigor_1_1i_shader_material.html#a32ca1e5dd03c75819877d27540f8fb5e", null ],
+    [ "hasVelocityOrientedConfig", "classigor_1_1i_shader_material.html#aad4684c3dd5acf77beb97f0e74602c5a", null ],
+    [ "hasViewProjectionMatrix", "classigor_1_1i_shader_material.html#a105dbd732d37476e583ac5dbe09ef8ad", null ],
+    [ "isValid", "classigor_1_1i_shader_material.html#afb2c85a79d3f4304c7d96e5a451e07d2", null ],
+    [ "setOrder", "classigor_1_1i_shader_material.html#aa1889d45c599988c3d73bea94306cbf2", null ],
+    [ "setRenderState", "classigor_1_1i_shader_material.html#a5335b181048c697afb5e908ab7b04e08", null ],
+    [ "setShaderProgram", "classigor_1_1i_shader_material.html#a940be243c1ed46e96fdc52c7ae8b516a", null ],
+    [ "setVisibility", "classigor_1_1i_shader_material.html#af056ca83b5f35f2cd1ea531a0e28aaee", null ],
+    [ "iRenderer", "classigor_1_1i_shader_material.html#a3169e12ae7cf3e5c6fd53a245e5e2d52", null ],
+    [ "iShaderMaterialFactory", "classigor_1_1i_shader_material.html#a0ed727a6a2cd7cb3fb97cbad32aaf6bf", null ],
+    [ "RENDER_ORDER_DEFAULT", "classigor_1_1i_shader_material.html#a49be71b1e5bf68ea57fbafab5043de40", null ],
+    [ "RENDER_ORDER_MAX", "classigor_1_1i_shader_material.html#a34588fa24ab55eabc3c8916283c3c6c0", null ],
+    [ "RENDER_ORDER_MIN", "classigor_1_1i_shader_material.html#a81500c4664d02cac325fd82b517f67e1", null ]
+];

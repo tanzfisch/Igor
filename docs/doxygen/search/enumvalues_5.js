@@ -37,7 +37,7 @@ var searchData=
   ['fpsandmetrics_34',['FPSAndMetrics',['../namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2daea55326c3da1b35339a2394107e6d565',1,'igor']]],
   ['fpsmetricsandtasks_35',['FPSMetricsAndTasks',['../namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2daf436b5de27be311e80706ecd3e3aece3',1,'igor']]],
   ['fpsonly_36',['FPSOnly',['../namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2da21ff57bb8b0ed51910e4d1d624ef00c1',1,'igor']]],
-  ['fragment_37',['Fragment',['../namespaceigor.html#a6010bf4687944c41cfac475595856062a37d01b98065725fe3a1d30acf3a0064a',1,'igor::Fragment()'],['../namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1a37d01b98065725fe3a1d30acf3a0064a',1,'OMPF::Fragment()']]],
+  ['fragment_37',['Fragment',['../namespaceigor.html#a6010bf4687944c41cfac475595856062a37d01b98065725fe3a1d30acf3a0064a',1,'igor']]],
   ['free_38',['Free',['../namespaceigor.html#a424b008e648b912ad459f21479742743ab24ce0cd392a5b0b8dedc66c25213594',1,'igor']]],
-  ['front_39',['Front',['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a5835bab1ade0060909e31a06af2e2cde',1,'igor::Front()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a5835bab1ade0060909e31a06af2e2cde',1,'OMPF::Front()']]]
+  ['front_39',['Front',['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a5835bab1ade0060909e31a06af2e2cde',1,'igor']]]
 ];
