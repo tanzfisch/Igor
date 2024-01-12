@@ -4,367 +4,160 @@
 
 #include <igor/resources/material/iMaterial.h>
 
-#include <igor/resources/material/iMaterialIO.h>
-#include <igor/resources/iResourceManager.h>
-
-#include <igor/renderer/utils/iRendererUtils.h>
-
-#include <sstream>
+#include <iaux/system/iaConsole.h>
+using namespace iaux;
 
 namespace igor
 {
-
     iMaterial::iMaterial(const iParameters &parameters)
-    : iResource(parameters)
+        : iResource(parameters)
     {
-        setName("Material Name");
-    }
+        _emissive = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0, 0, 0));
+        _ambient = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.4f, 0.4f, 0.4f));
+        _diffuse = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f));
+        _specular = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.6f, 0.6f, 0.6f));
+        _shininess = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_SHININESS, 5.0f);
+        _alpha = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_ALPHA, 1.0f);
+        _tiling = parameters.getParameter<iaVector2f>(IGOR_RESOURCE_PARAM_TILING, iaVector2f(1.0f, 1.0f));
 
-    bool iMaterial::isValid() const
-    {
-        if (_shaderProgram == nullptr)
+        setShaderMaterial(parameters.getParameter<iShaderMaterialPtr>(IGOR_RESOURCE_PARAM_SHADER_MATERIAL, nullptr));
+
+        for (int i = 0; i < 4; ++i)
         {
-            return false;
-        }
-
-        return true;
-    }
-
-    void iMaterial::setShaderProgram(const iShaderProgramPtr &shaderProgram)
-    {
-        if (!shaderProgram->isValid())
-        {
-            return;
-        }
-
-        _shaderProgram = shaderProgram;
-
-        if (_shaderProgram == nullptr)
-        {
-            _hasDirectionalLight = false;
-            _hasEyePosition = false;
-            _hasModelViewProjectionMatrix = false;
-            _hasModelMatrix = false;
-            _hasTargetMaterial = false;
-            _hasSolidColor = false;
-            return;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_LIGHT_ORIENTATION) &&
-            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_AMBIENT) &&
-            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_DIFFUSE) &&
-            _shaderProgram->hasUniformLocation(UNIFORM_LIGHT_SPECULAR))
-        {
-            _hasDirectionalLight = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_EYE_POSITION))
-        {
-            _hasEyePosition = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL_VIEW_PROJECTION))
-        {
-            _hasModelViewProjectionMatrix = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL_VIEW))
-        {
-            _hasModelViewMatrix = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_VIEW_PROJECTION))
-        {
-            _hasViewProjectionMatrix = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_CONFIG_TILING))
-        {
-            _hasConfigTiling = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_CONFIG_VELOCITY_ORIENTED))
-        {
-            _hasConfigVelocityOriented = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_MODEL))
-        {
-            _hasModelMatrix = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_AMBIENT) &&
-            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_DIFFUSE) &&
-            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_SPECULAR) &&
-            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_SHININESS) &&
-            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_ALPHA) &&
-            _shaderProgram->hasUniformLocation(UNIFORM_MATERIAL_EMISSIVE))
-        {
-            _hasTargetMaterial = true;
-        }
-
-        if (_shaderProgram->hasUniformLocation(UNIFORM_SOLIDCOLOR))
-        {
-            _hasSolidColor = true;
-        }
-
-        for (int i = 0; i < MAX_TEXTURE_UNITS; ++i)
-        {
-            std::stringstream shaderProperty;
-            shaderProperty << SAMPLER_TEXTURE << i;
-            _hasTexture[i] = _shaderProgram->hasUniformLocation(shaderProperty.str().c_str());
+            if(!parameters.hasParameter(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i)))
+            {
+                continue;
+            }
+            setTexture(parameters.getParameter<iTexturePtr>(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i), nullptr), i);
         }
     }
 
-    bool iMaterial::hasDirectionalLight() const
+    void iMaterial::setTiling(const iaVector2f &tiling)
     {
-        return _hasDirectionalLight;
+        _tiling = tiling;
     }
 
-    bool iMaterial::hasEyePosition() const
+    const iaVector2f &iMaterial::getTiling() const
     {
-        return _hasEyePosition;
+        return _tiling;
     }
 
-    bool iMaterial::hasModelViewProjectionMatrix() const
+    void iMaterial::setVelocityOriented(bool enable)
     {
-        return _hasModelViewProjectionMatrix;
+        _velocityOriented = enable;
     }
 
-    bool iMaterial::hasModelViewMatrix() const
+    bool iMaterial::isVelocityOriented() const
     {
-        return _hasModelViewMatrix;
+        return _velocityOriented;
     }
 
-    bool iMaterial::hasViewProjectionMatrix() const
+    void iMaterial::setTexture(iTexturePtr texture, uint32 texunit)
     {
-        return _hasViewProjectionMatrix;
+        _textures[texunit] = texture;
     }
 
-    bool iMaterial::hasModelMatrix() const
+    bool iMaterial::hasTextureUnit(uint32 texunit) const
     {
-        return _hasModelMatrix;
-    }
-
-    bool iMaterial::hasTargetMaterial() const
-    {
-        return _hasTargetMaterial;
-    }
-
-    bool iMaterial::hasSolidColor() const
-    {
-        return _hasSolidColor;
-    }
-
-    bool iMaterial::hasTilingConfig() const
-    {
-        return _hasConfigTiling;
-    }
-
-    bool iMaterial::hasVelocityOrientedConfig() const
-    {
-        return _hasConfigVelocityOriented;
-    }
-
-    bool iMaterial::hasTextureUnit(uint32 texUnit) const
-    {
-        con_assert(texUnit < MAX_TEXTURE_UNITS, "out of bounds");
-        return _hasTexture[texUnit];
-    }
-
-    iShaderProgramPtr iMaterial::getShaderProgram() const
-    {
-        return _shaderProgram;
-    }
-
-    void iMaterial::unbind()
-    {
-        _shaderProgram->unbind();
-    }
-
-    void iMaterial::bind()
-    {
-        con_assert(isValid(), "invalid material \"" << getName() << "\" [" << getID() << "]");
-
-        _shaderProgram->bind();
-
-        if (_renderStateSet.getRenderState(iRenderState::DepthTest) == iRenderStateValue::On)
+        auto tex = _textures.find(texunit);
+        if (_textures.end() != tex &&
+            tex->second != nullptr)
         {
-            glEnable(GL_DEPTH_TEST);
-        }
-        else
-        {
-            glDisable(GL_DEPTH_TEST);
+            return true;
         }
 
-        if (_renderStateSet.getRenderState(iRenderState::DepthMask) == iRenderStateValue::On)
-        {
-            glDepthMask(GL_TRUE);
-        }
-        else
-        {
-            glDepthMask(GL_FALSE);
-        }
+        return false;
+    }
 
-        if (_renderStateSet.getRenderState(iRenderState::Blend) == iRenderStateValue::On)
+    iTexturePtr iMaterial::getTexture(uint32 texunit) const
+    {
+        auto tex = _textures.find(texunit);
+        if (_textures.end() != tex)
         {
-            glEnable(GL_BLEND);
-        }
-        else
-        {
-            glDisable(GL_BLEND);
+            return tex->second;
         }
 
-        if (_renderStateSet.getRenderState(iRenderState::CullFace) == iRenderStateValue::On)
-        {
-            glEnable(GL_CULL_FACE);
-        }
-        else
-        {
-            glDisable(GL_CULL_FACE);
-        }
-
-        switch (_renderStateSet.getRenderState(iRenderState::DepthFunc))
-        {
-        case iRenderStateValue::Less:
-            glDepthFunc(GL_LESS);
-            break;
-
-        case iRenderStateValue::LessOrEqual:
-            glDepthFunc(GL_LEQUAL);
-            break;
-
-        case iRenderStateValue::Never:
-            glDepthFunc(GL_NEVER);
-            break;
-
-        case iRenderStateValue::Equal:
-            glDepthFunc(GL_EQUAL);
-            break;
-
-        case iRenderStateValue::Greater:
-            glDepthFunc(GL_GREATER);
-            break;
-
-        case iRenderStateValue::NotEqual:
-            glDepthFunc(GL_NOTEQUAL);
-            break;
-
-        case iRenderStateValue::GreaterOrEqual:
-            glDepthFunc(GL_GEQUAL);
-            break;
-
-        case iRenderStateValue::Always:
-            glDepthFunc(GL_ALWAYS);
-            break;
-        }
-
-        switch (_renderStateSet.getRenderState(iRenderState::CullFaceFunc))
-        {
-        case iRenderStateValue::Front:
-            glCullFace(GL_FRONT);
-            break;
-
-        case iRenderStateValue::Back:
-            glCullFace(GL_BACK);
-            break;
-        }
-
-        if (_renderStateSet.getRenderState(iRenderState::Wireframe) == iRenderStateValue::On)
-        {
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        }
-        else
-        {
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        }
+        return nullptr;
     }
 
-    void iMaterial::setRenderState(const iRenderState state, const iRenderStateValue value)
+    const std::map<uint32, iTexturePtr> &iMaterial::getTextures() const
     {
-        _renderStateSet.setRenderState(state, value);
+        return _textures;
     }
 
-    iRenderStateValue iMaterial::getRenderState(const iRenderState state) const
+    void iMaterial::setEmissive(const iaColor3f &e)
     {
-        return _renderStateSet.getRenderState(state);
+        _emissive = e;
     }
 
-    void iMaterial::setInt(const iaString &uniform, int value)
+    void iMaterial::setAmbient(const iaColor3f &a)
     {
-        _shaderProgram->setInt(uniform, value);
+        _ambient = a;
     }
 
-    void iMaterial::setFloat(const iaString &uniform, float32 value)
+    void iMaterial::setSpecular(const iaColor3f &s)
     {
-        _shaderProgram->setFloat(uniform, value);
+        _specular = s;
     }
 
-    void iMaterial::setFloat2(const iaString &uniform, const iaVector2f &value)
+    void iMaterial::setDiffuse(const iaColor3f &d)
     {
-        _shaderProgram->setFloat2(uniform, value);
+        _diffuse = d;
     }
 
-    void iMaterial::setFloat3(const iaString &uniform, const iaVector3f &value)
+    void iMaterial::setShininess(float32 shininess)
     {
-        _shaderProgram->setFloat3(uniform, value);
+        _shininess = shininess;
     }
 
-    void iMaterial::setFloat4(const iaString &uniform, const iaVector4f &value)
+    void iMaterial::setAlpha(float32 alpha)
     {
-        _shaderProgram->setFloat4(uniform, value);
+        _alpha = alpha;
     }
 
-    void iMaterial::setFloat3(const iaString &uniform, const iaColor3f &value)
+    iaColor3f iMaterial::getAmbient() const
     {
-        _shaderProgram->setFloat3(uniform, iaVector3f(value._r, value._g, value._b));
+        return _ambient;
     }
 
-    void iMaterial::setFloat4(const iaString &uniform, const iaColor4f &value)
+    iaColor3f iMaterial::getEmissive() const
     {
-        _shaderProgram->setFloat4(uniform, iaVector4f(value._r, value._g, value._b, value._a));
+        return _emissive;
     }
 
-    void iMaterial::setMatrix(const iaString &uniform, const iaMatrixf &value)
+    iaColor3f iMaterial::getSpecular() const
     {
-        _shaderProgram->setMatrix(uniform, value);
+        return _specular;
     }
 
-    int32 iMaterial::getOrder() const
+    iaColor3f iMaterial::getDiffuse() const
     {
-        return _order;
+        return _diffuse;
     }
 
-    void iMaterial::setOrder(int32 order)
+    float32 iMaterial::getShininess() const
     {
-        con_assert(order >= RENDER_ORDER_MIN && order <= RENDER_ORDER_MAX, "out of bounds");
-
-        _order = order;
+        return _shininess;
     }
 
-    iMaterialVisibility iMaterial::getVisibility() const
+    float32 iMaterial::getAlpha() const
     {
-        return _visibility;
+        return _alpha;
     }
 
-    void iMaterial::setVisibility(iMaterialVisibility visibility)
+    bool iMaterial::hasTextures() const
     {
-        _visibility = visibility;
+        return !_textures.empty();
     }
 
-    std::wostream &operator<<(std::wostream &stream, const iMaterialVisibility &visibility)
+    void iMaterial::setShaderMaterial(const iShaderMaterialPtr &shaderMaterial)
     {
-        const static std::wstring text[] = {
-            L"Private",
-            L"Public"};
-
-        stream << text[static_cast<int>(visibility)];
-
-        return stream;
+        _shaderMaterial = shaderMaterial;
     }
 
-    const iaString &iMaterial::getFilename() const
+    iShaderMaterialPtr iMaterial::getShaderMaterial() const
     {
-        return _filename;
+        return _shaderMaterial;
     }
-}
+
+} // namespace igor

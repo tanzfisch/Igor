@@ -6,7 +6,7 @@
 
 #include <iaux/system/iaConsole.h>
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeCamera.h>
@@ -21,8 +21,6 @@ namespace igor
         setName(L"iNodeSkyBox");
         _nodeType = iNodeType::iNodeSkyBox;
         buildMesh();
-
-        _targetMaterial = iTargetMaterial::create();
     }
 
     iNodeSkyBox::iNodeSkyBox(iNodeSkyBox *node)
@@ -120,11 +118,6 @@ namespace igor
         _mesh = meshBuilder.createMesh();
     }
 
-    void iNodeSkyBox::setTexture(iTexturePtr texture)
-    {
-        _targetMaterial->setTexture(texture, 0);
-    }
-
     void iNodeSkyBox::setBoxSize(float32 boxSize)
     {
         _boxSize = boxSize;
@@ -144,7 +137,7 @@ namespace igor
         model.scale(_boxSize,_boxSize,_boxSize);
         iRenderer::getInstance().setModelMatrix(model);
 
-        iRenderer::getInstance().drawMesh(_mesh, _targetMaterial);
+        iRenderer::getInstance().drawMesh(_mesh, getMaterial());
     }
 
 } // namespace igor

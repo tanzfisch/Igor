@@ -19,9 +19,9 @@ iModelDataIO *VoxelTerrainMeshGenerator::createInstance()
 iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
 {
     const iaString &sectionName = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-    iVoxelData *voxelData = parameters.getParameter<iVoxelData*>("voxelData", nullptr);
+    iVoxelData *voxelData = parameters.getParameter<iVoxelData *>("voxelData", nullptr);
     const bool keepMesh = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
-    iMaterialPtr material = parameters.getParameter<iMaterialPtr>(IGOR_RESOURCE_MATERIAL, nullptr);
+    iShaderMaterialPtr terrainShader = parameters.getParameter<iShaderMaterialPtr>(IGOR_RESOURCE_SHADER_MATERIAL, nullptr);
 
     const int64 width = voxelData->getWidth() - 1;
     const int64 depth = voxelData->getDepth() - 1;
@@ -38,18 +38,20 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
         mesh->setKeepRawData(keepMesh);
         meshNode->setMesh(mesh);
+
+        iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                           {IGOR_RESOURCE_PARAM_GENERATE, true},
+                           {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, terrainShader},
+                           {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>("example_texture_grass")},
+                           {IGOR_RESOURCE_PARAM_TEXTURE1, iResourceManager::getInstance().requestResource<iTexture>("example_texture_dirt")},
+                           {IGOR_RESOURCE_PARAM_TEXTURE2, iResourceManager::getInstance().requestResource<iTexture>("example_texture_rock")},
+                           {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.7f, 0.7f, 0.7f)},
+                           {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.9f, 0.9f, 0.9f)},
+                           {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.1f, 0.1f, 0.1f)},
+                           {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.01f, 0.01f, 0.01f)},
+                           {IGOR_RESOURCE_PARAM_SHININESS, 100.0f}});
+        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
         meshNode->setMaterial(material);
-
-        iTargetMaterialPtr targetMaterial = meshNode->getTargetMaterial();
-        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_grass"), 0);
-        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_dirt"), 1);
-        targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_rock"), 2);
-        targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
-        targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
-        targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
-        targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
-        targetMaterial->setShininess(100.0f);
-
         result->insertNode(meshNode);
     }
 

@@ -139,7 +139,7 @@ private:
     void onGraphSelectionChanged(uint64 nodeID);
     void onAddMaterial();
     void onLoadMaterial();
-    void onResourceSelectionChanged_old(const iMaterialID &materialID);
+    void onResourceSelectionChanged_old(const iShaderMaterialID &materialID);
 
     void onGraphViewSelected(const iWidgetPtr source);
     void onMaterialViewSelected(const iWidgetPtr source);

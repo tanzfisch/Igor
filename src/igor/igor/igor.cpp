@@ -12,11 +12,13 @@ using namespace iaux;
 
 extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite"};
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_MATERIAL_EXTENSIONS = {"smat"};
 extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat"};
 extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim"};
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
 
+extern const iaString IGOR_RESOURCE_SHADER_MATERIAL = "shaderMaterial";
 extern const iaString IGOR_RESOURCE_MATERIAL = "material";
 extern const iaString IGOR_RESOURCE_ANIMATION = "animation";
 extern const iaString IGOR_RESOURCE_TEXTURE = "texture";
@@ -27,6 +29,7 @@ extern const iaString IGOR_RESOURCE_MODEL = "model";
 extern const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
 extern const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE = "wrapMode";
 extern const iaString IGOR_RESOURCE_PARAM_ID = "id";
 extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
 extern const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
@@ -36,14 +39,26 @@ extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
 extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
 extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE = "subType";
 extern const iaString IGOR_RESOURCE_PARAM_QUIET = "quiet";
+extern const iaString IGOR_RESOURCE_PARAM_SHADER_MATERIAL = "shaderMaterial";
 extern const iaString IGOR_RESOURCE_PARAM_MATERIAL = "material";
-extern const iaString IGOR_RESOURCE_PARAM_TARGET_MATERIAL = "targetMaterial";
 extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL = "physicsMaterial";
 extern const iaString IGOR_RESOURCE_PARAM_LOD = "lod";
 extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH = "keepMesh";
 extern const iaString IGOR_RESOURCE_PARAM_GENERATE = "generate";
 extern const iaString IGOR_RESOURCE_PARAM_SEED = "seed";
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE = "texture";
+extern const iaString IGOR_RESOURCE_PARAM_EMISSIVE = "emissive";
+extern const iaString IGOR_RESOURCE_PARAM_AMBIENT = "ambient";
+extern const iaString IGOR_RESOURCE_PARAM_DIFFUSE = "diffuse";
+extern const iaString IGOR_RESOURCE_PARAM_SPECULAR = "specular";
+extern const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
+extern const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
+extern const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
+
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2 = "texture2";
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
 
 #ifdef IGOR_DEBUG
 extern const iaString IGOR_BUILD_CONFIGURATION = "debug";
@@ -115,7 +130,8 @@ namespace igor
         iaConsole::getInstance() << G << "                                                /\\____/                " << endl;
         iaConsole::getInstance() << T << "      (c) Copyright 2012-2023 by Martin Loga" << G << "   \\_/__/   " << endl;
 
-        iaConsole::getInstance() << endl << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
+        iaConsole::getInstance() << endl
+                                 << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
         iaConsole::getInstance() << T << "                 EnTT, R.P. Easing, TinyXML and Fun" << endl
@@ -242,22 +258,18 @@ namespace igor
         iTimer::create();
         printInfo();
 
-        con_info("Current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
+        con_info("current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
 
 #ifdef IGOR_WINDOWS
         static const std::vector<iaString> configLocations = {
-            L"config",
-            L"..\\config",
-            L"..\\..\\config"};
+            L"project"};
 #endif
 
 #ifdef IGOR_LINUX
         static const std::vector<iaString> configLocations = {
-            L"~/.igor",
+            iaString(std::getenv("HOME")) + "/.config/igor",
             L"/etc/igor",
-            L"config",
-            L"../config",
-            L"../../config"};
+            L"project"};
 #endif
 
         iaString configurationFilepath;
@@ -273,13 +285,31 @@ namespace igor
             }
         }
 
+        iConfigReader::create();
+
         if (configurationFilepath.isEmpty())
         {
-            con_crit("can't find config file");
-        }
+            con_warn("can't find config file. Using defaults");
 
-        iConfigReader::create();
-        iConfigReader::getInstance().readConfiguration(configurationFilepath);
+#ifdef IGOR_LINUX
+            iaString configFolder = iaString(std::getenv("HOME")) + "/.config/igor";
+#endif
+
+#ifdef IGOR_WINDOWS
+            // iaString configFolder = "%LOCALAPPDATA%/Igor ...// TODO
+#endif
+
+            if (!iaDirectory::exists(configFolder))
+            {
+                iaDirectory::makeDirectory(configFolder);
+            }
+
+            iConfigReader::getInstance().writeConfiguration(configFolder + "/igor.xml");
+        }
+        else
+        {
+            iConfigReader::getInstance().readConfiguration(configurationFilepath);
+        }
 
         if (iConfigReader::getInstance().hasSetting("logLevel"))
         {

@@ -78,7 +78,7 @@ namespace Igor
 		uint32 trianglecount;
 		bool eof;
 
-		std::vector<Material*> materials;
+		std::vector<ShaderMaterial*> materials;
 		std::vector<Vertex*> vertexes;
 
 		void readMesh(iLoader3DS::Chunk parent);

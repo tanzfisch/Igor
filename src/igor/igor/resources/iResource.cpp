@@ -96,6 +96,11 @@ namespace igor
         _valid = valid;
     }
 
+    void iResource::setSource(const iaString &source)
+    {
+        _source = source;
+    }
+
     const iaString &iResource::getSource() const
     {
         return _source;
@@ -143,16 +148,6 @@ namespace igor
 
         return result;
     }
-
-    void iResource::setName(const iaString &name)
-    {
-        _name = name;
-    }
-
-    const iaString &iResource::getName() const
-    {
-        return _name;
-    }    
 
     const iaString &iResource::getAlias() const
     {

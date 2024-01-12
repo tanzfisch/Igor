@@ -18,5 +18,6 @@ var dir_ff63218eb8d6b76bf6f3638bd523226b =
     [ "iDefines.h", "i_defines_8h.html", "i_defines_8h" ],
     [ "igor.cpp", "igor_8cpp.html", "igor_8cpp" ],
     [ "igor.h", "igor_8h.html", "igor_8h" ],
-    [ "iVersion.h", "i_version_8h.html", "i_version_8h" ]
+    [ "iVersion.cpp.inl", "i_version_8cpp_8inl.html", "i_version_8cpp_8inl" ],
+    [ "iVersion.h", "i_version_8h.html", null ]
 ];

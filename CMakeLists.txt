@@ -16,9 +16,6 @@ git_describe(VERSION --tags)
 git_describe(VERSION_SHORT --abbrev=0 --tags)
 message(STATUS "building version: ${VERSION_SHORT}")
 
-# set up project
-project(igor DESCRIPTION "Igor Game Engine")
-
 # definitions
 set(ENGINE_FOLDER "01 engine")
 set(EXAMPLES_FOLDER "02 examples")
@@ -95,7 +92,7 @@ set(NEWTON_DOUBLE_PRECISION ON CACHE BOOL "Newton: generate double precision" FO
 set(NEWTON_BUILD_CORE_ONLY ON CACHE BOOL "Newton: build core only" FORCE)
 set(NEWTON_BUILD_SANDBOX_DEMOS OFF CACHE BOOL "Newton: build sandbox demos" FORCE)
 add_subdirectory(vendor/newton-dynamics/newton-3.14)
-set(NEWTON_HEADERS_DIR "vendor/newton-dynamics/newton-3.14/sdk")
+set(NEWTON_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/newton-3.14/sdk")
 set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 set_property(TARGET dgCore PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 set_property(TARGET dgNewtonAvx PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
@@ -124,8 +121,9 @@ set(ENTT_HEADERS "${ENTT_HEADERS_DIR}entt.h")
 list(APPEND ENTT_SOURCES ${ENTT_HEADERS})
 source_group_special("${ENTT_SOURCES}" ${ENTT_SRC_DIR} "\\vendor\\EnTT\\")
 
+# Igor Aux
 add_subdirectory(src/iaux)
-set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})           
+set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})         
 
 #####################
 # OMPF
@@ -153,46 +151,9 @@ target_link_libraries(ompf PRIVATE iaux)
 set_property(TARGET ompf PROPERTY FOLDER ${ENGINE_FOLDER})
 source_group_special("${OMPF_SOURCES}" ${OMPF_SRC_DIR})
 
-#####################
 # Igor
-#####################
-message(STATUS "igor")
-
-# create igor version file
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/iVersion.cpp.inl ${CMAKE_CURRENT_BINARY_DIR}/iVersion.cpp)
-set(IGOR_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/iVersion.cpp")
-source_group("\\igor\\" FILES "${IGOR_VERSION_FILE}")
-
-set(IGOR_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/igor/")
-set(IGOR_HEADERS_DIR ${IGOR_SRC_DIR})
-
-file(GLOB_RECURSE IGOR_SOURCES LIST_DIRECTORIES false "${IGOR_SRC_DIR}*.c*") #TODO
-file(GLOB_RECURSE IGOR_HEADERS LIST_DIRECTORIES false "${IGOR_HEADERS_DIR}*.h*" "${IGOR_HEADERS_DIR}*.inl") #TODO
-list(APPEND IGOR_SOURCES ${IGOR_HEADERS})
-add_library(igor SHARED ${IGOR_SOURCES} ${TINYXML_SOURCES} ${STB_IMAGE_SOURCES} ${IGOR_VERSION_FILE} ${ENTT_SOURCES})
-
-target_include_directories(igor
-    PRIVATE 
-    ${TINYXML_HEADERS_DIR}
-    ${STB_IMAGE_HEADERS_DIR}
-    ${ALSOFT_HEADERS_DIR}
-    ${NEWTON_HEADERS_DIR}
-    PUBLIC 
-    ${IGOR_HEADERS_DIR}
-    ${ENTT_HEADERS_DIR})
-    
-if(IS_GNU)
-    target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} -DENTT_USE_ATOMIC -D_NEWTON_USE_DOUBLE)
-    target_compile_options(igor PRIVATE -std=c++17)
-    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL newton)
-elseif(IS_MSVC)
-    target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ PUBLIC -DENTT_USE_ATOMIC)
-    target_compile_options(igor PRIVATE "/std:c++17" "/MP" "/FS")
-    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf OpenGL32 glu32 OpenAL newton)
-endif()
-
+add_subdirectory(src/igor)
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})
-source_group_special("${IGOR_SOURCES}" ${IGOR_SRC_DIR})
 
 # MICA
 message(STATUS "Mica")
@@ -254,7 +215,6 @@ foreach(
       10_LSystem
       11_Instancing
       12_CharacterController
-      13_SpriteAnimation
       15_Sound
       98_Supremacy
       99_Ascent
@@ -276,7 +236,18 @@ foreach(
         target_compile_options(${EXAMPLE} PRIVATE "/std:c++17" "/MP" "/FS")
     endif()
 
-    set_property(TARGET ${EXAMPLE} PROPERTY FOLDER ${EXAMPLES_FOLDER})
+    set_target_properties(${EXAMPLE} PROPERTIES 
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${EXAMPLE}
+        FOLDER ${EXAMPLES_FOLDER})    
+
+    if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/examples/${EXAMPLE}/project")
+        add_custom_target(${EXAMPLE}_project ALL
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/examples/${EXAMPLE}/project
+            ${CMAKE_BINARY_DIR}/bin/${EXAMPLE}/project)
+
+        add_dependencies(${EXAMPLE} ${EXAMPLE}_project)
+    endif()
 endforeach()
 
 # iaux test

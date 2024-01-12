@@ -4,7 +4,7 @@
 
 #include "ExampleInstancing.h"
 
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeTransform.h>
@@ -16,7 +16,7 @@
 using namespace igor;
 
 ExampleInstancing::ExampleInstancing(iWindowPtr window)
-    : ExampleBase(window, "Instacing")
+    : ExampleBase(window, "Instacing", true, "example_skybox_debug")
 {
 }
 
@@ -64,11 +64,6 @@ void ExampleInstancing::onInit()
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     getView().setCamera(camera->getID());
 
-    // we have to override the material which is stored within the model
-    // to do that we load a new material that is using instancing
-    _materialWithInstancingA = iResourceManager::getInstance().loadResource<iMaterial>("example_material_instancing_textured");
-    _materialWithInstancingB = iResourceManager::getInstance().loadResource<iMaterial>("example_material_instancing_flat_shaded");
-
     // now we can just put copies of that model in the scene
     iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformGroup->translate(-((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5));
@@ -80,45 +75,17 @@ void ExampleInstancing::onInit()
     iaRandomNumberGenerator random;
 
     // todo need to be able to load a mesh from file without all of this
-    iMeshPtr catMesh;
-    iTargetMaterialPtr catTargetMaterial;
     iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
-    if(modelCat->getNode()->getType() == iNodeType::iNodeMesh)
-    {
-        iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCat->getNode());
-        catTargetMaterial = meshNode->getTargetMaterial();
-        catMesh = meshNode->getMesh();
-    }
+    iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());
 
-    iMeshPtr createMesh;
-    iTargetMaterialPtr crateTargetMaterial;
     iModelPtr modelCrate = iResourceManager::getInstance().loadResource<iModel>("example_model_crate");
-    if(modelCrate->getNode()->getType() == iNodeType::iNodeMesh)
-    {
-        iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCrate->getNode());
-        crateTargetMaterial = meshNode->getTargetMaterial();
-        createMesh = meshNode->getMesh();
-    }    
+    iNodeMeshPtr meshNodeCrate = static_cast<iNodeMeshPtr>(modelCrate->getNode());
 
-    iMeshPtr cubeMesh;
-    iTargetMaterialPtr cubeTargetMaterial;
     iModelPtr modelCube = iResourceManager::getInstance().loadResource<iModel>("example_model_cube_green");
-    if(modelCube->getNode()->getType() == iNodeType::iNodeMesh)
-    {
-        iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelCube->getNode());
-        cubeTargetMaterial = meshNode->getTargetMaterial();
-        cubeMesh = meshNode->getMesh();
-    }    
+    iNodeMeshPtr meshNodeCube = static_cast<iNodeMeshPtr>(modelCube->getNode());
 
-    iMeshPtr teapotMesh;
-    iTargetMaterialPtr teapotTargetMaterial;
     iModelPtr modelTeapot = iResourceManager::getInstance().loadResource<iModel>("example_model_teapot");
-    if(modelTeapot->getNode()->getType() == iNodeType::iNodeMesh)
-    {
-        iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(modelTeapot->getNode());
-        teapotTargetMaterial = meshNode->getTargetMaterial();
-        teapotMesh = meshNode->getMesh();
-    }    
+    iNodeMeshPtr meshNodeTeapot = static_cast<iNodeMeshPtr>(modelTeapot->getNode());
 
     // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)
@@ -143,32 +110,27 @@ void ExampleInstancing::onInit()
                 transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Z);
 
                 iNodeMeshPtr meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-                
-                
+
                 switch (count % 4)
                 {
                 case 0:
-                    meshNode->setMesh(catMesh);
-                    meshNode->setTargetMaterial(catTargetMaterial);
-                    meshNode->setMaterial(_materialWithInstancingA);
+                    meshNode->setMesh(meshNodeCat->getMesh());
+                    meshNode->setMaterial(meshNodeCat->getMaterial());
                     break;
 
                 case 1:
-                    meshNode->setMesh(createMesh);
-                    meshNode->setTargetMaterial(crateTargetMaterial);
-                    meshNode->setMaterial(_materialWithInstancingA);
+                    meshNode->setMesh(meshNodeCrate->getMesh());
+                    meshNode->setMaterial(meshNodeCrate->getMaterial());
                     break;
 
                 case 2:
-                    meshNode->setMesh(cubeMesh);
-                    meshNode->setTargetMaterial(cubeTargetMaterial);
-                    meshNode->setMaterial(_materialWithInstancingB);
+                    meshNode->setMesh(meshNodeCube->getMesh());
+                    meshNode->setMaterial(meshNodeCube->getMaterial());
                     break;
 
                 case 3:
-                    meshNode->setMesh(teapotMesh);
-                    meshNode->setTargetMaterial(teapotTargetMaterial);
-                    meshNode->setMaterial(_materialWithInstancingB);
+                    meshNode->setMesh(meshNodeTeapot->getMesh());
+                    meshNode->setMaterial(meshNodeTeapot->getMaterial());
                     break;
                 }
 
@@ -215,8 +177,8 @@ void ExampleInstancing::onDeinit()
         _animationTimingHandle = nullptr;
     }
 
-    _materialWithInstancingA = nullptr;
-    _materialWithInstancingB = nullptr;
+    _materialA = nullptr;
+    _materialB = nullptr;
 }
 
 void ExampleInstancing::onEvent(iEvent &event)

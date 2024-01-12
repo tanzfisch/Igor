@@ -31,7 +31,7 @@
 
 #include <igor/scene/traversal/iNodeVisitor.h>
 #include <igor/iDefines.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/math/iaMatrix.h>

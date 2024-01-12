@@ -30,7 +30,7 @@
 #define __IGOR_SKYBOXNODE__
 
 #include <igor/scene/nodes/iNodeRender.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 
 namespace igor
@@ -64,10 +64,6 @@ namespace igor
         /*! scale of the box
         */
         float32 _boxSize = 10.0f;
-
-        /*! target material to use
-        */
-        iTargetMaterialPtr _targetMaterial;
 
         /*! mesh for sky box
         */

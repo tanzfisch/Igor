@@ -196,32 +196,32 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
     iaVector2i pos = iMouse::getInstance().getPos();
     _graphContextMenu.setPos(iaVector2f(pos._x, pos._y));
 
-    iActionContextPtr ac = getContext();
+    iActionContextPtr actionContext = getContext();
 
     if (!_workspace->getSelection().empty())
     {
         iWidgetMenuPtr addMenu = new iWidgetMenu();
         addMenu->setTitle("Add");
-        addMenu->addAction("mica:addTransform", ac);
-        addMenu->addAction("mica:addGroup", ac);
-        addMenu->addAction("mica:addSwitch", ac);
-        addMenu->addAction("mica:addModel", ac);
-        addMenu->addAction("mica:addEmitter", ac);
-        addMenu->addAction("mica:addParticleSystem", ac);
+        addMenu->addAction("mica:addTransform", actionContext);
+        addMenu->addAction("mica:addGroup", actionContext);
+        addMenu->addAction("mica:addSwitch", actionContext);
+        addMenu->addAction("mica:addModel", actionContext);
+        addMenu->addAction("mica:addEmitter", actionContext);
+        addMenu->addAction("mica:addParticleSystem", actionContext);
         _graphContextMenu.addMenu(addMenu);
         _graphContextMenu.addSeparator();
     }
 
-    _graphContextMenu.addAction("mica:cutNodes", ac);
-    _graphContextMenu.addAction("mica:copyNodes", ac);
-    _graphContextMenu.addAction("mica:pasteNodes", ac);
-    _graphContextMenu.addAction("mica:deleteNodes", ac);
+    _graphContextMenu.addAction("mica:cutNodes", actionContext);
+    _graphContextMenu.addAction("mica:copyNodes", actionContext);
+    _graphContextMenu.addAction("mica:pasteNodes", actionContext);
+    _graphContextMenu.addAction("mica:deleteNodes", actionContext);
 
     _graphContextMenu.addSeparator();
 
     iWidgetMenuPtr actionsMenu = new iWidgetMenu();
     actionsMenu->setTitle("Actions");
-    actionsMenu->addAction("mica:bakeMeshToWorld", ac);
+    actionsMenu->addAction("mica:bakeMeshToWorld", actionContext);
     _graphContextMenu.addMenu(actionsMenu);
 
     _graphContextMenu.open();

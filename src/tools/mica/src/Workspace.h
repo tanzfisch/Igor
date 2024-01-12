@@ -47,13 +47,13 @@ public:
      */
     virtual ~Workspace();
 
-    /*! \returns the user root
+    /*! \returns the root of the user scene
      */
-    iNodePtr getRootUser() const;
+    iNodePtr getUserScene() const;
 
-    /*! \returns the mica root
+    /*! \returns the root of the mica scene
      */
-    iNodePtr getRootMica() const;
+    iNodePtr getMicaScene() const;
 
     /*! \returns scene
      */

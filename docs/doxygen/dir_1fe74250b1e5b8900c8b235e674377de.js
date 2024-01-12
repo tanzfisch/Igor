@@ -10,8 +10,6 @@ var dir_1fe74250b1e5b8900c8b235e674377de =
     [ "ompfGroupChunk.h", "ompf_group_chunk_8h.html", "ompf_group_chunk_8h" ],
     [ "ompfHeaderChunk.cpp", "ompf_header_chunk_8cpp.html", null ],
     [ "ompfHeaderChunk.h", "ompf_header_chunk_8h.html", "ompf_header_chunk_8h" ],
-    [ "ompfMaterialChunk.cpp", "ompf_material_chunk_8cpp.html", null ],
-    [ "ompfMaterialChunk.h", "ompf_material_chunk_8h.html", "ompf_material_chunk_8h" ],
     [ "ompfMaterialReferenceChunk.cpp", "ompf_material_reference_chunk_8cpp.html", null ],
     [ "ompfMaterialReferenceChunk.h", "ompf_material_reference_chunk_8h.html", "ompf_material_reference_chunk_8h" ],
     [ "ompfMeshChunk.cpp", "ompf_mesh_chunk_8cpp.html", null ],

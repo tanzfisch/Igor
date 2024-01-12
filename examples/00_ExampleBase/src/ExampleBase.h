@@ -40,7 +40,7 @@ class ExampleBase : public iLayer
 public:
     /*! init example
     */
-    ExampleBase(iWindowPtr window, const iaString &name, bool createBaseSetup = true, bool createSkyBox = true, int32 zIndex = 0);
+    ExampleBase(iWindowPtr window, const iaString &name, bool createBaseSetup = true, const iaString &skyBoxTexture = "", int32 zIndex = 0);
 
     /*! release resources
     */
@@ -68,7 +68,7 @@ public:
 
     /*! \returns font material
     */
-    iMaterialID getFontMaterial() const;
+    iShaderMaterialID getFontMaterial() const;
 
 protected:
     /*! initialize example

@@ -358,13 +358,13 @@ namespace iaux
 
         /*! returns utf8 encoded string
 
-        \param buffer the detination buffer for the utf8 string
+        \param buffer the destination buffer for the utf8 string
         \param size the size of the destination buffer
         \returns bytes written to destination buffer
         */
         int64 getUTF8(char *buffer, const int64 size) const;
 
-        /*! calclates the size in bytes of the string encoded in utf8
+        /*! calculates the size in bytes of the string encoded in utf8
 
         \returns size in bytes
         */

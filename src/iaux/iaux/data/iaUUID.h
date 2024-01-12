@@ -40,7 +40,7 @@ namespace iaux
     {
     public:
 
-        /*! init value
+        /*! init valid random value
          */
         iaUUID();
 
@@ -55,6 +55,10 @@ namespace iaux
         \param value the value to use as uuid
         */
         iaUUID(uint64 value);
+
+        /*! \returns invalid uuid 
+        */
+        static iaUUID getInvalid();
 
         /*! import from string
 

@@ -8,6 +8,7 @@ var dir_a414ea95b6e6a3b71ee83d64cb1e1f03 =
     [ "module", "dir_9eeafcc8a961d8b46e7d3495f86c045d.html", "dir_9eeafcc8a961d8b46e7d3495f86c045d" ],
     [ "profiler", "dir_7a95763d9f4d5b5e4fafb420d6db76bc.html", "dir_7a95763d9f4d5b5e4fafb420d6db76bc" ],
     [ "project", "dir_48f789173b8fb4129a874fd19e7acd58.html", "dir_48f789173b8fb4129a874fd19e7acd58" ],
+    [ "shader_material", "dir_562254f0dfd91d1e4c168182e706af73.html", "dir_562254f0dfd91d1e4c168182e706af73" ],
     [ "sound", "dir_7a238535543c305ea24b549d39fc0bec.html", "dir_7a238535543c305ea24b549d39fc0bec" ],
     [ "sprite", "dir_cc5b957a9fbe45156d0f8022fdcfbafd.html", "dir_cc5b957a9fbe45156d0f8022fdcfbafd" ],
     [ "texture", "dir_7aa4603867f934fedef9d5e94bbf9165.html", "dir_7aa4603867f934fedef9d5e94bbf9165" ],

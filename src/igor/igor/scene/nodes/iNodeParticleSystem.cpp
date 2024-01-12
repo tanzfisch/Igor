@@ -21,12 +21,6 @@ namespace igor
         setName(L"iNodeParticleSystem");
         _nodeType = iNodeType::iNodeParticleSystem;
         _nodeKind = iNodeKind::Volume;
-
-        _targetMaterial = iTargetMaterial::create();
-
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 0);
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 1);
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_texture_white"), 2);
     }
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem *node)
@@ -39,7 +33,6 @@ namespace igor
         setName(node->getName());
 
         _particleSystem = node->_particleSystem;
-        _targetMaterial = node->_targetMaterial;
 
         setMaterial(node->getMaterial());
         setEmitter(node->getEmitter());
@@ -115,7 +108,7 @@ namespace igor
         }
 
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
-        iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, _targetMaterial);
+        iRenderer::getInstance().drawBuffer(_particleSystem.getVertexArray(), iRenderPrimitive::Points, getMaterial());
     }
 
     void iNodeParticleSystem::setStartVelocityGradient(const iaKeyFrameGraphVector2f &velocityGradient)
@@ -288,24 +281,6 @@ namespace igor
         return _emitterID;
     }
 
-    iaString iNodeParticleSystem::getTextureA() const
-    {
-        iaString result;
-        return result;
-    }
-
-    iaString iNodeParticleSystem::getTextureB() const
-    {
-        iaString result;
-        return result;
-    }
-
-    iaString iNodeParticleSystem::getTextureC() const
-    {
-        iaString result;
-        return result;
-    }
-
     void iNodeParticleSystem::setVortexCheckRange(uint8 particles)
     {
         _particleSystem.setVortexCheckRange(particles);
@@ -324,39 +299,6 @@ namespace igor
     uint16 iNodeParticleSystem::getMaxParticleCount() const
     {
         return _particleSystem.getMaxParticleCount();
-    }
-
-    void iNodeParticleSystem::setTextureA(const iaString &texture)
-    {
-        if(texture.isEmpty())
-        {
-            _targetMaterial->setTexture(nullptr, 0);
-            return;
-        }
-
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 0);
-    }
-
-    void iNodeParticleSystem::setTextureB(const iaString &texture)
-    {
-        if(texture.isEmpty())
-        {
-            _targetMaterial->setTexture(nullptr, 1);
-            return;
-        }
-
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 1);
-    }
-
-    void iNodeParticleSystem::setTextureC(const iaString &texture)
-    {
-        if(texture.isEmpty())
-        {
-            _targetMaterial->setTexture(nullptr, 2);
-            return;
-        }
-
-        _targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>(texture), 2);
     }
 
     void iNodeParticleSystem::setEmissionGradient(const iaKeyFrameGraphf &emissionGradient)
@@ -402,7 +344,7 @@ namespace igor
     void iNodeParticleSystem::setVelocityOriented(bool velocityOriented)
     {
         _particleSystem.setVelocityOriented(velocityOriented);
-        _targetMaterial->setVelocityOriented(velocityOriented);
+        getMaterial()->setVelocityOriented(velocityOriented);
     }
 
     bool iNodeParticleSystem::getVelocityOriented() const
@@ -413,7 +355,7 @@ namespace igor
     void iNodeParticleSystem::setTextureTiling(uint32 columns, uint32 rows)
     {
         _particleSystem.setTextureTiling(columns, rows);
-        _targetMaterial->setTilingConfig(iaVector2f(static_cast<float32>(columns), static_cast<float32>(rows)));
+        getMaterial()->setTiling(iaVector2f(static_cast<float32>(columns), static_cast<float32>(rows)));
     }
 
     uint32 iNodeParticleSystem::getTextureColumns() const

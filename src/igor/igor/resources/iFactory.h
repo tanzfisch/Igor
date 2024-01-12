@@ -116,6 +116,20 @@ namespace igor
         */
         virtual void unloadResource(iResourcePtr resource) = 0;
 
+        /*! exports the resource based on it's parameters
+
+        this needs to be a valid resource with a valid source parameter
+
+        \param resource the resource to save
+        \param filename optional filename if resource is to be saved in a new location
+        \returns true if saving the resource was successful
+        */
+        virtual bool saveResource(iResourcePtr resource, const iaString &filename = "")
+        {
+            con_err("not implemented");
+            return false;
+        }
+
         /*! called once after registration to resource manager
          */
         virtual void init(){};

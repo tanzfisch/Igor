@@ -33,7 +33,6 @@
 #include <ompf/chunks/ompfExternalReferenceChunk.h>
 #include <ompf/chunks/ompfGroupChunk.h>
 #include <ompf/chunks/ompfHeaderChunk.h>
-#include <ompf/chunks/ompfMaterialChunk.h>
 #include <ompf/chunks/ompfMaterialReferenceChunk.h>
 #include <ompf/chunks/ompfMeshChunk.h>
 #include <ompf/chunks/ompfParticleSystemChunk.h>
@@ -97,12 +96,6 @@ namespace OMPF
         */
         ompfTransformChunk *createTransformChunk();
 
-        /*! creates a material chunk
-
-		\returns pointer to material chunk
-		*/
-        ompfMaterialChunk *createMaterialChunk();
-
         /*! creates a material reference chunk
 
 		\returns pointer to material chunk
@@ -132,10 +125,6 @@ namespace OMPF
         \returns pointer to new external reference chunk
         */
         ompfExternalReferenceChunk *createExternalReferenceChunk();
-
-        /*! \returns list of materials
-        */
-        const std::vector<ompfMaterialChunk *> &getMaterialChunks() const;
 
         /*! \returns list of material references
         */
@@ -208,10 +197,6 @@ namespace OMPF
         /*! map with all the chunks
         */
         std::map<uint32, ompfBaseChunk *> _chunks;
-
-        /*! list of material chunks
-        */
-        std::vector<ompfMaterialChunk *> _materialChunks;
 
         /*! list of material reference chunks
         */

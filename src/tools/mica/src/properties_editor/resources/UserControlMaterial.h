@@ -26,14 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLMATERIAL__
-#define __USERCONTROLMATERIAL__
+#ifndef MICA_USERCONTROL_MATERIAL_H
+#define MICA_USERCONTROL_MATERIAL_H
 
 #include "UserControlResource.h"
-
-/*! material name change event
-*/
-IGOR_EVENT_DEFINITION(MaterialNameChanged, void);
 
 class UserControlMaterial : public UserControlResource
 {
@@ -43,11 +39,11 @@ public:
     \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-	UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+    UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
-	/*! cleanup
-	*/
-	~UserControlMaterial();
+    /*! does nothing
+     */
+    ~UserControlMaterial() = default;
 
     /*! init ui
      */
@@ -62,51 +58,53 @@ public:
     virtual void updateResource();
 
 private:
-	MaterialNameChangedEvent _materialNameChangedEvent;
+    /*! diffuse color chooser
+     */
+    iUserControlColorChooser *_diffuseColorChooser = nullptr;
 
-	iWidgetNumberChooser *_renderingOrder;
+    /*! ambient color chooser
+     */
+    iUserControlColorChooser *_ambientColorChooser = nullptr;
 
-	iWidgetCheckBox *_checkBoxCullFace;
-	iWidgetCheckBox *_checkBoxDepthTest;
-	iWidgetCheckBox *_checkBoxDepthMask;
-	iWidgetCheckBox *_checkBoxBlend;
-	iWidgetCheckBox *_checkBoxWireframe;
-	iWidgetCheckBox *_checkBoxInstanced;
-	iWidgetSelectBox *_selectBoxDepthFunc;
-	iWidgetSelectBox *_selectBoxCullFaceFunc;
-	iWidgetSelectBox *_selectBoxInstancedFunc;
+    /*! specular color chooser
+     */
+    iUserControlColorChooser *_specularColorChooser = nullptr;
 
-	iWidgetLineTextEdit *_textShaderGeometry;
-	iWidgetLineTextEdit *_textShaderVertex;
-	iWidgetLineTextEdit *_textShaderFragment;
+    /*! emissive color chooser
+     */
+    iUserControlColorChooser *_emissiveColorChooser = nullptr;
 
-	iWidgetButton *_shader0Button;
-	iWidgetButton *_shader1Button;
-	iWidgetButton *_shader2Button;
+    /*! shininess number chooser
+     */
+    iWidgetNumberChooserPtr _numberChooserShininess = nullptr;
 
-    iWidgetButton *_shaderReload;
-    iWidgetButton *_exportMaterial;
+    /*! texture choosers
+     */
+    iUserControlTextureChooserPtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
 
-	uint32 _loadShaderNumber = 0;
+    /*! shader material chooser
+    */
+    iUserControlShaderMaterialChooserPtr _shaderMaterialChooser = nullptr;
 
-	iDialogFileSelectPtr _fileDialog = nullptr;
+    /*! shininess slider
+     */
+    iWidgetSliderPtr _sliderShininess = nullptr;
 
-	bool _ignoreMaterialUpdate = false;
+    /*! flag to prevent endless update loop
+     */
+    bool _ignoreUpdate = false;
 
-	void onShader0Button(const iWidgetPtr source);
-	void onShader1Button(const iWidgetPtr source);
-	void onShader2Button(const iWidgetPtr source);
+    /*! triggers material update
 
-	void onTextChangedName(const iWidgetPtr source);
-	void onDoUpdateMaterial(const iWidgetPtr source);
+    \param source the source widget of this event
+    */
+    void onDoUpdateMaterial(const iWidgetPtr source);
 
-	void onFileLoadDialogClosed(iDialogPtr dialog);
-    void onExportMaterialDialogClosed(iDialogPtr dialog);
+    /*! triggers material update
 
-    void onReloadShader(const iWidgetPtr source);
-    void onExportMaterial(const iWidgetPtr source);
-
-    void reloadShader(iMaterialPtr material);
+    \param source the source widget of this event
+    */
+    void onDoUpdateShininess(const iWidgetPtr source);
 };
 
-#endif // __USERCONTROLMATERIAL__
+#endif // MICA_USERCONTROL_MATERIAL_H

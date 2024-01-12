@@ -7,7 +7,7 @@
 #include "PlantMeshGenerator.h"
 
 LSystems::LSystems(iWindowPtr window)
-	: ExampleBase(window, "L-System")
+	: ExampleBase(window, "L-System", true, "example_skybox_debug")
 {
 }
 
@@ -177,7 +177,7 @@ uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, u
 							{IGOR_RESOURCE_PARAM_GENERATE, true},
 							{IGOR_RESOURCE_PARAM_QUIET, true},
 							{"lsystem", &_lSystem},
-							{IGOR_RESOURCE_PARAM_MATERIAL, iRenderer::getInstance().getDefaultMaterial()},
+							{IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iRenderer::getInstance().getDefaultShader()},
 							{IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
 							{"axiom", axiom},
 							{"iterations", iterations},

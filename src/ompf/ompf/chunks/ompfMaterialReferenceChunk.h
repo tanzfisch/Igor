@@ -52,20 +52,20 @@ namespace OMPF
         */
         uint32 getSize(const ompfSettings &settings) override;
 
-        /*! sets file name of external material reference
+        /*! sets reference name. resource id, filename or alias
 
-        \param filename the file name
+        \param reference the file name
         */
-        void setFilename(const iaString &filename);
+        void setReference(const iaString &reference);
 
         /*! \returns file name of external reference
         */
-        iaString getFilename() const;
+        iaString getReference() const;
 
     private:
         /*! file name of external reference
         */
-        iaString _filename;
+        iaString _reference;
 
         /*! writes chunk to stream
 

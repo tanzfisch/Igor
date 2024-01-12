@@ -4,6 +4,7 @@ var classiaux_1_1ia_u_u_i_d =
     [ "iaUUID", "classiaux_1_1ia_u_u_i_d.html#a6c4e1d6feffee1117118e723ff753be3", null ],
     [ "iaUUID", "classiaux_1_1ia_u_u_i_d.html#a4b6ab0a8f062f9554d1dd0e9fadb2f4a", null ],
     [ "iaUUID", "classiaux_1_1ia_u_u_i_d.html#ad1918790c4d0a4094eb61f7f1ab6b24b", null ],
+    [ "getInvalid", "classiaux_1_1ia_u_u_i_d.html#a08b70e9a09c9c6774ac682c277bd96c1", null ],
     [ "isUUID", "classiaux_1_1ia_u_u_i_d.html#a2d2a7bc77d8c2669575f9a43cba5d0bb", null ],
     [ "isValid", "classiaux_1_1ia_u_u_i_d.html#a2598315f7b5e4931a93985cba3e81011", null ],
     [ "operator uint64", "classiaux_1_1ia_u_u_i_d.html#a8ee798842bfd4842f547a1b79d0ac172", null ],

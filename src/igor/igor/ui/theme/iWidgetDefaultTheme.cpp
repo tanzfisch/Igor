@@ -5,7 +5,7 @@
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/resources/iResourceManager.h>
 
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
@@ -136,8 +136,9 @@ namespace igor
             if (texture->hasTransparency() &&
                 checkerBoard)
             {
+                const float32 scale = static_cast<float32>(texture->getWidth()) / 128.0f;
                 const float32 aspect = static_cast<float32>(texture->getHeight()) / static_cast<float32>(texture->getWidth());
-                iRenderer::getInstance().drawTexturedRectangle(rect, _checkerBoardTexture, background, true, iaVector2f(1.0f, aspect * 1.0f));
+                iRenderer::getInstance().drawTexturedRectangle(rect, _checkerBoardTexture, iaColor4f::white, false, iaVector2f(scale, aspect * scale));
             }
 
             iRenderer::getInstance().drawTexturedRectangle(rect, texture, color, texture->hasTransparency());
@@ -172,22 +173,47 @@ namespace igor
             return;
         }
 
-        const iaRectanglef rect(pos._x - 16, pos._y - 16, 64, 64);
+        const float32 srcHeight = texture->getHeight();
+        const float32 srcWidth = texture->getWidth();
+        const float32 aspect = srcHeight / srcWidth;
+
+        float32 newHeight = 64;
+        float32 newWidth = 64;
+
+        if (srcWidth > srcHeight)
+        {
+            newHeight = newWidth * aspect;
+        }
+        else
+        {
+            newWidth = newHeight * (1.0 / aspect);
+        }
+
+        const iaRectanglef rect(pos._x, pos._y, newWidth, newHeight);
         iRenderer::getInstance().drawTexturedRectangle(rect, texture, iaColor4f::white, true);
+
+        iRenderer::getInstance().setLineWidth(3);
 
         switch (drag.getDragState())
         {
         case iDragState::Accepted:
-            iRenderer::getInstance().drawRectangle(rect, iaColor4f::green);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(5, 5),
+                                              rect.getBottomRight() + iaVector2f(15, 5), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(10, 0),
+                                              rect.getBottomRight() + iaVector2f(10, 10), iaColor4f::white);
             break;
         case iDragState::Rejected:
-            iRenderer::getInstance().drawLine(rect.getTopLeft(), rect.getBottomRight(), iaColor4f::red);
-            iRenderer::getInstance().drawLine(rect.getTopRight(), rect.getBottomLeft(), iaColor4f::red);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 1),
+                                              rect.getBottomRight() + iaVector2f(14, 9), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 9),
+                                              rect.getBottomRight() + iaVector2f(14, 1), iaColor4f::white);
             break;
         case iDragState::Neutral:
         default:
             break;
         }
+
+        iRenderer::getInstance().setLineWidth(1);
     }
 
     // TODO create new interfaces like the one above

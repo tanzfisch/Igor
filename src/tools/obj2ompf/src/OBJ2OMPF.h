@@ -48,7 +48,7 @@ public:
 
 private:
 
-    void setMaterialRecursive(iNodePtr node, iMaterialPtr material);
+    void setMaterialRecursive(iNodePtr node, iShaderMaterialPtr material);
     bool analyzeParam(int argc, char* argv[]);
 
     bool _joinVertexes = true;

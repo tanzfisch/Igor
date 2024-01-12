@@ -49,7 +49,7 @@ Viewport::Viewport(WorkspacePtr workspace)
 
     initScene();
 
-    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_orientation_plane");
+    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_orientation_plane");
 
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
@@ -100,17 +100,13 @@ void Viewport::initScene()
     _lightNode->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
     _lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
 
-    _workspace->getRootMica()->insertNode(_directionalLightRotate);
+    _workspace->getMicaScene()->insertNode(_directionalLightRotate);
     _directionalLightRotate->insertNode(_directionalLightTranslate);
     _directionalLightTranslate->insertNode(_lightNode);
 
     // load materials
-    _materialCelShading = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_cellshading_yellow");
-    _materialBoundingBox = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_bounding_box");
-
-    // load particle material just so we have one available in the UI
-    // TODO this needs a better solution
-    iResourceManager::getInstance().loadResource<iMaterial>("igor_material_particles");
+    _materialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_cellshading_yellow");
+    _materialBoundingBox = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_bounding_box");
 }
 
 void Viewport::frameOnSelection()
@@ -171,7 +167,7 @@ void Viewport::renderSelection()
 
         if (node->getType() == iNodeType::iNodeMesh)
         {
-            iRenderer::getInstance().setMaterial(_materialCelShading);
+            iRenderer::getInstance().setShaderMaterial(_materialCelShading);
 
             iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
             iRenderer::getInstance().setLineWidth(4);
@@ -182,7 +178,7 @@ void Viewport::renderSelection()
             if (node->getKind() == iNodeKind::Volume)
             {
                 iNodeVolume *renderVolume = static_cast<iNodeVolume *>(node);
-                iRenderer::getInstance().setMaterial(_materialBoundingBox);
+                iRenderer::getInstance().setShaderMaterial(_materialBoundingBox);
 
                 iAABoxd box = renderVolume->getBoundingBox();
                 iRenderer::getInstance().drawBox(box, iaColor4f::yellow);
@@ -201,7 +197,7 @@ void Viewport::renderOrientationPlane()
     iaMatrixd identity;
     iRenderer::getInstance().setModelMatrix(identity);
 
-    iRenderer::getInstance().setMaterial(_materialOrientationPlane);
+    iRenderer::getInstance().setShaderMaterial(_materialOrientationPlane);
     iRenderer::getInstance().setLineWidth(1);
 
     const iaColor4f color1(1.0f, 1.0f, 1.0f, 0.08f);
@@ -452,7 +448,7 @@ iNodePtr Viewport::getNodeAt(int32 x, int32 y)
 {
     iView &view = _viewportScene->getView();
     const auto &rect = getActualRect();
-    return iNodeManager::getInstance().getNode(view.pickcolorID(x - rect._x, y - rect._y));
+    return iNodeManager::getInstance().getNode(view.pickColorID(x - rect._x, y - rect._y));
 }
 
 void Viewport::setCamera(iNodeID cameraID)
@@ -556,7 +552,7 @@ void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
 
     if (resourceType == IGOR_RESOURCE_TEXTURE)
     {
-        iNodeID nodeID = _viewportScene->getView().pickcolorID(iaVector2i(mousePos._x - getActualPosX(),
+        iNodeID nodeID = _viewportScene->getView().pickColorID(iaVector2i(mousePos._x - getActualPosX(),
                                                                           mousePos._y - getActualPosY()));
         if (nodeID != iNode::INVALID_NODE_ID)
         {
@@ -599,14 +595,14 @@ void Viewport::onDrop(const iDrag &drag)
         // TODO open dialog and ask if this is to be added to root, cam etc.
         // also add option to add by reference or not
 
-        _workspace->getRootUser()->insertNode(model);
+        _workspace->getUserScene()->insertNode(model);
         return;
     }
 
     if (resourceType == IGOR_RESOURCE_TEXTURE)
     {
         const auto mousePos = iMouse::getInstance().getPos();
-        iNodeID nodeID = _viewportScene->getView().pickcolorID(iaVector2i(mousePos._x - getActualPosX(),
+        iNodeID nodeID = _viewportScene->getView().pickColorID(iaVector2i(mousePos._x - getActualPosX(),
                                                                           mousePos._y - getActualPosY()));
         if (nodeID != iNode::INVALID_NODE_ID)
         {
@@ -619,7 +615,7 @@ void Viewport::onDrop(const iDrag &drag)
                                         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                         {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache}});
 
-                mesh->getTargetMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(parameters), 0);
+                mesh->getMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(parameters), 0);
                 return;
             }
         }

@@ -112,7 +112,7 @@ void UILayer::onDeinit()
 
 void UILayer::onAddMaterial()
 {
-    iResourceManager::getInstance().createResource<iMaterial>();
+    iResourceManager::getInstance().createResource<iShaderMaterial>();
 
     _outliner->refresh();
 }
@@ -193,7 +193,7 @@ void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
 
     iaString filename = _fileDialog.getFullPath();
 
-    auto rootNode = _workspace->getRootUser();
+    auto rootNode = _workspace->getUserScene();
 
     std::vector<iNodePtr> children = rootNode->getChildren();
     children.insert(children.end(), rootNode->getInactiveChildren().begin(), rootNode->getInactiveChildren().end());
@@ -219,7 +219,7 @@ void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
         return;
     }
 
-    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(_fileDialog.getFullPath());
+    iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>(_fileDialog.getFullPath());
     material->setVisibility(iMaterialVisibility::Public);
     _outliner->refresh();
 }

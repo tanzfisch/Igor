@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -149,6 +149,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a06956239f01a1138220545e94f00a953"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69fd0e09dbaf928df4a6f1fe2e75d253"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_dialog.html#a69fd0e09dbaf928df4a6f1fe2e75d253">putInFront</a> ()</td></tr>
 <tr class="separator:a69fd0e09dbaf928df4a6f1fe2e75d253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58271a292889843176f091a1201894bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_dialog.html#a58271a292889843176f091a1201894bb">setAcceptESCToClose</a> (bool acceptESC)</td></tr>
+<tr class="separator:a58271a292889843176f091a1201894bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab225648450377007e407b38a36205884"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_dialog.html#ab225648450377007e407b38a36205884">isAcceptingESCToClose</a> () const</td></tr>
+<tr class="separator:ab225648450377007e407b38a36205884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classigor_1_1i_widget"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classigor_1_1i_widget')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classigor_1_1i_widget.html">igor::iWidget</a></td></tr>
 <tr class="memitem:a032daf535b79365b83583a14d486a97d inherit pub_methods_classigor_1_1i_widget"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#af0faed1be6138ddb4a7333d713b7a618">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_widget.html#a032daf535b79365b83583a14d486a97d">getWidgetType</a> () const</td></tr>
 <tr class="separator:a032daf535b79365b83583a14d486a97d inherit pub_methods_classigor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -656,6 +660,24 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="ab225648450377007e407b38a36205884" name="ab225648450377007e407b38a36205884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab225648450377007e407b38a36205884">&#9670;&nbsp;</a></span>isAcceptingESCToClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iDialog::isAcceptingESCToClose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if dialog accepts ESC to close </dd></dl>
+
+</div>
+</div>
 <a id="aff3890bae0e3927f4936b5e4011fde38" name="aff3890bae0e3927f4936b5e4011fde38"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff3890bae0e3927f4936b5e4011fde38">&#9670;&nbsp;</a></span>isDockable()</h2>
 
@@ -797,6 +819,31 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >puts dialog in front of others </p>
+
+</div>
+</div>
+<a id="a58271a292889843176f091a1201894bb" name="a58271a292889843176f091a1201894bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58271a292889843176f091a1201894bb">&#9670;&nbsp;</a></span>setAcceptESCToClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iDialog::setAcceptESCToClose </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>acceptESC</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >set wether or not dialog accepts ESC to close the dialog</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">acceptESC</td><td>if true dialog accepts ESC to close </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

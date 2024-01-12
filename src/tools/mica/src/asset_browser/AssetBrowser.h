@@ -104,6 +104,14 @@ private:
      */
     ContentMode _contentMode = ContentMode::Assets;
 
+    /*! the context menu
+     */
+    iDialogMenu _contextMenu;
+
+    /*! current selected path
+    */
+    iaString _currentPath;
+
     /*! init UI
      */
     void initUI();
@@ -152,6 +160,24 @@ private:
     \param source the source widget of this event
     */
     void onSelectionChanged(const iWidgetPtr source);
+
+    /*! handle context menu event
+
+    \param source the source widget of this event
+    */
+    void OnContextMenu(iWidgetPtr source);
+
+    /*! handle creation of new material
+
+    \param source the source widget of this event
+    */
+    void onCreateMaterial(iWidgetPtr source);
+
+    /*! handle creation of new shader
+
+    \param source the source widget of this event
+    */
+    void onCreateShader(iWidgetPtr source);
 };
 
 #endif // __ASSET_BROWSER__

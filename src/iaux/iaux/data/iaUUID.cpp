@@ -61,6 +61,10 @@ namespace iaux
         return std::regex_match(text.getData(), hexPattern);
     }
 
+    iaUUID iaUUID::getInvalid()
+    {
+        return iaUUID(IGOR_INVALID_ID);
+    }
 
     void iaUUID::reset()
     {

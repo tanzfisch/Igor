@@ -16,23 +16,27 @@ void UserControlResource::init()
 {
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+    iWidgetGroupBox *mainGroupBox = new iWidgetGroupBox(this);
+    mainGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    mainGroupBox->setText("Resource");
+    mainGroupBox->setHeaderOnly();
+
+    _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, mainGroupBox);
     _layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _layout->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetBoxLayoutPtr nameLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
-    nameLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    nameLayout->setStretchIndex(1);
-    iWidgetLabelPtr labelName = new iWidgetLabel(nameLayout);
-    labelName->setText("Name");
-    labelName->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetBoxLayoutPtr typeLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    typeLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    typeLayout->setStretchIndex(1);
+    iWidgetLabelPtr labelType = new iWidgetLabel(typeLayout);
+    labelType->setText("Type");
+    labelType->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textName = new iWidgetLineTextEdit(nameLayout);
-    _textName->setMaxTextLength(256);
-    _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-    _textName->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onNameChanged));
+    _textType = new iWidgetLineTextEdit(typeLayout);
+    _textType->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    _textType->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    _textType->setEnabled(false);
 
     iWidgetBoxLayoutPtr sourceLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     sourceLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -47,7 +51,6 @@ void UserControlResource::init()
     _textSource->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textSource->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textSource->setEnabled(false);
-    _textSource->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onNameChanged));
 
     iWidgetBoxLayoutPtr idLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     idLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -62,7 +65,20 @@ void UserControlResource::init()
     _textID->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textID->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textID->setEnabled(false);
-    _textID->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onNameChanged));
+
+    iWidgetBoxLayoutPtr aliasLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    aliasLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    aliasLayout->setStretchIndex(1);
+    iWidgetLabelPtr labelAlias = new iWidgetLabel(aliasLayout);
+    labelAlias->setText("Alias");
+    labelAlias->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelAlias->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _textAlias = new iWidgetLineTextEdit(aliasLayout);
+    _textAlias->setMaxTextLength(256);
+    _textAlias->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    _textAlias->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    _textAlias->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onAliasChanged));    
 }
 
 iWidgetBoxLayoutPtr UserControlResource::getLayout()
@@ -72,7 +88,8 @@ iWidgetBoxLayoutPtr UserControlResource::getLayout()
 
 void UserControlResource::update()
 {
-    _textName->setText(iResourceManager::getInstance().getAlias(getResourceID()));
+    _textType->setText(iResourceManager::getInstance().getType(getResourceID()));
+    _textAlias->setText(iResourceManager::getInstance().getAlias(getResourceID()));
     _textID->setText(getResourceID().toString());
     _textSource->setText(iResourceManager::getInstance().getFilename(getResourceID()));
 }
@@ -81,9 +98,10 @@ void UserControlResource::updateResource()
 {
 }
 
-void UserControlResource::onNameChanged(const iWidgetPtr source)
+void UserControlResource::onAliasChanged(const iWidgetPtr source)
 {
-    iResourceManager::getInstance().setAlias(getResourceID(), _textName->getText());
+    iResourceManager::getInstance().setAlias(getResourceID(), _textAlias->getText());
+    // TODO #400 iResourceManager::getInstance().saveResourceDictionary();
 }
 
 iResourceID UserControlResource::getResourceID() const

@@ -99,11 +99,14 @@ void Ascent::initScene()
 
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    // set it up with the default skybox texture
-    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    iMaterialPtr materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>("example_material_skybox");
-    materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
+    iShaderMaterialPtr skyboxShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_skybox");
+    iParameters paramSkybox({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                             {IGOR_RESOURCE_PARAM_GENERATE, true},
+                             {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, skyboxShader},
+                             {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars")}});
+    iMaterialPtr materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>(paramSkybox);
+
     // set that material
     skyBoxNode->setMaterial(materialSkyBox);
     // and add it to the scene
@@ -164,20 +167,16 @@ void Ascent::initVoxelData(uint32 lodTriggerID)
         new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData),
                           iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7));
 
-    // set up voxel mesh material
-    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iMaterial>("example_material_voxel_terrain_directional_light");
-    _voxelTerrain->setMaterial(_voxelMeshMaterial);
-
     // set up voxel mesh target material
-    iTargetMaterialPtr targetMaterial = _voxelTerrain->getTargetMaterial();
-    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 0);
-    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 1);
-    targetMaterial->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 2);
-    targetMaterial->setAmbient(iaColor3f(0.1f, 0.1f, 0.1f));
-    targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
-    targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
-    targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
-    targetMaterial->setShininess(100.0f);
+    iMaterialPtr material = _voxelTerrain->getMaterial();
+    material->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 0);
+    material->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 1);
+    material->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_crates_2"), 2);
+    material->setAmbient(iaColor3f(0.1f, 0.1f, 0.1f));
+    material->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
+    material->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
+    material->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
+    material->setShininess(100.0f);
 
     outlineLevelStructure();
 

@@ -514,6 +514,7 @@ var menudata={children:[
 {text:"re",url:"functions_rela.html#index_r"},
 {text:"s",url:"functions_rela.html#index_s"},
 {text:"sc",url:"functions_rela.html#index_s"},
+{text:"sh",url:"functions_rela.html#index_s"},
 {text:"sk",url:"functions_rela.html#index_s"},
 {text:"so",url:"functions_rela.html#index_s"},
 {text:"sp",url:"functions_rela.html#index_s"},

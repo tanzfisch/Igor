@@ -114,7 +114,7 @@ namespace igor
         */
         iaString _filename;
 
-        /*! maps chunk material id to materil id
+        /*! maps chunk material id to material id
          */
         std::unordered_map<uint32, iMaterialID> _materialMapping;
 
@@ -125,10 +125,6 @@ namespace igor
         /*! maps node id to chunk id
          */
         std::map<uint32, uint32> _nodeToChunk;
-
-        /*! map of materials currently in use
-         */
-        std::unordered_map<iMaterialID, OMPF::ompfMaterialChunk *> _materialsInUse;
 
         /*! map of reference materials in use
          */
@@ -145,12 +141,6 @@ namespace igor
         /*! creates materials based on what ompf delivered
          */
         void createMaterials();
-
-        /*! creates one material
-
-        \param materialChunk the data to create the material with
-        */
-        void createMaterial(OMPF::ompfMaterialChunk *materialChunk);
 
         /*! creates material
 
@@ -224,12 +214,6 @@ namespace igor
         \param node the node the chunk is created from
         */
         OMPF::ompfParticleSystemChunk *createParticleSystemChunk(iNodeParticleSystem *node);
-
-        /*! creates material chunk from given igor material
-
-        \param material the igor material
-        */
-        OMPF::ompfMaterialChunk *createMaterialChunk(iMaterialPtr material);
 
         /*! creates material reference chunk from given igor material
 

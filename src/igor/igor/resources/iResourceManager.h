@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RESOURCEMANAGER__
-#define __IGOR_RESOURCEMANAGER__
+#ifndef IGOR_RESOURCEMANAGER_H
+#define IGOR_RESOURCEMANAGER_H
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/module/iModule.h>
@@ -36,6 +36,7 @@
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimation.h>
 #include <igor/resources/model/iModel.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/iResourceDictionary.h>
 
@@ -137,7 +138,7 @@ namespace igor
 
         /*! creates a new resource
 
-        \param param parameters for loading resource
+        \param param parameters for creating resource
         \returns shared pointer to resource
         */
         iResourcePtr createResource(const iParameters &parameters);
@@ -241,7 +242,7 @@ namespace igor
 
         TODO how about a more general interface?
         */
-        void getMaterials(std::vector<iMaterialPtr> &materials);
+        void getMaterials(std::vector<iShaderMaterialPtr> &materials);
 
         /*! works like a garbage collector.
 
@@ -338,6 +339,22 @@ namespace igor
         */
         const iaString getType(const iResourceID &resourceID) const;
 
+        /*! saves a resource to the filesystem        
+
+        \param resource the given resource to save (must be valid and have a valid source/filename)
+        \param filename optional filename if resource is to be saved in a new location
+        \returns true if successfully saved
+        */
+        bool saveResource(iResourcePtr resource, const iaString &filename = "");
+
+        /*! saves a resource to the filesystem        
+
+        \param resourceID the given resource ID to save (must be valid and have a valid source/filename)
+        \param filename optional filename if resource is to be saved in a new location
+        \returns true if successfully saved
+        */
+        bool saveResource(iResourceID resourceID, const iaString &filename = "");
+
     private:
         /*! mutex to manage access to internal data
          */
@@ -423,4 +440,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_RESOURCEMANAGER__
+#endif // IGOR_RESOURCEMANAGER_H

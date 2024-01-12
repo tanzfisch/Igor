@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROL_TEXTURE_CHOOSER__
-#define __IGOR_USERCONTROL_TEXTURE_CHOOSER__
+#ifndef IGOR_USERCONTROL_TEXTURE_CHOOSER_H
+#define IGOR_USERCONTROL_TEXTURE_CHOOSER_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -58,18 +58,18 @@ namespace igor
 
         \param textureID the given texture id
         */
-        void setTextureID(iResourceID textureID);
+        void setID(iResourceID textureID);
 
         /*! \returns texture id
          */
-        iResourceID getTextureID() const;
+        iResourceID getID() const;
 
     private:
-        /*!
+        /*! texture id
          */
         iResourceID _textureID;
 
-        /*! texture id
+        /*! label texture id
          */
         iWidgetLabelPtr _labelID;
 
@@ -104,4 +104,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROL_TEXTURE_CHOOSER__
+#endif // IGOR_USERCONTROL_TEXTURE_CHOOSER_H

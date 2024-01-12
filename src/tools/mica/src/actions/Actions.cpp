@@ -132,7 +132,7 @@ void ActionAddTransform::execute(const iActionContext &context)
 
     if (selection.empty())
     {
-        selection.push_back(actionContext->getWorkspace()->getRootUser()->getID());
+        selection.push_back(actionContext->getWorkspace()->getUserScene()->getID());
     }
 
     for (auto nodeID : selection)
@@ -170,7 +170,7 @@ void ActionAddGroup::execute(const iActionContext &context)
 
     if (selection.empty())
     {
-        selection.push_back(actionContext->getWorkspace()->getRootUser()->getID());
+        selection.push_back(actionContext->getWorkspace()->getUserScene()->getID());
     }
 
     for (auto nodeID : selection)
@@ -208,7 +208,7 @@ void ActionAddSwitch::execute(const iActionContext &context)
 
     if (selection.empty())
     {
-        selection.push_back(actionContext->getWorkspace()->getRootUser()->getID());
+        selection.push_back(actionContext->getWorkspace()->getUserScene()->getID());
     }
 
     for (auto nodeID : selection)
@@ -246,7 +246,7 @@ void ActionAddEmitter::execute(const iActionContext &context)
 
     if (selection.empty())
     {
-        selection.push_back(actionContext->getWorkspace()->getRootUser()->getID());
+        selection.push_back(actionContext->getWorkspace()->getUserScene()->getID());
     }
 
     for (auto nodeID : selection)
@@ -284,7 +284,7 @@ void ActionAddParticleSystem::execute(const iActionContext &context)
 
     if (selection.empty())
     {
-        selection.push_back(actionContext->getWorkspace()->getRootUser()->getID());
+        selection.push_back(actionContext->getWorkspace()->getUserScene()->getID());
     }
 
     for (auto nodeID : selection)
@@ -345,7 +345,7 @@ void ActionBakeMeshToWorld::execute(const iActionContext &context)
     for (auto nodeID : actionContext->getWorkspace()->getSelection())
     {
         iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-        bakeToWorld(static_cast<iNodeMesh *>(node), actionContext->getWorkspace()->getRootUser());
+        bakeToWorld(static_cast<iNodeMesh *>(node), actionContext->getWorkspace()->getUserScene());
     }
 }
 
@@ -391,7 +391,7 @@ void ActionBakeMeshToWorld::bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root)
     iNodeMesh *newMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
     newMeshNode->setMesh(newMesh);
     newMeshNode->setMaterial(meshNode->getMaterial());
-    newMeshNode->setTargetMaterial(meshNode->getTargetMaterial());
+    newMeshNode->setMaterial(meshNode->getMaterial());
 
     root->insertNode(newMeshNode);
 }

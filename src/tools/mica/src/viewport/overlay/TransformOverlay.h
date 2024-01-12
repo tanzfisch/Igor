@@ -125,23 +125,19 @@ private:
 
     /*! red target material
      */
-    iTargetMaterialPtr _red = nullptr;
+    iMaterialPtr _red = nullptr;
 
     /*! green target material
      */
-    iTargetMaterialPtr _green = nullptr;
+    iMaterialPtr _green = nullptr;
 
     /*! blue target material
      */
-    iTargetMaterialPtr _blue = nullptr;
+    iMaterialPtr _blue = nullptr;
 
     /*! cyan target material
      */
-    iTargetMaterialPtr _cyan = nullptr;
-
-    /*! material to render manipulator
-     */
-    iMaterialPtr _material;
+    iMaterialPtr _cyan = nullptr;
 
     /*! cel chader material for selection
      */

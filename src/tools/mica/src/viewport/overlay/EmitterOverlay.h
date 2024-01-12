@@ -84,10 +84,6 @@ private:
      */
     iNodeTransformPtr _scaleTransform = nullptr;
 
-    /*! target material
-     */
-    iTargetMaterialPtr _targetMaterial = nullptr;
-
     /*! switch node
     */
     iNodeSwitchPtr _switchNode = nullptr;

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_resource.html',''); ini
 
 <p><code>#include &lt;iResource.h&gt;</code></p>
 
-<p>Inherited by <a class="el" href="classigor_1_1i_animation.html">igor::iAnimation</a>, <a class="el" href="classigor_1_1i_material.html">igor::iMaterial</a>, <a class="el" href="classigor_1_1i_model.html">igor::iModel</a>, <a class="el" href="classigor_1_1i_sound.html">igor::iSound</a>, <a class="el" href="classigor_1_1i_sprite.html">igor::iSprite</a>, and <a class="el" href="classigor_1_1i_texture.html">igor::iTexture</a>.</p>
+<p>Inherited by <a class="el" href="classigor_1_1i_animation.html">igor::iAnimation</a>, <a class="el" href="classigor_1_1i_material.html">igor::iMaterial</a>, <a class="el" href="classigor_1_1i_model.html">igor::iModel</a>, <a class="el" href="classigor_1_1i_shader_material.html">igor::iShaderMaterial</a>, <a class="el" href="classigor_1_1i_sound.html">igor::iSound</a>, <a class="el" href="classigor_1_1i_sprite.html">igor::iSprite</a>, and <a class="el" href="classigor_1_1i_texture.html">igor::iTexture</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -115,10 +115,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae742a9fa7266c9f6f989c66d462e900e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a3d2b460b9f732c3103a4ff5082b662"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#a6a3d2b460b9f732c3103a4ff5082b662">getID</a> () const</td></tr>
 <tr class="separator:a6a3d2b460b9f732c3103a4ff5082b662"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afba7634d559180d6fa657f0654433c58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#afba7634d559180d6fa657f0654433c58">setName</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name)</td></tr>
-<tr class="separator:afba7634d559180d6fa657f0654433c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2fe45041511bc80719966fd5a555ec8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#af2fe45041511bc80719966fd5a555ec8">getName</a> () const</td></tr>
-<tr class="separator:af2fe45041511bc80719966fd5a555ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca18f713adcf81195d93c193068467b8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#aca18f713adcf81195d93c193068467b8">getAlias</a> () const</td></tr>
 <tr class="separator:aca18f713adcf81195d93c193068467b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c2b4789dc511d13437c38d7e86c9f35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a424b008e648b912ad459f21479742743">iResourceCacheMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#a1c2b4789dc511d13437c38d7e86c9f35">getCacheMode</a> () const</td></tr>
@@ -337,24 +333,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="af2fe45041511bc80719966fd5a555ec8" name="af2fe45041511bc80719966fd5a555ec8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2fe45041511bc80719966fd5a555ec8">&#9670;&nbsp;</a></span>getName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp; igor::iResource::getName </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>name of resource (not unique) </dd></dl>
-
-</div>
-</div>
 <a id="ab37f31e3ffeb408b83eb2feaefb89948" name="ab37f31e3ffeb408b83eb2feaefb89948"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab37f31e3ffeb408b83eb2feaefb89948">&#9670;&nbsp;</a></span>getParameters()</h2>
 
@@ -388,7 +366,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the source of this resource</dd></dl>
-<p>ie filename </p>
+<p>usually the filename </p>
 
 </div>
 </div>
@@ -462,31 +440,6 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if there is valid data present </dd></dl>
-
-</div>
-</div>
-<a id="afba7634d559180d6fa657f0654433c58" name="afba7634d559180d6fa657f0654433c58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afba7634d559180d6fa657f0654433c58">&#9670;&nbsp;</a></span>setName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iResource::setName </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >sets name of material (not unique)</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>name to be set </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

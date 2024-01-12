@@ -34,8 +34,7 @@ namespace igor
         iVoxelData* voxelData = parameters.getParameter<iVoxelData*>("voxelData", nullptr);
         iVoxelData* voxelDataNextLOD = parameters.getParameter<iVoxelData*>("voxelDataNextLOD", nullptr);
         
-        iMaterialPtr material = parameters.getParameter<iMaterialPtr>(IGOR_RESOURCE_MATERIAL, nullptr);
-        iTargetMaterialPtr targetMaterial = parameters.getParameter<iTargetMaterialPtr>(IGOR_RESOURCE_PARAM_TARGET_MATERIAL, nullptr);
+        iMaterialPtr material = parameters.getParameter<iMaterialPtr>(IGOR_RESOURCE_PARAM_MATERIAL, nullptr);
         const uint32 lod = parameters.getParameter<uint32>(IGOR_RESOURCE_PARAM_LOD
 , 0);
         const uint8 neighboursLOD = parameters.getParameter<uint8>("neighboursLOD", 0);
@@ -66,7 +65,6 @@ namespace igor
             meshNode->setName(iaString("voxel_mesh_") + sectionName);
             meshNode->setVisible(false);
 
-            meshNode->setTargetMaterial(targetMaterial);
             result->insertNode(meshNode);
 
 #ifndef DEBUG_VOXEL_TERRAIN_NO_PHYSICS

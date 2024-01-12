@@ -26,11 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MATERIAL_FACTORY__
-#define __IGOR_MATERIAL_FACTORY__
+#ifndef IGOR_MATERIAL_FACTORY_H
+#define IGOR_MATERIAL_FACTORY_H
 
 #include <igor/resources/iFactory.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 
 namespace igor
 {
@@ -75,8 +75,18 @@ namespace igor
         \param resource the resource to unload
         */
         void unloadResource(iResourcePtr resource) override;
+
+        /*! exports the resource based on it's parameters
+
+        this needs to be a valid resource with a valid source parameter
+
+        \param resource the resource to save
+        \param filename optional filename if resource is to be saved in a new location
+        \returns true if saving the resource was successful
+        */
+        bool saveResource(iResourcePtr resource, const iaString &filename = "") override;
     };
 
 }; // namespace igor
 
-#endif // __IGOR_MATERIAL_FACTORY__
+#endif // IGOR_MATERIAL_FACTORY_H

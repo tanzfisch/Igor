@@ -32,13 +32,13 @@
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
 #include <igor/renderer/buffers/iInstancingBuffer.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaRectangle.h>
@@ -76,11 +76,11 @@ namespace igor
 
         \param material the material to render with
         */
-        void setMaterial(const iMaterialPtr &material);
+        void setShaderMaterial(const iShaderMaterialPtr &material);
 
         /*! \returns currently active material
          */
-        const iMaterialPtr &getMaterial() const;
+        const iShaderMaterialPtr &getMaterial() const;
 
         /*! set projection matrix with perspective projection
 
@@ -508,9 +508,9 @@ namespace igor
         positioned based on current model view and projection matrices
 
         \param mesh the given mesh to draw
-        \param targetMaterial the target material to use
+        \param material the target material to use
         */
-        void drawMesh(iMeshPtr mesh, iTargetMaterialPtr targetMaterial);
+        void drawMesh(iMeshPtr mesh, iMaterialPtr material);
 
         /*! draw mesh instanced
 
@@ -518,17 +518,17 @@ namespace igor
 
         \param mesh the given mesh to draw
         \param instancingBuffer the instancing buffer
-        \param targetMaterial the target material to use
+        \param material the target material to use
         */
-        void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iTargetMaterialPtr targetMaterial = nullptr);
+        void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material = nullptr);
 
         /*! draws buffer with given target material and primitive type
 
         \param vertexArray the buffer to draw
         \param primitiveType the given primitive type
-        \param targetMaterial the target material (optional)
+        \param material the target material (optional)
         */
-        void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iTargetMaterialPtr targetMaterial = nullptr);
+        void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr material = nullptr);
 
         /////////////// LIGHT TODO this might change a lot ///////////
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
@@ -787,11 +787,11 @@ namespace igor
 
         /*! \returns default material
          */
-        const iMaterialPtr &getDefaultMaterial() const;
+        const iShaderMaterialPtr &getDefaultShader() const;
 
         /*! \returns colorID material
          */
-        const iMaterialPtr &getColorIDMaterial() const;
+        const iShaderMaterialPtr &getColorIDMaterial() const;
 
         /*! draws everything that is still in the queue
          */
@@ -874,9 +874,9 @@ namespace igor
 
         /*! write igor specific shader parameters to current material
 
-        \param targetMaterial the target specifig material values. Ignored if nullptr
+        \param material the target specific material values. Ignored if nullptr
         */
-        void writeShaderParameters(iTargetMaterialPtr targetMaterial);
+        void writeShaderParameters(iMaterialPtr material);
 
         /*! binds current material
          */
