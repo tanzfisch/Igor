@@ -129,6 +129,7 @@ var hierarchy =
       [ "igor::iAnimationFactory", "classigor_1_1i_animation_factory.html", null ],
       [ "igor::iMaterialFactory", "classigor_1_1i_material_factory.html", null ],
       [ "igor::iModelFactory", "classigor_1_1i_model_factory.html", null ],
+      [ "igor::iShaderMaterialFactory", "classigor_1_1i_shader_material_factory.html", null ],
       [ "igor::iSoundFactory", "classigor_1_1i_sound_factory.html", null ],
       [ "igor::iSpriteFactory", "classigor_1_1i_sprite_factory.html", null ],
       [ "igor::iTextureFactory", "classigor_1_1i_texture_factory.html", null ]
@@ -296,19 +297,19 @@ var hierarchy =
       [ "igor::iAnimation", "classigor_1_1i_animation.html", null ],
       [ "igor::iMaterial", "classigor_1_1i_material.html", null ],
       [ "igor::iModel", "classigor_1_1i_model.html", null ],
+      [ "igor::iShaderMaterial", "classigor_1_1i_shader_material.html", null ],
       [ "igor::iSound", "classigor_1_1i_sound.html", null ],
       [ "igor::iSprite", "classigor_1_1i_sprite.html", null ],
       [ "igor::iTexture", "classigor_1_1i_texture.html", null ]
     ] ],
     [ "igor::iResourceDictionary", "classigor_1_1i_resource_dictionary.html", null ],
     [ "igor::iScene", "classigor_1_1i_scene.html", null ],
+    [ "igor::iShaderMaterialIO", "classigor_1_1i_shader_material_i_o.html", null ],
     [ "igor::iShaderProgram", "classigor_1_1i_shader_program.html", null ],
     [ "igor::iShaderSource", "structigor_1_1i_shader_source.html", null ],
     [ "igor::iSkeleton", "classigor_1_1i_skeleton.html", null ],
     [ "igor::iSpriteRendererComponent", "structigor_1_1i_sprite_renderer_component.html", null ],
     [ "igor::iStopWatch", "classigor_1_1i_stop_watch.html", null ],
-    [ "igor::iTargetMaterial", "classigor_1_1i_target_material.html", null ],
-    [ "igor::iTargetMaterialDeleter", "classigor_1_1i_target_material_deleter.html", null ],
     [ "igor::iTask", "classigor_1_1i_task.html", [
       [ "igor::iTaskFlushResources", "classigor_1_1i_task_flush_resources.html", null ],
       [ "igor::iTaskGenerateThumbnails", "classigor_1_1i_task_generate_thumbnails.html", null ],
@@ -353,6 +354,8 @@ var hierarchy =
       [ "igor::iUserControl", "classigor_1_1i_user_control.html", [
         [ "igor::iUserControlColorChooser", "classigor_1_1i_user_control_color_chooser.html", null ],
         [ "igor::iUserControlFileChooser", "classigor_1_1i_user_control_file_chooser.html", null ],
+        [ "igor::iUserControlMaterialChooser", "classigor_1_1i_user_control_material_chooser.html", null ],
+        [ "igor::iUserControlShaderMaterialChooser", "classigor_1_1i_user_control_shader_material_chooser.html", null ],
         [ "igor::iUserControlTextureChooser", "classigor_1_1i_user_control_texture_chooser.html", null ],
         [ "igor::iUserControlTreeView", "classigor_1_1i_user_control_tree_view.html", null ]
       ] ],
@@ -385,13 +388,13 @@ var hierarchy =
     ] ],
     [ "igor::iWindow", "classigor_1_1i_window.html", null ],
     [ "igor::iWindowImpl", "classigor_1_1i_window_impl.html", null ],
+    [ "igor::iXMLHelper", "classigor_1_1i_x_m_l_helper.html", null ],
     [ "OMPF::OMPF", "class_o_m_p_f_1_1_o_m_p_f.html", null ],
     [ "OMPF::ompfBaseChunk", "class_o_m_p_f_1_1ompf_base_chunk.html", [
       [ "OMPF::ompfEmitterChunk", "class_o_m_p_f_1_1ompf_emitter_chunk.html", null ],
       [ "OMPF::ompfExternalReferenceChunk", "class_o_m_p_f_1_1ompf_external_reference_chunk.html", null ],
       [ "OMPF::ompfGroupChunk", "class_o_m_p_f_1_1ompf_group_chunk.html", null ],
       [ "OMPF::ompfHeaderChunk", "class_o_m_p_f_1_1ompf_header_chunk.html", null ],
-      [ "OMPF::ompfMaterialChunk", "class_o_m_p_f_1_1ompf_material_chunk.html", null ],
       [ "OMPF::ompfMaterialReferenceChunk", "class_o_m_p_f_1_1ompf_material_reference_chunk.html", null ],
       [ "OMPF::ompfMeshChunk", "class_o_m_p_f_1_1ompf_mesh_chunk.html", null ],
       [ "OMPF::ompfParticleSystemChunk", "class_o_m_p_f_1_1ompf_particle_system_chunk.html", null ],

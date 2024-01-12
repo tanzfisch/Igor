@@ -32,5 +32,7 @@ var dir_b9bc800c5eeb123b0cfb1fef5c168ecc =
     [ "iRay.inl", "i_ray_8inl.html", null ],
     [ "iRectangle.h", "i_rectangle_8h.html", "i_rectangle_8h" ],
     [ "iSkeleton.cpp", "i_skeleton_8cpp.html", null ],
-    [ "iSkeleton.h", "i_skeleton_8h.html", "i_skeleton_8h" ]
+    [ "iSkeleton.h", "i_skeleton_8h.html", "i_skeleton_8h" ],
+    [ "iXMLHelper.h", "i_x_m_l_helper_8h.html", "i_x_m_l_helper_8h" ],
+    [ "iXMLHelper.inl", "i_x_m_l_helper_8inl.html", null ]
 ];

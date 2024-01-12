@@ -1,7 +1,7 @@
 var searchData=
 [
   ['n_0',['N',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda8d9c307cb7f3c4a32822a51922d1ceaa',1,'igor']]],
-  ['never_1',['Never',['../namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa6e7b34fa59e1bd229b207892956dc41c',1,'igor::Never()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a6e7b34fa59e1bd229b207892956dc41c',1,'OMPF::Never()'],['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a6e7b34fa59e1bd229b207892956dc41c',1,'igor::Never()']]],
+  ['never_1',['Never',['../namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa6e7b34fa59e1bd229b207892956dc41c',1,'igor::Never()'],['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a6e7b34fa59e1bd229b207892956dc41c',1,'igor::Never()']]],
   ['nine_2',['Nine',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda24db11216549ee55172c33cf3def2f3f',1,'igor']]],
   ['no_3',['No',['../namespaceigor.html#a122478c90d48716251aee24739420db4abafd7322c6e97d25b6299b5d6fe8920b',1,'igor']]],
   ['nodataset_4',['NoDataSet',['../namespaceigor.html#aaf2363a31b0b7f61ecff2da4314d07a1aff043d0825d4bb12bac740468194d234',1,'igor']]],
@@ -9,7 +9,7 @@ var searchData=
   ['none_6',['None',['../namespaceiaux.html#a7b6a3bca8dc644014e477270a6fa096ca6adf97f83acf6453d4a6a4b1070f3754',1,'iaux::None()'],['../namespaceigor.html#a8f64a6510998360ede2092eb63e3ca96a6adf97f83acf6453d4a6a4b1070f3754',1,'igor::None()'],['../namespaceigor.html#ab4f3ad0a6b7bf86a08eb9350cbefa768a6adf97f83acf6453d4a6a4b1070f3754',1,'igor::None()'],['../namespaceigor.html#a502a5ad5f31633185cce3c6da12dff31a6adf97f83acf6453d4a6a4b1070f3754',1,'igor::None()'],['../namespaceigor.html#a193be8f841d4c6f25dd9e11711ebeb2da6adf97f83acf6453d4a6a4b1070f3754',1,'igor::None()']]],
   ['normal_7',['Normal',['../namespaceiaux.html#a26f41a1d7eef1fe9ea50aeffea8263cea960b44c579bc2f6818d2daaf9e4c16f0',1,'iaux::Normal()'],['../namespaceigor.html#ace7988c80527d8744c218d3f70209f9aa960b44c579bc2f6818d2daaf9e4c16f0',1,'igor::Normal()']]],
   ['noselection_8',['NoSelection',['../namespaceigor.html#ae2ddd5b36b3c376f7ae18b12a15427f8a5230c6f2cc0017a06cb7f3afd8f535cf',1,'igor']]],
-  ['notequal_9',['NotEqual',['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a19bb0af2c3c530538cb41aff7f235b96',1,'OMPF::NotEqual()'],['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a19bb0af2c3c530538cb41aff7f235b96',1,'igor::NotEqual()'],['../namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa19bb0af2c3c530538cb41aff7f235b96',1,'igor::NotEqual()']]],
+  ['notequal_9',['NotEqual',['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a19bb0af2c3c530538cb41aff7f235b96',1,'igor::NotEqual()'],['../namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa19bb0af2c3c530538cb41aff7f235b96',1,'igor::NotEqual()']]],
   ['np_5fadd_10',['NP_Add',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdaf93b84fdf65990c5467d369361b54163',1,'igor']]],
   ['np_5fdecimal_11',['NP_Decimal',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda397c7a3f7821a9610e5e3356fd10d753',1,'igor']]],
   ['np_5fdivide_12',['NP_Divide',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdac86220a944c0fae327df20aae52e2cc9',1,'igor']]],

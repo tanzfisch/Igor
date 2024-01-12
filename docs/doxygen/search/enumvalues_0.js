@@ -5,7 +5,7 @@ var searchData=
   ['alpha_2',['Alpha',['../namespaceigor.html#ae0f348eb7fe6d7d0cfe54e5646709afda6132295fcf5570fb8b0a944ef322a598',1,'igor']]],
   ['alt_3',['Alt',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdaa2e92861b757ab878312dd57993d60cf',1,'igor']]],
   ['altgr_4',['AltGr',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda571dc3ee993d6e9a33bdc851be52b995',1,'igor']]],
-  ['always_5',['Always',['../namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa68eec46437c384d8dad18d5464ebc35c',1,'igor::Always()'],['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a68eec46437c384d8dad18d5464ebc35c',1,'igor::Always()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a68eec46437c384d8dad18d5464ebc35c',1,'OMPF::Always()']]],
+  ['always_5',['Always',['../namespaceigor.html#aee5fa6eb2cc93c2e86bd55640d84bd3fa68eec46437c384d8dad18d5464ebc35c',1,'igor::Always()'],['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a68eec46437c384d8dad18d5464ebc35c',1,'igor::Always()']]],
   ['application_6',['Application',['../namespaceigor.html#a40695af62201c48096a15d36a6b40a06ae498749f3c42246d50b15c81c101d988',1,'igor']]],
   ['arrow_7',['Arrow',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90ca0f4e1aaabd074689b7d3ead824d1ee8e',1,'igor']]],
   ['arrowbottomedge_8',['ArrowBottomEdge',['../namespaceigor.html#a8e3993d43e9700e9e854f64a6793c90ca8d5387ca8e9a78ee222ffa8f248a4fa2',1,'igor']]],

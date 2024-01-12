@@ -9,7 +9,6 @@ var ompf_defines_8h =
       [ "External", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3ab206a1b4ea1097761f78e8876f6da779", null ],
       [ "ResourceSearchPath", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3ac69e550c1c1878906fbd48688eaa5759", null ],
       [ "Mesh", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3a710fdb6adb881b408116ef95335e1961", null ],
-      [ "Material", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3ad92a8333dd3ccb895cc65f7455b71206", null ],
       [ "Emitter", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3a7efb1083296a38495362c24db34212c3", null ],
       [ "ParticleSystem", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8", null ],
       [ "MaterialReference", "ompf_defines_8h.html#ad54e6abd4c23b31d402494f56a0e11b3a25c9bae15adc40f67186bd0e85cd71cf", null ]

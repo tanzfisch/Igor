@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.43.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -101,6 +101,8 @@ $(document).ready(function(){initNavTree('classigor_1_1i_config_reader.html','')
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a15d8521d1f970ae9e43fe4a1de4ee45e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_config_reader.html#a15d8521d1f970ae9e43fe4a1de4ee45e">readConfiguration</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
 <tr class="separator:a15d8521d1f970ae9e43fe4a1de4ee45e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5cefeadfb60434917c38e220500e601"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_config_reader.html#ab5cefeadfb60434917c38e220500e601">writeConfiguration</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
+<tr class="separator:ab5cefeadfb60434917c38e220500e601"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe957ba8d0e632b312dc02b62851cf83"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_config_reader.html#abe957ba8d0e632b312dc02b62851cf83">getValue</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;setting) const</td></tr>
 <tr class="separator:abe957ba8d0e632b312dc02b62851cf83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d06c351dd34ca6a96aafb08c156d613"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_config_reader.html#a1d06c351dd34ca6a96aafb08c156d613">getValueAsInt</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;setting) const</td></tr>
@@ -286,6 +288,32 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab5cefeadfb60434917c38e220500e601" name="ab5cefeadfb60434917c38e220500e601"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5cefeadfb60434917c38e220500e601">&#9670;&nbsp;</a></span>writeConfiguration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iConfigReader::writeConfiguration </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >writes current configuration to given file</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>the given filename </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if successful </dd></dl>
 
 </div>
 </div>

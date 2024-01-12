@@ -4,6 +4,8 @@ Changelog                           {#changelog}
 0.44.0
 ------
 
+!!! MSVC build fails. no time to fix !!!
+
 - #388 allow file select dialogs to be closed using ESC
 - #387 improved render of drag operation
 - #395 all examples to use now projects
@@ -18,6 +20,8 @@ Changelog                           {#changelog}
 
 0.43.1
 ------
+
+!!! MSVC build fails. no time to fix !!!
 
 - #393 fixed invalid node info issue
 - #391 adding more docs to examples
