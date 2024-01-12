@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- material definition for 2d flat shading -->
-	<ShaderMaterial name="example.instancing.textured" visibility="Public">
+	<ShaderMaterial uuid="0x297dd0e1b6a2ec99" order="200" visibility="Public">
 		<States>
-            <Instanced>On</Instanced>
-            <InstancedFunc>PositionOrientation</InstancedFunc>
+			<DepthTest>On</DepthTest>
+			<DepthFunc>Less</DepthFunc>
+			<DepthMask>On</DepthMask>
+			<Blend>On</Blend>
+			<CullFace>On</CullFace>
+			<CullFaceFunc>Back</CullFaceFunc>
+			<Wireframe>Off</Wireframe>
+			<Instanced>On</Instanced>
+			<InstancedFunc>PositionOrientationInstancing</InstancedFunc>
 		</States>
-        <Program>
-            <Vertex>
+		<Program>
+			<Vertex>
 <![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
@@ -33,8 +39,8 @@ void main()
 	
 	gl_Position = igor_modelViewProjection * in_modelMatrix_Instance * vec4(in_position, 1);
 }]]>
-            </Vertex>
-            <Fragment>
+			</Vertex>
+			<Fragment>
 <![CDATA[#version 450
 
 in vec3 VertexWorld;
@@ -88,7 +94,7 @@ void main()
 	out_color.rgb = igor_matEmissive + ambient + diffuse + specular;
  	out_color.a = igor_matAlpha;
 }]]>
-            </Fragment>
-        </Program>            
+			</Fragment>
+		</Program>
 	</ShaderMaterial>
 </Igor>

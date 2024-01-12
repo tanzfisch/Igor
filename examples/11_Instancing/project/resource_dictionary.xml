@@ -2,18 +2,20 @@
 <Igor>
     <ResourceDictionary>
         <Resource id="0x0d930cfa6f049a1c" alias="example_model_teapot" source="models/teapot/teapot.ompf" />
-        <Resource id="0x42000caa82a2e5e0" alias="example_model_cat" source="models/cat/cat.ompf" />       
+        <Resource id="0x297dd0e1b6a2ec99" alias="example_material_instancing_textured" source="shaders/instancing_textured.smat" />
+        <Resource id="0x3ad626e030f78ab0" source="models/cat/cat_norm.png" />
+        <Resource id="0x42000caa82a2e5e0" alias="example_model_cat" source="models/cat/cat.ompf" />
         <Resource id="0x98861236315ccdf1" alias="example_model_crate" source="models/crate/crate.ompf" />
         <Resource id="0xa7058a1207339228" alias="example_texture_cat_diff" source="models/cat/cat_diff.png" />
+        <Resource id="0xacc860ab083b29ff" alias="example_model_cube_green" source="models/cube_green/cube_green.ompf" />
+        <Resource id="0xb7a3d5aeb42ae650" alias="example_material_instancing_flat_shaded" source="shaders/instancing_flat_shaded.smat" />
         <Resource id="0xd6f262b16fb8cba8" source="models/teapot/teapot.mat" />
         <Resource id="0xd8bb96f7d28a4995" source="models/crate/crate_norm.png" />
         <Resource id="0xd9414e77657b07c8" alias="example_skybox_debug" source="textures/skyboxes/debug.png" />
         <Resource id="0xdc953ee65e2cf235" source="models/crate/crate.mat" />
         <Resource id="0xdd343293b9579e59" source="models/cat/cat_spec.png" />
+        <Resource id="0xe3ca99a8944fa83b" source="models/cube_green/cube_green.mat" />
         <Resource id="0xfaa3b1436a20dbf3" source="models/cat/cat.mat" />
         <Resource id="0xfb8ec7e44efcccc9" alias="example_texture_crate_diff" source="models/crate/crate_diff.png" />
-        <Resource id="0x3ad626e030f78ab0" source="models/cat/cat_norm.png" />
-        <Resource id="0x297dd0e1b6a2ec99" alias="example_material_instancing_textured" source="shaders/instancing_textured.smat" />
-        <Resource id="0xb7a3d5aeb42ae650" alias="example_material_instancing_flat_shaded" source="shaders/instancing_flat_shaded.smat" />
     </ResourceDictionary>
 </Igor>
