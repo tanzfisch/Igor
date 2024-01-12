@@ -17,7 +17,7 @@ void GameLayer::onInit()
     iaRandom::setSeed(iaTime::getNow().getMicroseconds());
 
     initExpLvlTable();
-    loadSpecs("misc/supremacy.xml");
+    loadSpecs("project/supremacy.xml");
 
     _viewOrtho.setName("view ortho");
     _viewOrtho.setClearColorActive(false);
