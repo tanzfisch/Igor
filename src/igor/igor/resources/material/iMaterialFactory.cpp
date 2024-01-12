@@ -5,11 +5,8 @@
 #include <igor/resources/material/iMaterialFactory.h>
 
 #include <igor/resources/iResourceManager.h>
-#include <igor/resources/material/iMaterialIO.h>
+#include <igor/resources/material/loader/iMaterialIO.h>
 #include <igor/renderer/iRenderer.h>
-
-#include <iaux/system/iaFile.h>
-using namespace iaux;
 
 namespace igor
 {
@@ -21,17 +18,11 @@ namespace igor
 
     iResourcePtr iMaterialFactory::createResource()
     {
-        iMaterialPtr defaultMaterial = iRenderer::getInstance().getDefaultMaterial();
-        const iaString source = defaultMaterial->getSource();
-
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
-                           {IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                           {IGOR_RESOURCE_PARAM_SOURCE, source}});
+                           {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iRenderer::getInstance().getDefaultShader()},
+                           {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
 
-        iMaterialPtr material(new iMaterial(param));
-        iMaterialIO::read(iResourceManager::getInstance().resolvePath(source), material);
-
-        return material;
+        return iMaterialPtr(new iMaterial(param));
     }
 
     bool iMaterialFactory::saveResource(iResourcePtr resource, const iaString &filename)
@@ -48,7 +39,7 @@ namespace igor
 
             if (filepath.isEmpty())
             {
-                con_err("not a valid source path " << resource->getID());
+                con_err("not a valid source path \"" << filepath << "\" for ID " << resource->getID());
                 return false;
             }
         }
@@ -64,11 +55,19 @@ namespace igor
 
     iResourcePtr iMaterialFactory::createResource(const iParameters &parameters)
     {
-        return iResourcePtr(new iMaterial(parameters));
+        return iMaterialPtr(new iMaterial(parameters));
     }
 
     bool iMaterialFactory::loadResource(iResourcePtr resource)
     {
+        const auto &parameters = resource->getParameters();
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        if (generate)
+        {
+            // already done during createResource
+            return true;
+        }
+
         iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
         if (filepath.isEmpty())
         {
@@ -77,7 +76,7 @@ namespace igor
 
         if (filepath.isEmpty())
         {
-            con_err("not a valid source path " << resource->getID());
+            con_err("not a valid source path \"" << filepath << "\" for ID " << resource->getID());
             return false;
         }
 

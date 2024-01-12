@@ -88,22 +88,22 @@ namespace igor
             return;
         }
 
-        setMaterial(this, material);
+        updateMaterial(this);
     }
 
-    void iNodeModel::setMaterial(iNodePtr node, const iMaterialPtr &material)
+    void iNodeModel::updateMaterial(iNodePtr node)
     {
         if (node->getType() == iNodeType::iNodeMesh)
         {
             iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(node);
-            meshNode->setMaterial(material);
+            meshNode->setMaterial(_material);
         }
 
         std::vector<iNodePtr> children;
         node->getAllChildren(children);
         for (auto &child : children)
         {
-            setMaterial(child, material);
+            updateMaterial(child);
         }
     }
 

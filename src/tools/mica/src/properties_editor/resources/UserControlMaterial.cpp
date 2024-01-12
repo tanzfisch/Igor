@@ -4,102 +4,57 @@
 
 #include "UserControlMaterial.h"
 
+#include "../../MicaDefines.h"
+
 UserControlMaterial::UserControlMaterial(iResourceID resourceID, const iWidgetPtr parent)
     : UserControlResource(resourceID, parent)
 {
-}
-
-static iMeshPtr createSphere()
-{
-    iMeshBuilder meshBuilder;
-
-    iMeshBuilderUtils::addSphere(meshBuilder, 0.5, 32);
-    meshBuilder.calcNormals(true);
-    return meshBuilder.createMesh();
-}
-
-void UserControlMaterial::updateMaterialDisplay(iMaterialPtr material)
-{
-    if (_ignoreMaterialUpdate)
-    {
-        return;
-    }
-
-    // store current render states
-    iRenderer::getInstance().flush();
-    const iaRectanglei viewport = iRenderer::getInstance().getViewport();
-    const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
-    const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
-
-    const uint32 width = 128;
-    const uint32 height = 128;
-    uint32 renderTarget = iRenderer::getInstance().createRenderTarget(width, height, iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
-    iRenderer::getInstance().setRenderTarget(renderTarget);
-    iRenderer::getInstance().clearColorBuffer(iaColor4f::transparent);
-
-    iRenderer::getInstance().setViewport(0, 0, width, height);
-    iRenderer::getInstance().setPerspective(45.0, 1.0, 0.00001, 10.0);
-
-    iTargetMaterialPtr targetMaterial = iTargetMaterial::create();
-    targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
-    targetMaterial->setSpecular(iaColor3f(0.5f, 0.5f, 0.5f));
-    targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
-    targetMaterial->setAmbient(iaColor3f(0.5f, 0.5f, 0.5f));
-    targetMaterial->setAlpha(1.0);
-
-    iMeshPtr sphere = createSphere();
-
-    iaMatrixd matrix;
-    matrix.translate(0, 0, -1.5);
-    iRenderer::getInstance().setModelMatrix(matrix);
-    iRenderer::getInstance().setMaterial(material);
-    iRenderer::getInstance().drawMesh(sphere, targetMaterial);
-
-    iPixmapPtr pixmap = iPixmap::createPixmap(width, height, iColorFormat::RGBA);
-
-    iRenderer::getInstance().readPixels(0, 0, width, height, iColorFormat::RGBA, pixmap->getData());
-
-    iRenderer::getInstance().setRenderTarget();
-    iRenderer::getInstance().destroyRenderTarget(renderTarget);
-
-    // restore everything
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-    iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
-    iRenderer::getInstance().setViewport(viewport);
-
-    iParameters param({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                       {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
-                       {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
-                       {IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Normal},
-                       {IGOR_RESOURCE_PARAM_PIXMAP, pixmap}});
-
-    _materialPicture->setTexture(iResourceManager::getInstance().requestResource<iTexture>(param));
 }
 
 void UserControlMaterial::updateResource()
 {
     iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
 
-    if (_ignoreMaterialUpdate ||
+    if (_ignoreUpdate ||
         material == nullptr)
     {
         return;
     }
 
-    material->setOrder(static_cast<int32>(_renderingOrder->getValue()));
-    material->setRenderState(iRenderState::CullFace, _checkBoxCullFace->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::DepthTest, _checkBoxDepthTest->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    material->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
-    material->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
+    const auto ambient = _ambientColorChooser->getColor();
+    const auto diffuse = _diffuseColorChooser->getColor();
+    const auto specular = _specularColorChooser->getColor();
+    const auto amissive = _emissiveColorChooser->getColor();
 
-    // TODO material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-    // TODO		_selectBoxInstancedFunc
+    material->setAmbient(iaColor3f(ambient._r, ambient._g, ambient._b));
+    material->setDiffuse(iaColor3f(diffuse._r, diffuse._g, diffuse._b));
+    material->setSpecular(iaColor3f(specular._r, specular._g, specular._b));
+    material->setEmissive(iaColor3f(amissive._r, amissive._g, amissive._b));
+    material->setShininess(_numberChooserShininess->getValue());
+
+    for (int i = 0; i < 4; ++i)
+    {
+        auto id = _textureChooser[i]->getID();
+        if (id.isValid())
+        {
+            material->setTexture(iResourceManager::getInstance().loadResource<iTexture>(id), i);
+        }
+        else
+        {
+            material->setTexture(nullptr, i);
+        }
+    }
+
+    if(_shaderMaterialChooser->getID().isValid())
+    {
+        material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShaderMaterial>(_shaderMaterialChooser->getID()));
+    }
+    else
+    {
+        material->setShaderMaterial(nullptr);
+    }
 
     iResourceManager::getInstance().saveResource(getResourceID());
-    updateMaterialDisplay(material);
 }
 
 void UserControlMaterial::update()
@@ -108,22 +63,38 @@ void UserControlMaterial::update()
 
     iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(getResourceID());
 
-    _ignoreMaterialUpdate = true;
+    _ignoreUpdate = true;
 
-    _checkBoxCullFace->setChecked(material->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
-    _checkBoxDepthTest->setChecked(material->getRenderState(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
-    _checkBoxDepthMask->setChecked(material->getRenderState(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
-    _checkBoxBlend->setChecked(material->getRenderState(iRenderState::Blend) == iRenderStateValue::On ? true : false);
-    _checkBoxWireframe->setChecked(material->getRenderState(iRenderState::Wireframe) == iRenderStateValue::On ? true : false);
-    _selectBoxDepthFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::DepthFunc)) - static_cast<int>(iRenderStateValue::Never));
-    _selectBoxCullFaceFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::CullFaceFunc)) - static_cast<int>(iRenderStateValue::Front));
-    // TODO_checkBoxInstanced->setChecked(material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
-    // TODO _selectBoxInstancedFunc = nullptr;
-    _renderingOrder->setValue(material->getOrder());
+    _ambientColorChooser->setColor(material->getAmbient());
+    _diffuseColorChooser->setColor(material->getDiffuse());
+    _specularColorChooser->setColor(material->getSpecular());
+    _emissiveColorChooser->setColor(material->getEmissive());
 
-    _ignoreMaterialUpdate = false;
+    _sliderShininess->setValue(material->getShininess());
+    _numberChooserShininess->setValue(material->getShininess());
 
-    updateMaterialDisplay(material);
+    for (int i = 0; i < 4; ++i)
+    {
+        if (material->hasTextureUnit(i))
+        {
+            _textureChooser[i]->setID(material->getTexture(i)->getID());
+        }
+        else
+        {
+            _textureChooser[i]->setID(iResourceID::getInvalid());
+        }
+    }
+
+    if (material->getShaderMaterial() != nullptr)
+    {
+        _shaderMaterialChooser->setID(material->getShaderMaterial()->getID());
+    }
+    else
+    {
+        _shaderMaterialChooser->setID(iResourceID::getInvalid());
+    }
+
+    _ignoreUpdate = false;
 }
 
 void UserControlMaterial::init()
@@ -134,137 +105,94 @@ void UserControlMaterial::init()
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     mainLayout->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGroupBox *paramGroupBox = new iWidgetGroupBox(mainLayout);
-    paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    paramGroupBox->setText("Render States");
-    paramGroupBox->setHeaderOnly();
+    iWidgetGroupBox *lightGroupBox = new iWidgetGroupBox(mainLayout);
+    lightGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    lightGroupBox->setText("Material");
+    lightGroupBox->setHeaderOnly();
 
-    iWidgetGridLayout *gridParam = new iWidgetGridLayout(paramGroupBox);
-    gridParam->appendRows(8);
-    gridParam->appendColumns(1);
-    gridParam->setBorder(2);
-    gridParam->setHorizontalAlignment(iHorizontalAlignment::Left);
-    gridParam->setVerticalAlignment(iVerticalAlignment::Top);
+    iWidgetBoxLayoutPtr materialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, lightGroupBox);
 
-    iWidgetLabel *labelDepthTest = new iWidgetLabel();
-    labelDepthTest->setText("Depth Test");
-    labelDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _ambientColorChooser = new iUserControlColorChooser(materialLayout);
+    _ambientColorChooser->setMode(iColorChooserMode::RGB);
+    _ambientColorChooser->setText("Ambient");
+    _ambientColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _checkBoxDepthTest = new iWidgetCheckBox();
-    _checkBoxDepthTest->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _diffuseColorChooser = new iUserControlColorChooser(materialLayout);
+    _diffuseColorChooser->setMode(iColorChooserMode::RGB);
+    _diffuseColorChooser->setText("Diffuse");
+    _diffuseColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    iWidgetLabel *labelDepthFunction = new iWidgetLabel();
-    labelDepthFunction->setText("Depth Function");
-    labelDepthFunction->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _specularColorChooser = new iUserControlColorChooser(materialLayout);
+    _specularColorChooser->setMode(iColorChooserMode::RGB);
+    _specularColorChooser->setText("Specular");
+    _specularColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _selectBoxDepthFunc = new iWidgetSelectBox();
-    _selectBoxDepthFunc->addItem("Never");
-    _selectBoxDepthFunc->addItem("Less");
-    _selectBoxDepthFunc->addItem("Equal");
-    _selectBoxDepthFunc->addItem("LessOrEqual");
-    _selectBoxDepthFunc->addItem("Greater");
-    _selectBoxDepthFunc->addItem("NotEqual");
-    _selectBoxDepthFunc->addItem("GreaterOrEqual");
-    _selectBoxDepthFunc->addItem("Always");
-    _selectBoxDepthFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _selectBoxDepthFunc->setMinWidth(200);
+    _emissiveColorChooser = new iUserControlColorChooser(materialLayout);
+    _emissiveColorChooser->setMode(iColorChooserMode::RGB);
+    _emissiveColorChooser->setText("Emissive");
+    _emissiveColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    iWidgetLabel *labelDepthMask = new iWidgetLabel();
-    labelDepthMask->setText("Depth Mask");
-    labelDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetLabel *labelShininess = new iWidgetLabel(materialLayout);
+    labelShininess->setText("Shininess");
+    labelShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxDepthMask = new iWidgetCheckBox();
-    _checkBoxDepthMask->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetBoxLayoutPtr shininessLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
 
-    iWidgetLabel *labelBlend = new iWidgetLabel();
-    labelBlend->setText("Blending");
-    labelBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _sliderShininess = new iWidgetSlider(shininessLayout);
+    _sliderShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _sliderShininess->setMinValue(0.0f);
+    _sliderShininess->setMaxValue(1000.0f);
+    _sliderShininess->setSteppingWheel(0.1f, 0.1f);
+    _sliderShininess->setValue(0.0f);
+    _sliderShininess->setMinWidth(220);
+    _sliderShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
 
-    _checkBoxBlend = new iWidgetCheckBox();
-    _checkBoxBlend->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _numberChooserShininess = new iWidgetNumberChooser(shininessLayout);
+    _numberChooserShininess->setMinMaxNumber(0.0f, 1000.0f);
+    _numberChooserShininess->setAfterPoint(2);
+    _numberChooserShininess->setValue(0.0f);
+    _numberChooserShininess->setMinWidth(80);
+    _numberChooserShininess->setSteppingWheel(0.1f, 0.1f);
+    _numberChooserShininess->setStepping(0.01f, 0.01f);
+    _numberChooserShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
 
-    iWidgetLabel *labelCullFace = new iWidgetLabel();
-    labelCullFace->setText("Cull Face");
-    labelCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetLabelPtr labelTextureUnit[4] = {nullptr, nullptr, nullptr, nullptr};
+    for (int i = 0; i < 4; ++i)
+    {
+        iWidgetBoxLayoutPtr textureLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
+        labelTextureUnit[i] = new iWidgetLabel(textureLayout);
+        labelTextureUnit[i]->setText(iaString("Texture ") + iaString::toString(i));
+        labelTextureUnit[i]->setMinWidth(MICA_REGULARBUTTON_SIZE);
+        labelTextureUnit[i]->setVerticalAlignment(iVerticalAlignment::Top);
+        labelTextureUnit[i]->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxCullFace = new iWidgetCheckBox();
-    _checkBoxCullFace->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
+        _textureChooser[i] = new iUserControlTextureChooser(textureLayout);
+        _textureChooser[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    }
 
-    iWidgetLabel *labelCullFaceFunc = new iWidgetLabel();
-    labelCullFaceFunc->setText("Cull Face Function");
-    labelCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetBoxLayoutPtr shaderMaterialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
+    iWidgetLabelPtr shaderMaterialLabel = new iWidgetLabel(shaderMaterialLayout);
+    shaderMaterialLabel->setVerticalAlignment(iVerticalAlignment::Top);
+    shaderMaterialLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
+    shaderMaterialLabel->setText("Shader");
+    shaderMaterialLabel->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    _shaderMaterialChooser = new iUserControlShaderMaterialChooser(shaderMaterialLayout);
 
-    _selectBoxCullFaceFunc = new iWidgetSelectBox();
-    _selectBoxCullFaceFunc->addItem("Front");
-    _selectBoxCullFaceFunc->addItem("Back");
-    _selectBoxCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _selectBoxCullFaceFunc->setMinWidth(200);
+    _shaderMaterialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+}
 
-    iWidgetLabel *labelWireframe = new iWidgetLabel();
-    labelWireframe->setText("Wireframe");
-    labelWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
+void UserControlMaterial::onDoUpdateShininess(const iWidgetPtr source)
+{
+    if (source == _sliderShininess)
+    {
+        _numberChooserShininess->setValue(_sliderShininess->getValue());
+    }
+    else
+    {
+        _sliderShininess->setValue(_numberChooserShininess->getValue());
+    }
 
-    _checkBoxWireframe = new iWidgetCheckBox();
-    _checkBoxWireframe->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _checkBoxWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    // TODO
-    /*iWidgetLabel* labelInstanced = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label));
-    _allWidgets.push_back(labelInstanced);
-    labelInstanced->setText("Instanced");
-    labelInstanced->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _checkBoxInstanced = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox));
-    _checkBoxInstanced->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-
-    iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;*/
-
-    iWidgetLabel *labelRenderingOrder = new iWidgetLabel();
-    labelRenderingOrder->setText("Rendering Order");
-    labelRenderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _renderingOrder = new iWidgetNumberChooser();
-    _renderingOrder->setMinMaxNumber(iMaterial::RENDER_ORDER_MIN, iMaterial::RENDER_ORDER_MAX);
-    _renderingOrder->setAfterPoint(0);
-    _renderingOrder->setValue(iMaterial::RENDER_ORDER_DEFAULT);
-    _renderingOrder->setMinWidth(80);
-    _renderingOrder->setSteppingWheel(10.0f, 10.0f);
-    _renderingOrder->setStepping(1.0f, 1.0f);
-    _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
-    _renderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    gridParam->addWidget(labelDepthTest, 0, 0);
-    gridParam->addWidget(labelDepthFunction, 0, 1);
-    gridParam->addWidget(labelDepthMask, 0, 2);
-    gridParam->addWidget(labelBlend, 0, 3);
-    gridParam->addWidget(labelCullFace, 0, 4);
-    gridParam->addWidget(labelCullFaceFunc, 0, 5);
-    gridParam->addWidget(labelWireframe, 0, 6);
-    gridParam->addWidget(labelRenderingOrder, 0, 7);
-
-    gridParam->addWidget(_checkBoxDepthTest, 1, 0);
-    gridParam->addWidget(_selectBoxDepthFunc, 1, 1);
-    gridParam->addWidget(_checkBoxDepthMask, 1, 2);
-    gridParam->addWidget(_checkBoxBlend, 1, 3);
-    gridParam->addWidget(_checkBoxCullFace, 1, 4);
-    gridParam->addWidget(_selectBoxCullFaceFunc, 1, 5);
-    gridParam->addWidget(_checkBoxWireframe, 1, 6);
-    gridParam->addWidget(_renderingOrder, 1, 7);
-
-    iWidgetGroupBox *materialGroupBox = new iWidgetGroupBox(mainLayout);
-    materialGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    materialGroupBox->setText("Preview");
-    materialGroupBox->setHeaderOnly();
-
-    _materialPicture = new iWidgetPicture(materialGroupBox);
-    _materialPicture->setMaxSize(128, 128);
-    _materialPicture->setMinSize(128, 128);
-    _materialPicture->setCheckerBoard(true);
-    _materialPicture->setForeground(iaColor4f::white);
+    updateResource();
 }
 
 void UserControlMaterial::onDoUpdateMaterial(const iWidgetPtr source)

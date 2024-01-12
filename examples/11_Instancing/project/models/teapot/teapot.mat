@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Igor>
+	<Material>
+		<ShaderMaterial>example_material_instancing_flat_shaded</ShaderMaterial>
+		<Diffuse>0.269231, 0.20769, 0.761531</Diffuse>
+		<Ambient>0.265384, 0.263373, 0.263374</Ambient>
+		<Specular>0.534616, 0.434615, 0.434616</Specular>
+		<Emissive>0, 0, 0</Emissive>
+		<Shininess>10.9</Shininess>
+		<Alpha>1</Alpha>
+		<Tiling>1, 1</Tiling>
+	</Material>
+</Igor>

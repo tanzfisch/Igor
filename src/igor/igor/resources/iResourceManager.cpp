@@ -9,6 +9,7 @@
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
 #include <igor/resources/model/iModelFactory.h>
+#include <igor/resources/shader_material/iShaderMaterialFactory.h>
 #include <igor/resources/material/iMaterialFactory.h>
 #include <igor/resources/config/iConfigReader.h>
 #include <igor/threading/iTaskManager.h>
@@ -49,6 +50,7 @@ namespace igor
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
         registerFactory(iFactoryPtr(new iMaterialFactory()));
+        registerFactory(iFactoryPtr(new iShaderMaterialFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
 
         // read igor internal resource dictionary
@@ -313,6 +315,7 @@ namespace igor
     {
         iResourcePtr result = factory->createResource(parameters);
 
+        con_assert(result != nullptr, "failed to create resource");
         con_trace("created resource " << result->getType() << " " << result->getInfo());
         return result;
     }
@@ -748,7 +751,7 @@ namespace igor
         return stream;
     }
 
-    void iResourceManager::getMaterials(std::vector<iMaterialPtr> &materials)
+    void iResourceManager::getMaterials(std::vector<iShaderMaterialPtr> &materials)
     {
         materials.clear();
 
@@ -757,17 +760,17 @@ namespace igor
         _mutex.lock();
         for (const auto &pair : _resources)
         {
-            if (pair.second->getType() != IGOR_RESOURCE_MATERIAL)
+            if (pair.second->getType() != IGOR_RESOURCE_SHADER_MATERIAL)
             {
                 continue;
             }
 
-            materials.push_back(std::dynamic_pointer_cast<iMaterial>(pair.second));
+            materials.push_back(std::dynamic_pointer_cast<iShaderMaterial>(pair.second));
         }
         _mutex.unlock();
 
         sort(materials.begin(), materials.end(),
-             [](const iMaterialPtr a, const iMaterialPtr b) -> bool
+             [](const iShaderMaterialPtr a, const iShaderMaterialPtr b) -> bool
              {
                  return a->getOrder() < b->getOrder();
              });

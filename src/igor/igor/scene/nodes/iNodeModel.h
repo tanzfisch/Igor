@@ -154,9 +154,8 @@ namespace igor
         /*! recursively setting material on all mesh nodes
 
         \param node the current node
-        \param materialID the material to set
         */
-        void setMaterial(iNodePtr node, const iMaterialPtr& material);
+        void updateMaterial(iNodePtr node);
 
         /*! initializes memeber variables
          */

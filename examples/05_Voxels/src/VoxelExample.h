@@ -66,7 +66,7 @@ private:
 
     /*! voxel mesh material
      */
-    iMaterialPtr _voxelMeshMaterial;
+    iShaderMaterialPtr _voxelMeshMaterial;
 
     /*! the actual voxel data
      */

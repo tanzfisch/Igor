@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<Igor>
+    <ResourceDictionary>
+    <Resource id="0x9a9c80439e25a7d2" alias="example_texture_skybox_stars" source="textures/skyboxes/stars.png" />
+    <Resource id="0xcfed88658c77cddf" alias="example_texture_crates_2" source="textures/crates2.png" />
+    </ResourceDictionary>
+</Igor>

@@ -7,7 +7,7 @@
 #include "VoxelTerrainMeshGenerator.h"
 
 VoxelExample::VoxelExample(iWindowPtr window)
-    : ExampleBase(window, "Voxel", true, false)
+    : ExampleBase(window, "Voxel", true)
 {
 }
 
@@ -27,7 +27,7 @@ void VoxelExample::onDeinit()
     // unregister vertex mesh generator
     iModelFactory::unregisterModelDataIO("example.vtg");
 
-    if(_voxelData != nullptr)
+    if (_voxelData != nullptr)
     {
         delete _voxelData;
         _voxelData = nullptr;
@@ -74,18 +74,21 @@ void VoxelExample::initScene()
 
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    // set it up with the default skybox texture
-    skyBoxNode->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    iMaterialPtr materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>("example_material_skybox");
-    materialSkyBox->setOrder(iMaterial::RENDER_ORDER_MIN);
+    iShaderMaterialPtr skyboxShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_skybox");
+    iParameters paramSkybox({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+                             {IGOR_RESOURCE_PARAM_GENERATE, true},
+                             {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, skyboxShader},
+                             {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars")}});
+    iMaterialPtr materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>(paramSkybox);
+
     // set that material
     skyBoxNode->setMaterial(materialSkyBox);
     // and add it to the scene
     getScene()->getRoot()->insertNode(skyBoxNode);
 
     // set up voxel mesh material
-    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iMaterial>("example_material_voxel_terrain_directional_light");
+    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("example_material_voxel_terrain_directional_light");
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -232,19 +235,17 @@ void VoxelExample::prepareMeshGeneration()
     iNodeModel *voxelMeshModel = iNodeManager::getInstance().createNode<iNodeModel>();
     voxelMeshModel->setName("VoxelMeshModel");
     _voxelMeshModel = voxelMeshModel->getID();
-    
+
     // tell the model node to load data with specified parameters
-    iParameters parameters({
-        {IGOR_RESOURCE_PARAM_ALIAS, iaString("VoxelMesh") + iaString::toString(_incarnation++)},
-        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
-        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
-        {IGOR_RESOURCE_PARAM_SUB_TYPE, "example.vtg"},
-        {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
-        {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
-        {IGOR_RESOURCE_PARAM_MATERIAL, _voxelMeshMaterial},
-        {"voxelData", _voxelData}
-    });
+    iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, iaString("VoxelMesh") + iaString::toString(_incarnation++)},
+                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
+                            {IGOR_RESOURCE_PARAM_SUB_TYPE, "example.vtg"},
+                            {IGOR_RESOURCE_PARAM_GENERATE, true},
+                            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
+                            {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
+                            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, _voxelMeshMaterial},
+                            {"voxelData", _voxelData}});
 
     iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);
     voxelMeshModel->setModel(model);

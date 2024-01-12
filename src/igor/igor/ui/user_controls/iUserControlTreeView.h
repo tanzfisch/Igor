@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROL_TREEVIEW__
-#define __IGOR_USERCONTROL_TREEVIEW__
+#ifndef IGOR_USERCONTROL_TREEVIEW_H
+#define IGOR_USERCONTROL_TREEVIEW_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -119,4 +119,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROL_TREEVIEW__
+#endif // IGOR_USERCONTROL_TREEVIEW_H

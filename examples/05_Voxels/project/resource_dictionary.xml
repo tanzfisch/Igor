@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Igor>
+    <ResourceDictionary>
+    <Resource id="0x9a9c80439e25a7d2" alias="example_texture_skybox_stars" source="textures/skyboxes/stars.png" />
+    <Resource id="0x432855e2f70bcd70" alias="example_material_voxel_terrain_directional_light" source="shaders/voxel_terrain_directional_light.smat" />
+    <Resource id="0x1e37e69b09662bc5" alias="example_texture_grass" source="textures/grass.png" />
+    <Resource id="0x01df458f75478c07" alias="example_texture_dirt" source="textures/dirt.png" />
+    <Resource id="0xb6ab30d9af192b74" alias="example_texture_rock" source="textures/rock.png" />
+    </ResourceDictionary>
+</Igor>

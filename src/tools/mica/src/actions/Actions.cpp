@@ -391,7 +391,7 @@ void ActionBakeMeshToWorld::bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root)
     iNodeMesh *newMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
     newMeshNode->setMesh(newMesh);
     newMeshNode->setMaterial(meshNode->getMaterial());
-    newMeshNode->setTargetMaterial(meshNode->getTargetMaterial());
+    newMeshNode->setMaterial(meshNode->getMaterial());
 
     root->insertNode(newMeshNode);
 }

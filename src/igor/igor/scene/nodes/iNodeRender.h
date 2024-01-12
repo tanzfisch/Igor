@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERNODE__
-#define __IGOR_RENDERNODE__
+#ifndef IGOR_RENDERNODE_H
+#define IGOR_RENDERNODE_H
 
 #include <igor/scene/nodes/iNode.h>
 #include <iaux/math/iaMatrix.h>
@@ -124,4 +124,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_RENDERNODE__
+#endif // IGOR_RENDERNODE_H

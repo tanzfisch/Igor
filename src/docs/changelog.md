@@ -6,14 +6,15 @@ Changelog                           {#changelog}
 
 - #388 allow file select dialogs to be closed using ESC
 - #387 improved render of drag operation
-- #395 first examples to use projects
+- #395 all examples to use now projects
 - if no config file (igor.xml) is found one will be created in the user folder with default values
 - changed up cmake for igor subfolder
 - moved igor data files in to src/igor to make clear they are part of the engine it self
 - added interface to save resources (implemented for materials only so far)
 - fixed an issue with checker board backdrop of iWidgetPicture
 - creating a default material from asset browser context menu in Mica
-- 
+- #401 iMaterial -> iShaderMaterial and iTargetMaterial is not iMaterial
+- removed some examples. Want to reduce further to have less maintenance in future
 
 0.43.1
 ------

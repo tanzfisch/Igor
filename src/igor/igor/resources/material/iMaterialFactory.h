@@ -26,11 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MATERIAL_FACTORY__
-#define __IGOR_MATERIAL_FACTORY__
+#ifndef IGOR_MATERIAL_FACTORY_H
+#define IGOR_MATERIAL_FACTORY_H
 
 #include <igor/resources/iFactory.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 
 namespace igor
 {
@@ -89,4 +89,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_MATERIAL_FACTORY__
+#endif // IGOR_MATERIAL_FACTORY_H

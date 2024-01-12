@@ -5,7 +5,7 @@
 #include <igor/scene/nodes/iNodeMesh.h>
 
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 
 #include <vector>
@@ -18,8 +18,6 @@ namespace igor
     {
         setName(L"iNodeMesh");
         _nodeType = iNodeType::iNodeMesh;
-
-        _targetMaterial = iTargetMaterial::create();
     }
 
     iNodeMesh::iNodeMesh(iNodeMesh *node)
@@ -37,8 +35,6 @@ namespace igor
         {
             setBoundingBox(_mesh->getBoundingBox());
         }
-
-        _targetMaterial = node->getTargetMaterial();
     }
 
     iNodeMesh::~iNodeMesh()
@@ -92,16 +88,6 @@ namespace igor
         return info;
     }
 
-    void iNodeMesh::setTargetMaterial(const iTargetMaterialPtr &targetMaterial)
-    {
-        _targetMaterial = targetMaterial;
-    }
-
-    iTargetMaterialPtr iNodeMesh::getTargetMaterial() const
-    {
-        return _targetMaterial;
-    }
-
     iMeshPtr iNodeMesh::getMesh()
     {
         return _mesh;
@@ -114,7 +100,7 @@ namespace igor
             return;
         }
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
-        iRenderer::getInstance().drawMesh(_mesh, _targetMaterial);
+        iRenderer::getInstance().drawMesh(_mesh, getMaterial());
     }
 
     void iNodeMesh::setMesh(iMeshPtr mesh)
@@ -131,27 +117,27 @@ namespace igor
 
     iaColor3f iNodeMesh::getAmbient() const
     {
-        return _targetMaterial->getAmbient();
+        return getMaterial()->getAmbient();
     }
 
     iaColor3f iNodeMesh::getEmissive() const
     {
-        return _targetMaterial->getEmissive();
+        return getMaterial()->getEmissive();
     }
 
     iaColor3f iNodeMesh::getSpecular() const
     {
-        return _targetMaterial->getSpecular();
+        return getMaterial()->getSpecular();
     }
 
     iaColor3f iNodeMesh::getDiffuse() const
     {
-        return _targetMaterial->getDiffuse();
+        return getMaterial()->getDiffuse();
     }
 
     float32 iNodeMesh::getShininess() const
     {
-        return _targetMaterial->getShininess();
+        return getMaterial()->getShininess();
     }
 
 } // namespace igor

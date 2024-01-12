@@ -76,29 +76,13 @@ private:
      */
     iWidgetButton *_buttonReset = nullptr;
 
-    /*! texture chooser for primary texture
-     */
-    iUserControlFileChooser *_textureChooser0 = nullptr;
-
-    /*! texture chooser for first noise texture
-     */
-    iUserControlFileChooser *_textureChooser1 = nullptr;
-
-    /*! texture chooser for second noise texture
-     */
-    iUserControlFileChooser *_textureChooser2 = nullptr;
-
-    /*! \deprecated currently unused
-     */
-    iUserControlFileChooser *_textureChooser3 = nullptr;
-
     /*! select box for selecting the emitter to connect the particle system to
      */
     iWidgetSelectBox *_emitterSelection = nullptr;
 
-    /*! select box for selecting the material to use with the particle system
+    /*! material chooser
      */
-    iWidgetSelectBox *_materialSelection = nullptr;
+    iUserControlMaterialChooserPtr _materialChooser;
 
     /*! check box to switch on/off the particle system loop
      */

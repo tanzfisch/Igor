@@ -41,7 +41,7 @@ bool OBJ2OMPF::analyzeParam(int argc, char *argv[])
     return true;
 }
 
-void OBJ2OMPF::setMaterialRecursive(iNodePtr node, iMaterialPtr material)
+void OBJ2OMPF::setMaterialRecursive(iNodePtr node, iShaderMaterialPtr material)
 {
     if (node->getType() == iNodeType::iNodeMesh)
     {
@@ -65,7 +65,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
 {
     if (analyzeParam(argc, argv))
     {
-        iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_texture_shaded");
+        iShaderMaterialPtr material = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_texture_shaded");
 
         iParameters parameters({
             {IGOR_RESOURCE_PARAM_SOURCE, _src},
@@ -90,7 +90,7 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         // force him to use the textured material
         setMaterialRecursive(modelNode, material);
 
-        std::vector<iMaterialPtr> materials;
+        std::vector<iShaderMaterialPtr> materials;
         iResourceManager::getInstance().getMaterials(materials);
         for (auto material : materials)
         {

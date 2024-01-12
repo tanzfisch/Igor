@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<Igor>
+	<!-- material definition -->
+	<ShaderMaterial name="igor.particles">
+		<States>
+			<DepthTest>On</DepthTest>
+            <DepthMask>Off</DepthMask>
+            <Blend>On</Blend>
+            <CullFace>On</CullFace>
+		</States>
+        <Program>
+            <Vertex>
+<![CDATA[#version 450
+
+layout(location = 0) in vec3 in_position;
+layout(location = 1) in vec3 in_velocity;
+layout(location = 2) in vec4 in_color;
+layout(location = 3) in vec4 in_lifeSizeAngleTileIndex;
+
+uniform mat4 igor_model;
+
+out Vertex
+{
+    vec4 color;
+    vec3 velocity;
+    vec4 lifeSizeAngleTileIndex;
+} vertex;
+
+void main()
+{
+    vertex.color = in_color;
+    vertex.velocity = in_velocity;
+    vertex.lifeSizeAngleTileIndex = in_lifeSizeAngleTileIndex;
+
+    gl_Position = igor_model * vec4(in_position,1);
+}]]>
+            </Vertex>
+            <Geometry>
+<![CDATA[#version 450
+
+layout (points) in;
+layout (triangle_strip, max_vertices = 4) out;
+
+uniform mat4 igor_viewProjection;
+uniform mat4 igor_modelView;
+
+uniform vec2 igor_configTiling;
+uniform float igor_configVelocityOriented;
+
+in Vertex
+{
+    vec4 color;
+    vec3 velocity;
+    vec4 lifeSizeAngleTileIndex;
+} vertex[];
+
+out vec4 Vertex_Color;
+out vec2 Vertex_UV;
+
+vec3 rotate(in vec3 p, in vec3 axis, in float angle)
+{
+    vec3 result;
+    float c = cos(angle);
+    float s = sin(angle);
+
+    float x = axis.x;
+    float y = axis.y;
+    float z = axis.z;
+
+    result.x = p.x * (x*x * (1.0 - c) + c)
+        + p.y * (x*y * (1.0 - c) + z * s)
+        + p.z * (x*z * (1.0 - c) - y * s);
+
+    result.y = p.x * (y*x * (1.0 - c) - z * s)
+        + p.y * (y*y * (1.0 - c) + c)
+        + p.z * (y*z * (1.0 - c) + x * s);
+
+    result.z = p.x * (z*x * (1.0 - c) + y * s)
+        + p.y * (z*y * (1.0 - c) - x * s)
+        + p.z * (z*z * (1.0 - c) + c); 
+
+    return result;
+}
+
+void main() {
+    mat4 MV = igor_modelView;
+    float size = vertex[0].lifeSizeAngleTileIndex.y;
+    float angle = vertex[0].lifeSizeAngleTileIndex.z;
+    float tileIndex = int(vertex[0].lifeSizeAngleTileIndex.w);
+
+    float tileY = int(tileIndex / igor_configTiling.x);
+    float tileX = tileIndex - (tileY * igor_configTiling.y);
+
+    float tileSizeX = 1.0 / igor_configTiling.x;
+    float tileSizeY = 1.0 / igor_configTiling.y;
+
+    vec3 depth = vec3(MV[0][2], 
+                    MV[1][2], 
+                    MV[2][2]);    
+
+    vec3 right = vec3(MV[0][0], 
+                    MV[1][0], 
+                    MV[2][0]);
+
+    vec3 up = vec3(MV[0][1], 
+                    MV[1][1], 
+                    MV[2][1]);
+
+    if(igor_configVelocityOriented == 1.0)
+    {
+        vec3 dir = normalize(vertex[0].velocity);
+        right = cross(dir, depth);
+        up = cross(depth, right);
+    }
+
+    right = rotate(right, depth, angle);
+    up = rotate(up, depth, angle);
+
+    right *= size;
+    up *= size;
+
+    vec3 pos = gl_in[0].gl_Position.xyz;
+
+    vec3 va = pos - right + up;
+    gl_Position = igor_viewProjection * vec4(va, 1);
+    Vertex_Color = vertex[0].color;
+    Vertex_UV = vec2((tileX + 1.0) * tileSizeX, tileY * tileSizeY);
+    EmitVertex();
+
+    vec3 vb = pos - right - up;
+    gl_Position = igor_viewProjection * vec4(vb, 1);
+    Vertex_Color = vertex[0].color;
+    Vertex_UV = vec2((tileX + 1.0) * tileSizeX, (tileY + 1.0) * tileSizeY);
+    EmitVertex();
+
+    vec3 vc = pos + right + up;
+    gl_Position = igor_viewProjection * vec4(vc, 1);
+    Vertex_Color = vertex[0].color;
+    Vertex_UV = vec2(tileX * tileSizeX, tileY * tileSizeY);
+    EmitVertex();    
+
+    vec3 vd = pos + right - up;
+    gl_Position = igor_viewProjection * vec4(vd, 1);
+    Vertex_Color = vertex[0].color;
+    Vertex_UV = vec2(tileX * tileSizeX, (tileY + 1.0) * tileSizeY);
+    EmitVertex();
+
+    EndPrimitive();
+}]]>
+            </Geometry>
+            <Fragment>
+<![CDATA[#version 450
+
+in vec4 Vertex_Color;
+in vec2 Vertex_UV;
+
+layout (location = 0) out vec4 out_color;
+
+layout (binding = 0) uniform sampler2D igor_matTexture0;
+layout (binding = 1) uniform sampler2D igor_matTexture1;
+layout (binding = 2) uniform sampler2D igor_matTexture2;
+
+void main()
+{
+    vec4 color = Vertex_Color;
+    color *= texture2D(igor_matTexture0, Vertex_UV);
+    color *= texture2D(igor_matTexture1, Vertex_UV);
+    color *= texture2D(igor_matTexture2, Vertex_UV);
+    out_color = color;
+}]]>
+            </Fragment>
+        </Program>            
+	</ShaderMaterial>
+</Igor>

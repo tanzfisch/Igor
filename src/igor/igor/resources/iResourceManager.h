@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RESOURCEMANAGER__
-#define __IGOR_RESOURCEMANAGER__
+#ifndef IGOR_RESOURCEMANAGER_H
+#define IGOR_RESOURCEMANAGER_H
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/module/iModule.h>
@@ -36,6 +36,7 @@
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimation.h>
 #include <igor/resources/model/iModel.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/iResourceDictionary.h>
 
@@ -241,7 +242,7 @@ namespace igor
 
         TODO how about a more general interface?
         */
-        void getMaterials(std::vector<iMaterialPtr> &materials);
+        void getMaterials(std::vector<iShaderMaterialPtr> &materials);
 
         /*! works like a garbage collector.
 
@@ -439,4 +440,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_RESOURCEMANAGER__
+#endif // IGOR_RESOURCEMANAGER_H

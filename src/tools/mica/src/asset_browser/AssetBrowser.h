@@ -172,6 +172,12 @@ private:
     \param source the source widget of this event
     */
     void onCreateMaterial(iWidgetPtr source);
+
+    /*! handle creation of new shader
+
+    \param source the source widget of this event
+    */
+    void onCreateShader(iWidgetPtr source);
 };
 
 #endif // __ASSET_BROWSER__

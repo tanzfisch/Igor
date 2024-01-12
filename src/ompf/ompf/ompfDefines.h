@@ -97,7 +97,6 @@ namespace OMPF
 		External = 0x04,
 		ResourceSearchPath = 0x05,
 		Mesh = 0x06,
-		Material = 0x07,
 		Emitter = 0x08,
 		ParticleSystem = 0x09,
         MaterialReference = 0x0a

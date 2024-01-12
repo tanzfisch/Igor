@@ -8,7 +8,9 @@
 int main()
 {
 	// call this before you call anything else of Igor
-	startup();
+	igor::startup();
+
+	iProject::loadProject("project");
 
 	// create window and open it
 	iWindowPtr window = iApplication::getInstance().getWindow();
@@ -16,9 +18,6 @@ int main()
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->open();
-
-	// before we can load any resources make sure the resource dictionary is loaded
-    iResourceManager::getInstance().loadResourceDictionary("dictionaries/example_resource_dictionary.xml");	
 
 	Background3D* backGround = new Background3D(window);
 	iLayerProfilerPtr layerProfiler = new iLayerProfiler(window);
@@ -30,7 +29,7 @@ int main()
 	iApplication::getInstance().run();
 
 	// call this after you are done with using Igor
-	shutdown();
+	igor::shutdown();
 
 	return 0;
 }

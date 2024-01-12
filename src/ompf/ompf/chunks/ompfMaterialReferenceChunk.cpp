@@ -12,19 +12,19 @@ namespace OMPF
     {
     }
 
-    void ompfMaterialReferenceChunk::setFilename(const iaString &filename)
+    void ompfMaterialReferenceChunk::setReference(const iaString &reference)
     {
-        _filename = filename;
+        _reference = reference;
     }
 
-    iaString ompfMaterialReferenceChunk::getFilename() const
+    iaString ompfMaterialReferenceChunk::getReference() const
     {
-        return _filename;
+        return _reference;
     }
 
     uint32 ompfMaterialReferenceChunk::getSize(const ompfSettings &settings)
     {
-        return static_cast<uint32>(_filename.getUTF8Size() + 2) + static_cast<uint32>(ompfBaseChunk::getSize(settings));
+        return static_cast<uint32>(_reference.getUTF8Size() + 2) + static_cast<uint32>(ompfBaseChunk::getSize(settings));
     }
 
     bool ompfMaterialReferenceChunk::write(std::ofstream &stream, const ompfSettings &settings)
@@ -37,11 +37,11 @@ namespace OMPF
         con_trace("---------------------------------------------------");
         con_trace("write ompfMaterialReferenceChunk " << this->getName());
 
-        if (!iaSerializable::writeUTF8(stream, _filename))
+        if (!iaSerializable::writeUTF8(stream, _reference))
         {
             return false;
         }
-        con_trace("filename " << _filename);
+        con_trace("reference " << _reference);
 
         return true;
     }
@@ -56,11 +56,11 @@ namespace OMPF
         con_trace("---------------------------------------------------");
         con_trace("read ompfMaterialReferenceChunk " << this->getName());
 
-        if (!iaSerializable::readUTF8(stream, _filename))
+        if (!iaSerializable::readUTF8(stream, _reference))
         {
             return false;
         }
-        con_trace("filename " << _filename);
+        con_trace("reference " << _reference);
 
         return true;
     }

@@ -21,7 +21,7 @@ namespace igor
 
     iTextureFont::iTextureFont(iTexturePtr texture, iFontType type, iColorMask colorMask, float32 colorMaskThreshold)
     {
-        con_assert(texture->isValid(), "needs to be loaded already");
+        con_assert(texture != nullptr && texture->isValid(), "needs to be loaded already");
 
         _texture = texture;
         _valid = false;

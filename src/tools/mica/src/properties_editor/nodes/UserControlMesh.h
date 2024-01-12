@@ -58,9 +58,9 @@ public:
     void init() override;
 
 private:
-    /*! texture choosers
+    /*! material chooser
      */
-    iUserControlTextureChooserPtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
+    iUserControlMaterialChooserPtr _materialChooser;
 
     /*! vertex count text field
      */
@@ -72,93 +72,17 @@ private:
 
     /*! indices count text field
      */
-    iWidgetLineTextEditPtr _textIndexes = nullptr;
-
-    /*! shininess number chooser
-     */
-    iWidgetNumberChooserPtr _textShininess = nullptr;
-
-    /*! shininess slider
-     */
-    iWidgetSliderPtr _sliderShininess = nullptr;
-
-    iaColor4f _ambient; // TODO remove these
-    iaColor4f _emissive;
-    iaColor4f _diffuse;
-    iaColor4f _specular;
-    float32 _shininess;
-
-    /*! ambient color chooser
-     */
-    iUserControlColorChooser *_ambientColorChooser = nullptr;
-
-    /*! emissive color chooser
-     */
-    iUserControlColorChooser *_emissiveColorChooser = nullptr;
-
-    /*! diffuse color chooser
-     */
-    iUserControlColorChooser *_diffuseColorChooser = nullptr;
-
-    /*! specular color chooser
-     */
-    iUserControlColorChooser *_specularColorChooser = nullptr;
-
-    /*! material selector
-     */
-    iWidgetSelectBox *_materialSelector = nullptr;
+    iWidgetLineTextEditPtr _textIndices = nullptr;
 
     /*! prevent endless update loop
      */
     bool _ignoreNodeUpdate = false;
-
-    /*! on ambient color change
-
-    \param color the new color
-    */
-    void onAmbientChange(const iaColor4f &color);
-
-    /*! on diffuse color change
-
-    \param color the new color
-    */
-    void onDiffuseChange(const iaColor4f &color);
-
-    /*! on specular color change
-
-    \param color the new color
-    */
-    void onSpecularChange(const iaColor4f &color);
-
-    /*! on emissive color change
-
-    \param color the new color
-    */
-    void onEmissiveChange(const iaColor4f &color);
 
     /*! time to update the node
 
     \param source the source widget for this update
     */
     void onDoUpdateNode(const iWidgetPtr source);
-
-    /*! handle change of shininess
-
-    \param source the source widget
-    */
-    void onTextChangedShininess(const iWidgetPtr source);
-
-    /*! handle change of shininess
-
-    \param source the source widget
-    */
-    void onSliderChangedShininess(const iWidgetPtr source);
-
-    /*! handle change of material
-
-    \param source the source widget
-    */
-    void onMaterialChanged(const iWidgetPtr source);
 };
 
 #endif // __USERCONTROLMESH__

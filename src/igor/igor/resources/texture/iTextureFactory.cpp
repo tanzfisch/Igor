@@ -34,12 +34,6 @@ namespace igor
 
     bool iTextureFactory::loadResource(iResourcePtr resource)
     {
-        iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
-        if (filepath.isEmpty())
-        {
-            filepath = resource->getSource();
-        }
-
         iTexturePtr texture = std::dynamic_pointer_cast<iTexture>(resource);
         const auto &parameters = resource->getParameters();
         const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
@@ -53,6 +47,18 @@ namespace igor
         {
             return pixmapToTexture(pixmap, texture);
         }
+
+        iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
+        if (filepath.isEmpty())
+        {
+            filepath = resource->getSource();
+        }        
+
+        if (filepath.isEmpty())
+        {
+            con_err("not a valid source path \"" << filepath << "\" for ID " << resource->getID());
+            return false;
+        }        
 
         const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
         return loadTexture(fullFilepath, texture);
@@ -218,7 +224,7 @@ namespace igor
     {
         iaString hashData;
 
-        iTextureWrapMode wrapMode = parameters.getParameter<iTextureWrapMode>("wrapMode", iTextureWrapMode::Repeat);
+        iTextureWrapMode wrapMode = parameters.getParameter<iTextureWrapMode>(IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE, iTextureWrapMode::Repeat);
         switch (wrapMode)
         {
         case iTextureWrapMode::Repeat:

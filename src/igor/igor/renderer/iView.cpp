@@ -252,21 +252,21 @@ namespace igor
         }
     }
 
-    uint64 iView::pickcolorID(const iaVector2i &pos)
+    uint64 iView::pickColorID(const iaVector2i &pos)
     {
-        return pickcolorID(pos._x, pos._y);
+        return pickColorID(pos._x, pos._y);
     }
 
-    uint64 iView::pickcolorID(uint32 posx, uint32 posy)
+    uint64 iView::pickColorID(uint32 posx, uint32 posy)
     {
         std::vector<uint64> colorIDs;
 
-        pickcolorID(iaRectanglei(posx, posy, 1, 1), colorIDs);
+        pickColorID(iaRectanglei(posx, posy, 1, 1), colorIDs);
 
         return colorIDs.front();
     }
 
-    void iView::pickcolorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs)
+    void iView::pickColorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs)
     {
         if (_scene != nullptr &&
             getCamera() != iNode::INVALID_NODE_ID)

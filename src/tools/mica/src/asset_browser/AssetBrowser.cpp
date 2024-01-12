@@ -79,6 +79,7 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
     _contextMenu.addMenu(createMenu);
 
     createMenu->addCallback(iClickDelegate(this, &AssetBrowser::onCreateMaterial), "Material", "Creates a default material", "");
+    createMenu->addCallback(iClickDelegate(this, &AssetBrowser::onCreateShader), "Shader", "Creates a default shader", "");
 
     _contextMenu.open();
 }
@@ -87,6 +88,12 @@ void AssetBrowser::onCreateMaterial(iWidgetPtr source)
 {
     iMaterialPtr resource = iResourceManager::getInstance().createResource<iMaterial>();
     iResourceManager::getInstance().saveResource(resource, _currentPath + IGOR_PATHSEPARATOR + "new_material.mat");
+}
+
+void AssetBrowser::onCreateShader(iWidgetPtr source)
+{
+    iShaderMaterialPtr resource = iResourceManager::getInstance().createResource<iShaderMaterial>();
+    iResourceManager::getInstance().saveResource(resource, _currentPath + IGOR_PATHSEPARATOR + "new_shader.smat");
 }
 
 void AssetBrowser::onSelectionChanged(const iWidgetPtr source)
@@ -129,6 +136,11 @@ void AssetBrowser::updateGridView(iItemPtr item)
     _gridView->clear();
 
     _currentPath = _project->getProjectFolder();
+
+    if(item == nullptr)
+    {
+        return;
+    }
 
     if(item->hasValue("relativePath"))
     {

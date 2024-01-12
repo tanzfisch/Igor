@@ -19,7 +19,7 @@ namespace igor
 
     iProjectPtr iProject::loadProject(const iaString &projectFolder)
     {
-        con_assert_sticky(iaDirectory::isDirectory(projectFolder), "can't find folder " << projectFolder);
+        con_assert_sticky(iaDirectory::isDirectory(projectFolder), "can't find folder \"" << projectFolder << "\"");
 
         bool success = true;
 

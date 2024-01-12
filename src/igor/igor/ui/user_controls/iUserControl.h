@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_USERCONTROL__
-#define __IGOR_USERCONTROL__
+#ifndef IGOR_USERCONTROL_H
+#define IGOR_USERCONTROL_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -36,10 +36,10 @@ namespace igor
 
     /*! use control base class
 
-	mostly used as a container to combine some of the standard widgets to appear as one
+    mostly used as a container to combine some of the standard widgets to appear as one
 
-	this class is only a base class for other user controls and not supposed to be used directly
-	*/
+    this class is only a base class for other user controls and not supposed to be used directly
+    */
     class IGOR_API iUserControl : public iWidget
     {
 
@@ -47,21 +47,21 @@ namespace igor
         /*! does nothing
 
         \param parent the optional parent
-		*/
+        */
         iUserControl(iWidgetType type = iWidgetType::iUserControl, const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         virtual ~iUserControl() = default;
 
     protected:
         /*! updates size based on widgets content
 
-		all widgets have to derive from this
-		*/
+        all widgets have to derive from this
+        */
         virtual void calcMinSize();
     };
 
 } // namespace igor
 
-#endif // __IGOR_USERCONTROL__
+#endif // IGOR_USERCONTROL_H

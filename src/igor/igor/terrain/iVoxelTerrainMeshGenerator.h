@@ -30,8 +30,8 @@
 #define __IGOR_GENERATORTERRAIN__
 
 #include <igor/resources/model/loader/iModelDataIO.h>
+#include <igor/resources/shader_material/iShaderMaterial.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/material/iTargetMaterial.h>
 
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
