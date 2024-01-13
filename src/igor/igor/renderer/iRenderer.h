@@ -32,7 +32,7 @@
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
 #include <igor/renderer/buffers/iInstancingBuffer.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/sprite/iSprite.h>
@@ -76,11 +76,11 @@ namespace igor
 
         \param material the material to render with
         */
-        void setShaderMaterial(const iShaderMaterialPtr &material);
+        void setShaderMaterial(const iShaderPtr &material);
 
         /*! \returns currently active material
          */
-        const iShaderMaterialPtr &getMaterial() const;
+        const iShaderPtr &getMaterial() const;
 
         /*! set projection matrix with perspective projection
 
@@ -508,7 +508,7 @@ namespace igor
         positioned based on current model view and projection matrices
 
         \param mesh the given mesh to draw
-        \param material the target material to use
+        \param material the material to use
         */
         void drawMesh(iMeshPtr mesh, iMaterialPtr material);
 
@@ -518,15 +518,15 @@ namespace igor
 
         \param mesh the given mesh to draw
         \param instancingBuffer the instancing buffer
-        \param material the target material to use
+        \param material the material to use
         */
         void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material = nullptr);
 
-        /*! draws buffer with given target material and primitive type
+        /*! draws buffer with given material and primitive type
 
         \param vertexArray the buffer to draw
         \param primitiveType the given primitive type
-        \param material the target material (optional)
+        \param material the material (optional)
         */
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr material = nullptr);
 
@@ -787,11 +787,11 @@ namespace igor
 
         /*! \returns default material
          */
-        const iShaderMaterialPtr &getDefaultShader() const;
+        const iShaderPtr &getDefaultShader() const;
 
         /*! \returns colorID material
          */
-        const iShaderMaterialPtr &getColorIDMaterial() const;
+        const iShaderPtr &getColorIDMaterial() const;
 
         /*! draws everything that is still in the queue
          */

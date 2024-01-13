@@ -7,6 +7,6 @@
         <Resource id="0xdd343293b9579e59" source="models/cat/cat_spec.png" />
         <Resource id="0xfaa3b1436a20dbf3" source="models/cat/cat.mat" />
         <Resource id="0x3ad626e030f78ab0" source="models/cat/cat_norm.png" />
-        <Resource id="0xe878f89df812dc45" source="shaders/textured.smat" />
+        <Resource id="0xe878f89df812dc45" source="shaders/textured.shader" />
     </ResourceDictionary>
 </Igor>

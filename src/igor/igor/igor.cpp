@@ -12,13 +12,13 @@ using namespace iaux;
 
 extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite"};
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
-extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_MATERIAL_EXTENSIONS = {"smat"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_EXTENSIONS = {"shader"};
 extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat"};
 extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim"};
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
 
-extern const iaString IGOR_RESOURCE_SHADER_MATERIAL = "shaderMaterial";
+extern const iaString IGOR_RESOURCE_SHADER = "shaderMaterial";
 extern const iaString IGOR_RESOURCE_MATERIAL = "material";
 extern const iaString IGOR_RESOURCE_ANIMATION = "animation";
 extern const iaString IGOR_RESOURCE_TEXTURE = "texture";
@@ -39,7 +39,7 @@ extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
 extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
 extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE = "subType";
 extern const iaString IGOR_RESOURCE_PARAM_QUIET = "quiet";
-extern const iaString IGOR_RESOURCE_PARAM_SHADER_MATERIAL = "shaderMaterial";
+extern const iaString IGOR_RESOURCE_PARAM_SHADER = "shaderMaterial";
 extern const iaString IGOR_RESOURCE_PARAM_MATERIAL = "material";
 extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL = "physicsMaterial";
 extern const iaString IGOR_RESOURCE_PARAM_LOD = "lod";

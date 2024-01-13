@@ -54,14 +54,14 @@ using namespace iaux;
 extern const iaString IGOR_BUILD_CONFIGURATION; //! Igor build configuration short
 extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS; //! supported file extensions for sprites
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS; //! supported file extensions for textures
-extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_MATERIAL_EXTENSIONS; //! supported file extensions for shader materials
+extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_EXTENSIONS; //! supported file extensions for shaders
 extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS; //! supported file extensions for materials
 extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS; //! supported file extensions for animations
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS; //! supported file extensions for models
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS; //! supported file extensions for sounds
 
 // resources
-extern const iaString IGOR_RESOURCE_SHADER_MATERIAL; //! shader material resource name
+extern const iaString IGOR_RESOURCE_SHADER; //! shader resource name
 extern const iaString IGOR_RESOURCE_MATERIAL; //! material resource name
 extern const iaString IGOR_RESOURCE_ANIMATION; //! animation resource name
 extern const iaString IGOR_RESOURCE_TEXTURE; //! texture resource name
@@ -83,8 +83,8 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE; //! resource parame
 extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES; //! resource parameters join vertices
 extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE; //! resource parameters sub type
 extern const iaString IGOR_RESOURCE_PARAM_QUIET; //! resource parameters quiet
-extern const iaString IGOR_RESOURCE_PARAM_SHADER_MATERIAL; //! resource parameters material
-extern const iaString IGOR_RESOURCE_PARAM_MATERIAL; //! resource parameters target material
+extern const iaString IGOR_RESOURCE_PARAM_SHADER; //! resource parameters shader material
+extern const iaString IGOR_RESOURCE_PARAM_MATERIAL; //! resource parameters material
 extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL; //! resource parameters physics material
 extern const iaString IGOR_RESOURCE_PARAM_LOD; //! resource parameters level of detail
 extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH; //! resource parameters keep mesh

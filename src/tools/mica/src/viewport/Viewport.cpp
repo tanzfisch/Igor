@@ -49,7 +49,7 @@ Viewport::Viewport(WorkspacePtr workspace)
 
     initScene();
 
-    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_orientation_plane");
+    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
@@ -105,8 +105,8 @@ void Viewport::initScene()
     _directionalLightTranslate->insertNode(_lightNode);
 
     // load materials
-    _materialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_cellshading_yellow");
-    _materialBoundingBox = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_bounding_box");
+    _materialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
+    _materialBoundingBox = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_bounding_box");
 }
 
 void Viewport::frameOnSelection()

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_SHADER_MATERIAL_H
-#define IGOR_SHADER_MATERIAL_H
+#ifndef IGOR_SHADER_H
+#define IGOR_SHADER_H
 
 #include <igor/renderer/iRenderStateSet.h>
 #include <igor/renderer/shaders/iShaderProgram.h>
@@ -48,7 +48,7 @@ namespace igor
 
     /*! material definition
      */
-    class IGOR_API iShaderMaterial : public iResource
+    class IGOR_API iShader : public iResource
     {
         friend class iShaderMaterialFactory;
         friend class iRenderer;
@@ -98,7 +98,7 @@ namespace igor
 
         \param order the higher the value the later it get's rendered (default is iMaterial_old::RENDER_ORDER_DEFAULT)
         */
-        void setOrder(int32 order = iShaderMaterial::RENDER_ORDER_DEFAULT);
+        void setOrder(int32 order = iShader::RENDER_ORDER_DEFAULT);
 
         /*! \returns true if shader has directional light
          */
@@ -124,9 +124,9 @@ namespace igor
          */
         bool hasViewProjectionMatrix() const;
 
-        /*! \returns true if shader contains target material
+        /*! \returns true if shader contains surface properties like ambient, diffuse etc
          */
-        bool hasTargetMaterial() const;
+        bool hasSurfaceProperties() const;
 
         /*! \returns true if shader contains solid color property
          */
@@ -171,7 +171,7 @@ namespace igor
 
         default value is iMaterial_old::RENDER_ORDER_DEFAULT
         */
-        int32 _order = iShaderMaterial::RENDER_ORDER_DEFAULT;
+        int32 _order = iShader::RENDER_ORDER_DEFAULT;
 
         /*! if true shader has directional light
          */
@@ -197,9 +197,9 @@ namespace igor
          */
         bool _hasViewProjectionMatrix = false;
 
-        /*! if true shader contains target material
+        /*! if true shader contains surface properties
          */
-        bool _hasTargetMaterial = false;
+        bool _hasSurfaceProperties = false;
 
         /*! if true shader contains solid color property
          */
@@ -225,7 +225,7 @@ namespace igor
 
         \param parameters parameters specifying the material
          */
-        iShaderMaterial(const iParameters &parameters);
+        iShader(const iParameters &parameters);
 
         /*! bind this material
          */
@@ -294,7 +294,7 @@ namespace igor
 
     /*! material pointer definition
      */
-    typedef std::shared_ptr<iShaderMaterial> iShaderMaterialPtr;
+    typedef std::shared_ptr<iShader> iShaderPtr;
 }
 
-#endif // IGOR_SHADER_MATERIAL_H
+#endif // IGOR_SHADER_H

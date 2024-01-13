@@ -21,7 +21,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
     const iaString &sectionName = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
     iVoxelData *voxelData = parameters.getParameter<iVoxelData *>("voxelData", nullptr);
     const bool keepMesh = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
-    iShaderMaterialPtr terrainShader = parameters.getParameter<iShaderMaterialPtr>(IGOR_RESOURCE_SHADER_MATERIAL, nullptr);
+    iShaderPtr terrainShader = parameters.getParameter<iShaderPtr>(IGOR_RESOURCE_SHADER, nullptr);
 
     const int64 width = voxelData->getWidth() - 1;
     const int64 depth = voxelData->getDepth() - 1;
@@ -41,7 +41,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
 
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                            {IGOR_RESOURCE_PARAM_GENERATE, true},
-                           {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, terrainShader},
+                           {IGOR_RESOURCE_PARAM_SHADER, terrainShader},
                            {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>("example_texture_grass")},
                            {IGOR_RESOURCE_PARAM_TEXTURE1, iResourceManager::getInstance().requestResource<iTexture>("example_texture_dirt")},
                            {IGOR_RESOURCE_PARAM_TEXTURE2, iResourceManager::getInstance().requestResource<iTexture>("example_texture_rock")},

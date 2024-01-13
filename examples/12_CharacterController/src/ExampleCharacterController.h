@@ -77,7 +77,7 @@ private:
 
     /*! material definition for the sky box
     */
-    iShaderMaterialPtr _materialSkyBox;
+    iShaderPtr _materialSkyBox;
 
     /*! the character controller
     */

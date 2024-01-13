@@ -47,7 +47,7 @@ void UserControlMaterial::updateResource()
 
     if(_shaderMaterialChooser->getID().isValid())
     {
-        material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShaderMaterial>(_shaderMaterialChooser->getID()));
+        material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShader>(_shaderMaterialChooser->getID()));
     }
     else
     {

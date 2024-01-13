@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef MICA_USERCONTROL_SHADER_MATERIAL_H
-#define MICA_USERCONTROL_SHADER_MATERIAL_H
+#ifndef MICA_USERCONTROL_SHADER_H
+#define MICA_USERCONTROL_SHADER_H
 
 #include "UserControlResource.h"
 
@@ -117,7 +117,7 @@ private:
 
 	\param material the material to use
 	*/
-	void updateMaterialDisplay(iShaderMaterialPtr material);
+	void updateMaterialDisplay(iShaderPtr material);
 };
 
-#endif // MICA_USERCONTROL_SHADER_MATERIAL_H
+#endif // MICA_USERCONTROL_SHADER_H

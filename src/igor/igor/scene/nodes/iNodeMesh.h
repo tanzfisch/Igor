@@ -107,7 +107,7 @@ namespace igor
          */
         iNodeMesh(iNodeMesh *node);
 
-        /*! release target material
+        /*! cleanup
          */
         virtual ~iNodeMesh();
     };

@@ -61,8 +61,8 @@
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/shader_material/loader/iShaderMaterialIO.h>
-#include <igor/resources/shader_material/iShaderMaterialFactory.h>
+#include <igor/resources/shader/loader/iShaderMaterialIO.h>
+#include <igor/resources/shader/iShaderMaterialFactory.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/profiler/iProfiler.h>

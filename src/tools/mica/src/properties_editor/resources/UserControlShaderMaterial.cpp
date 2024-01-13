@@ -18,7 +18,7 @@ static iMeshPtr createSphere()
     return meshBuilder.createMesh();
 }
 
-void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr shaderMaterial)
+void UserControlShaderMaterial::updateMaterialDisplay(iShaderPtr shaderMaterial)
 {
     if (_ignoreMaterialUpdate)
     {
@@ -43,7 +43,7 @@ void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr shaderM
     iParameters param({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial},
         {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free}, // drop it right after this use
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.5f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f)},
@@ -83,7 +83,7 @@ void UserControlShaderMaterial::updateMaterialDisplay(iShaderMaterialPtr shaderM
 
 void UserControlShaderMaterial::updateResource()
 {
-    iShaderMaterialPtr shaderMaterial = iResourceManager::getInstance().getResource<iShaderMaterial>(getResourceID());
+    iShaderPtr shaderMaterial = iResourceManager::getInstance().getResource<iShader>(getResourceID());
 
     if (_ignoreMaterialUpdate ||
         shaderMaterial == nullptr)
@@ -111,7 +111,7 @@ void UserControlShaderMaterial::update()
 {
     UserControlResource::update();
 
-    iShaderMaterialPtr shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>(getResourceID());
+    iShaderPtr shaderMaterial = iResourceManager::getInstance().loadResource<iShader>(getResourceID());
 
     _ignoreMaterialUpdate = true;
 
@@ -235,9 +235,9 @@ void UserControlShaderMaterial::init()
     labelRenderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _renderingOrder = new iWidgetNumberChooser();
-    _renderingOrder->setMinMaxNumber(iShaderMaterial::RENDER_ORDER_MIN, iShaderMaterial::RENDER_ORDER_MAX);
+    _renderingOrder->setMinMaxNumber(iShader::RENDER_ORDER_MIN, iShader::RENDER_ORDER_MAX);
     _renderingOrder->setAfterPoint(0);
-    _renderingOrder->setValue(iShaderMaterial::RENDER_ORDER_DEFAULT);
+    _renderingOrder->setValue(iShader::RENDER_ORDER_DEFAULT);
     _renderingOrder->setMinWidth(80);
     _renderingOrder->setSteppingWheel(10.0f, 10.0f);
     _renderingOrder->setStepping(1.0f, 1.0f);

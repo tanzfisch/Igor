@@ -60,7 +60,7 @@ namespace igor
         const iaString shaderMaterial = iXMLHelper::getValue<iaString>(materialXML, "ShaderMaterial", "");
         if (!shaderMaterial.isEmpty())
         {
-            material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShaderMaterial>(shaderMaterial));
+            material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShader>(shaderMaterial));
         }
 
         // TODO shader material

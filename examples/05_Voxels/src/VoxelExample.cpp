@@ -75,10 +75,10 @@ void VoxelExample::initScene()
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    iShaderMaterialPtr skyboxShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_skybox");
+    iShaderPtr skyboxShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_skybox");
     iParameters paramSkybox({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                              {IGOR_RESOURCE_PARAM_GENERATE, true},
-                             {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, skyboxShader},
+                             {IGOR_RESOURCE_PARAM_SHADER, skyboxShader},
                              {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars")}});
     iMaterialPtr materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>(paramSkybox);
 
@@ -88,7 +88,7 @@ void VoxelExample::initScene()
     getScene()->getRoot()->insertNode(skyBoxNode);
 
     // set up voxel mesh material
-    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("example_material_voxel_terrain_directional_light");
+    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iShader>("example_material_voxel_terrain_directional_light");
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -244,7 +244,7 @@ void VoxelExample::prepareMeshGeneration()
                             {IGOR_RESOURCE_PARAM_GENERATE, true},
                             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
                             {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
-                            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, _voxelMeshMaterial},
+                            {IGOR_RESOURCE_PARAM_SHADER, _voxelMeshMaterial},
                             {"voxelData", _voxelData}});
 
     iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);

@@ -313,65 +313,65 @@ inline iModelPtr iResourceManager::getResource(const iaString &alias)
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
+inline iShaderPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SHADER_MATERIAL, alias, cacheMode);
-    return std::dynamic_pointer_cast<iShaderMaterial>(requestResource(param));
+    iParameters param = buildParam(IGOR_RESOURCE_SHADER, alias, cacheMode);
+    return std::dynamic_pointer_cast<iShader>(requestResource(param));
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
+inline iShaderPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SHADER_MATERIAL, alias, cacheMode);
-    return std::dynamic_pointer_cast<iShaderMaterial>(loadResource(param));
+    iParameters param = buildParam(IGOR_RESOURCE_SHADER, alias, cacheMode);
+    return std::dynamic_pointer_cast<iShader>(loadResource(param));
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+inline iShaderPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SHADER_MATERIAL, resourceID, cacheMode);
-    return std::dynamic_pointer_cast<iShaderMaterial>(requestResource(param));
+    iParameters param = buildParam(IGOR_RESOURCE_SHADER, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iShader>(requestResource(param));
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+inline iShaderPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SHADER_MATERIAL, resourceID, cacheMode);
-    return std::dynamic_pointer_cast<iShaderMaterial>(loadResource(param));
+    iParameters param = buildParam(IGOR_RESOURCE_SHADER, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iShader>(loadResource(param));
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::requestResource(const iParameters &param)
+inline iShaderPtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SHADER_MATERIAL, "incorrect parameter");
-    return std::dynamic_pointer_cast<iShaderMaterial>(requestResource(param));
+    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SHADER, "incorrect parameter");
+    return std::dynamic_pointer_cast<iShader>(requestResource(param));
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::loadResource(const iParameters &param)
+inline iShaderPtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SHADER_MATERIAL, "incorrect parameter");
-    return std::dynamic_pointer_cast<iShaderMaterial>(loadResource(param));
+    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SHADER, "incorrect parameter");
+    return std::dynamic_pointer_cast<iShader>(loadResource(param));
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::createResource()
+inline iShaderPtr iResourceManager::createResource()
 {
-    iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SHADER_MATERIAL}}));
-    return std::dynamic_pointer_cast<iShaderMaterial>(createResource(param));
+    iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SHADER}}));
+    return std::dynamic_pointer_cast<iShader>(createResource(param));
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::getResource(const iResourceID &id)
+inline iShaderPtr iResourceManager::getResource(const iResourceID &id)
 {
-    return std::dynamic_pointer_cast<iShaderMaterial>(getResource(id));
+    return std::dynamic_pointer_cast<iShader>(getResource(id));
 }
 
 template <>
-inline iShaderMaterialPtr iResourceManager::getResource(const iaString &alias)
+inline iShaderPtr iResourceManager::getResource(const iaString &alias)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_SHADER_MATERIAL, alias);
-    return std::dynamic_pointer_cast<iShaderMaterial>(getResource(param));
+    iParameters param = buildParam(IGOR_RESOURCE_SHADER, alias);
+    return std::dynamic_pointer_cast<iShader>(getResource(param));
 }
 
 

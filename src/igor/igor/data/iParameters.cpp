@@ -6,7 +6,7 @@
 
 #include <igor/data/iFrustum.h>
 #include <igor/renderer/utils/iRendererDefines.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaColor3.h>

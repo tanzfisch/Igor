@@ -67,66 +67,6 @@ namespace OMPF
         */
         virtual uint32 getSize(const ompfSettings& settings);
 
-        /*! sets ambient color of target material of mesh
-
-        \param ambient the ambient color
-        */
-        void setAmbient(const iaColor3c& ambient);
-
-        /*! \returns ambient color
-        */
-        const iaColor3c& getAmbient() const;
-
-        /*! sets diffuse color of target material of mesh
-
-        \param diffuse the diffuse color
-        */
-        void setDiffuse(const iaColor3c& diffuse);
-
-        /*! \returns diffuse color
-        */
-        const iaColor3c& getDiffuse() const;
-
-        /*! sets specular color of target material of mesh
-
-        \param specular the specular color
-        */
-        void setSpecular(const iaColor3c& specular);
-
-        /*! \returns specular color
-        */
-        const iaColor3c& getSpecular() const;
-
-        /*! sets emissiv color of target material of mesh
-
-        \param emissiv the emissiv color
-        */
-        void setEmissive(const iaColor3c& emissiv);
-
-        /*! \returns emissive color
-        */
-        const iaColor3c& getEmissive() const;
-
-        /*! sets shininess of target material of mesh
-
-        \param shininess the shininess factor
-        */
-        void setShininess(const float32 shininess);
-
-        /*! \returns the shininess factor
-        */
-        float32 getShininess() const;
-
-		/*! sets the alpha value
-
-		\param shininess the shininess factor
-		*/
-		void setAlpha(const float32 alpha);
-
-		/*! \returns the alpha value
-		*/
-		float32 getAlpha() const;
-
         /*! sets amount of normals per vertex
 
         \param count the amount of normals per vertex

@@ -61,7 +61,7 @@ public:
 private:
     /*! voxel mesh material
      */
-    iShaderMaterialPtr _voxelMeshMaterial;
+    iShaderPtr _voxelMeshMaterial;
 
     /*! voxel terrain
      */
