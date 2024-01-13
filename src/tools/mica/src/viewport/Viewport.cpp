@@ -167,7 +167,7 @@ void Viewport::renderSelection()
 
         if (node->getType() == iNodeType::iNodeMesh)
         {
-            iRenderer::getInstance().setShaderMaterial(_materialCelShading);
+            iRenderer::getInstance().setShader(_materialCelShading);
 
             iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
             iRenderer::getInstance().setLineWidth(4);
@@ -178,7 +178,7 @@ void Viewport::renderSelection()
             if (node->getKind() == iNodeKind::Volume)
             {
                 iNodeVolume *renderVolume = static_cast<iNodeVolume *>(node);
-                iRenderer::getInstance().setShaderMaterial(_materialBoundingBox);
+                iRenderer::getInstance().setShader(_materialBoundingBox);
 
                 iAABoxd box = renderVolume->getBoundingBox();
                 iRenderer::getInstance().drawBox(box, iaColor4f::yellow);
@@ -197,7 +197,7 @@ void Viewport::renderOrientationPlane()
     iaMatrixd identity;
     iRenderer::getInstance().setModelMatrix(identity);
 
-    iRenderer::getInstance().setShaderMaterial(_materialOrientationPlane);
+    iRenderer::getInstance().setShader(_materialOrientationPlane);
     iRenderer::getInstance().setLineWidth(1);
 
     const iaColor4f color1(1.0f, 1.0f, 1.0f, 0.08f);

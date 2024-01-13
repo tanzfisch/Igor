@@ -697,7 +697,7 @@ namespace igor
 
     void iRenderer::drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        (color._a == 1.0 && !blend) ? setShaderMaterial(_data->_textureShader) : setShaderMaterial(_data->_textureShaderBlend);
+        (color._a == 1.0 && !blend) ? setShader(_data->_textureShader) : setShader(_data->_textureShaderBlend);
 
         const int32 textureIndex = beginTexturedQuad(texture);
 
@@ -739,7 +739,7 @@ namespace igor
             return;
         }
 
-        (color._a == 1.0 && !blend) ? setShaderMaterial(_data->_textureShader) : setShaderMaterial(_data->_textureShaderBlend);
+        (color._a == 1.0 && !blend) ? setShader(_data->_textureShader) : setShader(_data->_textureShaderBlend);
 
         const int32 textureIndex = beginTexturedQuad(sprite->getTexture());
 
@@ -792,7 +792,7 @@ namespace igor
             flushPoints();
         }
 
-        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShader(_data->_flatShader) : setShader(_data->_flatShaderBlend);
 
         points._vertexDataPtr->_pos = v;
         points._vertexDataPtr->_color = color;
@@ -817,7 +817,7 @@ namespace igor
             flushQuads();
         }
 
-        (color1._a == 1.0 && color2._a == 1.0 && color3._a == 1.0 && color4._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
+        (color1._a == 1.0 && color2._a == 1.0 && color3._a == 1.0 && color4._a == 1.0) ? setShader(_data->_flatShader) : setShader(_data->_flatShaderBlend);
 
         quads._vertexDataPtr->_pos = v1;
         quads._vertexDataPtr->_color = color1;
@@ -855,7 +855,7 @@ namespace igor
             flushLines();
         }
 
-        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShader(_data->_flatShader) : setShader(_data->_flatShaderBlend);
 
         lines._vertexDataPtr->_pos = v1;
         lines._vertexDataPtr->_color = color;
@@ -1315,7 +1315,7 @@ namespace igor
             return;
         }
 
-        setShaderMaterial(_data->_textureShaderBlend);
+        setShader(_data->_textureShaderBlend);
 
         static wchar_t temptext[1024]; // TODO
 
@@ -1591,17 +1591,17 @@ namespace igor
         glStencilMask(mask);
     }
 
-    void iRenderer::setShaderMaterial(const iShaderPtr &shaderMaterial)
+    void iRenderer::setShader(const iShaderPtr &shader)
     {
-        con_assert(shaderMaterial != nullptr, "zero pointer");
+        con_assert(shader != nullptr, "zero pointer");
 
-        if (_data->_currentShader == shaderMaterial)
+        if (_data->_currentShader == shader)
         {
             return;
         }
 
         flush();
-        _data->_currentShader = shaderMaterial;
+        _data->_currentShader = shader;
     }
 
     const iShaderPtr &iRenderer::getMaterial() const
@@ -1657,7 +1657,7 @@ namespace igor
     {
         beginTriangles();
 
-        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShader(_data->_flatShader) : setShader(_data->_flatShaderBlend);
 
         auto &triangles = _data->_triangles;
 
@@ -1733,7 +1733,7 @@ namespace igor
     // TODO only bind if it changed
     void iRenderer::bindCurrentMaterial()
     {
-        con_assert_sticky(_data->_currentShader != nullptr, "no shader material set");
+        con_assert_sticky(_data->_currentShader != nullptr, "no shader set");
 
         _data->_currentShader->bind();
 

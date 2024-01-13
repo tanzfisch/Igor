@@ -20,7 +20,7 @@ namespace igor
         _alpha = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_ALPHA, 1.0f);
         _tiling = parameters.getParameter<iaVector2f>(IGOR_RESOURCE_PARAM_TILING, iaVector2f(1.0f, 1.0f));
 
-        setShaderMaterial(parameters.getParameter<iShaderPtr>(IGOR_RESOURCE_PARAM_SHADER, nullptr));
+        setShader(parameters.getParameter<iShaderPtr>(IGOR_RESOURCE_PARAM_SHADER, nullptr));
 
         for (int i = 0; i < 4; ++i)
         {
@@ -150,14 +150,14 @@ namespace igor
         return !_textures.empty();
     }
 
-    void iMaterial::setShaderMaterial(const iShaderPtr &shaderMaterial)
+    void iMaterial::setShader(const iShaderPtr &shader)
     {
-        _shaderMaterial = shaderMaterial;
+        _shader = shader;
     }
 
-    iShaderPtr iMaterial::getShaderMaterial() const
+    iShaderPtr iMaterial::getShader() const
     {
-        return _shaderMaterial;
+        return _shader;
     }
 
 } // namespace igor

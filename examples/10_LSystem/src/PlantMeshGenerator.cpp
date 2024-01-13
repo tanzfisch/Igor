@@ -36,7 +36,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
     iLSystem *lSystem = parameters.getParameter<iLSystem *>("lsystem", nullptr);
     const iaString &axiom = parameters.getParameter<iaString>("axiom", "");
     const uint32 iterations = parameters.getParameter<uint32>("iterations", 0);
-    iShaderPtr shaderMaterial = parameters.getParameter<iShaderPtr>(IGOR_RESOURCE_SHADER, nullptr);
+    iShaderPtr shader = parameters.getParameter<iShaderPtr>(IGOR_RESOURCE_SHADER, nullptr);
     const iaColor3f trunkColor = parameters.getParameter<iaColor3f>("trunkColor", iaColor3f());
     const iaColor3f branchColor = parameters.getParameter<iaColor3f>("branchColor", iaColor3f());
     const iaColor3f budColor = parameters.getParameter<iaColor3f>("budColor", iaColor3f());
@@ -67,7 +67,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
                            {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.1f, 0.1f, 0.1f)},
                            {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.01f, 0.01f, 0.01f)},
                            {IGOR_RESOURCE_PARAM_SHININESS, 100.0f},
-                           {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial}});
+                           {IGOR_RESOURCE_PARAM_SHADER, shader}});
         iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
 
         meshNodeTrunk->setMaterial(material);
@@ -88,7 +88,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
                            {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.1f, 0.1f, 0.1f)},
                            {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.01f, 0.01f, 0.01f)},
                            {IGOR_RESOURCE_PARAM_SHININESS, 100.0f},
-                           {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial}});
+                           {IGOR_RESOURCE_PARAM_SHADER, shader}});
         iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
 
         meshNodeFlowers->setMaterial(material);
@@ -109,7 +109,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
                            {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.1f, 0.1f, 0.1f)},
                            {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.01f, 0.01f, 0.01f)},
                            {IGOR_RESOURCE_PARAM_SHININESS, 100.0f},
-                           {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial}});
+                           {IGOR_RESOURCE_PARAM_SHADER, shader}});
         iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
         meshNodeBuds->setMaterial(material);
         result->insertNode(meshNodeBuds);
@@ -130,7 +130,7 @@ iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
                            {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.1f, 0.1f, 0.1f)},
                            {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.01f, 0.01f, 0.01f)},
                            {IGOR_RESOURCE_PARAM_SHININESS, 100.0f},
-                           {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial}});
+                           {IGOR_RESOURCE_PARAM_SHADER, shader}});
         iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
         meshNodeLeafs->setMaterial(material);
         result->insertNode(meshNodeLeafs);

@@ -76,7 +76,7 @@ namespace igor
 
         \param material the material to render with
         */
-        void setShaderMaterial(const iShaderPtr &material);
+        void setShader(const iShaderPtr &material);
 
         /*! \returns currently active material
          */

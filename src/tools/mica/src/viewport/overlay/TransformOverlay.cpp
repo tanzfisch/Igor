@@ -42,7 +42,7 @@ void TransformOverlay::onInit()
 {
     getView()->registerRenderDelegate(iDrawDelegate(this, &TransformOverlay::onRender));
 
-    iShaderPtr shaderMaterial = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_transform_overlay_base");
+    iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_transform_overlay_base");
     iParameters paramMaterial({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
@@ -60,7 +60,7 @@ void TransformOverlay::onInit()
     iParameters paramRed({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.3f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.2f, 0.0f, 0.0f)},
@@ -72,7 +72,7 @@ void TransformOverlay::onInit()
     iParameters paramGreen({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.0f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.0f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.0f)},
@@ -84,7 +84,7 @@ void TransformOverlay::onInit()
     iParameters paramBlue({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.0f, 0.3f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.0f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.0f, 0.2f)},
@@ -96,7 +96,7 @@ void TransformOverlay::onInit()
     iParameters paramCyan({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.3f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.2f)},
@@ -604,7 +604,7 @@ void TransformOverlay::renderHighlight()
 
     iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
     iRenderer::getInstance().setLineWidth(4);
-    iRenderer::getInstance().setShaderMaterial(_materialCelShading->getShaderMaterial());
+    iRenderer::getInstance().setShader(_materialCelShading->getShader());
     iRenderer::getInstance().drawMesh(meshNode->getMesh(), _materialCelShading);
 }
 

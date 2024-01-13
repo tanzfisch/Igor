@@ -47,11 +47,11 @@ void UserControlMaterial::updateResource()
 
     if(_shaderMaterialChooser->getID().isValid())
     {
-        material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShader>(_shaderMaterialChooser->getID()));
+        material->setShader(iResourceManager::getInstance().loadResource<iShader>(_shaderMaterialChooser->getID()));
     }
     else
     {
-        material->setShaderMaterial(nullptr);
+        material->setShader(nullptr);
     }
 
     iResourceManager::getInstance().saveResource(getResourceID());
@@ -85,9 +85,9 @@ void UserControlMaterial::update()
         }
     }
 
-    if (material->getShaderMaterial() != nullptr)
+    if (material->getShader() != nullptr)
     {
-        _shaderMaterialChooser->setID(material->getShaderMaterial()->getID());
+        _shaderMaterialChooser->setID(material->getShader()->getID());
     }
     else
     {

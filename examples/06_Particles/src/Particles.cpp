@@ -50,7 +50,7 @@ void Particles::onInit()
     getView().setCamera(camera->getID());
 
     // set up a material for the particles
-    _shaderMaterial = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_particles");
+    _shader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_particles");
 
     // create the various particle systems
     createWaveParticleSystem();
@@ -93,7 +93,7 @@ void Particles::createWaveParticleSystem()
 
     iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                        {IGOR_RESOURCE_PARAM_GENERATE, true},
-                       {IGOR_RESOURCE_PARAM_SHADER, _shaderMaterial},
+                       {IGOR_RESOURCE_PARAM_SHADER, _shader},
                        {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().loadResource<iTexture>("example_texture_particleKreuzHerzPikKaro")}});
     particleSystem->setMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
 
@@ -169,7 +169,7 @@ void Particles::createFireParticleSystem()
 
     iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                        {IGOR_RESOURCE_PARAM_GENERATE, true},
-                       {IGOR_RESOURCE_PARAM_SHADER, _shaderMaterial},
+                       {IGOR_RESOURCE_PARAM_SHADER, _shader},
                        {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().loadResource<iTexture>("example_texture_particleFire")}});
     particleSystem->setMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
     particleSystem->setTileIncrement(0.8);
@@ -230,7 +230,7 @@ void Particles::createFontainParticleSystem()
 
     iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                        {IGOR_RESOURCE_PARAM_GENERATE, true},
-                       {IGOR_RESOURCE_PARAM_SHADER, _shaderMaterial},
+                       {IGOR_RESOURCE_PARAM_SHADER, _shader},
                        {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().loadResource<iTexture>("example_texture_particleTrail")}});
     particleSystem->setMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
     particleSystem->setMaxParticleCount(800);
@@ -286,7 +286,7 @@ void Particles::createRingParticleSystem()
     circleParticleSystem->setMaxParticleCount(500);
     iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                        {IGOR_RESOURCE_PARAM_GENERATE, true},
-                       {IGOR_RESOURCE_PARAM_SHADER, _shaderMaterial},
+                       {IGOR_RESOURCE_PARAM_SHADER, _shader},
                        {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().loadResource<iTexture>("example_texture_particleGem")},
                        {IGOR_RESOURCE_PARAM_TEXTURE1, iResourceManager::getInstance().loadResource<iTexture>("example_texture_octave_1")}});
     circleParticleSystem->setMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
@@ -345,7 +345,7 @@ void Particles::createSmokeParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                        {IGOR_RESOURCE_PARAM_GENERATE, true},
-                       {IGOR_RESOURCE_PARAM_SHADER, _shaderMaterial},
+                       {IGOR_RESOURCE_PARAM_SHADER, _shader},
                        {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().loadResource<iTexture>("example_texture_particle_dot")},
                        {IGOR_RESOURCE_PARAM_TEXTURE1, iResourceManager::getInstance().loadResource<iTexture>("example_texture_octave_1")},
                        {IGOR_RESOURCE_PARAM_TEXTURE2, iResourceManager::getInstance().loadResource<iTexture>("example_texture_octave_2")}});
@@ -402,7 +402,7 @@ void Particles::createDotParticleSystem()
     _particleSystemIDs.push_back(particleSystem->getID());
     iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                        {IGOR_RESOURCE_PARAM_GENERATE, true},
-                       {IGOR_RESOURCE_PARAM_SHADER, _shaderMaterial},
+                       {IGOR_RESOURCE_PARAM_SHADER, _shader},
                        {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().loadResource<iTexture>("example_texture_particleTrail")}});
     particleSystem->setMaterial(iResourceManager::getInstance().loadResource<iMaterial>(param));
     particleSystem->setMaxParticleCount(500);
@@ -447,7 +447,7 @@ void Particles::createDotParticleSystem()
     _particleSystemIDs.push_back(particleSystem2->getID());
     iParameters param2({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                        {IGOR_RESOURCE_PARAM_GENERATE, true},
-                       {IGOR_RESOURCE_PARAM_SHADER, _shaderMaterial},
+                       {IGOR_RESOURCE_PARAM_SHADER, _shader},
                        {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().loadResource<iTexture>("example_texture_particleFlame")},
                        {IGOR_RESOURCE_PARAM_TEXTURE1, iResourceManager::getInstance().loadResource<iTexture>("example_texture_octave_1")},
                        {IGOR_RESOURCE_PARAM_TEXTURE2, iResourceManager::getInstance().loadResource<iTexture>("example_texture_octave_2")}});

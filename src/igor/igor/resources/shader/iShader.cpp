@@ -4,7 +4,7 @@
 
 #include <igor/resources/shader/iShader.h>
 
-#include <igor/resources/shader/loader/iShaderMaterialIO.h>
+#include <igor/resources/shader/loader/iShaderIO.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>

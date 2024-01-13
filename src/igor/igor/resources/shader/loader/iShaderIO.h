@@ -37,7 +37,7 @@ namespace igor
 {
     /*! reader for Igor shader material files
      */
-    class IGOR_API iShaderMaterialIO
+    class IGOR_API iShaderIO
     {
     public:
         /*! reads material file and configures given material with it

@@ -164,21 +164,21 @@ namespace igor
          */
         bool isVelocityOriented() const;
 
-        /*! sets shader material
+        /*! sets shader
 
-        \param shaderMaterial the shader material
+        \param shader the shader to set
         */
-        void setShaderMaterial(const iShaderPtr &shaderMaterial);
+        void setShader(const iShaderPtr &shader);
 
-        /*! \returns the shader material in use
+        /*! \returns the shader in use
         */
-        iShaderPtr getShaderMaterial() const;
+        iShaderPtr getShader() const;
 
     private:
 
-        /*! the shader material
+        /*! the shader
         */
-        iShaderPtr _shaderMaterial;
+        iShaderPtr _shader;
 
         /*! texture unit to texture map
          */

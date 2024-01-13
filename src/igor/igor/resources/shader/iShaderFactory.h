@@ -35,16 +35,16 @@
 namespace igor
 {
 
-    /*! this factory creates shader material resources
+    /*! this factory creates shader resources
      */
-    class iShaderMaterialFactory : public iFactory
+    class iShaderFactory : public iFactory
     {
         friend class iResourceManager;
 
     private:
         /*! init members
          */
-        iShaderMaterialFactory();
+        iShaderFactory();
 
         /*! \returns resource type specific hash data
          */

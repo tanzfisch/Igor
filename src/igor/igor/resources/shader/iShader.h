@@ -42,15 +42,15 @@
 namespace igor
 {
 
-    /*! shader material ID definition
+    /*! shader ID definition
      */
-    typedef iaUUID iShaderMaterialID;
+    typedef iaUUID iShaderID;
 
     /*! material definition
      */
     class IGOR_API iShader : public iResource
     {
-        friend class iShaderMaterialFactory;
+        friend class iShaderFactory;
         friend class iRenderer;
 
     public:
