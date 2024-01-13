@@ -75,15 +75,15 @@ private:
 
     /*! cel shading material for selecting nodes in the scene
      */
-    iShaderMaterialPtr _materialCelShading;
+    iShaderPtr _materialCelShading;
 
     /*! material for bounding box display
      */
-    iShaderMaterialPtr _materialBoundingBox;
+    iShaderPtr _materialBoundingBox;
 
     /*! material for orientation plane
      */
-    iShaderMaterialPtr _materialOrientationPlane;
+    iShaderPtr _materialOrientationPlane;
 
     /*! the scene for the overlay
      */

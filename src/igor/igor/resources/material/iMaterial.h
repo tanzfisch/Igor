@@ -30,7 +30,7 @@
 #define IGOR_MATERIAL_H
 
 #include <igor/resources/texture/iTexture.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 
 #include <iaux/data/iaColor3.h>
 using namespace iaux;
@@ -40,7 +40,7 @@ using namespace iaux;
 
 namespace igor
 {
-    /*! target material pointer definition
+    /*! material pointer definition
      */
     class iMaterial;
     typedef std::shared_ptr<iMaterial> iMaterialPtr;
@@ -51,7 +51,7 @@ namespace igor
 
     /*! contains all material information that belong to the surface of an object
 
-    Whereas iShaderMaterial contains all the information related to shader and environment ie lights etc.
+    Whereas iShader contains all the information related to shader and environment ie lights etc.
     */
     class IGOR_API iMaterial : public iResource
     {
@@ -72,13 +72,13 @@ namespace igor
         */
         iTexturePtr getTexture(uint32 texunit) const;
 
-        /*! \returns true if target material has texture for given texture unit
+        /*! \returns true if material has texture for given texture unit
 
         \param texunit the given texture unit
         */
         bool hasTextureUnit(uint32 texunit) const;
 
-        /*! \returns all the textures in the target material
+        /*! \returns all the textures in the material
          */
         const std::map<uint32, iTexturePtr> &getTextures() const;
 
@@ -164,21 +164,21 @@ namespace igor
          */
         bool isVelocityOriented() const;
 
-        /*! sets shader material
+        /*! sets shader
 
-        \param shaderMaterial the shader material
+        \param shader the shader to set
         */
-        void setShaderMaterial(const iShaderMaterialPtr &shaderMaterial);
+        void setShader(const iShaderPtr &shader);
 
-        /*! \returns the shader material in use
+        /*! \returns the shader in use
         */
-        iShaderMaterialPtr getShaderMaterial() const;
+        iShaderPtr getShader() const;
 
     private:
 
-        /*! the shader material
+        /*! the shader
         */
-        iShaderMaterialPtr _shaderMaterial;
+        iShaderPtr _shader;
 
         /*! texture unit to texture map
          */
@@ -212,9 +212,11 @@ namespace igor
          */
         iaVector2f _tiling;
 
-        /*! if true target material will be displayed oriented along it's velocity axis
+        /*! if true material will be displayed oriented along it's velocity axis
+
+        (useful for particles)
          */
-        bool _velocityOriented; // TODO does this belong here?
+        bool _velocityOriented; // TODO does this belong here? still not sure
 
         /*! init material
 

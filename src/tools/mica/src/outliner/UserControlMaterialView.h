@@ -63,7 +63,7 @@ private:
 
     /*! id of current selected material
     */
-    iShaderMaterialID _selectedMaterial;
+    iShaderID _selectedMaterial;
 
     void initGUI();
 

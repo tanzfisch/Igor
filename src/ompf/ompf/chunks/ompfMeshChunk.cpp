@@ -30,11 +30,6 @@ namespace OMPF
         }
     }
 
-    void ompfMeshChunk::setAmbient(const iaColor3c &ambient)
-    {
-        _ambient = ambient;
-    }
-
     void ompfMeshChunk::setTexture(const iaString &texture, uint32 texunit)
     {
         _textures[texunit] = texture;
@@ -59,31 +54,6 @@ namespace OMPF
         return 12 + _normalsPerVertex * 12 + _colorsPerVertex * 12 + _texCoordPerVertex * 8;
     }
 
-    const iaColor3c &ompfMeshChunk::getAmbient() const
-    {
-        return _ambient;
-    }
-
-    void ompfMeshChunk::setDiffuse(const iaColor3c &diffuse)
-    {
-        _diffuse = diffuse;
-    }
-
-    const iaColor3c &ompfMeshChunk::getDiffuse() const
-    {
-        return _diffuse;
-    }
-
-    void ompfMeshChunk::setSpecular(const iaColor3c &specular)
-    {
-        _specular = specular;
-    }
-
-    const iaColor3c &ompfMeshChunk::getSpecular() const
-    {
-        return _specular;
-    }
-
     void ompfMeshChunk::setVertexCount(uint32 count)
     {
         _vertexCount = count;
@@ -92,36 +62,6 @@ namespace OMPF
     uint32 ompfMeshChunk::getVertexCount() const
     {
         return _vertexCount;
-    }
-
-    void ompfMeshChunk::setEmissive(const iaColor3c &emissive)
-    {
-        _emissive = emissive;
-    }
-
-    const iaColor3c &ompfMeshChunk::getEmissive() const
-    {
-        return _emissive;
-    }
-
-    void ompfMeshChunk::setShininess(const float32 shininess)
-    {
-        _shininess = shininess;
-    }
-
-    float32 ompfMeshChunk::getShininess() const
-    {
-        return _shininess;
-    }
-
-    void ompfMeshChunk::setAlpha(const float32 alpha)
-    {
-        _alpha = alpha;
-    }
-
-    float32 ompfMeshChunk::getAlpha() const
-    {
-        return _alpha;
     }
 
     void ompfMeshChunk::setNormalsPerVertex(uint8 count)

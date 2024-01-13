@@ -5,7 +5,7 @@
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/resources/iResourceManager.h>
 
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>

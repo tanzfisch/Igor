@@ -51,7 +51,7 @@ namespace igor
     void iNodeVisitorRenderColorID::preTraverse()
     {
         _currentMatrix.identity();
-        iRenderer::getInstance().setShaderMaterial(iRenderer::getInstance().getColorIDMaterial());
+        iRenderer::getInstance().setShader(iRenderer::getInstance().getColorIDMaterial());
     }
 
     void iNodeVisitorRenderColorID::postTraverse()

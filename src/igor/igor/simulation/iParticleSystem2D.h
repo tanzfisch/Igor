@@ -32,7 +32,7 @@
 #include <igor/simulation/iParticleSystem.h>
 #include <igor/simulation/iParticleEmitter.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 
 namespace igor
 {
@@ -63,7 +63,7 @@ namespace igor
          */
         iParticleEmitter &getEmitter();
 
-        /*! \returns target material
+        /*! \returns material
          */
         iMaterialPtr &getMaterial();
 
@@ -76,7 +76,7 @@ namespace igor
          */
         iParticleEmitter _particleEmitter;
 
-        /*! particle target material
+        /*! particle material
          */
         iMaterialPtr _material;
 

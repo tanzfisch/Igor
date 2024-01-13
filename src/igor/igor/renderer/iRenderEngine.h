@@ -31,7 +31,7 @@
 
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/scene/nodes/iNodeCamera.h>
@@ -142,7 +142,7 @@ namespace igor
         struct iInstaningPackage
         {
             iInstancingBufferPtr _buffer;
-            iMaterialPtr _targetMaterial;
+            iMaterialPtr _material;
         };
 
         /*! bringing all nodes using the same material together for more efficient rendering
@@ -151,7 +151,7 @@ namespace igor
         {
             /*! the material used
             */
-            iShaderMaterialPtr _material;
+            iShaderPtr _material;
 
             /*! the nodes rendered with this material
             */

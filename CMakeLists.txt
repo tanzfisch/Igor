@@ -211,7 +211,6 @@ foreach(
       05_Voxels
       06_Particles
       07_Physics
-      09_Widgets
       10_LSystem
       11_Instancing
       12_CharacterController

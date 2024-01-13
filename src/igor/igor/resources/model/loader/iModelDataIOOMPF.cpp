@@ -632,17 +632,6 @@ namespace igor
             iaColor3c specular;
             iaColor3c emissive;
 
-            iaConvert::convert(node->getAmbient(), ambient);
-            iaConvert::convert(node->getDiffuse(), diffuse);
-            iaConvert::convert(node->getSpecular(), specular);
-            iaConvert::convert(node->getEmissive(), emissive);
-
-            result->setAmbient(ambient);
-            result->setDiffuse(diffuse);
-            result->setSpecular(specular);
-            result->setEmissive(emissive);
-            result->setShininess(node->getShininess());
-
             const iMeshPtr &mesh = node->getMesh();
 
             if (mesh != nullptr &&

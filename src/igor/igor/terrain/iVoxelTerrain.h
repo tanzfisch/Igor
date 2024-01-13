@@ -135,7 +135,7 @@ namespace igor
         */
         uint64 getPhysicsMaterialID() const;
 
-        /*! \returns target material
+        /*! \returns material
         */
         iMaterialPtr getMaterial() const;
 
@@ -189,7 +189,7 @@ namespace igor
         */
         uint64 _physicsMaterialID = 0;
 
-        /*! target material for given tile
+        /*! terrain material
         */
         iMaterialPtr _material;
 

@@ -66,7 +66,7 @@ private:
 
     /*! particles material
     */
-    iShaderMaterialPtr _shaderMaterial;
+    iShaderPtr _shader;
 
     /*! ids of particle systems
     */

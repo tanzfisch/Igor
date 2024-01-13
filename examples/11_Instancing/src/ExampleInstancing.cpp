@@ -4,7 +4,7 @@
 
 #include "ExampleInstancing.h"
 
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeTransform.h>

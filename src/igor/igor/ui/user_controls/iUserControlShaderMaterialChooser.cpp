@@ -85,7 +85,7 @@ namespace igor
         iResourceID id = mimeData.getResourceID();
 
         const iaString resourceType = iResourceManager::getInstance().getType(id);
-        if (resourceType != IGOR_RESOURCE_SHADER_MATERIAL)
+        if (resourceType != IGOR_RESOURCE_SHADER)
         {
             drag.reject();
             return;
@@ -105,7 +105,7 @@ namespace igor
         iResourceID id = mimeData.getResourceID();
 
         const iaString resourceType = iResourceManager::getInstance().getType(id);
-        if (resourceType != IGOR_RESOURCE_SHADER_MATERIAL)
+        if (resourceType != IGOR_RESOURCE_SHADER)
         {
             return;
         }

@@ -7,7 +7,7 @@
 #include <igor/renderer/utils/iRendererUtils.h>
 
 #include <igor/simulation/iParticleSystem.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/iResourceManager.h>
 
@@ -285,31 +285,31 @@ namespace igor
         ////////// MATERIALS ////////////
         /*! material for flat shaded rendering
          */
-        iShaderMaterialPtr _flatShader;
+        iShaderPtr _flatShader;
 
         /*! material for textured rendering
          */
-        iShaderMaterialPtr _textureShader;
+        iShaderPtr _textureShader;
 
         /*! material for flat shaded rendering
          */
-        iShaderMaterialPtr _flatShaderBlend;
+        iShaderPtr _flatShaderBlend;
 
         /*! material for textured rendering
          */
-        iShaderMaterialPtr _textureShaderBlend;
+        iShaderPtr _textureShaderBlend;
 
         /*! the current material in use
          */
-        iShaderMaterialPtr _currentShader;
+        iShaderPtr _currentShader;
 
         /*! the default material
          */
-        iShaderMaterialPtr _defaultShader;
+        iShaderPtr _defaultShader;
 
         /*! the colorID material
          */
-        iShaderMaterialPtr _colorIDShader;
+        iShaderPtr _colorIDShader;
 
         //////////// SHARED DATA ///////////
         /*! quad index buffer
@@ -537,14 +537,14 @@ namespace igor
         setStencilTestActive(false);
 
         ///////////// MATERIALS ////////////
-        _data->_defaultShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_default_textured");
-        _data->_colorIDShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_color_id");
+        _data->_defaultShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_default_textured");
+        _data->_colorIDShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_color_id");
 
         // don't cache the following so they stay invisible to the application
-        _data->_flatShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_flat_shaded", iResourceCacheMode::DontCache);
-        _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_flat_shaded_blend", iResourceCacheMode::DontCache);
-        _data->_textureShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_texture_shaded", iResourceCacheMode::DontCache);
-        _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_texture_shaded_blend", iResourceCacheMode::DontCache);
+        _data->_flatShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_flat_shaded", iResourceCacheMode::DontCache);
+        _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_flat_shaded_blend", iResourceCacheMode::DontCache);
+        _data->_textureShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_texture_shaded", iResourceCacheMode::DontCache);
+        _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_texture_shaded_blend", iResourceCacheMode::DontCache);
 
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentShader.reset();
@@ -697,7 +697,7 @@ namespace igor
 
     void iRenderer::drawTexturedQuadInternal(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, bool blend, const iaVector2f &tiling)
     {
-        (color._a == 1.0 && !blend) ? setShaderMaterial(_data->_textureShader) : setShaderMaterial(_data->_textureShaderBlend);
+        (color._a == 1.0 && !blend) ? setShader(_data->_textureShader) : setShader(_data->_textureShaderBlend);
 
         const int32 textureIndex = beginTexturedQuad(texture);
 
@@ -739,7 +739,7 @@ namespace igor
             return;
         }
 
-        (color._a == 1.0 && !blend) ? setShaderMaterial(_data->_textureShader) : setShaderMaterial(_data->_textureShaderBlend);
+        (color._a == 1.0 && !blend) ? setShader(_data->_textureShader) : setShader(_data->_textureShaderBlend);
 
         const int32 textureIndex = beginTexturedQuad(sprite->getTexture());
 
@@ -792,7 +792,7 @@ namespace igor
             flushPoints();
         }
 
-        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShader(_data->_flatShader) : setShader(_data->_flatShaderBlend);
 
         points._vertexDataPtr->_pos = v;
         points._vertexDataPtr->_color = color;
@@ -817,7 +817,7 @@ namespace igor
             flushQuads();
         }
 
-        (color1._a == 1.0 && color2._a == 1.0 && color3._a == 1.0 && color4._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
+        (color1._a == 1.0 && color2._a == 1.0 && color3._a == 1.0 && color4._a == 1.0) ? setShader(_data->_flatShader) : setShader(_data->_flatShaderBlend);
 
         quads._vertexDataPtr->_pos = v1;
         quads._vertexDataPtr->_color = color1;
@@ -855,7 +855,7 @@ namespace igor
             flushLines();
         }
 
-        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShader(_data->_flatShader) : setShader(_data->_flatShaderBlend);
 
         lines._vertexDataPtr->_pos = v1;
         lines._vertexDataPtr->_color = color;
@@ -1315,7 +1315,7 @@ namespace igor
             return;
         }
 
-        setShaderMaterial(_data->_textureShaderBlend);
+        setShader(_data->_textureShaderBlend);
 
         static wchar_t temptext[1024]; // TODO
 
@@ -1591,20 +1591,20 @@ namespace igor
         glStencilMask(mask);
     }
 
-    void iRenderer::setShaderMaterial(const iShaderMaterialPtr &shaderMaterial)
+    void iRenderer::setShader(const iShaderPtr &shader)
     {
-        con_assert(shaderMaterial != nullptr, "zero pointer");
+        con_assert(shader != nullptr, "zero pointer");
 
-        if (_data->_currentShader == shaderMaterial)
+        if (_data->_currentShader == shader)
         {
             return;
         }
 
         flush();
-        _data->_currentShader = shaderMaterial;
+        _data->_currentShader = shader;
     }
 
-    const iShaderMaterialPtr &iRenderer::getMaterial() const
+    const iShaderPtr &iRenderer::getMaterial() const
     {
         return _data->_currentShader;
     }
@@ -1657,7 +1657,7 @@ namespace igor
     {
         beginTriangles();
 
-        (color._a == 1.0) ? setShaderMaterial(_data->_flatShader) : setShaderMaterial(_data->_flatShaderBlend);
+        (color._a == 1.0) ? setShader(_data->_flatShader) : setShader(_data->_flatShaderBlend);
 
         auto &triangles = _data->_triangles;
 
@@ -1733,7 +1733,7 @@ namespace igor
     // TODO only bind if it changed
     void iRenderer::bindCurrentMaterial()
     {
-        con_assert_sticky(_data->_currentShader != nullptr, "no shader material set");
+        con_assert_sticky(_data->_currentShader != nullptr, "no shader set");
 
         _data->_currentShader->bind();
 
@@ -1850,7 +1850,7 @@ namespace igor
     {
         if (material != nullptr)
         {
-            if (_data->_currentShader->hasTargetMaterial())
+            if (_data->_currentShader->hasSurfaceProperties())
             {
                 _data->_currentShader->setFloat3(UNIFORM_MATERIAL_AMBIENT, material->getAmbient());
                 _data->_currentShader->setFloat3(UNIFORM_MATERIAL_DIFFUSE, material->getDiffuse());
@@ -2156,12 +2156,12 @@ namespace igor
         return _data->_wireframeEnabled;
     }
 
-    const iShaderMaterialPtr &iRenderer::getDefaultShader() const
+    const iShaderPtr &iRenderer::getDefaultShader() const
     {
         return _data->_defaultShader;
     }
 
-    const iShaderMaterialPtr &iRenderer::getColorIDMaterial() const
+    const iShaderPtr &iRenderer::getColorIDMaterial() const
     {
         return _data->_colorIDShader;
     }

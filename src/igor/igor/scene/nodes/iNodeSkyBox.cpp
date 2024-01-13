@@ -6,7 +6,7 @@
 
 #include <iaux/system/iaConsole.h>
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeCamera.h>

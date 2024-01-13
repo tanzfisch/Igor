@@ -5,7 +5,7 @@
 #include <igor/scene/nodes/iNodeMesh.h>
 
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/resources/mesh/iMesh.h>
 
 #include <vector>

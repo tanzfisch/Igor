@@ -9,7 +9,7 @@
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
 #include <igor/resources/model/iModelFactory.h>
-#include <igor/resources/shader_material/iShaderMaterialFactory.h>
+#include <igor/resources/shader/iShaderFactory.h>
 #include <igor/resources/material/iMaterialFactory.h>
 #include <igor/resources/config/iConfigReader.h>
 #include <igor/threading/iTaskManager.h>
@@ -50,7 +50,7 @@ namespace igor
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
         registerFactory(iFactoryPtr(new iMaterialFactory()));
-        registerFactory(iFactoryPtr(new iShaderMaterialFactory()));
+        registerFactory(iFactoryPtr(new iShaderFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
 
         // read igor internal resource dictionary
@@ -751,7 +751,7 @@ namespace igor
         return stream;
     }
 
-    void iResourceManager::getMaterials(std::vector<iShaderMaterialPtr> &materials)
+    void iResourceManager::getMaterials(std::vector<iShaderPtr> &materials)
     {
         materials.clear();
 
@@ -760,17 +760,17 @@ namespace igor
         _mutex.lock();
         for (const auto &pair : _resources)
         {
-            if (pair.second->getType() != IGOR_RESOURCE_SHADER_MATERIAL)
+            if (pair.second->getType() != IGOR_RESOURCE_SHADER)
             {
                 continue;
             }
 
-            materials.push_back(std::dynamic_pointer_cast<iShaderMaterial>(pair.second));
+            materials.push_back(std::dynamic_pointer_cast<iShader>(pair.second));
         }
         _mutex.unlock();
 
         sort(materials.begin(), materials.end(),
-             [](const iShaderMaterialPtr a, const iShaderMaterialPtr b) -> bool
+             [](const iShaderPtr a, const iShaderPtr b) -> bool
              {
                  return a->getOrder() < b->getOrder();
              });

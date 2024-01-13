@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/shader_material/loader/iShaderMaterialIO.h>
+#include <igor/resources/shader/loader/iShaderIO.h>
 
 #include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaFile.h>
@@ -97,18 +97,18 @@ namespace igor
         return defaultValue;
     }
 
-    static void readStates(TiXmlElement *states, const iShaderMaterialPtr &shaderMaterial)
+    static void readStates(TiXmlElement *states, const iShaderPtr &shader)
     {
-        shaderMaterial->setRenderState(iRenderState::DepthTest, getRenderStateValue(states, "DepthTest", iRenderStateValue::On));
-        shaderMaterial->setRenderState(iRenderState::DepthMask, getRenderStateValue(states, "DepthMask", iRenderStateValue::On));
-        shaderMaterial->setRenderState(iRenderState::Blend, getRenderStateValue(states, "Blend", iRenderStateValue::On));
-        shaderMaterial->setRenderState(iRenderState::CullFace, getRenderStateValue(states, "CullFace", iRenderStateValue::On));
-        shaderMaterial->setRenderState(iRenderState::Wireframe, getRenderStateValue(states, "Wireframe", iRenderStateValue::Off));
-        shaderMaterial->setRenderState(iRenderState::DepthFunc, getRenderStateValue(states, "DepthFunc", iRenderStateValue::Less));
-        shaderMaterial->setRenderState(iRenderState::CullFaceFunc, getRenderStateValue(states, "CullFaceFunc", iRenderStateValue::Back));
-        shaderMaterial->setRenderState(iRenderState::Instanced, getRenderStateValue(states, "Instanced", iRenderStateValue::Off));
-        shaderMaterial->setRenderState(iRenderState::InstancedFunc, getRenderStateValue(states, "InstancedFunc", iRenderStateValue::PositionOrientationInstancing));
-        shaderMaterial->setRenderState(iRenderState::DepthTest, getRenderStateValue(states, "DepthTest", iRenderStateValue::On));
+        shader->setRenderState(iRenderState::DepthTest, getRenderStateValue(states, "DepthTest", iRenderStateValue::On));
+        shader->setRenderState(iRenderState::DepthMask, getRenderStateValue(states, "DepthMask", iRenderStateValue::On));
+        shader->setRenderState(iRenderState::Blend, getRenderStateValue(states, "Blend", iRenderStateValue::On));
+        shader->setRenderState(iRenderState::CullFace, getRenderStateValue(states, "CullFace", iRenderStateValue::On));
+        shader->setRenderState(iRenderState::Wireframe, getRenderStateValue(states, "Wireframe", iRenderStateValue::Off));
+        shader->setRenderState(iRenderState::DepthFunc, getRenderStateValue(states, "DepthFunc", iRenderStateValue::Less));
+        shader->setRenderState(iRenderState::CullFaceFunc, getRenderStateValue(states, "CullFaceFunc", iRenderStateValue::Back));
+        shader->setRenderState(iRenderState::Instanced, getRenderStateValue(states, "Instanced", iRenderStateValue::Off));
+        shader->setRenderState(iRenderState::InstancedFunc, getRenderStateValue(states, "InstancedFunc", iRenderStateValue::PositionOrientationInstancing));
+        shader->setRenderState(iRenderState::DepthTest, getRenderStateValue(states, "DepthTest", iRenderStateValue::On));
     }
 
     static void readShader(TiXmlElement *element, iShaderObjectType shaderObjectType, iShaderProgramPtr shaderProgram)
@@ -144,7 +144,7 @@ namespace igor
         }
     }
 
-    static void readProgram(TiXmlElement *program, const iShaderMaterialPtr &shaderMaterial)
+    static void readProgram(TiXmlElement *program, const iShaderPtr &shader)
     {
         TiXmlElement *vertex = program->FirstChildElement("Vertex");
         TiXmlElement *fragment = program->FirstChildElement("Fragment");
@@ -175,10 +175,10 @@ namespace igor
 
         shaderProgram->compile();
 
-        shaderMaterial->setShaderProgram(shaderProgram);
+        shader->setShaderProgram(shaderProgram);
     }
 
-    bool iShaderMaterialIO::readMaterial(TiXmlElement *materialXML, const iShaderMaterialPtr &shaderMaterial)
+    bool iShaderIO::readMaterial(TiXmlElement *materialXML, const iShaderPtr &shader)
     {
         TiXmlAttribute *attrib = materialXML->FirstAttribute();
         while (attrib)
@@ -189,32 +189,32 @@ namespace igor
                 if (attrib->ValueStr() == "RENDER_ORDER_DEFAULT" ||
                     attrib->ValueStr() == "DEFAULT")
                 {
-                    shaderMaterial->setOrder(iShaderMaterial::RENDER_ORDER_DEFAULT);
+                    shader->setOrder(iShader::RENDER_ORDER_DEFAULT);
                 }
                 else if (attrib->ValueStr() == "RENDER_ORDER_MIN" ||
                          attrib->ValueStr() == "MIN")
                 {
-                    shaderMaterial->setOrder(iShaderMaterial::RENDER_ORDER_MIN);
+                    shader->setOrder(iShader::RENDER_ORDER_MIN);
                 }
                 else if (attrib->ValueStr() == "RENDER_ORDER_MAX" ||
                          attrib->ValueStr() == "MAX")
                 {
-                    shaderMaterial->setOrder(iShaderMaterial::RENDER_ORDER_MAX);
+                    shader->setOrder(iShader::RENDER_ORDER_MAX);
                 }
                 else
                 {
-                    shaderMaterial->setOrder(iaString::toInt(attrib->Value()));
+                    shader->setOrder(iaString::toInt(attrib->Value()));
                 }
             }
             else if (attrib->NameTStr() == "visibility")
             {
                 if (attrib->ValueStr() == "Public")
                 {
-                    shaderMaterial->setVisibility(iMaterialVisibility::Public);
+                    shader->setVisibility(iMaterialVisibility::Public);
                 }
                 else
                 {
-                    shaderMaterial->setVisibility(iMaterialVisibility::Private);
+                    shader->setVisibility(iMaterialVisibility::Private);
                 }
             }
 
@@ -224,19 +224,19 @@ namespace igor
         TiXmlElement *states = materialXML->FirstChildElement("States");
         if (states)
         {
-            readStates(states, shaderMaterial);
+            readStates(states, shader);
         }
 
         TiXmlElement *program = materialXML->FirstChildElement("Program");
         if (program)
         {
-            readProgram(program, shaderMaterial);
+            readProgram(program, shader);
         }
 
         return true;
     }
 
-    bool iShaderMaterialIO::read(const iaString &filename, const iShaderMaterialPtr &shaderMaterial)
+    bool iShaderIO::read(const iaString &filename, const iShaderPtr &shader)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -262,10 +262,10 @@ namespace igor
             return false;
         }
 
-        return readMaterial(materialXML, shaderMaterial);
+        return readMaterial(materialXML, shader);
     }
 
-    bool iShaderMaterialIO::write(const iaString &filename, const iShaderMaterialPtr &shaderMaterial)
+    bool iShaderIO::write(const iaString &filename, const iShaderPtr &shader)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -281,20 +281,20 @@ namespace igor
 
         file << "<?xml version=\"1.0\"?>\n";
         file << "<Igor>\n";
-        file << "\t<ShaderMaterial uuid=\"" << shaderMaterial->getID() << "\" order=\"" << shaderMaterial->getOrder() << "\" visibility=\"" << shaderMaterial->getVisibility() << "\">\n";
+        file << "\t<ShaderMaterial uuid=\"" << shader->getID() << "\" order=\"" << shader->getOrder() << "\" visibility=\"" << shader->getVisibility() << "\">\n";
         file << "\t\t<States>\n";
-        file << "\t\t\t<DepthTest>" << shaderMaterial->getRenderState(iRenderState::DepthTest) << "</DepthTest>\n";
-        file << "\t\t\t<DepthFunc>" << shaderMaterial->getRenderState(iRenderState::DepthFunc) << "</DepthFunc>\n";
-        file << "\t\t\t<DepthMask>" << shaderMaterial->getRenderState(iRenderState::DepthMask) << "</DepthMask>\n";
-        file << "\t\t\t<Blend>" << shaderMaterial->getRenderState(iRenderState::Blend) << "</Blend>\n";
-        file << "\t\t\t<CullFace>" << shaderMaterial->getRenderState(iRenderState::CullFace) << "</CullFace>\n";
-        file << "\t\t\t<CullFaceFunc>" << shaderMaterial->getRenderState(iRenderState::CullFaceFunc) << "</CullFaceFunc>\n";
-        file << "\t\t\t<Wireframe>" << shaderMaterial->getRenderState(iRenderState::Wireframe) << "</Wireframe>\n";
-        file << "\t\t\t<Instanced>" << shaderMaterial->getRenderState(iRenderState::Instanced) << "</Instanced>\n";
-        file << "\t\t\t<InstancedFunc>" << shaderMaterial->getRenderState(iRenderState::InstancedFunc) << "</InstancedFunc>\n";
+        file << "\t\t\t<DepthTest>" << shader->getRenderState(iRenderState::DepthTest) << "</DepthTest>\n";
+        file << "\t\t\t<DepthFunc>" << shader->getRenderState(iRenderState::DepthFunc) << "</DepthFunc>\n";
+        file << "\t\t\t<DepthMask>" << shader->getRenderState(iRenderState::DepthMask) << "</DepthMask>\n";
+        file << "\t\t\t<Blend>" << shader->getRenderState(iRenderState::Blend) << "</Blend>\n";
+        file << "\t\t\t<CullFace>" << shader->getRenderState(iRenderState::CullFace) << "</CullFace>\n";
+        file << "\t\t\t<CullFaceFunc>" << shader->getRenderState(iRenderState::CullFaceFunc) << "</CullFaceFunc>\n";
+        file << "\t\t\t<Wireframe>" << shader->getRenderState(iRenderState::Wireframe) << "</Wireframe>\n";
+        file << "\t\t\t<Instanced>" << shader->getRenderState(iRenderState::Instanced) << "</Instanced>\n";
+        file << "\t\t\t<InstancedFunc>" << shader->getRenderState(iRenderState::InstancedFunc) << "</InstancedFunc>\n";
         file << "\t\t</States>\n";
 
-        const auto &shaderSources = shaderMaterial->getShaderProgram()->getShaderSources();
+        const auto &shaderSources = shader->getShaderProgram()->getShaderSources();
         if (!shaderSources.empty())
         {
             file << "\t\t<Program>\n";

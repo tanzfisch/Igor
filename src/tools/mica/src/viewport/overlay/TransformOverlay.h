@@ -123,23 +123,23 @@ private:
      */
     iNodePtr _roateModifier = nullptr;
 
-    /*! red target material
+    /*! red material
      */
     iMaterialPtr _red = nullptr;
 
-    /*! green target material
+    /*! green material
      */
     iMaterialPtr _green = nullptr;
 
-    /*! blue target material
+    /*! blue material
      */
     iMaterialPtr _blue = nullptr;
 
-    /*! cyan target material
+    /*! cyan material
      */
     iMaterialPtr _cyan = nullptr;
 
-    /*! cel chader material for selection
+    /*! cel shader material for selection
      */
     iMaterialPtr _materialCelShading;
 

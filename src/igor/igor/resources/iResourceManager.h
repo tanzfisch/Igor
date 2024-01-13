@@ -36,7 +36,7 @@
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimation.h>
 #include <igor/resources/model/iModel.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/iResourceDictionary.h>
 
@@ -242,7 +242,7 @@ namespace igor
 
         TODO how about a more general interface?
         */
-        void getMaterials(std::vector<iShaderMaterialPtr> &materials);
+        void getMaterials(std::vector<iShaderPtr> &materials);
 
         /*! works like a garbage collector.
 

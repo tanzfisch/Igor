@@ -148,17 +148,17 @@ namespace igor
             return;
         }
 
-        iShaderMaterialPtr shaderMaterial = material->getShaderMaterial();
+        iShaderPtr shader = material->getShader();
 
-        if (shaderMaterial == nullptr ||
-            !shaderMaterial->isValid())
+        if (shader == nullptr ||
+            !shader->isValid())
         {
             return;
         }
 
         auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
-                                 [&shaderMaterial](const iMaterialGroup &materialGroup)
-                                 { return materialGroup._material == shaderMaterial; });
+                                 [&shader](const iMaterialGroup &materialGroup)
+                                 { return materialGroup._material == shader; });
 
         if (iter != _materialGroups.end())
         {
@@ -166,13 +166,13 @@ namespace igor
         }
         else
         {
-            if (shaderMaterial->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
+            if (shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
             {
-                _materialGroups.push_back({shaderMaterial, {renderNode}, std::unordered_map<iMeshPtr, iInstaningPackage>()});
+                _materialGroups.push_back({shader, {renderNode}, std::unordered_map<iMeshPtr, iInstaningPackage>()});
             }
             else
             {
-                _materialGroups.push_back({shaderMaterial, {renderNode}, std::unordered_map<iMeshPtr, iInstaningPackage>()});
+                _materialGroups.push_back({shader, {renderNode}, std::unordered_map<iMeshPtr, iInstaningPackage>()});
             }
         }
     }
@@ -211,7 +211,7 @@ namespace igor
 
     void iRenderEngine::drawColorIDs()
     {
-        iRenderer::getInstance().setShaderMaterial(iRenderer::getInstance().getColorIDMaterial());
+        iRenderer::getInstance().setShader(iRenderer::getInstance().getColorIDMaterial());
 
         for (const auto &materialGroup : _materialGroups)
         {
@@ -254,7 +254,7 @@ namespace igor
 
         for (auto &materialGroup : _materialGroups)
         {
-            iRenderer::getInstance().setShaderMaterial(materialGroup._material);
+            iRenderer::getInstance().setShader(materialGroup._material);
 
             if (materialGroup._material->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
             {
@@ -296,13 +296,13 @@ namespace igor
                     }
 
                     materialGroup._instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
-                    // TODO using random target material we find for now
-                    materialGroup._instancing[mesh]._targetMaterial = nodeMesh->getMaterial();
+                    // TODO using random material we find for now
+                    materialGroup._instancing[mesh]._material = nodeMesh->getMaterial();
                 }
 
                 for (const auto &pair : materialGroup._instancing)
                 {
-                    iRenderer::getInstance().drawMeshInstanced(pair.first, pair.second._buffer, pair.second._targetMaterial);
+                    iRenderer::getInstance().drawMeshInstanced(pair.first, pair.second._buffer, pair.second._material);
                     pair.second._buffer->clear();
                 }
             }

@@ -68,7 +68,7 @@ public:
 
     /*! \returns font material
     */
-    iShaderMaterialID getFontMaterial() const;
+    iShaderID getFontMaterial() const;
 
 protected:
     /*! initialize example
