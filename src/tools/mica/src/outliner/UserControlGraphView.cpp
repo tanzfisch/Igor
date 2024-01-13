@@ -192,9 +192,7 @@ iActionContextPtr UserControlGraphView::getContext()
 void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 {
     _graphContextMenu.clear();
-
-    iaVector2i pos = iMouse::getInstance().getPos();
-    _graphContextMenu.setPos(iaVector2f(pos._x, pos._y));
+    _graphContextMenu.setPos(iMouse::getInstance().getPos());
 
     iActionContextPtr actionContext = getContext();
 

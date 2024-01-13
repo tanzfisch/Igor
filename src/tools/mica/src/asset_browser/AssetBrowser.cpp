@@ -71,9 +71,7 @@ void AssetBrowser::initUI()
 void AssetBrowser::OnContextMenu(iWidgetPtr source)
 {
     _contextMenu.clear();
-
-    iaVector2i pos = iMouse::getInstance().getPos();
-    _contextMenu.setPos(iaVector2f(pos._x, pos._y));
+    _contextMenu.setPos(iMouse::getInstance().getPos());
 
     iWidgetMenuPtr createMenu = new iWidgetMenu("Create");
     _contextMenu.addMenu(createMenu);

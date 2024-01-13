@@ -39,7 +39,7 @@ namespace igor
         virtual bool initDevice(const void *data) = 0;
         virtual void deinitDevice() = 0;
         virtual bool onOSEvent(const void *data) = 0;
-        virtual void setPosition(int32 x, int32 y) = 0;
+        virtual void setPosition(float32 x, float32 y) = 0;
         virtual void hideCursor(bool hide) = 0;
         virtual void setCursor(iMouseCursorType cursorType) = 0;
         virtual void resetCursor() = 0;
@@ -48,8 +48,8 @@ namespace igor
     protected:
         iButtonState _buttonStates[5];
         iMouse *_mouse;
-        iaVector2i _lastMousePos;
-        iaVector2i _pos;
+        iaVector2f _lastMousePos;
+        iaVector2f _pos;
         iWindowPtr _window = nullptr;
     };
 
@@ -230,7 +230,7 @@ namespace igor
             return true;
         }
 
-        void setPosition(int32 x, int32 y)
+        void setPosition(float32 x, float32 y)
         {
             if (_window->isFullscreen())
             {
@@ -244,7 +244,7 @@ namespace igor
                 int32 headerY = GetSystemMetrics(SM_CYCAPTION);
                 int32 client_rect_offset_pos_x = borderX + _window->getXPos();
                 int32 client_rect_offset_pos_y = borderY + headerY + _window->getYPos();
-                SetCursorPos(client_rect_offset_pos_x + x, client_rect_offset_pos_y + y);
+                SetCursorPos(client_rect_offset_pos_x + static_cast<int32>(x), client_rect_offset_pos_y + static_cast<int32>(y));
             }
 
             _lastMousePos = _pos;
@@ -402,7 +402,7 @@ namespace igor
 
             case MotionNotify:
             {
-                iaVector2i pos(xevent.xmotion.x, xevent.xmotion.y);
+                iaVector2f pos(xevent.xmotion.x, xevent.xmotion.y);
                 if (_pos != pos)
                 {
                     _lastMousePos = _pos;
@@ -422,9 +422,9 @@ namespace igor
             return true;
         }
 
-        void setPosition(int32 x, int32 y) override
+        void setPosition(float32 x, float32 y) override
         {
-            XWarpPointer(_display, None, _xWindow, 0, 0, 0, 0, x, y);
+            XWarpPointer(_display, None, _xWindow, 0, 0, 0, 0, static_cast<int>(x), static_cast<int>(y));
             XSync(_display, false);
 
             _lastMousePos = _pos;
@@ -554,12 +554,12 @@ namespace igor
         _impl->setCenter();
     }
 
-    void iMouse::setPosition(const iaVector2i &pos)
+    void iMouse::setPosition(const iaVector2f &pos)
     {
         setPosition(pos._x, pos._y);
     }
 
-    void iMouse::setPosition(int32 x, int32 y)
+    void iMouse::setPosition(float32 x, float32 y)
     {
         _impl->setPosition(x, y);
     }
@@ -579,12 +579,12 @@ namespace igor
         _impl->hideCursor(hide);
     }
 
-    const iaVector2i &iMouse::getPos() const
+    const iaVector2f &iMouse::getPos() const
     {
         return _impl->_pos;
     }
 
-    iaVector2i iMouse::getPosDelta() const
+    iaVector2f iMouse::getPosDelta() const
     {
         return _impl->_pos - _impl->_lastMousePos;
     }
