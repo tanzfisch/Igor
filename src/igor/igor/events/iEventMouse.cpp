@@ -10,7 +10,7 @@
 namespace igor
 {
 
-    iEventMouseKeyDown::iEventMouseKeyDown(iWindowPtr window, const iKeyCode key, const iaVector2i &pos)
+    iEventMouseKeyDown::iEventMouseKeyDown(iWindowPtr window, const iKeyCode key, const iaVector2f &pos)
         : iEvent(window), _key(key), _pos(pos)
     {
     }
@@ -33,12 +33,12 @@ namespace igor
         return _key;
     }
 
-    const iaVector2i &iEventMouseKeyDown::getPosition() const
+    const iaVector2f &iEventMouseKeyDown::getPosition() const
     {
         return _pos;
     }
 
-    iEventMouseKeyUp::iEventMouseKeyUp(iWindowPtr window, const iKeyCode key, const iaVector2i &pos)
+    iEventMouseKeyUp::iEventMouseKeyUp(iWindowPtr window, const iKeyCode key, const iaVector2f &pos)
         : iEvent(window), _key(key), _pos(pos)
     {
     }
@@ -61,12 +61,12 @@ namespace igor
         return _key;
     }
 
-    const iaVector2i &iEventMouseKeyUp::getPosition() const
+    const iaVector2f &iEventMouseKeyUp::getPosition() const
     {
         return _pos;
     }
 
-    iEventMouseKeyDoubleClick::iEventMouseKeyDoubleClick(iWindowPtr window, const iKeyCode key, const iaVector2i &pos)
+    iEventMouseKeyDoubleClick::iEventMouseKeyDoubleClick(iWindowPtr window, const iKeyCode key, const iaVector2f &pos)
         : iEvent(window), _key(key), _pos(pos)
     {
     }
@@ -89,7 +89,7 @@ namespace igor
         return _key;
     }
 
-    const iaVector2i &iEventMouseKeyDoubleClick::getPosition() const
+    const iaVector2f &iEventMouseKeyDoubleClick::getPosition() const
     {
         return _pos;
     }

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MOUSE__
-#define __IGOR_MOUSE__
+#ifndef IGOR_MOUSE_H
+#define IGOR_MOUSE_H
 
 #include <igor/system/iOSEventListener.h>
 #include <igor/resources/module/iModule.h>
@@ -39,6 +39,8 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! mouse cursor type definition
+    */
     enum class iMouseCursorType
     {
         Arrow,  // default
@@ -75,13 +77,13 @@ namespace igor
 		\param x horizontal position of the mouse cursor in pixel
 		\param y vertical position of the mouse cursor in pixel
 		*/
-        void setPosition(int32 x, int32 y);
+        void setPosition(float32 x, float32 y);
 
         /*! set mouse to a position relative to currently focussed window
 
         \param pos horizontal and vertical position of the mouse cursor in pixel
         */
-        void setPosition(const iaVector2i &pos);        
+        void setPosition(const iaVector2f &pos);        
 
         /*! switches the cursor on or off
 
@@ -103,11 +105,11 @@ namespace igor
 
         origin is top left 
         */
-        const iaVector2i& getPos() const;
+        const iaVector2f& getPos() const;
 
         /*! \returns the delta mouse movement since last mouse update.
         */
-        iaVector2i getPosDelta() const;
+        iaVector2f getPosDelta() const;
 
         /*! \returns true: right mouse button is pressed; false: right mouse button is not pressed
         */
@@ -144,7 +146,7 @@ namespace igor
         */
         bool onOSEvent(const void *data) override;
 
-        /*! does what ever necessairy to get the device running
+        /*! does what ever necessary to get the device running
 
 		\param data os specific data (see iOSEventregisterData)
 		*/
@@ -171,4 +173,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_MOUSE__
+#endif // IGOR_MOUSE_H

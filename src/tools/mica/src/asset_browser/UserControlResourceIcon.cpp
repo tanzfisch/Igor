@@ -67,8 +67,7 @@ void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
 {
     _contextMenu.clear();
 
-    iaVector2i pos = iMouse::getInstance().getPos();
-    _contextMenu.setPos(iaVector2f(pos._x, pos._y));
+    _contextMenu.setPos(iMouse::getInstance().getPos());
 
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
     if (id != iResourceID(IGOR_INVALID_ID))
