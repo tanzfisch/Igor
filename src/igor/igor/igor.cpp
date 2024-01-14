@@ -136,7 +136,7 @@ namespace igor
         iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
         iaConsole::getInstance() << T << "                 EnTT, R.P. Easing, TinyXML and Fun" << endl
                                  << endl;
-        iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek" << endl
+        iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek, M. Dederer" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
