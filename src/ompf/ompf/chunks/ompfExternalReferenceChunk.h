@@ -22,8 +22,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXTERNALREFERENCECHUNK__
-#define __EXTERNALREFERENCECHUNK__
+#ifndef OMPF_EXTERNAL_REFERENCE_CHUNK_H
+#define OMPF_EXTERNAL_REFERENCE_CHUNK_H
 
 #include <ompf/chunks/ompfBaseChunk.h>
 
@@ -44,42 +44,42 @@ namespace OMPF
         */
         virtual ~ompfExternalReferenceChunk() = default;
 
-        /*! \returns size of chunk in bytes
+        /*! sets external reference
 
-        \param settings the settings the chunk's size depends on
+        \param reference the filename, alias or id
         */
-        uint32 getSize(const ompfSettings &settings) override;
+        void setReference(const iaString &reference);
 
-        /*! sets file name of external reference
-
-        \param filename the file name
+        /*! \returns external reference
         */
-        void setFilename(const iaString &filename);
-
-        /*! \returns file name of external reference
-        */
-        iaString getFilename() const;
+        const iaString& getReference() const;
 
     private:
-        /*! file name of external reference
+        /*! external reference
         */
-        iaString _filename;
+        iaString _reference;
 
         /*! writes chunk to stream
 
         \param stream destination stream
         \param settings the settings how to write the chunk
         */
-        virtual bool write(std::ofstream &stream, const ompfSettings &settings);
+        bool write(std::ofstream &stream, const ompfSettings &settings) override;
 
         /*! reads chunk from stream
 
         \param stream source stream
         \param settings the settings how to read the chunk
         */
-        virtual bool read(std::ifstream &stream, ompfSettings &settings);
+        bool read(std::ifstream &stream, ompfSettings &settings) override;
+
+        /*! \returns size of chunk in bytes
+
+        \param settings the settings the chunk's size depends on
+        */
+        uint32 getSize(const ompfSettings &settings) override;        
     };
 
 } // namespace OMPF
 
-#endif
+#endif // OMPF_EXTERNAL_REFERENCE_CHUNK_H

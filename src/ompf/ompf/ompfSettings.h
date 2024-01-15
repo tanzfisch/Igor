@@ -22,8 +22,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OMPF_SETTINGS__
-#define __OMPF_SETTINGS__
+#ifndef OMPF_SETTINGS_H
+#define OMPF_SETTINGS_H
 
 #include <ompf/ompfVersion.h>
 
@@ -142,4 +142,4 @@ namespace OMPF
     };
 } // namespace OMPF
 
-#endif
+#endif // OMPF_SETTINGS_H

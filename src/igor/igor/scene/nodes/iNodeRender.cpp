@@ -17,7 +17,7 @@ namespace igor
     iNodeRender::iNodeRender()
         : iNode()
     {
-        _material = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_default");
+        _material = iResourceManager::getInstance().createResource<iMaterial>();
 
         setName(L"iNodeRender");
         _nodeType = iNodeType::iNodeRender;

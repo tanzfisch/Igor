@@ -38,18 +38,18 @@ namespace OMPF
 
     void ompfParticleSystemChunk::setTextureTiling(uint8 columns, uint8 rows)
     {
-        _firstTectureTilingColumns = columns;
-        _firstTectureTilingRows = rows;
+        _firstTextureTilingColumns = columns;
+        _firstTextureTilingRows = rows;
     }
 
     uint8 ompfParticleSystemChunk::getTextureColumns() const
     {
-        return _firstTectureTilingColumns;
+        return _firstTextureTilingColumns;
     }
 
     uint8 ompfParticleSystemChunk::getTextureRows() const
     {
-        return _firstTectureTilingRows;
+        return _firstTextureTilingRows;
     }
 
     void ompfParticleSystemChunk::setStartAgeGradient(const iaKeyFrameGraphVector2f &visibleGradient)
@@ -234,36 +234,6 @@ namespace OMPF
         return _velocityOriented;
     }
 
-    void ompfParticleSystemChunk::setTextureA(const iaString &filename)
-    {
-        _textureA = filename;
-    }
-
-    void ompfParticleSystemChunk::setTextureB(const iaString &filename)
-    {
-        _textureB = filename;
-    }
-
-    void ompfParticleSystemChunk::setTextureC(const iaString &filename)
-    {
-        _textureC = filename;
-    }
-
-    iaString ompfParticleSystemChunk::getTextureA() const
-    {
-        return _textureA;
-    }
-
-    iaString ompfParticleSystemChunk::getTextureB() const
-    {
-        return _textureB;
-    }
-
-    iaString ompfParticleSystemChunk::getTextureC() const
-    {
-        return _textureC;
-    }
-
     void ompfParticleSystemChunk::setMaterialChunkID(uint32 id)
     {
         _materialChunkID = id;
@@ -308,9 +278,6 @@ namespace OMPF
         result += 4;     // air drag
         result += 4;     // period time
         result += 1;     // velocity oriented
-        result += static_cast<uint32>(_textureA.getLength()) + 2;
-        result += static_cast<uint32>(_textureB.getLength()) + 2;
-        result += static_cast<uint32>(_textureC.getLength()) + 2;
         result += 4;   // material chunk id
         result += 4;   // emitter chunk id
         return result; // 24
@@ -435,17 +402,17 @@ namespace OMPF
         }
         con_trace("vorticity confinement " << _vorticityConfinement);
 
-        if (!iaSerializable::writeUInt8(stream, _firstTectureTilingColumns))
+        if (!iaSerializable::writeUInt8(stream, _firstTextureTilingColumns))
         {
             return false;
         }
-        con_trace("first texture tiling columns " << _firstTectureTilingColumns);
+        con_trace("first texture tiling columns " << _firstTextureTilingColumns);
 
-        if (!iaSerializable::writeUInt8(stream, _firstTectureTilingRows))
+        if (!iaSerializable::writeUInt8(stream, _firstTextureTilingRows))
         {
             return false;
         }
-        con_trace("first texture tiling rows " << _firstTectureTilingRows);
+        con_trace("first texture tiling rows " << _firstTextureTilingRows);
 
         if (!iaSerializable::writeFloat32(stream, _airDrag))
         {
@@ -464,24 +431,6 @@ namespace OMPF
             return false;
         }
         con_trace("velocity oriented " << (_velocityOriented ? "true" : "false"));
-
-        if (!iaSerializable::writeUTF8(stream, _textureA))
-        {
-            return false;
-        }
-        con_trace("texture A " << _textureA);
-
-        if (!iaSerializable::writeUTF8(stream, _textureB))
-        {
-            return false;
-        }
-        con_trace("texture B " << _textureB);
-
-        if (!iaSerializable::writeUTF8(stream, _textureC))
-        {
-            return false;
-        }
-        con_trace("texture C " << _textureC);
 
         if (!iaSerializable::writeUInt32(stream, _materialChunkID))
         {
@@ -618,17 +567,17 @@ namespace OMPF
         }
         con_trace("vorticity confinement " << _vorticityConfinement);
 
-        if (!iaSerializable::readUInt8(stream, _firstTectureTilingColumns))
+        if (!iaSerializable::readUInt8(stream, _firstTextureTilingColumns))
         {
             return false;
         }
-        con_trace("first texture tiling columns " << _firstTectureTilingColumns);
+        con_trace("first texture tiling columns " << _firstTextureTilingColumns);
 
-        if (!iaSerializable::readUInt8(stream, _firstTectureTilingRows))
+        if (!iaSerializable::readUInt8(stream, _firstTextureTilingRows))
         {
             return false;
         }
-        con_trace("first texture tiling rows " << _firstTectureTilingRows);
+        con_trace("first texture tiling rows " << _firstTextureTilingRows);
 
         if (!iaSerializable::readFloat32(stream, _airDrag))
         {
@@ -649,24 +598,6 @@ namespace OMPF
         }
         _velocityOriented = velocityOriented == 0 ? false : true;
         con_trace("velocity oriented " << (_velocityOriented ? "true" : "false"));
-
-        if (!iaSerializable::readUTF8(stream, _textureA))
-        {
-            return false;
-        }
-        con_trace("texture A " << _textureA);
-
-        if (!iaSerializable::readUTF8(stream, _textureB))
-        {
-            return false;
-        }
-        con_trace("texture B " << _textureB);
-
-        if (!iaSerializable::readUTF8(stream, _textureC))
-        {
-            return false;
-        }
-        con_trace("texture C " << _textureC);
 
         if (!iaSerializable::readUInt32(stream, _materialChunkID))
         {

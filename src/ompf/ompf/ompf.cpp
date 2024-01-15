@@ -229,11 +229,6 @@ namespace OMPF
                 result = chunk->read(file, _settings);
                 break;
 
-            case OMPFChunkType::ResourceSearchPath:
-                chunk = new ompfResourceSearchPathChunk();
-                result = chunk->read(file, _settings);
-                break;
-
             case OMPFChunkType::Mesh:
                 chunk = new ompfMeshChunk();
                 result = chunk->read(file, _settings);

@@ -95,7 +95,6 @@ namespace OMPF
 		Group = 0x02,
 		Transform = 0x03,
 		External = 0x04,
-		ResourceSearchPath = 0x05,
 		Mesh = 0x06,
 		Emitter = 0x08,
 		ParticleSystem = 0x09,

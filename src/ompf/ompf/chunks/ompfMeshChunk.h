@@ -7,24 +7,24 @@
 //
 //  (c) Copyright by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 2.1 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
-// You should have received a copy of the GNU Lesser General Public          
-// License along with this library; if not, write to the Free Software       
-// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA 
-// 
-// contact: igorgameengine@protonmail.com  
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 2.1 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+//
+// contact: igorgameengine@protonmail.com
 
-#ifndef __MESHCHUNK__
-#define __MESHCHUNK__
+#ifndef OMPF_MESH_CHUNK_H
+#define OMPF_MESH_CHUNK_H
 
 #include <ompf/chunks/ompfBaseChunk.h>
 
@@ -47,54 +47,49 @@ namespace OMPF
     };
 
     /*! ompf mesh chunk
-    */
-	class OMPF_API ompfMeshChunk : public ompfBaseChunk
-	{
+     */
+    class OMPF_API ompfMeshChunk : public ompfBaseChunk
+    {
 
-	public:
+        friend class OMPF;
 
+    public:
         /*! init base class
-        */
-		ompfMeshChunk();
+         */
+        ompfMeshChunk();
 
         /*! release some memory
-        */
-		virtual ~ompfMeshChunk();
+         */
+        virtual ~ompfMeshChunk();
 
-        /*! \returns size of chunk in bytes
-
-        \param settings the settings the size calculation is based on
-        */
-        virtual uint32 getSize(const ompfSettings& settings);
-
-        /*! sets amount of normals per vertex
+        /*! sets amount of normals per vertex (usually 0 or 1)
 
         \param count the amount of normals per vertex
         */
         void setNormalsPerVertex(uint8 count);
 
         /*! \returns amount of normals per vertex
-        */
+         */
         uint8 getNormalsPerVertex() const;
 
-        /*! sets amount of colors per vertex
+        /*! sets amount of colors per vertex (usually 0 or 1)
 
         \param count the amount of colors per vertex
         */
         void setColorsPerVertex(uint8 count);
 
         /*! \returns amount of colors per vertex
-        */
+         */
         uint8 getColorsPerVertex() const;
 
-        /*! sets the amount of texture coordinates per vertex
+        /*! sets the amount of texture coordinates per vertex (usually 0 or 1)
 
         \param count the amount of texture coordinates per vertex
         */
         void setTexCoordPerVertex(uint8 count);
 
         /*! \returns the amount of texture coordinates per vertex
-        */
+         */
         uint8 getTexCoordPerVertex() const;
 
         /*! sets vertex count
@@ -104,7 +99,7 @@ namespace OMPF
         void setVertexCount(uint32 count);
 
         /*! \returns the vertex count
-        */
+         */
         uint32 getVertexCount() const;
 
         /*! sets the amount of indexes
@@ -114,7 +109,7 @@ namespace OMPF
         void setIndexCount(uint32 count);
 
         /*! \returns the indexes count
-        */
+         */
         uint32 getIndexCount() const;
 
         /*! sets vertex data
@@ -122,32 +117,32 @@ namespace OMPF
         \param data pointer to raw vertex data
         \param size the size in bytes
         */
-        void setVertexData(const char* data, uint32 size);
+        void setVertexData(const char *data, uint32 size);
 
         /*! \returns pointer to vertex data
-        */
-        const void* getVertexData() const;
+         */
+        const void *getVertexData() const;
 
         /*! sets index data
 
         \param data pointer to index data
         \param size the size of index data in bytes
         */
-        void setIndexData(const char* data, uint32 size);
+        void setIndexData(const char *data, uint32 size);
 
         /*! \returns pointer to index data
-        */
-        const void* getIndexData() const;
+         */
+        const void *getIndexData() const;
 
         /*! \returns vertex data size
-        */
+         */
         uint32 getVertexDataSize() const;
 
         /*! \returns index data size
-        */
+         */
         uint32 getIndexDataSize() const;
 
-        /*! calculates the vertex size
+        /*! calculates the size of a single vertex
 
         \returns the vertex size
         */
@@ -160,7 +155,7 @@ namespace OMPF
         void setMeshType(OMPFMeshType type);
 
         /*! \returns the mesh type
-        */
+         */
         OMPFMeshType getMeshType() const;
 
         /*! sets a texture for specified texture unit
@@ -168,7 +163,7 @@ namespace OMPF
         \param texture the texture
         \param texunit the texture unit specified
         */
-        void setTexture(const iaString& texture, uint32 texunit);
+        void setTexture(const iaString &texture, uint32 texunit);
 
         /*! \returns texture for specified texture unit
 
@@ -177,109 +172,85 @@ namespace OMPF
         iaString getTexture(uint32 texunit) const;
 
         /*! \returns amount of textures in use
-        */
+         */
         uint32 getTextureCount() const;
 
         /*! sets material chund id
-        
+
         \param id the material chunk id
         */
         void setMaterialChunkID(uint32 id);
 
         /*! \returns material chunk id
-        */
+         */
         uint32 getMaterialChunkID() const;
 
     private:
-
-        /*! ambient color
-        */
-        iaColor3c _ambient;
-
-        /*! diffuse color
-        */
-        iaColor3c _diffuse;
-
-        /*! specular color
-        */
-        iaColor3c _specular;
-        
-        /*! emissiv color
-        */
-        iaColor3c _emissive;
-
-        /*! shininess factor
-        */
-        float32 _shininess = 0;
-
-		/*! alpha value
-		*/
-		float32 _alpha = 1.0;
-
         /*! normal count per vertex
-        */
+         */
         uint8 _normalsPerVertex = 0;
 
         /*! color count per vertex
-        */
+         */
         uint8 _colorsPerVertex = 0;
 
         /*! texture coordinates count per vertex
-        */
+         */
         uint8 _texCoordPerVertex = 0;
 
         /*! mesh type
-        */
+         */
         OMPFMeshType _meshType = OMPFMeshType::Triangles;
 
         /*! vertex count
-        */
+         */
         uint32 _vertexCount = 0;
 
         /*! pointer to vertex data
-        */
-        void* _vertexData = nullptr;
+         */
+        void *_vertexData = nullptr;
 
         /*! vertex data size
-        */
+         */
         uint32 _vertexDataSize = 0;
 
         /*! index count
-        */
+         */
         uint32 _indexCount = 0;
 
         /*! pointer to index data
-        */
-        void* _indexData = nullptr;
+         */
+        void *_indexData = nullptr;
 
         /*! index data size in bytes
-        */
+         */
         uint32 _indexDataSize = 0;
 
         /*! material chunk id
-        */
+         */
         uint32 _materialChunkID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
 
-        /*! texture map with textures per texture unit
+        /*! \returns size of chunk in bytes
+
+        \param settings the settings the size calculation is based on
         */
-        std::map<uint32, iaString> _textures;
+        uint32 getSize(const ompfSettings &settings) override;
 
         /*! writes chunk to stream
 
         \param stream destination stream
         \param settings the settings how to write the chunk
         */
-        virtual bool write(std::ofstream& stream, const ompfSettings& settings);
+        bool write(std::ofstream &stream, const ompfSettings &settings) override;
 
         /*! reads chunk from stream
 
         \param stream source stream
         \param settings the settings how to read the chunk
         */
-        virtual bool read(std::ifstream& stream, ompfSettings& settings);
-
-	};
+        bool read(std::ifstream &stream, ompfSettings &settings) override;
+    };
 
 }
 
-#endif
+#endif // OMPF_MESH_CHUNK_H
