@@ -57,12 +57,16 @@ namespace igor
 			return 0;
 		}
 
-		std::vector<iMeshBuilder *> meshBuilders;
-
 		for (auto section : _sections)
 		{
+			if(section.second._polygons.empty())
+			{
+				continue;
+			}
+
 			auto &meshBuilder = section.second._meshBuilder;
-			meshBuilder.setJoinVertexes(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_JOIN_VERTICES, false));
+			meshBuilder.setJoinVertices(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_JOIN_VERTICES, true));
+			meshBuilder.setKeepRawData(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false));
 
 			// transfer polygons to mesh builder
 			transferToMeshBuilder(section.second);

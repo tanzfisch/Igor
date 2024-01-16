@@ -514,7 +514,7 @@ iMeshPtr TransformOverlay::createCube()
 iMeshPtr TransformOverlay::createCylinder()
 {
     iMeshBuilder meshBuilder;
-    meshBuilder.setJoinVertexes(true);
+    meshBuilder.setJoinVertices(true);
 
     iaMatrixf matrix;
     matrix.scale(0.025, 1.5, 0.025);
@@ -529,7 +529,7 @@ iMeshPtr TransformOverlay::createCylinder()
 iMeshPtr TransformOverlay::createTranslateMesh()
 {
     iMeshBuilder meshBuilder;
-    meshBuilder.setJoinVertexes(false);
+    meshBuilder.setJoinVertices(false);
 
     iaMatrixf matrix;
 

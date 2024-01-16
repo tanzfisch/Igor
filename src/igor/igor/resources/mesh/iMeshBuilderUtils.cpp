@@ -252,7 +252,7 @@ namespace igor
                 return;
             }
 
-            if (meshBuilder.getJoinVertexes())
+            if (meshBuilder.isJoiningVertices())
             {
                 con_err("can't add mesh in join vertexes mode");
                 return;

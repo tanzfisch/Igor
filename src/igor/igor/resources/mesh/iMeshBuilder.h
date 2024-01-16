@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MESHBUILDER__
-#define __IGOR_MESHBUILDER__
+#ifndef IGOR_MESHBUILDER_H
+#define IGOR_MESHBUILDER_H
 
 #include <igor/data/iAABox.h>
 #include <igor/resources/texture/iTexture.h>
@@ -50,19 +50,19 @@ namespace igor
 {
 
     /*! triangle defined by three indexes to vertexes
-    */
+     */
     struct IGOR_API iIndexedTriangle
     {
         /*! index a
-        */
+         */
         uint32 _a;
 
         /*! index b
-        */
+         */
         uint32 _b;
 
         /*! index c
-        */
+         */
         uint32 _c;
     };
 
@@ -74,7 +74,7 @@ namespace igor
     {
 
         /*! hash function to quickly find corresponding vertex positions
-        */
+         */
         class VectorHasher
         {
         public:
@@ -95,11 +95,11 @@ namespace igor
 
     public:
         /*! does nothing
-        */
+         */
         iMeshBuilder();
 
         /*! does nothing
-        */
+         */
         ~iMeshBuilder();
 
         /*! sets transformation matrix affecting next vertex to be set
@@ -121,7 +121,7 @@ namespace igor
         void getMatrix(iaMatrixf &matrix);
 
         /*! calculating the bounding box
-        */
+         */
         void calcBoundingBox(iAABoxd &bbox) const;
 
         /*! adds vertex to data
@@ -188,48 +188,58 @@ namespace igor
 
         can only be set before the first vertex was added
 
-        \param joinVertexes on off flag 
+        \param joinVertexes on off flag
         */
-        void setJoinVertexes(bool joinVertexes = true);
-
-        /*! normalizes all normals
-        */
-        void normalizeNormals();
+        void setJoinVertices(bool joinVertexes);
 
         /*! \returns join vertexes flag
+         */
+        bool isJoiningVertices() const;
+
+        /*! if true this mesh will hold on to the raw data after beeing transferred to the GPU
+
+        \param keepRawData if true keep the raw data
         */
-        bool getJoinVertexes();
+        void setKeepRawData(bool keepRawData);
+
+        /*! \returns true if keeping raw data
+         */
+        bool isKeepingRawData() const;
+
+        /*! normalizes all normals
+         */
+        void normalizeNormals();
 
         /*! \returns vertex count
-        */
+         */
         uint32 getVertexCount() const;
 
         /*! \returns triangle count
-        */
+         */
         uint32 getTrianglesCount() const;
 
         /*! \returns texture unit count
-        */
+         */
         uint32 getTextureUnitCount() const;
 
         /*! \returns list of vertex positions
-        */
+         */
         const std::vector<iaVector3f> &getVertexes() const;
 
         /*! \returns list of vertex normals
-        */
+         */
         const std::vector<iaVector3f> &getNormals() const;
 
         /*! \returns list of indexed triangles
-        */
+         */
         const std::vector<iIndexedTriangle> &getTriangles() const;
 
         /*! \returns true: if mesh has _normals; false: mesh has no _normals
-        */
+         */
         bool hasNormals() const;
 
         /*! \returns true if data contains colors
-        */
+         */
         bool hasColors() const;
 
         /*! calculates normals for mesh
@@ -237,7 +247,6 @@ namespace igor
         \param sharpEdges if true sharp edges will cause plit of neighbor triangles for more realistic representation
         */
         void calcNormals(bool sharpEdges = false);
-
 
         /*! creates and returns a mesh based on current data
 
@@ -250,10 +259,10 @@ namespace igor
         \param triangles list of triangle IDs that end up in the mesh
         \returns shared pointer to mesh
         */
-        iMeshPtr createMesh(const std::vector<uint32>& triangles);
+        iMeshPtr createMesh(const std::vector<uint32> &triangles);
 
         /*! clears data and set transformation matrix to identity
-        */
+         */
         void clear();
 
         /*! copies the triangles in the index list to an other iMeshBuilder
@@ -287,40 +296,44 @@ namespace igor
         void calcPlanarTextureCoordinates(const iaVector3f &center, iaAxis direction, int texunit, float32 scale = 1.0f);
 
         /*! tries to repair what is inconsistent
-		*/
+         */
         void cleanup();
 
     private:
         /*! map for vertex positions
-        */
+         */
         std::unordered_map<iaVector3f, uint32, VectorHasher, VectorEqualFn> _indexMap;
 
         /*! if true all vertexes that have the same position will be joined
-        */
+         */
         bool _joinVertexes = true;
 
-        /*! the vertices of the mesh
+        /*! if true keep raw data after passing mesh to GPU
         */
+        bool _keepRawData = false;
+
+        /*! the vertices of the mesh
+         */
         std::vector<iaVector3f> _vertexes;
 
         /*! the normals of the mesh
-        */
+         */
         std::vector<iaVector3f> _normals;
 
         /*! the colors of the mesh
-        */
+         */
         std::vector<iaColor4f> _colors;
 
         /*! the texture coordinates of the mesh
-        */
+         */
         std::map<uint32, std::vector<iaVector2f>> _texCoords;
 
         /*! the triangles of the mesh
-        */
+         */
         std::vector<iIndexedTriangle> _triangles;
 
         /*! current transformation matrix
-        */
+         */
         iaMatrixf _matrix;
 
         /*! actually adds the vertex to internal structures
@@ -341,10 +354,10 @@ namespace igor
         \param[out] mesh the resulting mesh
         \param triangles the list of triangles we want in the mesh
         */
-        void compile(iMeshPtr mesh, const std::vector<uint32>& triangles);
+        void compile(iMeshPtr mesh, const std::vector<uint32> &triangles);
 
         /*! checks boundaries of generated data
-        */
+         */
         bool checkConsistency();
 
         /*! tries to find vertex indexes by their position
@@ -359,11 +372,10 @@ namespace igor
         void getIndexOfVertexes(const iaVector3f &vertexA, int64 &indexA, const iaVector3f &vertexB, int64 &indexB, const iaVector3f &vertexC, int64 &indexC);
 
         /*! \returns layout based on current data
-        */
+         */
         iBufferLayout generateLayout() const;
-
     };
 
 }; // namespace igor
 
-#endif // __IGOR_MESHBUILDER__
+#endif // IGOR_MESHBUILDER_H

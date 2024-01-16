@@ -65,7 +65,7 @@ namespace igor
             _currentPoles.push_back(pole);
         }
 
-        _meshBuilder.setJoinVertexes(true);
+        _meshBuilder.setJoinVertices(true);
 
         for (int i = 0; i < 27; ++i)
         {

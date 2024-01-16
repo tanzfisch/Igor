@@ -319,7 +319,7 @@ bool VoxelExample::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::F4:
-        iModelFactory::exportToFile("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"));
+        iModelFactory::exportToFile("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), iSaveMode::EmbedExternals);
         return true;
     }
 
@@ -349,4 +349,15 @@ bool VoxelExample::onMouseMoveEvent(iEventMouseMove &event)
     }
 
     return false;
+}
+
+iaString VoxelExample::getHelpString()
+{
+    iaString help = "\n"
+                    "[F4] export current scene";
+
+    iaString result = ExampleBase::getHelpString();
+    result += help;
+
+    return result;
 }

@@ -8,7 +8,6 @@
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/mesh/iMeshBuilder.h>
 
 #include <igor/renderer/iRenderStateSet.h>
 #include <igor/resources/material/iMaterial.h>

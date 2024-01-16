@@ -2,15 +2,12 @@
 <Igor>
     <ResourceDictionary>
         <Resource id="0x00dc02cffd0d52ba" source="textures/rock.png" />
-        <Resource id="0x19586050f8d2f8fe" source="models/M4A1-S/m4a1-s.mat" />
         <Resource id="0x1d014c80beafdd3e" alias="model_terrain" source="models/terrain/terrain.ompf" />
         <Resource id="0x1eedfb556dbcba36" source="models/cube/cube.mat" />
         <Resource id="0x63f7cc219c448314" source="textures/grass.png" />
         <Resource id="0x7e0dbb756db1ae36" source="models/terrain/terrain.mat" />
         <Resource id="0x85ee14b9a35173e4" source="textures/dirt.png" />
         <Resource id="0x8e5a567717014f84" alias="example_model_cube" source="models/cube/cube.ompf" />
-        <Resource id="0x9a9c80439e25a7d2" alias="example_texture_skybox_stars" source="textures/skyboxes/stars.png" />
-        <Resource id="0xe3ca99a8944fa83b" source="models/M4A1-S/M4A1-S.png" />
-        <Resource id="0xf710bb1a8dfc9d77" alias="example_model_M4A1-S" source="models/M4A1-S/M4A1-S.ompf" />
+        <Resource id="0x9a9c80439e25a7d2" alias="example_texture_skybox_stars" source="textures/skyboxes/stars.png" />        
     </ResourceDictionary>
 </Igor>
