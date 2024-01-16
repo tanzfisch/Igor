@@ -35,13 +35,13 @@
 #endif
 
 //! ompf major version
-#define OMPF_VERSION_MAJOR 1
+#define OMPF_VERSION_MAJOR 2
 
 //! ompf minor version
 #define OMPF_VERSION_MINOR 0
 
 //! ompf patch version
-#define OMPF_VERSION_PATCH 1
+#define OMPF_VERSION_PATCH 0
 
 //! some tricky definitions to get the version displayed right
 #define STR2(x) #x

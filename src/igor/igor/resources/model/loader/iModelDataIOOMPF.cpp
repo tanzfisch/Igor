@@ -8,7 +8,6 @@
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/mesh/iMeshBuilder.h>
 
 #include <igor/renderer/iRenderStateSet.h>
 #include <igor/resources/material/iMaterial.h>
@@ -78,15 +77,9 @@ namespace igor
             OMPF::ompfTransformChunk *transformChunk = static_cast<OMPF::ompfTransformChunk *>(currentChunk);
             iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 
-            iaMatrixf matrix;
+            iaMatrixd matrix;
             transformChunk->getMatrix(matrix);
-
-            iaMatrixd matrixD;
-            for (int i = 0; i < 16; ++i)
-            {
-                matrixD[i] = matrix[i];
-            }
-            transformNode->setMatrix(matrixD);
+            transformNode->setMatrix(matrix);
 
             result = transformNode;
             break;
@@ -96,7 +89,7 @@ namespace igor
         {
             OMPF::ompfExternalReferenceChunk *externalRefChunk = static_cast<OMPF::ompfExternalReferenceChunk *>(currentChunk);
             iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
-            modelNode->setModel(externalRefChunk->getFilename());
+            modelNode->setModel(externalRefChunk->getReference());
             result = modelNode;
             break;
         }
@@ -119,10 +112,6 @@ namespace igor
 
         case OMPF::OMPFChunkType::ParticleSystem:
             result = createParticleSystem(currentChunk);
-            break;
-
-        case OMPF::OMPFChunkType::ResourceSearchPath:
-            // TODO OMPF::ompfResourceSearchPathChunk* resourceSearchPathChunk = static_cast<OMPF::ompfResourceSearchPathChunk*>(currentChunk);
             break;
 
         case OMPF::OMPFChunkType::Mesh:
@@ -224,14 +213,6 @@ namespace igor
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 
         iMeshPtr mesh = iMesh::create();
-
-        // set texture properties
-        uint32 textureCount = meshChunk->getTextureCount();
-        for (uint32 i = 0; i < textureCount; ++i)
-        {
-            meshNode->getMaterial()->setTexture(iResourceManager::getInstance().requestResource<iTexture>(meshChunk->getTexture(i)), i);
-            mesh->setTexture(i, true);
-        }
 
         iBufferLayout layout;
         layout.addElement({iShaderDataType::Float3});
@@ -456,7 +437,10 @@ namespace igor
     void iModelDataIOOMPF::postTraverse()
     {
         _chunkStack.pop_back();
-        con_assert(_chunkStack.size() == 0, "stack should be empty");
+        if (_chunkStack.size() != 0)
+        {
+            con_err("stack should be empty");
+        }
     }
 
     bool iModelDataIOOMPF::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
@@ -537,7 +521,7 @@ namespace igor
     OMPF::ompfExternalReferenceChunk *iModelDataIOOMPF::createExternalReferenceChunk(iNodeModel *node)
     {
         OMPF::ompfExternalReferenceChunk *result = _ompf->createExternalReferenceChunk();
-        result->setFilename(iResourceManager::getInstance().getRelativePath(node->getModelName()));
+        result->setReference(iResourceManager::getInstance().getRelativePath(node->getModelName()));
         return result;
     }
 
@@ -609,10 +593,6 @@ namespace igor
         result->setPeriodTime(node->getPeriodTime());
         result->setVelocityOriented(node->getVelocityOriented());
 
-        result->setTextureA("deprecated");
-        result->setTextureB("deprecated");
-        result->setTextureC("deprecated");
-
         uint32 materialChunkID = getMaterialChunkID(node->getMaterial()->getID());
         result->setMaterialChunkID(materialChunkID);
 
@@ -621,57 +601,37 @@ namespace igor
 
     OMPF::ompfMeshChunk *iModelDataIOOMPF::createMeshChunk(iNodeMesh *node)
     {
-        con_assert(node != nullptr, "zero pointer");
+        if (node == nullptr)
+        {
+            return nullptr;
+        }
+
+        const iMeshPtr &mesh = node->getMesh();
+        if (mesh == nullptr ||
+            !mesh->hasRawData())
+        {
+            con_err("no mesh data to export");
+            return nullptr;
+        }
 
         OMPF::ompfMeshChunk *result = _ompf->createMeshChunk();
 
-        if (node != nullptr)
-        {
-            iaColor3c ambient;
-            iaColor3c diffuse;
-            iaColor3c specular;
-            iaColor3c emissive;
+        void *indexData;
+        uint32 indexDataSize;
+        void *vertexData;
+        uint32 vertexDataSize;
+        mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
 
-            const iMeshPtr &mesh = node->getMesh();
+        result->setNormalsPerVertex(mesh->hasNormals() ? 1 : 0);
+        result->setColorsPerVertex(mesh->hasColors() ? 1 : 0);
+        result->setTexCoordPerVertex(mesh->getTextureCoordinatesCount());
+        result->setVertexCount(mesh->getVertexCount());
+        result->setIndexCount(mesh->getIndexCount());
+        result->setVertexData(reinterpret_cast<char *>(vertexData), vertexDataSize);
+        result->setIndexData(reinterpret_cast<char *>(indexData), indexDataSize);
 
-            if (mesh != nullptr &&
-                mesh->hasRawData())
-            {
-                result->setNormalsPerVertex(mesh->hasNormals() ? 1 : 0);
-                result->setColorsPerVertex(mesh->hasColors() ? 1 : 0);
-                result->setTexCoordPerVertex(mesh->getTextureCoordinatesCount());
-
-                result->setVertexCount(mesh->getVertexCount());
-
-                void *indexData;
-                uint32 indexDataSize;
-                void *vertexData;
-                uint32 vertexDataSize;
-                mesh->getRawData(indexData, indexDataSize, vertexData, vertexDataSize);
-
-                result->setVertexData(reinterpret_cast<char *>(vertexData), vertexDataSize);
-
-                result->setIndexCount(mesh->getIndexCount());
-                result->setIndexData(reinterpret_cast<char *>(indexData), indexDataSize);
-
-                for (const auto &pair : node->getMaterial()->getTextures())
-                {
-                    if (pair.second == nullptr)
-                    {
-                        continue;
-                    }
-
-                    result->setTexture(pair.second->getID().toString(), pair.first);
-                }
-            }
-            else
-            {
-                con_err("mesh was not loaded with keep mesh param true");
-            }
-
-            uint32 materialChunkID = getMaterialChunkID(node->getMaterial()->getID());
-            result->setMaterialChunkID(materialChunkID);
-        }
+        uint32 materialChunkID = getMaterialChunkID(node->getMaterial()->getID());
+        result->setMaterialChunkID(materialChunkID);
 
         return result;
     }
@@ -679,14 +639,8 @@ namespace igor
     OMPF::ompfTransformChunk *iModelDataIOOMPF::createTransformChunk(iNodeTransform *node)
     {
         OMPF::ompfTransformChunk *result = _ompf->createTransformChunk();
-        iaMatrixd matrixD;
-        node->getMatrix(matrixD);
-
-        iaMatrixf matrix;
-        for (int i = 0; i < 16; ++i)
-        {
-            matrix[i] = matrixD[i];
-        }
+        iaMatrixd matrix;
+        node->getMatrix(matrix);
         result->setMatrix(matrix);
         return result;
     }

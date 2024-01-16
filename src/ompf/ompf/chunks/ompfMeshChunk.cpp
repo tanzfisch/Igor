@@ -30,25 +30,6 @@ namespace OMPF
         }
     }
 
-    void ompfMeshChunk::setTexture(const iaString &texture, uint32 texunit)
-    {
-        _textures[texunit] = texture;
-    }
-
-    iaString ompfMeshChunk::getTexture(uint32 texunit) const
-    {
-        auto tex = _textures.find(texunit);
-        if (tex != _textures.end())
-        {
-            return tex->second;
-        }
-        else
-        {
-            con_err("texture unit " << texunit << " not available");
-            return "";
-        }
-    }
-
     uint32 ompfMeshChunk::getVertexSize() const
     {
         return 12 + _normalsPerVertex * 12 + _colorsPerVertex * 12 + _texCoordPerVertex * 8;
@@ -117,29 +98,15 @@ namespace OMPF
     IGOR_DISABLE_WARNING(4100)
     uint32 ompfMeshChunk::getSize(const ompfSettings &settings)
     {
-        uint32 material = 3;   // ambient
-        material += 3;         // diffuse
-        material += 3;         // specular
-        material += 3;         // emissive
-        material += 4;         // shininess
-        material += 4;         // alpha
         uint32 attributes = 1; // normals per vertex
         attributes += 1;       // colors per vertex
         attributes += 1;       // texcoord per vertex
         attributes += 1;       // mesh type
         attributes += 4;       // vertex count
         attributes += 4;       // index count
-        attributes += 4;       // material chunk id
-        uint32 textures = 0;
+        attributes += 4;       // material id
 
-        auto iterTex = _textures.begin();
-        while (iterTex != _textures.end())
-        {
-            textures += static_cast<uint32>((*iterTex).second.getLength()) + 2;
-            iterTex++;
-        }
-
-        return material + attributes + _vertexDataSize + _indexDataSize + textures;
+        return attributes + _vertexDataSize + _indexDataSize;
     }
     IGOR_ENABLE_WARNING(4100)
 
@@ -189,11 +156,6 @@ namespace OMPF
         return _vertexData;
     }
 
-    uint32 ompfMeshChunk::getTextureCount() const
-    {
-        return static_cast<uint32>(_textures.size());
-    }
-
     void ompfMeshChunk::setMaterialChunkID(uint32 id)
     {
         _materialChunkID = id;
@@ -211,8 +173,8 @@ namespace OMPF
             return false;
         }
 
-        con_assert((4 * _indexCount) == _indexDataSize, "inconsistend index data");
-        con_assert((getVertexSize() * _vertexCount) == _vertexDataSize, "inconsistend vertex data");
+        con_assert((4 * _indexCount) == _indexDataSize, "inconsistent index data");
+        con_assert((getVertexSize() * _vertexCount) == _vertexDataSize, "inconsistent vertex data");
 
         con_trace("---------------------------------------------------");
         con_trace("write ompfMeshChunk " << this->getName());
@@ -221,86 +183,37 @@ namespace OMPF
         {
             return false;
         }
-        con_trace("materialChunkID " << _materialChunkID);
-
-        if (!iaSerializable::write(file, _ambient))
-        {
-            return false;
-        }
-        con_trace("ambient " << _ambient);
-
-        if (!iaSerializable::write(file, _diffuse))
-        {
-            return false;
-        }
-        con_trace("diffuse " << _diffuse);
-
-        if (!iaSerializable::write(file, _specular))
-        {
-            return false;
-        }
-        con_trace("specular " << _specular);
-
-        if (!iaSerializable::write(file, _emissive))
-        {
-            return false;
-        }
-        con_trace("emissive " << _emissive);
-
-        if (!iaSerializable::writeFloat32(file, _shininess))
-        {
-            return false;
-        }
-        con_trace("shininess " << _shininess);
-
-        if (!iaSerializable::writeFloat32(file, _alpha))
-        {
-            return false;
-        }
-        con_trace("shininess " << _alpha);
+        con_trace("material chunk ID " << _materialChunkID);
 
         if (!iaSerializable::writeUInt8(file, _normalsPerVertex))
         {
             return false;
         }
-        con_trace("normalsPerVertex " << _normalsPerVertex);
+        con_trace("normals per vertex " << _normalsPerVertex);
 
         if (!iaSerializable::writeUInt8(file, _colorsPerVertex))
         {
             return false;
         }
-        con_trace("colorsPerVertex " << _colorsPerVertex);
+        con_trace("colors per vertex " << _colorsPerVertex);
 
         if (!iaSerializable::writeUInt8(file, _texCoordPerVertex))
         {
             return false;
         }
-        con_trace("texCoordPerVertex " << _texCoordPerVertex);
+        con_trace("tex coord per vertex " << _texCoordPerVertex);
 
         uint8 meshType = static_cast<uint8>(_meshType);
         iaSerializable::writeUInt8(file, meshType);
-        con_trace("meshType " << static_cast<uint8>(_meshType));
-
-        iaSerializable::writeUInt8(file, static_cast<uint8>(getTextureCount()));
-        con_trace("textureCount " << getTextureCount());
-
-        uint32 i = 0;
-        for(const auto &pair : _textures)
-        {
-            con_assert(pair.first == i, "inconsistent texture units");
-
-            iaSerializable::writeUTF8(file, pair.second);
-            con_trace("texture " << i << " " << pair.second);
-            i++;
-        }
+        con_trace("mesh type " << static_cast<uint8>(_meshType));
 
         iaSerializable::writeUInt32(file, _vertexCount);
         iaSerializable::write(file, static_cast<char *>(_vertexData), _vertexDataSize);
-        con_trace("vertexCount " << _vertexCount << " vertexDataSize " << _vertexDataSize);
+        con_trace("vertex count " << _vertexCount << " vertex data size " << _vertexDataSize);
 
         iaSerializable::writeUInt32(file, _indexCount);
         iaSerializable::write(file, static_cast<char *>(_indexData), _indexDataSize);
-        con_trace("indexCount " << _indexCount << " indexDataSize " << _indexDataSize);
+        con_trace("index count " << _indexCount << " index data size " << _indexDataSize);
 
         return true;
     }
@@ -319,80 +232,31 @@ namespace OMPF
         {
             return false;
         }
-        con_trace("materialChunkID " << _materialChunkID);
-
-        if (!iaSerializable::read(file, _ambient))
-        {
-            return false;
-        }
-        con_trace("ambient " << _ambient);
-
-        if (!iaSerializable::read(file, _diffuse))
-        {
-            return false;
-        }
-        con_trace("diffuse " << _diffuse);
-
-        if (!iaSerializable::read(file, _specular))
-        {
-            return false;
-        }
-        con_trace("specular " << _specular);
-
-        if (!iaSerializable::read(file, _emissive))
-        {
-            return false;
-        }
-        con_trace("emissive " << _emissive);
-
-        if (!iaSerializable::readFloat32(file, _shininess))
-        {
-            return false;
-        }
-        con_trace("shininess " << _shininess);
-
-        if (!iaSerializable::readFloat32(file, _alpha))
-        {
-            return false;
-        }
-        con_trace("shininess " << _alpha);
+        con_trace("material chunk ID " << _materialChunkID);
 
         if (!iaSerializable::readUInt8(file, _normalsPerVertex))
         {
             return false;
         }
-        con_trace("normalsPerVertex " << _normalsPerVertex);
+        con_trace("normals per vertex " << _normalsPerVertex);
 
         if (!iaSerializable::readUInt8(file, _colorsPerVertex))
         {
             return false;
         }
-        con_trace("colorsPerVertex " << _colorsPerVertex);
+        con_trace("colors per vertex " << _colorsPerVertex);
 
         if (!iaSerializable::readUInt8(file, _texCoordPerVertex))
         {
             return false;
         }
-        con_trace("texCoordPerVertex " << _texCoordPerVertex);
+        con_trace("tex coord per vertex " << _texCoordPerVertex);
 
         uint8 meshType = 0;
         iaSerializable::readUInt8(file, meshType);
         _meshType = static_cast<OMPFMeshType>(meshType);
         con_assert(_meshType == OMPFMeshType::Triangles, "only triangles supported");
-        con_trace("meshType " << static_cast<int>(_meshType));
-
-        uint8 textureCount = 0;
-        iaSerializable::readUInt8(file, textureCount);
-        con_trace("textureCount " << textureCount);
-
-        for (int i = 0; i < textureCount; ++i)
-        {
-            iaString temp;
-            iaSerializable::readUTF8(file, temp);
-            setTexture(temp, i);
-
-            con_trace("texture " << i << " " << temp);
-        }
+        con_trace("mesh type " << static_cast<int>(_meshType));
 
         iaSerializable::readUInt32(file, _vertexCount);
         _vertexDataSize = (getVertexSize() * _vertexCount);
@@ -402,7 +266,7 @@ namespace OMPF
         }
         _vertexData = new char[_vertexDataSize];
         iaSerializable::read(file, static_cast<char *>(_vertexData), _vertexDataSize);
-        con_trace("vertexCount " << _vertexCount << " vertexDataSize " << _vertexDataSize);
+        con_trace("vertex count " << _vertexCount << " vertex data size " << _vertexDataSize);
 
         iaSerializable::readUInt32(file, _indexCount);
         _indexDataSize = 4 * _indexCount;
@@ -412,7 +276,7 @@ namespace OMPF
         }
         _indexData = new char[_indexDataSize];
         iaSerializable::read(file, static_cast<char *>(_indexData), _indexDataSize);
-        con_trace("indexCount " << _indexCount << " indexDataSize " << _indexDataSize);
+        con_trace("index count " << _indexCount << " index data size " << _indexDataSize);
 
         return true;
     }

@@ -353,7 +353,7 @@ namespace iaux
     iaConsole &printIgorThreadID(iaConsole &console)
     {
         const iaID32 id = iaThread::getThisThreadID();
-        console << std::setfill(L'0') << std::setw(2) << std::hex << id << std::dec;
+        console << (iaForegroundColor)((id-1) % 14) << std::setfill(L'0') << std::setw(3) << id << std::dec;
         return console;
     }
 

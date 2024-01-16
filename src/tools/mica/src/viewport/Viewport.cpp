@@ -587,7 +587,7 @@ void Viewport::onDrop(const iDrag &drag)
         iParameters parameters({{IGOR_RESOURCE_PARAM_ID, id},
                                 {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
                                 {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
-                                {IGOR_RESOURCE_PARAM_JOIN_VERTICES, false},
+                                {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
                                 {IGOR_RESOURCE_PARAM_KEEP_MESH, true}});
         iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
         model->setModel(iResourceManager::getInstance().requestResource<iModel>(parameters));

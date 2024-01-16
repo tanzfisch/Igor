@@ -146,6 +146,10 @@ private:
     \returns true if consumed
     */
     bool onMouseMoveEvent(iEventMouseMove &event);
+
+    /*! \returns help screen string
+    */
+    iaString getHelpString() override;
 };
 
 #endif // IGOR_VOXELEXAMPLE_H

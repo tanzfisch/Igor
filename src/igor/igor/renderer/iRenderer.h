@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERER__
-#define __IGOR_RENDERER__
+#ifndef IGOR_RENDERER_H
+#define IGOR_RENDERER_H
 
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
@@ -956,4 +956,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_RENDERER__
+#endif // IGOR_RENDERER_H

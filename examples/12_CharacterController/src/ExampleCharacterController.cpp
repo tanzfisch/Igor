@@ -77,14 +77,14 @@ void ExampleCharacterController::onInit()
     getScene()->getRoot()->insertNode(levelTransform);
 
     // create some extra moving boxes
-    createBox(iaVector3d(5, 180, -12));
-    createBox(iaVector3d(3, 180, -10));
-    createBox(iaVector3d(2, 180, -4));
-    createBox(iaVector3d(-3, 180, -2));
+    createBox(iaVector3d(105, 220, 90));
+    createBox(iaVector3d(103, 220, 95));
+    createBox(iaVector3d(102, 220, 85));
+    createBox(iaVector3d(95, 220, 99));
 
     // setup character and attach camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(0, 176, 0);
+    startMatrix.translate(100, 200, 100);
     _characterController = new CharacterController(getScene()->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
@@ -93,16 +93,17 @@ void ExampleCharacterController::onInit()
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene associated with the view which we achieved by adding all those nodes on to an other starting with the root node
     getView().setCamera(camera->getID());
+    getView().setPerspective(60.0f);
 
     // setup gun
-    iNodeTransform *gunTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    /*iNodeTransform *gunTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     gunTransform->translate(0, 0, -0.4);
     gunTransform->rotate(M_PI, iaAxis::Y);
     gunTransform->scale(0.04, 0.04, 0.04);
     iNodeModel *gun = iNodeManager::getInstance().createNode<iNodeModel>();
     gun->setModel("example_model_M4A1-S");
     _characterController->getRightShoulderTransform()->insertNode(gunTransform);
-    gunTransform->insertNode(gun);
+    gunTransform->insertNode(gun);*/
 
     // setup light
     iNodeTransform *directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();

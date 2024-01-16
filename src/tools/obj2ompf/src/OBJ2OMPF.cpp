@@ -41,7 +41,7 @@ bool OBJ2OMPF::analyzeParam(int argc, char *argv[])
     return true;
 }
 
-void OBJ2OMPF::setMaterialRecursive(iNodePtr node, iShaderPtr material)
+void OBJ2OMPF::setMaterialRecursive(iNodePtr node, iMaterialPtr material)
 {
     if (node->getType() == iNodeType::iNodeMesh)
     {
@@ -65,15 +65,12 @@ void OBJ2OMPF::convert(int argc, char *argv[])
 {
     if (analyzeParam(argc, argv))
     {
-        iShaderPtr material = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_texture_shaded");
-
-        iParameters parameters({
-            {IGOR_RESOURCE_PARAM_SOURCE, _src},
-            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
-            {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
-            {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
-            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep}
-        });
+        iParameters parameters({{IGOR_RESOURCE_PARAM_SOURCE, _src},
+                                {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
+                                {IGOR_RESOURCE_PARAM_JOIN_VERTICES, _joinVertexes},
+                                {IGOR_RESOURCE_PARAM_GENERATE, true},
+                                {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
+                                {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep}});
         iModelPtr model = iResourceManager::getInstance().loadResource<iModel>(parameters);
         iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
         modelNode->setModel(model);
@@ -85,16 +82,6 @@ void OBJ2OMPF::convert(int argc, char *argv[])
         {
             iResourceManager::getInstance().flush();
             scene->handle();
-        }
-
-        // force him to use the textured material
-        setMaterialRecursive(modelNode, material);
-
-        std::vector<iShaderPtr> materials;
-        iResourceManager::getInstance().getMaterials(materials);
-        for (auto material : materials)
-        {
-            con_endl("material " << material->getName() << " with id " << material->getID());
         }
 
         iNodePtr objRoot = modelNode->getChild("obj_root");

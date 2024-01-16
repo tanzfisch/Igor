@@ -380,7 +380,7 @@ void ActionBakeMeshToWorld::bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root)
     meshNode->calcWorldTransformation(matrix);
 
     iMeshBuilder meshBuilder;
-    meshBuilder.setJoinVertexes(false);
+    meshBuilder.setJoinVertices(false);
     meshBuilder.setMatrix(matrix.convert<float32>());
     iMeshPtr mesh = meshNode->getMesh();
     iMeshBuilderUtils::addMesh(meshBuilder, mesh);

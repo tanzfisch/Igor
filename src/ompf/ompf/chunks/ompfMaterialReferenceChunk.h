@@ -22,8 +22,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MATERIALREFERENCECHUNK__
-#define __MATERIALREFERENCECHUNK__
+#ifndef OMPF_MATERIAL_REFERENCE_CHUNK_H
+#define OMPF_MATERIAL_REFERENCE_CHUNK_H
 
 #include <ompf/chunks/ompfBaseChunk.h>
 
@@ -31,7 +31,7 @@ namespace OMPF
 {
 
     /*! chunk that contains an external reference to a material file
-    */
+     */
     class OMPF_API ompfMaterialReferenceChunk : public ompfBaseChunk
     {
 
@@ -39,18 +39,12 @@ namespace OMPF
 
     public:
         /*! does nothing
-        */
+         */
         ompfMaterialReferenceChunk();
 
         /*! does nothing
-        */
+         */
         ~ompfMaterialReferenceChunk() = default;
-
-        /*! \returns size of chunk in bytes
-
-        \param settings the settings the chunk's size depends on
-        */
-        uint32 getSize(const ompfSettings &settings) override;
 
         /*! sets reference name. resource id, filename or alias
 
@@ -59,29 +53,35 @@ namespace OMPF
         void setReference(const iaString &reference);
 
         /*! \returns file name of external reference
-        */
+         */
         iaString getReference() const;
 
     private:
         /*! file name of external reference
-        */
+         */
         iaString _reference;
+
+        /*! \returns size of chunk in bytes
+
+        \param settings the settings the chunk's size depends on
+        */
+        uint32 getSize(const ompfSettings &settings) override;
 
         /*! writes chunk to stream
 
         \param stream destination stream
         \param settings the settings how to write the chunk
         */
-        virtual bool write(std::ofstream &stream, const ompfSettings &settings);
+        bool write(std::ofstream &stream, const ompfSettings &settings) override;
 
         /*! reads chunk from stream
 
         \param stream source stream
         \param settings the settings how to read the chunk
         */
-        virtual bool read(std::ifstream &stream, ompfSettings &settings);
+        bool read(std::ifstream &stream, ompfSettings &settings) override;
     };
 
 } // namespace OMPF
 
-#endif
+#endif // OMPF_MATERIAL_REFERENCE_CHUNK_H

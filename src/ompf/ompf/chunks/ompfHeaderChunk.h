@@ -22,8 +22,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __HEADERCHUNK__
-#define __HEADERCHUNK__
+#ifndef OMPF_HEADERCHUNK_H
+#define OMPF_HEADERCHUNK_H
 
 #include <ompf/chunks/ompfBaseChunk.h>
 #include <ompf/ompfVersion.h>
@@ -32,22 +32,24 @@ namespace OMPF
 {
 
     /*! header chunk the represents the header in an ompf file
-    */
+     */
     class ompfHeaderChunk : public ompfBaseChunk
     {
 
-    public:
+        friend class OMPF;
+
+    private:
         /*! does nothing
-        */
+         */
         ompfHeaderChunk();
 
         /*! does nothing
-        */
+         */
         virtual ~ompfHeaderChunk() = default;
-
+    
         /*! \returns size of chunk
 
-        \param settigns the settings to calculate the size
+        \param settings the settings to calculate the size
         */
         uint32 getSize(const ompfSettings &settings) override;
 
@@ -56,16 +58,16 @@ namespace OMPF
         \param stream destination stream
         \param settings the settings how to write the chunk
         */
-        virtual bool write(std::ofstream &stream, const ompfSettings &settings);
+        bool write(std::ofstream &stream, const ompfSettings &settings) override;
 
         /*! reads chunk from stream
 
         \param stream source stream
         \param settings the settings how to read the chunk
         */
-        virtual bool read(std::ifstream &stream, ompfSettings &settings);
+        bool read(std::ifstream &stream, ompfSettings &settings) override;
     };
 
 } // namespace OMPF
 
-#endif
+#endif // OMPF_HEADERCHUNK_H

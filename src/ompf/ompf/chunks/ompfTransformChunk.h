@@ -22,8 +22,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __TRANSFORMCHUNK__
-#define __TRANSFORMCHUNK__
+#ifndef OPMF_TRANSFORM_CHUNK_H
+#define OPMF_TRANSFORM_CHUNK_H
 
 #include <ompf/chunks/ompfBaseChunk.h>
 
@@ -34,41 +34,43 @@ namespace OMPF
 {
 
     /*! transformation chunk
-    */
+     */
     class OMPF_API ompfTransformChunk : public ompfBaseChunk
     {
 
+        friend class OMPF;
+
     public:
         /*! does nothing
-        */
+         */
         ompfTransformChunk();
 
         /*! does nothing
-        */
+         */
         virtual ~ompfTransformChunk() = default;
+
+        /*! sets transformation matrix
+
+        \param matrix transformation matrix
+        */
+        void setMatrix(const iaMatrixd &matrix);
+
+        /*! returns transformation matrix
+
+        \param[out] matrix returned transformation matrix
+        */
+        void getMatrix(iaMatrixd &matrix) const;
+
+    private:
+        /*! transformation matrix
+         */
+        iaMatrixd _matrix;
 
         /*! \returns size of chunk in bytes
 
         \param settings the settings the size calculation is based on
         */
         uint32 getSize(const ompfSettings &settings) override;
-
-        /*! sets transformation matrix
-
-        \param matrix transformation matrix
-        */
-        void setMatrix(const iaMatrixf &matrix);
-
-        /*! returns transformation matrix
-
-        \param[out] matrix returned transformation matrix
-        */
-        void getMatrix(iaMatrixf &matrix) const;
-
-    private:
-        /*! transformation matrix
-        */
-        iaMatrixf _matrix;
 
         /*! writes chunk to stream
 

@@ -115,7 +115,7 @@ namespace OMPF
         _name = name;
     }
 
-    iaString ompfBaseChunk::getName() const
+    const iaString& ompfBaseChunk::getName() const
     {
         return _name;
     }

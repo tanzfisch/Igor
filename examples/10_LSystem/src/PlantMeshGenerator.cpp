@@ -18,10 +18,10 @@ PlantMeshGenerator::PlantMeshGenerator()
 {
     _identifier = "pmg";
     _name = "Plant Mesh Generator";
-    _meshBuilderTrunk.setJoinVertexes();
-    _meshBuilderLeaves.setJoinVertexes();
-    _meshBuilderBuds.setJoinVertexes();
-    _meshBuilderFlowers.setJoinVertexes();
+    _meshBuilderTrunk.setJoinVertices(true);
+    _meshBuilderLeaves.setJoinVertices(true);
+    _meshBuilderBuds.setJoinVertices(true);
+    _meshBuilderFlowers.setJoinVertices(true);
 }
 
 iModelDataIO *PlantMeshGenerator::createInstance()

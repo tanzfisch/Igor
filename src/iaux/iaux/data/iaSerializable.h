@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_SERIALIZABLE__
-#define __IAUX_SERIALIZABLE__
+#ifndef IAUX_SERIALIZABLE_H
+#define IAUX_SERIALIZABLE_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/system/iaConsole.h>
@@ -453,4 +453,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_SERIALIZABLE__
+#endif // IAUX_SERIALIZABLE_H

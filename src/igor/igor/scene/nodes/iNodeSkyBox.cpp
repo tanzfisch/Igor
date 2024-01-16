@@ -40,7 +40,7 @@ namespace igor
     {
         iMeshBuilder meshBuilder;
         // manually set triangle indices
-        meshBuilder.setJoinVertexes(false);
+        meshBuilder.setJoinVertices(false);
 
         // top
         uint32 a = meshBuilder.addVertex(iaVector3f(-0.5, 0.5, -0.5));

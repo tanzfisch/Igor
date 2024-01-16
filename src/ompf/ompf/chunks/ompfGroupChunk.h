@@ -22,26 +22,28 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __GROUPCHUNK__
-#define __GROUPCHUNK__
+#ifndef OMPF_GROUP_CHUNK_H
+#define OMPF_GROUP_CHUNK_H
 
 #include <ompf/chunks/ompfBaseChunk.h>
 
 namespace OMPF
 {
 
-    /*! group chunk wich simply groups other chunks
-    */
+    /*! group chunk which simply groups other chunks
+     */
     class OMPF_API ompfGroupChunk : public ompfBaseChunk
     {
 
-    public:
+        friend class OMPF;
+
+    private:
         /*! does nothing
-        */
+         */
         ompfGroupChunk();
 
         /*! does nothing
-        */
+         */
         virtual ~ompfGroupChunk() = default;
 
         /*! \returns size of chunk
@@ -50,22 +52,21 @@ namespace OMPF
         */
         uint32 getSize(const ompfSettings &settings) override;
 
-    private:
         /*! writes chunk to stream
 
         \param stream destination stream
         \param settings the settings how to write the chunk
         */
-        virtual bool write(std::ofstream &stream, const ompfSettings &settings);
+        bool write(std::ofstream &stream, const ompfSettings &settings) override;
 
         /*! reads chunk from stream
 
         \param stream source stream
         \param settings the settings how to read the chunk
         */
-        virtual bool read(std::ifstream &stream, ompfSettings &settings);
+        bool read(std::ifstream &stream, ompfSettings &settings) override;
     };
 
 } // namespace OMPF
 
-#endif
+#endif // OMPF_GROUP_CHUNK_H

@@ -65,7 +65,7 @@ namespace igor
         return _triangles;
     }
 
-    void iMeshBuilder::setJoinVertexes(bool joinVertexes)
+    void iMeshBuilder::setJoinVertices(bool joinVertexes)
     {
         con_assert(_vertexes.empty(), "can't change this setting if already vertexes inserted");
 
@@ -75,9 +75,19 @@ namespace igor
         }
     }
 
-    bool iMeshBuilder::getJoinVertexes()
+    bool iMeshBuilder::isJoiningVertices() const
     {
         return _joinVertexes;
+    }
+
+    void iMeshBuilder::setKeepRawData(bool keepRawData)
+    {
+        _keepRawData = keepRawData;
+    }
+
+    bool iMeshBuilder::isKeepingRawData() const
+    {
+        return _keepRawData;
     }
 
     uint32 iMeshBuilder::addVertex(const iaVector4f &vertex)
@@ -494,7 +504,7 @@ namespace igor
         const uint32 vertexCount = vertexDataIndex;
         const uint32 vertexBufferSize = vertexCount * vertexSize;
 
-        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout());
+        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout(), _keepRawData);
 
         delete[] indexBufferData;
         delete[] vertexBufferData;
@@ -624,7 +634,7 @@ namespace igor
             }
         }
 
-        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout());
+        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout(), _keepRawData);
 
         delete[] indexBufferData;
         delete[] vertexBufferData;

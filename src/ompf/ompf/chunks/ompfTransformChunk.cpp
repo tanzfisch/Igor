@@ -19,12 +19,12 @@ namespace OMPF
         return (sizeof(float32) * 16) + ompfBaseChunk::getSize(settings);
     }
 
-    void ompfTransformChunk::setMatrix(const iaMatrixf &matrix)
+    void ompfTransformChunk::setMatrix(const iaMatrixd &matrix)
     {
         _matrix = matrix;
     }
 
-    void ompfTransformChunk::getMatrix(iaMatrixf &matrix) const
+    void ompfTransformChunk::getMatrix(iaMatrixd &matrix) const
     {
         matrix = _matrix;
     }
@@ -37,9 +37,10 @@ namespace OMPF
         }
 
         con_trace("---------------------------------------------------");
-        con_trace("write ompfTransformChunk " << this->getName());
+        con_trace("write ompfTransformChunk " << getName());
+        con_trace("matrix " << _matrix);
 
-        if (!iaSerializable::write(file, reinterpret_cast<char *>(_matrix.getData()), sizeof(float32) * 16))
+        if (!iaSerializable::write(file, reinterpret_cast<char *>(_matrix.getData()), sizeof(float64) * 16))
         {
             return false;
         }
@@ -55,9 +56,10 @@ namespace OMPF
         }
 
         con_trace("---------------------------------------------------");
-        con_trace("read ompfTransformChunk " << this->getName());
+        con_trace("read ompfTransformChunk " << getName());
+        con_trace("matrix " << _matrix);
 
-        if (!iaSerializable::read(file, reinterpret_cast<char *>(_matrix.getData()), sizeof(float32) * 16))
+        if (!iaSerializable::read(file, reinterpret_cast<char *>(_matrix.getData()), sizeof(float64) * 16))
         {
             return false;
         }

@@ -9,6 +9,7 @@ Changelog                           {#changelog}
 - #407 more renaming iShaderMaterial to iShader and related
 - removed widget example since Mica covers all you need to know about widgets in Igor
 - #374 using float32 for mouse position to reduce conversions
+- #408 cleaned up ompf from legacy data and broke compatibility with older ompf (set ompf to 2.0.0)
 
 0.44.0
 ------
