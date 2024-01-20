@@ -547,69 +547,32 @@ namespace igor
         _interruptLoading = true;
     }
 
-    const std::vector<iaString> &iResourceManager::getSearchPaths() const
-    {
-        return _searchPaths;
-    }
-
-    void iResourceManager::addSearchPath(const iaString &folder)
+    void iResourceManager::addSearchPath(const iaString &searchPath)
     {
         _mutex.lock();
-
-        bool found = false;
-        auto iter = _searchPaths.begin();
-        while (iter != _searchPaths.end())
+        auto iter = std::find(_searchPaths.begin(), _searchPaths.end(), searchPath);
+        if (iter == _searchPaths.end())
         {
-            if ((*iter) == folder)
-            {
-                con_warn("search path " << folder << " already in list");
-                found = true;
-                break;
-            }
-
-            iter++;
+            _searchPaths.insert(_searchPaths.begin(), searchPath);
         }
-
-        if (!found)
-        {
-            _searchPaths.push_back(folder);
-        }
-
         _mutex.unlock();
     }
 
-    void iResourceManager::removeSearchPath(const iaString &folder)
+    void iResourceManager::removeSearchPath(const iaString &searchPath)
     {
         _mutex.lock();
-
-        bool found = false;
-        auto iter = _searchPaths.begin();
-        while (iter != _searchPaths.end())
+        auto iter = std::find(_searchPaths.begin(), _searchPaths.end(), searchPath);
+        if (iter != _searchPaths.end())
         {
-            if ((*iter) == folder)
-            {
-                _searchPaths.erase(iter);
-                found = true;
-                break;
-            }
-
-            iter++;
+            _searchPaths.erase(iter);
         }
-
-        if (!found)
-        {
-            con_warn("search path " << folder << " not found");
-        }
-
         _mutex.unlock();
     }
 
     void iResourceManager::clearSearchPaths()
     {
         _mutex.lock();
-
         _searchPaths.clear();
-
         _mutex.unlock();
     }
 
@@ -630,45 +593,41 @@ namespace igor
 
     const iaString iResourceManager::resolvePath(const iaString &filepath)
     {
-        iaString result = filepath;
-
         const iaString currentDir = iaDirectory::getCurrentDirectory();
 
         _mutex.lock();
-
-        for (auto path : _searchPaths)
+        const auto searchPaths = _searchPaths;
+        _mutex.unlock();
+        
+        for (auto searchPath : searchPaths)
         {
-            iaString build;
-
-            iaDirectory searchDir(path);
+            iaString path;
+            const iaDirectory searchDir(searchPath);
             if (searchDir.exists())
             {
-                build = path + IGOR_PATHSEPARATOR + filepath;
+                path = searchPath + IGOR_PATHSEPARATOR + filepath;
             }
             else
             {
-                // TODO assuming it's a relative path to executable. Maybe here we better refer to project path
-                build = currentDir + IGOR_PATHSEPARATOR + path + IGOR_PATHSEPARATOR + filepath;
+                // if it does not exists assume it's relative to current dir
+                path = currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath;
             }
 
-            iaFile file(build);
+            iaFile file(path);
             if (file.exists())
             {
-                result = file.getFullFileName();
-                break;
+                return file.getFullFileName();
             }
 
-            iaDirectory dir(build);
+            const iaDirectory dir(path);
             if (dir.exists())
             {
-                result = dir.getFullDirectoryName();
-                break;
+                return dir.getFullDirectoryName();
             }
         }
 
-        _mutex.unlock();
-
-        return result;
+        con_warn("could not find file or directory for \"" << filepath << "\"");
+        return filepath;
     }
 
     iaString iResourceManager::getRelativePath(const iaString &filename)

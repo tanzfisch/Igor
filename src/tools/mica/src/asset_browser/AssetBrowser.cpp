@@ -133,7 +133,7 @@ void AssetBrowser::updateGridView(iItemPtr item)
 {
     _gridView->clear();
 
-    _currentPath = _project->getProjectFolder();
+    _currentPath = _projectFolder;
 
     if(item == nullptr)
     {
@@ -187,7 +187,7 @@ void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 
 void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
 {
-    const iaDirectory projectDir(_project->getProjectFolder());
+    const iaDirectory projectDir(_projectFolder);
     std::vector<iaDirectory> dirs = dir.getDirectories();
 
     for (const auto &subDir : dirs)
@@ -232,14 +232,14 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
 
 void AssetBrowser::update(const iaTime &time)
 {
-    if (_project == nullptr)
+    if (_projectFolder.isEmpty())
     {
         return;
     }
 
     iItemData *itemData = new iItemData();
 
-    const iaDirectory projectDir(_project->getProjectFolder());
+    const iaDirectory projectDir(_projectFolder);
     iItemPtr projectRoot = itemData->addItem(projectDir.getDirectoryName());
     projectRoot->setValue<iaString>("displayName", projectDir.getDirectoryName());
     projectRoot->setValue<iaString>("icon", "igor_icon_folder");
@@ -260,16 +260,15 @@ void AssetBrowser::update(const iaTime &time)
     }
 }
 
-void AssetBrowser::setProject(iProjectPtr project)
+void AssetBrowser::setProjectFolder(const iaString &projectFolder)
 {
-    _project = project;
-
+    _projectFolder = projectFolder;
     _updateHandle.triggerNow();
 }
 
-iProjectPtr AssetBrowser::getProject() const
+const iaString& AssetBrowser::getProjectFolder() const
 {
-    return _project;
+    return _projectFolder;
 }
 
 ResourceSelectionChangedEvent &AssetBrowser::getResourceSelectionChangedEvent()
