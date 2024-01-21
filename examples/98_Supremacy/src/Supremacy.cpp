@@ -11,7 +11,7 @@ Supremacy::Supremacy()
     // call this before you call anything else of Igor
     igor::startup();
 
-    iProject::loadProject("project");
+    iProject::getInstance().load("project");
 
     // create window and open it
     iWindowPtr window = igor::iApplication::getInstance().getWindow();

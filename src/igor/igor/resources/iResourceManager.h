@@ -63,19 +63,15 @@ namespace igor
     public:
         /*! adds search path to list
 
-        \param folder search path to add
+        \param searchPath search path to add
         */
-        void addSearchPath(const iaString &folder);
+        void addSearchPath(const iaString &searchPath);
 
         /*! removes search path from list
 
-        \param folder search path to remove
+        \param searchPath search path to remove
         */
-        void removeSearchPath(const iaString &folder);
-
-        /*! \returns list of search paths
-         */
-        const std::vector<iaString> &getSearchPaths() const;
+        void removeSearchPath(const iaString &searchPath);
 
         /*! clears search path list
          */

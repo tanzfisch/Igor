@@ -144,8 +144,8 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
         return;
     }
 
-    _activeProject = iProject::createProject(_fileDialog.getFullPath());
-    _assetBrowser->setProject(_activeProject);
+    iProject::getInstance().create(_fileDialog.getFullPath());
+    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectFolder());
 }
 
 void UILayer::onLoadProject()
@@ -160,18 +160,15 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
         return;
     }
 
-    _activeProject = iProject::loadProject(_fileDialog.getFullPath());
-    _assetBrowser->setProject(_activeProject);
+    iProject::getInstance().unload();
+
+    iProject::getInstance().load(_fileDialog.getFullPath());
+    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectFolder());
 }
 
 void UILayer::onSaveProject()
 {
-    if (_activeProject == nullptr)
-    {
-        con_err("no project to save");
-        return;
-    }
-    iProject::saveProject(_activeProject);
+    iProject::getInstance().save();
 }
 
 void UILayer::onLoadFile()

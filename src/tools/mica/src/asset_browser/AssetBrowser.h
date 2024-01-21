@@ -35,7 +35,7 @@ using namespace igor;
 IGOR_EVENT_DEFINITION(ResourceSelectionChanged, void, const iResourceID &);
 
 /*! the asset browser
-*/
+ */
 class AssetBrowser : public iDialog
 {
     friend class iWidgetManager;
@@ -53,11 +53,11 @@ public:
 
     \param project the project to use
     */
-    void setProject(iProjectPtr project);
+    void setProjectFolder(const iaString &projectFolder);
 
     /*! \returns current project
      */
-    iProjectPtr getProject() const;
+    const iaString &getProjectFolder() const;
 
     /*! \returns resource selection changed event
      */
@@ -80,9 +80,9 @@ private:
      */
     std::unique_ptr<iItemData> _itemData;
 
-    /*! the current project
+    /*! the current project folder
      */
-    iProjectPtr _project;
+    iaString _projectFolder;
 
     /*! update handle for filesystem updates
      */
@@ -109,7 +109,7 @@ private:
     iDialogMenu _contextMenu;
 
     /*! current selected path
-    */
+     */
     iaString _currentPath;
 
     /*! init UI

@@ -81,10 +81,6 @@ private:
     */
     bool _refresh = false;
 
-    /*! active project
-    */
-    iProjectPtr _activeProject;
-
     /*! empties the workspace
 	*/
     void clearWorkspace();

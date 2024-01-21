@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PROJECT__
-#define __IGOR_PROJECT__
+#ifndef IGOR_PROJECT_H
+#define IGOR_PROJECT_H
 
 #include <igor/iDefines.h>
 
@@ -49,32 +49,34 @@ namespace igor
     class IGOR_API iProject
     {
     public:
+        /*! \returns singleton instance of thumbnail cache
+         */
+        static iProject &getInstance();
+
         /*! opens project from project folder
+
+        closes active project if any
 
         \param projectFolder the given project folder
         \returns project
         */
-        static iProjectPtr loadProject(const iaString &projectFolder);
+        void load(const iaString &projectFolder);
 
-        /*! creates new project in given project folder
+        /*! unloads project
+        */
+        void unload();
+
+        /*! creates new project in given project folder and loads it
 
         \param projectFolder given project folder
-        \param projectName given project name
-        \returns project
         */
-        static iProjectPtr createProject(const iaString &projectFolder);
+        void create(const iaString &projectFolder);
 
         /*! saves existing project
 
-        \param project the project to save
+        saves it in to existing project folder
         */
-        static void saveProject(iProjectPtr project);
-
-        /*! unloads project
-
-        \param project the project to unload
-        */
-        static void unloadProject(iProjectPtr project);
+        void save();
 
         /*! \returns project folder
          */
@@ -88,6 +90,14 @@ namespace igor
          */
         void setName(const iaString &projectName);
 
+        /*! \returns true if changes been made and not saved
+        */
+        bool hasChanges() const;
+
+        /*! \returns true if a project currently is loaded
+        */
+        bool isLoaded() const; 
+
     private:
         /*! project folder
          */
@@ -97,17 +107,17 @@ namespace igor
          */
         iaString _projectName;
 
+        /*! if true project configuration has changes
+        */
+        bool _hasChanges = false;
+
+        /*! true if project is loaded
+        */
+        bool _isLoaded = false;
+
         /*! loads project
         */
         void load();
-
-        /*! loads project
-        */
-        void unload();
-
-        /*! saves project
-        */
-        void save();
 
         /*! reads project configuration
 
@@ -120,14 +130,8 @@ namespace igor
         \param filename the project configuration file
         */
         bool writeConfiguration(const iaString &filename);
-
-        /*! initialize a project based on it's project folder
-
-        \param projectFolder the given project folder
-        */
-        iProject(const iaString &projectFolder);
     };
 
 } // namespace igor
 
-#endif // __IGOR_PROJECT__
+#endif // IGOR_PROJECT_H

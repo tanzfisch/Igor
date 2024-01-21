@@ -17,21 +17,26 @@ namespace igor
 
     static const iaString s_defaultTemplate = "igor/projects/default";
 
-    iProjectPtr iProject::loadProject(const iaString &projectFolder)
+    iProject &iProject::getInstance()
+    {
+        static iProject instance;
+        return instance;
+    }
+
+    void iProject::load(const iaString &projectFolder)
     {
         con_assert_sticky(iaDirectory::isDirectory(projectFolder), "can't find folder \"" << projectFolder << "\"");
 
-        bool success = true;
+        if (isLoaded())
+        {
+            unload();
+        }
 
-        iProjectPtr project(new iProject(projectFolder));
-        project->load();
-
-        con_info("loaded project \"" << project->getName() << "\"");
-
-        return project;
+        _projectFolder = projectFolder;
+        load();        
     }
 
-    iProjectPtr iProject::createProject(const iaString &projectFolder)
+    void iProject::create(const iaString &projectFolder)
     {
         if (!iaDirectory::exists(projectFolder))
         {
@@ -41,7 +46,7 @@ namespace igor
         if (!iaDirectory::isEmpty(projectFolder))
         {
             con_err("can't create project in folder that is not empty \"" << projectFolder << "\"");
-            return nullptr;
+            return;
         }
 
         iaString templatePath = iResourceManager::getInstance().resolvePath(s_defaultTemplate);
@@ -53,25 +58,7 @@ namespace igor
 
         con_info("created project in \"" << projectFolder << "\"");
 
-        return loadProject(projectFolder);
-    }
-
-    void iProject::saveProject(iProjectPtr project)
-    {
-        con_assert(project != nullptr, "zero pointer");
-        project->save();
-    }
-
-    void iProject::unloadProject(iProjectPtr project)
-    {
-        con_assert(project != nullptr, "zero pointer");
-        project->unload();       
-    }
-
-
-    iProject::iProject(const iaString &projectFolder)
-        : _projectFolder(projectFolder)
-    {
+        load();
     }
 
     void iProject::load()
@@ -82,13 +69,21 @@ namespace igor
         readConfiguration(filenameConfig);
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
+
+        _isLoaded = true;
+        con_info("loaded project \"" << getName() << "\"");
     }
 
     void iProject::unload()
     {
         iResourceManager::getInstance().removeSearchPath(_projectFolder);
         iResourceManager::getInstance().clearResourceDictionary();
-    }    
+
+        _projectFolder = "";
+        _projectName = "";
+
+        _isLoaded = false;
+    }
 
     void iProject::save()
     {
@@ -169,6 +164,17 @@ namespace igor
     void iProject::setName(const iaString &projectName)
     {
         _projectName = projectName;
+        _hasChanges = true;
+    }
+
+    bool iProject::hasChanges() const
+    {
+        return _hasChanges;
+    }
+
+    bool iProject::isLoaded() const
+    {
+        return _isLoaded;
     }
 
 }; // namespace igor
