@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/igor.h>
@@ -128,7 +128,7 @@ namespace igor
         iaConsole::getInstance() << G << "                                     /\\_____\\\\ \\____ \\\\ \\____/ \\ \\_\\   " << endl;
         iaConsole::getInstance() << W << "  ___________________________________" << G << "\\/_____/" << W << "_" << G << "\\/___L\\ \\\\/___/" << W << "___" << G << "\\/_/" << W << "__________" << endl;
         iaConsole::getInstance() << G << "                                                /\\____/                " << endl;
-        iaConsole::getInstance() << T << "      (c) Copyright 2012-2023 by Martin Loga" << G << "   \\_/__/   " << endl;
+        iaConsole::getInstance() << T << "      (c) Copyright 2012-2024 by Martin Loga" << G << "   \\_/__/   " << endl;
 
         iaConsole::getInstance() << endl
                                  << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl

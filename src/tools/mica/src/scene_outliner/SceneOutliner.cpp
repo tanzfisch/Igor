@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "SceneOutliner.h"
@@ -22,8 +22,6 @@ void SceneOutliner::initGUI()
     setDockable(true);
     setTitle("Scene Outliner");
     setMinWidth(350);
-    setHorizontalAlignment(iHorizontalAlignment::Left);
-    setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _grid = new iWidgetGridLayout(this);
     _grid->setBorder(2);
