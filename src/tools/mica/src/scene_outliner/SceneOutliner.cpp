@@ -2,25 +2,25 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "Outliner.h"
+#include "SceneOutliner.h"
 
-Outliner::Outliner(WorkspacePtr workspace)
+SceneOutliner::SceneOutliner(WorkspacePtr workspace)
     : _workspace(workspace)
 {
     initGUI();
 }
 
-Outliner::~Outliner()
+SceneOutliner::~SceneOutliner()
 {
     deinitGUI();
 }
 
-void Outliner::initGUI()
+void SceneOutliner::initGUI()
 {
     _messageBox = new iDialogMessageBox();
 
     setDockable(true);
-    setTitle("Outliner");
+    setTitle("Scene Outliner");
     setMinWidth(350);
     setHorizontalAlignment(iHorizontalAlignment::Left);
     setVerticalAlignment(iVerticalAlignment::Stretch);
@@ -34,10 +34,14 @@ void Outliner::initGUI()
     _grid->setStretchRow(1);
     _grid->setStretchColumn(0);
 
-    setViewType(ViewType::GraphView);
+    _userControlGraphView = new UserControlGraphView(_workspace, this);
+    _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &SceneOutliner::onGraphSelectionChanged));
+
+    _grid->addWidget(_userControlGraphView, 0, 1);
+    refresh();
 }
 
-void Outliner::deinitGUI()
+void SceneOutliner::deinitGUI()
 {
     if (_userControlGraphView != nullptr &&
         !_userControlGraphView->hasParent())
@@ -59,92 +63,32 @@ void Outliner::deinitGUI()
     }
 }
 
-// TODO replace with tabs one day
-void Outliner::onGraphViewSelected(const iWidgetPtr source)
-{
-    setViewType(ViewType::GraphView);
-}
-
-// TODO replace with tabs one day
-void Outliner::onMaterialViewSelected(const iWidgetPtr source)
-{
-    setViewType(ViewType::MaterialView);
-}
-
-// TODO replace with tabs one day
-void Outliner::setViewType(ViewType viewType)
-{
-    switch (_currentView)
-    {
-    case ViewType::GraphView:
-        deinitGraphView();
-        break;
-
-    default:
-        con_err("internal error");
-    }
-
-    _currentView = viewType;
-
-    switch (_currentView)
-    {
-    case ViewType::GraphView:
-        initGraphView();
-        break;
-
-    default:
-        con_err("internal error");
-    }
-}
-
-void Outliner::deinitGraphView()
-{
-    if (_userControlGraphView != nullptr)
-    {
-        _userControlGraphView->unregisterOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));
-        _grid->removeWidget(_userControlGraphView);
-    }
-}
-
-void Outliner::initGraphView()
-{
-    if (_userControlGraphView == nullptr)
-    {
-        _userControlGraphView = new UserControlGraphView(_workspace, this);
-    }
-
-    _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));
-
-    _grid->addWidget(_userControlGraphView, 0, 1);
-    refresh();
-}
-
-void Outliner::onGraphSelectionChanged(uint64 nodeID)
+void SceneOutliner::onGraphSelectionChanged(uint64 nodeID)
 {
     _graphSelectionChanged(nodeID);
 }
 
-void Outliner::onDelete(const iWidgetPtr source)
+void SceneOutliner::onDelete(const iWidgetPtr source)
 {
     _workspace->deleteSelected();
 }
 
-void Outliner::onCopy(const iWidgetPtr source)
+void SceneOutliner::onCopy(const iWidgetPtr source)
 {
     _workspace->copySelected();
 }
 
-void Outliner::onPaste(const iWidgetPtr source)
+void SceneOutliner::onPaste(const iWidgetPtr source)
 {
     _workspace->pasteSelected();
 }
 
-void Outliner::onCut(const iWidgetPtr source)
+void SceneOutliner::onCut(const iWidgetPtr source)
 {
     _workspace->cutSelected();
 }
 
-void Outliner::refresh()
+void SceneOutliner::refresh()
 {
     if (_userControlGraphView != nullptr)
     {
@@ -162,46 +106,46 @@ void Outliner::refresh()
     }
 }
 
-void Outliner::registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
+void SceneOutliner::registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
 {
     _graphSelectionChanged.add(graphSelectionChangedDelegate);
 }
 
-void Outliner::unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
+void SceneOutliner::unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
 {
     _graphSelectionChanged.remove(graphSelectionChangedDelegate);
 }
 
-void Outliner::registerOnImportFile(ImportFileDelegate importFileDelegate)
+void SceneOutliner::registerOnImportFile(ImportFileDelegate importFileDelegate)
 {
     _importFile.add(importFileDelegate);
 }
 
-void Outliner::unregisterOnImportFile(ImportFileDelegate importFileDelegate)
+void SceneOutliner::unregisterOnImportFile(ImportFileDelegate importFileDelegate)
 {
     _importFile.remove(importFileDelegate);
 }
 
-void Outliner::registerOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate)
+void SceneOutliner::registerOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate)
 {
     _importFileReference.add(importFileReferenceDelegate);
 }
 
-void Outliner::unregisterOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate)
+void SceneOutliner::unregisterOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate)
 {
     _importFileReference.remove(importFileReferenceDelegate);
 }
 
-void Outliner::addModel()
+void SceneOutliner::addModel()
 {
     if (_decisionBoxModelRef == nullptr)
     {
         _decisionBoxModelRef = new iDialogDecisionBox();
-        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &Outliner::onAddModelDecision), "Import model", "Select type:", {"embedded", "as reference"}, 0);
+        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &SceneOutliner::onAddModelDecision), "Import model", "Select type:", {"embedded", "as reference"}, 0);
     }
 }
 
-void Outliner::onAddModelDecision(iDialogPtr dialog)
+void SceneOutliner::onAddModelDecision(iDialogPtr dialog)
 {
     if (_decisionBoxModelRef != dialog)
     {

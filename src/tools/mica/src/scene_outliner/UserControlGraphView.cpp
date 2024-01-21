@@ -6,7 +6,7 @@
 
 #include "../actions/MicaActionContext.h"
 
-UserControlGraphView::UserControlGraphView(WorkspacePtr workspace, Outliner *outliner) // TODO UserControlGraphView should not know the Outliner
+UserControlGraphView::UserControlGraphView(WorkspacePtr workspace, SceneOutliner *outliner) // TODO UserControlGraphView should not know the SceneOutliner
     : _outliner(outliner), _workspace(workspace)
 {
     initGUI();

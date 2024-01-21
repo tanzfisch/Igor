@@ -34,7 +34,7 @@ void UILayer::onInit()
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
-    _outliner = new Outliner(_workspace);
+    _outliner = new SceneOutliner(_workspace);
     _outliner->setEnabled();
     _outliner->setVisible();
     _outliner->refresh(); // TODO ?

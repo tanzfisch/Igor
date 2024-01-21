@@ -26,11 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __UILAYER__
-#define __UILAYER__
+#ifndef MICA_UILAYER_H
+#define MICA_UILAYER_H
 
 #include "Workspace.h"
-#include "outliner/Outliner.h"
+#include "scene_outliner/SceneOutliner.h"
 #include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
 #include "properties_editor/PropertiesEditor.h"
@@ -59,7 +59,7 @@ private:
 
     /*! the outliner
 	*/
-    Outliner *_outliner = nullptr;
+    SceneOutliner *_outliner = nullptr;
 
     /*! the asset browser
 	*/
@@ -170,4 +170,4 @@ private:
     bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
 };
 
-#endif // __UILAYER__
+#endif // MICA_UILAYER_H

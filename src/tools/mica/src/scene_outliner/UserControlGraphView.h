@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLGRAPHVIEW__
-#define __USERCONTROLGRAPHVIEW__
+#ifndef MICA_USERCONTROLGRAPHVIEW_H
+#define MICA_USERCONTROLGRAPHVIEW_H
 
 #include "../Workspace.h"
 
@@ -37,7 +37,7 @@
 
 IGOR_EVENT_DEFINITION(GraphSelectionChanged, void, uint64);
 
-class Outliner;
+class SceneOutliner;
 
 /*! the user control graph view
 */
@@ -45,7 +45,7 @@ class UserControlGraphView : public iUserControl, public iNodeVisitor
 {
 
 public:
-    UserControlGraphView(WorkspacePtr workspace, Outliner *outliner);
+    UserControlGraphView(WorkspacePtr workspace, SceneOutliner *outliner);
     ~UserControlGraphView();
 
     /*! sets the selected node
@@ -80,7 +80,7 @@ private:
     */
     WorkspacePtr _workspace;
 
-    Outliner *_outliner = nullptr;
+    SceneOutliner *_outliner = nullptr;
 
     GraphSelectionChangedEvent _graphSelectionChanged;
 
@@ -126,4 +126,4 @@ private:
     void postTraverse() override;
 };
 
-#endif // __USERCONTROLGRAPHVIEW__
+#endif // MICA_USERCONTROLGRAPHVIEW_H

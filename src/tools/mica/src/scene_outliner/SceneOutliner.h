@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef MICA_OUTLINER_H
-#define MICA_OUTLINER_H
+#ifndef MICA_SCENE_OUTLINER_H
+#define MICA_SCENE_OUTLINER_H
 
 #include "../Workspace.h"
 #include "UserControlGraphView.h"
@@ -36,23 +36,16 @@ IGOR_EVENT_DEFINITION(ImportFile, void);
 IGOR_EVENT_DEFINITION(ImportFileReference, void);
 IGOR_EVENT_DEFINITION(ExitMica, void);
 
-// replace later with iWidgetTab once implemented
-enum class ViewType
-{
-    GraphView,
-    MaterialView
-};
-
-/*! menu dialog
+/*! scene data outliner
 */
-class Outliner : public iDialog
+class SceneOutliner : public iDialog
 {
 
     friend class iWidgetManager;
 
 public:
-    Outliner(WorkspacePtr workspace);
-    ~Outliner();
+    SceneOutliner(WorkspacePtr workspace);
+    ~SceneOutliner();
 
     void refresh();
 
@@ -85,12 +78,8 @@ private:
     iDialogMessageBox *_messageBox = nullptr;
     iDialogDecisionBox *_decisionBoxModelRef = nullptr;
 
-    ViewType _currentView = ViewType::GraphView;
-
     uint32 _copiedNodeID = 0;
     uint32 _cutNodeID = 0;
-
-    void setViewType(ViewType viewType);
 
     void initGUI();
     void deinitGUI();
@@ -124,4 +113,4 @@ private:
     void onMaterialViewSelected(const iWidgetPtr source);
 };
 
-#endif // MICA_OUTLINER_H
+#endif // MICA_SCENE_OUTLINER_H
