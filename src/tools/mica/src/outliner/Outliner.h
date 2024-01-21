@@ -26,12 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OUTLINER__
-#define __OUTLINER__
+#ifndef MICA_OUTLINER_H
+#define MICA_OUTLINER_H
 
 #include "../Workspace.h"
 #include "UserControlGraphView.h"
-#include "UserControlMaterialView.h"
 
 IGOR_EVENT_DEFINITION(ImportFile, void);
 IGOR_EVENT_DEFINITION(ImportFileReference, void);
@@ -66,15 +65,6 @@ public:
     void registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
     void unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
 
-    void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
-    void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
-
-    void registerOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
-    void unregisterOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
-
-    void registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate);
-    void unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate);
-
     void addModel();
 
 private:
@@ -88,14 +78,9 @@ private:
 
     GraphSelectionChangedEvent _graphSelectionChanged;
 
-    AddMaterialEvent _addMaterial;
-    LoadMaterialEvent _loadMaterial;
-    ResourceSelectionChanged_oldEvent _materialSelectionChanged;
-
     iWidgetGridLayout *_grid = nullptr;
 
     UserControlGraphView *_userControlGraphView = nullptr;
-    UserControlMaterialView *_userControlMaterialView = nullptr;
 
     iDialogMessageBox *_messageBox = nullptr;
     iDialogDecisionBox *_decisionBoxModelRef = nullptr;
@@ -112,9 +97,6 @@ private:
 
     void deinitGraphView();
     void initGraphView();
-
-    void deinitMaterialView();
-    void initMaterialView();
 
     void onCreateProject(const iWidgetPtr source);
     void onLoadProject(const iWidgetPtr source);
@@ -137,12 +119,9 @@ private:
     void onCut(const iWidgetPtr source);
 
     void onGraphSelectionChanged(uint64 nodeID);
-    void onAddMaterial();
-    void onLoadMaterial();
-    void onResourceSelectionChanged_old(const iShaderID &materialID);
 
     void onGraphViewSelected(const iWidgetPtr source);
     void onMaterialViewSelected(const iWidgetPtr source);
 };
 
-#endif // __OUTLINER__
+#endif // MICA_OUTLINER_H

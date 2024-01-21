@@ -61,14 +61,8 @@ void UILayer::onInit()
     _outliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
     _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
 
-    _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &UILayer::onAddMaterial));
-    _outliner->registerOnLoadMaterial(LoadMaterialDelegate(this, &UILayer::onLoadMaterial));
-
-    // _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
-
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
-    _outliner->registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
 
     // load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);

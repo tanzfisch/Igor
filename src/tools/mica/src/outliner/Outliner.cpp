@@ -34,27 +34,6 @@ void Outliner::initGUI()
     _grid->setStretchRow(1);
     _grid->setStretchColumn(0);
 
-    iWidgetGridLayoutPtr gridRadioButtons = new iWidgetGridLayout();
-    gridRadioButtons->setBorder(0);
-    gridRadioButtons->setCellSpacing(2);
-    gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
-    gridRadioButtons->setVerticalAlignment(iVerticalAlignment::Top);
-    gridRadioButtons->appendColumns(1);
-
-    iWidgetCheckBox::beginRadioButtonGroup();
-    iWidgetCheckBoxPtr checkBoxGraph = new iWidgetCheckBox();
-    checkBoxGraph->setText("Graph");
-    checkBoxGraph->registerOnClickEvent(iClickDelegate(this, &Outliner::onGraphViewSelected));
-    iWidgetCheckBoxPtr checkBoxMaterial = new iWidgetCheckBox();
-    checkBoxMaterial->setText("Shader Material");
-    checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &Outliner::onMaterialViewSelected));
-    iWidgetCheckBox::endRadioButtonGroup();
-    checkBoxGraph->setChecked();
-
-    _grid->addWidget(gridRadioButtons, 0, 0);
-    gridRadioButtons->addWidget(checkBoxGraph, 0, 0);
-    gridRadioButtons->addWidget(checkBoxMaterial, 1, 0);
-
     setViewType(ViewType::GraphView);
 }
 
@@ -65,13 +44,6 @@ void Outliner::deinitGUI()
     {
         delete _userControlGraphView;
         _userControlGraphView = nullptr;
-    }
-
-    if (_userControlMaterialView != nullptr &&
-        !_userControlMaterialView->hasParent())
-    {
-        delete _userControlMaterialView;
-        _userControlMaterialView = nullptr;
     }
 
     if (_messageBox != nullptr)
@@ -108,10 +80,6 @@ void Outliner::setViewType(ViewType viewType)
         deinitGraphView();
         break;
 
-    case ViewType::MaterialView:
-        deinitMaterialView();
-        break;
-
     default:
         con_err("internal error");
     }
@@ -124,39 +92,9 @@ void Outliner::setViewType(ViewType viewType)
         initGraphView();
         break;
 
-    case ViewType::MaterialView:
-        initMaterialView();
-        break;
-
     default:
         con_err("internal error");
     }
-}
-
-void Outliner::deinitMaterialView()
-{
-    if (_userControlMaterialView != nullptr)
-    {
-        _userControlMaterialView->unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate(this, &Outliner::onResourceSelectionChanged_old));
-        _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
-
-        _grid->removeWidget(_userControlMaterialView);
-    }
-}
-
-void Outliner::initMaterialView()
-{
-    if (_userControlMaterialView == nullptr)
-    {
-        _userControlMaterialView = new UserControlMaterialView();
-    }
-
-    _userControlMaterialView->registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate(this, &Outliner::onResourceSelectionChanged_old));
-    _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
-    _userControlMaterialView->registerOnLoadMaterial(LoadMaterialDelegate(this, &Outliner::onLoadMaterial));
-
-    _grid->addWidget(_userControlMaterialView, 0, 1);
-    refresh();
 }
 
 void Outliner::deinitGraphView()
@@ -186,11 +124,6 @@ void Outliner::onGraphSelectionChanged(uint64 nodeID)
     _graphSelectionChanged(nodeID);
 }
 
-void Outliner::onResourceSelectionChanged_old(const iShaderID &materialID)
-{
-    _materialSelectionChanged(materialID);
-}
-
 void Outliner::onDelete(const iWidgetPtr source)
 {
     _workspace->deleteSelected();
@@ -211,16 +144,6 @@ void Outliner::onCut(const iWidgetPtr source)
     _workspace->cutSelected();
 }
 
-void Outliner::onAddMaterial()
-{
-    _addMaterial();
-}
-
-void Outliner::onLoadMaterial()
-{
-    _loadMaterial();
-}
-
 void Outliner::refresh()
 {
     if (_userControlGraphView != nullptr)
@@ -236,11 +159,6 @@ void Outliner::refresh()
         {
             _userControlGraphView->setSelectedNode(iNode::INVALID_NODE_ID);
         }
-    }
-
-    if (_userControlMaterialView != nullptr)
-    {
-        _userControlMaterialView->refresh();
     }
 }
 
@@ -309,33 +227,4 @@ void Outliner::onAddModelDecision(iDialogPtr dialog)
 
     delete _decisionBoxModelRef;
     _decisionBoxModelRef = nullptr;
-}
-
-void Outliner::registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate)
-{
-    _materialSelectionChanged.add(resourceSelectionChangedDelegate);
-}
-
-void Outliner::unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate)
-{
-    _materialSelectionChanged.remove(resourceSelectionChangedDelegate);
-}
-
-void Outliner::registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
-{
-    _addMaterial.add(addMaterialDelegate);
-}
-
-void Outliner::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
-{
-    _addMaterial.remove(addMaterialDelegate);
-}
-
-void Outliner::registerOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate)
-{
-    _loadMaterial.add(addMaterialDelegate);
-}
-void Outliner::unregisterOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate)
-{
-    _loadMaterial.remove(addMaterialDelegate);
 }
