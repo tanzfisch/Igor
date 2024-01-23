@@ -33,30 +33,25 @@
 using namespace igor;
 
 /*! outliner
-*/
+ */
 class Outliner : public iDialog
 {
-
-    friend class iWidgetManager;
-
 public:
-
     /*! init ui
-    */
+     */
     Outliner();
 
 private:
-
     /*! main layout
-    */
+     */
     iWidgetBoxLayoutPtr _layout = nullptr;
 
     /*! tree view
      */
-    iUserControlTreeViewPtr _treeView = nullptr;    
+    iUserControlTreeViewPtr _treeView = nullptr;
 
     /*! init user interface
-    */
+     */
     void initGUI();
 
     /*! handles click in tree view

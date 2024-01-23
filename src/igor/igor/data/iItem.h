@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ITEM__
-#define __IGOR_ITEM__
+#ifndef IGOR_ITEM_H
+#define IGOR_ITEM_H
 
 #include <igor/data/iMimeData.h>
 
@@ -44,11 +44,9 @@ namespace igor
     class IGOR_API iItem
     {
     public:
-        /*! ctor
-
-        \param name name of the item (must be unique between siblings)
-        */
-        iItem(const iaString &name = "root");
+        /*! nothing to do
+         */
+        iItem() = default;
 
         /*! set value for given key
 
@@ -72,6 +70,12 @@ namespace igor
         /*! \returns true if there is a value for given key
          */
         bool hasValue(const iaString &key) const;
+
+        /*! sets name of item
+
+        \param name the name to set on the item
+        */
+        void setName(const iaString &name);
 
         /*! \returns name of item
          */
@@ -136,4 +140,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_ITEM__
+#endif // IGOR_ITEM_H

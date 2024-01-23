@@ -19,7 +19,7 @@ namespace igor
     iEntityScenePtr iEntitySystemModule::createScene()
     {
         iEntityScenePtr scene = iEntityScenePtr(new iEntityScene(), iEntitySceneDeleter());
-        _scenes.push_back(scene);
+        _inactiveScenes.push_back(scene);
         return scene;
     }
 
@@ -79,6 +79,32 @@ namespace igor
         {
             scene->onRender(clientWidth, clientHeight);
         }
+    }
+
+    void iEntitySystemModule::activateScene(iEntityScenePtr scene)
+    {
+        auto iter = std::find(_inactiveScenes.begin(), _inactiveScenes.end(), scene);
+        if(iter == _inactiveScenes.end())
+        {
+            con_warn("scene was not deactivated");
+            return;
+        }
+
+        _inactiveScenes.erase(iter);
+        _scenes.push_back(scene);
+    }
+
+    void iEntitySystemModule::deactivateScene(iEntityScenePtr scene)
+    {
+        auto iter = std::find(_scenes.begin(), _scenes.end(), scene);
+        if(iter == _scenes.end())
+        {
+            con_warn("scene was not activated");
+            return;
+        }
+
+        _scenes.erase(iter);
+        _inactiveScenes.push_back(scene);
     }
 
 } // namespace igor

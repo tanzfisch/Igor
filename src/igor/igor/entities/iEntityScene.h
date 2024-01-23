@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SCENE__
-#define __IGOR_ENTITY_SCENE__
+#ifndef IGOR_ENTITY_SCENE_H
+#define IGOR_ENTITY_SCENE_H
 
 #include <igor/entities/iEntitySystem.h>
 #include <igor/entities/systems/iVelocitySystem.h>
@@ -150,10 +150,24 @@ namespace igor
 		 */
 		const iAABoxd &getBounds() const;
 
+		/*! set name of entity scene
+
+		\param name the name to set
+		*/
+		void setName(const iaString &name);
+
+		/*! \returns name of scene
+		 */
+		const iaString &getName() const;
+
 	private:
-		/*! pimpl
+		/*! wrapper for entt registry
 		 */
 		iRegistry *_registry = nullptr;
+
+		/*! name of scene
+		 */
+		iaString _name;
 
 		/*! caching entity ID lists
 		 */
@@ -235,4 +249,4 @@ namespace igor
 
 } // igor
 
-#endif // __IGOR_ENTITY_SCENE__
+#endif // IGOR_ENTITY_SCENE_H

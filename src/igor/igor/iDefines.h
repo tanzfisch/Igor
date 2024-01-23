@@ -104,6 +104,9 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameters text
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2; //! resource parameters texture unit 2
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3; //! resource parameters texture unit 3
 
+extern const iaString IGOR_ITEM_DATA_NAME; //! item data type name
+extern const iaString IGOR_ITEM_DATA_ICON; //! item data type icon
+
 namespace igor
 {
 

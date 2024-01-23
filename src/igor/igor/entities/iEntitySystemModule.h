@@ -74,6 +74,18 @@ namespace igor
         */
         void stop();
 
+        /*! activates given scene
+
+        \param scene the given scene to activate
+        */
+        void activateScene(iEntityScenePtr scene);
+
+        /*! deactivates given scene
+
+        \param scene the given scene to deactivate
+        */
+        void deactivateScene(iEntityScenePtr scene);
+
         /*! set's the simulation rate in Hz
 
         default is 60Hz
@@ -87,13 +99,13 @@ namespace igor
         float64 getSimulationRate();        
 
     private:
-        /*! mutex to safeguard entity scene list
-         */
-        iaMutex _mutex;
-
-        /*! entity scenes
+        /*! active entity scenes
          */
         std::vector<iEntityScenePtr> _scenes;
+
+        /*! inactive entity scenes
+        */
+        std::vector<iEntityScenePtr> _inactiveScenes;
 
         /*! simulation rate in Hz
         */

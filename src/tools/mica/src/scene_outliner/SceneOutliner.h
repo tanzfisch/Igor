@@ -37,12 +37,9 @@ IGOR_EVENT_DEFINITION(ImportFileReference, void);
 IGOR_EVENT_DEFINITION(ExitMica, void);
 
 /*! scene data outliner
-*/
+ */
 class SceneOutliner : public iDialog
 {
-
-    friend class iWidgetManager;
-
 public:
     SceneOutliner(WorkspacePtr workspace);
     ~SceneOutliner();
@@ -62,7 +59,7 @@ public:
 
 private:
     /*! the mica workspace
-    */
+     */
     WorkspacePtr _workspace;
 
     ImportFileEvent _importFile;

@@ -8,6 +8,7 @@ GameLayer::GameLayer(iWindowPtr window)
     : iLayer(window, L"GameLayer")
 {
     _entityScene = iEntitySystemModule::getInstance().createScene();
+    iEntitySystemModule::getInstance().activateScene(_entityScene);
     _entityScene->initializeQuadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT));
     _entityScene->setBounds(iAABoxd::fromMinMax(iaVector3d(), iaVector3d(PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT, 0)));
 }

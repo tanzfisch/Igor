@@ -145,11 +145,11 @@ private:
     */
     void onClickTreeView(const iWidgetPtr source);
 
-    /*! updates grid view with given item data
+    /*! updates grid view for given relative path
 
-    \param item the given item
+    \param relativePath the given path
     */
-    void updateGridView(iItemPtr item);
+    void updateGridView(const iaString &relativePath);
 
     /*! light weight refresh
      */

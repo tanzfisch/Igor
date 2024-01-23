@@ -31,6 +31,7 @@
 
 #include "Workspace.h"
 #include "scene_outliner/SceneOutliner.h"
+#include "outliner/Outliner.h"
 #include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
 #include "properties_editor/PropertiesEditor.h"
@@ -59,7 +60,11 @@ private:
 
     /*! the outliner
 	*/
-    SceneOutliner *_outliner = nullptr;
+    SceneOutliner *_sceneOutliner = nullptr;
+
+    /*! entities outliner
+    */
+    Outliner* _outliner = nullptr;
 
     /*! the asset browser
 	*/

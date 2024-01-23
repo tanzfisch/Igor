@@ -12,7 +12,7 @@ Outliner::Outliner()
 void Outliner::initGUI()
 {
     setDockable(true);
-    setTitle("Scene Outliner");
+    setTitle("Outliner");
     setMinWidth(350);
 
     auto layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
@@ -35,3 +35,4 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
     iItemPtr item = std::any_cast<iItemPtr>(source->getUserData());
     // TODO
 }
+

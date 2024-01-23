@@ -605,4 +605,14 @@ namespace igor
         return;
     }
 
+    void iEntityScene::setName(const iaString &name)
+    {
+        _name = name;
+    }
+
+    const iaString &iEntityScene::getName() const
+    {
+        return _name;
+    }
+
 } // igor

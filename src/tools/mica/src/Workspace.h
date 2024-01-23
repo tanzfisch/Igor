@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WORKSPACE__
-#define __WORKSPACE__
+#ifndef MICA_WORKSPACE_H
+#define MICA_WORKSPACE_H
 
 #include "CameraArc.h"
 
@@ -147,4 +147,4 @@ private:
  */
 typedef std::shared_ptr<Workspace> WorkspacePtr;
 
-#endif // __WORKSPACE__
+#endif // MICA_WORKSPACE_H
