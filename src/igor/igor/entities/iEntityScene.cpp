@@ -5,13 +5,14 @@
 #include <igor/entities/iEntityScene.h>
 
 #include <igor/entities/iEntity.h>
-
 #include <igor/entities/systems/iSpriteRenderSystem.h>
 #include <igor/entities/systems/iTransformHierarchySystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iQuadtreeSystem.h>
 #include <igor/entities/systems/iAnimationSystem.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/system/iApplication.h>
+#include <igor/events/iEventECS.h>
 
 #include <utility>
 #include <tuple>
@@ -184,17 +185,22 @@ namespace igor
         iEntity entity(entityID, shared_from_this());
         entity.setActive(active);
 
+        iApplication::getInstance().onEvent(iEventPtr(new iEventEntityCreated(&entity)));
+
         return entity;
     }
 
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
         _deleteQueue.push_back(entityID);
+
+        iEntity entity(entityID, shared_from_this());
+        iApplication::getInstance().onEvent(iEventPtr(new iEventEntityDestroyed(&entity)));
     }
 
     void iEntityScene::destroyEntity(const iEntity &entity)
     {
-        _deleteQueue.push_back(entity.getID());
+        destroyEntity(entity.getID());
     }
 
     void iEntityScene::destroyEntities()

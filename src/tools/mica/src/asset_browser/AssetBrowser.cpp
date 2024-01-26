@@ -129,12 +129,12 @@ void AssetBrowser::updateContentModeButton()
     _showFilesButton->setChecked(_contentMode == ContentMode::Files);
 }
 
-void AssetBrowser::updateGridView(const iaString &relativePath)
+void AssetBrowser::updateGridView(const iaString &path)
 {
     _gridView->clear();
 
     const iaDirectory projectDir(_projectFolder);
-    _currentPath = projectDir.getFullParentDirectoryName() + IGOR_PATHSEPARATOR + relativePath;
+    _currentPath = projectDir.getFullParentDirectoryName() + IGOR_PATHSEPARATOR + path;
 
     const iaDirectory dir(_currentPath);
     auto files = dir.getFiles();
@@ -194,7 +194,6 @@ void AssetBrowser::update(const iaTime &time)
     }
 
     iItemData *itemData = new iItemData();
-
     const iaDirectory projectDir(_projectFolder);
     iItemPtr projectRoot = itemData->addItem(projectDir.getDirectoryName());
     projectRoot->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_folder");
@@ -210,6 +209,7 @@ void AssetBrowser::update(const iaTime &time)
     }
     else
     {
+        delete itemData; // weird how I did this
         refreshGridView();
     }
 }

@@ -26,14 +26,14 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTECS__
-#define __IGOR_EVENTECS__
+#ifndef IGOR_EVENTECS_H
+#define IGOR_EVENTECS_H
 
 #include <igor/events/iEvent.h>
+#include <igor/entities/iEntity.h>
 
 namespace igor
 {
-#if 0
     /*! entity added to entity component system event
     */
     class IGOR_API iEventEntityCreated : public iEvent
@@ -42,9 +42,8 @@ namespace igor
         /*! init members
 
         \param entity the entity that was added
-        \param ecs the related entity component system
         */
-        iEventEntityCreated(const iEntityPtr entity, const iEntityComponentSystemPtr ecs);
+        iEventEntityCreated(const iEntityPtr entity);
 
         /*! \returns information to event
         */
@@ -54,11 +53,7 @@ namespace igor
         */
         iEntityPtr getEntity() const;
 
-        /*! \returns the entity component system
-        */
-        iEntityComponentSystemPtr getECS() const;
-
-        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::ECS)
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Entity)
         IGOR_EVENT_CLASS_TYPE(iEventEntityCreated)
 
     private:
@@ -66,10 +61,6 @@ namespace igor
         /*! entity handle
         */
         iEntityPtr _entity;
-        
-        /*! entity component system
-        */
-        iEntityComponentSystemPtr _ecs;
     };
 
     /*! entity about to be destroyed event
@@ -80,9 +71,8 @@ namespace igor
         /*! init members
 
         \param entity the entity that will be destroyed
-        \param ecs the related entity component system
         */
-        iEventEntityDestroyed(const iEntityPtr entity, const iEntityComponentSystemPtr ecs);
+        iEventEntityDestroyed(const iEntityPtr entity);
 
         /*! \returns information to event
         */
@@ -92,11 +82,7 @@ namespace igor
         */
         iEntityPtr getEntity() const;
 
-        /*! \returns the entity component system
-        */
-        iEntityComponentSystemPtr getECS() const;
-
-        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::ECS)
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Entity)
         IGOR_EVENT_CLASS_TYPE(iEventEntityDestroyed)
 
     private:
@@ -104,12 +90,8 @@ namespace igor
         /*! entity handle
         */
         iEntityPtr _entity;
-        
-        /*! entity component system
-        */
-        iEntityComponentSystemPtr _ecs;
     };
-#endif
+
 }; // namespace igor
 
-#endif // __IGOR_EVENTECS__
+#endif // IGOR_EVENTECS_H

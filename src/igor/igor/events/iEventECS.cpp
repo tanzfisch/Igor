@@ -8,9 +8,8 @@
 
 namespace igor
 {
-#if 0
-    iEventEntityCreated::iEventEntityCreated(const iEntityPtr entity, const iEntityComponentSystemPtr ecs)
-        : iEvent(nullptr), _entity(entity), _ecs(ecs)
+    iEventEntityCreated::iEventEntityCreated(const iEntityPtr entity)
+        : iEvent(nullptr), _entity(entity)
     {
     }
 
@@ -28,13 +27,8 @@ namespace igor
         return _entity;
     }
 
-    iEntityComponentSystemPtr iEventEntityCreated::getECS() const
-    {
-        return _ecs;
-    }
-
-    iEventEntityDestroyed::iEventEntityDestroyed(const iEntityPtr entity, const iEntityComponentSystemPtr ecs)
-        : iEvent(nullptr), _entity(entity), _ecs(ecs)
+    iEventEntityDestroyed::iEventEntityDestroyed(const iEntityPtr entity)
+        : iEvent(nullptr), _entity(entity)
     {
     }
 
@@ -52,9 +46,4 @@ namespace igor
         return _entity;
     }
 
-    iEntityComponentSystemPtr iEventEntityDestroyed::getECS() const
-    {
-        return _ecs;
-    }
-#endif
 } // namespace igor

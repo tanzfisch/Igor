@@ -50,6 +50,10 @@ private:
      */
     iUserControlTreeViewPtr _treeView = nullptr;
 
+    /*! tree view data
+     */
+    std::unique_ptr<iItemData> _itemData;    
+
     /*! init user interface
      */
     void initGUI();
@@ -59,6 +63,12 @@ private:
     \param source the source widget of this event
     */
     void onClickTreeView(const iWidgetPtr source);
+
+    /*! populate the entity tree
+    */
+    void populateTree();
+
+    void populateScene(iEntityScenePtr scene, iItemPtr sceneItem);
 };
 
 #endif // MICA_OUTLINER_H

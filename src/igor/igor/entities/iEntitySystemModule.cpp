@@ -73,6 +73,11 @@ namespace igor
         }
     }
 
+    const std::vector<iEntityScenePtr>& iEntitySystemModule::getActiveScenes() const
+    {
+        return _scenes;
+    }
+
     void iEntitySystemModule::onRender(float32 clientWidth, float32 clientHeight)
     {
         for (auto scene : _scenes)

@@ -77,7 +77,7 @@ namespace igor
         Mouse = 4,
         Window = 8,
         Scene = 16,
-        ECS = 32,
+        Entity = 32,
     };
 
     /*! define event kind mask

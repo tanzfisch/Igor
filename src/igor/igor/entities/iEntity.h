@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY__
-#define __IGOR_ENTITY__
+#ifndef IGOR_ENTITY_H
+#define IGOR_ENTITY_H
 
 #include <igor/entities/iEntityScene.h>
 

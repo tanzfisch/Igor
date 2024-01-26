@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SYSTEM_MODULE__
-#define __IGOR_ENTITY_SYSTEM_MODULE__
+#ifndef IGOR_ENTITY_SYSTEM_MODULE_H
+#define IGOR_ENTITY_SYSTEM_MODULE_H
 
 #include <igor/resources/module/iModule.h>
 
@@ -98,6 +98,10 @@ namespace igor
         */
         float64 getSimulationRate();        
 
+        /*! \returns all active scenes
+        */
+        const std::vector<iEntityScenePtr>& getActiveScenes() const;
+
     private:
         /*! active entity scenes
          */
@@ -132,4 +136,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_ENTITY_SYSTEM_MODULE__
+#endif // IGOR_ENTITY_SYSTEM_MODULE_H

@@ -1,12 +1,17 @@
-// Igor game engineSceneOutliner
+// Igor game engine
 // (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "Outliner.h"
 
 Outliner::Outliner()
-{
+{    
     initGUI();
+
+    iEntityScenePtr entityScene = iEntitySystemModule::getInstance().createScene();
+    entityScene->setName("foo");
+    iEntitySystemModule::getInstance().activateScene(entityScene);
+    populateTree();
 }
 
 void Outliner::initGUI()
@@ -30,9 +35,29 @@ void Outliner::initGUI()
     _treeView->getClickEvent().add(iClickDelegate(this, &Outliner::onClickTreeView));
 }
 
+void Outliner::populateScene(iEntityScenePtr scene, iItemPtr sceneItem)
+{
+
+}
+
+void Outliner::populateTree()
+{
+    // TODO ugly but lets got with it for now
+    _itemData = std::unique_ptr<iItemData>(new iItemData());
+
+    for(const auto &scene : iEntitySystemModule::getInstance().getActiveScenes())
+    {
+        iItemPtr sceneItem = _itemData->addItem(scene->getName());
+        sceneItem->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
+
+    }
+
+    _treeView->setItems(_itemData.get());
+}
+
 void Outliner::onClickTreeView(const iWidgetPtr source)
 {
-    iItemPtr item = std::any_cast<iItemPtr>(source->getUserData());
+    // iEntityID item = std::any_cast<iEntityID>(source->getUserData());
     // TODO
 }
 

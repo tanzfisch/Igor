@@ -147,9 +147,9 @@ private:
 
     /*! updates grid view for given relative path
 
-    \param relativePath the given path
+    \param path the given path
     */
-    void updateGridView(const iaString &relativePath);
+    void updateGridView(const iaString &path);
 
     /*! light weight refresh
      */
