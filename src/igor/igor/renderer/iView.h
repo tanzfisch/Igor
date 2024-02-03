@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VIEW__
-#define __IGOR_VIEW__
+#ifndef IGOR_VIEW_H
+#define IGOR_VIEW_H
 
 #include <igor/iDefines.h>
 #include <igor/renderer/iRenderEngine.h>
@@ -51,7 +51,7 @@ namespace igor
     class iOctreeObject;
 
     /*! draw event triggered for every frame a view is rendered
-    */
+     */
     IGOR_EVENT_DEFINITION(iDraw, void);
 
     /*! represents a view rectangle within a window and projection of the scene
@@ -67,13 +67,12 @@ namespace igor
         friend class iWidgetViewport;
 
     public:
-    
         /*! does nothing
-        */
+         */
         iView() = default;
 
         /*! checks consistency
-        */
+         */
         virtual ~iView();
 
         /*! sets the scene to be rendered with this view
@@ -83,7 +82,7 @@ namespace igor
         void setScene(iScenePtr scene);
 
         /*! \returns scene to be rendered with this view
-        */
+         */
         iScenePtr getScene();
 
         /*! sets name of view
@@ -93,11 +92,11 @@ namespace igor
         void setName(const iaString &name);
 
         /*! \returns name of the view
-        */
+         */
         const iaString &getName() const;
 
         /*! \returns aspect ratio
-        */
+         */
         float64 getAspectRatio() const;
 
         /*! registers delegate to render event
@@ -123,7 +122,7 @@ namespace igor
         void setViewportRelative(iaRectanglef rect);
 
         /*! \returns viewport in pixels
-        */
+         */
         iaRectanglei getViewport() const;
 
         /*! activates perspective mode and sets the view_angle
@@ -155,7 +154,7 @@ namespace igor
         void setClearColorActive(bool active);
 
         /*! \returns true if color buffer will be cleared before render
-        */
+         */
         bool isClearColorActive() const;
 
         /*! sets if the viewport will be updated during draw call
@@ -165,7 +164,7 @@ namespace igor
         void setUpdateViewport(bool enabled);
 
         /*! \returns true if viewport will be updated before drawing
-        */
+         */
         bool isUpdatingViewport() const;
 
         /*! specifies the the color the color buffer will be cleared with
@@ -184,8 +183,8 @@ namespace igor
         void setClearColor(float32 r, float32 g, float32 b, float32 a);
 
         /*! \returns current clear color
-        */
-        const iaColor4f & getClearColor()const;
+         */
+        const iaColor4f &getClearColor() const;
 
         /*! sets the clear buffer bit.
 
@@ -194,7 +193,7 @@ namespace igor
         void setClearDepthActive(bool active);
 
         /*! \returns true if clear depth is active
-        */
+         */
         bool isClearDepthActive() const;
 
         /*! sets the clear depth value
@@ -204,7 +203,7 @@ namespace igor
         void setClearDepth(float32 depth);
 
         /*! \returns clear depth Value
-        */
+         */
         float32 getClearDepth() const;
 
         /*! sets view visible
@@ -214,7 +213,7 @@ namespace igor
         void setVisible(bool visible = true);
 
         /*! \returns true if view is visible
-        */
+         */
         bool isVisible() const;
 
         /*! shows all rendering in wireframe mode or normal mode
@@ -224,7 +223,7 @@ namespace igor
         void setWireframeVisible(bool wireframe = true);
 
         /*! \returns true if wireframe mode is active
-        */
+         */
         bool isWireframeVisible() const;
 
         /*! defines if bounding boxes are shown or not
@@ -234,7 +233,7 @@ namespace igor
         void setBoundingBoxVisible(bool boundingBox = true);
 
         /*! \returns true if bounding boxes are shown
-        */
+         */
         bool isBoundingBoxVisible() const;
 
         /*! defines if octree is shown or not
@@ -246,7 +245,7 @@ namespace igor
         void setOctreeVisible(bool octree = true);
 
         /*! \returns true if octree is shown
-        */
+         */
         bool isOctreeVisible() const;
 
         /*! sets current camera by id
@@ -256,7 +255,7 @@ namespace igor
         void setCamera(iNodeID cameraID);
 
         /*! \returns current camera id
-        */
+         */
         iNodeID getCamera() const;
 
         /*! unprojects screen position to object space
@@ -289,14 +288,14 @@ namespace igor
 
         \param pos the position to pick a color from
         */
-        uint64 pickColorID(const iaVector2i& pos);
+        uint64 pickColorID(const iaVector2i &pos);
 
         /*! renders view in offscreen buffer using the colorID material and returns the color IDs from given rectangle
-        */
+         */
         void pickColorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs);
 
         /*! \returns the z index of this view
-        */
+         */
         int32 getZIndex() const;
 
         /*! \returns true if configure with perspective projection
@@ -307,55 +306,55 @@ namespace igor
 
     private:
         /*! z index
-        */
+         */
         int32 _zIndex = 0;
 
         /*! visible flag
-        */
+         */
         bool _visible = true;
 
         /*! if true this view will be rendered in wireframe mode
-        */
+         */
         bool _wireframeEnabled = false;
 
         /*! views name
-        */
+         */
         iaString _name = "iView";
 
         /*! scene that is currently bound with this view
-        */
+         */
         iScenePtr _scene = nullptr;
 
         /*! size of parenting window in pixel
-        */
+         */
         iaRectanglei _windowRect;
 
         /*! the viewingport with values from 0.0-1.0 so it is independent form screen resolution
-        */
+         */
         iaRectanglef _viewportConfig = {0.0f, 0.0f, 1.0f, 1.0f};
 
         /*! viewport in pixel
-        */
+         */
         iaRectanglei _viewport;
 
         /*! if true the color buffer will be cleared with _clearColor before every frame
-        */
+         */
         bool _clearColorActive = true;
 
         /*! if true viewport gets updated before drawing
-        */
+         */
         bool _updateViewport = true;
 
         /*! the color definition of the clear color step
-        */
+         */
         iaColor4f _clearColor = {0.0f, 0.0f, 0.0f, 1.0f};
 
         /*! if true the depth buffer will be cleared with _clearDepth before every frame
-        */
+         */
         bool _clearDepthActive = true;
 
         /*! clear depth value
-        */
+         */
         float32 _clearDepth = 1.0;
 
         /*! if true rendering will use a perspective projection.
@@ -364,39 +363,39 @@ namespace igor
         bool _perspective = true;
 
         /*! left value used for orthogonal projection
-        */
+         */
         float64 _left = -1.0;
 
         /*! right value used for orthogonal projection
-        */
+         */
         float64 _right = 1.0;
 
         /*! top value used for orthogonal projection
-        */
+         */
         float64 _top = 1.0;
 
         /*! bottom value used for orthogonal projection
-        */
+         */
         float64 _bottom = -1.0;
 
         /*! field of view
-        */
+         */
         float64 _viewAngel = 45.0;
 
         /*! distance from camera to near clipping plane
-        */
+         */
         float64 _nearPlaneDistance = 1.0;
 
         /*! distance from camera to far clipping plane
-        */
+         */
         float64 _farPlaneDistance = 10000.0;
 
         /*! event called one per render frame
-        */
+         */
         iDrawEvent _renderEvent;
 
         /*! render engine that turns a scene in to something visible
-        */
+         */
         iRenderEngine _renderEngine;
 
         /*! sets the z index of this view. will be used by window to determine the render order
@@ -406,7 +405,7 @@ namespace igor
         void setZIndex(int32 zindex);
 
         /*! called every render frame by the parenting window
-        */
+         */
         void draw();
 
         /*! updates window rectangle
@@ -417,9 +416,9 @@ namespace igor
     };
 
     /*! view pointer definition
-    */
+     */
     typedef iView *iViewPtr;
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_VIEW_H

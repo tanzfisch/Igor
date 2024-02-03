@@ -73,7 +73,7 @@ namespace igor
         }
     }
 
-    const std::vector<iEntityScenePtr>& iEntitySystemModule::getActiveScenes() const
+    const std::vector<iEntityScenePtr> &iEntitySystemModule::getActiveScenes() const
     {
         return _scenes;
     }
@@ -89,7 +89,7 @@ namespace igor
     void iEntitySystemModule::activateScene(iEntityScenePtr scene)
     {
         auto iter = std::find(_inactiveScenes.begin(), _inactiveScenes.end(), scene);
-        if(iter == _inactiveScenes.end())
+        if (iter == _inactiveScenes.end())
         {
             con_warn("scene was not deactivated");
             return;
@@ -102,7 +102,7 @@ namespace igor
     void iEntitySystemModule::deactivateScene(iEntityScenePtr scene)
     {
         auto iter = std::find(_scenes.begin(), _scenes.end(), scene);
-        if(iter == _scenes.end())
+        if (iter == _scenes.end())
         {
             con_warn("scene was not activated");
             return;
@@ -110,6 +110,16 @@ namespace igor
 
         _scenes.erase(iter);
         _inactiveScenes.push_back(scene);
+    }
+
+    iCreatedEntityEvent &iEntitySystemModule::getCreatedEntityEvent()
+    {
+        return _createdEntityEvent;
+    }
+
+    iDestroyEntityEvent &iEntitySystemModule::getDestroyEntityEvent()
+    {
+        return _destroyEntityEvent;
     }
 
 } // namespace igor

@@ -26,17 +26,13 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_QUADTREE_SYSTEM__
-#define __IGOR_QUADTREE_SYSTEM__
+#ifndef IGOR_QUADTREE_SYSTEM_H
+#define IGOR_QUADTREE_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
-	/*! event triggered when two entities overlap
-	*/
-	IGOR_EVENT_DEFINITION(iEntityCollision, void, iEntityID, iEntityID);
-
 	/*! quadtree system
 	*/
 	class iQuadtreeSystem : public iEntitySystem
@@ -59,4 +55,4 @@ namespace igor
 
 } // igor
 
-#endif // __IGOR_QUADTREE_SYSTEM__
+#endif // IGOR_QUADTREE_SYSTEM_H

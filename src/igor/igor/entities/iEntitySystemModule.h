@@ -42,6 +42,14 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! event called after creation of new entity
+    */
+    IGOR_EVENT_DEFINITION(iCreatedEntity, void, iEntityScenePtr, iEntityID);
+
+    /*! event called before destruction of given entity
+    */
+    IGOR_EVENT_DEFINITION(iDestroyEntity, void, iEntityScenePtr, iEntityID);
+
     /*! entity system module
 
     manages and updates all entity systems created
@@ -50,6 +58,7 @@ namespace igor
     {
 
         friend class iModule<iEntitySystemModule>;
+        friend class iEntityScene;
 
     public:
         /*! creates a scene and returns it
@@ -102,6 +111,14 @@ namespace igor
         */
         const std::vector<iEntityScenePtr>& getActiveScenes() const;
 
+        /*! \returns entity got created event
+        */
+        iCreatedEntityEvent& getCreatedEntityEvent();
+
+        /*! \returns entity will be destroyed event
+        */
+        iDestroyEntityEvent& getDestroyEntityEvent();
+
     private:
         /*! active entity scenes
          */
@@ -124,6 +141,14 @@ namespace igor
         /*! simulation frame time
         */
         iaTime _simulationFrameTime;
+
+        /*! event triggered when entity got created
+        */
+        iCreatedEntityEvent _createdEntityEvent;
+
+        /*! event triggered before entity get's destroyed
+        */
+        iDestroyEntityEvent _destroyEntityEvent;        
 
         /*! does nothing
          */

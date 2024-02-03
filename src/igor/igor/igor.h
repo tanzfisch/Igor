@@ -103,7 +103,6 @@
 #include <igor/system/iTimerHandle.h>
 #include <igor/system/iWindow.h>
 
-#include <igor/events/iEventECS.h>
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>

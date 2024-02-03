@@ -10,8 +10,15 @@ Outliner::Outliner()
 
     iEntityScenePtr entityScene = iEntitySystemModule::getInstance().createScene();
     entityScene->setName("foo");
+    entityScene->createEntity("bar1");
     iEntitySystemModule::getInstance().activateScene(entityScene);
     populateTree();
+
+    iEntitySystemModule::getInstance().getCreatedEntityEvent().add(iCreatedEntityDelegate(this, &Outliner::onEntityCreated));
+    iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
+
+    entityScene->createEntity("bar2");
+    entityScene->createEntity("bar3");
 }
 
 void Outliner::initGUI()
@@ -33,6 +40,16 @@ void Outliner::initGUI()
     _treeView->setVerticalAlignment(iVerticalAlignment::Stretch);
     _treeView->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _treeView->getClickEvent().add(iClickDelegate(this, &Outliner::onClickTreeView));
+}
+
+void Outliner::onEntityCreated(iEntityScenePtr scene, iEntityID entityID)
+{
+    con_endl("onEntityCreated");
+}
+
+void Outliner::onEntityDestroyed(iEntityScenePtr scene, iEntityID entityID)
+{
+    con_endl("onEntityDestroyed");
 }
 
 void Outliner::populateScene(iEntityScenePtr scene, iItemPtr sceneItem)

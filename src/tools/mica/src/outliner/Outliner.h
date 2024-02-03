@@ -69,6 +69,9 @@ private:
     void populateTree();
 
     void populateScene(iEntityScenePtr scene, iItemPtr sceneItem);
+
+    void onEntityCreated(iEntityScenePtr scene, iEntityID entityID);
+    void onEntityDestroyed(iEntityScenePtr scene, iEntityID entityID);
 };
 
 #endif // MICA_OUTLINER_H

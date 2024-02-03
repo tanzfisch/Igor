@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_KEYBOARD__
-#define __IGOR_KEYBOARD__
+#ifndef IGOR_KEYBOARD_H
+#define IGOR_KEYBOARD_H
 
 #include <igor/system/iWindow.h>
 #include <igor/system/iOSEventListener.h>
@@ -38,8 +38,8 @@ namespace igor
 
     /*! Handles keyboard specific os events and triggers Igor events.
 
-	It also stores key states for later use
-	*/
+    It also stores key states for later use
+    */
     class IGOR_API iKeyboard : public iOSEventListener, public iModule<iKeyboard>
     {
 
@@ -62,42 +62,42 @@ namespace igor
 
         /*! returns key code
 
-		\param keycode key name
-		\return key code
-		*/
+        \param keycode key name
+        \return key code
+        */
         static iKeyCode getKeyCode(const iaString &keyname);
 
-        /*! \retruns pointer to corresponding window
-		if it returns nullptr the listener was not registred to a window yet
-		*/
+        /*! \returns pointer to corresponding window
+        if it returns nullptr the listener was not registered to a window yet
+        */
         iWindowPtr getWindow() const override;
 
     private:
         /*! pimpl
-		*/
+         */
         iKeyboardImpl *_impl;
 
-        /*! called by a window if an os event occours
-		*/
+        /*! called by a window if an os event occurs
+         */
         bool onOSEvent(const void *data) override;
 
         /*! does what ever necessairy to get the device running
 
-		\param window handle to the window
-		\param data os specific data (see iOSEventregisterData)
-		*/
+        \param window handle to the window
+        \param data os specific data (see iOSEventregisterData)
+        */
         bool initDevice(const void *data) override;
 
         /*! unregisters device from listening
-		*/
+         */
         void deinitDevice() override;
 
         /*! initializes member variables
-		*/
+         */
         iKeyboard();
 
         /*! releases all delegates if not done by application
-		*/
+         */
         virtual ~iKeyboard();
     };
 
@@ -109,12 +109,12 @@ namespace igor
 
     /*! stream operator
 
-	\param stream the destination
-	\param keyCode the key code to print
-	\returns the resulting stream
-	*/
+    \param stream the destination
+    \param keyCode the key code to print
+    \returns the resulting stream
+    */
     IGOR_API std::wostream &operator<<(std::wostream &stream, const iKeyCode &keyCode);
 
 }; // namespace igor
 
-#endif // __IGOR_KEYBOARD__
+#endif // IGOR_KEYBOARD_H
