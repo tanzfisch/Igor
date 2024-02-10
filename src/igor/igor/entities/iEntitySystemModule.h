@@ -26,25 +26,19 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SYSTEM_MODULE__
-#define __IGOR_ENTITY_SYSTEM_MODULE__
+#ifndef IGOR_ENTITY_SYSTEM_MODULE_H
+#define IGOR_ENTITY_SYSTEM_MODULE_H
 
 #include <igor/resources/module/iModule.h>
 
 #include <igor/entities/iEntityScene.h>
 
-#include <iaux/system/iaMutex.h>
-#include <iaux/system/iaTime.h>
-using namespace iaux;
-
-#include <vector>
+#include <unordered_map>
 
 namespace igor
 {
 
     /*! entity system module
-
-    manages and updates all entity systems created
     */
     class IGOR_API iEntitySystemModule : public iModule<iEntitySystemModule>
     {
@@ -54,9 +48,24 @@ namespace igor
     public:
         /*! creates a scene and returns it
 
+        ownership of scenes always stay with module
+
+        \param name the name of the scene
         \returns new created scene
         */
-        iEntityScenePtr createScene();
+        iEntityScenePtr createScene(const iaString &name = "");
+
+        /*! \returns scene for given scene id
+
+        \param sceneID the given id
+        */
+        iEntityScenePtr getScene(const iEntitySceneID &sceneID);
+
+        /*! destroys scene with given id
+
+        \param sceneID the given scene id
+        */
+        void destroyScene(const iEntitySceneID &sceneID);
 
         /*! updates all scenes and cleans up scene lists
          */
@@ -65,14 +74,6 @@ namespace igor
         /*! renders all scenes
          */
         void onRender(float32 clientWidth, float32 clientHeight);
-
-        /*! starts/continues the entity systems to run
-        */
-        void start();
-
-        /*! stops the entity system to run (except rendering)
-        */
-        void stop();
 
         /*! set's the simulation rate in Hz
 
@@ -87,35 +88,18 @@ namespace igor
         float64 getSimulationRate();        
 
     private:
-        /*! mutex to safeguard entity scene list
-         */
-        iaMutex _mutex;
-
         /*! entity scenes
          */
-        std::vector<iEntityScenePtr> _scenes;
+        std::unordered_map<iEntitySceneID, iEntityScenePtr> _scenes;
 
         /*! simulation rate in Hz
         */
         float64 _simulationRate = 60.0;        
 
-        /*! if true entity system is running
-
-        render is always running
-        */
-        bool _running = true;
-
         /*! simulation frame time
         */
-        iaTime _simulationFrameTime;
+        iaTime _simulationFrameTime = iaTime::getNow();
 
-        /*! does nothing
-         */
-        iEntitySystemModule() = default;
-
-        /*! does nothing
-         */
-        ~iEntitySystemModule() = default;
     };
 
 } // namespace igor

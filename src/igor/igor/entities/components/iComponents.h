@@ -26,8 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_COMPONENTS__
-#define __IGOR_COMPONENTS__
+#ifndef IGOR_COMPONENTS_H
+#define IGOR_COMPONENTS_H
+
+#include <igor/entities/iEntityComponent.h>
 
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/sprite/iSprite.h>
@@ -46,45 +48,14 @@ using namespace iaux;
 
 namespace igor
 {
-    /*! entity id definition
-     */
-    typedef uint32 iEntityID;
 
-    /*! invalid entity id definition
-     */
-    static constexpr iEntityID IGOR_INVALID_ENTITY_ID = 0xffffffff;
-
-    class iEntity;
-
-    /*! name component used in each entity by default
-     */
-    struct iBaseEntityComponent
-    {
-        /*! name of entity
-         */
-        iaString _name;
-    };
-
-    /*! active component
-
-    added or not added to an entity to filter out non active entities
+    /*! entity pointer definition
     */
-    struct iActiveComponent
-    {
-        /*! just a placeholder
-         */
-        bool _placeholder;
-    };
+    class iEntity;
+    typedef iEntity* iEntityPtr;
 
-    /*! after adding this component to an entity it will be deleted
-     */
-    struct iDeleteComponent
-    {
-        /*! just a placeholder
-         */
-        bool _placeholder;
-    };
-
+    /*! sprite render mode
+    */
     enum class iSpriteRenderMode
     {
         Simple,
@@ -93,8 +64,19 @@ namespace igor
 
     /*! sprite render component
      */
-    struct iSpriteRendererComponent
+    class iSpriteRendererComponent : public iEntityComponent
     {
+
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iSpriteRendererComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iSpriteRenderMode renderMode = iSpriteRenderMode::Simple, const iaString &name = "sprite render")
+            : iEntityComponent(name), _sprite(sprite), _size(size), _color(color), _zIndex(zIndex), _renderMode(renderMode)
+        {
+        }
+
         /*! sprite to render
          */
         iSpritePtr _sprite;
@@ -116,7 +98,7 @@ namespace igor
         iSpriteRenderMode _renderMode = iSpriteRenderMode::Simple;
 
         /*! index of the sprite frame to render
-        */
+         */
         uint32 _frameIndex = 0;
     };
 
@@ -126,13 +108,23 @@ namespace igor
 
     3d variant
     */
-    struct iTransformComponent
+    class IGOR_API iTransformComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0), const iaString &name = "transform")
+            : iEntityComponent(name), _position(position), _orientation(orientation), _scale(scale)
+        {
+        }
+
         /*! position
          */
         iaVector3d _position;
 
-        /*! orientation in rad
+        /*! euler angles in rad
          */
         iaVector3d _orientation;
 
@@ -147,11 +139,21 @@ namespace igor
 
     /*! hierarchy component to create parent child relationships
      */
-    struct iHierarchyComponent
+    class iHierarchyComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iHierarchyComponent(iEntityID parent, const iaString &name = "hierarchy")
+            : iEntityComponent(name), _parent(parent)
+        {
+        }
+
         /*! parent entity id
          */
-        iEntityID _parent = IGOR_INVALID_ENTITY_ID;
+        iEntityID _parent;
 
         /*! counting how many child this entity has
          */
@@ -166,8 +168,18 @@ namespace igor
 
     /*! 2D body component
      */
-    struct iBody2DComponent
+    class iBody2DComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iBody2DComponent(iQuadtreed::ObjectPtr object = nullptr, const iaString &name = "body 2d")
+            : iEntityComponent(name), _object(object)
+        {
+        }
+
         /*! quadtree object
          */
         iQuadtreed::ObjectPtr _object;
@@ -175,8 +187,18 @@ namespace igor
 
     /*! 2D collision component
      */
-    struct iCircleCollision2DComponent
+    class iCircleCollision2DComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iCircleCollision2DComponent(float64 radius, const iaVector2d &offset = iaVector2d(), const iaString &name = "collision 2d")
+            : iEntityComponent(name), _radius(radius), _offset(offset)
+        {
+        }
+
         /*! the circles radius
          */
         float64 _radius;
@@ -186,8 +208,20 @@ namespace igor
         iaVector2d _offset;
     };
 
-    struct iVelocityComponent
+    /*! velocity component
+     */
+    class iVelocityComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d(), const iaString &name = "velocity")
+            : iEntityComponent(name), _velocity(velocity), _angularVelocity(angularVelocity)
+        {
+        }
+
         /*! vector to describe the velocity
          */
         iaVector3d _velocity;
@@ -199,7 +233,7 @@ namespace igor
 
     /*! behaviour function definition
      */
-    typedef iaDelegate<void, iEntity &, std::any &> iBehaviourDelegate;
+    typedef iaDelegate<void, iEntityPtr, std::any &> iBehaviourDelegate;
 
     /*! behaviour data
      */
@@ -216,15 +250,23 @@ namespace igor
         std::any _userData;
     };
 
-    static constexpr uint32 IGOR_MAX_BEHAVIORS_PER_COMPONENT = 10;
-
     /*! behaviour component
      */
-    struct iBehaviourComponent
+    class iBehaviourComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iBehaviourComponent(const iaString &name = "behaviour")
+            : iEntityComponent(name)
+        {
+        }
+
         /*! behaviors
          */
-        std::array<iBehaviourData, IGOR_MAX_BEHAVIORS_PER_COMPONENT> _behaviour;
+        std::vector<iBehaviourData> _behaviors;
     };
 
     /*! global boundary contraint type
@@ -243,8 +285,20 @@ namespace igor
 
     check the scene interface for configuring the global boundaries
     */
-    struct iGlobalBoundaryComponent
+    class iGlobalBoundaryComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iGlobalBoundaryComponent(iGlobalBoundaryType type, const iaString &name = "global boundary")
+            : iEntityComponent(name), _type(type)
+        {
+        }
+
+        /*! global boundary type
+         */
         iGlobalBoundaryType _type = iGlobalBoundaryType::None;
     };
 
@@ -263,8 +317,20 @@ namespace igor
 
     /*! defines instructions how to handle collisions or near collisions
      */
-    struct iMotionInteractionResolverComponent
+    class iMotionInteractionResolverComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iMotionInteractionResolverComponent(iMotionInteractionType type, const iaString &name = "motion interaction resolver")
+            : iEntityComponent(name), _type(type)
+        {
+        }
+
+        /*! motion reation type
+         */
         iMotionInteractionType _type = iMotionInteractionType::None;
     };
 
@@ -276,8 +342,20 @@ namespace igor
         Orthogonal
     };
 
-    struct iCameraComponent
+    /*! camera component
+     */
+    class iCameraComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iCameraComponent(const iaString &name = "camera")
+            : iEntityComponent(name)
+        {
+        }
+
         /*! viewport
          */
         iaRectangled _viewport = {0.0, 0.0, 1.0, 1.0};
@@ -335,8 +413,20 @@ namespace igor
         int32 _zIndex = 0;
     };
 
-    struct iRenderDebugComponent
+    /*! render debug component
+     */
+    class iRenderDebugComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iRenderDebugComponent(const iaString &name = "render debug")
+            : iEntityComponent(name)
+        {
+        }
+
         /*! render everything in wireframe mode
          */
         bool _renderWireframe = false;
@@ -353,15 +443,39 @@ namespace igor
 
     /*! I love parties <3
      */
-    struct iPartyComponent
+    class iPartyComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iPartyComponent(uint32 partyID, const iaString &name = "party")
+            : iEntityComponent(name), _partyID(partyID)
+        {
+        }
+
+        /*! party id
+         */
         uint32 _partyID = 0;
     };
 
     /*! animation component
-    */
-    struct iAnimationComponent
+     */
+    class iAnimationComponent : public iEntityComponent
     {
+    public:
+        /*! ctor
+
+        \param name the name of this component
+        */
+        iAnimationComponent(iAnimationControllerPtr animationController = nullptr, const iaString &name = "animation")
+            : iEntityComponent(name), _animationController(animationController)
+        {
+        }
+
+        /*! animation controller
+         */
         iAnimationControllerPtr _animationController;
     };
 

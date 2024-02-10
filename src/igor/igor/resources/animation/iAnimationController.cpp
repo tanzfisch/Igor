@@ -68,7 +68,7 @@ namespace igor
         iClipPtr clip = iter->second;
         float64 t = clip->getNormalizedTime(_startTime, time) * clip->getDuration().getSeconds();
 
-        auto &transform = entity.getComponent<iTransformComponent>();
+        /*auto &transform = entity.getComponent<iTransformComponent>();
         auto spriteRender = entity.tryGetComponent<iSpriteRendererComponent>();
 
         for (const auto &animation : clip->getAnimations())
@@ -104,7 +104,7 @@ namespace igor
             {
                 _startTime += clip->getDuration();
             }
-        }
+        }*/
     }
 
 }; // namespace igor

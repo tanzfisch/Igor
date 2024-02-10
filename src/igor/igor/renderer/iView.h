@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VIEW__
-#define __IGOR_VIEW__
+#ifndef IGOR_VIEW_H
+#define IGOR_VIEW_H
 
 #include <igor/iDefines.h>
 #include <igor/renderer/iRenderEngine.h>
@@ -422,4 +422,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_VIEW_H

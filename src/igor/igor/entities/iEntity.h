@@ -26,62 +26,97 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY__
-#define __IGOR_ENTITY__
+#ifndef IGOR_ENTITY_H
+#define IGOR_ENTITY_H
 
-#include <igor/entities/iEntityScene.h>
+#include <igor/entities/components/iComponents.h>
+
+#include <unordered_map>
+#include <typeindex>
 
 namespace igor
 {
+
+    /*! pointer to entity
+     */
+    class iEntity;
+    typedef iEntity *iEntityPtr;
+
+    /*! pointer to scene
+     */
+    class iEntityScene;
+    typedef iEntityScene *iEntityScenePtr;
+
     /*! entity
      */
     class IGOR_API iEntity
     {
+        friend class iEntityScene;
+
     public:
+        /*! ctor with name
+
+        \param name the name of this entity
+        */
+        iEntity(const iaString &name = "");
+
         /*! does nothing
          */
         iEntity() = default;
 
-        /*! copy ctor
-
-        \param other the entity to make a copy from
-        */
-        iEntity(const iEntity &other) = default;
-
-        /*! param ctor
-
-        \param entity the entity handle
-        \param scene the scene this entity belongs to
-        */
-        iEntity(iEntityID entity, iEntityScenePtr scene);
+        /*! does nothing
+         */
+        ~iEntity() = default;
 
         /*! \returns entity id
          */
-        iEntityID getID() const;
+        const iEntityID &getID() const;
 
-        /*! \returns true if entity is valid
+        /*! \returns name of entity
          */
-        bool isValid() const;
+        const iaString &getName() const;
 
-        /*! \returns entity name
-         */
-        const iaString getName() const;
+        /*! sets parent by id
 
-        /*! sets name of entity
-
-        \param name the name to set
+        \param parentID the given parent id
         */
-        void setName(const iaString &name);
+        void setParent(const iEntityID &parentID);
 
-        /*! \returns true if entity is active
-         */
-        bool isActive() const;
-
-        /*! sets entity active
-
-        \param active if true entity is active
+        /*! \returns parent id
         */
-        void setActive(bool active);
+        const iEntityID getParent() const;
+
+        /*! \returns scene this entity belongs to
+        */
+        iEntityScenePtr getScene() const;
+
+        /*! \returns true if entity is in scene
+        */
+        bool isInScene() const;
+
+        /*! \returns true if entity has parent
+        */
+        bool hasParent() const;
+
+        /*! add component (or overrides if already existing)
+
+        entity takes ownership of component
+
+        \param component the component to add
+        \returns the new component
+        */
+        template<typename T>
+        T* addComponent(T* component);
+
+        /*! \returns component for given type
+        */
+        template<typename T>
+        T* getComponent() const;
+
+        /*! destroys given component by type
+        */
+        template<typename T>
+        void destroyComponent();
 
         /*! adds behaviour to entity
 
@@ -96,94 +131,34 @@ namespace igor
         */
         void removeBehaviour(const iBehaviourDelegate &behaviour);
 
-        /*! set parent of entity
-
-        \param parent the parent id to use. if parent id invalid the parent relationship is reset
-        */
-        void setParent(iEntityID parent);
-
-        /*! \returns the parent id or invalid id if there is no parent
-         */
-        iEntityID getParent() const;
-
-        /*! sets motion interaction type
-
-        \param interactionType the motion interaction type
-        */
-        void setMotionInteractionType(iMotionInteractionType interactionType);
-
-        /*! \returns motion interaction type
-         */
-        iMotionInteractionType getMotionInteractionType() const;
-
-        /*! adds component to entity
-
-        \param component the component to add
-        */
-        template <typename T>
-        T &addComponent(const T &component)
-        {
-            return _scene->addComponent<T>(_entity, component);
-        }
-
-        template <typename T>
-        T &addUserComponent(const T &component)
-        {
-            return _scene->addUserComponent<T>(_entity, component);
-        }
-
-        /*! \returns component of entity of given type
-         */
-        template <typename T>
-        T &getComponent()
-        {
-            return _scene->getComponent<T>(_entity);
-        }
-
-        template <typename T>
-        T &getUserComponent()
-        {
-            return _scene->getUserComponent<T>(_entity);
-        }
-
-        /*! \returns component of entity of given type
-
-        returns nullptr in case component does not exist
-         */
-        template <typename T>
-        T *tryGetComponent() const
-        {
-            return _scene->tryGetComponent<T>(_entity);
-        }
-
-        template <typename T>
-        T *tryGetUserComponent() const
-        {
-            return _scene->tryGetUserComponent<T>(_entity);
-        }
-
-        /*! removes component of given type
-         */
-        template <typename T>
-        void removeComponent()
-        {
-            _scene->removeComponent<T>(_entity);
-        }
-
     private:
-        /*! the entity ID
+        /*! the entities id (unique)
          */
-        iEntityID _entity;
+        iEntityID _id;
 
-        /*! the scene this entity is in
+        /*! the entities name (non unique)
          */
-        iEntityScenePtr _scene;
+        iaString _name;
+
+        /*! scene this entity belongs to
+        */
+        iEntityScenePtr _scene = nullptr;
+
+        /*! map of components
+         */
+        std::unordered_map<std::type_index, iEntityComponentPtr> _components;
+
+        /*! children if any
+         */
+        std::vector<iEntityPtr> _children;
+
+        /*! parent (optional)
+         */
+        iEntityPtr _parent = nullptr;
     };
 
-    /*! pointer to entity
-     */
-    typedef iEntity *iEntityPtr;
+#include <igor/entities/iEntity.inl>
 
 } // namespace igor
 
-#endif // __IGOR_ENTITY__
+#endif // IGOR_ENTITY_H

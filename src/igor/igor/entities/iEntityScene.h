@@ -26,101 +26,81 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SCENE__
-#define __IGOR_ENTITY_SCENE__
+#ifndef IGOR_ENTITY_SCENE_H
+#define IGOR_ENTITY_SCENE_H
 
-#include <igor/entities/iEntitySystem.h>
-#include <igor/entities/systems/iVelocitySystem.h>
+#include <igor/entities/iEntity.h>
+#include <igor/data/iQuadtree.h>
 
-#include <memory>
+#include <iaux/data/iaRectangle.h>
+using namespace iaux;
+
 #include <unordered_map>
-#include <typeindex>
 
 namespace igor
 {
-	class iEntity;
 
-	/*! wrapper for entt registry
+	/*! entity scene id
 	 */
-	class iRegistry;
+	typedef iaUUID iEntitySceneID;
 
 	/*! entity scene
 	 */
-	class IGOR_API iEntityScene : public std::enable_shared_from_this<iEntityScene>
+	class IGOR_API iEntityScene
 	{
 
 		friend class iEntitySystemModule;
-		friend class iEntitySceneDeleter;
 
 	public:
-		/*! creates an entity
+		/*! sets name of scene
+
+		\param name the name of the scene
+		*/
+		void setName(const iaString &name);
+
+		/*! \returns name of the scene
 		 */
-		iEntity createEntity(const iaString &name = "", bool active = true);
+		const iaString &getName() const;
 
-		/*! destroys an entity by id
+		/*! creates an entity, adds it to this scene and returns it
 
-		\param entityID the entity ID
+		ownership stays with the scene
+
+		\returns newly created entity
+		*/
+		iEntityPtr createEntity(const iaString &name = "");
+
+		/*! adds an entity to this scene
+
+		scene takes over ownership of the entity
+
+		\param entity the entity to add
+		*/
+		void addEntity(iEntityPtr entity);
+
+		/*! removes entity from scene
+
+		caller takes over ownership of entity
+
+		\param entityID the id of the entity to remove
+		\returns pointer to entity
+		*/
+		iEntityPtr removeEntity(iEntityID entityID);
+
+		/*! \returns entity for given entity ID. zero if not found
+		\param entityID the given entity ID
+		*/
+		iEntityPtr getEntity(iEntityID entityID) const;
+
+		/*! destroys entity for given ID
+
+		\param entityID the given entity id
 		*/
 		void destroyEntity(iEntityID entityID);
 
-		/*! destroys an entity
-
-		\param entity the entity to destroy
-		*/
-		void destroyEntity(const iEntity &entity);
-
-		/*! clears the scene
+		/*! \returns entity scene id
 		 */
-		void clear();
-
-		/*! adds component to entity
-
-		\param component the component to add
-		*/
-		template <typename T>
-		T &addComponent(iEntityID entityID, const T &component);
-
-		/*! adds custom component to entity
-
-		this is meant for types unknown to Igor
-
-		\param component the component to add
-		*/
-		template <typename T>
-		T &addUserComponent(iEntityID entityID, const T &component);
-
-		/*! \returns reference to component for given entity
-
-		\param entityID the given entity
-		*/
-		template <typename T>
-		T &getComponent(iEntityID entityID);
-
-		/*! \returns reference to custom component of given entity
-
-		\param component the component to add
-		*/
-		template <typename T>
-		T &getUserComponent(iEntityID entityID);
-
-		/*! \returns pointer to component for given entity. nullptr if component does not exist
-
-		\param entityID the given entity
-		*/
-		template <typename T>
-		T *tryGetComponent(iEntityID entityID);
-
-		/*! \returns pointer to custom component for given entity. nullptr if component does not exist
-
-		\param entityID the given entity
-		*/
-		template <typename T>
-		T *tryGetUserComponent(iEntityID entityID);
-
-		/*! removes component of given entity with given type
-		 */
-		template <typename T>
-		void removeComponent(iEntityID entityID);
+		const iEntitySceneID &getID() const;
 
 		/*! initialize quadtree
 
@@ -138,101 +118,40 @@ namespace igor
 		 */
 		bool hasQuadtree() const;
 
-		/*! \returns entt registry
-		 */
-		void *getRegistry() const;
-
-		/*! sets global bounds
-		 */
-		void setBounds(const iAABoxd &box);
-
-		/*! \returns global bounds
-		 */
-		const iAABoxd &getBounds() const;
-
 	private:
-		/*! pimpl
+		/*! entity scene id
 		 */
-		iRegistry *_registry = nullptr;
+		iEntitySceneID _id;
 
-		/*! caching entity ID lists
+		/*! name of the scene
 		 */
-		std::unordered_map<std::type_index, std::vector<iEntityID>> _entityIDCache;
+		iaString _name;
+
+		/*! map of entities
+		 */
+		std::unordered_map<iEntityID, iEntityPtr> _entities;
 
 		/*! quadtree
 		 */
-		iQuadtreed *_quadtree = nullptr;
+		iQuadtreed *_quadtree = nullptr;		
 
-		std::shared_ptr<iVelocitySystem> _velocitySystem;
+		/*! ctor
 
-		/*! systems to update
-		 */
-		std::vector<iEntitySystemPtr> _systems;
+		\param name the name of the scene
+		*/
+		iEntityScene(const iaString &name);
 
-		/*! systems that render
-		 */
-		std::vector<iEntityRenderSystemPtr> _renderingSystems;
+		/*! updates systems
 
-		/*! storing custom component type data
-		 */
-		std::unordered_map<std::type_index, std::shared_ptr<void>> _customComponents;
-
-		/*! entities set up for deletion
-		 */
-		std::deque<iEntityID> _deleteQueue;
-
-		/*! destroys entities in the delete queue
-		 */
-		void destroyEntities();
-
-		/*! updates all non rendering systems
+		\param time simulation frame time
 		 */
 		void onUpdate(const iaTime &time);
-
-		/*! updates all rendering systems
-		 */
-		void onRender(float32 clientWidth, float32 clientHeight);
-
-		/*! internal add component function
-
-		\param entityID id of entity to add component to
-		\param component the component data to add
-		\param typeInfo the type info of the component to add
-		*/
-		void *addComponent(iEntityID entityID, const void *component, const std::type_info &typeInfo);
-
-		/*! \returns component for given entity
-
-		\param entityID the given entity
-		\param typeInfo type of requested component
-		*/
-		void *getComponent(iEntityID entityID, const std::type_info &typeInfo);
-
-		/*! \returns pointer to component for given entity. nullptr if component does not exist
-
-		\param entityID the given entity
-		\param typeInfo type of requested component
-		*/
-		void *tryGetComponent(iEntityID entityID, const std::type_info &typeInfo);
-
-		/*! removes specified component type from given entity
-
-		\param entityID id of given entity
-		\param typeInfo type of component to remove
-		*/
-		void removeComponent(iEntityID entityID, const std::type_info &typeInfo);
-
-		/*! init systems
-		 */
-		iEntityScene();
-
-		/*! cleanup
-		 */
-		~iEntityScene();
 	};
 
-#include <igor/entities/iEntityScene.inl>
+	/*! entity scene pointer definition
+	 */
+	typedef iEntityScene *iEntityScenePtr;
 
 } // igor
 
-#endif // __IGOR_ENTITY_SCENE__
+#endif // IGOR_ENTITY_SCENE_H

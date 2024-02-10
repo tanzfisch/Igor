@@ -163,13 +163,11 @@ namespace igor
         {
             iTimer::getInstance().stop();
             iPhysics::getInstance().stop();
-            iEntitySystemModule::getInstance().stop();
         }
         else
         {
             iTimer::getInstance().start();
             iPhysics::getInstance().start();
-            iEntitySystemModule::getInstance().start();
         }
     }
 

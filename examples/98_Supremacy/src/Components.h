@@ -26,92 +26,222 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SUPREMACY_COMPONENTS__
-#define __SUPREMACY_COMPONENTS__
+#ifndef SUPREMACY_COMPONENTS_H
+#define SUPREMACY_COMPONENTS_H
 
 #include <igor/igor.h>
 using namespace igor;
 
-struct RangeComponent
+class RangeComponent : public iEntityComponent
 {
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    RangeComponent(float64 rangeLeft, const iaVector3d &lastPosition, const iaString &name = "range")
+        : iEntityComponent(name), _rangeLeft(rangeLeft), _lastPosition(lastPosition)
+    {
+    }
+
     /*! max range
      */
     float64 _rangeLeft = 0.0;
 
     /*! last position
-    */
+     */
     iaVector3d _lastPosition;
 };
 
-struct AngularVelocityComponent
+class AngularVelocityComponent : public iEntityComponent
 {
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    AngularVelocityComponent(float64 velocity, const iaString &name = "angular velocity")
+        : iEntityComponent(name), _velocity(velocity)
+    {
+    }
+
     /*! angular velocity in rad per frame
      */
     float32 _velocity;
 };
 
-struct HealthComponent
+class HealthComponent : public iEntityComponent
 {
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    HealthComponent(float64 health, bool destroyOnImpact = false, const iaString &name = "health")
+        : iEntityComponent(name), _health(health), _destroyOnImpact(destroyOnImpact)
+    {
+    }
+
     float32 _health = 0;
     bool _destroyOnImpact = false;
 };
 
-struct PickupComponent
+class PickupComponent : public iEntityComponent
 {
-    bool _canBePickedUp = true;
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    PickupComponent(bool canBePickedUp = true, const iaString &name = "pickup")
+        : iEntityComponent(name), _canBePickedUp(canBePickedUp)
+    {
+    }
+
+    bool _canBePickedUp;
 };
 
-struct HealComponent
+class HealComponent : public iEntityComponent
 {
-    float32 _heal = 0;
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    HealComponent(float32 heal, const iaString &name = "heal")
+        : iEntityComponent(name), _heal(heal)
+    {
+    }
+
+    float32 _heal;
 };
 
-struct DamageComponent
+class DamageComponent : public iEntityComponent
 {
-    float32 _damage = 0.0;
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    DamageComponent(float32 damage, const iaString &name = "damage")
+        : iEntityComponent(name), _damage(damage)
+    {
+    }
+
+    float32 _damage;
 };
 
-struct ExperienceComponent
+class ExperienceComponent : public iEntityComponent
 {
-    float32 _experience = 0.0;
-    float32 _level = 1.0;
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    ExperienceComponent(float32 experience = 0.0, float32 level = 1.0, const iaString &name = "experience")
+        : iEntityComponent(name), _experience(experience), _level(level)
+    {
+    }
+
+    float32 _experience;
+    float32 _level;
 };
 
-struct CoinsComponent
+class CoinsComponent : public iEntityComponent
 {
-    float32 _coins = 0;
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    CoinsComponent(float32 coins = 0.0, const iaString &name = "coins")
+        : iEntityComponent(name), _coins(coins)
+    {
+    }
+
+    float32 _coins;
 };
 
-struct ExperienceGainComponent
+class ExperienceGainComponent : public iEntityComponent
 {
-    float32 _experience = 0.0;
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    ExperienceGainComponent(float32 experience, const iaString &name = "experience gain")
+        : iEntityComponent(name), _experience(experience)
+    {
+    }
+
+    float32 _experience;
 };
 
-struct CoinGainComponent
+class CoinGainComponent : public iEntityComponent
 {
-    float32 _coins = 0.0;
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    CoinGainComponent(float32 coins, const iaString &name = "coin gain")
+        : iEntityComponent(name), _coins(coins)
+    {
+    }
+
+    float32 _coins;
 };
 
-struct TargetComponent
+class TargetComponent : public iEntityComponent
 {
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    TargetComponent(iEntityID targetID = iEntityID::getInvalid(), bool inRange = false, bool followTarget = true, const iaString &name = "target")
+        : iEntityComponent(name), _targetID(targetID), _inRange(inRange), _followTarget(followTarget)
+    {
+    }
+
     iEntityID _targetID;
     bool _inRange = false;
     bool _followTarget = true;
 };
 
-struct MovementControlComponent
+class MovementControlComponent : public iEntityComponent
 {
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    MovementControlComponent(const iaString &name = "movement control")
+        : iEntityComponent(name)
+    {
+    }
+
     bool _up = false;
     bool _down = false;
     bool _left = false;
     bool _right = false;
 };
 
-struct ViewportComponent
+class ViewportComponent : public iEntityComponent
 {
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    ViewportComponent(const iaString &name = "viewport")
+        : iEntityComponent(name)
+    {
+    }
+
     iaRectanglef _viewport;
     iaVector2f _targetOffset;
-    iEntityID _targetID;
+    iEntityID _targetID = iEntityID::getInvalid();
 };
 
 /*! weapon types
@@ -124,7 +254,7 @@ enum class WeaponType
     RocketLauncher
 };
 
-struct WeaponComponent
+struct WeaponConfiguration
 {
     iaString _texture;
     float32 _size;
@@ -157,10 +287,25 @@ struct WeaponComponent
     /*! offset to unit position to fire from
      */
     iaVector2d _offset;
+};
+
+class WeaponComponent : public iEntityComponent
+{
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    WeaponComponent(const WeaponConfiguration &config, const iaString &name = "weapon")
+        : iEntityComponent(name), _config(config)
+    {
+    }
+
+    WeaponConfiguration _config;
 
     /*! keeps track of cool down
      */
-    iaTime _time;
+    iaTime _time;    
 };
 
 enum class ObjectType
@@ -168,7 +313,7 @@ enum class ObjectType
     Coin
 };
 
-struct ModifierComponent
+struct ModifierConfiguration
 {
     float32 _damageFactor;
     float32 _attackIntervalFactor;
@@ -180,15 +325,40 @@ struct ModifierComponent
     float32 _projectileRangeFactor;
 };
 
+class ModifierComponent : public iEntityComponent
+{
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    ModifierComponent(const ModifierConfiguration &config, const iaString &name = "modifier")
+        : iEntityComponent(name), _config(config)
+    {
+    }
+
+    ModifierConfiguration _config;
+};
+
 enum class BuildingType
 {
     None,
     Shop
 };
 
-struct BuildingComponent
+class BuildingComponent : public iEntityComponent
 {
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    BuildingComponent(BuildingType type, const iaString &name = "building")
+        : iEntityComponent(name), _type(type)
+    {
+    }
+
     BuildingType _type;
 };
 
-#endif // __SUPREMACY_COMPONENTS__
+#endif // SUPREMACY_COMPONENTS_H

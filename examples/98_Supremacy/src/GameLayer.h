@@ -43,7 +43,7 @@ struct EnemyClass
     float32 _damage;
     float32 _health;
     float32 _size;
-    float32 _speed; 
+    float32 _speed;
     float32 _xpDrop;
     float32 _coinDrop;
 };
@@ -69,19 +69,19 @@ private:
 
     /*! entity scene
      */
-    iEntityScenePtr _entityScene;
+    iEntityScenePtr _entityScene = nullptr;
 
     /*! handle to player entity
      */
-    iEntity _player;
+    iEntityID _player;
 
     /*! handle to player entity
      */
-    iEntity _shop;
+    iEntityID _shop;
 
     /*! viewport entity which follows the player
      */
-    iEntity _camera;
+    iEntityID _camera;
 
     /*! update timer
      */
@@ -104,11 +104,11 @@ private:
     iSpritePtr _shadow;
 
     /*! shield sprite
-    */
+     */
     iSpritePtr _shield;
 
     /*! rage sprite
-    */
+     */
     iSpritePtr _rage;
 
     /*! texture font we use to display texts
@@ -120,63 +120,63 @@ private:
     iSpritePtr _coin;
 
     /*! damage sprite
-    */
+     */
     iSpritePtr _damage;
 
     /*! attack speed sprite
-    */
+     */
     iSpritePtr _attackSpeed;
 
     /*! walk speed sprite
-    */
+     */
     iSpritePtr _walkSpeed;
 
     /*! bounce animation
-    */
+     */
     iAnimationPtr _bounceAnimation;
 
     /*! shop idle animation
-    */
+     */
     iAnimationPtr _shopIdleAnimation;
 
     /*! coin spin animation
-    */
+     */
     iAnimationPtr _coinSpinAnimation;
 
     /*! building type to spawn next
-    */
+     */
     BuildingType _currentBuilding = BuildingType::None;
 
     /*! if true level up
-    */
+     */
     bool _levelUp = false;
 
     /*! experience levels
-    */
+     */
     std::vector<uint32> _expLvl;
 
     /*! all available upgrades to character
-    */
+     */
     std::vector<UpgradeConfiguration> _upgrades;
 
     /*! all available shop items
-    */
+     */
     std::vector<ShopItem> _shopItems;
 
     /*! all available weapons
-    */
-    std::map<iaString, WeaponComponent> _weapons;
+     */
+    std::map<iaString, WeaponConfiguration> _weapons;
 
     /*! all available enemies
-    */
+     */
     std::vector<EnemyClass> _enemies;
 
     /*! level up dialog
-    */ 
+     */
     UpgradeDialog *_levelUpDialog = nullptr;
 
     /*! shop dialog
-    */
+     */
     ShopDialog *_shopDialog = nullptr;
 
     /*! upgrade a given entity
@@ -184,14 +184,14 @@ private:
     \param entity the entity to upgrade
     \param upgradeConfiguration the upgrade definition
     */
-    void upgrade(iEntity entity, const UpgradeConfiguration &upgradeConfiguration);
+    void upgrade(iEntityPtr entity, const UpgradeConfiguration &upgradeConfiguration);
 
     /*! handle level dialog close event
-    */
+     */
     void onCloseLevelUpDialog(iDialogPtr dialog);
 
     /*! handle shop dialog close event
-    */
+     */
     void onCloseShopDialog(iDialogPtr dialog);
 
     /*! opens a building of given type
@@ -201,7 +201,7 @@ private:
     void onOpenBuilding(BuildingType buildingType);
 
     /*! open a shop
-    */
+     */
     void openShop();
 
     /*! called when added to layer stack
@@ -209,7 +209,7 @@ private:
     void onInit() override;
 
     /*! calculate experience levels
-    */
+     */
     void initExpLvlTable();
 
     /*! load specs from config file
@@ -257,11 +257,11 @@ private:
     void onRenderHUD();
 
     /*! render player hud
-    */
+     */
     void onRenderPlayerHUD();
 
     /*! render stats for debugging
-    */
+     */
     void onRenderStats();
 
     /*! game logic interval
@@ -290,16 +290,16 @@ private:
 
     \returns the created player
     */
-    iEntity createPlayer();
+    iEntityID createPlayer();
 
     /*! create the camera
 
     \returns the created camera
     */
-    iEntity createCamera();
+    iEntityID createCamera();
 
     /*! crate the background
-    */
+     */
     void createBackground();
 
     /*! creates a unit. usually enemies
@@ -312,51 +312,51 @@ private:
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
     /*! handles player movement
-    */
-    void onPlayerMovementBehaviour(iEntity &entity, std::any &userData);
+     */
+    void onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData);
 
     /*! handles camera movement
-    */
-    void onCameraFollowPlayer(iEntity &entity, std::any &userData);
+     */
+    void onCameraFollowPlayer(iEntityPtr entity, std::any &userData);
 
     /*! aquire target
-    */
-    void onAquireTarget(iEntity &entity, std::any &userData);
+     */
+    void onAquireTarget(iEntityPtr entity, std::any &userData);
 
     /*! update orientation of projectiles
-    */
-    void onUpdateProjectileOrientation(iEntity &entity, std::any &userData);
+     */
+    void onUpdateProjectileOrientation(iEntityPtr entity, std::any &userData);
 
     /*! check for collisions
-    */
-    void onCheckCollision(iEntity &entity, std::any &userData);
+     */
+    void onCheckCollision(iEntityPtr entity, std::any &userData);
 
     /*! aim/follow target
-    */
-    void onFollowTarget(iEntity &entity, std::any &userData);
+     */
+    void onFollowTarget(iEntityPtr entity, std::any &userData);
 
     /*! check for collisions
-    */
-    void onUpdateCollision(iEntity &entity, std::any &userData);
+     */
+    void onUpdateCollision(iEntityPtr entity, std::any &userData);
 
     /*! fire weapon if possible
-    */
-    void onUpdateWeapon(iEntity &entity, std::any &userData);
+     */
+    void onUpdateWeapon(iEntityPtr entity, std::any &userData);
 
     /*! collision check
-    */
-    void onUpdateRange(iEntity &entity, std::any &userData);
+     */
+    void onUpdateRange(iEntityPtr entity, std::any &userData);
 
     /*! create the shop
-    */
+     */
     void createShop();
 
     /*! lift the shop
-    */
+     */
     void liftShop();
 
     /*! land the shop
-    */
+     */
     void landShop();
 
     /*! create a coin
@@ -375,18 +375,18 @@ private:
     \param weapon the weapon to use
     \param modifier modifiers on the weapon to use
     */
-    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent &weapon, const ModifierComponent &modifier);
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent *weapon, const ModifierComponent *modifier);
 
     /*! spawns stuff
-    */
+     */
     void onSpawnStuff(const iaTime &time);
 
     /*! handle shop landing
-    */
+     */
     void onShopLanded();
 
     /*! land the shop
-    */
+     */
     void onLandShop(const iaTime &time);
 
     /*! query a circle on the quardtree while wrapping arround at the edges like a doughnut
@@ -397,11 +397,11 @@ private:
     void doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits);
 
     /*! rectangle collision detection in a doughnut world
-    */
+     */
     bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
 
     /*! circle collision detection in a doughnut world
-    */
+     */
     bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
 
     /*! calculate level based on experience
@@ -416,14 +416,14 @@ private:
     \param entity the given entity
     \param experience the experience to add
     */
-    void addExperience(iEntity &entity, float32 experience);
+    void addExperience(iEntityPtr entity, float32 experience);
 
     /*! called on level up
      */
     void onLevelUp();
 
     /*! some debugging stats
-    */
+     */
     struct GameStats
     {
         float32 _playerDamage = 0.0;

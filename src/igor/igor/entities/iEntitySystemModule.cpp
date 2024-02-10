@@ -4,40 +4,42 @@
 
 #include <igor/entities/iEntitySystemModule.h>
 
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/system/iTimer.h>
 
 namespace igor
 {
 
-    class iEntitySceneDeleter
+    iEntityScenePtr iEntitySystemModule::createScene(const iaString &name)
     {
-    public:
-        void operator()(iEntityScene *p) { delete p; }
-    };
-
-    iEntityScenePtr iEntitySystemModule::createScene()
-    {
-        iEntityScenePtr scene = iEntityScenePtr(new iEntityScene(), iEntitySceneDeleter());
-        _scenes.push_back(scene);
+        // TODO create unique names
+        iEntityScenePtr scene = new iEntityScene(name);
+        _scenes[scene->getID()] = scene;
         return scene;
     }
 
-    void iEntitySystemModule::start()
+    iEntityScenePtr iEntitySystemModule::getScene(const iEntitySceneID &sceneID)
     {
-        if (!_running)
+        auto iter = _scenes.find(sceneID);
+        if (iter == _scenes.end())
         {
-            _simulationFrameTime = iTimer::getInstance().getTime();
-            _running = true;
+            con_err("scene with id " << sceneID << " not found");
+            return nullptr;
         }
+
+        return iter->second;
     }
 
-    void iEntitySystemModule::stop()
+    void iEntitySystemModule::destroyScene(const iEntitySceneID &sceneID)
     {
-        if (_running)
+        auto iter = _scenes.find(sceneID);
+        if (iter == _scenes.end())
         {
-            _running = false;
+            con_warn("scene with id " << sceneID << " not found");
+            return;
         }
+
+        delete iter->second;
+        _scenes.erase(iter);
     }
 
     void iEntitySystemModule::setSimulationRate(float64 simulationRate)
@@ -52,33 +54,27 @@ namespace igor
 
     void iEntitySystemModule::onUpdate()
     {
-        if (_running)
+        const uint32 maxUpdateCount = 10;
+        const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
+
+        uint32 updateCount = 0;
+        iaTime currentTime = iTimer::getInstance().getTime();
+
+        while ((_simulationFrameTime + timeDelta < currentTime) &&
+               (updateCount < maxUpdateCount))
         {
-            const uint32 maxUpdateCount = 10;
-            const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
-
-            uint32 updateCount = 0;
-            iaTime currentTime = iTimer::getInstance().getTime();
-
-            while ((_simulationFrameTime + timeDelta < currentTime) &&
-                   (updateCount < maxUpdateCount))
+            for (auto pair : _scenes)
             {
-                for (auto scene : _scenes)
-                {
-                    scene->onUpdate(_simulationFrameTime);
-                }
-                _simulationFrameTime += timeDelta;
-                updateCount++;
-            };
-        }
+                pair.second->onUpdate(_simulationFrameTime);
+            }
+            _simulationFrameTime += timeDelta;
+            updateCount++;
+        };
     }
 
     void iEntitySystemModule::onRender(float32 clientWidth, float32 clientHeight)
     {
-        for (auto scene : _scenes)
-        {
-            scene->onRender(clientWidth, clientHeight);
-        }
+        con_endl("iEntitySystemModule::onRender");
     }
 
 } // namespace igor

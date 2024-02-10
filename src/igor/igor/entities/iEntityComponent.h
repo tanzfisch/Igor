@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,34 +26,73 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_BEHAVIOUR_SYSTEM__
-#define __IGOR_BEHAVIOUR_SYSTEM__
+#ifndef IGOR_ENTITY_COMPONENT_H
+#define IGOR_ENTITY_COMPONENT_H
 
-#include <igor/entities/iEntitySystem.h>
+#include <igor/iDefines.h>
+
+#include <iaux/data/iaUUID.h>
+using namespace iaux;
 
 namespace igor
 {
 
-	/*! behaviour system
-	*/
-	class iBehaviourSystem : public iEntitySystem
-	{
-	public:
-		/*! does nothing
-		*/
-		iBehaviourSystem() = default;
+    /*! entity component id
+     */
+    typedef iaUUID iEntityComponentID;
 
-		/*! does nothing
-		*/
-		~iBehaviourSystem() = default;
+    /*! entity id
+     */
+    typedef iaUUID iEntityID;
 
-		/*! updates system
+    /*! entity component base class
+     */
+    class IGOR_API iEntityComponent
+    {
 
-		\param scene the scene used for this update
-		 */
-		void update(const iaTime &time, iEntityScenePtr scene) override;
-	};
+        friend class iEntity;
 
-} // igor
+    public:
+        /*! ctor
 
-#endif // __IGOR_BEHAVIOUR_SYSTEM__
+        \param name the name of this component
+        */
+        iEntityComponent(const iaString &name = "");
+
+        /*! does nothing
+         */
+        virtual ~iEntityComponent() = default;
+
+        /*! \returns entity component id
+         */
+        const iEntityComponentID &getID() const;
+
+        /*! sets name of component
+         */
+        void setName(const iaString &name);
+
+        /*! \returns component name
+         */
+        const iaString &getName() const;
+
+    private:
+        /*! entity component id
+         */
+        iEntityComponentID _id;
+
+        /*! component name
+         */
+        iaString _name;
+
+        /*! id of entity owning this component
+         */
+        iEntityID _entityID;
+    };
+
+    /*! pointer definition of entity component
+     */
+    typedef iEntityComponent *iEntityComponentPtr;
+
+}
+
+#endif //  IGOR_ENTITY_COMPONENT_H
