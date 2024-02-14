@@ -27,4 +27,41 @@ namespace igor
         return _name;
     }
 
+    bool iEntityComponent::onLoad()
+    {
+        return true;
+    }
+
+    void iEntityComponent::onUnload()
+    {
+    }
+
+    void iEntityComponent::onActivate()
+    {
+    }
+
+    void iEntityComponent::onDeactivate()
+    {
+    }
+
+    bool iEntityComponent::isUnloaded() const
+    {
+        return _state == iEntityComponentState::Unloaded;
+    }
+
+    bool iEntityComponent::isLoaded() const
+    {
+        return _state == iEntityComponentState::Loaded;
+    }
+
+    bool iEntityComponent::isLoadFailed() const
+    {
+        return _state == iEntityComponentState::LoadFailed;
+    }
+
+    bool iEntityComponent::isActive() const
+    {
+        return _state == iEntityComponentState::Active;
+    }
+
 } // igor

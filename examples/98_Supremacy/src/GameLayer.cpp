@@ -1056,7 +1056,7 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
     auto party = entity->getComponent<iPartyComponent>();
     auto damage = entity->getComponent<DamageComponent>();
     auto health = entity->getComponent<HealthComponent>();
-    auto body = entity->getComponent<iBody2DComponent>();
+    auto body = entity->getComponent<iBody2DComponent>();    
 
     iQuadtreed::Objects objects;
     _entityScene->getQuadtree().query(body->_object->_circle, objects);

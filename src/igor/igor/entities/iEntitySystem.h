@@ -31,11 +31,31 @@
 
 #include <igor/iDefines.h>
 
+#include <iaux/system/iaTime.h>
+
+#include <typeindex>
+#include <vector>
+
 namespace igor
 {
 
+	/*! entity pointer definition
+	 */
+	class iEntity;
+	typedef iEntity *iEntityPtr;
+
+	/*! entity scene pointer definition
+	 */
+	class iEntityScene;
+	typedef iEntityScene *iEntityScenePtr;
+
+	/*! entity system base class
+	 */
 	class IGOR_API iEntitySystem
 	{
+		friend class iEntity;
+		friend class iEntityScene;
+
 	public:
 		/*! does nothing
 		 */
@@ -46,10 +66,50 @@ namespace igor
 		virtual ~iEntitySystem() = default;
 
 		/*! updates system
-		 */
-		virtual void update(const iaTime &time) = 0;
 
+		\param time the time of the update tick
+		\param scene the scene used for this update
+		 */
+		virtual void update(const iaTime &time, iEntityScenePtr scene) = 0;
+
+	protected:
+		/*! registers type of component
+		 */
+		template <typename T>
+		void registerType()
+		{
+			_supportedTypes.push_back(typeid(T));
+		}
+
+		/*! checks if given type index of components is suported
+
+		\param entity pointer of entity to check compatibility with
+		*/
+		bool checkCompatibility(iEntityPtr entity) const;
+
+		/*! callback to handle added/removed component on entity
+
+		\param entity pointer of entity the component get's added to
+		*/
+		void onComponentsChanged(iEntityPtr entity);
+
+		/*! \returns list of entities registered to this system
+		 */
+		const std::vector<iEntityPtr> &getEntities() const;
+
+	private:
+		/*! supported types
+		 */
+		std::vector<std::type_index> _supportedTypes;
+
+		/*! entities registered with this system
+		 */
+		std::vector<iEntityPtr> _entities;
 	};
+
+	/*! entity system pointer definition
+	 */
+	typedef iEntitySystem *iEntitySystemPtr;
 
 } // igor
 

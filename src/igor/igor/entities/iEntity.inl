@@ -12,6 +12,7 @@ T *iEntity::addComponent(T *component)
     }
 
     _components[typeid(T)] = component;
+    onComponentsChanged();
 
     return component;
 }
@@ -39,4 +40,5 @@ void iEntity::destroyComponent()
 
     delete iter->second;
     _components.erase(iter);
+    onComponentsChanged();
 }

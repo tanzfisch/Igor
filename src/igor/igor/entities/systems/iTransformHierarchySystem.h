@@ -1,4 +1,3 @@
-
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -27,67 +26,30 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ANIMATION_CONTROLLER_H
-#define IGOR_ANIMATION_CONTROLLER_H
+#ifndef IGOR_TRANSFORM_HIERARCHY_SYSTEM_H
+#define IGOR_TRANSFORM_HIERARCHY_SYSTEM_H
 
-#include <igor/resources/animation/iClip.h>
-
-#include <iaux/statemachine/iaStateMachine.h>
-using namespace iaux;
-
-#include <unordered_map>
+#include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
 
-    /*! entity pointer definition
-    */
-    class iEntity;
-    typedef iEntity *iEntityPtr;
+	/*! sprite render system
+	*/
+	class iTransformHierarchySystem : public iEntitySystem
+	{
+	public:
+		/*! init types
+		*/
+		iTransformHierarchySystem();
 
-    /*! animation controller
-     */
-    class IGOR_API iAnimationController
-    {
-        friend class iAnimationSystem;
+		/*! updates system
 
-    public:
+		\param scene the scene used for this update
+		 */
+		void update(const iaTime &time, iEntityScenePtr scene) override;
+	};
 
-        iAnimationController();
+} // igor
 
-        void addClip(iClipPtr clip);
-
-    private:
-
-        /*! state machine
-        */
-        iaStateMachine _stateMachine;
-
-        /*! begin state
-        */
-        iaStateID _begin = IGOR_INVALID_ID;
-
-        iaTime _startTime;
-        iaTime _offsetTime;
-
-        /*! state animation map
-        */
-        std::unordered_map<iaStateID, iClipPtr> _clips;
-
-        /*! update animation on given entity
-
-        \param time the tick time
-        \param entity the given entity
-        */
-        void update(const iaTime &time, iEntityPtr entity);
-
-        void onEnterState(iaStateID stateID);
-    };
-
-    /*! animation controller pointer definition
-     */
-    typedef std::shared_ptr<iAnimationController> iAnimationControllerPtr;
-
-} // namespace igor
-
-#endif // IGOR_ANIMATION_CONTROLLER_H
+#endif // IGOR_TRANSFORM_HIERARCHY_SYSTEM_H

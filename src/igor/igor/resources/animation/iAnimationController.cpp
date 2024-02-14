@@ -5,8 +5,8 @@
 
 #include <igor/resources/animation/iAnimationController.h>
 
-#include <igor/resources/animation/iAnimation.h>
 #include <igor/entities/iEntity.h>
+#include <igor/resources/animation/iAnimation.h>
 
 #include <iaux/math/iaRandom.h>
 
@@ -55,7 +55,7 @@ namespace igor
         }
     }
 
-    void iAnimationController::update(const iaTime &time, iEntity &entity)
+    void iAnimationController::update(const iaTime &time, iEntityPtr entity)
     {
         _stateMachine.update();
 
@@ -68,8 +68,8 @@ namespace igor
         iClipPtr clip = iter->second;
         float64 t = clip->getNormalizedTime(_startTime, time) * clip->getDuration().getSeconds();
 
-        /*auto &transform = entity.getComponent<iTransformComponent>();
-        auto spriteRender = entity.tryGetComponent<iSpriteRendererComponent>();
+        auto transform = entity->getComponent<iTransformComponent>();
+        auto spriteRender = entity->getComponent<iSpriteRendererComponent>();
 
         for (const auto &animation : clip->getAnimations())
         {
@@ -78,17 +78,17 @@ namespace igor
 
             if (animation->hasTranslateAnimation())
             {
-                transform._position = animation->getTranslate(t);
+                transform->_position = animation->getTranslate(t);
             }
 
             if (animation->hasRotateAnimation())
             {
-                transform._orientation = animation->getRotate(t);
+                transform->_orientation = animation->getRotate(t);
             }
 
             if (animation->hasScaleAnimation())
             {
-                transform._scale = animation->getScale(t);
+                transform->_scale = animation->getScale(t);
             }
 
             if (spriteRender &&
@@ -104,7 +104,7 @@ namespace igor
             {
                 _startTime += clip->getDuration();
             }
-        }*/
+        }
     }
 
 }; // namespace igor

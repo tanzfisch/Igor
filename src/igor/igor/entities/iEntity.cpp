@@ -28,7 +28,7 @@ namespace igor
 
     void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData)
     {
-        iBehaviourComponent* behaviourComponent = getComponent<iBehaviourComponent>();
+        iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
         if (behaviourComponent == nullptr)
         {
             behaviourComponent = static_cast<iBehaviourComponent *>(addComponent(new iBehaviourComponent()));
@@ -39,7 +39,7 @@ namespace igor
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &delegate)
     {
-        iBehaviourComponent* behaviourComponent = getComponent<iBehaviourComponent>();
+        iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
 
         if (behaviourComponent == nullptr)
         {
@@ -68,11 +68,6 @@ namespace igor
         destroyComponent<iBehaviourComponent>();
     }
 
-    bool iEntity::isInScene() const
-    {
-        return _scene != nullptr;
-    }
-
     iEntityScenePtr iEntity::getScene() const
     {
         return _scene;
@@ -80,7 +75,6 @@ namespace igor
 
     void iEntity::setParent(const iEntityID &parentID)
     {
-        con_assert_sticky(isInScene(), "not in scene");
         con_assert_sticky(!hasParent(), "already has parent");
 
         iEntityPtr parent = getScene()->getEntity(parentID);
@@ -91,7 +85,7 @@ namespace igor
 
     const iEntityID iEntity::getParent() const
     {
-        if(!hasParent())
+        if (!hasParent())
         {
             return iEntityID::getInvalid();
         }
@@ -102,6 +96,11 @@ namespace igor
     bool iEntity::hasParent() const
     {
         return _parent != nullptr;
+    }
+
+    void iEntity::onComponentsChanged()
+    {
+        _scene->onComponentsChanged(this);
     }
 
 }

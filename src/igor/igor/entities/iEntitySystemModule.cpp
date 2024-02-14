@@ -4,16 +4,31 @@
 
 #include <igor/entities/iEntitySystemModule.h>
 
+#include <igor/entities/systems/iQuadtreeSystems.h>
+#include <igor/entities/systems/iAnimationSystem.h>
+#include <igor/entities/systems/iBehaviourSystem.h>
+
 #include <igor/system/iTimer.h>
 
 namespace igor
 {
 
-    iEntityScenePtr iEntitySystemModule::createScene(const iaString &name)
+    iEntityScenePtr iEntitySystemModule::createScene(const iaString &name, bool addIgorSystems)
     {
         // TODO create unique names
         iEntityScenePtr scene = new iEntityScene(name);
         _scenes[scene->getID()] = scene;
+
+        if (!addIgorSystems)
+        {
+            return scene;
+        }
+
+        scene->addSystem(new iQuadtreeUpdatePositionSystem());
+        scene->addSystem(new iQuadtreeUpdateCirclesSystem());
+        scene->addSystem(new iAnimationSystem());
+        scene->addSystem(new iBehaviourSystem());
+
         return scene;
     }
 

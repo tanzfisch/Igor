@@ -45,6 +45,31 @@ namespace igor
      */
     typedef iaUUID iEntityID;
 
+    /*! component states
+
+        ------------> Unloaded (initial)
+        |                   |
+        |onUnload           | onLoad
+        |                   |
+        |                 fail? -> LoadFailed
+        |                   |
+        |----------------
+                         Loaded
+        |--------------->
+        |                   |
+        | onDeactivate      | onActivate
+        |                   |
+        |                Active
+        |----------------
+    */
+    enum class iEntityComponentState
+    {
+        Unloaded,   //! initial state unloaded
+        Loaded,     //! loaded but inactive
+        LoadFailed, //! load failed, stays inactive
+        Active,     //! active
+    };
+
     /*! entity component base class
      */
     class IGOR_API iEntityComponent
@@ -75,6 +100,40 @@ namespace igor
          */
         const iaString &getName() const;
 
+        /*! \returns true if in un loaded state
+         */
+        bool isUnloaded() const;
+
+        /*! \returns true if in loaded state
+         */
+        bool isLoaded() const;
+
+        /*! \returns true if in load failed
+         */
+        bool isLoadFailed() const;
+
+        /*! \returns true if in active state
+         */
+        bool isActive() const;
+
+    protected:
+        /*! called when loading component
+        \returns true if success
+        */
+        virtual bool onLoad();
+
+        /*! called when unloading component
+         */
+        virtual void onUnload();
+
+        /*! called when activating component
+         */
+        virtual void onActivate();
+
+        /*! called when deactivating component
+         */
+        virtual void onDeactivate();
+
     private:
         /*! entity component id
          */
@@ -87,6 +146,10 @@ namespace igor
         /*! id of entity owning this component
          */
         iEntityID _entityID;
+
+        /*! entity component state
+         */
+        iEntityComponentState _state = iEntityComponentState::Unloaded;
     };
 
     /*! pointer definition of entity component

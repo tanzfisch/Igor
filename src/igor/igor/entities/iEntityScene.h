@@ -29,9 +29,11 @@
 #ifndef IGOR_ENTITY_SCENE_H
 #define IGOR_ENTITY_SCENE_H
 
+#include <igor/entities/iEntitySystem.h>
 #include <igor/entities/iEntity.h>
 #include <igor/data/iQuadtree.h>
 
+#include <iaux/data/iaUUID.h>
 #include <iaux/data/iaRectangle.h>
 using namespace iaux;
 
@@ -48,8 +50,8 @@ namespace igor
 	 */
 	class IGOR_API iEntityScene
 	{
-
 		friend class iEntitySystemModule;
+		friend class iEntity;
 
 	public:
 		/*! sets name of scene
@@ -69,23 +71,6 @@ namespace igor
 		\returns newly created entity
 		*/
 		iEntityPtr createEntity(const iaString &name = "");
-
-		/*! adds an entity to this scene
-
-		scene takes over ownership of the entity
-
-		\param entity the entity to add
-		*/
-		void addEntity(iEntityPtr entity);
-
-		/*! removes entity from scene
-
-		caller takes over ownership of entity
-
-		\param entityID the id of the entity to remove
-		\returns pointer to entity
-		*/
-		iEntityPtr removeEntity(iEntityID entityID);
 
 		/*! \returns entity for given entity ID. zero if not found
 		\param entityID the given entity ID
@@ -118,6 +103,18 @@ namespace igor
 		 */
 		bool hasQuadtree() const;
 
+		/*! add system
+
+		\param system the system to add
+		*/
+		void addSystem(iEntitySystemPtr system);
+
+		/*! remove system
+
+		\param system the system to remove
+		*/
+		void removeSystem(iEntitySystemPtr system);
+
 	private:
 		/*! entity scene id
 		 */
@@ -130,6 +127,10 @@ namespace igor
 		/*! map of entities
 		 */
 		std::unordered_map<iEntityID, iEntityPtr> _entities;
+
+		/*! list of systems
+		*/
+		std::vector<iEntitySystemPtr> _systems;
 
 		/*! quadtree
 		 */
@@ -146,6 +147,12 @@ namespace igor
 		\param time simulation frame time
 		 */
 		void onUpdate(const iaTime &time);
+
+        /*! callback to handle added/removed component
+
+		\param entity pointer of entity that changed
+        */
+        void onComponentsChanged(iEntityPtr entity);
 	};
 
 	/*! entity scene pointer definition

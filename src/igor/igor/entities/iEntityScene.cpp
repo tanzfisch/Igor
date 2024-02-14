@@ -57,10 +57,10 @@ namespace igor
     {
         // destroyEntities();
 
-/*        for (iEntitySystemPtr &system : _systems)
+        for (auto system : _systems)
         {
-            system->update(time, shared_from_this());
-        }*/
+            system->update(time, this);
+        }
     }
 
     void iEntityScene::setName(const iaString &name)
@@ -78,30 +78,6 @@ namespace igor
         iEntityPtr entity = new iEntity(name);
         _entities[entity->getID()] = entity;
         entity->_scene = this;
-
-        return entity;
-    }
-
-    void iEntityScene::addEntity(iEntityPtr entity)
-    {
-        con_assert(entity != nullptr, "zero pointer");
-        con_assert(_entities.find(entity->getID()) != _entities.end(), "entity was already added to scene " << entity->getID());
-
-        _entities[entity->getID()] = entity;
-        entity->_scene = this;
-    }
-
-    iEntityPtr iEntityScene::removeEntity(iEntityID entityID)
-    {
-        auto iter = _entities.find(entityID);
-        if (iter == _entities.end())
-        {
-            return nullptr;
-        }
-
-        iEntityPtr entity = iter->second;
-        _entities.erase(iter);
-        entity->_scene = nullptr;
 
         return entity;
     }
@@ -133,6 +109,36 @@ namespace igor
     const iEntitySceneID &iEntityScene::getID() const
     {
         return _id;
+    }
+
+    void iEntityScene::onComponentsChanged(iEntityPtr entity)
+    {
+        for (auto system : _systems)
+        {
+            system->onComponentsChanged(entity);
+        }
+    }
+
+    void iEntityScene::addSystem(iEntitySystemPtr system)
+    {
+        con_assert(std::find(_systems.begin(), _systems.end(), system) == _systems.end(), "system already added");
+        _systems.push_back(system);
+
+        for (const auto &pair : _entities)
+        {
+            system->onComponentsChanged(pair.second);
+        }
+    }
+
+    void iEntityScene::removeSystem(iEntitySystemPtr system)
+    {
+        auto iter = std::find(_systems.begin(), _systems.end(), system);
+        if (iter == _systems.end())
+        {
+            return;
+        }
+
+        _systems.erase(iter);
     }
 
 } // igor

@@ -44,6 +44,7 @@ namespace igor
     {
 
         friend class iModule<iEntitySystemModule>;
+        friend class iEntity;
 
     public:
         /*! creates a scene and returns it
@@ -51,9 +52,10 @@ namespace igor
         ownership of scenes always stay with module
 
         \param name the name of the scene
+        \param addIgorSystems if true adds all igor systems to it. if false there will be no systems registered with this scene
         \returns new created scene
         */
-        iEntityScenePtr createScene(const iaString &name = "");
+        iEntityScenePtr createScene(const iaString &name = "", bool addIgorSystems = true);
 
         /*! \returns scene for given scene id
 

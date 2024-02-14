@@ -1,4 +1,3 @@
-
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -27,67 +26,49 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ANIMATION_CONTROLLER_H
-#define IGOR_ANIMATION_CONTROLLER_H
+#ifndef IGOR_QUADTREE_SYSTEM_H
+#define IGOR_QUADTREE_SYSTEM_H
 
-#include <igor/resources/animation/iClip.h>
-
-#include <iaux/statemachine/iaStateMachine.h>
-using namespace iaux;
-
-#include <unordered_map>
+#include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
-
-    /*! entity pointer definition
-    */
-    class iEntity;
-    typedef iEntity *iEntityPtr;
-
-    /*! animation controller
+    /*! quadtree update position system
      */
-    class IGOR_API iAnimationController
+    class iQuadtreeUpdatePositionSystem : public iEntitySystem
     {
-        friend class iAnimationSystem;
-
     public:
 
-        iAnimationController();
-
-        void addClip(iClipPtr clip);
-
-    private:
-
-        /*! state machine
+        /*! init types
         */
-        iaStateMachine _stateMachine;
+        iQuadtreeUpdatePositionSystem();
 
-        /*! begin state
-        */
-        iaStateID _begin = IGOR_INVALID_ID;
+        /*! updates system
 
-        iaTime _startTime;
-        iaTime _offsetTime;
-
-        /*! state animation map
-        */
-        std::unordered_map<iaStateID, iClipPtr> _clips;
-
-        /*! update animation on given entity
-
-        \param time the tick time
-        \param entity the given entity
-        */
-        void update(const iaTime &time, iEntityPtr entity);
-
-        void onEnterState(iaStateID stateID);
+        \param time the time of the update tick
+        \param scene the scene used for this update
+         */
+        void update(const iaTime &time, iEntityScenePtr scene) override;
     };
 
-    /*! animation controller pointer definition
+    /*! quadtree update cyrcles system
      */
-    typedef std::shared_ptr<iAnimationController> iAnimationControllerPtr;
+    class iQuadtreeUpdateCirclesSystem : public iEntitySystem
+    {
+    public:
 
-} // namespace igor
+        /*! init types
+        */
+        iQuadtreeUpdateCirclesSystem();
 
-#endif // IGOR_ANIMATION_CONTROLLER_H
+        /*! updates system
+
+        \param time the time of the update tick
+        \param scene the scene used for this update
+         */
+        void update(const iaTime &time, iEntityScenePtr scene) override;
+    };
+
+} // igor
+
+#endif // IGOR_QUADTREE_SYSTEM_H

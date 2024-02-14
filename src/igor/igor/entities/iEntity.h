@@ -52,22 +52,9 @@ namespace igor
     class IGOR_API iEntity
     {
         friend class iEntityScene;
+        friend class iEntitySystem;
 
     public:
-        /*! ctor with name
-
-        \param name the name of this entity
-        */
-        iEntity(const iaString &name = "");
-
-        /*! does nothing
-         */
-        iEntity() = default;
-
-        /*! does nothing
-         */
-        ~iEntity() = default;
-
         /*! \returns entity id
          */
         const iEntityID &getID() const;
@@ -89,10 +76,6 @@ namespace igor
         /*! \returns scene this entity belongs to
         */
         iEntityScenePtr getScene() const;
-
-        /*! \returns true if entity is in scene
-        */
-        bool isInScene() const;
 
         /*! \returns true if entity has parent
         */
@@ -155,6 +138,20 @@ namespace igor
         /*! parent (optional)
          */
         iEntityPtr _parent = nullptr;
+
+        /*! ctor with name
+
+        \param name the name of this entity
+        */
+        iEntity(const iaString &name = "");
+
+        /*! does nothing
+         */
+        ~iEntity() = default;
+
+        /*! callback to handle added/removed component on entity
+        */
+        void onComponentsChanged();
     };
 
 #include <igor/entities/iEntity.inl>
