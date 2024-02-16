@@ -398,6 +398,8 @@ void GameLayer::onAquireTarget(iEntityPtr entity, std::any &userData)
 
 void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
 {
+    // TODO 
+    /*
     BuildingType buildingType = BuildingType::None;
 
     const auto transform = entity->getComponent<iTransformComponent>();
@@ -455,6 +457,7 @@ void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
     }
 
     onOpenBuilding(buildingType);
+    */
 }
 
 void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
@@ -1052,6 +1055,9 @@ void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity, std::any &userD
 
 void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
 {
+    // TODO 
+    return;
+    
     auto transform = entity->getComponent<iTransformComponent>();
     auto party = entity->getComponent<iPartyComponent>();
     auto damage = entity->getComponent<DamageComponent>();

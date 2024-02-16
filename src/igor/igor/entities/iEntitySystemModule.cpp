@@ -4,9 +4,11 @@
 
 #include <igor/entities/iEntitySystemModule.h>
 
-#include <igor/entities/systems/iQuadtreeSystems.h>
+#include <igor/entities/systems/iQuadtreeSystem.h>
 #include <igor/entities/systems/iAnimationSystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
+#include <igor/entities/systems/iSpriteRenderSystem.h>
+#include <igor/entities/systems/iTransformHierarchySystem.h>
 
 #include <igor/system/iTimer.h>
 
@@ -24,10 +26,11 @@ namespace igor
             return scene;
         }
 
-        scene->addSystem(new iQuadtreeUpdatePositionSystem());
-        scene->addSystem(new iQuadtreeUpdateCirclesSystem());
         scene->addSystem(new iAnimationSystem());
         scene->addSystem(new iBehaviourSystem());
+        scene->addSystem(new iQuadtreeSystem());
+        scene->addSystem(new iSpriteRenderSystem());
+        scene->addSystem(new iTransformHierarchySystem());
 
         return scene;
     }
@@ -73,14 +76,14 @@ namespace igor
         const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
 
         uint32 updateCount = 0;
-        iaTime currentTime = iTimer::getInstance().getTime();
+        const iaTime currentTime = iTimer::getInstance().getTime();
 
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                (updateCount < maxUpdateCount))
         {
             for (auto pair : _scenes)
             {
-                pair.second->onUpdate(_simulationFrameTime);
+                pair.second->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);
             }
             _simulationFrameTime += timeDelta;
             updateCount++;
@@ -89,7 +92,11 @@ namespace igor
 
     void iEntitySystemModule::onRender(float32 clientWidth, float32 clientHeight)
     {
-        con_endl("iEntitySystemModule::onRender");
+        const iaTime currentTime = iTimer::getInstance().getTime();
+        for (auto pair : _scenes)
+        {
+            pair.second->onUpdate(_simulationFrameTime, iEntitySystemStage::Render);
+        }
     }
 
 } // namespace igor

@@ -26,49 +26,75 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_QUADTREE_SYSTEM_H
-#define IGOR_QUADTREE_SYSTEM_H
+#ifndef IGOR_ENTITY_VIEW_H
+#define IGOR_ENTITY_VIEW_H
 
-#include <igor/entities/iEntitySystem.h>
+#include <igor/iDefines.h>
+
+#include <iaux/system/iaTime.h>
+
+#include <typeindex>
+#include <vector>
 
 namespace igor
 {
-    /*! quadtree update position system
-     */
-    class iQuadtreeUpdatePositionSystem : public iEntitySystem
-    {
-    public:
 
-        /*! init types
-        */
-        iQuadtreeUpdatePositionSystem();
+	/*! entity pointer definition
+	 */
+	class iEntity;
+	typedef iEntity *iEntityPtr;
 
-        /*! updates system
+	/*! set of entities
+	 */
+	class IGOR_API iEntityView
+	{
+		friend class iEntitySystem;
 
-        \param time the time of the update tick
-        \param scene the scene used for this update
-         */
-        void update(const iaTime &time, iEntityScenePtr scene) override;
-    };
+	public:
+		/*! does nothing
+		 */
+		iEntityView() = default;
 
-    /*! quadtree update cyrcles system
-     */
-    class iQuadtreeUpdateCirclesSystem : public iEntitySystem
-    {
-    public:
+		/*! does nothing
+		 */
+		virtual ~iEntityView() = default;
 
-        /*! init types
-        */
-        iQuadtreeUpdateCirclesSystem();
+		/*! register type of component
+		 */
+		template <typename T>
+		void registerType()
+		{
+			_supportedTypes.push_back(typeid(T));
+		}
 
-        /*! updates system
+		/*! checks if given type index of components is suported
 
-        \param time the time of the update tick
-        \param scene the scene used for this update
-         */
-        void update(const iaTime &time, iEntityScenePtr scene) override;
-    };
+		\param entity pointer of entity to check compatibility with
+		*/
+		bool checkCompatibility(iEntityPtr entity) const;
+
+		/*! \returns list of entities registered to this system
+		 */
+		const std::vector<iEntityPtr> &getEntities() const;
+
+	private:
+		/*! supported types
+		 */
+		std::vector<std::type_index> _supportedTypes;
+
+		/*! entities registered with this system
+		 */
+		std::vector<iEntityPtr> _entities;
+
+		/*!
+		 */
+		void onComponentsChanged(iEntityPtr entity);
+	};
+
+	/*! entity set pointer definition
+	 */
+	typedef iEntityView *iEntityViewPtr;
 
 } // igor
 
-#endif // IGOR_QUADTREE_SYSTEM_H
+#endif // IGOR_ENTITY_SET_H

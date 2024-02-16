@@ -49,6 +49,14 @@ namespace igor
 		\param scene the scene used for this update
 		 */
 		void update(const iaTime &time, iEntityScenePtr scene) override;
+
+		/*! \returns processing stage this system want's to run in
+		*/
+		iEntitySystemStage getStage() const override;
+
+	private:
+
+		iEntityViewPtr _view;
 	};
 
 } // igor

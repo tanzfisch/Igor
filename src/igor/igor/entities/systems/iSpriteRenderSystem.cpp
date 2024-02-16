@@ -14,13 +14,17 @@ namespace igor
 {
 	iSpriteRenderSystem::iSpriteRenderSystem()
 	{
-		registerType<iSpriteRendererComponent>();
-		registerType<iTransformComponent>();
+		_view = createView<iTransformComponent, iSpriteRendererComponent>();
 	}
+
+	iEntitySystemStage iSpriteRenderSystem::getStage() const
+    {
+        return iEntitySystemStage::Render;
+    }
 
 	void iSpriteRenderSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
-		// TODO sort by zindex
+		// TODO sort by zindex. how?
 		/*auto *registry = static_cast<entt::registry *>(scene->getRegistry());
 		registry->sort<iSpriteRendererComponent>([registry](const entt::entity lhs, const entt::entity rhs)
 												 {
@@ -28,7 +32,7 @@ namespace igor
 			const auto &crhs = registry->get<iSpriteRendererComponent>(rhs);
 			return clhs._zIndex < crhs._zIndex; });*/
 
-		for (auto entity : getEntities())
+		for (auto entity : _view->getEntities())
 		{
 			auto spriteRender = entity->getComponent<iSpriteRendererComponent>();
 			auto transform = entity->getComponent<iTransformComponent>();

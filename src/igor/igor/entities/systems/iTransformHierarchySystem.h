@@ -34,21 +34,39 @@
 namespace igor
 {
 
-	/*! sprite render system
-	*/
-	class iTransformHierarchySystem : public iEntitySystem
-	{
-	public:
-		/*! init types
-		*/
-		iTransformHierarchySystem();
+    /*! sprite render system
+     */
+    class iTransformHierarchySystem : public iEntitySystem
+    {
+    public:
+        /*! init types
+         */
+        iTransformHierarchySystem();
 
-		/*! updates system
+        /*! does nothing
+         */
+        ~iTransformHierarchySystem() = default;
 
-		\param scene the scene used for this update
-		 */
-		void update(const iaTime &time, iEntityScenePtr scene) override;
-	};
+        /*! updates system
+
+        \param scene the scene used for this update
+         */
+        void update(const iaTime &time, iEntityScenePtr scene) override;
+
+        /*! \returns processing stage this system want's to run in
+         */
+        iEntitySystemStage getStage() const override;
+
+    private:
+
+        /*! transform view on entities
+        */
+        iEntityViewPtr _transformView;
+
+        /*! hierarchy view on entitties
+        */
+        iEntityViewPtr _hierarchyView;
+    };
 
 } // igor
 

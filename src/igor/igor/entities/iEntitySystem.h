@@ -29,12 +29,9 @@
 #ifndef IGOR_ENTITY_SYSTEM_H
 #define IGOR_ENTITY_SYSTEM_H
 
-#include <igor/iDefines.h>
+#include <igor/entities/iEntityView.h>
 
 #include <iaux/system/iaTime.h>
-
-#include <typeindex>
-#include <vector>
 
 namespace igor
 {
@@ -48,6 +45,14 @@ namespace igor
 	 */
 	class iEntityScene;
 	typedef iEntityScene *iEntityScenePtr;
+
+	/*! entity system processing stage
+	*/
+	enum class iEntitySystemStage
+	{
+		Update,
+		Render
+	};
 
 	/*! entity system base class
 	 */
@@ -72,20 +77,11 @@ namespace igor
 		 */
 		virtual void update(const iaTime &time, iEntityScenePtr scene) = 0;
 
-	protected:
-		/*! registers type of component
-		 */
-		template <typename T>
-		void registerType()
-		{
-			_supportedTypes.push_back(typeid(T));
-		}
-
-		/*! checks if given type index of components is suported
-
-		\param entity pointer of entity to check compatibility with
+		/*! \returns processing stage this system want's to run in
 		*/
-		bool checkCompatibility(iEntityPtr entity) const;
+		virtual iEntitySystemStage getStage() const = 0;
+
+	protected:
 
 		/*! callback to handle added/removed component on entity
 
@@ -93,18 +89,19 @@ namespace igor
 		*/
 		void onComponentsChanged(iEntityPtr entity);
 
-		/*! \returns list of entities registered to this system
-		 */
-		const std::vector<iEntityPtr> &getEntities() const;
+		template <typename... Args>
+		iEntityViewPtr createView()
+		{
+			iEntityViewPtr set = new iEntityView();
+			(set->registerType<Args>(), ...);
+			_sets.push_back(set);
+			return set;
+		}
 
 	private:
-		/*! supported types
+		/*! entity sets
 		 */
-		std::vector<std::type_index> _supportedTypes;
-
-		/*! entities registered with this system
-		 */
-		std::vector<iEntityPtr> _entities;
+		std::vector<iEntityViewPtr> _sets;
 	};
 
 	/*! entity system pointer definition

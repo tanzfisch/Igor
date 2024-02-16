@@ -38,6 +38,7 @@
 using namespace iaux;
 
 #include <unordered_map>
+#include <cstring>
 
 namespace igor
 {
@@ -130,7 +131,7 @@ namespace igor
 
 		/*! list of systems
 		*/
-		std::vector<iEntitySystemPtr> _systems;
+		std::array<std::vector<iEntitySystemPtr>, 2> _systems;
 
 		/*! quadtree
 		 */
@@ -145,8 +146,9 @@ namespace igor
 		/*! updates systems
 
 		\param time simulation frame time
+		\param stage what stage to update
 		 */
-		void onUpdate(const iaTime &time);
+		void onUpdate(const iaTime &time, iEntitySystemStage stage);
 
         /*! callback to handle added/removed component
 

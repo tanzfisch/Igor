@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2023 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/entities/systems/iQuadtreeSystems.h>
+#include <igor/entities/systems/iQuadtreeSystem.h>
 
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntity.h>
@@ -12,18 +12,27 @@ using namespace iaux;
 
 namespace igor
 {
-	iQuadtreeUpdatePositionSystem::iQuadtreeUpdatePositionSystem()
+	iQuadtreeSystem::iQuadtreeSystem()
 	{
-		registerType<iTransformComponent>();
-		registerType<iBody2DComponent>();
+		_positionView = createView<iTransformComponent, iBody2DComponent>();
+		_circleView = createView<iTransformComponent, iBody2DComponent, iCircleCollision2DComponent>();
 	}
 
-	void iQuadtreeUpdatePositionSystem::update(const iaTime &time, iEntityScenePtr scene)
+    iEntitySystemStage iQuadtreeSystem::getStage() const
+    {
+        return iEntitySystemStage::Update;
+    }
+
+	void iQuadtreeSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
-		con_assert(scene->hasQuadtree(), "no quadtree");
+		if(!scene->hasQuadtree())
+		{
+			return;
+		}
+
 		auto &quadtree = scene->getQuadtree();
 
-		for (auto entity : getEntities())
+		for (auto entity : _positionView->getEntities())
 		{
 			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
 			iBody2DComponent *body = entity->getComponent<iBody2DComponent>();
@@ -37,21 +46,8 @@ namespace igor
 			const iaVector2d position(transform->_position._x, transform->_position._y);
 			quadtree.update(body->_object, position);
 		}
-	}
 
-	iQuadtreeUpdateCirclesSystem::iQuadtreeUpdateCirclesSystem()
-	{
-		registerType<iTransformComponent>();
-		registerType<iBody2DComponent>();
-		registerType<iCircleCollision2DComponent>();
-	}
-
-	void iQuadtreeUpdateCirclesSystem::update(const iaTime &time, iEntityScenePtr scene)
-	{
-		con_assert(scene->hasQuadtree(), "no quadtree");
-		auto &quadtree = scene->getQuadtree();
-
-		for (auto entity : getEntities())
+		for (auto entity : _circleView->getEntities())
 		{
 			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
 			iBody2DComponent *body = entity->getComponent<iBody2DComponent>();

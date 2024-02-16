@@ -26,30 +26,40 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_TRANSFORM_SYSTEM_H
-#define IGOR_TRANSFORM_SYSTEM_H
+#ifndef IGOR_QUADTREE_SYSTEM_H
+#define IGOR_QUADTREE_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
+    /*! quadtree system
+     */
+    class iQuadtreeSystem : public iEntitySystem
+    {
+    public:
 
-	/*! sprite render system
-	*/
-	class iTransformSystem : public iEntitySystem
-	{
-	public:
-		/*! init types
+        /*! init types
+        */
+        iQuadtreeSystem();
+
+        /*! updates system
+
+        \param time the time of the update tick
+        \param scene the scene used for this update
+         */
+        void update(const iaTime &time, iEntityScenePtr scene) override;
+
+		/*! \returns processing stage this system want's to run in
 		*/
-		iTransformSystem();
+		iEntitySystemStage getStage() const override;
 
-		/*! updates system
+    private:
 
-		\param scene the scene used for this update
-		 */
-		void update(const iaTime &time, iEntityScenePtr scene) override;
-	};
+        iEntityViewPtr _positionView;        
+        iEntityViewPtr _circleView;
+    };
 
 } // igor
 
-#endif // IGOR_TRANSFORM_SYSTEM_H
+#endif // IGOR_QUADTREE_SYSTEM_H

@@ -13,12 +13,17 @@ namespace igor
 {
     iBehaviourSystem::iBehaviourSystem()
     {
-        registerType<iBehaviourComponent>();
+		_view = createView<iBehaviourComponent>();
+    }
+
+    iEntitySystemStage iBehaviourSystem::getStage() const
+    {
+        return iEntitySystemStage::Update;
     }
 
 	void iBehaviourSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
-		for (auto entity : getEntities())
+		for (auto entity : _view->getEntities())
 		{
 			auto behaviour = entity->getComponent<iBehaviourComponent>();
 

@@ -1,4 +1,3 @@
-
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -27,22 +26,32 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ANIMATION_SYSTEM_H
-#define IGOR_ANIMATION_SYSTEM_H
+#ifndef IGOR_VELOCITY_SYSTEM_H
+#define IGOR_VELOCITY_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
+
+#include <igor/data/iAABox.h>
 
 namespace igor
 {
 
-	/*! behaviour system
-	*/
-	class iAnimationSystem : public iEntitySystem
+	/*! velocity system
+	 */
+	class iVelocitySystem : public iEntitySystem
 	{
 	public:
 		/*! init types
-		*/
-		iAnimationSystem();
+		 */
+		iVelocitySystem();
+
+		/*! sets global bounds
+		 */
+		void setBounds(const iAABoxd &box);
+
+		/*! \returns global bounds
+		 */
+		const iAABoxd &getBounds() const;
 
 		/*! updates system
 
@@ -54,11 +63,16 @@ namespace igor
 		*/
 		iEntitySystemStage getStage() const override;
 
-	private: 
+	private:
+		/*! global bounds
+		 */
+		iAABoxd _bounds;
 
-		iEntityViewPtr _view;
+        iEntityViewPtr _interactionResolverView;
+        iEntityViewPtr _noBoundsView;
+        iEntityViewPtr _boundsView;
 	};
 
 } // igor
 
-#endif // IGOR_ANIMATION_SYSTEM_H
+#endif // IGOR_VELOCITY_SYSTEM_H

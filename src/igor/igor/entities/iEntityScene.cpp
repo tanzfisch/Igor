@@ -53,11 +53,11 @@ namespace igor
         return _quadtree != nullptr;
     }
 
-    void iEntityScene::onUpdate(const iaTime &time)
+    void iEntityScene::onUpdate(const iaTime &time, iEntitySystemStage stage)
     {
         // destroyEntities();
-
-        for (auto system : _systems)
+        auto &systems = _systems[(int)stage];
+        for (auto system : systems)
         {
             system->update(time, this);
         }
@@ -113,16 +113,20 @@ namespace igor
 
     void iEntityScene::onComponentsChanged(iEntityPtr entity)
     {
-        for (auto system : _systems)
+        for (auto systems : _systems)
         {
-            system->onComponentsChanged(entity);
+            for (auto system : systems)
+            {
+                system->onComponentsChanged(entity);
+            }
         }
     }
 
     void iEntityScene::addSystem(iEntitySystemPtr system)
     {
-        con_assert(std::find(_systems.begin(), _systems.end(), system) == _systems.end(), "system already added");
-        _systems.push_back(system);
+        auto &systems = _systems[(int)system->getStage()];
+        con_assert(std::find(systems.begin(), systems.end(), system) == systems.end(), "system already added");
+        systems.push_back(system);
 
         for (const auto &pair : _entities)
         {
@@ -132,13 +136,14 @@ namespace igor
 
     void iEntityScene::removeSystem(iEntitySystemPtr system)
     {
-        auto iter = std::find(_systems.begin(), _systems.end(), system);
-        if (iter == _systems.end())
+        auto &systems = _systems[(int)system->getStage()];
+        auto iter = std::find(systems.begin(), systems.end(), system);
+        if (iter == systems.end())
         {
             return;
         }
 
-        _systems.erase(iter);
+        systems.erase(iter);
     }
 
 } // igor

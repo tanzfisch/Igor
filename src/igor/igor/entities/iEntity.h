@@ -53,6 +53,7 @@ namespace igor
     {
         friend class iEntityScene;
         friend class iEntitySystem;
+        friend class iEntityView;
 
     public:
         /*! \returns entity id
