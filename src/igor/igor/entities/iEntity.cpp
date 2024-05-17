@@ -75,27 +75,37 @@ namespace igor
 
     void iEntity::setParent(const iEntityID &parentID)
     {
-        con_assert_sticky(!hasParent(), "already has parent");
+        iHierarchyComponent *hierarchyComponent = getComponent<iHierarchyComponent>();
+        if (hierarchyComponent == nullptr)
+        {
+            hierarchyComponent = static_cast<iHierarchyComponent *>(addComponent(new iHierarchyComponent(parentID)));
+        }
+        else
+        {
+            hierarchyComponent->_parent = parentID;
+        }
+    }
 
-        iEntityPtr parent = getScene()->getEntity(parentID);
-        con_assert_sticky(parent != nullptr, "parent not in same scene");
-
-        _parent = parent;
+    void iEntity::removeParent()
+    {
+        destroyComponent<iHierarchyComponent>();
     }
 
     const iEntityID iEntity::getParent() const
     {
-        if (!hasParent())
+        iHierarchyComponent *hierarchyComponent = getComponent<iHierarchyComponent>();
+        if (hierarchyComponent == nullptr)
         {
             return iEntityID::getInvalid();
         }
 
-        return _parent->getID();
+        return hierarchyComponent->_parent;
     }
 
     bool iEntity::hasParent() const
     {
-        return _parent != nullptr;
+        iHierarchyComponent *hierarchyComponent = getComponent<iHierarchyComponent>();
+        return hierarchyComponent != nullptr;
     }
 
     void iEntity::onComponentsChanged()

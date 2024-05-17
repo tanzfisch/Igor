@@ -104,7 +104,7 @@ namespace iaux
 
         /*! checks if the file exist
 
-        \returns true: if file exists; false: if not
+        \returns true: if file has an absolute path and exists; false: if not
         */
         bool exists() const;
 

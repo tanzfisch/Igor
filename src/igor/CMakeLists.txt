@@ -48,6 +48,6 @@ target_include_directories(igor PUBLIC .)
 add_custom_target(igor_data ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     "${CMAKE_CURRENT_SOURCE_DIR}/data/"
-    "${CMAKE_BINARY_DIR}/lib/data")
+    "${CMAKE_BINARY_DIR}/data")
 
 add_dependencies(igor igor_data)

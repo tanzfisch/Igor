@@ -70,6 +70,10 @@ namespace igor
         */
         void setParent(const iEntityID &parentID);
 
+        /*! removes parent connection
+        */
+        void removeParent();
+
         /*! \returns parent id
         */
         const iEntityID getParent() const;
@@ -131,14 +135,6 @@ namespace igor
         /*! map of components
          */
         std::unordered_map<std::type_index, iEntityComponentPtr> _components;
-
-        /*! children if any
-         */
-        std::vector<iEntityPtr> _children;
-
-        /*! parent (optional)
-         */
-        iEntityPtr _parent = nullptr;
 
         /*! ctor with name
 

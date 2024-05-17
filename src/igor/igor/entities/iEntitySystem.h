@@ -92,16 +92,16 @@ namespace igor
 		template <typename... Args>
 		iEntityViewPtr createView()
 		{
-			iEntityViewPtr set = new iEntityView();
-			(set->registerType<Args>(), ...);
-			_sets.push_back(set);
-			return set;
+			iEntityViewPtr view = new iEntityView();
+			(view->registerType<Args>(), ...);
+			_views.push_back(view);
+			return view;
 		}
 
 	private:
-		/*! entity sets
+		/*! entity views
 		 */
-		std::vector<iEntityViewPtr> _sets;
+		std::vector<iEntityViewPtr> _views;
 	};
 
 	/*! entity system pointer definition

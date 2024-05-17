@@ -45,7 +45,7 @@ namespace iaux
 
 /*! logging tab definition including size of time and thread ID
  */
-#define __IGOR_LOGGING_TAB__ L"                               "
+#define __IGOR_LOGGING_TAB__ L"                                "
 
     /*!
     \todo forgot what this is good for

@@ -9,6 +9,7 @@
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iSpriteRenderSystem.h>
 #include <igor/entities/systems/iTransformHierarchySystem.h>
+#include <igor/entities/systems/iVelocitySystem.h>
 
 #include <igor/system/iTimer.h>
 
@@ -31,6 +32,7 @@ namespace igor
         scene->addSystem(new iQuadtreeSystem());
         scene->addSystem(new iSpriteRenderSystem());
         scene->addSystem(new iTransformHierarchySystem());
+        scene->addSystem(new iVelocitySystem());
 
         return scene;
     }

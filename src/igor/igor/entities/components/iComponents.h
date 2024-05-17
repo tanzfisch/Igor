@@ -54,25 +54,25 @@ namespace igor
     class iEntity;
     typedef iEntity* iEntityPtr;
 
-    /*! sprite render mode
-    */
-    enum class iSpriteRenderMode
-    {
-        Simple,
-        Tiled
-    };
-
     /*! sprite render component
      */
     class iSpriteRendererComponent : public iEntityComponent
     {
 
     public:
+        /*! sprite render mode
+        */
+        enum class iRenderMode
+        {
+            Simple,
+            Tiled
+        };    
+
         /*! ctor
 
         \param name the name of this component
         */
-        iSpriteRendererComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iSpriteRenderMode renderMode = iSpriteRenderMode::Simple, const iaString &name = "sprite render")
+        iSpriteRendererComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iRenderMode renderMode = iRenderMode::Simple, const iaString &name = "sprite render")
             : iEntityComponent(name), _sprite(sprite), _size(size), _color(color), _zIndex(zIndex), _renderMode(renderMode)
         {
         }
@@ -92,10 +92,10 @@ namespace igor
         /*! specifies the render order within a layer
          */
         int32 _zIndex = 0;
-
+   
         /*! sprite render mode
          */
-        iSpriteRenderMode _renderMode = iSpriteRenderMode::Simple;
+        iRenderMode _renderMode = iRenderMode::Simple;
 
         /*! index of the sprite frame to render
          */
@@ -154,16 +154,6 @@ namespace igor
         /*! parent entity id
          */
         iEntityID _parent;
-
-        /*! counting how many child this entity has
-         */
-        int32 _childCount = 0;
-
-        /*! the higher the number the more generations are below it
-
-        this is used for sorting entities by hierarchy
-        */
-        int32 _generation = 0;
     };
 
     /*! 2D body component

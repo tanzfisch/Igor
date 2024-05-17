@@ -39,14 +39,14 @@ namespace igor
 
 			switch (spriteRender->_renderMode)
 			{
-			case iSpriteRenderMode::Tiled:
+			case iSpriteRendererComponent::iRenderMode::Tiled:
 				iRenderer::getInstance().drawTexturedQuad(transform->_worldMatrix._pos,
 														  transform->_worldMatrix._right * spriteRender->_size._x * 0.5,
 														  transform->_worldMatrix._top * -spriteRender->_size._y * 0.5,
 														  spriteRender->_sprite->getTexture(), spriteRender->_color, true, spriteRender->_size);
 				break;
 
-			case iSpriteRenderMode::Simple:
+			case iSpriteRendererComponent::iRenderMode::Simple:
 			default:
 				iRenderer::getInstance().drawSprite(transform->_worldMatrix,
 													spriteRender->_sprite, spriteRender->_frameIndex, spriteRender->_size,

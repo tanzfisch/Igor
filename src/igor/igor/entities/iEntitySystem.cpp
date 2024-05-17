@@ -13,9 +13,9 @@ namespace igor
 
 	void iEntitySystem::onComponentsChanged(iEntityPtr entity)
 	{
-		for (auto set : _sets)
+		for (auto view : _views)
 		{
-			set->onComponentsChanged(entity);
+			view->onComponentsChanged(entity);
 		}
 	}
 

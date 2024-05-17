@@ -565,8 +565,8 @@ iEntityID GameLayer::createCamera()
     component->_clearDepthActive = false;
 
     // DEBUG
-    /*auto &debug = entity->addComponent<iRenderDebugComponent>({});
-    debug._renderSpacePartitioning = true;*/
+    /*auto debug = entity->addComponent<iRenderDebugComponent>({});
+    debug->_renderSpacePartitioning = true;*/
 
     return entity->getID();
 }
@@ -579,7 +579,7 @@ void GameLayer::createBackground()
 
     iSpritePtr background = iResourceManager::getInstance().createResource<iSprite>();
     background->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_background"));
-    entity->addComponent(new iSpriteRendererComponent(background, iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderMode::Tiled));
+    entity->addComponent(new iSpriteRendererComponent(background, iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRendererComponent::iRenderMode::Tiled));
 }
 
 void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType)

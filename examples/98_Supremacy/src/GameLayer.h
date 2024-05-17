@@ -85,63 +85,63 @@ private:
 
     /*! update timer
      */
-    iTimerHandlePtr _updateTimerHandle;
+    iTimerHandlePtr _updateTimerHandle = nullptr;
 
     /*! stats timer
      */
-    iTimerHandlePtr _statsTimerHandle;
+    iTimerHandlePtr _statsTimerHandle = nullptr;
 
     /*! spawn timer
      */
-    iTimerHandlePtr _spawnUnitsTimerHandle;
+    iTimerHandlePtr _spawnUnitsTimerHandle = nullptr;
 
     /*! spawn shop timer
      */
-    iTimerHandlePtr _spawnShopTimerHandle;
+    iTimerHandlePtr _spawnShopTimerHandle = nullptr;
 
     /*! floor shadow
      */
-    iSpritePtr _shadow;
+    iSpritePtr _shadow = nullptr;
 
     /*! shield sprite
      */
-    iSpritePtr _shield;
+    iSpritePtr _shield = nullptr;
 
     /*! rage sprite
      */
-    iSpritePtr _rage;
+    iSpritePtr _rage = nullptr;
 
     /*! texture font we use to display texts
      */
-    iTextureFontPtr _font;
+    iTextureFontPtr _font = nullptr;
 
     /*! coin texture
      */
-    iSpritePtr _coin;
+    iSpritePtr _coin = nullptr;
 
     /*! damage sprite
      */
-    iSpritePtr _damage;
+    iSpritePtr _damage = nullptr;
 
     /*! attack speed sprite
      */
-    iSpritePtr _attackSpeed;
+    iSpritePtr _attackSpeed = nullptr;
 
     /*! walk speed sprite
      */
-    iSpritePtr _walkSpeed;
+    iSpritePtr _walkSpeed = nullptr;
 
     /*! bounce animation
      */
-    iAnimationPtr _bounceAnimation;
+    iAnimationPtr _bounceAnimation = nullptr;
 
     /*! shop idle animation
      */
-    iAnimationPtr _shopIdleAnimation;
+    iAnimationPtr _shopIdleAnimation = nullptr;
 
     /*! coin spin animation
      */
-    iAnimationPtr _coinSpinAnimation;
+    iAnimationPtr _coinSpinAnimation = nullptr;
 
     /*! building type to spawn next
      */
