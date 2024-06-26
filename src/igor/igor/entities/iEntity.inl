@@ -5,15 +5,13 @@
 template <typename T>
 T *iEntity::addComponent(T *component)
 {
-    auto iter = _components.find(typeid(T));
-    if (iter != _components.end())
-    {
-        delete iter->second;
-    }
+    const std::type_index typeID = typeid(T);
+    auto iter = _components.find(typeID);
+    con_assert(iter == _components.end(), "component already exists");
 
-    _components[typeid(T)] = component;
-    onComponentsChanged();
+    _components[typeID] = component;
 
+    _addedComponents.emplace_back(typeID, component);
     return component;
 }
 
@@ -32,13 +30,7 @@ T *iEntity::getComponent() const
 template <typename T>
 void iEntity::destroyComponent()
 {
-    auto iter = _components.find(typeid(T));
-    if (iter == _components.end())
-    {
-        return;
-    }
-
-    delete iter->second;
-    _components.erase(iter);
-    onComponentsChanged();
+    const std::type_index typeID = typeid(T);    
+    destroyComponent(typeID);
+    onEntityChanged();
 }

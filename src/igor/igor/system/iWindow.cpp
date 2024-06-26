@@ -15,8 +15,6 @@
 #include <igor/threading/tasks/iTaskFlushResources.h>
 #include <igor/events/iEventWindow.h>
 
-#include <igor/entities/iEntitySystemModule.h>
-
 #include <algorithm>
 #include <sstream>
 
@@ -1575,9 +1573,7 @@ namespace igor
     {
         IGOR_PROFILER_BEGIN(render);
         iRenderer::getInstance().clearStats();
-        iRenderer::getInstance().beginFrame();
-
-        iEntitySystemModule::getInstance().onRender(getClientWidth(), getClientHeight());
+        iRenderer::getInstance().beginFrame();        
 
         for (auto view : _views)
         {

@@ -47,6 +47,8 @@ namespace igor
     public:
         /*! ctor initializes layer
 
+        !!! set high zIndex so this layer can exclude it self from profiling !!!
+
         \param window the given window
         \param name the name of this layer
         \param zIndex the z index

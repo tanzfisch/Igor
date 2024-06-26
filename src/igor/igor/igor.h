@@ -111,6 +111,8 @@
 
 #include <igor/entities/iEntity.h>
 #include <igor/entities/components/iComponents.h>
+#include <igor/entities/components/iBody2DComponent.h>
+
 #include <igor/entities/iEntitySystemModule.h>
 
 #include <igor/terrain/iVoxelTerrain.h>

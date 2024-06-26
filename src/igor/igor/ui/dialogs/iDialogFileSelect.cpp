@@ -45,14 +45,14 @@ namespace igor
         else if (iaDirectory::isDirectory(path))
         {
             _filename = "";
-            _directory = iaDirectory::fixPath(path, false);
+            _directory = path;
         }
         else
         {
             if (!path.isEmpty())
             {
                 _filename = "";
-                _directory = iaDirectory::fixPath(path, false);
+                _directory = iaDirectory::fixPath(path);
 
                 if (!iaDirectory::isDirectory(_directory))
                 {
@@ -192,11 +192,11 @@ namespace igor
 
         if (_filename.isEmpty())
         {
-            temp = iaDirectory::fixPath(_directory, false);
+            temp = iaDirectory::fixPath(_directory);
         }
         else
         {
-            temp = iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename, true);
+            temp = iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
         }
 
         return temp;

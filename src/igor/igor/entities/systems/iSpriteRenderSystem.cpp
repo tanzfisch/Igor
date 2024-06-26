@@ -24,15 +24,15 @@ namespace igor
 
 	void iSpriteRenderSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
-		// TODO sort by zindex. how?
-		/*auto *registry = static_cast<entt::registry *>(scene->getRegistry());
-		registry->sort<iSpriteRendererComponent>([registry](const entt::entity lhs, const entt::entity rhs)
-												 {
-			const auto &clhs = registry->get<iSpriteRendererComponent>(lhs);
-			const auto &crhs = registry->get<iSpriteRendererComponent>(rhs);
-			return clhs._zIndex < crhs._zIndex; });*/
+		auto &entities = _view->getEntities();
 
-		for (auto entity : _view->getEntities())
+		std::sort(entities.begin(), entities.end(), [](iEntityPtr a, iEntityPtr b) {
+			auto spriteA = a->getComponent<iSpriteRendererComponent>();
+			auto spriteB = b->getComponent<iSpriteRendererComponent>();
+			return spriteA->_zIndex < spriteB->_zIndex;
+		});
+
+		for (auto entity : entities)
 		{
 			auto spriteRender = entity->getComponent<iSpriteRendererComponent>();
 			auto transform = entity->getComponent<iTransformComponent>();

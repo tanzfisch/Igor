@@ -355,10 +355,6 @@ private:
      */
     void liftShop();
 
-    /*! land the shop
-     */
-    void landShop();
-
     /*! create a coin
 
     \param pos position to create the coin at
@@ -380,10 +376,6 @@ private:
     /*! spawns stuff
      */
     void onSpawnStuff(const iaTime &time);
-
-    /*! handle shop landing
-     */
-    void onShopLanded();
 
     /*! land the shop
      */

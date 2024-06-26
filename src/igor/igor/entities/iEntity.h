@@ -37,6 +37,10 @@
 namespace igor
 {
 
+    /*! entity component mask definition
+    */
+    typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;
+
     /*! pointer to entity
      */
     class iEntity;
@@ -64,11 +68,17 @@ namespace igor
          */
         const iaString &getName() const;
 
-        /*! sets parent by id
+        /*! sets parent of this entity by id
 
         \param parentID the given parent id
         */
         void setParent(const iEntityID &parentID);
+
+        /*! sets parent of this entity
+
+        \param parent the given parent 
+        */
+        void setParent(iEntityPtr parent);
 
         /*! removes parent connection
         */
@@ -76,15 +86,47 @@ namespace igor
 
         /*! \returns parent id
         */
-        const iEntityID getParent() const;
+        iEntityPtr getParent() const;
+
+        /*! \returns true if entity has parent
+        */
+        bool hasParent() const;
+
+        /*! \returns active children
+        */
+        const std::vector<iEntityPtr>& getChildren() const;
+
+        /*! \returns inactive children
+        */
+        const std::vector<iEntityPtr>& getInactiveChildren() const;
+
+        /*! \returns true if entity has children
+        */
+        bool hasChildren() const;
+
+        /*! sets wether and entity is active or not
+
+        \param active if true entity will be active
+        */
+        void setActive(bool active);
+
+        /*! \returns true if entity is active
+        */
+        bool isActive() const;
 
         /*! \returns scene this entity belongs to
         */
         iEntityScenePtr getScene() const;
 
-        /*! \returns true if entity has parent
+        /*! calculate type hash from component types
+
+        \param types the types to use for calculation
         */
-        bool hasParent() const;
+        static iEntityComponentMask calcComponentMask(const std::vector<std::type_index> &types);        
+
+        /*! \returns type hash of this entity
+        */
+        iEntityComponentMask getTypeHash() const;
 
         /*! add component (or overrides if already existing)
 
@@ -110,14 +152,19 @@ namespace igor
 
         \param behaviour the behaviour to be added
         \param userData user data added to behaviour
+        \param name the name of the behaviour
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any());
+        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any(), const iaString &name = "");
 
         /*! removes behaviour from entity
 
         \param behaviour the behaviour to be removed
         */
         void removeBehaviour(const iBehaviourDelegate &behaviour);
+
+        /*! removes all components
+        */
+        void clearComponents();
 
     private:
         /*! the entities id (unique)
@@ -132,9 +179,37 @@ namespace igor
         */
         iEntityScenePtr _scene = nullptr;
 
+        /*! parent entity
+        */
+        iEntityPtr _parent = nullptr;
+
+        /*! child entities
+        */
+        std::vector<iEntityPtr> _children;
+
+        /*! inactive child entities
+        */
+        std::vector<iEntityPtr> _inactiveChildren;
+
+        /*! if true entity is active and will be processed
+        */
+        bool _active = true;
+
+        /*! true in case hierarchy (or transforms) is dirty
+        */
+        bool _dirtyHierarchy = true;
+
         /*! map of components
          */
         std::unordered_map<std::type_index, iEntityComponentPtr> _components;
+
+        /*! added components end up in a queue first
+        */
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> _addedComponents;
+
+        /*! type hash of entity
+        */
+        iEntityComponentMask _componentMask = 0;
 
         /*! ctor with name
 
@@ -142,17 +217,34 @@ namespace igor
         */
         iEntity(const iaString &name = "");
 
-        /*! does nothing
+        /*! remove components
          */
-        ~iEntity() = default;
+        ~iEntity();
 
-        /*! callback to handle added/removed component on entity
+        /*! calculate type hash from component types
+
+        \param components the components to use for calculation
         */
-        void onComponentsChanged();
+        iEntityComponentMask calcComponentMask();
+
+        /*! flushes queues
+        */
+        void processComponents();
+
+        /*! destroy component by type id
+
+        \param typeID the components type id
+        */
+        void destroyComponent(const std::type_index &typeID);
+
+        /*! notifies scene that components have changed
+        */
+        void onEntityChanged();
+
     };
 
 #include <igor/entities/iEntity.inl>
 
 } // namespace igor
 
-#endif // IGOR_ENTITY_H
+#endif // IGOR_ENTITY_H 

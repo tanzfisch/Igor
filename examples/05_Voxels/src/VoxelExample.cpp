@@ -237,7 +237,8 @@ void VoxelExample::prepareMeshGeneration()
     _voxelMeshModel = voxelMeshModel->getID();
 
     // tell the model node to load data with specified parameters
-    iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, iaString("VoxelMesh") + iaString::toString(_incarnation++)},
+    // add an index for incarnation so the resource manager understands that this is a new resource and not an existing one
+    iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, iaString("VoxelMeshExample") + iaString::toString(_incarnation++)},
                             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
                             {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                             {IGOR_RESOURCE_PARAM_SUB_TYPE, "example.vtg"},

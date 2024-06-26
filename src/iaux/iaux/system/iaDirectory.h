@@ -158,7 +158,7 @@ namespace iaux
         \param file true: it's a file; false: it's a directory
         \returns fixed path
         */
-        static iaString fixPath(const iaString &directoryName, bool file);
+        static iaString fixPath(const iaString &directoryName);
 
     private:
         /*! the path to the directory

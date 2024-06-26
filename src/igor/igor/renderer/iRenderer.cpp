@@ -10,6 +10,7 @@
 #include <igor/resources/shader/iShader.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/iResourceManager.h>
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <deque>
 #include <sstream>
@@ -645,6 +646,10 @@ namespace igor
     {
         flush();
         setWireframeEnabled(false);
+
+        iProfiler::setValue("draw calls", _data->_stats._drawCalls);
+        iProfiler::setValue("triangles", _data->_stats._triangles);
+        iProfiler::setValue("vertices", _data->_stats._vertices);
     }
 
     IGOR_INLINE int32 iRenderer::beginTexturedQuad(const iTexturePtr &texture)

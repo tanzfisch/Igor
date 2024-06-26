@@ -26,41 +26,39 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_SPRITE_RENDER_SYSTEM_H
-#define IGOR_SPRITE_RENDER_SYSTEM_H
+#ifndef IGOR_2D_BODY_COMPONENT_H
+#define IGOR_2D_BODY_COMPONENT_H
 
-#include <igor/entities/iEntitySystem.h>
+#include <igor/entities/iEntityComponent.h>
+
+#include <igor/entities/iEntityScene.h>
 
 namespace igor
 {
+    /*! 2D body component
+     */
+    class iBody2DComponent : public iEntityComponent
+    {
+    public:
+        /*! ctor
 
-	/*! sprite render system
-	*/
-	class iSpriteRenderSystem : public iEntitySystem
-	{
-	public:
-		/*! init types
-		*/
-		iSpriteRenderSystem();
-
-		/*! updates system
-
-        \param time tick time
-		\param scene the scene used for this update
-		 */
-		void update(const iaTime &time, iEntityScenePtr scene) override;
-
-		/*! \returns processing stage this system want's to run in
-		*/
-		iEntitySystemStage getStage() const override;
-
-	private:
-
-        /*! a view on some entities
+        \param name the name of this component
         */
-		iEntityViewPtr _view;
-	};
+        iBody2DComponent(iQuadtreed::ObjectPtr object = nullptr, const iaString &name = "body 2d");
 
-} // igor
+        /*! callback to activate component
+         */
+        void onActivate(iEntityPtr entity) override;
 
-#endif // IGOR_SPRITE_RENDER_SYSTEM_H
+        /*! callback to deactivate component
+         */
+        void onDeactivate(iEntityPtr entity) override;
+
+        /*! quadtree object
+         */
+        iQuadtreed::ObjectPtr _object = nullptr;
+    };
+
+}
+
+#endif //  IGOR_2D_BODY_COMPONENT_H

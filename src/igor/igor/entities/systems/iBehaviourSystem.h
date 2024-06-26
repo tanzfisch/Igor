@@ -55,6 +55,9 @@ namespace igor
 		iEntitySystemStage getStage() const override;		
 
 	private:
+
+		/*! a view on some entities
+		*/
 		iEntityViewPtr _view;
 	};
 

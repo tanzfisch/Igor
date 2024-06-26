@@ -26,82 +26,65 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_LAYER_H
-#define IGOR_LAYER_H
+#ifndef IGOR_ENTITY_TRANSFORM_TRAVERSER_H
+#define IGOR_ENTITY_TRANSFORM_TRAVERSER_H
 
-#include <igor/events/iEvent.h>
-#include <igor/system/iWindow.h>
+#include <igor/entities/traversal/iEntityTraverser.h>
 
-#include <iaux/data/iaString.h>
+#include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
 namespace igor
 {
-    /*! layer base class    
+
+    /*! base class for traversing an entity tree
     */
-    class IGOR_API iLayer
+    class IGOR_API iEntityTransformTraverser : public iEntityTraverser
     {
+
     public:
-        /*! init members
+        /*! does nothing
         */
-        iLayer(iWindowPtr window, const iaString &name = "Layer", int32 zIndex = 0);
+        iEntityTransformTraverser() = default;
 
         /*! does nothing
         */
-        virtual ~iLayer() = default;
-
-        /*! called when added to layer stack
-        */
-        virtual void onInit(){};
-
-        /*! called when removed from layer stack
-        */
-        virtual void onDeinit(){};
-
-        /*! called on application pre draw event
-        */
-        virtual void onUpdate(){};
-        
-        /*! called on any other event
-        */
-        virtual void onEvent(iEvent &event){};
-
-        /*! \returns layer name
-        */
-        const iaString &getName() const;
-
-        /*! sets layer name
-
-        \param name the name to set
-        */
-        void setName(const iaString &name);
-
-        /*! \returns z index
-        */
-        int32 getZIndex() const;
-
-        /*! \returns window
-        */
-        iWindowPtr getWindow() const;
+        ~iEntityTransformTraverser() = default;
 
     private:
-        /*! the layer name
-        */
-        iaString _name;
+        /*! holds a stack of matrices while traversal tree
+         */
+        std::vector<iaMatrixd> _matrixStack;
 
-        /*! the z index
-        */
-        int32 _zIndex = 0;
+        /*! current matrix that eventually gets pushed on stack or came popped from stack
+         */
+        iaMatrixd _currentMatrix;
 
-        /*! id of the window this layer is part of
+        /*! is called before traversal
+
+        has to be implemented by deriving class
         */
-        iWindowPtr _window;
+        void preTraverse() override;
+
+        /*! is called before every entity visited
+
+        has to be implemented by deriving class
+        */
+        void preOrderVisit(iEntityPtr entity) override;
+
+        /*! is called after every entity visited
+
+        has to be implemented by deriving class
+        */
+        void postOrderVisit(iEntityPtr entity) override;
+
+        /*! is called after the whole traversal
+
+        has to be implemented by deriving class
+        */
+        void postTraverse() override;        
     };
-
-    /*! layer pointer definition
-    */
-    typedef iLayer* iLayerPtr;
 
 }; // namespace igor
 
-#endif // IGOR_LAYER_H
+#endif // IGOR_ENTITY_TRANSFORM_TRAVERSER_H

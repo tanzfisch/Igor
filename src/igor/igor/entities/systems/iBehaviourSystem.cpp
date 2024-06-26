@@ -23,7 +23,8 @@ namespace igor
 
 	void iBehaviourSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
-		for (auto entity : _view->getEntities())
+		const auto &entities = _view->getEntities();
+		for (const auto entity : entities)
 		{
 			auto behaviour = entity->getComponent<iBehaviourComponent>();
 

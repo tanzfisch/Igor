@@ -53,6 +53,7 @@ namespace igor
 	{
 		friend class iEntitySystemModule;
 		friend class iEntity;
+		friend class iEntityTraverser;
 
 	public:
 		/*! sets name of scene
@@ -83,6 +84,12 @@ namespace igor
 		\param entityID the given entity id
 		*/
 		void destroyEntity(iEntityID entityID);
+
+		/*! destroys given entity
+
+		\param entity the given entity
+		*/
+		void destroyEntity(iEntityPtr entity);
 
 		/*! \returns entity scene id
 		 */
@@ -129,9 +136,17 @@ namespace igor
 		 */
 		std::unordered_map<iEntityID, iEntityPtr> _entities;
 
+		/*! entity delete queue
+		*/
+		std::vector<iEntityID> _deleteQueue;
+
+		/*! keep one specialized root entity for tree traversal
+		*/
+		iEntityPtr _root = nullptr;
+
 		/*! list of systems
 		*/
-		std::array<std::vector<iEntitySystemPtr>, 2> _systems;
+		std::array<std::vector<iEntitySystemPtr>, (int)iEntitySystemStage::StageCount> _systems;
 
 		/*! quadtree
 		 */
@@ -143,6 +158,14 @@ namespace igor
 		*/
 		iEntityScene(const iaString &name);
 
+		/*! dtor clean up
+		*/
+		~iEntityScene();		
+
+		/*! flush entity delete queue
+		*/
+		void flushQueues();
+
 		/*! updates systems
 
 		\param time simulation frame time
@@ -150,11 +173,32 @@ namespace igor
 		 */
 		void onUpdate(const iaTime &time, iEntitySystemStage stage);
 
-        /*! callback to handle added/removed component
+        /*! callback to handle added component
 
-		\param entity pointer of entity that changed
+		\param entity pointer of entity
+		\param typeID type of added component
         */
-        void onComponentsChanged(iEntityPtr entity);
+        void onComponentAdded(iEntityPtr entity, const std::type_index &typeID);
+
+        /*! callback to handle removed component
+
+		\param entity pointer of entity
+		\param typeID type of removed component
+        */
+		void onComponentRemoved(iEntityPtr entity, const std::type_index &typeID);
+
+        /*! callback to handle component to be removed
+
+		\param entity pointer of entity
+		\param typeID type of component to be removed
+        */
+		void onComponentToRemove(iEntityPtr entity, const std::type_index &typeID);
+
+		/*! called after a bunch of components been added/removed
+
+		\param entity the entity that has changed it's components
+		*/
+		void onEntityChanged(iEntityPtr entity);
 	};
 
 	/*! entity scene pointer definition

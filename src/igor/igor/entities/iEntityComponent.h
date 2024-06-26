@@ -37,6 +37,15 @@ using namespace iaux;
 namespace igor
 {
 
+    enum class iEntityComponentState
+    {
+        Unloaded,   //! initial state unloaded
+        Loaded,     //! loaded but inactive
+        LoadFailed, //! load failed, stays inactive
+        Active,     //! active
+        Inactive,   //! inactive
+    };
+
     /*! entity component id
      */
     typedef iaUUID iEntityComponentID;
@@ -45,36 +54,15 @@ namespace igor
      */
     typedef iaUUID iEntityID;
 
-    /*! component states
-
-        ------------> Unloaded (initial)
-        |                   |
-        |onUnload           | onLoad
-        |                   |
-        |                 fail? -> LoadFailed
-        |                   |
-        |----------------
-                         Loaded
-        |--------------->
-        |                   |
-        | onDeactivate      | onActivate
-        |                   |
-        |                Active
-        |----------------
-    */
-    enum class iEntityComponentState
-    {
-        Unloaded,   //! initial state unloaded
-        Loaded,     //! loaded but inactive
-        LoadFailed, //! load failed, stays inactive
-        Active,     //! active
-    };
+    /*! entity pointer definition
+     */
+    class iEntity;
+    typedef iEntity *iEntityPtr;    
 
     /*! entity component base class
      */
     class IGOR_API iEntityComponent
     {
-
         friend class iEntity;
 
     public:
@@ -100,39 +88,24 @@ namespace igor
          */
         const iaString &getName() const;
 
-        /*! \returns true if in un loaded state
-         */
-        bool isUnloaded() const;
-
-        /*! \returns true if in loaded state
-         */
-        bool isLoaded() const;
-
-        /*! \returns true if in load failed
-         */
-        bool isLoadFailed() const;
-
-        /*! \returns true if in active state
-         */
-        bool isActive() const;
-
     protected:
-        /*! called when loading component
-        \returns true if success
+        /*! callback for loading component
+
+        \returns true when loading was successful
         */
-        virtual bool onLoad();
+        virtual bool onLoad(iEntityPtr entity);
 
-        /*! called when unloading component
+        /*! callback to activate component
          */
-        virtual void onUnload();
+        virtual void onActivate(iEntityPtr entity);
 
-        /*! called when activating component
+        /*! callback to deactivate component
          */
-        virtual void onActivate();
+        virtual void onDeactivate(iEntityPtr entity);
 
-        /*! called when deactivating component
+        /*! callback for unload component
          */
-        virtual void onDeactivate();
+        virtual void onUnLoad(iEntityPtr entity);
 
     private:
         /*! entity component id
@@ -143,11 +116,7 @@ namespace igor
          */
         iaString _name;
 
-        /*! id of entity owning this component
-         */
-        iEntityID _entityID;
-
-        /*! entity component state
+        /*! component state
          */
         iEntityComponentState _state = iEntityComponentState::Unloaded;
     };

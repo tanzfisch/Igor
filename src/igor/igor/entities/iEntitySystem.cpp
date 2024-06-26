@@ -11,12 +11,32 @@
 namespace igor
 {
 
-	void iEntitySystem::onComponentsChanged(iEntityPtr entity)
+	void iEntitySystem::onEntityChanged(iEntityPtr entity)
 	{
 		for (auto view : _views)
 		{
-			view->onComponentsChanged(entity);
+			view->onEntityChanged(entity);
 		}
+	}
+
+	void iEntitySystem::onComponentAdded(iEntityPtr entity, const std::type_index &typeID)
+	{
+		// nothing to do
+	}
+
+	void iEntitySystem::onComponentRemoved(iEntityPtr entity, const std::type_index &typeID)
+	{
+		// nothing to do
+	}
+
+	void iEntitySystem::onComponentToRemove(iEntityPtr entity, const std::type_index &typeID)
+	{
+		// nothing to do
+	}
+
+	iEntityScenePtr iEntitySystem::getScene() const
+	{
+		return _scene;
 	}
 
 }

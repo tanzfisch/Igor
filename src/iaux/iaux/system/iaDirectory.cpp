@@ -270,7 +270,7 @@ namespace iaux
         return false;
     }
 
-    iaString iaDirectory::fixPath(const iaString &directoryName, bool file)
+    iaString iaDirectory::fixPath(const iaString &directoryName)
     {
         if (directoryName.isEmpty())
         {
@@ -278,22 +278,14 @@ namespace iaux
         }
 
         iaString temp = directoryName;
-        const wchar_t pathSeperator = IGOR_PATHSEPARATOR;
-        const wchar_t notPathSeperator = IGOR_NOT_PATHSEPARATOR;
 
         // converts to OS specific path seperator
         for (int i = 0; i < temp.getLength(); ++i)
         {
-            if (temp[i] == notPathSeperator)
+            if (temp[i] == IGOR_NOT_PATHSEPARATOR)
             {
-                temp[i] = pathSeperator;
+                temp[i] = IGOR_PATHSEPARATOR;
             }
-        }
-
-        // if this is a folder get rid of the last path seperator
-        if (iaFile::exists(temp) && !file)
-        {
-            temp = temp.getSubString(0, temp.findLastOf(pathSeperator));
         }
 
 #ifdef IGOR_LINUX
@@ -310,7 +302,7 @@ namespace iaux
         // does some relative to absolute path magic
         if (!directoryIsAbsolute(temp))
         {
-            temp = iaDirectory::getCurrentDirectory() + pathSeperator + temp;
+            temp = iaDirectory::getCurrentDirectory() + IGOR_PATHSEPARATOR + temp;
         }
 
         std::filesystem::path path(temp.getData());

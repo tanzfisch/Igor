@@ -8,13 +8,34 @@
 #include <igor/entities/systems/iAnimationSystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iSpriteRenderSystem.h>
-#include <igor/entities/systems/iTransformHierarchySystem.h>
+#include <igor/entities/systems/iTransformSystem.h>
 #include <igor/entities/systems/iVelocitySystem.h>
+#include <igor/entities/systems/iCameraSystem.h>
+
+#include <igor/entities/components/iBody2DComponent.h>
+
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <igor/system/iTimer.h>
 
 namespace igor
 {
+
+    iEntitySystemModule::iEntitySystemModule()
+    {
+        registerComponentType<iSpriteRendererComponent>();
+        registerComponentType<iTransformComponent>();
+        registerComponentType<iBody2DComponent>();
+        registerComponentType<iCircleCollision2DComponent>();
+        registerComponentType<iVelocityComponent>();
+        registerComponentType<iBehaviourComponent>();
+        registerComponentType<iGlobalBoundaryComponent>();
+        registerComponentType<iMotionInteractionResolverComponent>();
+        registerComponentType<iCameraComponent>();
+        registerComponentType<iRenderDebugComponent>();
+        registerComponentType<iPartyComponent>();
+        registerComponentType<iAnimationComponent>();
+    }
 
     iEntityScenePtr iEntitySystemModule::createScene(const iaString &name, bool addIgorSystems)
     {
@@ -30,11 +51,26 @@ namespace igor
         scene->addSystem(new iAnimationSystem());
         scene->addSystem(new iBehaviourSystem());
         scene->addSystem(new iQuadtreeSystem());
-        scene->addSystem(new iSpriteRenderSystem());
-        scene->addSystem(new iTransformHierarchySystem());
         scene->addSystem(new iVelocitySystem());
 
+        scene->addSystem(new iTransformSystem());
+
+        scene->addSystem(new iCameraSystem());
+        scene->addSystem(new iSpriteRenderSystem());
+
         return scene;
+    }
+
+    iEntityComponentMask iEntitySystemModule::getComponentMask(const std::type_index &typeID) const
+    {
+        auto iter = _registeredComponentTypes.find(typeID);
+        if (iter == _registeredComponentTypes.end())
+        {
+            con_err("component type not registered " << typeID.name());
+            return iEntityComponentMask(0);
+        }
+
+        return iter->second;
     }
 
     iEntityScenePtr iEntitySystemModule::getScene(const iEntitySceneID &sceneID)
@@ -74,31 +110,38 @@ namespace igor
 
     void iEntitySystemModule::onUpdate()
     {
-        const uint32 maxUpdateCount = 10;
         const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
-
-        uint32 updateCount = 0;
         const iaTime currentTime = iTimer::getInstance().getTime();
 
+        int32 maxUpdateCount = 10;
+
         while ((_simulationFrameTime + timeDelta < currentTime) &&
-               (updateCount < maxUpdateCount))
+               maxUpdateCount > 0)
         {
             for (auto pair : _scenes)
             {
                 pair.second->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);
             }
             _simulationFrameTime += timeDelta;
-            updateCount++;
+            maxUpdateCount--;
         };
-    }
 
-    void iEntitySystemModule::onRender(float32 clientWidth, float32 clientHeight)
-    {
-        const iaTime currentTime = iTimer::getInstance().getTime();
+        uint64 entityCount = 0;
         for (auto pair : _scenes)
         {
-            pair.second->onUpdate(_simulationFrameTime, iEntitySystemStage::Render);
+            entityCount += pair.second->_entities.size();
         }
+        iProfiler::setValue("entity count", entityCount);
+    }
+
+    void iEntitySystemModule::onPreRender(iEntityScenePtr scene)
+    {
+        scene->onUpdate(_simulationFrameTime, iEntitySystemStage::PreRender);
+    }
+
+    void iEntitySystemModule::onRender(iEntityScenePtr scene)
+    {
+        scene->onUpdate(_simulationFrameTime, iEntitySystemStage::Render);
     }
 
 } // namespace igor

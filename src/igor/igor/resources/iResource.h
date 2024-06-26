@@ -112,11 +112,12 @@ namespace igor
          */
         const iaString &getType() const;
 
-        /*! \returns extracted resource id from parameters
+        /*! \returns true if the parameters given are valid
 
         \param parameters the given parameters
+        \param[out] id the resulting resource id. This can return invalid if the parameters state that the resource is generated
         */
-        static bool extractID(const iParameters &parameters, iResourceID &id, bool quiet = false);
+        static bool extractID(const iParameters &parameters, iResourceID &id);
 
     protected:
         /*! initializes members

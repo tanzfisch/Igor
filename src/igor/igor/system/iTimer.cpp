@@ -15,7 +15,7 @@ namespace igor
 
     iTimer::iTimer()
     {
-        _currentTime = iaTime::getNow();
+        _gameTime = _realTime = iaTime::getNow();
     }
 
     iTimer::~iTimer()
@@ -34,26 +34,32 @@ namespace igor
     void iTimer::start()
     {
         _timeRunning = true;
-        _currentTime = iaTime::getNow();
+        _realTime = iaTime::getNow();
     }
 
     void iTimer::nextFrame()
     {
+        iaTime delta = iaTime::getNow() - _realTime;
+        _realTime += delta;
+
         if (!_timeRunning)
         {
             return;
         }
 
         _timeDeltaIndex = (_timeDeltaIndex + 1) % TIME_DELTAS;
-
-        iaTime now = iaTime::getNow();
-        _timeDeltas[_timeDeltaIndex] = now - _currentTime;
-        _currentTime = now;
+        _timeDeltas[_timeDeltaIndex] = delta;
+        _gameTime += delta;
     }
 
     const iaTime &iTimer::getTime() const
     {
-        return _currentTime;
+        return _gameTime;
+    }
+
+    const iaTime& iTimer::getRealTime() const
+    {
+        return _realTime;
     }
 
     iaTime iTimer::getPeakTimeDelta() const
@@ -116,7 +122,7 @@ namespace igor
 
         for (auto handle : timerHandles)
         {
-            handle->handle(_currentTime);
+            handle->handle(_gameTime);
         }
     }
 

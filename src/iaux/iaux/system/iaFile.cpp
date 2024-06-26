@@ -22,7 +22,7 @@ namespace iaux
 
     iaFile::iaFile(const iaString &filename)
     {
-        con_assert(!filename.isEmpty(), "can't use empty filename"); // TODO why?
+        con_assert(!filename.isEmpty(), "can't use empty filename");
         _filename = filename;
     }
 

@@ -594,6 +594,11 @@ namespace igor
 
     const iaString iResourceManager::resolvePath(const iaString &filepath)
     {
+        if(filepath.isEmpty())
+        {
+            return "";
+        }
+
         const iaDirectory checkDir(filepath);
         if (checkDir.exists())
         {
@@ -618,12 +623,12 @@ namespace igor
             const iaDirectory searchDir(searchPath);
             if (searchDir.exists())
             {
-                path = searchPath + IGOR_PATHSEPARATOR + filepath;
+                path = iaDirectory::fixPath(searchPath + IGOR_PATHSEPARATOR + filepath);
             }
             else
             {
                 // if it does not exists assume it's relative to current dir
-                path = currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath;
+                path = iaDirectory::fixPath(currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath);
             }
 
             iaFile file(path);

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PROFILERVISUALIZER__
-#define __IGOR_PROFILERVISUALIZER__
+#ifndef IGOR_PROFILER_VISUALIZER_H
+#define IGOR_PROFILER_VISUALIZER_H
 
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/texture/iTextureFont.h>
@@ -48,7 +48,8 @@ namespace igor
         FPSOnly,
         FPSAndMetrics,
         FPSMetricsAndTasks,
-        Sections
+        Sections,
+        SectionsAndValues
     };
 
     /*! render statistics
@@ -90,11 +91,11 @@ namespace igor
          */
         std::array<float32, PROFILER_MAX_FRAMES_COUNT> _accumulationBuffer;
 
-        /*! the mode to rende the statistics with
+        /*! the mode to render the profile data with
          */
         iProfilerVerbosity _renderStatisticsMode = iProfilerVerbosity::FPSOnly;
 
-        /*! measures time so we can update statistics in cetain intervals
+        /*! measures time so we can update data in certain intervals
          */
         iaTime _time;
 
@@ -133,4 +134,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_PROFILERVISUALIZER__
+#endif // IGOR_PROFILER_VISUALIZER_H

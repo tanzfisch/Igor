@@ -4,6 +4,8 @@
 
 #include <igor/entities/systems/iVelocitySystem.h>
 
+#include <igor/entities/components/iBody2DComponent.h>
+
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntity.h>
 

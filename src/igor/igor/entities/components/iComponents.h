@@ -50,9 +50,9 @@ namespace igor
 {
 
     /*! entity pointer definition
-    */
+     */
     class iEntity;
-    typedef iEntity* iEntityPtr;
+    typedef iEntity *iEntityPtr;
 
     /*! sprite render component
      */
@@ -61,12 +61,12 @@ namespace igor
 
     public:
         /*! sprite render mode
-        */
+         */
         enum class iRenderMode
         {
             Simple,
             Tiled
-        };    
+        };
 
         /*! ctor
 
@@ -92,7 +92,7 @@ namespace igor
         /*! specifies the render order within a layer
          */
         int32 _zIndex = 0;
-   
+
         /*! sprite render mode
          */
         iRenderMode _renderMode = iRenderMode::Simple;
@@ -120,6 +120,14 @@ namespace igor
         {
         }
 
+        void updateWorldMatrix(iaMatrixd &worldMatrix)
+        {
+            worldMatrix.translate(_position);
+            worldMatrix.rotate(_orientation);
+            worldMatrix.scale(_scale);
+            _worldMatrix = worldMatrix;
+        }
+
         /*! position
          */
         iaVector3d _position;
@@ -135,44 +143,6 @@ namespace igor
         /*! the world matrix of this transform
          */
         iaMatrixd _worldMatrix;
-    };
-
-    /*! hierarchy component to create parent child relationships
-     */
-    class iHierarchyComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iHierarchyComponent(iEntityID parent, const iaString &name = "hierarchy")
-            : iEntityComponent(name), _parent(parent)
-        {
-        }
-
-        /*! parent entity id
-         */
-        iEntityID _parent;
-    };
-
-    /*! 2D body component
-     */
-    class iBody2DComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iBody2DComponent(iQuadtreed::ObjectPtr object = nullptr, const iaString &name = "body 2d")
-            : iEntityComponent(name), _object(object)
-        {
-        }
-
-        /*! quadtree object
-         */
-        iQuadtreed::ObjectPtr _object;
     };
 
     /*! 2D collision component
@@ -238,6 +208,10 @@ namespace igor
         \todo this is not ideal maybe fix in #300
         */
         std::any _userData;
+
+        /*! optional name of behaviour
+        */
+        iaString _name;
     };
 
     /*! behaviour component

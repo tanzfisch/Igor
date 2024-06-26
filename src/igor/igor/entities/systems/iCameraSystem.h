@@ -26,48 +26,40 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_TRANSFORM_HIERARCHY_SYSTEM_H
-#define IGOR_TRANSFORM_HIERARCHY_SYSTEM_H
+#ifndef IGOR_CAMERA_SYSTEM_H
+#define IGOR_CAMERA_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
 
-    /*! sprite render system
-     */
-    class iTransformHierarchySystem : public iEntitySystem
-    {
-    public:
-        /*! init types
-         */
-        iTransformHierarchySystem();
+	/*! camera system
+	 */
+	class iCameraSystem : public iEntitySystem
+	{
+	public:
+		/*! init types
+		 */
+		iCameraSystem();
 
-        /*! does nothing
-         */
-        ~iTransformHierarchySystem() = default;
+		/*! updates system
 
-        /*! updates system
+		\param scene the scene used for this update
+		 */
+		void update(const iaTime &time, iEntityScenePtr scene) override;
 
-        \param scene the scene used for this update
-         */
-        void update(const iaTime &time, iEntityScenePtr scene) override;
+		/*! \returns processing stage this system want's to run in
+		*/
+		iEntitySystemStage getStage() const override;
 
-        /*! \returns processing stage this system want's to run in
-         */
-        iEntitySystemStage getStage() const override;
+	private:
 
-    private:
-
-        /*! transform view on entities
-        */
-        iEntityViewPtr _transformView;
-
-        /*! hierarchy view on entitties
-        */
-        iEntityViewPtr _hierarchyView;
-    };
+		/*! a view on some entities
+		*/
+        iEntityViewPtr _cameraView;
+	};
 
 } // igor
 
-#endif // IGOR_TRANSFORM_HIERARCHY_SYSTEM_H
+#endif // IGOR_VELOCITY_SYSTEM_H

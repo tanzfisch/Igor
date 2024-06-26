@@ -51,7 +51,9 @@ namespace igor
 	enum class iEntitySystemStage
 	{
 		Update,
-		Render
+		PreRender,
+		Render,
+		StageCount
 	};
 
 	/*! entity system base class
@@ -81,14 +83,43 @@ namespace igor
 		*/
 		virtual iEntitySystemStage getStage() const = 0;
 
+		/*! \returns scene this system operates in
+		*/
+		iEntityScenePtr getScene() const;
+
 	protected:
 
-		/*! callback to handle added/removed component on entity
+		/*! callback to handle added component on entity
 
-		\param entity pointer of entity the component get's added to
+		\param entity pointer of entity
+		\param typeID type of component that has been added
 		*/
-		void onComponentsChanged(iEntityPtr entity);
+		virtual void onComponentAdded(iEntityPtr entity, const std::type_index &typeID);
 
+		/*! callback to handle removed component on entity
+
+		\param entity pointer of entity
+		\param typeID type of component that has been removed
+		*/
+		virtual void onComponentRemoved(iEntityPtr entity, const std::type_index &typeID);
+
+		/*! callback to handle component to be removed
+
+		\param entity pointer of entity
+		\param typeID type of component to be removed
+		*/
+		virtual void onComponentToRemove(iEntityPtr entity, const std::type_index &typeID);
+
+		/*! update when entity changed in a way that is relevant to views
+
+		\param entity the entity to update with this system
+		*/
+		void onEntityChanged(iEntityPtr entity);
+
+		/*! create an entity view for given component types
+
+		\returns entity view
+		*/
 		template <typename... Args>
 		iEntityViewPtr createView()
 		{
@@ -96,12 +127,16 @@ namespace igor
 			(view->registerType<Args>(), ...);
 			_views.push_back(view);
 			return view;
-		}
+		}		
 
 	private:
 		/*! entity views
 		 */
 		std::vector<iEntityViewPtr> _views;
+
+		/*! scene this system operates in
+		*/
+		iEntityScenePtr _scene;
 	};
 
 	/*! entity system pointer definition

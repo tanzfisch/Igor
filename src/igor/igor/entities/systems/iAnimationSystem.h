@@ -56,6 +56,8 @@ namespace igor
 
 	private: 
 
+		/*! a view on some entities
+		*/
 		iEntityViewPtr _view;
 	};
 

@@ -56,7 +56,12 @@ namespace igor
 
     private:
 
+        /*! a view on some entities with positions
+        */
         iEntityViewPtr _positionView;        
+
+        /*! a view on some entities with circles
+        */
         iEntityViewPtr _circleView;
     };
 

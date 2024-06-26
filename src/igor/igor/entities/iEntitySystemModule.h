@@ -36,7 +36,7 @@
 #include <unordered_map>
 
 namespace igor
-{
+{    
 
     /*! entity system module
     */
@@ -73,9 +73,15 @@ namespace igor
          */
         void onUpdate();
 
-        /*! renders all scenes
+        /*! run non update but necessary for render systems
+        */
+        void onPreRender(iEntityScenePtr scene);
+
+        /*! renders given scene
+
+        \param scene the given scene to render
          */
-        void onRender(float32 clientWidth, float32 clientHeight);
+        void onRender(iEntityScenePtr scene);
 
         /*! set's the simulation rate in Hz
 
@@ -87,7 +93,18 @@ namespace igor
 
         /*! \returns simulation rate
         */
-        float64 getSimulationRate();        
+        float64 getSimulationRate();
+
+        /*! registers a component type
+        */
+        template<typename T>
+        void registerComponentType();
+
+        /*! \returns mask for given component type
+
+        \param typeID the given component type
+        */
+        iEntityComponentMask getComponentMask(const std::type_index &typeID) const;
 
     private:
         /*! entity scenes
@@ -102,7 +119,17 @@ namespace igor
         */
         iaTime _simulationFrameTime = iaTime::getNow();
 
+        /*! the registered component types // TODO 64 make it configurable
+        */
+        std::unordered_map<std::type_index, iEntityComponentMask> _registeredComponentTypes;
+
+        /*! register known types
+        */
+        iEntitySystemModule();
+
     };
+
+#include <igor/entities/iEntitySystemModule.inl>
 
 } // namespace igor
 

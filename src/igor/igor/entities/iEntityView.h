@@ -31,10 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/system/iaTime.h>
-
-#include <typeindex>
-#include <vector>
+#include <igor/entities/iEntity.h>
 
 namespace igor
 {
@@ -44,6 +41,11 @@ namespace igor
 	class iEntity;
 	typedef iEntity *iEntityPtr;
 
+	/*! entity set pointer definition
+	 */
+	class iEntityView;
+	typedef iEntityView *iEntityViewPtr;	
+
 	/*! set of entities
 	 */
 	class IGOR_API iEntityView
@@ -51,13 +53,14 @@ namespace igor
 		friend class iEntitySystem;
 
 	public:
+
 		/*! does nothing
 		 */
 		iEntityView() = default;
 
 		/*! does nothing
 		 */
-		virtual ~iEntityView() = default;
+		virtual ~iEntityView() = default;			
 
 		/*! register type of component
 		 */
@@ -65,7 +68,8 @@ namespace igor
 		void registerType()
 		{
 			_supportedTypes.push_back(typeid(T));
-		}
+			_componentMask = calcComponentMask(_supportedTypes);
+		}		
 
 		/*! checks if given type index of components is suported
 
@@ -75,25 +79,46 @@ namespace igor
 
 		/*! \returns list of entities registered to this system
 		 */
-		const std::vector<iEntityPtr> &getEntities() const;
+		std::vector<iEntityPtr> &getEntities();
+
+		/*! \returns list of entities registered to this system but are currently inactive
+		 */
+		std::vector<iEntityPtr> &getInactiveEntities();
 
 	private:
 		/*! supported types
 		 */
 		std::vector<std::type_index> _supportedTypes;
 
+		/*! key of all supported types
+		*/
+		iEntityComponentMask _componentMask = 0;
+
 		/*! entities registered with this system
 		 */
 		std::vector<iEntityPtr> _entities;
 
-		/*!
+		/*! entities registered with this system but are currently inactive
 		 */
-		void onComponentsChanged(iEntityPtr entity);
-	};
+		std::vector<iEntityPtr> _inactiveEntities;
 
-	/*! entity set pointer definition
-	 */
-	typedef iEntityView *iEntityViewPtr;
+		/*! \returns type hash for given types
+		*/
+		iEntityComponentMask calcComponentMask(const std::vector<std::type_index> &types);
+
+		/*! called when something relevant to the given entity changed
+
+		\param entity the given entity
+		 */
+		void onEntityChanged(iEntityPtr entity);
+
+		/*! removes given entity from view
+
+		\param entity the given entity
+		*/
+		void removeEntity(iEntityPtr entity);
+
+	};
 
 } // igor
 

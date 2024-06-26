@@ -33,6 +33,24 @@ namespace igor
     iEntityScene::iEntityScene(const iaString &name)
     {
         setName(name);
+
+        _root = new iEntity("root");
+        _root->_scene = this;
+    }
+
+    iEntityScene::~iEntityScene()
+    {
+        _deleteQueue.clear();
+
+        delete _root;
+
+        for(int i=0;i<(int)iEntitySystemStage::StageCount;++i)
+        {
+            for(auto system : _systems[i])
+            {
+                delete system;
+            }
+        }
     }
 
     void iEntityScene::initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
@@ -55,11 +73,39 @@ namespace igor
 
     void iEntityScene::onUpdate(const iaTime &time, iEntitySystemStage stage)
     {
-        // destroyEntities();
+        con_assert((int)stage < (int)iEntitySystemStage::StageCount, "out of range stage");
+
+        if(stage == iEntitySystemStage::Update)
+        {
+            flushQueues();
+        }
+        
         auto &systems = _systems[(int)stage];
         for (auto system : systems)
         {
             system->update(time, this);
+        }
+    }
+
+    void iEntityScene::flushQueues()
+    {
+        const auto deleteQueue = std::move(_deleteQueue);
+
+        for(const auto entityID : deleteQueue)
+        {
+            auto iter = _entities.find(entityID);
+            if (iter == _entities.end())
+            {
+                continue;
+            }
+
+            delete iter->second;
+            _entities.erase(iter);
+        }
+
+        for(const auto &pair : _entities)
+        {
+            pair.second->processComponents();
         }
     }
 
@@ -78,6 +124,7 @@ namespace igor
         iEntityPtr entity = new iEntity(name);
         _entities[entity->getID()] = entity;
         entity->_scene = this;
+        entity->setParent(_root);
 
         return entity;
     }
@@ -93,17 +140,15 @@ namespace igor
         return iter->second;
     }
 
+    void iEntityScene::destroyEntity(iEntityPtr entity)
+    {
+        con_assert(entity != nullptr, "zero pointer");
+        _deleteQueue.push_back(entity->getID());
+    }
+
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
-        auto iter = _entities.find(entityID);
-        if (iter == _entities.end())
-        {
-            return;
-        }
-
-        iter->second->_scene = nullptr;
-        delete iter->second;
-        _entities.erase(iter);
+        _deleteQueue.push_back(entityID);
     }
 
     const iEntitySceneID &iEntityScene::getID() const
@@ -111,13 +156,50 @@ namespace igor
         return _id;
     }
 
-    void iEntityScene::onComponentsChanged(iEntityPtr entity)
+    void iEntityScene::onComponentAdded(iEntityPtr entity, const std::type_index &typeID)
     {
+        // TODO this seems such a waste
         for (auto systems : _systems)
         {
             for (auto system : systems)
             {
-                system->onComponentsChanged(entity);
+                system->onComponentAdded(entity, typeID);
+            }
+        }
+    }
+
+    void iEntityScene::onComponentRemoved(iEntityPtr entity, const std::type_index &typeID)
+    {
+        // TODO this seems such a waste
+        for (auto systems : _systems)
+        {
+            for (auto system : systems)
+            {
+                system->onComponentRemoved(entity, typeID);
+            }
+        }
+    }
+
+    void iEntityScene::onComponentToRemove(iEntityPtr entity, const std::type_index &typeID)
+    {
+        // TODO this seems such a waste
+        for (auto systems : _systems)
+        {
+            for (auto system : systems)
+            {
+                system->onComponentToRemove(entity, typeID);
+            }
+        }
+    }    
+
+    void iEntityScene::onEntityChanged(iEntityPtr entity)
+    {
+        // TODO this seems such a waste
+        for (auto systems : _systems)
+        {
+            for (auto system : systems)
+            {
+                system->onEntityChanged(entity);
             }
         }
     }
@@ -128,9 +210,11 @@ namespace igor
         con_assert(std::find(systems.begin(), systems.end(), system) == systems.end(), "system already added");
         systems.push_back(system);
 
+        system->_scene = this;
+
         for (const auto &pair : _entities)
         {
-            system->onComponentsChanged(pair.second);
+            system->onEntityChanged(pair.second);
         }
     }
 
@@ -144,6 +228,8 @@ namespace igor
         }
 
         systems.erase(iter);
+
+        system->_scene = nullptr;
     }
 
 } // igor

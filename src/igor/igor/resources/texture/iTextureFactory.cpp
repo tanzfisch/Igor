@@ -205,7 +205,7 @@ namespace igor
         };
 
         texture->setData(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
-        con_trace("loaded texture \"" << texture->getInfo() << "\" [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_trace("loaded texture " << texture->getInfo() << " [" << width << ":" << height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         _mutexImageLibrary.lock();

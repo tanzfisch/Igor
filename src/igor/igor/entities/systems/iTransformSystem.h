@@ -26,82 +26,49 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_LAYER_H
-#define IGOR_LAYER_H
+#ifndef IGOR_TRANSFORM_HIERARCHY_SYSTEM_H
+#define IGOR_TRANSFORM_HIERARCHY_SYSTEM_H
 
-#include <igor/events/iEvent.h>
-#include <igor/system/iWindow.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/entities/iEntitySystem.h>
+#include <igor/entities/traversal/iEntityTransformTraverser.h>
 
 namespace igor
 {
-    /*! layer base class    
-    */
-    class IGOR_API iLayer
+
+    /*! sprite render system
+     */
+    class iTransformSystem : public iEntitySystem
     {
     public:
-        /*! init members
-        */
-        iLayer(iWindowPtr window, const iaString &name = "Layer", int32 zIndex = 0);
+        /*! init types
+         */
+        iTransformSystem();
 
         /*! does nothing
-        */
-        virtual ~iLayer() = default;
+         */
+        ~iTransformSystem() = default;
 
-        /*! called when added to layer stack
-        */
-        virtual void onInit(){};
+        /*! updates system
 
-        /*! called when removed from layer stack
-        */
-        virtual void onDeinit(){};
+        \param scene the scene used for this update
+         */
+        void update(const iaTime &time, iEntityScenePtr scene) override;
 
-        /*! called on application pre draw event
-        */
-        virtual void onUpdate(){};
-        
-        /*! called on any other event
-        */
-        virtual void onEvent(iEvent &event){};
-
-        /*! \returns layer name
-        */
-        const iaString &getName() const;
-
-        /*! sets layer name
-
-        \param name the name to set
-        */
-        void setName(const iaString &name);
-
-        /*! \returns z index
-        */
-        int32 getZIndex() const;
-
-        /*! \returns window
-        */
-        iWindowPtr getWindow() const;
+        /*! \returns processing stage this system want's to run in
+         */
+        iEntitySystemStage getStage() const override;
 
     private:
-        /*! the layer name
-        */
-        iaString _name;
 
-        /*! the z index
+        /*! transform traverser
         */
-        int32 _zIndex = 0;
+        iEntityTransformTraverser _traverser;
 
-        /*! id of the window this layer is part of
+        /*! transform view on entities
         */
-        iWindowPtr _window;
+        iEntityViewPtr _transformView;
     };
 
-    /*! layer pointer definition
-    */
-    typedef iLayer* iLayerPtr;
+} // igor
 
-}; // namespace igor
-
-#endif // IGOR_LAYER_H
+#endif // IGOR_TRANSFORM_HIERARCHY_SYSTEM_H
