@@ -6,11 +6,18 @@ Changelog                           {#changelog}
 
 !!! MSVC build fails. no time to fix !!!
 
+- #414 reintroducing home brew entity system (it's something like a game object component thingy)
+- IGOR_MAX_ENTITY_COMPONENT_TYPES is 64 but can be overridden 
+- added random interface to iaColor3 and iaColor4
+- iaDirectory and iaFile do not automatically fix a paths anymore
 - #407 more renaming iShaderMaterial to iShader and related
 - removed widget example since Mica covers all you need to know about widgets in Igor
 - #374 using float32 for mouse position to reduce conversions
 - #408 cleaned up ompf from legacy data and broke compatibility with older ompf (set ompf to 2.0.0)
 - #404 made project a singleton and put project and user search paths on top in iResourceManager
+- igor data folder now installed under data
+- iProfiler now also tracks key value pairs per frame ie "draw calls", "triangles" etc
+- iEntityScene is registered with iView which eventually will replace iScene
 
 0.44.0
 ------
