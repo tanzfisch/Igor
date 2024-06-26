@@ -113,8 +113,6 @@ namespace igor
     Works basically as a group node and has no other specific features.
 
     Make changes to the scene only in main thread. If you want to create nodes multithreaded you can do so but adding them is only save within the main thread
-
-    \todo we should not use pointers but IDs of nodes to reference them! all the time?
     */
     class IGOR_API iNode
     {
@@ -210,7 +208,7 @@ namespace igor
         */
         bool isChild();
 
-        /*! \returns true if node is child of node
+        /*! \returns true if given node is child of this node
 
         \param child the node to check if it is a child of this node
         */

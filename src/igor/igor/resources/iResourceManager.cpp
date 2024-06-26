@@ -172,6 +172,7 @@ namespace igor
     {
         // make sure igor resources are always in the dictionary
         _resourceDictionary.clear();
+        con_info("cleared resource dictionary");
         _resourceDictionary.read(resolvePath(s_igorResourceDictionaryPath));
     }
 
@@ -593,24 +594,41 @@ namespace igor
 
     const iaString iResourceManager::resolvePath(const iaString &filepath)
     {
+        if(filepath.isEmpty())
+        {
+            return "";
+        }
+
+        const iaDirectory checkDir(filepath);
+        if (checkDir.exists())
+        {
+            return checkDir.getFullDirectoryName();
+        }
+
+        iaFile checkFile(filepath);
+        if (checkFile.exists())
+        {
+            return checkFile.getFullFileName();
+        }
+
         const iaString currentDir = iaDirectory::getCurrentDirectory();
 
         _mutex.lock();
         const auto searchPaths = _searchPaths;
         _mutex.unlock();
-        
+
         for (auto searchPath : searchPaths)
         {
             iaString path;
             const iaDirectory searchDir(searchPath);
             if (searchDir.exists())
             {
-                path = searchPath + IGOR_PATHSEPARATOR + filepath;
+                path = iaDirectory::fixPath(searchPath + IGOR_PATHSEPARATOR + filepath);
             }
             else
             {
                 // if it does not exists assume it's relative to current dir
-                path = currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath;
+                path = iaDirectory::fixPath(currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath);
             }
 
             iaFile file(path);

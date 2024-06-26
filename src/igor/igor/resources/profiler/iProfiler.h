@@ -41,9 +41,9 @@ using namespace iaux;
 
 namespace igor
 {
-    /*! size of buffer aka amount of frames that are logged
-        */
-    #define PROFILER_MAX_FRAMES_COUNT 2000
+/*! size of buffer aka amount of frames that are logged
+ */
+#define PROFILER_MAX_FRAMES_COUNT 2000
 
     struct IGOR_API iProfilerSectionData
     {
@@ -60,7 +60,16 @@ namespace igor
         iaTime _beginTime;
     };
 
-    typedef std::shared_ptr<iProfilerSectionData> iProfilerSectionDataPtr;
+    struct IGOR_API iProfilerCounterData
+    {
+        /*! name of section
+         */
+        iaString _name;
+
+        /*! counters per frame
+         */
+        std::array<uint64, PROFILER_MAX_FRAMES_COUNT> _counters;
+    };
 
     struct IGOR_API iProfilerSectionScoped
     {
@@ -86,27 +95,12 @@ namespace igor
     {
 
         friend class iProfilerSectionScoped;
+        friend class iProfilerVisualizer;       // so we can prevent it from being measured
 
     public:
         /*! steps to next frame
          */
         static void nextFrame();
-
-        /*! \returns reference to list of sections
-
-        be careful to not change that list
-        */
-        static const std::vector<iProfilerSectionDataPtr> getSections();
-
-        /*! \returns current frame index
-         */
-        static int32 getCurrentFrameIndex();
-
-        /*! \returns section data for given section name
-
-        \param sectionName the given section name
-        */
-        static iProfilerSectionDataPtr getSectionData(const iaString &sectionName);
 
         /*! begins section with given name
 
@@ -121,9 +115,12 @@ namespace igor
         */
         static void endSection(const iaString &sectionName);
 
-        /*! \returns peak frame over collected data
+        /*! allows to set value with name per frame
+
+        \param key name of value
+        \param value the value to store for the current frame
         */
-        static iaTime getPeakFrame();
+        static void setValue(const iaString &key, uint64 value);
 
     private:
         /*! current frame
@@ -131,12 +128,40 @@ namespace igor
         static int32 _frame;
 
         /*! accumulated frame time
-        */
+         */
         static std::array<iaTime, PROFILER_MAX_FRAMES_COUNT> _frameTime;
 
         /*! list of sections
          */
-        static std::unordered_map<int64, iProfilerSectionDataPtr> _sections;
+        static std::unordered_map<iaString, iProfilerSectionData> _sections;
+
+        /*! list of recorded values
+        */
+        static std::unordered_map<iaString, iProfilerCounterData> _counters;
+
+        /*! \returns current frame index
+         */
+        static int32 getCurrentFrameIndex();
+
+        /*! \returns peak frame over collected data
+         */
+        static iaTime getPeakFrame();        
+
+        /*! \returns section data for given section name
+
+        \param sectionName the given section name
+        */
+        static iProfilerSectionData& getSectionData(const iaString &sectionName);
+
+        /*! \returns reference to list of sections
+
+        be careful to not change that list
+        */
+        static const std::vector<iProfilerSectionData> getSections();   
+
+        /*! \returns all counters for all frames recorded
+        */
+        static const std::vector<iProfilerCounterData> getCounters();
     };
 
 #define IGOR_PROFILER_SCOPED(sectionName) iProfilerSectionScoped sectionName(#sectionName)

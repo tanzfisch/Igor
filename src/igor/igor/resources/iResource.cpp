@@ -11,7 +11,7 @@ namespace igor
     iResource::iResource(const iParameters &parameters)
         : _parameters(parameters)
     {
-        extractID(parameters, _id, true);
+        extractID(parameters, _id);
 
         // if there is no id specified we need a new one
         if (!_id.isValid())
@@ -27,7 +27,7 @@ namespace igor
         _quiet = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_QUIET, false);
     }
 
-    bool iResource::extractID(const iParameters &parameters, iResourceID &id, bool quiet)
+    bool iResource::extractID(const iParameters &parameters, iResourceID &id)
     {
         id = parameters.getParameter<iResourceID>("id", IGOR_INVALID_ID);
         if (id.isValid())
@@ -42,18 +42,18 @@ namespace igor
             return true;
         }
 
-        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
-        if (generate)
-        {
-            // no id expected
-            return true;
-        }
-
         const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         if (!filename.isEmpty())
         {
             // if there is no id but a file name make sure the id is based on the filename
             id = static_cast<uint64>(filename.getHashValue());
+            return true;
+        }
+
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        if (generate)
+        {
+            // no id expected
             return true;
         }
 

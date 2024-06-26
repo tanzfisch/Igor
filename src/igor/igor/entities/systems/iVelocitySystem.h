@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VELOCITY_SYSTEM__
-#define __IGOR_VELOCITY_SYSTEM__
+#ifndef IGOR_VELOCITY_SYSTEM_H
+#define IGOR_VELOCITY_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
@@ -41,13 +41,9 @@ namespace igor
 	class iVelocitySystem : public iEntitySystem
 	{
 	public:
-		/*! does nothing
+		/*! init types
 		 */
-		iVelocitySystem() = default;
-
-		/*! does nothing
-		 */
-		~iVelocitySystem() = default;
+		iVelocitySystem();
 
 		/*! sets global bounds
 		 */
@@ -63,12 +59,28 @@ namespace igor
 		 */
 		void update(const iaTime &time, iEntityScenePtr scene) override;
 
+		/*! \returns processing stage this system want's to run in
+		*/
+		iEntitySystemStage getStage() const override;
+
 	private:
 		/*! global bounds
 		 */
 		iAABoxd _bounds;
+
+        /*! a view on some entities with interaction resolvers
+        */
+        iEntityViewPtr _interactionResolverView;
+
+        /*! a view on some entities with no bounds
+        */
+        iEntityViewPtr _noBoundsView;
+
+        /*! a view on some entities with bounds
+        */
+        iEntityViewPtr _boundsView;
 	};
 
 } // igor
 
-#endif // __IGOR_VELOCITY_SYSTEM__
+#endif // IGOR_VELOCITY_SYSTEM_H

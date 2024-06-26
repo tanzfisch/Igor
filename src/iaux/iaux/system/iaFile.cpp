@@ -22,8 +22,8 @@ namespace iaux
 
     iaFile::iaFile(const iaString &filename)
     {
-        con_assert(!filename.isEmpty(), "can't use empty filename"); // TODO why?
-        _filename = iaDirectory::fixPath(filename, true);
+        con_assert(!filename.isEmpty(), "can't use empty filename");
+        _filename = filename;
     }
 
     iaFile::~iaFile()
@@ -92,36 +92,32 @@ namespace iaux
 
     void iaFile::rename(const iaString &newFileName, bool replaceExisting)
     {
-        const iaString newName = iaDirectory::fixPath(newFileName, true);
-
         std::filesystem::path oldPath(_filename.getData());
-        std::filesystem::path newPath(newName.getData());
+        std::filesystem::path newPath(newFileName.getData());
 
         std::error_code error;
         std::filesystem::rename(oldPath, newPath, error);
 
         if (error)
         {
-            con_err("cant rename file: " << getFullFileName() << " to: " << newName);
+            con_err("cant rename file: " << getFullFileName() << " to: " << newFileName);
         }
     }
 
     iaFile iaFile::copy(const iaString &newFileName) const
     {
-        const iaString newName = iaDirectory::fixPath(newFileName, true);
-
         std::filesystem::path fromPath(_filename.getData());
-        std::filesystem::path toPath(newName.getData());
+        std::filesystem::path toPath(newFileName.getData());
 
         std::error_code error;
         std::filesystem::copy(fromPath, toPath, error);
 
         if (error)
         {
-            con_err("cant copy file: " << getFullFileName() << " to: " << newName);
+            con_err("cant copy file: " << getFullFileName() << " to: " << newFileName);
         }
 
-        return iaFile(newName);
+        return iaFile(newFileName);
     }
 
     bool iaFile::exists() const
@@ -137,7 +133,9 @@ namespace iaux
         }
 
         std::filesystem::path path(filename.getData());
-        return !std::filesystem::is_directory(path) && std::filesystem::exists(path);
+        return path.is_absolute() &&
+               !std::filesystem::is_directory(path) &&
+               std::filesystem::exists(path);
     }
 
     bool iaFile::remove(const iaString &filename)
@@ -209,12 +207,7 @@ namespace iaux
 
     iaString iaFile::getFullFileName() const
     {
-        iaString name;
-
-        name += getPath();
-        name += getFileName();
-
-        return name;
+        return _filename;
     }
 
     iaString iaFile::getExtension() const

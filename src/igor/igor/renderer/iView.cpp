@@ -6,9 +6,9 @@
 
 #include <igor/system/iWindow.h>
 #include <igor/renderer/iRenderer.h>
-
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
+#include <igor/entities/iEntitySystemModule.h>
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 #include <iaux/system/iaConsole.h>
@@ -208,6 +208,13 @@ namespace igor
             return;
         }
 
+        // TODO maybe eventually iView will only host an entity camera
+        if(_entityScene != nullptr)
+        {
+            iEntitySystemModule::getInstance().onPreRender(_entityScene);
+            iEntitySystemModule::getInstance().onRender(_entityScene);
+        }
+
         iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
         if (_updateViewport)
@@ -239,17 +246,9 @@ namespace igor
             _renderEngine.render();
         }
 
-        // workaround to not measure the profiler render
-        if (getName() == "Profiler View")
-        {
-            _renderEvent();
-            iRenderer::getInstance().flush();
-        }
-        else
-        {
-            _renderEvent();
-            iRenderer::getInstance().flush();
-        }
+        _renderEvent();
+        
+        iRenderer::getInstance().flush();
     }
 
     uint64 iView::pickColorID(const iaVector2i &pos)
@@ -328,13 +327,25 @@ namespace igor
 
     void iView::setScene(iScenePtr scene)
     {
+        con_assert(scene != nullptr, "zero pointer");
+
         _scene = scene;
         _renderEngine.setScene(_scene);
     }
 
-    iScenePtr iView::getScene()
+    iScenePtr iView::getScene() const
     {
         return _scene;
+    }
+
+    void iView::setEntityScene(iEntityScenePtr entityScene)
+    {
+        _entityScene = entityScene;
+    }
+
+    iEntityScenePtr iView::getEntityScene() const
+    {
+        return _entityScene;
     }
 
     void iView::registerRenderDelegate(iDrawDelegate render_delegate)

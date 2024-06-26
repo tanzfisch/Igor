@@ -11,18 +11,24 @@
 
 namespace igor
 {
+    iBehaviourSystem::iBehaviourSystem()
+    {
+		_view = createView<iBehaviourComponent>();
+    }
+
+    iEntitySystemStage iBehaviourSystem::getStage() const
+    {
+        return iEntitySystemStage::Update;
+    }
+
 	void iBehaviourSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
-		auto *registry = static_cast<entt::registry *>(scene->getRegistry());
-		auto view = registry->view<iBehaviourComponent, iActiveComponent>();
-
-		for (auto entityID : view)
+		const auto &entities = _view->getEntities();
+		for (const auto entity : entities)
 		{
-			auto &behaviour = view.get<iBehaviourComponent>(entityID);
+			auto behaviour = entity->getComponent<iBehaviourComponent>();
 
-			iEntity entity(static_cast<iEntityID>(entityID), scene);
-
-			for (auto &behaviourData : behaviour._behaviour)
+			for (auto &behaviourData : behaviour->_behaviors)
 			{
 				if (!behaviourData._delegate.isValid())
 				{

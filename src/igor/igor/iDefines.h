@@ -51,6 +51,10 @@ using namespace iaux;
 #define IGOR_API_EXPORT_ONLY
 #endif
 
+#ifndef IGOR_MAX_ENTITY_COMPONENT_TYPES
+#define IGOR_MAX_ENTITY_COMPONENT_TYPES 64
+#endif
+
 extern const iaString IGOR_BUILD_CONFIGURATION; //! Igor build configuration short
 extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS; //! supported file extensions for sprites
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS; //! supported file extensions for textures

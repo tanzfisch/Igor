@@ -1,3 +1,4 @@
+
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -26,8 +27,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ANIMATION_SYSTEM__
-#define __IGOR_ANIMATION_SYSTEM__
+#ifndef IGOR_ANIMATION_SYSTEM_H
+#define IGOR_ANIMATION_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
@@ -39,21 +40,27 @@ namespace igor
 	class iAnimationSystem : public iEntitySystem
 	{
 	public:
-		/*! does nothing
+		/*! init types
 		*/
-		iAnimationSystem() = default;
-
-		/*! does nothing
-		*/
-		~iAnimationSystem() = default;
+		iAnimationSystem();
 
 		/*! updates system
 
 		\param scene the scene used for this update
 		 */
 		void update(const iaTime &time, iEntityScenePtr scene) override;
+
+		/*! \returns processing stage this system want's to run in
+		*/
+		iEntitySystemStage getStage() const override;
+
+	private: 
+
+		/*! a view on some entities
+		*/
+		iEntityViewPtr _view;
 	};
 
 } // igor
 
-#endif // __IGOR_ANIMATION_SYSTEM__
+#endif // IGOR_ANIMATION_SYSTEM_H

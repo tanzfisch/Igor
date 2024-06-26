@@ -118,6 +118,10 @@ namespace iaux
         */
         void operator*(float32 factor);
 
+        /*! \returns random color (opaque)
+        */
+        static iaColor4<T> random();
+
         static IAUX_API_IMPORT_ONLY const iaColor4<T> white;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> lightGray;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> gray;

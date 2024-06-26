@@ -27,19 +27,23 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ANIMATION_CONTROLLER__
-#define __IGOR_ANIMATION_CONTROLLER__
+#ifndef IGOR_ANIMATION_CONTROLLER_H
+#define IGOR_ANIMATION_CONTROLLER_H
 
 #include <igor/resources/animation/iClip.h>
 
 #include <iaux/statemachine/iaStateMachine.h>
+using namespace iaux;
 
 #include <unordered_map>
 
 namespace igor
 {
 
+    /*! entity pointer definition
+    */
     class iEntity;
+    typedef iEntity *iEntityPtr;
 
     /*! animation controller
      */
@@ -70,7 +74,12 @@ namespace igor
         */
         std::unordered_map<iaStateID, iClipPtr> _clips;
 
-        void update(const iaTime &time, iEntity &entity);
+        /*! update animation on given entity
+
+        \param time the tick time
+        \param entity the given entity
+        */
+        void update(const iaTime &time, iEntityPtr entity);
 
         void onEnterState(iaStateID stateID);
     };
@@ -81,4 +90,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_ANIMATION_CONTROLLER__
+#endif // IGOR_ANIMATION_CONTROLLER_H

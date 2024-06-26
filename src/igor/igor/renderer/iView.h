@@ -26,11 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VIEW__
-#define __IGOR_VIEW__
+#ifndef IGOR_VIEW_H
+#define IGOR_VIEW_H
 
 #include <igor/iDefines.h>
 #include <igor/renderer/iRenderEngine.h>
+#include <igor/entities/iEntityScene.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaColor4.h>
@@ -46,7 +47,6 @@ namespace igor
 
     class iWindow;
     class iPixmap;
-    class iScene;
     class iNodeCamera;
     class iOctreeObject;
 
@@ -84,7 +84,17 @@ namespace igor
 
         /*! \returns scene to be rendered with this view
         */
-        iScenePtr getScene();
+        iScenePtr getScene() const;
+
+        /*! sets the entity scene to be rendered with this view
+
+        \param entityScene entity scene to be rendered
+        */
+        void setEntityScene(iEntityScenePtr entityScene);
+
+        /*! \returns scene to be rendered with this view
+        */
+        iEntityScenePtr getEntityScene() const;
 
         /*! sets name of view
 
@@ -326,6 +336,10 @@ namespace igor
         */
         iScenePtr _scene = nullptr;
 
+        /*! entity scene to render
+        */
+        iEntityScenePtr _entityScene = nullptr;
+
         /*! size of parenting window in pixel
         */
         iaRectanglei _windowRect;
@@ -422,4 +436,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_VIEW_H

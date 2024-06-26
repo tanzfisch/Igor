@@ -26,69 +26,135 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY__
-#define __IGOR_ENTITY__
+#ifndef IGOR_ENTITY_H
+#define IGOR_ENTITY_H
 
-#include <igor/entities/iEntityScene.h>
+#include <igor/entities/components/iComponents.h>
+
+#include <unordered_map>
+#include <typeindex>
 
 namespace igor
 {
+
+    /*! entity component mask definition
+    */
+    typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;
+
+    /*! pointer to entity
+     */
+    class iEntity;
+    typedef iEntity *iEntityPtr;
+
+    /*! pointer to scene
+     */
+    class iEntityScene;
+    typedef iEntityScene *iEntityScenePtr;
+
     /*! entity
      */
     class IGOR_API iEntity
     {
+        friend class iEntityScene;
+        friend class iEntitySystem;
+        friend class iEntityView;
+
     public:
-        /*! does nothing
-         */
-        iEntity() = default;
-
-        /*! copy ctor
-
-        \param other the entity to make a copy from
-        */
-        iEntity(const iEntity &other) = default;
-
-        /*! param ctor
-
-        \param entity the entity handle
-        \param scene the scene this entity belongs to
-        */
-        iEntity(iEntityID entity, iEntityScenePtr scene);
-
         /*! \returns entity id
          */
-        iEntityID getID() const;
+        const iEntityID &getID() const;
 
-        /*! \returns true if entity is valid
+        /*! \returns name of entity
          */
-        bool isValid() const;
+        const iaString &getName() const;
 
-        /*! \returns entity name
-         */
-        const iaString getName() const;
+        /*! sets parent of this entity by id
 
-        /*! sets name of entity
-
-        \param name the name to set
+        \param parentID the given parent id
         */
-        void setName(const iaString &name);
+        void setParent(const iEntityID &parentID);
 
-        /*! \returns true if entity is active
-         */
-        bool isActive() const;
+        /*! sets parent of this entity
 
-        /*! sets entity active
+        \param parent the given parent 
+        */
+        void setParent(iEntityPtr parent);
 
-        \param active if true entity is active
+        /*! removes parent connection
+        */
+        void removeParent();
+
+        /*! \returns parent id
+        */
+        iEntityPtr getParent() const;
+
+        /*! \returns true if entity has parent
+        */
+        bool hasParent() const;
+
+        /*! \returns active children
+        */
+        const std::vector<iEntityPtr>& getChildren() const;
+
+        /*! \returns inactive children
+        */
+        const std::vector<iEntityPtr>& getInactiveChildren() const;
+
+        /*! \returns true if entity has children
+        */
+        bool hasChildren() const;
+
+        /*! sets wether and entity is active or not
+
+        \param active if true entity will be active
         */
         void setActive(bool active);
+
+        /*! \returns true if entity is active
+        */
+        bool isActive() const;
+
+        /*! \returns scene this entity belongs to
+        */
+        iEntityScenePtr getScene() const;
+
+        /*! calculate type hash from component types
+
+        \param types the types to use for calculation
+        */
+        static iEntityComponentMask calcComponentMask(const std::vector<std::type_index> &types);        
+
+        /*! \returns type hash of this entity
+        */
+        iEntityComponentMask getTypeHash() const;
+
+        /*! add component (or overrides if already existing)
+
+        entity takes ownership of component
+
+        \param component the component to add
+        \returns the new component
+        */
+        template<typename T>
+        T* addComponent(T* component);
+
+        /*! \returns component for given type
+        */
+        template<typename T>
+        T* getComponent() const;
+
+        /*! destroys given component by type
+        */
+        template<typename T>
+        void destroyComponent();
 
         /*! adds behaviour to entity
 
         \param behaviour the behaviour to be added
         \param userData user data added to behaviour
+        \param name the name of the behaviour
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any());
+        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any(), const iaString &name = "");
 
         /*! removes behaviour from entity
 
@@ -96,94 +162,89 @@ namespace igor
         */
         void removeBehaviour(const iBehaviourDelegate &behaviour);
 
-        /*! set parent of entity
-
-        \param parent the parent id to use. if parent id invalid the parent relationship is reset
+        /*! removes all components
         */
-        void setParent(iEntityID parent);
-
-        /*! \returns the parent id or invalid id if there is no parent
-         */
-        iEntityID getParent() const;
-
-        /*! sets motion interaction type
-
-        \param interactionType the motion interaction type
-        */
-        void setMotionInteractionType(iMotionInteractionType interactionType);
-
-        /*! \returns motion interaction type
-         */
-        iMotionInteractionType getMotionInteractionType() const;
-
-        /*! adds component to entity
-
-        \param component the component to add
-        */
-        template <typename T>
-        T &addComponent(const T &component)
-        {
-            return _scene->addComponent<T>(_entity, component);
-        }
-
-        template <typename T>
-        T &addUserComponent(const T &component)
-        {
-            return _scene->addUserComponent<T>(_entity, component);
-        }
-
-        /*! \returns component of entity of given type
-         */
-        template <typename T>
-        T &getComponent()
-        {
-            return _scene->getComponent<T>(_entity);
-        }
-
-        template <typename T>
-        T &getUserComponent()
-        {
-            return _scene->getUserComponent<T>(_entity);
-        }
-
-        /*! \returns component of entity of given type
-
-        returns nullptr in case component does not exist
-         */
-        template <typename T>
-        T *tryGetComponent() const
-        {
-            return _scene->tryGetComponent<T>(_entity);
-        }
-
-        template <typename T>
-        T *tryGetUserComponent() const
-        {
-            return _scene->tryGetUserComponent<T>(_entity);
-        }
-
-        /*! removes component of given type
-         */
-        template <typename T>
-        void removeComponent()
-        {
-            _scene->removeComponent<T>(_entity);
-        }
+        void clearComponents();
 
     private:
-        /*! the entity ID
+        /*! the entities id (unique)
          */
-        iEntityID _entity;
+        iEntityID _id;
 
-        /*! the scene this entity is in
+        /*! the entities name (non unique)
          */
-        iEntityScenePtr _scene;
+        iaString _name;
+
+        /*! scene this entity belongs to
+        */
+        iEntityScenePtr _scene = nullptr;
+
+        /*! parent entity
+        */
+        iEntityPtr _parent = nullptr;
+
+        /*! child entities
+        */
+        std::vector<iEntityPtr> _children;
+
+        /*! inactive child entities
+        */
+        std::vector<iEntityPtr> _inactiveChildren;
+
+        /*! if true entity is active and will be processed
+        */
+        bool _active = true;
+
+        /*! true in case hierarchy (or transforms) is dirty
+        */
+        bool _dirtyHierarchy = true;
+
+        /*! map of components
+         */
+        std::unordered_map<std::type_index, iEntityComponentPtr> _components;
+
+        /*! added components end up in a queue first
+        */
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> _addedComponents;
+
+        /*! type hash of entity
+        */
+        iEntityComponentMask _componentMask = 0;
+
+        /*! ctor with name
+
+        \param name the name of this entity
+        */
+        iEntity(const iaString &name = "");
+
+        /*! remove components
+         */
+        ~iEntity();
+
+        /*! calculate type hash from component types
+
+        \param components the components to use for calculation
+        */
+        iEntityComponentMask calcComponentMask();
+
+        /*! flushes queues
+        */
+        void processComponents();
+
+        /*! destroy component by type id
+
+        \param typeID the components type id
+        */
+        void destroyComponent(const std::type_index &typeID);
+
+        /*! notifies scene that components have changed
+        */
+        void onEntityChanged();
+
     };
 
-    /*! pointer to entity
-     */
-    typedef iEntity *iEntityPtr;
+#include <igor/entities/iEntity.inl>
 
 } // namespace igor
 
-#endif // __IGOR_ENTITY__
+#endif // IGOR_ENTITY_H 

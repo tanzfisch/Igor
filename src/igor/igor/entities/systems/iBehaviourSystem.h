@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_BEHAVIOUR_SYSTEM__
-#define __IGOR_BEHAVIOUR_SYSTEM__
+#ifndef IGOR_BEHAVIOUR_SYSTEM_H
+#define IGOR_BEHAVIOUR_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
@@ -35,25 +35,32 @@ namespace igor
 {
 
 	/*! behaviour system
-	*/
+	 */
 	class iBehaviourSystem : public iEntitySystem
 	{
 	public:
-		/*! does nothing
-		*/
-		iBehaviourSystem() = default;
-
-		/*! does nothing
-		*/
-		~iBehaviourSystem() = default;
+		/*! init types
+		 */
+		iBehaviourSystem();
 
 		/*! updates system
 
+		\param time tick time
 		\param scene the scene used for this update
 		 */
 		void update(const iaTime &time, iEntityScenePtr scene) override;
+
+		/*! \returns processing stage this system want's to run in
+		*/
+		iEntitySystemStage getStage() const override;		
+
+	private:
+
+		/*! a view on some entities
+		*/
+		iEntityViewPtr _view;
 	};
 
 } // igor
 
-#endif // __IGOR_BEHAVIOUR_SYSTEM__
+#endif // IGOR_BEHAVIOUR_SYSTEM_H

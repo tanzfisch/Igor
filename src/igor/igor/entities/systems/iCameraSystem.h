@@ -26,34 +26,40 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
-#define __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
+#ifndef IGOR_CAMERA_SYSTEM_H
+#define IGOR_CAMERA_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
 
-	/*! sprite render system
-	*/
-	class iTransformHierarchySystem : public iEntitySystem
+	/*! camera system
+	 */
+	class iCameraSystem : public iEntitySystem
 	{
 	public:
-		/*! does nothing
-		*/
-		iTransformHierarchySystem() = default;
-
-		/*! does nothing
-		*/
-		~iTransformHierarchySystem() = default;
+		/*! init types
+		 */
+		iCameraSystem();
 
 		/*! updates system
 
 		\param scene the scene used for this update
 		 */
 		void update(const iaTime &time, iEntityScenePtr scene) override;
+
+		/*! \returns processing stage this system want's to run in
+		*/
+		iEntitySystemStage getStage() const override;
+
+	private:
+
+		/*! a view on some entities
+		*/
+        iEntityViewPtr _cameraView;
 	};
 
 } // igor
 
-#endif // __IGOR_TRANSFORM_HIERARCHY_SYSTEM__
+#endif // IGOR_VELOCITY_SYSTEM_H

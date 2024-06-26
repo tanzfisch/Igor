@@ -144,7 +144,7 @@ namespace igor
         IGOR_PROFILER_END(nodes);
 
         IGOR_PROFILER_BEGIN(physics);
-        iPhysics::getInstance().handle();
+        iPhysics::getInstance().onUpdate();
         IGOR_PROFILER_END(physics);
 
         draw();
@@ -163,13 +163,11 @@ namespace igor
         {
             iTimer::getInstance().stop();
             iPhysics::getInstance().stop();
-            iEntitySystemModule::getInstance().stop();
         }
         else
         {
             iTimer::getInstance().start();
             iPhysics::getInstance().start();
-            iEntitySystemModule::getInstance().start();
         }
     }
 

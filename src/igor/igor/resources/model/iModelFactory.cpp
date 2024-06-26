@@ -58,6 +58,11 @@ namespace igor
         {
             parameters.setParameter(IGOR_RESOURCE_PARAM_SOURCE, filename);
         }
+        else
+        {
+            // sanity check. if there is no filename than the data must be generated
+            con_assert(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false), "invalid parameters");
+        }
 
         iaString subType = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SUB_TYPE, "");
         if (subType.isEmpty())

@@ -62,11 +62,11 @@ namespace igor
     }
 
     void iProject::load()
-    {
+    {        
         const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
-        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.xml";
-
         readConfiguration(filenameConfig);
+        
+        const iaString filenameDictionary = "resource_dictionary.xml";
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
 

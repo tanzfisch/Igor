@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ITEM__
-#define __IGOR_ITEM__
+#ifndef IGOR_ITEM_H
+#define IGOR_ITEM_H
 
 #include <igor/data/iMimeData.h>
 
@@ -136,4 +136,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_ITEM__
+#endif // IGOR_ITEM_H

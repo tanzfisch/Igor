@@ -4,54 +4,64 @@
 
 #include <igor/entities/systems/iVelocitySystem.h>
 
+#include <igor/entities/components/iBody2DComponent.h>
+
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntity.h>
 
-#include <entt.h>
-
 namespace igor
 {
+	iVelocitySystem::iVelocitySystem()
+	{
+		_interactionResolverView = createView<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
+		_noBoundsView = createView<iVelocityComponent, iTransformComponent>();
+		_boundsView = createView<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
+	}
+
+    iEntitySystemStage iVelocitySystem::getStage() const
+    {
+        return iEntitySystemStage::Update;
+    }	
+
 	void iVelocitySystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
-		auto *registry = static_cast<entt::registry *>(scene->getRegistry());
-
 		if (scene->hasQuadtree())
 		{
 			auto &quadtree = scene->getQuadtree();
 
-			auto viewInteractionResolver = registry->view<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
-
-			for (auto entityID : viewInteractionResolver)
+			for (auto entity : _interactionResolverView->getEntities())
 			{
-				auto [velocity, quadComp, motionResolver] = viewInteractionResolver.get<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>(entityID);
+				auto velocity = entity->getComponent<iVelocityComponent>();
+				auto quadComp = entity->getComponent<iBody2DComponent>();
+				auto motionResolver = entity->getComponent<iMotionInteractionResolverComponent>();
 
-				switch (motionResolver._type)
+				switch (motionResolver->_type)
 				{
 				case iMotionInteractionType::Divert:
 				{
-					iaCircled circle = quadComp._object->_circle;
+					iaCircled circle = quadComp->_object->_circle;
 					circle._radius *= 1.1;
 					iQuadtreed::Objects objects;
 					quadtree.query(circle, objects);
 
-					float64 speed = velocity._velocity.length();
+					float64 speed = velocity->_velocity.length();
 					iaVector2d diversion;
 
 					for (const auto &object : objects)
 					{
-						const entt::entity otherEntityID = static_cast<entt::entity>(std::any_cast<iEntityID>(object->_userData));
+						iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
 
 						// skip self
-						if (otherEntityID == entityID)
+						if (otherEntityID == entity->getID())
 						{
 							continue;
 						}
 
-						auto *hasMotionInteraction = registry->try_get<iMotionInteractionResolverComponent>(otherEntityID);
+						/*auto *hasMotionInteraction = registry->try_get<iMotionInteractionResolverComponent>(otherEntityID);
 						if (hasMotionInteraction == nullptr)
 						{
 							continue;
-						}
+						}*/
 
 						// calc diversion
 						diversion += circle._center - object->_circle._center;
@@ -60,8 +70,8 @@ namespace igor
 					diversion.normalize();
 					diversion *= speed;
 
-					velocity._velocity._x += diversion._x;
-					velocity._velocity._y += diversion._y;
+					velocity->_velocity._x += diversion._x;
+					velocity->_velocity._y += diversion._y;
 				}
 				break;
 
@@ -72,35 +82,35 @@ namespace igor
 			}
 		}
 
-		auto viewNoBounds = registry->view<iVelocityComponent, iTransformComponent>(entt::exclude<iGlobalBoundaryComponent>);
-
-		for (auto entityID : viewNoBounds)
+		for (auto entity : _noBoundsView->getEntities())
 		{
-			auto [velocity, transform] = viewNoBounds.get<iVelocityComponent, iTransformComponent>(entityID);
+			auto velocity = entity->getComponent<iVelocityComponent>();
+			auto transform = entity->getComponent<iTransformComponent>();
 
-			transform._position += velocity._velocity;
-			transform._orientation += velocity._angularVelocity;
+			transform->_position += velocity->_velocity;
+			transform->_orientation += velocity->_angularVelocity;
 		}
 
-		auto viewWithBounds = registry->view<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
 		iaVector3d min;
 		iaVector3d max;
 		_bounds.getMinMax(min, max);
 		const iaVector3d dimensions = _bounds._halfWidths * 2.0;
 
-		for (auto entityID : viewWithBounds)
+		for (auto entity : _boundsView->getEntities())
 		{
-			auto [velocity, transform, bounds] = viewWithBounds.get<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>(entityID);
+			auto velocity = entity->getComponent<iVelocityComponent>();
+			auto transform = entity->getComponent<iTransformComponent>();
+			auto bounds = entity->getComponent<iGlobalBoundaryComponent>();
 
-			auto &position = transform._position;
+			auto &position = transform->_position;
 
-			transform._orientation += velocity._angularVelocity;
+			transform->_orientation += velocity->_angularVelocity;
 
-			switch (bounds._type)
+			switch (bounds->_type)
 			{
 			case iGlobalBoundaryType::Repeat:
 
-				position += velocity._velocity;
+				position += velocity->_velocity;
 
 				if (position._x > max._x)
 				{
@@ -132,7 +142,7 @@ namespace igor
 
 			case iGlobalBoundaryType::None:
 			default:
-				position += velocity._velocity;
+				position += velocity->_velocity;
 				break;
 			}
 		}

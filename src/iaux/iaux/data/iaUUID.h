@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_UUID__
-#define __IAUX_UUID__
+#ifndef IAUX_UUID_H
+#define IAUX_UUID_H
 
 #include <iaux/data/iaString.h>
 
@@ -144,4 +144,4 @@ struct std::hash<iaux::iaUUID>
     }
 };
 
-#endif // __IAUX_UUID__
+#endif // IAUX_UUID_H

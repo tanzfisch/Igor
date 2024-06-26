@@ -26,37 +26,45 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_QUADTREE_SYSTEM__
-#define __IGOR_QUADTREE_SYSTEM__
+#ifndef IGOR_QUADTREE_SYSTEM_H
+#define IGOR_QUADTREE_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
 namespace igor
 {
-	/*! event triggered when two entities overlap
-	*/
-	IGOR_EVENT_DEFINITION(iEntityCollision, void, iEntityID, iEntityID);
+    /*! quadtree system
+     */
+    class iQuadtreeSystem : public iEntitySystem
+    {
+    public:
 
-	/*! quadtree system
-	*/
-	class iQuadtreeSystem : public iEntitySystem
-	{
-	public:
-		/*! does nothing
+        /*! init types
+        */
+        iQuadtreeSystem();
+
+        /*! updates system
+
+        \param time the time of the update tick
+        \param scene the scene used for this update
+         */
+        void update(const iaTime &time, iEntityScenePtr scene) override;
+
+		/*! \returns processing stage this system want's to run in
 		*/
-		iQuadtreeSystem() = default;
+		iEntitySystemStage getStage() const override;
 
-		/*! does nothing
-		*/
-		~iQuadtreeSystem() = default;
+    private:
 
-		/*! updates system
+        /*! a view on some entities with positions
+        */
+        iEntityViewPtr _positionView;        
 
-		\param scene the scene used for this update
-		 */
-		void update(const iaTime &time, iEntityScenePtr scene) override;
-	};
+        /*! a view on some entities with circles
+        */
+        iEntityViewPtr _circleView;
+    };
 
 } // igor
 
-#endif // __IGOR_QUADTREE_SYSTEM__
+#endif // IGOR_QUADTREE_SYSTEM_H

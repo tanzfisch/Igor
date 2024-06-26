@@ -53,8 +53,14 @@ namespace igor
 
     public:
         /*! \returns time at beginning of current frame
+
+        This game time and not real time. Time can differ from real time when ie stop/start the timer
          */
         const iaTime& getTime() const;
+
+        /*! \returns time measured at beginning of each frame since application start
+        */
+        const iaTime& getRealTime() const;
 
         /*! \returns delta time since last frame
          */
@@ -100,11 +106,11 @@ namespace igor
 
         /*! time since application start accounting for start/stop
          */
-        iaTime _currentTime;
+        iaTime _gameTime;
 
         /*! actual time since application start
          */
-        iaTime _currentActualTime;
+        iaTime _realTime;
 
         /*! if true time is running
          */

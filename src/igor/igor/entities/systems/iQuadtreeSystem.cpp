@@ -4,16 +4,27 @@
 
 #include <igor/entities/systems/iQuadtreeSystem.h>
 
+#include <igor/entities/components/iBody2DComponent.h>
+
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntity.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
-#include <entt.h>
-
 namespace igor
 {
+	iQuadtreeSystem::iQuadtreeSystem()
+	{
+		_positionView = createView<iTransformComponent, iBody2DComponent>();
+		_circleView = createView<iTransformComponent, iBody2DComponent, iCircleCollision2DComponent>();
+	}
+
+    iEntitySystemStage iQuadtreeSystem::getStage() const
+    {
+        return iEntitySystemStage::Update;
+    }
+
 	void iQuadtreeSystem::update(const iaTime &time, iEntityScenePtr scene)
 	{
 		if(!scene->hasQuadtree())
@@ -21,41 +32,39 @@ namespace igor
 			return;
 		}
 
-		auto *registry = static_cast<entt::registry*>(scene->getRegistry());
 		auto &quadtree = scene->getQuadtree();
 
-		auto viewNoCollision = registry->view<iTransformComponent, iBody2DComponent>(entt::exclude<iCircleCollision2DComponent>);
-
-		for (auto entityID : viewNoCollision)
+		for (auto entity : _positionView->getEntities())
 		{
-			auto [transform, body] = viewNoCollision.get<iTransformComponent, iBody2DComponent>(entityID);
+			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
+			iBody2DComponent *body = entity->getComponent<iBody2DComponent>();
 
-			if (body._object == nullptr ||
-				body._object->_parent.expired())
+			if (body->_object == nullptr ||
+				body->_object->_parent.expired())
 			{
 				continue;
 			}
 
-			const iaVector2d position(transform._position._x, transform._position._y);
-			quadtree.update(body._object, position);
+			const iaVector2d position(transform->_position._x, transform->_position._y);
+			quadtree.update(body->_object, position);
 		}
 
-		auto view = registry->view<iTransformComponent, iBody2DComponent, iCircleCollision2DComponent>();
-
-		for (auto entityID : view)
+		for (auto entity : _circleView->getEntities())
 		{
-			auto [transform, body, circleCollision] = view.get<iTransformComponent, iBody2DComponent, iCircleCollision2DComponent>(entityID);
+			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
+			iBody2DComponent *body = entity->getComponent<iBody2DComponent>();
+			iCircleCollision2DComponent *circleCollision = entity->getComponent<iCircleCollision2DComponent>();
 
-			if (body._object == nullptr ||
-				body._object->_parent.expired())
+			if (body->_object == nullptr ||
+				body->_object->_parent.expired())
 			{
 				continue;
 			}
 
-			const iaCircled circle(transform._position._x + circleCollision._offset._x,
-								   transform._position._y + circleCollision._offset._y,
-								   circleCollision._radius);
-			quadtree.update(body._object, circle);
+			const iaCircled circle(transform->_position._x + circleCollision->_offset._x,
+								   transform->_position._y + circleCollision->_offset._y,
+								   circleCollision->_radius);
+			quadtree.update(body->_object, circle);
 		}
 	}
 

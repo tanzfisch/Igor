@@ -26,23 +26,43 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SYSTEM__
-#define __IGOR_ENTITY_SYSTEM__
+#ifndef IGOR_ENTITY_SYSTEM_H
+#define IGOR_ENTITY_SYSTEM_H
 
-#include <igor/entities/components/iComponentMap.h>
+#include <igor/entities/iEntityView.h>
 
-#include <memory>
+#include <iaux/system/iaTime.h>
 
 namespace igor
 {
-	class iEntityScene;
+
+	/*! entity pointer definition
+	 */
+	class iEntity;
+	typedef iEntity *iEntityPtr;
 
 	/*! entity scene pointer definition
-	*/
-	typedef std::shared_ptr<iEntityScene> iEntityScenePtr;
+	 */
+	class iEntityScene;
+	typedef iEntityScene *iEntityScenePtr;
 
-	class iEntitySystem
+	/*! entity system processing stage
+	*/
+	enum class iEntitySystemStage
 	{
+		Update,
+		PreRender,
+		Render,
+		StageCount
+	};
+
+	/*! entity system base class
+	 */
+	class IGOR_API iEntitySystem
+	{
+		friend class iEntity;
+		friend class iEntityScene;
+
 	public:
 		/*! does nothing
 		 */
@@ -53,36 +73,76 @@ namespace igor
 		virtual ~iEntitySystem() = default;
 
 		/*! updates system
+
+		\param time the time of the update tick
+		\param scene the scene used for this update
 		 */
 		virtual void update(const iaTime &time, iEntityScenePtr scene) = 0;
 
+		/*! \returns processing stage this system want's to run in
+		*/
+		virtual iEntitySystemStage getStage() const = 0;
+
+		/*! \returns scene this system operates in
+		*/
+		iEntityScenePtr getScene() const;
+
+	protected:
+
+		/*! callback to handle added component on entity
+
+		\param entity pointer of entity
+		\param typeID type of component that has been added
+		*/
+		virtual void onComponentAdded(iEntityPtr entity, const std::type_index &typeID);
+
+		/*! callback to handle removed component on entity
+
+		\param entity pointer of entity
+		\param typeID type of component that has been removed
+		*/
+		virtual void onComponentRemoved(iEntityPtr entity, const std::type_index &typeID);
+
+		/*! callback to handle component to be removed
+
+		\param entity pointer of entity
+		\param typeID type of component to be removed
+		*/
+		virtual void onComponentToRemove(iEntityPtr entity, const std::type_index &typeID);
+
+		/*! update when entity changed in a way that is relevant to views
+
+		\param entity the entity to update with this system
+		*/
+		void onEntityChanged(iEntityPtr entity);
+
+		/*! create an entity view for given component types
+
+		\returns entity view
+		*/
+		template <typename... Args>
+		iEntityViewPtr createView()
+		{
+			iEntityViewPtr view = new iEntityView();
+			(view->registerType<Args>(), ...);
+			_views.push_back(view);
+			return view;
+		}		
+
+	private:
+		/*! entity views
+		 */
+		std::vector<iEntityViewPtr> _views;
+
+		/*! scene this system operates in
+		*/
+		iEntityScenePtr _scene;
 	};
 
 	/*! entity system pointer definition
 	 */
-	typedef std::shared_ptr<iEntitySystem> iEntitySystemPtr;
-
-	class iEntityRenderSystem
-	{
-	public:
-		/*! does nothing
-		 */
-		iEntityRenderSystem() = default;
-
-		/*! does nothing
-		 */
-		virtual ~iEntityRenderSystem() = default;
-
-		/*! render system
-		 */
-		virtual void render(iEntityScenePtr scene) = 0;
-
-	};
-
-	/*! entity render system pointer definition
-	*/
-	typedef std::shared_ptr<iEntityRenderSystem> iEntityRenderSystemPtr;
+	typedef iEntitySystem *iEntitySystemPtr;
 
 } // igor
 
-#endif // __IGOR_ENTITY_SYSTEM__
+#endif // IGOR_ENTITY_SYSTEM_H

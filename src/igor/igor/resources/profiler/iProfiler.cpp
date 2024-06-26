@@ -12,7 +12,8 @@ namespace igor
     
     int32 iProfiler::_frame = 0;
     std::array<iaTime, PROFILER_MAX_FRAMES_COUNT> iProfiler::_frameTime;
-    std::unordered_map<int64, iProfilerSectionDataPtr> iProfiler::_sections;
+    std::unordered_map<iaString, iProfilerSectionData> iProfiler::_sections;
+    std::unordered_map<iaString, iProfilerCounterData> iProfiler::_counters;
 
     void iProfiler::nextFrame()
     {
@@ -20,21 +21,33 @@ namespace igor
         _frameTime[_frame] = iaTime::fromMilliseconds(0);
     }
 
-    const std::vector<iProfilerSectionDataPtr> iProfiler::getSections()
+    const std::vector<iProfilerSectionData> iProfiler::getSections()
     {
-        std::vector<iProfilerSectionDataPtr> sections;
+        std::vector<iProfilerSectionData> sections;
 
-        for(auto section : _sections)
+        for(const auto &pair : _sections)
         {
-            sections.push_back(section.second);
+            sections.push_back(pair.second);
         }
 
-        std::sort(sections.begin(), sections.end(), [](const iProfilerSectionDataPtr a, const iProfilerSectionDataPtr b)
+        std::sort(sections.begin(), sections.end(), [](const iProfilerSectionData& a, const iProfilerSectionData& b)
         {
-            return a->_beginTime < b->_beginTime;
+            return a._beginTime < b._beginTime;
         });
 
         return sections;
+    }
+
+    const std::vector<iProfilerCounterData> iProfiler::getCounters()
+    {
+        std::vector<iProfilerCounterData> counters;
+
+        for(const auto &pair : _counters)
+        {
+            counters.push_back(pair.second);
+        }
+
+        return counters;
     }
 
     int32 iProfiler::getCurrentFrameIndex()
@@ -42,44 +55,55 @@ namespace igor
         return _frame;
     }
 
-    iProfilerSectionDataPtr iProfiler::getSectionData(const iaString &sectionName)
+    void iProfiler::setValue(const iaString &key, uint64 value)
     {
-        iProfilerSectionDataPtr sectionData;
-        int64 hash = sectionName.getHashValue();
-        auto iter = _sections.find(hash);
+        auto iter = _counters.find(key);
+        if (iter == _counters.end())
+        {
+            iProfilerCounterData counterData;
+            counterData._name = key;
+            memset(&counterData._counters, 0, sizeof(uint64) * PROFILER_MAX_FRAMES_COUNT);
+            _counters[key] = counterData;
+        }
+
+        _counters[key]._counters[_frame] = value;
+    }
+
+    iProfilerSectionData& iProfiler::getSectionData(const iaString &sectionName)
+    {
+        auto iter = _sections.find(sectionName);
         if (iter == _sections.end())
         {
-            sectionData = iProfilerSectionDataPtr(new iProfilerSectionData());
-            sectionData->_name = sectionName;
-            memset(&sectionData->_values, 0, sizeof(iaTime) * PROFILER_MAX_FRAMES_COUNT);
+            iProfilerSectionData sectionData;
+            sectionData._name = sectionName;
+            memset(&sectionData._values, 0, sizeof(iaTime) * PROFILER_MAX_FRAMES_COUNT);
 
-            _sections[hash] = sectionData;
+            _sections[sectionName] = sectionData;
+            return _sections[sectionName];
         }
         else
         {
-            sectionData = iter->second;
+            return iter->second;
         }
-
-        return sectionData;
     }
 
     void iProfiler::beginSection(const iaString &sectionName)
     {
-        iProfilerSectionDataPtr sectionData = getSectionData(sectionName);
+        iProfilerSectionData& sectionData = getSectionData(sectionName);
 
-        sectionData->_values[_frame] = 0;
-        sectionData->_beginTime = iaTime::getNow();
+        sectionData._values[_frame] = 0;
+        sectionData._beginTime = iaTime::getNow();
     }
 
     void iProfiler::endSection(const iaString &sectionName)
     {
         iaTime now = iaTime::getNow();
 
-        iProfilerSectionDataPtr sectionData = getSectionData(sectionName);
+        iProfilerSectionData& sectionData = getSectionData(sectionName);
 
-        iaTime delta = now - sectionData->_beginTime;
+        iaTime delta = now - sectionData._beginTime;
 
-        sectionData->_values[_frame] += delta;
+        sectionData._values[_frame] = delta;
         _frameTime[_frame] += delta;
     }
 

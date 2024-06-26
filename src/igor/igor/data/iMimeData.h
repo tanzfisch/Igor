@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MIME_DATA__
-#define __IGOR_MIME_DATA__
+#ifndef IGOR_MIME_DATA_H
+#define IGOR_MIME_DATA_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/iResource.h>
@@ -198,4 +198,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_MIME_DATA__
+#endif // IGOR_MIME_DATA_H
