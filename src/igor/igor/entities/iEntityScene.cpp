@@ -1,9 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntityScene.h>
 
+#include <igor/entities/iEntitySystemModule.h>
+#include <igor/entities/systems/iCameraSystem.h>
 #include <igor/renderer/iRenderer.h>
 
 namespace igor
@@ -44,9 +46,9 @@ namespace igor
 
         delete _root;
 
-        for(int i=0;i<(int)iEntitySystemStage::StageCount;++i)
+        for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
         {
-            for(auto system : _systems[i])
+            for (auto system : _systems[i])
             {
                 delete system;
             }
@@ -63,6 +65,7 @@ namespace igor
     iQuadtreed &iEntityScene::getQuadtree() const
     {
         con_assert(_quadtree != nullptr, "Quadtree not initialized");
+
         return *_quadtree;
     }
 
@@ -75,23 +78,28 @@ namespace igor
     {
         con_assert((int)stage < (int)iEntitySystemStage::StageCount, "out of range stage");
 
-        if(stage == iEntitySystemStage::Update)
+        if (stage == iEntitySystemStage::Update)
         {
             flushQueues();
         }
-        
+
         auto &systems = _systems[(int)stage];
         for (auto system : systems)
         {
-            system->update(time, this);
+            system->onUpdate(iEntitySceneUpdateContext{time, stage, this, _renderEngine});
         }
+    }
+
+    void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
+    {
+        _renderEngine = renderEngine;
     }
 
     void iEntityScene::flushQueues()
     {
         const auto deleteQueue = std::move(_deleteQueue);
 
-        for(const auto entityID : deleteQueue)
+        for (const auto entityID : deleteQueue)
         {
             auto iter = _entities.find(entityID);
             if (iter == _entities.end())
@@ -99,11 +107,13 @@ namespace igor
                 continue;
             }
 
+            iEntitySystemModule::getInstance().getDestroyEntityEvent()(iter->second);
+
             delete iter->second;
             _entities.erase(iter);
         }
 
-        for(const auto &pair : _entities)
+        for (const auto &pair : _entities)
         {
             pair.second->processComponents();
         }
@@ -125,6 +135,8 @@ namespace igor
         _entities[entity->getID()] = entity;
         entity->_scene = this;
         entity->setParent(_root);
+
+        iEntitySystemModule::getInstance().getCreatedEntityEvent()(entity);
 
         return entity;
     }
@@ -190,7 +202,7 @@ namespace igor
                 system->onComponentToRemove(entity, typeID);
             }
         }
-    }    
+    }
 
     void iEntityScene::onEntityChanged(iEntityPtr entity)
     {
@@ -216,6 +228,12 @@ namespace igor
         {
             system->onEntityChanged(pair.second);
         }
+
+        iCameraSystem *cameraSystem = dynamic_cast<iCameraSystem *>(system);
+        if (cameraSystem != nullptr)
+        {
+            _cameraSystem = cameraSystem;
+        }
     }
 
     void iEntityScene::removeSystem(iEntitySystemPtr system)
@@ -228,8 +246,32 @@ namespace igor
         }
 
         systems.erase(iter);
-
         system->_scene = nullptr;
+
+        if (system == _cameraSystem)
+        {
+            _cameraSystem = nullptr;
+        }
+    }
+
+    std::vector<iEntityPtr> iEntityScene::getCameras() const
+    {
+        if (_cameraSystem != nullptr)
+        {
+            return _cameraSystem->getCameras();
+        }
+
+        return std::vector<iEntityPtr>();
+    }
+
+    iEntityPtr iEntityScene::getActiveCamera() const
+    {
+        if (_cameraSystem != nullptr)
+        {
+            return _cameraSystem->getActiveCamera();
+        }
+
+        return nullptr;
     }
 
 } // igor

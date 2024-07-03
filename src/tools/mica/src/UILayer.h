@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,10 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __UILAYER__
-#define __UILAYER__
+#ifndef MICA_UILAYER_H
+#define MICA_UILAYER_H
 
 #include "Workspace.h"
+#include "scene_outliner/SceneOutliner.h"
 #include "outliner/Outliner.h"
 #include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
@@ -59,7 +60,11 @@ private:
 
     /*! the outliner
 	*/
-    Outliner *_outliner = nullptr;
+    SceneOutliner *_sceneOutliner = nullptr;
+
+    /*! entities outliner
+    */
+    Outliner* _outliner = nullptr;
 
     /*! the asset browser
 	*/
@@ -170,4 +175,4 @@ private:
     bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
 };
 
-#endif // __UILAYER__
+#endif // MICA_UILAYER_H

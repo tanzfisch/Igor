@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- material definition for 2d flat shading -->
-	<ShaderMaterial name="example.voxel.terrain_directional_light" visibility="Public">
+	<ShaderMaterial uuid="0x432855e2f70bcd70" order="200" visibility="Public">
 		<States>
 			<DepthTest>On</DepthTest>
-            <Blend>Off</Blend>
+			<DepthMask>On</DepthMask>
+			<DepthFunc>Less</DepthFunc>
+			<Blend>Off</Blend>
+			<CullFace>On</CullFace>
+			<CullFaceFunc>Back</CullFaceFunc>
+			<Wireframe>Off</Wireframe>
+			<Instanced>Off</Instanced>
+			<InstancedFunc>PositionOrientationInstancing</InstancedFunc>
 		</States>
-        <Program>
-            <Vertex>
+		<Program>
+			<Vertex>
 <![CDATA[#version 450
 
 layout(location = 0) in vec3 in_position;
@@ -29,8 +35,8 @@ void main()
 	gl_Position = igor_modelViewProjection * vec4(in_position,1);
 }
 ]]>
-            </Vertex>
-            <Fragment>
+			</Vertex>
+			<Fragment>
 <![CDATA[#version 450
 
 in vec3 VertexWorld;
@@ -110,7 +116,7 @@ void main()
 	out_color.rgb = emissive + ambient + diffuse + specular;
 	out_color.a = igor_matAlpha;
 }]]>
-            </Fragment>
-        </Program>            
+			</Fragment>
+		</Program>
 	</ShaderMaterial>
 </Igor>

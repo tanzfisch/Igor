@@ -1,13 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iQuadtreeSystem.h>
 
-#include <igor/entities/components/iBody2DComponent.h>
-
 #include <igor/entities/iEntityScene.h>
-#include <igor/entities/iEntity.h>
+#include <igor/entities/components/iBody2DComponent.h>
+#include <igor/entities/components/iTransformComponent.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -25,8 +24,10 @@ namespace igor
         return iEntitySystemStage::Update;
     }
 
-	void iQuadtreeSystem::update(const iaTime &time, iEntityScenePtr scene)
+	void iQuadtreeSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
+		iEntityScenePtr scene = context._scene;
+		
 		if(!scene->hasQuadtree())
 		{
 			return;

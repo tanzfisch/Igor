@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/renderer/iView.h>
@@ -208,14 +208,12 @@ namespace igor
             return;
         }
 
-        // TODO maybe eventually iView will only host an entity camera
+        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);        
+
         if(_entityScene != nullptr)
         {
-            iEntitySystemModule::getInstance().onPreRender(_entityScene);
             iEntitySystemModule::getInstance().onRender(_entityScene);
         }
-
-        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
         if (_updateViewport)
         {
@@ -341,6 +339,7 @@ namespace igor
     void iView::setEntityScene(iEntityScenePtr entityScene)
     {
         _entityScene = entityScene;
+        _entityScene->setRenderEngine(&_renderEngine);
     }
 
     iEntityScenePtr iView::getEntityScene() const
@@ -387,23 +386,5 @@ namespace igor
 
         return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
     }
-
-    /*	iPixmap* iView::makeScreenshot(bool alphachannel)
-    {
-    iPixmap *pixmap = 0;
-
-    if(alphachannel) //! \todo
-    {
-    pixmap = new iPixmap(dcWindow.getWidth()*width, dcWindow.getHeight()*height, CF_RGBA);
-    dcRenderer.readPixels(0, 0, pixmap->getWidth(), pixmap->getHeight(), CF_RGBA, pixmap->getData());
-    }
-    else
-    {
-    pixmap = new iPixmap(dcWindow.getWidth()*width, dcWindow.getHeight()*height, CF_RGB);
-    dcRenderer.readPixels(0, 0, pixmap->getWidth(), pixmap->getHeight(), CF_RGB, pixmap->getData());
-    }
-
-    return pixmap;
-    }*/
 
 }; // namespace igor

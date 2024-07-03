@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -42,6 +42,7 @@ using namespace iaux;
 
 namespace igor
 {
+	class iCameraSystem;
 
 	/*! entity scene id
 	 */
@@ -53,6 +54,7 @@ namespace igor
 	{
 		friend class iEntitySystemModule;
 		friend class iEntity;
+		friend class iView;
 		friend class iEntityTraverser;
 
 	public:
@@ -78,6 +80,16 @@ namespace igor
 		\param entityID the given entity ID
 		*/
 		iEntityPtr getEntity(iEntityID entityID) const;
+
+		/*! \returns all entities with camera component
+
+		only if iCameraSystem was added to this scene
+		*/
+		std::vector<iEntityPtr> getCameras() const;
+
+		/*! \returns active camera
+		 */
+		iEntityPtr getActiveCamera() const;
 
 		/*! destroys entity for given ID
 
@@ -121,7 +133,7 @@ namespace igor
 
 		\param system the system to remove
 		*/
-		void removeSystem(iEntitySystemPtr system);
+		void removeSystem(iEntitySystemPtr system);		
 
 	private:
 		/*! entity scene id
@@ -137,20 +149,28 @@ namespace igor
 		std::unordered_map<iEntityID, iEntityPtr> _entities;
 
 		/*! entity delete queue
-		*/
+		 */
 		std::vector<iEntityID> _deleteQueue;
 
 		/*! keep one specialized root entity for tree traversal
-		*/
+		 */
 		iEntityPtr _root = nullptr;
 
 		/*! list of systems
-		*/
+		 */
 		std::array<std::vector<iEntitySystemPtr>, (int)iEntitySystemStage::StageCount> _systems;
 
 		/*! quadtree
 		 */
-		iQuadtreed *_quadtree = nullptr;		
+		iQuadtreed *_quadtree = nullptr;
+
+		/*! pointer to camera system if it was added
+		 */
+		iCameraSystem *_cameraSystem = nullptr;
+
+		/*! the render engine to use in render update stage
+		*/
+		iRenderEnginePtr _renderEngine = nullptr;
 
 		/*! ctor
 
@@ -159,11 +179,17 @@ namespace igor
 		iEntityScene(const iaString &name);
 
 		/*! dtor clean up
+		 */
+		~iEntityScene();
+
+		/*! sets render engine
+
+		\param renderEngine the render engine to set
 		*/
-		~iEntityScene();		
+		void setRenderEngine(iRenderEnginePtr renderEngine);
 
 		/*! flush entity delete queue
-		*/
+		 */
 		void flushQueues();
 
 		/*! updates systems
@@ -173,25 +199,25 @@ namespace igor
 		 */
 		void onUpdate(const iaTime &time, iEntitySystemStage stage);
 
-        /*! callback to handle added component
+		/*! callback to handle added component
 
 		\param entity pointer of entity
 		\param typeID type of added component
-        */
-        void onComponentAdded(iEntityPtr entity, const std::type_index &typeID);
+		*/
+		void onComponentAdded(iEntityPtr entity, const std::type_index &typeID);
 
-        /*! callback to handle removed component
+		/*! callback to handle removed component
 
 		\param entity pointer of entity
 		\param typeID type of removed component
-        */
+		*/
 		void onComponentRemoved(iEntityPtr entity, const std::type_index &typeID);
 
-        /*! callback to handle component to be removed
+		/*! callback to handle component to be removed
 
 		\param entity pointer of entity
 		\param typeID type of component to be removed
-        */
+		*/
 		void onComponentToRemove(iEntityPtr entity, const std::type_index &typeID);
 
 		/*! called after a bunch of components been added/removed
@@ -200,10 +226,6 @@ namespace igor
 		*/
 		void onEntityChanged(iEntityPtr entity);
 	};
-
-	/*! entity scene pointer definition
-	 */
-	typedef iEntityScene *iEntityScenePtr;
 
 } // igor
 

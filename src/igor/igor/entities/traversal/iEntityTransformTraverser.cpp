@@ -1,8 +1,10 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/traversal/iEntityTransformTraverser.h>
+
+#include <igor/entities/components/iTransformComponent.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;

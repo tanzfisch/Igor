@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "GameLayer.h"
@@ -310,10 +310,10 @@ iEntityID GameLayer::createPlayer()
     iTransformComponent *transform = static_cast<iTransformComponent *>(entity->addComponent(new iTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0))));
     entity->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     entity->addComponent(new iVelocityComponent(iaVector3d(0, 0, 0)));
-
+    
     iSpritePtr wagiu = iResourceManager::getInstance().createResource<iSprite>();
     wagiu->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_wagiu_a5"));
-    entity->addComponent(new iSpriteRendererComponent(wagiu, iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)));
+    entity->addComponent(new iSpriteRenderComponent(wagiu, iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)));
     entity->addComponent(new iPartyComponent(FRIEND));
     entity->addComponent(new iCircleCollision2DComponent(STANDARD_UNIT_SIZE * 1.5 * 0.5));
     entity->addComponent(new iBody2DComponent());
@@ -338,7 +338,7 @@ iEntityID GameLayer::createPlayer()
     // add shadow
     iEntityPtr shadow = _entityScene->createEntity("player shadow");
     shadow->addComponent(new iTransformComponent({iaVector3d(0.0, STANDARD_UNIT_SIZE * 0.8, 0.0)}));
-    shadow->addComponent(new iSpriteRendererComponent({_shadow, iaVector2d(STANDARD_UNIT_SIZE * 0.7, STANDARD_UNIT_SIZE * 0.3), iaColor4f::black, -1}));
+    shadow->addComponent(new iSpriteRenderComponent({_shadow, iaVector2d(STANDARD_UNIT_SIZE * 0.7, STANDARD_UNIT_SIZE * 0.3), iaColor4f::black, -1}));
     shadow->setParent(entity->getID());
 
     return entity->getID();
@@ -572,14 +572,17 @@ iEntityID GameLayer::createCamera()
     entity->addComponent(new iTransformComponent(playerTransform->_position));
     entity->addBehaviour({this, &GameLayer::onCameraFollowPlayer}, iaVector2d());
 
-    auto component = entity->addComponent(new iCameraComponent());
-    component->_projection = iProjectionType::Orthogonal;
-    component->_leftOrtho = -PLAYFIELD_VIEWPORT_WIDTH * 0.5;
-    component->_rightOrtho = PLAYFIELD_VIEWPORT_WIDTH * 0.5;
-    component->_bottomOrtho = PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
-    component->_topOrtho = -PLAYFIELD_VIEWPORT_HEIGHT * 0.5;
-    component->_clearColorActive = false;
-    component->_clearDepthActive = false;
+    auto cameraComponent = entity->addComponent(new iCameraComponent());
+#if 1
+    cameraComponent->setOrthogonal(-PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_HEIGHT * 0.5, -PLAYFIELD_VIEWPORT_HEIGHT * 0.5);
+    cameraComponent->setClearColorActive(false);
+    cameraComponent->setClearDepthActive(false);
+#else
+    cameraComponent->setPerspective(45.0);
+    cameraComponent->setClipPlanes(0.01, 100.0);
+    cameraComponent->setClearColorActive(true);
+    cameraComponent->setClearDepthActive(true);
+#endif
 
     // DEBUG
     /*auto debug = entity->addComponent<iRenderDebugComponent>({});
@@ -596,14 +599,14 @@ void GameLayer::createBackground()
 
     iSpritePtr background = iResourceManager::getInstance().createResource<iSprite>();
     background->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_background"));
-    entity->addComponent(new iSpriteRendererComponent(background, iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRendererComponent::iRenderMode::Tiled));
+    entity->addComponent(new iSpriteRenderComponent(background, iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderComponent::iRenderMode::Tiled));
 }
 
 void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType)
 {
     iEntityPtr entity = _entityScene->createEntity("object");
     const auto &transform = entity->addComponent(new iTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)));
-    entity->addComponent(new iSpriteRendererComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_coin"), iaVector2d(1.0, 1.0), iaColor4f::white, -10));
+    entity->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_coin"), iaVector2d(1.0, 1.0), iaColor4f::white, -10));
     entity->addComponent(new iPartyComponent(party));
     entity->addComponent(new iCircleCollision2DComponent(COIN_SIZE * 0.5));
     entity->addComponent(new iBody2DComponent());
@@ -662,7 +665,7 @@ void GameLayer::createShop()
     shop->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
     shop->addComponent(new iVelocityComponent());
     shop->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
-    shop->addComponent(new iSpriteRendererComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_shop")));
+    shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_shop")));
     shop->addComponent(new iPartyComponent(FRIEND));
     shop->addComponent(new iCircleCollision2DComponent(STANDARD_UNIT_SIZE * 4 * 0.5));
     shop->addComponent(new BuildingComponent(BuildingType::Shop));
@@ -680,7 +683,7 @@ void GameLayer::createShop()
     // add shadow
     iEntityPtr shadow = _entityScene->createEntity("shop shadow");
     shadow->addComponent(new iTransformComponent(iaVector3d(0.0, 0.25, 0.0)));
-    shadow->addComponent(new iSpriteRendererComponent(_shadow, iaVector2d(0.8, 0.8), iaColor4f::black, -1));
+    shadow->addComponent(new iSpriteRenderComponent(_shadow, iaVector2d(0.8, 0.8), iaColor4f::black, -1));
     shadow->setParent(shop->getID());
 
     shop->setActive(false);
@@ -747,7 +750,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 
     iSpritePtr sprite = iResourceManager::getInstance().createResource<iSprite>();
     sprite->setTexture(iResourceManager::getInstance().requestResource<iTexture>(enemyClass._texture));
-    unit->addComponent(new iSpriteRendererComponent(sprite, iaVector2d(enemyClass._size, enemyClass._size)));
+    unit->addComponent(new iSpriteRenderComponent(sprite, iaVector2d(enemyClass._size, enemyClass._size)));
     unit->addComponent(new iPartyComponent(party));
     unit->addComponent(new iCircleCollision2DComponent(enemyClass._size * 0.5));
     unit->addComponent(new iBody2DComponent());
@@ -766,13 +769,13 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     // add shadow
     iEntityPtr shadow = _entityScene->createEntity("shadow");
     shadow->addComponent(new iTransformComponent(iaVector3d(0.0, enemyClass._size * 0.4, 0.0)));
-    shadow->addComponent(new iSpriteRendererComponent(_shadow, iaVector2d(enemyClass._size * 0.25, enemyClass._size * 0.25), iaColor4f::black, -1));
+    shadow->addComponent(new iSpriteRenderComponent(_shadow, iaVector2d(enemyClass._size * 0.25, enemyClass._size * 0.25), iaColor4f::black, -1));
     shadow->setParent(unit->getID());
 }
 
 void GameLayer::onSpawnStuff(const iaTime &time)
 {
-    iEntityPtr player = _entityScene->getEntity(_player);    
+    iEntityPtr player = _entityScene->getEntity(_player);
 
     if (player == nullptr)
     {
@@ -1202,7 +1205,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
         iSpritePtr sprite = iResourceManager::getInstance().createResource<iSprite>();
         sprite->setTexture(iResourceManager::getInstance().requestResource<iTexture>(weapon->_config._texture));
-        bullet->addComponent(new iSpriteRendererComponent(sprite));
+        bullet->addComponent(new iSpriteRenderComponent(sprite));
         bullet->addComponent(new iCircleCollision2DComponent(weapon->_config._size * 0.5));
         bullet->addComponent(new iBody2DComponent());
         bullet->addComponent(new DamageComponent(weapon->_config._damage * modifier->_config._damageFactor));

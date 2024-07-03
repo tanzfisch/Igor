@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_DIRECTORY__
-#define __IAUX_DIRECTORY__
+#ifndef IAUX_DIRECTORY_H
+#define IAUX_DIRECTORY_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/data/iaString.h>
@@ -168,4 +168,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // IAUX_DIRECTORY_H

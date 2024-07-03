@@ -1,11 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iCameraSystem.h>
 
 #include <igor/entities/iEntityScene.h>
-#include <igor/entities/iEntity.h>
+#include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iCameraComponent.h>
 #include <igor/renderer/iRenderer.h>
 
 #include <igor/system/iApplication.h>
@@ -19,60 +20,92 @@ namespace igor
 
 	iEntitySystemStage iCameraSystem::getStage() const
 	{
-		return iEntitySystemStage::PreRender;
+		return iEntitySystemStage::Render;
 	}
 
-	void iCameraSystem::update(const iaTime &time, iEntityScenePtr scene)
+	iEntityPtr iCameraSystem::getActiveCamera() const
 	{
-		// TODO iRenderDebugComponent *debug = registry.try_get<iRenderDebugComponent>(entityID);
+		if (_cameraView->getEntities().empty())
+		{
+			return nullptr;
+		}
+
+		return _cameraView->getEntities().front();
+	}
+
+	std::vector<iEntityPtr> iCameraSystem::getCameras() const
+	{
+		std::vector<iEntityPtr> result;
+
+		for (auto entity : _cameraView->getEntities())
+		{
+			result.push_back(entity);
+		}
+
+		for (auto entity : _cameraView->getInactiveEntities())
+		{
+			result.push_back(entity);
+		}
+
+		return result;
+	}
+
+	void iCameraSystem::onUpdate(const iEntitySceneUpdateContext &context)
+	{
+		con_assert(_cameraView->getEntities().size() < 2, "more then one camera active. this will lead to undefined behaviour");
+
+		auto entity = getActiveCamera();
+		if (entity == nullptr)
+		{
+			return;
+		}
+
+		// TODO instead of setting the camera values pass the cam values to the render engine so it can be used in mesh render system for culling
 
 		iWindowPtr window = iApplication::getInstance().getWindow();
 
-		int32 clientHeight = window->getClientHeight();
 		int32 clientWidth = window->getClientWidth();
+		int32 clientHeight = window->getClientHeight();
 
-		for (auto entity : _cameraView->getEntities()) // makes no sense to iterate here. Let's just safe the "active" camera and just set it
+		auto camera = entity->getComponent<iCameraComponent>();
+		auto viewport = camera->getViewport();
+
+		iaRectanglei rect;
+		rect.setX(viewport.getX() * static_cast<float32>(clientWidth) + 0.5f);
+		rect.setY(viewport.getY() * static_cast<float32>(clientHeight) + 0.5f);
+		rect.setWidth(viewport.getWidth() * static_cast<float32>(clientWidth) + 0.5f);
+		rect.setHeight(viewport.getHeight() * static_cast<float32>(clientHeight) + 0.5f);
+		iRenderer::getInstance().setViewport(rect);
+
+		if (camera->isClearColorActive())
 		{
-			auto camera = entity->getComponent<iCameraComponent>();
-
-			if (!entity->isActive())
-			{
-				continue;
-			}
-
-			auto transform = entity->getComponent<iTransformComponent>();
-
-			iRenderer::getInstance().setViewport(camera->_viewport._x * clientWidth,
-												 camera->_viewport._y * clientHeight,
-												 camera->_viewport._width * clientWidth,
-												 camera->_viewport._height * clientHeight);
-
-			if (camera->_clearColorActive)
-			{
-				iRenderer::getInstance().clearColorBuffer(camera->_clearColor);
-			}
-
-			if (camera->_clearDepthActive)
-			{
-				iRenderer::getInstance().clearDepthBuffer(camera->_clearDepth);
-			}
-
-			if (camera->_projection == iProjectionType::Perspective)
-			{
-				iRenderer::getInstance().setPerspective(camera->_fieldOfView, camera->_viewport._width / camera->_viewport._height, camera->_clipNear, camera->_clipFar);
-			}
-			else
-			{
-				iRenderer::getInstance().setOrtho(camera->_leftOrtho, camera->_rightOrtho, camera->_bottomOrtho, camera->_topOrtho, camera->_clipNear, camera->_clipFar);
-			}
-
-			iRenderer::getInstance().setViewMatrixFromCam(transform->_worldMatrix);
-
-			/*if (debug != nullptr)
-			{
-				iRenderer::getInstance().setWireframeEnabled(debug->_renderWireframe);
-			}*/
+			iRenderer::getInstance().clearColorBuffer(camera->getClearColor());
 		}
+
+		if (camera->isClearDepthActive())
+		{
+			iRenderer::getInstance().clearDepthBuffer(camera->getClearDepth());
+		}
+
+		if (camera->getProjectionType() == iProjectionType::Perspective)
+		{
+			iRenderer::getInstance().setPerspective(camera->getFieldOfView(),
+													camera->getAspectRatio(),
+													camera->getNearClipPlane(),
+													camera->getFarClipPlane());
+		}
+		else
+		{
+			iRenderer::getInstance().setOrtho(camera->getLeftOrtho(),
+											  camera->getRightOrtho(),
+											  camera->getBottomOrtho(),
+											  camera->getTopOrtho(),
+											  camera->getNearClipPlane(),
+											  camera->getFarClipPlane());
+		}
+
+		auto transform = entity->getComponent<iTransformComponent>();
+		iRenderer::getInstance().setViewMatrixFromCam(transform->_worldMatrix);
 	}
 
 } // igor

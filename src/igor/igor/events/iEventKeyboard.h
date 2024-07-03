@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTKEYBOARD__
-#define __IGOR_EVENTKEYBOARD__
+#ifndef IGOR_EVENT_KEYBOARD_H
+#define IGOR_EVENT_KEYBOARD_H
 
 #include <igor/events/iEvent.h>
 
@@ -134,4 +134,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_EVENTKEYBOARD__
+#endif // IGOR_EVENT_KEYBOARD_H

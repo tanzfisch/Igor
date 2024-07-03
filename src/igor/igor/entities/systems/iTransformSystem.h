@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -48,11 +48,11 @@ namespace igor
          */
         ~iTransformSystem() = default;
 
-        /*! updates system
+		/*! updates system
 
-        \param scene the scene used for this update
-         */
-        void update(const iaTime &time, iEntityScenePtr scene) override;
+		\param context the update context
+		 */
+		void onUpdate(const iEntitySceneUpdateContext &context) override;
 
         /*! \returns processing stage this system want's to run in
          */

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -103,7 +103,6 @@
 #include <igor/system/iTimerHandle.h>
 #include <igor/system/iWindow.h>
 
-#include <igor/events/iEventECS.h>
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
@@ -112,6 +111,10 @@
 #include <igor/entities/iEntity.h>
 #include <igor/entities/components/iComponents.h>
 #include <igor/entities/components/iBody2DComponent.h>
+#include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iMeshRenderComponent.h>
+#include <igor/entities/components/iCameraComponent.h>
 
 #include <igor/entities/iEntitySystemModule.h>
 

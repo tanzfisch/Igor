@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/renderer/iRenderEngine.h>
@@ -166,14 +166,7 @@ namespace igor
         }
         else
         {
-            if (shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
-            {
-                _materialGroups.push_back({shader, {renderNode}, std::unordered_map<iMeshPtr, iInstaningPackage>()});
-            }
-            else
-            {
-                _materialGroups.push_back({shader, {renderNode}, std::unordered_map<iMeshPtr, iInstaningPackage>()});
-            }
+            _materialGroups.push_back({shader, {renderNode}, std::unordered_map<iMeshPtr, iInstaningPackage>()});
         }
     }
 
@@ -320,6 +313,10 @@ namespace igor
         {
             _scene->drawOctree();
         }
+    }
+
+    void iRenderEngine::addMesh(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &matrix)
+    {
     }
 
 } // namespace igor

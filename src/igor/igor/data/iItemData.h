@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,15 +26,16 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ITEM_DATA__
-#define __IGOR_ITEM_DATA__
+#ifndef IGOR_ITEM_DATA_H
+#define IGOR_ITEM_DATA_H
 
 #include <igor/data/iItem.h>
 
 namespace igor
 {
-
     /*! container for items
+
+    Caller needs to make sure all sibling items have unique names
      */
     class iItemData
     {
@@ -66,10 +67,6 @@ namespace igor
         */
         iItemPtr getItem(const iaString &itemPath);
 
-        /*! \returns root item
-         */
-        iItemPtr getRoot();
-
         /*! compare two item data sets for equality
 
         \returns true if equal
@@ -92,4 +89,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_ITEM_DATA__
+#endif // IGOR_ITEM_DATA_H

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2023 by Martin Loga
+//    (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_COLOR3__
-#define __IAUX_COLOR3__
+#ifndef IAUX_COLOR3_H
+#define IAUX_COLOR3_H
 
 #include <iaux/iaDefines.h>
 
@@ -149,4 +149,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // IAUX_COLOR3_H

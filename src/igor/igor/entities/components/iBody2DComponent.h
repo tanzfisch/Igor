@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -29,9 +29,7 @@
 #ifndef IGOR_2D_BODY_COMPONENT_H
 #define IGOR_2D_BODY_COMPONENT_H
 
-#include <igor/entities/iEntityComponent.h>
-
-#include <igor/entities/iEntityScene.h>
+#include <igor/entities/iEntity.h>
 
 namespace igor
 {
@@ -46,6 +44,11 @@ namespace igor
         */
         iBody2DComponent(iQuadtreed::ObjectPtr object = nullptr, const iaString &name = "body 2d");
 
+        /*! quadtree object
+         */
+        iQuadtreed::ObjectPtr _object = nullptr;
+
+    private:
         /*! callback to activate component
          */
         void onActivate(iEntityPtr entity) override;
@@ -53,12 +56,8 @@ namespace igor
         /*! callback to deactivate component
          */
         void onDeactivate(iEntityPtr entity) override;
-
-        /*! quadtree object
-         */
-        iQuadtreed::ObjectPtr _object = nullptr;
     };
 
 }
 
-#endif //  IGOR_2D_BODY_COMPONENT_H
+#endif // IGOR_2D_BODY_COMPONENT_H

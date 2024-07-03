@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -107,6 +107,9 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0; //! resource parameters text
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameters texture unit 1
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2; //! resource parameters texture unit 2
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3; //! resource parameters texture unit 3
+
+extern const iaString IGOR_ITEM_DATA_NAME; //! item data type name
+extern const iaString IGOR_ITEM_DATA_ICON; //! item data type icon
 
 namespace igor
 {

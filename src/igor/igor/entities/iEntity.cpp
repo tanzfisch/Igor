@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntity.h>
@@ -15,7 +15,6 @@ namespace igor
     iEntity::iEntity(const iaString &name)
         : _name(name)
     {
-        con_endl("created Entity " << this << " " << name);
     }
 
     iEntity::~iEntity()
@@ -37,8 +36,6 @@ namespace igor
         }
 
         clearComponents();
-
-        con_endl("destroyed Entity " << this << " " << getName());
     }
 
     void iEntity::processComponents()

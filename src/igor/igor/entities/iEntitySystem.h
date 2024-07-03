@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -36,25 +36,50 @@
 namespace igor
 {
 
-	/*! entity pointer definition
-	 */
-	class iEntity;
-	typedef iEntity *iEntityPtr;
-
 	/*! entity scene pointer definition
 	 */
 	class iEntityScene;
 	typedef iEntityScene *iEntityScenePtr;
+
+	/*! render engine pointer definition
+	*/
+	class iRenderEngine;
+	typedef iRenderEngine *iRenderEnginePtr;
 
 	/*! entity system processing stage
 	*/
 	enum class iEntitySystemStage
 	{
 		Update,
-		PreRender,
 		Render,
 		StageCount
 	};
+
+	/*! update context
+	*/
+	struct iEntitySceneUpdateContext
+	{
+		/*! time of simulation frame aka tick
+		*/
+		iaTime _time;
+		
+		/*! stage of update context
+		*/
+		iEntitySystemStage _stage;
+
+		/*! the scene
+		*/
+		iEntityScenePtr _scene;
+
+		/*! render engine to use
+		*/
+		iRenderEnginePtr _renderEngine;
+	};
+
+	/*! entity pointer definition
+	 */
+	class iEntity;
+	typedef iEntity *iEntityPtr;
 
 	/*! entity system base class
 	 */
@@ -74,10 +99,9 @@ namespace igor
 
 		/*! updates system
 
-		\param time the time of the update tick
-		\param scene the scene used for this update
+		\param context the update context
 		 */
-		virtual void update(const iaTime &time, iEntityScenePtr scene) = 0;
+		virtual void onUpdate(const iEntitySceneUpdateContext &context) = 0;
 
 		/*! \returns processing stage this system want's to run in
 		*/

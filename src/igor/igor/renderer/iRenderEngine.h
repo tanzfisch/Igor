@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERENGINE__
-#define __IGOR_RENDERENGINE__
+#ifndef IGOR_RENDER_ENGINE_H
+#define IGOR_RENDER_ENGINE_H
 
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -43,7 +43,7 @@
 namespace igor
 {
 
-    /*! does control the render loop
+    /*! feeds the renderer with pre filtered data
      */
     class IGOR_API iRenderEngine
     {
@@ -109,6 +109,14 @@ namespace igor
         /*! culls and renders
          */
         void render();
+
+        /*! add mesh for render
+
+        \param mesh the mesh to add
+        \param material the material to use on the mesh
+        \param matrix the transform where to render the mesh at
+        */
+        void addMesh(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &matrix);
 
     private:
         /*! current camera
@@ -201,4 +209,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif // __IGOR_RENDERENGINE__
+#endif // IGOR_RENDER_ENGINE_H

@@ -1,11 +1,10 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iTransformSystem.h>
 
-#include <igor/entities/iEntityScene.h>
-#include <igor/entities/iEntity.h>
+#include <igor/entities/components/iTransformComponent.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -23,9 +22,9 @@ namespace igor
         return iEntitySystemStage::Update;
     }
 
-	void iTransformSystem::update(const iaTime &time, iEntityScenePtr scene)
-	{
-		_traverser.traverse(scene);
-	}
+    void iTransformSystem::onUpdate(const iEntitySceneUpdateContext &context)
+    {
+        _traverser.traverse(context._scene);
+    }
 
 } // igor

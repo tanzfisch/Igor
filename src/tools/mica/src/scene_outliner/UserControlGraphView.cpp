@@ -1,12 +1,12 @@
 // Igor game engine
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlGraphView.h"
 
 #include "../actions/MicaActionContext.h"
 
-UserControlGraphView::UserControlGraphView(WorkspacePtr workspace, Outliner *outliner) // TODO UserControlGraphView should not know the Outliner
+UserControlGraphView::UserControlGraphView(WorkspacePtr workspace, SceneOutliner *outliner) // TODO UserControlGraphView should not know the SceneOutliner
     : _outliner(outliner), _workspace(workspace)
 {
     initGUI();
