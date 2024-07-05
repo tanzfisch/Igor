@@ -316,7 +316,7 @@ iEntityID GameLayer::createPlayer()
     entity->addComponent(new iSpriteRenderComponent(wagiu, iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)));
     entity->addComponent(new iPartyComponent(FRIEND));
     entity->addComponent(new iCircleCollision2DComponent(STANDARD_UNIT_SIZE * 1.5 * 0.5));
-    entity->addComponent(new iBody2DComponent());
+    entity->addComponent(new iQuadtreeComponent());
 
     iAnimationControllerPtr animationController(new iAnimationController());
     animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
@@ -421,7 +421,7 @@ void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
     BuildingType buildingType = BuildingType::None;
 
     const auto transform = entity->getComponent<iTransformComponent>();
-    auto body = entity->getComponent<iBody2DComponent>();
+    auto body = entity->getComponent<iQuadtreeComponent>();
     auto experience = entity->getComponent<ExperienceComponent>();
     auto coins = entity->getComponent<CoinsComponent>();
     auto health = entity->getComponent<HealthComponent>();
@@ -466,7 +466,7 @@ void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
         auto *buildingComponent = otherEntity->getComponent<BuildingComponent>();
         if (buildingComponent != nullptr)
         {
-            auto otherBody = otherEntity->getComponent<iBody2DComponent>();
+            auto otherBody = otherEntity->getComponent<iQuadtreeComponent>();
             if (iIntersection::intersects(otherBody->_object->_circle, body->_object->_circle))
             {
                 buildingType = buildingComponent->_type;
@@ -609,7 +609,7 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
     entity->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_coin"), iaVector2d(1.0, 1.0), iaColor4f::white, -10));
     entity->addComponent(new iPartyComponent(party));
     entity->addComponent(new iCircleCollision2DComponent(COIN_SIZE * 0.5));
-    entity->addComponent(new iBody2DComponent());
+    entity->addComponent(new iQuadtreeComponent());
 
     entity->addComponent(new PickupComponent(true));
     entity->addComponent(new ExperienceGainComponent(0.0f));
@@ -672,7 +672,7 @@ void GameLayer::createShop()
     shop->addComponent(new ModifierComponent({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f}));
     shop->addComponent(new WeaponComponent(_weapons["Minigun"]));
     shop->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
-    shop->addComponent(new iBody2DComponent());
+    shop->addComponent(new iQuadtreeComponent());
     shop->addBehaviour({this, &GameLayer::onAquireTarget});
     shop->addBehaviour({this, &GameLayer::onUpdateWeapon});
 
@@ -753,7 +753,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit->addComponent(new iSpriteRenderComponent(sprite, iaVector2d(enemyClass._size, enemyClass._size)));
     unit->addComponent(new iPartyComponent(party));
     unit->addComponent(new iCircleCollision2DComponent(enemyClass._size * 0.5));
-    unit->addComponent(new iBody2DComponent());
+    unit->addComponent(new iQuadtreeComponent());
 
     iAnimationControllerPtr animationController(new iAnimationController());
     animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
@@ -1087,7 +1087,7 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
     auto party = entity->getComponent<iPartyComponent>();
     auto damage = entity->getComponent<DamageComponent>();
     auto health = entity->getComponent<HealthComponent>();
-    auto body = entity->getComponent<iBody2DComponent>();
+    auto body = entity->getComponent<iQuadtreeComponent>();
 
     iQuadtreed::Objects objects;
     _entityScene->getQuadtree().query(body->_object->_circle, objects);
@@ -1207,7 +1207,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         sprite->setTexture(iResourceManager::getInstance().requestResource<iTexture>(weapon->_config._texture));
         bullet->addComponent(new iSpriteRenderComponent(sprite));
         bullet->addComponent(new iCircleCollision2DComponent(weapon->_config._size * 0.5));
-        bullet->addComponent(new iBody2DComponent());
+        bullet->addComponent(new iQuadtreeComponent());
         bullet->addComponent(new DamageComponent(weapon->_config._damage * modifier->_config._damageFactor));
         bullet->addComponent(new HealthComponent(100.0f, true));
         bullet->addBehaviour({this, &GameLayer::onUpdateProjectileOrientation});

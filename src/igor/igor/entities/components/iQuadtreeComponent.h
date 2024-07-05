@@ -26,44 +26,40 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_QUADTREE_SYSTEM_H
-#define IGOR_QUADTREE_SYSTEM_H
+#ifndef IGOR_2D_BODY_COMPONENT_H
+#define IGOR_2D_BODY_COMPONENT_H
 
-#include <igor/entities/iEntitySystem.h>
+#include <igor/entities/iEntity.h>
+
+#include <igor/data/iQuadtree.h>
 
 namespace igor
 {
-    /*! quadtree system
+    /*! quadtree component
      */
-    class iQuadtreeSystem : public iEntitySystem
+    class iQuadtreeComponent : public iEntityComponent
     {
     public:
+        /*! ctor
 
-        /*! init types
+        \param name the name of this component
         */
-        iQuadtreeSystem();
+        iQuadtreeComponent(iQuadtreed::ObjectPtr object = nullptr, const iaString &name = "body 2d");
 
-		/*! updates system
-
-		\param context the update context
-		 */
-		void onUpdate(const iEntitySceneUpdateContext &context) override;
-
-		/*! \returns processing stage this system want's to run in
-		*/
-		iEntitySystemStage getStage() const override;
+        /*! quadtree object
+         */
+        iQuadtreed::ObjectPtr _object = nullptr;
 
     private:
+        /*! callback to activate component
+         */
+        void onActivate(iEntityPtr entity) override;
 
-        /*! a view on some entities with positions
-        */
-        iEntityViewPtr _positionView;        
-
-        /*! a view on some entities with circles
-        */
-        iEntityViewPtr _circleView;
+        /*! callback to deactivate component
+         */
+        void onDeactivate(iEntityPtr entity) override;
     };
 
-} // igor
+}
 
-#endif // IGOR_QUADTREE_SYSTEM_H
+#endif // IGOR_2D_BODY_COMPONENT_H

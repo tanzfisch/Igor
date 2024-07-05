@@ -31,6 +31,7 @@
 
 #include <igor/entities/iEntitySystem.h>
 #include <igor/data/iQuadtree.h>
+#include <igor/data/iOctree.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaRectangle.h>
@@ -106,13 +107,13 @@ namespace igor
 		 */
 		const iEntitySceneID &getID() const;
 
-		/*! initialize quadtree
+		/*! initialize quadtree which makes it available for use
 
-		\param box volume of the whole quadtree
+		\param rect area of the whole quadtree
 		\param splitThreshold threshold count of objects on a node before splitting the node
 		\param maxDepth the maximum depth of the tree
 		*/
-		void initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
+		void initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
 
 		/*! \returns internal quadtree
 		 */
@@ -121,6 +122,22 @@ namespace igor
 		/*! \returns true if quadtree present
 		 */
 		bool hasQuadtree() const;
+
+		/*! initialize octree which makes it available for use
+
+		\param cube volume of the whole octree
+		\param splitThreshold threshold count of objects on a node before splitting the node
+		\param maxDepth the maximum depth of the tree
+		*/
+		void initializeOctree(const iAACubed &cube, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);		
+
+		/*! \returns internal octree
+		 */
+		iOctreed &getOctree() const;
+
+		/*! \returns true if octree present
+		 */
+		bool hasOctree() const;		
 
 		/*! add system
 
@@ -162,6 +179,10 @@ namespace igor
 		/*! quadtree
 		 */
 		iQuadtreed *_quadtree = nullptr;
+
+		/*! octree
+		*/
+		iOctreed *_octree = nullptr;
 
 		/*! pointer to camera system if it was added
 		 */

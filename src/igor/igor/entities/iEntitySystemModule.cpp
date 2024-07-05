@@ -4,7 +4,7 @@
 
 #include <igor/entities/iEntitySystemModule.h>
 
-#include <igor/entities/systems/iQuadtreeSystem.h>
+#include <igor/entities/systems/iSpacialtreeSystem.h>
 #include <igor/entities/systems/iAnimationSystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iSpriteRenderSystem.h>
@@ -13,7 +13,7 @@
 #include <igor/entities/systems/iCameraSystem.h>
 #include <igor/entities/systems/iMeshRenderSystem.h>
 
-#include <igor/entities/components/iBody2DComponent.h>
+#include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
@@ -30,7 +30,7 @@ namespace igor
     {
         registerComponentType<iSpriteRenderComponent>();
         registerComponentType<iTransformComponent>();
-        registerComponentType<iBody2DComponent>();
+        registerComponentType<iQuadtreeComponent>();
         registerComponentType<iCircleCollision2DComponent>();
         registerComponentType<iVelocityComponent>();
         registerComponentType<iBehaviourComponent>();
@@ -56,7 +56,7 @@ namespace igor
 
         scene->addSystem(new iAnimationSystem());
         scene->addSystem(new iBehaviourSystem());
-        scene->addSystem(new iQuadtreeSystem());
+        scene->addSystem(new iSpacialtreeSystem());
         scene->addSystem(new iVelocitySystem());
         scene->addSystem(new iTransformSystem());
 

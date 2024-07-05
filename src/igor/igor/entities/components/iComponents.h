@@ -34,7 +34,6 @@
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimationController.h>
-#include <igor/data/iQuadtree.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>

@@ -5,14 +5,14 @@
 #include <igor/entities/systems/iVelocitySystem.h>
 
 #include <igor/entities/iEntityScene.h>
-#include <igor/entities/components/iBody2DComponent.h>
+#include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 
 namespace igor
 {
 	iVelocitySystem::iVelocitySystem()
 	{
-		_interactionResolverView = createView<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
+		_interactionResolverView = createView<iVelocityComponent, iQuadtreeComponent, iMotionInteractionResolverComponent>();
 		_noBoundsView = createView<iVelocityComponent, iTransformComponent>();
 		_boundsView = createView<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
 	}
@@ -33,7 +33,7 @@ namespace igor
 			for (auto entity : _interactionResolverView->getEntities())
 			{
 				auto velocity = entity->getComponent<iVelocityComponent>();
-				auto quadComp = entity->getComponent<iBody2DComponent>();
+				auto quadComp = entity->getComponent<iQuadtreeComponent>();
 				auto motionResolver = entity->getComponent<iMotionInteractionResolverComponent>();
 
 				switch (motionResolver->_type)

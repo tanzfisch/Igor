@@ -55,16 +55,16 @@ namespace igor
         }
     }
 
-    void iEntityScene::initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
+    void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
     {
         con_assert(_quadtree == nullptr, "Quadtree already initialized");
 
-        _quadtree = new iQuadtreed(box, splitThreshold, maxDepth);
+        _quadtree = new iQuadtreed(rect, splitThreshold, maxDepth);
     }
 
     iQuadtreed &iEntityScene::getQuadtree() const
     {
-        con_assert(_quadtree != nullptr, "Quadtree not initialized");
+        con_assert(_quadtree != nullptr, "Quadtree was not initialized");
 
         return *_quadtree;
     }
@@ -72,6 +72,25 @@ namespace igor
     bool iEntityScene::hasQuadtree() const
     {
         return _quadtree != nullptr;
+    }
+
+    void iEntityScene::initializeOctree(const iAACubed &cube, const uint32 splitThreshold, const uint32 maxDepth)
+    {
+        con_assert(_octree == nullptr, "Octree already initialized");
+
+        _octree = new iOctreed(cube, splitThreshold, maxDepth);
+    }
+
+    iOctreed &iEntityScene::getOctree() const
+    {
+        con_assert(_quadtree != nullptr, "Octree was not initialized");
+
+        return *_octree;
+    }
+
+    bool iEntityScene::hasOctree() const
+    {
+        return _octree != nullptr;
     }
 
     void iEntityScene::onUpdate(const iaTime &time, iEntitySystemStage stage)

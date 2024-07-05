@@ -27,8 +27,8 @@
 // contact: igorgameengine@protonmail.com
 
 // https://wiki.lspace.org/Igor ;-)
-#ifndef __IGOR__
-#define __IGOR__
+#ifndef IGOR_H
+#define IGOR_H
 
 // igor includes
 #include <igor/audio/iAudio.h>
@@ -44,6 +44,7 @@
 #include <igor/data/iRay.h>
 #include <igor/data/iSkeleton.h>
 #include <igor/data/iQuadtree.h>
+#include <igor/data/iOctree.h>
 
 #include <igor/generation/iContouringCubes.h>
 #include <igor/generation/iLSystem.h>
@@ -110,7 +111,7 @@
 
 #include <igor/entities/iEntity.h>
 #include <igor/entities/components/iComponents.h>
-#include <igor/entities/components/iBody2DComponent.h>
+#include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
@@ -237,4 +238,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR__
+#endif // IGOR_H
