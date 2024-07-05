@@ -30,6 +30,7 @@
 #define IGOR_VIEW_H
 
 #include <igor/iDefines.h>
+#include <igor/renderer/iRenderEngineOld.h>
 #include <igor/renderer/iRenderEngine.h>
 #include <igor/entities/iEntityScene.h>
 
@@ -408,8 +409,12 @@ namespace igor
          */
         iDrawEvent _renderEvent;
 
-        /*! render engine that turns a scene in to something visible
+        /*! old render engine
          */
+        iRenderEngineOld _renderEngineOld;
+
+        /*! render engine
+        */
         iRenderEngine _renderEngine;
 
         /*! sets the z index of this view. will be used by window to determine the render order

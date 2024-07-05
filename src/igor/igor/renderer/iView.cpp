@@ -60,22 +60,22 @@ namespace igor
 
     void iView::setBoundingBoxVisible(bool boundingBox)
     {
-        _renderEngine.setBoundingBoxVisible(boundingBox);
+        _renderEngineOld.setBoundingBoxVisible(boundingBox);
     }
 
     bool iView::isBoundingBoxVisible() const
     {
-        return _renderEngine.isBoundingBoxVisible();
+        return _renderEngineOld.isBoundingBoxVisible();
     }
 
     void iView::setOctreeVisible(bool octree)
     {
-        _renderEngine.setOctreeVisible(octree);
+        _renderEngineOld.setOctreeVisible(octree);
     }
 
     bool iView::isOctreeVisible() const
     {
-        return _renderEngine.isOctreeVisible();
+        return _renderEngineOld.isOctreeVisible();
     }
 
     void iView::setName(const iaString &name)
@@ -178,12 +178,12 @@ namespace igor
 
     void iView::setCamera(iNodeID cameraID)
     {
-        _renderEngine.setCamera(cameraID);
+        _renderEngineOld.setCamera(cameraID);
     }
 
     iNodeID iView::getCamera() const
     {
-        return _renderEngine.getCamera();
+        return _renderEngineOld.getCamera();
     }
 
     void iView::setUpdateViewport(bool enabled)
@@ -241,7 +241,7 @@ namespace igor
 
         if (_scene != nullptr)
         {
-            _renderEngine.render();
+            _renderEngineOld.render();
         }
 
         _renderEvent();
@@ -268,7 +268,7 @@ namespace igor
         if (_scene != nullptr &&
             getCamera() != iNode::INVALID_NODE_ID)
         {
-            iRenderEngine renderEngine;
+            iRenderEngineOld renderEngine;
 
             uint32 renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
             iRenderer::getInstance().setRenderTarget(renderTarget);
@@ -328,7 +328,7 @@ namespace igor
         con_assert(scene != nullptr, "zero pointer");
 
         _scene = scene;
-        _renderEngine.setScene(_scene);
+        _renderEngineOld.setScene(_scene);
     }
 
     iScenePtr iView::getScene() const

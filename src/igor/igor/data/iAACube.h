@@ -54,6 +54,14 @@ namespace igor
         */
         iAACube(const iaVector3<T> &center, T halfEdgeLenght);
 
+        /*! \returns the center
+        */
+        const iaVector3<T>& getCenter() const;
+
+        /*! \returns the center
+        */
+        const T& getHalfEdge() const;
+
         /*! center position of cube
         */
         iaVector3<T> _center;

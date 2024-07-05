@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RECTANGLE__
-#define __IAUX_RECTANGLE__
+#ifndef IAUX_RECTANGLE_H
+#define IAUX_RECTANGLE_H
 
 #include <iaux/math/iaVector2.h>
 
@@ -250,4 +250,4 @@ namespace iaux
     typedef iaRectangle<int64> iaRectangleI;
 }; // namespace igor
 
-#endif // __IAUX_RECTANGLE__
+#endif // IAUX_RECTANGLE_H

@@ -29,16 +29,9 @@
 #ifndef IGOR_RENDER_ENGINE_H
 #define IGOR_RENDER_ENGINE_H
 
-#include <igor/scene/iScene.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/resources/shader/iShader.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/renderer/buffers/iInstancingBuffer.h>
+#include <igor/entities/iEntityScene.h>
 
-#include <vector>
-#include <unordered_map>
+#include <iaux/math/iaMatrix.h>
 
 namespace igor
 {
@@ -56,155 +49,35 @@ namespace igor
          */
         virtual ~iRenderEngine() = default;
 
-        /*! defines if bounding boxes are shown or not
-
-        \param boundingBox if true bounding boxes are shown
+        /*! sets the scene to render
         */
-        void setBoundingBoxVisible(bool boundingBox = true);
+        void setScene(iEntityScenePtr scene);
 
-        /*! \returns true if bounding boxes are shown
-         */
-        bool isBoundingBoxVisible() const;
+        /*! sets the current camera
 
-        /*! defines if octree is shown or not
-
-        \param octree if true octree is shown
+        \param camera entity that contains iCameraComponent and iTransformComponent
         */
-        void setOctreeVisible(bool octree = true);
+        void setCamera(iEntityPtr camera);
 
-        /*! \returns true if octree is shown
-         */
-        bool isOctreeVisible() const;
+        /*! add mesh for render queue
 
-        /*! sets if the nodes should be rendered with solely their colorid
-
-        \param enabled if true nodes will be rendered with their color id
+        \param mesh entity that contains iTransformComponent and iMeshRenderComponent
         */
-        void setColorIDRendering(bool enabled = true);
+        void addMesh(iEntityPtr mesh);
 
-        /*! \returns if nodes will be rendered with their color id
-         */
-        bool isColorIDRendering() const;
-
-        /*! sets the scene to render with
-
-        \param scene scene to render
+        /*! renders given data
         */
-        void setScene(iScenePtr scene);
-
-        /*! \returns pointer to scene
-         */
-        iScenePtr getScene() const;
-
-        /*! sets current camera by id
-
-        \param cameraID the camery id
-        */
-        void setCamera(iNodeID cameraID);
-
-        /*! \returns current camera id
-         */
-        iNodeID getCamera() const;
-
-        /*! culls and renders
-         */
         void render();
 
-        /*! add mesh for render
-
-        \param mesh the mesh to add
-        \param material the material to use on the mesh
-        \param matrix the transform where to render the mesh at
-        */
-        void addMesh(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &matrix);
-
     private:
-        /*! current camera
-         */
-        iNodeCamera *_currentCamera = nullptr;
 
-        /*! flag if rendering uses wireframe
-         */
-        bool _showWireframe = false;
-
-        /*! flag if bounding boxes are drawn
-         */
-        bool _showBoundingBoxes = false;
-
-        /*! flag if octree will be rendered
-         */
-        bool _showOctree = false;
-
-        /*! flag if true color ids get rendered
-         */
-        bool _renderColorID = false;
-
-        /*! handle to scene
-         */
-        iScenePtr _scene = nullptr;
-
-        /*! temporary list of nodes that where filtered by the culling process
-         */
-        std::vector<iNodeID> _cullResult;
-
-        struct iInstaningPackage
-        {
-            iInstancingBufferPtr _buffer;
-            iMaterialPtr _material;
-        };
-
-        /*! bringing all nodes using the same material together for more efficient rendering
+        /*! the scene to render
         */
-        struct iMaterialGroup
-        {
-            /*! the material used
-            */
-            iShaderPtr _material;
+        iEntityScenePtr _scene = nullptr;
 
-            /*! the nodes rendered with this material
-            */
-            std::vector<iNodeRenderPtr> _renderNodes;
-
-            /*! optional instancing buffers per mesh that is using the same material
-            */
-            std::unordered_map<iMeshPtr, iInstaningPackage> _instancing;
-        };
-
-        /*! render nodes
-         */
-        std::vector<iMaterialGroup> _materialGroups;    
-
-        /*! cull scene relative to specified camera
-
-        \param camera the specified camera
+        /*! camera ID
         */
-        void cullScene(iNodeCameraPtr camera);
-
-        /*! updates material groups
-         */
-        void updateMaterialGroups();
-
-        /*! adds node to material groups
-
-        \param renderNode the node to add
-        */
-        void addNodeToMaterialGroups(iNodeRenderPtr renderNode);
-
-        /*! adds node to corresponding material group
-
-        \param renderNode the node to add
-        */
-        void addToMaterialGroup(const iNodeRenderPtr renderNode);
-
-        /*! draw scene relative to specified camera
-
-        \param camera the specified camera
-        */
-        void drawScene();
-
-        /*! draws everyting by using it's color id
-         */
-        void drawColorIDs();
+        iEntityID _cameraID = iEntityID::getInvalid();
 
     };
 } // namespace igor

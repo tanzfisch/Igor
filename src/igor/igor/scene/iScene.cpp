@@ -7,7 +7,7 @@
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeManager.h>
-#include <igor/data/iOctree.h>
+#include <igor/data/iOctreeOld.h>
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/scene/nodes/iNodeCamera.h>
@@ -32,7 +32,7 @@ namespace igor
         _root->setScene(this);
 
         _mutexOctree.lock();
-        _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 10.0, 8, 2);
+        _octree = new iOctreeOld(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 10.0, 8, 2);
         _mutexOctree.unlock();
     }
 

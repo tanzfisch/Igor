@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_QUADTREE__
-#define __IGOR_QUADTREE__
+#ifndef IGOR_QUADTREE_H
+#define IGOR_QUADTREE_H
 
 #include <igor/iDefines.h>
 #include <igor/data/iIntersection.h>
@@ -237,4 +237,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_QUADTREE__
+#endif // IGOR_QUADTREE_H

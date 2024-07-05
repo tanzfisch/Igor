@@ -37,9 +37,6 @@
 
 namespace igor
 {    
-
-    class iRenderEngine;
-
     /*! event called after creation of new entity
     */
     IGOR_EVENT_DEFINITION(iCreatedEntity, void, iEntityPtr);

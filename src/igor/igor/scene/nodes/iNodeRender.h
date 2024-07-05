@@ -44,8 +44,8 @@ namespace igor
     {
 
         friend class iNodeVisitorUpdateTransform;
-        friend class iOctree;
-        friend class iRenderEngine;
+        friend class iOctreeOld;
+        friend class iRenderEngineOld;
         friend class iNodeManager;
 
     public:

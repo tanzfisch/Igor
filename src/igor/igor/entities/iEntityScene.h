@@ -30,7 +30,6 @@
 #define IGOR_ENTITY_SCENE_H
 
 #include <igor/entities/iEntitySystem.h>
-#include <igor/entities/iEntity.h>
 #include <igor/data/iQuadtree.h>
 
 #include <iaux/data/iaUUID.h>

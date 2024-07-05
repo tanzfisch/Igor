@@ -26,294 +26,216 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_OCTREE__
-#define __IGOR_OCTREE__
+#ifndef IGOR_OCTREE_H
+#define IGOR_OCTREE_H
 
+#include <igor/iDefines.h>
+#include <igor/data/iIntersection.h>
 #include <igor/data/iAACube.h>
-#include <igor/data/iFrustum.h>
 
 #include <iaux/data/iaSphere.h>
+using namespace iaux;
 
+#include <algorithm>
 #include <memory>
-#include <list>
-#include <unordered_map>
-#include <vector>
+#include <any>
 
 namespace igor
 {
-
-    /*! \brief Octree implementation
-    */
-    class IGOR_API iOctree
+    /*! octree implementation
+     */
+    template <typename F>
+    class IGOR_API_EXPORT_ONLY iOctree
     {
 
     public:
-        /*! insert user data to octree
+        struct iOctreeNode;
 
-        \param userData pointer to user data
-        */
-        void insert(void* userData, const iaSphered &sphere);
-
-        /*! remove user data from octree
-
-        \param userData pointer to user data
-        */
-        void remove(void* userData);
-
-        /*! update user data in octree
-
-        this is called usually if the user data changed it's position
-
-        \param userData pointer to user data
-        */
-        void update(void* userData, const iaSphered &sphere);
-
-        /*! adds frustum to filter set
-
-        \param frustum the frustum
-        */
-        void addFilter(const iFrustumd &frustum);
-
-        /*! adds plane to filter set
-
-        \param plane the plane to filter with
-        */
-        void addFilter(const iPlaned &plane);
-
-        /*! adds sphere to filter set
-
-        \param sphere the sphere to filter with
-        */
-        void addFilter(const iaSphered &sphere);
-
-        /*! clears filter set
+        /*! octree object
          */
-        void clearFilter();
+        struct iOctreeObject
+        {
+            iOctreeObject() = default;
 
-        /*! filters the octree using the current filter set
+            iOctreeObject(const iaSphere<F> &sphere, const std::any &userData)
+                : _sphere(sphere), _userData(userData)
+            {
+            }
 
-        use getResult to get the result
-        */
-        void filter();
+            /*! the sphere of this object
+             */
+            iaSphere<F> _sphere;
 
-        /*! filters the octree with given frustum
+            /*! parent node
+             */
+            std::weak_ptr<iOctreeNode> _parent;
 
-        use getResult to get the result
+            /*! user data
+             */
+            std::any _userData;
+        };
 
-        \param frustum the given frustum
-        */
-        void filter(const iFrustumd &frustum);
+        /*! node defintion
+         */
+        struct iOctreeNode
+        {
+            /*! parent node
+             */
+            std::weak_ptr<iOctreeNode> _parent;
 
-        /*! returns the result of filtering
+            /*! children of node
+             */
+            std::shared_ptr<iOctreeNode> _children[8];
 
-        \returns the filtered user data
-        */
-        const std::vector<void*> &getResult() const;
+            /*! node cube
+             */
+            iAACube<F> _cube;
+
+            /*! octree objects
+             */
+            std::vector<std::shared_ptr<iOctreeObject>> _objects;
+        };
 
         /*! creates the octree including the root node
 
-        \param box volume of the whole octree
-        \param halfMinResolution half of the minimum size a octree nodes volume has
-        \param objectCountMaxThreashold maximum amount of objects before splitting the parenting octree node
-        \param objectCountMinThreashold minimum amount of objects in the child nodes of a node before merging them together
+        \todo why do we have a max depth????
+
+        \param cube volume of the whole octree
+        \param splitThreshold threshold count of objects on a node before splitting the node
+        \param maxDepth the maximum depth of the tree
         */
-        iOctree(const iAACubed &box, float64 halfMinResolution = 1.0, uint64 objectCountMaxThreashold = 8, uint64 objectCountMinThreashold = 2);
+        iOctree(const iAACube<F> &cube, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);
 
         /*! dtor
-        \bug not implemented
-        */
-        virtual ~iOctree();
+         */
+        virtual ~iOctree() = default;
 
-        /*! draws the octrees structure
+        /*! insert object at given position
 
-        only use for debugging!
+        \param userData the user data
         */
-        void draw();
+        void insert(const std::shared_ptr<iOctreeObject> object);
+
+        /*! remove given object
+
+        \param userData the user data
+        */
+        void remove(const std::shared_ptr<iOctreeObject> object);
+
+        /*! updates position of given object
+
+        \param object the object to update
+        \param position the new position of the object
+        */
+        void update(const std::shared_ptr<iOctreeObject> object, const iaVector3<F> &position);
+
+        /*! updates position and radius of given object
+
+        \param object the object to update
+        \param sphere the new position and radius of the object
+        */
+        void update(const std::shared_ptr<iOctreeObject> object, const iaSphere<F> &sphere);
+
+        /*! \returns root of tree
+         */
+        const std::shared_ptr<iOctreeNode> &getRoot() const;
+
+        /*! queries for objects within given sphere
+
+        \param sphere the given sphere
+        \param objects the resulting found objects
+        */
+        void query(const iaSphere<F> &sphere, std::vector<std::shared_ptr<iOctreeObject>> &objects);
+
+        /*! queries for objects within given cube
+
+        \param cube the given cube
+        \param objects the resulting found objects
+        */
+        void query(const iAACube<F> &cube, std::vector<std::shared_ptr<iOctreeObject>> &objects);
+
+        /*! clears the tree
+         */
+        void clear();
+
+        /*! \returns dimensions of octree
+         */
+        const iAACube<F> &getRootCube() const;
+
+        using Object = iOctreeObject;
+        using Node = iOctreeNode;
+        using ObjectPtr = std::shared_ptr<iOctreeObject>;
+        using NodePtr = std::shared_ptr<iOctreeNode>;
+        using Objects = std::vector<ObjectPtr>;
 
     private:
-        /*! represents an object within the octree
+        /*! root node
          */
-        struct OctreeObject
-        {
-            /*! id of paranting octree node
-             */
-            uint64 _octreeNode;
+        std::shared_ptr<iOctreeNode> _root;
 
-            /*! sphere of object
-             */
-            iaSphered _sphere;
-        };
-
-        /*! octree node of certain size
-
-        can contain other nodes and objects
-        */
-        struct OctreeNode
-        {
-            /*! volume of octree node
-             */
-            iAACubed _box;
-
-            /*! octree nodes child nodes
-             */
-            uint64 *_children = nullptr;
-
-            /*! the parenting octree node
-             */
-            uint64 _parent = 0;
-
-            /*! list of user data
-             */
-            std::vector<void*> _objects;
-        };
-
-        /*! recursive method to filter the octree with a set of filters starting with specified node id
-
-        \param nodeID current octree node to check for filtering
-        */
-        void filter(uint64 nodeID);
-
-        /*! specialized version of filter function only filtering for given frustum
-
-        \param nodeID current octree node to check for filtering
-        \param frustum the given frustum
-        */
-        void filter(uint64 nodeID, const iFrustumd &frustum);
-
-        /*! lookup table for faster split of octree node volumes
+        /*! max number of objects before splitting node
          */
-        static const iaVector3d _splitTable[8];
+        const uint32 _splitThreshold;
 
-        /*! half of the minimum size a octree nodes volume has
+        /*! max depth of tree
          */
-        float64 _halfMinResolution = 0;
+        const uint32 _maxDepth;
 
-        /*! minimum amount of objects in the child nodes of a node before merging them together
-         */
-        uint64 _objectCountMinThreashold = 0;
+        /*! recursive insert new data implementation
 
-        /*! maximum amount of objects before splitting the parenting octree node
-         */
-        uint64 _objectCountMaxThreashold = 0;
-
-        /*! the id of the next node created
-         */
-        uint64 _nextNodeID = 1;
-
-        /*! lookup table for all objects within the octree
-         */
-        std::unordered_map<void*, OctreeObject *> _objects;
-
-        /*! lookup table for all nodes within the octree
-         */
-        std::unordered_map<uint64, OctreeNode *> _nodes;
-
-        /*! id of the root node
-         */
-        uint64 _rootNode;
-
-        /*! internal list for filtering
-         */
-        std::vector<void*> _queryResult;
-
-        /*! spheres filter list
-         */
-        std::vector<iaSphered> _spheresFilter;
-
-        /*! planes filter list
-         */
-        std::vector<iPlaned> _planesFilter;
-
-        /*! frustum filter list
-         */
-        std::vector<iFrustumd> _frustumFilter;
-
-        /*! recursive function to insert a scene node to the octree
-
-        if the right place is fount a octree object will be created the represents the scene node
-
-        \param nodeID the current octree node in rucursion
-        \param userData the id of the scene node to bind to the octree object
-        \param position position of scene node volume
+        \param node the current node
+        \param userData the user data
+        \param depth variable to measure depth
         */
-        void insert(uint64 nodeID, void* userData, const iaSphered &sphere);
+        void insertInternal(const std::shared_ptr<iOctreeNode> &node, const std::shared_ptr<iOctreeObject> object, uint32 &depth);
 
-        /*! check if node has to be split and than split
+        /*! removes user data
 
-        \param nodeID node to be checked for splitting
+        \param node the current node
+        \param userData the user data to remove
         */
-        void trySplit(uint64 nodeID);
+        bool removeInternal(const std::shared_ptr<iOctreeNode> &node, const std::shared_ptr<iOctreeObject> object);
 
-        /*! splits an octree node
+        /*! queries for user data within given sphere
 
-        \param nodeID node to be split
+        \param node the current node
+        \param sphere the given sphere
+        \param objects the resulting found user data
         */
-        void split(uint64 nodeID);
+        void queryInternal(const std::shared_ptr<iOctreeNode> &node, const iaSphere<F> &sphere, std::vector<std::shared_ptr<iOctreeObject>> &objects);
 
-        /*! check if node should be merged with it's children and then merge
+        /*! queries for user data within given cube
 
-        \param nodeID node to be checked for merging
+        \param node the current node
+        \param sphere the given cube
+        \param objects the resulting found user data
         */
-        void tryMerge(uint64 nodeID);
+        void queryInternal(const std::shared_ptr<iOctreeNode> &node, const iAACube<F> &cube, std::vector<std::shared_ptr<iOctreeObject>> &objects);
 
-        /*! merges node and it's children to one node
+        /*! split given node
 
-        \param nodeID node to be merged with it's children
+        \param node the node to split
         */
-        void merge(uint64 nodeID);
+        void split(const std::shared_ptr<iOctreeNode> &node);
 
-        /*! text sphere against filter
+        /*! try to merge given node
 
-        \param sphere the sphere to filter
-        \returns true if inside filter definition
+        \param node the given node
         */
-        bool testFilter(const iaSphered &sphere);
+        bool tryMerge(const std::shared_ptr<iOctreeNode> &node);
 
-        /*! text cube against filter
+        /*! \returns true if node has no children
 
-        \param cube the cube to filter
-        \returns true if inside filter definition
+        \param node the node to test
         */
-        bool testFilter(const iAACubed &cube);
-
-        /*! creates a node and returns the new node id
-
-        \returns node id
-        */
-        uint64 createNode();
-
-        /*! deletes a node by id
-
-        \param nodeID node to be deleted
-        */
-        void deleteNode(uint64 nodeID);
-
-        /*! creates an octree object
-
-        \param userData scene node to associate the octree object with
-        \returns pointer to new octree object
-        */
-        OctreeObject *createObject(void* userData, const iaSphered &sphere);
-
-        /*! deletes an octree object by scene node id
-
-        \param userData id of the corresponding scene node
-        */
-        void deleteObject(void* userData);
-
-        /*! recursive method to draw the octree structure
-
-        only use for debugging!
-
-        \param nodeID id of the current octree node
-        */
-        float32 draw(uint64 nodeID);
+        bool isLeaf(const std::shared_ptr<iOctreeNode> &node) const;
     };
 
-    /*! octree pointer definition
-     */
-    typedef iOctree *iOctreePtr;
+#include <igor/data/iOctree.inl>
+
+    typedef iOctree<float32> iOctreef;
+    typedef iOctree<float64> iOctreed;
 
 } // namespace igor
 
-#endif // __IGOR_OCTREE__
+#endif // IGOR_OCTREE_H

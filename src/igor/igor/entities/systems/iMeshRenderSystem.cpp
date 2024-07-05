@@ -31,12 +31,11 @@ namespace igor
 
 		// TODO get cam from render engine, query the octree (frustum culling) and pass the result to the render engine
 
-		for (auto entity : _view->getEntities())
+		// query the octree for the entitites instead that -> for (auto entity : _view->getEntities())
 		{
-			auto meshRender = entity->getComponent<iMeshRenderComponent>();
-			auto transform = entity->getComponent<iTransformComponent>();
 
-			renderEngine->addMesh(meshRender->getMesh(), meshRender->getMaterial(), transform->_worldMatrix);
+
+			// renderEngine->addMesh(entity);
 		}
 	}
 
