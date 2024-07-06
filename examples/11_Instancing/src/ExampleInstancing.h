@@ -62,10 +62,6 @@ private:
     */
     iEntityID _cameraPitch;
 
-    /*! perlin noise generator
-     */
-    iPerlinNoise _perlinNoise;
-
     /*! deinit example
      */
     void onDeinit() override;

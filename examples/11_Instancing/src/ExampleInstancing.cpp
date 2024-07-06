@@ -54,13 +54,12 @@ void ExampleInstancing::onInit()
     cameraComponent->setClipPlanes(0.1, 10000.0);
     cameraComponent->setClearColorActive(true);
     cameraComponent->setClearDepthActive(true);
-
     // link them together
     cameraPitch->setParent(cameraHeading);
     camera->setParent(cameraPitch);
 
-    _perlinNoise.generateBase(42);
-
+    iPerlinNoise perlinNoise;
+    perlinNoise.generateBase(42);
     iaRandomNumberGenerator random;
 
     // todo need to be able to load a mesh from file without all of this
@@ -85,7 +84,7 @@ void ExampleInstancing::onInit()
         {
             for (int x = 0; x < amountPerDimension; ++x)
             {
-                float32 noise = _perlinNoise.getValue(iaVector3d(x * 0.1, y * 0.1, z * 0.1), 3);
+                float32 noise = perlinNoise.getValue(iaVector3d(x * 0.1, y * 0.1, z * 0.1), 3);
                 if (noise < 0.62)
                 {
                     continue;
@@ -125,6 +124,7 @@ void ExampleInstancing::onInit()
         }
     }
 
+    // add the sun
     iEntityPtr sun = _entityScene->createEntity("sun_light");
     sun->addComponent(new iTransformComponent(iaVector3d(1, 1, 1)));
     sun->addComponent(new iLightComponent());
