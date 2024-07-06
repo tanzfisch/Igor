@@ -25,17 +25,22 @@ namespace igor
         for (auto child : children)
         {
             child->removeParent();
-            _scene->destroyEntity(child->getID());
+            _scene->destroyEntity(child);
         }
 
         const auto inactiveChildren = _inactiveChildren;
         for (auto child : inactiveChildren)
         {
             child->removeParent();
-            _scene->destroyEntity(child->getID());
+            _scene->destroyEntity(child);
         }
 
         clearComponents();
+    }
+
+    void iEntity::componentToAdd(const std::type_index &typeID)
+    {
+        _scene->onComponentToAdd(this, typeID);
     }
 
     void iEntity::processComponents()

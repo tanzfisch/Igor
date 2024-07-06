@@ -48,25 +48,20 @@ namespace igor
          */
         ~iTransformSystem() = default;
 
-		/*! updates system
+        /*! updates system
 
-		\param context the update context
-		 */
-		void onUpdate(const iEntitySceneUpdateContext &context) override;
+        \param context the update context
+         */
+        void onUpdate(const iEntitySceneUpdateContext &context) override;
 
         /*! \returns processing stage this system want's to run in
          */
         iEntitySystemStage getStage() const override;
 
     private:
-
         /*! transform traverser
-        */
+         */
         iEntityTransformTraverser _traverser;
-
-        /*! transform view on entities
-        */
-        iEntityViewPtr _transformView;
     };
 
 } // igor

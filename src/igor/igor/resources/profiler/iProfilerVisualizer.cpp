@@ -103,10 +103,10 @@ namespace igor
             }
         }
 
-        const iaColor4f backgroundColor(0, 0, 0, 0.5);
+        const iaColor4f backgroundColor(0, 0, 0.5, 0.3);
 
         iRenderer::getInstance().setFont(font);
-        iRenderer::getInstance().setFontSize(15.0f);
+        iRenderer::getInstance().setFontSize(16.0f);
 
         // draw footer background
         iRenderer::getInstance().drawFilledRectangle(0, window->getClientHeight() - 40, window->getClientWidth(), 40, backgroundColor);

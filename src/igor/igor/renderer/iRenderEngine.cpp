@@ -39,10 +39,7 @@ namespace igor
         con_assert(meshRenderComponent != nullptr && transformComponent != nullptr, "missing components");
 
         auto mesh = meshRenderComponent->getMesh();
-        if(mesh == nullptr)
-        {
-            return;
-        }
+        con_assert(mesh != nullptr, "no mesh");
 
         iMaterialPtr material = meshRenderComponent->getMaterial();
         iShaderPtr shader = material->getShader();
@@ -57,7 +54,7 @@ namespace igor
         for (int i = 0; i < 16; ++i)
         {
             dst[i] = src[i];
-        }        
+        }
 
         auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
                                  [&shader](const iMaterialGroup &materialGroup)

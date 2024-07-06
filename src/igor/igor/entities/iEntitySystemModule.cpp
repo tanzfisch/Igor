@@ -4,7 +4,6 @@
 
 #include <igor/entities/iEntitySystemModule.h>
 
-#include <igor/entities/systems/iSpacialtreeSystem.h>
 #include <igor/entities/systems/iAnimationSystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iSpriteRenderSystem.h>
@@ -61,8 +60,8 @@ namespace igor
 
         scene->addSystem(new iAnimationSystem());
         scene->addSystem(new iBehaviourSystem());
-        scene->addSystem(new iSpacialtreeSystem());
         scene->addSystem(new iVelocitySystem());
+
         scene->addSystem(new iTransformSystem());
 
         scene->addSystem(new iCameraSystem());
@@ -143,7 +142,7 @@ namespace igor
 
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                maxUpdateCount > 0)
-        {
+        {           
             for (auto pair : _scenes)
             {
                 pair.second->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);

@@ -36,8 +36,10 @@ namespace igor
 
     void iEntityTraverser::traverse(iEntityScenePtr scene)
     {
+        _scene = scene;
+
         preTraverse();
-        traverseInternal(scene->_root, !_ignoreInactive);
+        traverseInternal(_scene->_root, !_ignoreInactive);
         postTraverse();
     }
 

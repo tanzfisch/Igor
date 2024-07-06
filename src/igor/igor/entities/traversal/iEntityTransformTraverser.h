@@ -82,7 +82,19 @@ namespace igor
 
         has to be implemented by deriving class
         */
-        void postTraverse() override;        
+        void postTraverse() override;      
+
+        /*! updates quadtree for given entity
+
+        \param the given entity
+        */
+        void updateQuadtree(iEntityPtr entity);
+
+        /*! updates octree for given entity
+
+        \param the given entity
+        */
+        void updateOctree(iEntityPtr entity);
     };
 
 }; // namespace igor

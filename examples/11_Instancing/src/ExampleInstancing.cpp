@@ -23,7 +23,7 @@ ExampleInstancing::ExampleInstancing(iWindowPtr window)
 void ExampleInstancing::onInit()
 {
     const float64 spacing = 5.0;
-    const int32 amountPerDimension = 50;
+    const int32 amountPerDimension = 55;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);

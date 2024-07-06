@@ -14,7 +14,6 @@ namespace igor
 
     iTransformSystem::iTransformSystem()
     {
-        _transformView = createView<iTransformComponent>();
     }
 
     iEntitySystemStage iTransformSystem::getStage() const

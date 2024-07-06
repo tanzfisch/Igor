@@ -35,12 +35,12 @@ namespace igor
 {
 
 	/*! sprite render system
-	*/
+	 */
 	class iSpriteRenderSystem : public iEntitySystem
 	{
 	public:
 		/*! init types
-		*/
+		 */
 		iSpriteRenderSystem();
 
 		/*! updates system
@@ -50,13 +50,12 @@ namespace igor
 		void onUpdate(const iEntitySceneUpdateContext &context) override;
 
 		/*! \returns processing stage this system want's to run in
-		*/
+		 */
 		iEntitySystemStage getStage() const override;
 
 	private:
-
-        /*! a view on some entities
-        */
+		/*! a view on some entities
+		 */
 		iEntityViewPtr _view;
 	};
 

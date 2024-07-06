@@ -11,12 +11,14 @@ namespace igor
     {
     }
 
-    void iTransformComponent::updateWorldMatrix(iaMatrixd &worldMatrix)
+    bool iTransformComponent::updateWorldMatrix(iaMatrixd &worldMatrix)
     {
         worldMatrix.translate(_position);
         worldMatrix.rotate(_orientation);
         worldMatrix.scale(_scale);
+        bool result = _worldMatrix != worldMatrix;
         _worldMatrix = worldMatrix;
+        return result;
     }
 
     const iaMatrixd &iTransformComponent::getWorldMatrix() const

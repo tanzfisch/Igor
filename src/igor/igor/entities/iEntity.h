@@ -253,6 +253,12 @@ namespace igor
         */
         void destroyComponent(const std::type_index &typeID);
 
+        /*! called for component that is about to be added
+
+        \param typeID the components type id
+        */
+        void componentToAdd(const std::type_index &typeID);
+
         /*! notifies scene that components have changed
         */
         void onEntityChanged();

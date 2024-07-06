@@ -20,19 +20,19 @@ namespace igor
 	}
 
 	iEntitySystemStage iSpriteRenderSystem::getStage() const
-    {
-        return iEntitySystemStage::Render;
-    }
+	{
+		return iEntitySystemStage::Render;
+	}
 
 	void iSpriteRenderSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
 		auto &entities = _view->getEntities();
 
-		std::sort(entities.begin(), entities.end(), [](iEntityPtr a, iEntityPtr b) {
+		std::sort(entities.begin(), entities.end(), [](iEntityPtr a, iEntityPtr b)
+				  {
 			auto spriteA = a->getComponent<iSpriteRenderComponent>();
 			auto spriteB = b->getComponent<iSpriteRenderComponent>();
-			return spriteA->_zIndex < spriteB->_zIndex;
-		});
+			return spriteA->_zIndex < spriteB->_zIndex; });
 
 		for (auto entity : entities)
 		{

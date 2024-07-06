@@ -459,7 +459,7 @@ void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
             auto heal = otherEntity->getComponent<HealComponent>();
             health->_health += heal->_heal;
 
-            _entityScene->destroyEntity(otherEntity->getID());
+            _entityScene->destroyEntity(otherEntity);
         }
 
         auto *buildingComponent = otherEntity->getComponent<BuildingComponent>();
@@ -1132,7 +1132,7 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
                     otherEntityHealth->_health -= damage->_damage;
                     if (otherEntityHealth->_health < 0.0)
                     {
-                        _entityScene->destroyEntity(otherEntityID);
+                        _entityScene->destroyEntity(otherEntity);
 
                         if (otherEntityParty->_partyID == FOE)
                         {
@@ -1153,7 +1153,7 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
                     health->_destroyOnImpact)
                 {
                     health->_health = 0.0;
-                    _entityScene->destroyEntity(entity->getID());
+                    _entityScene->destroyEntity(entity);
                 }
             }
         }
@@ -1171,7 +1171,7 @@ void GameLayer::onUpdateRange(iEntityPtr entity, std::any &userData)
     if (range->_rangeLeft < 0.0)
     {
         health->_health = 0.0;
-        _entityScene->destroyEntity(entity->getID());
+        _entityScene->destroyEntity(entity);
     }
 }
 

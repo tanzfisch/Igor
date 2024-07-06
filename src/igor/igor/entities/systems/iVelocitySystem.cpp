@@ -17,10 +17,10 @@ namespace igor
 		_boundsView = createView<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
 	}
 
-    iEntitySystemStage iVelocitySystem::getStage() const
-    {
-        return iEntitySystemStage::Update;
-    }	
+	iEntitySystemStage iVelocitySystem::getStage() const
+	{
+		return iEntitySystemStage::Update;
+	}
 
 	void iVelocitySystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{

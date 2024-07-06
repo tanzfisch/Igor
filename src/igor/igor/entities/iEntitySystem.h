@@ -42,38 +42,38 @@ namespace igor
 	typedef iEntityScene *iEntityScenePtr;
 
 	/*! render engine pointer definition
-	*/
+	 */
 	class iRenderEngine;
 	typedef iRenderEngine *iRenderEnginePtr;
 
 	/*! entity system processing stage
-	*/
+	 */
 	enum class iEntitySystemStage
 	{
-		Update,		// everything that can be done before render. might get called multiple times per render frame
-		PreRender,	// called once before render
-		Render,		// special cases that need to be run after camera was setup and actually do render things
+		Update,	   // everything that can be done before render. might get called multiple times per render frame
+		PreRender, // called once before render
+		Render,	   // special cases that need to be run after camera was setup and actually do render things
 		StageCount
 	};
 
 	/*! update context
-	*/
+	 */
 	struct iEntitySceneUpdateContext
 	{
 		/*! time of simulation frame aka tick
-		*/
+		 */
 		iaTime _time;
-		
+
 		/*! stage of update context
-		*/
+		 */
 		iEntitySystemStage _stage;
 
 		/*! the scene
-		*/
+		 */
 		iEntityScenePtr _scene;
 
 		/*! render engine to use
-		*/
+		 */
 		iRenderEnginePtr _renderEngine;
 	};
 
@@ -105,15 +105,14 @@ namespace igor
 		virtual void onUpdate(const iEntitySceneUpdateContext &context) = 0;
 
 		/*! \returns processing stage this system want's to run in
-		*/
+		 */
 		virtual iEntitySystemStage getStage() const = 0;
 
 		/*! \returns scene this system operates in
-		*/
+		 */
 		iEntityScenePtr getScene() const;
 
 	protected:
-
 		/*! callback to handle added component on entity
 
 		\param entity pointer of entity
@@ -152,7 +151,7 @@ namespace igor
 			(view->registerType<Args>(), ...);
 			_views.push_back(view);
 			return view;
-		}		
+		}
 
 	private:
 		/*! entity views
@@ -160,7 +159,7 @@ namespace igor
 		std::vector<iEntityViewPtr> _views;
 
 		/*! scene this system operates in
-		*/
+		 */
 		iEntityScenePtr _scene;
 	};
 

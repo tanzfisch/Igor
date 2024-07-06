@@ -36,17 +36,17 @@ namespace igor
 {
 
     /*! base class for traversing an entity tree
-    */
+     */
     class IGOR_API iEntityTraverser
     {
 
     public:
         /*! does nothing
-        */
+         */
         iEntityTraverser() = default;
 
         /*! does nothing
-        */
+         */
         virtual ~iEntityTraverser() = default;
 
         /*! setter if inactive children shall be traversed too
@@ -56,7 +56,7 @@ namespace igor
         void setIgnoreInactive(bool ignoreInactive);
 
         /*! \returns true if it is ignoring inactive children
-        */
+         */
         bool isIgnoringInactive() const;
 
         /*! traverses tree of given entity scene
@@ -65,16 +65,11 @@ namespace igor
         */
         void traverse(iEntityScenePtr scene);
 
-    private:
-        /*! flag if inactive children shall be traversed too
-        */
-        bool _ignoreInactive = true;
-
-        /*! internal recursive traverse methods
-        */
-        void traverseInternal(iEntityPtr entity, bool useInactive);
-
     protected:
+        /*! entity scene
+         */
+        iEntityScenePtr _scene = nullptr;
+
         /*! is called before traversal
 
         has to be implemented by deriving class
@@ -98,9 +93,17 @@ namespace igor
         has to be implemented by deriving class
         */
         virtual void postTraverse() = 0;
+
+    private:
+        /*! flag if inactive children shall be traversed too
+         */
+        bool _ignoreInactive = true;
+
+        /*! internal recursive traverse methods
+         */
+        void traverseInternal(iEntityPtr entity, bool useInactive);
     };
 
 }; // namespace igor
 
 #endif // IGOR_ENTITY_TRAVERSER_H
-

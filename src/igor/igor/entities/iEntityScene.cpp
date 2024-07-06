@@ -119,10 +119,9 @@ namespace igor
     void iEntityScene::flushQueues()
     {
         const auto deleteQueue = std::move(_deleteQueue);
-
-        for (const auto entityID : deleteQueue)
+        for (auto entity : deleteQueue)
         {
-            auto iter = _entities.find(entityID);
+            auto iter = _entities.find(entity->getID());
             if (iter == _entities.end())
             {
                 continue;
@@ -134,9 +133,10 @@ namespace igor
             _entities.erase(iter);
         }
 
-        for (const auto &pair : _entities)
+        const auto processQueue = std::move(_processQueue);
+        for (auto entity : processQueue)
         {
-            pair.second->processComponents();
+            entity->processComponents();
         }
     }
 
@@ -176,17 +176,17 @@ namespace igor
     void iEntityScene::destroyEntity(iEntityPtr entity)
     {
         con_assert(entity != nullptr, "zero pointer");
-        _deleteQueue.push_back(entity->getID());
-    }
-
-    void iEntityScene::destroyEntity(iEntityID entityID)
-    {
-        _deleteQueue.push_back(entityID);
+        _deleteQueue.push_back(entity);
     }
 
     const iEntitySceneID &iEntityScene::getID() const
     {
         return _id;
+    }
+
+    void iEntityScene::onComponentToAdd(iEntityPtr entity, const std::type_index &typeID)
+    {
+        _processQueue.push_back(entity);
     }
 
     void iEntityScene::onComponentAdded(iEntityPtr entity, const std::type_index &typeID)

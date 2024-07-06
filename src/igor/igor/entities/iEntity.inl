@@ -13,6 +13,7 @@ T *iEntity::addComponent(T *component)
     component->_entity = this;
 
     _addedComponents.emplace_back(typeID, component);
+    componentToAdd(typeID);
     return component;
 }
 

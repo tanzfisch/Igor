@@ -91,12 +91,6 @@ namespace igor
 		 */
 		iEntityPtr getActiveCamera() const;
 
-		/*! destroys entity for given ID
-
-		\param entityID the given entity id
-		*/
-		void destroyEntity(iEntityID entityID);
-
 		/*! destroys given entity
 
 		\param entity the given entity
@@ -166,7 +160,11 @@ namespace igor
 
 		/*! entity delete queue
 		 */
-		std::vector<iEntityID> _deleteQueue;
+		std::vector<iEntityPtr> _deleteQueue;
+
+		/*! entity process queue
+		*/
+		std::vector<iEntityPtr> _processQueue;
 
 		/*! keep one specialized root entity for tree traversal
 		 */
@@ -218,6 +216,13 @@ namespace igor
 		\param stage what stage to update
 		 */
 		void onUpdate(const iaTime &time, iEntitySystemStage stage);
+
+		/*! called when a component is to be added
+
+		\param entity pointer of entity
+		\param typeID type of component to be added
+		*/
+		void onComponentToAdd(iEntityPtr entity, const std::type_index &typeID);
 
 		/*! callback to handle added component
 

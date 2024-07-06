@@ -118,8 +118,9 @@ namespace igor
         /*! update world matrix
 
         \param[in/out] worldMatrix parent entity world matrix
+        \returns true if matrix changed
         */
-        void updateWorldMatrix(iaMatrixd &worldMatrix);
+        bool updateWorldMatrix(iaMatrixd &worldMatrix);
     };
 
 }
