@@ -40,7 +40,8 @@ namespace igor
 
         iMaterialPtr material = meshRenderComponent->getMaterial();
         iShaderPtr shader = material->getShader();
-        if (!shader->isValid())
+        if (!shader->isValid() ||
+            shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off) // only instanced is supported for now
         {
             return;
         }
