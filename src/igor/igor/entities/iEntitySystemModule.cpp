@@ -139,7 +139,7 @@ namespace igor
         const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
         const iaTime currentTime = iTimer::getInstance().getTime();
 
-        int32 maxUpdateCount = 4;
+        int32 maxUpdateCount = 10;
 
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                maxUpdateCount > 0)
