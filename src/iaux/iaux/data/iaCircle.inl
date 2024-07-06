@@ -79,3 +79,15 @@ iaCircle<T> iaCircle<T>::operator=(const iaCircle<T> &circle)
 
     return result;
 }
+
+template <class T>
+bool iaCircle<T>::operator==(const iaCircle<T> &circle) const
+{
+    return ((_center == circle._center) && (_radius == circle._radius)) ? true : false;
+}
+
+template <class T>
+bool iaCircle<T>::operator!=(const iaCircle<T> &circle) const
+{
+    return ((_center != circle._center) || (_radius != circle._radius)) ? true : false;
+}

@@ -140,6 +140,18 @@ namespace iaux
         */
         iaCircle<T> operator=(const iaCircle<T> &circle);
 
+        /*! \returns true if two circles are equal
+
+        \param circle the circle to compare with
+        */
+        bool operator==(const iaCircle<T> &circle) const;
+
+        /*! \returns true if circle are not equal
+
+        \param circle the circle to compare with
+        */
+        bool operator!=(const iaCircle<T> &circle) const;
+
         /*! center position
          */
         iaVector2<T> _center;
