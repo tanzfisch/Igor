@@ -26,34 +26,23 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_LIGHTNODE__
-#define __IGOR_LIGHTNODE__
+#ifndef IGOR_LIGHT_COMPONENT_H
+#define IGOR_LIGHT_COMPONENT_H
 
-#include <igor/scene/nodes/iNode.h>
-#include <iaux/math/iaMatrix.h>
-#include <iaux/data/iaColor3.h>
+#include <igor/entities/iEntity.h>
 
 namespace igor
 {
-
-    /*! this node implementation controls a light within the scene
-	
-	\todo implement switch on/off
-    \bug orientation of light in world and model space is diffrent or wrong
-    \todo does it realy need to be color4f?
-	*/
-    class IGOR_API iNodeLight : public iNode
+    /*! light component
+    */
+    class IGOR_API iLightComponent : public iEntityComponent
     {
-
-        friend class iNodeVisitorUpdateTransform;
-        friend class iNodeManager;
-
     public:
-        /*! returns world matrix
+        /*! ctor
 
-        \param[out] matrix returned world matrix
+        \param name the name of this component
         */
-        void getWorldMatrix(iaMatrixd &matrix);
+        iLightComponent(const iaString &name = "light");
 
         /*! returns ambient material color
         */
@@ -107,7 +96,7 @@ namespace igor
         \param g green
         \param b blue
         */
-        void setSpecular(float32 r, float32 g, float32 b);          
+        void setSpecular(float32 r, float32 g, float32 b);     
 
         /*! set type of light
 
@@ -119,18 +108,7 @@ namespace igor
         */
         iLightType getType() const;
 
-        /*! \returns position of light
-        */
-        const iaVector3d& getPosition() const;
-
-        /*! \returns direction of light
-        */
-        const iaVector3d& getDirection() const;
-
-    protected:
-        /*! resulting world matrix of light
-        */
-        iaMatrixd _worldMatrix;
+    private:
 
         /*! ambient material color
         */
@@ -148,38 +126,7 @@ namespace igor
         */
         iLightType _type = iLightType::Directional;
 
-        /*! unregister from scene
-        */
-        virtual void onPreSetScene();
-
-        /*! register to scene
-        */
-        virtual void onPostSetScene();
-
-        /*! set world matrix
-
-        \param matrix matrix to set
-        */
-        void onUpdateTransform(iaMatrixd &matrix);
-
-    private:
-        /*! initializes member variables
-        */
-        iNodeLight();
-
-        /*! copy ctor
-        */
-        iNodeLight(iNodeLight *node);
-
-        /*! does nothing
-        */
-        virtual ~iNodeLight();
     };
+}
 
-    /*! light node pointer definition
-    */
-    typedef iNodeLight *iNodeLightPtr;
-
-}; // namespace igor
-
-#endif
+#endif // IGOR_LIGHT_COMPONENT_H

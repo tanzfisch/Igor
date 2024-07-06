@@ -264,7 +264,6 @@ namespace igor
     // iParticleSystemComponent2D
     // iParticleSystemComponent3D
     // trail renderer
-    // light
     // sky box
     // UI elements as component
 

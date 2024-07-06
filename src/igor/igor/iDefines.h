@@ -273,6 +273,15 @@ namespace igor
     */
     IGOR_API std::wostream &operator<<(std::wostream &stream, iResourceCacheMode cacheMode);
 
+    /*! type of light
+    */
+    enum class iLightType
+    {
+        Directional,
+        Point,
+        Undefined
+    };
+
     /*! Igor key codes
      */
     enum class iKeyCode

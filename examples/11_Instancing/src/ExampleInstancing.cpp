@@ -125,23 +125,9 @@ void ExampleInstancing::onInit()
         }
     }
 
-    /*    // setup light
-        // transform node for the lights orientation
-        iNodeTransform *directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
-        // keep transform node id so we can manipulate the light's position later
-        _directionalLightRotate = directionalLightRotate->getID();
-        // transform node for the lights distance to the origin
-        iNodeTransform *directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
-        directionalLightTranslate->translate(100, 100, 100);
-        // the light node
-        iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-        lightNode->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
-        lightNode->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
-        lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
-        // insert light to scene
-        getScene()->getRoot()->insertNode(directionalLightRotate);
-        directionalLightRotate->insertNode(directionalLightTranslate);
-        directionalLightTranslate->insertNode(lightNode);*/
+    iEntityPtr sun = _entityScene->createEntity("sun_light");
+    sun->addComponent(new iTransformComponent(iaVector3d(1, 1, 1)));
+    sun->addComponent(new iLightComponent());
 }
 
 void ExampleInstancing::onDeinit()

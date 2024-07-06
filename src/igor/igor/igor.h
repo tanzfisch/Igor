@@ -121,6 +121,7 @@
 #include <igor/entities/components/iSphereCollision3DComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iLightComponent.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>

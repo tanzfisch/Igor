@@ -95,7 +95,7 @@ namespace igor
         const iaVector3d &getScale() const;
 
         /*! \returns true if data needs update aka world matrix is invalid
-        */
+         */
         bool isDirty() const;
 
     private:
@@ -122,7 +122,6 @@ namespace igor
         */
         bool updateWorldMatrix(iaMatrixd &worldMatrix);
     };
-
 }
 
-#endif //  IGOR_TRANSFORM_COMPONENT_H
+#endif // IGOR_TRANSFORM_COMPONENT_H

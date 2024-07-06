@@ -11,11 +11,13 @@
 #include <igor/entities/systems/iVelocitySystem.h>
 #include <igor/entities/systems/iCameraSystem.h>
 #include <igor/entities/systems/iMeshRenderSystem.h>
+#include <igor/entities/systems/iLightSystem.h>
 
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iOctreeComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iLightComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iCircleCollision2DComponent.h>
@@ -32,6 +34,7 @@ namespace igor
     {
         registerComponentType<iSpriteRenderComponent>();
         registerComponentType<iTransformComponent>();
+        registerComponentType<iLightComponent>();
         registerComponentType<iQuadtreeComponent>();
         registerComponentType<iOctreeComponent>();
         registerComponentType<iCircleCollision2DComponent>();
@@ -66,6 +69,8 @@ namespace igor
 
         scene->addSystem(new iCameraSystem());
         scene->addSystem(new iMeshRenderSystem());
+
+        scene->addSystem(new iLightSystem());
         scene->addSystem(new iSpriteRenderSystem());
         
         _activeScenes.push_back(scene);
