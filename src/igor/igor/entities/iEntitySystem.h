@@ -50,8 +50,8 @@ namespace igor
 	*/
 	enum class iEntitySystemStage
 	{
-		Update,
-		Render,
+		Update,		// everything that can be done before render
+		Render,		// special cases that need to be run after camera was setup and actually do render things
 		StageCount
 	};
 

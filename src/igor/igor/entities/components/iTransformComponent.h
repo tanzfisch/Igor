@@ -46,7 +46,15 @@ namespace igor
         */
         iTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0), const iaString &name = "transform");
 
+        /*! update world matrix
+
+        \param[in/out] worldMatrix parent entity world matrix
+        */
         void updateWorldMatrix(iaMatrixd &worldMatrix);
+
+        /*! \returns world matrix
+        */
+        const iaMatrixd& getWorldMatrix() const;
 
         /*! position
          */

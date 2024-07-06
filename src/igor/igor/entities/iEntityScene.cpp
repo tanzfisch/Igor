@@ -7,6 +7,7 @@
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/entities/systems/iCameraSystem.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iRenderEngine.h>
 
 namespace igor
 {
@@ -112,6 +113,7 @@ namespace igor
     void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
     {
         _renderEngine = renderEngine;
+        _renderEngine->setScene(this);
     }
 
     void iEntityScene::flushQueues()

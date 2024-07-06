@@ -12,6 +12,11 @@
 namespace igor
 {
 
+    void iRenderEngine::setScene(iEntityScenePtr scene)
+    {
+        _scene = scene;
+    }
+
     void iRenderEngine::setCamera(iEntityPtr camera)
     {
         con_assert(camera != nullptr, "zero pointer");
@@ -24,16 +29,47 @@ namespace igor
         _cameraID = camera->getID();
     }
 
-    void iRenderEngine::addMesh(iEntityPtr mesh)
+    void iRenderEngine::addMesh(iEntityPtr meshEntity)
     {
-        con_assert(mesh != nullptr, "zero pointer");
-        con_assert(mesh->getScene() == _scene, "incompatible scene");
+        con_assert(meshEntity != nullptr, "zero pointer");
+        con_assert(meshEntity->getScene() == _scene, "incompatible scene");
 
-        auto transform = mesh->getComponent<iTransformComponent>();
-        auto meshRender = mesh->getComponent<iMeshRenderComponent>();
-        con_assert(meshRender != nullptr && transform != nullptr, "missing components");
+        auto transformComponent = meshEntity->getComponent<iTransformComponent>();
+        auto meshRenderComponent = meshEntity->getComponent<iMeshRenderComponent>();
+        con_assert(meshRenderComponent != nullptr && transformComponent != nullptr, "missing components");
 
-        // store in instancing buffers
+        iMaterialPtr material = meshRenderComponent->getMaterial();
+        iShaderPtr shader = material->getShader();
+        if (!shader->isValid())
+        {
+            return;
+        }
+
+        iaMatrixd src = transformComponent->getWorldMatrix();
+        iaMatrixf dst;
+        for (int i = 0; i < 16; ++i)
+        {
+            dst[i] = src[i];
+        }
+
+        auto mesh = meshRenderComponent->getMesh();
+
+        auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
+                                 [&shader](const iMaterialGroup &materialGroup)
+                                 { return materialGroup._shader == shader; });
+
+        if (iter == _materialGroups.end())
+        {
+            std::unordered_map<iMeshPtr, iInstaningPackage> instancing;
+            instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}, 10000);
+            instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
+            instancing[mesh]._material = material;
+            _materialGroups.push_back({shader, instancing});
+        }
+        else
+        {
+            iter->_instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
+        }
     }
 
     void iRenderEngine::setupCamera(iEntityPtr camera, const iaRectanglei &viewport)
@@ -96,6 +132,18 @@ namespace igor
         }
 
         setupCamera(camera, viewport);
+
+        std::sort(_materialGroups.begin(), _materialGroups.end(), [](const iMaterialGroup a, const iMaterialGroup b) -> bool
+                  { return a._shader->getOrder() < b._shader->getOrder(); });
+
+        for (const auto &materialGroup : _materialGroups)
+        {
+            for (const auto &pair : materialGroup._instancing)
+            {
+                iRenderer::getInstance().drawMeshInstanced(pair.first, pair.second._buffer, pair.second._material);
+                pair.second._buffer->clear();
+            }
+        }
     }
 
     const iFrustumd &iRenderEngine::getFrustum() const

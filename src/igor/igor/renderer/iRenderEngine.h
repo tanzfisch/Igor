@@ -31,6 +31,9 @@
 
 #include <igor/entities/iEntityScene.h>
 #include <igor/data/iFrustum.h>
+#include <igor/renderer/buffers/iInstancingBuffer.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/mesh/iMesh.h>
 
 #include <iaux/math/iaMatrix.h>
 
@@ -39,7 +42,7 @@ namespace igor
 
     /*! feeds the renderer with pre filtered data
      */
-    class IGOR_API iRenderEngine
+    class iRenderEngine
     {
     public:
         /*! does nothing
@@ -91,6 +94,29 @@ namespace igor
         /*! current frustum
         */
         iFrustumd _frustum;
+
+        struct iInstaningPackage
+        {
+            iInstancingBufferPtr _buffer;
+            iMaterialPtr _material; // TODO needs to be part of the buffer so individual instances can have different colors etc
+        };        
+
+        /*! bringing all nodes using the same material together for more efficient rendering
+        */
+        struct iMaterialGroup
+        {
+            /*! the shader used
+            */
+            iShaderPtr _shader;
+
+            /*! optional instancing buffers per mesh that is using the same material
+            */
+            std::unordered_map<iMeshPtr, iInstaningPackage> _instancing;
+        };
+
+        /*! render nodes
+         */
+        std::vector<iMaterialGroup> _materialGroups;        
 
         /*! setup camera for render
 

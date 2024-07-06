@@ -18,4 +18,9 @@ namespace igor
         worldMatrix.scale(_scale);
         _worldMatrix = worldMatrix;
     }
+
+    const iaMatrixd& iTransformComponent::getWorldMatrix() const
+    {
+        return _worldMatrix;
+    }
 }

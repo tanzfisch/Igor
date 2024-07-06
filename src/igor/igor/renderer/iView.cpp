@@ -205,8 +205,8 @@ namespace igor
 
         if(_entityScene != nullptr)
         {
-            iEntitySystemModule::getInstance().onRender(_entityScene);
             _renderEngine.render(_viewport);
+            iEntitySystemModule::getInstance().onRender(_entityScene);
         }
 
         // now run legacy stuff
