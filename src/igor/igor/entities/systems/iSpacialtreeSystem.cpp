@@ -116,7 +116,6 @@ namespace igor
 		{
 			onUpdateOctree(scene->getOctree());
 		}
-
 	}
 
 } // igor

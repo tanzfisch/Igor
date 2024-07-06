@@ -39,9 +39,6 @@ void GameLayer::onInit()
     loadSpecs("project/supremacy.xml");
 
     _viewOrtho.setName("view ortho");
-    _viewOrtho.setClearColorActive(false);
-    _viewOrtho.setClearDepthActive(false);
-    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
     _viewOrtho.registerRenderDelegate({this, &GameLayer::onRenderOrtho});
     _viewOrtho.setEntityScene(_entityScene);
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
@@ -310,7 +307,7 @@ iEntityID GameLayer::createPlayer()
     iTransformComponent *transform = static_cast<iTransformComponent *>(entity->addComponent(new iTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0))));
     entity->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     entity->addComponent(new iVelocityComponent(iaVector3d(0, 0, 0)));
-    
+
     iSpritePtr wagiu = iResourceManager::getInstance().createResource<iSprite>();
     wagiu->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_wagiu_a5"));
     entity->addComponent(new iSpriteRenderComponent(wagiu, iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)));
@@ -377,13 +374,15 @@ void GameLayer::onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData)
 
 void GameLayer::onAquireTarget(iEntityPtr entity, std::any &userData)
 {
-    const auto transform = entity->getComponent<iTransformComponent>();
+    const auto transformComponent = entity->getComponent<iTransformComponent>();
     const auto entityParty = entity->getComponent<iPartyComponent>();
     const auto weapon = entity->getComponent<WeaponComponent>();
     const auto modifier = entity->getComponent<ModifierComponent>();
     auto target = entity->getComponent<TargetComponent>();
 
-    iaCircled circle(iaVector2d(transform->_position._x, transform->_position._y), weapon->_config._range * modifier->_config._projectileRangeFactor);
+    const auto &position = transformComponent->getPosition();
+
+    iaCircled circle(iaVector2d(position._x, position._y), weapon->_config._range * modifier->_config._projectileRangeFactor);
     std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
 
@@ -482,7 +481,7 @@ void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
     iaTime now = iTimer::getInstance().getTime();
 
     auto weapon = entity->getComponent<WeaponComponent>();
-    auto transform = entity->getComponent<iTransformComponent>();
+    auto transformComponent = entity->getComponent<iTransformComponent>();
     auto velocity = entity->getComponent<iVelocityComponent>();
     auto modifier = entity->getComponent<ModifierComponent>();
     auto target = entity->getComponent<TargetComponent>();
@@ -509,10 +508,13 @@ void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
 
     // get target position
     iEntityPtr targetEntity = _entityScene->getEntity(target->_targetID);
-    const auto &targetPosition = targetEntity->getComponent<iTransformComponent>();
+    auto targetTransformComponent = targetEntity->getComponent<iTransformComponent>();
 
-    const iaVector2d firePos = iaVector2d(transform->_position._x, transform->_position._y) + weapon->_config._offset;
-    iaVector2d direction = iaVector2d(targetPosition->_position._x, targetPosition->_position._y) - firePos;
+    const auto &srcPosition = transformComponent->getPosition();
+    const auto &dstPosition = targetTransformComponent->getPosition();
+
+    const iaVector2d firePos = iaVector2d(srcPosition._x, srcPosition._y) + weapon->_config._offset;
+    iaVector2d direction = iaVector2d(dstPosition._x, dstPosition._y) - firePos;
     direction.normalize();
 
     fire(firePos, direction, FRIEND, weapon, modifier);
@@ -527,13 +529,16 @@ void GameLayer::onCameraFollowPlayer(iEntityPtr entity, std::any &userData)
         return;
     }
 
-    const auto playerTransform = player->getComponent<iTransformComponent>();
-    auto camTransform = entity->getComponent<iTransformComponent>();
+    auto playerTransformComponent = player->getComponent<iTransformComponent>();
+    auto camTransformComponent = entity->getComponent<iTransformComponent>();
     iaVector2d &targetOffset = std::any_cast<iaVector2d &>(userData);
 
-    const iaVector2d playerPosition(playerTransform->_position._x, playerTransform->_position._y);
-    const iaVector2d lastPlayerPosition(camTransform->_position._x + targetOffset._x,
-                                        camTransform->_position._y + targetOffset._y);
+    const auto &playerPos = playerTransformComponent->getPosition();
+    const auto &camPos = camTransformComponent->getPosition();
+
+    const iaVector2d playerPosition(playerPos._x, playerPos._y);
+    const iaVector2d lastPlayerPosition(camPos._x + targetOffset._x,
+                                        camPos._y + targetOffset._y);
 
     const iaVector2d diff = playerPosition - lastPlayerPosition;
 
@@ -555,8 +560,7 @@ void GameLayer::onCameraFollowPlayer(iEntityPtr entity, std::any &userData)
     targetOffset._x = std::clamp(targetOffset._x, -width, width);
     targetOffset._y = std::clamp(targetOffset._y, -height, height);
 
-    camTransform->_position._x = playerPosition._x - targetOffset._x;
-    camTransform->_position._y = playerPosition._y - targetOffset._y;
+    camTransformComponent->setPosition(iaVector3d(playerPosition._x - targetOffset._x, playerPosition._y - targetOffset._y, 0.0));
 
     userData = targetOffset;
 }
@@ -569,20 +573,14 @@ iEntityID GameLayer::createCamera()
 
     iEntityPtr entity = _entityScene->createEntity("camera");
 
-    entity->addComponent(new iTransformComponent(playerTransform->_position));
+    entity->addComponent(new iTransformComponent(playerTransform->getPosition()));
     entity->addBehaviour({this, &GameLayer::onCameraFollowPlayer}, iaVector2d());
 
     auto cameraComponent = entity->addComponent(new iCameraComponent());
-#if 1
+
     cameraComponent->setOrthogonal(-PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_HEIGHT * 0.5, -PLAYFIELD_VIEWPORT_HEIGHT * 0.5);
     cameraComponent->setClearColorActive(false);
     cameraComponent->setClearDepthActive(false);
-#else
-    cameraComponent->setPerspective(45.0);
-    cameraComponent->setClipPlanes(0.01, 100.0);
-    cameraComponent->setClearColorActive(true);
-    cameraComponent->setClearDepthActive(true);
-#endif
 
     // DEBUG
     /*auto debug = entity->addComponent<iRenderDebugComponent>({});
@@ -645,17 +643,19 @@ void GameLayer::onLandShop(const iaTime &time)
 
     shop->setActive(true);
 
-    auto playerTransform = player->getComponent<iTransformComponent>();
-    auto transform = shop->getComponent<iTransformComponent>();
+    auto playerTransformComponent = player->getComponent<iTransformComponent>();
+    auto shopTransformComponent = shop->getComponent<iTransformComponent>();
+
+    const auto &playerWorldMatrix = playerTransformComponent->getWorldMatrix();
 
     iaVector2d pos(300.0, 0.0);
     pos.rotateXY(iaRandom::getNextFloat() * 2 * M_PI);
-    pos._x += playerTransform->_worldMatrix._pos._x;
-    pos._y += playerTransform->_worldMatrix._pos._y;
+    pos._x += playerWorldMatrix._pos._x;
+    pos._y += playerWorldMatrix._pos._y;
     pos._x = std::fmod(pos._x, PLAYFIELD_WIDTH);
     pos._y = std::fmod(pos._y, PLAYFIELD_HEIGHT);
 
-    transform->_position.set(pos._x, pos._y, 0.0);
+    shopTransformComponent->setPosition(iaVector3d(pos._x, pos._y, 0.0));
 }
 
 void GameLayer::createShop()
@@ -709,17 +709,20 @@ void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
     }
 
     // skip if target has no position
-    auto targetTransform = targetEntity->getComponent<iTransformComponent>();
-    if (targetTransform == nullptr)
+    auto targetTransformComponent = targetEntity->getComponent<iTransformComponent>();
+    if (targetTransformComponent == nullptr)
     {
         return;
     }
 
     auto velocity = entity->getComponent<iVelocityComponent>();
-    auto transform = entity->getComponent<iTransformComponent>();
+    auto transformComponent = entity->getComponent<iTransformComponent>();
 
-    const iaVector2d targetPos(targetTransform->_position._x, targetTransform->_position._y);
-    const iaVector2d position(transform->_position._x, transform->_position._y);
+    const auto &dstPos = targetTransformComponent->getPosition();
+    const auto &entityPos = transformComponent->getPosition();
+
+    const iaVector2d targetPos(dstPos._x, dstPos._y);
+    const iaVector2d position(entityPos._x, entityPos._y);
     iaVector2d offset;
     iaCircled circle(position, 1000.0);
 
@@ -782,8 +785,9 @@ void GameLayer::onSpawnStuff(const iaTime &time)
         return;
     }
 
-    auto playerTransform = player->getComponent<iTransformComponent>();
-    const iaVector2f playerPosition(playerTransform->_position._x, playerTransform->_position._y);
+    auto playerTransformComponent = player->getComponent<iTransformComponent>();
+    const auto &pPos = playerTransformComponent->getPosition();
+    const iaVector2f playerPosition(pPos._x, pPos._y);
 
     auto playerXP = player->getComponent<ExperienceComponent>();
 
@@ -1078,7 +1082,7 @@ void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity, std::any &userD
     auto transform = entity->getComponent<iTransformComponent>();
 
     iaVector2d vel2D(velocity->_velocity._x, velocity->_velocity._y);
-    transform->_orientation._z = vel2D.angle() + (M_PI * 0.5);
+    transform->rotate(iaVector3d(0.0, 0.0, vel2D.angle() + (M_PI * 0.5)));
 }
 
 void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
@@ -1138,8 +1142,9 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
                                 addExperience(player, exp->_experience);
                             }
 
-                            const auto &transform = otherEntity->getComponent<iTransformComponent>();
-                            createCoin(iaVector2f(transform->_position._x, transform->_position._y), NEUTRAL, ObjectType::Coin);
+                            const auto &transformComponent = otherEntity->getComponent<iTransformComponent>();
+                            const auto &transPos = transformComponent->getPosition();
+                            createCoin(iaVector2f(transPos._x, transPos._y), NEUTRAL, ObjectType::Coin);
                         }
                     }
                 }
@@ -1157,11 +1162,11 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
 
 void GameLayer::onUpdateRange(iEntityPtr entity, std::any &userData)
 {
-    auto transform = entity->getComponent<iTransformComponent>();
+    auto transformComponent = entity->getComponent<iTransformComponent>();
     auto range = entity->getComponent<RangeComponent>();
     auto health = entity->getComponent<HealthComponent>();
 
-    range->_rangeLeft -= range->_lastPosition.distance(transform->_position);
+    range->_rangeLeft -= range->_lastPosition.distance(transformComponent->getPosition());
 
     if (range->_rangeLeft < 0.0)
     {
@@ -1334,6 +1339,8 @@ void GameLayer::onRenderHUD()
     auto modifiers = player->getComponent<ModifierComponent>();
     auto weapon = player->getComponent<WeaponComponent>();
     auto playerVelocity = player->getComponent<iVelocityComponent>();
+
+    iRenderer::getInstance().setOrtho(0, 1920, 1080, 0, 0.001, 10.0);
 
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
