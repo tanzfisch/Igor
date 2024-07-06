@@ -5,7 +5,6 @@
 #include <igor/entities/systems/iTransformSystem.h>
 
 #include <igor/entities/components/iTransformComponent.h>
-#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -25,7 +24,6 @@ namespace igor
 
     void iTransformSystem::onUpdate(const iEntitySceneUpdateContext &context)
     {
-        IGOR_PROFILER_SCOPED(transform);
         _traverser.traverse(context._scene);
     }
 

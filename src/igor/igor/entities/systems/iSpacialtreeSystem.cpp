@@ -10,7 +10,6 @@
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCircleCollision2DComponent.h>
 #include <igor/entities/components/iSphereCollision3DComponent.h>
-#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -104,7 +103,6 @@ namespace igor
 
 	void iSpacialtreeSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		IGOR_PROFILER_SCOPED(spacial);
 		iEntityScenePtr scene = context._scene;
 
 		if (scene->hasQuadtree())

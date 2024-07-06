@@ -8,7 +8,6 @@
 #include <igor/entities/components/iMeshRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/renderer/iRenderEngine.h>
-#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -27,7 +26,6 @@ namespace igor
 
 	void iMeshRenderSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		IGOR_PROFILER_SCOPED(mesh);
 		auto scene = context._scene;
 		if (!scene->hasOctree())
 		{

@@ -135,9 +135,9 @@ namespace igor
         onUpdateLayerStack();
         IGOR_PROFILER_END(application);
 
-        //IGOR_PROFILER_BEGIN(entities);
+        IGOR_PROFILER_BEGIN(entities);
         iEntitySystemModule::getInstance().onUpdate();
-        //IGOR_PROFILER_END(entities);
+        IGOR_PROFILER_END(entities);
 
         IGOR_PROFILER_BEGIN(nodes);
         iNodeManager::getInstance().onUpdate();
