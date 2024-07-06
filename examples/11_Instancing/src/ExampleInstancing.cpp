@@ -101,11 +101,9 @@ void ExampleInstancing::onInit()
 
                 iEntityPtr entity = _entityScene->createEntity();
                 entity->addComponent(new iTransformComponent(position + offset, orientation));
-                // entity->addComponent(new iSphereCollision3DComponent(1));
                 entity->addComponent(new iOctreeComponent());
-                entity->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
 
-                /*switch (count % 4)
+                switch (random.getNextRange(4))
                 {
                 case 0:
                     entity->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
@@ -122,7 +120,7 @@ void ExampleInstancing::onInit()
                 case 3:
                     entity->addComponent(new iMeshRenderComponent(meshNodeTeapot->getMesh(), meshNodeTeapot->getMaterial()));
                     break;
-                }*/
+                }
             }
         }
     }

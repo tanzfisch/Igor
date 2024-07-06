@@ -70,6 +70,11 @@ namespace igor
         }
         else
         {
+            if(iter->_instancing[mesh]._buffer == nullptr)
+            {
+                iter->_instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
+                iter->_instancing[mesh]._material = material;
+            }
             iter->_instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
         }
     }
