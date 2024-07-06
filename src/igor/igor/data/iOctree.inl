@@ -124,6 +124,11 @@ void iOctree<F>::queryInternal(const std::shared_ptr<iOctreeNode> &node, const i
 template <typename F>
 void iOctree<F>::update(const std::shared_ptr<iOctreeObject> object, const iaVector3<F> &position)
 {
+    if(object->_sphere._center == position)
+    {
+        return;
+    }
+
     if (iIntersection::intersects(position, object->_parent.lock()->_cube))
     {
         object->_sphere._center = position;
@@ -140,6 +145,11 @@ void iOctree<F>::update(const std::shared_ptr<iOctreeObject> object, const iaVec
 template <typename F>
 void iOctree<F>::update(const std::shared_ptr<iOctreeObject> object, const iaSphere<F> &sphere)
 {
+    if(object->_sphere == sphere)
+    {
+        return;
+    }
+
     if (iIntersection::intersects(sphere._center, object->_parent.lock()->_cube))
     {
         object->_sphere = sphere;
