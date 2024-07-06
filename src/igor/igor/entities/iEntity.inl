@@ -10,6 +10,7 @@ T *iEntity::addComponent(T *component)
     con_assert(iter == _components.end(), "component already exists");
 
     _components[typeID] = component;
+    component->_entity = this;
 
     _addedComponents.emplace_back(typeID, component);
     return component;

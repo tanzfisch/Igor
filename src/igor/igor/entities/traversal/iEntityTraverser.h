@@ -85,7 +85,7 @@ namespace igor
 
         has to be implemented by deriving class
         */
-        virtual void preOrderVisit(iEntityPtr entity) = 0;
+        virtual bool preOrderVisit(iEntityPtr entity) = 0;
 
         /*! is called after every entity visited
 

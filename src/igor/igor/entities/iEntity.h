@@ -92,6 +92,12 @@ namespace igor
         */
         bool hasParent() const;
 
+        /*! \returns true if this is the root entity
+
+        used for special case handling
+        */
+        bool isRoot() const;
+
         /*! \returns active children
         */
         const std::vector<iEntityPtr>& getChildren() const;
@@ -165,6 +171,16 @@ namespace igor
         /*! removes all components
         */
         void clearComponents();
+
+        /*! \returns true if hierarchy (including transforms) is dirty
+        */
+        bool isHierarchyDirty() const;
+
+        /*! sets dirty hierarchy flag
+
+        \param dirty the dirty flag to set
+        */
+        void setDirtyHierarchy(bool dirty);
 
     private:
         /*! the entities id (unique)
@@ -241,10 +257,18 @@ namespace igor
         */
         void onEntityChanged();
 
+        /*! sets dirty hierarchy up the hierarchy
+        */
+        void setDirtyHierarchyUp();
+
+        /*! sets dirty hierarchy down the hierarchy
+        */
+        void setDirtyHierarchyDown();
+
     };
 
 #include <igor/entities/iEntity.inl>
 
 } // namespace igor
 
-#endif // IGOR_ENTITY_H 
+#endif // IGOR_ENTITY_H

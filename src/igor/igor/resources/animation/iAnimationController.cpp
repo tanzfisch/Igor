@@ -80,17 +80,17 @@ namespace igor
 
             if (animation->hasTranslateAnimation())
             {
-                transform->_position = animation->getTranslate(t);
+                transform->setPosition(animation->getTranslate(t));
             }
 
             if (animation->hasRotateAnimation())
             {
-                transform->_orientation = animation->getRotate(t);
+                transform->setOrientation(animation->getRotate(t));
             }
 
             if (animation->hasScaleAnimation())
             {
-                transform->_scale = animation->getScale(t);
+                transform->setScale(animation->getScale(t));
             }
 
             if (spriteRender &&

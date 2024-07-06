@@ -39,6 +39,8 @@ namespace igor
     */
     class IGOR_API iTransformComponent : public iEntityComponent
     {
+        friend class iEntityTransformTraverser;
+
     public:
         /*! ctor
 
@@ -46,16 +48,57 @@ namespace igor
         */
         iTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0), const iaString &name = "transform");
 
-        /*! update world matrix
-
-        \param[in/out] worldMatrix parent entity world matrix
-        */
-        void updateWorldMatrix(iaMatrixd &worldMatrix);
-
         /*! \returns world matrix
-        */
-        const iaMatrixd& getWorldMatrix() const;
+         */
+        const iaMatrixd &getWorldMatrix() const;
 
+        /*! sets position on transform
+
+        \param position the position to set
+        */
+        void setPosition(const iaVector3d &position);
+
+        /*! translate by given amount
+
+        \param translate the amount to translate
+        */
+        void translate(const iaVector3d &translate);
+
+        /*! \returns position on transform
+         */
+        const iaVector3d &getPosition() const;
+
+        /*! sets orientation on transform
+
+        \param orientation the orientation to set
+        */
+        void setOrientation(const iaVector3d &orientation);
+
+        /*! rotate by given amount
+
+        \param rotate the amount to rotate
+        */
+        void rotate(const iaVector3d &rotate);
+
+        /*! \returns orientation on transform
+         */
+        const iaVector3d &getOrientation() const;
+
+        /*! sets scale on transform
+
+        \param scale the scale to set
+        */
+        void setScale(const iaVector3d &scale);
+
+        /*! \returns scale on transform
+         */
+        const iaVector3d &getScale() const;
+
+        /*! \returns true if data needs update aka world matrix is invalid
+        */
+        bool isDirty() const;
+
+    private:
         /*! position
          */
         iaVector3d _position;
@@ -71,6 +114,12 @@ namespace igor
         /*! the world matrix of this transform
          */
         iaMatrixd _worldMatrix;
+
+        /*! update world matrix
+
+        \param[in/out] worldMatrix parent entity world matrix
+        */
+        void updateWorldMatrix(iaMatrixd &worldMatrix);
     };
 
 }

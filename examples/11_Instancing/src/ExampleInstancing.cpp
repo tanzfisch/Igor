@@ -166,11 +166,11 @@ bool ExampleInstancing::onMouseWheelEvent(iEventMouseWheel &event)
 
     if (event.getWheelDelta() < 0)
     {
-        transformComponent->_position._z += 2;
+        transformComponent->translate(iaVector3d(0.0, 0.0, 2.0));
     }
     else
     {
-        transformComponent->_position._z -= 2;
+        transformComponent->translate(iaVector3d(0.0, 0.0, -2.0));
     }
 
     return true;
@@ -188,8 +188,8 @@ bool ExampleInstancing::onMouseMoveEvent(iEventMouseMove &event)
         auto transformPitch = cameraPitch->getComponent<iTransformComponent>();
         auto transformHeading = cameraHeading->getComponent<iTransformComponent>();
 
-        transformPitch->_orientation._x += (from._y - to._y) * 0.0005f;
-        transformHeading->_orientation._y += (from._x - to._x) * 0.0005f;
+        transformPitch->rotate(iaVector3d((from._y - to._y) * 0.0005f, 0.0, 0.0));
+        transformHeading->rotate(iaVector3d(0.0, (from._x - to._x) * 0.0005f, 0.0));
         iMouse::getInstance().setCenter();
 
         return true;

@@ -88,8 +88,8 @@ namespace igor
 			auto velocity = entity->getComponent<iVelocityComponent>();
 			auto transform = entity->getComponent<iTransformComponent>();
 
-			transform->_position += velocity->_velocity;
-			transform->_orientation += velocity->_angularVelocity;
+			transform->translate(velocity->_velocity);
+			transform->rotate(velocity->_angularVelocity);
 		}
 
 		iaVector3d min;
@@ -103,9 +103,9 @@ namespace igor
 			auto transform = entity->getComponent<iTransformComponent>();
 			auto bounds = entity->getComponent<iGlobalBoundaryComponent>();
 
-			auto &position = transform->_position;
+			auto position = transform->getPosition();
 
-			transform->_orientation += velocity->_angularVelocity;
+			transform->rotate(velocity->_angularVelocity);
 
 			switch (bounds->_type)
 			{
@@ -146,6 +146,8 @@ namespace igor
 				position += velocity->_velocity;
 				break;
 			}
+
+			transform->setPosition(position);
 		}
 	}
 

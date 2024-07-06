@@ -358,4 +358,55 @@ namespace igor
     {
         return _componentMask;
     }
+
+    bool iEntity::isHierarchyDirty() const
+    {
+        return _dirtyHierarchy;
+    }
+
+    void iEntity::setDirtyHierarchy(bool dirty)
+    {
+        _dirtyHierarchy = dirty;
+
+        if (_dirtyHierarchy)
+        {
+            if (hasParent())
+            {
+                getParent()->setDirtyHierarchyUp();
+            }
+
+            for (uint32 i = 0; i < _children.size(); ++i)
+            {
+                _children[i]->setDirtyHierarchyDown();
+            }
+        }
+    }
+
+    void iEntity::setDirtyHierarchyUp()
+    {
+        if (!_dirtyHierarchy)
+        {
+            _dirtyHierarchy = true;
+
+            if (hasParent())
+            {
+                getParent()->setDirtyHierarchyUp();
+            }
+        }
+    }
+
+    void iEntity::setDirtyHierarchyDown()
+    {
+        _dirtyHierarchy = true;
+
+        for (auto child : _children)
+        {
+            child->setDirtyHierarchyDown();
+        }
+    }    
+
+    bool iEntity::isRoot() const
+    {
+        return _scene->_root == this;
+    }
 }

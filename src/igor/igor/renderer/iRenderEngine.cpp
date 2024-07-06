@@ -82,7 +82,7 @@ namespace igor
         auto cameraComponent = camera->getComponent<iCameraComponent>();
         auto transformComponent = camera->getComponent<iTransformComponent>();
         const auto &camViewport = cameraComponent->getViewport();
-        const auto &camWorldMatrix = transformComponent->_worldMatrix;
+        const auto &camWorldMatrix = transformComponent->getWorldMatrix();
 
         iaRectanglei rect;
         rect.setX(viewport.getX() + camViewport.getX() * static_cast<float32>(viewport.getWidth()) + 0.5f);

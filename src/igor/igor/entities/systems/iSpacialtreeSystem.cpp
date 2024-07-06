@@ -10,6 +10,7 @@
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCircleCollision2DComponent.h>
 #include <igor/entities/components/iSphereCollision3DComponent.h>
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -33,7 +34,7 @@ namespace igor
 	{
 		for (auto entity : _quadtreePositionView->getEntities())
 		{
-			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
+			iTransformComponent *transformComponent = entity->getComponent<iTransformComponent>();
 			iQuadtreeComponent *body = entity->getComponent<iQuadtreeComponent>();
 
 			if (body->_object == nullptr ||
@@ -42,13 +43,13 @@ namespace igor
 				continue;
 			}
 
-			const iaVector2d position(transform->_position._x, transform->_position._y);
-			quadtree.update(body->_object, position);
+			const auto &position = transformComponent->getPosition();
+			quadtree.update(body->_object, iaVector2d(position._x, position._y));
 		}
 
 		for (auto entity : _quadtreeCircleView->getEntities())
 		{
-			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
+			iTransformComponent *transformComponent = entity->getComponent<iTransformComponent>();
 			iQuadtreeComponent *body = entity->getComponent<iQuadtreeComponent>();
 			iCircleCollision2DComponent *circleCollision = entity->getComponent<iCircleCollision2DComponent>();
 
@@ -58,8 +59,9 @@ namespace igor
 				continue;
 			}
 
-			const iaCircled circle(transform->_position._x + circleCollision->_offset._x,
-								   transform->_position._y + circleCollision->_offset._y,
+			const auto &position = transformComponent->getPosition();
+			const iaCircled circle(position._x + circleCollision->_offset._x,
+								   position._y + circleCollision->_offset._y,
 								   circleCollision->_radius);
 			quadtree.update(body->_object, circle);
 		}
@@ -69,7 +71,7 @@ namespace igor
 	{
 		for (auto entity : _octreePositionView->getEntities())
 		{
-			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
+			iTransformComponent *transformComponent = entity->getComponent<iTransformComponent>();
 			iOctreeComponent *body = entity->getComponent<iOctreeComponent>();
 
 			if (body->_object == nullptr ||
@@ -78,12 +80,13 @@ namespace igor
 				continue;
 			}
 
-			octree.update(body->_object, transform->_position);
+			const auto &position = transformComponent->getPosition();
+			octree.update(body->_object, position);
 		}
 		
 		for (auto entity : _octreeSphereView->getEntities())
 		{
-			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
+			iTransformComponent *transformComponent = entity->getComponent<iTransformComponent>();
 			iOctreeComponent *body = entity->getComponent<iOctreeComponent>();
 			iSphereCollision3DComponent *collision = entity->getComponent<iSphereCollision3DComponent>();
 
@@ -93,13 +96,15 @@ namespace igor
 				continue;
 			}
 
-			const iaSphered sphere(transform->_position + collision->_offset, collision->_radius);
+			const auto &position = transformComponent->getPosition();
+			const iaSphered sphere(position + collision->_offset, collision->_radius);
 			octree.update(body->_object, sphere);
 		}
 	}
 
 	void iSpacialtreeSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
+		IGOR_PROFILER_SCOPED(spacial);
 		iEntityScenePtr scene = context._scene;
 
 		if (scene->hasQuadtree())

@@ -139,7 +139,7 @@ namespace igor
         const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
         const iaTime currentTime = iTimer::getInstance().getTime();
 
-        int32 maxUpdateCount = 10;
+        int32 maxUpdateCount = 4;
 
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                maxUpdateCount > 0)
@@ -151,6 +151,12 @@ namespace igor
             _simulationFrameTime += timeDelta;
             maxUpdateCount--;
         };
+
+        if(maxUpdateCount <= 0)
+        {
+            _simulationFrameTime = currentTime;
+            con_trace("Loosing frames");
+        }
 
         uint64 entityCount = 0;
         for (auto pair : _scenes)

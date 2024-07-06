@@ -17,18 +17,26 @@ namespace igor
         _currentMatrix.identity();
     }
 
-    void iEntityTransformTraverser::preOrderVisit(iEntityPtr entity)
+    bool iEntityTransformTraverser::preOrderVisit(iEntityPtr entity)
     {
         auto transform = entity->getComponent<iTransformComponent>();
 
-        // skip entities without transform
-        if (transform == nullptr)
+        if (transform != nullptr)
         {
-            return;
+            _matrixStack.push_back(_currentMatrix);
         }
 
-        _matrixStack.push_back(_currentMatrix);
-        transform->updateWorldMatrix(_currentMatrix);
+        if (entity->isHierarchyDirty())
+        {
+            if (transform != nullptr)
+            {
+                transform->updateWorldMatrix(_currentMatrix);
+            }
+            entity->setDirtyHierarchy(false);
+            return true;
+        }
+
+        return false;
     }
 
     void iEntityTransformTraverser::postOrderVisit(iEntityPtr entity)
@@ -41,9 +49,9 @@ namespace igor
             return;
         }
 
-    	con_assert(_matrixStack.size() != 0, "stack underflow");
-    	_currentMatrix = _matrixStack.back();
-		_matrixStack.pop_back();
+        con_assert(_matrixStack.size() != 0, "stack underflow");
+        _currentMatrix = _matrixStack.back();
+        _matrixStack.pop_back();
     }
 
     void iEntityTransformTraverser::postTraverse()

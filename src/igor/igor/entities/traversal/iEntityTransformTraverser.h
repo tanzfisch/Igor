@@ -70,7 +70,7 @@ namespace igor
 
         has to be implemented by deriving class
         */
-        void preOrderVisit(iEntityPtr entity) override;
+        bool preOrderVisit(iEntityPtr entity) override;
 
         /*! is called after every entity visited
 

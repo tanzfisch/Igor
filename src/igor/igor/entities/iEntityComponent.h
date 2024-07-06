@@ -64,6 +64,7 @@ namespace igor
     class IGOR_API iEntityComponent
     {
         friend class iEntity;
+        friend class iTransformComponent;
 
     public:
         /*! ctor
@@ -119,6 +120,10 @@ namespace igor
         /*! component state
          */
         iEntityComponentState _state = iEntityComponentState::Unloaded;
+
+        /*! reference to entity
+        */
+        iEntityPtr _entity = nullptr;
     };
 
     /*! pointer definition of entity component

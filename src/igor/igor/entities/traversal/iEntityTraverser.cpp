@@ -12,25 +12,25 @@ namespace igor
 
     void iEntityTraverser::traverseInternal(iEntityPtr entity, bool useInactive)
     {
-        preOrderVisit(entity);
-        
-        const auto children = entity->getChildren(); // making copy on purpose here
-
-        for (const auto child : children)
+        if(entity->isRoot() || preOrderVisit(entity))
         {
-            traverseInternal(child, useInactive);
-        }
-
-        if (useInactive)
-        {
-            const auto inactiveChildren = entity->getInactiveChildren(); // making copy on purpose here
+            const auto children = entity->getChildren(); // making copy on purpose here
 
             for (const auto child : children)
             {
                 traverseInternal(child, useInactive);
             }
-        }
 
+            if (useInactive)
+            {
+                const auto inactiveChildren = entity->getInactiveChildren(); // making copy on purpose here
+
+                for (const auto child : children)
+                {
+                    traverseInternal(child, useInactive);
+                }
+            }
+        }
         postOrderVisit(entity);
     }
 
