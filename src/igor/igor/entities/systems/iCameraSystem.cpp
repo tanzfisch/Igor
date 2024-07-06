@@ -18,7 +18,7 @@ namespace igor
 
 	iEntitySystemStage iCameraSystem::getStage() const
 	{
-		return iEntitySystemStage::Update;
+		return iEntitySystemStage::PreRender;
 	}
 
 	iEntityPtr iCameraSystem::getActiveCamera() const

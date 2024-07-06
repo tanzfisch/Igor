@@ -52,11 +52,11 @@ namespace igor
         /*! \returns a newly created vertex buffer
         
         \param layout the layout of data used for instancing
-        \param maxInstanceSizeHint a hint for the maximum amout of instances
+        \param maxInstanceSizeHint a hint for the maximum amount of instances
 
         Adding more instances then specified with maxInstanceSizeHint will lead to reallocating memory and doubling the buffer size.
         */
-        static iInstancingBufferPtr create(const iBufferLayout &layout, uint32 maxInstanceSizeHint = 100);
+        static iInstancingBufferPtr create(const iBufferLayout &layout, uint32 maxInstanceSizeHint = 8);
 
         /*! adds instance data. This can be the data of just one instance or many.
 

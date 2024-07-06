@@ -84,7 +84,7 @@ namespace igor
 
     iOctreed &iEntityScene::getOctree() const
     {
-        con_assert(_quadtree != nullptr, "Octree was not initialized");
+        con_assert(_octree != nullptr, "Octree was not initialized");
 
         return *_octree;
     }

@@ -11,6 +11,29 @@ Example3D::Example3D(iWindowPtr window)
 
 void Example3D::onInit()
 {
+#if 1
+    _entityScene = iEntitySystemModule::getInstance().createScene();
+    _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
+    getView().setEntityScene(_entityScene);
+
+    iEntityPtr camera = _entityScene->createEntity("camera");
+    camera->addComponent(new iTransformComponent(iaVector3d(0, 0, 0.0)));
+    auto cameraComponent = camera->addComponent(new iCameraComponent());
+    cameraComponent->setPerspective(45.0);
+    cameraComponent->setClipPlanes(0.01, 100.0);
+    cameraComponent->setClearColorActive(true);
+    cameraComponent->setClearColor(iaColor4f::red);
+    cameraComponent->setClearDepthActive(true);
+
+    iEntityPtr cat = _entityScene->createEntity("cat");
+    cat->addComponent(new iTransformComponent(iaVector3d(0, 0, -5)));
+    cat->addComponent(new iSphereCollision3DComponent(10));
+    cat->addComponent(new iOctreeComponent());
+
+    iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
+    iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());    
+    cat->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
+#else
     // setup camera
     // we want a camera which can be rotated around the origin
     // we will achieve that with 3 transform nodes
@@ -172,6 +195,7 @@ void Example3D::onInit()
     // animation
     _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example3D::onUpdate), iaTime::fromMilliseconds(10));
     _animationTimingHandle->start();
+#endif
 }
 
 void Example3D::onDeinit()

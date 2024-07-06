@@ -15,5 +15,6 @@
         <Resource id="0xe878f89df812dc45" source="shaders/textured.shader" />
         <Resource id="0xfaa3b1436a20dbf3" source="models/cat/cat.mat" />
         <Resource id="0xfb8ec7e44efcccc9" alias="example_texture_crate_diff" source="models/crate/crate_diff.png" />
+        <Resource id="0x297dd0e1b6a2ec99" alias="example_material_instancing_textured" source="shaders/instancing_textured.shader" />
     </ResourceDictionary>
 </Igor>

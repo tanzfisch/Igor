@@ -80,6 +80,12 @@ namespace igor
          */
         void onUpdate();
 
+        /*! triggers pre render update stage with given scene
+
+        \param scene the given scene to update/render
+         */
+        void onPreRender(iEntityScenePtr scene);
+
         /*! triggers render update stage with given scene
 
         \param scene the given scene to update/render

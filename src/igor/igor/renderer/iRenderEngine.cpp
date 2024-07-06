@@ -38,6 +38,12 @@ namespace igor
         auto meshRenderComponent = meshEntity->getComponent<iMeshRenderComponent>();
         con_assert(meshRenderComponent != nullptr && transformComponent != nullptr, "missing components");
 
+        auto mesh = meshRenderComponent->getMesh();
+        if(mesh == nullptr)
+        {
+            return;
+        }
+
         iMaterialPtr material = meshRenderComponent->getMaterial();
         iShaderPtr shader = material->getShader();
         if (!shader->isValid() ||
@@ -51,9 +57,7 @@ namespace igor
         for (int i = 0; i < 16; ++i)
         {
             dst[i] = src[i];
-        }
-
-        auto mesh = meshRenderComponent->getMesh();
+        }        
 
         auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
                                  [&shader](const iMaterialGroup &materialGroup)
@@ -62,7 +66,7 @@ namespace igor
         if (iter == _materialGroups.end())
         {
             std::unordered_map<iMeshPtr, iInstaningPackage> instancing;
-            instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}}, 10000);
+            instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
             instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
             instancing[mesh]._material = material;
             _materialGroups.push_back({shader, instancing});
@@ -141,6 +145,7 @@ namespace igor
         {
             for (const auto &pair : materialGroup._instancing)
             {
+                iRenderer::getInstance().setShader(materialGroup._shader);
                 iRenderer::getInstance().drawMeshInstanced(pair.first, pair.second._buffer, pair.second._material);
                 pair.second._buffer->clear();
             }

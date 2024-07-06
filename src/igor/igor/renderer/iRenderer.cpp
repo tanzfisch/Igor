@@ -1808,6 +1808,12 @@ namespace igor
 
     void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material)
     {
+        const uint32 instanceCount = instancingBuffer->getInstanceCount();
+        if(instanceCount == 0)
+        {
+            return;
+        }
+
         if (!mesh->isValid())
         {
             return;
@@ -1835,9 +1841,7 @@ namespace igor
         }
         vertexArray->setIndexBuffer(mesh->getVertexArray()->getIndexBuffer());
         vertexArray->addVertexBuffer(instancingBuffer->getVertexBuffer());
-        vertexArray->bind();
-
-        const uint32 instanceCount = instancingBuffer->getInstanceCount();
+        vertexArray->bind();        
 
         glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr, instanceCount);
         GL_CHECK_ERROR();

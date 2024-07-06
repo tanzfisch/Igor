@@ -46,6 +46,10 @@ public:
     ~Example3D() = default;
 
 private:
+    /*! entity scene
+     */
+    iEntityScenePtr _entityScene = nullptr;
+
     /*! id to transform node used for manipulating the heading of all objects in scene
     */
     iNodeID _allObjectsHeading = iNode::INVALID_NODE_ID;

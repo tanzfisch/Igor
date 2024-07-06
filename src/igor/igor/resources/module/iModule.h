@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_MODULE__
-#define __IAUX_MODULE__
+#ifndef IAUX_MODULE_H
+#define IAUX_MODULE_H
 
 #include <igor/iDefines.h>
 
@@ -105,4 +105,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IAUX_MODULE__
+#endif // IAUX_MODULE_H

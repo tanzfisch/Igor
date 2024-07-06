@@ -203,10 +203,16 @@ namespace igor
             return;
         }
 
-        if(_entityScene != nullptr)
+        if (_entityScene != nullptr)
         {
+            iEntitySystemModule::getInstance().onPreRender(_entityScene);
             _renderEngine.render(_viewport);
             iEntitySystemModule::getInstance().onRender(_entityScene);
+
+            _renderEvent();
+
+            iRenderer::getInstance().flush();
+            return;
         }
 
         // now run legacy stuff
@@ -216,7 +222,7 @@ namespace igor
             _scene->handle();
         }
 
-        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);        
+        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
         if (_updateViewport)
         {
@@ -248,7 +254,7 @@ namespace igor
         }
 
         _renderEvent();
-        
+
         iRenderer::getInstance().flush();
     }
 

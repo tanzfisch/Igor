@@ -160,6 +160,11 @@ namespace igor
         iProfiler::setValue("entity count", entityCount);
     }
 
+    void iEntitySystemModule::onPreRender(iEntityScenePtr scene)
+    {
+        scene->onUpdate(_simulationFrameTime, iEntitySystemStage::PreRender);
+    }
+
     void iEntitySystemModule::onRender(iEntityScenePtr scene)
     {
         scene->onUpdate(_simulationFrameTime, iEntitySystemStage::Render);

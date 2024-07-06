@@ -81,7 +81,7 @@ namespace igor
 			octree.update(body->_object, transform->_position);
 		}
 		
-		for (auto entity : _quadtreeCircleView->getEntities())
+		for (auto entity : _octreeSphereView->getEntities())
 		{
 			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
 			iOctreeComponent *body = entity->getComponent<iOctreeComponent>();

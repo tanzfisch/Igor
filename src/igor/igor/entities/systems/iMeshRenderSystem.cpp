@@ -21,7 +21,7 @@ namespace igor
 
 	iEntitySystemStage iMeshRenderSystem::getStage() const
 	{
-		return iEntitySystemStage::Update;
+		return iEntitySystemStage::PreRender;
 	}
 
 	void iMeshRenderSystem::onUpdate(const iEntitySceneUpdateContext &context)
