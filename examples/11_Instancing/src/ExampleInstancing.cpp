@@ -22,54 +22,43 @@ ExampleInstancing::ExampleInstancing(iWindowPtr window)
 
 void ExampleInstancing::onInit()
 {
-    const float32 spacing = 5.0f;
-    const int32 amountPerDimension = 60;
+    const float64 spacing = 5.0;
+    const int32 amountPerDimension = 50;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);
 
+    // create entity scene
+    _entityScene = iEntitySystemModule::getInstance().createScene();
+    // setup octree for culling iOctreeComponents
+    _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
+    getView().setEntityScene(_entityScene);
+
     // setup camera
-    // we want a camera which can be rotated arround the origin
-    // we will acchive that with 3 transform nodes
+    // we want a camera which can be rotated around the origin
+    // we will achieve that with 3 entities
     // one is for the heading
-    iNodeTransform *cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
-    // give the transform node a name. naming is optional and ist jus for helping to debug.
-    // Names do not have to be unique but since it is possible to find nodes by name they better are
-    cameraHeading->setName("camera heading");
+    iEntityPtr cameraHeading = _entityScene->createEntity("camera_heading");
     _cameraHeading = cameraHeading->getID();
+    cameraHeading->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
     // one is for the pitch
-    iNodeTransform *cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
-    cameraPitch->setName("camera pitch");
+    iEntityPtr cameraPitch = _entityScene->createEntity("camera_pitch");
     _cameraPitch = cameraPitch->getID();
-    // and one is for translation or distance from the origin
-    iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
-    cameraTranslation->setName("camera translation");
-    // translate away from origin
-    cameraTranslation->translate(0, 0, spacing * amountPerDimension * 0.5);
-    _cameraTranslation = cameraTranslation->getID();
-    // from all nodes that we want to control later we save the node ID
-    // and last but not least we create a camera node
-    iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
-    camera->setName("camera");
-    // and build everything together
-    // first we add the heading to the root node
-    getScene()->getRoot()->insertNode(cameraHeading);
-    // than the pitch to the heading node
-    cameraHeading->insertNode(cameraPitch);
-    // then the translation to the pitch node
-    cameraPitch->insertNode(cameraTranslation);
-    // and than we add the camera to the translation
-    cameraTranslation->insertNode(camera);
-    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
-    // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-    getView().setCamera(camera->getID());
+    cameraPitch->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
+    // and the third is the camera including translation away from the origin
+    iEntityPtr camera = _entityScene->createEntity("camera");
+    _camera = camera->getID();
+    camera->addComponent(new iTransformComponent(iaVector3d(0, 0, spacing * amountPerDimension * 0.5)));
+    auto cameraComponent = camera->addComponent(new iCameraComponent());
+    cameraComponent->setPerspective(45.0);
+    cameraComponent->setClipPlanes(0.1, 10000.0);
+    cameraComponent->setClearColorActive(true);
+    cameraComponent->setClearDepthActive(true);
 
-    // now we can just put copies of that model in the scene
-    iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
-    transformGroup->translate(-((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5));
-    getScene()->getRoot()->insertNode(transformGroup);
+    // link them together
+    cameraPitch->setParent(cameraHeading);
+    camera->setParent(cameraPitch);
 
-    int count = 0;
     _perlinNoise.generateBase(42);
 
     iaRandomNumberGenerator random;
@@ -87,6 +76,8 @@ void ExampleInstancing::onInit()
     iModelPtr modelTeapot = iResourceManager::getInstance().loadResource<iModel>("example_model_teapot");
     iNodeMeshPtr meshNodeTeapot = static_cast<iNodeMeshPtr>(modelTeapot->getNode());
 
+    iaVector3d offset(-spacing * amountPerDimension * 0.5, -spacing * amountPerDimension * 0.5, -spacing * amountPerDimension * 0.5);
+
     // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)
     {
@@ -100,85 +91,63 @@ void ExampleInstancing::onInit()
                     continue;
                 }
 
-                iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
-                transform->translate(static_cast<float32>(x) * spacing + random.getNextFloatRange(0.0, spacing),
-                                     static_cast<float32>(y) * spacing + random.getNextFloatRange(0.0, spacing),
-                                     static_cast<float32>(z) * spacing + random.getNextFloatRange(0.0, spacing));
+                const iaVector3d position(static_cast<float64>(x) * spacing + random.getNextFloatRange(0.0, spacing),
+                                          static_cast<float64>(y) * spacing + random.getNextFloatRange(0.0, spacing),
+                                          static_cast<float64>(z) * spacing + random.getNextFloatRange(0.0, spacing));
 
-                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::X);
-                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Y);
-                transform->rotate(random.getNextFloat() * M_PI * 2, iaAxis::Z);
+                const iaVector3d orientation(random.getNextFloat() * M_PI * 2,
+                                             random.getNextFloat() * M_PI * 2,
+                                             random.getNextFloat() * M_PI * 2);
 
-                iNodeMeshPtr meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+                iEntityPtr entity = _entityScene->createEntity();
+                entity->addComponent(new iTransformComponent(position + offset, orientation));
+                // entity->addComponent(new iSphereCollision3DComponent(1));
+                entity->addComponent(new iOctreeComponent());
+                entity->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
 
-                switch (count % 4)
+                /*switch (count % 4)
                 {
                 case 0:
-                    meshNode->setMesh(meshNodeCat->getMesh());
-                    meshNode->setMaterial(meshNodeCat->getMaterial());
+                    entity->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
                     break;
 
                 case 1:
-                    meshNode->setMesh(meshNodeCrate->getMesh());
-                    meshNode->setMaterial(meshNodeCrate->getMaterial());
+                    entity->addComponent(new iMeshRenderComponent(meshNodeCrate->getMesh(), meshNodeCrate->getMaterial()));
                     break;
 
                 case 2:
-                    meshNode->setMesh(meshNodeCube->getMesh());
-                    meshNode->setMaterial(meshNodeCube->getMaterial());
+                    entity->addComponent(new iMeshRenderComponent(meshNodeCube->getMesh(), meshNodeCube->getMaterial()));
                     break;
 
                 case 3:
-                    meshNode->setMesh(meshNodeTeapot->getMesh());
-                    meshNode->setMaterial(meshNodeTeapot->getMaterial());
+                    entity->addComponent(new iMeshRenderComponent(meshNodeTeapot->getMesh(), meshNodeTeapot->getMaterial()));
                     break;
-                }
-
-                // building the created nodes together and insert them in the scene
-                transformGroup->insertNode(transform);
-                transform->insertNode(meshNode);
-
-                count++;
+                }*/
             }
         }
     }
 
-    con_info("instance count: " << count);
-
-    // setup light
-    // transform node for the lights orientation
-    iNodeTransform *directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
-    // keep transform node id so we can manipulate the light's position later
-    _directionalLightRotate = directionalLightRotate->getID();
-    // transform node for the lights distance to the origin
-    iNodeTransform *directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
-    directionalLightTranslate->translate(100, 100, 100);
-    // the light node
-    iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    lightNode->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
-    lightNode->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
-    lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
-    // insert light to scene
-    getScene()->getRoot()->insertNode(directionalLightRotate);
-    directionalLightRotate->insertNode(directionalLightTranslate);
-    directionalLightTranslate->insertNode(lightNode);
-
-    // animation
-    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &ExampleInstancing::onUpdate), iaTime::fromMilliseconds(10));
-    _animationTimingHandle->start();
+    /*    // setup light
+        // transform node for the lights orientation
+        iNodeTransform *directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
+        // keep transform node id so we can manipulate the light's position later
+        _directionalLightRotate = directionalLightRotate->getID();
+        // transform node for the lights distance to the origin
+        iNodeTransform *directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
+        directionalLightTranslate->translate(100, 100, 100);
+        // the light node
+        iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
+        lightNode->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
+        lightNode->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
+        lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
+        // insert light to scene
+        getScene()->getRoot()->insertNode(directionalLightRotate);
+        directionalLightRotate->insertNode(directionalLightTranslate);
+        directionalLightTranslate->insertNode(lightNode);*/
 }
 
 void ExampleInstancing::onDeinit()
 {
-    // stop light animation
-    if (_animationTimingHandle)
-    {
-        delete _animationTimingHandle;
-        _animationTimingHandle = nullptr;
-    }
-
-    _materialA = nullptr;
-    _materialB = nullptr;
 }
 
 void ExampleInstancing::onEvent(iEvent &event)
@@ -192,17 +161,16 @@ void ExampleInstancing::onEvent(iEvent &event)
 
 bool ExampleInstancing::onMouseWheelEvent(iEventMouseWheel &event)
 {
-    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
-    if (camTranslation != nullptr)
+    iEntityPtr camera = _entityScene->getEntity(_camera);
+    auto transformComponent = camera->getComponent<iTransformComponent>();
+
+    if (event.getWheelDelta() < 0)
     {
-        if (event.getWheelDelta() < 0)
-        {
-            camTranslation->translate(0, 0, 2);
-        }
-        else
-        {
-            camTranslation->translate(0, 0, -2);
-        }
+        transformComponent->_position._z += 2;
+    }
+    else
+    {
+        transformComponent->_position._z -= 2;
     }
 
     return true;
@@ -215,25 +183,17 @@ bool ExampleInstancing::onMouseMoveEvent(iEventMouseMove &event)
         const auto from = event.getLastPosition();
         const auto to = event.getPosition();
 
-        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
-        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
+        iEntityPtr cameraPitch = _entityScene->getEntity(_cameraPitch);
+        iEntityPtr cameraHeading = _entityScene->getEntity(_cameraHeading);
+        auto transformPitch = cameraPitch->getComponent<iTransformComponent>();
+        auto transformHeading = cameraHeading->getComponent<iTransformComponent>();
 
-        if (cameraPitch != nullptr &&
-            cameraHeading != nullptr)
-        {
-            cameraPitch->rotate((from._y - to._y) * 0.0005f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.0005f, iaAxis::Y);
-            iMouse::getInstance().setCenter();
-        }
+        transformPitch->_orientation._x += (from._y - to._y) * 0.0005f;
+        transformHeading->_orientation._y += (from._x - to._x) * 0.0005f;
+        iMouse::getInstance().setCenter();
 
         return true;
     }
 
     return false;
-}
-
-void ExampleInstancing::onUpdate(const iaTime &time)
-{
-    iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
-    directionalLightRotate->rotate(0.005f, iaAxis::Y);
 }
