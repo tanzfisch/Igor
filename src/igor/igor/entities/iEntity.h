@@ -126,7 +126,7 @@ namespace igor
 
         /*! \returns type hash of this entity
         */
-        iEntityComponentMask getTypeHash() const;
+        iEntityComponentMask getComponentMask() const;
 
         /*! add component (or overrides if already existing)
 

@@ -1577,7 +1577,7 @@ namespace igor
 
         for (auto view : _views)
         {
-            view->draw();
+            view->render();
         }
 
         iRenderer::getInstance().endFrame();

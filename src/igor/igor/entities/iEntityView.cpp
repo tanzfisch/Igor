@@ -80,7 +80,7 @@ namespace igor
 
 	bool iEntityView::checkCompatibility(iEntityPtr entity) const
 	{
-		const auto hash = _componentMask & entity->getTypeHash();
+		const auto hash = _componentMask & entity->getComponentMask();
 		return hash == _componentMask;
 	}
 

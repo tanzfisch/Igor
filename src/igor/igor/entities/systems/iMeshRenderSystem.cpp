@@ -16,7 +16,7 @@ namespace igor
 {
 	iMeshRenderSystem::iMeshRenderSystem()
 	{
-		_view = createView<iTransformComponent, iMeshRenderComponent>();
+		_componentMask = iEntity::calcComponentMask({typeid(iTransformComponent), typeid(iMeshRenderComponent)});
 	}
 
 	iEntitySystemStage iMeshRenderSystem::getStage() const
@@ -26,16 +26,30 @@ namespace igor
 
 	void iMeshRenderSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		con_assert(context._renderEngine != nullptr, "zero pointer");
-		iRenderEnginePtr renderEngine = context._renderEngine;
-
-		// TODO get cam from render engine, query the octree (frustum culling) and pass the result to the render engine
-
-		// query the octree for the entitites instead that -> for (auto entity : _view->getEntities())
+		auto scene = context._scene;
+		if (!scene->hasOctree())
 		{
+			return;
+		}
 
+		auto renderEngine = context._renderEngine;
+		const auto &frustum = renderEngine->getFrustum();
 
-			// renderEngine->addMesh(entity);
+		// frustum culling
+		auto octree = scene->getOctree();
+		iOctreed::Objects objects;
+		octree.query(frustum, objects);
+
+		for (const auto &object : objects)
+		{
+			auto entityID = std::any_cast<iEntityID>(object->_userData);
+			auto entity = scene->getEntity(entityID);
+			
+			const auto match = _componentMask & entity->getComponentMask();
+			if (match == _componentMask)
+			{
+				renderEngine->addMesh(entity);
+			}
 		}
 	}
 

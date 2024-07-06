@@ -55,9 +55,10 @@ namespace igor
 
 	private:
 
-        /*! a view on some entities
-        */
-		iEntityViewPtr _view;
+		/*! component mask to filter entities
+		*/
+		iEntityComponentMask _componentMask;
+
 	};
 
 } // igor

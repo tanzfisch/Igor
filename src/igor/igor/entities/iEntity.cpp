@@ -354,7 +354,7 @@ namespace igor
         return result;
     }
 
-    iEntityComponentMask iEntity::getTypeHash() const
+    iEntityComponentMask iEntity::getComponentMask() const
     {
         return _componentMask;
     }

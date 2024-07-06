@@ -4,6 +4,7 @@
 
 #include <igor/renderer/iRenderEngine.h>
 
+#include <igor/renderer/iRenderer.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
@@ -35,9 +36,71 @@ namespace igor
         // store in instancing buffers
     }
 
-    void iRenderEngine::render()
+    void iRenderEngine::setupCamera(iEntityPtr camera, const iaRectanglei &viewport)
     {
+        auto cameraComponent = camera->getComponent<iCameraComponent>();
+        auto transformComponent = camera->getComponent<iTransformComponent>();
+        const auto &camViewport = cameraComponent->getViewport();
+        const auto &camWorldMatrix = transformComponent->_worldMatrix;
 
+        iaRectanglei rect;
+        rect.setX(viewport.getX() + camViewport.getX() * static_cast<float32>(viewport.getWidth()) + 0.5f);
+        rect.setY(viewport.getY() + camViewport.getY() * static_cast<float32>(viewport.getHeight()) + 0.5f);
+        rect.setWidth(camViewport.getWidth() * static_cast<float32>(viewport.getWidth()) + 0.5f);
+        rect.setHeight(camViewport.getHeight() * static_cast<float32>(viewport.getHeight()) + 0.5f);
+        iRenderer::getInstance().setViewport(rect);
+
+        if (cameraComponent->isClearColorActive())
+        {
+            iRenderer::getInstance().clearColorBuffer(cameraComponent->getClearColor());
+        }
+
+        if (cameraComponent->isClearDepthActive())
+        {
+            iRenderer::getInstance().clearDepthBuffer(cameraComponent->getClearDepth());
+        }
+
+        if (cameraComponent->getProjectionType() == iProjectionType::Perspective)
+        {
+            iRenderer::getInstance().setPerspective(cameraComponent->getFieldOfView(),
+                                                    cameraComponent->getAspectRatio(),
+                                                    cameraComponent->getNearClipPlane(),
+                                                    cameraComponent->getFarClipPlane());
+        }
+        else
+        {
+            iRenderer::getInstance().setOrtho(cameraComponent->getLeftOrtho(),
+                                              cameraComponent->getRightOrtho(),
+                                              cameraComponent->getBottomOrtho(),
+                                              cameraComponent->getTopOrtho(),
+                                              cameraComponent->getNearClipPlane(),
+                                              cameraComponent->getFarClipPlane());
+        }
+
+        iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
+
+        iaMatrixd viewmatrix;
+        viewmatrix.lookAt(camWorldMatrix._pos, camWorldMatrix._pos - camWorldMatrix._depth, camWorldMatrix._top);
+
+        iaMatrixd projectionViewMatrix = iRenderer::getInstance().getProjectionMatrix();
+        projectionViewMatrix *= viewmatrix;
+        _frustum.set(projectionViewMatrix);
+    }
+
+    void iRenderEngine::render(const iaRectanglei &viewport)
+    {
+        auto camera = _scene->getEntity(_cameraID);
+        if (camera == nullptr)
+        {
+            return;
+        }
+
+        setupCamera(camera, viewport);
+    }
+
+    const iFrustumd &iRenderEngine::getFrustum() const
+    {
+        return _frustum;
     }
 
 } // namespace igor

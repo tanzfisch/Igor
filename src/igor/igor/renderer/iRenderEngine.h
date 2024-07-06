@@ -30,6 +30,7 @@
 #define IGOR_RENDER_ENGINE_H
 
 #include <igor/entities/iEntityScene.h>
+#include <igor/data/iFrustum.h>
 
 #include <iaux/math/iaMatrix.h>
 
@@ -66,8 +67,16 @@ namespace igor
         void addMesh(iEntityPtr mesh);
 
         /*! renders given data
+
+        \param viewport the given viewport to render in
         */
-        void render();
+        void render(const iaRectanglei &viewport);
+
+        /*! \returns current frustum
+
+        valid after render/setupCamera
+        */
+        const iFrustumd& getFrustum() const;
 
     private:
 
@@ -78,6 +87,17 @@ namespace igor
         /*! camera ID
         */
         iEntityID _cameraID = iEntityID::getInvalid();
+
+        /*! current frustum
+        */
+        iFrustumd _frustum;
+
+        /*! setup camera for render
+
+        \param camera the camera to use for setup
+        \param viewport the viewport given by the parent view
+        */
+        void setupCamera(iEntityPtr camera, const iaRectanglei &viewport);
 
     };
 } // namespace igor

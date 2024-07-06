@@ -425,7 +425,7 @@ namespace igor
 
         /*! called every render frame by the parenting window
          */
-        void draw();
+        void render();
 
         /*! updates window rectangle
 

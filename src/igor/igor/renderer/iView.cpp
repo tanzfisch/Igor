@@ -196,24 +196,27 @@ namespace igor
         return _updateViewport;
     }
 
-    void iView::draw()
+    void iView::render()
     {
-        if (_scene != nullptr)
-        {
-            _scene->handle();
-        }
-
         if (!_visible)
         {
             return;
         }
 
-        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);        
-
         if(_entityScene != nullptr)
         {
             iEntitySystemModule::getInstance().onRender(_entityScene);
+            _renderEngine.render(_viewport);
         }
+
+        // now run legacy stuff
+
+        if (_scene != nullptr)
+        {
+            _scene->handle();
+        }
+
+        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);        
 
         if (_updateViewport)
         {
