@@ -55,30 +55,6 @@ namespace igor
 
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
 
-
-    /*! 2D collision component
-     */
-    class iCircleCollision2DComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iCircleCollision2DComponent(float64 radius, const iaVector2d &offset = iaVector2d(), const iaString &name = "collision 2d")
-            : iEntityComponent(name), _radius(radius), _offset(offset)
-        {
-        }
-
-        /*! the circles radius
-         */
-        float64 _radius;
-
-        /*! the offset position
-         */
-        iaVector2d _offset;
-    };
-
     /*! velocity component
      */
     class iVelocityComponent : public iEntityComponent

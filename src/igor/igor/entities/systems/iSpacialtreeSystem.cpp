@@ -6,7 +6,10 @@
 
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/components/iQuadtreeComponent.h>
+#include <igor/entities/components/iOctreeComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iCircleCollision2DComponent.h>
+#include <igor/entities/components/iSphereCollision3DComponent.h>
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
@@ -17,6 +20,8 @@ namespace igor
 	{
 		_quadtreePositionView = createView<iTransformComponent, iQuadtreeComponent>();
 		_quadtreeCircleView = createView<iTransformComponent, iQuadtreeComponent, iCircleCollision2DComponent>();
+		_octreePositionView = createView<iTransformComponent, iOctreeComponent>();
+		_octreeSphereView = createView<iTransformComponent, iOctreeComponent, iSphereCollision3DComponent>();
 	}
 
 	iEntitySystemStage iSpacialtreeSystem::getStage() const
@@ -60,6 +65,39 @@ namespace igor
 		}
 	}
 
+	void iSpacialtreeSystem::onUpdateOctree(iOctreed &octree)
+	{
+		for (auto entity : _octreePositionView->getEntities())
+		{
+			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
+			iOctreeComponent *body = entity->getComponent<iOctreeComponent>();
+
+			if (body->_object == nullptr ||
+				body->_object->_parent.expired())
+			{
+				continue;
+			}
+
+			octree.update(body->_object, transform->_position);
+		}
+		
+		for (auto entity : _quadtreeCircleView->getEntities())
+		{
+			iTransformComponent *transform = entity->getComponent<iTransformComponent>();
+			iOctreeComponent *body = entity->getComponent<iOctreeComponent>();
+			iSphereCollision3DComponent *collision = entity->getComponent<iSphereCollision3DComponent>();
+
+			if (body->_object == nullptr ||
+				body->_object->_parent.expired())
+			{
+				continue;
+			}
+
+			const iaSphered sphere(transform->_position + collision->_offset, collision->_radius);
+			octree.update(body->_object, sphere);
+		}
+	}
+
 	void iSpacialtreeSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
 		iEntityScenePtr scene = context._scene;
@@ -68,6 +106,12 @@ namespace igor
 		{
 			onUpdateQuadtree(scene->getQuadtree());
 		}
+
+		if (scene->hasOctree())
+		{
+			onUpdateOctree(scene->getOctree());
+		}
+
 	}
 
 } // igor

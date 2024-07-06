@@ -26,66 +26,45 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_QUADTREE_SYSTEM_H
-#define IGOR_QUADTREE_SYSTEM_H
+#ifndef IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
+#define IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
 
-#include <igor/entities/iEntitySystem.h>
+#include <igor/entities/iEntity.h>
 
-#include <igor/data/iQuadtree.h>
 #include <igor/data/iOctree.h>
 
 namespace igor
 {
-    /*! spacial tree system
-
-        updating positions and dimensions of objects inside various trees
-    */
-    class iSpacialtreeSystem : public iEntitySystem
+    /*! 2D circle collision component
+     */
+    class iCircleCollision2DComponent : public iEntityComponent
     {
     public:
+        /*! ctor
 
-        /*! init types
+        \param name the name of this component
         */
-        iSpacialtreeSystem();
+        iCircleCollision2DComponent(float64 radius, const iaVector2d &offset = iaVector2d(), const iaString &name = "circle collision 2d")
+            : iEntityComponent(name), _radius(radius), _offset(offset)
+        {
+        }
 
-		/*! updates system
+        /*! \returns the circles radius
+         */
+        float64 getRadius() const;
 
-		\param context the update context
-		 */
-		void onUpdate(const iEntitySceneUpdateContext &context) override;
+        /*! \returns the offset position
+         */
+        const iaVector2d& getOffset() const;
 
-		/*! \returns processing stage this system want's to run in
-		*/
-		iEntitySystemStage getStage() const override;
+        /*! the circles radius
+         */
+        float64 _radius;
 
-    private:
-
-        /*! a view on some entities with positions
-        */
-        iEntityViewPtr _quadtreePositionView;        
-
-        /*! a view on some entities with circles
-        */
-        iEntityViewPtr _quadtreeCircleView;
-
-        /*! a view on some entities with positions
-        */
-        iEntityViewPtr _octreePositionView;        
-
-        /*! a view on some entities with circles
-        */
-        iEntityViewPtr _octreeSphereView;
-
-        /*! updated quadtree data
-        */
-        void onUpdateQuadtree(iQuadtreed &quadtree);
-
-        /*! updated octree data
-        */
-        void onUpdateOctree(iOctreed &octree);
-
+        /*! the offset position
+         */
+        iaVector2d _offset;
     };
+}
 
-} // igor
-
-#endif // IGOR_QUADTREE_SYSTEM_H
+#endif // IGOR_CIRCLE_COLLISION_2D_COMPONENT_H

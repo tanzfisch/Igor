@@ -19,6 +19,8 @@
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
+#include <igor/entities/components/iCircleCollision2DComponent.h>
+#include <igor/entities/components/iSphereCollision3DComponent.h>
 
 #include <igor/resources/profiler/iProfiler.h>
 
@@ -34,6 +36,7 @@ namespace igor
         registerComponentType<iQuadtreeComponent>();
         registerComponentType<iOctreeComponent>();
         registerComponentType<iCircleCollision2DComponent>();
+        registerComponentType<iSphereCollision3DComponent>();
         registerComponentType<iVelocityComponent>();
         registerComponentType<iBehaviourComponent>();
         registerComponentType<iGlobalBoundaryComponent>();
