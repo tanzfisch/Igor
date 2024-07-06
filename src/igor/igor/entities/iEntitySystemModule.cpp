@@ -14,6 +14,7 @@
 #include <igor/entities/systems/iMeshRenderSystem.h>
 
 #include <igor/entities/components/iQuadtreeComponent.h>
+#include <igor/entities/components/iOctreeComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
@@ -31,6 +32,7 @@ namespace igor
         registerComponentType<iSpriteRenderComponent>();
         registerComponentType<iTransformComponent>();
         registerComponentType<iQuadtreeComponent>();
+        registerComponentType<iOctreeComponent>();
         registerComponentType<iCircleCollision2DComponent>();
         registerComponentType<iVelocityComponent>();
         registerComponentType<iBehaviourComponent>();

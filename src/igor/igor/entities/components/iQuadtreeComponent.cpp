@@ -16,7 +16,7 @@ namespace igor
     void iQuadtreeComponent::onActivate(iEntityPtr entity)
     {
         auto &quadtree = entity->getScene()->getQuadtree();
-        const iaVector2d center = quadtree.getRootBox().getCenter();
+        const iaVector2d &center = quadtree.getRootBox().getCenter();
 
         _object = std::make_shared<iQuadtreed::Object>(iaCircled(center._x, center._y, 1.0), entity->getID());
         quadtree.insert(_object);

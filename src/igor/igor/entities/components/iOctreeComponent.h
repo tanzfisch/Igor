@@ -26,29 +26,29 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_QUADTREE_COMPONENT_H
-#define IGOR_QUADTREE_COMPONENT_H
+#ifndef IGOR_OCTREE_COMPONENT_H
+#define IGOR_OCTREE_COMPONENT_H
 
 #include <igor/entities/iEntity.h>
 
-#include <igor/data/iQuadtree.h>
+#include <igor/data/iOctree.h>
 
 namespace igor
 {
-    /*! quadtree component
+    /*! octree component
      */
-    class iQuadtreeComponent : public iEntityComponent
+    class iOctreeComponent : public iEntityComponent
     {
     public:
         /*! ctor
 
         \param name the name of this component
         */
-        iQuadtreeComponent(iQuadtreed::ObjectPtr object = nullptr, const iaString &name = "body 2d");
+        iOctreeComponent(iOctreed::ObjectPtr object = nullptr, const iaString &name = "body 2d");
 
-        /*! quadtree object
+        /*! octree object
          */
-        iQuadtreed::ObjectPtr _object = nullptr;
+        iOctreed::ObjectPtr _object = nullptr;
 
     private:
         /*! callback to activate component
@@ -62,4 +62,4 @@ namespace igor
 
 }
 
-#endif // IGOR_QUADTREE_COMPONENT_H
+#endif // IGOR_OCTREE_COMPONENT_H
