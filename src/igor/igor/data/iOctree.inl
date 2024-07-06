@@ -33,6 +33,17 @@ void iOctree<F>::query(const iAACube<F> &cube, std::vector<std::shared_ptr<iOctr
 }
 
 template <typename F>
+void iOctree<F>::query(const iFrustumd &frustum, std::vector<std::shared_ptr<iOctreeObject>> &objects)
+{
+    if (!iIntersection::intersects(_root->_cube, frustum))
+    {
+        return;
+    }
+
+    queryInternal(_root, frustum, objects);
+}
+
+template <typename F>
 void iOctree<F>::queryInternal(const std::shared_ptr<iOctreeNode> &node, const iAACube<F> &cube, std::vector<std::shared_ptr<iOctreeObject>> &objects)
 {
     if (isLeaf(node))
@@ -79,6 +90,32 @@ void iOctree<F>::queryInternal(const std::shared_ptr<iOctreeNode> &node, const i
             if (iIntersection::intersects(child->_cube, sphere))
             {
                 queryInternal(child, sphere, objects);
+            }
+        }
+    }
+}
+
+template <typename F>
+void iOctree<F>::queryInternal(const std::shared_ptr<iOctreeNode> &node, const iFrustumd &frustum, std::vector<std::shared_ptr<iOctreeObject>> &objects)
+{
+    if (isLeaf(node))
+    {
+        for (auto ud : node->_objects)
+        {
+            if (iIntersection::intersects(ud->_sphere, frustum))
+            {
+                objects.push_back(ud);
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < 8; ++i)
+        {
+            const std::shared_ptr<iOctreeNode> &child = node->_children[i];
+            if (iIntersection::intersects(child->_cube, frustum))
+            {
+                queryInternal(child, frustum, objects);
             }
         }
     }
@@ -150,9 +187,9 @@ void iOctree<F>::split(const std::shared_ptr<iOctreeNode> &node)
         +----+----+ /
         | C2 | C3 |/
         +----+----+
-        |        
+        |
         v Y
-        
+
     */
 
     const iAACube<F> &nodeCube = node->_cube;
@@ -187,11 +224,11 @@ void iOctree<F>::split(const std::shared_ptr<iOctreeNode> &node)
         {
             childIndex |= 2;
         }
-        
+
         if (object->_sphere._center._z > center._z)
         {
             childIndex |= 4;
-        }        
+        }
 
         node->_children[childIndex]->_objects.push_back(object);
         object->_parent = node->_children[childIndex];

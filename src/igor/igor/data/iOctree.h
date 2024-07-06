@@ -31,10 +31,6 @@
 
 #include <igor/iDefines.h>
 #include <igor/data/iIntersection.h>
-#include <igor/data/iAACube.h>
-
-#include <iaux/data/iaSphere.h>
-using namespace iaux;
 
 #include <algorithm>
 #include <memory>
@@ -154,6 +150,13 @@ namespace igor
         */
         void query(const iAACube<F> &cube, std::vector<std::shared_ptr<iOctreeObject>> &objects);
 
+        /*! queries for objects within given frustum
+
+        \param frustum the given frustum
+        \param objects the resulting found objects
+        */
+        void query(const iFrustumd &frustum, std::vector<std::shared_ptr<iOctreeObject>> &objects);
+
         /*! clears the tree
          */
         void clear();
@@ -207,10 +210,18 @@ namespace igor
         /*! queries for user data within given cube
 
         \param node the current node
-        \param sphere the given cube
+        \param cube the given cube
         \param objects the resulting found user data
         */
         void queryInternal(const std::shared_ptr<iOctreeNode> &node, const iAACube<F> &cube, std::vector<std::shared_ptr<iOctreeObject>> &objects);
+
+        /*! queries for user data within given frustum
+
+        \param node the current node
+        \param frustum the given frustum
+        \param objects the resulting found user data
+        */
+        void queryInternal(const std::shared_ptr<iOctreeNode> &node, const iFrustumd &frustum, std::vector<std::shared_ptr<iOctreeObject>> &objects);
 
         /*! split given node
 

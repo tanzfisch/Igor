@@ -29,11 +29,7 @@
 #ifndef IGOR_QUADTREE_H
 #define IGOR_QUADTREE_H
 
-#include <igor/iDefines.h>
 #include <igor/data/iIntersection.h>
-
-#include <iaux/data/iaRectangle.h>
-#include <iaux/data/iaCircle.h>
 
 #include <algorithm>
 #include <memory>
