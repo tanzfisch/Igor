@@ -19,6 +19,7 @@ Changelog                           {#changelog}
 - igor data folder now installed under data
 - iProfiler now also tracks key value pairs per frame ie "draw calls", "triangles" etc
 - iEntityScene is registered with iView which eventually will replace iScene
+- #424 added sky box compatible to new render engine
 
 0.44.0
 ------

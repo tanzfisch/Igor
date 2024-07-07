@@ -8,7 +8,9 @@
 #include <igor/renderer/iRenderer.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
+#include <igor/resources/iResourceManager.h>
 #include <igor/entities/iEntitySystemModule.h>
+#include <igor/renderer/environment/iSkyBox.h>
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 #include <iaux/system/iaConsole.h>
@@ -18,6 +20,12 @@ using namespace iaux;
 
 namespace igor
 {
+
+    iView::iView()
+    {
+        _skyBox = std::make_unique<iSkyBox>();
+        _skyBox->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_skybox_debug"));
+    }
 
     iView::~iView()
     {
@@ -208,9 +216,17 @@ namespace igor
         if (_entityScene != nullptr)
         {
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
-            _renderEngine.render(_viewport);
-            iEntitySystemModule::getInstance().onRender(_entityScene);
 
+            _renderEngine.setupCamera(_viewport);
+
+            if(_skyBox != nullptr)
+            {
+                _skyBox->render();
+            }
+
+            _renderEngine.render();
+
+            iEntitySystemModule::getInstance().onRender(_entityScene);
             _renderEvent();
 
             iRenderer::getInstance().flush();

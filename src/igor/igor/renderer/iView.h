@@ -50,6 +50,7 @@ namespace igor
     class iPixmap;
     class iNodeCamera;
     class iOctreeObject;
+    class iSkyBox;
 
     /*! draw event triggered for every frame a view is rendered
      */
@@ -68,9 +69,9 @@ namespace igor
         friend class iWidgetViewport;
 
     public:
-        /*! does nothing
+        /*! init
          */
-        iView() = default;
+        iView();
 
         /*! checks consistency
          */
@@ -416,6 +417,10 @@ namespace igor
         /*! render engine
         */
         iRenderEngine _renderEngine;
+
+        /*! sky box
+        */
+        std::unique_ptr<iSkyBox> _skyBox;
 
         /*! sets the z index of this view. will be used by window to determine the render order
 

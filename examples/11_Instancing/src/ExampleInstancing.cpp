@@ -4,19 +4,8 @@
 
 #include "ExampleInstancing.h"
 
-#include <igor/resources/shader/iShader.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/system/iMouse.h>
-using namespace igor;
-
 ExampleInstancing::ExampleInstancing(iWindowPtr window)
-    : ExampleBase(window, "Instacing", true, "example_skybox_debug")
+    : ExampleBase(window, "Instacing", true, "")
 {
 }
 
@@ -62,7 +51,8 @@ void ExampleInstancing::onInit()
     perlinNoise.generateBase(42);
     iaRandomNumberGenerator random;
 
-    // todo need to be able to load a mesh from file without all of this
+    // load a bunch of models and put them in the scene
+    // TODO need to be able to load a mesh from file without all of this
     iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
     iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());
 
@@ -75,9 +65,8 @@ void ExampleInstancing::onInit()
     iModelPtr modelTeapot = iResourceManager::getInstance().loadResource<iModel>("example_model_teapot");
     iNodeMeshPtr meshNodeTeapot = static_cast<iNodeMeshPtr>(modelTeapot->getNode());
 
-    iaVector3d offset(-spacing * amountPerDimension * 0.5, -spacing * amountPerDimension * 0.5, -spacing * amountPerDimension * 0.5);
-
-    // create a bunch of models
+    const iaVector3d offset(-spacing * amountPerDimension * 0.5, -spacing * amountPerDimension * 0.5, -spacing * amountPerDimension * 0.5);
+    
     for (int z = 0; z < amountPerDimension; ++z)
     {
         for (int y = 0; y < amountPerDimension; ++y)
@@ -128,6 +117,8 @@ void ExampleInstancing::onInit()
     iEntityPtr sun = _entityScene->createEntity("sun_light");
     sun->addComponent(new iTransformComponent(iaVector3d(1, 1, 1)));
     sun->addComponent(new iLightComponent());
+
+    // add the skybox
 }
 
 void ExampleInstancing::onDeinit()

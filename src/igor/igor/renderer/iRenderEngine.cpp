@@ -70,7 +70,7 @@ namespace igor
         }
         else
         {
-            if(iter->_instancing[mesh]._buffer == nullptr)
+            if (iter->_instancing[mesh]._buffer == nullptr)
             {
                 iter->_instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
                 iter->_instancing[mesh]._material = material;
@@ -79,8 +79,14 @@ namespace igor
         }
     }
 
-    void iRenderEngine::setupCamera(iEntityPtr camera, const iaRectanglei &viewport)
+    void iRenderEngine::setupCamera(const iaRectanglei &viewport)
     {
+        auto camera = _scene->getEntity(_cameraID);
+        if (camera == nullptr)
+        {
+            return;
+        }
+
         auto cameraComponent = camera->getComponent<iCameraComponent>();
         auto transformComponent = camera->getComponent<iTransformComponent>();
         const auto &camViewport = cameraComponent->getViewport();
@@ -132,16 +138,8 @@ namespace igor
         _frustum.set(projectionViewMatrix);
     }
 
-    void iRenderEngine::render(const iaRectanglei &viewport)
+    void iRenderEngine::renderInstances()
     {
-        auto camera = _scene->getEntity(_cameraID);
-        if (camera == nullptr)
-        {
-            return;
-        }
-
-        setupCamera(camera, viewport);
-
         std::sort(_materialGroups.begin(), _materialGroups.end(), [](const iMaterialGroup a, const iMaterialGroup b) -> bool
                   { return a._shader->getOrder() < b._shader->getOrder(); });
 
@@ -154,6 +152,11 @@ namespace igor
                 pair.second._buffer->clear();
             }
         }
+    }
+
+    void iRenderEngine::render()
+    {
+        renderInstances();
     }
 
     const iFrustumd &iRenderEngine::getFrustum() const
