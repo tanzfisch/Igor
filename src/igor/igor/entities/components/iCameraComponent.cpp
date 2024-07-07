@@ -13,11 +13,6 @@ namespace igor
     {
     }
 
-    float64 iCameraComponent::getAspectRatio() const
-    {
-        return static_cast<float64>(_viewport.getWidth()) / static_cast<float64>(_viewport.getHeight());
-    }
-
     void iCameraComponent::setViewportRelative(const iaRectangled &rect)
     {
         _viewport = rect;

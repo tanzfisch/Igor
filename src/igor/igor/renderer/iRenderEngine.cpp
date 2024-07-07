@@ -105,8 +105,10 @@ namespace igor
 
         if (cameraComponent->getProjectionType() == iProjectionType::Perspective)
         {
+            float64 aspect = static_cast<float64>(rect.getWidth()) / static_cast<float64>(rect.getHeight());
+
             iRenderer::getInstance().setPerspective(cameraComponent->getFieldOfView(),
-                                                    cameraComponent->getAspectRatio(),
+                                                    aspect,
                                                     cameraComponent->getNearClipPlane(),
                                                     cameraComponent->getFarClipPlane());
         }

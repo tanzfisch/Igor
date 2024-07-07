@@ -203,6 +203,8 @@ namespace igor
             return;
         }
 
+        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
+
         if (_entityScene != nullptr)
         {
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
@@ -221,8 +223,6 @@ namespace igor
         {
             _scene->handle();
         }
-
-        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
         if (_updateViewport)
         {

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Igor>
 	<Material>
-		<ShaderMaterial>example_material_instancing_textured</ShaderMaterial>
+		<ShaderMaterial>igor_shader_material_instancing_textured</ShaderMaterial>
 		<Diffuse>0.969231, 0.969231, 0.969231</Diffuse>
 		<Ambient>0.65384, 0.63373, 0.63374</Ambient>
 		<Specular>0.134616, 0.134615, 0.134616</Specular>

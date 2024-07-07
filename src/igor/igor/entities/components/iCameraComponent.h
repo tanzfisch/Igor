@@ -52,10 +52,6 @@ namespace igor
         */
         iCameraComponent(const iaString &name = "camera");
 
-        /*! \returns aspect ratio
-         */
-        float64 getAspectRatio() const;
-
         /*! sets the view port within a window.
 
         values have to be from 0.0 to 1.0 and represent a resolution independent unit.

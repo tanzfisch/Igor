@@ -11,7 +11,6 @@ Example3D::Example3D(iWindowPtr window)
 
 void Example3D::onInit()
 {
-#if 1
     _entityScene = iEntitySystemModule::getInstance().createScene();
     _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
     getView().setEntityScene(_entityScene);
@@ -33,7 +32,7 @@ void Example3D::onInit()
     iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
     iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());    
     cat->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
-#else
+#if 0
     // setup camera
     // we want a camera which can be rotated around the origin
     // we will achieve that with 3 transform nodes
