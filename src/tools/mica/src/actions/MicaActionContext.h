@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,10 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __ACTIONCONTEXT__
-#define __ACTIONCONTEXT__
+#ifndef MICA_ACTIONCONTEXT_H
+#define MICA_ACTIONCONTEXT_H
 
-#include "../outliner/Outliner.h"
+#include "../scene_outliner/SceneOutliner.h"
 
 /*! mica action context
 */
@@ -39,7 +39,7 @@ class MicaActionContext : public iActionContext
 public:
     /*! init members
     */
-    MicaActionContext(WorkspacePtr workspace, Outliner *outliner)
+    MicaActionContext(WorkspacePtr workspace, SceneOutliner *outliner)
         : _workspace(workspace), _outliner(outliner)
     {
     }
@@ -53,7 +53,7 @@ public:
 
     /*! returns the outliner
     */
-    Outliner *getOutliner() const
+    SceneOutliner *getOutliner() const
     {
         return _outliner;
     }
@@ -65,7 +65,7 @@ private:
 
     /*! reference to the outliner
     */
-    Outliner *_outliner = nullptr;
+    SceneOutliner *_outliner = nullptr;
 };
 
-#endif // __ACTIONS__
+#endif // MICA_ACTIONCONTEXT_H

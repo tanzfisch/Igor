@@ -1,12 +1,11 @@
-
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iAnimationSystem.h>
 
 #include <igor/entities/iEntityScene.h>
-#include <igor/entities/iEntity.h>
+#include <igor/entities/components/iTransformComponent.h>
 #include <igor/system/iTimer.h>
 
 namespace igor
@@ -22,8 +21,10 @@ namespace igor
         return iEntitySystemStage::Update;
     }
 
-    void iAnimationSystem::update(const iaTime &time, iEntityScenePtr scene)
+    void iAnimationSystem::onUpdate(const iEntitySceneUpdateContext &context)
     {
+        const iaTime &time = context._time;
+
         for (auto entity : _view->getEntities())
         {
             auto animation = entity->getComponent<iAnimationComponent>();            

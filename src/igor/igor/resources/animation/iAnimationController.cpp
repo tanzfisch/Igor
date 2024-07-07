@@ -1,11 +1,13 @@
 
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/animation/iAnimationController.h>
 
 #include <igor/entities/iEntity.h>
+#include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iTransformComponent.h>
 #include <igor/resources/animation/iAnimation.h>
 
 #include <iaux/math/iaRandom.h>
@@ -69,7 +71,7 @@ namespace igor
         float64 t = clip->getNormalizedTime(_startTime, time) * clip->getDuration().getSeconds();
 
         auto transform = entity->getComponent<iTransformComponent>();
-        auto spriteRender = entity->getComponent<iSpriteRendererComponent>();
+        auto spriteRender = entity->getComponent<iSpriteRenderComponent>();
 
         for (const auto &animation : clip->getAnimations())
         {
@@ -78,17 +80,17 @@ namespace igor
 
             if (animation->hasTranslateAnimation())
             {
-                transform->_position = animation->getTranslate(t);
+                transform->setPosition(animation->getTranslate(t));
             }
 
             if (animation->hasRotateAnimation())
             {
-                transform->_orientation = animation->getRotate(t);
+                transform->setOrientation(animation->getRotate(t));
             }
 
             if (animation->hasScaleAnimation())
             {
-                transform->_scale = animation->getScale(t);
+                transform->setScale(animation->getScale(t));
             }
 
             if (spriteRender &&

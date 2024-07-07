@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2019 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 template <typename F>
@@ -87,6 +87,11 @@ void iQuadtree<F>::queryInternal(const std::shared_ptr<iQuadtreeNode> &node, con
 template <typename F>
 void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const iaVector2<F> &position)
 {
+    if(object->_circle._center == position)
+    {
+        return;
+    }
+
     if (iIntersection::intersects(position, object->_parent.lock()->_box))
     {
         object->_circle._center = position;
@@ -103,6 +108,11 @@ void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const i
 template <typename F>
 void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const iaCircle<F> &circle)
 {
+    if(object->_circle == circle)
+    {
+        return;
+    }
+
     if (iIntersection::intersects(circle._center, object->_parent.lock()->_box))
     {
         object->_circle = circle;
@@ -137,24 +147,28 @@ void iQuadtree<F>::insert(const std::shared_ptr<iQuadtreeObject> object)
 template <typename F>
 void iQuadtree<F>::split(const std::shared_ptr<iQuadtreeNode> &node)
 {
+    /*  +----+----+-> X
+        | C0 | C1 |
+        +----+----+
+        | C2 | C3 |
+        +----+----+
+        |
+        v
+        y
+    */
     const iaRectangle<F> &nodeBox = node->_box;
     const iaVector2<F> center = nodeBox.getCenter();
 
-    node->_children[0] = std::make_shared<iQuadtreeNode>();
+    for (int i = 0; i < 4; ++i)
+    {
+        node->_children[i] = std::make_shared<iQuadtreeNode>();
+        node->_children[i]->_parent = node;
+    }
+
     node->_children[0]->_box = iaRectangle<F>(nodeBox._x, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
-    node->_children[0]->_parent = node;
-
-    node->_children[1] = std::make_shared<iQuadtreeNode>();
     node->_children[1]->_box = iaRectangle<F>(nodeBox._x + nodeBox._width * 0.5, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
-    node->_children[1]->_parent = node;
-
-    node->_children[2] = std::make_shared<iQuadtreeNode>();
     node->_children[2]->_box = iaRectangle<F>(nodeBox._x, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
-    node->_children[2]->_parent = node;
-
-    node->_children[3] = std::make_shared<iQuadtreeNode>();
     node->_children[3]->_box = iaRectangle<F>(nodeBox._x + nodeBox._width * 0.5, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
-    node->_children[3]->_parent = node;
 
     for (const std::shared_ptr<iQuadtreeObject> object : node->_objects)
     {

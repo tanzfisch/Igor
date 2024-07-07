@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 template <typename T>
@@ -10,8 +10,10 @@ T *iEntity::addComponent(T *component)
     con_assert(iter == _components.end(), "component already exists");
 
     _components[typeID] = component;
+    component->_entity = this;
 
     _addedComponents.emplace_back(typeID, component);
+    componentToAdd(typeID);
     return component;
 }
 

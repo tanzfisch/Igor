@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,45 +26,45 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_QUADTREE_SYSTEM_H
-#define IGOR_QUADTREE_SYSTEM_H
+#ifndef IGOR_SPHERE_COLLISION_3D_COMPONENT_H
+#define IGOR_SPHERE_COLLISION_3D_COMPONENT_H
 
-#include <igor/entities/iEntitySystem.h>
+#include <igor/entities/iEntity.h>
+
+#include <igor/data/iOctree.h>
 
 namespace igor
 {
-    /*! quadtree system
+    /*! 3D sphere collision component
      */
-    class iQuadtreeSystem : public iEntitySystem
+    class iSphereCollision3DComponent : public iEntityComponent
     {
     public:
+        /*! ctor
 
-        /*! init types
+        \param name the name of this component
         */
-        iQuadtreeSystem();
+        iSphereCollision3DComponent(float64 radius, const iaVector3d &offset = iaVector3d(), const iaString &name = "sphere collision 3d")
+            : iEntityComponent(name), _radius(radius), _offset(offset)
+        {
+        }
 
-        /*! updates system
-
-        \param time the time of the update tick
-        \param scene the scene used for this update
+        /*! \returns the sphere's radius
          */
-        void update(const iaTime &time, iEntityScenePtr scene) override;
+        float64 getRadius() const;
 
-		/*! \returns processing stage this system want's to run in
-		*/
-		iEntitySystemStage getStage() const override;
+        /*! \returns the offset position
+         */
+        const iaVector3d& getOffset() const;
 
-    private:
+        /*! the sphere's radius
+         */
+        float64 _radius;
 
-        /*! a view on some entities with positions
-        */
-        iEntityViewPtr _positionView;        
-
-        /*! a view on some entities with circles
-        */
-        iEntityViewPtr _circleView;
+        /*! the offset position
+         */
+        iaVector3d _offset;
     };
+}
 
-} // igor
-
-#endif // IGOR_QUADTREE_SYSTEM_H
+#endif // IGOR_SPHERE_COLLISION_3D_COMPONENT_H

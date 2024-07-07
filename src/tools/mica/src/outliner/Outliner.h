@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,123 +26,57 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OUTLINER__
-#define __OUTLINER__
+#ifndef MICA_OUTLINER_H
+#define MICA_OUTLINER_H
 
-#include "../Workspace.h"
-#include "UserControlGraphView.h"
-#include "UserControlMaterialView.h"
+#include <igor/igor.h>
+using namespace igor;
 
-IGOR_EVENT_DEFINITION(ImportFile, void);
-IGOR_EVENT_DEFINITION(ImportFileReference, void);
-IGOR_EVENT_DEFINITION(ExitMica, void);
-
-// replace later with iWidgetTab once implemented
-enum class ViewType
-{
-    GraphView,
-    MaterialView
-};
-
-/*! menu dialog
-*/
+/*! outliner
+ */
 class Outliner : public iDialog
 {
 
     friend class iWidgetManager;
 
 public:
-    Outliner(WorkspacePtr workspace);
-    ~Outliner();
-
-    void refresh();
-
-    void registerOnImportFile(ImportFileDelegate importFileDelegate);
-    void unregisterOnImportFile(ImportFileDelegate importFileDelegate);
-
-    void registerOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate);
-    void unregisterOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate);
-
-    void registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
-    void unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
-
-    void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
-    void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
-
-    void registerOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
-    void unregisterOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
-
-    void registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate);
-    void unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate);
-
-    void addModel();
+    /*! init ui
+     */
+    Outliner();
 
 private:
-    /*! the mica workspace
-    */
-    WorkspacePtr _workspace;
+    /*! main layout
+     */
+    iWidgetBoxLayoutPtr _layout = nullptr;
 
-    ImportFileEvent _importFile;
-    ImportFileReferenceEvent _importFileReference;
-    ExitMicaEvent _exitMica;
+    /*! tree view
+     */
+    iUserControlTreeViewPtr _treeView = nullptr;
 
-    GraphSelectionChangedEvent _graphSelectionChanged;
+    /*! tree view data
+     */
+    std::unique_ptr<iItemData> _itemData;
 
-    AddMaterialEvent _addMaterial;
-    LoadMaterialEvent _loadMaterial;
-    ResourceSelectionChanged_oldEvent _materialSelectionChanged;
-
-    iWidgetGridLayout *_grid = nullptr;
-
-    UserControlGraphView *_userControlGraphView = nullptr;
-    UserControlMaterialView *_userControlMaterialView = nullptr;
-
-    iDialogMessageBox *_messageBox = nullptr;
-    iDialogDecisionBox *_decisionBoxModelRef = nullptr;
-
-    ViewType _currentView = ViewType::GraphView;
-
-    uint32 _copiedNodeID = 0;
-    uint32 _cutNodeID = 0;
-
-    void setViewType(ViewType viewType);
-
+    /*! init user interface
+     */
     void initGUI();
-    void deinitGUI();
 
-    void deinitGraphView();
-    void initGraphView();
+    /*! handles click in tree view
 
-    void deinitMaterialView();
-    void initMaterialView();
+    \param source the source widget of this event
+    */
+    void onClickTreeView(const iWidgetPtr source);
 
-    void onCreateProject(const iWidgetPtr source);
-    void onLoadProject(const iWidgetPtr source);
-    void onSaveProject(const iWidgetPtr source);
+    /*! populate the entity tree
+     */
+    void populateTree();
 
-    void onLoadFile(const iWidgetPtr source);
-    void onSaveFile(const iWidgetPtr source);
+    /*! populate scene
+     */
+    void populateScene(iEntityScenePtr scene, iItemPtr sceneItem);
 
-    void onDelete(const iWidgetPtr source);
-
-    void onAddModelDecision(iDialogPtr dialog);
-    void onAddTransformation(uint64 addAt);
-    void onAddSwitch(uint64 addAt);
-    void onAddGroup(uint64 addAt);
-    void onAddEmitter(uint64 addAt);
-    void onAddParticleSystem(uint64 addAt);
-
-    void onCopy(const iWidgetPtr source);
-    void onPaste(const iWidgetPtr source);
-    void onCut(const iWidgetPtr source);
-
-    void onGraphSelectionChanged(uint64 nodeID);
-    void onAddMaterial();
-    void onLoadMaterial();
-    void onResourceSelectionChanged_old(const iShaderID &materialID);
-
-    void onGraphViewSelected(const iWidgetPtr source);
-    void onMaterialViewSelected(const iWidgetPtr source);
+    void onEntityCreated(iEntityPtr scene);
+    void onEntityDestroyed(iEntityPtr scene);
 };
 
-#endif // __OUTLINER__
+#endif // MICA_OUTLINER_H

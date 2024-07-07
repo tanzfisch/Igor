@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntity.h>
@@ -15,7 +15,6 @@ namespace igor
     iEntity::iEntity(const iaString &name)
         : _name(name)
     {
-        con_endl("created Entity " << this << " " << name);
     }
 
     iEntity::~iEntity()
@@ -26,19 +25,22 @@ namespace igor
         for (auto child : children)
         {
             child->removeParent();
-            _scene->destroyEntity(child->getID());
+            _scene->destroyEntity(child);
         }
 
         const auto inactiveChildren = _inactiveChildren;
         for (auto child : inactiveChildren)
         {
             child->removeParent();
-            _scene->destroyEntity(child->getID());
+            _scene->destroyEntity(child);
         }
 
         clearComponents();
+    }
 
-        con_endl("destroyed Entity " << this << " " << getName());
+    void iEntity::componentToAdd(const std::type_index &typeID)
+    {
+        _scene->onComponentToAdd(this, typeID);
     }
 
     void iEntity::processComponents()
@@ -357,8 +359,59 @@ namespace igor
         return result;
     }
 
-    iEntityComponentMask iEntity::getTypeHash() const
+    iEntityComponentMask iEntity::getComponentMask() const
     {
         return _componentMask;
+    }
+
+    bool iEntity::isHierarchyDirty() const
+    {
+        return _dirtyHierarchy;
+    }
+
+    void iEntity::setDirtyHierarchy(bool dirty)
+    {
+        _dirtyHierarchy = dirty;
+
+        if (_dirtyHierarchy)
+        {
+            if (hasParent())
+            {
+                getParent()->setDirtyHierarchyUp();
+            }
+
+            for (uint32 i = 0; i < _children.size(); ++i)
+            {
+                _children[i]->setDirtyHierarchyDown();
+            }
+        }
+    }
+
+    void iEntity::setDirtyHierarchyUp()
+    {
+        if (!_dirtyHierarchy)
+        {
+            _dirtyHierarchy = true;
+
+            if (hasParent())
+            {
+                getParent()->setDirtyHierarchyUp();
+            }
+        }
+    }
+
+    void iEntity::setDirtyHierarchyDown()
+    {
+        _dirtyHierarchy = true;
+
+        for (auto child : _children)
+        {
+            child->setDirtyHierarchyDown();
+        }
+    }    
+
+    bool iEntity::isRoot() const
+    {
+        return _scene->_root == this;
     }
 }

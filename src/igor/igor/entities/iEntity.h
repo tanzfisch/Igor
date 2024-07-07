@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -92,6 +92,12 @@ namespace igor
         */
         bool hasParent() const;
 
+        /*! \returns true if this is the root entity
+
+        used for special case handling
+        */
+        bool isRoot() const;
+
         /*! \returns active children
         */
         const std::vector<iEntityPtr>& getChildren() const;
@@ -126,7 +132,7 @@ namespace igor
 
         /*! \returns type hash of this entity
         */
-        iEntityComponentMask getTypeHash() const;
+        iEntityComponentMask getComponentMask() const;
 
         /*! add component (or overrides if already existing)
 
@@ -165,6 +171,16 @@ namespace igor
         /*! removes all components
         */
         void clearComponents();
+
+        /*! \returns true if hierarchy (including transforms) is dirty
+        */
+        bool isHierarchyDirty() const;
+
+        /*! sets dirty hierarchy flag
+
+        \param dirty the dirty flag to set
+        */
+        void setDirtyHierarchy(bool dirty);
 
     private:
         /*! the entities id (unique)
@@ -237,9 +253,23 @@ namespace igor
         */
         void destroyComponent(const std::type_index &typeID);
 
+        /*! called for component that is about to be added
+
+        \param typeID the components type id
+        */
+        void componentToAdd(const std::type_index &typeID);
+
         /*! notifies scene that components have changed
         */
         void onEntityChanged();
+
+        /*! sets dirty hierarchy up the hierarchy
+        */
+        void setDirtyHierarchyUp();
+
+        /*! sets dirty hierarchy down the hierarchy
+        */
+        void setDirtyHierarchyDown();
 
     };
 
@@ -247,4 +277,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // IGOR_ENTITY_H 
+#endif // IGOR_ENTITY_H

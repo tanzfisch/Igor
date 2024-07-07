@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -46,47 +46,21 @@ public:
     ~ExampleInstancing() = default;
 
 private:
-    /*! id to transform node used for manipulating the heading of the camera
+    /*! entity scene
      */
-    uint64 _cameraHeading = iNode::INVALID_NODE_ID;
+    iEntityScenePtr _entityScene = nullptr;
 
-    /*! id to transform node used for manipulating the pitch of the camera
-     */
-    uint64 _cameraPitch = iNode::INVALID_NODE_ID;
-
-    /*! id to transform node used for manipulating the distance of the camera to the origin
-     */
-    uint64 _cameraTranslation = iNode::INVALID_NODE_ID;
-
-    /*! id to transform node used for manipulating the direction of the light relative to the origin
-     */
-    uint64 _directionalLightRotate = iNode::INVALID_NODE_ID;
-
-    /*! id to cat model node
-     */
-    uint64 _catModel = iNode::INVALID_NODE_ID;
-
-    /*! timer handle to control the movement of the light source over time
-     */
-    iTimerHandlePtr _animationTimingHandle = nullptr;
-
-    /*! instancing material A
-     */
-    iMaterialPtr _materialA;
-
-    /*! instancing material B
-     */
-    iMaterialPtr _materialB;
-
-    /*! perlin noise generator
-     */
-    iPerlinNoise _perlinNoise;
-
-    /*! called by timer
-
-    \param time the time
+    /*! id of camera entity
     */
-    void onUpdate(const iaTime &time);
+    iEntityID _camera;
+
+    /*! id of camera heading entity
+    */
+    iEntityID _cameraHeading;
+
+    /*! id of camera pitch entity
+    */
+    iEntityID _cameraPitch;
 
     /*! deinit example
      */

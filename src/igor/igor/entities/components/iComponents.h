@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -34,7 +34,6 @@
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimationController.h>
-#include <igor/data/iQuadtree.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
@@ -54,119 +53,7 @@ namespace igor
     class iEntity;
     typedef iEntity *iEntityPtr;
 
-    /*! sprite render component
-     */
-    class iSpriteRendererComponent : public iEntityComponent
-    {
-
-    public:
-        /*! sprite render mode
-         */
-        enum class iRenderMode
-        {
-            Simple,
-            Tiled
-        };
-
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iSpriteRendererComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iRenderMode renderMode = iRenderMode::Simple, const iaString &name = "sprite render")
-            : iEntityComponent(name), _sprite(sprite), _size(size), _color(color), _zIndex(zIndex), _renderMode(renderMode)
-        {
-        }
-
-        /*! sprite to render
-         */
-        iSpritePtr _sprite;
-
-        /*! render size
-         */
-        iaVector2d _size = {1.0, 1.0};
-
-        /*! color to render sprite with
-         */
-        iaColor4f _color = iaColor4f::white;
-
-        /*! specifies the render order within a layer
-         */
-        int32 _zIndex = 0;
-
-        /*! sprite render mode
-         */
-        iRenderMode _renderMode = iRenderMode::Simple;
-
-        /*! index of the sprite frame to render
-         */
-        uint32 _frameIndex = 0;
-    };
-
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
-
-    /*! transform component representing position, orientation and scale of given entity
-
-    3d variant
-    */
-    class IGOR_API iTransformComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0), const iaString &name = "transform")
-            : iEntityComponent(name), _position(position), _orientation(orientation), _scale(scale)
-        {
-        }
-
-        void updateWorldMatrix(iaMatrixd &worldMatrix)
-        {
-            worldMatrix.translate(_position);
-            worldMatrix.rotate(_orientation);
-            worldMatrix.scale(_scale);
-            _worldMatrix = worldMatrix;
-        }
-
-        /*! position
-         */
-        iaVector3d _position;
-
-        /*! euler angles in rad
-         */
-        iaVector3d _orientation;
-
-        /*! scale
-         */
-        iaVector3d _scale = {1.0, 1.0, 1.0};
-
-        /*! the world matrix of this transform
-         */
-        iaMatrixd _worldMatrix;
-    };
-
-    /*! 2D collision component
-     */
-    class iCircleCollision2DComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iCircleCollision2DComponent(float64 radius, const iaVector2d &offset = iaVector2d(), const iaString &name = "collision 2d")
-            : iEntityComponent(name), _radius(radius), _offset(offset)
-        {
-        }
-
-        /*! the circles radius
-         */
-        float64 _radius;
-
-        /*! the offset position
-         */
-        iaVector2d _offset;
-    };
 
     /*! velocity component
      */
@@ -298,85 +185,6 @@ namespace igor
         iMotionInteractionType _type = iMotionInteractionType::None;
     };
 
-    /*! projection type definition
-     */
-    enum class iProjectionType
-    {
-        Perspective,
-        Orthogonal
-    };
-
-    /*! camera component
-     */
-    class iCameraComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iCameraComponent(const iaString &name = "camera")
-            : iEntityComponent(name)
-        {
-        }
-
-        /*! viewport
-         */
-        iaRectangled _viewport = {0.0, 0.0, 1.0, 1.0};
-
-        /*! projection type
-         */
-        iProjectionType _projection = iProjectionType::Perspective;
-
-        /*! field of view
-         */
-        float64 _fieldOfView = 45.0;
-
-        /*! near clip plane
-         */
-        float64 _clipNear = 1.0;
-
-        /*! far clip plane
-         */
-        float64 _clipFar = 10000.0;
-
-        /*! if true clear the color buffer
-         */
-        bool _clearColorActive = true;
-
-        /*! if true clear the depth buffer
-         */
-        bool _clearDepthActive = true;
-
-        /*! the clear color
-         */
-        iaColor4f _clearColor = iaColor4f::gray;
-
-        /*! clear depth value
-         */
-        float64 _clearDepth = 1.0;
-
-        /*! left value used for orthogonal projection
-         */
-        float64 _leftOrtho = -1.0;
-
-        /*! right value used for orthogonal projection
-         */
-        float64 _rightOrtho = 1.0;
-
-        /*! top value used for orthogonal projection
-         */
-        float64 _topOrtho = 1.0;
-
-        /*! bottom value used for orthogonal projection
-         */
-        float64 _bottomOrtho = -1.0;
-
-        /*! z index aka order in which cameras will be rendered
-         */
-        int32 _zIndex = 0;
-    };
-
     /*! render debug component
      */
     class iRenderDebugComponent : public iEntityComponent
@@ -456,7 +264,6 @@ namespace igor
     // iParticleSystemComponent2D
     // iParticleSystemComponent3D
     // trail renderer
-    // light
     // sky box
     // UI elements as component
 

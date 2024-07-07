@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -45,10 +45,9 @@ namespace igor
 
 		/*! updates system
 
-		\param time tick time
-		\param scene the scene used for this update
+		\param context the update context
 		 */
-		void update(const iaTime &time, iEntityScenePtr scene) override;
+		void onUpdate(const iEntitySceneUpdateContext &context) override;
 
 		/*! \returns processing stage this system want's to run in
 		*/

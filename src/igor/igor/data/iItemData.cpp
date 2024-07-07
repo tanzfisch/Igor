@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/data/iItemData.h>
@@ -7,26 +7,21 @@
 namespace igor
 {
 
-    iItemPtr iItemData::getRoot()
-    {
-        return &_root;
-    }
-
     iItemPtr iItemData::getItem(const iaString &itemPath)
     {
-        std::vector<iaString> paths;
-        itemPath.split('/', paths);
+        std::vector<iaString> tokens;
+        itemPath.split('/', tokens);
 
         iItemPtr current = &_root;
         iItemPtr next = nullptr;
 
-        for(const auto &path : paths)
+        for(const auto &token : tokens)
         {
             next = nullptr;
 
             for(const auto item : current->getItems())
             {
-                if(item->getName() == path)
+                if(item->getName() == token)
                 {
                     next = item;
                     break;

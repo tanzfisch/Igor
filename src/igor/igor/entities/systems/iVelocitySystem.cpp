@@ -1,30 +1,31 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iVelocitySystem.h>
 
-#include <igor/entities/components/iBody2DComponent.h>
-
 #include <igor/entities/iEntityScene.h>
-#include <igor/entities/iEntity.h>
+#include <igor/entities/components/iQuadtreeComponent.h>
+#include <igor/entities/components/iTransformComponent.h>
 
 namespace igor
 {
 	iVelocitySystem::iVelocitySystem()
 	{
-		_interactionResolverView = createView<iVelocityComponent, iBody2DComponent, iMotionInteractionResolverComponent>();
+		_interactionResolverView = createView<iVelocityComponent, iQuadtreeComponent, iMotionInteractionResolverComponent>();
 		_noBoundsView = createView<iVelocityComponent, iTransformComponent>();
 		_boundsView = createView<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
 	}
 
-    iEntitySystemStage iVelocitySystem::getStage() const
-    {
-        return iEntitySystemStage::Update;
-    }	
-
-	void iVelocitySystem::update(const iaTime &time, iEntityScenePtr scene)
+	iEntitySystemStage iVelocitySystem::getStage() const
 	{
+		return iEntitySystemStage::Update;
+	}
+
+	void iVelocitySystem::onUpdate(const iEntitySceneUpdateContext &context)
+	{
+		iEntityScenePtr scene = context._scene;
+
 		if (scene->hasQuadtree())
 		{
 			auto &quadtree = scene->getQuadtree();
@@ -32,7 +33,7 @@ namespace igor
 			for (auto entity : _interactionResolverView->getEntities())
 			{
 				auto velocity = entity->getComponent<iVelocityComponent>();
-				auto quadComp = entity->getComponent<iBody2DComponent>();
+				auto quadComp = entity->getComponent<iQuadtreeComponent>();
 				auto motionResolver = entity->getComponent<iMotionInteractionResolverComponent>();
 
 				switch (motionResolver->_type)
@@ -87,8 +88,8 @@ namespace igor
 			auto velocity = entity->getComponent<iVelocityComponent>();
 			auto transform = entity->getComponent<iTransformComponent>();
 
-			transform->_position += velocity->_velocity;
-			transform->_orientation += velocity->_angularVelocity;
+			transform->translate(velocity->_velocity);
+			transform->rotate(velocity->_angularVelocity);
 		}
 
 		iaVector3d min;
@@ -102,9 +103,9 @@ namespace igor
 			auto transform = entity->getComponent<iTransformComponent>();
 			auto bounds = entity->getComponent<iGlobalBoundaryComponent>();
 
-			auto &position = transform->_position;
+			auto position = transform->getPosition();
 
-			transform->_orientation += velocity->_angularVelocity;
+			transform->rotate(velocity->_angularVelocity);
 
 			switch (bounds->_type)
 			{
@@ -145,6 +146,8 @@ namespace igor
 				position += velocity->_velocity;
 				break;
 			}
+
+			transform->setPosition(position);
 		}
 	}
 

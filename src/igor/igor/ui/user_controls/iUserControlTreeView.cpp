@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/user_controls/iUserControlTreeView.h>
@@ -35,94 +35,74 @@ namespace igor
         return _clickEvent;
     }
 
-    void iUserControlTreeView::updateUI(iItem *item, const iaString &itemPath, int indentation)
+    void iUserControlTreeView::updateUI(iItem *item, const iaString &itemPath)
     {
-        int indentationNext = indentation + 1;
+        std::vector<iaString> tokens;
+        itemPath.split('/', tokens);
+        int indentation = tokens.size();
+
+        const iaString displayName = item->getName();
+        iaString path = itemPath;
+        path += "/";
+        path += displayName;
+
+        iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
+
+        iWidgetButtonPtr button = new iWidgetButton();
+        _allInteractiveWidgets.push_back(button);
+        button->setHorizontalAlignment(iHorizontalAlignment::Left);
+        button->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+        button->setText(displayName);
+        button->setCheckable(true);
+        button->registerOnClickEvent(iClickDelegate(this, &iUserControlTreeView::onClick));
+
+        if (path == _selectedItemPath)
+        {
+            button->setChecked(true);
+        }
+
+        button->setUserData(path);
+
+        if (item->hasValue(IGOR_ITEM_DATA_ICON))
+        {
+            const iaString icon = item->getValue<iaString>(IGOR_ITEM_DATA_ICON);
+            button->setIcon(icon);
+        }
+
+        buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
+        buttonLayout->addWidget(button);
+
+        _vboxLayout->addWidget(buttonLayout);
+
         for (const auto child : item->getItems())
         {
-            if (!child->hasValue("relativePath") ||
-                !child->hasValue("isDirectory"))
-            {
-                continue;
-            }
-
-            bool isDirectory = child->getValue<bool>("isDirectory");
-            if (!isDirectory)
-            {
-                continue;
-            }
-
-            const iaString displayName = child->getName();
-            iaString path = itemPath;
-            path += "/";
-            path += displayName;
-
-            const iaString relativePath = child->getValue<iaString>("relativePath");
-            iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
-
-            iWidgetButtonPtr button = new iWidgetButton();
-            _allButtons.push_back(button);
-            button->setHorizontalAlignment(iHorizontalAlignment::Left);
-            button->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-            button->setText(displayName);
-            button->setTooltip(relativePath);
-            button->setCheckable(true);
-            button->registerOnClickEvent(iClickDelegate(this, &iUserControlTreeView::onClick));
-
-            if (path == _selectedItemPath)
-            {
-                button->setChecked(true);
-            }
-
-            button->setUserData(child);
-
-            if (child->hasValue("icon"))
-            {
-                const iaString icon = child->getValue<iaString>("icon");
-                button->setIcon(icon);
-            }
-
-            buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
-            buttonLayout->addWidget(button);
-
-            _vboxLayout->addWidget(buttonLayout);
-
-            updateUI(child, path, indentationNext);
+            updateUI(child, path);
         }
     }
 
     void iUserControlTreeView::onClick(const iWidgetPtr source)
     {
-        iItemPtr item = std::any_cast<iItemPtr>(source->getUserData());
-        _selectedItemPath.clear();
-
-        for (auto button : _allButtons)
+        for (auto button : _allInteractiveWidgets)
         {
             button->setChecked(button == source);
         }
 
-        while (item != nullptr && item != _root)
-        {
-            _selectedItemPath = iaString("/") + item->getName() + _selectedItemPath;
-            item = item->getParent();
-        } 
+        _selectedItemPath = std::any_cast<iaString>(source->getUserData());
 
         // bundle all click events in one
         _clickEvent(source);
     }
 
-    void iUserControlTreeView::setItems(iItem *items)
+    void iUserControlTreeView::setItems(iItemData *itemData)
     {
+        con_assert(itemData != nullptr, "zero pointer");
         _vboxLayout->clear();
-        _root = items;
+        _allInteractiveWidgets.clear();
 
-        if (_root == nullptr)
+        for (const auto child : itemData->getItems())
         {
-            return;
+            updateUI(child, "");
         }
-
-        _allButtons.clear();
-        updateUI(_root, "", 0);
     }
 
     const iaString &iUserControlTreeView::getSelectedItemPath() const

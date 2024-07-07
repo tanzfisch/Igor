@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/renderer/iView.h>
@@ -60,22 +60,22 @@ namespace igor
 
     void iView::setBoundingBoxVisible(bool boundingBox)
     {
-        _renderEngine.setBoundingBoxVisible(boundingBox);
+        _renderEngineOld.setBoundingBoxVisible(boundingBox);
     }
 
     bool iView::isBoundingBoxVisible() const
     {
-        return _renderEngine.isBoundingBoxVisible();
+        return _renderEngineOld.isBoundingBoxVisible();
     }
 
     void iView::setOctreeVisible(bool octree)
     {
-        _renderEngine.setOctreeVisible(octree);
+        _renderEngineOld.setOctreeVisible(octree);
     }
 
     bool iView::isOctreeVisible() const
     {
-        return _renderEngine.isOctreeVisible();
+        return _renderEngineOld.isOctreeVisible();
     }
 
     void iView::setName(const iaString &name)
@@ -178,12 +178,12 @@ namespace igor
 
     void iView::setCamera(iNodeID cameraID)
     {
-        _renderEngine.setCamera(cameraID);
+        _renderEngineOld.setCamera(cameraID);
     }
 
     iNodeID iView::getCamera() const
     {
-        return _renderEngine.getCamera();
+        return _renderEngineOld.getCamera();
     }
 
     void iView::setUpdateViewport(bool enabled)
@@ -196,26 +196,33 @@ namespace igor
         return _updateViewport;
     }
 
-    void iView::draw()
+    void iView::render()
     {
-        if (_scene != nullptr)
-        {
-            _scene->handle();
-        }
-
         if (!_visible)
         {
             return;
         }
 
-        // TODO maybe eventually iView will only host an entity camera
-        if(_entityScene != nullptr)
+        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
+
+        if (_entityScene != nullptr)
         {
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
+            _renderEngine.render(_viewport);
             iEntitySystemModule::getInstance().onRender(_entityScene);
+
+            _renderEvent();
+
+            iRenderer::getInstance().flush();
+            return;
         }
 
-        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
+        // now run legacy stuff
+
+        if (_scene != nullptr)
+        {
+            _scene->handle();
+        }
 
         if (_updateViewport)
         {
@@ -243,11 +250,11 @@ namespace igor
 
         if (_scene != nullptr)
         {
-            _renderEngine.render();
+            _renderEngineOld.render();
         }
 
         _renderEvent();
-        
+
         iRenderer::getInstance().flush();
     }
 
@@ -270,7 +277,7 @@ namespace igor
         if (_scene != nullptr &&
             getCamera() != iNode::INVALID_NODE_ID)
         {
-            iRenderEngine renderEngine;
+            iRenderEngineOld renderEngine;
 
             uint32 renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
             iRenderer::getInstance().setRenderTarget(renderTarget);
@@ -330,7 +337,7 @@ namespace igor
         con_assert(scene != nullptr, "zero pointer");
 
         _scene = scene;
-        _renderEngine.setScene(_scene);
+        _renderEngineOld.setScene(_scene);
     }
 
     iScenePtr iView::getScene() const
@@ -341,6 +348,7 @@ namespace igor
     void iView::setEntityScene(iEntityScenePtr entityScene)
     {
         _entityScene = entityScene;
+        _entityScene->setRenderEngine(&_renderEngine);
     }
 
     iEntityScenePtr iView::getEntityScene() const
@@ -387,23 +395,5 @@ namespace igor
 
         return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
     }
-
-    /*	iPixmap* iView::makeScreenshot(bool alphachannel)
-    {
-    iPixmap *pixmap = 0;
-
-    if(alphachannel) //! \todo
-    {
-    pixmap = new iPixmap(dcWindow.getWidth()*width, dcWindow.getHeight()*height, CF_RGBA);
-    dcRenderer.readPixels(0, 0, pixmap->getWidth(), pixmap->getHeight(), CF_RGBA, pixmap->getData());
-    }
-    else
-    {
-    pixmap = new iPixmap(dcWindow.getWidth()*width, dcWindow.getHeight()*height, CF_RGB);
-    dcRenderer.readPixels(0, 0, pixmap->getWidth(), pixmap->getHeight(), CF_RGB, pixmap->getData());
-    }
-
-    return pixmap;
-    }*/
 
 }; // namespace igor

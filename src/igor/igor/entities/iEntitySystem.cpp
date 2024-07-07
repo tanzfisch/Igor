@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntitySystem.h>
@@ -34,9 +34,9 @@ namespace igor
 		// nothing to do
 	}
 
-	iEntityScenePtr iEntitySystem::getScene() const
+	void iEntitySystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		return _scene;
+		// nothing to do
 	}
 
 }

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WORKSPACE__
-#define __WORKSPACE__
+#ifndef WORKSPACE_H
+#define WORKSPACE_H
 
 #include "CameraArc.h"
 
@@ -147,4 +147,4 @@ private:
  */
 typedef std::shared_ptr<Workspace> WorkspacePtr;
 
-#endif // __WORKSPACE__
+#endif // WORKSPACE_H

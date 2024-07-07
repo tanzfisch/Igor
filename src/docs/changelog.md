@@ -6,6 +6,7 @@ Changelog                           {#changelog}
 
 !!! MSVC build fails. no time to fix !!!
 
+- #422 new entity based render engine (will eventually replace the scene graph based renderer)
 - #414 reintroducing home brew entity system (it's something like a game object component thingy)
 - IGOR_MAX_ENTITY_COMPONENT_TYPES is 64 but can be overridden 
 - added random interface to iaColor3 and iaColor4

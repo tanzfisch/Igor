@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2023 by Martin Loga
+//    (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -139,6 +139,18 @@ namespace iaux
         \returns resulting circle
         */
         iaCircle<T> operator=(const iaCircle<T> &circle);
+
+        /*! \returns true if two circles are equal
+
+        \param circle the circle to compare with
+        */
+        bool operator==(const iaCircle<T> &circle) const;
+
+        /*! \returns true if circle are not equal
+
+        \param circle the circle to compare with
+        */
+        bool operator!=(const iaCircle<T> &circle) const;
 
         /*! center position
          */

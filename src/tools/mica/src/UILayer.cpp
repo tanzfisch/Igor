@@ -1,6 +1,6 @@
 
 // Igor game engine
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "UILayer.h"
@@ -34,10 +34,13 @@ void UILayer::onInit()
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
-    _outliner = new Outliner(_workspace);
+    _sceneOutliner = new SceneOutliner(_workspace);
+    _sceneOutliner->setEnabled();
+    _sceneOutliner->setVisible();
+
+    _outliner = new Outliner();
     _outliner->setEnabled();
     _outliner->setVisible();
-    _outliner->refresh(); // TODO ?
 
     _propertiesDialog = new PropertiesEditor();
     _propertiesDialog->setEnabled();
@@ -58,27 +61,27 @@ void UILayer::onInit()
     _mainDialog->getEventLoadFile().add(LoadFileDelegate(this, &UILayer::onLoadFile));
     _mainDialog->getEventSaveFile().add(SaveFileDelegate(this, &UILayer::onSaveFile));
 
-    _outliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
-    _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
+    _sceneOutliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
+    _sceneOutliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
 
-    _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &UILayer::onAddMaterial));
-    _outliner->registerOnLoadMaterial(LoadMaterialDelegate(this, &UILayer::onLoadMaterial));
-
-    // _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
-
-    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
-    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
-    _outliner->registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
+    _sceneOutliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
+    _sceneOutliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
 
     // load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
 
     iWidgetSplitterPtr splitter0 = new iWidgetSplitter(true);
     iWidgetSplitterPtr splitter1 = new iWidgetSplitter(true);
+    iWidgetSplitterPtr splitter2 = new iWidgetSplitter(true);
+    
+    splitter2->setOrientation(iSplitterOrientation::Horizontal);
+    splitter2->setRatio(0.5f);
+    splitter2->addWidget(_outliner);
+    splitter2->addWidget(_sceneOutliner);
 
     rootSplitter->setOrientation(iSplitterOrientation::Vertical);
     rootSplitter->setRatio(0.1f);
-    rootSplitter->addWidget(_outliner);
+    rootSplitter->addWidget(splitter2);
     rootSplitter->addWidget(splitter0);
 
     splitter0->setOrientation(iSplitterOrientation::Vertical);
@@ -100,6 +103,12 @@ void UILayer::onDeinit()
         _propertiesDialog = nullptr;
     }
 
+    if (_sceneOutliner != nullptr)
+    {
+        delete _sceneOutliner;
+        _sceneOutliner = nullptr;
+    }
+
     if (_outliner != nullptr)
     {
         delete _outliner;
@@ -114,7 +123,7 @@ void UILayer::onAddMaterial()
 {
     iResourceManager::getInstance().createResource<iShader>();
 
-    _outliner->refresh();
+    _sceneOutliner->refresh();
 }
 
 void UILayer::onLoadMaterial()
@@ -218,7 +227,7 @@ void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
 
     iShaderPtr material = iResourceManager::getInstance().loadResource<iShader>(_fileDialog.getFullPath());
     material->setVisibility(iMaterialVisibility::Public);
-    _outliner->refresh();
+    _sceneOutliner->refresh();
 }
 
 void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
@@ -267,7 +276,7 @@ void UILayer::onUpdate()
 {
     if (_refresh)
     {
-        _outliner->refresh();
+        _sceneOutliner->refresh();
         _refresh = false;
     }
 
@@ -362,16 +371,16 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     case iKeyCode::Space:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            if (_outliner->isEnabled() && _outliner->isVisible())
+            if (_sceneOutliner->isEnabled() && _sceneOutliner->isVisible())
             {
-                _outliner->setEnabled(false);
-                _outliner->setVisible(false);
+                _sceneOutliner->setEnabled(false);
+                _sceneOutliner->setVisible(false);
             }
             else
             {
-                _outliner->setEnabled();
-                _outliner->setVisible();
-                _outliner->refresh();
+                _sceneOutliner->setEnabled();
+                _sceneOutliner->setVisible();
+                _sceneOutliner->refresh();
             }
 
             if (_propertiesDialog->isEnabled() && _propertiesDialog->isVisible())

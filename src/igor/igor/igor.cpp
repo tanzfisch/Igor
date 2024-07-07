@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/igor.h>
@@ -59,6 +59,9 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2 = "texture2";
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
+
+extern const iaString IGOR_ITEM_DATA_NAME = "name";
+extern const iaString IGOR_ITEM_DATA_ICON = "icon";
 
 #ifdef IGOR_DEBUG
 extern const iaString IGOR_BUILD_CONFIGURATION = "debug";
@@ -128,13 +131,13 @@ namespace igor
         iaConsole::getInstance() << G << "                                     /\\_____\\\\ \\____ \\\\ \\____/ \\ \\_\\   " << endl;
         iaConsole::getInstance() << W << "  ___________________________________" << G << "\\/_____/" << W << "_" << G << "\\/___L\\ \\\\/___/" << W << "___" << G << "\\/_/" << W << "__________" << endl;
         iaConsole::getInstance() << G << "                                                /\\____/                " << endl;
-        iaConsole::getInstance() << T << "      (c) Copyright 2012-2023 by Martin Loga" << G << "   \\_/__/   " << endl;
+        iaConsole::getInstance() << T << "      (c) Copyright 2012-2024 by Martin Loga" << G << "   \\_/__/   " << endl;
 
         iaConsole::getInstance() << endl
                                  << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
-        iaConsole::getInstance() << T << "                 EnTT, R.P. Easing, TinyXML and Fun" << endl
+        iaConsole::getInstance() << T << "                 R.P. Easing, TinyXML and Fun" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek, M. Dederer" << endl
                                  << endl;

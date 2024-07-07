@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -532,9 +532,9 @@ namespace igor
 
         /////////////// LIGHT TODO this might change a lot ///////////
         void setLightPosition(int32 lightnum, const iaVector3d &pos);
-        void setLightAmbient(int32 lightnum, iaColor3f &ambient);
-        void setLightDiffuse(int32 lightnum, iaColor3f &diffuse);
-        void setLightSpecular(int32 lightnum, iaColor3f &specular);
+        void setLightAmbient(int32 lightnum, const iaColor3f &ambient);
+        void setLightDiffuse(int32 lightnum, const iaColor3f &diffuse);
+        void setLightSpecular(int32 lightnum, const iaColor3f &specular);
 
         /*! sets line render width
 

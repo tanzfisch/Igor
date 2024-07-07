@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iWindow.h>
@@ -1577,7 +1577,7 @@ namespace igor
 
         for (auto view : _views)
         {
-            view->draw();
+            view->render();
         }
 
         iRenderer::getInstance().endFrame();

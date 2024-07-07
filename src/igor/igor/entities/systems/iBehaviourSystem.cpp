@@ -1,13 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iBehaviourSystem.h>
 
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntity.h>
-
-#include <entt.h>
 
 namespace igor
 {
@@ -21,7 +19,7 @@ namespace igor
         return iEntitySystemStage::Update;
     }
 
-	void iBehaviourSystem::update(const iaTime &time, iEntityScenePtr scene)
+	void iBehaviourSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
 		const auto &entities = _view->getEntities();
 		for (const auto entity : entities)

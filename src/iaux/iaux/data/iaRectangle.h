@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2023 by Martin Loga
+//    (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RECTANGLE__
-#define __IAUX_RECTANGLE__
+#ifndef IAUX_RECTANGLE_H
+#define IAUX_RECTANGLE_H
 
 #include <iaux/math/iaVector2.h>
 
@@ -250,4 +250,4 @@ namespace iaux
     typedef iaRectangle<int64> iaRectangleI;
 }; // namespace igor
 
-#endif // __IAUX_RECTANGLE__
+#endif // IAUX_RECTANGLE_H

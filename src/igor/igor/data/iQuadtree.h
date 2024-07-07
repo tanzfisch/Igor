@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,14 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_QUADTREE__
-#define __IGOR_QUADTREE__
+#ifndef IGOR_QUADTREE_H
+#define IGOR_QUADTREE_H
 
-#include <igor/iDefines.h>
 #include <igor/data/iIntersection.h>
-
-#include <iaux/data/iaRectangle.h>
-#include <iaux/data/iaCircle.h>
 
 #include <algorithm>
 #include <memory>
@@ -237,4 +233,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_QUADTREE__
+#endif // IGOR_QUADTREE_H

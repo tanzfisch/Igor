@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -30,8 +30,8 @@
 #define IGOR_ENTITY_SCENE_H
 
 #include <igor/entities/iEntitySystem.h>
-#include <igor/entities/iEntity.h>
 #include <igor/data/iQuadtree.h>
+#include <igor/data/iOctree.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaRectangle.h>
@@ -42,6 +42,7 @@ using namespace iaux;
 
 namespace igor
 {
+	class iCameraSystem;
 
 	/*! entity scene id
 	 */
@@ -53,6 +54,7 @@ namespace igor
 	{
 		friend class iEntitySystemModule;
 		friend class iEntity;
+		friend class iView;
 		friend class iEntityTraverser;
 
 	public:
@@ -79,11 +81,15 @@ namespace igor
 		*/
 		iEntityPtr getEntity(iEntityID entityID) const;
 
-		/*! destroys entity for given ID
+		/*! \returns all entities with camera component
 
-		\param entityID the given entity id
+		only if iCameraSystem was added to this scene
 		*/
-		void destroyEntity(iEntityID entityID);
+		std::vector<iEntityPtr> getCameras() const;
+
+		/*! \returns active camera
+		 */
+		iEntityPtr getActiveCamera() const;
 
 		/*! destroys given entity
 
@@ -95,13 +101,13 @@ namespace igor
 		 */
 		const iEntitySceneID &getID() const;
 
-		/*! initialize quadtree
+		/*! initialize quadtree which makes it available for use
 
-		\param box volume of the whole quadtree
+		\param rect area of the whole quadtree
 		\param splitThreshold threshold count of objects on a node before splitting the node
 		\param maxDepth the maximum depth of the tree
 		*/
-		void initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
+		void initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
 
 		/*! \returns internal quadtree
 		 */
@@ -110,6 +116,22 @@ namespace igor
 		/*! \returns true if quadtree present
 		 */
 		bool hasQuadtree() const;
+
+		/*! initialize octree which makes it available for use
+
+		\param cube volume of the whole octree
+		\param splitThreshold threshold count of objects on a node before splitting the node
+		\param maxDepth the maximum depth of the tree
+		*/
+		void initializeOctree(const iAACubed &cube, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);		
+
+		/*! \returns internal octree
+		 */
+		iOctreed &getOctree() const;
+
+		/*! \returns true if octree present
+		 */
+		bool hasOctree() const;		
 
 		/*! add system
 
@@ -121,7 +143,7 @@ namespace igor
 
 		\param system the system to remove
 		*/
-		void removeSystem(iEntitySystemPtr system);
+		void removeSystem(iEntitySystemPtr system);		
 
 	private:
 		/*! entity scene id
@@ -137,20 +159,36 @@ namespace igor
 		std::unordered_map<iEntityID, iEntityPtr> _entities;
 
 		/*! entity delete queue
+		 */
+		std::vector<iEntityPtr> _deleteQueue;
+
+		/*! entity process queue
 		*/
-		std::vector<iEntityID> _deleteQueue;
+		std::vector<iEntityPtr> _processQueue;
 
 		/*! keep one specialized root entity for tree traversal
-		*/
+		 */
 		iEntityPtr _root = nullptr;
 
 		/*! list of systems
-		*/
+		 */
 		std::array<std::vector<iEntitySystemPtr>, (int)iEntitySystemStage::StageCount> _systems;
 
 		/*! quadtree
 		 */
-		iQuadtreed *_quadtree = nullptr;		
+		iQuadtreed *_quadtree = nullptr;
+
+		/*! octree
+		*/
+		iOctreed *_octree = nullptr;
+
+		/*! pointer to camera system if it was added
+		 */
+		iCameraSystem *_cameraSystem = nullptr;
+
+		/*! the render engine to use in render update stage
+		*/
+		iRenderEnginePtr _renderEngine = nullptr;
 
 		/*! ctor
 
@@ -159,11 +197,17 @@ namespace igor
 		iEntityScene(const iaString &name);
 
 		/*! dtor clean up
+		 */
+		~iEntityScene();
+
+		/*! sets render engine
+
+		\param renderEngine the render engine to set
 		*/
-		~iEntityScene();		
+		void setRenderEngine(iRenderEnginePtr renderEngine);
 
 		/*! flush entity delete queue
-		*/
+		 */
 		void flushQueues();
 
 		/*! updates systems
@@ -173,25 +217,32 @@ namespace igor
 		 */
 		void onUpdate(const iaTime &time, iEntitySystemStage stage);
 
-        /*! callback to handle added component
+		/*! called when a component is to be added
+
+		\param entity pointer of entity
+		\param typeID type of component to be added
+		*/
+		void onComponentToAdd(iEntityPtr entity, const std::type_index &typeID);
+
+		/*! callback to handle added component
 
 		\param entity pointer of entity
 		\param typeID type of added component
-        */
-        void onComponentAdded(iEntityPtr entity, const std::type_index &typeID);
+		*/
+		void onComponentAdded(iEntityPtr entity, const std::type_index &typeID);
 
-        /*! callback to handle removed component
+		/*! callback to handle removed component
 
 		\param entity pointer of entity
 		\param typeID type of removed component
-        */
+		*/
 		void onComponentRemoved(iEntityPtr entity, const std::type_index &typeID);
 
-        /*! callback to handle component to be removed
+		/*! callback to handle component to be removed
 
 		\param entity pointer of entity
 		\param typeID type of component to be removed
-        */
+		*/
 		void onComponentToRemove(iEntityPtr entity, const std::type_index &typeID);
 
 		/*! called after a bunch of components been added/removed
@@ -200,10 +251,6 @@ namespace igor
 		*/
 		void onEntityChanged(iEntityPtr entity);
 	};
-
-	/*! entity scene pointer definition
-	 */
-	typedef iEntityScene *iEntityScenePtr;
 
 } // igor
 

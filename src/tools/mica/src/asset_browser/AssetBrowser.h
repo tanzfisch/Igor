@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __ASSET_BROWSER__
-#define __ASSET_BROWSER__
+#ifndef ASSET_BROWSER_H
+#define ASSET_BROWSER_H
 
 #include <igor/igor.h>
 using namespace igor;
@@ -145,11 +145,11 @@ private:
     */
     void onClickTreeView(const iWidgetPtr source);
 
-    /*! updates grid view with given item data
+    /*! updates grid view for given relative path
 
-    \param item the given item
+    \param relativePath the given path
     */
-    void updateGridView(iItemPtr item);
+    void updateGridView(const iaString &relativePath);
 
     /*! light weight refresh
      */
@@ -180,4 +180,4 @@ private:
     void onCreateShader(iWidgetPtr source);
 };
 
-#endif // __ASSET_BROWSER__
+#endif // ASSET_BROWSER_H

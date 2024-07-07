@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -31,12 +31,9 @@
 
 #include <igor/ui/user_controls/iUserControl.h>
 
-#include <igor/data/iItem.h>
+#include <igor/data/iItemData.h>
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-
-#include <any>
-#include <vector>
 
 namespace igor
 {
@@ -63,11 +60,9 @@ namespace igor
 
         /*! sets tree items
 
-        caller keeps ownership of items
-
-        \param items the root item of the tree items
+        \param itemData item data container
         */
-        void setItems(iItem *items);
+        void setItems(iItemData *itemData);
 
         /*! \returns selected item path
         */
@@ -78,10 +73,6 @@ namespace igor
         iClickTreeViewEvent& getClickEvent();
 
     protected:
-        /*! root of tree items
-         */
-        iItem *_root = nullptr;
-
         /*! box layout
          */
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
@@ -94,9 +85,9 @@ namespace igor
         */
         iaString _selectedItemPath;
 
-        /*! hold on to all buttons so we can control if they are checked or not
+        /*! hold on to all widgets
         */
-        std::vector<iWidgetButtonPtr> _allButtons;
+        std::vector<iWidgetButtonPtr> _allInteractiveWidgets;
 
         /*! handle click events from our buttons
 
@@ -109,8 +100,11 @@ namespace igor
         void initUI();
 
         /*! updates ui from tree items
+
+        \param item the current item to update from
+        \param itemPath the path of the current item
          */
-        void updateUI(iItem *item, const iaString &itemPath, int indentation);
+        virtual void updateUI(iItem *item, const iaString &itemPath);
     };
 
     /*! widget tree view pointer definition

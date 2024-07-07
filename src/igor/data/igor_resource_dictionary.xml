@@ -22,6 +22,9 @@
         <Resource id="0x0ceb229ceabbc35e" alias="igor_shader_material_orientation_plane" source="shaders/orientation_plane.shader" />
         <Resource id="0xaf247acfda3bdefd" alias="igor_shader_material_skybox" source="shaders/skybox.shader" />
         <Resource id="0x1fcd4acfd132de45" alias="igor_voxel_terrain_directional_light" source="shaders/voxel_terrain_directional_light.shader" />
+        <Resource id="0x297dd0e1b6a2ec99" alias="igor_shader_material_instancing_textured" source="shaders/instancing_textured.shader" />
+        <Resource id="0xb7a3d5aeb42ae650" alias="igor_shader_instancing_flat_shaded" source="shaders/instancing_flat_shaded.shader" />
+
         
         <Resource id="0x22c969d4614ee3dd" alias="igor_icon_add" source="icons/add.png" />
         <Resource id="0x6cf7bed3ab3e5d40" alias="igor_icon_light" source="icons/light.png" />
@@ -75,6 +78,7 @@
         <Resource id="0x90e38d14cf57e4f3" alias="igor_icon_camera" source="icons/camera.png" />
         <Resource id="0x3365de4f0a00ad80" alias="igor_icon_add_skybox" source="icons/addSkyBox.png" />
         <Resource id="0x1365deaf06009dde" alias="igor_icon_gears" source="icons/gears.png" />
+        <Resource id="0x3ae6375a323cf49e" alias="igor_icon_scene" source="icons/scene.png" />
 
         <Resource id="0x02b48a88012c1205" alias="igor_icon_dock_center" source="icons/dockCenter.png" />
         <Resource id="0x9b6c77bf20a38fed" alias="igor_icon_dock_left_half" source="icons/dockLeftHalf.png" />

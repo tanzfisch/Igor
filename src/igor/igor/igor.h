@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -27,8 +27,8 @@
 // contact: igorgameengine@protonmail.com
 
 // https://wiki.lspace.org/Igor ;-)
-#ifndef __IGOR__
-#define __IGOR__
+#ifndef IGOR_H
+#define IGOR_H
 
 // igor includes
 #include <igor/audio/iAudio.h>
@@ -44,6 +44,7 @@
 #include <igor/data/iRay.h>
 #include <igor/data/iSkeleton.h>
 #include <igor/data/iQuadtree.h>
+#include <igor/data/iOctree.h>
 
 #include <igor/generation/iContouringCubes.h>
 #include <igor/generation/iLSystem.h>
@@ -103,17 +104,24 @@
 #include <igor/system/iTimerHandle.h>
 #include <igor/system/iWindow.h>
 
-#include <igor/events/iEventECS.h>
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
 
 #include <igor/entities/iEntity.h>
-#include <igor/entities/components/iComponents.h>
-#include <igor/entities/components/iBody2DComponent.h>
-
 #include <igor/entities/iEntitySystemModule.h>
+#include <igor/entities/components/iComponents.h> // more cponents
+
+#include <igor/entities/components/iCameraComponent.h>
+#include <igor/entities/components/iCircleCollision2DComponent.h>
+#include <igor/entities/components/iMeshRenderComponent.h>
+#include <igor/entities/components/iOctreeComponent.h>
+#include <igor/entities/components/iQuadtreeComponent.h>
+#include <igor/entities/components/iSphereCollision3DComponent.h>
+#include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iLightComponent.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>
@@ -234,4 +242,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR__
+#endif // IGOR_H

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/traversal/iEntityTraverser.h>
@@ -12,32 +12,34 @@ namespace igor
 
     void iEntityTraverser::traverseInternal(iEntityPtr entity, bool useInactive)
     {
-        preOrderVisit(entity);
-        
-        const auto children = entity->getChildren(); // making copy on purpose here
-
-        for (const auto child : children)
+        if(entity->isRoot() || preOrderVisit(entity))
         {
-            traverseInternal(child, useInactive);
-        }
-
-        if (useInactive)
-        {
-            const auto inactiveChildren = entity->getInactiveChildren(); // making copy on purpose here
+            const auto children = entity->getChildren(); // making copy on purpose here
 
             for (const auto child : children)
             {
                 traverseInternal(child, useInactive);
             }
-        }
 
+            if (useInactive)
+            {
+                const auto inactiveChildren = entity->getInactiveChildren(); // making copy on purpose here
+
+                for (const auto child : children)
+                {
+                    traverseInternal(child, useInactive);
+                }
+            }
+        }
         postOrderVisit(entity);
     }
 
     void iEntityTraverser::traverse(iEntityScenePtr scene)
     {
+        _scene = scene;
+
         preTraverse();
-        traverseInternal(scene->_root, !_ignoreInactive);
+        traverseInternal(_scene->_root, !_ignoreInactive);
         postTraverse();
     }
 

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2020 by Martin Loga
+//    (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -46,6 +46,10 @@ public:
     ~Example3D() = default;
 
 private:
+    /*! entity scene
+     */
+    iEntityScenePtr _entityScene = nullptr;
+
     /*! id to transform node used for manipulating the heading of all objects in scene
     */
     iNodeID _allObjectsHeading = iNode::INVALID_NODE_ID;

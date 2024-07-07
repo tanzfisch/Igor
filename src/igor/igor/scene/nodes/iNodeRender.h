@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -44,8 +44,8 @@ namespace igor
     {
 
         friend class iNodeVisitorUpdateTransform;
-        friend class iOctree;
-        friend class iRenderEngine;
+        friend class iOctreeOld;
+        friend class iRenderEngineOld;
         friend class iNodeManager;
 
     public:

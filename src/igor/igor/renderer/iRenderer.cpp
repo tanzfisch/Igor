@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/renderer/iRenderer.h>
@@ -1808,6 +1808,12 @@ namespace igor
 
     void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material)
     {
+        const uint32 instanceCount = instancingBuffer->getInstanceCount();
+        if(instanceCount == 0)
+        {
+            return;
+        }
+
         if (!mesh->isValid())
         {
             return;
@@ -1835,9 +1841,7 @@ namespace igor
         }
         vertexArray->setIndexBuffer(mesh->getVertexArray()->getIndexBuffer());
         vertexArray->addVertexBuffer(instancingBuffer->getVertexBuffer());
-        vertexArray->bind();
-
-        const uint32 instanceCount = instancingBuffer->getInstanceCount();
+        vertexArray->bind();        
 
         glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr, instanceCount);
         GL_CHECK_ERROR();
@@ -1959,17 +1963,17 @@ namespace igor
         _data->_lights[lightnum]._position.set(pos._x, pos._y, pos._z);
     }
 
-    void iRenderer::setLightAmbient(int32 lightnum, iaColor3f &ambient)
+    void iRenderer::setLightAmbient(int32 lightnum, const iaColor3f &ambient)
     {
         _data->_lights[lightnum]._ambient = ambient;
     }
 
-    void iRenderer::setLightDiffuse(int32 lightnum, iaColor3f &diffuse)
+    void iRenderer::setLightDiffuse(int32 lightnum, const iaColor3f &diffuse)
     {
         _data->_lights[lightnum]._diffuse = diffuse;
     }
 
-    void iRenderer::setLightSpecular(int32 lightnum, iaColor3f &specular)
+    void iRenderer::setLightSpecular(int32 lightnum, const iaColor3f &specular)
     {
         _data->_lights[lightnum]._specular = specular;
     }

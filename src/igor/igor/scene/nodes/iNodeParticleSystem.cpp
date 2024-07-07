@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/scene/nodes/iNodeParticleSystem.h>
@@ -102,7 +102,7 @@ namespace igor
     {
         handle();
 
-        if(_particleSystem.getVertexArray() == nullptr)
+        if (_particleSystem.getVertexArray() == nullptr)
         {
             return;
         }
@@ -344,6 +344,10 @@ namespace igor
     void iNodeParticleSystem::setVelocityOriented(bool velocityOriented)
     {
         _particleSystem.setVelocityOriented(velocityOriented);
+        if (getMaterial() == nullptr)
+        {
+            return;
+        }
         getMaterial()->setVelocityOriented(velocityOriented);
     }
 
@@ -355,6 +359,10 @@ namespace igor
     void iNodeParticleSystem::setTextureTiling(uint32 columns, uint32 rows)
     {
         _particleSystem.setTextureTiling(columns, rows);
+        if (getMaterial() == nullptr)
+        {
+            return;
+        }
         getMaterial()->setTiling(iaVector2f(static_cast<float32>(columns), static_cast<float32>(rows)));
     }
 

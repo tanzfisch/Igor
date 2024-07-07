@@ -1,18 +1,27 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntitySystemModule.h>
 
-#include <igor/entities/systems/iQuadtreeSystem.h>
 #include <igor/entities/systems/iAnimationSystem.h>
 #include <igor/entities/systems/iBehaviourSystem.h>
 #include <igor/entities/systems/iSpriteRenderSystem.h>
 #include <igor/entities/systems/iTransformSystem.h>
 #include <igor/entities/systems/iVelocitySystem.h>
 #include <igor/entities/systems/iCameraSystem.h>
+#include <igor/entities/systems/iMeshRenderSystem.h>
+#include <igor/entities/systems/iLightSystem.h>
 
-#include <igor/entities/components/iBody2DComponent.h>
+#include <igor/entities/components/iQuadtreeComponent.h>
+#include <igor/entities/components/iOctreeComponent.h>
+#include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iLightComponent.h>
+#include <igor/entities/components/iMeshRenderComponent.h>
+#include <igor/entities/components/iCameraComponent.h>
+#include <igor/entities/components/iCircleCollision2DComponent.h>
+#include <igor/entities/components/iSphereCollision3DComponent.h>
 
 #include <igor/resources/profiler/iProfiler.h>
 
@@ -23,10 +32,13 @@ namespace igor
 
     iEntitySystemModule::iEntitySystemModule()
     {
-        registerComponentType<iSpriteRendererComponent>();
+        registerComponentType<iSpriteRenderComponent>();
         registerComponentType<iTransformComponent>();
-        registerComponentType<iBody2DComponent>();
+        registerComponentType<iLightComponent>();
+        registerComponentType<iQuadtreeComponent>();
+        registerComponentType<iOctreeComponent>();
         registerComponentType<iCircleCollision2DComponent>();
+        registerComponentType<iSphereCollision3DComponent>();
         registerComponentType<iVelocityComponent>();
         registerComponentType<iBehaviourComponent>();
         registerComponentType<iGlobalBoundaryComponent>();
@@ -35,6 +47,7 @@ namespace igor
         registerComponentType<iRenderDebugComponent>();
         registerComponentType<iPartyComponent>();
         registerComponentType<iAnimationComponent>();
+        registerComponentType<iMeshRenderComponent>();
     }
 
     iEntityScenePtr iEntitySystemModule::createScene(const iaString &name, bool addIgorSystems)
@@ -50,13 +63,17 @@ namespace igor
 
         scene->addSystem(new iAnimationSystem());
         scene->addSystem(new iBehaviourSystem());
-        scene->addSystem(new iQuadtreeSystem());
         scene->addSystem(new iVelocitySystem());
 
         scene->addSystem(new iTransformSystem());
 
         scene->addSystem(new iCameraSystem());
+        scene->addSystem(new iMeshRenderSystem());
+
+        scene->addSystem(new iLightSystem());
         scene->addSystem(new iSpriteRenderSystem());
+        
+        _activeScenes.push_back(scene);
 
         return scene;
     }
@@ -94,7 +111,20 @@ namespace igor
             return;
         }
 
-        delete iter->second;
+        iEntityScenePtr scene = iter->second;
+
+        auto activeIter = std::find(_activeScenes.begin(), _activeScenes.end(), scene);
+        if (activeIter != _activeScenes.end())
+        {
+            _activeScenes.erase(activeIter);
+        }
+        auto inactiveIter = std::find(_inactiveScenes.begin(), _inactiveScenes.end(), scene);
+        if (inactiveIter != _inactiveScenes.end())
+        {
+            _inactiveScenes.erase(inactiveIter);
+        }
+
+        delete scene;
         _scenes.erase(iter);
     }
 
@@ -117,7 +147,7 @@ namespace igor
 
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                maxUpdateCount > 0)
-        {
+        {           
             for (auto pair : _scenes)
             {
                 pair.second->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);
@@ -125,6 +155,12 @@ namespace igor
             _simulationFrameTime += timeDelta;
             maxUpdateCount--;
         };
+
+        if(maxUpdateCount <= 0)
+        {
+            _simulationFrameTime = currentTime;
+            con_trace("Loosing frames");
+        }
 
         uint64 entityCount = 0;
         for (auto pair : _scenes)
@@ -142,6 +178,46 @@ namespace igor
     void iEntitySystemModule::onRender(iEntityScenePtr scene)
     {
         scene->onUpdate(_simulationFrameTime, iEntitySystemStage::Render);
+    }
+
+    void iEntitySystemModule::activateScene(iEntityScenePtr scene)
+    {
+        auto iter = std::find(_inactiveScenes.begin(), _inactiveScenes.end(), scene);
+        if (iter != _inactiveScenes.end())
+        {
+            _inactiveScenes.erase(iter);
+            _activeScenes.push_back(scene);
+        }
+    }
+
+    void iEntitySystemModule::deactivateScene(iEntityScenePtr scene)
+    {
+        auto iter = std::find(_activeScenes.begin(), _activeScenes.end(), scene);
+        if (iter != _activeScenes.end())
+        {
+            _activeScenes.erase(iter);
+            _inactiveScenes.push_back(scene);
+        }
+    }
+
+    const std::vector<iEntityScenePtr> &iEntitySystemModule::getActiveScenes() const
+    {
+        return _activeScenes;
+    }
+
+    const std::vector<iEntityScenePtr> &iEntitySystemModule::getInactiveScenes() const
+    {
+        return _inactiveScenes;
+    }
+
+    iCreatedEntityEvent &iEntitySystemModule::getCreatedEntityEvent()
+    {
+        return _createdEntityEvent;
+    }
+
+    iDestroyEntityEvent &iEntitySystemModule::getDestroyEntityEvent()
+    {
+        return _destroyEntityEvent;
     }
 
 } // namespace igor

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -44,11 +44,9 @@ namespace igor
     class IGOR_API iItem
     {
     public:
-        /*! ctor
-
-        \param name name of the item (must be unique between siblings)
-        */
-        iItem(const iaString &name = "root");
+        /*! nothing to do
+         */
+        iItem() = default;
 
         /*! set value for given key
 
@@ -72,6 +70,12 @@ namespace igor
         /*! \returns true if there is a value for given key
          */
         bool hasValue(const iaString &key) const;
+
+        /*! sets name of item
+
+        \param name the name to set on the item
+        */
+        void setName(const iaString &name);
 
         /*! \returns name of item
          */

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -70,7 +70,7 @@ namespace igor
 
         has to be implemented by deriving class
         */
-        void preOrderVisit(iEntityPtr entity) override;
+        bool preOrderVisit(iEntityPtr entity) override;
 
         /*! is called after every entity visited
 
@@ -82,7 +82,19 @@ namespace igor
 
         has to be implemented by deriving class
         */
-        void postTraverse() override;        
+        void postTraverse() override;      
+
+        /*! updates quadtree for given entity
+
+        \param the given entity
+        */
+        void updateQuadtree(iEntityPtr entity);
+
+        /*! updates octree for given entity
+
+        \param the given entity
+        */
+        void updateOctree(iEntityPtr entity);
     };
 
 }; // namespace igor

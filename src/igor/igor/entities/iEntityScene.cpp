@@ -1,10 +1,13 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntityScene.h>
 
+#include <igor/entities/iEntitySystemModule.h>
+#include <igor/entities/systems/iCameraSystem.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iRenderEngine.h>
 
 namespace igor
 {
@@ -44,25 +47,26 @@ namespace igor
 
         delete _root;
 
-        for(int i=0;i<(int)iEntitySystemStage::StageCount;++i)
+        for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
         {
-            for(auto system : _systems[i])
+            for (auto system : _systems[i])
             {
                 delete system;
             }
         }
     }
 
-    void iEntityScene::initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
+    void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
     {
         con_assert(_quadtree == nullptr, "Quadtree already initialized");
 
-        _quadtree = new iQuadtreed(box, splitThreshold, maxDepth);
+        _quadtree = new iQuadtreed(rect, splitThreshold, maxDepth);
     }
 
     iQuadtreed &iEntityScene::getQuadtree() const
     {
-        con_assert(_quadtree != nullptr, "Quadtree not initialized");
+        con_assert(_quadtree != nullptr, "Quadtree was not initialized");
+
         return *_quadtree;
     }
 
@@ -71,41 +75,68 @@ namespace igor
         return _quadtree != nullptr;
     }
 
+    void iEntityScene::initializeOctree(const iAACubed &cube, const uint32 splitThreshold, const uint32 maxDepth)
+    {
+        con_assert(_octree == nullptr, "Octree already initialized");
+
+        _octree = new iOctreed(cube, splitThreshold, maxDepth);
+    }
+
+    iOctreed &iEntityScene::getOctree() const
+    {
+        con_assert(_octree != nullptr, "Octree was not initialized");
+
+        return *_octree;
+    }
+
+    bool iEntityScene::hasOctree() const
+    {
+        return _octree != nullptr;
+    }
+
     void iEntityScene::onUpdate(const iaTime &time, iEntitySystemStage stage)
     {
         con_assert((int)stage < (int)iEntitySystemStage::StageCount, "out of range stage");
 
-        if(stage == iEntitySystemStage::Update)
+        if (stage == iEntitySystemStage::Update)
         {
             flushQueues();
         }
-        
+
         auto &systems = _systems[(int)stage];
         for (auto system : systems)
         {
-            system->update(time, this);
+            system->onUpdate(iEntitySceneUpdateContext{time, stage, this, _renderEngine});
         }
+    }
+
+    void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
+    {
+        _renderEngine = renderEngine;
+        _renderEngine->setScene(this);
     }
 
     void iEntityScene::flushQueues()
     {
         const auto deleteQueue = std::move(_deleteQueue);
-
-        for(const auto entityID : deleteQueue)
+        for (auto entity : deleteQueue)
         {
-            auto iter = _entities.find(entityID);
+            auto iter = _entities.find(entity->getID());
             if (iter == _entities.end())
             {
                 continue;
             }
 
+            iEntitySystemModule::getInstance().getDestroyEntityEvent()(iter->second);
+
             delete iter->second;
             _entities.erase(iter);
         }
 
-        for(const auto &pair : _entities)
+        const auto processQueue = std::move(_processQueue);
+        for (auto entity : processQueue)
         {
-            pair.second->processComponents();
+            entity->processComponents();
         }
     }
 
@@ -126,6 +157,8 @@ namespace igor
         entity->_scene = this;
         entity->setParent(_root);
 
+        iEntitySystemModule::getInstance().getCreatedEntityEvent()(entity);
+
         return entity;
     }
 
@@ -143,17 +176,17 @@ namespace igor
     void iEntityScene::destroyEntity(iEntityPtr entity)
     {
         con_assert(entity != nullptr, "zero pointer");
-        _deleteQueue.push_back(entity->getID());
-    }
-
-    void iEntityScene::destroyEntity(iEntityID entityID)
-    {
-        _deleteQueue.push_back(entityID);
+        _deleteQueue.push_back(entity);
     }
 
     const iEntitySceneID &iEntityScene::getID() const
     {
         return _id;
+    }
+
+    void iEntityScene::onComponentToAdd(iEntityPtr entity, const std::type_index &typeID)
+    {
+        _processQueue.push_back(entity);
     }
 
     void iEntityScene::onComponentAdded(iEntityPtr entity, const std::type_index &typeID)
@@ -190,7 +223,7 @@ namespace igor
                 system->onComponentToRemove(entity, typeID);
             }
         }
-    }    
+    }
 
     void iEntityScene::onEntityChanged(iEntityPtr entity)
     {
@@ -216,6 +249,12 @@ namespace igor
         {
             system->onEntityChanged(pair.second);
         }
+
+        iCameraSystem *cameraSystem = dynamic_cast<iCameraSystem *>(system);
+        if (cameraSystem != nullptr)
+        {
+            _cameraSystem = cameraSystem;
+        }
     }
 
     void iEntityScene::removeSystem(iEntitySystemPtr system)
@@ -228,8 +267,32 @@ namespace igor
         }
 
         systems.erase(iter);
-
         system->_scene = nullptr;
+
+        if (system == _cameraSystem)
+        {
+            _cameraSystem = nullptr;
+        }
+    }
+
+    std::vector<iEntityPtr> iEntityScene::getCameras() const
+    {
+        if (_cameraSystem != nullptr)
+        {
+            return _cameraSystem->getCameras();
+        }
+
+        return std::vector<iEntityPtr>();
+    }
+
+    iEntityPtr iEntityScene::getActiveCamera() const
+    {
+        if (_cameraSystem != nullptr)
+        {
+            return _cameraSystem->getActiveCamera();
+        }
+
+        return nullptr;
     }
 
 } // igor
