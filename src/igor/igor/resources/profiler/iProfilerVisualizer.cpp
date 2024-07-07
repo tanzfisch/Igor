@@ -154,8 +154,9 @@ namespace igor
 
             const float32 peakFrameTime = iProfiler::getPeakFrame().getMilliseconds();
             const float32 verticalScale = rect._height / (peakFrameTime + 5.0);
-            float32 textOffsetY = 20.0f;
 
+            std::vector<float64> sectionTime;
+            
             for (const auto &section : sections)
             {
                 if (section._name == "agaetgethaerg")
@@ -187,13 +188,9 @@ namespace igor
 
                     if (i + 1 == lineCount)
                     {
-                        ms = values[currentIndex].getMilliseconds();
+                        sectionTime.push_back(values[currentIndex].getMilliseconds());
                     }
                 }
-
-                iRenderer::getInstance().drawString(rect.getRight() - 300, rect.getBottom() - textOffsetY, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
-                iRenderer::getInstance().drawString(rect.getRight() - 30, rect.getBottom() - textOffsetY, iaString::toStringUnits(ms) + iaString("ms"), iHorizontalAlignment::Right, iVerticalAlignment::Bottom, sectionColor);
-                textOffsetY += 20;
 
                 sectionIndex++;
             }
@@ -218,6 +215,18 @@ namespace igor
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz24, "24Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+
+            sectionIndex = 0;
+            float32 textOffsetY = 20.0f;
+            for (const auto &section : sections)
+            {
+                const iaColor4f &sectionColor = COLORS[sectionIndex % COLOR_COUNT];
+
+                iRenderer::getInstance().drawString(rect.getRight() - 300, rect.getBottom() - textOffsetY, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
+                iRenderer::getInstance().drawString(rect.getRight() - 30, rect.getBottom() - textOffsetY, iaString::toStringUnits(sectionTime[sectionIndex]) + iaString("ms"), iHorizontalAlignment::Right, iVerticalAlignment::Bottom, sectionColor);
+                textOffsetY += 20;
+                sectionIndex++;
+            }
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::SectionsAndValues)

@@ -25,7 +25,6 @@
         <Resource id="0x297dd0e1b6a2ec99" alias="igor_shader_material_instancing_textured" source="shaders/instancing_textured.shader" />
         <Resource id="0xb7a3d5aeb42ae650" alias="igor_shader_instancing_flat_shaded" source="shaders/instancing_flat_shaded.shader" />
 
-        
         <Resource id="0x22c969d4614ee3dd" alias="igor_icon_add" source="icons/add.png" />
         <Resource id="0x6cf7bed3ab3e5d40" alias="igor_icon_light" source="icons/light.png" />
         <Resource id="0x6593382b21232b08" alias="igor_icon_transformation" source="icons/transformation.png" />
@@ -106,5 +105,7 @@
         <Resource id="0x8b4357bb05a22be1" alias="igor_font_default_outline" source="textures/StandardFontOutlined.png" />
 
         <Resource id="0x57339e8d03b3da6e" alias="igor_widget_theme_pattern" source="textures/WidgetThemePattern.png" />
+
+        <Resource id="0xd9414e77657b07c8" alias="igor_skybox_debug" source="textures/skyboxes/debug.png" />
 	</ResourceDictionary>
 </Igor>
