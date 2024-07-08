@@ -84,6 +84,12 @@ namespace igor
         const iRenderer::iRendererStats stats = iRenderer::getInstance().getStats();
         const auto currentFrameIndex = iProfiler::getCurrentFrameIndex();
 
+        int32 lastFrame = (currentFrameIndex - 1) % PROFILER_MAX_FRAMES_COUNT;
+        if (lastFrame < 0)
+        {
+            lastFrame += PROFILER_MAX_FRAMES_COUNT;
+        }
+
         if (iTimer::getInstance().getTime() > _time + iaTime::fromSeconds(0.25))
         {
             _time = iTimer::getInstance().getTime();
@@ -103,7 +109,7 @@ namespace igor
             }
         }
 
-        const iaColor4f backgroundColor(0, 0, 0.5, 0.3);
+        const iaColor4f backgroundColor(0.5, 0.5, 0.8, 0.3);
 
         iRenderer::getInstance().setFont(font);
         iRenderer::getInstance().setFontSize(16.0f);
@@ -154,8 +160,6 @@ namespace igor
 
             const float32 peakFrameTime = iProfiler::getPeakFrame().getMilliseconds();
             const float32 verticalScale = rect._height / (peakFrameTime + 5.0);
-
-            std::vector<float64> sectionTime;
             
             for (const auto &section : sections)
             {
@@ -165,10 +169,7 @@ namespace igor
                 }
 
                 const auto &values = section._values;
-
                 const iaColor4f &sectionColor = COLORS[sectionIndex % COLOR_COUNT];
-
-                float64 ms = 0;
 
                 for (int i = 0; i < lineCount; ++i)
                 {
@@ -185,11 +186,6 @@ namespace igor
                                                       rect.getBottom() - bottomValue, i + rect.getRight() - lineCount,
                                                       rect.getBottom() - topValue,
                                                       sectionColor);
-
-                    if (i + 1 == lineCount)
-                    {
-                        sectionTime.push_back(values[currentIndex].getMilliseconds());
-                    }
                 }
 
                 sectionIndex++;
@@ -220,10 +216,16 @@ namespace igor
             float32 textOffsetY = 20.0f;
             for (const auto &section : sections)
             {
+                if (section._name == "agaetgethaerg")
+                {
+                    continue;
+                }
+
+                const auto &values = section._values;
                 const iaColor4f &sectionColor = COLORS[sectionIndex % COLOR_COUNT];
 
                 iRenderer::getInstance().drawString(rect.getRight() - 300, rect.getBottom() - textOffsetY, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
-                iRenderer::getInstance().drawString(rect.getRight() - 30, rect.getBottom() - textOffsetY, iaString::toStringUnits(sectionTime[sectionIndex]) + iaString("ms"), iHorizontalAlignment::Right, iVerticalAlignment::Bottom, sectionColor);
+                iRenderer::getInstance().drawString(rect.getRight() - 30, rect.getBottom() - textOffsetY, iaString::toString(values[lastFrame].getMilliseconds(), 2) + iaString("ms"), iHorizontalAlignment::Right, iVerticalAlignment::Bottom, sectionColor);
                 textOffsetY += 20;
                 sectionIndex++;
             }
@@ -240,12 +242,6 @@ namespace igor
             uint32 colorIndex = 0;
             const int32 lineCount = std::min(static_cast<int>(rect.getWidth()), PROFILER_MAX_FRAMES_COUNT);
             const int32 currentFrame = (currentFrameIndex + 1 - lineCount) % PROFILER_MAX_FRAMES_COUNT;
-
-            int32 lastFrame = (currentFrameIndex - 1) % PROFILER_MAX_FRAMES_COUNT;
-            if (lastFrame < 0)
-            {
-                lastFrame += PROFILER_MAX_FRAMES_COUNT;
-            }
 
             const auto counters = iProfiler::getCounters();
 
