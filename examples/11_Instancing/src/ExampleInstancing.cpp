@@ -117,8 +117,6 @@ void ExampleInstancing::onInit()
     iEntityPtr sun = _entityScene->createEntity("sun_light");
     sun->addComponent(new iTransformComponent(iaVector3d(1, 1, 1)));
     sun->addComponent(new iLightComponent());
-
-    // add the skybox
 }
 
 void ExampleInstancing::onDeinit()

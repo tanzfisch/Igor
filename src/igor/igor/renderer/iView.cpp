@@ -24,7 +24,7 @@ namespace igor
     iView::iView()
     {
         _skyBox = std::make_unique<iSkyBox>();
-        _skyBox->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_skybox_debug"));
+        _skyBox->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_skybox_clearsky"));
     }
 
     iView::~iView()

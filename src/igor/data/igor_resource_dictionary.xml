@@ -107,5 +107,6 @@
         <Resource id="0x57339e8d03b3da6e" alias="igor_widget_theme_pattern" source="textures/WidgetThemePattern.png" />
 
         <Resource id="0xd9414e77657b07c8" alias="igor_skybox_debug" source="textures/skyboxes/debug.png" />
+        <Resource id="0xf313aed6651c0acd" alias="igor_skybox_clearsky" source="textures/skyboxes/clearsky.png" />
 	</ResourceDictionary>
 </Igor>
