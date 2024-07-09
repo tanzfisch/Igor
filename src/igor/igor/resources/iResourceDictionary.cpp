@@ -20,7 +20,7 @@ namespace igor
         char temp[2048];
         filename.getData(temp, 2048);
 
-        std::wofstream stream;
+        std::ofstream stream;
         stream.open(temp);
 
         if (!stream.is_open())
@@ -29,30 +29,32 @@ namespace igor
             return false;
         }
 
-        stream << "<?xml version=\"1.0\"?>\n";
-        stream << "<Igor>\n";
-        stream << "    <ResourceDictionary>\n";
-
         // just ordering it to reduce the diff we potentially have to commit
         std::sort(_data.begin(), _data.end(), [](std::tuple<iResourceID, iaString, iaString> const &a, std::tuple<iResourceID, iaString, iaString> const &b)
                   { return std::get<0>(a) < std::get<0>(b); });
 
+        json dictionaryJson = json::array();
+
         for (auto &tuple : _data)
         {
-            stream << "        <Resource id=\"" << std::get<0>(tuple) << "\"";
+            const iaUUID id(std::get<0>(tuple));
+            const iaString source(std::get<1>(tuple));
+
+            json resourceJson = {
+                {"id", id},
+                {"source", source},
+                {"internal", true},
+            };
 
             if (!std::get<2>(tuple).isEmpty())
             {
-                stream << " alias=\"" << std::get<2>(tuple) << "\"";
+                resourceJson["alias"] = iaString(std::get<2>(tuple));
             }
 
-            stream << " source=\"" << std::get<1>(tuple) << "\"";
-
-            stream << " />\n";
+            dictionaryJson.push_back(resourceJson);
         }
 
-        stream << "    </ResourceDictionary>\n";
-        stream << "</Igor>\n";
+        stream << dictionaryJson.dump(4);
 
         con_info("written resource dictionary " << filename);
         return true;

@@ -307,11 +307,11 @@ namespace igor
                 iaDirectory::makeDirectory(configFolder);
             }
 
-            iConfig::getInstance().writeConfiguration(configFolder + "/igor.json");
+            iConfig::getInstance().write(configFolder + "/igor.json");
         }
         else
         {
-            iConfig::getInstance().readConfiguration(configurationFilepath);
+            iConfig::getInstance().read(configurationFilepath);
         }
 
         if (iConfig::getInstance().hasSetting("logLevel"))

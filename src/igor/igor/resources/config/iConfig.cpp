@@ -32,7 +32,7 @@ namespace igor
     {
     }
 
-    bool iConfig::writeConfiguration(const iaString &filename)
+    bool iConfig::write(const iaString &filename)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -63,7 +63,7 @@ namespace igor
         return true;
     }
 
-    void iConfig::readConfiguration(const iaString &filename)
+    void iConfig::read(const iaString &filename)
     {
         char temp[2048];
         filename.getData(temp, 2048);

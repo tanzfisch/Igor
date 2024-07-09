@@ -1,0 +1,47 @@
+[
+    {
+        "alias": "example_texture_particleKreuzHerzPikKaro",
+        "id": "0x0fe6fb4d56b9ff6d",
+        "source": "textures/particleKreuzHerzPikKaro.png"
+    },
+    {
+        "alias": "example_texture_particle_dot",
+        "id": "0x2544d6491ebcda4c",
+        "source": "textures/particleDot.png"
+    },
+    {
+        "alias": "example_texture_particleFlame",
+        "id": "0x5c3f82b6e43b7455",
+        "source": "textures/particleFlame.png"
+    },
+    {
+        "alias": "example_texture_particleTrail",
+        "id": "0x956317a042e23fbf",
+        "source": "textures/particleTrail.png"
+    },
+    {
+        "alias": "example_texture_skybox",
+        "id": "0x9a9c80439e25a7d2",
+        "source": "textures/skyboxes/debug.png"
+    },
+    {
+        "alias": "example_texture_particleGem",
+        "id": "0xbf6b73cf73d17688",
+        "source": "textures/particleGem.png"
+    },
+    {
+        "alias": "example_texture_particleFire",
+        "id": "0xcbac88b533ec667f",
+        "source": "textures/particleFire.png"
+    },
+    {
+        "alias": "example_texture_octave_1",
+        "id": "0xd85b2bf347827797",
+        "source": "textures/octave1.png"
+    },
+    {
+        "alias": "example_texture_octave_2",
+        "id": "0xee59b6f07b0c89a7",
+        "source": "textures/octave2.png"
+    }
+]

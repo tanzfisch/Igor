@@ -58,14 +58,14 @@ namespace igor
 
 		\param filename path to configuration file
 		*/
-		void readConfiguration(const iaString &filename);
+		void read(const iaString &filename);
 
 		/*! writes current configuration to given file
 
 		\param filename the given filename
 		\returns true if successful
 		*/
-		bool writeConfiguration(const iaString &filename);
+		bool write(const iaString &filename);
 
 		/*! \returns value for given setting as string
 		

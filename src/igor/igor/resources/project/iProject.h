@@ -123,13 +123,13 @@ namespace igor
 
         \param filename the project configuration file
         */
-        bool readConfiguration(const iaString &filename);
+        bool read(const iaString &filename);
 
         /*! write project configuration
 
         \param filename the project configuration file
         */
-        bool writeConfiguration(const iaString &filename);
+        bool write(const iaString &filename);
     };
 
 } // namespace igor

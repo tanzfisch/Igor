@@ -219,15 +219,15 @@ namespace igor
     config file will be searched for in this order
 
     Windows: 
-        config\igor.xml
-        ..\config\igor.xml
-        ..\..\config\igor.xml
+        config\igor.json
+        ..\config\igor.json
+        ..\..\config\igor.json
     Linux:
-        ~/.igor/igor.xml
-        /etc/igor/igor.xml
-        config/igor.xml
-        ../config/igor.xml
-        ../../config/igor.xml
+        ~/.igor/igor.json
+        /etc/igor/igor.json
+        config/igor.json
+        ../config/igor.json
+        ../../config/igor.json
 
     in that order
 	*/

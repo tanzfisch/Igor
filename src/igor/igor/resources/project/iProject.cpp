@@ -64,9 +64,9 @@ namespace igor
     void iProject::load()
     {        
         const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
-        readConfiguration(filenameConfig);
+        read(filenameConfig);
         
-        const iaString filenameDictionary = "resource_dictionary.xml";
+        const iaString filenameDictionary = "resource_dictionary.json";
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
 
@@ -88,13 +88,13 @@ namespace igor
     void iProject::save()
     {
         const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
-        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.xml";
+        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.json";
 
-        writeConfiguration(filenameConfig);
+        write(filenameConfig);
         iResourceManager::getInstance().saveResourceDictionary(filenameDictionary);
     }
 
-    bool iProject::readConfiguration(const iaString &filename)
+    bool iProject::read(const iaString &filename)
     {
         char temp[2048];
         filename.getData(temp, 2048);
@@ -127,7 +127,7 @@ namespace igor
         return true;
     }
 
-    bool iProject::writeConfiguration(const iaString &filename)
+    bool iProject::write(const iaString &filename)
     {
         char temp[2048];
         filename.getData(temp, 2048);

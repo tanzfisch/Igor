@@ -115,4 +115,14 @@ namespace iaux
     {
         return _value != IGOR_INVALID_ID;
     }
+
+    void to_json(json &j, const iaUUID &uuid)
+    {
+        j = uuid.toString();
+    }
+
+    void from_json(const json &j, iaUUID &uuid)
+    {
+        uuid = iaUUID(iaString(j.get<std::string>().c_str()));
+    }       
 }
