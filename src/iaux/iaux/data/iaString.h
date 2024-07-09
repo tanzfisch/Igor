@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_STRING__
-#define __IAUX_STRING__
+#ifndef IAUX_STRING_H
+#define IAUX_STRING_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/math/iaVector2.h>
@@ -37,6 +37,9 @@
 
 #include <ostream>
 #include <vector>
+
+#include <json.hpp>
+using json = nlohmann::json;
 
 namespace iaux
 {
@@ -50,7 +53,7 @@ namespace iaux
     };
 
     /*! wide char (unicode) character string with trailing zero and length
-    */
+     */
     class IAUX_API iaString
     {
 
@@ -108,7 +111,7 @@ namespace iaux
         /*! \returns size of data in bytes
          */
         int64 getSize() const;
-        
+
         /*! \returns hash value for current text
          */
         int64 getHashValue() const;
@@ -266,7 +269,7 @@ namespace iaux
         \param characters the characters to search for
         \param from optional parameter to define start index to search from
         */
-        int64 findFirstOf(const iaString &characters, const int64 from = INVALID_POSITION) const;        
+        int64 findFirstOf(const iaString &characters, const int64 from = INVALID_POSITION) const;
 
         /*! \returns position of first occurrence of on of the specified characters
 
@@ -474,7 +477,7 @@ namespace iaux
         /*! transforms a iaString to a uint64
 
         \param text the string
-        \param base the number base 
+        \param base the number base
         \returns value
         */
         static uint64 toUInt(const iaString &text, int base = 10);
@@ -674,6 +677,14 @@ namespace iaux
         vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z), static_cast<T>(w));
     }
 
+    /*! iaString to json
+     */
+    void to_json(json &j, const iaString &text);
+
+    /*! json to iaString
+     */
+    void from_json(const json &j, iaString &text);
+
 } // namespace iaux
 
 /*! so can be used as key in a map
@@ -687,4 +698,4 @@ struct std::hash<iaux::iaString>
     }
 };
 
-#endif // __IAUX_STRING__
+#endif // IAUX_STRING_H

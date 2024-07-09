@@ -20,7 +20,7 @@
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/physics/iPhysicsUserMeshCollisionHandler.h>
 #include <iaux/data/iaConvert.h>
-#include <igor/resources/config/iConfigReader.h>
+#include <igor/resources/config/iConfig.h>
 
 #include <dgNewton/Newton.h>
 
@@ -914,9 +914,9 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfigReader::getInstance().hasSetting("maxPhysicsThreads"))
+        if (iConfig::getInstance().hasSetting("maxPhysicsThreads"))
         {
-            const iaString max = iConfigReader::getInstance().getValue("maxPhysicsThreads");
+            const iaString max = iConfig::getInstance().getValue("maxPhysicsThreads");
 
             if (max != "Max")
             {
@@ -924,9 +924,9 @@ namespace igor
             }
         }
 
-        if (iConfigReader::getInstance().hasSetting("minPhysicsThreads"))
+        if (iConfig::getInstance().hasSetting("minPhysicsThreads"))
         {
-            minThreads = iConfigReader::getInstance().getValueAsInt("minPhysicsThreads");
+            minThreads = iConfig::getInstance().getValueAsInt("minPhysicsThreads");
         }
 
         return std::max(minThreads, maxThreads);

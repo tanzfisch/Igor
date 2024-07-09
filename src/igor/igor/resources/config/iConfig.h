@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_CONFIGREADER__
-#define __IGOR_CONFIGREADER__
+#ifndef IGOR_CONFIG_H
+#define IGOR_CONFIG_H
 
 #include <igor/resources/module/iModule.h>
 
@@ -45,10 +45,10 @@ namespace igor
 
 	usually located at config/Igor.xml
 	*/
-	class iConfigReader : public iModule<iConfigReader>
+	class iConfig : public iModule<iConfig>
 	{
 
-		friend class iModule<iConfigReader>;
+		friend class iModule<iConfig>;
 
 	public:
 
@@ -131,13 +131,13 @@ namespace igor
 
 		/*! does nothing
 		 */
-		iConfigReader();
+		iConfig();
 
 		/*! does nothing
 		 */
-		virtual ~iConfigReader();		
+		virtual ~iConfig();		
 	};
 
 } // namespace igor
 
-#endif // __IGOR_CONFIGREADER__
+#endif // IGOR_CONFIG_H

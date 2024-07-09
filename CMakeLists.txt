@@ -102,8 +102,17 @@ set_property(TARGET dgPhysics PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 add_subdirectory(vendor/Glad)
 set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER}/Glad)
 
+# tiny XML
 add_subdirectory(vendor/TinyXML)
 set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER}/TinyXML)
+
+# nlohmann json
+message(STATUS "nlohmann json")
+set(JSON_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/nlohmann/")
+set(JSON_HEADERS_DIR ${JSON_SRC_DIR})
+set(JSON_HEADERS "${JSON_HEADERS_DIR}json.hpp" "${JSON_HEADERS_DIR}json_fwd.hpp")
+list(APPEND JSON_SOURCES ${JSON_HEADERS})
+source_group_special("${JSON_SOURCES}" ${JSON_SRC_DIR} "\\vendor\\nlohmann\\")
 
 # stb_image
 message(STATUS "stb_image")

@@ -11,7 +11,7 @@
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/shader/iShaderFactory.h>
 #include <igor/resources/material/iMaterialFactory.h>
-#include <igor/resources/config/iConfigReader.h>
+#include <igor/resources/config/iConfig.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/iResourceDictionary.h>
 
@@ -178,9 +178,9 @@ namespace igor
 
     void iResourceManager::configure()
     {
-        if (iConfigReader::getInstance().hasSetting("loadMode"))
+        if (iConfig::getInstance().hasSetting("loadMode"))
         {
-            const iaString loadMode = iConfigReader::getInstance().getValue("loadMode");
+            const iaString loadMode = iConfig::getInstance().getValue("loadMode");
 
             if (loadMode == "Sync")
             {
@@ -188,9 +188,9 @@ namespace igor
             }
         }
 
-        if (iConfigReader::getInstance().hasSetting("searchPaths"))
+        if (iConfig::getInstance().hasSetting("searchPaths"))
         {
-            const std::vector<iaString> searchPaths = iConfigReader::getInstance().getValueAsArray("searchPaths");
+            const std::vector<iaString> searchPaths = iConfig::getInstance().getValueAsArray("searchPaths");
 
             for (const auto &path : searchPaths)
             {

@@ -1398,4 +1398,14 @@ namespace iaux
         return iaString(std::regex_replace(std::regex_replace(regexStr, star_replace, L".*"), questionmark_replace, L".").c_str());
     }
 
+    void to_json(json &j, const iaString &text)
+    {
+        j = text.getData();
+    }
+
+    void from_json(const json &j, iaString &text)
+    {
+        text = iaString(j.get<std::string>().c_str());
+    }
+
 } // namespace iaux

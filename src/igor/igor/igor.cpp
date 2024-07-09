@@ -4,7 +4,7 @@
 
 #include <igor/igor.h>
 
-#include <igor/resources/config/iConfigReader.h>
+#include <igor/resources/config/iConfig.h>
 
 #include <iaux/iaux.h>
 #include <iaux/system/iaDate.h>
@@ -137,7 +137,7 @@ namespace igor
                                  << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
-        iaConsole::getInstance() << T << "                 R.P. Easing, TinyXML and Fun" << endl
+        iaConsole::getInstance() << T << "                 R.P. Easing, nlohmann json and Fun" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek, M. Dederer" << endl
                                  << endl;
@@ -279,7 +279,7 @@ namespace igor
 
         for (const auto &location : configLocations)
         {
-            iaFile file(location + IGOR_PATHSEPARATOR + "igor.xml");
+            iaFile file(location + IGOR_PATHSEPARATOR + "igor.json");
 
             if (file.exists())
             {
@@ -288,7 +288,7 @@ namespace igor
             }
         }
 
-        iConfigReader::create();
+        iConfig::create();
 
         if (configurationFilepath.isEmpty())
         {
@@ -307,16 +307,16 @@ namespace igor
                 iaDirectory::makeDirectory(configFolder);
             }
 
-            iConfigReader::getInstance().writeConfiguration(configFolder + "/igor.xml");
+            iConfig::getInstance().writeConfiguration(configFolder + "/igor.json");
         }
         else
         {
-            iConfigReader::getInstance().readConfiguration(configurationFilepath);
+            iConfig::getInstance().readConfiguration(configurationFilepath);
         }
 
-        if (iConfigReader::getInstance().hasSetting("logLevel"))
+        if (iConfig::getInstance().hasSetting("logLevel"))
         {
-            const iaString level = iConfigReader::getInstance().getValue("logLevel");
+            const iaString level = iConfig::getInstance().getValue("logLevel");
 
             if (level == "Assert")
             {

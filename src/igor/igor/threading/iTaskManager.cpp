@@ -8,7 +8,7 @@
 #include <igor/threading/iRenderContextThread.h>
 #include <igor/threading/tasks/iTask.h>
 #include <igor/system/iWindow.h>
-#include <igor/resources/config/iConfigReader.h>
+#include <igor/resources/config/iConfig.h>
 
 #include <iaux/system/iaConsole.h>
 
@@ -24,9 +24,9 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfigReader::getInstance().hasSetting("maxThreads"))
+        if (iConfig::getInstance().hasSetting("maxThreads"))
         {
-            const iaString max = iConfigReader::getInstance().getValue("maxThreads");
+            const iaString max = iConfig::getInstance().getValue("maxThreads");
 
             if (max != "Max")
             {
@@ -34,9 +34,9 @@ namespace igor
             }
         }
 
-        if (iConfigReader::getInstance().hasSetting("minThreads"))
+        if (iConfig::getInstance().hasSetting("minThreads"))
         {
-            minThreads = iConfigReader::getInstance().getValueAsInt("minThreads");
+            minThreads = iConfig::getInstance().getValueAsInt("minThreads");
         }
 
         return std::max(minThreads, maxThreads);
@@ -199,9 +199,9 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfigReader::getInstance().hasSetting("maxRenderContextThreads"))
+        if (iConfig::getInstance().hasSetting("maxRenderContextThreads"))
         {
-            const iaString max = iConfigReader::getInstance().getValue("maxRenderContextThreads");
+            const iaString max = iConfig::getInstance().getValue("maxRenderContextThreads");
 
             if (max != "Max")
             {
@@ -209,9 +209,9 @@ namespace igor
             }
         }
 
-        if (iConfigReader::getInstance().hasSetting("minRenderContextThreads"))
+        if (iConfig::getInstance().hasSetting("minRenderContextThreads"))
         {
-            minThreads = iConfigReader::getInstance().getValueAsInt("minRenderContextThreads");
+            minThreads = iConfig::getInstance().getValueAsInt("minRenderContextThreads");
         }
 
         return std::max(minThreads, maxThreads);
