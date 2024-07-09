@@ -33,7 +33,7 @@ namespace igor
         }
 
         _projectFolder = projectFolder;
-        load();        
+        load();
     }
 
     void iProject::create(const iaString &projectFolder)
@@ -62,10 +62,10 @@ namespace igor
     }
 
     void iProject::load()
-    {        
-        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
+    {
+        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.json";
         read(filenameConfig);
-        
+
         const iaString filenameDictionary = "resource_dictionary.json";
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
@@ -87,7 +87,7 @@ namespace igor
 
     void iProject::save()
     {
-        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
+        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.json";
         const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.json";
 
         write(filenameConfig);
@@ -99,28 +99,15 @@ namespace igor
         char temp[2048];
         filename.getData(temp, 2048);
 
-        TiXmlDocument document(temp);
-        if (!document.LoadFile())
+        std::ifstream file(temp);
+        json data = json::parse(file);
+
+        if(!data.contains("projectName"))
         {
-            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
+            con_err("unexpected data");
             return false;
         }
-
-        TiXmlElement *root = document.FirstChildElement("Igor");
-        if (root == nullptr)
-        {
-            con_err("not an igor xml file \"" << temp << "\"");
-            return false;
-        }
-
-        TiXmlElement *project = root->FirstChildElement("Project");
-        if (project == nullptr)
-        {
-            con_err("invalid file \"" << temp << "\"");
-            return false;
-        }
-
-        _projectName = (project->Attribute("name"));
+        _projectName = data["projectName"].get<iaString>();
 
         con_debug("loaded project file \"" << filename << "\"");
 
@@ -132,7 +119,7 @@ namespace igor
         char temp[2048];
         filename.getData(temp, 2048);
 
-        std::wofstream stream;
+        std::ofstream stream;
         stream.open(temp);
 
         if (!stream.is_open())
@@ -141,10 +128,11 @@ namespace igor
             return false;
         }
 
-        stream << "<?xml version=\"1.0\"?>\n";
-        stream << "<Igor>\n";
-        stream << "    <Project name=\"" << _projectName << "\" />\n";
-        stream << "</Igor>\n";
+        json configJson = {
+            {"projectName", _projectName},
+        };
+
+        stream << configJson.dump(4);
 
         con_debug("written project file " << filename);
 
