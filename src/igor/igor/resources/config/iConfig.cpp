@@ -71,16 +71,16 @@ namespace igor
         std::ifstream file(temp);
         json data = json::parse(file);
 
-        for (const auto &pair : data.items())
+        for (const auto &element : data.items())
         {
-            if (pair.key() == "searchPaths")
+            if (element.key() == "searchPaths")
             {
-                std::vector<iaString> paths = pair.value();
+                std::vector<iaString> paths = element.value();
                 set("searchPaths", paths);
                 continue;
             }
 
-            set(pair.key().c_str(), pair.value().get<iaString>());
+            set(element.key().c_str(), element.value().get<iaString>());
         }
 
         con_info("loaded configuration \"" << filename << "\"");

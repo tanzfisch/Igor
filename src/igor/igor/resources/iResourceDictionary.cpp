@@ -125,67 +125,47 @@ namespace igor
         }
     }
 
-    bool iResourceDictionary::readResourceDictionaryElement(TiXmlElement *element, bool internal)
-    {
-        TiXmlElement *resource = element->FirstChildElement("Resource");
-        if (resource == nullptr)
-        {
-            con_warn("resource dictionary is empty");
-            return true;
-        }
-
-        do
-        {
-            // get name and value
-            iaString id(resource->Attribute("id"));
-            iaString source(resource->Attribute("source"));
-            iaString alias(resource->Attribute("alias"));
-            iaUUID uuid(id);
-
-            if (!addResource(uuid, source, alias, internal))
-            {
-                return false;
-            }
-
-            resource = resource->NextSiblingElement("Resource");
-        } while (resource != nullptr);
-
-        return true;
-    }
-
     bool iResourceDictionary::read(const iaString &filename)
     {
         char temp[2048];
         filename.getData(temp, 2048);
 
-        TiXmlDocument document(temp);
-        if (!document.LoadFile())
-        {
-            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
-            return false;
-        }
+        std::ifstream file(temp);
+        json data = json::parse(file);
 
-        TiXmlElement *root = document.FirstChildElement("Igor");
-        if (root == nullptr)
+        for (auto element : data)
         {
-            con_err("not an igor xml file \"" << temp << "\"");
-            return false;
-        }
+            if(!element.contains("id"))
+            {
+                con_err("entry is missing resource id");
+                continue;
+            }
+            iaUUID uuid = element["id"].get<iaUUID>();
 
-        TiXmlElement *resourceDictionary = root->FirstChildElement("ResourceDictionary");
-        if (resourceDictionary == nullptr)
-        {
-            con_err("invalid file \"" << temp << "\"");
-            return false;
-        }
+            if(!element.contains("source"))
+            {
+                con_err("entry is missing resource source");
+                continue;
+            }
+            iaString source = element["source"].get<iaString>();
 
-        iaString internal(resourceDictionary->Attribute("internal"));
-
-        if (!readResourceDictionaryElement(resourceDictionary, (!internal.isEmpty() && internal == "true")))
-        {
-            con_err("can't read all resource dictionary entries from \"" << filename << "\"");
-            return false;
-        }
+            bool internal = false;
+            if(element.contains("internal"))
+            {
+                internal = element["internal"].get<bool>();
+            }
+            
+            iaString alias;
+            if(element.contains("alias"))
+            {
+                alias = element["alias"].get<iaString>();
+            }
+            
+            if (!addResource(uuid, source, alias, internal))
+            {
+                return false;
+            }
+        }        
 
         con_info("loaded resource dictionary \"" << filename << "\"");
         return true;
