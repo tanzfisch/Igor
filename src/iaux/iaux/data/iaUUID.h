@@ -31,9 +31,6 @@
 
 #include <iaux/data/iaString.h>
 
-#include <json.hpp>
-using json = nlohmann::json;
-
 namespace iaux
 {
 
@@ -132,15 +129,6 @@ namespace iaux
     \returns stream it self
     */
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaUUID &uuid);
-
-    /*! iaUUID to json
-     */
-    void to_json(json &j, const iaUUID &uuid);
-
-    /*! json to iaUUID
-     */
-    void from_json(const json &j, iaUUID &uuid);
-
 }
 
 /*! so can be used as key in a map

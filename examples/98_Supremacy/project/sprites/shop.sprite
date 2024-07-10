@@ -1,13 +1,127 @@
-<?xml version="1.0"?>
-<Igor>
-    <Sprite texture="example_texture_supremacy_drone" pixelPerUnit="1">
-        <Frame pos="0, 0" size="256, 256" pivot="128, 128" pixel="true"/>
-        <Frame pos="256, 0" size="256, 256" pivot="128, 128" pixel="true"/>
-        <Frame pos="512, 0" size="256, 256" pivot="128, 128" pixel="true"/>
-        <Frame pos="768, 0" size="256, 256" pivot="128, 128" pixel="true"/>
-        <Frame pos="0, 256" size="256, 256" pivot="128, 128" pixel="true"/>
-        <Frame pos="256, 256" size="256, 256" pivot="128, 128" pixel="true"/>
-        <Frame pos="512, 256" size="256, 256" pivot="128, 128" pixel="true"/>
-        <Frame pos="768, 256" size="256, 256" pivot="128, 128" pixel="true"/>
-    </Sprite>
-</Igor>
+{
+	"sprite": {
+		"texture": "example_texture_supremacy_drone",
+		"pixelPerUnit": 1,
+		"frames": [{
+				"pos": {
+					"x": 0,
+					"y": 0
+				},
+				"size": {
+					"x": 256,
+					"y": 256
+				},
+				"pivot": {
+					"x": 128,
+					"y": 128
+				},
+				"pixel": true
+			},
+			{
+				"pos": {
+					"x": 256,
+					"y": 0
+				},
+				"size": {
+					"x": 256,
+					"y": 256
+				},
+				"pivot": {
+					"x": 128,
+					"y": 128
+				},
+				"pixel": true
+			},
+			{
+				"pos": {
+					"x": 512,
+					"y": 0
+				},
+				"size": {
+					"x": 256,
+					"y": 256
+				},
+				"pivot": {
+					"x": 128,
+					"y": 128
+				},
+				"pixel": true
+			},
+			{
+				"pos": {
+					"x": 768,
+					"y": 0
+				},
+				"size": {
+					"x": 256,
+					"y": 256
+				},
+				"pivot": {
+					"x": 128,
+					"y": 128
+				},
+				"pixel": true
+			},
+			{
+				"pos": {
+					"x": 0,
+					"y": 256
+				},
+				"size": {
+					"x": 256,
+					"y": 256
+				},
+				"pivot": {
+					"x": 128,
+					"y": 128
+				},
+				"pixel": true
+			},
+			{
+				"pos": {
+					"x": 256,
+					"y": 256
+				},
+				"size": {
+					"x": 256,
+					"y": 256
+				},
+				"pivot": {
+					"x": 128,
+					"y": 128
+				},
+				"pixel": true
+			},
+			{
+				"pos": {
+					"x": 512,
+					"y": 256
+				},
+				"size": {
+					"x": 256,
+					"y": 256
+				},
+				"pivot": {
+					"x": 128,
+					"y": 128
+				},
+				"pixel": true
+			},
+			{
+				"pos": {
+					"x": 768,
+					"y": 256
+				},
+				"size": {
+					"x": 256,
+					"y": 256
+				},
+				"pivot": {
+					"x": 128,
+					"y": 128
+				},
+				"pixel": true
+			}
+		]
+	}
+}

@@ -7,15 +7,14 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaFile.h>
+#include <iaux/utils/iaJson.h>
 using namespace iaux;
-
-#include <tinyxml.h>
 
 namespace igor
 {
 
     iAnimationFactory::iAnimationFactory()
-    : iFactory(IGOR_RESOURCE_ANIMATION, IGOR_SUPPORTED_ANIMATION_EXTENSIONS)
+        : iFactory(IGOR_RESOURCE_ANIMATION, IGOR_SUPPORTED_ANIMATION_EXTENSIONS)
     {
     }
 
@@ -71,48 +70,9 @@ namespace igor
         if (filepath.isEmpty())
         {
             filepath = resource->getSource();
-        }        
+        }
         const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
-        return loadAnimation(fullFilepath, animation);
-    }
-
-    iaKeyFrameGraphui iAnimationFactory::readIndexAnimation(TiXmlElement *animationElement)
-    {
-        iaKeyFrameGraphui result;
-        TiXmlElement *frame = animationElement->FirstChildElement("Frame");
-
-        do
-        {
-            float64 time;
-            frame->Attribute("time", &time);
-            int value;
-            frame->Attribute("value", &value);
-
-            result.setValue(time, value);
-
-        } while ((frame = frame->NextSiblingElement("Frame")) != nullptr);
-
-        return result;
-    }
-
-    iaKeyFrameGraphVector3d iAnimationFactory::readVector3Animation(TiXmlElement *animationElement)
-    {
-        iaKeyFrameGraphVector3d result;
-        TiXmlElement *frame = animationElement->FirstChildElement("Frame");
-
-        do
-        {
-            float64 time;
-            frame->Attribute("time", &time);
-            iaString value = frame->Attribute("value");
-            iaVector3d vec;
-            iaString::toVector<float64>(value, vec);
-
-            result.setValue(time, vec);
-
-        } while ((frame = frame->NextSiblingElement("Frame")) != nullptr);
-
-        return result;
+        return load(fullFilepath, animation);
     }
 
     static iInterpolationMode getInterpolationMode(const iaString &mode)
@@ -126,64 +86,118 @@ namespace igor
         return iInterpolationMode::Linear;
     }
 
-    void iAnimationFactory::readAnimationElement(TiXmlElement *animationElement, iAnimationPtr animation)
-    {
-        const iaString keyFrameType(animationElement->Attribute("keyFrameType"));
-        const iaString target(animationElement->Attribute("target"));
-        iInterpolationMode interpolationMode = getInterpolationMode(animationElement->Attribute("interpolationMode"));
-
-        if (keyFrameType == "int" &&
-            target == "FrameIndex")
-        {
-            iaKeyFrameGraphui result = readIndexAnimation(animationElement);
-            result.setInterpolationMode(interpolationMode);
-            animation->setFrameIndexAnimation(result);
-            return;
-        }
-
-        if (keyFrameType == "Vector3")
-        {
-            iaKeyFrameGraphVector3d result = readVector3Animation(animationElement);
-            result.setInterpolationMode(interpolationMode);
-
-            if (target == "Translate")
-            {
-                animation->setTranslateAnimation(result);
-            }
-
-            if (target == "Rotate")
-            {
-                animation->setRotateAnimation(result);
-            }
-
-            if (target == "Scale")
-            {
-                animation->setScaleAnimation(result);
-            }
-        }
-    }
-
-    bool iAnimationFactory::loadAnimation(const iaString &filename, iAnimationPtr animation)
+    bool iAnimationFactory::load(const iaString &filename, iAnimationPtr animation)
     {
         char temp[2048];
         filename.getData(temp, 2048);
 
-        TiXmlDocument document(temp);
-        if (!document.LoadFile())
+        std::ifstream file(temp);
+        json data = json::parse(file);
+
+        if (!data.is_array())
         {
-            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
+            con_err("incompatible data");
             return false;
         }
 
-        TiXmlElement *root = document.FirstChildElement("Igor");
-        if (root != nullptr)
+        // TODO refactor
+        for (auto element : data)
         {
-            TiXmlElement *animationElement = root->FirstChildElement("Animation");
-            do
+            if(!element.contains("animation"))
             {
-                readAnimationElement(animationElement, animation);
+                continue;
+            }
 
-            } while ((animationElement = animationElement->NextSiblingElement("Animation")) != nullptr);
+            json animationJson = element["animation"];
+
+            if (!animationJson.contains("frames"))
+            {
+                con_err("incompatible data");
+                return false;
+            }
+            json framesJson = animationJson["frames"];
+
+            iaString keyFrameType = "int";
+            if (animationJson.contains("keyFrameType"))
+            {
+                keyFrameType = animationJson["keyFrameType"].get<iaString>();
+            }
+
+            iaString target = "FrameIndex";
+            if (animationJson.contains("target"))
+            {
+                target = animationJson["target"].get<iaString>();
+            }
+
+            iInterpolationMode interpolationMode = iInterpolationMode::None;
+            if (animationJson.contains("interpolationMode"))
+            {
+                interpolationMode = getInterpolationMode(animationJson["interpolationMode"].get<iaString>());
+            }
+
+            if (keyFrameType == "int" &&
+                target == "FrameIndex")
+            {
+                iaKeyFrameGraphui result;
+
+                for (auto element : framesJson)
+                {
+                    json frame = element["frame"];
+
+                    if (!frame.contains("time") ||
+                        !frame.contains("value"))
+                    {
+                        continue;
+                    }
+
+                    float64 time = frame["time"].get<float64>();
+                    uint32 value = frame["value"].get<uint32>();
+
+                    result.setValue(time, value);
+                }
+
+                result.setInterpolationMode(interpolationMode);
+                animation->setFrameIndexAnimation(result);
+                return true;
+            }
+
+            if (keyFrameType == "Vector3")
+            {
+                iaKeyFrameGraphVector3d result;
+
+                for (auto element : framesJson)
+                {
+                    json frame = element["frame"];
+
+                    if (!frame.contains("time") ||
+                        !frame.contains("value"))
+                    {
+                        continue;
+                    }
+
+                    float64 time = frame["time"].get<float64>();
+                    iaVector3d value = frame["value"].get<iaVector3d>();
+
+                    result.setValue(time, value);
+                }
+
+                result.setInterpolationMode(interpolationMode);
+
+                if (target == "Translate")
+                {
+                    animation->setTranslateAnimation(result);
+                }
+
+                if (target == "Rotate")
+                {
+                    animation->setRotateAnimation(result);
+                }
+
+                if (target == "Scale")
+                {
+                    animation->setScaleAnimation(result);
+                }
+            }
         }
 
         return true;

@@ -7,6 +7,7 @@
 
 #include <igor/resources/iResourceManager.h>
 
+#include <iaux/utils/iaJson.h>
 #include <iaux/system/iaFile.h>
 using namespace iaux;
 

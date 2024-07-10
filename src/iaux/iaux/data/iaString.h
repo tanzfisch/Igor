@@ -38,9 +38,6 @@
 #include <ostream>
 #include <vector>
 
-#include <json.hpp>
-using json = nlohmann::json;
-
 namespace iaux
 {
 
@@ -676,14 +673,6 @@ namespace iaux
 
         vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z), static_cast<T>(w));
     }
-
-    /*! iaString to json
-     */
-    void to_json(json &j, const iaString &text);
-
-    /*! json to iaString
-     */
-    void from_json(const json &j, iaString &text);
 
 } // namespace iaux
 

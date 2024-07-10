@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SPRITE_FACTORY__
-#define __IGOR_SPRITE_FACTORY__
+#ifndef IGOR_SPRITE_FACTORY_H
+#define IGOR_SPRITE_FACTORY_H
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/sprite/iSprite.h>
@@ -72,21 +72,14 @@ namespace igor
         */
         void unloadResource(iResourcePtr resource) override;
 
-        /*! reads sprite element
-
-        \param sprite the sprite element
-        \param sprite the target sprite
-        */
-        void readSpriteElement(TiXmlElement *spriteElement, iSpritePtr sprite);
-
         /*! load sprite from file
 
         \param filename the filename
         \param sprite the target sprite
         */
-        bool loadSprite(const iaString &filename, iSpritePtr sprite);
+        bool load(const iaString &filename, iSpritePtr sprite);
     };
 
 }; // namespace igor
 
-#endif // __IGOR_SPRITE_FACTORY__
+#endif // IGOR_SPRITE_FACTORY_H

@@ -26,13 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ANIMATION_FACTORY__
-#define __IGOR_ANIMATION_FACTORY__
+#ifndef IGOR_ANIMATION_FACTORY_H
+#define IGOR_ANIMATION_FACTORY_H
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/animation/iAnimation.h>
-
-class TiXmlElement;
 
 namespace igor
 {
@@ -77,30 +75,9 @@ namespace igor
         \param filename the file to load the animation from
         \param animation the target animation
         */
-        bool loadAnimation(const iaString &filename, iAnimationPtr animation);
-
-        /*! reads animation element from xml file
-
-        \param animationElement the animation element to read
-        \param animation the target animation
-        */
-        void readAnimationElement(TiXmlElement *animationElement, iAnimationPtr animation);
-
-        /*! reads index key frames from element
-
-        \returns key frames
-        \param animationElement the animation element
-        */
-        iaKeyFrameGraphui readIndexAnimation(TiXmlElement *animationElement);
-
-        /*! reads vector key frames from element
-
-        \returns key frames
-        \param animationElement the animation element
-        */
-        iaKeyFrameGraphVector3d readVector3Animation(TiXmlElement *animationElement);
+        bool load(const iaString &filename, iAnimationPtr animation);
     };
 
 }; // namespace igor
 
-#endif // __IGOR_ANIMATION_FACTORY__
+#endif // IGOR_ANIMATION_FACTORY_H

@@ -9,8 +9,7 @@ using namespace iaux;
 
 #include <tinyxml.h>
 
-#include <json.hpp>
-using json = nlohmann::json;
+#include <iaux/utils/iaJson.h>
 
 namespace igor
 {

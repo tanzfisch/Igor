@@ -7,8 +7,7 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaDirectory.h>
-
-#include <tinyxml.h>
+#include <iaux/utils/iaJson.h>
 
 #include <filesystem>
 

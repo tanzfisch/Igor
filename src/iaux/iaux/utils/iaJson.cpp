@@ -1,0 +1,113 @@
+
+// Igor game engine
+// (c) Copyright 2012-2024 by Martin Loga
+// see copyright notice in corresponding header stream
+
+#include <iaux/utils/iaJson.h>
+
+namespace iaux
+{
+    void to_json(json &j, const iaUUID &uuid)
+    {
+        j = uuid.toString();
+    }
+
+    void from_json(const json &j, iaUUID &uuid)
+    {
+        uuid = iaUUID(iaString(j.get<std::string>().c_str()));
+    }       
+
+    void to_json(json &j, const iaString &text)
+    {
+        j = text.getData();
+    }
+
+    void from_json(const json &j, iaString &text)
+    {
+        text = iaString(j.get<std::string>().c_str());
+    }
+
+    void to_json(json &j, const iaVector2f &vec)
+    {
+        j["x"] = vec._x;
+        j["y"] = vec._y;
+    }
+
+    void from_json(const json &j, iaVector2f &vec)
+    {
+        vec._x = j["x"].get<float32>();
+        vec._y = j["y"].get<float32>();
+    }
+
+    void to_json(json &j, const iaVector3f &vec)
+    {
+        j["x"] = vec._x;
+        j["y"] = vec._y;
+        j["z"] = vec._z;
+    }
+
+    void from_json(const json &j, iaVector3f &vec)
+    {
+        vec._x = j["x"].get<float32>();
+        vec._y = j["y"].get<float32>();
+        vec._z = j["z"].get<float32>();
+    }    
+
+    void to_json(json &j, const iaVector4f &vec)
+    {
+        j["x"] = vec._x;
+        j["y"] = vec._y;
+        j["z"] = vec._z;
+        j["w"] = vec._w;
+    }
+
+    void from_json(const json &j, iaVector4f &vec)
+    {
+        vec._x = j["x"].get<float32>();
+        vec._y = j["y"].get<float32>();
+        vec._z = j["z"].get<float32>();
+        vec._w = j["w"].get<float32>();
+    }        
+
+    void to_json(json &j, const iaVector2d &vec)
+    {
+        j["x"] = vec._x;
+        j["y"] = vec._y;
+    }
+
+    void from_json(const json &j, iaVector2d &vec)
+    {
+        vec._x = j["x"].get<float32>();
+        vec._y = j["y"].get<float32>();
+    }
+
+    void to_json(json &j, const iaVector3d &vec)
+    {
+        j["x"] = vec._x;
+        j["y"] = vec._y;
+        j["z"] = vec._z;
+    }
+
+    void from_json(const json &j, iaVector3d &vec)
+    {
+        vec._x = j["x"].get<float32>();
+        vec._y = j["y"].get<float32>();
+        vec._z = j["z"].get<float32>();
+    }    
+
+    void to_json(json &j, const iaVector4d &vec)
+    {
+        j["x"] = vec._x;
+        j["y"] = vec._y;
+        j["z"] = vec._z;
+        j["w"] = vec._w;
+    }
+
+    void from_json(const json &j, iaVector4d &vec)
+    {
+        vec._x = j["x"].get<float32>();
+        vec._y = j["y"].get<float32>();
+        vec._z = j["z"].get<float32>();
+        vec._w = j["w"].get<float32>();
+    }            
+}

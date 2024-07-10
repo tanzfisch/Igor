@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2024 by Martin Loga
+// see copyright notice in corresponding header stream
+
 #include <iaux/data/iaString.h>
 
 #ifdef IGOR_WINDOWS
@@ -1396,16 +1400,6 @@ namespace iaux
         std::wregex star_replace(L"\\*");
         std::wregex questionmark_replace(L"\\?");
         return iaString(std::regex_replace(std::regex_replace(regexStr, star_replace, L".*"), questionmark_replace, L".").c_str());
-    }
-
-    void to_json(json &j, const iaString &text)
-    {
-        j = text.getData();
-    }
-
-    void from_json(const json &j, iaString &text)
-    {
-        text = iaString(j.get<std::string>().c_str());
     }
 
 } // namespace iaux

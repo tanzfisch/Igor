@@ -108,7 +108,15 @@ namespace iaux
         }
 
         std::filesystem::path fspath(path.getData());
-        return std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath);
+        if(std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath))
+        {
+            return true;
+        }
+
+        const iaString fullDir = iaDirectory::getCurrentDirectory() + IGOR_PATHSEPARATOR + path;
+
+        std::filesystem::path fspath2(fullDir.getData());
+        return std::filesystem::is_directory(fspath2) && std::filesystem::exists(fspath2);
     }
 
     bool iaDirectory::isEmpty(const iaString &path)

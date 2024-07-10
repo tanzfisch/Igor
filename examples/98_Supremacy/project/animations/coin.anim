@@ -1,15 +1,45 @@
-<?xml version="1.0"?>
-<Igor>
-    <!-- keyframe types = int, double, Vector3, Vector2, Color4 -->
-    <!-- interpolation modes = None, Linear -->
-    <!-- target = FrameIndex, Translate, Rotate, Scale -->
-    <Animation keyFrameType="int" interpolationMode="None" target="FrameIndex">
-        <!-- time in seconds -->
-        <Frame time="0.0" value="0"/>
-        <Frame time="0.2" value="1"/>
-        <Frame time="0.4" value="2"/>
-        <Frame time="0.6" value="3"/>
-        <Frame time="0.8" value="2"/>
-        <Frame time="1.0" value="1"/>
-    </Animation>
-</Igor>
+[{ "animation": {
+    "comment": "keyframe types = int, double, Vector3, Vector2, Color4; interpolation modes = None, Linear; target = FrameIndex, Translate, Rotate, Scale",
+    "keyFrameType": "int",
+    "interpolationMode": "None",
+    "target": "FrameIndex",
+    "frames": [
+    {
+        "frame": {
+        "time": 0.0,
+        "value": 0
+        }
+    },
+    {
+        "frame": {
+        "time": 0.2,
+        "value": 1
+        }
+    },
+    {
+        "frame": {
+        "time": 0.4,
+        "value": 2
+        }
+    },
+    {
+        "frame": {
+        "time": 0.6,
+        "value": 3
+        }
+    },
+    {
+        "frame": {
+        "time": 0.8,
+        "value": 2
+        }
+    },
+    {
+        "frame": {
+        "time": 1.0,
+        "value": 1
+        }
+    }
+    ]
+}}]
+
