@@ -1,4 +1,3 @@
-
 // Igor game engine
 // (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header stream
@@ -15,7 +14,7 @@ namespace iaux
     void from_json(const json &j, iaUUID &uuid)
     {
         uuid = iaUUID(iaString(j.get<std::string>().c_str()));
-    }       
+    }
 
     void to_json(json &j, const iaString &text)
     {
@@ -51,7 +50,7 @@ namespace iaux
         vec._x = j["x"].get<float32>();
         vec._y = j["y"].get<float32>();
         vec._z = j["z"].get<float32>();
-    }    
+    }
 
     void to_json(json &j, const iaVector4f &vec)
     {
@@ -67,7 +66,7 @@ namespace iaux
         vec._y = j["y"].get<float32>();
         vec._z = j["z"].get<float32>();
         vec._w = j["w"].get<float32>();
-    }        
+    }
 
     void to_json(json &j, const iaVector2d &vec)
     {
@@ -93,7 +92,7 @@ namespace iaux
         vec._x = j["x"].get<float32>();
         vec._y = j["y"].get<float32>();
         vec._z = j["z"].get<float32>();
-    }    
+    }
 
     void to_json(json &j, const iaVector4d &vec)
     {
@@ -109,5 +108,35 @@ namespace iaux
         vec._y = j["y"].get<float32>();
         vec._z = j["z"].get<float32>();
         vec._w = j["w"].get<float32>();
-    }            
+    }
+
+    void to_json(json &j, const iaColor3f &color)
+    {
+        j["r"] = color._r;
+        j["g"] = color._g;
+        j["b"] = color._b;
+    }
+
+    void from_json(const json &j, iaColor3f &color)
+    {
+        color._r = j["r"].get<float32>();
+        color._g = j["g"].get<float32>();
+        color._b = j["b"].get<float32>();
+    }
+
+    void to_json(json &j, const iaColor4f &color)
+    {
+        j["r"] = color._r;
+        j["g"] = color._g;
+        j["b"] = color._b;
+        j["a"] = color._a;
+    }
+
+    void from_json(const json &j, iaColor4f &color)
+    {
+        color._r = j["r"].get<float32>();
+        color._g = j["g"].get<float32>();
+        color._b = j["b"].get<float32>();
+        color._a = j["a"].get<float32>();
+    }
 }

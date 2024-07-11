@@ -33,12 +33,24 @@
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaVector4.h>
+#include <iaux/data/iaColor3.h>
+#include <iaux/data/iaColor4.h>
 
 #include <json.hpp>
 using json = nlohmann::json;
 
 namespace iaux
 {
+
+    /*! helper class to access json values
+    */
+    class iaJson
+    {
+        public:
+            template <typename T>
+            static const T getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue);
+    };
+
     /*! iaUUID to json
      */
     void to_json(json &j, const iaUUID &uuid);
@@ -77,7 +89,7 @@ namespace iaux
 
     /*! json to iaVector4f
      */
-    void from_json(const json &j, iaVector4f &vec);        
+    void from_json(const json &j, iaVector4f &vec);
 
     /*! iaVector2d to json
      */
@@ -101,7 +113,25 @@ namespace iaux
 
     /*! json to iaVector4d
      */
-    void from_json(const json &j, iaVector4d &vec);        
+    void from_json(const json &j, iaVector4d &vec);
+
+    /*! iaColor3f to json
+     */
+    void to_json(json &j, const iaColor3f &color);
+
+    /*! json to iaColor3f
+     */
+    void from_json(const json &j, iaColor3f &color);
+
+    /*! iaColor4f to json
+     */
+    void to_json(json &j, const iaColor4f &color);
+
+    /*! json to iaColor4f
+     */
+    void from_json(const json &j, iaColor4f &color);    
+
+    #include <iaux/utils/iaJson.inl>
 }
 
 #endif // IAUX_JSON_H

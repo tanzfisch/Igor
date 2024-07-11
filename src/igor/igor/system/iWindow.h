@@ -45,11 +45,11 @@ namespace igor
     class iWindowImpl;
 
     /*! render context pointer definition
-    */
+     */
     typedef void *iRenderContextPtr;
 
     /*! window id definition
-    */
+     */
     typedef iaID64 iWindowID;
 
     /*! application window
@@ -65,11 +65,11 @@ namespace igor
 
     public:
         /*! invalid node id definition
-        */
+         */
         static const iWindowID INVALID_WINDOW_ID = IGOR_INVALID_ID;
 
         /*! \returns id of the window
-        */
+         */
         iWindowID getID() const;
 
         /*! sets if the window understands double clicks
@@ -81,7 +81,7 @@ namespace igor
         void setDoubleClick(bool doubleClick);
 
         /*! \returns true if the window understands double clicks
-        */
+         */
         bool getDoubleClick() const;
 
         /*! sets the usage of vsync or not
@@ -90,7 +90,7 @@ namespace igor
         void setVSync(bool vsync);
 
         /*! \returns true if vsync is activated
-        */
+         */
         bool getVSync() const;
 
         /*! sets title of window
@@ -100,31 +100,31 @@ namespace igor
         void setTitle(const iaString &title);
 
         /*! \returns title of the window
-        */
+         */
         iaString getTitle() const;
 
         /*! \returns width of window
-        */
+         */
         int32 getWidth() const;
 
         /*! \returns height of window
-        */
+         */
         int32 getHeight() const;
 
         /*! \returns width of render area
-        */
+         */
         int32 getClientWidth() const;
 
         /*! \returns height of render area
-        */
+         */
         int32 getClientHeight() const;
 
         /*! \returns horizontal position of window
-        */
+         */
         int32 getXPos() const;
 
         /*! \returns vertical position of window
-        */
+         */
         int32 getYPos() const;
 
         /*! returns if window is open or closed
@@ -140,7 +140,7 @@ namespace igor
         bool open();
 
         /*! closes window
-        */
+         */
         void close();
 
         /*! set color depth
@@ -150,7 +150,7 @@ namespace igor
         void setColorDepth(uint8 colordepth);
 
         /*! \returns color buffer depth
-        */
+         */
         uint8 getColorDepth() const;
 
         /*! set depth buffer depth
@@ -160,7 +160,7 @@ namespace igor
         void setZDepth(uint8 zdepth);
 
         /*! \returns depth buffer depth in bits
-        */
+         */
         uint8 getZDepth() const;
 
         /*! set resolution of window
@@ -178,7 +178,7 @@ namespace igor
         void setClientSize(int32 width, int32 height);
 
         /*! set window resolution so same value as desktop resolution
-        */
+         */
         void setSizeByDesktop();
 
         /*! returns desktop size
@@ -202,11 +202,11 @@ namespace igor
         void setFullscreen(bool fullscreen = true);
 
         /*! centers the window relative to the desktop horizontally and vertically
-        */
+         */
         void setCentered();
 
         /*! \returns if window is in full screen or window mode
-        */
+         */
         bool isFullscreen();
 
         /*! adds view to the window
@@ -223,7 +223,6 @@ namespace igor
         void removeView(iView *view);
 
     private:
-
         /*! ctor
 
         initializes all member variables and registeres os event listeners
@@ -237,19 +236,19 @@ namespace igor
         virtual ~iWindow();
 
         /*! pimpl
-        */
+         */
         iWindowImpl *_impl = nullptr;
 
         /*! id of this node
-        */
+         */
         iWindowID _windowID = iWindow::INVALID_WINDOW_ID;
 
         /*! the next window id
-        */
+         */
         static iaIDGenerator64 _idGenerator;
 
         /*! list of views
-        */
+         */
         std::vector<iView *> _views;
 
         /*! called when window size has changed
@@ -289,25 +288,25 @@ namespace igor
         bool deleteRenderContext(iRenderContextPtr renderContext);
 
         /*! \returns default render context
-        */
+         */
         iRenderContextPtr getDefaultRenderContext() const;
 
         /*! handling os events sent to the window
-        */
+         */
         void onUpdate();
 
         /*! swaps video buffers
-        */
+         */
         void swapBuffers();
 
         /*! draws contend of view in to the window
-        */
+         */
         void draw();
     };
 
     /*! the window pointer definition
-    */
-    typedef iWindow* iWindowPtr;
+     */
+    typedef iWindow *iWindowPtr;
 
 }; // namespace igor
 

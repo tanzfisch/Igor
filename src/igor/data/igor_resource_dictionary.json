@@ -204,6 +204,12 @@
         "source": "icons/scene.png"
     },
     {
+        "alias": "igor_icon_viewport",
+        "id": "0x1f2c475d62a8fe98",
+        "internal": true,
+        "source": "icons/scene.png"
+    },    
+    {
         "alias": "igor_shader_material_flat_shaded_blend",
         "id": "0x5326ec8d85279259",
         "internal": true,

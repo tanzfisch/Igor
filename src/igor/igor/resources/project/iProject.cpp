@@ -101,12 +101,7 @@ namespace igor
         std::ifstream file(temp);
         json data = json::parse(file);
 
-        if(!data.contains("projectName"))
-        {
-            con_err("unexpected data");
-            return false;
-        }
-        _projectName = data["projectName"].get<iaString>();
+        _projectName = iaJson::getValue<iaString>(data, "projectName", "New Project");
 
         con_debug("loaded project file \"" << filename << "\"");
 

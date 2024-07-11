@@ -7,8 +7,6 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include <tinyxml.h>
-
 #include <iaux/utils/iaJson.h>
 
 namespace igor

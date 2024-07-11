@@ -117,17 +117,8 @@ namespace igor
             }
             json framesJson = animationJson["frames"];
 
-            iaString keyFrameType = "int";
-            if (animationJson.contains("keyFrameType"))
-            {
-                keyFrameType = animationJson["keyFrameType"].get<iaString>();
-            }
-
-            iaString target = "FrameIndex";
-            if (animationJson.contains("target"))
-            {
-                target = animationJson["target"].get<iaString>();
-            }
+            const iaString keyFrameType = iaJson::getValue<iaString>(animationJson, "keyFrameType", "int");
+            const iaString target = iaJson::getValue<iaString>(animationJson, "target", "FrameIndex");
 
             iInterpolationMode interpolationMode = iInterpolationMode::None;
             if (animationJson.contains("interpolationMode"))

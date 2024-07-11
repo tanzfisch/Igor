@@ -8,99 +8,91 @@
 #include <igor/data/iXMLHelper.h>
 
 #include <iaux/system/iaFile.h>
-
-#include <tinyxml.h>
+#include <iaux/utils/iaJson.h>
 
 #include <fstream>
 #include <iostream>
 
 namespace igor
 {
-
-    bool iMaterialIO::readTextures(TiXmlElement *materialXML, const iMaterialPtr &material)
-    {
-        TiXmlElement *element = materialXML->FirstChildElement("Texture");
-        if (element == nullptr)
-        {
-            return true;
-        }
-
-        do
-        {
-            const uint32 texUnit = iaString::toInt(iaString(element->Attribute("unit")));
-
-            TiXmlNode *textNode = element->FirstChild();
-            if (textNode == nullptr ||
-                textNode->Type() != TiXmlNode::NodeType::TINYXML_TEXT)
-            {
-                continue;
-            }
-
-            iResourceID textureID(iaString(textNode->ValueStr().c_str()));
-
-            iTexturePtr texture = iResourceManager::getInstance().requestResource<iTexture>(textureID);
-            material->setTexture(texture, texUnit);
-
-            element = element->NextSiblingElement("Texture");
-        } while (element != nullptr);
-
-        return true;
-    }
-
-    bool iMaterialIO::readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material)
-    {
-        const iaColor3f diffuse = iXMLHelper::getValue<iaColor3f>(materialXML, "Diffuse", iaColor3f(0.5f, 0.5f, 0.5f));
-        const iaColor3f ambient = iXMLHelper::getValue<iaColor3f>(materialXML, "Ambient", iaColor3f(0.4f, 0.4f, 0.4f));
-        const iaColor3f specular = iXMLHelper::getValue<iaColor3f>(materialXML, "Specular", iaColor3f(0.6f, 0.6f, 0.6f));
-        const iaColor3f emissive = iXMLHelper::getValue<iaColor3f>(materialXML, "Emissive", iaColor3f(0.0f, 0.0f, 0.0f));
-        const float32 shininess = iXMLHelper::getValue<float32>(materialXML, "Shininess", 5.0f);
-        const float32 alpha = iXMLHelper::getValue<float32>(materialXML, "Alpha", 5.0f);
-        const iaVector2f tiling = iXMLHelper::getValue<iaVector2f>(materialXML, "Tiling", iaVector2f(1.0f, 1.0f));
-
-        const iaString shader = iXMLHelper::getValue<iaString>(materialXML, "ShaderMaterial", "");
-        if (!shader.isEmpty())
-        {
-            material->setShader(iResourceManager::getInstance().loadResource<iShader>(shader));
-        }
-
-        material->setDiffuse(diffuse);
-        material->setAmbient(ambient);
-        material->setSpecular(specular);
-        material->setEmissive(emissive);
-        material->setShininess(shininess);
-        material->setAlpha(alpha);
-        material->setTiling(tiling);
-
-        return readTextures(materialXML, material);
-    }
-
     bool iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
     {
         char temp[2048];
         filename.getData(temp, 2048);
 
-        TiXmlDocument document(temp);
-        if (!document.LoadFile())
+        std::ifstream file(temp);
+        json data = json::parse(file);
+
+        if (!data.contains("material"))
         {
-            con_err("can't read \"" << filename << "\". TinyXML:" << document.ErrorDesc());
             return false;
         }
 
-        TiXmlElement *root = document.FirstChildElement("Igor");
-        if (!root)
+        json materialJson = data["material"];
+        if (!materialJson.contains("shader_material"))
         {
-            con_err("not an igor xml file");
             return false;
         }
-
-        TiXmlElement *materialXML = root->FirstChildElement("Material");
-        if (materialXML == nullptr)
+        const iaString shaderMaterial = materialJson["shader_material"].get<iaString>();
+        if (!shaderMaterial.isEmpty())
         {
-            con_err("missing Material element");
-            return false;
+            material->setShader(iResourceManager::getInstance().loadResource<iShader>(shaderMaterial));
         }
 
-        return readMaterial(materialXML, material);
+        if (materialJson.contains("diffuse"))
+        {
+            material->setDiffuse(materialJson["diffuse"].get<iaColor3f>());
+        }
+
+        if (materialJson.contains("ambient"))
+        {
+            material->setAmbient(materialJson["ambient"].get<iaColor3f>());
+        }
+
+        if (materialJson.contains("specular"))
+        {
+            material->setSpecular(materialJson["specular"].get<iaColor3f>());
+        }
+
+        if (materialJson.contains("emissive"))
+        {
+            material->setEmissive(materialJson["emissive"].get<iaColor3f>());
+        }
+
+        if (materialJson.contains("shininess"))
+        {
+            material->setShininess(materialJson["shininess"].get<float32>());
+        }
+
+        if (materialJson.contains("alpha"))
+        {
+            material->setAlpha(materialJson["alpha"].get<float32>());
+        }
+
+        if (materialJson.contains("tiling"))
+        {
+            material->setTiling(materialJson["tiling"].get<iaVector2f>());
+        }
+
+        if (materialJson.contains("textures"))
+        {
+            auto textures = materialJson["textures"];
+
+            for (auto textureJson : textures)
+            {
+                if (!textureJson.contains("unit") ||
+                    !textureJson.contains("uuid"))
+                {
+                    continue;
+                }
+
+                uint32 texUnit = textureJson["unit"].get<uint32>();
+                iResourceID textureID(textureJson["uuid"].get<iaString>());
+                material->setTexture(iResourceManager::getInstance().requestResource<iTexture>(textureID), texUnit);
+            }
+        }
+
+        return true;
     }
 
     bool iMaterialIO::write(const iaString &filename, const iMaterialPtr &material)
@@ -108,37 +100,30 @@ namespace igor
         char temp[2048];
         filename.getData(temp, 2048);
 
-        std::wofstream file;
-        file.open(temp);
+        std::ofstream stream;
+        stream.open(temp);
 
-        if (!file.is_open())
+        if (!stream.is_open())
         {
             con_err("can't open to write \"" << temp << "\"");
             return false;
         }
 
-        file << "<?xml version=\"1.0\"?>\n";
-        file << "<Igor>\n";
-        file << "\t<Material>\n";
-
-        const auto diffuse = material->getDiffuse();
-        const auto ambient = material->getAmbient();
-        const auto specular = material->getSpecular();
-        const auto emissive = material->getEmissive();
-        const auto tiling = material->getTiling();
+        json materialJson = {
+            {"diffuse", material->getDiffuse()},
+            {"ambient", material->getAmbient()},
+            {"specular", material->getSpecular()},
+            {"emissive", material->getEmissive()},
+            {"shininess", material->getShininess()},
+            {"alpha", material->getAlpha()},
+            {"tiling", material->getTiling()}};        
 
         if (material->getShader())
         {
-            file << "\t\t<ShaderMaterial>" << material->getShader()->getID() << "</ShaderMaterial>\n";
+            materialJson["shader_material"] = material->getShader()->getID().toString();
         }
-        file << "\t\t<Diffuse>" << diffuse._r << ", " << diffuse._g << ", " << diffuse._b << "</Diffuse>\n";
-        file << "\t\t<Ambient>" << ambient._r << ", " << ambient._g << ", " << ambient._b << "</Ambient>\n";
-        file << "\t\t<Specular>" << specular._r << ", " << specular._g << ", " << specular._b << "</Specular>\n";
-        file << "\t\t<Emissive>" << emissive._r << ", " << emissive._g << ", " << emissive._b << "</Emissive>\n";
-        file << "\t\t<Shininess>" << material->getShininess() << "</Shininess>\n";
-        file << "\t\t<Alpha>" << material->getAlpha() << "</Alpha>\n";
-        file << "\t\t<Tiling>" << tiling._x << ", " << tiling._y << "</Tiling>\n";
 
+        json textures = json::array();
         for (const auto &tex : material->getTextures())
         {
             if (tex.second == nullptr)
@@ -146,11 +131,21 @@ namespace igor
                 continue;
             }
 
-            file << "\t\t<Texture unit=\"" << tex.first << "\">" << tex.second->getID().toString() << "</Texture>\n";
+            json texture = {
+                {"unit", tex.first},
+                {"uuid", tex.second->getID()}};
+
+            textures.push_back(texture);
         }
 
-        file << "\t</Material>\n";
-        file << "</Igor>\n";
+        if (!textures.empty())
+        {
+            materialJson["textures"] = textures;
+        }
+
+        json dataJson;
+        dataJson["material"] = materialJson;
+        stream << dataJson.dump(4);
 
         return true;
     }

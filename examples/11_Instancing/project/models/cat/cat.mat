@@ -1,16 +1,16 @@
-<?xml version="1.0"?>
-<Igor>
-	<Material>
-		<ShaderMaterial>igor_shader_material_instancing_textured</ShaderMaterial>
-		<Diffuse>0.973153, 0.969231, 0.969231</Diffuse>
-		<Ambient>0.649918, 0.63373, 0.63374</Ambient>
-		<Specular>0.334616, 0.334615, 0.334616</Specular>
-		<Emissive>0, 0, 0</Emissive>
-		<Shininess>0</Shininess>
-		<Alpha>1</Alpha>
-		<Tiling>1, 1</Tiling>
-		<Texture unit="0">0xa7058a1207339228</Texture>
-		<Texture unit="1">0x3ad626e030f78ab0</Texture>
-		<Texture unit="2">0xdd343293b9579e59</Texture>
-	</Material>
-</Igor>
+{	"material": {
+		"shader_material": "igor_shader_material_instancing_textured",
+		"diffuse": { "r": 0.969231, "g": 0.969231, "b": 0.969231},
+		"ambient": { "r": 0.65384, "g": 0.63373, "b": 0.63374},
+		"specular": { "r": 0.334616, "g": 0.334615, "b": 0.334616},
+		"emissive": { "r": 0.0, "g": 0.0, "b": 0.0},
+		"shininess": 0.0,
+		"alpha": 1.0,
+		"tiling": { "x": 1.0, "y": 1.0 },
+		"textures": [
+			{"unit": 0, "uuid": "0xa7058a1207339228"},
+			{"unit": 1, "uuid": "0x3ad626e030f78ab0"},
+			{"unit": 2, "uuid": "0xdd343293b9579e59"}
+		]
+	}
+}

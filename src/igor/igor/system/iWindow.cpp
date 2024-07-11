@@ -148,7 +148,7 @@ namespace igor
         bool _doubleClick = false;
 
         /*! gl extensions
-        */
+         */
         std::vector<iaString> _wglxExtensions;
 
         /*! window pointer
@@ -248,7 +248,7 @@ namespace igor
 
         void setVSync(bool vsync) override
         {
-            typedef BOOL(WINAPI* wglSwapIntervalProc)(int);
+            typedef BOOL(WINAPI * wglSwapIntervalProc)(int);
 
             _wglMutex.lock();
             wglSwapIntervalProc wglSwapIntervalEXT = (wglSwapIntervalProc)wglGetProcAddress("wglSwapIntervalEXT");
@@ -264,7 +264,7 @@ namespace igor
 
         bool getVSync() override
         {
-            typedef BOOL(WINAPI* wglGetSwapIntervalProc)();
+            typedef BOOL(WINAPI * wglGetSwapIntervalProc)();
 
             _wglMutex.lock();
             wglGetSwapIntervalProc wglGetSwapIntervalEXT = (wglGetSwapIntervalProc)wglGetProcAddress("wglGetSwapIntervalEXT");
@@ -1573,7 +1573,7 @@ namespace igor
     {
         IGOR_PROFILER_BEGIN(render);
         iRenderer::getInstance().clearStats();
-        iRenderer::getInstance().beginFrame();        
+        iRenderer::getInstance().beginFrame();
 
         for (auto view : _views)
         {

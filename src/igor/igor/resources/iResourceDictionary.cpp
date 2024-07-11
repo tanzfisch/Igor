@@ -11,8 +11,6 @@
 #include <iaux/system/iaFile.h>
 using namespace iaux;
 
-#include <tinyxml.h>
-
 namespace igor
 {
 
@@ -150,17 +148,8 @@ namespace igor
             }
             iaString source = element["source"].get<iaString>();
 
-            bool internal = false;
-            if(element.contains("internal"))
-            {
-                internal = element["internal"].get<bool>();
-            }
-            
-            iaString alias;
-            if(element.contains("alias"))
-            {
-                alias = element["alias"].get<iaString>();
-            }
+            const bool internal = iaJson::getValue<bool>(element, "internal", false);
+            const iaString alias = iaJson::getValue<iaString>(element, "alias", "");
             
             if (!addResource(uuid, source, alias, internal))
             {

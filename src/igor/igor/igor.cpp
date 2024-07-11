@@ -137,7 +137,7 @@ namespace igor
                                  << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
-        iaConsole::getInstance() << T << "                 R.P. Easing, nlohmann json and Fun" << endl
+        iaConsole::getInstance() << T << "                 R.P. Easing, TinyXML, nlohmann json and Fun" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek, M. Dederer" << endl
                                  << endl;

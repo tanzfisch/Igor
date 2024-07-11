@@ -91,11 +91,8 @@ namespace igor
         iaString texture = spriteJson["texture"].get<iaString>();
         sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
 
-        int32 pixelPerUnit = 1;
-        if (spriteJson.contains("pixelPerUnit"))
-        {
-            pixelPerUnit = spriteJson["pixelPerUnit"].get<int>();
-        }
+        // TODO pixelPerUnit
+        uint32 pixelPerUnit = iaJson::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
 
         if (!spriteJson.contains("frames"))
         {
@@ -117,11 +114,7 @@ namespace igor
             iaVector2f size = frame["size"].get<iaVector2f>();
             iaVector2f pivot = frame["pivot"].get<iaVector2f>();
 
-            bool pixel = false;
-            if(frame.contains("pixel"))
-            {
-                pixel = frame["pixel"].get<bool>();
-            }
+            bool pixel = iaJson::getValue<bool>(frame, "pixel", false);
 
             sprite->addFrame(pos, size, pivot, pixel);
         }
