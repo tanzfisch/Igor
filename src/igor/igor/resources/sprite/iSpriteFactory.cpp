@@ -7,9 +7,8 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaFile.h>
+#include <iaux/utils/iaJson.h>
 using namespace iaux;
-
-#include <tinyxml.h>
 
 namespace igor
 {
@@ -55,43 +54,13 @@ namespace igor
         {
             filepath = resource->getSource();
         }
-        
+
         const iaString fullFilepath = iResourceManager::getInstance().resolvePath(filepath);
         iSpritePtr sprite = std::dynamic_pointer_cast<iSprite>(resource);
-        return loadSprite(fullFilepath, sprite);
+        return load(fullFilepath, sprite);
     }
 
-    void iSpriteFactory::readSpriteElement(TiXmlElement *spriteElement, iSpritePtr sprite)
-    {
-        TiXmlElement *frame = spriteElement->FirstChildElement("Frame");
-        const iaString texture(spriteElement->Attribute("texture"));
-
-        // int32 pixelPerUnit = 1;
-        // spriteElement->Attribute("pixelPerUnit", &pixelPerUnit);
-
-        sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
-
-        do
-        {
-            iaString attrPos(frame->Attribute("pos"));
-            iaString attrSize(frame->Attribute("size"));
-            iaString attrPivot(frame->Attribute("pivot"));
-            iaString attrPixel(frame->Attribute("pixel"));
-
-            iaVector2f pos;
-            iaVector2f size;
-            iaVector2f pivot;
-
-            iaString::toVector<float32>(attrPos, pos);
-            iaString::toVector<float32>(attrSize, size);
-            iaString::toVector<float32>(attrPivot, pivot);
-
-            sprite->addFrame(pos, size, pivot, iaString::toBool(attrPixel));
-
-        } while ((frame = frame->NextSiblingElement("Frame")) != nullptr);
-    }
-
-    bool iSpriteFactory::loadSprite(const iaString &filename, iSpritePtr sprite)
+    bool iSpriteFactory::load(const iaString &filename, iSpritePtr sprite)
     {
         if (!isSprite(filename))
         {
@@ -104,21 +73,50 @@ namespace igor
         char temp[2048];
         filename.getData(temp, 2048);
 
-        TiXmlDocument document(temp);
-        if (!document.LoadFile())
+        std::ifstream file(temp);
+        json data = json::parse(file);
+
+        if (!data.contains("sprite"))
         {
-            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
+            con_err("incompatible data");
+            return false;
+        }
+        json spriteJson = data["sprite"];
+
+        if (!spriteJson.contains("texture"))
+        {
+            con_err("incompatible data");
+            return false;
+        }
+        iaString texture = spriteJson["texture"].get<iaString>();
+        sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
+
+        // TODO pixelPerUnit
+        uint32 pixelPerUnit = iaJson::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
+
+        if (!spriteJson.contains("frames"))
+        {
+            con_err("incompatible data");
             return false;
         }
 
-        TiXmlElement *root = document.FirstChildElement("Igor");
-        if (root != nullptr)
+        json frames = spriteJson["frames"];
+        for (auto frame : frames)
         {
-            TiXmlElement *spriteElement = root->FirstChildElement("Sprite");
-            if (spriteElement != nullptr)
+            if (!frame.contains("pos") ||
+                !frame.contains("size") ||
+                !frame.contains("pivot"))
             {
-                readSpriteElement(spriteElement, sprite);
+                continue;
             }
+
+            iaVector2f pos = frame["pos"].get<iaVector2f>();
+            iaVector2f size = frame["size"].get<iaVector2f>();
+            iaVector2f pivot = frame["pivot"].get<iaVector2f>();
+
+            bool pixel = iaJson::getValue<bool>(frame, "pixel", false);
+
+            sprite->addFrame(pos, size, pivot, pixel);
         }
 
         if (sprite->getFrameCount() == 0)

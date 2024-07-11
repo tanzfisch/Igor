@@ -7,7 +7,7 @@
 #include "PlantMeshGenerator.h"
 
 LSystems::LSystems(iWindowPtr window)
-	: ExampleBase(window, "L-System", true, "example_skybox_debug")
+	: ExampleBase(window, "L-System", true, "igor_skybox_debug")
 {
 }
 

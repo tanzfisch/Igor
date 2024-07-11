@@ -1,0 +1,37 @@
+[
+    {
+        "id": "0x00dc02cffd0d52ba",
+        "source": "textures/rock.png"
+    },
+    {
+        "alias": "model_terrain",
+        "id": "0x1d014c80beafdd3e",
+        "source": "models/terrain/terrain.ompf"
+    },
+    {
+        "id": "0x1eedfb556dbcba36",
+        "source": "models/cube/cube.mat"
+    },
+    {
+        "id": "0x63f7cc219c448314",
+        "source": "textures/grass.png"
+    },
+    {
+        "id": "0x7e0dbb756db1ae36",
+        "source": "models/terrain/terrain.mat"
+    },
+    {
+        "id": "0x85ee14b9a35173e4",
+        "source": "textures/dirt.png"
+    },
+    {
+        "alias": "example_model_cube",
+        "id": "0x8e5a567717014f84",
+        "source": "models/cube/cube.ompf"
+    },
+    {
+        "alias": "example_texture_skybox_stars",
+        "id": "0x9a9c80439e25a7d2",
+        "source": "textures/skyboxes/stars.png"
+    }
+]

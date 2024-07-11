@@ -5,7 +5,7 @@
 #include "ExampleSound.h"
 
 ExampleSound::ExampleSound(iWindowPtr window)
-    : ExampleBase(window, L"Sound", true, "example_skybox_debug")
+    : ExampleBase(window, L"Sound", true, "igor_skybox_debug")
 {
 }
 

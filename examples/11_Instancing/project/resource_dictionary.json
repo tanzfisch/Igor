@@ -1,0 +1,60 @@
+[
+    {
+        "alias": "example_model_teapot",
+        "id": "0x0d930cfa6f049a1c",
+        "source": "models/teapot/teapot.ompf"
+    },
+    {
+        "id": "0x3ad626e030f78ab0",
+        "source": "models/cat/cat_norm.png"
+    },
+    {
+        "alias": "example_model_cat",
+        "id": "0x42000caa82a2e5e0",
+        "source": "models/cat/cat.ompf"
+    },
+    {
+        "alias": "example_model_crate",
+        "id": "0x98861236315ccdf1",
+        "source": "models/crate/crate.ompf"
+    },
+    {
+        "alias": "example_texture_cat_diff",
+        "id": "0xa7058a1207339228",
+        "source": "models/cat/cat_diff.png"
+    },
+    {
+        "alias": "example_model_cube_green",
+        "id": "0xacc860ab083b29ff",
+        "source": "models/cube_green/cube_green.ompf"
+    },
+    {
+        "id": "0xd6f262b16fb8cba8",
+        "source": "models/teapot/teapot.mat"
+    },
+    {
+        "id": "0xd8bb96f7d28a4995",
+        "source": "models/crate/crate_norm.png"
+    },
+    {
+        "id": "0xdc953ee65e2cf235",
+        "source": "models/crate/crate.mat"
+    },
+    {
+        "id": "0xdd343293b9579e59",
+        "source": "models/cat/cat_spec.png"
+    },
+    {
+        "id": "0xe3ca99a8944fa83b",
+        "source": "models/cube_green/cube_green.mat"
+    },
+    {
+        "id": "0xfaa3b1436a20dbf3",
+        "source": "models/cat/cat.mat"
+    },
+    {
+        "alias": "example_texture_crate_diff",
+        "id": "0xfb8ec7e44efcccc9",
+        "source": "models/crate/crate_diff.png"
+    }
+]

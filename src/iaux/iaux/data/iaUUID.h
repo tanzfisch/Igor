@@ -39,7 +39,6 @@ namespace iaux
     class IAUX_API iaUUID
     {
     public:
-
         /*! init valid random value
          */
         iaUUID();
@@ -56,8 +55,8 @@ namespace iaux
         */
         iaUUID(uint64 value);
 
-        /*! \returns invalid uuid 
-        */
+        /*! \returns invalid uuid
+         */
         static iaUUID getInvalid();
 
         /*! import from string
@@ -76,7 +75,7 @@ namespace iaux
         static bool isUUID(const iaString &text);
 
         /*! makes id invalid
-        */
+         */
         void reset();
 
         /*! \returns true if both uuids are equal
@@ -103,18 +102,18 @@ namespace iaux
         \param value the new value
         \returns the new uuid
         */
-        iaUUID operator=(uint64 value);        
+        iaUUID operator=(uint64 value);
 
         /*! \returns true if uuid is valid/initialized
          */
         bool isValid() const;
 
         /*! \returns id as string
-        */
+         */
         const iaString toString() const;
 
         /*! \returns value
-        */
+         */
         operator uint64() const;
 
     private:
@@ -130,7 +129,6 @@ namespace iaux
     \returns stream it self
     */
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaUUID &uuid);
-
 }
 
 /*! so can be used as key in a map

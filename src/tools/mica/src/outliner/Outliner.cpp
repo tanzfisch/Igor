@@ -8,15 +8,15 @@ Outliner::Outliner()
 {
     initGUI();
 
-    // TODO is this debug code?
+    iEntitySystemModule::getInstance().getCreatedEntityEvent().add(iCreatedEntityDelegate(this, &Outliner::onEntityCreated));
+    iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
+
+    // TODO remove debug code
     iEntityScenePtr entityScene = iEntitySystemModule::getInstance().createScene();
     entityScene->setName("foo");
     entityScene->createEntity("bar1");
     iEntitySystemModule::getInstance().activateScene(entityScene);
     populateTree();
-
-    iEntitySystemModule::getInstance().getCreatedEntityEvent().add(iCreatedEntityDelegate(this, &Outliner::onEntityCreated));
-    iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
 
     entityScene->createEntity("bar2");
     entityScene->createEntity("bar3");
@@ -56,14 +56,12 @@ void Outliner::populateScene(iEntityScenePtr scene, iItemPtr sceneItem)
 
 void Outliner::populateTree()
 {
-    // TODO ugly but lets got with it for now
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
     for(const auto &scene : iEntitySystemModule::getInstance().getActiveScenes())
     {
         iItemPtr sceneItem = _itemData->addItem(scene->getName());
         sceneItem->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
-
     }
 
     _treeView->setItems(_itemData.get());

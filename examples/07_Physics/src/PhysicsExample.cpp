@@ -5,7 +5,7 @@
 #include "PhysicsExample.h"
 
 PhysicsExample::PhysicsExample(iWindowPtr window)
-    : ExampleBase(window, "Physics", true, "example_skybox_debug")
+    : ExampleBase(window, "Physics", true, "igor_skybox_debug")
 {
 }
 

@@ -120,13 +120,6 @@ namespace igor
         */
         std::vector<std::tuple<iResourceID, iaString, iaString>> _data;
 
-        /*! reads resource dictionary element
-
-        \param element the element to read
-        \returns true if successful
-        */
-        bool readResourceDictionaryElement(TiXmlElement *element, bool internal);
-
         /*! internal add resource implementation
 
         \param uuid the uuid to add

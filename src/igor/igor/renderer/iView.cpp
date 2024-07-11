@@ -221,7 +221,7 @@ namespace igor
 
             if(_skyBox != nullptr)
             {
-                _skyBox->render();
+            // TODO put back in later    _skyBox->render();
             }
 
             _renderEngine.render();

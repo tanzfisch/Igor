@@ -1,0 +1,27 @@
+[
+    {
+        "alias": "example_texture_dirt",
+        "id": "0x01df458f75478c07",
+        "source": "textures/dirt.png"
+    },
+    {
+        "alias": "example_texture_grass",
+        "id": "0x1e37e69b09662bc5",
+        "source": "textures/grass.png"
+    },
+    {
+        "alias": "example_material_voxel_terrain_directional_light",
+        "id": "0x432855e2f70bcd70",
+        "source": "shaders/voxel_terrain_directional_light.shader"
+    },
+    {
+        "alias": "example_texture_skybox_stars",
+        "id": "0x9a9c80439e25a7d2",
+        "source": "textures/skyboxes/stars.png"
+    },
+    {
+        "alias": "example_texture_rock",
+        "id": "0xb6ab30d9af192b74",
+        "source": "textures/rock.png"
+    }
+]

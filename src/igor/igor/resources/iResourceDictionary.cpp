@@ -7,10 +7,9 @@
 
 #include <igor/resources/iResourceManager.h>
 
+#include <iaux/utils/iaJson.h>
 #include <iaux/system/iaFile.h>
 using namespace iaux;
-
-#include <tinyxml.h>
 
 namespace igor
 {
@@ -20,7 +19,7 @@ namespace igor
         char temp[2048];
         filename.getData(temp, 2048);
 
-        std::wofstream stream;
+        std::ofstream stream;
         stream.open(temp);
 
         if (!stream.is_open())
@@ -29,30 +28,32 @@ namespace igor
             return false;
         }
 
-        stream << "<?xml version=\"1.0\"?>\n";
-        stream << "<Igor>\n";
-        stream << "    <ResourceDictionary>\n";
-
         // just ordering it to reduce the diff we potentially have to commit
         std::sort(_data.begin(), _data.end(), [](std::tuple<iResourceID, iaString, iaString> const &a, std::tuple<iResourceID, iaString, iaString> const &b)
                   { return std::get<0>(a) < std::get<0>(b); });
 
+        json dictionaryJson = json::array();
+
         for (auto &tuple : _data)
         {
-            stream << "        <Resource id=\"" << std::get<0>(tuple) << "\"";
+            const iaUUID id(std::get<0>(tuple));
+            const iaString source(std::get<1>(tuple));
+
+            json resourceJson = {
+                {"id", id},
+                {"source", source},
+                {"internal", true},
+            };
 
             if (!std::get<2>(tuple).isEmpty())
             {
-                stream << " alias=\"" << std::get<2>(tuple) << "\"";
+                resourceJson["alias"] = iaString(std::get<2>(tuple));
             }
 
-            stream << " source=\"" << std::get<1>(tuple) << "\"";
-
-            stream << " />\n";
+            dictionaryJson.push_back(resourceJson);
         }
 
-        stream << "    </ResourceDictionary>\n";
-        stream << "</Igor>\n";
+        stream << dictionaryJson.dump(4);
 
         con_info("written resource dictionary " << filename);
         return true;
@@ -123,67 +124,38 @@ namespace igor
         }
     }
 
-    bool iResourceDictionary::readResourceDictionaryElement(TiXmlElement *element, bool internal)
-    {
-        TiXmlElement *resource = element->FirstChildElement("Resource");
-        if (resource == nullptr)
-        {
-            con_warn("resource dictionary is empty");
-            return true;
-        }
-
-        do
-        {
-            // get name and value
-            iaString id(resource->Attribute("id"));
-            iaString source(resource->Attribute("source"));
-            iaString alias(resource->Attribute("alias"));
-            iaUUID uuid(id);
-
-            if (!addResource(uuid, source, alias, internal))
-            {
-                return false;
-            }
-
-            resource = resource->NextSiblingElement("Resource");
-        } while (resource != nullptr);
-
-        return true;
-    }
-
     bool iResourceDictionary::read(const iaString &filename)
     {
         char temp[2048];
         filename.getData(temp, 2048);
 
-        TiXmlDocument document(temp);
-        if (!document.LoadFile())
-        {
-            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
-            return false;
-        }
+        std::ifstream file(temp);
+        json data = json::parse(file);
 
-        TiXmlElement *root = document.FirstChildElement("Igor");
-        if (root == nullptr)
+        for (auto element : data)
         {
-            con_err("not an igor xml file \"" << temp << "\"");
-            return false;
-        }
+            if(!element.contains("id"))
+            {
+                con_err("entry is missing resource id");
+                continue;
+            }
+            iaUUID uuid = element["id"].get<iaUUID>();
 
-        TiXmlElement *resourceDictionary = root->FirstChildElement("ResourceDictionary");
-        if (resourceDictionary == nullptr)
-        {
-            con_err("invalid file \"" << temp << "\"");
-            return false;
-        }
+            if(!element.contains("source"))
+            {
+                con_err("entry is missing resource source");
+                continue;
+            }
+            iaString source = element["source"].get<iaString>();
 
-        iaString internal(resourceDictionary->Attribute("internal"));
-
-        if (!readResourceDictionaryElement(resourceDictionary, (!internal.isEmpty() && internal == "true")))
-        {
-            con_err("can't read all resource dictionary entries from \"" << filename << "\"");
-            return false;
-        }
+            const bool internal = iaJson::getValue<bool>(element, "internal", false);
+            const iaString alias = iaJson::getValue<iaString>(element, "alias", "");
+            
+            if (!addResource(uuid, source, alias, internal))
+            {
+                return false;
+            }
+        }        
 
         con_info("loaded resource dictionary \"" << filename << "\"");
         return true;

@@ -1,0 +1,590 @@
+[
+    {
+        "alias": "igor_icon_dock_center",
+        "id": "0x02b48a88012c1205",
+        "internal": true,
+        "source": "icons/dockCenter.png"
+    },
+    {
+        "alias": "igor_shader_material_color_id",
+        "id": "0x058225918ed11dab",
+        "internal": true,
+        "source": "shaders/colorID.shader"
+    },
+    {
+        "alias": "igor_icon_add_group",
+        "id": "0x05a78ac33b4bb1de",
+        "internal": true,
+        "source": "icons/addGroup.png"
+    },
+    {
+        "alias": "igor_texture_gradient_s",
+        "id": "0x078bc158e6d4456b",
+        "internal": true,
+        "source": "textures/gradientS.png"
+    },
+    {
+        "alias": "igor_shader_material_orientation_plane",
+        "id": "0x0ceb229ceabbc35e",
+        "internal": true,
+        "source": "shaders/orientation_plane.shader"
+    },
+    {
+        "alias": "igor_icon_delete",
+        "id": "0x0eaae08bd8de91a9",
+        "internal": true,
+        "source": "icons/delete.png"
+    },
+    {
+        "alias": "igor_icon_add_switch",
+        "id": "0x114fd47f0003a550",
+        "internal": true,
+        "source": "icons/addSwitch.png"
+    },
+    {
+        "alias": "igor_icon_down",
+        "id": "0x12146693803c3561",
+        "internal": true,
+        "source": "icons/down.png"
+    },
+    {
+        "alias": "igor_icon_gears",
+        "id": "0x1365deaf06009dde",
+        "internal": true,
+        "source": "icons/gears.png"
+    },
+    {
+        "alias": "igor_shader_material_emitter_overlay_volume",
+        "id": "0x154a6ddd0ad85d96",
+        "internal": true,
+        "source": "shaders/emitter_overlay_volume.shader"
+    },
+    {
+        "alias": "igor_icon_file_dictionary",
+        "id": "0x157af69b990bdaaa",
+        "internal": true,
+        "source": "icons/file_dictionary.png"
+    },
+    {
+        "alias": "igor_icon_add_to_dictionary",
+        "id": "0x15daf69b990b1234",
+        "internal": true,
+        "source": "icons/add_to_dictionary.png"
+    },
+    {
+        "alias": "igor_icon_add_emitter",
+        "id": "0x1982af32f4ea1ee3",
+        "internal": true,
+        "source": "icons/addEmitter.png"
+    },
+    {
+        "alias": "igor_icon_dock_top_half",
+        "id": "0x1a919694567889bc",
+        "internal": true,
+        "source": "icons/dockTopHalf.png"
+    },
+    {
+        "alias": "igor_icon_no_dictionary",
+        "id": "0x1d679aba99d78caf",
+        "internal": true,
+        "source": "icons/no_dictionary.png"
+    },
+    {
+        "alias": "igor_icon_dictionary",
+        "id": "0x1d679abc990789aa",
+        "internal": true,
+        "source": "icons/dictionary.png"
+    },
+    {
+        "alias": "igor_texture_gradient_r",
+        "id": "0x1dcdfbf11d1e23cb",
+        "internal": true,
+        "source": "textures/gradientR.png"
+    },
+    {
+        "alias": "igor_icon_right",
+        "id": "0x1e5d9b6af23ed94e",
+        "internal": true,
+        "source": "icons/right.png"
+    },
+    {
+        "alias": "igor_voxel_terrain_directional_light",
+        "id": "0x1fcd4acfd132de45",
+        "internal": true,
+        "source": "shaders/voxel_terrain_directional_light.shader"
+    },
+    {
+        "alias": "igor_icon_folder",
+        "id": "0x20f10d914829fab8",
+        "internal": true,
+        "source": "icons/folder.png"
+    },
+    {
+        "alias": "igor_material_default",
+        "id": "0x21a33adac7bb0d6a",
+        "internal": true,
+        "source": "materials/default.mat"
+    },
+    {
+        "alias": "igor_icon_add_particle_system",
+        "id": "0x21fdc2f537366b84",
+        "internal": true,
+        "source": "icons/addParticleSystem.png"
+    },
+    {
+        "alias": "igor_icon_add",
+        "id": "0x22c969d4614ee3dd",
+        "internal": true,
+        "source": "icons/add.png"
+    },
+    {
+        "alias": "igor_shader_material_default",
+        "id": "0x26a31adfc7eb0e6d",
+        "internal": true,
+        "source": "shaders/default.shader"
+    },
+    {
+        "alias": "igor_shader_material_instancing_textured",
+        "id": "0x297dd0e1b6a2ec99",
+        "internal": true,
+        "source": "shaders/instancing_textured.shader"
+    },
+    {
+        "alias": "igor_icon_dock_bottom_half",
+        "id": "0x2a030048fa3174a5",
+        "internal": true,
+        "source": "icons/dockBottomHalf.png"
+    },
+    {
+        "alias": "igor_shader_material_bounding_box",
+        "id": "0x2b48d6e3bf47df31",
+        "internal": true,
+        "source": "shaders/bounding_box.shader"
+    },
+    {
+        "alias": "igor_shader_material_particles_ortho",
+        "id": "0x2bb102ca8b49bcd9",
+        "internal": true,
+        "source": "shaders/particles_ortho_projection.shader"
+    },
+    {
+        "alias": "igor_icon_left",
+        "id": "0x2cf4fc2aa53775cc",
+        "internal": true,
+        "source": "icons/left.png"
+    },
+    {
+        "alias": "igor_texture_gradient_a",
+        "id": "0x2e27bc73032ee353",
+        "internal": true,
+        "source": "textures/gradientA.png"
+    },
+    {
+        "alias": "igor_icon_add_skybox",
+        "id": "0x3365de4f0a00ad80",
+        "internal": true,
+        "source": "icons/addSkyBox.png"
+    },
+    {
+        "alias": "igor_texture_gradient_g",
+        "id": "0x33c66740ae7c126f",
+        "internal": true,
+        "source": "textures/gradientG.png"
+    },
+    {
+        "alias": "igor_icon_add_camera",
+        "id": "0x397b7f175266f459",
+        "internal": true,
+        "source": "icons/addCamera.png"
+    },
+    {
+        "alias": "igor_icon_scene",
+        "id": "0x3ae6375a323cf49e",
+        "internal": true,
+        "source": "icons/scene.png"
+    },
+    {
+        "alias": "igor_icon_viewport",
+        "id": "0x1f2c475d62a8fe98",
+        "internal": true,
+        "source": "icons/scene.png"
+    },    
+    {
+        "alias": "igor_shader_material_flat_shaded_blend",
+        "id": "0x5326ec8d85279259",
+        "internal": true,
+        "source": "shaders/flat_shaded_blend.shader"
+    },
+    {
+        "alias": "igor_icon_file_model",
+        "id": "0x53d0bf6fe993d2ee",
+        "internal": true,
+        "source": "icons/file_model.png"
+    },
+    {
+        "alias": "igor_icon_material",
+        "id": "0x56906a2739e6122b",
+        "internal": true,
+        "source": "icons/material.png"
+    },
+    {
+        "alias": "igor_widget_theme_pattern",
+        "id": "0x57339e8d03b3da6e",
+        "internal": true,
+        "source": "textures/WidgetThemePattern.png"
+    },
+    {
+        "alias": "igor_texture_gradient_b",
+        "id": "0x58b1ae4bd5de93f8",
+        "internal": true,
+        "source": "textures/gradientB.png"
+    },
+    {
+        "alias": "igor_icon_copy",
+        "id": "0x5b4270d24b67dcc5",
+        "internal": true,
+        "source": "icons/copy.png"
+    },
+    {
+        "alias": "igor_icon_load",
+        "id": "0x5ba5b17839b27fb3",
+        "internal": true,
+        "source": "icons/load.png"
+    },
+    {
+        "alias": "igor_texture_checker",
+        "id": "0x5d3eeb809ba62075",
+        "internal": true,
+        "source": "textures/checker.png"
+    },
+    {
+        "alias": "igor_icon_group",
+        "id": "0x5dd98e8408918295",
+        "internal": true,
+        "source": "icons/group.png"
+    },
+    {
+        "alias": "igor_icon_mesh",
+        "id": "0x604951bc70ebed4f",
+        "internal": true,
+        "source": "icons/mesh.png"
+    },
+    {
+        "alias": "igor_icon_cut",
+        "id": "0x623f0a3b251a55bb",
+        "internal": true,
+        "source": "icons/cut.png"
+    },
+    {
+        "alias": "igor_shader_material_flat_shaded",
+        "id": "0x640f1dd866a227a2",
+        "internal": true,
+        "source": "shaders/flat_shaded.shader"
+    },
+    {
+        "alias": "igor_icon_switch",
+        "id": "0x64706e44c242b191",
+        "internal": true,
+        "source": "icons/switch.png"
+    },
+    {
+        "alias": "igor_logo_splash",
+        "id": "0x6569844b30e30edc",
+        "internal": true,
+        "source": "textures/splash.png"
+    },
+    {
+        "alias": "igor_icon_transformation",
+        "id": "0x6593382b21232b08",
+        "internal": true,
+        "source": "icons/transformation.png"
+    },
+    {
+        "alias": "igor_icon_light",
+        "id": "0x6cf7bed3ab3e5d40",
+        "internal": true,
+        "source": "icons/light.png"
+    },
+    {
+        "alias": "igor_icon_exit",
+        "id": "0x6fe1dfbeeef66555",
+        "internal": true,
+        "source": "icons/exit.png"
+    },
+    {
+        "alias": "igor_icon_emitter",
+        "id": "0x76e8ff2bd790b946",
+        "internal": true,
+        "source": "icons/emitter.png"
+    },
+    {
+        "alias": "igor_icon_file_texture",
+        "id": "0x77d44d1b4788b8f9",
+        "internal": true,
+        "source": "icons/file_texture.png"
+    },
+    {
+        "alias": "igor_shader_material_texture_shaded",
+        "id": "0x81a9bf88dbd3427a",
+        "internal": true,
+        "source": "shaders/texture_shaded.shader"
+    },
+    {
+        "alias": "igor_icon_dock_right_edge",
+        "id": "0x83294a75b97eb172",
+        "internal": true,
+        "source": "icons/dockRightQuarter.png"
+    },
+    {
+        "alias": "igor_shader_material_particles",
+        "id": "0x84950fb86bb8cd63",
+        "internal": true,
+        "source": "shaders/particles.shader"
+    },
+    {
+        "alias": "igor_icon_particle_system",
+        "id": "0x87d1694ec56b6bdc",
+        "internal": true,
+        "source": "icons/particleSystem.png"
+    },
+    {
+        "alias": "igor_font_default_outline",
+        "id": "0x8b4357bb05a22be1",
+        "internal": true,
+        "source": "textures/StandardFontOutlined.png"
+    },
+    {
+        "alias": "igor_icon_camera",
+        "id": "0x90e38d14cf57e4f3",
+        "internal": true,
+        "source": "icons/camera.png"
+    },
+    {
+        "alias": "igor_icon_minus",
+        "id": "0x966efbd2c040fb48",
+        "internal": true,
+        "source": "icons/minus.png"
+    },
+    {
+        "alias": "igor_icon_dock_left_half",
+        "id": "0x9b6c77bf20a38fed",
+        "internal": true,
+        "source": "icons/dockLeftHalf.png"
+    },
+    {
+        "alias": "igor_icon_file_sprite",
+        "id": "0xa1264689bdefad9d",
+        "internal": true,
+        "source": "icons/file_sprite.png"
+    },
+    {
+        "alias": "igor_icon_add_material",
+        "id": "0xa7721cdcbc394f26",
+        "internal": true,
+        "source": "icons/addMaterial.png"
+    },
+    {
+        "alias": "igor_shader_material_default_textured",
+        "id": "0xa90e770c3809190b",
+        "internal": true,
+        "source": "shaders/textured.shader"
+    },
+    {
+        "alias": "igor_icon_model",
+        "id": "0xae4911c55bcae0fb",
+        "internal": true,
+        "source": "icons/model.png"
+    },
+    {
+        "alias": "igor_shader_material_skybox",
+        "id": "0xaf247acfda3bdefd",
+        "internal": true,
+        "source": "shaders/skybox.shader"
+    },
+    {
+        "alias": "igor_icon_add_light",
+        "id": "0xaf9365f759d0c4c6",
+        "internal": true,
+        "source": "icons/addLight.png"
+    },
+    {
+        "alias": "igor_icon_dock_right_half",
+        "id": "0xb4909694a32289bc",
+        "internal": true,
+        "source": "icons/dockRightHalf.png"
+    },
+    {
+        "alias": "igor_icon_skybox",
+        "id": "0xb6c20df4f9ef2753",
+        "internal": true,
+        "source": "icons/skybox.png"
+    },
+    {
+        "alias": "igor_shader_material_transform_overlay_base",
+        "id": "0xb753a8b15f43db94",
+        "internal": true,
+        "source": "shaders/transform_overlay_base.shader"
+    },
+    {
+        "alias": "igor_shader_instancing_flat_shaded",
+        "id": "0xb7a3d5aeb42ae650",
+        "internal": true,
+        "source": "shaders/instancing_flat_shaded.shader"
+    },
+    {
+        "alias": "igor_shader_material_emitter_overlay_flat",
+        "id": "0xb8877fc807623372",
+        "internal": true,
+        "source": "shaders/emitter_overlay_flat.shader"
+    },
+    {
+        "alias": "igor_texture_white",
+        "id": "0xb9610a7a2e4d939e",
+        "internal": true,
+        "source": "textures/white.png"
+    },
+    {
+        "alias": "igor_icon_root",
+        "id": "0xc0412d93f192a93b",
+        "internal": true,
+        "source": "icons/root.png"
+    },
+    {
+        "alias": "igor_icon_file",
+        "id": "0xc6cd609bc6548319",
+        "internal": true,
+        "source": "icons/file.png"
+    },
+    {
+        "alias": "igor_icon_paste",
+        "id": "0xc8ee789748c5cb98",
+        "internal": true,
+        "source": "icons/paste.png"
+    },
+    {
+        "alias": "igor_font_default",
+        "id": "0xc98d3c11833c572a",
+        "internal": true,
+        "source": "textures/StandardFont.png"
+    },
+    {
+        "alias": "igor_icon_up",
+        "id": "0xca8f7c8247e3c138",
+        "internal": true,
+        "source": "icons/up.png"
+    },
+    {
+        "alias": "igor_icon_add_model",
+        "id": "0xcda7207dce54f1f0",
+        "internal": true,
+        "source": "icons/addModel.png"
+    },
+    {
+        "alias": "igor_shader_material_cellshading_yellow",
+        "id": "0xcfadb42357736bf6",
+        "internal": true,
+        "source": "shaders/cellshading_yellow.shader"
+    },
+    {
+        "alias": "igor_shader_material_texture_shaded_blend",
+        "id": "0xd1a8f279d7780a78",
+        "internal": true,
+        "source": "shaders/texture_shaded_blend.shader"
+    },
+    {
+        "alias": "igor_skybox_debug",
+        "id": "0xd9414e77657b07c8",
+        "internal": true,
+        "source": "textures/skyboxes/debug.png"
+    },
+    {
+        "alias": "igor_icon_dock_bottom_edge",
+        "id": "0xda848a98d88e825a",
+        "internal": true,
+        "source": "icons/dockBottomQuarter.png"
+    },
+    {
+        "alias": "igor_icon_save",
+        "id": "0xdb238b2c86d060bb",
+        "internal": true,
+        "source": "icons/save.png"
+    },
+    {
+        "alias": "igor_texture_gradient_v",
+        "id": "0xdb707ec7940c2e7e",
+        "internal": true,
+        "source": "textures/gradientV.png"
+    },
+    {
+        "alias": "igor_icon_dock_top_edge",
+        "id": "0xddbaf9ef4f80676a",
+        "internal": true,
+        "source": "icons/dockTopQuarter.png"
+    },
+    {
+        "alias": "igor_icon_file_sound",
+        "id": "0xdf2146ab990badbc",
+        "internal": true,
+        "source": "icons/file_sound.png"
+    },
+    {
+        "alias": "igor_icon_remove_from_dictionary",
+        "id": "0xe5d1234af90dca31",
+        "internal": true,
+        "source": "icons/remove_from_dictionary.png"
+    },
+    {
+        "alias": "igor_icon_files",
+        "id": "0xeecd609bc6adc47f",
+        "internal": true,
+        "source": "icons/files.png"
+    },
+    {
+        "alias": "igor_icon_file_animation",
+        "id": "0xf12646ab992b9d9f",
+        "internal": true,
+        "source": "icons/file_animation.png"
+    },
+    {
+        "alias": "igor_icon_dock_left_edge",
+        "id": "0xf23301c59d099ee5",
+        "internal": true,
+        "source": "icons/dockLeftQuarter.png"
+    },
+    {
+        "alias": "igor_skybox_clearsky",
+        "id": "0xf313aed6651c0acd",
+        "internal": true,
+        "source": "textures/skyboxes/clearsky.png"
+    },
+    {
+        "alias": "igor_texture_gradient_h",
+        "id": "0xf463b25de7aa9d8b",
+        "internal": true,
+        "source": "textures/gradientH.png"
+    },
+    {
+        "alias": "igor_icon_add_mesh",
+        "id": "0xf7e8befbb6fd6403",
+        "internal": true,
+        "source": "icons/addMesh.png"
+    },
+    {
+        "alias": "igor_icon_file_material",
+        "id": "0xfb28e609992b9186",
+        "internal": true,
+        "source": "icons/file_material.png"
+    },
+    {
+        "alias": "igor_icon_plus",
+        "id": "0xfe39aed63ae85ba6",
+        "internal": true,
+        "source": "icons/plus.png"
+    },
+    {
+        "alias": "igor_icon_add_transformation",
+        "id": "0xff8f44440bb7b46e",
+        "internal": true,
+        "source": "icons/addTransformation.png"
+    }
+]

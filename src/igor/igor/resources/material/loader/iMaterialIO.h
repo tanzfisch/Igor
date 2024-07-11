@@ -31,8 +31,6 @@
 
 #include <igor/resources/material/iMaterial.h>
 
-class TiXmlElement;
-
 namespace igor
 {
     /*! reader for Igor material files
@@ -53,10 +51,6 @@ namespace igor
         \param material the material to use
         */
         static bool write(const iaString &filename, const iMaterialPtr &material);
-
-    private:
-        static bool readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material);
-        static bool readTextures(TiXmlElement *materialXML, const iMaterialPtr &material);
     };
 
 } // namespace igor

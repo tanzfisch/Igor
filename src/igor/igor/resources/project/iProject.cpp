@@ -7,8 +7,7 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaDirectory.h>
-
-#include <tinyxml.h>
+#include <iaux/utils/iaJson.h>
 
 #include <filesystem>
 
@@ -33,7 +32,7 @@ namespace igor
         }
 
         _projectFolder = projectFolder;
-        load();        
+        load();
     }
 
     void iProject::create(const iaString &projectFolder)
@@ -62,11 +61,11 @@ namespace igor
     }
 
     void iProject::load()
-    {        
-        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
-        readConfiguration(filenameConfig);
-        
-        const iaString filenameDictionary = "resource_dictionary.xml";
+    {
+        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.json";
+        read(filenameConfig);
+
+        const iaString filenameDictionary = "resource_dictionary.json";
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
 
@@ -87,52 +86,34 @@ namespace igor
 
     void iProject::save()
     {
-        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.xml";
-        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.xml";
+        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.json";
+        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.json";
 
-        writeConfiguration(filenameConfig);
+        write(filenameConfig);
         iResourceManager::getInstance().saveResourceDictionary(filenameDictionary);
     }
 
-    bool iProject::readConfiguration(const iaString &filename)
+    bool iProject::read(const iaString &filename)
     {
         char temp[2048];
         filename.getData(temp, 2048);
 
-        TiXmlDocument document(temp);
-        if (!document.LoadFile())
-        {
-            con_err("can't read \"" << filename << "\". " << document.ErrorDesc());
-            return false;
-        }
+        std::ifstream file(temp);
+        json data = json::parse(file);
 
-        TiXmlElement *root = document.FirstChildElement("Igor");
-        if (root == nullptr)
-        {
-            con_err("not an igor xml file \"" << temp << "\"");
-            return false;
-        }
-
-        TiXmlElement *project = root->FirstChildElement("Project");
-        if (project == nullptr)
-        {
-            con_err("invalid file \"" << temp << "\"");
-            return false;
-        }
-
-        _projectName = (project->Attribute("name"));
+        _projectName = iaJson::getValue<iaString>(data, "projectName", "New Project");
 
         con_debug("loaded project file \"" << filename << "\"");
 
         return true;
     }
 
-    bool iProject::writeConfiguration(const iaString &filename)
+    bool iProject::write(const iaString &filename)
     {
         char temp[2048];
         filename.getData(temp, 2048);
 
-        std::wofstream stream;
+        std::ofstream stream;
         stream.open(temp);
 
         if (!stream.is_open())
@@ -141,10 +122,11 @@ namespace igor
             return false;
         }
 
-        stream << "<?xml version=\"1.0\"?>\n";
-        stream << "<Igor>\n";
-        stream << "    <Project name=\"" << _projectName << "\" />\n";
-        stream << "</Igor>\n";
+        json configJson = {
+            {"projectName", _projectName},
+        };
+
+        stream << configJson.dump(4);
 
         con_debug("written project file " << filename);
 
