@@ -58,12 +58,6 @@ void Outliner::populateTree()
 {
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
-    iWindowPtr window = igor::iApplication::getInstance().getWindow();
-    for(auto view : window->getViews())
-    {
-        
-    }
-
     for(const auto &scene : iEntitySystemModule::getInstance().getActiveScenes())
     {
         iItemPtr sceneItem = _itemData->addItem(scene->getName());
