@@ -1,4 +1,4 @@
-// Igor game engineSceneOutliner
+// Igor game engine
 // (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
@@ -10,16 +10,20 @@ Outliner::Outliner()
 
     iEntitySystemModule::getInstance().getCreatedEntityEvent().add(iCreatedEntityDelegate(this, &Outliner::onEntityCreated));
     iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
+}
 
-    // TODO remove debug code
-    iEntityScenePtr entityScene = iEntitySystemModule::getInstance().createScene();
-    entityScene->setName("foo");
-    entityScene->createEntity("bar1");
-    iEntitySystemModule::getInstance().activateScene(entityScene);
+void Outliner::setScene(const iEntitySceneID &entitySceneID)
+{
+    if(_entitySceneID == entitySceneID)
+    {
+        return;        
+    }
+
+    _treeView->clear();
+
+    _entitySceneID = entitySceneID;
+
     populateTree();
-
-    entityScene->createEntity("bar2");
-    entityScene->createEntity("bar3");
 }
 
 void Outliner::initGUI()

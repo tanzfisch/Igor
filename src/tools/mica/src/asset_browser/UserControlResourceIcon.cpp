@@ -150,6 +150,10 @@ void UserControlResourceIcon::setFilename(const iaString &filename)
         {
             texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_model");
         }
+        else if (type == "prefab")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_prefab");
+        }
         else
         {
             texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file");

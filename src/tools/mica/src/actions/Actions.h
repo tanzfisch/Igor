@@ -238,29 +238,6 @@ public:
     bool isCompatible(const iActionContext &context) override;
 };
 
-/*! add model action
-*/
-class ActionAddModel : public iAction
-{
-
-public:
-    /*! init members
-    */
-    ActionAddModel();
-
-    /*! executed when action gets triggered
-
-    \param context the context the action was called with
-    */
-    void execute(const iActionContext &context) override;
-
-    /*! \returns true if this action will execute with given context
-
-	\param context the context the action was called with
-    */
-    bool isCompatible(const iActionContext &context) override;
-};
-
 /*! bake mesh to world
 */
 class ActionBakeMeshToWorld : public iAction

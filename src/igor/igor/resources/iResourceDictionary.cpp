@@ -41,8 +41,7 @@ namespace igor
 
             json resourceJson = {
                 {"id", id},
-                {"source", source},
-                {"internal", true},
+                {"source", source}
             };
 
             if (!std::get<2>(tuple).isEmpty())

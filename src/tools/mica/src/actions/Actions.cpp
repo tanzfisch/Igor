@@ -308,30 +308,6 @@ bool ActionAddParticleSystem::isCompatible(const iActionContext &context)
     return true;
 }
 
-ActionAddModel::ActionAddModel()
-    : iAction("mica:addModel")
-{
-    setIcon("igor_icon_add_model");
-    setDescription("add model");
-}
-
-void ActionAddModel::execute(const iActionContext &context)
-{
-    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
-    actionContext->getOutliner()->addModel();
-}
-
-bool ActionAddModel::isCompatible(const iActionContext &context)
-{
-    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
-    if (actionContext == nullptr)
-    {
-        return false;
-    }
-
-    return true;
-}
-
 ActionBakeMeshToWorld::ActionBakeMeshToWorld()
     : iAction("mica:bakeMeshToWorld")
 {
@@ -404,7 +380,6 @@ void registerMicaActions()
     iActionManager::getInstance().registerAction(new ActionAddSwitch());
     iActionManager::getInstance().registerAction(new ActionAddEmitter());
     iActionManager::getInstance().registerAction(new ActionAddParticleSystem());
-    iActionManager::getInstance().registerAction(new ActionAddModel());
     iActionManager::getInstance().registerAction(new ActionBakeMeshToWorld());
     iActionManager::getInstance().registerAction(new ActionCopyNode());
     iActionManager::getInstance().registerAction(new ActionPasteNode());

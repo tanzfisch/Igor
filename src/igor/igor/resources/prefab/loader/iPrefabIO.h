@@ -26,67 +26,33 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef MICA_OUTLINER_H
-#define MICA_OUTLINER_H
+#ifndef IGOR_PREFABIO_H
+#define IGOR_PREFABIO_H
 
-#include <igor/igor.h>
-using namespace igor;
+#include <igor/resources/prefab/iPrefab.h>
 
-/*! outliner
- */
-class Outliner : public iDialog
+namespace igor
 {
-
-    friend class iWidgetManager;
-
-public:
-    /*! init ui
+    /*! reader for Igor prefab files
      */
-    Outliner();
+    class IGOR_API iPrefabIO
+    {
+    public:
+        /*! reads prefab file and configures given prefab with it
 
-    /*! sets scene to display
+        \param filename path to prefab file
+        \param prefab the prefab to configure with
+        */
+        static bool read(const iaString &filename, const iPrefabPtr &prefab);
 
-    \param entitySceneID id of entity scene to display
-    */
-    void setScene(const iEntitySceneID &entitySceneID);
+        /*! writes prefab to file
 
-private:
-    /*! main layout
-     */
-    iWidgetBoxLayoutPtr _layout = nullptr;
+        \param filename path to new prefab file
+        \param prefab the prefab to use
+        */
+        static bool write(const iaString &filename, const iPrefabPtr &prefab);
+    };
 
-    /*! tree view
-     */
-    iUserControlTreeViewPtr _treeView = nullptr;
+} // namespace igor
 
-    /*! tree view data
-     */
-    std::unique_ptr<iItemData> _itemData;
-
-    /*! the entity scene id
-    */
-    iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
-
-    /*! init user interface
-     */
-    void initGUI();
-
-    /*! handles click in tree view
-
-    \param source the source widget of this event
-    */
-    void onClickTreeView(const iWidgetPtr source);
-
-    /*! populate the entity tree
-     */
-    void populateTree();
-
-    /*! populate scene
-     */
-    void populateScene(iEntityScenePtr scene, iItemPtr sceneItem);
-
-    void onEntityCreated(iEntityPtr scene);
-    void onEntityDestroyed(iEntityPtr scene);
-};
-
-#endif // MICA_OUTLINER_H
+#endif // IGOR_PREFABIO_H

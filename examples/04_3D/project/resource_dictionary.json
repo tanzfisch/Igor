@@ -5,6 +5,11 @@
         "source": "models/teapot/teapot.ompf"
     },
     {
+        "alias": "example_main_scene",
+        "id": "0x25a68c9b0130d191",
+        "source": "scenes/main.scene"
+    },
+    {
         "id": "0x3ad626e030f78ab0",
         "source": "models/cat/cat_norm.png"
     },

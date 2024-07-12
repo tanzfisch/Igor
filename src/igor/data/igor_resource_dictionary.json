@@ -222,6 +222,12 @@
         "source": "icons/file_model.png"
     },
     {
+        "alias": "igor_icon_prefab",
+        "id": "0x7f3e0df6f4683d23",
+        "internal": true,
+        "source": "icons/prefab.png"
+    },
+    {
         "alias": "igor_icon_material",
         "id": "0x56906a2739e6122b",
         "internal": true,

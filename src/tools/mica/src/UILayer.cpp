@@ -34,10 +34,6 @@ void UILayer::onInit()
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
-    _sceneOutliner = new SceneOutliner(_workspace);
-    _sceneOutliner->setEnabled();
-    _sceneOutliner->setVisible();
-
     _outliner = new Outliner();
     _outliner->setEnabled();
     _outliner->setVisible();
@@ -61,27 +57,15 @@ void UILayer::onInit()
     _mainDialog->getEventLoadFile().add(LoadFileDelegate(this, &UILayer::onLoadFile));
     _mainDialog->getEventSaveFile().add(SaveFileDelegate(this, &UILayer::onSaveFile));
 
-    _sceneOutliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
-    _sceneOutliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
-
-    _sceneOutliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
-    _sceneOutliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
-
     // load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
 
     iWidgetSplitterPtr splitter0 = new iWidgetSplitter(true);
     iWidgetSplitterPtr splitter1 = new iWidgetSplitter(true);
-    iWidgetSplitterPtr splitter2 = new iWidgetSplitter(true);
-    
-    splitter2->setOrientation(iSplitterOrientation::Horizontal);
-    splitter2->setRatio(0.5f);
-    splitter2->addWidget(_outliner);
-    splitter2->addWidget(_sceneOutliner);
 
     rootSplitter->setOrientation(iSplitterOrientation::Vertical);
     rootSplitter->setRatio(0.1f);
-    rootSplitter->addWidget(splitter2);
+    rootSplitter->addWidget(_outliner);
     rootSplitter->addWidget(splitter0);
 
     splitter0->setOrientation(iSplitterOrientation::Vertical);
@@ -103,12 +87,6 @@ void UILayer::onDeinit()
         _propertiesDialog = nullptr;
     }
 
-    if (_sceneOutliner != nullptr)
-    {
-        delete _sceneOutliner;
-        _sceneOutliner = nullptr;
-    }
-
     if (_outliner != nullptr)
     {
         delete _outliner;
@@ -122,8 +100,6 @@ void UILayer::onDeinit()
 void UILayer::onAddMaterial()
 {
     iResourceManager::getInstance().createResource<iShader>();
-
-    _sceneOutliner->refresh();
 }
 
 void UILayer::onLoadMaterial()
@@ -227,7 +203,6 @@ void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
 
     iShaderPtr material = iResourceManager::getInstance().loadResource<iShader>(_fileDialog.getFullPath());
     material->setVisibility(iMaterialVisibility::Public);
-    _sceneOutliner->refresh();
 }
 
 void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
@@ -276,7 +251,6 @@ void UILayer::onUpdate()
 {
     if (_refresh)
     {
-        _sceneOutliner->refresh();
         _refresh = false;
     }
 
@@ -368,33 +342,14 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         _workspace->deleteSelected();
         return true;
 
+        /* TODO hide _outliner, _propertiesDialog, _assetBrowser
+            and make full screen _viewport
+            and vice versa
     case iKeyCode::Space:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            if (_sceneOutliner->isEnabled() && _sceneOutliner->isVisible())
-            {
-                _sceneOutliner->setEnabled(false);
-                _sceneOutliner->setVisible(false);
-            }
-            else
-            {
-                _sceneOutliner->setEnabled();
-                _sceneOutliner->setVisible();
-                _sceneOutliner->refresh();
-            }
-
-            if (_propertiesDialog->isEnabled() && _propertiesDialog->isVisible())
-            {
-                _propertiesDialog->setEnabled(false);
-                _propertiesDialog->setVisible(false);
-            }
-            else
-            {
-                _propertiesDialog->setEnabled();
-                _propertiesDialog->setVisible();
-            }
         }
-        return true;
+        return true; */
     }
 
     return false;

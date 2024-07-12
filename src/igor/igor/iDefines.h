@@ -63,6 +63,7 @@ extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS; //! suppo
 extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS; //! supported file extensions for animations
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS; //! supported file extensions for models
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS; //! supported file extensions for sounds
+extern const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS; //! supported file extensions for prefabs and scenes
 
 // resources
 extern const iaString IGOR_RESOURCE_SHADER; //! shader resource name
@@ -72,6 +73,7 @@ extern const iaString IGOR_RESOURCE_TEXTURE; //! texture resource name
 extern const iaString IGOR_RESOURCE_SOUND; //! sound resource name
 extern const iaString IGOR_RESOURCE_SPRITE; //! sprite resource name
 extern const iaString IGOR_RESOURCE_MODEL; //! model resource name
+extern const iaString IGOR_RESOURCE_PREFAB; //! prefab resource name
 
 // resource parameters
 extern const iaString IGOR_RESOURCE_PARAM_ID; //! resource parameters id

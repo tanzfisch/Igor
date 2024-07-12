@@ -5,7 +5,6 @@
 #include <igor/resources/material/loader/iMaterialIO.h>
 
 #include <igor/resources/iResourceManager.h>
-#include <igor/data/iXMLHelper.h>
 
 #include <iaux/system/iaFile.h>
 #include <iaux/utils/iaJson.h>

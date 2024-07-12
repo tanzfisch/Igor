@@ -10,13 +10,14 @@
 #include <iaux/system/iaDate.h>
 using namespace iaux;
 
-extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite", "json"};
 extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
-extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_EXTENSIONS = {"shader"};
-extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat"};
-extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim"};
+extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_EXTENSIONS = {"shader", "xml"};
+extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat", "json"};
+extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim", "json"};
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
+extern const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS = {"prefab", "scene", "json"};
 
 extern const iaString IGOR_RESOURCE_SHADER = "shader";
 extern const iaString IGOR_RESOURCE_MATERIAL = "material";
@@ -25,6 +26,7 @@ extern const iaString IGOR_RESOURCE_TEXTURE = "texture";
 extern const iaString IGOR_RESOURCE_SOUND = "sound";
 extern const iaString IGOR_RESOURCE_SPRITE = "sprite";
 extern const iaString IGOR_RESOURCE_MODEL = "model";
+extern const iaString IGOR_RESOURCE_PREFAB = "prefab";
 
 extern const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
 extern const iaString IGOR_RESOURCE_PARAM_TYPE = "type";

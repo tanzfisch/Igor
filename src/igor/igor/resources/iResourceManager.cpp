@@ -11,6 +11,7 @@
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/shader/iShaderFactory.h>
 #include <igor/resources/material/iMaterialFactory.h>
+#include <igor/resources/prefab/iPrefabFactory.h>
 #include <igor/resources/config/iConfig.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/iResourceDictionary.h>
@@ -46,6 +47,7 @@ namespace igor
         configure();
 
         registerFactory(iFactoryPtr(new iTextureFactory()));
+        registerFactory(iFactoryPtr(new iPrefabFactory()));
         registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));

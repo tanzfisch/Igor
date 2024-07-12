@@ -30,7 +30,6 @@
 #define MICA_UILAYER_H
 
 #include "Workspace.h"
-#include "scene_outliner/SceneOutliner.h"
 #include "outliner/Outliner.h"
 #include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
@@ -57,10 +56,6 @@ private:
     /*! the main dialog
     */
     MainDialog *_mainDialog = nullptr;
-
-    /*! the outliner
-	*/
-    SceneOutliner *_sceneOutliner = nullptr;
 
     /*! entities outliner
     */

@@ -29,7 +29,8 @@
 #ifndef MICA_ACTIONCONTEXT_H
 #define MICA_ACTIONCONTEXT_H
 
-#include "../scene_outliner/SceneOutliner.h"
+#include "../Workspace.h"
+#include "../outliner/Outliner.h"
 
 /*! mica action context
 */
@@ -39,7 +40,7 @@ class MicaActionContext : public iActionContext
 public:
     /*! init members
     */
-    MicaActionContext(WorkspacePtr workspace, SceneOutliner *outliner)
+    MicaActionContext(WorkspacePtr workspace, Outliner *outliner)
         : _workspace(workspace), _outliner(outliner)
     {
     }
@@ -53,7 +54,7 @@ public:
 
     /*! returns the outliner
     */
-    SceneOutliner *getOutliner() const
+    Outliner *getOutliner() const
     {
         return _outliner;
     }
@@ -65,7 +66,7 @@ private:
 
     /*! reference to the outliner
     */
-    SceneOutliner *_outliner = nullptr;
+    Outliner *_outliner = nullptr;
 };
 
 #endif // MICA_ACTIONCONTEXT_H

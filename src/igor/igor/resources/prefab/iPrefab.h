@@ -26,67 +26,47 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef MICA_OUTLINER_H
-#define MICA_OUTLINER_H
+#ifndef IGOR_PREFAB_H
+#define IGOR_PREFAB_H
 
-#include <igor/igor.h>
-using namespace igor;
+#include <igor/resources/iResource.h>
 
-/*! outliner
- */
-class Outliner : public iDialog
+#include <igor/entities/iEntityScene.h>
+
+namespace igor
 {
-
-    friend class iWidgetManager;
-
-public:
-    /*! init ui
+    /*! prefab pointer definition
      */
-    Outliner();
+    class iPrefab;
+    typedef std::shared_ptr<iPrefab> iPrefabPtr;
 
-    /*! sets scene to display
+    /*! prefab ID definition
+     */
+    typedef iaUUID iPrefabID;
 
-    \param entitySceneID id of entity scene to display
+    /*! contains a prefab or a whole scene
     */
-    void setScene(const iEntitySceneID &entitySceneID);
+    class IGOR_API iPrefab : public iResource
+    {
+        friend class iPrefabFactory;
 
-private:
-    /*! main layout
-     */
-    iWidgetBoxLayoutPtr _layout = nullptr;
+    public:
 
-    /*! tree view
-     */
-    iUserControlTreeViewPtr _treeView = nullptr;
+        // TODO something like this to load it in to an existing scene void loadInto(iEntityScenePtr scene, iEntityPtr entity);
 
-    /*! tree view data
-     */
-    std::unique_ptr<iItemData> _itemData;
+    private:
 
-    /*! the entity scene id
-    */
-    iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
+        /*! entity scene held by prefab after loading
+        */
+        iEntityScenePtr _scene = nullptr;      
 
-    /*! init user interface
-     */
-    void initGUI();
+        /*! init prefab
 
-    /*! handles click in tree view
+        \param parameters parameters specifying the prefab
+         */
+        iPrefab(const iParameters &parameters);
+    };
 
-    \param source the source widget of this event
-    */
-    void onClickTreeView(const iWidgetPtr source);
+} // namespace igor
 
-    /*! populate the entity tree
-     */
-    void populateTree();
-
-    /*! populate scene
-     */
-    void populateScene(iEntityScenePtr scene, iItemPtr sceneItem);
-
-    void onEntityCreated(iEntityPtr scene);
-    void onEntityDestroyed(iEntityPtr scene);
-};
-
-#endif // MICA_OUTLINER_H
+#endif // IGOR_PREFAB_H
