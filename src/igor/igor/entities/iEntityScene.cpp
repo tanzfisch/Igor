@@ -295,39 +295,6 @@ namespace igor
         return nullptr;
     }
 
-    void to_json(json &j, const iEntity &entity)
-    {
-        j["name"] = entity.getName();
-        j["entityID"] = entity.getID();
-        j["active"] = entity.isActive();
-        if(entity.hasParent())
-        {
-            j["parent"] = entity.getParent()->getID();
-        }
-
-        json childrenJson = json::array();
-        const auto &activeChildren = entity.getChildren(); 
-        for(const auto child : activeChildren)
-        {
-            childrenJson.push_back(child->getID());
-        }
-
-        const auto &inactiveChildren = entity.getInactiveChildren();
-        for(const auto child : inactiveChildren)
-        {
-            childrenJson.push_back(child->getID());
-        }
-
-        if(!childrenJson.empty())
-        {
-            j["children"] = childrenJson;
-        }
-    }
-
-    void from_json(const json &j, iEntity &entity)
-    {
-    }
-
     void to_json(json &j, const iEntityScene &scene)
     {
         j["name"] = scene.getName();

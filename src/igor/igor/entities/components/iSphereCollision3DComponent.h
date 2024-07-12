@@ -31,8 +31,6 @@
 
 #include <igor/entities/iEntity.h>
 
-#include <igor/data/iOctree.h>
-
 namespace igor
 {
     /*! 3D sphere collision component
@@ -53,10 +51,23 @@ namespace igor
          */
         float64 getRadius() const;
 
+        /*! sets radius
+
+        \param radius the radius to set
+         */
+        void setRadius(float64 radius);
+
         /*! \returns the offset position
          */
-        const iaVector3d& getOffset() const;
+        const iaVector3d &getOffset() const;
 
+        /*! sets offset
+
+        \param offset the offset to set
+         */
+        void setOffset(const iaVector3d &offset);
+
+    private:
         /*! the sphere's radius
          */
         float64 _radius;
@@ -65,6 +76,14 @@ namespace igor
          */
         iaVector3d _offset;
     };
+
+    /*! iSphereCollision3DComponent to json
+     */
+    void to_json(json &j, const iSphereCollision3DComponent &component);
+
+    /*! json to iSphereCollision3DComponent
+     */
+    void from_json(const json &j, iSphereCollision3DComponent &component);
 }
 
 #endif // IGOR_SPHERE_COLLISION_3D_COMPONENT_H

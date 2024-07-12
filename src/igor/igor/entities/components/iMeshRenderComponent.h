@@ -39,6 +39,8 @@ namespace igor
      */
     class iMeshRenderComponent : public iEntityComponent
     {
+        friend void from_json(const json &j, iMeshRenderComponent &component);
+
     public:
         /*! ctor
          */
@@ -49,7 +51,7 @@ namespace igor
         iMeshPtr getMesh() const;
 
         /*! \returns material
-        */
+         */
         iMaterialPtr getMaterial() const;
 
     private:
@@ -58,7 +60,7 @@ namespace igor
         iMeshPtr _mesh;
 
         /*! the material to render with
-        */
+         */
         iMaterialPtr _material;
 
         /*! callback for loading component
@@ -67,6 +69,14 @@ namespace igor
         */
         bool onLoad(iEntityPtr entity) override;
     };
+
+    /*! iMeshRenderComponent to json
+     */
+    void to_json(json &j, const iMeshRenderComponent &component);
+
+    /*! json to iMeshRenderComponent
+     */
+    void from_json(const json &j, iMeshRenderComponent &component);
 
 }
 

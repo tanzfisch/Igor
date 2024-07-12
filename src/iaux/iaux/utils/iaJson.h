@@ -35,6 +35,7 @@
 #include <iaux/math/iaVector4.h>
 #include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
+#include <iaux/data/iaRectangle.h>
 
 #include <json.hpp>
 using json = nlohmann::json;
@@ -130,6 +131,22 @@ namespace iaux
     /*! json to iaColor4f
      */
     void from_json(const json &j, iaColor4f &color);    
+
+    /*! iaRectanglef to json
+     */
+    void to_json(json &j, const iaRectanglef &rect);
+
+    /*! json to iaRectanglef
+     */
+    void from_json(const json &j, iaRectanglef &rect);  
+
+    /*! iaRectangled to json
+     */
+    void to_json(json &j, const iaRectangled &rect);
+
+    /*! json to iaRectangled
+     */
+    void from_json(const json &j, iaRectangled &rect);  
 
     #include <iaux/utils/iaJson.inl>
 }

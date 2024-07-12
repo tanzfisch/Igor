@@ -31,6 +31,7 @@
 
 #include <igor/iDefines.h>
 
+#include <iaux/utils/iaJson.h>
 #include <iaux/data/iaUUID.h>
 using namespace iaux;
 
@@ -129,6 +130,14 @@ namespace igor
     /*! pointer definition of entity component
      */
     typedef iEntityComponent *iEntityComponentPtr;
+
+    /*! iEntityComponent to json
+     */
+    void to_json(json &j, const iEntityComponent &component);
+
+    /*! json to iEntityComponent
+     */
+    void from_json(const json &j, iEntityComponent &component);    
 
 }
 

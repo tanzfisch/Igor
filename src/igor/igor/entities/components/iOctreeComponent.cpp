@@ -27,4 +27,14 @@ namespace igor
         auto &octree = entity->getScene()->getOctree();
         octree.remove(_object);
     }
+
+    void to_json(json &j, const iOctreeComponent &component)
+    {
+        // has no data that we want to store
+    }
+
+    void from_json(const json &j, iOctreeComponent &component)
+    {
+        // has no data that we want to load
+    }    
 }

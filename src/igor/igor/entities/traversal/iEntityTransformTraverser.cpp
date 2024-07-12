@@ -60,7 +60,7 @@ namespace igor
         iSphereCollision3DComponent *collision = entity->getComponent<iSphereCollision3DComponent>();
         if (collision != nullptr)
         {
-            const iaSphered sphere(_currentMatrix._pos + collision->_offset, collision->_radius);
+            const iaSphered sphere(_currentMatrix._pos + collision->getOffset(), collision->getRadius());
             _scene->getOctree().update(body->_object, sphere);
         }
         else

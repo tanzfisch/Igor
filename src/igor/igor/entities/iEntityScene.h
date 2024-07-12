@@ -256,14 +256,6 @@ namespace igor
 
     /*! iEntity to json
      */
-    void to_json(json &j, const iEntity &entity);
-
-    /*! json to iEntity
-     */
-    void from_json(const json &j, iEntity &entity);
-
-    /*! iEntity to json
-     */
     void to_json(json &j, const iEntityScene &scene);
 
     /*! json to iEntityScene

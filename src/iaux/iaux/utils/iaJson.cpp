@@ -139,4 +139,36 @@ namespace iaux
         color._b = j["b"].get<float32>();
         color._a = j["a"].get<float32>();
     }
+
+    void to_json(json &j, const iaRectanglef &rect)
+    {
+        j["x"] = rect._x;
+        j["y"] = rect._y;
+        j["width"] = rect._width;
+        j["height"] = rect._height;
+    }
+
+    void from_json(const json &j, iaRectanglef &rect)
+    {
+        rect._x = j["x"].get<float32>();
+        rect._y = j["y"].get<float32>();
+        rect._width = j["width"].get<float32>();
+        rect._height = j["height"].get<float32>();
+    }
+
+    void to_json(json &j, const iaRectangled &rect)
+    {
+        j["x"] = rect._x;
+        j["y"] = rect._y;
+        j["width"] = rect._width;
+        j["height"] = rect._height;
+    }
+
+    void from_json(const json &j, iaRectangled &rect)
+    {
+        rect._x = j["x"].get<float64>();
+        rect._y = j["y"].get<float64>();
+        rect._width = j["width"].get<float64>();
+        rect._height = j["height"].get<float64>();
+    }
 }
