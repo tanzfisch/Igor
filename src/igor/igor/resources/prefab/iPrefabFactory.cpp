@@ -7,10 +7,10 @@
 #include <igor/resources/prefab/iPrefab.h>
 #include <igor/resources/prefab/loader/iPrefabIO.h>
 #include <igor/resources/iResourceManager.h>
+#include <igor/entities/iEntitySystemModule.h>
 
 namespace igor
 {
-
     iPrefabFactory::iPrefabFactory()
         : iFactory(IGOR_RESOURCE_PREFAB, IGOR_SUPPORTED_PREFAB_EXTENSIONS)
     {
@@ -18,8 +18,11 @@ namespace igor
 
     iResourcePtr iPrefabFactory::createResource()
     {
+        auto scene = iEntitySystemModule::getInstance().createScene();
+
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_PREFAB},
-                           {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
+                           {IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                           {IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID, scene->getID()}});
 
         return iPrefabPtr(new iPrefab(param));
     }
@@ -59,14 +62,6 @@ namespace igor
 
     bool iPrefabFactory::loadResource(iResourcePtr resource)
     {
-        const auto &parameters = resource->getParameters();
-        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
-        if (generate)
-        {
-            // already done during createResource
-            return true;
-        }
-
         iaString filepath = iResourceManager::getInstance().getFilename(resource->getID());
         if (filepath.isEmpty())
         {
@@ -86,7 +81,10 @@ namespace igor
 
     void iPrefabFactory::unloadResource(iResourcePtr resource)
     {
-        // nothing else to do here
+        auto prefab = std::dynamic_pointer_cast<iPrefab>(resource);
+        con_assert(prefab != nullptr, "wrong type");
+
+        iEntitySystemModule::getInstance().destroyScene(prefab->getSceneID());
     }
 
     iaString iPrefabFactory::getHashData(const iParameters &parameters) const

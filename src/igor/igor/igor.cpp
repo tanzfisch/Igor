@@ -56,6 +56,7 @@ extern const iaString IGOR_RESOURCE_PARAM_SPECULAR = "specular";
 extern const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
 extern const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
 extern const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
+extern const iaString IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID = "entitySceneID";
 
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";

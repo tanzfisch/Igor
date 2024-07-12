@@ -12,6 +12,12 @@ namespace igor
     iPrefab::iPrefab(const iParameters &parameters)
         : iResource(parameters)
     {
+        _sceneID = parameters.getParameter<iEntitySceneID>(IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID, iEntitySceneID::getInvalid());
+    }
+
+    iEntitySceneID iPrefab::getSceneID() const
+    {
+        return _sceneID;
     }
 
 } // namespace igor

@@ -45,20 +45,22 @@ namespace igor
     typedef iaUUID iPrefabID;
 
     /*! contains a prefab or a whole scene
-    */
+     */
     class IGOR_API iPrefab : public iResource
     {
         friend class iPrefabFactory;
 
     public:
-
         // TODO something like this to load it in to an existing scene void loadInto(iEntityScenePtr scene, iEntityPtr entity);
 
-    private:
+        /*! \returns entity scene id of this prefab
+         */
+        iEntitySceneID getSceneID() const;
 
-        /*! entity scene held by prefab after loading
-        */
-        iEntityScenePtr _scene = nullptr;      
+    private:
+        /*! entity scene id held by prefab after loading
+         */
+        iEntitySceneID _sceneID = iEntitySceneID::getInvalid();
 
         /*! init prefab
 
