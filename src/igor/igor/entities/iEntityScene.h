@@ -35,6 +35,7 @@
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaRectangle.h>
+#include <iaux/utils/iaJson.h>
 using namespace iaux;
 
 #include <unordered_map>
@@ -56,6 +57,7 @@ namespace igor
 		friend class iEntity;
 		friend class iView;
 		friend class iEntityTraverser;
+		friend void to_json(json &j, const iEntityScene &scene);
 
 	public:
 		/*! sets name of scene
@@ -251,6 +253,22 @@ namespace igor
 		*/
 		void onEntityChanged(iEntityPtr entity);
 	};
+
+    /*! iEntity to json
+     */
+    void to_json(json &j, const iEntity &entity);
+
+    /*! json to iEntity
+     */
+    void from_json(const json &j, iEntity &entity);
+
+    /*! iEntity to json
+     */
+    void to_json(json &j, const iEntityScene &scene);
+
+    /*! json to iEntityScene
+     */
+    void from_json(const json &j, iEntityScene &scene);
 
 } // igor
 

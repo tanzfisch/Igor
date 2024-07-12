@@ -5,12 +5,11 @@
 #include <igor/resources/prefab/loader/iPrefabIO.h>
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/entities/iEntitySystemModule.h>
 
-#include <iaux/system/iaFile.h>
 #include <iaux/utils/iaJson.h>
 
 #include <fstream>
-#include <iostream>
 
 namespace igor
 {
@@ -35,7 +34,10 @@ namespace igor
         std::ofstream stream;
         stream.open(temp);
 
-        // TODO stream << dataJson.dump(4);
+        auto scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
+        json dataJson = {"entityScene", *scene};
+
+        stream << dataJson.dump(4);
 
         return true;
     }

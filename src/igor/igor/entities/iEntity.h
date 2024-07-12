@@ -84,7 +84,7 @@ namespace igor
         */
         void removeParent();
 
-        /*! \returns parent id
+        /*! \returns parent
         */
         iEntityPtr getParent() const;
 
@@ -105,10 +105,6 @@ namespace igor
         /*! \returns inactive children
         */
         const std::vector<iEntityPtr>& getInactiveChildren() const;
-
-        /*! \returns true if entity has children
-        */
-        bool hasChildren() const;
 
         /*! sets wether and entity is active or not
 

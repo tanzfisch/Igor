@@ -374,7 +374,6 @@ inline iShaderPtr iResourceManager::getResource(const iaString &alias)
     return std::dynamic_pointer_cast<iShader>(getResource(param));
 }
 
-
 template <>
 inline iMaterialPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
@@ -435,4 +434,66 @@ inline iMaterialPtr iResourceManager::getResource(const iaString &alias)
 {
     iParameters param = buildParam(IGOR_RESOURCE_MATERIAL, alias);
     return std::dynamic_pointer_cast<iMaterial>(getResource(param));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_PREFAB, alias, cacheMode);
+    return std::dynamic_pointer_cast<iPrefab>(requestResource(param));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_PREFAB, alias, cacheMode);
+    return std::dynamic_pointer_cast<iPrefab>(loadResource(param));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_PREFAB, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iPrefab>(requestResource(param));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_PREFAB, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iPrefab>(loadResource(param));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::requestResource(const iParameters &param)
+{
+    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_PREFAB, "incorrect parameter");
+    return std::dynamic_pointer_cast<iPrefab>(requestResource(param));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::loadResource(const iParameters &param)
+{
+    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_PREFAB, "incorrect parameter");
+    return std::dynamic_pointer_cast<iPrefab>(loadResource(param));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::createResource()
+{
+    iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_PREFAB}}));
+    return std::dynamic_pointer_cast<iPrefab>(createResource(param));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::getResource(const iResourceID &id)
+{
+    return std::dynamic_pointer_cast<iPrefab>(getResource(id));
+}
+
+template <>
+inline iPrefabPtr iResourceManager::getResource(const iaString &alias)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_PREFAB, alias);
+    return std::dynamic_pointer_cast<iPrefab>(getResource(param));
 }

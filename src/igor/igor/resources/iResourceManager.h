@@ -38,6 +38,7 @@
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/shader/iShader.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/prefab/iPrefab.h>
 #include <igor/resources/iResourceDictionary.h>
 
 #include <iaux/system/iaDirectory.h>

@@ -243,11 +243,6 @@ namespace igor
         return _inactiveChildren;
     }
 
-    bool iEntity::hasChildren() const
-    {
-        return !_children.empty();
-    }
-
     void iEntity::setActive(bool active)
     {
         if (_active == active)

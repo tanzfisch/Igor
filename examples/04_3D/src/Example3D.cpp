@@ -11,27 +11,37 @@ Example3D::Example3D(iWindowPtr window)
 
 void Example3D::onInit()
 {
-    _entityScene = iEntitySystemModule::getInstance().createScene();
+    iPrefabPtr scenePrefab = iResourceManager::getInstance().createResource<iPrefab>();
+    _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
     _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
     getView().setEntityScene(_entityScene);
 
+    iEntityPtr cameraHeading = _entityScene->createEntity("cameraHeading");
+    cameraHeading->addComponent(new iTransformComponent(iaVector3d(0, 0, 0.0)));
+
+    iEntityPtr cameraPitch = _entityScene->createEntity("cameraPitch");
+    cameraPitch->addComponent(new iTransformComponent(iaVector3d(0, 0, 0.0)));
+    cameraPitch->setParent(cameraHeading);
+
     iEntityPtr camera = _entityScene->createEntity("camera");
-    camera->addComponent(new iTransformComponent(iaVector3d(0, 0, 0.0)));
+    camera->addComponent(new iTransformComponent(iaVector3d(0, 0, 10.0)));
     auto cameraComponent = camera->addComponent(new iCameraComponent());
     cameraComponent->setPerspective(45.0);
     cameraComponent->setClipPlanes(0.01, 100.0);
     cameraComponent->setClearColorActive(true);
-    cameraComponent->setClearColor(iaColor4f::red);
     cameraComponent->setClearDepthActive(true);
+    camera->setParent(cameraPitch);
 
     iEntityPtr cat = _entityScene->createEntity("cat");
-    cat->addComponent(new iTransformComponent(iaVector3d(0, 0, -5)));
-    cat->addComponent(new iSphereCollision3DComponent(10));
+    cat->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
+    cat->addComponent(new iSphereCollision3DComponent(1));
     cat->addComponent(new iOctreeComponent());
 
     iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
     iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());    
     cat->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
+
+    iResourceManager::getInstance().saveResource(scenePrefab, "foo.scene");
 #if 0
     // setup camera
     // we want a camera which can be rotated around the origin
