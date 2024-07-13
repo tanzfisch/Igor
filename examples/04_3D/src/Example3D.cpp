@@ -11,6 +11,8 @@ Example3D::Example3D(iWindowPtr window)
 
 void Example3D::onInit()
 {
+
+#if 0
     iPrefabPtr scenePrefab = iResourceManager::getInstance().createResource<iPrefab>();
     _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
     _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
@@ -41,7 +43,11 @@ void Example3D::onInit()
     iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());    
     cat->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
 
-    iResourceManager::getInstance().saveResource(scenePrefab, "foo.scene");
+    iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/04_3D/project/scenes/main.scene");
+#else
+    iPrefabPtr scenePrefab = iResourceManager::getInstance().loadResource<iPrefab>("example_main_scene");
+    _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
+#endif
 #if 0
     // setup camera
     // we want a camera which can be rotated around the origin

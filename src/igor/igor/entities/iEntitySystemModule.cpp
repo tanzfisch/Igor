@@ -52,7 +52,6 @@ namespace igor
 
     iEntityScenePtr iEntitySystemModule::createScene(const iaString &name, bool addIgorSystems)
     {
-        // TODO create unique names
         iEntityScenePtr scene = new iEntityScene(name);
         _scenes[scene->getID()] = scene;
 
@@ -72,7 +71,7 @@ namespace igor
 
         scene->addSystem(new iLightSystem());
         scene->addSystem(new iSpriteRenderSystem());
-        
+
         _activeScenes.push_back(scene);
 
         return scene;
@@ -147,7 +146,7 @@ namespace igor
 
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                maxUpdateCount > 0)
-        {           
+        {
             for (auto pair : _scenes)
             {
                 pair.second->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);
@@ -156,7 +155,7 @@ namespace igor
             maxUpdateCount--;
         };
 
-        if(maxUpdateCount <= 0)
+        if (maxUpdateCount <= 0)
         {
             _simulationFrameTime = currentTime;
             con_trace("Loosing frames");

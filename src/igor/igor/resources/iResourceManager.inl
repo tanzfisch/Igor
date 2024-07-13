@@ -446,7 +446,7 @@ inline iPrefabPtr iResourceManager::requestResource(const iaString &alias, iReso
 template <>
 inline iPrefabPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
 {
-    iParameters param = buildParam(IGOR_RESOURCE_PREFAB, alias, cacheMode);
+     iParameters param = buildParam(IGOR_RESOURCE_PREFAB, alias, cacheMode);
     return std::dynamic_pointer_cast<iPrefab>(loadResource(param));
 }
 

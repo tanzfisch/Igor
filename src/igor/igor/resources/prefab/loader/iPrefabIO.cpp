@@ -21,7 +21,9 @@ namespace igor
         std::ifstream file(temp);
         json data = json::parse(file);
 
-        // TODO
+        // prefab->_sceneID = iEntitySystemModule::getInstance().createScene()->getID();
+
+        // auto scene = data["entityScene"].get<iEntityScene>();
 
         return true;
     }
@@ -35,8 +37,8 @@ namespace igor
         stream.open(temp);
 
         auto scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
-        json dataJson = {"entityScene", *scene};
-
+        json dataJson;
+        dataJson["entityScene"] = *scene;
         stream << dataJson.dump(4);
 
         return true;

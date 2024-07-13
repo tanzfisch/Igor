@@ -60,6 +60,16 @@ namespace igor
 		friend void to_json(json &j, const iEntityScene &scene);
 
 	public:
+		/*! ctor
+
+		\param name the name of the scene
+		*/
+		iEntityScene(const iaString &name);
+
+		/*! dtor clean up
+		 */
+		~iEntityScene();
+
 		/*! sets name of scene
 
 		\param name the name of the scene
@@ -191,16 +201,6 @@ namespace igor
 		/*! the render engine to use in render update stage
 		*/
 		iRenderEnginePtr _renderEngine = nullptr;
-
-		/*! ctor
-
-		\param name the name of the scene
-		*/
-		iEntityScene(const iaString &name);
-
-		/*! dtor clean up
-		 */
-		~iEntityScene();
 
 		/*! sets render engine
 

@@ -1,4 +1,173 @@
-{ "scene" : {
-    {"name" : "foobar"}
-}
+{
+    "entityScene": {
+        "entities": [
+            {
+                "active": true,
+                "components": [
+                    [
+                        "camera",
+                        {
+                            "clearColor": {
+                                "a": 1.0,
+                                "b": 0.5,
+                                "g": 0.5,
+                                "r": 0.5
+                            },
+                            "clearColorActive": true,
+                            "clearDepth": 1.0,
+                            "clearDepthActive": true,
+                            "clipFar": 100.0,
+                            "clipNear": 0.009999999776482582,
+                            "fov": 45.0,
+                            "orthoBottom": -1.0,
+                            "orthoLeft": -1.0,
+                            "orthoRight": 1.0,
+                            "orthoTop": 1.0,
+                            "perspective": true,
+                            "viewport": {
+                                "height": 1.0,
+                                "width": 1.0,
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        }
+                    ],
+                    [
+                        "transform",
+                        {
+                            "orientation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 10.0
+                            },
+                            "scale": {
+                                "x": 1.0,
+                                "y": 1.0,
+                                "z": 1.0
+                            }
+                        }
+                    ]
+                ],
+                "entityID": "0x78850f5517de0fe9",
+                "name": "camera",
+                "parent": "0x7ac06cb7e96cc7f0"
+            },
+            {
+                "active": true,
+                "children": [
+                    "0x78850f5517de0fe9"
+                ],
+                "components": [
+                    [
+                        "transform",
+                        {
+                            "orientation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "scale": {
+                                "x": 1.0,
+                                "y": 1.0,
+                                "z": 1.0
+                            }
+                        }
+                    ]
+                ],
+                "entityID": "0x7ac06cb7e96cc7f0",
+                "name": "cameraPitch",
+                "parent": "0x39641c77a4e872ee"
+            },
+            {
+                "active": true,
+                "components": [
+                    [
+                        "octree",
+                        null
+                    ],
+                    [
+                        "meshRender",
+                        {
+                            "material": "0xfaa3b1436a20dbf3"
+                        }
+                    ],
+                    [
+                        "sphere",
+                        {
+                            "offset": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "radius": 1.0
+                        }
+                    ],
+                    [
+                        "transform",
+                        {
+                            "orientation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "scale": {
+                                "x": 1.0,
+                                "y": 1.0,
+                                "z": 1.0
+                            }
+                        }
+                    ]
+                ],
+                "entityID": "0xa05990c6b9a639e3",
+                "name": "cat"
+            },
+            {
+                "active": true,
+                "children": [
+                    "0x7ac06cb7e96cc7f0"
+                ],
+                "components": [
+                    [
+                        "transform",
+                        {
+                            "orientation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "scale": {
+                                "x": 1.0,
+                                "y": 1.0,
+                                "z": 1.0
+                            }
+                        }
+                    ]
+                ],
+                "entityID": "0x39641c77a4e872ee",
+                "name": "cameraHeading"
+            }
+        ],
+        "name": "",
+        "sceneID": "0xaf9174aaf701bac0"
+    }
 }

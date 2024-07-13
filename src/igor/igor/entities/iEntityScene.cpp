@@ -312,6 +312,7 @@ namespace igor
 
     void from_json(const json &j, iEntityScene &scene)
     {
+        scene.setName(j["name"].get<iaString>());
     }
 
 } // igor

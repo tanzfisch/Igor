@@ -49,6 +49,7 @@ namespace igor
     class IGOR_API iPrefab : public iResource
     {
         friend class iPrefabFactory;
+        friend class iPrefabIO;
 
     public:
         // TODO something like this to load it in to an existing scene void loadInto(iEntityScenePtr scene, iEntityPtr entity);

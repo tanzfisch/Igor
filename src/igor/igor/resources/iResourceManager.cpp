@@ -411,7 +411,7 @@ namespace igor
         }
 
         iResourceID id;
-        if (!iResource::extractID(parameters, id))
+         if (!iResource::extractID(parameters, id))
         {
             const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
             const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
