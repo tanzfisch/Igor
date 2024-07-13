@@ -7,18 +7,6 @@
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntitySystemModule.h>
 
-#include <igor/entities/components/iTransformComponent.h>
-#include <igor/entities/components/iCameraComponent.h>
-#include <igor/entities/components/iCircleCollision2DComponent.h>
-#include <igor/entities/components/iLightComponent.h>
-#include <igor/entities/components/iMeshRenderComponent.h>
-#include <igor/entities/components/iOctreeComponent.h>
-#include <igor/entities/components/iQuadtreeComponent.h>
-#include <igor/entities/components/iSphereCollision3DComponent.h>
-#include <igor/entities/components/iSpriteRenderComponent.h>
-
-#include <igor/entities/components/iComponents.h>
-
 #include <algorithm>
 
 namespace igor
@@ -421,84 +409,4 @@ namespace igor
     {
         return _scene->_root == this;
     }
-
-    void to_json(json &j, const iEntity &entity)
-    {
-        j["name"] = entity.getName();
-        j["entityID"] = entity.getID();
-        j["active"] = entity.isActive();
-        if (entity.hasParent())
-        {
-            j["parent"] = entity.getParent()->getID();
-        }
-
-        json childrenJson = json::array();
-        const auto &activeChildren = entity.getChildren();
-        for (const auto child : activeChildren)
-        {
-            childrenJson.push_back(child->getID());
-        }
-
-        const auto &inactiveChildren = entity.getInactiveChildren();
-        for (const auto child : inactiveChildren)
-        {
-            childrenJson.push_back(child->getID());
-        }
-
-        if (!childrenJson.empty())
-        {
-            j["children"] = childrenJson;
-        }
-
-        json componentsJson = json::array();
-        for (const auto &pair : entity._components)
-        {
-            iTransformComponent *transform = dynamic_cast<iTransformComponent *>(pair.second);
-            if (transform != nullptr)
-            {
-                componentsJson.push_back({"transform", *transform});
-                continue;
-            }
-
-            iCameraComponent *camera = dynamic_cast<iCameraComponent *>(pair.second);
-            if (camera != nullptr)
-            {
-                componentsJson.push_back( {"camera", *camera});
-                continue;
-            }            
-
-            iSphereCollision3DComponent *sphereCollision = dynamic_cast<iSphereCollision3DComponent *>(pair.second);
-            if (sphereCollision != nullptr)
-            {
-                componentsJson.push_back({"sphere", *sphereCollision});
-                continue;
-            }    
-
-            iOctreeComponent *octree = dynamic_cast<iOctreeComponent *>(pair.second);
-            if (octree != nullptr)
-            {
-                componentsJson.push_back({"octree", *octree});
-                continue;
-            }             
-
-            iMeshRenderComponent *meshRender = dynamic_cast<iMeshRenderComponent *>(pair.second);
-            if (meshRender != nullptr)
-            {
-                componentsJson.push_back({"meshRender", *meshRender});
-                continue;
-            }  
-
-            con_err("unknown component type");
-        }
-
-        if (!componentsJson.empty())
-        {
-            j["components"] = componentsJson;
-        }
-    }
-
-    void from_json(const json &j, iEntity &entity)
-    {
-    }
-
 }

@@ -150,9 +150,16 @@ namespace igor
         return _name;
     }
 
-    iEntityPtr iEntityScene::createEntity(const iaString &name)
+    iEntityPtr iEntityScene::createEntity(const iaString &name, const iEntitySceneID &id)
     {
         iEntityPtr entity = new iEntity(name);
+        if(id.isValid())
+        {
+            entity->_id = id;
+        }
+
+        con_assert(_entities.find(entity->getID()) == _entities.end(), "id collision");
+
         _entities[entity->getID()] = entity;
         entity->_scene = this;
         entity->setParent(_root);
@@ -293,26 +300,6 @@ namespace igor
         }
 
         return nullptr;
-    }
-
-    void to_json(json &j, const iEntityScene &scene)
-    {
-        j["name"] = scene.getName();
-        j["sceneID"] = scene.getID();
-
-        json entitiesJson = json::array();
-        for (const auto &pair : scene._entities)
-        {
-            json entityJson = *pair.second;
-            entitiesJson.push_back(entityJson);
-        }
-
-        j["entities"] = entitiesJson;
-    }
-
-    void from_json(const json &j, iEntityScene &scene)
-    {
-        scene.setName(j["name"].get<iaString>());
     }
 
 } // igor

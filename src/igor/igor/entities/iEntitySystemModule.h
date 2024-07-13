@@ -36,17 +36,17 @@
 #include <unordered_map>
 
 namespace igor
-{    
+{
     /*! event called after creation of new entity
-    */
+     */
     IGOR_EVENT_DEFINITION(iCreatedEntity, void, iEntityPtr);
 
     /*! event called before destruction of given entity
-    */
+     */
     IGOR_EVENT_DEFINITION(iDestroyEntity, void, iEntityPtr);
 
     /*! entity system module
-    */
+     */
     class IGOR_API iEntitySystemModule : public iModule<iEntitySystemModule>
     {
 
@@ -59,10 +59,11 @@ namespace igor
         ownership of scenes always stay with module
 
         \param name the name of the scene
+        \param id optional id to override the generated one
         \param addIgorSystems if true adds all igor systems to it. if false there will be no systems registered with this scene
         \returns new created scene
         */
-        iEntityScenePtr createScene(const iaString &name = "", bool addIgorSystems = true);
+        iEntityScenePtr createScene(const iaString &name = "", const iEntitySceneID &id = iEntitySceneID::getInvalid(), bool addIgorSystems = true);
 
         /*! \returns scene for given scene id
 
@@ -101,12 +102,12 @@ namespace igor
         void setSimulationRate(float64 simulationRate);
 
         /*! \returns simulation rate
-        */
+         */
         float64 getSimulationRate();
 
         /*! registers a component type
-        */
-        template<typename T>
+         */
+        template <typename T>
         void registerComponentType();
 
         /*! \returns mask for given component type
@@ -125,23 +126,23 @@ namespace igor
 
         \param scene the given scene to deactivate
         */
-        void deactivateScene(iEntityScenePtr scene);       
-        
+        void deactivateScene(iEntityScenePtr scene);
+
         /*! \returns all active scenes
-        */
-        const std::vector<iEntityScenePtr>& getActiveScenes() const;
+         */
+        const std::vector<iEntityScenePtr> &getActiveScenes() const;
 
         /*! \returns all inactive scenes
-        */
-        const std::vector<iEntityScenePtr>& getInactiveScenes() const;
+         */
+        const std::vector<iEntityScenePtr> &getInactiveScenes() const;
 
         /*! \returns entity got created event
-        */
-        iCreatedEntityEvent& getCreatedEntityEvent();
+         */
+        iCreatedEntityEvent &getCreatedEntityEvent();
 
         /*! \returns entity will be destroyed event
-        */
-        iDestroyEntityEvent& getDestroyEntityEvent();
+         */
+        iDestroyEntityEvent &getDestroyEntityEvent();
 
     private:
         /*! entity scenes
@@ -153,24 +154,24 @@ namespace igor
         std::vector<iEntityScenePtr> _activeScenes;
 
         /*! inactive entity scenes
-        */
+         */
         std::vector<iEntityScenePtr> _inactiveScenes;
 
         /*! simulation rate in Hz
-        */
-        float64 _simulationRate = 60.0;        
+         */
+        float64 _simulationRate = 60.0;
 
         /*! simulation frame time
-        */
-        iaTime _simulationFrameTime = iaTime::getNow();
+         */
+        iaTime _simulationFrameTime;
 
         /*! event triggered when entity got created
-        */
+         */
         iCreatedEntityEvent _createdEntityEvent;
 
         /*! event triggered before entity get's destroyed
-        */
-        iDestroyEntityEvent _destroyEntityEvent;        
+         */
+        iDestroyEntityEvent _destroyEntityEvent;
 
         /*! the registered component types
 
@@ -179,9 +180,8 @@ namespace igor
         std::unordered_map<std::type_index, iEntityComponentMask> _registeredComponentTypes;
 
         /*! register known types
-        */
+         */
         iEntitySystemModule();
-
     };
 
 #include <igor/entities/iEntitySystemModule.inl>

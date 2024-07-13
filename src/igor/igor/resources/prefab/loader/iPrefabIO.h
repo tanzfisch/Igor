@@ -31,6 +31,8 @@
 
 #include <igor/resources/prefab/iPrefab.h>
 
+#include <iaux/utils/iaJson.h>
+
 namespace igor
 {
     /*! reader for Igor prefab files
@@ -51,6 +53,23 @@ namespace igor
         \param prefab the prefab to use
         */
         static bool write(const iaString &filename, const iPrefabPtr &prefab);
+
+    private:
+
+        /*! read entity from json
+
+        \param entityJson the json object
+        \param scene the scene to create the entity in
+        \return the read entity
+        */
+        static iEntityPtr readEntity(iEntityScenePtr scene, const json &entityJson);
+
+        /*! write entity to json
+
+        \param entityJson the json object
+        \param entity the entity to write
+        */
+        static void writeEntity(json &entityJson, iEntityPtr entity);
     };
 
 } // namespace igor

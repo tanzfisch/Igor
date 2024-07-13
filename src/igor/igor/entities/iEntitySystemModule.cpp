@@ -48,12 +48,22 @@ namespace igor
         registerComponentType<iPartyComponent>();
         registerComponentType<iAnimationComponent>();
         registerComponentType<iMeshRenderComponent>();
+
+        _simulationFrameTime = iTimer::getInstance().getTime();
     }
 
-    iEntityScenePtr iEntitySystemModule::createScene(const iaString &name, bool addIgorSystems)
+    iEntityScenePtr iEntitySystemModule::createScene(const iaString &name, const iEntitySceneID &id, bool addIgorSystems)
     {
         iEntityScenePtr scene = new iEntityScene(name);
+        if(id.isValid())
+        {
+            scene->_id = id;
+        }
+
+        con_assert(_scenes.find(scene->getID()) == _scenes.end(), "id collision");
+
         _scenes[scene->getID()] = scene;
+        _activeScenes.push_back(scene);
 
         if (!addIgorSystems)
         {
@@ -71,8 +81,6 @@ namespace igor
 
         scene->addSystem(new iLightSystem());
         scene->addSystem(new iSpriteRenderSystem());
-
-        _activeScenes.push_back(scene);
 
         return scene;
     }

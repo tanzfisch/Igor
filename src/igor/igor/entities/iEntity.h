@@ -31,9 +31,6 @@
 
 #include <igor/entities/components/iComponents.h>
 
-#include <iaux/utils/iaJson.h>
-using namespace iaux;
-
 #include <unordered_map>
 #include <typeindex>
 
@@ -61,7 +58,7 @@ namespace igor
         friend class iEntityScene;
         friend class iEntitySystem;
         friend class iEntityView;
-        friend void to_json(json &j, const iEntity &entity);
+        friend class iPrefabIO;
 
     public:
         /*! \returns entity id
@@ -273,14 +270,6 @@ namespace igor
     };
 
 #include <igor/entities/iEntity.inl>
-
-    /*! iEntity to json
-     */
-    void to_json(json &j, const iEntity &entity);
-
-    /*! json to iEntity
-     */
-    void from_json(const json &j, iEntity &entity);
 
 } // namespace igor
 

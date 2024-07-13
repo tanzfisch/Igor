@@ -12,7 +12,7 @@ Example3D::Example3D(iWindowPtr window)
 void Example3D::onInit()
 {
 
-#if 0
+#if 1
     iPrefabPtr scenePrefab = iResourceManager::getInstance().createResource<iPrefab>();
     _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
     _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));

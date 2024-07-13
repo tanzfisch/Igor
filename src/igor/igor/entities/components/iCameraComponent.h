@@ -224,13 +224,6 @@ namespace igor
         float64 _bottomOrtho = -1.0;
     };
 
-    /*! iCameraComponent to json
-     */
-    void to_json(json &j, const iCameraComponent &component);
-
-    /*! json to iCameraComponent
-     */
-    void from_json(const json &j, iCameraComponent &component);         
 }
 
 #endif // IGOR_CAMERA_COMPONENT_H

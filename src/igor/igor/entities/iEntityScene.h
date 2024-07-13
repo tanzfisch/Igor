@@ -35,7 +35,6 @@
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaRectangle.h>
-#include <iaux/utils/iaJson.h>
 using namespace iaux;
 
 #include <unordered_map>
@@ -57,7 +56,7 @@ namespace igor
 		friend class iEntity;
 		friend class iView;
 		friend class iEntityTraverser;
-		friend void to_json(json &j, const iEntityScene &scene);
+		friend class iPrefabIO;
 
 	public:
 		/*! ctor
@@ -84,9 +83,12 @@ namespace igor
 
 		ownership stays with the scene
 
+		\param name the name of this entity
+		\param id optional id to override the generated one
+
 		\returns newly created entity
 		*/
-		iEntityPtr createEntity(const iaString &name = "");
+		iEntityPtr createEntity(const iaString &name = "", const iEntitySceneID &id = iEntitySceneID::getInvalid());
 
 		/*! \returns entity for given entity ID. zero if not found
 		\param entityID the given entity ID
@@ -253,14 +255,6 @@ namespace igor
 		*/
 		void onEntityChanged(iEntityPtr entity);
 	};
-
-    /*! iEntity to json
-     */
-    void to_json(json &j, const iEntityScene &scene);
-
-    /*! json to iEntityScene
-     */
-    void from_json(const json &j, iEntityScene &scene);
 
 } // igor
 

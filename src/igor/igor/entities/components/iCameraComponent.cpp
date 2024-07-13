@@ -130,46 +130,4 @@ namespace igor
         return _bottomOrtho;
     }
 
-    void to_json(json &j, const iCameraComponent &component)
-    {
-        j["clearColor"] = component.getClearColor();
-        j["clearColorActive"] = component.isClearColorActive();
-        j["clearDepth"] = component.getClearDepth();
-        j["clearDepthActive"] = component.isClearDepthActive();
-        j["viewport"] = component.getViewport();
-        j["perspective"] = component.getProjectionType() == iProjectionType::Perspective;
-        j["fov"] = component.getFieldOfView();
-        j["clipNear"] = component.getNearClipPlane();
-        j["clipFar"] = component.getFarClipPlane();
-        j["orthoLeft"] = component.getLeftOrtho();
-        j["orthoRight"] = component.getRightOrtho();
-        j["orthoTop"] = component.getTopOrtho();
-        j["orthoBottom"] = component.getBottomOrtho();
-    }
-
-    void from_json(const json &j, iCameraComponent &component)
-    {
-        component.setClearColor(j["clearColor"].get<iaColor4f>());
-        component.setClearColorActive(j["clearColorActive"].get<bool>());
-        component.setClearDepth(j["clearDepth"].get<float32>());
-        component.setClearDepthActive(j["clearDepthActive"].get<bool>());
-        component.setViewportRelative(j["viewport"].get<iaRectangled>());
-
-        const bool perspective = j["perspective"].get<bool>();
-        if (perspective)
-        {
-            component.setPerspective(j["fov"].get<float32>());
-        }
-        else
-        {
-            component.setOrthogonal(
-                j["orthoLeft"].get<float32>(),
-                j["orthoRight"].get<float32>(),
-                j["orthoTop"].get<float32>(),
-                j["orthoBottom"].get<float32>());
-        }
-
-        component.setClipPlanes(j["clipNear"].get<float32>(), j["clipFar"].get<float32>());
-    }
-
 }

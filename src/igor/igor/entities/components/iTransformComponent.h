@@ -122,14 +122,6 @@ namespace igor
         */
         bool updateWorldMatrix(iaMatrixd &worldMatrix);
     };
-
-    /*! iTransformComponent to json
-     */
-    void to_json(json &j, const iTransformComponent &component);
-
-    /*! json to iTransformComponent
-     */
-    void from_json(const json &j, iTransformComponent &component);        
 }
 
 #endif // IGOR_TRANSFORM_COMPONENT_H

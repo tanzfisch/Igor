@@ -71,18 +71,4 @@ namespace igor
         return _scale;
     }
 
-    void to_json(json &j, const iTransformComponent &component)
-    {
-        j["position"] = component.getPosition();
-        j["orientation"] = component.getOrientation();
-        j["scale"] = component.getScale();
-    }
-
-    void from_json(const json &j, iTransformComponent &component)
-    {
-        component.setPosition(j["position"].get<iaVector3d>());
-        component.setOrientation(j["orientation"].get<iaVector3d>());
-        component.setScale(j["scale"].get<iaVector3d>());
-    }
-
 }
