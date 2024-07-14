@@ -6,8 +6,8 @@
 #include <igor/resources/iResourceDictionary.h>
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/utils/iJson.h>
 
-#include <iaux/utils/iaJson.h>
 #include <iaux/system/iaFile.h>
 using namespace iaux;
 
@@ -147,8 +147,8 @@ namespace igor
             }
             iaString source = element["source"].get<iaString>();
 
-            const bool internal = iaJson::getValue<bool>(element, "internal", false);
-            const iaString alias = iaJson::getValue<iaString>(element, "alias", "");
+            const bool internal = iJson::getValue<bool>(element, "internal", false);
+            const iaString alias = iJson::getValue<iaString>(element, "alias", "");
             
             if (!addResource(uuid, source, alias, internal))
             {

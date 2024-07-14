@@ -363,7 +363,19 @@ void iOctree<F>::clear()
 }
 
 template <typename F>
-const iAACube<F> &iOctree<F>::getRootCube() const
+const iAACube<F> &iOctree<F>::getVolume() const
 {
     return _root->_cube;
+}
+
+template <typename F>
+uint32 iOctree<F>::getSplitThreshold() const
+{
+    return _splitThreshold;
+}
+
+template <typename F>
+uint32 iOctree<F>::getMaxDepth() const
+{
+    return _maxDepth;
 }

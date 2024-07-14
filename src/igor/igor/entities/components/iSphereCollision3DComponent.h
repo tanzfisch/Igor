@@ -42,7 +42,7 @@ namespace igor
 
         \param name the name of this component
         */
-        iSphereCollision3DComponent(float64 radius, const iaVector3d &offset = iaVector3d(), const iaString &name = "sphere collision 3d")
+        iSphereCollision3DComponent(float64 radius = 1.0, const iaVector3d &offset = iaVector3d(), const iaString &name = "sphere collision 3d")
             : iEntityComponent(name), _radius(radius), _offset(offset)
         {
         }
@@ -77,13 +77,6 @@ namespace igor
         iaVector3d _offset;
     };
 
-    /*! iSphereCollision3DComponent to json
-     */
-    void to_json(json &j, const iSphereCollision3DComponent &component);
-
-    /*! json to iSphereCollision3DComponent
-     */
-    void from_json(const json &j, iSphereCollision3DComponent &component);
 }
 
 #endif // IGOR_SPHERE_COLLISION_3D_COMPONENT_H

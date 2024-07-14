@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#include <iaux/utils/iaJson.h>
+#include <igor/utils/iJson.h>
 #include <iaux/data/iaUUID.h>
 using namespace iaux;
 

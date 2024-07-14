@@ -16,7 +16,7 @@ namespace igor
     void iOctreeComponent::onActivate(iEntityPtr entity)
     {
         auto &octree = entity->getScene()->getOctree();
-        const iaVector3d &center = octree.getRootCube().getCenter();
+        const iaVector3d &center = octree.getVolume().getCenter();
 
         _object = std::make_shared<iOctreed::Object>(iaSphere(center, 0.0), entity->getID());
         octree.insert(_object);
@@ -27,14 +27,5 @@ namespace igor
         auto &octree = entity->getScene()->getOctree();
         octree.remove(_object);
     }
-
-    void to_json(json &j, const iOctreeComponent &component)
-    {
-        // has no data that we want to store
-    }
-
-    void from_json(const json &j, iOctreeComponent &component)
-    {
-        // has no data that we want to load
-    }    
+  
 }

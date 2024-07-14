@@ -26,15 +26,4 @@ namespace igor
         _offset = offset;
     }
 
-    void to_json(json &j, const iSphereCollision3DComponent &component)
-    {
-        j["radius"] = component.getRadius();
-        j["offset"] = component.getOffset();
-    }
-
-    void from_json(const json &j, iSphereCollision3DComponent &component)
-    {
-        component.setRadius(j["radius"].get<float64>());
-        component.setOffset(j["offset"].get<iaVector3d>());
-    }
 }

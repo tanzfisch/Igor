@@ -96,11 +96,11 @@ namespace igor
 
         \todo why do we have a max depth????
 
-        \param cube volume of the whole octree
+        \param maxVolume volume of the whole octree
         \param splitThreshold threshold count of objects on a node before splitting the node
         \param maxDepth the maximum depth of the tree
         */
-        iOctree(const iAACube<F> &cube, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);
+        iOctree(const iAACube<F> &maxVolume, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);
 
         /*! dtor
          */
@@ -163,7 +163,15 @@ namespace igor
 
         /*! \returns dimensions of octree
          */
-        const iAACube<F> &getRootCube() const;
+        const iAACube<F> &getVolume() const;
+
+        /*! \returns split threshold
+        */
+        uint32 getSplitThreshold() const;
+
+        /*! \returns configured max depth of tree
+        */
+        uint32 getMaxDepth() const;
 
         using Object = iOctreeObject;
         using Node = iOctreeNode;

@@ -60,13 +60,6 @@ namespace igor
         void onDeactivate(iEntityPtr entity) override;
     };
 
-    /*! iOctreeComponent to json
-     */
-    void to_json(json &j, const iOctreeComponent &component);
-
-    /*! json to iOctreeComponent
-     */
-    void from_json(const json &j, iOctreeComponent &component);
 }
 
 #endif // IGOR_OCTREE_COMPONENT_H

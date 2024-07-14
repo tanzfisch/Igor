@@ -26,8 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IAUX_JSON_H
-#define IAUX_JSON_H
+// https://wiki.lspace.org/Igor ;-)
+#ifndef IGOR_JSON_H
+#define IGOR_JSON_H
+
+#include <igor/data/iAACube.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/math/iaVector2.h>
@@ -40,18 +43,38 @@
 #include <json.hpp>
 using json = nlohmann::json;
 
-namespace iaux
+namespace igor
 {
-
     /*! helper class to access json values
-    */
-    class iaJson
+     */
+    class iJson
     {
-        public:
-            template <typename T>
-            static const T getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue);
+    public:
+        template <typename T>
+        static const T getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue);
     };
 
+    /*! iAACubef to json
+     */
+    void to_json(json &j, const iAACubef &cube);
+
+    /*! json to iAACubef
+     */
+    void from_json(const json &j, iAACubef &cube);  
+
+    /*! iAACubed to json
+     */
+    void to_json(json &j, const iAACubed &cube);
+
+    /*! json to iAACubed
+     */
+    void from_json(const json &j, iAACubed &cube);     
+
+#include <igor/utils/iJson.inl>
+}
+
+namespace iaux
+{
     /*! iaUUID to json
      */
     void to_json(json &j, const iaUUID &uuid);
@@ -130,7 +153,7 @@ namespace iaux
 
     /*! json to iaColor4f
      */
-    void from_json(const json &j, iaColor4f &color);    
+    void from_json(const json &j, iaColor4f &color);
 
     /*! iaRectanglef to json
      */
@@ -138,7 +161,7 @@ namespace iaux
 
     /*! json to iaRectanglef
      */
-    void from_json(const json &j, iaRectanglef &rect);  
+    void from_json(const json &j, iaRectanglef &rect);
 
     /*! iaRectangled to json
      */
@@ -146,9 +169,8 @@ namespace iaux
 
     /*! json to iaRectangled
      */
-    void from_json(const json &j, iaRectangled &rect);  
-
-    #include <iaux/utils/iaJson.inl>
+    void from_json(const json &j, iaRectangled &rect);
 }
 
-#endif // IAUX_JSON_H
+
+#endif // IGOR_JSON_H

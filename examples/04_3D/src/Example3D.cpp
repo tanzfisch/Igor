@@ -47,6 +47,7 @@ void Example3D::onInit()
 #else
     iPrefabPtr scenePrefab = iResourceManager::getInstance().loadResource<iPrefab>("example_main_scene");
     _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
+    getView().setEntityScene(_entityScene);
 #endif
 #if 0
     // setup camera

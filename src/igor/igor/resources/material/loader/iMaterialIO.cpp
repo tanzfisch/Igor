@@ -7,7 +7,7 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaFile.h>
-#include <iaux/utils/iaJson.h>
+#include <igor/utils/iJson.h>
 
 #include <fstream>
 #include <iostream>

@@ -7,7 +7,7 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include <iaux/utils/iaJson.h>
+#include <igor/utils/iJson.h>
 
 namespace igor
 {

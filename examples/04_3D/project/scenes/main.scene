@@ -5,25 +5,20 @@
                 "active": true,
                 "components": [
                     {
-                        "component": null,
                         "componentType": "octree"
                     },
                     {
-                        "component": {
-                            "material": "0xfaa3b1436a20dbf3"
-                        },
-                        "componentType": "meshRender"
+                        "componentType": "meshRender",
+                        "material": "0xfaa3b1436a20dbf3"
                     },
                     {
-                        "component": {
-                            "offset": {
-                                "x": 0.0,
-                                "y": 0.0,
-                                "z": 0.0
-                            },
-                            "radius": 1.0
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
                         },
-                        "componentType": "sphere"
+                        "radius": 1.0
                     },
                     {
                         "componentType": "transform",
@@ -44,7 +39,7 @@
                         }
                     }
                 ],
-                "id": "0x5da5347ffd514cbc",
+                "id": "0x55192542cbb0c27d",
                 "name": "cat"
             },
             {
@@ -95,14 +90,14 @@
                         }
                     }
                 ],
-                "id": "0xde9d79ed83d7aa89",
+                "id": "0x1ac728f6a81cc147",
                 "name": "camera",
-                "parent": "0x39ae13ec75c326fc"
+                "parent": "0x40b448ad5c03eead"
             },
             {
                 "active": true,
                 "children": [
-                    "0xde9d79ed83d7aa89"
+                    "0x1ac728f6a81cc147"
                 ],
                 "components": [
                     {
@@ -124,14 +119,14 @@
                         }
                     }
                 ],
-                "id": "0x39ae13ec75c326fc",
+                "id": "0x40b448ad5c03eead",
                 "name": "cameraPitch",
-                "parent": "0xdc2e20d42b3f1a75"
+                "parent": "0x77ba2644be5ede20"
             },
             {
                 "active": true,
                 "children": [
-                    "0x39ae13ec75c326fc"
+                    "0x40b448ad5c03eead"
                 ],
                 "components": [
                     {
@@ -153,11 +148,23 @@
                         }
                     }
                 ],
-                "id": "0xdc2e20d42b3f1a75",
+                "id": "0x77ba2644be5ede20",
                 "name": "cameraHeading"
             }
         ],
+        "id": "0x8fa6203c5ebdd5d4",
         "name": "",
-        "sceneID": "0x603de7ff3f8e973a"
+        "octree": {
+            "maxDepth": 16,
+            "splitThreshold": 8,
+            "volume": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "halfEdgeLength": 10000.0
+            }
+        }
     }
 }

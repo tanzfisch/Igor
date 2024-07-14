@@ -39,12 +39,12 @@ namespace igor
      */
     class iMeshRenderComponent : public iEntityComponent
     {
-        friend void from_json(const json &j, iMeshRenderComponent &component);
+        friend class iPrefabIO;
 
     public:
         /*! ctor
          */
-        iMeshRenderComponent(iMeshPtr mesh, iMaterialPtr material, const iaString &name = "mesh render");
+        iMeshRenderComponent(iMeshPtr mesh = nullptr, iMaterialPtr material = nullptr, const iaString &name = "mesh render");
 
         /*! \returns mesh for render
          */
@@ -69,15 +69,6 @@ namespace igor
         */
         bool onLoad(iEntityPtr entity) override;
     };
-
-    /*! iMeshRenderComponent to json
-     */
-    void to_json(json &j, const iMeshRenderComponent &component);
-
-    /*! json to iMeshRenderComponent
-     */
-    void from_json(const json &j, iMeshRenderComponent &component);
-
 }
 
 #endif // IGOR_MESH_RENDER_COMPONENT_H

@@ -5,9 +5,9 @@
 #include <igor/resources/project/iProject.h>
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/utils/iJson.h>
 
 #include <iaux/system/iaDirectory.h>
-#include <iaux/utils/iaJson.h>
 
 #include <filesystem>
 
@@ -101,7 +101,7 @@ namespace igor
         std::ifstream file(temp);
         json data = json::parse(file);
 
-        _projectName = iaJson::getValue<iaString>(data, "projectName", "New Project");
+        _projectName = iJson::getValue<iaString>(data, "projectName", "New Project");
 
         con_debug("loaded project file \"" << filename << "\"");
 

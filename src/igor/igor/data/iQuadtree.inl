@@ -87,7 +87,7 @@ void iQuadtree<F>::queryInternal(const std::shared_ptr<iQuadtreeNode> &node, con
 template <typename F>
 void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const iaVector2<F> &position)
 {
-    if(object->_circle._center == position)
+    if (object->_circle._center == position)
     {
         return;
     }
@@ -108,7 +108,7 @@ void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const i
 template <typename F>
 void iQuadtree<F>::update(const std::shared_ptr<iQuadtreeObject> object, const iaCircle<F> &circle)
 {
-    if(object->_circle == circle)
+    if (object->_circle == circle)
     {
         return;
     }
@@ -302,7 +302,19 @@ void iQuadtree<F>::clear()
 }
 
 template <typename F>
-const iaRectangle<F> &iQuadtree<F>::getRootBox() const
+const iaRectangle<F> &iQuadtree<F>::getArea() const
 {
     return _root->_box;
+}
+
+template <typename F>
+uint32 iQuadtree<F>::getSplitThreshold() const
+{
+    return _splitThreshold;
+}
+
+template <typename F>
+uint32 iQuadtree<F>::getMaxDepth() const
+{
+    return _maxDepth;
 }

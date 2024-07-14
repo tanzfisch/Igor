@@ -2,7 +2,34 @@
 // (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header stream
 
-#include <iaux/utils/iaJson.h>
+#include <igor/utils/iJson.h>
+
+namespace igor
+{
+    void to_json(json &j, const iAACubef &cube)
+    {
+        j["center"] = cube._center;
+        j["halfEdgeLength"] = cube._halfEdgeLength;
+    }
+
+    void from_json(const json &j, iAACubef &cube)
+    {
+        cube._center = j["center"].get<iaVector3f>();
+        cube._halfEdgeLength = j["halfEdgeLength"].get<float32>();
+    }
+
+    void to_json(json &j, const iAACubed &cube)
+    {
+        j["center"] = cube._center;
+        j["halfEdgeLength"] = cube._halfEdgeLength;
+    }
+
+    void from_json(const json &j, iAACubed &cube)
+    {
+        cube._center = j["center"].get<iaVector3d>();
+        cube._halfEdgeLength = j["halfEdgeLength"].get<float64>();
+    }
+}
 
 namespace iaux
 {

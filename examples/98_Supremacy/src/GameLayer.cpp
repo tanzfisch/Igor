@@ -855,9 +855,9 @@ void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEn
     }
 
     const bool right = circle._center._x - circle._radius < 0.0;
-    const bool left = circle._center._x + circle._radius > _entityScene->getQuadtree().getRootBox()._width;
+    const bool left = circle._center._x + circle._radius > _entityScene->getQuadtree().getArea()._width;
     const bool bottom = circle._center._y - circle._radius < 0.0;
-    const bool top = circle._center._y + circle._radius > _entityScene->getQuadtree().getRootBox()._height;
+    const bool top = circle._center._y + circle._radius > _entityScene->getQuadtree().getArea()._height;
 
     std::vector<iaCircled> additionalQueries;
 
@@ -866,11 +866,11 @@ void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEn
         iaCircled queryCircle = circle;
         if (right)
         {
-            queryCircle._center._x += _entityScene->getQuadtree().getRootBox()._width;
+            queryCircle._center._x += _entityScene->getQuadtree().getArea()._width;
         }
         if (left)
         {
-            queryCircle._center._x -= _entityScene->getQuadtree().getRootBox()._width;
+            queryCircle._center._x -= _entityScene->getQuadtree().getArea()._width;
         }
         additionalQueries.push_back(queryCircle);
     }
@@ -880,11 +880,11 @@ void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEn
         iaCircled queryCircle = circle;
         if (bottom)
         {
-            queryCircle._center._y += _entityScene->getQuadtree().getRootBox()._height;
+            queryCircle._center._y += _entityScene->getQuadtree().getArea()._height;
         }
         if (top)
         {
-            queryCircle._center._y -= _entityScene->getQuadtree().getRootBox()._height;
+            queryCircle._center._y -= _entityScene->getQuadtree().getArea()._height;
         }
         additionalQueries.push_back(queryCircle);
     }
@@ -894,19 +894,19 @@ void GameLayer::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEn
         iaCircled queryCircle = circle;
         if (right)
         {
-            queryCircle._center._x += _entityScene->getQuadtree().getRootBox()._width;
+            queryCircle._center._x += _entityScene->getQuadtree().getArea()._width;
         }
         if (left)
         {
-            queryCircle._center._x -= _entityScene->getQuadtree().getRootBox()._width;
+            queryCircle._center._x -= _entityScene->getQuadtree().getArea()._width;
         }
         if (bottom)
         {
-            queryCircle._center._y += _entityScene->getQuadtree().getRootBox()._height;
+            queryCircle._center._y += _entityScene->getQuadtree().getArea()._height;
         }
         if (top)
         {
-            queryCircle._center._y -= _entityScene->getQuadtree().getRootBox()._height;
+            queryCircle._center._y -= _entityScene->getQuadtree().getArea()._height;
         }
         additionalQueries.push_back(queryCircle);
     }
@@ -930,10 +930,10 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaRectangled
     }
 
     const bool right = rectangle._x < 0.0;
-    const bool left = rectangle.getRight() > _entityScene->getQuadtree().getRootBox()._width;
+    const bool left = rectangle.getRight() > _entityScene->getQuadtree().getArea()._width;
 
     const bool bottom = rectangle._y < 0.0;
-    const bool top = rectangle.getBottom() > _entityScene->getQuadtree().getRootBox()._height;
+    const bool top = rectangle.getBottom() > _entityScene->getQuadtree().getArea()._height;
 
     std::vector<iaRectangled> additionalQueries;
 
@@ -942,11 +942,11 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaRectangled
         iaRectangled queryRectangle = rectangle;
         if (right)
         {
-            queryRectangle._x += _entityScene->getQuadtree().getRootBox()._width;
+            queryRectangle._x += _entityScene->getQuadtree().getArea()._width;
         }
         if (left)
         {
-            queryRectangle._x -= _entityScene->getQuadtree().getRootBox()._width;
+            queryRectangle._x -= _entityScene->getQuadtree().getArea()._width;
         }
         additionalQueries.push_back(queryRectangle);
     }
@@ -956,11 +956,11 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaRectangled
         iaRectangled queryRectangle = rectangle;
         if (bottom)
         {
-            queryRectangle._y += _entityScene->getQuadtree().getRootBox()._height;
+            queryRectangle._y += _entityScene->getQuadtree().getArea()._height;
         }
         if (top)
         {
-            queryRectangle._y -= _entityScene->getQuadtree().getRootBox()._height;
+            queryRectangle._y -= _entityScene->getQuadtree().getArea()._height;
         }
         additionalQueries.push_back(queryRectangle);
     }
@@ -970,19 +970,19 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaRectangled
         iaRectangled queryRectangle = rectangle;
         if (right)
         {
-            queryRectangle._x += _entityScene->getQuadtree().getRootBox()._width;
+            queryRectangle._x += _entityScene->getQuadtree().getArea()._width;
         }
         if (left)
         {
-            queryRectangle._x -= _entityScene->getQuadtree().getRootBox()._width;
+            queryRectangle._x -= _entityScene->getQuadtree().getArea()._width;
         }
         if (bottom)
         {
-            queryRectangle._y += _entityScene->getQuadtree().getRootBox()._height;
+            queryRectangle._y += _entityScene->getQuadtree().getArea()._height;
         }
         if (top)
         {
-            queryRectangle._y -= _entityScene->getQuadtree().getRootBox()._height;
+            queryRectangle._y -= _entityScene->getQuadtree().getArea()._height;
         }
         additionalQueries.push_back(queryRectangle);
     }
@@ -1007,10 +1007,10 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &c
     }
 
     const bool right = circle._center._x - circle._radius < 0.0;
-    const bool left = circle._center._x + circle._radius > _entityScene->getQuadtree().getRootBox()._width;
+    const bool left = circle._center._x + circle._radius > _entityScene->getQuadtree().getArea()._width;
 
     const bool bottom = circle._center._y - circle._radius < 0.0;
-    const bool top = circle._center._y + circle._radius > _entityScene->getQuadtree().getRootBox()._height;
+    const bool top = circle._center._y + circle._radius > _entityScene->getQuadtree().getArea()._height;
 
     std::vector<iaCircled> additionalQueries;
 
@@ -1019,11 +1019,11 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &c
         iaCircled queryCircle = circle;
         if (right)
         {
-            queryCircle._center._x += _entityScene->getQuadtree().getRootBox()._width;
+            queryCircle._center._x += _entityScene->getQuadtree().getArea()._width;
         }
         if (left)
         {
-            queryCircle._center._x -= _entityScene->getQuadtree().getRootBox()._width;
+            queryCircle._center._x -= _entityScene->getQuadtree().getArea()._width;
         }
         additionalQueries.push_back(queryCircle);
     }
@@ -1033,11 +1033,11 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &c
         iaCircled queryCircle = circle;
         if (bottom)
         {
-            queryCircle._center._y += _entityScene->getQuadtree().getRootBox()._height;
+            queryCircle._center._y += _entityScene->getQuadtree().getArea()._height;
         }
         if (top)
         {
-            queryCircle._center._y -= _entityScene->getQuadtree().getRootBox()._height;
+            queryCircle._center._y -= _entityScene->getQuadtree().getArea()._height;
         }
         additionalQueries.push_back(queryCircle);
     }
@@ -1047,19 +1047,19 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &c
         iaCircled queryCircle = circle;
         if (right)
         {
-            queryCircle._center._x += _entityScene->getQuadtree().getRootBox()._width;
+            queryCircle._center._x += _entityScene->getQuadtree().getArea()._width;
         }
         if (left)
         {
-            queryCircle._center._x -= _entityScene->getQuadtree().getRootBox()._width;
+            queryCircle._center._x -= _entityScene->getQuadtree().getArea()._width;
         }
         if (bottom)
         {
-            queryCircle._center._y += _entityScene->getQuadtree().getRootBox()._height;
+            queryCircle._center._y += _entityScene->getQuadtree().getArea()._height;
         }
         if (top)
         {
-            queryCircle._center._y -= _entityScene->getQuadtree().getRootBox()._height;
+            queryCircle._center._y -= _entityScene->getQuadtree().getArea()._height;
         }
         additionalQueries.push_back(queryCircle);
     }
@@ -1178,7 +1178,7 @@ void GameLayer::onUpdateRange(iEntityPtr entity, std::any &userData)
 void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent *weapon, const ModifierComponent *modifier)
 {
     // skip if out of range
-    if (!iIntersection::intersects(from, _entityScene->getQuadtree().getRootBox()))
+    if (!iIntersection::intersects(from, _entityScene->getQuadtree().getArea()))
     {
         return;
     }

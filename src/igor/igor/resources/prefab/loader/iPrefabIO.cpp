@@ -27,13 +27,12 @@ namespace igor
 
     static void readTransform(iEntityPtr entity, const json &componentJson)
     {
-        iTransformComponent *component = new iTransformComponent();        
+        iTransformComponent *component = new iTransformComponent();
+        entity->addComponent(component);
 
         component->setPosition(componentJson["position"].get<iaVector3d>());
         component->setOrientation(componentJson["orientation"].get<iaVector3d>());
         component->setScale(componentJson["scale"].get<iaVector3d>());
-
-        entity->addComponent(component);
     }
 
     static void writeTransform(json &componentJson, iTransformComponent *component)
@@ -45,7 +44,8 @@ namespace igor
 
     static void readCamera(iEntityPtr entity, const json &componentJson)
     {
-        iCameraComponent *component = new iCameraComponent();        
+        iCameraComponent *component = new iCameraComponent();
+        entity->addComponent(component);
 
         component->setClearColor(componentJson["clearColor"].get<iaColor4f>());
         component->setClearColorActive(componentJson["clearColorActive"].get<bool>());
@@ -66,8 +66,6 @@ namespace igor
                 componentJson["orthoTop"].get<float32>(),
                 componentJson["orthoBottom"].get<float32>());
         }
-        
-        entity->addComponent(component);
     }
 
     static void writeCamera(json &componentJson, iCameraComponent *component)
@@ -89,13 +87,37 @@ namespace igor
 
     static void readSphere(iEntityPtr entity, const json &componentJson)
     {
+        iSphereCollision3DComponent *component = new iSphereCollision3DComponent();
+        entity->addComponent(component);
+
+        component->setRadius(componentJson["radius"].get<float64>());
+        component->setOffset(componentJson["offset"].get<iaVector3d>());
+    }
+
+    static void writeSphere(json &componentJson, iSphereCollision3DComponent *component)
+    {
+        componentJson["radius"] = component->getRadius();
+        componentJson["offset"] = component->getOffset();
     }
 
     static void readOctree(iEntityPtr entity, const json &componentJson)
     {
+        entity->addComponent(new iOctreeComponent());
     }
-    static void readMeshRender(iEntityPtr entity, const json &componentJson)
+
+    void iPrefabIO::readMeshRender(iEntityPtr entity, const json &componentJson)
     {
+        iMeshRenderComponent *component = new iMeshRenderComponent();
+        entity->addComponent(component);
+
+        auto materialID = componentJson["material"].get<iaUUID>();
+        component->_material = iResourceManager::getInstance().requestResource<iMaterial>(materialID);
+    }
+
+    static void writeMeshRender(json &componentJson, iMeshRenderComponent *component)
+    {
+        // TODO by reference or do we want to embed the data? j["mesh"] = component.getMesh()->
+        componentJson["material"] = component->getMaterial()->getID();
     }
 
     iEntityPtr iPrefabIO::readEntity(iEntityScenePtr scene, const json &entityJson)
@@ -138,28 +160,55 @@ namespace igor
 
     bool iPrefabIO::read(const iaString &filename, const iPrefabPtr &prefab)
     {
-        char temp[2048];
-        filename.getData(temp, 2048);
-
-        std::ifstream file(temp);
-        json data = json::parse(file);
-
-        if (!data.contains("entityScene"))
+        try // for catching json exceptions
         {
-            con_err("unexpected data format");
-            return false;
+            char temp[2048];
+            filename.getData(temp, 2048);
+
+            std::ifstream file(temp);
+            json data = json::parse(file);
+
+            if (!data.contains("entityScene"))
+            {
+                con_err("unexpected data format");
+                return false;
+            }
+
+            json entityScene = data["entityScene"];
+            const iaString sceneName = entityScene["name"].get<iaString>();
+            const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
+            auto scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
+            prefab->_sceneID = scene->getID();
+
+            if (entityScene.contains("quadtree"))
+            {
+                json quadtreeJson = entityScene["quadtree"];
+                scene->initializeQuadtree(quadtreeJson["area"].get<iaRectangled>(),
+                                          quadtreeJson["splitThreshold"].get<uint32>(),
+                                          quadtreeJson["maxDepth"].get<uint32>());
+            }
+
+            if (entityScene.contains("octree"))
+            {
+                json octreeJson = entityScene["octree"];
+                scene->initializeOctree(octreeJson["volume"].get<iAACubed>(),
+                                          octreeJson["splitThreshold"].get<uint32>(),
+                                          octreeJson["maxDepth"].get<uint32>());                
+            }
+
+            json entitiesJson = entityScene["entities"];
+            for (const auto &entityJson : entitiesJson)
+            {
+                readEntity(scene, entityJson);
+            }
         }
-
-        json entityScene = data["entityScene"];
-        const iaString sceneName = entityScene["name"].get<iaString>();
-        const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
-        auto scene = iEntitySystemModule::getInstance().createScene(sceneName, true, sceneID);
-        prefab->_sceneID = scene->getID();
-
-        json entitiesJson = data["entities"];
-        for (const auto &entityJson : entitiesJson)
+        catch (const std::exception &e)
         {
-            readEntity(scene, entityJson);
+            con_err("Caught an exception: " << e.what());
+        }
+        catch (...)
+        {
+            con_err("Caught an unknown exception.");
         }
 
         return true;
@@ -221,7 +270,7 @@ namespace igor
             {
                 json componentJson;
                 componentJson["componentType"] = "sphere";
-                componentJson["component"] = *sphereCollision;
+                writeSphere(componentJson, sphereCollision);
                 componentsJson.push_back(componentJson);
                 continue;
             }
@@ -231,7 +280,7 @@ namespace igor
             {
                 json componentJson;
                 componentJson["componentType"] = "octree";
-                componentJson["component"] = *octree;
+                // nothing else to write here
                 componentsJson.push_back(componentJson);
                 continue;
             }
@@ -241,7 +290,7 @@ namespace igor
             {
                 json componentJson;
                 componentJson["componentType"] = "meshRender";
-                componentJson["component"] = *meshRender;
+                writeMeshRender(componentJson, meshRender);
                 componentsJson.push_back(componentJson);
                 continue;
             }
@@ -257,33 +306,60 @@ namespace igor
 
     bool iPrefabIO::write(const iaString &filename, const iPrefabPtr &prefab)
     {
-        char temp[2048];
-        filename.getData(temp, 2048);
-
-        std::ofstream stream;
-        stream.open(temp);
-
-        auto scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
-
-        json entitiesJson = json::array();
-        for (const auto &pair : scene->_entities)
+        try // for catching json exceptions
         {
-            json entityJson;
-            writeEntity(entityJson, pair.second);
-            entitiesJson.push_back(entityJson);
+            char temp[2048];
+            filename.getData(temp, 2048);
+
+            std::ofstream stream;
+            stream.open(temp);
+
+            auto scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
+
+            json entitiesJson = json::array();
+            for (const auto &pair : scene->_entities)
+            {
+                json entityJson;
+                writeEntity(entityJson, pair.second);
+                entitiesJson.push_back(entityJson);
+            }
+
+            json sceneJson = {
+                {"name", scene->getName()},
+                {"id", scene->getID()},
+                {"entities", entitiesJson}};
+
+            if (scene->hasQuadtree())
+            {
+                auto quadtree = scene->getQuadtree();
+                sceneJson["quadtree"] = {
+                    {"area", quadtree.getArea()},
+                    {"splitThreshold", quadtree.getSplitThreshold()},
+                    {"maxDepth", quadtree.getMaxDepth()}};
+            }
+
+            if (scene->hasOctree())
+            {
+                auto octree = scene->getOctree();
+                sceneJson["octree"] = {
+                    {"volume", octree.getVolume()},
+                    {"splitThreshold", octree.getSplitThreshold()},
+                    {"maxDepth", octree.getMaxDepth()}};
+            }
+
+            json dataJson;
+            dataJson["entityScene"] = sceneJson;
+
+            stream << dataJson.dump(4);
         }
-
-        // TODO octree and quadtree
-
-        json sceneJson = {
-            {"name", scene->getName()},
-            {"sceneID", scene->getID()},
-            {"entities", entitiesJson}};
-
-        json dataJson;
-        dataJson["entityScene"] = sceneJson;
-
-        stream << dataJson.dump(4);
+        catch (const std::exception &e)
+        {
+            con_err("Caught an exception: " << e.what());
+        }
+        catch (...)
+        {
+            con_err("Caught an unknown exception.");
+        }
 
         return true;
     }

@@ -155,7 +155,15 @@ namespace igor
 
         /*! \returns dimensions of quadtree
          */
-        const iaRectangle<F> &getRootBox() const;
+        const iaRectangle<F> &getArea() const;
+
+        /*! \returns split threshold
+        */
+        uint32 getSplitThreshold() const;
+
+        /*! \returns configured max depth of tree
+        */
+        uint32 getMaxDepth() const;
 
         using Object = iQuadtreeObject;
         using Node = iQuadtreeNode;
