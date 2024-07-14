@@ -55,13 +55,13 @@ void Example3D::onInit()
     // temporary workaround until we figured out how to reference meshs
     iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
     iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());
-    auto cat = _entityScene->getEntity(iEntityID(0x66d197c8d23f13ea));
+    auto cat = _entityScene->getEntity(iEntityID(0x16c3ea7f09a8b740));
     auto meshRenderComponent = cat->getComponent<iMeshRenderComponent>();
     meshRenderComponent->setMesh(meshNodeCat->getMesh());
 
-    _cameraPitch = iEntityID(0x1cab7c99336dbea8);
-    _cameraHeading = iEntityID(0x494714df579bf91e);
-    _camera = iEntityID(0x55192542cbb0c27d);
+    _cameraPitch = iEntityID(0xfff3400a546ddfcc);
+    _cameraHeading = iEntityID(0x8ff2e5de189e489c);
+    _camera = iEntityID(0x682967cb2ddf6cab);
 #endif
 }
 

@@ -60,9 +60,15 @@ namespace igor
 
         \param entityJson the json object
         \param scene the scene to create the entity in
-        \return the read entity
         */
-        static iEntityPtr readEntity(iEntityScenePtr scene, const json &entityJson);
+        static void readEntity(iEntityScenePtr scene, const json &entityJson);
+
+        /*! connects children with their parent entities
+
+        \param entityJson the json object
+        \param scene the scene to works with
+        */
+        static void connectEntity(iEntityScenePtr scene, const json &entityJson);
 
         /*! write entity to json
 

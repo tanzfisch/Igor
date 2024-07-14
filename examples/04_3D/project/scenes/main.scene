@@ -39,14 +39,11 @@
                         }
                     }
                 ],
-                "id": "0x66d197c8d23f13ea",
+                "id": "0x16c3ea7f09a8b740",
                 "name": "cat"
             },
             {
                 "active": true,
-                "children": [
-                    "0x55192542cbb0c27d"
-                ],
                 "components": [
                     {
                         "componentType": "transform",
@@ -67,9 +64,9 @@
                         }
                     }
                 ],
-                "id": "0x1cab7c99336dbea8",
+                "id": "0xfff3400a546ddfcc",
                 "name": "cameraPitch",
-                "parent": "0x494714df579bf91e"
+                "parent": "0x8ff2e5de189e489c"
             },
             {
                 "active": true,
@@ -119,15 +116,12 @@
                         }
                     }
                 ],
-                "id": "0x55192542cbb0c27d",
+                "id": "0x682967cb2ddf6cab",
                 "name": "camera",
-                "parent": "0x1cab7c99336dbea8"
+                "parent": "0xfff3400a546ddfcc"
             },
             {
                 "active": true,
-                "children": [
-                    "0x1cab7c99336dbea8"
-                ],
                 "components": [
                     {
                         "componentType": "transform",
@@ -148,11 +142,11 @@
                         }
                     }
                 ],
-                "id": "0x494714df579bf91e",
+                "id": "0x8ff2e5de189e489c",
                 "name": "cameraHeading"
             }
         ],
-        "id": "0xe41e13fa710b9ff4",
+        "id": "0x87de8691f45b35a7",
         "name": "",
         "octree": {
             "maxDepth": 16,

@@ -23,8 +23,6 @@
 
 namespace igor
 {
-    using ReadComponentFunc = std::function<void(iEntityPtr, const json &)>;
-
     static void readTransform(iEntityPtr entity, const json &componentJson)
     {
         iTransformComponent *component = new iTransformComponent();
@@ -120,9 +118,24 @@ namespace igor
         componentJson["material"] = component->getMaterial()->getID();
     }
 
-    iEntityPtr iPrefabIO::readEntity(iEntityScenePtr scene, const json &entityJson)
+    void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
     {
-        std::unordered_map<iaString, ReadComponentFunc> func = {
+        if(!entityJson.contains("parent"))
+        {
+            return;
+        }
+
+        const iEntityID entityID = entityJson["id"].get<iaUUID>();
+        iEntityPtr entity = scene->getEntity(entityID);
+
+        auto parentID = entityJson["parent"].get<iaUUID>();
+        entity->setParent(parentID);
+    }
+
+    void iPrefabIO::readEntity(iEntityScenePtr scene, const json &entityJson)
+    {
+        using ReadComponentFunc = std::function<void(iEntityPtr, const json &)>;
+        const std::unordered_map<iaString, ReadComponentFunc> func = {
             {"transform", readTransform},
             {"camera", readCamera},
             {"sphere", readSphere},
@@ -138,7 +151,7 @@ namespace igor
 
         if (!entityJson.contains("components"))
         {
-            return entity;
+            return;
         }
 
         json componentsJson = entityJson["components"];
@@ -154,8 +167,6 @@ namespace igor
 
             iter->second(entity, componentJson);
         }
-
-        return entity;
     }
 
     bool iPrefabIO::read(const iaString &filename, const iPrefabPtr &prefab)
@@ -192,14 +203,18 @@ namespace igor
             {
                 json octreeJson = entityScene["octree"];
                 scene->initializeOctree(octreeJson["volume"].get<iAACubed>(),
-                                          octreeJson["splitThreshold"].get<uint32>(),
-                                          octreeJson["maxDepth"].get<uint32>());                
+                                        octreeJson["splitThreshold"].get<uint32>(),
+                                        octreeJson["maxDepth"].get<uint32>());
             }
 
             json entitiesJson = entityScene["entities"];
             for (const auto &entityJson : entitiesJson)
             {
                 readEntity(scene, entityJson);
+            }
+            for (const auto &entityJson : entitiesJson)
+            {
+                connectEntity(scene, entityJson);
             }
         }
         catch (const std::exception &e)
@@ -222,24 +237,6 @@ namespace igor
         if (entity->hasParent())
         {
             entityJson["parent"] = entity->getParent()->getID();
-        }
-
-        json childrenJson = json::array();
-        const auto &activeChildren = entity->getChildren();
-        for (const auto child : activeChildren)
-        {
-            childrenJson.push_back(child->getID());
-        }
-
-        const auto &inactiveChildren = entity->getInactiveChildren();
-        for (const auto child : inactiveChildren)
-        {
-            childrenJson.push_back(child->getID());
-        }
-
-        if (!childrenJson.empty())
-        {
-            entityJson["children"] = childrenJson;
         }
 
         json componentsJson = json::array();
