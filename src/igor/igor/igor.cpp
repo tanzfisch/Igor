@@ -186,11 +186,6 @@ namespace igor
     void destroyModules()
     {
         // don't change the order if you don't know what you are doing
-        if (iEntitySystemModule::isInstantiated())
-        {
-            iEntitySystemModule::destroy();
-        }
-
         if (iTaskManager::isInstantiated())
         {
             iTaskManager::destroy();
@@ -201,6 +196,11 @@ namespace igor
             iResourceManager::destroy();
         }
 
+        if (iEntitySystemModule::isInstantiated())
+        {
+            iEntitySystemModule::destroy();
+        }
+        
         if (iWidgetManager::isInstantiated())
         {
             iWidgetManager::destroy();

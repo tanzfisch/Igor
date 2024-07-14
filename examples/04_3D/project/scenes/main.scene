@@ -39,8 +39,37 @@
                         }
                     }
                 ],
-                "id": "0x55192542cbb0c27d",
+                "id": "0x66d197c8d23f13ea",
                 "name": "cat"
+            },
+            {
+                "active": true,
+                "children": [
+                    "0x55192542cbb0c27d"
+                ],
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x1cab7c99336dbea8",
+                "name": "cameraPitch",
+                "parent": "0x494714df579bf91e"
             },
             {
                 "active": true,
@@ -90,14 +119,14 @@
                         }
                     }
                 ],
-                "id": "0x1ac728f6a81cc147",
+                "id": "0x55192542cbb0c27d",
                 "name": "camera",
-                "parent": "0x40b448ad5c03eead"
+                "parent": "0x1cab7c99336dbea8"
             },
             {
                 "active": true,
                 "children": [
-                    "0x1ac728f6a81cc147"
+                    "0x1cab7c99336dbea8"
                 ],
                 "components": [
                     {
@@ -119,40 +148,11 @@
                         }
                     }
                 ],
-                "id": "0x40b448ad5c03eead",
-                "name": "cameraPitch",
-                "parent": "0x77ba2644be5ede20"
-            },
-            {
-                "active": true,
-                "children": [
-                    "0x40b448ad5c03eead"
-                ],
-                "components": [
-                    {
-                        "componentType": "transform",
-                        "orientation": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0,
-                            "z": 1.0
-                        }
-                    }
-                ],
-                "id": "0x77ba2644be5ede20",
+                "id": "0x494714df579bf91e",
                 "name": "cameraHeading"
             }
         ],
-        "id": "0x8fa6203c5ebdd5d4",
+        "id": "0xe41e13fa710b9ff4",
         "name": "",
         "octree": {
             "maxDepth": 16,

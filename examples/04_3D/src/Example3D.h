@@ -42,7 +42,7 @@ public:
     Example3D(iWindowPtr window);
 
     /*! nothing to do
-    */
+     */
     ~Example3D() = default;
 
 private:
@@ -50,74 +50,20 @@ private:
      */
     iEntityScenePtr _entityScene = nullptr;
 
-    /*! id to transform node used for manipulating the heading of all objects in scene
-    */
-    iNodeID _allObjectsHeading = iNode::INVALID_NODE_ID;
+    /*! entity id of camera heading
+     */
+    iEntityID _cameraHeading;
 
-    /*! id to transform node used for manipulating the pitch of all objects in scene
-    */
-    iNodeID _allObjectsPitch = iNode::INVALID_NODE_ID;
+    /*! entity id of camera pitch
+     */
+    iEntityID _cameraPitch;
 
-    /*! id to transform node used for manipulating the heading of the camera
-    */
-    iNodeID _cameraHeading = iNode::INVALID_NODE_ID;
-
-    /*! id to transform node used for manipulating the pitch of the camera
-    */
-    iNodeID _cameraPitch = iNode::INVALID_NODE_ID;
-
-    /*! id to transform node used for manipulating the distance of the camera to the origin
-    */
-    iNodeID _cameraTranslation = iNode::INVALID_NODE_ID;
-
-    /*! id to transform node used for manipulating the direction of the light relative to the origin
-    */
-    iNodeID _directionalLightRotate = iNode::INVALID_NODE_ID;
-
-    /*! timer handle to control the movement of the light source over time
-    */
-    iTimerHandlePtr _animationTimingHandle = nullptr;
-
-    /*! id to crate model node
-    */
-    iNodeID _crateModel = iNode::INVALID_NODE_ID;
-
-    /*! id to cat model node
-    */
-    iNodeID _catModel = iNode::INVALID_NODE_ID;
-
-    /*! id to teapot model node
-    */
-    iNodeID _teapotModel = iNode::INVALID_NODE_ID;
-
-    /*! id to switch node
-    */
-    iNodeID _switchNode = iNode::INVALID_NODE_ID;
-
-    /*! index of switch position
-    */
-    iNodeID _activeNode = 0;
-
-    /*! id to lod trigger node
-    */
-    iNodeID _LODTrigger = iNode::INVALID_NODE_ID;
-
-    /*! id to lod switch node
-    */
-    iNodeID _LODSwitch = iNode::INVALID_NODE_ID;
-
-    /*! called by timer
-
-    \param time the time
-    */
-    void onUpdate(const iaTime &time);
-
-    /*! deinit example
-    */
-    void onDeinit() override;
+    /*! entity id of camera
+     */
+    iEntityID _camera;
 
     /*! init example
-    */
+     */
     void onInit() override;
 
     /*! called on any other event
@@ -145,11 +91,10 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iEventKeyDown &event);
-    
-    /*! \returns help screen string
-    */
-    iaString getHelpString() override;
 
+    /*! \returns help screen string
+     */
+    iaString getHelpString() override;
 };
 
 #endif // IGOR_EXAMPLE3D_H

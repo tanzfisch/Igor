@@ -22,6 +22,18 @@ namespace igor
         return _mesh;
     }
 
+    void iMeshRenderComponent::setMesh(iMeshPtr mesh)
+    {
+        con_assert(mesh != nullptr, "not allowed to reset the mesh");
+        _mesh = mesh;
+    }
+
+    void iMeshRenderComponent::setMaterial(iMaterialPtr material)
+    {
+        con_assert(material != nullptr, "not allowed to reset the material");
+        _material = material;
+    }
+
     iMaterialPtr iMeshRenderComponent::getMaterial() const
     {
         return _material;

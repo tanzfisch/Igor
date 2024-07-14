@@ -50,9 +50,21 @@ namespace igor
          */
         iMeshPtr getMesh() const;
 
+        /*! sets mesh
+
+        \param mesh the mesh to set
+        */
+        void setMesh(iMeshPtr mesh);
+
         /*! \returns material
          */
         iMaterialPtr getMaterial() const;
+
+        /*! sets material
+
+        \param material the material to set
+        */
+        void setMaterial(iMaterialPtr material);
 
     private:
         /*! the mesh to render
