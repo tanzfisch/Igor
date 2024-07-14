@@ -21,6 +21,7 @@ Changelog                           {#changelog}
 - iEntityScene is registered with iView which eventually will replace iScene
 - #424 added sky box compatible to new render engine
 - #420 integrated json and replaced all xml files except for shaders
+- introduced prefab as resource
 
 0.44.0
 ------
