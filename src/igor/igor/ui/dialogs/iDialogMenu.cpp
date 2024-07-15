@@ -44,12 +44,6 @@ namespace igor
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     }
 
-    void iDialogMenu::clear()
-    {
-        iWidget::clear();
-        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);        
-    }    
-
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
     {
         setReturnState(iDialogReturnState::Cancel);

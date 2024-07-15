@@ -18,7 +18,7 @@ namespace igor
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
 
     iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
-        : _type(type), _kind(kind) // TODO _parent(parent) why not?
+        : _type(type), _kind(kind)
     {
         _id = _idGenerator.getNextID();
 

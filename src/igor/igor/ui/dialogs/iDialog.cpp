@@ -340,6 +340,15 @@ namespace igor
                 return false;
             }
         }
+        else
+        {
+            if (isAcceptingDrop() &&
+                iWidgetManager::getInstance().inDrag())
+            {
+                onDrop(iWidgetManager::getInstance().getDrag(), event.getPosition());
+                return true;
+            }
+        }
 
         // get copy of children
         std::vector<iWidgetPtr> children = getChildren();
@@ -538,6 +547,28 @@ namespace igor
             {
                 _widgetState = iWidgetState::Highlighted;
                 _mouseOver(this);
+
+                if (isAcceptingDrop() &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    onDragEnter(iWidgetManager::getInstance().getDrag());
+                }
+            }
+            else
+            {
+                if (isAcceptingDrop() &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    onDragMove(iWidgetManager::getInstance().getDrag(), event.getPosition());
+                }
+
+                if (isAcceptingDrag() &&
+                    iMouse::getInstance().getLeftButton() &&
+                    !iWidgetManager::getInstance().inDrag() &&
+                    _lastMousePressPos.distance(event.getPosition()) > 3.0)
+                {
+                    onDrag();
+                }
             }
 
             _isMouseOver = true;
@@ -577,6 +608,12 @@ namespace igor
             {
                 _widgetState = iWidgetState::Standby;
                 _mouseOff(this);
+
+                if (_acceptDrop &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    onDragLeave(iWidgetManager::getInstance().getDrag());
+                }
             }
 
             _isMouseOver = false;

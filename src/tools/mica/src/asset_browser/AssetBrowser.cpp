@@ -15,8 +15,7 @@ AssetBrowser::AssetBrowser()
 
 void AssetBrowser::initUI()
 {
-    setTitle("AssetBrowser");
-
+    setTitle("Asset Browser");
     setDockable(true);
     setMinWidth(100);
     setMinHeight(100);

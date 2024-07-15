@@ -72,6 +72,10 @@ namespace igor
         */
         iClickTreeViewEvent& getClickEvent();
 
+        /*! clears the widget back to default
+         */
+        void clear() override;
+
     protected:
         /*! box layout
          */

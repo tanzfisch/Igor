@@ -12,6 +12,7 @@ static const float64 s_wheelSensitivity = 1.2;
 Viewport::Viewport(WorkspacePtr workspace)
     : _workspace(workspace)
 {
+    setTitle("Viewport");
     setHeaderEnabled(false);
     setDockable(true);
     setMoveable(false);

@@ -135,6 +135,7 @@ void MainDialog::onCut(const iWidgetPtr source)
 
 void MainDialog::initGUI()
 {
+    setTitle("Mica");
     setZValue(10000);
     setDockable(false);
     setMoveable(false);

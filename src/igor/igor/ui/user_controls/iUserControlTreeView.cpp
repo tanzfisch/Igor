@@ -93,6 +93,12 @@ namespace igor
         _clickEvent(source);
     }
 
+    void iUserControlTreeView::clear()
+    {
+        _vboxLayout->clear();
+        _allInteractiveWidgets.clear();
+    }
+
     void iUserControlTreeView::setItems(iItemData *itemData)
     {
         con_assert(itemData != nullptr, "zero pointer");

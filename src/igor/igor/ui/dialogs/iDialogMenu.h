@@ -101,10 +101,6 @@ namespace igor
         */
         virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate()) override;
 
-        /*! clears the widget back to default
-        */
-        void clear() override;
-
     private:
         /*! main layout
         */
