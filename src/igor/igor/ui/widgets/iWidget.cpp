@@ -593,7 +593,7 @@ namespace igor
                 if (isAcceptingDrop() &&
                     iWidgetManager::getInstance().inDrag())
                 {
-                    onDrop(iWidgetManager::getInstance().getDrag());
+                    onDrop(iWidgetManager::getInstance().getDrag(), event.getPosition());
                     return true;
                 }
 
@@ -1075,7 +1075,7 @@ namespace igor
         drag.clear();
     }
 
-    void iWidget::onDrop(const iDrag &drag)
+    void iWidget::onDrop(const iDrag &drag, const iaVector2f &mousePos)
     {
         // nothing to do
     }

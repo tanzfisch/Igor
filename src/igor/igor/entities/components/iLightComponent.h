@@ -39,10 +39,8 @@ namespace igor
     {
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iLightComponent(const iaString &name = "light");
+        iLightComponent();
 
         /*! returns ambient material color
         */

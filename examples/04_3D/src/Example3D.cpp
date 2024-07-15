@@ -29,7 +29,7 @@ void Example3D::onInit()
 
     iEntityPtr camera = _entityScene->createEntity("camera");
     _camera = camera->getID();
-    camera->addComponent(new iTransformComponent(iaVector3d(0, 0, 10.0)));
+    camera->addComponent(new iTransformComponent(iaVector3d(0, 0, 3.0)));
     auto cameraComponent = camera->addComponent(new iCameraComponent());
     cameraComponent->setPerspective(45.0);
     cameraComponent->setClipPlanes(0.01, 100.0);
@@ -38,31 +38,30 @@ void Example3D::onInit()
     camera->setParent(cameraPitch);
 
     iEntityPtr cat = _entityScene->createEntity("cat");
-    cat->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
+    cat->addComponent(new iTransformComponent(iaVector3d(0, -0.3, -0.25)));
     cat->addComponent(new iSphereCollision3DComponent(1));
     cat->addComponent(new iOctreeComponent());
 
-    iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
-    iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());
-    cat->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
+    iModelPtr modelCat = iResourceManager::getInstance().requestResource<iModel>("example_model_cat");
+    cat->addComponent(new iMeshReferenceComponent(modelCat, "cat"));
+    cat->addComponent(new iMeshRenderComponent());
 
     iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/04_3D/project/scenes/main.scene");
 #else
-    iPrefabPtr scenePrefab = iResourceManager::getInstance().loadResource<iPrefab>("example_main_scene");
+    iPrefabPtr scenePrefab = iResourceManager::getInstance().requestResource<iPrefab>("example_main_scene");
+    scenePrefab->getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Example3D::onPrefabProcessed));
+
+    _cameraPitch = iEntityID(0x1cab7c99336dbea8);
+    _cameraHeading = iEntityID(0x494714df579bf91e);
+    _camera = iEntityID(0x55192542cbb0c27d);
+#endif
+}
+
+void Example3D::onPrefabProcessed(iResourceID resourceID)
+{
+    iPrefabPtr scenePrefab = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
     _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
     getView().setEntityScene(_entityScene);
-
-    // temporary workaround until we figured out how to reference meshs
-    iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
-    iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());
-    auto cat = _entityScene->getEntity(iEntityID(0x16c3ea7f09a8b740));
-    auto meshRenderComponent = cat->getComponent<iMeshRenderComponent>();
-    meshRenderComponent->setMesh(meshNodeCat->getMesh());
-
-    _cameraPitch = iEntityID(0xfff3400a546ddfcc);
-    _cameraHeading = iEntityID(0x8ff2e5de189e489c);
-    _camera = iEntityID(0x682967cb2ddf6cab);
-#endif
 }
 
 void Example3D::onEvent(iEvent &event)
@@ -90,6 +89,11 @@ bool Example3D::onKeyDown(iEventKeyDown &event)
 
 bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
 {
+    if(_entityScene == nullptr)
+    {
+        return false;
+    }
+
     const auto from = event.getLastPosition();
     const auto to = event.getPosition();
 
@@ -109,6 +113,11 @@ bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
 
 bool Example3D::onMouseWheelEvent(iEventMouseWheel &event)
 {
+    if(_entityScene == nullptr)
+    {
+        return false;
+    }
+
     auto translation = _entityScene->getEntity(_camera)->getComponent<iTransformComponent>();
 
     if (event.getWheelDelta() < 0)

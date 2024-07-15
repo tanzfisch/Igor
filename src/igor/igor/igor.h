@@ -117,6 +117,7 @@
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iCircleCollision2DComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
+#include <igor/entities/components/iMeshReferenceComponent.h>
 #include <igor/entities/components/iOctreeComponent.h>
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iSphereCollision3DComponent.h>

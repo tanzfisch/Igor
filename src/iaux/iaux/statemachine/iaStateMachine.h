@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_STATEMACHINE__
-#define __IAUX_STATEMACHINE__
+#ifndef IAUX_STATEMACHINE_H
+#define IAUX_STATEMACHINE_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/statemachine/iaTransition.h>
@@ -261,4 +261,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // IAUX_STATEMACHINE_H

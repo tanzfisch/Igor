@@ -41,11 +41,9 @@ namespace igor
     {
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iCircleCollision2DComponent(float64 radius, const iaVector2d &offset = iaVector2d(), const iaString &name = "circle collision 2d")
-            : iEntityComponent(name), _radius(radius), _offset(offset)
+        iCircleCollision2DComponent(float64 radius, const iaVector2d &offset = iaVector2d())
+            : _radius(radius), _offset(offset)
         {
         }
 

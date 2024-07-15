@@ -51,24 +51,37 @@ namespace igor
             return;
         }
 
-        for (const auto &pair : _addedComponents)
+        auto addedComponents = _addedComponents;
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> toKeep;
+
+        for (const auto &pair : addedComponents)
         {
-            if (pair.second->onLoad(this))
+            bool asyncLoad = false;
+            bool success = pair.second->onLoad(this, asyncLoad);
+            if (success)
             {
                 pair.second->_state = iEntityComponentState::Loaded;
                 pair.second->onActivate(this);
                 pair.second->_state = iEntityComponentState::Active;
+
+                _scene->onComponentAdded(this, pair.first);
             }
             else
             {
-                pair.second->_state = iEntityComponentState::LoadFailed;
-                con_err("load of component \"" << pair.second->getName() << "\" type(" << pair.first.name() << ") failed");
+                if (!asyncLoad)
+                {
+                    pair.second->_state = iEntityComponentState::LoadFailed;
+                    con_err("load of component " << pair.first.name() << " failed");
+                }
+                else
+                {
+                    // keep in queue
+                    toKeep.push_back(pair);
+                }
             }
-
-            _scene->onComponentAdded(this, pair.first);
         }
 
-        _addedComponents.clear();
+        _addedComponents = toKeep;
 
         _componentMask = calcComponentMask();
 

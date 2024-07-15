@@ -19,6 +19,7 @@
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iLightComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
+#include <igor/entities/components/iMeshReferenceComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iCircleCollision2DComponent.h>
 #include <igor/entities/components/iSphereCollision3DComponent.h>
@@ -48,6 +49,7 @@ namespace igor
         registerComponentType<iPartyComponent>();
         registerComponentType<iAnimationComponent>();
         registerComponentType<iMeshRenderComponent>();
+        registerComponentType<iMeshReferenceComponent>();
 
         _simulationFrameTime = iTimer::getInstance().getTime();
     }

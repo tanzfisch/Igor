@@ -26,15 +26,14 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __VIEWPORT__
-#define __VIEWPORT__
+#ifndef MICA_VIEWPORT_H
+#define MICA_VIEWPORT_H
 
 #include "../Workspace.h"
 #include "overlay/NodeOverlay.h"
 
 class Viewport : public iDialog
 {
-
     friend class iWidgetManager;
 
 public:
@@ -196,14 +195,16 @@ private:
     /*! drag move handle
 
     \param drag the drag data
+    \param mousePos the current mouse pos
     */
     void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
 
     /*! drop handle
 
     \param drag the drag data
+    \param mousePos the current mouse pos
     */
-    void onDrop(const iDrag &drag) override;
+    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
 };
 
-#endif // __VIEWPORT__
+#endif // MICA_VIEWPORT_H

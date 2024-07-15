@@ -47,10 +47,8 @@ namespace igor
     {
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iCameraComponent(const iaString &name = "camera");
+        iCameraComponent();
 
         /*! sets the view port within a window.
 

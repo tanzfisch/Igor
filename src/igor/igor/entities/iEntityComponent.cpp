@@ -7,14 +7,8 @@
 namespace igor
 {
 
-    iEntityComponent::iEntityComponent(const iaString &name)
+    iEntityComponent::iEntityComponent()
     {
-        setName(name);
-    }
-
-    void iEntityComponent::setName(const iaString &name)
-    {
-        _name = name;
     }
 
     const iEntityComponentID &iEntityComponent::getID() const
@@ -22,12 +16,7 @@ namespace igor
         return _id;
     }
 
-    const iaString &iEntityComponent::getName() const
-    {
-        return _name;
-    }
-
-    bool iEntityComponent::onLoad(iEntityPtr entity)
+    bool iEntityComponent::onLoad(iEntityPtr entity, bool &asyncLoad)
     {
         return true;
     }

@@ -4,7 +4,6 @@
 
 #include <igor/resources/project/iProject.h>
 
-#include <igor/resources/iResourceManager.h>
 #include <igor/utils/iJson.h>
 
 #include <iaux/system/iaDirectory.h>
@@ -103,6 +102,16 @@ namespace igor
 
         _projectName = iJson::getValue<iaString>(data, "projectName", "New Project");
 
+        if(data.contains("scenes"))
+        {
+            json scenesJson = data["scenes"];
+
+            for(const auto &sceneJson : scenesJson)
+            {
+                iResourceID sceneID = sceneJson.get<iResourceID>();
+            }
+        }
+
         con_debug("loaded project file \"" << filename << "\"");
 
         return true;
@@ -122,15 +131,27 @@ namespace igor
             return false;
         }
 
-        json configJson = {
+        json scenesJson = json::array();
+        for(auto sceneID : _scenes)
+        {
+            scenesJson.push_back(sceneID);
+        }
+
+        json projectJson = {
             {"projectName", _projectName},
+            {"scenes", scenesJson}
         };
 
-        stream << configJson.dump(4);
+        stream << projectJson.dump(4);
 
         con_debug("written project file " << filename);
 
         return true;
+    }
+
+    const std::vector<iResourceID>& iProject::getScenes() const
+    {
+        return _scenes;
     }
 
     const iaString &iProject::getProjectFolder() const
@@ -157,6 +178,30 @@ namespace igor
     bool iProject::isLoaded() const
     {
         return _isLoaded;
+    }
+
+    iProjectSceneAddedEvent &iProject::getProjectSceneAddedEvent()
+    {
+        return _projectSceneAddedEvent;
+    }
+
+    iProjectSceneRemovedEvent &iProject::getProjectSceneRemovedEvent()
+    {
+        return _projectSceneRemovedEvent;
+    }
+
+    void iProject::addScene(const iResourceID &sceneID)
+    {
+        _scenes.push_back(sceneID);
+    }
+
+    void iProject::removeScene(const iResourceID &sceneID)
+    {
+        auto iter = std::find(_scenes.begin(), _scenes.end(), sceneID);
+        if(iter != _scenes.end())
+        {
+            _scenes.erase(iter);
+        }
     }
 
 }; // namespace igor

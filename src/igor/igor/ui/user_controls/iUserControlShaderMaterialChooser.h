@@ -88,14 +88,16 @@ namespace igor
         /*! drag move handle
 
         \param drag the drag data
+        \param mousePos the current mouse pos
         */
         void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
 
         /*! drop handle
 
         \param drag the drag data
+        \param mousePos the current mouse pos
         */
-        void onDrop(const iDrag &drag) override;
+        void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
     };
 
     /*! user control shader material chooser pointer definition

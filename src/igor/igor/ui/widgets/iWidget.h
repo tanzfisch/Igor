@@ -1003,20 +1003,22 @@ namespace igor
         /*! drag move handle
 
         \param drag the drag data
+        \param mousePos the current mouse pos
         */
         virtual void onDragMove(iDrag &drag, const iaVector2f &mousePos);
 
         /*! drag leave handle
 
-        \param drag the drag data
+        \param drag the drag data        
         */
         virtual void onDragLeave(iDrag &drag);
 
         /*! drop handle
 
         \param drag the drag data
+        \param mousePos the current mouse pos
         */
-        virtual void onDrop(const iDrag &drag);
+        virtual void onDrop(const iDrag &drag, const iaVector2f &mousePos);
 
         /*! called when dragged
         */

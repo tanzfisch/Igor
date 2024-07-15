@@ -6,8 +6,8 @@
 
 namespace igor
 {
-    iSpriteRenderComponent::iSpriteRenderComponent(iSpritePtr sprite, const iaVector2d &size, const iaColor4f &color, int32 zIndex, iRenderMode renderMode, const iaString &name)
-        : iEntityComponent(name), _sprite(sprite), _size(size), _color(color), _zIndex(zIndex), _renderMode(renderMode)
+    iSpriteRenderComponent::iSpriteRenderComponent(iSpritePtr sprite, const iaVector2d &size, const iaColor4f &color, int32 zIndex, iRenderMode renderMode)
+        : _sprite(sprite), _size(size), _color(color), _zIndex(zIndex), _renderMode(renderMode)
     {
     }
 }

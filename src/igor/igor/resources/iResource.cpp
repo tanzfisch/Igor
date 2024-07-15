@@ -88,7 +88,16 @@ namespace igor
 
     void iResource::setProcessed(bool processed)
     {
+        if(!_processed && processed)
+        {
+            _resourceProcessedEvent(getID());
+        }
         _processed = processed;
+    }
+
+    iResourceProcessedEvent &iResource::getResourceProcessedEvent()
+    {
+        return _resourceProcessedEvent;
     }
 
     void iResource::setValid(bool valid)

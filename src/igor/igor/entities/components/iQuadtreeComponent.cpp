@@ -8,8 +8,8 @@
 
 namespace igor
 {
-    iQuadtreeComponent::iQuadtreeComponent(iQuadtreed::ObjectPtr object, const iaString &name)
-        : iEntityComponent(name), _object(object)
+    iQuadtreeComponent::iQuadtreeComponent(iQuadtreed::ObjectPtr object)
+        : _object(object)
     {
     }
 

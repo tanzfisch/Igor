@@ -27,8 +27,8 @@
 // contact: igorgameengine@protonmail.com
 //
 
-#ifndef __IAUX_EVENT__
-#define __IAUX_EVENT__
+#ifndef IAUX_EVENT_H
+#define IAUX_EVENT_H
 
 #include <iaux/system/iaConsole.h>
 
@@ -471,4 +471,4 @@ namespace iaux
 
 } // iaux
 
-#endif // __IAUX_EVENT__l
+#endif // IAUX_EVENT_H

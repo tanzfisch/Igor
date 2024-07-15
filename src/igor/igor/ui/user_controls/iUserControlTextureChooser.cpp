@@ -94,7 +94,7 @@ namespace igor
         drag.accept();
     }
 
-    void iUserControlTextureChooser::onDrop(const iDrag &drag)
+    void iUserControlTextureChooser::onDrop(const iDrag &drag, const iaVector2f &mousePos)
     {
         const iMimeData &mimeData = drag.getMimeData();
         if (!mimeData.hasResourceID())

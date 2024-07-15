@@ -12,25 +12,12 @@ Outliner::Outliner()
     iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
 }
 
-void Outliner::setScene(const iEntitySceneID &entitySceneID)
-{
-    if(_entitySceneID == entitySceneID)
-    {
-        return;        
-    }
-
-    _treeView->clear();
-
-    _entitySceneID = entitySceneID;
-
-    populateTree();
-}
-
 void Outliner::initGUI()
 {
-    setDockable(true);
     setTitle("Outliner");
     setMinWidth(350);
+    setDockable(true);
+    setAcceptDrop(true);
 
     auto layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     layout->setVerticalAlignment(iVerticalAlignment::Stretch);
@@ -38,13 +25,15 @@ void Outliner::initGUI()
     layout->setStretchIndex(1);
 
     auto buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, layout);
-    // add menus and action buttons 
+    // add menus and action buttons
 
     _treeView = new iUserControlTreeView(layout);
     _treeView->setMinWidth(150);
     _treeView->setVerticalAlignment(iVerticalAlignment::Stretch);
     _treeView->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _treeView->getClickEvent().add(iClickDelegate(this, &Outliner::onClickTreeView));
+
+    populateTree();
 }
 
 void Outliner::onClickTreeView(const iWidgetPtr source)
@@ -53,30 +42,84 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
     // TODO
 }
 
-void Outliner::populateScene(iEntityScenePtr scene, iItemPtr sceneItem)
-{
-
-}
-
 void Outliner::populateTree()
 {
-    _itemData = std::unique_ptr<iItemData>(new iItemData());
+    _treeView->clear();
 
-    for(const auto &scene : iEntitySystemModule::getInstance().getActiveScenes())
+    auto &project = iProject::getInstance();
+
+    if (!project.isLoaded())
     {
-        iItemPtr sceneItem = _itemData->addItem(scene->getName());
+        return;
+    }
+
+    _itemData = std::unique_ptr<iItemData>(new iItemData());
+    auto scenes = project.getScenes();
+
+    for(const auto &resourceID : scenes)
+    {
+        const iaString filename = iResourceManager::getInstance().getFilename(resourceID);
+        iItemPtr sceneItem = _itemData->addItem(filename);
         sceneItem->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
+
+        iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
+        if(scene == nullptr)
+        {
+            continue;
+        }
+
+        // TODO populate the scenes
     }
 
     _treeView->setItems(_itemData.get());
 }
 
-void Outliner::onEntityCreated(iEntityPtr scene)
+void Outliner::onEntityCreated(iEntityPtr entity)
 {
     con_endl("onEntityCreated");
 }
 
-void Outliner::onEntityDestroyed(iEntityPtr scene)
+void Outliner::onEntityDestroyed(iEntityPtr entity)
 {
     con_endl("onEntityDestroyed");
+}
+
+void Outliner::onDragMove(iDrag &drag, const iaVector2f &mousePos)
+{
+    const iMimeData &mimeData = drag.getMimeData();
+    if (!mimeData.hasResourceID())
+    {
+        drag.reject();
+        return;
+    }
+
+    iResourceID id = mimeData.getResourceID();
+
+    const iaString resourceType = iResourceManager::getInstance().getType(id);
+    if (resourceType == IGOR_RESOURCE_PREFAB)
+    {
+        drag.accept();
+        return;
+    }
+
+    drag.reject();
+}
+
+void Outliner::onDrop(const iDrag &drag, const iaVector2f &mousePos)
+{
+    const iMimeData &mimeData = drag.getMimeData();
+    if (!mimeData.hasResourceID())
+    {
+        return;
+    }
+
+    iResourceID id = mimeData.getResourceID();
+
+    const iaString resourceType = iResourceManager::getInstance().getType(id);
+    if (resourceType == IGOR_RESOURCE_PREFAB)
+    {
+        iProject::getInstance().addScene(id);
+        populateTree();
+        return;
+    }
 }

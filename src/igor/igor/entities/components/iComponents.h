@@ -61,11 +61,9 @@ namespace igor
     {
     public:
         /*! ctor
-
-        \param name the name of this component
-        */
-        iVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d(), const iaString &name = "velocity")
-            : iEntityComponent(name), _velocity(velocity), _angularVelocity(angularVelocity)
+         */
+        iVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d())
+            : _velocity(velocity), _angularVelocity(angularVelocity)
         {
         }
 
@@ -97,7 +95,7 @@ namespace igor
         std::any _userData;
 
         /*! optional name of behaviour
-        */
+         */
         iaString _name;
     };
 
@@ -107,11 +105,8 @@ namespace igor
     {
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iBehaviourComponent(const iaString &name = "behaviour")
-            : iEntityComponent(name)
+        iBehaviourComponent()
         {
         }
 
@@ -144,7 +139,7 @@ namespace igor
         \param name the name of this component
         */
         iGlobalBoundaryComponent(iGlobalBoundaryType type, const iaString &name = "global boundary")
-            : iEntityComponent(name), _type(type)
+            : _type(type)
         {
         }
 
@@ -176,7 +171,7 @@ namespace igor
         \param name the name of this component
         */
         iMotionInteractionResolverComponent(iMotionInteractionType type, const iaString &name = "motion interaction resolver")
-            : iEntityComponent(name), _type(type)
+            : _type(type)
         {
         }
 
@@ -191,11 +186,8 @@ namespace igor
     {
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iRenderDebugComponent(const iaString &name = "render debug")
-            : iEntityComponent(name)
+        iRenderDebugComponent()
         {
         }
 
@@ -223,7 +215,7 @@ namespace igor
         \param name the name of this component
         */
         iPartyComponent(uint32 partyID, const iaString &name = "party")
-            : iEntityComponent(name), _partyID(partyID)
+            : _partyID(partyID)
         {
         }
 
@@ -242,7 +234,7 @@ namespace igor
         \param name the name of this component
         */
         iAnimationComponent(iAnimationControllerPtr animationController = nullptr, const iaString &name = "animation")
-            : iEntityComponent(name), _animationController(animationController)
+            : _animationController(animationController)
         {
         }
 

@@ -29,8 +29,9 @@
 #ifndef IGOR_PROJECT_H
 #define IGOR_PROJECT_H
 
-#include <igor/iDefines.h>
+#include <igor/resources/iResourceManager.h>
 
+#include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
@@ -38,6 +39,14 @@ using namespace iaux;
 
 namespace igor
 {
+
+    /*! project scene added event
+     */
+    IGOR_EVENT_DEFINITION(iProjectSceneAdded, void, const iResourceID &);
+
+    /*! project scene removed event
+     */
+    IGOR_EVENT_DEFINITION(iProjectSceneRemoved, void, const iResourceID &);
 
     /*! project pointer definition
      */
@@ -63,7 +72,7 @@ namespace igor
         void load(const iaString &projectFolder);
 
         /*! unloads project
-        */
+         */
         void unload();
 
         /*! creates new project in given project folder and loads it
@@ -91,12 +100,36 @@ namespace igor
         void setName(const iaString &projectName);
 
         /*! \returns true if changes been made and not saved
-        */
+         */
         bool hasChanges() const;
 
         /*! \returns true if a project currently is loaded
+         */
+        bool isLoaded() const;
+
+        /*! add scene to project
+
+        \param sceneID the scene/prefab to add
         */
-        bool isLoaded() const; 
+        void addScene(const iResourceID &sceneID);
+
+        /*! remove scene from project
+
+        \param sceneID the scene/prefab to remove
+        */
+        void removeScene(const iResourceID &sceneID);
+
+        /*! \returns list of scene references
+        */
+        const std::vector<iResourceID>& getScenes() const;
+
+        /*! \returns project scene added event
+         */
+        iProjectSceneAddedEvent &getProjectSceneAddedEvent();
+
+        /*! \returns project scene removed event
+         */
+        iProjectSceneRemovedEvent &getProjectSceneRemovedEvent();
 
     private:
         /*! project folder
@@ -108,15 +141,27 @@ namespace igor
         iaString _projectName;
 
         /*! if true project configuration has changes
-        */
+         */
         bool _hasChanges = false;
 
         /*! true if project is loaded
-        */
+         */
         bool _isLoaded = false;
 
-        /*! loads project
+        /*! project scene added event
+         */
+        iProjectSceneAddedEvent _projectSceneAddedEvent;
+
+        /*! project scene added event
+         */
+        iProjectSceneRemovedEvent _projectSceneRemovedEvent;
+
+        /*! scenes references by project
         */
+        std::vector<iResourceID> _scenes;
+
+        /*! loads project
+         */
         void load();
 
         /*! reads project configuration

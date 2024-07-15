@@ -6,8 +6,8 @@
 
 namespace igor
 {
-    iTransformComponent::iTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale, const iaString &name)
-        : iEntityComponent(name), _position(position), _orientation(orientation), _scale(scale)
+    iTransformComponent::iTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale)
+        : _position(position), _orientation(orientation), _scale(scale)
     {
     }
 

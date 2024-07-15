@@ -8,8 +8,7 @@
 
 namespace igor
 {
-    iCameraComponent::iCameraComponent(const iaString &name)
-        : iEntityComponent(name)
+    iCameraComponent::iCameraComponent()
     {
     }
 

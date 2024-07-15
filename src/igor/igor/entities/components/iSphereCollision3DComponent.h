@@ -39,11 +39,9 @@ namespace igor
     {
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iSphereCollision3DComponent(float64 radius = 1.0, const iaVector3d &offset = iaVector3d(), const iaString &name = "sphere collision 3d")
-            : iEntityComponent(name), _radius(radius), _offset(offset)
+        iSphereCollision3DComponent(float64 radius = 1.0, const iaVector3d &offset = iaVector3d())
+            : _radius(radius), _offset(offset)
         {
         }
 

@@ -41,10 +41,8 @@ namespace igor
     {
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iOctreeComponent(iOctreed::ObjectPtr object = nullptr, const iaString &name = "body 2d");
+        iOctreeComponent(iOctreed::ObjectPtr object = nullptr);
 
         /*! octree object
          */

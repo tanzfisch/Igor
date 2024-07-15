@@ -569,7 +569,7 @@ void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
     drag.reject();
 }
 
-void Viewport::onDrop(const iDrag &drag)
+void Viewport::onDrop(const iDrag &drag, const iaVector2f &mousePos)
 {
     const iMimeData &mimeData = drag.getMimeData();
     if (!mimeData.hasResourceID())

@@ -6,8 +6,7 @@
 
 namespace igor
 {
-    iLightComponent::iLightComponent(const iaString &name)
-        : iEntityComponent(name)
+    iLightComponent::iLightComponent()
     {
     }
 

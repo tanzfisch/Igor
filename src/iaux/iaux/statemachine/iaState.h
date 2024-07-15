@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_STATE__
-#define __IAUX_STATE__
+#ifndef IAUX_STATE_H
+#define IAUX_STATE_H
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaIDGenerator.h>
@@ -84,4 +84,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // IAUX_STATE_H

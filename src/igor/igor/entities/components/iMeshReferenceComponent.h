@@ -26,38 +26,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_QUADTREE_COMPONENT_H
-#define IGOR_QUADTREE_COMPONENT_H
+#ifndef IGOR_MESH_REFERENCE_COMPONENT_H
+#define IGOR_MESH_REFERENCE_COMPONENT_H
 
 #include <igor/entities/iEntity.h>
-
-#include <igor/data/iQuadtree.h>
+#include <igor/resources/model/iModel.h>
 
 namespace igor
 {
-    /*! quadtree component
+    /*! mesh reference component
      */
-    class iQuadtreeComponent : public iEntityComponent
+    class iMeshReferenceComponent : public iEntityComponent
     {
+        friend class iPrefabIO;
+
     public:
         /*! ctor
-        */
-        iQuadtreeComponent(iQuadtreed::ObjectPtr object = nullptr);
 
-        /*! quadtree object
+        \param model the model to refer to
+        \param meshPath the path to the mesh inside the model to refer to (ie "foo:bar:myMesh")
          */
-        iQuadtreed::ObjectPtr _object = nullptr;
+        iMeshReferenceComponent(iModelPtr model = nullptr, const iaString &meshPath = "");
+
+        /*! \returns model
+         */
+        iModelPtr getModel() const;
+
+        /*! set model
+
+        \param model the model to set
+        */
+        void setModel(iModelPtr model);
+
+        /*! sets path to mesh in model
+
+        \param meshPath the given mesh path
+        */
+        void setMeshPath(const iaString &meshPath);   
+
+        /*! \returns mesh path
+        */
+        const iaString &getMeshPath() const;
 
     private:
-        /*! callback to activate component
-         */
-        void onActivate(iEntityPtr entity) override;
 
-        /*! callback to deactivate component
+        /*! reference to model
+        */
+        iModelPtr _model;
+
+        /*! the mesh path
          */
-        void onDeactivate(iEntityPtr entity) override;
+        iaString _meshPath;
     };
-
 }
 
-#endif // IGOR_QUADTREE_COMPONENT_H
+#endif // IGOR_MESH_REFERENCE_COMPONENT_H

@@ -69,10 +69,8 @@ namespace igor
 
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iEntityComponent(const iaString &name = "");
+        iEntityComponent();
 
         /*! does nothing
          */
@@ -82,20 +80,14 @@ namespace igor
          */
         const iEntityComponentID &getID() const;
 
-        /*! sets name of component
-         */
-        void setName(const iaString &name);
-
-        /*! \returns component name
-         */
-        const iaString &getName() const;
-
     protected:
         /*! callback for loading component
 
+        \param entity the entity this component relates to
+        \param[out] asyncLoad if true try again if unsuccessful
         \returns true when loading was successful
         */
-        virtual bool onLoad(iEntityPtr entity);
+        virtual bool onLoad(iEntityPtr entity, bool &asyncLoad);
 
         /*! callback to activate component
          */
@@ -113,10 +105,6 @@ namespace igor
         /*! entity component id
          */
         iEntityComponentID _id;
-
-        /*! component name
-         */
-        iaString _name;
 
         /*! component state
          */

@@ -26,11 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __RESOURCE__
-#define __RESOURCE__
+#ifndef IGOR_RESOURCE_H
+#define IGOR_RESOURCE_H
 
 #include <igor/data/iParameters.h>
 
+#include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaUUID.h>
 using namespace iaux;
@@ -43,6 +44,10 @@ namespace igor
     /*! resource id definition
      */
     typedef iaUUID iResourceID;
+
+    /*! resource processed (aka loaded) event
+     */
+    IGOR_EVENT_DEFINITION(iResourceProcessed, void, iResourceID);
 
     /*! represents a resource
 
@@ -119,6 +124,10 @@ namespace igor
         */
         static bool extractID(const iParameters &parameters, iResourceID &id);
 
+        /*! \returns resource process event
+        */
+        iResourceProcessedEvent &getResourceProcessedEvent();
+
     protected:
         /*! initializes members
 
@@ -163,6 +172,10 @@ namespace igor
          */
         iResourceCacheMode _cacheMode;
 
+        /*! resource processed event
+         */
+        iResourceProcessedEvent _resourceProcessedEvent;
+
         /*! allows factory to update source if it was not part of the given parameters
 
         \param source the source of this resource
@@ -192,4 +205,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __RESOURCE__
+#endif // IGOR_RESOURCE_H

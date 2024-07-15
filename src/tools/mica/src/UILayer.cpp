@@ -25,7 +25,6 @@ UILayer::~UILayer()
 
 void UILayer::onInit()
 {
-    // call base class
     iLayerWidgets::onInit();
 
     registerMicaActions();
@@ -57,9 +56,8 @@ void UILayer::onInit()
     _mainDialog->getEventLoadFile().add(LoadFileDelegate(this, &UILayer::onLoadFile));
     _mainDialog->getEventSaveFile().add(SaveFileDelegate(this, &UILayer::onSaveFile));
 
-    // load layout configuration here instead of this hack
+    // TODO load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
-
     iWidgetSplitterPtr splitter0 = new iWidgetSplitter(true);
     iWidgetSplitterPtr splitter1 = new iWidgetSplitter(true);
 

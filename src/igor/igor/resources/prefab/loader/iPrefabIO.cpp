@@ -16,6 +16,7 @@
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iSphereCollision3DComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iMeshReferenceComponent.h>
 
 #include <igor/entities/components/iComponents.h>
 
@@ -105,17 +106,22 @@ namespace igor
 
     void iPrefabIO::readMeshRender(iEntityPtr entity, const json &componentJson)
     {
-        iMeshRenderComponent *component = new iMeshRenderComponent();
-        entity->addComponent(component);
-
-        auto materialID = componentJson["material"].get<iaUUID>();
-        component->_material = iResourceManager::getInstance().requestResource<iMaterial>(materialID);
+        entity->addComponent(new iMeshRenderComponent());
     }
 
-    static void writeMeshRender(json &componentJson, iMeshRenderComponent *component)
+    static void readMeshReference(iEntityPtr entity, const json &componentJson)
     {
-        // TODO by reference or do we want to embed the data? j["mesh"] = component.getMesh()->
-        componentJson["material"] = component->getMaterial()->getID();
+        iMeshReferenceComponent *component = new iMeshReferenceComponent();
+        entity->addComponent(component);
+
+        component->setModel(iResourceManager::getInstance().requestResource<iModel>(componentJson["model"].get<iaUUID>()));
+        component->setMeshPath(componentJson["meshPath"].get<iaString>());
+    }
+
+    static void writeMeshReference(json &componentJson, iMeshReferenceComponent *component)
+    {
+        componentJson["model"] = component->getModel()->getID();
+        componentJson["meshPath"] = component->getMeshPath();
     }
 
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
@@ -140,7 +146,8 @@ namespace igor
             {"camera", readCamera},
             {"sphere", readSphere},
             {"octree", readOctree},
-            {"meshRender", readMeshRender}};
+            {"meshRender", readMeshRender},
+            {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
         const iEntityID entityID = entityJson["id"].get<iaUUID>();
@@ -287,7 +294,17 @@ namespace igor
             {
                 json componentJson;
                 componentJson["componentType"] = "meshRender";
-                writeMeshRender(componentJson, meshRender);
+                // nothing else to write here
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iMeshReferenceComponent *meshReference = dynamic_cast<iMeshReferenceComponent *>(pair.second);
+            if (meshReference != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "meshReference";
+                writeMeshReference(componentJson, meshReference);
                 componentsJson.push_back(componentJson);
                 continue;
             }

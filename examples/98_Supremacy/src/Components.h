@@ -39,8 +39,8 @@ public:
 
     \param name the name of this component
     */
-    RangeComponent(float64 rangeLeft, const iaVector3d &lastPosition, const iaString &name = "range")
-        : iEntityComponent(name), _rangeLeft(rangeLeft), _lastPosition(lastPosition)
+    RangeComponent(float64 rangeLeft, const iaVector3d &lastPosition)
+        : _rangeLeft(rangeLeft), _lastPosition(lastPosition)
     {
     }
 
@@ -57,11 +57,9 @@ class AngularVelocityComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    AngularVelocityComponent(float64 velocity, const iaString &name = "angular velocity")
-        : iEntityComponent(name), _velocity(velocity)
+     */
+    AngularVelocityComponent(float64 velocity)
+        : _velocity(velocity)
     {
     }
 
@@ -74,11 +72,9 @@ class HealthComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    HealthComponent(float64 health, bool destroyOnImpact = false, const iaString &name = "health")
-        : iEntityComponent(name), _health(health), _destroyOnImpact(destroyOnImpact)
+     */
+    HealthComponent(float64 health, bool destroyOnImpact = false)
+        : _health(health), _destroyOnImpact(destroyOnImpact)
     {
     }
 
@@ -90,11 +86,9 @@ class PickupComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    PickupComponent(bool canBePickedUp = true, const iaString &name = "pickup")
-        : iEntityComponent(name), _canBePickedUp(canBePickedUp)
+     */
+    PickupComponent(bool canBePickedUp = true)
+        : _canBePickedUp(canBePickedUp)
     {
     }
 
@@ -105,11 +99,9 @@ class HealComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    HealComponent(float32 heal, const iaString &name = "heal")
-        : iEntityComponent(name), _heal(heal)
+     */
+    HealComponent(float32 heal)
+        : _heal(heal)
     {
     }
 
@@ -120,11 +112,9 @@ class DamageComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    DamageComponent(float32 damage, const iaString &name = "damage")
-        : iEntityComponent(name), _damage(damage)
+     */
+    DamageComponent(float32 damage)
+        : _damage(damage)
     {
     }
 
@@ -135,11 +125,9 @@ class ExperienceComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    ExperienceComponent(float32 experience = 0.0, float32 level = 1.0, const iaString &name = "experience")
-        : iEntityComponent(name), _experience(experience), _level(level)
+     */
+    ExperienceComponent(float32 experience = 0.0, float32 level = 1.0)
+        : _experience(experience), _level(level)
     {
     }
 
@@ -151,11 +139,9 @@ class CoinsComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    CoinsComponent(float32 coins = 0.0, const iaString &name = "coins")
-        : iEntityComponent(name), _coins(coins)
+     */
+    CoinsComponent(float32 coins = 0.0)
+        : _coins(coins)
     {
     }
 
@@ -166,11 +152,9 @@ class ExperienceGainComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    ExperienceGainComponent(float32 experience, const iaString &name = "experience gain")
-        : iEntityComponent(name), _experience(experience)
+     */
+    ExperienceGainComponent(float32 experience)
+        : _experience(experience)
     {
     }
 
@@ -181,11 +165,9 @@ class CoinGainComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    CoinGainComponent(float32 coins, const iaString &name = "coin gain")
-        : iEntityComponent(name), _coins(coins)
+     */
+    CoinGainComponent(float32 coins)
+        : _coins(coins)
     {
     }
 
@@ -196,11 +178,9 @@ class TargetComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    TargetComponent(iEntityID targetID = iEntityID::getInvalid(), bool inRange = false, bool followTarget = true, const iaString &name = "target")
-        : iEntityComponent(name), _targetID(targetID), _inRange(inRange), _followTarget(followTarget)
+     */
+    TargetComponent(iEntityID targetID = iEntityID::getInvalid(), bool inRange = false, bool followTarget = true)
+        : _targetID(targetID), _inRange(inRange), _followTarget(followTarget)
     {
     }
 
@@ -213,11 +193,8 @@ class MovementControlComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    MovementControlComponent(const iaString &name = "movement control")
-        : iEntityComponent(name)
+     */
+    MovementControlComponent()
     {
     }
 
@@ -231,11 +208,8 @@ class ViewportComponent : public iEntityComponent
 {
 public:
     /*! ctor
-
-    \param name the name of this component
-    */
-    ViewportComponent(const iaString &name = "viewport")
-        : iEntityComponent(name)
+     */
+    ViewportComponent()
     {
     }
 
@@ -297,7 +271,7 @@ public:
     \param name the name of this component
     */
     WeaponComponent(const WeaponConfiguration &config, const iaString &name = "weapon")
-        : iEntityComponent(name), _config(config)
+        : _config(config)
     {
     }
 
@@ -305,7 +279,7 @@ public:
 
     /*! keeps track of cool down
      */
-    iaTime _time;    
+    iaTime _time;
 };
 
 enum class ObjectType
@@ -333,7 +307,7 @@ public:
     \param name the name of this component
     */
     ModifierComponent(const ModifierConfiguration &config, const iaString &name = "modifier")
-        : iEntityComponent(name), _config(config)
+        : _config(config)
     {
     }
 
@@ -354,7 +328,7 @@ public:
     \param name the name of this component
     */
     BuildingComponent(BuildingType type, const iaString &name = "building")
-        : iEntityComponent(name), _type(type)
+        : _type(type)
     {
     }
 

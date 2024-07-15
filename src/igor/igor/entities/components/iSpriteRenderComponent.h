@@ -49,10 +49,8 @@ namespace igor
         };
 
         /*! ctor
-
-        \param name the name of this component
         */
-        iSpriteRenderComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iRenderMode renderMode = iRenderMode::Simple, const iaString &name = "sprite render");
+        iSpriteRenderComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iRenderMode renderMode = iRenderMode::Simple);
 
         /*! sprite to render
          */

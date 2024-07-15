@@ -43,10 +43,8 @@ namespace igor
 
     public:
         /*! ctor
-
-        \param name the name of this component
         */
-        iTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0), const iaString &name = "transform");
+        iTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
 
         /*! \returns world matrix
          */

@@ -8,8 +8,8 @@
 
 namespace igor
 {
-    iOctreeComponent::iOctreeComponent(iOctreed::ObjectPtr object, const iaString &name)
-        : iEntityComponent(name), _object(object)
+    iOctreeComponent::iOctreeComponent(iOctreed::ObjectPtr object)
+        : _object(object)
     {
     }
 
@@ -27,5 +27,5 @@ namespace igor
         auto &octree = entity->getScene()->getOctree();
         octree.remove(_object);
     }
-  
+
 }

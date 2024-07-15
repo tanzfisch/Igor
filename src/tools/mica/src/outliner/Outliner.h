@@ -33,6 +33,8 @@
 using namespace igor;
 
 /*! outliner
+
+    a hierarchy of scenes and their entities
  */
 class Outliner : public iDialog
 {
@@ -43,12 +45,6 @@ public:
     /*! init ui
      */
     Outliner();
-
-    /*! sets scene to display
-
-    \param entitySceneID id of entity scene to display
-    */
-    void setScene(const iEntitySceneID &entitySceneID);
 
 private:
     /*! main layout
@@ -62,10 +58,6 @@ private:
     /*! tree view data
      */
     std::unique_ptr<iItemData> _itemData;
-
-    /*! the entity scene id
-    */
-    iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
 
     /*! init user interface
      */
@@ -81,12 +73,31 @@ private:
      */
     void populateTree();
 
-    /*! populate scene
-     */
-    void populateScene(iEntityScenePtr scene, iItemPtr sceneItem);
+    /*! drag move handle
 
-    void onEntityCreated(iEntityPtr scene);
-    void onEntityDestroyed(iEntityPtr scene);
+    \param drag the drag data
+    \param mousePos the current mouse pos
+    */
+    void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! drop handle
+
+    \param drag the drag data
+    \param mousePos the current mouse pos
+    */
+    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;    
+
+    /*! called when entity was created
+
+    \param entity the entity that was created
+    */
+    void onEntityCreated(iEntityPtr entity);
+
+    /*! called when entity is about to be destroyed
+
+    \param entity the entity that is about to be destroyed
+    */
+    void onEntityDestroyed(iEntityPtr entity);
 };
 
 #endif // MICA_OUTLINER_H
