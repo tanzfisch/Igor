@@ -38,8 +38,8 @@ void Outliner::initGUI()
 
 void Outliner::onClickTreeView(const iWidgetPtr source)
 {
-    iItemPtr item = std::any_cast<iItemPtr>(source->getUserData());
-    // TODO
+    iaString selectedItemPath = std::any_cast<iaString>(source->getUserData());
+    con_endl(selectedItemPath);
 }
 
 void Outliner::populateTree()
@@ -58,9 +58,10 @@ void Outliner::populateTree()
 
     for(const auto &resourceID : scenes)
     {
-        const iaString filename = iResourceManager::getInstance().getFilename(resourceID);
-        iItemPtr sceneItem = _itemData->addItem(filename);
+        iaFile file(iResourceManager::getInstance().getFilename(resourceID));
+        iItemPtr sceneItem = _itemData->addItem(file.getStem());
         sceneItem->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
+        sceneItem->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, resourceID);
 
         iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
         if(scene == nullptr)

@@ -65,6 +65,7 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
 
 extern const iaString IGOR_ITEM_DATA_NAME = "name";
 extern const iaString IGOR_ITEM_DATA_ICON = "icon";
+extern const iaString IGOR_ITEM_DATA_UUID = "uuid";
 
 #ifdef IGOR_DEBUG
 extern const iaString IGOR_BUILD_CONFIGURATION = "debug";

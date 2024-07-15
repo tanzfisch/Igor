@@ -25,6 +25,29 @@ inline iaString iItem::getValue(const iaString &key) const
 }
 
 template <>
+inline void iItem::setValue(const iaString &key, const iaUUID &value)
+{
+    const iaString string = value.toString();
+    const uint8 *data = reinterpret_cast<const uint8 *>(string.getData());
+    _data.setData(key, data, string.getSize());
+}
+
+template <>
+inline iaUUID iItem::getValue(const iaString &key) const
+{
+    uint8 *data = nullptr;
+    uint32 dataSize = 0;
+    _data.getData(key, &data, dataSize);
+
+    if (data == nullptr)
+    {
+        return iaString();
+    }
+
+    return iaUUID(iaString(reinterpret_cast<wchar_t *>(data)));
+}
+
+template <>
 inline void iItem::setValue(const iaString &key, const bool& value)
 {
     uint8 boolVal = value;
