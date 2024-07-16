@@ -23,6 +23,7 @@ Changelog                           {#changelog}
 - #420 integrated json and replaced all xml files except for shaders
 - introduced prefab as resource
 - iaEvent now allows to add a delegate that only get's triggered once
+- at the moment prefabs will always be loaded synchronous until we figured out how to invoke delegates to the main thread
 
 0.44.0
 ------
