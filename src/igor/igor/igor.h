@@ -112,8 +112,8 @@
 
 #include <igor/entities/iEntity.h>
 #include <igor/entities/iEntitySystemModule.h>
-#include <igor/entities/components/iComponents.h> // more cponents
 
+#include <igor/entities/components/iComponents.h> // more cponents
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iCircleCollision2DComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
@@ -124,6 +124,8 @@
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iLightComponent.h>
+
+#include <igor/entities/traversal/iEntityToItemTraverser.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>

@@ -662,7 +662,10 @@ namespace igor
             if (event.getKey() == iKeyCode::MouseLeft ||
                 event.getKey() == iKeyCode::MouseRight)
             {
-                _click(this);
+                if (event.getKey() == iKeyCode::MouseLeft)
+                {
+                    _click(this);
+                }
 
                 if (_selectMode != iSelectionMode::NoSelection)
                 {

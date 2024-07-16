@@ -32,6 +32,8 @@ namespace igor
 
         _projectFolder = projectFolder;
         load();
+
+        _projectLoadedEvent();
     }
 
     void iProject::create(const iaString &projectFolder)
@@ -62,11 +64,11 @@ namespace igor
     void iProject::load()
     {
         const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.json";
-        read(filenameConfig);
-
         const iaString filenameDictionary = "resource_dictionary.json";
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
+
+        read(filenameConfig);
 
         _isLoaded = true;
         con_info("loaded project \"" << getName() << "\"");
@@ -79,8 +81,10 @@ namespace igor
 
         _projectFolder = "";
         _projectName = "";
+        _scenes.clear();
 
         _isLoaded = false;
+        _projectUnloadedEvent();
     }
 
     void iProject::save()
@@ -102,15 +106,23 @@ namespace igor
 
         _projectName = iJson::getValue<iaString>(data, "projectName", "New Project");
 
-        if(data.contains("scenes"))
+        _projectSceneAddedEvent.block();
+        if (data.contains("scenes"))
         {
             json scenesJson = data["scenes"];
 
-            for(const auto &sceneJson : scenesJson)
+            for (const auto &sceneJson : scenesJson)
             {
-                iResourceID sceneID = sceneJson.get<iResourceID>();
+                auto sceneID = sceneJson["id"].get<iResourceID>();
+                bool loaded = sceneJson["loaded"].get<bool>();
+                addScene(sceneID);
+                if(loaded)
+                {
+                    iResourceManager::getInstance().requestResource<iPrefab>(sceneID);
+                }
             }
         }
+        _projectSceneAddedEvent.unblock();
 
         con_debug("loaded project file \"" << filename << "\"");
 
@@ -132,15 +144,18 @@ namespace igor
         }
 
         json scenesJson = json::array();
-        for(auto sceneID : _scenes)
+        for (auto sceneID : _scenes)
         {
-            scenesJson.push_back(sceneID);
+            iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(sceneID);
+            json sceneJson = {
+                {"id", sceneID},
+                {"loaded", scene != nullptr}};
+            scenesJson.push_back(sceneJson);
         }
 
         json projectJson = {
             {"projectName", _projectName},
-            {"scenes", scenesJson}
-        };
+            {"scenes", scenesJson}};
 
         stream << projectJson.dump(4);
 
@@ -149,7 +164,7 @@ namespace igor
         return true;
     }
 
-    const std::vector<iResourceID>& iProject::getScenes() const
+    const std::vector<iResourceID> &iProject::getScenes() const
     {
         return _scenes;
     }
@@ -190,18 +205,38 @@ namespace igor
         return _projectSceneRemovedEvent;
     }
 
+    iProjectLoadedEvent &iProject::getProjectLoadedEvent()
+    {
+        return _projectLoadedEvent;
+    }
+
+    iProjectUnloadedEvent &iProject::getProjectUnloadedEvent()
+    {
+        return _projectUnloadedEvent;
+    }
+
     void iProject::addScene(const iResourceID &sceneID)
     {
+        auto iter = std::find(_scenes.begin(), _scenes.end(), sceneID);
+        if (iter != _scenes.end())
+        {
+            return;
+        }
+
         _scenes.push_back(sceneID);
+        _projectSceneAddedEvent(sceneID);
     }
 
     void iProject::removeScene(const iResourceID &sceneID)
     {
         auto iter = std::find(_scenes.begin(), _scenes.end(), sceneID);
-        if(iter != _scenes.end())
+        if (iter == _scenes.end())
         {
-            _scenes.erase(iter);
+            return;
         }
+
+        _scenes.erase(iter);
+        _projectSceneRemovedEvent(sceneID);
     }
 
 }; // namespace igor

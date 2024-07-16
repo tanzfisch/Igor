@@ -49,7 +49,7 @@ void Example3D::onInit()
     iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/04_3D/project/scenes/main.scene");
 #else
     iPrefabPtr scenePrefab = iResourceManager::getInstance().requestResource<iPrefab>("example_main_scene");
-    scenePrefab->getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Example3D::onPrefabProcessed));
+    scenePrefab->getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Example3D::onPrefabProcessed), true);
 
     _cameraPitch = iEntityID(0x1cab7c99336dbea8);
     _cameraHeading = iEntityID(0x494714df579bf91e);

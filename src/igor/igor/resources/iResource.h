@@ -45,10 +45,6 @@ namespace igor
      */
     typedef iaUUID iResourceID;
 
-    /*! resource processed (aka loaded) event
-     */
-    IGOR_EVENT_DEFINITION(iResourceProcessed, void, iResourceID);
-
     /*! represents a resource
 
     available parameters for loading data:
@@ -124,10 +120,6 @@ namespace igor
         */
         static bool extractID(const iParameters &parameters, iResourceID &id);
 
-        /*! \returns resource process event
-        */
-        iResourceProcessedEvent &getResourceProcessedEvent();
-
     protected:
         /*! initializes members
 
@@ -171,10 +163,6 @@ namespace igor
         /*! the resources cache mode
          */
         iResourceCacheMode _cacheMode;
-
-        /*! resource processed event
-         */
-        iResourceProcessedEvent _resourceProcessedEvent;
 
         /*! allows factory to update source if it was not part of the given parameters
 

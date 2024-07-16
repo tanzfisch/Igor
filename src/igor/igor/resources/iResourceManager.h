@@ -54,6 +54,10 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! resource processed (aka loaded) event
+     */
+    IGOR_EVENT_DEFINITION(iResourceProcessed, void, iResourceID);
+
     /*! manages resources and their factories
      */
     class IGOR_API iResourceManager : public iModule<iResourceManager>
@@ -352,6 +356,10 @@ namespace igor
         */
         bool saveResource(iResourceID resourceID, const iaString &filename = "");
 
+        /*! \returns resource process event
+        */
+        iResourceProcessedEvent &getResourceProcessedEvent();
+
     private:
         /*! mutex to manage access to internal data
          */
@@ -384,6 +392,10 @@ namespace igor
         /*! resource dictionary
          */
         iResourceDictionary _resourceDictionary;
+
+        /*! resource processed event
+         */
+        iResourceProcessedEvent _resourceProcessedEvent;        
 
         /*! \returns factory for given resource parameters
 

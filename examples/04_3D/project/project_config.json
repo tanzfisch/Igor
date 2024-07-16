@@ -1,3 +1,9 @@
 {
-    "projectName": "Example 3D"
+    "projectName": "Example 3D",
+    "scenes": [
+        {
+            "id": "0x25a68c9b0130d191",
+            "loaded": true
+        }
+    ]
 }

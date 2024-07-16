@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_THREAD__
-#define __IAUX_THREAD__
+#ifndef IAUX_THREAD_H
+#define IAUX_THREAD_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/system/iaEvent.h>
@@ -94,6 +94,10 @@ namespace iaux
          */
         static iaID32 getThisThreadID();
 
+        /*! \returns true if this is called on main thread
+        */
+        static bool isMainThread();
+
         /*! \returns type of thread
          */
         const iaString &getType() const;        
@@ -143,4 +147,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // IAUX_THREAD_H

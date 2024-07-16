@@ -349,14 +349,26 @@ namespace iaux
         /*! adds delegate to event
 
         \param delegate the delegate to add
+        \param fireOnce if true delegate will be fired once and then removed
         */
-        void add(const iaDelegate<R, Args...> &delegate)
+        void add(const iaDelegate<R, Args...> &delegate, bool fireOnce = false)
         {
             _mutex.lock();
-            auto iter = std::find(_delegates.begin(), _delegates.end(), delegate);
-            if (iter == _delegates.end())
+            if (!fireOnce)
             {
-                _delegates.push_back(delegate);
+                auto iter = std::find(_delegates.begin(), _delegates.end(), delegate);
+                if (iter == _delegates.end())
+                {
+                    _delegates.push_back(delegate);
+                }
+            }
+            else
+            {
+                auto iter = std::find(_fireOnceDelegates.begin(), _fireOnceDelegates.end(), delegate);
+                if (iter == _fireOnceDelegates.end())
+                {
+                    _fireOnceDelegates.push_back(delegate);
+                }                
             }
             _mutex.unlock();
         }
@@ -373,6 +385,11 @@ namespace iaux
             {
                 _delegates.erase(iter);
             }
+            auto iter2 = std::find(_fireOnceDelegates.begin(), _fireOnceDelegates.end(), delegate);
+            if (iter2 != _fireOnceDelegates.end())
+            {
+                _fireOnceDelegates.erase(iter2);
+            }            
             _mutex.unlock();
         }
 
@@ -416,7 +433,8 @@ namespace iaux
             }
 
             _mutex.lock();
-            auto delegates = _delegates;
+            auto delegates = std::move(_fireOnceDelegates);
+            delegates.insert(delegates.end(), _delegates.begin(), _delegates.end());
             _mutex.unlock();
 
             if constexpr (!std::is_same_v<ReturnType, void>)
@@ -444,6 +462,7 @@ namespace iaux
         {
             _mutex.lock();
             _delegates.clear();
+            _fireOnceDelegates.clear();
             _mutex.unlock();
         }
 
@@ -451,12 +470,13 @@ namespace iaux
          */
         bool hasDelegates()
         {
-            return _delegates.size() ? true : false;
+            return (!_delegates.empty() || !_fireOnceDelegates.empty()) ? true : false;
         }
 
     protected:
         iaMutex _mutex;
         std::vector<iaDelegate<R, Args...>> _delegates;
+        std::vector<iaDelegate<R, Args...>> _fireOnceDelegates;
         bool _blocked = false;
     };
 

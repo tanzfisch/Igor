@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET__
-#define __IGOR_WIDGET__
+#ifndef IGOR_WIDGET_H
+#define IGOR_WIDGET_H
 
 #include <igor/iDefines.h>
 #include <igor/system/iMouse.h>
@@ -733,6 +733,10 @@ namespace igor
         */
         void setSelection(const std::vector<iWidgetPtr>& selection);
 
+        /*! queue this widget for refresh in next frame
+        */
+        void refresh();
+
     protected:
 
         /*! if true widget is selected
@@ -858,6 +862,10 @@ namespace igor
         /*! mouse position when last time pressed
         */
         iaVector2f _lastMousePressPos;
+
+        /*! if true widget will be refreshed next frame
+        */
+        bool _needRefresh = true;
 
         /*! removes and deletes all children
 
@@ -1024,6 +1032,10 @@ namespace igor
         */
         virtual void onDrag();
 
+        /*! called when widget was queued for refresh in last frame
+        */
+        virtual void onRefresh();        
+
     private:
         /*! the next node id
          */
@@ -1161,4 +1173,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET__
+#endif // IGOR_WIDGET_H

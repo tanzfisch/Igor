@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_IDGENERATOR__
-#define __IAUX_IDGENERATOR__
+#ifndef IAUX_IDGENERATOR_H
+#define IAUX_IDGENERATOR_H
 
 #include <iaux/system/iaMutex.h>
 
@@ -59,4 +59,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_IDGENERATOR__
+#endif // IAUX_IDGENERATOR_H

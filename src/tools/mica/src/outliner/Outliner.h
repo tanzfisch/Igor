@@ -59,6 +59,14 @@ private:
      */
     std::unique_ptr<iItemData> _itemData;
 
+    /*! the context menu
+     */
+    iDialogMenu _contextMenu;
+
+    /*! resource to do actions on
+     */
+    iResourceID _contextResourceID;
+
     /*! init user interface
      */
     void initGUI();
@@ -69,9 +77,19 @@ private:
     */
     void onClickTreeView(const iWidgetPtr source);
 
+    /*! handles context menu for tree view
+
+    \param source the source widget of this event
+    */
+    void onContextMenuTreeView(const iWidgetPtr source);
+
     /*! populate the entity tree
      */
     void populateTree();
+
+    /*! populate the entity tree
+    */
+    void populateTree(iItemPtr item, iEntityScenePtr scene);
 
     /*! drag move handle
 
@@ -85,7 +103,7 @@ private:
     \param drag the drag data
     \param mousePos the current mouse pos
     */
-    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;    
+    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
 
     /*! called when entity was created
 
@@ -98,6 +116,42 @@ private:
     \param entity the entity that is about to be destroyed
     */
     void onEntityDestroyed(iEntityPtr entity);
+
+    /*! called when scene was added
+
+    \param sceneID the resource id of the scene
+    */
+    void onSceneAdded(const iResourceID &sceneID);
+
+    /*! called when scene was removed
+
+    \param sceneID the resource id of the scene
+    */
+    void onSceneRemoved(const iResourceID &sceneID);
+
+    /*! called when project was loaded
+     */
+    void onProjectLoaded();
+
+    /*! called when project was unloaded
+     */
+    void onProjectUnloaded();    
+
+    /*! called when user want's to load a scene
+     */
+    void onLoadScene(const iWidgetPtr source);
+
+    /*! called when scene was loaded
+     */
+    void onResourceLoaded(iResourceID resourceID);
+
+    /*! called when user want's to unload a scene
+     */
+    void onUnloadScene(const iWidgetPtr source);
+
+    /*! called when widget was queued for refresh in last frame
+     */
+    void onRefresh() override;
 };
 
 #endif // MICA_OUTLINER_H

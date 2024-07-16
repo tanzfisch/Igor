@@ -133,7 +133,15 @@ namespace igor
                 const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
                 const int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
 
-                minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
+                if(_iconTexture != nullptr)
+                {
+                    minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
+                }
+                else
+                {
+                    minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize);
+                }
+                
                 minHeight = static_cast<int32>(fontSize * 1.5f);
             }
 

@@ -109,6 +109,9 @@ private:
      */
     iNodePtr _selectedNode = nullptr;
 
+    // TODO 
+    iResourceID _sceneResourceID;
+
     /*! handles incoming generic event
 
     \param event the event
@@ -205,6 +208,14 @@ private:
     \param mousePos the current mouse pos
     */
     void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! called when a resource was loaded
+    */
+    void onResourceLoaded(const iResourceID resourceID);
+
+    /*! called when widget was queued for refresh in last frame
+     */
+    void onRefresh() override;
 };
 
 #endif // MICA_VIEWPORT_H

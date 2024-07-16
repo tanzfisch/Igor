@@ -605,7 +605,11 @@ namespace igor
                         _widgetState = iWidgetState::Clicked;
                         setKeyboardFocus();
 
-                        _click(this);
+                        if (event.getKey() == iKeyCode::MouseLeft)
+                        {
+                            _click(this);
+                        }
+
                         select();
 
                         if (event.getKey() == iKeyCode::MouseRight)
@@ -1344,6 +1348,16 @@ namespace igor
     bool iWidget::isSelectable() const
     {
         return _isSelectable;
+    }
+
+    void iWidget::refresh()
+    {
+        _needRefresh = true;
+    }
+
+    void iWidget::onRefresh()
+    {
+        // does nothing
     }
 
 } // namespace igor

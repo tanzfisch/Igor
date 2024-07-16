@@ -240,6 +240,17 @@ namespace igor
 
         for (auto pair : _widgets)
         {
+            if(!pair.second->_needRefresh)
+            {
+                continue;
+            }
+
+            pair.second->onRefresh();
+            pair.second->_needRefresh = false;
+        }
+
+        for (auto pair : _widgets)
+        {
             pair.second->onUpdate();
         }
 

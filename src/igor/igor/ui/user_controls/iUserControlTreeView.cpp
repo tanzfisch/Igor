@@ -51,10 +51,11 @@ namespace igor
         iWidgetButtonPtr button = new iWidgetButton();
         _allInteractiveWidgets.push_back(button);
         button->setHorizontalAlignment(iHorizontalAlignment::Left);
-        button->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+        button->setBackground(iaColor4f::transparent);
         button->setText(displayName);
         button->setCheckable(true);
         button->registerOnClickEvent(iClickDelegate(this, &iUserControlTreeView::onClick));
+        button->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
         if (path == _selectedItemPath)
         {
@@ -67,6 +68,11 @@ namespace igor
         {
             const iaString icon = item->getValue<iaString>(IGOR_ITEM_DATA_ICON);
             button->setIcon(icon);
+            button->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+        }
+        else
+        {
+            button->setHorizontalTextAlignment(iHorizontalAlignment::Center);
         }
 
         buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
@@ -74,23 +80,28 @@ namespace igor
 
         _vboxLayout->addWidget(buttonLayout);
 
-        for (const auto child : item->getItems())
+        for (const auto subItem : item->getItems())
         {
-            updateUI(child, path);
+            updateUI(subItem, path);
         }
     }
 
     void iUserControlTreeView::onClick(const iWidgetPtr source)
     {
+        // change selection
         for (auto button : _allInteractiveWidgets)
         {
             button->setChecked(button == source);
         }
-
         _selectedItemPath = std::any_cast<iaString>(source->getUserData());
 
-        // bundle all click events in one
+        // pass on event
         _clickEvent(source);
+    }
+
+    void iUserControlTreeView::onContextMenu(const iWidgetPtr source)
+    {
+        _contextMenuTreeViewEvent(source);
     }
 
     void iUserControlTreeView::clear()
@@ -105,15 +116,20 @@ namespace igor
         _vboxLayout->clear();
         _allInteractiveWidgets.clear();
 
-        for (const auto child : itemData->getItems())
+        for (const auto item : itemData->getItems())
         {
-            updateUI(child, "");
+            updateUI(item, "");
         }
     }
 
     const iaString &iUserControlTreeView::getSelectedItemPath() const
     {
         return _selectedItemPath;
+    }
+
+    iContextMenuTreeViewEvent& iUserControlTreeView::getContextMenuTreeViewEvent()
+    {
+        return _contextMenuTreeViewEvent;
     }
 
 } // namespace igor

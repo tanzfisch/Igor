@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETMANAGER__
-#define __IGOR_WIDGETMANAGER__
+#ifndef IGOR_WIDGETMANAGER_H
+#define IGOR_WIDGETMANAGER_H
 
 #include <igor/iDefines.h>
 #include <igor/system/iKeyboard.h>
@@ -390,4 +390,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETMANAGER__
+#endif // IGOR_WIDGETMANAGER_H

@@ -377,7 +377,10 @@ namespace igor
                     _widgetState = iWidgetState::Clicked;
                     setKeyboardFocus();
 
-                    _click(this);
+                    if (event.getKey() == iKeyCode::MouseLeft)
+                    {
+                        _click(this);
+                    }
 
                     if (event.getKey() == iKeyCode::MouseRight)
                     {

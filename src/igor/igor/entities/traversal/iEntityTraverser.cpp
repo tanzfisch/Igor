@@ -25,13 +25,17 @@ namespace igor
             {
                 const auto inactiveChildren = entity->getInactiveChildren(); // making copy on purpose here
 
-                for (const auto child : children)
+                for (const auto child : inactiveChildren)
                 {
                     traverseInternal(child, useInactive);
                 }
             }
         }
-        postOrderVisit(entity);
+
+        if(!entity->isRoot())
+        {
+            postOrderVisit(entity);
+        }
     }
 
     void iEntityTraverser::traverse(iEntityScenePtr scene)

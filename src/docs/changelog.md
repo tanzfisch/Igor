@@ -22,6 +22,7 @@ Changelog                           {#changelog}
 - #424 added sky box compatible to new render engine
 - #420 integrated json and replaced all xml files except for shaders
 - introduced prefab as resource
+- iaEvent now allows to add a delegate that only get's triggered once
 
 0.44.0
 ------

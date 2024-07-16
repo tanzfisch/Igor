@@ -397,6 +397,7 @@ namespace igor
         }
 
         result->setProcessed(true);
+        _resourceProcessedEvent(result->getID());
         result->setValid(true);
 
         return result;
@@ -462,6 +463,7 @@ namespace igor
             }
 
             result->setProcessed(true);
+            _resourceProcessedEvent(result->getID());
         }
 
         const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
@@ -540,6 +542,7 @@ namespace igor
 
             resource->setValid(factory->loadResource(resource));
             resource->setProcessed(true);
+            _resourceProcessedEvent(resource->getID());
         }
 
         _interruptLoading = false;
@@ -803,6 +806,11 @@ namespace igor
     void iResourceManager::addResource(const iaString &filename, const iaString &alias)
     {
         _resourceDictionary.addResource(filename, alias);
+    }
+
+    iResourceProcessedEvent &iResourceManager::getResourceProcessedEvent()
+    {
+        return _resourceProcessedEvent;
     }
 
 } // namespace igor

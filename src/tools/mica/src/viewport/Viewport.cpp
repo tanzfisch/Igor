@@ -23,12 +23,12 @@ Viewport::Viewport(WorkspacePtr workspace)
     _viewportScene->setVerticalAlignment(iVerticalAlignment::Stretch);
     _viewportScene->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _viewportScene->getView().setName("Scene");
-    _viewportScene->getView().setScene(_workspace->getScene());
-    _viewportScene->getView().setCamera(_workspace->getCameraArc()->getCameraNode());
-    _viewportScene->getView().registerRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
-    _viewportScene->getView().setClearColorActive(false);
-    _viewportScene->getView().setPerspective(45.0f);
-    _viewportScene->getView().setClipPlanes(1.0f, 10000.f);
+    //_viewportScene->getView().setScene(_workspace->getScene());
+    //_viewportScene->getView().setCamera(_workspace->getCameraArc()->getCameraNode());
+    //_viewportScene->getView().registerRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
+    //_viewportScene->getView().setClearColorActive(false);
+    //_viewportScene->getView().setPerspective(45.0f);
+    //_viewportScene->getView().setClipPlanes(1.0f, 10000.f);
     addWidget(_viewportScene);
 
     _viewportOverlay = new iWidgetViewport();
@@ -54,6 +54,8 @@ Viewport::Viewport(WorkspacePtr workspace)
 
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
+
+    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded));
 }
 
 Viewport::~Viewport()
@@ -62,6 +64,35 @@ Viewport::~Viewport()
 
     _viewportScene->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
     _viewportOverlay->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderOverlay));
+}
+
+void Viewport::onResourceLoaded(const iResourceID resourceID)
+{
+    iPrefabPtr prefab = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
+    if(prefab == nullptr)
+    {
+        return;
+    }
+
+    _sceneResourceID = resourceID;
+    refresh();
+}
+
+void Viewport::onRefresh()
+{
+    iPrefabPtr prefab = iResourceManager::getInstance().getResource<iPrefab>(_sceneResourceID);
+    if(prefab == nullptr)
+    {
+        return;
+    }
+
+    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
+    if(scene == nullptr)
+    {
+        return;
+    }
+
+    _viewportScene->getView().setEntityScene(scene);
 }
 
 void Viewport::setOverlayMode(OverlayMode overlayMode)

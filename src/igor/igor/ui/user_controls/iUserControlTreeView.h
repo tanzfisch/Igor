@@ -42,6 +42,10 @@ namespace igor
      */
     IGOR_EVENT_DEFINITION(iClickTreeView, void, const iWidgetPtr);
 
+    /*! context menu event
+     */
+    IGOR_EVENT_DEFINITION(iContextMenuTreeView, void, const iWidgetPtr);
+
     /*! tree view widget
      */
     class IGOR_API iUserControlTreeView : public iUserControl
@@ -72,6 +76,10 @@ namespace igor
         */
         iClickTreeViewEvent& getClickEvent();
 
+        /*! \returns context menu event
+        */
+        iContextMenuTreeViewEvent& getContextMenuTreeViewEvent();
+
         /*! clears the widget back to default
          */
         void clear() override;
@@ -81,9 +89,13 @@ namespace igor
          */
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
 
-        /*! context menu event
+        /*! click event
          */
         iClickTreeViewEvent _clickEvent;        
+
+        /*! context menu event
+        */
+        iContextMenuTreeViewEvent _contextMenuTreeViewEvent;
 
         /*! selected item path
         */
@@ -98,6 +110,12 @@ namespace igor
         \param source the widget that was clicked
         */
         void onClick(const iWidgetPtr source);
+
+        /*! called when context menu is to be opened
+
+        \param source the widget that was clicked
+        */
+        void onContextMenu(const iWidgetPtr source);
 
         /*! initializes ui
          */

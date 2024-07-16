@@ -48,6 +48,14 @@ namespace igor
      */
     IGOR_EVENT_DEFINITION(iProjectSceneRemoved, void, const iResourceID &);
 
+    /*! project loaded event
+     */
+    IGOR_EVENT_DEFINITION(iProjectLoaded, void);
+
+    /*! project unloaded event
+     */
+    IGOR_EVENT_DEFINITION(iProjectUnloaded, void);
+
     /*! project pointer definition
      */
     class iProject;
@@ -120,8 +128,8 @@ namespace igor
         void removeScene(const iResourceID &sceneID);
 
         /*! \returns list of scene references
-        */
-        const std::vector<iResourceID>& getScenes() const;
+         */
+        const std::vector<iResourceID> &getScenes() const;
 
         /*! \returns project scene added event
          */
@@ -130,6 +138,14 @@ namespace igor
         /*! \returns project scene removed event
          */
         iProjectSceneRemovedEvent &getProjectSceneRemovedEvent();
+
+        /*! \returns project loaded event
+         */
+        iProjectLoadedEvent &getProjectLoadedEvent();
+
+        /*! \returns project unloaded event
+         */
+        iProjectUnloadedEvent &getProjectUnloadedEvent();
 
     private:
         /*! project folder
@@ -156,8 +172,16 @@ namespace igor
          */
         iProjectSceneRemovedEvent _projectSceneRemovedEvent;
 
+        /*! project loaded event
+         */
+        iProjectLoadedEvent _projectLoadedEvent;
+
+        /*! project unloaded event
+         */
+        iProjectUnloadedEvent _projectUnloadedEvent;
+
         /*! scenes references by project
-        */
+         */
         std::vector<iResourceID> _scenes;
 
         /*! loads project
