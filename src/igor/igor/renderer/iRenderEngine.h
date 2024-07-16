@@ -71,10 +71,10 @@ namespace igor
 
         /*! setup camera for render
 
-        \param camera the camera to use for setup
         \param viewport the viewport given by the parent view
+        \param embedded if true frame buffer will not be cleared. This is used when running the render engine inside a widget
         */
-        void setupCamera(const iaRectanglei &viewport);
+        void setupCamera(const iaRectanglei &viewport, bool embedded = false);
 
         /*! renders given data
 

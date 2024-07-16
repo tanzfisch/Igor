@@ -79,7 +79,7 @@ namespace igor
         }
     }
 
-    void iRenderEngine::setupCamera(const iaRectanglei &viewport)
+    void iRenderEngine::setupCamera(const iaRectanglei &viewport, bool embedded)
     {
         auto camera = _scene->getEntity(_cameraID);
         if (camera == nullptr)
@@ -101,7 +101,7 @@ namespace igor
 
         // TODO iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
-        if (cameraComponent->isClearColorActive())
+        if (!embedded && cameraComponent->isClearColorActive())
         {
             iRenderer::getInstance().clearColorBuffer(cameraComponent->getClearColor());
         }

@@ -204,7 +204,7 @@ namespace igor
         return _updateViewport;
     }
 
-    void iView::render()
+    void iView::render(bool embedded)
     {
         if (!_visible)
         {
@@ -214,9 +214,44 @@ namespace igor
         if (_entityScene != nullptr)
         {
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
-            _renderEngine.setupCamera(_viewport);
+            _renderEngine.setupCamera(_viewport, embedded);
             _renderEngine.render();
             iEntitySystemModule::getInstance().onRender(_entityScene);
+        }
+        else
+        {
+            iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
+
+            if (_updateViewport)
+            {
+                iRenderer::getInstance().setViewport(_viewport);
+            }
+
+            if (_clearColorActive)
+            {
+                iRenderer::getInstance().clearColorBuffer(_clearColor);
+            }
+
+            if (_clearDepthActive)
+            {
+                iRenderer::getInstance().clearDepthBuffer(_clearDepth);
+            }
+
+            if (_perspective)
+            {
+                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+            }
+            else
+            {
+                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+            }
+
+            // TODO this needs to go
+            if (_scene != nullptr)
+            {
+                _scene->handle();
+                _renderEngineOld.render();
+            }
         }
 
         _renderEvent();

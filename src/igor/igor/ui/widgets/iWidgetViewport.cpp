@@ -56,7 +56,7 @@ namespace igor
 		const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
 		bool wireframeEnabled = iRenderer::getInstance().isWireframeEnabled();
 
-	 	_view.render();
+	 	_view.render(true);
 
         // restore everything
 		iRenderer::getInstance().setWireframeEnabled(wireframeEnabled);

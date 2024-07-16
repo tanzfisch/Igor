@@ -429,8 +429,10 @@ namespace igor
         void setZIndex(int32 zindex);
 
         /*! called every render frame by the parenting window
+
+        \param embedded if true frame buffer will not be cleared. This is used when rendering inside a widget
          */
-        void render();
+        void render(bool embedded = false);
 
         /*! updates window rectangle
 
