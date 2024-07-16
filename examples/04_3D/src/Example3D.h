@@ -62,10 +62,6 @@ private:
      */
     iEntityID _camera;
 
-    /*! called when scene was loaded
-    */
-    void onResourceProcessed(iResourceID resourceID);
-
     /*! init example
      */
     void onInit() override;

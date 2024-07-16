@@ -7,7 +7,6 @@
 Example3D::Example3D(iWindowPtr window)
     : ExampleBase(window, "3D Scene", true, "igor_skybox_debug")
 {
-    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Example3D::onResourceProcessed));
 }
 
 void Example3D::onInit()
@@ -49,7 +48,10 @@ void Example3D::onInit()
 
     iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/04_3D/project/scenes/main.scene");
 #else
-    iPrefabPtr scenePrefab = iResourceManager::getInstance().loadResource<iPrefab>("example_main_scene");
+    // TODO this is only working by chance since the scene was loaded in a separate thread
+    iPrefabPtr scenePrefab = iResourceManager::getInstance().requestResource<iPrefab>("example_main_scene");
+    _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
+    getView().setEntityScene(_entityScene);
 
     _cameraPitch = iEntityID(0x1cab7c99336dbea8);
     _cameraHeading = iEntityID(0x494714df579bf91e);
@@ -57,20 +59,13 @@ void Example3D::onInit()
 #endif
 }
 
-void Example3D::onResourceProcessed(iResourceID resourceID)
-{
-    // invoke this in to main thread
-/*    iPrefabPtr scenePrefab = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
-    if(scenePrefab == nullptr)
-    {
-        return;
-    }
-    _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
-    getView().setEntityScene(_entityScene);   */
-}
-
 void Example3D::onEvent(iEvent &event)
 {
+    if(getView().getEntityScene() != _entityScene)
+    {
+        getView().setEntityScene(_entityScene);
+    }
+
     // first call example base
     ExampleBase::onEvent(event);
 
