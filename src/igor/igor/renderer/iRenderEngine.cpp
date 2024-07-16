@@ -99,6 +99,8 @@ namespace igor
         rect.setHeight(camViewport.getHeight() * static_cast<float32>(viewport.getHeight()) + 0.5f);
         iRenderer::getInstance().setViewport(rect);
 
+        // TODO iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
+
         if (cameraComponent->isClearColorActive())
         {
             iRenderer::getInstance().clearColorBuffer(cameraComponent->getClearColor());

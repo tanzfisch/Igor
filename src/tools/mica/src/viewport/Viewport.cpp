@@ -23,15 +23,11 @@ Viewport::Viewport(WorkspacePtr workspace)
     _viewportScene->setVerticalAlignment(iVerticalAlignment::Stretch);
     _viewportScene->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _viewportScene->getView().setName("Scene");
-    //_viewportScene->getView().setScene(_workspace->getScene());
-    //_viewportScene->getView().setCamera(_workspace->getCameraArc()->getCameraNode());
-    //_viewportScene->getView().registerRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
-    //_viewportScene->getView().setClearColorActive(false);
-    //_viewportScene->getView().setPerspective(45.0f);
-    //_viewportScene->getView().setClipPlanes(1.0f, 10000.f);
+    // _viewportScene->getView().registerRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
+    _viewportScene->getView().setClearColorActive(false);
     addWidget(_viewportScene);
 
-    _viewportOverlay = new iWidgetViewport();
+/*    _viewportOverlay = new iWidgetViewport();
     _viewportOverlay->setVerticalAlignment(iVerticalAlignment::Stretch);
     _viewportOverlay->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _viewportOverlay->getView().setName("Overlay");
@@ -44,16 +40,16 @@ Viewport::Viewport(WorkspacePtr workspace)
 
     _overlayScene = iSceneFactory::getInstance().createScene();
     _overlayScene->setName("Overlay");
-    _viewportOverlay->getView().setScene(_overlayScene);
+    _viewportOverlay->getView().setScene(_overlayScene);*/
 
-    addWidget(_viewportOverlay);
+    // addWidget(_viewportOverlay);
 
-    initScene();
+    // initScene();
 
-    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
+    /*_materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
-    _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
+    _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));*/
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded));
 }
@@ -368,7 +364,7 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
     case iKeyCode::MouseLeft:
         if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
-            auto node = getNodeAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+            /*auto node = getNodeAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
             if (node != nullptr)
             {
                 _workspace->setSelection({node->getID()});
@@ -376,7 +372,7 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
             else
             {
                 _workspace->clearSelection();
-            }
+            }*/
         }
         return true;
     }

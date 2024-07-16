@@ -64,7 +64,7 @@ private:
 
     /*! called when scene was loaded
     */
-    void onPrefabProcessed(iResourceID resourceID);
+    void onResourceProcessed(iResourceID resourceID);
 
     /*! init example
      */

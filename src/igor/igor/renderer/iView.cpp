@@ -211,66 +211,15 @@ namespace igor
             return;
         }
 
-        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
-
         if (_entityScene != nullptr)
         {
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
-
             _renderEngine.setupCamera(_viewport);
-
-            if(_skyBox != nullptr)
-            {
-            // TODO put back in later    _skyBox->render();
-            }
-
             _renderEngine.render();
-
             iEntitySystemModule::getInstance().onRender(_entityScene);
-            _renderEvent();
-
-            iRenderer::getInstance().flush();
-            return;
-        }
-
-        // now run legacy stuff
-
-        if (_scene != nullptr)
-        {
-            _scene->handle();
-        }
-
-        if (_updateViewport)
-        {
-            iRenderer::getInstance().setViewport(_viewport);
-        }
-
-        if (_clearColorActive)
-        {
-            iRenderer::getInstance().clearColorBuffer(_clearColor);
-        }
-
-        if (_clearDepthActive)
-        {
-            iRenderer::getInstance().clearDepthBuffer(_clearDepth);
-        }
-
-        if (_perspective)
-        {
-            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
-        }
-        else
-        {
-            iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
-        }
-
-        if (_scene != nullptr)
-        {
-            _renderEngineOld.render();
         }
 
         _renderEvent();
-
         iRenderer::getInstance().flush();
     }
 
