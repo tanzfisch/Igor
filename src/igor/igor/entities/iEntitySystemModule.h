@@ -39,11 +39,11 @@ namespace igor
 {
     /*! event called after creation of new entity
      */
-    IGOR_EVENT_DEFINITION(iCreatedEntity, void, iEntityPtr);
+    IGOR_EVENT_DEFINITION(iCreatedEntity, iEntityPtr);
 
     /*! event called before destruction of given entity
      */
-    IGOR_EVENT_DEFINITION(iDestroyEntity, void, iEntityPtr);
+    IGOR_EVENT_DEFINITION(iDestroyEntity, iEntityPtr);
 
     /*! entity system module
      */

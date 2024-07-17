@@ -43,7 +43,7 @@ namespace igor
 
     /*! event triggered if there was a contact detected
     */
-    IGOR_EVENT_DEFINITION(iContact, void, iPhysicsBody*, iPhysicsBody*);
+    IGOR_EVENT_DEFINITION(iContact, iPhysicsBody*, iPhysicsBody*);
 
     /*! describes combination of two materials
     */

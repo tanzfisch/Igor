@@ -44,7 +44,7 @@ namespace igor
 
     /*! event triggered when particle system is finished
      */
-    IGOR_EVENT_DEFINITION(iParticleSystemFinished, void, iNodeID);
+    IGOR_EVENT_DEFINITION(iParticleSystemFinished, iNodeID);
 
     IGOR_DISABLE_WARNING(4275); // yes iNodeVolume is intentionally not a fully exported interface
 

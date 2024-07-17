@@ -212,10 +212,6 @@ private:
     /*! called when a resource was loaded
     */
     void onResourceLoaded(const iResourceID resourceID);
-
-    /*! called when widget was queued for refresh in last frame
-     */
-    void onRefresh() override;
 };
 
 #endif // MICA_VIEWPORT_H

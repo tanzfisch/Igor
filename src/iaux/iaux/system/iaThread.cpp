@@ -9,9 +9,7 @@
 namespace iaux
 {
     std::map<size_t, iaID32> iaThread::_threadIDs;
-    iaMutex iaThread::_mutex;
-
-    #define IGOR_MAIN_THREAD_ID 1
+    iaMutex iaThread::_mutex;    
 
     iaIDGenerator32 iaThread::_idGenerator;
 
@@ -69,12 +67,12 @@ namespace iaux
         }
 
         // this must be the main thread
-        return IGOR_MAIN_THREAD_ID;
+        return 1;
     }
 
     bool iaThread::isMainThread()
     {
-        return getThisThreadID() == IGOR_MAIN_THREAD_ID;
+        return std::this_thread::get_id() == IGOR_MAIN_THREAD_ID;
     }
 
     void *threadFunc(void *data)

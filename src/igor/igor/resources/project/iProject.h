@@ -42,19 +42,19 @@ namespace igor
 
     /*! project scene added event
      */
-    IGOR_EVENT_DEFINITION(iProjectSceneAdded, void, const iResourceID &);
+    IGOR_EVENT_DEFINITION(iProjectSceneAdded, const iResourceID &);
 
     /*! project scene removed event
      */
-    IGOR_EVENT_DEFINITION(iProjectSceneRemoved, void, const iResourceID &);
+    IGOR_EVENT_DEFINITION(iProjectSceneRemoved, const iResourceID &);
 
     /*! project loaded event
      */
-    IGOR_EVENT_DEFINITION(iProjectLoaded, void);
+    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectLoaded);
 
     /*! project unloaded event
      */
-    IGOR_EVENT_DEFINITION(iProjectUnloaded, void);
+    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectUnloaded);
 
     /*! project pointer definition
      */

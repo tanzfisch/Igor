@@ -56,7 +56,7 @@ namespace igor
 
     /*! resource processed (aka loaded) event
      */
-    IGOR_EVENT_DEFINITION(iResourceProcessed, void, iResourceID);
+    IGOR_EVENT_DEFINITION(iResourceProcessed, iResourceID);
 
     /*! manages resources and their factories
      */

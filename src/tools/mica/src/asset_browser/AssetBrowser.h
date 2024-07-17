@@ -32,7 +32,7 @@
 #include <igor/igor.h>
 using namespace igor;
 
-IGOR_EVENT_DEFINITION(ResourceSelectionChanged, void, const iResourceID &);
+IGOR_EVENT_DEFINITION(ResourceSelectionChanged, const iResourceID &);
 
 /*! the asset browser
  */

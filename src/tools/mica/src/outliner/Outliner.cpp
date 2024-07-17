@@ -15,7 +15,7 @@ Outliner::Outliner()
     iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Outliner::onProjectLoaded));
     iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Outliner::onProjectUnloaded));
 
-    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded));
+    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, true);
 }
 
 void Outliner::initGUI()
@@ -146,7 +146,7 @@ void Outliner::populateTree()
 
 void Outliner::onEntityCreated(iEntityPtr entity)
 {
-    con_endl("onEntityCreated");
+    con_endl("onEntityCreated");    
 }
 
 void Outliner::onEntityDestroyed(iEntityPtr entity)

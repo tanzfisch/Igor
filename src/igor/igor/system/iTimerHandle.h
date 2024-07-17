@@ -42,7 +42,7 @@ namespace igor
 
     called once per interval
     */
-    IGOR_EVENT_DEFINITION(iTimerTick, void, const iaTime &);
+    IGOR_EVENT_DEFINITION(iTimerTick, const iaTime &);
 
     /*! timer handle class
     */

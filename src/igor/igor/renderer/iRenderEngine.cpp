@@ -100,10 +100,18 @@ namespace igor
         iRenderer::getInstance().setViewport(rect);
 
         // TODO iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
-
-        if (!embedded && cameraComponent->isClearColorActive())
+        if (cameraComponent->isClearColorActive())
         {
-            iRenderer::getInstance().clearColorBuffer(cameraComponent->getClearColor());
+            if (embedded)
+            {
+                iRenderer::getInstance().setOrtho(0.0, 1.0, 1.0, 0.0, 0.001, 10.0);
+                iRenderer::getInstance().drawFilledRectangle(0.0, 0.0, 1.0, 1.0, cameraComponent->getClearColor());
+                iRenderer::getInstance().flush();
+            }
+            else
+            {
+                iRenderer::getInstance().clearColorBuffer(cameraComponent->getClearColor());
+            }
         }
 
         if (cameraComponent->isClearDepthActive())

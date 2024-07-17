@@ -51,7 +51,7 @@ Viewport::Viewport(WorkspacePtr workspace)
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));*/
 
-    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded));
+    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
 }
 
 Viewport::~Viewport()
@@ -65,18 +65,6 @@ Viewport::~Viewport()
 void Viewport::onResourceLoaded(const iResourceID resourceID)
 {
     iPrefabPtr prefab = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
-    if(prefab == nullptr)
-    {
-        return;
-    }
-
-    _sceneResourceID = resourceID;
-    refresh();
-}
-
-void Viewport::onRefresh()
-{
-    iPrefabPtr prefab = iResourceManager::getInstance().getResource<iPrefab>(_sceneResourceID);
     if(prefab == nullptr)
     {
         return;

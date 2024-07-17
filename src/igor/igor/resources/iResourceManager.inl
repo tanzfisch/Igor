@@ -454,8 +454,7 @@ template <>
 inline iPrefabPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
 {
     iParameters param = buildParam(IGOR_RESOURCE_PREFAB, resourceID, cacheMode);
-    // TODO force loadResource for prefabs until we can handle parallel loading
-    return std::dynamic_pointer_cast<iPrefab>(loadResource(param));
+    return std::dynamic_pointer_cast<iPrefab>(requestResource(param));
 }
 
 template <>

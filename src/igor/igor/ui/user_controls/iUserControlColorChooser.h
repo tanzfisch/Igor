@@ -51,7 +51,7 @@ namespace igor
 
     /*! color has changed event
      */
-    IGOR_EVENT_DEFINITION(iColorChanged, void, const iaColor4f &);
+    IGOR_EVENT_DEFINITION(iColorChanged, const iaColor4f &);
 
     /*! color chooser mode
      */

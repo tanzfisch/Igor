@@ -33,7 +33,7 @@
 using namespace iaux;
 using namespace igor;
 
-IGOR_EVENT_DEFINITION(NameChanged, void);
+IGOR_EVENT_DEFINITION_NO_ARGS(NameChanged);
 
 class UserControlNode : public iUserControl
 {

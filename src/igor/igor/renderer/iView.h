@@ -54,7 +54,7 @@ namespace igor
 
     /*! draw event triggered for every frame a view is rendered
      */
-    IGOR_EVENT_DEFINITION(iDraw, void);
+    IGOR_EVENT_DEFINITION_NO_ARGS(iDraw);
 
     /*! represents a view rectangle within a window and projection of the scene
 

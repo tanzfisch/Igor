@@ -44,7 +44,7 @@ namespace igor
 
     /*! event triggered when model was loaded
      */
-    IGOR_EVENT_DEFINITION(iModelReady, void, iNodeID);
+    IGOR_EVENT_DEFINITION(iModelReady, iNodeID);
 
     /*! represents a model within the scene
 

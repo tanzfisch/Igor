@@ -54,7 +54,7 @@ namespace igor
 
     /*! event called by newton to apply force and Torque
     */
-    IGOR_EVENT_DEFINITION(iApplyForceAndTorque, void, iPhysicsBody*, float64);
+    IGOR_EVENT_DEFINITION(iApplyForceAndTorque, iPhysicsBody*, float64);
 
     /*! wrapper for the NewtonBody handle
     */

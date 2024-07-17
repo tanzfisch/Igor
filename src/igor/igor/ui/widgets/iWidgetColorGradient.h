@@ -44,7 +44,7 @@ namespace igor
 
     /*! color created/added event
      */
-    IGOR_EVENT_DEFINITION(iColorGradientColorCreated, void, float32, const iaColor4f &);
+    IGOR_EVENT_DEFINITION(iColorGradientColorCreated, float32, const iaColor4f &);
 
     /*! color view widget
      */

@@ -40,11 +40,11 @@ namespace igor
 
     /*! widget click event
      */
-    IGOR_EVENT_DEFINITION(iClickTreeView, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iClickTreeView, const iWidgetPtr);
 
     /*! context menu event
      */
-    IGOR_EVENT_DEFINITION(iContextMenuTreeView, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iContextMenuTreeView, const iWidgetPtr);
 
     /*! tree view widget
      */

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CLOCK__
-#define __IAUX_CLOCK__
+#ifndef IAUX_CLOCK_H
+#define IAUX_CLOCK_H
 
 #include <iaux/iaDefines.h>
 
@@ -60,4 +60,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // IAUX_CLOCK_H

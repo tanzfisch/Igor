@@ -40,7 +40,7 @@ namespace igor
 
     /*! event triggered when dialog index menu closes
      */
-    IGOR_EVENT_DEFINITION(iDialogIndexMenuClose, void, int32);
+    IGOR_EVENT_DEFINITION(iDialogIndexMenuClose, int32);
 
     /*! pull down menu
 

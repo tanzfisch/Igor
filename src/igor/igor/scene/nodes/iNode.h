@@ -102,7 +102,7 @@ namespace igor
 
     /*! transformation change event
 	*/
-    IGOR_EVENT_DEFINITION(iTransformationChange, void, iNodePtr);
+    IGOR_EVENT_DEFINITION(iTransformationChange, iNodePtr);
 
     /*! node id definition
     */

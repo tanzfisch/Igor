@@ -34,7 +34,6 @@
 #include <iaux/data/iaIDGenerator.h>
 #include <iaux/data/iaString.h>
 
-#include <thread>
 #include <map>
 
 namespace iaux

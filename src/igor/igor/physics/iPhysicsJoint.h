@@ -42,7 +42,7 @@ namespace igor
 
     /*! event called by newton to submit constraints
      */
-    IGOR_EVENT_DEFINITION(iSubmitConstraints, void, iPhysicsJoint *, float64);
+    IGOR_EVENT_DEFINITION(iSubmitConstraints, iPhysicsJoint *, float64);
 
     /*! wrapper for the NewtonJoint handle
      */

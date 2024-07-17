@@ -39,11 +39,14 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 #pragma warning(default : 4100)
 #endif // IGOR_WINDOWS
 
-namespace iaux
-{
+std::thread::id IGOR_MAIN_THREAD_ID;
 
+namespace iaux
+{    
     void startup()
     {
+        IGOR_MAIN_THREAD_ID = std::this_thread::get_id();
+
         iaClock::resetClock();
         iaRandom::setSeed(iaTime::getNow().getMicroseconds());
 

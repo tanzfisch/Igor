@@ -40,19 +40,19 @@ namespace iaux
 
     /*! enter state event
      */
-    IGOR_EVENT_DEFINITION(iaEnterState, void, iaStateID);
+    IGOR_EVENT_DEFINITION(iaEnterState, iaStateID);
 
     /*! re enter state event
      */
-    IGOR_EVENT_DEFINITION(iaReEnterState, void, iaStateID);
+    IGOR_EVENT_DEFINITION(iaReEnterState, iaStateID);
 
     /*! leave state event
      */
-    IGOR_EVENT_DEFINITION(iaLeaveState, void, iaStateID);
+    IGOR_EVENT_DEFINITION(iaLeaveState, iaStateID);
 
     /*! handle state event
      */
-    IGOR_EVENT_DEFINITION(iaUpdateState, void, iaStateID);
+    IGOR_EVENT_DEFINITION(iaUpdateState, iaStateID);
 
     /*! state machine
      */

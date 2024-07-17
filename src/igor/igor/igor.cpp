@@ -10,70 +10,70 @@
 #include <iaux/system/iaDate.h>
 using namespace iaux;
 
-extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite", "json"};
-extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
-extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_EXTENSIONS = {"shader", "xml"};
-extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat", "json"};
-extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim", "json"};
-extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
-extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
-extern const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS = {"prefab", "scene", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
+const std::vector<iaString> IGOR_SUPPORTED_SHADER_EXTENSIONS = {"shader", "xml"};
+const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
+const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
+const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS = {"prefab", "scene", "json"};
 
-extern const iaString IGOR_RESOURCE_SHADER = "shader";
-extern const iaString IGOR_RESOURCE_MATERIAL = "material";
-extern const iaString IGOR_RESOURCE_ANIMATION = "animation";
-extern const iaString IGOR_RESOURCE_TEXTURE = "texture";
-extern const iaString IGOR_RESOURCE_SOUND = "sound";
-extern const iaString IGOR_RESOURCE_SPRITE = "sprite";
-extern const iaString IGOR_RESOURCE_MODEL = "model";
-extern const iaString IGOR_RESOURCE_PREFAB = "prefab";
+const iaString IGOR_RESOURCE_SHADER = "shader";
+const iaString IGOR_RESOURCE_MATERIAL = "material";
+const iaString IGOR_RESOURCE_ANIMATION = "animation";
+const iaString IGOR_RESOURCE_TEXTURE = "texture";
+const iaString IGOR_RESOURCE_SOUND = "sound";
+const iaString IGOR_RESOURCE_SPRITE = "sprite";
+const iaString IGOR_RESOURCE_MODEL = "model";
+const iaString IGOR_RESOURCE_PREFAB = "prefab";
 
-extern const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
-extern const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE = "wrapMode";
-extern const iaString IGOR_RESOURCE_PARAM_ID = "id";
-extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
-extern const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
-extern const iaString IGOR_RESOURCE_PARAM_SOURCE = "source";
-extern const iaString IGOR_RESOURCE_PARAM_NODE = "node";
-extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
-extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
-extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE = "subType";
-extern const iaString IGOR_RESOURCE_PARAM_QUIET = "quiet";
-extern const iaString IGOR_RESOURCE_PARAM_SHADER = "shader";
-extern const iaString IGOR_RESOURCE_PARAM_MATERIAL = "material";
-extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL = "physicsMaterial";
-extern const iaString IGOR_RESOURCE_PARAM_LOD = "lod";
-extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH = "keepMesh";
-extern const iaString IGOR_RESOURCE_PARAM_GENERATE = "generate";
-extern const iaString IGOR_RESOURCE_PARAM_SEED = "seed";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE = "texture";
-extern const iaString IGOR_RESOURCE_PARAM_EMISSIVE = "emissive";
-extern const iaString IGOR_RESOURCE_PARAM_AMBIENT = "ambient";
-extern const iaString IGOR_RESOURCE_PARAM_DIFFUSE = "diffuse";
-extern const iaString IGOR_RESOURCE_PARAM_SPECULAR = "specular";
-extern const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
-extern const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
-extern const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
-extern const iaString IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID = "entitySceneID";
+const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
+const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE = "wrapMode";
+const iaString IGOR_RESOURCE_PARAM_ID = "id";
+const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
+const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
+const iaString IGOR_RESOURCE_PARAM_SOURCE = "source";
+const iaString IGOR_RESOURCE_PARAM_NODE = "node";
+const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
+const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
+const iaString IGOR_RESOURCE_PARAM_SUB_TYPE = "subType";
+const iaString IGOR_RESOURCE_PARAM_QUIET = "quiet";
+const iaString IGOR_RESOURCE_PARAM_SHADER = "shader";
+const iaString IGOR_RESOURCE_PARAM_MATERIAL = "material";
+const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL = "physicsMaterial";
+const iaString IGOR_RESOURCE_PARAM_LOD = "lod";
+const iaString IGOR_RESOURCE_PARAM_KEEP_MESH = "keepMesh";
+const iaString IGOR_RESOURCE_PARAM_GENERATE = "generate";
+const iaString IGOR_RESOURCE_PARAM_SEED = "seed";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE = "texture";
+const iaString IGOR_RESOURCE_PARAM_EMISSIVE = "emissive";
+const iaString IGOR_RESOURCE_PARAM_AMBIENT = "ambient";
+const iaString IGOR_RESOURCE_PARAM_DIFFUSE = "diffuse";
+const iaString IGOR_RESOURCE_PARAM_SPECULAR = "specular";
+const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
+const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
+const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
+const iaString IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID = "entitySceneID";
 
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2 = "texture2";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE2 = "texture2";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
 
-extern const iaString IGOR_ITEM_DATA_NAME = "name";
-extern const iaString IGOR_ITEM_DATA_ICON = "icon";
-extern const iaString IGOR_ITEM_DATA_UUID = "uuid";
+const iaString IGOR_ITEM_DATA_NAME = "name";
+const iaString IGOR_ITEM_DATA_ICON = "icon";
+const iaString IGOR_ITEM_DATA_UUID = "uuid";
 
 #ifdef IGOR_DEBUG
-extern const iaString IGOR_BUILD_CONFIGURATION = "debug";
+const iaString IGOR_BUILD_CONFIGURATION = "debug";
 #else
 #ifdef RELWITHDEBINFO
-extern const iaString IGOR_BUILD_CONFIGURATION = "release with debug info";
+const iaString IGOR_BUILD_CONFIGURATION = "release with debug info";
 #else
-extern const iaString IGOR_BUILD_CONFIGURATION = "release";
+const iaString IGOR_BUILD_CONFIGURATION = "release";
 #endif
 #endif
 

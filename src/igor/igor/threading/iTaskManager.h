@@ -50,7 +50,7 @@ namespace igor
 
     /*! event triggered when task was finished
     */
-    IGOR_EVENT_DEFINITION(iTaskFinished, void, iTaskID);
+    IGOR_EVENT_DEFINITION(iTaskFinished, iTaskID);
 
     /*! manages tasks to be done in parallel
 

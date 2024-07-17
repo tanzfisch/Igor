@@ -130,6 +130,9 @@ namespace igor
 
         IGOR_PROFILER_BEGIN(application);
         iTimer::getInstance().onUpdate();
+
+        iaEventPool::getInstance().execute();
+
         updateWindow();
         dispatch();
         onUpdateLayerStack();
