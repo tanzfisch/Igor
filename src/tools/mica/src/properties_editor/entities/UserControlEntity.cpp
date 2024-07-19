@@ -31,6 +31,19 @@ void UserControlEntity::init()
     _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, mainGroupBox);
     _layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _layout->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetBoxLayoutPtr nameLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    nameLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    nameLayout->setStretchIndex(1);
+    iWidgetLabelPtr labelName = new iWidgetLabel(nameLayout);
+    labelName->setText("Name");
+    labelName->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelName->setHorizontalAlignment(iHorizontalAlignment::Left);    
+
+    _textName = new iWidgetLineTextEdit(nameLayout);
+    _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    _textName->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    _textName->setEnabled(false);    
 }
 
 iWidgetBoxLayoutPtr UserControlEntity::getLayout()
@@ -40,6 +53,17 @@ iWidgetBoxLayoutPtr UserControlEntity::getLayout()
 
 void UserControlEntity::update()
 {
+    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    iEntityPtr entity = scene->getEntity(getEntityID());
+
+    if (entity != nullptr)
+    {
+        _textName->setText(entity->getName());
+    }
+    else
+    {
+        _textName->setText(scene->getName());
+    }
 }
 
 void UserControlEntity::updateEntity()

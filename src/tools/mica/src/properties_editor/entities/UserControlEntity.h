@@ -55,7 +55,7 @@ public:
     iEntitySceneID getSceneID() const;
 
     /*! \returns entity id
-    */
+     */
     iEntityID getEntityID() const;
 
     /*! init ui
@@ -77,16 +77,20 @@ protected:
 
 private:
     /*! the scene id
-    */
+     */
     iEntitySceneID _sceneID = iEntitySceneID::getInvalid();
 
     /*! the entity id
-    */
+     */
     iEntityID _entityID = iEntityID::getInvalid();
 
     /*! main layout
      */
     iWidgetBoxLayoutPtr _layout = nullptr;
+
+    /*! text field type
+     */
+    iWidgetLineTextEdit *_textName = nullptr;
 };
 
 #endif // USERCONTROL_ENTITY_H
