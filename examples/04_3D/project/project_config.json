@@ -3,7 +3,9 @@
     "scenes": [
         {
             "id": "0x25a68c9b0130d191",
-            "loaded": true
+            "name": "main",
+            "loaded": true,
+            "active": true
         }
     ]
 }

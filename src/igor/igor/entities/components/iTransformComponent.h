@@ -42,9 +42,13 @@ namespace igor
         friend class iEntityTransformTraverser;
 
     public:
-        /*! ctor
+        /*! default ctor
         */
-        iTransformComponent(const iaVector3d &position = iaVector3d(), const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
+        iTransformComponent() = default;
+
+        /*! ctor
+         */
+        iTransformComponent(const iaVector3d &position, const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
 
         /*! \returns world matrix
          */
@@ -92,10 +96,6 @@ namespace igor
          */
         const iaVector3d &getScale() const;
 
-        /*! \returns true if data needs update aka world matrix is invalid
-         */
-        bool isDirty() const;
-
     private:
         /*! position
          */
@@ -119,6 +119,10 @@ namespace igor
         \returns true if matrix changed
         */
         bool updateWorldMatrix(iaMatrixd &worldMatrix);
+
+        /*! \returns a copy of this component
+         */
+        iEntityComponentPtr getCopy() override;
     };
 }
 

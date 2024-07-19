@@ -7,10 +7,23 @@
 
 namespace igor
 {
+    iMeshReferenceComponent::iMeshReferenceComponent()
+    {
+        
+    }
+
     iMeshReferenceComponent::iMeshReferenceComponent(iModelPtr model, const iaString &meshPath)
         : _model(model), _meshPath(meshPath)
     {
     }
+
+    iEntityComponentPtr iMeshReferenceComponent::getCopy()
+    {
+        iMeshReferenceComponent *component = new iMeshReferenceComponent();
+        component->_model = _model;
+        component->_meshPath = _meshPath;
+        return component;
+    }        
 
     iModelPtr iMeshReferenceComponent::getModel() const
     {

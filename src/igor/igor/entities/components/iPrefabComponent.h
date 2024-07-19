@@ -26,50 +26,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
-#define IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
+#ifndef IGOR_PREFAB_COMPONENT_H
+#define IGOR_PREFAB_COMPONENT_H
 
 #include <igor/entities/iEntity.h>
 
-#include <igor/data/iOctree.h>
+#include <igor/resources/prefab/iPrefab.h>
 
 namespace igor
 {
-    /*! 2D circle collision component
+    /*! octree component
      */
-    class iCircleCollision2DComponent : public iEntityComponent
+    class iPrefabComponent : public iEntityComponent
     {
     public:
         /*! default ctor
         */
-        iCircleCollision2DComponent();
+        iPrefabComponent() = default;
 
         /*! ctor
+
+        \param prefab the prefab reference
         */
-        iCircleCollision2DComponent(float64 radius, const iaVector2d &offset = iaVector2d());
-        
-        /*! \returns the circles radius
-         */
-        float64 getRadius() const;
+        iPrefabComponent(iPrefabPtr prefab);
 
-        /*! \returns the offset position
-         */
-        const iaVector2d& getOffset() const;
+        /*! set prefab
 
-        /*! the circles radius
-         */
-        float64 _radius;
+        only valid before onLoad
+        */
+        void setPrefab(iPrefabPtr prefab);
 
-        /*! the offset position
+        /*! \returns prefab
          */
-        iaVector2d _offset;
+        iPrefabPtr getPrefab() const;
 
     private:
+        /*! referenced prefab data
+         */
+        iPrefabPtr _prefab;
+
+        /*! callback for loading component
+
+        \param entity the entity this component relates to
+        \param[out] asyncLoad if true try again if unsuccessful
+        \returns true when loading was successful
+        */
+        bool onLoad(iEntityPtr entity, bool &asyncLoad) override;
 
         /*! \returns a copy of this component
-        */
-        iEntityComponentPtr getCopy() override;    
+         */
+        iEntityComponentPtr getCopy() override;
     };
+
 }
 
-#endif // IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
+#endif // #define IGOR_PREFAB_COMPONENT_H

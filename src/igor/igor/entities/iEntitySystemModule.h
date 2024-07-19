@@ -32,6 +32,7 @@
 #include <igor/resources/module/iModule.h>
 
 #include <igor/entities/iEntityScene.h>
+#include <igor/resources/prefab/iPrefab.h>
 
 #include <unordered_map>
 
@@ -70,6 +71,13 @@ namespace igor
         \param sceneID the given id
         */
         iEntityScenePtr getScene(const iEntitySceneID &sceneID);
+
+        /*! insert prefab at given entity
+
+        \param prefab the source scene or prefab to insert
+        \param entity the entity inside the destination scene
+        */
+        void insert(iPrefabPtr prefab, iEntityPtr entity);
 
         /*! destroys scene with given id
 
@@ -114,7 +122,7 @@ namespace igor
 
         \param typeID the given component type
         */
-        iEntityComponentMask getComponentMask(const std::type_index &typeID) const;
+        iEntityComponentMask getComponentMask(const std::type_index &typeID);
 
         /*! activates given scene
 
@@ -130,11 +138,11 @@ namespace igor
 
         /*! \returns all active scenes
          */
-        const std::vector<iEntityScenePtr> &getActiveScenes() const;
+        std::vector<iEntityScenePtr> getActiveScenes();
 
         /*! \returns all inactive scenes
          */
-        const std::vector<iEntityScenePtr> &getInactiveScenes() const;
+        std::vector<iEntityScenePtr> getInactiveScenes();
 
         /*! \returns entity got created event
          */
@@ -143,6 +151,10 @@ namespace igor
         /*! \returns entity will be destroyed event
          */
         iDestroyEntityEvent &getDestroyEntityEvent();
+
+        /*! clear everything
+        */
+        void clear();
 
     private:
         /*! entity scenes
@@ -156,6 +168,10 @@ namespace igor
         /*! inactive entity scenes
          */
         std::vector<iEntityScenePtr> _inactiveScenes;
+
+        /*! mutex protecting all data
+        */
+        iaMutex _mutex;
 
         /*! simulation rate in Hz
          */

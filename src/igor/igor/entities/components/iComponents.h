@@ -74,6 +74,17 @@ namespace igor
         /*! vector to describe angular velocity of all three axis
          */
         iaVector3d _angularVelocity;
+
+    private:
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override
+        {
+            iVelocityComponent* component = new iVelocityComponent();
+            component->_velocity = _velocity;
+            component->_angularVelocity = _angularVelocity;
+            return component;            
+        }
     };
 
     /*! behaviour function definition
@@ -96,7 +107,7 @@ namespace igor
 
         /*! optional name of behaviour
          */
-        iaString _name;
+        iaString _name;       
     };
 
     /*! behaviour component
@@ -113,6 +124,16 @@ namespace igor
         /*! behaviors
          */
         std::vector<iBehaviourData> _behaviors;
+
+    private:
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override
+        {
+            iBehaviourComponent* component = new iBehaviourComponent();
+            // TODO
+            return component;            
+        }        
     };
 
     /*! global boundary contraint type
@@ -138,7 +159,7 @@ namespace igor
 
         \param name the name of this component
         */
-        iGlobalBoundaryComponent(iGlobalBoundaryType type, const iaString &name = "global boundary")
+        iGlobalBoundaryComponent(iGlobalBoundaryType type = iGlobalBoundaryType::None, const iaString &name = "global boundary")
             : _type(type)
         {
         }
@@ -146,6 +167,16 @@ namespace igor
         /*! global boundary type
          */
         iGlobalBoundaryType _type = iGlobalBoundaryType::None;
+
+    private:
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override
+        {
+            iGlobalBoundaryComponent* component = new iGlobalBoundaryComponent();
+            component->_type = _type;
+            return component; 
+        }        
     };
 
     /*! motion interaction type
@@ -170,7 +201,7 @@ namespace igor
 
         \param name the name of this component
         */
-        iMotionInteractionResolverComponent(iMotionInteractionType type, const iaString &name = "motion interaction resolver")
+        iMotionInteractionResolverComponent(iMotionInteractionType type = iMotionInteractionType::None, const iaString &name = "motion interaction resolver")
             : _type(type)
         {
         }
@@ -178,6 +209,16 @@ namespace igor
         /*! motion reation type
          */
         iMotionInteractionType _type = iMotionInteractionType::None;
+
+    private:
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override
+        {
+            iMotionInteractionResolverComponent* component = new iMotionInteractionResolverComponent();
+            component->_type = _type;
+            return component; 
+        }        
     };
 
     /*! render debug component
@@ -203,6 +244,18 @@ namespace igor
         /*! display bounds of scene objects
          */
         bool _renderBounds = false;
+
+    private:
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override
+        {
+            iRenderDebugComponent* component = new iRenderDebugComponent();
+            component->_renderWireframe = _renderWireframe;
+            component->_renderSpacePartitioning = _renderSpacePartitioning;
+            component->_renderBounds = _renderBounds;
+            return component; 
+        }        
     };
 
     /*! I love parties <3
@@ -214,7 +267,7 @@ namespace igor
 
         \param name the name of this component
         */
-        iPartyComponent(uint32 partyID, const iaString &name = "party")
+        iPartyComponent(uint32 partyID = 0, const iaString &name = "party")
             : _partyID(partyID)
         {
         }
@@ -222,6 +275,16 @@ namespace igor
         /*! party id
          */
         uint32 _partyID = 0;
+
+    private:
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override
+        {
+            iPartyComponent* component = new iPartyComponent();
+            component->_partyID = _partyID;
+            return component; 
+        }        
     };
 
     /*! animation component
@@ -241,6 +304,16 @@ namespace igor
         /*! animation controller
          */
         iAnimationControllerPtr _animationController;
+
+    private:
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override
+        {
+            iAnimationComponent* component = new iAnimationComponent();
+            component->_animationController = _animationController;
+            return component; 
+        }        
     };
 
     // iTextComponent

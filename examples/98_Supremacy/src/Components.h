@@ -35,6 +35,10 @@ using namespace igor;
 class RangeComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    RangeComponent() = default;
+
     /*! ctor
 
     \param name the name of this component
@@ -51,11 +55,26 @@ public:
     /*! last position
      */
     iaVector3d _lastPosition;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        RangeComponent *component = new RangeComponent();
+        component->_rangeLeft = _rangeLeft;
+        component->_lastPosition = _lastPosition;
+        return component;
+    }
 };
 
 class AngularVelocityComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    AngularVelocityComponent() = default;
+
     /*! ctor
      */
     AngularVelocityComponent(float64 velocity)
@@ -66,11 +85,25 @@ public:
     /*! angular velocity in rad per frame
      */
     float32 _velocity;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        AngularVelocityComponent *component = new AngularVelocityComponent();
+        component->_velocity = _velocity;
+        return component;
+    }
 };
 
 class HealthComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    HealthComponent() = default;
+
     /*! ctor
      */
     HealthComponent(float64 health, bool destroyOnImpact = false)
@@ -80,24 +113,53 @@ public:
 
     float32 _health = 0;
     bool _destroyOnImpact = false;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        HealthComponent *component = new HealthComponent();
+        component->_health = _health;
+        component->_destroyOnImpact = _destroyOnImpact;
+        return component;
+    }
 };
 
 class PickupComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    PickupComponent() = default;
+
     /*! ctor
      */
-    PickupComponent(bool canBePickedUp = true)
+    PickupComponent(bool canBePickedUp)
         : _canBePickedUp(canBePickedUp)
     {
     }
 
     bool _canBePickedUp;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        PickupComponent *component = new PickupComponent();
+        component->_canBePickedUp = _canBePickedUp;
+        return component;
+    }    
 };
 
 class HealComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    HealComponent() = default;
+
     /*! ctor
      */
     HealComponent(float32 heal)
@@ -106,11 +168,25 @@ public:
     }
 
     float32 _heal;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        HealComponent *component = new HealComponent();
+        component->_heal = _heal;
+        return component;
+    }        
 };
 
 class DamageComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    DamageComponent() = default;
+
     /*! ctor
      */
     DamageComponent(float32 damage)
@@ -119,38 +195,81 @@ public:
     }
 
     float32 _damage;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        DamageComponent *component = new DamageComponent();
+        component->_damage = _damage;
+        return component;
+    }            
 };
 
 class ExperienceComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    ExperienceComponent() = default;
+
     /*! ctor
      */
-    ExperienceComponent(float32 experience = 0.0, float32 level = 1.0)
+    ExperienceComponent(float32 experience, float32 level)
         : _experience(experience), _level(level)
     {
     }
 
     float32 _experience;
     float32 _level;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        ExperienceComponent *component = new ExperienceComponent();
+        component->_experience = _experience;
+        component->_level = _level;
+        return component;
+    }             
 };
 
 class CoinsComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    CoinsComponent() = default;
+
     /*! ctor
      */
-    CoinsComponent(float32 coins = 0.0)
+    CoinsComponent(float32 coins)
         : _coins(coins)
     {
     }
 
-    float32 _coins;
+    float32 _coins = 0.0;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        CoinsComponent *component = new CoinsComponent();
+        component->_coins = _coins;
+        return component;
+    }      
 };
 
 class ExperienceGainComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    ExperienceGainComponent() = default;
+
     /*! ctor
      */
     ExperienceGainComponent(float32 experience)
@@ -159,11 +278,25 @@ public:
     }
 
     float32 _experience;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        ExperienceGainComponent *component = new ExperienceGainComponent();
+        component->_experience = _experience;
+        return component;
+    }          
 };
 
 class CoinGainComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    CoinGainComponent() = default;
+
     /*! ctor
      */
     CoinGainComponent(float32 coins)
@@ -172,14 +305,28 @@ public:
     }
 
     float32 _coins;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        CoinGainComponent *component = new CoinGainComponent();
+        component->_coins = _coins;
+        return component;
+    }            
 };
 
 class TargetComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    TargetComponent() = default;
+
     /*! ctor
      */
-    TargetComponent(iEntityID targetID = iEntityID::getInvalid(), bool inRange = false, bool followTarget = true)
+    TargetComponent(iEntityID targetID, bool inRange = false, bool followTarget = true)
         : _targetID(targetID), _inRange(inRange), _followTarget(followTarget)
     {
     }
@@ -187,35 +334,68 @@ public:
     iEntityID _targetID;
     bool _inRange = false;
     bool _followTarget = true;
+    
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        TargetComponent *component = new TargetComponent();
+        component->_targetID = _targetID;
+        component->_inRange = _inRange;
+        component->_followTarget = _followTarget;
+        return component;
+    }       
 };
 
 class MovementControlComponent : public iEntityComponent
 {
 public:
-    /*! ctor
+    /*! default ctor
      */
-    MovementControlComponent()
-    {
-    }
+    MovementControlComponent() = default;
 
     bool _up = false;
     bool _down = false;
     bool _left = false;
     bool _right = false;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        MovementControlComponent *component = new MovementControlComponent();
+        component->_up = _up;
+        component->_down = _down;
+        component->_left = _left;
+        component->_right = _right;
+        return component;
+    }           
 };
 
 class ViewportComponent : public iEntityComponent
 {
 public:
-    /*! ctor
+    /*! default ctor
      */
-    ViewportComponent()
-    {
-    }
+    ViewportComponent() = default;
 
     iaRectanglef _viewport;
     iaVector2f _targetOffset;
     iEntityID _targetID = iEntityID::getInvalid();
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        ViewportComponent *component = new ViewportComponent();
+        component->_viewport = _viewport;
+        component->_targetOffset = _targetOffset;
+        component->_targetID = _targetID;
+        return component;
+    }       
 };
 
 /*! weapon types
@@ -266,6 +446,10 @@ struct WeaponConfiguration
 class WeaponComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    WeaponComponent() = default;
+
     /*! ctor
 
     \param name the name of this component
@@ -280,6 +464,17 @@ public:
     /*! keeps track of cool down
      */
     iaTime _time;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        WeaponComponent *component = new WeaponComponent();
+        component->_config = _config;
+        component->_time = _time;
+        return component;
+    }       
 };
 
 enum class ObjectType
@@ -302,6 +497,10 @@ struct ModifierConfiguration
 class ModifierComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    ModifierComponent() = default;
+
     /*! ctor
 
     \param name the name of this component
@@ -312,6 +511,16 @@ public:
     }
 
     ModifierConfiguration _config;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        ModifierComponent *component = new ModifierComponent();
+        component->_config = _config;
+        return component;
+    }       
 };
 
 enum class BuildingType
@@ -323,6 +532,10 @@ enum class BuildingType
 class BuildingComponent : public iEntityComponent
 {
 public:
+    /*! default ctor
+     */
+    BuildingComponent() = default;
+
     /*! ctor
 
     \param name the name of this component
@@ -333,6 +546,16 @@ public:
     }
 
     BuildingType _type;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        BuildingComponent *component = new BuildingComponent();
+        component->_type = _type;
+        return component;
+    }        
 };
 
 #endif // SUPREMACY_COMPONENTS_H

@@ -40,6 +40,10 @@ namespace igor
     {
 
     public:
+        /*! default ctor
+        */
+        iSpriteRenderComponent() = default;
+
         /*! sprite render mode
          */
         enum class iRenderMode
@@ -49,7 +53,7 @@ namespace igor
         };
 
         /*! ctor
-        */
+         */
         iSpriteRenderComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iRenderMode renderMode = iRenderMode::Simple);
 
         /*! sprite to render
@@ -75,6 +79,11 @@ namespace igor
         /*! index of the sprite frame to render
          */
         uint32 _frameIndex = 0;
+
+    private:
+        /*! \returns a copy of this component
+         */
+        iEntityComponentPtr getCopy() override;
     };
 
 }

@@ -10,10 +10,24 @@
 
 namespace igor
 {
+
+    iMeshRenderComponent::iMeshRenderComponent()
+    {
+        
+    }
+
     iMeshRenderComponent::iMeshRenderComponent(iMeshPtr mesh, iMaterialPtr material)
         : _mesh(mesh), _material(material)
     {
     }
+
+    iEntityComponentPtr iMeshRenderComponent::getCopy()
+    {
+        iMeshRenderComponent *component = new iMeshRenderComponent();
+        component->_mesh = _mesh;
+        component->_material = _material;
+        return component;
+    }          
 
     bool iMeshRenderComponent::onLoad(iEntityPtr entity, bool &asyncLoad)
     {

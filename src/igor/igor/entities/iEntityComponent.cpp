@@ -33,4 +33,9 @@ namespace igor
     {
     }
 
+    iEntityComponentState iEntityComponent::getState() const
+    {
+        return _state;
+    }
+
 } // igor

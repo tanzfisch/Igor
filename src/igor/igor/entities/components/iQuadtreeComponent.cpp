@@ -13,6 +13,12 @@ namespace igor
     {
     }
 
+    iEntityComponentPtr iQuadtreeComponent::getCopy()
+    {
+        iQuadtreeComponent *component = new iQuadtreeComponent();
+        return component;
+    }
+
     void iQuadtreeComponent::onActivate(iEntityPtr entity)
     {
         auto &quadtree = entity->getScene()->getQuadtree();

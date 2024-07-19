@@ -41,12 +41,17 @@ namespace igor
         friend class iPrefabIO;
 
     public:
+
+        /*! default ctor
+        */
+        iMeshReferenceComponent();
+
         /*! ctor
 
         \param model the model to refer to
         \param meshPath the path to the mesh inside the model to refer to (ie "foo:bar:myMesh")
          */
-        iMeshReferenceComponent(iModelPtr model = nullptr, const iaString &meshPath = "");
+        iMeshReferenceComponent(iModelPtr model, const iaString &meshPath = "");
 
         /*! \returns model
          */
@@ -77,6 +82,11 @@ namespace igor
         /*! the mesh path
          */
         iaString _meshPath;
+
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override;        
+
     };
 }
 

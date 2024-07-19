@@ -124,6 +124,7 @@
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iLightComponent.h>
+#include <igor/entities/components/iPrefabComponent.h>
 
 #include <igor/entities/traversal/iEntityToItemTraverser.h>
 

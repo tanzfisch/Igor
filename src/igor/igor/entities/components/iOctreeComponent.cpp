@@ -8,9 +8,20 @@
 
 namespace igor
 {
+    iOctreeComponent::iOctreeComponent()
+    {
+        
+    }
+
     iOctreeComponent::iOctreeComponent(iOctreed::ObjectPtr object)
         : _object(object)
     {
+    }
+
+    iEntityComponentPtr iOctreeComponent::getCopy()
+    {
+        iOctreeComponent *component = new iOctreeComponent();
+        return component;
     }
 
     void iOctreeComponent::onActivate(iEntityPtr entity)

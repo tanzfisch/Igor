@@ -6,14 +6,7 @@ template <typename T>
 T *iEntity::addComponent(T *component)
 {
     const std::type_index typeID = typeid(T);
-    auto iter = _components.find(typeID);
-    con_assert(iter == _components.end(), "component already exists");
-
-    _components[typeID] = component;
-    component->_entity = this;
-
-    _addedComponents.emplace_back(typeID, component);
-    componentToAdd(typeID);
+    addComponent(typeID, component);
     return component;
 }
 

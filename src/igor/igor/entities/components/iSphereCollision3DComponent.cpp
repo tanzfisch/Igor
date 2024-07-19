@@ -6,10 +6,18 @@
 
 namespace igor
 {
+    iEntityComponentPtr iSphereCollision3DComponent::getCopy()
+    {
+        iSphereCollision3DComponent *component = new iSphereCollision3DComponent();
+        component->_radius = _radius;
+        component->_offset = _offset;
+        return component;
+    }
+
     float64 iSphereCollision3DComponent::getRadius() const
     {
         return _radius;
-    }
+    }    
 
     const iaVector3d &iSphereCollision3DComponent::getOffset() const
     {

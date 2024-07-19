@@ -42,9 +42,14 @@ namespace igor
         friend class iPrefabIO;
 
     public:
+
+        /*! default ctor
+        */
+        iMeshRenderComponent();
+
         /*! ctor
          */
-        iMeshRenderComponent(iMeshPtr mesh = nullptr, iMaterialPtr material = nullptr);
+        iMeshRenderComponent(iMeshPtr mesh, iMaterialPtr material = nullptr);
 
         /*! \returns mesh for render
          */
@@ -67,7 +72,6 @@ namespace igor
         void setMaterial(iMaterialPtr material);
 
     private:
-
         /*! the mesh to render
          */
         iMeshPtr _mesh;
@@ -83,6 +87,10 @@ namespace igor
         \returns true when loading was successful
         */
         bool onLoad(iEntityPtr entity, bool &asyncLoad) override;
+
+        /*! \returns a copy of this component
+         */
+        iEntityComponentPtr getCopy() override;
     };
 }
 

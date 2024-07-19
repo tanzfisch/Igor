@@ -124,6 +124,9 @@ namespace igor
         */
         iLightType _type = iLightType::Directional;
 
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override;        
     };
 }
 

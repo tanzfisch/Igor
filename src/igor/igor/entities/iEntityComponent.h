@@ -60,6 +60,11 @@ namespace igor
     class iEntity;
     typedef iEntity *iEntityPtr;    
 
+    /*! pointer definition of entity component
+     */
+    class iEntityComponent;
+    typedef iEntityComponent *iEntityComponentPtr;    
+
     /*! entity component base class
      */
     class IGOR_API iEntityComponent
@@ -79,6 +84,10 @@ namespace igor
         /*! \returns entity component id
          */
         const iEntityComponentID &getID() const;
+
+        /*! \returns state of this component
+        */
+        iEntityComponentState getState() const;
 
     protected:
         /*! callback for loading component
@@ -101,6 +110,10 @@ namespace igor
          */
         virtual void onUnLoad(iEntityPtr entity);
 
+        /*! \returns a copy of this component
+        */
+        virtual iEntityComponentPtr getCopy() = 0;        
+
     private:
         /*! entity component id
          */
@@ -114,10 +127,6 @@ namespace igor
         */
         iEntityPtr _entity = nullptr;
     };
-
-    /*! pointer definition of entity component
-     */
-    typedef iEntityComponent *iEntityComponentPtr;
 
     /*! iEntityComponent to json
      */

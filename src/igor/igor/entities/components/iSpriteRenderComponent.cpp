@@ -10,4 +10,16 @@ namespace igor
         : _sprite(sprite), _size(size), _color(color), _zIndex(zIndex), _renderMode(renderMode)
     {
     }
+
+    iEntityComponentPtr iSpriteRenderComponent::getCopy()
+    {
+        iSpriteRenderComponent *component = new iSpriteRenderComponent();
+        component->_sprite = _sprite;
+        component->_size = _size;
+        component->_color = _color;
+        component->_zIndex = _zIndex;
+        component->_renderMode = _renderMode;
+        component->_frameIndex = _frameIndex;
+        return component;
+    }    
 }

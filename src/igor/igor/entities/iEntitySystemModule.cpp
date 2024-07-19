@@ -23,6 +23,9 @@
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iCircleCollision2DComponent.h>
 #include <igor/entities/components/iSphereCollision3DComponent.h>
+#include <igor/entities/components/iPrefabComponent.h>
+
+#include <igor/entities/traversal/iEntityCopyTraverser.h>
 
 #include <igor/resources/profiler/iProfiler.h>
 
@@ -50,6 +53,7 @@ namespace igor
         registerComponentType<iAnimationComponent>();
         registerComponentType<iMeshRenderComponent>();
         registerComponentType<iMeshReferenceComponent>();
+        registerComponentType<iPrefabComponent>();
 
         _simulationFrameTime = iTimer::getInstance().getTime();
     }
@@ -57,15 +61,17 @@ namespace igor
     iEntityScenePtr iEntitySystemModule::createScene(const iaString &name, const iEntitySceneID &id, bool addIgorSystems)
     {
         iEntityScenePtr scene = new iEntityScene(name);
-        if(id.isValid())
+        if (id.isValid())
         {
             scene->_id = id;
         }
 
+        _mutex.lock();
         con_assert(_scenes.find(scene->getID()) == _scenes.end(), "id collision");
 
         _scenes[scene->getID()] = scene;
-        _activeScenes.push_back(scene);
+        _inactiveScenes.push_back(scene);
+        _mutex.unlock();
 
         if (!addIgorSystems)
         {
@@ -87,36 +93,52 @@ namespace igor
         return scene;
     }
 
-    iEntityComponentMask iEntitySystemModule::getComponentMask(const std::type_index &typeID) const
+    iEntityComponentMask iEntitySystemModule::getComponentMask(const std::type_index &typeID)
     {
+        iEntityComponentMask result;
+
+        _mutex.lock();
         auto iter = _registeredComponentTypes.find(typeID);
-        if (iter == _registeredComponentTypes.end())
+        if (iter != _registeredComponentTypes.end())
+        {
+            result = iter->second;
+        }
+        else
         {
             con_err("component type not registered " << typeID.name());
-            return iEntityComponentMask(0);
         }
+        _mutex.unlock();
 
-        return iter->second;
+        return result;
     }
 
     iEntityScenePtr iEntitySystemModule::getScene(const iEntitySceneID &sceneID)
     {
-        auto iter = _scenes.find(sceneID);
-        if (iter == _scenes.end())
-        {
-            con_err("scene with id " << sceneID << " not found");
-            return nullptr;
-        }
+        iEntityScenePtr result = nullptr;
 
-        return iter->second;
+        _mutex.lock();
+        auto iter = _scenes.find(sceneID);
+        if (iter != _scenes.end())
+        {
+            result = iter->second;
+        }
+        else
+        {
+            con_err("scene with id " << sceneID << " not found");            
+        }
+        _mutex.unlock();
+
+        return result;
     }
 
     void iEntitySystemModule::destroyScene(const iEntitySceneID &sceneID)
     {
+        _mutex.lock();
         auto iter = _scenes.find(sceneID);
         if (iter == _scenes.end())
         {
             con_warn("scene with id " << sceneID << " not found");
+            _mutex.unlock();
             return;
         }
 
@@ -135,6 +157,7 @@ namespace igor
 
         delete scene;
         _scenes.erase(iter);
+        _mutex.unlock();
     }
 
     void iEntitySystemModule::setSimulationRate(float64 simulationRate)
@@ -154,12 +177,25 @@ namespace igor
 
         int32 maxUpdateCount = 10;
 
+        uint64 entityCount = 0;
+        std::vector<iEntityScenePtr> scenes;
+
+        _mutex.lock();
+        for (auto pair : _scenes)
+        {
+            scenes.push_back(pair.second);
+            entityCount += pair.second->_entities.size();
+        }
+        _mutex.unlock();
+
+        iProfiler::setValue("entity count", entityCount);
+
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                maxUpdateCount > 0)
         {
-            for (auto pair : _scenes)
+            for (auto scene : scenes)
             {
-                pair.second->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);
+                scene->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);
             }
             _simulationFrameTime += timeDelta;
             maxUpdateCount--;
@@ -170,13 +206,6 @@ namespace igor
             _simulationFrameTime = currentTime;
             con_trace("Loosing frames");
         }
-
-        uint64 entityCount = 0;
-        for (auto pair : _scenes)
-        {
-            entityCount += pair.second->_entities.size();
-        }
-        iProfiler::setValue("entity count", entityCount);
     }
 
     void iEntitySystemModule::onPreRender(iEntityScenePtr scene)
@@ -191,32 +220,44 @@ namespace igor
 
     void iEntitySystemModule::activateScene(iEntityScenePtr scene)
     {
+        _mutex.lock();
         auto iter = std::find(_inactiveScenes.begin(), _inactiveScenes.end(), scene);
         if (iter != _inactiveScenes.end())
         {
             _inactiveScenes.erase(iter);
             _activeScenes.push_back(scene);
         }
+        _mutex.unlock();
     }
 
     void iEntitySystemModule::deactivateScene(iEntityScenePtr scene)
     {
+        _mutex.lock();
         auto iter = std::find(_activeScenes.begin(), _activeScenes.end(), scene);
         if (iter != _activeScenes.end())
         {
             _activeScenes.erase(iter);
             _inactiveScenes.push_back(scene);
         }
+        _mutex.unlock();
     }
 
-    const std::vector<iEntityScenePtr> &iEntitySystemModule::getActiveScenes() const
+    std::vector<iEntityScenePtr> iEntitySystemModule::getActiveScenes()
     {
-        return _activeScenes;
+        std::vector<iEntityScenePtr> result;
+        _mutex.lock();
+        result = _activeScenes;
+        _mutex.unlock();
+        return result;
     }
 
-    const std::vector<iEntityScenePtr> &iEntitySystemModule::getInactiveScenes() const
+    std::vector<iEntityScenePtr> iEntitySystemModule::getInactiveScenes()
     {
-        return _inactiveScenes;
+        std::vector<iEntityScenePtr> result;
+        _mutex.lock();
+        result = _inactiveScenes;
+        _mutex.unlock();
+        return result;
     }
 
     iCreatedEntityEvent &iEntitySystemModule::getCreatedEntityEvent()
@@ -227,6 +268,34 @@ namespace igor
     iDestroyEntityEvent &iEntitySystemModule::getDestroyEntityEvent()
     {
         return _destroyEntityEvent;
+    }
+
+    void iEntitySystemModule::clear()
+    {
+        _mutex.lock();
+        std::vector<iEntitySceneID> ids;
+
+        for (const auto &pair : _scenes)
+        {
+            ids.push_back(pair.first);
+        }
+
+        for (const auto &id : ids)
+        {
+            destroyScene(id);
+        }
+
+        con_assert(_scenes.empty() && _activeScenes.empty() && _inactiveScenes.empty(), "clean up failed");
+        _mutex.unlock();
+    }
+
+    void iEntitySystemModule::insert(iPrefabPtr prefab, iEntityPtr entity)
+    {
+        _createdEntityEvent.block();
+        iEntityCopyTraverser traverser(prefab, entity);
+        iEntityScenePtr scene = getScene(prefab->getSceneID());
+        traverser.traverse(scene);
+        _createdEntityEvent.unblock();
     }
 
 } // namespace igor

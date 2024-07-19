@@ -220,6 +220,10 @@ namespace igor
         /*! bottom value used for orthogonal projection
          */
         float64 _bottomOrtho = -1.0;
+
+        /*! \returns a copy of this component
+        */
+        iEntityComponentPtr getCopy() override;
     };
 
 }

@@ -12,6 +12,25 @@ namespace igor
     {
     }
 
+    iEntityComponentPtr iCameraComponent::getCopy()
+    {
+        iCameraComponent* component = new iCameraComponent();
+        component->_viewport = _viewport;
+        component->_projection = _projection;
+        component->_fieldOfView = _fieldOfView;
+        component->_clipNear = _clipNear;
+        component->_clipFar = _clipFar;
+        component->_clearColorActive = _clearColorActive;
+        component->_clearDepthActive = _clearDepthActive;
+        component->_clearColor = _clearColor;
+        component->_clearDepth = _clearDepth;
+        component->_leftOrtho = _leftOrtho;
+        component->_rightOrtho = _rightOrtho;
+        component->_topOrtho = _topOrtho;
+        component->_bottomOrtho = _bottomOrtho;
+        return component;
+    }
+
     void iCameraComponent::setViewportRelative(const iaRectangled &rect)
     {
         _viewport = rect;

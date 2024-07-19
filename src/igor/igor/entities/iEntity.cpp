@@ -17,6 +17,33 @@ namespace igor
     {
     }
 
+    iEntity::iEntity(iEntityPtr entity)
+    {
+        setName(entity->getName());
+
+        for(const auto &pair : entity->_components)
+        {
+            // TODO copy components
+        }
+    }
+
+    void iEntity::setName(const iaString &name)
+    {
+        _name = name;
+    }
+
+    void iEntity::addComponent(const std::type_index typeID, iEntityComponentPtr component)
+    {
+        auto iter = _components.find(typeID);
+        con_assert(iter == _components.end(), "component already exists");
+
+        _components[typeID] = component;
+        component->_entity = this;
+
+        _addedComponents.emplace_back(typeID, component);
+        componentToAdd(typeID);
+    }
+
     iEntity::~iEntity()
     {
         removeParent();

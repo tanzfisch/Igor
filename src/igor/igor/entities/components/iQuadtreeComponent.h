@@ -40,9 +40,13 @@ namespace igor
     class iQuadtreeComponent : public iEntityComponent
     {
     public:
-        /*! ctor
+        /*! default ctor
         */
-        iQuadtreeComponent(iQuadtreed::ObjectPtr object = nullptr);
+        iQuadtreeComponent() = default;
+
+        /*! ctor
+         */
+        iQuadtreeComponent(iQuadtreed::ObjectPtr object);
 
         /*! quadtree object
          */
@@ -56,6 +60,10 @@ namespace igor
         /*! callback to deactivate component
          */
         void onDeactivate(iEntityPtr entity) override;
+
+        /*! \returns a copy of this component
+         */
+        iEntityComponentPtr getCopy() override;
     };
 
 }

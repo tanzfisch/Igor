@@ -65,6 +65,12 @@ namespace igor
          */
         const iEntityID &getID() const;
 
+        /*! sets name of entity
+
+        \param name the name to set
+        */
+        void setName(const iaString &name);
+
         /*! \returns name of entity
          */
         const iaString &getName() const;
@@ -230,9 +236,24 @@ namespace igor
         */
         iEntity(const iaString &name = "");
 
+        /*! create entity based on an other one
+
+        it will ignore all data but name and components
+
+        \param entity the source entity
+        */
+        iEntity(iEntityPtr entity);
+
         /*! remove components
          */
         ~iEntity();
+
+        /*! adds component with given type id
+
+        \param typeID the given type id
+        \param component the component to add
+        */
+        void addComponent(const std::type_index typeID, iEntityComponentPtr component);
 
         /*! calculate type hash from component types
 

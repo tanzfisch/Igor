@@ -40,9 +40,13 @@ namespace igor
     class iOctreeComponent : public iEntityComponent
     {
     public:
-        /*! ctor
+        /*! default ctor
         */
-        iOctreeComponent(iOctreed::ObjectPtr object = nullptr);
+        iOctreeComponent();
+
+        /*! ctor
+         */
+        iOctreeComponent(iOctreed::ObjectPtr object);
 
         /*! octree object
          */
@@ -56,6 +60,10 @@ namespace igor
         /*! callback to deactivate component
          */
         void onDeactivate(iEntityPtr entity) override;
+
+        /*! \returns a copy of this component
+         */
+        iEntityComponentPtr getCopy() override;
     };
 
 }

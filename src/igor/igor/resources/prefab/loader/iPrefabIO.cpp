@@ -196,6 +196,7 @@ namespace igor
             const iaString sceneName = entityScene["name"].get<iaString>();
             const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
             auto scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
+            
             prefab->_sceneID = scene->getID();
 
             if (entityScene.contains("quadtree"))

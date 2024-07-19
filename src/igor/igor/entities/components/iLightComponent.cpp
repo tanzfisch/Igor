@@ -10,6 +10,16 @@ namespace igor
     {
     }
 
+    iEntityComponentPtr iLightComponent::getCopy()
+    {
+        iLightComponent *component = new iLightComponent();
+        component->_ambient = _ambient;
+        component->_diffuse = _diffuse;
+        component->_specular = _specular;
+        component->_type = _type;
+        return component;
+    }
+
     void iLightComponent::setType(iLightType type)
     {
         _type = type;

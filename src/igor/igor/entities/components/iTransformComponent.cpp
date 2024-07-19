@@ -10,6 +10,15 @@ namespace igor
         : _position(position), _orientation(orientation), _scale(scale)
     {
     }
+    
+    iEntityComponentPtr iTransformComponent::getCopy()
+    {
+        iTransformComponent *component = new iTransformComponent();
+        component->_position = _position;
+        component->_orientation = _orientation;
+        component->_scale = _scale;
+        return component;
+    }  
 
     bool iTransformComponent::updateWorldMatrix(iaMatrixd &worldMatrix)
     {

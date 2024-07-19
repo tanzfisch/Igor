@@ -5,6 +5,8 @@
 #include <igor/resources/project/iProject.h>
 
 #include <igor/utils/iJson.h>
+#include <igor/entities/iEntitySystemModule.h>
+#include <igor/entities/components/iPrefabComponent.h>
 
 #include <iaux/system/iaDirectory.h>
 
@@ -68,7 +70,9 @@ namespace igor
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
 
+        _projectSceneAddedEvent.block();
         read(filenameConfig);
+        _projectSceneAddedEvent.unblock();
 
         _isLoaded = true;
         con_info("loaded project \"" << getName() << "\"");
@@ -78,6 +82,8 @@ namespace igor
     {
         iResourceManager::getInstance().removeSearchPath(_projectFolder);
         iResourceManager::getInstance().clearResourceDictionary();
+
+        iEntitySystemModule::getInstance().clear();
 
         _projectFolder = "";
         _projectName = "";
@@ -106,23 +112,31 @@ namespace igor
 
         _projectName = iJson::getValue<iaString>(data, "projectName", "New Project");
 
-        _projectSceneAddedEvent.block();
+        iEntityScenePtr projectScene = iEntitySystemModule::getInstance().createScene(_projectName);
+        iEntitySystemModule::getInstance().activateScene(projectScene);
+
         if (data.contains("scenes"))
         {
             json scenesJson = data["scenes"];
 
             for (const auto &sceneJson : scenesJson)
             {
-                auto sceneID = sceneJson["id"].get<iResourceID>();
+                auto prefabID = sceneJson["id"].get<iResourceID>();
                 bool loaded = sceneJson["loaded"].get<bool>();
-                addScene(sceneID);
-                if(loaded)
+                bool active = sceneJson["active"].get<bool>();
+                auto name = sceneJson["name"].get<iaString>();
+
+                addScene(prefabID);
+
+                if (loaded)
                 {
-                    iResourceManager::getInstance().requestResource<iPrefab>(sceneID);
+                    iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(prefabID);
+                    iEntityPtr entityPrefab = projectScene->createEntity(name);
+                    entityPrefab->addComponent(new iPrefabComponent(prefab));
+                    entityPrefab->setActive(active);
                 }
             }
         }
-        _projectSceneAddedEvent.unblock();
 
         con_debug("loaded project file \"" << filename << "\"");
 

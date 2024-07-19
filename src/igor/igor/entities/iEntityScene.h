@@ -88,12 +88,19 @@ namespace igor
 
 		\returns newly created entity
 		*/
-		iEntityPtr createEntity(const iaString &name = "", const iEntitySceneID &id = iEntitySceneID::getInvalid());
+		iEntityPtr createEntity(const iaString &name = "", const iEntityID &id = iEntityID::getInvalid());
+
+		/*! create entity from existing one
+
+		\param srcEntity the source entity to create a copy from
+		\returns newly created entity
+		*/
+		iEntityPtr createEntity(iEntityPtr srcEntity);
 
 		/*! \returns entity for given entity ID. zero if not found
 		\param entityID the given entity ID
 		*/
-		iEntityPtr getEntity(iEntityID entityID) const;
+		iEntityPtr getEntity(iEntityID entityID);
 
 		/*! \returns all entities with camera component
 
@@ -203,6 +210,10 @@ namespace igor
 		/*! the render engine to use in render update stage
 		*/
 		iRenderEnginePtr _renderEngine = nullptr;
+
+		/*! handle multi thread access to scene
+		*/
+		iaMutex _mutex;
 
 		/*! sets render engine
 

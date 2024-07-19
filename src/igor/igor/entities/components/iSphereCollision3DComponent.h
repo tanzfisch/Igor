@@ -38,9 +38,13 @@ namespace igor
     class iSphereCollision3DComponent : public iEntityComponent
     {
     public:
-        /*! ctor
+        /*! default ctor
         */
-        iSphereCollision3DComponent(float64 radius = 1.0, const iaVector3d &offset = iaVector3d())
+        iSphereCollision3DComponent() = default;
+
+        /*! ctor
+         */
+        iSphereCollision3DComponent(float64 radius, const iaVector3d &offset = iaVector3d())
             : _radius(radius), _offset(offset)
         {
         }
@@ -73,6 +77,10 @@ namespace igor
         /*! the offset position
          */
         iaVector3d _offset;
+
+        /*! \returns a copy of this component
+         */
+        iEntityComponentPtr getCopy() override;
     };
 
 }
