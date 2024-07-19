@@ -32,6 +32,8 @@
 #include <igor/igor.h>
 using namespace igor;
 
+IGOR_EVENT_DEFINITION(EntitySelectionChanged, const iEntitySceneID &, const iEntityID &);
+
 /*! outliner
 
     a hierarchy of scenes and their entities
@@ -45,6 +47,10 @@ public:
     /*! init ui
      */
     Outliner();
+
+    /*! \returns entity selection changed event
+    */
+    EntitySelectionChangedEvent& getEntitySelectionChangedEvent();
 
 private:
     /*! main layout
@@ -66,6 +72,10 @@ private:
     /*! resource to do actions on
      */
     iResourceID _contextResourceID;
+
+    /*! entity selection changed event
+    */
+    EntitySelectionChangedEvent _entitySelectionChangedEvent;
 
     /*! init user interface
      */

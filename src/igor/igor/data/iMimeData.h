@@ -131,6 +131,10 @@ namespace igor
         */
         bool operator!=(const iMimeData &other) const;
 
+        /*! \returns true if it has any data
+        */
+        bool hasData() const;
+
     private:
         /*! data buffer
          */

@@ -33,13 +33,14 @@ void UILayer::onInit()
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
-    _outliner = new Outliner();
-    _outliner->setEnabled();
-    _outliner->setVisible();
-
     _propertiesDialog = new PropertiesEditor();
     _propertiesDialog->setEnabled();
     _propertiesDialog->setVisible();
+
+    _outliner = new Outliner();
+    _outliner->setEnabled();
+    _outliner->setVisible();
+    _outliner->getEntitySelectionChangedEvent().add(EntitySelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
 
     _assetBrowser = new AssetBrowser();
     _assetBrowser->setEnabled();

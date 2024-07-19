@@ -122,6 +122,10 @@ namespace igor
         */
         bool operator!=(const iItem &other) const;
 
+        /*! \returns true if this item has any data
+        */
+        bool hasData() const;
+
     private:
         /*! using mime data for implementation
          */

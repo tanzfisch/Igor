@@ -64,21 +64,23 @@ namespace igor
 
         /*! sets tree items
 
+        caller keeps ownership
+
         \param itemData item data container
         */
         void setItems(iItemData *itemData);
 
         /*! \returns selected item path
-        */
-        const iaString& getSelectedItemPath() const;
+         */
+        const iaString &getSelectedItemPath() const;
 
         /*! \returns the click event
-        */
-        iClickTreeViewEvent& getClickEvent();
+         */
+        iClickTreeViewEvent &getClickEvent();
 
         /*! \returns context menu event
-        */
-        iContextMenuTreeViewEvent& getContextMenuTreeViewEvent();
+         */
+        iContextMenuTreeViewEvent &getContextMenuTreeViewEvent();
 
         /*! clears the widget back to default
          */
@@ -91,18 +93,18 @@ namespace igor
 
         /*! click event
          */
-        iClickTreeViewEvent _clickEvent;        
+        iClickTreeViewEvent _clickEvent;
 
         /*! context menu event
-        */
+         */
         iContextMenuTreeViewEvent _contextMenuTreeViewEvent;
 
         /*! selected item path
-        */
+         */
         iaString _selectedItemPath;
 
         /*! hold on to all widgets
-        */
+         */
         std::vector<iWidgetButtonPtr> _allInteractiveWidgets;
 
         /*! handle click events from our buttons

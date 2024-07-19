@@ -66,6 +66,8 @@ const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
 const iaString IGOR_ITEM_DATA_NAME = "name";
 const iaString IGOR_ITEM_DATA_ICON = "icon";
 const iaString IGOR_ITEM_DATA_UUID = "uuid";
+const iaString IGOR_ITEM_DATA_SCENE_ID = "sceneID";
+const iaString IGOR_ITEM_DATA_ENTITY_ID = "entityID";
 
 #ifdef IGOR_DEBUG
 const iaString IGOR_BUILD_CONFIGURATION = "debug";

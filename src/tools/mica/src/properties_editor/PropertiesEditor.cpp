@@ -47,10 +47,23 @@ void PropertiesEditor::setSelection(const iResourceID &resourceID)
 {
     deinitProperties();
 
-    if(!resourceID.isValid())
+    if (!resourceID.isValid())
     {
         return;
     }
 
     _userControlProperties = new UserControlProperties(resourceID, _scroll);
+}
+
+void PropertiesEditor::setSelection(const iEntitySceneID &sceneID, const iEntityID &entityID)
+{
+    deinitProperties();
+
+    if (!sceneID.isValid() ||
+        !entityID.isValid())
+    {
+        return;
+    }
+
+    _userControlProperties = new UserControlProperties(sceneID, entityID, _scroll);
 }

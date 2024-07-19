@@ -17,6 +17,8 @@
 #include "resources/UserControlMaterial.h"
 #include "resources/UserControlTexture.h"
 
+#include "entities/UserControlEntity.h"
+
 UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
 {
@@ -29,6 +31,12 @@ UserControlProperties::UserControlProperties(const iResourceID &resourceID, cons
 {
     initUI();
     initResourceUI(resourceID);
+}
+
+UserControlProperties::UserControlProperties(const iEntitySceneID &sceneID, const iEntityID &entityID, const iWidgetPtr parent)
+{
+    initUI();
+    initEntityUI(sceneID, entityID);
 }
 
 void UserControlProperties::initUI()
@@ -93,6 +101,13 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
 
     userControl->init();
     userControl->update();
+}
+
+void UserControlProperties::initEntityUI(const iEntitySceneID &sceneID, const iEntityID &entityID)
+{
+    UserControlEntity *userControl = new UserControlEntity(sceneID, entityID, _layout);
+    userControl->init();
+    userControl->update();    
 }
 
 void UserControlProperties::initResourceUI(const iResourceID &resourceID)

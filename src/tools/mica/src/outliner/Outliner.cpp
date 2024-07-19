@@ -6,7 +6,7 @@
 
 Outliner::Outliner()
 {
-    initGUI();    
+    initGUI();
 
     iEntitySystemModule::getInstance().getCreatedEntityEvent().add(iCreatedEntityDelegate(this, &Outliner::onEntityCreated));
     iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
@@ -46,6 +46,30 @@ void Outliner::initGUI()
 void Outliner::onClickTreeView(const iWidgetPtr source)
 {
     iaString itemPath = std::any_cast<iaString>(source->getUserData());
+    iItemPtr item = _itemData->getItem(itemPath);
+
+    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID))
+    {
+        iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
+        if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+        {
+            iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
+            _entitySelectionChangedEvent(sceneID, entityID);
+        }
+        else
+        {
+            _entitySelectionChangedEvent(sceneID, iEntityID::getInvalid());
+        }
+    }
+    else if (item->hasValue(IGOR_ITEM_DATA_UUID))
+    {
+        iResourceID resourceID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
+        iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
+        if(scene != nullptr)
+        {
+            con_endl("unloaded scene");
+        }
+    }
 }
 
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
@@ -53,6 +77,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     iaString itemPath = std::any_cast<iaString>(source->getUserData());
 
     iItemPtr item = _itemData->getItem(itemPath);
+    
     _contextResourceID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
     iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(_contextResourceID);
 
@@ -77,12 +102,12 @@ void Outliner::onLoadScene(const iWidgetPtr source)
 }
 
 void Outliner::onResourceLoaded(iResourceID resourceID)
-{   
+{
     const iaString resourceType = iResourceManager::getInstance().getType(resourceID);
-    if(resourceType == IGOR_RESOURCE_PREFAB)
+    if (resourceType == IGOR_RESOURCE_PREFAB)
     {
         const auto &scenes = iProject::getInstance().getScenes();
-        if(std::find(scenes.begin(), scenes.end(), resourceID) != scenes.end())
+        if (std::find(scenes.begin(), scenes.end(), resourceID) != scenes.end())
         {
             refresh();
         }
@@ -122,10 +147,11 @@ void Outliner::populateTree()
     for (const auto &resourceID : scenes)
     {
         iaFile file(iResourceManager::getInstance().getFilename(resourceID));
-        iItemPtr sceneItem = _itemData->addItem(file.getStem());
-        sceneItem->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
-        sceneItem->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, resourceID);
+        iItemPtr item = _itemData->addItem(file.getStem());
+        item->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
+        item->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, resourceID);
 
+        // check if it is loaded
         iPrefabPtr prefab = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
         if (prefab == nullptr)
         {
@@ -133,12 +159,14 @@ void Outliner::populateTree()
         }
 
         iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
-        if(scene == nullptr)
+        if (scene == nullptr)
         {
             continue;
         }
 
-        populateTree(sceneItem, scene);
+        item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, prefab->getSceneID());
+
+        populateTree(item, scene);
     }
 
     _treeView->setItems(_itemData.get());
@@ -146,7 +174,7 @@ void Outliner::populateTree()
 
 void Outliner::onEntityCreated(iEntityPtr entity)
 {
-    con_endl("onEntityCreated");    
+    con_endl("onEntityCreated");
 }
 
 void Outliner::onEntityDestroyed(iEntityPtr entity)
@@ -212,4 +240,9 @@ void Outliner::onProjectLoaded()
 void Outliner::onProjectUnloaded()
 {
     refresh();
+}
+
+EntitySelectionChangedEvent& Outliner::getEntitySelectionChangedEvent()
+{
+    return _entitySelectionChangedEvent;
 }

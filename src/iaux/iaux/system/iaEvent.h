@@ -62,6 +62,7 @@ namespace iaux
         template <typename T>
         iaDelegate(T *instance, R (T::*method)(Args...))
         {
+            con_assert(instance != nullptr, "zero pointer");
             _internal = (InternalThisCall<T> *)malloc(sizeof(InternalThisCall<T>));
             new (_internal) InternalThisCall<T>(instance, method);
         }

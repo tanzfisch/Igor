@@ -23,8 +23,8 @@ namespace igor
         _itemStack.push_back(_currentItem);
 
         auto item = _currentItem->addItem(entity->getName());
-        // item->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
-        item->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, entity->getID());
+        item->setValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID, entity->getID());
+        item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, entity->getScene()->getID());
 
         _currentItem = item;
         return true;

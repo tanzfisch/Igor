@@ -22,6 +22,11 @@ namespace igor
         return getValue<iaString>(IGOR_ITEM_DATA_NAME);
     }
 
+    bool iItem::hasData() const
+    {
+        return _data.hasData();
+    }
+
     iItemPtr iItem::addItem(const iaString &name)
     {
         _items.emplace_back(std::make_unique<iItem>());

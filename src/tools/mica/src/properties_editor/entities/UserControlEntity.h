@@ -26,30 +26,37 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef USERCONTROL_RESOURCE_H
-#define USERCONTROL_RESOURCE_H
+#ifndef USERCONTROL_ENTITY_H
+#define USERCONTROL_ENTITY_H
 
 #include <igor/igor.h>
 using namespace iaux;
 using namespace igor;
 
-class UserControlResource : public iUserControl
+class UserControlEntity : public iUserControl
 {
 public:
     /*! init user control
 
-    \param resourceID the resource id to use
+    When there is not entityID given the user control represents the scene it self
+
+    \param sceneID scene id
+    \param entityID entity id of entity within given scene
     \param parent the optional parent widget
     */
-    UserControlResource(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+    UserControlEntity(iEntitySceneID sceneID, iEntityID entityID = iEntityID::getInvalid(), const iWidgetPtr parent = nullptr);
 
     /*! does nothing
      */
-    virtual ~UserControlResource() = default;
+    virtual ~UserControlEntity() = default;
 
-    /*! \returns id of node that is represented by this widget
+    /*! \returns scene id
      */
-    iResourceID getResourceID() const;
+    iEntitySceneID getSceneID() const;
+
+    /*! \returns entity id
+    */
+    iEntityID getEntityID() const;
 
     /*! init ui
      */
@@ -59,9 +66,9 @@ public:
      */
     virtual void update();
 
-    /*! update node with ui data
+    /*! update entity
      */
-    virtual void updateResource();
+    virtual void updateEntity();
 
 protected:
     /*! \returns main layout so deriving classes can access it
@@ -69,35 +76,17 @@ protected:
     iWidgetBoxLayoutPtr getLayout();
 
 private:
-    /*! resource id
-     */
-    iResourceID _resourceID;
+    /*! the scene id
+    */
+    iEntitySceneID _sceneID = iEntitySceneID::getInvalid();
+
+    /*! the entity id
+    */
+    iEntityID _entityID = iEntityID::getInvalid();
 
     /*! main layout
      */
     iWidgetBoxLayoutPtr _layout = nullptr;
-
-    /*! text field type
-     */
-    iWidgetLineTextEdit *_textType = nullptr;
-
-    /*! text field alias
-     */
-    iWidgetLineTextEdit *_textAlias = nullptr;
-
-    /*! text field source
-     */
-    iWidgetLineTextEdit *_textID = nullptr;
-
-    /*! text field source
-     */
-    iWidgetLineTextEdit *_textSource = nullptr;
-
-    /*! handled alias change
-
-    \param source the source widget that triggered this event
-    */
-    void onAliasChanged(const iWidgetPtr source);
 };
 
-#endif // USERCONTROL_RESOURCE_H
+#endif // USERCONTROL_ENTITY_H

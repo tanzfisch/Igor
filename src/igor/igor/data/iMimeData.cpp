@@ -29,6 +29,11 @@ namespace igor
         dataSize = iter->second._dataSize;
     }
 
+    bool iMimeData::hasData() const
+    {
+        return !_data.empty();
+    }
+
     bool iMimeData::hasType(const iaString &mimeType) const
     {
         auto iter = _data.find(mimeType);
