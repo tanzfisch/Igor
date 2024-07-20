@@ -51,6 +51,8 @@ Viewport::Viewport(WorkspacePtr workspace)
     _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));*/
 
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Viewport::onProjectUnloaded));
+
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
 }
 
@@ -60,6 +62,11 @@ Viewport::~Viewport()
 
     _viewportScene->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
     _viewportOverlay->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderOverlay));
+}
+
+void Viewport::onProjectUnloaded()
+{
+    _viewportScene->getView().setEntityScene(nullptr);
 }
 
 void Viewport::onResourceLoaded(const iResourceID resourceID)

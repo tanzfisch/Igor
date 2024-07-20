@@ -212,6 +212,10 @@ private:
     /*! called when a resource was loaded
     */
     void onResourceLoaded(const iResourceID resourceID);
+
+    /*! called when project was unloaded
+    */
+    void onProjectUnloaded();
 };
 
 #endif // MICA_VIEWPORT_H

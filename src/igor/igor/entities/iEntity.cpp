@@ -17,19 +17,6 @@ namespace igor
     {
     }
 
-    iEntity::iEntity(iEntityPtr entity)
-    {
-        const auto components = entity->getComponents();
-        setName(entity->getName());
-
-        for (const auto &pair : components)
-        {
-            const auto &typeIndex = pair.first;
-            const iEntityComponentPtr component = pair.second->getCopy();
-            addComponent(typeIndex, component);
-        }
-    }
-
     std::unordered_map<std::type_index, iEntityComponentPtr> iEntity::getComponents()
     {
         std::unordered_map<std::type_index, iEntityComponentPtr> result;

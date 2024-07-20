@@ -65,7 +65,7 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
     {
         iResourceID resourceID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
         iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
-        if(scene != nullptr)
+        if (scene != nullptr)
         {
             con_endl("unloaded scene");
         }
@@ -75,22 +75,37 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 {
     iaString itemPath = std::any_cast<iaString>(source->getUserData());
-
     iItemPtr item = _itemData->getItem(itemPath);
-    
-    _contextResourceID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
-    iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(_contextResourceID);
 
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
 
-    if (scene != nullptr)
+    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID))
     {
-        _contextMenu.addCallback(iClickDelegate(this, &Outliner::onUnloadScene), "Unload Scene", "Unloads the scene", "");
+        iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
+        if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+        {
+            iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
+            _entitySelectionChangedEvent(sceneID, entityID);
+        }
+        else
+        {
+            _entitySelectionChangedEvent(sceneID, iEntityID::getInvalid());
+        }
     }
-    else
+    else if (item->hasValue(IGOR_ITEM_DATA_UUID))
     {
-        _contextMenu.addCallback(iClickDelegate(this, &Outliner::onLoadScene), "Load Scene", "Loads the scene", "");
+        iResourceID resourceID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
+        iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
+
+        if (scene != nullptr)
+        {
+            _contextMenu.addCallback(iClickDelegate(this, &Outliner::onUnloadScene), "Unload Scene", "Unloads the scene", "");
+        }
+        else
+        {
+            _contextMenu.addCallback(iClickDelegate(this, &Outliner::onLoadScene), "Load Scene", "Loads the scene", "");
+        }
     }
 
     _contextMenu.open();
@@ -242,7 +257,7 @@ void Outliner::onProjectUnloaded()
     refresh();
 }
 
-EntitySelectionChangedEvent& Outliner::getEntitySelectionChangedEvent()
+EntitySelectionChangedEvent &Outliner::getEntitySelectionChangedEvent()
 {
     return _entitySelectionChangedEvent;
 }

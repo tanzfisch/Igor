@@ -94,6 +94,11 @@ namespace igor
     void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
     {
         _renderEngine = renderEngine;
+        if (_renderEngine == nullptr)
+        {
+            return;
+        }
+
         _renderEngine->setScene(this);
     }
 
@@ -141,7 +146,8 @@ namespace igor
 
     iEntityPtr iEntityScene::createEntity(iEntityPtr srcEntity)
     {
-        iEntityPtr entity = new iEntity(srcEntity);
+        iEntityPtr entity = new iEntity(srcEntity->getName());
+
         _mutex.lock();
         con_assert(_entities.find(entity->getID()) == _entities.end(), "id collision");
 
@@ -151,6 +157,14 @@ namespace igor
         _mutex.unlock();
 
         iEntitySystemModule::getInstance().getCreatedEntityEvent()(entity);
+
+        const auto components = srcEntity->getComponents();
+        for (const auto &pair : components)
+        {
+            const auto &typeIndex = pair.first;
+            const iEntityComponentPtr component = pair.second->getCopy();
+            entity->addComponent(typeIndex, component);
+        }
 
         return entity;
     }
@@ -282,7 +296,7 @@ namespace igor
         if (cameraSystem != nullptr)
         {
             _cameraSystem = cameraSystem;
-        }        
+        }
         _systemsMutex.unlock();
 
         _mutex.lock();
@@ -313,7 +327,7 @@ namespace igor
         if (system == _cameraSystem)
         {
             _cameraSystem = nullptr;
-        }        
+        }
         _systemsMutex.unlock();
     }
 

@@ -6,6 +6,12 @@
             "name": "main",
             "loaded": true,
             "active": true
-        }
+        },
+        {
+            "id": "0xf5a28394053adbda",
+            "name": "side",
+            "loaded": true,
+            "active": true
+        }        
     ]
 }

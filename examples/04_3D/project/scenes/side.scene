@@ -1,0 +1,92 @@
+{
+    "entityScene": {
+        "entities": [
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshReference",
+                        "meshPath": "cat",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 3.0,
+                            "y": -0.3,
+                            "z": -0.25
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x65d167c87238139a",
+                "name": "cat"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshReference",
+                        "meshPath": "cat",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": -3.0,
+                            "y": -0.3,
+                            "z": -0.25
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x05d66bc172d8139a",
+                "name": "cat"
+            }
+        ],
+        "id": "0xe41417fa7d3c0e1a",
+        "name": "side scene"
+    }
+}

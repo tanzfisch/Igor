@@ -70,6 +70,7 @@ namespace igor
     class IGOR_API iEntityComponent
     {
         friend class iEntity;
+        friend class iEntityScene;
         friend class iTransformComponent;
 
     public:

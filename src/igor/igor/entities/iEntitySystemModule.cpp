@@ -173,8 +173,6 @@ namespace igor
 
     void iEntitySystemModule::onUpdate()
     {
-        con_endl("iEntitySystemModule::onUpdate() " << _scenes.size());
-
         const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
         const iaTime currentTime = iTimer::getInstance().getTime();
 
@@ -213,13 +211,11 @@ namespace igor
 
     void iEntitySystemModule::onPreRender(iEntityScenePtr scene)
     {
-        con_endl("iEntitySystemModule::onPreRender()");
         scene->onUpdate(_simulationFrameTime, iEntitySystemStage::PreRender);
     }
 
     void iEntitySystemModule::onRender(iEntityScenePtr scene)
     {
-        con_endl("iEntitySystemModule::onPreRender()");
         scene->onUpdate(_simulationFrameTime, iEntitySystemStage::Render);
     }
 
@@ -277,8 +273,6 @@ namespace igor
 
     void iEntitySystemModule::clear()
     {
-        con_endl("iEntitySystemModule::clear()");
-
         _mutex.lock();
         std::vector<iEntitySceneID> ids;
 

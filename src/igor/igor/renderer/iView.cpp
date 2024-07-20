@@ -348,6 +348,11 @@ namespace igor
     void iView::setEntityScene(iEntityScenePtr entityScene)
     {
         _entityScene = entityScene;
+        if(_entityScene == nullptr)
+        {
+            return;
+        }
+        
         _entityScene->setRenderEngine(&_renderEngine);
     }
 

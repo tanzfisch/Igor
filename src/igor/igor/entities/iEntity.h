@@ -240,14 +240,6 @@ namespace igor
         */
         iEntity(const iaString &name = "");
 
-        /*! create entity based on an other one
-
-        it will ignore all data but name and components
-
-        \param entity the source entity
-        */
-        iEntity(iEntityPtr entity);
-
         /*! remove components
          */
         ~iEntity();

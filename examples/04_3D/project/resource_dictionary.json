@@ -10,6 +10,11 @@
         "source": "scenes/main.scene"
     },
     {
+        "alias": "example_side_scene",
+        "id": "0xf5a28394053adbda",
+        "source": "scenes/side.scene"
+    },    
+    {
         "id": "0x3ad626e030f78ab0",
         "source": "models/cat/cat_norm.png"
     },
